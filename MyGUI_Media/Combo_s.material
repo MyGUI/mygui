@@ -1,0 +1,100 @@
+material MyGUI_combo_s1
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinComboBox\combo_s1.png
+			}
+		}
+	}
+}
+
+material MyGUI_combo_s2
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinComboBox\combo_s2.png
+			}
+		}
+	}
+}
+
+material MyGUI_combo_s3
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinComboBox\combo_s3.png
+			}
+		}
+	}
+}
+
+material MyGUI_combo_s4
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinComboBox\combo_s4.png
+			}
+		}
+	}
+}
+
+material MyGUI_combo_s5
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinComboBox\combo_s5.png
+			}
+		}
+	}
+}
+

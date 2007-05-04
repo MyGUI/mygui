@@ -1,0 +1,887 @@
+// шрифты вначале
+Font FONT_DEFAULT
+{
+	name	"MyGUI_font"
+	size	16
+}
+
+Font FONT_LARGE
+{
+	name	"MyGUI_font"
+	size	22
+}
+
+// указатели
+Pointer POINTER_DEFAULT
+{
+	size	32  32
+	offset	-1  -1
+	skin	"MyGUI_pointer"
+}
+
+Pointer POINTER_RESIZE
+{
+	size	32  32
+	offset	-16  -16
+	skin	"MyGUI_pointer_resize"
+}
+Pointer POINTER_TEXT
+{
+	size	32  32
+	offset	-16  -16
+	skin	"MyGUI_pointer_text"
+}
+
+// потом уже скины
+// затемнение
+windowSkin SKIN_FADE
+{
+	subSkinMain
+	{
+		position	0 0 30 24
+		aligin	WA_LEFT WAT_TOP
+		skin_normal	"MyGUI_fide"
+	}
+}
+
+windowSkin SKIN_BUTTON
+{
+	font	FONT_LARGE
+
+	subSkinMain
+	{
+		position	0 0 152 26
+		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
+		style	WES_BUTTON
+
+	}
+	subSkin
+	{
+		position	0 0 18 26
+		aligin	WA_LEFT WA_VSTRETCH
+		style	WES_BUTTON
+		skin_normal	"MyGUI_button_n1"
+		skin_active	"MyGUI_button_a1"
+		skin_pressed	"MyGUI_button_p1"
+		skin_selected	"MyGUI_button_s1"
+	}
+
+	subSkin
+	{
+		position	18 0 130 26
+		aligin	WA_STRETCH WAT_CENTER WAT_CUT_RIGHT_DOT WAT_SHIFT_TEXT_PRESSED
+		style	WES_BUTTON WES_TEXT
+		skin_normal	"MyGUI_button_n2"
+		skin_active	"MyGUI_button_a2"
+		skin_pressed	"MyGUI_button_p2"
+		skin_selected	"MyGUI_button_s2"
+	}
+
+	subSkin
+	{
+		position	148 0 4 26
+		aligin	WA_RIGHT WA_VSTRETCH
+		style	WES_BUTTON
+		skin_normal	"MyGUI_button_n3"
+		skin_active	"MyGUI_button_a3"
+		skin_pressed	"MyGUI_button_p3"
+		skin_selected	"MyGUI_button_s3"
+	}
+
+
+}
+
+windowSkin SKIN_CHECK_BOX
+{
+
+	colour  COLOUR_WHITE
+
+	subSkinMain
+	{
+		position	0 0 100 22
+		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
+		style	WES_BUTTON
+
+	}
+	subSkin
+	{
+		position	0 2 18 18
+		aligin	WA_LEFT  WA_VSTRETCH
+		style	WES_BUTTON
+		skin_normal	"MyGUI_check_n1"
+		skin_active	"MyGUI_check_a1"
+		skin_pressed	"MyGUI_check_p1"
+		skin_selected	"MyGUI_check_s1"
+	}
+	subSkin
+	{
+		position	20 0 80 22
+		aligin	WA_STRETCH  WAT_LEFT WAT_VCENTER WAT_CUT_RIGHT_DOT
+		style	WES_BUTTON  WES_TEXT
+	}
+}
+
+windowSkin SKIN_EDIT
+{
+
+	data4	1
+
+	subSkinMain
+	{
+		position	0 0 40 25
+		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON WE_KEY_FOCUS WE_KEY_BUTTON
+		style	WES_EDIT
+
+	}
+	subSkin
+	{
+		position	0 0 2 25
+		aligin	WA_LEFT WA_VSTRETCH
+		style	WES_EDIT
+		skin_normal	"MyGUI_edit_n1"
+		skin_active	"MyGUI_edit_a1"
+		skin_pressed	"MyGUI_edit_p1"
+		skin_selected	"MyGUI_edit_s1"
+	}
+	subSkin
+	{
+		position	2 0 36 25
+		aligin	WA_STRETCH WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_DOT
+		style	WES_EDIT WES_TEXT WES_CLIENT
+		skin_normal	"MyGUI_edit_n2"
+		skin_active	"MyGUI_edit_a2"
+		skin_pressed	"MyGUI_edit_p2"
+		skin_selected	"MyGUI_edit_s2"
+	}
+	subSkin
+	{
+		position	38 0 2 25
+		aligin	WA_RIGHT WA_VSTRETCH
+		style	WES_EDIT
+		skin_normal	"MyGUI_edit_n3"
+		skin_active	"MyGUI_edit_a3"
+		skin_pressed	"MyGUI_edit_p3"
+		skin_selected	"MyGUI_edit_s3"
+	}
+	subSkin
+	{
+		position	 0 0 2 20
+		aligin	WA_LEFT WA_VCENTER WA_CENTER_FOTHER
+		style	WES_EDIT_CURSOR
+		skin_normal	"MyGUI_edit_cursor"
+	}
+
+}
+
+windowSkin SKIN_STATIC_TEXT
+{
+	subSkinMain
+	{
+		position	0 0 100 100
+		aligin	WAT_MULTI_LINE WAT_BREAK_WORD
+	}
+}
+
+windowSkin SKIN_DEFAULT
+{
+	subSkinMain
+	{
+		position	0 0 100 100
+	}
+}
+
+windowSkin SKIN_COMBO_BOX_EDIT
+{
+	//смещение курсора от текста
+	data4	1
+
+	subSkinMain
+	{
+		position	0 0 36 25
+		aligin	WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_DOT
+		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON WE_KEY_FOCUS WE_KEY_BUTTON
+		style	WES_EDIT
+	}
+	subSkin
+	{
+		position	0 0 2 20
+		aligin	WA_LEFT WA_VCENTER WA_CENTER_FOTHER
+		style	WES_EDIT_CURSOR
+		skin_normal	"MyGUI_edit_cursor"
+	}
+}
+
+windowSkin SKIN_DROP_LIST
+{
+	//скин списка
+	data3	SKIN_LIST_S
+	//колличество строк в списке
+	data4	7
+
+	subSkinMain combo_main
+	{
+		position	0 0 57 25
+	}
+	subSkin combo_child1
+	{
+		position	0 0 2 25
+		aligin	WA_LEFT WA_VSTRETCH
+		style	WES_COMBO
+		skin_normal	"MyGUI_combo_n1"
+		skin_active	"MyGUI_combo_a1"
+		skin_pressed	"MyGUI_combo_p1"
+		skin_selected	"MyGUI_combo_s1"
+	}
+	subSkin combo_child2
+	{
+		position	2 0 36 25
+		aligin	WA_STRETCH WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_DOT
+		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
+		style	WES_COMBO WES_TEXT
+		skin_normal	"MyGUI_combo_n2"
+		skin_active	"MyGUI_combo_a2"
+		skin_pressed	"MyGUI_combo_p2"
+		skin_selected	"MyGUI_combo_s2"
+	}
+	subSkin combo_child3
+	{
+		position	38 0 17 2
+		aligin	WA_RIGHT WA_TOP
+		style	WES_COMBO
+		skin_normal	"MyGUI_combo_n3"
+		skin_active	"MyGUI_combo_a3"
+		skin_pressed	"MyGUI_combo_p3"
+		skin_selected	"MyGUI_combo_s3"
+	}
+	subSkin combo_child4
+	{
+		position	55 0 2 25
+		aligin	WA_RIGHT WA_VSTRETCH
+		style	WES_COMBO
+		skin_normal	"MyGUI_combo_n4"
+		skin_active	"MyGUI_combo_a4"
+		skin_pressed	"MyGUI_combo_p4"
+		skin_selected	"MyGUI_combo_s4"
+	}
+	subSkin combo_child5
+	{
+		position	38 23 17 2
+		aligin	WA_RIGHT WA_BOTTOM
+		style	WES_COMBO
+		skin_normal	"MyGUI_combo_n5"
+		skin_active	"MyGUI_combo_a5"
+		skin_pressed	"MyGUI_combo_p5"
+		skin_selected	"MyGUI_combo_s5"
+	}
+	subSkin combo_button
+	{
+		position	38 2 17 21
+		aligin	WA_RIGHT WA_VSTRETCH
+		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
+		style	WES_COMBO_BUTTON
+		skin_normal	"MyGUI_combo_but_n"
+		skin_active	"MyGUI_combo_but_a"
+		skin_pressed	"MyGUI_combo_but_p"
+		skin_selected	"MyGUI_combo_but_s"
+	}
+}
+
+windowSkin SKIN_COMBO_BOX
+{
+	//скин едита
+	data2	SKIN_COMBO_BOX_EDIT
+	//скин списка
+	data3	SKIN_LIST_S
+	//колличество строк в списке
+	data4	7
+
+	subSkinMain  combo_main
+	subSkin  combo_child1
+	subSkin  combo_child2
+	subSkin  combo_child3
+	subSkin  combo_child4
+	subSkin  combo_child5
+	subSkin  combo_button
+}
+
+windowSkin SKIN_VSCROLL
+{
+	//длинна скрола
+	data3	21
+	//длинна кнопки
+	data4	18
+
+	subSkinMain
+	{
+		position	0 0 16 60
+	}
+	// верхн€€ кнопка
+	subSkin
+	{
+		position	0 0 16 16
+		aligin	WA_TOP WA_HSTRETCH
+		event	WE_KEY_FOCUS WE_KEY_BUTTON WE_MOUSE_FOCUS WE_MOUSE_BUTTON
+		style	WES_VSCROLL_UP
+		skin_normal	"MyGUI_scroll_n1"
+		skin_active	"MyGUI_scroll_a1"
+		skin_selected	"MyGUI_scroll_s1"
+	}
+	// центр
+	subSkin
+	{
+		position	0 16 16 6
+		aligin	WA_TOP WA_HSTRETCH
+		skin_normal	"MyGUI_scroll_n2"
+	}
+	// центр
+	subSkin
+	{
+		position	0 22 16 16
+		aligin	WA_STRETCH
+		skin_normal	"MyGUI_scroll_n3"
+	}
+	// центр
+	subSkin
+	{
+		position	0 38 16 6
+		aligin	WA_BOTTOM WA_HSTRETCH
+		skin_normal	"MyGUI_scroll_n4"
+	}
+	// нижн€€ кнопка
+	subSkin
+	{
+		position	0 44 16 16
+		aligin	WA_BOTTOM WA_HSTRETCH
+		event	WE_KEY_FOCUS WE_KEY_BUTTON WE_MOUSE_FOCUS WE_MOUSE_BUTTON
+		style	WES_VSCROLL_DOWN
+		skin_normal	"MyGUI_scroll_n5"
+		skin_active	"MyGUI_scroll_a5"
+		skin_selected	"MyGUI_scroll_s5"
+	}
+	// прозрачное окно во весь элемент дл€ бегунка
+	subSkin
+	{
+		position	0 0 16 60
+		aligin	WA_STRETCH
+		style	WES_CLIENT
+	}
+	// бегунок
+	subSkin
+	{
+		position	1 18 14 21
+		aligin	WA_TOP WA_HSTRETCH
+		event	WE_KEY_FOCUS WE_KEY_BUTTON WE_MOUSE_FOCUS WE_MOUSE_BUTTON WE_MOUSE_MOVE
+		style	WES_VSCROLL_TRACK
+		skin_normal	"MyGUI_scroll_n6"
+		skin_active	"MyGUI_scroll_a6"
+		skin_selected	"MyGUI_scroll_s6"
+	}
+}
+
+// панель вкладок
+windowSkin SKIN_TAB
+{
+	// начало дл€ кнопок
+	data3	8
+	// скин кнопок
+	data4	SKIN_TAB_BUTTON
+
+	subSkinMain
+	{
+		position	0 0 51 57
+	}
+	subSkin
+	{
+		position	0 0 8 28
+		aligin	WA_LEFT WA_TOP
+		skin_normal	"MyGUI_tab_n1"
+	}
+	subSkin
+	{
+		position	8 0 35 28
+		aligin	WA_TOP WA_HSTRETCH
+		style	WES_TAB_TOP
+		skin_normal	"MyGUI_tab_n2"
+	}
+	subSkin
+	{
+		position	43 0 8 28
+		aligin	WA_TOP WA_RIGHT
+		skin_normal	"MyGUI_tab_n3"
+	}
+	subSkin
+	{
+		position	44 28 7 22
+		aligin	WA_RIGHT WA_VSTRETCH
+		skin_normal	"MyGUI_tab_n4"
+	}
+	subSkin
+	{
+		position	44 50 7 7
+		aligin	WA_RIGHT WA_BOTTOM
+		skin_normal	"MyGUI_tab_n5"
+	}
+	subSkin
+	{
+		position	7 50 37 7
+		aligin	WA_HSTRETCH WA_BOTTOM
+		skin_normal	"MyGUI_tab_n6"
+	}
+	subSkin
+	{
+		position	0 50 7 7
+		aligin	WA_LEFT WA_BOTTOM
+		skin_normal	"MyGUI_tab_n7"
+	}
+	subSkin
+	{
+		position	0 28 7 22
+		aligin	WA_LEFT WA_VSTRETCH
+		skin_normal	"MyGUI_tab_n8"
+	}
+	subSkin
+	{
+		position	7 28 37 22
+		aligin	WA_STRETCH
+		style	WES_CLIENT
+		skin_normal	"MyGUI_tab_client"
+	}
+}
+
+// кнопки дл€ таб бар
+windowSkin SKIN_TAB_BUTTON
+{
+	subSkinMain
+	{
+		position	0 0 60 28
+		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
+		style	WES_BUTTON
+	}
+	subSkin
+	{
+		position	0 0 10 28
+		aligin	WA_LEFT WA_VSTRETCH
+		style	WES_BUTTON
+		skin_normal	"MyGUI_tab_but_n1"
+		skin_active	"MyGUI_tab_but_a1"
+		skin_pressed	"MyGUI_tab_but_p1"
+		skin_selected	"MyGUI_tab_but_s1"
+	}
+	subSkin
+	{
+		position	10 0 40 28
+		aligin	WA_STRETCH WAT_CENTER WAT_CENTER WAT_CUT_RIGHT_DOT WAT_SHIFT_TEXT_PRESSED
+		style	WES_BUTTON WES_TEXT
+		skin_normal	"MyGUI_tab_but_n2"
+		skin_active	"MyGUI_tab_but_a2"
+		skin_pressed	"MyGUI_tab_but_p2"
+		skin_selected	"MyGUI_tab_but_s2"
+	}
+	subSkin
+	{
+		position	50 0 10 28
+		aligin	WA_RIGHT WA_VSTRETCH
+		style	WES_BUTTON
+		skin_normal	"MyGUI_tab_but_n3"
+		skin_active	"MyGUI_tab_but_a3"
+		skin_pressed	"MyGUI_tab_but_p3"
+		skin_selected	"MyGUI_tab_but_s3"
+	}
+}
+
+windowSkin SKIN_LIST_S
+{
+
+//	font	FONT_LARGE
+	// скин прокрутки
+	data3	SKIN_VSCROLL
+	// скин линий
+	data4	SKIN_LIST_BUTTON
+
+	subSkinMain
+	{
+		position	0 0 24 24
+		style	WES_LIST_HIDE_SCROLL
+	}
+	subSkin
+	{
+		position	0 0 2 2
+		aligin	WA_LEFT WA_TOP
+		skin_normal	"MyGUI_list_n1"
+	}
+	subSkin
+	{
+		position	2 0 20 2
+		aligin	WA_TOP WA_HSTRETCH
+		skin_normal	"MyGUI_list_n2"
+	}
+	subSkin
+	{
+		position	22 0 2 2
+		aligin	WA_TOP WA_RIGHT
+		skin_normal	"MyGUI_list_n3"
+	}
+	subSkin
+	{
+		position	22 2 2 20
+		aligin	WA_VSTRETCH WA_RIGHT
+		skin_normal	"MyGUI_list_n4"
+	}
+	subSkin
+	{
+		position	22 22 2 2
+		aligin	WA_BOTTOM WA_RIGHT
+		skin_normal	"MyGUI_list_n5"
+	}
+	subSkin
+	{
+		position	2 22 20 2
+		aligin	WA_BOTTOM WA_HSTRETCH
+		skin_normal	"MyGUI_list_n6"
+	}
+	subSkin
+	{
+		position	0 22 2 2
+		aligin	WA_BOTTOM WA_LEFT
+		skin_normal	"MyGUI_list_n7"
+	}
+	subSkin
+	{
+		position	0 2 2 20
+		aligin	WA_VSTRETCH WA_LEFT
+		skin_normal	"MyGUI_list_n8"
+	}
+	subSkin
+	{
+		position	2 2 20 20
+		aligin	WA_STRETCH
+		style	WES_CLIENT
+		skin_normal	"MyGUI_list_client"
+	}
+}
+
+windowSkin SKIN_LIST_BUTTON
+{
+	subSkinMain
+	{
+		position	0 0 30 24
+		aligin	WAT_LEFT  WAT_VCENTER  WAT_CUT_RIGHT
+		event	WE_MOUSE_FOCUS  WE_MOUSE_BUTTON  WE_KEY_FOCUS  WE_KEY_BUTTON
+		style	WES_BUTTON
+		skin_normal	"MyGUI_list_but_n1"
+		skin_active	"MyGUI_list_but_a1"
+		skin_pressed	"MyGUI_list_but_p1"
+		skin_selected	"MyGUI_list_but_s1"
+	}
+}
+
+// окно с заголовком, ресайзером и кнопкой закрыти€
+windowSkin SKIN_WINDOWFRAME_CSX
+{
+	subSkinMain  frame_empty
+	{
+		position	0 0 116 61
+		aligin	WA_STRETCH
+	}
+	subSkin  frame_client
+	{
+		position	3 30 110 28
+		aligin	WA_STRETCH
+		style	WES_CLIENT
+		skin_normal	"MyGUI_window_frame_client"
+	}
+	subSkin  frame_child1
+	{
+		position	0 0 6 30
+		aligin	WA_LEFT WA_TOP
+		skin_normal	"MyGUI_window_frame_n1"
+	}
+	subSkin  frame_child3
+	{
+		position	110 0 6 30
+		aligin	WA_RIGHT WA_TOP
+		skin_normal	"MyGUI_window_frame_n3"
+	}
+	subSkin  frame_child4
+	{
+		position	113 30 3 19
+		aligin	WA_RIGHT  WA_VSTRETCH
+		skin_normal	"MyGUI_window_frame_n4"
+	}
+	subSkin  frame_child7
+	{
+		position	3 58 101 3
+		aligin	WA_HSTRETCH  WA_BOTTOM
+		skin_normal	"MyGUI_window_frame_n7"
+	}
+	subSkin  frame_child8
+	{
+		position	0 58 3 3
+		aligin	WA_LEFT  WA_BOTTOM
+		skin_normal	"MyGUI_window_frame_n8"
+	}
+	subSkin  frame_child9
+	{
+		position	0 30 3 28
+		aligin	WA_LEFT  WA_VSTRETCH
+		skin_normal	"MyGUI_window_frame_n9"
+	}
+
+	// скины заголовка фрейма
+	subSkin  frame_caption_child1
+	{
+		position	6 0 5 30
+		aligin	WA_LEFT  WA_TOP
+		style	WES_CAPTION
+		skin_normal	"MyGUI_window_frame_caption_n1"
+		skin_active	"MyGUI_window_frame_caption_a1"
+	}
+	subSkin  frame_caption_child2_x
+	{
+		position	11 0 68 30
+		aligin	WA_TOP  WA_HSTRETCH  WAT_LEFT  WAT_VCENTER  WAT_CUT_RIGHT_DOT
+		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
+		style	WES_TEXT  WES_CAPTION
+		skin_normal	"MyGUI_window_frame_caption_n2"
+		skin_active	"MyGUI_window_frame_caption_a2"
+	}
+	subSkin  frame_caption_child3_x
+	{
+		position	79 0 5 30
+		aligin	WA_TOP  WA_RIGHT
+		style	WES_CAPTION
+		skin_normal	"MyGUI_window_frame_caption_n3"
+		skin_active	"MyGUI_window_frame_caption_a3"
+	}
+
+	// скины ресайза
+	subSkin  frame_resize_child1
+	{
+		position	113  49  3  12
+		aligin	WA_RIGHT  WA_BOTTOM
+		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
+		style	WES_RESIZE
+		skin_normal	"MyGUI_window_frame_resize_n1"
+		skin_active	"MyGUI_window_frame_resize_a1"
+	}
+	subSkin  frame_resize_child2
+	{
+		position	103  58  10  3
+		aligin	WA_RIGHT  WA_BOTTOM
+		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
+		style	WES_RESIZE
+		skin_normal	"MyGUI_window_frame_resize_n2"
+		skin_active	"MyGUI_window_frame_resize_a2"
+	}
+
+	// скины закрыти€
+	subSkin  frame_x_child1
+	{
+		position	84  0  5  30
+		aligin	WA_RIGHT  WA_TOP
+		skin_normal	"MyGUI_window_frame_x_n1"
+	}
+	subSkin  frame_x_child2
+	{
+		position	89  0  21  5
+		aligin	WA_RIGHT  WA_TOP
+		skin_normal	"MyGUI_window_frame_x_n2"
+	}
+	subSkin  frame_x_child3
+	{
+		position	107  5  3  18
+		aligin	WA_RIGHT  WA_TOP
+		skin_normal	"MyGUI_window_frame_x_n3"
+	}
+	subSkin  frame_x_child4
+	{
+		position	89  23  21  7
+		aligin	WA_RIGHT  WA_TOP
+		skin_normal	"MyGUI_window_frame_x_n4"
+	}
+	subSkin  frame_x_child5
+	{
+		position	89  5  18  18
+		aligin	WA_RIGHT  WA_TOP
+		event	WE_MOUSE_FOCUS  WE_MOUSE_BUTTON
+		style	WES_CLOSE
+		skin_normal	"MyGUI_window_frame_x_n5"
+		skin_active	"MyGUI_window_frame_x_a5"
+	}
+}
+
+// окно с заголовком
+windowSkin SKIN_WINDOWFRAME_C
+{
+	subSkinMain frame_empty
+	subSkin frame_client
+	subSkin frame_child1
+	subSkin frame_child3
+	subSkin frame_child4
+	subSkin frame_child7
+	subSkin frame_child8
+	subSkin frame_child9
+	subSkin frame_caption_child1
+
+	subSkin  frame_child5
+	{
+		position	113  49  3  12
+		aligin	WA_RIGHT  WA_BOTTOM
+		skin_normal	"MyGUI_window_frame_n5"
+	}
+	subSkin  frame_child6
+	{
+		position	103  58  10  3
+		aligin	WA_RIGHT  WA_BOTTOM
+		skin_normal	"MyGUI_window_frame_n6"
+	}
+	subSkin  frame_caption_child2
+	{
+		position	11  0  94  30
+		aligin	WA_TOP  WA_HSTRETCH  WAT_LEFT  WAT_VCENTER  WAT_CUT_RIGHT_DOT
+		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
+		style	WES_TEXT WES_CAPTION
+		skin_normal	"MyGUI_window_frame_caption_n2"
+		skin_active	"MyGUI_window_frame_caption_a2"
+	}
+	subSkin  frame_caption_child3
+	{
+		position	105  0  5  30
+		aligin	WA_TOP  WA_RIGHT
+		style	WES_CAPTION
+		skin_normal	"MyGUI_window_frame_caption_n3"
+		skin_active	"MyGUI_window_frame_caption_a3"
+	}
+}
+
+// простое окно
+windowSkin  SKIN_WINDOWFRAME
+{
+	font  FONT_LARGE
+	colour  COLOUR_BLUE
+
+	subSkinMain  frame_empty
+	subSkin  frame_client
+	subSkin  frame_child1
+	subSkin  frame_child3
+	subSkin  frame_child4
+	subSkin  frame_child5
+	subSkin  frame_child6
+	subSkin  frame_child7
+	subSkin  frame_child8
+	subSkin  frame_child9
+
+	subSkin  frame_child2
+	{
+		position  6  0  104  30
+		aligin  WA_TOP  WA_HSTRETCH  WAT_CENTER  WAT_CUT_RIGHT_DOT
+		style  WES_CAPTION  WES_TEXT
+		skin_normal  "MyGUI_window_frame_n2"
+	}
+}
+
+// окно с кнопкой закрыти€
+windowSkin  SKIN_WINDOWFRAME_X
+{
+	subSkinMain  frame_empty
+	subSkin  frame_client
+	subSkin  frame_child1
+	subSkin  frame_child3
+	subSkin  frame_child4
+	subSkin  frame_child5
+	subSkin  frame_child6
+	subSkin  frame_child7
+	subSkin  frame_child8
+	subSkin  frame_child9
+	subSkin  frame_x_child1
+	subSkin  frame_x_child2
+	subSkin  frame_x_child3
+	subSkin  frame_x_child4
+	subSkin  frame_x_child5
+
+	subSkin  frame_child2_x
+	{
+		position  6  0  78  30
+		aligin  WA_TOP  WA_HSTRETCH  WAT_CENTER  WAT_CUT_RIGHT_DOT
+		style  WES_CAPTION  WES_TEXT
+		skin_normal  "MyGUI_window_frame_n2"
+	}
+}
+
+// окно с ресайзером
+windowSkin  SKIN_WINDOWFRAME_S
+{
+	subSkinMain  frame_empty
+	subSkin  frame_client
+	subSkin  frame_child1
+	subSkin  frame_child2
+	subSkin  frame_child3
+	subSkin  frame_child4
+	subSkin  frame_child7
+	subSkin  frame_child8
+	subSkin  frame_child9
+	subSkin  frame_resize_child1
+	subSkin  frame_resize_child2
+}
+
+// окно с заголовком и ресайзером
+windowSkin  SKIN_WINDOWFRAME_CS
+{
+	subSkinMain  frame_empty
+	subSkin  frame_client
+	subSkin  frame_child1
+	subSkin  frame_child3
+	subSkin  frame_child4
+	subSkin  frame_child7
+	subSkin  frame_child8
+	subSkin  frame_child9
+	subSkin  frame_caption_child1
+	subSkin  frame_caption_child2
+	subSkin  frame_caption_child3
+	subSkin  frame_resize_child1
+	subSkin  frame_resize_child2
+}
+
+// окно с заголовком и кнопкой закрыти€
+windowSkin  SKIN_WINDOWFRAME_CX
+{
+	subSkinMain  frame_empty
+	subSkin  frame_client
+	subSkin  frame_child1
+	subSkin  frame_child3
+	subSkin  frame_child4
+	subSkin  frame_child5
+	subSkin  frame_child6
+	subSkin  frame_child7
+	subSkin  frame_child8
+	subSkin  frame_child9
+	subSkin  frame_x_child1
+	subSkin  frame_x_child2
+	subSkin  frame_x_child3
+	subSkin  frame_x_child4
+	subSkin  frame_x_child5
+	subSkin  frame_caption_child1
+	subSkin  frame_caption_child2_x
+	subSkin  frame_caption_child3_x
+}
+
+// окно с ресайзером и кнопкой закрыти€
+windowSkin  SKIN_WINDOWFRAME_SX
+{
+	subSkinMain  frame_empty
+	subSkin  frame_client
+	subSkin  frame_child1
+	subSkin  frame_child2_x
+	subSkin  frame_child3
+	subSkin  frame_child4
+	subSkin  frame_child7
+	subSkin  frame_child8
+	subSkin  frame_child9
+	subSkin  frame_x_child1
+	subSkin  frame_x_child2
+	subSkin  frame_x_child3
+	subSkin  frame_x_child4
+	subSkin  frame_x_child5
+	subSkin  frame_resize_child1
+	subSkin  frame_resize_child2
+}
