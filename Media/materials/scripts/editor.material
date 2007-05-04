@@ -1,0 +1,110 @@
+material BACK_BLACK
+{
+	technique
+	{
+		pass
+		{
+
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture black.jpg
+			}
+
+		}
+	}
+}
+
+material BACK_WHITE
+{
+	technique
+	{
+		pass
+		{
+
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture white.jpg
+			}
+
+		}
+	}
+}
+
+material BACK_GRAY
+{
+	technique
+	{
+		pass
+		{
+
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture gray.jpg
+			}
+
+		}
+	}
+}
+
+material BACK_GREEN
+{
+	technique
+	{
+		pass
+		{
+
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture green.jpg
+			}
+
+		}
+	}
+}
+
+material BACK_YELLOY
+{
+	technique
+	{
+		pass
+		{
+
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture yelloy.jpg
+			}
+
+		}
+	}
+}
+
