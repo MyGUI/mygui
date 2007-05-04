@@ -1,0 +1,32 @@
+//=====================================================================================
+#pragma once
+//=====================================================================================
+#include "OIS\\OIS.h"
+#include "MyGUI_Source\\MyGUI.h"
+//#include "GameData.h"
+//=====================================================================================
+// базовый класс для всех стейтов
+//===================================================================================
+class BasisState : public MyGUI::EventCallback
+{
+public:
+	virtual void enter(bool bIsChangeState) = 0; // обязательно, в этом методе вы должны создать все свои данные для начала стейта
+	virtual void exit() = 0; // обязательно, в этом методе вы должны уничтожить все что было созданно в методе enter()
+	virtual void pause() {}; // не обязательно, здесь вы должны спрятать или уничтожить все объекты
+	virtual void resume() {}; // не обязательно, здесь вы должны показать или создать все что вы изменили в методе pause()
+//	virtual void save(GameData & data) {}; // сохранить все, здесь вы должны сохранить все настройки таким образом, чтобы стейт можно было вернуть в эту точку, после метода enter() и метода load()
+//	virtual void load(GameData & data) {}; // загрузить все, здесь вы должны восстановить состояние стейта, используя данные сохраненые в методе save()
+
+	virtual bool frameStarted(const FrameEvent& evt) {return true;};
+	virtual bool frameEnded(const FrameEvent& evt) {return true;};
+	virtual bool keyPressed( const OIS::KeyEvent &arg ) {return true;};
+	virtual bool keyReleased( const OIS::KeyEvent &arg ) {return true;};
+	virtual bool mouseMoved( const OIS::MouseEvent &arg ) {return true;};
+	virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id ) {return true;};
+	virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id ) {return true;};
+
+	virtual void windowResize() {}; // уведомление об изменении размеров окна рендера
+
+//	GameData mGameData; // место хранения сейвов при перегрузке приложения
+};
+//===================================================================================
