@@ -34,7 +34,7 @@ namespace MyGUI {
 		if (fMaxSizeY >= 0.0) m_iMaxSizeY = fMaxSizeY * m_GUI->m_uHeight;
 	}
 
-	void WindowFrame::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) // уведомление о движении, но не движение
+	void WindowFrame::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iFotherPosX, int16 iFotherPosY) // уведомление о движении, но не движение
 	{
 		if (pWindow->m_uExData & WES_CAPTION) {
 			iPosX -= m_GUI->m_iOffsetPressedX+pWindow->m_iPosX;

@@ -12,6 +12,20 @@ class SkinEditor : public MyGUI::EventCallback
 {
 	public:
 
+		enum {
+			NONE=0,
+			EDIT_IS_USE,
+			MATERIAL_OFFSET,
+		};
+		enum {
+			LEFT = 0,
+			TOP = 1,
+			RIGHT = 2,
+			BOTTOM = 3,
+			CENTER = 4,
+			MATERIAL_BORDER_COUNT
+		};
+
 		bool createEditor(); // создает окно редактирования скинов
 		void destroyEditor(); // удаляет окно редактирования скинов
 
@@ -51,6 +65,8 @@ class SkinEditor : public MyGUI::EventCallback
 
 		virtual void onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data); // дополнительные события
 		virtual void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
+		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
+		void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iFotherPosX, int16 iFotherPosY); // уведомление о движении, но не движение
 
 		SkinEditor::LP_SUB_SKIN_DATA findSkinData(const String & strName, bool create = true); // ищет данные если нет то создает
 		void deleteSkinData(SkinEditor::LP_SUB_SKIN_DATA lpDataSkin); // удаляет саб скин
@@ -66,6 +82,7 @@ class SkinEditor : public MyGUI::EventCallback
 		void fillFlagWindow(); // заполняет окна текущими значения
 		void fillMaterialWindow(); // заполняем окно с материалом
 		void pressOtherButton(MyGUI::Window * pWindow); // сверяем с кнопками флагов
+		void setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY); // сдвигаем рамку
 
 
 		WindowFrame * m_mainWindow; // главное окно инструментов
@@ -86,7 +103,6 @@ class SkinEditor : public MyGUI::EventCallback
 
 		ComboBox * m_comboSabSkinState; // состояние скина
 
-		enum {EDIT_NONE=0, EDIT_IS_USE};
 		Edit * m_editOffset[4]; // смещения куска внутри текстуры
 		Edit * m_editPosition[4]; // позиция окна в общем скине
 
@@ -104,11 +120,9 @@ class SkinEditor : public MyGUI::EventCallback
 		Button * m_buttonsFlagsStyle[16];
 
 		WindowFrame * m_windowMaterial; // окно с материалом
-		Window * m_windowMaterialLeft; // левая граница
-		Window * m_windowMaterialTop; // верхняя граница
-		Window * m_windowMaterialRight; // правая граница
-		Window * m_windowMaterialBottom; // нижняя граница
-
+		Window * m_windowMaterialOffset[MATERIAL_BORDER_COUNT]; // граница
+		uint16 m_uTextureSizeX;
+		uint16 m_uTextureSizeY;
 
 };
 //=========================================================================================

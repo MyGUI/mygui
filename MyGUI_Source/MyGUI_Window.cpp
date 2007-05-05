@@ -160,7 +160,16 @@ namespace MyGUI {
 	void Window::_OnMouseMove(int16 iPosX, int16 iPosY) // вызывается при движении окна
 	{
 		if (!m_pEventCallback) return;
-		if (m_uEventCallback&WE_MOUSE_MOVE) m_pEventCallback->onMouseMove(this, iPosX, iPosY);
+		if (m_uEventCallback & WE_MOUSE_MOVE) {
+			int16 iFotherPosX = iPosX;
+			int16 iFotherPosY = iPosY;
+			// относительно отца
+			if (m_pWindowFother) {
+				iFotherPosX -= (int16)(m_overlayContainer->_getDerivedLeft() * (Real)m_GUI->m_uWidth) - m_iPosX + 1;
+				iFotherPosY -= (int16)(m_overlayContainer->_getDerivedTop() * (Real)m_GUI->m_uHeight) - m_iPosY + 1;
+			}
+			m_pEventCallback->onMouseMove(this, iPosX, iPosY, iFotherPosX, iFotherPosY);
+		}
 	}
 
 	void Window::_OnMouseButtonPressed(bool bIsLeftButtonPressed) // вызывается при нажатии клавиши
