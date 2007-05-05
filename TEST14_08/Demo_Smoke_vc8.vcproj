@@ -131,7 +131,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\include;..\..\Common\include;..\..\..\OgreMain\include;..\..\..\Dependencies\include"
+				AdditionalIncludeDirectories="..\;..\include;..\..\Common\include;..\..\..\OgreMain\include;..\..\..\Dependencies\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -248,107 +248,107 @@
 			Name="MyGUI_Source"
 			>
 			<File
-				RelativePath=".\MyGUI_Source\loadINI.h"
+				RelativePath="..\MyGUI_Source\loadINI.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI.h"
+				RelativePath="..\MyGUI_Source\MyGUI.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Button.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_Button.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Button.h"
+				RelativePath="..\MyGUI_Source\MyGUI_Button.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_ComboBox.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_ComboBox.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_ComboBox.h"
+				RelativePath="..\MyGUI_Source\MyGUI_ComboBox.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Edit.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_Edit.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Edit.h"
+				RelativePath="..\MyGUI_Source\MyGUI_Edit.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_GUI.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_GUI.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_GUI.h"
+				RelativePath="..\MyGUI_Source\MyGUI_GUI.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_List.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_List.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_List.h"
+				RelativePath="..\MyGUI_Source\MyGUI_List.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Message.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_Message.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Message.h"
+				RelativePath="..\MyGUI_Source\MyGUI_Message.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Skin.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_Skin.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Skin.h"
+				RelativePath="..\MyGUI_Source\MyGUI_Skin.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_StaticText.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_StaticText.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_StaticText.h"
+				RelativePath="..\MyGUI_Source\MyGUI_StaticText.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Tab.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_Tab.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Tab.h"
+				RelativePath="..\MyGUI_Source\MyGUI_Tab.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_VScroll.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_VScroll.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_VScroll.h"
+				RelativePath="..\MyGUI_Source\MyGUI_VScroll.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Window.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_Window.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_Window.h"
+				RelativePath="..\MyGUI_Source\MyGUI_Window.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_WindowFrame.cpp"
+				RelativePath="..\MyGUI_Source\MyGUI_WindowFrame.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Source\MyGUI_WindowFrame.h"
+				RelativePath="..\MyGUI_Source\MyGUI_WindowFrame.h"
 				>
 			</File>
 		</Filter>
