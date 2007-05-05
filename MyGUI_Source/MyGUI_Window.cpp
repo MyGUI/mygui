@@ -453,7 +453,7 @@ namespace MyGUI {
 	{
 		__ASSERT(uSkin < __SKIN_COUNT); // низя
 		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		Window * pWindow = new Window(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, this);
+		Window * pWindow = new Window(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, m_pWindowClient);
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
 			Window *pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow);

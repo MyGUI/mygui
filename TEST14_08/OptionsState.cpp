@@ -9,7 +9,7 @@ extern BasisManager basis;
 void OptionsState::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена левая кнопка мыши на этом же элементе
 {
 	if (pWindow == m_buttonExit) {
-		basis.mGUI->createMessage(L"Внимание", L"Вы уверенны что хотите выйти?", MESSAGE_ID_EXIT, true, "Ok", "Cancel");
+		basis.mGUI->createMessage("Message", "Do you really want to exit?", MESSAGE_ID_EXIT, true, "Ok", "Cancel");
 	}
 
 }

@@ -843,40 +843,40 @@ void SkinEditor::fillFlagWindow() // заполняет окна текущими значения
 void SkinEditor::fillMaterialWindow() // заполняем окно с материалом
 {
 
-		if (m_comboMaterialName->getCurrentIndex() == 0) {
-			m_windowMaterial->show(false);
-			return;
-		}
+	// сначала скрываем
+	m_windowMaterial->show(false);
 
-		const String & strMaterialName = m_comboMaterialName->getWindowText();
+	if (m_comboMaterialName->getCurrentIndex() == 0) return;
 
-		MaterialPtr mat = MaterialManager::getSingleton().getByName(strMaterialName);
-		if (mat.isNull()) {
-			m_windowMaterial->show(false);
-			return;
-		}
+	const String & strMaterialName = m_comboMaterialName->getWindowText();
 
-		// обязательно загружаем
-		mat->load();
+	MaterialPtr mat = MaterialManager::getSingleton().getByName(strMaterialName);
+	if (mat.isNull()) return;
 
+	// обязательно загружаем
+	mat->load();
 
+	// только так, иначе при пустых викидывает
+	Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
+	if ( ! iTechnique.hasMoreElements() ) return;
 
-		// warning
-		const String & textName = mat->getTechnique(0)->getPass(0)->getTextureUnitState(0)->getTextureName();
+	Pass * pass = iTechnique.getNext()->getPass(0);
+	if (!pass) return;
 
-		TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
+	Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
+	if ( ! iUnit.hasMoreElements()) return;
 
-		if (tex.isNull()) {
-			m_windowMaterial->show(false);
-			return;
-		}
+	const String & textName = iUnit.getNext()->getTextureName();
 
-		const uint16 addX = m_windowMaterial->m_iSizeX-m_windowMaterial->m_pWindowClient->m_iSizeX;
-		const uint16 addY = m_windowMaterial->m_iSizeY-m_windowMaterial->m_pWindowClient->m_iSizeY;
+	TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
+	if (tex.isNull()) return;
 
-		m_windowMaterial->show(true);
-		m_windowMaterial->size( (uint16)tex->getWidth()+addX, (uint16)tex->getHeight()+addY );
-		m_windowMaterial->m_pWindowClient->m_overlayContainer->setMaterialName(strMaterialName);
+	const uint16 addX = m_windowMaterial->m_iSizeX-m_windowMaterial->m_pWindowClient->m_iSizeX;
+	const uint16 addY = m_windowMaterial->m_iSizeY-m_windowMaterial->m_pWindowClient->m_iSizeY;
+
+	m_windowMaterial->show(true);
+	m_windowMaterial->size( (uint16)tex->getWidth()+addX, (uint16)tex->getHeight()+addY );
+	m_windowMaterial->m_pWindowClient->m_overlayContainer->setMaterialName(strMaterialName);
 
 }
 //===================================================================================
@@ -886,6 +886,6 @@ void SkinEditor::createMaterialWindow() // создает окна для материала
 	m_windowMaterial->show(false);
 
 	m_windowMaterialLeft = m_windowMaterial->createWindow(10, 10, 1, 100, WA_LEFT|WA_TOP, SKIN_DEFAULT, this);
-//	m_windowMaterialLeft->m_pWindowClient->m_overlayContainer->setMaterialName("BACK_GREEN");
+	m_windowMaterialLeft->m_pWindowClient->m_overlayContainer->setMaterialName("BACK_GREEN");
 }
 //===================================================================================
