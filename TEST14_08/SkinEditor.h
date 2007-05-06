@@ -74,19 +74,21 @@ class SkinEditor : public MyGUI::EventCallback
 		void destroyEditor(); // удаляет окно редактирования скинов
 		void loadSkin(const String & strFileName); // сохраняет скин
 		void saveSkin(const String & strFileName); // загружает скин
-		void resizeWindow(); // изменились размеры окна
+//		void resizeWindow(); // изменились размеры окна
 
 		SkinEditor::LP_SUB_SKIN_DATA findSkinData(const String & strName, bool create = true); // ищет данные если нет то создает
 		void deleteSkinData(SkinEditor::LP_SUB_SKIN_DATA lpDataSkin); // удаляет саб скин
 		void destroySkins(); // удаляет все саб скины
 
 		void updateWindowInfo(); // обновляет всю инфу об окне
+		void enableWindowInfo(bool bEnable); // блокирует все окна
 		void updateSkinInfo(); // обновляет всю инфу об саб скине
 		void updateStateInfo(); // обновляет всю инфу об саб скине
+		void enableSkinInfo(bool bEnable); // блокирует саб скины
 		void createFlagWindow(); // создает окно с дополнительными флагами
 		void createMaterialWindow(); // создает окна для материала
 		void fillFlagWindow(); // заполняет окна текущими значения
-		void fillMaterialWindow(); // заполняем окно с материалом
+		bool fillMaterialWindow(); // заполняем окно с материалом
 		void pressOtherButton(MyGUI::Window * pWindow); // сверяем с кнопками флагов
 		void setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY); // сдвигаем рамку
 

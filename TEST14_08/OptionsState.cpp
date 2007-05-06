@@ -69,6 +69,6 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 	m_buttonSave->move(basis.mGUI->m_uWidth - 160, 10);
 	m_buttonLoad->move(basis.mGUI->m_uWidth - 160, 45);
 	m_comboBackground->move((basis.mGUI->m_uWidth/2) - 100, 10);
-	mEditor.resizeWindow();
+//	mEditor.resizeWindow();
 }
 //===================================================================================
