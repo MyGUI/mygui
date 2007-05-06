@@ -54,7 +54,6 @@ public:
 	OptionsState mOptions; // настройки
 
 	bool m_exit; // выходим из цикла приложения
-//	bool m_bIsMouseReleased; // можно ли мышку отпускать на волю
 
 	enum FADE_STATES {
 		NONE,
@@ -107,11 +106,16 @@ public:
 в определение класса: class WindowEventListener
 добавить: 
 		// функции для передачи событий от мыши в оконном режиме
+		virtual void windowEventMouseCanBeReleased() {}; // мышь можно отпускать
 		virtual void windowEventMouseMove(RenderWindow* rw, LPARAM position) {}; // позиция мыши
 		virtual void windowEventMouseButtonDown(RenderWindow* rw, LPARAM position, uint8 button) {}; // кнопка нажата
 		virtual void windowEventMouseButtonUp(RenderWindow* rw, LPARAM position, uint8 button) {}; // кнопка отжата
 
 файл: OgreWindowEventUtilities.cpp
+в функцию: void WindowEventUtilities::addWindowEventListener( RenderWindow* window, WindowEventListener* listener )
+к конец добавить:
+listener->windowEventMouseCanBeReleased(); // оповещаем о возможности
+
 в функцию: LRESULT CALLBACK WindowEventUtilities::_WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 в 	switch( uMsg )
 добавить:

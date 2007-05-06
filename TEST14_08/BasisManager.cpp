@@ -417,9 +417,6 @@ void BasisManager::windowEventMouseCanBeReleased() // мышь можно отпускать
 	ConfigOptionMap map = mRoot->getRenderSystem()->getConfigOptions();
 	ConfigOption config = map["Full Screen"];
 	if (config.currentValue == "Yes") return;
-//	for (std::map<String, ConfigOption>::iterator iter = map.begin(); iter != map.end();iter++) {
-//		if ((iter->first == "Full Screen") && (iter->second.currentValue == "Yes")) return;
-//	}
 	// если мышь была, то удаляем ее
 	if ( !mMouse ) return;
 	mInputManager->destroyInputObject( mMouse );
