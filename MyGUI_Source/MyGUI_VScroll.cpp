@@ -18,7 +18,7 @@ namespace MyGUI {
 		setState(WS_DEACTIVE);
 	}
 
-	void VScroll::onKeyButton(MyGUI::Window * pWindow, int keyEvent, char cText) // нажата клавиша
+	void VScroll::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша
 	{
 		// просто передаем отцу
 		if (m_pEventCallback) m_pEventCallback->onKeyButton(this, keyEvent, cText);

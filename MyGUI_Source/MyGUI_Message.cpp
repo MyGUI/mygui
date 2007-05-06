@@ -23,7 +23,7 @@ namespace MyGUI {
 		m_GUI->setKeyFocus(m_pButton1);
 	}
 
-	void Message::onKeyButton(MyGUI::Window * pWindow, int keyEvent, char cText) // нажата клавиша
+	void Message::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша
 	{
 		uint32 data = MBB_BUTTON2;
 

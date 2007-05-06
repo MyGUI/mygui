@@ -107,7 +107,7 @@ namespace MyGUI {
 		}
 	}
 
-	void ComboBox::onKeyButton(MyGUI::Window * pWindow, int keyEvent, char cText) // нажата клавиша
+	void ComboBox::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша
 	{
 		if ((keyEvent == KC_UP) || (keyEvent == KC_DOWN)) { // при нажатии вверх или вниз, показываем список
 			if (m_pList->m_aString.size() == 0) return; // показываем если только есть строки
@@ -151,6 +151,9 @@ namespace MyGUI {
 		} else if (uEvent == WOE_EDIT_KEY_ACCEPT) {
 			// ентер в поле редактирования, отсылаем 
 			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_COMBO_SELECT_ACCEPT, ITEM_NON_SELECT);
+		} else if (uEvent == WOE_EDIT_KEY_DELETE) {
+			// делит в поле редактирования, отсылаем 
+			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_EDIT_KEY_DELETE, ITEM_NON_SELECT);
 		} else if (uEvent == WOE_LIST_SELECT_NONE) {
 			m_pList->show(false);
 			m_bIsListShow = false;

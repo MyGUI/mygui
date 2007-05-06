@@ -37,7 +37,7 @@ namespace MyGUI {
 	}
 
 
-	void List::onKeyButton(MyGUI::Window * pWindow, int keyEvent, char cText) // нажата клавиша
+	void List::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша
 	{
 		uint16 oldPos = m_uSelectItem;
 		uint16 size = (uint16)m_aString.size();

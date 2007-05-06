@@ -105,8 +105,8 @@ class SkinEditor : public MyGUI::EventCallback
 		ComboBox * m_comboMaterialName; // материал для данного скина
 
 		ComboBox * m_comboSabSkinName; // саб скины окна
-		Button * m_buttonSabSkinCreate; // добавить саб скин
-		Button * m_buttonSabSkinDelete; // удалить саб скин
+//		Button * m_buttonSabSkinCreate; // добавить саб скин
+//		Button * m_buttonSabSkinDelete; // удалить саб скин
 		Button * m_buttonSabSkinStyle; // стили скина
 
 		ComboBox * m_comboSabSkinState; // состояние скина

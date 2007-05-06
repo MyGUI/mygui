@@ -20,7 +20,7 @@ namespace MyGUI {
 		void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
 
-		void onKeyButton(MyGUI::Window * pWindow, int keyEvent, char cText); // нажата клавиша
+		void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText); // нажата клавиша
 		void onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса ввода
 		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
 		void onMouseClick(MyGUI::Window * pWindow);

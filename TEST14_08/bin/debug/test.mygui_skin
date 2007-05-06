@@ -2,7 +2,6 @@
 windowSkin 	SKIN_FADE
 {
 	colour 	COLOUR_WHITE
-	material 	"MyGUI_TEST"
 
 	subSkinMain 	dermo
 	{
@@ -23,5 +22,135 @@ windowSkin 	SKIN_FADE
 		style 	WES_ACTION2  WES_NONE  
 
 		deactived_position 	22  29  131  26
+	}
+
+	subSkin 	dermo22
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo23
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo24
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo25
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo26
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo27
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo28
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo29
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo30
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo31
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo33
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo34
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
+	}
+
+	subSkin 	dermo35
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		aligin 	WA_NONE
+		style 	WES_NONE
+
 	}
 }

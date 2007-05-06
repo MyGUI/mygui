@@ -20,7 +20,7 @@ namespace MyGUI {
 
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
-		void onKeyButton(MyGUI::Window * pWindow, int keyEvent, char cText); // нажата клавиша
+		void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText); // нажата клавиша
 
 		Button * m_pButton1; // первая кнопка
 		Button * m_pButton2; // вторая кнопка

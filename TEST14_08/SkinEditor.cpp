@@ -37,27 +37,82 @@ const uint32 FLAG_ALIGIN = 0x40000;
 //===================================================================================
 void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data) // дополнительные события
 {
+	// выбор в комбо боксе
+	if (uEvent == WOE_COMBO_SELECT_ACCEPT) {
+		if (pWindow == m_comboBasisWindowName) {
+
+			if (data != MyGUI::ITEM_NON_SELECT) {
+				m_pCurrentDataWindow = &mWindowInfo[data];
+				updateWindowInfo();
+			} else {
+
+				const String & strName = m_comboBasisWindowName->getWindowText();
+				bool find = false;
+				for (uint16 pos=0; pos<mWindowInfo.size(); pos++) {
+					if (mWindowInfo[pos].strElementName == strName) {
+						find = true;
+						pos = (uint16)mWindowInfo.size(); // выходим
+					}
+				}
+
+				if (!find) {
+					m_comboBasisWindowName->addString(strName);
+					mWindowInfo.push_back(_tag_WINDOW_DATA(strName));
+					m_comboBasisWindowName->setString(m_comboBasisWindowName->getStringCount()-1);
+					m_pCurrentDataWindow = &mWindowInfo.back();
+					updateWindowInfo();
+				} // if (!find) {
+
+			}
+		}
+	}
+
+
 	if (!m_pCurrentDataWindow) return; // на всякий
 
 	// выбор в комбо боксе
 	if (uEvent == WOE_COMBO_SELECT_ACCEPT) {
 		
 		// главный комбобокс выбора окна
-		if (pWindow == m_comboBasisWindowName) {
-			m_pCurrentDataWindow = &mWindowInfo[data];
-			updateWindowInfo();
+	/*	if (pWindow == m_comboBasisWindowName) {
 
-		// выбок саб скина
+
+		// выбо саб скина
 		} else if (pWindow == m_comboSabSkinName) {
 			if (m_pCurrentDataWindow) {
 				if (data != MyGUI::ITEM_NON_SELECT) {
 					m_pCurrentDataSkin = m_pCurrentDataWindow->sabSkins[data];
 					updateSkinInfo();
+				} else {
+					// нажат ентер с новым именем
+
+					bool find = false;
+					const String & strSkinName = m_comboSabSkinName->getWindowText();
+					for (uint16 pos=0; pos<m_comboSabSkinName->getStringCount(); pos++) {
+						if (m_comboSabSkinName->getString(pos) == strSkinName) {
+							find = true;
+							pos = m_comboSabSkinName->getStringCount();
+						}
+					}
+
+					if (!find) {
+						LP_SUB_SKIN_DATA lpData = findSkinData(m_comboSabSkinName->getWindowText());
+						if (lpData) {
+							m_comboSabSkinName->addString(lpData->strName);
+							m_comboSabSkinName->setString(m_comboSabSkinName->getStringCount()-1);
+							m_pCurrentDataWindow->sabSkins.push_back(lpData);
+							if (!m_pCurrentDataSkin) m_pCurrentDataState = &lpData->stateInfo[0]; // первый раз, надо открыть доступ
+							m_pCurrentDataSkin = lpData;
+							updateSkinInfo();
+						}
+					} // if (!find) {
+
 				}
-			}
+			}*/
 
 		// выбор состояния
-		} else if (pWindow == m_comboSabSkinState) {
+//		} else
+		if (pWindow == m_comboSabSkinState) {
 			if (m_pCurrentDataSkin) {
 				m_pCurrentDataState = &m_pCurrentDataSkin->stateInfo[data];
 				updateStateInfo();
@@ -122,6 +177,13 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 	// показываем окно стилей
 	} else if ((uEvent == WOE_FRAME_CLOSE) && (pWindow == m_windowStateFlags)) {
 		m_windowStateFlags->show(false);
+
+	} else if (uEvent == WOE_EDIT_KEY_DELETE) {
+		// удаляем сабскин
+		if (pWindow == m_comboSabSkinName) {
+			deleteSkinData(m_pCurrentDataSkin); // удаляет если нужно
+			updateWindowInfo();
+		}
 	}
 
 }
@@ -130,20 +192,22 @@ void SkinEditor::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена лева
 {
 	if (!m_pCurrentDataWindow) return; // на всякий
 
-	if (pWindow == m_buttonSabSkinCreate) {
-		LP_SUB_SKIN_DATA lpData = findSkinData(m_comboSabSkinName->getWindowText());
-		if (lpData) {
-			m_comboSabSkinName->addString(lpData->strName);
-			m_comboSabSkinName->setString(m_comboSabSkinName->getStringCount()-1);
-			m_pCurrentDataWindow->sabSkins.push_back(lpData);
-			if (!m_pCurrentDataSkin) m_pCurrentDataState = &lpData->stateInfo[0]; // первый раз, надо открыть доступ
-			m_pCurrentDataSkin = lpData;
-			updateSkinInfo();
-		}
-	} else if (pWindow == m_buttonSabSkinDelete) {
-		deleteSkinData(m_pCurrentDataSkin); // удаляет если нужно
-		updateWindowInfo();
-	} else if (pWindow == m_buttonSabSkinStyle) {
+//	if (pWindow == m_buttonSabSkinCreate) {
+//		LP_SUB_SKIN_DATA lpData = findSkinData(m_comboSabSkinName->getWindowText());
+//		if (lpData) {
+//			m_comboSabSkinName->addString(lpData->strName);
+//			m_comboSabSkinName->setString(m_comboSabSkinName->getStringCount()-1);
+//			m_pCurrentDataWindow->sabSkins.push_back(lpData);
+//			if (!m_pCurrentDataSkin) m_pCurrentDataState = &lpData->stateInfo[0]; // первый раз, надо открыть доступ
+//			m_pCurrentDataSkin = lpData;
+//			updateSkinInfo();
+//		}
+//	} else
+//	if (pWindow == m_buttonSabSkinDelete) {
+//		deleteSkinData(m_pCurrentDataSkin); // удаляет если нужно
+//		updateWindowInfo();
+//	} else
+	if (pWindow == m_buttonSabSkinStyle) {
 		if (m_pCurrentDataSkin) {
 			m_windowStateFlags->show(true);
 			basis.mGUI->upZOrder(m_windowStateFlags);
@@ -237,14 +301,14 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 //	m_editInfo = basis.mGUI->createEdit(10, basis.mGUI->m_uHeight - 35, basis.mGUI->m_uWidth - 20, -1, OVERLAY_BACK, SKIN_EDIT, this);
 
 	// главное окно
-	m_mainWindow = basis.mGUI->createWindowFrame(500, 150, 300, 520, "Skin editor MyGUI 1.0", MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_C, this);
+	m_mainWindow = basis.mGUI->createWindowFrame(500, 150, 300, 470, "Skin editor MyGUI 1.0", MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_C, this);
 
 	// статик текст над окном
 	MyGUI::StaticText * text = m_mainWindow->createStaticText(10, 0, 270, 25, "Basis window skin", WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
 
 	// создаем окно с именами
-	m_comboBasisWindowName = m_mainWindow->createComboBox(10, 30, 270, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST, this);
+	m_comboBasisWindowName = m_mainWindow->createComboBox(10, 30, 270, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_COMBO_BOX, this);
 //	m_comboBasisWindowName->addEvent(WE_MOUSE_FOCUS);
 //	m_comboBasisWindowName->setUserString(L"Для создания нового элемента, наберите его имя и нажмите 'Enter', для удаления элемента нажмите 'Del'");
 
@@ -314,28 +378,28 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 //	m_comboSabSkinName->addEvent(WE_KEY_BUTTON);
 //	m_comboSabSkinName->setUserString(L"Для создания саб скина, наберите имя и нажмите 'Enter', для удаления нажмите 'Del'. Первый является отцом для всех остальных.");
 
-	m_buttonSabSkinCreate = m_mainWindow->createButton(10, 310, 130, 20, "create skin", WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON, this);
-	m_buttonSabSkinCreate->setFont(MyGUI::FONT_DEFAULT, MyGUI::COLOUR_RED);
+//	m_buttonSabSkinCreate = m_mainWindow->createButton(10, 310, 130, 20, "create skin", WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON, this);
+//	m_buttonSabSkinCreate->setFont(MyGUI::FONT_DEFAULT, MyGUI::COLOUR_RED);
 
-	m_buttonSabSkinDelete = m_mainWindow->createButton(148, 310, 130, 20, "delete skin", WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON, this);
-	m_buttonSabSkinDelete->setFont(MyGUI::FONT_DEFAULT, MyGUI::COLOUR_RED);
+//	m_buttonSabSkinDelete = m_mainWindow->createButton(148, 310, 130, 20, "delete skin", WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON, this);
+//	m_buttonSabSkinDelete->setFont(MyGUI::FONT_DEFAULT, MyGUI::COLOUR_RED);
 
-	text = m_mainWindow->createStaticText(222, 340, 60, 25, "Offset", WA_TOP|WA_LEFT|WAT_CENTER);
+	text = m_mainWindow->createStaticText(222, 310, 60, 25, "Offset", WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
 
-	m_editOffset[0] = m_mainWindow->createEdit(20, 340, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
-	m_editOffset[1] = m_mainWindow->createEdit(71, 340, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
-	m_editOffset[2] = m_mainWindow->createEdit(122, 340, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
-	m_editOffset[3] = m_mainWindow->createEdit(173, 340, 46, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editOffset[0] = m_mainWindow->createEdit(20, 310, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editOffset[1] = m_mainWindow->createEdit(71, 310, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editOffset[2] = m_mainWindow->createEdit(122, 310, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editOffset[3] = m_mainWindow->createEdit(173, 310, 46, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
 
-	m_buttonSabSkinStyle = m_mainWindow->createButton(20, 370, 200, -1, "SKIN STYLE", WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON, this);
+	m_buttonSabSkinStyle = m_mainWindow->createButton(20, 340, 200, -1, "SKIN STYLE", WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON, this);
 //	m_buttonSabSkinStyle->addEvent(WE_MOUSE_FOCUS);
 //	m_buttonSabSkinStyle->setUserString(L"Стили саб скина, выравнивание, выравнивание текста и дополнительные стили");
 	m_buttonSabSkinStyle->setFont(MyGUI::FONT_DEFAULT, MyGUI::COLOUR_BLUE);
 
-	text = m_mainWindow->createStaticText(222, 410, 60, 25, "State", WA_TOP|WA_LEFT|WAT_CENTER);
+	text = m_mainWindow->createStaticText(222, 370, 60, 25, "State", WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
-	m_comboSabSkinState = m_mainWindow->createComboBox(20, 410, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST, this);
+	m_comboSabSkinState = m_mainWindow->createComboBox(20, 370, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST, this);
 //	m_comboSabSkinState->addEvent(WE_MOUSE_FOCUS);
 //	m_comboSabSkinState->setUserString(L"Состояния саб скина, заблокированное, нормальное, нажатое, активное и выделенное");
 	m_comboSabSkinState->addString("WS_DEACTIVE");
@@ -344,13 +408,13 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_comboSabSkinState->addString("WS_ACTIVED");
 	m_comboSabSkinState->addString("WS_SELECTED");
 
-	text = m_mainWindow->createStaticText(222, 440, 60, 25, "Position", WA_TOP|WA_LEFT|WAT_CENTER);
+	text = m_mainWindow->createStaticText(222, 400, 60, 25, "Position", WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
 
-	m_editPosition[0] = m_mainWindow->createEdit(20, 440, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
-	m_editPosition[1] = m_mainWindow->createEdit(71, 440, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
-	m_editPosition[2] = m_mainWindow->createEdit(122, 440, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
-	m_editPosition[3] = m_mainWindow->createEdit(173, 440, 46, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editPosition[0] = m_mainWindow->createEdit(20, 400, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editPosition[1] = m_mainWindow->createEdit(71, 400, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editPosition[2] = m_mainWindow->createEdit(122, 400, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
+	m_editPosition[3] = m_mainWindow->createEdit(173, 400, 46, -1, WA_LEFT|WA_TOP, SKIN_EDIT, this);
 
 	for (uint8 index=0; index<4; index++) {
 		m_editOffset[index]->setUserData(EDIT_IS_USE);

@@ -87,11 +87,12 @@ namespace MyGUI {
 		WOE_SCROLL_CHANGE_POS = 0x0001, // изменилась позиция скролла
 		WOE_FRAME_CLOSE = 0x0002, // нажата кнопка закрыть фрейм
 		WOE_EDIT_KEY_ACCEPT = 0x0004, // нажата кнопка энтер
-		WOE_LIST_SELECT_CHANGE = 0x0008, // изменился выделенный элемент
-		WOE_LIST_SELECT_ACCEPT = 0x0010, // двойной щелчек или энтер на элементе
-		WOE_LIST_SELECT_NONE = 0x0020, // щелчек на пустом месте
-		WOE_COMBO_SELECT_ACCEPT = 0x0040, // активирован элемент
-		WOE_MESSAGE_PRESS_BUTTON = 0x0080, // нажата кнопка в окне сообщения
+		WOE_EDIT_KEY_DELETE = 0x0008, // нажата кнопка делит
+		WOE_LIST_SELECT_CHANGE = 0x0010, // изменился выделенный элемент
+		WOE_LIST_SELECT_ACCEPT = 0x0020, // двойной щелчек или энтер на элементе
+		WOE_LIST_SELECT_NONE = 0x0040, // щелчек на пустом месте
+		WOE_COMBO_SELECT_ACCEPT = 0x0080, // активирован элемент
+		WOE_MESSAGE_PRESS_BUTTON = 0x0100, // нажата кнопка в окне сообщения
 	};
 	enum __WINDOW_STATE { // состояние окна
 		WS_DEACTIVE, // окно неактивно и недоступно
@@ -159,7 +160,6 @@ namespace MyGUI {
 
 		virtual void onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus) {}; // смена фокуса ввода
 		virtual void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) {}; // нажата клавиша
-//		virtual void onKeyClick(MyGUI::Window * pWindow, int keyEvent) {}; // нажата и отпущена кнопка
 
 		virtual void onWarningEvent(MyGUI::Window * pWindow, uint16 uEvent) {}; // события предепреждающие ошибки
 		virtual void onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data) {}; // дополнительные события

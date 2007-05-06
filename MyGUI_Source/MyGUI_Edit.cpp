@@ -72,6 +72,9 @@ namespace MyGUI {
 		} else if ((keyEvent == KC_RETURN) || (keyEvent == KC_NUMPADENTER)) { // клавиша ввод
 			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_EDIT_KEY_ACCEPT, 0);
 			return;
+		} else if (keyEvent == OIS::KC_DELETE) {
+			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_EDIT_KEY_DELETE, 0);
+			return;
 		} else if (cText == 0) return; // клавиша без знака
 		else strText = strText + cText;
 
