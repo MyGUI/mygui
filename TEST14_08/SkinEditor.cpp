@@ -711,10 +711,6 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 		window->strColour = "";
 		window->uAddedData1 = 0;
 		window->uAddedData2 = 0;
-//		window->uAddedSkin1 = 0;
-//		window->uAddedSkin2 = 0;
-//		window->uFont = 0;
-//		window->uMaterial = 0;
 
 		string strValueName;
 		uint32 uValue;
