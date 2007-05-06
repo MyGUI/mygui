@@ -54,7 +54,7 @@ public:
 	OptionsState mOptions; // настройки
 
 	bool m_exit; // выходим из цикла приложения
-	bool m_bIsMouseReleased; // можно ли мышку отпускать на волю
+//	bool m_bIsMouseReleased; // можно ли мышку отпускать на волю
 
 	enum FADE_STATES {
 		NONE,
@@ -92,6 +92,7 @@ public:
 	virtual void windowClosed(RenderWindow* rw);
 
 	// функции для передачи событий от мыши в оконном режиме
+	virtual void windowEventMouseCanBeReleased(); // мышь можно отпускать
 	virtual void windowEventMouseMove(RenderWindow* rw, LPARAM position); // позиция мыши
 	virtual void windowEventMouseButtonDown(RenderWindow* rw, LPARAM position, uint8 button); // кнопка нажата
 	virtual void windowEventMouseButtonUp(RenderWindow* rw, LPARAM position, uint8 button); // кнопка отжата

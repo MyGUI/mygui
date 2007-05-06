@@ -15,8 +15,8 @@ BasisManager::BasisManager() :
 	mWindow(0),
 	mWallpaperOverlay(0),
 	m_exit(false),
-	mFadeState(0),
-	m_bIsMouseReleased(false) // если вы не модифицировали исходник, то ставте false
+	mFadeState(0)
+//	m_bIsMouseReleased(false) // если вы не модифицировали исходник, то ставте false
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";
@@ -44,33 +44,33 @@ void BasisManager::createInput() // создаем систему ввода
 	mInputManager = OIS::InputManager::createInputSystem( pl );
 
 	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
-
-	bool createMouse = true;
-	if (m_bIsMouseReleased) {
-		ConfigOptionMap map = mRoot->getRenderSystem()->getConfigOptions();
-		for (std::map<String, ConfigOption>::iterator iter = map.begin(); iter != map.end();iter++) {
-			if ((iter->first == "Full Screen") && (iter->second.currentValue == "No")) {
-				createMouse = false; // мышь не создаем
-//				iter = map.end(); // выходим
-			}
-		}
-	}
-
-	if (createMouse) { // эксклюзивное управление
-		mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
-		mMouse->setEventCallback(this);
-	}
-
-	if (mGUI) { // для смены из полноэкранного и обратно
-		if (!createMouse) mGUI->m_overlayContainerMouse->hide(); // если мышь не захваченна, то скрываем курсор
-		else mGUI->m_overlayContainerMouse->show(); // если мышь не захваченна, то скрываем курсор
-	}
-
 	mKeyboard->setEventCallback(this);
+
+//	bool createMouse = true;
+//	if (m_bIsMouseReleased) {
+//		ConfigOptionMap map = mRoot->getRenderSystem()->getConfigOptions();
+//		for (std::map<String, ConfigOption>::iterator iter = map.begin(); iter != map.end();iter++) {
+//			if ((iter->first == "Full Screen") && (iter->second.currentValue == "No")) {
+//				createMouse = false; // мышь не создаем
+//				iter = map.end(); // выходим
+//			}
+//		}
+//	}
+
+//	if (createMouse) { // эксклюзивное управление
+	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
+	mMouse->setEventCallback(this);
+//	}
+
+//	if (mGUI) { // для смены из полноэкранного и обратно
+//		if (!createMouse) mGUI->m_overlayContainerMouse->hide(); // если мышь не захваченна, то скрываем курсор
+//		else mGUI->m_overlayContainerMouse->show(); // если мышь не захваченна, то скрываем курсор
+//	}
 
 	mRoot->addFrameListener(this);
 
 	windowResized(mWindow); // инициализация
+
 	WindowEventUtilities::addWindowEventListener(mWindow, this);
 
 }
@@ -409,6 +409,24 @@ void BasisManager::windowEventMouseButtonUp(RenderWindow* rw, LPARAM position, u
 	g_MouseState.X.abs = position & 0x0000FFFF;
 	g_MouseState.Y.abs = (position & 0xFFFF0000) >> 16;
 	mouseReleased(g_MouseEvent, (OIS::MouseButtonID)button);
+}
+//=======================================================================================
+void BasisManager::windowEventMouseCanBeReleased() // мышь можно отпускать
+{
+	// проверка на оконный режим
+	ConfigOptionMap map = mRoot->getRenderSystem()->getConfigOptions();
+	ConfigOption config = map["Full Screen"];
+	if (config.currentValue == "Yes") return;
+//	for (std::map<String, ConfigOption>::iterator iter = map.begin(); iter != map.end();iter++) {
+//		if ((iter->first == "Full Screen") && (iter->second.currentValue == "Yes")) return;
+//	}
+	// если мышь была, то удаляем ее
+	if ( !mMouse ) return;
+	mInputManager->destroyInputObject( mMouse );
+	mMouse = 0;
+	// скрываем курсор гуя
+	if (!mGUI) return;
+	mGUI->m_overlayContainerMouse->hide();
 }
 //=======================================================================================
 //=======================================================================================
