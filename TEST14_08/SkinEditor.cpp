@@ -1045,6 +1045,7 @@ void SkinEditor::setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint1
 //===================================================================================
 void SkinEditor::resizeWindow() // изменились размеры окна
 {
+	// здесь был вася
 //	m_editInfo->move(10, basis.mGUI->m_uHeight - 35);
 //	m_editInfo->size(basis.mGUI->m_uWidth - 20, m_editInfo->m_iSizeY);
 }
