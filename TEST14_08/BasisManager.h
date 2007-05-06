@@ -93,6 +93,7 @@ public:
 	// функции для передачи событий от мыши в оконном режиме
 	virtual void windowEventMouseCanBeReleased(); // мышь можно отпускать
 	virtual void windowEventMouseMove(RenderWindow* rw, LPARAM position); // позиция мыши
+	virtual void windowEventMouseWheel(RenderWindow* rw, WPARAM delta); // колесо прокрутки
 	virtual void windowEventMouseButtonDown(RenderWindow* rw, LPARAM position, uint8 button); // кнопка нажата
 	virtual void windowEventMouseButtonUp(RenderWindow* rw, LPARAM position, uint8 button); // кнопка отжата
 
@@ -108,6 +109,7 @@ public:
 		// функции для передачи событий от мыши в оконном режиме
 		virtual void windowEventMouseCanBeReleased() {}; // мышь можно отпускать
 		virtual void windowEventMouseMove(RenderWindow* rw, LPARAM position) {}; // позиция мыши
+		virtual void windowEventMouseWheel(RenderWindow* rw, WPARAM delta) {}; // колесо прокрутки
 		virtual void windowEventMouseButtonDown(RenderWindow* rw, LPARAM position, uint8 button) {}; // кнопка нажата
 		virtual void windowEventMouseButtonUp(RenderWindow* rw, LPARAM position, uint8 button) {}; // кнопка отжата
 
@@ -141,6 +143,9 @@ listener->windowEventMouseCanBeReleased(); // оповещаем о возможности
 		return 0;
 	case WM_MBUTTONUP:
 		for( ; start != end; ++start ) (start->second)->windowEventMouseButtonUp(win, lParam, 2);
+		return 0;
+	case 0x020A: //WM_MOUSEWHEEL:
+		for( ; start != end; ++start ) (start->second)->windowEventMouseWheel(win, wParam);
 		return 0;
 
 после этого инициализация переменной m_bIsMouseReleased в конструкторе класса class BasisManager

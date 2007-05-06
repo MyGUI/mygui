@@ -397,6 +397,12 @@ void BasisManager::windowEventMouseMove(RenderWindow* rw, LPARAM position) // по
 	mouseMoved(g_MouseEvent);
 }
 //=======================================================================================
+void BasisManager::windowEventMouseWheel(RenderWindow* rw, WPARAM delta) // колесо прокрутки
+{
+	g_MouseState.Z.rel = (delta & 0xFFFF0000) >> 16;
+	mouseMoved(g_MouseEvent);
+}
+//=======================================================================================
 void BasisManager::windowEventMouseButtonDown(RenderWindow* rw, LPARAM position, uint8 button) // кнопка нажата
 {
 	g_MouseState.X.abs = position & 0x0000FFFF;
