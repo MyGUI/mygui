@@ -9,6 +9,10 @@ using namespace std;
 
 namespace MyGUI {
 
+	const uint16 ITEM_NON_SELECT = 0xFFFF; // элемент не выделен
+	#define FLAG_NONE  0
+	#define FLAG(num)  (1<<(num))
+
 	class Window;
 	class WindowFrame;
 	class Button;
@@ -27,22 +31,22 @@ namespace MyGUI {
 		FADE_UP
 	};
 	enum __MESSAGE_BOX_BUTTON { // кнопки окна сообщения
-		MBB_NONE = 0x00,
-		MBB_BUTTON1 = 0x01, // первая кнопка подтверждения
-		MBB_BUTTON2 = 0x02, // вторая кнопка отмены
-		MBB_MODAL = 0x10, // окно запускается в модальном режиме, !!! запускается только одно
+		MBB_NONE = FLAG_NONE,
+		MBB_BUTTON1 = FLAG(0), // первая кнопка подтверждения
+		MBB_BUTTON2 = FLAG(1), // вторая кнопка отмены
+		MBB_MODAL = FLAG(2), // окно запускается в модальном режиме, !!! запускается только одно
 	};
 	enum __WINDOW_EX_STYLE { // дополниельные стили элементов скинов
 		// общие флаги
-		WES_NONE = 0x0000, // простое окно
-		WES_TEXT = 0x0001, // элемент является насителем текста для всего элемента
-		WES_CLIENT = 0x0002, // элемент является клиетским окном
-		WES_ACTION1 = 0x0004,
-		WES_ACTION2 = 0x0008,
-		WES_ACTION3 = 0x0010,
-		WES_ACTION4 = 0x0020,
-		WES_ACTION5 = 0x0040,
-		WES_ACTION6 = 0x0080,
+		WES_NONE = FLAG_NONE, // простое окно
+		WES_TEXT = FLAG(0), // элемент является насителем текста для всего элемента
+		WES_CLIENT = FLAG(1), // элемент является клиетским окном
+		WES_ACTION1 = FLAG(2),
+		WES_ACTION2 = FLAG(3),
+		WES_ACTION3 = FLAG(4),
+		WES_ACTION4 = FLAG(5),
+		WES_ACTION5 = FLAG(6),
+		WES_ACTION6 = FLAG(7),
 		// флаги для WindowFrame
 		WES_CAPTION = 0x0010, // элемент является заголовком
 		WES_RESIZE = 0x0020, // элемент является ресайзером
@@ -66,12 +70,12 @@ namespace MyGUI {
 	};
 
 	enum __WINDOW_EVENT { // события на которое окно быдет посылать
-		WE_NONE = 0x00, // ничего не будет посылаться
-		WE_MOUSE_BUTTON=0x01, // нажата левая кнпка мыши
-		WE_MOUSE_FOCUS=0x02, // смена активности от курсора мыши
-		WE_MOUSE_MOVE=0x04, // движение мыши после захвата
-		WE_KEY_FOCUS=0x08, // смена фокуса для ввода клавиатуры
-		WE_KEY_BUTTON=0x10, // нажата клавиша
+		WE_NONE = FLAG_NONE, // ничего не будет посылаться
+		WE_MOUSE_BUTTON = FLAG(0), // нажата левая кнпка мыши
+		WE_MOUSE_FOCUS = FLAG(1), // смена активности от курсора мыши
+		WE_MOUSE_MOVE = FLAG(2), // движение мыши после захвата
+		WE_KEY_FOCUS = FLAG(3), // смена фокуса для ввода клавиатуры
+		WE_KEY_BUTTON = FLAG(4), // нажата клавиша
 		__WE_IS_ACTION = 0xFF, // !! для внутреннего использования , не юзать  |   есть ли реакция на события мыши и клавиатуры
 		// сообщения об опасности, посылаются всегда
 		WE_WARNING_ZORDER_MAX = 0x1000, // слои перекрывающихся окон подобрались к границе
@@ -155,6 +159,7 @@ namespace MyGUI {
 
 		virtual void onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus) {}; // смена фокуса ввода
 		virtual void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) {}; // нажата клавиша
+//		virtual void onKeyClick(MyGUI::Window * pWindow, int keyEvent) {}; // нажата и отпущена кнопка
 
 		virtual void onWarningEvent(MyGUI::Window * pWindow, uint16 uEvent) {}; // события предепреждающие ошибки
 		virtual void onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data) {}; // дополнительные события

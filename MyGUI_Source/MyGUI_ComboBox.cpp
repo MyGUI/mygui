@@ -149,8 +149,8 @@ namespace MyGUI {
 			// отсылаем позицию
 			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_COMBO_SELECT_ACCEPT, data);
 		} else if (uEvent == WOE_EDIT_KEY_ACCEPT) {
-			// ентер в поле редактирования, отсылаем -1
-			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_COMBO_SELECT_ACCEPT, (uint32)-1);
+			// ентер в поле редактирования, отсылаем 
+			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_COMBO_SELECT_ACCEPT, ITEM_NON_SELECT);
 		} else if (uEvent == WOE_LIST_SELECT_NONE) {
 			m_pList->show(false);
 			m_bIsListShow = false;

@@ -45,7 +45,7 @@ namespace MyGUI {
 		if (lpSkin->pStrSkinSelected.length()) m_paStrSkins[SKIN_STATE_SELECTED] = &lpSkin->pStrSkinSelected;
 
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
-		m_overlayContainer = static_cast<OverlayContainer*>(overlayManager.createOverlayElement("Panel", "MyGUI_OverlayElement_" + StringConverter::toString((uint32)this))); // в памяти не может быть два this с одним адресом, значит уникальный
+		m_overlayContainer = static_cast<PanelOverlayElement*>(overlayManager.createOverlayElement("Panel", "MyGUI_OverlayElement_" + StringConverter::toString((uint32)this))); // в памяти не может быть два this с одним адресом, значит уникальный
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_iPosX, m_iPosY);
 		m_overlayContainer->setDimensions(m_iSizeX, m_iSizeY);
@@ -198,6 +198,12 @@ namespace MyGUI {
 		if (!m_pEventCallback) return;
 		if (m_uEventCallback&WE_KEY_BUTTON) m_pEventCallback->onKeyButton(this, keyEvent, cText);
 	}
+
+//	void Window::_OnKeyButtonClick(int keyEvent)
+//	{
+//		if (!m_pEventCallback) return;
+//		if (m_uEventCallback&WE_KEY_BUTTON) m_pEventCallback->onKeyClick(this, keyEvent);
+//	}
 
 
 	void Window::show(bool bIsShow) // скрыть показать окно

@@ -18,6 +18,8 @@ public:
 	void onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data); // дополнительные события
 
 	MyGUI::Button * m_buttonExit;
+	MyGUI::Button * m_buttonSave;
+	MyGUI::Button * m_buttonLoad;
 
 	ComboBox * m_comboBackground; // фон
 	vector <string> m_straColour;
@@ -27,6 +29,7 @@ public:
 public:
 	void enter(bool bIsChangeState);
 	void exit();
+	void windowResize(); // уведомление об изменении размеров окна рендера
 
 };
 //===================================================================================

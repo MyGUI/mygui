@@ -371,6 +371,7 @@ namespace MyGUI {
 	{
 		detectLangShift(arg.key, false); // проверка на переключение языков
 		if (!m_currentEditWindow) return false;
+//		m_currentEditWindow->_OnKeyButtonClick(arg.key);
 		return true;
 	}
 

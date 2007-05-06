@@ -9,7 +9,7 @@ using namespace OIS;
 namespace MyGUI {
 
 	// нет выделенного элемента
-	#define __LIST_ITEM_NONSELECT 0xFFFF
+//	#define __LIST_ITEM_NONSELECT 0xFFFF
 
 	class GUI;
 
@@ -23,7 +23,7 @@ namespace MyGUI {
 		m_uStartWindow(0),
 		m_uCountVisible(0),
 		m_uOffsetDrawString(0),
-		m_uSelectItem(__LIST_ITEM_NONSELECT),
+		m_uSelectItem(ITEM_NON_SELECT),
 		pWindowSelect(0),
 		m_bIsFocus(false),
 		m_bIsVisibleScroll(false),
@@ -63,7 +63,7 @@ namespace MyGUI {
 			return;
 		}
 
-		if (m_uSelectItem == __LIST_ITEM_NONSELECT) m_uSelectItem = 0;
+		if (m_uSelectItem == ITEM_NON_SELECT) m_uSelectItem = 0;
 		else if (keyEvent == KC_UP) {
 			if (m_uSelectItem > 0) m_uSelectItem --;
 		} else if (keyEvent == KC_DOWN) {
@@ -150,7 +150,7 @@ namespace MyGUI {
 		if (pWindowSelect) pWindowSelect->setState(WS_NORMAL);
 		uint16 item = pWindow->m_uUserData + m_uOffsetDrawString;
 		if (item >= m_aString.size()) {
-			m_uSelectItem = __LIST_ITEM_NONSELECT;
+			m_uSelectItem = ITEM_NON_SELECT;
 			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_LIST_SELECT_NONE, 0);
 			return;
 		}
@@ -168,7 +168,7 @@ namespace MyGUI {
 
 	void List::onMouseDoubleClick(MyGUI::Window * pWindow) // двойной щелчек мыши
 	{
-		if (m_uSelectItem == __LIST_ITEM_NONSELECT) return;
+		if (m_uSelectItem == ITEM_NON_SELECT) return;
 		if (m_bIsOneClickActived) return; // уже посылалось при однократном щелчке
 		if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_LIST_SELECT_ACCEPT, m_uSelectItem);
 	}
@@ -346,7 +346,7 @@ namespace MyGUI {
 
 	void List::deleteStringAll(bool bIsRedraw) // удаляет все строки
 	{
-		m_uSelectItem = __LIST_ITEM_NONSELECT; // сбрасываем выделенный элемент
+		m_uSelectItem = ITEM_NON_SELECT; // сбрасываем выделенный элемент
 		uint16 size = (uint16)m_aString.size();
 		if (size == 0) return;
 		for (uint16 pos=0; pos<size; pos++) delete m_aString[pos];

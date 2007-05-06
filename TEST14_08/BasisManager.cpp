@@ -16,7 +16,7 @@ BasisManager::BasisManager() :
 	mWallpaperOverlay(0),
 	m_exit(false),
 	mFadeState(0),
-	m_bIsMouseReleased(false) // если вы не модифицировали исходник, то ставте false
+	m_bIsMouseReleased(true) // если вы не модифицировали исходник, то ставте false
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";

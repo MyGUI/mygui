@@ -29,6 +29,7 @@ namespace MyGUI {
 		virtual void _OnMouseButtonPressed(bool bIsLeftButtonPressed); // вызывается при нажатии клавиши
 		virtual void _OnMouseButtonClick(bool bIsDouble); // вызывается при нажатии клавиши и отпускании на том же элементе
 		virtual void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
+//		virtual void _OnKeyButtonClick(int keyEvent); // вызывается при отпускании клавиши клавы
 		virtual void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
 		virtual void _OnUpZOrder() {}; // вызывается при активации окна
 
@@ -110,7 +111,7 @@ namespace MyGUI {
 
 
 		Overlay* m_overlay; // оверлей этого окна
-		OverlayContainer* m_overlayContainer; // оверлей элемента
+		PanelOverlayElement * m_overlayContainer; // оверлей элемента
 		OverlayContainer* m_overlayCaption; // оверлей текста
 		vector<MyGUI::Window*>m_aWindowChild; // дети окна
 		Window * m_pWindowFother; // отец окна
