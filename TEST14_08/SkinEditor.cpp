@@ -60,6 +60,8 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 
 				if (!find) {
 					m_comboBasisWindowName->addString(strName);
+					m_comboBasisAddedSkin1->addString(strName);
+					m_comboBasisAddedSkin2->addString(strName);
 					mWindowInfo.push_back(_tag_WINDOW_DATA(strName));
 					m_comboBasisWindowName->setString(m_comboBasisWindowName->getStringCount()-1);
 					m_pCurrentDataWindow = &mWindowInfo.back();
@@ -106,13 +108,13 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 			updateStateInfo();
 
 		} else if (pWindow == m_comboBasisAddedSkin1) {
-			m_pCurrentDataWindow->uAddedSkin1 = data;
+			m_pCurrentDataWindow->strAddedSkin1 = m_comboBasisAddedSkin1->getWindowText();
 
 		} else if (pWindow == m_comboBasisAddedSkin2) {
-			m_pCurrentDataWindow->uAddedSkin2 = data;
+			m_pCurrentDataWindow->strAddedSkin2 = m_comboBasisAddedSkin2->getWindowText();
 
 		} else if (pWindow == m_comboBasisFont) {
-			m_pCurrentDataWindow->uFont = data;
+			m_pCurrentDataWindow->strFont = m_comboBasisFont->getWindowText();
 
 		} else if (pWindow == m_comboBasisColour) {
 			m_pCurrentDataWindow->strColour = m_comboBasisColour->getWindowText();
@@ -120,8 +122,10 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 		// выбор материала
 		} else if (pWindow == m_comboMaterialName) {
 			if (m_pCurrentDataSkin) {
-				m_pCurrentDataWindow->uMaterial = data;
-				if (!fillMaterialWindow()) m_comboMaterialName->setString(0);
+				if (!fillMaterialWindow()) {
+					m_comboMaterialName->setString(0);
+					m_pCurrentDataWindow->strMaterialName = "";
+				} else m_pCurrentDataWindow->strMaterialName = m_comboMaterialName->getWindowText();
 			} else m_comboMaterialName->setString(0); // низя
 		}
 
@@ -158,7 +162,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 		}
 
 
-	// показываем окно стилей
+	// скрываем окно стилей
 	} else if (uEvent == WOE_FRAME_CLOSE) {
 		if (pWindow == m_windowStateFlags) m_windowStateFlags->show(false);
 
@@ -190,6 +194,10 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 				mWindowInfo[ID] = mWindowInfo[mWindowInfo.size()-1];
 				mWindowInfo.pop_back();
 				m_comboBasisWindowName->deleteString(ID);
+				m_comboBasisAddedSkin1->deleteString(ID+1);
+				m_comboBasisAddedSkin1->setString(0);
+				m_comboBasisAddedSkin2->deleteString(ID+1);
+				m_comboBasisAddedSkin2->setString(0);
 				
 				if (mWindowInfo.size() > 0) m_pCurrentDataWindow = &mWindowInfo[0];
 				else m_pCurrentDataWindow = 0;
@@ -413,14 +421,16 @@ void SkinEditor::updateWindowInfo()
 
 	if (!m_pCurrentDataWindow) return; // на всякий
 
-	// загружаем новые значения
-	m_comboBasisAddedSkin1->setString(m_pCurrentDataWindow->uAddedSkin1);
-	m_comboBasisAddedSkin2->setString(m_pCurrentDataWindow->uAddedSkin2);
+	if (m_pCurrentDataWindow->strAddedSkin1.empty()) m_comboBasisAddedSkin1->setWindowText(NO_SET);
+	else m_comboBasisAddedSkin1->setWindowText(m_pCurrentDataWindow->strAddedSkin1);
+	if (m_pCurrentDataWindow->strAddedSkin2.empty()) m_comboBasisAddedSkin2->setWindowText(NO_SET);
+	else m_comboBasisAddedSkin2->setWindowText(m_pCurrentDataWindow->strAddedSkin2);
+	m_comboBasisFont->setWindowText(m_pCurrentDataWindow->strFont);
+
 	m_editBasisData1->setWindowText(StringConverter::toString(m_pCurrentDataWindow->uAddedData1));
 	m_editBasisData2->setWindowText(StringConverter::toString(m_pCurrentDataWindow->uAddedData2));
-	m_comboBasisFont->setString(m_pCurrentDataWindow->uFont);
 	m_comboBasisColour->setWindowText(m_pCurrentDataWindow->strColour);
-	m_comboMaterialName->setString(m_pCurrentDataWindow->uMaterial);
+	m_comboMaterialName->setWindowText(m_pCurrentDataWindow->strMaterialName);
 
 	// очищаем поля
 	m_comboSabSkinName->deleteStringAll();
@@ -554,15 +564,19 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 
 		fp << "\n" << BLOCK_WINDOW_NAME << " \t" << mWindowInfo[index].strElementName << "\n{";
 
-		if (window->uAddedSkin1) { fp << "\n\t" << VALUE_WINDOW_ADDED_SKIN1 << " \t" << basis.mGUI->m_strSkinNames[window->uAddedSkin1]; }
-		if (window->uAddedSkin2) { fp << "\n\t" << VALUE_WINDOW_ADDED_SKIN2 << " \t" << basis.mGUI->m_strSkinNames[window->uAddedSkin2]; }
+		if (!window->strAddedSkin1.empty() && (window->strAddedSkin1 != NO_SET)) {
+			fp << "\n\t" << VALUE_WINDOW_ADDED_SKIN1 << " \t" << window->strAddedSkin1;
+		}
+		if (!window->strAddedSkin2.empty() && (window->strAddedSkin2 != NO_SET)) {
+			fp << "\n\t" << VALUE_WINDOW_ADDED_SKIN2 << " \t" << window->strAddedSkin2;
+		}
 
 		if (window->uAddedData1) { fp << "\n\t" << VALUE_WINDOW_ADDED_DATA1 << " \t" << StringConverter::toString(window->uAddedData1); }
 		if (window->uAddedData2) { fp << "\n\t" << VALUE_WINDOW_ADDED_DATA2 << " \t" << StringConverter::toString(window->uAddedData2); }
 
-		if (window->uFont) {fp << "\n\t" << VALUE_WINDOW_FONT << " \t" << basis.mGUI->m_strFontNames[window->uFont];	}
+		if (!window->strFont.empty()) {fp << "\n\t" << VALUE_WINDOW_FONT << " \t" << window->strFont;}
 		if (!window->strColour.empty()) { fp << "\n\t" << VALUE_WINDOW_COLOUR << " \t" << window->strColour; }
-		if (window->uMaterial) { fp << "\n\t" << VALUE_WINDOW_MATERIAL << " \t\"" << m_strMaterialName[window->uMaterial-1] << "\""; }
+		if (!window->strMaterialName.empty()) { fp << "\n\t" << VALUE_WINDOW_MATERIAL << " \t\"" << window->strMaterialName << "\""; }
 
 		// сначала проходим и сохраняем только именна если уже было сохранение
 		for (uint8 pos=0; pos<window->sabSkins.size(); pos++) {
@@ -697,10 +711,10 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 		window->strColour = "";
 		window->uAddedData1 = 0;
 		window->uAddedData2 = 0;
-		window->uAddedSkin1 = 0;
-		window->uAddedSkin2 = 0;
-		window->uFont = 0;
-		window->uMaterial = 0;
+//		window->uAddedSkin1 = 0;
+//		window->uAddedSkin2 = 0;
+//		window->uFont = 0;
+//		window->uMaterial = 0;
 
 		string strValueName;
 		uint32 uValue;
@@ -708,46 +722,29 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 			if (!ini.getValueName(strValueName)) continue;
 			
 			if (strValueName == VALUE_WINDOW_ADDED_SKIN1) {
-				if (ini.getValue(strValue)) {
-					for (uint16 pos=0; pos<basis.mGUI->m_strSkinNames.size(); pos++) {
-						if (strValue == basis.mGUI->m_strSkinNames[pos].c_str()) {
-							window->uAddedSkin1 = pos;
-							pos = (uint16)basis.mGUI->m_strSkinNames.size(); // выходим
-						}
-					}
-				}
+				if (ini.getValue(strValue)) window->strAddedSkin1 = strValue;
+
 			} else if (strValueName == VALUE_WINDOW_ADDED_SKIN2) {
-				if (ini.getValue(strValue)) {
-					for (uint16 pos=0; pos<basis.mGUI->m_strSkinNames.size(); pos++) {
-						if (strValue == basis.mGUI->m_strSkinNames[pos]) {
-							window->uAddedSkin2 = pos;
-							pos = (uint16)basis.mGUI->m_strSkinNames.size(); // выходим
-						}
-					}
-				}
+				if (ini.getValue(strValue)) window->strAddedSkin2 = strValue;
+
 			} else if (strValueName == VALUE_WINDOW_ADDED_DATA1) {
 				if (ini.getValue(uValue)) {
 					if (uValue <= 255) window->uAddedData1 = uValue;
 				}
+
 			} else if (strValueName == VALUE_WINDOW_ADDED_DATA2) {
 				if (ini.getValue(uValue)) {
 					if (uValue <= 255) window->uAddedData2 = uValue;
 				}
+
 			} else if (strValueName == VALUE_WINDOW_FONT) {
-				if (ini.getValue(uValue)) {
-					if (uValue < __FONT_COUNT) window->uFont = uValue;
-				}
+				if (ini.getValue(strValue)) window->strFont = strValue;
+
 			} else if (strValueName == VALUE_WINDOW_COLOUR) {
 				if (ini.getValue(strValue)) window->strColour = strValue;
+
 			} else if (strValueName == VALUE_WINDOW_MATERIAL) {
-				if (ini.getValue(strValue)) {
-					for (uint16 pos=0; pos<m_strMaterialName.size(); pos++) { // ищем такой материал
-						if (m_strMaterialName[pos] == strValue) {
-							window->uMaterial = pos+1;
-							pos = (uint16)m_strMaterialName.size();
-						}
-					}
-				}
+				if (ini.getValue(strValue)) window->strMaterialName = strValue;
 
 			} else if (strValueName == SECTION_SUB_SKIN) { // уже загруженные скины
 				if (ini.getValue(strValue)) {

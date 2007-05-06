@@ -1,20 +1,38 @@
 
-windowSkin 	FIDE
+windowSkin 	FADE
 {
-	added_data1 	12
+	added_skin1 	FADE
+	added_skin2 	FADE
+	added_data1 	1
 	added_data2 	1
-	font 	FONT_LARGE
+	font 	FONT_DEFAULT
 	colour 	COLOUR_WHITE
-	material 	"MyGUI_edit_s1"
+	material 	"MyGUI_pointer"
 
-	subSkinMain 	fide
+	subSkinMain 	test1
 	{
-		offset 	11  12  13  14
+		offset 	1  2  3  4
 
 		event 	WE_KEY_FOCUS  WE_MOUSE_FOCUS  
-		aligin 	WAT_CUT_LEFT  WA_BOTTOM  
-		style 	WES_ACTION1  WES_ACTION4  WES_COMBO_BUTTON  WES_EDIT_CURSOR  WES_RESIZE  WES_VSCROLL_DOWN  
+		aligin 	WAT_BOTTOM  WAT_MULTI_LINE  WAT_RIGHT  
+		style 	WES_ACTION1  WES_ACTION3  WES_ACTION5  WES_BUTTON  WES_CAPTION  WES_CLOSE  WES_COMBO  WES_EDIT  WES_LIST_HIDE_SCROLL  WES_TAB_TOP  WES_VSCROLL_TRACK  WES_VSCROLL_UP  
 
-		deactived_position 	1  1  12  12
+		deactived_position 	0  3  28  24
+		normal_position 	2  2  3  3
+		pressed_position 	3  3  3  3
+		actived_position 	4  4  3  3
+		selected_position 	5  5  3  3
 	}
+}
+
+windowSkin 	BUTTON
+{
+	added_skin1 	BUTTON
+	added_skin2 	BUTTON
+}
+
+windowSkin 	EDIT
+{
+	added_skin1 	EDIT
+	added_skin2 	EDIT
 }

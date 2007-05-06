@@ -47,13 +47,12 @@ class SkinEditor : public MyGUI::EventCallback
 
 		typedef struct _tag_WINDOW_DATA {
 			String strElementName; // имя элемента
-			uint8 uAddedSkin1; // дополнительные скины
-			uint8 uAddedSkin2; // дополнительные скины
+			String strAddedSkin1; // дополнительные скины
+			String strAddedSkin2; // дополнительные скины
 			uint8 uAddedData1; // дополнительные данные
 			uint8 uAddedData2; // дополнительные данные
-			uint8 uFont; // номер шрифта
+			String strFont; // шрифт
 			String strColour; // название цвета
-			uint16 uMaterial; // материал на весь элемент
 
 			String strMaterialName; // имя материала
 			uint16 sizeTextureX; // размер текстуры
@@ -61,7 +60,7 @@ class SkinEditor : public MyGUI::EventCallback
 
 			vector <LP_SUB_SKIN_DATA> sabSkins; // указатели на сабскины
 			_tag_WINDOW_DATA::_tag_WINDOW_DATA() {assert(0);};
-			_tag_WINDOW_DATA::_tag_WINDOW_DATA(const String & strName) : strElementName(strName), uAddedSkin1(0), uAddedSkin2(0), uAddedData1(0), uAddedData2(0), uFont(0), uMaterial(0), sizeTextureX(0), sizeTextureY(0) {};
+			_tag_WINDOW_DATA::_tag_WINDOW_DATA(const String & strName) : strElementName(strName), uAddedData1(0), uAddedData2(0), sizeTextureX(0), sizeTextureY(0) {};
 		} * LP_WINDOW_DATA;
 
 
