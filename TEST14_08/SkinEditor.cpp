@@ -37,8 +37,10 @@ const uint32 FLAG_ALIGIN = 0x40000;
 //===================================================================================
 void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data) // дополнительные события
 {
+
 	// выбор в комбо боксе
 	if (uEvent == WOE_COMBO_SELECT_ACCEPT) {
+
 
 		if (pWindow == m_comboBasisWindowName) {
 
@@ -66,17 +68,8 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 
 			}
 
-			return;
-		} // if (pWindow == m_comboBasisWindowName) {
-
-	} // if (uEvent == WOE_COMBO_SELECT_ACCEPT) {
-
-
-	// выбор в комбо боксе
-	if (uEvent == WOE_COMBO_SELECT_ACCEPT) {
-		
-		// выбо саб скина
-		if (pWindow == m_comboSabSkinName) {
+			// выбо саб скина
+		} else  if (pWindow == m_comboSabSkinName) {
 
 			if (data != MyGUI::ITEM_NON_SELECT) {
 				m_pCurrentDataSkin = m_pCurrentDataWindow->sabSkins[data];
@@ -619,8 +612,10 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			if (!skin->event_info) fp << "WE_NONE";
 			else {
 				for (map<String, uint16>::iterator iter = basis.mGUI->m_mapFlagEvent.begin(); iter != basis.mGUI->m_mapFlagEvent.end(); iter ++) {
-					if ( ((*iter).second & skin->event_info) != (*iter).second ) continue;
-					fp << (*iter).first << "  ";
+					if ( iter->second & skin->event_info ) {
+						if ( ( iter->second & skin->event_info ) == iter->second )
+							fp << iter->first << "  ";
+					}
 				}
 			}
 
@@ -629,8 +624,10 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			if (!skin->aligin) fp << "WA_NONE";
 			else {
 				for (map<String, uint16>::iterator iter = basis.mGUI->m_mapFlagAligin.begin(); iter != basis.mGUI->m_mapFlagAligin.end(); iter ++) {
-					if ( ((*iter).second & skin->aligin) != (*iter).second ) continue;
-					fp << (*iter).first << "  ";
+					if ( iter->second & skin->aligin ) {
+						if ( ( iter->second & skin->aligin ) == iter->second )
+							fp << iter->first << "  ";
+					}
 				}
 			}
 
@@ -639,8 +636,10 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			if (!skin->style) fp << "WES_NONE";
 			else {
 				for (map<String, uint16>::iterator iter = basis.mGUI->m_mapFlagStyle.begin(); iter != basis.mGUI->m_mapFlagStyle.end(); iter ++) {
-					if ( ((*iter).second & skin->style) != (*iter).second ) continue;
-					fp << (*iter).first << "  ";
+					if ( iter->second & skin->style ) {
+						if ( ( iter->second & skin->style ) == iter->second )
+							fp << iter->first << "  ";
+					}
 				}
 			}
 
@@ -691,12 +690,10 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 			}
 		}
 		if (find) continue; // такой скин уже есть
-//		if (ID >= mWindowInfo.size()) continue; // враг не пройдет
 
 		mWindowInfo.push_back(_tag_WINDOW_DATA(strValue));
 		LP_WINDOW_DATA window = &mWindowInfo.back();
 		// сбрасываем все данные
-//		while (window->sabSkins.size()) deleteSkinData(window->sabSkins[0]);
 		window->strColour = "";
 		window->uAddedData1 = 0;
 		window->uAddedData2 = 0;

@@ -1,156 +1,20 @@
 
-windowSkin 	SKIN_FADE
+windowSkin 	FIDE
 {
+	added_data1 	12
+	added_data2 	1
+	font 	FONT_LARGE
 	colour 	COLOUR_WHITE
+	material 	"MyGUI_edit_s1"
 
-	subSkinMain 	dermo
+	subSkinMain 	fide
 	{
-		offset 	0  0  0  0
+		offset 	11  12  13  14
 
-		event 	WE_NONE
-		aligin 	WAT_NONE  WA_CENTER  WA_HCENTER  WA_NONE  WA_TOP  WA_VCENTER  
-		style 	WES_NONE
+		event 	WE_KEY_FOCUS  WE_MOUSE_FOCUS  
+		aligin 	WAT_CUT_LEFT  WA_BOTTOM  
+		style 	WES_ACTION1  WES_ACTION4  WES_COMBO_BUTTON  WES_EDIT_CURSOR  WES_RESIZE  WES_VSCROLL_DOWN  
 
-	}
-
-	subSkin 	dermo32
-	{
-		offset 	0  0  0  0
-
-		event 	WE_KEY_FOCUS  WE_NONE  
-		aligin 	WAT_ADD_DOT  WAT_NONE  WA_BOTTOM  WA_CENTER  WA_HCENTER  WA_NONE  WA_VCENTER  
-		style 	WES_ACTION2  WES_NONE  
-
-		deactived_position 	22  29  131  26
-	}
-
-	subSkin 	dermo22
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo23
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo24
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo25
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo26
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo27
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo28
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo29
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo30
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo31
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo33
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo34
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
-	}
-
-	subSkin 	dermo35
-	{
-		offset 	0  0  0  0
-
-		event 	WE_NONE
-		aligin 	WA_NONE
-		style 	WES_NONE
-
+		deactived_position 	1  1  12  12
 	}
 }

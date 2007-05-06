@@ -74,7 +74,6 @@ class SkinEditor : public MyGUI::EventCallback
 		void destroyEditor(); // удаляет окно редактирования скинов
 		void loadSkin(const String & strFileName); // сохраняет скин
 		void saveSkin(const String & strFileName); // загружает скин
-//		void resizeWindow(); // изменились размеры окна
 
 		SkinEditor::LP_SUB_SKIN_DATA findSkinData(const String & strName, bool create = true); // ищет данные если нет то создает
 		void deleteSkinData(SkinEditor::LP_SUB_SKIN_DATA lpDataSkin); // удаляет саб скин
@@ -93,8 +92,6 @@ class SkinEditor : public MyGUI::EventCallback
 		void setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY); // сдвигаем рамку
 
 
-//		Edit * m_editInfo; // окно информации
-
 		WindowFrame * m_mainWindow; // главное окно инструментов
 		ComboBox * m_comboBasisWindowName; // главный скин окна
 
@@ -107,8 +104,6 @@ class SkinEditor : public MyGUI::EventCallback
 		ComboBox * m_comboMaterialName; // материал для данного скина
 
 		ComboBox * m_comboSabSkinName; // саб скины окна
-//		Button * m_buttonSabSkinCreate; // добавить саб скин
-//		Button * m_buttonSabSkinDelete; // удалить саб скин
 		Button * m_buttonSabSkinStyle; // стили скина
 
 		ComboBox * m_comboSabSkinState; // состояние скина
