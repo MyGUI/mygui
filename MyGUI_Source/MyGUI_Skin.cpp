@@ -347,7 +347,7 @@ namespace MyGUI {
 					}
 				};
 
-				if (ini.jampBlock(true, false)) {
+				if (ini.jumpBlock(true, false)) {
 					while (ini.seekNextBlock()) {
 
 						__LP_MYGUI_SKIN_INFO skin = new __tag_MYGUI_SKIN_INFO;
@@ -425,7 +425,7 @@ namespace MyGUI {
 					delete window;
 				}
 
-				ini.jampBlock(false, false); // выпрыгиваем
+				ini.jumpBlock(false, false); // выпрыгиваем
 
 			// загрузка шрифтов окон -------------------------------------------------------------------------------------------------
 			} else if (ini.getBlockType() == BLOCK_FONT_NAME) {

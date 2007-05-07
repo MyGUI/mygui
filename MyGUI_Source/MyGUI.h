@@ -59,7 +59,7 @@ typedef char int8;
 	#define __ASSERT(mygui_exp)
 #endif
 //=========================================================================================
-#include "loadINI.h"
+#include "MyGUI_LoadINI.h"
 #include "MyGUI_Skin.h"
 #include "MyGUI_GUI.h"
 #include "MyGUI_Window.h"

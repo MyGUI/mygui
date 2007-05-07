@@ -1,7 +1,7 @@
 //===================================================================================
 #include "SkinEditor.h"
 #include "BasisManager.h"
-#include "MyGUI_Source\\loadINI.h"
+#include "MyGUI_Source\\MyGUI_LoadINI.h"
 //===================================================================================
 using namespace Ogre;
 using namespace MyGUI;
@@ -762,7 +762,7 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 
 
 		// теперь проверяем внутрение блоки
-		if (ini.jampBlock(true, false)) { // впрыгиваем в блок
+		if (ini.jumpBlock(true, false)) { // впрыгиваем в блок
 
 			bool bIsMain;
 			while (ini.seekNextBlock()) {
@@ -824,9 +824,9 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 
 			}; // while (ini.seekNextBlock()) {
 
-		} // if (ini.jampBlock(true, false)) {
+		} // if (ini.jumpBlock(true, false)) {
 
-		ini.jampBlock(false, false); // выпрыгиваем
+		ini.jumpBlock(false, false); // выпрыгиваем
 
 	}; // while (ini.seekNextBlock()) {
 

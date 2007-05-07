@@ -661,7 +661,7 @@ void SkinEditor::loadSkin() // загружает скин
 
 
 		// теперь проверяем внутрение блоки
-		if (ini.jampBlock(true, false)) { // впрыгиваем в блок
+		if (ini.jumpBlock(true, false)) { // впрыгиваем в блок
 
 			bool bIsMain;
 			while (ini.seekNextBlock()) {
@@ -723,9 +723,9 @@ void SkinEditor::loadSkin() // загружает скин
 
 			}; // while (ini.seekNextBlock()) {
 
-		} // if (ini.jampBlock(true, false)) {
+		} // if (ini.jumpBlock(true, false)) {
 
-		ini.jampBlock(false, false); // выпрыгиваем
+		ini.jumpBlock(false, false); // выпрыгиваем
 
 	}; // while (ini.seekNextBlock()) {
 	*/
