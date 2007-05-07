@@ -34,6 +34,8 @@ namespace MyGUI {
 		inline uint16 getCurrentIndex() {return m_pList->m_uSelectItem;}; // возвращает текущее положение
 		inline void deleteStringAll() {m_pList->deleteStringAll();setWindowText("");}; // удаляет все строки
 		inline uint16 getStringCount() {return (uint16)m_pList->m_aString.size();}; // возвращает колличество строк
+
+		virtual void setWindowText(const DisplayString & strText); // устанавливает текст окна
 		
 		Edit * m_pEdit; // едит для класса
 		List * m_pList; // всплывающий список

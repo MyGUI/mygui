@@ -175,6 +175,13 @@ namespace MyGUI {
 		return m_pList->getString(index); // внимание, если индекс больше, то вернет адрес статической пустой строки
 	}
 
+	void ComboBox::setWindowText(const DisplayString & strText)
+	{
+		if (m_pEdit) m_pEdit->setWindowText(strText);
+		else Window::setWindowText(strText);
+		m_pList->m_uSelectItem = ITEM_NON_SELECT;
+	}
+
 	MyGUI::ComboBox * GUI::createComboBox(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback)
 	{
 		__ASSERT(uSkin < __SKIN_COUNT); // низя
