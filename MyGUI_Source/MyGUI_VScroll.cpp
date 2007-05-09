@@ -1,16 +1,15 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_VScroll.h"
+#include "MyGUI_GUI.h"
+
 using namespace Ogre;
 using namespace std;
-//=========================================================================================
+
 namespace MyGUI {
 
 	class GUI;
 
-	VScroll::VScroll(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, gui, uOverlay, pWindowFother),
+	VScroll::VScroll(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent),
 		m_pWindowTrack(0),
 		m_uSizeScroll(0),
 		m_uPosScroll(0)
@@ -29,21 +28,22 @@ namespace MyGUI {
 		if (m_pEventCallback) m_pEventCallback->onKeyFocus(this, bIsFocus);
 	}
 
-	void VScroll::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iFotherPosX, int16 iFotherPosY) // уведомление о движении, но не движение
+	void VScroll::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY) // уведомление о движении, но не движение
 	{
 		if (m_uSizeScroll < 2) return;
 		if (!m_pWindowTrack) return;
 		// узнаем текущее положение курсора
-		int16 pos = m_GUI->m_overlayContainerMouse->getTop() + m_GUI->m_iCurrentOffsetCursorY - m_iRealMousePosY;
+		int16 pos = GUI::getSingleton()->m_overlayContainerMouse->getTop() + 
+		            GUI::getSingleton()->m_iCurrentOffsetCursorY - m_iRealMousePosY;
 		// границы
 		if (pos < m_uHeightButton) pos = m_uHeightButton;
-		else if (pos > (m_pWindowTrack->m_pWindowFother->m_iSizeY - m_uHeightButton - m_uHeightTrack)) {
-			pos = (m_pWindowTrack->m_pWindowFother->m_iSizeY - m_uHeightButton - m_uHeightTrack);
+		else if (pos > (m_pWindowTrack->m_pWindowParent->m_iSizeY - m_uHeightButton - m_uHeightTrack)) {
+			pos = (m_pWindowTrack->m_pWindowParent->m_iSizeY - m_uHeightButton - m_uHeightTrack);
 		}
 		// передвигаем
 		m_pWindowTrack->move(m_pWindowTrack->m_iPosX, pos);
 		// если позиция изменилась, то отсылаем сообщение
-		int16 track = ((pos-m_uHeightButton) * (m_uSizeScroll)) / (m_pWindowTrack->m_pWindowFother->m_iSizeY - m_uHeightButtonAll);
+		int16 track = ((pos-m_uHeightButton) * (m_uSizeScroll)) / (m_pWindowTrack->m_pWindowParent->m_iSizeY - m_uHeightButtonAll);
 		if (track == m_uSizeScroll) track --;
 		if (track != m_uPosScroll) {
 			m_uPosScroll = track;
@@ -61,7 +61,7 @@ namespace MyGUI {
 				pWindow->m_overlayContainer->setMaterialName(*pWindow->m_paStrSkins[SKIN_STATE_ACTIVED]);
 				setScrollPos(m_uPosScroll);
 			}
-			m_iRealMousePosY = m_GUI->m_overlayContainerMouse->getTop() + m_GUI->m_iCurrentOffsetCursorY - m_pWindowTrack->m_iPosY;
+			m_iRealMousePosY = GUI::getSingleton()->m_overlayContainerMouse->getTop() + GUI::getSingleton()->m_iCurrentOffsetCursorY - m_pWindowTrack->m_iPosY;
 			return;
 		}
 
@@ -90,7 +90,7 @@ namespace MyGUI {
 	void VScroll::changePosition(bool bIsUp) // просчет позиции, прорисовка и посылка уведомлений
 	{
 		if (m_uSizeScroll < 2) return;
-		int16 pos = m_pWindowTrack->m_pWindowFother->m_iSizeY - m_uHeightButtonAll;
+		int16 pos = m_pWindowTrack->m_pWindowParent->m_iSizeY - m_uHeightButtonAll;
 		if (bIsUp) {
 			if (m_uPosScroll != 0) m_uPosScroll --;
 		} else {
@@ -163,23 +163,28 @@ namespace MyGUI {
 			}
 		}
 	}
-
-	MyGUI::VScroll * GUI::createVScroll(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback) // создает скролл
+	
+	VScroll *VScroll::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
 	{
 		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[uSkin];
-		VScroll * pWindow = new VScroll(pSkin->subSkins[0], this, uOverlay, 0);
+		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		
+		VScroll * pWindow = new VScroll(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+        
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			Window * pChild;
 			 // создаем дочернии окна скины
 			if (pSkin->subSkins[pos]->exdata & WES_VSCROLL_TRACK) {
 				// элемент является скролом, прицепляем к клиентской области
-				pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow->m_pWindowClient);
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow->m_pWindowClient);
 				pWindow->m_pWindowTrack = pChild;
 				pChild->show(false);
 			} else {
 				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			}
 
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
@@ -189,44 +194,10 @@ namespace MyGUI {
 		pWindow->m_uHeightTrack = __WINDOW_DATA3(pSkin);
 		pWindow->m_uHeightButton = __WINDOW_DATA4(pSkin);
 		pWindow->m_uHeightButtonAll = (pWindow->m_uHeightButton << 1) + pWindow->m_uHeightTrack;
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
-		return pWindow;
-	}
-
-	MyGUI::VScroll * Window::createVScroll(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback) // создает скролл
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		VScroll * pWindow = new VScroll(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, m_pWindowClient);
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			Window * pChild;
-			 // создаем дочернии окна скины
-			if (pSkin->subSkins[pos]->exdata & WES_VSCROLL_TRACK) {
-				// элемент является скролом, прицепляем к клиентской области
-				pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow->m_pWindowClient);
-				pWindow->m_pWindowTrack = pChild;
-				pChild->show(false);
-			} else {
-				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow);
-			}
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild; // клиентское окно для ползунка
-		}
-		// размеры кнопок скрола
-		pWindow->m_uHeightTrack = __WINDOW_DATA3(pSkin);
-		pWindow->m_uHeightButton = __WINDOW_DATA4(pSkin);
-		pWindow->m_uHeightButtonAll = (pWindow->m_uHeightButton << 1) + pWindow->m_uHeightTrack;
-		pWindow->m_uAligin |= uAligin;
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
+		pWindow->m_uAlign |= uAlign;
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;
 	}
 

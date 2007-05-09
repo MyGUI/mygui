@@ -1,24 +1,23 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_ComboBox.h"
+#include "MyGUI_OIS.h"
+#include "MyGUI_GUI.h"
+#include "MyGUI_Edit.h"
+
 using namespace Ogre;
 using namespace std;
 using namespace OIS;
-//=========================================================================================
-namespace MyGUI {
 
-	class GUI;
+namespace MyGUI {
 
 	#define __COMBO_CALC_SHOW_LIST { \
 		m_pList->size(m_iSizeX, m_pList->m_iSizeY); \
-		int16 _iPosY = ((int16)(m_overlayContainer->_getDerivedTop()*m_GUI->m_uHeight)) + 1; \
-		if ((_iPosY+m_iSizeY+m_pList->m_iSizeY) >= m_GUI->m_uHeight) m_pList->move(((int16)(m_overlayContainer->_getDerivedLeft()*m_GUI->m_uWidth))+1, _iPosY-m_pList->m_iSizeY); \
-		else m_pList->move(((int16)(m_overlayContainer->_getDerivedLeft()*m_GUI->m_uWidth))+1, _iPosY+m_iSizeY); \
+		int16 _iPosY = ((int16)(m_overlayContainer->_getDerivedTop()*GUI::getSingleton()->m_uHeight)) + 1; \
+		if ((_iPosY+m_iSizeY+m_pList->m_iSizeY) >= GUI::getSingleton()->m_uHeight) m_pList->move(((int16)(m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->m_uWidth))+1, _iPosY-m_pList->m_iSizeY); \
+		else m_pList->move(((int16)(m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->m_uWidth))+1, _iPosY+m_iSizeY); \
 	}
 
-	ComboBox::ComboBox(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, gui, uOverlay, pWindowFother),
+	ComboBox::ComboBox(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent),
 		m_pList(0),
 		m_pEdit(0),
 		m_bIsListShow(false),
@@ -28,7 +27,7 @@ namespace MyGUI {
 
 	ComboBox::~ComboBox()
 	{
-		m_GUI->destroyWindow(m_pList);
+		GUI::getSingleton()->destroyWindow(m_pList);
 	}
 
 	void ComboBox::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
@@ -76,14 +75,14 @@ namespace MyGUI {
 				__COMBO_CALC_SHOW_LIST;
 
 				if (!m_bHideList) {
-					m_GUI->setKeyFocus(m_pList);
+					GUI::getSingleton()->setKeyFocus(m_pList);
 					m_pList->show(true);
 					m_bIsListShow = true;
 				} else m_bHideList = false;
 			}
 		}
 
-		if (!m_bIsListShow) m_GUI->setKeyFocus(this);
+		if (!m_bIsListShow) GUI::getSingleton()->setKeyFocus(this);
 
 	}
 
@@ -114,12 +113,12 @@ namespace MyGUI {
 			__COMBO_CALC_SHOW_LIST;
 			// отображаем
 			m_pList->show(true);
-			m_GUI->setKeyFocus(m_pList);
+			GUI::getSingleton()->setKeyFocus(m_pList);
 		} else if (keyEvent == KC_ESCAPE) { // при эскейп скрываем список
 			m_pList->show(false);
 			m_bIsListShow = false;
-			if (m_pEdit) m_GUI->setKeyFocus(m_pEdit);
-			else m_GUI->setKeyFocus(this);
+			if (m_pEdit) GUI::getSingleton()->setKeyFocus(m_pEdit);
+			else GUI::getSingleton()->setKeyFocus(this);
 		}
 	}
 
@@ -131,7 +130,7 @@ namespace MyGUI {
 			__COMBO_CALC_SHOW_LIST;
 			// отображаем
 			m_pList->show(true);
-			m_GUI->setKeyFocus(m_pList);
+			GUI::getSingleton()->setKeyFocus(m_pList);
 		}
 	}
 
@@ -144,8 +143,8 @@ namespace MyGUI {
 			if (m_pEdit) {
 				// выравнивание курсора
 				m_pEdit->size(m_pEdit->m_iSizeX, m_pEdit->m_iSizeY);
-				m_GUI->setKeyFocus(m_pEdit);
-			} else m_GUI->setKeyFocus(this);
+				GUI::getSingleton()->setKeyFocus(m_pEdit);
+			} else GUI::getSingleton()->setKeyFocus(this);
 			// отсылаем позицию
 			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_COMBO_SELECT_ACCEPT, data);
 		} else if (uEvent == WOE_EDIT_KEY_ACCEPT) {
@@ -181,85 +180,53 @@ namespace MyGUI {
 		else Window::setWindowText(strText);
 		m_pList->m_uSelectItem = ITEM_NON_SELECT;
 	}
-
-	MyGUI::ComboBox * GUI::createComboBox(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback)
+	
+	ComboBox *ComboBox::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
 	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[uSkin];
-		ComboBox * pWindow = new ComboBox(pSkin->subSkins[0], this, uOverlay, 0);
+	    __ASSERT(uSkin < __SKIN_COUNT); // низя
+		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		
+		ComboBox * pWindow = new ComboBox(pSkin->subSkins[0], 
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+		    
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window * pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
+			Window * pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
 		}
-
+		
 		__ASSERT(__WINDOW_DATA3(pSkin) < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkinTmp = m_windowInfo[__WINDOW_DATA3(pSkin)]; // скин списка
+		__LP_MYGUI_WINDOW_INFO pSkinTmp = GUI::getSingleton()->m_windowInfo[__WINDOW_DATA3(pSkin)]; // скин списка
 		__ASSERT(__WINDOW_DATA4(pSkinTmp) < __SKIN_COUNT); // низя
-		pSkinTmp = m_windowInfo[__WINDOW_DATA4(pSkinTmp)]; // скин кнопок списка
-		pWindow->m_pList = createList(300, 100, 300, 300, OVERLAY_POPUP, __WINDOW_DATA3(pSkin));
+		pSkinTmp = GUI::getSingleton()->m_windowInfo[__WINDOW_DATA4(pSkinTmp)]; // скин кнопок списка
+		
+		pWindow->m_pList = GUI::getSingleton()->spawn<List>(
+		    300, 300, 300, 300, OVERLAY_POPUP, __WINDOW_DATA3(pSkin));
+		    
 		pWindow->m_pList->m_pEventCallback = (EventCallback*)pWindow;
 		pWindow->m_pList->show(false);
 		pWindow->m_pList->m_bIsOneClickActived = true;
 		// высота списка по нужному колличеству строк
-		pWindow->m_pList->size(300, pSkinTmp->subSkins[0]->sizeY*__WINDOW_DATA4(pSkin) + pWindow->m_pList->m_iSizeY - pWindow->m_pList->m_pWindowClient->m_iSizeY);
-
-		if (__WINDOW_DATA2(pSkin) != 0) { // скин едита
-			pWindow->m_pEdit = pWindow->m_pWindowText->createEdit(0, 0, -1, -1, WA_STRETCH, __WINDOW_DATA2(pSkin));
+		pWindow->m_pList->size(
+		    300, pSkinTmp->subSkins[0]->sizeY * __WINDOW_DATA4(pSkin)
+		    + pWindow->m_pList->m_iSizeY
+		    - pWindow->m_pList->m_pWindowClient->m_iSizeY);
+		    
+		if (__WINDOW_DATA2(pSkin)) { // скин едита
+			pWindow->m_pEdit = pWindow->m_pWindowText->spawn<Edit>(
+			    0, 0, -1, -1, WA_STRETCH, __WINDOW_DATA2(pSkin));
 			pWindow->m_pWindowText->m_uEventCallback = WE_NONE;
 			pWindow->m_pWindowText = pWindow->m_pEdit;
 			pWindow->m_pEdit->m_pEventCallback = (EventCallback*)pWindow;
 		}
-
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
+		pWindow->m_uAlign |= uAlign;
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;
 	}
-
-	MyGUI::ComboBox * Window::createComboBox(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback)
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		ComboBox * pWindow = new ComboBox(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, m_pWindowClient);
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window * pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
-		}
-
-		__ASSERT(__WINDOW_DATA3(pSkin) < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkinTmp = m_GUI->m_windowInfo[__WINDOW_DATA3(pSkin)]; // скин списка
-		__ASSERT(__WINDOW_DATA4(pSkinTmp) < __SKIN_COUNT); // низя
-		pSkinTmp = m_GUI->m_windowInfo[__WINDOW_DATA4(pSkinTmp)]; // скин кнопок списка
-		pWindow->m_pList = m_GUI->createList(300, 100, 300, 300, OVERLAY_POPUP, __WINDOW_DATA3(pSkin));
-		pWindow->m_pList->m_pEventCallback = (EventCallback*)pWindow;
-		pWindow->m_pList->show(false);
-		pWindow->m_pList->m_bIsOneClickActived = true;
-		// высота списка по нужному колличеству строк
-		pWindow->m_pList->size(300, pSkinTmp->subSkins[0]->sizeY*__WINDOW_DATA4(pSkin) + pWindow->m_pList->m_iSizeY - pWindow->m_pList->m_pWindowClient->m_iSizeY);
-
-		if (__WINDOW_DATA2(pSkin) != 0) { // скин едита
-			pWindow->m_pEdit = pWindow->m_pWindowText->createEdit(0, 0, -1, -1, WA_STRETCH, __WINDOW_DATA2(pSkin));
-			pWindow->m_pWindowText->m_uEventCallback = WE_NONE;
-			pWindow->m_pWindowText = pWindow->m_pEdit;
-			pWindow->m_pEdit->m_pEventCallback = (EventCallback*)pWindow;
-		}
-
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->m_uAligin |= uAligin;
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
-		return pWindow;
-	}
-
 }
-//=========================================================================================

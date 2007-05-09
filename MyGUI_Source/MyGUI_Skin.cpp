@@ -1,18 +1,20 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_Skin.h"
+#include "MyGUI_LoadINI.h"
+#include "MyGUI_GUI.h"
+
+#include <Ogre.h>
+#include <OgreFontManager.h>
+
 using namespace Ogre;
 using namespace std;
-//=========================================================================================
-//=========================================================================================
+
 namespace MyGUI {
 
 	void getResourcePath(vector<String> & saFilePath, const String & strMaskFileName)
 	{
 		saFilePath.clear();
 		String strPath;
-		FileInfoListPtr pFileInfo = ResourceGroupManager::getSingleton().findResourceFileInfo(ResourceGroupManager::getSingleton().DEFAULT_RESOURCE_GROUP_NAME, strMaskFileName);
+		Ogre::FileInfoListPtr pFileInfo = ResourceGroupManager::getSingleton().findResourceFileInfo(ResourceGroupManager::getSingleton().DEFAULT_RESOURCE_GROUP_NAME, strMaskFileName);
 		for (FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); fi++ ) {
 			strPath = fi->archive->getName();
 			strPath += "\\";
@@ -35,7 +37,7 @@ namespace MyGUI {
 		//---------------------------------------------------------------------------------------------------------------
 		#define __REGISTER_VALUE(_value) mapNameValue[#_value] = _value;_LOG("RESISTER_VALUE    %s \t %d (0x%.8X)", #_value, _value, _value);
 		#define __REGISTER_VALUE_EVENT(_value) mapNameValue[#_value] = _value;m_mapFlagEvent[#_value] = _value;_LOG("RESISTER_VALUE_EVENT    %s \t %d (0x%.8X)", #_value, _value, _value);
-		#define __REGISTER_VALUE_ALIGIN(_value) mapNameValue[#_value] = _value;m_mapFlagAligin[#_value] = _value;_LOG("RESISTER_VALUE_ALIGIN    %s \t %d (0x%.8X)", #_value, _value, _value);
+		#define __REGISTER_VALUE_ALIGN(_value) mapNameValue[#_value] = _value;m_mapFlagAlign[#_value] = _value;_LOG("RESISTER_VALUE_ALIGN    %s \t %d (0x%.8X)", #_value, _value, _value);
 		#define __REGISTER_VALUE_STYLE(_value) mapNameValue[#_value] = _value;m_mapFlagStyle[#_value] = _value;_LOG("RESISTER_VALUE_STYLE    %s \t %d (0x%.8X)", #_value, _value, _value);
 		#define __REGISTER_SKIN_VALUE(_value) mapNameValue[#_value] = _value;_LOG("RESISTER_VALUE    %s \t %d (0x%.8X)", #_value, _value, _value);m_strSkinNames[_value]=#_value;
 		#define __REGISTER_FONT_VALUE(_value) mapNameValue[#_value] = _value;_LOG("RESISTER_VALUE    %s \t %d (0x%.8X)", #_value, _value, _value);m_strFontNames[_value]=#_value;
@@ -110,34 +112,34 @@ namespace MyGUI {
 		__REGISTER_VALUE_EVENT(WE_KEY_FOCUS);
 		__REGISTER_VALUE_EVENT(WE_KEY_BUTTON);
 		// регистрация имен выравнивания
-		__REGISTER_VALUE_ALIGIN(WA_NONE);
-		__REGISTER_VALUE_ALIGIN(WA_HCENTER);
-		__REGISTER_VALUE_ALIGIN(WA_VCENTER);
-		__REGISTER_VALUE_ALIGIN(WA_CENTER);
-		__REGISTER_VALUE_ALIGIN(WA_CENTER_FOTHER);
-		__REGISTER_VALUE_ALIGIN(WA_LEFT);
-		__REGISTER_VALUE_ALIGIN(WA_RIGHT);
-		__REGISTER_VALUE_ALIGIN(WA_HSTRETCH);
-		__REGISTER_VALUE_ALIGIN(WA_TOP);
-		__REGISTER_VALUE_ALIGIN(WA_BOTTOM);
-		__REGISTER_VALUE_ALIGIN(WA_VSTRETCH);
-		__REGISTER_VALUE_ALIGIN(WA_STRETCH);
-		__REGISTER_VALUE_ALIGIN(WAT_NONE);
-		__REGISTER_VALUE_ALIGIN(WAT_LEFT);
-		__REGISTER_VALUE_ALIGIN(WAT_RIGHT);
-		__REGISTER_VALUE_ALIGIN(WAT_HCENTER);
-		__REGISTER_VALUE_ALIGIN(WAT_TOP);
-		__REGISTER_VALUE_ALIGIN(WAT_BOTTOM);
-		__REGISTER_VALUE_ALIGIN(WAT_VCENTER);
-		__REGISTER_VALUE_ALIGIN(WAT_CENTER);
-		__REGISTER_VALUE_ALIGIN(WAT_CUT_RIGHT);
-		__REGISTER_VALUE_ALIGIN(WAT_CUT_LEFT);
-		__REGISTER_VALUE_ALIGIN(WAT_ADD_DOT);
-		__REGISTER_VALUE_ALIGIN(WAT_CUT_RIGHT_DOT);
-		__REGISTER_VALUE_ALIGIN(WAT_CUT_LEFT_DOT);
-		__REGISTER_VALUE_ALIGIN(WAT_MULTI_LINE);
-		__REGISTER_VALUE_ALIGIN(WAT_BREAK_WORD);
-		__REGISTER_VALUE_ALIGIN(WAT_SHIFT_TEXT_PRESSED);
+		__REGISTER_VALUE_ALIGN(WA_NONE);
+		__REGISTER_VALUE_ALIGN(WA_HCENTER);
+		__REGISTER_VALUE_ALIGN(WA_VCENTER);
+		__REGISTER_VALUE_ALIGN(WA_CENTER);
+		__REGISTER_VALUE_ALIGN(WA_CENTER_FOTHER);
+		__REGISTER_VALUE_ALIGN(WA_LEFT);
+		__REGISTER_VALUE_ALIGN(WA_RIGHT);
+		__REGISTER_VALUE_ALIGN(WA_HSTRETCH);
+		__REGISTER_VALUE_ALIGN(WA_TOP);
+		__REGISTER_VALUE_ALIGN(WA_BOTTOM);
+		__REGISTER_VALUE_ALIGN(WA_VSTRETCH);
+		__REGISTER_VALUE_ALIGN(WA_STRETCH);
+		__REGISTER_VALUE_ALIGN(WAT_NONE);
+		__REGISTER_VALUE_ALIGN(WAT_LEFT);
+		__REGISTER_VALUE_ALIGN(WAT_RIGHT);
+		__REGISTER_VALUE_ALIGN(WAT_HCENTER);
+		__REGISTER_VALUE_ALIGN(WAT_TOP);
+		__REGISTER_VALUE_ALIGN(WAT_BOTTOM);
+		__REGISTER_VALUE_ALIGN(WAT_VCENTER);
+		__REGISTER_VALUE_ALIGN(WAT_CENTER);
+		__REGISTER_VALUE_ALIGN(WAT_CUT_RIGHT);
+		__REGISTER_VALUE_ALIGN(WAT_CUT_LEFT);
+		__REGISTER_VALUE_ALIGN(WAT_ADD_DOT);
+		__REGISTER_VALUE_ALIGN(WAT_CUT_RIGHT_DOT);
+		__REGISTER_VALUE_ALIGN(WAT_CUT_LEFT_DOT);
+		__REGISTER_VALUE_ALIGN(WAT_MULTI_LINE);
+		__REGISTER_VALUE_ALIGN(WAT_BREAK_WORD);
+		__REGISTER_VALUE_ALIGN(WAT_SHIFT_TEXT_PRESSED);
 		//---------------------------------------------------------------------------------------------------------------
 		//---------------------------------------------------------------------------------------------------------------
 		// загрузка скинов
@@ -269,7 +271,7 @@ namespace MyGUI {
 		#define SECTION_SUB_SKIN "subSkin"
 		#define SECTION_SUB_SKIN_MAIN "subSkinMain"
 		#define VALUE_SKIN_POSITION "position"
-		#define VALUE_SKIN_ALIGIN "aligin"
+		#define VALUE_SKIN_ALIGN "align"
 		#define VALUE_SKIN_EVENT "event"
 		#define VALUE_SKIN_STYLE "style"
 		#define VALUE_SKIN_DEACTIVE "skin_deactive"
@@ -339,7 +341,7 @@ namespace MyGUI {
 										window->subSkins.push_back(window->subSkins[0]);
 										window->subSkins[0] = skin;
 									} else  window->subSkins.push_back(skin);
-									_LOG("\t\tset sub skin  '%s'  (%p) [%d, %d, %d, %d]   aligin(0x%.8X)  event(0x%.8X)   style(0x%.8X)  deactive(%s)  active(%s)  normal(%s)  pressed(%s)  selected(%s)", strValue.c_str(), skin, skin->posX, skin->posY, skin->sizeX, skin->sizeY, skin->aligin, skin->event_info, skin->exdata, skin->pStrSkinDeactived.c_str(), skin->pStrSkinActived.c_str(), skin->pStrSkinNormal.c_str(), skin->pStrSkinPressed.c_str(), skin->pStrSkinSelected.c_str());
+									_LOG("\t\tset sub skin  '%s'  (%p) [%d, %d, %d, %d]   align(0x%.8X)  event(0x%.8X)   style(0x%.8X)  deactive(%s)  active(%s)  normal(%s)  pressed(%s)  selected(%s)", strValue.c_str(), skin, skin->posX, skin->posY, skin->sizeX, skin->sizeY, skin->align, skin->event_info, skin->exdata, skin->pStrSkinDeactived.c_str(), skin->pStrSkinActived.c_str(), skin->pStrSkinNormal.c_str(), skin->pStrSkinPressed.c_str(), skin->pStrSkinSelected.c_str());
 								} else  _LOG("\t\t[ERROR] set sub skin  '%s'", strValue.c_str());
 
 							}
@@ -362,10 +364,10 @@ namespace MyGUI {
 									if (ini.getValue(uValue, 1)) skin->posY = (int16)uValue;
 									if (ini.getValue(uValue, 2)) skin->sizeX = (int16)uValue;
 									if (ini.getValue(uValue, 3)) skin->sizeY = (int16)uValue;
-								} else if (strValueName == VALUE_SKIN_ALIGIN) {
+								} else if (strValueName == VALUE_SKIN_ALIGN) {
 									pos = 0;
 									while (ini.getValue(strValue, pos)) {
-										skin->aligin |= (uint32)mapNameValue[strValue];
+										skin->align |= (uint32)mapNameValue[strValue];
 										pos ++;
 									};
 								} else if (strValueName == VALUE_SKIN_EVENT) {
@@ -407,7 +409,7 @@ namespace MyGUI {
 						}
 
 						if (skin) { // все хорошо
-							_LOG("\t\tadd sub skin  '%s'  (%p) [%d, %d, %d, %d]   aligin(0x%.8X)  event(0x%.8X)   style(0x%.8X)  deactive(%s)  active(%s)  normal(%s)  pressed(%s)  selected(%s)", strBlockName.c_str(), skin, skin->posX, skin->posY, skin->sizeX, skin->sizeY, skin->aligin, skin->event_info, skin->exdata, skin->pStrSkinDeactived.c_str(), skin->pStrSkinActived.c_str(), skin->pStrSkinNormal.c_str(), skin->pStrSkinPressed.c_str(), skin->pStrSkinSelected.c_str());
+							_LOG("\t\tadd sub skin  '%s'  (%p) [%d, %d, %d, %d]   align(0x%.8X)  event(0x%.8X)   style(0x%.8X)  deactive(%s)  active(%s)  normal(%s)  pressed(%s)  selected(%s)", strBlockName.c_str(), skin, skin->posX, skin->posY, skin->sizeX, skin->sizeY, skin->align, skin->event_info, skin->exdata, skin->pStrSkinDeactived.c_str(), skin->pStrSkinActived.c_str(), skin->pStrSkinNormal.c_str(), skin->pStrSkinPressed.c_str(), skin->pStrSkinSelected.c_str());
 							if (!strBlockName.empty()) { // у этого блока есть имя, сохраняем
 								mapLoadingSkin[strBlockName] = skin;
 								_LOG("\t\t  store sub skin  '%s'  (%p)", strBlockName.c_str(), skin);

@@ -1,9 +1,14 @@
-//=======================================================================================
 #include "BasisManager.h"
-//=====================================================================================
-BasisManager basis; // главный объект каркаса
-//=====================================================================================
-//=====================================================================================
+#include <OgreLogManager.h>
+#include <OgreRenderWindow.h>
+#include <OgreRoot.h>
+#include <OgreOverlayManager.h>
+#include <OgreConfigFile.h>
+#include <OgreRenderSystem.h>
+
+using namespace Ogre;
+using namespace MyGUI;
+
 BasisManager::BasisManager() :
 	mInputManager(0),
 	mMouse(0),
@@ -27,7 +32,7 @@ BasisManager::BasisManager() :
 
 BasisManager::~BasisManager()
 {
-	destroyBasisManager();
+	//destroyBasisManager();
 }
 
 void BasisManager::createInput() // создаем систему ввода
@@ -140,7 +145,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	// Load resources
 	ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-	mGUI = new MyGUI::GUI(m_uWidth, m_uHeight, this);
+	mGUI = MyGUI::GUI::getSingleton()->Initialize(m_uWidth, m_uHeight, this);
 
 	createInput();
 
@@ -154,8 +159,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 void BasisManager::destroyBasisManager() // очищаем все параметры каркаса приложения
 {
-
-	// очищаем состояния
+    // очищаем состояния
 	while (!mStates.empty()) {
 		mStates.back()->exit();
 		mStates.pop_back();
@@ -173,17 +177,16 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr->destroyAllCameras();
 		mSceneMgr = 0;
 	}
-	if (mGUI) {
-		delete mGUI;
-		mGUI = 0;
-	}
-
+	
+	GUI::getSingleton()->Shutdown();
+	
 	destroyInput(); // удаляем ввод
 
 	if (mWindow) {
 		mWindow->destroy();
 		mWindow = 0;
 	}
+	
 	if (mRoot) {
 		mRoot->getAutoCreatedWindow()->removeAllViewports();
 		delete mRoot;
@@ -452,8 +455,8 @@ int main(int argc, char **argv)
 
     try {
 
-        basis.createBasisManager();
-		basis.destroyBasisManager();
+        BasisManager::getSingleton()->createBasisManager();
+		BasisManager::getSingleton()->destroyBasisManager();
 
 	} catch( Exception& e ) {
 

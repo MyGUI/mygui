@@ -1,24 +1,21 @@
-//=========================================================================================
-#ifndef __MyGUI_WindowFrame_H__
-#define __MyGUI_WindowFrame_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
-namespace MyGUI {
+#pragma once
 
-	class Window;
-	class GUI;
+#include "MyGUI_Window.h"
+
+namespace MyGUI {
 
 	class WindowFrame : public Window {
 
 	public:
-		WindowFrame(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
+		WindowFrame(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
+		
+		static WindowFrame *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_WINDOWFRAME_CSX);
 
 		void setMinMax(int16 iMinSizeX, int16 iMinSizeY, int16 iMaxSizeX, int16 iMaxSizeY);// укстановка минимальных и максимальных размеров
 		void setMinMaxReal(Real fMinSizeX, Real fMinSizeY, Real fMaxSizeX, Real fMaxSizeY);// укстановка минимальных и максимальных размеров
 
-		void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iFotherPosX, int16 iFotherPosY); // уведомление о движении, но не движение
+		void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY); // уведомление о движении, но не движение
 		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 
@@ -27,6 +24,3 @@ namespace MyGUI {
 	};
 
 }
-//=========================================================================================
-#endif
-//=========================================================================================

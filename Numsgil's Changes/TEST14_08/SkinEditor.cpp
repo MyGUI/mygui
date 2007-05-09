@@ -19,7 +19,7 @@ const string VALUE_WINDOW_COLOUR = "colour";
 const string VALUE_WINDOW_MATERIAL = "material";
 const string VALUE_SKIN_OFFSET = "offset";
 const string VALUE_SKIN_EVENT = "event";
-const string VALUE_SKIN_ALIGIN = "aligin";
+const string VALUE_SKIN_ALIGN = "aligin";
 const string VALUE_SKIN_STYLE = "style";
 const string VALUE_STATE_DEACTIVED = "deactived_position";
 const string VALUE_STATE_NORMAL = "normal_position";
@@ -29,7 +29,7 @@ const string VALUE_STATE_SELECTED = "selected_position";
 
 const MyGUI::uint32 FLAG_EVENT = 0x10000;
 const MyGUI::uint32 FLAG_STYLE = 0x20000;
-const MyGUI::uint32 FLAG_ALIGIN = 0x40000;
+const MyGUI::uint32 FLAG_ALIGN = 0x40000;
 //===================================================================================
 //===================================================================================
 void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, MyGUI::uint16 uEvent, MyGUI::uint32 data) // дополнительные события
@@ -146,7 +146,7 @@ void SkinEditor::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена лева
 	
 }
 //===================================================================================
-bool SkinEditor::createEditor() // создает окно редактирования скинов
+bool SkinEditor::spawn<Edit>or() // создает окно редактирования скинов
 {
 	m_pCurrentDataWindow = 0; // текущее окно
 	m_pCurrentDataSkin = 0; // текущий саб скин
@@ -519,12 +519,12 @@ void SkinEditor::saveSkin() // сохраняет скин
 			}
 
 			// сохраняем флаги выравнивания
-			fp << "\n\t\t" << VALUE_SKIN_ALIGIN << " \t"; 
+			fp << "\n\t\t" << VALUE_SKIN_ALIGN << " \t"; 
 			if (!skin->aligin) fp << "WA_NONE";
 			else {
 				
 				//TODO: port
-				//for (map<String, uint16>::iterator iter = basis.mGUI->m_mapFlagAligin.begin(); iter != basis.mGUI->m_mapFlagAligin.end(); iter ++) {
+				//for (map<String, uint16>::iterator iter = basis.mGUI->m_mapFlagAlign.begin(); iter != basis.mGUI->m_mapFlagAlign.end(); iter ++) {
 				//	if ( ((*iter).second & skin->aligin) != (*iter).second ) continue;
 				//	fp << (*iter).first << "  ";
 				//}
@@ -687,10 +687,10 @@ void SkinEditor::loadSkin() // загружает скин
 							if (!ini.getValue(strValue, pos)) continue;
 							skin->event_info |= basis.mGUI->m_mapFlagEvent[strValue];
 						}
-					} else if (strValueName == VALUE_SKIN_ALIGIN) {
+					} else if (strValueName == VALUE_SKIN_ALIGN) {
 						for (uint8 pos=0; pos<16; pos++) {
 							if (!ini.getValue(strValue, pos)) continue;
-							skin->aligin |= basis.mGUI->m_mapFlagAligin[strValue];
+							skin->aligin |= basis.mGUI->m_mapFlagAlign[strValue];
 						}
 					} else if (strValueName == VALUE_SKIN_STYLE) {
 						for (uint8 pos=0; pos<16; pos++) {
@@ -748,14 +748,14 @@ void SkinEditor::createFlagWindow()
 	    ->setWindowText("EVENT");
 	text = m_windowStateFlags->spawn<StaticText>(Coord(220, 0), Coord(200, 20), WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setFont(text->m_font, MyGUI::COLOUR_GREEN)
-	    ->setWindowText("ALIGIN");
+	    ->setWindowText("ALIGN");
 	text = m_windowStateFlags->spawn<StaticText>(Coord(430, 0), Coord(200, 20), WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setFont(text->m_font, MyGUI::COLOUR_GREEN)
 	    ->setWindowText("STYLE");
     
     //??
 	MyGUI::uint8 countEvents = 5;
-	MyGUI::uint8 countAligin = 14;
+	MyGUI::uint8 countAlign = 14;
 	MyGUI::uint8 countStyle = 8;
 
 	for (unsigned int pos=0; pos<16; pos++) {
@@ -763,9 +763,9 @@ void SkinEditor::createFlagWindow()
 			m_buttonsFlagsEvent[pos] = m_windowStateFlags->spawn<Button>(Coord(10, (pos*30)+30), Coord(200, -1), WA_LEFT|WA_TOP, "SKIN_CHECK_BOX");
 		} else m_buttonsFlagsEvent[pos] = 0;
 
-		if (pos < countAligin) {
-			m_buttonsFlagsAligin[pos] = m_windowStateFlags->spawn<Button>(Coord(220, (pos*30)+30), Coord(200, -1), WA_LEFT|WA_TOP, "SKIN_CHECK_BOX");
-		} else m_buttonsFlagsAligin[pos] = 0;
+		if (pos < countAlign) {
+			m_buttonsFlagsAlign[pos] = m_windowStateFlags->spawn<Button>(Coord(220, (pos*30)+30), Coord(200, -1), WA_LEFT|WA_TOP, "SKIN_CHECK_BOX");
+		} else m_buttonsFlagsAlign[pos] = 0;
 
 		if (pos < countStyle) {
 			m_buttonsFlagsStyle[pos] = m_windowStateFlags->spawn<Button>(Coord(430, (pos*30)+30), Coord(200, -1), WA_LEFT|WA_TOP, "SKIN_CHECK_BOX");
@@ -780,20 +780,20 @@ void SkinEditor::createFlagWindow()
 	SET_FLAG(m_buttonsFlagsEvent[3], WE_KEY_FOCUS, FLAG_EVENT);
 	SET_FLAG(m_buttonsFlagsEvent[4], WE_KEY_BUTTON, FLAG_EVENT);
 
-	SET_FLAG(m_buttonsFlagsAligin[0], WA_LEFT, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[1], WA_RIGHT, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[2], WA_TOP, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[3], WA_BOTTOM, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[4], WAT_LEFT, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[5], WAT_RIGHT, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[6], WAT_TOP, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[7], WAT_BOTTOM, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[8], WAT_CUT_RIGHT, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[9], WAT_CUT_LEFT, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[10], WAT_ADD_DOT, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[11], WAT_MULTI_LINE, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[12], WAT_BREAK_WORD, FLAG_ALIGIN);
-	SET_FLAG(m_buttonsFlagsAligin[13], WAT_SHIFT_TEXT_PRESSED, FLAG_ALIGIN);
+	SET_FLAG(m_buttonsFlagsAlign[0], WA_LEFT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[1], WA_RIGHT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[2], WA_TOP, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[3], WA_BOTTOM, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[4], WAT_LEFT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[5], WAT_RIGHT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[6], WAT_TOP, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[7], WAT_BOTTOM, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[8], WAT_CUT_RIGHT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[9], WAT_CUT_LEFT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[10], WAT_ADD_DOT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[11], WAT_MULTI_LINE, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[12], WAT_BREAK_WORD, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[13], WAT_SHIFT_TEXT_PRESSED, FLAG_ALIGN);
 
 	SET_FLAG(m_buttonsFlagsStyle[0], WES_TEXT, FLAG_STYLE);
 	SET_FLAG(m_buttonsFlagsStyle[1], WES_CLIENT, FLAG_STYLE);
@@ -819,7 +819,7 @@ void SkinEditor::pressOtherButton(MyGUI::Window * pWindow) // сверяем с кнопками
 
 	if (type == FLAG_EVENT) ptr = &m_pCurrentDataSkin->event_info;
 	else if (type == FLAG_STYLE) ptr = &m_pCurrentDataSkin->style;
-	else if (type == FLAG_ALIGIN) ptr = &m_pCurrentDataSkin->aligin;
+	else if (type == FLAG_ALIGN) ptr = &m_pCurrentDataSkin->aligin;
 	else return;
 
 	MyGUI::uint16 flag = pWindow->getUserData() & 0xFFFF;
@@ -841,7 +841,7 @@ void SkinEditor::fillFlagWindow() // заполняет окна текущими значения
 	// сначала очищаем все поля
 	for (unsigned int pos=0; pos<16; pos++) {
 		if (m_buttonsFlagsEvent[pos]) m_buttonsFlagsEvent[pos]->setState(WS_NORMAL);
-		if (m_buttonsFlagsAligin[pos]) m_buttonsFlagsAligin[pos]->setState(WS_NORMAL);
+		if (m_buttonsFlagsAlign[pos]) m_buttonsFlagsAlign[pos]->setState(WS_NORMAL);
 		if (m_buttonsFlagsStyle[pos]) m_buttonsFlagsStyle[pos]->setState(WS_NORMAL);
 	}
 
@@ -859,10 +859,10 @@ void SkinEditor::fillFlagWindow() // заполняет окна текущими значения
 
 		if (m_pCurrentDataSkin->aligin & (1<<pos)) {
 			// а вот теперь ищем
-			MyGUI::uint32 find = (1<<pos) | FLAG_ALIGIN;
+			MyGUI::uint32 find = (1<<pos) | FLAG_ALIGN;
 			for (unsigned int i=0; i<16; i++) {
-				if (!m_buttonsFlagsAligin[i]) continue;
-				if (m_buttonsFlagsAligin[i]->getUserData() == find) m_buttonsFlagsAligin[i]->setState(WS_PRESSED);
+				if (!m_buttonsFlagsAlign[i]) continue;
+				if (m_buttonsFlagsAlign[i]->getUserData() == find) m_buttonsFlagsAlign[i]->setState(WS_PRESSED);
 			}
 		} // if (m_pCurrentDataSkin->aligin & (1<<pos)) {
 

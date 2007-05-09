@@ -1,16 +1,12 @@
-//==================================================================================================
-#ifndef __MyGUI_Skin_H__
-#define __MyGUI_Skin_H__
-//==================================================================================================
-#include "MyGUI.h"
-//==================================================================================================
+#pragma once
+
+#include "MyGUI_Defines.h"
+#include <vector>
+
 #define __WINDOW_DATA1(_data) ((_data->dataWindow & 0xFF000000) >> 24)
 #define __WINDOW_DATA2(_data) ((_data->dataWindow & 0x00FF0000) >> 16)
 #define __WINDOW_DATA3(_data) ((_data->dataWindow & 0x0000FF00) >> 8)
 #define __WINDOW_DATA4(_data) (_data->dataWindow & 0x000000FF)
-//==================================================================================================
-using namespace Ogre;
-using namespace std;
 
 namespace MyGUI {
 
@@ -32,7 +28,7 @@ namespace MyGUI {
 	};
 
 	typedef struct __tag_MYGUI_FONT_INFO { // информация о шрифте
-		Font * font; // шрифт
+		Ogre::Font * font; // шрифт
 		String name; // имя шрифта
 		uint8 height; // высота шрифта
 		Real spaceWidth; // ширина пробела
@@ -62,14 +58,14 @@ namespace MyGUI {
 		String pStrSkinSelected; // наведен курсор и нажат
 		String pStrSkinPressed; // нажат
 		// у главного окна игногируются
-		uint16 aligin; // выравнивание
+		uint16 align; // выравнивание
 		uint16 event_info; // сообщения посылаемые отцу
 		uint16 exdata; // дополнительная информация об элементе
-		__tag_MYGUI_SKIN_INFO::__tag_MYGUI_SKIN_INFO() : posX(0), posY(0), sizeX(0), sizeY(0), aligin(0), event_info(0), exdata(0) {}
+		__tag_MYGUI_SKIN_INFO::__tag_MYGUI_SKIN_INFO() : posX(0), posY(0), sizeX(0), sizeY(0), align(0), event_info(0), exdata(0) {}
 	} *__LP_MYGUI_SKIN_INFO;
 
 	typedef struct __tag_MYGUI_WINDOW_INFO { // информация об окне
-		vector <__LP_MYGUI_SKIN_INFO> subSkins; // дополнительные скины окна, дочки
+		std::vector <__LP_MYGUI_SKIN_INFO> subSkins; // дополнительные скины окна, дочки
 		uint32 dataWindow; // дополнительная информация всего окна
 		__LP_MYGUI_FONT_INFO fontWindow; // шрифт всего элемента
 		uint32 colour; // цвет текста всего окна
@@ -107,7 +103,8 @@ namespace MyGUI {
 		SKIN_COMBO_BOX_EDIT, // едит для комбобокса
 		SKIN_COMBO_BOX, // выпадающий список с окном редактирования
 		SKIN_DROP_LIST, // выпадающий список
-		__SKIN_COUNT // колличество окон, !!!не использовать (значения вставлять до этого)
+		__SKIN_COUNT, // колличество окон, !!!не использовать (значения вставлять до этого)
+		__SKIN_WIDGET_DEFAULT
 	};
 
 	enum __GUI_ENUM_FONT { // внутренние имена шрифтов
@@ -117,6 +114,3 @@ namespace MyGUI {
 	};
 
 }
-//==================================================================================================
-#endif
-//==================================================================================================

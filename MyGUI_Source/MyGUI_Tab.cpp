@@ -1,16 +1,14 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_Tab.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_GUI.h"
+
 using namespace Ogre;
 using namespace std;
-//=========================================================================================
+
 namespace MyGUI {
 
-	class GUI;
-
-	Tab::Tab(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, gui, uOverlay, pWindowFother),
+	Tab::Tab(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent),
 		m_uSkinButton(0),
 		m_iCurrentButtonsSizeX(0),
 		m_pWindowTop(0),
@@ -21,7 +19,9 @@ namespace MyGUI {
 
 	Window * Tab::addSheet(const DisplayString & strName, int16 iSizeX) // добавляет вкладку
 	{
-		Button * pButton = createButton(m_iCurrentButtonsSizeX, 0, iSizeX, -1, strName, WA_NONE, m_uSkinButton);
+		Button * pButton = spawn<Button>(m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE, m_uSkinButton);
+        pButton->setWindowText(strName);
+		                   
 		pButton->addEvent(WE_MOUSE_BUTTON);
 		pButton->m_pEventCallback = (EventCallback *)this; // все сообщения нам
 		m_iCurrentButtonsSizeX += pButton->m_iSizeX;
@@ -30,7 +30,10 @@ namespace MyGUI {
 			m_pWindowTop->size(m_pWindowTop->m_iSizeX - pButton->m_iSizeX, m_pWindowTop->m_iSizeY);
 		}
 
-		Window * pSheet = m_pWindowTab->createWindow(0, 0, m_pWindowTab->m_iSizeX, m_pWindowTab->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
+		Window * pSheet = m_pWindowTab->spawn<Window>(0, 0, m_pWindowTab->m_iSizeX, m_pWindowTab->m_iSizeY,
+		    WA_STRETCH, SKIN_DEFAULT);
+        pSheet->m_pEventCallback = this;
+		
 		pSheet->m_pWindowText = pButton->m_pWindowText; // для установки текста через вкладку
 		pSheet->show(false);
 
@@ -84,50 +87,30 @@ namespace MyGUI {
 		}
 	}
 
-	MyGUI::Tab * GUI::createTab(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback) // создает панель вкладок
+	Tab *Tab::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
 	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[uSkin];
-		Tab * pWindow = new Tab(pSkin->subSkins[0], this, uOverlay, 0);
+	    __ASSERT(uSkin < __SKIN_COUNT); // низя
+		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		
+		Tab * pWindow = new Tab(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+		
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TAB_TOP) pWindow->m_pWindowTop = pChild;
 			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowTab = pChild;
 		}
+		
 		pWindow->m_iCurrentButtonsSizeX = __WINDOW_DATA3(pSkin);
 		pWindow->m_uSkinButton = __WINDOW_DATA4(pSkin);
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
+		pWindow->m_uAlign |= uAlign;
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;
 	}
-
-	MyGUI::Tab * Window::createTab(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback) // создает панель вкладок
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		Tab * pWindow = new Tab(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, m_pWindowClient);
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TAB_TOP) pWindow->m_pWindowTop = pChild;
-			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowTab = pChild;
-		}
-		pWindow->m_iCurrentButtonsSizeX = __WINDOW_DATA3(pSkin);
-		pWindow->m_uSkinButton = __WINDOW_DATA4(pSkin);
-		pWindow->m_uAligin |= uAligin;
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
-		return pWindow;
-	}
-
 }
-//=========================================================================================

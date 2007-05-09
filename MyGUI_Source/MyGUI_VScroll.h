@@ -1,23 +1,20 @@
-//=========================================================================================
-#ifndef __MyGUI_VScroll_H__
-#define __MyGUI_VScroll_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
-namespace MyGUI {
+#pragma once
 
-	class Window;
-	class GUI;
+#include "MyGUI_Window.h"
+
+namespace MyGUI {
 
 	class VScroll : public Window {
 
 	public:
-		VScroll(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
+		VScroll(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
+		
+		static VScroll *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_VSCROLL);
 
 		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
 		void onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed);
-		void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iFotherPosX, int16 iFotherPosY); // уведомление о движении, но не движение
+		void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY); // уведомление о движении, но не движение
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 
 		void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText); // нажата клавиша
@@ -41,6 +38,3 @@ namespace MyGUI {
 	};
 
 }
-//=========================================================================================
-#endif
-//=========================================================================================

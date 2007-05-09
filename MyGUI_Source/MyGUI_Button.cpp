@@ -1,16 +1,15 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_Button.h"
+#include "MyGUI_GUI.h"
+
 using namespace Ogre;
 using namespace std;
-//=========================================================================================
+
 namespace MyGUI {
 
 	class GUI;
 
-	Button::Button(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, gui, uOverlay, pWindowFother)
+	Button::Button(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent)
 	{
 	}
 
@@ -73,7 +72,7 @@ namespace MyGUI {
 
 		if (bIsShiftText != m_pWindowText->m_bIsTextShiftPressed) { // сдвиг текста
 			m_pWindowText->m_bIsTextShiftPressed = bIsShiftText;
-			if (m_pWindowText->m_uAligin & WAT_SHIFT_TEXT_PRESSED) {
+			if (m_pWindowText->m_uAlign & WAT_SHIFT_TEXT_PRESSED) {
 				if (m_pWindowText->m_overlayCaption) {
 					if (m_pWindowText->m_bIsTextShiftPressed) m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()+__GUI_BUTTON_SHIFT_TEXT_PRESSED);
 					else m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()-__GUI_BUTTON_SHIFT_TEXT_PRESSED);
@@ -83,50 +82,30 @@ namespace MyGUI {
 
 	}
 
-	MyGUI::Button * GUI::createButton(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, const DisplayString & strWindowText, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback) // создает кнопку
+	Button *Button::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
 	{
 		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[uSkin];
-		Button * pWindow = new Button(pSkin->subSkins[0], this, uOverlay, 0);
+		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		
+		Button * pWindow = new Button(pSkin->subSkins[0], parent ? OVERLAY_CHILD : uOverlay, parent ? parent->m_pWindowClient : NULL);
+		
 		pWindow->m_uEventCallback |= WE_MOUSE_BUTTON | WE_KEY_BUTTON;
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
+		for (size_t pos = 1; pos < pSkin->subSkins.size(); ++pos) {
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
-		}
+			if (pChild->m_uExData & WES_TEXT)
+			    pWindow->m_pWindowText = pChild;
+		}		
+		
+		pWindow->m_uAlign |= uAlign;
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->setWindowText(strWindowText);
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+		
 		return pWindow;
-	}
-
-	MyGUI::Button * Window::createButton(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback) // создает кнопку
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		Button * pWindow = new Button(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, m_pWindowClient);
-		pWindow->m_uEventCallback |= WE_MOUSE_BUTTON | WE_KEY_BUTTON;
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
-		}
-		pWindow->m_uAligin |= uAligin;
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->setWindowText(strWindowText);
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
-		return pWindow;
+		
 	}
 
 }
-//=========================================================================================

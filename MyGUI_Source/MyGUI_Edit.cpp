@@ -1,17 +1,17 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_Edit.h"
+#include "MyGUI_OIS.h"
+#include "MyGUI_GUI.h"
+
 using namespace Ogre;
 using namespace std;
 using namespace OIS;
-//=========================================================================================
+
 namespace MyGUI {
 
 	class GUI;
 
-	Edit::Edit(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, gui, uOverlay, pWindowFother),
+	Edit::Edit(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent),
 		m_pWindowCursor(0),
 		m_bIsFocus(false),
 		m_uOffsetCursor(0)
@@ -21,8 +21,8 @@ namespace MyGUI {
 	void Edit::_OnMouseChangeFocus(bool bIsFocus) // вызывается при смене активности от курсора
 	{
 		Window::_OnMouseChangeFocus(bIsFocus); // для каллбеков
-		if (bIsFocus) m_GUI->setMousePointer(POINTER_TEXT);
-		else m_GUI->setMousePointer(POINTER_DEFAULT);
+		if (bIsFocus) GUI::getSingleton()->setMousePointer(POINTER_TEXT);
+		else GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
 		showFocus(bIsFocus);
 	}
 
@@ -61,7 +61,7 @@ namespace MyGUI {
 	{
 		Window::_OnKeyButtonPressed(keyEvent, cText); // для каллбеков
 		if (keyEvent == KC_ESCAPE) {
-			m_GUI->setKeyFocus(0); // сброс активности ввода
+			GUI::getSingleton()->setKeyFocus(0); // сброс активности ввода
 			return;
 		}
 		DisplayString strText = m_pWindowText->getWindowText();
@@ -80,23 +80,28 @@ namespace MyGUI {
 
 		setWindowText(strText);
 	}
-
-	MyGUI::Edit * GUI::createEdit(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback) // создает окно редактирования
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[uSkin];
-		Edit * pWindow = new Edit(pSkin->subSkins[0], this, uOverlay, 0);
+	
+	Edit *Edit::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+    {
+        __ASSERT(uSkin < __SKIN_COUNT); // низя
+		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		
+		Edit * pWindow = new Edit(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+		    
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
 			Window * pChild;
 			if (pSkin->subSkins[pos]->exdata & WES_EDIT_CURSOR) {
 				// элемент является курсором
-				pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow->m_pWindowClient);
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow->m_pWindowClient);
 				pWindow->m_pWindowCursor = pChild;
 				pWindow->m_pWindowCursor->show(false);
 			} else {
 				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			}
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
@@ -104,45 +109,12 @@ namespace MyGUI {
 		}
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		pWindow->m_uOffsetCursor = __WINDOW_DATA4(pSkin);
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
+		pWindow->m_uAlign |= uAlign;
+		
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;
-	}
-
-	MyGUI::Edit * Window::createEdit(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback) // создает окно редактирования
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		Edit * pWindow = new Edit(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, m_pWindowClient);
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window * pChild;
-			if (pSkin->subSkins[pos]->exdata & WES_EDIT_CURSOR) {
-				// элемент является курсором
-				pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow->m_pWindowClient);
-				pWindow->m_pWindowCursor = pChild;
-				pWindow->m_pWindowCursor->show(false);
-			} else {
-				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow);
-			}
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
-			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
-		}
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->m_uOffsetCursor = __WINDOW_DATA4(pSkin);
-		pWindow->m_uAligin |= uAligin;
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
-		return pWindow;
-	}
-
+    }
 }
 //=========================================================================================

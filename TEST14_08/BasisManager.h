@@ -1,12 +1,13 @@
-//=======================================================================================
 #pragma once
-//=======================================================================================
-#include "Ogre.h"
+
 #include "OIS\\OIS.h"
 #include "GameConfigFile.h"
 #include "MyGUI_Source\\MyGUI.h"
-//===================================================================================
+#include <OgreFrameListener.h>
+#include <OgreWindowEventUtilities.h>
+
 #include "OptionsState.h"
+
 //===================================================================================
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
@@ -28,10 +29,16 @@ std::string macBundlePath()
 //=======================================================================================
 // класс каркаса приложения
 //=======================================================================================
-class BasisManager : public MyGUI::EventCallback, public Ogre::FrameListener, public OIS::MouseListener , public OIS::KeyListener,  public WindowEventListener
+class BasisManager : public MyGUI::EventCallback,
+    public Ogre::FrameListener, public OIS::MouseListener , public OIS::KeyListener, public Ogre::WindowEventListener
 {
-
 public:
+    static BasisManager *getSingleton()
+    {
+        static BasisManager Instance;
+        return &Instance;    
+    }
+
 	//OIS Input devices
 	OIS::InputManager* mInputManager;
 	OIS::Keyboard* mKeyboard;
@@ -40,14 +47,14 @@ public:
 	static OIS::MouseEvent g_MouseEvent; // аргументы мыши для оконного режима
 
 	MyGUI::GUI * mGUI;
-    Root *mRoot;
-    Camera* mCamera;
-    SceneManager* mSceneMgr;
-    RenderWindow* mWindow;
+    Ogre::Root *mRoot;
+    Ogre::Camera* mCamera;
+    Ogre::SceneManager* mSceneMgr;
+    Ogre::RenderWindow* mWindow;
 	Ogre::String mResourcePath;
 	Ogre::Overlay * mWallpaperOverlay;
 
-	uint16 m_uWidth, m_uHeight; // ширина и высота экрана
+	MyGUI::uint16 m_uWidth, m_uHeight; // ширина и высота экрана
 	BasisState* mFadeState; // вызвать после файда
 	std::vector<BasisState*> mStates; // вектор состояний
 
@@ -85,17 +92,17 @@ public:
 	void changeState(BasisState* state, bool bIsFade = true);
 	void pushState(BasisState* state, bool bIsFade = true);
 	void popState(bool bIsFade = true);
-	void onFadeEnd(bool bIsFade, uint8 fadeID); // закончилось затемнение
+	void onFadeEnd(bool bIsFade, MyGUI::uint8 fadeID); // закончилось затемнение
 
-	virtual void windowResized(RenderWindow* rw);
-	virtual void windowClosed(RenderWindow* rw);
+	virtual void windowResized(Ogre::RenderWindow* rw);
+	virtual void windowClosed(Ogre::RenderWindow* rw);
 
 	// функции для передачи событий от мыши в оконном режиме
 	virtual void windowEventMouseCanBeReleased(); // мышь можно отпускать
-	virtual void windowEventMouseMove(RenderWindow* rw, LPARAM position); // позиция мыши
-	virtual void windowEventMouseWheel(RenderWindow* rw, WPARAM delta); // колесо прокрутки
-	virtual void windowEventMouseButtonDown(RenderWindow* rw, LPARAM position, uint8 button); // кнопка нажата
-	virtual void windowEventMouseButtonUp(RenderWindow* rw, LPARAM position, uint8 button); // кнопка отжата
+	virtual void windowEventMouseMove(Ogre::RenderWindow* rw, LPARAM position); // позиция мыши
+	virtual void windowEventMouseWheel(Ogre::RenderWindow* rw, WPARAM delta); // колесо прокрутки
+	virtual void windowEventMouseButtonDown(Ogre::RenderWindow* rw, LPARAM position, MyGUI::uint8 button); // кнопка нажата
+	virtual void windowEventMouseButtonUp(Ogre::RenderWindow* rw, LPARAM position, MyGUI::uint8 button); // кнопка отжата
 
 };
 //=======================================================================================

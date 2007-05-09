@@ -1,30 +1,47 @@
-//=========================================================================================
-#ifndef __MyGUI_Window_H__
-#define __MyGUI_Window_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
+#pragma once
+
+#include "MyGUI_Defines.h"
+#include "MyGUI_EventCallback.h"
+#include "MyGUI_Skin.h"
+#include <OgreOverlay.h>
+#include <OgreOverlayElement.h>
+#include <OgrePanelOverlayElement.h>
+
 namespace MyGUI {
 
-	class WindowCallback;
-	class GUI;
-	class Edit;
-	class Button;
-	class VScroll;
-	class HScrollBar;
-	class Tab;
-	class StaticText;
-	class List;
-	class ComboBox;
+    using Ogre::DisplayString;
 
 	class Window : public EventCallback { // базовый класс окон гуи
 
 	public:
-		Window(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
-		virtual ~Window();
-
-		virtual void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
+		Window(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);		
+	
+        virtual ~Window();
+	    
+	    static Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_WINDOWFRAME);
+	    
+	    template <typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+            uint16 uAlign, uint8 uSkin = __SKIN_WIDGET_DEFAULT)
+        {
+            if(uSkin == __SKIN_WIDGET_DEFAULT)
+                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0);
+            else
+                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0, uSkin);
+        }
+        
+        template <typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
+            uint16 uAlign, uint8 uSkin = __SKIN_WIDGET_DEFAULT)
+        {
+            uint16 NewPosX  = PosX  * GUI::getSingleton()->m_uWidth;
+            uint16 NewPosY  = PosY  * GUI::getSingleton()->m_uHeight;
+            uint16 NewSizeX = SizeX * GUI::getSingleton()->m_uWidth;
+            uint16 NewSizeX = SizeX * GUI::getSingleton()->m_uHeight;
+                
+            return spawn<Widget>(NewPosX, NewPosY, NewSizX, NewSizeY, uAlign, uSkin);
+        }
+            
+        virtual void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
 		virtual void _OnMouseMove(int16 iPosX, int16 iPosY); // вызывается при движении окна
 		virtual void _OnMouseButtonPressed(bool bIsLeftButtonPressed); // вызывается при нажатии клавиши
 		virtual void _OnMouseButtonClick(bool bIsDouble); // вызывается при нажатии клавиши и отпускании на том же элементе
@@ -32,62 +49,7 @@ namespace MyGUI {
 //		virtual void _OnKeyButtonClick(int keyEvent); // вызывается при отпускании клавиши клавы
 		virtual void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
 		virtual void _OnUpZOrder() {}; // вызывается при активации окна
-
-		MyGUI::Window * createWindow(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback = 0); // обыкновенное окно
-		MyGUI::Window * createWindowReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback = 0) { // обыкновенное окно
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createWindow(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, uAligin, uSkin, pEventCallback);
-		};
-		MyGUI::WindowFrame * createWindowFrame(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin = SKIN_WINDOWFRAME_CSX, EventCallback * pEventCallback = 0); // окно с рамкой
-		MyGUI::WindowFrame * createWindowFrameReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin = SKIN_WINDOWFRAME_CSX, EventCallback * pEventCallback = 0) { // окно с рамкой
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createWindowFrame(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, strWindowText, uAligin, uSkin, pEventCallback);
-		};
-		MyGUI::Button * createButton(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin = SKIN_BUTTON, EventCallback * pEventCallback = 0); // создает кнопку
-		MyGUI::Button * createButtonReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin = SKIN_BUTTON, EventCallback * pEventCallback = 0) { // создает кнопку
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createButton(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, strWindowText, uAligin, uSkin, pEventCallback);
-		}
-		MyGUI::Edit * createEdit(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin = SKIN_EDIT, EventCallback * pEventCallback = 0); // создает окно редактирования
-		MyGUI::Edit * createEditReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, uint16 uAligin, uint8 uSkin = SKIN_EDIT, EventCallback * pEventCallback = 0) { // создает окно редактирования
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createEdit(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, uAligin, uSkin, pEventCallback);
-		}
-		MyGUI::VScroll * createVScroll(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin = SKIN_VSCROLL, EventCallback * pEventCallback = 0); // создает полосу прокрутки
-		MyGUI::VScroll * createVScrollReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, uint16 uAligin, uint8 uSkin = SKIN_VSCROLL, EventCallback * pEventCallback = 0) { // создает полосу прокрутки
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createVScroll(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, uAligin, uSkin, pEventCallback);
-		}
-		MyGUI::Tab * createTab(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin = SKIN_TAB, EventCallback * pEventCallback = 0); // создает панель вкладок
-		MyGUI::Tab * createTabReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, uint16 uAligin, uint8 uSkin = SKIN_TAB, EventCallback * pEventCallback = 0) { // создает панель вкладок
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createTab(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, uAligin, uSkin, pEventCallback);
-		}
-		MyGUI::StaticText * createStaticText(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin = SKIN_STATIC_TEXT, EventCallback * pEventCallback = 0); // создает статический текст
-		MyGUI::StaticText * createStaticTextReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin = SKIN_STATIC_TEXT, EventCallback * pEventCallback = 0) { // создает статический текст
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createStaticText(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, strWindowText, uAligin, uSkin, pEventCallback);
-		}
-		MyGUI::List * createList(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin = SKIN_LIST_S, EventCallback * pEventCallback = 0); // создает список
-		MyGUI::List * createListReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, uint16 uAligin, uint8 uSkin = SKIN_LIST_S, EventCallback * pEventCallback = 0) { // создает список
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createList(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, uAligin, uSkin, pEventCallback);
-		}
-		MyGUI::ComboBox * createComboBox(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin = SKIN_COMBO_BOX, EventCallback * pEventCallback = 0); // создает выпадающий список
-		MyGUI::ComboBox * createComboBoxReal(Real fPosX, Real fPosY, Real fSizeX, Real fSizeY, uint16 uAligin, uint8 uSkin = SKIN_COMBO_BOX, EventCallback * pEventCallback = 0) { // создает выпадающий список
-			if (fSizeX != -1.0) fSizeX *= m_GUI->m_uWidth;
-			if (fSizeY != -1.0) fSizeY *= m_GUI->m_uHeight;
-			return createComboBox(fPosX*m_GUI->m_uWidth, fPosY*m_GUI->m_uHeight, fSizeX, fSizeY, uAligin, uSkin, pEventCallback);
-		}
-
+		
 		void show(bool bIsShow); // скрыть показать окно
 		void move(int16 iPosX, int16 iPosY); // передвинуть окно
 		virtual void size(int16 iSizeX, int16 iSizeY); // изменяем размер окна
@@ -97,8 +59,8 @@ namespace MyGUI {
 		void showFocus(bool bIsFocus); // активирование окна
 		virtual void setWindowText(const DisplayString & strText); // устанавливает текст окна
 		const DisplayString & getWindowText(); // возвращает строку окна
-		virtual void aliginWindowText(); // выполняет выравнивание текста
-		void aliginWindow(int16 rNewSizeX, int16 rNewSizeY); // выравнивает окно относительно отца
+		virtual void alignWindowText(); // выполняет выравнивание текста
+		void alignWindow(int16 rNewSizeX, int16 rNewSizeY); // выравнивает окно относительно отца
 		void setFont(__LP_MYGUI_FONT_INFO lpFont, uint32 colour); // устанавливает шрифт для элемента
 		void setFont(uint8 uFont, uint32 colour); // устанавливает шрифт для элемента
 
@@ -109,22 +71,20 @@ namespace MyGUI {
 		inline void setUserData(uint32 uUserData) {m_uUserData = uUserData;}; // ставит данные пользователя
 		inline uint32 getUserData() {return m_uUserData;}; // возвращает данные пользователя
 
-
-		Overlay* m_overlay; // оверлей этого окна
-		PanelOverlayElement * m_overlayContainer; // оверлей элемента
-		OverlayContainer* m_overlayCaption; // оверлей текста
-		vector<MyGUI::Window*>m_aWindowChild; // дети окна
-		Window * m_pWindowFother; // отец окна
+		Ogre::Overlay* m_overlay; // оверлей этого окна
+		Ogre::PanelOverlayElement * m_overlayContainer; // оверлей элемента
+		Ogre::OverlayContainer* m_overlayCaption; // оверлей текста
+		std::vector<MyGUI::Window*>m_aWindowChild; // дети окна
+		Window * m_pWindowParent; // отец окна
 		Window * m_pWindowText; // элемент скина содержащий текст всего элемента (по дефолту this)
 		Window * m_pWindowClient; // элемент скина является клиенским окном всего элемента (по дефолту this)
 		int16 m_iPosX, m_iPosY, m_iSizeX, m_iSizeY; // размеры окна
-		int16 m_iOffsetAliginX, m_iOffsetAliginY; // смещение, используется только при выравнивании по центру без растяжения
+		int16 m_iOffsetAlignX, m_iOffsetAlignY; // смещение, используется только при выравнивании по центру без растяжения
 
-		GUI *m_GUI; // указатль на гуи
 		uint8 m_uState; // статус окна
 		EventCallback *m_pEventCallback; // указатель на класс для вызова функций
 		uint16 m_uEventCallback; // флаги для посылки событий
-		uint16 m_uAligin; // выравнивание окна и текста
+		uint16 m_uAlign; // выравнивание окна и текста
 		int16 m_sizeTextX; // размер текста окна
 		int16 m_sizeTextY; // размер текста окна
 		int16 m_sizeCutTextX; // видимый размер текста
@@ -142,8 +102,4 @@ namespace MyGUI {
 		uint32 m_uUserData; // дополнительная информация пользователя
 
 	};
-
 }
-//=========================================================================================
-#endif
-//=========================================================================================

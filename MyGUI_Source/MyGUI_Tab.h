@@ -1,14 +1,8 @@
-//=========================================================================================
-#ifndef __MyGUI_Tab_H__
-#define __MyGUI_Tab_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
-namespace MyGUI {
+#pragma once
 
-	class Window;
-	class GUI;
+#include "MyGUI_Window.h"
+
+namespace MyGUI {
 
 	class Tab : public Window {
 
@@ -19,7 +13,10 @@ namespace MyGUI {
 		};
 
 	public:
-		Tab(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
+	    static Tab *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_TAB);
+	
+		Tab(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
 		Window * addSheet(const DisplayString & strName, int16 iSizeX = -1); // добавл€ет вкладку
 
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена лева€ кнопка мыши на этом же элементе
@@ -28,7 +25,7 @@ namespace MyGUI {
 		Window * getSheetSelected(); // возвращает выделенную вкладку
 		int getSheetSelectedNum() {return m_uCurrentTab;}; // возвращает выделенную вкладку или -1
 
-		vector <__tag_TAB_SHEET> m_aSheetsInfo; // информаци€ о вкладках
+		std::vector <__tag_TAB_SHEET> m_aSheetsInfo; // информаци€ о вкладках
 		Window * m_pWindowTop; // верхнее окно дл€ раст€гивани€
 		Window * m_pWindowTab; // окно дл€ размещени€ окон перекрыти€
 
@@ -40,6 +37,3 @@ namespace MyGUI {
 	};
 
 }
-//=========================================================================================
-#endif
-//=========================================================================================

@@ -1,20 +1,19 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_List.h"
+#include "MyGUI_OIS.h"
+#include "MyGUI_VScroll.h"
+#include "MyGUI_GUI.h"
+
 using namespace Ogre;
 using namespace std;
 using namespace OIS;
-//=========================================================================================
+
 namespace MyGUI {
 
 	// нет выделенного элемента
-//	#define __LIST_ITEM_NONSELECT 0xFFFF
+    //	#define __LIST_ITEM_NONSELECT 0xFFFF
 
-	class GUI;
-
-	List::List(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, gui, uOverlay, pWindowFother),
+	List::List(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowFother) :
+		Window(lpSkin, uOverlay, pWindowFother),
 		m_scroll(0),
 		m_uSkinButton(0),
 		m_uSizeYButton(1),
@@ -191,19 +190,21 @@ namespace MyGUI {
 		while (m_uCurrentFillSize < m_pWindowClient->m_iSizeY) {
 			int16 cutSize = m_uSizeXScroll;
 			if (!m_bIsVisibleScroll) cutSize = 0; // отрезать ничего не надо
-			Window * pChild = m_pWindowClient->createWindow(0, m_uCurrentFillSize, m_pWindowClient->m_iSizeX - cutSize, m_uSizeYButton, WA_TOP|WA_HSTRETCH, m_uSkinButton);
+			Window * pChild = m_pWindowClient->spawn<Window>(
+			    0, m_uCurrentFillSize, m_pWindowClient->m_iSizeX - cutSize, m_uSizeYButton,
+			    WA_TOP|WA_HSTRETCH, m_uSkinButton);
 			pChild->m_pEventCallback = (EventCallback *)this;
 			pChild->m_overlayContainer->hide();
 			pChild->setFont(m_font, m_fontColour);
-			pChild->m_uUserData = ((uint16)m_pWindowClient->m_aWindowChild.size()-1) - m_uStartWindow; // порядковый номер окна
+			pChild->m_uUserData = uint32(m_pWindowClient->m_aWindowChild.size() - 1 - m_uStartWindow); // порядковый номер окна
 			m_uCurrentFillSize += m_uSizeYButton;
 		};
 
 		uint8 oldCountVisible = m_uCountVisible;
 		m_uCountVisible = 0;
 
-		uint8 size = (uint8)m_pWindowClient->m_aWindowChild.size();
-		for (uint8 pos = m_uStartWindow; pos<size; pos++) {
+		size_t size = m_pWindowClient->m_aWindowChild.size();
+		for (size_t pos = m_uStartWindow; pos<size; pos++) {
 			Window * pWindow = m_pWindowClient->m_aWindowChild[pos];
 			if ((pWindow->m_iPosY + m_uSizeYButton) > m_pWindowClient->m_iSizeY) { // не влазиет
 				if (pWindow->m_overlayContainer->isVisible()) pWindow->m_overlayContainer->hide();
@@ -262,7 +263,7 @@ namespace MyGUI {
 					m_bIsVisibleScroll = false;
 
 					uint8 size = (uint8)m_pWindowClient->m_aWindowChild.size();
-					for (uint8 pos = m_uStartWindow; pos<size; pos++) {
+					for (size_t pos = m_uStartWindow; pos<size; pos++) {
 						Window * pWindow = m_pWindowClient->m_aWindowChild[pos];
 						pWindow->size(pWindow->m_iSizeX+m_uSizeXScroll, pWindow->m_iSizeY);
 					}
@@ -280,8 +281,8 @@ namespace MyGUI {
 				m_scroll->show(true);
 				m_bIsVisibleScroll = true;
 
-				uint8 size = (uint8)m_pWindowClient->m_aWindowChild.size();
-				for (uint8 pos = m_uStartWindow; pos<size; pos++) {
+				size_t size = m_pWindowClient->m_aWindowChild.size();
+				for (size_t pos = m_uStartWindow; pos<size; pos++) {
 					Window * pWindow = m_pWindowClient->m_aWindowChild[pos];
 					pWindow->size(pWindow->m_iSizeX-m_uSizeXScroll, pWindow->m_iSizeY);
 				}
@@ -297,10 +298,10 @@ namespace MyGUI {
 			pWindowSelect = 0;
 		}
 
-		uint16 size = (uint16)m_aString.size();
-		uint16 index = m_uStartWindow;
+		size_t size = m_aString.size();
+		size_t index = m_uStartWindow;
 		uint8 visible = 0;
-		for (uint16 pos=m_uOffsetDrawString; pos<size; pos++) {
+		for (size_t pos = m_uOffsetDrawString; pos < size; pos++) {
 			Window * pWindow = m_pWindowClient->m_aWindowChild[index];
 			pWindow->m_pWindowText->setWindowText(*m_aString[pos]);
 			if (pos == m_uSelectItem) {
@@ -313,7 +314,7 @@ namespace MyGUI {
 		}
 
 		// пустые места
-		for (uint16 pos=size+1; pos<m_uCountVisible; pos++) {
+		for (size_t pos = size + 1; pos < m_uCountVisible; pos++) {
 			m_pWindowClient->m_aWindowChild[pos]->setWindowText("");
 		}
 
@@ -390,22 +391,27 @@ namespace MyGUI {
 		m_font = lpFont;
 		m_fontColour = colour;
 		// присваиваем уже существующим строчкам
-		for (uint16 pos=m_uStartWindow; pos<(uint16)m_pWindowClient->m_aWindowChild.size(); pos++) {
+		for (size_t pos = m_uStartWindow; pos < m_pWindowClient->m_aWindowChild.size(); pos++) {
 			m_pWindowClient->m_aWindowChild[pos]->setFont(lpFont, colour);
 		}
 	}
 
-	MyGUI::List * Window::createList(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback)
+	List *List::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
 	{
 		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		List * pWindow = new List(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, m_pWindowClient);
-		pWindow->m_uAligin |= uAligin;
+		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		
+		List * pWindow = new List(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+		    
+		pWindow->m_uAlign |= uAlign;
 		pWindow->m_font = pSkin->fontWindow;
 		pWindow->m_fontColour = pSkin->colour;
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочерние окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], m_GUI, OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
 		}
@@ -413,60 +419,26 @@ namespace MyGUI {
 		if (__WINDOW_DATA3(pSkin)) { // есть скролл
 			uint8 uSkinScroll = __WINDOW_DATA3(pSkin);
 			__ASSERT(uSkinScroll < __SKIN_COUNT); // низя
-			pWindow->m_uSizeXScroll = m_GUI->m_windowInfo[uSkinScroll]->subSkins[0]->sizeX;
-			pWindow->m_scroll = pWindow->m_pWindowClient->createVScroll(pWindow->m_pWindowClient->m_iSizeX-pWindow->m_uSizeXScroll, 0, -1, pWindow->m_pWindowClient->m_iSizeY, WA_RIGHT|WA_VSTRETCH, __WINDOW_DATA3(pSkin));
+			pWindow->m_uSizeXScroll = GUI::getSingleton()->m_windowInfo[uSkinScroll]->subSkins[0]->sizeX;
+			pWindow->m_scroll = pWindow->m_pWindowClient->spawn<VScroll>(
+			    pWindow->m_pWindowClient->m_iSizeX - pWindow->m_uSizeXScroll, 0,
+			    -1, pWindow->m_pWindowClient->m_iSizeY,
+			    WA_RIGHT|WA_VSTRETCH, __WINDOW_DATA3(pSkin));
+			    
 			pWindow->m_uStartWindow = 1;
 			pWindow->m_scroll->m_pEventCallback = (EventCallback*)pWindow;
 			pWindow->m_bIsVisibleScroll = true;
 		}
 		pWindow->m_uSkinButton = __WINDOW_DATA4(pSkin);
 		__ASSERT(pWindow->m_uSkinButton < __SKIN_COUNT); // низя
-		pWindow->m_uSizeYButton = m_GUI->m_windowInfo[pWindow->m_uSkinButton]->subSkins[0]->sizeY;
+		pWindow->m_uSizeYButton = GUI::getSingleton()->m_windowInfo[pWindow->m_uSkinButton]->subSkins[0]->sizeY;
 		if (pWindow->m_uSizeYButton == 0) pWindow->m_uSizeYButton = 1;
 
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
+		pWindow->move(PosX, PosY);
+		if (SizeX == -1) SizeX = pSkin->subSkins[0]->sizeX;
+		if (SizeY == -1) SizeY = pSkin->subSkins[0]->sizeY;
+		pWindow->size(SizeX, SizeY);
 		return pWindow;
 	}
-
-	MyGUI::List * GUI::createList(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback)
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[uSkin];
-		List * pWindow = new List(pSkin->subSkins[0], this, uOverlay, 0);
-		pWindow->m_font = pSkin->fontWindow;
-		pWindow->m_fontColour = pSkin->colour;
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочерние окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
-		}
-
-		if (__WINDOW_DATA3(pSkin)) { // есть скролл
-			uint8 uSkinScroll = __WINDOW_DATA3(pSkin);
-			__ASSERT(uSkinScroll < __SKIN_COUNT); // низя
-			pWindow->m_uSizeXScroll = m_windowInfo[uSkinScroll]->subSkins[0]->sizeX;
-			pWindow->m_scroll = pWindow->m_pWindowClient->createVScroll(pWindow->m_pWindowClient->m_iSizeX-pWindow->m_uSizeXScroll, 0, -1, pWindow->m_pWindowClient->m_iSizeY, WA_RIGHT|WA_VSTRETCH, __WINDOW_DATA3(pSkin));
-			pWindow->m_uStartWindow = 1;
-			pWindow->m_scroll->m_pEventCallback = (EventCallback*)pWindow;
-			pWindow->m_bIsVisibleScroll = true;
-		}
-		pWindow->m_uSkinButton = __WINDOW_DATA4(pSkin);
-		__ASSERT(pWindow->m_uSkinButton < __SKIN_COUNT); // низя
-		pWindow->m_uSizeYButton = m_windowInfo[pWindow->m_uSkinButton]->subSkins[0]->sizeY;
-		if (pWindow->m_uSizeYButton == 0) pWindow->m_uSizeYButton = 1;
-
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
-		return pWindow;
-	}
-
 }
 //=========================================================================================

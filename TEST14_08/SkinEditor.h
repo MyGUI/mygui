@@ -1,16 +1,12 @@
-//=========================================================================================
-#ifndef __SkinEditor_H__
-#define __SkinEditor_H__
-//=========================================================================================
+#pragma once
+
 #include "MyGUI_Source\\MyGUI.h"
-//=========================================================================================
-using namespace Ogre;
-using namespace MyGUI;
+
 //=========================================================================================
 // класс панели для редактирования скинов
 class SkinEditor : public MyGUI::EventCallback
 {
-	public:
+    public:
 
 		enum {
 			NONE=0,
@@ -27,54 +23,60 @@ class SkinEditor : public MyGUI::EventCallback
 		};
 
 		typedef struct _tag_STATE_DATA { // информация об одном стейте
-			uint16 uPosition[4]; // позиция в элементе
+			MyGUI::uint16 uPosition[4]; // позиция в элементе
 		} * LP_STATE_DATA;
 
 		typedef struct _tag_SUB_SKIN_DATA {
-			String strName; // название саб скина
-			uint16 uOffset[4]; // смещение в текстуре
-			uint16 event_info; // события
-			uint16 style; // стиль
-			uint16 aligin; // выравнивание
+			MyGUI::String strName; // название саб скина
+			MyGUI::uint16 uOffset[4]; // смещение в текстуре
+			MyGUI::uint16 event_info; // события
+			MyGUI::uint16 style; // стиль
+			MyGUI::uint16 align; // выравнивание
 			_tag_STATE_DATA stateInfo[5]; // на каждое состояние
 			_tag_SUB_SKIN_DATA::_tag_SUB_SKIN_DATA() {assert(0);}; // низя
-			_tag_SUB_SKIN_DATA::_tag_SUB_SKIN_DATA(const String & str) : strName(str), event_info(0), style(0), aligin(0)
+			_tag_SUB_SKIN_DATA::_tag_SUB_SKIN_DATA(const MyGUI::String & str) : strName(str), event_info(0), style(0), align(0)
 			{
-				memset((void*)uOffset, 0, sizeof(uint16) * 4); // очищаем
+				memset((void*)uOffset, 0, sizeof(MyGUI::uint16) * 4); // очищаем
 				memset((void*)stateInfo, 0, sizeof(_tag_STATE_DATA) * 5); // очищаем
 			};
 		} * LP_SUB_SKIN_DATA;
 
 		typedef struct _tag_WINDOW_DATA {
-			String strElementName; // имя элемента
-			String strAddedSkin1; // дополнительные скины
-			String strAddedSkin2; // дополнительные скины
-			uint8 uAddedData1; // дополнительные данные
-			uint8 uAddedData2; // дополнительные данные
-			String strFont; // шрифт
-			String strColour; // название цвета
+			MyGUI::String strElementName; // имя элемента
+			MyGUI::String strAddedSkin1; // дополнительные скины
+			MyGUI::String strAddedSkin2; // дополнительные скины
+			MyGUI::uint8 uAddedData1; // дополнительные данные
+			MyGUI::uint8 uAddedData2; // дополнительные данные
+			MyGUI::String strFont; // шрифт
+			MyGUI::String strColour; // название цвета
 
-			String strMaterialName; // имя материала
-			uint16 sizeTextureX; // размер текстуры
-			uint16 sizeTextureY; // размер текстуры
+			MyGUI::String strMaterialName; // имя материала
+			MyGUI::uint16 sizeTextureX; // размер текстуры
+			MyGUI::uint16 sizeTextureY; // размер текстуры
 
-			vector <LP_SUB_SKIN_DATA> sabSkins; // указатели на сабскины
+			std::vector <LP_SUB_SKIN_DATA> sabSkins; // указатели на сабскины
 			_tag_WINDOW_DATA::_tag_WINDOW_DATA() {assert(0);};
-			_tag_WINDOW_DATA::_tag_WINDOW_DATA(const String & strName) : strElementName(strName), uAddedData1(0), uAddedData2(0), sizeTextureX(0), sizeTextureY(0) {};
+			_tag_WINDOW_DATA::_tag_WINDOW_DATA(const MyGUI::String & strName) :
+			    strElementName(strName),
+			    uAddedData1(0),
+			    uAddedData2(0),
+			    sizeTextureX(0),
+			    sizeTextureY(0) {};
 		} * LP_WINDOW_DATA;
 
 
-		virtual void onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data); // дополнительные события
+		virtual void onOtherEvent(MyGUI::Window * pWindow, MyGUI::uint16 uEvent, MyGUI::uint32 data); // дополнительные события
 		virtual void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
-		virtual void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iFotherPosX, int16 iFotherPosY); // уведомление о движении, но не движение
+		virtual void onMouseMove(MyGUI::Window * pWindow, MyGUI::int16 iPosX, MyGUI::int16 iPosY,
+		    MyGUI::int16 iParentPosX, MyGUI::int16 iParentPosY); // уведомление о движении, но не движение
 
 		bool createEditor(); // создает окно редактирования скинов
 		void destroyEditor(); // удаляет окно редактирования скинов
-		void loadSkin(const String & strFileName); // сохраняет скин
-		void saveSkin(const String & strFileName); // загружает скин
+		void loadSkin(const MyGUI::String & strFileName); // сохраняет скин
+		void saveSkin(const MyGUI::String & strFileName); // загружает скин
 
-		SkinEditor::LP_SUB_SKIN_DATA findSkinData(const String & strName, bool create = true); // ищет данные если нет то создает
+		SkinEditor::LP_SUB_SKIN_DATA findSkinData(const MyGUI::String & strName, bool create = true); // ищет данные если нет то создает
 		void deleteSkinData(SkinEditor::LP_SUB_SKIN_DATA lpDataSkin); // удаляет саб скин
 		void destroySkins(); // удаляет все саб скины
 
@@ -88,47 +90,44 @@ class SkinEditor : public MyGUI::EventCallback
 		void fillFlagWindow(); // заполняет окна текущими значения
 		bool fillMaterialWindow(); // заполняем окно с материалом
 		void pressOtherButton(MyGUI::Window * pWindow); // сверяем с кнопками флагов
-		void setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY); // сдвигаем рамку
+		void setMaterialOffset(MyGUI::uint16 posX, MyGUI::uint16 posY, MyGUI::uint16 sizeX, MyGUI::uint16 sizeY); // сдвигаем рамку
 
 
-		WindowFrame * m_mainWindow; // главное окно инструментов
-		ComboBox * m_comboBasisWindowName; // главный скин окна
+		MyGUI::WindowFrame * m_mainWindow; // главное окно инструментов
+		MyGUI::ComboBox * m_comboBasisWindowName; // главный скин окна
 
-		ComboBox * m_comboBasisAddedSkin1; // присоединяемый скин 1
-		ComboBox * m_comboBasisAddedSkin2; // присоединяемый скин 2
-		Edit * m_editBasisData1; // дополнительные данные 1
-		Edit * m_editBasisData2; // дополнительные данные 1
-		ComboBox * m_comboBasisFont; // шрифт окна
-		ComboBox * m_comboBasisColour; // цвет окна
-		ComboBox * m_comboMaterialName; // материал для данного скина
+		MyGUI::ComboBox * m_comboBasisAddedSkin1; // присоединяемый скин 1
+		MyGUI::ComboBox * m_comboBasisAddedSkin2; // присоединяемый скин 2
+		MyGUI::Edit * m_editBasisData1; // дополнительные данные 1
+		MyGUI::Edit * m_editBasisData2; // дополнительные данные 1
+		MyGUI::ComboBox * m_comboBasisFont; // шрифт окна
+		MyGUI::ComboBox * m_comboBasisColour; // цвет окна
+		MyGUI::ComboBox * m_comboMaterialName; // материал для данного скина
 
-		ComboBox * m_comboSabSkinName; // саб скины окна
-		Button * m_buttonSabSkinStyle; // стили скина
+		MyGUI::ComboBox * m_comboSabSkinName; // саб скины окна
+		MyGUI::Button * m_buttonSabSkinStyle; // стили скина
 
-		ComboBox * m_comboSabSkinState; // состояние скина
+		MyGUI::ComboBox * m_comboSabSkinState; // состояние скина
 
-		Edit * m_editOffset[4]; // смещения куска внутри текстуры
-		Edit * m_editPosition[4]; // позиция окна в общем скине
+		MyGUI::Edit * m_editOffset[4]; // смещения куска внутри текстуры
+		MyGUI::Edit * m_editPosition[4]; // позиция окна в общем скине
 
-		vector <_tag_WINDOW_DATA> mWindowInfo; // информация о всех окнах
-		vector <String> m_strMaterialName; // все доступные материалы
+		std::vector <_tag_WINDOW_DATA> mWindowInfo; // информация о всех окнах
+		std::vector <MyGUI::String> m_strMaterialName; // все доступные материалы
 
 		LP_WINDOW_DATA m_pCurrentDataWindow; // текущее окно
 		LP_SUB_SKIN_DATA m_pCurrentDataSkin; // текущий саб скин
 		LP_STATE_DATA m_pCurrentDataState; // текцщий стейт скина
 
 
-		WindowFrame * m_windowStateFlags; // окно с флагами
-		Button * m_buttonsFlagsEvent[16];
-		Button * m_buttonsFlagsAligin[16];
-		Button * m_buttonsFlagsStyle[16];
+		MyGUI::WindowFrame * m_windowStateFlags; // окно с флагами
+		MyGUI::Button * m_buttonsFlagsEvent[16];
+		MyGUI::Button * m_buttonsFlagsAlign[16];
+		MyGUI::Button * m_buttonsFlagsStyle[16];
 
-		WindowFrame * m_windowMaterial; // окно с материалом
-		Window * m_windowMaterialOffset[MATERIAL_BORDER_COUNT]; // граница
-		uint16 m_uTextureSizeX;
-		uint16 m_uTextureSizeY;
+		MyGUI::WindowFrame * m_windowMaterial; // окно с материалом
+		MyGUI::Window * m_windowMaterialOffset[MATERIAL_BORDER_COUNT]; // граница
+		MyGUI::uint16 m_uTextureSizeX;
+		MyGUI::uint16 m_uTextureSizeY;
 
 };
-//=========================================================================================
-#endif
-//=========================================================================================

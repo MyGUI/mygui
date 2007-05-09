@@ -1,21 +1,18 @@
-//=========================================================================================
-#ifndef __MyGUI_ComboBox_H__
-#define __MyGUI_ComboBox_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
-namespace MyGUI {
+#pragma once
 
-	class Window;
-	class List;
-	class GUI;
+#include "MyGUI_Window.h"
+#include "MyGUI_List.h"
+
+namespace MyGUI {
 
 	class ComboBox : public Window {
 
 	public:
-		ComboBox(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
+		ComboBox(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
 		~ComboBox();
+		
+		static ComboBox *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_COMBO_BOX);
 
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
 
@@ -35,7 +32,7 @@ namespace MyGUI {
 		inline void deleteStringAll() {m_pList->deleteStringAll();setWindowText("");}; // удаляет все строки
 		inline uint16 getStringCount() {return (uint16)m_pList->m_aString.size();}; // возвращает колличество строк
 
-		virtual void setWindowText(const DisplayString & strText); // устанавливает текст окна
+		virtual void setWindowText(const Ogre::DisplayString & strText); // устанавливает текст окна
 		
 		Edit * m_pEdit; // едит для класса
 		List * m_pList; // всплывающий список
@@ -44,6 +41,3 @@ namespace MyGUI {
 	};
 
 }
-//=========================================================================================
-#endif
-//=========================================================================================

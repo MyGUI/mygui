@@ -1,62 +1,37 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_Window.h"
+#include "MyGUI_OIS.h"
+#include "MyGUI_GUI.h"
+
+#include <OgreStringConverter.h>
+#include <OgreOverlayManager.h>
+#include <OgreTechnique.h>
+#include <OgreFont.h>
+
 using namespace Ogre;
 using namespace std;
 using namespace OIS;
-//=========================================================================================
+
 namespace MyGUI {
-
-#ifdef _DEBUG
-	void _LOG( const char *format, ... ) // выводит строку лога в файл
-    {
-		const char * logFileMyGUI = "MyGUI.log"; // файл лога
-        char buffer[2048]; // The buffer
-
-		va_list ap;
-        va_start( ap, format );
-        vsprintf( buffer, format, ap );
-        va_end( ap );
-
-		static bool bIsFirstRun = true;
-		if (bIsFirstRun) { // первый раз
-            unlink( logFileMyGUI );
-			bIsFirstRun = false;
-			// Print a header for the log
-			time_t t = time(NULL);
-			_LOG("--------------------------------------------------------------------------------");
-			_LOG(" %s - MyGUI logging file created on %s", logFileMyGUI, asctime(localtime(&t)));
-			_LOG("--------------------------------------------------------------------------------\r\n");
-		}
-        // Open the log file
-        FILE *fp = fopen( logFileMyGUI, "ab" );
-        if ( !fp ) return;
-        // Spit out the data to the log
-        fprintf( fp, "%s\r\n", buffer );
-        fclose( fp );
-    };
-#endif
-
-	GUI::GUI(uint16 uWidth, uint16 uHeight, EventCallback *pEventCallback) :
-		m_uWidth(uWidth),
-		m_uHeight(uHeight),
-		m_iCurrentOffsetCursorX(0.0),
-		m_iCurrentOffsetCursorY(0.0),
-		m_uMaxZOrder(__GUI_ZORDER_OVERLAPPED), // начало для перекрывающихся окон
-		m_bShiftChars(0),
-		m_bIsActiveGUI(false),
-		m_bIsFocusWindowCapture(0),
-		m_currentWindow(0),
-		m_currentFocusWindow(0),
-		m_currentEditWindow(0),
-		m_uOverlappedStart(0),
-		m_uOverlappedEnd(0),
-		m_pEventCallback(pEventCallback),
-		m_bFadeState(FADE_END),
-		m_currentFadeWindow(0),
-		m_pEventCallbackFade(0)
+	GUI *GUI::Initialize(uint16 uWidth, uint16 uHeight, EventCallback *pEventCallback)
 	{
+		m_uWidth = (uWidth);
+		m_uHeight = (uHeight);
+		m_iCurrentOffsetCursorX = (0.0);
+		m_iCurrentOffsetCursorY = (0.0);
+		m_uMaxZOrder = (__GUI_ZORDER_OVERLAPPED); // начало для перекрывающихся окон
+		m_bShiftChars = (0);
+		m_bIsActiveGUI = (false);
+		m_bIsFocusWindowCapture = (0);
+		m_currentWindow = (0);
+		m_currentFocusWindow = (0);
+		m_currentEditWindow = (0);
+		m_uOverlappedStart = (0);
+		m_uOverlappedEnd = (0);
+		m_pEventCallback = (pEventCallback);
+		m_bFadeState = (FADE_END);
+		m_currentFadeWindow = (0);
+		m_pEventCallbackFade = (0);
+		
 		_LOG("create MyGui object (%p) ,  %d x %d\r\n", this, uWidth, uHeight);
 
 		m_overlayGUI[OVERLAY_FADE] = createOverlay("MyGUI_"+StringConverter::toString(OVERLAY_FADE), __GUI_ZORDER_FADE, false);
@@ -69,9 +44,11 @@ namespace MyGUI {
 
 		createMousePointer();
 		setMousePointer(POINTER_DEFAULT);
+		
+		return this;
 	}
-
-	GUI::~GUI()
+	
+	void GUI::Shutdown()
 	{
 		unloadResource();
 		while (m_aWindowChild.size() > 0) destroyWindow(m_aWindowChild[0]);
@@ -81,6 +58,8 @@ namespace MyGUI {
 		for (uint16 pos=0; pos<__OVERLAY_COUNT; pos++) overlayManager.destroy(m_overlayGUI[pos]);
 
 		_LOG("\r\ndestroy MyGui object (%p)", this);
+		
+		
 	}
 
 	void GUI::destroyWindow(__MYGUI_OVERLAYS overlay) // уничтожает окно и удаляет из списка
@@ -117,13 +96,13 @@ namespace MyGUI {
 		m_currentFocusWindow = 0; // сброс активного окна
 
 		uint16 size;
-		if (pWindow->m_pWindowFother) { // есть отец
-			Window * pFotherWindow = pWindow->m_pWindowFother;
-			size = (uint16)pFotherWindow->m_aWindowChild.size();
+		if (pWindow->m_pWindowParent) { // есть отец
+			Window * pParentWindow = pWindow->m_pWindowParent;
+			size = (uint16)pParentWindow->m_aWindowChild.size();
 			for (uint16 i=0; i<size; i++) { // ищем в детском саду
-				if (pWindow == pFotherWindow->m_aWindowChild[i]) { // нашелся
-					pFotherWindow->m_aWindowChild[i] = pFotherWindow->m_aWindowChild[size-1];
-					pFotherWindow->m_aWindowChild.pop_back();
+				if (pWindow == pParentWindow->m_aWindowChild[i]) { // нашелся
+					pParentWindow->m_aWindowChild[i] = pParentWindow->m_aWindowChild[size-1];
+					pParentWindow->m_aWindowChild.pop_back();
 					delete pWindow; // удаляем окно
 					i = size; // выходим
 				}
@@ -444,7 +423,7 @@ namespace MyGUI {
 		m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_FADE); // поднимает вверх
 
 		__ASSERT(m_currentFadeWindow == 0);
-		m_currentFadeWindow = createWindow(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
+		m_currentFadeWindow = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
 
 		MaterialPtr Mat = m_currentFadeWindow->m_overlayContainer->getMaterial();
 		TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);
@@ -520,7 +499,7 @@ namespace MyGUI {
 		if (len > sizeX) sizeX = len;
 	}
 
-	void GUI::getCutText(__LP_MYGUI_FONT_INFO &font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAligin) // возвращает обрезанную строку равную длинне
+	void GUI::getCutText(__LP_MYGUI_FONT_INFO &font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAlign) // возвращает обрезанную строку равную длинне
 	{
 		strDest.clear();
 		// строка пустая
@@ -530,8 +509,8 @@ namespace MyGUI {
 		// маловато места
 		if (sizeX <= 0) {sizeY = 0;sizeX = 0;	return;}
 		// даже три точки не помещаются
-		bool multiLine = ((uAligin & WAT_MULTI_LINE) != 0);
-		bool isDot = (((uAligin & WAT_ADD_DOT) != 0) && (!multiLine));
+		bool multiLine = ((uAlign & WAT_MULTI_LINE) != 0);
+		bool isDot = (((uAlign & WAT_ADD_DOT) != 0) && (!multiLine));
 		if (isDot) {
 			if (len < font->sizeTripleDot) {	sizeX = 0;sizeY = 0;return;	}
 			len -= font->sizeTripleDot;
@@ -541,7 +520,7 @@ namespace MyGUI {
 		if (sizeY < height) {sizeY = 0;sizeX = 0;return;}
 
 		float sizeChar = 0;
-		bool breakWord = ((uAligin & WAT_BREAK_WORD) != 0);
+		bool breakWord = ((uAlign & WAT_BREAK_WORD) != 0);
 
 		strDest.resize(strSource.length() + 32);// сразу зададим размер, если будет мало то выкинет
 		DisplayString::iterator indexDest = strDest.begin();
@@ -549,7 +528,7 @@ namespace MyGUI {
 		DisplayString::iterator indexDestSpace = strDest.end(); // место последнего пробела
 
 
-		if (uAligin & WAT_CUT_RIGHT) { // обрезаем справа
+		if (uAlign & WAT_CUT_RIGHT) { // обрезаем справа
 
 			DisplayString::const_iterator indexSource = strSource.begin();
 
@@ -668,6 +647,4 @@ namespace MyGUI {
 		sizeY = height;
 
 	}
-
 }
-//=========================================================================================

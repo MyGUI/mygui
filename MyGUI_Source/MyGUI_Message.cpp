@@ -1,17 +1,20 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_Message.h"
+#include "MyGUI_OIS.h"
+#include "MyGUI_GUI.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_StaticText.h"
+#include <OgreTechnique.h>
+
 using namespace Ogre;
 using namespace std;
 using namespace OIS;
-//=========================================================================================
+
 namespace MyGUI {
 
 	class GUI;
 
-	Message::Message(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		WindowFrame(lpSkin, gui, uOverlay, pWindowFother),
+	Message::Message(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		WindowFrame(lpSkin, uOverlay, pWindowParent),
 		m_pButton1(0),
 		m_pButton2(0),
 		m_pWindowFide(0)
@@ -20,7 +23,7 @@ namespace MyGUI {
 
 	void Message::_OnUpZOrder() // вызывается при активации окна
 	{
-		m_GUI->setKeyFocus(m_pButton1);
+		GUI::getSingleton()->setKeyFocus(m_pButton1);
 	}
 
 	void Message::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша
@@ -34,12 +37,12 @@ namespace MyGUI {
 		} else return;
 
 		if (m_pWindowFide) { // это модальное сообщение
-			m_GUI->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
-			m_GUI->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
+			GUI::getSingleton()->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
+			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
 		}
 
 		if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_MESSAGE_PRESS_BUTTON, data);
-		m_GUI->destroyWindow(this);
+		GUI::getSingleton()->destroyWindow(this);
 	}
 
 	void Message::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена левая кнопка мыши на этом же элементе
@@ -51,12 +54,12 @@ namespace MyGUI {
 		} else if (m_pButton2) data = m_pButton2->m_uUserData;
 
 		if (m_pWindowFide) { // это модальное сообщение
-			m_GUI->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
-			m_GUI->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
+			GUI::getSingleton()->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
+			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
 		}
 
 		if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_MESSAGE_PRESS_BUTTON, data);
-		m_GUI->destroyWindow(this);
+		GUI::getSingleton()->destroyWindow(this);
 
 	}
 
@@ -74,21 +77,22 @@ namespace MyGUI {
 		Message * pWindow;
 		if (bIsModal) { // модальное окно сообщения
 			__ASSERT(!m_overlayGUI[OVERLAY_FADE]->isVisible()); // только одно окно
-			pWindow = new Message(pSkin->subSkins[0], this, OVERLAY_POPUP, 0);
+			pWindow = new Message(pSkin->subSkins[0], OVERLAY_POPUP, 0);
 
 			m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
 			m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_POPUP_FADE); // снижаем после всплывающих окон
 
-			pWindow->m_pWindowFide = createWindow(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
+			pWindow->m_pWindowFide = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
 			MaterialPtr Mat = pWindow->m_pWindowFide->m_overlayContainer->getMaterial();
 			TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);
 			texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, __GUI_POPUP_FADE_ALPHA);
 
-		} else pWindow = new Message(pSkin->subSkins[0], this, OVERLAY_OVERLAPPED, 0);
+		} else
+		    pWindow = new Message(pSkin->subSkins[0], OVERLAY_OVERLAPPED, 0);
 
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
 			if (pChild->m_uExData & WES_CLIENT) {
@@ -108,12 +112,14 @@ namespace MyGUI {
 		int16 iMinSizeX = __BUTTON_SIZE+20;
 
 		if (!strButton1.empty()) {
-			pWindow->m_pButton1 = pWindow->createButton(0, 0, __BUTTON_SIZE, 25, strButton1, WA_LEFT|WA_BOTTOM);
+			pWindow->m_pButton1 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+			pWindow->m_pButton1->setWindowText(strButton1);
 			pWindow->m_pButton1->setUserData(MBB_BUTTON1);
 			pWindow->m_pButton1->m_pEventCallback = (EventCallback*)pWindow;
 			if (!strButton2.empty()) {
 				iMinSizeX += __BUTTON_SIZE + 20;
-				pWindow->m_pButton2 = pWindow->createButton(0, 0, __BUTTON_SIZE, 25, strButton2, WA_LEFT|WA_BOTTOM);
+				pWindow->m_pButton2 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+				pWindow->m_pButton2->setWindowText(strButton2);
 				pWindow->m_pButton2->setUserData(MBB_BUTTON2);
 				pWindow->m_pButton2->m_pEventCallback = (EventCallback*)pWindow;
 			}
@@ -121,7 +127,10 @@ namespace MyGUI {
 
 		__ASSERT(pWindow->m_pButton1); // как так ?
 
-		StaticText * text = pWindow->createStaticText(5, 5, pWindow->m_pWindowClient->m_iSizeX-10, pWindow->m_pWindowClient->m_iSizeY-50, strMessage, WA_STRETCH);
+		StaticText * text = pWindow->spawn<StaticText>(5, 5,
+		    pWindow->m_pWindowClient->m_iSizeX - 10, pWindow->m_pWindowClient->m_iSizeY - 50,
+		    WA_STRETCH);
+		text->setWindowText( strMessage );
 		text->setFont(text->m_font, COLOUR_WHITE);
 
 		int iSizeText = text->m_sizeTextX;

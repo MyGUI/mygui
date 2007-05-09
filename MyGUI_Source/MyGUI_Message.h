@@ -1,10 +1,7 @@
-//=========================================================================================
-#ifndef __MyGUI_Message_H__
-#define __MyGUI_Message_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
+#pragma once
+
+#include "MyGUI_WindowFrame.h"
+
 namespace MyGUI {
 
 	class WindowFrame;
@@ -14,7 +11,7 @@ namespace MyGUI {
 	class Message : public WindowFrame {
 
 	public:
-		Message(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
+		Message(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
 
 		void _OnUpZOrder(); // вызывается при активации окна
 
@@ -29,6 +26,3 @@ namespace MyGUI {
 	};
 
 }
-//=========================================================================================
-#endif
-//=========================================================================================

@@ -1,21 +1,17 @@
-//=========================================================================================
-#ifndef __MyGUI_List_H__
-#define __MyGUI_List_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
-namespace MyGUI {
+#pragma once
 
-	class Window;
-	class GUI;
-	class VScroll;
+#include "MyGUI_Window.h"
+
+namespace MyGUI {
 
 	class List : public Window {
 
 	public:
-		List(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
+		List(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
 		~List();
+		
+		static List *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_LIST_S);
 
 		void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
@@ -45,10 +41,10 @@ namespace MyGUI {
 		uint8 m_uSizeYButton; // высота строки
 		uint8 m_uSizeXScroll; // ширина скрола
 		uint16 m_uCurrentFillSize; // место до куда созданны окна
-		uint8 m_uStartWindow; // откуда ничинаются кнопки - 0 или 1 (есть скролл)
+		size_t m_uStartWindow; // откуда ничинаются кнопки - 0 или 1 (есть скролл)
 		uint8 m_uCountVisible; // сколько видимых строк
 
-		vector <DisplayString * > m_aString; // список строк
+		std::vector <DisplayString * > m_aString; // список строк
 		uint16 m_uOffsetDrawString; // элемент первой видимой строки
 		uint16 m_uSelectItem; // выделенный элемент
 		Window *pWindowSelect; // текущая выделенная строчка
@@ -58,8 +54,4 @@ namespace MyGUI {
 		bool m_bIsOneClickActived; // акцепт одним кликом мыши
 
 	};
-
 }
-//=========================================================================================
-#endif
-//=========================================================================================

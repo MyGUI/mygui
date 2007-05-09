@@ -206,6 +206,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GameConfigFile.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\OptionsState.cpp"
 				>
 			</File>
@@ -268,11 +272,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_Defines.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Edit.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Edit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_EventCallback.h"
 				>
 			</File>
 			<File
@@ -300,11 +312,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_Logging.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_Logging.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Message.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Message.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_OIS.h"
 				>
 			</File>
 			<File

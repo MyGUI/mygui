@@ -1,9 +1,9 @@
-//=====================================================================================
 #pragma once
-//=====================================================================================
+
 #include "OIS\\OIS.h"
 #include "MyGUI_Source\\MyGUI.h"
 //#include "GameData.h"
+
 //=====================================================================================
 // базовый класс для всех стейтов
 //===================================================================================
@@ -17,8 +17,8 @@ public:
 //	virtual void save(GameData & data) {}; // сохранить все, здесь вы должны сохранить все настройки таким образом, чтобы стейт можно было вернуть в эту точку, после метода enter() и метода load()
 //	virtual void load(GameData & data) {}; // загрузить все, здесь вы должны восстановить состояние стейта, используя данные сохраненые в методе save()
 
-	virtual bool frameStarted(const FrameEvent& evt) {return true;};
-	virtual bool frameEnded(const FrameEvent& evt) {return true;};
+	virtual bool frameStarted(const Ogre::FrameEvent& evt) {return true;};
+	virtual bool frameEnded(const Ogre::FrameEvent& evt) {return true;};
 	virtual bool keyPressed( const OIS::KeyEvent &arg ) {return true;};
 	virtual bool keyReleased( const OIS::KeyEvent &arg ) {return true;};
 	virtual bool mouseMoved( const OIS::MouseEvent &arg ) {return true;};

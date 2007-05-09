@@ -1,20 +1,17 @@
-//=========================================================================================
-//=========================================================================================
-#include "MyGUI.h"
-//=========================================================================================
+#include "MyGUI_WindowFrame.h"
+#include "MyGUI_GUI.h"
+
 using namespace Ogre;
 using namespace std;
-//=========================================================================================
+
 namespace MyGUI {
 
-	class GUI;
-
-	WindowFrame::WindowFrame(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, gui, uOverlay, pWindowFother),
+	WindowFrame::WindowFrame(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent),
 		m_iMinSizeX(0),
 		m_iMinSizeY(0),
-		m_iMaxSizeX(gui->m_uWidth),
-		m_iMaxSizeY(gui->m_uHeight)
+		m_iMaxSizeX(GUI::getSingleton()->m_uWidth),
+		m_iMaxSizeY(GUI::getSingleton()->m_uHeight)
 	{
 	}
 
@@ -28,35 +25,35 @@ namespace MyGUI {
 
 	void WindowFrame::setMinMaxReal(Real fMinSizeX, Real fMinSizeY, Real fMaxSizeX, Real fMaxSizeY)// укстановка минимальных и максимальных размеров
 	{
-		if (fMinSizeX >= 0.0) m_iMinSizeX = fMinSizeX * m_GUI->m_uWidth;
-		if (fMinSizeY >= 0.0) m_iMinSizeY = fMinSizeY * m_GUI->m_uHeight;
-		if (fMaxSizeX >= 0.0) m_iMaxSizeX = fMaxSizeX * m_GUI->m_uWidth;
-		if (fMaxSizeY >= 0.0) m_iMaxSizeY = fMaxSizeY * m_GUI->m_uHeight;
+		if (fMinSizeX >= 0.0) m_iMinSizeX = fMinSizeX * GUI::getSingleton()->m_uWidth;
+		if (fMinSizeY >= 0.0) m_iMinSizeY = fMinSizeY * GUI::getSingleton()->m_uHeight;
+		if (fMaxSizeX >= 0.0) m_iMaxSizeX = fMaxSizeX * GUI::getSingleton()->m_uWidth;
+		if (fMaxSizeY >= 0.0) m_iMaxSizeY = fMaxSizeY * GUI::getSingleton()->m_uHeight;
 	}
 
-	void WindowFrame::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iFotherPosX, int16 iFotherPosY) // уведомление о движении, но не движение
+	void WindowFrame::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY) // уведомление о движении, но не движение
 	{
 		if (pWindow->m_uExData & WES_CAPTION) {
-			iPosX -= m_GUI->m_iOffsetPressedX+pWindow->m_iPosX;
-			iPosY -= m_GUI->m_iOffsetPressedY+pWindow->m_iPosY;
-			if (m_pWindowFother) { // есть отец
-				iPosX -= m_pWindowFother->m_iPosX;
-				iPosY -= m_pWindowFother->m_iPosY;
+			iPosX -= GUI::getSingleton()->m_iOffsetPressedX+pWindow->m_iPosX;
+			iPosY -= GUI::getSingleton()->m_iOffsetPressedY+pWindow->m_iPosY;
+			if (m_pWindowParent) { // есть отец
+				iPosX -= m_pWindowParent->m_iPosX;
+				iPosY -= m_pWindowParent->m_iPosY;
 				if (iPosX < 0) iPosX = 0;
-				else if ((iPosX + m_iSizeX) > m_pWindowFother->m_iSizeX) iPosX = m_pWindowFother->m_iSizeX - m_iSizeX;
+				else if ((iPosX + m_iSizeX) > m_pWindowParent->m_iSizeX) iPosX = m_pWindowParent->m_iSizeX - m_iSizeX;
 				if (iPosY < 0) iPosY = 0;
-				else if ((iPosY + m_iSizeY) > m_pWindowFother->m_iSizeY) iPosY = m_pWindowFother->m_iSizeY - m_iSizeY;
+				else if ((iPosY + m_iSizeY) > m_pWindowParent->m_iSizeY) iPosY = m_pWindowParent->m_iSizeY - m_iSizeY;
 			}
 			move(iPosX, iPosY);
 		}
 		if (pWindow->m_uExData & WES_RESIZE) {
-			iPosX -= m_iPosX + m_GUI->m_iOffsetPressedX - m_iSizeX + pWindow->m_iPosX;
-			iPosY -= m_iPosY + m_GUI->m_iOffsetPressedY - m_iSizeY + pWindow->m_iPosY;
-			if (m_pWindowFother) { // есть отец
-				iPosX -= m_pWindowFother->m_iPosX;
-				iPosY -= m_pWindowFother->m_iPosY;
-				if ((iPosX + m_iPosX) > m_pWindowFother->m_iSizeX) iPosX = m_pWindowFother->m_iSizeX - m_iPosX;
-				if ((iPosY + m_iPosY) > m_pWindowFother->m_iSizeY) iPosY = m_pWindowFother->m_iSizeY - m_iPosY;
+			iPosX -= m_iPosX + GUI::getSingleton()->m_iOffsetPressedX - m_iSizeX + pWindow->m_iPosX;
+			iPosY -= m_iPosY + GUI::getSingleton()->m_iOffsetPressedY - m_iSizeY + pWindow->m_iPosY;
+			if (m_pWindowParent) { // есть отец
+				iPosX -= m_pWindowParent->m_iPosX;
+				iPosY -= m_pWindowParent->m_iPosY;
+				if ((iPosX + m_iPosX) > m_pWindowParent->m_iSizeX) iPosX = m_pWindowParent->m_iSizeX - m_iPosX;
+				if ((iPosY + m_iPosY) > m_pWindowParent->m_iSizeY) iPosY = m_pWindowParent->m_iSizeY - m_iPosY;
 			}
 			if (iPosX < m_iMinSizeX) iPosX = m_iMinSizeX;
 			else if (iPosX > m_iMaxSizeX) iPosX = m_iMaxSizeX;
@@ -75,8 +72,8 @@ namespace MyGUI {
 
 		if (flag != 0) {
 			if (flag == WES_RESIZE) {
-				if (bIsFocus) m_GUI->setMousePointer(POINTER_RESIZE);
-				else  m_GUI->setMousePointer(POINTER_DEFAULT);
+				if (bIsFocus) GUI::getSingleton()->setMousePointer(POINTER_RESIZE);
+				else  GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
 			}
 			uint8 uSkin = SKIN_STATE_NORMAL;
 			if (bIsFocus) uSkin = SKIN_STATE_ACTIVED;
@@ -95,14 +92,19 @@ namespace MyGUI {
 		if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_FRAME_CLOSE, 0);
 	}
 
-	MyGUI::WindowFrame * Window::createWindowFrame(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, const DisplayString & strWindowText, uint16 uAligin, uint8 uSkin, EventCallback * pEventCallback) // перекрывающееся окно
+	WindowFrame *WindowFrame::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
 	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_GUI->m_windowInfo[uSkin];
-		WindowFrame * pWindow = new WindowFrame(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, this);
+        __ASSERT(uSkin < __SKIN_COUNT); // низя
+		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];		
+		
+		WindowFrame * pWindow = new WindowFrame(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent        : NULL);
+		
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[0], m_GUI, OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
 			if (pChild->m_uExData & WES_CLIENT) {
@@ -110,43 +112,17 @@ namespace MyGUI {
 				pChild->m_pWindowText = pWindow->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже
 			}
 		}
+		
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->setWindowText(strWindowText);
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
+		
+		pWindow->move(PosX, PosY);
+		if(SizeX < 0) SizeX = pSkin->subSkins[0]->sizeX;
+		if(SizeY < 0) SizeY = pSkin->subSkins[0]->sizeY;
+		pWindow->size(SizeX, SizeY);
+		              
 		// минимальный размер равен начальному размеру скина
-		pWindow->setMinMax(pSkin->subSkins[0]->sizeX, pSkin->subSkins[0]->sizeY, m_GUI->m_uWidth, m_GUI->m_uHeight);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
-		return pWindow;
-	}
-
-
-	MyGUI::WindowFrame * GUI::createWindowFrame(int16 iPosX, int16 iPosY, int16 iSizeX, int16 iSizeY, const DisplayString & strWindowText, uint8 uOverlay, uint8 uSkin, EventCallback * pEventCallback) // перекрывающееся окно
-	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[uSkin];
-		WindowFrame * pWindow = new WindowFrame(pSkin->subSkins[0], this, uOverlay, 0);
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], this, OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
-			if (pChild->m_uExData & WES_CLIENT) {
-				pWindow->m_pWindowClient = pChild; // клиентское окно
-				pChild->m_pWindowText = pWindow->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже
-			}
-		}
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->setWindowText(strWindowText);
-		pWindow->move(iPosX, iPosY);
-		if (iSizeX == -1) iSizeX = pSkin->subSkins[0]->sizeX;
-		if (iSizeY == -1) iSizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(iSizeX, iSizeY);
-		// минимальный размер равен начальному размеру скина
-		pWindow->setMinMax(pSkin->subSkins[0]->sizeX, pSkin->subSkins[0]->sizeY, m_uWidth, m_uHeight);
-		if (pEventCallback) pWindow->m_pEventCallback = pEventCallback;
+		pWindow->setMinMax(pSkin->subSkins[0]->sizeX, pSkin->subSkins[0]->sizeY,
+		                   GUI::getSingleton()->m_uWidth, GUI::getSingleton()->m_uHeight);
 		return pWindow;
 	}
 

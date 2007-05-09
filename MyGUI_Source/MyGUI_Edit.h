@@ -1,19 +1,16 @@
-//=========================================================================================
-#ifndef __MyGUI_Edit_H__
-#define __MyGUI_Edit_H__
-//=========================================================================================
-using namespace Ogre;
-using namespace std;
-//=========================================================================================
-namespace MyGUI {
+#pragma once
 
-	class Window;
-	class GUI;
+#include "MyGUI_Window.h"
+
+namespace MyGUI {
 
 	class Edit : public Window {
 
 	public:
-		Edit(__LP_MYGUI_SKIN_INFO lpSkin, GUI *gui, uint8 uOverlay, Window *pWindowFother);
+		Edit(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
+		
+		static Edit *Edit::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_EDIT);
 
 		void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
 		void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
@@ -27,6 +24,3 @@ namespace MyGUI {
 	};
 
 }
-//=========================================================================================
-#endif
-//=========================================================================================

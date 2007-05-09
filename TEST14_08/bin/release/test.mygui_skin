@@ -2,14 +2,13 @@
 windowSkin 	SKIN_FADE
 {
 	colour 	COLOUR_WHITE
-	material 	"MyGUI_TEST"
 
 	subSkinMain 	dermo
 	{
 		offset 	0  0  0  0
 
 		event 	WE_NONE
-		aligin 	WAT_NONE  WA_CENTER  WA_HCENTER  WA_NONE  WA_TOP  WA_VCENTER  
+		aligin 	WA_TOP  
 		style 	WES_NONE
 
 	}
@@ -18,9 +17,9 @@ windowSkin 	SKIN_FADE
 	{
 		offset 	0  0  0  0
 
-		event 	WE_KEY_FOCUS  WE_NONE  
-		aligin 	WAT_ADD_DOT  WAT_NONE  WA_BOTTOM  WA_CENTER  WA_HCENTER  WA_NONE  WA_VCENTER  
-		style 	WES_ACTION2  WES_NONE  
+		event 	WE_KEY_FOCUS  
+		aligin 	WAT_ADD_DOT  WA_BOTTOM  
+		style 	WES_ACTION2  
 
 		deactived_position 	22  29  131  26
 	}

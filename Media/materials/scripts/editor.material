@@ -86,7 +86,7 @@ material BACK_GREEN
 	}
 }
 
-material BACK_YELLOY
+material BACK_YELLOW
 {
 	technique
 	{
@@ -101,7 +101,7 @@ material BACK_YELLOY
 			texture_unit
 			{
 				filtering linear linear none
-				texture yelloy.jpg
+				texture yellow.jpg
 			}
 
 		}
