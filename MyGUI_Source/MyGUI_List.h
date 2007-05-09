@@ -49,7 +49,7 @@ namespace MyGUI {
 		uint16 m_uSelectItem; // выделенный элемент
 		Window *pWindowSelect; // текущая выделенная строчка
 
-		bool m_bIsFocus; // в фокусе ли элемент
+        bool m_bIsFocus; // в фокусе ли элемент
 		bool m_bIsVisibleScroll; // виден ли скролл
 		bool m_bIsOneClickActived; // акцепт одним кликом мыши
 
