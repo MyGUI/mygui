@@ -435,9 +435,9 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_editPosition[3] = m_mainWindow->spawn<Edit>(173, 400, 46, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
 	
 	m_editPosition[0]->m_pEventCallback = this;
-	m_editPosition[0]->m_pEventCallback = this;
-	m_editPosition[0]->m_pEventCallback = this;
-	m_editPosition[0]->m_pEventCallback = this;
+	m_editPosition[1]->m_pEventCallback = this;
+	m_editPosition[2]->m_pEventCallback = this;
+	m_editPosition[3]->m_pEventCallback = this;
 
 	for (uint8 index=0; index<4; index++) {
 		m_editOffset[index]->setUserData(EDIT_IS_USE);
