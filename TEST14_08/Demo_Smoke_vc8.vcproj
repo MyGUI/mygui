@@ -256,6 +256,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_AssetManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_AssetManager.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Button.cpp"
 				>
 			</File>
@@ -329,10 +337,6 @@
 			</File>
 			<File
 				RelativePath="..\MyGUI_Source\MyGUI_OIS.h"
-				>
-			</File>
-			<File
-				RelativePath="..\MyGUI_Source\MyGUI_Skin.cpp"
 				>
 			</File>
 			<File

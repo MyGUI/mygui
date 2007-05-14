@@ -1,6 +1,7 @@
 #include "SkinEditor.h"
 #include "BasisManager.h"
 #include "MyGUI_Source\\MyGUI_LoadINI.h"
+#include "MyGUI_Source\\MyGUI_AssetManager.h"
 #include <OgreStringConverter.h>
 #include <OgreResourceManager.h>
 #include <OgreMaterialManager.h>
@@ -317,7 +318,7 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 
 	// статик текст над окном
 	MyGUI::StaticText * text = m_mainWindow->spawn<StaticText>(10, 0, 270, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	text->setWindowText("Basis window skin");
 
 	// создаем окно с именами
@@ -325,7 +326,7 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_comboBasisWindowName->m_pEventCallback = this;
 
 	text = m_mainWindow->spawn<StaticText>(222, 60, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	text->setWindowText("Added 1");
 	
 	m_comboBasisAddedSkin1 = m_mainWindow->spawn<ComboBox>(20, 60, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
@@ -333,7 +334,7 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_comboBasisAddedSkin1->m_pEventCallback = this;
 
 	text = m_mainWindow->spawn<StaticText>(222, 90, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	text->setWindowText("Added 2");
 	
 	m_comboBasisAddedSkin2 = m_mainWindow->spawn<ComboBox>(20, 90, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
@@ -346,21 +347,22 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_editBasisData2->m_pEventCallback = this;
 
 	text = m_mainWindow->spawn<StaticText>(155, 120, 100, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	text->setWindowText("Added data");
 
 	text = m_mainWindow->spawn<StaticText>(222, 150, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	text->setWindowText("Font");
 	
 	m_comboBasisFont = m_mainWindow->spawn<ComboBox>(20, 150, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboBasisFont->m_pEventCallback = this;
-	for (uint8 index=0; index < MyGUI::__FONT_COUNT; index++)
-	    m_comboBasisFont->addString(GUI::getSingleton()->m_strFontNames[index]);
+	for (AssetManager::FontIterator iter = AssetManager::getSingleton()->Fonts()->begin();
+         iter != AssetManager::getSingleton()->Fonts()->end(); ++iter)
+	    m_comboBasisFont->addString(iter->first);
 
 	text = m_mainWindow->spawn<StaticText>(222, 180, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("Colour");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	
 	m_comboBasisColour = m_mainWindow->spawn<ComboBox>(20, 180, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_COMBO_BOX);
 	m_comboBasisColour->m_pEventCallback = this;
@@ -373,7 +375,7 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	// заполняем всеми доступными материалами
 	text = m_mainWindow->spawn<StaticText>(222, 210, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("Material");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	
 	m_comboMaterialName = m_mainWindow->spawn<ComboBox>(20, 210, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboMaterialName->m_pEventCallback = this;
@@ -389,14 +391,14 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 
 	text = m_mainWindow->spawn<StaticText>(10, 250, 270, 25, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("Sab skins window");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 
 	m_comboSabSkinName = m_mainWindow->spawn<ComboBox>(10, 280, 270, -1, WA_TOP|WA_LEFT, SKIN_COMBO_BOX);
     m_comboSabSkinName->m_pEventCallback = this;
     
 	text = m_mainWindow->spawn<StaticText>(222, 310, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("Offset");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 
 	m_editOffset[0] = m_mainWindow->spawn<Edit>(20, 310, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
 	m_editOffset[1] = m_mainWindow->spawn<Edit>(71, 310, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
@@ -411,11 +413,11 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_buttonSabSkinStyle = m_mainWindow->spawn<Button>(20, 340, 200, -1, WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON);
 	m_buttonSabSkinStyle->setWindowText("SKIN STYLE");
 	m_buttonSabSkinStyle->m_pEventCallback = this;
-	m_buttonSabSkinStyle->setFont(MyGUI::FONT_DEFAULT, MyGUI::COLOUR_BLUE);
+	m_buttonSabSkinStyle->setFont(MyGUI::FONT_DEFAULT, ColourValue::Blue);
 
 	text = m_mainWindow->spawn<StaticText>(222, 370, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("State");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	
 	m_comboSabSkinState = m_mainWindow->spawn<ComboBox>(20, 370, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboSabSkinState->m_pEventCallback = this;
@@ -427,7 +429,7 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 
 	text = m_mainWindow->spawn<StaticText>(222, 400, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("Position");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 
 	m_editPosition[0] = m_mainWindow->spawn<Edit>(20, 400, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
 	m_editPosition[1] = m_mainWindow->spawn<Edit>(71, 400, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
@@ -910,13 +912,13 @@ void SkinEditor::createFlagWindow()
     
 	StaticText * text = m_windowStateFlags->spawn<StaticText>(10, 0, 200, 20, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("EVENT");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	text = m_windowStateFlags->spawn<StaticText>(220, 0, 200, 20, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("ALIGN");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 	text = m_windowStateFlags->spawn<StaticText>(430, 0, 200, 20, WA_TOP|WA_LEFT|WAT_CENTER);
 	text->setWindowText("STYLE");
-	text->setFont(text->m_font, MyGUI::COLOUR_GREEN);
+	text->setFont(text->m_font, ColourValue::Green);
 
 	uint8 countEvents = 5;
 	uint8 countAlign = 14;

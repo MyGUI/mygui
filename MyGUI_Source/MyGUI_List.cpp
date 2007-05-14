@@ -2,6 +2,8 @@
 #include "MyGUI_OIS.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_AssetManager.h"
+#include <OgreStringConverter.h>
 
 using namespace Ogre;
 using namespace std;
@@ -12,10 +14,10 @@ namespace MyGUI {
 	// нет выделенного элемента
     //	#define __LIST_ITEM_NONSELECT 0xFFFF
 
-	List::List(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowFother) :
+	List::List(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
 		Window(lpSkin, uOverlay, pWindowFother),
 		m_scroll(0),
-		m_uSkinButton(0),
+		m_SkinButton("SKIN_DEFAULT"),
 		m_uSizeYButton(1),
 		m_uSizeXScroll(0),
 		m_uCurrentFillSize(0),
@@ -192,7 +194,7 @@ namespace MyGUI {
 			if (!m_bIsVisibleScroll) cutSize = 0; // отрезать ничего не надо
 			Window * pChild = m_pWindowClient->spawn<Window>(
 			    0, m_uCurrentFillSize, m_pWindowClient->m_iSizeX - cutSize, m_uSizeYButton,
-			    WA_TOP|WA_HSTRETCH, m_uSkinButton);
+			    WA_TOP|WA_HSTRETCH, m_SkinButton);
 			pChild->m_pEventCallback = (EventCallback *)this;
 			pChild->m_overlayContainer->hide();
 			pChild->setFont(m_font, m_fontColour);
@@ -385,7 +387,7 @@ namespace MyGUI {
 		return *m_aString[index];
 	}
 
-	void List::setFont(__LP_MYGUI_FONT_INFO lpFont, uint32 colour) // устанавливает шрифт для всего списка
+	void List::setFont(const String &lpFont, ColourValue colour) // устанавливает шрифт для всего списка
 	{
 		// достаточно присвоение
 		m_font = lpFont;
@@ -397,10 +399,9 @@ namespace MyGUI {
 	}
 
 	List *List::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
 		List * pWindow = new List(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,
@@ -416,22 +417,21 @@ namespace MyGUI {
 			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
 		}
 
-		if (__WINDOW_DATA3(pSkin)) { // есть скролл
-			uint8 uSkinScroll = __WINDOW_DATA3(pSkin);
-			__ASSERT(uSkinScroll < __SKIN_COUNT); // низя
-			pWindow->m_uSizeXScroll = GUI::getSingleton()->m_windowInfo[uSkinScroll]->subSkins[0]->sizeX;
+		if (pSkin->data3 != "") { // есть скролл
+			const String &SkinScroll = pSkin->data3;
+			pWindow->m_uSizeXScroll = AssetManager::getSingleton()->Skins()->getDefinition(SkinScroll)->subSkins[0]->sizeX;
 			pWindow->m_scroll = pWindow->m_pWindowClient->spawn<VScroll>(
 			    pWindow->m_pWindowClient->m_iSizeX - pWindow->m_uSizeXScroll, 0,
 			    -1, pWindow->m_pWindowClient->m_iSizeY,
-			    WA_RIGHT|WA_VSTRETCH, __WINDOW_DATA3(pSkin));
+			    WA_RIGHT|WA_VSTRETCH, pSkin->data3);
 			    
 			pWindow->m_uStartWindow = 1;
 			pWindow->m_scroll->m_pEventCallback = (EventCallback*)pWindow;
 			pWindow->m_bIsVisibleScroll = true;
 		}
-		pWindow->m_uSkinButton = __WINDOW_DATA4(pSkin);
-		__ASSERT(pWindow->m_uSkinButton < __SKIN_COUNT); // низя
-		pWindow->m_uSizeYButton = GUI::getSingleton()->m_windowInfo[pWindow->m_uSkinButton]->subSkins[0]->sizeY;
+		pWindow->m_SkinButton = pSkin->data4;
+		pWindow->m_uSizeYButton = AssetManager::getSingleton()->Skins()->getDefinition(pWindow->m_SkinButton)
+		    ->subSkins[0]->sizeY;
 		if (pWindow->m_uSizeYButton == 0) pWindow->m_uSizeYButton = 1;
 
 		pWindow->move(PosX, PosY);
@@ -441,4 +441,3 @@ namespace MyGUI {
 		return pWindow;
 	}
 }
-//=========================================================================================

@@ -7,11 +7,11 @@ namespace MyGUI {
 	class List : public Window {
 
 	public:
-		List(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
+		List(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
 		~List();
 		
 		static List *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_LIST_S);
+	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_LIST_S);
 
 		void _OnKeyChangeFocus(bool bIsFocus); // вызываетс€ при смене активности ввода
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызываетс€ при нажатии клавиши клавы
@@ -30,14 +30,14 @@ namespace MyGUI {
 		void deleteString(uint16 index, bool bIsRedraw = true); // удалить строку из списка
 		void deleteStringAll(bool bIsRedraw = true); // удал€ет все строки
 		const DisplayString & getString(uint16 index); // возвращает строку
-		void setFont(__LP_MYGUI_FONT_INFO lpFont, uint32 colour); // устанавливает шрифт дл€ всего списка
+		void setFont(const String &lpFont, Ogre::ColourValue colour); // устанавливает шрифт дл€ всего списка
 		inline uint16 getStringCount() {return (uint16)m_aString.size();}; // возвращает колличество строк
 
 		void redrawStrings(); // перерисовывает все строки
 		void recalcScroll(); // пересчет полосы прокрутки
 
 		VScroll * m_scroll; // скролл окна
-		uint8 m_uSkinButton; // скин дл€ кнопок списка
+		String m_SkinButton; // скин дл€ кнопок списка
 		uint8 m_uSizeYButton; // высота строки
 		uint8 m_uSizeXScroll; // ширина скрола
 		uint16 m_uCurrentFillSize; // место до куда созданны окна

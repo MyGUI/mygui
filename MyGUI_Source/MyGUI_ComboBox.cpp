@@ -2,6 +2,8 @@
 #include "MyGUI_OIS.h"
 #include "MyGUI_GUI.h"
 #include "MyGUI_Edit.h"
+#include "MyGUI_AssetManager.h"
+#include <OgreStringConverter.h>
 
 using namespace Ogre;
 using namespace std;
@@ -16,7 +18,7 @@ namespace MyGUI {
 		else m_pList->move(((int16)(m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->m_uWidth))+1, _iPosY+m_iSizeY); \
 	}
 
-	ComboBox::ComboBox(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	ComboBox::ComboBox(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_pList(0),
 		m_pEdit(0),
@@ -34,10 +36,9 @@ namespace MyGUI {
 	{
 		if (pWindow->m_uExData & WES_COMBO) showFocus(bIsFocus);
 		else if (pWindow->m_uExData & WES_COMBO_BUTTON) {
-			uint8 uSkin;
-			if (bIsFocus) uSkin = SKIN_STATE_ACTIVED;
-			else uSkin = SKIN_STATE_NORMAL;
-			if (pWindow->m_paStrSkins[uSkin]) pWindow->m_overlayContainer->setMaterialName(*pWindow->m_paStrSkins[uSkin]);
+			__SKIN_STATES Skin = bIsFocus ? SKIN_STATE_ACTIVED : SKIN_STATE_NORMAL;
+			if (!pWindow->m_paStrSkins[Skin].empty())
+			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[Skin]);
 		}
 	}
 
@@ -49,10 +50,9 @@ namespace MyGUI {
 			if (bIsLeftButtonPressed) setState(WS_PRESSED);
 			else setState(WS_NORMAL);
 		} else if (pWindow->m_uExData & WES_COMBO_BUTTON) {
-			uint8 uSkin;
-			if (bIsLeftButtonPressed) uSkin = SKIN_STATE_SELECTED;
-			else uSkin = SKIN_STATE_ACTIVED;
-			if (pWindow->m_paStrSkins[uSkin]) pWindow->m_overlayContainer->setMaterialName(*pWindow->m_paStrSkins[uSkin]);
+			__SKIN_STATES Skin  = bIsLeftButtonPressed ? SKIN_STATE_SELECTED : SKIN_STATE_ACTIVED;
+			if (!pWindow->m_paStrSkins[Skin].empty())
+			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[Skin]);
 		}
 
 		if (bIsLeftButtonPressed) {
@@ -182,10 +182,10 @@ namespace MyGUI {
 	}
 	
 	ComboBox *ComboBox::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	    Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
-	    __ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+	    
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
 		ComboBox * pWindow = new ComboBox(pSkin->subSkins[0], 
 		    parent ? OVERLAY_CHILD : uOverlay,
@@ -198,26 +198,24 @@ namespace MyGUI {
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
 		}
 		
-		__ASSERT(__WINDOW_DATA3(pSkin) < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkinTmp = GUI::getSingleton()->m_windowInfo[__WINDOW_DATA3(pSkin)]; // скин списка
-		__ASSERT(__WINDOW_DATA4(pSkinTmp) < __SKIN_COUNT); // низя
-		pSkinTmp = GUI::getSingleton()->m_windowInfo[__WINDOW_DATA4(pSkinTmp)]; // скин кнопок списка
+		const __tag_MYGUI_SKIN_INFO * pSkinTmpA = AssetManager::getSingleton()->Skins()->getDefinition(pSkin->data3);
+		const __tag_MYGUI_SKIN_INFO * pSkinTmp  = AssetManager::getSingleton()->Skins()->getDefinition(pSkinTmpA->data4); // скин кнопок списка
 		
 		pWindow->m_pList = GUI::getSingleton()->spawn<List>(
-		    300, 300, 300, 300, OVERLAY_POPUP, __WINDOW_DATA3(pSkin));
+		    300, 300, 300, 300, OVERLAY_POPUP, pSkin->data3);
 		    
 		pWindow->m_pList->m_pEventCallback = (EventCallback*)pWindow;
 		pWindow->m_pList->show(false);
 		pWindow->m_pList->m_bIsOneClickActived = true;
 		// высота списка по нужному колличеству строк
 		pWindow->m_pList->size(
-		    300, pSkinTmp->subSkins[0]->sizeY * __WINDOW_DATA4(pSkin)
+		    300, pSkinTmp->subSkins[0]->sizeY * StringConverter::parseInt(pSkin->data4)
 		    + pWindow->m_pList->m_iSizeY
 		    - pWindow->m_pList->m_pWindowClient->m_iSizeY);
 		    
-		if (__WINDOW_DATA2(pSkin)) { // скин едита
+		if (!pSkin->data2.empty()) { // скин едита
 			pWindow->m_pEdit = pWindow->m_pWindowText->spawn<Edit>(
-			    0, 0, -1, -1, WA_STRETCH, __WINDOW_DATA2(pSkin));
+			    0, 0, -1, -1, WA_STRETCH, pSkin->data2);
 			pWindow->m_pWindowText->m_uEventCallback = WE_NONE;
 			pWindow->m_pWindowText = pWindow->m_pEdit;
 			pWindow->m_pEdit->m_pEventCallback = (EventCallback*)pWindow;

@@ -3,6 +3,7 @@
 #include "MyGUI_GUI.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_StaticText.h"
+#include "MyGUI_AssetManager.h"
 #include <OgreTechnique.h>
 
 using namespace Ogre;
@@ -13,11 +14,11 @@ namespace MyGUI {
 
 	class GUI;
 
-	Message::Message(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Message::Message(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		WindowFrame(lpSkin, uOverlay, pWindowParent),
 		m_pButton1(0),
 		m_pButton2(0),
-		m_pWindowFide(0)
+		m_pWindowfade(0)
 	{
 	}
 
@@ -36,12 +37,14 @@ namespace MyGUI {
 			if (m_pButton2) data = m_pButton2->m_uUserData;
 		} else return;
 
-		if (m_pWindowFide) { // это модальное сообщение
-			GUI::getSingleton()->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
+		if (m_pWindowfade) { // это модальное сообщение
+			GUI::getSingleton()->destroyWindow(m_pWindowfade); // уничтожаем окно затемнения
 			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
 		}
 
-		if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_MESSAGE_PRESS_BUTTON, data);
+		if (m_pEventCallback)
+		    m_pEventCallback->onOtherEvent(this, WOE_MESSAGE_PRESS_BUTTON, data);
+		
 		GUI::getSingleton()->destroyWindow(this);
 	}
 
@@ -53,8 +56,8 @@ namespace MyGUI {
 			data = pWindow->m_uUserData;
 		} else if (m_pButton2) data = m_pButton2->m_uUserData;
 
-		if (m_pWindowFide) { // это модальное сообщение
-			GUI::getSingleton()->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
+		if (m_pWindowfade) { // это модальное сообщение
+			GUI::getSingleton()->destroyWindow(m_pWindowfade); // уничтожаем окно затемнения
 			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
 		}
 
@@ -73,7 +76,7 @@ namespace MyGUI {
 
 	Message * GUI::createMessage(const DisplayString & strCaption, const DisplayString & strMessage, uint16 uID, bool bIsModal, const DisplayString & strButton1, const DisplayString & strButton2) // окно сообщения
 	{
-		__LP_MYGUI_WINDOW_INFO pSkin = m_windowInfo[SKIN_WINDOWFRAME_CX];
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_WINDOWFRAME_CX);
 		Message * pWindow;
 		if (bIsModal) { // модальное окно сообщения
 			__ASSERT(!m_overlayGUI[OVERLAY_FADE]->isVisible()); // только одно окно
@@ -82,8 +85,8 @@ namespace MyGUI {
 			m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
 			m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_POPUP_FADE); // снижаем после всплывающих окон
 
-			pWindow->m_pWindowFide = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
-			MaterialPtr Mat = pWindow->m_pWindowFide->m_overlayContainer->getMaterial();
+			pWindow->m_pWindowfade = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
+			MaterialPtr Mat = pWindow->m_pWindowfade->m_overlayContainer->getMaterial();
 			TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);
 			texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, __GUI_POPUP_FADE_ALPHA);
 
@@ -131,7 +134,7 @@ namespace MyGUI {
 		    pWindow->m_pWindowClient->m_iSizeX - 10, pWindow->m_pWindowClient->m_iSizeY - 50,
 		    WA_STRETCH);
 		text->setWindowText( strMessage );
-		text->setFont(text->m_font, COLOUR_WHITE);
+		text->setFont(text->m_font, ColourValue::White);
 
 		int iSizeText = text->m_sizeTextX;
 		if (iSizeText < iMinSizeX) iSizeText = iMinSizeX;

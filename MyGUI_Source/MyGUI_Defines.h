@@ -174,13 +174,17 @@ namespace MyGUI
 		WAT_SHIFT_TEXT_PRESSED = 0x8000, // сдвигать ли текст при нажатии
 	};
 
+	//enum __MYGUI_POINTER {
+	//	POINTER_DEFAULT, // обычный указатель
+	//	POINTER_RESIZE, // для изменения размеров
+	//	POINTER_TEXT, // для текстового ввода
+	//	__POINTER_COUNT
+	//};
+	
 	// курсоры мыши
-	enum __MYGUI_POINTER {
-		POINTER_DEFAULT, // обычный указатель
-		POINTER_RESIZE, // для изменения размеров
-		POINTER_TEXT, // для текстового ввода
-		__POINTER_COUNT
-	};
+	const String POINTER_DEFAULT = "POINTER_DEFAULT";   // обычный указатель
+    const String POINTER_RESIZE  = "POINTER_RESIZE";    // для изменения размеров
+	const String POINTER_TEXT    = "POINTER_TEXT";      // для текстового ввода
 
 	// все оверлеи класса, добавлять после OVERLAY_MOUSE и до __OVERLAY_COUNT, далее идут служебные (OVERLAY_OVERLAPPED, OVERLAY_CHILD)
 	enum __MYGUI_OVERLAYS {

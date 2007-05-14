@@ -2,11 +2,7 @@
 
 #include "MyGUI_Defines.h"
 #include <vector>
-
-#define __WINDOW_DATA1(_data) ((_data->dataWindow & 0xFF000000) >> 24)
-#define __WINDOW_DATA2(_data) ((_data->dataWindow & 0x00FF0000) >> 16)
-#define __WINDOW_DATA3(_data) ((_data->dataWindow & 0x0000FF00) >> 8)
-#define __WINDOW_DATA4(_data) (_data->dataWindow & 0x000000FF)
+#include <OgreColourValue.h>
 
 namespace MyGUI {
 
@@ -19,15 +15,7 @@ namespace MyGUI {
 		__SKIN_STATE_COUNT // !!! не использовать
 	};
 
-	enum __FONT_COLOUR {
-		COLOUR_BLACK = 0x000000,
-		COLOUR_WHITE = 0xFFFFFF,
-		COLOUR_BLUE = 0x0000FF,
-		COLOUR_GREEN = 0x00FF00,
-		COLOUR_RED = 0xFF0000,
-	};
-
-	typedef struct __tag_MYGUI_FONT_INFO { // информация о шрифте
+    typedef struct __tag_MYGUI_FONT_INFO { // информация о шрифте
 		Ogre::Font * font; // шрифт
 		String name; // имя шрифта
 		uint8 height; // высота шрифта
@@ -45,7 +33,7 @@ namespace MyGUI {
 		__tag_MYGUI_POINTER_INFO::__tag_MYGUI_POINTER_INFO() : uSizeX(0), uSizeY(0), iOffsetX(0), iOffsetY(0) {}
 	} * __LP_MYGUI_POINTER_INFO;
 
-	typedef struct __tag_MYGUI_SKIN_INFO { // информация о куске скина окна
+	typedef struct __tag_MYGUI_SUBSKIN_INFO { // информация о куске скина окна
 		// у главного окна ставится этот размер, создаются дочки, а потом ставится размер указанный пользователем
 		int16 posX; // позиция X
 		int16 posY; // позиция Y
@@ -61,56 +49,45 @@ namespace MyGUI {
 		uint16 align; // выравнивание
 		uint16 event_info; // сообщения посылаемые отцу
 		uint16 exdata; // дополнительная информация об элементе
-		__tag_MYGUI_SKIN_INFO::__tag_MYGUI_SKIN_INFO() : posX(0), posY(0), sizeX(0), sizeY(0), align(0), event_info(0), exdata(0) {}
-	} *__LP_MYGUI_SKIN_INFO;
+		__tag_MYGUI_SUBSKIN_INFO::__tag_MYGUI_SUBSKIN_INFO() : posX(0), posY(0), sizeX(0), sizeY(0), align(0), event_info(0), exdata(0) {}
+	} *__LP_MYGUI_SUBSKIN_INFO;
 
-	typedef struct __tag_MYGUI_WINDOW_INFO { // информация об окне
-		std::vector <__LP_MYGUI_SKIN_INFO> subSkins; // дополнительные скины окна, дочки
-		uint32 dataWindow; // дополнительная информация всего окна
-		__LP_MYGUI_FONT_INFO fontWindow; // шрифт всего элемента
-		uint32 colour; // цвет текста всего окна
-		__tag_MYGUI_WINDOW_INFO::__tag_MYGUI_WINDOW_INFO() : dataWindow(0), fontWindow(0), colour(0) {}
-		__tag_MYGUI_WINDOW_INFO::~__tag_MYGUI_WINDOW_INFO()
-		{
-			while (subSkins.size()) {
-				if (subSkins.back()) delete subSkins.back();
-				subSkins.pop_back();
-			};
-		}
-	} * __LP_MYGUI_WINDOW_INFO;
+    typedef struct __tag_MYGUI_SKIN_INFO { // информация об окне
+		std::vector <const __tag_MYGUI_SUBSKIN_INFO *> subSkins; // дополнительные скины окна, дочки
+		//uint32 dataWindow; // дополнительная информация всего окна
+		String data1, data2, data3, data4;
+		String fontWindow; // шрифт всего элемента
+		Ogre::ColourValue colour; // цвет текста всего окна
+		__tag_MYGUI_SKIN_INFO::__tag_MYGUI_SKIN_INFO() : colour(0) {}
+		__tag_MYGUI_SKIN_INFO::~__tag_MYGUI_SKIN_INFO() { }
+	} * __LP_MYGUI_SKIN_INFO;
 
 
-	enum __GUI_ENUM_SKIN_WINDOW { // внутренние имена скинов окон
-		SKIN_DEFAULT, // пустой скин для служебных целей
-		SKIN_FADE, // скин затемнения
-		SKIN_WINDOWFRAME, // простое окно
-		SKIN_WINDOWFRAME_C, // окно с заголовком
-		SKIN_WINDOWFRAME_S, // окно с ресайзером
-		SKIN_WINDOWFRAME_X, // окно с кнопкой закрытия
-		SKIN_WINDOWFRAME_CS, // окно с заголовком и ресайзером
-		SKIN_WINDOWFRAME_CX, // окно с заголовком и закрытием
-		SKIN_WINDOWFRAME_SX, // окно с ресайзером и закрытием
-		SKIN_WINDOWFRAME_CSX, // окно с заголовком, ресайзером и закрытием
-		SKIN_BUTTON, // простая кнопка
-		SKIN_CHECK_BOX, // отмечаемый флаг
-		SKIN_EDIT, // окно редактирования
-		SKIN_VSCROLL, // вертикальная полоса прокрутки
-		SKIN_TAB, // панель вкладок
-		SKIN_TAB_BUTTON, // кнопка для панели вкладок
-		SKIN_STATIC_TEXT, // текст с многострочностью и обрезкой
-		SKIN_LIST_S, // список с прокруткой
-		SKIN_LIST_BUTTON, // строки для списка
-		SKIN_COMBO_BOX_EDIT, // едит для комбобокса
-		SKIN_COMBO_BOX, // выпадающий список с окном редактирования
-		SKIN_DROP_LIST, // выпадающий список
-		__SKIN_COUNT, // колличество окон, !!!не использовать (значения вставлять до этого)
-		__SKIN_WIDGET_DEFAULT
-	};
-
-	enum __GUI_ENUM_FONT { // внутренние имена шрифтов
-		FONT_DEFAULT, // шрифт по умолчанию
-		FONT_LARGE,
-		__FONT_COUNT // колличество шрифтов, !!!не использовать (значения вставлять до этого)
-	};
-
+	const String SKIN_DEFAULT = "SKIN_DEFAULT"; // пустой скин для служебных целей
+	const String SKIN_FADE = "SKIN_FADE"; // скин затемнения
+    const String SKIN_WINDOWFRAME = "SKIN_WINDOWFRAME"; // простое окно
+	const String SKIN_WINDOWFRAME_C = "SKIN_WINDOWFRAME_C"; // окно с заголовком
+	const String SKIN_WINDOWFRAME_S = "SKIN_WINDOWFRAME_S"; // окно с ресайзером
+	const String SKIN_WINDOWFRAME_X = "SKIN_WINDOWFRAME_X"; // окно с кнопкой закрытия
+	const String SKIN_WINDOWFRAME_CS = "SKIN_WINDOWFRAME_CS"; // окно с заголовком и ресайзером
+	const String SKIN_WINDOWFRAME_CX = "SKIN_WINDOWFRAME_CX"; // окно с заголовком и закрытием
+	const String SKIN_WINDOWFRAME_SX = "SKIN_WINDOWFRAME_SX"; // окно с ресайзером и закрытием
+	const String SKIN_WINDOWFRAME_CSX = "SKIN_WINDOWFRAME_CSX"; // окно с заголовком, ресайзером и закрытием
+	const String SKIN_BUTTON = "SKIN_BUTTON"; // простая кнопка
+	const String SKIN_CHECK_BOX = "SKIN_CHECK_BOX"; // отмечаемый флаг
+	const String SKIN_EDIT = "SKIN_EDIT"; // окно редактирования
+	const String SKIN_VSCROLL = "SKIN_VSCROLL"; // вертикальная полоса прокрутки
+	const String SKIN_TAB = "SKIN_TAB"; // панель вкладок
+	const String SKIN_TAB_BUTTON = "SKIN_TAB_BUTTON"; // кнопка для панели вкладок
+	const String SKIN_STATIC_TEXT = "SKIN_STATIC_TEXT"; // текст с многострочностью и обрезкой
+	const String SKIN_LIST_S = "SKIN_LIST_S"; // список с прокруткой
+	const String SKIN_LIST_BUTTON = "SKIN_LIST_BUTTON"; // строки для списка
+	const String SKIN_COMBO_BOX_EDIT = "SKIN_COMBO_BOX_EDIT"; // едит для комбобокса
+	const String SKIN_COMBO_BOX = "SKIN_COMBO_BOX"; // выпадающий список с окном редактирования
+	const String SKIN_DROP_LIST = "SKIN_DROP_LIST"; // выпадающий список
+    const String __SKIN_WIDGET_DEFAULT = "SKIN_WIDGET_DEFAULT";
+	
+	const String FONT_DEFAULT = "FONT_DEFAULT"; // шрифт по умолчанию
+	const String FONT_LARGE =   "FONT_LARGE";
+	
 }

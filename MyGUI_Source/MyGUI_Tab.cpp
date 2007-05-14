@@ -1,15 +1,17 @@
 #include "MyGUI_Tab.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_AssetManager.h"
+#include <OgreStringConverter.h>
 
 using namespace Ogre;
 using namespace std;
 
 namespace MyGUI {
 
-	Tab::Tab(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Tab::Tab(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
-		m_uSkinButton(0),
+		m_SkinButton(""),
 		m_iCurrentButtonsSizeX(0),
 		m_pWindowTop(0),
 		m_uCurrentTab(-1)
@@ -19,7 +21,7 @@ namespace MyGUI {
 
 	Window * Tab::addSheet(const DisplayString & strName, int16 iSizeX) // добавляет вкладку
 	{
-		Button * pButton = spawn<Button>(m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE, m_uSkinButton);
+		Button * pButton = spawn<Button>(m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE, m_SkinButton);
         pButton->setWindowText(strName);
 		                   
 		pButton->addEvent(WE_MOUSE_BUTTON);
@@ -88,10 +90,10 @@ namespace MyGUI {
 	}
 
 	Tab *Tab::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	    Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
-	    __ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+	    
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
 		Tab * pWindow = new Tab(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,
@@ -105,8 +107,8 @@ namespace MyGUI {
 			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowTab = pChild;
 		}
 		
-		pWindow->m_iCurrentButtonsSizeX = __WINDOW_DATA3(pSkin);
-		pWindow->m_uSkinButton = __WINDOW_DATA4(pSkin);
+		pWindow->m_iCurrentButtonsSizeX = StringConverter::parseInt(pSkin->data3);
+		pWindow->m_SkinButton = pSkin->data4;
 		pWindow->m_uAlign |= uAlign;
 		pWindow->move(PosX, PosY);
 		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  

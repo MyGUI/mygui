@@ -14,7 +14,7 @@ namespace MyGUI {
 		WindowFrame(lpSkin, uOverlay, pWindowParent),
 		m_pButton1(0),
 		m_pButton2(0),
-		m_pWindowFide(0)
+		m_pWindowFade(0)
 	{
 	}
 
@@ -33,8 +33,8 @@ namespace MyGUI {
 			if (m_pButton2) data = m_pButton2->m_uUserData;
 		} else return;
 
-		if (m_pWindowFide) { // это модальное сообщение
-			GUI::getSingleton()->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
+		if (m_pWindowFade) { // это модальное сообщение
+			GUI::getSingleton()->destroyWindow(m_pWindowFade); // уничтожаем окно затемнения
 			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
 		}
 
@@ -50,8 +50,8 @@ namespace MyGUI {
 			data = pWindow->m_uUserData;
 		} else if (m_pButton2) data = m_pButton2->m_uUserData;
 
-		if (m_pWindowFide) { // это модальное сообщение
-			GUI::getSingleton()->destroyWindow(m_pWindowFide); // уничтожаем окно затемнения
+		if (m_pWindowFade) { // это модальное сообщение
+			GUI::getSingleton()->destroyWindow(m_pWindowFade); // уничтожаем окно затемнения
 			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->hide(); // скрываем оверлей файдинга
 		}
 
@@ -78,11 +78,11 @@ namespace MyGUI {
 			m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
 			m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_POPUP_FADE); // снижаем после всплывающих окон
 
-			pWindow->m_pWindowFide = spawn<Window>(Coord(0, 0),
+			pWindow->m_pWindowFade = spawn<Window>(Coord(0, 0),
 			                                        Coord(m_uWidth, m_uHeight),
 			                                        OVERLAY_FADE, SKIN_FADE);
 			                                        
-			MaterialPtr Mat = pWindow->m_pWindowFide->m_overlayContainer->getMaterial();
+			MaterialPtr Mat = pWindow->m_pWindowFade->m_overlayContainer->getMaterial();
 			TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);
 			texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, __GUI_POPUP_FADE_ALPHA);
 

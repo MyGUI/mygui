@@ -31,8 +31,8 @@ namespace MyGUI
 			bool jumpBlock(bool jumpEnter, bool seekNext = true); // прыгаем либо внутрь либо наружу блока
 			bool LoadNextValue(); // загружает следующий параметр в блоке
 			bool getValueName(std::string & strName); // берет название переменной
-			bool getValue(std::string & strValue, unsigned char position = 0); // берет значение переменной
-			bool getValue(unsigned int & uValue, unsigned char position = 0); // берет значение переменной
+			bool getValue(std::string & strValue, size_t position = 0); // берет значение переменной
+			bool getValue(unsigned int & uValue, size_t position = 0); // берет значение переменной
 			bool getValue(int & iValue, unsigned char position = 0); // берет значение переменной
 			bool getValue(float & fValue, unsigned char position = 0); // берет значение переменной
 			

@@ -162,7 +162,10 @@ namespace MyGUI
 
 		return true;
 	}
-
+    
+    /*
+        Returns false upon meeting an { character, among other things
+    */
 	bool loadINI::LoadNextValue() // загружает следующий параметр в блоке
 	{
 		if (!m_file) return false;
@@ -204,7 +207,7 @@ namespace MyGUI
 		return false;
 	}
 
-	bool loadINI::getValue(string & strValue, unsigned char position) // берет значение переменной
+	bool loadINI::getValue(string & strValue, size_t position) // берет значение переменной
 	{
 		position ++;
 		if (m_valueInfo.size() > position) {
@@ -214,7 +217,7 @@ namespace MyGUI
 		return false;
 	}
 
-	bool loadINI::getValue(unsigned int & uValue, unsigned char position) // берет значение переменной
+	bool loadINI::getValue(unsigned int & uValue, size_t position) // берет значение переменной
 	{
 		position ++;
 		if (m_valueInfo.size() > position) {

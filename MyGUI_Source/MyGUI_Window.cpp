@@ -12,6 +12,7 @@
 #include "MyGUI_List.h"
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_Message.h"
+#include "MyGUI_AssetManager.h"
 #include <OgreOverlayManager.h>
 #include <OgreStringConverter.h>
 
@@ -20,7 +21,7 @@ using namespace std;
 
 namespace MyGUI {
 
-	Window::Window(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Window::Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		m_overlay(0),
 		m_pWindowParent(0),
 		m_pEventCallback(GUI::getSingleton()->m_pEventCallback),
@@ -40,8 +41,8 @@ namespace MyGUI {
 		m_sizeCutTextY(0),
 		m_bIsOverlapped(0),
 		m_bIsTextShiftPressed(false),
-		m_font(GUI::getSingleton()->m_fontInfo[FONT_DEFAULT]), // шрифт по умолчанию
-		m_fontColour(0xFFFFFF),
+		m_font(FONT_DEFAULT),
+		m_fontColour(1,1,1),
 		m_uExData(lpSkin->exdata),
 		m_uUserData(0)
 	{
@@ -50,11 +51,11 @@ namespace MyGUI {
 		
 		memset((void*)m_paStrSkins, 0, sizeof(String* ) * __SKIN_STATE_COUNT);
 		
-		if (lpSkin->pStrSkinDeactived.length()) m_paStrSkins[SKIN_STATE_DEACTIVED] = &lpSkin->pStrSkinDeactived;
-		if (lpSkin->pStrSkinNormal.length()) m_paStrSkins[SKIN_STATE_NORMAL] = &lpSkin->pStrSkinNormal;
-		if (lpSkin->pStrSkinActived.length()) m_paStrSkins[SKIN_STATE_ACTIVED] = &lpSkin->pStrSkinActived;
-		if (lpSkin->pStrSkinPressed.length()) m_paStrSkins[SKIN_STATE_PRESSED] = &lpSkin->pStrSkinPressed;
-		if (lpSkin->pStrSkinSelected.length()) m_paStrSkins[SKIN_STATE_SELECTED] = &lpSkin->pStrSkinSelected;
+		if (lpSkin->pStrSkinDeactived.length()) m_paStrSkins[SKIN_STATE_DEACTIVED] = lpSkin->pStrSkinDeactived;
+		if (lpSkin->pStrSkinNormal.length()) m_paStrSkins[SKIN_STATE_NORMAL] = lpSkin->pStrSkinNormal;
+		if (lpSkin->pStrSkinActived.length()) m_paStrSkins[SKIN_STATE_ACTIVED] = lpSkin->pStrSkinActived;
+		if (lpSkin->pStrSkinPressed.length()) m_paStrSkins[SKIN_STATE_PRESSED] = lpSkin->pStrSkinPressed;
+		if (lpSkin->pStrSkinSelected.length()) m_paStrSkins[SKIN_STATE_SELECTED] = lpSkin->pStrSkinSelected;
 
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		m_overlayContainer = static_cast<PanelOverlayElement*>(overlayManager.createOverlayElement(
@@ -62,7 +63,8 @@ namespace MyGUI {
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_iPosX, m_iPosY);
 		m_overlayContainer->setDimensions(m_iSizeX, m_iSizeY);
-		if (m_paStrSkins[SKIN_STATE_NORMAL]) m_overlayContainer->setMaterialName(*m_paStrSkins[SKIN_STATE_NORMAL]);
+		if (!m_paStrSkins[SKIN_STATE_NORMAL].empty())
+		    m_overlayContainer->setMaterialName(m_paStrSkins[SKIN_STATE_NORMAL]);
 
 		uint16 size = (uint16)GUI::getSingleton()->m_aWindowChild.size();
 		int16 index = -1;
@@ -279,7 +281,8 @@ namespace MyGUI {
 				m_sizeCutTextX = m_iSizeX-__GUI_FONT_SIZE_HOFFSET;
 				m_sizeCutTextY = m_iSizeY;
 				DisplayString strDest;
-				GUI::getSingleton()->getCutText(m_font, m_sizeCutTextX, m_sizeCutTextY, strDest, m_strWindowText, m_uAlign);
+				GUI::getSingleton()->getCutText(AssetManager::getSingleton()->Fonts()->getDefinition(m_font),
+				    m_sizeCutTextX, m_sizeCutTextY, strDest, m_strWindowText, m_uAlign);
 				m_overlayCaption->setCaption(strDest);
 				m_overlayCaption->setLeft(__GUI_FONT_HOFFSET);
 
@@ -317,7 +320,8 @@ namespace MyGUI {
 		if (!m_pWindowText->m_overlayCaption) return;
 
 		m_pWindowText->m_strWindowText = "\0";
-		GUI::getSingleton()->getLenghtText(m_pWindowText->m_font, m_pWindowText->m_sizeTextX, m_pWindowText->m_sizeTextY, strText);
+		GUI::getSingleton()->getLenghtText(AssetManager::getSingleton()->Fonts()->getDefinition(m_pWindowText->m_font),
+		    m_pWindowText->m_sizeTextX, m_pWindowText->m_sizeTextY, strText);
 		m_pWindowText->m_sizeCutTextX = m_pWindowText->m_sizeTextX;
 		m_pWindowText->m_sizeCutTextY = m_pWindowText->m_sizeTextY;
 		try {m_pWindowText->m_overlayCaption->setCaption(strText);	} catch (...) {__ASSERT(false);} // недопустимые символы
@@ -332,41 +336,43 @@ namespace MyGUI {
 
 	void Window::setState(uint8 uState) // состояние окна
 	{
-		uint8 uSkin = __SKIN_COUNT;
+		__SKIN_STATES Skin = __SKIN_STATE_COUNT;
 		bool bIsShiftText = false;
 
 		if (uState == WS_DEACTIVE) {
 			m_uState = WS_DEACTIVE;
-			uSkin = SKIN_STATE_DEACTIVED;
+			Skin = SKIN_STATE_DEACTIVED;
 		} else if (uState == WS_NORMAL) {
 			if (m_uState == __WS_SELECTED) {
 				m_uState = __WS_ACTIVED;
-				uSkin = SKIN_STATE_ACTIVED;
+				Skin = SKIN_STATE_ACTIVED;
 			} else {
 				m_uState = WS_NORMAL;
-				uSkin = SKIN_STATE_NORMAL;
+				Skin = SKIN_STATE_NORMAL;
 			}
 		} else if (uState == WS_PRESSED) {
 			bIsShiftText = true;
 			if (m_uState == __WS_ACTIVED) {
 				m_uState = __WS_SELECTED;
-				uSkin = SKIN_STATE_SELECTED;
+				Skin = SKIN_STATE_SELECTED;
 			} else {
 				m_uState = WS_PRESSED;
-				uSkin = SKIN_STATE_PRESSED;
+				Skin = SKIN_STATE_PRESSED;
 			}
 		}
 
-		if (uSkin != __SKIN_COUNT) { // меняем скины состояний
+		if (Skin != __SKIN_STATE_COUNT) { // меняем скины состояний
 			// основное окно
 			if (m_uExData & WES_BUTTON) {
-				if (m_paStrSkins[uSkin]) m_overlayContainer->setMaterialName(*m_paStrSkins[uSkin]);
+				if (!m_paStrSkins[Skin].empty())
+				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
 			}
 			// детишки
 			for (uint i=0; i<m_aWindowChild.size(); i++) {
 				Window * pChild = m_aWindowChild[i];
 				if (pChild->m_uExData & WES_BUTTON) {
-					if (pChild->m_paStrSkins[uSkin]) pChild->m_overlayContainer->setMaterialName(*pChild->m_paStrSkins[uSkin]);
+					if (!pChild->m_paStrSkins[Skin].empty())
+					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
 				}
 			}
 		}
@@ -375,8 +381,12 @@ namespace MyGUI {
 			m_pWindowText->m_bIsTextShiftPressed = bIsShiftText;
 			if (m_pWindowText->m_uAlign & WAT_SHIFT_TEXT_PRESSED) {
 				if (m_pWindowText->m_overlayCaption) {
-					if (m_pWindowText->m_bIsTextShiftPressed) m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()+__GUI_BUTTON_SHIFT_TEXT_PRESSED);
-					else m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()-__GUI_BUTTON_SHIFT_TEXT_PRESSED);
+					if (m_pWindowText->m_bIsTextShiftPressed)
+					    m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()
+                            + __GUI_BUTTON_SHIFT_TEXT_PRESSED);
+					else
+					    m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()
+					        - __GUI_BUTTON_SHIFT_TEXT_PRESSED);
 				}
 			}
 		}
@@ -393,37 +403,37 @@ namespace MyGUI {
 	void Window::showFocus(bool bIsFocus) // активирование окна
 	{
 		if (m_uState == WS_DEACTIVE) return;
-		uint8 uSkin = __SKIN_COUNT;
+		__SKIN_STATES Skin = __SKIN_STATE_COUNT;
 
 		if (bIsFocus) {
 			if (m_uState == WS_NORMAL) {
 				m_uState = __WS_ACTIVED;
-				uSkin = SKIN_STATE_ACTIVED;
+				Skin = SKIN_STATE_ACTIVED;
 			} else if (m_uState == WS_PRESSED) {
 				m_uState = __WS_SELECTED;
-				uSkin = SKIN_STATE_SELECTED;
+				Skin = SKIN_STATE_SELECTED;
 			}
 		} else {
 			if (m_uState == __WS_ACTIVED) {
 				m_uState = WS_NORMAL;
-				uSkin = SKIN_STATE_NORMAL;
+				Skin = SKIN_STATE_NORMAL;
 			} else if (m_uState == __WS_SELECTED) {
 				m_uState = WS_PRESSED;
-				uSkin = SKIN_STATE_PRESSED;
+				Skin = SKIN_STATE_PRESSED;
 			}
 		}
 
-		if (uSkin != __SKIN_COUNT) {
+		if (Skin != __SKIN_STATE_COUNT) {
 			// основное окно
 			if (m_uExData & WES_BUTTON) {
-				if (m_paStrSkins[uSkin]) m_overlayContainer->setMaterialName(*m_paStrSkins[uSkin]);
+				if (!m_paStrSkins[Skin].empty())
+				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
 			}
 			// детишки
 			for (uint i=0; i<m_aWindowChild.size(); i++) {
 				Window * pChild = m_aWindowChild[i];
-				if (pChild->m_uExData & WES_BUTTON) {
-					if (pChild->m_paStrSkins[uSkin]) pChild->m_overlayContainer->setMaterialName(*pChild->m_paStrSkins[uSkin]);
-				}
+				if (pChild->m_uExData & WES_BUTTON && !pChild->m_paStrSkins[Skin].empty())
+				    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
 			}
 		}
 
@@ -453,17 +463,14 @@ namespace MyGUI {
 		return bCapture;
 	}
 
-	void Window::setFont(uint8 uFont, uint32 colour) // устанавливает шрифт для элемента
+	void Window::setFont(const String &Font, ColourValue colour) // устанавливает шрифт для элемента
 	{
-		__ASSERT(uFont < __FONT_COUNT);
-		setFont(GUI::getSingleton()->m_fontInfo[uFont], colour);
+	    m_pWindowText->m_font = Font;
+		setFont(AssetManager::getSingleton()->Fonts()->getDefinition(Font), colour );
 	}
 
-	void Window::setFont(__LP_MYGUI_FONT_INFO lpFont, uint32 colour) // устанавливает шрифт для элемента
+	void Window::setFont(const __tag_MYGUI_FONT_INFO *lpFont, ColourValue colour) // устанавливает шрифт для элемента
 	{
-		if (lpFont)
-		    m_pWindowText->m_font = lpFont;
-		    
 		m_pWindowText->m_fontColour = colour;
 		
 		if (!m_pWindowText->m_overlayCaption) { // элемент не создан, создать
@@ -476,18 +483,18 @@ namespace MyGUI {
 			m_pWindowText->m_overlayContainer->addChild(m_pWindowText->m_overlayCaption);
 		}
 		
-		m_pWindowText->m_overlayCaption->setParameter("font_name", m_pWindowText->m_font->name);
-		m_pWindowText->m_overlayCaption->setParameter("char_height", StringConverter::toString(m_pWindowText->m_font->height));
-//		m_pWindowText->m_overlayCaption->setParameter("space_width", StringConverter::toString(m_pWindowText->m_font->spaceWidth));
-		m_pWindowText->m_overlayCaption->setColour(ColourValue((((m_pWindowText->m_fontColour & 0x00FF0000) >> 16) / 256.0), (((m_pWindowText->m_fontColour & 0x0000FF00) >> 8) / 256.0), ((m_pWindowText->m_fontColour & 0x000000FF) / 256.0)));
+		m_pWindowText->m_overlayCaption->setParameter("font_name", lpFont->name);
+		m_pWindowText->m_overlayCaption->setParameter("char_height", StringConverter::toString(lpFont->height));
+//		m_pWindowText->m_overlayCaption->setParameter("space_width", StringConverter::toString(lpFont->spaceWidth));
+		m_pWindowText->m_overlayCaption->setColour(colour);
 		m_pWindowText->alignWindowText();
 	}	
 	
     Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	    Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
     {
-        __ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+        
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
 		Window * pWindow = new Window(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,
@@ -506,4 +513,3 @@ namespace MyGUI {
 		return pWindow;
     }
 }
-//=========================================================================================

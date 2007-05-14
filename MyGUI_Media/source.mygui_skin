@@ -40,7 +40,7 @@ windowSkin SKIN_FADE
 	{
 		position	0 0 30 24
 		align	WA_LEFT WAT_TOP
-		skin_normal	"MyGUI_fide"
+		skin_normal	"MyGUI_fade"
 	}
 }
 

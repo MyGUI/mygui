@@ -14,24 +14,24 @@ namespace MyGUI {
 	class Window : public EventCallback { // базовый класс окон гуи
 
 	public:
-		Window(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);		
+		Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);		
 	
         virtual ~Window();
 	    
 	    static Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_WINDOWFRAME);
+	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_WINDOWFRAME);
 	    
 	    template <typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-            uint16 uAlign, uint8 uSkin = __SKIN_WIDGET_DEFAULT)
+            uint16 uAlign, const String &Skin = __SKIN_WIDGET_DEFAULT)
         {
-            if(uSkin == __SKIN_WIDGET_DEFAULT)
+            if(Skin == __SKIN_WIDGET_DEFAULT)
                 return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0);
             else
-                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0, uSkin);
+                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0, Skin);
         }
         
         template <typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
-            uint16 uAlign, uint8 uSkin = __SKIN_WIDGET_DEFAULT)
+            uint16 uAlign, const String &Skin = __SKIN_WIDGET_DEFAULT)
         {
             uint16 NewPosX  = PosX  * GUI::getSingleton()->m_uWidth;
             uint16 NewPosY  = PosY  * GUI::getSingleton()->m_uHeight;
@@ -61,9 +61,12 @@ namespace MyGUI {
 		const DisplayString & getWindowText(); // возвращает строку окна
 		virtual void alignWindowText(); // выполняет выравнивание текста
 		void alignWindow(int16 rNewSizeX, int16 rNewSizeY); // выравнивает окно относительно отца
-		void setFont(__LP_MYGUI_FONT_INFO lpFont, uint32 colour); // устанавливает шрифт для элемента
-		void setFont(uint8 uFont, uint32 colour); // устанавливает шрифт для элемента
-
+		void setFont(const String &Font, Ogre::ColourValue colour); // устанавливает шрифт для элемента
+		
+		private:
+		void setFont(const __tag_MYGUI_FONT_INFO *lpFont, Ogre::ColourValue colour); // устанавливает шрифт для элемента		
+        
+        public:
 		void addEvent(uint16 addEvent) {m_uEventCallback |= addEvent;}; // добавляет событие на которое надо реагировать
 
 		inline void setUserString(const DisplayString & strUserString) {m_strUserString = strUserString;}; // ставит строку пользователя
@@ -93,9 +96,9 @@ namespace MyGUI {
 		bool m_bIsOverlapped; // окно перекрывающееся
 		bool m_bIsTextShiftPressed; // сдвинут ли текст вниз
 
-		__LP_MYGUI_FONT_INFO m_font; // шрифт окна
-		uint32 m_fontColour; // цвет текста
-		String * m_paStrSkins[__SKIN_STATE_COUNT]; // скины состояний
+		String m_font; // шрифт окна
+		Ogre::ColourValue m_fontColour; // цвет текста
+		String m_paStrSkins[__SKIN_STATE_COUNT]; // скины состояний
 		uint16 m_uExData; // дополнительная информация об элементе
 
 		DisplayString m_strUserString; // строка для дополнительной информации пользователя

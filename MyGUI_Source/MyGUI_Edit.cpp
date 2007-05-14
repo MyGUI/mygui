@@ -1,6 +1,8 @@
 #include "MyGUI_Edit.h"
 #include "MyGUI_OIS.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_AssetManager.h"
+#include <OgreStringConverter.h>
 
 using namespace Ogre;
 using namespace std;
@@ -10,7 +12,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	Edit::Edit(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Edit::Edit(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_pWindowCursor(0),
 		m_bIsFocus(false),
@@ -32,7 +34,8 @@ namespace MyGUI {
 		m_bIsFocus = bIsFocus;
 		if (bIsFocus) {
 			setState(WS_PRESSED);
-			if (m_iSizeY < m_font->height) bIsFocus = false;
+			if (m_iSizeY < AssetManager::getSingleton()->Fonts()->getDefinition(m_font)->height)
+			    bIsFocus = false;
 		} else setState(WS_NORMAL);
 		if (m_pWindowCursor) m_pWindowCursor->show(bIsFocus);
 	}
@@ -43,17 +46,23 @@ namespace MyGUI {
 
 		if (!m_pWindowCursor) return;
 		m_pWindowCursor->move(m_pWindowText->m_sizeCutTextX + m_uOffsetCursor+__GUI_FONT_HOFFSET, m_pWindowCursor->m_iPosY);
-		if ((m_pWindowText->m_iSizeY >= m_font->height) && (m_bIsFocus)) m_pWindowCursor->show(true);
+		if (m_pWindowText->m_iSizeY >= AssetManager::getSingleton()->Fonts()->getDefinition(m_font)->height)
+		{
+		    if(m_bIsFocus)
+		        m_pWindowCursor->show(true);
+        }
 		else if (!m_bIsFocus)  m_pWindowCursor->show(false);
 	}
 
 	void Edit::setWindowText(const DisplayString & strText) // устанавливает текст окна
 	{
 		Window::setWindowText(strText);
+		
+		const __tag_MYGUI_FONT_INFO *font = AssetManager::getSingleton()->Fonts()->getDefinition(m_font);
 
 		if (!m_pWindowCursor) return;
 		m_pWindowCursor->move(m_pWindowText->m_sizeCutTextX + m_uOffsetCursor+__GUI_FONT_HOFFSET, m_pWindowCursor->m_iPosY);
-		if ((m_pWindowText->m_iSizeY >= m_font->height) && (m_bIsFocus)) m_pWindowCursor->show(true);
+		if ((m_pWindowText->m_iSizeY >= font->height) && (m_bIsFocus)) m_pWindowCursor->show(true);
 		else if (!m_bIsFocus)  m_pWindowCursor->show(false);
 	}
 
@@ -82,10 +91,9 @@ namespace MyGUI {
 	}
 	
 	Edit *Edit::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
     {
-        __ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+        const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
 		Edit * pWindow = new Edit(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,
@@ -108,7 +116,7 @@ namespace MyGUI {
 			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
 		}
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->m_uOffsetCursor = __WINDOW_DATA4(pSkin);
+		pWindow->m_uOffsetCursor = StringConverter::parseInt(pSkin->data4);
 		pWindow->m_uAlign |= uAlign;
 		
 		pWindow->move(PosX, PosY);

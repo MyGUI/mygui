@@ -1,5 +1,6 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_AssetManager.h"
 
 using namespace Ogre;
 using namespace std;
@@ -8,7 +9,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	Button::Button(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Button::Button(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent)
 	{
 	}
@@ -38,35 +39,35 @@ namespace MyGUI {
 	void Button::showPressed(bool bIsPressed) // показ но не смена нажатия
 	{
 		if (m_uState == WS_DEACTIVE) return;
-		uint8 uSkin = __SKIN_COUNT;
+		__SKIN_STATES Skin = __SKIN_STATE_COUNT;
 		bool bIsShiftText = false;
 
 		if (bIsPressed) {
 			if (m_uState == WS_NORMAL) {
-				uSkin = SKIN_STATE_PRESSED;
+				Skin = SKIN_STATE_PRESSED;
 			} else if (m_uState == __WS_ACTIVED) {
-				uSkin = SKIN_STATE_SELECTED;
+				Skin = SKIN_STATE_SELECTED;
 			} else return;
 			bIsShiftText = true;
 		} else {
 			if (m_uState == WS_NORMAL) { // возвращаем скин на место
-				uSkin = SKIN_STATE_NORMAL;
+				Skin = SKIN_STATE_NORMAL;
 			} else if (m_uState == __WS_ACTIVED) { // возвращаем скин на место
-				uSkin = SKIN_STATE_ACTIVED;
+				Skin = SKIN_STATE_ACTIVED;
 			} else return;
 		}
 
-		if (uSkin != __SKIN_COUNT) { // меняем скины состояний
+		if (Skin != __SKIN_STATE_COUNT) { // меняем скины состояний
 			// основное окно
 			if (m_uExData & WES_BUTTON) {
-				if (m_paStrSkins[uSkin]) m_overlayContainer->setMaterialName(*m_paStrSkins[uSkin]);
+				if (!m_paStrSkins[Skin].empty())
+				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
 			}
 			// детишки
 			for (uint i=0; i<m_aWindowChild.size(); i++) {
 				Window * pChild = m_aWindowChild[i];
-				if (pChild->m_uExData & WES_BUTTON) {
-					if (pChild->m_paStrSkins[uSkin]) pChild->m_overlayContainer->setMaterialName(*pChild->m_paStrSkins[uSkin]);
-				}
+				if (pChild->m_uExData & WES_BUTTON && !pChild->m_paStrSkins[Skin].empty())
+				    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
 			}
 		}
 
@@ -83,10 +84,10 @@ namespace MyGUI {
 	}
 
 	Button *Button::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
-		__ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];
+		
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
 		Button * pWindow = new Button(pSkin->subSkins[0], parent ? OVERLAY_CHILD : uOverlay, parent ? parent->m_pWindowClient : NULL);
 		

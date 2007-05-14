@@ -16,8 +16,7 @@ namespace MyGUI {
 
 		Button * m_pButton1; // первая кнопка
 		Button * m_pButton2; // вторая кнопка
-		Window * m_pWindowFide; // окно затемнения
+		Window * m_pWindowFade; // окно затемнения
 
 	};
-
 }

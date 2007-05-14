@@ -1,6 +1,7 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_OIS.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_AssetManager.h"
 
 #include <OgreStringConverter.h>
 #include <OgreOverlayManager.h>
@@ -40,7 +41,7 @@ namespace MyGUI {
 		m_overlayGUI[OVERLAY_MAIN] = createOverlay("MyGUI_"+StringConverter::toString(OVERLAY_MAIN), __GUI_ZORDER_MAIN);
 		m_overlayGUI[OVERLAY_BACK] = createOverlay("MyGUI_"+StringConverter::toString(OVERLAY_BACK), __GUI_ZORDER_BACK);
 
-		createSkin();
+		AssetManager::getSingleton()->loadAssets();
 
 		createMousePointer();
 		setMousePointer(POINTER_DEFAULT);
@@ -50,7 +51,7 @@ namespace MyGUI {
 	
 	void GUI::Shutdown()
 	{
-		unloadResource();
+		AssetManager::getSingleton()->unloadAssets();
 		while (m_aWindowChild.size() > 0) destroyWindow(m_aWindowChild[0]);
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		m_overlayGUI[OVERLAY_MOUSE]->remove2D(m_overlayContainerMouse);
@@ -149,20 +150,24 @@ namespace MyGUI {
 		m_overlayContainerMouse = static_cast<OverlayContainer*>(overlayManager.createOverlayElement("Panel", "MyGUI_overlayContainerMouse"));
 		m_overlayContainerMouse->setMetricsMode(GMM_PIXELS);
 		m_overlayContainerMouse->setPosition(0.0, 0.0);
-		m_overlayContainerMouse->setDimensions(m_pointerInfo[POINTER_DEFAULT]->uSizeX, m_pointerInfo[POINTER_DEFAULT]->uSizeY);
+		m_overlayContainerMouse->setDimensions(
+		    AssetManager::getSingleton()->Pointers()->getDefinition(POINTER_DEFAULT)->uSizeX,
+            AssetManager::getSingleton()->Pointers()->getDefinition(POINTER_DEFAULT)->uSizeY);
+		
 		m_overlayContainerMouse->show();
 		m_overlayGUI[OVERLAY_MOUSE]->add2D(m_overlayContainerMouse);
 		m_overlayGUI[OVERLAY_MOUSE]->show();
 
 	}
 
-	void GUI::setMousePointer(uint8 uTypePointer) // изменить указатель
+	void GUI::setMousePointer(const String &TypePointer) // изменить указатель
 	{
-		__ASSERT(uTypePointer < __POINTER_COUNT); // низя
-		if (m_pointerInfo[uTypePointer]->strMaterialName == "") return;
-		m_overlayContainerMouse->setMaterialName(m_pointerInfo[uTypePointer]->strMaterialName);
-		m_iCurrentOffsetCursorX = m_pointerInfo[uTypePointer]->iOffsetX;
-		m_iCurrentOffsetCursorY = m_pointerInfo[uTypePointer]->iOffsetY;
+		if (AssetManager::getSingleton()->Pointers()->getDefinition(TypePointer)->strMaterialName == "")
+		    return;
+		m_overlayContainerMouse->setMaterialName(
+		    AssetManager::getSingleton()->Pointers()->getDefinition(TypePointer)->strMaterialName);
+		m_iCurrentOffsetCursorX = AssetManager::getSingleton()->Pointers()->getDefinition(TypePointer)->iOffsetX;
+		m_iCurrentOffsetCursorY = AssetManager::getSingleton()->Pointers()->getDefinition(TypePointer)->iOffsetY;
 	}
 
 	void GUI::upZOrder(Window *pWindow) // поднять окно по слоям вверх
@@ -478,7 +483,7 @@ namespace MyGUI {
 		return 0;
 	}
 
-	void GUI::getLenghtText(__LP_MYGUI_FONT_INFO &font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource) // возвращает длинну текста
+	void GUI::getLenghtText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource) // возвращает длинну текста
 	{
 		sizeY = font->height;
 		sizeX = 0;
@@ -499,7 +504,7 @@ namespace MyGUI {
 		if (len > sizeX) sizeX = len;
 	}
 
-	void GUI::getCutText(__LP_MYGUI_FONT_INFO &font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAlign) // возвращает обрезанную строку равную длинне
+	void GUI::getCutText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAlign) // возвращает обрезанную строку равную длинне
 	{
 		strDest.clear();
 		// строка пустая

@@ -14,9 +14,9 @@ namespace MyGUI {
 
 	public:
 	    static Tab *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin = SKIN_TAB);
+	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_TAB);
 	
-		Tab(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent);
+		Tab(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
 		Window * addSheet(const DisplayString & strName, int16 iSizeX = -1); // добавляет вкладку
 
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
@@ -30,7 +30,7 @@ namespace MyGUI {
 		Window * m_pWindowTab; // окно для размещения окон перекрытия
 
 		int16 m_iCurrentButtonsSizeX; // текущий размер всех кнопок
-		uint8 m_uSkinButton; // скин для кнопок таба
+		String m_SkinButton; // скин для кнопок таба
 
 		int m_uCurrentTab; // активная вкладка
 	

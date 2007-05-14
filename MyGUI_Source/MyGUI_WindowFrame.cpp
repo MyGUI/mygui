@@ -1,12 +1,13 @@
 #include "MyGUI_WindowFrame.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_AssetManager.h"
 
 using namespace Ogre;
 using namespace std;
 
 namespace MyGUI {
 
-	WindowFrame::WindowFrame(__LP_MYGUI_SKIN_INFO lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	WindowFrame::WindowFrame(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_iMinSizeX(0),
 		m_iMinSizeY(0),
@@ -75,12 +76,13 @@ namespace MyGUI {
 				if (bIsFocus) GUI::getSingleton()->setMousePointer(POINTER_RESIZE);
 				else  GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
 			}
-			uint8 uSkin = SKIN_STATE_NORMAL;
-			if (bIsFocus) uSkin = SKIN_STATE_ACTIVED;
+			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
+			if (bIsFocus) Skin = SKIN_STATE_ACTIVED;
 			for (uint i=0; i<m_aWindowChild.size(); i++) {
 				Window * pChild = m_aWindowChild[i];
 				if (pChild->m_uExData & flag) {
-					if (pChild->m_paStrSkins[uSkin]) pChild->m_overlayContainer->setMaterialName(*pChild->m_paStrSkins[uSkin]);
+					if (!pChild->m_paStrSkins[Skin].empty())
+					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
 				}
 			}
 		}
@@ -93,10 +95,10 @@ namespace MyGUI {
 	}
 
 	WindowFrame *WindowFrame::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	        Window *parent, uint16 uAlign, uint16 uOverlay, uint8 uSkin)
+	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
-        __ASSERT(uSkin < __SKIN_COUNT); // низя
-		__LP_MYGUI_WINDOW_INFO pSkin = GUI::getSingleton()->m_windowInfo[uSkin];		
+        
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);		
 		
 		WindowFrame * pWindow = new WindowFrame(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,

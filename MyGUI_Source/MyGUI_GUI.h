@@ -44,7 +44,7 @@ namespace MyGUI {
 		wchar_t getKeyChar(int keyEvent); // возвращает символ по его скан коду
 
 		void createMousePointer(); // создает оверлей для мыши и курсоры
-		void setMousePointer(uint8 uTypePointer); // изменить указатель
+		void setMousePointer(const String &TypePointer); // изменить указатель
 		void showMousePointer(bool bIsShow) {
 		    if (bIsShow)
 		        m_overlayGUI[OVERLAY_MOUSE]->show();
@@ -53,22 +53,18 @@ namespace MyGUI {
         } // скрыть показать курсор
 		void setKeyFocus(Window * pWindow); // ставим фокус ввода
 		void fadeScreen(bool bIsFade, uint8 uFadeID = 0, EventCallback *pEventCallback = 0); // затеняем экран
-		void createSkin(); // загружает все скины
-		void unloadResource(); // выгружает все скины
-		void clearSkins(__LP_MYGUI_SKIN_INFO pSkin); // удаляет скин
-		void loadSkin(std::map<String, uint32> & mapNameValue, const String & strFileName); // загружает все скины окон из одного файла
 		
 		template<typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-		    uint8 uOverlay, uint8 uSkin = __SKIN_WIDGET_DEFAULT)
+		    uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 		{
-	        if(uSkin == __SKIN_WIDGET_DEFAULT)
+	        if(Skin == __SKIN_WIDGET_DEFAULT)
 	            return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay);
 	        else
-	            return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, uSkin);
+	            return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, Skin);
 	    }
 		    
 		template<typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
-		    uint8 uOverlay, uint8 uSkin = __SKIN_WIDGET_DEFAULT)
+		    uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 		{
 		    return spawn<Widget>(PosX *  GUI::getSingleton()->m_uWidth, PosY *  GUI::getSingleton()->m_uHeight,
                              SizeX * GUI::getSingleton()->m_uWidth, SIzeY * GUI::getSingleton()->m_uHeight,
@@ -85,8 +81,8 @@ namespace MyGUI {
 		Ogre::Overlay * createOverlay(String strName, uint16 zOrder, bool bIsShow = true); // создает оверлей
 
 		void upZOrder(Window *pWindow); // поднять окно по слоям вверх
-		void getLenghtText(__LP_MYGUI_FONT_INFO &font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource); // возвращает длинну текста
-		void getCutText(__LP_MYGUI_FONT_INFO &font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAlign); // возвращает обрезанную строку равную размерам
+		void getLenghtText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource); // возвращает длинну текста
+		void getCutText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAlign); // возвращает обрезанную строку равную размерам
 
 		uint16 m_uMaxZOrder; // текущий максимальный номер слоя
 		Ogre::Overlay* m_overlayGUI[__OVERLAY_COUNT]; // оверлеи гуи
@@ -113,13 +109,6 @@ namespace MyGUI {
 		Real m_fCurrentFadeAlpha; // текущая альфа затемнения
 		uint8 m_uFadeID; // идентификация затемнения
 		EventCallback *m_pEventCallbackFade; // указатель на класс для вызова после затенения
-
-		std::vector <__LP_MYGUI_FONT_INFO> m_fontInfo; // вектор всех шрифтов
-		std::vector <__LP_MYGUI_WINDOW_INFO> m_windowInfo; // вектор всех окон скинов
-		std::vector <__LP_MYGUI_POINTER_INFO> m_pointerInfo; // вектор указателей на курсоры
-
-		std::vector <String> m_strSkinNames; // имена скинов
-		std::vector <String> m_strFontNames; // имена шрифтов
 
 		std::map <String, uint16> m_mapFlagEvent; // имена флагов для парсинга
 		std::map <String, uint16> m_mapFlagAlign; // имена флагов для парсинга
