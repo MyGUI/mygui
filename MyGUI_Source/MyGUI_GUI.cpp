@@ -199,7 +199,7 @@ namespace MyGUI {
 	}
 
 
-	bool GUI::eventMouseReleased( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
+	bool GUI::mouseReleased( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
 	{
 		if (m_bIsFocusWindowCapture) { // окно было захваченно
 			m_bIsFocusWindowCapture = false;
@@ -218,7 +218,7 @@ namespace MyGUI {
 		return m_bIsActiveGUI;
 	}
 
-	bool GUI::eventMousePressed( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
+	bool GUI::mousePressed( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
 	{
 		if (id != OIS::MB_Left) return m_bIsActiveGUI;
 
@@ -254,7 +254,7 @@ namespace MyGUI {
 		return true;
 	}
 
-	bool GUI::eventMouseMove( const OIS::MouseEvent &arg )
+	bool GUI::mouseMoved( const OIS::MouseEvent &arg )
 	{
 		if (arg.state.Z.rel != 0) { // скролл
 			if (m_currentFocusWindow) {
@@ -343,7 +343,7 @@ namespace MyGUI {
 	}
 
 	
-	bool GUI::eventKeyPressed( const OIS::KeyEvent &arg ) // вызывать при нажатии кнопок клавы
+	bool GUI::keyPressed( const OIS::KeyEvent &arg ) // вызывать при нажатии кнопок клавы
 	{
 		detectLangShift(arg.key, true); // проверка на переключение языков
 		if (!m_currentEditWindow) return false;
@@ -351,7 +351,7 @@ namespace MyGUI {
 		return true;
 	}
 
-	bool GUI::eventKeyReleased( const OIS::KeyEvent &arg ) // вызывать при отпускании кнопок клавы
+	bool GUI::keyReleased( const OIS::KeyEvent &arg ) // вызывать при отпускании кнопок клавы
 	{
 		detectLangShift(arg.key, false); // проверка на переключение языков
 		if (!m_currentEditWindow) return false;

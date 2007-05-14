@@ -278,19 +278,19 @@ bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
-	if (mGUI->eventMouseMove(arg)) return true;
+	if (mGUI->mouseMoved(arg)) return true;
 	return mStates.back()->mouseMoved(arg);
 }
 
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	if (mGUI->eventMousePressed(arg, id)) return true;
+	if (mGUI->mousePressed(arg, id)) return true;
 	return mStates.back()->mousePressed(arg, id);
 }
 
 bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	mGUI->eventMouseReleased(arg, id);
+	mGUI->mouseReleased(arg, id);
 	return mStates.back()->mouseReleased(arg, id);
 }
 
@@ -298,13 +298,13 @@ bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_ESCAPE ) m_exit = true;
 
-	if (mGUI->eventKeyPressed(arg)) return true;
+	if (mGUI->keyPressed(arg)) return true;
 	return mStates.back()->keyPressed(arg);
 }
 
 bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 {
-	if (mGUI->eventKeyReleased(arg)) return true;
+	if (mGUI->keyReleased(arg)) return true;
 	return mStates.back()->keyReleased(arg);
 }
 

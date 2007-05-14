@@ -12,7 +12,7 @@ namespace MyGUI {
 
     using Ogre::DisplayString;
 
-	class GUI {
+	class GUI : public OIS::KeyListener, public OIS::MouseListener {
 
 	protected:
 
@@ -30,12 +30,12 @@ namespace MyGUI {
         GUI *Initialize (uint16 uWidth, uint16 uHeight, EventCallback *pEventCallback = 0); // обязательная регистрация размеров
         void Shutdown();
 
-		bool eventMouseMove( const OIS::MouseEvent &arg ); // вызывать при движении мыши
-		bool eventMousePressed( const OIS::MouseEvent &arg , OIS::MouseButtonID id ); // вызывать при нажатии клавиш мыши
-		bool eventMouseReleased( const OIS::MouseEvent &arg , OIS::MouseButtonID id ); // вызывать при отпускании клавиш мыши
+		bool mouseMoved( const OIS::MouseEvent &arg ); // вызывать при движении мыши
+		bool mousePressed( const OIS::MouseEvent &arg , OIS::MouseButtonID id ); // вызывать при нажатии клавиш мыши
+		bool mouseReleased( const OIS::MouseEvent &arg , OIS::MouseButtonID id ); // вызывать при отпускании клавиш мыши
 
-		bool eventKeyPressed( const OIS::KeyEvent &arg ); // вызывать при нажатии кнопок клавы
-		bool eventKeyReleased( const OIS::KeyEvent &arg ); // вызывать при отпускании кнопок клавы
+		bool keyPressed( const OIS::KeyEvent &arg ); // вызывать при нажатии кнопок клавы
+		bool keyReleased( const OIS::KeyEvent &arg ); // вызывать при отпускании кнопок клавы
 
 		void eventWindowResize(uint16 uWidth, uint16 uHeight); // изменился размер главного окна
 		void eventUpdateAnimation(Real fTimeLastFrame); // обновляет анимацию гуи
