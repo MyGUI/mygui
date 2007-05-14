@@ -74,9 +74,14 @@ namespace MyGUI {
 	}
 
 
-	Message * GUI::createMessage(const DisplayString & strCaption, const DisplayString & strMessage, uint16 uID, bool bIsModal, const DisplayString & strButton1, const DisplayString & strButton2) // окно сообщения
+	Message * GUI::createMessage(const DisplayString & strCaption, const DisplayString & strMessage,
+	    uint16 uID, bool bIsModal, const DisplayString & strButton1, const DisplayString & strButton2) // окно сообщения
 	{
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_WINDOWFRAME_CX);
+		
+		if(!pSkin)
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		
 		Message * pWindow;
 		if (bIsModal) { // модальное окно сообщения
 			__ASSERT(!m_overlayGUI[OVERLAY_FADE]->isVisible()); // только одно окно

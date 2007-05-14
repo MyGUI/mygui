@@ -145,7 +145,6 @@ namespace MyGUI {
 
 	void VScroll::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
 	{
-
 		if (pWindow == m_pWindowTrack) { // ползунок
 			if (bIsFocus)
 			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[SKIN_STATE_ACTIVED]);
@@ -176,6 +175,12 @@ namespace MyGUI {
 	{
 		
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		
+		if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
 		
 		VScroll * pWindow = new VScroll(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,

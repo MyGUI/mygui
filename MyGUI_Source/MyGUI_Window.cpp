@@ -49,8 +49,6 @@ namespace MyGUI {
 		m_pWindowText = this;
 		m_pWindowClient = this;
 		
-		memset((void*)m_paStrSkins, 0, sizeof(String* ) * __SKIN_STATE_COUNT);
-		
 		if (lpSkin->pStrSkinDeactived.length()) m_paStrSkins[SKIN_STATE_DEACTIVED] = lpSkin->pStrSkinDeactived;
 		if (lpSkin->pStrSkinNormal.length()) m_paStrSkins[SKIN_STATE_NORMAL] = lpSkin->pStrSkinNormal;
 		if (lpSkin->pStrSkinActived.length()) m_paStrSkins[SKIN_STATE_ACTIVED] = lpSkin->pStrSkinActived;
@@ -495,6 +493,12 @@ namespace MyGUI {
     {
         
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		
+		if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
 		
 		Window * pWindow = new Window(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,

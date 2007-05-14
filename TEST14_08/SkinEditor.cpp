@@ -245,7 +245,6 @@ void SkinEditor::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена ф
 			if (bIsFocus) pWindow->m_overlayContainer->setMaterialName("BACK_YELLOW");
 			else pWindow->m_overlayContainer->setMaterialName("BACK_GREEN");
 		}
-
 	}
 }
 //===================================================================================

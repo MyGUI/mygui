@@ -94,6 +94,12 @@ namespace MyGUI {
         Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
     {
         const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+        
+        if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
 		
 		Edit * pWindow = new Edit(pSkin->subSkins[0],
 		    parent ? OVERLAY_CHILD : uOverlay,
