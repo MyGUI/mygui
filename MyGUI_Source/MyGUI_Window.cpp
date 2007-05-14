@@ -63,7 +63,7 @@ namespace MyGUI {
 			m_overlay->add2D(m_overlayContainer);
 
 			// вставка указателя после нижних окон, но выше своих
-			index = GUI::getSingleton()->m_uOverlappedEnd;
+			index = (int16) GUI::getSingleton()->m_uOverlappedEnd;
 			GUI::getSingleton()->m_uOverlappedEnd ++;
 			if (GUI::getSingleton()->m_uMaxZOrder >= __GUI_ZORDER_OVERLAPPED_WARNING) {
 				// Многовато окон наклепали
@@ -101,14 +101,14 @@ namespace MyGUI {
 			m_overlay->add2D(m_overlayContainer);
 			if (m_overlay->getZOrder() < __GUI_ZORDER_OVERLAPPED) { // слои ниже перекрывающихся
 				index = 0;
-				while (index < GUI::getSingleton()->m_uOverlappedStart) { // поиск места для вставки
+				while (index < (int16)GUI::getSingleton()->m_uOverlappedStart) { // поиск места для вставки
 					if (m_overlay->getZOrder() < GUI::getSingleton()->mChildWindows[index]->m_overlay->getZOrder()) break;
 					index ++;
 				};
 				GUI::getSingleton()->m_uOverlappedStart ++;
 				GUI::getSingleton()->m_uOverlappedEnd ++;
 			} else { // слои выше перекрывающихся
-				index = GUI::getSingleton()->m_uOverlappedEnd;
+				index = (int16)GUI::getSingleton()->m_uOverlappedEnd;
 				while (index < size) { // поиск места для вставки
 					if (m_overlay->getZOrder() < GUI::getSingleton()->mChildWindows[index]->m_overlay->getZOrder()) break;
 					index ++;
@@ -310,7 +310,7 @@ namespace MyGUI {
 		if (!m_pWindowText->m_overlayCaption) return;
 
 		m_pWindowText->m_strWindowText = "\0";
-		GUI::getSingleton()->getLenghtText(AssetManager::getSingleton()->Fonts()->getDefinition(m_pWindowText->m_font),
+		GUI::getSingleton()->getLengthText(AssetManager::getSingleton()->Fonts()->getDefinition(m_pWindowText->m_font),
 		    m_pWindowText->m_sizeTextX, m_pWindowText->m_sizeTextY, strText);
 		m_pWindowText->m_sizeCutTextX = m_pWindowText->m_sizeTextX;
 		m_pWindowText->m_sizeCutTextY = m_pWindowText->m_sizeTextY;
