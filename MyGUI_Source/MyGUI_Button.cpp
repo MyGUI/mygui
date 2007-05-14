@@ -63,8 +63,9 @@ namespace MyGUI {
 				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
 			}
 			// детишки
-			for (uint i=0; i<m_aWindowChild.size(); i++) {
-				Window * pChild = m_aWindowChild[i];
+			for (ChildWindowsIterator i = mChildWindows.begin(); i != mChildWindows.end(); ++i)
+			{			    
+				Window * pChild = *i;
 				if (pChild->m_uExData & WES_BUTTON && !pChild->m_paStrSkins[Skin].empty())
 				    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
 			}

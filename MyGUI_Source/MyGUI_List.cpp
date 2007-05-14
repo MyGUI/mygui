@@ -94,7 +94,7 @@ namespace MyGUI {
 		}
 		if ((m_uSelectItem >= m_uOffsetDrawString) && (m_uSelectItem < (m_uOffsetDrawString + m_uCountVisible))) {
 			// элемент виден
-			pWindowSelect = m_pWindowClient->m_aWindowChild[m_uSelectItem-m_uOffsetDrawString+m_uStartWindow];
+			pWindowSelect = m_pWindowClient->mChildWindows[m_uSelectItem-m_uOffsetDrawString+m_uStartWindow];
 			if (m_bIsFocus) pWindowSelect->setState(WS_PRESSED);
 		} else {// элемент не виден
 			if (m_uSelectItem > (m_uCountVisible >> 1)) m_uOffsetDrawString = m_uSelectItem - (m_uCountVisible >> 1);
@@ -197,16 +197,16 @@ namespace MyGUI {
 			pChild->m_pEventCallback = (EventCallback *)this;
 			pChild->m_overlayContainer->hide();
 			pChild->setFont(m_font, m_fontColour);
-			pChild->m_uUserData = uint32(m_pWindowClient->m_aWindowChild.size() - 1 - m_uStartWindow); // порядковый номер окна
+			pChild->m_uUserData = uint32(m_pWindowClient->mChildWindows.size() - 1 - m_uStartWindow); // порядковый номер окна
 			m_uCurrentFillSize += m_uSizeYButton;
 		};
 
 		uint8 oldCountVisible = m_uCountVisible;
 		m_uCountVisible = 0;
 
-		size_t size = m_pWindowClient->m_aWindowChild.size();
+		size_t size = m_pWindowClient->mChildWindows.size();
 		for (size_t pos = m_uStartWindow; pos<size; pos++) {
-			Window * pWindow = m_pWindowClient->m_aWindowChild[pos];
+			Window * pWindow = m_pWindowClient->mChildWindows[pos];
 			if ((pWindow->m_iPosY + m_uSizeYButton) > m_pWindowClient->m_iSizeY) { // не влазиет
 				if (pWindow->m_overlayContainer->isVisible()) pWindow->m_overlayContainer->hide();
 				else pos = size; // выходим их цикла
@@ -241,7 +241,7 @@ namespace MyGUI {
 			}
 		} else {
 			for (uint16 draw = oldCountVisible; draw<m_uCountVisible; draw++) {
-				Window * pWindow = m_pWindowClient->m_aWindowChild[draw+m_uStartWindow];
+				Window * pWindow = m_pWindowClient->mChildWindows[draw+m_uStartWindow];
 				pWindow->m_pWindowText->setWindowText(*m_aString[draw+m_uOffsetDrawString]);
 			}
 		}
@@ -263,9 +263,9 @@ namespace MyGUI {
 					m_scroll->show(false);
 					m_bIsVisibleScroll = false;
 
-					uint8 size = (uint8)m_pWindowClient->m_aWindowChild.size();
+					uint8 size = (uint8)m_pWindowClient->mChildWindows.size();
 					for (size_t pos = m_uStartWindow; pos<size; pos++) {
-						Window * pWindow = m_pWindowClient->m_aWindowChild[pos];
+						Window * pWindow = m_pWindowClient->mChildWindows[pos];
 						pWindow->size(pWindow->m_iSizeX+m_uSizeXScroll, pWindow->m_iSizeY);
 					}
 
@@ -282,9 +282,9 @@ namespace MyGUI {
 				m_scroll->show(true);
 				m_bIsVisibleScroll = true;
 
-				size_t size = m_pWindowClient->m_aWindowChild.size();
+				size_t size = m_pWindowClient->mChildWindows.size();
 				for (size_t pos = m_uStartWindow; pos<size; pos++) {
-					Window * pWindow = m_pWindowClient->m_aWindowChild[pos];
+					Window * pWindow = m_pWindowClient->mChildWindows[pos];
 					pWindow->size(pWindow->m_iSizeX-m_uSizeXScroll, pWindow->m_iSizeY);
 				}
 
@@ -303,7 +303,7 @@ namespace MyGUI {
 		size_t index = m_uStartWindow;
 		uint8 visible = 0;
 		for (size_t pos = m_uOffsetDrawString; pos < size; pos++) {
-			Window * pWindow = m_pWindowClient->m_aWindowChild[index];
+			Window * pWindow = m_pWindowClient->mChildWindows[index];
 			pWindow->m_pWindowText->setWindowText(*m_aString[pos]);
 			if (pos == m_uSelectItem) {
 				pWindowSelect = pWindow;
@@ -316,7 +316,7 @@ namespace MyGUI {
 
 		// пустые места
 		for (size_t pos = size + 1; pos < m_uCountVisible; pos++) {
-			m_pWindowClient->m_aWindowChild[pos]->setWindowText("");
+			m_pWindowClient->mChildWindows[pos]->setWindowText("");
 		}
 
 	}
@@ -392,8 +392,8 @@ namespace MyGUI {
 		m_font = lpFont;
 		m_fontColour = colour;
 		// присваиваем уже существующим строчкам
-		for (size_t pos = m_uStartWindow; pos < m_pWindowClient->m_aWindowChild.size(); pos++) {
-			m_pWindowClient->m_aWindowChild[pos]->setFont(lpFont, colour);
+		for (size_t pos = m_uStartWindow; pos < m_pWindowClient->mChildWindows.size(); pos++) {
+			m_pWindowClient->mChildWindows[pos]->setFont(lpFont, colour);
 		}
 	}
 

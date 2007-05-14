@@ -6,6 +6,7 @@
 namespace MyGUI {
 
 	class ComboBox : public Window {
+	    void __COMBO_CALC_SHOW_LIST();
 
 	public:
 		ComboBox(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);

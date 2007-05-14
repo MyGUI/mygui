@@ -5,6 +5,11 @@
 #include <OgreColourValue.h>
 
 namespace MyGUI {
+    
+    enum FADE_STATES {
+		NONE,
+		FADE_CHANGE_STATE,
+	};
 
 	enum __SKIN_STATES {
 		SKIN_STATE_DEACTIVED, // недоступен

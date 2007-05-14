@@ -350,7 +350,7 @@ void BasisManager::popState(bool bIsFade)
 		mStates.back()->resume();
 	} else assert(false); // такого быть не должно
 }
-void BasisManager::onFadeEnd(bool bIsFade, uint8 fadeID) // закончилось затемнение
+void BasisManager::onFadeEnd(bool bIsFade, FADE_STATES fadeID) // закончилось затемнение
 {
 	if (!bIsFade) return; // рассвет
 	if (!mFadeState) return;

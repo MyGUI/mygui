@@ -11,11 +11,17 @@ using namespace OIS;
 
 namespace MyGUI {
 
-	#define __COMBO_CALC_SHOW_LIST { \
-		m_pList->size(m_iSizeX, m_pList->m_iSizeY); \
-		int16 _iPosY = ((int16)(m_overlayContainer->_getDerivedTop()*GUI::getSingleton()->m_uHeight)) + 1; \
-		if ((_iPosY+m_iSizeY+m_pList->m_iSizeY) >= GUI::getSingleton()->m_uHeight) m_pList->move(((int16)(m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->m_uWidth))+1, _iPosY-m_pList->m_iSizeY); \
-		else m_pList->move(((int16)(m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->m_uWidth))+1, _iPosY+m_iSizeY); \
+	void ComboBox::__COMBO_CALC_SHOW_LIST() {
+		
+		m_pList->size(m_iSizeX, m_pList->m_iSizeY);
+		
+		const unsigned int _iPosY = m_overlayContainer->_getDerivedTop()*GUI::getSingleton()->m_uHeight + 1;
+		const unsigned int MoveX  = m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->m_uWidth + 1;
+		
+		if ((_iPosY+m_iSizeY+m_pList->m_iSizeY) >= GUI::getSingleton()->m_uHeight)
+		    m_pList->move(MoveX, _iPosY-m_pList->m_iSizeY);
+		else
+		    m_pList->move(MoveX, _iPosY+m_iSizeY);
 	}
 
 	ComboBox::ComboBox(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
@@ -72,7 +78,7 @@ namespace MyGUI {
 			m_bIsListShow = false;
 		} else {
 			if (m_pList->m_aString.size() != 0) { // показываем если только есть строки
-				__COMBO_CALC_SHOW_LIST;
+				__COMBO_CALC_SHOW_LIST();
 
 				if (!m_bHideList) {
 					GUI::getSingleton()->setKeyFocus(m_pList);
@@ -96,7 +102,7 @@ namespace MyGUI {
 		}
 
 		if (bIsFocus) {
-			__COMBO_CALC_SHOW_LIST;
+			__COMBO_CALC_SHOW_LIST();
 			// отображаем
 			m_pList->show(true);
 			m_bIsListShow = true;
@@ -110,7 +116,7 @@ namespace MyGUI {
 	{
 		if ((keyEvent == KC_UP) || (keyEvent == KC_DOWN)) { // при нажатии вверх или вниз, показываем список
 			if (m_pList->m_aString.size() == 0) return; // показываем если только есть строки
-			__COMBO_CALC_SHOW_LIST;
+			__COMBO_CALC_SHOW_LIST();
 			// отображаем
 			m_pList->show(true);
 			GUI::getSingleton()->setKeyFocus(m_pList);
@@ -127,7 +133,7 @@ namespace MyGUI {
 		Window::_OnKeyButtonPressed(keyEvent, cText);
 		if ((keyEvent == KC_UP) || (keyEvent == KC_DOWN)) { // при нажатии вверх или вниз, показываем список
 			if (m_pList->m_aString.size() == 0) return; // показываем если только есть строки
-			__COMBO_CALC_SHOW_LIST;
+			__COMBO_CALC_SHOW_LIST();
 			// отображаем
 			m_pList->show(true);
 			GUI::getSingleton()->setKeyFocus(m_pList);

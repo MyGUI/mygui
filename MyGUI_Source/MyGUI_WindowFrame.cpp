@@ -78,8 +78,8 @@ namespace MyGUI {
 			}
 			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
 			if (bIsFocus) Skin = SKIN_STATE_ACTIVED;
-			for (uint i=0; i<m_aWindowChild.size(); i++) {
-				Window * pChild = m_aWindowChild[i];
+			for (uint i=0; i<mChildWindows.size(); i++) {
+				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & flag) {
 					if (!pChild->m_paStrSkins[Skin].empty())
 					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);

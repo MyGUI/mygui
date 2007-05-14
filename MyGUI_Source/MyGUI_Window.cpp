@@ -52,12 +52,13 @@ namespace MyGUI {
 		if (!m_paStrSkins[SKIN_STATE_NORMAL].empty())
 		    m_overlayContainer->setMaterialName(m_paStrSkins[SKIN_STATE_NORMAL]);
 
-		uint16 size = (uint16)GUI::getSingleton()->m_aWindowChild.size();
+		uint16 size = (uint16)GUI::getSingleton()->mChildWindows.size();
 		int16 index = -1;
 
 		if (uOverlay == OVERLAY_OVERLAPPED) { // перекрывающееся окно
 			m_bIsOverlapped = true; // запоминаем
-			m_overlay = GUI::getSingleton()->createOverlay("MyGUI_Overlay_" + StringConverter::toString((uint32)this), GUI::getSingleton()->m_uMaxZOrder);
+			m_overlay = GUI::getSingleton()->createOverlay(
+			    "MyGUI_Overlay_" + StringConverter::toString((uint32)this), GUI::getSingleton()->m_uMaxZOrder);
 			GUI::getSingleton()->m_uMaxZOrder += __GUI_ZORDER_OVERLAPPED_STEP;
 			m_overlay->add2D(m_overlayContainer);
 
@@ -72,7 +73,7 @@ namespace MyGUI {
 			__ASSERT(pWindowParent != 0); // низя обманывать
 			m_pWindowParent = pWindowParent;
 			m_pWindowParent->m_overlayContainer->addChild(m_overlayContainer);
-			m_pWindowParent->m_aWindowChild.push_back(this); // добавляем себя к отцу
+			m_pWindowParent->mChildWindows.push_back(this); // добавляем себя к отцу
 			// еще не проверенно , но вроде работает правильно
 			if (m_uAlign & WA_CENTER_FOTHER) {
 				m_iOffsetAlignX = -m_iSizeX;
@@ -101,7 +102,7 @@ namespace MyGUI {
 			if (m_overlay->getZOrder() < __GUI_ZORDER_OVERLAPPED) { // слои ниже перекрывающихся
 				index = 0;
 				while (index < GUI::getSingleton()->m_uOverlappedStart) { // поиск места для вставки
-					if (m_overlay->getZOrder() < GUI::getSingleton()->m_aWindowChild[index]->m_overlay->getZOrder()) break;
+					if (m_overlay->getZOrder() < GUI::getSingleton()->mChildWindows[index]->m_overlay->getZOrder()) break;
 					index ++;
 				};
 				GUI::getSingleton()->m_uOverlappedStart ++;
@@ -109,16 +110,16 @@ namespace MyGUI {
 			} else { // слои выше перекрывающихся
 				index = GUI::getSingleton()->m_uOverlappedEnd;
 				while (index < size) { // поиск места для вставки
-					if (m_overlay->getZOrder() < GUI::getSingleton()->m_aWindowChild[index]->m_overlay->getZOrder()) break;
+					if (m_overlay->getZOrder() < GUI::getSingleton()->mChildWindows[index]->m_overlay->getZOrder()) break;
 					index ++;
 				};
 			}
 		}
 
 		if (index != -1) { // непосредственно вставка в массив
-			GUI::getSingleton()->m_aWindowChild.push_back(0);
-			for (int16 pos=size; pos>index; pos--) GUI::getSingleton()->m_aWindowChild[pos] = GUI::getSingleton()->m_aWindowChild[pos-1];
-			GUI::getSingleton()->m_aWindowChild[index] = this;
+			GUI::getSingleton()->mChildWindows.push_back(0);
+			for (int16 pos=size; pos>index; pos--) GUI::getSingleton()->mChildWindows[pos] = GUI::getSingleton()->mChildWindows[pos-1];
+			GUI::getSingleton()->mChildWindows[index] = this;
 		}
 
 		_LOG("create window (%p)     (%d, %d, %d, %d)   callback(0x%.8X)   align(0x%.8X)    overlapped(%d)   data(0x%.8X)", this, m_iPosX, m_iPosY, m_iSizeX, m_iSizeY, m_uEventCallback, m_uAlign, m_bIsOverlapped, m_uExData);
@@ -129,8 +130,11 @@ namespace MyGUI {
 	Window::~Window()
 	{
 		// удаляем дитешек
-		for (uint i=0; i<m_aWindowChild.size();i++) delete m_aWindowChild[i];
-		m_aWindowChild.clear();
+		while(!mChildWindows.empty())
+		{
+		    delete mChildWindows.back();
+		    mChildWindows.pop_back();
+		}
 
 		_LOG("destroy window (%p)", this);
 
@@ -223,8 +227,8 @@ namespace MyGUI {
 	void Window::size(int16 iSizeX, int16 iSizeY) // изменяем размер окна
 	{
 		// сначала устанавливаем новые значения, детям посылаем их же
-		for (uint i=0; i<m_aWindowChild.size(); i++) { // сначала детишки
-			m_aWindowChild[i]->alignWindow(iSizeX, iSizeY); // выравниваем
+		for (uint i=0; i<mChildWindows.size(); i++) { // сначала детишки
+			mChildWindows[i]->alignWindow(iSizeX, iSizeY); // выравниваем
 		}
 		// а потом только меняем значения класса
 		m_iSizeX = iSizeX;
@@ -354,8 +358,8 @@ namespace MyGUI {
 				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
 			}
 			// детишки
-			for (uint i=0; i<m_aWindowChild.size(); i++) {
-				Window * pChild = m_aWindowChild[i];
+			for (uint i=0; i<mChildWindows.size(); i++) {
+				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & WES_BUTTON) {
 					if (!pChild->m_paStrSkins[Skin].empty())
 					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
@@ -416,8 +420,8 @@ namespace MyGUI {
 				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
 			}
 			// детишки
-			for (uint i=0; i<m_aWindowChild.size(); i++) {
-				Window * pChild = m_aWindowChild[i];
+			for (uint i=0; i<mChildWindows.size(); i++) {
+				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & WES_BUTTON && !pChild->m_paStrSkins[Skin].empty())
 				    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
 			}
@@ -442,8 +446,8 @@ namespace MyGUI {
 			return true;
 		}
 
-		for (uint i=0; i<m_aWindowChild.size(); i++) {
-			if (m_aWindowChild[i]->check(iPosX-m_iPosX, iPosY-m_iPosY)) return true;
+		for (uint i=0; i<mChildWindows.size(); i++) {
+			if (mChildWindows[i]->check(iPosX-m_iPosX, iPosY-m_iPosY)) return true;
 		}
 
 		return bCapture;

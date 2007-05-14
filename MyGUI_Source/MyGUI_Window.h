@@ -77,7 +77,16 @@ namespace MyGUI {
 		Ogre::Overlay* m_overlay; // оверлей этого окна
 		Ogre::PanelOverlayElement * m_overlayContainer; // оверлей элемента
 		Ogre::OverlayContainer* m_overlayCaption; // оверлей текста
-		std::vector<MyGUI::Window*>m_aWindowChild; // дети окна
+		
+		
+		/*
+		    Child windows of this window.  Each window is actually made up of a main window
+		    and anywhere from 0 to many child windows, which define things such as frames and other
+		    miscellaneous graphics.
+		*/
+		std::vector<MyGUI::Window*> mChildWindows;
+		typedef std::vector<MyGUI::Window*>::iterator ChildWindowsIterator;	
+		
 		Window * m_pWindowParent; // отец окна
 		Window * m_pWindowText; // элемент скина содержащий текст всего элемента (по дефолту this)
 		Window * m_pWindowClient; // элемент скина является клиенским окном всего элемента (по дефолту this)

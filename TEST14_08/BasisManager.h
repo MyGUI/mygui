@@ -62,11 +62,6 @@ public:
 
 	bool m_exit; // выходим из цикла приложения
 
-	enum FADE_STATES {
-		NONE,
-		FADE_CHANGE_STATE,
-	};
-
 	BasisManager();
 	~BasisManager();
 
@@ -92,7 +87,7 @@ public:
 	void changeState(BasisState* state, bool bIsFade = true);
 	void pushState(BasisState* state, bool bIsFade = true);
 	void popState(bool bIsFade = true);
-	void onFadeEnd(bool bIsFade, MyGUI::uint8 fadeID); // закончилось затемнение
+	void onFadeEnd(bool bIsFade, MyGUI::FADE_STATES fadeID); // закончилось затемнение
 
 	virtual void windowResized(Ogre::RenderWindow* rw);
 	virtual void windowClosed(Ogre::RenderWindow* rw);

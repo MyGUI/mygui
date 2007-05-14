@@ -52,7 +52,7 @@ namespace MyGUI {
 	void GUI::Shutdown()
 	{
 		AssetManager::getSingleton()->unloadAssets();
-		while (m_aWindowChild.size() > 0) destroyWindow(m_aWindowChild[0]);
+		while (mChildWindows.size() > 0) destroyWindow(mChildWindows[0]);
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		m_overlayGUI[OVERLAY_MOUSE]->remove2D(m_overlayContainerMouse);
 		overlayManager.destroyOverlayElement(m_overlayContainerMouse);
@@ -65,30 +65,56 @@ namespace MyGUI {
 
 	void GUI::destroyWindow(__MYGUI_OVERLAYS overlay) // уничтожает окно и удаляет из списка
 	{
-		if (overlay == OVERLAY_DESTROY_ALL) {
-			// все окна
-			while (m_aWindowChild.size() > 0) destroyWindow(m_aWindowChild[0]);
-		} else if (overlay == OVERLAY_OVERLAPPED) {
-			// все перекрывающиеся
-			while (m_uOverlappedStart < m_uOverlappedEnd) destroyWindow(m_aWindowChild[m_uOverlappedEnd-1]);
-		} else if ((overlay < __OVERLAY_COUNT) && (overlay != OVERLAY_MOUSE)) {
-			// поиск всех окон этого оверлея
-			int16 pos = 0;
-			int16 size = (int16)m_aWindowChild.size();
-			while (pos < size) {
-				if (m_aWindowChild[pos]->m_overlay == m_overlayGUI[overlay]) {
-					destroyWindow(m_aWindowChild[pos]);
+		if (overlay == OVERLAY_DESTROY_ALL)
+			while (mChildWindows.size() > 0)
+			    destroyWindow(mChildWindows[0]);
+		else if (overlay == OVERLAY_OVERLAPPED)
+			while (m_uOverlappedStart < m_uOverlappedEnd)
+			    destroyWindow(mChildWindows[m_uOverlappedEnd-1]);
+		else if ((overlay < __OVERLAY_COUNT) && (overlay != OVERLAY_MOUSE))
+			for(size_t pos = 0, size = mChildWindows.size(); pos < size; ++pos)
+				if (mChildWindows[pos]->m_overlay == m_overlayGUI[overlay])
+				{
+					destroyWindow(mChildWindows[pos]);
 					pos--;
 					size --;
 				}
-				pos ++;
-			}
-		}
 	}
 
 	void GUI::destroyWindow(MyGUI::Window * pWindow) // уничтожает окно и удаляет из списка
 	{
-		if (!pWindow) return;
+	    /****************************
+	    Code from the destructor for a window
+	    
+	    // удаляем дитешек
+		while(!mChildWindows.empty())
+		{
+		    delete mChildWindows.back();
+		    mChildWindows.pop_back();
+		}
+
+		_LOG("destroy window (%p)", this);
+
+		// а теперь и сами
+		OverlayManager &overlayManager = OverlayManager::getSingleton();
+		if (m_overlayCaption) {
+			m_overlayContainer->removeChild(m_overlayCaption->getName());
+			overlayManager.destroyOverlayElement(m_overlayCaption);
+		}
+
+		if (m_overlay) {
+			m_overlay->remove2D(m_overlayContainer);
+			overlayManager.destroyOverlayElement(m_overlayContainer);
+			if (m_bIsOverlapped) overlayManager.destroy(m_overlay); // перекрывающееся окно
+		} else {
+			__ASSERT(m_pWindowParent != 0); // во как
+			m_pWindowParent->m_overlayContainer->removeChild(m_overlayContainer->getName()); // дочернее окно
+			overlayManager.destroyOverlayElement(m_overlayContainer);
+		}
+		
+		***********************************/
+		if (!pWindow)
+		    return;
 
 		// сброс всех активных окон, в конце функции все восстановится кроме захвата мыши
 		m_currentWindow = 0; // сброс активного фрейма
@@ -96,26 +122,27 @@ namespace MyGUI {
 		m_bIsFocusWindowCapture = false; // сброс захвата
 		m_currentFocusWindow = 0; // сброс активного окна
 
-		uint16 size;
+		size_t size;
 		if (pWindow->m_pWindowParent) { // есть отец
-			Window * pParentWindow = pWindow->m_pWindowParent;
-			size = (uint16)pParentWindow->m_aWindowChild.size();
-			for (uint16 i=0; i<size; i++) { // ищем в детском саду
-				if (pWindow == pParentWindow->m_aWindowChild[i]) { // нашелся
-					pParentWindow->m_aWindowChild[i] = pParentWindow->m_aWindowChild[size-1];
-					pParentWindow->m_aWindowChild.pop_back();
-					delete pWindow; // удаляем окно
-					i = size; // выходим
-				}
+			for(Window::ChildWindowsIterator x = pWindow->m_pWindowParent->mChildWindows.begin();
+                x < pWindow->m_pWindowParent->mChildWindows.end(); ++x)
+            {
+			    if(*x == pWindow)
+			        pWindow->m_pWindowParent->mChildWindows.erase(x);
 			}
+						        
+			delete pWindow;
 		} else  { // ребенок гуи
 			upZOrder(pWindow); // поднимаем его
-			size = (uint16)m_aWindowChild.size();
-			for (uint16 i=0; i<size; i++) { // ищем в детском саду
-				if (pWindow != m_aWindowChild[i]) continue; // не тот
-
-				if (i != 0) { // попробуем известить предыдущее окно о том что оно теперь выше всех перекрывающихся
-					Window * pWindowBack = m_aWindowChild[i-1];
+			
+			size = mChildWindows.size();
+			for (size_t i = 0; i < size; i++) { // ищем в детском саду
+				if (pWindow != mChildWindows[i])
+				    continue;
+				    
+				//mChildWindows[i] is now the current window
+				if (i != 0) { // [we shall try to inform the previous window on that that it now above all overlapped]
+					Window * pWindowBack = mChildWindows[i-1];
 					if (pWindowBack->m_bIsOverlapped) pWindowBack->_OnUpZOrder();
 				}
 
@@ -130,18 +157,21 @@ namespace MyGUI {
 					}
 				}
 
-				for (uint16 pos=i; pos<(size-1); pos++) m_aWindowChild[pos] = m_aWindowChild[pos+1];
-				m_aWindowChild.pop_back();
+				for (size_t pos = i; pos < (size-1); pos++)
+				    mChildWindows[pos] = mChildWindows[pos+1];
+				mChildWindows.pop_back();
 
-				delete pWindow; // удаляем окно
 				i = size; // выходим
 			}
 		}
+		
+		delete pWindow;
 
-		// просчет активности окон, для правильности отображения
-//		eventMouseMove(m_overlayContainerMouse->getLeft()/m_uWidth, 0.0, m_overlayContainerMouse->getTop()/m_uHeight, false);
-		// посылается уведомление, !!! указатель окна мертвый
-		if (m_pEventCallback) m_pEventCallback->onWarningEvent(pWindow, WE_WARNING_CHILD_DELETE);
+		// the miscalculation of activity of windows, for correctness of display
+        // eventMouseMove (m_overlayContainerMouse-> getLeft ()/m_uWidth, 0.0, m_overlayContainerMouse-> getTop ()/m_uHeight, false);
+        // it is sent at and * 22 
+		if (m_pEventCallback)
+		    m_pEventCallback->onWarningEvent(pWindow, WE_WARNING_CHILD_DELETE);
 	}
 
 	void GUI::createMousePointer()
@@ -170,32 +200,39 @@ namespace MyGUI {
 		m_iCurrentOffsetCursorY = AssetManager::getSingleton()->Pointers()->getDefinition(TypePointer)->iOffsetY;
 	}
 
-	void GUI::upZOrder(Window *pWindow) // поднять окно по слоям вверх
-	{ // поднятие и упорядочивание окон в массиве , для увеличения скорости просчетов
-		if (!pWindow->m_bIsOverlapped) return; // ходют тут всякие
-		 // перебираем все перекрывающиеся окна
-		for (uint16 pos = m_uOverlappedStart; pos<(m_uOverlappedEnd-1); pos++) {
-			if (pWindow == m_aWindowChild[pos]) { // если это наше окно, то меняем его с верхним
-				m_aWindowChild[pos] = m_aWindowChild[pos+1];
-				m_aWindowChild[pos+1] = pWindow;
+	void GUI::upZOrder(Window *pWindow)
+	{
+		//No need to change Z order since it isn't being overlapped
+		if (!pWindow->m_bIsOverlapped)
+		    return;
+		
+		//It is being overlapped by other windows
+		for (size_t pos = m_uOverlappedStart; pos < m_uOverlappedEnd - 1; pos++) {
+			if (pWindow == mChildWindows[pos]) { // если это наше окно, то меняем его с верхним
+				mChildWindows[pos] = mChildWindows[pos+1];
+				mChildWindows[pos+1] = pWindow;
 				uint16 uZOrder = pWindow->m_overlay->getZOrder();
-				pWindow->m_overlay->setZOrder(m_aWindowChild[pos]->m_overlay->getZOrder());
-				m_aWindowChild[pos]->m_overlay->setZOrder(uZOrder);
+				pWindow->m_overlay->setZOrder(mChildWindows[pos]->m_overlay->getZOrder());
+				mChildWindows[pos]->m_overlay->setZOrder(uZOrder);
 			}
 		}
 	}
 
-	MyGUI::Window * GUI::getTopWindow() // возвращает самое верхнее окно из перекрывающихся
+	Window * GUI::getTopWindow() // возвращает самое верхнее окно из перекрывающихся
 	{
-		if (m_uOverlappedStart == m_uOverlappedEnd) return 0;
-		return m_aWindowChild[m_uOverlappedEnd-1];
+		if (m_uOverlappedStart == m_uOverlappedEnd)
+		    return NULL;
+		else
+		    return mChildWindows[m_uOverlappedEnd-1];
 	}
 
 	void GUI::setKeyFocus(Window * pWindow) // ставим фокус ввода
 	{
-		if (m_currentEditWindow) m_currentEditWindow->_OnKeyChangeFocus(false);
+		if (m_currentEditWindow)
+		    m_currentEditWindow->_OnKeyChangeFocus(false);
 		m_currentEditWindow = pWindow;
-		if (m_currentEditWindow) m_currentEditWindow->_OnKeyChangeFocus(true);
+		if (m_currentEditWindow)
+		    m_currentEditWindow->_OnKeyChangeFocus(true);
 	}
 
 
@@ -277,9 +314,9 @@ namespace MyGUI {
 			m_currentWindow = 0; // текущее окно
 
 			// ищем окно над которым курсор, из дочек гуи
-			for (int16 i=(((int16)m_aWindowChild.size())-1); i>=0; i--) { // окна в массиве упорядоченны по zOrder
-				if(m_aWindowChild[i]->check(arg.state.X.abs, arg.state.Y.abs, true)) {
-					m_currentWindow = m_aWindowChild[i];
+			for (int16 i=(((int16)mChildWindows.size())-1); i>=0; i--) { // окна в массиве упорядоченны по zOrder
+				if(mChildWindows[i]->check(arg.state.X.abs, arg.state.Y.abs, true)) {
+					m_currentWindow = mChildWindows[i];
 					m_bIsActiveGUI = true;
 					i = -1; // выход из цикла
 				}
@@ -298,7 +335,8 @@ namespace MyGUI {
 
 		return m_bIsActiveGUI;
 	}
-
+    
+    //Detects switching from an english to a russian mode on a keyboard (?)
 	void GUI::detectLangShift(int keyEvent, bool bIsKeyPressed)
 	{
 		#define __INPUT_SHIFT_MASK 0x01
@@ -343,12 +381,17 @@ namespace MyGUI {
 	}
 
 	
-	bool GUI::keyPressed( const OIS::KeyEvent &arg ) // вызывать при нажатии кнопок клавы
+	bool GUI::keyPressed( const OIS::KeyEvent &arg )
 	{
-		detectLangShift(arg.key, true); // проверка на переключение языков
-		if (!m_currentEditWindow) return false;
-		m_currentEditWindow->_OnKeyButtonPressed(arg.key, getKeyChar(arg.key));
-		return true;
+		detectLangShift(arg.key, true);
+		
+		//Pass keystrokes to the current active text widget
+		if (m_currentEditWindow)
+		{
+		    m_currentEditWindow->_OnKeyButtonPressed(arg.key, getKeyChar(arg.key));
+		    return true;
+		}		
+		return false;
 	}
 
 	bool GUI::keyReleased( const OIS::KeyEvent &arg ) // вызывать при отпускании кнопок клавы
@@ -359,13 +402,15 @@ namespace MyGUI {
 		return true;
 	}
 
-	void GUI::eventWindowResize(uint16 uWidth, uint16 uHeight) // изменился размер главного окна
+	void GUI::eventWindowResize(const unsigned int uWidth, const unsigned int uHeight) // изменился размер главного окна
 	{
 		m_uWidth = uWidth;
 		m_uHeight = uHeight;
-		 // затемнение
+		
+		//The fade effect needs to cover the entire viewable area, so we need to resize it
 		if (m_currentFadeWindow) m_currentFadeWindow->size(uWidth, uHeight);
-		// окно сообщений
+		
+		//Resize all the overlay sheets the manager is using
 		Overlay::Overlay2DElementsIterator iter = m_overlayGUI[MyGUI::OVERLAY_FADE]->get2DElementsIterator();
 		if (iter.hasMoreElements()) {
 			iter.getNext()->setDimensions(uWidth, uHeight); // может еще и данные размеров класса Window поменять
@@ -412,10 +457,11 @@ namespace MyGUI {
 
 	}
 
-	void GUI::fadeScreen(bool bIsFade, uint8 uFadeID, EventCallback *pEventCallback) // затеняем экран
+	void GUI::fadeScreen(bool bIsFade, FADE_STATES uFadeID, EventCallback *pEventCallback) // затеняем экран
 	{
+		__ASSERT(m_currentFadeWindow == 0);
+		
 		m_pEventCallbackFade = pEventCallback; // для вызова функции
-		m_uFadeID = uFadeID;
 		if (bIsFade) { // закат
 			m_bFadeState = FADE_DOWN;
 			m_fCurrentFadeAlpha = 0.0;
@@ -423,17 +469,16 @@ namespace MyGUI {
 			m_bFadeState = FADE_UP;
 			m_fCurrentFadeAlpha = 1.0;
 		}
-
+		
+		//Be sure that the fade screen is visible at the appropriate level
 		m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
 		m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_FADE); // поднимает вверх
-
-		__ASSERT(m_currentFadeWindow == 0);
+		
 		m_currentFadeWindow = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
 
 		MaterialPtr Mat = m_currentFadeWindow->m_overlayContainer->getMaterial();
 		TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);
 		texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, m_fCurrentFadeAlpha);
-
 	}
 
 	Overlay * GUI::createOverlay(String strName, uint16 zOrder, bool bIsShow) // создает оверлей
@@ -483,7 +528,7 @@ namespace MyGUI {
 		return 0;
 	}
 
-	void GUI::getLenghtText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource) // возвращает длинну текста
+	void GUI::getLengthText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource) // возвращает длинну текста
 	{
 		sizeY = font->height;
 		sizeX = 0;
