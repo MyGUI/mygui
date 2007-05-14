@@ -14,7 +14,7 @@ windowSkin 	FADE
 		offset 	1  2  3  4
 
 		event 	WE_KEY_FOCUS  WE_MOUSE_FOCUS  
-		aligin 	WAT_BOTTOM  WAT_MULTI_LINE  WAT_RIGHT  
+		align 	WA_NONE
 		style 	WES_ACTION1  WES_ACTION3  WES_ACTION5  WES_BUTTON  WES_CAPTION  WES_CLOSE  WES_COMBO  WES_EDIT  WES_LIST_HIDE_SCROLL  WES_TAB_TOP  WES_VSCROLL_TRACK  WES_VSCROLL_UP  
 
 		deactived_position 	0  3  28  24
@@ -29,6 +29,18 @@ windowSkin 	BUTTON
 {
 	added_skin1 	BUTTON
 	added_skin2 	BUTTON
+	material 	"Fonts/MyGUI_font"
+
+	subSkinMain 	dermo
+	{
+		offset 	0  0  0  0
+
+		event 	WE_NONE
+		align 	WA_NONE
+		style 	WES_NONE
+
+		deactived_position 	24  4  30  30
+	}
 }
 
 windowSkin 	EDIT

@@ -16,9 +16,7 @@ namespace MyGUI {
 
 	protected:
 
-		GUI () :
-		    MouseHandler(),
-		    KeyboardHandler() { }// об€зательна€ регистраци€ размеров
+		GUI () : MouseHandler(), KeyboardHandler() { }
 		~GUI() { }
 		
 	public:
@@ -33,7 +31,7 @@ namespace MyGUI {
         void Shutdown();
         
         
-	    template<typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    template <typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 	    {
             if(Skin == __SKIN_WIDGET_DEFAULT)
@@ -58,9 +56,6 @@ namespace MyGUI {
         
         
         EventCallback *m_pEventCallback; // главный указатель на класс дл€ вызова функций и отсылки предупреждений
-        
-        
-        
         
         //Sizing
 		    unsigned int m_uWidth, m_uHeight; // размеры экрана
@@ -119,14 +114,15 @@ namespace MyGUI {
         
         //Window Management(?)
         
-            /*
-                Never called, so I'm not sure what the intended use is.
-            */
-		    Window * getTopWindow(); // возвращает самое верхнее окно из перекрывающихс€
     		
 		    /*
 		        Destroys a specific window and handles any cleanup associated with it.
 		        Question: why can we destroy a window in two ways?  (Ie: destroyWindow(Window) and delete Window)
+
+				The answer: 
+				It has been made after long searches of problems
+				if there is time and desire you can correct on removal through delete.
+				But all problems with removal you will incur.
 		    */
 		    void destroyWindow(MyGUI::Window * pWindow); // уничтожает окно и удал€ет из всех списков (на пр€мую не удал€ть)
     		

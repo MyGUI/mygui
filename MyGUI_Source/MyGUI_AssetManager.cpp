@@ -93,7 +93,7 @@ namespace MyGUI {
 		__REGISTER_VALUE_ALIGN(WAT_CUT_LEFT_DOT);
 		__REGISTER_VALUE_ALIGN(WAT_MULTI_LINE);
 		__REGISTER_VALUE_ALIGN(WAT_BREAK_WORD);
-		__REGISTER_VALUE_ALIGN(WAT_SHIFT_TEXT_PRESSED);
+		__REGISTER_VALUE_ALIGN(WAT_SHIFT_TEXT);
 		//---------------------------------------------------------------------------------------------------------------
 		//---------------------------------------------------------------------------------------------------------------
 		// загрузка скинов

@@ -112,10 +112,6 @@ namespace MyGUI {
 		pWindow->setWindowText(strCaption);
 
 		#define __BUTTON_SIZE 130
-//		#define __BUTTON_NAME_OK "Ok"
-//		#define __BUTTON_NAME_CANCEL "Cancel"
-//		#define __BUTTON_NAME_YES "Yes"
-//		#define __BUTTON_NAME_NO "No"
 
 		int16 iMinSizeX = __BUTTON_SIZE+20;
 

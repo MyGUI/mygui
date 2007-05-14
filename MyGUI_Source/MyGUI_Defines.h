@@ -70,116 +70,130 @@ namespace MyGUI
     class EventCallback;
     class GUI;
     
-    enum __FADE_STATE { // текущий режим затемнения
+    enum __FADE_STATE {
+		// текущий режим затемнения
 		FADE_END = 0,
 		FADE_DOWN,
 		FADE_UP
 	};
-	enum __MESSAGE_BOX_BUTTON { // кнопки окна сообщения
-		MBB_NONE = FLAG_NONE,
-		MBB_BUTTON1 = FLAG(0), // первая кнопка подтверждения
-		MBB_BUTTON2 = FLAG(1), // вторая кнопка отмены
-		MBB_MODAL = FLAG(2), // окно запускается в модальном режиме, !!! запускается только одно
+
+	enum __MESSAGE_BOX_BUTTON {
+		// кнопки окна сообщения
+		MBB_NONE				= FLAG_NONE,
+		MBB_BUTTON1		= FLAG(0),				// первая кнопка подтверждения
+		MBB_BUTTON2		= FLAG(1),				// вторая кнопка отмены
+		MBB_MODAL			= FLAG(2),				// окно запускается в модальном режиме, !!! запускается только одно
 	};
+
 	enum __WINDOW_EX_STYLE { // дополниельные стили элементов скинов
 		// общие флаги
-		WES_NONE = FLAG_NONE, // простое окно
-		WES_TEXT = FLAG(0), // элемент является насителем текста для всего элемента
-		WES_CLIENT = FLAG(1), // элемент является клиетским окном
-		WES_ACTION1 = FLAG(2),
-		WES_ACTION2 = FLAG(3),
-		WES_ACTION3 = FLAG(4),
-		WES_ACTION4 = FLAG(5),
-		WES_ACTION5 = FLAG(6),
-		WES_ACTION6 = FLAG(7),
+		WES_NONE								= FLAG_NONE,				// простое окно
+		WES_TEXT								= FLAG(0),						// элемент является насителем текста для всего элемента
+		WES_CLIENT							= FLAG(1),						// элемент является клиетским окном
+		WES_ACTION1							= FLAG(2),
+		WES_ACTION2						= FLAG(3),
+		WES_ACTION3						= FLAG(4),
+		WES_ACTION4						= FLAG(5),
+		WES_ACTION5						= FLAG(6),
+		WES_ACTION6						= FLAG(7),
 		// флаги для WindowFrame
-		WES_CAPTION = 0x0010, // элемент является заголовком
-		WES_RESIZE = 0x0020, // элемент является ресайзером
-		WES_CLOSE = 0x0040, // элемент является кнопкой закрытия
+		WES_CAPTION							= WES_ACTION1,			// элемент является заголовком
+		WES_RESIZE							= WES_ACTION2,			// элемент является ресайзером
+		WES_CLOSE								= WES_ACTION3,			// элемент является кнопкой закрытия
 		// флаги для Button
-		WES_BUTTON = 0x0010, // элемент является кнопкой
+		WES_BUTTON							= WES_ACTION1,			// элемент является кнопкой
 		// флаги для Edit
-		WES_EDIT = 0x0010, // элемент является окном редактирования
-		WES_EDIT_CURSOR = 0x0020, // элемент является курсором для окна редактирования
+		WES_EDIT								= WES_ACTION1,			// элемент является окном редактирования
+		WES_EDIT_CURSOR				= WES_ACTION2,			// элемент является курсором для окна редактирования
 		// флаги для VScroll
-		WES_VSCROLL_UP = 0x0010, // элемент является верхней кнопкой скролла
-		WES_VSCROLL_DOWN = 0x0020, // элемент является нижней кнопкой скролла
-		WES_VSCROLL_TRACK = 0x0040, // элемент является нижней кнопкой скролла
+		WES_VSCROLL_UP					= WES_ACTION1,			// элемент является верхней кнопкой скролла
+		WES_VSCROLL_DOWN				= WES_ACTION2,			// элемент является нижней кнопкой скролла
+		WES_VSCROLL_TRACK				= WES_ACTION3,			// элемент является нижней кнопкой скролла
 		// флаги для TabBar
-		WES_TAB_TOP = 0x0010, // элемент является верхним скином для растягивания
+		WES_TAB_TOP						= WES_ACTION1,			// элемент является верхним скином для растягивания
 		// флаги для списка
-		WES_LIST_HIDE_SCROLL = 0x0010, // скрывать скролл , если он не нужен
+		WES_LIST_HIDE_SCROLL		= WES_ACTION1,			// скрывать скролл , если он не нужен
 		// флаги для выпадающего списка
-		WES_COMBO = 0x0010, // выпадающий список
-		WES_COMBO_BUTTON = 0x0020, // кнопка в выпадающем списке
+		WES_COMBO							= WES_ACTION1,			// выпадающий список
+		WES_COMBO_BUTTON			= WES_ACTION2,			// кнопка в выпадающем списке
 	};
 
 	enum __WINDOW_EVENT { // события на которое окно быдет посылать
-		WE_NONE = FLAG_NONE, // ничего не будет посылаться
-		WE_MOUSE_BUTTON = FLAG(0), // нажата левая кнпка мыши
-		WE_MOUSE_FOCUS = FLAG(1), // смена активности от курсора мыши
-		WE_MOUSE_MOVE = FLAG(2), // движение мыши после захвата
-		WE_KEY_FOCUS = FLAG(3), // смена фокуса для ввода клавиатуры
-		WE_KEY_BUTTON = FLAG(4), // нажата клавиша
-		__WE_IS_ACTION = 0xFF, // !! для внутреннего использования , не юзать  |   есть ли реакция на события мыши и клавиатуры
+		WE_NONE										= FLAG_NONE,						// ничего не будет посылаться
+		WE_MOUSE_BUTTON						= FLAG(0),								// нажата левая кнпка мыши
+		WE_MOUSE_FOCUS							= FLAG(1),								// смена активности от курсора мыши
+		WE_MOUSE_MOVE							= FLAG(2),								// движение мыши после захвата
+		WE_KEY_FOCUS								= FLAG(3),								// смена фокуса для ввода клавиатуры
+		WE_KEY_BUTTON							= FLAG(4),								// нажата клавиша
+		__WE_IS_ACTION							= WE_MOUSE_BUTTON
+																  | WE_MOUSE_FOCUS
+																  | WE_MOUSE_MOVE
+																  | WE_KEY_FOCUS
+																  | WE_KEY_BUTTON,			// !!! для внутреннего использования , не юзать
 		// сообщения об опасности, посылаются всегда
-		WE_WARNING_ZORDER_MAX = 0x1000, // слои перекрывающихся окон подобрались к границе
-		WE_WARNING_CHILD_MAX = 0x2000, // колличество дитей равно шагу между слоями
-		WE_WARNING_CHILD_DELETE = 0x4000, // ребенок уничтожен, поправте указатели
-	};
-	enum __WINDOW_OTHER_EVENT { // события посылаемые в OtherEvents
-		WOE_NONE = 0x00000, // нет сообщения
-		WOE_SCROLL_CHANGE_POS = 0x0001, // изменилась позиция скролла
-		WOE_FRAME_CLOSE = 0x0002, // нажата кнопка закрыть фрейм
-		WOE_EDIT_KEY_ACCEPT = 0x0004, // нажата кнопка энтер
-		WOE_EDIT_KEY_DELETE = 0x0008, // нажата кнопка делит
-		WOE_LIST_SELECT_CHANGE = 0x0010, // изменился выделенный элемент
-		WOE_LIST_SELECT_ACCEPT = 0x0020, // двойной щелчек или энтер на элементе
-		WOE_LIST_SELECT_NONE = 0x0040, // щелчек на пустом месте
-		WOE_COMBO_SELECT_ACCEPT = 0x0080, // активирован элемент
-		WOE_MESSAGE_PRESS_BUTTON = 0x0100, // нажата кнопка в окне сообщения
-	};
-	enum __WINDOW_STATE { // состояние окна
-		WS_DEACTIVE, // окно неактивно и недоступно
-		WS_NORMAL, // обычное состояние окна
-		WS_PRESSED, // кнопка нажата
-		__WS_ACTIVED, // кнопка под курсором, для внутреннего использования
-		__WS_SELECTED // кнопка под курсором и нажата, для внутреннего использования
-	};
-	enum __WINDOW_ALIGN {
-		// выравнивание окон, если хотим двигать окна, то выравниваем (WA_LEFT|WA_TOP)
-		WA_NONE=0x00, //                                 окно выравнивается по центру
-		WA_HCENTER=0x00, //                           липа, при нуле он будет центрировать без растяжения
-		WA_VCENTER=0x00, //                            но центрировать не относительно границ отца
-		WA_CENTER=0x00, //                              а относительно своего первоначального положения, если нужно другое смотри ниже
-		WA_CENTER_FOTHER=0x1000, //           это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
-		WA_LEFT=0x01, WA_RIGHT=0x02, //     по левому или по правому
-		WA_HSTRETCH=0x03,  //                        растягивание по горизонтали
-		WA_TOP=0x04, WA_BOTTOM=0x08, //  по верху или по низу
-		WA_VSTRETCH=0x0C,  //                        растягивание по вертикали
-		WA_STRETCH=0x0F, //                           растягивание по всем граням
-		// выравнивание текста, у него нет растягивания
-		WAT_NONE=0x00, // не выравнивать то же, что WAT_LEFT|WAT_TOP
-		WAT_LEFT=0x10, WAT_RIGHT=0x20, WAT_HCENTER=0x30, // горизонтально
-		WAT_TOP=0x40, WAT_BOTTOM=0x80, WAT_VCENTER=0xC0, // вертикально
-		WAT_CENTER=0xF0, // по центру окна
-		// обрезка текста
-		WAT_CUT_RIGHT=0x0100, WAT_CUT_LEFT=0x0200, // по левой или по правой стороне
-		WAT_ADD_DOT=0x0400, // добавлять три точки при обрезке
-		WAT_CUT_RIGHT_DOT=0x0500, WAT_CUT_LEFT_DOT=0x0600, // по левой или по правой стороне и еще с точками
-		__WAT_IS_CUT=0x0300, // для внутренних нужд, не юзать!  нужна ли обрезка
-		WAT_MULTI_LINE = 0x0800, // многострочный текст
-		WAT_BREAK_WORD = 0x2000, // переносить по словам
-		WAT_SHIFT_TEXT_PRESSED = 0x8000, // сдвигать ли текст при нажатии
+		WE_WARNING_ZORDER_MAX			= FLAG(5),								// слои перекрывающихся окон подобрались к границе
+		WE_WARNING_CHILD_MAX			= FLAG(6),								// колличество дитей равно шагу между слоями
+		WE_WARNING_CHILD_DELETE		= FLAG(7),								// ребенок уничтожен, поправте указатели
 	};
 
-	//enum __MYGUI_POINTER {
-	//	POINTER_DEFAULT, // обычный указатель
-	//	POINTER_RESIZE, // для изменения размеров
-	//	POINTER_TEXT, // для текстового ввода
-	//	__POINTER_COUNT
-	//};
-	
+	enum __WINDOW_OTHER_EVENT {
+		// события посылаемые в OtherEvents
+		WOE_NONE										= FLAG_NONE,			// нет сообщения
+		WOE_SCROLL_CHANGE_POS			= FLAG(0),					// изменилась позиция скролла
+		WOE_FRAME_CLOSE						= FLAG(1),					// нажата кнопка закрыть фрейм
+		WOE_EDIT_KEY_ACCEPT					= FLAG(2),					// нажата кнопка энтер
+		WOE_EDIT_KEY_DELETE				= FLAG(3),					// нажата кнопка делит
+		WOE_LIST_SELECT_CHANGE			= FLAG(4),					// изменился выделенный элемент
+		WOE_LIST_SELECT_ACCEPT			= FLAG(5),					// двойной щелчек или энтер на элементе
+		WOE_LIST_SELECT_NONE				= FLAG(6),					// щелчек на пустом месте
+		WOE_COMBO_SELECT_ACCEPT		= FLAG(7),					// активирован элемент
+		WOE_MESSAGE_PRESS_BUTTON	= FLAG(8),					// нажата кнопка в окне сообщения
+	};
+
+	enum __WINDOW_STATE {
+		// состояние окна
+		WS_DEACTIVE,				// окно неактивно и недоступно
+		WS_NORMAL,					// обычное состояние окна
+		WS_PRESSED,					// кнопка нажата
+		__WS_ACTIVED,				// кнопка под курсором, для внутреннего использования
+		__WS_SELECTED				// кнопка под курсором и нажата, для внутреннего использования
+	};
+
+	enum __WINDOW_ALIGN {
+		// выравнивание окон, если хотим двигать окна, то выравниваем (WA_LEFT|WA_TOP)
+		WA_NONE						= FLAG_NONE,											// окно выравнивается по центру
+		WA_HCENTER					= FLAG_NONE,											// липа, при нуле он будет центрировать без растяжения
+		WA_VCENTER					= FLAG_NONE,											// но центрировать не относительно границ отца
+		WA_CENTER						= WA_HCENTER | WA_VCENTER,				// а относительно своего первоначального положения, если нужно другое смотри ниже
+		WA_CENTER_FOTHER		= FLAG(0),													// это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
+		WA_LEFT							= FLAG(1),													// по левому 
+		WA_RIGHT						= FLAG(2),													// по правому
+		WA_HSTRETCH				= WA_LEFT | WA_RIGHT,							// растягивание по горизонтали
+		WA_TOP							= FLAG(3),													// по верху 
+		WA_BOTTOM					= FLAG(4),													// по низу
+		WA_VSTRETCH				= WA_TOP | WA_BOTTOM,						// растягивание по вертикали
+		WA_STRETCH					= WA_HSTRETCH | WA_VSTRETCH,			// растягивание по всем граням
+		// выравнивание текста, у него нет растягивания
+		WAT_NONE						= FLAG_NONE,											// не выравнивать то же, что WAT_LEFT | WAT_TOP
+		WAT_LEFT						= FLAG(5),													// выравнивание по левому краю
+		WAT_RIGHT					= FLAG(6),													// выравнивание по правому краю
+		WAT_HCENTER				= WAT_LEFT | WAT_RIGHT,					// горизонтально
+		WAT_TOP							= FLAG(7),													// выравнивание по верхнему краю
+		WAT_BOTTOM					= FLAG(8),													// выравнивание по нижнему краю
+		WAT_VCENTER				= WAT_TOP | WAT_BOTTOM,					// вертикально
+		WAT_CENTER					= WAT_HCENTER | WAT_VCENTER,			// по центру окна
+		// обрезка текста
+		WAT_CUT_RIGHT			= FLAG(9),
+		WAT_CUT_LEFT				= FLAG(10),												// по левой или по правой стороне
+		WAT_ADD_DOT				= FLAG(11),												// добавлять три точки при обрезке
+		WAT_CUT_RIGHT_DOT	= WAT_CUT_RIGHT | WAT_ADD_DOT,	// по правой стороне и еще с точками
+		WAT_CUT_LEFT_DOT		= WAT_CUT_LEFT | WAT_ADD_DOT,		// по левой тороне и еще с точками
+		__WAT_IS_CUT				= WAT_CUT_RIGHT | WAT_CUT_LEFT,	// для внутренних нужд, не юзать!  нужна ли обрезка
+		WAT_MULTI_LINE			= FLAG(12),												// многострочный текст
+		WAT_BREAK_WORD			= FLAG(13),												// переносить по словам
+		WAT_SHIFT_TEXT			= FLAG(14),												// сдвигать ли текст при нажатии
+	};
+
 	// курсоры мыши
 	const String POINTER_DEFAULT = "POINTER_DEFAULT";   // обычный указатель
     const String POINTER_RESIZE  = "POINTER_RESIZE";    // для изменения размеров
@@ -187,14 +201,14 @@ namespace MyGUI
 
 	// все оверлеи класса, добавлять после OVERLAY_MOUSE и до __OVERLAY_COUNT, далее идут служебные (OVERLAY_OVERLAPPED, OVERLAY_CHILD)
 	enum __MYGUI_OVERLAYS {
-		OVERLAY_FADE, // оверлей для затемнения
-		OVERLAY_MOUSE, // оверлей для мыши, !!! не использовать при создании окна
-		OVERLAY_POPUP, // оверлей для всплывающего окна , меню, комбобокса, окна не перекрываются
-		OVERLAY_MAIN, // основной оверлей гуи
-		OVERLAY_BACK, // самый нижний оверлей гуи
-		__OVERLAY_COUNT, // колличество оверлеев, !!! не использовать при создании окна
-		OVERLAY_OVERLAPPED, // для создания перекрывающихся окон
-		OVERLAY_CHILD, // окно принадлежит отцу, обязательно указать отца
-		OVERLAY_DESTROY_ALL // удаление всех окон в функции destroyWindow
+		OVERLAY_FADE,					// оверлей для затемнения
+		OVERLAY_MOUSE,				// оверлей для мыши, !!! не использовать при создании окна
+		OVERLAY_POPUP,					// оверлей для всплывающего окна , меню, комбобокса, окна не перекрываются
+		OVERLAY_MAIN,					// основной оверлей гуи
+		OVERLAY_BACK,					// самый нижний оверлей гуи
+		__OVERLAY_COUNT,			// колличество оверлеев, !!! не использовать при создании окна
+		OVERLAY_OVERLAPPED,		// для создания перекрывающихся окон
+		OVERLAY_CHILD,					// окно принадлежит отцу, обязательно указать отца
+		OVERLAY_DESTROY_ALL		// удаление всех окон в функции destroyWindow
 	};
 }

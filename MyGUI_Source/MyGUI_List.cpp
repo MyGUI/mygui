@@ -10,9 +10,6 @@ using namespace OIS;
 
 namespace MyGUI {
 
-	// нет выделенного элемента
-    //	#define __LIST_ITEM_NONSELECT 0xFFFF
-
 	List::List(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
 		Window(lpSkin, uOverlay, pWindowFother),
 		m_scroll(0),
@@ -402,8 +399,7 @@ namespace MyGUI {
 	{
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
-		if(!pSkin)
-		{
+		if (!pSkin) {
 		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
 		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
 		}

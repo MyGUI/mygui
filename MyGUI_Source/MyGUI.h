@@ -1,6 +1,9 @@
 // =========================================================================================
-// MyGUI version 1.3.0 // the author: my.name (my.work (a) inbox.ru)
-// Russian site Ogre www. Ogre3D.org.ru
+// MyGUI version 1.3.3
+// the author: my.name (my.work (a) inbox.ru)
+// Developers: my.name, Numsgil, Altren
+// Russian site Ogre www. Ogre3D.ru
+// Official site Ogre www. Ogre3D.org
 // =========================================================================================
 #pragma once
 

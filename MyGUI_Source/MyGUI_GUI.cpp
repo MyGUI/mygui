@@ -52,7 +52,6 @@ namespace MyGUI {
 
 		_LOG("\r\ndestroy MyGui object (%p)", this);
 		
-		
 	}
 
 	void GUI::destroyWindow(__MYGUI_OVERLAYS overlay) // уничтожает окно и удаляет из списка
@@ -207,14 +206,6 @@ namespace MyGUI {
 		}
 	}
 
-	Window * GUI::getTopWindow() // возвращает самое верхнее окно из перекрывающихся
-	{
-		if (m_uOverlappedStart == m_uOverlappedEnd)
-		    return NULL;
-		else
-		    return mRootWindows[m_uOverlappedEnd-1];
-	}
-
 	void GUI::eventWindowResize(const unsigned int uWidth, const unsigned int uHeight) // изменился размер главного окна
 	{
 		m_uWidth = uWidth;
@@ -304,6 +295,7 @@ namespace MyGUI {
 		pOverlay->setZOrder(zOrder);
 		if (bIsShow) pOverlay->show();
 
+		// !!! To not change a code
 		// напоминаем старому окну его место
 		Overlay * pOldOverlay = 0;
 		try {pOldOverlay = overlayManager.getByName(old_name);} catch (...) {}
@@ -312,5 +304,6 @@ namespace MyGUI {
 		}
 		old_name = strName;
 		return pOverlay;
-	}	
+	}
+
 }

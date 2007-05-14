@@ -371,7 +371,7 @@ namespace MyGUI {
 
 		if (bIsShiftText != m_pWindowText->m_bIsTextShiftPressed) { // сдвиг текста
 			m_pWindowText->m_bIsTextShiftPressed = bIsShiftText;
-			if (m_pWindowText->m_uAlign & WAT_SHIFT_TEXT_PRESSED) {
+			if (m_pWindowText->m_uAlign & WAT_SHIFT_TEXT) {
 				if (m_pWindowText->m_overlayCaption) {
 					if (m_pWindowText->m_bIsTextShiftPressed)
 					    m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()
