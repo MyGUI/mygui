@@ -22,10 +22,8 @@ namespace MyGUI {
 		    DisplayString & strDest,
 		    const DisplayString & strSource,
 		    uint16 uAlign); // возвращает обрезанную строку равную размерам
-
-	public:
-		Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);		
-	
+    public:
+	    Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);		
         virtual ~Window();
 	    
 	    static Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,

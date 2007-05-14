@@ -10,7 +10,7 @@ namespace MyGUI
 {
     //This is the only shared variable between the Mouse and Keyboard listeners
     //TODO: find a way to remove this issue
-    Window * m_currentEditWindow; // текущее окно которое может реагировать на клаву
+    Window * m_currentEditWindow;
     
     MouseHandler::MouseHandler() :
         m_iCurrentOffsetCursorX(0.0),

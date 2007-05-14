@@ -5,7 +5,7 @@
 namespace MyGUI {
 
 	class Tab : public Window {
-
+        Tab(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
 	public:
 		struct __tag_TAB_SHEET {
 			Button * pButton; // кнопка вкладки
@@ -16,7 +16,6 @@ namespace MyGUI {
 	    static Tab *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_TAB);
 	
-		Tab(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
 		Window * addSheet(const DisplayString & strName, int16 iSizeX = -1); // добавляет вкладку
 
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
