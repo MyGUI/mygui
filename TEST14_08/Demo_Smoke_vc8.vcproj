@@ -304,6 +304,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_InputHandlers.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_InputHandlers.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_List.cpp"
 				>
 			</File>

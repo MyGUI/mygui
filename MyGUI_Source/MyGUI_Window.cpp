@@ -3,6 +3,7 @@
 #include "MyGUI_GUI.h"
 #include <OgreOverlayManager.h>
 #include <OgreStringConverter.h>
+#include <OgreFont.h>
 
 using namespace Ogre;
 using namespace std;
@@ -271,7 +272,7 @@ namespace MyGUI {
 				m_sizeCutTextX = m_iSizeX-__GUI_FONT_SIZE_HOFFSET;
 				m_sizeCutTextY = m_iSizeY;
 				DisplayString strDest;
-				GUI::getSingleton()->getCutText(AssetManager::getSingleton()->Fonts()->getDefinition(m_font),
+				getCutText(AssetManager::getSingleton()->Fonts()->getDefinition(m_font),
 				    m_sizeCutTextX, m_sizeCutTextY, strDest, m_strWindowText, m_uAlign);
 				m_overlayCaption->setCaption(strDest);
 				m_overlayCaption->setLeft(__GUI_FONT_HOFFSET);
@@ -310,7 +311,7 @@ namespace MyGUI {
 		if (!m_pWindowText->m_overlayCaption) return;
 
 		m_pWindowText->m_strWindowText = "\0";
-		GUI::getSingleton()->getLengthText(AssetManager::getSingleton()->Fonts()->getDefinition(m_pWindowText->m_font),
+		getLengthText(AssetManager::getSingleton()->Fonts()->getDefinition(m_pWindowText->m_font),
 		    m_pWindowText->m_sizeTextX, m_pWindowText->m_sizeTextY, strText);
 		m_pWindowText->m_sizeCutTextX = m_pWindowText->m_sizeTextX;
 		m_pWindowText->m_sizeCutTextY = m_pWindowText->m_sizeTextY;
@@ -441,7 +442,7 @@ namespace MyGUI {
 		if (m_uState == WS_DEACTIVE) return true; // чтобы гуи было активно
 
 		if (m_uEventCallback & __WE_IS_ACTION) {
-			GUI::getSingleton()->m_currentFocusWindow = this;
+			GUI::getSingleton()->SetCurrentFocusWindow(this);
 			 // дочерние не проверяем
 			return true;
 		}
@@ -478,6 +479,176 @@ namespace MyGUI {
 //		m_pWindowText->m_overlayCaption->setParameter("space_width", StringConverter::toString(lpFont->spaceWidth));
 		m_pWindowText->m_overlayCaption->setColour(colour);
 		m_pWindowText->alignWindowText();
+	}
+	
+	void Window::getLengthText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource) // возвращает длинну текста
+	{
+		sizeY = font->height;
+		sizeX = 0;
+		Real len = 0;
+
+		for (DisplayString::const_iterator index = strSource.begin(); index != strSource.end(); index++) {
+
+			if ( index.getCharacter() == ' ') len += font->spaceWidth;
+			else if (index.getCharacter() == 10) { // перевод строки
+
+				if (len > sizeX) sizeX = len;
+				len = 0;
+				sizeY += font->height;
+
+			} else len += font->font->getGlyphAspectRatio(index.getCharacter()) * font->height;
+		}
+
+		if (len > sizeX) sizeX = len;
+	}
+
+	void Window::getCutText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAlign) // возвращает обрезанную строку равную длинне
+	{
+		strDest.clear();
+		// строка пустая
+		if (strSource.empty()) {sizeY = 0;sizeX = 0;	return;}
+		Real len = sizeX;
+		float oldLen = len; // сохраняем нам еще пригодится
+		// маловато места
+		if (sizeX <= 0) {sizeY = 0;sizeX = 0;	return;}
+		// даже три точки не помещаются
+		bool multiLine = ((uAlign & WAT_MULTI_LINE) != 0);
+		bool isDot = (((uAlign & WAT_ADD_DOT) != 0) && (!multiLine));
+		if (isDot) {
+			if (len < font->sizeTripleDot) {	sizeX = 0;sizeY = 0;return;	}
+			len -= font->sizeTripleDot;
+		}
+		// и высота мала для шрифта
+		int16 height = font->height;
+		if (sizeY < height) {sizeY = 0;sizeX = 0;return;}
+
+		float sizeChar = 0;
+		bool breakWord = ((uAlign & WAT_BREAK_WORD) != 0);
+
+		strDest.resize(strSource.length() + 32);// сразу зададим размер, если будет мало то выкинет
+		DisplayString::iterator indexDest = strDest.begin();
+		DisplayString::const_iterator indexSourceSpace = strSource.end(); // место последнего пробела
+		DisplayString::iterator indexDestSpace = strDest.end(); // место последнего пробела
+
+
+		if (uAlign & WAT_CUT_RIGHT) { // обрезаем справа
+
+			DisplayString::const_iterator indexSource = strSource.begin();
+
+			while (true) {
+				if (indexSource.getCharacter() == ' ') {
+					sizeChar = font->spaceWidth;
+					indexSourceSpace = indexSource; // запоминаем последний пробел
+					indexDestSpace = indexDest; // запоминаем последний пробел
+					// а че не присваиваем
+				} else if (indexSource.getCharacter() == '\n') { // новая строка
+					if ((height + font->height) > sizeY) indexSource = strSource.end(); // выходим из цикла
+					else {
+						len = sizeX;
+						height += font->height;
+						indexSourceSpace = strSource.end(); // сбрасываем последний пробел
+					}
+				} else sizeChar = font->font->getGlyphAspectRatio(indexSource.getCharacter()) * font->height;
+
+				if (sizeChar > len) {
+					if (isDot) {
+						indexDest.setCharacter('.');  indexDest.moveNext();
+						indexDest.setCharacter('.');  indexDest.moveNext();
+						indexDest.setCharacter('.');  indexDest.moveNext();
+					}
+
+					if (multiLine) { // многострочное поле
+
+						if ((height + font->height) > sizeY) indexSource = strSource.end(); // выходим из цикла
+						else {
+							if (breakWord) { // перенос по словам
+								// единственное слово в строке не переносим
+								if (indexSourceSpace != strSource.end()) { // возвращаем позицию на последний пробел
+									indexSource = indexSourceSpace;
+									indexDest = indexDestSpace;
+								}
+							}
+							indexDest.setCharacter('\n');  indexDest.moveNext();
+							height += font->height;
+							while (indexSource != strSource.end()) { // убираем пробелы вначале новой строки
+								if ((indexSource.getCharacter() != ' ') && (indexSource.getCharacter() != '\n')) {
+									if (sizeChar > sizeX) {
+										// зачем выводить в поле, в котором такая маленькая ширина
+										indexSource = strSource.end(); // выходим из цикла
+										break;
+									}
+									indexDest.setCharacter(indexSource.getCharacter());  indexDest.moveNext();
+									len = sizeX - sizeChar;
+									indexSourceSpace = strSource.end(); // сбрасываем последний пробел
+									break;
+								};
+								indexSource.moveNext();
+							};
+
+						}
+
+					} else indexSource = strSource.end(); // выходим из цикла
+
+				} else {
+					indexDest.setCharacter(indexSource.getCharacter());  indexDest.moveNext();
+					len -= sizeChar;
+				}
+
+				if (indexSource != strSource.end()) indexSource.moveNext();
+				else break; // выходим из цикла
+
+			};
+
+		} else { // обрезаем слева
+
+			DisplayString::const_iterator indexSource = strSource.end();
+			indexSource.movePrev();
+			bool exit = false;
+			while (true) {
+				if (indexSource.getCharacter() == ' ') {
+					sizeChar = font->spaceWidth;
+					indexSourceSpace = indexSource; // запоминаем последний пробел
+				} else if (indexSource.getCharacter() == '\n') { // новая строка
+					if ((height + font->height) > sizeY) {
+						exit = true;
+					} else {
+						len = sizeX;
+						height += font->height;
+						indexSourceSpace = strSource.end(); // сбрасываем последний пробел
+					}
+				} else sizeChar = font->font->getGlyphAspectRatio(indexSource.getCharacter()) * font->height;
+
+				if (sizeChar > len) exit = true; // выходим
+				else len -= sizeChar; // плюсуем символ
+
+				if ((indexSource != strSource.begin()) && (!exit)) indexSource.movePrev(); // слудующая итерация
+				else { // хорош крутиться
+
+					if (isDot) {
+						indexDest.setCharacter('.');  indexDest.moveNext();
+						indexDest.setCharacter('.');  indexDest.moveNext();
+						indexDest.setCharacter('.');  indexDest.moveNext();
+					}
+
+					if (indexSource != strSource.end()) indexSource.moveNext(); // страховка
+
+					// а теперь назад и с копированием
+					while (indexSource != strSource.end()) {
+						indexDest.setCharacter(indexSource.getCharacter());
+						indexDest.moveNext();
+						indexSource.moveNext();
+					};
+
+					break; // выходим из цикла
+				}
+
+			};
+
+		}
+
+		sizeX = oldLen - len;
+		sizeY = height;
+
 	}	
 	
     Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,

@@ -12,6 +12,16 @@ namespace MyGUI {
     using Ogre::DisplayString;
 
 	class Window : public EventCallback { // базовый класс окон гуи
+	    void getLengthText(const __tag_MYGUI_FONT_INFO *font, 
+	        int16 &sizeX,
+	        int16 &sizeY,
+	        const DisplayString & strSource); // возвращает длинну текста
+		void getCutText(const __tag_MYGUI_FONT_INFO *font,
+		    int16 &sizeX,
+		    int16 &sizeY,
+		    DisplayString & strDest,
+		    const DisplayString & strSource,
+		    uint16 uAlign); // возвращает обрезанную строку равную размерам
 
 	public:
 		Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);		

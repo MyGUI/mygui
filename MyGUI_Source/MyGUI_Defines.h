@@ -31,8 +31,7 @@ namespace MyGUI
     const int __GUI_FONT_SIZE_HOFFSET = __GUI_FONT_HOFFSET / 2;
 
     const int __GUI_BUTTON_SHIFT_TEXT_PRESSED = 1;
-    const int __GUI_TIME_DOUBLE_CLICK = 250;
-
+    
     const float __GUI_POPUP_FADE_ALPHA = 0.5f;
     //==================================================================================================
     // высота оверлея для окна затемнения всего экрана
