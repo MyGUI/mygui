@@ -1,7 +1,6 @@
 #include "MyGUI_List.h"
 #include "MyGUI_OIS.h"
 #include "MyGUI_VScroll.h"
-#include "MyGUI_GUI.h"
 #include "MyGUI_AssetManager.h"
 #include <OgreStringConverter.h>
 

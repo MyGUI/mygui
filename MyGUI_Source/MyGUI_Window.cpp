@@ -1,18 +1,6 @@
-#include "MyGUI_GUI.h"
-#include "MyGUI_Defines.h"
-#include "MyGUI_Skin.h"
-#include "MyGUI_GUI.h"
 #include "MyGUI_Window.h"
-#include "MyGUI_WindowFrame.h"
-#include "MyGUI_Button.h"
-#include "MyGUI_Edit.h"
-#include "MyGUI_VScroll.h"
-#include "MyGUI_Tab.h"
-#include "MyGUI_StaticText.h"
-#include "MyGUI_List.h"
-#include "MyGUI_ComboBox.h"
-#include "MyGUI_Message.h"
 #include "MyGUI_AssetManager.h"
+#include "MyGUI_GUI.h"
 #include <OgreOverlayManager.h>
 #include <OgreStringConverter.h>
 

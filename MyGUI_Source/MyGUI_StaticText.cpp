@@ -1,5 +1,4 @@
 #include "MyGUI_StaticText.h"
-#include "MyGUI_GUI.h"
 #include "MyGUI_AssetManager.h"
 
 using namespace Ogre;

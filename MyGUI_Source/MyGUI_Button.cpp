@@ -1,5 +1,4 @@
 #include "MyGUI_Button.h"
-#include "MyGUI_GUI.h"
 #include "MyGUI_AssetManager.h"
 
 using namespace Ogre;
