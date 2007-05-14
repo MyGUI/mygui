@@ -43,7 +43,8 @@ namespace MyGUI {
 	void GUI::Shutdown()
 	{
 		AssetManager::getSingleton()->unloadAssets();
-		while (mChildWindows.size() > 0) destroyWindow(mChildWindows[0]);
+		while (mRootWindows.size() > 0)
+		    destroyWindow(mRootWindows[0]);
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		m_overlayGUI[OVERLAY_MOUSE]->remove2D(m_overlayContainerMouse);
 		overlayManager.destroyOverlayElement(m_overlayContainerMouse);
@@ -57,16 +58,16 @@ namespace MyGUI {
 	void GUI::destroyWindow(__MYGUI_OVERLAYS overlay) // уничтожает окно и удаляет из списка
 	{
 		if (overlay == OVERLAY_DESTROY_ALL)
-			while (mChildWindows.size() > 0)
-			    destroyWindow(mChildWindows[0]);
+			while (mRootWindows.size() > 0)
+			    destroyWindow(mRootWindows[0]);
 		else if (overlay == OVERLAY_OVERLAPPED)
 			while (m_uOverlappedStart < m_uOverlappedEnd)
-			    destroyWindow(mChildWindows[m_uOverlappedEnd-1]);
+			    destroyWindow(mRootWindows[m_uOverlappedEnd-1]);
 		else if ((overlay < __OVERLAY_COUNT) && (overlay != OVERLAY_MOUSE))
-			for(size_t pos = 0, size = mChildWindows.size(); pos < size; ++pos)
-				if (mChildWindows[pos]->m_overlay == m_overlayGUI[overlay])
+			for(size_t pos = 0, size = mRootWindows.size(); pos < size; ++pos)
+				if (mRootWindows[pos]->m_overlay == m_overlayGUI[overlay])
 				{
-					destroyWindow(mChildWindows[pos]);
+					destroyWindow(mRootWindows[pos]);
 					pos--;
 					size --;
 				}
@@ -123,14 +124,14 @@ namespace MyGUI {
 		} else  { // ребенок гуи
 			upZOrder(pWindow); // поднимаем его
 			
-			size = mChildWindows.size();
+			size = mRootWindows.size();
 			for (size_t i = 0; i < size; i++) { // ищем в детском саду
-				if (pWindow != mChildWindows[i])
+				if (pWindow != mRootWindows[i])
 				    continue;
 				    
 				//mChildWindows[i] is now the current window
 				if (i != 0) { // [we shall try to inform the previous window on that that it now above all overlapped]
-					Window * pWindowBack = mChildWindows[i-1];
+					Window * pWindowBack = mRootWindows[i-1];
 					if (pWindowBack->m_bIsOverlapped) pWindowBack->_OnUpZOrder();
 				}
 
@@ -146,8 +147,8 @@ namespace MyGUI {
 				}
 
 				for (size_t pos = i; pos < (size-1); pos++)
-				    mChildWindows[pos] = mChildWindows[pos+1];
-				mChildWindows.pop_back();
+				    mRootWindows[pos] = mRootWindows[pos+1];
+				mRootWindows.pop_back();
 
 				i = size; // выходим
 			}
@@ -196,12 +197,12 @@ namespace MyGUI {
 		
 		//It is being overlapped by other windows
 		for (size_t pos = m_uOverlappedStart; pos < m_uOverlappedEnd - 1; pos++) {
-			if (pWindow == mChildWindows[pos]) { // если это наше окно, то меняем его с верхним
-				mChildWindows[pos] = mChildWindows[pos+1];
-				mChildWindows[pos+1] = pWindow;
+			if (pWindow == mRootWindows[pos]) { // если это наше окно, то меняем его с верхним
+				mRootWindows[pos] = mRootWindows[pos+1];
+				mRootWindows[pos+1] = pWindow;
 				uint16 uZOrder = pWindow->m_overlay->getZOrder();
-				pWindow->m_overlay->setZOrder(mChildWindows[pos]->m_overlay->getZOrder());
-				mChildWindows[pos]->m_overlay->setZOrder(uZOrder);
+				pWindow->m_overlay->setZOrder(mRootWindows[pos]->m_overlay->getZOrder());
+				mRootWindows[pos]->m_overlay->setZOrder(uZOrder);
 			}
 		}
 	}
@@ -211,7 +212,7 @@ namespace MyGUI {
 		if (m_uOverlappedStart == m_uOverlappedEnd)
 		    return NULL;
 		else
-		    return mChildWindows[m_uOverlappedEnd-1];
+		    return mRootWindows[m_uOverlappedEnd-1];
 	}
 
 	void GUI::eventWindowResize(const unsigned int uWidth, const unsigned int uHeight) // изменился размер главного окна

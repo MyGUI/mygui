@@ -103,9 +103,9 @@ namespace MyGUI
 			m_currentWindow = 0; // текущее окно
 
 			// ищем окно над которым курсор, из дочек гуи
-			for (int16 i=(((int16)GUI::getSingleton()->mChildWindows.size())-1); i>=0; i--) { // окна в массиве упорядоченны по zOrder
-				if(GUI::getSingleton()->mChildWindows[i]->check(arg.state.X.abs, arg.state.Y.abs, true)) {
-					m_currentWindow = GUI::getSingleton()->mChildWindows[i];
+			for (int16 i=(((int16)GUI::getSingleton()->mRootWindows.size())-1); i>=0; i--) { // окна в массиве упорядоченны по zOrder
+				if(GUI::getSingleton()->mRootWindows[i]->check(arg.state.X.abs, arg.state.Y.abs, true)) {
+					m_currentWindow = GUI::getSingleton()->mRootWindows[i];
 					m_bIsActiveGUI = true;
 					i = -1; // выход из цикла
 				}

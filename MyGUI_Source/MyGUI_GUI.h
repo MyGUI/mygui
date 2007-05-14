@@ -155,7 +155,7 @@ namespace MyGUI {
 		    Ogre::OverlayContainer* m_overlayContainerMouse; // контейнер для курсора
         
         
-		std::vector <Window*> mChildWindows; // Root windows
+		std::vector <Window*> mRootWindows; // Root windows
 		
 		//Only referenced outside of GUI class by Window class
 		size_t m_uOverlappedStart, m_uOverlappedEnd; // начало и конец в перекрывающихся окон в масиве

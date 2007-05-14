@@ -53,7 +53,7 @@ namespace MyGUI {
 		if (!m_paStrSkins[SKIN_STATE_NORMAL].empty())
 		    m_overlayContainer->setMaterialName(m_paStrSkins[SKIN_STATE_NORMAL]);
 
-		uint16 size = (uint16)GUI::getSingleton()->mChildWindows.size();
+		size_t size = GUI::getSingleton()->mRootWindows.size();
 		int16 index = -1;
 
 		if (uOverlay == OVERLAY_OVERLAPPED) { // перекрывающееся окно
@@ -103,24 +103,25 @@ namespace MyGUI {
 			if (m_overlay->getZOrder() < __GUI_ZORDER_OVERLAPPED) { // слои ниже перекрывающихся
 				index = 0;
 				while (index < (int16)GUI::getSingleton()->m_uOverlappedStart) { // поиск места для вставки
-					if (m_overlay->getZOrder() < GUI::getSingleton()->mChildWindows[index]->m_overlay->getZOrder()) break;
+					if (m_overlay->getZOrder() < GUI::getSingleton()->mRootWindows[index]->m_overlay->getZOrder()) break;
 					index ++;
 				};
 				GUI::getSingleton()->m_uOverlappedStart ++;
 				GUI::getSingleton()->m_uOverlappedEnd ++;
 			} else { // слои выше перекрывающихся
 				index = (int16)GUI::getSingleton()->m_uOverlappedEnd;
-				while (index < size) { // поиск места для вставки
-					if (m_overlay->getZOrder() < GUI::getSingleton()->mChildWindows[index]->m_overlay->getZOrder()) break;
+				while (index < (int16)size) { // поиск места для вставки
+					if (m_overlay->getZOrder() < GUI::getSingleton()->mRootWindows[index]->m_overlay->getZOrder()) break;
 					index ++;
 				};
 			}
 		}
 
 		if (index != -1) { // непосредственно вставка в массив
-			GUI::getSingleton()->mChildWindows.push_back(0);
-			for (int16 pos=size; pos>index; pos--) GUI::getSingleton()->mChildWindows[pos] = GUI::getSingleton()->mChildWindows[pos-1];
-			GUI::getSingleton()->mChildWindows[index] = this;
+			GUI::getSingleton()->mRootWindows.push_back(NULL);
+			for (size_t pos = size; (int16)pos > index; pos--)
+			    GUI::getSingleton()->mRootWindows[pos] = GUI::getSingleton()->mRootWindows[pos-1];
+			GUI::getSingleton()->mRootWindows[index] = this;
 		}
 
 		_LOG("create window (%p)     (%d, %d, %d, %d)   callback(0x%.8X)   align(0x%.8X)    overlapped(%d)   data(0x%.8X)", this, m_iPosX, m_iPosY, m_iSizeX, m_iSizeY, m_uEventCallback, m_uAlign, m_bIsOverlapped, m_uExData);
