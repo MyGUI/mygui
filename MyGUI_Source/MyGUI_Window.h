@@ -41,10 +41,10 @@ namespace MyGUI {
         template <typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
             uint16 uAlign, const String &Skin = __SKIN_WIDGET_DEFAULT)
         {
-            uint16 NewPosX  = PosX  * GUI::getSingleton()->m_uWidth;
-            uint16 NewPosY  = PosY  * GUI::getSingleton()->m_uHeight;
-            uint16 NewSizeX = SizeX * GUI::getSingleton()->m_uWidth;
-            uint16 NewSizeX = SizeX * GUI::getSingleton()->m_uHeight;
+            uint16 NewPosX  = PosX  * GUI::getSingleton()->getWidth();
+            uint16 NewPosY  = PosY  * GUI::getSingleton()->getHeight();
+            uint16 NewSizeX = SizeX * GUI::getSingleton()->getWidth();
+            uint16 NewSizeX = SizeX * GUI::getSingleton()->getHeight();
                 
             return spawn<Widget>(NewPosX, NewPosY, NewSizX, NewSizeY, uAlign, uSkin);
         }

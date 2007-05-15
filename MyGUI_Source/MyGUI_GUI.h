@@ -43,8 +43,8 @@ namespace MyGUI {
 	    template<typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
 	        uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 	    {
-	        return spawn<Widget>(PosX *  GUI::getSingleton()->m_uWidth, PosY *  GUI::getSingleton()->m_uHeight,
-                             SizeX * GUI::getSingleton()->m_uWidth, SIzeY * GUI::getSingleton()->m_uHeight,
+	        return spawn<Widget>(PosX *  GUI::getSingleton()->getWidth(), PosY *  GUI::getSingleton()->getHeight(),
+                             SizeX * GUI::getSingleton()->getWidth(), SIzeY * GUI::getSingleton()->getHeight(),
                              uOverlay, uSkin);		
 	    }
 
@@ -58,7 +58,18 @@ namespace MyGUI {
         EventCallback *m_pEventCallback; // главный указатель на класс для вызова функций и отсылки предупреждений
         
         //Sizing
+		    private:
 		    unsigned int m_uWidth, m_uHeight; // размеры экрана
+		    public:
+		    unsigned int getWidth() { return m_uWidth; }
+		    unsigned int getHeight() { return m_uHeight; }
+		    Real getAspectRatio()
+		    {
+		        assert(getWidth());
+		        assert(getHeight());
+		        
+		        return Real(getWidth()) / Real(getHeight());
+		    }
 	        /*
 	            Public interface, must be called by user when they resize their window.
 	        */

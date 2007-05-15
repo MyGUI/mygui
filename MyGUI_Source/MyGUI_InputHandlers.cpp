@@ -63,8 +63,8 @@ namespace MyGUI
 			m_bIsFocusWindowCapture = true; // захват окна
 
 			// смещение клика внутри окна
-			m_iOffsetPressedX = arg.state.X.abs - ((int16)(m_currentFocusWindow->m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->m_uWidth)) - 1;
-			m_iOffsetPressedY = arg.state.Y.abs - ((int16)(m_currentFocusWindow->m_overlayContainer->_getDerivedTop()*GUI::getSingleton()->m_uHeight)) - 1;
+			m_iOffsetPressedX = arg.state.X.abs - ((int16)(m_currentFocusWindow->m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->getWidth())) - 1;
+			m_iOffsetPressedY = arg.state.Y.abs - ((int16)(m_currentFocusWindow->m_overlayContainer->_getDerivedTop()*GUI::getSingleton()->getHeight())) - 1;
 
 			m_currentFocusWindow->_OnMouseButtonPressed(true);
 		}

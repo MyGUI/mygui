@@ -11,8 +11,8 @@ namespace MyGUI {
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_iMinSizeX(0),
 		m_iMinSizeY(0),
-		m_iMaxSizeX(GUI::getSingleton()->m_uWidth),
-		m_iMaxSizeY(GUI::getSingleton()->m_uHeight)
+		m_iMaxSizeX(GUI::getSingleton()->getWidth()),
+		m_iMaxSizeY(GUI::getSingleton()->getHeight())
 	{
 	}
 
@@ -26,10 +26,10 @@ namespace MyGUI {
 
 	void WindowFrame::setMinMaxReal(Real fMinSizeX, Real fMinSizeY, Real fMaxSizeX, Real fMaxSizeY)// укстановка минимальных и максимальных размеров
 	{
-		if (fMinSizeX >= 0.0) m_iMinSizeX = fMinSizeX * GUI::getSingleton()->m_uWidth;
-		if (fMinSizeY >= 0.0) m_iMinSizeY = fMinSizeY * GUI::getSingleton()->m_uHeight;
-		if (fMaxSizeX >= 0.0) m_iMaxSizeX = fMaxSizeX * GUI::getSingleton()->m_uWidth;
-		if (fMaxSizeY >= 0.0) m_iMaxSizeY = fMaxSizeY * GUI::getSingleton()->m_uHeight;
+		if (fMinSizeX >= 0.0) m_iMinSizeX = fMinSizeX * GUI::getSingleton()->getWidth();
+		if (fMinSizeY >= 0.0) m_iMinSizeY = fMinSizeY * GUI::getSingleton()->getHeight();
+		if (fMaxSizeX >= 0.0) m_iMaxSizeX = fMaxSizeX * GUI::getSingleton()->getWidth();
+		if (fMaxSizeY >= 0.0) m_iMaxSizeY = fMaxSizeY * GUI::getSingleton()->getHeight();
 	}
 
 	void WindowFrame::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY) // уведомление о движении, но не движение
@@ -130,7 +130,7 @@ namespace MyGUI {
 		              
 		// минимальный размер равен начальному размеру скина
 		pWindow->setMinMax(pSkin->subSkins[0]->sizeX, pSkin->subSkins[0]->sizeY,
-		                   GUI::getSingleton()->m_uWidth, GUI::getSingleton()->m_uHeight);
+		                   GUI::getSingleton()->getWidth(), GUI::getSingleton()->getHeight());
 		return pWindow;
 	}
 

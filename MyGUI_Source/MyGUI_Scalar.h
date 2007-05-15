@@ -49,7 +49,7 @@ namespace MyGUI
         Scalar operator *(const int number) const;
         Scalar operator *(const unsigned int number) const;
         Scalar operator *(const Real number) const;
-        Scalar &operator =(const Scalar &other) const;
+        Scalar &operator =(const Scalar &other);
         
         Scalar &operator +=(const Scalar &other);
         Scalar &operator -=(const Scalar &other);

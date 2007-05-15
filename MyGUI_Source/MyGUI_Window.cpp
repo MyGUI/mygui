@@ -172,8 +172,8 @@ namespace MyGUI {
 			int16 iParentPosY = iPosY;
 			// относительно отца
 			if (m_pWindowParent) {
-				iParentPosX -= (int16)(m_overlayContainer->_getDerivedLeft() * (Real)GUI::getSingleton()->m_uWidth) - m_iPosX + 1;
-				iParentPosY -= (int16)(m_overlayContainer->_getDerivedTop() * (Real)GUI::getSingleton()->m_uHeight) - m_iPosY + 1;
+				iParentPosX -= (int16)(m_overlayContainer->_getDerivedLeft() * (Real)GUI::getSingleton()->getWidth()) - m_iPosX + 1;
+				iParentPosY -= (int16)(m_overlayContainer->_getDerivedTop() * (Real)GUI::getSingleton()->getHeight()) - m_iPosY + 1;
 			}
 			m_pEventCallback->onMouseMove(this, iPosX, iPosY, iParentPosX, iParentPosY);
 		}

@@ -45,9 +45,9 @@ void OptionsState::enter(bool bIsChangeState)
 	m_buttonExit = GUI::getSingleton()->spawn<Button>(10, 10, 200, -1, MyGUI::OVERLAY_MAIN);
 	m_buttonExit->setWindowText("Exit");
 
-	m_buttonSave = GUI::getSingleton()->spawn<Button>(GUI::getSingleton()->m_uWidth - 160, 10, 150, -1, MyGUI::OVERLAY_MAIN);
+	m_buttonSave = GUI::getSingleton()->spawn<Button>(GUI::getSingleton()->getWidth() - 160, 10, 150, -1, MyGUI::OVERLAY_MAIN);
 	m_buttonSave->setWindowText("Save");
-	m_buttonLoad = GUI::getSingleton()->spawn<Button>(GUI::getSingleton()->m_uWidth - 160, 45, 150, -1, MyGUI::OVERLAY_MAIN);
+	m_buttonLoad = GUI::getSingleton()->spawn<Button>(GUI::getSingleton()->getWidth() - 160, 45, 150, -1, MyGUI::OVERLAY_MAIN);
     m_buttonLoad->setWindowText("Load");
     
 	mEditor.createEditor();
@@ -70,9 +70,9 @@ void OptionsState::exit()
 //===================================================================================
 void OptionsState::windowResize() // уведомление об изменении размеров окна рендера
 {
-	m_buttonSave->move(GUI::getSingleton()->m_uWidth - 160, 10);
-	m_buttonLoad->move(GUI::getSingleton()->m_uWidth - 160, 45);
-	m_comboBackground->move((GUI::getSingleton()->m_uWidth/2) - 100, 10);
+	m_buttonSave->move(GUI::getSingleton()->getWidth() - 160, 10);
+	m_buttonLoad->move(GUI::getSingleton()->getWidth() - 160, 45);
+	m_comboBackground->move((GUI::getSingleton()->getWidth()/2) - 100, 10);
 //	mEditor.resizeWindow();
 }
 //===================================================================================

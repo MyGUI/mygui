@@ -205,7 +205,7 @@ namespace MyGUI {
 		// размеры кнопок скрола
 		pWindow->m_uHeightTrack = StringConverter::parseInt(pSkin->data3);
 		pWindow->m_uHeightButton = StringConverter::parseInt(pSkin->data4);
-		pWindow->m_uHeightButtonAll = (pWindow->m_uHeightButton << 1) + pWindow->m_uHeightTrack;
+		pWindow->m_uHeightButtonAll = (pWindow->m_uHeightButton * 2) + pWindow->m_uHeightTrack;
 		pWindow->m_uAlign |= uAlign;
 		pWindow->move(PosX, PosY);
 		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
