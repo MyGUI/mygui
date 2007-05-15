@@ -348,6 +348,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_Scalar.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_Scalar.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Skin.h"
 				>
 			</File>
