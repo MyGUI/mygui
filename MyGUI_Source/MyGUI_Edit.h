@@ -13,7 +13,7 @@ namespace MyGUI {
 		void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
 		void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
 		void size(int16 iSizeX, int16 iSizeY); // изменяем размер окна
-		virtual void setWindowText(const DisplayString & strText); // устанавливает текст окна
+		virtual Window *setCaption(const DisplayString & strText); // устанавливает текст окна
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
 
 		Window *m_pWindowCursor; // окно нашего курсора

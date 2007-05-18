@@ -70,13 +70,18 @@ namespace MyGUI {
 				    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
 			}
 		}
-
+        
+        //What is all this about?
 		if (bIsShiftText != m_pWindowText->m_bIsTextShiftPressed) { // сдвиг текста
 			m_pWindowText->m_bIsTextShiftPressed = bIsShiftText;
 			if (m_pWindowText->m_uAlign & WAT_SHIFT_TEXT) {
 				if (m_pWindowText->m_overlayCaption) {
-					if (m_pWindowText->m_bIsTextShiftPressed) m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()+__GUI_BUTTON_SHIFT_TEXT_PRESSED);
-					else m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()-__GUI_BUTTON_SHIFT_TEXT_PRESSED);
+					if (m_pWindowText->m_bIsTextShiftPressed)
+					    m_pWindowText->m_overlayCaption->setTop(
+					        m_pWindowText->m_overlayCaption->getTop()+__GUI_BUTTON_SHIFT_TEXT_PRESSED);
+					else
+					    m_pWindowText->m_overlayCaption->setTop(
+					        m_pWindowText->m_overlayCaption->getTop()-__GUI_BUTTON_SHIFT_TEXT_PRESSED);
 				}
 			}
 		}
@@ -109,7 +114,7 @@ namespace MyGUI {
 		pWindow->move(PosX, PosY);
 		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
 		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
-		
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		return pWindow;
 		
 	}

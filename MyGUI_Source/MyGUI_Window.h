@@ -12,13 +12,12 @@ namespace MyGUI {
     using Ogre::DisplayString;
 
 	class Window : public EventCallback { // базовый класс окон гуи
+    private:
 	    void getLengthText(const __tag_MYGUI_FONT_INFO *font, 
-	        int16 &sizeX,
-	        int16 &sizeY,
+	        int16 &sizeX, int16 &sizeY,
 	        const DisplayString & strSource); // возвращает длинну текста
 		void getCutText(const __tag_MYGUI_FONT_INFO *font,
-		    int16 &sizeX,
-		    int16 &sizeY,
+		    int16 &sizeX, int16 &sizeY,
 		    DisplayString & strDest,
 		    const DisplayString & strSource,
 		    uint16 uAlign); // возвращает обрезанную строку равную размерам
@@ -48,7 +47,11 @@ namespace MyGUI {
                 
             return spawn<Widget>(NewPosX, NewPosY, NewSizX, NewSizeY, uAlign, uSkin);
         }
-            
+        
+        /*
+            Event handlers.  Question: could these be integrated with the EventCallback class to unify
+            event callback listeners into a single class?
+        */
         virtual void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
 		virtual void _OnMouseMove(int16 iPosX, int16 iPosY); // вызывается при движении окна
 		virtual void _OnMouseButtonPressed(bool bIsLeftButtonPressed); // вызывается при нажатии клавиши
@@ -58,34 +61,58 @@ namespace MyGUI {
 		virtual void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
 		virtual void _OnUpZOrder() {}; // вызывается при активации окна
 		
-		void show(bool bIsShow); // скрыть показать окно
+		void show(bool ShowWindow);
+		void show() //Show the window
+		{   show(true); }
+		void hide() //hide the window
+		{   show(false); }
+		
 		void move(int16 iPosX, int16 iPosY); // передвинуть окно
 		virtual void size(int16 iSizeX, int16 iSizeY); // изменяем размер окна
+		
+		//??
 		bool check(int16 iPosX, int16 iPosY, bool bCapture = false); // проверка окна на позицию курсора
+		
+		//??
 		void setState(uint8 uState); // состояние окна
 		uint8 getState(); // состояние окна
+		
 		void showFocus(bool bIsFocus); // активирование окна
-		virtual void setWindowText(const DisplayString & strText); // устанавливает текст окна
-		const DisplayString & getWindowText(); // возвращает строку окна
-		virtual void alignWindowText(); // выполняет выравнивание текста
-		void alignWindow(int16 rNewSizeX, int16 rNewSizeY); // выравнивает окно относительно отца
-		void setFont(const String &Font, Ogre::ColourValue colour); // устанавливает шрифт для элемента
+	    
+	    virtual Window *setCaption(const DisplayString & strText); //Places text in the window in whatever way the window defines it
+		const DisplayString & getCaption(); // возвращает строку окна
+        virtual Window * alignCaption(); // выполняет выравнивание текста
+        	
+		//??
+		Window *alignWindow(int16 rNewSizeX, int16 rNewSizeY); // выравнивает окно относительно отца
+		
+		// Sets the font that the text in the window uses (?)
+		Window *setFont(const Ogre::String &Font, Ogre::ColourValue colour);
+		Window *setFont(const String &Font) { setFont(Font, m_fontColour); return this; }
+		const __tag_MYGUI_FONT_INFO *getFont() const;
+		Window *setColour(Ogre::ColourValue colour);
+		Ogre::ColourValue getColour() const { return m_fontColour; }
 		
 		private:
-		void setFont(const __tag_MYGUI_FONT_INFO *lpFont, Ogre::ColourValue colour); // устанавливает шрифт для элемента		
-        
-        public:
+		void Window::bootFont(); //sets up the overlays for the font
+		Ogre::ColourValue m_fontColour; // цвет текста
+		String m_font; // шрифт окна
+		
+		public:
 		void addEvent(uint16 addEvent) {m_uEventCallback |= addEvent;}; // добавляет событие на которое надо реагировать
-
+        
+        //??
 		inline void setUserString(const DisplayString & strUserString) {m_strUserString = strUserString;}; // ставит строку пользователя
 		inline DisplayString & getUserString() {return m_strUserString;}; // возвращает строку пользователя
+		
+		//??
 		inline void setUserData(uint32 uUserData) {m_uUserData = uUserData;}; // ставит данные пользователя
 		inline uint32 getUserData() {return m_uUserData;}; // возвращает данные пользователя
 
+		//Somehow related to its representation in Ogre
 		Ogre::Overlay* m_overlay; // оверлей этого окна
 		Ogre::PanelOverlayElement * m_overlayContainer; // оверлей элемента
-		Ogre::OverlayContainer* m_overlayCaption; // оверлей текста
-		
+		Ogre::OverlayContainer* m_overlayCaption; // оверлей текста	
 		
 		/*
 		    Child windows of this window.  Each window is actually made up of a main window
@@ -95,11 +122,19 @@ namespace MyGUI {
 		std::vector<MyGUI::Window*> mChildWindows;
 		typedef std::vector<MyGUI::Window*>::iterator ChildWindowsIterator;	
 		
-		Window * m_pWindowParent; // отец окна
-		Window * m_pWindowText; // элемент скина содержащий текст всего элемента (по дефолту this)
+		Window * m_pWindowParent; // A link back to this window's parent.  NULL if this is a root object
+		
+		//??
+		Window * m_pWindowText;   // элемент скина содержащий текст всего элемента (по дефолту this)
+		
+		//??
 		Window * m_pWindowClient; // элемент скина является клиенским окном всего элемента (по дефолту this)
-		int16 m_iPosX, m_iPosY, m_iSizeX, m_iSizeY; // размеры окна
-		int16 m_iOffsetAlignX, m_iOffsetAlignY; // смещение, используется только при выравнивании по центру без растяжения
+		
+		int m_iPosX, m_iPosY,
+		    m_iSizeX, m_iSizeY; // размеры окна
+		
+		//??
+		int m_iOffsetAlignX, m_iOffsetAlignY; // смещение, используется только при выравнивании по центру без растяжения
 
 		uint8 m_uState; // статус окна
 		EventCallback *m_pEventCallback; // указатель на класс для вызова функций
@@ -110,11 +145,13 @@ namespace MyGUI {
 		int16 m_sizeCutTextX; // видимый размер текста
 		int16 m_sizeCutTextY; // видимый размер текста
 		DisplayString m_strWindowText; // текст окна для буфера обрезки, когда текст не обрезан эта строка пуста
-		bool m_bIsOverlapped; // окно перекрывающееся
-		bool m_bIsTextShiftPressed; // сдвинут ли текст вниз
-
-		String m_font; // шрифт окна
-		Ogre::ColourValue m_fontColour; // цвет текста
+				
+		bool m_bIsOverlapped; //Is this window being overlapped by another window somewhere
+		
+		//??
+		bool m_bIsTextShiftPressed; // сдвинут ли текст вниз 
+        
+        //The font this window is using.
 		String m_paStrSkins[__SKIN_STATE_COUNT]; // скины состояний
 		uint16 m_uExData; // дополнительная информация об элементе
 

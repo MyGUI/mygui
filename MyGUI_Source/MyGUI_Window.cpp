@@ -45,11 +45,15 @@ namespace MyGUI {
 		if (lpSkin->pStrSkinSelected.length()) m_paStrSkins[SKIN_STATE_SELECTED] = lpSkin->pStrSkinSelected;
 
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
+		
+		// в памяти не может быть два this с одним адресом, значит уникальный
 		m_overlayContainer = static_cast<PanelOverlayElement*>(overlayManager.createOverlayElement(
-		    "Panel", "MyGUI_OverlayElement_" + StringConverter::toString((uint32)this))); // в памяти не может быть два this с одним адресом, значит уникальный
+		    "Panel", "MyGUI_OverlayElement_" + StringConverter::toString((uint32)this))); 
+		
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_iPosX, m_iPosY);
 		m_overlayContainer->setDimensions(m_iSizeX, m_iSizeY);
+		
 		if (!m_paStrSkins[SKIN_STATE_NORMAL].empty())
 		    m_overlayContainer->setMaterialName(m_paStrSkins[SKIN_STATE_NORMAL]);
 
@@ -237,12 +241,12 @@ namespace MyGUI {
 		m_iSizeY = iSizeY;
 
 		m_overlayContainer->setDimensions(iSizeX, iSizeY);
-		alignWindowText();
+		alignCaption();
 	}
 
-	void Window::alignWindow(int16 rNewSizeX, int16 rNewSizeY) // выравнивает окно относительно отца
+	Window *Window::alignWindow(int16 rNewSizeX, int16 rNewSizeY) // выравнивает окно относительно отца
 	{
-		if (!m_pWindowParent) return;
+		if (!m_pWindowParent) return this;
 		// первоначальное выравнивание 
 		if (m_uAlign & WA_RIGHT) {
 			if (m_uAlign & WA_LEFT) {
@@ -259,12 +263,15 @@ namespace MyGUI {
 		} else if (!(m_uAlign & WA_TOP)) { // по вертикали без растяжения
 			move(m_iPosX, ((rNewSizeY - m_iOffsetAlignY)>>1) + m_iOffsetAlignY);
 		}
+		
+		return this;
 
 	}
 
-	void Window::alignWindowText() // выполняет выравнивание текста
+	Window *Window::alignCaption() // выполняет выравнивание текста
 	{
-		if (!m_overlayCaption) return;
+		if (!m_overlayCaption)
+		    return this;
 
 		if (m_uAlign & __WAT_IS_CUT) {
 
@@ -273,7 +280,9 @@ namespace MyGUI {
 				m_sizeCutTextX = m_iSizeX-__GUI_FONT_SIZE_HOFFSET;
 				m_sizeCutTextY = m_iSizeY;
 				DisplayString strDest;
-				getCutText(AssetManager::getSingleton()->Fonts()->getDefinition(m_font),
+				
+				//Was using this window's font instead of the text window's font
+				getCutText(this->m_pWindowText->getFont(),
 				    m_sizeCutTextX, m_sizeCutTextY, strDest, m_strWindowText, m_uAlign);
 				m_overlayCaption->setCaption(strDest);
 				m_overlayCaption->setLeft(__GUI_FONT_HOFFSET);
@@ -304,25 +313,39 @@ namespace MyGUI {
 				m_overlayCaption->setTop(m_iSizeY-m_sizeCutTextY);
 			}
 		}
+		
+		return this;
 
 	}
 
-	void Window::setWindowText(const DisplayString & strText) // устанавливает текст окна
+	Window *Window::setCaption(const DisplayString & strText) // устанавливает текст окна
 	{
-		if (!m_pWindowText->m_overlayCaption) return;
+	    m_pWindowText->m_strWindowText = strText;
+	    
+		if (!m_pWindowText->m_overlayCaption)
+		    return this;
 
-		m_pWindowText->m_strWindowText = "\0";
-		getLengthText(AssetManager::getSingleton()->Fonts()->getDefinition(m_pWindowText->m_font),
-		    m_pWindowText->m_sizeTextX, m_pWindowText->m_sizeTextY, strText);
+		//Is there a reason we are calling the window text's font instead of our own?
+		//  are the two supposed to be able to be different?
+		//  does a window's font even have meaning except as expressed through its caption?
+		getLengthText(m_pWindowText->getFont(), m_pWindowText->m_sizeTextX, m_pWindowText->m_sizeTextY, strText);
 		m_pWindowText->m_sizeCutTextX = m_pWindowText->m_sizeTextX;
 		m_pWindowText->m_sizeCutTextY = m_pWindowText->m_sizeTextY;
-		try {m_pWindowText->m_overlayCaption->setCaption(strText);	} catch (...) {__ASSERT(false);} // недопустимые символы
-		m_pWindowText->alignWindowText();
+		
+		try {
+            m_pWindowText->m_overlayCaption->setCaption(strText);
+        } catch (...) {
+            __ASSERT(false);
+        } // недопустимые символы
+		
+		m_pWindowText->alignCaption();
+		return this;
 	}
 
-	const DisplayString & Window::getWindowText() // возвращает строку окна
+	const DisplayString & Window::getCaption() // возвращает строку окна
 	{
-		if ((m_pWindowText->m_strWindowText == "\0") && (m_pWindowText->m_overlayCaption)) return m_pWindowText->m_overlayCaption->getCaption();
+		if (m_pWindowText->m_strWindowText.empty() && m_pWindowText->m_overlayCaption)
+		    return m_pWindowText->m_overlayCaption->getCaption();
 		return m_pWindowText->m_strWindowText;
 	}
 
@@ -454,35 +477,54 @@ namespace MyGUI {
 
 		return bCapture;
 	}
-
-	void Window::setFont(const String &Font, ColourValue colour) // устанавливает шрифт для элемента
+	
+	const __tag_MYGUI_FONT_INFO *Window::getFont() const
 	{
-	    m_pWindowText->m_font = Font;
-		setFont(AssetManager::getSingleton()->Fonts()->getDefinition(Font), colour );
-	}
-
-	void Window::setFont(const __tag_MYGUI_FONT_INFO *lpFont, ColourValue colour) // устанавливает шрифт для элемента
-	{
-		m_pWindowText->m_fontColour = colour;
-		
-		if (!m_pWindowText->m_overlayCaption) { // элемент не создан, создать
-			m_pWindowText->m_overlayCaption = static_cast<OverlayContainer*>(
-                OverlayManager::getSingleton().createOverlayElement("TextArea", "MyGUI_OverlayElement_TextArea_" + 
-                StringConverter::toString((uint32)this)));
+	    return AssetManager::getSingleton()->Fonts()->getDefinition(m_pWindowText->m_font);
+    }
+    
+    Window *Window::setColour(Ogre::ColourValue colour)
+    {
+        m_pWindowText->m_fontColour = colour;
+        m_pWindowText->m_overlayCaption->setColour(colour);
+        
+        return this;
+    }
+    
+    void Window::bootFont()
+    {
+        m_pWindowText->m_overlayCaption = static_cast<OverlayContainer*>(
+            OverlayManager::getSingleton().createOverlayElement("TextArea", "MyGUI_OverlayElement_TextArea_" + 
+            StringConverter::toString((uint32)this)));
 			
-			m_pWindowText->m_overlayCaption->setMetricsMode(GMM_PIXELS);
-			m_pWindowText->m_overlayCaption->setLeft(__GUI_FONT_HOFFSET);
-			m_pWindowText->m_overlayContainer->addChild(m_pWindowText->m_overlayCaption);
-		}
+        m_pWindowText->m_overlayCaption->setMetricsMode(GMM_PIXELS);
+		m_pWindowText->m_overlayCaption->setLeft(__GUI_FONT_HOFFSET);
+		m_pWindowText->m_overlayContainer->addChild(m_pWindowText->m_overlayCaption);
+    }
+
+	Window *Window::setFont(const String &Font, ColourValue colour) // устанавливает шрифт для элемента
+	{
+	    assert(m_pWindowText);
+	    
+	    m_pWindowText->m_font = Font;
 		
-		m_pWindowText->m_overlayCaption->setParameter("font_name", lpFont->name);
-		m_pWindowText->m_overlayCaption->setParameter("char_height", StringConverter::toString(lpFont->height));
+		// элемент не создан, создать
+		if (!m_pWindowText->m_overlayCaption)
+		    bootFont();
+		    
+        assert(m_pWindowText->m_overlayCaption);
+		
+		ParameterList params = m_pWindowText->m_overlayCaption->getParameters();
+		m_pWindowText->m_overlayCaption->setParameter("font_name", getFont()->name);
+		m_pWindowText->m_overlayCaption->setParameter("char_height", StringConverter::toString(getFont()->height));
 //		m_pWindowText->m_overlayCaption->setParameter("space_width", StringConverter::toString(lpFont->spaceWidth));
-		m_pWindowText->m_overlayCaption->setColour(colour);
-		m_pWindowText->alignWindowText();
+		setColour(colour);
+		m_pWindowText->alignCaption();
+		return this;
 	}
 	
-	void Window::getLengthText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource) // возвращает длинну текста
+	// возвращает длинну текста
+	void Window::getLengthText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, const DisplayString & strSource)
 	{
 		sizeY = font->height;
 		sizeX = 0;
@@ -503,7 +545,10 @@ namespace MyGUI {
 		if (len > sizeX) sizeX = len;
 	}
 
-	void Window::getCutText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY, DisplayString & strDest, const DisplayString & strSource, uint16 uAlign) // возвращает обрезанную строку равную длинне
+     // возвращает обрезанную строку равную длинне
+	void Window::getCutText(const __tag_MYGUI_FONT_INFO *font, int16 &sizeX, int16 &sizeY,
+	    DisplayString & strDest, const DisplayString & strSource,
+	    uint16 uAlign)
 	{
 		strDest.clear();
 		// строка пустая
@@ -678,6 +723,7 @@ namespace MyGUI {
 		pWindow->move(PosX, PosY);
 		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
 		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+        pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		return pWindow;
     }
 }

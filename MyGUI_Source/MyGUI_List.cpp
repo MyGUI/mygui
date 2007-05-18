@@ -193,7 +193,10 @@ namespace MyGUI {
 			    WA_TOP|WA_HSTRETCH, m_SkinButton);
 			pChild->m_pEventCallback = (EventCallback *)this;
 			pChild->m_overlayContainer->hide();
-			pChild->setFont(m_font, m_fontColour);
+			
+			//TODO: Is this function call necessary?
+			//pChild->setFont(m_font, m_fontColour);			
+			
 			pChild->m_uUserData = uint32(m_pWindowClient->mChildWindows.size() - 1 - m_uStartWindow); // порядковый номер окна
 			m_uCurrentFillSize += m_uSizeYButton;
 		};
@@ -239,7 +242,7 @@ namespace MyGUI {
 		} else {
 			for (uint16 draw = oldCountVisible; draw<m_uCountVisible; draw++) {
 				Window * pWindow = m_pWindowClient->mChildWindows[draw+m_uStartWindow];
-				pWindow->m_pWindowText->setWindowText(*m_aString[draw+m_uOffsetDrawString]);
+				pWindow->m_pWindowText->setCaption(*m_aString[draw+m_uOffsetDrawString]);
 			}
 		}
 
@@ -301,7 +304,7 @@ namespace MyGUI {
 		uint8 visible = 0;
 		for (size_t pos = m_uOffsetDrawString; pos < size; pos++) {
 			Window * pWindow = m_pWindowClient->mChildWindows[index];
-			pWindow->m_pWindowText->setWindowText(*m_aString[pos]);
+			pWindow->m_pWindowText->setCaption(*m_aString[pos]);
 			if (pos == m_uSelectItem) {
 				pWindowSelect = pWindow;
 				if (m_bIsFocus) pWindowSelect->setState(WS_PRESSED);
@@ -313,7 +316,7 @@ namespace MyGUI {
 
 		// пустые места
 		for (size_t pos = size + 1; pos < m_uCountVisible; pos++) {
-			m_pWindowClient->mChildWindows[pos]->setWindowText("");
+			m_pWindowClient->mChildWindows[pos]->setCaption("");
 		}
 
 	}
@@ -383,12 +386,12 @@ namespace MyGUI {
 		return *m_aString[index];
 	}
 
-	void List::setFont(const String &lpFont, ColourValue colour) // устанавливает шрифт для всего списка
+	void List::setFont(const String &lpFont, ColourValue colour)
 	{
-		// достаточно присвоение
-		m_font = lpFont;
-		m_fontColour = colour;
-		// присваиваем уже существующим строчкам
+	    //set our font
+	    Window::setFont(lpFont, colour);
+	    
+	    //Set for children in "client"
 		for (size_t pos = m_uStartWindow; pos < m_pWindowClient->mChildWindows.size(); pos++) {
 			m_pWindowClient->mChildWindows[pos]->setFont(lpFont, colour);
 		}
@@ -409,8 +412,7 @@ namespace MyGUI {
 		    parent ? parent->m_pWindowClient : NULL);
 		    
 		pWindow->m_uAlign |= uAlign;
-		pWindow->m_font = pSkin->fontWindow;
-		pWindow->m_fontColour = pSkin->colour;
+		
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочерние окна скины
 			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
@@ -430,6 +432,7 @@ namespace MyGUI {
 			pWindow->m_scroll->m_pEventCallback = (EventCallback*)pWindow;
 			pWindow->m_bIsVisibleScroll = true;
 		}
+		
 		pWindow->m_SkinButton = pSkin->data4;
 		pWindow->m_uSizeYButton = AssetManager::getSingleton()->Skins()->getDefinition(pWindow->m_SkinButton)
 		    ->subSkins[0]->sizeY;
@@ -439,6 +442,8 @@ namespace MyGUI {
 		if (SizeX == -1) SizeX = pSkin->subSkins[0]->sizeX;
 		if (SizeY == -1) SizeY = pSkin->subSkins[0]->sizeY;
 		pWindow->size(SizeX, SizeY);
+		
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		return pWindow;
 	}
 }

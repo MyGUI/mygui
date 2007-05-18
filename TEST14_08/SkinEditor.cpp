@@ -54,7 +54,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 				updateWindowInfo();
 			} else {
 
-				const String & strName = m_comboBasisWindowName->getWindowText();
+				const String & strName = m_comboBasisWindowName->getCaption();
 				bool find = false;
 				for (uint16 pos=0; pos<mWindowInfo.size(); pos++) {
 					if (mWindowInfo[pos].strElementName == strName) {
@@ -85,7 +85,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 				// нажат ентер с новым именем
 
 				bool find = false;
-				const String & strSkinName = m_comboSabSkinName->getWindowText();
+				const String & strSkinName = m_comboSabSkinName->getCaption();
 				for (uint16 pos=0; pos<m_comboSabSkinName->getStringCount(); pos++) {
 					if (m_comboSabSkinName->getString(pos) == strSkinName) {
 						find = true;
@@ -94,7 +94,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 				}
 
 				if (!find) {
-					LP_SUB_SKIN_DATA lpData = findSkinData(m_comboSabSkinName->getWindowText());
+					LP_SUB_SKIN_DATA lpData = findSkinData(m_comboSabSkinName->getCaption());
 					if (lpData) {
 						m_comboSabSkinName->addString(lpData->strName);
 						m_comboSabSkinName->setString(m_comboSabSkinName->getStringCount()-1);
@@ -113,16 +113,16 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 			updateStateInfo();
 
 		} else if (pWindow == m_comboBasisAddedSkin1) {
-			m_pCurrentDataWindow->strAddedSkin1 = m_comboBasisAddedSkin1->getWindowText();
+			m_pCurrentDataWindow->strAddedSkin1 = m_comboBasisAddedSkin1->getCaption();
 
 		} else if (pWindow == m_comboBasisAddedSkin2) {
-			m_pCurrentDataWindow->strAddedSkin2 = m_comboBasisAddedSkin2->getWindowText();
+			m_pCurrentDataWindow->strAddedSkin2 = m_comboBasisAddedSkin2->getCaption();
 
 		} else if (pWindow == m_comboBasisFont) {
-			m_pCurrentDataWindow->strFont = m_comboBasisFont->getWindowText();
+			m_pCurrentDataWindow->strFont = m_comboBasisFont->getCaption();
 
 		} else if (pWindow == m_comboBasisColour) {
-			m_pCurrentDataWindow->strColour = m_comboBasisColour->getWindowText();
+			m_pCurrentDataWindow->strColour = m_comboBasisColour->getCaption();
 
 		// выбор материала
 		} else if (pWindow == m_comboMaterialName) {
@@ -130,7 +130,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 				if (!fillMaterialWindow()) {
 					m_comboMaterialName->setString(0);
 					m_pCurrentDataWindow->strMaterialName = "";
-				} else m_pCurrentDataWindow->strMaterialName = m_comboMaterialName->getWindowText();
+				} else m_pCurrentDataWindow->strMaterialName = m_comboMaterialName->getCaption();
 			} else m_comboMaterialName->setString(0); // низя
 		}
 
@@ -138,27 +138,27 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 	} else if (uEvent == WOE_EDIT_KEY_ACCEPT) {
 
 		if (pWindow == m_editBasisData1) {
-			uint32 tmp = StringConverter::parseUnsignedInt(m_editBasisData1->getWindowText());
+			uint32 tmp = StringConverter::parseUnsignedInt(m_editBasisData1->getCaption());
 			(tmp > 255) ? m_pCurrentDataWindow->uAddedData1 = 0 : m_pCurrentDataWindow->uAddedData1 = tmp;
-			m_editBasisData1->setWindowText(StringConverter::toString(m_pCurrentDataWindow->uAddedData1));
+			m_editBasisData1->setCaption(StringConverter::toString(m_pCurrentDataWindow->uAddedData1));
 
 		} else if (pWindow == m_editBasisData2) {
-			uint32 tmp = StringConverter::parseUnsignedInt(m_editBasisData2->getWindowText());
+			uint32 tmp = StringConverter::parseUnsignedInt(m_editBasisData2->getCaption());
 			(tmp > 255) ? m_pCurrentDataWindow->uAddedData2 = 0 : m_pCurrentDataWindow->uAddedData2 = tmp;
-			m_editBasisData2->setWindowText(StringConverter::toString(m_pCurrentDataWindow->uAddedData2));
+			m_editBasisData2->setCaption(StringConverter::toString(m_pCurrentDataWindow->uAddedData2));
 
 		} else if (pWindow == m_comboBasisColour) {
-			m_pCurrentDataWindow->strColour = m_comboBasisColour->getWindowText();
+			m_pCurrentDataWindow->strColour = m_comboBasisColour->getCaption();
 
 		} else if (pWindow->getUserData() == EDIT_IS_USE ) { // наше
 
 			for (uint8 index=0; index<4; index++) {
 				if (pWindow == m_editOffset[index]) {
-					m_pCurrentDataSkin->uOffset[index] = StringConverter::parseUnsignedInt(pWindow->getWindowText());
-					pWindow->setWindowText(StringConverter::toString(m_pCurrentDataSkin->uOffset[index]));
+					m_pCurrentDataSkin->uOffset[index] = StringConverter::parseUnsignedInt(pWindow->getCaption());
+					pWindow->setCaption(StringConverter::toString(m_pCurrentDataSkin->uOffset[index]));
 				} else if (pWindow == m_editPosition[index]) {
-					m_pCurrentDataState->uPosition[index] = StringConverter::parseUnsignedInt(pWindow->getWindowText());
-					pWindow->setWindowText(StringConverter::toString(m_pCurrentDataState->uPosition[index]));
+					m_pCurrentDataState->uPosition[index] = StringConverter::parseUnsignedInt(pWindow->getCaption());
+					pWindow->setCaption(StringConverter::toString(m_pCurrentDataState->uPosition[index]));
 				}
 			}
 
@@ -169,7 +169,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 
 	// скрываем окно стилей
 	} else if (uEvent == WOE_FRAME_CLOSE) {
-		if (pWindow == m_windowStateFlags) m_windowStateFlags->show(false);
+		if (pWindow == m_windowStateFlags) m_windowStateFlags->hide();
 
 	} else if (uEvent == WOE_EDIT_KEY_DELETE) {
 		// удаляем сабскин
@@ -182,7 +182,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 		// удаляем элемент
 		} else if (pWindow == m_comboBasisWindowName) {
 
-			const String & strName = m_comboBasisWindowName->getWindowText();
+			const String & strName = m_comboBasisWindowName->getCaption();
 			uint16 ID = (uint16)-1;
 			for (uint16 pos=0; pos<mWindowInfo.size(); pos++) {
 				if (mWindowInfo[pos].strElementName == strName) {
@@ -223,7 +223,7 @@ void SkinEditor::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена лева
 
 	if (pWindow == m_buttonSabSkinStyle) {
 		if (m_pCurrentDataSkin) {
-			m_windowStateFlags->show(true);
+			m_windowStateFlags->show();
 			GUI::getSingleton()->upZOrder(m_windowStateFlags);
 		}
 	} else {
@@ -312,29 +312,29 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	
 	m_mainWindow = GUI::getSingleton()->spawn<WindowFrame>(
 	    500, 150, 300, 470, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_CSX);
-	m_mainWindow->setWindowText("Skin editor MyGUI 1.0");
+	m_mainWindow->setCaption("Skin editor MyGUI 1.0");
 	m_mainWindow->m_pEventCallback = this;
 
 	// статик текст над окном
 	MyGUI::StaticText * text = m_mainWindow->spawn<StaticText>(10, 0, 270, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, ColourValue::Green);
-	text->setWindowText("Basis window skin");
+	text->setColour(ColourValue::Green);
+	text->setCaption("Basis window skin");
 
 	// создаем окно с именами
 	m_comboBasisWindowName = m_mainWindow->spawn<ComboBox>(10, 30, 270, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_COMBO_BOX);
 	m_comboBasisWindowName->m_pEventCallback = this;
 
 	text = m_mainWindow->spawn<StaticText>(222, 60, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, ColourValue::Green);
-	text->setWindowText("Added 1");
+	text->setColour(ColourValue::Green);
+	text->setCaption("Added 1");
 	
 	m_comboBasisAddedSkin1 = m_mainWindow->spawn<ComboBox>(20, 60, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboBasisAddedSkin1->addString(NO_SET);
 	m_comboBasisAddedSkin1->m_pEventCallback = this;
 
 	text = m_mainWindow->spawn<StaticText>(222, 90, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, ColourValue::Green);
-	text->setWindowText("Added 2");
+	text->setColour(ColourValue::Green);
+	text->setCaption("Added 2");
 	
 	m_comboBasisAddedSkin2 = m_mainWindow->spawn<ComboBox>(20, 90, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboBasisAddedSkin2->addString(NO_SET);
@@ -346,12 +346,12 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_editBasisData2->m_pEventCallback = this;
 
 	text = m_mainWindow->spawn<StaticText>(155, 120, 100, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, ColourValue::Green);
-	text->setWindowText("Added data");
+	text->setColour(ColourValue::Green);
+	text->setCaption("Added data");
 
 	text = m_mainWindow->spawn<StaticText>(222, 150, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setFont(text->m_font, ColourValue::Green);
-	text->setWindowText("Font");
+	text->setColour(ColourValue::Green);
+	text->setCaption("Font");
 	
 	m_comboBasisFont = m_mainWindow->spawn<ComboBox>(20, 150, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboBasisFont->m_pEventCallback = this;
@@ -360,8 +360,8 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	    m_comboBasisFont->addString(iter->first);
 
 	text = m_mainWindow->spawn<StaticText>(222, 180, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("Colour");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setColour(ColourValue::Green);
+	text->setCaption("Colour");	
 	
 	m_comboBasisColour = m_mainWindow->spawn<ComboBox>(20, 180, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_COMBO_BOX);
 	m_comboBasisColour->m_pEventCallback = this;
@@ -373,8 +373,8 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 
 	// заполняем всеми доступными материалами
 	text = m_mainWindow->spawn<StaticText>(222, 210, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("Material");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("Material");
+	text->setColour(ColourValue::Green);
 	
 	m_comboMaterialName = m_mainWindow->spawn<ComboBox>(20, 210, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboMaterialName->m_pEventCallback = this;
@@ -389,15 +389,15 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 
 
 	text = m_mainWindow->spawn<StaticText>(10, 250, 270, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("Sab skins window");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("Sab skins window");
+	text->setColour(ColourValue::Green);
 
 	m_comboSabSkinName = m_mainWindow->spawn<ComboBox>(10, 280, 270, -1, WA_TOP|WA_LEFT, SKIN_COMBO_BOX);
     m_comboSabSkinName->m_pEventCallback = this;
     
 	text = m_mainWindow->spawn<StaticText>(222, 310, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("Offset");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("Offset");
+	text->setColour(ColourValue::Green);
 
 	m_editOffset[0] = m_mainWindow->spawn<Edit>(20, 310, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
 	m_editOffset[1] = m_mainWindow->spawn<Edit>(71, 310, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
@@ -410,13 +410,13 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_editOffset[3]->m_pEventCallback = this;
 
 	m_buttonSabSkinStyle = m_mainWindow->spawn<Button>(20, 340, 200, -1, WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON);
-	m_buttonSabSkinStyle->setWindowText("SKIN STYLE");
+	m_buttonSabSkinStyle->setCaption("SKIN STYLE");
 	m_buttonSabSkinStyle->m_pEventCallback = this;
 	m_buttonSabSkinStyle->setFont(MyGUI::FONT_DEFAULT, ColourValue::Blue);
 
 	text = m_mainWindow->spawn<StaticText>(222, 370, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("State");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("State");
+	text->setColour(ColourValue::Green);
 	
 	m_comboSabSkinState = m_mainWindow->spawn<ComboBox>(20, 370, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboSabSkinState->m_pEventCallback = this;
@@ -427,8 +427,8 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	m_comboSabSkinState->addString("WS_SELECTED");
 
 	text = m_mainWindow->spawn<StaticText>(222, 400, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("Position");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("Position");
+	text->setColour(ColourValue::Green);
 
 	m_editPosition[0] = m_mainWindow->spawn<Edit>(20, 400, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
 	m_editPosition[1] = m_mainWindow->spawn<Edit>(71, 400, 45, -1, WA_LEFT|WA_TOP, SKIN_EDIT);
@@ -470,16 +470,16 @@ void SkinEditor::updateWindowInfo()
 
 	if (!m_pCurrentDataWindow) return; // на всякий
 
-	if (m_pCurrentDataWindow->strAddedSkin1.empty()) m_comboBasisAddedSkin1->setWindowText(NO_SET);
-	else m_comboBasisAddedSkin1->setWindowText(m_pCurrentDataWindow->strAddedSkin1);
-	if (m_pCurrentDataWindow->strAddedSkin2.empty()) m_comboBasisAddedSkin2->setWindowText(NO_SET);
-	else m_comboBasisAddedSkin2->setWindowText(m_pCurrentDataWindow->strAddedSkin2);
-	m_comboBasisFont->setWindowText(m_pCurrentDataWindow->strFont);
+	if (m_pCurrentDataWindow->strAddedSkin1.empty()) m_comboBasisAddedSkin1->setCaption(NO_SET);
+	else m_comboBasisAddedSkin1->setCaption(m_pCurrentDataWindow->strAddedSkin1);
+	if (m_pCurrentDataWindow->strAddedSkin2.empty()) m_comboBasisAddedSkin2->setCaption(NO_SET);
+	else m_comboBasisAddedSkin2->setCaption(m_pCurrentDataWindow->strAddedSkin2);
+	m_comboBasisFont->setCaption(m_pCurrentDataWindow->strFont);
 
-	m_editBasisData1->setWindowText(StringConverter::toString(m_pCurrentDataWindow->uAddedData1));
-	m_editBasisData2->setWindowText(StringConverter::toString(m_pCurrentDataWindow->uAddedData2));
-	m_comboBasisColour->setWindowText(m_pCurrentDataWindow->strColour);
-	m_comboMaterialName->setWindowText(m_pCurrentDataWindow->strMaterialName);
+	m_editBasisData1->setCaption(StringConverter::toString(m_pCurrentDataWindow->uAddedData1));
+	m_editBasisData2->setCaption(StringConverter::toString(m_pCurrentDataWindow->uAddedData2));
+	m_comboBasisColour->setCaption(m_pCurrentDataWindow->strColour);
+	m_comboMaterialName->setCaption(m_pCurrentDataWindow->strMaterialName);
 
 	// очищаем поля
 	m_comboSabSkinName->deleteStringAll();
@@ -520,7 +520,7 @@ void SkinEditor::updateSkinInfo() // обновляет всю инфу об саб скине
 
 	} else {
 
-		for (uint8 pos=0; pos<4; pos++) m_editOffset[pos]->setWindowText(StringConverter::toString(m_pCurrentDataSkin->uOffset[pos]));
+		for (uint8 pos=0; pos<4; pos++) m_editOffset[pos]->setCaption(StringConverter::toString(m_pCurrentDataSkin->uOffset[pos]));
 		m_pCurrentDataState = &m_pCurrentDataSkin->stateInfo[0];
 		fillFlagWindow(); // заполняет окна текущими значения
 
@@ -537,7 +537,7 @@ void SkinEditor::updateStateInfo() // обновляет всю инфу об стайте
 	if (!m_pCurrentDataState) return; // нет инфы уходим
 
 	for (uint8 pos=0; pos<4; pos++) { // поля для чисел
-		m_editPosition[pos]->setWindowText(StringConverter::toString(m_pCurrentDataState->uPosition[pos]));
+		m_editPosition[pos]->setCaption(StringConverter::toString(m_pCurrentDataState->uPosition[pos]));
 	}
 
 	setMaterialOffset(m_pCurrentDataState->uPosition[0], m_pCurrentDataState->uPosition[1], m_pCurrentDataState->uPosition[2], m_pCurrentDataState->uPosition[3]);
@@ -906,18 +906,18 @@ void SkinEditor::createFlagWindow()
 	// создаем все что связанно с окном для флагов
 	m_windowStateFlags = GUI::getSingleton()->spawn<WindowFrame>(
 	    100, 100, 650, 490, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_CX);
-    m_windowStateFlags->setWindowText("Skin flags");
+    m_windowStateFlags->setCaption("Skin flags");
     m_windowStateFlags->m_pEventCallback = this;
     
 	StaticText * text = m_windowStateFlags->spawn<StaticText>(10, 0, 200, 20, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("EVENT");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("EVENT");
+	text->setColour(ColourValue::Green);
 	text = m_windowStateFlags->spawn<StaticText>(220, 0, 200, 20, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("ALIGN");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("ALIGN");
+	text->setColour(ColourValue::Green);
 	text = m_windowStateFlags->spawn<StaticText>(430, 0, 200, 20, WA_TOP|WA_LEFT|WAT_CENTER);
-	text->setWindowText("STYLE");
-	text->setFont(text->m_font, ColourValue::Green);
+	text->setCaption("STYLE");
+	text->setColour(ColourValue::Green);
 
 	uint8 countEvents = 5;
 	uint8 countAlign = 14;
@@ -940,7 +940,7 @@ void SkinEditor::createFlagWindow()
 		} else m_buttonsFlagsStyle[pos] = 0;
 	}
 
-	#define SET_FLAG(win,num,flag) if(win){win->setWindowText(#num);win->setUserData(num|flag);}
+	#define SET_FLAG(win,num,flag) if(win){win->setCaption(#num);win->setUserData(num|flag);}
 
 	SET_FLAG(m_buttonsFlagsEvent[0], WE_MOUSE_BUTTON, FLAG_EVENT);
 	SET_FLAG(m_buttonsFlagsEvent[1], WE_MOUSE_FOCUS, FLAG_EVENT);
@@ -1057,7 +1057,7 @@ bool SkinEditor::fillMaterialWindow() // заполняем окно с материалом
 
 	if (m_comboMaterialName->getCurrentIndex() == 0) return false;
 
-	const String & strMaterialName = m_comboMaterialName->getWindowText();
+	const String & strMaterialName = m_comboMaterialName->getCaption();
 
 	MaterialPtr mat = MaterialManager::getSingleton().getByName(strMaterialName);
 	if (mat.isNull()) return false;
@@ -1097,7 +1097,7 @@ void SkinEditor::createMaterialWindow() // создает окна для материала
 {
 	m_windowMaterial = GUI::getSingleton()->spawn<WindowFrame>(
 	    100, 100, 200, 200, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_C);
-	m_windowMaterial->setWindowText("Material view");
+	m_windowMaterial->setCaption("Material view");
 	m_windowMaterial->m_pEventCallback = this;
 	m_windowMaterial->show(false);
 
@@ -1155,12 +1155,12 @@ void SkinEditor::enableSkinInfo(bool bEnable) // блокирует
 	// заблокируем
 	} else {
 		m_buttonSabSkinStyle->setState(WS_DEACTIVE);
-		m_comboSabSkinState->setWindowText("");
+		m_comboSabSkinState->setCaption("");
 		m_comboSabSkinState->setState(WS_DEACTIVE);
 		for (uint8 pos=0; pos<4; pos++) {
-			m_editOffset[pos]->setWindowText("");
+			m_editOffset[pos]->setCaption("");
 			m_editOffset[pos]->setState(WS_DEACTIVE);
-			m_editPosition[pos]->setWindowText("");
+			m_editPosition[pos]->setCaption("");
 			m_editPosition[pos]->setState(WS_DEACTIVE);
 		}
 	}
@@ -1188,23 +1188,23 @@ void SkinEditor::enableWindowInfo(bool bEnable) // блокирует все окна
 	} else {
 
 		enableSkinInfo(false);
-		m_comboSabSkinName->setWindowText("");
+		m_comboSabSkinName->setCaption("");
 		m_comboSabSkinName->setState(WS_DEACTIVE);
-		m_comboMaterialName->setWindowText("");
+		m_comboMaterialName->setCaption("");
 		m_comboMaterialName->setState(WS_DEACTIVE);
-		m_comboBasisColour->setWindowText("");
+		m_comboBasisColour->setCaption("");
 		m_comboBasisColour->setState(WS_DEACTIVE);
-		m_comboBasisFont->setWindowText("");
+		m_comboBasisFont->setCaption("");
 		m_comboBasisFont->setState(WS_DEACTIVE);
-		m_editBasisData1->setWindowText("");
+		m_editBasisData1->setCaption("");
 		m_editBasisData1->setState(WS_DEACTIVE);
-		m_editBasisData2->setWindowText("");
+		m_editBasisData2->setCaption("");
 		m_editBasisData2->setState(WS_DEACTIVE);
-		m_comboBasisAddedSkin1->setWindowText("");
+		m_comboBasisAddedSkin1->setCaption("");
 		m_comboBasisAddedSkin1->setState(WS_DEACTIVE);
-		m_comboBasisAddedSkin2->setWindowText("");
+		m_comboBasisAddedSkin2->setCaption("");
 		m_comboBasisAddedSkin2->setState(WS_DEACTIVE);
-		m_comboBasisWindowName->setWindowText("");
+		m_comboBasisWindowName->setCaption("");
 
 	}
 

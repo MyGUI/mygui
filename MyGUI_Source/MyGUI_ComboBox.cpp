@@ -143,7 +143,7 @@ namespace MyGUI {
 	void ComboBox::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data) // дополнительные события
 	{
 		if (uEvent == WOE_LIST_SELECT_ACCEPT) {
-			setWindowText(m_pList->getString(data));
+			setCaption(m_pList->getString(data));
 			m_pList->show(false);
 			m_bIsListShow = false;
 			if (m_pEdit) {
@@ -170,21 +170,22 @@ namespace MyGUI {
 		if (index>=m_pList->m_aString.size()) return;
 		m_pList->m_uSelectItem = index;
 		m_pList->redrawStrings();
-		setWindowText(*m_pList->m_aString[index]);
+		setCaption(*m_pList->m_aString[index]);
 	}
 
 	const DisplayString & ComboBox::getString(uint16 index) // возвращает строку
 	{
 		// позиция больше, возвращаем строку из едита
-		if ( (index >= m_pList->m_aString.size()) && (m_pEdit) ) return m_pEdit->getWindowText();
+		if ( (index >= m_pList->m_aString.size()) && (m_pEdit) ) return m_pEdit->getCaption();
 		return m_pList->getString(index); // внимание, если индекс больше, то вернет адрес статической пустой строки
 	}
 
-	void ComboBox::setWindowText(const DisplayString & strText)
+	Window *ComboBox::setCaption(const DisplayString & strText)
 	{
-		if (m_pEdit) m_pEdit->setWindowText(strText);
-		else Window::setWindowText(strText);
+		if (m_pEdit) m_pEdit->setCaption(strText);
+		else Window::setCaption(strText);
 		m_pList->m_uSelectItem = ITEM_NON_SELECT;
+		return this;
 	}
 	
 	ComboBox *ComboBox::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,

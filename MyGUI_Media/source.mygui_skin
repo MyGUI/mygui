@@ -11,6 +11,12 @@ Font FONT_LARGE
 	size	22
 }
 
+Font FONT_HUGE
+{
+    name "MyGUI_font"
+    size 40
+}
+
 // указатели
 Pointer POINTER_DEFAULT
 {

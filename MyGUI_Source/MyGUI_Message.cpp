@@ -109,7 +109,7 @@ namespace MyGUI {
 			}
 		}
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->setWindowText(strCaption);
+		pWindow->setCaption(strCaption);
 
 		#define __BUTTON_SIZE 130
 
@@ -117,13 +117,13 @@ namespace MyGUI {
 
 		if (!strButton1.empty()) {
 			pWindow->m_pButton1 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
-			pWindow->m_pButton1->setWindowText(strButton1);
+			pWindow->m_pButton1->setCaption(strButton1);
 			pWindow->m_pButton1->setUserData(MBB_BUTTON1);
 			pWindow->m_pButton1->m_pEventCallback = (EventCallback*)pWindow;
 			if (!strButton2.empty()) {
 				iMinSizeX += __BUTTON_SIZE + 20;
 				pWindow->m_pButton2 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
-				pWindow->m_pButton2->setWindowText(strButton2);
+				pWindow->m_pButton2->setCaption(strButton2);
 				pWindow->m_pButton2->setUserData(MBB_BUTTON2);
 				pWindow->m_pButton2->m_pEventCallback = (EventCallback*)pWindow;
 			}
@@ -134,8 +134,8 @@ namespace MyGUI {
 		StaticText * text = pWindow->spawn<StaticText>(5, 5,
 		    pWindow->m_pWindowClient->m_iSizeX - 10, pWindow->m_pWindowClient->m_iSizeY - 50,
 		    WA_STRETCH);
-		text->setWindowText( strMessage );
-		text->setFont(text->m_font, ColourValue::White);
+		text->setCaption( strMessage );
+		text->setColour(ColourValue::White);
 
 		int iSizeText = text->m_sizeTextX;
 		if (iSizeText < iMinSizeX) iSizeText = iMinSizeX;

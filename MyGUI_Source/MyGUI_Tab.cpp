@@ -21,7 +21,7 @@ namespace MyGUI {
 	Window * Tab::addSheet(const DisplayString & strName, int16 iSizeX) // добавляет вкладку
 	{
 		Button * pButton = spawn<Button>(m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE, m_SkinButton);
-        pButton->setWindowText(strName);
+        pButton->setCaption(strName);
 		                   
 		pButton->addEvent(WE_MOUSE_BUTTON);
 		pButton->m_pEventCallback = (EventCallback *)this; // все сообщения нам
@@ -118,6 +118,7 @@ namespace MyGUI {
 		pWindow->move(PosX, PosY);
 		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
 		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		return pWindow;
 	}
 }

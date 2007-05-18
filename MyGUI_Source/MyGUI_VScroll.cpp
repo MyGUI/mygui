@@ -211,6 +211,7 @@ namespace MyGUI {
 		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
 		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 	}
 
 }

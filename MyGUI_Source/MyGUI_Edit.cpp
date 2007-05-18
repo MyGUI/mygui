@@ -34,7 +34,7 @@ namespace MyGUI {
 		m_bIsFocus = bIsFocus;
 		if (bIsFocus) {
 			setState(WS_PRESSED);
-			if (m_iSizeY < AssetManager::getSingleton()->Fonts()->getDefinition(m_font)->height)
+			if (m_iSizeY < getFont()->height)
 			    bIsFocus = false;
 		} else setState(WS_NORMAL);
 		if (m_pWindowCursor) m_pWindowCursor->show(bIsFocus);
@@ -46,7 +46,7 @@ namespace MyGUI {
 
 		if (!m_pWindowCursor) return;
 		m_pWindowCursor->move(m_pWindowText->m_sizeCutTextX + m_uOffsetCursor+__GUI_FONT_HOFFSET, m_pWindowCursor->m_iPosY);
-		if (m_pWindowText->m_iSizeY >= AssetManager::getSingleton()->Fonts()->getDefinition(m_font)->height)
+		if (m_pWindowText->m_iSizeY >= getFont()->height)
 		{
 		    if(m_bIsFocus)
 		        m_pWindowCursor->show(true);
@@ -54,16 +54,20 @@ namespace MyGUI {
 		else if (!m_bIsFocus)  m_pWindowCursor->show(false);
 	}
 
-	void Edit::setWindowText(const DisplayString & strText) // устанавливает текст окна
+	Window *Edit::setCaption(const DisplayString & strText) // устанавливает текст окна
 	{
-		Window::setWindowText(strText);
+		Window::setCaption(strText);
 		
-		const __tag_MYGUI_FONT_INFO *font = AssetManager::getSingleton()->Fonts()->getDefinition(m_font);
+		const __tag_MYGUI_FONT_INFO *font = getFont();
 
-		if (!m_pWindowCursor) return;
+		if (!m_pWindowCursor) return this;
 		m_pWindowCursor->move(m_pWindowText->m_sizeCutTextX + m_uOffsetCursor+__GUI_FONT_HOFFSET, m_pWindowCursor->m_iPosY);
-		if ((m_pWindowText->m_iSizeY >= font->height) && (m_bIsFocus)) m_pWindowCursor->show(true);
-		else if (!m_bIsFocus)  m_pWindowCursor->show(false);
+		if ((m_pWindowText->m_iSizeY >= font->height) && (m_bIsFocus))
+		    m_pWindowCursor->show();
+		else if (!m_bIsFocus)
+		    m_pWindowCursor->hide();
+        
+        return this;
 	}
 
 	void Edit::_OnKeyButtonPressed(int keyEvent, wchar_t cText) // вызывается при нажатии клавиши клавы
@@ -73,7 +77,7 @@ namespace MyGUI {
 			GUI::getSingleton()->setKeyFocus(0); // сброс активности ввода
 			return;
 		}
-		DisplayString strText = m_pWindowText->getWindowText();
+		DisplayString strText = m_pWindowText->getCaption();
 		if (keyEvent == KC_BACK) {
 			uint size = (uint)strText.size();
 			if (size > 0) strText.resize(size-1);
@@ -87,7 +91,7 @@ namespace MyGUI {
 		} else if (cText == 0) return; // клавиша без знака
 		else strText = strText + cText;
 
-		setWindowText(strText);
+		setCaption(strText);
 	}
 	
 	Edit *Edit::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
