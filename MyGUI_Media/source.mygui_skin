@@ -292,6 +292,7 @@ windowSkin SKIN_DROP_LIST
 	}
 }
 
+//A drop down list-- but with an edit field for custom entries
 windowSkin SKIN_COMBO_BOX
 {
 	//скин едита

@@ -4,9 +4,6 @@
 
 namespace MyGUI {
 
-	class Window;
-	class GUI;
-
 	class Button : public Window {
         Button(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
 	public:
@@ -20,6 +17,8 @@ namespace MyGUI {
 		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
 		void onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed); // нажата левая кнопка мыши
 
+        //Called when the user clicks on a button
+        private:
 		void showPressed(bool bIsPressed); // показ но не смена нажатия
 
 	};

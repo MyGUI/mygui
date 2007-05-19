@@ -16,7 +16,7 @@ namespace MyGUI {
 		m_uSizeScroll(0),
 		m_uPosScroll(0)
 	{
-		setState(WS_DEACTIVE);
+		setState(WS_DEACTIVATED);
 	}
 
 	void VScroll::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша
@@ -59,12 +59,13 @@ namespace MyGUI {
 
 		if (pWindow == m_pWindowTrack) { // ползунок
 			if (bIsLeftButtonPressed)
-			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[SKIN_STATE_SELECTED]);
+			    pWindow->setSkinState(SKIN_STATE_SELECTED);
 			else {
-				pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[SKIN_STATE_ACTIVED]);
+				pWindow->setSkinState(SKIN_STATE_ACTIVE);
 				setScrollPos(m_uPosScroll);
 			}
-			m_iRealMousePosY = GUI::getSingleton()->m_overlayContainerMouse->getTop() + GUI::getSingleton()->m_iCurrentOffsetCursorY - m_pWindowTrack->m_iPosY;
+			m_iRealMousePosY = GUI::getSingleton()->m_overlayContainerMouse->getTop() + 
+			    GUI::getSingleton()->m_iCurrentOffsetCursorY - m_pWindowTrack->m_iPosY;
 			return;
 		}
 
@@ -73,14 +74,12 @@ namespace MyGUI {
 		else if (pWindow->m_uExData & WES_VSCROLL_DOWN) flag = WES_VSCROLL_DOWN;
 
 		if (flag != 0) {
-			__SKIN_STATES Skin = SKIN_STATE_ACTIVED;
+			__SKIN_STATES Skin = SKIN_STATE_ACTIVE;
 			if (bIsLeftButtonPressed) Skin = SKIN_STATE_SELECTED;
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
-				if (pChild->m_uExData & flag) {
-					if (!pChild->m_paStrSkins[Skin].empty())
-					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
-				}
+				if (pChild->m_uExData & flag)
+				    pChild->setSkinState(Skin);
 			}
 		}
 	}
@@ -120,7 +119,7 @@ namespace MyGUI {
 			setState(WS_NORMAL);
 			if (m_pWindowTrack) m_pWindowTrack->show(true);
 		} else { // скрываем ползунок и заблокируем линейки
-			setState(WS_DEACTIVE);
+			setState(WS_DEACTIVATED);
 			if (m_pWindowTrack) m_pWindowTrack->show(false);
 		}
 		recalcScroll();
@@ -147,9 +146,9 @@ namespace MyGUI {
 	{
 		if (pWindow == m_pWindowTrack) { // ползунок
 			if (bIsFocus)
-			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[SKIN_STATE_ACTIVED]);
+			    pWindow->setSkinState(SKIN_STATE_ACTIVE);
 			else
-			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[SKIN_STATE_NORMAL]);
+			    pWindow->setSkinState(SKIN_STATE_NORMAL);
 			return;
 		}
 
@@ -159,13 +158,14 @@ namespace MyGUI {
 
 		if (flag != 0) {
 			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
-			if (bIsFocus) Skin = SKIN_STATE_ACTIVED;
+			
+			if (bIsFocus)
+			    Skin = SKIN_STATE_ACTIVE;
+			
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
-				if (pChild->m_uExData & flag) {
-					if (!pChild->m_paStrSkins[Skin].empty())
-					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
-				}
+				if (pChild->m_uExData & flag)
+					pChild->setSkinState(Skin);
 			}
 		}
 	}

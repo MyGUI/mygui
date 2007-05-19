@@ -6,7 +6,7 @@ using namespace MyGUI;
 
 void OptionsState::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена левая кнопка мыши на этом же элементе
 {
-	if (pWindow == m_buttonExit) {
+    if (pWindow == m_buttonExit) {
 		MyGUI::GUI::getSingleton()->createMessage(
 		    "Message", "Do you really want to exit?", MESSAGE_ID_EXIT, true, "Ok", "Cancel");
 	} else if (pWindow == m_buttonSave) mEditor.saveSkin("test.mygui_skin");

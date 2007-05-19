@@ -79,41 +79,54 @@ namespace MyGUI {
 		
 		void showFocus(bool bIsFocus); // активирование окна
 	    
-	    virtual Window *setCaption(const DisplayString & strText); //Places text in the window in whatever way the window defines it
-		const DisplayString & getCaption(); // возвращает строку окна
-        virtual Window * alignCaption(); // выполняет выравнивание текста
-        	
-		//??
-		Window *alignWindow(int16 rNewSizeX, int16 rNewSizeY); // выравнивает окно относительно отца
-		
-		// Sets the font that the text in the window uses (?)
-		Window *setFont(const Ogre::String &Font, Ogre::ColourValue colour);
-		Window *setFont(const String &Font) { setFont(Font, m_fontColour); return this; }
-		const __tag_MYGUI_FONT_INFO *getFont() const;
-		Window *setColour(Ogre::ColourValue colour);
-		Ogre::ColourValue getColour() const { return m_fontColour; }
-		
-		private:
-		void Window::bootFont(); //sets up the overlays for the font
-		Ogre::ColourValue m_fontColour; // цвет текста
-		String m_font; // шрифт окна
+	    
+	    /*
+	        Relating to captions, their fonts and colours, etc.
+        */
+            private:
+            //largely redundant with the get/set Caption functions in overlays
+		    DisplayString m_strWindowText; // текст окна для буфера обрезки, когда текст не обрезан эта строка пуста
+		    
+		    public:
+	        //??
+		    Window *alignWindow(int16 rNewSizeX, int16 rNewSizeY); // выравнивает окно относительно отца
+    		
+    		//Fonts
+		    Window *setFont(const Ogre::String &Font, Ogre::ColourValue colour);
+		    Window *setFont(const String &Font) { setFont(Font, m_fontColour); return this; }
+		    const __tag_MYGUI_FONT_INFO *getFont() const;
+		    
+		    //Colours
+		    Window *setColour(Ogre::ColourValue colour);
+		    Ogre::ColourValue getColour() const { return m_fontColour; }
+		    
+		    //The Caption itself
+		    virtual Window *setCaption(const DisplayString & strText); //Places text in the window in whatever way the window defines it
+		    const DisplayString & getCaption(); // возвращает строку окна
+            virtual Window * alignCaption(); // выполняет выравнивание текста
+    		
+		    private:
+		    void Window::bootFont(); //sets up the overlays for the font
+		    Ogre::ColourValue m_fontColour; // цвет текста
+		    String m_font; // шрифт окна
+		    		    
+		    public:
+		    Ogre::OverlayContainer* m_overlayCaption; // оверлей текста	
+		    //A window for the caption on this window		    
+		    void setWindowText(Window *win) { m_pWindowText = win; } //preferred method of manipulating
+		    Window * m_pWindowText;   // элемент скина содержащий текст всего элемента (по дефолту this)
 		
 		public:
 		void addEvent(uint16 addEvent) {m_uEventCallback |= addEvent;}; // добавляет событие на которое надо реагировать
         
-        //??
-		inline void setUserString(const DisplayString & strUserString) {m_strUserString = strUserString;}; // ставит строку пользователя
-		inline DisplayString & getUserString() {return m_strUserString;}; // возвращает строку пользователя
-		
-		//??
+        //User data is a catch-all extra variable that different widgets use for different things
 		inline void setUserData(uint32 uUserData) {m_uUserData = uUserData;}; // ставит данные пользователя
 		inline uint32 getUserData() {return m_uUserData;}; // возвращает данные пользователя
 
 		//Somehow related to its representation in Ogre
 		Ogre::Overlay* m_overlay; // оверлей этого окна
 		Ogre::PanelOverlayElement * m_overlayContainer; // оверлей элемента
-		Ogre::OverlayContainer* m_overlayCaption; // оверлей текста	
-		
+				
 		/*
 		    Child windows of this window.  Each window is actually made up of a main window
 		    and anywhere from 0 to many child windows, which define things such as frames and other
@@ -125,9 +138,6 @@ namespace MyGUI {
 		Window * m_pWindowParent; // A link back to this window's parent.  NULL if this is a root object
 		
 		//??
-		Window * m_pWindowText;   // элемент скина содержащий текст всего элемента (по дефолту this)
-		
-		//??
 		Window * m_pWindowClient; // элемент скина является клиенским окном всего элемента (по дефолту this)
 		
 		int m_iPosX, m_iPosY,
@@ -136,7 +146,7 @@ namespace MyGUI {
 		//??
 		int m_iOffsetAlignX, m_iOffsetAlignY; // смещение, используется только при выравнивании по центру без растяжения
 
-		uint8 m_uState; // статус окна
+		__WINDOW_STATE m_uState; // статус окна
 		EventCallback *m_pEventCallback; // указатель на класс для вызова функций
 		uint16 m_uEventCallback; // флаги для посылки событий
 		uint16 m_uAlign; // выравнивание окна и текста
@@ -144,19 +154,20 @@ namespace MyGUI {
 		int16 m_sizeTextY; // размер текста окна
 		int16 m_sizeCutTextX; // видимый размер текста
 		int16 m_sizeCutTextY; // видимый размер текста
-		DisplayString m_strWindowText; // текст окна для буфера обрезки, когда текст не обрезан эта строка пуста
-				
+		
 		bool m_bIsOverlapped; //Is this window being overlapped by another window somewhere
 		
 		//??
-		bool m_bIsTextShiftPressed; // сдвинут ли текст вниз 
-        
-        //The font this window is using.
-		String m_paStrSkins[__SKIN_STATE_COUNT]; // скины состояний
+		protected:
+		void shiftText(bool IsShiftText);
+		
+		private:
+        String mStateSkins[__SKIN_STATE_COUNT]; // скины состояний
+		
+		public:
+		void setSkinState(__SKIN_STATES);
+		
 		uint16 m_uExData; // дополнительная информация об элементе
-
-		DisplayString m_strUserString; // строка для дополнительной информации пользователя
 		uint32 m_uUserData; // дополнительная информация пользователя
-
 	};
 }

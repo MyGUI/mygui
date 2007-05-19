@@ -361,13 +361,18 @@ namespace MyGUI {
 
 	void List::insertString(uint16 index, const DisplayString & strElement, bool bIsRedraw) // вставить строку в список
 	{
-		m_aString.push_back(0);
-		int16 size = (int16)m_aString.size();
-		if (index >= size) index = size - 1;
-
-		for (int16 pos=size-1; pos>index; pos--) {
+		m_aString.push_back(NULL); //make room for the new string
+		size_t size = m_aString.size();
+		
+		//cap bounds
+		if ((size_t)index >= size)
+		    index = uint16(size - 1);
+        
+        //move elements in the list down to make room for the new one
+        for (size_t pos=size-1; pos>(size_t)index; pos--) {
 			m_aString[pos] = m_aString[pos-1];
 		}
+		
 		m_aString[index] = new DisplayString(strElement);
 
 		if (bIsRedraw) {
@@ -378,12 +383,11 @@ namespace MyGUI {
 
 	const DisplayString & List::getString(uint16 index) // возвращает строку
 	{
-		if (index >= (int16)m_aString.size()) {
-			// ВНИМАНИЕ никогда так не делайте, будут ошибки при сравнении
-			static const DisplayString strEmpty("");
-			return strEmpty;
-		}
-		return *m_aString[index];
+	    static DisplayString ReturnDefault("");
+		if (index >= (int16)m_aString.size())
+			return ReturnDefault;
+		else
+		    return *m_aString[index];
 	}
 
 	void List::setFont(const String &lpFont, ColourValue colour)

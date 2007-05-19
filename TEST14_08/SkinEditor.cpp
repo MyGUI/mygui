@@ -29,10 +29,10 @@ const string VALUE_SKIN_OFFSET = "offset";
 const string VALUE_SKIN_EVENT = "event";
 const string VALUE_SKIN_ALIGN = "align";
 const string VALUE_SKIN_STYLE = "style";
-const string VALUE_STATE_DEACTIVED = "deactived_position";
+const string VALUE_STATE_DEACTIVATED = "deactivated_position";
 const string VALUE_STATE_NORMAL = "normal_position";
 const string VALUE_STATE_PRESSED = "pressed_position";
-const string VALUE_STATE_ACTIVED = "actived_position";
+const string VALUE_STATE_ACTIVATED = "activated_position";
 const string VALUE_STATE_SELECTED = "selected_position";
 //===================================================================================
 const uint32 FLAG_EVENT = 0x10000;
@@ -420,10 +420,10 @@ bool SkinEditor::createEditor() // создает окно редактирования скинов
 	
 	m_comboSabSkinState = m_mainWindow->spawn<ComboBox>(20, 370, 200, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_DROP_LIST);
 	m_comboSabSkinState->m_pEventCallback = this;
-	m_comboSabSkinState->addString("WS_DEACTIVE");
+	m_comboSabSkinState->addString("WS_DEACTIVATED");
 	m_comboSabSkinState->addString("WS_NORMAL");
 	m_comboSabSkinState->addString("WS_PRESSED");
-	m_comboSabSkinState->addString("WS_ACTIVED");
+	m_comboSabSkinState->addString("WS_ACTIVATED");
 	m_comboSabSkinState->addString("WS_SELECTED");
 
 	text = m_mainWindow->spawn<StaticText>(222, 400, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
@@ -604,7 +604,7 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 	std::ofstream fp;
 	fp.open(strFileName.c_str(), ios_base::out | ios_base::trunc);
 
-	String strState[5] = {VALUE_STATE_DEACTIVED, VALUE_STATE_NORMAL, VALUE_STATE_PRESSED, VALUE_STATE_ACTIVED, VALUE_STATE_SELECTED};
+	String strState[5] = {VALUE_STATE_DEACTIVATED, VALUE_STATE_NORMAL, VALUE_STATE_PRESSED, VALUE_STATE_ACTIVATED, VALUE_STATE_SELECTED};
 	vector <String> astrSubSkinName; // имена уже сохраненых саб скинов
 
 	for (uint8 index=0; index<mWindowInfo.size(); index++) {
@@ -742,10 +742,10 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 	if (!ini.open(strFileName.c_str())) return;
 
 	String strState[5] = {
-	    VALUE_STATE_DEACTIVED,
+	    VALUE_STATE_DEACTIVATED,
 	    VALUE_STATE_NORMAL,
 	    VALUE_STATE_PRESSED,
-	    VALUE_STATE_ACTIVED,
+	    VALUE_STATE_ACTIVATED,
 	    VALUE_STATE_SELECTED};
 
 	while (ini.seekNextBlock()) {
@@ -1154,14 +1154,14 @@ void SkinEditor::enableSkinInfo(bool bEnable) // блокирует
 
 	// заблокируем
 	} else {
-		m_buttonSabSkinStyle->setState(WS_DEACTIVE);
+		m_buttonSabSkinStyle->setState(WS_DEACTIVATED);
 		m_comboSabSkinState->setCaption("");
-		m_comboSabSkinState->setState(WS_DEACTIVE);
+		m_comboSabSkinState->setState(WS_DEACTIVATED);
 		for (uint8 pos=0; pos<4; pos++) {
 			m_editOffset[pos]->setCaption("");
-			m_editOffset[pos]->setState(WS_DEACTIVE);
+			m_editOffset[pos]->setState(WS_DEACTIVATED);
 			m_editPosition[pos]->setCaption("");
-			m_editPosition[pos]->setState(WS_DEACTIVE);
+			m_editPosition[pos]->setState(WS_DEACTIVATED);
 		}
 	}
 }
@@ -1189,21 +1189,21 @@ void SkinEditor::enableWindowInfo(bool bEnable) // блокирует все окна
 
 		enableSkinInfo(false);
 		m_comboSabSkinName->setCaption("");
-		m_comboSabSkinName->setState(WS_DEACTIVE);
+		m_comboSabSkinName->setState(WS_DEACTIVATED);
 		m_comboMaterialName->setCaption("");
-		m_comboMaterialName->setState(WS_DEACTIVE);
+		m_comboMaterialName->setState(WS_DEACTIVATED);
 		m_comboBasisColour->setCaption("");
-		m_comboBasisColour->setState(WS_DEACTIVE);
+		m_comboBasisColour->setState(WS_DEACTIVATED);
 		m_comboBasisFont->setCaption("");
-		m_comboBasisFont->setState(WS_DEACTIVE);
+		m_comboBasisFont->setState(WS_DEACTIVATED);
 		m_editBasisData1->setCaption("");
-		m_editBasisData1->setState(WS_DEACTIVE);
+		m_editBasisData1->setState(WS_DEACTIVATED);
 		m_editBasisData2->setCaption("");
-		m_editBasisData2->setState(WS_DEACTIVE);
+		m_editBasisData2->setState(WS_DEACTIVATED);
 		m_comboBasisAddedSkin1->setCaption("");
-		m_comboBasisAddedSkin1->setState(WS_DEACTIVE);
+		m_comboBasisAddedSkin1->setState(WS_DEACTIVATED);
 		m_comboBasisAddedSkin2->setCaption("");
-		m_comboBasisAddedSkin2->setState(WS_DEACTIVE);
+		m_comboBasisAddedSkin2->setState(WS_DEACTIVATED);
 		m_comboBasisWindowName->setCaption("");
 
 	}

@@ -40,12 +40,10 @@ namespace MyGUI {
 
 	void ComboBox::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
 	{
-		if (pWindow->m_uExData & WES_COMBO) showFocus(bIsFocus);
-		else if (pWindow->m_uExData & WES_COMBO_BUTTON) {
-			__SKIN_STATES Skin = bIsFocus ? SKIN_STATE_ACTIVED : SKIN_STATE_NORMAL;
-			if (!pWindow->m_paStrSkins[Skin].empty())
-			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[Skin]);
-		}
+		if (pWindow->m_uExData & WES_COMBO)
+		    showFocus(bIsFocus);
+		else if (pWindow->m_uExData & WES_COMBO_BUTTON)
+			pWindow->setSkinState(bIsFocus ? SKIN_STATE_ACTIVE : SKIN_STATE_NORMAL);
 	}
 
 	void ComboBox::onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed) // нажата левая кнопка мыши
@@ -53,17 +51,18 @@ namespace MyGUI {
 		if (pWindow == m_pEdit) return; // окно редактирования
 		
 		if (pWindow->m_uExData & WES_COMBO) {
-			if (bIsLeftButtonPressed) setState(WS_PRESSED);
-			else setState(WS_NORMAL);
-		} else if (pWindow->m_uExData & WES_COMBO_BUTTON) {
-			__SKIN_STATES Skin  = bIsLeftButtonPressed ? SKIN_STATE_SELECTED : SKIN_STATE_ACTIVED;
-			if (!pWindow->m_paStrSkins[Skin].empty())
-			    pWindow->m_overlayContainer->setMaterialName(pWindow->m_paStrSkins[Skin]);
-		}
+			if (bIsLeftButtonPressed)
+			    setState(WS_PRESSED);
+			else
+			    setState(WS_NORMAL);
+		} else if (pWindow->m_uExData & WES_COMBO_BUTTON)
+			pWindow->setSkinState(bIsLeftButtonPressed ? SKIN_STATE_SELECTED : SKIN_STATE_ACTIVE);
 
 		if (bIsLeftButtonPressed) {
-			if (m_bHideList) m_bHideList = false; // не было клика
-			else if (m_bIsListShow) m_bHideList = true; // лист был виден
+		    if (m_bHideList)
+		        m_bHideList = false; // не было клика
+			else if (m_bIsListShow)
+			    m_bHideList = true; // лист был виден
 		}
 
 	}
@@ -208,7 +207,8 @@ namespace MyGUI {
 			 // создаем дочернии окна скины
 			Window * pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
+			if (pChild->m_uExData & WES_TEXT)
+			    pWindow->setWindowText(pChild);
 		}
 		
 		const __tag_MYGUI_SKIN_INFO * pSkinTmpA = AssetManager::getSingleton()->Skins()->getDefinition(pSkin->data3);

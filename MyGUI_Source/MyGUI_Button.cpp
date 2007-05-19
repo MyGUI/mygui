@@ -32,60 +32,57 @@ namespace MyGUI {
 
 	void Button::onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed) // нажата левая кнопка мыши
 	{
-		if (pWindow->m_uExData & WES_BUTTON) showPressed(bIsLeftButtonPressed);
+		if (pWindow->m_uExData & WES_BUTTON)
+		    showPressed(bIsLeftButtonPressed);
 	}
 
-	void Button::showPressed(bool bIsPressed) // показ но не смена нажатия
+	void Button::showPressed(bool bIsLeftPressed) // показ но не смена нажатия
 	{
-		if (m_uState == WS_DEACTIVE) return;
+		if (m_uState == WS_DEACTIVATED)
+		    return;
+		
 		__SKIN_STATES Skin = __SKIN_STATE_COUNT;
 		bool bIsShiftText = false;
 
-		if (bIsPressed) {
-			if (m_uState == WS_NORMAL) {
-				Skin = SKIN_STATE_PRESSED;
-			} else if (m_uState == __WS_ACTIVED) {
-				Skin = SKIN_STATE_SELECTED;
-			} else return;
+		if (bIsLeftPressed) {
+		    switch(m_uState)
+		    {
+		        case WS_NORMAL:
+		            Skin = SKIN_STATE_PRESSED;
+		            break;
+		        case __WS_ACTIVATED:
+		            Skin = SKIN_STATE_SELECTED;
+		            break;
+		        default:
+		            return;
+			}
 			bIsShiftText = true;
 		} else {
-			if (m_uState == WS_NORMAL) { // возвращаем скин на место
-				Skin = SKIN_STATE_NORMAL;
-			} else if (m_uState == __WS_ACTIVED) { // возвращаем скин на место
-				Skin = SKIN_STATE_ACTIVED;
-			} else return;
+		    switch(m_uState)
+		    {
+		        case WS_NORMAL:
+		            Skin = SKIN_STATE_NORMAL;
+		            break;
+		        case __WS_ACTIVATED:
+		            Skin = SKIN_STATE_ACTIVE;
+		            break;
+		        default:
+		            return;
+		    }
 		}
 
 		if (Skin != __SKIN_STATE_COUNT) { // меняем скины состояний
 			// основное окно
-			if (m_uExData & WES_BUTTON) {
-				if (!m_paStrSkins[Skin].empty())
-				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
-			}
-			// детишки
+			if (m_uExData & WES_BUTTON)
+				setSkinState(Skin);
+			
+			//Set all the children windows' graphics to the current state
 			for (ChildWindowsIterator i = mChildWindows.begin(); i != mChildWindows.end(); ++i)
-			{			    
-				Window * pChild = *i;
-				if (pChild->m_uExData & WES_BUTTON && !pChild->m_paStrSkins[Skin].empty())
-				    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
-			}
+				if ((*i)->m_uExData & WES_BUTTON)
+				    (*i)->setSkinState(Skin);
 		}
         
-        //What is all this about?
-		if (bIsShiftText != m_pWindowText->m_bIsTextShiftPressed) { // сдвиг текста
-			m_pWindowText->m_bIsTextShiftPressed = bIsShiftText;
-			if (m_pWindowText->m_uAlign & WAT_SHIFT_TEXT) {
-				if (m_pWindowText->m_overlayCaption) {
-					if (m_pWindowText->m_bIsTextShiftPressed)
-					    m_pWindowText->m_overlayCaption->setTop(
-					        m_pWindowText->m_overlayCaption->getTop()+__GUI_BUTTON_SHIFT_TEXT_PRESSED);
-					else
-					    m_pWindowText->m_overlayCaption->setTop(
-					        m_pWindowText->m_overlayCaption->getTop()-__GUI_BUTTON_SHIFT_TEXT_PRESSED);
-				}
-			}
-		}
-
+        shiftText(bIsShiftText);
 	}
 
 	Button *Button::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
@@ -106,7 +103,7 @@ namespace MyGUI {
 			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT)
-			    pWindow->m_pWindowText = pChild;
+			    pWindow->setWindowText(pChild);
 		}		
 		
 		pWindow->m_uAlign |= uAlign;

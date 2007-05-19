@@ -158,6 +158,7 @@ namespace MyGUI {
 		// the miscalculation of activity of windows, for correctness of display
         // eventMouseMove (m_overlayContainerMouse-> getLeft ()/m_uWidth, 0.0, m_overlayContainerMouse-> getTop ()/m_uHeight, false);
         // it is sent at and * 22 
+		
 		if (m_pEventCallback)
 		    m_pEventCallback->onWarningEvent(pWindow, WE_WARNING_CHILD_DELETE);
 	}

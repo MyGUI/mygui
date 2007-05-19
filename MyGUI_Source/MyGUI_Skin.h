@@ -12,9 +12,9 @@ namespace MyGUI {
 	};
 
 	enum __SKIN_STATES {
-		SKIN_STATE_DEACTIVED, // недоступен
+		SKIN_STATE_DEACTIVATED, // недоступен
 		SKIN_STATE_NORMAL, // обычное состояние
-		SKIN_STATE_ACTIVED, // наведен курсор, активен
+		SKIN_STATE_ACTIVE, // наведен курсор, активен
 		SKIN_STATE_PRESSED, // нажат
 		SKIN_STATE_SELECTED, // выделен (нажат и активен)
 		__SKIN_STATE_COUNT // !!! не использовать
@@ -45,11 +45,11 @@ namespace MyGUI {
 		int16 sizeX; // размер X
 		int16 sizeY; // размер Y
 		// скины состояния окна
-		String pStrSkinNormal; // обычный скин
-		String pStrSkinDeactived; // заблокирован
-		String pStrSkinActived; // наведен курсор
-		String pStrSkinSelected; // наведен курсор и нажат
-		String pStrSkinPressed; // нажат
+		String SkinNormal; // обычный скин
+		String SkinDeactivated; // заблокирован
+		String SkinActive; // наведен курсор
+		String SkinSelected; // наведен курсор и нажат
+		String SkinPressed; // нажат
 		// у главного окна игногируются
 		uint16 align; // выравнивание
 		uint16 event_info; // сообщения посылаемые отцу

@@ -29,7 +29,6 @@ namespace MyGUI {
 		m_sizeCutTextX(0),
 		m_sizeCutTextY(0),
 		m_bIsOverlapped(0),
-		m_bIsTextShiftPressed(false),
 		m_font(FONT_DEFAULT),
 		m_fontColour(1,1,1),
 		m_uExData(lpSkin->exdata),
@@ -38,11 +37,11 @@ namespace MyGUI {
 		m_pWindowText = this;
 		m_pWindowClient = this;
 		
-		if (lpSkin->pStrSkinDeactived.length()) m_paStrSkins[SKIN_STATE_DEACTIVED] = lpSkin->pStrSkinDeactived;
-		if (lpSkin->pStrSkinNormal.length()) m_paStrSkins[SKIN_STATE_NORMAL] = lpSkin->pStrSkinNormal;
-		if (lpSkin->pStrSkinActived.length()) m_paStrSkins[SKIN_STATE_ACTIVED] = lpSkin->pStrSkinActived;
-		if (lpSkin->pStrSkinPressed.length()) m_paStrSkins[SKIN_STATE_PRESSED] = lpSkin->pStrSkinPressed;
-		if (lpSkin->pStrSkinSelected.length()) m_paStrSkins[SKIN_STATE_SELECTED] = lpSkin->pStrSkinSelected;
+		mStateSkins[SKIN_STATE_DEACTIVATED]    = lpSkin->SkinDeactivated;
+		mStateSkins[SKIN_STATE_NORMAL]         = lpSkin->SkinNormal;
+		mStateSkins[SKIN_STATE_ACTIVE]      = lpSkin->SkinActive;
+		mStateSkins[SKIN_STATE_PRESSED]        = lpSkin->SkinPressed;
+		mStateSkins[SKIN_STATE_SELECTED]       = lpSkin->SkinSelected;
 
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		
@@ -54,8 +53,7 @@ namespace MyGUI {
 		m_overlayContainer->setPosition(m_iPosX, m_iPosY);
 		m_overlayContainer->setDimensions(m_iSizeX, m_iSizeY);
 		
-		if (!m_paStrSkins[SKIN_STATE_NORMAL].empty())
-		    m_overlayContainer->setMaterialName(m_paStrSkins[SKIN_STATE_NORMAL]);
+		setSkinState(SKIN_STATE_NORMAL);
 
 		size_t size = GUI::getSingleton()->mRootWindows.size();
 		int16 index = -1;
@@ -276,7 +274,8 @@ namespace MyGUI {
 		if (m_uAlign & __WAT_IS_CUT) {
 
 			if ((m_sizeTextX > (m_iSizeX-__GUI_FONT_SIZE_HOFFSET)) || (m_sizeTextY > m_iSizeY)) { // нужно обрезать
-				if (m_strWindowText == "") m_strWindowText = m_overlayCaption->getCaption(); // текст не был сохранен
+				if (m_strWindowText.empty())
+				    m_strWindowText = m_overlayCaption->getCaption(); // текст не был сохранен
 				m_sizeCutTextX = m_iSizeX-__GUI_FONT_SIZE_HOFFSET;
 				m_sizeCutTextY = m_iSizeY;
 				DisplayString strDest;
@@ -288,7 +287,7 @@ namespace MyGUI {
 				m_overlayCaption->setLeft(__GUI_FONT_HOFFSET);
 
 			} else { // обрезка не нужна
-				if (m_strWindowText != "") { // восстанавливаем сохраненный текст
+				if (!m_strWindowText.empty()) { // восстанавливаем сохраненный текст
 					m_overlayCaption->setCaption(m_strWindowText);
 					m_strWindowText = "";
 					m_sizeCutTextX = m_sizeTextX;
@@ -354,20 +353,20 @@ namespace MyGUI {
 		__SKIN_STATES Skin = __SKIN_STATE_COUNT;
 		bool bIsShiftText = false;
 
-		if (uState == WS_DEACTIVE) {
-			m_uState = WS_DEACTIVE;
-			Skin = SKIN_STATE_DEACTIVED;
+		if (uState == WS_DEACTIVATED) {
+			m_uState = WS_DEACTIVATED;
+			Skin = SKIN_STATE_DEACTIVATED;
 		} else if (uState == WS_NORMAL) {
 			if (m_uState == __WS_SELECTED) {
-				m_uState = __WS_ACTIVED;
-				Skin = SKIN_STATE_ACTIVED;
+				m_uState = __WS_ACTIVATED;
+				Skin = SKIN_STATE_ACTIVE;
 			} else {
 				m_uState = WS_NORMAL;
 				Skin = SKIN_STATE_NORMAL;
 			}
 		} else if (uState == WS_PRESSED) {
 			bIsShiftText = true;
-			if (m_uState == __WS_ACTIVED) {
+			if (m_uState == __WS_ACTIVATED) {
 				m_uState = __WS_SELECTED;
 				Skin = SKIN_STATE_SELECTED;
 			} else {
@@ -379,24 +378,38 @@ namespace MyGUI {
 		if (Skin != __SKIN_STATE_COUNT) { // меняем скины состояний
 			// основное окно
 			if (m_uExData & WES_BUTTON) {
-				if (!m_paStrSkins[Skin].empty())
-				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
+				setSkinState(Skin);
 			}
 			// детишки
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & WES_BUTTON) {
-					if (!pChild->m_paStrSkins[Skin].empty())
-					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
+					pChild->setSkinState(Skin);
 				}
 			}
 		}
+		
+		shiftText(bIsShiftText);
+	}
 
-		if (bIsShiftText != m_pWindowText->m_bIsTextShiftPressed) { // сдвиг текста
-			m_pWindowText->m_bIsTextShiftPressed = bIsShiftText;
+	uint8 Window::getState()  // состояние окна
+	{
+		if (m_uState == __WS_ACTIVATED)
+		    return WS_NORMAL;
+		if (m_uState == __WS_SELECTED)
+		    return WS_PRESSED;
+		return m_uState;
+	}
+	
+	void Window::shiftText(bool bIsShiftText)
+	{
+	    static bool m_bIsTextShiftPressed = false;
+	    
+	    if (bIsShiftText != m_bIsTextShiftPressed) { // сдвиг текста
+			m_bIsTextShiftPressed = bIsShiftText;
 			if (m_pWindowText->m_uAlign & WAT_SHIFT_TEXT) {
 				if (m_pWindowText->m_overlayCaption) {
-					if (m_pWindowText->m_bIsTextShiftPressed)
+					if (m_bIsTextShiftPressed)
 					    m_pWindowText->m_overlayCaption->setTop(m_pWindowText->m_overlayCaption->getTop()
                             + __GUI_BUTTON_SHIFT_TEXT_PRESSED);
 					else
@@ -404,32 +417,24 @@ namespace MyGUI {
 					        - __GUI_BUTTON_SHIFT_TEXT_PRESSED);
 				}
 			}
-		}
-
-	}
-
-	uint8 Window::getState()  // состояние окна
-	{
-		if (m_uState == __WS_ACTIVED) return WS_NORMAL;
-		if (m_uState == __WS_SELECTED) return WS_PRESSED;
-		return m_uState;
+		}	
 	}
 
 	void Window::showFocus(bool bIsFocus) // активирование окна
 	{
-		if (m_uState == WS_DEACTIVE) return;
+		if (m_uState == WS_DEACTIVATED) return;
 		__SKIN_STATES Skin = __SKIN_STATE_COUNT;
 
 		if (bIsFocus) {
 			if (m_uState == WS_NORMAL) {
-				m_uState = __WS_ACTIVED;
-				Skin = SKIN_STATE_ACTIVED;
+				m_uState = __WS_ACTIVATED;
+				Skin = SKIN_STATE_ACTIVE;
 			} else if (m_uState == WS_PRESSED) {
 				m_uState = __WS_SELECTED;
 				Skin = SKIN_STATE_SELECTED;
 			}
 		} else {
-			if (m_uState == __WS_ACTIVED) {
+			if (m_uState == __WS_ACTIVATED) {
 				m_uState = WS_NORMAL;
 				Skin = SKIN_STATE_NORMAL;
 			} else if (m_uState == __WS_SELECTED) {
@@ -441,17 +446,22 @@ namespace MyGUI {
 		if (Skin != __SKIN_STATE_COUNT) {
 			// основное окно
 			if (m_uExData & WES_BUTTON) {
-				if (!m_paStrSkins[Skin].empty())
-				    m_overlayContainer->setMaterialName(m_paStrSkins[Skin]);
+				setSkinState(Skin);
 			}
 			// детишки
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
-				if (pChild->m_uExData & WES_BUTTON && !pChild->m_paStrSkins[Skin].empty())
-				    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
+				if (pChild->m_uExData & WES_BUTTON)
+				    pChild->setSkinState(Skin);
 			}
 		}
 
+	}
+	
+	void Window::setSkinState(__SKIN_STATES Skin)
+	{
+	    if(!mStateSkins[Skin].empty())
+	        m_overlayContainer->setMaterialName(mStateSkins[Skin]);
 	}
 
 	bool Window::check(int16 iPosX, int16 iPosY, bool bCapture) // bCapture продолжать ли проверку окон
@@ -463,7 +473,7 @@ namespace MyGUI {
 		if (iPosX > m_iPosX+m_iSizeX) return false;
 		if (iPosY > m_iPosY+m_iSizeY) return false;
 		// окно не доступно
-		if (m_uState == WS_DEACTIVE) return true; // чтобы гуи было активно
+		if (m_uState == WS_DEACTIVATED) return true; // чтобы гуи было активно
 
 		if (m_uEventCallback & __WE_IS_ACTION) {
 			GUI::getSingleton()->SetCurrentFocusWindow(this);

@@ -77,12 +77,11 @@ namespace MyGUI {
 				else  GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
 			}
 			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
-			if (bIsFocus) Skin = SKIN_STATE_ACTIVED;
+			if (bIsFocus) Skin = SKIN_STATE_ACTIVE;
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & flag) {
-					if (!pChild->m_paStrSkins[Skin].empty())
-					    pChild->m_overlayContainer->setMaterialName(pChild->m_paStrSkins[Skin]);
+					pChild->setSkinState(Skin);
 				}
 			}
 		}
