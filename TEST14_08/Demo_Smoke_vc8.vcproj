@@ -304,6 +304,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_EventSource.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_GUI.cpp"
 				>
 			</File>
@@ -393,6 +397,10 @@
 			</File>
 			<File
 				RelativePath="..\MyGUI_Source\MyGUI_VScroll.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_Widget.cpp"
 				>
 			</File>
 			<File

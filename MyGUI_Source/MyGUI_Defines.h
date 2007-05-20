@@ -13,6 +13,8 @@ include files
 namespace MyGUI
 {
     const Ogre::uint16 ITEM_NON_SELECT = 0xFFFF; // элемент не выделен
+	
+	//Bit flags done easy
 	#define FLAG_NONE  0
 	#define FLAG(num)  (1<<(num))
 	
@@ -79,75 +81,75 @@ namespace MyGUI
 
 	enum __MESSAGE_BOX_BUTTON {
 		// кнопки окна сообщения
-		MBB_NONE				= FLAG_NONE,
-		MBB_BUTTON1		= FLAG(0),				// первая кнопка подтверждения
-		MBB_BUTTON2		= FLAG(1),				// вторая кнопка отмены
-		MBB_MODAL			= FLAG(2),				// окно запускается в модальном режиме, !!! запускается только одно
+		MBB_NONE				    = FLAG_NONE,
+		MBB_BUTTON1		            = FLAG(0),				// первая кнопка подтверждения
+		MBB_BUTTON2		            = FLAG(1),				// вторая кнопка отмены
+		MBB_MODAL			        = FLAG(2),				// окно запускается в модальном режиме, !!! запускается только одно
 	};
 
 	enum __WINDOW_EX_STYLE { // дополниельные стили элементов скинов
 		// общие флаги
-		WES_NONE								= FLAG_NONE,				// простое окно
-		WES_TEXT								= FLAG(0),						// элемент является насителем текста для всего элемента
-		WES_CLIENT							= FLAG(1),						// элемент является клиетским окном
-		WES_ACTION1							= FLAG(2),
-		WES_ACTION2						= FLAG(3),
-		WES_ACTION3						= FLAG(4),
-		WES_ACTION4						= FLAG(5),
-		WES_ACTION5						= FLAG(6),
-		WES_ACTION6						= FLAG(7),
+		WES_NONE			        = FLAG_NONE,				// простое окно
+		WES_TEXT			        = FLAG(0),						// элемент является насителем текста для всего элемента
+		WES_CLIENT			        = FLAG(1),						// элемент является клиетским окном
+		WES_ACTION1			        = FLAG(2),
+		WES_ACTION2			        = FLAG(3),
+		WES_ACTION3			        = FLAG(4),
+		WES_ACTION4			        = FLAG(5),
+		WES_ACTION5			        = FLAG(6),
+		WES_ACTION6			        = FLAG(7),
 		// флаги для WindowFrame
-		WES_CAPTION							= WES_ACTION1,			// элемент является заголовком
-		WES_RESIZE							= WES_ACTION2,			// элемент является ресайзером
-		WES_CLOSE								= WES_ACTION3,			// элемент является кнопкой закрытия
+		WES_CAPTION			        = WES_ACTION1,			// элемент является заголовком
+		WES_RESIZE			        = WES_ACTION2,			// элемент является ресайзером
+		WES_CLOSE			        = WES_ACTION3,			// элемент является кнопкой закрытия
 		// флаги для Button
-		WES_BUTTON							= WES_ACTION1,			// элемент является кнопкой
+		WES_BUTTON			        = WES_ACTION1,			// элемент является кнопкой
 		// флаги для Edit
-		WES_EDIT								= WES_ACTION1,			// элемент является окном редактирования
-		WES_EDIT_CURSOR				= WES_ACTION2,			// элемент является курсором для окна редактирования
+		WES_EDIT			        = WES_ACTION1,			// элемент является окном редактирования
+		WES_EDIT_CURSOR		        = WES_ACTION2,			// элемент является курсором для окна редактирования
 		// флаги для VScroll
-		WES_VSCROLL_UP					= WES_ACTION1,			// элемент является верхней кнопкой скролла
-		WES_VSCROLL_DOWN				= WES_ACTION2,			// элемент является нижней кнопкой скролла
-		WES_VSCROLL_TRACK				= WES_ACTION3,			// элемент является нижней кнопкой скролла
+		WES_VSCROLL_UP		        = WES_ACTION1,			// элемент является верхней кнопкой скролла
+		WES_VSCROLL_DOWN	        = WES_ACTION2,			// элемент является нижней кнопкой скролла
+		WES_VSCROLL_TRACK	        = WES_ACTION3,			// элемент является нижней кнопкой скролла
 		// флаги для TabBar
-		WES_TAB_TOP						= WES_ACTION1,			// элемент является верхним скином для растягивания
+		WES_TAB_TOP			        = WES_ACTION1,			// элемент является верхним скином для растягивания
 		// флаги для списка
-		WES_LIST_HIDE_SCROLL		= WES_ACTION1,			// скрывать скролл , если он не нужен
+		WES_LIST_HIDE_SCROLL        = WES_ACTION1,			// скрывать скролл , если он не нужен
 		// флаги для выпадающего списка
-		WES_COMBO							= WES_ACTION1,			// выпадающий список
-		WES_COMBO_BUTTON			= WES_ACTION2,			// кнопка в выпадающем списке
+		WES_COMBO			        = WES_ACTION1,			// выпадающий список
+		WES_COMBO_BUTTON	        = WES_ACTION2,			// кнопка в выпадающем списке
 	};
 
 	enum __WINDOW_EVENT { // события на которое окно быдет посылать
-		WE_NONE										= FLAG_NONE,						// ничего не будет посылаться
-		WE_MOUSE_BUTTON						= FLAG(0),								// нажата левая кнпка мыши
-		WE_MOUSE_FOCUS							= FLAG(1),								// смена активности от курсора мыши
-		WE_MOUSE_MOVE							= FLAG(2),								// движение мыши после захвата
-		WE_KEY_FOCUS								= FLAG(3),								// смена фокуса для ввода клавиатуры
-		WE_KEY_BUTTON							= FLAG(4),								// нажата клавиша
-		__WE_IS_ACTION							= WE_MOUSE_BUTTON
-																  | WE_MOUSE_FOCUS
-																  | WE_MOUSE_MOVE
-																  | WE_KEY_FOCUS
-																  | WE_KEY_BUTTON,			// !!! для внутреннего использования , не юзать
+		WE_NONE					    = FLAG_NONE,						// ничего не будет посылаться
+		WE_MOUSE_BUTTON			    = FLAG(0),								// нажата левая кнпка мыши
+		WE_MOUSE_FOCUS			    = FLAG(1),								// смена активности от курсора мыши
+		WE_MOUSE_MOVE			    = FLAG(2),								// движение мыши после захвата
+		WE_KEY_FOCUS			    = FLAG(3),								// смена фокуса для ввода клавиатуры
+		WE_KEY_BUTTON			    = FLAG(4),								// нажата клавиша
+		__WE_IS_ACTION			    = WE_MOUSE_BUTTON
+								    | WE_MOUSE_FOCUS
+								    | WE_MOUSE_MOVE
+								    | WE_KEY_FOCUS
+								    | WE_KEY_BUTTON,			// !!! для внутреннего использования , не юзать
 		// сообщения об опасности, посылаются всегда
-		WE_WARNING_ZORDER_MAX			= FLAG(5),								// слои перекрывающихся окон подобрались к границе
-		WE_WARNING_CHILD_MAX			= FLAG(6),								// колличество дитей равно шагу между слоями
-		WE_WARNING_CHILD_DELETE		= FLAG(7),								// ребенок уничтожен, поправте указатели
+		WE_WARNING_ZORDER_MAX	    = FLAG(5),								// слои перекрывающихся окон подобрались к границе
+		WE_WARNING_CHILD_MAX	    = FLAG(6),								// колличество дитей равно шагу между слоями
+		WE_WARNING_CHILD_DELETE	    = FLAG(7),								// ребенок уничтожен, поправте указатели
 	};
 
 	enum __WINDOW_OTHER_EVENT {
 		// события посылаемые в OtherEvents
-		WOE_NONE										= FLAG_NONE,			// нет сообщения
-		WOE_SCROLL_CHANGE_POS			= FLAG(0),					// изменилась позиция скролла
-		WOE_FRAME_CLOSE						= FLAG(1),					// нажата кнопка закрыть фрейм
-		WOE_EDIT_KEY_ACCEPT					= FLAG(2),					// нажата кнопка энтер
-		WOE_EDIT_KEY_DELETE				= FLAG(3),					// нажата кнопка делит
-		WOE_LIST_SELECT_CHANGE			= FLAG(4),					// изменился выделенный элемент
-		WOE_LIST_SELECT_ACCEPT			= FLAG(5),					// двойной щелчек или энтер на элементе
-		WOE_LIST_SELECT_NONE				= FLAG(6),					// щелчек на пустом месте
-		WOE_COMBO_SELECT_ACCEPT		= FLAG(7),					// активирован элемент
-		WOE_MESSAGE_PRESS_BUTTON	= FLAG(8),					// нажата кнопка в окне сообщения
+		WOE_NONE				    = FLAG_NONE,			// нет сообщения
+		WOE_SCROLL_CHANGE_POS	    = FLAG(0),					// изменилась позиция скролла
+		WOE_FRAME_CLOSE			    = FLAG(1),					// нажата кнопка закрыть фрейм
+		WOE_EDIT_KEY_ACCEPT		    = FLAG(2),					// нажата кнопка энтер
+		WOE_EDIT_KEY_DELETE		    = FLAG(3),					// нажата кнопка делит
+		WOE_LIST_SELECT_CHANGE	    = FLAG(4),					// изменился выделенный элемент
+		WOE_LIST_SELECT_ACCEPT	    = FLAG(5),					// двойной щелчек или энтер на элементе
+		WOE_LIST_SELECT_NONE	    = FLAG(6),					// щелчек на пустом месте
+		WOE_COMBO_SELECT_ACCEPT	    = FLAG(7),					// активирован элемент
+		WOE_MESSAGE_PRESS_BUTTON    = FLAG(8),					// нажата кнопка в окне сообщения
 	};
 
 	enum __WINDOW_STATE {
@@ -160,38 +162,47 @@ namespace MyGUI
 	};
 
 	enum __WINDOW_ALIGN {
-		// выравнивание окон, если хотим двигать окна, то выравниваем (WA_LEFT|WA_TOP)
-		WA_NONE						= FLAG_NONE,					// окно выравнивается по центру
-		WA_HCENTER					= FLAG_NONE,					// липа, при нуле он будет центрировать без растяжения
-		WA_VCENTER					= FLAG_NONE,					// но центрировать не относительно границ отца
-		WA_CENTER					= WA_HCENTER | WA_VCENTER,		// а относительно своего первоначального положения, если нужно другое смотри ниже
-		WA_CENTER_FOTHER		    = FLAG(0),						// это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
-		WA_LEFT						= FLAG(1),						// по левому 
-		WA_RIGHT					= FLAG(2),						// по правому
-		WA_HSTRETCH				    = WA_LEFT | WA_RIGHT,			// растягивание по горизонтали
-		WA_TOP						= FLAG(3),						// по верху 
-		WA_BOTTOM					= FLAG(4),						// по низу
-		WA_VSTRETCH				    = WA_TOP | WA_BOTTOM,			// растягивание по вертикали
-		WA_STRETCH					= WA_HSTRETCH | WA_VSTRETCH,	// растягивание по всем граням
-		// выравнивание текста, у него нет растягивания
-		WAT_NONE					= FLAG_NONE,					// не выравнивать то же, что WAT_LEFT | WAT_TOP
-		WAT_LEFT					= FLAG(5),						// выравнивание по левому краю
-		WAT_RIGHT					= FLAG(6),						// выравнивание по правому краю
-		WAT_HCENTER				    = WAT_LEFT | WAT_RIGHT,			// горизонтально
-		WAT_TOP						= FLAG(7),						// выравнивание по верхнему краю
-		WAT_BOTTOM					= FLAG(8),						// выравнивание по нижнему краю
-		WAT_VCENTER				    = WAT_TOP | WAT_BOTTOM,			// вертикально
-		WAT_CENTER					= WAT_HCENTER | WAT_VCENTER,	// по центру окна
-		// обрезка текста
+		// [ alignment of windows if we wish to move windows it is leveled (WA_LEFT|WA_TOP) ]
+		WA_NONE						= FLAG_NONE,					// [the window is leveled on the center ]
+		WA_HCENTER					= FLAG_NONE,					// center the window horizontally
+		WA_VCENTER					= FLAG_NONE,					// center the window vertically
+		WA_CENTER					= WA_HCENTER | WA_VCENTER,		// center the window in the dead center
+		WA_CENTER_PARENT		    = FLAG(0),						// это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
+		                                                            // Can't seem to translate this text ^
+		WA_LEFT						= FLAG(1),						// justify left
+		WA_RIGHT					= FLAG(2),						// justify right
+		WA_HSTRETCH				    = WA_LEFT | WA_RIGHT,			// stretch to fill the entire parent window horizontally (?)
+		WA_TOP						= FLAG(3),						// align from the top
+		WA_BOTTOM					= FLAG(4),						// align from the bottom
+		WA_VSTRETCH				    = WA_TOP | WA_BOTTOM,			// stretch to fill the entire parent window vertically (?)
+		WA_STRETCH					= WA_HSTRETCH | WA_VSTRETCH,	// stretch to fill the entire parent (?)
+		//Text alignment flags (Window Alignment Text)
+		WAT_NONE					= FLAG_NONE,					// [ to not level the same, that WAT_LEFT | WAT_TOP ]
+		WAT_LEFT					= FLAG(5),						// align by the left edge
+		WAT_RIGHT					= FLAG(6),						// align by the right edge
+		WAT_HCENTER				    = WAT_LEFT | WAT_RIGHT,			// center the text horizontally
+		WAT_TOP						= FLAG(7),						// alignment on the top edge
+		WAT_BOTTOM					= FLAG(8),						// align on the bottom edge
+		WAT_VCENTER				    = WAT_TOP | WAT_BOTTOM,			// align to the vertical center
+		WAT_CENTER					= WAT_HCENTER | WAT_VCENTER,	// total center, both horizontally and vertically
+		//Text is trimmed/cropped (or "cut") if it is too long for a window to display all of it.
+		//These control how that is done (?)
 		WAT_CUT_RIGHT			    = FLAG(9),
-		WAT_CUT_LEFT				= FLAG(10),						// по левой или по правой стороне
-		WAT_ADD_DOT				    = FLAG(11),						// добавлять три точки при обрезке
-		WAT_CUT_RIGHT_DOT	        = WAT_CUT_RIGHT | WAT_ADD_DOT,	// по правой стороне и еще с точками
-		WAT_CUT_LEFT_DOT		    = WAT_CUT_LEFT | WAT_ADD_DOT,	// по левой тороне и еще с точками
-		__WAT_IS_CUT				= WAT_CUT_RIGHT | WAT_CUT_LEFT,	// для внутренних нужд, не юзать!  нужна ли обрезка
-		WAT_MULTI_LINE			    = FLAG(12),						// многострочный текст
-		WAT_BREAK_WORD			    = FLAG(13),						// переносить по словам
-		WAT_SHIFT_TEXT			    = FLAG(14),						// сдвигать ли текст при нажатии
+		WAT_CUT_LEFT				= FLAG(10),						    // crop on the left or right side
+		WAT_ADD_ELLIPSES		    = FLAG(11),						    // add an ellipses after a crop?
+		WAT_CUT_RIGHT_ELLIPSES	    = WAT_CUT_RIGHT | WAT_ADD_ELLIPSES,	// cut and add ellipses on the right side
+		WAT_CUT_LEFT_ELLIPSES	    = WAT_CUT_LEFT | WAT_ADD_ELLIPSES,	// cut and add ellipses on the left side
+		__WAT_IS_CUT				= WAT_CUT_RIGHT | WAT_CUT_LEFT,	    // used for internal uses only.  Tells the engine
+		                                                                // if the text has been cut already or not
+		WAT_MULTI_LINE			    = FLAG(12),						    // The text will be cut into severeal different lines
+		                                                                // if there is room for it.
+		WAT_BREAK_WORD			    = FLAG(13),						    // переносить по словам (??)
+		                                                                // Maybe whether or not to break a word when
+		                                                                // multilining?  Definately only used with multilining
+		                                                                // code.
+		WAT_SHIFT_TEXT			    = FLAG(14),						    // сдвигать ли текст при нажатии
+		                                                                // (?? Language shift maybe?  Like from
+		                                                                // English to Russian?)
 	};
 
 	// курсоры мыши

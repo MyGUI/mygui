@@ -70,7 +70,7 @@ namespace MyGUI {
 		__REGISTER_VALUE_ALIGN(WA_HCENTER);
 		__REGISTER_VALUE_ALIGN(WA_VCENTER);
 		__REGISTER_VALUE_ALIGN(WA_CENTER);
-		__REGISTER_VALUE_ALIGN(WA_CENTER_FOTHER);
+		__REGISTER_VALUE_ALIGN(WA_CENTER_PARENT);
 		__REGISTER_VALUE_ALIGN(WA_LEFT);
 		__REGISTER_VALUE_ALIGN(WA_RIGHT);
 		__REGISTER_VALUE_ALIGN(WA_HSTRETCH);
@@ -88,9 +88,9 @@ namespace MyGUI {
 		__REGISTER_VALUE_ALIGN(WAT_CENTER);
 		__REGISTER_VALUE_ALIGN(WAT_CUT_RIGHT);
 		__REGISTER_VALUE_ALIGN(WAT_CUT_LEFT);
-		__REGISTER_VALUE_ALIGN(WAT_ADD_DOT);
-		__REGISTER_VALUE_ALIGN(WAT_CUT_RIGHT_DOT);
-		__REGISTER_VALUE_ALIGN(WAT_CUT_LEFT_DOT);
+		__REGISTER_VALUE_ALIGN(WAT_ADD_ELLIPSES);
+		__REGISTER_VALUE_ALIGN(WAT_CUT_RIGHT_ELLIPSES);
+		__REGISTER_VALUE_ALIGN(WAT_CUT_LEFT_ELLIPSES);
 		__REGISTER_VALUE_ALIGN(WAT_MULTI_LINE);
 		__REGISTER_VALUE_ALIGN(WAT_BREAK_WORD);
 		__REGISTER_VALUE_ALIGN(WAT_SHIFT_TEXT);
@@ -412,7 +412,7 @@ namespace MyGUI {
 				if (font->font) { // имя есть
 					font->font->load();
 					font->spaceWidth = font->font->getGlyphAspectRatio(0x0030/*UNICODE_ZERO*/) * (Real)font->height;
-					font->sizeTripleDot = (font->font->getGlyphAspectRatio( '.' ) * 3.0 ) * (Real)font->height;
+					font->sizeEllipses = (font->font->getGlyphAspectRatio( '.' ) * 3.0 ) * (Real)font->height;
 					_LOG("\tload font \t %s    '%s' %d", ini.getBlockName().c_str(), font->name.c_str(), font->height);
                 } else { // неудачная загрузка
 					_LOG("\t[ERROR] load font \t %s", ini.getBlockName().c_str());

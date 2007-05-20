@@ -958,7 +958,7 @@ void SkinEditor::createFlagWindow()
 	SET_FLAG(m_buttonsFlagsAlign[7], WAT_BOTTOM, FLAG_ALIGN);
 	SET_FLAG(m_buttonsFlagsAlign[8], WAT_CUT_RIGHT, FLAG_ALIGN);
 	SET_FLAG(m_buttonsFlagsAlign[9], WAT_CUT_LEFT, FLAG_ALIGN);
-	SET_FLAG(m_buttonsFlagsAlign[10], WAT_ADD_DOT, FLAG_ALIGN);
+	SET_FLAG(m_buttonsFlagsAlign[10], WAT_ADD_ELLIPSES, FLAG_ALIGN);
 	SET_FLAG(m_buttonsFlagsAlign[11], WAT_MULTI_LINE, FLAG_ALIGN);
 	SET_FLAG(m_buttonsFlagsAlign[12], WAT_BREAK_WORD, FLAG_ALIGN);
 	SET_FLAG(m_buttonsFlagsAlign[13], WAT_SHIFT_TEXT, FLAG_ALIGN);

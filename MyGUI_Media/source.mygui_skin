@@ -75,7 +75,7 @@ windowSkin SKIN_BUTTON
 	subSkin
 	{
 		position	18 0 130 26
-		align	WA_STRETCH WAT_CENTER WAT_CUT_RIGHT_DOT WAT_SHIFT_TEXT_PRESSED
+		align	WA_STRETCH WAT_CENTER WAT_CUT_RIGHT_ELLIPSES WAT_SHIFT_TEXT_PRESSED
 		style	WES_BUTTON WES_TEXT
 		skin_normal	"MyGUI_button_n2"
 		skin_active	"MyGUI_button_a2"
@@ -122,7 +122,7 @@ windowSkin SKIN_CHECK_BOX
 	subSkin
 	{
 		position	20 0 80 22
-		align	WA_STRETCH  WAT_LEFT WAT_VCENTER WAT_CUT_RIGHT_DOT
+		align	WA_STRETCH  WAT_LEFT WAT_VCENTER WAT_CUT_RIGHT_ELLIPSES
 		style	WES_BUTTON  WES_TEXT
 	}
 }
@@ -152,7 +152,7 @@ windowSkin SKIN_EDIT
 	subSkin
 	{
 		position	2 0 36 25
-		align	WA_STRETCH WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_DOT
+		align	WA_STRETCH WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_ELLIPSES
 		style	WES_EDIT WES_TEXT WES_CLIENT
 		skin_normal	"MyGUI_edit_n2"
 		skin_active	"MyGUI_edit_a2"
@@ -172,7 +172,7 @@ windowSkin SKIN_EDIT
 	subSkin
 	{
 		position	 0 0 2 20
-		align	WA_LEFT WA_VCENTER WA_CENTER_FOTHER
+		align	WA_LEFT WA_VCENTER WA_CENTER_PARENT
 		style	WES_EDIT_CURSOR
 		skin_normal	"MyGUI_edit_cursor"
 	}
@@ -204,14 +204,14 @@ windowSkin SKIN_COMBO_BOX_EDIT
 	subSkinMain
 	{
 		position	0 0 36 25
-		align	WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_DOT
+		align	WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_ELLIPSES
 		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON WE_KEY_FOCUS WE_KEY_BUTTON
 		style	WES_EDIT
 	}
 	subSkin
 	{
 		position	0 0 2 20
-		align	WA_LEFT WA_VCENTER WA_CENTER_FOTHER
+		align	WA_LEFT WA_VCENTER WA_CENTER_PARENT
 		style	WES_EDIT_CURSOR
 		skin_normal	"MyGUI_edit_cursor"
 	}
@@ -241,7 +241,7 @@ windowSkin SKIN_DROP_LIST
 	subSkin combo_child2
 	{
 		position	2 0 36 25
-		align	WA_STRETCH WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_DOT
+		align	WA_STRETCH WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_ELLIPSES
 		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
 		style	WES_COMBO WES_TEXT
 		skin_normal	"MyGUI_combo_n2"
@@ -477,7 +477,7 @@ windowSkin SKIN_TAB_BUTTON
 	subSkin
 	{
 		position	10 0 40 28
-		align	WA_STRETCH WAT_CENTER WAT_CENTER WAT_CUT_RIGHT_DOT WAT_SHIFT_TEXT_PRESSED
+		align	WA_STRETCH WAT_CENTER WAT_CENTER WAT_CUT_RIGHT_ELLIPSES WAT_SHIFT_TEXT_PRESSED
 		style	WES_BUTTON WES_TEXT
 		skin_normal	"MyGUI_tab_but_n2"
 		skin_active	"MyGUI_tab_but_a2"
@@ -646,7 +646,7 @@ windowSkin SKIN_WINDOWFRAME_CSX
 	subSkin  frame_caption_child2_x
 	{
 		position	11 0 68 30
-		align	WA_TOP  WA_HSTRETCH  WAT_LEFT  WAT_VCENTER  WAT_CUT_RIGHT_DOT
+		align	WA_TOP  WA_HSTRETCH  WAT_LEFT  WAT_VCENTER  WAT_CUT_RIGHT_ELLIPSES
 		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
 		style	WES_TEXT  WES_CAPTION
 		skin_normal	"MyGUI_window_frame_caption_n2"
@@ -745,7 +745,7 @@ windowSkin SKIN_WINDOWFRAME_C
 	subSkin  frame_caption_child2
 	{
 		position	11  0  94  30
-		align	WA_TOP  WA_HSTRETCH  WAT_LEFT  WAT_VCENTER  WAT_CUT_RIGHT_DOT
+		align	WA_TOP  WA_HSTRETCH  WAT_LEFT  WAT_VCENTER  WAT_CUT_RIGHT_ELLIPSES
 		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
 		style	WES_TEXT WES_CAPTION
 		skin_normal	"MyGUI_window_frame_caption_n2"
@@ -781,7 +781,7 @@ windowSkin  SKIN_WINDOWFRAME
 	subSkin  frame_child2
 	{
 		position  6  0  104  30
-		align  WA_TOP  WA_HSTRETCH  WAT_CENTER  WAT_CUT_RIGHT_DOT
+		align  WA_TOP  WA_HSTRETCH  WAT_CENTER  WAT_CUT_RIGHT_ELLIPSES
 		style  WES_CAPTION  WES_TEXT
 		skin_normal  "MyGUI_window_frame_n2"
 	}
@@ -809,7 +809,7 @@ windowSkin  SKIN_WINDOWFRAME_X
 	subSkin  frame_child2_x
 	{
 		position  6  0  78  30
-		align  WA_TOP  WA_HSTRETCH  WAT_CENTER  WAT_CUT_RIGHT_DOT
+		align  WA_TOP  WA_HSTRETCH  WAT_CENTER  WAT_CUT_RIGHT_ELLIPSES
 		style  WES_CAPTION  WES_TEXT
 		skin_normal  "MyGUI_window_frame_n2"
 	}

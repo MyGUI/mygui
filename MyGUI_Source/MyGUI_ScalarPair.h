@@ -1,3 +1,5 @@
+#pragma once
+
 #include "MyGUI_Scalar.h"
 
 namespace MyGUI

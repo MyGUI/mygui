@@ -25,8 +25,8 @@ namespace MyGUI {
 		String name; // имя шрифта
 		uint8 height; // высота шрифта
 		Real spaceWidth; // ширина пробела
-		Real sizeTripleDot; // ширина трех точек
-		__tag_MYGUI_FONT_INFO::__tag_MYGUI_FONT_INFO() : font(0), height(0), spaceWidth(0.0), sizeTripleDot(0.0) {}
+		Real sizeEllipses; // ширина трех точек
+		__tag_MYGUI_FONT_INFO::__tag_MYGUI_FONT_INFO() : font(0), height(0), spaceWidth(0.0), sizeEllipses(0.0) {}
 	} * __LP_MYGUI_FONT_INFO;
 
 	typedef struct __tag_MYGUI_POINTER_INFO { // информация об указателях

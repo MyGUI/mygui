@@ -13,17 +13,14 @@ FuncName(Event) should be defined prior to inclusion of this file.
 CurrTimer should too.
 ********************************************************************************/
 
-virtual void FuncName(Click)(const ScalarPair &Pos)
+void MouseEventSource::FuncName(Click)(const ScalarPair &Pos)
 {
    FOR_EACH_LISTENER->FuncName(Click)(Pos);
 }
         
-virtual void FuncName(Down)(const ScalarPair &Pos)
+void MouseEventSource::FuncName(Down)(const ScalarPair &Pos)
 {
     static const unsigned int DOUBLE_CLICK_THRESHOLD = 250;
-    
-    Origin.x = Pos.x;
-    Origin.y = Pos.y;
     
     FOR_EACH_LISTENER->FuncName(Down)(Pos);
     
@@ -39,14 +36,12 @@ virtual void FuncName(Down)(const ScalarPair &Pos)
     if(mClickIsWhenMouseFirstGoesDown)
         FuncName(Click)(Pos);
 }
-virtual void FuncName(Up)(const ScalarPair &Pos)
+
+void MouseEventSource::FuncName(Up)(const ScalarPair &Pos)
 {
-    Origin.x = -1;
-    Origin.y = -1;
-    
     FOR_EACH_LISTENER->FuncName(Up)(Pos);
     
-    //Dragging logic
+    //TODO: Dragging logic
     
     //add check against doing this on the double click return stroke
     if(!mClickIsWhenMouseFirstGoesDown)
@@ -56,12 +51,12 @@ virtual void FuncName(Up)(const ScalarPair &Pos)
     }
 }
 
-virtual void FuncName(DoubleClick)(const ScalarPair &Pos)
+void MouseEventSource::FuncName(DoubleClick)(const ScalarPair &Pos)
 {
     FOR_EACH_LISTENER->FuncName(DoubleClick)(Pos);
 }
 
-virtual void FuncName(Drag)(const ScalarPair &Pos, const ScalarPair &ChangeInPos)
+void MouseEventSource::FuncName(Drag)(const ScalarPair &Pos, const ScalarPair &ChangeInPos)
 {
     FOR_EACH_LISTENER->FuncName(Drag)(Pos, ChangeInPos);
 }

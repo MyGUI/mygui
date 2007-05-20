@@ -78,7 +78,7 @@ namespace MyGUI {
 			m_pWindowParent->m_overlayContainer->addChild(m_overlayContainer);
 			m_pWindowParent->mChildWindows.push_back(this); // добавляем себя к отцу
 			// еще не проверенно , но вроде работает правильно
-			if (m_uAlign & WA_CENTER_FOTHER) {
+			if (m_uAlign & WA_CENTER_PARENT) {
 				m_iOffsetAlignX = -m_iSizeX;
 				m_iOffsetAlignY = -m_iSizeY;
 			} else { // Altren - Мир сошел с ума...  (c)
@@ -578,10 +578,10 @@ namespace MyGUI {
 		if (sizeX <= 0) {sizeY = 0;sizeX = 0;	return;}
 		// даже три точки не помещаются
 		bool multiLine = ((uAlign & WAT_MULTI_LINE) != 0);
-		bool isDot = (((uAlign & WAT_ADD_DOT) != 0) && (!multiLine));
-		if (isDot) {
-			if (len < font->sizeTripleDot) {	sizeX = 0;sizeY = 0;return;	}
-			len -= font->sizeTripleDot;
+		bool isEllipses = (((uAlign & WAT_ADD_ELLIPSES) != 0) && (!multiLine));
+		if (isEllipses) {
+			if (len < font->sizeEllipses) {	sizeX = 0;sizeY = 0;return;	}
+			len -= font->sizeEllipses;
 		}
 		// и высота мала для шрифта
 		int16 height = font->height;
@@ -616,7 +616,7 @@ namespace MyGUI {
 				} else sizeChar = font->font->getGlyphAspectRatio(indexSource.getCharacter()) * font->height;
 
 				if (sizeChar > len) {
-					if (isDot) {
+					if (isEllipses) {
 						indexDest.setCharacter('.');  indexDest.moveNext();
 						indexDest.setCharacter('.');  indexDest.moveNext();
 						indexDest.setCharacter('.');  indexDest.moveNext();
@@ -689,7 +689,7 @@ namespace MyGUI {
 				if ((indexSource != strSource.begin()) && (!exit)) indexSource.movePrev(); // слудующая итерация
 				else { // хорош крутиться
 
-					if (isDot) {
+					if (isEllipses) {
 						indexDest.setCharacter('.');  indexDest.moveNext();
 						indexDest.setCharacter('.');  indexDest.moveNext();
 						indexDest.setCharacter('.');  indexDest.moveNext();
