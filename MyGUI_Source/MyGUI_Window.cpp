@@ -160,52 +160,62 @@ namespace MyGUI {
 		}
 	}
 
-	void Window::_OnMouseChangeFocus(bool bIsFocus) // вызывается при смене активности от курсора
+	void Window::_OnMouseChangeFocus(bool bIsFocus) //The mouse is either now hovering or has stopped hovering over the control
 	{
-		if (!m_pEventCallback) return;
-		if (m_uEventCallback&WE_MOUSE_FOCUS) m_pEventCallback->onMouseFocus(this, bIsFocus);
+	    //If the callback exists and is listening to MOUSE_FOCUS related messages...
+		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_FOCUS))
+		    m_pEventCallback->onMouseFocus(this, bIsFocus);
 	}
 
 	void Window::_OnMouseMove(int16 iPosX, int16 iPosY) // вызывается при движении окна
 	{
-		if (!m_pEventCallback) return;
-		if (m_uEventCallback & WE_MOUSE_MOVE) {
+		//If the callback exists and is listening to mouse movement events...
+		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_MOVE)) {
 			int16 iParentPosX = iPosX;
 			int16 iParentPosY = iPosY;
+			
 			// относительно отца
 			if (m_pWindowParent) {
-				iParentPosX -= (int16)(m_overlayContainer->_getDerivedLeft() * (Real)GUI::getSingleton()->getWidth()) - m_iPosX + 1;
-				iParentPosY -= (int16)(m_overlayContainer->_getDerivedTop() * (Real)GUI::getSingleton()->getHeight()) - m_iPosY + 1;
+			    const int Left = int(m_overlayContainer->_getDerivedLeft() * (Real)GUI::getSingleton()->getWidth());
+			    const int Top  = int(m_overlayContainer->_getDerivedTop() * (Real)GUI::getSingleton()->getHeight());
+				
+				iParentPosX -= Left - m_iPosX + 1;
+				iParentPosY -= Top - m_iPosY + 1;
 			}
+			
 			m_pEventCallback->onMouseMove(this, iPosX, iPosY, iParentPosX, iParentPosY);
 		}
 	}
 
 	void Window::_OnMouseButtonPressed(bool bIsLeftButtonPressed) // вызывается при нажатии клавиши
 	{
-		if (!m_pEventCallback) return;
-		if (m_uEventCallback&WE_MOUSE_BUTTON) m_pEventCallback->onMouseButton(this, bIsLeftButtonPressed);
+		//if the callback exists and is listening
+		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_BUTTON))
+		    m_pEventCallback->onMouseButton(this, bIsLeftButtonPressed);
 	}
 
 	void Window::_OnMouseButtonClick(bool bIsDouble) // вызывается при нажатии клавиши и отпускании на том же элементе
 	{
-		if (!m_pEventCallback) return;
-		if (m_uEventCallback&WE_MOUSE_BUTTON) {
-			if (!bIsDouble) m_pEventCallback->onMouseClick(this);
-			else m_pEventCallback->onMouseDoubleClick(this);
-		}
+	    //if the callback exists and is listening...
+		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_BUTTON))
+			if (!bIsDouble)
+			    m_pEventCallback->onMouseClick(this);
+			else
+			    m_pEventCallback->onMouseDoubleClick(this);
 	}
 
 	void Window::_OnKeyChangeFocus(bool bIsFocus) // вызывается при смене активности ввода
 	{
-		if (!m_pEventCallback) return;
-		if (m_uEventCallback&WE_KEY_FOCUS) m_pEventCallback->onKeyFocus(this, bIsFocus);
+	    //if the callback exists and is listening
+		if (m_pEventCallback && (m_uEventCallback & WE_KEY_FOCUS))
+		    m_pEventCallback->onKeyFocus(this, bIsFocus);
 	}
 
 	void Window::_OnKeyButtonPressed(int keyEvent, wchar_t cText) // вызывается при нажатии клавиши клавы
 	{
-		if (!m_pEventCallback) return;
-		if (m_uEventCallback&WE_KEY_BUTTON) m_pEventCallback->onKeyButton(this, keyEvent, cText);
+	    //if the callback exists and is listening
+		if (m_pEventCallback && (m_uEventCallback & WE_KEY_BUTTON))
+		    m_pEventCallback->onKeyButton(this, keyEvent, cText);
 	}
 
 //	void Window::_OnKeyButtonClick(int keyEvent)
@@ -213,7 +223,6 @@ namespace MyGUI {
 //		if (!m_pEventCallback) return;
 //		if (m_uEventCallback&WE_KEY_BUTTON) m_pEventCallback->onKeyClick(this, keyEvent);
 //	}
-
 
 	void Window::show(bool bIsShow) // скрыть показать окно
 	{

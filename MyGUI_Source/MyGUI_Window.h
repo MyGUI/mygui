@@ -67,9 +67,6 @@ namespace MyGUI {
 		void hide() //hide the window
 		{   show(false); }
 		
-		void move(int16 iPosX, int16 iPosY); // передвинуть окно
-		virtual void size(int16 iSizeX, int16 iSizeY); // изменяем размер окна
-		
 		//??
 		bool check(int16 iPosX, int16 iPosY, bool bCapture = false); // проверка окна на позицию курсора
 		
@@ -140,16 +137,21 @@ namespace MyGUI {
 		//??
 		Window * m_pWindowClient; // элемент скина является клиенским окном всего элемента (по дефолту this)
 		
+		void move(int16 iPosX, int16 iPosY); // передвинуть окно
+		virtual void size(int16 iSizeX, int16 iSizeY); // изменяем размер окна
+		
+		EventCallback *m_pEventCallback; // pointer to a callback function that handles this window's events
+		uint16 m_uEventCallback;         // flags for callback events (that is, what events do we want to respond to?)
+		
 		int m_iPosX, m_iPosY,
 		    m_iSizeX, m_iSizeY; // размеры окна
 		
 		//??
-		int m_iOffsetAlignX, m_iOffsetAlignY; // смещение, используется только при выравнивании по центру без растяжения
-
+		int m_iOffsetAlignX, m_iOffsetAlignY; // [ displacement, is used only at alignment on the center without a stretching ]
+        uint16 m_uAlign; // выравнивание окна и текста
+        
 		__WINDOW_STATE m_uState; // статус окна
-		EventCallback *m_pEventCallback; // указатель на класс для вызова функций
-		uint16 m_uEventCallback; // флаги для посылки событий
-		uint16 m_uAlign; // выравнивание окна и текста
+				
 		int16 m_sizeTextX; // размер текста окна
 		int16 m_sizeTextY; // размер текста окна
 		int16 m_sizeCutTextX; // видимый размер текста

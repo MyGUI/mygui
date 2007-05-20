@@ -161,37 +161,37 @@ namespace MyGUI
 
 	enum __WINDOW_ALIGN {
 		// выравнивание окон, если хотим двигать окна, то выравниваем (WA_LEFT|WA_TOP)
-		WA_NONE						= FLAG_NONE,											// окно выравнивается по центру
-		WA_HCENTER					= FLAG_NONE,											// липа, при нуле он будет центрировать без растяжения
-		WA_VCENTER					= FLAG_NONE,											// но центрировать не относительно границ отца
-		WA_CENTER						= WA_HCENTER | WA_VCENTER,				// а относительно своего первоначального положения, если нужно другое смотри ниже
-		WA_CENTER_FOTHER		= FLAG(0),													// это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
-		WA_LEFT							= FLAG(1),													// по левому 
-		WA_RIGHT						= FLAG(2),													// по правому
-		WA_HSTRETCH				= WA_LEFT | WA_RIGHT,							// растягивание по горизонтали
-		WA_TOP							= FLAG(3),													// по верху 
-		WA_BOTTOM					= FLAG(4),													// по низу
-		WA_VSTRETCH				= WA_TOP | WA_BOTTOM,						// растягивание по вертикали
-		WA_STRETCH					= WA_HSTRETCH | WA_VSTRETCH,			// растягивание по всем граням
+		WA_NONE						= FLAG_NONE,					// окно выравнивается по центру
+		WA_HCENTER					= FLAG_NONE,					// липа, при нуле он будет центрировать без растяжения
+		WA_VCENTER					= FLAG_NONE,					// но центрировать не относительно границ отца
+		WA_CENTER					= WA_HCENTER | WA_VCENTER,		// а относительно своего первоначального положения, если нужно другое смотри ниже
+		WA_CENTER_FOTHER		    = FLAG(0),						// это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
+		WA_LEFT						= FLAG(1),						// по левому 
+		WA_RIGHT					= FLAG(2),						// по правому
+		WA_HSTRETCH				    = WA_LEFT | WA_RIGHT,			// растягивание по горизонтали
+		WA_TOP						= FLAG(3),						// по верху 
+		WA_BOTTOM					= FLAG(4),						// по низу
+		WA_VSTRETCH				    = WA_TOP | WA_BOTTOM,			// растягивание по вертикали
+		WA_STRETCH					= WA_HSTRETCH | WA_VSTRETCH,	// растягивание по всем граням
 		// выравнивание текста, у него нет растягивания
-		WAT_NONE						= FLAG_NONE,											// не выравнивать то же, что WAT_LEFT | WAT_TOP
-		WAT_LEFT						= FLAG(5),													// выравнивание по левому краю
-		WAT_RIGHT					= FLAG(6),													// выравнивание по правому краю
-		WAT_HCENTER				= WAT_LEFT | WAT_RIGHT,					// горизонтально
-		WAT_TOP							= FLAG(7),													// выравнивание по верхнему краю
-		WAT_BOTTOM					= FLAG(8),													// выравнивание по нижнему краю
-		WAT_VCENTER				= WAT_TOP | WAT_BOTTOM,					// вертикально
-		WAT_CENTER					= WAT_HCENTER | WAT_VCENTER,			// по центру окна
+		WAT_NONE					= FLAG_NONE,					// не выравнивать то же, что WAT_LEFT | WAT_TOP
+		WAT_LEFT					= FLAG(5),						// выравнивание по левому краю
+		WAT_RIGHT					= FLAG(6),						// выравнивание по правому краю
+		WAT_HCENTER				    = WAT_LEFT | WAT_RIGHT,			// горизонтально
+		WAT_TOP						= FLAG(7),						// выравнивание по верхнему краю
+		WAT_BOTTOM					= FLAG(8),						// выравнивание по нижнему краю
+		WAT_VCENTER				    = WAT_TOP | WAT_BOTTOM,			// вертикально
+		WAT_CENTER					= WAT_HCENTER | WAT_VCENTER,	// по центру окна
 		// обрезка текста
-		WAT_CUT_RIGHT			= FLAG(9),
-		WAT_CUT_LEFT				= FLAG(10),												// по левой или по правой стороне
-		WAT_ADD_DOT				= FLAG(11),												// добавлять три точки при обрезке
-		WAT_CUT_RIGHT_DOT	= WAT_CUT_RIGHT | WAT_ADD_DOT,	// по правой стороне и еще с точками
-		WAT_CUT_LEFT_DOT		= WAT_CUT_LEFT | WAT_ADD_DOT,		// по левой тороне и еще с точками
+		WAT_CUT_RIGHT			    = FLAG(9),
+		WAT_CUT_LEFT				= FLAG(10),						// по левой или по правой стороне
+		WAT_ADD_DOT				    = FLAG(11),						// добавлять три точки при обрезке
+		WAT_CUT_RIGHT_DOT	        = WAT_CUT_RIGHT | WAT_ADD_DOT,	// по правой стороне и еще с точками
+		WAT_CUT_LEFT_DOT		    = WAT_CUT_LEFT | WAT_ADD_DOT,	// по левой тороне и еще с точками
 		__WAT_IS_CUT				= WAT_CUT_RIGHT | WAT_CUT_LEFT,	// для внутренних нужд, не юзать!  нужна ли обрезка
-		WAT_MULTI_LINE			= FLAG(12),												// многострочный текст
-		WAT_BREAK_WORD			= FLAG(13),												// переносить по словам
-		WAT_SHIFT_TEXT			= FLAG(14),												// сдвигать ли текст при нажатии
+		WAT_MULTI_LINE			    = FLAG(12),						// многострочный текст
+		WAT_BREAK_WORD			    = FLAG(13),						// переносить по словам
+		WAT_SHIFT_TEXT			    = FLAG(14),						// сдвигать ли текст при нажатии
 	};
 
 	// курсоры мыши
@@ -201,14 +201,14 @@ namespace MyGUI
 
 	// все оверлеи класса, добавлять после OVERLAY_MOUSE и до __OVERLAY_COUNT, далее идут служебные (OVERLAY_OVERLAPPED, OVERLAY_CHILD)
 	enum __MYGUI_OVERLAYS {
-		OVERLAY_FADE,					// оверлей для затемнения
-		OVERLAY_MOUSE,				// оверлей для мыши, !!! не использовать при создании окна
-		OVERLAY_POPUP,					// оверлей для всплывающего окна , меню, комбобокса, окна не перекрываются
-		OVERLAY_MAIN,					// основной оверлей гуи
-		OVERLAY_BACK,					// самый нижний оверлей гуи
-		__OVERLAY_COUNT,			// колличество оверлеев, !!! не использовать при создании окна
+		OVERLAY_FADE,			// оверлей для затемнения
+		OVERLAY_MOUSE,			// оверлей для мыши, !!! не использовать при создании окна
+		OVERLAY_POPUP,			// оверлей для всплывающего окна , меню, комбобокса, окна не перекрываются
+		OVERLAY_MAIN,			// основной оверлей гуи
+		OVERLAY_BACK,			// самый нижний оверлей гуи
+		__OVERLAY_COUNT,		// колличество оверлеев, !!! не использовать при создании окна
 		OVERLAY_OVERLAPPED,		// для создания перекрывающихся окон
-		OVERLAY_CHILD,					// окно принадлежит отцу, обязательно указать отца
+		OVERLAY_CHILD,			// окно принадлежит отцу, обязательно указать отца
 		OVERLAY_DESTROY_ALL		// удаление всех окон в функции destroyWindow
 	};
 }

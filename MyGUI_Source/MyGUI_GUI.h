@@ -38,8 +38,8 @@ namespace MyGUI {
             else
                 return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, Skin);
         }
-		    
-	    template<typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
+        
+        template<typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
 	        uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 	    {
 	        return spawn<Widget>(PosX *  GUI::getSingleton()->getWidth(), PosY *  GUI::getSingleton()->getHeight(),
@@ -50,16 +50,14 @@ namespace MyGUI {
 	    MyGUI::Message * createMessage(const DisplayString & strCaption,
 	        const DisplayString & strMessage, uint16 uID, bool bIsModal,
 	        const DisplayString & strButton1 = "Ok",
-	        const DisplayString & strButton2 = ""); // окно сообщения
-        
-        
+	        const DisplayString & strButton2 = ""); // окно сообщения        
         
         EventCallback *m_pEventCallback; // главный указатель на класс для вызова функций и отсылки предупреждений
         
         //Sizing
-		    private:
+		private:
 		    unsigned int m_uWidth, m_uHeight; // размеры экрана
-		    public:
+		public:
 		    unsigned int getWidth() { return m_uWidth; }
 		    unsigned int getHeight() { return m_uHeight; }
 		    Real getAspectRatio()
@@ -162,6 +160,7 @@ namespace MyGUI {
         
         
 		std::vector <Window*> mRootWindows; // Root windows
+		typedef std::vector <Window*>::reverse_iterator RootWindowReverseIterator;
 		
 		//Only referenced outside of GUI class by Window class
 		size_t m_uOverlappedStart, m_uOverlappedEnd; // начало и конец в перекрывающихся окон в масиве

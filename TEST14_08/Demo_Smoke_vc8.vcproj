@@ -252,6 +252,10 @@
 			Name="MyGUI_Source"
 			>
 			<File
+				RelativePath="..\MyGUI_Source\EventSourceHelper.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI.h"
 				>
 			</File>
@@ -293,6 +297,10 @@
 			</File>
 			<File
 				RelativePath="..\MyGUI_Source\MyGUI_EventCallback.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_EventSource.cpp"
 				>
 			</File>
 			<File
@@ -353,6 +361,10 @@
 			</File>
 			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Scalar.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_ScalarPair.h"
 				>
 			</File>
 			<File

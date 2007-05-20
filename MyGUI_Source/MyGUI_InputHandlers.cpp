@@ -25,30 +25,35 @@ namespace MyGUI
     
     bool MouseHandler::mouseReleased( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
 	{
-	    static Ogre::Timer m_time;
+	    static Ogre::Timer m_time; //used for double click timing
+	    static unsigned int clickcount = 0; //how many times has the user ever clicked the mouse?
 		
-		if (m_bIsFocusWindowCapture) { // окно было захваченно
+		++clickcount;
+		if (m_bIsFocusWindowCapture)
+		{
 			m_bIsFocusWindowCapture = false;
 			m_currentFocusWindow->_OnMouseButtonPressed(false);
-			Window * pOldWindow = m_currentFocusWindow;
-//				eventMouseMove(iPosX, iPosY, 0.0, leftMouseButtonDown); // для коректности отображения
-			if (pOldWindow == m_currentFocusWindow) {
-				m_currentFocusWindow->_OnMouseButtonClick(false); // посылаем всегда
-				if (m_time.getMilliseconds() < __GUI_TIME_DOUBLE_CLICK) {
-					// окно может быть удаленно после клика
-					if (m_currentFocusWindow) m_currentFocusWindow->_OnMouseButtonClick(true);
-				}
-				else m_time.reset(); // защита от тройных щелчков
-			}
+			//eventMouseMove(iPosX, iPosY, 0.0, leftMouseButtonDown); // для коректности отображения
+            m_currentFocusWindow->_OnMouseButtonClick(false); // посылаем всегда
+			
+			//We need to check that this isn't the first time the user has clicked the mouse
+			//  (and thus that the timer has just started), that there's a window to click on,
+			//  and finally, that not too much time has passed to count this as a double click.
+			if (clickcount && m_currentFocusWindow && m_time.getMilliseconds() < __GUI_TIME_DOUBLE_CLICK)
+				m_currentFocusWindow->_OnMouseButtonClick(true);
+			else
+			    m_time.reset(); // защита от тройных щелчков
 		}
 		return m_bIsActiveGUI;
 	}
 
 	bool MouseHandler::mousePressed( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
 	{
-		if (id != OIS::MB_Left) return m_bIsActiveGUI;
+		if (id != OIS::MB_Left) //Only responds to left clicks
+		    return m_bIsActiveGUI;
 
-		if (!m_bIsActiveGUI) {
+		if (m_bIsActiveGUI == false)
+		{
 			if (m_currentEditWindow) { // сброс окна ввода
 				m_currentEditWindow->_OnKeyChangeFocus(false);
 				m_currentEditWindow = 0;
@@ -56,23 +61,33 @@ namespace MyGUI
 			return false;
 		}
 
-		if (!m_currentWindow) return false;
+		if (!m_currentWindow)
+		    return false;
+		
+		//Move windows to the top of the stack that have been clicked on
 		GUI::getSingleton()->upZOrder(m_currentWindow); // поднятие окна над другими
 		
 		if (m_currentFocusWindow) {
 			m_bIsFocusWindowCapture = true; // захват окна
+			
+			const int Left = m_currentFocusWindow->m_overlayContainer->_getDerivedLeft() * GUI::getSingleton()->getWidth();
+			const int Top  = m_currentFocusWindow->m_overlayContainer->_getDerivedTop() *  GUI::getSingleton()->getHeight();
 
 			// смещение клика внутри окна
-			m_iOffsetPressedX = arg.state.X.abs - ((int16)(m_currentFocusWindow->m_overlayContainer->_getDerivedLeft()*GUI::getSingleton()->getWidth())) - 1;
-			m_iOffsetPressedY = arg.state.Y.abs - ((int16)(m_currentFocusWindow->m_overlayContainer->_getDerivedTop()*GUI::getSingleton()->getHeight())) - 1;
+			m_iOffsetPressedX = arg.state.X.abs - Left - 1;
+			m_iOffsetPressedY = arg.state.Y.abs - Top  - 1;
 
 			m_currentFocusWindow->_OnMouseButtonPressed(true);
 		}
 
-		if (m_currentEditWindow != m_currentFocusWindow) { // смена окна ввода
-			if (m_currentEditWindow) m_currentEditWindow->_OnKeyChangeFocus(false);
+		if (m_currentEditWindow != m_currentFocusWindow) { //changing input window
+			if (m_currentEditWindow)
+			    m_currentEditWindow->_OnKeyChangeFocus(false);
+			
 			m_currentEditWindow = m_currentFocusWindow;
-			if (m_currentEditWindow) m_currentEditWindow->_OnKeyChangeFocus(true);
+			
+			if (m_currentEditWindow)
+			    m_currentEditWindow->_OnKeyChangeFocus(true);
 		}
 
 		m_currentWindow->_OnUpZOrder(); // уведомление об поднятии
@@ -84,8 +99,10 @@ namespace MyGUI
 	{
 		if (arg.state.Z.rel != 0) { // скролл
 			if (m_currentFocusWindow) {
-				if (arg.state.Z.rel < 0.0) m_currentFocusWindow->_OnKeyButtonPressed(KC_WEBFORWARD, 0);
-				else m_currentFocusWindow->_OnKeyButtonPressed(KC_WEBBACK, 0);
+				if (arg.state.Z.rel < 0.0)
+				    m_currentFocusWindow->_OnKeyButtonPressed(KC_WEBFORWARD, 0);
+				else
+				    m_currentFocusWindow->_OnKeyButtonPressed(KC_WEBBACK, 0);
 			}
 			return m_bIsActiveGUI;
 		}
@@ -102,20 +119,22 @@ namespace MyGUI
 			m_currentFocusWindow = 0; // есть кнопка, сбросим
 			m_currentWindow = 0; // текущее окно
 
-			// ищем окно над которым курсор, из дочек гуи
-			for (int16 i=(((int16)GUI::getSingleton()->mRootWindows.size())-1); i>=0; i--) { // окна в массиве упорядоченны по zOrder
-				if(GUI::getSingleton()->mRootWindows[i]->check(arg.state.X.abs, arg.state.Y.abs, true)) {
-					m_currentWindow = GUI::getSingleton()->mRootWindows[i];
+			//Iterate over all root windows to find the one we're on top of
+			//we check in reverse order to respect ZOrder
+			for(GUI::RootWindowReverseIterator Iter = GUI::getSingleton()->mRootWindows.rbegin();
+			    Iter != GUI::getSingleton()->mRootWindows.rend(); ++Iter) {
+				if((*Iter)->check(arg.state.X.abs, arg.state.Y.abs, true)) {
+					m_currentWindow = *Iter;
 					m_bIsActiveGUI = true;
-					i = -1; // выход из цикла
+					break;
 				}
 			}
 
 			if (m_currentFocusWindow != pOldFocusWindow) { // изменилась активное окно
-				if (pOldFocusWindow) pOldFocusWindow->_OnMouseChangeFocus(false);
-				if (m_currentFocusWindow) {
+				if (pOldFocusWindow)
+				    pOldFocusWindow->_OnMouseChangeFocus(false);
+				if (m_currentFocusWindow)
 					m_currentFocusWindow->_OnMouseChangeFocus(true);
-				}
 			}
 
 		}
@@ -158,21 +177,27 @@ namespace MyGUI
 		static bool bIsSecondKeyPressed = false; // LeftShift
 		static bool bIsTwoKeyPressed = false; // обе были зажаты
 
-		if ((keyEvent == KC_LSHIFT) || (keyEvent == KC_RSHIFT)) {
+		if ((keyEvent == KC_LSHIFT) || (keyEvent == KC_RSHIFT))
+		{
 			if (bIsKeyPressed) {
 				m_bShiftChars |= __INPUT_SHIFT_MASK;
 				bIsSecondKeyPressed = true;
-				if (bIsFirstKeyPressed) bIsTwoKeyPressed = true;
+				if (bIsFirstKeyPressed)
+				    bIsTwoKeyPressed = true;
 			} else {
 				m_bShiftChars &= ~__INPUT_SHIFT_MASK;
 				bIsSecondKeyPressed = false;
 				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed)) {
 					bIsTwoKeyPressed = false;
-					if (m_bShiftChars & __INPUT_LANG_MASK) m_bShiftChars &= ~__INPUT_LANG_MASK;
-					else m_bShiftChars |= __INPUT_LANG_MASK;
+					if (m_bShiftChars & __INPUT_LANG_MASK)
+					    m_bShiftChars &= ~__INPUT_LANG_MASK;
+					else
+					    m_bShiftChars |= __INPUT_LANG_MASK;
 				}
 			}
-		} else if ((keyEvent == KC_LMENU) || (keyEvent == KC_LCONTROL)) {
+		}
+		else if ((keyEvent == KC_LMENU) || (keyEvent == KC_LCONTROL))
+		{
 			if (bIsKeyPressed) {
 				bIsFirstKeyPressed = true;
 				if (bIsSecondKeyPressed) bIsTwoKeyPressed = true;
@@ -180,18 +205,22 @@ namespace MyGUI
 				bIsFirstKeyPressed = false;
 				if ((!bIsSecondKeyPressed) && (bIsTwoKeyPressed)) {
 					bIsTwoKeyPressed = false;
-					if (m_bShiftChars & __INPUT_LANG_MASK) m_bShiftChars &= ~__INPUT_LANG_MASK;
-					else m_bShiftChars |= __INPUT_LANG_MASK;
+					
+					if (m_bShiftChars & __INPUT_LANG_MASK)
+					    m_bShiftChars &= ~__INPUT_LANG_MASK;
+					else
+					    m_bShiftChars |= __INPUT_LANG_MASK;
 				}
 			}
-		} else {
+		}
+		else
+		{
 			bIsFirstKeyPressed = false;
 			bIsSecondKeyPressed = false;
 			bIsTwoKeyPressed = false;
 		}
 
 	}
-
 	
 	bool KeyboardHandler::keyPressed( const OIS::KeyEvent &arg )
 	{
