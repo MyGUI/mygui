@@ -2,6 +2,7 @@
 #include "MyGUI_OIS.h"
 #include "MyGUI_GUI.h"
 #include "MyGUI_AssetManager.h"
+#include "MyGUI_Message.h"
 
 #include <OgreStringConverter.h>
 #include <OgreOverlayManager.h>
@@ -306,5 +307,13 @@ namespace MyGUI {
 		old_name = strName;
 		return pOverlay;
 	}
-
+	
+	MyGUI::Message * GUI::createMessage(const DisplayString & strCaption,
+	        const DisplayString & strMessage, uint16 uID, bool bIsModal,
+	        const DisplayString & strButton1,
+	        const DisplayString & strButton2)
+    {
+        //TODO: Memory leak here?
+        return new Message(strCaption, strMessage, uID, bIsModal, strButton1, strButton2);
+    }
 }

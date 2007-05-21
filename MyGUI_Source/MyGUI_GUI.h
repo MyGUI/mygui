@@ -34,9 +34,9 @@ namespace MyGUI {
 	        uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 	    {
             if(Skin == __SKIN_WIDGET_DEFAULT)
-                return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay);
+                return new Widget(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay);
             else
-                return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, Skin);
+                return new Widget(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, Skin);
         }
         
         template<typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
@@ -46,11 +46,12 @@ namespace MyGUI {
                              SizeX * GUI::getSingleton()->getWidth(), SIzeY * GUI::getSingleton()->getHeight(),
                              uOverlay, uSkin);		
 	    }
-
+        
+        // окно сообщения
 	    MyGUI::Message * createMessage(const DisplayString & strCaption,
 	        const DisplayString & strMessage, uint16 uID, bool bIsModal,
 	        const DisplayString & strButton1 = "Ok",
-	        const DisplayString & strButton2 = ""); // окно сообщения        
+	        const DisplayString & strButton2 = "");
         
         EventCallback *m_pEventCallback; // главный указатель на класс для вызова функций и отсылки предупреждений
         

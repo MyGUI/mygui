@@ -5,9 +5,8 @@
 namespace MyGUI {
 
     class VScroll : public Window {
-        VScroll(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
     public:
-        static VScroll *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+        VScroll::VScroll(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
             Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_VSCROLL);
 
         void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса

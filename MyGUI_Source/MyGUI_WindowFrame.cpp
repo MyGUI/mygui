@@ -7,15 +7,6 @@ using namespace std;
 
 namespace MyGUI {
 
-	WindowFrame::WindowFrame(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
-		m_iMinSizeX(0),
-		m_iMinSizeY(0),
-		m_iMaxSizeX(GUI::getSingleton()->getWidth()),
-		m_iMaxSizeY(GUI::getSingleton()->getHeight())
-	{
-	}
-
 	void WindowFrame::setMinMax(int16 iMinSizeX, int16 iMinSizeY, int16 iMaxSizeX, int16 iMaxSizeY) // укстановка минимальных и максимальных размеров
 	{
 		if (iMinSizeX >= 0) m_iMinSizeX = iMinSizeX;
@@ -93,8 +84,17 @@ namespace MyGUI {
 		if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_FRAME_CLOSE, 0);
 	}
 
-	WindowFrame *WindowFrame::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+	WindowFrame::WindowFrame(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+	        
+      : Window(AssetManager::getSingleton()->Skins()->getDefinition(Skin)->subSkins[0],
+            parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent        : NULL),
+		    
+        m_iMinSizeX(0),
+		m_iMinSizeY(0),
+		m_iMaxSizeX(GUI::getSingleton()->getWidth()),
+		m_iMaxSizeY(GUI::getSingleton()->getHeight())
 	{
         
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
@@ -105,33 +105,26 @@ namespace MyGUI {
 		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
 		}
 		
-		WindowFrame * pWindow = new WindowFrame(pSkin->subSkins[0],
-		    parent ? OVERLAY_CHILD : uOverlay,
-		    parent ? parent        : NULL);
-		
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
+			pChild->m_pEventCallback = (EventCallback*)this;
+			if (pChild->m_uExData & WES_TEXT) this->m_pWindowText = pChild;
 			if (pChild->m_uExData & WES_CLIENT) {
-				pWindow->m_pWindowClient = pChild; // клиентское окно
-				pChild->m_pWindowText = pWindow->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже
+				this->m_pWindowClient = pChild; // клиентское окно
+				pChild->m_pWindowText = this->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже
 			}
 		}
 		
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
+		setFont(pSkin->fontWindow, pSkin->colour);
 		
-		pWindow->move(PosX, PosY);
+		move(PosX, PosY);
 		if(SizeX < 0) SizeX = pSkin->subSkins[0]->sizeX;
 		if(SizeY < 0) SizeY = pSkin->subSkins[0]->sizeY;
-		pWindow->size(SizeX, SizeY);
+		size(SizeX, SizeY);
 		              
 		// минимальный размер равен начальному размеру скина
-		pWindow->setMinMax(pSkin->subSkins[0]->sizeX, pSkin->subSkins[0]->sizeY,
-		                   GUI::getSingleton()->getWidth(), GUI::getSingleton()->getHeight());
-		return pWindow;
+		setMinMax(pSkin->subSkins[0]->sizeX, pSkin->subSkins[0]->sizeY,
+		          GUI::getSingleton()->getWidth(), GUI::getSingleton()->getHeight());
 	}
-
 }
-//=========================================================================================

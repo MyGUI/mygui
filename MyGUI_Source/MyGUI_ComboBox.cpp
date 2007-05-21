@@ -10,6 +10,65 @@ using namespace std;
 using namespace OIS;
 
 namespace MyGUI {
+    
+    //Ctor
+    ComboBox::ComboBox(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+	  
+	  : Window(AssetManager::getSingleton()->Skins()->getDefinition(Skin)->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL),
+	  
+	    m_pList(0),
+		m_pEdit(0),
+		m_bIsListShow(false),
+		m_bHideList(false)
+	{
+	    
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		
+		if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
+		
+		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
+			 // создаем дочернии окна скины
+			Window * pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
+			pChild->m_pEventCallback = (EventCallback*)this;
+			if (pChild->m_uExData & WES_TEXT)
+			    this->setWindowText(pChild);
+		}
+		
+		const __tag_MYGUI_SKIN_INFO * pSkinTmpA = AssetManager::getSingleton()->Skins()->getDefinition(pSkin->data3);
+		const __tag_MYGUI_SKIN_INFO * pSkinTmp  = AssetManager::getSingleton()->Skins()->getDefinition(pSkinTmpA->data4); // скин кнопок списка
+		
+		this->m_pList = GUI::getSingleton()->spawn<List>(
+		    300, 300, 300, 300, OVERLAY_POPUP, pSkin->data3);
+		    
+		this->m_pList->m_pEventCallback = (EventCallback*)this;
+		this->m_pList->show(false);
+		this->m_pList->m_bIsOneClickActived = true;
+		// высота списка по нужному колличеству строк
+		this->m_pList->size(
+		    300, pSkinTmp->subSkins[0]->sizeY * StringConverter::parseInt(pSkin->data4)
+		    + this->m_pList->m_iSizeY
+		    - this->m_pList->m_pWindowClient->m_iSizeY);
+		    
+		if (!pSkin->data2.empty()) { // скин едита
+			this->m_pEdit = this->m_pWindowText->spawn<Edit>(
+			    0, 0, -1, -1, WA_STRETCH, pSkin->data2);
+			this->m_pWindowText->m_uEventCallback = WE_NONE;
+			this->m_pWindowText = this->m_pEdit;
+			this->m_pEdit->m_pEventCallback = (EventCallback*)this;
+		}
+		this->setFont(pSkin->fontWindow, pSkin->colour);
+		this->m_uAlign |= uAlign;
+		this->move(PosX, PosY);
+		this->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		           SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+	}
 
 	void ComboBox::__COMBO_CALC_SHOW_LIST() {
 		
@@ -22,15 +81,6 @@ namespace MyGUI {
 		    m_pList->move(MoveX, _iPosY-m_pList->m_iSizeY);
 		else
 		    m_pList->move(MoveX, _iPosY+m_iSizeY);
-	}
-
-	ComboBox::ComboBox(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
-		m_pList(0),
-		m_pEdit(0),
-		m_bIsListShow(false),
-		m_bHideList(false)
-	{
 	}
 
 	ComboBox::~ComboBox()
@@ -185,59 +235,5 @@ namespace MyGUI {
 		else Window::setCaption(strText);
 		m_pList->m_uSelectItem = ITEM_NON_SELECT;
 		return this;
-	}
-	
-	ComboBox *ComboBox::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
-	{
-	    
-		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
-		
-		if(!pSkin)
-		{
-		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
-		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
-		}
-		
-		ComboBox * pWindow = new ComboBox(pSkin->subSkins[0], 
-		    parent ? OVERLAY_CHILD : uOverlay,
-		    parent ? parent->m_pWindowClient : NULL);
-		    
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window * pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT)
-			    pWindow->setWindowText(pChild);
-		}
-		
-		const __tag_MYGUI_SKIN_INFO * pSkinTmpA = AssetManager::getSingleton()->Skins()->getDefinition(pSkin->data3);
-		const __tag_MYGUI_SKIN_INFO * pSkinTmp  = AssetManager::getSingleton()->Skins()->getDefinition(pSkinTmpA->data4); // скин кнопок списка
-		
-		pWindow->m_pList = GUI::getSingleton()->spawn<List>(
-		    300, 300, 300, 300, OVERLAY_POPUP, pSkin->data3);
-		    
-		pWindow->m_pList->m_pEventCallback = (EventCallback*)pWindow;
-		pWindow->m_pList->show(false);
-		pWindow->m_pList->m_bIsOneClickActived = true;
-		// высота списка по нужному колличеству строк
-		pWindow->m_pList->size(
-		    300, pSkinTmp->subSkins[0]->sizeY * StringConverter::parseInt(pSkin->data4)
-		    + pWindow->m_pList->m_iSizeY
-		    - pWindow->m_pList->m_pWindowClient->m_iSizeY);
-		    
-		if (!pSkin->data2.empty()) { // скин едита
-			pWindow->m_pEdit = pWindow->m_pWindowText->spawn<Edit>(
-			    0, 0, -1, -1, WA_STRETCH, pSkin->data2);
-			pWindow->m_pWindowText->m_uEventCallback = WE_NONE;
-			pWindow->m_pWindowText = pWindow->m_pEdit;
-			pWindow->m_pEdit->m_pEventCallback = (EventCallback*)pWindow;
-		}
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->m_uAlign |= uAlign;
-		pWindow->move(PosX, PosY);
-		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
-		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
-		return pWindow;
 	}
 }

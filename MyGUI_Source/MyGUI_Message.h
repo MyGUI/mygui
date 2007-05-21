@@ -4,14 +4,12 @@
 
 namespace MyGUI {
 
-	class WindowFrame;
-	class Button;
-	class GUI;
-
 	class Message : public WindowFrame {
-
 	public:
-		Message(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
+		Message::Message(const DisplayString & strCaption,
+	        const DisplayString & strMessage, uint16 uID, bool bIsModal,
+	        const DisplayString & strButton1 = "Ok",
+	        const DisplayString & strButton2 = ""); // окно сообщени€        
 
 		void _OnUpZOrder(); // вызываетс€ при активации окна
 

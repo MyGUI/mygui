@@ -21,20 +21,23 @@ namespace MyGUI {
 		    DisplayString & strDest,
 		    const DisplayString & strSource,
 		    uint16 uAlign); // возвращает обрезанную строку равную размерам
+		
+		
+		void Initialize(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);		
     public:
 	    Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);		
         virtual ~Window();
 	    
-	    static Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    Window::Window(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_WINDOWFRAME);
 	    
 	    template <typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
             uint16 uAlign, const String &Skin = __SKIN_WIDGET_DEFAULT)
         {
             if(Skin == __SKIN_WIDGET_DEFAULT)
-                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0);
+                return new Widget(PosX, PosY, SizeX, SizeY, this, uAlign, 0);
             else
-                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0, Skin);
+                return new Widget(PosX, PosY, SizeX, SizeY, this, uAlign, 0, Skin);
         }
         
         template <typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
@@ -74,8 +77,7 @@ namespace MyGUI {
 		void setState(uint8 uState); // состояние окна
 		uint8 getState(); // состояние окна
 		
-		void showFocus(bool bIsFocus); // активирование окна
-	    
+		void showFocus(bool bIsFocus); // активирование окна	    
 	    
 	    /*
 	        Relating to captions, their fonts and colours, etc.

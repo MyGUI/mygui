@@ -10,15 +10,51 @@ using namespace OIS;
 
 namespace MyGUI {
 
-	class GUI;
-
-	Edit::Edit(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
-		m_pWindowCursor(0),
+    Edit::Edit(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+       
+      : Window(AssetManager::getSingleton()->Skins()->getDefinition(Skin)->subSkins[0],
+            parent ? OVERLAY_CHILD              : uOverlay,
+		    parent ? parent->m_pWindowClient    : NULL),
+        
+        m_pWindowCursor(0),
 		m_bIsFocus(false),
 		m_uOffsetCursor(0)
-	{
-	}
+    {
+        const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+        
+        if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
+		    
+		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
+			 // создаем дочернии окна скины
+			Window * pChild;
+			if (pSkin->subSkins[pos]->exdata & WES_EDIT_CURSOR) {
+				// элемент является курсором
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this->m_pWindowClient);
+				this->m_pWindowCursor = pChild;
+				this->m_pWindowCursor->show(false);
+			} else {
+				// обычный элемент
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
+			}
+			pChild->m_pEventCallback = (EventCallback*)this;
+			if (pChild->m_uExData & WES_TEXT)
+			    this->m_pWindowText = pChild;
+			if (pChild->m_uExData & WES_CLIENT)
+			    this->m_pWindowClient = pChild;
+		}
+		this->setFont(pSkin->fontWindow, pSkin->colour);
+		this->m_uOffsetCursor = StringConverter::parseInt(pSkin->data4);
+		this->m_uAlign |= uAlign;
+		
+		this->move(PosX, PosY);
+		this->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		           SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+    }
 
 	void Edit::_OnMouseChangeFocus(bool bIsFocus) // вызывается при смене активности от курсора
 	{
@@ -93,46 +129,4 @@ namespace MyGUI {
 
 		setCaption(strText);
 	}
-	
-	Edit *Edit::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
-    {
-        const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
-        
-        if(!pSkin)
-		{
-		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
-		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
-		}
-		
-		Edit * pWindow = new Edit(pSkin->subSkins[0],
-		    parent ? OVERLAY_CHILD : uOverlay,
-		    parent ? parent->m_pWindowClient : NULL);
-		    
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window * pChild;
-			if (pSkin->subSkins[pos]->exdata & WES_EDIT_CURSOR) {
-				// элемент является курсором
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow->m_pWindowClient);
-				pWindow->m_pWindowCursor = pChild;
-				pWindow->m_pWindowCursor->show(false);
-			} else {
-				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
-			}
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
-			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
-		}
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->m_uOffsetCursor = StringConverter::parseInt(pSkin->data4);
-		pWindow->m_uAlign |= uAlign;
-		
-		pWindow->move(PosX, PosY);
-		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
-		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
-		return pWindow;
-    }
 }
-//=========================================================================================

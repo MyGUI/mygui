@@ -12,16 +12,6 @@ using namespace OIS;
 
 namespace MyGUI {
 
-	class GUI;
-
-	Message::Message(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		WindowFrame(lpSkin, uOverlay, pWindowParent),
-		m_pButton1(0),
-		m_pButton2(0),
-		m_pWindowfade(0)
-	{
-	}
-
 	void Message::_OnUpZOrder() // вызывается при активации окна
 	{
 		GUI::getSingleton()->setKeyFocus(m_pButton1);
@@ -73,66 +63,72 @@ namespace MyGUI {
 		WindowFrame::onMouseFocus(pWindow, bIsFocus);
 	}
 
-
-	Message * GUI::createMessage(const DisplayString & strCaption, const DisplayString & strMessage,
-	    uint16 uID, bool bIsModal, const DisplayString & strButton1, const DisplayString & strButton2) // окно сообщения
+	Message::Message(const DisplayString & strCaption, const DisplayString & strMessage,
+	    uint16 uID, bool bIsModal, const DisplayString & strButton1, const DisplayString & strButton2)
+	    
+	  : WindowFrame(0, 0, -1, -1, NULL, 0, bIsModal ? OVERLAY_POPUP : OVERLAY_OVERLAPPED, SKIN_WINDOWFRAME_CX),
+	    m_pButton1(0),
+		m_pButton2(0),
+		m_pWindowfade(0)
 	{
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_WINDOWFRAME_CX);
 		
 		if(!pSkin)
 		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
 		
-		Message * pWindow;
 		if (bIsModal) { // модальное окно сообщения
-			__ASSERT(!m_overlayGUI[OVERLAY_FADE]->isVisible()); // только одно окно
-			pWindow = new Message(pSkin->subSkins[0], OVERLAY_POPUP, 0);
+			__ASSERT(!GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->isVisible()); // только одно окно
+			
+			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
+			GUI::getSingleton()->m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_POPUP_FADE); // снижаем после всплывающих окон
 
-			m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
-			m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_POPUP_FADE); // снижаем после всплывающих окон
-
-			pWindow->m_pWindowfade = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
-			MaterialPtr Mat = pWindow->m_pWindowfade->m_overlayContainer->getMaterial();
+			this->m_pWindowfade = GUI::getSingleton()->spawn<Window>(0, 0, GUI::getSingleton()->getWidth(),
+			                                                               GUI::getSingleton()->getHeight(),
+			                                                               OVERLAY_FADE, SKIN_FADE);
+			                                                               
+			MaterialPtr Mat = this->m_pWindowfade->m_overlayContainer->getMaterial();
 			TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);
 			texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, __GUI_POPUP_FADE_ALPHA);
 
-		} else
-		    pWindow = new Message(pSkin->subSkins[0], OVERLAY_OVERLAPPED, 0);
+		}
 
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
-			pChild->m_pEventCallback = (EventCallback*)pWindow;
-			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
+			pChild->m_pEventCallback = (EventCallback*)this;
+			if (pChild->m_uExData & WES_TEXT)
+			    this->m_pWindowText = pChild;
 			if (pChild->m_uExData & WES_CLIENT) {
-				pWindow->m_pWindowClient = pChild; // клиентское окно
-				pChild->m_pWindowText = pWindow->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже
+				this->m_pWindowClient = pChild; // клиентское окно
+				pChild->m_pWindowText = this->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже
 			}
 		}
-		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
-		pWindow->setCaption(strCaption);
+		
+		this->setFont(pSkin->fontWindow, pSkin->colour);
+		this->setCaption(strCaption);
 
-		#define __BUTTON_SIZE 130
+		const int __BUTTON_SIZE = 130;
 
 		int16 iMinSizeX = __BUTTON_SIZE+20;
 
 		if (!strButton1.empty()) {
-			pWindow->m_pButton1 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
-			pWindow->m_pButton1->setCaption(strButton1);
-			pWindow->m_pButton1->setUserData(MBB_BUTTON1);
-			pWindow->m_pButton1->m_pEventCallback = (EventCallback*)pWindow;
+			this->m_pButton1 = this->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+			this->m_pButton1->setCaption(strButton1);
+			this->m_pButton1->setUserData(MBB_BUTTON1);
+			this->m_pButton1->m_pEventCallback = (EventCallback*)this;
 			if (!strButton2.empty()) {
 				iMinSizeX += __BUTTON_SIZE + 20;
-				pWindow->m_pButton2 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
-				pWindow->m_pButton2->setCaption(strButton2);
-				pWindow->m_pButton2->setUserData(MBB_BUTTON2);
-				pWindow->m_pButton2->m_pEventCallback = (EventCallback*)pWindow;
+				this->m_pButton2 = this->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+				this->m_pButton2->setCaption(strButton2);
+				this->m_pButton2->setUserData(MBB_BUTTON2);
+				this->m_pButton2->m_pEventCallback = (EventCallback*)this;
 			}
 		}
 
-		__ASSERT(pWindow->m_pButton1); // как так ?
+		__ASSERT(this->m_pButton1); // как так ?
 
-		StaticText * text = pWindow->spawn<StaticText>(5, 5,
-		    pWindow->m_pWindowClient->m_iSizeX - 10, pWindow->m_pWindowClient->m_iSizeY - 50,
+		StaticText * text = this->spawn<StaticText>(5, 5,
+		    this->m_pWindowClient->m_iSizeX - 10, this->m_pWindowClient->m_iSizeY - 50,
 		    WA_STRETCH);
 		text->setCaption( strMessage );
 		text->setColour(ColourValue::White);
@@ -140,19 +136,23 @@ namespace MyGUI {
 		int iSizeText = text->m_sizeTextX;
 		if (iSizeText < iMinSizeX) iSizeText = iMinSizeX;
 
-		pWindow->size(iSizeText + 15 + (pWindow->m_iSizeX - pWindow->m_pWindowClient->m_iSizeX), text->m_sizeTextY + 50 + (pWindow->m_iSizeY - pWindow->m_pWindowClient->m_iSizeY));
+		this->size(iSizeText + 15 + (this->m_iSizeX - this->m_pWindowClient->m_iSizeX),
+		           text->m_sizeTextY + 50 + (this->m_iSizeY - this->m_pWindowClient->m_iSizeY));
 
-		if (pWindow->m_pButton2) {
-			pWindow->m_pButton1->move((pWindow->m_pWindowClient->m_iSizeX>>1)-__BUTTON_SIZE-10, pWindow->m_pWindowClient->m_iSizeY - 35);
-			pWindow->m_pButton2->move((pWindow->m_pWindowClient->m_iSizeX>>1)+10, pWindow->m_pWindowClient->m_iSizeY - 35);
-		} else pWindow->m_pButton1->move((pWindow->m_pWindowClient->m_iSizeX-__BUTTON_SIZE)>>1, pWindow->m_pWindowClient->m_iSizeY - 35);
+		if (this->m_pButton2) {
+			this->m_pButton1->move((this->m_pWindowClient->m_iSizeX / 2) - __BUTTON_SIZE-10,
+			                        this->m_pWindowClient->m_iSizeY - 35);
+			this->m_pButton2->move((this->m_pWindowClient->m_iSizeX / 2) + 10,
+			                        this->m_pWindowClient->m_iSizeY - 35);
+		}
+		else
+		    this->m_pButton1->move((this->m_pWindowClient->m_iSizeX-__BUTTON_SIZE) / 2,
+		                            this->m_pWindowClient->m_iSizeY - 35);
 
-		pWindow->move((m_uWidth-pWindow->m_iSizeX)>>1, (m_uHeight-pWindow->m_iSizeY)>>1);
-		pWindow->m_uUserData = uID;
-		setKeyFocus(pWindow->m_pButton1); // для обработки клавиш
-
-		return pWindow;
+		this->move( (GUI::getSingleton()->getWidth() - this->m_iSizeX) / 2,
+		            (GUI::getSingleton()->getHeight()- this->m_iSizeY) / 2);
+		            
+		this->m_uUserData = uID;
+		GUI::getSingleton()->setKeyFocus(this->m_pButton1); // для обработки клавиш
 	}
-
 }
-//=========================================================================================
