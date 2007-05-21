@@ -8,51 +8,15 @@ using namespace std;
 
 namespace MyGUI {
 
-    VScroll::VScroll(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
-        
-      : Window(AssetManager::getSingleton()->Skins()->getDefinition(Skin)->subSkins[0],
-            parent ? OVERLAY_CHILD              : uOverlay,
-		    parent ? parent->m_pWindowClient    : NULL),
-        m_pWindowTrack(0),
+	class GUI;
+
+	VScroll::VScroll(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent),
+		m_pWindowTrack(0),
 		m_uSizeScroll(0),
 		m_uPosScroll(0)
 	{
 		setState(WS_DEACTIVATED);
-		
-		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
-		
-		if(!pSkin)
-		{
-		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
-		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
-		}
-		
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			Window * pChild;
-			 // создаем дочернии окна скины
-			if (pSkin->subSkins[pos]->exdata & WES_VSCROLL_TRACK) {
-				// элемент является скролом, прицепляем к клиентской области
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this->m_pWindowClient);
-				this->m_pWindowTrack = pChild;
-				pChild->show(false);
-			} else {
-				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
-			}
-
-			pChild->m_pEventCallback = (EventCallback*)this;
-			if (pChild->m_uExData & WES_CLIENT) this->m_pWindowClient = pChild; // клиентское окно для ползунка
-		}
-		// размеры кнопок скрола
-		this->m_uHeightTrack = StringConverter::parseInt(pSkin->data3);
-		this->m_uHeightButton = StringConverter::parseInt(pSkin->data4);
-		this->m_uHeightButtonAll = (this->m_uHeightButton * 2) + this->m_uHeightTrack;
-		this->m_uAlign |= uAlign;
-		this->move(PosX, PosY);
-		this->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
-		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
-		this->setFont(pSkin->fontWindow, pSkin->colour);
 	}
 
 	void VScroll::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша
@@ -205,4 +169,50 @@ namespace MyGUI {
 			}
 		}
 	}
+	
+	VScroll *VScroll::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+	{
+		
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		
+		if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
+		
+		VScroll * pWindow = new VScroll(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+        
+		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
+			Window * pChild;
+			 // создаем дочернии окна скины
+			if (pSkin->subSkins[pos]->exdata & WES_VSCROLL_TRACK) {
+				// элемент является скролом, прицепляем к клиентской области
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow->m_pWindowClient);
+				pWindow->m_pWindowTrack = pChild;
+				pChild->show(false);
+			} else {
+				// обычный элемент
+				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			}
+
+			pChild->m_pEventCallback = (EventCallback*)pWindow;
+			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild; // клиентское окно для ползунка
+		}
+		// размеры кнопок скрола
+		pWindow->m_uHeightTrack = StringConverter::parseInt(pSkin->data3);
+		pWindow->m_uHeightButton = StringConverter::parseInt(pSkin->data4);
+		pWindow->m_uHeightButtonAll = (pWindow->m_uHeightButton * 2) + pWindow->m_uHeightTrack;
+		pWindow->m_uAlign |= uAlign;
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+		return pWindow;
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
+	}
+
 }
+//=========================================================================================

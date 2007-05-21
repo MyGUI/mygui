@@ -8,42 +8,14 @@ using namespace std;
 
 namespace MyGUI {
 
-    Tab::Tab(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
-	  
-	  : Window(AssetManager::getSingleton()->Skins()->getDefinition(Skin)->subSkins[0],
-		    parent ? OVERLAY_CHILD           : uOverlay,
-		    parent ? parent->m_pWindowClient : NULL),
-		    
-        m_SkinButton(""),
+	Tab::Tab(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent),
+		m_SkinButton(""),
 		m_iCurrentButtonsSizeX(0),
 		m_pWindowTop(0),
-		m_uCurrentTab(-1),
-		
-		#pragma warning(disable:4355)
-		m_pWindowTab(this) //The warning, in this case, doesn't matter
-		#pragma warning(default:4355)
+		m_uCurrentTab(-1)
 	{
-	    const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
-		
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
-			pChild->m_pEventCallback = (EventCallback*)this;
-			if (pChild->m_uExData & WES_TAB_TOP)
-			    this->m_pWindowTop = pChild;
-			if (pChild->m_uExData & WES_CLIENT)
-			    this->m_pWindowTab = pChild;
-		}
-		
-		this->m_iCurrentButtonsSizeX = StringConverter::parseInt(pSkin->data3);
-		this->m_SkinButton = pSkin->data4;
-		this->m_uAlign |= uAlign;
-		this->move(PosX, PosY);
-		this->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
-		           SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
-		
-		this->setFont(pSkin->fontWindow, pSkin->colour);
+		m_pWindowTab = this;
 	}
 
 	Window * Tab::addSheet(const DisplayString & strName, int16 iSizeX) // добавляет вкладку
@@ -114,5 +86,39 @@ namespace MyGUI {
 				return ;
 			}
 		}
+	}
+
+	Tab *Tab::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+	{
+	    
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		
+		if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
+		
+		Tab * pWindow = new Tab(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+		
+		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
+			 // создаем дочернии окна скины
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			pChild->m_pEventCallback = (EventCallback*)pWindow;
+			if (pChild->m_uExData & WES_TAB_TOP) pWindow->m_pWindowTop = pChild;
+			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowTab = pChild;
+		}
+		
+		pWindow->m_iCurrentButtonsSizeX = StringConverter::parseInt(pSkin->data3);
+		pWindow->m_SkinButton = pSkin->data4;
+		pWindow->m_uAlign |= uAlign;
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
+		return pWindow;
 	}
 }

@@ -10,14 +10,9 @@ using namespace OIS;
 
 namespace MyGUI {
 
-    List::List(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
-	        
-	  : Window(AssetManager::getSingleton()->Skins()->getDefinition(Skin)->subSkins[0],
-		    parent ? OVERLAY_CHILD              : uOverlay,
-		    parent ? parent->m_pWindowClient    : NULL),
-        
-        m_scroll(0),
+	List::List(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
+		Window(lpSkin, uOverlay, pWindowFother),
+		m_scroll(0),
 		m_SkinButton("SKIN_DEFAULT"),
 		m_uSizeYButton(1),
 		m_uSizeXScroll(0),
@@ -31,49 +26,7 @@ namespace MyGUI {
 		m_bIsVisibleScroll(false),
 		m_bIsOneClickActived(false)
 	{
-		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
-		
-		if (!pSkin) {
-		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
-		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
-		}
-		
-		this->m_uAlign |= uAlign;
-		
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочерние окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
-			pChild->m_pEventCallback = (EventCallback*)this;
-			if (pChild->m_uExData & WES_CLIENT)
-			    this->m_pWindowClient = pChild;
-		}
-
-		if (pSkin->data3 != "") { // есть скролл
-			const String &SkinScroll = pSkin->data3;
-			this->m_uSizeXScroll = AssetManager::getSingleton()->Skins()->getDefinition(SkinScroll)->subSkins[0]->sizeX;
-			this->m_scroll = this->m_pWindowClient->spawn<VScroll>(
-			    this->m_pWindowClient->m_iSizeX - this->m_uSizeXScroll, 0,
-			    -1, this->m_pWindowClient->m_iSizeY,
-			    WA_RIGHT|WA_VSTRETCH, pSkin->data3);
-			    
-			this->m_uStartWindow = 1;
-			this->m_scroll->m_pEventCallback = (EventCallback*)this;
-			this->m_bIsVisibleScroll = true;
-		}
-		
-		this->m_SkinButton = pSkin->data4;
-		this->m_uSizeYButton = AssetManager::getSingleton()->Skins()->getDefinition(this->m_SkinButton)
-		    ->subSkins[0]->sizeY;
-		if (this->m_uSizeYButton == 0)
-		    this->m_uSizeYButton = 1;
-
-		this->move(PosX, PosY);
-		if (SizeX == -1) SizeX = pSkin->subSkins[0]->sizeX;
-		if (SizeY == -1) SizeY = pSkin->subSkins[0]->sizeY;
-		this->size(SizeX, SizeY);
-		
-		this->setFont(pSkin->fontWindow, pSkin->colour);
-	}	
+	}
 
 	List::~List()
 	{
@@ -446,5 +399,55 @@ namespace MyGUI {
 		for (size_t pos = m_uStartWindow; pos < m_pWindowClient->mChildWindows.size(); pos++) {
 			m_pWindowClient->mChildWindows[pos]->setFont(lpFont, colour);
 		}
+	}
+
+	List *List::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+	{
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		
+		if (!pSkin) {
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
+		
+		List * pWindow = new List(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+		    
+		pWindow->m_uAlign |= uAlign;
+		
+		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
+			 // создаем дочерние окна скины
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			pChild->m_pEventCallback = (EventCallback*)pWindow;
+			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
+		}
+
+		if (pSkin->data3 != "") { // есть скролл
+			const String &SkinScroll = pSkin->data3;
+			pWindow->m_uSizeXScroll = AssetManager::getSingleton()->Skins()->getDefinition(SkinScroll)->subSkins[0]->sizeX;
+			pWindow->m_scroll = pWindow->m_pWindowClient->spawn<VScroll>(
+			    pWindow->m_pWindowClient->m_iSizeX - pWindow->m_uSizeXScroll, 0,
+			    -1, pWindow->m_pWindowClient->m_iSizeY,
+			    WA_RIGHT|WA_VSTRETCH, pSkin->data3);
+			    
+			pWindow->m_uStartWindow = 1;
+			pWindow->m_scroll->m_pEventCallback = (EventCallback*)pWindow;
+			pWindow->m_bIsVisibleScroll = true;
+		}
+		
+		pWindow->m_SkinButton = pSkin->data4;
+		pWindow->m_uSizeYButton = AssetManager::getSingleton()->Skins()->getDefinition(pWindow->m_SkinButton)
+		    ->subSkins[0]->sizeY;
+		if (pWindow->m_uSizeYButton == 0) pWindow->m_uSizeYButton = 1;
+
+		pWindow->move(PosX, PosY);
+		if (SizeX == -1) SizeX = pSkin->subSkins[0]->sizeX;
+		if (SizeY == -1) SizeY = pSkin->subSkins[0]->sizeY;
+		pWindow->size(SizeX, SizeY);
+		
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
+		return pWindow;
 	}
 }

@@ -9,64 +9,31 @@ using namespace Ogre;
 using namespace std;
 
 namespace MyGUI {
-    
-    Window::Window(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
-    {
-        const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
-		
-		if(!pSkin)
-		{
-		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
-		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
-		}
-		
-		Initialize(pSkin->subSkins[0],
-		    parent ? OVERLAY_CHILD              : uOverlay,
-		    parent ? parent->m_pWindowClient    : NULL);
-        
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
-			pChild->m_pEventCallback = (EventCallback*)this;
-		}
-		
-		this->m_uAlign |= uAlign;
-		this->move(PosX, PosY);
-		this->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
-		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
-        this->setFont(pSkin->fontWindow, pSkin->colour);
-    }
 
-	Window::Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent)
+	Window::Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		m_overlay(0),
+		m_pWindowParent(0),
+		m_pEventCallback(GUI::getSingleton()->m_pEventCallback),
+		m_uEventCallback(lpSkin->event_info),
+		m_iPosX(lpSkin->posX),
+		m_iPosY(lpSkin->posY),
+		m_iSizeX(lpSkin->sizeX),
+		m_iSizeY(lpSkin->sizeY),
+		m_iOffsetAlignX(0),
+		m_iOffsetAlignY(0),
+		m_uAlign(lpSkin->align),
+		m_uState(WS_NORMAL),
+		m_overlayCaption(0),
+		m_sizeTextX(0),
+		m_sizeTextY(0),
+		m_sizeCutTextX(0),
+		m_sizeCutTextY(0),
+		m_bIsOverlapped(0),
+		m_font(FONT_DEFAULT),
+		m_fontColour(1,1,1),
+		m_uExData(lpSkin->exdata),
+		m_uUserData(0)
 	{
-	    Initialize(lpSkin, uOverlay, pWindowParent);
-	}
-	
-	void Window::Initialize(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent)
-	{
-		m_overlay = NULL;
-		m_pWindowParent = NULL;
-		m_pEventCallback = GUI::getSingleton()->m_pEventCallback;
-		m_uEventCallback = lpSkin->event_info;
-		m_iPosX = lpSkin->posX;
-		m_iPosY = lpSkin->posY;
-		m_iSizeX = lpSkin->sizeX;
-		m_iSizeY = lpSkin->sizeY;
-		m_iOffsetAlignX = 0;
-		m_iOffsetAlignY = 0;
-		m_uAlign = lpSkin->align;
-		m_uState = WS_NORMAL;
-		m_overlayCaption = NULL;
-		m_sizeTextX = 0;
-		m_sizeTextY = 0;
-		m_sizeCutTextX = 0;
-		m_sizeCutTextY = 0;
-		m_bIsOverlapped = false;
-		m_font = FONT_DEFAULT;
-		m_fontColour = Ogre::ColourValue(1,1,1);
-		m_uExData = lpSkin->exdata;
-		m_uUserData = 0;
 		m_pWindowText = this;
 		m_pWindowClient = this;
 		
@@ -747,5 +714,35 @@ namespace MyGUI {
 		sizeX = oldLen - len;
 		sizeY = height;
 
-	}
+	}	
+	
+    Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+    {
+        
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		
+		if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
+		
+		Window * pWindow = new Window(pSkin->subSkins[0],
+		    parent ? OVERLAY_CHILD : uOverlay,
+		    parent ? parent->m_pWindowClient : NULL);
+        
+		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
+			 // создаем дочернии окна скины
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			pChild->m_pEventCallback = (EventCallback*)pWindow;
+		}
+		
+		pWindow->m_uAlign |= uAlign;
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+        pWindow->setFont(pSkin->fontWindow, pSkin->colour);
+		return pWindow;
+    }
 }

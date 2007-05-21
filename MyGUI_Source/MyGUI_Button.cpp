@@ -6,12 +6,11 @@ using namespace std;
 
 namespace MyGUI {
 
-	Button::Button(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
-        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
-      
-      : StaticText(PosX, PosY, SizeX, SizeY, parent, uAlign, uOverlay, Skin)
-	{		
-		this->m_uEventCallback |= WE_MOUSE_BUTTON | WE_KEY_BUTTON;
+	class GUI;
+
+	Button::Button(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, uOverlay, pWindowParent)
+	{
 	}
 
 	void Button::_OnMouseChangeFocus(bool bIsFocus) // вызывается при смене активности от курсора
@@ -85,4 +84,36 @@ namespace MyGUI {
         
         shiftText(bIsShiftText);
 	}
+
+	Button *Button::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
+	{
+		
+		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
+		if(!pSkin)
+		{
+		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
+		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
+		}
+		
+		Button * pWindow = new Button(pSkin->subSkins[0], parent ? OVERLAY_CHILD : uOverlay, parent ? parent->m_pWindowClient : NULL);
+		
+		pWindow->m_uEventCallback |= WE_MOUSE_BUTTON | WE_KEY_BUTTON;
+		for (size_t pos = 1; pos < pSkin->subSkins.size(); ++pos) {
+			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			pChild->m_pEventCallback = (EventCallback*)pWindow;
+			if (pChild->m_uExData & WES_TEXT)
+			    pWindow->setWindowText(pChild);
+		}		
+		
+		pWindow->m_uAlign |= uAlign;
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
+		pWindow->move(PosX, PosY);
+		pWindow->size(SizeX > 0 ? SizeX : pSkin->subSkins[0]->sizeX,  
+		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
+		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
+		return pWindow;
+		
+	}
+
 }
