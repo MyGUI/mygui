@@ -1,10 +1,10 @@
 #pragma once
 
-#include "MyGUI_Window.h"
+#include "MyGUI_StaticText.h"
 
 namespace MyGUI {
 
-	class Button : public Window {
+	class Button : public StaticText {
 	public:
 		Button::Button(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_BUTTON);
