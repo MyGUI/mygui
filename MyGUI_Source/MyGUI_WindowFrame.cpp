@@ -109,7 +109,8 @@ namespace MyGUI {
 			 // создаем дочернии окна скины
 			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
 			pChild->m_pEventCallback = (EventCallback*)this;
-			if (pChild->m_uExData & WES_TEXT) this->m_pWindowText = pChild;
+			if (pChild->m_uExData & WES_TEXT)
+			    this->m_pWindowText = pChild;
 			if (pChild->m_uExData & WES_CLIENT) {
 				this->m_pWindowClient = pChild; // клиентское окно
 				pChild->m_pWindowText = this->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже

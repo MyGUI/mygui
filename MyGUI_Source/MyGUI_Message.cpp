@@ -67,6 +67,7 @@ namespace MyGUI {
 	    uint16 uID, bool bIsModal, const DisplayString & strButton1, const DisplayString & strButton2)
 	    
 	  : WindowFrame(0, 0, -1, -1, NULL, 0, bIsModal ? OVERLAY_POPUP : OVERLAY_OVERLAPPED, SKIN_WINDOWFRAME_CX),
+            
 	    m_pButton1(0),
 		m_pButton2(0),
 		m_pWindowfade(0)
@@ -91,20 +92,7 @@ namespace MyGUI {
 			texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, __GUI_POPUP_FADE_ALPHA);
 
 		}
-
-		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
-			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, this);
-			pChild->m_pEventCallback = (EventCallback*)this;
-			if (pChild->m_uExData & WES_TEXT)
-			    this->m_pWindowText = pChild;
-			if (pChild->m_uExData & WES_CLIENT) {
-				this->m_pWindowClient = pChild; // клиентское окно
-				pChild->m_pWindowText = this->m_pWindowText; // текстовое окно элемента запоминаем в клиентском тоже
-			}
-		}
 		
-		this->setFont(pSkin->fontWindow, pSkin->colour);
 		this->setCaption(strCaption);
 
 		const int __BUTTON_SIZE = 130;
