@@ -376,6 +376,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_StaticImage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\MyGUI_Source\MyGUI_StaticImage.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_StaticText.cpp"
 				>
 			</File>

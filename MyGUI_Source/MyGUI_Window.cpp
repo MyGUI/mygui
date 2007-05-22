@@ -45,7 +45,7 @@ namespace MyGUI {
 
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		
-		// в памяти не может быть два this с одним адресом, значит уникальный
+		//a unique name is needed
 		m_overlayContainer = static_cast<PanelOverlayElement*>(overlayManager.createOverlayElement(
 		    "Panel", "MyGUI_OverlayElement_" + StringConverter::toString((uint32)this))); 
 		
@@ -119,14 +119,18 @@ namespace MyGUI {
 			}
 		}
 
-		if (index != -1) { // непосредственно вставка в массив
-			GUI::getSingleton()->mRootWindows.push_back(NULL);
+		if (index != -1) // непосредственно вставка в массив
+        {
+            GUI::getSingleton()->mRootWindows.push_back(NULL);
 			for (size_t pos = size; (int16)pos > index; pos--)
 			    GUI::getSingleton()->mRootWindows[pos] = GUI::getSingleton()->mRootWindows[pos-1];
 			GUI::getSingleton()->mRootWindows[index] = this;
 		}
 
-		_LOG("create window (%p)     (%d, %d, %d, %d)   callback(0x%.8X)   align(0x%.8X)    overlapped(%d)   data(0x%.8X)", this, m_iPosX, m_iPosY, m_iSizeX, m_iSizeY, m_uEventCallback, m_uAlign, m_bIsOverlapped, m_uExData);
+		_LOG("create window (%p)     (%d, %d, %d, %d)   callback(0x%.8X)   "
+		     "align(0x%.8X)    overlapped(%d)   data(0x%.8X)", this,
+		     m_iPosX, m_iPosY, m_iSizeX, m_iSizeY, m_uEventCallback,
+		     m_uAlign, m_bIsOverlapped, m_uExData);
 
 		m_overlayContainer->show();
 	}
@@ -226,8 +230,10 @@ namespace MyGUI {
 
 	void Window::show(bool bIsShow) // скрыть показать окно
 	{
-		if (bIsShow) m_overlayContainer->show();
-		else m_overlayContainer->hide();
+		if (bIsShow)
+		    m_overlayContainer->show();
+		else
+		    m_overlayContainer->hide();
 	}
 
 	void Window::move(int16 iPosX, int16 iPosY) // передвинуть окно
