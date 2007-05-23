@@ -12,7 +12,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	Edit::Edit(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Edit::Edit(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_pWindowCursor(0),
 		m_bIsFocus(false),

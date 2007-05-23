@@ -10,7 +10,7 @@ using namespace std;
 
 namespace MyGUI {
 
-	Window::Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Window::Window(const __MYGUI_SUBSKIN_INFO * lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		m_overlay(0),
 		m_pWindowParent(0),
 		m_pEventCallback(GUI::getSingleton()->m_pEventCallback),
@@ -32,17 +32,12 @@ namespace MyGUI {
 		m_font(FONT_DEFAULT),
 		m_fontColour(1,1,1),
 		m_uExData(lpSkin->exdata),
-		m_uUserData(0)
+		m_uUserData(0),
+		m_lpSkinInfo(lpSkin)
 	{
 		m_pWindowText = this;
 		m_pWindowClient = this;
 		
-		mStateSkins[SKIN_STATE_DEACTIVATED]    = lpSkin->SkinDeactivated;
-		mStateSkins[SKIN_STATE_NORMAL]         = lpSkin->SkinNormal;
-		mStateSkins[SKIN_STATE_ACTIVE]      = lpSkin->SkinActive;
-		mStateSkins[SKIN_STATE_PRESSED]        = lpSkin->SkinPressed;
-		mStateSkins[SKIN_STATE_SELECTED]       = lpSkin->SkinSelected;
-
 		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		
 		//a unique name is needed
@@ -374,7 +369,7 @@ namespace MyGUI {
 		} else if (uState == WS_NORMAL) {
 			if (m_uState == __WS_SELECTED) {
 				m_uState = __WS_ACTIVATED;
-				Skin = SKIN_STATE_ACTIVE;
+				Skin = SKIN_STATE_ACTIVED;
 			} else {
 				m_uState = WS_NORMAL;
 				Skin = SKIN_STATE_NORMAL;
@@ -443,7 +438,7 @@ namespace MyGUI {
 		if (bIsFocus) {
 			if (m_uState == WS_NORMAL) {
 				m_uState = __WS_ACTIVATED;
-				Skin = SKIN_STATE_ACTIVE;
+				Skin = SKIN_STATE_ACTIVED;
 			} else if (m_uState == WS_PRESSED) {
 				m_uState = __WS_SELECTED;
 				Skin = SKIN_STATE_SELECTED;
@@ -475,8 +470,16 @@ namespace MyGUI {
 	
 	void Window::setSkinState(__SKIN_STATES Skin)
 	{
-	    if(!mStateSkins[Skin].empty())
-	        m_overlayContainer->setMaterialName(mStateSkins[Skin]);
+		if (!m_lpSkinInfo->SkinState[Skin].empty()) m_overlayContainer->setMaterialName(m_lpSkinInfo->SkinState[Skin]);
+/*
+		// new version
+		if (m_lpSkinInfo->fOffsetStateSkin[Skin][_CX] != 0.0) m_overlayContainer->setUV(
+			m_lpSkinInfo->fOffsetStateSkin[Skin][_X],
+			m_lpSkinInfo->fOffsetStateSkin[Skin][_Y],
+			m_lpSkinInfo->fOffsetStateSkin[Skin][_CX],
+			m_lpSkinInfo->fOffsetStateSkin[Skin][_CY]
+		);
+*/
 	}
 
 	bool Window::check(int16 iPosX, int16 iPosY, bool bCapture) // bCapture продолжать ли проверку окон
@@ -728,8 +731,7 @@ namespace MyGUI {
         
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
 		
-		if(!pSkin)
-		{
+		if (!pSkin) {
 		    _LOG("\n\t[ERROR] Attempting to use a non existant skin \"%s\".  Will set to SKIN_DEFAULT", Skin.c_str());
 		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
 		}

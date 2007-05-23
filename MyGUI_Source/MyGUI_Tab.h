@@ -5,7 +5,7 @@
 namespace MyGUI {
 
 	class Tab : public Window {
-        Tab(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
+        Tab(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
 	public:
 		struct __tag_TAB_SHEET {
 			Button * pButton; // кнопка вкладки

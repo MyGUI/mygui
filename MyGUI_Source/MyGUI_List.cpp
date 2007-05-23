@@ -10,7 +10,7 @@ using namespace OIS;
 
 namespace MyGUI {
 
-	List::List(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
+	List::List(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
 		Window(lpSkin, uOverlay, pWindowFother),
 		m_scroll(0),
 		m_SkinButton("SKIN_DEFAULT"),

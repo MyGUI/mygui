@@ -31,7 +31,7 @@ namespace MyGUI {
     public:
         typedef std::list<StaticImage *>::iterator ChildrenIterator;
         
-	    StaticImage(const __tag_MYGUI_SUBSKIN_INFO &pSkin, uint8 uOverlay, StaticImage *pWindowParent = NULL);
+	    StaticImage(const __MYGUI_SUBSKIN_INFO &pSkin, uint8 uOverlay, StaticImage *pWindowParent = NULL);
 	    virtual ~StaticImage();
 	    
 	    //Static Image

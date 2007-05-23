@@ -10,7 +10,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	VScroll::VScroll(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	VScroll::VScroll(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_pWindowTrack(0),
 		m_uSizeScroll(0),
@@ -61,7 +61,7 @@ namespace MyGUI {
 			if (bIsLeftButtonPressed)
 			    pWindow->setSkinState(SKIN_STATE_SELECTED);
 			else {
-				pWindow->setSkinState(SKIN_STATE_ACTIVE);
+				pWindow->setSkinState(SKIN_STATE_ACTIVED);
 				setScrollPos(m_uPosScroll);
 			}
 			m_iRealMousePosY = GUI::getSingleton()->m_overlayContainerMouse->getTop() + 
@@ -74,7 +74,7 @@ namespace MyGUI {
 		else if (pWindow->m_uExData & WES_VSCROLL_DOWN) flag = WES_VSCROLL_DOWN;
 
 		if (flag != 0) {
-			__SKIN_STATES Skin = SKIN_STATE_ACTIVE;
+			__SKIN_STATES Skin = SKIN_STATE_ACTIVED;
 			if (bIsLeftButtonPressed) Skin = SKIN_STATE_SELECTED;
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
@@ -146,7 +146,7 @@ namespace MyGUI {
 	{
 		if (pWindow == m_pWindowTrack) { // ползунок
 			if (bIsFocus)
-			    pWindow->setSkinState(SKIN_STATE_ACTIVE);
+			    pWindow->setSkinState(SKIN_STATE_ACTIVED);
 			else
 			    pWindow->setSkinState(SKIN_STATE_NORMAL);
 			return;
@@ -160,7 +160,7 @@ namespace MyGUI {
 			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
 			
 			if (bIsFocus)
-			    Skin = SKIN_STATE_ACTIVE;
+			    Skin = SKIN_STATE_ACTIVED;
 			
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];

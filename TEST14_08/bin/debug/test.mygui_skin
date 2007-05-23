@@ -17,10 +17,9 @@ windowSkin 	FADE
 		align 	WA_NONE
 		style 	WES_ACTION1  WES_ACTION3  WES_ACTION5  WES_BUTTON  WES_CAPTION  WES_CLOSE  WES_COMBO  WES_EDIT  WES_LIST_HIDE_SCROLL  WES_TAB_TOP  WES_VSCROLL_TRACK  WES_VSCROLL_UP  
 
-		deactived_position 	0  3  28  24
+		deactivated_position 	3  4  26  26
 		normal_position 	2  2  3  3
 		pressed_position 	3  3  3  3
-		actived_position 	4  4  3  3
 		selected_position 	5  5  3  3
 	}
 }
@@ -39,7 +38,6 @@ windowSkin 	BUTTON
 		align 	WA_NONE
 		style 	WES_NONE
 
-		deactived_position 	24  4  30  30
 	}
 }
 

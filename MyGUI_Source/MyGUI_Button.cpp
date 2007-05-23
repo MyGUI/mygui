@@ -8,7 +8,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	Button::Button(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Button::Button(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent)
 	{
 	}
@@ -64,7 +64,7 @@ namespace MyGUI {
 		            Skin = SKIN_STATE_NORMAL;
 		            break;
 		        case __WS_ACTIVATED:
-		            Skin = SKIN_STATE_ACTIVE;
+		            Skin = SKIN_STATE_ACTIVED;
 		            break;
 		        default:
 		            return;

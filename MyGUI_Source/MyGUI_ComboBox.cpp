@@ -24,7 +24,7 @@ namespace MyGUI {
 		    m_pList->move(MoveX, _iPosY+m_iSizeY);
 	}
 
-	ComboBox::ComboBox(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	ComboBox::ComboBox(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_pList(0),
 		m_pEdit(0),
@@ -43,7 +43,7 @@ namespace MyGUI {
 		if (pWindow->m_uExData & WES_COMBO)
 		    showFocus(bIsFocus);
 		else if (pWindow->m_uExData & WES_COMBO_BUTTON)
-			pWindow->setSkinState(bIsFocus ? SKIN_STATE_ACTIVE : SKIN_STATE_NORMAL);
+			pWindow->setSkinState(bIsFocus ? SKIN_STATE_ACTIVED : SKIN_STATE_NORMAL);
 	}
 
 	void ComboBox::onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed) // нажата левая кнопка мыши
@@ -56,7 +56,7 @@ namespace MyGUI {
 			else
 			    setState(WS_NORMAL);
 		} else if (pWindow->m_uExData & WES_COMBO_BUTTON)
-			pWindow->setSkinState(bIsLeftButtonPressed ? SKIN_STATE_SELECTED : SKIN_STATE_ACTIVE);
+			pWindow->setSkinState(bIsLeftButtonPressed ? SKIN_STATE_SELECTED : SKIN_STATE_ACTIVED);
 
 		if (bIsLeftButtonPressed) {
 		    if (m_bHideList)

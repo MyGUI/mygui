@@ -8,7 +8,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	StaticText::StaticText(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
+	StaticText::StaticText(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
 		Window(lpSkin, uOverlay, pWindowFother)
 	{
 	}

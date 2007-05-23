@@ -11,7 +11,7 @@ namespace MyGUI {
 	class Message : public WindowFrame {
 
 	public:
-		Message(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
+		Message(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
 
 		void _OnUpZOrder(); // вызывается при активации окна
 

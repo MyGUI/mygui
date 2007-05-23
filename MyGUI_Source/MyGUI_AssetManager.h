@@ -81,7 +81,7 @@ namespace MyGUI
         __AssetDefinition<__tag_MYGUI_SKIN_INFO >     mSkins;
         __AssetDefinition<__tag_MYGUI_FONT_INFO >       mFonts;
         __AssetDefinition<__tag_MYGUI_POINTER_INFO >    mPointers;
-        __AssetDefinition<__tag_MYGUI_SUBSKIN_INFO >       mSubSkins;
+        __AssetDefinition<__MYGUI_SUBSKIN_INFO >       mSubSkins;
         
         void loadSkinDefinitions(std::map<String, uint32> & mapNameValue, const String & strFileName);
         
@@ -111,7 +111,7 @@ namespace MyGUI
             return &mPointers;
         }
         
-        __AssetDefinition<__tag_MYGUI_SUBSKIN_INFO> *SubSkins()
+        __AssetDefinition<__MYGUI_SUBSKIN_INFO> *SubSkins()
         {
             return &mSubSkins;
         }

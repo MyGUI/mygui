@@ -9,7 +9,7 @@ using namespace Ogre;
 
 namespace MyGUI {
 
-    StaticImage::StaticImage(const __tag_MYGUI_SUBSKIN_INFO &pSkin, uint8 uOverlay, StaticImage *pWindowParent) : 
+    StaticImage::StaticImage(const __MYGUI_SUBSKIN_INFO &pSkin, uint8 uOverlay, StaticImage *pWindowParent) : 
         m_overlay(NULL),
         m_overlayContainer(NULL),
 	    mPosX(pSkin.posX),
@@ -18,11 +18,11 @@ namespace MyGUI {
 	    mSizeY(pSkin.sizeY),
 	    mParent(pWindowParent)
     {
-        mStateSkins[SKIN_STATE_DEACTIVATED]    = pSkin.SkinDeactivated;
-	    mStateSkins[SKIN_STATE_NORMAL]         = pSkin.SkinNormal;
-	    mStateSkins[SKIN_STATE_ACTIVE]         = pSkin.SkinActive;
-	    mStateSkins[SKIN_STATE_PRESSED]        = pSkin.SkinPressed;
-	    mStateSkins[SKIN_STATE_SELECTED]       = pSkin.SkinSelected;
+        mStateSkins[SKIN_STATE_DEACTIVATED]    = pSkin.SkinState[SKIN_STATE_DEACTIVATED];
+	    mStateSkins[SKIN_STATE_NORMAL]         = pSkin.SkinState[SKIN_STATE_NORMAL];
+	    mStateSkins[SKIN_STATE_ACTIVED]         = pSkin.SkinState[SKIN_STATE_ACTIVED];
+	    mStateSkins[SKIN_STATE_PRESSED]        = pSkin.SkinState[SKIN_STATE_PRESSED];
+	    mStateSkins[SKIN_STATE_SELECTED]       = pSkin.SkinState[SKIN_STATE_SELECTED];
         
 	    //Define a unique label since labels must be unique
 	    m_overlayContainer = static_cast<PanelOverlayElement*>(OverlayManager::getSingleton().createOverlayElement(

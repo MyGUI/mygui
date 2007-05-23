@@ -22,7 +22,7 @@ namespace MyGUI {
 		    const DisplayString & strSource,
 		    uint16 uAlign); // возвращает обрезанную строку равную размерам
     public:
-	    Window(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);		
+	    Window(const __MYGUI_SUBSKIN_INFO * lpSkin, uint8 uOverlay, Window *pWindowParent);		
         virtual ~Window();
 	    
 	    static Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
@@ -61,10 +61,10 @@ namespace MyGUI {
 		virtual void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
 		virtual void _OnUpZOrder() {}; // вызывается при активации окна
 		
-		void show(bool ShowWindow);
-		void show() //Show the window
-		{   show(true); }
-		void hide() //hide the window
+		void show(bool ShowWindow = true);
+//		void show() //Show the window
+//		{   show(true); }
+		inline void hide() //hide the window
 		{   show(false); }
 		
 		//??
@@ -135,6 +135,7 @@ namespace MyGUI {
 		Window * m_pWindowParent; // A link back to this window's parent.  NULL if this is a root object
 		
 		//??
+		// In this window daughters are added (default this)
 		Window * m_pWindowClient; // элемент скина является клиенским окном всего элемента (по дефолту this)
 		
 		void move(int16 iPosX, int16 iPosY); // передвинуть окно
@@ -164,12 +165,14 @@ namespace MyGUI {
 		void shiftText(bool IsShiftText);
 		
 		private:
-        String mStateSkins[__SKIN_STATE_COUNT]; // скины состояний
+		const __MYGUI_SUBSKIN_INFO * m_lpSkinInfo; // указатель на скин окна
 		
 		public:
 		void setSkinState(__SKIN_STATES);
 		
 		uint16 m_uExData; // дополнительная информация об элементе
 		uint32 m_uUserData; // дополнительная информация пользователя
-	};
-}
+
+	}; // class Window : public EventCallback { // базовый класс окон гуи
+
+} // namespace MyGUI {

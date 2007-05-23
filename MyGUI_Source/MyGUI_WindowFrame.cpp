@@ -7,7 +7,7 @@ using namespace std;
 
 namespace MyGUI {
 
-	WindowFrame::WindowFrame(const __tag_MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	WindowFrame::WindowFrame(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, uOverlay, pWindowParent),
 		m_iMinSizeX(0),
 		m_iMinSizeY(0),
@@ -77,7 +77,7 @@ namespace MyGUI {
 				else  GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
 			}
 			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
-			if (bIsFocus) Skin = SKIN_STATE_ACTIVE;
+			if (bIsFocus) Skin = SKIN_STATE_ACTIVED;
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & flag) {

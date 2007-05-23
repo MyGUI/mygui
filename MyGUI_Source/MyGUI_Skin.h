@@ -5,7 +5,46 @@
 #include <OgreColourValue.h>
 
 namespace MyGUI {
-    
+
+	// смещения текстурных смещений в массиве
+	enum COORD {
+		_X,
+		_Y,
+		_CX,
+		_CY,
+		__COORD_COUNT
+	};
+
+	enum STATE_SKIN_OFFSETS {
+
+		OFFSET_DEACTIVATED_X,
+		OFFSET_DEACTIVATED_Y,
+		OFFSET_DEACTIVATED_CX,
+		OFFSET_DEACTIVATED_CY,
+
+		OFFSET_NORMAL_X,
+		OFFSET_NORMAL_Y,
+		OFFSET_NORMAL_CX,
+		OFFSET_NORMAL_CY,
+
+		OFFSET_ACTIVATED_X,
+		OFFSET_ACTIVATED_Y,
+		OFFSET_ACTIVATED_CX,
+		OFFSET_ACTIVATED_CY,
+
+		OFFSET_PRESSED_X,
+		OFFSET_PRESSED_Y,
+		OFFSET_PRESSED_CX,
+		OFFSET_PRESSED_CY,
+
+		OFFSET_SELECTED_X,
+		OFFSET_SELECTED_Y,
+		OFFSET_SELECTED_CX,
+		OFFSET_SELECTED_CY,
+
+		__OFFSET_STATE_COUNT
+	};
+
     enum FADE_STATES {
 		NONE,
 		FADE_CHANGE_STATE,
@@ -14,7 +53,7 @@ namespace MyGUI {
 	enum __SKIN_STATES {
 		SKIN_STATE_DEACTIVATED, // недоступен
 		SKIN_STATE_NORMAL, // обычное состояние
-		SKIN_STATE_ACTIVE, // наведен курсор, активен
+		SKIN_STATE_ACTIVED, // наведен курсор, активен
 		SKIN_STATE_PRESSED, // нажат
 		SKIN_STATE_SELECTED, // выделен (нажат и активен)
 		__SKIN_STATE_COUNT // !!! не использовать
@@ -27,7 +66,7 @@ namespace MyGUI {
 		Real spaceWidth; // ширина пробела
 		Real sizeEllipses; // ширина трех точек
 		__tag_MYGUI_FONT_INFO::__tag_MYGUI_FONT_INFO() : font(0), height(0), spaceWidth(0.0), sizeEllipses(0.0) {}
-	} * __LP_MYGUI_FONT_INFO;
+	} __MYGUI_FONT_INFO, * __LP_MYGUI_FONT_INFO;
 
 	typedef struct __tag_MYGUI_POINTER_INFO { // информация об указателях
 		String strMaterialName; // материал курсора
@@ -36,36 +75,38 @@ namespace MyGUI {
 		uint8 uSizeX; // размер указателя
 		uint8 uSizeY; // размер указателя
 		__tag_MYGUI_POINTER_INFO::__tag_MYGUI_POINTER_INFO() : uSizeX(0), uSizeY(0), iOffsetX(0), iOffsetY(0) {}
-	} * __LP_MYGUI_POINTER_INFO;
+	} __MYGUI_POINTER_INFO, * __LP_MYGUI_POINTER_INFO;
 
-	typedef struct __tag_MYGUI_SUBSKIN_INFO { // информация о куске скина окна
+	typedef struct __MYGUI_SUBSKIN_INFO { // информация о куске скина окна
 		// у главного окна ставится этот размер, создаются дочки, а потом ставится размер указанный пользователем
 		int16 posX; // позиция X
 		int16 posY; // позиция Y
 		int16 sizeX; // размер X
 		int16 sizeY; // размер Y
 		// скины состояния окна
-		String SkinNormal; // обычный скин
-		String SkinDeactivated; // заблокирован
-		String SkinActive; // наведен курсор
-		String SkinSelected; // наведен курсор и нажат
-		String SkinPressed; // нажат
+		String SkinState[__SKIN_STATE_COUNT]; // ??? убрать после перехода
 		// у главного окна игногируются
 		uint16 align; // выравнивание
 		uint16 event_info; // сообщения посылаемые отцу
 		uint16 exdata; // дополнительная информация об элементе
-		__tag_MYGUI_SUBSKIN_INFO::__tag_MYGUI_SUBSKIN_INFO() : posX(0), posY(0), sizeX(0), sizeY(0), align(0), event_info(0), exdata(0) {}
-	} *__LP_MYGUI_SUBSKIN_INFO;
+		// смещения состояний в материале всего элемента
+		float fOffsetStateSkin[__OFFSET_STATE_COUNT/__COORD_COUNT][__COORD_COUNT];
+		__MYGUI_SUBSKIN_INFO::__MYGUI_SUBSKIN_INFO() : posX(0), posY(0), sizeX(0), sizeY(0), align(0), event_info(0), exdata(0)
+		{
+			memset((void*)fOffsetStateSkin, 0, sizeof(float) * __OFFSET_STATE_COUNT);
+		}
+	}__MYGUI_SUBSKIN_INFO,  *__LP_MYGUI_SUBSKIN_INFO;
 
     typedef struct __tag_MYGUI_SKIN_INFO { // информация об окне
-		std::vector <const __tag_MYGUI_SUBSKIN_INFO *> subSkins; // дополнительные скины окна, дочки
+		std::vector <const __MYGUI_SUBSKIN_INFO *> subSkins; // дополнительные скины окна, дочки
 		//uint32 dataWindow; // дополнительная информация всего окна
 		String data1, data2, data3, data4;
 		String fontWindow; // шрифт всего элемента
 		Ogre::ColourValue colour; // цвет текста всего окна
-		__tag_MYGUI_SKIN_INFO::__tag_MYGUI_SKIN_INFO() : colour(0) {}
+		String * SkinElement; // материал всего элемента
+		__tag_MYGUI_SKIN_INFO::__tag_MYGUI_SKIN_INFO() : colour(0) , SkinElement(0) {}
 		__tag_MYGUI_SKIN_INFO::~__tag_MYGUI_SKIN_INFO() { }
-	} * __LP_MYGUI_SKIN_INFO;
+	} __MYGUI_SKIN_INFO, * __LP_MYGUI_SKIN_INFO;
 
 
 	const String SKIN_DEFAULT = "SKIN_DEFAULT"; // пустой скин для служебных целей

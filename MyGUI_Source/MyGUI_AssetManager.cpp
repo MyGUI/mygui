@@ -267,7 +267,7 @@ namespace MyGUI {
 						{
 							if (ini.getValue(strValue)) //does it have a name(?)
 							{
-								const __tag_MYGUI_SUBSKIN_INFO *skin = SubSkins()->getDefinition(strValue);
+								const __MYGUI_SUBSKIN_INFO *skin = SubSkins()->getDefinition(strValue);
 
 								if (skin)
 								{
@@ -283,9 +283,9 @@ namespace MyGUI {
 									     "align(0x%.8X)  event(0x%.8X)   style(0x%.8X)  deactive(%s)  "
 									     "active(%s)  normal(%s)  pressed(%s)  selected(%s)", strValue.c_str(),
 									     skin, skin->posX, skin->posY, skin->sizeX, skin->sizeY, skin->align,
-									     skin->event_info, skin->exdata, skin->SkinDeactivated.c_str(),
-									     skin->SkinActive.c_str(), skin->SkinNormal.c_str(),
-									     skin->SkinPressed.c_str(),skin->SkinSelected.c_str());
+									     skin->event_info, skin->exdata, skin->SkinState[SKIN_STATE_DEACTIVATED].c_str(),
+									     skin->SkinState[SKIN_STATE_ACTIVED].c_str(), skin->SkinState[SKIN_STATE_NORMAL].c_str(),
+									     skin->SkinState[SKIN_STATE_PRESSED].c_str(),skin->SkinState[SKIN_STATE_SELECTED].c_str());
 								}
 								else
 								    _LOG("\t\t[ERROR] set sub skin  '%s'", strValue.c_str());
@@ -306,7 +306,7 @@ namespace MyGUI {
                             (Name + ++UniqueSerialID) :
                             (ini.getBlockName());
 						
-						__tag_MYGUI_SUBSKIN_INFO *skin = SubSkins()->defineNew(strBlockName);						
+						__MYGUI_SUBSKIN_INFO *skin = SubSkins()->defineNew(strBlockName);						
 
 						while (ini.LoadNextValue()) {
 							if (ini.getValueName(strValueName)) {
@@ -334,15 +334,15 @@ namespace MyGUI {
 										pos ++;
 									};
 								} else if (strValueName == VALUE_SKIN_DEACTIVATED) {
-									if (ini.getValue(strValue)) skin->SkinDeactivated = strValue;
+									if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_DEACTIVATED] = strValue;
 								} else if (strValueName == VALUE_SKIN_NORMAL) {
-									if (ini.getValue(strValue)) skin->SkinNormal = strValue;
+									if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_NORMAL] = strValue;
 								} else if (strValueName == VALUE_SKIN_ACTIVE) {
-									if (ini.getValue(strValue)) skin->SkinActive = strValue;
+									if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_ACTIVED] = strValue;
 								} else if (strValueName == VALUE_SKIN_PRESSED) {
-									if (ini.getValue(strValue)) skin->SkinPressed = strValue;
+									if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_PRESSED] = strValue;
 								} else if (strValueName == VALUE_SKIN_SELECTED) {
-									if (ini.getValue(strValue)) skin->SkinSelected = strValue;
+									if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_SELECTED] = strValue;
 								}
 							}
 						};
@@ -366,9 +366,9 @@ namespace MyGUI {
 							     "align(0x%.8X)  event(0x%.8X)   style(0x%.8X)  deactive(%s)  "
 							     "active(%s)  normal(%s)  pressed(%s)  selected(%s)", strBlockName.c_str(),
 							     skin, skin->posX, skin->posY, skin->sizeX, skin->sizeY, skin->align,
-							     skin->event_info, skin->exdata, skin->SkinDeactivated.c_str(),
-							     skin->SkinActive.c_str(), skin->SkinNormal.c_str(),
-							     skin->SkinPressed.c_str(), skin->SkinSelected.c_str());
+							     skin->event_info, skin->exdata, skin->SkinState[SKIN_STATE_DEACTIVATED].c_str(),
+							     skin->SkinState[SKIN_STATE_ACTIVED].c_str(), skin->SkinState[SKIN_STATE_NORMAL].c_str(),
+							     skin->SkinState[SKIN_STATE_PRESSED].c_str(), skin->SkinState[SKIN_STATE_SELECTED].c_str());
 							
 							if (!strBlockName.empty()) { // у этого блока есть имя, сохраняем
 								//TODO: port
