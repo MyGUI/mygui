@@ -8,7 +8,7 @@ using namespace std;
 
 namespace MyGUI {
 
-	Tab::Tab(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+	Tab::Tab(const __MYGUI_SUBSKIN_INFO *lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_SkinButton(""),
 		m_iCurrentButtonsSizeX(0),

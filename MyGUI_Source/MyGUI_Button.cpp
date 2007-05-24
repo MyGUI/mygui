@@ -8,7 +8,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	Button::Button(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+	Button::Button(const __MYGUI_SUBSKIN_INFO *lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent)
 	{
 	}

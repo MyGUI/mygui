@@ -194,15 +194,6 @@ namespace MyGUI {
 		_LOG_NEW;
 	} // void AssetManager::loadSkinDefinitions(std::map<String, uint32> & mapNameValue, const String & strFileName)
 
-	String * AssetManager::getMaterialPtr(const String & strName)
-	{
-		ResourcePtr res = Ogre::MaterialManager::getSingleton().getByName(strName);
-		if (res.isNull()) return 0;
-//		SkinIterator
-//		mSkins.
-		return 0;
-	} // String * AssetManager::getMaterialPtr(const String & strName)
-
 	void AssetManager::loadPointerDefinitions(loadINI & ini)
 	{
 		#define VALUE_POINTER_SIZE "size"
@@ -294,11 +285,18 @@ namespace MyGUI {
 		#define VALUE_SKIN_STYLE "style"
 		#define VALUE_SKIN_DEACTIVATED "skin_deactivated"
 		#define VALUE_SKIN_NORMAL "skin_normal"
-		#define VALUE_SKIN_ACTIVE "skin_active"
+		#define VALUE_SKIN_ACTIVED "skin_actived"
 		#define VALUE_SKIN_PRESSED "skin_pressed"
 		#define VALUE_SKIN_SELECTED "skin_selected"
 
+		#define VALUE_OFFSET_DEACTIVATED "offset_deactivated"
+		#define VALUE_OFFSET_NORMAL "offset_normal"
+		#define VALUE_OFFSET_ACTIVED "offset_actived"
+		#define VALUE_OFFSET_PRESSED "offset_pressed"
+		#define VALUE_OFFSET_SELECTED "offset_selected"
+
 		uint32 uValue;
+		float fValue;
 		size_t pos;
 		String strValueName, strValue;
 
@@ -313,6 +311,7 @@ namespace MyGUI {
 
 		while (ini.LoadNextValue()) {
 			if (ini.getValueName(strValueName)) {
+
 				if (strValueName == VALUE_SKIN_POSITION) {
 					if (ini.getValue(uValue, 0)) skin->posX = (int16)uValue;
 					if (ini.getValue(uValue, 1)) skin->posY = (int16)uValue;
@@ -340,15 +339,58 @@ namespace MyGUI {
 					if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_DEACTIVATED] = strValue;
 				} else if (strValueName == VALUE_SKIN_NORMAL) {
 					if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_NORMAL] = strValue;
-				} else if (strValueName == VALUE_SKIN_ACTIVE) {
+				} else if (strValueName == VALUE_SKIN_ACTIVED) {
 					if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_ACTIVED] = strValue;
 				} else if (strValueName == VALUE_SKIN_PRESSED) {
 					if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_PRESSED] = strValue;
 				} else if (strValueName == VALUE_SKIN_SELECTED) {
 					if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_SELECTED] = strValue;
+
+				} else if (strValueName == VALUE_OFFSET_DEACTIVATED) {
+					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_X] = fValue;
+						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_Y] = fValue;
+							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_CX] = fValue;
+								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_CY] = fValue;
+							}
+						}
+					}
+				} else if (strValueName == VALUE_OFFSET_NORMAL) {
+					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_X] = fValue;
+						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_Y] = fValue;
+							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_CX] = fValue;
+								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_CY] = fValue;
+							}
+						}
+					}
+				} else if (strValueName == VALUE_OFFSET_ACTIVED) {
+					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_X] = fValue;
+						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_Y] = fValue;
+							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_CX] = fValue;
+								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_CY] = fValue;
+							}
+						}
+					}
+				} else if (strValueName == VALUE_OFFSET_PRESSED) {
+					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_X] = fValue;
+						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_Y] = fValue;
+							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_CX] = fValue;
+								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_CY] = fValue;
+							}
+						}
+					}
+				} else if (strValueName == VALUE_OFFSET_SELECTED) {
+					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_X] = fValue;
+						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_Y] = fValue;
+							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_CX] = fValue;
+								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_CY] = fValue;
+							}
+						}
+					}
+
 				}
-			}
-		};
+
+			} //if (ini.getValueName(strValueName)) {
+		}; // while (ini.LoadNextValue()) {
 
 		if (strBlockType == SECTION_SUB_SKIN)
 		    window->subSkins.push_back(skin);
@@ -407,7 +449,10 @@ namespace MyGUI {
 			if (ini.getValueName(strValueName)) {
 
 				if (strValueName == VALUE_WINDOW_SKIN) {
-					if (ini.getValue(strValue)) window->SkinElement = getMaterialPtr(strValue);
+					if (ini.getValue(strValue)) {
+						ResourcePtr res = Ogre::MaterialManager::getSingleton().getByName(strValue);
+						if (!res.isNull()) window->SkinElement = strValue;
+					}
 				} else if (strValueName == VALUE_WINDOW_FONT) {
 					if (ini.getValue(strValue))
 					    window->fontWindow = strValue;
@@ -510,5 +555,18 @@ namespace MyGUI {
 		ini.jumpBlock(false, false); // выпрыгиваем
 
 	} // void AssetManager::loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue)
+
+/*	String * AssetManager::getMaterialPtr(const String & strName)
+	{
+		ResourcePtr res = Ogre::MaterialManager::getSingleton().getByName(strName);
+		if (res.isNull()) return 0;
+
+		for (SkinIterator pos = Skins()->begin(); pos != Skins()->end(); ++pos) {
+			if ((pos->second->SkinElement) && (*pos->second->SkinElement == strName))
+				return pos->second->SkinElement;
+		}
+
+		return new String(strName);
+	} // String * AssetManager::getMaterialPtr(const String & strName)*/
 
 } // namespace MyGUI {

@@ -24,7 +24,7 @@ namespace MyGUI {
 		    m_pList->move(MoveX, _iPosY+m_iSizeY);
 	}
 
-	ComboBox::ComboBox(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+	ComboBox::ComboBox(const __MYGUI_SUBSKIN_INFO *lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_pList(0),
 		m_pEdit(0),

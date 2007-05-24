@@ -92,7 +92,7 @@ namespace MyGUI
 		void loadPointerDefinitions(loadINI & ini);
 		void loadFontDefinitions(loadINI & ini);
 
-		String * getMaterialPtr(const String & strName);
+//		String * getMaterialPtr(const String & strName);
         
     public:
         typedef __AssetDefinition<__tag_MYGUI_SKIN_INFO>::iterator   SkinIterator;

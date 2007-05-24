@@ -14,7 +14,7 @@ namespace MyGUI {
 
 	class GUI;
 
-	Message::Message(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+	Message::Message(const __MYGUI_SUBSKIN_INFO *lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
 		WindowFrame(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_pButton1(0),
 		m_pButton2(0),

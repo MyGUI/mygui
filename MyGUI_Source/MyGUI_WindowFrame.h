@@ -7,7 +7,7 @@ namespace MyGUI {
 	class WindowFrame : public Window {
 
 	public:
-		WindowFrame(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent);
+		WindowFrame(const __MYGUI_SUBSKIN_INFO *lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent);
 		
 		static WindowFrame *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_WINDOWFRAME_CSX);

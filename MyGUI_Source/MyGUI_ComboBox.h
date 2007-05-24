@@ -8,7 +8,7 @@ namespace MyGUI {
 	class ComboBox : public Window {
 	    void __COMBO_CALC_SHOW_LIST();
 	    
-	    ComboBox(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent);
+	    ComboBox(const __MYGUI_SUBSKIN_INFO *lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent);
 		
 	public:	    
 	    ~ComboBox();

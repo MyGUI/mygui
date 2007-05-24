@@ -10,7 +10,7 @@ using namespace std;
 
 namespace MyGUI {
 
-	Window::Window(const __MYGUI_SUBSKIN_INFO * lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+	Window::Window(const __MYGUI_SUBSKIN_INFO * lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
 		m_overlay(0),
 		m_pWindowParent(0),
 		m_pEventCallback(GUI::getSingleton()->m_pEventCallback),
@@ -128,8 +128,8 @@ namespace MyGUI {
 		     m_uAlign, m_bIsOverlapped, m_uExData);
 
 		// устанавливаем нормал скин по дефолту
-		if (strMaterialElement) {
-			m_overlayContainer->setMaterialName(*strMaterialElement);
+		if (!strMaterialElement.empty()) {
+			m_overlayContainer->setMaterialName(strMaterialElement);
 			setSkinState(SKIN_STATE_NORMAL);
 		}
 

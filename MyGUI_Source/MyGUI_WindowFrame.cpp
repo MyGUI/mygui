@@ -7,7 +7,7 @@ using namespace std;
 
 namespace MyGUI {
 
-	WindowFrame::WindowFrame(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+	WindowFrame::WindowFrame(const __MYGUI_SUBSKIN_INFO *lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
 		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_iMinSizeX(0),
 		m_iMinSizeY(0),

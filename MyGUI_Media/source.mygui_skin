@@ -67,7 +67,7 @@ windowSkin SKIN_BUTTON
 		align	WA_LEFT WA_VSTRETCH
 		style	WES_BUTTON
 		skin_normal	"MyGUI_button_n1"
-		skin_active	"MyGUI_button_a1"
+		skin_actived	"MyGUI_button_a1"
 		skin_pressed	"MyGUI_button_p1"
 		skin_selected	"MyGUI_button_s1"
 	}
@@ -78,7 +78,7 @@ windowSkin SKIN_BUTTON
 		align	WA_STRETCH WAT_CENTER WAT_CUT_RIGHT_ELLIPSES WAT_SHIFT_TEXT_PRESSED
 		style	WES_BUTTON WES_TEXT
 		skin_normal	"MyGUI_button_n2"
-		skin_active	"MyGUI_button_a2"
+		skin_actived	"MyGUI_button_a2"
 		skin_pressed	"MyGUI_button_p2"
 		skin_selected	"MyGUI_button_s2"
 	}
@@ -89,7 +89,7 @@ windowSkin SKIN_BUTTON
 		align	WA_RIGHT WA_VSTRETCH
 		style	WES_BUTTON
 		skin_normal	"MyGUI_button_n3"
-		skin_active	"MyGUI_button_a3"
+		skin_actived	"MyGUI_button_a3"
 		skin_pressed	"MyGUI_button_p3"
 		skin_selected	"MyGUI_button_s3"
 	}
@@ -115,7 +115,7 @@ windowSkin SKIN_CHECK_BOX
 		align	WA_LEFT  WA_VSTRETCH
 		style	WES_BUTTON
 		skin_normal	"MyGUI_check_n1"
-		skin_active	"MyGUI_check_a1"
+		skin_actived	"MyGUI_check_a1"
 		skin_pressed	"MyGUI_check_p1"
 		skin_selected	"MyGUI_check_s1"
 	}
@@ -145,7 +145,7 @@ windowSkin SKIN_EDIT
 		align	WA_LEFT WA_VSTRETCH
 		style	WES_EDIT
 		skin_normal	"MyGUI_edit_n1"
-		skin_active	"MyGUI_edit_a1"
+		skin_actived	"MyGUI_edit_a1"
 		skin_pressed	"MyGUI_edit_p1"
 		skin_selected	"MyGUI_edit_s1"
 	}
@@ -155,7 +155,7 @@ windowSkin SKIN_EDIT
 		align	WA_STRETCH WAT_LEFT WAT_VCENTER WAT_CUT_LEFT_ELLIPSES
 		style	WES_EDIT WES_TEXT WES_CLIENT
 		skin_normal	"MyGUI_edit_n2"
-		skin_active	"MyGUI_edit_a2"
+		skin_actived	"MyGUI_edit_a2"
 		skin_pressed	"MyGUI_edit_p2"
 		skin_selected	"MyGUI_edit_s2"
 	}
@@ -165,7 +165,7 @@ windowSkin SKIN_EDIT
 		align	WA_RIGHT WA_VSTRETCH
 		style	WES_EDIT
 		skin_normal	"MyGUI_edit_n3"
-		skin_active	"MyGUI_edit_a3"
+		skin_actived	"MyGUI_edit_a3"
 		skin_pressed	"MyGUI_edit_p3"
 		skin_selected	"MyGUI_edit_s3"
 	}
@@ -234,7 +234,7 @@ windowSkin SKIN_DROP_LIST
 		align	WA_LEFT WA_VSTRETCH
 		style	WES_COMBO
 		skin_normal	"MyGUI_combo_n1"
-		skin_active	"MyGUI_combo_a1"
+		skin_actived	"MyGUI_combo_a1"
 		skin_pressed	"MyGUI_combo_p1"
 		skin_selected	"MyGUI_combo_s1"
 	}
@@ -245,7 +245,7 @@ windowSkin SKIN_DROP_LIST
 		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
 		style	WES_COMBO WES_TEXT
 		skin_normal	"MyGUI_combo_n2"
-		skin_active	"MyGUI_combo_a2"
+		skin_actived	"MyGUI_combo_a2"
 		skin_pressed	"MyGUI_combo_p2"
 		skin_selected	"MyGUI_combo_s2"
 	}
@@ -255,7 +255,7 @@ windowSkin SKIN_DROP_LIST
 		align	WA_RIGHT WA_TOP
 		style	WES_COMBO
 		skin_normal	"MyGUI_combo_n3"
-		skin_active	"MyGUI_combo_a3"
+		skin_actived	"MyGUI_combo_a3"
 		skin_pressed	"MyGUI_combo_p3"
 		skin_selected	"MyGUI_combo_s3"
 	}
@@ -265,7 +265,7 @@ windowSkin SKIN_DROP_LIST
 		align	WA_RIGHT WA_VSTRETCH
 		style	WES_COMBO
 		skin_normal	"MyGUI_combo_n4"
-		skin_active	"MyGUI_combo_a4"
+		skin_actived	"MyGUI_combo_a4"
 		skin_pressed	"MyGUI_combo_p4"
 		skin_selected	"MyGUI_combo_s4"
 	}
@@ -275,7 +275,7 @@ windowSkin SKIN_DROP_LIST
 		align	WA_RIGHT WA_BOTTOM
 		style	WES_COMBO
 		skin_normal	"MyGUI_combo_n5"
-		skin_active	"MyGUI_combo_a5"
+		skin_actived	"MyGUI_combo_a5"
 		skin_pressed	"MyGUI_combo_p5"
 		skin_selected	"MyGUI_combo_s5"
 	}
@@ -286,7 +286,7 @@ windowSkin SKIN_DROP_LIST
 		event	WE_MOUSE_FOCUS WE_MOUSE_BUTTON
 		style	WES_COMBO_BUTTON
 		skin_normal	"MyGUI_combo_but_n"
-		skin_active	"MyGUI_combo_but_a"
+		skin_actived	"MyGUI_combo_but_a"
 		skin_pressed	"MyGUI_combo_but_p"
 		skin_selected	"MyGUI_combo_but_s"
 	}
@@ -330,7 +330,7 @@ windowSkin SKIN_VSCROLL
 		event	WE_KEY_FOCUS WE_KEY_BUTTON WE_MOUSE_FOCUS WE_MOUSE_BUTTON
 		style	WES_VSCROLL_UP
 		skin_normal	"MyGUI_scroll_n1"
-		skin_active	"MyGUI_scroll_a1"
+		skin_actived	"MyGUI_scroll_a1"
 		skin_selected	"MyGUI_scroll_s1"
 	}
 	// центр
@@ -362,7 +362,7 @@ windowSkin SKIN_VSCROLL
 		event	WE_KEY_FOCUS WE_KEY_BUTTON WE_MOUSE_FOCUS WE_MOUSE_BUTTON
 		style	WES_VSCROLL_DOWN
 		skin_normal	"MyGUI_scroll_n5"
-		skin_active	"MyGUI_scroll_a5"
+		skin_actived	"MyGUI_scroll_a5"
 		skin_selected	"MyGUI_scroll_s5"
 	}
 	// прозрачное окно во весь элемент для бегунка
@@ -380,7 +380,7 @@ windowSkin SKIN_VSCROLL
 		event	WE_KEY_FOCUS WE_KEY_BUTTON WE_MOUSE_FOCUS WE_MOUSE_BUTTON WE_MOUSE_MOVE
 		style	WES_VSCROLL_TRACK
 		skin_normal	"MyGUI_scroll_n6"
-		skin_active	"MyGUI_scroll_a6"
+		skin_actived	"MyGUI_scroll_a6"
 		skin_selected	"MyGUI_scroll_s6"
 	}
 }
@@ -470,7 +470,7 @@ windowSkin SKIN_TAB_BUTTON
 		align	WA_LEFT WA_VSTRETCH
 		style	WES_BUTTON
 		skin_normal	"MyGUI_tab_but_n1"
-		skin_active	"MyGUI_tab_but_a1"
+		skin_actived	"MyGUI_tab_but_a1"
 		skin_pressed	"MyGUI_tab_but_p1"
 		skin_selected	"MyGUI_tab_but_s1"
 	}
@@ -480,7 +480,7 @@ windowSkin SKIN_TAB_BUTTON
 		align	WA_STRETCH WAT_CENTER WAT_CENTER WAT_CUT_RIGHT_ELLIPSES WAT_SHIFT_TEXT_PRESSED
 		style	WES_BUTTON WES_TEXT
 		skin_normal	"MyGUI_tab_but_n2"
-		skin_active	"MyGUI_tab_but_a2"
+		skin_actived	"MyGUI_tab_but_a2"
 		skin_pressed	"MyGUI_tab_but_p2"
 		skin_selected	"MyGUI_tab_but_s2"
 	}
@@ -490,7 +490,7 @@ windowSkin SKIN_TAB_BUTTON
 		align	WA_RIGHT WA_VSTRETCH
 		style	WES_BUTTON
 		skin_normal	"MyGUI_tab_but_n3"
-		skin_active	"MyGUI_tab_but_a3"
+		skin_actived	"MyGUI_tab_but_a3"
 		skin_pressed	"MyGUI_tab_but_p3"
 		skin_selected	"MyGUI_tab_but_s3"
 	}
@@ -576,7 +576,7 @@ windowSkin SKIN_LIST_BUTTON
 		event	WE_MOUSE_FOCUS  WE_MOUSE_BUTTON  WE_KEY_FOCUS  WE_KEY_BUTTON
 		style	WES_BUTTON
 		skin_normal	"MyGUI_list_but_n1"
-		skin_active	"MyGUI_list_but_a1"
+		skin_actived	"MyGUI_list_but_a1"
 		skin_pressed	"MyGUI_list_but_p1"
 		skin_selected	"MyGUI_list_but_s1"
 	}
@@ -641,7 +641,7 @@ windowSkin SKIN_WINDOWFRAME_CSX
 		align	WA_LEFT  WA_TOP
 		style	WES_CAPTION
 		skin_normal	"MyGUI_window_frame_caption_n1"
-		skin_active	"MyGUI_window_frame_caption_a1"
+		skin_actived	"MyGUI_window_frame_caption_a1"
 	}
 	subSkin  frame_caption_child2_x
 	{
@@ -650,7 +650,7 @@ windowSkin SKIN_WINDOWFRAME_CSX
 		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
 		style	WES_TEXT  WES_CAPTION
 		skin_normal	"MyGUI_window_frame_caption_n2"
-		skin_active	"MyGUI_window_frame_caption_a2"
+		skin_actived	"MyGUI_window_frame_caption_a2"
 	}
 	subSkin  frame_caption_child3_x
 	{
@@ -658,7 +658,7 @@ windowSkin SKIN_WINDOWFRAME_CSX
 		align	WA_TOP  WA_RIGHT
 		style	WES_CAPTION
 		skin_normal	"MyGUI_window_frame_caption_n3"
-		skin_active	"MyGUI_window_frame_caption_a3"
+		skin_actived	"MyGUI_window_frame_caption_a3"
 	}
 
 	// скины ресайза
@@ -669,7 +669,7 @@ windowSkin SKIN_WINDOWFRAME_CSX
 		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
 		style	WES_RESIZE
 		skin_normal	"MyGUI_window_frame_resize_n1"
-		skin_active	"MyGUI_window_frame_resize_a1"
+		skin_actived	"MyGUI_window_frame_resize_a1"
 	}
 	subSkin  frame_resize_child2
 	{
@@ -678,7 +678,7 @@ windowSkin SKIN_WINDOWFRAME_CSX
 		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
 		style	WES_RESIZE
 		skin_normal	"MyGUI_window_frame_resize_n2"
-		skin_active	"MyGUI_window_frame_resize_a2"
+		skin_actived	"MyGUI_window_frame_resize_a2"
 	}
 
 	// скины закрытия
@@ -713,7 +713,7 @@ windowSkin SKIN_WINDOWFRAME_CSX
 		event	WE_MOUSE_FOCUS  WE_MOUSE_BUTTON
 		style	WES_CLOSE
 		skin_normal	"MyGUI_window_frame_x_n5"
-		skin_active	"MyGUI_window_frame_x_a5"
+		skin_actived	"MyGUI_window_frame_x_a5"
 	}
 }
 
@@ -749,7 +749,7 @@ windowSkin SKIN_WINDOWFRAME_C
 		event	WE_MOUSE_FOCUS  WE_MOUSE_MOVE
 		style	WES_TEXT WES_CAPTION
 		skin_normal	"MyGUI_window_frame_caption_n2"
-		skin_active	"MyGUI_window_frame_caption_a2"
+		skin_actived	"MyGUI_window_frame_caption_a2"
 	}
 	subSkin  frame_caption_child3
 	{
@@ -757,7 +757,7 @@ windowSkin SKIN_WINDOWFRAME_C
 		align	WA_TOP  WA_RIGHT
 		style	WES_CAPTION
 		skin_normal	"MyGUI_window_frame_caption_n3"
-		skin_active	"MyGUI_window_frame_caption_a3"
+		skin_actived	"MyGUI_window_frame_caption_a3"
 	}
 }
 
