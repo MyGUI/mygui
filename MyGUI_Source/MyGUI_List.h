@@ -5,7 +5,7 @@
 namespace MyGUI {
 
 	class List : public Window {
-        List(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent);
+        List(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent);
 	public:
 	    ~List();
 		static List *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,

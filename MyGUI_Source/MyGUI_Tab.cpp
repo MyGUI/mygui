@@ -8,8 +8,8 @@ using namespace std;
 
 namespace MyGUI {
 
-	Tab::Tab(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
+	Tab::Tab(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_SkinButton(""),
 		m_iCurrentButtonsSizeX(0),
 		m_pWindowTop(0),
@@ -101,12 +101,13 @@ namespace MyGUI {
 		}
 		
 		Tab * pWindow = new Tab(pSkin->subSkins[0],
+			pSkin->SkinElement,
 		    parent ? OVERLAY_CHILD : uOverlay,
 		    parent ? parent->m_pWindowClient : NULL);
 		
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement ,OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TAB_TOP) pWindow->m_pWindowTop = pChild;
 			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowTab = pChild;

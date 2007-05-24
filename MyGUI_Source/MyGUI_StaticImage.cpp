@@ -9,7 +9,7 @@ using namespace Ogre;
 
 namespace MyGUI {
 
-    StaticImage::StaticImage(const __MYGUI_SUBSKIN_INFO &pSkin, uint8 uOverlay, StaticImage *pWindowParent) : 
+    StaticImage::StaticImage(const __MYGUI_SUBSKIN_INFO &pSkin, const String * strMaterialElement, uint8 uOverlay, StaticImage *pWindowParent) : 
         m_overlay(NULL),
         m_overlayContainer(NULL),
 	    mPosX(pSkin.posX),

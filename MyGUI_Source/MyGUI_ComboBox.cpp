@@ -24,8 +24,8 @@ namespace MyGUI {
 		    m_pList->move(MoveX, _iPosY+m_iSizeY);
 	}
 
-	ComboBox::ComboBox(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
+	ComboBox::ComboBox(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_pList(0),
 		m_pEdit(0),
 		m_bIsListShow(false),
@@ -199,13 +199,14 @@ namespace MyGUI {
 		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
 		}
 		
-		ComboBox * pWindow = new ComboBox(pSkin->subSkins[0], 
+		ComboBox * pWindow = new ComboBox(pSkin->subSkins[0],
+			pSkin->SkinElement,
 		    parent ? OVERLAY_CHILD : uOverlay,
 		    parent ? parent->m_pWindowClient : NULL);
 		    
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window * pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			Window * pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT)
 			    pWindow->setWindowText(pChild);

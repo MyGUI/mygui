@@ -10,8 +10,8 @@ namespace MyGUI {
 
 	class GUI;
 
-	VScroll::VScroll(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
+	VScroll::VScroll(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_pWindowTrack(0),
 		m_uSizeScroll(0),
 		m_uPosScroll(0)
@@ -183,6 +183,7 @@ namespace MyGUI {
 		}
 		
 		VScroll * pWindow = new VScroll(pSkin->subSkins[0],
+			pSkin->SkinElement,
 		    parent ? OVERLAY_CHILD : uOverlay,
 		    parent ? parent->m_pWindowClient : NULL);
         
@@ -191,12 +192,12 @@ namespace MyGUI {
 			 // создаем дочернии окна скины
 			if (pSkin->subSkins[pos]->exdata & WES_VSCROLL_TRACK) {
 				// элемент является скролом, прицепляем к клиентской области
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow->m_pWindowClient);
+				pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow->m_pWindowClient);
 				pWindow->m_pWindowTrack = pChild;
 				pChild->show(false);
 			} else {
 				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+				pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			}
 
 			pChild->m_pEventCallback = (EventCallback*)pWindow;

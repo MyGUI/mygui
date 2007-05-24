@@ -7,8 +7,8 @@ using namespace std;
 
 namespace MyGUI {
 
-	WindowFrame::WindowFrame(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
+	WindowFrame::WindowFrame(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_iMinSizeX(0),
 		m_iMinSizeY(0),
 		m_iMaxSizeX(GUI::getSingleton()->getWidth()),
@@ -106,12 +106,13 @@ namespace MyGUI {
 		}
 		
 		WindowFrame * pWindow = new WindowFrame(pSkin->subSkins[0],
+			pSkin->SkinElement,
 		    parent ? OVERLAY_CHILD : uOverlay,
 		    parent ? parent        : NULL);
 		
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
 			if (pChild->m_uExData & WES_CLIENT) {

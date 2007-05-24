@@ -6,6 +6,13 @@
 
 namespace MyGUI {
 
+	// устанавливаем первоначальный скин
+	#define INI_SUBSKIN(_sub,_win) if ((pSkin->SkinElement) && (!pSkin->SkinElement->empty())) { \
+		_win->m_overlayContainer->setMaterialName(*pSkin->SkinElement); \
+		_win->setSkinState(SKIN_STATE_NORMAL); \
+	}
+
+
 	// смещения текстурных смещений в массиве
 	enum COORD {
 		_X,
@@ -91,6 +98,7 @@ namespace MyGUI {
 		uint16 exdata; // дополнительная информация об элементе
 		// смещения состояний в материале всего элемента
 		float fOffsetStateSkin[__OFFSET_STATE_COUNT/__COORD_COUNT][__COORD_COUNT];
+//		String * SkinElement; // материал всего элемента, потом перенести в __tag_MYGUI_SKIN_INFO
 		__MYGUI_SUBSKIN_INFO::__MYGUI_SUBSKIN_INFO() : posX(0), posY(0), sizeX(0), sizeY(0), align(0), event_info(0), exdata(0)
 		{
 			memset((void*)fOffsetStateSkin, 0, sizeof(float) * __OFFSET_STATE_COUNT);

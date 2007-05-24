@@ -12,8 +12,8 @@ namespace MyGUI {
 
 	class GUI;
 
-	Edit::Edit(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent),
+	Edit::Edit(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_pWindowCursor(0),
 		m_bIsFocus(false),
 		m_uOffsetCursor(0)
@@ -106,6 +106,7 @@ namespace MyGUI {
 		}
 		
 		Edit * pWindow = new Edit(pSkin->subSkins[0],
+			pSkin->SkinElement,
 		    parent ? OVERLAY_CHILD : uOverlay,
 		    parent ? parent->m_pWindowClient : NULL);
 		    
@@ -114,12 +115,12 @@ namespace MyGUI {
 			Window * pChild;
 			if (pSkin->subSkins[pos]->exdata & WES_EDIT_CURSOR) {
 				// элемент является курсором
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow->m_pWindowClient);
+				pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow->m_pWindowClient);
 				pWindow->m_pWindowCursor = pChild;
 				pWindow->m_pWindowCursor->show(false);
 			} else {
 				// обычный элемент
-				pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+				pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			}
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;

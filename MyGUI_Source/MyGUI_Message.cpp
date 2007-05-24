@@ -14,8 +14,8 @@ namespace MyGUI {
 
 	class GUI;
 
-	Message::Message(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		WindowFrame(lpSkin, uOverlay, pWindowParent),
+	Message::Message(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+		WindowFrame(lpSkin, strMaterialElement, uOverlay, pWindowParent),
 		m_pButton1(0),
 		m_pButton2(0),
 		m_pWindowfade(0)
@@ -85,7 +85,7 @@ namespace MyGUI {
 		Message * pWindow;
 		if (bIsModal) { // модальное окно сообщения
 			__ASSERT(!m_overlayGUI[OVERLAY_FADE]->isVisible()); // только одно окно
-			pWindow = new Message(pSkin->subSkins[0], OVERLAY_POPUP, 0);
+			pWindow = new Message(pSkin->subSkins[0], pSkin->SkinElement, OVERLAY_POPUP, 0);
 
 			m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
 			m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_POPUP_FADE); // снижаем после всплывающих окон
@@ -96,11 +96,11 @@ namespace MyGUI {
 			texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, __GUI_POPUP_FADE_ALPHA);
 
 		} else
-		    pWindow = new Message(pSkin->subSkins[0], OVERLAY_OVERLAPPED, 0);
+		    pWindow = new Message(pSkin->subSkins[0], pSkin->SkinElement, OVERLAY_OVERLAPPED, 0);
 
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT) pWindow->m_pWindowText = pChild;
 			if (pChild->m_uExData & WES_CLIENT) {

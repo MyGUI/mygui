@@ -10,8 +10,8 @@ using namespace OIS;
 
 namespace MyGUI {
 
-	List::List(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowFother) :
-		Window(lpSkin, uOverlay, pWindowFother),
+	List::List(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowFother) :
+		Window(lpSkin, strMaterialElement, uOverlay, pWindowFother),
 		m_scroll(0),
 		m_SkinButton("SKIN_DEFAULT"),
 		m_uSizeYButton(1),
@@ -412,6 +412,7 @@ namespace MyGUI {
 		}
 		
 		List * pWindow = new List(pSkin->subSkins[0],
+			pSkin->SkinElement,
 		    parent ? OVERLAY_CHILD : uOverlay,
 		    parent ? parent->m_pWindowClient : NULL);
 		    
@@ -419,7 +420,7 @@ namespace MyGUI {
 		
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочерние окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_CLIENT) pWindow->m_pWindowClient = pChild;
 		}

@@ -10,7 +10,7 @@ using namespace std;
 
 namespace MyGUI {
 
-	Window::Window(const __MYGUI_SUBSKIN_INFO * lpSkin, uint8 uOverlay, Window *pWindowParent) :
+	Window::Window(const __MYGUI_SUBSKIN_INFO * lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
 		m_overlay(0),
 		m_pWindowParent(0),
 		m_pEventCallback(GUI::getSingleton()->m_pEventCallback),
@@ -126,6 +126,12 @@ namespace MyGUI {
 		     "align(0x%.8X)    overlapped(%d)   data(0x%.8X)", this,
 		     m_iPosX, m_iPosY, m_iSizeX, m_iSizeY, m_uEventCallback,
 		     m_uAlign, m_bIsOverlapped, m_uExData);
+
+		// устанавливаем нормал скин по дефолту
+		if (strMaterialElement) {
+			m_overlayContainer->setMaterialName(*strMaterialElement);
+			setSkinState(SKIN_STATE_NORMAL);
+		}
 
 		m_overlayContainer->show();
 	}
@@ -471,7 +477,7 @@ namespace MyGUI {
 	void Window::setSkinState(__SKIN_STATES Skin)
 	{
 		if (!m_lpSkinInfo->SkinState[Skin].empty()) m_overlayContainer->setMaterialName(m_lpSkinInfo->SkinState[Skin]);
-/*
+
 		// new version
 		if (m_lpSkinInfo->fOffsetStateSkin[Skin][_CX] != 0.0) m_overlayContainer->setUV(
 			m_lpSkinInfo->fOffsetStateSkin[Skin][_X],
@@ -479,7 +485,7 @@ namespace MyGUI {
 			m_lpSkinInfo->fOffsetStateSkin[Skin][_CX],
 			m_lpSkinInfo->fOffsetStateSkin[Skin][_CY]
 		);
-*/
+
 	}
 
 	bool Window::check(int16 iPosX, int16 iPosY, bool bCapture) // bCapture продолжать ли проверку окон
@@ -737,12 +743,15 @@ namespace MyGUI {
 		}
 		
 		Window * pWindow = new Window(pSkin->subSkins[0],
+			pSkin->SkinElement,
 		    parent ? OVERLAY_CHILD : uOverlay,
 		    parent ? parent->m_pWindowClient : NULL);
+
+		
         
 		for (uint pos=1; pos<pSkin->subSkins.size(); pos++) {
 			 // создаем дочернии окна скины
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 		}
 		

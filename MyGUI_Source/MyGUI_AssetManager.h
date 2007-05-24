@@ -2,6 +2,7 @@
 
 #include "MyGUI_Defines.h"
 #include "MyGUI_Skin.h"
+#include "MyGUI_LoadINI.h"
 
 namespace MyGUI
 {
@@ -20,7 +21,7 @@ namespace MyGUI
             mDefinitions.insert(Name, type);
             return type;
         }
-        
+
     public:
         typedef typename std::map<String, Type *>::iterator iterator;
         
@@ -78,12 +79,20 @@ namespace MyGUI
     
     class AssetManager
     {
+	private:
         __AssetDefinition<__tag_MYGUI_SKIN_INFO >     mSkins;
         __AssetDefinition<__tag_MYGUI_FONT_INFO >       mFonts;
         __AssetDefinition<__tag_MYGUI_POINTER_INFO >    mPointers;
         __AssetDefinition<__MYGUI_SUBSKIN_INFO >       mSubSkins;
         
-        void loadSkinDefinitions(std::map<String, uint32> & mapNameValue, const String & strFileName);
+        void loadDefinitions(std::map<String, uint32> & mapNameValue, const String & strFileName);
+
+        void loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue, std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin);
+		void loadSubSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue, const String & Name, __tag_MYGUI_SKIN_INFO * window, unsigned int & UniqueSerialID, std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin);
+		void loadPointerDefinitions(loadINI & ini);
+		void loadFontDefinitions(loadINI & ini);
+
+		String * getMaterialPtr(const String & strName);
         
     public:
         typedef __AssetDefinition<__tag_MYGUI_SKIN_INFO>::iterator   SkinIterator;

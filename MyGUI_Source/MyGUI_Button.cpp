@@ -8,8 +8,8 @@ namespace MyGUI {
 
 	class GUI;
 
-	Button::Button(const __MYGUI_SUBSKIN_INFO *lpSkin, uint8 uOverlay, Window *pWindowParent) :
-		Window(lpSkin, uOverlay, pWindowParent)
+	Button::Button(const __MYGUI_SUBSKIN_INFO *lpSkin, const String * strMaterialElement, uint8 uOverlay, Window *pWindowParent) :
+		Window(lpSkin, strMaterialElement, uOverlay, pWindowParent)
 	{
 	}
 
@@ -96,11 +96,11 @@ namespace MyGUI {
 		    pSkin = AssetManager::getSingleton()->Skins()->getDefinition(SKIN_DEFAULT);
 		}
 		
-		Button * pWindow = new Button(pSkin->subSkins[0], parent ? OVERLAY_CHILD : uOverlay, parent ? parent->m_pWindowClient : NULL);
+		Button * pWindow = new Button(pSkin->subSkins[0], pSkin->SkinElement, parent ? OVERLAY_CHILD : uOverlay, parent ? parent->m_pWindowClient : NULL);
 		
 		pWindow->m_uEventCallback |= WE_MOUSE_BUTTON | WE_KEY_BUTTON;
 		for (size_t pos = 1; pos < pSkin->subSkins.size(); ++pos) {
-			Window *pChild = new Window(pSkin->subSkins[pos], OVERLAY_CHILD, pWindow);
+			Window *pChild = new Window(pSkin->subSkins[pos], pSkin->SkinElement, OVERLAY_CHILD, pWindow);
 			pChild->m_pEventCallback = (EventCallback*)pWindow;
 			if (pChild->m_uExData & WES_TEXT)
 			    pWindow->setWindowText(pChild);
