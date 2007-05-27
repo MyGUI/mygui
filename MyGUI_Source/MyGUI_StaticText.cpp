@@ -13,7 +13,7 @@ namespace MyGUI {
 	{
 	}
 	
-	StaticText *StaticText::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	StaticText *StaticText::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
     {
         

@@ -30,19 +30,19 @@ namespace MyGUI {
         GUI *Initialize (uint16 uWidth, uint16 uHeight, EventCallback *pEventCallback = 0); // обязательная регистрация размеров
         void Shutdown();
         
-        template <typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+        template <typename Widget> Widget *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 	    {
             if(Skin == __SKIN_WIDGET_DEFAULT)
-                return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay);
+                return Widget::createWindow(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay);
             else
-                return Widget::create(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, Skin);
+                return Widget::createWindow(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, Skin);
         }
         
         template<typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
 	        uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 	    {
-	        return spawn<Widget>(PosX *  GUI::getSingleton()->getWidth(), PosY *  GUI::getSingleton()->getHeight(),
+	        return create<Widget>(PosX *  GUI::getSingleton()->getWidth(), PosY *  GUI::getSingleton()->getHeight(),
                              SizeX * GUI::getSingleton()->getWidth(), SIzeY * GUI::getSingleton()->getHeight(),
                              uOverlay, uSkin);		
 	    }

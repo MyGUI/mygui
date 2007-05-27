@@ -188,7 +188,7 @@ namespace MyGUI {
 		while (m_uCurrentFillSize < m_pWindowClient->m_iSizeY) {
 			int16 cutSize = m_uSizeXScroll;
 			if (!m_bIsVisibleScroll) cutSize = 0; // отрезать ничего не надо
-			Window * pChild = m_pWindowClient->spawn<Window>(
+			Window * pChild = m_pWindowClient->create<Window>(
 			    0, m_uCurrentFillSize, m_pWindowClient->m_iSizeX - cutSize, m_uSizeYButton,
 			    WA_TOP|WA_HSTRETCH, m_SkinButton);
 			pChild->m_pEventCallback = (EventCallback *)this;
@@ -401,7 +401,7 @@ namespace MyGUI {
 		}
 	}
 
-	List *List::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	List *List::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
 		const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);
@@ -428,7 +428,7 @@ namespace MyGUI {
 		if (pSkin->data3 != "") { // есть скролл
 			const String &SkinScroll = pSkin->data3;
 			pWindow->m_uSizeXScroll = AssetManager::getSingleton()->Skins()->getDefinition(SkinScroll)->subSkins[0]->sizeX;
-			pWindow->m_scroll = pWindow->m_pWindowClient->spawn<VScroll>(
+			pWindow->m_scroll = pWindow->m_pWindowClient->create<VScroll>(
 			    pWindow->m_pWindowClient->m_iSizeX - pWindow->m_uSizeXScroll, 0,
 			    -1, pWindow->m_pWindowClient->m_iSizeY,
 			    WA_RIGHT|WA_VSTRETCH, pSkin->data3);

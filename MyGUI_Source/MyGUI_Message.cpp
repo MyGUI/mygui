@@ -90,7 +90,7 @@ namespace MyGUI {
 			m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
 			m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_POPUP_FADE); // снижаем после всплывающих окон
 
-			pWindow->m_pWindowfade = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
+			pWindow->m_pWindowfade = create<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
 			MaterialPtr Mat = pWindow->m_pWindowfade->m_overlayContainer->getMaterial();
 			TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);
 			texunit->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_MANUAL, 1.0, __GUI_POPUP_FADE_ALPHA);
@@ -116,13 +116,13 @@ namespace MyGUI {
 		int16 iMinSizeX = __BUTTON_SIZE+20;
 
 		if (!strButton1.empty()) {
-			pWindow->m_pButton1 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+			pWindow->m_pButton1 = pWindow->create<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
 			pWindow->m_pButton1->setCaption(strButton1);
 			pWindow->m_pButton1->setUserData(MBB_BUTTON1);
 			pWindow->m_pButton1->m_pEventCallback = (EventCallback*)pWindow;
 			if (!strButton2.empty()) {
 				iMinSizeX += __BUTTON_SIZE + 20;
-				pWindow->m_pButton2 = pWindow->spawn<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+				pWindow->m_pButton2 = pWindow->create<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
 				pWindow->m_pButton2->setCaption(strButton2);
 				pWindow->m_pButton2->setUserData(MBB_BUTTON2);
 				pWindow->m_pButton2->m_pEventCallback = (EventCallback*)pWindow;
@@ -131,7 +131,7 @@ namespace MyGUI {
 
 		__ASSERT(pWindow->m_pButton1); // как так ?
 
-		StaticText * text = pWindow->spawn<StaticText>(5, 5,
+		StaticText * text = pWindow->create<StaticText>(5, 5,
 		    pWindow->m_pWindowClient->m_iSizeX - 10, pWindow->m_pWindowClient->m_iSizeY - 50,
 		    WA_STRETCH);
 		text->setCaption( strMessage );

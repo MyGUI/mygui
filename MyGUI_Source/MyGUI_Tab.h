@@ -13,7 +13,7 @@ namespace MyGUI {
 		};
 
 	public:
-	    static Tab *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    static Tab *createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_TAB);
 	
 		Window * addSheet(const DisplayString & strName, int16 iSizeX = -1); // добавляет вкладку

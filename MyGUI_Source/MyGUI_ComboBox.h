@@ -13,7 +13,7 @@ namespace MyGUI {
 	public:	    
 	    ~ComboBox();
 	
-		static ComboBox *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+		static ComboBox *createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_COMBO_BOX);
 
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы

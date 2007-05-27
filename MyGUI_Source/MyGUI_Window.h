@@ -25,16 +25,16 @@ namespace MyGUI {
 	    Window(const __MYGUI_SUBSKIN_INFO * lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent);		
         virtual ~Window();
 	    
-	    static Window *Window::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    static Window *Window::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_WINDOWFRAME);
 	    
-	    template <typename Widget> Widget *spawn(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	    template <typename Widget> Widget *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
             uint16 uAlign, const String &Skin = __SKIN_WIDGET_DEFAULT)
         {
             if(Skin == __SKIN_WIDGET_DEFAULT)
-                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0);
+                return Widget::createWindow(PosX, PosY, SizeX, SizeY, this, uAlign, 0);
             else
-                return Widget::create(PosX, PosY, SizeX, SizeY, this, uAlign, 0, Skin);
+                return Widget::createWindow(PosX, PosY, SizeX, SizeY, this, uAlign, 0, Skin);
         }
         
         template <typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
@@ -45,7 +45,7 @@ namespace MyGUI {
             uint16 NewSizeX = SizeX * GUI::getSingleton()->getWidth();
             uint16 NewSizeX = SizeX * GUI::getSingleton()->getHeight();
                 
-            return spawn<Widget>(NewPosX, NewPosY, NewSizX, NewSizeY, uAlign, uSkin);
+            return create<Widget>(NewPosX, NewPosY, NewSizX, NewSizeY, uAlign, uSkin);
         }
         
         /*

@@ -93,7 +93,7 @@ namespace MyGUI {
 		if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_FRAME_CLOSE, 0);
 	}
 
-	WindowFrame *WindowFrame::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	WindowFrame *WindowFrame::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
         

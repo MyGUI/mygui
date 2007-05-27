@@ -187,7 +187,7 @@ namespace MyGUI {
 		return this;
 	}
 	
-	ComboBox *ComboBox::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	ComboBox *ComboBox::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
 	    
@@ -215,7 +215,7 @@ namespace MyGUI {
 		const __tag_MYGUI_SKIN_INFO * pSkinTmpA = AssetManager::getSingleton()->Skins()->getDefinition(pSkin->data3);
 		const __tag_MYGUI_SKIN_INFO * pSkinTmp  = AssetManager::getSingleton()->Skins()->getDefinition(pSkinTmpA->data4); // скин кнопок списка
 		
-		pWindow->m_pList = GUI::getSingleton()->spawn<List>(
+		pWindow->m_pList = GUI::getSingleton()->create<List>(
 		    300, 300, 300, 300, OVERLAY_POPUP, pSkin->data3);
 		    
 		pWindow->m_pList->m_pEventCallback = (EventCallback*)pWindow;
@@ -228,7 +228,7 @@ namespace MyGUI {
 		    - pWindow->m_pList->m_pWindowClient->m_iSizeY);
 		    
 		if (!pSkin->data2.empty()) { // скин едита
-			pWindow->m_pEdit = pWindow->m_pWindowText->spawn<Edit>(
+			pWindow->m_pEdit = pWindow->m_pWindowText->create<Edit>(
 			    0, 0, -1, -1, WA_STRETCH, pSkin->data2);
 			pWindow->m_pWindowText->m_uEventCallback = WE_NONE;
 			pWindow->m_pWindowText = pWindow->m_pEdit;

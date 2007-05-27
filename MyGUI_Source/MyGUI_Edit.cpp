@@ -94,7 +94,7 @@ namespace MyGUI {
 		setCaption(strText);
 	}
 	
-	Edit *Edit::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	Edit *Edit::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
         Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
     {
         const __tag_MYGUI_SKIN_INFO * pSkin = AssetManager::getSingleton()->Skins()->getDefinition(Skin);

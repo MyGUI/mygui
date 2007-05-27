@@ -279,7 +279,7 @@ namespace MyGUI {
 		m_overlayGUI[OVERLAY_FADE]->show(); // показываем оверлей файдинга
 		m_overlayGUI[OVERLAY_FADE]->setZOrder(__GUI_ZORDER_FADE); // поднимает вверх
 		
-		m_currentFadeWindow = spawn<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
+		m_currentFadeWindow = create<Window>(0, 0, m_uWidth, m_uHeight, OVERLAY_FADE, SKIN_FADE);
 
 		MaterialPtr Mat = m_currentFadeWindow->m_overlayContainer->getMaterial();
 		TextureUnitState* texunit = Mat->getTechnique(0)->getPass(0)->getTextureUnitState(0);

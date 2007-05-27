@@ -20,7 +20,7 @@ namespace MyGUI {
 
 	Window * Tab::addSheet(const DisplayString & strName, int16 iSizeX) // добавляет вкладку
 	{
-		Button * pButton = spawn<Button>(m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE, m_SkinButton);
+		Button * pButton = create<Button>(m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE, m_SkinButton);
         pButton->setCaption(strName);
 		                   
 		pButton->addEvent(WE_MOUSE_BUTTON);
@@ -31,7 +31,7 @@ namespace MyGUI {
 			m_pWindowTop->size(m_pWindowTop->m_iSizeX - pButton->m_iSizeX, m_pWindowTop->m_iSizeY);
 		}
 
-		Window * pSheet = m_pWindowTab->spawn<Window>(0, 0, m_pWindowTab->m_iSizeX, m_pWindowTab->m_iSizeY,
+		Window * pSheet = m_pWindowTab->create<Window>(0, 0, m_pWindowTab->m_iSizeX, m_pWindowTab->m_iSizeY,
 		    WA_STRETCH, SKIN_DEFAULT);
         pSheet->m_pEventCallback = this;
 		
@@ -88,7 +88,7 @@ namespace MyGUI {
 		}
 	}
 
-	Tab *Tab::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	Tab *Tab::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	    Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
 	    

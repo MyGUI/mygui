@@ -1,13 +1,16 @@
 #pragma once
 
+#include <Ogre.h>
 #include "MyGUI_Source\\MyGUI.h"
+
+using namespace Ogre;
 
 class StretchControl
 {
 private:
 	StretchControl::StretchControl() {};
 public:
-	StretchControl::StretchControl(const String & strMaterial, const String & m_strMaterialBorderNormal, const String & strMaterialBorderActived) {};
+	//StretchControl::StretchControl(const String & strMaterial, const String & strMaterialBorderNormal, const String & strMaterialBorderActived) {};
 
 private:
 	String m_strMaterialName;

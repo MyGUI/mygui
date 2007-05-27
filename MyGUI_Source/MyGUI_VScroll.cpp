@@ -170,7 +170,7 @@ namespace MyGUI {
 		}
 	}
 	
-	VScroll *VScroll::create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+	VScroll *VScroll::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin)
 	{
 		
