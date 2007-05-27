@@ -92,7 +92,8 @@ namespace MyGUI
 		void loadPointerDefinitions(loadINI & ini);
 		void loadFontDefinitions(loadINI & ini);
 
-//		String * getMaterialPtr(const String & strName);
+		// возвращает размер текстуры материала
+		bool getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY);
         
     public:
         typedef __AssetDefinition<__tag_MYGUI_SKIN_INFO>::iterator   SkinIterator;

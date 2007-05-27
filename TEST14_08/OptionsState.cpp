@@ -45,7 +45,7 @@ void OptionsState::enter(bool bIsChangeState)
 	
 	m_comboBackground->setString(0);
     
-	m_buttonExit = (Button *) GUI::getSingleton()->spawn<Button>(10, 10, 200, -1, MyGUI::OVERLAY_MAIN)->
+	m_buttonExit = (Button *) GUI::getSingleton()->spawn<Button>(10, 10, 150, -1, MyGUI::OVERLAY_MAIN)->
 	                setCaption("Exit");
     
 	m_buttonSave = (Button *) GUI::getSingleton()->spawn<Button>(GUI::getSingleton()->getWidth() - 160, 10, 150, -1, MyGUI::OVERLAY_MAIN)->

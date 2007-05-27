@@ -124,8 +124,7 @@ namespace MyGUI {
 		__ASSERT(Skins()->getDefinition(SKIN_DEFAULT)->subSkins.size() > 0 &&
 		    "Default skin does not have any sub skins defined.");
 		
-		for (SkinIterator pos = Skins()->begin(); pos != Skins()->end(); ++pos)
-        {
+		for (SkinIterator pos = Skins()->begin(); pos != Skins()->end(); ++pos) {
             //Check that each skin exists
             
             //Check that the skins are well defined
@@ -134,8 +133,30 @@ namespace MyGUI {
 				delete pos->second;
 				pos->second = new __tag_MYGUI_SKIN_INFO( *Skins()->getDefinition(SKIN_DEFAULT));
 				_LOG("[ERROR] skin is not loaded \"%s\" seting to SKIN_DEFAULT", pos->first.c_str());
-			}
-		}
+			} else {
+				// перебираем все сабскины и конвертируем текстурные координаты смещения 
+				for (uint16 sub=0; sub<pos->second->subSkins.size(); sub++) {
+					__MYGUI_SUBSKIN_INFO * subSkin = const_cast<__MYGUI_SUBSKIN_INFO *> (pos->second->subSkins[sub]);
+					uint16 sizeX, sizeY;
+					if (getMaterialSize(pos->second->SkinElement, sizeX, sizeY)) {
+						for (uint8 index=0; index<__SKIN_STATE_COUNT; index++) {
+							if (subSkin->fOffsetStateSkin[index][_CX] != 0.0) {
+
+								subSkin->fOffsetStateSkin[index][_X] = subSkin->fOffsetStateSkin[index][_X] / (float)sizeX;
+								subSkin->fOffsetStateSkin[index][_Y] = subSkin->fOffsetStateSkin[index][_Y] / (float)sizeY;
+								subSkin->fOffsetStateSkin[index][_CX] = subSkin->fOffsetStateSkin[index][_CX] / (float)sizeX;
+								subSkin->fOffsetStateSkin[index][_CY] = subSkin->fOffsetStateSkin[index][_CY] / (float)sizeY;
+
+								subSkin->fOffsetStateSkin[index][_CX] += subSkin->fOffsetStateSkin[index][_X];
+								subSkin->fOffsetStateSkin[index][_CY] += subSkin->fOffsetStateSkin[index][_Y];
+
+							} // if (subSkin->fOffsetStateSkin[index][_CX] != 0.0) {
+						} // for (uint8 index; index<__SKIN_STATE_COUNT; index++) {
+					} // if (getMaterialSize(pos->second->SkinElement, sizeX, sizeY)) {
+				} // for (uint16 sub=0; sub<pos->second->subSkins.size(); sub++) {
+
+			} // if(pos->second->subSkins.size() == 0)
+		} // for (SkinIterator pos = Skins()->begin(); pos != Skins()->end(); ++pos) {
 		_LOG_NEW;
 		
 		return this;
@@ -289,18 +310,20 @@ namespace MyGUI {
 		#define VALUE_SKIN_PRESSED "skin_pressed"
 		#define VALUE_SKIN_SELECTED "skin_selected"
 
-		#define VALUE_OFFSET_DEACTIVATED "offset_deactivated"
-		#define VALUE_OFFSET_NORMAL "offset_normal"
-		#define VALUE_OFFSET_ACTIVED "offset_actived"
-		#define VALUE_OFFSET_PRESSED "offset_pressed"
-		#define VALUE_OFFSET_SELECTED "offset_selected"
-
 		uint32 uValue;
 		float fValue;
 		size_t pos;
 		String strValueName, strValue;
 
 		const String strBlockType = ini.getBlockType();
+
+		const String enumNameOffset[__SKIN_STATE_COUNT] = {
+			"offset_deactivated",
+			"offset_normal",
+			"offset_actived",
+			"offset_pressed",
+			"offset_selected"
+		};
         
         //Invent a unique name for this sub skin if there isn't one
         const String strBlockName = (ini.getBlockName() == "") ?
@@ -345,49 +368,21 @@ namespace MyGUI {
 					if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_PRESSED] = strValue;
 				} else if (strValueName == VALUE_SKIN_SELECTED) {
 					if (ini.getValue(strValue)) skin->SkinState[SKIN_STATE_SELECTED] = strValue;
+				} else {
+					for (uint8 pos=0; pos<__SKIN_STATE_COUNT; pos++) {
+						if (strValueName == enumNameOffset[pos]) {
+							if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[pos][_X] = fValue;
+								if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[pos][_Y] = fValue;
+									if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[pos][_CX] = fValue;
+										if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[pos][_CY] = fValue;
+									}
+								}
+							}
+							pos = 5;
+						}
+					} // for (uint8 pos=0; pos<5; pos++) {
 
-				} else if (strValueName == VALUE_OFFSET_DEACTIVATED) {
-					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_X] = fValue;
-						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_Y] = fValue;
-							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_CX] = fValue;
-								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_DEACTIVATED][_CY] = fValue;
-							}
-						}
-					}
-				} else if (strValueName == VALUE_OFFSET_NORMAL) {
-					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_X] = fValue;
-						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_Y] = fValue;
-							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_CX] = fValue;
-								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_NORMAL][_CY] = fValue;
-							}
-						}
-					}
-				} else if (strValueName == VALUE_OFFSET_ACTIVED) {
-					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_X] = fValue;
-						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_Y] = fValue;
-							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_CX] = fValue;
-								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_ACTIVED][_CY] = fValue;
-							}
-						}
-					}
-				} else if (strValueName == VALUE_OFFSET_PRESSED) {
-					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_X] = fValue;
-						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_Y] = fValue;
-							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_CX] = fValue;
-								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_PRESSED][_CY] = fValue;
-							}
-						}
-					}
-				} else if (strValueName == VALUE_OFFSET_SELECTED) {
-					if (ini.getValue(fValue, 0)) { skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_X] = fValue;
-						if (ini.getValue(fValue, 1)) { skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_Y] = fValue;
-							if (ini.getValue(fValue, 2)) { skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_CX] = fValue;
-								if (ini.getValue(fValue, 3)) skin->fOffsetStateSkin[SKIN_STATE_SELECTED][_CY] = fValue;
-							}
-						}
-					}
-
-				}
+				} // if (strValueName == VALUE_SKIN_POSITION) {
 
 			} //if (ini.getValueName(strValueName)) {
 		}; // while (ini.LoadNextValue()) {
@@ -556,17 +551,39 @@ namespace MyGUI {
 
 	} // void AssetManager::loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue)
 
-/*	String * AssetManager::getMaterialPtr(const String & strName)
+	bool AssetManager::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
 	{
-		ResourcePtr res = Ogre::MaterialManager::getSingleton().getByName(strName);
-		if (res.isNull()) return 0;
+		sizeX = 0;
+		sizeY = 0;
 
-		for (SkinIterator pos = Skins()->begin(); pos != Skins()->end(); ++pos) {
-			if ((pos->second->SkinElement) && (*pos->second->SkinElement == strName))
-				return pos->second->SkinElement;
-		}
+		if (materialName.empty()) return false;
 
-		return new String(strName);
-	} // String * AssetManager::getMaterialPtr(const String & strName)*/
+		MaterialPtr mat = MaterialManager::getSingleton().getByName(materialName);
+		if (mat.isNull()) return false;
+
+		// обязательно загружаем
+		mat->load();
+
+		// только так, иначе при пустых викидывает
+		Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
+		if ( ! iTechnique.hasMoreElements() ) return false;
+
+		Pass * pass = iTechnique.getNext()->getPass(0);
+		if (!pass) return false;
+
+		Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
+		if ( ! iUnit.hasMoreElements()) return false;
+
+		const String & textName = iUnit.getNext()->getTextureName();
+
+		TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
+		if (tex.isNull()) return false;
+
+		sizeX = (uint16)tex->getWidth();
+		sizeY = (uint16)tex->getHeight();
+
+		return true;
+	} // bool AssetManager::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
+
 
 } // namespace MyGUI {
