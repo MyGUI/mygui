@@ -71,6 +71,40 @@ namespace MyGUI {
 		}
 	}
 
+	bool AssetManager::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
+	{
+		sizeX = 0;
+		sizeY = 0;
+
+		if (materialName.empty()) return false;
+
+		MaterialPtr mat = MaterialManager::getSingleton().getByName(materialName);
+		if (mat.isNull()) return false;
+
+		// обязательно загружаем
+		mat->load();
+
+		// только так, иначе при пустых викидывает
+		Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
+		if ( ! iTechnique.hasMoreElements() ) return false;
+
+		Pass * pass = iTechnique.getNext()->getPass(0);
+		if (!pass) return false;
+
+		Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
+		if ( ! iUnit.hasMoreElements()) return false;
+
+		const String & textName = iUnit.getNext()->getTextureName();
+
+		TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
+		if (tex.isNull()) return false;
+
+		sizeX = (uint16)tex->getWidth();
+		sizeY = (uint16)tex->getHeight();
+
+		return true;
+	} // bool AssetManager::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
+
 	AssetManager *AssetManager::loadAssets() // загружает все скины
 	{
 		//---------------------------------------------------------------------------------------------------------------
@@ -185,7 +219,7 @@ namespace MyGUI {
 				for (uint16 sub=0; sub<pos->second->subSkins.size(); sub++) {
 					__MYGUI_SUBSKIN_INFO * subSkin = const_cast<__MYGUI_SUBSKIN_INFO *> (pos->second->subSkins[sub]);
 					uint16 sizeX, sizeY;
-					if (GUI::getMaterialSize(pos->second->SkinElement, sizeX, sizeY)) {
+					if (getMaterialSize(pos->second->SkinElement, sizeX, sizeY)) {
 						for (uint8 index=0; index<__SKIN_STATE_COUNT; index++) {
 							if (subSkin->fOffsetStateSkin[index][_CX] != 0.0) {
 

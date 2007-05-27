@@ -15,7 +15,7 @@ namespace MyGUI {
 		void setMinMax(int16 iMinSizeX, int16 iMinSizeY, int16 iMaxSizeX, int16 iMaxSizeY);// укстановка минимальных и максимальных размеров
 		void setMinMaxReal(Real fMinSizeX, Real fMinSizeY, Real fMaxSizeX, Real fMaxSizeY);// укстановка минимальных и максимальных размеров
 
-		void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY); // уведомление о движении, но не движение
+		void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY); // уведомление о движении, но не движение
 		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 

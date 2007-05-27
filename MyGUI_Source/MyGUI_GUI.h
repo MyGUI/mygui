@@ -120,9 +120,6 @@ namespace MyGUI {
 		        m_overlayGUI[OVERLAY_MOUSE]->hide();
         }
         
-		// возвращает размер текстуры материала
-		static bool getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY);
-        
         //Window Management(?)
         
     		

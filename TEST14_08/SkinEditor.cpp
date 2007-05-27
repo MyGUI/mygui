@@ -144,7 +144,8 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 			}
 
 			// обновляем квадратик
-			setMaterialOffset(m_pCurrentDataState->uPosition[0], m_pCurrentDataState->uPosition[1], m_pCurrentDataState->uPosition[2], m_pCurrentDataState->uPosition[3]);
+			m_textureOffsetPointer->setLocation(m_pCurrentDataState->uPosition[0], m_pCurrentDataState->uPosition[1], m_pCurrentDataState->uPosition[2], m_pCurrentDataState->uPosition[3]);
+//			setMaterialOffset(m_pCurrentDataState->uPosition[0], m_pCurrentDataState->uPosition[1], m_pCurrentDataState->uPosition[2], m_pCurrentDataState->uPosition[3]);
 		}
 
 
@@ -214,9 +215,9 @@ void SkinEditor::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена лева
 	
 }
 //===================================================================================
-void SkinEditor::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
+/*void SkinEditor::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
 {
-	if (pWindow->getUserData() == MATERIAL_OFFSET) {
+/*	if (pWindow->getUserData() == MATERIAL_OFFSET) {
 		if (pWindow == m_windowMaterialOffset[CENTER]) {
 			for (uint8 pos=0; pos<4; pos++) {
 				if (bIsFocus) m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName("BACK_YELLOW");
@@ -227,13 +228,13 @@ void SkinEditor::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена ф
 			else pWindow->m_overlayContainer->setMaterialName("BACK_GREEN");
 		}
 	}
-}
+}*/
 //===================================================================================
-void SkinEditor::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY) // уведомление о движении, но не движение
+/*void SkinEditor::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) // уведомление о движении, но не движение
 {
 	if ( ! m_pCurrentDataState) return;
 
-	if (pWindow->getUserData() == MATERIAL_OFFSET) {
+	/*if (pWindow->getUserData() == MATERIAL_OFFSET) {
 		
 		iParentPosX -= GUI::getSingleton()->m_iOffsetPressedX;
 		iParentPosY -= GUI::getSingleton()->m_iOffsetPressedY;
@@ -274,10 +275,9 @@ void SkinEditor::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, 
 		} else return;
 
 		updateStateInfo();
-
-
 	}
-}
+
+}*/
 //===================================================================================
 bool SkinEditor::createEditor() // создает окно редактирования скинов
 {
@@ -521,7 +521,7 @@ void SkinEditor::updateStateInfo() // обновляет всю инфу об стайте
 		m_editPosition[pos]->setCaption(StringConverter::toString(m_pCurrentDataState->uPosition[pos]));
 	}
 
-	setMaterialOffset(m_pCurrentDataState->uPosition[0], m_pCurrentDataState->uPosition[1], m_pCurrentDataState->uPosition[2], m_pCurrentDataState->uPosition[3]);
+	m_textureOffsetPointer->setLocation(m_pCurrentDataState->uPosition[EDIT_LEFT], m_pCurrentDataState->uPosition[EDIT_TOP], m_pCurrentDataState->uPosition[EDIT_RIGHT], m_pCurrentDataState->uPosition[EDIT_BOTTOM]);
 
 }
 //===================================================================================
@@ -1048,7 +1048,7 @@ bool SkinEditor::fillMaterialWindow() // заполняем окно с материалом
 	const String & strMaterialName = m_comboMaterialName->getCaption();
 
 	uint16 sizeX, sizeY;
-	if (!GUI::getMaterialSize(strMaterialName, sizeX, sizeY)) return false;
+	if (!AssetManager::getMaterialSize(strMaterialName, sizeX, sizeY)) return false;
 
 	const uint16 addX = m_windowMaterial->m_iSizeX-m_windowMaterial->m_pWindowClient->m_iSizeX;
 	const uint16 addY = m_windowMaterial->m_iSizeY-m_windowMaterial->m_pWindowClient->m_iSizeY;
@@ -1071,18 +1071,20 @@ void SkinEditor::createMaterialWindow() // создает окна для материала
 	m_windowMaterial->m_pEventCallback = this;
 	m_windowMaterial->show(false);
 
-	for (uint8 pos=0; pos<MATERIAL_BORDER_COUNT; pos++) {
+/*	for (uint8 pos=0; pos<MATERIAL_BORDER_COUNT; pos++) {
 		m_windowMaterialOffset[pos] = m_windowMaterial->create<Window>(10, 10, 1, 1, WA_LEFT|WA_TOP, SKIN_DEFAULT);
 		m_windowMaterialOffset[pos]->m_pEventCallback = this;
 		m_windowMaterialOffset[pos]->addEvent(WE_MOUSE_FOCUS|WE_MOUSE_MOVE);
 		if (pos != CENTER)
 		    m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName("BACK_GREEN");
 		m_windowMaterialOffset[pos]->setUserData(MATERIAL_OFFSET);
-	}
+	}*/
+
+	m_textureOffsetPointer = new StretchControl(m_windowMaterial, this, "BACK_EMPTY", "BACK_GREEN", "BACK_YELLOW");
 
 }
 //===================================================================================
-void SkinEditor::setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY) // сдвигаем рамку
+/*void SkinEditor::setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY) // сдвигаем рамку
 {
 	if ( (!sizeX) || (!sizeY) || (m_windowMaterial->m_pWindowClient->m_iSizeX < (posX+sizeX)) || (m_windowMaterial->m_pWindowClient->m_iSizeY < (posY+sizeY)) ) {
 		for (uint8 pos=0; pos<MATERIAL_BORDER_COUNT; pos++) m_windowMaterialOffset[pos]->show(false);
@@ -1105,7 +1107,7 @@ void SkinEditor::setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint1
 
 	m_windowMaterialOffset[CENTER]->move(posX+1, posY+1);
 	m_windowMaterialOffset[CENTER]->size(sizeX-1, sizeY-1);
-}
+}*/
 //===================================================================================
 void SkinEditor::enableSkinInfo(bool bEnable) // блокирует
 {
@@ -1178,5 +1180,22 @@ void SkinEditor::enableWindowInfo(bool bEnable) // блокирует все окна
 
 	}
 
+}
+//===================================================================================
+// уведомляет об изменении
+void SkinEditor::OnChangeLocation(StretchControl * pControl, uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY)
+{
+	// элемент внутри материала
+	if (pControl == m_textureOffsetPointer) {
+		if (m_pCurrentDataState) {
+			m_pCurrentDataState->uPosition[EDIT_LEFT] = posX;
+			m_pCurrentDataState->uPosition[EDIT_TOP] = posY;
+			m_pCurrentDataState->uPosition[EDIT_RIGHT] = sizeX;
+			m_pCurrentDataState->uPosition[EDIT_BOTTOM] = sizeY;
+
+			updateStateInfo();
+		}
+	} else {
+	}
 }
 //===================================================================================

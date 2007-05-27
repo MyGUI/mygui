@@ -32,7 +32,7 @@ namespace MyGUI {
 		if (fMaxSizeY >= 0.0) m_iMaxSizeY = fMaxSizeY * GUI::getSingleton()->getHeight();
 	}
 
-	void WindowFrame::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY) // уведомление о движении, но не движение
+	void WindowFrame::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) // уведомление о движении, но не движение
 	{
 		if (pWindow->m_uExData & WES_CAPTION) {
 			iPosX -= GUI::getSingleton()->m_iOffsetPressedX+pWindow->m_iPosX;

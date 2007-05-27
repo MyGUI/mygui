@@ -1,34 +1,33 @@
 #pragma once
 
 #include "MyGUI_Source\\MyGUI.h"
+#include "StretchControl.h"
 
 //=========================================================================================
 // класс панели для редактирования скинов
-class SkinEditor : public MyGUI::EventCallback
+class SkinEditor : public MyGUI::EventCallback, public StretchControlEvent
 {
     public:
 
 		enum {
 			NONE=0,
 			EDIT_IS_USE,
-			MATERIAL_OFFSET,
 		};
 		enum {
-			LEFT = 0,
-			TOP = 1,
-			RIGHT = 2,
-			BOTTOM = 3,
-			CENTER = 4,
-			MATERIAL_BORDER_COUNT
+			EDIT_LEFT,
+			EDIT_TOP,
+			EDIT_RIGHT,
+			EDIT_BOTTOM,
+			__EDIT_COUNT
 		};
 
 		typedef struct _tag_STATE_DATA { // информация об одном стейте
-			MyGUI::uint16 uPosition[4]; // позиция в элементе
+			MyGUI::uint16 uPosition[__EDIT_COUNT]; // позиция в элементе
 		} * LP_STATE_DATA;
 
 		typedef struct _tag_SUB_SKIN_DATA {
 			MyGUI::String strName; // название саб скина
-			MyGUI::uint16 uOffset[4]; // смещение в текстуре
+			MyGUI::uint16 uOffset[__EDIT_COUNT]; // смещение в текстуре
 			MyGUI::uint16 event_info; // события
 			MyGUI::uint16 style; // стиль
 			MyGUI::uint16 align; // выравнивание
@@ -36,7 +35,7 @@ class SkinEditor : public MyGUI::EventCallback
 			_tag_SUB_SKIN_DATA::_tag_SUB_SKIN_DATA() {assert(0);}; // низя
 			_tag_SUB_SKIN_DATA::_tag_SUB_SKIN_DATA(const MyGUI::String & str) : strName(str), event_info(0), style(0), align(0)
 			{
-				memset((void*)uOffset, 0, sizeof(MyGUI::uint16) * 4); // очищаем
+				memset((void*)uOffset, 0, sizeof(MyGUI::uint16) * __EDIT_COUNT); // очищаем
 				memset((void*)stateInfo, 0, sizeof(_tag_STATE_DATA) * 5); // очищаем
 			};
 		} * LP_SUB_SKIN_DATA;
@@ -67,9 +66,9 @@ class SkinEditor : public MyGUI::EventCallback
 
 		virtual void onOtherEvent(MyGUI::Window * pWindow, MyGUI::uint16 uEvent, MyGUI::uint32 data); // дополнительные события
 		virtual void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
-		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
-		virtual void onMouseMove(MyGUI::Window * pWindow, MyGUI::int16 iPosX, MyGUI::int16 iPosY,
-		    MyGUI::int16 iParentPosX, MyGUI::int16 iParentPosY); // уведомление о движении, но не движение
+//		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
+//		virtual void onMouseMove(MyGUI::Window * pWindow, MyGUI::int16 iPosX, MyGUI::int16 iPosY,
+//		    MyGUI::int16 iParentPosX, MyGUI::int16 iParentPosY); // уведомление о движении, но не движение
 
 		bool createEditor(); // создает окно редактирования скинов
 		void destroyEditor(); // удаляет окно редактирования скинов
@@ -90,7 +89,7 @@ class SkinEditor : public MyGUI::EventCallback
 		void fillFlagWindow(); // заполняет окна текущими значения
 		bool fillMaterialWindow(); // заполняем окно с материалом
 		void pressOtherButton(MyGUI::Window * pWindow); // сверяем с кнопками флагов
-		void setMaterialOffset(MyGUI::uint16 posX, MyGUI::uint16 posY, MyGUI::uint16 sizeX, MyGUI::uint16 sizeY); // сдвигаем рамку
+//		void setMaterialOffset(MyGUI::uint16 posX, MyGUI::uint16 posY, MyGUI::uint16 sizeX, MyGUI::uint16 sizeY); // сдвигаем рамку
 
 
 		MyGUI::WindowFrame * m_mainWindow; // главное окно инструментов
@@ -109,8 +108,8 @@ class SkinEditor : public MyGUI::EventCallback
 
 		MyGUI::ComboBox * m_comboSabSkinState; // состояние скина
 
-		MyGUI::Edit * m_editOffset[4]; // смещения куска внутри текстуры
-		MyGUI::Edit * m_editPosition[4]; // позиция окна в общем скине
+		MyGUI::Edit * m_editOffset[__EDIT_COUNT]; // смещения куска внутри текстуры
+		MyGUI::Edit * m_editPosition[__EDIT_COUNT]; // позиция окна в общем скине
 
 		std::vector <_tag_WINDOW_DATA> mWindowInfo; // информация о всех окнах
 		std::vector <MyGUI::String> m_strMaterialName; // все доступные материалы
@@ -126,8 +125,13 @@ class SkinEditor : public MyGUI::EventCallback
 		MyGUI::Button * m_buttonsFlagsStyle[16];
 
 		MyGUI::WindowFrame * m_windowMaterial; // окно с материалом
-		MyGUI::Window * m_windowMaterialOffset[MATERIAL_BORDER_COUNT]; // граница
+//		MyGUI::Window * m_windowMaterialOffset[MATERIAL_BORDER_COUNT]; // граница
 		MyGUI::uint16 m_uTextureSizeX;
 		MyGUI::uint16 m_uTextureSizeY;
+
+		// рамка в окне материала
+		StretchControl * m_textureOffsetPointer;
+
+		void OnChangeLocation(StretchControl * pControl, uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY);
 
 };

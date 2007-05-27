@@ -176,7 +176,7 @@ namespace MyGUI {
 	{
 		//If the callback exists and is listening to mouse movement events...
 		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_MOVE)) {
-			int16 iParentPosX = iPosX;
+/*			int16 iParentPosX = iPosX;
 			int16 iParentPosY = iPosY;
 			
 			// относительно отца
@@ -186,9 +186,9 @@ namespace MyGUI {
 				
 				iParentPosX -= Left - m_iPosX + 1;
 				iParentPosY -= Top - m_iPosY + 1;
-			}
+			}*/
 			
-			m_pEventCallback->onMouseMove(this, iPosX, iPosY, iParentPosX, iParentPosY);
+			m_pEventCallback->onMouseMove(this, iPosX, iPosY);
 		}
 	}
 

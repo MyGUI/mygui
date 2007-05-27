@@ -141,9 +141,13 @@ namespace MyGUI
         */
         AssetManager *unloadAssets();
 
-		static void getResourcePath(std::vector<String> & saFilePath, const String & strMaskFileName);
-
 	public:
+
+		// возвращает список путей к файлам по маске
+		static void getResourcePath(std::vector<String> & saFilePath, const String & strMaskFileName);
+		// возвращает размер текстуры материала
+		static bool getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY);
+
 
 		// константы для парсинга
 		static const String BLOCK_WINDOW_NAME;

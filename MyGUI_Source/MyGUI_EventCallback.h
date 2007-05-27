@@ -12,7 +12,7 @@ namespace MyGUI
 		virtual void onMouseClick(MyGUI::Window * pWindow) {}; // нажата и отпущена левая кнопка мыши на этом же элементе
 		virtual void onMouseDoubleClick(MyGUI::Window * pWindow) {}; // двойной щелчек мыши
 		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) {}; // смена фокуса
-		virtual void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY) {}; // уведомление о движении, но не движение
+		virtual void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) {}; // уведомление о движении, но не движение
 
 		virtual void onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus) {}; // смена фокуса ввода
 		virtual void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) {}; // нажата клавиша

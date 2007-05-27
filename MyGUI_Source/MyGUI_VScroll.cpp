@@ -30,7 +30,7 @@ namespace MyGUI {
 		if (m_pEventCallback) m_pEventCallback->onKeyFocus(this, bIsFocus);
 	}
 
-	void VScroll::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY) // уведомление о движении, но не движение
+	void VScroll::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) // уведомление о движении, но не движение
 	{
 		if (m_uSizeScroll < 2) return;
 		if (!m_pWindowTrack) return;

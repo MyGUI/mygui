@@ -12,7 +12,7 @@ namespace MyGUI {
 
         void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
         void onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed);
-        void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY, int16 iParentPosX, int16 iParentPosY); // уведомление о движении, но не движение
+        void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY); // уведомление о движении, но не движение
         void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 
         void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText); // нажата клавиша
