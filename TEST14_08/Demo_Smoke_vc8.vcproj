@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="Demo_Smoke"
 	ProjectGUID="{86B4ED07-3D95-45C3-B387-512046E95C68}"
 	Keyword="Win32Proj"
@@ -240,6 +240,10 @@
 			</File>
 			<File
 				RelativePath=".\SkinEditor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\StretchControl.h"
 				>
 			</File>
 		</Filter>

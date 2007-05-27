@@ -304,6 +304,7 @@ namespace MyGUI {
 		#define VALUE_SKIN_ALIGN "align"
 		#define VALUE_SKIN_EVENT "event"
 		#define VALUE_SKIN_STYLE "style"
+		// потом убрать
 		#define VALUE_SKIN_DEACTIVATED "skin_deactivated"
 		#define VALUE_SKIN_NORMAL "skin_normal"
 		#define VALUE_SKIN_ACTIVED "skin_actived"

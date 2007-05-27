@@ -7,6 +7,7 @@
 #include <OgreMaterialManager.h>
 #include <OgreTechnique.h>
 #include <OgreTextureManager.h>
+#include "StretchControl.h"
 
 using namespace Ogre;
 using namespace MyGUI;
