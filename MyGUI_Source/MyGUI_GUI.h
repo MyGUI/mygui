@@ -168,12 +168,6 @@ namespace MyGUI {
 		//Only referenced outside of GUI class by Window class
 		size_t m_uOverlappedStart, m_uOverlappedEnd; // начало и конец в перекрывающихся окон в масиве
 		
-		//Ripe for movement to a managed asset in the asset manager
-        //Maps enums to strings and vice versa for use in scripts
-		std::map <String, uint16> m_mapFlagEvent; // имена флагов для парсинга
-		std::map <String, uint16> m_mapFlagAlign; // имена флагов для парсинга
-		std::map <String, uint16> m_mapFlagStyle; // имена флагов для парсинга
-
 	};
 
 }

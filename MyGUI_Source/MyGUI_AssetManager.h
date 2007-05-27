@@ -85,10 +85,10 @@ namespace MyGUI
         __AssetDefinition<__tag_MYGUI_POINTER_INFO >    mPointers;
         __AssetDefinition<__MYGUI_SUBSKIN_INFO >       mSubSkins;
         
-        void loadDefinitions(std::map<String, uint32> & mapNameValue, const String & strFileName);
+        void loadDefinitions(const String & strFileName);
 
-        void loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue, std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin);
-		void loadSubSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue, const String & Name, __tag_MYGUI_SKIN_INFO * window, unsigned int & UniqueSerialID, std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin);
+        void loadSkinDefinitions(loadINI & ini);
+		void loadSubSkinDefinitions(loadINI & ini, const String & Name, __tag_MYGUI_SKIN_INFO * window, unsigned int & UniqueSerialID);
 		void loadPointerDefinitions(loadINI & ini);
 		void loadFontDefinitions(loadINI & ini);
 
@@ -191,5 +191,15 @@ namespace MyGUI
 		static const String VALUE_OFFSET_PRESSED;
 		static const String VALUE_OFFSET_SELECTED;
 
-	};   
-}
+		// карты имен для парсинга
+		//Ripe for movement to a managed asset in the asset manager
+        //Maps enums to strings and vice versa for use in scripts
+		typedef std::map<String, uint16> mapValue;
+		typedef mapValue::iterator MapValueIterator;
+
+		static mapValue mMapValueEvent;
+		static mapValue mMapValueAligin;
+		static mapValue mMapValueStyle;
+
+	}; // class AssetManager
+} // namespace MyGUI

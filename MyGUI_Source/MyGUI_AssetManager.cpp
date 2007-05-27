@@ -54,6 +54,9 @@ namespace MyGUI {
 	const String AssetManager::VALUE_OFFSET_PRESSED = "offset_pressed";
 	const String AssetManager::VALUE_OFFSET_SELECTED = "offset_selected";
 
+	AssetManager::mapValue AssetManager::mMapValueEvent;
+	AssetManager::mapValue AssetManager::mMapValueAligin;
+	AssetManager::mapValue AssetManager::mMapValueStyle;
 
 	void AssetManager::getResourcePath(std::vector<String> & saFilePath, const String & strMaskFileName)
 	{
@@ -71,12 +74,9 @@ namespace MyGUI {
 	AssetManager *AssetManager::loadAssets() // загружает все скины
 	{
 		//---------------------------------------------------------------------------------------------------------------
-		std::map<String, uint32> mapNameValue;
-		//---------------------------------------------------------------------------------------------------------------
-		#define __REGISTER_VALUE(_value) mapNameValue[#_value] = _value;_LOG("RESISTER_VALUE    %s \t %d (0x%.8X)", #_value, _value, _value);
-		#define __REGISTER_VALUE_EVENT(_value) mapNameValue[#_value] = _value;GUI::getSingleton()->m_mapFlagEvent[#_value] = _value;_LOG("RESISTER_VALUE_EVENT    %s \t %d (0x%.8X)", #_value, _value, _value);
-		#define __REGISTER_VALUE_ALIGN(_value) mapNameValue[#_value] = _value;GUI::getSingleton()->m_mapFlagAlign[#_value] = _value;_LOG("RESISTER_VALUE_ALIGN    %s \t %d (0x%.8X)", #_value, _value, _value);
-		#define __REGISTER_VALUE_STYLE(_value) mapNameValue[#_value] = _value;GUI::getSingleton()->m_mapFlagStyle[#_value] = _value;_LOG("RESISTER_VALUE_STYLE    %s \t %d (0x%.8X)", #_value, _value, _value);
+		#define __REGISTER_VALUE_EVENT(_value) mMapValueEvent[#_value]=_value;_LOG("RESISTER_VALUE_EVENT    %s \t %d (0x%.8X)", #_value, _value, _value);
+		#define __REGISTER_VALUE_ALIGN(_value) mMapValueAligin[#_value]=_value;_LOG("RESISTER_VALUE_ALIGN    %s \t %d (0x%.8X)", #_value, _value, _value);
+		#define __REGISTER_VALUE_STYLE(_value) mMapValueStyle[#_value]=_value;_LOG("RESISTER_VALUE_STYLE    %s \t %d (0x%.8X)", #_value, _value, _value);
 		//---------------------------------------------------------------------------------------------------------------
 		_LOG_NEW; // с красной строки
 		
@@ -145,7 +145,7 @@ namespace MyGUI {
 		vector<String> saFilePath;
 		getResourcePath(saFilePath, "*.mygui_skin");
 		for (size_t pos=0; pos < saFilePath.size(); pos++)
-		    loadDefinitions(mapNameValue, saFilePath[pos]);
+		    loadDefinitions(/*mapNameValue, */saFilePath[pos]);
 		
 		//---------------------------------------------------------------------------------------------------------------
 		// Font checks
@@ -180,6 +180,7 @@ namespace MyGUI {
 				pos->second = new __tag_MYGUI_SKIN_INFO( *Skins()->getDefinition(SKIN_DEFAULT));
 				_LOG("[ERROR] skin is not loaded \"%s\" seting to SKIN_DEFAULT", pos->first.c_str());
 			} else {
+				// convert pix to offset
 				// перебираем все сабскины и конвертируем текстурные координаты смещения 
 				for (uint16 sub=0; sub<pos->second->subSkins.size(); sub++) {
 					__MYGUI_SUBSKIN_INFO * subSkin = const_cast<__MYGUI_SUBSKIN_INFO *> (pos->second->subSkins[sub]);
@@ -221,15 +222,9 @@ namespace MyGUI {
 	}
 
     // загружает все скины окон из одного файла
-	void AssetManager::loadDefinitions(std::map<String, uint32> & mapNameValue, const String & strFileName)
+	void AssetManager::loadDefinitions(const String & strFileName)
 	{
 		_LOG("\r\nload MyGUI source \t '%s'\r\n", strFileName.c_str());
-
-//		#define BLOCK_WINDOW_NAME "windowSkin"
-//		#define BLOCK_FONT_NAME "Font"
-//		#define BLOCK_POINTER_NAME "Pointer"
-
-		map <String, __LP_MYGUI_SUBSKIN_INFO> mapLoadingSkin; // именна именнованых уже загруженных скинов
 
 		loadINI ini;
 		if (!ini.open(strFileName.c_str())) return;
@@ -239,33 +234,33 @@ namespace MyGUI {
             //Defines a new skin
 			if (ini.getBlockType() == BLOCK_WINDOW_NAME) {
 				
-				loadSkinDefinitions(ini, mapNameValue, mapLoadingSkin);
+				loadSkinDefinitions(ini);
 
-			// загрузка шрифтов окон -------------------------------------------------------------------------------------------------
+			// загрузка шрифтов окон
 			} else if (ini.getBlockType() == BLOCK_FONT_NAME) {
                 
 				loadFontDefinitions(ini);
 
-			// загрузка указателей -------------------------------------------------------------------------------------------------
+			// загрузка указателей
 			} else if (ini.getBlockType() == BLOCK_POINTER_NAME) {
 
 				loadPointerDefinitions(ini);
                 
-			// а это что за хрень -------------------------------------------------------------------------------------------------
+			// а это что за хрень
 			} else { _LOG("\r\n\t[ERROR] unknow block type  -   type(%s),  name(%s)",
-			    ini.getBlockType().c_str(), ini.getBlockName().c_str()); }
+
+				ini.getBlockType().c_str(), ini.getBlockName().c_str());
+
+			}
 
 		}; // while (ini.seekNextBlock()) {
 
 		ini.close();
 		_LOG_NEW;
-	} // void AssetManager::loadSkinDefinitions(std::map<String, uint32> & mapNameValue, const String & strFileName)
+	} // void AssetManager::loadSkinDefinitions(const String & strFileName)
 
 	void AssetManager::loadPointerDefinitions(loadINI & ini)
 	{
-/*		#define VALUE_POINTER_SIZE "size"
-		#define VALUE_POINTER_OFFSET "offset"
-		#define VALUE_POINTER_SKIN "skin"*/
 
         const String Name = ini.getBlockName();
 		__LP_MYGUI_POINTER_INFO pointer = Pointers()->defineNew(Name);
@@ -305,8 +300,6 @@ namespace MyGUI {
 
 	void AssetManager::loadFontDefinitions(loadINI & ini)
 	{
-/*		#define VALUE_FONT_NAME "name"
-		#define VALUE_FONT_SIZE "size"*/
 
         const String Name = ini.getBlockName();
 		__LP_MYGUI_FONT_INFO font = Fonts()->defineNew(Name);
@@ -338,24 +331,10 @@ namespace MyGUI {
 	} // void AssetManager::loadFontDefinitions(loadINI & ini)
 
 	void AssetManager::loadSubSkinDefinitions(loadINI & ini, 
-		std::map<String, uint32> & mapNameValue, 
 		const String & Name, __tag_MYGUI_SKIN_INFO * window, 
-		unsigned int & UniqueSerialID, 
-		std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin)
+		unsigned int & UniqueSerialID
+		)
 	{
-/*		#define SECTION_SUB_SKIN "subSkin"
-		#define SECTION_SUB_SKIN_MAIN "subSkinMain"
-
-		#define VALUE_SKIN_POSITION "position"
-		#define VALUE_SKIN_ALIGN "align"
-		#define VALUE_SKIN_EVENT "event"
-		#define VALUE_SKIN_STYLE "style"
-		// потом убрать
-		#define VALUE_SKIN_DEACTIVATED "skin_deactivated"
-		#define VALUE_SKIN_NORMAL "skin_normal"
-		#define VALUE_SKIN_ACTIVED "skin_actived"
-		#define VALUE_SKIN_PRESSED "skin_pressed"
-		#define VALUE_SKIN_SELECTED "skin_selected"*/
 
 		uint32 uValue;
 		float fValue;
@@ -390,19 +369,19 @@ namespace MyGUI {
 				} else if (strValueName == VALUE_SKIN_ALIGN) {
 					pos = 0;
 					while (ini.getValue(strValue, pos)) {
-						skin->align |= (uint32)mapNameValue[strValue];
+						skin->align |= mMapValueAligin[strValue];
 						pos ++;
 					};
 				} else if (strValueName == VALUE_SKIN_EVENT) {
 					pos = 0;
 					while (ini.getValue(strValue, pos)) {
-						skin->event_info |= (uint32)mapNameValue[strValue];
+						skin->event_info |= mMapValueEvent[strValue];
 						pos ++;
 					};
 				} else if (strValueName == VALUE_SKIN_STYLE) {
 					pos = 0;
 					while (ini.getValue(strValue, pos)) {
-						skin->exdata |= (uint32)mapNameValue[strValue];
+						skin->exdata |= mMapValueStyle[strValue];
 						pos ++;
 					};
 				} else if (strValueName == VALUE_SKIN_DEACTIVATED) {
@@ -457,23 +436,11 @@ namespace MyGUI {
 			     skin->SkinState[SKIN_STATE_ACTIVED].c_str(), skin->SkinState[SKIN_STATE_NORMAL].c_str(),
 			     skin->SkinState[SKIN_STATE_PRESSED].c_str(), skin->SkinState[SKIN_STATE_SELECTED].c_str());
 			
-			if (!strBlockName.empty()) { // у этого блока есть имя, сохраняем
-				//TODO: port
-				mapLoadingSkin[strBlockName] = skin;
-				_LOG("\t\t  store sub skin  '%s'  (%p)", strBlockName.c_str(), skin);
-			}
 		}
 	} // void AssetManager::loadSubSkinDefinitions(loadINI & ini)
 
-	void AssetManager::loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue, std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin)
+	void AssetManager::loadSkinDefinitions(loadINI & ini)
 	{
-/*		#define VALUE_WINDOW_SKIN "skin_element"
-		#define VALUE_WINDOW_FONT "font"
-		#define VALUE_WINDOW_COLOUR "colour"
-		#define VALUE_WINDOW_DATA1 "data1"
-		#define VALUE_WINDOW_DATA2 "data2"
-		#define VALUE_WINDOW_DATA3 "data3"
-		#define VALUE_WINDOW_DATA4 "data4"*/
 
 		unsigned int UniqueSerialID = 0; //used to identify unnamed sub skins
 		const String Name = ini.getBlockName();
@@ -583,7 +550,7 @@ namespace MyGUI {
 		if (ini.jumpBlock(true, false)) {
 			while (ini.seekNextBlock()) {
 
-				loadSubSkinDefinitions(ini, mapNameValue, Name, window, UniqueSerialID, mapLoadingSkin);
+				loadSubSkinDefinitions(ini, Name, window, UniqueSerialID);
 
 			}; // while (ini.seekNextBlock()) {
 		} // if (ini.jumpBlock(true, false)) {
@@ -596,6 +563,6 @@ namespace MyGUI {
 
 		ini.jumpBlock(false, false); // выпрыгиваем
 
-	} // void AssetManager::loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue)
+	} // void AssetManager::loadSkinDefinitions(loadINI & ini)
 
 } // namespace MyGUI {

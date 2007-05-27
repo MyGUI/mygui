@@ -16,26 +16,6 @@ using namespace std;
 //===================================================================================
 const string NO_SET = "[ no set ]";
 //===================================================================================
-/*const string BLOCK_WINDOW_NAME = "windowSkin";
-const string SECTION_SUB_SKIN = "subSkin";
-const string SECTION_SUB_SKIN_MAIN = "subSkinMain";
-const string VALUE_WINDOW_ADDED_SKIN1 = "added_skin1";
-const string VALUE_WINDOW_ADDED_SKIN2 = "added_skin2";
-const string VALUE_WINDOW_ADDED_DATA1 = "added_data1";
-const string VALUE_WINDOW_ADDED_DATA2 = "added_data2";
-const string VALUE_WINDOW_FONT = "font";
-const string VALUE_WINDOW_COLOUR = "colour";
-const string VALUE_WINDOW_MATERIAL = "material";
-const string VALUE_SKIN_OFFSET = "offset";
-const string VALUE_SKIN_EVENT = "event";
-const string VALUE_SKIN_ALIGN = "align";
-const string VALUE_SKIN_STYLE = "style";
-const string VALUE_STATE_DEACTIVATED = "deactivated_position";
-const string VALUE_STATE_NORMAL = "normal_position";
-const string VALUE_STATE_PRESSED = "pressed_position";
-const string VALUE_STATE_ACTIVATED = "activated_position";
-const string VALUE_STATE_SELECTED = "selected_position";*/
-//===================================================================================
 const uint32 FLAG_EVENT = 0x10000;
 const uint32 FLAG_STYLE = 0x20000;
 const uint32 FLAG_ALIGN = 0x40000;
@@ -681,8 +661,8 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			fp << "\n\t\t" << AssetManager::VALUE_SKIN_EVENT << " \t"; 
 			if (!skin->event_info) fp << "WE_NONE";
 			else {
-				for (map<String, uint16>::iterator iter = GUI::getSingleton()->m_mapFlagEvent.begin();
-				    iter != GUI::getSingleton()->m_mapFlagEvent.end(); iter ++) {
+				for (AssetManager::MapValueIterator iter = AssetManager::mMapValueEvent.begin();
+				    iter != AssetManager::mMapValueEvent.end(); iter ++) {
 					if ( iter->second & skin->event_info ) {
 						if ( ( iter->second & skin->event_info ) == iter->second )
 							fp << iter->first << "  ";
@@ -694,8 +674,8 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			fp << "\n\t\t" << AssetManager::VALUE_SKIN_ALIGN << " \t"; 
 			if (!skin->align) fp << "WA_NONE";
 			else {
-				for (map<String, uint16>::iterator iter = GUI::getSingleton()->m_mapFlagAlign.begin();
-				        iter != GUI::getSingleton()->m_mapFlagAlign.end(); iter ++) {
+				for (AssetManager::MapValueIterator iter = AssetManager::mMapValueAligin.begin();
+				        iter != AssetManager::mMapValueAligin.end(); iter ++) {
 					if ( iter->second & skin->align ) {
 						if ( ( iter->second & skin->align ) == iter->second )
 							fp << iter->first << "  ";
@@ -707,8 +687,8 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			fp << "\n\t\t" << AssetManager::VALUE_SKIN_STYLE << " \t"; 
 			if (!skin->style) fp << "WES_NONE";
 			else {
-				for (map<String, uint16>::iterator iter = GUI::getSingleton()->m_mapFlagStyle.begin();
-				    iter != GUI::getSingleton()->m_mapFlagStyle.end(); iter ++) {
+				for (AssetManager::MapValueIterator iter = AssetManager::mMapValueStyle.begin();
+				    iter != AssetManager::mMapValueStyle.end(); iter ++) {
 					if ( iter->second & skin->style ) {
 						if ( ( iter->second & skin->style ) == iter->second )
 							fp << iter->first << "  ";
@@ -851,17 +831,17 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 					} else if (strValueName == AssetManager::VALUE_SKIN_EVENT) {
 						for (uint8 pos=0; pos<16; pos++) {
 							if (!ini.getValue(strValue, pos)) continue;
-							skin->event_info |= GUI::getSingleton()->m_mapFlagEvent[strValue];
+							skin->event_info |= AssetManager::mMapValueEvent[strValue];
 						}
 					} else if (strValueName == AssetManager::VALUE_SKIN_ALIGN) {
 						for (uint8 pos=0; pos<16; pos++) {
 							if (!ini.getValue(strValue, pos)) continue;
-							skin->align |= GUI::getSingleton()->m_mapFlagAlign[strValue];
+							skin->align |= AssetManager::mMapValueAligin[strValue];
 						}
 					} else if (strValueName == AssetManager::VALUE_SKIN_STYLE) {
 						for (uint8 pos=0; pos<16; pos++) {
 							if (!ini.getValue(strValue, pos)) continue;
-							skin->style |= GUI::getSingleton()->m_mapFlagStyle[strValue];
+							skin->style |= AssetManager::mMapValueStyle[strValue];
 						}
 
 					} else {

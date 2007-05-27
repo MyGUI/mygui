@@ -6,12 +6,6 @@
 
 namespace MyGUI {
 
-	// устанавливаем первоначальный скин
-//	#define INI_SUBSKIN(_sub,_win) if ((pSkin->SkinElement) && (!pSkin->SkinElement->empty())) { \
-//		_win->m_overlayContainer->setMaterialName(*pSkin->SkinElement); \
-//		_win->setSkinState(SKIN_STATE_NORMAL); \
-//	}
-
 
 	// смещения текстурных смещений в массиве
 	enum COORD {
@@ -142,6 +136,6 @@ namespace MyGUI {
     const String __SKIN_WIDGET_DEFAULT = "SKIN_WIDGET_DEFAULT";
 	
 	const String FONT_DEFAULT = "FONT_DEFAULT"; // шрифт по умолчанию
-	const String FONT_LARGE =   "FONT_LARGE";
+	const String FONT_LARGE =   "FONT_LARGE"; //???
 	
 }
