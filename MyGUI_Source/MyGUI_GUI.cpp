@@ -6,6 +6,8 @@
 #include <OgreStringConverter.h>
 #include <OgreOverlayManager.h>
 #include <OgreTechnique.h>
+#include <OgreMaterialManager.h>
+#include <OgreTextureManager.h>
 
 using namespace Ogre;
 using namespace std;
@@ -306,5 +308,39 @@ namespace MyGUI {
 		old_name = strName;
 		return pOverlay;
 	}
+
+	bool GUI::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
+	{
+		sizeX = 0;
+		sizeY = 0;
+
+		if (materialName.empty()) return false;
+
+		MaterialPtr mat = MaterialManager::getSingleton().getByName(materialName);
+		if (mat.isNull()) return false;
+
+		// обязательно загружаем
+		mat->load();
+
+		// только так, иначе при пустых викидывает
+		Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
+		if ( ! iTechnique.hasMoreElements() ) return false;
+
+		Pass * pass = iTechnique.getNext()->getPass(0);
+		if (!pass) return false;
+
+		Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
+		if ( ! iUnit.hasMoreElements()) return false;
+
+		const String & textName = iUnit.getNext()->getTextureName();
+
+		TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
+		if (tex.isNull()) return false;
+
+		sizeX = (uint16)tex->getWidth();
+		sizeY = (uint16)tex->getHeight();
+
+		return true;
+	} // bool AssetManager::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
 
 }

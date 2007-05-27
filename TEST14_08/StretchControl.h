@@ -5,12 +5,15 @@
 
 using namespace Ogre;
 
-class StretchControl
+class StretchControl : public MyGUI::EventCallback
 {
 private:
 	StretchControl::StretchControl() {};
+
 public:
-	//StretchControl::StretchControl(const String & strMaterial, const String & strMaterialBorderNormal, const String & strMaterialBorderActived) {};
+	StretchControl::StretchControl(const String & strMaterial, const String & strMaterialBorderNormal, const String & strMaterialBorderActived)
+	{
+	};
 
 private:
 	String m_strMaterialName;

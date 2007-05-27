@@ -92,9 +92,6 @@ namespace MyGUI
 		void loadPointerDefinitions(loadINI & ini);
 		void loadFontDefinitions(loadINI & ini);
 
-		// возвращает размер текстуры материала
-		bool getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY);
-        
     public:
         typedef __AssetDefinition<__tag_MYGUI_SKIN_INFO>::iterator   SkinIterator;
         typedef __AssetDefinition<__tag_MYGUI_FONT_INFO>::iterator     FontIterator;
@@ -143,5 +140,56 @@ namespace MyGUI
             chaining.
         */
         AssetManager *unloadAssets();
-    };   
+
+		static void getResourcePath(std::vector<String> & saFilePath, const String & strMaskFileName);
+
+	public:
+
+		// константы для парсинга
+		static const String BLOCK_WINDOW_NAME;
+		static const String VALUE_WINDOW_SKIN;
+		static const String VALUE_WINDOW_FONT;
+		static const String VALUE_WINDOW_COLOUR;
+		static const String VALUE_WINDOW_DATA1;
+		static const String VALUE_WINDOW_DATA2;
+		static const String VALUE_WINDOW_DATA3;
+		static const String VALUE_WINDOW_DATA4;
+
+		static const String VALUE_WINDOW_ADDED_SKIN1;
+		static const String VALUE_WINDOW_ADDED_SKIN2;
+		static const String VALUE_WINDOW_ADDED_DATA1;
+		static const String VALUE_WINDOW_ADDED_DATA2;
+		static const String VALUE_WINDOW_MATERIAL;
+
+		static const String BLOCK_FONT_NAME;
+		static const String VALUE_FONT_NAME;
+		static const String VALUE_FONT_SIZE;
+
+		static const String BLOCK_POINTER_NAME;
+		static const String VALUE_POINTER_SIZE;
+		static const String VALUE_POINTER_OFFSET;
+		static const String VALUE_POINTER_SKIN;
+
+		static const String SECTION_SUB_SKIN;
+		static const String SECTION_SUB_SKIN_MAIN;
+
+		static const String VALUE_SKIN_POSITION;
+		static const String VALUE_SKIN_ALIGN;
+		static const String VALUE_SKIN_EVENT;
+		static const String VALUE_SKIN_STYLE;
+		static const String VALUE_SKIN_OFFSET;
+
+		static const String VALUE_SKIN_DEACTIVATED;
+		static const String VALUE_SKIN_NORMAL;
+		static const String VALUE_SKIN_ACTIVED;
+		static const String VALUE_SKIN_PRESSED;
+		static const String VALUE_SKIN_SELECTED;
+
+		static const String VALUE_OFFSET_DEACTIVATED;
+		static const String VALUE_OFFSET_NORMAL;
+		static const String VALUE_OFFSET_ACTIVED;
+		static const String VALUE_OFFSET_PRESSED;
+		static const String VALUE_OFFSET_SELECTED;
+
+	};   
 }

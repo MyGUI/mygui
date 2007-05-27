@@ -16,7 +16,7 @@ using namespace std;
 //===================================================================================
 const string NO_SET = "[ no set ]";
 //===================================================================================
-const string BLOCK_WINDOW_NAME = "windowSkin";
+/*const string BLOCK_WINDOW_NAME = "windowSkin";
 const string SECTION_SUB_SKIN = "subSkin";
 const string SECTION_SUB_SKIN_MAIN = "subSkinMain";
 const string VALUE_WINDOW_ADDED_SKIN1 = "added_skin1";
@@ -34,7 +34,7 @@ const string VALUE_STATE_DEACTIVATED = "deactivated_position";
 const string VALUE_STATE_NORMAL = "normal_position";
 const string VALUE_STATE_PRESSED = "pressed_position";
 const string VALUE_STATE_ACTIVATED = "activated_position";
-const string VALUE_STATE_SELECTED = "selected_position";
+const string VALUE_STATE_SELECTED = "selected_position";*/
 //===================================================================================
 const uint32 FLAG_EVENT = 0x10000;
 const uint32 FLAG_STYLE = 0x20000;
@@ -605,28 +605,34 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 	std::ofstream fp;
 	fp.open(strFileName.c_str(), ios_base::out | ios_base::trunc);
 
-	String strState[5] = {VALUE_STATE_DEACTIVATED, VALUE_STATE_NORMAL, VALUE_STATE_PRESSED, VALUE_STATE_ACTIVATED, VALUE_STATE_SELECTED};
+	String strState[5] = {
+		AssetManager::VALUE_OFFSET_DEACTIVATED,
+		AssetManager::VALUE_OFFSET_NORMAL,
+		AssetManager::VALUE_OFFSET_PRESSED,
+		AssetManager::VALUE_OFFSET_ACTIVED,
+		AssetManager::VALUE_OFFSET_SELECTED
+	};
 	vector <String> astrSubSkinName; // имена уже сохраненых саб скинов
 
 	for (uint8 index=0; index<mWindowInfo.size(); index++) {
 		LP_WINDOW_DATA window = &mWindowInfo[index];
 		if (!window) continue;
 
-		fp << "\n" << BLOCK_WINDOW_NAME << " \t" << mWindowInfo[index].strElementName << "\n{";
+		fp << "\n" << AssetManager::BLOCK_WINDOW_NAME << " \t" << mWindowInfo[index].strElementName << "\n{";
 
 		if (!window->strAddedSkin1.empty() && (window->strAddedSkin1 != NO_SET)) {
-			fp << "\n\t" << VALUE_WINDOW_ADDED_SKIN1 << " \t" << window->strAddedSkin1;
+			fp << "\n\t" << AssetManager::VALUE_WINDOW_ADDED_SKIN1 << " \t" << window->strAddedSkin1;
 		}
 		if (!window->strAddedSkin2.empty() && (window->strAddedSkin2 != NO_SET)) {
-			fp << "\n\t" << VALUE_WINDOW_ADDED_SKIN2 << " \t" << window->strAddedSkin2;
+			fp << "\n\t" << AssetManager::VALUE_WINDOW_ADDED_SKIN2 << " \t" << window->strAddedSkin2;
 		}
 
-		if (window->uAddedData1) { fp << "\n\t" << VALUE_WINDOW_ADDED_DATA1 << " \t" << StringConverter::toString(window->uAddedData1); }
-		if (window->uAddedData2) { fp << "\n\t" << VALUE_WINDOW_ADDED_DATA2 << " \t" << StringConverter::toString(window->uAddedData2); }
+		if (window->uAddedData1) { fp << "\n\t" << AssetManager::VALUE_WINDOW_ADDED_DATA1 << " \t" << StringConverter::toString(window->uAddedData1); }
+		if (window->uAddedData2) { fp << "\n\t" << AssetManager::VALUE_WINDOW_ADDED_DATA2 << " \t" << StringConverter::toString(window->uAddedData2); }
 
-		if (!window->strFont.empty()) {fp << "\n\t" << VALUE_WINDOW_FONT << " \t" << window->strFont;}
-		if (!window->strColour.empty()) { fp << "\n\t" << VALUE_WINDOW_COLOUR << " \t" << window->strColour; }
-		if (!window->strMaterialName.empty()) { fp << "\n\t" << VALUE_WINDOW_MATERIAL << " \t\"" << window->strMaterialName << "\""; }
+		if (!window->strFont.empty()) {fp << "\n\t" << AssetManager::VALUE_WINDOW_FONT << " \t" << window->strFont;}
+		if (!window->strColour.empty()) { fp << "\n\t" << AssetManager::VALUE_WINDOW_COLOUR << " \t" << window->strColour; }
+		if (!window->strMaterialName.empty()) { fp << "\n\t" << AssetManager::VALUE_WINDOW_MATERIAL << " \t\"" << window->strMaterialName << "\""; }
 
 		// сначала проходим и сохраняем только именна если уже было сохранение
 		for (uint8 pos=0; pos<window->sabSkins.size(); pos++) {
@@ -643,8 +649,8 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			if (!find) continue;
 
 			// сохраняем только описание
-			if (pos == 0) fp << "\n\t" << SECTION_SUB_SKIN_MAIN;
-			else fp << "\n\n\t" << SECTION_SUB_SKIN;
+			if (pos == 0) fp << "\n\t" << AssetManager::SECTION_SUB_SKIN_MAIN;
+			else fp << "\n\n\t" << AssetManager::SECTION_SUB_SKIN;
 			fp << " \t" << skin->strName;
 
 
@@ -665,14 +671,14 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			}
 			if (find) continue; // уже значит сохраняли
 
-			if (pos == 0) fp << "\n\n\t" << SECTION_SUB_SKIN_MAIN << " \t";
-			else fp << "\n\n\t" << SECTION_SUB_SKIN << " \t";
+			if (pos == 0) fp << "\n\n\t" << AssetManager::SECTION_SUB_SKIN_MAIN << " \t";
+			else fp << "\n\n\t" << AssetManager::SECTION_SUB_SKIN << " \t";
 			fp << skin->strName << "\n\t{";
 
-			fp << "\n\t\t" << VALUE_SKIN_OFFSET << " \t" << StringConverter::toString(skin->uOffset[0]) << "  " << StringConverter::toString(skin->uOffset[1]) << "  " << StringConverter::toString(skin->uOffset[2]) << "  " << StringConverter::toString(skin->uOffset[3]) << "\n";
+			fp << "\n\t\t" << AssetManager::VALUE_SKIN_OFFSET << " \t" << StringConverter::toString(skin->uOffset[0]) << "  " << StringConverter::toString(skin->uOffset[1]) << "  " << StringConverter::toString(skin->uOffset[2]) << "  " << StringConverter::toString(skin->uOffset[3]) << "\n";
 
 			// сохраняем флаги событий
-			fp << "\n\t\t" << VALUE_SKIN_EVENT << " \t"; 
+			fp << "\n\t\t" << AssetManager::VALUE_SKIN_EVENT << " \t"; 
 			if (!skin->event_info) fp << "WE_NONE";
 			else {
 				for (map<String, uint16>::iterator iter = GUI::getSingleton()->m_mapFlagEvent.begin();
@@ -685,7 +691,7 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			}
 
 			// сохраняем флаги выравнивания
-			fp << "\n\t\t" << VALUE_SKIN_ALIGN << " \t"; 
+			fp << "\n\t\t" << AssetManager::VALUE_SKIN_ALIGN << " \t"; 
 			if (!skin->align) fp << "WA_NONE";
 			else {
 				for (map<String, uint16>::iterator iter = GUI::getSingleton()->m_mapFlagAlign.begin();
@@ -698,7 +704,7 @@ void SkinEditor::saveSkin(const String & strFileName) // сохраняет скин
 			}
 
 			// сохраняем флаги стиля
-			fp << "\n\t\t" << VALUE_SKIN_STYLE << " \t"; 
+			fp << "\n\t\t" << AssetManager::VALUE_SKIN_STYLE << " \t"; 
 			if (!skin->style) fp << "WES_NONE";
 			else {
 				for (map<String, uint16>::iterator iter = GUI::getSingleton()->m_mapFlagStyle.begin();
@@ -743,15 +749,16 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 	if (!ini.open(strFileName.c_str())) return;
 
 	String strState[5] = {
-	    VALUE_STATE_DEACTIVATED,
-	    VALUE_STATE_NORMAL,
-	    VALUE_STATE_PRESSED,
-	    VALUE_STATE_ACTIVATED,
-	    VALUE_STATE_SELECTED};
+	    AssetManager::VALUE_OFFSET_DEACTIVATED,
+	    AssetManager::VALUE_OFFSET_NORMAL,
+	    AssetManager::VALUE_OFFSET_PRESSED,
+	    AssetManager::VALUE_OFFSET_ACTIVED,
+	    AssetManager::VALUE_OFFSET_SELECTED
+	};
 
 	while (ini.seekNextBlock()) {
 
-		if (ini.getBlockType() != BLOCK_WINDOW_NAME) continue;
+		if (ini.getBlockType() != AssetManager::BLOCK_WINDOW_NAME) continue;
 		string strValue = ini.getBlockName();
 
 		bool find = false;
@@ -775,37 +782,37 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 		while (ini.LoadNextValue()) {
 			if (!ini.getValueName(strValueName)) continue;
 			
-			if (strValueName == VALUE_WINDOW_ADDED_SKIN1) {
+			if (strValueName == AssetManager::VALUE_WINDOW_ADDED_SKIN1) {
 				if (ini.getValue(strValue)) window->strAddedSkin1 = strValue;
 
-			} else if (strValueName == VALUE_WINDOW_ADDED_SKIN2) {
+			} else if (strValueName == AssetManager::VALUE_WINDOW_ADDED_SKIN2) {
 				if (ini.getValue(strValue)) window->strAddedSkin2 = strValue;
 
-			} else if (strValueName == VALUE_WINDOW_ADDED_DATA1) {
+			} else if (strValueName == AssetManager::VALUE_WINDOW_ADDED_DATA1) {
 				if (ini.getValue(uValue)) {
 					if (uValue <= 255) window->uAddedData1 = uValue;
 				}
 
-			} else if (strValueName == VALUE_WINDOW_ADDED_DATA2) {
+			} else if (strValueName == AssetManager::VALUE_WINDOW_ADDED_DATA2) {
 				if (ini.getValue(uValue)) {
 					if (uValue <= 255) window->uAddedData2 = uValue;
 				}
 
-			} else if (strValueName == VALUE_WINDOW_FONT) {
+			} else if (strValueName == AssetManager::VALUE_WINDOW_FONT) {
 				if (ini.getValue(strValue)) window->strFont = strValue;
 
-			} else if (strValueName == VALUE_WINDOW_COLOUR) {
+			} else if (strValueName == AssetManager::VALUE_WINDOW_COLOUR) {
 				if (ini.getValue(strValue)) window->strColour = strValue;
 
-			} else if (strValueName == VALUE_WINDOW_MATERIAL) {
+			} else if (strValueName == AssetManager::VALUE_WINDOW_MATERIAL) {
 				if (ini.getValue(strValue)) window->strMaterialName = strValue;
 
-			} else if (strValueName == SECTION_SUB_SKIN) { // уже загруженные скины
+			} else if (strValueName == AssetManager::SECTION_SUB_SKIN) { // уже загруженные скины
 				if (ini.getValue(strValue)) {
 					LP_SUB_SKIN_DATA skin = findSkinData(strValue);
 					if (skin) window->sabSkins.push_back(skin);
 				}
-			} else if (strValueName == SECTION_SUB_SKIN_MAIN) { // уже загруженные скины
+			} else if (strValueName == AssetManager::SECTION_SUB_SKIN_MAIN) { // уже загруженные скины
 				if (ini.getValue(strValue)) {
 					LP_SUB_SKIN_DATA skin = findSkinData(strValue);
 					if (skin) { // вставляем в начало
@@ -825,8 +832,8 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 			bool bIsMain;
 			while (ini.seekNextBlock()) {
 
-				if (ini.getBlockType() != SECTION_SUB_SKIN) {
-					if (ini.getBlockType() != SECTION_SUB_SKIN_MAIN) continue;
+				if (ini.getBlockType() != AssetManager::SECTION_SUB_SKIN) {
+					if (ini.getBlockType() != AssetManager::SECTION_SUB_SKIN_MAIN) continue;
 					bIsMain = true;
 				} else bIsMain = false;
 
@@ -836,22 +843,22 @@ void SkinEditor::loadSkin(const String & strFileName) // загружает скин
 				while (ini.LoadNextValue()) {
 					if (!ini.getValueName(strValueName)) continue;
 
-					if (strValueName == VALUE_SKIN_OFFSET) {
+					if (strValueName == AssetManager::VALUE_SKIN_OFFSET) {
 						for (uint8 pos=0; pos<4; pos++) {
 							if (!ini.getValue(uValue, pos)) continue;
 							skin->uOffset[pos] = uValue;
 						}
-					} else if (strValueName == VALUE_SKIN_EVENT) {
+					} else if (strValueName == AssetManager::VALUE_SKIN_EVENT) {
 						for (uint8 pos=0; pos<16; pos++) {
 							if (!ini.getValue(strValue, pos)) continue;
 							skin->event_info |= GUI::getSingleton()->m_mapFlagEvent[strValue];
 						}
-					} else if (strValueName == VALUE_SKIN_ALIGN) {
+					} else if (strValueName == AssetManager::VALUE_SKIN_ALIGN) {
 						for (uint8 pos=0; pos<16; pos++) {
 							if (!ini.getValue(strValue, pos)) continue;
 							skin->align |= GUI::getSingleton()->m_mapFlagAlign[strValue];
 						}
-					} else if (strValueName == VALUE_SKIN_STYLE) {
+					} else if (strValueName == AssetManager::VALUE_SKIN_STYLE) {
 						for (uint8 pos=0; pos<16; pos++) {
 							if (!ini.getValue(strValue, pos)) continue;
 							skin->style |= GUI::getSingleton()->m_mapFlagStyle[strValue];
@@ -1060,33 +1067,15 @@ bool SkinEditor::fillMaterialWindow() // заполняем окно с материалом
 
 	const String & strMaterialName = m_comboMaterialName->getCaption();
 
-	MaterialPtr mat = MaterialManager::getSingleton().getByName(strMaterialName);
-	if (mat.isNull()) return false;
-
-	// обязательно загружаем
-	mat->load();
-
-	// только так, иначе при пустых викидывает
-	Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
-	if ( ! iTechnique.hasMoreElements() ) return false;
-
-	Pass * pass = iTechnique.getNext()->getPass(0);
-	if (!pass) return false;
-
-	Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
-	if ( ! iUnit.hasMoreElements()) return false;
-
-	const String & textName = iUnit.getNext()->getTextureName();
-
-	TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
-	if (tex.isNull()) return false;
+	uint16 sizeX, sizeY;
+	if (!GUI::getMaterialSize(strMaterialName, sizeX, sizeY)) return false;
 
 	const uint16 addX = m_windowMaterial->m_iSizeX-m_windowMaterial->m_pWindowClient->m_iSizeX;
 	const uint16 addY = m_windowMaterial->m_iSizeY-m_windowMaterial->m_pWindowClient->m_iSizeY;
 
 	m_windowMaterial->show(true);
-	m_pCurrentDataWindow->sizeTextureX = m_uTextureSizeX = (uint16)tex->getWidth();
-	m_pCurrentDataWindow->sizeTextureY = m_uTextureSizeY = (uint16)tex->getHeight();
+	m_pCurrentDataWindow->sizeTextureX = m_uTextureSizeX = sizeX;
+	m_pCurrentDataWindow->sizeTextureY = m_uTextureSizeY = sizeY;
 	m_windowMaterial->size( m_uTextureSizeX+addX, m_uTextureSizeY+addY );
 	m_windowMaterial->m_pWindowClient->m_overlayContainer->setMaterialName(strMaterialName);
 	m_pCurrentDataWindow->strMaterialName = strMaterialName;

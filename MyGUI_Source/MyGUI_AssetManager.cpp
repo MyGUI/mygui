@@ -9,7 +9,53 @@ using namespace std;
 
 namespace MyGUI {
 
-	void getResourcePath(vector<String> & saFilePath, const String & strMaskFileName)
+	const String AssetManager::BLOCK_WINDOW_NAME = "windowSkin";
+	const String AssetManager::VALUE_WINDOW_SKIN = "skin_element";
+	const String AssetManager::VALUE_WINDOW_FONT = "font";
+	const String AssetManager::VALUE_WINDOW_COLOUR = "colour";
+	const String AssetManager::VALUE_WINDOW_DATA1 = "data1";
+	const String AssetManager::VALUE_WINDOW_DATA2 = "data2";
+	const String AssetManager::VALUE_WINDOW_DATA3 = "data3";
+	const String AssetManager::VALUE_WINDOW_DATA4 = "data4";
+
+	const String AssetManager::VALUE_WINDOW_ADDED_SKIN1 = "added_skin1";
+	const String AssetManager::VALUE_WINDOW_ADDED_SKIN2 = "added_skin2";
+	const String AssetManager::VALUE_WINDOW_ADDED_DATA1 = "added_data1";
+	const String AssetManager::VALUE_WINDOW_ADDED_DATA2 = "added_data2";
+	const String AssetManager::VALUE_WINDOW_MATERIAL = "material";
+
+	const String AssetManager::BLOCK_FONT_NAME = "Font";
+	const String AssetManager::VALUE_FONT_NAME = "name";
+	const String AssetManager::VALUE_FONT_SIZE = "size";
+
+	const String AssetManager::BLOCK_POINTER_NAME = "Pointer";
+	const String AssetManager::VALUE_POINTER_SIZE = "size";
+	const String AssetManager::VALUE_POINTER_OFFSET = "offset";
+	const String AssetManager::VALUE_POINTER_SKIN = "skin";
+
+	const String AssetManager::SECTION_SUB_SKIN = "subSkin";
+	const String AssetManager::SECTION_SUB_SKIN_MAIN = "subSkinMain";
+
+	const String AssetManager::VALUE_SKIN_POSITION = "position";
+	const String AssetManager::VALUE_SKIN_ALIGN = "align";
+	const String AssetManager::VALUE_SKIN_EVENT = "event";
+	const String AssetManager::VALUE_SKIN_STYLE = "style";
+	const String AssetManager::VALUE_SKIN_OFFSET = "offset";
+
+	const String AssetManager::VALUE_SKIN_DEACTIVATED = "skin_deactivated";
+	const String AssetManager::VALUE_SKIN_NORMAL = "skin_normal";
+	const String AssetManager::VALUE_SKIN_ACTIVED = "skin_actived";
+	const String AssetManager::VALUE_SKIN_PRESSED = "skin_pressed";
+	const String AssetManager::VALUE_SKIN_SELECTED = "skin_selected";
+
+	const String AssetManager::VALUE_OFFSET_DEACTIVATED = "offset_deactivated";
+	const String AssetManager::VALUE_OFFSET_NORMAL = "offset_normal";
+	const String AssetManager::VALUE_OFFSET_ACTIVED = "offset_actived";
+	const String AssetManager::VALUE_OFFSET_PRESSED = "offset_pressed";
+	const String AssetManager::VALUE_OFFSET_SELECTED = "offset_selected";
+
+
+	void AssetManager::getResourcePath(std::vector<String> & saFilePath, const String & strMaskFileName)
 	{
 		saFilePath.clear();
 		String strPath;
@@ -138,7 +184,7 @@ namespace MyGUI {
 				for (uint16 sub=0; sub<pos->second->subSkins.size(); sub++) {
 					__MYGUI_SUBSKIN_INFO * subSkin = const_cast<__MYGUI_SUBSKIN_INFO *> (pos->second->subSkins[sub]);
 					uint16 sizeX, sizeY;
-					if (getMaterialSize(pos->second->SkinElement, sizeX, sizeY)) {
+					if (GUI::getMaterialSize(pos->second->SkinElement, sizeX, sizeY)) {
 						for (uint8 index=0; index<__SKIN_STATE_COUNT; index++) {
 							if (subSkin->fOffsetStateSkin[index][_CX] != 0.0) {
 
@@ -179,9 +225,9 @@ namespace MyGUI {
 	{
 		_LOG("\r\nload MyGUI source \t '%s'\r\n", strFileName.c_str());
 
-		#define BLOCK_WINDOW_NAME "windowSkin"
-		#define BLOCK_FONT_NAME "Font"
-		#define BLOCK_POINTER_NAME "Pointer"
+//		#define BLOCK_WINDOW_NAME "windowSkin"
+//		#define BLOCK_FONT_NAME "Font"
+//		#define BLOCK_POINTER_NAME "Pointer"
 
 		map <String, __LP_MYGUI_SUBSKIN_INFO> mapLoadingSkin; // именна именнованых уже загруженных скинов
 
@@ -217,9 +263,9 @@ namespace MyGUI {
 
 	void AssetManager::loadPointerDefinitions(loadINI & ini)
 	{
-		#define VALUE_POINTER_SIZE "size"
+/*		#define VALUE_POINTER_SIZE "size"
 		#define VALUE_POINTER_OFFSET "offset"
-		#define VALUE_POINTER_SKIN "skin"
+		#define VALUE_POINTER_SKIN "skin"*/
 
         const String Name = ini.getBlockName();
 		__LP_MYGUI_POINTER_INFO pointer = Pointers()->defineNew(Name);
@@ -259,8 +305,8 @@ namespace MyGUI {
 
 	void AssetManager::loadFontDefinitions(loadINI & ini)
 	{
-		#define VALUE_FONT_NAME "name"
-		#define VALUE_FONT_SIZE "size"
+/*		#define VALUE_FONT_NAME "name"
+		#define VALUE_FONT_SIZE "size"*/
 
         const String Name = ini.getBlockName();
 		__LP_MYGUI_FONT_INFO font = Fonts()->defineNew(Name);
@@ -297,7 +343,7 @@ namespace MyGUI {
 		unsigned int & UniqueSerialID, 
 		std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin)
 	{
-		#define SECTION_SUB_SKIN "subSkin"
+/*		#define SECTION_SUB_SKIN "subSkin"
 		#define SECTION_SUB_SKIN_MAIN "subSkinMain"
 
 		#define VALUE_SKIN_POSITION "position"
@@ -309,7 +355,7 @@ namespace MyGUI {
 		#define VALUE_SKIN_NORMAL "skin_normal"
 		#define VALUE_SKIN_ACTIVED "skin_actived"
 		#define VALUE_SKIN_PRESSED "skin_pressed"
-		#define VALUE_SKIN_SELECTED "skin_selected"
+		#define VALUE_SKIN_SELECTED "skin_selected"*/
 
 		uint32 uValue;
 		float fValue;
@@ -319,11 +365,11 @@ namespace MyGUI {
 		const String strBlockType = ini.getBlockType();
 
 		const String enumNameOffset[__SKIN_STATE_COUNT] = {
-			"offset_deactivated",
-			"offset_normal",
-			"offset_actived",
-			"offset_pressed",
-			"offset_selected"
+			VALUE_OFFSET_DEACTIVATED,
+			VALUE_OFFSET_NORMAL,
+			VALUE_OFFSET_ACTIVED,
+			VALUE_OFFSET_PRESSED,
+			VALUE_OFFSET_SELECTED
 		};
         
         //Invent a unique name for this sub skin if there isn't one
@@ -421,13 +467,13 @@ namespace MyGUI {
 
 	void AssetManager::loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue, std::map <String, __LP_MYGUI_SUBSKIN_INFO> & mapLoadingSkin)
 	{
-		#define VALUE_WINDOW_SKIN "skin_element"
+/*		#define VALUE_WINDOW_SKIN "skin_element"
 		#define VALUE_WINDOW_FONT "font"
 		#define VALUE_WINDOW_COLOUR "colour"
 		#define VALUE_WINDOW_DATA1 "data1"
 		#define VALUE_WINDOW_DATA2 "data2"
 		#define VALUE_WINDOW_DATA3 "data3"
-		#define VALUE_WINDOW_DATA4 "data4"
+		#define VALUE_WINDOW_DATA4 "data4"*/
 
 		unsigned int UniqueSerialID = 0; //used to identify unnamed sub skins
 		const String Name = ini.getBlockName();
@@ -551,40 +597,5 @@ namespace MyGUI {
 		ini.jumpBlock(false, false); // выпрыгиваем
 
 	} // void AssetManager::loadSkinDefinitions(loadINI & ini, std::map<String, uint32> & mapNameValue)
-
-	bool AssetManager::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
-	{
-		sizeX = 0;
-		sizeY = 0;
-
-		if (materialName.empty()) return false;
-
-		MaterialPtr mat = MaterialManager::getSingleton().getByName(materialName);
-		if (mat.isNull()) return false;
-
-		// обязательно загружаем
-		mat->load();
-
-		// только так, иначе при пустых викидывает
-		Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
-		if ( ! iTechnique.hasMoreElements() ) return false;
-
-		Pass * pass = iTechnique.getNext()->getPass(0);
-		if (!pass) return false;
-
-		Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
-		if ( ! iUnit.hasMoreElements()) return false;
-
-		const String & textName = iUnit.getNext()->getTextureName();
-
-		TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
-		if (tex.isNull()) return false;
-
-		sizeX = (uint16)tex->getWidth();
-		sizeY = (uint16)tex->getHeight();
-
-		return true;
-	} // bool AssetManager::getMaterialSize(const String & materialName, uint16 & sizeX, uint16 & sizeY)
-
 
 } // namespace MyGUI {
