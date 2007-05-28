@@ -144,8 +144,7 @@ void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 dat
 			}
 
 			// обновляем квадратик
-			m_textureOffsetPointer->setLocation(m_pCurrentDataState->uPosition[0], m_pCurrentDataState->uPosition[1], m_pCurrentDataState->uPosition[2], m_pCurrentDataState->uPosition[3]);
-//			setMaterialOffset(m_pCurrentDataState->uPosition[0], m_pCurrentDataState->uPosition[1], m_pCurrentDataState->uPosition[2], m_pCurrentDataState->uPosition[3]);
+			m_textureOffsetPointer->setLocation(m_pCurrentDataState->uPosition[EDIT_LEFT], m_pCurrentDataState->uPosition[EDIT_TOP], m_pCurrentDataState->uPosition[EDIT_RIGHT], m_pCurrentDataState->uPosition[EDIT_BOTTOM]);
 		}
 
 
@@ -214,70 +213,6 @@ void SkinEditor::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена лева
 	}
 	
 }
-//===================================================================================
-/*void SkinEditor::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
-{
-/*	if (pWindow->getUserData() == MATERIAL_OFFSET) {
-		if (pWindow == m_windowMaterialOffset[CENTER]) {
-			for (uint8 pos=0; pos<4; pos++) {
-				if (bIsFocus) m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName("BACK_YELLOW");
-				else m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName("BACK_GREEN");
-			}
-		} else {
-			if (bIsFocus) pWindow->m_overlayContainer->setMaterialName("BACK_YELLOW");
-			else pWindow->m_overlayContainer->setMaterialName("BACK_GREEN");
-		}
-	}
-}*/
-//===================================================================================
-/*void SkinEditor::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) // уведомление о движении, но не движение
-{
-	if ( ! m_pCurrentDataState) return;
-
-	/*if (pWindow->getUserData() == MATERIAL_OFFSET) {
-		
-		iParentPosX -= GUI::getSingleton()->m_iOffsetPressedX;
-		iParentPosY -= GUI::getSingleton()->m_iOffsetPressedY;
-		iPosX = iParentPosX - pWindow->m_iPosX;
-		iPosY = iParentPosY - pWindow->m_iPosY;
-
-		if (pWindow == m_windowMaterialOffset[CENTER]) {
-			if (((int16)m_pCurrentDataState->uPosition[LEFT] + iPosX) < 0) iPosX = 0 - (int16)m_pCurrentDataState->uPosition[LEFT];
-			else if ((m_pCurrentDataState->uPosition[LEFT] + iPosX) > (m_uTextureSizeX - m_pCurrentDataState->uPosition[RIGHT])) iPosX = m_uTextureSizeX - m_pCurrentDataState->uPosition[RIGHT] - m_pCurrentDataState->uPosition[LEFT];
-			m_pCurrentDataState->uPosition[LEFT] += iPosX;
-
-			if (((int16)m_pCurrentDataState->uPosition[TOP] + iPosY) < 0) iPosY = 0 - (int16)m_pCurrentDataState->uPosition[TOP];
-			else if ((m_pCurrentDataState->uPosition[TOP] + iPosY) > (m_uTextureSizeY - m_pCurrentDataState->uPosition[BOTTOM])) iPosY = m_uTextureSizeY - m_pCurrentDataState->uPosition[BOTTOM] - m_pCurrentDataState->uPosition[TOP];
-			m_pCurrentDataState->uPosition[TOP] += iPosY;
-
-		} else if (pWindow == m_windowMaterialOffset[RIGHT]) {
-			if (((int16)m_pCurrentDataState->uPosition[RIGHT] + iPosX) < 2) iPosX = 2 - (int16)m_pCurrentDataState->uPosition[RIGHT];
-			else if ((m_pCurrentDataState->uPosition[RIGHT] + iPosX) > (m_uTextureSizeX - m_pCurrentDataState->uPosition[LEFT])) iPosX = m_uTextureSizeX - m_pCurrentDataState->uPosition[RIGHT] - m_pCurrentDataState->uPosition[LEFT];
-			m_pCurrentDataState->uPosition[RIGHT] += iPosX;
-
-		} else if (pWindow == m_windowMaterialOffset[BOTTOM]) {
-			if (((int16)m_pCurrentDataState->uPosition[BOTTOM] + iPosY) < 2) iPosY = 2 - (int16)m_pCurrentDataState->uPosition[BOTTOM];
-			else if ((m_pCurrentDataState->uPosition[BOTTOM] + iPosY) > (m_uTextureSizeY - m_pCurrentDataState->uPosition[TOP])) iPosY = m_uTextureSizeY - m_pCurrentDataState->uPosition[BOTTOM] - m_pCurrentDataState->uPosition[TOP];
-			m_pCurrentDataState->uPosition[BOTTOM] += iPosY;
-
-		} else if (pWindow == m_windowMaterialOffset[LEFT]) {
-			if (((int16)m_pCurrentDataState->uPosition[LEFT] + iPosX) < 0) iPosX = 0 - (int16)m_pCurrentDataState->uPosition[LEFT];
-			else if (((int16)m_pCurrentDataState->uPosition[RIGHT] - iPosX) < 2) iPosX = (int16)m_pCurrentDataState->uPosition[RIGHT] - 2;
-			m_pCurrentDataState->uPosition[LEFT] += iPosX;
-			m_pCurrentDataState->uPosition[RIGHT] -= iPosX;
-
-		} else if (pWindow == m_windowMaterialOffset[TOP]) {
-			if (((int16)m_pCurrentDataState->uPosition[TOP] + iPosY) < 0) iPosY = 0 - (int16)m_pCurrentDataState->uPosition[TOP];
-			else if (((int16)m_pCurrentDataState->uPosition[BOTTOM] - iPosY) < 2) iPosY = (int16)m_pCurrentDataState->uPosition[BOTTOM] - 2;
-			m_pCurrentDataState->uPosition[TOP] += iPosY;
-			m_pCurrentDataState->uPosition[BOTTOM] -= iPosY;
-
-		} else return;
-
-		updateStateInfo();
-	}
-
-}*/
 //===================================================================================
 bool SkinEditor::createEditor() // создает окно редактирования скинов
 {
@@ -1071,43 +1006,9 @@ void SkinEditor::createMaterialWindow() // создает окна для материала
 	m_windowMaterial->m_pEventCallback = this;
 	m_windowMaterial->show(false);
 
-/*	for (uint8 pos=0; pos<MATERIAL_BORDER_COUNT; pos++) {
-		m_windowMaterialOffset[pos] = m_windowMaterial->create<Window>(10, 10, 1, 1, WA_LEFT|WA_TOP, SKIN_DEFAULT);
-		m_windowMaterialOffset[pos]->m_pEventCallback = this;
-		m_windowMaterialOffset[pos]->addEvent(WE_MOUSE_FOCUS|WE_MOUSE_MOVE);
-		if (pos != CENTER)
-		    m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName("BACK_GREEN");
-		m_windowMaterialOffset[pos]->setUserData(MATERIAL_OFFSET);
-	}*/
-
 	m_textureOffsetPointer = new StretchControl(m_windowMaterial, this, "BACK_EMPTY", "BACK_GREEN", "BACK_YELLOW");
 
 }
-//===================================================================================
-/*void SkinEditor::setMaterialOffset(uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY) // сдвигаем рамку
-{
-	if ( (!sizeX) || (!sizeY) || (m_windowMaterial->m_pWindowClient->m_iSizeX < (posX+sizeX)) || (m_windowMaterial->m_pWindowClient->m_iSizeY < (posY+sizeY)) ) {
-		for (uint8 pos=0; pos<MATERIAL_BORDER_COUNT; pos++) m_windowMaterialOffset[pos]->show(false);
-		return;
-	}
-
-	for (uint8 pos=0; pos<MATERIAL_BORDER_COUNT; pos++) m_windowMaterialOffset[pos]->show(true);
-
-	sizeX --;
-	sizeY --;
-	m_windowMaterialOffset[LEFT]->move(posX, posY);
-	m_windowMaterialOffset[LEFT]->size(1, sizeY);
-	m_windowMaterialOffset[TOP]->move(posX+1, posY);
-	m_windowMaterialOffset[TOP]->size(sizeX, 1);
-
-	m_windowMaterialOffset[RIGHT]->move(sizeX+posX, posY+1);
-	m_windowMaterialOffset[RIGHT]->size(1, sizeY);
-	m_windowMaterialOffset[BOTTOM]->move(posX, sizeY+posY);
-	m_windowMaterialOffset[BOTTOM]->size(sizeX, 1);
-
-	m_windowMaterialOffset[CENTER]->move(posX+1, posY+1);
-	m_windowMaterialOffset[CENTER]->size(sizeX-1, sizeY-1);
-}*/
 //===================================================================================
 void SkinEditor::enableSkinInfo(bool bEnable) // блокирует
 {

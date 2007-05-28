@@ -66,9 +66,6 @@ class SkinEditor : public MyGUI::EventCallback, public StretchControlEvent
 
 		virtual void onOtherEvent(MyGUI::Window * pWindow, MyGUI::uint16 uEvent, MyGUI::uint32 data); // дополнительные события
 		virtual void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
-//		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
-//		virtual void onMouseMove(MyGUI::Window * pWindow, MyGUI::int16 iPosX, MyGUI::int16 iPosY,
-//		    MyGUI::int16 iParentPosX, MyGUI::int16 iParentPosY); // уведомление о движении, но не движение
 
 		bool createEditor(); // создает окно редактирования скинов
 		void destroyEditor(); // удаляет окно редактирования скинов
@@ -89,7 +86,6 @@ class SkinEditor : public MyGUI::EventCallback, public StretchControlEvent
 		void fillFlagWindow(); // заполняет окна текущими значения
 		bool fillMaterialWindow(); // заполняем окно с материалом
 		void pressOtherButton(MyGUI::Window * pWindow); // сверяем с кнопками флагов
-//		void setMaterialOffset(MyGUI::uint16 posX, MyGUI::uint16 posY, MyGUI::uint16 sizeX, MyGUI::uint16 sizeY); // сдвигаем рамку
 
 
 		MyGUI::WindowFrame * m_mainWindow; // главное окно инструментов
@@ -125,13 +121,13 @@ class SkinEditor : public MyGUI::EventCallback, public StretchControlEvent
 		MyGUI::Button * m_buttonsFlagsStyle[16];
 
 		MyGUI::WindowFrame * m_windowMaterial; // окно с материалом
-//		MyGUI::Window * m_windowMaterialOffset[MATERIAL_BORDER_COUNT]; // граница
 		MyGUI::uint16 m_uTextureSizeX;
 		MyGUI::uint16 m_uTextureSizeY;
 
 		// рамка в окне материала
 		StretchControl * m_textureOffsetPointer;
 
+		// уведомление об изменении положения контрола
 		void OnChangeLocation(StretchControl * pControl, uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY);
 
 };

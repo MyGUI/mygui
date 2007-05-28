@@ -107,7 +107,7 @@ private:
 	virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus)
 	{
 		const String & strMaterial = bIsFocus?m_strMaterialBorderActived:m_strMaterialBorderNormal;
-		if (pWindow == m_windowMaterialOffset[CENTER]) {
+		if ((pWindow != m_windowMaterialOffset[RIGHT]) && (pWindow != m_windowMaterialOffset[BOTTOM])) {
 			for (uint8 pos=1; pos<__MATERIAL_BORDER_COUNT;pos++)
 				m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName(strMaterial);
 		} else {
@@ -127,7 +127,9 @@ private:
 		uint16 uSizeX = m_windowMain->m_overlayContainer->getParent()->getWidth();
 		uint16 uSizeY = m_windowMain->m_overlayContainer->getParent()->getHeight();
 
-		if (pWindow == m_windowMaterialOffset[CENTER]) {
+		if ((pWindow == m_windowMaterialOffset[CENTER]) 
+			|| (pWindow == m_windowMaterialOffset[LEFT]) 
+			|| (pWindow == m_windowMaterialOffset[TOP])) {
 			if (iPosX < 0) iPosX = 0;
 			if (iPosY < 0) iPosY = 0;
 			if ((iPosX + m_windowMain->m_iSizeX) > uSizeX) iPosX = uSizeX - m_windowMain->m_iSizeX;
@@ -135,7 +137,16 @@ private:
 			m_windowMain->move(iPosX, iPosY);
 
 		} else if (pWindow == m_windowMaterialOffset[RIGHT]) {
-//			m_windowMain->size();
+			iPosX += pWindow->m_iPosX-m_windowMain->m_iPosX;
+			if (iPosX < 2) iPosX = 2;
+			if ((iPosX + m_windowMain->m_iPosX) > uSizeX) iPosX = uSizeX - m_windowMain->m_iPosX;
+			m_windowMain->size(iPosX, m_windowMain->m_iSizeY);
+
+		} else if (pWindow == m_windowMaterialOffset[BOTTOM]) {
+			iPosY += pWindow->m_iPosY-m_windowMain->m_iPosY;
+			if (iPosY < 2) iPosY = 2;
+			if ((iPosY + m_windowMain->m_iPosY) > uSizeY) iPosY = uSizeY - m_windowMain->m_iPosY;
+			m_windowMain->size(m_windowMain->m_iSizeX, iPosY);
 
 		} else return;
 

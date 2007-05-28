@@ -37,7 +37,7 @@ void OptionsState::enter(bool bIsChangeState)
 
 	BasisManager::getSingleton()->mWallpaperOverlay->getChild("wallpaper")->setMaterialName(m_straColour.front());
 
-	m_comboBackground = GUI::getSingleton()->create<ComboBox>(220, 10, 200, -1, OVERLAY_MAIN, MyGUI::SKIN_DROP_LIST);
+	m_comboBackground = GUI::getSingleton()->create<ComboBox>((GUI::getSingleton()->getWidth()/2) - 100, 10, 200, -1, OVERLAY_MAIN, MyGUI::SKIN_DROP_LIST);
 	m_comboBackground->m_pEventCallback = this;
 	
 	for (uint8 pos=0; pos<m_straColour.size(); pos++)
