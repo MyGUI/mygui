@@ -9,8 +9,12 @@ void OptionsState::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена ле
     if (pWindow == m_buttonExit) {
 		MyGUI::GUI::getSingleton()->createMessage(
 		    "Message", "Do you really want to exit?", MESSAGE_ID_EXIT, true, "Ok", "Cancel");
-	} else if (pWindow == m_buttonSave) mEditor.saveSkin("test.mygui_skin");
-	else if (pWindow == m_buttonLoad) mEditor.loadSkin("test.mygui_skin");
+	} else if (pWindow == m_buttonEditor) {
+		if (!mEditor) {
+			mEditor = new SkinEditor::SkinEditor(this);
+			m_buttonEditor->hide();
+		}
+	}
 
 }
 //===================================================================================
@@ -24,6 +28,10 @@ void OptionsState::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 d
 	} else if (uEvent == WOE_COMBO_SELECT_ACCEPT) {
 		if (data < m_straColour.size())
 			BasisManager::getSingleton()->mWallpaperOverlay->getChild("wallpaper")->setMaterialName(m_straColour[data]);
+	} else if (uEvent == WOE_FRAME_CLOSE) {
+		m_buttonEditor->show();
+		delete mEditor;
+		mEditor = 0;
 	}
 }
 //===================================================================================
@@ -48,34 +56,29 @@ void OptionsState::enter(bool bIsChangeState)
 	m_buttonExit = (Button *) GUI::getSingleton()->create<Button>(10, 10, 150, -1, MyGUI::OVERLAY_MAIN)->
 	                setCaption("Exit");
     
-	m_buttonSave = (Button *) GUI::getSingleton()->create<Button>(GUI::getSingleton()->getWidth() - 160, 10, 150, -1, MyGUI::OVERLAY_MAIN)->
-	                setCaption("Save");
-	m_buttonLoad = (Button *) GUI::getSingleton()->create<Button>(GUI::getSingleton()->getWidth() - 160, 45, 150, -1, MyGUI::OVERLAY_MAIN)->
-                    setCaption("Load");
+	m_buttonEditor = (Button *) GUI::getSingleton()->create<Button>(GUI::getSingleton()->getWidth() - 160, 10, 150, -1, MyGUI::OVERLAY_MAIN)->
+	                setCaption("Editor");
+	m_buttonEditor->hide();
     
-	mEditor.createEditor();
-//	mEditor.loadSkin();
+	mEditor = new SkinEditor::SkinEditor(this);
 
-//	PanelOverlayElement * panel = (PanelOverlayElement*)m_buttonExit->m_pWindowText->m_overlayContainer;
-//	panel->setUV(0.0, 0.0, 2.0, 2.0);
 }
 //===================================================================================
 void OptionsState::exit()
 {
 	GUI::getSingleton()->destroyWindow(m_comboBackground);
 	GUI::getSingleton()->destroyWindow(m_buttonExit);
-	GUI::getSingleton()->destroyWindow(m_buttonSave);
-	GUI::getSingleton()->destroyWindow(m_buttonLoad);
+	GUI::getSingleton()->destroyWindow(m_buttonEditor);
 
-//	mEditor.saveSkin();
-	mEditor.destroyEditor();
+	if (mEditor) {
+		delete mEditor;
+		mEditor = 0;
+	}
 }
 //===================================================================================
 void OptionsState::windowResize() // уведомление об изменении размеров окна рендера
 {
-	m_buttonSave->move(GUI::getSingleton()->getWidth() - 160, 10);
-	m_buttonLoad->move(GUI::getSingleton()->getWidth() - 160, 45);
+	m_buttonEditor->move(GUI::getSingleton()->getWidth() - 160, 10);
 	m_comboBackground->move((GUI::getSingleton()->getWidth()/2) - 100, 10);
-//	mEditor.resizeWindow();
 }
 //===================================================================================
