@@ -95,11 +95,14 @@ namespace SkinEditor
 			void enableWindowInfo(bool bEnable); // блокирует все окна
 			void updateSkinInfo(); // обновляет всю инфу об саб скине
 			void updateStateInfo(); // обновляет всю инфу об саб скине
+			void updateSizeElementView(); // обновляем размер окна если нужно
 			void enableSkinInfo(bool bEnable); // блокирует саб скины
 			void createFlagWindow(); // создает окно с дополнительными флагами
 			void createMaterialWindow(); // создает окна для материала
+			void createElementWindow(); // создает окно для просмотра елемента
 			void fillFlagWindow(); // заполняет окна текущими значения
 			bool fillMaterialWindow(); // заполняем окно с материалом
+			void fillElementWindow(); // заполняем окно с элементом
 			void pressOtherButton(MyGUI::Window * pWindow); // сверяем с кнопками флагов
 
 
@@ -139,8 +142,11 @@ namespace SkinEditor
 			MyGUI::Button * m_buttonsFlagsStyle[16];
 
 			MyGUI::WindowFrame * m_windowMaterial; // окно с материалом
+			bool m_bIsWindowMaterialMostShow; // должно ли окно быть видимым
 			MyGUI::uint16 m_uTextureSizeX;
 			MyGUI::uint16 m_uTextureSizeY;
+
+			MyGUI::WindowFrame * m_windowElement; // окно с элементом
 
 			// рамка в окне материала
 			StretchControl * m_textureOffsetPointer;

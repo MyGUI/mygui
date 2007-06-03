@@ -169,7 +169,10 @@ namespace MyGUI {
 		if (index>=m_pList->m_aString.size()) return;
 		m_pList->m_uSelectItem = index;
 		m_pList->redrawStrings();
+		// setCaption change m_pList->m_uSelectItem to ITEM_NON_SELECT
 		setCaption(*m_pList->m_aString[index]);
+		// set real index
+		m_pList->m_uSelectItem = index;
 	}
 
 	const DisplayString & ComboBox::getString(uint16 index) // возвращает строку

@@ -9,6 +9,8 @@
 #include <OgreTextureManager.h>
 #include "StretchControl.h"
 
+#include "debugOut.h"
+
 namespace SkinEditor
 {
 	using namespace Ogre;
@@ -21,10 +23,13 @@ namespace SkinEditor
 	const uint32 FLAG_EVENT = 0x10000;
 	const uint32 FLAG_STYLE = 0x20000;
 	const uint32 FLAG_ALIGN = 0x40000;
+	const uint8 ELEMENT_VIEW_OFFSET = 10; // сдвигаем элемент для восприятия
 	//===================================================================================
 	SkinEditor::SkinEditor(MyGUI::EventCallback * pParent) :
-		m_windowStateFlags(0),
-		m_mainWindow(0)
+		m_mainWindow(0),
+		m_windowElement(0),
+		m_windowMaterial(0),
+		m_windowStateFlags(0)
 	{
 		createEditor(pParent);
 	}
@@ -36,7 +41,6 @@ namespace SkinEditor
 	//===================================================================================
 	void SkinEditor::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data) // дополнительные события
 	{
-
 		// выбор в комбо боксе
 		if (uEvent == WOE_COMBO_SELECT_ACCEPT) {
 
@@ -159,6 +163,8 @@ namespace SkinEditor
 
 				// обновляем квадратик
 				m_textureOffsetPointer->setLocation(m_pCurrentDataState->uPosition[EDIT_LEFT], m_pCurrentDataState->uPosition[EDIT_TOP], m_pCurrentDataState->uPosition[EDIT_RIGHT], m_pCurrentDataState->uPosition[EDIT_BOTTOM]);
+				// размер окна просмотра элемента
+				updateSizeElementView();
 			}
 
 
@@ -238,11 +244,16 @@ namespace SkinEditor
 	//===================================================================================
 	bool SkinEditor::createEditor(MyGUI::EventCallback * pParent) // создает окно редактирования скинов
 	{
+//		for (uint16 pos=0; pos < 10; pos++) debug.out("line %d", pos);
+//		static Real test = 0.01;
+//		debug.add("test", 150, 50, test);
+
 		destroyEditor();
 
 		m_pCurrentDataWindow = 0; // текущее окно
 		m_pCurrentDataSkin = 0; // текущий саб скин
 		m_pCurrentDataState = 0; // текцщий стейт скина
+		m_bIsWindowMaterialMostShow = false;
 
 
 		// главное окно (main window)
@@ -394,6 +405,9 @@ namespace SkinEditor
 		// окно для материалов
 		createMaterialWindow();
 		
+		// окно для просмотра элементов
+		createElementWindow();
+
 		updateWindowInfo();
 
 		return true;
@@ -401,8 +415,10 @@ namespace SkinEditor
 	//===================================================================================
 	void SkinEditor::destroyEditor() // удаляет окно редактирования скинов
 	{
-		GUI::getSingleton()->destroyWindow(m_windowStateFlags);
 		GUI::getSingleton()->destroyWindow(m_mainWindow);
+		GUI::getSingleton()->destroyWindow(m_windowElement);
+		GUI::getSingleton()->destroyWindow(m_windowMaterial);
+		GUI::getSingleton()->destroyWindow(m_windowStateFlags);
 		destroySkins();
 		// информация об окнах
 		mWindowInfo.clear();
@@ -449,6 +465,9 @@ namespace SkinEditor
 		// заполняем окно с материалом
 		if (!fillMaterialWindow()) m_comboMaterialName->setString(0);
 
+		// заполняем окно с элементом
+		fillElementWindow();
+
 		updateSkinInfo();
 
 	}
@@ -460,16 +479,29 @@ namespace SkinEditor
 		if (!m_pCurrentDataSkin) {
 
 			m_pCurrentDataState = 0; // сотрем стейты
-			m_windowStateFlags->show(false);
+			m_windowStateFlags->hide();
+			m_windowMaterial->hide();
+			m_windowElement->hide();
 
 		} else {
 
-			for (uint8 pos=0; pos<4; pos++) m_editOffset[pos]->setCaption(StringConverter::toString(m_pCurrentDataSkin->uOffset[pos]));
+			for (uint8 pos=0; pos<4; pos++) {
+				m_editOffset[pos]->setCaption(StringConverter::toString(m_pCurrentDataSkin->uOffset[pos]));
+			}
 			m_pCurrentDataState = &m_pCurrentDataSkin->stateInfo[0];
 			fillFlagWindow(); // заполняет окна текущими значения
 
+			// если окно должно быть показанно , то показываем
+			if (m_bIsWindowMaterialMostShow) {
+				m_windowMaterial->show();
+				m_windowElement->show();
+			}
+
 			m_comboSabSkinState->setString(0); // на первый
 			updateStateInfo();
+
+			// размер окна просмотра элемента
+			updateSizeElementView();
 
 		}
 
@@ -854,6 +886,129 @@ namespace SkinEditor
 		}
 	}
 	//===================================================================================
+	void SkinEditor::pressOtherButton(MyGUI::Window * pWindow) // сверяем с кнопками флагов
+	{
+		if (!m_pCurrentDataSkin) return;
+
+		uint32 type = pWindow->getUserData() & 0xF0000;
+		uint16 * ptr;
+
+		if (type == FLAG_EVENT) ptr = &m_pCurrentDataSkin->event_info;
+		else if (type == FLAG_STYLE) ptr = &m_pCurrentDataSkin->style;
+		else if (type == FLAG_ALIGN) ptr = &m_pCurrentDataSkin->align;
+		else return;
+
+		uint16 flag = pWindow->getUserData() & 0xFFFF;
+
+		if (pWindow->getState() == WS_PRESSED) {
+			pWindow->setState(WS_NORMAL);
+			(*ptr) &= ~(flag);
+		} else {
+			pWindow->setState(WS_PRESSED);
+			(*ptr) |= flag; 
+		}
+	}
+	//===================================================================================
+	void SkinEditor::fillFlagWindow() // заполняет окна текущими значения
+	{
+		if (!m_pCurrentDataSkin) return;
+
+		// сначала очищаем все поля
+		for (uint8 pos=0; pos<16; pos++) {
+			if (m_buttonsFlagsEvent[pos]) m_buttonsFlagsEvent[pos]->setState(WS_NORMAL);
+			if (m_buttonsFlagsAlign[pos]) m_buttonsFlagsAlign[pos]->setState(WS_NORMAL);
+			if (m_buttonsFlagsStyle[pos]) m_buttonsFlagsStyle[pos]->setState(WS_NORMAL);
+		}
+
+		// теперь будем искать совпадения и отмечать
+		for (uint8 pos=0; pos<16; pos++) {
+
+			if (m_pCurrentDataSkin->event_info & (1<<pos)) {
+				// а вот теперь ищем
+				uint32 find = (1<<pos) | FLAG_EVENT;
+				for (uint8 i=0; i<16; i++) {
+					if (!m_buttonsFlagsEvent[i]) continue;
+					if (m_buttonsFlagsEvent[i]->getUserData() == find) m_buttonsFlagsEvent[i]->setState(WS_PRESSED);
+				}
+			} // if (m_pCurrentDataSkin->event_info & (1<<pos)) {
+
+			if (m_pCurrentDataSkin->align & (1<<pos)) {
+				// а вот теперь ищем
+				uint32 find = (1<<pos) | FLAG_ALIGN;
+				for (uint8 i=0; i<16; i++) {
+					if (!m_buttonsFlagsAlign[i]) continue;
+					if (m_buttonsFlagsAlign[i]->getUserData() == find) m_buttonsFlagsAlign[i]->setState(WS_PRESSED);
+				}
+			} // if (m_pCurrentDataSkin->align & (1<<pos)) {
+
+			if (m_pCurrentDataSkin->style & (1<<pos)) {
+				// а вот теперь ищем
+				uint32 find = (1<<pos) | FLAG_STYLE;
+				for (uint8 i=0; i<16; i++) {
+					if (!m_buttonsFlagsStyle[i]) continue;
+					if (m_buttonsFlagsStyle[i]->getUserData() == find) m_buttonsFlagsStyle[i]->setState(WS_PRESSED);
+				}
+			} // if (m_pCurrentDataSkin->style & (1<<pos)) {
+
+		} // for (uint8 pos=0; pos<16; pos++) {
+
+	}
+	//===================================================================================
+	bool SkinEditor::fillMaterialWindow() // заполняем окно с материалом
+	{
+		// сначала скрываем
+		m_windowMaterial->show(false);
+		m_bIsWindowMaterialMostShow = false;
+
+		if (!m_pCurrentDataWindow) return false;
+		m_pCurrentDataWindow->strMaterialName = "";
+		m_pCurrentDataWindow->sizeTextureX = 0;
+		m_pCurrentDataWindow->sizeTextureY = 0;
+
+		if (m_comboMaterialName->getCurrentIndex() == 0) return false;
+//		if (!m_pCurrentDataWindow->sabSkins.size()) return true;
+
+		const String & strMaterialName = m_comboMaterialName->getCaption();
+
+		uint16 sizeX, sizeY;
+		if (!AssetManager::getMaterialSize(strMaterialName, sizeX, sizeY)) return false;
+
+		const uint16 addX = m_windowMaterial->m_iSizeX-m_windowMaterial->m_pWindowClient->m_iSizeX;
+		const uint16 addY = m_windowMaterial->m_iSizeY-m_windowMaterial->m_pWindowClient->m_iSizeY;
+
+		m_windowMaterial->show(true);
+		m_pCurrentDataWindow->sizeTextureX = m_uTextureSizeX = sizeX;
+		m_pCurrentDataWindow->sizeTextureY = m_uTextureSizeY = sizeY;
+		m_windowMaterial->size( m_uTextureSizeX+addX, m_uTextureSizeY+addY );
+		m_windowMaterial->m_pWindowClient->m_overlayContainer->setMaterialName(strMaterialName);
+		m_pCurrentDataWindow->strMaterialName = strMaterialName;
+
+		m_bIsWindowMaterialMostShow = true;
+		return true;
+	}
+	//===================================================================================
+	void SkinEditor::fillElementWindow() // заполняет окно
+	{
+		m_windowElement->hide();
+
+		if (!m_pCurrentDataSkin) return;
+
+		m_windowElement->show();
+
+	}
+	//===================================================================================
+	void SkinEditor::createMaterialWindow() // создает окна для материала
+	{
+		m_windowMaterial = GUI::getSingleton()->create<WindowFrame>(
+			100, 100, 200, 200, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_C);
+		m_windowMaterial->setCaption("Material view");
+		m_windowMaterial->m_pEventCallback = this;
+		m_windowMaterial->show(false);
+
+		m_textureOffsetPointer = new StretchControl(m_windowMaterial, this, "BACK_EMPTY", "BACK_GREEN", "BACK_YELLOW");
+
+	}
+	//===================================================================================
 	void SkinEditor::createFlagWindow()
 	{
 		// создаем все что связанно с окном для флагов
@@ -929,114 +1084,15 @@ namespace SkinEditor
 
 	}
 	//===================================================================================
-	void SkinEditor::pressOtherButton(MyGUI::Window * pWindow) // сверяем с кнопками флагов
+	void SkinEditor::createElementWindow() // создает окна для материала
 	{
-		if (!m_pCurrentDataSkin) return;
+		m_windowElement = GUI::getSingleton()->create<WindowFrame>(
+			200, 100, 200, 200, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_C);
+		m_windowElement->setCaption("Element view");
+		m_windowElement->m_pEventCallback = this;
+		m_windowElement->show(false);
 
-		uint32 type = pWindow->getUserData() & 0xF0000;
-		uint16 * ptr;
-
-		if (type == FLAG_EVENT) ptr = &m_pCurrentDataSkin->event_info;
-		else if (type == FLAG_STYLE) ptr = &m_pCurrentDataSkin->style;
-		else if (type == FLAG_ALIGN) ptr = &m_pCurrentDataSkin->align;
-		else return;
-
-		uint16 flag = pWindow->getUserData() & 0xFFFF;
-
-		if (pWindow->getState() == WS_PRESSED) {
-			pWindow->setState(WS_NORMAL);
-			(*ptr) &= ~(flag);
-		} else {
-			pWindow->setState(WS_PRESSED);
-			(*ptr) |= flag; 
-		}
-	}
-	//===================================================================================
-	void SkinEditor::fillFlagWindow() // заполняет окна текущими значения
-	{
-		if (!m_pCurrentDataSkin) return;
-
-		// сначала очищаем все поля
-		for (uint8 pos=0; pos<16; pos++) {
-			if (m_buttonsFlagsEvent[pos]) m_buttonsFlagsEvent[pos]->setState(WS_NORMAL);
-			if (m_buttonsFlagsAlign[pos]) m_buttonsFlagsAlign[pos]->setState(WS_NORMAL);
-			if (m_buttonsFlagsStyle[pos]) m_buttonsFlagsStyle[pos]->setState(WS_NORMAL);
-		}
-
-		// теперь будем искать совпадения и отмечать
-		for (uint8 pos=0; pos<16; pos++) {
-
-			if (m_pCurrentDataSkin->event_info & (1<<pos)) {
-				// а вот теперь ищем
-				uint32 find = (1<<pos) | FLAG_EVENT;
-				for (uint8 i=0; i<16; i++) {
-					if (!m_buttonsFlagsEvent[i]) continue;
-					if (m_buttonsFlagsEvent[i]->getUserData() == find) m_buttonsFlagsEvent[i]->setState(WS_PRESSED);
-				}
-			} // if (m_pCurrentDataSkin->event_info & (1<<pos)) {
-
-			if (m_pCurrentDataSkin->align & (1<<pos)) {
-				// а вот теперь ищем
-				uint32 find = (1<<pos) | FLAG_ALIGN;
-				for (uint8 i=0; i<16; i++) {
-					if (!m_buttonsFlagsAlign[i]) continue;
-					if (m_buttonsFlagsAlign[i]->getUserData() == find) m_buttonsFlagsAlign[i]->setState(WS_PRESSED);
-				}
-			} // if (m_pCurrentDataSkin->align & (1<<pos)) {
-
-			if (m_pCurrentDataSkin->style & (1<<pos)) {
-				// а вот теперь ищем
-				uint32 find = (1<<pos) | FLAG_STYLE;
-				for (uint8 i=0; i<16; i++) {
-					if (!m_buttonsFlagsStyle[i]) continue;
-					if (m_buttonsFlagsStyle[i]->getUserData() == find) m_buttonsFlagsStyle[i]->setState(WS_PRESSED);
-				}
-			} // if (m_pCurrentDataSkin->style & (1<<pos)) {
-
-		} // for (uint8 pos=0; pos<16; pos++) {
-
-	}
-	//===================================================================================
-	bool SkinEditor::fillMaterialWindow() // заполняем окно с материалом
-	{
-
-		if (!m_pCurrentDataWindow) return false;
-		m_pCurrentDataWindow->strMaterialName = "";
-		m_pCurrentDataWindow->sizeTextureX = 0;
-		m_pCurrentDataWindow->sizeTextureY = 0;
-
-		// сначала скрываем
-		m_windowMaterial->show(false);
-
-		if (m_comboMaterialName->getCurrentIndex() == 0) return false;
-
-		const String & strMaterialName = m_comboMaterialName->getCaption();
-
-		uint16 sizeX, sizeY;
-		if (!AssetManager::getMaterialSize(strMaterialName, sizeX, sizeY)) return false;
-
-		const uint16 addX = m_windowMaterial->m_iSizeX-m_windowMaterial->m_pWindowClient->m_iSizeX;
-		const uint16 addY = m_windowMaterial->m_iSizeY-m_windowMaterial->m_pWindowClient->m_iSizeY;
-
-		m_windowMaterial->show(true);
-		m_pCurrentDataWindow->sizeTextureX = m_uTextureSizeX = sizeX;
-		m_pCurrentDataWindow->sizeTextureY = m_uTextureSizeY = sizeY;
-		m_windowMaterial->size( m_uTextureSizeX+addX, m_uTextureSizeY+addY );
-		m_windowMaterial->m_pWindowClient->m_overlayContainer->setMaterialName(strMaterialName);
-		m_pCurrentDataWindow->strMaterialName = strMaterialName;
-
-		return true;
-	}
-	//===================================================================================
-	void SkinEditor::createMaterialWindow() // создает окна для материала
-	{
-		m_windowMaterial = GUI::getSingleton()->create<WindowFrame>(
-			100, 100, 200, 200, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_C);
-		m_windowMaterial->setCaption("Material view");
-		m_windowMaterial->m_pEventCallback = this;
-		m_windowMaterial->show(false);
-
-		m_textureOffsetPointer = new StretchControl(m_windowMaterial, this, "BACK_EMPTY", "BACK_GREEN", "BACK_YELLOW");
+		m_windowElement->m_pWindowClient->m_overlayContainer->setMaterialName("BACK_EMPTY");
 
 	}
 	//===================================================================================
@@ -1113,7 +1169,6 @@ namespace SkinEditor
 
 	}
 	//===================================================================================
-	// уведомляет об изменении
 	void SkinEditor::OnChangeLocation(StretchControl * pControl, uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY)
 	{
 		// элемент внутри материала
@@ -1130,5 +1185,15 @@ namespace SkinEditor
 		}
 	}
 	//===================================================================================
+	void SkinEditor::updateSizeElementView() // обновляем размер окна если нужно
+	{
+		// если первый элемент, то сдвигаем окно относительно размера сабскина
+		if (m_comboSabSkinName->getCurrentIndex() == 0) {
+			const uint16 addX = m_windowElement->m_iSizeX-m_windowElement->m_pWindowClient->m_iSizeX;
+			const uint16 addY = m_windowElement->m_iSizeY-m_windowElement->m_pWindowClient->m_iSizeY;
+			m_windowElement->size(m_pCurrentDataSkin->uOffset[EDIT_RIGHT]+addX+ELEMENT_VIEW_OFFSET+ELEMENT_VIEW_OFFSET,
+				m_pCurrentDataSkin->uOffset[EDIT_BOTTOM]+addY+ELEMENT_VIEW_OFFSET+ELEMENT_VIEW_OFFSET);
+		}
+	}
 
 } // namespace SkinEditor

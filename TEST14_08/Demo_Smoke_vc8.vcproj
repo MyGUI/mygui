@@ -432,6 +432,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="DebugOut"
+			>
+			<File
+				RelativePath=".\debugOut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\debugOut.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
