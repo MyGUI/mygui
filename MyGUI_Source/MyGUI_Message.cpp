@@ -116,13 +116,13 @@ namespace MyGUI {
 		int16 iMinSizeX = __BUTTON_SIZE+20;
 
 		if (!strButton1.empty()) {
-			pWindow->m_pButton1 = pWindow->create<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+			pWindow->m_pButton1 = pWindow->create<Button>(0, 0, __BUTTON_SIZE, -1, WA_LEFT|WA_BOTTOM);
 			pWindow->m_pButton1->setCaption(strButton1);
 			pWindow->m_pButton1->setUserData(MBB_BUTTON1);
 			pWindow->m_pButton1->m_pEventCallback = (EventCallback*)pWindow;
 			if (!strButton2.empty()) {
 				iMinSizeX += __BUTTON_SIZE + 20;
-				pWindow->m_pButton2 = pWindow->create<Button>(0, 0, __BUTTON_SIZE, 25, WA_LEFT|WA_BOTTOM);
+				pWindow->m_pButton2 = pWindow->create<Button>(0, 0, __BUTTON_SIZE, -1, WA_LEFT|WA_BOTTOM);
 				pWindow->m_pButton2->setCaption(strButton2);
 				pWindow->m_pButton2->setUserData(MBB_BUTTON2);
 				pWindow->m_pButton2->m_pEventCallback = (EventCallback*)pWindow;

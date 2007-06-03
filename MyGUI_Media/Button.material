@@ -11,7 +11,7 @@ material MyGUI_button
 			scene_blend alpha_blend
 			texture_unit
 			{
-				filtering point point none
+				filtering linear linear none
 				texture SkinButton\button.png
 			}
 		}
