@@ -220,16 +220,19 @@ namespace MyGUI {
 					__MYGUI_SUBSKIN_INFO * subSkin = const_cast<__MYGUI_SUBSKIN_INFO *> (pos->second->subSkins[sub]);
 					uint16 sizeX, sizeY;
 					if (getMaterialSize(pos->second->SkinElement, sizeX, sizeY)) {
+						const float offset_x = 1 / ((float)sizeX*2);
+						const float offset_y = 1 / ((float)sizeY*2);
 						for (uint8 index=0; index<__SKIN_STATE_COUNT; index++) {
 							if (subSkin->fOffsetStateSkin[index][_CX] != 0.0) {
 
-								subSkin->fOffsetStateSkin[index][_X] = subSkin->fOffsetStateSkin[index][_X] / (float)sizeX;
-								subSkin->fOffsetStateSkin[index][_Y] = subSkin->fOffsetStateSkin[index][_Y] / (float)sizeY;
-								subSkin->fOffsetStateSkin[index][_CX] = subSkin->fOffsetStateSkin[index][_CX] / (float)sizeX;
-								subSkin->fOffsetStateSkin[index][_CY] = subSkin->fOffsetStateSkin[index][_CY] / (float)sizeY;
+								subSkin->fOffsetStateSkin[index][_CX] += subSkin->fOffsetStateSkin[index][_X] - 1;
+								subSkin->fOffsetStateSkin[index][_CY] += subSkin->fOffsetStateSkin[index][_Y] - 1;
 
-								subSkin->fOffsetStateSkin[index][_CX] += subSkin->fOffsetStateSkin[index][_X];
-								subSkin->fOffsetStateSkin[index][_CY] += subSkin->fOffsetStateSkin[index][_Y];
+								subSkin->fOffsetStateSkin[index][_X] = subSkin->fOffsetStateSkin[index][_X] / (float)sizeX + offset_x;
+								subSkin->fOffsetStateSkin[index][_Y] = subSkin->fOffsetStateSkin[index][_Y] / (float)sizeY + offset_y;
+								subSkin->fOffsetStateSkin[index][_CX] = subSkin->fOffsetStateSkin[index][_CX] / (float)sizeX + offset_x;
+								subSkin->fOffsetStateSkin[index][_CY] = subSkin->fOffsetStateSkin[index][_CY] / (float)sizeY + offset_y;
+
 
 							} // if (subSkin->fOffsetStateSkin[index][_CX] != 0.0) {
 						} // for (uint8 index; index<__SKIN_STATE_COUNT; index++) {

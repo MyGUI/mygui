@@ -69,8 +69,8 @@ windowSkin SKIN_BUTTON
 		style	WES_BUTTON
 
 		offset_normal 	2  2  18  26
-		offset_pressed 	2  30  18  26
-		offset_actived 	2  58  18  26
+		offset_actived 	2  30  18  26
+		offset_pressed 	2  58  18  26
 		offset_selected 	2  86  18  26
 
 	}
@@ -82,8 +82,8 @@ windowSkin SKIN_BUTTON
 		style	WES_BUTTON WES_TEXT
 
 		offset_normal 	22  2  18  26
-		offset_pressed 	22  30  18  26
-		offset_actived 	22  58  18  26
+		offset_actived 	22  30  18  26
+		offset_pressed 	22  58  18  26
 		offset_selected 	22  86  18  26
 	}
 
@@ -94,8 +94,8 @@ windowSkin SKIN_BUTTON
 		style	WES_BUTTON
 
 		offset_normal 	42  2  18  26
-		offset_pressed 	42  30  18  26
-		offset_actived 	42  58  18  26
+		offset_actived 	42  30  18  26
+		offset_pressed 	42  58  18  26
 		offset_selected 	42  86  18  26
 	}
 
