@@ -586,9 +586,7 @@ namespace MyGUI {
         //Lets continue with the core block definitions
 		if (ini.jumpBlock(true, false)) {
 			while (ini.seekNextBlock()) {
-
 				loadSubSkinDefinitions(ini, Name, window, UniqueSerialID);
-
 			}; // while (ini.seekNextBlock()) {
 		} // if (ini.jumpBlock(true, false)) {
 
