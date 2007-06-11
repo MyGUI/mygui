@@ -53,6 +53,10 @@ void debugOverlayInfo::destroyOverlayInfo()
 	debugOverlay & _debug = debugOverlay::Instance();
 	_debug.m_overlay->remove2D(m_overlayContainer);
 	if (m_overlayContainerShadow) _debug.m_overlay->remove2D(m_overlayContainerShadow);
+
+	OverlayManager & manager = Ogre::OverlayManager::getSingleton();
+	manager.destroyOverlayElement(m_overlayContainer);
+	if (m_overlayContainerShadow) manager.destroyOverlayElement(m_overlayContainerShadow);
 }
 //------------------------------------------------------------------------------//
 const String & debugOverlayInfo::getName()
@@ -148,18 +152,23 @@ void debugOverlay::out(char* fmt, ... )
 class debugOverlayInfo_##_type : public debugOverlayInfo \
 { \
 public: \
-	void update() \
+	bool update() \
 	{ \
-		String strOut = m_strName + " = " + StringConverter::toString(*((_type*)m_value)); \
+		try { \
+			if ( ::IsBadReadPtr( (const void*)m_value, sizeof(_type) ) ) return false; \
+		} catch (...) { return false;} \
+		String strOut = m_strName + " = " + StringConverter::toString( *((_type*)m_value) ); \
 		if (m_overlayContainer->getCaption() != strOut) { \
 			m_overlayContainer->setCaption(strOut); \
 			if (m_overlayContainerShadow) m_overlayContainerShadow->setCaption(strOut); \
 		} \
+		return true; \
 	}; \
 }; \
 void debugOverlay::add(const String & name, uint16 x, uint16 y, _type & value) \
 { \
 	check(); \
+	remove(name); \
 	debugOverlayInfo * info = new debugOverlayInfo_##_type(); \
 	info->createOverlayInfo(name, x, y, (void*)&value); \
 	mOverlayInfo.push_back(info); \
@@ -187,9 +196,12 @@ void debugOverlay::remove(const String & name)
 {
 	for (uint16 pos=0; pos<mOverlayInfo.size(); pos++) {
 		if (mOverlayInfo[pos]->getName() == name) {
+
 			mOverlayInfo[pos]->destroyOverlayInfo();
 			delete mOverlayInfo[pos];
 			mOverlayInfo[pos] = mOverlayInfo[mOverlayInfo.size()-1];
+			mOverlayInfo.pop_back();
+
 			return;
 		}
 	}
@@ -200,7 +212,15 @@ bool debugOverlay::frameStarted(const Ogre::FrameEvent& evt)
 	// просто обновляем все поля
 	for (uint16 pos=0; pos<mOverlayInfo.size(); pos++) {
 		try {
-			mOverlayInfo[pos]->update();
+			if ( ! mOverlayInfo[pos]->update()) {
+
+				mOverlayInfo[pos]->destroyOverlayInfo();
+				delete mOverlayInfo[pos];
+				mOverlayInfo[pos] = mOverlayInfo[mOverlayInfo.size()-1];
+				mOverlayInfo.pop_back();
+
+				return true; // лучше выйти
+			}
 		} catch (...) {}
 	}
 	return true;

@@ -23,7 +23,7 @@ namespace SkinEditor
 	const uint32 FLAG_EVENT = 0x10000;
 	const uint32 FLAG_STYLE = 0x20000;
 	const uint32 FLAG_ALIGN = 0x40000;
-	const uint8 ELEMENT_VIEW_OFFSET = 10; // сдвигаем элемент для восприятия
+//	const uint8 ELEMENT_VIEW_OFFSET = 10; // сдвигаем элемент для восприятия
 	//===================================================================================
 	SkinEditor::SkinEditor(MyGUI::EventCallback * pParent) :
 		m_mainWindow(0),
@@ -161,8 +161,11 @@ namespace SkinEditor
 					}
 				}
 
-				// обновляем квадратик
+				// обновляем квадратик в текстуре
 				m_textureOffsetPointer->setLocation(m_pCurrentDataState->uPosition[EDIT_LEFT], m_pCurrentDataState->uPosition[EDIT_TOP], m_pCurrentDataState->uPosition[EDIT_RIGHT], m_pCurrentDataState->uPosition[EDIT_BOTTOM]);
+				// обновляем квадратик в просмотре
+				m_elementOffsetPointer->setLocation(m_pCurrentDataSkin->uOffset[EDIT_LEFT], m_pCurrentDataSkin->uOffset[EDIT_TOP], m_pCurrentDataSkin->uOffset[EDIT_RIGHT], m_pCurrentDataSkin->uOffset[EDIT_BOTTOM]);
+
 				// размер окна просмотра элемента
 				updateSizeElementView();
 			}
@@ -244,9 +247,6 @@ namespace SkinEditor
 	//===================================================================================
 	bool SkinEditor::createEditor(MyGUI::EventCallback * pParent) // создает окно редактирования скинов
 	{
-//		for (uint16 pos=0; pos < 10; pos++) debug.out("line %d", pos);
-//		static Real test = 0.01;
-//		debug.add("test", 150, 50, test);
 
 		destroyEditor();
 
@@ -258,7 +258,7 @@ namespace SkinEditor
 
 		// главное окно (main window)
 		m_mainWindow = GUI::getSingleton()->create<WindowFrame>(
-			500, 150, 300, 530, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_CSX);
+			600, 150, 300, 530, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_CX);
 		m_mainWindow->setCaption("Skin editor MyGUI 1.0");
 		m_mainWindow->m_pEventCallback = pParent;
 
@@ -341,6 +341,8 @@ namespace SkinEditor
 
 		m_comboSabSkinName = m_mainWindow->create<ComboBox>(10, 280, 270, -1, WA_TOP|WA_LEFT, SKIN_COMBO_BOX);
 		m_comboSabSkinName->m_pEventCallback = this;
+
+		debug.add("SabSkin SelectItem", 170, 10, m_comboSabSkinName->m_pList->m_uSelectItem);
 	    
 		text = m_mainWindow->create<StaticText>(222, 310, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
 		text->setCaption("Offset");
@@ -517,6 +519,8 @@ namespace SkinEditor
 		}
 
 		m_textureOffsetPointer->setLocation(m_pCurrentDataState->uPosition[EDIT_LEFT], m_pCurrentDataState->uPosition[EDIT_TOP], m_pCurrentDataState->uPosition[EDIT_RIGHT], m_pCurrentDataState->uPosition[EDIT_BOTTOM]);
+		// обновляем квадратик в просмотре
+		m_elementOffsetPointer->setLocation(m_pCurrentDataSkin->uOffset[EDIT_LEFT], m_pCurrentDataSkin->uOffset[EDIT_TOP], m_pCurrentDataSkin->uOffset[EDIT_RIGHT], m_pCurrentDataSkin->uOffset[EDIT_BOTTOM]);
 
 	}
 	//===================================================================================
@@ -1087,12 +1091,18 @@ namespace SkinEditor
 	void SkinEditor::createElementWindow() // создает окна для материала
 	{
 		m_windowElement = GUI::getSingleton()->create<WindowFrame>(
-			200, 100, 200, 200, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_C);
+			200, 100, 300, 200, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_CS);
 		m_windowElement->setCaption("Element view");
 		m_windowElement->m_pEventCallback = this;
 		m_windowElement->show(false);
 
 		m_windowElement->m_pWindowClient->m_overlayContainer->setMaterialName("BACK_EMPTY");
+
+		m_windowElementView[0] = m_windowElement->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
+		m_windowElementView[1] = m_windowElementView[0]->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
+		m_windowElementView[2] = m_windowElementView[1]->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
+
+		m_elementOffsetPointer = new StretchControl(m_windowElementView[2], this, "BACK_EMPTY", "BACK_GREEN", "BACK_YELLOW");
 
 	}
 	//===================================================================================
@@ -1181,19 +1191,30 @@ namespace SkinEditor
 
 				updateStateInfo();
 			}
-		} else {
+		} else if (pControl == m_elementOffsetPointer) {
+
+			if (m_pCurrentDataSkin) {
+				m_pCurrentDataSkin->uOffset[EDIT_LEFT] = posX;
+				m_pCurrentDataSkin->uOffset[EDIT_TOP] = posY;
+				m_pCurrentDataSkin->uOffset[EDIT_RIGHT] = sizeX;
+				m_pCurrentDataSkin->uOffset[EDIT_BOTTOM] = sizeY;
+
+				updateSkinInfo();
+			}
+
 		}
+
 	}
 	//===================================================================================
 	void SkinEditor::updateSizeElementView() // обновляем размер окна если нужно
 	{
 		// если первый элемент, то сдвигаем окно относительно размера сабскина
-		if (m_comboSabSkinName->getCurrentIndex() == 0) {
+		/*if (m_comboSabSkinName->getCurrentIndex() == 0) {
 			const uint16 addX = m_windowElement->m_iSizeX-m_windowElement->m_pWindowClient->m_iSizeX;
 			const uint16 addY = m_windowElement->m_iSizeY-m_windowElement->m_pWindowClient->m_iSizeY;
 			m_windowElement->size(m_pCurrentDataSkin->uOffset[EDIT_RIGHT]+addX+ELEMENT_VIEW_OFFSET+ELEMENT_VIEW_OFFSET,
 				m_pCurrentDataSkin->uOffset[EDIT_BOTTOM]+addY+ELEMENT_VIEW_OFFSET+ELEMENT_VIEW_OFFSET);
-		}
+		}*/
 	}
 
 } // namespace SkinEditor

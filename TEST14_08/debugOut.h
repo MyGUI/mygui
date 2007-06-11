@@ -42,7 +42,7 @@ public:
 	void createOverlayInfo(const String & name, uint16 x, uint16 y, void * value);
 	void destroyOverlayInfo();
 
-	virtual void update() = 0;
+	virtual bool update() = 0;
 	inline const String & getName();
 
 protected:

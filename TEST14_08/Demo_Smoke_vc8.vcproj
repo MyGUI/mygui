@@ -198,44 +198,11 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="SkinEditor"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\BasisManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\GameConfigFile.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\OptionsState.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\SkinEditor.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc"
-			>
-			<File
-				RelativePath=".\BasisManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BasisState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GameConfigFile.h"
-				>
-			</File>
-			<File
-				RelativePath=".\OptionsState.h"
 				>
 			</File>
 			<File
@@ -246,11 +213,6 @@
 				RelativePath=".\StretchControl.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
 		</Filter>
 		<Filter
 			Name="MyGUI_Source"
@@ -431,6 +393,38 @@
 				RelativePath="..\MyGUI_Source\MyGUI_WindowFrame.h"
 				>
 			</File>
+			<Filter
+				Name="BasisManager"
+				>
+				<File
+					RelativePath=".\BasisManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\BasisManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\BasisState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GameConfigFile.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\GameConfigFile.h"
+					>
+				</File>
+				<File
+					RelativePath=".\OptionsState.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\OptionsState.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="DebugOut"

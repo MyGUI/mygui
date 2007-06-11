@@ -150,6 +150,10 @@ namespace SkinEditor
 
 			// рамка в окне материала
 			StretchControl * m_textureOffsetPointer;
+			// рамка в окне вьювера
+			StretchControl * m_elementOffsetPointer;
+			// окна для многоэтажности вьювера
+			MyGUI::Window * m_windowElementView[3];
 
 			// уведомление об изменении положения контрола
 			void OnChangeLocation(StretchControl * pControl, uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY);

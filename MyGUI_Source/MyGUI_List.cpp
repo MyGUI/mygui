@@ -147,7 +147,7 @@ namespace MyGUI {
 		if (pWindowSelect) pWindowSelect->setState(WS_NORMAL);
 		uint16 item = pWindow->m_uUserData + m_uOffsetDrawString;
 		if (item >= m_aString.size()) {
-			m_uSelectItem = ITEM_NON_SELECT;
+//			m_uSelectItem = ITEM_NON_SELECT;
 			if (m_pEventCallback) m_pEventCallback->onOtherEvent(this, WOE_LIST_SELECT_NONE, 0);
 			return;
 		}

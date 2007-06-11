@@ -1,0 +1,37 @@
+
+windowSkin 	BUTTON
+{
+	material 	"MyGUI_button"
+
+	subSkinMain 	button_1
+	{
+		offset 	61  33  75  30
+
+		event 	WE_NONE
+		align 	WA_NONE
+		style 	WES_NONE
+
+		offset_deactivated 	3  5  24  20
+	}
+
+	subSkin 	button_2
+	{
+		offset 	20  18  86  50
+
+		event 	WE_NONE
+		align 	WA_NONE
+		style 	WES_NONE
+
+		offset_deactivated 	0  0  10  10
+	}
+
+	subSkin 	button_3
+	{
+		offset 	11  9  30  30
+
+		event 	WE_NONE
+		align 	WA_NONE
+		style 	WES_NONE
+
+	}
+}

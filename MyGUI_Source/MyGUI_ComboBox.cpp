@@ -142,7 +142,12 @@ namespace MyGUI {
 	void ComboBox::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data) // дополнительные события
 	{
 		if (uEvent == WOE_LIST_SELECT_ACCEPT) {
+
+			uint16 numSelect = m_pList->m_uSelectItem;
+			// setCaption change m_pList->m_uSelectItem to ITEM_NON_SELECT
 			setCaption(m_pList->getString(data));
+			m_pList->m_uSelectItem = numSelect;
+
 			m_pList->show(false);
 			m_bIsListShow = false;
 			if (m_pEdit) {
