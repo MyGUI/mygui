@@ -499,6 +499,8 @@ namespace SkinEditor
 				m_windowElement->show();
 			}
 
+			fillViewElement(); // обновляем оверлеи предпросмотра
+
 			m_comboSabSkinState->setString(0); // на первый
 			updateStateInfo();
 
@@ -1001,6 +1003,38 @@ namespace SkinEditor
 
 	}
 	//===================================================================================
+	void SkinEditor::fillViewElement() // обновляем оверлеи предпросмотра
+	{
+		if (!m_pCurrentDataWindow) return;
+
+		OverlayManager & manager = Ogre::OverlayManager::getSingleton();
+
+		uint8 level;
+		for (uint16 pos=0; pos<m_pCurrentDataWindow->sabSkins.size(); pos++) {
+
+			if (pos == 0) level = LEVEL_MAIN;
+			else level = LEVEL_SECOND;
+			
+			Ogre::PanelOverlayElement * panel = m_pCurrentDataWindow->sabSkins[pos]->viewElement;
+			if ((m_pCurrentDataWindow->sabSkins[pos]->level != level) && (panel)) {
+				manager.destroyOverlayElement(panel);
+				panel = 0;
+			}
+			if (panel == 0) {
+				panel = static_cast<PanelOverlayElement*>( manager.createOverlayElement("Panel", "__overlayView_" + StringConverter::toString((unsigned long)m_pCurrentDataWindow->sabSkins[pos])) ); 
+				panel->setMetricsMode(GMM_PIXELS);
+				panel->setPosition(10, 10);
+				panel->setDimensions(20, 20);
+				panel->setMaterialName("BACK_GREEN");
+
+				m_windowElementView[level]->m_overlayContainer->addChild(panel);
+				m_pCurrentDataWindow->sabSkins[pos]->level = level;
+				m_pCurrentDataWindow->sabSkins[pos]->viewElement = panel;
+			}
+		}
+
+	}
+	//===================================================================================
 	void SkinEditor::createMaterialWindow() // создает окна для материала
 	{
 		m_windowMaterial = GUI::getSingleton()->create<WindowFrame>(
@@ -1098,11 +1132,12 @@ namespace SkinEditor
 
 		m_windowElement->m_pWindowClient->m_overlayContainer->setMaterialName("BACK_EMPTY");
 
-		m_windowElementView[0] = m_windowElement->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
-		m_windowElementView[1] = m_windowElementView[0]->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
-		m_windowElementView[2] = m_windowElementView[1]->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
+		m_windowElementView[LEVEL_MAIN] = m_windowElement->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
 
-		m_elementOffsetPointer = new StretchControl(m_windowElementView[2], this, "BACK_EMPTY", "BACK_GREEN", "BACK_YELLOW");
+		for (uint8 pos=1; pos<__LEVEL_COUNT; pos++)
+			m_windowElementView[pos] = m_windowElementView[pos-1]->create<Window>(0, 0, m_windowElement->m_pWindowClient->m_iSizeX, m_windowElement->m_pWindowClient->m_iSizeY, WA_STRETCH, SKIN_DEFAULT);
+
+		m_elementOffsetPointer = new StretchControl(m_windowElementView[LEVEL_STRETCH_ELEMENT], this, "BACK_EMPTY", "BACK_GREEN", "BACK_YELLOW");
 
 	}
 	//===================================================================================

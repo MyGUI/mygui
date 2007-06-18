@@ -5,6 +5,7 @@
 #include <OgreOverlayManager.h>
 #include <OgreConfigFile.h>
 #include <OgreRenderSystem.h>
+#include "debugOut.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -21,7 +22,6 @@ BasisManager::BasisManager() :
 	mWallpaperOverlay(0),
 	m_exit(false),
 	mFadeState(0)
-//	m_bIsMouseReleased(false) // если вы не модифицировали исходник, то ставте false
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";
@@ -297,6 +297,8 @@ bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_ESCAPE ) m_exit = true;
+	if ( arg.key == OIS::KC_F1 ) debug.show(true);
+	if ( arg.key == OIS::KC_F2 ) debug.show(false);
 
 	if (mGUI->keyPressed(arg)) return true;
 	return mStates.back()->keyPressed(arg);

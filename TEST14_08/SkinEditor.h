@@ -23,6 +23,14 @@ namespace SkinEditor
 				__EDIT_COUNT
 			};
 
+			enum {
+				LEVEL_MAIN,
+				LEVEL_SECOND,
+				LEVEL_THIRD,
+				LEVEL_STRETCH_ELEMENT,
+				__LEVEL_COUNT
+			};
+
 			typedef struct _tag_STATE_DATA { // информация об одном стейте
 				MyGUI::uint16 uPosition[__EDIT_COUNT]; // позиция в элементе
 			} * LP_STATE_DATA;
@@ -34,21 +42,27 @@ namespace SkinEditor
 				MyGUI::uint16 style; // стиль
 				MyGUI::uint16 align; // выравнивание
 				_tag_STATE_DATA stateInfo[5]; // на каждое состояние
-				StretchControl * viewElement;
+
+				Ogre::PanelOverlayElement  * viewElement; // видимый элемент в просмотре
+				MyGUI::uint8 level; // уровень на котором висит елемент просмотра
 
 				_tag_SUB_SKIN_DATA::_tag_SUB_SKIN_DATA() {assert(0);}; // низя
 				_tag_SUB_SKIN_DATA::_tag_SUB_SKIN_DATA(const MyGUI::String & str) : strName(str),
 					event_info(0),
 					style(0),
 					align(0),
-					viewElement(0)
+					viewElement(0),
+					level(__LEVEL_COUNT)
 				{
 					memset((void*)uOffset, 0, sizeof(MyGUI::uint16) * __EDIT_COUNT); // очищаем
 					memset((void*)stateInfo, 0, sizeof(_tag_STATE_DATA) * 5); // очищаем
 				};
 				_tag_SUB_SKIN_DATA::~_tag_SUB_SKIN_DATA()
 				{
-					if (viewElement) delete viewElement;
+					if (viewElement) {
+						Ogre::OverlayManager::getSingleton().destroyOverlayElement(viewElement);
+						viewElement = 0;
+					}
 				}
 
 			} * LP_SUB_SKIN_DATA;
@@ -103,6 +117,7 @@ namespace SkinEditor
 			void fillFlagWindow(); // заполняет окна текущими значения
 			bool fillMaterialWindow(); // заполняем окно с материалом
 			void fillElementWindow(); // заполняем окно с элементом
+			void fillViewElement(); // обновляем оверлеи предпросмотра
 			void pressOtherButton(MyGUI::Window * pWindow); // сверяем с кнопками флагов
 
 
@@ -153,7 +168,7 @@ namespace SkinEditor
 			// рамка в окне вьювера
 			StretchControl * m_elementOffsetPointer;
 			// окна для многоэтажности вьювера
-			MyGUI::Window * m_windowElementView[3];
+			MyGUI::Window * m_windowElementView[__LEVEL_COUNT];
 
 			// уведомление об изменении положения контрола
 			void OnChangeLocation(StretchControl * pControl, uint16 posX, uint16 posY, uint16 sizeX, uint16 sizeY);

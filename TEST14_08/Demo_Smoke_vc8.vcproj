@@ -393,38 +393,6 @@
 				RelativePath="..\MyGUI_Source\MyGUI_WindowFrame.h"
 				>
 			</File>
-			<Filter
-				Name="BasisManager"
-				>
-				<File
-					RelativePath=".\BasisManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\BasisManager.h"
-					>
-				</File>
-				<File
-					RelativePath=".\BasisState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\GameConfigFile.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\GameConfigFile.h"
-					>
-				</File>
-				<File
-					RelativePath=".\OptionsState.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\OptionsState.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="DebugOut"
@@ -435,6 +403,38 @@
 			</File>
 			<File
 				RelativePath=".\debugOut.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="BasisManager"
+			>
+			<File
+				RelativePath=".\BasisManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BasisManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BasisState.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GameConfigFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GameConfigFile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OptionsState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\OptionsState.h"
 				>
 			</File>
 		</Filter>
