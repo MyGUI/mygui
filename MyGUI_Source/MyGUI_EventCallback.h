@@ -11,10 +11,12 @@ namespace MyGUI
 		virtual void onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed) {}; // нажата левая кнопка мыши
 		virtual void onMouseClick(MyGUI::Window * pWindow) {}; // нажата и отпущена левая кнопка мыши на этом же элементе
 		virtual void onMouseDoubleClick(MyGUI::Window * pWindow) {}; // двойной щелчек мыши
-		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) {}; // смена фокуса
+		virtual void onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) {}; // смена фокуса
+		virtual void onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) {}; // смена фокуса
 		virtual void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) {}; // уведомление о движении, но не движение
 
-		virtual void onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus) {}; // смена фокуса ввода
+		virtual void onKeySetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) {}; // смена фокуса ввода
+		virtual void onKeyLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) {}; // смена фокуса ввода
 		virtual void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) {}; // нажата клавиша
 
 		virtual void onWarningEvent(MyGUI::Window * pWindow, uint16 uEvent) {}; // события предепреждающие ошибки

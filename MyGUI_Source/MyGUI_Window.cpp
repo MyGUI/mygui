@@ -165,11 +165,20 @@ namespace MyGUI {
 		}
 	}
 
-	void Window::_OnMouseChangeFocus(bool bIsFocus) //The mouse is either now hovering or has stopped hovering over the control
+	void Window::_OnMouseSetFocus(MyGUI::Window * pWindowOld) //The mouse is either now hovering or has stopped hovering over the control
 	{
 	    //If the callback exists and is listening to MOUSE_FOCUS related messages...
-		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_FOCUS))
-		    m_pEventCallback->onMouseFocus(this, bIsFocus);
+		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_FOCUS)) {
+		    m_pEventCallback->onMouseSetFocus(this, pWindowOld);
+		}
+	}
+
+	void Window::_OnMouseLostFocus(MyGUI::Window * pWindowNew) //The mouse is either now hovering or has stopped hovering over the control
+	{
+	    //If the callback exists and is listening to MOUSE_FOCUS related messages...
+		if (m_pEventCallback && (m_uEventCallback & WE_MOUSE_FOCUS)) {
+			m_pEventCallback->onMouseLostFocus(this, pWindowNew);
+		}
 	}
 
 	void Window::_OnMouseMove(int16 iPosX, int16 iPosY) // вызывается при движении окна
@@ -209,11 +218,20 @@ namespace MyGUI {
 			    m_pEventCallback->onMouseDoubleClick(this);
 	}
 
-	void Window::_OnKeyChangeFocus(bool bIsFocus) // вызывается при смене активности ввода
+	void Window::_OnKeySetFocus(MyGUI::Window * pWindowOld) // вызывается при смене активности ввода
 	{
 	    //if the callback exists and is listening
-		if (m_pEventCallback && (m_uEventCallback & WE_KEY_FOCUS))
-		    m_pEventCallback->onKeyFocus(this, bIsFocus);
+		if (m_pEventCallback && (m_uEventCallback & WE_KEY_FOCUS)) {
+		    m_pEventCallback->onKeySetFocus(this, pWindowOld);
+		}
+	}
+
+	void Window::_OnKeyLostFocus(MyGUI::Window * pWindowNew) // вызывается при смене активности ввода
+	{
+	    //if the callback exists and is listening
+		if (m_pEventCallback && (m_uEventCallback & WE_KEY_FOCUS)) {
+			m_pEventCallback->onKeyLostFocus(this, pWindowNew);
+		}
 	}
 
 	void Window::_OnKeyButtonPressed(int keyEvent, wchar_t cText) // вызывается при нажатии клавиши клавы
@@ -502,7 +520,7 @@ namespace MyGUI {
 		if (m_uEventCallback & __WE_IS_ACTION) {
 			GUI::getSingleton()->SetCurrentFocusWindow(this);
 			 // дочерние не проверяем
-			return true;
+//			return true;
 		}
 
 		for (uint i=0; i<mChildWindows.size(); i++) {

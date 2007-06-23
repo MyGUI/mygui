@@ -38,12 +38,20 @@ namespace MyGUI {
 		GUI::getSingleton()->destroyWindow(m_pList);
 	}
 
-	void ComboBox::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
+	void ComboBox::onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса
 	{
 		if (pWindow->m_uExData & WES_COMBO)
-		    showFocus(bIsFocus);
+		    showFocus(true);
 		else if (pWindow->m_uExData & WES_COMBO_BUTTON)
-			pWindow->setSkinState(bIsFocus ? SKIN_STATE_ACTIVED : SKIN_STATE_NORMAL);
+			pWindow->setSkinState(SKIN_STATE_ACTIVED);
+	}
+
+	void ComboBox::onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса
+	{
+		if (pWindow->m_uExData & WES_COMBO)
+		    showFocus(false);
+		else if (pWindow->m_uExData & WES_COMBO_BUTTON)
+			pWindow->setSkinState(SKIN_STATE_NORMAL);
 	}
 
 	void ComboBox::onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed) // нажата левая кнопка мыши
@@ -91,24 +99,30 @@ namespace MyGUI {
 
 	}
 
-	void ComboBox::onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса ввода
+	void ComboBox::onKeySetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса ввода
 	{
 
 		if (pWindow == m_pEdit) {
-			if (bIsFocus) setState(WS_PRESSED);
-			else setState(WS_NORMAL);
+			setState(WS_PRESSED);
 			return;
 		}
 
-		if (bIsFocus) {
-			__COMBO_CALC_SHOW_LIST();
-			// отображаем
-			m_pList->show(true);
-			m_bIsListShow = true;
-		} else {
-			m_pList->show(false);
-			m_bIsListShow = false;
+		__COMBO_CALC_SHOW_LIST();
+		// отображаем
+		m_pList->show(true);
+		m_bIsListShow = true;
+	}
+
+	void ComboBox::onKeyLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса ввода
+	{
+
+		if (pWindow == m_pEdit) {
+			setState(WS_NORMAL);
+			return;
 		}
+
+		m_pList->show(false);
+		m_bIsListShow = false;
 	}
 
 	void ComboBox::onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText) // нажата клавиша

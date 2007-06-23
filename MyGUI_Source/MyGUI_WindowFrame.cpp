@@ -64,7 +64,7 @@ namespace MyGUI {
 		}
 	}
 
-	void WindowFrame::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
+	void WindowFrame::onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса
 	{
 		uint16 flag = 0;
 		if (pWindow->m_uExData & WES_CAPTION) flag = WES_CAPTION;
@@ -72,16 +72,32 @@ namespace MyGUI {
 		else if (pWindow->m_uExData & WES_CLOSE) flag = WES_CLOSE;
 
 		if (flag != 0) {
-			if (flag == WES_RESIZE) {
-				if (bIsFocus) GUI::getSingleton()->setMousePointer(POINTER_RESIZE);
-				else  GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
-			}
-			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
-			if (bIsFocus) Skin = SKIN_STATE_ACTIVED;
+
+			if (flag == WES_RESIZE) GUI::getSingleton()->setMousePointer(POINTER_RESIZE);
+
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & flag) {
-					pChild->setSkinState(Skin);
+					pChild->setSkinState(SKIN_STATE_NORMAL);
+				}
+			}
+		}
+	}
+
+	void WindowFrame::onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса
+	{
+		uint16 flag = 0;
+		if (pWindow->m_uExData & WES_CAPTION) flag = WES_CAPTION;
+		else if (pWindow->m_uExData & WES_RESIZE) flag = WES_RESIZE;
+		else if (pWindow->m_uExData & WES_CLOSE) flag = WES_CLOSE;
+
+		if (flag != 0) {
+			if (flag == WES_RESIZE) GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
+
+			for (uint i=0; i<mChildWindows.size(); i++) {
+				Window * pChild = mChildWindows[i];
+				if (pChild->m_uExData & flag) {
+					pChild->setSkinState(SKIN_STATE_NORMAL);
 				}
 			}
 		}

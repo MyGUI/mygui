@@ -18,10 +18,12 @@ namespace MyGUI {
 
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
 
-		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
+		void onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld); // смена фокуса
+		void onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew); // смена фокуса
 		void onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed); // нажата левая кнопка мыши
 		void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
-		void onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса ввода
+		void onKeySetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld); // смена фокуса ввода
+        void onKeyLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew); // смена фокуса ввода
 		void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText); // нажата клавиша
 		void onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 data); // дополнительные события
 

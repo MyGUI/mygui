@@ -107,7 +107,8 @@ namespace MyGUI {
 
 	void List::_OnKeyChangeFocus(bool bIsFocus) // вызывается при смене активности ввода
 	{
-		onKeyFocus(this, bIsFocus);
+		if (bIsFocus) onKeySetFocus(this, 0);
+		else onKeyLostFocus(this, 0);
 	}
 
 	void List::_OnKeyButtonPressed(int keyEvent, wchar_t cText) // вызывается при нажатии клавиши клавы
@@ -115,29 +116,30 @@ namespace MyGUI {
 		onKeyButton(this, keyEvent, cText);
 	}
 
-	void List::onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса ввода
+	void List::onKeySetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса ввода
 	{
-		if (!bIsFocus) {
-			if (pWindowSelect) { // сброс выделения
-				pWindowSelect->setState(WS_NORMAL);
-			}
-			m_bIsFocus = false;
-		} else {
-			if (pWindowSelect) {
-				pWindowSelect->setState(WS_PRESSED);
-			}
-			m_bIsFocus = true;
-		}
-		if (m_pEventCallback) m_pEventCallback->onKeyFocus(this, bIsFocus);
+		if (pWindowSelect) pWindowSelect->setState(WS_PRESSED);
+		m_bIsFocus = true;
+		if (m_pEventCallback) m_pEventCallback->onKeySetFocus(this, pWindowOld);
 	}
 
-	void List::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
+	void List::onKeyLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса ввода
 	{
-		if (bIsFocus) {
-			if ((pWindow->m_uUserData + m_uOffsetDrawString) >= m_aString.size()) return;
-			pWindow->showFocus(true);
-		} else  pWindow->showFocus(false);
-		
+		// сброс выделения
+		if (pWindowSelect) pWindowSelect->setState(WS_NORMAL);
+		m_bIsFocus = false;
+		if (m_pEventCallback) m_pEventCallback->onKeyLostFocus(this, pWindowNew);
+	}
+
+	void List::onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса
+	{
+		if ((pWindow->m_uUserData + m_uOffsetDrawString) >= m_aString.size()) return;
+		pWindow->showFocus(true);
+	}
+
+	void List::onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса
+	{
+		pWindow->showFocus(false);
 	}
 
 	void List::onMouseClick(MyGUI::Window * pWindow)

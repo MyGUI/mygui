@@ -55,7 +55,7 @@ namespace MyGUI
 		if (m_bIsActiveGUI == false)
 		{
 			if (m_currentEditWindow) { // сброс окна ввода
-				m_currentEditWindow->_OnKeyChangeFocus(false);
+				m_currentEditWindow->_OnKeyLostFocus( NULL );
 				m_currentEditWindow = 0;
 			}
 			return false;
@@ -81,13 +81,11 @@ namespace MyGUI
 		}
 
 		if (m_currentEditWindow != m_currentFocusWindow) { //changing input window
-			if (m_currentEditWindow)
-			    m_currentEditWindow->_OnKeyChangeFocus(false);
-			
+
+			if (m_currentEditWindow) m_currentEditWindow->_OnKeyLostFocus(m_currentFocusWindow);
+			if (m_currentFocusWindow) m_currentFocusWindow->_OnKeySetFocus(m_currentEditWindow);
 			m_currentEditWindow = m_currentFocusWindow;
-			
-			if (m_currentEditWindow)
-			    m_currentEditWindow->_OnKeyChangeFocus(true);
+
 		}
 
 		m_currentWindow->_OnUpZOrder(); // уведомление об поднятии
@@ -131,10 +129,10 @@ namespace MyGUI
 			}
 
 			if (m_currentFocusWindow != pOldFocusWindow) { // изменилась активное окно
-				if (pOldFocusWindow)
-				    pOldFocusWindow->_OnMouseChangeFocus(false);
-				if (m_currentFocusWindow)
-					m_currentFocusWindow->_OnMouseChangeFocus(true);
+
+				if (pOldFocusWindow) pOldFocusWindow->_OnMouseLostFocus(m_currentFocusWindow);
+				if (m_currentFocusWindow) m_currentFocusWindow->_OnMouseSetFocus(pOldFocusWindow);
+
 			}
 
 		}
@@ -245,11 +243,11 @@ namespace MyGUI
 	
 	void KeyboardHandler::setKeyFocus(Window * pWindow) // ставим фокус ввода
 	{
-		if (m_currentEditWindow)
-		    m_currentEditWindow->_OnKeyChangeFocus(false);
+
+		if (m_currentEditWindow) m_currentEditWindow->_OnKeyLostFocus(pWindow);
+		if (pWindow) pWindow->_OnKeySetFocus(m_currentEditWindow);
 		m_currentEditWindow = pWindow;
-		if (m_currentEditWindow)
-		    m_currentEditWindow->_OnKeyChangeFocus(true);
+
 	}
 	
 	wchar_t KeyboardHandler::getKeyChar(int keyEvent) // возвращает символ по его скан коду

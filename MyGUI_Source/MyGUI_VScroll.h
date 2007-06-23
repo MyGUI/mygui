@@ -10,13 +10,15 @@ namespace MyGUI {
         static VScroll *createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
             Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_VSCROLL);
 
-        void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
+        void onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld); // смена фокуса
+		void onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew); // смена фокуса
         void onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed);
         void onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY); // уведомление о движении, но не движение
         void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 
         void onKeyButton(MyGUI::Window * pWindow, int keyEvent, wchar_t cText); // нажата клавиша
-        void onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса ввода
+        void onKeySetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld); // смена фокуса ввода
+        void onKeyLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew); // смена фокуса ввода
 
         void changePosition(bool bIsUp); // просчет позиции, прорисовка и посылка уведомлений
         void size(int16 iSizeX, int16 iSizeY); // изменяем размер окна

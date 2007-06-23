@@ -66,11 +66,18 @@ namespace MyGUI {
 
 	}
 
-	void Message::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
+	void Message::onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса
 	{
 		if (pWindow == m_pButton1) return;
 		if (pWindow == m_pButton2) return;
-		WindowFrame::onMouseFocus(pWindow, bIsFocus);
+		WindowFrame::onMouseSetFocus(pWindow, pWindowOld);
+	}
+
+	void Message::onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса
+	{
+		if (pWindow == m_pButton1) return;
+		if (pWindow == m_pButton2) return;
+		WindowFrame::onMouseLostFocus(pWindow, pWindowNew);
 	}
 
 

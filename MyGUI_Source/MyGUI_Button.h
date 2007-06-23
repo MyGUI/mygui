@@ -11,10 +11,12 @@ namespace MyGUI {
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_BUTTON);
 	        
 		// это посылается главным окном
-		void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
+		void _OnMouseSetFocus(MyGUI::Window * pWindowOld); // вызывается при смене активности от курсора
+		void _OnMouseLostFocus(MyGUI::Window * pWindowNew); // вызывается при смене активности от курсора
 		void _OnMouseButtonPressed(bool bIsLeftButtonPressed); // вызывается при нажатии клавиши
 		// а вот это детьми
-		void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus); // смена фокуса
+		void onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld); // смена фокуса
+		void onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew); // смена фокуса
 		void onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed); // нажата левая кнопка мыши
 
         //Called when the user clicks on a button

@@ -13,10 +13,16 @@ namespace MyGUI {
 	{
 	}
 
-	void Button::_OnMouseChangeFocus(bool bIsFocus) // вызывается при смене активности от курсора
+	void Button::_OnMouseSetFocus(MyGUI::Window * pWindowOld) // вызывается при смене активности от курсора
 	{
-		Window::_OnMouseChangeFocus(bIsFocus); // для посылки калбэков
-		showFocus(bIsFocus);
+		Window::_OnMouseSetFocus(pWindowOld); // для посылки калбэков
+		showFocus(true);
+	}
+
+	void Button::_OnMouseLostFocus(MyGUI::Window * pWindowNew) // вызывается при смене активности от курсора
+	{
+		Window::_OnMouseSetFocus(pWindowNew); // для посылки калбэков
+		showFocus(false);
 	}
 
 	void Button::_OnMouseButtonPressed(bool bIsLeftButtonPressed) // вызывается при нажатии клавиши
@@ -25,9 +31,14 @@ namespace MyGUI {
 		showPressed(bIsLeftButtonPressed);
 	}
 
-	void Button::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
+	void Button::onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса
 	{
-		if (pWindow->m_uExData & WES_BUTTON) showFocus(bIsFocus);
+		if (pWindow->m_uExData & WES_BUTTON) showFocus(true);
+	}
+
+	void Button::onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса
+	{
+		if (pWindow->m_uExData & WES_BUTTON) showFocus(false);
 	}
 
 	void Button::onMouseButton(MyGUI::Window * pWindow, bool bIsLeftButtonPressed) // нажата левая кнопка мыши

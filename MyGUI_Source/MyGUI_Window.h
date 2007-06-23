@@ -37,7 +37,7 @@ namespace MyGUI {
                 return Widget::createWindow(PosX, PosY, SizeX, SizeY, this, uAlign, 0, Skin);
         }
         
-        template <typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
+        template <typename Widget> Widget *createReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
             uint16 uAlign, const String &Skin = __SKIN_WIDGET_DEFAULT)
         {
             uint16 NewPosX  = PosX  * GUI::getSingleton()->getWidth();
@@ -52,18 +52,17 @@ namespace MyGUI {
             Event handlers.  Question: could these be integrated with the EventCallback class to unify
             event callback listeners into a single class?
         */
-        virtual void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
+        virtual void _OnMouseSetFocus(MyGUI::Window * pWindowOld); // вызывается при смене активности от курсора
+        virtual void _OnMouseLostFocus(MyGUI::Window * pWindowNew); // вызывается при смене активности от курсора
 		virtual void _OnMouseMove(int16 iPosX, int16 iPosY); // вызывается при движении окна
 		virtual void _OnMouseButtonPressed(bool bIsLeftButtonPressed); // вызывается при нажатии клавиши
 		virtual void _OnMouseButtonClick(bool bIsDouble); // вызывается при нажатии клавиши и отпускании на том же элементе
 		virtual void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
-//		virtual void _OnKeyButtonClick(int keyEvent); // вызывается при отпускании клавиши клавы
-		virtual void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
+		virtual void _OnKeySetFocus(MyGUI::Window * pWindowOld); // вызывается при смене активности ввода
+		virtual void _OnKeyLostFocus(MyGUI::Window * pWindowNew); // вызывается при смене активности ввода
 		virtual void _OnUpZOrder() {}; // вызывается при активации окна
 		
 		void show(bool ShowWindow = true);
-//		void show() //Show the window
-//		{   show(true); }
 		inline void hide() //hide the window
 		{   show(false); }
 		

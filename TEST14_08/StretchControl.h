@@ -107,9 +107,20 @@ namespace SkinEditor
 
 	private:
 		// смена фокуса
-		virtual void onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus)
+		virtual void onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld)
 		{
-			const String & strMaterial = bIsFocus?m_strMaterialBorderActived:m_strMaterialBorderNormal;
+			const String & strMaterial = m_strMaterialBorderActived;
+			if ((pWindow != m_windowMaterialOffset[RIGHT]) && (pWindow != m_windowMaterialOffset[BOTTOM])) {
+				for (uint8 pos=1; pos<__MATERIAL_BORDER_COUNT;pos++)
+					m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName(strMaterial);
+			} else {
+				pWindow->m_overlayContainer->setMaterialName(strMaterial);
+			}
+		}
+
+		virtual void onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew)
+		{
+			const String & strMaterial = m_strMaterialBorderNormal;
 			if ((pWindow != m_windowMaterialOffset[RIGHT]) && (pWindow != m_windowMaterialOffset[BOTTOM])) {
 				for (uint8 pos=1; pos<__MATERIAL_BORDER_COUNT;pos++)
 					m_windowMaterialOffset[pos]->m_overlayContainer->setMaterialName(strMaterial);

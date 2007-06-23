@@ -39,7 +39,7 @@ namespace MyGUI {
                 return Widget::createWindow(PosX, PosY, SizeX, SizeY, NULL, 0, uOverlay, Skin);
         }
         
-        template<typename Widget> Widget *spawnReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
+        template<typename Widget> Widget *createReal(Real PosX, Real PosY, Real SizeX, Real SizeY,
 	        uint8 uOverlay, const String &Skin = __SKIN_WIDGET_DEFAULT)
 	    {
 	        return create<Widget>(PosX *  GUI::getSingleton()->getWidth(), PosY *  GUI::getSingleton()->getHeight(),

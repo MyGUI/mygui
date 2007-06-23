@@ -20,24 +20,34 @@ namespace MyGUI {
 	{
 	}
 
-	void Edit::_OnMouseChangeFocus(bool bIsFocus) // вызывается при смене активности от курсора
+	void Edit::_OnMouseSetFocus(MyGUI::Window * pWindowOld) // вызывается при смене активности от курсора
 	{
-		Window::_OnMouseChangeFocus(bIsFocus); // для каллбеков
-		if (bIsFocus) GUI::getSingleton()->setMousePointer(POINTER_TEXT);
-		else GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
-		showFocus(bIsFocus);
+		Window::_OnMouseSetFocus(pWindowOld); // для каллбеков
+		GUI::getSingleton()->setMousePointer(POINTER_TEXT);
+		showFocus(true);
 	}
 
-	void Edit::_OnKeyChangeFocus(bool bIsFocus) // вызывается при смене активности ввода
+	void Edit::_OnMouseLostFocus(MyGUI::Window * pWindowNew) // вызывается при смене активности от курсора
 	{
-		Window::_OnKeyChangeFocus(bIsFocus); // для каллбеков
-		m_bIsFocus = bIsFocus;
-		if (bIsFocus) {
-			setState(WS_PRESSED);
-			if (m_iSizeY < getFont()->height)
-			    bIsFocus = false;
-		} else setState(WS_NORMAL);
-		if (m_pWindowCursor) m_pWindowCursor->show(bIsFocus);
+		Window::_OnMouseSetFocus(pWindowNew); // для каллбеков
+		GUI::getSingleton()->setMousePointer(POINTER_DEFAULT);
+		showFocus(false);
+	}
+
+	void Edit::_OnKeySetFocus(MyGUI::Window * pWindowOld) // вызывается при смене активности ввода
+	{
+		Window::_OnKeySetFocus(pWindowOld); // для каллбеков
+		m_bIsFocus = true;
+		setState(WS_PRESSED);
+		if (m_pWindowCursor) m_pWindowCursor->show( ! (m_iSizeY < getFont()->height));
+	}
+
+	void Edit::_OnKeyLostFocus(MyGUI::Window * pWindowNew) // вызывается при смене активности ввода
+	{
+		Window::_OnKeyLostFocus(false); // для каллбеков
+		m_bIsFocus = false;
+		setState(WS_NORMAL);
+		if (m_pWindowCursor) m_pWindowCursor->show(false);
 	}
 
 	void Edit::size(int16 iSizeX, int16 iSizeY) // изменяем размер окна

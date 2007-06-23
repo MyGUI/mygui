@@ -24,10 +24,17 @@ namespace MyGUI {
 		// просто передаем отцу
 		if (m_pEventCallback) m_pEventCallback->onKeyButton(this, keyEvent, cText);
 	}
-	void VScroll::onKeyFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса ввода
+
+	void VScroll::onKeySetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса ввода
 	{
 		// просто передаем отцу
-		if (m_pEventCallback) m_pEventCallback->onKeyFocus(this, bIsFocus);
+		if (m_pEventCallback) m_pEventCallback->onKeySetFocus(this, pWindowOld);
+	}
+
+	void VScroll::onKeyLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса ввода
+	{
+		// просто передаем отцу
+		if (m_pEventCallback) m_pEventCallback->onKeyLostFocus(this, pWindowNew);
 	}
 
 	void VScroll::onMouseMove(MyGUI::Window * pWindow, int16 iPosX, int16 iPosY) // уведомление о движении, но не движение
@@ -142,13 +149,10 @@ namespace MyGUI {
 		}
 	}
 
-	void VScroll::onMouseFocus(MyGUI::Window * pWindow, bool bIsFocus) // смена фокуса
+	void VScroll::onMouseSetFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowOld) // смена фокуса
 	{
 		if (pWindow == m_pWindowTrack) { // ползунок
-			if (bIsFocus)
-			    pWindow->setSkinState(SKIN_STATE_ACTIVED);
-			else
-			    pWindow->setSkinState(SKIN_STATE_NORMAL);
+		    pWindow->setSkinState(SKIN_STATE_ACTIVED);
 			return;
 		}
 
@@ -157,15 +161,30 @@ namespace MyGUI {
 		else if (pWindow->m_uExData & WES_VSCROLL_DOWN) flag = WES_VSCROLL_DOWN;
 
 		if (flag != 0) {
-			__SKIN_STATES Skin = SKIN_STATE_NORMAL;
-			
-			if (bIsFocus)
-			    Skin = SKIN_STATE_ACTIVED;
-			
 			for (uint i=0; i<mChildWindows.size(); i++) {
 				Window * pChild = mChildWindows[i];
 				if (pChild->m_uExData & flag)
-					pChild->setSkinState(Skin);
+					pChild->setSkinState(SKIN_STATE_ACTIVED);
+			}
+		}
+	}
+	
+	void VScroll::onMouseLostFocus(MyGUI::Window * pWindow, MyGUI::Window * pWindowNew) // смена фокуса
+	{
+		if (pWindow == m_pWindowTrack) { // ползунок
+		    pWindow->setSkinState(SKIN_STATE_NORMAL);
+			return;
+		}
+
+		uint16 flag = 0;
+		if (pWindow->m_uExData & WES_VSCROLL_UP) flag = WES_VSCROLL_UP;
+		else if (pWindow->m_uExData & WES_VSCROLL_DOWN) flag = WES_VSCROLL_DOWN;
+
+		if (flag != 0) {
+			for (uint i=0; i<mChildWindows.size(); i++) {
+				Window * pChild = mChildWindows[i];
+				if (pChild->m_uExData & flag)
+					pChild->setSkinState(SKIN_STATE_NORMAL);
 			}
 		}
 	}

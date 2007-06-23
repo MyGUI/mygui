@@ -10,8 +10,10 @@ namespace MyGUI {
 		static Edit *Edit::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_EDIT);
 
-		void _OnMouseChangeFocus(bool bIsFocus); // вызывается при смене активности от курсора
-		void _OnKeyChangeFocus(bool bIsFocus); // вызывается при смене активности ввода
+		void _OnMouseSetFocus(MyGUI::Window * pWindowOld); // вызывается при смене активности от курсора
+		void _OnMouseLostFocus(MyGUI::Window * pWindowNew); // вызывается при смене активности от курсора
+		void _OnKeySetFocus(MyGUI::Window * pWindowOld); // вызывается при смене активности ввода
+		void _OnKeyLostFocus(MyGUI::Window * pWindowNew); // вызывается при смене активности ввода
 		void size(int16 iSizeX, int16 iSizeY); // изменяем размер окна
 		virtual Window *setCaption(const DisplayString & strText); // устанавливает текст окна
 		void _OnKeyButtonPressed(int keyEvent, wchar_t cText); // вызывается при нажатии клавиши клавы
