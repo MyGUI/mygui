@@ -9,10 +9,10 @@ namespace widget
 		m_y (_y),
 		m_cx (_cx),
 		m_cy (_cy),
-		m_real_x (_x),
-		m_real_y (_y),
-		m_real_cx (_cx),
-		m_real_cy (_cy)
+		m_view_x (_x),
+		m_view_y (_y),
+		m_view_cx (_cx),
+		m_view_cy (_cy)
 	{
 		check();
 	}
@@ -43,12 +43,33 @@ namespace widget
 	{
 		m_x = _x;
 		m_y = _y;
+
+		m_overlayContainer->setPosition(m_x, m_y);
 		check();
 	}
 
 	void Widget::check()
 	{
 		if (!m_parent) return;
+
 	}
+
+	void Widget::createOverlay(Ogre::Overlay * _overlay, Ogre::OverlayContainer * _overlayContainer, const Ogre::String & material)
+	{
+		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+
+		m_overlayContainer = static_cast<Ogre::PanelOverlayElement*>(overlayManager.createOverlayElement(
+			"Panel", "Widget_" + material) );
+
+		m_overlayContainer->setMetricsMode(GMM_PIXELS);
+		m_overlayContainer->setPosition(m_x, m_y);
+		m_overlayContainer->setDimensions(m_cx, m_cy);
+		m_overlayContainer->setMaterialName(material);
+
+		if (_overlayContainer) _overlayContainer->addChild(m_overlayContainer);
+		else _overlay->add2D(m_overlayContainer);
+
+	}
+
 
 } // namespace Widget

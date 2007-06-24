@@ -65,6 +65,27 @@ void OptionsState::enter(bool bIsChangeState)
     
 	mEditor = new SkinEditor::SkinEditor(this);
 
+
+	OverlayManager &overlayManager = OverlayManager::getSingleton();
+
+	Overlay * overlay;
+	overlay = overlayManager.create("WidgetOverlay");
+	overlay->setZOrder(200);
+	overlay->show();
+
+	m_widgetParent = new Widget(170, 170, 200, 200, 0);
+	m_widgetParent->createOverlay(overlay, 0, "BACK_GREEN");
+
+
+	m_widgetChild = m_widgetParent ->createChild(10, 10, 100, 100);
+	m_widgetChild->createOverlay(0, m_widgetParent->m_overlayContainer, "BACK_GRAY");
+
+}
+//===================================================================================
+bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
+{
+	m_widgetChild->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+	return true;
 }
 //===================================================================================
 void OptionsState::exit()

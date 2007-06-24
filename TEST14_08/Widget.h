@@ -1,10 +1,15 @@
 #pragma once
 
-#include "SabSkin.h"
 #include <vector>
+#include <OgreOverlay.h>
+#include <OgreOverlayManager.h>
+#include <OgreOverlayElement.h>
+#include <OgrePanelOverlayElement.h>
 
 namespace widget
 {
+	using namespace Ogre;
+
 	class Widget
 	{
 
@@ -16,6 +21,11 @@ namespace widget
 
 		void size(int _cx, int _cy);
 		void move(int _x, int _y);
+
+		void createOverlay(Ogre::Overlay * _overlay, Ogre::OverlayContainer * _overlayContainer, const Ogre::String & material);
+
+	public:
+		Ogre::OverlayContainer * m_overlayContainer;
 
 	protected:
 		void check();

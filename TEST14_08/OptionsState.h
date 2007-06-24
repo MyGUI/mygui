@@ -2,6 +2,9 @@
 
 #include "BasisState.h"
 #include "SkinEditor.h"
+#include "Widget.h"
+
+using namespace widget;
 
 class OptionsState : public BasisState
 {
@@ -14,6 +17,7 @@ public:
 
 	void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 	void onOtherEvent(MyGUI::Window * pWindow, MyGUI::uint16 uEvent, MyGUI::uint32 data); // дополнительные события
+	bool mouseMoved( const OIS::MouseEvent &arg );
 
 	MyGUI::Button * m_buttonExit;
 	MyGUI::Button * m_buttonEditor;
@@ -27,5 +31,8 @@ public:
 	void enter(bool bIsChangeState);
 	void exit();
 	void windowResize(); // уведомление об изменении размеров окна рендера
+
+	Widget * m_widgetParent;
+	Widget * m_widgetChild;
 
 };

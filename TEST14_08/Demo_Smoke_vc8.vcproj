@@ -202,10 +202,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\SabSkin.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SkinEditor.cpp"
 				>
 			</File>
