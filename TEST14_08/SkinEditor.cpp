@@ -263,12 +263,14 @@ namespace SkinEditor
 		m_mainWindow->m_pEventCallback = pParent;
 
 		// статик текст над окном
-		MyGUI::StaticText * text = m_mainWindow->create<StaticText>(10, 0, 270, 25, WA_TOP|WA_LEFT|WAT_CENTER);
+		MyGUI::StaticText * text = static_cast<MyGUI::StaticText*>(m_mainWindow->createWidget(
+			MyGUI::WIDGET_STATIC_TEXT, MyGUI::SKIN_STATIC_TEXT, 10, 0, 270, 25, WA_TOP|WA_LEFT|WAT_CENTER));
 		text->setColour(ColourValue::Green);
 		text->setCaption("Basis window skin");
 
 		// создаем окно с именами
-		m_comboBasisWindowName = m_mainWindow->create<ComboBox>(10, 30, 270, -1, WA_TOP|WA_LEFT, MyGUI::SKIN_COMBO_BOX);
+		m_comboBasisWindowName = static_cast<MyGUI::ComboBox*>(m_mainWindow->createWidget(
+			MyGUI::WIDGET_COMBO_BOX, MyGUI::SKIN_COMBO_BOX, 10, 30, 270, -1, WA_TOP|WA_LEFT) );
 		m_comboBasisWindowName->m_pEventCallback = this;
 
 		text = m_mainWindow->create<StaticText>(222, 60, 60, 25, WA_TOP|WA_LEFT|WAT_CENTER);
