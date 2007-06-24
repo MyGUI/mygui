@@ -780,4 +780,10 @@ namespace MyGUI {
         pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		return pWindow;
     }
+
+	MyGUI::Window * Window::createWidget(const String & _type, const String & _skin, uint16 _x, uint16 _y, uint16 _cx, uint16 _cy, uint16 _aligin)
+	{
+		return GUI::getSingleton()->createFactoryWidget(_type, _skin, _x, _y, _cx, _cy, this, _aligin, 0);
+	}
+
 }

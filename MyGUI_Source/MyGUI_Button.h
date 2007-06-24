@@ -1,8 +1,10 @@
 #pragma once
 
 #include "MyGUI_Window.h"
+#include "MyGUI_WidgetFactory.h"
 
-namespace MyGUI {
+namespace MyGUI
+{
 
 	class Button : public Window {
         Button(const __MYGUI_SUBSKIN_INFO * lpSkin, const String & strMaterialElement, uint8 uOverlay, Window *pWindowParent);
@@ -25,4 +27,4 @@ namespace MyGUI {
 
 	};
 
-}
+} // namespace MyGUI

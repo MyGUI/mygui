@@ -13,7 +13,9 @@ using namespace Ogre;
 using namespace std;
 using namespace OIS;
 
-namespace MyGUI {
+namespace MyGUI
+{
+
 	GUI *GUI::Initialize(uint16 uWidth, uint16 uHeight, EventCallback *pEventCallback)
 	{
 		m_uWidth = (uWidth);
@@ -38,6 +40,10 @@ namespace MyGUI {
 
 		createMousePointer();
 		setMousePointer(POINTER_DEFAULT);
+
+//		_LOG("create widget factory");
+//		addWidgetFactory(new ButtonFactory());
+
 		
 		return this;
 	}
@@ -51,6 +57,12 @@ namespace MyGUI {
 		m_overlayGUI[OVERLAY_MOUSE]->remove2D(m_overlayContainerMouse);
 		overlayManager.destroyOverlayElement(m_overlayContainerMouse);
 		for (uint16 pos=0; pos<__OVERLAY_COUNT; pos++) overlayManager.destroy(m_overlayGUI[pos]);
+
+		// удаляем все фабрики
+//		while (m_widgetFactory.size() > 0) {
+//			delete m_widgetFactory[0];
+//			m_widgetFactory.pop_back();
+//		};
 
 		_LOG("\r\ndestroy MyGui object (%p)", this);
 		
@@ -309,4 +321,26 @@ namespace MyGUI {
 		return pOverlay;
 	}
 
-}
+	MyGUI::Window * GUI::createWidget(const String & _type, const String & _skin, uint16 _x, uint16 _y, uint16 _cx, uint16 _cy, uint16 _overlay)
+	{
+		return createFactoryWidget(_type, _skin, _x, _y, _cx, _cy, NULL, 0, _overlay);
+	}
+
+	MyGUI::Window * GUI::createFactoryWidget(const String & _type, const String & _skin, uint16 _x, uint16 _y, uint16 _cx, uint16 _cy, MyGUI::Window * _parent, uint16 _aligin, uint16 _overlay)
+	{
+		for (uint16 pos=0; pos<m_widgetFactory.size(); pos++) {
+			if (m_widgetFactory[pos]->getType() == _type) {
+				return m_widgetFactory[pos]->createWidget(_skin, _x, _y, _cx, _cy, _parent, _aligin, _overlay);
+			}
+		}
+
+		assert(0 && "widget type is not valid");
+		return NULL;
+	}
+
+	void GUI::addWidgetFactory(WidgetFactory * _factory)
+	{
+		m_widgetFactory.push_back(_factory);
+	}
+
+} // namespace MyGUI

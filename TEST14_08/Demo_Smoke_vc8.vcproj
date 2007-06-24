@@ -378,6 +378,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MyGUI_Source\MyGUI_WidgetFactory.h"
+				>
+			</File>
+			<File
 				RelativePath="..\MyGUI_Source\MyGUI_Window.cpp"
 				>
 			</File>

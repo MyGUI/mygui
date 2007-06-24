@@ -172,6 +172,9 @@ namespace MyGUI {
 		uint16 m_uExData; // дополнительная информация об элементе
 		uint32 m_uUserData; // дополнительная информация пользователя
 
+		MyGUI::Window * createWidget(const String & _type, const String & _skin, uint16 _x, uint16 _y, uint16 _cx, uint16 _cy, uint16 _aligin);
+
+
 	}; // class Window : public EventCallback { // базовый класс окон гуи
 
 } // namespace MyGUI {

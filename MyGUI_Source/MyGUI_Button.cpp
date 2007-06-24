@@ -1,10 +1,12 @@
+#include "MyGUI_GUI.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_AssetManager.h"
 
 using namespace Ogre;
 using namespace std;
 
-namespace MyGUI {
+namespace MyGUI
+{
 
 	class GUI;
 
@@ -127,4 +129,25 @@ namespace MyGUI {
 		
 	}
 
-}
+	class ButtonFactory : public WidgetFactory
+	{
+	public :
+		ButtonFactory()
+		{
+			GUI::getSingleton()->addWidgetFactory(this);
+		}
+		const String & getType()
+		{
+			static String type("Button");
+			return type;
+		};
+		MyGUI::Window * createWidget(const String & _skin, uint16 _x, uint16 _y, uint16 _cx, uint16 _cy, MyGUI::Window * _parent, uint16 _aligin, uint16 _overlay)
+		{
+			return Button::createWindow(_x, _y, _cx, _cy, _parent, _aligin, _overlay, _skin);
+		}
+	}; // class ButtonFactory : public WidgetFactory
+
+	// единственная фабрика для кнопок
+	ButtonFactory widgetButtonFactory;
+
+} // namespace MyGUI

@@ -398,7 +398,8 @@ namespace SkinEditor
 		m_buttonSkinLoad->setCaption("Load");
 		m_buttonSkinLoad->m_pEventCallback = this;
 
-		m_buttonSkinSave = m_mainWindow->create<Button>(153, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON);
+//		m_buttonSkinSave = m_mainWindow->create<Button>(153, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON);
+		m_buttonSkinSave = static_cast<MyGUI::Button*>(m_mainWindow->createWidget("Button", SKIN_BUTTON, 153, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER));
 		m_buttonSkinSave->setCaption("Save");
 		m_buttonSkinSave->m_pEventCallback = this;
 

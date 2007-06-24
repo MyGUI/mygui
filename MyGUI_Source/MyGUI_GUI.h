@@ -7,12 +7,15 @@
 #include <map>
 #include <OgreOverlayElement.h>
 #include <OgreOverlay.h>
+#include "MyGUI_WidgetFactory.h"
 
 namespace MyGUI {
 
     using Ogre::DisplayString;
 
 	class GUI : public MouseHandler, public KeyboardHandler {
+
+		friend MyGUI::Window;
 
 	protected:
 
@@ -164,7 +167,18 @@ namespace MyGUI {
 		
 		//Only referenced outside of GUI class by Window class
 		size_t m_uOverlappedStart, m_uOverlappedEnd; // начало и конец в перекрывающихся окон в масиве
-		
+
+	public:
+
+		MyGUI::Window * createWidget(const String & _type, const String & _skin, uint16 _x, uint16 _y, uint16 _cx, uint16 _cy, uint16 _overlay);
+		void addWidgetFactory(WidgetFactory * _factory);
+
+	private:
+
+		MyGUI::Window * createFactoryWidget(const String & _type, const String & _skin, uint16 _x, uint16 _y, uint16 _cx, uint16 _cy, MyGUI::Window * _parent, uint16 _aligin, uint16 _overlay);
+
+		std::vector <WidgetFactory*> m_widgetFactory;
+
 	};
 
 }
