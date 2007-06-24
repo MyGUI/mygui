@@ -1,10 +1,13 @@
+#include "MyGUI_GUI.h"
+#include "MyGUI_WidgetFactory.h"
 #include "MyGUI_StaticText.h"
 #include "MyGUI_AssetManager.h"
 
 using namespace Ogre;
 using namespace std;
 
-namespace MyGUI {
+namespace MyGUI
+{
 
 	class GUI;
 
@@ -44,4 +47,8 @@ namespace MyGUI {
 		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;	
     }
-}
+
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_STATIC_TEXT, StaticText);
+
+} // namespace MyGUI

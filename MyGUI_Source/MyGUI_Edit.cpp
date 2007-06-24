@@ -3,12 +3,14 @@
 #include "MyGUI_GUI.h"
 #include "MyGUI_AssetManager.h"
 #include <OgreStringConverter.h>
+#include "MyGUI_WidgetFactory.h"
 
 using namespace Ogre;
 using namespace std;
 using namespace OIS;
 
-namespace MyGUI {
+namespace MyGUI
+{
 
 	class GUI;
 
@@ -145,5 +147,8 @@ namespace MyGUI {
 		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;
     }
-}
-//=========================================================================================
+
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_EDIT, Edit);
+
+} // namespace MyGUI

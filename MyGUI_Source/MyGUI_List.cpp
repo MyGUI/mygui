@@ -1,3 +1,5 @@
+#include "MyGUI_GUI.h"
+#include "MyGUI_WidgetFactory.h"
 #include "MyGUI_List.h"
 #include "MyGUI_OIS.h"
 #include "MyGUI_VScroll.h"
@@ -453,4 +455,8 @@ namespace MyGUI {
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		return pWindow;
 	}
-}
+
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_LIST_BOX, List);
+
+} // namespace MyGUI

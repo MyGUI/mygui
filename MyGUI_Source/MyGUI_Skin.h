@@ -137,5 +137,18 @@ namespace MyGUI {
 	
 	const String FONT_DEFAULT = "FONT_DEFAULT"; // шрифт по умолчанию
 	const String FONT_LARGE =   "FONT_LARGE"; //???
-	
+
+
+	const String WIDGET_DEFAULT = "Widget";
+    const String WIDGET_BUTTON = "Button";
+    const String WIDGET_EDIT = "Edit";
+    const String WIDGET_COMBO_BOX = "ComboBox";
+    const String WIDGET_LIST_BOX = "ListBox";
+    const String WIDGET_STATIC_TEXT = "StaticText";
+    const String WIDGET_STATIC_IMAGE = "StaticImage";
+    const String WIDGET_TAB = "Tab";
+    const String WIDGET_VSCROLL = "VScroll";
+    const String WIDGET_WINDOW_FRAME = "WindowFrame";
+
+
 }

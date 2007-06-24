@@ -1,3 +1,5 @@
+#include "MyGUI_GUI.h"
+#include "MyGUI_WidgetFactory.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_AssetManager.h"
@@ -122,4 +124,8 @@ namespace MyGUI {
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 		return pWindow;
 	}
-}
+
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_TAB, Tab);
+
+} // namespace MyGUI

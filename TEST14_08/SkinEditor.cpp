@@ -257,8 +257,8 @@ namespace SkinEditor
 
 
 		// главное окно (main window)
-		m_mainWindow = GUI::getSingleton()->create<WindowFrame>(
-			600, 150, 300, 530, MyGUI::OVERLAY_OVERLAPPED, MyGUI::SKIN_WINDOWFRAME_CX);
+		m_mainWindow = static_cast<MyGUI::WindowFrame*>(GUI::getSingleton()->createWidget(
+			MyGUI::WIDGET_WINDOW_FRAME, MyGUI::SKIN_WINDOWFRAME_CX, 600, 150, 300, 530, MyGUI::OVERLAY_OVERLAPPED) );
 		m_mainWindow->setCaption("Skin editor MyGUI 1.0");
 		m_mainWindow->m_pEventCallback = pParent;
 
@@ -358,7 +358,7 @@ namespace SkinEditor
 		m_editOffset[2]->m_pEventCallback = this;
 		m_editOffset[3]->m_pEventCallback = this;
 
-		m_buttonSabSkinStyle = m_mainWindow->create<Button>(20, 340, 200, -1, WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON);
+		m_buttonSabSkinStyle = static_cast<MyGUI::Button*>(m_mainWindow->createWidget(WIDGET_BUTTON, SKIN_BUTTON, 20, 340, 200, -1, WA_TOP|WA_LEFT|WAT_CENTER));
 		m_buttonSabSkinStyle->setCaption("SKIN STYLE");
 		m_buttonSabSkinStyle->m_pEventCallback = this;
 		m_buttonSabSkinStyle->setFont(MyGUI::FONT_DEFAULT, ColourValue::Blue);
@@ -394,12 +394,11 @@ namespace SkinEditor
 			m_editPosition[index]->setUserData(EDIT_IS_USE);
 		}
 
-		m_buttonSkinLoad = m_mainWindow->create<Button>(10, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON);
+		m_buttonSkinLoad = static_cast<MyGUI::Button*>(m_mainWindow->createWidget(WIDGET_BUTTON, SKIN_BUTTON, 10, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER));
 		m_buttonSkinLoad->setCaption("Load");
 		m_buttonSkinLoad->m_pEventCallback = this;
 
-//		m_buttonSkinSave = m_mainWindow->create<Button>(153, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER, SKIN_BUTTON);
-		m_buttonSkinSave = static_cast<MyGUI::Button*>(m_mainWindow->createWidget("Button", SKIN_BUTTON, 153, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER));
+		m_buttonSkinSave = static_cast<MyGUI::Button*>(m_mainWindow->createWidget(WIDGET_BUTTON, SKIN_BUTTON, 153, 460, 130, -1, WA_TOP|WA_LEFT|WAT_CENTER));
 		m_buttonSkinSave->setCaption("Save");
 		m_buttonSkinSave->m_pEventCallback = this;
 

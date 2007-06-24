@@ -1,5 +1,6 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_WidgetFactory.h"
 #include "MyGUI_AssetManager.h"
 #include <OgreStringConverter.h>
 
@@ -234,5 +235,7 @@ namespace MyGUI {
 		pWindow->setFont(pSkin->fontWindow, pSkin->colour);
 	}
 
-}
-//=========================================================================================
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_VSCROLL, VScroll);
+
+} // namespace MyGUI

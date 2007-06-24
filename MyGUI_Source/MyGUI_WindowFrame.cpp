@@ -1,5 +1,6 @@
 #include "MyGUI_WindowFrame.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_WidgetFactory.h"
 #include "MyGUI_AssetManager.h"
 
 using namespace Ogre;
@@ -150,5 +151,7 @@ namespace MyGUI {
 		return pWindow;
 	}
 
-}
-//=========================================================================================
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_WINDOW_FRAME, WindowFrame);
+
+} // namespace MyGUI

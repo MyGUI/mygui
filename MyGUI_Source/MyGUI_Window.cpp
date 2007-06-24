@@ -1,6 +1,7 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_AssetManager.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_WidgetFactory.h"
 #include <OgreOverlayManager.h>
 #include <OgreStringConverter.h>
 #include <OgreFont.h>
@@ -786,4 +787,7 @@ namespace MyGUI {
 		return GUI::getSingleton()->createFactoryWidget(_type, _skin, _x, _y, _cx, _cy, this, _aligin, 0);
 	}
 
-}
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_DEFAULT, Window);
+
+} // namespace MyGUI

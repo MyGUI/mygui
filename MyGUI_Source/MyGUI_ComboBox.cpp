@@ -4,12 +4,14 @@
 #include "MyGUI_Edit.h"
 #include "MyGUI_AssetManager.h"
 #include <OgreStringConverter.h>
+#include "MyGUI_WidgetFactory.h"
 
 using namespace Ogre;
 using namespace std;
 using namespace OIS;
 
-namespace MyGUI {
+namespace MyGUI
+{
 
 	void ComboBox::__COMBO_CALC_SHOW_LIST() {
 		
@@ -263,4 +265,8 @@ namespace MyGUI {
 		              SizeY > 0 ? SizeY : pSkin->subSkins[0]->sizeY);
 		return pWindow;
 	}
-}
+
+	// регестрируем фабрику
+	REGISTRY_WIDGET_FACTORY(WIDGET_COMBO_BOX, ComboBox);
+
+} // namespace MyGUI

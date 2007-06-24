@@ -1,5 +1,6 @@
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_GUI.h"
+#include "MyGUI_WidgetFactory.h"
 #include "MyGUI_Window.h"
 #include <OgreOverlay.h>
 #include <OgreOverlayManager.h>
@@ -166,4 +167,8 @@ namespace MyGUI {
         mChildren.unique();
         return this;
     }
-}
+
+	// регестрируем фабрику
+//	REGISTRY_WIDGET_FACTORY(WIDGET_STATIC_TEXT, StaticText);
+
+} // namespace MyGUI
