@@ -139,7 +139,7 @@ namespace MyGUI {
 	const String FONT_LARGE =   "FONT_LARGE"; //???
 
 
-	const String WIDGET_DEFAULT = "Widget";
+	const String WIDGET_WINDOW = "Window";
     const String WIDGET_BUTTON = "Button";
     const String WIDGET_EDIT = "Edit";
     const String WIDGET_COMBO_BOX = "ComboBox";

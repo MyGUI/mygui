@@ -192,9 +192,9 @@ namespace MyGUI {
 		while (m_uCurrentFillSize < m_pWindowClient->m_iSizeY) {
 			int16 cutSize = m_uSizeXScroll;
 			if (!m_bIsVisibleScroll) cutSize = 0; // отрезать ничего не надо
-			Window * pChild = m_pWindowClient->create<Window>(
-			    0, m_uCurrentFillSize, m_pWindowClient->m_iSizeX - cutSize, m_uSizeYButton,
-			    WA_TOP|WA_HSTRETCH, m_SkinButton);
+			Window * pChild = static_cast<Window*>(m_pWindowClient->createWidget(
+			    WIDGET_WINDOW, m_SkinButton, 0, m_uCurrentFillSize, m_pWindowClient->m_iSizeX - cutSize, m_uSizeYButton,
+			    WA_TOP|WA_HSTRETCH) );
 			pChild->m_pEventCallback = (EventCallback *)this;
 			pChild->m_overlayContainer->hide();
 			
@@ -432,10 +432,10 @@ namespace MyGUI {
 		if (pSkin->data3 != "") { // есть скролл
 			const String &SkinScroll = pSkin->data3;
 			pWindow->m_uSizeXScroll = AssetManager::getSingleton()->Skins()->getDefinition(SkinScroll)->subSkins[0]->sizeX;
-			pWindow->m_scroll = pWindow->m_pWindowClient->create<VScroll>(
-			    pWindow->m_pWindowClient->m_iSizeX - pWindow->m_uSizeXScroll, 0,
+			pWindow->m_scroll = static_cast<VScroll*> (pWindow->m_pWindowClient->createWidget(
+			    WIDGET_VSCROLL, pSkin->data3, pWindow->m_pWindowClient->m_iSizeX - pWindow->m_uSizeXScroll, 0,
 			    -1, pWindow->m_pWindowClient->m_iSizeY,
-			    WA_RIGHT|WA_VSTRETCH, pSkin->data3);
+			    WA_RIGHT|WA_VSTRETCH) );
 			    
 			pWindow->m_uStartWindow = 1;
 			pWindow->m_scroll->m_pEventCallback = (EventCallback*)pWindow;

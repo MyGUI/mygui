@@ -46,37 +46,43 @@ namespace SkinEditor
 		  m_strMaterialBorderNormal(strMaterialBorderNormal),
 		  m_pEvent(pEvent)
 		{
-			m_windowMain = pWindowFother->create<Window>(10, 10, 10, 10, WA_LEFT|WA_TOP, SKIN_DEFAULT);
+			m_windowMain = static_cast<Window*> (pWindowFother->createWidget(
+				WIDGET_WINDOW, SKIN_DEFAULT, 10, 10, 10, 10, WA_LEFT|WA_TOP) );
 			m_windowMain->m_pEventCallback = this;
 			m_windowMain->m_overlayContainer->setMaterialName(strMaterial);
 			m_windowMain->setUserData(WINDOW_MAIN);
 
 			AssetManager::getMaterialSize(strMaterial, m_uTextureSizeX, m_uTextureSizeY);
 
-			m_windowMaterialOffset[CENTER] = m_windowMain->create<Window>(1, 1, 8, 8, WA_STRETCH, SKIN_DEFAULT);
+			m_windowMaterialOffset[CENTER] = static_cast<Window*>(m_windowMain->createWidget(
+				WIDGET_WINDOW, SKIN_DEFAULT, 1, 1, 8, 8, WA_STRETCH) );
 			m_windowMaterialOffset[CENTER]->m_pEventCallback = this;
 			m_windowMaterialOffset[CENTER]->addEvent(WE_MOUSE_FOCUS|WE_MOUSE_MOVE);
 			m_windowMaterialOffset[CENTER]->setUserData(WINDOW_OFFSET);
 
-			m_windowMaterialOffset[LEFT] = m_windowMain->create<Window>(0, 0, 1, 9, WA_LEFT|WA_VSTRETCH, SKIN_DEFAULT);
+			m_windowMaterialOffset[LEFT] = static_cast<Window*>(m_windowMain->createWidget(
+				WIDGET_WINDOW, SKIN_DEFAULT, 0, 0, 1, 9, WA_LEFT|WA_VSTRETCH) );
 			m_windowMaterialOffset[LEFT]->m_pEventCallback = this;
 			m_windowMaterialOffset[LEFT]->addEvent(WE_MOUSE_FOCUS|WE_MOUSE_MOVE);
 			m_windowMaterialOffset[LEFT]->m_overlayContainer->setMaterialName(strMaterialBorderNormal);
 			m_windowMaterialOffset[LEFT]->setUserData(WINDOW_OFFSET);
 
-			m_windowMaterialOffset[TOP] = m_windowMain->create<Window>(1, 0, 9, 1, WA_TOP|WA_HSTRETCH, SKIN_DEFAULT);
+			m_windowMaterialOffset[TOP] = static_cast<Window*>(m_windowMain->createWidget(
+				WIDGET_WINDOW, SKIN_DEFAULT, 1, 0, 9, 1, WA_TOP|WA_HSTRETCH) );
 			m_windowMaterialOffset[TOP]->m_pEventCallback = this;
 			m_windowMaterialOffset[TOP]->addEvent(WE_MOUSE_FOCUS|WE_MOUSE_MOVE);
 			m_windowMaterialOffset[TOP]->m_overlayContainer->setMaterialName(strMaterialBorderNormal);
 			m_windowMaterialOffset[TOP]->setUserData(WINDOW_OFFSET);
 
-			m_windowMaterialOffset[RIGHT] = m_windowMain->create<Window>(9, 1, 1, 9, WA_RIGHT|WA_VSTRETCH, SKIN_DEFAULT);
+			m_windowMaterialOffset[RIGHT] = static_cast<Window*>(m_windowMain->createWidget(
+				WIDGET_WINDOW, SKIN_DEFAULT, 9, 1, 1, 9, WA_RIGHT|WA_VSTRETCH) );
 			m_windowMaterialOffset[RIGHT]->m_pEventCallback = this;
 			m_windowMaterialOffset[RIGHT]->addEvent(WE_MOUSE_FOCUS|WE_MOUSE_MOVE);
 			m_windowMaterialOffset[RIGHT]->m_overlayContainer->setMaterialName(strMaterialBorderNormal);
 			m_windowMaterialOffset[RIGHT]->setUserData(WINDOW_OFFSET);
 
-			m_windowMaterialOffset[BOTTOM] = m_windowMain->create<Window>(0, 9, 9, 1, WA_BOTTOM|WA_HSTRETCH, SKIN_DEFAULT);
+			m_windowMaterialOffset[BOTTOM] = static_cast<Window*>(m_windowMain->createWidget(
+				WIDGET_WINDOW, SKIN_DEFAULT, 0, 9, 9, 1, WA_BOTTOM|WA_HSTRETCH) );
 			m_windowMaterialOffset[BOTTOM]->m_pEventCallback = this;
 			m_windowMaterialOffset[BOTTOM]->addEvent(WE_MOUSE_FOCUS|WE_MOUSE_MOVE);
 			m_windowMaterialOffset[BOTTOM]->m_overlayContainer->setMaterialName(strMaterialBorderNormal);

@@ -28,7 +28,7 @@ namespace MyGUI {
 	    static Window *Window::createWindow(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
 	        Window *parent, uint16 uAlign, uint16 uOverlay, const String &Skin = SKIN_WINDOWFRAME);
 	    
-	    template <typename Widget> Widget *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
+/*	    template <typename Widget> Widget *create(int16 PosX, int16 PosY, int16 SizeX, int16 SizeY,
             uint16 uAlign, const String &Skin = __SKIN_WIDGET_DEFAULT)
         {
             if(Skin == __SKIN_WIDGET_DEFAULT)
@@ -47,7 +47,7 @@ namespace MyGUI {
                 
             return create<Widget>(NewPosX, NewPosY, NewSizX, NewSizeY, uAlign, uSkin);
         }
-        
+        */
         /*
             Event handlers.  Question: could these be integrated with the EventCallback class to unify
             event callback listeners into a single class?

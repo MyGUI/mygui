@@ -45,7 +45,8 @@ void OptionsState::enter(bool bIsChangeState)
 
 	BasisManager::getSingleton()->mWallpaperOverlay->getChild("wallpaper")->setMaterialName(m_straColour.front());
 
-	m_comboBackground = GUI::getSingleton()->create<ComboBox>((GUI::getSingleton()->getWidth()/2) - 100, 10, 200, -1, OVERLAY_MAIN, MyGUI::SKIN_DROP_LIST);
+	m_comboBackground = static_cast<MyGUI::ComboBox*> (GUI::getSingleton()->createWidget(
+		MyGUI::WIDGET_COMBO_BOX, MyGUI::SKIN_DROP_LIST, (GUI::getSingleton()->getWidth()/2) - 100, 10, 200, -1, OVERLAY_MAIN) );
 	m_comboBackground->m_pEventCallback = this;
 	
 	for (uint8 pos=0; pos<m_straColour.size(); pos++)
@@ -53,11 +54,13 @@ void OptionsState::enter(bool bIsChangeState)
 	
 	m_comboBackground->setString(0);
     
-	m_buttonExit = (Button *) GUI::getSingleton()->create<Button>(10, 10, 150, -1, MyGUI::OVERLAY_MAIN)->
-	                setCaption("Exit");
+	m_buttonExit = static_cast<MyGUI::Button *> (GUI::getSingleton()->createWidget(
+		MyGUI::WIDGET_BUTTON, MyGUI::SKIN_BUTTON, 10, 10, 150, -1, MyGUI::OVERLAY_MAIN) );
+	m_buttonExit->setCaption("Exit");
     
-	m_buttonEditor = (Button *) GUI::getSingleton()->create<Button>(GUI::getSingleton()->getWidth() - 160, 10, 150, -1, MyGUI::OVERLAY_MAIN)->
-	                setCaption("Editor");
+	m_buttonEditor = static_cast<MyGUI::Button *> (GUI::getSingleton()->createWidget(
+		MyGUI::WIDGET_BUTTON, MyGUI::SKIN_BUTTON, GUI::getSingleton()->getWidth() - 160, 10, 150, -1, MyGUI::OVERLAY_MAIN) );
+	m_buttonEditor->setCaption("Editor");
 	m_buttonEditor->hide();
     
 	mEditor = new SkinEditor::SkinEditor(this);

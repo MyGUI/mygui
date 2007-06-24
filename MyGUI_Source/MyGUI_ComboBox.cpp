@@ -239,8 +239,8 @@ namespace MyGUI
 		const __tag_MYGUI_SKIN_INFO * pSkinTmpA = AssetManager::getSingleton()->Skins()->getDefinition(pSkin->data3);
 		const __tag_MYGUI_SKIN_INFO * pSkinTmp  = AssetManager::getSingleton()->Skins()->getDefinition(pSkinTmpA->data4); // скин кнопок списка
 		
-		pWindow->m_pList = GUI::getSingleton()->create<List>(
-		    300, 300, 300, 300, OVERLAY_POPUP, pSkin->data3);
+		pWindow->m_pList = static_cast<List*> (GUI::getSingleton()->createWidget(
+		    WIDGET_LIST_BOX, pSkin->data3, 300, 300, 300, 300, OVERLAY_POPUP) );
 		    
 		pWindow->m_pList->m_pEventCallback = (EventCallback*)pWindow;
 		pWindow->m_pList->show(false);
@@ -252,8 +252,8 @@ namespace MyGUI
 		    - pWindow->m_pList->m_pWindowClient->m_iSizeY);
 		    
 		if (!pSkin->data2.empty()) { // скин едита
-			pWindow->m_pEdit = pWindow->m_pWindowText->create<Edit>(
-			    0, 0, -1, -1, WA_STRETCH, pSkin->data2);
+			pWindow->m_pEdit = static_cast<Edit*> (pWindow->m_pWindowText->createWidget(
+			    WIDGET_EDIT, pSkin->data2, 0, 0, -1, -1, WA_STRETCH) );
 			pWindow->m_pWindowText->m_uEventCallback = WE_NONE;
 			pWindow->m_pWindowText = pWindow->m_pEdit;
 			pWindow->m_pEdit->m_pEventCallback = (EventCallback*)pWindow;

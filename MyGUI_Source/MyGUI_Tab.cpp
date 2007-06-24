@@ -22,7 +22,8 @@ namespace MyGUI {
 
 	Window * Tab::addSheet(const DisplayString & strName, int16 iSizeX) // добавляет вкладку
 	{
-		Button * pButton = create<Button>(m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE, m_SkinButton);
+		Button * pButton = static_cast<Button*>(createWidget(
+			WIDGET_BUTTON, m_SkinButton, m_iCurrentButtonsSizeX, 0, iSizeX, -1, WA_NONE) );
         pButton->setCaption(strName);
 		                   
 		pButton->addEvent(WE_MOUSE_BUTTON);
@@ -33,8 +34,8 @@ namespace MyGUI {
 			m_pWindowTop->size(m_pWindowTop->m_iSizeX - pButton->m_iSizeX, m_pWindowTop->m_iSizeY);
 		}
 
-		Window * pSheet = m_pWindowTab->create<Window>(0, 0, m_pWindowTab->m_iSizeX, m_pWindowTab->m_iSizeY,
-		    WA_STRETCH, SKIN_DEFAULT);
+		Window * pSheet = static_cast<Window*>(m_pWindowTab->createWidget(
+			WIDGET_WINDOW, SKIN_DEFAULT, 0, 0, m_pWindowTab->m_iSizeX, m_pWindowTab->m_iSizeY, WA_STRETCH) );
         pSheet->m_pEventCallback = this;
 		
 		pSheet->m_pWindowText = pButton->m_pWindowText; // для установки текста через вкладку

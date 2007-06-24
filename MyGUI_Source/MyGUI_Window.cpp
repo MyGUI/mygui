@@ -788,6 +788,6 @@ namespace MyGUI {
 	}
 
 	// регестрируем фабрику
-	REGISTRY_WIDGET_FACTORY(WIDGET_DEFAULT, Window);
+	REGISTRY_WIDGET_FACTORY(WIDGET_WINDOW, Window);
 
 } // namespace MyGUI
