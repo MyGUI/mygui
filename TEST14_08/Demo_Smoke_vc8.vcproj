@@ -202,6 +202,10 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
+				RelativePath=".\SabSkin.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SkinEditor.cpp"
 				>
 			</File>
@@ -439,6 +443,18 @@
 			</File>
 			<File
 				RelativePath=".\OptionsState.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Widget"
+			>
+			<File
+				RelativePath=".\Widget.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Widget.h"
 				>
 			</File>
 		</Filter>
