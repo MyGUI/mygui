@@ -184,6 +184,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 
 	if (mWindow) {
 		mWindow->destroy();
+
 		mWindow = 0;
 	}
 	
@@ -366,7 +367,9 @@ void BasisManager::windowResized(RenderWindow* rw)
 {
 	unsigned int width, height, depth;
 	int left, top;
-	rw->getMetrics(width, height, depth, left, top);
+	width = rw->getWidth();
+	height = rw->getHeight();
+	//rw->getMetrics(width, height, depth, left, top);
 
 	m_uWidth = width;
 	m_uHeight = height;

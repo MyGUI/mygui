@@ -76,9 +76,12 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widgetParent = new Widget(170, 170, 200, 200, 0);
 	m_widgetParent->createOverlay(overlay, 0, "BACK_GREEN");
 
-
 	m_widgetChild = m_widgetParent ->createChild(10, 10, 100, 100);
-	m_widgetChild->createOverlay(0, m_widgetParent->m_overlayContainer, "BACK_GRAY");
+	m_widgetChild->createOverlay(0, m_widgetParent->m_overlayContainer, "MyGUI_button");
+
+	//m_widgetSubChild = m_widgetChild ->createChild(10, 10, 100, 100);
+	//m_widgetSubChild->createOverlay(0, m_widgetParent->m_overlayContainer, "MyGUI_button");
+
 
 }
 //===================================================================================

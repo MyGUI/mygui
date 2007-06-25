@@ -225,8 +225,8 @@ namespace MyGUI {
 						for (uint8 index=0; index<__SKIN_STATE_COUNT; index++) {
 							if (subSkin->fOffsetStateSkin[index][_CX] != 0.0) {
 
-								subSkin->fOffsetStateSkin[index][_CX] = subSkin->fOffsetStateSkin[index][_CX] + subSkin->fOffsetStateSkin[index][_X] - 1;
-								subSkin->fOffsetStateSkin[index][_CY] = subSkin->fOffsetStateSkin[index][_CY] + subSkin->fOffsetStateSkin[index][_Y] - 1;
+								subSkin->fOffsetStateSkin[index][_CX] += subSkin->fOffsetStateSkin[index][_X] - 1;
+								subSkin->fOffsetStateSkin[index][_CY] += subSkin->fOffsetStateSkin[index][_Y] - 1;
 
 								subSkin->fOffsetStateSkin[index][_X] = subSkin->fOffsetStateSkin[index][_X] / (float)sizeX + offset_x;
 								subSkin->fOffsetStateSkin[index][_Y] = subSkin->fOffsetStateSkin[index][_Y] / (float)sizeY + offset_y;

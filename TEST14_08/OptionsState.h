@@ -34,5 +34,6 @@ public:
 
 	Widget * m_widgetParent;
 	Widget * m_widgetChild;
+	//Widget * m_widgetSubChild;
 
 };
