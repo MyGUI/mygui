@@ -1,4 +1,4 @@
-#include "Widget.h"
+#include "WidgetBasis.h"
 #include "MyGUI_Source//MyGUI_AssetManager.h"
 
 namespace widget
@@ -58,13 +58,13 @@ namespace widget
 
 		//смотрим, как порубать оверлей
 		m_left_margin   = (left()   < m_parent->m_left_margin) ?
-								   m_parent->m_left_margin - left() : 0; //вылезли ли налево
+									m_parent->m_left_margin - left() : 0; //вылезли ли налево
 		m_right_margin  = (right()  > m_parent->m_cx - m_parent->m_right_margin) ?
-			 right()  - (m_parent->m_cx - m_parent->m_right_margin) : 0; //вылезли ли направо
+				    right() - (m_parent->m_cx - m_parent->m_right_margin) : 0; //вылезли ли направо
 		m_top_margin    = (top()    < m_parent->m_top_margin) ?
-									 m_parent->m_top_margin - top() : 0; //вылезли ли вверх
+									  m_parent->m_top_margin - top() : 0; //вылезли ли вверх
 		m_bottom_margin = (bottom() > m_parent->m_cy - m_parent->m_bottom_margin) ?
-			bottom() - (m_parent->m_cy - m_parent->m_bottom_margin) : 0; //вылезли ли вниз
+				  bottom() - (m_parent->m_cy - m_parent->m_bottom_margin) : 0; //вылезли ли вниз
 		if (right()  < m_parent->m_left_margin )                    { hide(); return;} // совсем уехали налево
 		if (left()   > m_parent->m_cx - m_parent->m_right_margin )  { hide(); return;} // совсем уехали направо
 		if (bottom() < m_parent->m_top_margin  )                    { hide(); return;} // совсем уехали вверх
@@ -72,7 +72,7 @@ namespace widget
 		show(); // еще что-то видно
 
 		//порубали оверлей
-		m_overlayContainer->setPosition(view_left(), view_top());
+		m_overlayContainer->setPosition(view_left() - m_parent->m_left_margin, view_top() - m_parent->m_top_margin);
 		m_overlayContainer->setWidth(view_width());
 		m_overlayContainer->setHeight(view_height());
 

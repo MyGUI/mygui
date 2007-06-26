@@ -446,14 +446,6 @@
 			Name="Widget"
 			>
 			<File
-				RelativePath=".\Widget.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Widget.h"
-				>
-			</File>
-			<File
 				RelativePath=".\WidgetBasis.cpp"
 				>
 			</File>
