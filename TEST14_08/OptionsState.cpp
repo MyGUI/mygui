@@ -81,6 +81,7 @@ void OptionsState::enter(bool bIsChangeState)
 
 	m_widgetSubChild = m_widgetChild ->createChild(0, 0, 60, 60);
 	m_widgetSubChild->createOverlay(0, m_widgetChild->m_overlayContainer, "MyGUI_button");
+
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )

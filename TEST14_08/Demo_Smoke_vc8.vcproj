@@ -453,6 +453,14 @@
 				RelativePath=".\Widget.h"
 				>
 			</File>
+			<File
+				RelativePath=".\WidgetBasis.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WidgetBasis.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

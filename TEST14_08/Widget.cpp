@@ -111,15 +111,12 @@ namespace widget
 			(*iter)->update();
 	}
 
-	int idioticCounter; // !!!FIXME!!!
-
 	void Widget::createOverlay(Ogre::Overlay * _overlay, Ogre::OverlayContainer * _overlayContainer, const Ogre::String & material)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		m_overlayContainer = static_cast<Ogre::PanelOverlayElement*>(overlayManager.createOverlayElement(
-			"Panel", "Widget_" + material + Ogre::StringConverter::toString(idioticCounter)) ); //!!!FIXME!!!
-		idioticCounter++;
+			"Panel", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_x, m_y);
