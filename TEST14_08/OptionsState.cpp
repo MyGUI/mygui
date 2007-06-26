@@ -76,18 +76,25 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widgetParent = new Widget(170, 170, 200, 200, 0);
 	m_widgetParent->createOverlay(overlay, 0, "BACK_GREEN");
 
-	m_widgetChild = m_widgetParent ->createChild(10, 10, 100, 100);
+	m_widgetChild = m_widgetParent ->createChild(0, 0, 100, 100);
 	m_widgetChild->createOverlay(0, m_widgetParent->m_overlayContainer, "MyGUI_button");
 
-	//m_widgetSubChild = m_widgetChild ->createChild(10, 10, 100, 100);
-	//m_widgetSubChild->createOverlay(0, m_widgetParent->m_overlayContainer, "MyGUI_button");
-
-
+	m_widgetSubChild = m_widgetChild ->createChild(0, 0, 60, 60);
+	m_widgetSubChild->createOverlay(0, m_widgetChild->m_overlayContainer, "MyGUI_button");
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-	m_widgetChild->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+	if(toggle)
+		m_widgetChild->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+	else
+		m_widgetSubChild->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+	return true;
+}
+//===================================================================================
+bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+{
+	toggle = 1 - toggle;
 	return true;
 }
 //===================================================================================

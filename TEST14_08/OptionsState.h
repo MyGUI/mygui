@@ -18,6 +18,7 @@ public:
 	void onMouseClick(MyGUI::Window * pWindow); // нажата и отпущена левая кнопка мыши на этом же элементе
 	void onOtherEvent(MyGUI::Window * pWindow, MyGUI::uint16 uEvent, MyGUI::uint32 data); // дополнительные события
 	bool mouseMoved( const OIS::MouseEvent &arg );
+	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
 	MyGUI::Button * m_buttonExit;
 	MyGUI::Button * m_buttonEditor;
@@ -32,8 +33,9 @@ public:
 	void exit();
 	void windowResize(); // уведомление об изменении размеров окна рендера
 
+	bool toggle; //переключение движения m_widgetChild и m_widgetSubChild
 	Widget * m_widgetParent;
 	Widget * m_widgetChild;
-	//Widget * m_widgetSubChild;
+	Widget * m_widgetSubChild;
 
 };

@@ -30,8 +30,8 @@ namespace widget
 		Ogre::PanelOverlayElement * m_overlayContainer;
 
 	protected:
-		void check();
-		void update();
+		void check(); // проверка на выход за границы и обрезка
+		void update(); // обновления себя и детей
 
 	protected:
 		bool created;

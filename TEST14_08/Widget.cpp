@@ -48,10 +48,6 @@ namespace widget
 	{
 		m_x = _x;
 		m_y = _y;
-		check();
-		m_overlayContainer->setPosition(view_left(), view_top());
-		m_overlayContainer->setWidth(view_width());
-		m_overlayContainer->setHeight(view_height());
 		update();
 	}
 
@@ -60,7 +56,7 @@ namespace widget
 		if (!m_parent) return;
 		if (!created) return;
 
-		//порубали оверлей
+		//смотрим, как порубать оверлей
 		m_left_margin   = (left()   < m_parent->m_left_margin) ?
 								   m_parent->m_left_margin - left() : 0; //вылезли ли налево
 		m_right_margin  = (right()  > m_parent->m_cx - m_parent->m_right_margin) ?
@@ -74,6 +70,11 @@ namespace widget
 		if (bottom() < m_parent->m_top_margin  )                    { hide(); return;} // совсем уехали вверх
 		if (top()    > m_parent->m_cy - m_parent->m_bottom_margin ) { hide(); return;} // совсем уехали вниз
 		show(); // еще что-то видно
+
+		//порубали оверлей
+		m_overlayContainer->setPosition(view_left(), view_top());
+		m_overlayContainer->setWidth(view_width());
+		m_overlayContainer->setHeight(view_height());
 
 		if(!(m_left_margin || m_right_margin || m_top_margin || m_bottom_margin)){
 			//если никуда не вылезли
@@ -129,7 +130,6 @@ namespace widget
 		else _overlay->add2D(m_overlayContainer);
 
 		created = 1;
-		check();
 		update();
 	}
 
