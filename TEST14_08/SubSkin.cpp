@@ -1,9 +1,10 @@
-#include "WidgetBasis.h"
-#include "MyGUI_Source//MyGUI_AssetManager.h"
+
+#include "SubSkin.h"
 
 namespace widget
 {
-	CropBase::CropBase(int _x, int _y, int _cx, int _cy, CropBase * _parent)
+
+	SubSkin::SubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, Widget * _parent, PanelOverlayElement * _overlayContainer)
 		: m_parent (_parent),
 		m_x (_x),
 		m_y (_y),
@@ -13,50 +14,59 @@ namespace widget
 		m_right_margin (0),
 		m_top_margin (0),
 		m_bottom_margin (0),
-		created(0)
+		m_baseLeftUV (_leftUV),
+		m_baseTopUV (_topUV),
+		m_baseRightUV (_rightUV),
+		m_baseBottomUV (_bottomUV),
+		m_material(_material)
 	{
-		UV_lft_base = 0.2;
-		UV_rgt_base = 0.6;
-		UV_top_base = 0.2;
-		UV_btm_base = 0.8;
-	}
 
-	CropBase::~CropBase()
-	{
-		while (m_widgetChild.size() > 0)  {
-			delete m_widgetChild[0];
-			m_widgetChild.pop_back();
-		};
-	}
+		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
-	CropBase * CropBase::createChild(int _x, int _y, int _cx, int _cy)
-	{
-		CropBase * widget = new CropBase(_x, _y, _cx, _cy, this);
-		m_widgetChild.push_back(widget);
+		m_overlayContainer = static_cast<Ogre::PanelOverlayElement*>(overlayManager.createOverlayElement(
+			"Panel", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
+
+		m_overlayContainer->setMetricsMode(GMM_PIXELS);
+		m_overlayContainer->setPosition(m_x, m_y);
+		m_overlayContainer->setDimensions(m_cx, m_cy);
+		m_overlayContainer->setMaterialName(m_material);
+
+		if (_overlayContainer) {
+			// если у отца есть хоть один сабскин, то оформляем отцовство
+			_overlayContainer->addChild(m_overlayContainer);
+		} else {
+			m_overlayContainer->setPosition(m_parent->m_x + m_x, m_parent->m_y + m_y);
+			// а если нет, то создадим отца
+			Overlay * overlay;
+			overlay = overlayManager.create("WidgetOverlay");
+			overlay->setZOrder(200);
+			overlay->show();
+			overlay->add2D(m_overlayContainer);
+		}
+
 		update();
-		return widget;
 	}
 
-	void CropBase::size(int _cx, int _cy)
+	SubSkin::~SubSkin()
+	{
+	}
+
+	void SubSkin::size(int _cx, int _cy)
 	{
 		m_cx = _cx;
 		m_cy = _cy;
 		update();
 	}
 
-	void CropBase::move(int _x, int _y)
+	void SubSkin::move(int _x, int _y)
 	{
 		m_x = _x;
 		m_y = _y;
-//		aligin();
 		update();
 	}
 
-	void CropBase::check()
+	void SubSkin::check()
 	{
-		if (!m_parent) return;
-		if (!created) return;
-
 		//смотрим, как порубать оверлей
 		m_left_margin   = (left()   < m_parent->m_left_margin) ?
 									m_parent->m_left_margin - left() : 0; //вылезли ли налево
@@ -67,7 +77,7 @@ namespace widget
 		m_bottom_margin = (bottom() > m_parent->m_cy - m_parent->m_bottom_margin) ?
 				  bottom() - (m_parent->m_cy - m_parent->m_bottom_margin) : 0; //вылезли ли вниз
 
-		if (!m_overlayContainer) return;
+		// hide не юзать, так как все дочки юзают первый сабскин, используй setTransparent
 
 		if (right()  < m_parent->m_left_margin )                    { m_overlayContainer->setTransparent(true); return;} // совсем уехали налево
 		if (left()   > m_parent->m_cx - m_parent->m_right_margin )  { m_overlayContainer->setTransparent(true); return;} // совсем уехали направо
@@ -83,7 +93,7 @@ namespace widget
 
 		if(!(m_left_margin || m_right_margin || m_top_margin || m_bottom_margin)){
 			//если никуда не вылезли
-			m_overlayContainer->setUV(UV_lft_base, UV_top_base, UV_rgt_base, UV_btm_base);
+			m_overlayContainer->setUV(m_baseLeftUV, m_baseTopUV, m_baseRightUV, m_baseBottomUV);
 			return;
 		}
 		// теперь смещаем текстуру
@@ -97,43 +107,21 @@ namespace widget
 		UV_rgt = UV_rgt / (float)m_cx;
 		UV_btm = UV_btm / (float)m_cy;
 
-		Real UV_sizeX = UV_rgt_base - UV_lft_base;
-		Real UV_sizeY = UV_btm_base - UV_top_base;
+		Real UV_sizeX = m_baseRightUV - m_baseLeftUV;
+		Real UV_sizeY = m_baseBottomUV - m_baseTopUV;
 
-		Real UV_lft_total = UV_lft_base + UV_lft * UV_sizeX;
-		Real UV_top_total = UV_top_base + UV_top * UV_sizeY;
-		Real UV_rgt_total = UV_rgt_base - (1-UV_rgt) * UV_sizeX;
-		Real UV_btm_total = UV_btm_base - (1-UV_btm) * UV_sizeY;
+		Real UV_lft_total = m_baseLeftUV + UV_lft * UV_sizeX;
+		Real UV_top_total = m_baseTopUV + UV_top * UV_sizeY;
+		Real UV_rgt_total = m_baseRightUV - (1-UV_rgt) * UV_sizeX;
+		Real UV_btm_total = m_baseBottomUV - (1-UV_btm) * UV_sizeY;
 
 		m_overlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 	}
 
-	void CropBase::update()
+	void SubSkin::update()
 	{
 		check();
-		std::vector<CropBase*>::iterator iter;
-		for(iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++)
-			(*iter)->update();
-	}
-
-	void CropBase::createOverlay(Ogre::Overlay * _overlay, Ogre::OverlayContainer * _overlayContainer, const Ogre::String & material)
-	{
-		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-
-		m_overlayContainer = static_cast<Ogre::PanelOverlayElement*>(overlayManager.createOverlayElement(
-			"Panel", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
-
-		m_overlayContainer->setMetricsMode(GMM_PIXELS);
-		m_overlayContainer->setPosition(m_x, m_y);
-		m_overlayContainer->setDimensions(m_cx, m_cy);
-		m_overlayContainer->setMaterialName(material);
-
-		if (_overlayContainer) _overlayContainer->addChild(m_overlayContainer);
-		else _overlay->add2D(m_overlayContainer);
-
-		created = 1;
-		update();
 	}
 
 
-} // namespace CropBase
+} // namespace SubSkin

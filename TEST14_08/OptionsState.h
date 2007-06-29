@@ -2,7 +2,7 @@
 
 #include "BasisState.h"
 #include "SkinEditor.h"
-#include "WidgetBasis.h"
+#include "Widget.h"
 
 using namespace widget;
 

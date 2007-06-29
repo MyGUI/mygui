@@ -453,6 +453,14 @@
 				RelativePath=".\SubSkin.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Widget.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Widget.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

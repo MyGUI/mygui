@@ -66,21 +66,14 @@ void OptionsState::enter(bool bIsChangeState)
 	mEditor = new SkinEditor::SkinEditor(this);
 
 
-	OverlayManager &overlayManager = OverlayManager::getSingleton();
-
-	Overlay * overlay;
-	overlay = overlayManager.create("WidgetOverlay");
-	overlay->setZOrder(200);
-	overlay->show();
-
 	m_widgetParent = new Widget(170, 170, 200, 200, 0);
-	m_widgetParent->createOverlay(overlay, 0, "BACK_GREEN");
+	m_widgetParent->addSubSkin(0, 0, 200, 200, 0, 0, 1, 1, "BACK_GREEN");
 
 	m_widgetChild = m_widgetParent ->createChild(0, 0, 100, 100);
-	m_widgetChild->createOverlay(0, m_widgetParent->m_overlayContainer, "MyGUI_button");
+	m_widgetChild->addSubSkin(0, 0, 100, 100, 0, 0, 1, 1, "MyGUI_button");
 
 	m_widgetSubChild = m_widgetChild ->createChild(0, 0, 60, 60);
-	m_widgetSubChild->createOverlay(0, m_widgetChild->m_overlayContainer, "MyGUI_button");
+	m_widgetSubChild->addSubSkin(0, 0, 60, 60, 0, 0, 1, 1, "MyGUI_button");
 
 }
 //===================================================================================
