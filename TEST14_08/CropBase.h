@@ -11,14 +11,14 @@ namespace widget
 {
 	using namespace Ogre;
 
-	class Widget
+	class CropBase
 	{
 
 	public:
-		Widget(int _x, int _y, int _cx, int _cy, Widget * _parent);
-		virtual ~Widget();
+		CropBase(int _x, int _y, int _cx, int _cy, CropBase * _parent);
+		virtual ~CropBase();
 
-		Widget * createChild(int _x, int _y, int _cx, int _cy);
+		CropBase * createChild(int _x, int _y, int _cx, int _cy);
 
 		void size(int _cx, int _cy);
 		void move(int _x, int _y);
@@ -26,7 +26,6 @@ namespace widget
 		void createOverlay(Ogre::Overlay * _overlay, Ogre::OverlayContainer * _overlayContainer, const Ogre::String & material);
 
 	public:
-		//Ogre::OverlayContainer * m_overlayContainer;
 		Ogre::PanelOverlayElement * m_overlayContainer;
 
 	protected:
@@ -36,8 +35,8 @@ namespace widget
 	protected:
 		bool created;
 
-		Widget * m_parent;
-		std::vector<Widget*> m_widgetChild;
+		CropBase * m_parent;
+		std::vector<CropBase*> m_widgetChild;
 
 		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
@@ -59,6 +58,6 @@ namespace widget
 		inline void hide(){m_overlayContainer->hide();}
 		inline void show(){m_overlayContainer->show();}
 
-	}; // class Widget
+	}; // class CropBase
 
 } // namespace widget

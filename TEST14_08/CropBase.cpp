@@ -3,7 +3,7 @@
 
 namespace widget
 {
-	Widget::Widget(int _x, int _y, int _cx, int _cy, Widget * _parent)
+	CropBase::CropBase(int _x, int _y, int _cx, int _cy, CropBase * _parent)
 		: m_parent (_parent),
 		m_x (_x),
 		m_y (_y),
@@ -21,7 +21,7 @@ namespace widget
 		UV_btm_base = 0.8;
 	}
 
-	Widget::~Widget()
+	CropBase::~CropBase()
 	{
 		while (m_widgetChild.size() > 0)  {
 			delete m_widgetChild[0];
@@ -29,29 +29,30 @@ namespace widget
 		};
 	}
 
-	Widget * Widget::createChild(int _x, int _y, int _cx, int _cy)
+	CropBase * CropBase::createChild(int _x, int _y, int _cx, int _cy)
 	{
-		Widget * widget = new Widget(_x, _y, _cx, _cy, this);
+		CropBase * widget = new CropBase(_x, _y, _cx, _cy, this);
 		m_widgetChild.push_back(widget);
 		update();
 		return widget;
 	}
 
-	void Widget::size(int _cx, int _cy)
+	void CropBase::size(int _cx, int _cy)
 	{
 		m_cx = _cx;
 		m_cy = _cy;
 		update();
 	}
 
-	void Widget::move(int _x, int _y)
+	void CropBase::move(int _x, int _y)
 	{
 		m_x = _x;
 		m_y = _y;
+//		aligin();
 		update();
 	}
 
-	void Widget::check()
+	void CropBase::check()
 	{
 		if (!m_parent) return;
 		if (!created) return;
@@ -65,11 +66,15 @@ namespace widget
 									  m_parent->m_top_margin - top() : 0; //вылезли ли вверх
 		m_bottom_margin = (bottom() > m_parent->m_cy - m_parent->m_bottom_margin) ?
 				  bottom() - (m_parent->m_cy - m_parent->m_bottom_margin) : 0; //вылезли ли вниз
-		if (right()  < m_parent->m_left_margin )                    { hide(); return;} // совсем уехали налево
-		if (left()   > m_parent->m_cx - m_parent->m_right_margin )  { hide(); return;} // совсем уехали направо
-		if (bottom() < m_parent->m_top_margin  )                    { hide(); return;} // совсем уехали вверх
-		if (top()    > m_parent->m_cy - m_parent->m_bottom_margin ) { hide(); return;} // совсем уехали вниз
-		show(); // еще что-то видно
+
+		if (!m_overlayContainer) return;
+
+		if (right()  < m_parent->m_left_margin )                    { m_overlayContainer->setTransparent(true); return;} // совсем уехали налево
+		if (left()   > m_parent->m_cx - m_parent->m_right_margin )  { m_overlayContainer->setTransparent(true); return;} // совсем уехали направо
+		if (bottom() < m_parent->m_top_margin  )                    { m_overlayContainer->setTransparent(true); return;} // совсем уехали вверх
+		if (top()    > m_parent->m_cy - m_parent->m_bottom_margin ) { m_overlayContainer->setTransparent(true); return;} // совсем уехали вниз
+
+		m_overlayContainer->setTransparent(false); // еще что-то видно
 
 		//порубали оверлей
 		m_overlayContainer->setPosition(view_left() - m_parent->m_left_margin, view_top() - m_parent->m_top_margin);
@@ -103,15 +108,15 @@ namespace widget
 		m_overlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 	}
 
-	void Widget::update()
+	void CropBase::update()
 	{
 		check();
-		std::vector<Widget*>::iterator iter;
+		std::vector<CropBase*>::iterator iter;
 		for(iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++)
 			(*iter)->update();
 	}
 
-	void Widget::createOverlay(Ogre::Overlay * _overlay, Ogre::OverlayContainer * _overlayContainer, const Ogre::String & material)
+	void CropBase::createOverlay(Ogre::Overlay * _overlay, Ogre::OverlayContainer * _overlayContainer, const Ogre::String & material)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
@@ -131,4 +136,4 @@ namespace widget
 	}
 
 
-} // namespace Widget
+} // namespace CropBase
