@@ -45,10 +45,12 @@ namespace widget
 		void updateMain();
 		// вызывается если сабскин может быть смещен или не во весь виджет
 		void updateSub();
-		// просто восстанавливает все размеры и позиции
-		void restore();
+		// просто восстанавливает все размеры и позиции (с коррекцией)
+		void restore(int _x = 0, int _y = 0);
 		// скрываем показывает оверлей
 		inline void show(bool _show) {_show ? m_overlayContainer->show() : m_overlayContainer->hide();};
+		// корректируем положение скина, нужно при обрезке отца
+		void correct(int _x, int _y);
 
 		Widget * m_parent;
 

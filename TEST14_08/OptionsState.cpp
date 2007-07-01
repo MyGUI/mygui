@@ -67,6 +67,11 @@ void OptionsState::enter(bool bIsChangeState)
 	mEditor = new SkinEditor::SkinEditor(this);
 
 
+	m_widget1 = 0;
+	m_widget2 = 0;
+	m_widget3 = 0;
+	m_widget4 = 0;
+
 	m_widget1 = new Widget(170, 170, 200, 200, 0);
 	m_widget1->addSubSkin(0, 0, 200, 200, 0, 0, 1, 1, "BACK_GREEN");
 
@@ -78,14 +83,15 @@ void OptionsState::enter(bool bIsChangeState)
 //	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1");
 //	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_s1");
 
-//	m_widget4 = m_widget3 ->createChild(20, 20, 20, 20);
-//	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1");
+	m_widget4 = m_widget2 ->createChild(20, 20, 20, 20);
+	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1");
 
 	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
 	debug.add("need cut 2", 170, 50, m_widget2->m_margin);
 //	debug.add("need cut 3", 170, 70, m_widget3->m_margin);
-//	debug.add("need cut 4", 170, 90, m_widget4->m_margin);
+	debug.add("need cut 4", 170, 90, m_widget4->m_margin);
 
+//	debug.add("aligin 2", 170, 120, m_widget2->m_left_margin);
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )

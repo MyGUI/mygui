@@ -1,5 +1,6 @@
 
 #include "Widget.h"
+#include "debugOut.h"
 //#include "MyGUI_Source//MyGUI_AssetManager.h"
 
 namespace widget
@@ -17,12 +18,7 @@ namespace widget
 		m_bottom_margin (0),
 		m_margin(false),
 		m_showSkins(true)
-//		created(0)
 	{
-/*		UV_lft_base = 0.2;
-		UV_rgt_base = 0.6;
-		UV_top_base = 0.2;
-		UV_btm_base = 0.8;*/
 		check();
 	}
 
@@ -52,18 +48,24 @@ namespace widget
 	void Widget::move(int _x, int _y)
 	{
 
-		// двигаем дочерей , все остальные сами подвинуться
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->move(_x, _y);
-
+		if (_x > m_x)
+		{
+			_x= _x;
+		}
 		// а вот теперь запоминаем новые координаты
 		m_x = _x;
 		m_y = _y;
+
+		// двигаем дочерей , все остальные сами подвинуться
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->move(_x, _y);
+
 
 		check();
 	}
 
 	void Widget::check()
 	{
+
 		if (!m_parent) return;
 
 		bool margin = false;
@@ -124,8 +126,16 @@ namespace widget
 		} else if (m_margin) {
 			// опаньки, мы сейчас не обрезаны, но были обрезаны, к черту расчеты, восстанавливаем скины
 			showSkins(true);
+
+			// обновляем наших детей, а они уже решат обновлять ли своих детей
+			for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->check();
+
+			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+				// восстанавливаем текстуру и если нужно корректируем положение
+				(*skin)->restore(m_parent->m_left_margin, m_parent->m_top_margin);
+			}
+
 			m_margin = margin;
-			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->restore();
 			return;
 		}
 
@@ -144,6 +154,12 @@ namespace widget
 			else {
 				for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->updateSub();
 			}
+
+		} else {
+			// отец был с битым вьпортом, а мы нет, значит нужно чуть подкорректировать наши скины
+			// потому что при обрезке логическая координата отца передвигается а физическая нет
+			// при нулевом смещении в correct() смещается только один раз
+			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct(m_parent->m_left_margin, m_parent->m_top_margin);
 
 		}
 
