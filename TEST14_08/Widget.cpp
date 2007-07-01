@@ -19,7 +19,9 @@ namespace widget
 		m_margin(false),
 		m_showSkins(true)
 	{
-		check();
+//		showSkins(false);
+//		check();
+//		move(m_x, m_y);
 	}
 
 	Widget::~Widget()
@@ -68,8 +70,8 @@ namespace widget
 
 		if (!m_parent) return;
 
-		bool margin = false;
 		//смотрим, как порубать оверлей
+		bool margin = false;
 
 		//вылезли ли налево
 		if (left()   < m_parent->m_left_margin) {
@@ -132,7 +134,9 @@ namespace widget
 
 			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
 				// восстанавливаем текстуру и если нужно корректируем положение
-				(*skin)->restore(m_parent->m_left_margin, m_parent->m_top_margin);
+				(*skin)->restore();
+				// остаточный сдвиг, без этого глюки
+				(*skin)->correct(m_parent->m_left_margin, m_parent->m_top_margin);
 			}
 
 			m_margin = margin;
