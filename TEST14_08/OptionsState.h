@@ -34,8 +34,9 @@ public:
 	void windowResize(); // уведомление об изменении размеров окна рендера
 
 	bool toggle; //переключение движения m_widgetChild и m_widgetSubChild
-	Widget * m_widgetParent;
-	Widget * m_widgetChild;
-	Widget * m_widgetSubChild;
+	Widget * m_widget1;
+	Widget * m_widget2;
+	Widget * m_widget3;
+	Widget * m_widget4;
 
 };

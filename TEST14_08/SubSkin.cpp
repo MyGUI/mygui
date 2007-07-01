@@ -10,14 +10,14 @@ namespace widget
 		m_y (_y),
 		m_cx (_cx),
 		m_cy (_cy),
-		m_left_margin (0),
+/*		m_left_margin (0),
 		m_right_margin (0),
 		m_top_margin (0),
 		m_bottom_margin (0),
 		m_baseLeftUV (_leftUV),
 		m_baseTopUV (_topUV),
 		m_baseRightUV (_rightUV),
-		m_baseBottomUV (_bottomUV),
+		m_baseBottomUV (_bottomUV),*/
 		m_material(_material)
 	{
 
@@ -31,11 +31,12 @@ namespace widget
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setMaterialName(m_material);
 
+		if (m_parent) m_overlayContainer->setPosition(m_parent->m_x + m_x, m_parent->m_y + m_y);
+
 		if (_overlayContainer) {
 			// если у отца есть хоть один сабскин, то оформляем отцовство
 			_overlayContainer->addChild(m_overlayContainer);
 		} else {
-			m_overlayContainer->setPosition(m_parent->m_x + m_x, m_parent->m_y + m_y);
 			// а если нет, то создадим отца
 			Overlay * overlay;
 			overlay = overlayManager.create("WidgetOverlay");
@@ -44,31 +45,35 @@ namespace widget
 			overlay->add2D(m_overlayContainer);
 		}
 
-		update();
+//		update();
 	}
 
 	SubSkin::~SubSkin()
 	{
 	}
 
-	void SubSkin::size(int _cx, int _cy)
+/*	void SubSkin::size(int _cx, int _cy)
 	{
 		m_cx = _cx;
 		m_cy = _cy;
 		update();
-	}
+	}*/
 
 	void SubSkin::move(int _x, int _y)
 	{
-		m_x = _x;
-		m_y = _y;
-		update();
+		// добавляем смещение
+//		m_x += (m_parent->m_x - _x);
+//		m_y += (m_parent->m_y - _y);
+		// и физически сдвигаем оверлей
+		// присваеваем оверлею позицию отца плюс его смещение внутри отца
+		m_overlayContainer->setPosition(m_x + _x, m_y + _y);
+//		update();
 	}
 
-	void SubSkin::check()
-	{
+//	void SubSkin::check()
+//	{
 		//смотрим, как порубать оверлей
-		m_left_margin   = (left()   < m_parent->m_left_margin) ?
+/*		m_left_margin   = (left()   < m_parent->m_left_margin) ?
 									m_parent->m_left_margin - left() : 0; //вылезли ли налево
 		m_right_margin  = (right()  > m_parent->m_cx - m_parent->m_right_margin) ?
 				    right() - (m_parent->m_cx - m_parent->m_right_margin) : 0; //вылезли ли направо
@@ -115,12 +120,15 @@ namespace widget
 		Real UV_rgt_total = m_baseRightUV - (1-UV_rgt) * UV_sizeX;
 		Real UV_btm_total = m_baseBottomUV - (1-UV_btm) * UV_sizeY;
 
-		m_overlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+		m_overlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);*/
+//	}
+
+	void SubSkin::updateMain()
+	{
 	}
 
-	void SubSkin::update()
+	void SubSkin::updateSub()
 	{
-		check();
 	}
 
 
