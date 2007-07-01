@@ -15,7 +15,8 @@ namespace widget
 		m_right_margin (0),
 		m_top_margin (0),
 		m_bottom_margin (0),
-		m_margin(false)
+		m_margin(false),
+		m_showSkins(true)
 //		created(0)
 	{
 /*		UV_lft_base = 0.2;
@@ -92,6 +93,45 @@ namespace widget
 			margin = true;
 		} else m_bottom_margin = 0;
 
+		// если мы вообще ушли, то скрываем все сабскины
+		if (margin) {
+
+			// совсем уехали налево
+			if (right()  < m_parent->m_left_margin ) {
+				showSkins(false);
+				m_margin = margin;
+				return;
+			}
+			// совсем уехали направо
+			if (left()   > m_parent->m_cx - m_parent->m_right_margin )  {
+				showSkins(false);
+				m_margin = margin;
+				return;
+			} 
+			// совсем уехали вверх
+			if (bottom() < m_parent->m_top_margin  ) {
+				showSkins(false);
+				m_margin = margin;
+				return;
+			}
+			// совсем уехали вниз
+			if (top()    > m_parent->m_cy - m_parent->m_bottom_margin ) {
+				showSkins(false);
+				m_margin = margin;
+				return;
+			}
+
+		} else if (m_margin) {
+			// опаньки, мы сейчас не обрезаны, но были обрезаны, к черту расчеты, восстанавливаем скины
+			showSkins(true);
+			m_margin = margin;
+			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->restore();
+			return;
+		}
+
+		// если скин был скрыт, то покажем
+		showSkins(true);
+
 		// обновляем всех детей, если вьюпорт стал битый или был битый
 		if (margin || m_margin) {
 
@@ -99,7 +139,7 @@ namespace widget
 			for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->check();
 
 			// если саб скин один, то пусть пользуется нашим вьюпортом
-			if (m_subSkinChild.size() == 0) m_subSkinChild[0]->updateMain();
+			if (m_subSkinChild.size() == 1) m_subSkinChild[0]->updateMain();
 			// если несколько, то пускай используют и свое смещение
 			else {
 				for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->updateSub();
@@ -110,6 +150,14 @@ namespace widget
 		// запоминаем текущее состояние
 		m_margin = margin;
 
+	}
+
+	void Widget::showSkins(bool _show)
+	{
+		if (m_showSkins == _show) return;
+		m_showSkins = _show;
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++)
+			(*skin)->show(m_showSkins);
 	}
 
 /*	void Widget::update()

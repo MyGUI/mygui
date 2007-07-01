@@ -25,6 +25,9 @@ namespace widget
 //		void size(int _cx, int _cy);
 		void move(int _x, int _y);
 
+		// показывает скрывает все сабскины
+		void showSkins(bool _show);
+
 
 		void check(); // проверка на выход за границы и обрезка
 //		void update(); // обновления себя и детей
@@ -45,13 +48,23 @@ namespace widget
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 		// вылез ли виджет в данный момент
 		bool m_margin;
+		// скрыты ли все сабскины
+		bool m_showSkins;
 
 		inline int left()       {return m_x;}
 		inline int right()      {return m_x + m_cx;}
 		inline int top()        {return m_y;}
 		inline int bottom()     {return m_y + m_cy;}
 
-//		inline void hide() {/*m_overlayContainer->hide();*/}
+		inline int view_left()  {return m_x + m_left_margin;}
+		inline int view_right() {return m_x + m_cx - m_right_margin;}
+		inline int view_top()   {return m_y + m_top_margin;}
+		inline int view_bottom() {return m_y + m_cy - m_bottom_margin;}
+
+		inline int view_width() {return m_cx - m_left_margin - m_right_margin;}
+		inline int view_height() {return m_cy - m_top_margin - m_bottom_margin;}
+
+		//		inline void hide() {/*m_overlayContainer->hide();*/}
 //		inline void show() {/*m_overlayContainer->show();*/}
 
 	}; // class Widget

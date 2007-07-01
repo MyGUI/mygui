@@ -37,7 +37,7 @@ namespace widget
 		void move(int _x, int _y);
 
 		Ogre::PanelOverlayElement * m_overlayContainer;
-		String m_material;
+//		String m_material;
 
 //		void check(); // проверка на выход за границы и обрезка
 
@@ -45,13 +45,17 @@ namespace widget
 		void updateMain();
 		// вызывается если сабскин может быть смещен или не во весь виджет
 		void updateSub();
+		// просто восстанавливает все размеры и позиции
+		void restore();
+		// скрываем показывает оверлей
+		inline void show(bool _show) {_show ? m_overlayContainer->show() : m_overlayContainer->hide();};
 
 		Widget * m_parent;
 
 		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
 //		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 
-//		float m_baseLeftUV, m_baseTopUV, m_baseRightUV, m_baseBottomUV;
+		float m_baseLeftUV, m_baseTopUV, m_baseRightUV, m_baseBottomUV;
 
 /*		inline int left()       {return m_x;}
 		inline int right()      {return m_x + m_cx;}
@@ -60,13 +64,13 @@ namespace widget
 		inline int view_left()  {return m_x + m_left_margin;}
 		inline int view_right() {return m_x + m_cx - m_right_margin;}
 		inline int view_top()   {return m_y + m_top_margin;}
-		inline int view_bottom(){return m_y + m_cy - m_bottom_margin;}
+		inline int view_bottom() {return m_y + m_cy - m_bottom_margin;}
 
 		inline int view_width() {return m_cx - m_left_margin - m_right_margin;}
-		inline int view_height(){return m_cy - m_top_margin - m_bottom_margin;}
+		inline int view_height() {return m_cy - m_top_margin - m_bottom_margin;}*/
 
-		inline void hide() {m_overlayContainer->hide();}
-		inline void show() {m_overlayContainer->show();}*/
+//		inline void hide() {m_overlayContainer->hide();}
+//		inline void show() {m_overlayContainer->show();}
 
 	}; // class SubSkin
 
