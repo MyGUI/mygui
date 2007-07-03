@@ -180,10 +180,14 @@ namespace widget
 		m_overlayContainer->setTransparent(false);
 
 
+		int offset_x = m_parent->m_left_margin;
+		if (offset_x > m_x) offset_x = 0;
+		int offset_y = m_parent->m_top_margin;
+		if (offset_y > m_y) offset_y = 0;
 
 		m_overlayContainer->setPosition(
-			m_parent->view_left() - m_parent->m_parent->m_left_margin + m_x,
-			m_parent->view_top() - m_parent->m_parent->m_top_margin + m_y
+			m_parent->view_left() - m_parent->m_parent->m_left_margin + m_x - offset_x,
+			m_parent->view_top() - m_parent->m_parent->m_top_margin + m_y - offset_y
 			);
 		m_overlayContainer->setDimensions(view_width(), view_height());
 
