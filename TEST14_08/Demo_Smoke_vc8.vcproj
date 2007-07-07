@@ -446,11 +446,27 @@
 			Name="Widget"
 			>
 			<File
+				RelativePath=".\MainSkin.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MainSkin.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SubSkin.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\SubSkin.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SubWidget.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SubWidget.h"
 				>
 			</File>
 			<File

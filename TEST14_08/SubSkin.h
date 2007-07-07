@@ -1,80 +1,45 @@
 #pragma once
 
-//#include <vector>
 #include <Ogre.h>
-#include <OgreOverlay.h>
-#include <OgreOverlayManager.h>
-#include <OgreOverlayElement.h>
+//#include <OgreOverlay.h>
+//#include <OgreOverlayManager.h>
+//#include <OgreOverlayElement.h>
 #include <OgrePanelOverlayElement.h>
-#include "Widget.h"
-
-/*
-Основные параметры саб скина
-Не имеет детей
-Отец Widget
-Два метода update:
-	1. update если он во весь Widget отца, то не проверять самому выравнивание а брать  готовые результаты у отца
-	2. если он сабскин, то тоже проверять свой вьюпорт
-оверлеи всех сабскинов виджета, коннектятся к первому оверлею отца этого виджета
-Внимание т.к. сабскины коннектятся к первому сабскину, ножно чтобы у него было выравнивание
-	по левому и верхнему краю и он начинался в точке 0 0
-*/
+#include "SubWidget.h"
 
 namespace widget
 {
 	using namespace Ogre;
 
-	class Widget;
-
-	class SubSkin
+	class SubSkin : public SubWidget
 	{
 
 	public:
-		SubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, Widget * _parent, PanelOverlayElement * _overlayContainer);
-		/*virtual */~SubSkin(); // наследников не будет
+		SubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, SubWidget * _parent);
+		~SubSkin();
 
-//		void size(int _cx, int _cy);
 		void move(int _x, int _y);
+		void move(int _x, int _y, int _cx, int _cy);
+		void size(int _cx, int _cy);
 
-		Ogre::PanelOverlayElement * m_overlayContainer;
-
-		bool m_correct;
-//		String m_material;
-
-//		void check(); // проверка на выход за границы и обрезка
-
-		// вызывается виджетом, если этот саб скин во весь виджет
-		void updateMain();
 		// вызывается если сабскин может быть смещен или не во весь виджет
-		void updateSub();
+		void update();
 		// просто восстанавливает все размеры и позиции
 		void restore();
 		// скрываем показывает оверлей
-		inline void show(bool _show) {_show ? m_overlayContainer->show() : m_overlayContainer->hide();};
+		void show(bool _show);
 		// корректируем положение скина, нужно при обрезке отца
-		void correct(int _x, int _y);
+		void correct();
 
-		Widget * m_parent;
+		void attach(Ogre::OverlayElement * _element);
 
-		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
-		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
+		void align(int _cx, int _cy);
+
+	protected:
 
 		float m_baseLeftUV, m_baseTopUV, m_baseRightUV, m_baseBottomUV;
 
-		inline int left()       {return m_x;}
-		inline int right()      {return m_x + m_cx;}
-		inline int top()        {return m_y;}
-		inline int bottom()     {return m_y + m_cy;}
-		inline int view_left()  {return m_x + m_left_margin;}
-		inline int view_right() {return m_x + m_cx - m_right_margin;}
-		inline int view_top()   {return m_y + m_top_margin;}
-		inline int view_bottom() {return m_y + m_cy - m_bottom_margin;}
-
-		inline int view_width() {return m_cx - m_left_margin - m_right_margin;}
-		inline int view_height() {return m_cy - m_top_margin - m_bottom_margin;}
-
-//		inline void hide() {m_overlayContainer->hide();}
-//		inline void show() {m_overlayContainer->show();}
+		Ogre::PanelOverlayElement * m_overlayContainer;
 
 	}; // class SubSkin
 
