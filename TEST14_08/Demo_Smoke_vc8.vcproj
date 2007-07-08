@@ -478,6 +478,18 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\Demo_Smoke.rc"
+			>
+		</File>
+		<File
+			RelativePath=".\gui.ico"
+			>
+		</File>
+		<File
+			RelativePath=".\resource.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
