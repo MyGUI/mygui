@@ -34,28 +34,35 @@ namespace widget
 
 	void SubSkin::move(int _x, int _y)
 	{
+		debug.out("move 1");
 		// присваеваем оверлею позицию отца плюс смещение внутри отца
 		m_overlayContainer->setPosition(m_x + _x, m_y + _y);
 	}
 
 	void SubSkin::move(int _x, int _y, int _cx, int _cy)
 	{
+		debug.out("move 2");
 		// присваеваем оверлею позицию отца плюс смещение внутри отца
-		m_overlayContainer->setPosition(m_x + _x, m_y + _y);
+		// надо подумать
+//		m_overlayContainer->setPosition(m_x + _x, m_y + _y);
 
-		size(_cx, _cy);
+		align(_cx, _cy);
+//		size(_cx, _cy);
 	}
 
-	void SubSkin::size(int _cx, int _cy)
-	{
-		m_cx = _cx;
-		m_cy = _cy;
+//	void SubSkin::size(int _cx, int _cy)
+//	{
+//		debug.out("size");
+//		m_cx = _cx;
+//		m_cy = _cy;
 //		update();
 //		m_overlayContainer->setDimensions(m_cx, m_cy);
-	}
+//	}
 
 	void SubSkin::align(int _cx, int _cy)
 	{
+		m_overlayContainer->setTransparent(true);
+
 		bool need_move = false;
 		bool need_size = false;
 		int x = m_x;
@@ -101,11 +108,16 @@ namespace widget
 		m_cx = cx;
 		m_cy = cy;
 
+
 		if (need_move) {
-			m_overlayContainer->setPosition(x, y);
+			m_overlayContainer->setPosition(x + m_parent->m_x, y + m_parent->m_y);
 		} else if (need_size) {
 			m_overlayContainer->setDimensions(cx, cy);
-		}// else update();
+		} else update();
+
+		if (!((m_parent->view_width() < cx) || (m_parent->view_height() < cy))) m_overlayContainer->setTransparent(false);
+
+		//		debug.out("align  move[%d](%d, %d, %d, %d)", need_move, x, y, cx, cy);
 
 	}
 
@@ -134,6 +146,7 @@ namespace widget
 
 	void SubSkin::update()
 	{
+		debug.out("update");
 
 		//смотрим, как порубать оверлей
 		bool margin = false;

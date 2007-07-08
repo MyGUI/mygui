@@ -34,7 +34,7 @@ namespace widget
 		m_x = _x;
 		m_y = _y;
 
-		// двигаем дочерей , все остальные сами подвинуться
+		// двигаем дочерей , все остальные сами подвинуться ???
 		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->move(_x, _y);
 
 		update();
@@ -56,11 +56,11 @@ namespace widget
 		m_cy = _cy;
 		_cy = tmp;
 
-		if ((m_cx < 0) || (m_cy < 0)) {
+/*		if ((m_cx < 0) || (m_cy < 0)) {
 			visible(false);
 			debug.out("--------");
 			return;
-		}
+		}*/
 
 		// двигаем дочерей , все остальные сами подвинуться
 		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->move(_x, _y, _cx, _cy);
@@ -82,11 +82,12 @@ namespace widget
 		m_cy = _cy;
 		_cy = tmp;
 
-		if ((m_cx < 0) || (m_cy < 0)) {
+/*		if ((m_cx < 0) || (m_cy < 0)) {
 			visible(false);
 			debug.out("--------");
 			return;
-		}
+		}*/
+
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy);
@@ -203,7 +204,8 @@ namespace widget
 
 	void Widget::addSubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, bool _main)
 	{
-		if (_main) m_subSkinChild.push_back(new MainSkin(_x, _y, _cx, _cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
+		// главный сразу по отцу
+		if (_main) m_subSkinChild.push_back(new MainSkin(0, 0, m_cx, m_cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
 		else m_subSkinChild.push_back(new SubSkin(_x, _y, _cx, _cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
 	}
 

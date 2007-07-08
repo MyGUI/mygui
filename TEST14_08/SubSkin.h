@@ -20,7 +20,7 @@ namespace widget
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
-		void size(int _cx, int _cy);
+//		void size(int _cx, int _cy);
 
 		// вызывается если сабскин может быть смещен или не во весь виджет
 		void update();
