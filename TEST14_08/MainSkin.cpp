@@ -32,22 +32,6 @@ namespace widget
 	{
 	}
 
-/*	void MainSkin::move(int _x, int _y)
-	{
-		// присваеваем оверлею позицию отца плюс смещение внутри отца
-		m_overlayContainer->setPosition(m_x + _x, m_y + _y);
-	}
-
-	void MainSkin::move(int _x, int _y, int _cx, int _cy)
-	{
-		// присваеваем оверлею позицию отца плюс смещение внутри отца
-		m_overlayContainer->setPosition(m_x + _x, m_y + _y);
-
-		(m_parent->m_cx < 0) ? m_cx = 0 : m_cx = m_parent->m_cx;
-		(m_parent->m_cy < 0) ? m_cy = 0 : m_cy = m_parent->m_cy;
-		m_overlayContainer->setDimensions(m_cx, m_cy);
-	}*/
-
 	void MainSkin::align(int _cx, int _cy, bool _update)
 	{
 
@@ -63,15 +47,25 @@ namespace widget
 
 	}
 
+	void MainSkin::align(int _x, int _y, int _cx, int _cy, bool _update)
+	{
+
+		m_overlayContainer->setPosition(m_x + m_parent->m_x - m_parent->m_parent->m_left_margin, m_y + m_parent->m_y - m_parent->m_parent->m_top_margin);
+
+		if (_update) {
+			update();
+			return;
+		}
+
+		// если обновлять не надо, то меняем только размер
+		(m_parent->m_cx < 0) ? m_cx = 0 : m_cx = m_parent->m_cx;
+		(m_parent->m_cy < 0) ? m_cy = 0 : m_cy = m_parent->m_cy;
+		m_overlayContainer->setDimensions(m_cx, m_cy);
+
+	}
+
 	void MainSkin::correct()
 	{
-		// при нулевом смещении корректируем только один раз
-//		if (!m_parent->m_parent->m_left_margin && !m_parent->m_parent->m_top_margin) {
-//			if (m_correct) return;
-//			m_correct = true;
-//		} else m_correct = false;
-
-//		debug.out("correct = %d, %d", m_parent->m_parent->m_left_margin, m_parent->m_parent->m_top_margin);
 		m_overlayContainer->setPosition(m_x + m_parent->m_x - m_parent->m_parent->m_left_margin, m_y + m_parent->m_y - m_parent->m_parent->m_top_margin);
 	}
 

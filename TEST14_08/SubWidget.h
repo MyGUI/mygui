@@ -57,6 +57,7 @@ namespace widget
 		virtual void correct() {};
 		virtual void show(bool _show) {};
 		virtual void align(int _cx, int _cy, bool _update) {};
+		virtual void align(int _x, int _y, int _cx, int _cy, bool _update) {};
 
 		virtual void attach(Ogre::OverlayElement * _element) {};
 

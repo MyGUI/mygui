@@ -27,43 +27,6 @@ namespace widget
 		return widget;
 	}
 
-	void Widget::move(int _x, int _y)
-	{
-
-		// а вот теперь запоминаем новые координаты
-		m_x = _x;
-		m_y = _y;
-
-		update();
-	}
-
-	void Widget::move(int _x, int _y, int _cx, int _cy)
-	{
-
-		// а вот теперь запоминаем новые координаты
-		m_x = _x;
-		m_y = _y;
-
-		// меняем координаты местами
-		int tmp = m_cx;
-		m_cx = _cx;
-		_cx = tmp;
-
-		tmp = m_cy;
-		m_cy = _cy;
-		_cy = tmp;
-
-		// двигаем дочерей , все остальные сами подвинуться
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->move(_x, _y, _cx, _cy);
-
-//		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy);
-
-		update();
-
-	}
-
-
-
 	void Widget::addSubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, bool _main)
 	{
 		// главный сразу по отцу
@@ -112,12 +75,17 @@ namespace widget
 		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_show);
 	}
 
+	void Widget::align(int _x, int _y, int _cx, int _cy, bool _update)
+	{
+		// для виджета изменение х у  не меняються
+		align(_cx, _cy, _update);
+	}
+
 	void Widget::align(int _cx, int _cy, bool _update)
 	{
 		if (!m_parent) return;
-		update();
 
-/*		bool need_move = false;
+		bool need_move = false;
 		bool need_size = false;
 		int x = m_x;
 		int y = m_y;
@@ -163,9 +131,61 @@ namespace widget
 		} else if (need_size) {
 			size(cx, cy);
 		} else update(); // только если не вызвано передвижение и сайз
-*/
+
 	}
 
+
+	void Widget::move(int _x, int _y)
+	{
+
+		// а вот теперь запоминаем новые координаты
+		m_x = _x;
+		m_y = _y;
+
+		update();
+	}
+
+	void Widget::move(int _x, int _y, int _cx, int _cy)
+	{
+
+		if (!m_parent) return;
+
+		// а вот теперь запоминаем новые координаты
+		m_x = _x;
+		m_y = _y;
+
+		// меняем координаты местами
+		int tmp = m_cx;
+		m_cx = _cx;
+		_cx = tmp;
+
+		tmp = m_cy;
+		m_cy = _cy;
+		_cy = tmp;
+
+		bool show = true;
+
+		// обновляем выравнивание
+		bool margin = check_margin();
+
+		if (margin) {
+			// проверка на полный выход за границу
+			if (check_outside()) {
+				// скрываем
+				show = false;
+			}
+		}
+
+		visible(show);
+
+		// передаем старую координату , до вызова, текущая координата отца должна быть новой
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, m_margin || margin);
+		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, m_margin || margin);
+
+		// запоминаем текущее состояние
+		m_margin = margin;
+
+	}
 
 	void Widget::size(int _cx, int _cy)
 	{

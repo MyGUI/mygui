@@ -33,7 +33,7 @@ namespace widget
 		void size(int _cx, int _cy);
 
 		void align(int _cx, int _cy, bool _update);
-//		void check();
+		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
 	protected:
 

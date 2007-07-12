@@ -18,19 +18,15 @@ namespace widget
 		MainSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, SubWidget * _parent);
 		~MainSkin();
 
-//		void move(int _x, int _y);
-//		void move(int _x, int _y, int _cx, int _cy);
-
 		// вызывается виджетом, если этот саб скин во весь виджет
 		void update();
-		// просто восстанавливает все размеры и позиции
-//		void restore();
 		// скрываем показывает оверлей
 		void show(bool _show);
 		// корректируем положение скина, нужно при обрезке отца
 		void correct();
 
 		void align(int _cx, int _cy, bool _update);
+		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
 		void attach(Ogre::OverlayElement * _element);
 
