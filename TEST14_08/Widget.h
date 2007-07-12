@@ -3,7 +3,7 @@
 #include <vector>
 #include <Ogre.h>
 #include "MainSkin.h"
-#include "SubSkin.h"
+//#include "SubSkin.h"
 #include "SubWidget.h"
 
 namespace widget
@@ -32,7 +32,8 @@ namespace widget
 
 		void size(int _cx, int _cy);
 
-		void align(int _cx, int _cy);
+		void align(int _cx, int _cy, bool _update);
+//		void check();
 
 	protected:
 

@@ -454,14 +454,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SubSkin.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SubSkin.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SubWidget.cpp"
 				>
 			</File>

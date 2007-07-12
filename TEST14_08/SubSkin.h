@@ -11,7 +11,7 @@ namespace widget
 {
 	using namespace Ogre;
 
-	class SubSkin : public SubWidget
+	class SubSkin// : public SubWidget
 	{
 
 	public:
@@ -34,6 +34,8 @@ namespace widget
 		void attach(Ogre::OverlayElement * _element);
 
 		void align(int _cx, int _cy);
+
+//		void test();
 
 	protected:
 

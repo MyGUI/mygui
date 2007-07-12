@@ -82,9 +82,9 @@ void OptionsState::enter(bool bIsChangeState)
 //	m_widget2->show(false);
 
 	m_widget3 = m_widget2->createChild(10, 10, 60, 60, ALIGN_HSTRETCH|ALIGN_TOP);
-	m_widget3->addSubSkin(0, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_a1", ALIGN_HSTRETCH|ALIGN_TOP, false);
-	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_TOP, false);
-	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_STRETCH, false);
+	m_widget3->addSubSkin(0, 0, 60, 60, 0, 0, 1, 1, "MyGUI_check_a1", ALIGN_HSTRETCH|ALIGN_TOP, true);
+//	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_TOP, false);
+//	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_STRETCH, false);
 	m_widget3->update();
 
 	m_widget4 = m_widget3->createChild(60, 10, 30, 80, ALIGN_RIGHT|ALIGN_TOP);

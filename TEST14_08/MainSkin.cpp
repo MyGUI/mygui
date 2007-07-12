@@ -1,5 +1,5 @@
 
-#include "SubSkin.h"
+//#include "SubSkin.h"
 #include "MainSkin.h"
 #include "debugOut.h"
 
@@ -32,7 +32,7 @@ namespace widget
 	{
 	}
 
-	void MainSkin::move(int _x, int _y)
+/*	void MainSkin::move(int _x, int _y)
 	{
 		// присваеваем оверлею позицию отца плюс смещение внутри отца
 		m_overlayContainer->setPosition(m_x + _x, m_y + _y);
@@ -46,44 +46,45 @@ namespace widget
 		(m_parent->m_cx < 0) ? m_cx = 0 : m_cx = m_parent->m_cx;
 		(m_parent->m_cy < 0) ? m_cy = 0 : m_cy = m_parent->m_cy;
 		m_overlayContainer->setDimensions(m_cx, m_cy);
-	}
+	}*/
 
-	void MainSkin::align(int _cx, int _cy)
+	void MainSkin::align(int _cx, int _cy, bool _update)
 	{
+
+		if (_update) {
+			update();
+			return;
+		}
+
+		// если обновлять не надо, то меняем только размер
 		(m_parent->m_cx < 0) ? m_cx = 0 : m_cx = m_parent->m_cx;
 		(m_parent->m_cy < 0) ? m_cy = 0 : m_cy = m_parent->m_cy;
 		m_overlayContainer->setDimensions(m_cx, m_cy);
+
 	}
 
 	void MainSkin::correct()
 	{
 		// при нулевом смещении корректируем только один раз
-		if (!m_parent->m_parent->m_left_margin && !m_parent->m_parent->m_top_margin) {
-			if (m_correct) return;
-			m_correct = true;
-		} else m_correct = false;
+//		if (!m_parent->m_parent->m_left_margin && !m_parent->m_parent->m_top_margin) {
+//			if (m_correct) return;
+//			m_correct = true;
+//		} else m_correct = false;
 
 //		debug.out("correct = %d, %d", m_parent->m_parent->m_left_margin, m_parent->m_parent->m_top_margin);
 		m_overlayContainer->setPosition(m_x + m_parent->m_x - m_parent->m_parent->m_left_margin, m_y + m_parent->m_y - m_parent->m_parent->m_top_margin);
 	}
 
-	void MainSkin::restore()
-	{
-//		debug.out("restore");
-		m_overlayContainer->setTransparent(false); // актуально для саб скина
-		m_overlayContainer->setPosition(m_x + m_parent->m_x, m_y + m_parent->m_y);
-		m_overlayContainer->setDimensions(m_cx, m_cy);
-		m_overlayContainer->setUV(m_baseLeftUV, m_baseTopUV, m_baseRightUV, m_baseBottomUV);
-		// для восстановления нормально й позиции
-		m_correct = false;
-	}
-
 	void MainSkin::update()
 	{
+		int cx = m_parent->view_width();
+		if (cx < 0) cx = 0;
+		int cy = m_parent->view_height();
+		if (cy < 0) cy = 0;
 
 		//порубали оверлей
 		m_overlayContainer->setPosition(m_parent->view_left() - m_parent->m_parent->m_left_margin, m_parent->view_top() - m_parent->m_parent->m_top_margin);
-		m_overlayContainer->setDimensions(m_parent->view_width(), m_parent->view_height());
+		m_overlayContainer->setDimensions(cx, cy);
 
 		// теперь смещаем текстуру
 		float UV_lft = m_parent->m_left_margin;

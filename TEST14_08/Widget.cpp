@@ -34,9 +34,6 @@ namespace widget
 		m_x = _x;
 		m_y = _y;
 
-		// двигаем дочерей , все остальные сами подвинуться ???
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->move(_x, _y);
-
 		update();
 	}
 
@@ -56,157 +53,22 @@ namespace widget
 		m_cy = _cy;
 		_cy = tmp;
 
-/*		if ((m_cx < 0) || (m_cy < 0)) {
-			visible(false);
-			debug.out("--------");
-			return;
-		}*/
-
 		// двигаем дочерей , все остальные сами подвинуться
 		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->move(_x, _y, _cx, _cy);
 
-		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy);
+//		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy);
 
 		update();
 
 	}
 
-	void Widget::size(int _cx, int _cy)
-	{
-		// меняем координаты местами
-		int tmp = m_cx;
-		m_cx = _cx;
-		_cx = tmp;
 
-		tmp = m_cy;
-		m_cy = _cy;
-		_cy = tmp;
-
-/*		if ((m_cx < 0) || (m_cy < 0)) {
-			visible(false);
-			debug.out("--------");
-			return;
-		}*/
-
-
-		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy);
-
-		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy);
-
-		update();
-
-	}
-
-	void Widget::update()
-	{
-
-		if (!m_parent) return;
-
-		if (!m_show) return;
-
-		//смотрим, как порубать оверлей
-		bool margin = false;
-
-		//вылезли ли налево
-		if (left()   < m_parent->m_left_margin) {
-			m_left_margin = m_parent->m_left_margin - left();
-			margin = true;
-		} else m_left_margin = 0;
-
-		//вылезли ли направо
-		if (right()  > m_parent->m_cx - m_parent->m_right_margin) {
-			m_right_margin = right() - (m_parent->m_cx - m_parent->m_right_margin);
-			margin = true;
-		} else m_right_margin = 0;
-
-		//вылезли ли вверх
-		if (top()    < m_parent->m_top_margin) {
-			m_top_margin = m_parent->m_top_margin - top();
-			margin = true;
-		} else m_top_margin = 0;
-
-		//вылезли ли вниз
-		if (bottom() > m_parent->m_cy - m_parent->m_bottom_margin) {
-			m_bottom_margin = bottom() - (m_parent->m_cy - m_parent->m_bottom_margin);
-			margin = true;
-		} else m_bottom_margin = 0;
-
-		// если мы вообще ушли, то скрываем все сабскины
-		if (margin) {
-
-			// совсем уехали налево
-			if (right()  < m_parent->m_left_margin ) {
-				visible(false);
-				m_margin = margin;
-				return;
-			}
-			// совсем уехали направо
-			if (left()   > m_parent->m_cx - m_parent->m_right_margin )  {
-				visible(false);
-				m_margin = margin;
-				return;
-			} 
-			// совсем уехали вверх
-			if (bottom() < m_parent->m_top_margin  ) {
-				visible(false);
-				m_margin = margin;
-				return;
-			}
-			// совсем уехали вниз
-			if (top()    > m_parent->m_cy - m_parent->m_bottom_margin ) {
-				visible(false);
-				m_margin = margin;
-				return;
-			}
-
-		} else if (m_margin) {
-			// опаньки, мы сейчас не обрезаны, но были обрезаны, к черту расчеты, восстанавливаем скины
-			visible(true);
-
-			// обновляем наших детей, а они уже решат обновлять ли своих детей
-			for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
-
-			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
-				// восстанавливаем текстуру и если нужно корректируем положение
-				(*skin)->restore();
-				// остаточный сдвиг, без этого глюки
-				(*skin)->correct();
-			}
-
-			m_margin = margin;
-			return;
-		}
-
-		// если скин был скрыт, то покажем
-		visible(true);
-
-		// обновляем всех детей, если вьюпорт стал битый или был битый
-		if (margin || m_margin) {
-
-			// обновляем наших детей, а они уже решат обновлять ли своих детей
-			for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
-
-			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
-
-		} else {
-			// отец был с битым вьпортом, а мы нет, значит нужно чуть подкорректировать наши скины
-			// потому что при обрезке логическая координата отца передвигается а физическая нет
-			// при нулевом смещении в correct() смещается только один раз
-			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
-
-		}
-
-		// запоминаем текущее состояние
-		m_margin = margin;
-
-	}
 
 	void Widget::addSubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, bool _main)
 	{
 		// главный сразу по отцу
 		if (_main) m_subSkinChild.push_back(new MainSkin(0, 0, m_cx, m_cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
-		else m_subSkinChild.push_back(new SubSkin(_x, _y, _cx, _cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
+//		else m_subSkinChild.push_back(new SubSkin(_x, _y, _cx, _cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
 	}
 
 	void Widget::attach(Ogre::OverlayElement * _element)
@@ -229,14 +91,15 @@ namespace widget
 
 	void Widget::visible(bool _visible)
 	{
+//		debug.out("visible %d", _visible);
+
 		if (m_visible == _visible) return;
 		m_visible = _visible;
 
 		// если скрыто пользователем, то не показываем
 		if (_visible && !m_show) return;
 
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++)
-			(*skin)->show(m_visible);
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_visible);
 	}
 
 	void Widget::show(bool _show)
@@ -246,15 +109,15 @@ namespace widget
 		// если вышло за границу то не показываем
 		if (_show && !m_visible) return;
 
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++)
-			(*skin)->show(m_show);
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_show);
 	}
 
-	void Widget::align(int _cx, int _cy)
+	void Widget::align(int _cx, int _cy, bool _update)
 	{
 		if (!m_parent) return;
+		update();
 
-		bool need_move = false;
+/*		bool need_move = false;
 		bool need_size = false;
 		int x = m_x;
 		int y = m_y;
@@ -300,7 +163,95 @@ namespace widget
 		} else if (need_size) {
 			size(cx, cy);
 		} else update(); // только если не вызвано передвижение и сайз
+*/
+	}
+
+
+	void Widget::size(int _cx, int _cy)
+	{
+
+		if (!m_parent) return;
+
+		// меняем координаты местами
+		int tmp = m_cx;
+		m_cx = _cx;
+		_cx = tmp;
+
+		tmp = m_cy;
+		m_cy = _cy;
+		_cy = tmp;
+
+		bool show = true;
+
+		// обновляем выравнивание
+		bool margin = check_margin();
+
+		if (margin) {
+			// проверка на полный выход за границу
+			if (check_outside()) {
+				// скрываем
+				show = false;
+			}
+		}
+
+		visible(show);
+
+		// передаем старую координату , до вызова, текущая координата отца должна быть новой
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, m_margin || margin);
+		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy, m_margin || margin);
+
+		// запоминаем текущее состояние
+		m_margin = margin;
 
 	}
 
-} // namespace Widget
+	void Widget::update()
+	{
+
+		if (!m_parent) return;
+
+		bool margin = check_margin();
+
+		// вьюпорт стал битым
+		if (margin) {
+
+			// проверка на полный выход за границу
+			if (check_outside()) {
+
+				// скрываем
+				visible(false);
+				// запоминаем текущее состояние
+				m_margin = margin;
+				return;
+
+			}
+
+		} else if (!m_margin) { // мы не обрезаны и были нормальные
+
+			// запоминаем текущее состояние
+			m_margin = margin;
+
+			// для тех кому нужно подправить себя при движении
+			for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->correct();
+			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
+
+			// скрываем
+			visible(true);
+
+			return;
+
+		}
+
+		// запоминаем текущее состояние
+		m_margin = margin;
+
+		// обновляем наших детей, а они уже решат обновлять ли своих детей
+		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
+
+		// если скин был скрыт, то покажем
+		visible(true);
+
+	}
+
+} // namespace widget
