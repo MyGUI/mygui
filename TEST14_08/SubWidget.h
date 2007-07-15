@@ -61,17 +61,26 @@ namespace widget
 
 		virtual void attach(Ogre::OverlayElement * _element) {};
 
+		inline SubWidget * getParent() {return m_parent;}
+
 		inline int left()       {return m_x;}
 		inline int right()      {return m_x + m_cx;}
 		inline int top()        {return m_y;}
 		inline int bottom()     {return m_y + m_cy;}
+		inline int width()       {return m_cx;}
+		inline int height()       {return m_cy;}
+
 		inline int view_left()  {return m_x + m_left_margin;}
 		inline int view_right() {return m_x + m_cx - m_right_margin;}
 		inline int view_top()   {return m_y + m_top_margin;}
 		inline int view_bottom() {return m_y + m_cy - m_bottom_margin;}
-
 		inline int view_width() {return m_cx - m_left_margin - m_right_margin;}
 		inline int view_height() {return m_cy - m_top_margin - m_bottom_margin;}
+
+		inline int margin_left() {return m_left_margin;}
+		inline int margin_right() {return m_right_margin;}
+		inline int margin_top() {return m_top_margin;}
+		inline int margin_bottom() {return m_bottom_margin;}
 
 		inline bool check_margin ()
 		{
@@ -83,8 +92,8 @@ namespace widget
 			} else m_left_margin = 0;
 
 			//вылезли ли направо
-			if (right()  > m_parent->m_cx - m_parent->m_right_margin) {
-				m_right_margin = right() - (m_parent->m_cx - m_parent->m_right_margin);
+			if (right()  > m_parent->width() - m_parent->m_right_margin) {
+				m_right_margin = right() - (m_parent->width() - m_parent->m_right_margin);
 				margin = true;
 			} else m_right_margin = 0;
 
@@ -95,8 +104,8 @@ namespace widget
 			} else m_top_margin = 0;
 
 			//вылезли ли вниз
-			if (bottom() > m_parent->m_cy - m_parent->m_bottom_margin) {
-				m_bottom_margin = bottom() - (m_parent->m_cy - m_parent->m_bottom_margin);
+			if (bottom() > m_parent->height() - m_parent->m_bottom_margin) {
+				m_bottom_margin = bottom() - (m_parent->height() - m_parent->m_bottom_margin);
 				margin = true;
 			} else m_bottom_margin = 0;
 
@@ -106,10 +115,12 @@ namespace widget
 		inline bool check_outside() // проверка на полный выход за границу
 		{
 			return ( (right() < m_parent->m_left_margin ) || // совсем уехали налево
-				(left() > m_parent->m_cx - m_parent->m_right_margin ) || // совсем уехали направо
+				(left() > m_parent->width() - m_parent->m_right_margin ) || // совсем уехали направо
 				(bottom() < m_parent->m_top_margin  ) || // совсем уехали вверх
-				(top() > m_parent->m_cy - m_parent->m_bottom_margin ) );  // совсем уехали вниз
+				(top() > m_parent->height() - m_parent->m_bottom_margin ) );  // совсем уехали вниз
 		}
+
+	protected:
 
 		bool m_margin;
 		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
@@ -118,7 +129,6 @@ namespace widget
 		SubWidget * m_parent;
 		bool m_show;
 		char m_align;
-
 
 	}; // class SubWidget
 

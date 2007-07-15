@@ -82,17 +82,17 @@ void OptionsState::enter(bool bIsChangeState)
 //	m_widget2->show(false);
 
 	m_widget3 = m_widget2->createChild(10, 10, 60, 60, ALIGN_STRETCH);
-	m_widget3->addSubSkin(0, 0, 60, 60, 0, 0, 1, 1, "MyGUI_check_a1", ALIGN_HSTRETCH|ALIGN_TOP, true);
-//	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_TOP, false);
-//	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_STRETCH, false);
+	m_widget3->addSubSkin(0, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_a1", ALIGN_STRETCH, false);
+	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_VSTRETCH, false);
+	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_HSTRETCH|ALIGN_BOTTOM, false);
 	m_widget3->update();
 
-	m_widget4 = m_widget3->createChild(30, 10, 20, 20, ALIGN_RIGHT|ALIGN_BOTTOM);
-	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_LEFT|ALIGN_TOP, true);
-	m_widget4->update();
+//	m_widget4 = m_widget3->createChild(30, 10, 20, 20, ALIGN_RIGHT|ALIGN_BOTTOM);
+//	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_LEFT|ALIGN_TOP, true);
+//	m_widget4->update();
 
-	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
-	debug.add("need cut 2", 170, 50, m_widget2->m_margin);
+//	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
+//	debug.add("need cut 2", 170, 50, m_widget2->m_margin);
 //	debug.add("need cut 3", 170, 70, m_widget3->m_margin);
 //	debug.add("need cut 4", 170, 90, m_widget4->m_margin);
 
@@ -102,9 +102,9 @@ void OptionsState::enter(bool bIsChangeState)
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
 	if (!toggle) {
-		m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+		m_widget3->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	} else {
-		m_widget2->size(arg.state.X.abs-220, arg.state.Y.abs-220);
+		m_widget3->size(arg.state.X.abs-220, arg.state.Y.abs-220);
 //		debug.out("%d, %d", (int)m_widgetSubChild->m_subSkinChild[0]->m_overlayContainer->getLeft(), (int)m_widgetSubChild->m_subSkinChild[0]->m_overlayContainer->getTop());
 	}
 	return true;

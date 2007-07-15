@@ -20,7 +20,7 @@ namespace widget
 			"Panel", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
-		m_overlayContainer->setPosition(m_parent->m_x + m_x, m_parent->m_y + m_y);
+		m_overlayContainer->setPosition(m_parent->left() + m_x, m_parent->top() + m_y);
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setMaterialName(_material);
 
@@ -41,8 +41,8 @@ namespace widget
 		}
 
 		// если обновлять не надо, то меняем только размер
-		(m_parent->m_cx < 0) ? m_cx = 0 : m_cx = m_parent->m_cx;
-		(m_parent->m_cy < 0) ? m_cy = 0 : m_cy = m_parent->m_cy;
+		(m_parent->width() < 0) ? m_cx = 0 : m_cx = m_parent->width();
+		(m_parent->height() < 0) ? m_cy = 0 : m_cy = m_parent->height();
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 
 	}
@@ -50,7 +50,7 @@ namespace widget
 	void MainSkin::align(int _x, int _y, int _cx, int _cy, bool _update)
 	{
 
-		m_overlayContainer->setPosition(m_x + m_parent->m_x - m_parent->m_parent->m_left_margin, m_y + m_parent->m_y - m_parent->m_parent->m_top_margin);
+		m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left(), m_y + m_parent->top() - m_parent->getParent()->margin_top());
 
 		if (_update) {
 			update();
@@ -58,15 +58,15 @@ namespace widget
 		}
 
 		// если обновлять не надо, то меняем только размер
-		(m_parent->m_cx < 0) ? m_cx = 0 : m_cx = m_parent->m_cx;
-		(m_parent->m_cy < 0) ? m_cy = 0 : m_cy = m_parent->m_cy;
+		(m_parent->width() < 0) ? m_cx = 0 : m_cx = m_parent->width();
+		(m_parent->height() < 0) ? m_cy = 0 : m_cy = m_parent->height();
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 
 	}
 
 	void MainSkin::correct()
 	{
-		m_overlayContainer->setPosition(m_x + m_parent->m_x - m_parent->m_parent->m_left_margin, m_y + m_parent->m_y - m_parent->m_parent->m_top_margin);
+		m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left(), m_y + m_parent->top() - m_parent->getParent()->margin_top());
 	}
 
 	void MainSkin::update()
@@ -77,19 +77,19 @@ namespace widget
 		if (cy < 0) cy = 0;
 
 		//порубали оверлей
-		m_overlayContainer->setPosition(m_parent->view_left() - m_parent->m_parent->m_left_margin, m_parent->view_top() - m_parent->m_parent->m_top_margin);
+		m_overlayContainer->setPosition(m_parent->view_left() - m_parent->getParent()->margin_left(), m_parent->view_top() - m_parent->getParent()->margin_top());
 		m_overlayContainer->setDimensions(cx, cy);
 
 		// теперь смещаем текстуру
-		float UV_lft = m_parent->m_left_margin;
-		float UV_top = m_parent->m_top_margin;
-		float UV_rgt = m_parent->m_cx - m_parent->m_right_margin;
-		float UV_btm = m_parent->m_cy - m_parent->m_bottom_margin;
+		float UV_lft = m_parent->margin_left();
+		float UV_top = m_parent->margin_top();
+		float UV_rgt = m_parent->width() - m_parent->margin_right();
+		float UV_btm = m_parent->height() - m_parent->margin_bottom();
 
-		UV_lft = UV_lft / (float)m_parent->m_cx;
-		UV_top = UV_top / (float)m_parent->m_cy;
-		UV_rgt = UV_rgt / (float)m_parent->m_cx;
-		UV_btm = UV_btm / (float)m_parent->m_cy;
+		UV_lft = UV_lft / (float)m_parent->width();
+		UV_top = UV_top / (float)m_parent->height();
+		UV_rgt = UV_rgt / (float)m_parent->width();
+		UV_btm = UV_btm / (float)m_parent->height();
 
 		float UV_sizeX = m_baseRightUV - m_baseLeftUV;
 		float UV_sizeY = m_baseBottomUV - m_baseTopUV;

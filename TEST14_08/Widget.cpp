@@ -31,12 +31,11 @@ namespace widget
 	{
 		// главный сразу по отцу
 		if (_main) m_subSkinChild.push_back(new MainSkin(0, 0, m_cx, m_cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
-//		else m_subSkinChild.push_back(new SubSkin(_x, _y, _cx, _cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
+		else m_subSkinChild.push_back(new SubSkin(_x, _y, _cx, _cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
 	}
 
 	void Widget::attach(Ogre::OverlayElement * _element)
 	{
-
 		if (m_parent) {
 			// если у отца есть хоть один сабскин, то оформляем отцовство
 			assert(((Widget*)m_parent)->m_subSkinChild.size() > 0);
@@ -54,7 +53,6 @@ namespace widget
 
 	void Widget::visible(bool _visible)
 	{
-//		debug.out("visible %d", _visible);
 
 		if (m_visible == _visible) return;
 		m_visible = _visible;
@@ -96,32 +94,32 @@ namespace widget
 		if (m_align & ALIGN_RIGHT) {
 			if (m_align & ALIGN_LEFT) {
 				// растягиваем
-				cx = m_cx + (m_parent->m_cx - _cx);
+				cx = m_cx + (m_parent->width() - _cx);
 				need_size = true;
 			} else {
 				// двигаем по правому краю
-				x = m_x + (m_parent->m_cx - _cx);
+				x = m_x + (m_parent->width() - _cx);
 				need_move = true;
 			}
 
 		} else if (!(m_align & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
-			x = (m_parent->m_cx - m_cx) / 2;
+			x = (m_parent->width() - m_cx) / 2;
 			need_move = true;
 		}
 
 		if (m_align & ALIGN_BOTTOM) {
 			if (m_align & ALIGN_TOP) {
 				// растягиваем
-				cy = m_cy + (m_parent->m_cy - _cy);
+				cy = m_cy + (m_parent->height() - _cy);
 				need_size = true;
 			} else {
-				y = m_y + (m_parent->m_cy - _cy);
+				y = m_y + (m_parent->height() - _cy);
 				need_move = true;
 			}
 		} else if (!(m_align & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
-			y = (m_parent->m_cy - m_cy) / 2;
+			y = (m_parent->height() - m_cy) / 2;
 			need_move = true;
 		}
 
@@ -179,8 +177,8 @@ namespace widget
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, m_margin || margin);
 		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, m_margin || margin);
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, m_margin || margin);
 
 		// запоминаем текущее состояние
 		m_margin = margin;
@@ -217,8 +215,8 @@ namespace widget
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, m_margin || margin);
 		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy, m_margin || margin);
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, m_margin || margin);
 
 		// запоминаем текущее состояние
 		m_margin = margin;
@@ -252,7 +250,6 @@ namespace widget
 			m_margin = margin;
 
 			// для тех кому нужно подправить себя при движении
-			for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->correct();
 			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
 
 			// скрываем
