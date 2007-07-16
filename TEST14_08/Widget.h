@@ -22,6 +22,7 @@ namespace widget
 		Widget * createChild(int _x, int _y, int _cx, int _cy, char _align);
 		// создаем и добавляем саб скин виджету
 		void addSubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, bool _main);
+		void addText(int _x, int _y, int _cx, int _cy, char _align);
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
@@ -35,7 +36,9 @@ namespace widget
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-	protected:
+		virtual void setCaption(const Ogre::String & _caption);
+
+//	protected:
 
 		// показывает скрывает все сабскины
 		void visible(bool _visible);
@@ -49,6 +52,9 @@ namespace widget
 		widgetChild m_widgetChild;
 		// вектор всех детей сабскинов
 		skinChild m_subSkinChild;
+
+		// укащатель на окно текста
+		SubWidget * m_text;
 
 		// скрыты ли все сабскины при выходе за границу
 		bool m_visible;

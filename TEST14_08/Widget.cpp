@@ -1,12 +1,14 @@
 
 #include "Widget.h"
 #include "debugOut.h"
+#include "TextSimple.h"
 
 namespace widget
 {
 
 	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, Widget * _parent) :
 		SubWidget(_x, _y, _cx, _cy, _align, _parent),
+		m_text(0),
 		m_visible(true)
 	{
 	}
@@ -269,6 +271,18 @@ namespace widget
 		// если скин был скрыт, то покажем
 		visible(true);
 
+	}
+
+	void Widget::setCaption(const Ogre::String & _caption)
+	{
+		assert(m_text);
+		m_text->setCaption(_caption);
+	}
+
+	void Widget::addText(int _x, int _y, int _cx, int _cy, char _align)
+	{
+		m_text = new TextSimple(0, 0, _cx, _cy, 0, 0, 1, 1, "MyGUI_check_n1", _align, this);
+		m_subSkinChild.push_back(m_text);
 	}
 
 } // namespace widget

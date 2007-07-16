@@ -7,6 +7,8 @@
 #include <OgreRenderSystem.h>
 #include "debugOut.h"
 
+#include "TextSimpleOverlayElementFactory.h"
+
 using namespace Ogre;
 using namespace MyGUI;
 
@@ -109,7 +111,11 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	
     mRoot = new Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
 
-    setupResources();
+	// регистрируем фабрику текста
+	Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+	overlayManager.addOverlayElementFactory(new TextSimpleOverlayElementFactory());
+
+	setupResources();
 
 //	if (!mRoot->restoreConfig()) { // сведения об настройках отсутствуют
 //		saveDefaultConfig(); // пытаемся сохранить дефолтный вариант

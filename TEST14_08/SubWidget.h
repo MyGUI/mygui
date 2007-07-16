@@ -61,6 +61,8 @@ namespace widget
 
 		virtual void attach(Ogre::OverlayElement * _element) {};
 
+		virtual void setCaption(const Ogre::String & _caption) {};
+
 		inline SubWidget * getParent() {return m_parent;}
 
 		inline int left()       {return m_x;}

@@ -85,7 +85,10 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget3->addSubSkin(0, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_a1", ALIGN_STRETCH, false);
 	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_VSTRETCH, false);
 	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_HSTRETCH|ALIGN_BOTTOM, false);
+	m_widget3->addText(20, 20, 20, 20, ALIGN_CENTER);
 	m_widget3->update();
+
+	m_widget3->setCaption("test");
 
 //	m_widget4 = m_widget3->createChild(30, 10, 20, 20, ALIGN_RIGHT|ALIGN_BOTTOM);
 //	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_LEFT|ALIGN_TOP, true);
@@ -112,7 +115,7 @@ bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 //===================================================================================
 bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	toggle = 1 - toggle;
+	toggle = !toggle;
 	return true;
 }
 //===================================================================================

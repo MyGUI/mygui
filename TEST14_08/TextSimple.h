@@ -2,37 +2,40 @@
 
 //#include <vector>
 #include <Ogre.h>
-#include <OgrePanelOverlayElement.h>
+//#include <OgrePanelOverlayElement.h>
 #include "MainSkin.h"
 #include "Widget.h"
 #include "SubWidget.h"
+#include "TextSimpleOverlayElement.h"
 
 namespace widget
 {
 	using namespace Ogre;
 
 
-	class SubSkin : public SubWidget
+	class TextSimple : public SubWidget
 	{
 
 	public:
-		SubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, SubWidget * _parent);
-		virtual ~SubSkin();
+		TextSimple(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, SubWidget * _parent);
+		virtual ~TextSimple();
 
 		void update(); // обновления себя и детей
-		void correct();
+//		void correct();
 
 		void show(bool _show);
 
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
+		void setCaption(const Ogre::String & _caption);
+
 	protected:
 
-		void attach(Ogre::OverlayElement * _element);
+//		void attach(Ogre::OverlayElement * _element);
 
 		float m_baseLeftUV, m_baseTopUV, m_baseRightUV, m_baseBottomUV;
-		Ogre::PanelOverlayElement * m_overlayContainer;
+		TextSimpleOverlayElement * m_overlayContainer;
 
 	}; // class SubSkin
 
