@@ -132,7 +132,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
     mCamera = mSceneMgr->createCamera("BasisCamera");
     mCamera->setNearClipDistance(5);
-	mCamera->setPosition(Vector3(100, 100, 200));
+	mCamera->setPosition(Vector3(200, 200, 200));
 	mCamera->lookAt(Vector3(0.0, 0.0, 0.0));
 
     // Create one viewport, entire window

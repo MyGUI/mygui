@@ -1,6 +1,7 @@
 #include "BasisManager.h"
 #include "MyGUI_Source//MyGUI.h"
 #include "debugOut.h"
+#include "debugAxis.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -88,7 +89,7 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget3->addText(20, 20, 20, 20, ALIGN_CENTER);
 	m_widget3->update();
 
-	m_widget3->setCaption("test");
+	m_widget3->setCaption("gafno");
 
 //	m_widget4 = m_widget3->createChild(30, 10, 20, 20, ALIGN_RIGHT|ALIGN_BOTTOM);
 //	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_LEFT|ALIGN_TOP, true);
@@ -100,6 +101,10 @@ void OptionsState::enter(bool bIsChangeState)
 //	debug.add("need cut 4", 170, 90, m_widget4->m_margin);
 
 //	debug.add("aligin 2", 170, 120, m_widget2->m_left_margin);
+
+	debugAxis::create(BasisManager::getSingleton()->mSceneMgr);
+	debugAxis::show(true);
+
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )

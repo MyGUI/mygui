@@ -402,6 +402,14 @@
 			Name="DebugOut"
 			>
 			<File
+				RelativePath=".\debugAxis.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\debugAxis.h"
+				>
+			</File>
+			<File
 				RelativePath=".\debugOut.cpp"
 				>
 			</File>
