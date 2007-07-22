@@ -81,19 +81,6 @@ namespace widget
 		virtual void updatePositionGeometry()
 		{
 
-            //Real vpWidth, vpHeight;
-            //OverlayManager& oMgr = OverlayManager::getSingleton();
-         //   vpWidth = (Real) (oMgr.getViewportWidth());
-      //      vpHeight = (Real) (oMgr.getViewportHeight());
-
-   //         float mPixelScaleX = 1.0 / vpWidth;
-//            float mPixelScaleY = 1.0 / vpHeight;
-
-//            mTop = mPixelTop * mPixelScaleY;
-   //         mWidth = mPixelWidth * mPixelScaleX;
-      //      mHeight = mPixelHeight * mPixelScaleY;
-
-
 			float *pVert;
 
 			if (mpFont.isNull()) return;
@@ -106,15 +93,56 @@ namespace widget
 			HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(POS_TEX_BINDING);
 			pVert = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD) );
 
+			// смещения для невидимости
+			#define OFFSET_OUT 1000
+
+			// опорные данные для отрисовки текста
 			float largestWidth = 0;
 			float left = _getDerivedLeft() * 2.0 - 1.0;
 			float top = -( (_getDerivedTop() * 2.0 ) - 1.0 );
 
-			// левый край обрезки текста
+			// края обрезки текста
 			float left_margin = (mPixelScaleX * (float)m_left_margin * 2.0) + left;
-			// правый край обрезки текста
 			float right_margin = (left + (this->_getWidth() * 2.0)) - (mPixelScaleX * (float)m_right_margin * 2.0);
-			
+			float top_margin = top - (mPixelScaleY * (float)m_top_margin * 2.0);
+			float bottom_margin = (top - (this->_getHeight() * 2.0)) + (mPixelScaleY * (float)m_bottom_margin * 2.0);
+
+			// это данные для конкретного отображения вершин
+			float vertex_top = top;
+			float vertex_bottom = top - mCharHeight * 2.0;
+			float vertex_left = left;
+			float vertex_right;// = left + horiz_height * mCharHeight * 2.0;
+
+			// нужно ли пересчитывать текстурные координаты
+			bool texture_crop_height = false;
+
+			// проверяем обрезку для всей линии
+			// уход за верхнюю границу
+			if (top_margin < vertex_top) {
+				if (top_margin < vertex_bottom) {
+					// совсем ушел вверх
+					vertex_top = OFFSET_OUT;
+					vertex_bottom = OFFSET_OUT;
+				} else {
+					// не доконца ушел вверх
+					vertex_top = top_margin;
+					texture_crop_height= true;
+				}
+			}
+
+			// уход за нижнюю границу
+			if (bottom_margin > vertex_bottom) {
+				if (bottom_margin > vertex_top) {
+					// совсем ушел вниз
+					vertex_top = OFFSET_OUT;
+					vertex_bottom = OFFSET_OUT;
+				} else {
+					// не доконца ушел вниз
+					vertex_bottom = bottom_margin;
+					texture_crop_height = true;
+				}
+			}
+
 
 			// Derive space with from a number 0
 			if (mSpaceWidth == 0) mSpaceWidth = mpFont->getGlyphAspectRatio(UNICODE_ZERO) * mCharHeight * 2.0 * mViewportAspectCoef;
@@ -147,11 +175,47 @@ namespace widget
 
 				if (character == UNICODE_CR || character == UNICODE_NEL || character == UNICODE_LF) {
 
-					left = _getDerivedLeft() * 2.0 - 1.0;
-					top -= mCharHeight * 2.0;
 					newLine = true;
 					// Also reduce tri count
 					mRenderOp.vertexData->vertexCount -= 6;
+
+					// опорные данные для отрисовки
+					left = _getDerivedLeft() * 2.0 - 1.0;
+					top -= mCharHeight * 2.0;
+
+					// инициализируем данные для всей линии
+					vertex_top = top;
+					vertex_bottom = top - mCharHeight * 2.0;
+					vertex_left = left;
+//					vertex_right = left + horiz_height * mCharHeight * 2.0;
+					
+					texture_crop_height = false;
+					// проверяем обрезку для всей линии
+					// уход за верхнюю границу
+					if (top_margin < vertex_top) {
+						if (top_margin < vertex_bottom) {
+							// совсем ушел вверх
+							vertex_top = OFFSET_OUT;
+							vertex_bottom = OFFSET_OUT;
+						} else {
+							// не доконца ушел вверх
+							vertex_top = top_margin;
+							texture_crop_height= true;
+						}
+					}
+
+					// уход за нижнюю границу
+					if (bottom_margin > vertex_bottom) {
+						if (bottom_margin > vertex_top) {
+							// совсем ушел вниз
+							vertex_top = OFFSET_OUT;
+							vertex_bottom = OFFSET_OUT;
+						} else {
+							// не доконца ушел вниз
+							vertex_bottom = bottom_margin;
+							texture_crop_height = true;
+						}
+					}
 
 					// consume CR/LF in one
 					if (character == UNICODE_CR) {
@@ -178,17 +242,12 @@ namespace widget
 				Real horiz_height = mpFont->getGlyphAspectRatio(character) * mViewportAspectCoef ;
 				const Font::UVRect& uvRect = mpFont->getGlyphTexCoords(character);
 
-				// смещения для невидимости
-				#define OFFSET_OUT 1000
-
 				// нужно ли пересчитывать текстурные координаты
-				bool texture_crop = false;
+				bool texture_crop_width = false;
 
 				// координаты вершин
-				float vertex_left = left;
-				float vertex_right = left + horiz_height * mCharHeight * 2.0;
-				float vertex_top = top;
-				float vertex_bottom = top - mCharHeight * 2.0;
+				vertex_left = left;
+				vertex_right = left + horiz_height * mCharHeight * 2.0;
 
 				// координаты текстуры
 				float text_left = uvRect.left;
@@ -205,7 +264,7 @@ namespace widget
 					} else {
 						// не доконца ушел влево
 						vertex_left = left_margin;
-						texture_crop = true;
+						texture_crop_width= true;
 					}
 				}
 
@@ -218,8 +277,18 @@ namespace widget
 					} else {
 						// не доконца ушел вправо
 						vertex_right = right_margin;
-						texture_crop = true;
+						texture_crop_width = true;
 					}
+				}
+
+				// если необходим пересчет текстурных координат
+				if (texture_crop_width) {
+					// горизонтально только один раз
+					texture_crop_width = false;
+
+				}
+
+				if (texture_crop_height) {
 				}
 
 				// each vert is (x, y, z, u, v)
@@ -289,9 +358,8 @@ namespace widget
 			largestWidth *= vpWidth;
 
 			if (getWidth() < largestWidth) setWidth(largestWidth);
+		}
 
-		} // virtual void updatePositionGeometry()
-
-	};
+	}; // class TextSimpleOverlayElement : public TextAreaOverlayElement
 
 } // namespace widget
