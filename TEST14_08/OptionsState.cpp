@@ -39,7 +39,7 @@ void OptionsState::onOtherEvent(MyGUI::Window * pWindow, uint16 uEvent, uint32 d
 //===================================================================================
 void OptionsState::enter(bool bIsChangeState)
 {
-	m_straColour.push_back("BACK_BLACK");
+/*	m_straColour.push_back("BACK_BLACK");
 	m_straColour.push_back("BACK_WHITE");
 	m_straColour.push_back("BACK_GRAY");
 	m_straColour.push_back("BACK_GREEN");
@@ -65,7 +65,7 @@ void OptionsState::enter(bool bIsChangeState)
 	m_buttonEditor->setCaption("Editor");
 	m_buttonEditor->hide();
     
-	mEditor = new SkinEditor::SkinEditor(this);
+	mEditor = new SkinEditor::SkinEditor(this);*/
 
 
 	m_widget1 = 0;
@@ -85,11 +85,12 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget3 = m_widget2->createChild(10, 10, 60, 60, ALIGN_STRETCH);
 	m_widget3->addSubSkin(0, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_a1", ALIGN_STRETCH, false);
 	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_VSTRETCH, false);
-	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_HSTRETCH|ALIGN_BOTTOM, false);
+	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_HSTRETCH|ALIGN_BOTTOM, false);
 	m_widget3->addText(20, 20, 20, 20, ALIGN_CENTER);
 	m_widget3->update();
 
-	m_widget3->setCaption("gafno");
+	m_widget3->setCaption("gafnoerte\nsda");
+//	m_widget3->setCaption("gafnoerte\nsda");
 
 //	m_widget4 = m_widget3->createChild(30, 10, 20, 20, ALIGN_RIGHT|ALIGN_BOTTOM);
 //	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_LEFT|ALIGN_TOP, true);
@@ -126,14 +127,14 @@ bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 //===================================================================================
 void OptionsState::exit()
 {
-	GUI::getSingleton()->destroyWindow(m_comboBackground);
+/*	GUI::getSingleton()->destroyWindow(m_comboBackground);
 	GUI::getSingleton()->destroyWindow(m_buttonExit);
 	GUI::getSingleton()->destroyWindow(m_buttonEditor);
 
 	if (mEditor) {
 		delete mEditor;
 		mEditor = 0;
-	}
+	}*/
 }
 //===================================================================================
 void OptionsState::windowResize() // уведомление об изменении размеров окна рендера

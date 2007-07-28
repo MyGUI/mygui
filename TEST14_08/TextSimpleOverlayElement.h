@@ -62,7 +62,7 @@ namespace widget
 				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
 
 				if ( character == UNICODE_SPACE) len += mSpaceWidth;
-				else if (character == 10) { // перевод строки
+				else if (character == UNICODE_LF) { // перевод строки, остальные вернут ширину 0, нет смысла за ними бегать
 
 					if (len > cx) cx = len;
 					len = 0;
@@ -76,12 +76,15 @@ namespace widget
 			_cx = (int)cx;
 			_cy = (int)cy;
 
+			// для правильного просчета геометрии
+            mPixelWidth = _cx;
+            mPixelHeight = _cy;
+	        mDerivedOutOfDate = true;
+
 		}
 
 		virtual void updatePositionGeometry()
 		{
-
-			float *pVert;
 
 			if (mpFont.isNull()) return;
 
@@ -91,15 +94,19 @@ namespace widget
 			mRenderOp.vertexData->vertexCount = charlen * 6;
 			// Get position / texcoord buffer
 			HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(POS_TEX_BINDING);
-			pVert = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD) );
+			float *pVert = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD) );
 
-			// смещения для невидимости
-			#define OFFSET_OUT 1000
-
-			// опорные данные для отрисовки текста
-			float largestWidth = 0;
+			// опорное смещение вершин
 			float left = _getDerivedLeft() * 2.0 - 1.0;
 			float top = -( (_getDerivedTop() * 2.0 ) - 1.0 );
+			float right = left;
+			float bottom = top - mCharHeight * 2.0;
+
+			// смещение для вывода
+			float vertex_left = left;
+			float vertex_top = top;
+			float vertex_right = right;
+			float vertex_bottom = bottom;
 
 			// края обрезки текста
 			float left_margin = (mPixelScaleX * (float)m_left_margin * 2.0) + left;
@@ -107,22 +114,16 @@ namespace widget
 			float top_margin = top - (mPixelScaleY * (float)m_top_margin * 2.0);
 			float bottom_margin = (top - (this->_getHeight() * 2.0)) + (mPixelScaleY * (float)m_bottom_margin * 2.0);
 
-			// это данные для конкретного отображения вершин
-			float vertex_top = top;
-			float vertex_bottom = top - mCharHeight * 2.0;
-			float vertex_left = left;
-			float vertex_right;// = left + horiz_height * mCharHeight * 2.0;
-
-			// нужно ли пересчитывать текстурные координаты
+			// просчет вертикальной обрезки
+			bool skip_line = false;
 			bool texture_crop_height = false;
+			bool texture_crop_width = false;
 
-			// проверяем обрезку для всей линии
 			// уход за верхнюю границу
 			if (top_margin < vertex_top) {
 				if (top_margin < vertex_bottom) {
 					// совсем ушел вверх
-					vertex_top = OFFSET_OUT;
-					vertex_bottom = OFFSET_OUT;
+					skip_line = true;
 				} else {
 					// не доконца ушел вверх
 					vertex_top = top_margin;
@@ -131,18 +132,16 @@ namespace widget
 			}
 
 			// уход за нижнюю границу
-			if (bottom_margin > vertex_bottom) {
+			if ((bottom_margin > vertex_bottom) && (!skip_line)) { // skip_line чтоб не пересчитывать
 				if (bottom_margin > vertex_top) {
 					// совсем ушел вниз
-					vertex_top = OFFSET_OUT;
-					vertex_bottom = OFFSET_OUT;
+					skip_line = true;
 				} else {
 					// не доконца ушел вниз
 					vertex_bottom = bottom_margin;
 					texture_crop_height = true;
 				}
 			}
-
 
 			// Derive space with from a number 0
 			if (mSpaceWidth == 0) mSpaceWidth = mpFont->getGlyphAspectRatio(UNICODE_ZERO) * mCharHeight * 2.0 * mViewportAspectCoef;
@@ -158,45 +157,38 @@ namespace widget
 					Real len = 0.0f;
 					for( DisplayString::iterator j = i; j != iend; j++ ) {
 						Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(j);
-
-						if (character == UNICODE_CR || character == UNICODE_NEL || character == UNICODE_LF) {
-							break;
-						} else if (character == UNICODE_SPACE) {// space
-							len += mSpaceWidth;
-						} else {
-							len += mpFont->getGlyphAspectRatio(character) * mCharHeight * 2.0 * mViewportAspectCoef;
-						}
+						if (character == UNICODE_CR || character == UNICODE_NEL || character == UNICODE_LF) break;
+						else if (character == UNICODE_SPACE) len += mSpaceWidth;
+						else len += mpFont->getGlyphAspectRatio(character) * mCharHeight * 2.0 * mViewportAspectCoef;
 					}
 
+					right = _getDerivedLeft() * 2.0 - 1.0; // выравнивание по левой стороне
+					if ( mAlignment == Right ) right += ((this->_getWidth() * 2.0) - len); // выравнивание по правой стороне
+					else if ( mAlignment == Center ) right += ((this->_getWidth() * 2.0) - len) * 0.5; // выравнивание по центру
+
 					newLine = false;
-				}
+
+				} // if( newLine ) {
 
 				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(i);
-
 				if (character == UNICODE_CR || character == UNICODE_NEL || character == UNICODE_LF) {
 
-					newLine = true;
-					// Also reduce tri count
-					mRenderOp.vertexData->vertexCount -= 6;
+					// пересчет опорных данных
+					top = bottom;
+					bottom -= mCharHeight * 2.0;
 
-					// опорные данные для отрисовки
-					left = _getDerivedLeft() * 2.0 - 1.0;
-					top -= mCharHeight * 2.0;
-
-					// инициализируем данные для всей линии
+					// присваиваем и вершинным
 					vertex_top = top;
-					vertex_bottom = top - mCharHeight * 2.0;
-					vertex_left = left;
-//					vertex_right = left + horiz_height * mCharHeight * 2.0;
-					
+					vertex_bottom = bottom;
+
+					// просчет вертикальной обрезки
+					skip_line = false;
 					texture_crop_height = false;
-					// проверяем обрезку для всей линии
 					// уход за верхнюю границу
 					if (top_margin < vertex_top) {
 						if (top_margin < vertex_bottom) {
 							// совсем ушел вверх
-							vertex_top = OFFSET_OUT;
-							vertex_bottom = OFFSET_OUT;
+							skip_line = true;
 						} else {
 							// не доконца ушел вверх
 							vertex_top = top_margin;
@@ -205,11 +197,10 @@ namespace widget
 					}
 
 					// уход за нижнюю границу
-					if (bottom_margin > vertex_bottom) {
+					if ((bottom_margin > vertex_bottom) && (!skip_line)) { // skip_line чтоб не пересчитывать
 						if (bottom_margin > vertex_top) {
 							// совсем ушел вниз
-							vertex_top = OFFSET_OUT;
-							vertex_bottom = OFFSET_OUT;
+							skip_line = true;
 						} else {
 							// не доконца ушел вниз
 							vertex_bottom = bottom_margin;
@@ -217,11 +208,15 @@ namespace widget
 						}
 					}
 
+
+					newLine = true;
+					// Also reduce tri count
+					mRenderOp.vertexData->vertexCount -= 6;
+
 					// consume CR/LF in one
 					if (character == UNICODE_CR) {
 						DisplayString::iterator peeki = i;
 						peeki++;
-
 						if (peeki != iend && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == UNICODE_LF) {
 							i = peeki; // skip both as one newline
 							// Also reduce tri count
@@ -231,9 +226,10 @@ namespace widget
 					}
 					continue;
 
-				} else if (character == UNICODE_SPACE) {// space
+				} else if (character == UNICODE_SPACE) {
 					// Just leave a gap, no tris
-					left += mSpaceWidth;
+					left = right;
+					right += mSpaceWidth;
 					// Also reduce tri count
 					mRenderOp.vertexData->vertexCount -= 6;
 					continue;
@@ -242,25 +238,29 @@ namespace widget
 				Real horiz_height = mpFont->getGlyphAspectRatio(character) * mViewportAspectCoef ;
 				const Font::UVRect& uvRect = mpFont->getGlyphTexCoords(character);
 
-				// нужно ли пересчитывать текстурные координаты
-				bool texture_crop_width = false;
-
-				// координаты вершин
+				// пересчет опорных данных
+				left = right;
+				right += horiz_height * mCharHeight * 2.0;
+				// присваиваем и вершинным
 				vertex_left = left;
-				vertex_right = left + horiz_height * mCharHeight * 2.0;
+				vertex_right = right;
 
-				// координаты текстуры
-				float text_left = uvRect.left;
-				float text_right = uvRect.right;
-				float text_top = uvRect.top;
-				float text_bottom = uvRect.bottom;
+				if (skip_line) {
+					// вообще не рисуем символ и умешьшаем размер буфера
+					mRenderOp.vertexData->vertexCount -= 6;
+					continue;
+				}
 
+				// просчет горизонтальной обрезки
+				texture_crop_width = false;
 				// уход за левую границу
 				if (left_margin > vertex_left) {
 					if (left_margin > vertex_right) {
 						// совсем ушел влево
-						vertex_left = OFFSET_OUT;
-						vertex_right = OFFSET_OUT;
+						// вообще не рисуем символ и умешьшаем размер буфера
+						mRenderOp.vertexData->vertexCount -= 6;
+						continue;
+
 					} else {
 						// не доконца ушел влево
 						vertex_left = left_margin;
@@ -272,8 +272,9 @@ namespace widget
 				if (right_margin < vertex_right) {
 					if (right_margin < vertex_left) {
 						// совсем ушел вправо
-						vertex_left = OFFSET_OUT;
-						vertex_right = OFFSET_OUT;
+						// вообще не рисуем символ и умешьшаем размер буфера
+						mRenderOp.vertexData->vertexCount -= 6;
+						continue;
 					} else {
 						// не доконца ушел вправо
 						vertex_right = right_margin;
@@ -281,14 +282,12 @@ namespace widget
 					}
 				}
 
-				// если необходим пересчет текстурных координат
-				if (texture_crop_width) {
-					// горизонтально только один раз
-					texture_crop_width = false;
-
+				// смещение текстуры по вертикили
+				if (texture_crop_height) {
 				}
 
-				if (texture_crop_height) {
+				// смещение текстуры по горизонтали
+				if (texture_crop_width) {
 				}
 
 				// each vert is (x, y, z, u, v)
@@ -299,22 +298,22 @@ namespace widget
 				*pVert++ = vertex_left;
 				*pVert++ = vertex_top;
 				*pVert++ = -1.0;
-				*pVert++ = text_left;
-				*pVert++ = text_top;
+				*pVert++ = uvRect.left;
+				*pVert++ = uvRect.top;
 
 				// Bottom left
 				*pVert++ = vertex_left;
 				*pVert++ = vertex_bottom;
 				*pVert++ = -1.0;
-				*pVert++ = text_left;
-				*pVert++ = text_bottom;
+				*pVert++ = uvRect.left;
+				*pVert++ = uvRect.bottom;
 
 				// Top right
 				*pVert++ = vertex_right;
 				*pVert++ = vertex_top;
 				*pVert++ = -1.0;
-				*pVert++ = text_right;
-				*pVert++ = text_top;
+				*pVert++ = uvRect.right;
+				*pVert++ = uvRect.top;
 				//-------------------------------------------------------------------------------------
 
 				//-------------------------------------------------------------------------------------
@@ -324,40 +323,28 @@ namespace widget
 				*pVert++ = vertex_right;
 				*pVert++ = vertex_top;
 				*pVert++ = -1.0;
-				*pVert++ = text_right;
-				*pVert++ = text_top;
+				*pVert++ = uvRect.right;
+				*pVert++ = uvRect.top;
 
 				// Bottom left (again)
 				*pVert++ = vertex_left;
 				*pVert++ = vertex_bottom;
 				*pVert++ = -1.0;
-				*pVert++ = text_left;
-				*pVert++ = text_bottom;
+				*pVert++ = uvRect.left;
+				*pVert++ = uvRect.bottom;
 
 				// Bottom right
 				*pVert++ = vertex_right;
 				*pVert++ = vertex_bottom;
 				*pVert++ = -1.0;
-				*pVert++ = text_right;
-				*pVert++ = text_bottom;
+				*pVert++ = uvRect.right;
+				*pVert++ = uvRect.bottom;
 				//-------------------------------------------------------------------------------------
 
-				left += horiz_height * mCharHeight * 2.0;
-
-				float currentWidth = (left + 1)/2 - _getDerivedLeft();
-				if (currentWidth > largestWidth) largestWidth = currentWidth;
-
-			} // for( i = mCaption.begin(); i != iend; ++i )
-
+			}
 			// Unlock vertex buffer
 			vbuf->unlock();
 
-			Real vpWidth;
-			vpWidth = (Real) (OverlayManager::getSingleton().getViewportWidth());
-
-			largestWidth *= vpWidth;
-
-			if (getWidth() < largestWidth) setWidth(largestWidth);
 		}
 
 	}; // class TextSimpleOverlayElement : public TextAreaOverlayElement

@@ -19,11 +19,15 @@ namespace widget
 			"TextSimple", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
-		m_overlayContainer->setPosition(m_x, m_y);
-		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setFontName("MyGUI_font");
 		m_overlayContainer->setCharHeight(20);
+		m_overlayContainer->setPosition(m_x, m_y);
+		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setColour(ColourValue(1.0, 1.0, 1.0, 1.0));
+
+		// выравнивание
+		if (_align & ALIGN_RIGHT) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Right);
+		else if (! (_align & ALIGN_RIGHT)) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Center);
 
 		assert(((Widget*)m_parent)->m_subSkinChild.size() > 0);
 		((Widget*)m_parent)->m_subSkinChild[0]->attach(m_overlayContainer);
@@ -49,9 +53,7 @@ namespace widget
 
 		// двигаем всегда, т.к. дети должны двигаться
 		int x = m_x - m_parent->margin_left();
-//		if (x < 0) x = 0;
 		int y = m_y  - m_parent->margin_top();
-//		if (y < 0) y = 0;
 
 		m_overlayContainer->setPosition(x, y);
 
@@ -74,16 +76,8 @@ namespace widget
 		
 		if ((m_margin) || (margin)) { // мы обрезаны или были обрезаны
 
-//			int cx = view_width();
-//			if (cx < 0) cx = 0;
-//			int cy = view_height();
-//			if (cy < 0) cy = 0;
-
-			// устанавливаем камку для обрезки текста
+			// устанавливаем рамку для обрезки текста
 			m_overlayContainer->setMargin(m_left_margin, m_top_margin, m_right_margin, m_bottom_margin);
-
-			// устанавливаем размер
-//			m_overlayContainer->setDimensions(m_cx, m_cy);
 
 		}
 
@@ -134,9 +128,8 @@ namespace widget
 	{
 		// записывам новую строку
 		m_overlayContainer->setCaption(_caption);
-		// узнаем новый размер
+		// узнаем новый размер, там же он и запоминается
 		m_overlayContainer->getTextSize(m_cx, m_cy);
-		debug.out("%d, %d", m_cx, m_cy);
 		// и делаем полное обновление и выравнивание
 		m_margin = true; // при изменении размеров все пересчитывать
 		align(m_cx, m_cy, true);
