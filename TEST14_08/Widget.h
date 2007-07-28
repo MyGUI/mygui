@@ -22,7 +22,7 @@ namespace widget
 		// создаем дочку
 		Widget * createChild(int _x, int _y, int _cx, int _cy, char _align);
 		// создаем и добавляем саб скин виджету
-		void addSubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, bool _main);
+		SubWidget * addSubSkin(int _x, int _y, int _cx, int _cy, const String & _material, char _align, bool _main);
 		void addText(char _align);
 
 		void move(int _x, int _y);
@@ -38,6 +38,9 @@ namespace widget
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
 		virtual void setCaption(const Ogre::DisplayString & _caption);
+
+		void setUVSet(size_t _num);
+
 
 //	protected:
 

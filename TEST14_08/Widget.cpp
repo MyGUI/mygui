@@ -29,11 +29,13 @@ namespace widget
 		return widget;
 	}
 
-	void Widget::addSubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, bool _main)
+	SubWidget *  Widget::addSubSkin(int _x, int _y, int _cx, int _cy, const String & _material, char _align, bool _main)
 	{
-		// главный сразу по отцу
-		if (_main) m_subSkinChild.push_back(new MainSkin(0, 0, m_cx, m_cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
-		else m_subSkinChild.push_back(new SubSkin(_x, _y, _cx, _cy, _leftUV, _topUV, _rightUV, _bottomUV, _material, _align, this));
+		SubWidget * sub;
+		if (_main) sub = new MainSkin(0, 0, m_cx, m_cy, _material, _align, this);
+		else sub = new SubSkin(_x, _y, _cx, _cy, _material, _align, this);
+		m_subSkinChild.push_back(sub);
+		return sub;
 	}
 
 	void Widget::attach(Ogre::OverlayElement * _element)
@@ -283,6 +285,11 @@ namespace widget
 	{
 		m_text = new TextSimple(_align, this);
 		m_subSkinChild.push_back(m_text);
+	}
+
+	void Widget::setUVSet(size_t _num)
+	{
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setUVSet(_num);
 	}
 
 } // namespace widget

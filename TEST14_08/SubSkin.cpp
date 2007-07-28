@@ -5,12 +5,8 @@
 namespace widget
 {
 
-	SubSkin::SubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, SubWidget * _parent) :
-		SubWidget(_x, _y, _cx, _cy, _align, _parent),
-		m_baseLeftUV (_leftUV),
-		m_baseTopUV (_topUV),
-		m_baseRightUV (_rightUV),
-		m_baseBottomUV (_bottomUV)
+	SubSkin::SubSkin(int _x, int _y, int _cx, int _cy, const String & _material, char _align, SubWidget * _parent) :
+		SubWidget(_x, _y, _cx, _cy, _align, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
@@ -94,13 +90,13 @@ namespace widget
 				UV_rgt = UV_rgt / (float)m_cx;
 				UV_btm = UV_btm / (float)m_cy;
 
-				float UV_sizeX = m_baseRightUV - m_baseLeftUV;
-				float UV_sizeY = m_baseBottomUV - m_baseTopUV;
+				float UV_sizeX = m_rectTexture.right - m_rectTexture.left;
+				float UV_sizeY = m_rectTexture.bottom - m_rectTexture.top;
 
-				float UV_lft_total = m_baseLeftUV + UV_lft * UV_sizeX;
-				float UV_top_total = m_baseTopUV + UV_top * UV_sizeY;
-				float UV_rgt_total = m_baseRightUV - (1-UV_rgt) * UV_sizeX;
-				float UV_btm_total = m_baseBottomUV - (1-UV_btm) * UV_sizeY;
+				float UV_lft_total = m_rectTexture.left + UV_lft * UV_sizeX;
+				float UV_top_total = m_rectTexture.top + UV_top * UV_sizeY;
+				float UV_rgt_total = m_rectTexture.right - (1-UV_rgt) * UV_sizeX;
+				float UV_btm_total = m_rectTexture.bottom - (1-UV_btm) * UV_sizeY;
 
 				m_overlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 
@@ -168,6 +164,45 @@ namespace widget
 
 		if (need_update) update();
 
+	}
+
+	void SubSkin::addUVSet(float _left, float _top, float _right, float _bottom)
+	{
+		m_uvSet.push_back(Ogre::FloatRect(_left, _top, _right, _bottom));
+	}
+
+	void SubSkin::setUVSet(size_t _num)
+	{
+		assert(m_uvSet.size() >= _num);
+		assert(m_overlayContainer);
+		m_rectTexture = m_uvSet[_num];
+		// если обрезаны, то просчитываем с учето обрезки
+		if (m_margin) {
+
+			float UV_lft = m_left_margin;
+			float UV_top = m_top_margin;
+			float UV_rgt = m_cx - m_right_margin;
+			float UV_btm = m_cy - m_bottom_margin;
+
+			UV_lft = UV_lft / (float)m_cx;
+			UV_top = UV_top / (float)m_cy;
+			UV_rgt = UV_rgt / (float)m_cx;
+			UV_btm = UV_btm / (float)m_cy;
+
+			float UV_sizeX = m_rectTexture.right - m_rectTexture.left;
+			float UV_sizeY = m_rectTexture.bottom - m_rectTexture.top;
+
+			float UV_lft_total = m_rectTexture.left + UV_lft * UV_sizeX;
+			float UV_top_total = m_rectTexture.top + UV_top * UV_sizeY;
+			float UV_rgt_total = m_rectTexture.right - (1-UV_rgt) * UV_sizeX;
+			float UV_btm_total = m_rectTexture.bottom - (1-UV_btm) * UV_sizeY;
+
+			m_overlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+
+		} else {
+			// мы не обрезаны, базовые координаты
+			m_overlayContainer->setUV(m_rectTexture.left, m_rectTexture.top, m_rectTexture.right, m_rectTexture.bottom);
+		}
 	}
 
 } // namespace widget

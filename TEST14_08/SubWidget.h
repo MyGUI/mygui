@@ -63,6 +63,9 @@ namespace widget
 
 		virtual void setCaption(const Ogre::DisplayString & _caption) {};
 
+		virtual void addUVSet(float _left, float _top, float _right, float _bottom) {};
+		virtual void setUVSet(size_t _num) {};
+
 		inline SubWidget * getParent() {return m_parent;}
 
 		inline int left()       {return m_x;}
