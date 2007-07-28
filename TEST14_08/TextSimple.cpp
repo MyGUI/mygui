@@ -6,12 +6,8 @@
 namespace widget
 {
 
-	TextSimple::TextSimple(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, SubWidget * _parent) :
-		SubWidget(_x, _y, _cx, _cy, _align, _parent),
-		m_baseLeftUV (_leftUV),
-		m_baseTopUV (_topUV),
-		m_baseRightUV (_rightUV),
-		m_baseBottomUV (_bottomUV)
+	TextSimple::TextSimple(char _align, SubWidget * _parent) :
+		SubWidget(0, 0, 0, 0, _align, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
@@ -21,8 +17,6 @@ namespace widget
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setFontName("MyGUI_font");
 		m_overlayContainer->setCharHeight(20);
-		m_overlayContainer->setPosition(m_x, m_y);
-		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setColour(ColourValue(1.0, 1.0, 1.0, 1.0));
 
 		// выравнивание
@@ -124,7 +118,7 @@ namespace widget
 
 	}
 
-	void TextSimple::setCaption(const Ogre::String & _caption)
+	void TextSimple::setCaption(const Ogre::DisplayString & _caption)
 	{
 		// записывам новую строку
 		m_overlayContainer->setCaption(_caption);

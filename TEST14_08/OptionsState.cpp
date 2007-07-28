@@ -2,6 +2,7 @@
 #include "MyGUI_Source//MyGUI.h"
 #include "debugOut.h"
 #include "debugAxis.h"
+#include "delegate.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -86,7 +87,7 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget3->addSubSkin(0, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_a1", ALIGN_STRETCH, false);
 	m_widget3->addSubSkin(30, 0, 30, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_VSTRETCH, false);
 	m_widget3->addSubSkin(0, 30, 60, 30, 0, 0, 1, 1, "MyGUI_check_n1", ALIGN_HSTRETCH|ALIGN_BOTTOM, false);
-	m_widget3->addText(20, 20, 20, 20, ALIGN_CENTER);
+	m_widget3->addText(ALIGN_CENTER);
 	m_widget3->update();
 
 	m_widget3->setCaption("gafne\nsda");

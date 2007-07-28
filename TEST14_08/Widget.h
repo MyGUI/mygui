@@ -5,6 +5,7 @@
 #include "MainSkin.h"
 #include "SubSkin.h"
 #include "SubWidget.h"
+#include "delegate.h"
 
 namespace widget
 {
@@ -22,7 +23,7 @@ namespace widget
 		Widget * createChild(int _x, int _y, int _cx, int _cy, char _align);
 		// создаем и добавляем саб скин виджету
 		void addSubSkin(int _x, int _y, int _cx, int _cy, float _leftUV, float _topUV, float _rightUV, float _bottomUV, const String & _material, char _align, bool _main);
-		void addText(int _x, int _y, int _cx, int _cy, char _align);
+		void addText(char _align);
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
@@ -36,7 +37,7 @@ namespace widget
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		virtual void setCaption(const Ogre::String & _caption);
+		virtual void setCaption(const Ogre::DisplayString & _caption);
 
 //	protected:
 
@@ -53,7 +54,7 @@ namespace widget
 		// вектор всех детей сабскинов
 		skinChild m_subSkinChild;
 
-		// укащатель на окно текста
+		// указатель на окно текста
 		SubWidget * m_text;
 
 		// скрыты ли все сабскины при выходе за границу

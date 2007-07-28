@@ -273,15 +273,15 @@ namespace widget
 
 	}
 
-	void Widget::setCaption(const Ogre::String & _caption)
+	void Widget::setCaption(const Ogre::DisplayString & _caption)
 	{
-		assert(m_text);
+		if (!m_text) return;
 		m_text->setCaption(_caption);
 	}
 
-	void Widget::addText(int _x, int _y, int _cx, int _cy, char _align)
+	void Widget::addText(char _align)
 	{
-		m_text = new TextSimple(0, 0, _cx, _cy, 0, 0, 1, 1, "MyGUI_check_n1", _align, this);
+		m_text = new TextSimple(_align, this);
 		m_subSkinChild.push_back(m_text);
 	}
 

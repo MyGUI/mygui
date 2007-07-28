@@ -1,9 +1,6 @@
 #pragma once
 
 #include <Ogre.h>
-//#include <OgreOverlay.h>
-//#include <OgreOverlayManager.h>
-//#include <OgreOverlayElement.h>
 #include <OgrePanelOverlayElement.h>
 #include "SubWidget.h"
 

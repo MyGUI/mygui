@@ -454,6 +454,14 @@
 			Name="Widget"
 			>
 			<File
+				RelativePath=".\delegate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\delegate_implement.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MainSkin.cpp"
 				>
 			</File>
