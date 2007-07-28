@@ -89,7 +89,7 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget3->addText(20, 20, 20, 20, ALIGN_CENTER);
 	m_widget3->update();
 
-	m_widget3->setCaption("gafnoerte\nsda");
+	m_widget3->setCaption("gafne\nsda");
 //	m_widget3->setCaption("gafnoerte\nsda");
 
 //	m_widget4 = m_widget3->createChild(30, 10, 20, 20, ALIGN_RIGHT|ALIGN_BOTTOM);

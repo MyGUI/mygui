@@ -50,8 +50,8 @@ namespace widget
 			// Derive space with from a number 0
 			if (mSpaceWidth == 0) mSpaceWidth = mpFont->getGlyphAspectRatio(UNICODE_ZERO) * mCharHeight * 2.0 * mViewportAspectCoef;
 
-			float height = 20;
-			float cy = height;
+//			float height = 20;
+			float cy = mPixelCharHeight;
 			float cx = 0;
 			float len = 0;
 
@@ -66,15 +66,18 @@ namespace widget
 
 					if (len > cx) cx = len;
 					len = 0;
-					cy += height;
+					cy += mPixelCharHeight;
 
-				} else len += mpFont->getGlyphAspectRatio(character) * height;
+				} else len += mpFont->getGlyphAspectRatio(character) * mPixelCharHeight;
 			}
 
 			if (len > cx) cx = len;
 	
 			_cx = (int)cx;
 			_cy = (int)cy;
+			// округляем в сторону увеличения
+			if ((float)_cx < cx) _cx ++;
+//			if ((float)_cy < cy) _cy ++; // по высоте и так считаем в пикселях
 
 			// для правильного просчета геометрии
             mPixelWidth = _cx;
@@ -113,6 +116,18 @@ namespace widget
 			float right_margin = (left + (this->_getWidth() * 2.0)) - (mPixelScaleX * (float)m_right_margin * 2.0);
 			float top_margin = top - (mPixelScaleY * (float)m_top_margin * 2.0);
 			float bottom_margin = (top - (this->_getHeight() * 2.0)) + (mPixelScaleY * (float)m_bottom_margin * 2.0);
+
+			// текстурные координаты для вывода
+			float texture_left;
+			float texture_right;
+			float texture_top;
+			float texture_bottom;
+
+			// вычисление размера одной единицы в текстурных координатах
+			float char_aspect = mpFont->getGlyphAspectRatio('A') * mViewportAspectCoef;
+			const Font::UVRect& uvRect = mpFont->getGlyphTexCoords('A');
+			float texture_height_one = (uvRect.bottom - uvRect.top) / (mCharHeight * 2.0);
+			float texture_width_one = (uvRect.right - uvRect.left) / (char_aspect * mCharHeight * 2.0);
 
 			// просчет вертикальной обрезки
 			bool skip_line = false;
@@ -168,7 +183,7 @@ namespace widget
 
 					newLine = false;
 
-				} // if( newLine ) {
+				} // if ( newLine ) {
 
 				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(i);
 				if (character == UNICODE_CR || character == UNICODE_NEL || character == UNICODE_LF) {
@@ -237,6 +252,10 @@ namespace widget
 
 				Real horiz_height = mpFont->getGlyphAspectRatio(character) * mViewportAspectCoef ;
 				const Font::UVRect& uvRect = mpFont->getGlyphTexCoords(character);
+				texture_left = uvRect.left;
+				texture_right = uvRect.right;
+				texture_top = uvRect.top;
+				texture_bottom = uvRect.bottom;
 
 				// пересчет опорных данных
 				left = right;
@@ -284,10 +303,18 @@ namespace widget
 
 				// смещение текстуры по вертикили
 				if (texture_crop_height) {
+					// прибавляем размер смещения в текстурных координатах
+					texture_top += (top - vertex_top) * texture_height_one;
+					// отнимаем размер смещения в текстурных координатах
+					texture_bottom -= (vertex_bottom - bottom) * texture_height_one;
 				}
 
 				// смещение текстуры по горизонтали
 				if (texture_crop_width) {
+					// прибавляем размер смещения в текстурных координатах
+					texture_left += (vertex_left - left) * texture_width_one;
+					// отнимаем размер смещения в текстурных координатах
+					texture_right -= (right - vertex_right) * texture_width_one;
 				}
 
 				// each vert is (x, y, z, u, v)
@@ -298,22 +325,22 @@ namespace widget
 				*pVert++ = vertex_left;
 				*pVert++ = vertex_top;
 				*pVert++ = -1.0;
-				*pVert++ = uvRect.left;
-				*pVert++ = uvRect.top;
+				*pVert++ = texture_left;
+				*pVert++ = texture_top;
 
 				// Bottom left
 				*pVert++ = vertex_left;
 				*pVert++ = vertex_bottom;
 				*pVert++ = -1.0;
-				*pVert++ = uvRect.left;
-				*pVert++ = uvRect.bottom;
+				*pVert++ = texture_left;
+				*pVert++ = texture_bottom;
 
 				// Top right
 				*pVert++ = vertex_right;
 				*pVert++ = vertex_top;
 				*pVert++ = -1.0;
-				*pVert++ = uvRect.right;
-				*pVert++ = uvRect.top;
+				*pVert++ = texture_right;
+				*pVert++ = texture_top;
 				//-------------------------------------------------------------------------------------
 
 				//-------------------------------------------------------------------------------------
@@ -323,22 +350,22 @@ namespace widget
 				*pVert++ = vertex_right;
 				*pVert++ = vertex_top;
 				*pVert++ = -1.0;
-				*pVert++ = uvRect.right;
-				*pVert++ = uvRect.top;
+				*pVert++ = texture_right;
+				*pVert++ = texture_top;
 
 				// Bottom left (again)
 				*pVert++ = vertex_left;
 				*pVert++ = vertex_bottom;
 				*pVert++ = -1.0;
-				*pVert++ = uvRect.left;
-				*pVert++ = uvRect.bottom;
+				*pVert++ = texture_left;
+				*pVert++ = texture_bottom;
 
 				// Bottom right
 				*pVert++ = vertex_right;
 				*pVert++ = vertex_bottom;
 				*pVert++ = -1.0;
-				*pVert++ = uvRect.right;
-				*pVert++ = uvRect.bottom;
+				*pVert++ = texture_right;
+				*pVert++ = texture_bottom;
 				//-------------------------------------------------------------------------------------
 
 			}
