@@ -1,8 +1,7 @@
 #pragma once
 
-//#include <vector>
 #include <Ogre.h>
-#include <OgrePanelOverlayElement.h>
+#include "PanelAlphaOverlayElement.h"
 #include "MainSkin.h"
 #include "Widget.h"
 #include "SubWidget.h"
@@ -30,12 +29,13 @@ namespace widget
 		void addUVSet(float _left, float _top, float _right, float _bottom);
 		void setUVSet(size_t _num);
 
+		void setAlpha(float _alpha);
+
 	protected:
 
 		void attach(Ogre::OverlayElement * _element);
 
-//		float m_baseLeftUV, m_baseTopUV, m_baseRightUV, m_baseBottomUV;
-		Ogre::PanelOverlayElement * m_overlayContainer;
+		PanelAlphaOverlayElement * m_overlayContainer;
 		std::vector<Ogre::FloatRect> m_uvSet;
 		Ogre::FloatRect m_rectTexture;
 

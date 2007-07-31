@@ -26,9 +26,13 @@ namespace widget
 
 		void setCaption(const Ogre::DisplayString & _caption);
 
+		void setColour(float _red, float _green, float _blue);
+		void setAlpha(float _alpha);
+
 	protected:
 
 		TextSimpleOverlayElement * m_overlayContainer;
+		Ogre::ColourValue m_color;
 
 	}; // class TextSimple : public SubWidget
 

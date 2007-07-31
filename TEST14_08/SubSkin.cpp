@@ -10,8 +10,8 @@ namespace widget
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
-		m_overlayContainer = static_cast<Ogre::PanelOverlayElement*>(overlayManager.createOverlayElement(
-			"Panel", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
+		m_overlayContainer = static_cast<PanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
+			"PanelAlpha", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_parent->left() + m_x, m_parent->top() + m_y);
@@ -204,5 +204,12 @@ namespace widget
 			m_overlayContainer->setUV(m_rectTexture.left, m_rectTexture.top, m_rectTexture.right, m_rectTexture.bottom);
 		}
 	}
+
+	void SubSkin::setAlpha(float _alpha)
+	{
+		Ogre::uint8 color[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
+		m_overlayContainer->setColor(*(Ogre::uint32*)color);
+	}
+
 
 } // namespace widget

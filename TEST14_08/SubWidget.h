@@ -66,6 +66,9 @@ namespace widget
 		virtual void addUVSet(float _left, float _top, float _right, float _bottom) {};
 		virtual void setUVSet(size_t _num) {};
 
+		virtual void setColour(float _red, float _green, float _blue) {};
+		virtual void setAlpha(float _alpha) {};
+
 		inline SubWidget * getParent() {return m_parent;}
 
 		inline int left()       {return m_x;}

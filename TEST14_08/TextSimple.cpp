@@ -129,4 +129,24 @@ namespace widget
 		align(m_cx, m_cy, true);
 	}
 
+	void TextSimple::setColour(float _red, float _green, float _blue)
+	{
+		m_color.r = _red;
+		m_color.g = _green;
+		m_color.b = _blue;
+		m_overlayContainer->setColour(m_color);
+	}
+
+	void TextSimple::setAlpha(float _alpha)
+	{
+		m_color.a = _alpha;
+		m_overlayContainer->setColour(m_color);
+	}
+
+//	void TextSimple::setUVSet(size_t _num)
+//	{
+//		if (_num != 0) m_overlayContainer->setColour(ColourValue(1.0, 1.0, 1.0, 1.0));
+//		else m_overlayContainer->setColour(ColourValue(1.0, 1.0, 1.0, 0.5));
+//	}
+
 } // namespace widget

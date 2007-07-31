@@ -41,6 +41,9 @@ namespace widget
 
 		void setUVSet(size_t _num);
 
+		void setAlpha(float _alpha);
+
+
 
 //	protected:
 

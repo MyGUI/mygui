@@ -4,6 +4,7 @@
 	Version="8,00"
 	Name="Demo_Smoke"
 	ProjectGUID="{86B4ED07-3D95-45C3-B387-512046E95C68}"
+	RootNamespace="Demo_Smoke"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -442,6 +443,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Icon.h"
+				>
+			</File>
+			<File
 				RelativePath=".\OptionsState.cpp"
 				>
 			</File>
@@ -453,14 +458,6 @@
 		<Filter
 			Name="Widget"
 			>
-			<File
-				RelativePath=".\delegate.h"
-				>
-			</File>
-			<File
-				RelativePath=".\delegate_implement.h"
-				>
-			</File>
 			<File
 				RelativePath=".\MainSkin.cpp"
 				>
@@ -478,27 +475,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SubWidget.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SubWidget.h"
-				>
-			</File>
-			<File
 				RelativePath=".\TextSimple.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\TextSimple.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TextSimpleOverlayElement.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TextSimpleOverlayElementFactory.h"
 				>
 			</File>
 			<File
@@ -509,6 +490,50 @@
 				RelativePath=".\Widget.h"
 				>
 			</File>
+			<Filter
+				Name="OverlayElement"
+				>
+				<File
+					RelativePath=".\PanelAlphaOverlayElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelAlphaOverlayElementFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TextSimpleOverlayElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TextSimpleOverlayElementFactory.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="delegate"
+				>
+				<File
+					RelativePath=".\delegate.h"
+					>
+				</File>
+				<File
+					RelativePath=".\delegate_implement.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Atom"
+				>
+				<File
+					RelativePath=".\SubWidget.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SubWidget.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\Demo_Smoke.rc"
@@ -516,6 +541,10 @@
 		</File>
 		<File
 			RelativePath=".\gui.ico"
+			>
+		</File>
+		<File
+			RelativePath=".\icon2.ico"
 			>
 		</File>
 		<File

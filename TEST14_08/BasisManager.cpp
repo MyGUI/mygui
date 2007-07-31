@@ -7,7 +7,10 @@
 #include <OgreRenderSystem.h>
 #include "debugOut.h"
 
+#include "icon.h"
+
 #include "TextSimpleOverlayElementFactory.h"
+#include "PanelAlphaOverlayElementFactory.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -111,9 +114,10 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	
     mRoot = new Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
 
-	// регистрируем фабрику текста
+	// регистрируем фабрику текста и панели
 	Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 	overlayManager.addOverlayElementFactory(new TextSimpleOverlayElementFactory());
+	overlayManager.addOverlayElementFactory(new PanelAlphaOverlayElementFactory());
 
 	setupResources();
 
@@ -124,7 +128,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 		}
 //	}
 
-	mWindow = mRoot->initialise(true, "BasisManager Window");
+	mWindow = mRoot->initialise(true);//, "BasisManager Window");
 	m_uWidth = mWindow->getWidth();
 	m_uHeight = mWindow->getHeight();
 
@@ -159,6 +163,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	changeState(&mOptions); // главное меню
 //	mGUI->fadeScreen(false, NONE, this);
+
+	g_setMainWindowInfo("Basis manager", IDI_ICON);
 
     mRoot->startRendering();
 }

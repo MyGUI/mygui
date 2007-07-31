@@ -292,4 +292,10 @@ namespace widget
 		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setUVSet(_num);
 	}
 
+	void Widget::setAlpha(float _alpha)
+	{
+		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(_alpha);
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(_alpha);
+	}
+
 } // namespace widget

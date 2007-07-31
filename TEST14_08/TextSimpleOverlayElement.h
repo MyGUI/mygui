@@ -2,6 +2,9 @@
 
 #include <Ogre.h>
 #include <OgreTextAreaOverlayElement.h>
+#include "OgreFont.h"
+#include "OgreFontManager.h"
+
 #include "debugOut.h"
 
 
@@ -50,7 +53,6 @@ namespace widget
 			// Derive space with from a number 0
 			if (mSpaceWidth == 0) mSpaceWidth = mpFont->getGlyphAspectRatio(UNICODE_ZERO) * mCharHeight * 2.0 * mViewportAspectCoef;
 
-//			float height = 20;
 			float cy = mPixelCharHeight;
 			float cx = 0;
 			float len = 0;
@@ -77,7 +79,6 @@ namespace widget
 			_cy = (int)cy;
 			// округляем в сторону увеличения
 			if ((float)_cx < cx) _cx ++;
-//			if ((float)_cy < cy) _cy ++; // по высоте и так считаем в пикселях
 
 			// для правильного просчета геометрии
             mPixelWidth = _cx;
