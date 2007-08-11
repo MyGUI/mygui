@@ -2,9 +2,6 @@
 
 #include <vector>
 #include <Ogre.h>
-//#include "MainSkin.h"
-//#include "SubSkin.h"
-//#include "BasisWidget.h"
 
 
 namespace widget

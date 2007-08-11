@@ -5,8 +5,7 @@
 #include "MainSkin.h"
 #include "delegate.h"
 
-#include "BasisWidgetFactory.h"
-#include "WidgetInfoBinding.h"
+#include "WidgetSkinInfo.h"
 
 namespace widget
 {
@@ -16,11 +15,12 @@ namespace widget
 	{
 
 	public:
+		// все создание только через фабрику
 		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info, Widget * _parent = 0);
 		virtual ~Widget();
 
 		// создаем дочку
-		Widget * createChild(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info);
+		Widget * createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align);
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
@@ -51,6 +51,7 @@ namespace widget
 
 
 		void setState(const Ogre::String & _state);
+		inline const static Ogre::String & getType() {static Ogre::String type("Widget"); return type;};
 
 	protected:
 

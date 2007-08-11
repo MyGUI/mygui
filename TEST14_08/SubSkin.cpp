@@ -1,11 +1,14 @@
 
 #include "SubSkin.h"
+//#include "BasisWidgetFactory.h"
+#include "BasisWidgetManager.h"
 
 namespace widget
 {
 
 	// создаем фабрику для этого скина
-	SubSkinFactory factory_subSkin;
+	BasisWidgetFactory<SubSkin> factory_subSkin;
+
 
 	SubSkin::SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) :
 		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)

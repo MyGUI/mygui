@@ -458,14 +458,6 @@
 		<Filter
 			Name="Widget"
 			>
-			<File
-				RelativePath=".\Widget.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Widget.h"
-				>
-			</File>
 			<Filter
 				Name="OverlayElement"
 				>
@@ -506,11 +498,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\BasisWidgetCreator.h"
+					RelativePath=".\BasisWidgetFactory.h"
 					>
 				</File>
 				<File
-					RelativePath=".\BasisWidgetFactory.h"
+					RelativePath=".\BasisWidgetManager.h"
 					>
 				</File>
 				<File
@@ -542,27 +534,59 @@
 				Name="WidgetInfo"
 				>
 				<File
-					RelativePath=".\WidgetInfoBinding.h"
+					RelativePath=".\BasisWidgetBinding.h"
 					>
 				</File>
 				<File
-					RelativePath=".\WidgetInfoDefines.h"
+					RelativePath=".\SkinManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetDefines.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetSkinInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="WidgetImplement"
+				>
+				<File
+					RelativePath=".\Widget.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Widget.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetManager.h"
 					>
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\Demo_Smoke.rc"
+		<Filter
+			Name="Resource"
 			>
-		</File>
-		<File
-			RelativePath=".\gui.ico"
-			>
-		</File>
-		<File
-			RelativePath=".\resource.h"
-			>
-		</File>
+			<File
+				RelativePath=".\Demo_Smoke.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\gui.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

@@ -1,9 +1,13 @@
 
 #include "Widget.h"
 #include "debugOut.h"
+#include "BasisWidgetManager.h"
+#include "WidgetManager.h"
 
 namespace widget
 {
+	// создаем фабрику для этого виджета
+	WidgetFactory<Widget> factory_Widget;
 
 	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info, Widget * _parent) :
 		BasisWidget(_x, _y, _info->width(), _info->height(), _align, _parent), // размер по скину
@@ -31,9 +35,9 @@ namespace widget
 		};
 	}
 
-	Widget * Widget::createChild(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info)
+	Widget * Widget::createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align)
 	{
-		Widget * widget = new Widget(_x, _y, _cx, _cy, _align, _info, this);
+		Widget * widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this);
 		m_widgetChild.push_back(widget);
 
 		return widget;
@@ -41,7 +45,7 @@ namespace widget
 
 	BasisWidget *  Widget::addSubSkin(const tagBasisWidgetInfo &_info, const String & _material)
 	{
-		BasisWidget * sub = BasisWidgetCreator::getInstance().createBasisWidget(_info, _material, this);
+		BasisWidget * sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this);
 		// если это скин текста, то запоминаем
 		if (sub->isText()) m_text = sub;
 		// добавляем в общий список

@@ -377,8 +377,8 @@ void BasisManager::onFadeEnd(bool bIsFade, FADE_STATES fadeID) // закончилось за
 
 void BasisManager::windowResized(RenderWindow* rw)
 {
-	unsigned int width, height, depth;
-	int left, top;
+	unsigned int width, height;//, depth;
+//	int left, top;
 	width = rw->getWidth();
 	height = rw->getHeight();
 	//rw->getMetrics(width, height, depth, left, top);

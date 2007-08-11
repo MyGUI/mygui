@@ -3,8 +3,6 @@
 #include <Ogre.h>
 #include "BasisWidget.h"
 #include "TextSimpleOverlayElement.h"
-#include "BasisWidgetFactory.h"
-#include "BasisWidgetCreator.h"
 
 namespace widget
 {
@@ -40,24 +38,13 @@ namespace widget
 
 		bool isText() {return true;};
 
+		inline const static Ogre::String & getType() {static Ogre::String type("TextSimple"); return type;};
+
 	protected:
 
 		TextSimpleOverlayElement * m_overlayContainer;
 		Ogre::ColourValue m_color;
 
 	}; // class TextSimple : public BasisWidget
-
-	// фабрика для этого скина
-	class TextSimpleFactory : public BasisWidgetFactory
-	{
-	public:
-		TextSimpleFactory() { BasisWidgetCreator::getInstance().registerFactory(this); }
-		const Ogre::String & getType() {static Ogre::String type("TextSimple"); return type; }
-		BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent)
-		{
-			return new TextSimple(_info, _material, _parent);
-		}
-	}; // class TextSimpleFactory , public BasisWidgetFactory
-
 
 } // namespace widget

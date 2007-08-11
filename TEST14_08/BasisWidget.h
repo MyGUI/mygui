@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <Ogre.h>
-#include "WidgetInfoDefines.h"
+#include "WidgetDefines.h"
 
 namespace widget
 {
@@ -79,6 +79,7 @@ namespace widget
 		virtual void attach(Ogre::OverlayElement * _element, bool _child) {};
 
 		virtual void setUVSet(const Ogre::FloatRect & _rect) {};
+
 //		virtual void addUVSet(float _left, float _top, float _right, float _bottom) {};
 //		virtual void setUVSet(size_t _num) {};
 

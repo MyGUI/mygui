@@ -1,10 +1,11 @@
 
 #include "TextSimple.h"
+#include "BasisWidgetManager.h"
 
 namespace widget
 {
 	// создаем фабрику для этого скина
-	TextSimpleFactory factory_simpleText;
+	BasisWidgetFactory<TextSimple> factory_simpleText;
 
 	TextSimple::TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) :
 		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)

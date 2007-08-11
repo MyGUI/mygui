@@ -3,8 +3,6 @@
 #include <Ogre.h>
 #include "PanelAlphaOverlayElement.h"
 #include "BasisWidget.h"
-#include "BasisWidgetFactory.h"
-#include "BasisWidgetCreator.h"
 
 namespace widget
 {
@@ -30,6 +28,8 @@ namespace widget
 
 		void setAlpha(float _alpha);
 
+		inline const static Ogre::String & getType() {static Ogre::String type("SubSkin"); return type;};
+
 	protected:
 
 		void attach(Ogre::OverlayElement * _element, bool _child);
@@ -38,18 +38,5 @@ namespace widget
 		Ogre::FloatRect m_rectTexture;
 
 	}; // class SubSkin
-
-	// фабрика для этого скина
-	class SubSkinFactory : public BasisWidgetFactory
-	{
-	public:
-		SubSkinFactory() { BasisWidgetCreator::getInstance().registerFactory(this); }
-		const Ogre::String & getType() {static Ogre::String type("SubSkin"); return type; }
-		BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent)
-		{
-			return new SubSkin(_info, _material, _parent);
-		}
-	}; // class SubSkinFactory , public BasisWidgetFactory
-
 
 } // namespace widget

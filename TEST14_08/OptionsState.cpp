@@ -4,8 +4,9 @@
 #include "debugAxis.h"
 #include "delegate.h"
 
-#include "StateInfo.h"
-#include "WidgetInfoBinding.h"
+#include "WidgetSkinInfo.h"
+#include "SkinManager.h"
+#include "WidgetManager.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -74,40 +75,43 @@ void OptionsState::enter(bool bIsChangeState)
 
 
 
-	WidgetSkinInfo widget_info(200, 200, "BACK_GREEN");
+	WidgetSkinInfo * widget_info = SkinManager::getInstance().create("skin1");
+	widget_info->setInfo(200, 200, "BACK_GREEN");
 	BasisWidgetBinding bind(0, 0, 200, 200, ALIGN_LEFT|ALIGN_TOP, "MainSkin");
 	bind.add("normal", 0, 0, 1, 1);
-	widget_info.addInfo(bind);
+	widget_info->addInfo(bind);
 
-	WidgetSkinInfo widget_info2(100, 100, "MyGUI_check_s1");
+	WidgetSkinInfo *widget_info2 = SkinManager::getInstance().create("skin2");
+	widget_info2->setInfo(100, 100, "MyGUI_check_s1");
 	bind.create(0, 0, 100, 100, ALIGN_LEFT|ALIGN_TOP, "MainSkin");
 	bind.add("normal", 0, 0, 1, 1);
-	widget_info2.addInfo(bind);
+	widget_info2->addInfo(bind);
 
-	WidgetSkinInfo widget_info3(60, 60, "MyGUI_check_a1", "MyGUI_font", 20);
+	WidgetSkinInfo *widget_info3 = SkinManager::getInstance().create("skin3");
+	widget_info3->setInfo(60, 60, "MyGUI_check_a1", "MyGUI_font", 20);
 	bind.create(0, 0, 30, 30, ALIGN_STRETCH, "SubSkin");
 	bind.add("normal", 0, 0, 1, 1);
-	widget_info3.addInfo(bind);
+	widget_info3->addInfo(bind);
 	bind.create(30, 0, 30, 30, ALIGN_RIGHT|ALIGN_VSTRETCH, "SubSkin");
 	bind.add("normal", 0, 0, 1, 1);
-	widget_info3.addInfo(bind);
+	widget_info3->addInfo(bind);
 	bind.create(0, 30, 60, 30, ALIGN_HSTRETCH|ALIGN_BOTTOM, "SubSkin");
 	bind.add("normal", 0, 0, 1, 1);
-	widget_info3.addInfo(bind);
+	widget_info3->addInfo(bind);
 	bind.create(0, 0, 0, 0, ALIGN_CENTER, "TextSimple");
 	bind.add("normal", 0, 0, 1, 1);
-	widget_info3.addInfo(bind);
+	widget_info3->addInfo(bind);
 
 
 	m_widget1 = 0;
 	m_widget2 = 0;
 	m_widget3 = 0;
 
-	m_widget1 = new Widget(170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP, &widget_info);
+	m_widget1 = WidgetManager::getInstance().createWidget("Widget", "skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP);
 
-	m_widget2 = m_widget1->createChild(50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP, &widget_info2);
+	m_widget2 = m_widget1->createChild("Widget", "skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
 
-	m_widget3 = m_widget2->createChild(10, 10, 60, 60, ALIGN_STRETCH, &widget_info3);
+	m_widget3 = m_widget2->createChild("Widget", "skin3", 10, 10, 60, 60, ALIGN_STRETCH);
 	m_widget3->setCaption("gafne\nsda");
 
 //	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
