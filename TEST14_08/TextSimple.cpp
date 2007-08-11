@@ -1,30 +1,26 @@
 
 #include "TextSimple.h"
-#include "Widget.h"
-#include "debugOut.h"
 
 namespace widget
 {
+	// создаем фабрику для этого скина
+	TextSimpleFactory factory_simpleText;
 
-	TextSimple::TextSimple(char _align, SubWidget * _parent) :
-		SubWidget(0, 0, 0, 0, _align, _parent)
+	TextSimple::TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) :
+		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		m_overlayContainer = static_cast<TextSimpleOverlayElement*>(overlayManager.createOverlayElement(
-			"TextSimple", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
+			"TextSimple", "TextSimple_" + Ogre::StringConverter::toString((uint32)this)) );
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
-		m_overlayContainer->setFontName("MyGUI_font");
-		m_overlayContainer->setCharHeight(20);
-		m_overlayContainer->setColour(ColourValue(1.0, 1.0, 1.0, 1.0));
 
 		// выравнивание
-		if (_align & ALIGN_RIGHT) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Right);
-		else if (! (_align & ALIGN_RIGHT)) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Center);
+		if (_info.aligin & ALIGN_RIGHT) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Right);
+		else if (! (_info.aligin & ALIGN_RIGHT)) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Center);
 
-		assert(((Widget*)m_parent)->m_subSkinChild.size() > 0);
-		((Widget*)m_parent)->m_subSkinChild[0]->attach(m_overlayContainer);
+		m_parent->attach(m_overlayContainer, true);
 
 	}
 
@@ -39,6 +35,63 @@ namespace widget
 
 		m_show ? m_overlayContainer->show():m_overlayContainer->hide();
 	}
+
+	void TextSimple::setCaption(const Ogre::DisplayString & _caption)
+	{
+		// записывам новую строку
+		m_overlayContainer->setCaption(_caption);
+		// узнаем новый размер, там же он и запоминается
+		m_overlayContainer->getTextSize(m_cx, m_cy);
+		// и делаем полное обновление и выравнивание
+		m_margin = true; // при изменении размеров все пересчитывать
+		align(m_cx, m_cy, true);
+	}
+
+	const Ogre::DisplayString & TextSimple::getCaption()
+	{
+		return m_overlayContainer->getCaption();
+	}
+
+	void TextSimple::setColour(const Ogre::ColourValue & _color)
+	{
+		m_color.r = _color.r;
+		m_color.g = _color.g;
+		m_color.b = _color.b;
+		m_overlayContainer->setColour(m_color);
+	}
+
+	void TextSimple::setAlpha(float _alpha)
+	{
+		m_color.a = _alpha;
+		m_overlayContainer->setColour(m_color);
+	}
+
+	void TextSimple::setFontName(const Ogre::String & _font)
+	{
+		m_overlayContainer->setFontName(_font);
+	}
+
+	void TextSimple::setFontName(const Ogre::String & _font, Ogre::ushort _height)
+	{
+		m_overlayContainer->setFontName(_font);
+		m_overlayContainer->setCharHeight(_height);
+	}
+
+	const Ogre::String & TextSimple::getFontName()
+	{
+		return m_overlayContainer->getFontName();
+	}
+
+	void TextSimple::setCharHeight(Ogre::ushort _height)
+	{
+		m_overlayContainer->setCharHeight(_height);
+	}
+
+	Ogre::ushort TextSimple::getCharHeight()
+	{
+		return m_overlayContainer->getCharHeight();
+	}
+
 
 	void TextSimple::update()
 	{
@@ -117,36 +170,5 @@ namespace widget
 		if (need_update) update();
 
 	}
-
-	void TextSimple::setCaption(const Ogre::DisplayString & _caption)
-	{
-		// записывам новую строку
-		m_overlayContainer->setCaption(_caption);
-		// узнаем новый размер, там же он и запоминается
-		m_overlayContainer->getTextSize(m_cx, m_cy);
-		// и делаем полное обновление и выравнивание
-		m_margin = true; // при изменении размеров все пересчитывать
-		align(m_cx, m_cy, true);
-	}
-
-	void TextSimple::setColour(float _red, float _green, float _blue)
-	{
-		m_color.r = _red;
-		m_color.g = _green;
-		m_color.b = _blue;
-		m_overlayContainer->setColour(m_color);
-	}
-
-	void TextSimple::setAlpha(float _alpha)
-	{
-		m_color.a = _alpha;
-		m_overlayContainer->setColour(m_color);
-	}
-
-//	void TextSimple::setUVSet(size_t _num)
-//	{
-//		if (_num != 0) m_overlayContainer->setColour(ColourValue(1.0, 1.0, 1.0, 1.0));
-//		else m_overlayContainer->setColour(ColourValue(1.0, 1.0, 1.0, 0.5));
-//	}
 
 } // namespace widget

@@ -2,43 +2,54 @@
 
 #include <Ogre.h>
 #include "PanelAlphaOverlayElement.h"
-#include "MainSkin.h"
-#include "Widget.h"
-#include "SubWidget.h"
+#include "BasisWidget.h"
+#include "BasisWidgetFactory.h"
+#include "BasisWidgetCreator.h"
 
 namespace widget
 {
 	using namespace Ogre;
 
 
-	class SubSkin : public SubWidget
+	class SubSkin : public BasisWidget
 	{
 
 	public:
-		SubSkin(int _x, int _y, int _cx, int _cy, const String & _material, char _align, SubWidget * _parent);
+		SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent);
 		virtual ~SubSkin();
+
+		void show(bool _show);
 
 		void update(); // обновления себя и детей
 		void correct();
 
-		void show(bool _show);
-
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		void addUVSet(float _left, float _top, float _right, float _bottom);
-		void setUVSet(size_t _num);
+		void setUVSet(const Ogre::FloatRect & _rect);
 
 		void setAlpha(float _alpha);
 
 	protected:
 
-		void attach(Ogre::OverlayElement * _element);
+		void attach(Ogre::OverlayElement * _element, bool _child);
 
 		PanelAlphaOverlayElement * m_overlayContainer;
-		std::vector<Ogre::FloatRect> m_uvSet;
 		Ogre::FloatRect m_rectTexture;
 
 	}; // class SubSkin
+
+	// фабрика для этого скина
+	class SubSkinFactory : public BasisWidgetFactory
+	{
+	public:
+		SubSkinFactory() { BasisWidgetCreator::getInstance().registerFactory(this); }
+		const Ogre::String & getType() {static Ogre::String type("SubSkin"); return type; }
+		BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent)
+		{
+			return new SubSkin(_info, _material, _parent);
+		}
+	}; // class SubSkinFactory , public BasisWidgetFactory
+
 
 } // namespace widget

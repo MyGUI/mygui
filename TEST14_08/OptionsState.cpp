@@ -4,8 +4,12 @@
 #include "debugAxis.h"
 #include "delegate.h"
 
+#include "StateInfo.h"
+#include "WidgetInfoBinding.h"
+
 using namespace Ogre;
 using namespace MyGUI;
+using namespace std;
 
 void OptionsState::onMouseClick(MyGUI::Window * pWindow) // нажата и отпущена левая кнопка мыши на этом же элементе
 {
@@ -69,49 +73,46 @@ void OptionsState::enter(bool bIsChangeState)
 	mEditor = new SkinEditor::SkinEditor(this);*/
 
 
+
+	WidgetSkinInfo widget_info(200, 200, "BACK_GREEN");
+	BasisWidgetBinding bind(0, 0, 200, 200, ALIGN_LEFT|ALIGN_TOP, "MainSkin");
+	bind.add("normal", 0, 0, 1, 1);
+	widget_info.addInfo(bind);
+
+	WidgetSkinInfo widget_info2(100, 100, "MyGUI_check_s1");
+	bind.create(0, 0, 100, 100, ALIGN_LEFT|ALIGN_TOP, "MainSkin");
+	bind.add("normal", 0, 0, 1, 1);
+	widget_info2.addInfo(bind);
+
+	WidgetSkinInfo widget_info3(60, 60, "MyGUI_check_a1", "MyGUI_font", 20);
+	bind.create(0, 0, 30, 30, ALIGN_STRETCH, "SubSkin");
+	bind.add("normal", 0, 0, 1, 1);
+	widget_info3.addInfo(bind);
+	bind.create(30, 0, 30, 30, ALIGN_RIGHT|ALIGN_VSTRETCH, "SubSkin");
+	bind.add("normal", 0, 0, 1, 1);
+	widget_info3.addInfo(bind);
+	bind.create(0, 30, 60, 30, ALIGN_HSTRETCH|ALIGN_BOTTOM, "SubSkin");
+	bind.add("normal", 0, 0, 1, 1);
+	widget_info3.addInfo(bind);
+	bind.create(0, 0, 0, 0, ALIGN_CENTER, "TextSimple");
+	bind.add("normal", 0, 0, 1, 1);
+	widget_info3.addInfo(bind);
+
+
 	m_widget1 = 0;
 	m_widget2 = 0;
 	m_widget3 = 0;
-	m_widget4 = 0;
-	SubWidget * sub;
 
-	m_widget1 = new Widget(170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP, 0);
-	sub = m_widget1->addSubSkin(0, 0, 200, 200, "BACK_GREEN", ALIGN_LEFT|ALIGN_TOP, true);
-	sub->addUVSet(0, 0, 1, 1);
-	m_widget1->update();
+	m_widget1 = new Widget(170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP, &widget_info);
 
-	m_widget2 = m_widget1->createChild(50, 50, 100, 100, ALIGN_LEFT|ALIGN_TOP);
-	sub = m_widget2->addSubSkin(0, 0, 100, 100, "MyGUI_check_s1", ALIGN_LEFT|ALIGN_TOP, true);
-	sub->addUVSet(0, 0, 1, 1);
-	m_widget2->update();
-//	m_widget2->show(false);
+	m_widget2 = m_widget1->createChild(50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP, &widget_info2);
 
-	m_widget3 = m_widget2->createChild(10, 10, 60, 60, ALIGN_STRETCH);
-	sub = m_widget3->addSubSkin(0, 0, 30, 30, "MyGUI_check_a1", ALIGN_STRETCH, false);
-	sub->addUVSet(0, 0, 1, 1);
-	sub->addUVSet(0, 0, 2, 2);
-	sub = m_widget3->addSubSkin(30, 0, 30, 30, "MyGUI_check_n1", ALIGN_RIGHT|ALIGN_VSTRETCH, false);
-	sub->addUVSet(0, 0, 1, 1);
-	sub->addUVSet(0, 0, 2, 2);
-	sub = m_widget3->addSubSkin(0, 30, 60, 30, "MyGUI_check_n1", ALIGN_HSTRETCH|ALIGN_BOTTOM, false);
-	sub->addUVSet(0, 0, 1, 1);
-	sub->addUVSet(0, 0, 2, 2);
-	m_widget3->setUVSet(1);
-
-	m_widget3->addText(ALIGN_CENTER);
-	m_widget3->update();
-
+	m_widget3 = m_widget2->createChild(10, 10, 60, 60, ALIGN_STRETCH, &widget_info3);
 	m_widget3->setCaption("gafne\nsda");
-//	m_widget3->setCaption("gafnoerte\nsda");
-
-//	m_widget4 = m_widget3->createChild(30, 10, 20, 20, ALIGN_RIGHT|ALIGN_BOTTOM);
-//	m_widget4->addSubSkin(0, 0, 20, 20, 0, 0, 1, 1, "MyGUI_check_s1", ALIGN_LEFT|ALIGN_TOP, true);
-//	m_widget4->update();
 
 //	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
 //	debug.add("need cut 2", 170, 50, m_widget2->m_margin);
 //	debug.add("need cut 3", 170, 70, m_widget3->m_margin);
-//	debug.add("need cut 4", 170, 90, m_widget4->m_margin);
 
 //	debug.add("aligin 2", 170, 120, m_widget2->m_left_margin);
 

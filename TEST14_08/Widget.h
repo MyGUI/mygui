@@ -3,54 +3,68 @@
 #include <vector>
 #include <Ogre.h>
 #include "MainSkin.h"
-#include "SubSkin.h"
-#include "SubWidget.h"
 #include "delegate.h"
+
+#include "BasisWidgetFactory.h"
+#include "WidgetInfoBinding.h"
 
 namespace widget
 {
 	using namespace Ogre;
 
-
-	class Widget : public SubWidget
+	class Widget : public BasisWidget
 	{
 
 	public:
-		Widget(int _x, int _y, int _cx, int _cy, char _align, Widget * _parent);
+		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info, Widget * _parent = 0);
 		virtual ~Widget();
 
 		// создаем дочку
-		Widget * createChild(int _x, int _y, int _cx, int _cy, char _align);
-		// создаем и добавляем саб скин виджету
-		SubWidget * addSubSkin(int _x, int _y, int _cx, int _cy, const String & _material, char _align, bool _main);
-		void addText(char _align);
+		Widget * createChild(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info);
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
-
-		void update(); // обновления себя и детей
+		void size(int _cx, int _cy);
 
 		void show(bool _show);
 
-		void size(int _cx, int _cy);
+		virtual void setCaption(const Ogre::DisplayString & _caption);
+		virtual const Ogre::DisplayString & getCaption();
+
+		void setColour(const Ogre::ColourValue & _color);
+		const Ogre::ColourValue & getColour() {return m_color;};
+
+		void setFontName(const Ogre::String & _font);
+		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
+		const Ogre::String & getFontName();
+
+		void setCharHeight(Ogre::ushort _height);
+		Ogre::ushort getCharHeight();
+
+		void setAlpha(float _alpha);
+		inline float getAlpha() {return m_alpha;};
+
+		void update(); // обновления себя и детей
 
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		virtual void setCaption(const Ogre::DisplayString & _caption);
 
-		void setUVSet(size_t _num);
+		void setState(const Ogre::String & _state);
 
-		void setAlpha(float _alpha);
+	protected:
 
+		// создаем и добавляем саб скин виджету
+		BasisWidget * addSubSkin(const tagBasisWidgetInfo &_info, const String & _material);
 
+	protected:
 
-//	protected:
-
+		// список всех стейтов
+		const StateInfo & m_stateInfo;
 		// показывает скрывает все сабскины
 		void visible(bool _visible);
 
-		void attach(Ogre::OverlayElement * _element);
+		void attach(Ogre::OverlayElement * _element, bool _child);
 
 		typedef std::vector<Widget *> widgetChild;
 		typedef widgetChild::iterator widgetIterator;
@@ -61,10 +75,14 @@ namespace widget
 		skinChild m_subSkinChild;
 
 		// указатель на окно текста
-		SubWidget * m_text;
+		BasisWidget * m_text;
 
 		// скрыты ли все сабскины при выходе за границу
 		bool m_visible;
+		// прозрачность нашего оверлея
+		float m_alpha;
+		// цвет текста
+		Ogre::ColourValue m_color;
 
 	}; // class Widget
 

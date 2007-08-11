@@ -1,39 +1,63 @@
 #pragma once
 
 #include <Ogre.h>
-//#include "Widget.h"
-#include "SubWidget.h"
+#include "BasisWidget.h"
 #include "TextSimpleOverlayElement.h"
+#include "BasisWidgetFactory.h"
+#include "BasisWidgetCreator.h"
 
 namespace widget
 {
 	using namespace Ogre;
 
 
-	class TextSimple : public SubWidget
+	class TextSimple : public BasisWidget
 	{
 
 	public:
-		TextSimple(char _align, SubWidget * _parent);
+		TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent);
 		virtual ~TextSimple();
 
-		void update(); // обновления себя и детей
-
 		void show(bool _show);
+
+		void setCaption(const Ogre::DisplayString & _caption);
+		const Ogre::DisplayString & getCaption();
+
+		void setColour(const Ogre::ColourValue & _color);
+		void setAlpha(float _alpha);
+
+		void setFontName(const Ogre::String & _font);
+		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
+		const Ogre::String & getFontName();
+
+		void setCharHeight(Ogre::ushort _height);
+		Ogre::ushort getCharHeight();
 
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		void setCaption(const Ogre::DisplayString & _caption);
+		void update(); // обновления себя и детей
 
-		void setColour(float _red, float _green, float _blue);
-		void setAlpha(float _alpha);
+		bool isText() {return true;};
 
 	protected:
 
 		TextSimpleOverlayElement * m_overlayContainer;
 		Ogre::ColourValue m_color;
 
-	}; // class TextSimple : public SubWidget
+	}; // class TextSimple : public BasisWidget
+
+	// фабрика для этого скина
+	class TextSimpleFactory : public BasisWidgetFactory
+	{
+	public:
+		TextSimpleFactory() { BasisWidgetCreator::getInstance().registerFactory(this); }
+		const Ogre::String & getType() {static Ogre::String type("TextSimple"); return type; }
+		BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent)
+		{
+			return new TextSimple(_info, _material, _parent);
+		}
+	}; // class TextSimpleFactory , public BasisWidgetFactory
+
 
 } // namespace widget

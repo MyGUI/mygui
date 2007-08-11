@@ -459,30 +459,6 @@
 			Name="Widget"
 			>
 			<File
-				RelativePath=".\MainSkin.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MainSkin.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SubSkin.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SubSkin.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TextSimple.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TextSimple.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Widget.cpp"
 				>
 			</File>
@@ -511,7 +487,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="delegate"
+				Name="Delegate"
 				>
 				<File
 					RelativePath=".\delegate.h"
@@ -523,14 +499,54 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Atom"
+				Name="BasisWidget"
 				>
 				<File
-					RelativePath=".\SubWidget.cpp"
+					RelativePath=".\BasisWidget.h"
 					>
 				</File>
 				<File
-					RelativePath=".\SubWidget.h"
+					RelativePath=".\BasisWidgetCreator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\BasisWidgetFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MainSkin.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MainSkin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SubSkin.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SubSkin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TextSimple.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TextSimple.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="WidgetInfo"
+				>
+				<File
+					RelativePath=".\WidgetInfoBinding.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetInfoDefines.h"
 					>
 				</File>
 			</Filter>
@@ -541,10 +557,6 @@
 		</File>
 		<File
 			RelativePath=".\gui.ico"
-			>
-		</File>
-		<File
-			RelativePath=".\icon2.ico"
 			>
 		</File>
 		<File

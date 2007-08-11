@@ -1,41 +1,48 @@
 
 #include "SubSkin.h"
-#include "debugOut.h"
 
 namespace widget
 {
 
-	SubSkin::SubSkin(int _x, int _y, int _cx, int _cy, const String & _material, char _align, SubWidget * _parent) :
-		SubWidget(_x, _y, _cx, _cy, _align, _parent)
+	// создаем фабрику для этого скина
+	SubSkinFactory factory_subSkin;
+
+	SubSkin::SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) :
+		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		m_overlayContainer = static_cast<PanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
-			"PanelAlpha", "Widget_" + Ogre::StringConverter::toString((uint32)this)) );
+			"PanelAlpha", "SubSkin_" + Ogre::StringConverter::toString((uint32)this)) );
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_parent->left() + m_x, m_parent->top() + m_y);
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setMaterialName(_material);
 
-		m_parent->attach(m_overlayContainer);
+		m_parent->attach(m_overlayContainer, false);
 	}
 
 	SubSkin::~SubSkin()
 	{
 	}
 
-	void SubSkin::attach(Ogre::OverlayElement * _element)
-	{
-		m_overlayContainer->addChild(_element);
-	}
-
 	void SubSkin::show(bool _show)
 	{
 		if (m_show == _show) return;
 		m_show = _show;
-
 		m_show ? m_overlayContainer->show():m_overlayContainer->hide();
+	}
+
+	void SubSkin::setAlpha(float _alpha)
+	{
+		Ogre::uint8 color[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
+		m_overlayContainer->setColor(*(Ogre::uint32*)color);
+	}
+
+	void SubSkin::attach(Ogre::OverlayElement * _element, bool _child)
+	{
+		m_overlayContainer->addChild(_element);
 	}
 
 	void SubSkin::update()
@@ -166,16 +173,11 @@ namespace widget
 
 	}
 
-	void SubSkin::addUVSet(float _left, float _top, float _right, float _bottom)
+	void SubSkin::setUVSet(const Ogre::FloatRect & _rect)
 	{
-		m_uvSet.push_back(Ogre::FloatRect(_left, _top, _right, _bottom));
-	}
-
-	void SubSkin::setUVSet(size_t _num)
-	{
-		assert(m_uvSet.size() >= _num);
+//		assert(m_uvSet.size() >= _num);
 		assert(m_overlayContainer);
-		m_rectTexture = m_uvSet[_num];
+		m_rectTexture = _rect;//m_uvSet[_num];
 		// если обрезаны, то просчитываем с учето обрезки
 		if (m_margin) {
 
@@ -204,12 +206,5 @@ namespace widget
 			m_overlayContainer->setUV(m_rectTexture.left, m_rectTexture.top, m_rectTexture.right, m_rectTexture.bottom);
 		}
 	}
-
-	void SubSkin::setAlpha(float _alpha)
-	{
-		Ogre::uint8 color[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
-		m_overlayContainer->setColor(*(Ogre::uint32*)color);
-	}
-
 
 } // namespace widget

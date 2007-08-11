@@ -2,9 +2,11 @@
 
 #include <vector>
 #include <Ogre.h>
+#include "WidgetInfoDefines.h"
 
 namespace widget
 {
+
 	//Bit flags done easy
 	#define FLAG_NONE  0
 	#define FLAG(num)  (1<<(num))
@@ -25,15 +27,15 @@ namespace widget
 		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch to fill the entire parent (?)
 	};
 
-	class SubWidget
+	class BasisWidget
 	{
 
 	public:
-		typedef std::vector<SubWidget *> skinChild;
+		typedef std::vector<BasisWidget *> skinChild;
 		typedef skinChild::iterator skinIterator;
 
 	public:
-		SubWidget(int _x, int _y, int _cx, int _cy, char _align, SubWidget * _parent) :
+		BasisWidget(int _x, int _y, int _cx, int _cy, char _align, BasisWidget * _parent) :
 			m_parent (_parent),
 			m_align (_align),
 			m_x (_x),
@@ -47,29 +49,42 @@ namespace widget
 			m_margin(false),
 			m_show(true)
 		{};
-		virtual ~SubWidget() {};
+		virtual ~BasisWidget() {};
 
 		virtual void move(int _x, int _y) {};
 		virtual void move(int _x, int _y, int _cx, int _cy) {};
 		virtual void size(int _cx, int _cy) {};
 
+		virtual void show(bool _show) {};
+		virtual bool isShow() {return m_show;};
+
+		virtual void setCaption(const Ogre::DisplayString & _caption) {};
+		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;};
+
+		virtual void setColour(const Ogre::ColourValue & _color) {};
+		virtual void setAlpha(float _alpha) {};
+
+		virtual void setFontName(const Ogre::String & _font) {};
+		virtual void setFontName(const Ogre::String & _font, Ogre::ushort _height) {};
+		virtual const Ogre::String & getFontName() {static Ogre::String name; return name;};
+
+		virtual void setCharHeight(Ogre::ushort _height) {};
+		virtual Ogre::ushort getCharHeight() {return 0;};
+
 		virtual void update() {};
 		virtual void correct() {};
-		virtual void show(bool _show) {};
 		virtual void align(int _cx, int _cy, bool _update) {};
 		virtual void align(int _x, int _y, int _cx, int _cy, bool _update) {};
 
-		virtual void attach(Ogre::OverlayElement * _element) {};
+		virtual void attach(Ogre::OverlayElement * _element, bool _child) {};
 
-		virtual void setCaption(const Ogre::DisplayString & _caption) {};
+		virtual void setUVSet(const Ogre::FloatRect & _rect) {};
+//		virtual void addUVSet(float _left, float _top, float _right, float _bottom) {};
+//		virtual void setUVSet(size_t _num) {};
 
-		virtual void addUVSet(float _left, float _top, float _right, float _bottom) {};
-		virtual void setUVSet(size_t _num) {};
+		virtual bool isText() {return false;};
 
-		virtual void setColour(float _red, float _green, float _blue) {};
-		virtual void setAlpha(float _alpha) {};
-
-		inline SubWidget * getParent() {return m_parent;}
+		inline BasisWidget * getParent() {return m_parent;}
 
 		inline int left()       {return m_x;}
 		inline int right()      {return m_x + m_cx;}
@@ -134,10 +149,10 @@ namespace widget
 		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 
-		SubWidget * m_parent;
+		BasisWidget * m_parent;
 		bool m_show;
 		char m_align;
 
-	}; // class SubWidget
+	}; // class BasisWidget
 
 } // namespace widget

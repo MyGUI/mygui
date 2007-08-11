@@ -1,16 +1,26 @@
 
 #include "Widget.h"
 #include "debugOut.h"
-#include "TextSimple.h"
 
 namespace widget
 {
 
-	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, Widget * _parent) :
-		SubWidget(_x, _y, _cx, _cy, _align, _parent),
+	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info, Widget * _parent) :
+		BasisWidget(_x, _y, _info->width(), _info->height(), _align, _parent), // размер по скину
 		m_text(0),
-		m_visible(true)
+		m_visible(true),
+		m_alpha(1.0),
+		m_color(1.0, 1.0, 1.0, 1.0),
+		m_stateInfo(_info->getStateInfo())
 	{
+		for (BasisInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
+			addSubSkin(*iter, _info->getMaterial());
+		}
+		if (!_info->getFontName().empty()) setFontName(_info->getFontName(), _info->getFontHeight());
+		// а вот теперь нормальный размер
+		setState("normal");
+		size(_cx, _cy);
+		update();
 	}
 
 	Widget::~Widget()
@@ -21,29 +31,32 @@ namespace widget
 		};
 	}
 
-	Widget * Widget::createChild(int _x, int _y, int _cx, int _cy, char _align)
+	Widget * Widget::createChild(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info)
 	{
-		Widget * widget = new Widget(_x, _y, _cx, _cy, _align, this);
+		Widget * widget = new Widget(_x, _y, _cx, _cy, _align, _info, this);
 		m_widgetChild.push_back(widget);
 
 		return widget;
 	}
 
-	SubWidget *  Widget::addSubSkin(int _x, int _y, int _cx, int _cy, const String & _material, char _align, bool _main)
+	BasisWidget *  Widget::addSubSkin(const tagBasisWidgetInfo &_info, const String & _material)
 	{
-		SubWidget * sub;
-		if (_main) sub = new MainSkin(0, 0, m_cx, m_cy, _material, _align, this);
-		else sub = new SubSkin(_x, _y, _cx, _cy, _material, _align, this);
+		BasisWidget * sub = BasisWidgetCreator::getInstance().createBasisWidget(_info, _material, this);
+		// если это скин текста, то запоминаем
+		if (sub->isText()) m_text = sub;
+		// добавляем в общий список
 		m_subSkinChild.push_back(sub);
 		return sub;
 	}
 
-	void Widget::attach(Ogre::OverlayElement * _element)
+	void Widget::attach(Ogre::OverlayElement * _element, bool _child)
 	{
-		if (m_parent) {
+		if (_child) { // это к нам текст хочет прилипиться
+			assert(m_subSkinChild.size() > 0);
+			m_subSkinChild[0]->attach(_element, true);
+		} else if (m_parent) {
 			// если у отца есть хоть один сабскин, то оформляем отцовство
-			assert(((Widget*)m_parent)->m_subSkinChild.size() > 0);
-			((Widget*)m_parent)->m_subSkinChild[0]->attach(_element);
+			m_parent->attach(_element, true);
 		} else {
 			// а если нет, то создадим отца
 			OverlayManager &overlayManager = OverlayManager::getSingleton();
@@ -281,21 +294,64 @@ namespace widget
 		m_text->setCaption(_caption);
 	}
 
-	void Widget::addText(char _align)
+	const Ogre::DisplayString & Widget::getCaption()
 	{
-		m_text = new TextSimple(_align, this);
-		m_subSkinChild.push_back(m_text);
-	}
-
-	void Widget::setUVSet(size_t _num)
-	{
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setUVSet(_num);
+		if (!m_text) return BasisWidget::getCaption();
+		return m_text->getCaption();
 	}
 
 	void Widget::setAlpha(float _alpha)
 	{
-		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(_alpha);
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(_alpha);
+		m_alpha = _alpha;
+		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(m_alpha);
+	}
+
+	void Widget::setColour(const Ogre::ColourValue & _color)
+	{
+		m_color = _color;
+		if (!m_text) return;
+		m_text->setColour(_color);
+	}
+
+	void Widget::setFontName(const Ogre::String & _font)
+	{
+		if (!m_text) return;
+		m_text->setFontName(_font);
+	}
+
+	void Widget::setFontName(const Ogre::String & _font, Ogre::ushort _height)
+	{
+		if (!m_text) return;
+		m_text->setFontName(_font, _height);
+	}
+
+	const Ogre::String & Widget::getFontName()
+	{
+		if (!m_text) return BasisWidget::getFontName();
+		return m_text->getFontName();
+	}
+
+	void Widget::setCharHeight(Ogre::ushort _height)
+	{
+		if (!m_text) return;
+		m_text->setCharHeight(_height);
+	}
+
+	Ogre::ushort Widget::getCharHeight()
+	{
+		if (!m_text) return 0;
+		return m_text->getCharHeight();
+	}
+
+	void Widget::setState(const Ogre::String & _state)
+	{
+		StateInfo::const_iterator iter = m_stateInfo.find(_state);
+		if (iter == m_stateInfo.end()) return;
+		size_t index=0;
+		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+			(*skin)->setUVSet(iter->second.m_offsets[index++]);
+		}
 	}
 
 } // namespace widget
