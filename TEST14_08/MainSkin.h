@@ -12,7 +12,7 @@ namespace widget
 	{
 
 	public:
-		MainSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent);
+		MainSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent);
 		~MainSkin();
 
 		// вызывается виджетом, если этот саб скин во весь виджет
@@ -25,7 +25,7 @@ namespace widget
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		void attach(Ogre::OverlayElement * _element, bool _child);
+		void attach(OverlayElementPtr _element, bool _child);
 
 		void setUVSet(const Ogre::FloatRect & _rect);
 

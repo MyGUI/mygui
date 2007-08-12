@@ -9,13 +9,14 @@ namespace widget
 	// создаем фабрику для этого виджета
 	WidgetFactory<Widget> factory_Widget;
 
-	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info, Widget * _parent) :
+	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		BasisWidget(_x, _y, _info->width(), _info->height(), _align, _parent), // размер по скину
 		m_text(0),
 		m_visible(true),
 		m_alpha(1.0),
 		m_color(1.0, 1.0, 1.0, 1.0),
-		m_stateInfo(_info->getStateInfo())
+		m_stateInfo(_info->getStateInfo()),
+		m_name(_name)
 	{
 		for (BasisInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
 			addSubSkin(*iter, _info->getMaterial());
@@ -27,25 +28,17 @@ namespace widget
 		update();
 	}
 
-	Widget::~Widget()
+		WidgetPtr Widget::createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
 	{
-		while (m_widgetChild.size() > 0)  {
-			delete m_widgetChild[0];
-			m_widgetChild.pop_back();
-		};
-	}
-
-	Widget * Widget::createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align)
-	{
-		Widget * widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
 
 		return widget;
 	}
 
-	BasisWidget *  Widget::addSubSkin(const tagBasisWidgetInfo &_info, const String & _material)
+	BasisWidgetPtr  Widget::addSubSkin(const tagBasisWidgetInfo &_info, const String & _material)
 	{
-		BasisWidget * sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this);
+		BasisWidgetPtr sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this);
 		// если это скин текста, то запоминаем
 		if (sub->isText()) m_text = sub;
 		// добавляем в общий список
@@ -53,22 +46,15 @@ namespace widget
 		return sub;
 	}
 
-	void Widget::attach(Ogre::OverlayElement * _element, bool _child)
+	void Widget::attach(OverlayElementPtr _element, bool _child)
 	{
-		if (_child) { // это к нам текст хочет прилипиться
+		if (_child) {
+			// это к нам текст хочет прилипиться
 			assert(m_subSkinChild.size() > 0);
 			m_subSkinChild[0]->attach(_element, true);
-		} else if (m_parent) {
-			// если у отца есть хоть один сабскин, то оформляем отцовство
-			m_parent->attach(_element, true);
 		} else {
-			// а если нет, то создадим отца
-			OverlayManager &overlayManager = OverlayManager::getSingleton();
-			Overlay * overlay;
-			overlay = overlayManager.create("WidgetOverlay");
-			overlay->setZOrder(200);
-			overlay->show();
-			overlay->add2D(static_cast<Ogre::OverlayContainer*>(_element));
+			// нет не к нам, а к нашему отцу
+			m_parent->attach(_element, true);
 		}
 	}
 
@@ -81,7 +67,7 @@ namespace widget
 		// если скрыто пользователем, то не показываем
 		if (_visible && !m_show) return;
 
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_visible);
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_visible);
 	}
 
 	void Widget::show(bool _show)
@@ -91,7 +77,7 @@ namespace widget
 		// если вышло за границу то не показываем
 		if (_show && !m_visible) return;
 
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_show);
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_show);
 	}
 
 	void Widget::align(int _x, int _y, int _cx, int _cy, bool _update)
@@ -198,8 +184,8 @@ namespace widget
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, m_margin || margin);
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, m_margin || margin);
+		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, m_margin || margin);
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, m_margin || margin);
 
 		// запоминаем текущее состояние
 		m_margin = margin;
@@ -236,8 +222,8 @@ namespace widget
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy, m_margin || margin);
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, m_margin || margin);
+		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy, m_margin || margin);
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, m_margin || margin);
 
 		// запоминаем текущее состояние
 		m_margin = margin;
@@ -271,7 +257,7 @@ namespace widget
 			m_margin = margin;
 
 			// для тех кому нужно подправить себя при движении
-			for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
+			for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
 
 			// скрываем
 			visible(true);
@@ -284,8 +270,8 @@ namespace widget
 		m_margin = margin;
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
-		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
+		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
 
 		// если скин был скрыт, то покажем
 		visible(true);
@@ -307,8 +293,8 @@ namespace widget
 	void Widget::setAlpha(float _alpha)
 	{
 		m_alpha = _alpha;
-		for (widgetIterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(m_alpha);
+		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(m_alpha);
 	}
 
 	void Widget::setColour(const Ogre::ColourValue & _color)
@@ -353,9 +339,37 @@ namespace widget
 		StateInfo::const_iterator iter = m_stateInfo.find(_state);
 		if (iter == m_stateInfo.end()) return;
 		size_t index=0;
-		for (skinIterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
 			(*skin)->setUVSet(iter->second.m_offsets[index++]);
 		}
+	}
+
+	void Widget::detach(WidgetPtr _child)
+	{
+		for (size_t index = 0; index != m_widgetChild.size(); index++) {
+			if (m_widgetChild[index] == _child) {
+				m_widgetChild[index] = m_widgetChild[m_widgetChild.size()-1] ;
+				m_widgetChild.pop_back();
+				break;
+			}
+		}
+	}
+
+	Widget::~Widget()
+	{
+		// отписывает себя от отца
+		static_cast<WidgetPtr>(m_parent)->detach(this);
+		// удаляем детей
+		while (m_widgetChild.size() > 0) {
+			// при удалении виджет сам себя отпишет из этого списка
+			WidgetManager::getInstance().destroyWidget(m_widgetChild[0]);
+		};
+		// удаляем саб скины
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+			delete (*skin);
+		}
+		m_subSkinChild.clear();
+
 	}
 
 } // namespace widget

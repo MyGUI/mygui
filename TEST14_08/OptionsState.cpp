@@ -7,6 +7,7 @@
 #include "WidgetSkinInfo.h"
 #include "SkinManager.h"
 #include "WidgetManager.h"
+#include "Gui.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -73,8 +74,6 @@ void OptionsState::enter(bool bIsChangeState)
     
 	mEditor = new SkinEditor::SkinEditor(this);*/
 
-
-
 	WidgetSkinInfo * widget_info = SkinManager::getInstance().create("skin1");
 	widget_info->setInfo(200, 200, "BACK_GREEN");
 	BasisWidgetBinding bind(0, 0, 200, 200, ALIGN_LEFT|ALIGN_TOP, "MainSkin");
@@ -107,12 +106,16 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget2 = 0;
 	m_widget3 = 0;
 
-	m_widget1 = WidgetManager::getInstance().createWidget("Widget", "skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP);
+	m_widget1 = Gui::getInstance().createChild("Widget", "skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP);
 
 	m_widget2 = m_widget1->createChild("Widget", "skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
 
 	m_widget3 = m_widget2->createChild("Widget", "skin3", 10, 10, 60, 60, ALIGN_STRETCH);
 	m_widget3->setCaption("gafne\nsda");
+
+//	Ogre::String name = m_widget3->getName();
+//	Gui::getInstance().destroyWidget(m_widget3);
+
 
 //	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
 //	debug.add("need cut 2", 170, 50, m_widget2->m_margin);
@@ -127,7 +130,7 @@ void OptionsState::enter(bool bIsChangeState)
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-	m_widget3->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+//	m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	if (!toggle) {
 //		m_widget3->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	} else {
@@ -140,8 +143,8 @@ bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	toggle = !toggle;
-	if (toggle) m_widget3->setAlpha(0.2);
-	else m_widget3->setAlpha(0);
+//	if (toggle) m_widget2->setAlpha(0.2);
+//	else m_widget2->setAlpha(0);
 	return true;
 }
 //===================================================================================

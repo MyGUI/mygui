@@ -13,7 +13,7 @@ namespace widget
 	{
 
 	public:
-		TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent);
+		TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent);
 		virtual ~TextSimple();
 
 		void show(bool _show);

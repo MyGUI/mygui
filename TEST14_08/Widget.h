@@ -10,17 +10,20 @@
 namespace widget
 {
 	using namespace Ogre;
+	class WidgetManager;
 
 	class Widget : public BasisWidget
 	{
+		// для вызова закрытых деструкторов
+		// ставим менеджер в друзья
+		friend WidgetManager;
 
 	public:
 		// все создание только через фабрику
-		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfo * _info, Widget * _parent = 0);
-		virtual ~Widget();
+		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 		// создаем дочку
-		Widget * createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align);
+		WidgetPtr createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
@@ -53,10 +56,15 @@ namespace widget
 		void setState(const Ogre::String & _state);
 		inline const static Ogre::String & getType() {static Ogre::String type("Widget"); return type;};
 
+		void detach(WidgetPtr _child);
+		inline const Ogre::String & getName() {return m_name;};
+
 	protected:
 
 		// создаем и добавляем саб скин виджету
-		BasisWidget * addSubSkin(const tagBasisWidgetInfo &_info, const String & _material);
+		BasisWidgetPtr addSubSkin(const tagBasisWidgetInfo &_info, const String & _material);
+		// закрытый деструктор
+		virtual ~Widget();
 
 	protected:
 
@@ -65,18 +73,15 @@ namespace widget
 		// показывает скрывает все сабскины
 		void visible(bool _visible);
 
-		void attach(Ogre::OverlayElement * _element, bool _child);
-
-		typedef std::vector<Widget *> widgetChild;
-		typedef widgetChild::iterator widgetIterator;
+		void attach(OverlayElementPtr _element, bool _child);
 
 		// вектор всех детей виджетов
-		widgetChild m_widgetChild;
+		WidgetChild m_widgetChild;
 		// вектор всех детей сабскинов
-		skinChild m_subSkinChild;
+		BasisChild m_subSkinChild;
 
 		// указатель на окно текста
-		BasisWidget * m_text;
+		BasisWidgetPtr m_text;
 
 		// скрыты ли все сабскины при выходе за границу
 		bool m_visible;
@@ -84,7 +89,8 @@ namespace widget
 		float m_alpha;
 		// цвет текста
 		Ogre::ColourValue m_color;
-
+		// имя виджета
+		Ogre::String m_name;
 	}; // class Widget
 
 } // namespace widget

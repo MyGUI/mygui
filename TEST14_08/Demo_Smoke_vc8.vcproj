@@ -491,7 +491,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="BasisWidget"
+				Name="BasisWidgetImplement"
 				>
 				<File
 					RelativePath=".\BasisWidget.h"
@@ -567,6 +567,18 @@
 				</File>
 				<File
 					RelativePath=".\WidgetManager.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Gui"
+				>
+				<File
+					RelativePath=".\Gui.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui.h"
 					>
 				</File>
 			</Filter>

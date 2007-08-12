@@ -34,6 +34,11 @@ namespace widget
 			fillState(_bind.m_states, m_basis.size()-1);
 		}
 
+		inline void addParam(const Ogre::String &_key, const Ogre::String &_value)
+		{
+			m_params[_key] = _value;
+		}
+
 	private:
 		void checkState(const ViewInfo & _states)
 		{
@@ -77,6 +82,7 @@ namespace widget
 		inline Ogre::ushort getFontHeight() const {return m_fontHeight;};
 		inline const BasisInfo & getBasisInfo() const {return m_basis;};
 		inline const StateInfo & getStateInfo() const {return m_states;};
+		inline const SkinParam & getParams() const {return m_params;};
 
 	private:
 		int m_cx, m_cy;
@@ -85,6 +91,8 @@ namespace widget
 		Ogre::ushort m_fontHeight;
 		BasisInfo m_basis;
 		StateInfo m_states;
+		// дополнительные параметры скина
+		SkinParam m_params;
 
 	};
 

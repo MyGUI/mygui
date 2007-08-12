@@ -13,7 +13,7 @@ namespace widget
 	{
 
 	public:
-		SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent);
+		SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent);
 		virtual ~SubSkin();
 
 		void show(bool _show);
@@ -32,7 +32,7 @@ namespace widget
 
 	protected:
 
-		void attach(Ogre::OverlayElement * _element, bool _child);
+		void attach(OverlayElementPtr _element, bool _child);
 
 		PanelAlphaOverlayElement * m_overlayContainer;
 		Ogre::FloatRect m_rectTexture;

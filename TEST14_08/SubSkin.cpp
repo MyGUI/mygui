@@ -1,6 +1,5 @@
 
 #include "SubSkin.h"
-//#include "BasisWidgetFactory.h"
 #include "BasisWidgetManager.h"
 
 namespace widget
@@ -10,7 +9,7 @@ namespace widget
 	BasisWidgetFactory<SubSkin> factory_subSkin;
 
 
-	SubSkin::SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) :
+	SubSkin::SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) :
 		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
@@ -28,6 +27,10 @@ namespace widget
 
 	SubSkin::~SubSkin()
 	{
+		if (!m_overlayContainer) return;
+//		Ogre::OverlayContainer * parent = m_overlayContainer->getParent();
+//		parent->removeChild(m_overlayContainer->getName());
+		Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayContainer);
 	}
 
 	void SubSkin::show(bool _show)
@@ -43,7 +46,7 @@ namespace widget
 		m_overlayContainer->setColor(*(Ogre::uint32*)color);
 	}
 
-	void SubSkin::attach(Ogre::OverlayElement * _element, bool _child)
+	void SubSkin::attach(OverlayElementPtr _element, bool _child)
 	{
 		m_overlayContainer->addChild(_element);
 	}
@@ -119,7 +122,6 @@ namespace widget
 		// если скин был скрыт, то покажем
 		m_overlayContainer->setTransparent(false);
 
-
 	}
 
 	void SubSkin::correct()
@@ -178,9 +180,8 @@ namespace widget
 
 	void SubSkin::setUVSet(const Ogre::FloatRect & _rect)
 	{
-//		assert(m_uvSet.size() >= _num);
 		assert(m_overlayContainer);
-		m_rectTexture = _rect;//m_uvSet[_num];
+		m_rectTexture = _rect;
 		// если обрезаны, то просчитываем с учето обрезки
 		if (m_margin) {
 

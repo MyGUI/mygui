@@ -7,35 +7,11 @@
 namespace widget
 {
 
-	//Bit flags done easy
-	#define FLAG_NONE  0
-	#define FLAG(num)  (1<<(num))
-
-	enum WIDGET_ALIGN {
-
-		ALIGN_NONE						= FLAG_NONE,					// 
-		ALIGN_HCENTER					= FLAG_NONE,					// center the window horizontally
-		ALIGN_VCENTER					= FLAG_NONE,					// center the window vertically
-		ALIGN_CENTER					= ALIGN_HCENTER | ALIGN_VCENTER,		// center the window in the dead center
-		ALIGN_CENTER_PARENT		    = FLAG(0),						// это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
-		ALIGN_LEFT						= FLAG(1),						// justify left
-		ALIGN_RIGHT					= FLAG(2),						// justify right
-		ALIGN_HSTRETCH				    = ALIGN_LEFT | ALIGN_RIGHT,			// stretch to fill the entire parent window horizontally (?)
-		ALIGN_TOP						= FLAG(3),						// align from the top
-		ALIGN_BOTTOM					= FLAG(4),						// align from the bottom
-		ALIGN_VSTRETCH				    = ALIGN_TOP | ALIGN_BOTTOM,			// stretch to fill the entire parent window vertically (?)
-		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch to fill the entire parent (?)
-	};
-
 	class BasisWidget
 	{
 
 	public:
-		typedef std::vector<BasisWidget *> skinChild;
-		typedef skinChild::iterator skinIterator;
-
-	public:
-		BasisWidget(int _x, int _y, int _cx, int _cy, char _align, BasisWidget * _parent) :
+		BasisWidget(int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent) :
 			m_parent (_parent),
 			m_align (_align),
 			m_x (_x),
@@ -76,16 +52,13 @@ namespace widget
 		virtual void align(int _cx, int _cy, bool _update) {};
 		virtual void align(int _x, int _y, int _cx, int _cy, bool _update) {};
 
-		virtual void attach(Ogre::OverlayElement * _element, bool _child) {};
+		virtual void attach(OverlayElementPtr _element, bool _child) {};
 
 		virtual void setUVSet(const Ogre::FloatRect & _rect) {};
 
-//		virtual void addUVSet(float _left, float _top, float _right, float _bottom) {};
-//		virtual void setUVSet(size_t _num) {};
-
 		virtual bool isText() {return false;};
 
-		inline BasisWidget * getParent() {return m_parent;}
+		inline BasisWidgetPtr getParent() {return m_parent;}
 
 		inline int left()       {return m_x;}
 		inline int right()      {return m_x + m_cx;}
@@ -150,7 +123,7 @@ namespace widget
 		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 
-		BasisWidget * m_parent;
+		BasisWidgetPtr m_parent;
 		bool m_show;
 		char m_align;
 

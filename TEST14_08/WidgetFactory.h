@@ -11,7 +11,7 @@ namespace widget
 	{
 	public:
 		virtual const Ogre::String & getType() = 0;
-		virtual Widget * createWidget(const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, Widget * _parent) = 0;
+		virtual WidgetPtr createWidget(const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name) = 0;
 	}; // WidgetFactoryBase
 
 	template <class ClassName>
@@ -20,9 +20,9 @@ namespace widget
 	public:
 		WidgetFactory() { WidgetManager::getInstance().registerFactory(this); }
 		inline const Ogre::String & getType() {return ClassName::getType();};
-		Widget * createWidget(const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, Widget * _parent)
+		WidgetPtr createWidget(const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name)
 		{
-			return new ClassName(_x, _y, _cx, _cy, _align, SkinManager::getInstance().getSkin(_skin), _parent);
+			return new ClassName(_x, _y, _cx, _cy, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 	}; // class WidgetFactory : public WidgetFactoryBase
 

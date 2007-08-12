@@ -7,7 +7,7 @@ namespace widget
 	// создаем фабрику для этого скина
 	BasisWidgetFactory<TextSimple> factory_simpleText;
 
-	TextSimple::TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) :
+	TextSimple::TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) :
 		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
@@ -27,6 +27,10 @@ namespace widget
 
 	TextSimple::~TextSimple()
 	{
+		if (!m_overlayContainer) return;
+//		Ogre::OverlayContainer * parent = m_overlayContainer->getParent();
+//		parent->removeChild(m_overlayContainer->getName());
+		Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayContainer);
 	}
 
 	void TextSimple::show(bool _show)

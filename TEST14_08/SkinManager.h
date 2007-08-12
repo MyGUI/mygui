@@ -8,9 +8,6 @@
 namespace widget
 {
 
-	// обязательно указатель, так как при добавлении может перераспределяться память
-	typedef std::map<Ogre::String, WidgetSkinInfo*> SkinInfo;
-
 	class SkinManager
 	{
 	private:

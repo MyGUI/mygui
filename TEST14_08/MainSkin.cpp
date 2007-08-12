@@ -9,7 +9,7 @@ namespace widget
 	// создаем фабрику для этого скина
 	BasisWidgetFactory<MainSkin> factory_mainSkin;
 
-	MainSkin::MainSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) : 
+	MainSkin::MainSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) : 
 	BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
 	{
 
@@ -24,8 +24,16 @@ namespace widget
 		m_overlayContainer->setMaterialName(_material);
 
 		m_parent->attach(m_overlayContainer, false);
-
 	}
+
+	MainSkin::~MainSkin()
+	{
+		if (!m_overlayContainer) return;
+//		Ogre::OverlayContainer * parent = m_overlayContainer->getParent();
+//		parent->removeChild(m_overlayContainer->getName());
+		Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayContainer);
+	}
+
 
 	void MainSkin::setAlpha(float _alpha)
 	{
@@ -39,10 +47,6 @@ namespace widget
 		m_show = _show;
 		_show ? m_overlayContainer->show() : m_overlayContainer->hide();
 	};
-
-	MainSkin::~MainSkin()
-	{
-	}
 
 	void MainSkin::align(int _cx, int _cy, bool _update)
 	{
@@ -115,15 +119,10 @@ namespace widget
 
 	}
 
-	void MainSkin::attach(Ogre::OverlayElement * _element, bool _child)
+	void MainSkin::attach(OverlayElementPtr _element, bool _child)
 	{
 		m_overlayContainer->addChild(_element);
 	}
-
-//	void MainSkin::addUVSet(float _left, float _top, float _right, float _bottom)
-//	{
-//		m_uvSet.push_back(Ogre::FloatRect(_left, _top, _right, _bottom));
-//	}
 
 	void MainSkin::setUVSet(const Ogre::FloatRect & _rect)
 	{
@@ -158,38 +157,5 @@ namespace widget
 		}
 	}
 
-/*	void MainSkin::setUVSet(size_t _num)
-	{
-		assert(m_uvSet.size() >= _num);
-		assert(m_overlayContainer);
-		m_rectTexture = m_uvSet[_num];
-		// если обрезаны, то просчитываем с учето обрезки
-		if (m_margin) {
-
-			float UV_lft = m_left_margin;
-			float UV_top = m_top_margin;
-			float UV_rgt = m_cx - m_right_margin;
-			float UV_btm = m_cy - m_bottom_margin;
-
-			UV_lft = UV_lft / (float)m_cx;
-			UV_top = UV_top / (float)m_cy;
-			UV_rgt = UV_rgt / (float)m_cx;
-			UV_btm = UV_btm / (float)m_cy;
-
-			float UV_sizeX = m_rectTexture.right - m_rectTexture.left;
-			float UV_sizeY = m_rectTexture.bottom - m_rectTexture.top;
-
-			float UV_lft_total = m_rectTexture.left + UV_lft * UV_sizeX;
-			float UV_top_total = m_rectTexture.top + UV_top * UV_sizeY;
-			float UV_rgt_total = m_rectTexture.right - (1-UV_rgt) * UV_sizeX;
-			float UV_btm_total = m_rectTexture.bottom - (1-UV_btm) * UV_sizeY;
-
-			m_overlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
-
-		} else {
-			// мы не обрезаны, базовые координаты
-			m_overlayContainer->setUV(m_rectTexture.left, m_rectTexture.top, m_rectTexture.right, m_rectTexture.bottom);
-		}
-	}*/
 
 } // namespace MainSkin
