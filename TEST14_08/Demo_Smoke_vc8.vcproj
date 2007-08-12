@@ -554,6 +554,10 @@
 				Name="WidgetImplement"
 				>
 				<File
+					RelativePath=".\ParserWidget.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Widget.cpp"
 					>
 				</File>
@@ -579,6 +583,14 @@
 				</File>
 				<File
 					RelativePath=".\Gui.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ParserProperty"
+				>
+				<File
+					RelativePath=".\ParserManager.h"
 					>
 				</File>
 			</Filter>

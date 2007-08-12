@@ -9,6 +9,8 @@
 #include "WidgetManager.h"
 #include "Gui.h"
 
+#include "ParserManager.h"
+
 using namespace Ogre;
 using namespace MyGUI;
 using namespace std;
@@ -111,7 +113,8 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget2 = m_widget1->createChild("Widget", "skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
 
 	m_widget3 = m_widget2->createChild("Widget", "skin3", 10, 10, 60, 60, ALIGN_STRETCH);
-	m_widget3->setCaption("gafne\nsda");
+
+	ParserManager::getInstance().parce(m_widget3, "Caption", "dermo");
 
 //	Ogre::String name = m_widget3->getName();
 //	Gui::getInstance().destroyWidget(m_widget3);
@@ -130,7 +133,7 @@ void OptionsState::enter(bool bIsChangeState)
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-//	m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+	m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	if (!toggle) {
 //		m_widget3->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	} else {

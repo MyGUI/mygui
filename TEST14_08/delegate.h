@@ -39,7 +39,7 @@
 #define SUFFIX       3
 #define TEMPLATE_PARAMS  class TP1, class TP2, class TP3
 #define TEMPLATE_ARGS    TP1, TP2, TP3
-#define PARAMS       TP1 p1, TP2 p2, TP2 p3
+#define PARAMS       TP1 p1, TP2 p2, TP3 p3
 #define ARGS         p1, p2, p3
 
 #include "delegate_implement.h"

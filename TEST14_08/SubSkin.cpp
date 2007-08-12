@@ -93,15 +93,10 @@ namespace widget
 			if (cx && cy) {
 
 				// теперь смещаем текстуру
-				float UV_lft = m_left_margin;
-				float UV_top = m_top_margin;
-				float UV_rgt = m_cx - m_right_margin;
-				float UV_btm = m_cy - m_bottom_margin;
-
-				UV_lft = UV_lft / (float)m_cx;
-				UV_top = UV_top / (float)m_cy;
-				UV_rgt = UV_rgt / (float)m_cx;
-				UV_btm = UV_btm / (float)m_cy;
+				float UV_lft = m_left_margin / (float)m_cx;
+				float UV_top = m_top_margin / (float)m_cy;
+				float UV_rgt = (m_cx - m_right_margin) / (float)m_cx;
+				float UV_btm = (m_cy - m_bottom_margin) / (float)m_cy;
 
 				float UV_sizeX = m_rectTexture.right - m_rectTexture.left;
 				float UV_sizeY = m_rectTexture.bottom - m_rectTexture.top;
@@ -185,15 +180,10 @@ namespace widget
 		// если обрезаны, то просчитываем с учето обрезки
 		if (m_margin) {
 
-			float UV_lft = m_left_margin;
-			float UV_top = m_top_margin;
-			float UV_rgt = m_cx - m_right_margin;
-			float UV_btm = m_cy - m_bottom_margin;
-
-			UV_lft = UV_lft / (float)m_cx;
-			UV_top = UV_top / (float)m_cy;
-			UV_rgt = UV_rgt / (float)m_cx;
-			UV_btm = UV_btm / (float)m_cy;
+			float UV_lft = m_left_margin / (float)m_cx;
+			float UV_top = m_top_margin / (float)m_cy;
+			float UV_rgt = (m_cx - m_right_margin) / (float)m_cx;
+			float UV_btm = (m_cy - m_bottom_margin) / (float)m_cy;
 
 			float UV_sizeX = m_rectTexture.right - m_rectTexture.left;
 			float UV_sizeY = m_rectTexture.bottom - m_rectTexture.top;

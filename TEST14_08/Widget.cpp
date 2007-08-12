@@ -3,11 +3,17 @@
 #include "debugOut.h"
 #include "BasisWidgetManager.h"
 #include "WidgetManager.h"
+#include "ParserWidget.h"
 
 namespace widget
 {
-	// создаем фабрику для этого виджета
-	WidgetFactory<Widget> factory_Widget;
+	namespace helper
+	{
+		// создаем фабрику для этого виджета
+		WidgetFactory<Widget> factory_Widget;
+		// парсер команд для Widget
+		ParserWidget parser_Widget;
+	}
 
 	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		BasisWidget(_x, _y, _info->width(), _info->height(), _align, _parent), // размер по скину
