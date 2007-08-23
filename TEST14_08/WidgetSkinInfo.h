@@ -17,13 +17,16 @@ namespace widget
 			checkState("normal");
 		}
 
-		void setInfo(int _cx, int _cy, const Ogre::String &_material, const Ogre::String &_font="", Ogre::ushort _fontHeight=0)
+		void setInfo(intSize _size, const Ogre::String &_material)
 		{
-			m_cx = _cx;
-			m_cy = _cy;
+			m_cx = _size.width;
+			m_cy = _size.height;
 			m_material = _material;
-			m_font = _font;
-			m_fontHeight = _fontHeight;
+		}
+
+		inline void setInfo(int _cx, int _cy, const Ogre::String &_material)
+		{
+			setInfo(intSize(_cx, _cy), _material);
 		}
 
 		void addInfo(const BasisWidgetBinding & _bind)
@@ -78,8 +81,6 @@ namespace widget
 		inline int width() const {return m_cx;};
 		inline int height() const {return m_cy;};
 		inline const Ogre::String & getMaterial() const {return m_material;};
-		inline const Ogre::String & getFontName() const {return m_font;};
-		inline Ogre::ushort getFontHeight() const {return m_fontHeight;};
 		inline const BasisInfo & getBasisInfo() const {return m_basis;};
 		inline const StateInfo & getStateInfo() const {return m_states;};
 		inline const SkinParam & getParams() const {return m_params;};
@@ -87,8 +88,6 @@ namespace widget
 	private:
 		int m_cx, m_cy;
 		Ogre::String m_material;
-		Ogre::String m_font;
-		Ogre::ushort m_fontHeight;
 		BasisInfo m_basis;
 		StateInfo m_states;
 		// дополнительные параметры скина

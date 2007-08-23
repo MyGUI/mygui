@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <Ogre.h>
+#include "TRect.h"
+#include "TSize.h"
 
 
 namespace widget
@@ -10,6 +12,7 @@ namespace widget
 	//Bit flags done easy
 	#define FLAG_NONE  0
 	#define FLAG(num)  (1<<(num))
+	#define REGISTER_VALUE(_map,_value) _map[#_value]=_value;
 
 	enum WIDGET_ALIGN {
 
@@ -26,8 +29,6 @@ namespace widget
 		ALIGN_VSTRETCH				    = ALIGN_TOP | ALIGN_BOTTOM,			// stretch to fill the entire parent window vertically (?)
 		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch to fill the entire parent (?)
 	};
-
-	typedef Ogre::TRect<int> INTRect;
 
 	struct tagBasisWidgetStateInfo
 	{
@@ -49,8 +50,8 @@ namespace widget
 		float alpha;
 	};
 	struct tagBasisWidgetInfo {
-		tagBasisWidgetInfo(const Ogre::String & _type, INTRect _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
-		INTRect offset;
+		tagBasisWidgetInfo(const Ogre::String & _type, intRect _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
+		intRect offset;
 		char aligin;
 		Ogre::String type;
 	};
@@ -58,6 +59,7 @@ namespace widget
 	typedef std::map<Ogre::String, tagBasisWidgetStateInfo> ViewInfo;
 	typedef std::map<Ogre::String, tagWidgetStateInfo> StateInfo;
 	typedef std::vector<tagBasisWidgetInfo> BasisInfo;
+	typedef std::map<std::string, char> MapFlags;
 
 	typedef std::map<Ogre::String, Ogre::String> SkinParam;
 

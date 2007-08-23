@@ -24,12 +24,22 @@ namespace widget
 		m_stateInfo(_info->getStateInfo()),
 		m_name(_name)
 	{
+
+		// загружаем кирпичика виджета
 		for (BasisInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
 			addSubSkin(*iter, _info->getMaterial());
 		}
-		if (!_info->getFontName().empty()) setFontName(_info->getFontName(), _info->getFontHeight());
-		// а вот теперь нормальный размер
+
+		// парсим свойства
+		const SkinParam & param = _info->getParams();
+		SkinParam::const_iterator iter = param.find("FontName");
+		if (iter != param.end()) setFontName(iter->second);
+		iter = param.find("FontHeight");
+		if (iter != param.end()) setCharHeight(parseInt(iter->second));
+
+		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
+		// а вот теперь нормальный размер
 		size(_cx, _cy);
 		update();
 	}

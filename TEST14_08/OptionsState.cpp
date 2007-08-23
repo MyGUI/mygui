@@ -10,6 +10,7 @@
 #include "Gui.h"
 
 #include "ParserManager.h"
+//#include "TRect.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -76,43 +77,11 @@ void OptionsState::enter(bool bIsChangeState)
     
 	mEditor = new SkinEditor::SkinEditor(this);*/
 
-	WidgetSkinInfo * widget_info = SkinManager::getInstance().create("skin1");
-	widget_info->setInfo(200, 200, "BACK_GREEN");
-	BasisWidgetBinding bind(0, 0, 200, 200, ALIGN_LEFT|ALIGN_TOP, "MainSkin");
-	bind.add("normal", 0, 0, 1, 1);
-	widget_info->addInfo(bind);
+	SkinManager::getInstance().loadSkin("main.skin");
 
-	WidgetSkinInfo *widget_info2 = SkinManager::getInstance().create("skin2");
-	widget_info2->setInfo(100, 100, "MyGUI_check_s1");
-	bind.create(0, 0, 100, 100, ALIGN_LEFT|ALIGN_TOP, "MainSkin");
-	bind.add("normal", 0, 0, 1, 1);
-	widget_info2->addInfo(bind);
-
-	WidgetSkinInfo *widget_info3 = SkinManager::getInstance().create("skin3");
-	widget_info3->setInfo(60, 60, "MyGUI_check_a1", "MyGUI_font", 20);
-	bind.create(0, 0, 30, 30, ALIGN_STRETCH, "SubSkin");
-	bind.add("normal", 0, 0, 1, 1);
-	widget_info3->addInfo(bind);
-	bind.create(30, 0, 30, 30, ALIGN_RIGHT|ALIGN_VSTRETCH, "SubSkin");
-	bind.add("normal", 0, 0, 1, 1);
-	widget_info3->addInfo(bind);
-	bind.create(0, 30, 60, 30, ALIGN_HSTRETCH|ALIGN_BOTTOM, "SubSkin");
-	bind.add("normal", 0, 0, 1, 1);
-	widget_info3->addInfo(bind);
-	bind.create(0, 0, 0, 0, ALIGN_CENTER, "TextSimple");
-	bind.add("normal", 0, 0, 1, 1);
-	widget_info3->addInfo(bind);
-
-
-	m_widget1 = 0;
-	m_widget2 = 0;
-	m_widget3 = 0;
-
-	m_widget1 = Gui::getInstance().createChild("Widget", "skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP);
-
-	m_widget2 = m_widget1->createChild("Widget", "skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
-
-	m_widget3 = m_widget2->createChild("Widget", "skin3", 10, 10, 60, 60, ALIGN_STRETCH);
+	m_widget1 = Gui::getInstance().createChild("Widget", "Skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP);
+	m_widget2 = m_widget1->createChild("Widget", "Skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
+	m_widget3 = m_widget2->createChild("Widget", "Skin3", 10, 10, 60, 60, ALIGN_STRETCH);
 
 	ParserManager::getInstance().parce(m_widget3, "Caption", "dermo");
 
@@ -128,6 +97,22 @@ void OptionsState::enter(bool bIsChangeState)
 
 	debugAxis::create(BasisManager::getSingleton()->mSceneMgr);
 	debugAxis::show(true);
+
+//	int test = util::parseValue<int>("1");
+/*	xml::xmlDocument doc;
+	if (doc.load("xml.txt")) {
+		doc.clear();
+	} else {
+		OGRE_EXCEPT(0, doc.getLastError(), "");
+	}*/
+/*	xml::xmlNodePtr info = doc.createInfo();
+	info->addAttributes("version", "1.0");
+	info->addAttributes("encoding", "UTF-8");
+
+	xml::xmlNodePtr root = doc.createRoot("root");
+	root->addBody("uyiuyiyiuyiuyiyjhkjh");
+
+	doc.save("xml2.xml");*/
 
 }
 //===================================================================================

@@ -594,6 +594,38 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="XML"
+				>
+				<File
+					RelativePath=".\xmlDefine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\xmlDocument.h"
+					>
+				</File>
+				<File
+					RelativePath=".\xmlNode.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Types"
+				>
+				<File
+					RelativePath=".\StringUtil.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TRect.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TSize.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"

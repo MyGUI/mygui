@@ -17,22 +17,26 @@ namespace widget
 		friend 	WidgetSkinInfo;
 
 	public:
-		BasisWidgetBinding(int _x, int _y, int _cx, int _cy, char _aligin, const Ogre::String & _type)
+		BasisWidgetBinding()
 		{
-			create(INTRect(_x, _y, _cx, _cy), _aligin, _type);
 		}
 
-		BasisWidgetBinding(INTRect _offset, char _aligin, const Ogre::String & _type)
+		BasisWidgetBinding(int _x, int _y, int _cx, int _cy, char _aligin, const Ogre::String & _type)
+		{
+			create(intRect(_x, _y, _cx, _cy), _aligin, _type);
+		}
+
+		BasisWidgetBinding(intRect _offset, char _aligin, const Ogre::String & _type)
 		{
 			create(_offset, _aligin, _type);
 		}
 
 		void create(int _x, int _y, int _cx, int _cy, char _aligin, const Ogre::String & _type)
 		{
-			create(INTRect(_x, _y, _cx, _cy), _aligin, _type);
+			create(intRect(_x, _y, _cx, _cy), _aligin, _type);
 		}
 
-		void create(INTRect _offset, char _aligin, const Ogre::String & _type)
+		void create(intRect _offset, char _aligin, const Ogre::String & _type)
 		{
 			clear();
 			m_offset = _offset;
@@ -57,6 +61,11 @@ namespace widget
 			add(_name, _offset, Ogre::ColourValue::ZERO, -1);
 		}
 
+		void add(const Ogre::String & _name, floatRect _offset)
+		{
+			add(_name, FloatRect(_offset.left, _offset.top, _offset.right, _offset.bottom), Ogre::ColourValue::ZERO, -1);
+		}
+
 		void add(const Ogre::String & _name, float _alpha)
 		{
 			add(_name, FloatRect(-1, -1, -1, -1), Ogre::ColourValue::ZERO, _alpha);
@@ -77,7 +86,7 @@ namespace widget
 		}
 
 	private:
-		INTRect m_offset;
+		intRect m_offset;
 		char m_aligin;
 		Ogre::String m_type;
 		ViewInfo m_states;

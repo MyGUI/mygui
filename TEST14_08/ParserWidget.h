@@ -14,8 +14,9 @@ namespace widget
 		public:
 			ParserWidget()
 			{
-				// парсер для установки заголовка
+				// менеджер всех парсеров свойств
 				ParserManager & parser = ParserManager::getInstance();
+				// парсер для установки заголовка
 				ParceDelegate & delegate = parser.registerDelegate("Caption");
 				delegate = newDelegate(this, &ParserWidget::SetCaption);
 			}
