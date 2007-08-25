@@ -6,24 +6,29 @@
 #include "delegate.h"
 
 #include "WidgetSkinInfo.h"
+#include "LayerItemInfo.h"
 
 namespace widget
 {
 	using namespace Ogre;
-	class WidgetManager;
 
-	class Widget : public BasisWidget
+	class WidgetManager;
+	class Gui;
+
+	class Widget : public BasisWidget , public LayerItemInfo
 	{
 		// дл€ вызова закрытых деструкторов
 		// ставим менеджер в друзь€
 		friend WidgetManager;
+		// это дл€ того чтобы установить m_overlay
+		friend Gui;
 
 	public:
 		// все создание только через фабрику
 		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 		// создаем дочку
-		WidgetPtr createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
@@ -59,6 +64,9 @@ namespace widget
 		void detach(WidgetPtr _child);
 		inline const Ogre::String & getName() {return m_name;};
 
+		void attach(BasisWidgetPtr _basis, bool _child);
+		OverlayElementPtr getOverlayElement();
+
 	protected:
 
 		// создаем и добавл€ем саб скин виджету
@@ -72,8 +80,6 @@ namespace widget
 		const StateInfo & m_stateInfo;
 		// показывает скрывает все сабскины
 		void visible(bool _visible);
-
-		void attach(OverlayElementPtr _element, bool _child);
 
 		// вектор всех детей виджетов
 		WidgetChild m_widgetChild;

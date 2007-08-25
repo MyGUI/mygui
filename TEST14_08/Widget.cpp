@@ -44,7 +44,7 @@ namespace widget
 		update();
 	}
 
-		WidgetPtr Widget::createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
+		WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
@@ -62,16 +62,22 @@ namespace widget
 		return sub;
 	}
 
-	void Widget::attach(OverlayElementPtr _element, bool _child)
+	void Widget::attach(BasisWidgetPtr _basis, bool _child)
 	{
 		if (_child) {
 			// это к нам текст хочет прилипиться
 			assert(m_subSkinChild.size() > 0);
-			m_subSkinChild[0]->attach(_element, true);
+			m_subSkinChild[0]->attach(_basis, true);
 		} else {
 			// нет не к нам, а к нашему отцу
-			m_parent->attach(_element, true);
+			m_parent->attach(_basis, true);
 		}
+	}
+
+	OverlayElementPtr Widget::getOverlayElement()
+	{
+		if (m_subSkinChild.empty()) return 0;
+		return m_subSkinChild[0]->getOverlayElement();
 	}
 
 	void Widget::visible(bool _visible)

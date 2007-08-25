@@ -30,9 +30,10 @@ namespace widget
 
 		inline const static Ogre::String & getType() {static Ogre::String type("SubSkin"); return type;};
 
-	protected:
+		void attach(BasisWidgetPtr _basis, bool _child);
+		OverlayElementPtr getOverlayElement();
 
-		void attach(OverlayElementPtr _element, bool _child);
+	protected:
 
 		PanelAlphaOverlayElement * m_overlayContainer;
 		Ogre::FloatRect m_rectTexture;

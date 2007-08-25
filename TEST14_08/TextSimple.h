@@ -40,6 +40,8 @@ namespace widget
 
 		inline const static Ogre::String & getType() {static Ogre::String type("TextSimple"); return type;};
 
+		OverlayElementPtr getOverlayElement();
+
 	protected:
 
 		TextSimpleOverlayElement * m_overlayContainer;

@@ -10,7 +10,6 @@
 #include "Gui.h"
 
 #include "ParserManager.h"
-//#include "TRect.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -79,11 +78,15 @@ void OptionsState::enter(bool bIsChangeState)
 
 	SkinManager::getInstance().loadSkin("main.skin");
 
-	m_widget1 = Gui::getInstance().createChild("Widget", "Skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP);
-	m_widget2 = m_widget1->createChild("Widget", "Skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
-	m_widget3 = m_widget2->createChild("Widget", "Skin3", 10, 10, 60, 60, ALIGN_STRETCH);
+	m_widget1 = Gui::getInstance().createWidget("Widget", "Skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP, "Main");
+	m_widget2 = m_widget1->createWidget("Widget", "Skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
+	m_widget3 = m_widget2->createWidget("Widget", "Skin3", 10, 10, 60, 60, ALIGN_STRETCH);
 
 	ParserManager::getInstance().parce(m_widget3, "Caption", "dermo");
+
+//	Gui::getInstance().createWidget("Widget", "Skin1", 190, 190, 200, 200, ALIGN_LEFT|ALIGN_TOP, "Main");
+
+
 
 //	Ogre::String name = m_widget3->getName();
 //	Gui::getInstance().destroyWidget(m_widget3);
@@ -131,8 +134,8 @@ bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	toggle = !toggle;
-//	if (toggle) m_widget2->setAlpha(0.2);
-//	else m_widget2->setAlpha(0);
+	if (toggle) m_widget3->setAlpha(0.2);
+	else m_widget3->setAlpha(0);
 	return true;
 }
 //===================================================================================

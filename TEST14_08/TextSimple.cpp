@@ -21,7 +21,7 @@ namespace widget
 		if (_info.aligin & ALIGN_RIGHT) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Right);
 		else if (! (_info.aligin & ALIGN_RIGHT)) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Center);
 
-		m_parent->attach(m_overlayContainer, true);
+		m_parent->attach(this, true);
 
 	}
 
@@ -31,6 +31,11 @@ namespace widget
 //		Ogre::OverlayContainer * parent = m_overlayContainer->getParent();
 //		parent->removeChild(m_overlayContainer->getName());
 		Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayContainer);
+	}
+
+	OverlayElementPtr TextSimple::getOverlayElement()
+	{
+		return m_overlayContainer;
 	}
 
 	void TextSimple::show(bool _show)

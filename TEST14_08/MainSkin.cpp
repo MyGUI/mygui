@@ -23,7 +23,7 @@ namespace widget
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setMaterialName(_material);
 
-		m_parent->attach(m_overlayContainer, false);
+		m_parent->attach(this, false);
 	}
 
 	MainSkin::~MainSkin()
@@ -114,9 +114,14 @@ namespace widget
 
 	}
 
-	void MainSkin::attach(OverlayElementPtr _element, bool _child)
+	void MainSkin::attach(BasisWidgetPtr _basis, bool _child)
 	{
-		m_overlayContainer->addChild(_element);
+		m_overlayContainer->addChild(_basis->getOverlayElement());
+	}
+
+	OverlayElementPtr MainSkin::getOverlayElement()
+	{
+		return m_overlayContainer;
 	}
 
 	void MainSkin::setUVSet(const Ogre::FloatRect & _rect)

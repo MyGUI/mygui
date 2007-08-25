@@ -531,7 +531,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="WidgetInfo"
+				Name="SkinManager"
 				>
 				<File
 					RelativePath=".\BasisWidgetBinding.h"
@@ -623,6 +623,22 @@
 				</File>
 				<File
 					RelativePath=".\TSize.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="LayerManager"
+				>
+				<File
+					RelativePath=".\LayerInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\LayerItemInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\LayerManager.h"
 					>
 				</File>
 			</Filter>

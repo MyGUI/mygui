@@ -52,7 +52,8 @@ namespace widget
 		virtual void align(int _cx, int _cy, bool _update) {};
 		virtual void align(int _x, int _y, int _cx, int _cy, bool _update) {};
 
-		virtual void attach(OverlayElementPtr _element, bool _child) {};
+		virtual void attach(BasisWidgetPtr _basis, bool _child) {};
+		virtual OverlayElementPtr getOverlayElement() {return 0;};
 
 		virtual void setUVSet(const Ogre::FloatRect & _rect) {};
 

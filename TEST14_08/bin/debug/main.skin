@@ -14,7 +14,7 @@
         </BasisSkin>
     </Skin>
     
-    <Skin Name = "Skin3" Size = "60 60" Material = "MyGUI_check_a1">
+    <Skin Name = "Skin3" Size = "60 60" Material = "MyGUI_check_n1">
         <Property Key="FontName" Value = "MyGUI_font" />
         <Property Key="FontHeight" Value = "20" />
 

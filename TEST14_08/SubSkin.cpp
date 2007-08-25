@@ -22,7 +22,7 @@ namespace widget
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 		m_overlayContainer->setMaterialName(_material);
 
-		m_parent->attach(m_overlayContainer, false);
+		m_parent->attach(this, false);
 	}
 
 	SubSkin::~SubSkin()
@@ -46,9 +46,14 @@ namespace widget
 		m_overlayContainer->setColor(*(Ogre::uint32*)color);
 	}
 
-	void SubSkin::attach(OverlayElementPtr _element, bool _child)
+	void SubSkin::attach(BasisWidgetPtr _basis, bool _child)
 	{
-		m_overlayContainer->addChild(_element);
+		m_overlayContainer->addChild(_basis->getOverlayElement());
+	}
+
+	OverlayElementPtr SubSkin::getOverlayElement()
+	{
+		return m_overlayContainer;
 	}
 
 	void SubSkin::update()

@@ -24,8 +24,8 @@ namespace widget
 				if (iter != m_widgets.end()) assert(0 && "name widget is exist");
 				name = _name;
 			} else {
-				long num=0;
-				name = _type + Ogre::StringConverter::toString(num++);
+				static long num=0;
+				name = Ogre::StringConverter::toString(num++) + "_" + _type;
 			}
 
 			for (std::list<WidgetFactoryBase*>::iterator factory = m_factoryList.begin(); factory != m_factoryList.end(); factory++) {

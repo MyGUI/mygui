@@ -20,14 +20,10 @@ namespace widget
 			return instance;
 		}
 
-		WidgetPtr createChild(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _layer, const Ogre::String & _name = "");
+		void destroyWidget(WidgetPtr & _widget);
 
-		void attach(OverlayElementPtr _element, bool _child);
-
-		inline void destroyWidget(WidgetPtr & _widget)
-		{
-			WidgetManager::getInstance().destroyWidget(_widget);
-		}
+		void attach(BasisWidgetPtr _basis, bool _child);
 
 	private:
 		// вектор всех детей виджетов
