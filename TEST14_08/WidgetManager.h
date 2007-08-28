@@ -3,6 +3,7 @@
 #include <Ogre.h>
 #include "Widget.h"
 #include "WidgetFactory.h"
+#include "Instance.h"
 
 namespace widget
 {
@@ -10,11 +11,7 @@ namespace widget
 	class WidgetManager
 	{
 	public:
-		static WidgetManager & getInstance()
-		{
-			static WidgetManager instance;
-			return instance;
-		}
+		INSTANCE(WidgetManager)
 
 		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name)
 		{

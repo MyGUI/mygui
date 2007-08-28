@@ -3,7 +3,7 @@
 #include "debugOut.h"
 #include "BasisWidgetManager.h"
 #include "WidgetManager.h"
-#include "ParserWidget.h"
+#include "WidgetParser.h"
 #include "Gui.h"
 
 namespace widget
@@ -13,7 +13,7 @@ namespace widget
 		// создаем фабрику для этого виджета
 		WidgetFactory<Widget> factory_Widget;
 		// парсер команд для Widget
-		ParserWidget parser_Widget;
+		WidgetParser parser_Widget;
 	}
 
 	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :

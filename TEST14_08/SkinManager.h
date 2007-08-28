@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include "WidgetDefines.h"
 #include "xmlDocument.h"
+#include "Instance.h"
 
 
 namespace widget
@@ -15,6 +16,7 @@ namespace widget
 		SkinManager()
 		{
 			initialise();
+			createDefault();
 		}
 
 		~SkinManager()
@@ -26,11 +28,7 @@ namespace widget
 		}
 
 	public:
-		static SkinManager & getInstance() // потом добавить конст
-		{
-			static SkinManager instance;
-			return instance;
-		}
+		INSTANCE(SkinManager)
 
 		char parseAlign(const std::string & _value)
 		{
@@ -46,10 +44,8 @@ namespace widget
 		WidgetSkinInfo * getSkin(const Ogre::String & _name)
 		{
 			SkinInfo::iterator iter = m_skins.find(_name);
-			if (iter == m_skins.end()) {
-				// потом возвращать дефолтный скин
-				assert(0 && "skin is not find");
-			}
+			// если не нашли, то вернем дефолтный скин
+			if (iter == m_skins.end()) return m_skins["Default"];
 			return iter->second;
 		}
 
@@ -225,6 +221,15 @@ namespace widget
 			REGISTER_VALUE(m_mapAlign, ALIGN_BOTTOM);
 			REGISTER_VALUE(m_mapAlign, ALIGN_VSTRETCH);
 			REGISTER_VALUE(m_mapAlign, ALIGN_STRETCH);
+		}
+		
+		void createDefault()
+		{
+			// создаем дефолтный скин
+			WidgetSkinInfo * widget_info = create("Default");
+			widget_info->setInfo(intSize(0, 0), Ogre::MaterialManager::getSingleton().getDefaultSettings()->getName());
+			BasisWidgetBinding bind(0, 0, 1, 1, ALIGN_NONE, "MainSkin");
+			widget_info->addInfo(bind);
 		}
 
 	private:

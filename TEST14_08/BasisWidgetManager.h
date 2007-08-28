@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include "BasisWidget.h"
 #include "BasisWidgetFactory.h"
+#include "Instance.h"
 
 namespace widget
 {
@@ -11,11 +12,7 @@ namespace widget
 	{
 
 	public:
-		static BasisWidgetManager & getInstance()
-		{
-			static BasisWidgetManager instance;
-			return instance;
-		}
+		INSTANCE(BasisWidgetManager)
 
 		BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent)
 		{

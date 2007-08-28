@@ -6,6 +6,7 @@
 #include "LayerInfo.h"
 #include <assert.h>
 #include "xmlDocument.h"
+#include "Instance.h"
 
 
 namespace widget
@@ -19,13 +20,10 @@ namespace widget
 		friend Gui;
 
 	private:
+		INSTANCE(LayerManager)
+
 		LayerManager() {}
 
-		static LayerManager & getInstance()
-		{
-			static LayerManager instance;
-			return instance;
-		}
 
 		bool load(const std::string & _file)
 		{

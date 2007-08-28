@@ -5,6 +5,7 @@
 #include "xmlDocument.h"
 #include "SkinManager.h"
 #include "ParserManager.h"
+#include "Instance.h"
 
 
 namespace widget
@@ -22,11 +23,7 @@ namespace widget
 		}
 
 	public:
-		static LayoutManager & getInstance()
-		{
-			static LayoutManager instance;
-			return instance;
-		}
+		INSTANCE(LayoutManager)
 
 		void loadLayout(const std::string & _file)
 		{

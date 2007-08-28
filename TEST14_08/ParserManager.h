@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include "Widget.h"
 #include "delegate.h"
+#include "Instance.h"
 
 
 namespace widget
@@ -18,11 +19,7 @@ namespace widget
 		ParserManager() {};
 
 	public:
-		inline static ParserManager & getInstance()
-		{
-			static ParserManager instance;
-			return instance;
-		}
+		INSTANCE(ParserManager)
 
 		void parce(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{

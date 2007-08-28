@@ -5,6 +5,7 @@
 #include "WidgetManager.h"
 #include "SkinManager.h"
 #include "LayerManager.h"
+#include "Instance.h"
 
 namespace widget
 {
@@ -16,11 +17,7 @@ namespace widget
 		Gui();
 
 	public:
-		inline static Gui & getInstance()
-		{
-			static Gui instance;
-			return instance;
-		}
+		INSTANCE(Gui)
 
 		void initialise(Ogre::RenderWindow* _window);
 

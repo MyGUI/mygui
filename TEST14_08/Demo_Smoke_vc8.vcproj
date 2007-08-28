@@ -554,10 +554,6 @@
 				Name="WidgetImplement"
 				>
 				<File
-					RelativePath=".\ParserWidget.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Widget.cpp"
 					>
 				</File>
@@ -571,6 +567,10 @@
 				</File>
 				<File
 					RelativePath=".\WidgetManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetParser.h"
 					>
 				</File>
 			</Filter>
@@ -613,6 +613,10 @@
 			<Filter
 				Name="Types"
 				>
+				<File
+					RelativePath=".\Instance.h"
+					>
+				</File>
 				<File
 					RelativePath=".\StringUtil.h"
 					>
