@@ -1,35 +1,43 @@
 
 #include "Gui.h"
-#include "LayerManager.h"
+#include "LayoutManager.h"
 
 namespace widget
 {
 
 	Gui::Gui()
-		: BasisWidget(-100000, -100000, 100000, 100000, 0, 0)
+		: BasisWidget(-100000, -100000, 100000, 100000, 0, 0),
+		m_widgetManagerInstance(WidgetManager::getInstance()),
+		m_skinManagerInstance(SkinManager::getInstance()),
+		m_layerManagerInstance(LayerManager::getInstance()),
+		m_height(1), m_width(1)
 	{
 		// загружаем уровни в менеджер уровней
-		LayerManager::getSingleton().load("main.layer");
+		m_layerManagerInstance.load("main.layer");
+	}
 
+	void Gui::initialise(Ogre::RenderWindow* _window)
+	{
+		Ogre::Viewport * port = _window->getViewport(0);
+		m_height = port->getActualHeight();
+		m_width = port->getActualWidth();
 	}
 
 	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _layer, const Ogre::String & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
+		WidgetPtr widget = m_widgetManagerInstance.createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
-
 		// присоединяем виджет с уровню
-		LayerManager::getSingleton().attachWidget(widget, _layer);
-
+		m_layerManagerInstance.attachWidget(widget, _layer);
 		return widget;
 	}
 
 	void Gui::destroyWidget(WidgetPtr & _widget)
 	{
 		// отсоединяем виджет от уровня
-		LayerManager::getSingleton().detachWidget(_widget);
+		m_layerManagerInstance.detachWidget(_widget);
 		// и удаляем
-		WidgetManager::getInstance().destroyWidget(_widget);
+		m_widgetManagerInstance.destroyWidget(_widget);
 	}
 
 	void Gui::attach(BasisWidgetPtr _basis, bool _child)
@@ -49,16 +57,13 @@ namespace widget
 		assert(item);
 		item->m_overlayInfo = overlay;
 
-//		_element->_setParent((Ogre::OverlayContainer*)overlay);
-
-		// ищем кому принадлежит этот оверлей, так как элемент не возвращает оверлей
-/*		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) {
-			if ((*widget)->getOverlayElement() == _element) {
-				(*widget)->m_overlayInfo = overlay;
-				break;
-			}
-		}*/
-
 	}
+
+	void Gui::loadLayout(const std::string & _file)
+	{
+		// потом в инлайн
+		LayoutManager::getInstance().loadLayout(_file);
+	}
+
 
 } // namespace widget

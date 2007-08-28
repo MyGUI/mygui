@@ -29,6 +29,7 @@ namespace widget
 
 		// создаем дочку
 		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
+		WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name = "");
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);

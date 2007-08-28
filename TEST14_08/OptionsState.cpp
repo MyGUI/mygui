@@ -2,14 +2,15 @@
 #include "MyGUI_Source//MyGUI.h"
 #include "debugOut.h"
 #include "debugAxis.h"
-#include "delegate.h"
+//#include "delegate.h"
 
-#include "WidgetSkinInfo.h"
-#include "SkinManager.h"
-#include "WidgetManager.h"
+//#include "WidgetSkinInfo.h"
+//#include "SkinManager.h"
+//#include "WidgetManager.h"
 #include "Gui.h"
 
-#include "ParserManager.h"
+//#include "ParserManager.h"
+//#include "LayoutManager.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -76,17 +77,13 @@ void OptionsState::enter(bool bIsChangeState)
     
 	mEditor = new SkinEditor::SkinEditor(this);*/
 
-	SkinManager::getInstance().loadSkin("main.skin");
+	Gui::getInstance().initialise(BasisManager::getSingleton()->mWindow);
 
-	m_widget1 = Gui::getInstance().createWidget("Widget", "Skin1", 170, 170, 200, 200, ALIGN_LEFT|ALIGN_TOP, "Main");
-	m_widget2 = m_widget1->createWidget("Widget", "Skin2", 50, 50, 130, 130, ALIGN_LEFT|ALIGN_TOP);
-	m_widget3 = m_widget2->createWidget("Widget", "Skin3", 10, 10, 60, 60, ALIGN_STRETCH);
+	Gui::getInstance().loadSkin("main.skin");
+	Gui::getInstance().loadLayout("mygui.layout");
 
-	ParserManager::getInstance().parce(m_widget3, "Caption", "dermo");
-
-//	Gui::getInstance().createWidget("Widget", "Skin1", 190, 190, 200, 200, ALIGN_LEFT|ALIGN_TOP, "Main");
-
-
+	m_widget2 = Gui::getInstance().findWidget("m_widget2");
+	m_widget3 = Gui::getInstance().findWidget("m_widget3");
 
 //	Ogre::String name = m_widget3->getName();
 //	Gui::getInstance().destroyWidget(m_widget3);
@@ -116,12 +113,23 @@ void OptionsState::enter(bool bIsChangeState)
 	root->addBody("uyiuyiyiuyiuyiyjhkjh");
 
 	doc.save("xml2.xml");*/
+/*	class A
+	{
+	public:
+		void add (int & _value)
+		{
+			_value ++;
+		}
+	};
 
+	int value = 12;
+	A * obj = 0;
+	obj->add(value);*/
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-	m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+	if (m_widget2) m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	if (!toggle) {
 //		m_widget3->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	} else {
@@ -133,6 +141,8 @@ bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 //===================================================================================
 bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
+	if (!m_widget3) return true;
+
 	toggle = !toggle;
 	if (toggle) m_widget3->setAlpha(0.2);
 	else m_widget3->setAlpha(0);

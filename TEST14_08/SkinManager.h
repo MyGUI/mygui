@@ -94,6 +94,8 @@ namespace widget
 				// создаем скин
 				WidgetSkinInfo * widget_info = create(skinName);
 				widget_info->setInfo(size, skinMaterial);
+				float matx, maty;
+				getMaterialSize(matx, maty, skinMaterial);
 
 				// берем детей и крутимся, цикл с саб скинами
 				xml::VectorNode & basisSkins = skinInfo->getChilds();
@@ -146,7 +148,7 @@ namespace widget
 							// достаем пару атрибут - значение
 							const xml::PairAttributes & pairAttributes = attrib[i_attrib];
 							if (pairAttributes.first == "Name") basisStateName = pairAttributes.second;
-							else if (pairAttributes.first == "Offset") offset = floatRect::parse(pairAttributes.second);
+							else if (pairAttributes.first == "Offset") offset = convertMaterialCoord(floatRect::parse(pairAttributes.second), matx, maty);
 						}
 						// добавляем инфо о стайте
 						bind.add(basisStateName, offset);
@@ -158,6 +160,53 @@ namespace widget
 
 				} // for (size_t i_basis=0; i_basis<basisSkins.size(); i_basis++) {
 			} // for (size_t i_skin=0; i_skin<skins.size(); i_skin++) {
+		}
+
+		static bool getMaterialSize(float & _cx, float & _cy, const std::string & _material)
+		{
+			_cx = 0;
+			_cy = 0;
+
+			if (_material.empty()) return false;
+
+			MaterialPtr mat = MaterialManager::getSingleton().getByName(_material);
+			if (mat.isNull()) return false;
+
+			// обязательно загружаем
+			mat->load();
+
+			// только так, иначе при пустых викидывает
+			Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
+			if ( ! iTechnique.hasMoreElements() ) return false;
+
+			Pass * pass = iTechnique.getNext()->getPass(0);
+			if (!pass) return false;
+
+			Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
+			if ( ! iUnit.hasMoreElements()) return false;
+
+			const String & textName = iUnit.getNext()->getTextureName();
+
+			TexturePtr tex = (TexturePtr)TextureManager::getSingleton().getByName(textName);
+			if (tex.isNull()) return false;
+
+			_cx = (float)tex->getWidth();
+			_cy = (float)tex->getHeight();
+
+			return true;
+		}
+
+		static floatRect convertMaterialCoord(const floatRect & _source, float _cx, float _cy)
+		{
+			floatRect retRect;
+			if (!_cx || !_cy) return retRect;
+
+			retRect.left = _source.left / _cx;
+			retRect.top = _source.top / _cy;
+			retRect.right = (_source.left + _source.right) / _cx;
+			retRect.bottom = (_source.top + _source.bottom) / _cy;
+
+			return retRect;
 		}
 
 	private:

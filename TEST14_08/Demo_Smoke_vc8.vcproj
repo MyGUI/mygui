@@ -642,6 +642,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="LayoutManager"
+				>
+				<File
+					RelativePath=".\LayoutManager.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"

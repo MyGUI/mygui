@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI_Layout>
+  
+    <Widget Type="Widget" Skin="Skin1" PositionReal="0.2 0.2 0.6 0.6" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" >
+      <Widget Type="Widget" Skin="Skin2" Position="50 50 130 130" Align="ALIGN_LEFT ALIGN_TOP" Name="m_widget2" >
+        <Widget Type="Widget" Skin="Skin3" Position="10 10 60 60" Align="ALIGN_STRETCH" Name="m_widget3"  >
+          <Property Key="Caption" Value="dermo" />
+      </Widget>
+    </Widget>
+    </Widget>
+  
+  </MyGUI_Layout>

@@ -4,13 +4,13 @@
 
     <Skin Name = "Skin1" Size = "200 200" Material = "BACK_GREEN" >
         <BasisSkin Type="MainSkin" Offset = "0 0 200 200" Align = "ALIGN_LEFT ALIGN_TOP">
-            <State Name="normal" Offset = "0 0 1 1"/>
+            <State Name="normal" Offset = "0 0 16 16"/>
         </BasisSkin>
     </Skin>
     
     <Skin Name = "Skin2" Size = "100 100" Material = "MyGUI_check_s1" >
         <BasisSkin Type="MainSkin" Offset = "0 0 100 100" Align = "ALIGN_LEFT ALIGN_TOP">
-            <State Name="normal" Offset = "0 0 1 1"/>
+            <State Name="normal" Offset = "0 0 18 18"/>
         </BasisSkin>
     </Skin>
     
@@ -19,13 +19,13 @@
         <Property Key="FontHeight" Value = "20" />
 
         <BasisSkin Type="SubSkin" Offset = "0 0 30 30" Align = "ALIGN_STRETCH">
-            <State Name="normal" Offset = "0 0 1 1"/>
+            <State Name="normal" Offset = "0 0 18 18"/>
         </BasisSkin>
         <BasisSkin Type="SubSkin" Offset = "30 0 30 30" Align = "ALIGN_RIGHT ALIGN_VSTRETCH">
-            <State Name="normal" Offset = "0 0 1 1"/>
+            <State Name="normal" Offset = "0 0 18 18"/>
         </BasisSkin>
         <BasisSkin Type="SubSkin" Offset = "0 30 60 30" Align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
-            <State Name="normal" Offset = "0 0 1 1"/>
+            <State Name="normal" Offset = "0 0 18 18"/>
         </BasisSkin>
         <BasisSkin Type="TextSimple" Align = "ALIGN_CENTER" />
     </Skin>

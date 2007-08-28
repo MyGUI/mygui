@@ -21,7 +21,7 @@ namespace widget
 	private:
 		LayerManager() {}
 
-		static LayerManager & getSingleton()
+		static LayerManager & getInstance()
 		{
 			static LayerManager instance;
 			return instance;

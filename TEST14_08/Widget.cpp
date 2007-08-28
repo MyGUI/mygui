@@ -4,6 +4,7 @@
 #include "BasisWidgetManager.h"
 #include "WidgetManager.h"
 #include "ParserWidget.h"
+#include "Gui.h"
 
 namespace widget
 {
@@ -44,12 +45,18 @@ namespace widget
 		update();
 	}
 
-		WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
+	WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
 
 		return widget;
+	}
+
+	WidgetPtr Widget::createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name)
+	{
+		widget::Gui & gui = Gui::getInstance();
+		return createWidget(_type, _skin, (int)(_x*gui.getWidth()), (int)(_y*gui.getHeight()), (int)(_cx*gui.getWidth()), (int)(_cy*gui.getHeight()), _align, _name);
 	}
 
 	BasisWidgetPtr  Widget::addSubSkin(const tagBasisWidgetInfo &_info, const String & _material)
