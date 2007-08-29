@@ -121,9 +121,11 @@ namespace widget
 
 				// скрываем
 				m_overlayContainer->hide();
+//				m_overlayContainer->hide();
 				// запоминаем текущее состояние
 				m_margin = margin;
-
+				
+//				debug.out("return");
 				return;
 
 			}
@@ -132,6 +134,8 @@ namespace widget
 		
 		if ((m_margin) || (margin)) { // мы обрезаны или были обрезаны
 
+			// если скин был скрыт, то покажем
+//			m_overlayContainer->show();
 			// устанавливаем рамку для обрезки текста
 			m_overlayContainer->setMargin(m_left_margin, m_top_margin, m_right_margin, m_bottom_margin);
 

@@ -84,25 +84,25 @@ namespace widget
 		{
 			bool margin = false;
 			//вылезли ли налево
-			if (left()   < m_parent->m_left_margin) {
+			if (left() <= m_parent->m_left_margin) {
 				m_left_margin = m_parent->m_left_margin - left();
 				margin = true;
 			} else m_left_margin = 0;
 
 			//вылезли ли направо
-			if (right()  > m_parent->width() - m_parent->m_right_margin) {
+			if (right() >= m_parent->width() - m_parent->m_right_margin) {
 				m_right_margin = right() - (m_parent->width() - m_parent->m_right_margin);
 				margin = true;
 			} else m_right_margin = 0;
 
 			//вылезли ли вверх
-			if (top()    < m_parent->m_top_margin) {
+			if (top() <= m_parent->m_top_margin) {
 				m_top_margin = m_parent->m_top_margin - top();
 				margin = true;
 			} else m_top_margin = 0;
 
 			//вылезли ли вниз
-			if (bottom() > m_parent->height() - m_parent->m_bottom_margin) {
+			if (bottom() >= m_parent->height() - m_parent->m_bottom_margin) {
 				m_bottom_margin = bottom() - (m_parent->height() - m_parent->m_bottom_margin);
 				margin = true;
 			} else m_bottom_margin = 0;
@@ -112,10 +112,10 @@ namespace widget
 
 		inline bool check_outside() // проверка на полный выход за границу
 		{
-			return ( (right() < m_parent->m_left_margin ) || // совсем уехали налево
-				(left() > m_parent->width() - m_parent->m_right_margin ) || // совсем уехали направо
-				(bottom() < m_parent->m_top_margin  ) || // совсем уехали вверх
-				(top() > m_parent->height() - m_parent->m_bottom_margin ) );  // совсем уехали вниз
+			return ( (right() <= m_parent->m_left_margin ) || // совсем уехали налево
+				(left() >= m_parent->width() - m_parent->m_right_margin ) || // совсем уехали направо
+				(bottom() <= m_parent->m_top_margin  ) || // совсем уехали вверх
+				(top() >= m_parent->height() - m_parent->m_bottom_margin ) );  // совсем уехали вниз
 		}
 
 	protected:
