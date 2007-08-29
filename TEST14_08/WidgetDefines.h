@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <map>
+#include <string>
 #include <Ogre.h>
 #include "TRect.h"
 #include "TSize.h"
@@ -33,40 +35,40 @@ namespace widget
 	struct tagBasisWidgetStateInfo
 	{
 		tagBasisWidgetStateInfo() {};
-		tagBasisWidgetStateInfo(Ogre::FloatRect _offset, Ogre::ColourValue  _color, float _alpha)
+		tagBasisWidgetStateInfo(floatRect _offset, Ogre::ColourValue  _color, float _alpha)
 		{
 			offset = _offset;
 			color = _color;
 			alpha = _alpha;
 		}
-		Ogre::FloatRect offset;
+		floatRect offset;
 		Ogre::ColourValue color;
 		float alpha;
 	};
 	struct tagWidgetStateInfo {
 		tagWidgetStateInfo() : alpha(-1), color(Ogre::ColourValue::ZERO) {}
-		std::vector<Ogre::FloatRect> m_offsets;
+		std::vector<floatRect> m_offsets;
 		Ogre::ColourValue color;
 		float alpha;
 	};
 	struct tagBasisWidgetInfo {
-		tagBasisWidgetInfo(const Ogre::String & _type, intRect _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
+		tagBasisWidgetInfo(const std::string & _type, intRect _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
 		intRect offset;
 		char aligin;
-		Ogre::String type;
+		std::string type;
 	};
 
-	typedef std::map<Ogre::String, tagBasisWidgetStateInfo> ViewInfo;
-	typedef std::map<Ogre::String, tagWidgetStateInfo> StateInfo;
+	typedef std::map<std::string, tagBasisWidgetStateInfo> ViewInfo;
+	typedef std::map<std::string, tagWidgetStateInfo> StateInfo;
 	typedef std::vector<tagBasisWidgetInfo> BasisInfo;
 	typedef std::map<std::string, char> MapFlags;
 
-	typedef std::map<Ogre::String, Ogre::String> SkinParam;
+	typedef std::map<std::string, std::string> SkinParam;
 
 	// обязательно указатель на WidgetSkinInfo, так как при добавлении может перераспределяться память
 	class WidgetSkinInfo;
 	typedef WidgetSkinInfo * WidgetSkinInfoPtr;
-	typedef std::map<Ogre::String, WidgetSkinInfoPtr> SkinInfo;
+	typedef std::map<std::string, WidgetSkinInfoPtr> SkinInfo;
 
 	class BasisWidget;
 	typedef BasisWidget * BasisWidgetPtr;
@@ -75,7 +77,7 @@ namespace widget
 	class Widget;
 	typedef Widget * WidgetPtr;
 	typedef std::vector<WidgetPtr> WidgetChild;
-	typedef std::map<Ogre::String, WidgetPtr> mapWidgetPtr;
+	typedef std::map<std::string, WidgetPtr> mapWidgetPtr;
 
 	typedef Ogre::OverlayElement * OverlayElementPtr;
 

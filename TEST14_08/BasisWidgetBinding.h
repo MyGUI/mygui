@@ -53,30 +53,30 @@ namespace widget
 
 		void add(const Ogre::String & _name, float _x, float _y, float _cx, float _cy)
 		{
-			add(_name, FloatRect(_x, _y, _cx, _cy), Ogre::ColourValue::ZERO, -1);
+			add(_name, floatRect(_x, _y, _cx, _cy), Ogre::ColourValue::ZERO, -1);
 		}
 
-		void add(const Ogre::String & _name, FloatRect _offset)
+//		void add(const Ogre::String & _name, FloatRect _offset)
+//		{
+//			add(_name, _offset, Ogre::ColourValue::ZERO, -1);
+//		}
+
+		void add(const Ogre::String & _name, floatRect _offset)
 		{
 			add(_name, _offset, Ogre::ColourValue::ZERO, -1);
 		}
 
-		void add(const Ogre::String & _name, floatRect _offset)
-		{
-			add(_name, FloatRect(_offset.left, _offset.top, _offset.right, _offset.bottom), Ogre::ColourValue::ZERO, -1);
-		}
-
 		void add(const Ogre::String & _name, float _alpha)
 		{
-			add(_name, FloatRect(-1, -1, -1, -1), Ogre::ColourValue::ZERO, _alpha);
+			add(_name, floatRect(-1, -1, -1, -1), Ogre::ColourValue::ZERO, _alpha);
 		}
 
 		void add(const Ogre::String & _name, Ogre::ColourValue  _color)
 		{
-			add(_name, FloatRect(-1, -1, -1, -1), _color, -1);
+			add(_name, floatRect(-1, -1, -1, -1), _color, -1);
 		}
 
-		void add(const Ogre::String & _name, FloatRect _offset, Ogre::ColourValue  _color, float _alpha)
+		void add(const Ogre::String & _name, floatRect _offset, Ogre::ColourValue  _color, float _alpha)
 		{
 			// ищем такой же ключ
 			ViewInfo::const_iterator iter = m_states.find(_name);

@@ -117,7 +117,6 @@ namespace widget
 
 	void Widget::align(int _cx, int _cy, bool _update)
 	{
-		if (!m_parent) return;
 
 		bool need_move = false;
 		bool need_size = false;
@@ -182,8 +181,6 @@ namespace widget
 	void Widget::move(int _x, int _y, int _cx, int _cy)
 	{
 
-		if (!m_parent) return;//???
-
 		// а вот теперь запоминаем новые координаты
 		m_x = _x;
 		m_y = _y;
@@ -224,8 +221,6 @@ namespace widget
 	void Widget::size(int _cx, int _cy)
 	{
 
-		if (!m_parent) return;
-
 		// меняем координаты местами
 		int tmp = m_cx;
 		m_cx = _cx;
@@ -262,8 +257,6 @@ namespace widget
 	void Widget::update()
 	{
 
-		if (!m_parent) return; //???
-
 		bool margin = check_margin();
 
 		// вьюпорт стал битым
@@ -276,15 +269,12 @@ namespace widget
 				visible(false);
 				// запоминаем текущее состояние
 				m_margin = margin;
-//				debug.out("1");
 				return;
 
 			}
 
 
 		} else if (!m_margin) { // мы не обрезаны и были нормальные
-
-//			debug.out("2");
 
 			// запоминаем текущее состояние
 			m_margin = margin;
@@ -294,14 +284,9 @@ namespace widget
 			// для тех кому нужно подправить себя при движении
 			for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
 
-			// скрываем ???
-//			visible(true);
-
 			return;
 
 		}
-
-//		debug.out("3");
 
 		// запоминаем текущее состояние
 		m_margin = margin;
@@ -312,9 +297,6 @@ namespace widget
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
 		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
 		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
-
-		// если скин был скрыт, то покажем
-//		visible(true); //???
 
 	}
 

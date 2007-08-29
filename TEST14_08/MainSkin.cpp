@@ -124,7 +124,7 @@ namespace widget
 		return m_overlayContainer;
 	}
 
-	void MainSkin::setUVSet(const Ogre::FloatRect & _rect)
+	void MainSkin::setUVSet(const floatRect & _rect)
 	{
 		assert(m_overlayContainer);
 		m_rectTexture = _rect;

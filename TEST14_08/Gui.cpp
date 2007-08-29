@@ -10,6 +10,7 @@ namespace widget
 		m_widgetManagerInstance(WidgetManager::getInstance()),
 		m_skinManagerInstance(SkinManager::getInstance()),
 		m_layerManagerInstance(LayerManager::getInstance()),
+		m_layoutManagerInstance(LayoutManager::getInstance()),
 		m_height(1), m_width(1)
 	{
 		// загружаем уровни в менеджер уровней
@@ -57,12 +58,6 @@ namespace widget
 		assert(item);
 		item->m_overlayInfo = overlay;
 
-	}
-
-	void Gui::loadLayout(const std::string & _file)
-	{
-		// потом в инлайн
-		LayoutManager::getInstance().loadLayout(_file);
 	}
 
 

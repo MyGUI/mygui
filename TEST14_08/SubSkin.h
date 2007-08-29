@@ -24,7 +24,7 @@ namespace widget
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		void setUVSet(const Ogre::FloatRect & _rect);
+		void setUVSet(const floatRect & _rect);
 
 		void setAlpha(float _alpha);
 
@@ -36,7 +36,7 @@ namespace widget
 	protected:
 
 		PanelAlphaOverlayElement * m_overlayContainer;
-		Ogre::FloatRect m_rectTexture;
+		floatRect m_rectTexture;
 
 	}; // class SubSkin
 

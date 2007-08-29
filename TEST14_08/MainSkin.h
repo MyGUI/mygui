@@ -28,7 +28,7 @@ namespace widget
 		void attach(BasisWidgetPtr _basis, bool _child);
 		OverlayElementPtr getOverlayElement();
 
-		void setUVSet(const Ogre::FloatRect & _rect);
+		void setUVSet(const floatRect & _rect);
 
 		void setAlpha(float _alpha);
 
@@ -38,7 +38,7 @@ namespace widget
 
 		PanelAlphaOverlayElement * m_overlayContainer;
 
-		Ogre::FloatRect m_rectTexture;
+		floatRect m_rectTexture;
 
 	}; // class SubSkin
 

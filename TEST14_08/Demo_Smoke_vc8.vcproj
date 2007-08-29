@@ -538,6 +538,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\SkinManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\SkinManager.h"
 					>
 				</File>
@@ -642,6 +646,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\LayerManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\LayerManager.h"
 					>
 				</File>
@@ -649,6 +657,10 @@
 			<Filter
 				Name="LayoutManager"
 				>
+				<File
+					RelativePath=".\LayoutManager.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\LayoutManager.h"
 					>

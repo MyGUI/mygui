@@ -24,7 +24,7 @@ namespace widget
 		void parce(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MapDelegate::iterator iter = m_delegates.find(_key);
-			if (iter == m_delegates.end()) assert(0 && "delegate is not find");
+			if (iter == m_delegates.end()) assert(0 && "name delegate is not find");
 			iter->second(_widget, _key, _value);
 		}
 

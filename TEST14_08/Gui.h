@@ -5,6 +5,7 @@
 #include "WidgetManager.h"
 #include "SkinManager.h"
 #include "LayerManager.h"
+#include "LayoutManager.h"
 #include "Instance.h"
 
 namespace widget
@@ -40,7 +41,10 @@ namespace widget
 		{
 			m_skinManagerInstance.loadSkin(_file);
 		}
-		void loadLayout(const std::string & _file);
+		inline void loadLayout(const std::string & _file)
+		{
+			m_layoutManagerInstance.loadLayout(_file);
+		}
 
 		inline floatRect convertToReal(const floatRect & _rect)
 		{
@@ -57,6 +61,7 @@ namespace widget
 		SkinManager & m_skinManagerInstance;
 		WidgetManager & m_widgetManagerInstance;
 		LayerManager & m_layerManagerInstance;
+		LayoutManager & m_layoutManagerInstance;
 
 		float m_height, m_width;
 

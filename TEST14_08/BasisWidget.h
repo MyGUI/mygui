@@ -55,7 +55,7 @@ namespace widget
 		virtual void attach(BasisWidgetPtr _basis, bool _child) {};
 		virtual OverlayElementPtr getOverlayElement() {return 0;};
 
-		virtual void setUVSet(const Ogre::FloatRect & _rect) {};
+		virtual void setUVSet(const floatRect & _rect) {};
 
 		virtual bool isText() {return false;};
 
