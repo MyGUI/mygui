@@ -28,13 +28,21 @@ namespace widget
 		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
 		const Ogre::String & getFontName();
 
-		void setCharHeight(Ogre::ushort _height);
-		Ogre::ushort getCharHeight();
+		void setFontHeight(Ogre::ushort _height);
+		Ogre::ushort getFontHeight();
 
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
 		void update(); // обновления себя и детей
+		inline void updateText() // обновляем все что касаеться текста
+		{
+			// узнаем новый размер, там же он и запоминается
+			m_overlayContainer->getTextSize(m_cx, m_cy);
+			// и делаем полное обновление и выравнивание
+			m_margin = true; // при изменении размеров все пересчитывать
+			align(m_cx, m_cy, true);
+		}
 
 		bool isText() {return true;};
 

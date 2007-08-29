@@ -36,14 +36,14 @@ namespace widget
 			void Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				const std::vector<std::string> & vec = util::split(_value);
-				if (vec.size() == 4) _widget->move( parseValue<int>(vec[0]), parseValue<int>(vec[1]), parseValue<int>(vec[2]), parseValue<int>(vec[3]) );
-				else if (vec.size() == 2) _widget->move( parseValue<int>(vec[0]), parseValue<int>(vec[1]) );
+				if (vec.size() == 4) _widget->move( parseInt(vec[0]), parseInt(vec[1]), parseInt(vec[2]), parseInt(vec[3]) );
+				else if (vec.size() == 2) _widget->move( parseInt(vec[0]), parseInt(vec[1]) );
 			}
 
 			void Size(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				const std::vector<std::string> & vec = util::split(_value);
-				if (vec.size() == 2) _widget->size( parseValue<int>(vec[0]), parseValue<int>(vec[1]) );
+				if (vec.size() == 2) _widget->size( parseInt(vec[0]), parseInt(vec[1]) );
 			}
 
 			void Show(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -54,7 +54,7 @@ namespace widget
 			void Color(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				const std::vector<std::string> & vec = util::split(_value);
-				if (vec.size() > 2) _widget->setColour(Ogre::ColourValue(parseValue<float>(vec[0]), parseValue<float>(vec[1]), parseValue<float>(vec[2])) );
+				if (vec.size() > 2) _widget->setColour(Ogre::ColourValue(parseFloat(vec[0]), parseFloat(vec[1]), parseFloat(vec[2])) );
 			}
 
 			void FontName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -64,12 +64,12 @@ namespace widget
 
 			void FontHeight(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
-				_widget->setCharHeight(parseValue<float>(_value));
+				_widget->setFontHeight(parseFloat(_value));
 			}
 
 			void Alpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
-				_widget->setAlpha(parseValue<float>(_value));
+				_widget->setAlpha(parseFloat(_value));
 			}
 
 			void State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

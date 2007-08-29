@@ -36,7 +36,7 @@ namespace widget
 		SkinParam::const_iterator iter = param.find("FontName");
 		if (iter != param.end()) setFontName(iter->second);
 		iter = param.find("FontHeight");
-		if (iter != param.end()) setCharHeight(parseInt(iter->second));
+		if (iter != param.end()) setFontHeight(parseInt(iter->second));
 
 		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
@@ -351,16 +351,16 @@ namespace widget
 		return m_text->getFontName();
 	}
 
-	void Widget::setCharHeight(Ogre::ushort _height)
+	void Widget::setFontHeight(Ogre::ushort _height)
 	{
 		if (!m_text) return;
-		m_text->setCharHeight(_height);
+		m_text->setFontHeight(_height);
 	}
 
-	Ogre::ushort Widget::getCharHeight()
+	Ogre::ushort Widget::getFontHeight()
 	{
 		if (!m_text) return 0;
-		return m_text->getCharHeight();
+		return m_text->getFontHeight();
 	}
 
 	void Widget::setState(const Ogre::String & _state)

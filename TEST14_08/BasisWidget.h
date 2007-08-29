@@ -44,8 +44,8 @@ namespace widget
 		virtual void setFontName(const Ogre::String & _font, Ogre::ushort _height) {};
 		virtual const Ogre::String & getFontName() {static Ogre::String name; return name;};
 
-		virtual void setCharHeight(Ogre::ushort _height) {};
-		virtual Ogre::ushort getCharHeight() {return 0;};
+		virtual void setFontHeight(Ogre::ushort _height) {};
+		virtual Ogre::ushort getFontHeight() {return 0;};
 
 		virtual void update() {};
 		virtual void correct() {};

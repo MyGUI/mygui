@@ -47,8 +47,8 @@ namespace widget
 		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
 		const Ogre::String & getFontName();
 
-		void setCharHeight(Ogre::ushort _height);
-		Ogre::ushort getCharHeight();
+		void setFontHeight(Ogre::ushort _height);
+		Ogre::ushort getFontHeight();
 
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return m_alpha;};

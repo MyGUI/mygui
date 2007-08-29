@@ -50,11 +50,7 @@ namespace widget
 	{
 		// записывам новую строку
 		m_overlayContainer->setCaption(_caption);
-		// узнаем новый размер, там же он и запоминается
-		m_overlayContainer->getTextSize(m_cx, m_cy);
-		// и делаем полное обновление и выравнивание
-		m_margin = true; // при изменении размеров все пересчитывать
-		align(m_cx, m_cy, true);
+		updateText();
 	}
 
 	const Ogre::DisplayString & TextSimple::getCaption()
@@ -79,12 +75,14 @@ namespace widget
 	void TextSimple::setFontName(const Ogre::String & _font)
 	{
 		m_overlayContainer->setFontName(_font);
+		updateText();
 	}
 
 	void TextSimple::setFontName(const Ogre::String & _font, Ogre::ushort _height)
 	{
 		m_overlayContainer->setFontName(_font);
 		m_overlayContainer->setCharHeight(_height);
+		updateText();
 	}
 
 	const Ogre::String & TextSimple::getFontName()
@@ -92,12 +90,13 @@ namespace widget
 		return m_overlayContainer->getFontName();
 	}
 
-	void TextSimple::setCharHeight(Ogre::ushort _height)
+	void TextSimple::setFontHeight(Ogre::ushort _height)
 	{
 		m_overlayContainer->setCharHeight(_height);
+		updateText();
 	}
 
-	Ogre::ushort TextSimple::getCharHeight()
+	Ogre::ushort TextSimple::getFontHeight()
 	{
 		return m_overlayContainer->getCharHeight();
 	}

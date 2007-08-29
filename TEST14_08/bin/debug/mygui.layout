@@ -7,6 +7,7 @@
         <Widget Type="Widget" Skin="Skin3" Position="10 10 60 60" Align="ALIGN_STRETCH" Name="m_widget3"  >
 
           <Property Key="Caption" Value="dermo2" />
+          <Property Key="FontHeight" Value="30" />
 
         </Widget>
     </Widget>
