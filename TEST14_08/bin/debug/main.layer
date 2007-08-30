@@ -3,5 +3,6 @@
 <MyGUI_LayerInfo>
 
     <Layer Name="Main" Start="10" Height="4" Count="2"/>
+    <Layer Name="Pointer" Start="100" Height="1" Count="1"/>
 
 </MyGUI_LayerInfo>

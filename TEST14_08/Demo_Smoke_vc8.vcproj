@@ -666,6 +666,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="PointerManager"
+				>
+				<File
+					RelativePath=".\PointerInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PointerManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\PointerManager.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"

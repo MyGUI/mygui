@@ -2,11 +2,12 @@
 
 #include <vector>
 #include <Ogre.h>
+#include "Instance.h"
 #include "WidgetManager.h"
 #include "SkinManager.h"
 #include "LayerManager.h"
 #include "LayoutManager.h"
-#include "Instance.h"
+#include "PointerManager.h"
 
 namespace widget
 {
@@ -54,6 +55,8 @@ namespace widget
 		inline float getWidth() {return m_width;}
 		inline float getHeight() {return m_height;}
 
+		// методы для подсоединения
+
 	private:
 		// вектор всех детей виджетов
 		WidgetChild m_widgetChild;
@@ -62,6 +65,7 @@ namespace widget
 		WidgetManager & m_widgetManagerInstance;
 		LayerManager & m_layerManagerInstance;
 		LayoutManager & m_layoutManagerInstance;
+		PointerManager & m_pointerManagerInstance;
 
 		float m_height, m_width;
 

@@ -11,10 +11,13 @@ namespace widget
 		m_skinManagerInstance(SkinManager::getInstance()),
 		m_layerManagerInstance(LayerManager::getInstance()),
 		m_layoutManagerInstance(LayoutManager::getInstance()),
+		m_pointerManagerInstance(PointerManager::getInstance()),
 		m_height(1), m_width(1)
 	{
 		// загружаем уровни в менеджер уровней
 		m_layerManagerInstance.load("main.layer");
+
+		m_pointerManagerInstance.load("main.pointer");
 	}
 
 	void Gui::initialise(Ogre::RenderWindow* _window)
@@ -29,14 +32,14 @@ namespace widget
 		WidgetPtr widget = m_widgetManagerInstance.createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
 		// присоединяем виджет с уровню
-		m_layerManagerInstance.attachWidget(widget, _layer);
+		m_layerManagerInstance.attachItem(widget, _layer);
 		return widget;
 	}
 
 	void Gui::destroyWidget(WidgetPtr & _widget)
 	{
 		// отсоединяем виджет от уровня
-		m_layerManagerInstance.detachWidget(_widget);
+		m_layerManagerInstance.detachItem(_widget);
 		// и удаляем
 		m_widgetManagerInstance.destroyWidget(_widget);
 	}
@@ -44,19 +47,21 @@ namespace widget
 	void Gui::attach(BasisWidgetPtr _basis, bool _child)
 	{
 		// просто присоединяем элемент к оверлею
-		OverlayManager &overlayManager = OverlayManager::getSingleton();
+/*		OverlayManager &overlayManager = OverlayManager::getSingleton();
 		Overlay * overlay;
 		static long num=0;
 		overlay = overlayManager.create(Ogre::StringConverter::toString(num++) + "_WidgetOverlay");
 		overlay->setZOrder(0);
 		overlay->show();
 		overlay->add2D(static_cast<Ogre::OverlayContainer*>(_basis->getOverlayElement()));
-		overlay->hide();
+		overlay->hide();*/
+		Overlay * overlay = m_layerManagerInstance.createOverlay();
+		overlay->add2D(static_cast<Ogre::OverlayContainer*>(_basis->getOverlayElement()));
 
 		// подругому никак =(
 		LayerItemInfoPtr item = dynamic_cast<LayerItemInfoPtr>(_basis->getParent());
 		assert(item);
-		item->m_overlayInfo = overlay;
+		item->setOverlay(overlay);
 
 	}
 

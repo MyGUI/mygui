@@ -5,7 +5,7 @@
 #include <map>
 #include "LayerInfo.h"
 #include "xmlDocument.h"
-#include "Widget.h"
+#include "WidgetDefines.h"
 #include "Instance.h"
 
 
@@ -16,21 +16,23 @@ namespace widget
 
 	class LayerManager
 	{
-		// кроме гуя некому рулить уровнями
 		friend Gui;
 
-	private:
+	public:
 		INSTANCE(LayerManager)
+
+		void attachItem(LayerItemInfoPtr _item, const std::string & _layer);
+		void detachItem(LayerItemInfoPtr _item);
+		void upItem(LayerItemInfoPtr _item);
+
+		Ogre::Overlay * createOverlay();
+
+	private:
 
 		LayerManager();
 
-
 		bool load(const std::string & _file);
 		void clear();
-
-		/*inline */void attachWidget(WidgetPtr _widget, const std::string & _layer);
-		/*inline*/ void detachWidget(WidgetPtr _widget);
-		/*inline */void upWidget(WidgetPtr _widget);
 
 	private:
 		MapLayer m_mapLayer;

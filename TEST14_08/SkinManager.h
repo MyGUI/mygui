@@ -26,8 +26,10 @@ namespace widget
 
 		void loadSkin(const std::string & _file);
 
-		static bool getMaterialSize(float & _cx, float & _cy, const std::string & _material);
-		static floatRect convertMaterialCoord(const floatRect & _source, float _cx, float _cy);
+//		static bool getMaterialSize(float & _cx, float & _cy, const std::string & _material);
+		static floatSize getMaterialSize(const std::string & _material);
+//		static floatRect convertMaterialCoord(const floatRect & _source, float _cx, float _cy);
+		static floatRect convertMaterialCoord(const floatRect & _source, const floatSize & _materialSize);
 
 	private:
 		void initialise();

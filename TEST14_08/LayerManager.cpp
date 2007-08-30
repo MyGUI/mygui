@@ -4,9 +4,7 @@
 namespace widget
 {
 
-	LayerManager::LayerManager()
-	{
-	}
+	LayerManager::LayerManager() {}
 
 	bool LayerManager::load(const std::string & _file)
 	{
@@ -53,25 +51,39 @@ namespace widget
 		m_mapLayer.clear();
 	}
 
-	void LayerManager::attachWidget(WidgetPtr _widget, const std::string & _layer)
+	void LayerManager::attachItem(LayerItemInfoPtr _item, const std::string & _layer)
 	{
 		// это наш уровень
 		LayerInfoPtr layer = m_mapLayer[_layer];
 		assert(layer);
 		// запоминаем созданный айтем в виджете
-		layer->addItem(_widget);
+		layer->addItem(_item);
 	}
 
-	void LayerManager::detachWidget(WidgetPtr _widget)
+	void LayerManager::detachItem(LayerItemInfoPtr _item)
 	{
 		// удаляем айтем
-		_widget->m_layerInfo->removeItem(_widget);
+		_item->m_layerInfo->removeItem(_item);
 	}
 
-	void LayerManager::upWidget(WidgetPtr _widget)
+	void LayerManager::upItem(LayerItemInfoPtr _item)
 	{
 		// берем итем уровня и поднимаем
-		_widget->m_layerInfo->upItem(_widget);
+		_item->m_layerInfo->upItem(_item);
 	}
+
+	Ogre::Overlay * LayerManager::createOverlay()
+	{
+		// просто присоединяем элемент к оверлею
+		Ogre::Overlay * overlay;
+		static long num=0;
+		overlay = Ogre::OverlayManager::getSingleton().create(Ogre::StringConverter::toString(num++) + "_LayerManagerOverlay");
+		overlay->setZOrder(0);
+		overlay->show();
+//		overlay->add2D(static_cast<Ogre::OverlayContainer*>(_basis->getOverlayElement()));
+		overlay->hide();
+		return overlay;
+	}
+
 
 } // namespace widget

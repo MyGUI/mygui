@@ -81,8 +81,7 @@ namespace widget
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(skinName);
 			widget_info->setInfo(size, skinMaterial);
-			float matx, maty;
-			getMaterialSize(matx, maty, skinMaterial);
+			floatSize materialSize = getMaterialSize(skinMaterial);
 
 			// берем детей и крутимся, цикл с саб скинами
 			xml::VectorNode & basisSkins = skinInfo->getChilds();
@@ -135,7 +134,7 @@ namespace widget
 						// достаем пару атрибут - значение
 						const xml::PairAttributes & pairAttributes = attrib[i_attrib];
 						if (pairAttributes.first == "Name") basisStateName = pairAttributes.second;
-						else if (pairAttributes.first == "Offset") offset = convertMaterialCoord(floatRect::parse(pairAttributes.second), matx, maty);
+						else if (pairAttributes.first == "Offset") offset = convertMaterialCoord(floatRect::parse(pairAttributes.second), materialSize);
 					}
 					// добавляем инфо о стайте
 					bind.add(basisStateName, offset);
@@ -149,10 +148,43 @@ namespace widget
 		} // for (size_t i_skin=0; i_skin<skins.size(); i_skin++) {
 	}
 
-	bool SkinManager::getMaterialSize(float & _cx, float & _cy, const std::string & _material)
+	floatSize SkinManager::getMaterialSize(const std::string & _material)
 	{
-		_cx = 0;
-		_cy = 0;
+		floatSize size(1, 1);
+
+		if (_material.empty()) return size;
+
+		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName(_material);
+		if (mat.isNull()) return size;
+
+		// обязательно загружаем
+		mat->load();
+
+		// только так, иначе при пустых викидывает
+		Ogre::Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
+		if ( ! iTechnique.hasMoreElements() ) return size;
+
+		Ogre::Pass * pass = iTechnique.getNext()->getPass(0);
+		if (!pass) return size;
+
+		Ogre::Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
+		if ( ! iUnit.hasMoreElements()) return size;
+
+		const Ogre::String & textName = iUnit.getNext()->getTextureName();
+
+		Ogre::TexturePtr tex = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(textName);
+		if (tex.isNull()) return size;
+
+		size.width = (float)tex->getWidth();
+		size.height = (float)tex->getHeight();
+
+		return size;
+	}
+
+/*	bool SkinManager::getMaterialSize(float & _cx, float & _cy, const std::string & _material)
+	{
+		_cx = 1;
+		_cy = 1;
 
 		if (_material.empty()) return false;
 
@@ -181,9 +213,9 @@ namespace widget
 		_cy = (float)tex->getHeight();
 
 		return true;
-	}
+	}*/
 
-	floatRect SkinManager::convertMaterialCoord(const floatRect & _source, float _cx, float _cy)
+/*	floatRect SkinManager::convertMaterialCoord(const floatRect & _source, float _cx, float _cy)
 	{
 		floatRect retRect;
 		if (!_cx || !_cy) return retRect;
@@ -192,6 +224,19 @@ namespace widget
 		retRect.top = _source.top / _cy;
 		retRect.right = (_source.left + _source.right) / _cx;
 		retRect.bottom = (_source.top + _source.bottom) / _cy;
+
+		return retRect;
+	}*/
+
+	floatRect SkinManager::convertMaterialCoord(const floatRect & _source, const floatSize & _materialSize)
+	{
+		floatRect retRect;
+		if (!_materialSize.width || !_materialSize.height) return retRect;
+
+		retRect.left = _source.left / _materialSize.width;
+		retRect.top = _source.top / _materialSize.height;
+		retRect.right = (_source.left + _source.right) / _materialSize.width;
+		retRect.bottom = (_source.top + _source.bottom) / _materialSize.height;
 
 		return retRect;
 	}
