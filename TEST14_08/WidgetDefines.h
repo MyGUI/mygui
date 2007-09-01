@@ -1,21 +1,11 @@
 #pragma once
 
-#include <vector>
-#include <map>
-#include <string>
 #include <Ogre.h>
-#include "TRect.h"
-#include "TSize.h"
-#include "TPoint.h"
+#include "Types.h"
 
 
 namespace widget
 {
-
-	//Bit flags done easy
-	#define FLAG_NONE  0
-	#define FLAG(num)  (1<<(num))
-	#define REGISTER_VALUE(_map,_value) _map[#_value]=_value;
 
 	enum WIDGET_ALIGN {
 

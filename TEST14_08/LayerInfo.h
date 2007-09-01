@@ -14,8 +14,8 @@ namespace widget
 		friend LayerManager;
 
 	private:
-		LayerInfo(Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :
-			m_start(_start), m_count(_count?_count:1), m_height(_height?_height:1)
+		LayerInfo(const std::string & _name, Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :
+			m_name(_name), m_start(_start), m_count(_count?_count:1), m_height(_height?_height:1)
 		{
 		}
 
@@ -26,6 +26,15 @@ namespace widget
 				m_items[pos]->m_layerInfo = 0;
 				m_items[pos]->m_overlayInfo->hide();
 			}
+		}
+
+		inline LayerItemInfoPtr findItem(int _x, int _y)
+		{
+			for (size_t i=0; i<m_items.size(); i++) {
+				LayerItemInfoPtr item = m_items[i]->findItem(_x, _y);
+				if (item != 0) return item;
+			}
+			return 0;
 		}
 
 		void addItem(LayerItemInfoPtr _item)
@@ -89,6 +98,7 @@ namespace widget
 	private:
 		std::vector<LayerItemInfoPtr> m_items;
 		Ogre::ushort m_start, m_count, m_height;
+		std::string m_name;
 
 	};
 

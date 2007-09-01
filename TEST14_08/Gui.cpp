@@ -7,16 +7,17 @@ namespace widget
 
 	Gui::Gui()
 		: BasisWidget(-100000, -100000, 100000, 100000, 0, 0),
+		InputManager(/*m_widgetChild*/),
 		m_widgetManagerInstance(WidgetManager::getInstance()),
 		m_skinManagerInstance(SkinManager::getInstance()),
-		m_layerManagerInstance(LayerManager::getInstance()),
+//		m_layerManagerInstance(LayerManager::getInstance()),
 		m_layoutManagerInstance(LayoutManager::getInstance()),
-		m_pointerManagerInstance(PointerManager::getInstance()),
+//		m_pointerManagerInstance(PointerManager::getInstance()),
+//		m_inputManagerInstance(InputManager::getInstance()),
 		m_height(1), m_width(1)
 	{
 		// загружаем уровни в менеджер уровней
 		m_layerManagerInstance.load("main.layer");
-
 		m_pointerManagerInstance.load("main.pointer");
 	}
 
@@ -32,7 +33,7 @@ namespace widget
 		WidgetPtr widget = m_widgetManagerInstance.createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
 		// присоединяем виджет с уровню
-		m_layerManagerInstance.attachItem(widget, _layer);
+		m_layerManagerInstance.attachItem(widget, _layer, true);
 		return widget;
 	}
 

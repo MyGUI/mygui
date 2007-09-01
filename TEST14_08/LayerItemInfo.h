@@ -6,10 +6,12 @@ namespace widget
 {
 
 	class LayerInfo;
+	class LayerItemInfo;
 	class LayerManager;
 	class Gui;
 
 	typedef LayerInfo * LayerInfoPtr;
+	typedef LayerItemInfo * LayerItemInfoPtr;
 
 	// вспомогательня структура для управления уровнями оверлеев
 	class LayerItemInfo
@@ -39,11 +41,12 @@ namespace widget
 			if (m_overlayInfo) m_overlayInfo->add2D(_element);
 		}
 
+		// для виджетов нуно это добро переопределить
+		virtual LayerItemInfoPtr findItem(int _x, int _y) {return 0;}
+
 	private:
 		Ogre::Overlay * m_overlayInfo;
 		LayerInfoPtr m_layerInfo;
 	};
-
-	typedef LayerItemInfo * LayerItemInfoPtr;
 
 } // namespace widget

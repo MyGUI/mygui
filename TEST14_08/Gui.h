@@ -3,16 +3,17 @@
 #include <vector>
 #include <Ogre.h>
 #include "Instance.h"
+#include "InputManager.h"
 #include "WidgetManager.h"
 #include "SkinManager.h"
-#include "LayerManager.h"
+//#include "LayerManager.h"
 #include "LayoutManager.h"
-#include "PointerManager.h"
 
 namespace widget
 {
+	class InputManager;
 
-	class Gui : public BasisWidget
+	class Gui : public BasisWidget, public InputManager
 	{
 
 	private:
@@ -52,6 +53,19 @@ namespace widget
 			return floatRect(_rect.left*m_width, _rect.top*m_height, _rect.right*m_width, _rect.bottom*m_height);
 		}
 
+/*		inline bool injectMouseMove( const OIS::MouseEvent &arg )
+		{
+			return injectMouseMove(arg.state.X.abs, arg.state.Y.abs, arg.state.Z.rel);
+		}
+		inline bool injectMousePress( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
+		{
+			return injectMousePress(arg.state.X.abs, arg.state.Y.abs, id == OIS::MB_Left);
+		}
+		inline bool injectMouseRelease( const OIS::MouseEvent &arg , OIS::MouseButtonID id )
+		{
+			return injectMouseRelease(arg.state.X.abs, arg.state.Y.abs, id == OIS::MB_Left);
+		}*/
+
 		inline float getWidth() {return m_width;}
 		inline float getHeight() {return m_height;}
 
@@ -63,9 +77,10 @@ namespace widget
 
 		SkinManager & m_skinManagerInstance;
 		WidgetManager & m_widgetManagerInstance;
-		LayerManager & m_layerManagerInstance;
+//		LayerManager & m_layerManagerInstance;
 		LayoutManager & m_layoutManagerInstance;
-		PointerManager & m_pointerManagerInstance;
+//		PointerManager & m_pointerManagerInstance;
+//		InputManager & m_inputManagerInstance;
 
 		float m_height, m_width;
 

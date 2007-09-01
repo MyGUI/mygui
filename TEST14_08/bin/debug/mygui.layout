@@ -9,4 +9,8 @@
       </Widget>
     </Widget>
   </Widget>
+
+  <Widget Type="Widget" Skin="Skin1" Position="10 10 20 20" Align="ALIGN_LEFT ALIGN_TOP" Layer="Back">
+  </Widget>
+
 </MyGUI_Layout>

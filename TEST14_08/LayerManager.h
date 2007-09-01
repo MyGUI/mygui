@@ -12,7 +12,10 @@
 namespace widget
 {
 	class Gui;
+	// карта для поиска по имени
 	typedef std::map<std::string, LayerInfoPtr> MapLayer;
+	// карта для упорядочивания по высоте
+	typedef std::map<Ogre::ushort, LayerInfoPtr> MapLayerSearch;
 
 	class LayerManager
 	{
@@ -21,9 +24,11 @@ namespace widget
 	public:
 		INSTANCE(LayerManager)
 
-		void attachItem(LayerItemInfoPtr _item, const std::string & _layer);
+		void attachItem(LayerItemInfoPtr _item, const std::string & _layer, bool _attachToSearch = false);
 		void detachItem(LayerItemInfoPtr _item);
 		void upItem(LayerItemInfoPtr _item);
+
+		LayerItemInfoPtr findItem(int _x, int _y);
 
 		Ogre::Overlay * createOverlay();
 
@@ -36,6 +41,7 @@ namespace widget
 
 	private:
 		MapLayer m_mapLayer;
+		MapLayerSearch m_mapLayerSearch;
 
 	}; // class LayerManager
 

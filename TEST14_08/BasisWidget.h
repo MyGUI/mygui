@@ -80,6 +80,12 @@ namespace widget
 		inline int margin_top() {return m_top_margin;}
 		inline int margin_bottom() {return m_bottom_margin;}
 
+		inline bool check_point (int _x, int _y)
+		{
+//			return ((view_left() <= _x ) && (view_top() <= _y) && (view_right() >= _x) && (view_bottom() >= _y) );
+			return ! ((view_left() > _x ) || (view_top() > _y) || (view_right() < _x) || (view_bottom() < _y) );
+		}
+
 		inline bool check_margin ()
 		{
 			bool margin = false;

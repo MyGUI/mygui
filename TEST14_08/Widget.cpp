@@ -20,6 +20,7 @@ namespace widget
 		BasisWidget(_x, _y, _info->width(), _info->height(), _align, _parent), // размер по скину
 		m_text(0),
 		m_visible(true),
+		m_enable(true),
 		m_alpha(1.0),
 		m_color(1.0, 1.0, 1.0, 1.0),
 		m_stateInfo(_info->getStateInfo()),
@@ -391,7 +392,63 @@ namespace widget
 			delete (*skin);
 		}
 		m_subSkinChild.clear();
-
 	}
+
+	LayerItemInfoPtr Widget::findItem(int _x, int _y)
+	{
+		// останавливаем каскадную проверку
+		if (!m_enable) return this;
+		// проверяем попадание
+		if (!m_visible || !m_show || !check_point(_x, _y)) return 0;
+		// спрашиваем у детишек
+		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) {
+			LayerItemInfoPtr item = (*widget)->findItem(_x - m_x, _y - m_y);
+			if (item) return item;
+		}
+		// непослушные дети
+		return this;
+	}
+
+	void Widget::OnMouseLostFocus(WidgetPtr _new)
+	{
+//		setAlpha(1.0);
+	}
+
+	void Widget::OnMouseSetFocus(WidgetPtr _old)
+	{
+//		setAlpha(0.5);
+	}
+
+	void Widget::OnMouseMove(int _x, int _y)
+	{
+		debug.out("move %d, %d", _x, _y);
+	}
+
+	void Widget::OnMouseSheel(int _rel)
+	{
+	}
+
+	void Widget::OnMouseButtonPressed(bool _left)
+	{
+	}
+
+	void Widget::OnMouseButtonReleased(bool _left)
+	{
+	}
+
+	void Widget::OnMouseButtonClick(bool _double)
+	{
+//		if (_double) show(false);
+//		setAlpha(_double ? 1.0 : 0.5);
+	}
+
+	void Widget::OnKeyLostFocus(WidgetPtr _new)
+	{
+	}
+
+	void Widget::OnKeySetFocus(WidgetPtr _old)
+	{
+	}
+
 
 } // namespace widget

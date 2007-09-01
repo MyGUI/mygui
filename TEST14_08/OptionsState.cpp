@@ -129,7 +129,7 @@ void OptionsState::enter(bool bIsChangeState)
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-	if (m_widget2) m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+//	if (m_widget2) m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	if (!toggle) {
 //		m_widget3->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	} else {
@@ -144,8 +144,8 @@ bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 	if (!m_widget3) return true;
 
 	toggle = !toggle;
-	if (toggle) m_widget3->setAlpha(0.2);
-	else m_widget3->setAlpha(0);
+//	if (toggle) m_widget3->setAlpha(0.2);
+//	else m_widget3->setAlpha(0);
 	return true;
 }
 //===================================================================================

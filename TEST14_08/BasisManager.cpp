@@ -6,6 +6,7 @@
 #include <OgreConfigFile.h>
 #include <OgreRenderSystem.h>
 #include "debugOut.h"
+#include "Gui.h"
 
 #include "icon.h"
 
@@ -291,18 +292,21 @@ bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
+	Gui::getInstance().injectMouseMove(arg);
 	if (mGUI->mouseMoved(arg)) return true;
 	return mStates.back()->mouseMoved(arg);
 }
 
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
+	Gui::getInstance().injectMousePress(arg, id);
 	if (mGUI->mousePressed(arg, id)) return true;
 	return mStates.back()->mousePressed(arg, id);
 }
 
 bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
+	Gui::getInstance().injectMouseRelease(arg, id);
 	mGUI->mouseReleased(arg, id);
 	return mStates.back()->mouseReleased(arg, id);
 }

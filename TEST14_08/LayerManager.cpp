@@ -38,7 +38,7 @@ namespace widget
 			}
 
 			// а вот теперь добавляем слой
-			m_mapLayer[name] = new LayerInfo(start, count, height);
+			m_mapLayer[name] = new LayerInfo(name, start, count, height);
 
 		} // for (size_t i_layer=0; i_layer<layers.size(); i_layer++) {
 
@@ -51,13 +51,19 @@ namespace widget
 		m_mapLayer.clear();
 	}
 
-	void LayerManager::attachItem(LayerItemInfoPtr _item, const std::string & _layer)
+	void LayerManager::attachItem(LayerItemInfoPtr _item, const std::string & _layer, bool _attachToSearch)
 	{
 		// это наш уровень
 		LayerInfoPtr layer = m_mapLayer[_layer];
 		assert(layer);
 		// запоминаем созданный айтем в виджете
 		layer->addItem(_item);
+		// добавляем уровень в карту поиска
+		if (_attachToSearch) {
+			MapLayerSearch::iterator iter = m_mapLayerSearch.find(layer->m_start);
+			// если не нашли такого то добавляем
+			if (iter == m_mapLayerSearch.end()) m_mapLayerSearch[layer->m_start] = layer;
+		}
 	}
 
 	void LayerManager::detachItem(LayerItemInfoPtr _item)
@@ -70,6 +76,17 @@ namespace widget
 	{
 		// берем итем уровня и поднимаем
 		_item->m_layerInfo->upItem(_item);
+	}
+
+	LayerItemInfoPtr LayerManager::findItem(int _x, int _y)
+	{
+		MapLayerSearch::reverse_iterator iter = m_mapLayerSearch.rbegin();
+		while (iter != m_mapLayerSearch.rend()) {
+			LayerItemInfoPtr item = iter->second->findItem(_x, _y);
+			if (item != 0) return item;
+			iter++;
+		}
+		return 0;
 	}
 
 	Ogre::Overlay * LayerManager::createOverlay()

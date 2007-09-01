@@ -7,11 +7,13 @@
 
 #include "WidgetSkinInfo.h"
 #include "LayerItemInfo.h"
+#include "InputManager.h"
 
 namespace widget
 {
 	using namespace Ogre;
 
+	class InputManager;
 	class WidgetManager;
 	class Gui;
 
@@ -22,6 +24,7 @@ namespace widget
 		friend WidgetManager;
 		// это для того чтобы установить m_overlay
 		friend Gui;
+		friend InputManager;
 
 	public:
 		// все создание только через фабрику
@@ -68,12 +71,28 @@ namespace widget
 		void attach(BasisWidgetPtr _basis, bool _child);
 		OverlayElementPtr getOverlayElement();
 
+	public:
+		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
+		LayerItemInfoPtr findItem(int _x, int _y);
+
 	protected:
 
 		// создаем и добавляем саб скин виджету
 		BasisWidgetPtr addSubSkin(const tagBasisWidgetInfo &_info, const String & _material);
 		// закрытый деструктор
 		virtual ~Widget();
+
+		// сообщения от менеджера ввода
+		virtual void OnMouseLostFocus(WidgetPtr _new);
+		virtual void OnMouseSetFocus(WidgetPtr _old);
+		virtual void OnMouseMove(int _x, int _y);
+		virtual void OnMouseSheel(int _rel);
+		virtual void OnMouseButtonPressed(bool _left);
+		virtual void OnMouseButtonReleased(bool _left);
+		virtual void OnMouseButtonClick(bool _double);
+
+		virtual void OnKeyLostFocus(WidgetPtr _new);
+		virtual void OnKeySetFocus(WidgetPtr _old);
 
 	protected:
 
@@ -90,6 +109,8 @@ namespace widget
 		// указатель на окно текста
 		BasisWidgetPtr m_text;
 
+		// доступен ли на виджет
+		bool m_enable;
 		// скрыты ли все сабскины при выходе за границу
 		bool m_visible;
 		// прозрачность нашего оверлея

@@ -637,6 +637,10 @@
 					RelativePath=".\TSize.h"
 					>
 				</File>
+				<File
+					RelativePath=".\Types.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="LayerManager"
@@ -683,6 +687,22 @@
 				</File>
 				<File
 					RelativePath=".\PointerManager.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="InputManager"
+				>
+				<File
+					RelativePath=".\InputManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\InputManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetOIS.h"
 					>
 				</File>
 			</Filter>
