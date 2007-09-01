@@ -626,6 +626,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\TPoint.h"
+					>
+				</File>
+				<File
 					RelativePath=".\TRect.h"
 					>
 				</File>

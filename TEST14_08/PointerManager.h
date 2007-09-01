@@ -24,6 +24,8 @@ namespace widget
 		inline void hide() {show(false);}
 		inline bool isShow() {return m_show;}
 
+		void move(int _x, int _y);
+
 		void setPointer(const std::string & _name);
 		inline void defaultPointer() {setPointer(m_defaultPointer);};
 
@@ -32,6 +34,7 @@ namespace widget
 		std::string m_layer;
 		std::string m_material;
 		bool m_show;
+		intPoint m_point;
 		MapPointerInfo m_mapPointers;
 		Ogre::PanelOverlayElement * m_overlayElement;
 

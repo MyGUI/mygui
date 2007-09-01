@@ -6,6 +6,7 @@
 #include <Ogre.h>
 #include "TRect.h"
 #include "TSize.h"
+#include "TPoint.h"
 
 
 namespace widget
