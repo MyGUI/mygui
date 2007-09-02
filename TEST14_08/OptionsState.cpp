@@ -2,7 +2,6 @@
 #include "MyGUI_Source//MyGUI.h"
 #include "debugOut.h"
 #include "debugAxis.h"
-//#include "delegate.h"
 
 //#include "WidgetSkinInfo.h"
 //#include "SkinManager.h"
@@ -85,6 +84,7 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget2 = Gui::getInstance().findWidget("m_widget2");
 	m_widget3 = Gui::getInstance().findWidget("m_widget3");
 
+
 //	Ogre::String name = m_widget3->getName();
 //	Gui::getInstance().destroyWidget(m_widget3);
 
@@ -125,6 +125,7 @@ void OptionsState::enter(bool bIsChangeState)
 	int value = 12;
 	A * obj = 0;
 	obj->add(value);*/
+
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )

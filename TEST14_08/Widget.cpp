@@ -8,13 +8,10 @@
 
 namespace widget
 {
-	namespace helper
-	{
-		// создаем фабрику для этого виджета
-		WidgetFactory<Widget> factory_Widget;
-		// парсер команд для Widget
-		WidgetParser parser_Widget;
-	}
+	// создаем фабрику для этого виджета
+	namespace factory { WidgetFactory<Widget> WidgetFactoryInstance; }
+	// парсер команд для Widget
+	namespace parser { WidgetParser WidgetParserInstance; }
 
 	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		BasisWidget(_x, _y, _info->width(), _info->height(), _align, _parent), // размер по скину
@@ -24,9 +21,10 @@ namespace widget
 		m_alpha(1.0),
 		m_color(1.0, 1.0, 1.0, 1.0),
 		m_stateInfo(_info->getStateInfo()),
-		m_name(_name),
-		m_needKeyFocus(false)
+		m_name(_name)
 	{
+		// имя отсылателя сообщений
+		m_widgetEventSender = this;
 
 		// загружаем кирпичика виджета
 		for (BasisInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
@@ -411,56 +409,5 @@ namespace widget
 		// непослушные дети
 		return this;
 	}
-
-	void Widget::OnMouseLostFocus(WidgetPtr _new)
-	{
-		setAlpha(1.0);
-	}
-
-	void Widget::OnMouseSetFocus(WidgetPtr _old)
-	{
-		setAlpha(0.5);
-	}
-
-	void Widget::OnMouseMove(int _x, int _y)
-	{
-//		debug.out("move %d, %d", _x, _y);
-	}
-
-	void Widget::OnMouseSheel(int _rel)
-	{
-	}
-
-	void Widget::OnMouseButtonPressed(bool _left)
-	{
-	}
-
-	void Widget::OnMouseButtonReleased(bool _left)
-	{
-	}
-
-	void Widget::OnMouseButtonClick(bool _double)
-	{
-//		if (_double) show(false);
-//		setAlpha(_double ? 1.0 : 0.5);
-	}
-
-	void Widget::OnKeyLostFocus(WidgetPtr _new)
-	{
-	}
-
-	void Widget::OnKeySetFocus(WidgetPtr _old)
-	{
-	}
-
-	void Widget::OnKeyButtonPressed(int _key, wchar_t _char)
-	{
-		setCaption(Ogre::DisplayString(&_char, 1));
-	}
-
-	void Widget::OnKeyButtonReleased(int _key)
-	{
-	}
-
 
 } // namespace widget

@@ -6,7 +6,8 @@
 
 namespace widget
 {
-	namespace helper
+
+	namespace parser
 	{
 
 		class WidgetParser
@@ -85,5 +86,6 @@ namespace widget
 
 		};
 
-	} // namespace helper
+	} // namespace parser
+
 } // namespace widget

@@ -20,17 +20,17 @@ namespace widget
 
 		// берем детей и крутимся, основной цикл
 		xml::VectorNode & layers = xml_root->getChilds();
-		for (size_t i_layer=0; i_layer<layers.size(); i_layer++) {
-			xml::xmlNodePtr layerInfo = layers[i_layer];
+		for (size_t i=0; i<layers.size(); i++) {
+			xml::xmlNodePtr layerInfo = layers[i];
 			if (layerInfo->getName() != "Layer") continue;
 
 			// парсим атрибуты
 			const xml::VectorAttributes & attrib = layerInfo->getAttributes();
 			std::string name;
 			Ogre::ushort start, count, height;
-			for (size_t i_attrib=0; i_attrib<attrib.size(); i_attrib++) {
+			for (size_t ia=0; ia<attrib.size(); ia++) {
 				// достаем пару атрибут - значение
-				const xml::PairAttributes & pairAttributes = attrib[i_attrib];
+				const xml::PairAttributes & pairAttributes = attrib[ia];
 				if (pairAttributes.first == "Name") name = pairAttributes.second;
 				else if (pairAttributes.first == "Start") start = parseValue<Ogre::ushort>(pairAttributes.second);
 				else if (pairAttributes.first == "Count") count = parseValue<Ogre::ushort>(pairAttributes.second);

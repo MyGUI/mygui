@@ -44,9 +44,9 @@ namespace widget
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer;
 		floatRect coord;
 		char align;
-		for (size_t i_attrib=0; i_attrib<attrib.size(); i_attrib++) {
+		for (size_t ia=0; ia<attrib.size(); ia++) {
 			// достаем пару атрибут - значение
-			const xml::PairAttributes & pairAttributes = attrib[i_attrib];
+			const xml::PairAttributes & pairAttributes = attrib[ia];
 			if (pairAttributes.first == "Type") widgetType = pairAttributes.second;
 			else if (pairAttributes.first == "Skin") widgetSkin = pairAttributes.second;
 			else if (pairAttributes.first == "Name") widgetName = pairAttributes.second;
@@ -69,9 +69,9 @@ namespace widget
 				// парсим атрибуты скина
 				const xml::VectorAttributes & attrib = widgetInfo->getAttributes();
 				std::string propertyKey, propertyValue;
-				for (size_t i_attrib=0; i_attrib<attrib.size(); i_attrib++) {
+				for (size_t ia=0; ia<attrib.size(); ia++) {
 					// достаем пару атрибут - значение
-					const xml::PairAttributes & pairAttributes = attrib[i_attrib];
+					const xml::PairAttributes & pairAttributes = attrib[ia];
 					if (pairAttributes.first == "Key") propertyKey = pairAttributes.second;
 					else if (pairAttributes.first == "Value") propertyValue = pairAttributes.second;
 				}

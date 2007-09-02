@@ -566,6 +566,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\WidgetEvent.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetEvent.h"
+					>
+				</File>
+				<File
 					RelativePath=".\WidgetFactory.h"
 					>
 				</File>
@@ -575,6 +583,10 @@
 				</File>
 				<File
 					RelativePath=".\WidgetParser.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetUserData.h"
 					>
 				</File>
 			</Filter>

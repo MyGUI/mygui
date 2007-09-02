@@ -214,9 +214,9 @@ namespace widget
 			// парсим атрибуты скина
 			const xml::VectorAttributes & attrib = langInfo->getAttributes();
 			std::string name;
-			for (size_t i_attrib=0; i_attrib<attrib.size(); i_attrib++) {
+			for (size_t ia=0; ia<attrib.size(); ia++) {
 				// достаем пару атрибут - значение
-				const xml::PairAttributes & pairAttributes = attrib[i_attrib];
+				const xml::PairAttributes & pairAttributes = attrib[ia];
 				if (pairAttributes.first == "Name") name = pairAttributes.second;
 			}
 
@@ -234,7 +234,7 @@ namespace widget
 				LangInfo & lang = iter->second;
 
 				// и заполняем его
-				for (size_t i=0; i<116; i++) lang[i] = parseInt(chars[i]);
+				for (size_t j=0; j<116; j++) lang[i] = parseInt(chars[i]);
 
 			} else {/* LOG*/ }
 

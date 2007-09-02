@@ -72,5 +72,7 @@ namespace widget
 
 	typedef Ogre::OverlayElement * OverlayElementPtr;
 
+	typedef std::map<std::string, std::string> MapString;
+	typedef std::map<std::string, int> MapInt;
 
 } // namespace widget

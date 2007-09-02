@@ -76,10 +76,10 @@ namespace widget
 	public:
 		typedef I_DELEGATE<TEMPLATE_ARGS> IDelegate;
 
-		C_DELEGATE() : m_pDelegate (NULL) {}
+		C_DELEGATE() : m_pDelegate (0) {}
 		~C_DELEGATE() { if (m_pDelegate) delete m_pDelegate; }
 
-		bool IsNull() { return (m_pDelegate == NULL); }
+		bool IsNull() { return (m_pDelegate == 0); }
 
 		C_DELEGATE<TEMPLATE_ARGS>& operator=(IDelegate* pDelegate)
 		{
@@ -90,7 +90,7 @@ namespace widget
 
 		void operator()(PARAMS)
 		{
-			if (m_pDelegate == NULL) return;
+			if (m_pDelegate == 0) return;
 			m_pDelegate->Invoke(ARGS);
 		}
 
