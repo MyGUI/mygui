@@ -46,7 +46,19 @@ namespace widget
         return ret;
 	}
 
+	template< class T >
+	std::string toString (T val)
+	{
+        std::ostringstream stream;
+        stream << val;
+        return stream.str();
+	}
+
 	inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}
 	inline float parseFloat(const std::string& _value) {return parseValue<float>(_value);}
+
+	inline std::string toString(float _value) {return toString<float>(_value);}
+	inline std::string toString(int _value) {return toString<int>(_value);}
+	inline std::string toString(wchar_t _value) {return toString<wchar_t>(_value);}
 
 }

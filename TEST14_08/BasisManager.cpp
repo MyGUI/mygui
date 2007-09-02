@@ -317,12 +317,15 @@ bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 	if ( arg.key == OIS::KC_F1 ) debug.show(true);
 	if ( arg.key == OIS::KC_F2 ) debug.show(false);
 
+	Gui::getInstance().injectKeyPress(arg);
+
 	if (mGUI->keyPressed(arg)) return true;
 	return mStates.back()->keyPressed(arg);
 }
 
 bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 {
+	Gui::getInstance().injectKeyRelease(arg);
 	if (mGUI->keyReleased(arg)) return true;
 	return mStates.back()->keyReleased(arg);
 }

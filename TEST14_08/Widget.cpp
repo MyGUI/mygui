@@ -24,7 +24,8 @@ namespace widget
 		m_alpha(1.0),
 		m_color(1.0, 1.0, 1.0, 1.0),
 		m_stateInfo(_info->getStateInfo()),
-		m_name(_name)
+		m_name(_name),
+		m_needKeyFocus(false)
 	{
 
 		// загружаем кирпичика виджета
@@ -38,6 +39,8 @@ namespace widget
 		if (iter != param.end()) setFontName(iter->second);
 		iter = param.find("FontHeight");
 		if (iter != param.end()) setFontHeight(parseInt(iter->second));
+		iter = param.find("NeedKey");
+		if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
 
 		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
@@ -411,17 +414,17 @@ namespace widget
 
 	void Widget::OnMouseLostFocus(WidgetPtr _new)
 	{
-//		setAlpha(1.0);
+		setAlpha(1.0);
 	}
 
 	void Widget::OnMouseSetFocus(WidgetPtr _old)
 	{
-//		setAlpha(0.5);
+		setAlpha(0.5);
 	}
 
 	void Widget::OnMouseMove(int _x, int _y)
 	{
-		debug.out("move %d, %d", _x, _y);
+//		debug.out("move %d, %d", _x, _y);
 	}
 
 	void Widget::OnMouseSheel(int _rel)
@@ -447,6 +450,15 @@ namespace widget
 	}
 
 	void Widget::OnKeySetFocus(WidgetPtr _old)
+	{
+	}
+
+	void Widget::OnKeyButtonPressed(int _key, wchar_t _char)
+	{
+		setCaption(Ogre::DisplayString(&_char, 1));
+	}
+
+	void Widget::OnKeyButtonReleased(int _key)
 	{
 	}
 

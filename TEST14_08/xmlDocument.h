@@ -55,12 +55,12 @@ namespace xml
 
 				// проверяем на наличее тела ???
 				size_t body = line.find_first_not_of(" \t<");
-				if (body < start) {
-					if (currentNode == 0) {
-						m_lastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
-						stream.close();
-						return false;
-					}
+				if ((body < start) && (currentNode)) {
+//					if (currentNode == 0) {
+//						m_lastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
+//						stream.close();
+//						return false;
+//					}
 					std::string body_str = line.substr(0, start);
 
 					// текущий символ

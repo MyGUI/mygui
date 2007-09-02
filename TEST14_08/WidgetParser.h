@@ -26,6 +26,7 @@ namespace widget
 				parser.registerDelegate("FontHeight") = newDelegate(this, &WidgetParser::FontHeight);
 				parser.registerDelegate("Alpha") = newDelegate(this, &WidgetParser::Alpha);
 				parser.registerDelegate("State") = newDelegate(this, &WidgetParser::State);
+				parser.registerDelegate("NeedKey") = newDelegate(this, &WidgetParser::NeedKey);
 			}
 
 			void SetCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -75,6 +76,11 @@ namespace widget
 			void State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				_widget->setState(_value);
+			}
+
+			void NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+			{
+				_widget->setNeedKeyFocus(_value == "true");
 			}
 
 		};

@@ -75,6 +75,12 @@ namespace widget
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
 		LayerItemInfoPtr findItem(int _x, int _y);
 
+		inline bool isNeedKeyFocus() {return m_needKeyFocus;}
+		inline void setNeedKeyFocus(bool _need) {m_needKeyFocus = _need;}
+
+//		inline bool isNeedMouseCapture() {return m_needMouseCapture;}
+//		inline void setNeedMouseCapture(bool _need) {m_needMouseCapture = _need;}
+
 	protected:
 
 		// создаем и добавляем саб скин виджету
@@ -93,6 +99,9 @@ namespace widget
 
 		virtual void OnKeyLostFocus(WidgetPtr _new);
 		virtual void OnKeySetFocus(WidgetPtr _old);
+
+		virtual void OnKeyButtonPressed(int _key, wchar_t _char);
+		virtual void OnKeyButtonReleased(int _key);
 
 	protected:
 
@@ -119,6 +128,11 @@ namespace widget
 		Ogre::ColourValue m_color;
 		// имя виджета
 		Ogre::String m_name;
+		// нужен ли виджету ввод с клавы
+		bool m_needKeyFocus;
+		// нужен ли захват мыши
+//		bool m_needMouseCapture;
+
 	}; // class Widget
 
 } // namespace widget

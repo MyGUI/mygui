@@ -17,6 +17,7 @@
     <Skin Name = "Skin3" Size = "60 60" Material = "MyGUI_check_n1">
         <Property Key="FontName" Value = "MyGUI_font" />
         <Property Key="FontHeight" Value = "20" />
+        <Property Key="NeedKey" Value = "true" />
 
         <BasisSkin Type="SubSkin" Offset = "0 0 30 30" Align = "ALIGN_STRETCH">
             <State Name="normal" Offset = "0 0 18 18"/>
