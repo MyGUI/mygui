@@ -566,10 +566,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\WidgetEvent.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\WidgetEvent.h"
 					>
 				</File>

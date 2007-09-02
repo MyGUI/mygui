@@ -20,7 +20,8 @@ namespace widget
 		friend InputManager;
 
 	protected:
-		WidgetEvent();
+		WidgetEvent() : m_widgetEventSender(0), m_needKeyFocus(false) {}
+
 
 		/*
 		Общая информация по созданию делегата для события :
@@ -88,19 +89,62 @@ namespace widget
 		EventSimpleDataInfo eventKeyButtonReleased;
 
 	protected:
-		// сообщения от менеджера ввода
-		virtual void OnMouseLostFocus(WidgetPtr _new);
-		virtual void OnMouseSetFocus(WidgetPtr _old);
-		virtual void OnMouseMove(int _x, int _y);
-		virtual void OnMouseSheel(int _rel);
-		virtual void OnMouseButtonPressed(bool _left);
-		virtual void OnMouseButtonReleased(bool _left);
-		virtual void OnMouseButtonClick(bool _double);
 
-		virtual void OnKeyLostFocus(WidgetPtr _new);
-		virtual void OnKeySetFocus(WidgetPtr _old);
-		virtual void OnKeyButtonPressed(int _key, wchar_t _char);
-		virtual void OnKeyButtonReleased(int _key);
+		// сообщения от менеджера ввода
+		virtual void OnMouseLostFocus(WidgetPtr _new)
+		{
+			eventMouseLostFocus(m_widgetEventSender, _new);
+		}
+
+		virtual void OnMouseSetFocus(WidgetPtr _old)
+		{
+			eventMouseSetFocus(m_widgetEventSender, _old);
+		}
+
+		virtual void OnMouseMove(int _x, int _y)
+		{
+			eventMouseMove(m_widgetEventSender, _x, _y);
+		}
+
+		virtual void OnMouseSheel(int _rel)
+		{
+			eventMouseSheel(m_widgetEventSender, _rel);
+		}
+
+		virtual void OnMouseButtonPressed(bool _left)
+		{
+			eventMouseButtonPressed(m_widgetEventSender, _left);
+		}
+
+		virtual void OnMouseButtonReleased(bool _left)
+		{
+			eventMouseButtonReleased(m_widgetEventSender, _left);
+		}
+
+		virtual void OnMouseButtonClick(bool _double)
+		{
+			eventMouseButtonClick(m_widgetEventSender, _double);
+		}
+
+		virtual void OnKeyLostFocus(WidgetPtr _new)
+		{
+			eventKeyLostFocus(m_widgetEventSender, _new);
+		}
+
+		virtual void OnKeySetFocus(WidgetPtr _old)
+		{
+			eventKeySetFocus(m_widgetEventSender, _old);
+		}
+
+		virtual void OnKeyButtonPressed(int _key, wchar_t _char)
+		{
+			eventKeyButtonPressed(m_widgetEventSender, _key, _char);
+		}
+
+		virtual void OnKeyButtonReleased(int _key)
+		{
+			eventKeyButtonReleased(m_widgetEventSender, _key);
+		}
 
 		// нужен ли виджету ввод с клавы
 		bool m_needKeyFocus;
