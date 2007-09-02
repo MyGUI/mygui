@@ -58,8 +58,10 @@ namespace widget
 
 		inline void removeItem(LayerItemInfoPtr _item)
 		{
-			_item->m_overlayInfo->hide();
-			_item->m_layerInfo = 0;
+			if (_item->m_overlayInfo) {
+				_item->m_overlayInfo->hide();
+				_item->m_layerInfo = 0;
+			}
 			// все украдено до нас
 			if (m_items.empty()) return;
 			// поднимаем, и удаляем

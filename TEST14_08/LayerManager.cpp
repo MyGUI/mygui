@@ -5,6 +5,10 @@ namespace widget
 {
 
 	LayerManager::LayerManager() {}
+	LayerManager::~LayerManager()
+	{
+		clear();
+	}
 
 	bool LayerManager::load(const std::string & _file)
 	{
@@ -68,14 +72,14 @@ namespace widget
 
 	void LayerManager::detachItem(LayerItemInfoPtr _item)
 	{
-		// удаляем айтем
-		_item->m_layerInfo->removeItem(_item);
+		// удаляем айтем если он приаттачен
+		if (_item->m_layerInfo) _item->m_layerInfo->removeItem(_item);
 	}
 
 	void LayerManager::upItem(LayerItemInfoPtr _item)
 	{
 		// берем итем уровня и поднимаем
-		_item->m_layerInfo->upItem(_item);
+		if (_item->m_layerInfo) _item->m_layerInfo->upItem(_item);
 	}
 
 	LayerItemInfoPtr LayerManager::findItem(int _x, int _y)

@@ -32,6 +32,8 @@ namespace widget
 
 		Ogre::Overlay * createOverlay();
 
+		~LayerManager();
+
 	private:
 
 		LayerManager();

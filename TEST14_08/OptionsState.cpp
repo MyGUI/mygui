@@ -81,13 +81,19 @@ void OptionsState::enter(bool bIsChangeState)
 	Gui::getInstance().loadSkin("main.skin");
 	Gui::getInstance().loadLayout("mygui.layout");
 
+//	m_widget1 = Gui::getInstance().findWidget("m_widget1");
 	m_widget2 = Gui::getInstance().findWidget("m_widget2");
-	m_widget3 = Gui::getInstance().findWidget("m_widget3");
+	m_widget3 = 0;//Gui::getInstance().findWidget("m_widget3");
+
+//	Gui::getInstance().destroyWidget(m_widget1);
+	Gui::getInstance().destroyWidget(m_widget2);
+	Gui::getInstance().destroyWidget(m_widget3);
 
 
 //	Ogre::String name = m_widget3->getName();
 //	Gui::getInstance().destroyWidget(m_widget3);
 
+	Gui::getInstance().shutdown();
 
 //	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
 //	debug.add("need cut 2", 170, 50, m_widget2->m_margin);

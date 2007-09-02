@@ -16,6 +16,13 @@ namespace widget
 //		m_inputManagerInstance(InputManager::getInstance()),
 		m_height(1), m_width(1)
 	{
+		// регистрируем фабрику текста и панели
+		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+		m_factoryTextSimpleOverlay = new TextSimpleOverlayElementFactory();
+		overlayManager.addOverlayElementFactory(m_factoryTextSimpleOverlay);
+		m_factoryPanelAlphaOverlay = new PanelAlphaOverlayElementFactory();
+		overlayManager.addOverlayElementFactory(m_factoryPanelAlphaOverlay);
+
 		// загружаем уровни в менеджер уровней
 		m_layerManagerInstance.load("main.layer");
 		m_pointerManagerInstance.load("main.pointer");
@@ -26,6 +33,16 @@ namespace widget
 		Ogre::Viewport * port = _window->getViewport(0);
 		m_height = port->getActualHeight();
 		m_width = port->getActualWidth();
+	}
+
+	void Gui::shutdown()
+	{
+		destroyWidget();
+		// очищаем уровни
+		m_layerManagerInstance.clear();
+		// удаляем фабрики
+		delete m_factoryTextSimpleOverlay;
+		delete m_factoryPanelAlphaOverlay;
 	}
 
 	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _layer, const Ogre::String & _name)
@@ -39,10 +56,23 @@ namespace widget
 
 	void Gui::destroyWidget(WidgetPtr & _widget)
 	{
+		if (_widget == null) return;
 		// отсоединяем виджет от уровня
 		m_layerManagerInstance.detachItem(_widget);
 		// и удаляем
 		m_widgetManagerInstance.destroyWidget(_widget);
+	}
+
+	void Gui::destroyWidget()
+	{
+		while (m_widgetChild.size()) {
+			WidgetPtr wid = m_widgetChild.back();
+
+			m_layerManagerInstance.detachItem(wid);
+			m_widgetManagerInstance.destroyWidget(wid);
+
+			m_widgetChild.pop_back();
+		}
 	}
 
 	void Gui::attach(BasisWidgetPtr _basis, bool _child)
