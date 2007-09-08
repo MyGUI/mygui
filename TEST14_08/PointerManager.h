@@ -29,6 +29,11 @@ namespace widget
 		void setPointer(const std::string & _name);
 		inline void defaultPointer() {setPointer(m_defaultPointer);};
 
+		void attachToOverlay(Ogre::Overlay * _overlay);
+		void detachToOverlay(Ogre::Overlay * _overlay);
+
+		void shutdown();
+
 	private:
 		std::string m_defaultPointer;
 		std::string m_layer;
@@ -36,7 +41,7 @@ namespace widget
 		bool m_show;
 		intPoint m_point;
 		MapPointerInfo m_mapPointers;
-		Ogre::PanelOverlayElement * m_overlayElement;
+		PanelAlphaOverlayElement * m_overlayElement;
 
 	}; // class PointerManager
 

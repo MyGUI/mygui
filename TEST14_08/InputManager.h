@@ -62,7 +62,7 @@ namespace widget
 	protected:
         static const int GUI_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 
-		PointerManager & m_pointerManagerInstance;
+//		PointerManager & m_pointerManagerInstance;
 		LayerManager & m_layerManagerInstance;
 
 		// виджеты которым принадлежит фокус

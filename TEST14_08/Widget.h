@@ -22,6 +22,7 @@ namespace widget
 		// дл€ вызова закрытого конструктора
 		friend WidgetFactory<Widget>;
 
+
 	private:
 		// все создание только через фабрику
 		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
@@ -57,17 +58,30 @@ namespace widget
 
 		void setState(const Ogre::String & _state);
 
+		void attachToOverlay(Ogre::Overlay * _overlay);
+		void detachToOverlay(Ogre::Overlay * _overlay);
+
 	protected:
 		void update(); // обновлени€ себ€ и детей
 
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		void detach(WidgetPtr _child);
 		inline const Ogre::String & getName() {return m_name;};
 
+		// присоедин€емс€ к отцу
 		void attach(BasisWidgetPtr _basis, bool _child);
-		OverlayElementPtr getOverlayElement();
+
+		// закрываем метод базового класса
+		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(m_parent);}
+
+//		void detach(WidgetPtr _child);
+//		OverlayElementPtr getOverlayElement();
+
+		// уд€л€ет только негодных батюшке государю
+		void destroyWidget(WidgetPtr & _widget);
+		// удал€ет всех детей
+		void destroyWidget();
 
 	public:
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуетьс€ от LayerItemInfo)
@@ -78,8 +92,13 @@ namespace widget
 
 	protected:
 
+		// возвращает контейнер дл€ присоединени€ к оверлею (наследуетьс€ от LayerItemInfo)
+//		Ogre::OverlayContainer * getItemContainer();
+
 		// создаем и добавл€ем саб скин виджету
 		BasisWidgetPtr addSubSkin(const tagBasisWidgetInfo & _info, const String & _material);
+
+	public:
 		// закрытый деструктор
 		virtual ~Widget();
 

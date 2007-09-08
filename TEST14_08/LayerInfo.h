@@ -1,8 +1,9 @@
 #pragma once
 
 #include <Ogre.h>
-#include <vector>
+#include "Types.h"
 #include "LayerItemInfo.h"
+#include "PanelAlphaOverlayElement.h"
 
 namespace widget
 {
@@ -21,10 +22,19 @@ namespace widget
 
 		~LayerInfo()
 		{
-			// очистить свое присутствие во всех виджетах и скрыть их
+			// нуно отсоединить
 			for (size_t pos=0; pos<m_items.size(); pos++) {
-				m_items[pos]->m_layerInfo = 0;
-				m_items[pos]->m_overlayInfo->hide();
+
+				// защита от удаления после завершения
+				Ogre::OverlayManager * manager = Ogre::OverlayManager::getSingletonPtr();
+				if (manager != null) {
+					// отсоединяем
+					m_items[pos]->detachToOverlay(m_items[pos]->m_overlayInfo);
+					// и удаляем оверлей
+					manager->destroy(m_items[pos]->m_overlayInfo);
+				}
+				m_items[pos]->m_overlayInfo = 0;
+				m_items[pos]->m_layerInfo = null;
 			}
 		}
 
@@ -37,15 +47,27 @@ namespace widget
 			return 0;
 		}
 
-		void addItem(LayerItemInfoPtr _item)
+		bool addItem(LayerItemInfoPtr _item)
 		{
-			_item->m_overlayInfo->show();
+//			Ogre::OverlayContainer * container = _item->getItemContainer();
+//			if (container == null) return false;
+			// это чтоб по два раза не коннектили
+			assert(!_item->m_overlayInfo);
+			// создаем оверлей и присоединяем к нему
+			static long num=0;
+			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(Ogre::StringConverter::toString(num++) + "_LayerInfo");
+			overlay->show();
+			_item->attachToOverlay(overlay);
+//			overlay->add2D(container);
+			// инициализируем
+			_item->m_overlayInfo = overlay;
 			_item->m_layerInfo = this;
 			// если достигли максимального, то лепим в верхний
 			Ogre::ushort pos = (m_items.size() <= m_count) ? (Ogre::ushort)m_items.size() : (m_count-1);
 			// добавляем и ставим высоту
 			m_items.push_back(_item);
 			_item->m_overlayInfo->setZOrder(m_start + pos * m_height);
+			return true;
 		}
 
 		inline void upItem(LayerItemInfoPtr _item)
@@ -56,19 +78,26 @@ namespace widget
 			_upItem(_item, false);
 		}
 
-		inline void removeItem(LayerItemInfoPtr _item)
+		inline bool removeItem(LayerItemInfoPtr _item)
 		{
-			if (_item->m_overlayInfo) {
-				_item->m_overlayInfo->hide();
-				_item->m_layerInfo = 0;
-			}
-			// все украдено до нас
-			if (m_items.empty()) return;
+			if (_item->m_overlayInfo == null) return false;
+			// отсоединить и удалить оверлей
+			_item->detachToOverlay(_item->m_overlayInfo);
+//			Ogre::OverlayContainer * container = _item->getItemContainer();
+//			if (container) {
+//				_item->m_overlayInfo->remove2D(container);
+//				((PanelAlphaOverlayElement*)container)->setOverlay(0);
+//			}
+			// и удаляем оверлей
+			Ogre::OverlayManager::getSingleton().destroy(_item->m_overlayInfo);
+			_item->m_overlayInfo = 0;
+			_item->m_layerInfo = 0;
 			// поднимаем, и удаляем
 			_upItem(_item, true);
+			return true;
 		}
 
-		void _upItem(LayerItemInfoPtr _item, bool _destroy)
+		inline void _upItem(LayerItemInfoPtr _item, bool _destroy)
 		{
 			// ищем наш элемент
 			bool find = false;

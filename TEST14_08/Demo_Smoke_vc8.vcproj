@@ -574,10 +574,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\WidgetManager.h"
-					>
-				</File>
-				<File
 					RelativePath=".\WidgetParser.h"
 					>
 				</File>
@@ -623,10 +619,18 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Types"
+				Name="Common"
 				>
 				<File
 					RelativePath=".\Instance.h"
+					>
+				</File>
+				<File
+					RelativePath=".\LoggingOut.h"
+					>
+				</File>
+				<File
+					RelativePath=".\RenderOut.h"
 					>
 				</File>
 				<File
@@ -711,6 +715,18 @@
 				</File>
 				<File
 					RelativePath=".\WidgetOIS.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="WidgetManager"
+				>
+				<File
+					RelativePath=".\WidgetManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\WidgetManager.h"
 					>
 				</File>
 			</Filter>

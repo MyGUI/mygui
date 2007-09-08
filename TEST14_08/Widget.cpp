@@ -26,7 +26,7 @@ namespace widget
 		// им€ отсылател€ сообщений
 		m_widgetEventSender = this;
 
-		// загружаем кирпичика виджета
+		// загружаем кирпичики виджета
 		for (BasisInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
 			addSubSkin(*iter, _info->getMaterial());
 		}
@@ -46,6 +46,18 @@ namespace widget
 		size(_cx, _cy);
 		update();
 	}
+
+	Widget::~Widget()
+	{
+
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+			delete (*skin);
+		}
+		m_subSkinChild.clear();
+		destroyWidget();
+
+	}
+
 
 	WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
 	{
@@ -79,15 +91,15 @@ namespace widget
 			m_subSkinChild[0]->attach(_basis, true);
 		} else {
 			// нет не к нам, а к нашему отцу
-			m_parent->attach(_basis, true);
+			if (m_parent != null) m_parent->attach(_basis, true);
 		}
 	}
 
-	OverlayElementPtr Widget::getOverlayElement()
+/*	OverlayElementPtr Widget::getOverlayElement()
 	{
 		if (m_subSkinChild.empty()) return 0;
 		return m_subSkinChild[0]->getOverlayElement();
-	}
+	}*/
 
 	void Widget::visible(bool _visible)
 	{
@@ -119,6 +131,7 @@ namespace widget
 
 	void Widget::align(int _cx, int _cy, bool _update)
 	{
+		if (m_parent == null) return;
 
 		bool need_move = false;
 		bool need_size = false;
@@ -172,7 +185,7 @@ namespace widget
 
 	void Widget::move(int _x, int _y)
 	{
-
+		if (m_parent == null) return;
 		// а вот теперь запоминаем новые координаты
 		m_x = _x;
 		m_y = _y;
@@ -182,6 +195,7 @@ namespace widget
 
 	void Widget::move(int _x, int _y, int _cx, int _cy)
 	{
+		if (m_parent == null) return;
 
 		// а вот теперь запоминаем новые координаты
 		m_x = _x;
@@ -222,6 +236,7 @@ namespace widget
 
 	void Widget::size(int _cx, int _cy)
 	{
+		if (m_parent == null) return;
 
 		// мен€ем координаты местами
 		int tmp = m_cx;
@@ -258,6 +273,7 @@ namespace widget
 
 	void Widget::update()
 	{
+		if (m_parent == null) return;
 
 		bool margin = check_margin();
 
@@ -272,9 +288,7 @@ namespace widget
 				// запоминаем текущее состо€ние
 				m_margin = margin;
 				return;
-
 			}
-
 
 		} else if (!m_margin) { // мы не обрезаны и были нормальные
 
@@ -282,7 +296,6 @@ namespace widget
 			m_margin = margin;
 
 			visible(true);
-
 			// дл€ тех кому нужно подправить себ€ при движении
 			for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
 
@@ -368,7 +381,7 @@ namespace widget
 		}
 	}
 
-	void Widget::detach(WidgetPtr _child)
+/*	void Widget::detach(WidgetPtr _child)
 	{
 		for (size_t index = 0; index != m_widgetChild.size(); index++) {
 			if (m_widgetChild[index] == _child) {
@@ -377,24 +390,9 @@ namespace widget
 				break;
 			}
 		}
-	}
+	}*/
 
-	Widget::~Widget()
-	{
-		// отписывает себ€ от отца
-		static_cast<WidgetPtr>(m_parent)->detach(this);
-		// удал€ем детей
-		while (m_widgetChild.size() > 0) {
-			// при удалении виджет сам себ€ отпишет из этого списка
-			WidgetManager::getInstance().destroyWidget(m_widgetChild[0]);
-		};
-		// удал€ем саб скины
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
-			delete (*skin);
-		}
-		m_subSkinChild.clear();
-	}
-
+	// возвращает указатель на айтем в этой точке попадание в виджет (наследуетьс€ от LayerItemInfo)
 	LayerItemInfoPtr Widget::findItem(int _x, int _y)
 	{
 		// останавливаем каскадную проверку
@@ -408,6 +406,64 @@ namespace widget
 		}
 		// непослушные дети
 		return this;
+	}
+
+	// возвращает контейнер дл€ присоединени€ к оверлею (наследуетьс€ от LayerItemInfo)
+/*	Ogre::OverlayContainer * Widget::getItemContainer()
+	{
+		if (m_subSkinChild.empty()) return 0;
+		return static_cast<Ogre::OverlayContainer*>(m_subSkinChild[0]->getOverlayElement());
+	}*/
+
+	// уд€л€ет только негодных батюшке государю
+	void Widget::destroyWidget(WidgetPtr & _widget)
+	{
+		for (size_t index = 0; index < m_widgetChild.size(); index++) {
+			WidgetPtr widget = m_widgetChild[index];
+			if (_widget == widget) {
+				// удал€ем свое им€
+				WidgetManager::getInstance().clearName(_widget);
+				delete _widget;
+				_widget = 0;
+
+				// удал€ем из списка
+				m_widgetChild[index] = m_widgetChild[m_widgetChild.size()-1];
+				m_widgetChild.pop_back();
+				return;
+			}
+		}
+	}
+
+	// удал€ет всех детей
+	void Widget::destroyWidget()
+	{
+		for (WidgetChild::iterator iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++) {
+			WidgetPtr widget = *iter;
+			// удал€ем свое им€
+			WidgetManager::getInstance().clearName(widget);
+			// и удал€ем
+			delete widget;
+		}
+		m_widgetChild.clear();
+	}
+
+	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
+	{
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+			if (!(*skin)->isText()) _overlay->add2D(static_cast<Ogre::OverlayContainer*>((*skin)->getOverlayElement()));
+		}
+	}
+
+	void Widget::detachToOverlay(Ogre::Overlay * _overlay)
+	{
+		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+			if (!(*skin)->isText()) {
+				PanelAlphaOverlayElement * element = static_cast<PanelAlphaOverlayElement*>((*skin)->getOverlayElement());
+				_overlay->remove2D(element);
+				// пока вручную обнул€ем отца
+				element->setOverlay(0);
+			}
+		}
 	}
 
 } // namespace widget

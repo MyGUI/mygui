@@ -9,7 +9,7 @@ namespace widget
 	const std::string INPUT_DEFAULT_LANGUAGE = "English";
 
 	InputManager::InputManager() :
-		m_pointerManagerInstance(PointerManager::getInstance()),
+//		m_pointerManagerInstance(PointerManager::getInstance()),
 		m_layerManagerInstance(LayerManager::getInstance()),
 		m_widgetMouseFocus(0), m_widgetKeyFocus(0),
 		m_isWidgetMouseCapture(false),
@@ -22,7 +22,7 @@ namespace widget
 	bool InputManager::injectMouseMove( const OIS::MouseEvent & _arg)
 	{
 		// двигаем курсор
-		m_pointerManagerInstance.move(_arg.state.X.abs, _arg.state.Y.abs);
+		PointerManager::getInstance().move(_arg.state.X.abs, _arg.state.Y.abs);
 
 		// проверка на скролл
 		if (_arg.state.Z.rel != 0) {
@@ -36,7 +36,9 @@ namespace widget
 		}
 
 		// ищем активное окно
-		WidgetPtr item = dynamic_cast<WidgetPtr>(m_layerManagerInstance.findItem(_arg.state.X.abs, _arg.state.Y.abs));
+		LayerItemInfoPtr info = m_layerManagerInstance.findItem(_arg.state.X.abs, _arg.state.Y.abs);
+		WidgetPtr item = info ? dynamic_cast<WidgetPtr>(info) : null;
+
 		// ничего не изменилось
 		if (m_widgetMouseFocus == item) return isCaptureMouse();
 

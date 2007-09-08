@@ -17,7 +17,7 @@ BasisManager::BasisManager() :
 	mInputManager(0),
 	mMouse(0),
 	mKeyboard(0),
-	mGUI(0),
+//	mGUI(0),
 	mRoot(0),
 	mCamera(0),
 	mSceneMgr(0),
@@ -153,7 +153,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	// Load resources
 	ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-	mGUI = MyGUI::GUI::getSingleton()->Initialize(m_uWidth, m_uHeight, this);
+//	mGUI = MyGUI::GUI::getSingleton()->Initialize(m_uWidth, m_uHeight, this);
+//	mGUI->showMousePointer(false);
 
 	createInput();
 
@@ -188,7 +189,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr = 0;
 	}
 	
-	GUI::getSingleton()->Shutdown();
+//	GUI::getSingleton()->Shutdown();
 	
 	destroyInput(); // удаляем ввод
 
@@ -203,6 +204,10 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		delete mRoot;
 		mRoot = 0;
 	}
+
+	// удаляем гуй
+	Gui::getInstance().shutdown();
+
 }
 
 void BasisManager::setupResources(void) // загружаем все ресурсы приложения
@@ -278,7 +283,7 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 	if (mMouse) mMouse->capture();
 	mKeyboard->capture();
 
-	mGUI->eventUpdateAnimation(evt.timeSinceLastFrame);
+//	mGUI->eventUpdateAnimation(evt.timeSinceLastFrame);
 
 	return mStates.back()->frameStarted(evt);
 }
@@ -290,21 +295,21 @@ bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
 	Gui::getInstance().injectMouseMove(arg);
-	if (mGUI->mouseMoved(arg)) return true;
+//	if (mGUI->mouseMoved(arg)) return true;
 	return mStates.back()->mouseMoved(arg);
 }
 
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	Gui::getInstance().injectMousePress(arg, id);
-	if (mGUI->mousePressed(arg, id)) return true;
+//	if (mGUI->mousePressed(arg, id)) return true;
 	return mStates.back()->mousePressed(arg, id);
 }
 
 bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	Gui::getInstance().injectMouseRelease(arg, id);
-	mGUI->mouseReleased(arg, id);
+//	mGUI->mouseReleased(arg, id);
 	return mStates.back()->mouseReleased(arg, id);
 }
 
@@ -316,14 +321,14 @@ bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 
 	Gui::getInstance().injectKeyPress(arg);
 
-	if (mGUI->keyPressed(arg)) return true;
+//	if (mGUI->keyPressed(arg)) return true;
 	return mStates.back()->keyPressed(arg);
 }
 
 bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 {
 	Gui::getInstance().injectKeyRelease(arg);
-	if (mGUI->keyReleased(arg)) return true;
+//	if (mGUI->keyReleased(arg)) return true;
 	return mStates.back()->keyReleased(arg);
 }
 
@@ -333,14 +338,14 @@ void BasisManager::changeState(BasisState* state, bool bIsFade)
 	if ( !mStates.empty() ) {
 		if (bIsFade) { // потом вызовем но уже после затенения
 			mFadeState = state;
-			mGUI->fadeScreen(true, FADE_CHANGE_STATE, this);
+//			mGUI->fadeScreen(true, FADE_CHANGE_STATE, this);
 			return;
 		}
 		mStates.back()->exit();
 		mStates.pop_back();
 	}
 	// store and init the new state
-	mGUI->m_pEventCallback = state; // текущий класс для передачи событий
+//	mGUI->m_pEventCallback = state; // текущий класс для передачи событий
 	mStates.push_back(state);
 	mStates.back()->enter(true);
 }
@@ -351,7 +356,7 @@ void BasisManager::pushState(BasisState* state, bool bIsFade)
 		mStates.back()->pause();
 	}
 	// store and init the new state
-	mGUI->m_pEventCallback = state; // текущий класс для передачи событий
+//	mGUI->m_pEventCallback = state; // текущий класс для передачи событий
 	mStates.push_back(state);
 	mStates.back()->enter(false);
 }
@@ -359,13 +364,13 @@ void BasisManager::popState(bool bIsFade)
 {
 	// cleanup the current state
 	if ( !mStates.empty() ) {
-		mGUI->m_pEventCallback = 0; // текущий класс для передачи событий
+//		mGUI->m_pEventCallback = 0; // текущий класс для передачи событий
 		mStates.back()->exit();
 		mStates.pop_back();
 	}
 	// resume previous state
 	if ( !mStates.empty() ) {
-		mGUI->m_pEventCallback = mStates.back(); // текущий класс для передачи событий
+//		mGUI->m_pEventCallback = mStates.back(); // текущий класс для передачи событий
 		mStates.back()->resume();
 	} else assert(false); // такого быть не должно
 }
@@ -375,7 +380,7 @@ void BasisManager::onFadeEnd(bool bIsFade, FADE_STATES fadeID) // закончилось за
 	if (!mFadeState) return;
 	if (fadeID == FADE_CHANGE_STATE) {
 		changeState(mFadeState, false); // не вздумайте true
-		mGUI->fadeScreen(false, NONE, this); // так как мы там запретили
+//		mGUI->fadeScreen(false, NONE, this); // так как мы там запретили
 	}
 }
 
@@ -398,7 +403,7 @@ void BasisManager::windowResized(RenderWindow* rw)
 
 	if (mWallpaperOverlay) mWallpaperOverlay->getChild("wallpaper")->setDimensions(width, height);
 
-	if (mGUI) mGUI->eventWindowResize(width, height);
+//	if (mGUI) mGUI->eventWindowResize(width, height);
 
 	 // оповещаем все статусы
 	for (uint8 index=0; index<(uint8)mStates.size(); index++) mStates[index]->windowResize();
@@ -453,8 +458,8 @@ void BasisManager::windowEventMouseCanBeReleased() // мышь можно отпускать
 	mInputManager->destroyInputObject( mMouse );
 	mMouse = 0;
 	// скрываем курсор гуя
-	if (!mGUI) return;
-	mGUI->m_overlayContainerMouse->hide();
+//	if (!mGUI) return;
+//	mGUI->m_overlayContainerMouse->hide();
 }
 //=======================================================================================
 //=======================================================================================

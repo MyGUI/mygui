@@ -46,6 +46,10 @@ namespace widget
         return ret;
 	}
 
+	inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}
+	inline float parseFloat(const std::string& _value) {return parseValue<float>(_value);}
+
+
 	template< class T >
 	std::string toString (T val)
 	{
@@ -54,11 +58,51 @@ namespace widget
         return stream.str();
 	}
 
-	inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}
-	inline float parseFloat(const std::string& _value) {return parseValue<float>(_value);}
-
 	inline std::string toString(float _value) {return toString<float>(_value);}
-	inline std::string toString(int _value) {return toString<int>(_value);}
+	inline std::string toString(double _value) {return toString<double>(_value);}
+	inline std::string toString(char _value) {return toString<char>(_value);}
+	inline std::string toString(unsigned char _value) {return toString<unsigned char>(_value);}
 	inline std::string toString(wchar_t _value) {return toString<wchar_t>(_value);}
+	inline std::string toString(short _value) {return toString<short>(_value);}
+	inline std::string toString(unsigned short _value) {return toString<unsigned short>(_value);}
+	inline std::string toString(int _value) {return toString<int>(_value);}
+	inline std::string toString(unsigned int _value) {return toString<unsigned int>(_value);}
+	inline std::string toString (const std::string & val)	{return val;}
+
+	template< class T1,  class T2 >
+	std::string toString (T1 p1, T2 p2)
+	{
+		return toString(p1) + toString(p2);
+	}
+
+	template< class T1,  class T2,  class T3 >
+	std::string toString (T1 p1, T2 p2, T3 p3)
+	{
+		return toString(p1) + toString(p2) + toString(p3);
+	}
+
+	template< class T1,  class T2,  class T3, class T4 >
+	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4)
+	{
+		return toString(p1) + toString(p2) + toString(p3) + toString(p4);
+	}
+
+	template< class T1,  class T2,  class T3, class T4, class T5 >
+	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
+	{
+		return toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5);
+	}
+
+	template< class T1,  class T2,  class T3, class T4, class T5, class T6 >
+	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
+	{
+		return toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5) + toString(p6);
+	}
+
+	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7 >
+	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
+	{
+		return toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5) + toString(p6) + toString(p7);
+	}
 
 }

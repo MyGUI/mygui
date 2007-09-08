@@ -9,14 +9,14 @@ namespace widget
 	PointerManager::PointerManager()
 	{
 		// создаем себе оверлей
-		setOverlay(LayerManager::getInstance().createOverlay());
+//		setOverlay(LayerManager::getInstance().createOverlay());
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-		m_overlayElement = static_cast<Ogre::PanelOverlayElement*>(overlayManager.createOverlayElement(
-			"Panel", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
+		m_overlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
+			"PanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
 		m_overlayElement->setMetricsMode(Ogre::GMM_PIXELS);
 
-		layerItem_attachElement(m_overlayElement);
+//		layerItem_attachElement(m_overlayElement);
 	}
 
 	void PointerManager::load(const std::string & _file)
@@ -109,6 +109,7 @@ namespace widget
 
 	void PointerManager::show(bool _show)
 	{
+		if (m_overlayElement == null) return;
 		if (m_show == _show) return;
 		m_show = _show;
 		m_show ? m_overlayElement->show() : m_overlayElement->hide();
@@ -116,6 +117,7 @@ namespace widget
 
 	void PointerManager::move(int _x, int _y)
 	{
+		if (m_overlayElement == null) return;
 		m_overlayElement->setPosition(_x-m_point.left, _y-m_point.top);
 	}
 
@@ -129,6 +131,30 @@ namespace widget
 		m_overlayElement->setUV(rect.left, rect.top, rect.right, rect.bottom);
 		// и сохраняем новое смещение
 		m_point = iter->second.point;
+	}
+
+	void PointerManager::shutdown()
+	{
+		clear();
+		// отсоединяем
+		LayerManager::getInstance().detachItem(this);
+		// удадяем элемент
+		if (m_overlayElement != null) {
+			Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayElement);
+			m_overlayElement = null;
+		}
+	}
+
+	void PointerManager::attachToOverlay(Ogre::Overlay * _overlay)
+	{
+		_overlay->add2D(static_cast<Ogre::OverlayContainer*>(m_overlayElement));
+	}
+
+	void PointerManager::detachToOverlay(Ogre::Overlay * _overlay)
+	{
+		_overlay->remove2D(m_overlayElement);
+		// пока вручную обнуляем отца
+		m_overlayElement->setOverlay(0);
 	}
 
 } // namespace widget	

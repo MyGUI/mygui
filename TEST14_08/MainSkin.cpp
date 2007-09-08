@@ -28,10 +28,10 @@ namespace widget
 
 	MainSkin::~MainSkin()
 	{
-		if (!m_overlayContainer) return;
-//		Ogre::OverlayContainer * parent = m_overlayContainer->getParent();
-//		parent->removeChild(m_overlayContainer->getName());
-		Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayContainer);
+		if (m_overlayContainer == null) return;
+		// с защитой от удаления после шутдауна рендера
+		Ogre::OverlayManager * manager = Ogre::OverlayManager::getSingletonPtr();
+		if (manager != null) manager->destroyOverlayElement(m_overlayContainer);
 	}
 
 

@@ -6,18 +6,26 @@
 #include "TRect.h"
 #include "TSize.h"
 #include "TPoint.h"
+#include <assert.h>
+#include "LoggingOut.h"
+#include "RenderOut.h"
 
 
 namespace widget
 {
 
 	#define null 0
-	#define NULL 0
 
 	//Bit flags done easy
 	#define FLAG_NONE  0
 	#define FLAG(num)  (1<<(num))
 
 	#define REGISTER_VALUE(_map,_value) _map[#_value]=_value;
+
+	#if _DEBUG
+		#define ASSERT(_exp) assert(_exp)
+	#else
+		#define ASSERT(_exp) ((void)0)
+	#endif
 
 } // namespace widget

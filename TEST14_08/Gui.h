@@ -5,9 +5,9 @@
 #include "Instance.h"
 #include "InputManager.h"
 #include "WidgetManager.h"
-#include "SkinManager.h"
+//#include "SkinManager.h"
 //#include "LayerManager.h"
-#include "LayoutManager.h"
+//#include "LayoutManager.h"
 
 #include "TextSimpleOverlayElementFactory.h"
 #include "PanelAlphaOverlayElementFactory.h"
@@ -15,12 +15,16 @@
 namespace widget
 {
 	class InputManager;
+	class WidgetManager;
 
-	class Gui : public BasisWidget, public InputManager
+	class Gui : /*public BasisWidget, */public InputManager//, public Ogre::WindowEventListener
 	{
+
+		friend WidgetManager;
 
 	private:
 		Gui();
+//		~Gui();
 
 	public:
 		INSTANCE(Gui)
@@ -34,13 +38,13 @@ namespace widget
 			return createWidget(_type, _skin, (int)(_x*m_width), (int)(_y*m_height), (int)(_cx*m_width), (int)(_cy*m_height), _align, _layer, _name);
 		}
 
-		void destroyWidget(WidgetPtr & _widget);
-		void destroyWidget();
+//		void destroyWidget(WidgetPtr & _widget);
+//		void destroyWidget();
 
-		void attach(BasisWidgetPtr _basis, bool _child);
+//		void attach(BasisWidgetPtr _basis/*, bool _child*/);
 
 		// копии методов у менеджеров
-		inline WidgetPtr findWidget(const std::string & _name)
+/*		inline WidgetPtr findWidget(const std::string & _name)
 		{
 			return m_widgetManagerInstance.findWidget(_name);
 		}
@@ -51,7 +55,7 @@ namespace widget
 		inline void loadLayout(const std::string & _file)
 		{
 			m_layoutManagerInstance.loadLayout(_file);
-		}
+		}*/
 
 		inline floatRect convertToReal(const floatRect & _rect)
 		{
@@ -74,24 +78,29 @@ namespace widget
 		inline float getWidth() {return m_width;}
 		inline float getHeight() {return m_height;}
 
-		// методы для подсоединения
+//	private:
+		// удяляет только негодных батюшке государю
+		void destroyWidget(WidgetPtr & _widget);
+		// удаляет всех детей
+		void destroyWidget();
 
 	private:
 		// вектор всех детей виджетов
 		WidgetChild m_widgetChild;
 
-		SkinManager & m_skinManagerInstance;
+//		SkinManager & m_skinManagerInstance;
 		WidgetManager & m_widgetManagerInstance;
 //		LayerManager & m_layerManagerInstance;
-		LayoutManager & m_layoutManagerInstance;
+//		LayoutManager & m_layoutManagerInstance;
 //		PointerManager & m_pointerManagerInstance;
 //		InputManager & m_inputManagerInstance;
 
 		// фабрики наших оверлеев
-		TextSimpleOverlayElementFactory * m_factoryTextSimpleOverlay;
-		PanelAlphaOverlayElementFactory * m_factoryPanelAlphaOverlay;
+		TextSimpleOverlayElementFactory m_factoryTextSimpleOverlay;
+		PanelAlphaOverlayElementFactory m_factoryPanelAlphaOverlay;
 
 		float m_height, m_width;
+		bool m_isInitialise;
 
 	}; // class Gui
 

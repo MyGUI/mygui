@@ -34,12 +34,12 @@ namespace widget
 
 		~LayerManager();
 
+		bool load(const std::string & _file);
+		void clear();
+
 	private:
 
 		LayerManager();
-
-		bool load(const std::string & _file);
-		void clear();
 
 	private:
 		MapLayer m_mapLayer;

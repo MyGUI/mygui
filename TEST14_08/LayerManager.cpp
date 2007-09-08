@@ -87,24 +87,10 @@ namespace widget
 		MapLayerSearch::reverse_iterator iter = m_mapLayerSearch.rbegin();
 		while (iter != m_mapLayerSearch.rend()) {
 			LayerItemInfoPtr item = iter->second->findItem(_x, _y);
-			if (item != 0) return item;
+			if (item != null) return item;
 			iter++;
 		}
-		return 0;
+		return null;
 	}
-
-	Ogre::Overlay * LayerManager::createOverlay()
-	{
-		// просто присоединяем элемент к оверлею
-		Ogre::Overlay * overlay;
-		static long num=0;
-		overlay = Ogre::OverlayManager::getSingleton().create(Ogre::StringConverter::toString(num++) + "_LayerManagerOverlay");
-		overlay->setZOrder(0);
-		overlay->show();
-//		overlay->add2D(static_cast<Ogre::OverlayContainer*>(_basis->getOverlayElement()));
-		overlay->hide();
-		return overlay;
-	}
-
 
 } // namespace widget

@@ -2,6 +2,8 @@
 #include "MyGUI_Source//MyGUI.h"
 #include "debugOut.h"
 #include "debugAxis.h"
+#include <vector>
+#include "Types.h"
 
 //#include "WidgetSkinInfo.h"
 //#include "SkinManager.h"
@@ -9,7 +11,7 @@
 #include "Gui.h"
 
 //#include "ParserManager.h"
-//#include "LayoutManager.h"
+#include "LayoutManager.h"
 
 using namespace Ogre;
 using namespace MyGUI;
@@ -78,22 +80,43 @@ void OptionsState::enter(bool bIsChangeState)
 
 	Gui::getInstance().initialise(BasisManager::getSingleton()->mWindow);
 
-	Gui::getInstance().loadSkin("main.skin");
-	Gui::getInstance().loadLayout("mygui.layout");
+	LayerManager::getInstance().load("main.layer");
+	PointerManager::getInstance().load("main.pointer");
+//	PointerManager::getInstance().show();
 
-//	m_widget1 = Gui::getInstance().findWidget("m_widget1");
-	m_widget2 = Gui::getInstance().findWidget("m_widget2");
-	m_widget3 = 0;//Gui::getInstance().findWidget("m_widget3");
+	SkinManager::getInstance().loadSkin("main.skin");
+	LayoutManager::getInstance().loadLayout("mygui.layout");
 
-//	Gui::getInstance().destroyWidget(m_widget1);
-	Gui::getInstance().destroyWidget(m_widget2);
-	Gui::getInstance().destroyWidget(m_widget3);
 
+	LOG("twe-", 12, "-ere");
+//	std::string str = widget::toString("test = ", "'", 12, "'");
+
+//	m_widget1 = WidgetManager::getInstance().findWidget("m_widget");
+//	m_widget2 = Gui::getInstance().findWidget("m_widget2");
+//	m_widget3 = 0;//Gui::getInstance().findWidget("m_widget3");
+
+//	WidgetManager::getInstance().destroyWidget();
+//	Gui::getInstance().destroyWidget(m_widget2);
+//	Gui::getInstance().destroyWidget(m_widget3);
+
+//	widget::WidgetPtr wid = Gui::getInstance().createWidget("Widget", "Skin2", 10, 10, 50, 50, ALIGN_LEFT | ALIGN_TOP, "Main");
+//	wid->createWidget("Widget", "Skin2", 10, 10, 20, 20, ALIGN_LEFT | ALIGN_TOP);
+
+//	LayoutManager::getInstance().loadLayout("mygui.layout");
+
+//	LayoutManager::getInstance().loadLayout("mygui.layout");
+//	m_widget1 = WidgetManager::getInstance().findWidget("m_widget");
+//	WidgetManager::getInstance().destroyWidget(m_widget1);
+
+//	Gui::getInstance().shutdown();
+
+
+//	PointerManager::getInstance().shutdown();
 
 //	Ogre::String name = m_widget3->getName();
 //	Gui::getInstance().destroyWidget(m_widget3);
 
-	Gui::getInstance().shutdown();
+//	Gui::getInstance().shutdown();
 
 //	debug.add("need cut 1", 170, 30, m_widget1->m_margin);
 //	debug.add("need cut 2", 170, 50, m_widget2->m_margin);
@@ -104,7 +127,28 @@ void OptionsState::enter(bool bIsChangeState)
 	debugAxis::create(BasisManager::getSingleton()->mSceneMgr);
 	debugAxis::show(true);
 
-//	int test = util::parseValue<int>("1");
+
+	// создаем элемент
+/*	Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+	widget::PanelAlphaOverlayElement * container = static_cast<widget::PanelAlphaOverlayElement*>
+		(overlayManager.createOverlayElement("PanelAlpha", "PointerManager" ));
+
+	// создаем оверлей
+	Ogre::Overlay * overlay = overlayManager.create("LayerInfo");
+
+	// присоединяем и отсоединяем
+	overlay->add2D(container);
+	overlay->remove2D(container);
+	container->setOverlay(0);
+
+	// удаляем оверлей
+	overlayManager.destroy(overlay);
+
+	// удаляем контейнер
+	overlayManager.destroyOverlayElement(container);
+	container = 0;*/
+
+	//	int test = util::parseValue<int>("1");
 /*	xml::xmlDocument doc;
 	if (doc.load("xml.txt")) {
 		doc.clear();

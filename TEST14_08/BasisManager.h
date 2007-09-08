@@ -46,7 +46,7 @@ public:
 	static OIS::MouseState g_MouseState; // состояние мыши для оконного режима
 	static OIS::MouseEvent g_MouseEvent; // аргументы мыши для оконного режима
 
-	MyGUI::GUI * mGUI;
+//	MyGUI::GUI * mGUI;
     Ogre::Root *mRoot;
     Ogre::Camera* mCamera;
     Ogre::SceneManager* mSceneMgr;

@@ -22,10 +22,16 @@ namespace widget
 		Ogre::uint32 m_color;
 
 	public:
+
 		PanelAlphaOverlayElement(const String& name) :
 			PanelOverlayElement(name),
 			m_color(0xFFFFFFFF)
 		{
+		}
+
+		inline void setOverlay(Ogre::Overlay * _overlay)
+		{
+			mOverlay = _overlay;
 		}
 
 		void setColor(Ogre::uint32 _color)

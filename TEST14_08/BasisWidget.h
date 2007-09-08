@@ -25,39 +25,41 @@ namespace widget
 			m_margin(false),
 			m_show(true)
 		{};
-		virtual ~BasisWidget() {};
+		virtual ~BasisWidget() {}
 
-		virtual void move(int _x, int _y) {};
-		virtual void move(int _x, int _y, int _cx, int _cy) {};
-		virtual void size(int _cx, int _cy) {};
+		virtual void move(int _x, int _y) {}
+		virtual void move(int _x, int _y, int _cx, int _cy) {}
+		virtual void size(int _cx, int _cy) {}
 
-		virtual void show(bool _show) {};
-		virtual bool isShow() {return m_show;};
+		virtual void show(bool _show) {}
+		virtual bool isShow() {return m_show;}
 
-		virtual void setCaption(const Ogre::DisplayString & _caption) {};
-		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;};
+		virtual void setCaption(const Ogre::DisplayString & _caption) {}
+		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}
 
-		virtual void setColour(const Ogre::ColourValue & _color) {};
-		virtual void setAlpha(float _alpha) {};
+		virtual void setColour(const Ogre::ColourValue & _color) {}
+		virtual void setAlpha(float _alpha) {}
 
-		virtual void setFontName(const Ogre::String & _font) {};
-		virtual void setFontName(const Ogre::String & _font, Ogre::ushort _height) {};
-		virtual const Ogre::String & getFontName() {static Ogre::String name; return name;};
+		virtual void setFontName(const Ogre::String & _font) {}
+		virtual void setFontName(const Ogre::String & _font, Ogre::ushort _height) {}
+		virtual const Ogre::String & getFontName() {static Ogre::String name; return name;}
 
-		virtual void setFontHeight(Ogre::ushort _height) {};
-		virtual Ogre::ushort getFontHeight() {return 0;};
+		virtual void setFontHeight(Ogre::ushort _height) {}
+		virtual Ogre::ushort getFontHeight() {return 0;}
 
-		virtual void update() {};
-		virtual void correct() {};
-		virtual void align(int _cx, int _cy, bool _update) {};
-		virtual void align(int _x, int _y, int _cx, int _cy, bool _update) {};
+		virtual void update() {}
+		virtual void correct() {}
+		virtual void align(int _cx, int _cy, bool _update) {}
+		virtual void align(int _x, int _y, int _cx, int _cy, bool _update) {}
 
-		virtual void attach(BasisWidgetPtr _basis, bool _child) {};
-		virtual OverlayElementPtr getOverlayElement() {return 0;};
+		virtual void attach(BasisWidgetPtr _basis, bool _child) {}//???
+//		virtual void detach(BasisWidgetPtr _basis/*, bool _child*/) {}
 
-		virtual void setUVSet(const floatRect & _rect) {};
+		virtual OverlayElementPtr getOverlayElement() {return 0;}//???
 
-		virtual bool isText() {return false;};
+		virtual void setUVSet(const floatRect & _rect) {}
+
+		virtual bool isText() {return false;}
 
 		inline BasisWidgetPtr getParent() {return m_parent;}
 
