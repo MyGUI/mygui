@@ -88,12 +88,6 @@ void OptionsState::enter(bool bIsChangeState)
 	LayoutManager::getInstance().loadLayout("mygui.layout");
 
 
-	OUT("twe-", 12, "-ere");
-	OUT("twe-", 12, "-ere");
-	OUT("twe-", 12, "-ere");
-	OUT("twe--ere");
-	OUT("twe-dfgd-ere");
-	OUT("dgdtwe-dfgd-ere");
 //	std::string str = widget::toString("test = ", "'", 12, "'");
 
 //	m_widget1 = WidgetManager::getInstance().findWidget("m_widget");
