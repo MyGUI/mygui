@@ -622,6 +622,10 @@
 				Name="Common"
 				>
 				<File
+					RelativePath=".\Common.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Instance.h"
 					>
 				</File>
@@ -647,10 +651,6 @@
 				</File>
 				<File
 					RelativePath=".\TSize.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Types.h"
 					>
 				</File>
 			</Filter>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Ogre.h>
-#include "Types.h"
+#include "Common.h"
 #include "LayerItemInfo.h"
 #include "PanelAlphaOverlayElement.h"
 
