@@ -26,7 +26,7 @@ namespace widget
 	struct tagBasisWidgetStateInfo
 	{
 		tagBasisWidgetStateInfo() {};
-		tagBasisWidgetStateInfo(floatRect _offset, Ogre::ColourValue  _color, float _alpha)
+		tagBasisWidgetStateInfo(const floatRect & _offset, const Ogre::ColourValue & _color, float _alpha)
 		{
 			offset = _offset;
 			color = _color;
@@ -43,7 +43,7 @@ namespace widget
 		float alpha;
 	};
 	struct tagBasisWidgetInfo {
-		tagBasisWidgetInfo(const std::string & _type, intRect _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
+		tagBasisWidgetInfo(const std::string & _type, const intRect & _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
 		intRect offset;
 		char aligin;
 		std::string type;

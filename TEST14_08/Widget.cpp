@@ -14,7 +14,7 @@ namespace widget
 	namespace parser { WidgetParser WidgetParserInstance; }
 
 	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
-		BasisWidget(_x, _y, _info->width(), _info->height(), _align, _parent), // размер по скину
+		BasisWidget(_x, _y, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
 		m_text(0),
 		m_visible(true),
 		m_enable(true),
@@ -363,8 +363,13 @@ namespace widget
 		StateInfo::const_iterator iter = m_stateInfo.find(_state);
 		if (iter == m_stateInfo.end()) return;
 		size_t index=0;
+		// сначала сдвигаем текстуры
 		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
 			(*skin)->setUVSet(iter->second.m_offsets[index++]);
+		}
+		// теперь если нужно цвет текста
+		if ((iter->second.color != Ogre::ColourValue::ZERO) && (m_text != null)) {
+			m_text->setColour(iter->second.color);
 		}
 	}
 

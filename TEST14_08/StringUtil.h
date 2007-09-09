@@ -38,19 +38,6 @@ namespace widget
 	};
 
 	template< class T >
-	T parseValue( const std::string& _value )
-	{
-		std::istringstream str(_value);
-		T ret = 0;
-		str >> ret;
-        return ret;
-	}
-
-	inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}
-	inline float parseFloat(const std::string& _value) {return parseValue<float>(_value);}
-
-
-	template< class T >
 	std::string toString (T val)
 	{
         std::ostringstream stream;

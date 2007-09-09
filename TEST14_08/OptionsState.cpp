@@ -4,7 +4,7 @@
 #include "debugAxis.h"
 #include <vector>
 #include "Common.h"
-#include "StaticImage.h"
+#include "Button.h"
 
 #include "Gui.h"
 
@@ -96,9 +96,11 @@ void OptionsState::enter(bool bIsChangeState)
 //	Gui::getInstance().destroyWidget(m_widget2);
 //	Gui::getInstance().destroyWidget(m_widget3);
 
-	widget::StaticImage * wid = (widget::StaticImage*)Gui::getInstance().createWidget("StaticImage", "StaticImage", 10, 10, 50, 50, ALIGN_LEFT | ALIGN_TOP, "Main");
-	wid->setImageInfo("MyGUI_pointerAll", floatSize(32, 32));
-	wid->setImageNum(2);
+	m_widget2 = Gui::getInstance().createWidget("Button", "Button", 10, 10, 50, 30, ALIGN_LEFT | ALIGN_TOP, "Main");
+	m_widget2->setCaption("caption");
+//	m_widget2->setState("disable");
+//	wid->setImageInfo("MyGUI_pointerAll", floatSize(32, 32));
+//	wid->setImageNum(2);
 //	wid->createWidget("Widget", "Skin2", 10, 10, 20, 20, ALIGN_LEFT | ALIGN_TOP);
 
 //	LayoutManager::getInstance().loadLayout("mygui.layout");

@@ -9,6 +9,8 @@
 #include <assert.h>
 #include "LoggingOut.h"
 #include "RenderOut.h"
+#include "StringUtil.h"
+#include "ParseUtil.h"
 
 
 namespace widget

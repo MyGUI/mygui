@@ -634,6 +634,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ParseUtil.h"
+					>
+				</File>
+				<File
 					RelativePath=".\RenderOut.h"
 					>
 				</File>
@@ -743,6 +747,22 @@
 				</File>
 				<File
 					RelativePath=".\StaticImageParser.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Button"
+				>
+				<File
+					RelativePath=".\Button.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Button.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ButtonParser.h"
 					>
 				</File>
 			</Filter>

@@ -32,6 +32,10 @@ namespace widget
 		return flag;
 	}
 
+//	Ogre::ColourValue SkinManager::parseColour(const std::string & _value)
+//	{
+//	}
+
 	WidgetSkinInfo * SkinManager::getSkin(const Ogre::String & _name)
 	{
 		SkinInfo::iterator iter = m_skins.find(_name);
@@ -133,14 +137,18 @@ namespace widget
 					const xml::VectorAttributes & attrib = basisStateInfo->getAttributes();
 					Ogre::String basisStateName;
 					floatRect offset;
+					Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
+					float alpha = -1;
 					for (size_t ia=0; ia<attrib.size(); ia++) {
 						// достаем пару атрибут - значение
 						const xml::PairAttributes & pairAttributes = attrib[ia];
 						if (pairAttributes.first == "Name") basisStateName = pairAttributes.second;
 						else if (pairAttributes.first == "Offset") offset = convertMaterialCoord(floatRect::parse(pairAttributes.second), materialSize);
+						else if (pairAttributes.first == "Color") colour = parseColour(pairAttributes.second);
+						else if (pairAttributes.first == "Alpha") alpha = parseFloat(pairAttributes.second);
 					}
 					// добавляем инфо о стайте
-					bind.add(basisStateName, offset);
+					bind.add(basisStateName, offset, colour, alpha);
 
 				} // for (size_t i_state=0; i_state<basisState.size(); i_state++) {
 
@@ -222,7 +230,7 @@ namespace widget
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
 		widget_info->setInfo(intSize(0, 0), Ogre::MaterialManager::getSingleton().getDefaultSettings()->getName());
-		BasisWidgetBinding bind(0, 0, 1, 1, ALIGN_NONE, "MainSkin");
+		BasisWidgetBinding bind(intRect(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
 		widget_info->addInfo(bind);
 	}
 

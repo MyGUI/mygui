@@ -2,6 +2,39 @@
 
 <MyGUI_SkinInfo>
 
+    <Skin Name = "Button" Size = "50 30" Material = "MyGUI_Buttons" >
+        <Property Key="FontName" Value = "MyGUI_font" />
+        <Property Key="FontHeight" Value = "16" />
+        <BasisSkin Type="SubSkin" Offset = "0 0 10 30" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State Name="disable" Offset = "2 2 10 30"/>
+            <State Name="pressed" Offset = "52 2 10 30"/>
+            <State Name="normal" Offset = "102 2 10 30"/>
+            <State Name="select" Offset = "152 2 10 30"/>
+            <State Name="active" Offset = "202 2 10 30"/>
+        </BasisSkin>
+        <BasisSkin Type="SubSkin" Offset = "10 0 30 30" Align = "ALIGN_STRETCH">
+            <State Name="disable" Offset = "12 2 30 30"/>
+            <State Name="pressed" Offset = "62 2 30 30"/>
+            <State Name="normal" Offset = "112 2 30 30"/>
+            <State Name="select" Offset = "162 2 30 30"/>
+            <State Name="active" Offset = "212 2 30 30"/>
+        </BasisSkin>
+        <BasisSkin Type="SubSkin" Offset = "40 0 10 30" Align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State Name="disable" Offset = "42 2 10 30"/>
+            <State Name="pressed" Offset = "92 2 10 30"/>
+            <State Name="normal" Offset = "142 2 10 30"/>
+            <State Name="select" Offset = "192 2 10 30"/>
+            <State Name="active" Offset = "242 2 10 30"/>
+        </BasisSkin>
+        <BasisSkin Type="TextSimple" Align = "ALIGN_CENTER">
+            <State Name="disable" Color="0.87 0.87 0.87"/>
+            <State Name="pressed" Color="7BD2FA"/>
+            <State Name="normal" Color="0 0 0"/>
+            <State Name="select" Color="7BD2FA"/>
+            <State Name="active" Color="2C8AD5"/>
+        </BasisSkin>
+    </Skin>
+    
     <Skin Name = "StaticImage" Size = "50 50">
         <BasisSkin Type="MainSkin" Offset = "0 0 50 50" Align = "ALIGN_LEFT ALIGN_TOP"/>
     </Skin>

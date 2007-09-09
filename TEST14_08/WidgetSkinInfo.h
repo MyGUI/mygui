@@ -17,16 +17,10 @@ namespace widget
 			checkState("normal");
 		}
 
-		void setInfo(intSize _size, const Ogre::String &_material)
+		void setInfo(const intSize & _size, const std::string &_material)
 		{
-			m_cx = _size.width;
-			m_cy = _size.height;
+			m_size = _size;
 			m_material = _material;
-		}
-
-		inline void setInfo(int _cx, int _cy, const Ogre::String &_material)
-		{
-			setInfo(intSize(_cx, _cy), _material);
 		}
 
 		void addInfo(const BasisWidgetBinding & _bind)
@@ -37,7 +31,7 @@ namespace widget
 			fillState(_bind.m_states, m_basis.size()-1);
 		}
 
-		inline void addParam(const Ogre::String &_key, const Ogre::String &_value)
+		inline void addParam(const std::string &_key, const std::string &_value)
 		{
 			m_params[_key] = _value;
 		}
@@ -50,7 +44,7 @@ namespace widget
 			}
 		}
 
-		inline void checkState(const Ogre::String & _name)
+		inline void checkState(const std::string & _name)
 		{
 			// ищем такой же ключ
 			StateInfo::const_iterator iter = m_states.find(_name);
@@ -73,21 +67,25 @@ namespace widget
 		inline void fillState(const ViewInfo & _states, size_t _index)
 		{
 			for (ViewInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
+				// выставляем смещение для текущего саб скина
 				m_states[iter->first].m_offsets[_index] = iter->second.offset;
+				// если нужно то выставляем цвета
+				if (iter->second.color != Ogre::ColourValue::ZERO) m_states[iter->first].color = iter->second.color;
+				// если нужно то выставляем и альфу
+				if (iter->second.alpha != -1) m_states[iter->first].alpha = iter->second.alpha;
 			}
 		}
 
 	public:
-		inline int width() const {return m_cx;};
-		inline int height() const {return m_cy;};
-		inline const Ogre::String & getMaterial() const {return m_material;};
+		inline const intSize & getSize() const {return m_size;}
+		inline const std::string & getMaterial() const {return m_material;};
 		inline const BasisInfo & getBasisInfo() const {return m_basis;};
 		inline const StateInfo & getStateInfo() const {return m_states;};
 		inline const SkinParam & getParams() const {return m_params;};
 
 	private:
-		int m_cx, m_cy;
-		Ogre::String m_material;
+		intSize m_size;
+		std::string m_material;
 		BasisInfo m_basis;
 		StateInfo m_states;
 		// дополнительные параметры скина

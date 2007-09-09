@@ -21,22 +21,12 @@ namespace widget
 		{
 		}
 
-		BasisWidgetBinding(int _x, int _y, int _cx, int _cy, char _aligin, const Ogre::String & _type)
-		{
-			create(intRect(_x, _y, _cx, _cy), _aligin, _type);
-		}
-
-		BasisWidgetBinding(intRect _offset, char _aligin, const Ogre::String & _type)
+		BasisWidgetBinding(const intRect & _offset, char _aligin, const std::string & _type)
 		{
 			create(_offset, _aligin, _type);
 		}
 
-		void create(int _x, int _y, int _cx, int _cy, char _aligin, const Ogre::String & _type)
-		{
-			create(intRect(_x, _y, _cx, _cy), _aligin, _type);
-		}
-
-		void create(intRect _offset, char _aligin, const Ogre::String & _type)
+		void create(const intRect & _offset, char _aligin, const std::string & _type)
 		{
 			clear();
 			m_offset = _offset;
@@ -51,36 +41,26 @@ namespace widget
 			m_states.clear();
 		}
 
-		void add(const Ogre::String & _name, float _x, float _y, float _cx, float _cy)
-		{
-			add(_name, floatRect(_x, _y, _cx, _cy), Ogre::ColourValue::ZERO, -1);
-		}
-
-//		void add(const Ogre::String & _name, FloatRect _offset)
-//		{
-//			add(_name, _offset, Ogre::ColourValue::ZERO, -1);
-//		}
-
-		void add(const Ogre::String & _name, floatRect _offset)
+		void add(const std::string & _name, const floatRect & _offset)
 		{
 			add(_name, _offset, Ogre::ColourValue::ZERO, -1);
 		}
 
-		void add(const Ogre::String & _name, float _alpha)
+		void add(const std::string & _name, float _alpha)
 		{
 			add(_name, floatRect(-1, -1, -1, -1), Ogre::ColourValue::ZERO, _alpha);
 		}
 
-		void add(const Ogre::String & _name, Ogre::ColourValue  _color)
+		void add(const std::string & _name, const Ogre::ColourValue & _color)
 		{
 			add(_name, floatRect(-1, -1, -1, -1), _color, -1);
 		}
 
-		void add(const Ogre::String & _name, floatRect _offset, Ogre::ColourValue  _color, float _alpha)
+		void add(const std::string & _name, const floatRect & _offset, const Ogre::ColourValue  & _color, float _alpha)
 		{
 			// ищем такой же ключ
 			ViewInfo::const_iterator iter = m_states.find(_name);
-			if (iter != m_states.end()) assert(0 && "state is exist");
+			if (iter != m_states.end()) ASSERT(!"state is exist");
 			// добавляем
 			m_states[_name] = tagBasisWidgetStateInfo(_offset, _color, _alpha);
 		}
@@ -88,7 +68,7 @@ namespace widget
 	private:
 		intRect m_offset;
 		char m_aligin;
-		Ogre::String m_type;
+		std::string m_type;
 		ViewInfo m_states;
 	};
 
