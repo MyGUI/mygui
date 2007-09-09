@@ -2,6 +2,10 @@
 
 <MyGUI_SkinInfo>
 
+    <Skin Name = "StaticImage" Size = "50 50">
+        <BasisSkin Type="MainSkin" Offset = "0 0 50 50" Align = "ALIGN_LEFT ALIGN_TOP"/>
+    </Skin>
+    
     <Skin Name = "Skin1" Size = "200 200" Material = "BACK_GREEN" >
         <BasisSkin Type="MainSkin" Offset = "0 0 200 200" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "0 0 16 16"/>
@@ -28,7 +32,7 @@
         <BasisSkin Type="SubSkin" Offset = "0 30 60 30" Align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
             <State Name="normal" Offset = "0 0 18 18"/>
         </BasisSkin>
-        <BasisSkin2 Type="TextSimple" Align = "ALIGN_CENTER" />
+        <BasisSkin Type="TextSimple" Align = "ALIGN_CENTER" />
     </Skin>
     
 </MyGUI_SkinInfo>

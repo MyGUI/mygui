@@ -27,6 +27,7 @@ namespace widget
 		void load(const std::string & _file);
 
 		static floatSize getMaterialSize(const std::string & _material);
+		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
 		static floatRect convertMaterialCoord(const floatRect & _source, const floatSize & _materialSize);
 
 	private:

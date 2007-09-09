@@ -23,7 +23,7 @@ namespace widget
 		friend WidgetFactory<Widget>;
 
 
-	private:
+	protected:
 		// все создание только через фабрику
 		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
@@ -75,9 +75,6 @@ namespace widget
 		// закрываем метод базового класса
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(m_parent);}
 
-//		void detach(WidgetPtr _child);
-//		OverlayElementPtr getOverlayElement();
-
 		// удяляет только негодных батюшке государю
 		void destroyWidget(WidgetPtr & _widget);
 		// удаляет всех детей
@@ -91,9 +88,6 @@ namespace widget
 		inline void setNeedKeyFocus(bool _need) {m_needKeyFocus = _need;}
 
 	protected:
-
-		// возвращает контейнер для присоединения к оверлею (наследуеться от LayerItemInfo)
-//		Ogre::OverlayContainer * getItemContainer();
 
 		// создаем и добавляем саб скин виджету
 		BasisWidgetPtr addSubSkin(const tagBasisWidgetInfo & _info, const String & _material);

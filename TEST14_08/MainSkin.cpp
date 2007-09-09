@@ -21,7 +21,7 @@ namespace widget
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_parent->left() + m_x, m_parent->top() + m_y);
 		m_overlayContainer->setDimensions(m_cx, m_cy);
-		m_overlayContainer->setMaterialName(_material);
+		if (!_material.empty()) m_overlayContainer->setMaterialName(_material);
 
 		m_parent->attach(this, false);
 	}

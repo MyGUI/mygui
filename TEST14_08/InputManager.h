@@ -1,10 +1,8 @@
 #pragma once
 
 #include "WidgetOIS.h"
-#include "PointerManager.h"
-#include "LayerManager.h"
-#include "Widget.h"
-#include "Types.h"
+#include "Common.h"
+#include "WidgetDefines.h"
 #include "delegate.h"
 
 namespace widget
@@ -62,15 +60,11 @@ namespace widget
 	protected:
         static const int GUI_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 
-//		PointerManager & m_pointerManagerInstance;
-		LayerManager & m_layerManagerInstance;
+//		LayerManager & m_layerManagerInstance;
 
 		// виджеты которым принадлежит фокус
 		WidgetPtr m_widgetMouseFocus;
 		WidgetPtr m_widgetKeyFocus;
-		// принадлежат ли нам устройства
-//		bool m_activeMouse;
-//		bool m_activeKey;
 		// захватил ли мышь активный виджет
 		bool m_isWidgetMouseCapture;
 		// таймер для двойного клика

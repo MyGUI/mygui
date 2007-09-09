@@ -33,12 +33,14 @@ namespace widget
 
 		// парсим свойства
 		const SkinParam & param = _info->getParams();
-		SkinParam::const_iterator iter = param.find("FontName");
-		if (iter != param.end()) setFontName(iter->second);
-		iter = param.find("FontHeight");
-		if (iter != param.end()) setFontHeight(parseInt(iter->second));
-		iter = param.find("NeedKey");
-		if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
+		if (!param.empty()) {
+			SkinParam::const_iterator iter = param.find("FontName");
+			if (iter != param.end()) setFontName(iter->second);
+			iter = param.find("FontHeight");
+			if (iter != param.end()) setFontHeight(parseInt(iter->second));
+			iter = param.find("NeedKey");
+			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
+		}
 
 		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
@@ -188,8 +190,6 @@ namespace widget
 
 	void Widget::move(int _x, int _y, int _cx, int _cy)
 	{
-//		if (m_parent == null) return;
-
 		// а вот теперь запоминаем новые координаты
 		m_x = _x;
 		m_y = _y;
@@ -229,8 +229,6 @@ namespace widget
 
 	void Widget::size(int _cx, int _cy)
 	{
-//		if (m_parent == null) return;
-
 		// меняем координаты местами
 		int tmp = m_cx;
 		m_cx = _cx;
@@ -283,9 +281,6 @@ namespace widget
 			}
 
 		} else if (!m_margin) { // мы не обрезаны и были нормальные
-
-			// запоминаем текущее состояние
-//			m_margin = margin;//???
 
 			visible(true);
 			// для тех кому нужно подправить себя при движении

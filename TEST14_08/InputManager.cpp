@@ -1,7 +1,9 @@
 
-#include "InputManager.h"
-#include "debugOut.h"
 #include "xmlDocument.h"
+#include "Common.h"
+#include "InputManager.h"
+#include "PointerManager.h"
+#include "Widget.h"
 
 namespace widget
 {
@@ -9,8 +11,6 @@ namespace widget
 	const std::string INPUT_DEFAULT_LANGUAGE = "English";
 
 	InputManager::InputManager() :
-//		m_pointerManagerInstance(PointerManager::getInstance()),
-		m_layerManagerInstance(LayerManager::getInstance()),
 		m_widgetMouseFocus(0), m_widgetKeyFocus(0),
 		m_isWidgetMouseCapture(false),
 		m_isCharShift(false)
@@ -36,7 +36,7 @@ namespace widget
 		}
 
 		// ищем активное окно
-		LayerItemInfoPtr info = m_layerManagerInstance.findItem(_arg.state.X.abs, _arg.state.Y.abs);
+		LayerItemInfoPtr info = LayerManager::getInstance().findItem(_arg.state.X.abs, _arg.state.Y.abs);
 		WidgetPtr item = info ? dynamic_cast<WidgetPtr>(info) : null;
 
 		// ничего не изменилось
@@ -238,7 +238,7 @@ namespace widget
 				// и заполняем его
 				for (size_t j=0; j<116; j++) lang[i] = parseInt(chars[i]);
 
-			} else {/* LOG*/ }
+			} else {LOG("count char is not 116");}
 
 		}
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение

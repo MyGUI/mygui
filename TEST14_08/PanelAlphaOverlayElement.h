@@ -67,7 +67,8 @@ namespace widget
 					HardwareBufferManager::getSingleton().createVertexBuffer(
 					decl->getVertexSize(POSITION_BINDING), mRenderOp.vertexData->vertexCount,
 					// попробовать с динамическим буфером
-					HardwareBuffer::HBU_STATIC_WRITE_ONLY// mostly static except during resizing
+//					HardwareBuffer::HBU_STATIC_WRITE_ONLY // mostly static except during resizing
+					HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY // mostly static except during resizing
 					);
 				// Bind buffer
 				mRenderOp.vertexData->vertexBufferBinding->setBinding(POSITION_BINDING, vbuf);

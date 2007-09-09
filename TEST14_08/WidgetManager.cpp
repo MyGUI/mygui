@@ -1,5 +1,6 @@
 
 #include "WidgetManager.h"
+#include "LayerManager.h"
 
 namespace widget
 {
@@ -54,6 +55,13 @@ namespace widget
 		mapWidgetPtr::iterator iter = m_widgets.find(_name);
 		if (iter == m_widgets.end()) return 0;
 		return iter->second;
+	}
+
+	void WidgetManager::clearName(WidgetPtr _widget)
+	{
+		if (_widget == null) return;
+		mapWidgetPtr::iterator iter = m_widgets.find(_widget->getName());
+		if (iter != m_widgets.end()) m_widgets.erase(iter);
 	}
 
 } // namespace widget

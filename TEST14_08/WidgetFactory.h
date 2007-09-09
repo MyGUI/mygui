@@ -3,6 +3,7 @@
 #include <Ogre.h>
 #include "Widget.h"
 #include "SkinManager.h"
+#include "WidgetManager.h"
 
 namespace widget
 {

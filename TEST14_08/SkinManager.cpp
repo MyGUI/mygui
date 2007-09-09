@@ -36,7 +36,10 @@ namespace widget
 	{
 		SkinInfo::iterator iter = m_skins.find(_name);
 		// если не нашли, то вернем дефолтный скин
-		if (iter == m_skins.end()) return m_skins["Default"];
+		if (iter == m_skins.end()) {
+			LOG("no find skin, set default");
+			return m_skins["Default"];
+		}
 		return iter->second;
 	}
 
@@ -177,6 +180,9 @@ namespace widget
 
 		size.width = (float)tex->getWidth();
 		size.height = (float)tex->getHeight();
+
+		if (size.width < 1) size.width = 1;
+		if (size.height < 1) size.height = 1;
 
 		return size;
 	}

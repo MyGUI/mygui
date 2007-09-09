@@ -3,11 +3,13 @@
 #include <Ogre.h>
 #include "Gui.h"
 #include "Widget.h"
-#include "WidgetFactory.h"
 #include "Instance.h"
+#include "WidgetFactory.h"
 
 namespace widget
 {
+
+	class WidgetFactoryBase;
 
 	class WidgetManager
 	{
@@ -27,12 +29,7 @@ namespace widget
 		WidgetPtr findWidget(const Ogre::String & _name);
 
 //	private:
-		inline void clearName(WidgetPtr _widget)
-		{
-			if (_widget == null) return;
-			mapWidgetPtr::iterator iter = m_widgets.find(_widget->getName());
-			if (iter != m_widgets.end()) m_widgets.erase(iter);
-		}
+		void clearName(WidgetPtr _widget);
 
 	protected:
 		WidgetManager() {};

@@ -12,7 +12,7 @@
 
   </Widget2>
 
-      <Widget Type="Widget" Skin="Skin3" Position="50 50 60 60" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget4" >
+      <Widget Type="Widget" Skin="Skin1" Position="50 50 60 60" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget4" >
         <Property Key="Caption" Value="dermo2" />
         <Property Key="FontHeight" Value="30" />
 

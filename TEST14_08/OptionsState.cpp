@@ -3,14 +3,12 @@
 #include "debugOut.h"
 #include "debugAxis.h"
 #include <vector>
-#include "Types.h"
+#include "Common.h"
+#include "StaticImage.h"
 
-//#include "WidgetSkinInfo.h"
-//#include "SkinManager.h"
-//#include "WidgetManager.h"
 #include "Gui.h"
 
-//#include "ParserManager.h"
+#include "PointerManager.h"
 #include "LayoutManager.h"
 
 using namespace Ogre;
@@ -85,12 +83,12 @@ void OptionsState::enter(bool bIsChangeState)
 //	PointerManager::getInstance().show();
 
 	SkinManager::getInstance().load("main.skin");
-	LayoutManager::getInstance().load("mygui.layout");
+//	LayoutManager::getInstance().load("mygui.layout");
 
 
 //	std::string str = widget::toString("test = ", "'", 12, "'");
 
-	m_widget1 = WidgetManager::getInstance().findWidget("m_widget4");
+//	m_widget1 = WidgetManager::getInstance().findWidget("m_widget4");
 //	m_widget2 = Gui::getInstance().findWidget("m_widget2");
 //	m_widget3 = 0;//Gui::getInstance().findWidget("m_widget3");
 
@@ -98,7 +96,9 @@ void OptionsState::enter(bool bIsChangeState)
 //	Gui::getInstance().destroyWidget(m_widget2);
 //	Gui::getInstance().destroyWidget(m_widget3);
 
-//	widget::WidgetPtr wid = Gui::getInstance().createWidget("Widget", "Skin2", 10, 10, 50, 50, ALIGN_LEFT | ALIGN_TOP, "Main");
+	widget::StaticImage * wid = (widget::StaticImage*)Gui::getInstance().createWidget("StaticImage", "StaticImage", 10, 10, 50, 50, ALIGN_LEFT | ALIGN_TOP, "Main");
+	wid->setImageInfo("MyGUI_pointerAll", floatSize(32, 32));
+	wid->setImageNum(2);
 //	wid->createWidget("Widget", "Skin2", 10, 10, 20, 20, ALIGN_LEFT | ALIGN_TOP);
 
 //	LayoutManager::getInstance().loadLayout("mygui.layout");

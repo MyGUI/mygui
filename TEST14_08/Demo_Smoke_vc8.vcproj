@@ -491,7 +491,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="BasisWidgetImplement"
+				Name="BasisWidget"
 				>
 				<File
 					RelativePath=".\BasisWidget.h"
@@ -555,7 +555,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="WidgetImplement"
+				Name="Widget"
 				>
 				<File
 					RelativePath=".\Widget.cpp"
@@ -727,6 +727,22 @@
 				</File>
 				<File
 					RelativePath=".\WidgetManager.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="StaticImage"
+				>
+				<File
+					RelativePath=".\StaticImage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\StaticImage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\StaticImageParser.h"
 					>
 				</File>
 			</Filter>

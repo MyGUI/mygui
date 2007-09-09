@@ -24,8 +24,10 @@ namespace widget
 
 	#if _DEBUG
 		#define ASSERT(_exp) assert(_exp)
+		#define TYPE(_type,_ptr) assert(dynamic_cast<_type>(_ptr))
 	#else
 		#define ASSERT(_exp) ((void)0)
+		#define TYPE(_type,_ptr) ((void)0)
 	#endif
 
 } // namespace widget
