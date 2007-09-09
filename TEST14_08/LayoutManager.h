@@ -19,7 +19,7 @@ namespace widget
 	public:
 		INSTANCE(LayoutManager)
 
-		void loadLayout(const std::string & _file);
+		void load(const std::string & _file);
 
 	private:
 		void parseLayoutMyGUI(xml::xmlNodePtr _root);

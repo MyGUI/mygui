@@ -12,7 +12,7 @@ namespace widget
 	LayoutManager::LayoutManager() {}
 	LayoutManager::~LayoutManager() {}
 
-	void LayoutManager::loadLayout(const std::string & _file)
+	void LayoutManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
 		if (!doc.load(_file)) OGRE_EXCEPT(0, doc.getLastError(), "");

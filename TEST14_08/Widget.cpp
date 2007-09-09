@@ -95,12 +95,6 @@ namespace widget
 		}
 	}
 
-/*	OverlayElementPtr Widget::getOverlayElement()
-	{
-		if (m_subSkinChild.empty()) return 0;
-		return m_subSkinChild[0]->getOverlayElement();
-	}*/
-
 	void Widget::visible(bool _visible)
 	{
 
@@ -185,7 +179,6 @@ namespace widget
 
 	void Widget::move(int _x, int _y)
 	{
-		if (m_parent == null) return;
 		// а вот теперь запоминаем новые координаты
 		m_x = _x;
 		m_y = _y;
@@ -195,7 +188,7 @@ namespace widget
 
 	void Widget::move(int _x, int _y, int _cx, int _cy)
 	{
-		if (m_parent == null) return;
+//		if (m_parent == null) return;
 
 		// а вот теперь запоминаем новые координаты
 		m_x = _x;
@@ -213,7 +206,7 @@ namespace widget
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = check_margin();
+		bool margin = m_parent ? check_margin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
@@ -236,7 +229,7 @@ namespace widget
 
 	void Widget::size(int _cx, int _cy)
 	{
-		if (m_parent == null) return;
+//		if (m_parent == null) return;
 
 		// меняем координаты местами
 		int tmp = m_cx;
@@ -250,7 +243,7 @@ namespace widget
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = check_margin();
+		bool margin = m_parent ? check_margin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
@@ -273,9 +266,8 @@ namespace widget
 
 	void Widget::update()
 	{
-		if (m_parent == null) return;
 
-		bool margin = check_margin();
+		bool margin = m_parent ? check_margin() : false;
 
 		// вьюпорт стал битым
 		if (margin) {
@@ -293,7 +285,7 @@ namespace widget
 		} else if (!m_margin) { // мы не обрезаны и были нормальные
 
 			// запоминаем текущее состояние
-			m_margin = margin;
+//			m_margin = margin;//???
 
 			visible(true);
 			// для тех кому нужно подправить себя при движении
@@ -381,17 +373,6 @@ namespace widget
 		}
 	}
 
-/*	void Widget::detach(WidgetPtr _child)
-	{
-		for (size_t index = 0; index != m_widgetChild.size(); index++) {
-			if (m_widgetChild[index] == _child) {
-				m_widgetChild[index] = m_widgetChild[m_widgetChild.size()-1] ;
-				m_widgetChild.pop_back();
-				break;
-			}
-		}
-	}*/
-
 	// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
 	LayerItemInfoPtr Widget::findItem(int _x, int _y)
 	{
@@ -407,13 +388,6 @@ namespace widget
 		// непослушные дети
 		return this;
 	}
-
-	// возвращает контейнер для присоединения к оверлею (наследуеться от LayerItemInfo)
-/*	Ogre::OverlayContainer * Widget::getItemContainer()
-	{
-		if (m_subSkinChild.empty()) return 0;
-		return static_cast<Ogre::OverlayContainer*>(m_subSkinChild[0]->getOverlayElement());
-	}*/
 
 	// удяляет только негодных батюшке государю
 	void Widget::destroyWidget(WidgetPtr & _widget)

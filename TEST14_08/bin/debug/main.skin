@@ -28,7 +28,7 @@
         <BasisSkin Type="SubSkin" Offset = "0 30 60 30" Align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
             <State Name="normal" Offset = "0 0 18 18"/>
         </BasisSkin>
-        <BasisSkin Type="TextSimple" Align = "ALIGN_CENTER" />
+        <BasisSkin2 Type="TextSimple" Align = "ALIGN_CENTER" />
     </Skin>
     
 </MyGUI_SkinInfo>

@@ -24,7 +24,7 @@ namespace widget
 		//	для ручного создания скина
 		WidgetSkinInfo * create(const Ogre::String & _name);
 
-		void loadSkin(const std::string & _file);
+		void load(const std::string & _file);
 
 		static floatSize getMaterialSize(const std::string & _material);
 		static floatRect convertMaterialCoord(const floatRect & _source, const floatSize & _materialSize);

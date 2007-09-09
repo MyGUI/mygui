@@ -48,7 +48,7 @@ namespace widget
 		return skin;
 	}
 
-	void SkinManager::loadSkin(const std::string & _file)
+	void SkinManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
 		if (!doc.load(_file)) OGRE_EXCEPT(0, doc.getLastError(), "");

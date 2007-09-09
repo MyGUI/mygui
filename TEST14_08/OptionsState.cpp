@@ -84,13 +84,13 @@ void OptionsState::enter(bool bIsChangeState)
 	PointerManager::getInstance().load("main.pointer");
 //	PointerManager::getInstance().show();
 
-	SkinManager::getInstance().loadSkin("main.skin");
-	LayoutManager::getInstance().loadLayout("mygui.layout");
+	SkinManager::getInstance().load("main.skin");
+	LayoutManager::getInstance().load("mygui.layout");
 
 
 //	std::string str = widget::toString("test = ", "'", 12, "'");
 
-//	m_widget1 = WidgetManager::getInstance().findWidget("m_widget");
+	m_widget1 = WidgetManager::getInstance().findWidget("m_widget4");
 //	m_widget2 = Gui::getInstance().findWidget("m_widget2");
 //	m_widget3 = 0;//Gui::getInstance().findWidget("m_widget3");
 
@@ -179,7 +179,7 @@ void OptionsState::enter(bool bIsChangeState)
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-//	if (m_widget2) m_widget2->move(arg.state.X.abs-220, arg.state.Y.abs-220);
+	if (m_widget1) m_widget1->size(arg.state.X.abs, arg.state.Y.abs);
 	if (!toggle) {
 //		m_widget3->move(arg.state.X.abs-220, arg.state.Y.abs-220);
 	} else {

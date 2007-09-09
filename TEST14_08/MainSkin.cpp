@@ -82,7 +82,9 @@ namespace widget
 
 	void MainSkin::correct()
 	{
-		m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left(), m_y + m_parent->top() - m_parent->getParent()->margin_top());
+		// либо просто двигаться, либо с учетом выравнивания отца
+		if (m_parent->getParent()) m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left() + m_left_margin, m_y + m_parent->top() - m_parent->getParent()->margin_top() + m_top_margin);
+		else m_overlayContainer->setPosition(m_x + m_parent->left(), m_y + m_parent->top());
 	}
 
 	void MainSkin::update()
@@ -93,7 +95,7 @@ namespace widget
 		if (cy < 0) cy = 0;
 
 		//порубали оверлей
-		m_overlayContainer->setPosition(m_parent->view_left() - m_parent->getParent()->margin_left(), m_parent->view_top() - m_parent->getParent()->margin_top());
+		m_overlayContainer->setPosition(m_parent->view_left() - (m_parent->getParent() ? m_parent->getParent()->margin_left() : 0), m_parent->view_top() - (m_parent->getParent() ? m_parent->getParent()->margin_top() : 0) );
 		m_overlayContainer->setDimensions(cx, cy);
 
 		// теперь смещаем текстуру

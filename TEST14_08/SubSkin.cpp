@@ -56,15 +56,71 @@ namespace widget
 		return m_overlayContainer;
 	}
 
+	void SubSkin::correct()
+	{
+		// либо просто двигаться, либо с учетом выравнивания отца
+		if (m_parent->getParent()) m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left() + m_left_margin, m_y + m_parent->top() - m_parent->getParent()->margin_top() + m_top_margin);
+		else m_overlayContainer->setPosition(m_x + m_parent->left(), m_y + m_parent->top());
+	}
+
+	void SubSkin::align(int _x, int _y, int _cx, int _cy, bool _update)
+	{
+		align(_cx, _cy, _update);
+	}
+
+	void SubSkin::align(int _cx, int _cy, bool _update)
+	{
+
+		bool need_update = _update;
+
+		// первоначальное выравнивание 
+		if (m_align & ALIGN_RIGHT) {
+			if (m_align & ALIGN_LEFT) {
+				// растягиваем
+				m_cx = m_cx + (m_parent->width() - _cx);
+				need_update = true;
+				m_margin = true; // при изменении размеров все пересчитывать
+			} else {
+				// двигаем по правому краю
+				m_x = m_x + (m_parent->width() - _cx);
+				need_update = true;
+			}
+
+		} else if (!(m_align & ALIGN_LEFT)) {
+			// выравнивание по горизонтали без растяжения
+			m_x = (m_parent->width() - m_cx) / 2;
+			need_update = true;
+		}
+
+		if (m_align & ALIGN_BOTTOM) {
+			if (m_align & ALIGN_TOP) {
+				// растягиваем
+				m_cy = m_cy + (m_parent->height() - _cy);
+				need_update = true;
+				m_margin = true; // при изменении размеров все пересчитывать
+			} else {
+				m_y = m_y + (m_parent->height() - _cy);
+				need_update = true;
+			}
+		} else if (!(m_align & ALIGN_TOP)) {
+			// выравнивание по вертикали без растяжения
+			m_y = (m_parent->height() - m_cy) / 2;
+			need_update = true;
+		}
+
+		if (need_update) update();
+
+	}
+
 	void SubSkin::update()
 	{
 
 		bool margin = check_margin();
 
 		// двигаем всегда, т.к. дети должны двигаться
-		int x = m_x + m_parent->left() - m_parent->getParent()->margin_left() + m_left_margin;
+		int x = m_x + m_parent->left() - (m_parent->getParent() ? m_parent->getParent()->margin_left() : 0) + m_left_margin;
 		if (x < 0) x = 0;
-		int y = m_y + m_parent->top() - m_parent->getParent()->margin_top() + m_top_margin;
+		int y = m_y + m_parent->top() - (m_parent->getParent() ? m_parent->getParent()->margin_top() : 0) + m_top_margin;
 		if (y < 0) y = 0;
 
 		m_overlayContainer->setPosition(x, y);
@@ -121,60 +177,6 @@ namespace widget
 		m_margin = margin;
 		// если скин был скрыт, то покажем
 		m_overlayContainer->setTransparent(false);
-
-	}
-
-	void SubSkin::correct()
-	{
-		m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left() + m_left_margin, m_y + m_parent->top() - m_parent->getParent()->margin_top() + m_top_margin);
-	}
-
-	void SubSkin::align(int _x, int _y, int _cx, int _cy, bool _update)
-	{
-		align(_cx, _cy, _update);
-	}
-
-	void SubSkin::align(int _cx, int _cy, bool _update)
-	{
-
-		bool need_update = _update;
-
-		// первоначальное выравнивание 
-		if (m_align & ALIGN_RIGHT) {
-			if (m_align & ALIGN_LEFT) {
-				// растягиваем
-				m_cx = m_cx + (m_parent->width() - _cx);
-				need_update = true;
-				m_margin = true; // при изменении размеров все пересчитывать
-			} else {
-				// двигаем по правому краю
-				m_x = m_x + (m_parent->width() - _cx);
-				need_update = true;
-			}
-
-		} else if (!(m_align & ALIGN_LEFT)) {
-			// выравнивание по горизонтали без растяжения
-			m_x = (m_parent->width() - m_cx) / 2;
-			need_update = true;
-		}
-
-		if (m_align & ALIGN_BOTTOM) {
-			if (m_align & ALIGN_TOP) {
-				// растягиваем
-				m_cy = m_cy + (m_parent->height() - _cy);
-				need_update = true;
-				m_margin = true; // при изменении размеров все пересчитывать
-			} else {
-				m_y = m_y + (m_parent->height() - _cy);
-				need_update = true;
-			}
-		} else if (!(m_align & ALIGN_TOP)) {
-			// выравнивание по вертикали без растяжения
-			m_y = (m_parent->height() - m_cy) / 2;
-			need_update = true;
-		}
-
-		if (need_update) update();
 
 	}
 
