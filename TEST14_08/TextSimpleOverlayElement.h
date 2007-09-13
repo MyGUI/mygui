@@ -4,6 +4,7 @@
 #include <OgreTextAreaOverlayElement.h>
 #include "OgreFont.h"
 #include "OgreFontManager.h"
+#include "AlignInfo.h"
 
 #include "debugOut.h"
 
@@ -26,6 +27,8 @@ namespace widget
 
 	private:
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
+		float m_textHeight; // высота всех строк в тексте
+		char m_align;
 
 	public:
 		TextSimpleOverlayElement(const String& name) :
@@ -33,11 +36,23 @@ namespace widget
 			m_left_margin (0),
 			m_right_margin (0),
 			m_top_margin (0),
-			m_bottom_margin (0)
+			m_bottom_margin (0),
+			m_textHeight(0),
+			m_align(ALIGN_CENTER)
 		  {}
 
+		// необходимо обновить все что связанно с стекстом
+		inline void setAlignment(char _align)	
+		{
+			// выравнивание бокса
+			m_align = _align;
+			// выравнивание строк внутри бокса
+			if (_align & ALIGN_RIGHT) mAlignment = Right;
+			else if (! (_align & ALIGN_LEFT)) mAlignment = Center;
+		}
+
 		// устанавливет размеры по которым резать текст
-		void setMargin(int _left, int _top, int _right, int _bottom)
+		inline void setMargin(int _left, int _top, int _right, int _bottom)
 		{
 			m_left_margin = _left;
 			m_top_margin = _top;
@@ -45,46 +60,22 @@ namespace widget
 			m_bottom_margin = _bottom;
 		}
 
-		void getTextSize(int & _cx, int & _cy)
+		// необходимо обновить все что связанно с стекстом
+		void updateText()
 		{
-
 			if (mpFont.isNull()) return;
 
 			// Derive space with from a number 0
 			if (mSpaceWidth == 0) mSpaceWidth = mpFont->getGlyphAspectRatio(UNICODE_ZERO) * mCharHeight * 2.0 * mViewportAspectCoef;
 
-			float cy = mPixelCharHeight;
-			float cx = 0;
-			float len = 0;
+			m_textHeight = mPixelCharHeight;
 
 			DisplayString::const_iterator iend = mCaption.end();
-
 			for (DisplayString::const_iterator index = mCaption.begin(); index != iend; index++) {
-
-				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
-
-				if ( character == UNICODE_SPACE) len += mSpaceWidth;
-				else if (character == UNICODE_LF) { // перевод строки, остальные вернут ширину 0, нет смысла за ними бегать
-
-					if (len > cx) cx = len;
-					len = 0;
-					cy += mPixelCharHeight;
-
-				} else len += mpFont->getGlyphAspectRatio(character) * mPixelCharHeight;
+				if (OGRE_DEREF_DISPLAYSTRING_ITERATOR(index) == UNICODE_LF) m_textHeight += mPixelCharHeight;
 			}
 
-			if (len > cx) cx = len;
-	
-			_cx = (int)cx;
-			_cy = (int)cy;
-			// округляем в сторону увеличения
-			if ((float)_cx < cx) _cx ++;
-
-			// для правильного просчета геометрии
-            mPixelWidth = _cx;
-            mPixelHeight = _cy;
 	        mDerivedOutOfDate = true;
-
 		}
 
 		virtual void updatePositionGeometry()
@@ -104,7 +95,18 @@ namespace widget
 			float left = _getDerivedLeft() * 2.0 - 1.0;
 			float top = -( (_getDerivedTop() * 2.0 ) - 1.0 );
 			float right = left;
-			float bottom = top - mCharHeight * 2.0;
+			float bottom;
+
+			// края обрезки текста
+			float left_margin = (mPixelScaleX * (float)m_left_margin * 2.0) + left;
+			float top_margin = top - (mPixelScaleY * (float)m_top_margin * 2.0);
+			float right_margin = (left + (this->_getWidth() * 2.0)) - (mPixelScaleX * (float)m_right_margin * 2.0);
+			float bottom_margin = (top - (this->_getHeight() * 2.0)) + (mPixelScaleY * (float)m_bottom_margin * 2.0);
+
+			// высчитываем смещения текста внутри бокса по вертикали, по горизонтали считается автоматически
+			if (m_align & ALIGN_BOTTOM) top -= mPixelScaleY * (mPixelHeight - m_textHeight) * 2.0;
+			else if (! (m_align & ALIGN_TOP)) top -= mPixelScaleY * (mPixelHeight - m_textHeight);
+			bottom = top - mCharHeight * 2.0;
 
 			// смещение для вывода
 			float vertex_left = left;
@@ -112,17 +114,8 @@ namespace widget
 			float vertex_right = right;
 			float vertex_bottom = bottom;
 
-			// края обрезки текста
-			float left_margin = (mPixelScaleX * (float)m_left_margin * 2.0) + left;
-			float right_margin = (left + (this->_getWidth() * 2.0)) - (mPixelScaleX * (float)m_right_margin * 2.0);
-			float top_margin = top - (mPixelScaleY * (float)m_top_margin * 2.0);
-			float bottom_margin = (top - (this->_getHeight() * 2.0)) + (mPixelScaleY * (float)m_bottom_margin * 2.0);
-
 			// текстурные координаты для вывода
-			float texture_left;
-			float texture_right;
-			float texture_top;
-			float texture_bottom;
+			float texture_left, texture_right, texture_top, texture_bottom;
 
 			// вычисление размера одной единицы в текстурных координатах
 			float char_aspect = mpFont->getGlyphAspectRatio('A') * mViewportAspectCoef;

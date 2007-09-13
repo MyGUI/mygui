@@ -51,6 +51,8 @@ namespace widget
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
+		void setTextAlign(char _align);
+
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return m_alpha;};
 	

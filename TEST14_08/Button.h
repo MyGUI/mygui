@@ -16,14 +16,14 @@ namespace widget
 	public:
 		inline const static Ogre::String & getType() {static Ogre::String type("Button"); return type;};
 
-		inline void setButtonState(bool _pressed)
+		inline void setButtonPressed(bool _pressed)
 		{
 			if (m_isStatePressed == _pressed) return;
 			m_isStatePressed = _pressed;
 			updateButtonState();
 		}
 
-		inline bool getButtonState() {return m_isStatePressed;}
+		inline bool getButtonPressed() {return m_isStatePressed;}
 
 	protected:
 

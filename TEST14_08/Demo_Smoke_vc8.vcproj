@@ -622,6 +622,10 @@
 				Name="Common"
 				>
 				<File
+					RelativePath=".\AlignInfo.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Common.h"
 					>
 				</File>
@@ -763,6 +767,22 @@
 				</File>
 				<File
 					RelativePath=".\ButtonParser.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Edit"
+				>
+				<File
+					RelativePath=".\Edit.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Edit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EditParser.h"
 					>
 				</File>
 			</Filter>

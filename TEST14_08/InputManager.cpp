@@ -236,7 +236,7 @@ namespace widget
 				LangInfo & lang = iter->second;
 
 				// и заполняем его
-				for (size_t j=0; j<116; j++) lang[i] = parseInt(chars[i]);
+				for (size_t j=0; j<116; j++) lang[j] = parseInt(chars[j]);
 
 			} else {LOG("count char is not 116");}
 

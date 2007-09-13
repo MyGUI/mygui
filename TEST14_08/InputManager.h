@@ -60,8 +60,6 @@ namespace widget
 	protected:
         static const int GUI_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 
-//		LayerManager & m_layerManagerInstance;
-
 		// виджеты которым принадлежит фокус
 		WidgetPtr m_widgetMouseFocus;
 		WidgetPtr m_widgetKeyFocus;

@@ -31,17 +31,19 @@ namespace widget
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
+		void setTextAlign(char _align);
+
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
 		void update(); // обновления себя и детей
 		inline void updateText() // обновляем все что касаеться текста
 		{
-			// узнаем новый размер, там же он и запоминается
-			m_overlayContainer->getTextSize(m_cx, m_cy);
+			// изменился текст
+			m_overlayContainer->updateText();
 			// и делаем полное обновление и выравнивание
 			m_margin = true; // при изменении размеров все пересчитывать
-			align(m_cx, m_cy, true);
+			align(m_parent->width(), m_parent->height(), true);
 		}
 
 		bool isText() {return true;};

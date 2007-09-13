@@ -11,16 +11,13 @@
 #include "RenderOut.h"
 #include "StringUtil.h"
 #include "ParseUtil.h"
+#include "AlignInfo.h"
 
 
 namespace widget
 {
 
 	#define null 0
-
-	//Bit flags done easy
-	#define FLAG_NONE  0
-	#define FLAG(num)  (1<<(num))
 
 	#define REGISTER_VALUE(_map,_value) _map[#_value]=_value;
 

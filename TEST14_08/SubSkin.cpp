@@ -71,7 +71,8 @@ namespace widget
 	void SubSkin::align(int _cx, int _cy, bool _update)
 	{
 
-		bool need_update = _update;
+		// необходимо разобраться
+		bool need_update = true;//_update;
 
 		// первоначальное выравнивание 
 		if (m_align & ALIGN_RIGHT) {

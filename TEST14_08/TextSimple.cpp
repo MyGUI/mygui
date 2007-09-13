@@ -5,24 +5,22 @@
 namespace widget
 {
 	// создаем фабрику для этого скина
-	BasisWidgetFactory<TextSimple> factory_simpleText;
+	BasisWidgetFactory<TextSimple> factory_TextSimple;
 
 	TextSimple::TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) :
 		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
-		m_overlayContainer = static_cast<TextSimpleOverlayElement*>(overlayManager.createOverlayElement(
-			"TextSimple", "TextSimple_" + Ogre::StringConverter::toString((uint32)this)) );
+		m_overlayContainer = static_cast<TextSimpleOverlayElement *>(overlayManager.createOverlayElement(
+			"TextSimple", "TextSimple_" + Ogre::StringConverter::toString((uint32)this)));
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 
-		// выравнивание
-		if (_info.aligin & ALIGN_RIGHT) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Right);
-		else if (! (_info.aligin & ALIGN_RIGHT)) m_overlayContainer->setAlignment(Ogre::TextAreaOverlayElement::Center);
+		m_overlayContainer->setPosition(m_x, m_y);
+		m_overlayContainer->setDimensions(m_cx, m_cy);
 
 		m_parent->attach(this, true);
-
 	}
 
 	TextSimple::~TextSimple()
@@ -31,6 +29,13 @@ namespace widget
 		// с защитой от удаления после шутдауна рендера
 		Ogre::OverlayManager * manager = Ogre::OverlayManager::getSingletonPtr();
 		if (manager != null) manager->destroyOverlayElement(m_overlayContainer);
+	}
+
+	void TextSimple::setTextAlign(char _align)
+	{
+		// выравнивание
+		m_overlayContainer->setAlignment(_align);
+		updateText();
 	}
 
 	OverlayElementPtr TextSimple::getOverlayElement()
@@ -101,14 +106,12 @@ namespace widget
 		return m_overlayContainer->getCharHeight();
 	}
 
-
 	void TextSimple::update()
 	{
-
 		bool margin = check_margin();
 
 		// двигаем всегда, т.к. дети должны двигаться
-		int x = m_x - m_parent->margin_left();
+		int x = m_x  - m_parent->margin_left();
 		int y = m_y  - m_parent->margin_top();
 
 		m_overlayContainer->setPosition(x, y);
@@ -121,11 +124,9 @@ namespace widget
 
 				// скрываем
 				m_overlayContainer->hide();
-//				m_overlayContainer->hide();
 				// запоминаем текущее состояние
 				m_margin = margin;
-				
-//				debug.out("return");
+
 				return;
 
 			}
@@ -134,10 +135,8 @@ namespace widget
 		
 		if ((m_margin) || (margin)) { // мы обрезаны или были обрезаны
 
-			// если скин был скрыт, то покажем
-//			m_overlayContainer->show();
-			// устанавливаем рамку для обрезки текста
 			m_overlayContainer->setMargin(m_left_margin, m_top_margin, m_right_margin, m_bottom_margin);
+			m_overlayContainer->setDimensions(m_cx, m_cy);
 
 		}
 
@@ -155,14 +154,21 @@ namespace widget
 
 	void TextSimple::align(int _cx, int _cy, bool _update)
 	{
-
-		bool need_update = _update;
+		// необходимо разобраться
+		bool need_update = true;//_update;
 
 		// первоначальное выравнивание 
 		if (m_align & ALIGN_RIGHT) {
-			// двигаем по правому краю
-			m_x = (m_parent->width() - m_cx);
-			need_update = true;
+			if (m_align & ALIGN_LEFT) {
+				// растягиваем
+				m_cx = m_cx + (m_parent->width() - _cx);
+				need_update = true;
+				m_margin = true; // при изменении размеров все пересчитывать
+			} else {
+				// двигаем по правому краю
+				m_x = m_x + (m_parent->width() - _cx);
+				need_update = true;
+			}
 
 		} else if (!(m_align & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
@@ -171,9 +177,15 @@ namespace widget
 		}
 
 		if (m_align & ALIGN_BOTTOM) {
-			m_y = (m_parent->height() - m_cy);
-			need_update = true;
-
+			if (m_align & ALIGN_TOP) {
+				// растягиваем
+				m_cy = m_cy + (m_parent->height() - _cy);
+				need_update = true;
+				m_margin = true; // при изменении размеров все пересчитывать
+			} else {
+				m_y = m_y + (m_parent->height() - _cy);
+				need_update = true;
+			}
 		} else if (!(m_align & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
 			m_y = (m_parent->height() - m_cy) / 2;

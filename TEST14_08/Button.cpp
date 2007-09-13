@@ -17,17 +17,11 @@ namespace widget
 	{
 
 		// парсим свойства
-/*		const SkinParam & param = _info->getParams();
+		const SkinParam & param = _info->getParams();
 		if (!param.empty()) {
-			SkinParam::const_iterator iter = param.find("ImageMaterial");
-			if (iter != param.end()) setImageMaterial(iter->second);
-			iter = param.find("ImageRect");
-			if (iter != param.end()) setImageRect(floatRect::parse(iter->second));
-			iter = param.find("ImageTile");
-			if (iter != param.end()) setImageTile(floatSize::parse(iter->second));
-			iter = param.find("ImageNum");
-			if (iter != param.end()) setImageNum(parseInt(iter->second));
-		}*/
+			SkinParam::const_iterator iter = param.find("ButtonPressed");
+			if (iter != param.end()) setButtonPressed(iter->second == "true");
+		}
 	}
 
 	void Button::OnMouseSetFocus(WidgetPtr _old)

@@ -3,7 +3,7 @@
 #include <Ogre.h>
 #include "delegate.h"
 #include "ParserManager.h"
-#include "Button.h"
+#include "Edit.h"
 
 namespace widget
 {
@@ -11,22 +11,22 @@ namespace widget
 	namespace parser
 	{
 
-		class ButtonParser
+		class EditParser
 		{
 		public:
-			ButtonParser()
+			EditParser()
 			{
 				// менеджер всех парсеров свойств
 				ParserManager & parser = ParserManager::getInstance();
 
-				parser.registerDelegate("ButtonPressed") = newDelegate(this, &ButtonParser::ButtonPressed);
+//				parser.registerDelegate("ButtonPressed") = newDelegate(this, &ButtonParser::ButtonPressed);
 			}
 
-			void ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+			/*void ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(ButtonPtr, _widget);
 				static_cast<ButtonPtr>(_widget)->setButtonPressed(_value == "true");
-			}
+			}*/
 
 		};
 

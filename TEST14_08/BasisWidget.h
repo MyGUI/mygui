@@ -47,6 +47,8 @@ namespace widget
 		virtual void setFontHeight(Ogre::ushort _height) {}
 		virtual Ogre::ushort getFontHeight() {return 0;}
 
+		virtual void setTextAlign(char _align) {}
+
 		virtual void update() {}
 		virtual void correct() {}
 		virtual void align(int _cx, int _cy, bool _update) {}

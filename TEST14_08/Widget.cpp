@@ -40,6 +40,8 @@ namespace widget
 			if (iter != param.end()) setFontHeight(parseInt(iter->second));
 			iter = param.find("NeedKey");
 			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
+			iter = param.find("AlignText");
+			if (iter != param.end()) setTextAlign(SkinManager::getInstance().parseAlign(iter->second));
 		}
 
 		// этот стиль есть всегда, даже если создатель не хотел его
@@ -304,14 +306,19 @@ namespace widget
 
 	void Widget::setCaption(const Ogre::DisplayString & _caption)
 	{
-		if (!m_text) return;
+		if (m_text == null) return;
 		m_text->setCaption(_caption);
 	}
 
 	const Ogre::DisplayString & Widget::getCaption()
 	{
-		if (!m_text) return BasisWidget::getCaption();
+		if (m_text == null) return BasisWidget::getCaption();
 		return m_text->getCaption();
+	}
+
+	void Widget::setTextAlign(char _align)
+	{
+		if (m_text != null) m_text->setTextAlign(_align);
 	}
 
 	void Widget::setAlpha(float _alpha)
