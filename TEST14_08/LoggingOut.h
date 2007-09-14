@@ -1,9 +1,13 @@
 
-#pragma once
+//#pragma once
+
+#ifndef _LOGGINGOUT_H_
+#define _LOGGINGOUT_H_
 
 #include "stringUtil.h"
 #include "stdio.h"
 #include "time.h"
+#include <sstream>
 
 namespace widget
 {
@@ -76,6 +80,13 @@ namespace widget
 			file_out::out(toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5) + toString(p6));
 		}
 
+#define LOG_MESSAGE(x){	\
+		std::stringstream buf;	\
+		buf << x;	\
+		file_out::out(buf.str());	\
+		}
+
+
 	#else
 
 		template< class T1>
@@ -99,3 +110,6 @@ namespace widget
 	#endif
 
 } // namespace widget
+
+
+#endif

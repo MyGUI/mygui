@@ -642,6 +642,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Prerequest.h"
+					>
+				</File>
+				<File
 					RelativePath=".\RenderOut.h"
 					>
 				</File>
@@ -783,6 +787,38 @@
 				</File>
 				<File
 					RelativePath=".\EditParser.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Plugins"
+				>
+				<File
+					RelativePath=".\DynLib.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\DynLib.h"
+					>
+				</File>
+				<File
+					RelativePath=".\DynLibManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\DynLibManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Plugin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PluginManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\PluginManager.h"
 					>
 				</File>
 			</Filter>
