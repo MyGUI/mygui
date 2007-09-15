@@ -5,7 +5,7 @@
 #include <Ogre.h>
 #include "BasisWidget.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	class _MyGUIExport BasisWidgetFactoryBase
@@ -27,7 +27,7 @@ namespace widget
 		}
 	}; // class BasisWidgetFactory : public BasisWidgetFactoryBase
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

@@ -2,7 +2,7 @@
 #include "WidgetManager.h"
 #include "LayerManager.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name)
@@ -64,4 +64,4 @@ namespace widget
 		if (iter != m_widgets.end()) m_widgets.erase(iter);
 	}
 
-} // namespace widget
+} // namespace MyGUI

@@ -3,7 +3,7 @@
 #include "SkinManager.h"
 #include "xmlDocument.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	PointerManager::PointerManager()
@@ -157,4 +157,4 @@ namespace widget
 		m_overlayElement->setOverlay(0);
 	}
 
-} // namespace widget	
+} // namespace MyGUI	

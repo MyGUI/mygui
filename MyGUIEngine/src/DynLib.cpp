@@ -12,7 +12,7 @@
 #include <Windows.h>
 #endif
 
-namespace widget
+namespace MyGUI
 {
 
 	DynLib::DynLib( const std::string& name )

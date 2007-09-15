@@ -7,7 +7,7 @@
 #include "Ogre.h"
 #include "OgreFontManager.h"
 
-namespace widget
+namespace MyGUI
 {
 	#undef OUT
 
@@ -200,6 +200,6 @@ namespace widget
 
 	#endif
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

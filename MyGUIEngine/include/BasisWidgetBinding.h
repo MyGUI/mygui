@@ -7,7 +7,7 @@
 #include "WidgetDefines.h"
 
 
-namespace widget
+namespace MyGUI
 {
 	
 
@@ -74,7 +74,7 @@ namespace widget
 		ViewInfo m_states;
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

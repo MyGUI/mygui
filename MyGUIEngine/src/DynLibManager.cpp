@@ -7,7 +7,7 @@
 #include "DynLibManager.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	DynLibManager* DynLibManager::m_instance = 0;

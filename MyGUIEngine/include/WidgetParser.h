@@ -6,7 +6,7 @@
 #include "delegate.h"
 #include "ParserManager.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	namespace parser
@@ -96,6 +96,6 @@ namespace widget
 
 	} // namespace parser
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

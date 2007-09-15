@@ -5,7 +5,7 @@
 #include "PointerManager.h"
 #include "Widget.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	const std::string INPUT_DEFAULT_LANGUAGE = "English";
@@ -260,4 +260,4 @@ namespace widget
 		}
 	}
 
-} // namespace widget
+} // namespace MyGUI

@@ -14,7 +14,7 @@
 
 #include "Platform.h"
 
-namespace widget
+namespace MyGUI
 {
 	class DynLib;
 	class Plugin;

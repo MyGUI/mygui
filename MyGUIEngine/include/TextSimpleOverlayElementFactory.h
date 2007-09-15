@@ -5,7 +5,7 @@
 #include <OgreOverlayElementFactory.h>
 #include "TextSimpleOverlayElement.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	/** Factory for creating TextSimpleOverlayElementFactory instances. */
@@ -25,6 +25,6 @@ namespace widget
         }
     };
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

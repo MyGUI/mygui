@@ -7,7 +7,7 @@
 #include "SkinManager.h"
 #include "WidgetManager.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	class _MyGUIExport WidgetFactoryBase
@@ -29,6 +29,6 @@ namespace widget
 		}
 	}; // class WidgetFactory : public WidgetFactoryBase
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

@@ -8,7 +8,7 @@
 #include "BasisWidgetFactory.h"
 #include "Instance.h"
 
-namespace widget
+namespace MyGUI
 {
 	class _MyGUIExport BasisWidgetManager
 	{
@@ -36,7 +36,7 @@ namespace widget
 
 	}; // BasisWidgetManager
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

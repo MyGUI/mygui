@@ -2,7 +2,7 @@
 #include "Edit.h"
 #include "EditParser.h"
 
-namespace widget
+namespace MyGUI
 {
 	// создаем фабрику для этого виджета
 	namespace factory { WidgetFactory<Edit> EditFactoryInstance; }
@@ -87,4 +87,4 @@ namespace widget
 		Widget::OnKeyButtonReleased(_key);
 	}
 
-} // namespace widget
+} // namespace MyGUI

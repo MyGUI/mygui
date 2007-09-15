@@ -9,7 +9,7 @@
 #include "LayerManager.h"
 #include "PointerInfo.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	class _MyGUIExport PointerManager : public LayerItemInfo
@@ -47,6 +47,6 @@ namespace widget
 
 	}; // class PointerManager
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

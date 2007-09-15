@@ -4,7 +4,7 @@
 #include "Prerequest.h"
 #include "WidgetDefines.h"
 
-namespace widget
+namespace MyGUI
 {
 	class _MyGUIExport UserData
 	{
@@ -66,6 +66,6 @@ namespace widget
 		MapString m_mapUserString;
 		MapInt m_mapUserInt;
 	};
-} // namespace widget
+} // namespace MyGUI
 
 #endif

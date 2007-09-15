@@ -24,7 +24,7 @@ typedef struct HINSTANCE__* hInstance;
 
 #endif
 
-namespace widget
+namespace MyGUI
 {
 
 	/*! @brief Resource holding data about a dynamic library.

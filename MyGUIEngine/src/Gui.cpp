@@ -3,7 +3,7 @@
 #include "LayoutManager.h"
 #include "LayerManager.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	Gui::Gui() :
@@ -81,4 +81,4 @@ namespace widget
 		m_widgetChild.clear();
 	}
 
-} // namespace widget
+} // namespace MyGUI

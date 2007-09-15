@@ -290,20 +290,17 @@ int main(int argc, char **argv)
 #endif
 {
 
-	BasisManager app;
+	try {
 
-    try {
-
-        app.createBasisManager();
-		app.destroyBasisManager();
+		BasisManager::getInstance().createBasisManager();
+		BasisManager::getInstance().destroyBasisManager();
 
 	} catch( ... ) {
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-        MessageBox( NULL, NULL, TEXT("An exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
-#else
-        std::cerr << "An exception has occured: " << e.getFullDescription();
-#endif
+		#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+				MessageBox( NULL, NULL, TEXT("An exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
+		#else
+				std::cerr << "An exception has occured: " << e.getFullDescription();
+		#endif
     }
 
 

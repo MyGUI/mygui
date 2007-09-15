@@ -4,7 +4,7 @@
 #include "Prerequest.h"
 #include "Widget.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	class _MyGUIExport Edit : public Widget
@@ -51,6 +51,6 @@ namespace widget
 
 	typedef Edit * EditPtr;
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

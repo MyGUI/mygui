@@ -2,7 +2,7 @@
 #include "TextSimple.h"
 #include "BasisWidgetManager.h"
 
-namespace widget
+namespace MyGUI
 {
 	// создаем фабрику для этого скина
 	BasisWidgetFactory<TextSimple> factory_TextSimple;
@@ -196,4 +196,4 @@ namespace widget
 
 	}
 
-} // namespace widget
+} // namespace MyGUI

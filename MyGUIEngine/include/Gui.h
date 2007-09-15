@@ -9,7 +9,7 @@
 #include "TextSimpleOverlayElementFactory.h"
 #include "PanelAlphaOverlayElementFactory.h"
 
-namespace widget
+namespace MyGUI
 {
 	
 
@@ -60,6 +60,6 @@ namespace widget
 
 	}; // class Gui
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

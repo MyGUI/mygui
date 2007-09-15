@@ -4,7 +4,7 @@
 #include "Prerequest.h"
 #include <Ogre.h>
 
-namespace widget
+namespace MyGUI
 {
 
 	class LayerInfo;
@@ -36,6 +36,6 @@ namespace widget
 		LayerInfoPtr m_layerInfo;
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

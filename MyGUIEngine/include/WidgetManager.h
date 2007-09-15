@@ -8,7 +8,7 @@
 #include "Instance.h"
 #include "WidgetFactory.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	
@@ -39,6 +39,6 @@ namespace widget
 		mapWidgetPtr m_widgets;
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

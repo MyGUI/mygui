@@ -6,7 +6,7 @@
 #include "BasisWidget.h"
 #include "TextSimpleOverlayElement.h"
 
-namespace widget
+namespace MyGUI
 {
 	using namespace Ogre;
 
@@ -61,6 +61,6 @@ namespace widget
 
 	}; // class TextSimple : public BasisWidget
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

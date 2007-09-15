@@ -12,7 +12,7 @@
 #include "WidgetEvent.h"
 #include "WidgetFactory.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	
@@ -128,7 +128,7 @@ namespace widget
 
 	}; // class Widget
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

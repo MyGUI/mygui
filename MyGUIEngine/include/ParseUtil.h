@@ -4,7 +4,7 @@
 #include "Prerequest.h"
 #include <Ogre.h>
 
-namespace widget
+namespace MyGUI
 {
 
 	template< class T >
@@ -34,6 +34,6 @@ namespace widget
 		return Ogre::ColourValue::ZERO;
 	}
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

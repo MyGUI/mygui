@@ -7,7 +7,7 @@
 #include "stringUtil.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	template< typename T > struct TSize
@@ -48,6 +48,6 @@ namespace widget
 	typedef TSize<int> intSize;
 	typedef TSize<float> floatSize;
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

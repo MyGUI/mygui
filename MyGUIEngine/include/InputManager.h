@@ -6,7 +6,7 @@
 #include "WidgetDefines.h"
 #include "delegate.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	typedef std::vector<wchar_t> LangInfo;
@@ -80,6 +80,6 @@ namespace widget
 
 	}; // class InputManager
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

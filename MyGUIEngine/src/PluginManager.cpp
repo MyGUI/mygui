@@ -9,7 +9,7 @@
 
 #include <algorithm>
 
-namespace widget
+namespace MyGUI
 {
 
 

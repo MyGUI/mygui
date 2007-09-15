@@ -4,7 +4,7 @@
 
 #include "Prerequest.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	//Bit flags done easy
@@ -29,6 +29,6 @@ namespace widget
 		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch to fill the entire parent (?)
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

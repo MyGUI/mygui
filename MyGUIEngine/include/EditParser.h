@@ -7,7 +7,7 @@
 #include "ParserManager.h"
 #include "Edit.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	namespace parser
@@ -34,7 +34,7 @@ namespace widget
 
 	} // namespace parser
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

@@ -2,7 +2,7 @@
 
 #include "Widget.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	class Button : public Widget
@@ -56,4 +56,4 @@ namespace widget
 
 	typedef Button * ButtonPtr;
 
-} // namespace widget
+} // namespace MyGUI

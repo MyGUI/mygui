@@ -2,7 +2,7 @@
 #include "StaticImage.h"
 #include "StaticImageParser.h"
 
-namespace widget
+namespace MyGUI
 {
 	// создаем фабрику для этого виджета
 	namespace factory { WidgetFactory<StaticImage> StaticImageFactoryInstance; }
@@ -56,4 +56,4 @@ namespace widget
 	}
 
 
-} // namespace widget
+} // namespace MyGUI

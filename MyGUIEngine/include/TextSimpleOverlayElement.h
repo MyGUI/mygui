@@ -11,7 +11,7 @@
 #include "debugOut.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	#define POS_TEX_BINDING 0
@@ -372,6 +372,6 @@ namespace widget
 
 	}; // class TextSimpleOverlayElement : public TextAreaOverlayElement
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

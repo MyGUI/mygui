@@ -42,6 +42,8 @@ public:
 	OptionsState mOptions; // настройки
 
 public:
+	static BasisManager & getInstance() {static BasisManager instance;return instance;}
+
 	BasisManager();
 
 	void createInput(); // создаем систему ввода

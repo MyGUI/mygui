@@ -8,7 +8,7 @@
 #include "debugOut.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	using namespace Ogre;
@@ -222,7 +222,7 @@ namespace widget
 
 	}; // class PanelAlphaOverlayElement : public PanelOverlayElement
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif
 

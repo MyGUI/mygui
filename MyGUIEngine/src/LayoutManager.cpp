@@ -6,7 +6,7 @@
 #include "Gui.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	LayoutManager::LayoutManager() {}
@@ -81,4 +81,4 @@ namespace widget
 		}
 	}
 
-} // namespace widget
+} // namespace MyGUI

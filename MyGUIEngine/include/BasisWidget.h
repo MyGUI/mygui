@@ -6,7 +6,7 @@
 #include <Ogre.h>
 #include "WidgetDefines.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	class _MyGUIExport BasisWidget
@@ -142,7 +142,7 @@ namespace widget
 
 	}; // class BasisWidget
 
-} // namespace widget
+} // namespace MyGUI
 
 
 

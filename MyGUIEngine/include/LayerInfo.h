@@ -7,7 +7,7 @@
 #include "LayerItemInfo.h"
 #include "PanelAlphaOverlayElement.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	
@@ -135,6 +135,6 @@ namespace widget
 
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

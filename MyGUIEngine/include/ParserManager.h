@@ -9,7 +9,7 @@
 #include "Instance.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	typedef CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParceDelegate;
@@ -41,6 +41,6 @@ namespace widget
 		MapDelegate m_delegates;
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

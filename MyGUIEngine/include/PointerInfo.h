@@ -7,7 +7,7 @@
 #include "TRect.h"
 #include "TSize.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	struct PointerInfo
@@ -20,7 +20,7 @@ namespace widget
 
 	typedef std::map<std::string, PointerInfo> MapPointerInfo;
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

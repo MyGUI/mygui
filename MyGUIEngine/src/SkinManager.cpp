@@ -3,7 +3,7 @@
 #include "WidgetSkinInfo.h"
 #include "xmlDocument.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	SkinManager::SkinManager()
@@ -235,4 +235,4 @@ namespace widget
 	}
 
 
-} // namespace widget
+} // namespace MyGUI

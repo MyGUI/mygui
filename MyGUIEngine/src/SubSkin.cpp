@@ -2,7 +2,7 @@
 #include "SubSkin.h"
 #include "BasisWidgetManager.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	// создаем фабрику для этого скина
@@ -209,4 +209,4 @@ namespace widget
 		}
 	}
 
-} // namespace widget
+} // namespace MyGUI

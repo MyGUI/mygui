@@ -12,7 +12,7 @@
 #include <sstream>
 
 
-namespace widget
+namespace MyGUI
 {
 
 	struct file_out
@@ -83,7 +83,7 @@ namespace widget
 
 	#define LOG_MESSAGE(x) {std::stringstream buf; buf << x; LOG(buf.str());}
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

@@ -14,7 +14,7 @@
 #include <string>
 #include <map>
 
-namespace widget
+namespace MyGUI
 {
 	/*!	\brief Manager of dynamic libraries
 	*/

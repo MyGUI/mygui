@@ -92,6 +92,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy bin\debug\MyGUI_d.dll ..\Shared\debug\MyGUI_d.dll"
 			/>
 		</Configuration>
 		<Configuration
@@ -138,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
 				OutputFile="bin/Release/MyGUI.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -171,6 +172,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy bin\release\MyGUI.dll ..\Shared\release\MyGUI.dll"
 			/>
 		</Configuration>
 	</Configurations>

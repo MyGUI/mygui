@@ -4,7 +4,7 @@
 #include"Prerequest.h"
 #include "Widget.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	class _MyGUIExport StaticImage : public Widget
@@ -73,6 +73,6 @@ namespace widget
 
 	typedef StaticImage * StaticImagePtr;
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif 

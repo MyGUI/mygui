@@ -5,7 +5,7 @@
 #include "delegate.h"
 #include "WidgetDefines.h"
 
-namespace widget
+namespace MyGUI
 {
 	// делегаты для событий виджета
 	typedef CDelegate1<WidgetPtr> EventSimple;
@@ -155,6 +155,6 @@ namespace widget
 
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

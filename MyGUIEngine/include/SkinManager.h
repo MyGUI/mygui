@@ -9,7 +9,7 @@
 #include "WidgetDefines.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	class _MyGUIExport SkinManager
@@ -43,6 +43,6 @@ namespace widget
 
 	}; // class SkinManager
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

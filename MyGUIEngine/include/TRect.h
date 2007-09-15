@@ -7,7 +7,7 @@
 #include "stringUtil.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	template< typename T > struct TRect
@@ -60,6 +60,6 @@ namespace widget
 	typedef TRect<int> intRect;
 	typedef TRect<float> floatRect;
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

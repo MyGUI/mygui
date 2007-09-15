@@ -4,7 +4,7 @@
 #include "Prerequest.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	#define COMBINE(a,b)       COMBINE1(a,b)
@@ -104,6 +104,6 @@ namespace widget
 		IDelegate * m_pDelegate;
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 //#endif

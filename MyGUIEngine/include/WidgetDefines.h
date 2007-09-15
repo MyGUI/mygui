@@ -6,7 +6,7 @@
 #include "Common.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	struct tagBasisWidgetStateInfo
@@ -61,6 +61,6 @@ namespace widget
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::map<std::string, int> MapInt;
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

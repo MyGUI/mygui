@@ -11,7 +11,7 @@
 
 #include <string>
 
-namespace widget
+namespace MyGUI
 {
 
 	/*!	\brief Base plugin class

@@ -6,7 +6,7 @@
 #include "PanelAlphaOverlayElement.h"
 #include "BasisWidget.h"
 
-namespace widget
+namespace MyGUI
 {
 	using namespace Ogre;
 
@@ -44,6 +44,6 @@ namespace widget
 
 	}; // class SubSkin
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

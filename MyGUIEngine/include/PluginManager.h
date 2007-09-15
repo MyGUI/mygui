@@ -16,7 +16,7 @@
 typedef void (*DLL_START_PLUGIN)(void);
 typedef void (*DLL_STOP_PLUGIN)(void);
 
-namespace widget
+namespace MyGUI
 {
 
 	

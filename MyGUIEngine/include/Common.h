@@ -17,7 +17,7 @@
 #include "Prerequest.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	#define null 0
@@ -32,7 +32,7 @@ namespace widget
 		#define TYPE(_type,_ptr) ((void)0)
 	#endif
 
-} // namespace widget
+} // namespace MyGUI
 
 
 #endif

@@ -1,5 +1,6 @@
 
 #include "BasisManager.h"
+//#include "Gui.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -31,7 +32,7 @@ void OptionsState::enter(bool bIsChangeState)
     
 	mEditor = new SkinEditor::SkinEditor(this);*/
 
-//	Gui::getInstance().initialise(BasisManager::getSingleton()->mWindow);
+//	MyGUI::Gui::getInstance();//.initialise(BasisManager::getInstance().mWindow);
 
 //	LayerManager::getInstance().load("main.layer");
 //	PointerManager::getInstance().load("main.pointer");

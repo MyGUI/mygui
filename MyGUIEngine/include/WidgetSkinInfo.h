@@ -7,7 +7,7 @@
 #include "BasisWidgetBinding.h"
 
 
-namespace widget
+namespace MyGUI
 {
 	// вспомогательный класс для инициализации одного скина
 	class _MyGUIExport WidgetSkinInfo
@@ -95,6 +95,6 @@ namespace widget
 
 	};
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

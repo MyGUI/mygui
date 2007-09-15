@@ -3,7 +3,7 @@
 
 #include "Prerequest.h"
 
-namespace widget
+namespace MyGUI
 {
 	// супер облегченный шаблон синглетон =)
 

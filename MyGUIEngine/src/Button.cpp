@@ -2,7 +2,7 @@
 #include "Button.h"
 #include "ButtonParser.h"
 
-namespace widget
+namespace MyGUI
 {
 	// создаем фабрику для этого виджета
 	namespace factory { WidgetFactory<Button> ButtonFactoryInstance; }
@@ -54,4 +54,4 @@ namespace widget
 		updateButtonState();
 	}
 
-} // namespace widget
+} // namespace MyGUI

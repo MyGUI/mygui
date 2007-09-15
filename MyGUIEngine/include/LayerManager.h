@@ -11,7 +11,7 @@
 #include "Instance.h"
 
 
-namespace widget
+namespace MyGUI
 {
 	
 	// карта для поиска по имени
@@ -49,6 +49,6 @@ namespace widget
 
 	}; // class LayerManager
 
-} // namespace widget
+} // namespace MyGUI
 
 #endif

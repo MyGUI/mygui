@@ -7,7 +7,7 @@
 #include "Instance.h"
 
 
-namespace widget
+namespace MyGUI
 {
 
 	class LayoutManager
@@ -29,4 +29,4 @@ namespace widget
 		
 	}; // class LayoutManager
 
-} // namespace widget
+} // namespace MyGUI

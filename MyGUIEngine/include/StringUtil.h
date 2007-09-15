@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-namespace widget
+namespace MyGUI
 {
 
 	struct util

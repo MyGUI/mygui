@@ -6,7 +6,7 @@
 #include "WidgetParser.h"
 #include "Gui.h"
 
-namespace widget
+namespace MyGUI
 {
 	// создаем фабрику для этого виджета
 	namespace factory { WidgetFactory<Widget> WidgetFactoryInstance; }
@@ -73,7 +73,7 @@ namespace widget
 
 	WidgetPtr Widget::createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name)
 	{
-		widget::Gui & gui = Gui::getInstance();
+		Gui & gui = Gui::getInstance();
 		return createWidget(_type, _skin, (int)(_x*gui.getWidth()), (int)(_y*gui.getHeight()), (int)(_cx*gui.getWidth()), (int)(_cy*gui.getHeight()), _align, _name);
 	}
 
@@ -447,4 +447,4 @@ namespace widget
 		}
 	}
 
-} // namespace widget
+} // namespace MyGUI

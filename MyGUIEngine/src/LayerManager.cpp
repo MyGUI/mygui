@@ -1,7 +1,7 @@
 
 #include "LayerManager.h"
 
-namespace widget
+namespace MyGUI
 {
 
 	LayerManager::LayerManager() {}
@@ -93,4 +93,4 @@ namespace widget
 		return null;
 	}
 
-} // namespace widget
+} // namespace MyGUI
