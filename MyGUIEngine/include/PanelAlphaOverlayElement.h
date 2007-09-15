@@ -5,9 +5,6 @@
 #include <Ogre.h>
 #include <OgrePanelOverlayElement.h>
 
-#include "debugOut.h"
-
-
 namespace MyGUI
 {
 

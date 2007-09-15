@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI_Layout>
-  <Widget2 Type="Widget" Skin="Button" PositionReal="0.2 0.2 0.6 0.6" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget" >
+  <Widget2 Type="Widget" Skin="Button" Position="50 50 100 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget" >
 
     <Widget Type="Widget" Skin="Button" Position="50 50 130 130" Align="ALIGN_LEFT ALIGN_TOP" Name="m_widget2" >
       <Widget Type="Widget" Skin="Button" Position="50 50 60 60" Align="ALIGN_LEFT ALIGN_TOP" Name="m_widget3" >
@@ -12,15 +12,14 @@
 
   </Widget2>
 
-      <Widget Type="Widget" Skin="Button" Position="50 50 60 60" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget4" >
-        <Property Key="Caption" Value="dermo2" />
-        <Property Key="FontHeight" Value="30" />
+      <Widget Type="Edit" Skin="Edit" Position="50 50 100 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget4" >
+        <Property Key="Caption" Value="Edit" />
+        <Property Key="FontHeight" Value="20" />
+      </Widget>
 
-        <Widget Type="Widget" Skin="Button" Position="50 50 60 60" Align="ALIGN_LEFT ALIGN_TOP" Name="m_widget3" >
-          <Property Key="Caption" Value="dermo2" />
-          <Property Key="FontHeight" Value="30" />
-        </Widget>
-
+      <Widget Type="Button" Skin="Button" Position="50 100 100 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget1" >
+        <Property Key="Caption" Value="button" />
+        <Property Key="FontHeight" Value="20" />
       </Widget>
 
 </MyGUI_Layout>

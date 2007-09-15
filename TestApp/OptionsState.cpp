@@ -40,6 +40,18 @@ bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 	return true;
 }
 //===================================================================================
+bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
+{
+	MyGUI::Gui::getInstance().injectKeyPress(arg);
+	return true;
+}
+//===================================================================================
+bool OptionsState::keyReleased( const OIS::KeyEvent &arg )
+{
+	MyGUI::Gui::getInstance().injectKeyRelease(arg);
+	return true;
+}
+//===================================================================================
 void OptionsState::exit()
 {
 	MyGUI::Gui::getInstance().shutdown();

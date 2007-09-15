@@ -2,70 +2,71 @@
 
 <MyGUI_SkinInfo>
 
-    <Skin Name = "Button" Size = "50 30" Material = "MyGUI_main" >
+    <Skin Name = "Button" Size = "54 26" Material = "MyGUI_main" >
         <Property Key="FontName" Value = "MyGUI_font" />
         <Property Key="FontHeight" Value = "16" />
-        <BasisSkin Type="SubSkin" Offset = "0 0 10 30" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
-            <State Name="disable" Offset = "2 2 10 30"/>
-            <State Name="pressed" Offset = "52 2 10 30"/>
-            <State Name="normal" Offset = "102 2 10 30"/>
-            <State Name="select" Offset = "152 2 10 30"/>
-            <State Name="active" Offset = "202 2 10 30"/>
+        <Property Key="AlignText" Value = "ALIGN_CENTER" />
+        <BasisSkin Type="SubSkin" Offset = "0 0 20 26" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State Name="disable" Offset = "2 2 20 26"/>
+            <State Name="normal" Offset = "2 30 20 26"/>
+            <State Name="active" Offset = "2 58 20 26"/>
+            <State Name="pressed" Offset = "2 86 20 26"/>
+            <State Name="select" Offset = "2 114 20 26"/>
         </BasisSkin>
-        <BasisSkin Type="SubSkin" Offset = "10 0 30 30" Align = "ALIGN_STRETCH">
-            <State Name="disable" Offset = "12 2 30 30"/>
-            <State Name="pressed" Offset = "62 2 30 30"/>
-            <State Name="normal" Offset = "112 2 30 30"/>
-            <State Name="select" Offset = "162 2 30 30"/>
-            <State Name="active" Offset = "212 2 30 30"/>
+        <BasisSkin Type="SubSkin" Offset = "20 0 20 26" Align = "ALIGN_STRETCH">
+            <State Name="disable" Offset = "22 2 20 26"/>
+            <State Name="normal" Offset = "22 30 20 26"/>
+            <State Name="active" Offset = "22 58 20 26"/>
+            <State Name="pressed" Offset = "22 86 20 26"/>
+            <State Name="select" Offset = "22 114 20 26"/>
         </BasisSkin>
-        <BasisSkin Type="SubSkin" Offset = "40 0 10 30" Align = "ALIGN_RIGHT ALIGN_VSTRETCH">
-            <State Name="disable" Offset = "42 2 10 30"/>
-            <State Name="pressed" Offset = "92 2 10 30"/>
-            <State Name="normal" Offset = "142 2 10 30"/>
-            <State Name="select" Offset = "192 2 10 30"/>
-            <State Name="active" Offset = "242 2 10 30"/>
+        <BasisSkin Type="SubSkin" Offset = "40 0 14 26" Align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State Name="disable" Offset = "42 2 14 26"/>
+            <State Name="normal" Offset = "42 30 14 26"/>
+            <State Name="active" Offset = "42 58 14 26"/>
+            <State Name="pressed" Offset = "42 86 14 26"/>
+            <State Name="select" Offset = "42 114 14 26"/>
         </BasisSkin>
-        <BasisSkin Type="TextSimple" Align = "ALIGN_CENTER">
+        <BasisSkin Type="TextSimple" Offset = "23 0 28 30" Align = "ALIGN_STRETCH">
             <State Name="disable" Color="0.87 0.87 0.87"/>
-            <State Name="pressed" Color="0 0 0"/>
             <State Name="normal" Color="0 0 0"/>
-            <State Name="select" Color="7BD2FA"/>
             <State Name="active" Color="2C8AD5"/>
+            <State Name="pressed" Color="0 0 0"/>
+            <State Name="select" Color="2C8AD5"/>
         </BasisSkin>
     </Skin>
     
-    <Skin Name = "Edit" Size = "50 30" Material = "MyGUI_main" >
+    <Skin Name = "Edit" Size = "40 26" Material = "MyGUI_main" >
         <Property Key="FontName" Value = "MyGUI_font" />
         <Property Key="FontHeight" Value = "16" />
         <Property Key="NeedKey" Value = "true" />
-        <Property Key="AlignText" Value = "ALIGN_RIGHT ALIGN_VCENTER" />
-        <BasisSkin Type="SubSkin" Offset = "0 0 10 30" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
-            <State Name="disable" Offset = "2 2 10 30"/>
-            <State Name="pressed" Offset = "52 2 10 30"/>
-            <State Name="normal" Offset = "102 2 10 30"/>
-            <State Name="select" Offset = "152 2 10 30"/>
-            <State Name="active" Offset = "202 2 10 30"/>
+        <Property Key="AlignText" Value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <BasisSkin Type="SubSkin" Offset = "0 0 10 26" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State Name="disable" Offset = "60 2 10 26"/>
+            <State Name="normal" Offset = "60 30 10 26"/>
+            <State Name="active" Offset = "60 58 10 26"/>
+            <State Name="pressed" Offset = "60 86 10 26"/>
+            <State Name="select" Offset = "60 114 10 26"/>
         </BasisSkin>
-        <BasisSkin Type="SubSkin" Offset = "10 0 30 30" Align = "ALIGN_STRETCH">
-            <State Name="disable" Offset = "12 2 30 30"/>
-            <State Name="pressed" Offset = "62 2 30 30"/>
-            <State Name="normal" Offset = "112 2 30 30"/>
-            <State Name="select" Offset = "162 2 30 30"/>
-            <State Name="active" Offset = "212 2 30 30"/>
+        <BasisSkin Type="SubSkin" Offset = "10 0 20 26" Align = "ALIGN_STRETCH">
+            <State Name="disable" Offset = "70 2 20 26"/>
+            <State Name="normal" Offset = "70 30 20 26"/>
+            <State Name="active" Offset = "70 58 20 26"/>
+            <State Name="pressed" Offset = "70 86 20 26"/>
+            <State Name="select" Offset = "70 114 20 26"/>
         </BasisSkin>
-        <BasisSkin Type="SubSkin" Offset = "40 0 10 30" Align = "ALIGN_RIGHT ALIGN_VSTRETCH">
-            <State Name="disable" Offset = "42 2 10 30"/>
-            <State Name="pressed" Offset = "92 2 10 30"/>
-            <State Name="normal" Offset = "142 2 10 30"/>
-            <State Name="select" Offset = "192 2 10 30"/>
-            <State Name="active" Offset = "242 2 10 30"/>
+        <BasisSkin Type="SubSkin" Offset = "30 0 10 26" Align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State Name="disable" Offset = "90 2 10 26"/>
+            <State Name="normal" Offset = "90 30 10 26"/>
+            <State Name="active" Offset = "90 58 10 26"/>
+            <State Name="pressed" Offset = "90 86 10 26"/>
+            <State Name="select" Offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin Type="TextSimple" Offset = "10 0 30 30" Align = "ALIGN_STRETCH">
+        <BasisSkin Type="TextSimple" Offset = "3 0 34 30" Align = "ALIGN_STRETCH">
             <State Name="disable" Color="0.87 0.87 0.87"/>
             <State Name="pressed" Color="0 0 0"/>
             <State Name="normal" Color="0 0 0"/>
-            <State Name="select" Color="7BD2FA"/>
+            <State Name="select" Color="2C8AD5"/>
             <State Name="active" Color="2C8AD5"/>
         </BasisSkin>
     </Skin>

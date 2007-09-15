@@ -8,9 +8,6 @@
 #include "OgreFontManager.h"
 #include "AlignInfo.h"
 
-#include "debugOut.h"
-
-
 namespace MyGUI
 {
 
