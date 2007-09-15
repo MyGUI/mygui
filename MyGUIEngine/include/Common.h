@@ -13,6 +13,7 @@
 #include "StringUtil.h"
 #include "ParseUtil.h"
 #include "AlignInfo.h"
+#include "ResourcePath.h"
 
 #include "Prerequest.h"
 
