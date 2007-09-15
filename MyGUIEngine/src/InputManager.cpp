@@ -16,7 +16,7 @@ namespace MyGUI
 		m_isCharShift(false)
 	{
 		createDefaultCharSet();
-		loadCharSet("main.lang");
+		loadCharSet(path::getFullPath("main.lang"));
 	}
 
 	bool InputManager::injectMouseMove( const OIS::MouseEvent & _arg)
