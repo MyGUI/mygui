@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="MyGUIEngine"
 	ProjectGUID="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 	RootNamespace="MyGUIEngine"
@@ -186,18 +186,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\debugOut.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\DynLib.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\DynLibManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Edit.cpp"
 				>
 			</File>
@@ -218,14 +206,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\MainSkin.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\PluginManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\PointerManager.cpp"
 				>
 			</File>
@@ -238,14 +218,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\SubSkin.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\TextSimple.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Widget.cpp"
 				>
 			</File>
@@ -253,6 +225,46 @@
 				RelativePath=".\src\WidgetManager.cpp"
 				>
 			</File>
+			<Filter
+				Name="Util"
+				>
+				<File
+					RelativePath=".\src\debugOut.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="DynLib"
+				>
+				<File
+					RelativePath=".\src\DynLib.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DynLibManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PluginManager.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BasisWidget"
+				>
+				<File
+					RelativePath=".\src\MainSkin.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SubSkin.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TextSimple.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -260,55 +272,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\AlignInfo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\BasisWidget.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\BasisWidgetBinding.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\BasisWidgetFactory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\BasisWidgetManager.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\Button.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\ButtonParser.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\Common.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\debugOut.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\delegate.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\delegate_implement.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\DynLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\DynLibManager.h"
 				>
 			</File>
 			<File
@@ -328,18 +296,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\Instance.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\LayerInfo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\LayerItemInfo.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\LayerManager.h"
 				>
 			</File>
@@ -348,55 +304,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\LoggingOut.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\MainSkin.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PanelAlphaOverlayElement.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PanelAlphaOverlayElementFactory.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\ParserManager.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\ParseUtil.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\Platform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\Plugin.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PluginManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PointerInfo.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\PointerManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\Prerequest.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\RenderOut.h"
 				>
 			</File>
 			<File
@@ -412,43 +324,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\StringUtil.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\SubSkin.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TextSimple.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TextSimpleOverlayElement.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TextSimpleOverlayElementFactory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TPoint.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TRect.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TSize.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\Widget.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\WidgetDefines.h"
 				>
 			</File>
 			<File
@@ -464,39 +340,197 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\WidgetOIS.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\WidgetParser.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\WidgetSkinInfo.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\WidgetUserData.h"
 				>
 			</File>
-			<File
-				RelativePath=".\include\xmlDefine.h"
+			<Filter
+				Name="Delegate"
 				>
-			</File>
-			<File
-				RelativePath=".\include\xmlDocument.h"
+				<File
+					RelativePath=".\include\delegate.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\delegate_implement.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Common"
 				>
-			</File>
-			<File
-				RelativePath=".\include\xmlNode.h"
+				<File
+					RelativePath=".\include\AlignInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Common.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Instance.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\LayerInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\LayerItemInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\PointerInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TPoint.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TRect.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TSize.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetDefines.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetOIS.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetSkinInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Util"
 				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
+				<File
+					RelativePath=".\include\debugOut.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\LoggingOut.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\ParseUtil.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\RenderOut.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\StringUtil.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Xml"
+				>
+				<File
+					RelativePath=".\include\xmlDefine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xmlDocument.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xmlNode.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="OverlayElement"
+				>
+				<File
+					RelativePath=".\include\PanelAlphaOverlayElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\PanelAlphaOverlayElementFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TextSimpleOverlayElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TextSimpleOverlayElementFactory.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BasisWidget"
+				>
+				<File
+					RelativePath=".\include\BasisWidget.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\BasisWidgetBinding.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\BasisWidgetFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\BasisWidgetManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MainSkin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\SubSkin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TextSimple.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="DynLib"
+				>
+				<File
+					RelativePath=".\include\DynLib.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\DynLibManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Platform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Plugin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\PluginManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Prerequest.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
