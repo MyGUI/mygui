@@ -1,9 +1,0 @@
-MyGUI_font
-{
-	type 		truetype
-	source 		Comic.TTF
-	size 		34
-	resolution 	55
-	code_points 33-127	1025-1105
-}
-
