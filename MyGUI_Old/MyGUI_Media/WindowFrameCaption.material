@@ -1,0 +1,121 @@
+material MyGUI_window_frame_caption_n1
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinWindowFrame\window_frame_caption_n1.png
+			}
+		}
+	}
+}
+
+material MyGUI_window_frame_caption_n2
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinWindowFrame\window_frame_caption_n2.png
+			}
+		}
+	}
+}
+
+material MyGUI_window_frame_caption_n3
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinWindowFrame\window_frame_caption_n3.png
+			}
+		}
+	}
+}
+
+
+material MyGUI_window_frame_caption_a1
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinWindowFrame\window_frame_caption_a1.png
+			}
+		}
+	}
+}
+
+material MyGUI_window_frame_caption_a2
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinWindowFrame\window_frame_caption_a2.png
+			}
+		}
+	}
+}
+
+material MyGUI_window_frame_caption_a3
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 1 1 1
+			diffuse 1 1 1
+			specular 1 1 1 30
+			scene_blend alpha_blend
+			texture_unit
+			{
+				filtering linear linear none
+				texture SkinWindowFrame\window_frame_caption_a3.png
+			}
+		}
+	}
+}
+
