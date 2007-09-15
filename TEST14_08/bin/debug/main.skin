@@ -39,7 +39,7 @@
         <Property Key="FontName" Value = "MyGUI_font" />
         <Property Key="FontHeight" Value = "16" />
         <Property Key="NeedKey" Value = "true" />
-        <Property Key="AlignText" Value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property Key="AlignText" Value = "ALIGN_RIGHT ALIGN_VCENTER" />
         <BasisSkin Type="SubSkin" Offset = "0 0 10 30" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State Name="disable" Offset = "2 2 10 30"/>
             <State Name="pressed" Offset = "52 2 10 30"/>
@@ -64,7 +64,7 @@
         <BasisSkin Type="TextSimple" Offset = "10 0 30 30" Align = "ALIGN_STRETCH">
             <State Name="disable" Color="0.87 0.87 0.87"/>
             <State Name="pressed" Color="0 0 0"/>
-            <State Name="normal" Color="2C8AD5"/>
+            <State Name="normal" Color="0 0 0"/>
             <State Name="select" Color="7BD2FA"/>
             <State Name="active" Color="2C8AD5"/>
         </BasisSkin>

@@ -99,7 +99,7 @@ void OptionsState::enter(bool bIsChangeState)
 	m_widget1 = Gui::getInstance().createWidget("Button", "Default", 40, 40, 350, 330, ALIGN_LEFT | ALIGN_TOP, "Main");
 
 	m_widget2 = m_widget1->createWidget("Edit", "Edit", 10, 10, 90, 30, ALIGN_LEFT | ALIGN_TOP, "Main");
-	m_widget2->setCaption("capYTTUytytyt\nsdjfhsjkdhdsjkfhs");
+	m_widget2->setCaption("cap");
 //	((ButtonPtr)m_widget2)->setButtonPressed(true);
 //	m_widget2->setState("disable");
 //	wid->setImageInfo("MyGUI_pointerAll", floatSize(32, 32));
@@ -184,7 +184,7 @@ void OptionsState::enter(bool bIsChangeState)
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-	if (m_widget2) m_widget2->size(arg.state.X.abs, arg.state.Y.abs);
+//	if (m_widget2) m_widget2->size(arg.state.X.abs, arg.state.Y.abs);
 	if (!toggle) {
 //		if (m_widget2) m_widget2->move(arg.state.X.abs-50, arg.state.Y.abs-50);
 	} else {
