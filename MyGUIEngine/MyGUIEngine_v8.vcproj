@@ -62,11 +62,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib"
-				OutputFile="bin/Debug/MyGUI_d.dll"
+				OutputFile="../Shared/Debug/MyGUI_d.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				ImportLibrary="lib/Debug/MyGUI_d.lib"
+				ImportLibrary="lib\Debug\MyGUI_d.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -92,7 +92,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy bin\debug\MyGUI_d.dll ..\Shared\debug\MyGUI_d.dll"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -139,14 +139,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
-				OutputFile="bin/Release/MyGUI.dll"
+				AdditionalDependencies="OgreMain.lib OIS.lib"
+				OutputFile="../Shared/release/MyGUI.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="lib/Release/MyGUI.lib"
+				ImportLibrary="lib\Release\MyGUI.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -172,7 +172,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy bin\release\MyGUI.dll ..\Shared\release\MyGUI.dll"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
@@ -431,6 +431,10 @@
 				</File>
 				<File
 					RelativePath=".\include\RenderOut.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\ResourcePath.h"
 					>
 				</File>
 				<File

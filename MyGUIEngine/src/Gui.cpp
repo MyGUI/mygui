@@ -2,6 +2,7 @@
 #include "Gui.h"
 #include "LayoutManager.h"
 #include "LayerManager.h"
+#include "WidgetManager.h"
 
 namespace MyGUI
 {

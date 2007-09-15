@@ -15,7 +15,7 @@ namespace MyGUI
 		clear();
 
 		xml::xmlDocument doc;
-		if (!doc.load(_file)) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.load(path::getFullPath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return false;

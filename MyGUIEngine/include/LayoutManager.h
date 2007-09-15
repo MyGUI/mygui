@@ -1,16 +1,19 @@
-#pragma once
+#ifndef _LAYOUTMANAGER_H_
+#define _LAYOUTMANAGER_H_
 
+#include "Prerequest.h"
 #include <Ogre.h>
 #include <string>
+#include "Common.h"
 #include "xmlDocument.h"
-#include "Widget.h"
+#include "WidgetDefines.h"
 #include "Instance.h"
 
 
 namespace MyGUI
 {
 
-	class LayoutManager
+	class _MyGUIExport LayoutManager
 	{
 	private:
 		LayoutManager();
@@ -30,3 +33,5 @@ namespace MyGUI
 	}; // class LayoutManager
 
 } // namespace MyGUI
+
+#endif // _LAYOUTMANAGER_H_
