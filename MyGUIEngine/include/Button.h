@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _BUTTON_H_
+#define _BUTTON_H_
 
 #include "Widget.h"
 
@@ -57,3 +58,6 @@ namespace MyGUI
 	typedef Button * ButtonPtr;
 
 } // namespace MyGUI
+
+
+#endif

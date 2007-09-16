@@ -3,6 +3,7 @@
 #include <OgreLogManager.h>
 #include "BasisManager.h"
 #include <OgreException.h>
+#include "PluginManager.h"
 
 BasisManager::BasisManager() :
 	mInputManager(0),
@@ -115,6 +116,9 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	changeState(&mOptions); // главное меню
 
+	// load plugin
+	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin_d.dll");
+
     mRoot->startRendering();
 }
 
@@ -144,6 +148,8 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		delete mRoot;
 		mRoot = 0;
 	}
+
+	MyGUI::PluginManager::shutDown();
 
 }
 
