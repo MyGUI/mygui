@@ -195,39 +195,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\Gui.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\InputManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\LayerManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\LayoutManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\PointerManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\SkinManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\StaticImage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\Widget.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\WidgetManager.cpp"
+				RelativePath=".\src\Window.cpp"
 				>
 			</File>
 			<Filter
@@ -262,6 +234,42 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Core"
+				>
+				<File
+					RelativePath=".\src\Gui.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\InputManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\LayerManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\LayoutManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PointerManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SkinManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Widget.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\WidgetManager.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -285,34 +293,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\Gui.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\InputManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\LayerManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\LayoutManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\ParserManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PointerManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\SkinManager.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\StaticImage.h"
 				>
 			</File>
@@ -321,27 +301,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\Widget.h"
+				RelativePath=".\include\Window.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\WidgetEvent.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\WidgetFactory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\WidgetManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\WidgetParser.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\WidgetUserData.h"
+				RelativePath=".\include\WindowParser.h"
 				>
 			</File>
 			<Filter
@@ -525,6 +489,62 @@
 				</File>
 				<File
 					RelativePath=".\include\Prerequest.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Core"
+				>
+				<File
+					RelativePath=".\include\Gui.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\InputManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\LayerManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\LayoutManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\ParserManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\PointerManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\SkinManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Widget.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetEvent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetParser.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetUserData.h"
 					>
 				</File>
 			</Filter>

@@ -14,6 +14,7 @@ namespace MyGUI
 	typedef CDelegate2<WidgetPtr, int> EventSimpleDataInfo;
 	typedef CDelegate3<WidgetPtr, int, int> EventCoordInfo;
 	typedef CDelegate3<WidgetPtr, int, wchar_t> EventKeyInfo;
+	typedef CDelegate3<WidgetPtr, const std::string&, const std::string&> EventActionInfo;
 
 	
 
@@ -89,6 +90,10 @@ namespace MyGUI
 		//	событие : отпущенна клавиша
 		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key);
 		EventSimpleDataInfo eventKeyButtonReleased;
+
+		//	событие : общее расширяемое событие для плагинов или особых случаев
+		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
+		EventActionInfo eventActionInfo;
 
 	protected:
 
