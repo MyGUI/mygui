@@ -3,7 +3,7 @@
 
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "delegate.h"
 #include "ParserManager.h"
 #include "Button.h"

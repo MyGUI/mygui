@@ -61,7 +61,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MyGUI_d.lib"
+				AdditionalDependencies="MyGUI_d.lib OgreMain_d.lib OIS_d.lib"
+				ShowProgress="0"
 				OutputFile="../shared/Debug/TestPlugin_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\MyGUIEngine\lib\Debug"
@@ -183,6 +184,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\StrangeButton.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\TestPlugin.cpp"
 				>
 			</File>
@@ -196,6 +201,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\include\StrangeButton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\StrangeButtonParser.h"
+				>
+			</File>
 			<File
 				RelativePath=".\include\TestPlugin.h"
 				>

@@ -5,7 +5,7 @@
 namespace MyGUI
 {
 	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<Edit> EditFactoryInstance; }
+	namespace factory { WidgetFactory<Edit> EditFactoryInstance("Edit"); }
 	// парсер команд
 	namespace parser { EditParser EditParserInstance; }
 

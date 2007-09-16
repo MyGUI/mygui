@@ -5,7 +5,7 @@
 namespace MyGUI
 {
 	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<StaticImage> StaticImageFactoryInstance; }
+	namespace factory { WidgetFactory<StaticImage> StaticImageFactoryInstance("StaticImage"); }
 	// парсер команд
 	namespace parser { StaticImageParser StaticImageParserInstance; }
 

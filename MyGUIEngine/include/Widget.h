@@ -3,7 +3,7 @@
 
 #include "Prerequest.h"
 #include <vector>
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "MainSkin.h"
 
 #include "WidgetSkinInfo.h"

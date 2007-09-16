@@ -2,7 +2,7 @@
 #define _MAINSKIN_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "PanelAlphaOverlayElement.h"
 #include "BasisWidget.h"
 

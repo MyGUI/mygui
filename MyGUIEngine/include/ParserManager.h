@@ -3,7 +3,7 @@
 
 #include "Prerequest.h"
 #include <vector>
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "Widget.h"
 #include "delegate.h"
 #include "Instance.h"

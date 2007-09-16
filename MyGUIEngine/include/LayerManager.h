@@ -2,7 +2,7 @@
 #define _LAYERMANAGER_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include <string>
 #include <map>
 #include "LayerInfo.h"

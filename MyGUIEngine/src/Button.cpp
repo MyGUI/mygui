@@ -5,7 +5,7 @@
 namespace MyGUI
 {
 	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<Button> ButtonFactoryInstance; }
+	namespace factory { WidgetFactory<Button> ButtonFactoryInstance("Button"); }
 	// парсер команд
 	namespace parser { ButtonParser ButtonParserInstance; }
 

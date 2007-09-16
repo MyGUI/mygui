@@ -2,7 +2,7 @@
 #define _PARSEUTILS_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 
 namespace MyGUI
 {

@@ -2,11 +2,12 @@
 #define _WIDGETMANAGER_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "Gui.h"
 #include "Widget.h"
-#include "Instance.h"
+//#include "Instance.h"
 #include "WidgetFactory.h"
+#include "LoggingOut.h"
 
 namespace MyGUI
 {
@@ -26,6 +27,8 @@ namespace MyGUI
 		inline void registerFactory(WidgetFactoryBase * _factory)
 		{
 			m_factoryList.push_back(_factory);
+
+			//LOG_MESSAGE("* Register widget factory '" + _factory->getType() + "'");
 		}
 
 		WidgetPtr findWidget(const Ogre::String & _name);

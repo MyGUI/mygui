@@ -2,7 +2,7 @@
 #define _LAYERINFO_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "Common.h"
 #include "LayerItemInfo.h"
 #include "PanelAlphaOverlayElement.h"

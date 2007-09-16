@@ -4,8 +4,14 @@
 #include "Prerequest.h"
 #include "stringUtil.h"
 #include <deque>
-#include "Ogre.h"
-#include "OgreFontManager.h"
+//#include "Ogre.h"
+
+
+#include <OgreFontManager.h>
+#include <OgreOverlayManager.h>
+#include <OgreRoot.h>
+#include <OgreOverlayContainer.h>
+#include <OgreRenderWindow.h>
 
 namespace MyGUI
 {

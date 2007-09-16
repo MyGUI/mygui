@@ -2,7 +2,7 @@
 #define _POINTERMANAGER_H_
 
 #include "Platform.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include <OgrePanelOverlayElement.h>
 #include <string>
 #include "Instance.h"

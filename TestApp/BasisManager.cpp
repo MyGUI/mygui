@@ -114,10 +114,12 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	createInput();
 
-	changeState(&mOptions); // главное меню
-
 	// load plugin
 	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin_d.dll");
+
+	changeState(&mOptions); // главное меню
+
+	
 
     mRoot->startRendering();
 }

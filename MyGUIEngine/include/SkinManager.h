@@ -3,7 +3,7 @@
 
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include <string>
 #include "Instance.h"
 #include "WidgetDefines.h"

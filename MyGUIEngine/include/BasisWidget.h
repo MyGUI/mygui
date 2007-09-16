@@ -3,7 +3,8 @@
 
 #include "Prerequest.h"
 #include <vector>
-#include <Ogre.h>
+//#include <Ogre.h>
+#include <OgreOverlayElement.h>
 #include "WidgetDefines.h"
 
 namespace MyGUI

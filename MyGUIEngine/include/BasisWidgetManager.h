@@ -3,7 +3,7 @@
 
 #include "Prerequest.h"
 #include <vector>
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "BasisWidget.h"
 #include "BasisWidgetFactory.h"
 #include "Instance.h"

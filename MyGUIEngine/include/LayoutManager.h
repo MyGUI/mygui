@@ -2,7 +2,7 @@
 #define _LAYOUTMANAGER_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include <string>
 #include "Common.h"
 #include "xmlDocument.h"

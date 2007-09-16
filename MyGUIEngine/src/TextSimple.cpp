@@ -2,6 +2,8 @@
 #include "TextSimple.h"
 #include "BasisWidgetManager.h"
 
+#include <OgreStringConverter.h>
+
 namespace MyGUI
 {
 	// создаем фабрику для этого скина

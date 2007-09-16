@@ -1,6 +1,6 @@
-#include "Platform.h"
 #include "TestPlugin.h"
 #include "PluginManager.h"
+#include "Platform.h"
 
 TestPlugin *plugin = 0;
 

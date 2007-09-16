@@ -4,7 +4,6 @@
 
 namespace MyGUI
 {
-
 	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name)
 	{
 		Ogre::String name;
@@ -18,7 +17,7 @@ namespace MyGUI
 		}
 
 		for (std::list<WidgetFactoryBase*>::iterator factory = m_factoryList.begin(); factory != m_factoryList.end(); factory++) {
-			if ((*factory)->getType() == _type) {
+			if ( (*factory)->getType() == _type) {
 				WidgetPtr widget = (*factory)->createWidget(_skin, _x, _y, _cx, _cy, _align, _parent, name);
 				m_widgets[name] = widget;
 				return widget;

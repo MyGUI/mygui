@@ -2,8 +2,12 @@
 #define _PANELALPHAOVERLAYELEMENT_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include <OgrePanelOverlayElement.h>
+#include <OgreHardwareBufferManager.h>
+#include <OgreRenderSystem.h>
+#include <OgreStringConverter.h>
+#include <OgreRoot.h>
 
 namespace MyGUI
 {

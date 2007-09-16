@@ -21,6 +21,11 @@
         <Property Key="Caption" Value="button" />
         <Property Key="FontHeight" Value="20" />
       </Widget>
+	  
+	  <Widget Type="StrangeButton" Skin="Button" Position="120 50 220 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget2" >
+        <Property Key="Caption" Value="StrangeButton" />
+        <Property Key="FontHeight" Value="20" />
+      </Widget>
 
       <Widget Type="Window" Skin="Window" Position="230 230 150 100" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped" Name="m_widget" >
         <Property Key="Caption" Value="button" />

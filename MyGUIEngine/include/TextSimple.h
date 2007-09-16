@@ -2,7 +2,7 @@
 #define _TEXTSIMPLE_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include "BasisWidget.h"
 #include "TextSimpleOverlayElement.h"
 

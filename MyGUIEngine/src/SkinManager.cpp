@@ -3,6 +3,8 @@
 #include "WidgetSkinInfo.h"
 #include "xmlDocument.h"
 
+#include <OgreMaterialManager.h>
+
 namespace MyGUI
 {
 

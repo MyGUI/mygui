@@ -2,7 +2,7 @@
 #define _TEXTSIMPLEOVERLAYELEMENT_H_
 
 #include "Prerequest.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 #include <OgreTextAreaOverlayElement.h>
 #include "OgreFont.h"
 #include "OgreFontManager.h"
