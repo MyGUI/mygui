@@ -120,6 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\MyGUIEngine\include; include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
