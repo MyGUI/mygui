@@ -30,7 +30,7 @@
       <Widget Type="Button" Skin="WindowX" Position="430 230 24 30" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
       </Widget>
 
-      <Widget Type="Button" Skin="WindowCaption" Position="430 330 47 30" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
+      <Widget Type="Button" Skin="WindowCaption" Position="430 330 247 30" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
       </Widget>
 
       <Widget Type="Button" Skin="WindowResize" Position="530 430 12 12" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
