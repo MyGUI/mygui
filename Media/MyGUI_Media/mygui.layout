@@ -22,23 +22,17 @@
         <Property Key="FontHeight" Value="20" />
       </Widget>
 	  
-	  <Widget Type="Button" Skin="Button" Position="120 50 220 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget2" >
+	  <Widget Type="Button" Skin="Button" Position="320 50 220 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget2" >
         <Property Key="Caption" Value="StrangeButton" />
         <Property Key="FontHeight" Value="20" />
       </Widget>
 
-      <Widget Type="Window" Skin="Window" Position="230 230 150 100" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped" Name="m_widget" >
+      <Widget Type="Window" Skin="Window" Position="230 230 150 100" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
         <Property Key="Caption" Value="button" />
         <Property Key="FontHeight" Value="20" />
-      </Widget>
-
-      <Widget Type="Button" Skin="WindowX" Position="430 230 24 30" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
-      </Widget>
-
-      <Widget Type="Button" Skin="WindowCaption" Position="430 330 247 30" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
-      </Widget>
-
-      <Widget Type="Button" Skin="WindowResize" Position="530 430 12 12" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped">
+        <Property Key="ShowWindowCaption" Value="WindowCaption" />
+        <Property Key="ShowWindowX" Value="WindowX" />
+        <Property Key="ShowWindowResize" Value="WindowResize" />
       </Widget>
 
 </MyGUI_Layout>

@@ -9,7 +9,7 @@ namespace MyGUI
 		Ogre::String name;
 		if (!_name.empty()) {
 			mapWidgetPtr::iterator iter = m_widgets.find(_name);
-			if (iter != m_widgets.end()) assert(0 && "name widget is exist");
+			if (iter != m_widgets.end()) OGRE_EXCEPT(0, _name + " - name widget is exist", "WidgetManager::createWidget");
 			name = _name;
 		} else {
 			static long num=0;
@@ -23,7 +23,7 @@ namespace MyGUI
 				return widget;
 			}
 		}
-		assert(0 && "no find factory WidgetFactory");
+		OGRE_EXCEPT(0, _type + " - no find factory WidgetFactory", "WidgetManager::createWidget");
 		return 0;
 	}
 
@@ -61,6 +61,23 @@ namespace MyGUI
 		if (_widget == null) return;
 		mapWidgetPtr::iterator iter = m_widgets.find(_widget->getName());
 		if (iter != m_widgets.end()) m_widgets.erase(iter);
+	}
+
+	floatRect WidgetManager::convertOffset(const floatRect & _offset, char _align, const intSize & _parentSkinSize, int _parentWidth, int _parentHeight)
+	{
+		floatRect offset = _offset;
+
+		if (_align & ALIGN_RIGHT) {
+			if (_align & ALIGN_LEFT) offset.right += _parentWidth - _parentSkinSize.width;
+			else offset.left += _parentWidth - _parentSkinSize.width;
+		} else if (!(_align & ALIGN_LEFT)) offset.left += (_parentWidth - _parentSkinSize.width) / 2;
+
+		if (_align & ALIGN_BOTTOM) {
+			if (_align & ALIGN_TOP) offset.bottom += _parentHeight - _parentSkinSize.height;
+			else offset.top += _parentHeight - _parentSkinSize.height;
+		} else if (!(_align & ALIGN_TOP)) offset.top += (_parentHeight - _parentSkinSize.height) / 2;
+
+		return offset;
 	}
 
 } // namespace MyGUI

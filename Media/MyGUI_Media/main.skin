@@ -73,8 +73,17 @@
     
     <Skin Name = "Window" Size = "24 51" Material = "MyGUI_main" >
         <Property Key="SkinCaption" Value = "WindowCaption" />
+        <Property Key="OffsetCaption" Value = "3 0 -5 30" />
+        <Property Key="AlignCaption" Value = "ALIGN_HSTRETCH ALIGN_TOP" />
+
         <Property Key="SkinX" Value = "WindowX" />
+        <Property Key="OffsetX" Value = "-2 0 24 30" />
+        <Property Key="AlignX" Value = "ALIGN_RIGHT ALIGN_TOP" />
+
         <Property Key="SkinResize" Value = "WindowResize" />
+        <Property Key="OffsetResize" Value = "12 40 12 12" />
+        <Property Key="AlignResize" Value = "ALIGN_RIGHT ALIGN_BOTTOM" />
+
         <BasisSkin Type="SubSkin" Offset = "0 0 3 30" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "377 2 3 30"/>
         </BasisSkin>
@@ -105,7 +114,6 @@
     </Skin>
 
     <Skin Name = "WindowCaption" Size = "47 30" Material = "MyGUI_main" >
-        <Property Key="Offset" Value = "0 0 0 0" />
         <BasisSkin Type="SubSkin" Offset = "0 0 5 30" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "328 2 5 30"/>
             <State Name="active" Offset = "328 34 5 30"/>
@@ -121,16 +129,14 @@
     </Skin>
 
     <Skin Name = "WindowX" Size = "24 30" Material = "MyGUI_main" >
-        <Property Key="Offset" Value = "0 0 0 0" />
-        <BasisSkin Type="SubSkin" Offset = "0 0 24 30" Align = "ALIGN_LEFT ALIGN_TOP">
+        <BasisSkin Type="MainSkin" Offset = "0 0 24 30" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "377 60 24 30"/>
             <State Name="active" Offset = "377 92 24 30"/>
         </BasisSkin>
     </Skin>
     
     <Skin Name = "WindowResize" Size = "12 12" Material = "MyGUI_main" >
-        <Property Key="Offset" Value = "0 0 0 0" />
-        <BasisSkin Type="SubSkin" Offset = "0 0 12 12" Align = "ALIGN_LEFT ALIGN_TOP">
+        <BasisSkin Type="MainSkin" Offset = "0 0 12 12" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "349 66 12 12"/>
             <State Name="active" Offset = "363 66 12 12"/>
         </BasisSkin>

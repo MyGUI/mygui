@@ -30,12 +30,13 @@ namespace MyGUI
 
 
 	private:
-		std::string mSkinCaption;
-		std::string mSkinX;
-		std::string mSkinResize;
-		bool mShowSkinCaption;
-		bool mShowSkinX;
-		bool mShowSkinResize;
+		std::string mSkinCaption, mSkinX, mSkinResize;
+		WidgetPtr mWidgetCaption, mWidgetX, mWidgetResize;
+		floatRect mOffsetCaption, mOffsetX, mOffsetResize;
+		char mAlignCaption, mAlignX, mAlignResize;
+
+		intSize mSkinSize;
+
 
 	}; // class Window : public Widget
 

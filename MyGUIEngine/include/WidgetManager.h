@@ -32,8 +32,10 @@ namespace MyGUI
 		}
 
 		WidgetPtr findWidget(const Ogre::String & _name);
+		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально
+		static floatRect convertOffset(const floatRect & _offset, char _align, const intSize & _parentSkinSize, int _parentWidth, int _parentHeight);
 
-//	private:
+		//	private:
 		void clearName(WidgetPtr _widget);
 
 	protected:

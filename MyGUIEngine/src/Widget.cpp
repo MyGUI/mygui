@@ -8,7 +8,7 @@
 namespace MyGUI
 {
 	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<Widget> WidgetFactoryInstance(""); }
+	namespace factory { WidgetFactory<Widget> WidgetFactoryInstance("Widget"); }
 	// парсер команд для Widget
 	namespace parser { WidgetParser WidgetParserInstance; }
 
