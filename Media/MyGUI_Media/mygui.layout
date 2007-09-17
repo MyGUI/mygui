@@ -22,7 +22,7 @@
         <Property Key="FontHeight" Value="20" />
       </Widget>
 	  
-	  <Widget Type="StrangeButton" Skin="Button" Position="120 50 220 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget2" >
+	  <Widget Type="Button" Skin="Button" Position="120 50 220 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="m_widget2" >
         <Property Key="Caption" Value="StrangeButton" />
         <Property Key="FontHeight" Value="20" />
       </Widget>
