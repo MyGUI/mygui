@@ -382,14 +382,14 @@ namespace MyGUI
 	// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
 	LayerItemInfoPtr Widget::findItem(int _x, int _y)
 	{
-		// останавливаем каскадную проверку
-		if (!m_enable) return this;
 		// проверяем попадание
 		if (!m_visible || !m_show || !check_point(_x, _y)) return 0;
+		// останавливаем каскадную проверку
+		if (!m_enable) return this;
 		// спрашиваем у детишек
 		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) {
 			LayerItemInfoPtr item = (*widget)->findItem(_x - m_x, _y - m_y);
-			if (item) return item;
+			if (item != null) return item;
 		}
 		// непослушные дети
 		return this;

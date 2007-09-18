@@ -36,6 +36,10 @@ namespace MyGUI
 		inline WidgetPtr getMouseFocusWidget() {return m_widgetMouseFocus;}
 		inline WidgetPtr getKeyFocusWidget() {return m_widgetKeyFocus;}
 		inline const std::string & getCurrentLanguage() {return m_currentLanguage->first;}
+		inline const intPoint & getLastLeftPressed() {return m_lastLeftPressed;}
+
+		// тестовый вариант, очистка фокуса мыши
+		void clearFocus();
 
 		// событие смены языков
 		EventChangeLanguage eventChangeLanguage;
@@ -77,6 +81,8 @@ namespace MyGUI
 		bool m_isCharShift;
 		// массив для нумлока
 		LangInfo m_nums;
+		// там где была последний раз нажата левая кнопка
+		intPoint m_lastLeftPressed;
 
 	}; // class InputManager
 

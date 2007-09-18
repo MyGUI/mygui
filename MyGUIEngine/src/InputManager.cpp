@@ -61,11 +61,23 @@ namespace MyGUI
 		}
 
 		// захватываем только по левой клавише и только если виджету надо
-		if ( _id == OIS::MB_Left ) m_isWidgetMouseCapture = true; // захват окна
+		if ( _id == OIS::MB_Left ) {
+			// захват окна
+			m_isWidgetMouseCapture = true;
+			// запоминаем место нажатия
+			m_lastLeftPressed.left = (int)_arg.state.X.abs;
+			m_lastLeftPressed.top = (int)_arg.state.Y.abs;
+		}
 			
 		m_widgetMouseFocus->OnMouseButtonPressed(_id == OIS::MB_Left);
 		setKeyFocusWidget(m_widgetMouseFocus);
 
+		// поднимаем виджет, временно
+		if (m_widgetMouseFocus != null) {
+			WidgetPtr tmp = m_widgetMouseFocus;
+			while (tmp->getParent() != null) tmp = tmp->getParent();
+			LayerManager::getInstance().upItem(tmp);
+		}
 		return true;
 	}
 
@@ -258,6 +270,12 @@ namespace MyGUI
 			}
 			m_widgetKeyFocus = null;
 		}
+	}
+
+	void InputManager::clearFocus()
+	{
+		m_widgetMouseFocus = null;
+		m_widgetKeyFocus = null;
 	}
 
 } // namespace MyGUI

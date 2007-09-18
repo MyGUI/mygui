@@ -7,6 +7,7 @@
 #include "SkinManager.h"
 #include "WidgetManager.h"
 #include "LayoutManager.h"
+#include "Window.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -19,6 +20,9 @@ void OptionsState::enter(bool bIsChangeState)
 
 	MyGUI::SkinManager::getInstance().load("main.skin");
 	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+
+	MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidget("Button1");
+	if (but != null) but->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed);
 
 }
 //===================================================================================
@@ -59,5 +63,15 @@ void OptionsState::exit()
 //===================================================================================
 void OptionsState::windowResize() // уведомление об изменении размеров окна рендера
 {
+}
+//===================================================================================
+void OptionsState::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+{
+	MyGUI::WindowPtr wid = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", 100, 100, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+	wid->showWindowCaption(true);
+	wid->showWindowX(true);
+	wid->showWindowResize(true);
+	wid->setAlpha(0.0f);
+	wid->show(true, true);
 }
 //===================================================================================

@@ -59,7 +59,7 @@ namespace MyGUI
 	{
 		// это наш уровень
 		LayerInfoPtr layer = m_mapLayer[_layer];
-		assert(layer);
+		if (layer == null) OGRE_EXCEPT(0, _layer + " - no find level", "LayerManager::attachItem");
 		// запоминаем созданный айтем в виджете
 		layer->addItem(_item);
 		// добавляем уровень в карту поиска

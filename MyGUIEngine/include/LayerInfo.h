@@ -42,8 +42,9 @@ namespace MyGUI
 
 		inline LayerItemInfoPtr findItem(int _x, int _y)
 		{
-			for (size_t i=0; i<m_items.size(); i++) {
-				LayerItemInfoPtr item = m_items[i]->findItem(_x, _y);
+			// провер€ем сверху вниз
+			for (VectorLayerItemInfo::reverse_iterator iter=m_items.rbegin(); iter!=m_items.rend(); iter++) {
+				LayerItemInfoPtr item = (*iter)->findItem(_x, _y);
 				if (item != 0) return item;
 			}
 			return 0;
@@ -69,6 +70,7 @@ namespace MyGUI
 			// добавл€ем и ставим высоту
 			m_items.push_back(_item);
 			_item->m_overlayInfo->setZOrder(m_start + pos * m_height);
+//			OUT("level = ", (m_start + pos * m_height));
 			return true;
 		}
 
@@ -129,7 +131,7 @@ namespace MyGUI
 		}
 
 	private:
-		std::vector<LayerItemInfoPtr> m_items;
+		VectorLayerItemInfo m_items;
 		Ogre::ushort m_start, m_count, m_height;
 		std::string m_name;
 

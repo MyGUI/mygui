@@ -13,6 +13,7 @@ namespace MyGUI
 
 	typedef LayerInfo * LayerInfoPtr;
 	typedef LayerItemInfo * LayerItemInfoPtr;
+	typedef std::vector<LayerItemInfoPtr> VectorLayerItemInfo;
 
 	// вспомогательня структура для управления уровнями оверлеев
 	class LayerItemInfo

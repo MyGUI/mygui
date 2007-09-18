@@ -65,6 +65,9 @@ namespace MyGUI
 		void attachToOverlay(Ogre::Overlay * _overlay);
 		void detachToOverlay(Ogre::Overlay * _overlay);
 
+		// закрываем метод базового класса
+		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(m_parent);}
+
 	protected:
 		void update(); // обновления себя и детей
 
@@ -75,9 +78,6 @@ namespace MyGUI
 
 		// присоединяемся к отцу
 		void attach(BasisWidgetPtr _basis, bool _child);
-
-		// закрываем метод базового класса
-		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(m_parent);}
 
 		// удяляет только негодных батюшке государю
 		void destroyWidget(WidgetPtr & _widget);

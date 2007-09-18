@@ -27,6 +27,7 @@ namespace MyGUI
 
 	#if _DEBUG
 		#define ASSERT(_exp) assert(_exp)
+//		#define ASSERT_DEBUG(_exp) assert(_exp)
 		#define TYPE(_type,_ptr) assert(dynamic_cast<_type>(_ptr))
 	#else
 		#define ASSERT(_exp) ((void)0)

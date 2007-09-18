@@ -4,7 +4,7 @@
 
     <Layer Name="Back" Start="10" Height="4" Count="1"/>
     <Layer Name="Main" Start="50" Height="4" Count="1"/>
-    <Layer Name="Overlapped" Start="55" Height="6" Count="6"/>
-    <Layer Name="Pointer" Start="100" Height="1" Count="1"/>
+    <Layer Name="Overlapped" Start="55" Height="5" Count="26"/>
+    <Layer Name="Pointer" Start="200" Height="1" Count="1"/>
 
 </MyGUI_LayerInfo>
