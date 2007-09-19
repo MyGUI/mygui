@@ -2,8 +2,8 @@
 #define _GUI_H_
 
 #include "Prerequest.h"
-#include "Common.h"
 #include "Instance.h"
+#include "Common.h"
 #include "InputManager.h"
 
 #include "TextSimpleOverlayElementFactory.h"
@@ -13,16 +13,15 @@ namespace MyGUI
 {
 	
 
-	class _MyGUIExport Gui : public InputManager
+	class _MyGUIExport Gui : public Instance<Gui> , public InputManager
 	{
-
 		friend WidgetManager;
+		INSTANCE_HEADER(Gui);
 
 	private:
 		Gui();
 
 	public:
-		INSTANCE(Gui)
 
 		void initialise(Ogre::RenderWindow* _window);
 		void shutdown();

@@ -2,13 +2,12 @@
 #define _LAYERMANAGER_H_
 
 #include "Prerequest.h"
-//#include <Ogre.h>
+#include "Instance.h"
 #include <string>
 #include <map>
 #include "LayerInfo.h"
 #include "xmlDocument.h"
 #include "WidgetDefines.h"
-#include "Instance.h"
 
 
 namespace MyGUI
@@ -19,12 +18,13 @@ namespace MyGUI
 	// карта для упорядочивания по высоте
 	typedef std::map<Ogre::ushort, LayerInfoPtr> MapLayerSearch;
 
-	class _MyGUIExport LayerManager
+	class _MyGUIExport LayerManager : public Instance<LayerManager>
 	{
 		friend Gui;
 
+		INSTANCE_HEADER(LayerManager);
+
 	public:
-		INSTANCE(LayerManager)
 
 		void attachItem(LayerItemInfoPtr _item, const std::string & _layer, bool _attachToSearch = false);
 		void detachItem(LayerItemInfoPtr _item);

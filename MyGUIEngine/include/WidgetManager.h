@@ -2,23 +2,20 @@
 #define _WIDGETMANAGER_H_
 
 #include "Prerequest.h"
-//#include <Ogre.h>
+#include "Instance.h"
 #include "Gui.h"
 #include "Widget.h"
-//#include "Instance.h"
 #include "WidgetFactory.h"
 #include "LoggingOut.h"
 
 namespace MyGUI
 {
 
-	
-
-	class _MyGUIExport WidgetManager
+	class _MyGUIExport WidgetManager : public Instance<WidgetManager>
 	{
-	public:
-		INSTANCE(WidgetManager)
+		INSTANCE_HEADER(WidgetManager);
 
+	public:
 		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 		void destroyWidget();
@@ -38,8 +35,10 @@ namespace MyGUI
 		//	private:
 		void clearName(WidgetPtr _widget);
 
+//	protected:
+		WidgetManager();// {};
+
 	protected:
-		WidgetManager() {};
 		std::list<WidgetFactoryBase*> m_factoryList;
 		mapWidgetPtr m_widgets;
 	};

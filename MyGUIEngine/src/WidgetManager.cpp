@@ -4,6 +4,18 @@
 
 namespace MyGUI
 {
+
+	INSTANCE_IMPLEMENT(WidgetManager);
+/*	template<> WidgetManager* Instance<WidgetManager>::msInstance = 0;
+	WidgetManager* WidgetManager::getInstancePtr(void) {return msInstance;}
+	WidgetManager& WidgetManager::getInstance(void)
+	{
+		assert(msInstance);
+		return (*msInstance);
+	}*/
+
+	WidgetManager::WidgetManager() {};
+
 	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name)
 	{
 		Ogre::String name;

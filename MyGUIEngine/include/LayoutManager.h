@@ -2,25 +2,25 @@
 #define _LAYOUTMANAGER_H_
 
 #include "Prerequest.h"
-//#include <Ogre.h>
+#include "Instance.h"
 #include <string>
 #include "Common.h"
 #include "xmlDocument.h"
 #include "WidgetDefines.h"
-#include "Instance.h"
 
 
 namespace MyGUI
 {
 
-	class _MyGUIExport LayoutManager
+	class _MyGUIExport LayoutManager : public Instance<LayoutManager>
 	{
+		INSTANCE_HEADER(LayoutManager);
+
 	private:
 		LayoutManager();
 		~LayoutManager();
 
 	public:
-		INSTANCE(LayoutManager)
 
 		void load(const std::string & _file);
 

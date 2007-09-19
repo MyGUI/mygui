@@ -4,6 +4,8 @@
 namespace MyGUI
 {
 
+	INSTANCE_IMPLEMENT(LayerManager);
+
 	LayerManager::LayerManager() {}
 	LayerManager::~LayerManager()
 	{

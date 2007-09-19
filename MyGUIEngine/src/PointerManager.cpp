@@ -6,17 +6,14 @@
 namespace MyGUI
 {
 
+	INSTANCE_IMPLEMENT(PointerManager);
+
 	PointerManager::PointerManager()
 	{
-		// создаем себе оверлей
-//		setOverlay(LayerManager::getInstance().createOverlay());
-
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		m_overlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
 			"PanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
 		m_overlayElement->setMetricsMode(Ogre::GMM_PIXELS);
-
-//		layerItem_attachElement(m_overlayElement);
 	}
 
 	void PointerManager::load(const std::string & _file)

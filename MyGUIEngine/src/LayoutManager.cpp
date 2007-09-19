@@ -9,6 +9,8 @@
 namespace MyGUI
 {
 
+	INSTANCE_IMPLEMENT(LayoutManager);
+
 	LayoutManager::LayoutManager() {}
 	LayoutManager::~LayoutManager() {}
 

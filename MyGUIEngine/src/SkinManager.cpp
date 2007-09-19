@@ -8,6 +8,8 @@
 namespace MyGUI
 {
 
+	INSTANCE_IMPLEMENT(SkinManager);
+
 	SkinManager::SkinManager()
 	{
 		initialise();

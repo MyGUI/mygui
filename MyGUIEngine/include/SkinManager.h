@@ -3,23 +3,23 @@
 
 
 #include "Prerequest.h"
-//#include <Ogre.h>
-#include <string>
 #include "Instance.h"
+#include <string>
 #include "WidgetDefines.h"
 
 
 namespace MyGUI
 {
 
-	class _MyGUIExport SkinManager
+	class _MyGUIExport SkinManager : public Instance<SkinManager>
 	{
+		INSTANCE_HEADER(SkinManager);
+
 	private:
 		SkinManager();
 		~SkinManager();
 
 	public:
-		INSTANCE(SkinManager)
 
 		char parseAlign(const std::string & _value);
 		WidgetSkinInfo * getSkin(const Ogre::String & _name);

@@ -222,6 +222,10 @@
 				Name="BasisWidget"
 				>
 				<File
+					RelativePath=".\src\BasisWidgetManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MainSkin.cpp"
 					>
 				</File>
@@ -251,6 +255,10 @@
 				</File>
 				<File
 					RelativePath=".\src\LayoutManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ParserManager.cpp"
 					>
 				</File>
 				<File
