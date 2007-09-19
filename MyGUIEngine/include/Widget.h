@@ -90,6 +90,7 @@ namespace MyGUI
 
 		inline bool isNeedKeyFocus() {return m_needKeyFocus;}
 		inline void setNeedKeyFocus(bool _need) {m_needKeyFocus = _need;}
+		inline bool isEnable() {return m_enable;}
 
 	protected:
 

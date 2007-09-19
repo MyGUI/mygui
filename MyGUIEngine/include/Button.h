@@ -6,7 +6,7 @@
 namespace MyGUI
 {
 
-	class Button : public Widget
+	class _MyGUIExport Button : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend WidgetFactory<Button>;

@@ -116,6 +116,7 @@ namespace MyGUI
 		m_enable = false;
 		setDoAlpha(0.0);
 		m_isDestroy = true;
+		Gui::getInstance().clearFocus(); // пока так
 	}
 
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _x, int _y)
@@ -181,7 +182,6 @@ namespace MyGUI
 		}
 
 		if ((alpha == 0) && (m_isDestroy)) {
-			Gui::getInstance().clearFocus(); // пока так
 			WidgetPtr destroy = this;
 			WidgetManager::getInstance().destroyWidget(destroy);
 			return true;

@@ -31,13 +31,15 @@ namespace MyGUI
 		}
 
 		if (m_isWidgetMouseCapture) {
-			m_widgetMouseFocus->OnMouseMove(_arg.state.X.abs, _arg.state.Y.abs);
+			if (m_widgetMouseFocus != null) m_widgetMouseFocus->OnMouseMove(_arg.state.X.abs, _arg.state.Y.abs);
+			else m_isWidgetMouseCapture = false;
 			return true;
 		}
 
 		// ищем активное окно
 		LayerItemInfoPtr info = LayerManager::getInstance().findItem(_arg.state.X.abs, _arg.state.Y.abs);
 		WidgetPtr item = info ? dynamic_cast<WidgetPtr>(info) : null;
+		if ( (item!= null) && (!item->isEnable()) ) item = null; // неактивное окно
 
 		// ничего не изменилось
 		if (m_widgetMouseFocus == item) return isCaptureMouse();
