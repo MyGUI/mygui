@@ -24,31 +24,31 @@ namespace MyGUI
 		}
 	}
 
-	void Button::OnMouseSetFocus(WidgetPtr _old)
+	void Button::_onMouseSetFocus(WidgetPtr _old)
 	{
-		Widget::OnMouseSetFocus(_old);
+		Widget::_onMouseSetFocus(_old);
 		m_isFocus = true;
 		updateButtonState();
 	}
 
-	void Button::OnMouseLostFocus(WidgetPtr _new)
+	void Button::_onMouseLostFocus(WidgetPtr _new)
 	{
-		Widget::OnMouseLostFocus(_new);
+		Widget::_onMouseLostFocus(_new);
 		m_isFocus = false;
 		updateButtonState();
 	}
 
-	void Button::OnMouseButtonPressed(bool _left)
+	void Button::_onMouseButtonPressed(bool _left)
 	{
-		Widget::OnMouseButtonPressed(_left);
+		Widget::_onMouseButtonPressed(_left);
 		if (!_left) return;
 		m_isPressed = true;
 		updateButtonState();
 	}
 
-	void Button::OnMouseButtonReleased(bool _left)
+	void Button::_onMouseButtonReleased(bool _left)
 	{
-		Widget::OnMouseButtonReleased(_left);
+		Widget::_onMouseButtonReleased(_left);
 		if (!_left) return;
 		m_isPressed = false;
 		updateButtonState();

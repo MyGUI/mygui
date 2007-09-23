@@ -40,12 +40,15 @@ namespace MyGUI
 			}
 		}
 
-		inline LayerItemInfoPtr findItem(int _x, int _y)
+		inline LayerItemInfoPtr findItem(int _x, int _y, LayerItemInfoPtr & rootItem)
 		{
 			// проверяем сверху вниз
 			for (VectorLayerItemInfo::reverse_iterator iter=m_items.rbegin(); iter!=m_items.rend(); iter++) {
 				LayerItemInfoPtr item = (*iter)->findItem(_x, _y);
-				if (item != 0) return item;
+				if (item != 0) {
+					rootItem = (*iter);
+					return item;
+				}
 			}
 			return 0;
 		}

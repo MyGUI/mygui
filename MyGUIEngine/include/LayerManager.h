@@ -30,7 +30,7 @@ namespace MyGUI
 		void detachItem(LayerItemInfoPtr _item);
 		void upItem(LayerItemInfoPtr _item);
 
-		LayerItemInfoPtr findItem(int _x, int _y);
+		LayerItemInfoPtr findWidgetItem(int _x, int _y, LayerItemInfoPtr & _rootItem);
 
 		Ogre::Overlay * createOverlay();
 

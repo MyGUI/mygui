@@ -28,10 +28,13 @@ namespace MyGUI
 
 	protected:
 
-		virtual void OnMouseLostFocus(WidgetPtr _new);
-		virtual void OnMouseSetFocus(WidgetPtr _old);
-		virtual void OnMouseButtonPressed(bool _left);
-		virtual void OnMouseButtonReleased(bool _left);
+//		virtual void _onMouseLostFocus(WidgetPtr _new);
+//		virtual void _onMouseSetFocus(WidgetPtr _old);
+//		virtual void _onMouseButtonPressed(bool _left);
+//		virtual void _onMouseButtonReleased(bool _left);
+
+		virtual void _onMouseChangeRootFocus(bool _focus);
+		virtual void _onKeyChangeRootFocus(bool _focus);
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _left);
@@ -39,6 +42,9 @@ namespace MyGUI
 		void notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _x, int _y);
 
 		void setDoAlpha(float _alpha);
+
+		// просто обновляет альфу взависимости от флагов
+		void updateAlpha();
 
 	private:
 		std::string mSkinCaption, mSkinX, mSkinResize;
@@ -57,6 +63,10 @@ namespace MyGUI
 		float m_doAlpha;
 		// уничтожить ли после скрытия
 		bool m_isDestroy;
+
+		// наши главные фокусы
+		bool m_mouseRootFocus;
+		bool m_keyRootFocus;
 
 
 	}; // class Window : public Widget

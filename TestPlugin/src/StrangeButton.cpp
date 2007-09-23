@@ -22,9 +22,9 @@ namespace MyGUI
 		}
 	}
 
-	void StrangeButton::OnMouseSetFocus(WidgetPtr _old)
+	void StrangeButton::_onMouseSetFocus(WidgetPtr _old)
 	{
-		Widget::OnMouseSetFocus(_old);
+		Widget::_onMouseSetFocus(_old);
 		m_isFocus = true;
 
 		String s, str = m_text->getCaption();
@@ -36,9 +36,9 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void StrangeButton::OnMouseLostFocus(WidgetPtr _new)
+	void StrangeButton::_onMouseLostFocus(WidgetPtr _new)
 	{
-		Widget::OnMouseLostFocus(_new);
+		Widget::_onMouseLostFocus(_new);
 		m_isFocus = false;
 
 		String s, str = m_text->getCaption();
@@ -50,17 +50,17 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void StrangeButton::OnMouseButtonPressed(bool _left)
+	void StrangeButton::_onMouseButtonPressed(bool _left)
 	{
-		Widget::OnMouseButtonPressed(_left);
+		Widget::_onMouseButtonPressed(_left);
 		if (!_left) return;
 		m_isPressed = true;
 		updateButtonState();
 	}
 
-	void StrangeButton::OnMouseButtonReleased(bool _left)
+	void StrangeButton::_onMouseButtonReleased(bool _left)
 	{
-		Widget::OnMouseButtonReleased(_left);
+		Widget::_onMouseButtonReleased(_left);
 		if (!_left) return;
 		m_isPressed = false;
 		updateButtonState();

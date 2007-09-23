@@ -23,53 +23,53 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::OnMouseSetFocus(WidgetPtr _old)
+	void Edit::_onMouseSetFocus(WidgetPtr _old)
 	{
-		Widget::OnMouseSetFocus(_old);
+		Widget::_onMouseSetFocus(_old);
 		m_isFocus = true;
 		updateEditState();
 	}
 
-	void Edit::OnMouseLostFocus(WidgetPtr _new)
+	void Edit::_onMouseLostFocus(WidgetPtr _new)
 	{
-		Widget::OnMouseLostFocus(_new);
+		Widget::_onMouseLostFocus(_new);
 		m_isFocus = false;
 		updateEditState();
 	}
 
-	void Edit::OnMouseButtonPressed(bool _left)
+	void Edit::_onMouseButtonPressed(bool _left)
 	{
-		Widget::OnMouseButtonPressed(_left);
+		Widget::_onMouseButtonPressed(_left);
 //		if (!_left) return;
 //		m_isPressed = true;
 //		updateEditState();
 	}
 
-	void Edit::OnMouseButtonReleased(bool _left)
+	void Edit::_onMouseButtonReleased(bool _left)
 	{
-		Widget::OnMouseButtonReleased(_left);
+		Widget::_onMouseButtonReleased(_left);
 //		if (!_left) return;
 //		m_isPressed = false;
 //		updateEditState();
 	}
 
-	void Edit::OnKeySetFocus(WidgetPtr _old)
+	void Edit::_onKeySetFocus(WidgetPtr _old)
 	{
-		Widget::OnKeySetFocus(_old);
+		Widget::_onKeySetFocus(_old);
 		m_isPressed = true;
 		updateEditState();
 	}
 
-	void Edit::OnKeyLostFocus(WidgetPtr _new)
+	void Edit::_onKeyLostFocus(WidgetPtr _new)
 	{
-		Widget::OnKeyLostFocus(_new);
+		Widget::_onKeyLostFocus(_new);
 		m_isPressed = false;
 		updateEditState();
 	}
 
-	void Edit::OnKeyButtonPressed(int _key, wchar_t _char)
+	void Edit::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
-		Widget::OnKeyButtonPressed(_key, _char);
+		Widget::_onKeyButtonPressed(_key, _char);
 		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
 		else if (_key == OIS::KC_BACK) {
 			ASSERT(m_text);
@@ -82,9 +82,9 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::OnKeyButtonReleased(int _key)
+	void Edit::_onKeyButtonReleased(int _key)
 	{
-		Widget::OnKeyButtonReleased(_key);
+		Widget::_onKeyButtonReleased(_key);
 	}
 
 } // namespace MyGUI

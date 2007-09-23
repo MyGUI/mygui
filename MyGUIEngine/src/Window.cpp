@@ -18,11 +18,15 @@ namespace MyGUI
 		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null),
 		mAlignCaption(ALIGN_NONE), mAlignX(ALIGN_NONE), mAlignResize(ALIGN_NONE),
 		m_bIsListenerAlpha(false),
-		m_isDestroy(false)
+		m_isDestroy(false),
+		m_mouseRootFocus(false), m_keyRootFocus(false)
 	{
 
 		// запомием размер скина
 		mSkinSize = _info->getSize();
+
+		// альфа в первоначальное положение
+		setAlpha(WINDOW_ALPHA_DEACTIVE);
 
 		// парсим свойства
 		const SkinParam & param = _info->getParams();
@@ -46,6 +50,7 @@ namespace MyGUI
 			iter = param.find("AlignResize");
 			if (iter != param.end()) mAlignResize = SkinManager::getInstance().parseAlign(iter->second);
 		}
+
 	}
 
 	void Window::showWindowCaption(bool _show)
@@ -86,27 +91,41 @@ namespace MyGUI
 		}
 	}
 
-	void Window::OnMouseSetFocus(WidgetPtr _old)
+/*	void Window::_onMouseSetFocus(WidgetPtr _old)
 	{
-		Widget::OnMouseSetFocus(_old);
-		setDoAlpha(WINDOW_ALPHA_FOCUS);
+		Widget::_onMouseSetFocus(_old);
+//		setDoAlpha(WINDOW_ALPHA_FOCUS);
 	}
 
-	void Window::OnMouseLostFocus(WidgetPtr _new)
+	void Window::_onMouseLostFocus(WidgetPtr _new)
 	{
-		Widget::OnMouseLostFocus(_new);
-		setDoAlpha(WINDOW_ALPHA_DEACTIVE);
+		Widget::_onMouseLostFocus(_new);
+//		setDoAlpha(WINDOW_ALPHA_DEACTIVE);
+	}*/
+
+/*	void Window::_onMouseButtonPressed(bool _left)
+	{
+		Widget::_onMouseButtonPressed(_left);
+//		setDoAlpha(WINDOW_ALPHA_ACTIVE);
 	}
 
-	void Window::OnMouseButtonPressed(bool _left)
+	void Window::_onMouseButtonReleased(bool _left)
 	{
-		Widget::OnMouseButtonPressed(_left);
-		setDoAlpha(WINDOW_ALPHA_ACTIVE);
+		Widget::_onMouseButtonReleased(_left);
+	}*/
+
+	void Window::_onMouseChangeRootFocus(bool _focus)
+	{
+		Widget::_onMouseChangeRootFocus(_focus);
+		m_mouseRootFocus = _focus;
+		updateAlpha();
 	}
 
-	void Window::OnMouseButtonReleased(bool _left)
+	void Window::_onKeyChangeRootFocus(bool _focus)
 	{
-		Widget::OnMouseButtonReleased(_left);
+		Widget::_onKeyChangeRootFocus(_focus);
+		m_keyRootFocus = _focus;
+		updateAlpha();
 	}
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
@@ -209,6 +228,16 @@ namespace MyGUI
 		if (!_smoot) {Widget::show(_show);return;}
 		if (_show) setDoAlpha(1.0f);
 		else setDoAlpha(0.0f);
+	}
+
+	void Window::updateAlpha()
+	{
+		if (m_keyRootFocus) {
+			setDoAlpha(WINDOW_ALPHA_ACTIVE);
+			return;
+		}
+		if (m_mouseRootFocus) setDoAlpha(WINDOW_ALPHA_FOCUS);
+		else setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 	}
 
 } // namespace MyGUI

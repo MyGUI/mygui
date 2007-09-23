@@ -14,6 +14,7 @@ namespace MyGUI
 
 	InputManager::InputManager() :
 		m_widgetMouseFocus(0), m_widgetKeyFocus(0),
+		m_widgetRootMouseFocus(0), m_widgetRootKeyFocus(0),
 		m_isWidgetMouseCapture(false),
 		m_isCharShift(false)
 	{
@@ -28,27 +29,34 @@ namespace MyGUI
 
 		// проверка на скролл
 		if (_arg.state.Z.rel != 0) {
-			if (m_widgetMouseFocus != null) m_widgetMouseFocus->OnMouseSheel(_arg.state.Z.rel);
+			if (m_widgetMouseFocus != null) m_widgetMouseFocus->_onMouseSheel(_arg.state.Z.rel);
 			return isCaptureMouse();
 		}
 
 		if (m_isWidgetMouseCapture) {
-			if (m_widgetMouseFocus != null) m_widgetMouseFocus->OnMouseMove(_arg.state.X.abs, _arg.state.Y.abs);
+			if (m_widgetMouseFocus != null) m_widgetMouseFocus->_onMouseMove(_arg.state.X.abs, _arg.state.Y.abs);
 			else m_isWidgetMouseCapture = false;
 			return true;
 		}
 
 		// ищем активное окно
-		LayerItemInfoPtr info = LayerManager::getInstance().findItem(_arg.state.X.abs, _arg.state.Y.abs);
-		WidgetPtr item = info ? dynamic_cast<WidgetPtr>(info) : null;
-		if ( (item!= null) && (!item->isEnable()) ) item = null; // неактивное окно
+		LayerItemInfoPtr rootItem = null;
+		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
+		if ( (item != null) && (!item->isEnable()) ) item = null; // неактивное окно
 
 		// ничего не изменилось
 		if (m_widgetMouseFocus == item) return isCaptureMouse();
 
 		// смена фокуса
-		if (m_widgetMouseFocus != null) m_widgetMouseFocus->OnMouseLostFocus(item);
-		if (item != null) item->OnMouseSetFocus(m_widgetMouseFocus);
+		if (m_widgetMouseFocus != null) m_widgetMouseFocus->_onMouseLostFocus(item);
+		if (item != null) item->_onMouseSetFocus(m_widgetMouseFocus);
+
+		// изменился рутовый элемент
+		if (rootItem != m_widgetRootMouseFocus) {
+			if (m_widgetRootMouseFocus != null) m_widgetRootMouseFocus->_onMouseChangeRootFocus(false);
+			if (rootItem != null) static_cast<WidgetPtr>(rootItem)->_onMouseChangeRootFocus(true);
+			m_widgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
+		}
 
 		// запоминаем текущее окно
 		m_widgetMouseFocus = item;
@@ -73,7 +81,7 @@ namespace MyGUI
 			m_lastLeftPressed.top = (int)_arg.state.Y.abs;
 		}
 			
-		m_widgetMouseFocus->OnMouseButtonPressed(_id == OIS::MB_Left);
+		m_widgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
 		setKeyFocusWidget(m_widgetMouseFocus);
 
 		// поднимаем виджет, временно
@@ -93,13 +101,13 @@ namespace MyGUI
 			// сбрасываем захват
 			m_isWidgetMouseCapture = false;
 
-			m_widgetMouseFocus->OnMouseButtonReleased(_id == OIS::MB_Left);
+			m_widgetMouseFocus->_onMouseButtonReleased(_id == OIS::MB_Left);
 
 			if ((_id == OIS::MB_Left) && m_time.getMilliseconds() < GUI_TIME_DOUBLE_CLICK) {
-				m_widgetMouseFocus->OnMouseButtonClick(true);
+				m_widgetMouseFocus->_onMouseButtonClick(true);
 			} else {
 			    m_time.reset();
-	            m_widgetMouseFocus->OnMouseButtonClick(false);
+	            m_widgetMouseFocus->_onMouseButtonClick(false);
 			}
 
 			// для корректного отображения
@@ -117,7 +125,7 @@ namespace MyGUI
 		detectLangShift(_arg.key, true);
 		
 		//Pass keystrokes to the current active text widget
-		if (isCaptureKey()) m_widgetKeyFocus->OnKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
+		if (isCaptureKey()) m_widgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
 
 		return isCaptureKey();
 	}
@@ -127,7 +135,7 @@ namespace MyGUI
 		// проверка на переключение языков
 		detectLangShift(_arg.key, false);
 
-		if (isCaptureKey()) m_widgetKeyFocus->OnKeyButtonReleased(_arg.key);
+		if (isCaptureKey()) m_widgetKeyFocus->_onKeyButtonReleased(_arg.key);
 
 		return isCaptureKey();
 	}
@@ -263,23 +271,39 @@ namespace MyGUI
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
-		if (_widget != m_widgetKeyFocus) {
-			if (m_widgetKeyFocus != null) m_widgetKeyFocus->OnKeyLostFocus(_widget);
-			if (_widget != null) {
-				if (_widget->isNeedKeyFocus()) {
-					_widget->OnKeySetFocus(m_widgetKeyFocus);
-					m_widgetKeyFocus = _widget;
-					return;
-				}
-			}
-			m_widgetKeyFocus = null;
+
+		// ищем рутовый фокус
+		WidgetPtr root = _widget;
+		if (root != null) { while (root->getParent() != null) root = root->getParent(); }
+
+		// если рутовый фокус поменялся, то оповещаем
+		if (m_widgetRootKeyFocus != root) {
+			if (m_widgetRootKeyFocus != null) m_widgetRootKeyFocus->_onKeyChangeRootFocus(false);
+			if (root != null) root->_onKeyChangeRootFocus(true);
+			m_widgetRootKeyFocus = root;
 		}
+
+		// а вот тут уже проверяем обыкновенный фокус
+		if (_widget == m_widgetKeyFocus) return;
+
+		if (m_widgetKeyFocus != null) m_widgetKeyFocus->_onKeyLostFocus(_widget);
+		if (_widget != null) {
+			if (_widget->isNeedKeyFocus()) {
+				_widget->_onKeySetFocus(m_widgetKeyFocus);
+				m_widgetKeyFocus = _widget;
+				return;
+			}
+		}
+		m_widgetKeyFocus = null;
+
 	}
 
 	void InputManager::clearFocus()
 	{
 		m_widgetMouseFocus = null;
 		m_widgetKeyFocus = null;
+		m_widgetRootMouseFocus = null;
+		m_widgetRootKeyFocus = null;
 	}
 
 } // namespace MyGUI

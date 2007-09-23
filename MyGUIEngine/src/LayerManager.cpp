@@ -84,12 +84,18 @@ namespace MyGUI
 		if (_item->m_layerInfo) _item->m_layerInfo->upItem(_item);
 	}
 
-	LayerItemInfoPtr LayerManager::findItem(int _x, int _y)
+	LayerItemInfoPtr LayerManager::findWidgetItem(int _x, int _y, LayerItemInfoPtr & _rootItem)
 	{
 		MapLayerSearch::reverse_iterator iter = m_mapLayerSearch.rbegin();
 		while (iter != m_mapLayerSearch.rend()) {
-			LayerItemInfoPtr item = iter->second->findItem(_x, _y);
-			if (item != null) return item;
+			LayerItemInfoPtr item = iter->second->findItem(_x, _y, _rootItem);
+			if (item != null) {
+				if ( ! item->isWidget() ) {
+					_rootItem = null;
+					return null;
+				}
+				return item;
+			}
 			iter++;
 		}
 		return null;

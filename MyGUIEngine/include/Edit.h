@@ -20,14 +20,14 @@ namespace MyGUI
 
 	protected:
 
-		virtual void OnMouseLostFocus(WidgetPtr _new);
-		virtual void OnMouseSetFocus(WidgetPtr _old);
-		virtual void OnMouseButtonPressed(bool _left);
-		virtual void OnMouseButtonReleased(bool _left);
-		virtual void OnKeyLostFocus(WidgetPtr _new);
-		virtual void OnKeySetFocus(WidgetPtr _old);
-		virtual void OnKeyButtonPressed(int _key, wchar_t _char);
-		virtual void OnKeyButtonReleased(int _key);
+		virtual void _onMouseLostFocus(WidgetPtr _new);
+		virtual void _onMouseSetFocus(WidgetPtr _old);
+		virtual void _onMouseButtonPressed(bool _left);
+		virtual void _onMouseButtonReleased(bool _left);
+		virtual void _onKeyLostFocus(WidgetPtr _new);
+		virtual void _onKeySetFocus(WidgetPtr _old);
+		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
+		virtual void _onKeyButtonReleased(int _key);
 
 		inline void updateEditState()
 		{

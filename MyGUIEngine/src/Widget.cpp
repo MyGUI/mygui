@@ -47,6 +47,9 @@ namespace MyGUI
 		setState("normal");
 		// а вот теперь нормальный размер
 		size(_cx, _cy);
+		// альфа отца
+		if ( (m_parent != null) && (static_cast<WidgetPtr>(m_parent)->getAlpha() != 1.0f) ) setAlpha(static_cast<WidgetPtr>(m_parent)->getAlpha());
+		// и все перерисовываем
 		update();
 	}
 

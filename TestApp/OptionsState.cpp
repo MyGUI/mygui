@@ -71,7 +71,8 @@ void OptionsState::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	wid->showWindowCaption(true);
 	wid->showWindowX(true);
 	wid->showWindowResize(true);
-	wid->setAlpha(0.0f);
-	wid->show(true, true);
+	wid->setAlpha(0.5f);
+//	MyGUI::InputManager().getInstance().setKeyFocusWidget(wid);
+//	wid->show(true, true);
 }
 //===================================================================================

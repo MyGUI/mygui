@@ -32,6 +32,9 @@ namespace MyGUI
 		virtual void attachToOverlay(Ogre::Overlay * _overlay) = 0;
 		virtual void detachToOverlay(Ogre::Overlay * _overlay) = 0;
 
+		// дл€ виджетов переопределить, дл€ остальных низ€
+		virtual bool isWidget() {return false;}
+
 	private:
 		Ogre::Overlay * m_overlayInfo;
 		LayerInfoPtr m_layerInfo;

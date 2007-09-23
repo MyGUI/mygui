@@ -65,6 +65,7 @@ namespace MyGUI
 		void attachToOverlay(Ogre::Overlay * _overlay);
 		void detachToOverlay(Ogre::Overlay * _overlay);
 
+
 		// закрываем метод базового класса
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(m_parent);}
 
@@ -83,6 +84,9 @@ namespace MyGUI
 		void destroyWidget(WidgetPtr & _widget);
 		// удаляет всех детей
 		void destroyWidget();
+
+		// наследуется и переопределяется для избежания динамического преобразования
+		bool isWidget() {return true;}
 
 	public:
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)

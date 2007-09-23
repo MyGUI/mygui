@@ -47,6 +47,7 @@ namespace MyGUI
 		*/
 
 	public:
+
 		//	событие : виджет потерял фокус мыши
 		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		EventFocusInfo eventMouseLostFocus;
@@ -91,6 +92,16 @@ namespace MyGUI
 		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key);
 		EventSimpleDataInfo eventKeyButtonReleased;
 
+		//	событие : корневой виджет изменил фокус мыши, изменение без дочерних элементов
+		// это событие получает только корневой виджет
+		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		EventSimpleInfo  eventMouseChangeRootFocus;
+
+		//	событие : корневой виджет изменил фокус клавы, изменение без дочерних элементов
+		// это событие получает только корневой виджет
+		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		EventSimpleInfo  eventKeyChangeRootFocus;
+
 		//	событие : общее расширяемое событие для плагинов или особых случаев
 		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
 		EventActionInfo eventActionInfo;
@@ -98,59 +109,69 @@ namespace MyGUI
 	protected:
 
 		// сообщения от менеджера ввода
-		virtual void OnMouseLostFocus(WidgetPtr _new)
+		virtual void _onMouseLostFocus(WidgetPtr _new)
 		{
 			eventMouseLostFocus(m_widgetEventSender, _new);
 		}
 
-		virtual void OnMouseSetFocus(WidgetPtr _old)
+		virtual void _onMouseSetFocus(WidgetPtr _old)
 		{
 			eventMouseSetFocus(m_widgetEventSender, _old);
 		}
 
-		virtual void OnMouseMove(int _x, int _y)
+		virtual void _onMouseMove(int _x, int _y)
 		{
 			eventMouseMove(m_widgetEventSender, _x, _y);
 		}
 
-		virtual void OnMouseSheel(int _rel)
+		virtual void _onMouseSheel(int _rel)
 		{
 			eventMouseSheel(m_widgetEventSender, _rel);
 		}
 
-		virtual void OnMouseButtonPressed(bool _left)
+		virtual void _onMouseButtonPressed(bool _left)
 		{
 			eventMouseButtonPressed(m_widgetEventSender, _left);
 		}
 
-		virtual void OnMouseButtonReleased(bool _left)
+		virtual void _onMouseButtonReleased(bool _left)
 		{
 			eventMouseButtonReleased(m_widgetEventSender, _left);
 		}
 
-		virtual void OnMouseButtonClick(bool _double)
+		virtual void _onMouseButtonClick(bool _double)
 		{
 			eventMouseButtonClick(m_widgetEventSender, _double);
 		}
 
-		virtual void OnKeyLostFocus(WidgetPtr _new)
+		virtual void _onKeyLostFocus(WidgetPtr _new)
 		{
 			eventKeyLostFocus(m_widgetEventSender, _new);
 		}
 
-		virtual void OnKeySetFocus(WidgetPtr _old)
+		virtual void _onKeySetFocus(WidgetPtr _old)
 		{
 			eventKeySetFocus(m_widgetEventSender, _old);
 		}
 
-		virtual void OnKeyButtonPressed(int _key, wchar_t _char)
+		virtual void _onKeyButtonPressed(int _key, wchar_t _char)
 		{
 			eventKeyButtonPressed(m_widgetEventSender, _key, _char);
 		}
 
-		virtual void OnKeyButtonReleased(int _key)
+		virtual void _onKeyButtonReleased(int _key)
 		{
 			eventKeyButtonReleased(m_widgetEventSender, _key);
+		}
+
+		virtual void _onMouseChangeRootFocus(bool _focus)
+		{
+			eventMouseChangeRootFocus(m_widgetEventSender, _focus);
+		}
+
+		virtual void _onKeyChangeRootFocus(bool _focus)
+		{
+			eventKeyChangeRootFocus(m_widgetEventSender, _focus);
 		}
 
 		// нужен ли виджету ввод с клавы
