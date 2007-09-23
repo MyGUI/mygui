@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\MyGUIEngine\include; include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS;MYGUI_NONCLIENT_BUILD"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -139,7 +139,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="MyGUI.lib OgreMain.lib OIS.lib"
+				OutputFile="../shared/Release/TestPlugin.dll"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\MyGUIEngine\lib\Release"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
