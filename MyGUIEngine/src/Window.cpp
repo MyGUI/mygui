@@ -9,6 +9,10 @@ namespace MyGUI
 	// парсер команд
 	namespace parser { WindowParser WindowParserInstance; }
 
+	const float WINDOW_ALPHA_ACTIVE = 1.0;
+	const float WINDOW_ALPHA_FOCUS = 0.7;
+	const float WINDOW_ALPHA_DEACTIVE = 0.3;
+
 	Window::Window(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null),
@@ -85,16 +89,19 @@ namespace MyGUI
 	void Window::OnMouseSetFocus(WidgetPtr _old)
 	{
 		Widget::OnMouseSetFocus(_old);
+		setDoAlpha(WINDOW_ALPHA_FOCUS);
 	}
 
 	void Window::OnMouseLostFocus(WidgetPtr _new)
 	{
 		Widget::OnMouseLostFocus(_new);
+		setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 	}
 
 	void Window::OnMouseButtonPressed(bool _left)
 	{
 		Widget::OnMouseButtonPressed(_left);
+		setDoAlpha(WINDOW_ALPHA_ACTIVE);
 	}
 
 	void Window::OnMouseButtonReleased(bool _left)
@@ -116,18 +123,18 @@ namespace MyGUI
 		m_enable = false;
 		setDoAlpha(0.0);
 		m_isDestroy = true;
-		Gui::getInstance().clearFocus(); // пока так
+		InputManager::getInstance().clearFocus(); // пока так
 	}
 
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _x, int _y)
 	{
-		const intPoint & point = Gui::getInstance().getLastLeftPressed();
+		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
 		move(m_preActionRect.left + (_x - point.left), m_preActionRect.top + (_y - point.top));
 	}
 
 	void Window::notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _x, int _y)
 	{
-		const intPoint & point = Gui::getInstance().getLastLeftPressed();
+		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
 		size(m_preActionRect.right + (_x - point.left), m_preActionRect.bottom + (_y - point.top));
 	}
 

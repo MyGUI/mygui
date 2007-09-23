@@ -70,7 +70,7 @@ namespace MyGUI
 	void Edit::OnKeyButtonPressed(int _key, wchar_t _char)
 	{
 		Widget::OnKeyButtonPressed(_key, _char);
-		if (_key == OIS::KC_ESCAPE) Gui::getInstance().setKeyFocusWidget(null);
+		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
 		else if (_key == OIS::KC_BACK) {
 			ASSERT(m_text);
 			const Ogre::DisplayString & text = m_text->getCaption();

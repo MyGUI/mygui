@@ -10,7 +10,7 @@ namespace MyGUI
 	INSTANCE_IMPLEMENT(Gui);
 
 	Gui::Gui() :
-		InputManager(),
+//		InputManager(),
 		m_isInitialise(false),
 		m_height(1), m_width(1)
 	{

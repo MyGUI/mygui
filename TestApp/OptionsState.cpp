@@ -28,31 +28,31 @@ void OptionsState::enter(bool bIsChangeState)
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
 {
-	MyGUI::Gui::getInstance().injectMouseMove(arg);
+	MyGUI::InputManager::getInstance().injectMouseMove(arg);
 	return true;
 }
 //===================================================================================
 bool OptionsState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	MyGUI::Gui::getInstance().injectMousePress(arg, id);
+	MyGUI::InputManager::getInstance().injectMousePress(arg, id);
 	return true;
 }
 //===================================================================================
 bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	MyGUI::Gui::getInstance().injectMouseRelease(arg, id);
+	MyGUI::InputManager::getInstance().injectMouseRelease(arg, id);
 	return true;
 }
 //===================================================================================
 bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
 {
-	MyGUI::Gui::getInstance().injectKeyPress(arg);
+	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
 }
 //===================================================================================
 bool OptionsState::keyReleased( const OIS::KeyEvent &arg )
 {
-	MyGUI::Gui::getInstance().injectKeyRelease(arg);
+	MyGUI::InputManager::getInstance().injectKeyRelease(arg);
 	return true;
 }
 //===================================================================================

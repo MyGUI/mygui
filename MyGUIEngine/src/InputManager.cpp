@@ -10,6 +10,8 @@ namespace MyGUI
 
 	const std::string INPUT_DEFAULT_LANGUAGE = "English";
 
+	INSTANCE_IMPLEMENT(InputManager);
+
 	InputManager::InputManager() :
 		m_widgetMouseFocus(0), m_widgetKeyFocus(0),
 		m_isWidgetMouseCapture(false),

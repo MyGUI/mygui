@@ -2,6 +2,7 @@
 #define _INPUTMANAGER_H_
 
 #include "WidgetOIS.h"
+#include "Instance.h"
 #include "Common.h"
 #include "WidgetDefines.h"
 #include "delegate.h"
@@ -14,8 +15,10 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef CDelegate1<const std::string &> EventChangeLanguage;
 
-	class _MyGUIExport InputManager
+	class _MyGUIExport InputManager : public Instance<InputManager>
 	{
+		INSTANCE_HEADER(InputManager);
+
 	public:
 		InputManager();
 
