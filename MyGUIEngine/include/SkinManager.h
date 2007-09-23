@@ -11,14 +11,9 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport SkinManager// : public Instance<SkinManager>
+	class _MyGUIExport SkinManager
 	{
 		INSTANCE_HEADER(SkinManager);
-/*	private:
-		static SkinManager* msInstance;
-	public:
-		static SkinManager& getInstance();
-		static SkinManager* getInstancePtr();*/
 
 	private:
 		SkinManager();

@@ -9,6 +9,7 @@
 #include "LayoutManager.h"
 #include "Window.h"
 #include "Button.h"
+#include "VScroll.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -28,6 +29,8 @@ void OptionsState::enter(bool bIsChangeState)
 	button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 60, 150, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	button->setCaption("Manual alpha");
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);
+
+	MyGUI::VScrollPtr scroll = static_cast<MyGUI::VScrollPtr>(MyGUI::Gui::getInstance().createWidget("VScroll", "VScroll", 100, 100, 16, 226, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 
 //	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 

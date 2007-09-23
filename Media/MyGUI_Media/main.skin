@@ -149,5 +149,56 @@
         </BasisSkin>
     </Skin>
 
+    <Skin Name = "VScrollTrack" Size = "16 21" Material = "MyGUI_main" >
+        <BasisSkin Type="MainSkin" Offset = "0 0 16 21" Align = "ALIGN_LEFT ALIGN_TOP">
+            <State Name="normal" Offset = "163 64 16 21"/>
+            <State Name="active" Offset = "181 64 16 21"/>
+            <State Name="select" Offset = "199 64 16 21"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin Name = "VScrollTop" Size = "16 16" Material = "MyGUI_main" >
+        <BasisSkin Type="MainSkin" Offset = "0 0 16 16" Align = "ALIGN_LEFT ALIGN_TOP">
+            <State Name="normal" Offset = "163 2 16 16"/>
+            <State Name="active" Offset = "181 2 16 16"/>
+            <State Name="select" Offset = "199 2 16 16"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin Name = "VScrollBottom" Size = "16 16" Material = "MyGUI_main" >
+        <BasisSkin Type="MainSkin" Offset = "0 0 16 16" Align = "ALIGN_LEFT ALIGN_TOP">
+            <State Name="normal" Offset = "163 46 16 16"/>
+            <State Name="active" Offset = "181 46 16 16"/>
+            <State Name="select" Offset = "199 46 16 16"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin Name = "VScroll" Size = "16 60" Material = "MyGUI_main" >
+
+        <Property Key="SkinTop" Value = "VScrollTop" />
+        <Property Key="OffsetTop" Value = "0 0 16 16" />
+        <Property Key="AlignTop" Value = "ALIGN_HSTRETCH ALIGN_TOP" />
+
+        <Property Key="SkinBottom" Value = "VScrollBottom" />
+        <Property Key="OffsetBottom" Value = "0 44 16 16" />
+        <Property Key="AlignBottom" Value = "ALIGN_HSTRETCH ALIGN_BOTTOM" />
+
+        <Property Key="SkinTrack" Value = "VScrollTrack" />
+        <Property Key="OffsetTrack" Value = "0 18 16 21" />
+        <Property Key="AlignTrack" Value = "ALIGN_LEFT ALIGN_TOP" />
+
+        <BasisSkin Type="MainSkin" Offset = "0 0 0 0" Align = "ALIGN_LEFT ALIGN_TOP"/>
+        
+        <BasisSkin Type="SubSkin" Offset = "0 16 16 6" Align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State Name="normal" Offset = "163 18 16 6"/>
+        </BasisSkin>
+        <BasisSkin Type="SubSkin" Offset = "0 22 16 16" Align = "ALIGN_STRETCH">
+            <State Name="normal" Offset = "163 24 16 16"/>
+        </BasisSkin>
+        <BasisSkin Type="SubSkin" Offset = "0 38 16 6" Align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State Name="normal" Offset = "163 40 16 6"/>
+        </BasisSkin>
+    </Skin>
+
 </MyGUI_SkinInfo>
 

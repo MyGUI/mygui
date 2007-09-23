@@ -199,6 +199,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\VScroll.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Window.cpp"
 				>
 			</File>
@@ -306,6 +310,10 @@
 			</File>
 			<File
 				RelativePath=".\include\StaticImageParser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\VScroll.h"
 				>
 			</File>
 			<File

@@ -11,7 +11,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport WidgetManager// : public Instance<WidgetManager>
+	class _MyGUIExport WidgetManager
 	{
 		INSTANCE_HEADER(WidgetManager);
 
@@ -35,8 +35,7 @@ namespace MyGUI
 		//	private:
 		void clearName(WidgetPtr _widget);
 
-//	protected:
-		WidgetManager();// {};
+		WidgetManager();
 
 	protected:
 		std::list<WidgetFactoryBase*> m_factoryList;

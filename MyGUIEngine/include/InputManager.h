@@ -15,7 +15,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef CDelegate1<const std::string &> EventChangeLanguage;
 
-	class _MyGUIExport InputManager// : public Instance<InputManager>
+	class _MyGUIExport InputManager
 	{
 		INSTANCE_HEADER(InputManager);
 

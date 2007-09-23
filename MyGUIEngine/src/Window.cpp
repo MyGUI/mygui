@@ -31,7 +31,8 @@ namespace MyGUI
 		mSkinSize = _info->getSize();
 
 		// альфа в первоначальное положение
-		setAlpha(WINDOW_ALPHA_DEACTIVE);
+		setAlpha(0.0f);
+		setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 
 		// парсим свойства
 		const SkinParam & param = _info->getParams();

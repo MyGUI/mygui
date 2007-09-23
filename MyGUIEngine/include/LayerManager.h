@@ -18,7 +18,7 @@ namespace MyGUI
 	// карта для упорядочивания по высоте
 	typedef std::map<Ogre::ushort, LayerInfoPtr> MapLayerSearch;
 
-	class _MyGUIExport LayerManager// : public Instance<LayerManager>
+	class _MyGUIExport LayerManager
 	{
 		friend Gui;
 

@@ -2,18 +2,16 @@
 #define _POINTERMANAGER_H_
 
 #include "Platform.h"
-//#include <Ogre.h>
 #include "Instance.h"
 #include <OgrePanelOverlayElement.h>
 #include <string>
-//#include "Instance.h"
 #include "LayerManager.h"
 #include "PointerInfo.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : /*public Instance<PointerManager>, */public LayerItemInfo
+	class _MyGUIExport PointerManager : public LayerItemInfo
 	{
 		INSTANCE_HEADER(PointerManager);
 

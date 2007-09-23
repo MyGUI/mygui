@@ -13,7 +13,7 @@ namespace MyGUI
 {
 	
 
-	class _MyGUIExport Gui// : public Instance<Gui>/* , public InputManager*/
+	class _MyGUIExport Gui
 	{
 		friend WidgetManager;
 		INSTANCE_HEADER(Gui);
@@ -40,7 +40,6 @@ namespace MyGUI
 		inline float getWidth() {return m_width;}
 		inline float getHeight() {return m_height;}
 
-//	private:
 		// удяляет только негодных батюшке государю
 		void destroyWidget(WidgetPtr & _widget);
 		// удаляет всех детей
