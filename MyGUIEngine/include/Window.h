@@ -24,14 +24,24 @@ namespace MyGUI
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
 
-		void show(bool _show, bool _smoot);
+		void show(bool _smoot = true, bool _reset = true);
+		void hide(bool _smoot = true, bool _destroy = false);
+
+		inline bool getAutoAlpha() {return m_bIsAutoAlpha;}
+		inline void setAutoAlpha(bool _auto) {m_bIsAutoAlpha=_auto; if(!_auto)setAlpha(1.0f);else updateAlpha();}
+
+		virtual void setCaption(const Ogre::DisplayString & _caption) {if (mWidgetCaption!=null)mWidgetCaption->setCaption(_caption);};
+		virtual const Ogre::DisplayString & getCaption() {if (mWidgetCaption!=null) return mWidgetCaption->getCaption();return Widget::getCaption();};
+
+		void setMinMax(intRect _minmax) {m_minmax = _minmax;}
+		intRect getMinMax() {return m_minmax;}
+
+		virtual void size(int _cx, int _cy);
+
+		// нажат крестик на окне
+		EventSimple eventWindowXPressed;
 
 	protected:
-
-//		virtual void _onMouseLostFocus(WidgetPtr _new);
-//		virtual void _onMouseSetFocus(WidgetPtr _old);
-//		virtual void _onMouseButtonPressed(bool _left);
-//		virtual void _onMouseButtonReleased(bool _left);
 
 		virtual void _onMouseChangeRootFocus(bool _focus);
 		virtual void _onKeyChangeRootFocus(bool _focus);
@@ -67,6 +77,12 @@ namespace MyGUI
 		// наши главные фокусы
 		bool m_mouseRootFocus;
 		bool m_keyRootFocus;
+
+		// автоматическое или ручное управление альфой
+		bool m_bIsAutoAlpha;
+
+		// минимальные и максимальные размеры окна
+		intRect m_minmax;
 
 
 	}; // class Window : public Widget

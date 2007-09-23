@@ -25,6 +25,8 @@ namespace MyGUI
 				parser.registerDelegate("ShowWindowCaption") = newDelegate(this, &WindowParser::ShowWindowCaption);
 				parser.registerDelegate("ShowWindowX") = newDelegate(this, &WindowParser::ShowWindowX);
 				parser.registerDelegate("ShowWindowResize") = newDelegate(this, &WindowParser::ShowWindowResize);
+				parser.registerDelegate("WindowAutoAlpha") = newDelegate(this, &WindowParser::WindowAutoAlpha);
+				parser.registerDelegate("WindowMinMax") = newDelegate(this, &WindowParser::WindowMinMax);
 			}
 
 			void ShowWindowCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -43,6 +45,18 @@ namespace MyGUI
 			{
 				TYPE(WindowPtr, _widget);
 				static_cast<WindowPtr>(_widget)->showWindowResize(_value == "true");
+			}
+
+			void WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+			{
+				TYPE(WindowPtr, _widget);
+				static_cast<WindowPtr>(_widget)->setAutoAlpha(_value == "true");
+			}
+
+			void WindowMinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+			{
+				TYPE(WindowPtr, _widget);
+				static_cast<WindowPtr>(_widget)->setMinMax(intRect::parse(_value));
 			}
 
 		};

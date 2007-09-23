@@ -9,7 +9,7 @@
 
 namespace MyGUI
 {
-	class _MyGUIExport BasisWidgetManager : public Instance<BasisWidgetManager>
+	class _MyGUIExport BasisWidgetManager// : public Instance<BasisWidgetManager>
 	{
 		INSTANCE_HEADER(BasisWidgetManager);
 

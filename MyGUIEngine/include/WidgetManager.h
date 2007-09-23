@@ -11,7 +11,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport WidgetManager : public Instance<WidgetManager>
+	class _MyGUIExport WidgetManager// : public Instance<WidgetManager>
 	{
 		INSTANCE_HEADER(WidgetManager);
 

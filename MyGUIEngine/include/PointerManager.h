@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : public Instance<PointerManager>, public LayerItemInfo
+	class _MyGUIExport PointerManager : /*public Instance<PointerManager>, */public LayerItemInfo
 	{
 		INSTANCE_HEADER(PointerManager);
 

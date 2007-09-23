@@ -6,9 +6,8 @@
 
 namespace MyGUI
 {
-	/*!	Strange button
-	*/
-	class StrangeButton : public Widget
+
+	class /*_MyGUIExport*/ StrangeButton : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend WidgetFactory<StrangeButton>;

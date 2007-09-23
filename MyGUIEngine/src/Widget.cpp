@@ -325,6 +325,7 @@ namespace MyGUI
 
 	void Widget::setAlpha(float _alpha)
 	{
+		if (m_alpha == _alpha) return;
 		m_alpha = _alpha;
 		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
 		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(m_alpha);

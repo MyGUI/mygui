@@ -52,7 +52,7 @@ namespace MyGUI
 
 	void PluginManager::loadPlugin(const std::string &fileName)
 	{
-		return; // ???
+//		return; // ???
 		// Load plugin library
 		DynLib* lib = DynLibManager::Instance()->load( fileName );
 		// Store for later unload

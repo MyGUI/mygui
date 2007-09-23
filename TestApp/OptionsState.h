@@ -13,7 +13,10 @@ public:
 	bool keyPressed( const OIS::KeyEvent &arg );
 	bool keyReleased( const OIS::KeyEvent &arg );
 
-	void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+	void notifyMousePressed1(MyGUI::WidgetPtr _sender, bool _left);
+	void notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left);
+
+	void notifyWindowXPressed(MyGUI::WidgetPtr _sender);
 
 public:
 	void enter(bool bIsChangeState);

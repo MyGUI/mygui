@@ -12,7 +12,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport LayoutManager : public Instance<LayoutManager>
+	class _MyGUIExport LayoutManager// : public Instance<LayoutManager>
 	{
 		INSTANCE_HEADER(LayoutManager);
 

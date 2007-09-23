@@ -19,8 +19,13 @@ namespace MyGUI
 		mAlignCaption(ALIGN_NONE), mAlignX(ALIGN_NONE), mAlignResize(ALIGN_NONE),
 		m_bIsListenerAlpha(false),
 		m_isDestroy(false),
-		m_mouseRootFocus(false), m_keyRootFocus(false)
+		m_mouseRootFocus(false), m_keyRootFocus(false),
+		m_bIsAutoAlpha(true)
 	{
+		m_minmax.left = 50;
+		m_minmax.top = 50;
+		m_minmax.right = 2050;
+		m_minmax.bottom = 2050;
 
 		// запомием размер скина
 		mSkinSize = _info->getSize();
@@ -91,29 +96,6 @@ namespace MyGUI
 		}
 	}
 
-/*	void Window::_onMouseSetFocus(WidgetPtr _old)
-	{
-		Widget::_onMouseSetFocus(_old);
-//		setDoAlpha(WINDOW_ALPHA_FOCUS);
-	}
-
-	void Window::_onMouseLostFocus(WidgetPtr _new)
-	{
-		Widget::_onMouseLostFocus(_new);
-//		setDoAlpha(WINDOW_ALPHA_DEACTIVE);
-	}*/
-
-/*	void Window::_onMouseButtonPressed(bool _left)
-	{
-		Widget::_onMouseButtonPressed(_left);
-//		setDoAlpha(WINDOW_ALPHA_ACTIVE);
-	}
-
-	void Window::_onMouseButtonReleased(bool _left)
-	{
-		Widget::_onMouseButtonReleased(_left);
-	}*/
-
 	void Window::_onMouseChangeRootFocus(bool _focus)
 	{
 		Widget::_onMouseChangeRootFocus(_focus);
@@ -139,10 +121,7 @@ namespace MyGUI
 
 	void Window::notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		m_enable = false;
-		setDoAlpha(0.0);
-		m_isDestroy = true;
-		InputManager::getInstance().clearFocus(); // пока так
+		eventWindowXPressed(this);
 	}
 
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _x, int _y)
@@ -207,9 +186,14 @@ namespace MyGUI
 			}
 		}
 
-		if ((alpha == 0) && (m_isDestroy)) {
-			WidgetPtr destroy = this;
-			WidgetManager::getInstance().destroyWidget(destroy);
+		if (alpha == 0.0) {
+			if (m_isDestroy) {
+				WidgetPtr destroy = this;
+				WidgetManager::getInstance().destroyWidget(destroy);
+			} else {
+				Widget::show(false);
+				m_enable = true;
+			}
 			return true;
 		}
 
@@ -223,21 +207,51 @@ namespace MyGUI
 		return true;
 	}
 
-	void Window::show(bool _show, bool _smoot)
+	void Window::show(bool _smoot, bool _reset)
 	{
-		if (!_smoot) {Widget::show(_show);return;}
-		if (_show) setDoAlpha(1.0f);
-		else setDoAlpha(0.0f);
+		Widget::show(true);
+		m_enable = true; // это если мы будем показывать, а оно еще и не скрылось
+		if (!_smoot) setAlpha(1.0f);
+		else if (!_reset) setDoAlpha(1.0f);
+		else {
+			setAlpha(0.0f);
+			setDoAlpha(1.0f);
+		}
+	}
+
+	void Window::hide(bool _smoot, bool _destroy)
+	{
+		if (!_smoot) {
+			if (_destroy) {
+				WidgetPtr destroy = this;
+				WidgetManager::getInstance().destroyWidget(destroy);
+			} else Widget::show(false);
+		} else {
+			m_enable = false;
+			setDoAlpha(0.0);
+			m_isDestroy = _destroy;
+			InputManager::getInstance().resetKeyFocusWidget();
+			InputManager::getInstance().resetMouseFocusWidget();
+		}
 	}
 
 	void Window::updateAlpha()
 	{
-		if (m_keyRootFocus) {
-			setDoAlpha(WINDOW_ALPHA_ACTIVE);
-			return;
-		}
-		if (m_mouseRootFocus) setDoAlpha(WINDOW_ALPHA_FOCUS);
+		if (!m_bIsAutoAlpha) return;
+
+		if (m_keyRootFocus) setDoAlpha(WINDOW_ALPHA_ACTIVE);
+		else if (m_mouseRootFocus) setDoAlpha(WINDOW_ALPHA_FOCUS);
 		else setDoAlpha(WINDOW_ALPHA_DEACTIVE);
+	}
+
+	void Window::size(int _cx, int _cy)
+	{
+		if (_cx < m_minmax.left) _cx = m_minmax.left;
+		else if (_cx > m_minmax.right) _cx = m_minmax.right;
+		if (_cy < m_minmax.top) _cy = m_minmax.top;
+		else if (_cy > m_minmax.bottom) _cy = m_minmax.bottom;
+		if ((_cx == m_cx) && (_cy == m_cy) ) return;
+		Widget::size(_cx, _cy);
 	}
 
 } // namespace MyGUI

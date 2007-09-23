@@ -4,7 +4,7 @@
 
     <Skin Name = "Button" Size = "54 26" Material = "MyGUI_main" >
         <Property Key="FontName" Value = "MyGUI_font" />
-        <Property Key="FontHeight" Value = "16" />
+        <Property Key="FontHeight" Value = "18" />
         <Property Key="AlignText" Value = "ALIGN_CENTER" />
         <BasisSkin Type="SubSkin" Offset = "0 0 20 26" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State Name="disable" Offset = "2 2 20 26"/>
@@ -114,6 +114,9 @@
     </Skin>
 
     <Skin Name = "WindowCaption" Size = "47 30" Material = "MyGUI_main" >
+        <Property Key="FontName" Value = "MyGUI_font" />
+        <Property Key="FontHeight" Value = "18" />
+        <Property Key="AlignText" Value = "ALIGN_CENTER" />
         <BasisSkin Type="SubSkin" Offset = "0 0 5 30" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "328 2 5 30"/>
             <State Name="active" Offset = "328 34 5 30"/>
@@ -125,6 +128,10 @@
         <BasisSkin Type="SubSkin" Offset = "42 0 5 30" Align = "ALIGN_RIGHT ALIGN_TOP">
             <State Name="normal" Offset = "370 2 5 30"/>
             <State Name="active" Offset = "370 34 5 30"/>
+        </BasisSkin>
+        <BasisSkin Type="TextSimple" Offset = "5 0 37 30" Align = "ALIGN_STRETCH">
+            <State Name="normal" Color="0 0 0"/>
+            <State Name="active" Color="1 1 1"/>
         </BasisSkin>
     </Skin>
 

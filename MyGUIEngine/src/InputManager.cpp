@@ -298,12 +298,12 @@ namespace MyGUI
 
 	}
 
-	void InputManager::clearFocus()
+	void InputManager::resetMouseFocusWidget()
 	{
 		m_widgetMouseFocus = null;
-		m_widgetKeyFocus = null;
+//		m_widgetKeyFocus = null;
 		m_widgetRootMouseFocus = null;
-		m_widgetRootKeyFocus = null;
+//		m_widgetRootKeyFocus = null;
 	}
 
 } // namespace MyGUI

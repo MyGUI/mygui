@@ -13,7 +13,7 @@ namespace MyGUI
 {
 	
 
-	class _MyGUIExport Gui : public Instance<Gui>/* , public InputManager*/
+	class _MyGUIExport Gui// : public Instance<Gui>/* , public InputManager*/
 	{
 		friend WidgetManager;
 		INSTANCE_HEADER(Gui);

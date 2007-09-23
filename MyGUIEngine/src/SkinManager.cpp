@@ -9,6 +9,9 @@ namespace MyGUI
 {
 
 	INSTANCE_IMPLEMENT(SkinManager);
+	/*SkinManager * SkinManager::msInstance = 0;
+	SkinManager* SkinManager::getInstancePtr(void) {return msInstance;}
+	SkinManager& SkinManager::getInstance(void) {if (!msInstance)msInstance=new SkinManager();return (*msInstance);}*/
 
 	SkinManager::SkinManager()
 	{

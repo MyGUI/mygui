@@ -15,7 +15,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef CDelegate1<const std::string &> EventChangeLanguage;
 
-	class _MyGUIExport InputManager : public Instance<InputManager>
+	class _MyGUIExport InputManager// : public Instance<InputManager>
 	{
 		INSTANCE_HEADER(InputManager);
 
@@ -42,7 +42,7 @@ namespace MyGUI
 		inline const intPoint & getLastLeftPressed() {return m_lastLeftPressed;}
 
 		// тестовый вариант, очистка фокуса мыши
-		void clearFocus();
+		void resetMouseFocusWidget();
 
 		// событие смены языков
 		EventChangeLanguage eventChangeLanguage;

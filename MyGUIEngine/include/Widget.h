@@ -36,7 +36,7 @@ namespace MyGUI
 
 		void move(int _x, int _y);
 		void move(int _x, int _y, int _cx, int _cy);
-		void size(int _cx, int _cy);
+		virtual void size(int _cx, int _cy);
 
 		void show(bool _show);
 

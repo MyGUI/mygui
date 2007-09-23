@@ -14,7 +14,7 @@ namespace MyGUI
 	typedef CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParceDelegate;
 	typedef std::map<Ogre::String, ParceDelegate> MapDelegate;
 
-	class _MyGUIExport ParserManager : public Instance<ParserManager>
+	class _MyGUIExport ParserManager// : public Instance<ParserManager>
 	{
 		INSTANCE_HEADER(ParserManager);
 

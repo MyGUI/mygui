@@ -8,6 +8,7 @@
 #include "WidgetManager.h"
 #include "LayoutManager.h"
 #include "Window.h"
+#include "Button.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -19,10 +20,19 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::PointerManager::getInstance().show();
 
 	MyGUI::SkinManager::getInstance().load("main.skin");
-	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
-	MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidget("Button1");
-	if (but != null) but->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed);
+	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("StrangeButton", "Button", 10, 10, 150, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	button->setCaption("Auto alpha");
+	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed1);
+
+	button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 60, 150, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	button->setCaption("Manual alpha");
+	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);
+
+//	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+
+//	MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidget("Button1");
+//	if (but != null) but->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed);
 
 }
 //===================================================================================
@@ -65,14 +75,34 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 {
 }
 //===================================================================================
-void OptionsState::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+void OptionsState::notifyMousePressed1(MyGUI::WidgetPtr _sender, bool _left)
 {
-	MyGUI::WindowPtr wid = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", 100, 100, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	wid->showWindowCaption(true);
-	wid->showWindowX(true);
-	wid->showWindowResize(true);
-	wid->setAlpha(0.5f);
-//	MyGUI::InputManager().getInstance().setKeyFocusWidget(wid);
-//	wid->show(true, true);
+	int x = (::rand()%800) + 20;
+	int y = (::rand()%300) + 20;
+	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+	window->showWindowCaption(true);
+	window->showWindowX(true);
+	window->showWindowResize(true);
+	window->setCaption("Auto alpha");
+	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+}
+//===================================================================================
+void OptionsState::notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left)
+{
+	int x = (::rand()%800) + 20;
+	int y = (::rand()%300) + 320;
+	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+	window->showWindowCaption(true);
+	window->showWindowX(true);
+	window->showWindowResize(true);
+	window->setAutoAlpha(false);
+	window->show();
+	window->setCaption("Manual alpha");
+	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+}
+//===================================================================================
+void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _sender)
+{
+	static_cast<MyGUI::WindowPtr>(_sender)->hide(true, true);
 }
 //===================================================================================

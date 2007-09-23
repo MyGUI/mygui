@@ -22,7 +22,7 @@ namespace MyGUI
 				// менеджер всех парсеров свойств
 				ParserManager & parser = ParserManager::getInstance();
 
-				parser.registerDelegate("ButtonPressed") = newDelegate(this, &StrangeButtonParser::ButtonPressed);
+				parser.registerDelegate("StrangeButtonPressed") = newDelegate(this, &StrangeButtonParser::ButtonPressed);
 			}
 
 			void ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
