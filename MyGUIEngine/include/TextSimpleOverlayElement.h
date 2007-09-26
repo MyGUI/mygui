@@ -367,6 +367,21 @@ namespace MyGUI
 
 		}
 
+		// перекрываем и подсовываем наш шрифт
+        void setFontName( const String& font )
+		{
+			mpFont = FontManager::getSingleton().getByName( font );
+			if (mpFont.isNull()) OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find font " + font, "TextAreaOverlayElement::setFontName" );
+			mpFont->load();
+			mpMaterial = mpFont->getMaterial();
+			mpMaterial->setDepthCheckEnabled(false);
+			mpMaterial->setLightingEnabled(false);
+			
+			mGeomPositionsOutOfDate = true;
+			mGeomUVsOutOfDate = true;
+		}
+
+
 	}; // class TextSimpleOverlayElement : public TextAreaOverlayElement
 
 } // namespace MyGUI

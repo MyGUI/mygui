@@ -27,6 +27,7 @@ namespace MyGUI
 		Widget::_onMouseSetFocus(_old);
 		m_isFocus = true;
 
+		if (m_text == null) return;
 		String s, str = m_text->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
@@ -41,6 +42,7 @@ namespace MyGUI
 		Widget::_onMouseLostFocus(_new);
 		m_isFocus = false;
 
+		if (m_text == null) return;
 		String s, str = m_text->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];

@@ -3,7 +3,6 @@
 
 #include "Prerequest.h"
 #include <vector>
-//#include <Ogre.h>
 #include "MainSkin.h"
 
 #include "WidgetSkinInfo.h"
@@ -35,7 +34,7 @@ namespace MyGUI
 		WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name = "");
 
 		void move(int _x, int _y);
-		void move(int _x, int _y, int _cx, int _cy);
+		virtual void move(int _x, int _y, int _cx, int _cy);
 		virtual void size(int _cx, int _cy);
 
 		void show(bool _show);

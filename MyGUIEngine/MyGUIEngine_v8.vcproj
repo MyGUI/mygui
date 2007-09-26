@@ -195,11 +195,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\StaticImage.cpp"
+				RelativePath=".\src\HScroll.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\VScroll.cpp"
+				RelativePath=".\src\ScrollBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\StaticImage.cpp"
 				>
 			</File>
 			<File
@@ -305,11 +309,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\HScroll.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\ScrollBase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\ScrollParser.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\StaticImage.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\StaticImageParser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\VScroll.cpp"
 				>
 			</File>
 			<File

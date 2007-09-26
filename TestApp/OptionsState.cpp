@@ -9,6 +9,7 @@
 #include "LayoutManager.h"
 #include "Window.h"
 #include "Button.h"
+#include "HScroll.h"
 #include "VScroll.h"
 
 void OptionsState::enter(bool bIsChangeState)
@@ -30,12 +31,15 @@ void OptionsState::enter(bool bIsChangeState)
 	button->setCaption("Manual alpha");
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);
 
-	MyGUI::VScrollPtr scroll = static_cast<MyGUI::VScrollPtr>(MyGUI::Gui::getInstance().createWidget("VScroll", "VScroll", 100, 100, 16, 226, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	MyGUI::HScrollPtr scroll = static_cast<MyGUI::HScrollPtr>(MyGUI::Gui::getInstance().createWidget("HScroll", "HScroll", 100, 100, 226, 16, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	scroll->setScrollRange(200);
 
 //	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 //	MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidget("Button1");
 //	if (but != null) but->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed);
+
+//	notifyMousePressed1(0, true);
 
 }
 //===================================================================================
@@ -86,7 +90,7 @@ void OptionsState::notifyMousePressed1(MyGUI::WidgetPtr _sender, bool _left)
 	window->showWindowCaption(true);
 	window->showWindowX(true);
 	window->showWindowResize(true);
-	window->setCaption("Auto alpha");
+//	window->setCaption("Auto alpha");
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 }
 //===================================================================================
@@ -100,7 +104,7 @@ void OptionsState::notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left)
 	window->showWindowResize(true);
 	window->setAutoAlpha(false);
 	window->show();
-	window->setCaption("Manual alpha");
+//	window->setCaption("Manual alpha");
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 }
 //===================================================================================
