@@ -115,7 +115,11 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	createInput();
 
 	// load plugin
+#if _DEBUG
 	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin_d.dll");
+#else
+	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin.dll");
+#endif
 
 	changeState(&mOptions); // главное меню
 

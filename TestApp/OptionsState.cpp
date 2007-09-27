@@ -23,7 +23,7 @@ void OptionsState::enter(bool bIsChangeState)
 
 	MyGUI::SkinManager::getInstance().load("main.skin");
 
-	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("StrangeButton", "Button", 10, 10, 150, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 150, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	button->setCaption("Auto alpha");
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed1);
 
