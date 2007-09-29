@@ -460,6 +460,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\PanelAlphaSharedOverlayElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\PanelAlphaSharedOverlayElementFactory.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\TextSimpleOverlayElement.h"
 					>
 				</File>

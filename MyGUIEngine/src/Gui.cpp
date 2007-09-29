@@ -10,7 +10,6 @@ namespace MyGUI
 	INSTANCE_IMPLEMENT(Gui);
 
 	Gui::Gui() :
-//		InputManager(),
 		m_isInitialise(false),
 		m_height(1), m_width(1)
 	{
@@ -18,6 +17,7 @@ namespace MyGUI
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		overlayManager.addOverlayElementFactory(&m_factoryTextSimpleOverlay);
 		overlayManager.addOverlayElementFactory(&m_factoryPanelAlphaOverlay);
+		overlayManager.addOverlayElementFactory(&mFactoryPanelAlphaSharedOverlay);
 	}
 
 	void Gui::initialise(Ogre::RenderWindow* _window)
