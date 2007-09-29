@@ -20,14 +20,21 @@ namespace MyGUI
 
 
 	protected:
+		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel);
+
 		virtual void size(int _cx, int _cy);
 		virtual void move(int _x, int _y, int _cx, int _cy);
 
-		inline void updateScroll();
+		void updateScroll();
+		void updateLine();
 
 	private:
+		std::string mSkinLine;
 		VScrollPtr mWidgetScroll;
-		FloatRect mOffsetScroll;
+		WidgetPtr mWidgetClient;
+
+		// наши дети в строках
+		WidgetChild mWidgetLines;
 
 		size_t mHeightLine; // высота одной строки
 		size_t mCountLine; // солличество строк

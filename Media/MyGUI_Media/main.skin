@@ -254,18 +254,25 @@
         </BasisSkin>
     </Skin>
 
-    <Skin Name = "ListLine" Size = "16 16" Material = "MyGUI_main" >
+
+    <Skin2 Name = "ListLine" Size = "16 16" Material = "MyGUI_main" >
+    </Skin2>
+
+    <Skin Name = "ListClient" Size = "16 16" Material = "MyGUI_main" >
         <BasisSkin Type="MainSkin" Offset = "0 0 16 16" Align = "ALIGN_LEFT ALIGN_TOP">
-            <State Name="normal" Offset = "199 87 16 16"/>
-            <State Name="active" Offset = "199 105 16 16"/>
-            <State Name="select" Offset = "199 123 16 16"/>
+            <State Name="normal" Offset = "405 4 96 59"/>
         </BasisSkin>
     </Skin>
 
     <Skin Name = "List" Size = "9 9" Material = "MyGUI_main" >
         <Property Key="SkinScroll" Value = "VScroll" />
         <Property Key="OffsetScroll" Value = "-10 3 16 3" />
-        <Property2 Key="AlignScroll" Value = "ALIGN_LEFT ALIGN_VSTRETCH" />
+
+        <Property Key="SkinClient" Value = "ListClient" />
+        <Property Key="OffsetClient" Value = "3 3 -13 3" />
+
+        <Property Key="SkinLine" Value = "Button" />
+        <Property Key="HeightLine" Value = "20" />
 
         <BasisSkin Type="SubSkin" Offset = "0 0 3 3" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "147 2 3 3"/>
@@ -291,9 +298,9 @@
         <BasisSkin Type="SubSkin" Offset = "0 3 3 3" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State Name="normal" Offset = "147 5 3 3"/>
         </BasisSkin>
-        <BasisSkin Type="SubSkin" Offset = "3 3 3 3" Align = "ALIGN_STRETCH">
+        <BasisSkin2 Type="SubSkin" Offset = "3 3 3 3" Align = "ALIGN_STRETCH">
             <State Name="normal" Offset = "405 4 96 59"/>
-        </BasisSkin>
+        </BasisSkin2>
     </Skin>
 
 </MyGUI_SkinInfo>

@@ -38,7 +38,14 @@ void OptionsState::enter(bool bIsChangeState)
 //	MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidget("Button1");
 //	if (but != null) but->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed);
 
-	notifyMousePressed1(0, true);
+	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", 200, 200, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+	window->showWindowCaption(true);
+	window->showWindowX(true);
+	window->showWindowResize(true);
+	window->show(false);
+
+	MyGUI::WidgetPtr wid = window->createWidget("List", "List", 6, 33, 70, 50, MyGUI::ALIGN_STRETCH);
+	window->size(400, 300);
 
 }
 //===================================================================================
@@ -89,11 +96,8 @@ void OptionsState::notifyMousePressed1(MyGUI::WidgetPtr _sender, bool _left)
 	window->showWindowCaption(true);
 	window->showWindowX(true);
 	window->showWindowResize(true);
-//	window->setCaption("Auto alpha");
+	window->setCaption("Auto alpha");
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
-
-	MyGUI::WidgetPtr wid = window->createWidget("List", "List", 6, 33, 70, 50, MyGUI::ALIGN_STRETCH);
-	window->size(400, 300);
 }
 //===================================================================================
 void OptionsState::notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left)
@@ -106,7 +110,7 @@ void OptionsState::notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left)
 	window->showWindowResize(true);
 	window->setAutoAlpha(false);
 	window->show();
-//	window->setCaption("Manual alpha");
+	window->setCaption("Manual alpha");
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 }
 //===================================================================================
