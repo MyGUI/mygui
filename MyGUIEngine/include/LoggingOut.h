@@ -1,6 +1,3 @@
-
-//#pragma once
-
 #ifndef _LOGGINGOUT_H_
 #define _LOGGINGOUT_H_
 
@@ -15,13 +12,14 @@
 namespace MyGUI
 {
 
-	struct file_out
+	namespace templates
 	{
-		static void out(const std::string & _value)
+		template< class T>
+		void file_out(const std::string & _value)
 		{
-			const char * file_name = "gui.log"; // פאיכ כמדא
+			const char * file_name = "MyGUI.log"; // פאיכ כמדא
 
-	        time_t t = time(NULL);
+			time_t t = time(NULL);
 			struct tm *tme = localtime(&t);
 
 			static bool first_run = true;
@@ -41,45 +39,32 @@ namespace MyGUI
 				fprintf(fp, "%02d:%02d:%02d   %s\r\n", tme->tm_hour, tme->tm_min, tme->tm_sec, _value.c_str());
 				fclose( fp );
 			}
-
 		}
-	};
+	} // namespace templates
 
 	template< class T1>
-	inline void LOG (T1 p1)
-	{
-		file_out::out(toString(p1));
-	}
+	inline void LOG (T1 p1){templates::file_out<void>(util::toString(p1));}
 
 	template< class T1,  class T2 >
-	inline void LOG (T1 p1, T2 p2)
-	{
-		file_out::out(toString(p1) + toString(p2));
-	}
+	inline void LOG (T1 p1, T2 p2)	{templates::file_out<void>(util::toString(p1, p2));}
 
 	template< class T1,  class T2,  class T3 >
-	inline void LOG (T1 p1, T2 p2, T3 p3)
-	{
-		file_out::out(toString(p1) + toString(p2) + toString(p3));
-	}
+	inline void LOG (T1 p1, T2 p2, T3 p3) {templates::file_out<void>(util::toString(p1, p2, p3));}
 
 	template< class T1,  class T2,  class T3, class T4 >
-	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4)
-	{
-		file_out::out(toString(p1) + toString(p2) + toString(p3) + toString(p4));
-	}
+	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4) {templates::file_out<void>(util::toString(p1, p2, p3, p4));}
 
 	template< class T1,  class T2,  class T3, class T4, class T5 >
-	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
-	{
-		file_out::out(toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5));
-	}
+	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)	{templates::file_out<void>(util::toString(p1, p2, p3, p4, p5));}
 
 	template< class T1,  class T2,  class T3, class T4, class T5, class T6 >
-	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
-	{
-		file_out::out(toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5) + toString(p6));
-	}
+	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6) {templates::file_out<void>(util::toString(p1, p2, p3, p4, p5, p6));}
+
+	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7 >
+	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7) {templates::file_out<void>(util::toString(p1, p2, p3, p4, p5, p6, p7));}
+
+	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7, class T8 >
+	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8) {templates::file_out<void>(util::toString(p1, p2, p3, p4, p5, p6, p7, p8));}
 
 	#define LOG_MESSAGE(x) {std::stringstream buf; buf << x; LOG(buf.str());}
 

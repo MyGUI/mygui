@@ -27,7 +27,7 @@ namespace MyGUI
 			/*void ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(ButtonPtr, _widget);
-				static_cast<ButtonPtr>(_widget)->setButtonPressed(_value == "true");
+				static_cast<ButtonPtr>(_widget)->setButtonPressed(util::parseBool(_value));
 			}*/
 
 		};

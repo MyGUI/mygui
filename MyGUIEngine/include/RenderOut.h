@@ -4,8 +4,6 @@
 #include "Prerequest.h"
 #include "stringUtil.h"
 #include <deque>
-//#include "Ogre.h"
-
 
 #include <OgreFontManager.h>
 #include <OgreOverlayManager.h>
@@ -43,23 +41,25 @@ namespace MyGUI
 		// ширина поля вывода
 		#define __DEBUG_OVERLAY_INFO_WIDTH 500
 
-		// структура информации об одной строке
-		struct info
+		namespace templates
 		{
-			info() : num(0), count(1)  {}
-			info(size_t _num, const std::string & _line) : num(_num), count(1), line(_line) {}
-
-			size_t num;
-			size_t count;
-			std::string line;
-		};
-
-		typedef std::deque<info> DequeInfo;
-
-		struct render_out
-		{
-			static void out(const std::string & _value)
+			template <class T>
+			void render_out(const std::string & _value)
 			{
+				// структура информации об одной строке
+				struct info
+				{
+					info() : num(0), count(1)  {}
+					info(size_t _num, const std::string & _line) : num(_num), count(1), line(_line) {}
+
+					size_t num;
+					size_t count;
+					std::string line;
+				};
+
+				// очередь
+				typedef std::deque<info> DequeInfo;
+
 				// текущая строка
 				static size_t num = 0;
 				// очередь всех наших строк
@@ -98,7 +98,7 @@ namespace MyGUI
 						overlayDebugInfoShadow->setWidth(win->getWidth()-__DEBUG_OVERLAY_OFFSET-1);
 						overlayDebugInfoShadow->setHeight(win->getHeight()-__DEBUG_OVERLAY_OFFSET-1);
 						overlayDebugInfoShadow->setParameter("font_name", fontName);
-						overlayDebugInfoShadow->setParameter("char_height", toString(__DEBUG_FONT_SIZE) );
+						overlayDebugInfoShadow->setParameter("char_height", util::toString(__DEBUG_FONT_SIZE) );
 						overlayDebugInfoShadow->setParameter("colour_top", __DEBUG_FONT_SHADOW_COLOUR);
 						overlayDebugInfoShadow->setParameter("colour_bottom", __DEBUG_FONT_SHADOW_COLOUR);
 						overlay->add2D(overlayDebugInfoShadow); // добавляем контейнер на оверлей
@@ -111,7 +111,7 @@ namespace MyGUI
 					overlayDebugInfo->setWidth(win->getWidth()-__DEBUG_OVERLAY_OFFSET);
 					overlayDebugInfo->setHeight(win->getHeight()-__DEBUG_OVERLAY_OFFSET);
 					overlayDebugInfo->setParameter("font_name", fontName);
-					overlayDebugInfo->setParameter("char_height", toString(__DEBUG_FONT_SIZE) );
+					overlayDebugInfo->setParameter("char_height", util::toString(__DEBUG_FONT_SIZE) );
 					overlayDebugInfo->setParameter("colour_top", __DEBUG_FONT_COLOUR);
 					overlayDebugInfo->setParameter("colour_bottom", __DEBUG_FONT_COLOUR);
 
@@ -138,51 +138,39 @@ namespace MyGUI
 				std::string str_out; 
 
 				for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); iter++) {
-					str_out += toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
+					str_out += util::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + util::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
 				}
 
 				// непосредственный вывод
 				if (overlayDebugInfoShadow) overlayDebugInfoShadow->setCaption(str_out);
 				overlayDebugInfo->setCaption(str_out);
-
 			}
-		};
+
+		} // namespace templates
 
 		template< class T1>
-		inline void OUT (T1 p1)
-		{
-			render_out::out(toString(p1));
-		}
+		inline void OUT (T1 p1){templates::render_out<void>(util::toString(p1));}
 
 		template< class T1,  class T2 >
-		inline void OUT (T1 p1, T2 p2)
-		{
-			render_out::out(toString(p1) + toString(p2));
-		}
+		inline void OUT (T1 p1, T2 p2)	{templates::render_out<void>(util::toString(p1, p2));}
 
 		template< class T1,  class T2,  class T3 >
-		inline void OUT (T1 p1, T2 p2, T3 p3)
-		{
-			render_out::out(toString(p1) + toString(p2) + toString(p3));
-		}
+		inline void OUT (T1 p1, T2 p2, T3 p3) {templates::render_out<void>(util::toString(p1, p2, p3));}
 
 		template< class T1,  class T2,  class T3, class T4 >
-		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4)
-		{
-			render_out::out(toString(p1) + toString(p2) + toString(p3) + toString(p4));
-		}
+		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4) {templates::render_out<void>(util::toString(p1, p2, p3, p4));}
 
 		template< class T1,  class T2,  class T3, class T4, class T5 >
-		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
-		{
-			render_out::out(toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5));
-		}
+		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)	{templates::render_out<void>(util::toString(p1, p2, p3, p4, p5));}
 
 		template< class T1,  class T2,  class T3, class T4, class T5, class T6 >
-		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
-		{
-			render_out::out(toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5) + toString(p6));
-		}
+		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6) {templates::render_out<void>(util::toString(p1, p2, p3, p4, p5, p6));}
+
+		template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7 >
+		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7) {templates::render_out<void>(util::toString(p1, p2, p3, p4, p5, p6, p7));}
+
+		template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7, class T8 >
+		inline void OUT (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8) {templates::render_out<void>(util::toString(p1, p2, p3, p4, p5, p6, p7, p8));}
 
 	#else
 

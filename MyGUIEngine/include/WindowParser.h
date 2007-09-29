@@ -32,31 +32,31 @@ namespace MyGUI
 			void ShowWindowCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->showWindowCaption(_value == "true");
+				static_cast<WindowPtr>(_widget)->showWindowCaption(util::parseBool(_value));
 			}
 
 			void ShowWindowX(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->showWindowX(_value == "true");
+				static_cast<WindowPtr>(_widget)->showWindowX(util::parseBool(_value));
 			}
 
 			void ShowWindowResize(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->showWindowResize(_value == "true");
+				static_cast<WindowPtr>(_widget)->showWindowResize(util::parseBool(_value));
 			}
 
 			void WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->setAutoAlpha(_value == "true");
+				static_cast<WindowPtr>(_widget)->setAutoAlpha(util::parseBool(_value));
 			}
 
 			void WindowMinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->setMinMax(intRect::parse(_value));
+				static_cast<WindowPtr>(_widget)->setMinMax(util::parseIntRect(_value));
 			}
 
 		};

@@ -12,25 +12,25 @@ namespace MyGUI
 	struct tagBasisWidgetStateInfo
 	{
 		tagBasisWidgetStateInfo() {};
-		tagBasisWidgetStateInfo(const floatRect & _offset, const Ogre::ColourValue & _color, float _alpha)
+		tagBasisWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _color, float _alpha)
 		{
 			offset = _offset;
 			color = _color;
 			alpha = _alpha;
 		}
-		floatRect offset;
+		FloatRect offset;
 		Ogre::ColourValue color;
 		float alpha;
 	};
 	struct tagWidgetStateInfo {
 		tagWidgetStateInfo() : alpha(-1), color(Ogre::ColourValue::ZERO) {}
-		std::vector<floatRect> m_offsets;
+		std::vector<FloatRect> m_offsets;
 		Ogre::ColourValue color;
 		float alpha;
 	};
 	struct tagBasisWidgetInfo {
-		tagBasisWidgetInfo(const std::string & _type, const intRect & _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
-		intRect offset;
+		tagBasisWidgetInfo(const std::string & _type, const IntRect & _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
+		IntRect offset;
 		char aligin;
 		std::string type;
 	};

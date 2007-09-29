@@ -3,31 +3,39 @@
 
 #include "Prerequest.h"
 #include <vector>
-//#include <Ogre.h>
 
 namespace MyGUI
 {
-	struct path
+	namespace templates
 	{
-
-		static void getResourcePath(std::vector<Ogre::String> & _vectorPath, const Ogre::String & _maskFileName)
+		template <class T>
+		std::vector<Ogre::String> get_vector_resource_path(const Ogre::String & _mask)
 		{
-			_vectorPath.clear();
-			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _maskFileName);
+			std::vector<Ogre::String> vec;
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _mask);
 			for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); fi++ ) {
-				_vectorPath.push_back(fi->archive->getName() + "\\" + fi->filename);
+				vec.push_back(fi->archive->getName() + "\\" + fi->filename);
 			}
+			return vec;
 		}
 
-		static inline Ogre::String getFullPath(const Ogre::String & _fileName)
+		template <class T>
+		Ogre::String get_resource_path(const Ogre::String & _mask)
 		{
-			std::vector<Ogre::String> vectorPath;
-			getResourcePath(vectorPath, _fileName);
-			if (vectorPath.size() != 1) return "";
-			return vectorPath[0];
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _mask);
+			if (pFileInfo->size() != 1) return "";
+			return pFileInfo->front().archive->getName() + "\\" + pFileInfo->front().filename;
 		}
 
-	};
+	} // namespace templates
+
+	namespace helper
+	{
+		// возвращает вектор путей ресурсов по маске
+		inline std::vector<Ogre::String> getVectorResourcePath(const Ogre::String & _mask) {return templates::get_vector_resource_path<void>(_mask);}
+		// возвращает путь ресурса по маске
+		inline Ogre::String getResourcePath(const Ogre::String & _mask) {return templates::get_resource_path<void>(_mask);}
+	} // namespace helper
 
 } // namespace MyGUI
 

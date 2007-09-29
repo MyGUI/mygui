@@ -19,7 +19,7 @@ namespace MyGUI
 			checkState("normal");
 		}
 
-		void setInfo(const intSize & _size, const std::string &_material)
+		void setInfo(const IntSize & _size, const std::string &_material)
 		{
 			m_size = _size;
 			m_material = _material;
@@ -61,7 +61,7 @@ namespace MyGUI
 			// и увеличиваем размер смещений по колличеству сабвиджетов
 			for (StateInfo::iterator iter = m_states.begin(); iter!=m_states.end(); iter++) {
 				while (iter->second.m_offsets.size() < m_basis.size()) {
-					iter->second.m_offsets.push_back(floatRect(0, 0, 1, 1));
+					iter->second.m_offsets.push_back(FloatRect(0, 0, 1, 1));
 				}
 			}
 		}
@@ -79,14 +79,14 @@ namespace MyGUI
 		}
 
 	public:
-		inline const intSize & getSize() const {return m_size;}
+		inline const IntSize & getSize() const {return m_size;}
 		inline const std::string & getMaterial() const {return m_material;};
 		inline const BasisInfo & getBasisInfo() const {return m_basis;};
 		inline const StateInfo & getStateInfo() const {return m_states;};
 		inline const SkinParam & getParams() const {return m_params;};
 
 	private:
-		intSize m_size;
+		IntSize m_size;
 		std::string m_material;
 		BasisInfo m_basis;
 		StateInfo m_states;

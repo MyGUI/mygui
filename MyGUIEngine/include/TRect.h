@@ -1,13 +1,7 @@
 #ifndef _TRECT_H_
 #define _TRECT_H_
 
-#include "Prerequest.h"
-#include <vector>
-#include <string>
-#include "stringUtil.h"
-
-
-namespace MyGUI
+namespace types
 {
 
 	template< typename T > struct TRect
@@ -48,18 +42,8 @@ namespace MyGUI
 			return bottom - top;
 		}
 
-		static TRect parse(const std::string & _value)
-		{
-			const std::vector<std::string> & vec = util::split(_value);
-			if (vec.size() == 4) return TRect(parseValue<T>(vec[0]), parseValue<T>(vec[1]), parseValue<T>(vec[2]), parseValue<T>(vec[3]));
-			return TRect();
-		}
-
 	};
 
-	typedef TRect<int> intRect;
-	typedef TRect<float> floatRect;
-
-} // namespace MyGUI
+} // namespace types
 
 #endif

@@ -14,17 +14,17 @@ namespace MyGUI
 	{
 
 		// запомием размер скина
-		intSize skinSize = _info->getSize();
+		IntSize skinSize = _info->getSize();
 
 		std::string skin;
-		floatRect offset;
+		FloatRect offset;
 		char align=0;
 
 		const SkinParam & param = _info->getParams();
 		SkinParam::const_iterator iter = param.find("SkinStart");
 		if (iter != param.end()) skin = iter->second;
 		iter = param.find("OffsetStart");
-		if (iter != param.end()) offset = floatRect::parse(iter->second);
+		if (iter != param.end()) offset = util::parseFloatRect(iter->second);
 		iter = param.find("AlignStart");
 		if (iter != param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
 
@@ -35,7 +35,7 @@ namespace MyGUI
 		iter = param.find("SkinEnd");
 		if (iter != param.end()) skin = iter->second;
 		iter = param.find("OffsetEnd");
-		if (iter != param.end()) offset = floatRect::parse(iter->second);
+		if (iter != param.end()) offset = util::parseFloatRect(iter->second);
 		iter = param.find("AlignEnd");
 		if (iter != param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
 
@@ -46,12 +46,12 @@ namespace MyGUI
 		iter = param.find("SkinTrack");
 		if (iter != param.end()) skin = iter->second;
 		iter = param.find("OffsetTrack");
-		if (iter != param.end()) offset = floatRect::parse(iter->second);
+		if (iter != param.end()) offset = util::parseFloatRect(iter->second);
 		iter = param.find("AlignTrack");
 		if (iter != param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
 		iter = param.find("SkinTrackRange");
 		if (iter != param.end()) {
-			intSize size = intSize::parse(iter->second);
+			IntSize size = util::parseIntSize(iter->second);
 			mSkinRangeStart = size.width;
 			mSkinRangeEnd = size.height;
 		}
@@ -113,6 +113,13 @@ namespace MyGUI
 	void ScrollBase::size(int _cx, int _cy)
 	{
 		Widget::size(_cx, _cy);
+		// обновляем трек
+		updateTrack();
+	}
+
+	void ScrollBase::move(int _x, int _y, int _cx, int _cy)
+	{
+		Widget::move(_x, _y, _cx, _cy);
 		// обновляем трек
 		updateTrack();
 	}

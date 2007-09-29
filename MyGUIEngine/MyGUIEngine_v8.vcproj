@@ -199,6 +199,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\List.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ScrollBase.cpp"
 				>
 			</File>
@@ -317,6 +321,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\List.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\ScrollBase.h"
 				>
 			</File>
@@ -396,6 +404,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\Types.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\WidgetDefines.h"
 					>
 				</File>
@@ -413,10 +425,6 @@
 				>
 				<File
 					RelativePath=".\include\LoggingOut.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\ParseUtil.h"
 					>
 				</File>
 				<File

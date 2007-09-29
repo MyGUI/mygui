@@ -40,7 +40,7 @@ namespace MyGUI
 		std::string m_layer;
 		std::string m_material;
 		bool m_show;
-		intPoint m_point;
+		IntPoint m_point;
 		MapPointerInfo m_mapPointers;
 		PanelAlphaOverlayElement * m_overlayElement;
 

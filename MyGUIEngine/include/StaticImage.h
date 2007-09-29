@@ -18,7 +18,7 @@ namespace MyGUI
 	public:
 		inline const static Ogre::String & getType() {static Ogre::String type("StaticImage"); return type;};
 
-		inline void setImageInfo(const std::string & _material, const floatSize & _tile)
+		inline void setImageInfo(const std::string & _material, const FloatSize & _tile)
 		{
 			m_element->setMaterialName(_material);
 			m_sizeTexture = SkinManager::getMaterialSize(_material);
@@ -26,7 +26,7 @@ namespace MyGUI
 			m_num = (size_t)-1;
 		}
 
-		inline void setImageInfo(const std::string & _material, const floatRect & _rect, const floatSize & _tile)
+		inline void setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile)
 		{
 			m_element->setMaterialName(_material);
 			m_sizeTexture = SkinManager::getMaterialSize(_material);
@@ -42,13 +42,13 @@ namespace MyGUI
 			m_num = (size_t)-1;
 		}
 
-		inline void setImageRect(const floatRect & _rect)
+		inline void setImageRect(const FloatRect & _rect)
 		{
 			m_rectImage = _rect;
 			m_num = (size_t)-1;
 		}
 
-		inline void setImageTile(const floatSize & _tile)
+		inline void setImageTile(const FloatSize & _tile)
 		{
 			m_sizeTile = _tile;
 			m_num = (size_t)-1;
@@ -59,11 +59,11 @@ namespace MyGUI
 
 	private:
 		// кусок в текстуре наших картинок
-		floatRect m_rectImage;
+		FloatRect m_rectImage;
 		// размер одной картинки
-		floatSize m_sizeTile;
+		FloatSize m_sizeTile;
 		// размер текстуры
-		floatSize m_sizeTexture;
+		FloatSize m_sizeTexture;
 		// текущая картинка
 		size_t m_num;
 		// единственный оверлей нашего виджета

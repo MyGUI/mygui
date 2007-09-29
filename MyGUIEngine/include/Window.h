@@ -33,8 +33,8 @@ namespace MyGUI
 		virtual void setCaption(const Ogre::DisplayString & _caption) {if (mWidgetCaption!=null)mWidgetCaption->setCaption(_caption);};
 		virtual const Ogre::DisplayString & getCaption() {if (mWidgetCaption!=null) return mWidgetCaption->getCaption();return Widget::getCaption();};
 
-		void setMinMax(intRect _minmax) {m_minmax = _minmax;}
-		intRect getMinMax() {return m_minmax;}
+		void setMinMax(IntRect _minmax) {m_minmax = _minmax;}
+		IntRect getMinMax() {return m_minmax;}
 
 		virtual void size(int _cx, int _cy);
 
@@ -59,13 +59,13 @@ namespace MyGUI
 	private:
 		std::string mSkinCaption, mSkinX, mSkinResize;
 		WidgetPtr mWidgetCaption, mWidgetX, mWidgetResize;
-		floatRect mOffsetCaption, mOffsetX, mOffsetResize;
+		FloatRect mOffsetCaption, mOffsetX, mOffsetResize;
 		char mAlignCaption, mAlignX, mAlignResize;
 
-		intSize mSkinSize;
+		IntSize mSkinSize;
 
 		// размеры окна перед началом его изменений
-		intRect m_preActionRect;
+		IntRect m_preActionRect;
 
 		// подписанны ли мы на фрейм старт
 		bool m_bIsListenerAlpha;
@@ -82,7 +82,7 @@ namespace MyGUI
 		bool m_bIsAutoAlpha;
 
 		// минимальные и максимальные размеры окна
-		intRect m_minmax;
+		IntRect m_minmax;
 
 
 	}; // class Window : public Widget

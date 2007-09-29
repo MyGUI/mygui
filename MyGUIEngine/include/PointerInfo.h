@@ -13,9 +13,9 @@ namespace MyGUI
 	struct PointerInfo
 	{
 		PointerInfo() {}
-		PointerInfo(const floatRect &_offset, const intPoint & _point) : offset(_offset), point(_point) {}
-		floatRect offset;
-		intPoint point;
+		PointerInfo(const FloatRect &_offset, const IntPoint & _point) : offset(_offset), point(_point) {}
+		FloatRect offset;
+		IntPoint point;
 	};
 
 	typedef std::map<std::string, PointerInfo> MapPointerInfo;

@@ -75,9 +75,9 @@ namespace MyGUI
 		if (iter != m_widgets.end()) m_widgets.erase(iter);
 	}
 
-	floatRect WidgetManager::convertOffset(const floatRect & _offset, char _align, const intSize & _parentSkinSize, int _parentWidth, int _parentHeight)
+	FloatRect WidgetManager::convertOffset(const FloatRect & _offset, char _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight)
 	{
-		floatRect offset = _offset;
+		FloatRect offset = _offset;
 
 		if (_align & ALIGN_RIGHT) {
 			if (_align & ALIGN_LEFT) offset.right += _parentWidth - _parentSkinSize.width;

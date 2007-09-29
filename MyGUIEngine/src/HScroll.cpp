@@ -32,7 +32,7 @@ namespace MyGUI
 
 	void HScroll::notifyTrackMove(int _x, int _y)
 	{
-		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 
 		// расчитываем позицию виджета
 		int start = m_preActionRect.left + (_x - point.left);

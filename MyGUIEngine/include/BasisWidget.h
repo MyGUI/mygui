@@ -62,7 +62,7 @@ namespace MyGUI
 
 		virtual OverlayElementPtr getOverlayElement() {return 0;}//???
 
-		virtual void setUVSet(const floatRect & _rect) {}
+		virtual void setUVSet(const FloatRect & _rect) {}
 
 		virtual bool isText() {return false;}
 

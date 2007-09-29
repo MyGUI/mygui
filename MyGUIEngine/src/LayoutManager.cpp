@@ -17,7 +17,7 @@ namespace MyGUI
 	void LayoutManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.load(path::getFullPath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return;
@@ -44,7 +44,7 @@ namespace MyGUI
 		// парсим атрибуты виджета
 		const xml::VectorAttributes & attrib = _widgetInfo->getAttributes();
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer;
-		floatRect coord;
+		FloatRect coord;
 		char align;
 		for (size_t ia=0; ia<attrib.size(); ia++) {
 			// достаем пару атрибут - значение
@@ -54,8 +54,8 @@ namespace MyGUI
 			else if (pairAttributes.first == "Name") widgetName = pairAttributes.second;
 			else if (pairAttributes.first == "Layer") widgetLayer = pairAttributes.second;
 			else if (pairAttributes.first == "Align") align = SkinManager::getInstance().parseAlign(pairAttributes.second);
-			else if (pairAttributes.first == "Position") coord = floatRect::parse(pairAttributes.second);
-			else if (pairAttributes.first == "PositionReal") coord = Gui::getInstance().convertToReal(floatRect::parse(pairAttributes.second));
+			else if (pairAttributes.first == "Position") coord = util::parseFloatRect(pairAttributes.second);
+			else if (pairAttributes.first == "PositionReal") coord = Gui::getInstance().convertToReal(util::parseFloatRect(pairAttributes.second));
 		}
 		WidgetPtr wid;
 		if (!_parent) wid = Gui::getInstance().createWidget(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetLayer, widgetName);

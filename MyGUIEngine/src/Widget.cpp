@@ -36,7 +36,7 @@ namespace MyGUI
 			SkinParam::const_iterator iter = param.find("FontName");
 			if (iter != param.end()) setFontName(iter->second);
 			iter = param.find("FontHeight");
-			if (iter != param.end()) setFontHeight(parseInt(iter->second));
+			if (iter != param.end()) setFontHeight(util::parseInt(iter->second));
 			iter = param.find("NeedKey");
 			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
 			iter = param.find("AlignText");

@@ -26,7 +26,7 @@ namespace MyGUI
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
-		void setUVSet(const floatRect & _rect);
+		void setUVSet(const FloatRect & _rect);
 
 		void setAlpha(float _alpha);
 
@@ -38,7 +38,7 @@ namespace MyGUI
 	protected:
 
 		PanelAlphaOverlayElement * m_overlayContainer;
-		floatRect m_rectTexture;
+		FloatRect m_rectTexture;
 
 	}; // class SubSkin
 

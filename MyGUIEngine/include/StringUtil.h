@@ -1,16 +1,104 @@
 #ifndef _STRINGUTIL_H_
 #define _STRINGUTIL_H_
 
-#include "Prerequest.h"
 #include <vector>
 #include <string>
 
-namespace MyGUI
+namespace util
 {
 
-	struct util
+	// конвертирование в строку
+	template< class T >
+	inline std::string toString (T p)
 	{
-		static const std::vector<std::string> & split( const std::string& _value, const std::string & _delims = "\t\n ")
+        std::ostringstream stream;
+        stream << p;
+        return stream.str();
+	}
+
+	template< class T1,  class T2 >
+	inline std::string toString (T1 p1, T2 p2)
+	{
+        std::ostringstream stream;
+        stream << p1 << p2;
+        return stream.str();
+	}
+
+	template< class T1,  class T2,  class T3 >
+	inline std::string toString (T1 p1, T2 p2, T3 p3)
+	{
+        std::ostringstream stream;
+        stream << p1 << p2 << p3;
+        return stream.str();
+	}
+
+	template< class T1,  class T2,  class T3, class T4 >
+	inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4)
+	{
+        std::ostringstream stream;
+        stream << p1 << p2 << p3 << p4;
+        return stream.str();
+	}
+
+	template< class T1,  class T2,  class T3, class T4, class T5 >
+	inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
+	{
+        std::ostringstream stream;
+        stream << p1 << p2 << p3 << p4 << p5;
+        return stream.str();
+	}
+
+	template< class T1,  class T2,  class T3, class T4, class T5, class T6 >
+	inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
+	{
+        std::ostringstream stream;
+        stream << p1 << p2 << p3 << p4 << p5 << p6;
+        return stream.str();
+	}
+
+	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7 >
+	inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
+	{
+        std::ostringstream stream;
+        stream << p1 << p2 << p3 << p4 << p5 << p6 << p7;
+        return stream.str();
+	}
+
+	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7, class T8 >
+	inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8)
+	{
+        std::ostringstream stream;
+        stream << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8;
+        return stream.str();
+	}
+
+
+	// утилиты для парсинга
+	template< class T >
+	inline T parseValue( const std::string& _value )
+	{
+		std::istringstream str(_value);
+		T ret = 0;
+		str >> ret;
+        return ret;
+	}
+
+	inline char parseChar(const std::string& _value) {return parseValue<char>(_value);}
+	inline unsigned char parseUChar(const std::string& _value) {return parseValue<unsigned char>(_value);}
+	inline short parseShort(const std::string& _value) {return parseValue<short>(_value);}
+	inline unsigned short parseUShort(const std::string& _value) {return parseValue<unsigned short>(_value);}
+	inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}
+	inline unsigned int parseUInt(const std::string& _value) {return parseValue<unsigned int>(_value);}
+	inline size_t parseSizeT(const std::string& _value) {return parseValue<size_t>(_value);}
+	inline float parseFloat(const std::string& _value) {return parseValue<float>(_value);}
+	inline double parseDouble(const std::string& _value) {return parseValue<double>(_value);}
+	inline bool parseBool(const std::string& _value) {return ( (_value == "true") || (_value == "1") );}
+
+	namespace templates
+	{
+		// делаем через шаблон, дабы реализацию заключить в *.h
+		template< class T >
+		const std::vector<std::string> & template_split( const std::string& _value, const std::string & _delims = "\t\n ")
 		{
 			static std::vector<std::string> ret;
 			ret.clear();
@@ -37,64 +125,30 @@ namespace MyGUI
 
 			return ret;
 		}
-	};
 
-	template< class T >
-	std::string toString (T val)
-	{
-        std::ostringstream stream;
-        stream << val;
-        return stream.str();
-	}
+		// для парсинга сложных типов, состоящих из простых
+		template< class T1, class T2 >
+		T1 template_parse_2(const std::string & _value)
+		{
+			const std::vector<std::string> & vec = template_split<void>(_value);
+			if (vec.size() == 2) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]) );
+			return T1();
+		}
 
-	inline std::string toString(float _value) {return toString<float>(_value);}
-	inline std::string toString(double _value) {return toString<double>(_value);}
-	inline std::string toString(char _value) {return toString<char>(_value);}
-	inline std::string toString(unsigned char _value) {return toString<unsigned char>(_value);}
-	inline std::string toString(wchar_t _value) {return toString<wchar_t>(_value);}
-	inline std::string toString(short _value) {return toString<short>(_value);}
-	inline std::string toString(unsigned short _value) {return toString<unsigned short>(_value);}
-	inline std::string toString(int _value) {return toString<int>(_value);}
-	inline std::string toString(unsigned int _value) {return toString<unsigned int>(_value);}
-	inline std::string toString (const std::string & val)	{return val;}
+		template< class T1, class T2 >
+		T1 template_parse_4(const std::string & _value)
+		{
+			const std::vector<std::string> & vec = template_split<void>(_value);
+			if (vec.size() == 4) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]), parseValue<T2>(vec[2]), parseValue<T2>(vec[3]) );
+			return T1();
+		}
 
-	template< class T1,  class T2 >
-	std::string toString (T1 p1, T2 p2)
-	{
-		return toString(p1) + toString(p2);
-	}
+	} // namespace templates
 
-	template< class T1,  class T2,  class T3 >
-	std::string toString (T1 p1, T2 p2, T3 p3)
-	{
-		return toString(p1) + toString(p2) + toString(p3);
-	}
+	// метод разделения строк
+	inline const std::vector<std::string> & split(const std::string& _value, const std::string & _delims = "\t\n ") {return templates::template_split<void>(_value, _delims);}
 
-	template< class T1,  class T2,  class T3, class T4 >
-	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4)
-	{
-		return toString(p1) + toString(p2) + toString(p3) + toString(p4);
-	}
-
-	template< class T1,  class T2,  class T3, class T4, class T5 >
-	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
-	{
-		return toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5);
-	}
-
-	template< class T1,  class T2,  class T3, class T4, class T5, class T6 >
-	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
-	{
-		return toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5) + toString(p6);
-	}
-
-	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7 >
-	std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
-	{
-		return toString(p1) + toString(p2) + toString(p3) + toString(p4) + toString(p5) + toString(p6) + toString(p7);
-	}
-
-}
+} // namespace util
 
 
 #endif

@@ -1,15 +1,8 @@
 #ifndef _TPONT_H_
 #define _TPONT_H_
 
-#include "Prerequest.h"
-#include <vector>
-#include <string>
-#include "stringUtil.h"
-
-
-namespace MyGUI
+namespace types
 {
-
 	template< typename T > struct TPoint
 	{
 		T left, top;
@@ -36,18 +29,8 @@ namespace MyGUI
 			return *this;
 		}
 
-		static TPoint parse(const std::string & _value)
-		{
-			const std::vector<std::string> & vec = util::split(_value);
-			if (vec.size() == 2) return TPoint( parseValue<T>(vec[0]), parseValue<T>(vec[1]) );
-			return TPoint();
-		}
-
 	};
 
-	typedef TPoint<int> intPoint;
-	typedef TPoint<float> floatPoint;
-
-} // namespace MyGUI
+} // namespace types
 
 #endif

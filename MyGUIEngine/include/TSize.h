@@ -1,13 +1,7 @@
 #ifndef _TSIZE_H_
 #define _TSIZE_H_
 
-#include "Prerequest.h"
-#include <vector>
-#include <string>
-#include "stringUtil.h"
-
-
-namespace MyGUI
+namespace types
 {
 
 	template< typename T > struct TSize
@@ -36,18 +30,8 @@ namespace MyGUI
 			return *this;
 		}
 
-		static TSize parse(const std::string & _value)
-		{
-			const std::vector<std::string> & vec = util::split(_value);
-			if (vec.size() == 2) return TSize( parseValue<T>(vec[0]), parseValue<T>(vec[1]) );
-			return TSize();
-		}
-
 	};
 
-	typedef TSize<int> intSize;
-	typedef TSize<float> floatSize;
-
-} // namespace MyGUI
+} // namespace types
 
 #endif

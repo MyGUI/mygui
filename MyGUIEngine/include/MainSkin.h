@@ -30,7 +30,7 @@ namespace MyGUI
 		void attach(BasisWidgetPtr _basis, bool _child);
 		OverlayElementPtr getOverlayElement();
 
-		void setUVSet(const floatRect & _rect);
+		void setUVSet(const FloatRect & _rect);
 
 		void setAlpha(float _alpha);
 
@@ -40,7 +40,7 @@ namespace MyGUI
 
 		PanelAlphaOverlayElement * m_overlayContainer;
 
-		floatRect m_rectTexture;
+		FloatRect m_rectTexture;
 
 	}; // class SubSkin
 

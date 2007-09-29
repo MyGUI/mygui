@@ -36,19 +36,19 @@ namespace MyGUI
 			void ImageRect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(StaticImagePtr, _widget);
-				static_cast<StaticImagePtr>(_widget)->setImageRect(floatRect::parse(_value));
+				static_cast<StaticImagePtr>(_widget)->setImageRect(util::parseFloatRect(_value));
 			}
 
 			void ImageTile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(StaticImagePtr, _widget);
-				static_cast<StaticImagePtr>(_widget)->setImageTile(floatSize::parse(_value));
+				static_cast<StaticImagePtr>(_widget)->setImageTile(util::parseFloatSize(_value));
 			}
 
 			void ImageNum(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(StaticImagePtr, _widget);
-				static_cast<StaticImagePtr>(_widget)->setImageNum(parseValue<size_t>(_value));
+				static_cast<StaticImagePtr>(_widget)->setImageNum(util::parseSizeT(_value));
 			}
 
 		};

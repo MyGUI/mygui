@@ -41,25 +41,25 @@ namespace MyGUI
 			void Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				const std::vector<std::string> & vec = util::split(_value);
-				if (vec.size() == 4) _widget->move( parseInt(vec[0]), parseInt(vec[1]), parseInt(vec[2]), parseInt(vec[3]) );
-				else if (vec.size() == 2) _widget->move( parseInt(vec[0]), parseInt(vec[1]) );
+				if (vec.size() == 4) _widget->move( util::parseInt(vec[0]), util::parseInt(vec[1]), util::parseInt(vec[2]), util::parseInt(vec[3]) );
+				else if (vec.size() == 2) _widget->move( util::parseInt(vec[0]), util::parseInt(vec[1]) );
 			}
 
 			void Size(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				const std::vector<std::string> & vec = util::split(_value);
-				if (vec.size() == 2) _widget->size( parseInt(vec[0]), parseInt(vec[1]) );
+				if (vec.size() == 2) _widget->size( util::parseInt(vec[0]), util::parseInt(vec[1]) );
 			}
 
 			void Show(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
-				_widget->show(_value == "true");
+				_widget->show(util::parseBool(_value));
 			}
 
 			void Color(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				const std::vector<std::string> & vec = util::split(_value);
-				if (vec.size() > 2) _widget->setColour(Ogre::ColourValue(parseFloat(vec[0]), parseFloat(vec[1]), parseFloat(vec[2])) );
+				if (vec.size() > 2) _widget->setColour(Ogre::ColourValue(util::parseFloat(vec[0]), util::parseFloat(vec[1]), util::parseFloat(vec[2])) );
 			}
 
 			void FontName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -69,12 +69,12 @@ namespace MyGUI
 
 			void FontHeight(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
-				_widget->setFontHeight(parseFloat(_value));
+				_widget->setFontHeight(util::parseFloat(_value));
 			}
 
 			void Alpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
-				_widget->setAlpha(parseFloat(_value));
+				_widget->setAlpha(util::parseFloat(_value));
 			}
 
 			void State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -84,7 +84,7 @@ namespace MyGUI
 
 			void NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
-				_widget->setNeedKeyFocus(_value == "true");
+				_widget->setNeedKeyFocus(util::parseBool(_value));
 			}
 
 			void AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

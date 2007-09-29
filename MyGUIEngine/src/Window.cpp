@@ -44,11 +44,11 @@ namespace MyGUI
 			iter = param.find("SkinResize");
 			if (iter != param.end()) mSkinResize = iter->second;
 			iter = param.find("OffsetCaption");
-			if (iter != param.end()) mOffsetCaption = floatRect::parse(iter->second);
+			if (iter != param.end()) mOffsetCaption = util::parseFloatRect(iter->second);
 			iter = param.find("OffsetX");
-			if (iter != param.end()) mOffsetX = floatRect::parse(iter->second);
+			if (iter != param.end()) mOffsetX = util::parseFloatRect(iter->second);
 			iter = param.find("OffsetResize");
-			if (iter != param.end()) mOffsetResize = floatRect::parse(iter->second);
+			if (iter != param.end()) mOffsetResize = util::parseFloatRect(iter->second);
 			iter = param.find("AlignCaption");
 			if (iter != param.end()) mAlignCaption = SkinManager::getInstance().parseAlign(iter->second);
 			iter = param.find("AlignX");
@@ -64,7 +64,7 @@ namespace MyGUI
 		if ( (_show == (mWidgetCaption != null)) || (mSkinCaption.empty()) ) return;
 		if (mWidgetCaption != null) WidgetManager::getInstance().destroyWidget(mWidgetCaption);
 		else {
-			floatRect offset = WidgetManager::convertOffset(mOffsetCaption, mAlignCaption, mSkinSize, m_cx, m_cy);
+			FloatRect offset = WidgetManager::convertOffset(mOffsetCaption, mAlignCaption, mSkinSize, m_cx, m_cy);
 			mWidgetCaption = createWidget("Button", mSkinCaption, offset.left, offset.top, offset.right, offset.bottom, mAlignCaption);
 			// делегаты для событий
 			mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
@@ -77,7 +77,7 @@ namespace MyGUI
 		if ( (_show == (mWidgetX != null)) || (mSkinX.empty()) ) return;
 		if (mWidgetX != null) WidgetManager::getInstance().destroyWidget(mWidgetX);
 		else {
-			floatRect offset = WidgetManager::convertOffset(mOffsetX, mAlignX, mSkinSize, m_cx, m_cy);
+			FloatRect offset = WidgetManager::convertOffset(mOffsetX, mAlignX, mSkinSize, m_cx, m_cy);
 			mWidgetX = createWidget("Button", mSkinX, offset.left, offset.top, offset.right, offset.bottom, mAlignX);
 			// делегаты для событий
 			mWidgetX->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressedX);
@@ -89,7 +89,7 @@ namespace MyGUI
 		if ( (_show == (mWidgetResize != null)) || (mSkinResize.empty()) ) return;
 		if (mWidgetResize != null) WidgetManager::getInstance().destroyWidget(mWidgetResize);
 		else {
-			floatRect offset = WidgetManager::convertOffset(mOffsetResize, mAlignResize, mSkinSize, m_cx, m_cy);
+			FloatRect offset = WidgetManager::convertOffset(mOffsetResize, mAlignResize, mSkinSize, m_cx, m_cy);
 			mWidgetResize = createWidget("Button", mSkinResize, offset.left, offset.top, offset.right, offset.bottom, mAlignResize);
 			// делегаты для событий
 			mWidgetResize->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
@@ -127,13 +127,13 @@ namespace MyGUI
 
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _x, int _y)
 	{
-		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 		move(m_preActionRect.left + (_x - point.left), m_preActionRect.top + (_y - point.top));
 	}
 
 	void Window::notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _x, int _y)
 	{
-		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 		size(m_preActionRect.right + (_x - point.left), m_preActionRect.bottom + (_y - point.top));
 	}
 

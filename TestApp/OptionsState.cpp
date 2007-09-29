@@ -31,15 +31,14 @@ void OptionsState::enter(bool bIsChangeState)
 	button->setCaption("Manual alpha");
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);
 
-	MyGUI::HScrollPtr scroll = static_cast<MyGUI::HScrollPtr>(MyGUI::Gui::getInstance().createWidget("VScroll", "VScroll", 100, 100, 16, 226, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	scroll->setScrollRange(10);
+//	MyGUI::WidgetPtr wid = MyGUI::Gui::getInstance().createWidget("List", "List", 100, 100, 200, 200, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
 //	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 //	MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidget("Button1");
 //	if (but != null) but->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed);
 
-//	notifyMousePressed1(0, true);
+	notifyMousePressed1(0, true);
 
 }
 //===================================================================================
@@ -84,20 +83,23 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 //===================================================================================
 void OptionsState::notifyMousePressed1(MyGUI::WidgetPtr _sender, bool _left)
 {
-	int x = (::rand()%800) + 20;
-	int y = (::rand()%300) + 20;
+	int x = (::rand()%600) + 20;
+	int y = (::rand()%200) + 20;
 	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
 	window->showWindowCaption(true);
 	window->showWindowX(true);
 	window->showWindowResize(true);
 //	window->setCaption("Auto alpha");
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+
+	MyGUI::WidgetPtr wid = window->createWidget("List", "List", 6, 33, 70, 50, MyGUI::ALIGN_STRETCH);
+	window->size(400, 300);
 }
 //===================================================================================
 void OptionsState::notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left)
 {
-	int x = (::rand()%800) + 20;
-	int y = (::rand()%300) + 320;
+	int x = (::rand()%600) + 20;
+	int y = (::rand()%200) + 320;
 	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
 	window->showWindowCaption(true);
 	window->showWindowX(true);

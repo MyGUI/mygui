@@ -225,7 +225,7 @@ namespace MyGUI
 	void InputManager::loadCharSet(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.load(path::getFullPath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return;
@@ -260,7 +260,7 @@ namespace MyGUI
 				LangInfo & lang = iter->second;
 
 				// и заполняем его
-				for (size_t j=0; j<116; j++) lang[j] = parseInt(chars[j]);
+				for (size_t j=0; j<116; j++) lang[j] = util::parseInt(chars[j]);
 
 			} else {LOG("count char is not 116");}
 

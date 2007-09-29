@@ -9,9 +9,6 @@ namespace MyGUI
 {
 
 	INSTANCE_IMPLEMENT(SkinManager);
-	/*SkinManager * SkinManager::msInstance = 0;
-	SkinManager* SkinManager::getInstancePtr(void) {return msInstance;}
-	SkinManager& SkinManager::getInstance(void) {if (!msInstance)msInstance=new SkinManager();return (*msInstance);}*/
 
 	SkinManager::SkinManager()
 	{
@@ -39,10 +36,6 @@ namespace MyGUI
 		return flag;
 	}
 
-//	Ogre::ColourValue SkinManager::parseColour(const std::string & _value)
-//	{
-//	}
-
 	WidgetSkinInfo * SkinManager::getSkin(const Ogre::String & _name)
 	{
 		SkinInfo::iterator iter = m_skins.find(_name);
@@ -65,7 +58,7 @@ namespace MyGUI
 	void SkinManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.load(path::getFullPath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return;
@@ -83,19 +76,19 @@ namespace MyGUI
 			// парсим атрибуты скина
 			const xml::VectorAttributes & attrib = skinInfo->getAttributes();
 			Ogre::String skinName, skinMaterial;//, fontName;
-			intSize size;
+			IntSize size;
 			for (size_t ia=0; ia<attrib.size(); ia++) {
 				// достаем пару атрибут - значение
 				const xml::PairAttributes & pairAttributes = attrib[ia];
 				if (pairAttributes.first == "Name") skinName = pairAttributes.second;
 				else if (pairAttributes.first == "Material") skinMaterial = pairAttributes.second;
-				else if (pairAttributes.first == "Size") size = intSize::parse(pairAttributes.second);
+				else if (pairAttributes.first == "Size") size = util::parseIntSize(pairAttributes.second);
 			}
 
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(skinName);
 			widget_info->setInfo(size, skinMaterial);
-			floatSize materialSize = getMaterialSize(skinMaterial);
+			FloatSize materialSize = getMaterialSize(skinMaterial);
 
 			// берем детей и крутимся, цикл с саб скинами
 			xml::VectorNode & basisSkins = skinInfo->getChilds();
@@ -122,13 +115,13 @@ namespace MyGUI
 				// парсим атрибуты саб скина
 				const xml::VectorAttributes & attrib = basisSkinInfo->getAttributes();
 				Ogre::String basisSkinType;
-				intRect offset;
+				IntRect offset;
 				char align = ALIGN_NONE;
 				for (size_t ia=0; ia<attrib.size(); ia++) {
 					// достаем пару атрибут - значение
 					const xml::PairAttributes & pairAttributes = attrib[ia];
 					if (pairAttributes.first == "Type") basisSkinType = pairAttributes.second;
-					else if (pairAttributes.first == "Offset") offset = intRect::parse(pairAttributes.second);
+					else if (pairAttributes.first == "Offset") offset = util::parseIntRect(pairAttributes.second);
 					else if (pairAttributes.first == "Align") align = parseAlign(pairAttributes.second);
 				}
 
@@ -143,16 +136,16 @@ namespace MyGUI
 					// парсим атрибуты стейта
 					const xml::VectorAttributes & attrib = basisStateInfo->getAttributes();
 					Ogre::String basisStateName;
-					floatRect offset;
+					FloatRect offset;
 					Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
 					float alpha = -1;
 					for (size_t ia=0; ia<attrib.size(); ia++) {
 						// достаем пару атрибут - значение
 						const xml::PairAttributes & pairAttributes = attrib[ia];
 						if (pairAttributes.first == "Name") basisStateName = pairAttributes.second;
-						else if (pairAttributes.first == "Offset") offset = convertMaterialCoord(floatRect::parse(pairAttributes.second), materialSize);
-						else if (pairAttributes.first == "Color") colour = parseColour(pairAttributes.second);
-						else if (pairAttributes.first == "Alpha") alpha = parseFloat(pairAttributes.second);
+						else if (pairAttributes.first == "Offset") offset = convertMaterialCoord(util::parseFloatRect(pairAttributes.second), materialSize);
+						else if (pairAttributes.first == "Color") colour = util::parseColour(pairAttributes.second);
+						else if (pairAttributes.first == "Alpha") alpha = util::parseFloat(pairAttributes.second);
 					}
 					// добавляем инфо о стайте
 					bind.add(basisStateName, offset, colour, alpha);
@@ -166,9 +159,9 @@ namespace MyGUI
 		} // for (size_t i_skin=0; i_skin<skins.size(); i_skin++) {
 	}
 
-	floatSize SkinManager::getMaterialSize(const std::string & _material)
+	FloatSize SkinManager::getMaterialSize(const std::string & _material)
 	{
-		floatSize size(1, 1);
+		FloatSize size(1, 1);
 
 		if (_material.empty()) return size;
 
@@ -202,9 +195,9 @@ namespace MyGUI
 		return size;
 	}
 
-	floatRect SkinManager::convertMaterialCoord(const floatRect & _source, const floatSize & _materialSize)
+	FloatRect SkinManager::convertMaterialCoord(const FloatRect & _source, const FloatSize & _materialSize)
 	{
-		floatRect retRect;
+		FloatRect retRect;
 		if (!_materialSize.width || !_materialSize.height) return retRect;
 
 		retRect.left = _source.left / _materialSize.width;
@@ -236,8 +229,8 @@ namespace MyGUI
 	{
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
-		widget_info->setInfo(intSize(0, 0), Ogre::MaterialManager::getSingleton().getDefaultSettings()->getName());
-		BasisWidgetBinding bind(intRect(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
+		widget_info->setInfo(IntSize(0, 0), Ogre::MaterialManager::getSingleton().getDefaultSettings()->getName());
+		BasisWidgetBinding bind(IntRect(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
 		widget_info->addInfo(bind);
 	}
 

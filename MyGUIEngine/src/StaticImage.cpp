@@ -24,11 +24,11 @@ namespace MyGUI
 			SkinParam::const_iterator iter = param.find("ImageMaterial");
 			if (iter != param.end()) setImageMaterial(iter->second);
 			iter = param.find("ImageRect");
-			if (iter != param.end()) setImageRect(floatRect::parse(iter->second));
+			if (iter != param.end()) setImageRect(util::parseFloatRect(iter->second));
 			iter = param.find("ImageTile");
-			if (iter != param.end()) setImageTile(floatSize::parse(iter->second));
+			if (iter != param.end()) setImageTile(util::parseFloatSize(iter->second));
 			iter = param.find("ImageNum");
-			if (iter != param.end()) setImageNum(parseInt(iter->second));
+			if (iter != param.end()) setImageNum(util::parseInt(iter->second));
 		}
 	}
 
@@ -46,7 +46,7 @@ namespace MyGUI
 		size_t count = (size_t)(m_rectImage.width() / m_sizeTile.width);
 		if (count < 1) count = 1;
 
-		floatRect offset(
+		FloatRect offset(
 			((float)(m_num % count)) * m_sizeTile.width + m_rectImage.left,
 			((float)(m_num / count)) * m_sizeTile.height + m_rectImage.top,
 			m_sizeTile.width, m_sizeTile.height);

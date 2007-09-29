@@ -181,7 +181,7 @@ namespace MyGUI
 
 	}
 
-	void SubSkin::setUVSet(const floatRect & _rect)
+	void SubSkin::setUVSet(const FloatRect & _rect)
 	{
 		assert(m_overlayContainer);
 		m_rectTexture = _rect;

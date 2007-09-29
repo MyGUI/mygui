@@ -21,7 +21,7 @@ namespace MyGUI
 		clear();
 
 		xml::xmlDocument doc;
-		if (!doc.load(path::getFullPath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return;
@@ -46,7 +46,7 @@ namespace MyGUI
 				if (pairAttributes.first == "Layer") layer = pairAttributes.second;
 				else if (pairAttributes.first == "Material") material = pairAttributes.second;
 				else if (pairAttributes.first == "Default") defaultPointer = pairAttributes.second;
-				else if (pairAttributes.first == "Size") size = parseInt(pairAttributes.second);
+				else if (pairAttributes.first == "Size") size = util::parseInt(pairAttributes.second);
 
 			}
 
@@ -55,7 +55,7 @@ namespace MyGUI
 			m_overlayElement->setDimensions(size, size);
 			m_defaultPointer = defaultPointer;
 			m_layer = layer;
-			floatSize materialSize = SkinManager::getMaterialSize(material);
+			FloatSize materialSize = SkinManager::getMaterialSize(material);
 
 			
 			// берем детей и крутимся, основной цикл
@@ -66,8 +66,8 @@ namespace MyGUI
 
 				// значения параметров
 				std::string name;
-				floatRect offset;
-				intPoint point;
+				FloatRect offset;
+				IntPoint point;
 				// парсим атрибуты
 				const xml::VectorAttributes & attrib = infoInfo->getAttributes();
 				for (size_t ia=0; ia<attrib.size(); ia++) {
@@ -75,8 +75,8 @@ namespace MyGUI
 					const xml::PairAttributes & pairAttributes = attrib[ia];
 
 					if (pairAttributes.first == "Name") name = pairAttributes.second;
-					else if (pairAttributes.first == "Point") point = intPoint::parse(pairAttributes.second);
-					else if (pairAttributes.first == "Offset") offset = SkinManager::convertMaterialCoord(floatRect::parse(pairAttributes.second), materialSize);
+					else if (pairAttributes.first == "Point") point = util::parseIntPoint(pairAttributes.second);
+					else if (pairAttributes.first == "Offset") offset = SkinManager::convertMaterialCoord(util::parseFloatRect(pairAttributes.second), materialSize);
 				}
 
 				// добавляем курсор
@@ -122,7 +122,7 @@ namespace MyGUI
 	{
 		MapPointerInfo::iterator iter = m_mapPointers.find(_name);
 		if (iter == m_mapPointers.end()) return;
-		const floatRect & rect = iter->second.offset;
+		const FloatRect & rect = iter->second.offset;
 		// сдвигаем с учетом нового и старого смещения
 		m_overlayElement->setPosition(m_overlayElement->getLeft()+m_point.left-iter->second.point.left, m_overlayElement->getTop()+m_point.top-iter->second.point.top);
 		m_overlayElement->setUV(rect.left, rect.top, rect.right, rect.bottom);

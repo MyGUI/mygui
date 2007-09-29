@@ -1,8 +1,6 @@
 #ifndef _XMLDEFINE_H_
 #define _XMLDEFINE_H_
 
-#include "Prerequest.h"
-
 namespace xml
 {
 

@@ -29,9 +29,9 @@ namespace MyGUI
 
 		void load(const std::string & _file);
 
-		static floatSize getMaterialSize(const std::string & _material);
+		static FloatSize getMaterialSize(const std::string & _material);
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
-		static floatRect convertMaterialCoord(const floatRect & _source, const floatSize & _materialSize);
+		static FloatRect convertMaterialCoord(const FloatRect & _source, const FloatSize & _materialSize);
 
 	private:
 		void initialise();

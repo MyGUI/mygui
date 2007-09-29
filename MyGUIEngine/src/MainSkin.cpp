@@ -21,7 +21,7 @@ namespace MyGUI
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 		m_overlayContainer->setPosition(m_parent->left() + m_x, m_parent->top() + m_y);
 		m_overlayContainer->setDimensions(m_cx, m_cy);
-		if (!_material.empty()) m_overlayContainer->setMaterialName(_material);
+		if (!_material.empty() && (_info.offset.width() != 0)) m_overlayContainer->setMaterialName(_material);
 
 		m_parent->attach(this, false);
 	}
@@ -126,7 +126,7 @@ namespace MyGUI
 		return m_overlayContainer;
 	}
 
-	void MainSkin::setUVSet(const floatRect & _rect)
+	void MainSkin::setUVSet(const FloatRect & _rect)
 	{
 		assert(m_overlayContainer);
 		m_rectTexture = _rect;

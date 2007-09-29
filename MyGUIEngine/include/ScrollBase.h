@@ -29,6 +29,7 @@ namespace MyGUI
 
 		virtual void updateTrack() = 0;
 		virtual void size(int _cx, int _cy);
+		virtual void move(int _x, int _y, int _cx, int _cy);
 
 		// изменилось положение скрола
 		EventSimpleDataInfo eventScrollChangePosition;
@@ -40,7 +41,7 @@ namespace MyGUI
 		WidgetPtr mWidgetTrack;
 
 		// размеры окна перед началом его изменений
-		intRect m_preActionRect;
+		IntRect m_preActionRect;
 
 		// диапазон на который трек может двигаться
 		size_t mSkinRangeStart;

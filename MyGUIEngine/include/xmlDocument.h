@@ -1,7 +1,6 @@
 #ifndef _XMLDOCUMENT_H_
 #define _XMLDOCUMENT_H_
 
-#include "Prerequest.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -13,7 +12,7 @@
 namespace xml
 {
 
-	class _MyGUIExport xmlDocument
+	class xmlDocument
 	{
 	public:
 		xmlDocument() : m_root(0), m_info(0), m_lastError(xml::errors::XML_ERROR_NONE), m_line(0), m_col(0) {}
@@ -48,39 +47,39 @@ namespace xml
 				// текущая строка для разбора и то что еще прочитали
 				line += read;
 
-				// сначала ищем по угловым скобкам
-				size_t start = line.find('<');
-				if (start == line.npos) continue;
+				// крутимся пока в строке не закончатся теги
+				while (!line.empty()) { 
 
-				size_t end = line.find('>', start+1); // потом исправить на поиск без учета ковычек
-				if (end == line.npos) continue;
+					// сначала ищем по угловым скобкам
+					size_t start = line.find('<');
+					if (start == line.npos) break;
 
-				// проверяем на наличее тела ???
-				size_t body = line.find_first_not_of(" \t<");
-				if ((body < start) && (currentNode)) {
-//					if (currentNode == 0) {
-//						m_lastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
-//						stream.close();
-//						return false;
-//					}
-					std::string body_str = line.substr(0, start);
+					size_t end = line.find('>', start+1); // потом исправить на поиск без учета ковычек
+					if (end == line.npos) break;
 
-					// текущий символ
-					m_col = body_str.find_first_not_of(" \t");
+					// проверяем на наличее тела
+					size_t body = line.find_first_not_of(" \t<");
+					if ((body < start) && (currentNode)) {
 
-					trim(body_str);
-					currentNode->addBody(body_str);
-				}
+						std::string body_str = line.substr(0, start);
+						// текущий символ
+						m_col = body_str.find_first_not_of(" \t");
 
-				// вырезаем наш тэг и парсим
-				if (!parseTag(currentNode, line.substr(start+1, end-start-1))) {
-					// ошибка установится внутри
-					stream.close();
-					return false;
-				}
+						trim(body_str);
+						currentNode->addBody(body_str);
+					}
 
-				// и обрезаем текущую строку разбора
-				line = line.substr(end+1);
+					// вырезаем наш тэг и парсим
+					if (!parseTag(currentNode, line.substr(start+1, end-start-1))) {
+						// ошибка установится внутри
+						stream.close();
+						return false;
+					}
+
+					// и обрезаем текущую строку разбора
+					line = line.substr(end+1);
+
+				}; // while (!line.empty()) {
 
 			}; // while (!stream.eof()) {
 

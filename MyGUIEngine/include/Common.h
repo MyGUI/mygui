@@ -4,14 +4,15 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "TRect.h"
-#include "TSize.h"
-#include "TPoint.h"
+#include "Types.h"
+//#include "TRect.h"
+//#include "TSize.h"
+//#include "TPoint.h"
 #include <assert.h>
 #include "LoggingOut.h"
 #include "RenderOut.h"
 #include "StringUtil.h"
-#include "ParseUtil.h"
+//#include "ParseUtil.h"
 #include "AlignInfo.h"
 #include "ResourcePath.h"
 

@@ -1,9 +1,8 @@
 #ifndef _XMLNODE_H_
 #define _XMLNODE_H_
 
-#include "Prerequest.h"
 #include <vector>
-//#include "assert.h"
+#include <string>
 #include "xmlDefine.h"
 
 namespace xml
@@ -17,7 +16,7 @@ namespace xml
 	typedef std::vector<PairAttributes> VectorAttributes;
 	typedef std::vector<xmlNodePtr> VectorNode;
 
-	class _MyGUIExport xmlNode
+	class xmlNode
 	{
 		friend  xmlDocument;
 
@@ -82,10 +81,6 @@ namespace xml
 	public:
 		xmlNodePtr createChild(const std::string & _name, const std::string & _body = "") 
 		{
-			if (m_info) {
-//				assert(0 && "?tag is not have child");
-				return 0;
-			}
 			xmlNodePtr node = new xmlNode(_name, this, false, _body);
 			m_childs.push_back(node);
 			return node;

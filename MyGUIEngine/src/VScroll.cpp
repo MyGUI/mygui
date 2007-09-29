@@ -31,7 +31,7 @@ namespace MyGUI
 
 	void VScroll::notifyTrackMove(int _x, int _y)
 	{
-		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 
 		// расчитываем позицию виджета
 		int start = m_preActionRect.top + (_y - point.top);

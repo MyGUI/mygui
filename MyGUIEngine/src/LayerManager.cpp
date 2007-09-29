@@ -17,7 +17,7 @@ namespace MyGUI
 		clear();
 
 		xml::xmlDocument doc;
-		if (!doc.load(path::getFullPath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return false;
@@ -38,9 +38,9 @@ namespace MyGUI
 				// достаем пару атрибут - значение
 				const xml::PairAttributes & pairAttributes = attrib[ia];
 				if (pairAttributes.first == "Name") name = pairAttributes.second;
-				else if (pairAttributes.first == "Start") start = parseValue<Ogre::ushort>(pairAttributes.second);
-				else if (pairAttributes.first == "Count") count = parseValue<Ogre::ushort>(pairAttributes.second);
-				else if (pairAttributes.first == "Height") height = parseValue<Ogre::ushort>(pairAttributes.second);
+				else if (pairAttributes.first == "Start") start = util::parseUShort(pairAttributes.second);
+				else if (pairAttributes.first == "Count") count = util::parseUShort(pairAttributes.second);
+				else if (pairAttributes.first == "Height") height = util::parseUShort(pairAttributes.second);
 			}
 
 			// а вот теперь добавляем слой
