@@ -60,6 +60,7 @@ namespace MyGUI
 		mWidgetTrack = createWidget("Button", skin, offset.left, offset.top, offset.right, offset.bottom, align);
 		mWidgetTrack->eventMouseMove = newDelegate(this, &ScrollBase::notifyMouseMove);
 		mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
+		mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &ScrollBase::notifyMouseReleased);
 		mWidgetTrack->show(false);
 	}
 
@@ -69,15 +70,22 @@ namespace MyGUI
 		if (_sender == mWidgetStart) {
 			if (mScrollPosition == 0) return;
 			mScrollPosition --;
+			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
 		} else if (_sender == mWidgetEnd){
 			if ( (mScrollRange < 2) || (mScrollPosition == (mScrollRange-1)) ) return;
 			mScrollPosition ++;
+			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
 		} else {
 			m_preActionRect.left = _sender->left();
 			m_preActionRect.top = _sender->top();
 		}
+	}
+
+	void ScrollBase::notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		updateTrack();
 	}
 
 	void ScrollBase::notifyMouseMove(MyGUI::WidgetPtr _sender, int _x, int _y)
@@ -98,6 +106,7 @@ namespace MyGUI
 		if (_position == mScrollPosition) return;
 		if (_position >= mScrollRange) _position = 0;
 		mScrollPosition = _position;
+//		eventScrollChangePosition(this, (int)mScrollPosition);
 		updateTrack();
 	}
 

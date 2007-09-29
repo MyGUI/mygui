@@ -33,10 +33,16 @@ namespace MyGUI
 	void HScroll::notifyTrackMove(int _x, int _y)
 	{
 		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
-		int pos = m_preActionRect.left + (_x - point.left) - (int)mSkinRangeStart;
 
+		// расчитываем позицию виджета
+		int start = m_preActionRect.left + (_x - point.left);
+		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
+		else if (start > (m_cx - (int)mSkinRangeEnd)) start = (m_cx - (int)mSkinRangeEnd);
+		if (mWidgetTrack->left() != start) mWidgetTrack->move(start, mWidgetTrack->top());
+
+		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
-		pos += (m_cx - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
+		int pos = start - (int)mSkinRangeStart + (m_cx - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
 		// высчитываем ближайшее значение и обновляем
 		pos = pos * (int)(mScrollRange-1) / (m_cx - (int)(mSkinRangeStart + mSkinRangeEnd));
 
@@ -46,7 +52,8 @@ namespace MyGUI
 		if (pos == (int)mScrollPosition) return;
 
 		mScrollPosition = pos;
-		updateTrack();
+		// отсылаем событие
+		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 
 } // namespace MyGUI

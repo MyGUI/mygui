@@ -109,7 +109,7 @@
             <State Name="normal" Offset = "377 32 3 18"/>
         </BasisSkin>
         <BasisSkin Type="SubSkin" Offset = "3 30 18 18" Align = "ALIGN_STRETCH">
-            <State Name="normal" Offset = "403 2 100 63"/>
+            <State Name="normal" Offset = "405 4 96 59"/>
         </BasisSkin>
     </Skin>
 

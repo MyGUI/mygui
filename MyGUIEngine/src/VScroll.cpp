@@ -32,10 +32,16 @@ namespace MyGUI
 	void VScroll::notifyTrackMove(int _x, int _y)
 	{
 		const intPoint & point = InputManager::getInstance().getLastLeftPressed();
-		int pos = m_preActionRect.top + (_y - point.top) - (int)mSkinRangeStart;
 
+		// расчитываем позицию виджета
+		int start = m_preActionRect.top + (_y - point.top);
+		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
+		else if (start > (m_cy - (int)mSkinRangeEnd)) start = (m_cy - (int)mSkinRangeEnd);
+		if (mWidgetTrack->top() != start) mWidgetTrack->move(mWidgetTrack->left(), start);
+
+		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
-		pos += (m_cy - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
+		int pos = start - (int)mSkinRangeStart + (m_cy - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
 		// высчитываем ближайшее значение и обновляем
 		pos = pos * (int)(mScrollRange-1) / (m_cy - (int)(mSkinRangeStart + mSkinRangeEnd));
 
@@ -45,7 +51,8 @@ namespace MyGUI
 		if (pos == (int)mScrollPosition) return;
 
 		mScrollPosition = pos;
-		updateTrack();
+		// отсылаем событие
+		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 
 } // namespace MyGUI

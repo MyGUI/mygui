@@ -2,6 +2,7 @@
 #define _SCROLLBASE_H_
 
 #include "Widget.h"
+#include "delegate.h"
 
 namespace MyGUI
 {
@@ -15,6 +16,7 @@ namespace MyGUI
 	public:
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _x, int _y);
 
 		virtual void notifyTrackMove(int _x, int _y) = 0;
@@ -26,8 +28,10 @@ namespace MyGUI
 		inline size_t getScrollPosition() {return mScrollPosition;}
 
 		virtual void updateTrack() = 0;
-
 		virtual void size(int _cx, int _cy);
+
+		// изменилось положение скрола
+		EventSimpleDataInfo eventScrollChangePosition;
 
 	protected:
 		// наши кнопки
