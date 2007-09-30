@@ -11,7 +11,10 @@ namespace MyGUI
 
 	List::List(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
-		mWidgetScroll(null), mWidgetClient(null)
+		mWidgetScroll(null), mWidgetClient(null),
+		mOffsetTop(0),
+		mTopIndex(0),
+		mRangeIndex(0)
 	{
 		std::string skinScroll, skinClient;
 		FloatRect offsetScroll;
@@ -46,15 +49,10 @@ namespace MyGUI
 		offsetClient = WidgetManager::convertOffset(offsetClient, ALIGN_STRETCH, _info->getSize(), m_cx, m_cy);
 		mWidgetClient = createWidget("Widget", skinClient, offsetClient.left, offsetClient.top, offsetClient.right, offsetClient.bottom, ALIGN_STRETCH);
 
-		// делегаты для событий
-//		mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-//		mWidgetCaption->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedCaption);
-
-//		mHeightLine = 20;
 		mCountLine = 10;
 
-//		mWidgetScroll->setScrollRange((mHeightLine * mCountLine) - m_cy);
 		updateScroll();
+		updateLine();
 	}
 
 	void List::size(int _cx, int _cy)
@@ -75,7 +73,7 @@ namespace MyGUI
 	{
 		int pos = (int)(mHeightLine * mCountLine) - mWidgetClient->height();
 
-		if ( (pos <= 1) || (mWidgetScroll->left() <= mWidgetClient->left()) ) {
+		if ( (pos < 1) || (mWidgetScroll->left() <= mWidgetClient->left()) ) {
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->show(false);
 				// увеличиваем клиентскую зону на ширину скрола
@@ -88,8 +86,8 @@ namespace MyGUI
 			mWidgetScroll->show(true);
 		}
 
-		mWidgetScroll->setScrollRange(pos);
-//		OUT((mHeightLine * mCountLine) - m_cy);
+		mRangeIndex = pos;
+		mWidgetScroll->setScrollRange(mRangeIndex + 1);
 	}
 
 	void List::updateLine()
@@ -104,17 +102,85 @@ namespace MyGUI
 			}
 		}
 
+		// позиция скролла
+		int position = mTopIndex * mHeightLine + mOffsetTop;
+
 		// если высота увеличивалась то добавляем виджеты
 		if (old_cy < m_cy) {
+
 			size_t height = mWidgetLines.size() * mHeightLine;
-			while ((int)height < mWidgetClient->height()) {
+
+			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
+			while ( ((int)height <= (mWidgetClient->height() + mHeightLine)) && (mWidgetLines.size() < mCountLine) ) {
 				// создаем линию
-				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, (int)height, mWidgetClient->width(), (int)mHeightLine, ALIGN_TOP | ALIGN_LEFT);
+				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, (int)height, mWidgetClient->width(), (int)mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
 				// и сохраняем
 				mWidgetLines.push_back(line);
 				height += mHeightLine;
 			}
+
+			// проверяем на возможность не менять положение списка
+			if (position >= mRangeIndex) {
+
+//				OUT(position, "   ", mRangeIndex);
+
+//				OUT((mCountLine*mHeightLine),"   ", mWidgetClient->height());
+				// размер всех помещается в клиент
+				if ((mCountLine*mHeightLine) <= mWidgetClient->height()) {
+
+//					OUT("pemesh");
+					// обнуляем, если надо
+					if (position || mOffsetTop || mTopIndex) {
+
+						position = 0;
+						mTopIndex = 0;
+						mOffsetTop = 0;
+
+						// выравниваем
+						int offset = 0;
+						for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+							mWidgetLines[pos]->move(0, offset);
+							offset += (int)mHeightLine;
+						}
+
+					}
+
+				} else {
+
+					// прижимаем список к нижней границе
+					int count = mWidgetClient->height() / mHeightLine;
+					mOffsetTop = mHeightLine - (mWidgetClient->height() % mHeightLine);
+
+					if (mOffsetTop == mHeightLine) {
+						mOffsetTop = 0;
+						count --;
+					}
+
+					mTopIndex = mCountLine - count - 1;
+
+//					OUT("calc : ", mTopIndex, "  ", mOffsetTop);
+
+					// выравниваем
+					int offset = 0 - mOffsetTop; // << правильно
+					for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+						mWidgetLines[pos]->move(0, offset);
+						offset += (int)mHeightLine;
+					}
+
+					// высчитываем положение, должно быть максимальным
+					position = mTopIndex * mHeightLine + mOffsetTop;
+
+//					OUT(position, "  ", mRangeIndex);
+
+				}
+
+
+			}
+
 		}
+
+		// просчитываем положение скролла
+		mWidgetScroll->setScrollPosition(position);
 
 		old_cx = m_cx;
 		old_cy = m_cy;
@@ -122,14 +188,18 @@ namespace MyGUI
 
 	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel)
 	{
+		mTopIndex  = (_rel / (int)mHeightLine);
+		mOffsetTop = (_rel % (int)mHeightLine);
+
 		// смещение с отрицательной стороны
-		int offset = 0 - (_rel % (int)mHeightLine);
+		int offset = 0 - mOffsetTop;
 
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 			mWidgetLines[pos]->move(0, offset);
 			offset += (int)mHeightLine;
-			if ((int)offset >= mWidgetClient->height()) break;
 		}
+
+//		OUT("scroll : ", mTopIndex, "  ", mOffsetTop);
 	}
 
 } // namespace MyGUI

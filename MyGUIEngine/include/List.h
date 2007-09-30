@@ -38,6 +38,9 @@ namespace MyGUI
 
 		size_t mHeightLine; // высота одной строки
 		size_t mCountLine; // солличество строк
+		size_t mTopIndex; // индекс самого верхнего элемента
+		int mOffsetTop; // текущее смещение
+		size_t mRangeIndex; // размерность скрола
 
 	}; // class List : public Widget
 

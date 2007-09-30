@@ -136,6 +136,7 @@ namespace MyGUI
 
 				// à âîò òåïåğü âûâîäìè ñòğîêè
 				std::string str_out; 
+				str_out.reserve(2048);
 
 				for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); iter++) {
 					str_out += util::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + util::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");

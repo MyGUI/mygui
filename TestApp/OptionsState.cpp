@@ -45,7 +45,7 @@ void OptionsState::enter(bool bIsChangeState)
 	window->show(false);
 
 	MyGUI::WidgetPtr wid = window->createWidget("List", "List", 6, 33, 70, 50, MyGUI::ALIGN_STRETCH);
-	window->size(400, 300);
+	window->size(400, 100);
 
 }
 //===================================================================================
