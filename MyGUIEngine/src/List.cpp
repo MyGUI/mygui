@@ -34,7 +34,7 @@ namespace MyGUI
 			iter = param.find("SkinLine");
 			if (iter != param.end()) mSkinLine = iter->second;
 			iter = param.find("HeightLine");
-			if (iter != param.end()) mHeightLine = util::parseSizeT(iter->second);
+			if (iter != param.end()) mHeightLine = util::parseInt(iter->second);
 		}
 
 		ASSERT(skinScroll.size());
@@ -49,7 +49,8 @@ namespace MyGUI
 		offsetClient = WidgetManager::convertOffset(offsetClient, ALIGN_STRETCH, _info->getSize(), m_cx, m_cy);
 		mWidgetClient = createWidget("Widget", skinClient, offsetClient.left, offsetClient.top, offsetClient.right, offsetClient.bottom, ALIGN_STRETCH);
 
-		mCountLine = 10;
+//		mCountLine = 1;
+		for (size_t pos=0; pos<10; pos++) mStringArray.push_back(util::toString(pos));
 
 		updateScroll();
 		updateLine();
@@ -71,9 +72,9 @@ namespace MyGUI
 
 	void List::updateScroll()
 	{
-		int pos = (int)(mHeightLine * mCountLine) - mWidgetClient->height();
+		int pos = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->height();
 
-		if ( (pos < 1) || (mWidgetScroll->left() <= mWidgetClient->left()) ) {
+		if ( (pos < 1) || (mWidgetScroll->left() <= mWidgetClient->left()) /*|| (mCountLine < 2)*/ ) {
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->show(false);
 				// увеличиваем клиентскую зону на ширину скрола
@@ -108,12 +109,12 @@ namespace MyGUI
 		// если высота увеличивалась то добавляем виджеты
 		if (old_cy < m_cy) {
 
-			size_t height = mWidgetLines.size() * mHeightLine;
+			int height = (int)mWidgetLines.size() * mHeightLine;
 
 			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
-			while ( ((int)height <= (mWidgetClient->height() + mHeightLine)) && (mWidgetLines.size() < mCountLine) ) {
+			while ( (height <= (mWidgetClient->height() + mHeightLine)) && (mWidgetLines.size() < mStringArray.size()) ) {
 				// создаем линию
-				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, (int)height, mWidgetClient->width(), (int)mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
+				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, height, mWidgetClient->width(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
 				// и сохраняем
 				mWidgetLines.push_back(line);
 				height += mHeightLine;
@@ -126,7 +127,7 @@ namespace MyGUI
 
 //				OUT((mCountLine*mHeightLine),"   ", mWidgetClient->height());
 				// размер всех помещается в клиент
-				if ((mCountLine*mHeightLine) <= mWidgetClient->height()) {
+				if (((int)mStringArray.size()*mHeightLine) <= mWidgetClient->height()) {
 
 //					OUT("pemesh");
 					// обнуляем, если надо
@@ -140,7 +141,7 @@ namespace MyGUI
 						int offset = 0;
 						for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 							mWidgetLines[pos]->move(0, offset);
-							offset += (int)mHeightLine;
+							offset += mHeightLine;
 						}
 
 					}
@@ -156,7 +157,7 @@ namespace MyGUI
 						count --;
 					}
 
-					mTopIndex = mCountLine - count - 1;
+					int top = (int)mStringArray.size() - count - 1;
 
 //					OUT("calc : ", mTopIndex, "  ", mOffsetTop);
 
@@ -164,11 +165,17 @@ namespace MyGUI
 					int offset = 0 - mOffsetTop; // << правильно
 					for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 						mWidgetLines[pos]->move(0, offset);
-						offset += (int)mHeightLine;
+						offset += mHeightLine;
 					}
 
 					// высчитываем положение, должно быть максимальным
-					position = mTopIndex * mHeightLine + mOffsetTop;
+					position = top * mHeightLine + mOffsetTop;
+
+					// если индех изменился, то перерисовываем линии
+					if (top != mTopIndex) {
+						mTopIndex = top;
+						changeIndex();
+					}
 
 //					OUT(position, "  ", mRangeIndex);
 
@@ -188,18 +195,35 @@ namespace MyGUI
 
 	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel)
 	{
-		mTopIndex  = (_rel / (int)mHeightLine);
-		mOffsetTop = (_rel % (int)mHeightLine);
+		mOffsetTop = (_rel % mHeightLine);
 
 		// смещение с отрицательной стороны
 		int offset = 0 - mOffsetTop;
 
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 			mWidgetLines[pos]->move(0, offset);
-			offset += (int)mHeightLine;
+			offset += mHeightLine;
+		}
+
+		// если индех изменился, то перерисовываем линии
+		int top = (_rel / mHeightLine);
+		if (top != mTopIndex) {
+			mTopIndex = top;
+			changeIndex();
 		}
 
 //		OUT("scroll : ", mTopIndex, "  ", mOffsetTop);
+	}
+
+	void List::changeIndex()
+	{
+		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+			size_t index = pos + (size_t)mTopIndex;
+			if (index >= mStringArray.size()) break;
+			mWidgetLines[pos]->setCaption(mStringArray[index]);
+//			mWidgetLines[pos]->move(0, offset);
+//			offset += mHeightLine;
+		}
 	}
 
 } // namespace MyGUI

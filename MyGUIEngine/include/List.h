@@ -28,6 +28,9 @@ namespace MyGUI
 		void updateScroll();
 		void updateLine();
 
+		// изменился верхний индекс, еужно все переписовать
+		void changeIndex();
+
 	private:
 		std::string mSkinLine;
 		VScrollPtr mWidgetScroll;
@@ -36,11 +39,13 @@ namespace MyGUI
 		// наши дети в строках
 		WidgetChild mWidgetLines;
 
-		size_t mHeightLine; // высота одной строки
-		size_t mCountLine; // солличество строк
-		size_t mTopIndex; // индекс самого верхнего элемента
+		int mHeightLine; // высота одной строки
+//		int mCountLine; // солличество строк
+		int mTopIndex; // индекс самого верхнего элемента
 		int mOffsetTop; // текущее смещение
-		size_t mRangeIndex; // размерность скрола
+		int mRangeIndex; // размерность скрола
+
+		std::vector<Ogre::DisplayString> mStringArray;
 
 	}; // class List : public Widget
 
