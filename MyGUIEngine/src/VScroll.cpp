@@ -14,10 +14,10 @@ namespace MyGUI
 	void VScroll::updateTrack()
 	{
 		// размер диапазана в пикселях
-		size_t pos = m_cy - (mSkinRangeStart + mSkinRangeEnd);
+		int pos = m_cy - (int)(mSkinRangeStart + mSkinRangeEnd);
 
 		// скрываем если диапазан маленький или места мало
-		if ((mScrollRange < 2) || (mWidgetTrack->height() > (int)pos)) {
+		if ((mScrollRange < 2) || (1 > (int)pos)) {
 			mWidgetTrack->show(false);
 			return;
 		}
@@ -25,8 +25,8 @@ namespace MyGUI
 		if (!mWidgetTrack->isShow()) mWidgetTrack->show(true);
 
 		// и обновляем позицию
-		pos = (pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart;
-		if (mWidgetTrack->top() != (int)pos) mWidgetTrack->move(mWidgetTrack->left(), (int)pos);
+		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
+		if (mWidgetTrack->top() != pos) mWidgetTrack->move(mWidgetTrack->left(), pos);
 	}
 
 	void VScroll::notifyTrackMove(int _x, int _y)

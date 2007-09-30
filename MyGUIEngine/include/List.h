@@ -18,6 +18,13 @@ namespace MyGUI
 	public:
 		inline const static Ogre::String & getType() {static Ogre::String type("List"); return type;};
 
+		inline size_t getIndexCount() {return mStringArray.size();}
+		inline const Ogre::DisplayString & getIndexString(size_t _index) {assert(_index < mStringArray.size()); return mStringArray[_index];}
+		inline void setIndexString(size_t _index, const Ogre::DisplayString & _item) {assert(_index < mStringArray.size()); mStringArray[_index]=_item; redrawIndex(_index);}
+		void insertIndexString(size_t _index, const Ogre::DisplayString & _item);
+		inline void addIndexString(const Ogre::DisplayString & _item) {insertIndexString((size_t)-1, _item);}
+		void deleteIndexString(size_t _index);
+
 
 	protected:
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel);
@@ -26,10 +33,16 @@ namespace MyGUI
 		virtual void move(int _x, int _y, int _cx, int _cy);
 
 		void updateScroll();
-		void updateLine();
+		void updateLine(bool _reset = false);
 
-		// изменился верхний индекс, еужно все переписовать
-		void changeIndex();
+		// изменился верхний индекс, нужно все переписывать
+		void changeIndex(size_t _start=0);
+
+		// перерисовывает индекс
+		void redrawIndex(size_t _index);
+
+		// удаляем строку из списка
+		void _deleteString(size_t _index);
 
 	private:
 		std::string mSkinLine;
@@ -40,10 +53,10 @@ namespace MyGUI
 		WidgetChild mWidgetLines;
 
 		int mHeightLine; // высота одной строки
-//		int mCountLine; // солличество строк
 		int mTopIndex; // индекс самого верхнего элемента
 		int mOffsetTop; // текущее смещение
 		int mRangeIndex; // размерность скрола
+		size_t mLastRedrawLine; // последняя перерисованная линия
 
 		std::vector<Ogre::DisplayString> mStringArray;
 

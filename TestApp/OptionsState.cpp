@@ -11,6 +11,7 @@
 #include "Button.h"
 #include "HScroll.h"
 #include "VScroll.h"
+#include "List.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -44,7 +45,7 @@ void OptionsState::enter(bool bIsChangeState)
 	window->showWindowResize(true);
 	window->show(false);
 
-	MyGUI::WidgetPtr wid = window->createWidget("List", "List", 6, 33, 70, 50, MyGUI::ALIGN_STRETCH);
+	test = window->createWidget("List", "List", 6, 33, 70, 50, MyGUI::ALIGN_STRETCH);
 	window->size(400, 100);
 
 }
@@ -69,6 +70,7 @@ bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 //===================================================================================
 bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
 {
+	((MyGUI::ListPtr)test)->deleteIndexString(5);
 	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
 }

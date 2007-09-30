@@ -14,7 +14,8 @@ namespace MyGUI
 		mWidgetScroll(null), mWidgetClient(null),
 		mOffsetTop(0),
 		mTopIndex(0),
-		mRangeIndex(0)
+		mRangeIndex(0),
+		mLastRedrawLine(0)
 	{
 		std::string skinScroll, skinClient;
 		FloatRect offsetScroll;
@@ -54,6 +55,7 @@ namespace MyGUI
 
 		updateScroll();
 		updateLine();
+//		changeIndex();
 	}
 
 	void List::size(int _cx, int _cy)
@@ -72,9 +74,9 @@ namespace MyGUI
 
 	void List::updateScroll()
 	{
-		int pos = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->height();
+		mRangeIndex = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->height();
 
-		if ( (pos < 1) || (mWidgetScroll->left() <= mWidgetClient->left()) /*|| (mCountLine < 2)*/ ) {
+		if ( (mRangeIndex < 1) || (mWidgetScroll->left() <= mWidgetClient->left()) ) {
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->show(false);
 				// увеличиваем клиентскую зону на ширину скрола
@@ -87,14 +89,14 @@ namespace MyGUI
 			mWidgetScroll->show(true);
 		}
 
-		mRangeIndex = pos;
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
 	}
 
-	void List::updateLine()
+	void List::updateLine(bool _reset)
 	{
 		// старые значения размеров
 		static int old_cx=0, old_cy=0;
+		if (_reset) {old_cx=0;old_cy=0;}
 
 		// если ширина измениласть то вытягиваем линии
 		if (old_cx != m_cx) {
@@ -123,13 +125,9 @@ namespace MyGUI
 			// проверяем на возможность не менять положение списка
 			if (position >= mRangeIndex) {
 
-//				OUT(position, "   ", mRangeIndex);
-
-//				OUT((mCountLine*mHeightLine),"   ", mWidgetClient->height());
 				// размер всех помещается в клиент
 				if (((int)mStringArray.size()*mHeightLine) <= mWidgetClient->height()) {
 
-//					OUT("pemesh");
 					// обнуляем, если надо
 					if (position || mOffsetTop || mTopIndex) {
 
@@ -143,7 +141,6 @@ namespace MyGUI
 							mWidgetLines[pos]->move(0, offset);
 							offset += mHeightLine;
 						}
-
 					}
 
 				} else {
@@ -159,10 +156,8 @@ namespace MyGUI
 
 					int top = (int)mStringArray.size() - count - 1;
 
-//					OUT("calc : ", mTopIndex, "  ", mOffsetTop);
-
 					// выравниваем
-					int offset = 0 - mOffsetTop; // << правильно
+					int offset = 0 - mOffsetTop;
 					for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 						mWidgetLines[pos]->move(0, offset);
 						offset += mHeightLine;
@@ -177,14 +172,12 @@ namespace MyGUI
 						changeIndex();
 					}
 
-//					OUT(position, "  ", mRangeIndex);
-
 				}
-
-
-			}
-
-		}
+			}// else {
+				// увеличился размер, но прокрутки вниз небыло, обновляем линии снизу
+				changeIndex(mLastRedrawLine);
+			//}
+		} // if (old_cy < m_cy) {
 
 		// просчитываем положение скролла
 		mWidgetScroll->setScrollPosition(position);
@@ -212,18 +205,105 @@ namespace MyGUI
 			changeIndex();
 		}
 
-//		OUT("scroll : ", mTopIndex, "  ", mOffsetTop);
+		// прорисовываем все нижние строки, если они появились
+		changeIndex(mLastRedrawLine);
+
 	}
 
-	void List::changeIndex()
+	void List::changeIndex(size_t _start)
 	{
-		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+		// перерисовываем линии, только те, что видны
+		size_t pos = _start;
+		for (; pos<mWidgetLines.size(); pos++) {
+			// индекс в нашем массиве
 			size_t index = pos + (size_t)mTopIndex;
-			if (index >= mStringArray.size()) break;
+
+			// не будем заходить слишком далеко
+			if (index >= mStringArray.size()) {
+				// запоминаем последнюю перерисованную линию
+				mLastRedrawLine = pos;
+				break;
+			}
+			if (mWidgetLines[pos]->top() > mWidgetClient->height()) {
+				// запоминаем последнюю перерисованную линию
+				mLastRedrawLine = pos;
+				break;
+			}
+
+			// если был скрыт, то покажем
+			if (!mWidgetLines[pos]->isShow()) mWidgetLines[pos]->show(true);
+			// обновляем текст
 			mWidgetLines[pos]->setCaption(mStringArray[index]);
-//			mWidgetLines[pos]->move(0, offset);
-//			offset += mHeightLine;
+			//OUT(pos);
+
 		}
+
+		// если цикл весь прошли, то ставим максимальную линию
+		if (pos >= mWidgetLines.size()) mLastRedrawLine = pos;
+	}
+
+	// перерисовывает индекс
+	void List::redrawIndex(size_t _index)
+	{
+		// невидно
+		if (_index < (size_t)mTopIndex) return;
+		_index -= (size_t)mTopIndex;
+		// тоже невидно
+		if (_index > mLastRedrawLine) return;
+		// перерисовываем
+		mWidgetLines[_index]->setCaption(mStringArray[_index + mTopIndex]);
+	}
+
+	void List::insertIndexString(size_t _index, const Ogre::DisplayString & _item)
+	{
+	}
+
+	void List::deleteIndexString(size_t _index)
+	{
+		// доверяй, но проверяй
+		assert(_index < mStringArray.size());
+
+		// удяляем физически строку
+		_deleteString(_index);
+
+		// если виджетов стало больше , то скрываем крайний
+		if (mWidgetLines.size() > mStringArray.size()) {
+			mWidgetLines[mStringArray.size()]->show(false);
+		}
+
+		// высчитывам положение удаляемой строки
+		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
+
+		// строка, до первого видимого элемента
+		if (_index < (size_t)mTopIndex) {
+			mTopIndex --;
+			// просчитываем положение скролла
+			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
+			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
+
+		// строка, после последнего видимого элемента
+		} else if (mWidgetClient->height() < offset) {
+			// просчитываем положение скролла
+			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
+			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
+
+		// строка в видимой области
+		} else {
+
+			// обновляем все
+			updateScroll();
+			updateLine(true);
+			changeIndex(0);
+
+		}
+	}
+
+	void List::_deleteString(size_t _index)
+	{
+		for (size_t pos=_index+1; pos<mStringArray.size(); pos++) {
+			mStringArray[pos-1] = mStringArray[pos];
+		}
+		mStringArray.pop_back();
 	}
 
 } // namespace MyGUI

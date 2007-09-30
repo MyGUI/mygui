@@ -14,10 +14,10 @@ namespace MyGUI
 	void HScroll::updateTrack()
 	{
 		// размер диапазана в пикселях
-		size_t pos = m_cx - (mSkinRangeStart + mSkinRangeEnd);
+		int pos = m_cx - (int)(mSkinRangeStart + mSkinRangeEnd);
 
 		// скрываем если диапазан маленький или места мало
-		if ((mScrollRange < 2) || (mWidgetTrack->width() > (int)pos)) {
+		if ((mScrollRange < 2) || (1 > (int)pos)) {
 			mWidgetTrack->show(false);
 			return;
 		}
@@ -25,7 +25,7 @@ namespace MyGUI
 		if (!mWidgetTrack->isShow()) mWidgetTrack->show(true);
 
 		// и обновляем позицию
-		pos = (pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart;
+		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
 		if (mWidgetTrack->left() != (int)pos) mWidgetTrack->move((int)pos, mWidgetTrack->top());
 
 	}

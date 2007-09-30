@@ -18,6 +18,8 @@ public:
 
 	void notifyWindowXPressed(MyGUI::WidgetPtr _sender);
 
+	MyGUI::WidgetPtr test;
+
 public:
 	void enter(bool bIsChangeState);
 	void exit();
