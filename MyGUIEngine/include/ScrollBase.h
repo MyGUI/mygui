@@ -27,6 +27,9 @@ namespace MyGUI
 		void setScrollPosition(size_t _position);
 		inline size_t getScrollPosition() {return mScrollPosition;}
 
+		inline void setScrollPage(size_t _page = 1) {mScrollPage = _page;}
+		inline size_t getScrollPage() {return mScrollPage;}
+
 		virtual void updateTrack() = 0;
 		virtual void size(int _cx, int _cy);
 		virtual void move(int _x, int _y, int _cx, int _cy);
@@ -49,6 +52,7 @@ namespace MyGUI
 
 		size_t mScrollRange;
 		size_t mScrollPosition;
+		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
 
 	}; // class ScrollBase : public Widget
 

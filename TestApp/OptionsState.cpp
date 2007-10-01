@@ -70,7 +70,7 @@ bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 //===================================================================================
 bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
 {
-	((MyGUI::ListPtr)test)->deleteIndexString(5);
+	((MyGUI::ListPtr)test)->setItemSelect(5);
 	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
 }

@@ -15,6 +15,8 @@ namespace MyGUI
 
 		// запомием размер скина
 		IntSize skinSize = _info->getSize();
+		// при нуле, будет игнорировать кнопки
+		mScrollPage = 1;
 
 		std::string skin;
 		FloatRect offset;
@@ -68,15 +70,29 @@ namespace MyGUI
 	{
 		if (!_left) return;
 		if (_sender == mWidgetStart) {
+			// минимальное значение
 			if (mScrollPosition == 0) return;
-			mScrollPosition --;
+
+			// расчитываем следующее положение
+			if (mScrollPosition > mScrollPage) mScrollPosition -= mScrollPage;
+			else mScrollPosition = 0;
+
+			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
+
 		} else if (_sender == mWidgetEnd){
-			if ( (mScrollRange < 2) || (mScrollPosition == (mScrollRange-1)) ) return;
-			mScrollPosition ++;
+			// максимальное значение
+			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
+
+			// расчитываем следующее положение
+			if ((mScrollPosition + mScrollPage) < (mScrollRange-1)) mScrollPosition += mScrollPage;
+			else mScrollPosition = mScrollRange - 1;
+
+			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
+
 		} else {
 			m_preActionRect.left = _sender->left();
 			m_preActionRect.top = _sender->top();

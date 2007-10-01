@@ -22,6 +22,7 @@ namespace MyGUI
 
 				parser.registerDelegate("ScrollRange") = newDelegate(this, &ScrollParser::ScrollRange);
 				parser.registerDelegate("ScrollPosition") = newDelegate(this, &ScrollParser::ScrollPosition);
+				parser.registerDelegate("ScrollPage") = newDelegate(this, &ScrollParser::ScrollPage);
 			}
 
 			void ScrollRange(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -34,6 +35,12 @@ namespace MyGUI
 			{
 				TYPE(ScrollBasePtr, _widget);
 				static_cast<ScrollBasePtr>(_widget)->setScrollPosition(util::parseSizeT(_value));
+			}
+
+			void ScrollPage(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+			{
+				TYPE(ScrollBasePtr, _widget);
+				static_cast<ScrollBasePtr>(_widget)->setScrollPage(util::parseSizeT(_value));
 			}
 
 		};

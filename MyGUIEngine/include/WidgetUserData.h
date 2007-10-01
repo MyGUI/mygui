@@ -61,10 +61,15 @@ namespace MyGUI
 			m_mapUserInt.clear();
 		}
 
+		inline int getInternalData() {return mInternalData;}
+		inline void setInternalData(int _data) {mInternalData = _data;}
+
 	private:
 		// пользовательские данные
 		MapString m_mapUserString;
 		MapInt m_mapUserInt;
+		// номер для внутренниего или внешнего использования
+		int mInternalData;
 	};
 } // namespace MyGUI
 

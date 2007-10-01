@@ -255,23 +255,36 @@
     </Skin>
 
 
-    <Skin2 Name = "ListLine" Size = "16 16" Material = "MyGUI_main" >
-    </Skin2>
+    <Skin Name = "ListLine" Size = "5 5" Material = "MyGUI_main" >
+        <Property Key="FontName" Value = "MyGUI_font" />
+        <Property Key="FontHeight" Value = "18" />
+        <Property Key="AlignText" Value = "ALIGN_LEFT | ALIGN_VCENTER" />
+        <BasisSkin Type="MainSkin" Offset = "0 0 5 5">
+            <State Name="normal" Offset = "149 15 5 5"/>
+            <State Name="active" Offset = "149 26 5 5"/>
+            <State Name="pressed" Offset = "149 37 5 5"/>
+            <State Name="select" Offset = "149 48 5 5"/>
+        </BasisSkin>
+        <BasisSkin Type="TextSimple" Offset = "2 0 1 5"  Align = "ALIGN_STRETCH">
+            <State Name="normal" Color="0 0 0"/>
+            <State Name="active" Color="0 0 0"/>
+        </BasisSkin>
+    </Skin>
 
-    <Skin Name = "ListClient" Size = "16 16" Material = "MyGUI_main" >
-        <BasisSkin Type="MainSkin" Offset = "0 0 16 16" Align = "ALIGN_LEFT ALIGN_TOP">
+    <Skin Name = "ListClient" Size = "16 16" Material = "MyGUI_main">
+        <BasisSkin Type="MainSkin" Offset = "0 0 16 16">
             <State Name="normal" Offset = "405 4 96 59"/>
         </BasisSkin>
     </Skin>
 
-    <Skin Name = "List" Size = "9 9" Material = "MyGUI_main" >
+    <Skin Name = "List" Size = "9 9" Material = "MyGUI_main" Align = "ALIGN_LEFT ALIGN_TOP">
         <Property Key="SkinScroll" Value = "VScroll" />
         <Property Key="OffsetScroll" Value = "-10 3 16 3" />
 
         <Property Key="SkinClient" Value = "ListClient" />
         <Property Key="OffsetClient" Value = "3 3 -13 3" />
 
-        <Property Key="SkinLine" Value = "Button" />
+        <Property Key="SkinLine" Value = "ListLine" />
         <Property Key="HeightLine" Value = "20" />
 
         <BasisSkin Type="SubSkin" Offset = "0 0 3 3" Align = "ALIGN_LEFT ALIGN_TOP">
@@ -298,9 +311,6 @@
         <BasisSkin Type="SubSkin" Offset = "0 3 3 3" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State Name="normal" Offset = "147 5 3 3"/>
         </BasisSkin>
-        <BasisSkin2 Type="SubSkin" Offset = "3 3 3 3" Align = "ALIGN_STRETCH">
-            <State Name="normal" Offset = "405 4 96 59"/>
-        </BasisSkin2>
     </Skin>
 
 </MyGUI_SkinInfo>
