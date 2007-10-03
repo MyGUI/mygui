@@ -17,10 +17,6 @@ namespace MyGUI
 	public:
 		inline const static Ogre::String & getType() {static Ogre::String type("Window"); return type;};
 
-		void showWindowCaption(bool _show);
-		void showWindowX(bool _show);
-		void showWindowResize(bool _show);
-
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
 
@@ -55,6 +51,10 @@ namespace MyGUI
 
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
+
+		inline void _showWindowCaption(bool _show);
+		inline void _showWindowX(bool _show);
+		inline void _showWindowResize(bool _show);
 
 	private:
 		std::string mSkinCaption, mSkinX, mSkinResize;

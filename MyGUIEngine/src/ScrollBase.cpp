@@ -69,6 +69,10 @@ namespace MyGUI
 	void ScrollBase::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
 		if (!_left) return;
+
+		// диспечерезируем нажатие своих детей как свое
+		eventMouseButtonPressed(this, _left);
+
 		if (_sender == mWidgetStart) {
 			// минимальное значение
 			if (mScrollPosition == 0) return;

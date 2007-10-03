@@ -16,7 +16,8 @@ namespace MyGUI
 		mTopIndex(0),
 		mRangeIndex(0),
 		mLastRedrawLine(0),
-		mIndexSelect(ITEM_NONE)
+		mIndexSelect(ITEM_NONE),
+		mIsFocus(false)
 	{
 		std::string skinScroll, skinClient;
 		FloatRect offsetScroll;
@@ -47,6 +48,7 @@ namespace MyGUI
 		offsetScroll = WidgetManager::convertOffset(offsetScroll, ALIGN_RIGHT | ALIGN_VSTRETCH, _info->getSize(), m_cx, m_cy);
 		mWidgetScroll = static_cast<VScrollPtr>(createWidget("VScroll", skinScroll, offsetScroll.left, offsetScroll.top, offsetScroll.right, offsetScroll.bottom, ALIGN_RIGHT | ALIGN_VSTRETCH));
 		mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
+		mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 
 		offsetClient = WidgetManager::convertOffset(offsetClient, ALIGN_STRETCH, _info->getSize(), m_cx, m_cy);
 		mWidgetClient = createWidget("Widget", skinClient, offsetClient.left, offsetClient.top, offsetClient.right, offsetClient.bottom, ALIGN_STRETCH);
@@ -56,11 +58,115 @@ namespace MyGUI
 		mWidgetScroll->setScrollPage((size_t)mHeightLine);
 
 //		mCountLine = 1;
-		for (size_t pos=0; pos<10; pos++) mStringArray.push_back(util::toString(pos)); //???
+//		for (size_t pos=0; pos<10; pos++) mStringArray.push_back(util::toString(pos)); //???
 
 		updateScroll();
 		updateLine();
-//		changeIndex();
+
+	}
+
+	void List::_onMouseSheel(int _rel)
+	{
+		Widget::_onMouseSheel(_rel);
+		notifyMouseSheel(null, _rel);
+	}
+
+	void List::_onKeySetFocus(WidgetPtr _old)
+	{
+		Widget::_onKeySetFocus(_old);
+		mIsFocus = true;
+		_updateState();
+	}
+
+	void List::_onKeyLostFocus(WidgetPtr _new)
+	{
+		Widget::_onKeyLostFocus(_new);
+		mIsFocus = false;
+		_updateState();
+	}
+
+	void List::_onKeyButtonPressed(int _key, wchar_t _char)
+	{
+		Widget::_onKeyButtonPressed(_key, _char);
+
+		// очень секретный метод, запатентованный механизм движения курсора
+
+		if (getItemCount() == 0) return;
+		else if (getItemCount() == 1) {
+			if (mIndexSelect == ITEM_NONE) setItemSelect(0);
+			return;
+		}
+
+		size_t sel = mIndexSelect;
+
+		if (_key == OIS::KC_UP) {
+
+			if (sel == 0) return;
+
+			if (sel == ITEM_NONE) sel = 0;
+			else sel --;
+
+		} else if (_key == OIS::KC_DOWN) {
+
+			if (sel == ITEM_NONE) sel = 0;
+			else sel ++;
+
+			if (sel >= getItemCount()) return;
+
+		} else if (_key == OIS::KC_HOME) {
+
+			if (sel == 0) return;
+			sel = 0;
+
+		} else if (_key == OIS::KC_END) {
+
+			if (sel == (getItemCount() - 1)) return;
+
+			sel = getItemCount() - 1;
+
+		} else if (_key == OIS::KC_PGUP) {
+
+			if (sel == 0) return;
+
+			if (sel == ITEM_NONE) sel = 0;
+			else {
+				size_t page = mWidgetClient->height() / mHeightLine;
+				if (sel <= page) sel = 0;
+				else sel -= page;
+			}
+
+		} else if (_key == OIS::KC_PGDOWN) {
+
+			if (sel == (getItemCount() - 1)) return;
+
+			if (sel == ITEM_NONE) sel = 0;
+			else {
+				sel += mWidgetClient->height() / mHeightLine;
+				if (sel >= getItemCount()) sel = getItemCount() - 1;
+			}
+
+		}
+
+		if ( ! isItemVisible(sel)) beginToIndex(sel);
+		setItemSelect(sel);
+
+	}
+
+	void List::notifyMouseSheel(MyGUI::WidgetPtr _sender, int _rel)
+	{
+		if (mRangeIndex <= 0) return;
+
+		int offset = (int)mWidgetScroll->getScrollPosition();
+		if (_rel < 0) offset += mHeightLine;
+		else  offset -= mHeightLine;
+
+		if (offset >= mRangeIndex) offset = mRangeIndex;
+		else if (offset < 0) offset = 0;
+
+		if (mWidgetScroll->getScrollPosition() == offset) return;
+
+		mWidgetScroll->setScrollPosition(offset);
+		notifyScrollChangePosition(null, offset);
 	}
 
 	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel)
@@ -91,6 +197,11 @@ namespace MyGUI
 	{
 		if (!_left) return;
 
+		// устанавливаем фокус на себя
+		if (!mIsFocus) InputManager::getInstance().setKeyFocusWidget(this);
+
+		if (_sender == mWidgetScroll) return;
+
 		// если выделен клиент, то сбрасываем
 		if (_sender == mWidgetClient) {
 
@@ -107,7 +218,7 @@ namespace MyGUI
 			_selectIndex(index, true);
 			mIndexSelect = index;
 		}
-		
+	
 	}
 
 	void List::size(int _cx, int _cy)
@@ -169,8 +280,9 @@ namespace MyGUI
 			while ( (height <= (mWidgetClient->height() + mHeightLine)) && (mWidgetLines.size() < mStringArray.size()) ) {
 				// создаем линию
 				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, height, mWidgetClient->width(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
-				// подписываемся на мышу
+				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
+				line->eventMouseSheel = newDelegate(this, &List::notifyMouseSheel);
 				// присваиваем порядковый номер, длу простоты просчета
 				line->setInternalData((int)mWidgetLines.size());
 				// и сохраняем
@@ -301,6 +413,9 @@ namespace MyGUI
 		// вставляем физически
 		_insertString(_index, _item);
 
+		// если надо, то меняем выделенный элемент
+		if ( (mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect) ) mIndexSelect++;
+
 		// строка, до первого видимого элемента
 		if (_index <= (size_t)mTopIndex) {
 			mTopIndex ++;
@@ -328,6 +443,9 @@ namespace MyGUI
 				// обновляем все
 				updateScroll();
 				updateLine(true);
+
+				// позже сюда еще оптимизацию по колличеству перерисовок
+
 			}
 		}
 
@@ -340,6 +458,13 @@ namespace MyGUI
 
 		// удяляем физически строку
 		_deleteString(_index);
+
+		// если надо, то меняем выделенный элемент
+		if (mStringArray.empty()) mIndexSelect = ITEM_NONE;
+		else if (mIndexSelect != ITEM_NONE) {
+			if (_index < mIndexSelect) mIndexSelect--;
+			else if ( (_index == mIndexSelect) && (mIndexSelect == (mStringArray.size())) ) mIndexSelect--;
+		}
 
 		// если виджетов стало больше , то скрываем крайний
 		if (mWidgetLines.size() > mStringArray.size()) {
@@ -370,6 +495,9 @@ namespace MyGUI
 				// обновляем все
 				updateScroll();
 				updateLine(true);
+
+				// позже сюда еще оптимизацию по колличеству перерисовок
+
 			}
 		}
 	}
@@ -410,6 +538,49 @@ namespace MyGUI
 		if (mWidgetClient->height() < offset) return;
 
 		static_cast<ButtonPtr>(mWidgetLines[_index-mTopIndex])->setButtonPressed(_select);
+	}
+
+	void List::beginToIndex(size_t _index)
+	{
+		if (_index >= mStringArray.size()) return;
+		if (mRangeIndex <= 0) return;
+
+		int offset = (int)_index * mHeightLine;
+		if (offset >= mRangeIndex) offset = mRangeIndex;
+
+		if (mWidgetScroll->getScrollPosition() == offset) return;
+
+		mWidgetScroll->setScrollPosition(offset);
+		notifyScrollChangePosition(null, offset);
+	}
+
+	// видим ли мы элемент, полностью или нет
+	bool List::isItemVisible(size_t _index, bool _fill)
+	{
+		// если элемента нет, то мы его не видим (в том числе когда их вообще нет)
+		if (_index >= mStringArray.size()) return false;
+		// если скрола нет, то мы палюбак видим
+		if (mRangeIndex <= 0) return true;
+
+		// строка, до первого видимого элемента
+		if (_index < (size_t)mTopIndex) return false;
+
+		// строка это верхний выделенный
+		if (_index == (size_t)mTopIndex) {
+			if ( (mOffsetTop != 0) && (_fill) ) return false; // нам нужна полностью видимость
+			return true;
+		}
+
+		// высчитывам положение строки
+		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
+
+		// строка, после последнего видимого элемента
+		if (mWidgetClient->height() < offset) return false;
+
+		// если мы внизу и нам нужен целый
+		if ((mWidgetClient->height() < (offset + mHeightLine)) && (_fill) ) return false;
+
+		return true;
 	}
 
 } // namespace MyGUI

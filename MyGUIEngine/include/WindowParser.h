@@ -22,14 +22,14 @@ namespace MyGUI
 				// менеджер всех парсеров свойств
 				ParserManager & parser = ParserManager::getInstance();
 
-				parser.registerDelegate("ShowWindowCaption") = newDelegate(this, &WindowParser::ShowWindowCaption);
-				parser.registerDelegate("ShowWindowX") = newDelegate(this, &WindowParser::ShowWindowX);
-				parser.registerDelegate("ShowWindowResize") = newDelegate(this, &WindowParser::ShowWindowResize);
+				//parser.registerDelegate("ShowWindowCaption") = newDelegate(this, &WindowParser::ShowWindowCaption);
+				//parser.registerDelegate("ShowWindowX") = newDelegate(this, &WindowParser::ShowWindowX);
+				//parser.registerDelegate("ShowWindowResize") = newDelegate(this, &WindowParser::ShowWindowResize);
 				parser.registerDelegate("WindowAutoAlpha") = newDelegate(this, &WindowParser::WindowAutoAlpha);
 				parser.registerDelegate("WindowMinMax") = newDelegate(this, &WindowParser::WindowMinMax);
 			}
 
-			void ShowWindowCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+			/*void ShowWindowCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(WindowPtr, _widget);
 				static_cast<WindowPtr>(_widget)->showWindowCaption(util::parseBool(_value));
@@ -45,7 +45,7 @@ namespace MyGUI
 			{
 				TYPE(WindowPtr, _widget);
 				static_cast<WindowPtr>(_widget)->showWindowResize(util::parseBool(_value));
-			}
+			}*/
 
 			void WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{

@@ -81,8 +81,9 @@ namespace MyGUI
 			m_lastLeftPressed.top = (int)_arg.state.Y.abs;
 		}
 			
-		m_widgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
+		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
 		setKeyFocusWidget(m_widgetMouseFocus);
+		m_widgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
 
 		// поднимаем виджет, временно
 		if (m_widgetMouseFocus != null) {

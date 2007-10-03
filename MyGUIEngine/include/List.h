@@ -30,10 +30,26 @@ namespace MyGUI
 		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
 		void setItemSelect(size_t _index);
 
+		// методы для показа строк
+		void beginToIndex(size_t _index);
+		inline void beginToStart() {beginToIndex(0);}
+		inline void beginToEnd() {if (!mStringArray.empty()) beginToIndex(mStringArray.size()-1);}
+		inline void beginToSelect() {beginToIndex(mIndexSelect);}
+
+		// видим ли мы элемент, полностью или нет
+		bool isItemVisible(size_t _index, bool _fill = true);
+		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
 	protected:
+
+		void _onMouseSheel(int _rel);
+		void _onKeyLostFocus(WidgetPtr _new);
+		void _onKeySetFocus(WidgetPtr _old);
+		void _onKeyButtonPressed(int _key, wchar_t _char);
+
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseSheel(MyGUI::WidgetPtr _sender, int _rel);
 
 		virtual void size(int _cx, int _cy);
 		virtual void move(int _x, int _y, int _cx, int _cy);
@@ -55,6 +71,8 @@ namespace MyGUI
 		// ищет и выделяет елемент
 		inline void _selectIndex(size_t _index, bool _select);
 
+		inline void _updateState() {setState(mIsFocus ? "select" : "normal");}
+
 	private:
 		std::string mSkinLine;
 		VScrollPtr mWidgetScroll;
@@ -72,6 +90,9 @@ namespace MyGUI
 		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
 
 		std::vector<Ogre::DisplayString> mStringArray;
+
+		// имеем ли мы фокус ввода
+		bool mIsFocus;
 
 	}; // class List : public Widget
 

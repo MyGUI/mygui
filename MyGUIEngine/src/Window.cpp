@@ -57,9 +57,13 @@ namespace MyGUI
 			if (iter != param.end()) mAlignResize = SkinManager::getInstance().parseAlign(iter->second);
 		}
 
+		_showWindowCaption(true);
+		_showWindowX(true);
+		_showWindowResize(true);
+
 	}
 
-	void Window::showWindowCaption(bool _show)
+	void Window::_showWindowCaption(bool _show)
 	{
 		if ( (_show == (mWidgetCaption != null)) || (mSkinCaption.empty()) ) return;
 		if (mWidgetCaption != null) WidgetManager::getInstance().destroyWidget(mWidgetCaption);
@@ -72,7 +76,7 @@ namespace MyGUI
 		}
 	}
 
-	void Window::showWindowX(bool _show)
+	void Window::_showWindowX(bool _show)
 	{
 		if ( (_show == (mWidgetX != null)) || (mSkinX.empty()) ) return;
 		if (mWidgetX != null) WidgetManager::getInstance().destroyWidget(mWidgetX);
@@ -84,7 +88,7 @@ namespace MyGUI
 		}
 	}
 
-	void Window::showWindowResize(bool _show)
+	void Window::_showWindowResize(bool _show)
 	{
 		if ( (_show == (mWidgetResize != null)) || (mSkinResize.empty()) ) return;
 		if (mWidgetResize != null) WidgetManager::getInstance().destroyWidget(mWidgetResize);

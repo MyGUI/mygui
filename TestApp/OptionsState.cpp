@@ -39,14 +39,21 @@ void OptionsState::enter(bool bIsChangeState)
 //	MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidget("Button1");
 //	if (but != null) but->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed);
 
-	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", 200, 200, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	window->showWindowCaption(true);
-	window->showWindowX(true);
-	window->showWindowResize(true);
+	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 200, 200, 400, 200, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
 	window->show(false);
+	window->setCaption("List demo");
+	window->setMinMax(MyGUI::IntRect(230, 100, 1000, 1000));
 
-	test = window->createWidget("List", "List", 6, 33, 70, 50, MyGUI::ALIGN_STRETCH);
-	window->size(400, 100);
+	test = window->createWidget("List", "List", 6, 33, 180, 161, MyGUI::ALIGN_STRETCH);
+
+	button = static_cast<MyGUI::ButtonPtr>(window->createWidget("Button", "ButtonSmall", 190, 33, 40, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP));
+	button->setCaption("<<");
+
+	button = static_cast<MyGUI::ButtonPtr>(window->createWidget("Button", "ButtonSmall", 190, 68, 40, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP));
+	button->setCaption(">>");
+//	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);
+
+	test = window->createWidget("List", "List", 234, 33, 160, 161, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_VSTRETCH);
 
 }
 //===================================================================================
@@ -70,7 +77,38 @@ bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 //===================================================================================
 bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
 {
-	((MyGUI::ListPtr)test)->setItemSelect(5);
+	/*MyGUI::ListPtr list = ((MyGUI::ListPtr)test);
+
+	size_t sel = list->getItemSelect();
+
+	if (list->getItemCount() != 0) {
+
+		if (arg.key == OIS::KC_UP) {
+
+			if (sel != 0) {
+				if (sel == MyGUI::Widget::ITEM_NONE) sel = 0;
+				else sel --;
+
+				if (sel < list->getItemCount()) {
+					if (!list->isItemVisible(sel)) list->beginToIndex(sel);
+					list->setItemSelect(sel);
+				}
+
+			}
+
+		} else if (arg.key == OIS::KC_DOWN) {
+
+			if (sel == MyGUI::Widget::ITEM_NONE) sel = 0;
+			else sel ++;
+
+			if (sel < list->getItemCount()) {
+				if (!list->isItemVisible(sel)) list->beginToIndex(sel);
+				list->setItemSelect(sel);
+			}
+
+		}
+	}*/
+
 	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
 }
@@ -94,10 +132,10 @@ void OptionsState::notifyMousePressed1(MyGUI::WidgetPtr _sender, bool _left)
 {
 	int x = (::rand()%600) + 20;
 	int y = (::rand()%200) + 20;
-	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	window->showWindowCaption(true);
-	window->showWindowX(true);
-	window->showWindowResize(true);
+	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCSX", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+//	window->showWindowCaption(true);
+//	window->showWindowX(true);
+//	window->showWindowResize(true);
 	window->setCaption("Auto alpha");
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 }
@@ -106,10 +144,10 @@ void OptionsState::notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left)
 {
 	int x = (::rand()%600) + 20;
 	int y = (::rand()%200) + 320;
-	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "Window", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	window->showWindowCaption(true);
-	window->showWindowX(true);
-	window->showWindowResize(true);
+	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCSX", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+//	window->showWindowCaption(true);
+//	window->showWindowX(true);
+//	window->showWindowResize(true);
 	window->setAutoAlpha(false);
 	window->show();
 	window->setCaption("Manual alpha");
