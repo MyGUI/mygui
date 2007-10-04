@@ -40,6 +40,9 @@ namespace MyGUI
 		bool isItemVisible(size_t _index, bool _fill = true);
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
+		virtual void size(int _cx, int _cy);
+		virtual void move(int _x, int _y, int _cx, int _cy);
+
 	protected:
 
 		void _onMouseSheel(int _rel);
@@ -50,9 +53,6 @@ namespace MyGUI
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseSheel(MyGUI::WidgetPtr _sender, int _rel);
-
-		virtual void size(int _cx, int _cy);
-		virtual void move(int _x, int _y, int _cx, int _cy);
 
 		void updateScroll();
 		void updateLine(bool _reset = false);

@@ -14,7 +14,7 @@ namespace MyGUI
 		mWidgetScroll(null), mWidgetClient(null),
 		mOffsetTop(0),
 		mTopIndex(0),
-		mRangeIndex(0),
+		mRangeIndex(-1),
 		mLastRedrawLine(0),
 		mIndexSelect(ITEM_NONE),
 		mIsFocus(false)
@@ -56,9 +56,6 @@ namespace MyGUI
 		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 
 		mWidgetScroll->setScrollPage((size_t)mHeightLine);
-
-//		mCountLine = 1;
-//		for (size_t pos=0; pos<10; pos++) mStringArray.push_back(util::toString(pos)); //???
 
 		updateScroll();
 		updateLine();
@@ -417,7 +414,7 @@ namespace MyGUI
 		if ( (mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect) ) mIndexSelect++;
 
 		// строка, до первого видимого элемента
-		if (_index <= (size_t)mTopIndex) {
+		if ( (_index <= (size_t)mTopIndex) && (mRangeIndex > 0) ) {
 			mTopIndex ++;
 			// просчитываем положение скролла
 			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);

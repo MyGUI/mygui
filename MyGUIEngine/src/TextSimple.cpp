@@ -130,9 +130,7 @@ namespace MyGUI
 				m_margin = margin;
 
 				return;
-
 			}
-
 		}
 		
 		if ((m_margin) || (margin)) { // мы обрезаны или были обрезаны

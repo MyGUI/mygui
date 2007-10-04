@@ -11,8 +11,9 @@
 namespace MyGUI
 {
 
+	#define DEFAULT_INITIAL_CHARS 12
+
 	#define POS_TEX_BINDING 0
-    #define COLOUR_BINDING 1
 	#define UNICODE_NEL 0x0085
 	#define UNICODE_CR 0x000D
 	#define UNICODE_LF 0x000A
@@ -28,6 +29,7 @@ namespace MyGUI
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 		float m_textHeight; // высота всех строк в тексте
 		char m_align;
+		unsigned int mColor; // цвет текста
 
 	public:
 		TextSimpleOverlayElement(const String& name) :
@@ -37,7 +39,8 @@ namespace MyGUI
 			m_top_margin (0),
 			m_bottom_margin (0),
 			m_textHeight(0),
-			m_align(ALIGN_CENTER)
+			m_align(ALIGN_CENTER),
+			mColor(0xFFFFFFFF)
 		  {}
 
 		// необходимо обновить все что связанно с стекстом
@@ -81,6 +84,11 @@ namespace MyGUI
 		{
 
 			if (mpFont.isNull()) return;
+
+			// массив для быстрой конвертации цветов
+			static const char convert_color[128] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+			unsigned int color = mColor;
 
 			size_t charlen = mCaption.size();
 			checkMemoryAllocation( charlen );
@@ -167,6 +175,12 @@ namespace MyGUI
 						Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(j);
 						if (character == UNICODE_CR || character == UNICODE_NEL || character == UNICODE_LF) break;
 						else if (character == UNICODE_SPACE) len += mSpaceWidth;
+						else if (character == '#') { // это цвет -> шарп + 6 символов
+							for (char ii=0; ii<6; ii++) {
+								++ j;
+								if (j == iend) {--j ;break;} // это защита
+							}
+						}
 						else len += mpFont->getGlyphAspectRatio(character) * mCharHeight * 2.0 * mViewportAspectCoef;
 					}
 
@@ -216,7 +230,6 @@ namespace MyGUI
 						}
 					}
 
-
 					newLine = true;
 					// Also reduce tri count
 					mRenderOp.vertexData->vertexCount -= 6;
@@ -240,6 +253,23 @@ namespace MyGUI
 					right += mSpaceWidth;
 					// Also reduce tri count
 					mRenderOp.vertexData->vertexCount -= 6;
+					continue;
+
+				} else if (character == '#') { // меняем цвет
+					// уменьшаем на 6 вершин
+					mRenderOp.vertexData->vertexCount -= 6;
+					color >>= 24;
+					//unsigned int tmp_color = 0;
+					// шесть символов после шарпа
+					for (char ii=0; ii<6; ii++) {
+						++ i;
+						if (i == iend) {--i ;continue;} // это защита
+						color <<= 4;
+						color += convert_color[OGRE_DEREF_DISPLAYSTRING_ITERATOR(i) & 0x7F];
+						// уменьшаем на 6 вершин
+						mRenderOp.vertexData->vertexCount -= 6;
+					}
+					//color = tmp_color | (color & 0xFF000000);
 					continue;
 				}
 
@@ -320,6 +350,8 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_left;
 				*pVert++ = texture_top;
+				*pVert++ = *((float*)(&color));
+
 
 				// Bottom left
 				*pVert++ = vertex_left;
@@ -327,6 +359,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_left;
 				*pVert++ = texture_bottom;
+				*pVert++ = *((float*)(&color));
 
 				// Top right
 				*pVert++ = vertex_right;
@@ -334,6 +367,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_right;
 				*pVert++ = texture_top;
+				*pVert++ = *((float*)(&color));
 				//-------------------------------------------------------------------------------------
 
 				//-------------------------------------------------------------------------------------
@@ -345,6 +379,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_right;
 				*pVert++ = texture_top;
+				*pVert++ = *((float*)(&color));
 
 				// Bottom left (again)
 				*pVert++ = vertex_left;
@@ -352,6 +387,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_left;
 				*pVert++ = texture_bottom;
+				*pVert++ = *((float*)(&color));
 
 				// Bottom right
 				*pVert++ = vertex_right;
@@ -359,6 +395,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_right;
 				*pVert++ = texture_bottom;
+				*pVert++ = *((float*)(&color));
 				//-------------------------------------------------------------------------------------
 
 			}
@@ -367,20 +404,113 @@ namespace MyGUI
 
 		}
 
-		// перекрываем и подсовываем наш шрифт
-        void setFontName( const String& font )
+		void initialise(void)
 		{
-			mpFont = FontManager::getSingleton().getByName( font );
-			if (mpFont.isNull()) OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, "Could not find font " + font, "TextAreaOverlayElement::setFontName" );
-			mpFont->load();
-			mpMaterial = mpFont->getMaterial();
-			mpMaterial->setDepthCheckEnabled(false);
-			mpMaterial->setLightingEnabled(false);
-			
-			mGeomPositionsOutOfDate = true;
-			mGeomUVsOutOfDate = true;
+			if (!mInitialised)
+			{
+				// Set up the render op
+				// Combine positions and texture coords since they tend to change together
+				// since character sizes are different
+				mRenderOp.vertexData = new VertexData();
+				VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
+				size_t offset = 0;
+				// Positions
+				decl->addElement(POS_TEX_BINDING, offset, VET_FLOAT3, VES_POSITION);
+				offset += VertexElement::getTypeSize(VET_FLOAT3);
+				// Texcoords
+				decl->addElement(POS_TEX_BINDING, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0);
+				offset += VertexElement::getTypeSize(VET_FLOAT2);
+				// Colours - store these in a separate buffer because they change less often
+				decl->addElement(POS_TEX_BINDING, offset, VET_COLOUR, VES_DIFFUSE);
+
+				mRenderOp.operationType = RenderOperation::OT_TRIANGLE_LIST;
+				mRenderOp.useIndexes = false;
+				mRenderOp.vertexData->vertexStart = 0;
+				// Vertex buffer will be created in checkMemoryAllocation
+
+				checkMemoryAllocation( DEFAULT_INITIAL_CHARS );
+
+				mInitialised = true;
+			}
+
 		}
 
+		void checkMemoryAllocation( size_t numChars )
+		{
+			if( mAllocSize < numChars)
+			{
+				// Create and bind new buffers
+				// Note that old buffers will be deleted automatically through reference counting
+	            
+				// 6 verts per char since we're doing tri lists without indexes
+				// Allocate space for positions & texture coords
+				VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
+				VertexBufferBinding* bind = mRenderOp.vertexData->vertexBufferBinding;
+
+				mRenderOp.vertexData->vertexCount = numChars * 6;
+
+				// Create dynamic since text tends to change alot
+				// positions & texcoords
+				HardwareVertexBufferSharedPtr vbuf = 
+					HardwareBufferManager::getSingleton().
+						createVertexBuffer(
+							decl->getVertexSize(POS_TEX_BINDING), 
+							mRenderOp.vertexData->vertexCount,
+							HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
+				bind->setBinding(POS_TEX_BINDING, vbuf);
+
+				// colours
+				/*vbuf = HardwareBufferManager::getSingleton().
+						createVertexBuffer(
+							decl->getVertexSize(COLOUR_BINDING), 
+							mRenderOp.vertexData->vertexCount,
+							HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
+				bind->setBinding(COLOUR_BINDING, vbuf);*/
+
+				mAllocSize = numChars;
+				//mColoursChanged = true; // force colour buffer regeneration
+			}
+
+		}
+
+		void updateColours(void)
+		{
+			// Convert to system-specific
+			/*RGBA topColour, bottomColour;
+			Root::getSingleton().convertColourValue(mColourTop, &topColour);
+			Root::getSingleton().convertColourValue(mColourBottom, &bottomColour);
+
+			HardwareVertexBufferSharedPtr vbuf = 
+				mRenderOp.vertexData->vertexBufferBinding->getBuffer(COLOUR_BINDING);
+
+			RGBA* pDest = static_cast<RGBA*>(vbuf->lock(HardwareBuffer::HBL_DISCARD) );
+
+			for (size_t i = 0; i < mAllocSize; ++i)
+			{
+				// First tri (top, bottom, top)
+				*pDest++ = topColour;
+				*pDest++ = bottomColour;
+				*pDest++ = topColour;
+				// Second tri (top, bottom, bottom)
+				*pDest++ = topColour;
+				*pDest++ = bottomColour;
+				*pDest++ = bottomColour;
+			}
+			vbuf->unlock();*/
+
+		}
+
+		void setColour(const ColourValue& col)
+		{
+			mColor = 254.5 * col.a;
+			mColor <<= 8;
+			mColor += 255.0 * col.r;
+			mColor <<= 8;
+			mColor += 255.0 * col.g;
+			mColor <<= 8;
+			mColor += 255.0 * col.b;
+			mGeomPositionsOutOfDate = true;
+		}
 
 	}; // class TextSimpleOverlayElement : public TextAreaOverlayElement
 

@@ -44,7 +44,14 @@ void OptionsState::enter(bool bIsChangeState)
 	window->setCaption("List demo");
 	window->setMinMax(MyGUI::IntRect(230, 100, 1000, 1000));
 
-	test = window->createWidget("List", "List", 6, 33, 180, 161, MyGUI::ALIGN_STRETCH);
+	MyGUI::ListPtr list = static_cast<MyGUI::ListPtr>(window->createWidget("List", "List", 6, 33, 180, 161, MyGUI::ALIGN_STRETCH));
+	list->addItemString("it is a #00ff00green #000000word");
+	list->addItemString("it is a #ff0000red #000000word");
+	list->addItemString("it is a #0000ffblue #000000word");
+	list->addItemString("it is a #ffffffwhite #000000word");
+	list->addItemString("it is a #00ff00m#ff0000a#0000ffd #000000word");
+	list->addItemString("it is a #ffff00yellow #000000word");
+	list->addItemString("it is a #AAAAAAgray #000000word");
 
 	button = static_cast<MyGUI::ButtonPtr>(window->createWidget("Button", "ButtonSmall", 190, 33, 40, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP));
 	button->setCaption("<<");
@@ -53,7 +60,7 @@ void OptionsState::enter(bool bIsChangeState)
 	button->setCaption(">>");
 //	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);
 
-	test = window->createWidget("List", "List", 234, 33, 160, 161, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_VSTRETCH);
+	list = static_cast<MyGUI::ListPtr>(window->createWidget("List", "List", 234, 33, 160, 161, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_VSTRETCH));
 
 }
 //===================================================================================

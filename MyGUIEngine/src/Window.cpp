@@ -9,7 +9,7 @@ namespace MyGUI
 	// парсер команд
 	namespace parser { WindowParser WindowParserInstance; }
 
-	const float WINDOW_ALPHA_ACTIVE = 1.0;
+	const float WINDOW_ALPHA_ACTIVE = 0.99999999;
 	const float WINDOW_ALPHA_FOCUS = 0.7;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3;
 
