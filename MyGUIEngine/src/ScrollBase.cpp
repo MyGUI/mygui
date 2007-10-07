@@ -14,56 +14,41 @@ namespace MyGUI
 	{
 
 		// запомием размер скина
-		IntSize skinSize = _info->getSize();
+		IntSize size = _info->getSize();
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
 
-		std::string skin;
-		FloatRect offset;
-		char align=0;
-
+		// парсим свойства
 		const SkinParam & param = _info->getParams();
-		SkinParam::const_iterator iter = param.find("SkinStart");
-		if (iter != param.end()) skin = iter->second;
-		iter = param.find("OffsetStart");
-		if (iter != param.end()) offset = util::parseFloatRect(iter->second);
-		iter = param.find("AlignStart");
-		if (iter != param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
 
-		offset = WidgetManager::convertOffset(offset, align, skinSize, m_cx, m_cy);
-		mWidgetStart = createWidget("Button", skin, offset.left, offset.top, offset.right, offset.bottom, align);
+		// парсим начальную кнопку
+		mWidgetStart = parseSubWidget(param, "Button", "SkinStart", "OffsetStart", "AlignStart", size);
+		ASSERT(mWidgetStart);
+		// делегаты для событий
 		mWidgetStart->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 
-		iter = param.find("SkinEnd");
-		if (iter != param.end()) skin = iter->second;
-		iter = param.find("OffsetEnd");
-		if (iter != param.end()) offset = util::parseFloatRect(iter->second);
-		iter = param.find("AlignEnd");
-		if (iter != param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
-
-		offset = WidgetManager::convertOffset(offset, align, skinSize, m_cx, m_cy);
-		mWidgetEnd = createWidget("Button", skin, offset.left, offset.top, offset.right, offset.bottom, align);
+		// парсим конечную кнопку
+		mWidgetEnd = parseSubWidget(param, "Button", "SkinEnd", "OffsetEnd", "AlignEnd", size);
+		ASSERT(mWidgetEnd);
+		// делегаты для событий
 		mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 
-		iter = param.find("SkinTrack");
-		if (iter != param.end()) skin = iter->second;
-		iter = param.find("OffsetTrack");
-		if (iter != param.end()) offset = util::parseFloatRect(iter->second);
-		iter = param.find("AlignTrack");
-		if (iter != param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
-		iter = param.find("SkinTrackRange");
-		if (iter != param.end()) {
-			IntSize size = util::parseIntSize(iter->second);
-			mSkinRangeStart = size.width;
-			mSkinRangeEnd = size.height;
-		}
-
-		offset = WidgetManager::convertOffset(offset, align, skinSize, m_cx, m_cy);
-		mWidgetTrack = createWidget("Button", skin, offset.left, offset.top, offset.right, offset.bottom, align);
+		// парсим трэк
+		mWidgetTrack = parseSubWidget(param, "Button", "SkinTrack", "OffsetTrack", "AlignTrack", size);
+		ASSERT(mWidgetTrack);
+		// делегаты для событий
 		mWidgetTrack->eventMouseMove = newDelegate(this, &ScrollBase::notifyMouseMove);
 		mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 		mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &ScrollBase::notifyMouseReleased);
 		mWidgetTrack->show(false);
+
+		SkinParam::const_iterator iter = param.find("SkinTrackRange");
+		if (iter != param.end()) {
+			IntSize range = util::parseIntSize(iter->second);
+			mSkinRangeStart = range.width;
+			mSkinRangeEnd = range.height;
+		}
+
 	}
 
 	void ScrollBase::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)

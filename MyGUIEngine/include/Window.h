@@ -15,6 +15,9 @@ namespace MyGUI
 		Window(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
+		// переопределяем для присвоению клиенту
+		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
+
 		inline const static Ogre::String & getType() {static Ogre::String type("Window"); return type;};
 
 		bool frameStarted(const Ogre::FrameEvent& evt);
@@ -52,17 +55,8 @@ namespace MyGUI
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
 
-		inline void _showWindowCaption(bool _show);
-		inline void _showWindowX(bool _show);
-		inline void _showWindowResize(bool _show);
-
 	private:
-		std::string mSkinCaption, mSkinX, mSkinResize;
-		WidgetPtr mWidgetCaption, mWidgetX, mWidgetResize;
-		FloatRect mOffsetCaption, mOffsetX, mOffsetResize;
-		char mAlignCaption, mAlignX, mAlignResize;
-
-		IntSize mSkinSize;
+		WidgetPtr mWidgetCaption, mWidgetX, mWidgetResize, mWidgetClient;
 
 		// размеры окна перед началом его изменений
 		IntRect m_preActionRect;

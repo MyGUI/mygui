@@ -29,6 +29,17 @@ namespace types
 			return *this;
 		}
 
+		inline void clear()
+		{
+			left = top = 0;
+		}
+
+		inline void set( T const & l, T const & t)
+		{
+			left = l;
+			top = t;
+		}
+
 	};
 
 } // namespace types

@@ -30,6 +30,17 @@ namespace types
 			return *this;
 		}
 
+		inline void clear()
+		{
+			width = height = 0;
+		}
+
+		inline void set( T const & w, T const & h)
+		{
+			width = w;
+			height = h;
+		}
+
 	};
 
 } // namespace types

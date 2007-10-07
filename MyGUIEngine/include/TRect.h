@@ -42,6 +42,18 @@ namespace types
 			return bottom - top;
 		}
 
+		inline void clear()
+		{
+			left = top = right = bottom = 0;
+		}
+
+		inline void set( T const & l, T const & t, T const & r, T const & b )
+		{
+			left = l;
+			top = t;
+			right = r;
+			bottom = b;
+		}
 	};
 
 } // namespace types

@@ -105,6 +105,12 @@
         </BasisSkin>
     </Skin>
 
+    <Skin Name = "DefaultClient" Size = "16 16" Material = "MyGUI_main">
+        <BasisSkin Type="MainSkin" Offset = "0 0 16 16">
+            <State Name="normal" Offset = "405 4 96 59"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin Name = "WindowCS" Size = "24 51" Material = "MyGUI_main" >
         <Property Key="SkinCaption" Value = "WindowCaption" />
         <Property Key="OffsetCaption" Value = "3 0 19 30" />
@@ -113,6 +119,10 @@
         <Property Key="SkinResize" Value = "WindowResize" />
         <Property Key="OffsetResize" Value = "12 40 12 12" />
         <Property Key="AlignResize" Value = "ALIGN_RIGHT ALIGN_BOTTOM" />
+
+        <Property Key="SkinClient" Value = "DefaultClient" />
+        <Property Key="OffsetClient" Value = "3 30 18 18" />
+        <Property Key="AlignClient" Value = "ALIGN_STRETCH" />
 
         <BasisSkin Type="SubSkin" Offset = "0 0 3 30" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "377 2 3 30"/>
@@ -137,9 +147,6 @@
         </BasisSkin>
         <BasisSkin Type="SubSkin" Offset = "0 30 3 18" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State Name="normal" Offset = "377 32 3 18"/>
-        </BasisSkin>
-        <BasisSkin Type="SubSkin" Offset = "3 30 18 18" Align = "ALIGN_STRETCH">
-            <State Name="normal" Offset = "405 4 96 59"/>
         </BasisSkin>
     </Skin>
     
@@ -203,7 +210,7 @@
         </BasisSkin>
         <BasisSkin Type="TextSimple" Offset = "5 0 37 30" Align = "ALIGN_STRETCH">
             <State Name="normal" Color="0 0 0"/>
-            <State Name="active" Color="1 1 1"/>
+            <State Name="active" Color="0 0 0"/>
         </BasisSkin>
     </Skin>
 
@@ -343,20 +350,16 @@
         </BasisSkin>
     </Skin>
 
-    <Skin Name = "ListClient" Size = "16 16" Material = "MyGUI_main">
-        <BasisSkin Type="MainSkin" Offset = "0 0 16 16">
-            <State Name="normal" Offset = "405 4 96 59"/>
-        </BasisSkin>
-    </Skin>
-
     <Skin Name = "List" Size = "9 9" Material = "MyGUI_main" Align = "ALIGN_LEFT ALIGN_TOP">
         <Property Key="NeedKey" Value = "true" />
 
         <Property Key="SkinScroll" Value = "VScroll" />
         <Property Key="OffsetScroll" Value = "-10 3 16 3" />
+        <Property Key="AlignScroll" Value = "ALIGN_RIGHT ALIGN_VSTRETCH" />
 
-        <Property Key="SkinClient" Value = "ListClient" />
+        <Property Key="SkinClient" Value = "DefaultClient" />
         <Property Key="OffsetClient" Value = "3 3 -13 3" />
+        <Property Key="AlignClient" Value = "ALIGN_STRETCH" />
 
         <Property Key="SkinLine" Value = "ListLine" />
         <Property Key="HeightLine" Value = "20" />

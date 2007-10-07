@@ -20,41 +20,33 @@ namespace MyGUI
 		mIsFocus(false),
 		mOldCx(0), mOldCy(0)
 	{
-		std::string skinScroll, skinClient;
-		FloatRect offsetScroll;
-		FloatRect offsetClient;
+		// запоминаем размер скина
+		IntSize size = _info->getSize();
 
 		// парсим свойства
 		const SkinParam & param = _info->getParams();
-		if (!param.empty()) {
-			SkinParam::const_iterator iter = param.find("SkinScroll");
-			if (iter != param.end()) skinScroll = iter->second;
-			iter = param.find("OffsetScroll");
-			if (iter != param.end()) offsetScroll = util::parseFloatRect(iter->second);
-			iter = param.find("SkinClient");
-			if (iter != param.end()) skinClient = iter->second;
-			iter = param.find("OffsetClient");
-			if (iter != param.end()) offsetClient = util::parseFloatRect(iter->second);
-			iter = param.find("SkinLine");
-			if (iter != param.end()) mSkinLine = iter->second;
-			iter = param.find("HeightLine");
-			if (iter != param.end()) mHeightLine = util::parseInt(iter->second);
-		}
 
-		ASSERT(skinScroll.size());
-		ASSERT(skinClient.size());
-		ASSERT(mSkinLine.size());
-		ASSERT(mHeightLine);
-
-		offsetScroll = WidgetManager::convertOffset(offsetScroll, ALIGN_RIGHT | ALIGN_VSTRETCH, _info->getSize(), m_cx, m_cy);
-		mWidgetScroll = static_cast<VScrollPtr>(createWidget("VScroll", skinScroll, offsetScroll.left, offsetScroll.top, offsetScroll.right, offsetScroll.bottom, ALIGN_RIGHT | ALIGN_VSTRETCH));
+		// парсим скролл
+		mWidgetScroll = static_cast<VScrollPtr>(parseSubWidget(param, "VScroll", "SkinScroll", "OffsetScroll", "AlignScroll", size));
+		ASSERT(mWidgetScroll);
+		// делегаты для событий
 		mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
 		mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 
-		offsetClient = WidgetManager::convertOffset(offsetClient, ALIGN_STRETCH, _info->getSize(), m_cx, m_cy);
-		mWidgetClient = createWidget("Widget", skinClient, offsetClient.left, offsetClient.top, offsetClient.right, offsetClient.bottom, ALIGN_STRETCH);
-		// подписываемся на мышу
+		// парсим клиент
+		mWidgetClient = parseSubWidget(param, "Widget", "SkinClient", "OffsetClient", "AlignClient", size);
+		ASSERT(mWidgetClient);
+		// делегаты для событий
 		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
+
+		SkinParam::const_iterator iter = param.find("SkinLine");
+		if (iter != param.end()) mSkinLine = iter->second;
+		iter = param.find("HeightLine");
+		if (iter != param.end()) mHeightLine = util::parseInt(iter->second);
+		else mHeightLine = 1;
+
+		ASSERT(mHeightLine > 0);
+		ASSERT(mSkinLine.size());
 
 		mWidgetScroll->setScrollPage((size_t)mHeightLine);
 

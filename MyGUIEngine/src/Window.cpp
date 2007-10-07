@@ -9,26 +9,23 @@ namespace MyGUI
 	// парсер команд
 	namespace parser { WindowParser WindowParserInstance; }
 
-	const float WINDOW_ALPHA_ACTIVE = 0.99999999;
+	const float WINDOW_ALPHA_ACTIVE = 1.0;
 	const float WINDOW_ALPHA_FOCUS = 0.7;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3;
 
 	Window::Window(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
-		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null),
-		mAlignCaption(ALIGN_NONE), mAlignX(ALIGN_NONE), mAlignResize(ALIGN_NONE),
+		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null), mWidgetClient(null),
 		m_bIsListenerAlpha(false),
 		m_isDestroy(false),
 		m_mouseRootFocus(false), m_keyRootFocus(false),
 		m_bIsAutoAlpha(true)
 	{
-		m_minmax.left = 50;
-		m_minmax.top = 50;
-		m_minmax.right = 2050;
-		m_minmax.bottom = 2050;
+		// дефолтные размеры
+		m_minmax.set(50, 50, 2050, 2050);
 
-		// запомием размер скина
-		mSkinSize = _info->getSize();
+		// запоминаем размер скина
+		IntSize size = _info->getSize();
 
 		// альфа в первоначальное положение
 		setAlpha(0.0f);
@@ -36,69 +33,40 @@ namespace MyGUI
 
 		// парсим свойства
 		const SkinParam & param = _info->getParams();
-		if (!param.empty()) {
-			SkinParam::const_iterator iter = param.find("SkinCaption");
-			if (iter != param.end()) mSkinCaption = iter->second;
-			iter = param.find("SkinX");
-			if (iter != param.end()) mSkinX = iter->second;
-			iter = param.find("SkinResize");
-			if (iter != param.end()) mSkinResize = iter->second;
-			iter = param.find("OffsetCaption");
-			if (iter != param.end()) mOffsetCaption = util::parseFloatRect(iter->second);
-			iter = param.find("OffsetX");
-			if (iter != param.end()) mOffsetX = util::parseFloatRect(iter->second);
-			iter = param.find("OffsetResize");
-			if (iter != param.end()) mOffsetResize = util::parseFloatRect(iter->second);
-			iter = param.find("AlignCaption");
-			if (iter != param.end()) mAlignCaption = SkinManager::getInstance().parseAlign(iter->second);
-			iter = param.find("AlignX");
-			if (iter != param.end()) mAlignX = SkinManager::getInstance().parseAlign(iter->second);
-			iter = param.find("AlignResize");
-			if (iter != param.end()) mAlignResize = SkinManager::getInstance().parseAlign(iter->second);
-		}
 
-		_showWindowCaption(true);
-		_showWindowX(true);
-		_showWindowResize(true);
-
-	}
-
-	void Window::_showWindowCaption(bool _show)
-	{
-		if ( (_show == (mWidgetCaption != null)) || (mSkinCaption.empty()) ) return;
-		if (mWidgetCaption != null) WidgetManager::getInstance().destroyWidget(mWidgetCaption);
-		else {
-			FloatRect offset = WidgetManager::convertOffset(mOffsetCaption, mAlignCaption, mSkinSize, m_cx, m_cy);
-			mWidgetCaption = createWidget("Button", mSkinCaption, offset.left, offset.top, offset.right, offset.bottom, mAlignCaption);
+		// парсим заголовок
+		mWidgetCaption = parseSubWidget(param, "Button", "SkinCaption", "OffsetCaption", "AlignCaption", size);
+		if (mWidgetCaption != null) {
 			// делегаты для событий
 			mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 			mWidgetCaption->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedCaption);
 		}
-	}
 
-	void Window::_showWindowX(bool _show)
-	{
-		if ( (_show == (mWidgetX != null)) || (mSkinX.empty()) ) return;
-		if (mWidgetX != null) WidgetManager::getInstance().destroyWidget(mWidgetX);
-		else {
-			FloatRect offset = WidgetManager::convertOffset(mOffsetX, mAlignX, mSkinSize, m_cx, m_cy);
-			mWidgetX = createWidget("Button", mSkinX, offset.left, offset.top, offset.right, offset.bottom, mAlignX);
+		// парсим крестик
+		mWidgetX = parseSubWidget(param, "Button", "SkinX", "OffsetX", "AlignX", size);
+		if (mWidgetX != null) {
 			// делегаты для событий
 			mWidgetX->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressedX);
 		}
-	}
 
-	void Window::_showWindowResize(bool _show)
-	{
-		if ( (_show == (mWidgetResize != null)) || (mSkinResize.empty()) ) return;
-		if (mWidgetResize != null) WidgetManager::getInstance().destroyWidget(mWidgetResize);
-		else {
-			FloatRect offset = WidgetManager::convertOffset(mOffsetResize, mAlignResize, mSkinSize, m_cx, m_cy);
-			mWidgetResize = createWidget("Button", mSkinResize, offset.left, offset.top, offset.right, offset.bottom, mAlignResize);
+		// парсим ресайзер
+		mWidgetResize = parseSubWidget(param, "Button", "SkinResize", "OffsetResize", "AlignResize", size);
+		if (mWidgetResize != null) {
 			// делегаты для событий
 			mWidgetResize->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 			mWidgetResize->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedResize);
 		}
+
+		// парсим клиент в последнюю очередь
+		mWidgetClient = parseSubWidget(param, "Widget", "SkinClient", "OffsetClient", "AlignClient", size);
+
+	}
+
+	// переопределяем для присвоению клиенту
+	WidgetPtr Window::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
+	{
+		if (mWidgetClient != null) return mWidgetClient->createWidget(_type, _skin, _x, _y, _cx, _cy, _align, _name);
+		return Widget::createWidget(_type, _skin, _x, _y, _cx, _cy, _align, _name);
 	}
 
 	void Window::_onMouseChangeRootFocus(bool _focus)
@@ -118,10 +86,7 @@ namespace MyGUI
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
 		if (!_left) return;
-		m_preActionRect.left = m_x;
-		m_preActionRect.top = m_y;
-		m_preActionRect.right = m_cx;
-		m_preActionRect.bottom = m_cy;
+		m_preActionRect.set(m_x, m_y, m_cx, m_cy);
 	}
 
 	void Window::notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _left)

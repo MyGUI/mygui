@@ -30,8 +30,8 @@ namespace MyGUI
 
 	public:
 		// создаем дочку
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
-		WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name = "");
+		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name = "");
 
 		void move(int _x, int _y);
 		virtual void move(int _x, int _y, int _cx, int _cy);
@@ -86,6 +86,9 @@ namespace MyGUI
 
 		// наследуетс€ и переопредел€етс€ дл€ избежани€ динамического преобразовани€
 		bool isWidget() {return true;}
+
+		// вспомогательный метод дл€ распарсивани€ сабвиджетофф
+		WidgetPtr parseSubWidget(const SkinParam & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size);
 
 	public:
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуетьс€ от LayerItemInfo)

@@ -72,7 +72,6 @@ namespace MyGUI
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
-
 		return widget;
 	}
 
@@ -451,6 +450,32 @@ namespace MyGUI
 				element->setOverlay(0);
 			}
 		}
+	}
+
+	// вспомогательный метод для распарсивания сабвиджетофф
+	WidgetPtr Widget::parseSubWidget(const SkinParam & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size)
+	{
+		// парсим заголовок
+		SkinParam::const_iterator iter = _param.find(_skin);
+		if ( (iter != _param.end()) && (! iter->second.empty()) ) {
+			// сохраняем скин
+			std::string skin = iter->second;
+			FloatRect offset;
+			char align;
+			// смещение в скине
+			iter = _param.find(_offset);
+			if (iter != _param.end()) offset = util::parseFloatRect(iter->second);
+			else offset.clear();
+			// выравнивание скина
+			iter = _param.find(_align);
+			if (iter != _param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
+			else align = ALIGN_NONE;
+
+			offset = WidgetManager::convertOffset(offset, align, _size, m_cx, m_cy);
+			return createWidget(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align);
+			
+		}
+		return null;
 	}
 
 } // namespace MyGUI
