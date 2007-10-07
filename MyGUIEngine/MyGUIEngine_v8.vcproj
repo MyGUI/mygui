@@ -325,6 +325,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\ListParser.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\ScrollBase.h"
 				>
 			</File>

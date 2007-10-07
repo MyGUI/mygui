@@ -29,7 +29,9 @@ namespace MyGUI
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 		float m_textHeight; // высота всех строк в тексте
 		char m_align;
-		unsigned int mColor; // цвет текста
+		bool mRenderGL;// для конвертирования цвета вершин
+		Ogre::RGBA mDefaultColor; // цвет текста
+
 
 	public:
 		TextSimpleOverlayElement(const String& name) :
@@ -40,8 +42,11 @@ namespace MyGUI
 			m_bottom_margin (0),
 			m_textHeight(0),
 			m_align(ALIGN_CENTER),
-			mColor(0xFFFFFFFF)
-		  {}
+			mDefaultColor(0xFFFFFFFF)
+		{
+			// для конвертирования цвета вершин
+			mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
+		}
 
 		// необходимо обновить все что связанно с стекстом
 		inline void setAlignment(char _align)	
@@ -88,7 +93,7 @@ namespace MyGUI
 			// массив для быстрой конвертации цветов
 			static const char convert_color[128] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-			unsigned int color = mColor;
+			Ogre::RGBA color = mDefaultColor;
 
 			size_t charlen = mCaption.size();
 			checkMemoryAllocation( charlen );
@@ -269,7 +274,10 @@ namespace MyGUI
 						// уменьшаем на 6 вершин
 						mRenderOp.vertexData->vertexCount -= 6;
 					}
-					//color = tmp_color | (color & 0xFF000000);
+
+					// если нужно, то меняем красный и синий компоненты
+					if (mRenderGL) color = ((color&0x00FF0000)>>16)|((color&0x000000FF)<<16)|(color&0xFF00FF00);
+					// следующий символ
 					continue;
 				}
 
@@ -350,7 +358,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_left;
 				*pVert++ = texture_top;
-				*pVert++ = *((float*)(&color));
+				*((RGBA *)(pVert++)) = color;
 
 
 				// Bottom left
@@ -359,7 +367,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_left;
 				*pVert++ = texture_bottom;
-				*pVert++ = *((float*)(&color));
+				*((RGBA *)(pVert++)) = color;
 
 				// Top right
 				*pVert++ = vertex_right;
@@ -367,7 +375,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_right;
 				*pVert++ = texture_top;
-				*pVert++ = *((float*)(&color));
+				*((RGBA *)(pVert++)) = color;
 				//-------------------------------------------------------------------------------------
 
 				//-------------------------------------------------------------------------------------
@@ -379,7 +387,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_right;
 				*pVert++ = texture_top;
-				*pVert++ = *((float*)(&color));
+				*((RGBA *)(pVert++)) = color;
 
 				// Bottom left (again)
 				*pVert++ = vertex_left;
@@ -387,7 +395,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_left;
 				*pVert++ = texture_bottom;
-				*pVert++ = *((float*)(&color));
+				*((RGBA *)(pVert++)) = color;
 
 				// Bottom right
 				*pVert++ = vertex_right;
@@ -395,7 +403,7 @@ namespace MyGUI
 				*pVert++ = -1.0;
 				*pVert++ = texture_right;
 				*pVert++ = texture_bottom;
-				*pVert++ = *((float*)(&color));
+				*((RGBA *)(pVert++)) = color;
 				//-------------------------------------------------------------------------------------
 
 			}
@@ -500,15 +508,9 @@ namespace MyGUI
 
 		}
 
-		void setColour(const ColourValue& col)
+		void setColour(const ColourValue & _color)
 		{
-			mColor = 254.5 * col.a;
-			mColor <<= 8;
-			mColor += 255.0 * col.r;
-			mColor <<= 8;
-			mColor += 255.0 * col.g;
-			mColor <<= 8;
-			mColor += 255.0 * col.b;
+			Ogre::Root::getSingleton().convertColourValue(_color, &mDefaultColor);
 			mGeomPositionsOutOfDate = true;
 		}
 

@@ -93,6 +93,7 @@ namespace MyGUI
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;
+		int mOldCx, mOldCy;
 
 	}; // class List : public Widget
 

@@ -120,9 +120,9 @@ namespace MyGUI
 
 		// двигаем всегда, т.к. дети должны двигаться
 		int x = m_x + m_parent->left() - (m_parent->getParent() ? m_parent->getParent()->margin_left() : 0) + m_left_margin;
-		if (x < 0) x = 0;
+//		if (x < 0) x = 0;
 		int y = m_y + m_parent->top() - (m_parent->getParent() ? m_parent->getParent()->margin_top() : 0) + m_top_margin;
-		if (y < 0) y = 0;
+//		if (y < 0) y = 0;
 
 		m_overlayContainer->setPosition(x, y);
 
