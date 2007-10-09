@@ -50,6 +50,27 @@ void OptionsState::enter(bool bIsChangeState)
 	list1 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list1"));
 	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));
 
+	MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+
+	Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
+	if (!mpFont.isNull()) {
+		const Ogre::MaterialPtr & material = mpFont->getMaterial();
+//		material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setAlphaOperation(LBX_BLEND_CURRENT_ALPHA);
+		material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setAlphaOperation(
+			LBX_BLEND_TEXTURE_ALPHA, LBS_CURRENT, LBS_SPECULAR);
+//		material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setAlphaOperation(LBX_DOTPRODUCT, LBS_TEXTURE, LBS_SPECULAR);
+	}
+
+/*	Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
+	Ogre::Overlay * overlay = manager.create("test1");
+	overlay->setZOrder(100);
+	overlay->show();
+	Ogre::OverlayElement * element = manager.createOverlayElement("Panel", "test2");
+	element->setMaterialName("test");
+	element->setPosition(0.1, 0.1);
+	element->setDimensions(0.5, 0.5);
+	overlay->add2D((Ogre::OverlayContainer*)element);*/
+
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )

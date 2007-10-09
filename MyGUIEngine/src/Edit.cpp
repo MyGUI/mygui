@@ -16,11 +16,11 @@ namespace MyGUI
 	{
 
 		// парсим свойства
-		const SkinParam & param = _info->getParams();
-		if (!param.empty()) {
+//		const SkinParam & param = _info->getParams();
+//		if (!param.empty()) {
 //			SkinParam::const_iterator iter = param.find("ButtonPressed");
 //			if (iter != param.end()) setButtonPressed(iter->second == "true");
-		}
+//		}
 	}
 
 	void Edit::_onMouseSetFocus(WidgetPtr _old)

@@ -38,7 +38,7 @@
     
     <Skin Name = "Edit" Size = "40 26" Material = "MyGUI_main" >
         <Property Key="FontName" Value = "MyGUI_font" />
-        <Property Key="FontHeight" Value = "16" />
+        <Property Key="FontHeight" Value = "18" />
         <Property Key="NeedKey" Value = "true" />
         <Property Key="AlignText" Value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <BasisSkin Type="SubSkin" Offset = "0 0 10 26" Align = "ALIGN_LEFT ALIGN_VSTRETCH">

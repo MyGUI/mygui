@@ -22,7 +22,8 @@
 
     <Widget Type="List" Skin="List" Position="3 3 180 161" Align="ALIGN_STRETCH" Name="list1" >
       <Property Key="ListAddString" Value="What Is OGRE?" />
-      <Property Key="ListAddString" Value="OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented," />
+      <Property Key="ListAddString" Value="OGRE(Object-OrientedGraphicsRenderingEngine)isascene-oriented," />
+      <Property2 Key="ListAddString" Value="OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented," />
       <Property Key="ListAddString" Value="flexible 3D engine written in C++ designed to make it easier and more" />
       <Property Key="ListAddString" Value="intuitive for developers to produce applications utilising hardware-accelerated 3D graphics." />
       <Property Key="ListAddString" Value="The class library abstracts all the details of using the underlying system libraries like Direct3D and OpenGL" />
@@ -51,7 +52,7 @@
     </Widget>
 
     <Widget Type="List" Skin="List" Position="231 3 160 161" Align="ALIGN_RIGHT ALIGN_VSTRETCH" Name="list2" >
-      <Property Key="ListAddString" Value="it is a #00ff00green #000000word" />
+      <Property Key="ListAddString" Value="it is a ###00ff00green #000000word" />
       <Property Key="ListAddString" Value="it is a #ff0000red #000000word" />
       <Property Key="ListAddString" Value="it is a #0000ffblue #000000word" />
       <Property Key="ListAddString" Value="it is a #ffffffwhite #000000word" />
