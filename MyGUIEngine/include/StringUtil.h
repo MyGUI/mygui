@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "windows.h"
 
 namespace util
 {
@@ -147,6 +148,23 @@ namespace util
 
 	// метод разделения строк
 	inline const std::vector<std::string> & split(const std::string& _value, const std::string & _delims = "\t\n ") {return templates::template_split<void>(_value, _delims);}
+
+	/*template< class T1 >
+	const std::string utf8(const std::string & _source)
+	{
+		const char* srcPtr = _source.c_str(); 
+		int tmpSize = MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, 0, 0 ); 
+		WCHAR* tmpBuff = new WCHAR [ tmpSize + 1 ]; 
+		MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, tmpBuff, tmpSize ); 
+		int dstSize = WideCharToMultiByte( CP_UTF8, 0, tmpBuff, tmpSize, 0, 0, 0, 0 ); 
+		char * dest = new char [ dstSize + 1 ];
+		WideCharToMultiByte( CP_UTF8, 0, tmpBuff, tmpSize, dest, dstSize, 0, 0 ); 
+		delete[] tmpBuff; 
+		dest[dstSize] = 0;
+		std::string str = dest;
+		delete [] dest;
+		return str;
+	}*/
 
 } // namespace util
 

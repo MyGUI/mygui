@@ -196,4 +196,9 @@ namespace MyGUI
 
 	}
 
+	void TextSimple::setTextSelect(size_t _start, size_t _end)
+	{
+		m_overlayContainer->setSelect(_start, _end);
+	}
+
 } // namespace MyGUI

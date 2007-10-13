@@ -13,13 +13,16 @@ namespace MyGUI
 	const float WINDOW_ALPHA_FOCUS = 0.7;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3;
 
+	const int WINDOW_TO_STICK = 10;
+
 	Window::Window(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null), mWidgetClient(null),
 		m_bIsListenerAlpha(false),
 		m_isDestroy(false),
 		m_mouseRootFocus(false), m_keyRootFocus(false),
-		m_bIsAutoAlpha(true)
+		m_bIsAutoAlpha(true),
+		mIsToStick(false)
 	{
 		// дефолтные размеры
 		m_minmax.set(50, 50, 2050, 2050);
@@ -33,6 +36,8 @@ namespace MyGUI
 
 		// парсим свойства
 		const SkinParam & param = _info->getParams();
+		SkinParam::const_iterator iter = param.find("WindowToStick");
+		if (iter != param.end()) mIsToStick = util::parseBool(iter->second);
 
 		// парсим заголовок
 		mWidgetCaption = parseSubWidget(param, "Button", "SkinCaption", "OffsetCaption", "AlignCaption", size);
@@ -214,13 +219,50 @@ namespace MyGUI
 		else setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 	}
 
+	void Window::move(int _x, int _y)
+	{
+		// прилепл€ем к кра€м
+		if (mIsToStick) {
+			if (_x > 0) {if ( (_x - WINDOW_TO_STICK) <= 0) _x = 0;}
+			else {if ( (_x + WINDOW_TO_STICK) >= 0) _x = 0;}
+			if (_y > 0) {if ( (_y - WINDOW_TO_STICK) <= 0) _y = 0;}
+			else {	if ( (_y + WINDOW_TO_STICK) >= 0) _y = 0;}
+
+			int width = Gui::getInstance().getWidth();
+			int height = Gui::getInstance().getHeight();
+
+			if ( (_x + m_cx) < width) {if ( (_x + m_cx + WINDOW_TO_STICK) > width ) _x = width - m_cx;	}
+			else {	if ( (_x + m_cx - WINDOW_TO_STICK) < width ) _x = width - m_cx;}
+			if ( (_y + m_cy) < height) {if ( (_y + m_cy + WINDOW_TO_STICK) > height ) _y = height - m_cy;}
+			else {	if ( (_y + m_cy - WINDOW_TO_STICK) < height ) _y = height - m_cy;}
+		}
+		Widget::move(_x, _y);
+	}
+
+	void Window::move(int _x, int _y, int _cx, int _cy)
+	{
+		Widget::move(_x, _y, _cx, _cy);
+	}
+
 	void Window::size(int _cx, int _cy)
 	{
+		// прилепл€ем к кра€м
+		if (mIsToStick) {
+			int width = Gui::getInstance().getWidth();
+			int height = Gui::getInstance().getHeight();
+
+			if ( (m_x + _cx) < width) {if ( (m_x + _cx + WINDOW_TO_STICK) > width ) _cx = width - m_x;	}
+			else {	if ( (m_x + _cx - WINDOW_TO_STICK) < width ) _cx = width - m_x;}
+			if ( (m_y + _cy) < height) {if ( (m_y + _cy + WINDOW_TO_STICK) > height ) _cy = height - m_y;}
+			else {	if ( (m_y + _cy - WINDOW_TO_STICK) < height ) _cy = height - m_y;}
+		}
+
 		if (_cx < m_minmax.left) _cx = m_minmax.left;
 		else if (_cx > m_minmax.right) _cx = m_minmax.right;
 		if (_cy < m_minmax.top) _cy = m_minmax.top;
 		else if (_cy > m_minmax.bottom) _cy = m_minmax.bottom;
 		if ((_cx == m_cx) && (_cy == m_cy) ) return;
+
 		Widget::size(_cx, _cy);
 	}
 

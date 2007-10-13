@@ -27,7 +27,7 @@
             <State Name="pressed" Offset = "42 86 14 26"/>
             <State Name="select" Offset = "42 114 14 26"/>
         </BasisSkin>
-        <BasisSkin Type="TextSimple" Offset = "23 0 28 30" Align = "ALIGN_STRETCH">
+        <BasisSkin Type="TextSimple" Offset = "23 0 28 26" Align = "ALIGN_STRETCH">
             <State Name="disable" Color="0.87 0.87 0.87"/>
             <State Name="normal" Color="0 0 0"/>
             <State Name="active" Color="2C8AD5"/>
@@ -36,11 +36,18 @@
         </BasisSkin>
     </Skin>
     
+    <Skin Name = "EditCursor" Size = "2 19" Material = "MyGUI_main" >
+        <BasisSkin Type="SubSkin" Offset = "0 0 2 19" Align = "ALIGN_STRETCH">
+            <State Name="normal" Offset = "126 94 2 19"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin Name = "Edit" Size = "40 26" Material = "MyGUI_main" >
         <Property Key="FontName" Value = "MyGUI_font" />
         <Property Key="FontHeight" Value = "18" />
         <Property Key="NeedKey" Value = "true" />
         <Property Key="AlignText" Value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property Key="CursorSkin" Value = "EditCursor" />
         <BasisSkin Type="SubSkin" Offset = "0 0 10 26" Align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State Name="disable" Offset = "60 2 10 26"/>
             <State Name="normal" Offset = "60 30 10 26"/>
@@ -62,7 +69,7 @@
             <State Name="pressed" Offset = "90 86 10 26"/>
             <State Name="select" Offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin Type="TextSimple" Offset = "3 0 34 30" Align = "ALIGN_STRETCH">
+        <BasisSkin Type="TextSimple" Offset = "3 0 34 26" Align = "ALIGN_STRETCH">
             <State Name="disable" Color="0.87 0.87 0.87"/>
             <State Name="pressed" Color="0 0 0"/>
             <State Name="normal" Color="0 0 0"/>
@@ -123,6 +130,8 @@
         <Property Key="SkinClient" Value = "DefaultClient" />
         <Property Key="OffsetClient" Value = "3 30 18 18" />
         <Property Key="AlignClient" Value = "ALIGN_STRETCH" />
+
+        <Property Key="WindowToStick" Value = "true" />
 
         <BasisSkin Type="SubSkin" Offset = "0 0 3 30" Align = "ALIGN_LEFT ALIGN_TOP">
             <State Name="normal" Offset = "377 2 3 30"/>

@@ -51,6 +51,9 @@ namespace MyGUI
 		virtual Ogre::ushort getFontHeight() {return 0;}
 
 		virtual void setTextAlign(char _align) {}
+		inline char getAlign() {return m_align;}
+
+		virtual void setTextSelect(size_t _start, size_t _end) {}
 
 		virtual void update() {}
 		virtual void correct() {}

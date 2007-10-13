@@ -57,6 +57,7 @@ namespace MyGUI
 		inline size_t getSelectStart() {return mStartSelect;}
 		inline size_t getSelectEnd() {return mEndSelect;}
 
+
 		// необходимо обновить все что связанно с стекстом
 		inline void setAlignment(char _align)	
 		{
@@ -316,7 +317,7 @@ namespace MyGUI
 							++ i;
 							if (i == iend) {--i ;continue;} // это защита
 							color <<= 4;
-							color += convert_color[OGRE_DEREF_DISPLAYSTRING_ITERATOR(i) & 0x7F];
+							color += convert_color[ OGRE_DEREF_DISPLAYSTRING_ITERATOR(i) & 0x7F];
 							// уменьшаем на 6 вершин
 							mRenderOp.vertexData->vertexCount -= 6;
 						}
@@ -520,6 +521,9 @@ namespace MyGUI
 		{
 			if( mAllocSize < numChars)
 			{
+				// увеличиваем еще на немного
+				numChars += DEFAULT_INITIAL_CHARS;
+
 				// Create and bind new buffers
 				// Note that old buffers will be deleted automatically through reference counting
 	            
@@ -540,45 +544,13 @@ namespace MyGUI
 							HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
 				bind->setBinding(MAIN_BUFFER_BINDING, vbuf);
 
-				// colours
-				/*vbuf = HardwareBufferManager::getSingleton().
-						createVertexBuffer(
-							decl->getVertexSize(COLOUR_BINDING), 
-							mRenderOp.vertexData->vertexCount,
-							HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
-				bind->setBinding(COLOUR_BINDING, vbuf);*/
-
 				mAllocSize = numChars;
-				//mColoursChanged = true; // force colour buffer regeneration
 			}
 
 		}
 
 		void updateColours(void)
 		{
-			// Convert to system-specific
-			/*RGBA topColour, bottomColour;
-			Root::getSingleton().convertColourValue(mColourTop, &topColour);
-			Root::getSingleton().convertColourValue(mColourBottom, &bottomColour);
-
-			HardwareVertexBufferSharedPtr vbuf = 
-				mRenderOp.vertexData->vertexBufferBinding->getBuffer(COLOUR_BINDING);
-
-			RGBA* pDest = static_cast<RGBA*>(vbuf->lock(HardwareBuffer::HBL_DISCARD) );
-
-			for (size_t i = 0; i < mAllocSize; ++i)
-			{
-				// First tri (top, bottom, top)
-				*pDest++ = topColour;
-				*pDest++ = bottomColour;
-				*pDest++ = topColour;
-				// Second tri (top, bottom, bottom)
-				*pDest++ = topColour;
-				*pDest++ = bottomColour;
-				*pDest++ = bottomColour;
-			}
-			vbuf->unlock();*/
-
 		}
 
 		void setColour(const ColourValue & _color)

@@ -35,7 +35,12 @@ namespace MyGUI
 		void setMinMax(IntRect _minmax) {m_minmax = _minmax;}
 		IntRect getMinMax() {return m_minmax;}
 
+		virtual void move(int _x, int _y);
+		virtual void move(int _x, int _y, int _cx, int _cy);
 		virtual void size(int _cx, int _cy);
+
+		inline bool getIsToStick() {return mIsToStick;}
+		inline void setIsToStick(bool _stick) {mIsToStick = _stick;}
 
 		// нажат крестик на окне
 		EventSimple eventWindowXPressed;
@@ -77,6 +82,8 @@ namespace MyGUI
 
 		// минимальные и максимальные размеры окна
 		IntRect m_minmax;
+
+		bool mIsToStick; // прилеплять ли к краям
 
 
 	}; // class Window : public Widget

@@ -7,11 +7,13 @@
 #include "SkinManager.h"
 #include "WidgetManager.h"
 #include "LayoutManager.h"
+#include "ParserManager.h"
 #include "Window.h"
 #include "Button.h"
 #include "HScroll.h"
 #include "VScroll.h"
 #include "List.h"
+#include "StringUtil.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -37,6 +39,7 @@ void OptionsState::enter(bool bIsChangeState)
 
 	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::WidgetManager::getInstance().findWidget("windowListDemo"));
 	window->show(false);
+	//MyGUI::ParserManager::getInstance().parce(window, "Caption", util::utf8<void>("дерьмо"));
 
 	button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonLeft"));
 	button->setCaption("<<");
@@ -50,7 +53,7 @@ void OptionsState::enter(bool bIsChangeState)
 	list1 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list1"));
 	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));
 
-	MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 40, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
 	Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
 	if (!mpFont.isNull()) {

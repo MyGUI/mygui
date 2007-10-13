@@ -35,6 +35,8 @@ namespace MyGUI
 
 		void setTextAlign(char _align);
 
+		void setTextSelect(size_t _start, size_t _end);
+
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 

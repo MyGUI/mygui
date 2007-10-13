@@ -22,30 +22,16 @@ namespace MyGUI
 				// менеджер всех парсеров свойств
 				ParserManager & parser = ParserManager::getInstance();
 
-				//parser.registerDelegate("ShowWindowCaption") = newDelegate(this, &WindowParser::ShowWindowCaption);
-				//parser.registerDelegate("ShowWindowX") = newDelegate(this, &WindowParser::ShowWindowX);
-				//parser.registerDelegate("ShowWindowResize") = newDelegate(this, &WindowParser::ShowWindowResize);
 				parser.registerDelegate("WindowAutoAlpha") = newDelegate(this, &WindowParser::WindowAutoAlpha);
 				parser.registerDelegate("WindowMinMax") = newDelegate(this, &WindowParser::WindowMinMax);
+				parser.registerDelegate("WindowToStick") = newDelegate(this, &WindowParser::WindowToStick);
 			}
 
-			/*void ShowWindowCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+			void WindowToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{
 				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->showWindowCaption(util::parseBool(_value));
+				static_cast<WindowPtr>(_widget)->setIsToStick(util::parseBool(_value));
 			}
-
-			void ShowWindowX(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
-			{
-				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->showWindowX(util::parseBool(_value));
-			}
-
-			void ShowWindowResize(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
-			{
-				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->showWindowResize(util::parseBool(_value));
-			}*/
 
 			void WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 			{

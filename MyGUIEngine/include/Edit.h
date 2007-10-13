@@ -7,7 +7,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Edit : public Widget
+	class _MyGUIExport Edit : public Widget, public Ogre::FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend WidgetFactory<Edit>;
@@ -20,10 +20,15 @@ namespace MyGUI
 
 	protected:
 
+		bool frameStarted(const Ogre::FrameEvent& evt);
+		bool frameEnded(const Ogre::FrameEvent& evt);
+
+		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
+		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
+		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+
 		virtual void _onMouseLostFocus(WidgetPtr _new);
 		virtual void _onMouseSetFocus(WidgetPtr _old);
-		virtual void _onMouseButtonPressed(bool _left);
-		virtual void _onMouseButtonReleased(bool _left);
 		virtual void _onKeyLostFocus(WidgetPtr _new);
 		virtual void _onKeySetFocus(WidgetPtr _old);
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
@@ -46,6 +51,12 @@ namespace MyGUI
 		bool m_isPressed;
 		// в фокусе ли кнопка
 		bool m_isFocus;
+
+		WidgetPtr mWidgetUpper;
+		WidgetPtr mWidgetCursor;
+
+		bool mCursorActive;
+		float mTimer;
 
 	}; // class Edit : public Widget
 

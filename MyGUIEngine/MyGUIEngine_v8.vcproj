@@ -440,6 +440,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\StringConvert.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\StringUtil.h"
 					>
 				</File>
