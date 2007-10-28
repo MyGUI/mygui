@@ -22,8 +22,7 @@
 
     <Widget Type="List" Skin="List" Position="3 3 180 161" Align="ALIGN_STRETCH" Name="list1" >
       <Property Key="ListAddString" Value="What Is OGRE?" />
-      <Property Key="ListAddString" Value="OGRE(Object-OrientedGraphicsRenderingEngine)isascene-oriented," />
-      <Property2 Key="ListAddString" Value="OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented," />
+      <Property Key="ListAddString" Value="OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented," />
       <Property Key="ListAddString" Value="flexible 3D engine written in C++ designed to make it easier and more" />
       <Property Key="ListAddString" Value="intuitive for developers to produce applications utilising hardware-accelerated 3D graphics." />
       <Property Key="ListAddString" Value="The class library abstracts all the details of using the underlying system libraries like Direct3D and OpenGL" />
@@ -50,6 +49,36 @@
       <Property Key="ListAddString" Value="but it's important to realise that OGRE itself will always remain separate, flexible enough to be incorporated into any of these." />
       <Property Key="ListAddString" Value="The principle is of collaboration and integration with other libraries, rather than assimilation of them, a standard tenet of component-based design." />
     </Widget>
+
+    <Widget2 Type="List" Skin="List" Position="3 3 180 161" Align="ALIGN_STRETCH" Name="list1" >
+      <Property Key="ListAddString" Value="W" />
+      <Property Key="ListAddString" Value="O" />
+      <Property Key="ListAddString" Value="f" />
+      <Property Key="ListAddString" Value="i" />
+      <Property Key="ListAddString" Value="T" />
+      <Property Key="ListAddString" Value="a" />
+      <Property Key="ListAddString" Value="W" />
+      <Property Key="ListAddString" Value="L" />
+      <Property Key="ListAddString" Value="A" />
+      <Property Key="ListAddString" Value="I" />
+      <Property Key="ListAddString" Value="N" />
+      <Property Key="ListAddString" Value="d" />
+      <Property Key="ListAddString" Value="f" />
+      <Property Key="ListAddString" Value="A" />
+      <Property Key="ListAddString" Value="s" />
+      <Property Key="ListAddString" Value="W" />
+      <Property Key="ListAddString" Value="s" />
+      <Property Key="ListAddString" Value="S" />
+      <Property Key="ListAddString" Value="f" />
+      <Property Key="ListAddString" Value="a" />
+      <Property Key="ListAddString" Value="w" />
+      <Property Key="ListAddString" Value="w" />
+      <Property Key="ListAddString" Value="M" />
+      <Property Key="ListAddString" Value="I" />
+      <Property Key="ListAddString" Value="b" />
+      <Property Key="ListAddString" Value="b" />
+      <Property Key="ListAddString" Value="T" />
+    </Widget2>
 
     <Widget Type="List" Skin="List" Position="231 3 160 161" Align="ALIGN_RIGHT ALIGN_VSTRETCH" Name="list2" >
       <Property Key="ListAddString" Value="it is a ###00ff00green #000000word" />

@@ -36,6 +36,24 @@ namespace MyGUI
 		void setTextAlign(char _align);
 
 		void setTextSelect(size_t _start, size_t _end);
+		// возвращает положение курсора по произвольному положению
+		void getTextCursorFromPoint(int & _x, int & _y, size_t & _pos);
+		// возвращает положение курсора по позиции
+		void getTextCursorFromPosition(int & _x, int & _y, size_t & _pos);
+		// конвертируем псевдо позицию в реальную
+		void convertTextRange(size_t & _start, size_t & _count);
+		// конвертирует один символ в строку для вставки
+		Ogre::DisplayString getTextCharInfo(wchar_t _char);
+		// возвращает символ новой строки
+		Ogre::DisplayString getTextNewLine(void);
+		// длинна текста без спецсимволов
+		size_t getTextLenght();
+		// возвращает тэг со строкой цвета
+		Ogre::DisplayString getTagColor(const Ogre::ColourValue & _color);
+		// возвращает тэг со строкой цвета по умолчанию в строке
+		Ogre::DisplayString getTagColor();
+		// возвращает позицию тегу по псевдо позиции
+		void getTagColor(size_t & _start, size_t & _count);
 
 		void align(int _cx, int _cy, bool _update);
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
@@ -44,7 +62,7 @@ namespace MyGUI
 		inline void updateText() // обновляем все что касаеться текста
 		{
 			// изменился текст
-			m_overlayContainer->updateText();
+			//m_overlayContainer->updateText();
 			// и делаем полное обновление и выравнивание
 			m_margin = true; // при изменении размеров все пересчитывать
 			align(m_parent->width(), m_parent->height(), true);

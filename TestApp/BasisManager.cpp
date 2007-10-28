@@ -56,6 +56,12 @@ void BasisManager::createInput() // создаем систему ввода
 		overlay->show();
 		Ogre::PanelOverlayElement * panel = static_cast<Ogre::PanelOverlayElement*>(manager.createOverlayElement("Panel", "wallpaper"));
 		panel->setDimensions(1, 1);
+		/*Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
+		mpFont->load();
+		if (!mpFont.isNull()) {
+			const Ogre::MaterialPtr & material2 = mpFont->getMaterial();
+			panel->setMaterialName(material2->getName());
+		}*/
 		panel->setMaterialName(material->getName());
 		overlay->add2D(panel);
 	}

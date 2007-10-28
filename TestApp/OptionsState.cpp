@@ -8,11 +8,11 @@
 #include "WidgetManager.h"
 #include "LayoutManager.h"
 #include "ParserManager.h"
-#include "Window.h"
-#include "Button.h"
-#include "HScroll.h"
-#include "VScroll.h"
-#include "List.h"
+//#include "Window.h"
+//#include "Button.h"
+//#include "HScroll.h"
+//#include "VScroll.h"
+//#include "List.h"
 #include "StringUtil.h"
 
 void OptionsState::enter(bool bIsChangeState)
@@ -27,17 +27,17 @@ void OptionsState::enter(bool bIsChangeState)
 	// загружаем скин
 	MyGUI::SkinManager::getInstance().load("main.skin");
 	// загружаем лейаут
-	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 
-	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonAutoAlpha"));
+	/*MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonAutoAlpha"));
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed1);
 
 	button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonManualAlpha"));
-	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);
+	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);*/
 
 
-	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::WidgetManager::getInstance().findWidget("windowListDemo"));
+/*	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::WidgetManager::getInstance().findWidget("windowListDemo"));
 	window->show(false);
 	//MyGUI::ParserManager::getInstance().parce(window, "Caption", util::utf8<void>("дерьмо"));
 
@@ -51,9 +51,9 @@ void OptionsState::enter(bool bIsChangeState)
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed3);
 
 	list1 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list1"));
-	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));
+	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));*/
 
-	MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 40, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
 	Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
 	if (!mpFont.isNull()) {
@@ -117,53 +117,53 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 //===================================================================================
 void OptionsState::notifyMousePressed1(MyGUI::WidgetPtr _sender, bool _left)
 {
-	int x = (::rand()%600) + 20;
-	int y = (::rand()%200) + 20;
-	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCSX", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	window->setCaption("Auto alpha");
-	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+//	int x = (::rand()%600) + 20;
+//	int y = (::rand()%200) + 20;
+//	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCSX", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+//	window->setCaption("Auto alpha");
+//	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 }
 //===================================================================================
 void OptionsState::notifyMousePressed2(MyGUI::WidgetPtr _sender, bool _left)
 {
-	int x = (::rand()%600) + 20;
-	int y = (::rand()%200) + 320;
-	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCSX", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	window->setAutoAlpha(false);
-	window->show();
-	window->setCaption("Manual alpha");
-	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+//	int x = (::rand()%600) + 20;
+//	int y = (::rand()%200) + 320;
+//	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCSX", x, y, 200, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+//	window->setAutoAlpha(false);
+//	window->show();
+//	window->setCaption("Manual alpha");
+//	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 }
 //===================================================================================
 void OptionsState::notifyMousePressed3(MyGUI::WidgetPtr _sender, bool _left)
 {
-	if (_sender->getUserData("button") == 1) {
-
-		size_t pos2 = list2->getItemSelect();
-		if (pos2 != MyGUI::Widget::ITEM_NONE) {
-			size_t pos1 = list1->getItemSelect();
-
-			if (pos1 == MyGUI::Widget::ITEM_NONE) list1->addItemString(list2->getItemString(pos2));
-			else list1->insertItemString(pos1, list2->getItemString(pos2));
-
-			list2->deleteItemString(pos2);
-		}
-		
-	} else {
-		size_t pos1 = list1->getItemSelect();
-		if (pos1 != MyGUI::Widget::ITEM_NONE) {
-			size_t pos2 = list2->getItemSelect();
-
-			if (pos2 == MyGUI::Widget::ITEM_NONE) list2->addItemString(list1->getItemString(pos1));
-			else list2->insertItemString(pos2, list1->getItemString(pos1));
-
-			list1->deleteItemString(pos1);
-		}
-	}
+//	if (_sender->getUserData("button") == 1) {
+//
+//		size_t pos2 = list2->getItemSelect();
+//		if (pos2 != MyGUI::Widget::ITEM_NONE) {
+//			size_t pos1 = list1->getItemSelect();
+//
+//			if (pos1 == MyGUI::Widget::ITEM_NONE) list1->addItemString(list2->getItemString(pos2));
+//			else list1->insertItemString(pos1, list2->getItemString(pos2));
+//
+//			list2->deleteItemString(pos2);
+//		}
+//		
+//	} else {
+//		size_t pos1 = list1->getItemSelect();
+//		if (pos1 != MyGUI::Widget::ITEM_NONE) {
+//			size_t pos2 = list2->getItemSelect();
+//
+//			if (pos2 == MyGUI::Widget::ITEM_NONE) list2->addItemString(list1->getItemString(pos1));
+//			else list2->insertItemString(pos2, list1->getItemString(pos1));
+//
+//			list1->deleteItemString(pos1);
+//		}
+//	}
 }
 //===================================================================================
 void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _sender)
 {
-	static_cast<MyGUI::WindowPtr>(_sender)->hide(true, true);
+//	static_cast<MyGUI::WindowPtr>(_sender)->hide(true, true);
 }
 //===================================================================================

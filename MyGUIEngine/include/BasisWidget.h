@@ -54,6 +54,24 @@ namespace MyGUI
 		inline char getAlign() {return m_align;}
 
 		virtual void setTextSelect(size_t _start, size_t _end) {}
+		// возвращает положение курсора по произвольному положению
+		virtual void getTextCursorFromPoint(int & _x, int & _y, size_t & _pos) {}
+		// возвращает положение курсора по позиции
+		virtual void getTextCursorFromPosition(int & _x, int & _y, size_t & _pos) {}
+		// конвертируем псевдо позицию в реальную
+		virtual void convertTextRange(size_t & _start, size_t & _count) {}
+		// конвертирует один символ в строку для вставки
+		virtual Ogre::DisplayString getTextCharInfo(wchar_t _char) {return "";}
+		// возвращает символ новой строки
+		virtual Ogre::DisplayString getTextNewLine(void) {return "\n";}
+		// длинна текста без спецсимволов
+		virtual size_t getTextLenght() {return 0;}
+		// возвращает позицию тегу по псевдо позиции
+		virtual void getTagColor(size_t & _start, size_t & _count) {}
+		// возвращает тэг со строкой цвета
+		virtual Ogre::DisplayString getTagColor(const Ogre::ColourValue & _color) {return "";}
+		// возвращает тэг со строкой цвета по умолчанию в строке
+		virtual Ogre::DisplayString getTagColor() {return "";}
 
 		virtual void update() {}
 		virtual void correct() {}

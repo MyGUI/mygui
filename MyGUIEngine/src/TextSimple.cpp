@@ -201,4 +201,56 @@ namespace MyGUI
 		m_overlayContainer->setSelect(_start, _end);
 	}
 
+	void TextSimple::getTextCursorFromPoint(int & _x, int & _y, size_t & _pos)
+	{
+		m_overlayContainer->getTextCursorFromPoint(_x, _y, _pos);
+	}
+
+	void TextSimple::getTextCursorFromPosition(int & _x, int & _y, size_t & _pos)
+	{
+		m_overlayContainer->getTextCursorFromPosition(_x, _y, _pos);
+	}
+
+	// возвращает нормальную позицию по псевдо позиции
+//	size_t TextSimple::getPositionFromCursor(size_t _pos)
+//	{
+//		return m_overlayContainer->getPositionFromCursor(_pos);
+//	}
+	// конвертируем псевдо позицию в реальную
+	void TextSimple::convertTextRange(size_t & _start, size_t & _count)
+	{
+		m_overlayContainer->convertTextRange(_start, _count);
+	}
+	// конвертирует один символ в строку для вставки
+	Ogre::DisplayString TextSimple::getTextCharInfo(wchar_t _char)
+	{
+		return m_overlayContainer->getTextCharInfo(_char);
+	}
+	// возвращает символ новой строки
+	Ogre::DisplayString TextSimple::getTextNewLine(void)
+	{
+		return m_overlayContainer->getTextNewLine();
+	}
+	// возвращает тэг со строкой цвета
+	Ogre::DisplayString TextSimple::getTagColor(const Ogre::ColourValue & _color)
+	{
+		return m_overlayContainer->getTagColor(_color);
+	}
+	// возвращает тэг со строкой цвета по умолчанию в строке
+	Ogre::DisplayString TextSimple::getTagColor()
+	{
+		return m_overlayContainer->getTagColor();
+	}
+		
+	// возвращает позицию тегу по псевдо позиции
+	void TextSimple::getTagColor(size_t & _start, size_t & _count)
+	{
+		m_overlayContainer->getTagColor(_start, _count);
+	}
+	// длинна текста без спецсимволов
+	size_t TextSimple::getTextLenght()
+	{
+		return m_overlayContainer->getTextLenght();
+	}
+
 } // namespace MyGUI
