@@ -64,7 +64,10 @@ namespace MyGUI
 	WidgetPtr WidgetManager::findWidget(const Ogre::String & _name)
 	{
 		mapWidgetPtr::iterator iter = m_widgets.find(_name);
-		if (iter == m_widgets.end()) return 0;
+		if (iter == m_widgets.end()){
+			LOG_MESSAGE("Error: Widget \"" + _name + "\" not found");
+			return 0;
+		}
 		return iter->second;
 	}
 
