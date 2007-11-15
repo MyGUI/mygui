@@ -21,34 +21,23 @@ namespace MyGUI
 		clear();
 
 		xml::xmlDocument doc;
-		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
-		if (xml_root == 0) return;
-		if (xml_root->getName() != "MyGUI_PointerInfo") return;
+		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_PointerInfo") ) return;
 
 		// берем детей и крутимся, основной цикл
-		xml::VectorNode & pointers = xml_root->getChilds();
-		for (size_t i=0; i<pointers.size(); i++) {
-			xml::xmlNodePtr pointInfo = pointers[i];
-			if (pointInfo->getName() != "Pointer") continue;
-
+		xml::xmlNodeIterator pointer = xml_root->getNodeIterator();
+		while (pointer.nextNode("Pointer")) {
 
 			// значения параметров
-			std::string layer, material, defaultPointer;
+			std::string layer, material, defaultPointer, tmp;
 			int size;
 			// парсим атрибуты
-			const xml::VectorAttributes & attrib = pointInfo->getAttributes();
-			for (size_t ia=0; ia<attrib.size(); ia++) {
-				// достаем пару атрибут - значение
-				const xml::PairAttributes & pairAttributes = attrib[ia];
-
-				if (pairAttributes.first == "Layer") layer = pairAttributes.second;
-				else if (pairAttributes.first == "Material") material = pairAttributes.second;
-				else if (pairAttributes.first == "Default") defaultPointer = pairAttributes.second;
-				else if (pairAttributes.first == "Size") size = util::parseInt(pairAttributes.second);
-
-			}
+			pointer->findAttribute("Layer", layer);
+			pointer->findAttribute("Material", material);
+			pointer->findAttribute("Default", defaultPointer);
+			if (pointer->findAttribute("Size", tmp)) size = util::parseInt(tmp);
 
 			// устанавливаем сразу параметры
 			m_overlayElement->setMaterialName(material);
@@ -59,30 +48,23 @@ namespace MyGUI
 
 			
 			// берем детей и крутимся, основной цикл
-			xml::VectorNode & info = pointInfo->getChilds();
-			for (size_t j=0; j<info.size(); j++) {
-				xml::xmlNodePtr infoInfo = info[j];
-				if (infoInfo->getName() != "Info") continue;
+			xml::xmlNodeIterator info = pointer->getNodeIterator();
+			while (info.nextNode("Info")) {
 
 				// значения параметров
-				std::string name;
+				std::string name, tmp;
 				FloatRect offset;
 				IntPoint point;
 				// парсим атрибуты
-				const xml::VectorAttributes & attrib = infoInfo->getAttributes();
-				for (size_t ia=0; ia<attrib.size(); ia++) {
-					// достаем пару атрибут - значение
-					const xml::PairAttributes & pairAttributes = attrib[ia];
 
-					if (pairAttributes.first == "Name") name = pairAttributes.second;
-					else if (pairAttributes.first == "Point") point = util::parseIntPoint(pairAttributes.second);
-					else if (pairAttributes.first == "Offset") offset = SkinManager::convertMaterialCoord(util::parseFloatRect(pairAttributes.second), materialSize);
-				}
+				info->findAttribute("Name", name);
+				if (info->findAttribute("Point", tmp)) point = util::parseIntPoint(tmp);
+				if (info->findAttribute("Offset", tmp)) offset = SkinManager::convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
 
 				// добавляем курсор
 				m_mapPointers[name] = PointerInfo(offset, point);
 
-			}
+			};
 
 			// проверяем и инициализируем
 			if (m_defaultPointer.empty() && !m_mapPointers.empty()) m_defaultPointer = m_mapPointers.begin()->first;
@@ -92,8 +74,8 @@ namespace MyGUI
 			this->defaultPointer();
 
 			return; // нам нужен только один набор
+		};
 
-		} // for (size_t i=0; i<pointers.size(); i++) {
 	}
 
 	void PointerManager::clear()

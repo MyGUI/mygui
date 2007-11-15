@@ -17,36 +17,37 @@ namespace MyGUI
 		clear();
 
 		xml::xmlDocument doc;
-		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
-		if (xml_root == 0) return false;
-		if (xml_root->getName() != "MyGUI_LayerInfo") return false;
+		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_LayerInfo") ) return false;
 
 
 		// берем детей и крутимся, основной цикл
-		xml::VectorNode & layers = xml_root->getChilds();
-		for (size_t i=0; i<layers.size(); i++) {
-			xml::xmlNodePtr layerInfo = layers[i];
-			if (layerInfo->getName() != "Layer") continue;
+		xml::xmlNodeIterator layer = xml_root->getNodeIterator();
+		while (layer.nextNode("Layer")) {
 
-			// парсим атрибуты
-			const xml::VectorAttributes & attrib = layerInfo->getAttributes();
-			std::string name;
-			Ogre::ushort start, count, height;
-			for (size_t ia=0; ia<attrib.size(); ia++) {
-				// достаем пару атрибут - значение
-				const xml::PairAttributes & pairAttributes = attrib[ia];
-				if (pairAttributes.first == "Name") name = pairAttributes.second;
-				else if (pairAttributes.first == "Start") start = util::parseUShort(pairAttributes.second);
-				else if (pairAttributes.first == "Count") count = util::parseUShort(pairAttributes.second);
-				else if (pairAttributes.first == "Height") height = util::parseUShort(pairAttributes.second);
+			std::string name, tmp;
+			Ogre::ushort start = 0, count = 1, height = 1;
+
+			if ( false == layer->findAttribute("Name", name)) {
+				LOG("Attribute 'Name' not find {file : ", _file, "}");
+				continue;
 			}
+
+			if (layer->findAttribute("Height", tmp)) height = util::parseUShort(tmp);
+			else LOG("Attribute 'Height' not find {file : '", _file, "' , Name : ", name, "}");
+
+			if (layer->findAttribute("Count", tmp)) count = util::parseUShort(tmp);
+			else LOG("Attribute 'Count' not find {file : '", _file, "' , Name : ", name, "}");
+
+			if (layer->findAttribute("Start", tmp)) start = util::parseUShort(tmp);
+			else LOG("Attribute 'Start' not find {file : '", _file, "' , Name : ", name, "}");
 
 			// а вот теперь добавляем слой
 			m_mapLayer[name] = new LayerInfo(name, start, count, height);
 
-		} // for (size_t i_layer=0; i_layer<layers.size(); i_layer++) {
+		};
 
 		return true;
 	}

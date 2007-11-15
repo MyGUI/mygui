@@ -62,7 +62,7 @@ namespace MyGUI
 			for (StateInfo::iterator iter = m_states.begin(); iter!=m_states.end(); iter++) {
 				while (iter->second.m_offsets.size() < m_basis.size()) {
 					iter->second.m_offsets.push_back(FloatRect(0, 0, 1, 1));
-				}
+				};
 			}
 		}
 

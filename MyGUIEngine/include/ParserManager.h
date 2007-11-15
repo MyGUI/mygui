@@ -19,7 +19,7 @@ namespace MyGUI
 		INSTANCE_HEADER(ParserManager);
 
 	private:
-		ParserManager();// {};
+		ParserManager();
 
 	public:
 		void parce(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);

@@ -1,5 +1,5 @@
 
-#include "TextSimple.h"
+#include "TextEdit.h"
 #include "BasisWidgetManager.h"
 
 #include <OgreStringConverter.h>
@@ -7,15 +7,15 @@
 namespace MyGUI
 {
 	// создаем фабрику для этого скина
-	BasisWidgetFactory<TextSimple> factory_TextSimple;
+	BasisWidgetFactory<TextEdit> factory_TextSimple;
 
-	TextSimple::TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) :
+	TextEdit::TextEdit(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) :
 		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
-		m_overlayContainer = static_cast<TextSimpleOverlayElement *>(overlayManager.createOverlayElement(
-			"TextSimple", "TextSimple_" + Ogre::StringConverter::toString((uint32)this)));
+		m_overlayContainer = static_cast<TextEditOverlayElement *>(overlayManager.createOverlayElement(
+			"TextEdit", "TextEdit_" + Ogre::StringConverter::toString((uint32)this)));
 
 		m_overlayContainer->setMetricsMode(GMM_PIXELS);
 
@@ -25,7 +25,7 @@ namespace MyGUI
 		m_parent->attach(this, true);
 	}
 
-	TextSimple::~TextSimple()
+	TextEdit::~TextEdit()
 	{
 		if (m_overlayContainer == null) return;
 		// с защитой от удаления после шутдауна рендера
@@ -33,19 +33,19 @@ namespace MyGUI
 		if (manager != null) manager->destroyOverlayElement(m_overlayContainer);
 	}
 
-	void TextSimple::setTextAlign(char _align)
+	void TextEdit::setTextAlign(char _align)
 	{
 		// выравнивание
 		m_overlayContainer->setAlignment(_align);
 		updateText();
 	}
 
-	OverlayElementPtr TextSimple::getOverlayElement()
+	OverlayElementPtr TextEdit::getOverlayElement()
 	{
 		return m_overlayContainer;
 	}
 
-	void TextSimple::show(bool _show)
+	void TextEdit::show(bool _show)
 	{
 		if (m_show == _show) return;
 		m_show = _show;
@@ -53,19 +53,19 @@ namespace MyGUI
 		m_show ? m_overlayContainer->show():m_overlayContainer->hide();
 	}
 
-	void TextSimple::setCaption(const Ogre::DisplayString & _caption)
+	void TextEdit::setCaption(const Ogre::DisplayString & _caption)
 	{
 		// записывам новую строку
 		m_overlayContainer->setCaption(_caption);
 		updateText();
 	}
 
-	const Ogre::DisplayString & TextSimple::getCaption()
+	const Ogre::DisplayString & TextEdit::getCaption()
 	{
 		return m_overlayContainer->getCaption();
 	}
 
-	void TextSimple::setColour(const Ogre::ColourValue & _color)
+	void TextEdit::setColour(const Ogre::ColourValue & _color)
 	{
 		m_color.r = _color.r;
 		m_color.g = _color.g;
@@ -73,42 +73,42 @@ namespace MyGUI
 		m_overlayContainer->setColour(m_color);
 	}
 
-	void TextSimple::setAlpha(float _alpha)
+	void TextEdit::setAlpha(float _alpha)
 	{
 		m_color.a = _alpha;
 		m_overlayContainer->setColour(m_color);
 	}
 
-	void TextSimple::setFontName(const Ogre::String & _font)
+	void TextEdit::setFontName(const Ogre::String & _font)
 	{
 		m_overlayContainer->setFontName(_font);
 		updateText();
 	}
 
-	void TextSimple::setFontName(const Ogre::String & _font, Ogre::ushort _height)
+	void TextEdit::setFontName(const Ogre::String & _font, Ogre::ushort _height)
 	{
 		m_overlayContainer->setFontName(_font);
 		m_overlayContainer->setCharHeight(_height);
 		updateText();
 	}
 
-	const Ogre::String & TextSimple::getFontName()
+	const Ogre::String & TextEdit::getFontName()
 	{
 		return m_overlayContainer->getFontName();
 	}
 
-	void TextSimple::setFontHeight(Ogre::ushort _height)
+	void TextEdit::setFontHeight(Ogre::ushort _height)
 	{
 		m_overlayContainer->setCharHeight(_height);
 		updateText();
 	}
 
-	Ogre::ushort TextSimple::getFontHeight()
+	Ogre::ushort TextEdit::getFontHeight()
 	{
 		return m_overlayContainer->getCharHeight();
 	}
 
-	void TextSimple::update()
+	void TextEdit::update()
 	{
 		bool margin = check_margin();
 
@@ -147,12 +147,12 @@ namespace MyGUI
 
 	}
 
-	void TextSimple::align(int _x, int _y, int _cx, int _cy, bool _update)
+	void TextEdit::align(int _x, int _y, int _cx, int _cy, bool _update)
 	{
 		align(_cx, _cy, _update);
 	}
 
-	void TextSimple::align(int _cx, int _cy, bool _update)
+	void TextEdit::align(int _cx, int _cy, bool _update)
 	{
 		// необходимо разобраться
 		bool need_update = true;//_update;
@@ -196,34 +196,34 @@ namespace MyGUI
 
 	}
 
-/*	void TextSimple::setTextSelect(size_t _start, size_t _end)
+	void TextEdit::setTextSelect(size_t _start, size_t _end)
 	{
 		m_overlayContainer->setSelect(_start, _end);
 	}
 
-	size_t TextSimple::getTextCursorFromPoint(IntPoint & _point)
+	size_t TextEdit::getTextCursorFromPoint(IntPoint & _point)
 	{
 		return m_overlayContainer->getTextCursorFromPoint(_point);
 	}
 
-	IntPoint TextSimple::getTextCursorFromPosition(size_t _position)
+	IntPoint TextEdit::getTextCursorFromPosition(size_t _position)
 	{
 		return m_overlayContainer->getTextCursorFromPosition(_position);
 	}
 
 	// возвращает размер текста в пикселях
-	IntSize TextSimple::getTextSize()
+	IntSize TextEdit::getTextSize()
 	{
 		return m_overlayContainer->getTextSize();
 	}
 	// устанавливает смещение текста в пикселях
-	void TextSimple::setTextShift(IntPoint _point)
+	void TextEdit::setTextShift(IntPoint _point)
 	{
 		m_overlayContainer->setTextShift(_point);
 	}
-	IntPoint TextSimple::getTextShift()
+	IntPoint TextEdit::getTextShift()
 	{
 		return m_overlayContainer->getTextShift();
-	}*/
+	}
 
 } // namespace MyGUI

@@ -69,7 +69,7 @@
             <State Name="pressed" Offset = "90 86 10 26"/>
             <State Name="select" Offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin Type="TextSimple" Offset = "3 0 34 26" Align = "ALIGN_STRETCH">
+        <BasisSkin Type="TextEdit" Offset = "3 0 34 26" Align = "ALIGN_STRETCH">
             <State Name="disable" Color="0.87 0.87 0.87"/>
             <State Name="pressed" Color="0 0 0"/>
             <State Name="normal" Color="0 0 0"/>

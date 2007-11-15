@@ -29,6 +29,16 @@ namespace types
 			return *this;
 		}
 
+		bool operator==( TPoint const & o )
+		{
+			return ( (left == o.left) && (top == o.top) );
+		}
+
+		bool operator!=( TPoint const & o )
+		{
+			return ! ( (left == o.left) && (top == o.top) );
+		}
+
 		inline void clear()
 		{
 			left = top = 0;
@@ -38,6 +48,11 @@ namespace types
 		{
 			left = l;
 			top = t;
+		}
+
+		inline bool empty()
+		{
+			return ((left == 0) && (top == 0));
 		}
 
 	};

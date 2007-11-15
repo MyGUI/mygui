@@ -7,8 +7,8 @@
 #include "InputManager.h"
 
 #include "TextSimpleOverlayElementFactory.h"
+#include "TextEditOverlayElementFactory.h"
 #include "PanelAlphaOverlayElementFactory.h"
-#include "PanelAlphaSharedOverlayElementFactory.h"
 
 namespace MyGUI
 {
@@ -52,8 +52,8 @@ namespace MyGUI
 
 		// фабрики наших оверлеев
 		TextSimpleOverlayElementFactory m_factoryTextSimpleOverlay;
+		TextEditOverlayElementFactory m_factoryTextEditOverlay;
 		PanelAlphaOverlayElementFactory m_factoryPanelAlphaOverlay;
-		PanelAlphaSharedOverlayElementFactory mFactoryPanelAlphaSharedOverlay;
 
 		float m_height, m_width;
 		bool m_isInitialise;

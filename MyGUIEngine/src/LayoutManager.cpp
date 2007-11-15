@@ -17,7 +17,7 @@ namespace MyGUI
 	void LayoutManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return;
@@ -32,55 +32,45 @@ namespace MyGUI
 	void LayoutManager::parseLayoutMyGUI(xml::xmlNodePtr _root)
 	{
 		// берем детей и крутимся
-		xml::VectorNode & widgets = _root->getChilds();
-		for (size_t index=0; index<widgets.size(); index++) {
-			xml::xmlNodePtr widgetInfo = widgets[index];
-			if (widgetInfo->getName() == "Widget") parseWidgetMyGUI(widgetInfo, 0);
-		}
+		xml::xmlNodeIterator widget = _root->getNodeIterator();
+		while (widget.nextNode("Widget")) parseWidgetMyGUI(widget, 0);
 	}
 
-	void LayoutManager::parseWidgetMyGUI(xml::xmlNodePtr _widgetInfo, WidgetPtr _parent)
+	void LayoutManager::parseWidgetMyGUI(xml::xmlNodeIterator & _widget, WidgetPtr _parent)
 	{
 		// парсим атрибуты виджета
-		const xml::VectorAttributes & attrib = _widgetInfo->getAttributes();
-		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer;
+		//const xml::VectorAttributes & attrib = _widgetInfo->getAttributes();
+		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
 		FloatRect coord;
 		char align;
-		for (size_t ia=0; ia<attrib.size(); ia++) {
-			// достаем пару атрибут - значение
-			const xml::PairAttributes & pairAttributes = attrib[ia];
-			if (pairAttributes.first == "Type") widgetType = pairAttributes.second;
-			else if (pairAttributes.first == "Skin") widgetSkin = pairAttributes.second;
-			else if (pairAttributes.first == "Name") widgetName = pairAttributes.second;
-			else if (pairAttributes.first == "Layer") widgetLayer = pairAttributes.second;
-			else if (pairAttributes.first == "Align") align = SkinManager::getInstance().parseAlign(pairAttributes.second);
-			else if (pairAttributes.first == "Position") coord = util::parseFloatRect(pairAttributes.second);
-			else if (pairAttributes.first == "PositionReal") coord = Gui::getInstance().convertToReal(util::parseFloatRect(pairAttributes.second));
-		}
+
+		_widget->findAttribute("Type", widgetType);
+		_widget->findAttribute("Skin", widgetSkin);
+		_widget->findAttribute("Name", widgetName);
+		_widget->findAttribute("Layer", widgetLayer);
+		if (_widget->findAttribute("Align", tmp)) align = SkinManager::getInstance().parseAlign(tmp);
+		if (_widget->findAttribute("Position", tmp)) coord = util::parseFloatRect(tmp);
+		if (_widget->findAttribute("PositionReal", tmp)) coord = Gui::getInstance().convertToReal(util::parseFloatRect(tmp));
+
 		WidgetPtr wid;
 		if (!_parent) wid = Gui::getInstance().createWidget(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetLayer, widgetName);
 		else wid = _parent->createWidget(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetName);
 
 		// берем детей и крутимся
-		xml::VectorNode & widgets = _widgetInfo->getChilds();
-		for (size_t index=0; index<widgets.size(); index++) {
-			xml::xmlNodePtr widgetInfo = widgets[index];
-			if (widgetInfo->getName() == "Widget") parseWidgetMyGUI(widgetInfo, wid);
-			else if (widgetInfo->getName() == "Property") {
+		xml::xmlNodeIterator widget = _widget->getNodeIterator();
+		while (widget.nextNode()) {
+			if (widget->getName() == "Widget") parseWidgetMyGUI(widget, wid);
+			else if (widget->getName() == "Property") {
 
-				// парсим атрибуты скина
-				const xml::VectorAttributes & attrib = widgetInfo->getAttributes();
+				// парсим атрибуты
 				std::string propertyKey, propertyValue;
-				for (size_t ia=0; ia<attrib.size(); ia++) {
-					// достаем пару атрибут - значение
-					const xml::PairAttributes & pairAttributes = attrib[ia];
-					if (pairAttributes.first == "Key") propertyKey = pairAttributes.second;
-					else if (pairAttributes.first == "Value") propertyValue = pairAttributes.second;
-				}
+				if (false == widget->findAttribute("Key", propertyKey)) continue;
+				if (false == widget->findAttribute("Value", propertyValue)) continue;
 				// и парсим свойство
 				ParserManager::getInstance().parce(wid, propertyKey, propertyValue);
 			}
-		}
+
+		};
 	}
 
 } // namespace MyGUI

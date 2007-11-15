@@ -1,9 +1,8 @@
-#ifndef _STRINGUTIL_H_
-#define _STRINGUTIL_H_
+#ifndef _UTILSTRING_H_
+#define _UTILSTRING_H_
 
-#include <vector>
 #include <string>
-#include "windows.h"
+#include <sstream>
 
 namespace util
 {
@@ -95,78 +94,60 @@ namespace util
 	inline double parseDouble(const std::string& _value) {return parseValue<double>(_value);}
 	inline bool parseBool(const std::string& _value) {return ( (_value == "true") || (_value == "1") );}
 
+	// для парсинга сложных типов, состоящих из простых
+	template< class T1, class T2 >
+	T1 parseValueEx2(const std::string & _value, const std::string & _delims = "\t\n ")
+	{
+		const std::vector<std::string> & vec = split(_value, _delims);
+		if (vec.size() == 2) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]) );
+		return T1();
+	}
+
+	template< class T1, class T2 >
+	T1 parseValueEx3(const std::string & _value, const std::string & _delims = "\t\n ")
+	{
+		const std::vector<std::string> & vec = split(_value, _delims);
+		if (vec.size() == 3) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]), parseValue<T2>(vec[2]) );
+		return T1();
+	}
+
+	template< class T1, class T2 >
+	T1 parseValueEx4(const std::string & _value, const std::string & _delims = "\t\n ")
+	{
+		const std::vector<std::string> & vec = split(_value, _delims);
+		if (vec.size() == 4) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]), parseValue<T2>(vec[2]), parseValue<T2>(vec[3]) );
+		return T1();
+	}
+
 	namespace templates
 	{
-		// делаем через шаблон, дабы реализацию заключить в *.h
-		template< class T >
-		const std::vector<std::string> & template_split( const std::string& _value, const std::string & _delims = "\t\n ")
+		template< class T>
+		std::vector<std::string> split(const std::string & _source, const std::string & _delims = "\t\n ")
 		{
-			static std::vector<std::string> ret;
-			ret.clear();
-
-			size_t start=0, pos;
+			std::vector<std::string> ret;
+			size_t pos, start = 0;
 			do {
-				pos = _value.find_first_of(_delims, start);
-				if (pos == start) {
-					// Do nothing
-					start = pos + 1;
-				} else if (pos == std::string::npos) {
+				pos = _source.find_first_of(_delims, start);
+				if (pos == start) start = pos + 1;
+				else if (pos == std::string::npos) {
 					// Copy the rest of the string
-					ret.push_back( _value.substr(start) );
+					ret.push_back( _source.substr(start) );
 					break;
 				} else {
 					// Copy up to delimiter
-					ret.push_back( _value.substr(start, pos - start) );
+					ret.push_back( _source.substr(start, pos - start) );
 					start = pos + 1;
 				}
 				// parse up to next real data
-				start = _value.find_first_not_of(_delims, start);
-
+				start = _source.find_first_not_of(_delims, start);
 			} while (pos != std::string::npos);
-
 			return ret;
 		}
-
-		// для парсинга сложных типов, состоящих из простых
-		template< class T1, class T2 >
-		T1 template_parse_2(const std::string & _value)
-		{
-			const std::vector<std::string> & vec = template_split<void>(_value);
-			if (vec.size() == 2) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]) );
-			return T1();
-		}
-
-		template< class T1, class T2 >
-		T1 template_parse_4(const std::string & _value)
-		{
-			const std::vector<std::string> & vec = template_split<void>(_value);
-			if (vec.size() == 4) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]), parseValue<T2>(vec[2]), parseValue<T2>(vec[3]) );
-			return T1();
-		}
-
 	} // namespace templates
 
-	// метод разделения строк
-	inline const std::vector<std::string> & split(const std::string& _value, const std::string & _delims = "\t\n ") {return templates::template_split<void>(_value, _delims);}
+	inline std::vector<std::string> split(const std::string & _source, const std::string & _delims = "\t\n ") {return templates::split<void>(_source, _delims);}
 
-	/*template< class T1 >
-	const std::string utf8(const std::string & _source)
-	{
-		const char* srcPtr = _source.c_str(); 
-		int tmpSize = MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, 0, 0 ); 
-		WCHAR* tmpBuff = new WCHAR [ tmpSize + 1 ]; 
-		MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, tmpBuff, tmpSize ); 
-		int dstSize = WideCharToMultiByte( CP_UTF8, 0, tmpBuff, tmpSize, 0, 0, 0, 0 ); 
-		char * dest = new char [ dstSize + 1 ];
-		WideCharToMultiByte( CP_UTF8, 0, tmpBuff, tmpSize, dest, dstSize, 0, 0 ); 
-		delete[] tmpBuff; 
-		dest[dstSize] = 0;
-		std::string str = dest;
-		delete [] dest;
-		return str;
-	}*/
 
 } // namespace util
 
-
-#endif
+#endif // _UTILSTRING_H_

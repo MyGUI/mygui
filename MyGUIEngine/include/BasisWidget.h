@@ -41,7 +41,10 @@ namespace MyGUI
 		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}
 
 		virtual void setColour(const Ogre::ColourValue & _color) {}
+		virtual const Ogre::ColourValue & getColour() {return Ogre::ColourValue::Black;}
+
 		virtual void setAlpha(float _alpha) {}
+		virtual float getAlpha() {return 1.0;}
 
 		virtual void setFontName(const Ogre::String & _font) {}
 		virtual void setFontName(const Ogre::String & _font, Ogre::ushort _height) {}
@@ -55,23 +58,14 @@ namespace MyGUI
 
 		virtual void setTextSelect(size_t _start, size_t _end) {}
 		// возвращает положение курсора по произвольному положению
-		virtual void getTextCursorFromPoint(int & _x, int & _y, size_t & _pos) {}
+		virtual size_t getTextCursorFromPoint(IntPoint & _point) {return 0;}
 		// возвращает положение курсора по позиции
-		virtual void getTextCursorFromPosition(int & _x, int & _y, size_t & _pos) {}
-		// конвертируем псевдо позицию в реальную
-		virtual void convertTextRange(size_t & _start, size_t & _count) {}
-		// конвертирует один символ в строку для вставки
-		virtual Ogre::DisplayString getTextCharInfo(wchar_t _char) {return "";}
-		// возвращает символ новой строки
-		virtual Ogre::DisplayString getTextNewLine(void) {return "\n";}
-		// длинна текста без спецсимволов
-		virtual size_t getTextLenght() {return 0;}
-		// возвращает позицию тегу по псевдо позиции
-		virtual void getTagColor(size_t & _start, size_t & _count) {}
-		// возвращает тэг со строкой цвета
-		virtual Ogre::DisplayString getTagColor(const Ogre::ColourValue & _color) {return "";}
-		// возвращает тэг со строкой цвета по умолчанию в строке
-		virtual Ogre::DisplayString getTagColor() {return "";}
+		virtual IntPoint getTextCursorFromPosition(size_t _position) {return IntPoint();}
+		// возвращает размер текста в пикселях
+		virtual IntSize getTextSize() {return IntSize();}
+		// устанавливает смещение текста в пикселях
+		virtual void setTextShift(IntPoint _point) {}
+		virtual IntPoint getTextShift() {return IntPoint();}
 
 		virtual void update() {}
 		virtual void correct() {}

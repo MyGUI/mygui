@@ -28,7 +28,7 @@ namespace MyGUI
 		void parseLayoutMyGUI(xml::xmlNodePtr _root);
 		void parseLayoutCEGUI(xml::xmlNodePtr _root);
 
-		void parseWidgetMyGUI(xml::xmlNodePtr _widgetInfo, WidgetPtr _parent);
+		void parseWidgetMyGUI(xml::xmlNodeIterator & _widget, WidgetPtr _parent);
 		
 	}; // class LayoutManager
 

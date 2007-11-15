@@ -1,5 +1,5 @@
-#ifndef _TEXTSIMPLEOVERLAYELEMENT_H_
-#define _TEXTSIMPLEOVERLAYELEMENT_H_
+#ifndef _TEXTEDITOVERLAYELEMENT_H_
+#define _TEXTEDITOVERLAYELEMENT_H_
 
 #include "Prerequest.h"
 #include <OgreTextAreaOverlayElement.h>
@@ -20,7 +20,7 @@ namespace MyGUI
 
 	using namespace Ogre;
 
-	class _MyGUIExport TextSimpleOverlayElement : public TextAreaOverlayElement
+	class _MyGUIExport TextEditOverlayElement : public TextAreaOverlayElement
 	{
 
 	private:
@@ -28,11 +28,11 @@ namespace MyGUI
 		char m_align;
 		bool mRenderGL;// для конвертирования цвета вершин
 		Ogre::RGBA mDefaultColor; // цвет текста
-//		Ogre::RGBA mInverseColor; // инверсный цвет текста
-//		size_t mStartSelect, mEndSelect; // начало и конец выделения
-//		IntPoint mPointShift; // смещение текста
+		Ogre::RGBA mInverseColor; // инверсный цвет текста
+		size_t mStartSelect, mEndSelect; // начало и конец выделения
+		IntPoint mPointShift; // смещение текста
 		FloatSize mContextSize; // размер всего текста
-//		bool mIsAutoOffsetContext; // автоматическое выравнивание
+		//bool mIsAutoOffsetContext; // автоматическое выравнивание
 
 	protected:
 		typedef std::vector<size_t> VectorCharInfo;
@@ -44,7 +44,7 @@ namespace MyGUI
 
 
 	public:
-		TextSimpleOverlayElement(const String& name) :
+		TextEditOverlayElement(const String& name) :
 			TextAreaOverlayElement(name),
 			m_left_margin (0),
 			m_right_margin (0),
@@ -52,8 +52,8 @@ namespace MyGUI
 			m_bottom_margin (0),
 			m_align(ALIGN_CENTER),
 			mDefaultColor(0xFFFFFFFF),
-//			mInverseColor(0xFF000000),
-//			mStartSelect(0), mEndSelect(0),
+			mInverseColor(0xFF000000),
+			mStartSelect(0), mEndSelect(0),
 			mRawDataOutOfDate(false),
 			mOldViewportAspectCoef(1.0f)
 			//mIsAutoOffsetContext(true)
@@ -62,9 +62,9 @@ namespace MyGUI
 			mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 		}
 
-		//inline void setSelect(size_t _start, size_t _end) {mStartSelect=_start;mEndSelect=_end;mGeomPositionsOutOfDate = true;}
-		//inline size_t getSelectStart() {return mStartSelect;}
-		//inline size_t getSelectEnd() {return mEndSelect;}
+		inline void setSelect(size_t _start, size_t _end) {mStartSelect=_start;mEndSelect=_end;mGeomPositionsOutOfDate = true;}
+		inline size_t getSelectStart() {return mStartSelect;}
+		inline size_t getSelectEnd() {return mEndSelect;}
 
 		// обязательно перекрываем, а то он там буферов понасоздает
 		void updateColours(void) { }
@@ -100,12 +100,12 @@ namespace MyGUI
 			updateRawData();
 
 			// позиция отображаемого символа
-			//size_t cursor = 0;
+			size_t cursor = 0;
 
 			// текущие цвета
-			Ogre::RGBA color = mDefaultColor;
-			//Ogre::RGBA color_inverse = mInverseColor;
-			//Ogre::RGBA spec_current, spec = ((mDefaultColor>>2) & 0xFF000000);
+			Ogre::RGBA color_current, color = mDefaultColor;
+			Ogre::RGBA color_inverse = mInverseColor;
+			Ogre::RGBA spec_current, spec = ((mDefaultColor>>2) & 0xFF000000);
 
 			checkMemoryAllocation( mCaption.size() );
 			mRenderOp.vertexData->vertexCount = 0;
@@ -133,19 +133,19 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
-			//if ((mIsAutoOffsetContext) || (mContextSize.width <= realWidth)) {
+			if (/*(mIsAutoOffsetContext) || */(mContextSize.width <= realWidth)) {
 				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
-			//}
-			//else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
+			}
+			else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
 			right = left;
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			//if ((mIsAutoOffsetContext) || (mContextSize.height <= realHeight)) {
+			if (/*(mIsAutoOffsetContext) || */(mContextSize.height <= realHeight)) {
 				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
 				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
-			//}
-			//else top += mPixelScaleY * (float)mPointShift.top * 2.0;
+			}
+			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 			bottom = top;
 
 			// данные непосредственно для вывода
@@ -168,7 +168,7 @@ namespace MyGUI
 				float len = *((float*)(&(*index)));
 				++index;
 				// второй колличество символов
-				//size_t count = (*index);
+				size_t count = (*index);
 				++index;
 
 				// нуна ли пересчитывать текстурные координаты
@@ -184,11 +184,11 @@ namespace MyGUI
 							// проверяем на смену цвета
 							if ( (data & 0xFF000000) == 0xFF000000) {
 								color = (Ogre::RGBA) (data & 0x00FFFFFF) | (color & 0xFF000000);
-								//color_inverse = color ^ 0x00FFFFFF;
+								color_inverse = color ^ 0x00FFFFFF;
 							}
 						}
 
-						//cursor += count;
+						cursor += count;
 						continue;
 					}
 					// обрезаем
@@ -200,7 +200,7 @@ namespace MyGUI
 					if (vertex_top < bottom_margin) {
 						line = end;
 						line --;
-						//cursor += count;
+						cursor += count;
 						continue;
 					}
 					// обрезаем
@@ -214,7 +214,7 @@ namespace MyGUI
 				else if ( mAlignment == Center ) right += (mContextSize.width - len) * 0.5; // выравнивание по центру
 
 				// текущее положение в строке
-				//size_t cur = cursor;
+				size_t cur = cursor;
 
 				// внутренний цикл строки
 				for (;index != end_index; ++index) {
@@ -223,7 +223,7 @@ namespace MyGUI
 					// проверяем на смену цвета
 					if ( (data & 0xFF000000) == 0xFF000000) {
 						color = (Ogre::RGBA) (data & 0x00FFFFFF) | (color & 0xFF000000);
-						//color_inverse = color ^ 0x00FFFFFF;
+						color_inverse = color ^ 0x00FFFFFF;
 						continue;
 					}
 
@@ -235,8 +235,24 @@ namespace MyGUI
 					left = right;
 					right += horiz_height;
 
-					// если пробел или табуляция то не рисуем
-					if ((info->codePoint == ' ') || (info->codePoint == '\t') ) continue;
+					// символ не выделен
+					if ( (cur >= mEndSelect) || (cur < mStartSelect) ) {
+
+						// если пробел или табуляция то рисуем только при выделении
+						if ((info->codePoint == ' ') || (info->codePoint == '\t') ) {
+							cur ++;
+							continue;
+						}
+
+						color_current = color;
+						spec_current = 0;
+					}
+					// символ выделен
+					else {
+						// инверсные цвета
+						color_current = color_inverse;
+						spec_current = spec;
+					}
 
 					// присваиваем и вершинным
 					vertex_left = left;
@@ -254,7 +270,7 @@ namespace MyGUI
 					if (vertex_left < left_margin) {
 						// проверка на полный выход
 						if (vertex_right < left_margin) {
-							//cur ++;
+							cur ++;
 							continue;
 						}
 						// обрезаем
@@ -271,7 +287,7 @@ namespace MyGUI
 								// проверяем на смену цвета
 								if ( (data & 0xFF000000) == 0xFF000000) {
 									color = (Ogre::RGBA) (data & 0x00FFFFFF) | (color & 0xFF000000);
-									//color_inverse = color ^ 0x00FFFFFF;
+									color_inverse = color ^ 0x00FFFFFF;
 								}
 								index ++;
 							};
@@ -299,15 +315,6 @@ namespace MyGUI
 						texture_right -= (right - vertex_right) * mTextureWidthOne;
 					}
 
-					// выделение текста
-					/*if ( (cur >= mEndSelect) || (cur < mStartSelect) ) {
-						color_current = color;
-						spec_current = 0;
-					} else {
-						color_current = color_inverse;
-						spec_current = spec;
-					}*/
-
 					// each vert is (x, y, z, u, v)
 					//-------------------------------------------------------------------------------------
 					// First tri
@@ -318,8 +325,8 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_top;
-					*((RGBA *)(pVert++)) = color;
-					//*((RGBA *)(pVert++)) = spec_current;
+					*((RGBA *)(pVert++)) = color_current;
+					*((RGBA *)(pVert++)) = spec_current;
 
 					// Bottom left
 					*pVert++ = vertex_left;
@@ -327,8 +334,8 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_bottom;
-					*((RGBA *)(pVert++)) = color;
-					//*((RGBA *)(pVert++)) = spec_current;
+					*((RGBA *)(pVert++)) = color_current;
+					*((RGBA *)(pVert++)) = spec_current;
 
 					// Top right
 					*pVert++ = vertex_right;
@@ -336,8 +343,8 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_top;
-					*((RGBA *)(pVert++)) = color;
-					//*((RGBA *)(pVert++)) = spec_current;
+					*((RGBA *)(pVert++)) = color_current;
+					*((RGBA *)(pVert++)) = spec_current;
 					//-------------------------------------------------------------------------------------
 
 					//-------------------------------------------------------------------------------------
@@ -349,8 +356,8 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_top;
-					*((RGBA *)(pVert++)) = color;
-					//*((RGBA *)(pVert++)) = spec_current;
+					*((RGBA *)(pVert++)) = color_current;
+					*((RGBA *)(pVert++)) = spec_current;
 
 					// Bottom left (again)
 					*pVert++ = vertex_left;
@@ -358,8 +365,8 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_bottom;
-					*((RGBA *)(pVert++)) = color;
-					//*((RGBA *)(pVert++)) = spec_current;
+					*((RGBA *)(pVert++)) = color_current;
+					*((RGBA *)(pVert++)) = spec_current;
 
 					// Bottom right
 					*pVert++ = vertex_right;
@@ -367,17 +374,17 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_bottom;
-					*((RGBA *)(pVert++)) = color;
-					//*((RGBA *)(pVert++)) = spec_current;
+					*((RGBA *)(pVert++)) = color_current;
+					*((RGBA *)(pVert++)) = spec_current;
 					//-------------------------------------------------------------------------------------
 
 					mRenderOp.vertexData->vertexCount += 6;
-					//cur ++;
+					cur ++;
 
 				}
 
 				// следующая строка
-				//cursor += count;
+				cursor += count;
 			}
 
 			// Unlock vertex buffer
@@ -405,8 +412,8 @@ namespace MyGUI
 				decl->addElement(MAIN_BUFFER_BINDING, offset, VET_COLOUR, VES_DIFFUSE);
 				offset += VertexElement::getTypeSize(VET_COLOUR);
 
-				//decl->addElement(MAIN_BUFFER_BINDING, offset, VET_COLOUR, VES_SPECULAR);
-				//offset += VertexElement::getTypeSize(VET_COLOUR);
+				decl->addElement(MAIN_BUFFER_BINDING, offset, VET_COLOUR, VES_SPECULAR);
+				offset += VertexElement::getTypeSize(VET_COLOUR);
 				
 
 				mRenderOp.operationType = RenderOperation::OT_TRIANGLE_LIST;
@@ -426,7 +433,7 @@ namespace MyGUI
 			if( mAllocSize < numChars)
 			{
 				// увеличиваем еще на немного
-				//numChars += DEFAULT_INITIAL_CHARS;
+				numChars += DEFAULT_INITIAL_CHARS;
 
 				// Create and bind new buffers
 				// Note that old buffers will be deleted automatically through reference counting
@@ -458,7 +465,7 @@ namespace MyGUI
 			Ogre::Root::getSingleton().convertColourValue(_color, &mDefaultColor);
 
 			// инвертируемый цвет
-			//mInverseColor = mDefaultColor ^ 0x00FFFFFF;
+			mInverseColor = mDefaultColor ^ 0x00FFFFFF;
 
 			mGeomPositionsOutOfDate = true;
 		}
@@ -592,7 +599,7 @@ namespace MyGUI
 		} // void updateRawData()
 
 		// возвращает размер текста в пикселях
-		/*inline IntSize getTextSize()
+		inline IntSize getTextSize()
 		{
 			// если нуно обновить, или изменились пропорции экрана
 			updateRawData();
@@ -605,7 +612,7 @@ namespace MyGUI
 			mPointShift = _point;
 			mRawDataOutOfDate = true;
 			mGeomPositionsOutOfDate = true;
-			mIsAutoOffsetContext = false;
+			//mIsAutoOffsetContext = false;
 		}
 
 		inline IntPoint getTextShift() {return mPointShift;}
@@ -635,7 +642,7 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
-			if ((mIsAutoOffsetContext) || (mContextSize.width <= realWidth)) {
+			if (/*(mIsAutoOffsetContext) || */(mContextSize.width <= realWidth)) {
 				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 			}
@@ -643,7 +650,7 @@ namespace MyGUI
 			right = left;
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if ((mIsAutoOffsetContext) || (mContextSize.height <= realHeight)) {
+			if (/*(mIsAutoOffsetContext) || */(mContextSize.height <= realHeight)) {
 				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
 				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
@@ -757,7 +764,7 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
-			if ((mIsAutoOffsetContext) || (mContextSize.width <= realWidth)) {
+			if (/*(mIsAutoOffsetContext) || */(mContextSize.width <= realWidth)) {
 				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 			}
@@ -765,7 +772,7 @@ namespace MyGUI
 			right = left;
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if ((mIsAutoOffsetContext) || (mContextSize.height <= realHeight)) {
+			if (/*(mIsAutoOffsetContext) || */(mContextSize.height <= realHeight)) {
 				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
 				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
@@ -835,9 +842,9 @@ namespace MyGUI
 
 			// в самый конец
 			return IntPoint((int)((1.0f + right) / (mPixelScaleX * 2.0)), (int)((1.0f - top) / (mPixelScaleY * 2.0)));
-		}*/
+		}
 
-	}; // class TextSimpleOverlayElement : public TextAreaOverlayElement
+	}; // class TextEditOverlayElement : public TextAreaOverlayElement
 
 } // namespace MyGUI
 

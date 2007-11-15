@@ -32,6 +32,16 @@ namespace types
 			return *this;
 		}
 
+		bool operator==( TRect const & o )
+		{
+			return ( (left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom) );
+		}
+
+		bool operator!=( TRect const & o )
+		{
+			return ! ( (left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom) );
+		}
+
 		T width() const
 		{
 			return right - left;
@@ -54,6 +64,12 @@ namespace types
 			right = r;
 			bottom = b;
 		}
+
+		inline bool empty()
+		{
+			return ((left == 0) && (top == 0) && (right == 0) && (bottom == 0));
+		}
+
 	};
 
 } // namespace types

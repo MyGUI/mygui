@@ -250,6 +250,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\TextEdit.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\TextSimple.cpp"
 					>
 				</File>
@@ -291,6 +295,14 @@
 				</File>
 				<File
 					RelativePath=".\src\WidgetManager.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Xml"
+				>
+				<File
+					RelativePath=".\src\xmlDocument.cpp"
 					>
 				</File>
 			</Filter>
@@ -425,7 +437,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Util"
+				Name="utility"
 				>
 				<File
 					RelativePath=".\include\LoggingOut.h"
@@ -440,11 +452,15 @@
 					>
 				</File>
 				<File
-					RelativePath=".\StringConvert.h"
+					RelativePath=".\include\TextChangeHistory.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\StringUtil.h"
+					RelativePath=".\include\TextIterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\utility.h"
 					>
 				</File>
 			</Filter>
@@ -452,15 +468,7 @@
 				Name="Xml"
 				>
 				<File
-					RelativePath=".\include\xmlDefine.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\xmlDocument.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\xmlNode.h"
 					>
 				</File>
 			</Filter>
@@ -476,11 +484,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\PanelAlphaSharedOverlayElement.h"
+					RelativePath=".\include\TextEditOverlayElement.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\PanelAlphaSharedOverlayElementFactory.h"
+					RelativePath=".\include\TextEditOverlayElementFactory.h"
 					>
 				</File>
 				<File
@@ -517,6 +525,10 @@
 				</File>
 				<File
 					RelativePath=".\include\SubSkin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TextEdit.h"
 					>
 				</File>
 				<File

@@ -2,7 +2,7 @@
 #define _RENDEROUT_H_
 
 #include "Prerequest.h"
-#include "stringUtil.h"
+#include "utility.h"
 #include <deque>
 
 #include <OgreFontManager.h>
@@ -81,7 +81,7 @@ namespace MyGUI
 					while (fonts.hasMoreElements()) {
 						const std::string & name = fonts.getNext().getPointer()->getName();
 						if (name == __DEBUG_FONT_DEFAULT) fontName = __DEBUG_FONT_DEFAULT;
-					}
+					};
 
 					// создаем оверлей, если не был создан
 					Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();

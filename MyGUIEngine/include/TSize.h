@@ -30,6 +30,16 @@ namespace types
 			return *this;
 		}
 
+		bool operator==( TSize const & o )
+		{
+			return ( (width == o.width) && (height == o.height) );
+		}
+
+		bool operator!=( TSize const & o )
+		{
+			return ! ( (width == o.width) && (height == o.height) );
+		}
+
 		inline void clear()
 		{
 			width = height = 0;
@@ -39,6 +49,11 @@ namespace types
 		{
 			width = w;
 			height = h;
+		}
+
+		inline bool empty()
+		{
+			return ((width == 0) && (height == 0));
 		}
 
 	};

@@ -1,28 +1,36 @@
 
 #include "Edit.h"
+#include "TextIterator.h"
 
 namespace MyGUI
 {
 	// создаем фабрику для этого виджета
 	namespace factory { WidgetFactory<Edit> EditFactoryInstance("Edit"); }
 
-	const float CURSOR_TIMER = 0.7f;
-	const int CURSOR_MAX_POSITION = 100000;
-	const int CURSOR_MIN_POSITION = -100000;
+	const float EDIT_CURSOR_TIMER  = 0.7f;
+	const float EDIT_ACTION_MOUSE_TIMER  = 0.20f;
+	const int EDIT_CURSOR_MAX_POSITION = 100000;
+	const int EDIT_CURSOR_MIN_POSITION = -100000;
 	const size_t EDIT_MAX_UNDO = 128;
-	const size_t EDIT_MAX_LENGHT = 24;
+	const size_t EDIT_MAX_LENGHT = 2048;
+	const float EDIT_OFFSET_HORZ_CURSOR = 50.0f; // дополнительное смещение для курсора
+	const int EDIT_ACTION_MOUSE_ZONE = 50; // область для восприятия мыши за пределом эдита
 
 	Edit::Edit(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
 		m_isPressed(false),
 		m_isFocus(false),
-		mTimer(0),
+		mCursorTimer(0),
 		mCursorActive(false),
 		mCursorPosition(0),
 		mTextLenght(0),
 		mShiftPressed(false),
 		mCtrlPressed(false),
-		mStartSelect(ITEM_NONE)
+		mStartSelect(SIZE_MAX),
+		mHalfWidthCursor(1),
+		mHalfHeightCursor(1),
+		mMouseLeftPressed(false),
+		mActionMouseTimer(0)
 	{
 
 		ASSERT(m_text);
@@ -32,6 +40,7 @@ namespace MyGUI
 		mWidgetUpper->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
 		mWidgetUpper->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
 		mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
+		mWidgetUpper->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
 		mWidgetUpper->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
 
 		// парсим свойства
@@ -47,10 +56,18 @@ namespace MyGUI
 		mWidgetCursor->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
 		mWidgetCursor->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
 		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
+		mWidgetCursor->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
 		mWidgetCursor->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
 
-		//m_text->setTextSelect(10, 20);
-		//setText("iuyerituwyeriutweirunwgrrg");
+		// сбрасываем флаг авто выравнивания
+		m_text->setTextShift(IntPoint());
+
+		// высчитываем половинки
+		mHalfWidthCursor = (mWidgetCursor->width()/2);
+		if (mHalfWidthCursor < 1) mHalfWidthCursor = 1;
+		mHalfHeightCursor = (mWidgetCursor->height()/2);
+		if (mHalfHeightCursor < 1) mHalfHeightCursor = 1;
+
 	}
 
 	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
@@ -72,19 +89,30 @@ namespace MyGUI
 		InputManager::getInstance().setKeyFocusWidget(this);
 
 		IntPoint point = InputManager::getInstance().getLastLeftPressed();
-		m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+		mCursorPosition = m_text->getTextCursorFromPoint(point);
 		updateCursor(point);
+
+		if (_left) mMouseLeftPressed = true;
+	}
+
+	void Edit::notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		// сбрасываем всегда
+		mMouseLeftPressed = false;
 	}
 
 	void Edit::notifyMouseMove(MyGUI::WidgetPtr _sender, int _x, int _y)
 	{
 		// останавливаем курсор
 		if ( ! mWidgetCursor->isShow()) mWidgetCursor->show(true);
-		mTimer = 0.0f;
+
+		// сбрасываем все таймеры
+		mCursorTimer = 0;
+		mActionMouseTimer = 0;
 
 		size_t Old = mCursorPosition;
 		IntPoint point(_x, _y);
-		m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+		mCursorPosition = m_text->getTextCursorFromPoint(point);
 		if (Old == mCursorPosition) return;
 
 		WidgetPtr parent = mWidgetUpper;
@@ -96,7 +124,7 @@ namespace MyGUI
 		mWidgetCursor->move(point.left, point.top);
 
 		// если не было выделения
-		if (mStartSelect == ITEM_NONE) mStartSelect = Old;
+		if (mStartSelect == SIZE_MAX) mStartSelect = Old;
 
 		// меняем выделение
 		mEndSelect = (size_t)mCursorPosition;
@@ -137,7 +165,7 @@ namespace MyGUI
 		mCursorActive = true;
 		Ogre::Root::getSingleton().addFrameListener(this);
 		mWidgetCursor->show(true);
-		mTimer = 0;
+		mCursorTimer = 0;
 	}
 
 	void Edit::_onKeyLostFocus(WidgetPtr _new)
@@ -158,7 +186,7 @@ namespace MyGUI
 		ASSERT(m_text);
 
 		if ( ! mWidgetCursor->isShow()) mWidgetCursor->show(true);
-		mTimer = 0.0f;
+		mCursorTimer = 0.0f;
 
 		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
 		else if (_key == OIS::KC_BACK) {
@@ -207,90 +235,108 @@ namespace MyGUI
 			size_t size = mVectorUndoChangeInfo.size();
 			// непосредственно операции
 			deleteTextSelect();
-			insertText(m_text->getTextNewLine(), mCursorPosition);
+			insertText(TextIterator::getTextNewLine(), mCursorPosition);
 			// проверяем на возможность объединения
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 
 		} else if (_key == OIS::KC_RIGHT) {
 			if ((mCursorPosition) < mTextLenght) {
 				mCursorPosition ++;
-				IntPoint point;
-				m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
+				IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
 				updateCursor(point);
 			}
+			// сбрасываем выделение
+			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
 		} else if (_key == OIS::KC_LEFT) {
 			if (mCursorPosition != 0) {
 				mCursorPosition --;
-				IntPoint point;
-				m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
+				IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
 				updateCursor(point);
 			}
+			// сбрасываем выделение
+			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
 		} else if (_key == OIS::KC_UP) {
 			IntPoint point = getWorldPostion(mWidgetCursor);
-			point.top -= (getFontHeight() / 2);
+			point.top -= mHalfHeightCursor;
 			size_t old = mCursorPosition;
-			m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+			mCursorPosition = m_text->getTextCursorFromPoint(point);
 			// самая верхняя строчка
 			if ( old == mCursorPosition ) {
 				if (mCursorPosition != 0) {
-					point.left = CURSOR_MIN_POSITION;
-					m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+					point.left = EDIT_CURSOR_MIN_POSITION;
+					mCursorPosition = m_text->getTextCursorFromPoint(point);
 					updateCursor(point);
 				}
+				// сбрасываем выделение
+				else if (isTextSelect() && !mShiftPressed) resetSelect();
 			} else updateCursor(point);
 
 		} else if (_key == OIS::KC_DOWN) {
 			IntPoint point = getWorldPostion(mWidgetCursor);
-			point.top += getFontHeight() + (getFontHeight() / 2);
+			point.top += getFontHeight() + mHalfHeightCursor;
 			size_t old = mCursorPosition;
-			m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+			mCursorPosition = m_text->getTextCursorFromPoint(point);
 			// самая нижняя строчка
 			if ( old == mCursorPosition ) {
 				if (mCursorPosition != mTextLenght) {
-					point.left = CURSOR_MAX_POSITION;
-					point.top += (getFontHeight() / 2);
-					m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+					point.left = EDIT_CURSOR_MAX_POSITION;
+					point.top += mHalfHeightCursor;
+					mCursorPosition = m_text->getTextCursorFromPoint(point);
 					updateCursor(point);
 				}
+				// сбрасываем выделение
+				else if (isTextSelect() && !mShiftPressed) resetSelect();
 			} else updateCursor(point);
 
 		} else if (_key == OIS::KC_HOME) {
-			IntPoint point(CURSOR_MIN_POSITION, CURSOR_MIN_POSITION);
-			if ( !  mCtrlPressed) {
+			IntPoint point(EDIT_CURSOR_MIN_POSITION, EDIT_CURSOR_MIN_POSITION);
+			if ( false == mCtrlPressed) {
 				// в начало строки
 				point = getWorldPostion(mWidgetCursor);
-				point.left = CURSOR_MIN_POSITION;
-				point.top += (getFontHeight() / 2);
+				point.left = EDIT_CURSOR_MIN_POSITION;
+				point.top += mHalfHeightCursor;
 			}
 			size_t old = mCursorPosition;
-			m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+			mCursorPosition = m_text->getTextCursorFromPoint(point);
 			if ( old != mCursorPosition ) updateCursor(point);
+			// сбрасываем выделение
+			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
 		} else if (_key == OIS::KC_END) {
-			IntPoint point(CURSOR_MAX_POSITION, CURSOR_MAX_POSITION);
+			IntPoint point(EDIT_CURSOR_MAX_POSITION, EDIT_CURSOR_MAX_POSITION);
 			if ( !  mCtrlPressed) {
 				// в конец строки
 				point = getWorldPostion(mWidgetCursor);
-				point.left = CURSOR_MAX_POSITION;
-				point.top += (getFontHeight() / 2);
+				point.left = EDIT_CURSOR_MAX_POSITION;
+				point.top += mHalfHeightCursor;
 			}
 			size_t old = mCursorPosition;
-			m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+			mCursorPosition = m_text->getTextCursorFromPoint(point);
 			if ( old != mCursorPosition ) updateCursor(point);
+			// сбрасываем выделение
+			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
 		} else if (_key == OIS::KC_PGUP) {
-			IntPoint point(CURSOR_MIN_POSITION, CURSOR_MIN_POSITION);
+			// на размер окна, но не меньше одной строки
+			IntPoint point = getWorldPostion(mWidgetCursor);
+			point.top -= (mHalfHeightCursor > mWidgetUpper->height()) ? mHalfHeightCursor : mWidgetUpper->height();
 			size_t old = mCursorPosition;
-			m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+			mCursorPosition = m_text->getTextCursorFromPoint(point);
 			if ( old != mCursorPosition ) updateCursor(point);
+			// сбрасываем выделение
+			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
 		} else if (_key == OIS::KC_PGDOWN) {
-			IntPoint point(CURSOR_MAX_POSITION, CURSOR_MAX_POSITION);
+			// на размер окна, но не меньше одной строки
+			IntPoint point = getWorldPostion(mWidgetCursor);
+			point.top += (mHalfHeightCursor > mWidgetUpper->height()) ? (mHalfHeightCursor + getFontHeight()) : mWidgetUpper->height();
 			size_t old = mCursorPosition;
-			m_text->getTextCursorFromPoint(point.left, point.top, mCursorPosition);
+			mCursorPosition = m_text->getTextCursorFromPoint(point);
 			if ( old != mCursorPosition ) updateCursor(point);
+			// сбрасываем выделение
+			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
 		} else if (_key == OIS::KC_F1) {
 			setTextSelectColor(Ogre::ColourValue::Black);
@@ -307,10 +353,25 @@ namespace MyGUI
 		} else if (_key == OIS::KC_F5) {
 			setTextSelectColor(Ogre::ColourValue::White);
 
+		} else if (_key == OIS::KC_F6) {
+			m_text->setTextAlign(ALIGN_LEFT | ALIGN_TOP);
+			IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+			updateCursor(point);
+
+		} else if (_key == OIS::KC_F7) {
+			m_text->setTextAlign(ALIGN_CENTER);
+			IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+			updateCursor(point);
+
+		} else if (_key == OIS::KC_F8) {
+			m_text->setTextAlign(ALIGN_RIGHT | ALIGN_BOTTOM);
+			IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+			updateCursor(point);
+
 		} else if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) {
 			if ( ! mShiftPressed) {
 				mShiftPressed = true;
-				if (mStartSelect == ITEM_NONE) {
+				if (mStartSelect == SIZE_MAX) {
 					mStartSelect = mEndSelect = mCursorPosition;
 				}
 			}
@@ -325,7 +386,7 @@ namespace MyGUI
 				size_t size = mVectorUndoChangeInfo.size();
 				// непосредственно операции
 				deleteTextSelect();
-				insertText(m_text->getTextCharInfo(_char), mCursorPosition);
+				insertText(TextIterator::getTextCharInfo(_char), mCursorPosition);
 				// проверяем на возможность объединения
 				if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 
@@ -333,6 +394,8 @@ namespace MyGUI
 				// копируем в буфер обмена
 				if ( isTextSelect() ) mClipboard = getSelectedText();
 				else mClipboard = "";
+
+				OUT(mClipboard);
 
 			} else if (_key == OIS::KC_X) {
 				// вырезаем в буфер обмена
@@ -379,49 +442,107 @@ namespace MyGUI
 
 	bool Edit::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		if (!mCursorActive) return true;
-		mTimer += evt.timeSinceLastFrame;
+		if (mCursorActive) {
+			mCursorTimer += evt.timeSinceLastFrame;
 
-		if (mTimer <= CURSOR_TIMER) return true;
+			if (mCursorTimer > EDIT_CURSOR_TIMER ) {
+				mWidgetCursor->show( ! mWidgetCursor->isShow());
+				mCursorTimer -= EDIT_CURSOR_TIMER ;
+			}
+		}
 
-		mWidgetCursor->show( ! mWidgetCursor->isShow());
-		mTimer -= CURSOR_TIMER;
+		// сдвигаем курсор по положению мыши
+		if (mMouseLeftPressed) {
+			mActionMouseTimer += evt.timeSinceLastFrame;
+
+			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER ) {
+				
+				IntPoint point = InputManager::getInstance().getMousePosition();
+
+				WidgetPtr parent = mWidgetUpper;
+				while (parent != null) {
+					point.left -= parent->left();
+					point.top -= parent->top();
+					parent = parent->getParent();
+				}
+
+				bool action = false;
+
+				// вверх на одну строчку
+				if ( (point.top < 0) && (point.top > -EDIT_ACTION_MOUSE_ZONE) ) {
+					OUT("up");
+					if ( (point.left > 0) && (point.left <= mWidgetUpper->width()) ) {
+						point = getWorldPostion(mWidgetCursor);
+						point.top -= mHalfHeightCursor;
+						action = true;
+					}
+				}
+				// вниз на одну строчку
+				else if ( (point.top > mWidgetUpper->height()) && (point.top < (mWidgetUpper->height() + EDIT_ACTION_MOUSE_ZONE)) ) {
+					OUT("down");
+					if ( (point.left > 0) && (point.left <= mWidgetUpper->width()) ) {
+						point = getWorldPostion(mWidgetCursor);
+						point.top += getFontHeight() + mHalfHeightCursor;
+						action = true;
+					}
+				}
+				// влево на небольшое расстояние
+				else if ( (point.left < 0) && (point.left > -EDIT_ACTION_MOUSE_ZONE) ) {
+					OUT("left");
+					if ( (point.top > 0) && (point.top <= mWidgetUpper->height()) ) {
+						point = getWorldPostion(mWidgetCursor);
+						point.left -= EDIT_OFFSET_HORZ_CURSOR;
+						point.top += mHalfHeightCursor;
+						action = true;
+					}
+				}
+				// вправо на небольшое расстояние
+				else if ( (point.left > mWidgetUpper->width()) && (point.left < (mWidgetUpper->width() + EDIT_ACTION_MOUSE_ZONE)) ) {
+					OUT("right");
+					if ( (point.top > 0) && (point.top <= mWidgetUpper->height()) ) {
+						point = getWorldPostion(mWidgetCursor);
+						point.left += EDIT_OFFSET_HORZ_CURSOR;
+						point.top += mHalfHeightCursor;
+						action = true;
+					}
+				}
+
+				if (action) {
+					size_t old = mCursorPosition;
+					mCursorPosition = m_text->getTextCursorFromPoint(point);
+					if ( old != mCursorPosition ) {
+
+						WidgetPtr parent = mWidgetUpper;
+						while (parent != null) {
+							point.left -= parent->left();
+							point.top -= parent->top();
+							parent = parent->getParent();
+						}
+						mWidgetCursor->move(point.left, point.top);
+
+						mEndSelect = (size_t)mCursorPosition;
+						if (mStartSelect > mEndSelect) m_text->setTextSelect(mEndSelect, mStartSelect);
+						else m_text->setTextSelect(mStartSelect, mEndSelect);
+
+					}
+					// пытаемся показать курсор
+					updateView(true);
+
+				}
+				// если в зону не попадает то сбрасываем
+				else mActionMouseTimer = 0;
+
+				mActionMouseTimer -= EDIT_ACTION_MOUSE_TIMER ;
+			}
+
+		} // if (mMouseLeftPressed)
+
 		return true;
 	}
 
 	bool Edit::frameEnded(const Ogre::FrameEvent& evt)
 	{
 		return true;
-	}
-
-	void Edit::updateCursor(IntPoint _point)
-	{
-		OUT(mCursorPosition);
-
-		WidgetPtr parent = mWidgetUpper;
-		while (parent != null) {
-			_point.left -= parent->left();
-			_point.top -= parent->top();
-			parent = parent->getParent();
-		}
-		mWidgetCursor->move(_point.left, _point.top);
-
-		// проверяем курсор на выход за пределы видимости
-		if ( (_point.left < 0) || (_point.top < 0) || ((_point.left+mWidgetCursor->width()) > mWidgetUpper->width()) || ((_point.top+mWidgetCursor->height()) > mWidgetUpper->height()) ) {
-		//	OUT("exit");
-		}
-
-		if ( (mShiftPressed) && (mStartSelect != ITEM_NONE) ) {
-			// меняем выделение
-			mEndSelect = (size_t)mCursorPosition;
-			if (mStartSelect > mEndSelect) m_text->setTextSelect(mEndSelect, mStartSelect);
-			else m_text->setTextSelect(mStartSelect, mEndSelect);
-
-		} else if (mStartSelect != ITEM_NONE) {
-			// сбрасываем шифт
-			mStartSelect = ITEM_NONE;
-			m_text->setTextSelect(0, 0);
-		}
 	}
 
 	void Edit::setTextCursor(size_t _index)
@@ -435,8 +556,7 @@ namespace MyGUI
 		mCursorPosition = _index;
 
 		// обновляем по позиции
-		IntPoint point;
-		m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
 		updateCursor(point);
 	}
 
@@ -456,8 +576,7 @@ namespace MyGUI
 		mCursorPosition = mEndSelect;
 
 		// обновляем по позиции
-		IntPoint point;
-		m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
 
 		WidgetPtr parent = mWidgetUpper;
 		while (parent != null) {
@@ -481,293 +600,9 @@ namespace MyGUI
 		return true;
 	}
 
-	// возвращает текст
-	Ogre::DisplayString Edit::getText(size_t _start, size_t _count)
+	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _lenght, VectorChangeInfo * _info)
 	{
-		// перед строкой ставим тот цвет, который был до начала
-		size_t start = _start, count = 0;
-		m_text->getTagColor(start, count);
-		// если цвет есть перед строкой, то ничего не надо
-		if (count != 0 ) {
-			m_text->convertTextRange(_start, _count);
-			return m_text->getCaption().substr(_start, _count);
-		}
-
-		// проходим от начала и смотрим последний тег смены цвета
-		Ogre::DisplayString color = m_text->getTagColor();
-		for (size_t pos=0; pos<_start; pos++) {
-
-			size_t start = pos, count = 0;
-			m_text->getTagColor(start, count);
-
-			// цвет есть, запоминаем
-			if (count != 0) color = m_text->getCaption().substr(start, count);
-		}
-
-		// и возвращаем строку с цветом впереди
-		m_text->convertTextRange(_start, _count);
-		return color + m_text->getCaption().substr(_start, _count);
-	}
-
-	// выделяет цветом диапазон
-	void Edit::setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color)
-	{
-		// история изменений
-		VectorChangeInfo history;
-
-		// проходим от начала и смотрим последний тег смены цвета
-		size_t end = _start + _count;
-		Ogre::DisplayString oldColor;
-		for (size_t pos=0; pos<=end; pos++) {
-
-			size_t start = pos, count = 0;
-			m_text->getTagColor(start, count);
-
-			// цвет есть, запоминаем и удаляем
-			if (count != 0) {
-				const Ogre::DisplayString & text = m_text->getCaption();
-				oldColor = text.substr(start, count);
-				// удаляем старый тег, если он внутри
-				if (pos >= _start) commandErase(start, count, &history);
-			}
-
-		}
-
-		// если в диапозоне небыло цвета, то дефолт
-		if (oldColor.empty()) oldColor = m_text->getTagColor();
-
-		// ставим тег в начало
-		size_t start = _start, count = 0;
-		m_text->convertTextRange(start, count);
-		commandInsert(m_text->getTagColor(_color), start, &history);
-
-		// ставим тег в конец
-		start = _start + _count;
-		count = 0;
-		m_text->convertTextRange(start, count);
-		commandInsert(oldColor, start, &history);
-
-		// сохраняем позицию для восстановления курсора
-		commandPosition(_start, _start+_count, &history);
-
-		// запоминаем в историю
-		saveInHistory(&history);
-
-		OUT(m_text->getCaption());
-	}
-
-	void Edit::insertText(const Ogre::DisplayString & _text, size_t _index)
-	{
-		// сбрасываем выделение
-		resetSelect();
-
-		// если строка пустая, то не нуно
-		if (_text.empty()) return;
-
-		// история изменений
-		VectorChangeInfo history;
-
-		Ogre::DisplayString color;
-
-		// с цветами делаем если вставляемый текст тоже с цветом
-		if ( (_text.size() > 6) && (_text[0] == '#') && (_text[1] != '#') ) {
-			size_t start = _index, count = 0;
-			m_text->getTagColor(start, count);
-			if (count == 0) {
-				// проходим от начала и смотрим последний тег смены цвета
-				color = m_text->getTagColor();
-				for (size_t pos=0; pos<_index; pos++) {
-
-					start = pos;
-					count = 0;
-					m_text->getTagColor(start, count);
-
-					// цвет есть, запоминаем
-					if (count != 0) color = m_text->getCaption().substr(start, count);
-				}
-			}
-		} // if ( (_text.size() > 6) && (_text[0] == '#') && (_text[1] != '#') ) {
-
-		// узнаем откуда
-		size_t start = _index, count = 0;
-		m_text->convertTextRange(start, count);
-		// запоминаем текущую длинну строки
-		count = mTextLenght;
-
-		// если нодо то цвет
-		if ( ! color.empty()) commandInsert(color, start, &history);
-		// добавление текста
-		commandInsert(_text, start, &history);
-
-		// новая позиция и положение на конец вставки
-		mTextLenght = m_text->getTextLenght();
-		mCursorPosition += mTextLenght - count;
-
-		// сохраняем позицию для восстановления курсора
-		commandPosition(_index, _index + mTextLenght - count, &history);
-
-		// запоминаем в историю
-		saveInHistory(&history);
-
-		// обновляем по позиции
-		IntPoint point;
-		m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
-		updateCursor(point);
-	}
-
-	void Edit::eraseText(size_t _start, size_t _count)
-	{
-
-		// чета маловато
-		if (_count == 0) return;
-		// сбрасываем выделение
-		resetSelect();
-
-		// история изменений
-		VectorChangeInfo history;
-
-		// если в конце нет цвета, то нуно его найти и вставить
-		Ogre::DisplayString color;
-		size_t start = _start + _count, count = 0;
-		m_text->getTagColor(start, count);
-		if (count == 0) {
-			// проходим от начала и смотрим последний тег смены цвета
-			size_t end = _start + _count;
-			for (size_t pos=0; pos<end; pos++) {
-
-				start = pos;
-				count = 0;
-				m_text->getTagColor(start, count);
-
-				// цвет есть, запоминаем
-				if (count != 0) color = m_text->getCaption().substr(start, count);
-			}
-		} else {
-			// оптимизация, если цвет есть и он такой же как до удаления, то нуно и его убить
-			size_t save_start = start, save_count = count;
-			Ogre::DisplayString find_color = m_text->getTagColor();
-			for (size_t pos=0; pos<_start; pos++) {
-
-				start = pos;
-				count = 0;
-				m_text->getTagColor(start, count);
-
-				// цвет есть, запоминаем
-				if (count != 0) find_color = m_text->getCaption().substr(start, count);
-			}
-			// если цвета одинаковые, то удаляем
-			if (find_color == m_text->getCaption().substr(save_start, save_count)) {
-				commandErase(save_start, save_count, &history);
-			}
-		}
-
-		// узнаем откуда
-		start = _start;
-		count = _count;
-		m_text->convertTextRange(start, count);
-
-		// удаление текста
-		commandErase(start, count, &history);
-
-		// если цвет был
-		if ( ! color.empty()) commandInsert(color, start, &history);
-
-		// на месте удаленного
-		mCursorPosition = _start;
-		mTextLenght = m_text->getTextLenght();
-
-		// сохраняем позицию для восстановления курсора
-		commandPosition(_start + _count, _start, &history);
-
-		// запоминаем в историю
-		saveInHistory(&history);
-
-		// обновляем по позиции
-		IntPoint point;
-		m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
-		updateCursor(point);
-	}
-
-	void Edit::setCaption(const Ogre::DisplayString & _caption)
-	{
-		// сбрасываем выделение
-		resetSelect();
-
-		// история изменений
-		VectorChangeInfo history;
-
-		// удаление текста
-		commandErase(0, m_text->getCaption().size(), &history);
-
-		// добавление текста
-		commandInsert(_caption, 0, &history);
-
-		// новая позиция и положение на конец вставки
-		mCursorPosition = mTextLenght = m_text->getTextLenght();
-
-		// сохраняем позицию для восстановления курсора
-		commandPosition(0, mTextLenght, &history);
-
-		// запоминаем в историю
-		saveInHistory(&history);
-
-		// обновляем по позиции
-		IntPoint point;
-		m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
-		updateCursor(point);
-	}
-
-	bool Edit::commandErase(size_t _start, size_t _count, VectorChangeInfo * _info)
-	{
-		if (_count == 0) return false;
-
-		// при изменениях сразу сбрасываем повтор
-		commandResetRedo();
-
-		Ogre::DisplayString text = m_text->getCaption();
-
-		// сохраняем в историю
-		if (_info != null) 	_info->push_back(tagChangeInfo(text.substr(_start, _count), _start, COMMAND_ERASE));
-
-		text.erase(_start, _count);
-		m_text->setCaption(text);
-		return true;
-	}
-
-	bool Edit::commandInsert(const Ogre::DisplayString & _insert, size_t _start, VectorChangeInfo * _info)
-	{
-		if (_insert.size() == 0) return false;
-		// чтобы историю не засорять
-		if (EDIT_MAX_LENGHT == m_text->getTextLenght()) {
-			return false;
-		}
-
-		// при изменениях сразу сбрасываем повтор
-		commandResetRedo();
-
-		Ogre::DisplayString text = m_text->getCaption();
-
-		// сохраняем в историю
-		if (_info != null) 	_info->push_back(tagChangeInfo(_insert, _start, COMMAND_INSERT));
-
-		text.insert(_start, _insert);
-		m_text->setCaption(text);
-
-		// проверяем на максимальный размер
-		size_t lenght = m_text->getTextLenght();
-		if (lenght > EDIT_MAX_LENGHT) {
-			// обрезаем
-			size_t start = EDIT_MAX_LENGHT, count = lenght - EDIT_MAX_LENGHT;
-			m_text->convertTextRange(start, count);
-			commandErase(start, count, _info);
-		}
-
-		return true;
-	}
-
-	void Edit::commandPosition(size_t _undo, size_t _redo, VectorChangeInfo * _info)
-	{
-		if (_info != null) 	_info->push_back(tagChangeInfo(_undo, _redo));
+		if (_info != null) 	_info->push_back(tagChangeInfo(_undo, _redo, _lenght));
 	}
 
 	void Edit::commandMerge()
@@ -796,27 +631,26 @@ namespace MyGUI
 		mVectorUndoChangeInfo.pop_back();
 		mVectorRedoChangeInfo.push_back(info);
 
+		// берем текст для издевательств
 		Ogre::DisplayString text = m_text->getCaption();
-		size_t position = ITEM_NONE;
 
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::reverse_iterator iter=info.rbegin(); iter!=info.rend(); iter++) {
 
 			if ((*iter).type == COMMAND_INSERT) text.erase((*iter).start, (*iter).text.size());
 			else if ((*iter).type == COMMAND_ERASE) text.insert((*iter).start, (*iter).text);
-			else position = (*iter).undo;
+			else {
+				mCursorPosition = (*iter).undo;
+				mTextLenght = (*iter).lenght;
+			}
 
 		}
 
+		// возвращаем текст
 		m_text->setCaption(text);
 
-		// новая позиция и положение на конец вставки
-		mCursorPosition = (position != ITEM_NONE) ? position : 0;
-		mTextLenght = m_text->getTextLenght();
-
 		// обновляем по позиции
-		IntPoint point;
-		m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
 		updateCursor(point);
 
 		return true;
@@ -835,27 +669,26 @@ namespace MyGUI
 		mVectorRedoChangeInfo.pop_back();
 		mVectorUndoChangeInfo.push_back(info);
 
+		// берем текст для издевательств
 		Ogre::DisplayString text = m_text->getCaption();
-		size_t position = ITEM_NONE;
 
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++) {
 
 			if ((*iter).type == COMMAND_INSERT) text.insert((*iter).start, (*iter).text);
 			else if ((*iter).type == COMMAND_ERASE) text.erase((*iter).start, (*iter).text.size());
-			else position = (*iter).redo;
+			else {
+				mCursorPosition = (*iter).redo;
+				mTextLenght = (*iter).lenght;
+			}
 
 		}
 
+		// возвращаем текст
 		m_text->setCaption(text);
 
-		// новая позиция и положение на конец вставки
-		mCursorPosition = (position != ITEM_NONE) ? position : 0;
-		mTextLenght = m_text->getTextLenght();
-
 		// обновляем по позиции
-		IntPoint point;
-		m_text->getTextCursorFromPosition(point.left, point.top, mCursorPosition);
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
 		updateCursor(point);
 
 		return true;
@@ -872,6 +705,406 @@ namespace MyGUI
 		// проверяем на максимальный размер
 		if (mVectorUndoChangeInfo.size() > EDIT_MAX_UNDO)
 			mVectorUndoChangeInfo.pop_front();
+	}
+
+	void Edit::insertText(const Ogre::DisplayString & _text, size_t _start)
+	{
+		// сбрасываем выделение
+		resetSelect();
+
+		// если строка пустая, или размер максимален
+		if ((_text.empty()) || (mTextLenght == EDIT_MAX_LENGHT) ) return;
+
+		// история изменений
+		VectorChangeInfo history;
+
+		// итератор нашей строки
+		TextIterator iterator(m_text->getCaption(), &history);
+
+		// дефолтный цвет
+		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
+		// нужен ли тег текста
+		bool need_color = ( (_text.size() > 6) && (_text[0] == '#') && (_text[1] != '#') );
+
+		// цикл прохода по строке
+		while (iterator.moveNext()) {
+
+			// текущаяя позиция
+			size_t pos = iterator.getPosition();
+
+			// текущий цвет
+			if (need_color) iterator.getTagColor(color);
+
+			// если дошли то выходим
+			if (pos == _start) break;
+
+		};
+
+		// если нужен цвет то вставляем
+		if (need_color) iterator.setTagColor(color);
+
+		// а теперь вставляем строку
+		iterator.insertText(_text);
+
+		// обрезаем по максимальной длинне
+		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
+
+		// запоминаем размер строки
+		size_t old = mTextLenght;
+		// новая позиция и положение на конец вставки
+		mTextLenght = iterator.getSize();
+		mCursorPosition += mTextLenght - old;
+
+		// сохраняем позицию для восстановления курсора
+		commandPosition(_start, _start + mTextLenght - old, old, &history);
+
+		// запоминаем в историю
+		saveInHistory(&history);
+
+		// и возвращаем строку на место
+		m_text->setCaption(iterator.getText());
+
+		// обновляем по позиции
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+		updateCursor(point);
+	}
+
+	void Edit::eraseText(size_t _start, size_t _count)
+	{
+		// чета маловато
+		if (_count == 0) return;
+
+		// сбрасываем выделение
+		resetSelect();
+
+		// история изменений
+		VectorChangeInfo history;
+
+		// итератор нашей строки
+		TextIterator iterator(m_text->getCaption(), &history);
+
+		// дефолтный цвет
+		Ogre::DisplayString color;
+		// конец диапазона
+		size_t end = _start + _count;
+		bool need_color = false;
+
+		// цикл прохода по строке
+		while (iterator.moveNext()) {
+
+			// текущаяя позиция
+			size_t pos = iterator.getPosition();
+
+			// еще рано
+			if (pos < _start) {
+				// берем цвет из позиции и запоминаем
+				iterator.getTagColor(color);
+				continue;
+			}
+
+			// сохраняем место откуда начинается
+			else if (pos == _start) {
+				// если до диапазона был цвет, то нужно закрыть тег
+				if ( ! color.empty()) {
+					need_color = true;
+					color.clear();
+				}
+				// берем цвет из позиции и запоминаем
+				iterator.getTagColor(color);
+				iterator.saveStartPoint();
+			}
+
+			// внутри диапазона
+			else if (pos < end) {
+				// берем цвет из позиции и запоминаем
+				iterator.getTagColor(color);
+			}
+
+			// окончание диапазона
+			else if (pos == end) {
+				// нужно ставить тег или нет
+				if ( ! color.empty()) need_color = true;
+				if ( iterator.getTagColor(color)) need_color = false;
+
+				break;
+			}
+
+		};
+
+		// удаляем диапазон
+		iterator.eraseFromStart();
+		// и вставляем последний цвет
+		if (need_color) iterator.setTagColor(color);
+
+		// сохраняем позицию для восстановления курсора
+		commandPosition(_start + _count, _start, mTextLenght, &history);
+
+		// на месте удаленного
+		mCursorPosition = _start;
+		mTextLenght -= _count;
+
+		// запоминаем в историю
+		saveInHistory(&history);
+
+		// и возвращаем строку на место
+		m_text->setCaption(iterator.getText());
+
+		// обновляем по позиции
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+		updateCursor(point);
+	}
+
+	// возвращает текст
+	Ogre::DisplayString Edit::getText(size_t _start, size_t _count)
+	{
+		// конец диапазона
+		size_t end = _start + _count;
+
+		// итератор нашей строки
+		TextIterator iterator(m_text->getCaption());
+
+		// дефолтный цвет
+		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
+
+		// нужно ли вставлять цвет
+		bool need_color = true;
+
+		// цикл прохода по строке
+		while (iterator.moveNext()) {
+
+			// текущаяя позиция
+			size_t pos = iterator.getPosition();
+
+			// еще рано
+			if (pos < _start) {
+				// берем цвет из позиции и запоминаем
+				iterator.getTagColor(color);
+
+				continue;
+			}
+
+			// проверяем на надобность начального тега
+			else if (pos == _start) {
+				need_color = ! iterator.getTagColor(color);
+				// сохраняем место откуда начинается
+				iterator.saveStartPoint();
+
+			}
+
+			// а теперь просто до конца диапазона
+			else if (pos == end) break;
+
+		};
+
+		// возвращаем строку
+		if (need_color) return color + iterator.getFromStart();
+		return iterator.getFromStart();
+	}
+
+	// выделяет цветом диапазон
+	void Edit::setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color)
+	{
+		// при изменениях сразу сбрасываем повтор
+		commandResetRedo();
+
+		// история изменений
+		VectorChangeInfo history;
+
+		// конец диапазона
+		size_t end = _start + _count;
+
+		// итератор нашей строки
+		TextIterator iterator(m_text->getCaption(), &history);
+
+		// дефолтный цвет
+		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
+
+		// цикл прохода по строке
+		while (iterator.moveNext()) {
+
+			// текущаяя позиция
+			size_t pos = iterator.getPosition();
+
+			// берем цвет из позиции и запоминаем
+			iterator.getTagColor(color);
+
+			// еще рано
+			if (pos < _start) continue;
+
+			// ставим начальный тег
+			else if (pos == _start)
+				iterator.setTagColor(_color);
+
+			// внутри диапазона очищаем все
+			else if (pos < end)
+				iterator.clearTagColor();
+
+			// на конец ставим последний найденный или дефолтный
+			else if (pos == end) {
+				iterator.setTagColor(color);
+				// и выходим из цикла
+				break;
+			}
+
+		};
+
+		// сохраняем позицию для восстановления курсора
+		commandPosition(_start, _start+_count, mTextLenght, &history);
+
+		// запоминаем в историю
+		saveInHistory(&history);
+
+		// и возвращаем строку на место
+		m_text->setCaption(iterator.getText());
+
+	}
+
+	void Edit::setCaption(const Ogre::DisplayString & _caption)
+	{
+		// сбрасываем выделение
+		resetSelect();
+
+		// история изменений
+		VectorChangeInfo history;
+
+		// итератор нашей строки
+		TextIterator iterator(m_text->getCaption(), &history);
+
+		// вставляем текст
+		iterator.setText(_caption);
+
+		// обрезаем по максимальной длинне
+		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
+
+		// запоминаем размер строки
+		size_t old = mTextLenght;
+		// новая позиция и положение на конец вставки
+		mCursorPosition = mTextLenght = iterator.getSize();
+
+		// сохраняем позицию для восстановления курсора
+		commandPosition(0, mTextLenght, old, &history);
+
+		// запоминаем в историю
+		saveInHistory(&history);
+
+		// и возвращаем строку на место
+		m_text->setCaption(iterator.getText());
+
+		// обновляем по позиции
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+		updateCursor(point);
+	}
+
+	void Edit::updateCursor(IntPoint _point)
+	{
+		OUT(mCursorPosition);
+
+		WidgetPtr parent = mWidgetUpper;
+		while (parent != null) {
+			_point.left -= parent->left();
+			_point.top -= parent->top();
+			parent = parent->getParent();
+		}
+
+		// если по горизонтали курсор наполовину виден, то нужно показать весь
+		if (_point.left == -mHalfWidthCursor) _point.left = 0;
+		else if (_point.left == mWidgetUpper->width()-mHalfWidthCursor) _point.left = mWidgetUpper->width() - mWidgetCursor->width();
+		mWidgetCursor->move(_point.left, _point.top);
+
+		if ( (mShiftPressed) && (mStartSelect != SIZE_MAX) ) {
+			// меняем выделение
+			mEndSelect = (size_t)mCursorPosition;
+			if (mStartSelect > mEndSelect) m_text->setTextSelect(mEndSelect, mStartSelect);
+			else m_text->setTextSelect(mStartSelect, mEndSelect);
+
+		} else if (mStartSelect != SIZE_MAX) {
+			// сбрасываем шифт
+			mStartSelect = SIZE_MAX;
+			m_text->setTextSelect(0, 0);
+		}
+
+		// пытаемся показать курсор
+		updateView(true);
+	}
+
+	bool Edit::isShowCursorInView()
+	{
+		return ( (mWidgetCursor->left() >= 0) 
+			&& (mWidgetCursor->top() >= 0) 
+			&& (mWidgetCursor->right() <= mWidgetUpper->width()) 
+			&& (mWidgetCursor->bottom() <= mWidgetUpper->height()) );
+	}
+
+	void Edit::updateView(bool _showCursor)
+	{
+		// размер контекста
+		mSizeView = m_text->getTextSize();
+		// текущая позиция
+		IntPoint point = m_text->getTextShift();
+		// расчетное смещение
+		IntPoint offset;
+
+
+		// проверяем и показываем курсор
+		if (_showCursor && ( false == isShowCursorInView())) {
+
+			// горизонтальное смещение
+			if (mSizeView.width > mWidgetUpper->width()) {
+				if (mWidgetCursor->left() < 0) {
+					offset.left = mWidgetCursor->left() - EDIT_OFFSET_HORZ_CURSOR;
+				}
+				else if (mWidgetCursor->right() > mWidgetUpper->width()) {
+					offset.left = mWidgetCursor->right() - mWidgetUpper->width() + EDIT_OFFSET_HORZ_CURSOR;
+				}
+			}
+
+			// вертикальное смещение
+			if (mSizeView.height > mWidgetUpper->height()) {
+				if (mWidgetCursor->top() < 0) {
+					offset.top = mWidgetCursor->top();
+				}
+				else if (mWidgetCursor->bottom() > mWidgetUpper->height()) {
+					offset.top = mWidgetCursor->bottom() - mWidgetUpper->height();
+				}
+			}
+
+		}
+
+		if (mSizeView.width > mWidgetUpper->width()) {
+
+			// максимальный выход влево
+			if ((point.left + offset.left) < mHalfWidthCursor) {
+				offset.left = - (mHalfWidthCursor + point.left);
+			}
+			// максимальный выход вправо
+			else if ( (point.left + offset.left) > (mSizeView.width-mWidgetUpper->width()+mHalfWidthCursor) ) {
+				offset.left = (mSizeView.width-mWidgetUpper->width()+mHalfWidthCursor) - point.left;
+			}
+		}
+
+		if (mSizeView.height > mWidgetUpper->height()) {
+
+			// максимальный выход вверх
+			if ((point.top + offset.top) < 0) {
+				offset.top = - point.top;
+			}
+			// максимальный выход вниз
+			else if ( (point.top + offset.top) > (mSizeView.height-mWidgetUpper->height()) ) {
+				offset.top = (mSizeView.height-mWidgetUpper->height()) - point.top;
+			}
+		}
+
+		// ничего не изменилось
+		if (offset.empty()) return;
+
+		mWidgetCursor->move(mWidgetCursor->left() - offset.left, mWidgetCursor->top() - offset.top);
+
+		point.left += offset.left;
+		point.top += offset.top;
+		m_text->setTextShift(point);
+
+		OUT("OFFSET : ", point.left, " ,  ", point.top);
+
 	}
 
 } // namespace MyGUI

@@ -12,9 +12,6 @@ namespace MyGUI
 	// парсер команд для Widget
 	namespace parser { WidgetParser WidgetParserInstance; }
 
-	// константа, отсутствие выделения, максимальное число size_t
-	const size_t Widget::ITEM_NONE = (size_t)-1;
-
 	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		BasisWidget(_x, _y, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
 		m_text(0),

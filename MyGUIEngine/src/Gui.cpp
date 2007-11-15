@@ -16,8 +16,8 @@ namespace MyGUI
 		// регистрируем фабрику текста и панели
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		overlayManager.addOverlayElementFactory(&m_factoryTextSimpleOverlay);
+		overlayManager.addOverlayElementFactory(&m_factoryTextEditOverlay);
 		overlayManager.addOverlayElementFactory(&m_factoryPanelAlphaOverlay);
-		overlayManager.addOverlayElementFactory(&mFactoryPanelAlphaSharedOverlay);
 	}
 
 	void Gui::initialise(Ogre::RenderWindow* _window)

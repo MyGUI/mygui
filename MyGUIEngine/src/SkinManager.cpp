@@ -58,32 +58,24 @@ namespace MyGUI
 	void SkinManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
-		if (xml_root == 0) return;
-		if (xml_root->getName() != "MyGUI_SkinInfo") return;
+		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_SkinInfo") ) return;
 
 		// вспомогательный класс для биндинга сабскинов
 		BasisWidgetBinding bind;
 
 		// берем детей и крутимся, основной цикл со скинами
-		xml::VectorNode & skins = xml_root->getChilds();
-		for (size_t i=0; i<skins.size(); i++) {
-			xml::xmlNodePtr skinInfo = skins[i];
-			if (skinInfo->getName() != "Skin") continue;
+		xml::xmlNodeIterator skin = xml_root->getNodeIterator();
+		while (skin.nextNode("Skin")) {
 
 			// парсим атрибуты скина
-			const xml::VectorAttributes & attrib = skinInfo->getAttributes();
-			Ogre::String skinName, skinMaterial;//, fontName;
+			Ogre::String skinName, skinMaterial, tmp;
 			IntSize size;
-			for (size_t ia=0; ia<attrib.size(); ia++) {
-				// достаем пару атрибут - значение
-				const xml::PairAttributes & pairAttributes = attrib[ia];
-				if (pairAttributes.first == "Name") skinName = pairAttributes.second;
-				else if (pairAttributes.first == "Material") skinMaterial = pairAttributes.second;
-				else if (pairAttributes.first == "Size") size = util::parseIntSize(pairAttributes.second);
-			}
+			skin->findAttribute("Name", skinName);
+			skin->findAttribute("Material", skinMaterial);
+			if (skin->findAttribute("Size", tmp)) size = util::parseIntSize(tmp);
 
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(skinName);
@@ -91,72 +83,57 @@ namespace MyGUI
 			FloatSize materialSize = getMaterialSize(skinMaterial);
 
 			// берем детей и крутимся, цикл с саб скинами
-			xml::VectorNode & basisSkins = skinInfo->getChilds();
-			for (size_t j=0; j<basisSkins.size(); j++) {
-				xml::xmlNodePtr basisSkinInfo = basisSkins[j];
+			xml::xmlNodeIterator basis = skin->getNodeIterator();
+			while (basis.nextNode()) {
 
-				if (basisSkinInfo->getName() == "Property") {
+				if (basis->getName() == "Property") {
 					// загружаем свойства
-					const xml::VectorAttributes & attrib = basisSkinInfo->getAttributes();
 					std::string key, value;
-					for (size_t ia=0; ia<attrib.size(); ia++) {
-						// достаем пару атрибут - значение
-						const xml::PairAttributes & pairAttributes = attrib[ia];
-						if (pairAttributes.first == "Key") key = pairAttributes.second;
-						else if (pairAttributes.first == "Value") value = pairAttributes.second;
-					}
+					if (false == basis->findAttribute("Key", key)) continue;
+					if (false == basis->findAttribute("Value", value)) continue;
 					// добавляем свойство
 					widget_info->addParam(key, value);
 					// все уходим
 					continue;
 
-				} else if (basisSkinInfo->getName() != "BasisSkin") continue;
+				}
+				else if (basis->getName() != "BasisSkin") continue;
 
-				// парсим атрибуты саб скина
-				const xml::VectorAttributes & attrib = basisSkinInfo->getAttributes();
-				Ogre::String basisSkinType;
+				// парсим атрибуты
+				Ogre::String basisSkinType, tmp;
 				IntRect offset;
 				char align = ALIGN_NONE;
-				for (size_t ia=0; ia<attrib.size(); ia++) {
-					// достаем пару атрибут - значение
-					const xml::PairAttributes & pairAttributes = attrib[ia];
-					if (pairAttributes.first == "Type") basisSkinType = pairAttributes.second;
-					else if (pairAttributes.first == "Offset") offset = util::parseIntRect(pairAttributes.second);
-					else if (pairAttributes.first == "Align") align = parseAlign(pairAttributes.second);
-				}
+				basis->findAttribute("Type", basisSkinType);
+				if (basis->findAttribute("Offset", tmp)) offset = util::parseIntRect(tmp);
+				if (basis->findAttribute("Align", tmp)) align = parseAlign(tmp);
 
 				bind.create(offset, align, basisSkinType);
 
 				// берем детей и крутимся, цикл со стейтами
-				xml::VectorNode & basisState = basisSkinInfo->getChilds();
-				for (size_t k=0; k<basisState.size(); k++) {
-					xml::xmlNodePtr basisStateInfo = basisState[k];
-					if (basisStateInfo->getName() != "State") continue;
+				xml::xmlNodeIterator state = basis->getNodeIterator();
+				while (state.nextNode("State")) {
 
 					// парсим атрибуты стейта
-					const xml::VectorAttributes & attrib = basisStateInfo->getAttributes();
-					Ogre::String basisStateName;
+					Ogre::String basisStateName, tmp;
 					FloatRect offset;
 					Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
 					float alpha = -1;
-					for (size_t ia=0; ia<attrib.size(); ia++) {
-						// достаем пару атрибут - значение
-						const xml::PairAttributes & pairAttributes = attrib[ia];
-						if (pairAttributes.first == "Name") basisStateName = pairAttributes.second;
-						else if (pairAttributes.first == "Offset") offset = convertMaterialCoord(util::parseFloatRect(pairAttributes.second), materialSize);
-						else if (pairAttributes.first == "Color") colour = util::parseColour(pairAttributes.second);
-						else if (pairAttributes.first == "Alpha") alpha = util::parseFloat(pairAttributes.second);
-					}
+
+					state->findAttribute("Name", basisStateName);
+					if (state->findAttribute("Offset", tmp)) offset = convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
+					if (state->findAttribute("Color", tmp)) colour = util::parseColour(tmp);
+					if (state->findAttribute("Alpha", tmp)) alpha = util::parseFloat(tmp);
+
 					// добавляем инфо о стайте
 					bind.add(basisStateName, offset, colour, alpha);
 
-				} // for (size_t i_state=0; i_state<basisState.size(); i_state++) {
+				};
 
 				// теперь всё вместе добавляем в скин
 				widget_info->addInfo(bind);
 
-			} // for (size_t i_basis=0; i_basis<basisSkins.size(); i_basis++) {
-		} // for (size_t i_skin=0; i_skin<skins.size(); i_skin++) {
+			};
+		};
 	}
 
 	FloatSize SkinManager::getMaterialSize(const std::string & _material)

@@ -9,6 +9,9 @@ namespace MyGUI
 {
 
 	const std::string INPUT_DEFAULT_LANGUAGE = "English";
+	const int INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
+	const float INPUT_DELAY_FIRST_KEY = 0.4f;
+	const float INPUT_INTERVAL_KEY = 0.05f;
 
 	INSTANCE_IMPLEMENT(InputManager);
 
@@ -16,7 +19,9 @@ namespace MyGUI
 		m_widgetMouseFocus(0), m_widgetKeyFocus(0),
 		m_widgetRootMouseFocus(0), m_widgetRootKeyFocus(0),
 		m_isWidgetMouseCapture(false),
-		m_isCharShift(false)
+		m_isCharShift(false),
+		mHoldKey(OIS::KC_UNASSIGNED),
+		mIsListener(false)
 	{
 		createDefaultCharSet();
 		loadCharSet("main.lang");
@@ -24,6 +29,9 @@ namespace MyGUI
 
 	bool InputManager::injectMouseMove( const OIS::MouseEvent & _arg)
 	{
+		// запоминаем позицию
+		mMousePosition.set(_arg.state.X.abs, _arg.state.Y.abs);
+
 		// двигаем курсор
 		PointerManager::getInstance().move(_arg.state.X.abs, _arg.state.Y.abs);
 
@@ -104,7 +112,7 @@ namespace MyGUI
 
 			m_widgetMouseFocus->_onMouseButtonReleased(_id == OIS::MB_Left);
 
-			if ((_id == OIS::MB_Left) && m_time.getMilliseconds() < GUI_TIME_DOUBLE_CLICK) {
+			if ((_id == OIS::MB_Left) && m_time.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
 				m_widgetMouseFocus->_onMouseButtonClick(true);
 			} else {
 			    m_time.reset();
@@ -128,11 +136,17 @@ namespace MyGUI
 		//Pass keystrokes to the current active text widget
 		if (isCaptureKey()) m_widgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
 
+		// запоминаем клавишу
+		storeKey(_arg.key);
+
 		return isCaptureKey();
 	}
 
 	bool InputManager::injectKeyRelease(const OIS::KeyEvent & _arg)
 	{
+		// сбрасываем клавишу
+		resetKey();
+
 		// проверка на переключение языков
 		detectLangShift(_arg.key, false);
 
@@ -141,7 +155,7 @@ namespace MyGUI
 		return isCaptureKey();
 	}
 
-    //Detects switching from an english to a russian mode on a keyboard (?)
+    //Detects switching from an english to a other mode on a keyboard (?)
 	void InputManager::detectLangShift(int keyEvent, bool bIsKeyPressed)
 	{
 		// если переключать не надо
@@ -226,28 +240,18 @@ namespace MyGUI
 	void InputManager::loadCharSet(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.load(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
-		if (xml_root == 0) return;
-		if (xml_root->getName() != "MyGUI_LangInfo") return;
+		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_LangInfo") ) return;
 
-		// берем детей и крутимся
-		xml::VectorNode & langs = xml_root->getChilds();
-		for (size_t i=0; i<langs.size(); i++) {
-			xml::xmlNodePtr langInfo = langs[i];
-			if (langInfo->getName() != "Lang") continue;
+		xml::xmlNodeIterator lang = xml_root->getNodeIterator();
+		while (lang.nextNode("Lang")) {
 
-			// парсим атрибуты скина
-			const xml::VectorAttributes & attrib = langInfo->getAttributes();
 			std::string name;
-			for (size_t ia=0; ia<attrib.size(); ia++) {
-				// достаем пару атрибут - значение
-				const xml::PairAttributes & pairAttributes = attrib[ia];
-				if (pairAttributes.first == "Name") name = pairAttributes.second;
-			}
+			if ( false == lang->findAttribute("Name", name)) continue;
 
-			const std::vector<std::string> & chars = util::split(langInfo->getBody());
+			std::vector<std::string> chars = util::split(lang->getBody());
 			if (chars.size() == 116) {
 
 				// сначала проверяем есть ли такой язык уже
@@ -265,7 +269,7 @@ namespace MyGUI
 
 			} else {LOG("count char is not 116");}
 
-		}
+		};
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение
 		m_currentLanguage = m_mapLanguages.find(INPUT_DEFAULT_LANGUAGE);
 	}
@@ -305,6 +309,37 @@ namespace MyGUI
 //		m_widgetKeyFocus = null;
 		m_widgetRootMouseFocus = null;
 //		m_widgetRootKeyFocus = null;
+	}
+
+	bool InputManager::frameStarted(const Ogre::FrameEvent& evt)
+	{
+		if ( mHoldKey == OIS::KC_UNASSIGNED) return true;
+		if ( ! isCaptureKey() ) {
+			mHoldKey = OIS::KC_UNASSIGNED;
+			return true;
+		}
+
+		mTimerKey += evt.timeSinceLastFrame;
+
+		if (mFirstPressKey) {
+			if (mTimerKey > INPUT_DELAY_FIRST_KEY) {
+				mFirstPressKey = false;
+				mTimerKey = 0.0f;
+			}
+		} else {
+			if (mTimerKey > INPUT_INTERVAL_KEY) {
+				mTimerKey -= INPUT_INTERVAL_KEY;
+				m_widgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
+				m_widgetKeyFocus->_onKeyButtonReleased(mHoldKey);
+			}
+		}
+
+		return true;
+	}
+
+	bool InputManager::frameEnded(const Ogre::FrameEvent& evt)
+	{
+		return true;
 	}
 
 } // namespace MyGUI

@@ -15,7 +15,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef CDelegate1<const std::string &> EventChangeLanguage;
 
-	class _MyGUIExport InputManager
+	class _MyGUIExport InputManager :  public Ogre::FrameListener
 	{
 		INSTANCE_HEADER(InputManager);
 
@@ -23,6 +23,9 @@ namespace MyGUI
 		InputManager();
 
 	public:
+		bool frameStarted(const Ogre::FrameEvent& evt);
+		bool frameEnded(const Ogre::FrameEvent& evt);
+
 		bool injectMouseMove( const OIS::MouseEvent & _arg);
 		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
 		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
@@ -40,6 +43,7 @@ namespace MyGUI
 		inline WidgetPtr getKeyFocusWidget() {return m_widgetKeyFocus;}
 		inline const std::string & getCurrentLanguage() {return m_currentLanguage->first;}
 		inline const IntPoint & getLastLeftPressed() {return m_lastLeftPressed;}
+		inline const IntPoint & getMousePosition() {return mMousePosition;}
 
 		// тестовый вариант, очистка фокуса мыши
 		void resetMouseFocusWidget();
@@ -65,8 +69,37 @@ namespace MyGUI
 			eventChangeLanguage(m_currentLanguage->first);
 		}
 
+		// запоминает клавишу для поддержки повторения
+		inline void storeKey(int _key)
+		{
+			mHoldKey = OIS::KC_UNASSIGNED;
+
+			if ( ! isCaptureKey() ) return;
+			if ( ! mIsListener) {
+				Ogre::Root::getSingleton().addFrameListener(this);
+				mIsListener = true;
+			}
+			if ( (_key == OIS::KC_LSHIFT)
+				|| (_key == OIS::KC_RSHIFT)
+				|| (_key == OIS::KC_LCONTROL)
+				|| (_key == OIS::KC_RCONTROL)
+				|| (_key == OIS::KC_LMENU)
+				|| (_key == OIS::KC_RMENU)
+				) return;
+
+			mHoldKey = _key;
+			mFirstPressKey = true;
+			mTimerKey = 0.0f;
+		}
+
+		// сбрасывает клавишу повторения
+		inline void resetKey()
+		{
+			mHoldKey = OIS::KC_UNASSIGNED;
+		}
+
+
 	protected:
-        static const int GUI_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 
 		// виджеты которым принадлежит фокус
 		WidgetPtr m_widgetMouseFocus;
@@ -89,6 +122,12 @@ namespace MyGUI
 		LangInfo m_nums;
 		// там где была последний раз нажата левая кнопка
 		IntPoint m_lastLeftPressed;
+		IntPoint mMousePosition;
+		// клавиша для повтора
+		int mHoldKey;
+		bool mFirstPressKey;
+		float mTimerKey;
+		bool mIsListener;
 
 	}; // class InputManager
 

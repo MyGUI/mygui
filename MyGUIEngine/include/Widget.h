@@ -107,10 +107,6 @@ namespace MyGUI
 		// закрытый деструктор
 		virtual ~Widget();
 
-	public:
-		// максимальное число для size_t
-		const static size_t ITEM_NONE;
-
 	protected:
 
 		// список всех стейтов

@@ -5,14 +5,10 @@
 #include <string>
 #include <vector>
 #include "Types.h"
-//#include "TRect.h"
-//#include "TSize.h"
-//#include "TPoint.h"
 #include <assert.h>
 #include "LoggingOut.h"
 #include "RenderOut.h"
-#include "StringUtil.h"
-//#include "ParseUtil.h"
+#include "utility.h"
 #include "AlignInfo.h"
 #include "ResourcePath.h"
 
@@ -23,6 +19,7 @@ namespace MyGUI
 {
 
 	#define null 0
+	#define ITEM_NONE SIZE_MAX
 
 	#define REGISTER_VALUE(_map,_value) _map[#_value]=_value;
 
