@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../Shared/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -63,9 +63,9 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI_d.lib OgreMain_d.lib OIS_d.lib"
 				ShowProgress="0"
-				OutputFile="../shared/Debug/TestPlugin_d.dll"
+				OutputFile="TestPlugin_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\Debug"
+				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -97,8 +97,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../Shared/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -140,9 +140,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI.lib OgreMain.lib OIS.lib"
-				OutputFile="../shared/Release/TestPlugin.dll"
+				OutputFile="TestPlugin.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\Release"
+				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"

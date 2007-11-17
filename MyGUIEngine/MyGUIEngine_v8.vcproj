@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="../Shared/$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib"
 				ShowProgress="0"
-				OutputFile="../Shared/Debug/MyGUI_d.dll"
+				OutputFile="MyGUI_d.dll"
 				LinkIncremental="2"
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
@@ -99,7 +99,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="../Shared/$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -142,7 +142,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib OIS.lib"
-				OutputFile="../Shared/release/MyGUI.dll"
+				OutputFile="MyGUI.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
