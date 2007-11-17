@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI_d.lib OgreMain_d.lib OIS_d.lib"
 				ShowProgress="0"
-				OutputFile="TestPlugin_d.dll"
+				OutputFile="$(OutDir)\TestPlugin_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -140,7 +140,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI.lib OgreMain.lib OIS.lib"
-				OutputFile="TestPlugin.dll"
+				OutputFile="$(OutDir)\TestPlugin.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"

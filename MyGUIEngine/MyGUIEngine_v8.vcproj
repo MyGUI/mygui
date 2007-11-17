@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib"
 				ShowProgress="0"
-				OutputFile="MyGUI_d.dll"
+				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
@@ -142,7 +142,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib OIS.lib"
-				OutputFile="MyGUI.dll"
+				OutputFile="$(OutDir)\MyGUI.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
