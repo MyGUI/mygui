@@ -191,11 +191,11 @@ namespace MyGUI
 		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
 		else if (_key == OIS::KC_BACK) {
 			// если нуно то удаляем выделенный текст
-			if (!deleteTextSelect()) {
+			if (!deleteTextSelect(true)) {
 				// прыгаем на одну назад и удаляем
 				if (mCursorPosition != 0) {
 					mCursorPosition -- ;
-					eraseText(mCursorPosition, 1);
+					eraseText(mCursorPosition, 1, true);
 				}
 			}
 
@@ -204,14 +204,14 @@ namespace MyGUI
 				// вырезаем в буфер обмена
 				if ( isTextSelect() ) {
 					mClipboard = getSelectedText();
-					deleteTextSelect();
+					deleteTextSelect(true);
 				} else mClipboard = "";
 
 			} else {
 				// если нуно то удаляем выделенный текст
-				if (!deleteTextSelect()) {
+				if (!deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLenght) {
-						eraseText(mCursorPosition, 1); 
+						eraseText(mCursorPosition, 1, true); 
 					}
 				}
 			}
@@ -220,8 +220,8 @@ namespace MyGUI
 			if (mShiftPressed) {
 				// копируем из буфера обмена
 				if ( ! mClipboard.empty()) {
-					deleteTextSelect();
-					insertText(mClipboard, mCursorPosition);
+					deleteTextSelect(true);
+					insertText(mClipboard, mCursorPosition, true);
 				}
 
 			} else if (mCtrlPressed) {
@@ -234,8 +234,8 @@ namespace MyGUI
 			// попытка объединения двух комманд
 			size_t size = mVectorUndoChangeInfo.size();
 			// непосредственно операции
-			deleteTextSelect();
-			insertText(TextIterator::getTextNewLine(), mCursorPosition);
+			deleteTextSelect(true);
+			insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
 			// проверяем на возможность объединения
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 
@@ -339,19 +339,19 @@ namespace MyGUI
 			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
 		} else if (_key == OIS::KC_F1) {
-			setTextSelectColor(Ogre::ColourValue::Black);
+			setTextSelectColor(Ogre::ColourValue::Black, true);
 
 		} else if (_key == OIS::KC_F2) {
-			setTextSelectColor(Ogre::ColourValue::Red);
+			setTextSelectColor(Ogre::ColourValue::Red, true);
 
 		} else if (_key == OIS::KC_F3) {
-			setTextSelectColor(Ogre::ColourValue::Blue);
+			setTextSelectColor(Ogre::ColourValue::Blue, true);
 
 		} else if (_key == OIS::KC_F4) {
-			setTextSelectColor(Ogre::ColourValue::Green);
+			setTextSelectColor(Ogre::ColourValue::Green, true);
 
 		} else if (_key == OIS::KC_F5) {
-			setTextSelectColor(Ogre::ColourValue::White);
+			setTextSelectColor(Ogre::ColourValue::White, true);
 
 		} else if (_key == OIS::KC_F6) {
 			m_text->setTextAlign(ALIGN_LEFT | ALIGN_TOP);
@@ -385,8 +385,8 @@ namespace MyGUI
 				// попытка объединения двух комманд
 				size_t size = mVectorUndoChangeInfo.size();
 				// непосредственно операции
-				deleteTextSelect();
-				insertText(TextIterator::getTextCharInfo(_char), mCursorPosition);
+				deleteTextSelect(true);
+				insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
 				// проверяем на возможность объединения
 				if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 
@@ -401,7 +401,7 @@ namespace MyGUI
 				// вырезаем в буфер обмена
 				if ( isTextSelect() ) {
 					mClipboard = getSelectedText();
-					deleteTextSelect();
+					deleteTextSelect(true);
 				} else mClipboard = "";
 
 			} else if (_key == OIS::KC_V) {
@@ -410,8 +410,8 @@ namespace MyGUI
 					// попытка объединения двух комманд
 					size_t size = mVectorUndoChangeInfo.size();
 					// непосредственно операции
-					deleteTextSelect();
-					insertText(mClipboard, mCursorPosition);
+					deleteTextSelect(true);
+					insertText(mClipboard, mCursorPosition, true);
 					// проверяем на возможность объединения
 					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 				}
@@ -587,7 +587,7 @@ namespace MyGUI
 		mWidgetCursor->move(point.left, point.top);
 	}
 
-	bool Edit::deleteTextSelect()
+	bool Edit::deleteTextSelect(bool _history)
 	{
 		if ( ! isTextSelect()) return false;
 
@@ -595,7 +595,7 @@ namespace MyGUI
 		size_t start, end;
 		getTextSelect(start, end);
 
-		eraseText(start, end - start);
+		eraseText(start, end - start, _history);
 
 		return true;
 	}
@@ -707,7 +707,7 @@ namespace MyGUI
 			mVectorUndoChangeInfo.pop_front();
 	}
 
-	void Edit::insertText(const Ogre::DisplayString & _text, size_t _start)
+	void Edit::insertText(const Ogre::DisplayString & _text, size_t _start, bool _history)
 	{
 		// сбрасываем выделение
 		resetSelect();
@@ -716,10 +716,11 @@ namespace MyGUI
 		if ((_text.empty()) || (mTextLenght == EDIT_MAX_LENGHT) ) return;
 
 		// история изменений
-		VectorChangeInfo history;
+		VectorChangeInfo * history = null;
+		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), &history);
+		TextIterator iterator(m_text->getCaption(), history);
 
 		// дефолтный цвет
 		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
@@ -756,10 +757,15 @@ namespace MyGUI
 		mCursorPosition += mTextLenght - old;
 
 		// сохраняем позицию для восстановления курсора
-		commandPosition(_start, _start + mTextLenght - old, old, &history);
+		commandPosition(_start, _start + mTextLenght - old, old, history);
 
 		// запоминаем в историю
-		saveInHistory(&history);
+		if (_history) {
+			saveInHistory(history);
+			delete history;
+		}
+		// сбрасываем историю
+		else commandResetHistory();
 
 		// и возвращаем строку на место
 		m_text->setCaption(iterator.getText());
@@ -769,7 +775,7 @@ namespace MyGUI
 		updateCursor(point);
 	}
 
-	void Edit::eraseText(size_t _start, size_t _count)
+	void Edit::eraseText(size_t _start, size_t _count, bool _history)
 	{
 		// чета маловато
 		if (_count == 0) return;
@@ -778,10 +784,11 @@ namespace MyGUI
 		resetSelect();
 
 		// история изменений
-		VectorChangeInfo history;
+		VectorChangeInfo * history = null;
+		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), &history);
+		TextIterator iterator(m_text->getCaption(), history);
 
 		// дефолтный цвет
 		Ogre::DisplayString color;
@@ -837,14 +844,19 @@ namespace MyGUI
 		if (need_color) iterator.setTagColor(color);
 
 		// сохраняем позицию для восстановления курсора
-		commandPosition(_start + _count, _start, mTextLenght, &history);
+		commandPosition(_start + _count, _start, mTextLenght, history);
 
 		// на месте удаленного
 		mCursorPosition = _start;
 		mTextLenght -= _count;
 
 		// запоминаем в историю
-		saveInHistory(&history);
+		if (_history) {
+			saveInHistory(history);
+			delete history;
+		}
+		// сбрасываем историю
+		else commandResetHistory();
 
 		// и возвращаем строку на место
 		m_text->setCaption(iterator.getText());
@@ -857,6 +869,8 @@ namespace MyGUI
 	// возвращает текст
 	Ogre::DisplayString Edit::getText(size_t _start, size_t _count)
 	{
+		// подстраховка
+		if (_start > mTextLenght) _start = mTextLenght;
 		// конец диапазона
 		size_t end = _start + _count;
 
@@ -902,19 +916,20 @@ namespace MyGUI
 	}
 
 	// выделяет цветом диапазон
-	void Edit::setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color)
+	void Edit::setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color, bool _history)
 	{
 		// при изменениях сразу сбрасываем повтор
 		commandResetRedo();
 
 		// история изменений
-		VectorChangeInfo history;
+		VectorChangeInfo * history = null;
+		if (_history) history = new VectorChangeInfo();
 
 		// конец диапазона
 		size_t end = _start + _count;
 
 		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), &history);
+		TextIterator iterator(m_text->getCaption(), history);
 
 		// дефолтный цвет
 		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
@@ -949,26 +964,32 @@ namespace MyGUI
 		};
 
 		// сохраняем позицию для восстановления курсора
-		commandPosition(_start, _start+_count, mTextLenght, &history);
+		commandPosition(_start, _start+_count, mTextLenght, history);
 
 		// запоминаем в историю
-		saveInHistory(&history);
+		if (_history) {
+			saveInHistory(history);
+			delete history;
+		}
+		// сбрасываем историю
+		else commandResetHistory();
 
 		// и возвращаем строку на место
 		m_text->setCaption(iterator.getText());
 
 	}
 
-	void Edit::setCaption(const Ogre::DisplayString & _caption)
+	void Edit::setText(const Ogre::DisplayString & _caption, bool _history)
 	{
 		// сбрасываем выделение
 		resetSelect();
 
 		// история изменений
-		VectorChangeInfo history;
+		VectorChangeInfo * history = null;
+		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), &history);
+		TextIterator iterator(m_text->getCaption(), history);
 
 		// вставляем текст
 		iterator.setText(_caption);
@@ -982,10 +1003,15 @@ namespace MyGUI
 		mCursorPosition = mTextLenght = iterator.getSize();
 
 		// сохраняем позицию для восстановления курсора
-		commandPosition(0, mTextLenght, old, &history);
+		commandPosition(0, mTextLenght, old, history);
 
 		// запоминаем в историю
-		saveInHistory(&history);
+		if (_history) {
+			saveInHistory(history);
+			delete history;
+		}
+		// сбрасываем историю
+		else commandResetHistory();
 
 		// и возвращаем строку на место
 		m_text->setCaption(iterator.getText());
@@ -1105,6 +1131,16 @@ namespace MyGUI
 
 		OUT("OFFSET : ", point.left, " ,  ", point.top);
 
+	}
+
+	void Edit::setTextSelectColor(const Ogre::ColourValue & _color, bool _history)
+	{
+		// нужно выделение
+		if ( false == isTextSelect()) return;
+		// начало и конец выделения
+		size_t start, end;
+		getTextSelect(start, end);
+		setTextColor(start, end-start, _color, _history);
 	}
 
 } // namespace MyGUI

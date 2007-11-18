@@ -20,11 +20,7 @@ namespace MyGUI
 		inline const static Ogre::String & getType() {static Ogre::String type("Edit"); return type;};
 
 		// устанавливает тект
-		void setCaption(const Ogre::DisplayString & _caption);
-		// устанавливает тект
-		inline void setText(const Ogre::DisplayString & _text) {setCaption(_text);}
-		// удаляет все что выделенно
-		bool deleteTextSelect();
+		//void setCaption(const Ogre::DisplayString & _caption);
 		// возвращает выделение
 		inline void getTextSelect(size_t & _start, size_t & _end)
 		{
@@ -34,41 +30,59 @@ namespace MyGUI
 		};
 		// выделен ли текст
 		inline bool isTextSelect() {return ( (mStartSelect != SIZE_MAX) && (mStartSelect != mEndSelect) );}
-		// устанавливает выделение
-		void setTextSelect(size_t _start, size_t _end);
-		// вставляет текст в указанную позицию
-		void insertText(const Ogre::DisplayString & _text, size_t _index = SIZE_MAX);
-		// добавляет текст в конец
-		inline void addText(const Ogre::DisplayString & _text) {insertText(_text, SIZE_MAX);};
-		// удаляет текст
-		void eraseText(size_t _start, size_t _count = 1);
-		// возвращает текст
-		Ogre::DisplayString getText(size_t _start, size_t _count);
-		// возвращает текст
+		// возвращает выделенный текст
 		Ogre::DisplayString getSelectedText()
 		{
-			if ( ! isTextSelect()) return "";
+			if ( false == isTextSelect()) return "";
 			size_t start, end;
 			getTextSelect(start, end);
 			return getText(start, end-start);
 		}
-
 		inline size_t getTextLenght() {return mTextLenght;}
 		inline size_t getTextCursor() {return mCursorPosition;}
-		void setTextCursor(size_t _index);
 
-		// выделяет цветом диапазон
-		void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color);
+		void setTextCursor(size_t _index);
+		// устанавливает выделение
+		void setTextSelect(size_t _start, size_t _end);
+		// возвращает текст
+		Ogre::DisplayString getText(size_t _start, size_t _count);
+
+		//---------------------------------------------------------------//
+		// наружу выставляем инлайны со сбросом истории
+		//---------------------------------------------------------------//
+
+		// устанавливает текст
+		inline void setText(const Ogre::DisplayString & _text) {setText(_text, false);}
+		// удаляет все что выделенно
+		inline bool deleteTextSelect() {return deleteTextSelect(false);}
+		// вставляет текст в указанную позицию
+		inline void insertText(const Ogre::DisplayString & _text, size_t _index = SIZE_MAX) {insertText(_text, _index, false);}
+		// добавляет текст в конец
+		inline void addText(const Ogre::DisplayString & _text) {addText(_text, false);}
+		// удаляет текст
+		inline void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
 		// выделяет цветом выделение
-		inline void setTextSelectColor(const Ogre::ColourValue & _color)
-		{
-			// нужно выделение
-			if ( ! isTextSelect()) return;
-			// начало и конец выделения
-			size_t start, end;
-			getTextSelect(start, end);
-			setTextColor(start, end-start, _color);
-		}
+		inline void setTextSelectColor(const Ogre::ColourValue & _color) {setTextSelectColor(_color, false);}
+		// выделяет цветом диапазон
+		inline void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color) {setTextColor(_start, _count, _color, false);}
+
+
+	protected:
+
+		// устанавливает текст
+		void setText(const Ogre::DisplayString & _text, bool _history);
+		// удаляет все что выделенно
+		bool deleteTextSelect(bool _history);
+		// вставляет текст в указанную позицию
+		void insertText(const Ogre::DisplayString & _text, size_t _index, bool _history);
+		// добавляет текст в конец
+		inline void addText(const Ogre::DisplayString & _text, bool _history) {insertText(_text, SIZE_MAX, _history);}
+		// удаляет текст
+		void eraseText(size_t _start, size_t _count, bool _history);
+		// выделяет цветом выделение
+		void setTextSelectColor(const Ogre::ColourValue & _color, bool _history);
+		// выделяет цветом диапазон
+		void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color, bool _history);
 
 	protected:
 
