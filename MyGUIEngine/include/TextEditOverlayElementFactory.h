@@ -1,5 +1,5 @@
-#ifndef _TEXTEDITOVERLAYELEMENTFACTORY_H_
-#define _TEXTEDITOVERLAYELEMENTFACTORY_H_
+#ifndef __TEXT_EDIT_OVERLAY_ELEMENT_FACTORY_H__
+#define __TEXT_EDIT_OVERLAY_ELEMENT_FACTORY_H__
 
 #include "Prerequest.h"
 #include <OgreOverlayElementFactory.h>
@@ -9,22 +9,22 @@ namespace MyGUI
 {
 
 	/** Factory for creating TextSimpleOverlayElementFactory instances. */
-    class _MyGUIExport TextEditOverlayElementFactory: public OverlayElementFactory
+	class _MyGUIExport TextEditOverlayElementFactory: public Ogre::OverlayElementFactory
     {
     public:
         /** See OverlayElementFactory */
-        OverlayElement* createOverlayElement(const String& instanceName)
+        Ogre::OverlayElement* createOverlayElement(const Ogre::String& instanceName)
         {
             return new TextEditOverlayElement(instanceName);
         }
         /** See OverlayElementFactory */
-        const String& getTypeName(void) const
+        const Ogre::String& getTypeName(void) const
         {
-            static String name = "TextEdit";
+            static Ogre::String name = "TextEdit";
             return name;
         }
     };
 
 } // namespace MyGUI
 
-#endif
+#endif // __TEXT_EDIT_OVERLAY_ELEMENT_FACTORY_H__

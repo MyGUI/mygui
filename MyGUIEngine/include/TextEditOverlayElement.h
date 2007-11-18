@@ -1,46 +1,40 @@
-#ifndef _TEXTEDITOVERLAYELEMENT_H_
-#define _TEXTEDITOVERLAYELEMENT_H_
+#ifndef __TEXT_EDIT_OVERLAY_ELEMENT_H__
+#define __TEXT_EDIT_OVERLAY_ELEMENT_H__
 
 #include "Prerequest.h"
 #include <OgreTextAreaOverlayElement.h>
-#include "OgreFont.h"
-#include "OgreFontManager.h"
+#include "MyGUI_Font.h"
+#include "MyGUI_FontManager.h"
 #include "AlignInfo.h"
 
 namespace MyGUI
 {
 
 	#define DEFAULT_INITIAL_CHARS 12
-
 	#define MAIN_BUFFER_BINDING 0
 
-	#define UNICODE_NEL 0x0085
-	#define UNICODE_CR 0x000D
-	#define UNICODE_LF 0x000A
-
-	using namespace Ogre;
-
-	class _MyGUIExport TextEditOverlayElement : public TextAreaOverlayElement
+	class _MyGUIExport TextEditOverlayElement : public Ogre::TextAreaOverlayElement
 	{
 
-	private:
+	protected:
+		typedef std::vector<size_t> VectorCharInfo;
+		typedef std::vector<VectorCharInfo> VectorLineInfo;
+
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 		char m_align;
+
 		bool mRenderGL;// для конвертирования цвета вершин
 		Ogre::RGBA mDefaultColor; // цвет текста
 		Ogre::RGBA mInverseColor; // инверсный цвет текста
 		size_t mStartSelect, mEndSelect; // начало и конец выделения
 		IntPoint mPointShift; // смещение текста
 		FloatSize mContextSize; // размер всего текста
-		//bool mIsAutoOffsetContext; // автоматическое выравнивание
-
-	protected:
-		typedef std::vector<size_t> VectorCharInfo;
-		typedef std::vector<VectorCharInfo> VectorLineInfo;
 		VectorLineInfo mLinesInfo;
 		bool mRawDataOutOfDate;
 		float mOldViewportAspectCoef; // последний коээфициент
 		float mTextureHeightOne, mTextureWidthOne; // размер одной текстурной единицы
+        FontPtr mpFont;
+		FloatPoint mBackgroundEmpty, mBackgroundFill;
 
 
 	public:
@@ -56,7 +50,6 @@ namespace MyGUI
 			mStartSelect(0), mEndSelect(0),
 			mRawDataOutOfDate(false),
 			mOldViewportAspectCoef(1.0f)
-			//mIsAutoOffsetContext(true)
 		{
 			// для конвертирования цвета вершин
 			mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
@@ -105,14 +98,13 @@ namespace MyGUI
 			// текущие цвета
 			Ogre::RGBA color_current, color = mDefaultColor;
 			Ogre::RGBA color_inverse = mInverseColor;
-			Ogre::RGBA spec_current, spec = ((mDefaultColor>>2) & 0xFF000000);
 
 			checkMemoryAllocation( mCaption.size() );
 			mRenderOp.vertexData->vertexCount = 0;
 
 			// Get position / texcoord buffer
-			HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(MAIN_BUFFER_BINDING);
-			float *pVert = static_cast<float*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
+			Ogre::HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(MAIN_BUFFER_BINDING);
+			float *pVert = static_cast<float*>(vbuf->lock(Ogre::HardwareBuffer::HBL_DISCARD));
 
 			// для уменьшения умножений, поможем компилятору =)
 			float realCharHeight = mCharHeight * 2.0;
@@ -133,7 +125,7 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
-			if (/*(mIsAutoOffsetContext) || */(mContextSize.width <= realWidth)) {
+			if (mContextSize.width <= realWidth) {
 				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 			}
@@ -141,7 +133,7 @@ namespace MyGUI
 			right = left;
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if (/*(mIsAutoOffsetContext) || */(mContextSize.height <= realHeight)) {
+			if (mContextSize.height <= realHeight) {
 				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
 				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
@@ -229,29 +221,32 @@ namespace MyGUI
 
 					// отображаемый символ
 					Font::GlyphInfo * info = (Font::GlyphInfo * )data;
-					Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
+					Ogre::Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
 
 					// пересчет опорных данных
 					left = right;
 					right += horiz_height;
 
+					// смещение текстуры для фона
+					FloatPoint background_current;
+
 					// символ не выделен
 					if ( (cur >= mEndSelect) || (cur < mStartSelect) ) {
 
 						// если пробел или табуляция то рисуем только при выделении
-						if ((info->codePoint == ' ') || (info->codePoint == '\t') ) {
+						if ( (info->codePoint == Font::FONT_CODE_SPACE) || (info->codePoint == Font::FONT_CODE_TAB) ) {
 							cur ++;
 							continue;
 						}
 
 						color_current = color;
-						spec_current = 0;
+						background_current = mBackgroundEmpty;
 					}
 					// символ выделен
 					else {
 						// инверсные цвета
 						color_current = color_inverse;
-						spec_current = spec;
+						background_current = mBackgroundFill;
 					}
 
 					// присваиваем и вершинным
@@ -325,8 +320,9 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_top;
-					*((RGBA *)(pVert++)) = color_current;
-					*((RGBA *)(pVert++)) = spec_current;
+					*pVert++ = background_current.left;
+					*pVert++ = background_current.top;
+					*((Ogre::RGBA *)(pVert++)) = color_current;
 
 					// Bottom left
 					*pVert++ = vertex_left;
@@ -334,8 +330,9 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_bottom;
-					*((RGBA *)(pVert++)) = color_current;
-					*((RGBA *)(pVert++)) = spec_current;
+					*pVert++ = background_current.left;
+					*pVert++ = background_current.top;
+					*((Ogre::RGBA *)(pVert++)) = color_current;
 
 					// Top right
 					*pVert++ = vertex_right;
@@ -343,8 +340,9 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_top;
-					*((RGBA *)(pVert++)) = color_current;
-					*((RGBA *)(pVert++)) = spec_current;
+					*pVert++ = background_current.left;
+					*pVert++ = background_current.top;
+					*((Ogre::RGBA *)(pVert++)) = color_current;
 					//-------------------------------------------------------------------------------------
 
 					//-------------------------------------------------------------------------------------
@@ -356,8 +354,9 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_top;
-					*((RGBA *)(pVert++)) = color_current;
-					*((RGBA *)(pVert++)) = spec_current;
+					*pVert++ = background_current.left;
+					*pVert++ = background_current.top;
+					*((Ogre::RGBA *)(pVert++)) = color_current;
 
 					// Bottom left (again)
 					*pVert++ = vertex_left;
@@ -365,8 +364,9 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_bottom;
-					*((RGBA *)(pVert++)) = color_current;
-					*((RGBA *)(pVert++)) = spec_current;
+					*pVert++ = background_current.left;
+					*pVert++ = background_current.top;
+					*((Ogre::RGBA *)(pVert++)) = color_current;
 
 					// Bottom right
 					*pVert++ = vertex_right;
@@ -374,8 +374,9 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_bottom;
-					*((RGBA *)(pVert++)) = color_current;
-					*((RGBA *)(pVert++)) = spec_current;
+					*pVert++ = background_current.left;
+					*pVert++ = background_current.top;
+					*((Ogre::RGBA *)(pVert++)) = color_current;
 					//-------------------------------------------------------------------------------------
 
 					mRenderOp.vertexData->vertexCount += 6;
@@ -399,24 +400,23 @@ namespace MyGUI
 				// Set up the render op
 				// Combine positions and texture coords since they tend to change together
 				// since character sizes are different
-				mRenderOp.vertexData = new VertexData();
-				VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
+				mRenderOp.vertexData = new Ogre::VertexData();
+				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
 				size_t offset = 0;
 				// Positions
-				decl->addElement(MAIN_BUFFER_BINDING, offset, VET_FLOAT3, VES_POSITION);
-				offset += VertexElement::getTypeSize(VET_FLOAT3);
+				decl->addElement(MAIN_BUFFER_BINDING, offset, Ogre::VET_FLOAT3, Ogre::VES_POSITION);
+				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT3);
 				// Texcoords
-				decl->addElement(MAIN_BUFFER_BINDING, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0);
-				offset += VertexElement::getTypeSize(VET_FLOAT2);
+				decl->addElement(MAIN_BUFFER_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, 0);
+				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2);
 
-				decl->addElement(MAIN_BUFFER_BINDING, offset, VET_COLOUR, VES_DIFFUSE);
-				offset += VertexElement::getTypeSize(VET_COLOUR);
+				decl->addElement(MAIN_BUFFER_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, 1);
+				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2);
 
-				decl->addElement(MAIN_BUFFER_BINDING, offset, VET_COLOUR, VES_SPECULAR);
-				offset += VertexElement::getTypeSize(VET_COLOUR);
-				
+				decl->addElement(MAIN_BUFFER_BINDING, offset, Ogre::VET_COLOUR, Ogre::VES_DIFFUSE);
+				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_COLOUR);
 
-				mRenderOp.operationType = RenderOperation::OT_TRIANGLE_LIST;
+				mRenderOp.operationType = Ogre::RenderOperation::OT_TRIANGLE_LIST;
 				mRenderOp.useIndexes = false;
 				mRenderOp.vertexData->vertexStart = 0;
 				// Vertex buffer will be created in checkMemoryAllocation
@@ -440,19 +440,19 @@ namespace MyGUI
 	            
 				// 6 verts per char since we're doing tri lists without indexes
 				// Allocate space for positions & texture coords
-				VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
-				VertexBufferBinding* bind = mRenderOp.vertexData->vertexBufferBinding;
+				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
+				Ogre::VertexBufferBinding* bind = mRenderOp.vertexData->vertexBufferBinding;
 
 				mRenderOp.vertexData->vertexCount = numChars * 6;
 
 				// Create dynamic since text tends to change alot
 				// positions & texcoords
-				HardwareVertexBufferSharedPtr vbuf = 
-					HardwareBufferManager::getSingleton().
+				Ogre::HardwareVertexBufferSharedPtr vbuf = 
+					Ogre::HardwareBufferManager::getSingleton().
 						createVertexBuffer(
 							decl->getVertexSize(MAIN_BUFFER_BINDING), 
 							mRenderOp.vertexData->vertexCount,
-							HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
+							Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
 				bind->setBinding(MAIN_BUFFER_BINDING, vbuf);
 
 				mAllocSize = numChars;
@@ -460,7 +460,7 @@ namespace MyGUI
 
 		}
 
-		void setColour(const ColourValue & _color)
+		void setColour(const Ogre::ColourValue & _color)
 		{
 			Ogre::Root::getSingleton().convertColourValue(_color, &mDefaultColor);
 
@@ -470,26 +470,35 @@ namespace MyGUI
 			mGeomPositionsOutOfDate = true;
 		}
 
-		void setCaption(const DisplayString& text)
+		void setCaption(const Ogre::DisplayString& text)
 		{
 			TextAreaOverlayElement::setCaption(text);
 			mRawDataOutOfDate = true;
 		}
 
-		void setFontName( const String& font )
+		void setFontName( const Ogre::String& font )
 		{
-			TextAreaOverlayElement::setFontName( font );
+			mpFont = FontManager::getInstance().getByName( font );
+			if (mpFont.isNull())
+				OGRE_EXCEPT( Ogre::Exception::ERR_ITEM_NOT_FOUND, "Could not find font " + font,
+					"TextAreaOverlayElement::setFontName" );
+			mpFont->load();
+			mpMaterial = mpFont->getMaterialSelectedFont();
+			mpMaterial->setDepthCheckEnabled(false);
+			mpMaterial->setLightingEnabled(false);
 
-			// проверяем если нет пробела, то добавляем полюбак
-			const Font::UVRect & rect = mpFont->getGlyphTexCoords(' ');
-			if ( (rect.height() == 0) && (rect.width() == 0) ) {
-				const Font::GlyphInfo & info = mpFont->getGlyphInfo(L'ё');
-				mpFont->setGlyphTexCoords(' ', info.uvRect.right, info.uvRect.top, info.uvRect.right + (info.uvRect.right - info.uvRect.left), info.uvRect.bottom, info.aspectRatio / ((info.uvRect.right - info.uvRect.left)  / (info.uvRect.bottom - info.uvRect.top)));
-			}
+			// достаем средние точки на текстуре для выделения текста
+			Font::GlyphInfo info = mpFont->getGlyphInfo(Font::FONT_CODE_SPACE);
+			mBackgroundEmpty.set(info.uvRect.left + ((info.uvRect.right-info.uvRect.left)*0.5), info.uvRect.top + ((info.uvRect.bottom-info.uvRect.top)*0.5));
+			info = mpFont->getGlyphInfo(Font::FONT_CODE_SELECT);
+			mBackgroundFill.set(info.uvRect.left + ((info.uvRect.right-info.uvRect.left)*0.5), info.uvRect.top + ((info.uvRect.bottom-info.uvRect.top)*0.5));
+			
+			mGeomPositionsOutOfDate = true;
+			mGeomUVsOutOfDate = true;
 			mRawDataOutOfDate = true;
 		}
 
-		void setCharHeight( Real height )
+		void setCharHeight( Ogre::Real height )
 		{
 			TextAreaOverlayElement::setCharHeight( height );
 			mRawDataOutOfDate = true;
@@ -518,12 +527,12 @@ namespace MyGUI
 			float len = 0, width = 0;
 			size_t count = 1;
 
-			DisplayString::const_iterator end = mCaption.end();
-			for (DisplayString::const_iterator index=mCaption.begin(); index!=end; ++index) {
+			Ogre::DisplayString::const_iterator end = mCaption.end();
+			for (Ogre::DisplayString::const_iterator index=mCaption.begin(); index!=end; ++index) {
 
 				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
 
-				if (character == UNICODE_CR || character == UNICODE_NEL || character == UNICODE_LF) {
+				if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 					// запоминаем размер предыдущей строки
 					mLinesInfo.back()[0] = *((size_t*)(&len));
 					mLinesInfo.back()[1] = count;
@@ -536,10 +545,10 @@ namespace MyGUI
 					mLinesInfo.back().push_back(0); // первый символ всегда ширина в пикселях
 					mLinesInfo.back().push_back(0); // второй символ, колличество значимых символов
 
-					if (character == UNICODE_CR) {
-						DisplayString::const_iterator peeki = index;
+					if (character == Font::FONT_CODE_CR) {
+						Ogre::DisplayString::const_iterator peeki = index;
 						peeki++;
-						if (peeki != end && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == UNICODE_LF) index = peeki; // skip both as one newline
+						if (peeki != end && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
 					} 
 					// следующий символ
 					continue;
@@ -642,7 +651,7 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
-			if (/*(mIsAutoOffsetContext) || */(mContextSize.width <= realWidth)) {
+			if (mContextSize.width <= realWidth) {
 				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 			}
@@ -650,7 +659,7 @@ namespace MyGUI
 			right = left;
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if (/*(mIsAutoOffsetContext) || */(mContextSize.height <= realHeight)) {
+			if (mContextSize.height <= realHeight) {
 				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
 				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
@@ -713,7 +722,7 @@ namespace MyGUI
 
 					// отображаемый символ
 					Font::GlyphInfo * info = (Font::GlyphInfo * )data;
-					Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
+					Ogre::Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
 
 					// пересчет опорных данных
 					left = right;
@@ -764,7 +773,7 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
-			if (/*(mIsAutoOffsetContext) || */(mContextSize.width <= realWidth)) {
+			if (mContextSize.width <= realWidth) {
 				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 			}
@@ -772,7 +781,7 @@ namespace MyGUI
 			right = left;
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if (/*(mIsAutoOffsetContext) || */(mContextSize.height <= realHeight)) {
+			if (mContextSize.height <= realHeight) {
 				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
 				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
@@ -823,7 +832,7 @@ namespace MyGUI
 
 					// отображаемый символ
 					Font::GlyphInfo * info = (Font::GlyphInfo * )data;
-					Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
+					Ogre::Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
 
 					// пересчет опорных данных
 					left = right;
@@ -848,4 +857,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __TEXT_EDIT_OVERLAY_ELEMENT_H__

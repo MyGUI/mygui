@@ -84,7 +84,7 @@ namespace util
 	}
 
 	inline char parseChar(const std::string& _value) {return parseValue<char>(_value);}
-	inline unsigned char parseUChar(const std::string& _value) {return parseValue<unsigned char>(_value);}
+	inline unsigned char parseUChar(const std::string& _value) {return (unsigned short)parseValue<unsigned short>(_value);}
 	inline short parseShort(const std::string& _value) {return parseValue<short>(_value);}
 	inline unsigned short parseUShort(const std::string& _value) {return parseValue<unsigned short>(_value);}
 	inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}
@@ -122,31 +122,33 @@ namespace util
 	namespace templates
 	{
 		template< class T>
-		std::vector<std::string> split(const std::string & _source, const std::string & _delims = "\t\n ")
+		void split(std::vector<std::string> & _ret, const std::string & _source, const std::string & _delims)
 		{
-			std::vector<std::string> ret;
-			size_t pos, start = 0;
-			do {
-				pos = _source.find_first_of(_delims, start);
-				if (pos == start) start = pos + 1;
-				else if (pos == std::string::npos) {
-					// Copy the rest of the string
-					ret.push_back( _source.substr(start) );
+			size_t start = _source.find_first_not_of(_delims);
+			while (start != _source.npos) {
+				size_t end = _source.find_first_of(_delims, start);
+				if (end != _source.npos) _ret.push_back(_source.substr(start, end-start));
+				else {
+					_ret.push_back(_source.substr(start));
 					break;
-				} else {
-					// Copy up to delimiter
-					ret.push_back( _source.substr(start, pos - start) );
-					start = pos + 1;
 				}
-				// parse up to next real data
-				start = _source.find_first_not_of(_delims, start);
-			} while (pos != std::string::npos);
-			return ret;
+				start = _source.find_first_not_of(_delims, end + 1);
+			};
 		}
 	} // namespace templates
 
-	inline std::vector<std::string> split(const std::string & _source, const std::string & _delims = "\t\n ") {return templates::split<void>(_source, _delims);}
+	inline std::vector<std::string> split(const std::string & _source, const std::string & _delims = "\t\n ")
+	{
+		std::vector<std::string> ret;
+		templates::split<void>(ret, _source, _delims);
+		return ret;
+	}
 
+	inline void trim(std::string& _str, bool _left = true, bool _right = true)
+	{
+		if (_right) _str.erase(_str.find_last_not_of(" \t\r")+1);
+		if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
+	}
 
 } // namespace util
 

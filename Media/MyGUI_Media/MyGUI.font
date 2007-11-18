@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="font">
+	<font name="MyGUI_font" source="Comic.TTF" size="34" resolution="55" antialias_colour="false" space_width="a" tab_count="4">
+		<code range="33 127"/>
+		<code range="1025 1105"/>
+	</font>
+</MyGUI>

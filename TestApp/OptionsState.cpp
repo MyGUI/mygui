@@ -8,6 +8,7 @@
 #include "WidgetManager.h"
 #include "LayoutManager.h"
 #include "ParserManager.h"
+#include "MyGUI_FontManager.h"
 //#include "Window.h"
 //#include "Button.h"
 //#include "HScroll.h"
@@ -28,6 +29,8 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::SkinManager::getInstance().load("main.skin");
 	// загружаем лейаут
 	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
+
+	MyGUI::FontManager::getInstance().load("MyGUI.font");
 
 
 	//MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonAutoAlpha"));
@@ -54,18 +57,18 @@ void OptionsState::enter(bool bIsChangeState)
 	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));*/
 
 	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	button->setCaption(L"#00FF00хнопка =)");
+	button->setCaption(L"#00FF00хнопка\t=)");
 
 	MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
-	Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
+	/*Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
 	if (!mpFont.isNull()) {
 		const Ogre::MaterialPtr & material = mpFont->getMaterial();
-//		material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setAlphaOperation(LBX_BLEND_CURRENT_ALPHA);
-		material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setAlphaOperation(
-			LBX_BLEND_TEXTURE_ALPHA, LBS_CURRENT, LBS_SPECULAR);
-//		material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setAlphaOperation(LBX_DOTPRODUCT, LBS_TEXTURE, LBS_SPECULAR);
-	}
+		Ogre::Pass * pass = material->getTechnique(0)->getPass(0);
+		pass->createTextureUnitState("char_select.png", 1);
+		pass->getTextureUnitState(1)->setColourOperationEx(LBX_SOURCE1, LBS_CURRENT, LBS_CURRENT);
+		pass->getTextureUnitState(1)->setAlphaOperation(LBX_BLEND_TEXTURE_ALPHA, LBS_TEXTURE, LBS_CURRENT);
+	}*/
 
 /*	Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
 	Ogre::Overlay * overlay = manager.create("test1");
