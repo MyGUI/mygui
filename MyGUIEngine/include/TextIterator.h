@@ -196,9 +196,19 @@ namespace MyGUI
 
 		inline const Ogre::DisplayString & getText() {return mText;}
 
-		void insertText(const Ogre::DisplayString & _insert)
+		void insertText(const Ogre::DisplayString & _insert, bool _multiLine)
 		{
-			insert(mCurrent, Ogre::DisplayString(_insert));
+			Ogre::DisplayString text = _insert;
+			if (false == _multiLine) clearNewLine(text);
+			insert(mCurrent, text);
+		}
+
+		void clearNewLine(Ogre::DisplayString & _text)
+		{
+			for (Ogre::DisplayString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
+				if ( ((*iter) == Font::FONT_CODE_NEL) || ((*iter) == Font::FONT_CODE_CR) || ((*iter) == Font::FONT_CODE_LF) )
+					(*iter) = Font::FONT_CODE_SPACE;
+			}
 		}
 
 		//очищает весь текст
@@ -244,12 +254,14 @@ namespace MyGUI
 			return buff;
 		}
 
-		void setText(const Ogre::DisplayString & _text)
+		void setText(const Ogre::DisplayString & _text, bool _multiLine)
 		{
 			// сначала все очищаем
 			clear();
 			// а теперь вставляем
-			insert(mCurrent, Ogre::DisplayString(_text));
+			Ogre::DisplayString text = _text;
+			if (false == _multiLine) clearNewLine(text);
+			insert(mCurrent, text);
 		}
 
 		void cutMaxLenght(size_t _max)

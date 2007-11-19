@@ -32,7 +32,8 @@ namespace MyGUI
 		mMouseLeftPressed(false),
 		mActionMouseTimer(0),
 		mReadOnly(false),
-		mPassword(false)
+		mPassword(false),
+		mMultiLine(true)
 	{
 
 		ASSERT(m_text);
@@ -199,15 +200,8 @@ namespace MyGUI
 			}
 
 		} else if (_key == OIS::KC_DELETE) {
-			if (mShiftPressed) {
-				// вырезаем в буфер обмена
-				if ( isTextSelect() ) {
-					mClipboard = getSelectedText();
-					if (false == mReadOnly) deleteTextSelect(true);
-				} else mClipboard = "";
-				OUT(mClipboard);
-
-			} else if (false == mReadOnly) {
+			if (mShiftPressed) commandCut();
+			else if (false == mReadOnly) {
 				// если нуно то удаляем выделенный текст
 				if (false == deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLenght) {
@@ -217,22 +211,11 @@ namespace MyGUI
 			}
 
 		} else if (_key == OIS::KC_INSERT) {
-			if (mShiftPressed) {
-				// копируем из буфера обмена
-				if ( (false == mReadOnly) && ( false == mClipboard.empty()) ) {
-					deleteTextSelect(true);
-					insertText(mClipboard, mCursorPosition, true);
-				}
-
-			} else if (mCtrlPressed) {
-				// копируем в буфер обмена
-				if ( isTextSelect() ) mClipboard = getSelectedText();
-				else mClipboard = "";
-				OUT(mClipboard);
-			}
+			if (mShiftPressed) commandPast();
+			else if (mCtrlPressed) commandCopy();
 
 		} else if (_key == OIS::KC_RETURN) {
-			if (false == mReadOnly) {
+			if ((false == mReadOnly) && (mMultiLine) ) {
 				// попытка объединения двух комманд
 				size_t size = mVectorUndoChangeInfo.size();
 				// непосредственно операции
@@ -395,30 +378,13 @@ namespace MyGUI
 					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 				}
 			} else if (_key == OIS::KC_C) {
-				// копируем в буфер обмена
-				if ( isTextSelect() ) mClipboard = getSelectedText();
-				else mClipboard = "";
-				OUT(mClipboard);
+				commandCopy();
 
 			} else if (_key == OIS::KC_X) {
-				// вырезаем в буфер обмена
-				if ( isTextSelect() ) {
-					mClipboard = getSelectedText();
-					if (false == mReadOnly) deleteTextSelect(true);
-				} else mClipboard = "";
-				OUT(mClipboard);
+				commandCut();
 
 			} else if (_key == OIS::KC_V) {
-				// копируем из буфера обмена
-				if ( (false == mReadOnly) && ( false == mClipboard.empty()) ) {
-					// попытка объединения двух комманд
-					size_t size = mVectorUndoChangeInfo.size();
-					// непосредственно операции
-					deleteTextSelect(true);
-					insertText(mClipboard, mCursorPosition, true);
-					// проверяем на возможность объединения
-					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-				}
+				commandPast();
 
 			} else if (_key == OIS::KC_A) {
 				// выделяем весь текст
@@ -979,7 +945,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// вставляем текст
-		iterator.setText(_caption);
+		iterator.setText(_caption, mMultiLine);
 
 		// обрезаем по максимальной длинне
 		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
@@ -1046,7 +1012,7 @@ namespace MyGUI
 		if (need_color) iterator.setTagColor(color);
 
 		// а теперь вставляем строку
-		iterator.insertText(_text);
+		iterator.insertText(_text, mMultiLine);
 
 		// обрезаем по максимальной длинне
 		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
@@ -1165,6 +1131,38 @@ namespace MyGUI
 		// обновляем по позиции
 		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
 		updateCursor(point);
+	}
+
+	void Edit::commandCut()
+	{
+		// вырезаем в буфер обмена
+		if ( isTextSelect() ) {
+			mClipboard = getSelectedText();
+			if (false == mReadOnly) deleteTextSelect(true);
+		} else mClipboard = "";
+		OUT(mClipboard);
+	}
+
+	void Edit::commandCopy()
+	{
+		// копируем в буфер обмена
+		if ( isTextSelect() ) mClipboard = getSelectedText();
+		else mClipboard = "";
+		OUT(mClipboard);
+	}
+
+	void Edit::commandPast()
+	{
+		// копируем из буфера обмена
+		if ( (false == mReadOnly) && ( false == mClipboard.empty()) ) {
+			// попытка объединения двух комманд
+			size_t size = mVectorUndoChangeInfo.size();
+			// непосредственно операции
+			deleteTextSelect(true);
+			insertText(mClipboard, mCursorPosition, true);
+			// проверяем на возможность объединения
+			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+		}
 	}
 
 } // namespace MyGUI

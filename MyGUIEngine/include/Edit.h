@@ -161,6 +161,12 @@ namespace MyGUI
 		inline void commandResetHistory() {mVectorRedoChangeInfo.clear();mVectorUndoChangeInfo.clear();}
 		void saveInHistory(VectorChangeInfo * _info = null);
 
+		// работа с буфером обмена
+		void commandCut();
+		void commandCopy();
+		void commandPast();
+
+
 		inline const Ogre::DisplayString & getRealString()
 		{
 			if (mPassword) return mPasswordText;
@@ -215,6 +221,7 @@ namespace MyGUI
 
 		bool mReadOnly;
 		bool mPassword;
+		bool mMultiLine;
 
 		// настоящий текст, закрытый за звездочками
 		Ogre::DisplayString mPasswordText;
