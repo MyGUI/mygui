@@ -30,7 +30,9 @@ namespace MyGUI
 		mHalfWidthCursor(1),
 		mHalfHeightCursor(1),
 		mMouseLeftPressed(false),
-		mActionMouseTimer(0)
+		mActionMouseTimer(0),
+		mReadOnly(false),
+		mPassword(false)
 	{
 
 		ASSERT(m_text);
@@ -58,9 +60,6 @@ namespace MyGUI
 		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
 		mWidgetCursor->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
 		mWidgetCursor->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
-
-		// сбрасываем флаг авто выравнивания
-		m_text->setTextShift(IntPoint());
 
 		// высчитываем половинки
 		mHalfWidthCursor = (mWidgetCursor->width()/2);
@@ -191,7 +190,7 @@ namespace MyGUI
 		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
 		else if (_key == OIS::KC_BACK) {
 			// если нуно то удаляем выделенный текст
-			if (!deleteTextSelect(true)) {
+			if ( (false == mReadOnly) && (false == deleteTextSelect(true)) ) {
 				// прыгаем на одну назад и удаляем
 				if (mCursorPosition != 0) {
 					mCursorPosition -- ;
@@ -204,12 +203,13 @@ namespace MyGUI
 				// вырезаем в буфер обмена
 				if ( isTextSelect() ) {
 					mClipboard = getSelectedText();
-					deleteTextSelect(true);
+					if (false == mReadOnly) deleteTextSelect(true);
 				} else mClipboard = "";
+				OUT(mClipboard);
 
-			} else {
+			} else if (false == mReadOnly) {
 				// если нуно то удаляем выделенный текст
-				if (!deleteTextSelect(true)) {
+				if (false == deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLenght) {
 						eraseText(mCursorPosition, 1, true); 
 					}
@@ -219,7 +219,7 @@ namespace MyGUI
 		} else if (_key == OIS::KC_INSERT) {
 			if (mShiftPressed) {
 				// копируем из буфера обмена
-				if ( ! mClipboard.empty()) {
+				if ( (false == mReadOnly) && ( false == mClipboard.empty()) ) {
 					deleteTextSelect(true);
 					insertText(mClipboard, mCursorPosition, true);
 				}
@@ -228,16 +228,19 @@ namespace MyGUI
 				// копируем в буфер обмена
 				if ( isTextSelect() ) mClipboard = getSelectedText();
 				else mClipboard = "";
+				OUT(mClipboard);
 			}
 
 		} else if (_key == OIS::KC_RETURN) {
-			// попытка объединения двух комманд
-			size_t size = mVectorUndoChangeInfo.size();
-			// непосредственно операции
-			deleteTextSelect(true);
-			insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
-			// проверяем на возможность объединения
-			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+			if (false == mReadOnly) {
+				// попытка объединения двух комманд
+				size_t size = mVectorUndoChangeInfo.size();
+				// непосредственно операции
+				deleteTextSelect(true);
+				insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
+				// проверяем на возможность объединения
+				if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+			}
 
 		} else if (_key == OIS::KC_RIGHT) {
 			if ((mCursorPosition) < mTextLenght) {
@@ -338,7 +341,7 @@ namespace MyGUI
 			// сбрасываем выделение
 			else if (isTextSelect() && !mShiftPressed) resetSelect();
 
-		} else if (_key == OIS::KC_F1) {
+		/*} else if (_key == OIS::KC_F1) {
 			setTextSelectColor(Ogre::ColourValue::Black, true);
 
 		} else if (_key == OIS::KC_F2) {
@@ -366,7 +369,7 @@ namespace MyGUI
 		} else if (_key == OIS::KC_F8) {
 			m_text->setTextAlign(ALIGN_RIGHT | ALIGN_BOTTOM);
 			IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
-			updateCursor(point);
+			updateCursor(point);*/
 
 		} else if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) {
 			if ( ! mShiftPressed) {
@@ -381,32 +384,33 @@ namespace MyGUI
 		} else if (_char != 0) {
 
 			// если не нажат контрл, то обрабатываем как текст
-			if ( ! mCtrlPressed ) {
-				// попытка объединения двух комманд
-				size_t size = mVectorUndoChangeInfo.size();
-				// непосредственно операции
-				deleteTextSelect(true);
-				insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
-				// проверяем на возможность объединения
-				if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-
+			if ( false == mCtrlPressed ) {
+				if (false == mReadOnly) {
+					// попытка объединения двух комманд
+					size_t size = mVectorUndoChangeInfo.size();
+					// непосредственно операции
+					deleteTextSelect(true);
+					insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
+					// проверяем на возможность объединения
+					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+				}
 			} else if (_key == OIS::KC_C) {
 				// копируем в буфер обмена
 				if ( isTextSelect() ) mClipboard = getSelectedText();
 				else mClipboard = "";
-
 				OUT(mClipboard);
 
 			} else if (_key == OIS::KC_X) {
 				// вырезаем в буфер обмена
 				if ( isTextSelect() ) {
 					mClipboard = getSelectedText();
-					deleteTextSelect(true);
+					if (false == mReadOnly) deleteTextSelect(true);
 				} else mClipboard = "";
+				OUT(mClipboard);
 
 			} else if (_key == OIS::KC_V) {
 				// копируем из буфера обмена
-				if ( ! mClipboard.empty()) {
+				if ( (false == mReadOnly) && ( false == mClipboard.empty()) ) {
 					// попытка объединения двух комманд
 					size_t size = mVectorUndoChangeInfo.size();
 					// непосредственно операции
@@ -632,7 +636,7 @@ namespace MyGUI
 		mVectorRedoChangeInfo.push_back(info);
 
 		// берем текст для издевательств
-		Ogre::DisplayString text = m_text->getCaption();
+		Ogre::DisplayString text = getRealString();
 
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::reverse_iterator iter=info.rbegin(); iter!=info.rend(); iter++) {
@@ -647,7 +651,7 @@ namespace MyGUI
 		}
 
 		// возвращаем текст
-		m_text->setCaption(text);
+		setRealString(text);
 
 		// обновляем по позиции
 		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
@@ -670,7 +674,7 @@ namespace MyGUI
 		mVectorUndoChangeInfo.push_back(info);
 
 		// берем текст для издевательств
-		Ogre::DisplayString text = m_text->getCaption();
+		Ogre::DisplayString text = getRealString();
 
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++) {
@@ -685,7 +689,7 @@ namespace MyGUI
 		}
 
 		// возвращаем текст
-		m_text->setCaption(text);
+		setRealString(text);
 
 		// обновляем по позиции
 		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
@@ -707,165 +711,6 @@ namespace MyGUI
 			mVectorUndoChangeInfo.pop_front();
 	}
 
-	void Edit::insertText(const Ogre::DisplayString & _text, size_t _start, bool _history)
-	{
-		// сбрасываем выделение
-		resetSelect();
-
-		// если строка пустая, или размер максимален
-		if ((_text.empty()) || (mTextLenght == EDIT_MAX_LENGHT) ) return;
-
-		// история изменений
-		VectorChangeInfo * history = null;
-		if (_history) history = new VectorChangeInfo();
-
-		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), history);
-
-		// дефолтный цвет
-		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
-		// нужен ли тег текста
-		bool need_color = ( (_text.size() > 6) && (_text[0] == '#') && (_text[1] != '#') );
-
-		// цикл прохода по строке
-		while (iterator.moveNext()) {
-
-			// текущаяя позиция
-			size_t pos = iterator.getPosition();
-
-			// текущий цвет
-			if (need_color) iterator.getTagColor(color);
-
-			// если дошли то выходим
-			if (pos == _start) break;
-
-		};
-
-		// если нужен цвет то вставляем
-		if (need_color) iterator.setTagColor(color);
-
-		// а теперь вставляем строку
-		iterator.insertText(_text);
-
-		// обрезаем по максимальной длинне
-		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
-
-		// запоминаем размер строки
-		size_t old = mTextLenght;
-		// новая позиция и положение на конец вставки
-		mTextLenght = iterator.getSize();
-		mCursorPosition += mTextLenght - old;
-
-		// сохраняем позицию для восстановления курсора
-		commandPosition(_start, _start + mTextLenght - old, old, history);
-
-		// запоминаем в историю
-		if (_history) {
-			saveInHistory(history);
-			delete history;
-		}
-		// сбрасываем историю
-		else commandResetHistory();
-
-		// и возвращаем строку на место
-		m_text->setCaption(iterator.getText());
-
-		// обновляем по позиции
-		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
-		updateCursor(point);
-	}
-
-	void Edit::eraseText(size_t _start, size_t _count, bool _history)
-	{
-		// чета маловато
-		if (_count == 0) return;
-
-		// сбрасываем выделение
-		resetSelect();
-
-		// история изменений
-		VectorChangeInfo * history = null;
-		if (_history) history = new VectorChangeInfo();
-
-		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), history);
-
-		// дефолтный цвет
-		Ogre::DisplayString color;
-		// конец диапазона
-		size_t end = _start + _count;
-		bool need_color = false;
-
-		// цикл прохода по строке
-		while (iterator.moveNext()) {
-
-			// текущаяя позиция
-			size_t pos = iterator.getPosition();
-
-			// еще рано
-			if (pos < _start) {
-				// берем цвет из позиции и запоминаем
-				iterator.getTagColor(color);
-				continue;
-			}
-
-			// сохраняем место откуда начинается
-			else if (pos == _start) {
-				// если до диапазона был цвет, то нужно закрыть тег
-				if ( ! color.empty()) {
-					need_color = true;
-					color.clear();
-				}
-				// берем цвет из позиции и запоминаем
-				iterator.getTagColor(color);
-				iterator.saveStartPoint();
-			}
-
-			// внутри диапазона
-			else if (pos < end) {
-				// берем цвет из позиции и запоминаем
-				iterator.getTagColor(color);
-			}
-
-			// окончание диапазона
-			else if (pos == end) {
-				// нужно ставить тег или нет
-				if ( ! color.empty()) need_color = true;
-				if ( iterator.getTagColor(color)) need_color = false;
-
-				break;
-			}
-
-		};
-
-		// удаляем диапазон
-		iterator.eraseFromStart();
-		// и вставляем последний цвет
-		if (need_color) iterator.setTagColor(color);
-
-		// сохраняем позицию для восстановления курсора
-		commandPosition(_start + _count, _start, mTextLenght, history);
-
-		// на месте удаленного
-		mCursorPosition = _start;
-		mTextLenght -= _count;
-
-		// запоминаем в историю
-		if (_history) {
-			saveInHistory(history);
-			delete history;
-		}
-		// сбрасываем историю
-		else commandResetHistory();
-
-		// и возвращаем строку на место
-		m_text->setCaption(iterator.getText());
-
-		// обновляем по позиции
-		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
-		updateCursor(point);
-	}
-
 	// возвращает текст
 	Ogre::DisplayString Edit::getText(size_t _start, size_t _count)
 	{
@@ -875,7 +720,7 @@ namespace MyGUI
 		size_t end = _start + _count;
 
 		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption());
+		TextIterator iterator(getRealString());
 
 		// дефолтный цвет
 		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
@@ -929,7 +774,7 @@ namespace MyGUI
 		size_t end = _start + _count;
 
 		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), history);
+		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
 		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
@@ -975,50 +820,8 @@ namespace MyGUI
 		else commandResetHistory();
 
 		// и возвращаем строку на место
-		m_text->setCaption(iterator.getText());
+		setRealString(iterator.getText());
 
-	}
-
-	void Edit::setText(const Ogre::DisplayString & _caption, bool _history)
-	{
-		// сбрасываем выделение
-		resetSelect();
-
-		// история изменений
-		VectorChangeInfo * history = null;
-		if (_history) history = new VectorChangeInfo();
-
-		// итератор нашей строки
-		TextIterator iterator(m_text->getCaption(), history);
-
-		// вставляем текст
-		iterator.setText(_caption);
-
-		// обрезаем по максимальной длинне
-		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
-
-		// запоминаем размер строки
-		size_t old = mTextLenght;
-		// новая позиция и положение на конец вставки
-		mCursorPosition = mTextLenght = iterator.getSize();
-
-		// сохраняем позицию для восстановления курсора
-		commandPosition(0, mTextLenght, old, history);
-
-		// запоминаем в историю
-		if (_history) {
-			saveInHistory(history);
-			delete history;
-		}
-		// сбрасываем историю
-		else commandResetHistory();
-
-		// и возвращаем строку на место
-		m_text->setCaption(iterator.getText());
-
-		// обновляем по позиции
-		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
-		updateCursor(point);
 	}
 
 	void Edit::updateCursor(IntPoint _point)
@@ -1141,6 +944,227 @@ namespace MyGUI
 		size_t start, end;
 		getTextSelect(start, end);
 		setTextColor(start, end-start, _color, _history);
+	}
+
+	Ogre::DisplayString Edit::getSelectedText()
+	{
+		if ( false == isTextSelect()) return "";
+		size_t start, end;
+		getTextSelect(start, end);
+		return getText(start, end-start);
+	}
+
+	void Edit::getTextSelect(size_t & _start, size_t & _end)
+	{
+		if (mStartSelect == SIZE_MAX) {_start=SIZE_MAX; _end=SIZE_MAX;}
+		else if (mStartSelect > mEndSelect) {_start = mEndSelect; _end = mStartSelect;}
+		else {_start = mStartSelect; _end = mEndSelect;}
+	}
+
+	void Edit::setCaption(const Ogre::DisplayString & _caption)
+	{
+		setText(_caption, false);
+	}
+
+	void Edit::setText(const Ogre::DisplayString & _caption, bool _history)
+	{
+		// сбрасываем выделение
+		resetSelect();
+
+		// история изменений
+		VectorChangeInfo * history = null;
+		if (_history) history = new VectorChangeInfo();
+
+		// итератор нашей строки
+		TextIterator iterator(getRealString(), history);
+
+		// вставляем текст
+		iterator.setText(_caption);
+
+		// обрезаем по максимальной длинне
+		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
+
+		// запоминаем размер строки
+		size_t old = mTextLenght;
+		// новая позиция и положение на конец вставки
+		mCursorPosition = mTextLenght = iterator.getSize();
+
+		// сохраняем позицию для восстановления курсора
+		commandPosition(0, mTextLenght, old, history);
+
+		// запоминаем в историю
+		if (_history) {
+			saveInHistory(history);
+			delete history;
+		}
+		// сбрасываем историю
+		else commandResetHistory();
+
+		// и возвращаем строку на место
+		setRealString(iterator.getText());
+
+		// обновляем по позиции
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+		updateCursor(point);
+	}
+
+	void Edit::insertText(const Ogre::DisplayString & _text, size_t _start, bool _history)
+	{
+		// сбрасываем выделение
+		resetSelect();
+
+		// если строка пустая, или размер максимален
+		if ((_text.empty()) || (mTextLenght == EDIT_MAX_LENGHT) ) return;
+
+		// история изменений
+		VectorChangeInfo * history = null;
+		if (_history) history = new VectorChangeInfo();
+
+		// итератор нашей строки
+		TextIterator iterator(getRealString(), history);
+
+		// дефолтный цвет
+		Ogre::DisplayString color = TextIterator::convertTagColor(m_text->getColour());
+		// нужен ли тег текста
+		bool need_color = ( (_text.size() > 6) && (_text[0] == '#') && (_text[1] != '#') );
+
+		// цикл прохода по строке
+		while (iterator.moveNext()) {
+
+			// текущаяя позиция
+			size_t pos = iterator.getPosition();
+
+			// текущий цвет
+			if (need_color) iterator.getTagColor(color);
+
+			// если дошли то выходим
+			if (pos == _start) break;
+
+		};
+
+		// если нужен цвет то вставляем
+		if (need_color) iterator.setTagColor(color);
+
+		// а теперь вставляем строку
+		iterator.insertText(_text);
+
+		// обрезаем по максимальной длинне
+		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
+
+		// запоминаем размер строки
+		size_t old = mTextLenght;
+		// новая позиция и положение на конец вставки
+		mTextLenght = iterator.getSize();
+		mCursorPosition += mTextLenght - old;
+
+		// сохраняем позицию для восстановления курсора
+		commandPosition(_start, _start + mTextLenght - old, old, history);
+
+		// запоминаем в историю
+		if (_history) {
+			saveInHistory(history);
+			delete history;
+		}
+		// сбрасываем историю
+		else commandResetHistory();
+
+		// и возвращаем строку на место
+		setRealString(iterator.getText());
+
+		// обновляем по позиции
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+		updateCursor(point);
+	}
+
+	void Edit::eraseText(size_t _start, size_t _count, bool _history)
+	{
+		// чета маловато
+		if (_count == 0) return;
+
+		// сбрасываем выделение
+		resetSelect();
+
+		// история изменений
+		VectorChangeInfo * history = null;
+		if (_history) history = new VectorChangeInfo();
+
+		// итератор нашей строки
+		TextIterator iterator(getRealString(), history);
+
+		// дефолтный цвет
+		Ogre::DisplayString color;
+		// конец диапазона
+		size_t end = _start + _count;
+		bool need_color = false;
+
+		// цикл прохода по строке
+		while (iterator.moveNext()) {
+
+			// текущаяя позиция
+			size_t pos = iterator.getPosition();
+
+			// еще рано
+			if (pos < _start) {
+				// берем цвет из позиции и запоминаем
+				iterator.getTagColor(color);
+				continue;
+			}
+
+			// сохраняем место откуда начинается
+			else if (pos == _start) {
+				// если до диапазона был цвет, то нужно закрыть тег
+				if ( ! color.empty()) {
+					need_color = true;
+					color.clear();
+				}
+				// берем цвет из позиции и запоминаем
+				iterator.getTagColor(color);
+				iterator.saveStartPoint();
+			}
+
+			// внутри диапазона
+			else if (pos < end) {
+				// берем цвет из позиции и запоминаем
+				iterator.getTagColor(color);
+			}
+
+			// окончание диапазона
+			else if (pos == end) {
+				// нужно ставить тег или нет
+				if ( ! color.empty()) need_color = true;
+				if ( iterator.getTagColor(color)) need_color = false;
+
+				break;
+			}
+
+		};
+
+		// удаляем диапазон
+		iterator.eraseFromStart();
+		// и вставляем последний цвет
+		if (need_color) iterator.setTagColor(color);
+
+		// сохраняем позицию для восстановления курсора
+		commandPosition(_start + _count, _start, mTextLenght, history);
+
+		// на месте удаленного
+		mCursorPosition = _start;
+		mTextLenght -= _count;
+
+		// запоминаем в историю
+		if (_history) {
+			saveInHistory(history);
+			delete history;
+		}
+		// сбрасываем историю
+		else commandResetHistory();
+
+		// и возвращаем строку на место
+		setRealString(iterator.getText());
+
+		// обновляем по позиции
+		IntPoint point = m_text->getTextCursorFromPosition(mCursorPosition);
+		updateCursor(point);
 	}
 
 } // namespace MyGUI

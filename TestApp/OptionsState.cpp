@@ -9,6 +9,7 @@
 #include "LayoutManager.h"
 #include "ParserManager.h"
 #include "MyGUI_FontManager.h"
+#include "Edit.h"
 //#include "Window.h"
 //#include "Button.h"
 //#include "HScroll.h"
@@ -59,7 +60,8 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	button->setCaption(L"#00FF00хнопка\t=)");
 
-	MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	edit->setCaption(L"Мы только тем и дороги");
 
 	/*Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
 	if (!mpFont.isNull()) {

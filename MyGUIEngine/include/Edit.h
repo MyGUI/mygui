@@ -19,25 +19,15 @@ namespace MyGUI
 	public:
 		inline const static Ogre::String & getType() {static Ogre::String type("Edit"); return type;};
 
-		// устанавливает тект
-		//void setCaption(const Ogre::DisplayString & _caption);
+		// устанавливает текст
+		void setCaption(const Ogre::DisplayString & _caption);
 		// возвращает выделение
-		inline void getTextSelect(size_t & _start, size_t & _end)
-		{
-			if (mStartSelect == SIZE_MAX) {_start=SIZE_MAX; _end=SIZE_MAX;}
-			else if (mStartSelect > mEndSelect) {_start = mEndSelect; _end = mStartSelect;}
-			else {_start = mStartSelect; _end = mEndSelect;}
-		};
+		void getTextSelect(size_t & _start, size_t & _end);
 		// выделен ли текст
 		inline bool isTextSelect() {return ( (mStartSelect != SIZE_MAX) && (mStartSelect != mEndSelect) );}
 		// возвращает выделенный текст
-		Ogre::DisplayString getSelectedText()
-		{
-			if ( false == isTextSelect()) return "";
-			size_t start, end;
-			getTextSelect(start, end);
-			return getText(start, end-start);
-		}
+		Ogre::DisplayString getSelectedText();
+
 		inline size_t getTextLenght() {return mTextLenght;}
 		inline size_t getTextCursor() {return mCursorPosition;}
 
@@ -66,6 +56,23 @@ namespace MyGUI
 		// выделяет цветом диапазон
 		inline void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color) {setTextColor(_start, _count, _color, false);}
 
+		inline bool getEditReadOnly() {return mReadOnly;}
+		inline void setEditReadOnly(bool _read) {mReadOnly=_read;commandResetHistory();}
+
+		inline bool getEditPassword() {return mPassword;}
+		inline void setEditPassword(bool _password)
+		{
+			if (mPassword == _password) return;
+			mPassword = _password;
+			if (mPassword) {
+				mPasswordText = m_text->getCaption();
+				m_text->setCaption(Ogre::DisplayString(mTextLenght, '*'));
+			}
+			else {
+				m_text->setCaption(mPasswordText);
+				mPasswordText.clear();
+			}
+		}
 
 	protected:
 
@@ -117,7 +124,7 @@ namespace MyGUI
 		// обновляет курсор по координате
 		void updateCursor(IntPoint _point);
 		// виден ли курсор в окне просмотра
-		inline bool isShowCursorInView();
+		bool isShowCursorInView();
 		// обновление представления
 		void updateView(bool _showCursor);
 
@@ -154,8 +161,25 @@ namespace MyGUI
 		inline void commandResetHistory() {mVectorRedoChangeInfo.clear();mVectorUndoChangeInfo.clear();}
 		void saveInHistory(VectorChangeInfo * _info = null);
 
+		inline const Ogre::DisplayString & getRealString()
+		{
+			if (mPassword) return mPasswordText;
+			return m_text->getCaption();
+		}
 
-	private:
+		inline void setRealString(const Ogre::DisplayString & _caption)
+		{
+			if (mPassword) {
+				mPasswordText = _caption;
+				m_text->setCaption(Ogre::DisplayString(mTextLenght, '*'));
+			}
+			else {
+				m_text->setCaption(_caption);
+			}
+		}
+
+
+	protected:
 		// нажата ли кнопка
 		bool m_isPressed;
 		// в фокусе ли кнопка
@@ -188,6 +212,12 @@ namespace MyGUI
 		int mHalfHeightCursor;
 
 		bool mMouseLeftPressed;
+
+		bool mReadOnly;
+		bool mPassword;
+
+		// настоящий текст, закрытый за звездочками
+		Ogre::DisplayString mPasswordText;
 
 	}; // class Edit : public Widget
 
