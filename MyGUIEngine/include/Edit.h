@@ -41,8 +41,6 @@ namespace MyGUI
 		// наружу выставляем инлайны со сбросом истории
 		//---------------------------------------------------------------//
 
-		// устанавливает текст
-		inline void setText(const Ogre::DisplayString & _text) {setText(_text, false);}
 		// удаляет все что выделенно
 		inline bool deleteTextSelect() {return deleteTextSelect(false);}
 		// вставляет текст в указанную позицию
@@ -73,6 +71,9 @@ namespace MyGUI
 				mPasswordText.clear();
 			}
 		}
+
+		inline bool getEditMultiLine() {return mMultiLine;}
+		inline void setEditMultiLine(bool _multi) {mMultiLine = _multi;}
 
 	protected:
 
@@ -206,7 +207,6 @@ namespace MyGUI
 		size_t mStartSelect, mEndSelect;
 
 		bool mCtrlPressed;
-		Ogre::DisplayString mClipboard;
 
 		// списоки изменений для отмены и повтора
 		DequeUndoRedoInfo mVectorUndoChangeInfo;

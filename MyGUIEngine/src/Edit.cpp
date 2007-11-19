@@ -1,11 +1,15 @@
 
 #include "Edit.h"
+#include "EditParser.h"
 #include "TextIterator.h"
+#include "ClipboardManager.h"
 
 namespace MyGUI
 {
 	// создаем фабрику для этого виджета
 	namespace factory { WidgetFactory<Edit> EditFactoryInstance("Edit"); }
+	// парсер команд
+	namespace parser { EditParser EditParserInstance; }
 
 	const float EDIT_CURSOR_TIMER  = 0.7f;
 	const float EDIT_ACTION_MOUSE_TIMER  = 0.20f;
@@ -15,6 +19,7 @@ namespace MyGUI
 	const size_t EDIT_MAX_LENGHT = 2048;
 	const float EDIT_OFFSET_HORZ_CURSOR = 50.0f; // дополнительное смещение для курсора
 	const int EDIT_ACTION_MOUSE_ZONE = 50; // область для восприятия мыши за пределом эдита
+	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
 
 	Edit::Edit(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
@@ -440,7 +445,6 @@ namespace MyGUI
 
 				// вверх на одну строчку
 				if ( (point.top < 0) && (point.top > -EDIT_ACTION_MOUSE_ZONE) ) {
-					OUT("up");
 					if ( (point.left > 0) && (point.left <= mWidgetUpper->width()) ) {
 						point = getWorldPostion(mWidgetCursor);
 						point.top -= mHalfHeightCursor;
@@ -449,7 +453,6 @@ namespace MyGUI
 				}
 				// вниз на одну строчку
 				else if ( (point.top > mWidgetUpper->height()) && (point.top < (mWidgetUpper->height() + EDIT_ACTION_MOUSE_ZONE)) ) {
-					OUT("down");
 					if ( (point.left > 0) && (point.left <= mWidgetUpper->width()) ) {
 						point = getWorldPostion(mWidgetCursor);
 						point.top += getFontHeight() + mHalfHeightCursor;
@@ -458,7 +461,6 @@ namespace MyGUI
 				}
 				// влево на небольшое расстояние
 				else if ( (point.left < 0) && (point.left > -EDIT_ACTION_MOUSE_ZONE) ) {
-					OUT("left");
 					if ( (point.top > 0) && (point.top <= mWidgetUpper->height()) ) {
 						point = getWorldPostion(mWidgetCursor);
 						point.left -= EDIT_OFFSET_HORZ_CURSOR;
@@ -468,7 +470,6 @@ namespace MyGUI
 				}
 				// вправо на небольшое расстояние
 				else if ( (point.left > mWidgetUpper->width()) && (point.left < (mWidgetUpper->width() + EDIT_ACTION_MOUSE_ZONE)) ) {
-					OUT("right");
 					if ( (point.top > 0) && (point.top <= mWidgetUpper->height()) ) {
 						point = getWorldPostion(mWidgetCursor);
 						point.left += EDIT_OFFSET_HORZ_CURSOR;
@@ -613,7 +614,6 @@ namespace MyGUI
 				mCursorPosition = (*iter).undo;
 				mTextLenght = (*iter).lenght;
 			}
-
 		}
 
 		// возвращаем текст
@@ -898,7 +898,7 @@ namespace MyGUI
 		point.top += offset.top;
 		m_text->setTextShift(point);
 
-		OUT("OFFSET : ", point.left, " ,  ", point.top);
+		//OUT("OFFSET : ", point.left, " ,  ", point.top);
 
 	}
 
@@ -1137,29 +1137,29 @@ namespace MyGUI
 	{
 		// вырезаем в буфер обмена
 		if ( isTextSelect() ) {
-			mClipboard = getSelectedText();
+			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 			if (false == mReadOnly) deleteTextSelect(true);
-		} else mClipboard = "";
-		OUT(mClipboard);
+		}
+		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-		if ( isTextSelect() ) mClipboard = getSelectedText();
-		else mClipboard = "";
-		OUT(mClipboard);
+		if ( isTextSelect() ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
+		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandPast()
 	{
 		// копируем из буфера обмена
-		if ( (false == mReadOnly) && ( false == mClipboard.empty()) ) {
+		std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		if ( (false == mReadOnly) && ( false == clipboard.empty()) ) {
 			// попытка объединения двух комманд
 			size_t size = mVectorUndoChangeInfo.size();
 			// непосредственно операции
 			deleteTextSelect(true);
-			insertText(mClipboard, mCursorPosition, true);
+			insertText(clipboard, mCursorPosition, true);
 			// проверяем на возможность объединения
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 		}

@@ -262,6 +262,10 @@
 				Name="Core"
 				>
 				<File
+					RelativePath=".\src\ClipboardManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Gui.cpp"
 					>
 				</File>
@@ -579,6 +583,10 @@
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\include\ClipboardManager.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\Gui.h"
 					>
