@@ -7,11 +7,11 @@ TestPlugin *plugin = 0;
 extern "C" void _MyGUIExport dllStartPlugin(void)
 {
 	plugin = new TestPlugin();
-	MyGUI::PluginManager::Instance()->installPlugin(plugin);
+	MyGUI::PluginManager::getInstance().installPlugin(plugin);
 }
 
 extern "C" void  _MyGUIExport dllStopPlugin(void)
 {
-	MyGUI::PluginManager::Instance()->uninstallPlugin(plugin);
+	MyGUI::PluginManager::getInstance().uninstallPlugin(plugin);
 	delete plugin;
 }

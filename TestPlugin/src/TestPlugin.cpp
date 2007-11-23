@@ -21,10 +21,10 @@ void TestPlugin::initialize()
 {
 
 	// создаем фабрики
-	mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
+	//mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
 
 	// создаем парсеры
-	mStrangeButtonParser = new MyGUI::parser::StrangeButtonParser();
+	//mStrangeButtonParser = new MyGUI::parser::StrangeButtonParser();
 
 }
 
@@ -32,10 +32,10 @@ void TestPlugin::shutdown()
 {
 
 	// удаляем парсеры
-	delete mStrangeButtonParser;
+	//delete mStrangeButtonParser;
 
 	// удаляем фабрику
-	delete mStrangeButtonFactory;
+	//delete mStrangeButtonFactory;
 
 }
 

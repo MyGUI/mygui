@@ -19,6 +19,8 @@
 #include "MyGUI_FontManager.h"
 #include "ParserManager.h"
 #include "PointerManager.h"
+#include "PluginManager.h"
+#include "DynLibManager.h"
 
 namespace MyGUI
 {
@@ -73,6 +75,8 @@ namespace MyGUI
 		FontManager* mFontManager;
 		ParserManager* mParserManager;
 		PointerManager* mPointerManager;
+		DynLibManager* mDynLibManager;
+		PluginManager* mPluginManager;
 
 	}; // class Gui
 

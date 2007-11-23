@@ -10,15 +10,23 @@
 namespace MyGUI
 {
 
-	DynLibManager* DynLibManager::m_instance = 0;
+	INSTANCE_IMPLEMENT(DynLibManager);
 
-	DynLibManager::DynLibManager()
+	void DynLibManager::initialise()
 	{
+		assert(!mIsInitialise);
 
+		LOG_MESSAGE("* Initialize: Dynamic Library Manager");
+
+		LOG_MESSAGE("Manager successfully initialized");
+
+		mIsInitialise = true;
 	}
 
-	DynLibManager::~DynLibManager()
+	void DynLibManager::shutdown()
 	{
+		if (!mIsInitialise) return;
+
 		LOG_MESSAGE("* Shut down: Dynamic Library Manager");
 
 		StringDynLibMap::iterator it;
@@ -33,29 +41,7 @@ namespace MyGUI
 		// Empty the list
 		mLibsMap.clear();
 
-	}
-
-	DynLibManager* DynLibManager::Instance()
-	{
-		if (!m_instance)
-			m_instance = new DynLibManager();
-
-		return m_instance;
-	}
-
-	void DynLibManager::shutdown()
-	{
-		if (m_instance)
-			delete m_instance;
-
-		m_instance = 0;
-	}
-
-	void DynLibManager::initialize()
-	{
-		LOG_MESSAGE("* Initialize: Dynamic Library Manager");
-
-		LOG_MESSAGE("Manager successfully initialized");
+		mIsInitialise = false;
 	}
 
 	DynLib* DynLibManager::load(const std::string &fileName)

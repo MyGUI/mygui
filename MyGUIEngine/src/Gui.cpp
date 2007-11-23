@@ -55,6 +55,12 @@ namespace MyGUI
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
 
+		mDynLibManager = new DynLibManager();
+		mDynLibManager->initialise();
+
+		mPluginManager = new PluginManager();
+		mPluginManager->initialise();
+
 		mIsInitialise = true;
 	}
 
@@ -63,6 +69,19 @@ namespace MyGUI
 		if (!mIsInitialise) return;
 
 		// деинициализируем и удаляем синглтоны
+		destroyWidget();
+		mWidgetManager->shutdown();
+		delete mWidgetManager;
+
+		mLayerManager->shutdown();
+		delete mLayerManager;
+
+		mPluginManager->shutdown();
+		delete mPluginManager;
+
+		mDynLibManager->shutdown();
+		delete mDynLibManager;
+
 		delete mPointerManager;
 
 		mParserManager->shutdown();
@@ -72,9 +91,6 @@ namespace MyGUI
 
 		delete mLayoutManager;
 
-		destroyWidget();
-		mWidgetManager->shutdown();
-		delete mWidgetManager;
 
 		mInputManager->shutdown();
 		delete mInputManager;
@@ -82,8 +98,6 @@ namespace MyGUI
 		mSkinManager->shutdown();
 		delete mSkinManager;
 
-		mLayerManager->shutdown();
-		delete mLayerManager;
 
 		mBasisWidgetManager->shutdown();
 		delete mBasisWidgetManager;

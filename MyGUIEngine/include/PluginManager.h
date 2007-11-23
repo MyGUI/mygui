@@ -4,14 +4,12 @@
 	@date		09/2007
 	@module		
 */
-#ifndef _PLUGINMANAGER_H_
-#define _PLUGINMANAGER_H_
-
+#ifndef __PLUGIN_MANAGER_H__
+#define __PLUGIN_MANAGER_H__
 
 #include "Prerequest.h"
+#include "Instance.h"
 #include "Plugin.h"
-
-#include <string>
 
 typedef void (*DLL_START_PLUGIN)(void);
 typedef void (*DLL_STOP_PLUGIN)(void);
@@ -19,37 +17,24 @@ typedef void (*DLL_STOP_PLUGIN)(void);
 namespace MyGUI
 {
 
-	
-
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
 	class _MyGUIExport PluginManager
 	{
-	private:
-		PluginManager();
-
-		~PluginManager();
+		INSTANCE_HEADER(PluginManager);
 
 	public:
-		//!	Get pointer to instance
-		static PluginManager* Instance();
-
-		//!	Shut down
-		static void shutdown();
-
 		//!	Initialization
-		void initialize();
-
-	private:
-		//!	Pointer to instance
-		static PluginManager *m_instance;
+		void initialise();
+		//!	Shut down
+		void shutdown();
 
 	public:
 		//!	Load plugin
-		void loadPlugin(const std::string &fileName);
+		void loadPlugin(const std::string& _file);
 
 		//!	Unload plugin
-		void unloadPlugin(const std::string &fileName);
+		void unloadPlugin(const std::string& _file);
 
 		/*!	Install plugin
 			
@@ -83,4 +68,4 @@ namespace MyGUI
 
 }
 
-#endif
+#endif // __PLUGIN_MANAGER_H__

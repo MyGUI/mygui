@@ -25,11 +25,11 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
 	// load plugin
-#if _DEBUG
-	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin_d.dll");
-#else
-	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin.dll");
-#endif
+//#if _DEBUG
+	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin_d.dll");
+//#else
+//	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin.dll");
+//#endif
 
 
 //	MyGUI::LayerManager::getInstance().load("main.layer");
@@ -126,8 +126,9 @@ bool OptionsState::keyReleased( const OIS::KeyEvent &arg )
 //===================================================================================
 void OptionsState::exit()
 {
-	MyGUI::PluginManager::shutdown();
+	//MyGUI::PluginManager::shutdown();
 	MyGUI::Gui::getInstance().shutdown();
+	delete MyGUI::Gui::getInstancePtr();
 }
 //===================================================================================
 void OptionsState::windowResize() // уведомление об изменении размеров окна рендера

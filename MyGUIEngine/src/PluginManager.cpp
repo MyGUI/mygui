@@ -6,55 +6,40 @@
 */
 #include "PluginManager.h"
 #include "DynLibManager.h"
-
 #include <algorithm>
 
 namespace MyGUI
 {
 
+	INSTANCE_IMPLEMENT(PluginManager);
 
-	PluginManager* PluginManager::m_instance = 0;
-
-	PluginManager::PluginManager()
+	void PluginManager::initialise()
 	{
+		assert(!mIsInitialise);
 
-	}
+		LOG_MESSAGE("* Initialize: Plugin manager");
 
-	PluginManager::~PluginManager()
-	{
-		LOG_MESSAGE("* Shut down: Plugin manager");
+		LOG_MESSAGE("Manager successfully initialized");
 
-		unloadAllPlugins();
-	}
-
-	PluginManager* PluginManager::Instance()
-	{
-		if (!m_instance)
-			m_instance = new PluginManager();
-
-		return m_instance;
+		mIsInitialise = true;
 	}
 
 	void PluginManager::shutdown()
 	{
-		if (m_instance)
-			delete m_instance;
+		if (!mIsInitialise) return;
 
-		m_instance = 0;
+		LOG_MESSAGE("* Shut down: Plugin manager");
+		unloadAllPlugins();
+
+		mIsInitialise = false;
 	}
 
-	void PluginManager::initialize()
+	void PluginManager::loadPlugin(const std::string& _file)
 	{
-		LOG_MESSAGE("* Initialize: Plugin manager");
-
-		LOG_MESSAGE("Manager successfully initialized");
-	}
-
-	void PluginManager::loadPlugin(const std::string &fileName)
-	{
-//		return; // ???
+		// check initialise
+		assert(mIsInitialise);
 		// Load plugin library
-		DynLib* lib = DynLibManager::Instance()->load( fileName );
+		DynLib* lib = DynLibManager::getInstance().load( _file );
 		// Store for later unload
 		mLibs.push_back(lib);
 
@@ -70,20 +55,19 @@ namespace MyGUI
 		pFunc();
 	}
 
-	void PluginManager::unloadPlugin(const std::string &fileName)
+	void PluginManager::unloadPlugin(const std::string& _file)
 	{
-		DynLibList::iterator it;
+		// check initialise
+		assert(mIsInitialise);
 
-		for (it = mLibs.begin(); it != mLibs.end(); ++it)
-		{
-			if ((*it)->getName() == fileName)
-			{
+		for (DynLibList::iterator it = mLibs.begin(); it != mLibs.end(); ++it) {
+			if ((*it)->getName() == _file) {
 				// Call plugin shutdown
 				DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*it)->getSymbol("dllStopPlugin");
 				// this must call uninstallPlugin
 				pFunc();
 				// Unload library (destroyed by DynLibManager)
-				DynLibManager::Instance()->unload(*it);
+				DynLibManager::getInstance().unload(*it);
 				mLibs.erase(it);
 
 				return;
@@ -94,6 +78,9 @@ namespace MyGUI
 
 	void PluginManager::installPlugin(Plugin *plugin)
 	{
+		// check initialise
+		assert(mIsInitialise);
+
 		LOG_MESSAGE("Installing plugin: " + plugin->getName());
 
 		mPlugins.push_back(plugin);
@@ -106,6 +93,12 @@ namespace MyGUI
 
 	void PluginManager::uninstallPlugin(Plugin *plugin)
 	{
+		// check initialise
+		assert(mIsInitialise);
+
+		// unload plugin before uninstall
+		unloadPlugin(plugin->getName());
+
 		LOG_MESSAGE("Uninstalling plugin: " + plugin->getName());
 		PluginList::iterator it = std::find(mPlugins.begin(), mPlugins.end(), plugin);
 		if (it != mPlugins.end())
@@ -123,4 +116,4 @@ namespace MyGUI
 			uninstallPlugin(*mPlugins.begin());
 	}
 
-}
+} // namespace MyGUI

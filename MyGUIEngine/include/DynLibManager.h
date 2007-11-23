@@ -8,6 +8,7 @@
 #define __DYN_LIB_MANAGER_H__
 
 #include "Prerequest.h"
+#include "Instance.h"
 #include "DynLib.h"
 
 namespace MyGUI
@@ -16,21 +17,13 @@ namespace MyGUI
 	*/
 	class _MyGUIExport DynLibManager
 	{
-	private:
-		DynLibManager();
-
-		~DynLibManager();
+		INSTANCE_HEADER(DynLibManager);
 
 	public:
-		//!	Get pointer to instance
-		static DynLibManager* Instance();
-
+		//!	Initialization
+		void initialise();
 		//!	Delete instance
-		static void shutdown();
-
-	private:
-		//!	Pointer to instance
-		static DynLibManager* m_instance;
+		void shutdown();
 
 	public:
 		//!	Load library
@@ -39,8 +32,6 @@ namespace MyGUI
 		//!	Unload library
 		void unload(DynLib *library);
 
-		//!	Initialization
-		void initialize();
 
 	private:
 
