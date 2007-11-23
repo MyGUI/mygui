@@ -1,22 +1,21 @@
+#ifndef __STRANGE_BUTTON_H__
+#define __STRANGE_BUTTON_H__
 
-#ifndef _STRANGEBUTTON_H_
-#define _STRANGEBUTTON_H_
-
+#include "StrangeButtonFactory.h"
 #include "Widget.h"
 
 namespace MyGUI
 {
 
-	class /*_MyGUIExport*/ StrangeButton : public Widget
+	class StrangeButton : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend WidgetFactory<StrangeButton>;
+		friend factory::StrangeButtonFactory;
 
 	protected:
-		StrangeButton(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		StrangeButton(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
-		inline const static Ogre::String & getType() {static Ogre::String type("StrangeButton"); return type;};
 
 		inline void setButtonPressed(bool _pressed)
 		{
@@ -59,4 +58,4 @@ namespace MyGUI
 	typedef StrangeButton * StrangeButtonPtr;
 }
 
-#endif
+#endif // __STRANGE_BUTTON_H__

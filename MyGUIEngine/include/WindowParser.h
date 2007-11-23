@@ -1,55 +1,30 @@
-#ifndef _WINDOWPARSER_H_
-#define _WINDOWPARSER_H_
-
+#ifndef __WINDOW_PARSER_H__
+#define __WINDOW_PARSER_H__
 
 #include "Prerequest.h"
-#include <Ogre.h>
-#include "delegate.h"
-#include "ParserManager.h"
-#include "Window.h"
+#include "WidgetDefines.h"
 
 namespace MyGUI
 {
+	class ParserManager;
 
 	namespace parser
 	{
 
 		class _MyGUIExport WindowParser
 		{
-		public:
-			WindowParser()
-			{
-				// менеджер всех парсеров свойств
-				ParserManager & parser = ParserManager::getInstance();
+			friend ParserManager;
 
-				parser.registerDelegate("WindowAutoAlpha") = newDelegate(this, &WindowParser::WindowAutoAlpha);
-				parser.registerDelegate("WindowMinMax") = newDelegate(this, &WindowParser::WindowMinMax);
-				parser.registerDelegate("WindowToStick") = newDelegate(this, &WindowParser::WindowToStick);
-			}
+		private:
+			WindowParser();
 
-			void WindowToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
-			{
-				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->setIsToStick(util::parseBool(_value));
-			}
-
-			void WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
-			{
-				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->setAutoAlpha(util::parseBool(_value));
-			}
-
-			void WindowMinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
-			{
-				TYPE(WindowPtr, _widget);
-				static_cast<WindowPtr>(_widget)->setMinMax(util::parseIntRect(_value));
-			}
+			void WindowToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void WindowMinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
 		};
 
 	} // namespace parser
-
 } // namespace MyGUI
 
-
-#endif // _WINDOWPARSER_H_
+#endif // __WINDOW_PARSER_H__

@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Widget.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Window.cpp"
 				>
 			</File>
@@ -282,6 +286,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_FontManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ParserManager.cpp"
 					>
 				</File>
@@ -291,10 +299,6 @@
 				</File>
 				<File
 					RelativePath=".\src\SkinManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Widget.cpp"
 					>
 				</File>
 				<File
@@ -311,14 +315,58 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="FontManager"
+				Name="Common"
 				>
 				<File
 					RelativePath=".\src\MyGUI_Font.cpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="WidgetFactory"
+				>
 				<File
-					RelativePath=".\src\MyGUI_FontManager.cpp"
+					RelativePath=".\src\ButtonFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\EditFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\HScrollFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ListFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StaticImageFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\VScrollFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\WidgetFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\WindowFactory.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Parser"
+				>
+				<File
+					RelativePath=".\src\WidgetParser.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\WindowParser.cpp"
 					>
 				</File>
 			</Filter>
@@ -333,15 +381,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\ButtonParser.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\Edit.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\EditParser.h"
 				>
 			</File>
 			<File
@@ -353,15 +393,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\ListParser.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\ScrollBase.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\ScrollParser.h"
 				>
 			</File>
 			<File
@@ -369,19 +401,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\StaticImageParser.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\VScroll.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\Window.h"
+				RelativePath=".\include\Widget.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\WindowParser.h"
+				RelativePath=".\include\Window.h"
 				>
 			</File>
 			<Filter
@@ -420,6 +448,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Font.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\PointerInfo.h"
 					>
 				</File>
@@ -444,11 +476,23 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\WidgetEvent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetFactoryInterface.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\WidgetOIS.h"
 					>
 				</File>
 				<File
 					RelativePath=".\include\WidgetSkinInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetUserData.h"
 					>
 				</File>
 			</Filter>
@@ -604,6 +648,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_FontManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\ParserManager.h"
 					>
 				</File>
@@ -616,11 +664,35 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\Widget.h"
+					RelativePath=".\include\WidgetManager.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="WidgetFactory"
+				>
+				<File
+					RelativePath=".\include\ButtonFactory.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\WidgetEvent.h"
+					RelativePath=".\include\EditFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\HScrollFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\ListFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\StaticImageFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\VScrollFactory.h"
 					>
 				</File>
 				<File
@@ -628,27 +700,19 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\WidgetManager.h"
+					RelativePath=".\include\WindowFactory.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Parser"
+				>
 				<File
 					RelativePath=".\include\WidgetParser.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\WidgetUserData.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="FontManager"
-				>
-				<File
-					RelativePath=".\include\MyGUI_Font.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_FontManager.h"
+					RelativePath=".\include\WindowParser.h"
 					>
 				</File>
 			</Filter>

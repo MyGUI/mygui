@@ -8,12 +8,32 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(PointerManager);
 
-	PointerManager::PointerManager()
+	void PointerManager::initialise()
 	{
+		assert(!mIsInitialise);
+
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		m_overlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
 			"PanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
 		m_overlayElement->setMetricsMode(Ogre::GMM_PIXELS);
+
+		mIsInitialise = true;
+	}
+
+	void PointerManager::shutdown()
+	{
+		if (!mIsInitialise) return;
+
+		clear();
+		// отсоединяем
+		LayerManager::getInstance().detachItem(this);
+		// удадяем элемент
+		if (m_overlayElement != null) {
+			Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayElement);
+			m_overlayElement = null;
+		}
+
+		mIsInitialise = false;
 	}
 
 	void PointerManager::load(const std::string & _file)
@@ -89,9 +109,9 @@ namespace MyGUI
 	void PointerManager::show(bool _show)
 	{
 		if (m_overlayElement == null) return;
-		if (m_show == _show) return;
-		m_show = _show;
-		m_show ? m_overlayElement->show() : m_overlayElement->hide();
+		if (mShow == _show) return;
+		mShow = _show;
+		mShow ? m_overlayElement->show() : m_overlayElement->hide();
 	}
 
 	void PointerManager::move(int _x, int _y)
@@ -110,18 +130,6 @@ namespace MyGUI
 		m_overlayElement->setUV(rect.left, rect.top, rect.right, rect.bottom);
 		// и сохраняем новое смещение
 		m_point = iter->second.point;
-	}
-
-	void PointerManager::shutdown()
-	{
-		clear();
-		// отсоединяем
-		LayerManager::getInstance().detachItem(this);
-		// удадяем элемент
-		if (m_overlayElement != null) {
-			Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayElement);
-			m_overlayElement = null;
-		}
 	}
 
 	void PointerManager::attachToOverlay(Ogre::Overlay * _overlay)

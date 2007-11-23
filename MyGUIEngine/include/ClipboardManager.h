@@ -10,18 +10,14 @@ namespace MyGUI
 
 	class _MyGUIExport ClipboardManager
 	{
-	public:
 		INSTANCE_HEADER(ClipboardManager);
 
+	public:
 		typedef std::map<std::string, std::string> MapString;
 
 		void SetClipboardData(const std::string& _type, const std::string& _data);
 		void ClearClipboardData(const std::string& _type);
 		std::string GetClipboardData(const std::string& _type);
-
-	private:
-		ClipboardManager();
-		~ClipboardManager();
 
 	private:
 		MapString mClipboardData;

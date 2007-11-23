@@ -1,11 +1,8 @@
 
 #include "ScrollBase.h"
-#include "ScrollParser.h"
 
 namespace MyGUI
 {
-	// парсер команд
-	namespace parser { ScrollParser ScrollParserInstance; }
 
 	ScrollBase::ScrollBase(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),

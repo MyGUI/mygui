@@ -1,6 +1,8 @@
-#ifndef _VSCROLL_H_
-#define _VSCROLL_H_
+#ifndef __VSCROLL_H__
+#define __VSCROLL_H__
 
+#include "Prerequest.h"
+#include "VScrollFactory.h"
 #include "ScrollBase.h"
 
 namespace MyGUI
@@ -9,24 +11,21 @@ namespace MyGUI
 	class _MyGUIExport VScroll : public ScrollBase
 	{
 		// для вызова закрытого конструктора
-		friend WidgetFactory<VScroll>;
+		friend factory::VScrollFactory;
 
 	protected:
 		VScroll(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
-		inline const static Ogre::String & getType() {static Ogre::String type("VScroll"); return type;};
 
 		void notifyTrackMove(int _x, int _y);
-
 		void updateTrack();
 
 
 	}; // class VScroll : public ScrollBase
 
-	typedef VScroll * VScrollPtr;
+	typedef VScroll* VScrollPtr;
 
 } // namespace MyGUI
 
-
-#endif // _VSCROLL_H_
+#endif // __VSCROLL_H__

@@ -3,16 +3,12 @@
 #include "LayoutManager.h"
 #include "SkinManager.h"
 #include "ParserManager.h"
-#include <vector>
-
+#include "Widget.h"
 
 namespace MyGUI
 {
 
 	INSTANCE_IMPLEMENT(LayoutManager);
-
-	LayoutManager::LayoutManager() {}
-	LayoutManager::~LayoutManager() {}
 
 	void LayoutManager::load(const std::string & _file)
 	{
@@ -42,7 +38,7 @@ namespace MyGUI
 		//const xml::VectorAttributes & attrib = _widgetInfo->getAttributes();
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
 		FloatRect coord;
-		char align;
+		Align align;
 
 		_widget->findAttribute("Type", widgetType);
 		_widget->findAttribute("Skin", widgetSkin);
@@ -67,7 +63,7 @@ namespace MyGUI
 				if (false == widget->findAttribute("Key", propertyKey)) continue;
 				if (false == widget->findAttribute("Value", propertyValue)) continue;
 				// и парсим свойство
-				ParserManager::getInstance().parce(wid, propertyKey, propertyValue);
+				ParserManager::getInstance().parse(wid, propertyKey, propertyValue);
 			}
 
 		};

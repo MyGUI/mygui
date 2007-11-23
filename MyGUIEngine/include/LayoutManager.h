@@ -1,5 +1,5 @@
-#ifndef _LAYOUTMANAGER_H_
-#define _LAYOUTMANAGER_H_
+#ifndef __LAYOUT_MANAGER_H__
+#define __LAYOUT_MANAGER_H__
 
 #include "Prerequest.h"
 #include "Instance.h"
@@ -8,7 +8,6 @@
 #include "xmlDocument.h"
 #include "WidgetDefines.h"
 
-
 namespace MyGUI
 {
 
@@ -16,12 +15,7 @@ namespace MyGUI
 	{
 		INSTANCE_HEADER(LayoutManager);
 
-	private:
-		LayoutManager();
-		~LayoutManager();
-
 	public:
-
 		void load(const std::string & _file);
 
 	private:
@@ -34,4 +28,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // _LAYOUTMANAGER_H_
+#endif // __LAYOUT_MANAGER_H__

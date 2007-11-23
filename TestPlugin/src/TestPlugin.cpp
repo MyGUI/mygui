@@ -3,36 +3,44 @@
 
 TestPlugin::TestPlugin()
 {
-
 }
 
 TestPlugin::~TestPlugin()
 {
-
-}
-
-void TestPlugin::initialize()
-{
-	
 }
 
 void TestPlugin::install()
 {
-	// создаем фабрику для этого виджета
-	MyGUI::WidgetFactory<MyGUI::StrangeButton> *ButtonFactoryInstance = new MyGUI::WidgetFactory<MyGUI::StrangeButton>("StrangeButton");
-}
-
-void TestPlugin::shutDown()
-{
-
 }
 
 void TestPlugin::uninstall()
 {
-	
 }
 
-MyGUI::String TestPlugin::getName() const
+void TestPlugin::initialize()
 {
-	return "TestPlugin";
+
+	// создаем фабрики
+	mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
+
+	// создаем парсеры
+	mStrangeButtonParser = new MyGUI::parser::StrangeButtonParser();
+
+}
+
+void TestPlugin::shutdown()
+{
+
+	// удаляем парсеры
+	delete mStrangeButtonParser;
+
+	// удаляем фабрику
+	delete mStrangeButtonFactory;
+
+}
+
+const std::string& TestPlugin::getName() const
+{
+	static std::string type("TestPlugin");
+	return type;
 }

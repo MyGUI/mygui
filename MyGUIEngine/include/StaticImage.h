@@ -1,8 +1,10 @@
-#ifndef _STATICIMAGE_H_
-#define _STATICIMAGE_H_
+#ifndef __STATIC_IMAGE_H__
+#define __STATIC_IMAGE_H__
 
-#include"Prerequest.h"
+#include "Prerequest.h"
+#include "StaticImageFactory.h"
 #include "Widget.h"
+#include "PanelAlphaOverlayElement.h"
 
 namespace MyGUI
 {
@@ -10,37 +12,16 @@ namespace MyGUI
 	class _MyGUIExport StaticImage : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend WidgetFactory<StaticImage>;
+		friend factory::StaticImageFactory;
 
 	protected:
 		StaticImage(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
-		inline const static Ogre::String & getType() {static Ogre::String type("StaticImage"); return type;};
 
-		inline void setImageInfo(const std::string & _material, const FloatSize & _tile)
-		{
-			m_element->setMaterialName(_material);
-			m_sizeTexture = SkinManager::getMaterialSize(_material);
-			m_sizeTile = _tile;
-			m_num = (size_t)-1;
-		}
-
-		inline void setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile)
-		{
-			m_element->setMaterialName(_material);
-			m_sizeTexture = SkinManager::getMaterialSize(_material);
-			m_rectImage = _rect;
-			m_sizeTile = _tile;
-			m_num = (size_t)-1;
-		}
-
-		inline void setImageMaterial(const std::string & _material)
-		{
-			m_element->setMaterialName(_material);
-			m_sizeTexture = SkinManager::getMaterialSize(_material);
-			m_num = (size_t)-1;
-		}
+		void setImageInfo(const std::string & _material, const FloatSize & _tile);
+		void setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile);
+		void setImageMaterial(const std::string & _material);
 
 		inline void setImageRect(const FloatRect & _rect)
 		{
@@ -75,4 +56,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif 
+#endif // __STATIC_IMAGE_H__

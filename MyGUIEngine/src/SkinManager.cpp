@@ -10,24 +10,45 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(SkinManager);
 
-	SkinManager::SkinManager()
+	void SkinManager::initialise()
 	{
-		initialise();
+		assert(!mIsInitialise);
+
+		// забиваем карту флагами выравнивания
+		REGISTER_VALUE(m_mapAlign, ALIGN_NONE);
+		REGISTER_VALUE(m_mapAlign, ALIGN_HCENTER);
+		REGISTER_VALUE(m_mapAlign, ALIGN_VCENTER);
+		REGISTER_VALUE(m_mapAlign, ALIGN_CENTER);
+		REGISTER_VALUE(m_mapAlign, ALIGN_CENTER_PARENT);
+		REGISTER_VALUE(m_mapAlign, ALIGN_LEFT);
+		REGISTER_VALUE(m_mapAlign, ALIGN_RIGHT);
+		REGISTER_VALUE(m_mapAlign, ALIGN_HSTRETCH);
+		REGISTER_VALUE(m_mapAlign, ALIGN_TOP);
+		REGISTER_VALUE(m_mapAlign, ALIGN_BOTTOM);
+		REGISTER_VALUE(m_mapAlign, ALIGN_VSTRETCH);
+		REGISTER_VALUE(m_mapAlign, ALIGN_STRETCH);
+
 		createDefault();
+
+		mIsInitialise = true;
 	}
 
-	SkinManager::~SkinManager()
+	void SkinManager::shutdown()
 	{
-		for (SkinInfo::iterator iter=m_skins.begin(); iter!=m_skins.end(); iter++) {
+		if (!mIsInitialise) return;
+
+		for (MapWidgetSkinInfoPtr::iterator iter=m_skins.begin(); iter!=m_skins.end(); iter++) {
 			WidgetSkinInfoPtr info = iter->second;
 			delete info;
 		}
 		m_skins.clear();
+
+		mIsInitialise = false;
 	}
 
-	char SkinManager::parseAlign(const std::string & _value)
+	Align SkinManager::parseAlign(const std::string & _value)
 	{
-		char flag = 0;
+		Align flag = 0;
 		const std::vector<std::string> & vec = util::split(_value);
 		for (size_t pos=0; pos<vec.size(); pos++) {
 			MapFlags::iterator iter = m_mapAlign.find(vec[pos]);
@@ -38,7 +59,7 @@ namespace MyGUI
 
 	WidgetSkinInfo * SkinManager::getSkin(const Ogre::String & _name)
 	{
-		SkinInfo::iterator iter = m_skins.find(_name);
+		MapWidgetSkinInfoPtr::iterator iter = m_skins.find(_name);
 		// если не нашли, то вернем дефолтный скин
 		if (iter == m_skins.end()) {
 			LOG("no find skin, set default");
@@ -102,7 +123,7 @@ namespace MyGUI
 				// парсим атрибуты
 				Ogre::String basisSkinType, tmp;
 				IntRect offset;
-				char align = ALIGN_NONE;
+				Align align = ALIGN_NONE;
 				basis->findAttribute("Type", basisSkinType);
 				if (basis->findAttribute("Offset", tmp)) offset = util::parseIntRect(tmp);
 				if (basis->findAttribute("Align", tmp)) align = parseAlign(tmp);
@@ -185,23 +206,6 @@ namespace MyGUI
 		return retRect;
 	}
 
-	void SkinManager::initialise()
-	{
-		// забиваем карту флагами выравнивания
-		REGISTER_VALUE(m_mapAlign, ALIGN_NONE);
-		REGISTER_VALUE(m_mapAlign, ALIGN_HCENTER);
-		REGISTER_VALUE(m_mapAlign, ALIGN_VCENTER);
-		REGISTER_VALUE(m_mapAlign, ALIGN_CENTER);
-		REGISTER_VALUE(m_mapAlign, ALIGN_CENTER_PARENT);
-		REGISTER_VALUE(m_mapAlign, ALIGN_LEFT);
-		REGISTER_VALUE(m_mapAlign, ALIGN_RIGHT);
-		REGISTER_VALUE(m_mapAlign, ALIGN_HSTRETCH);
-		REGISTER_VALUE(m_mapAlign, ALIGN_TOP);
-		REGISTER_VALUE(m_mapAlign, ALIGN_BOTTOM);
-		REGISTER_VALUE(m_mapAlign, ALIGN_VSTRETCH);
-		REGISTER_VALUE(m_mapAlign, ALIGN_STRETCH);
-	}
-	
 	void SkinManager::createDefault()
 	{
 		// создаем дефолтный скин

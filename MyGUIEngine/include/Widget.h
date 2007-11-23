@@ -1,10 +1,8 @@
-#ifndef _WIDGET_H_
-#define _WIDGET_H_
+#ifndef __WIDGET_H__
+#define __WIDGET_H__
 
 #include "Prerequest.h"
-#include <vector>
-#include "MainSkin.h"
-
+#include "BasisWidget.h"
 #include "WidgetSkinInfo.h"
 #include "LayerItemInfo.h"
 #include "WidgetUserData.h"
@@ -14,24 +12,21 @@
 namespace MyGUI
 {
 
-	
-
 	class _MyGUIExport Widget : public BasisWidget , public LayerItemInfo, public UserData, public WidgetEvent
 	{
 		// для вызова закрытых деструкторов
 		friend WidgetManager;
 		// для вызова закрытого конструктора
-		friend WidgetFactory<Widget>;
-
+		friend factory::WidgetFactory;
 
 	protected:
 		// все создание только через фабрику
-		Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		Widget(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 		// создаем дочку
-		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
-		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name = "");
+		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, Align _align, const Ogre::String & _name = "");
 
 		virtual void move(int _x, int _y);
 		virtual void move(int _x, int _y, int _cx, int _cy);
@@ -52,13 +47,11 @@ namespace MyGUI
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
-		void setTextAlign(char _align);
+		void setTextAlign(Align _align);
 
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return m_alpha;};
 	
-		inline const static Ogre::String & getType() {static Ogre::String type("Widget"); return type;};
-
 		void setState(const Ogre::String & _state);
 
 		void attachToOverlay(Ogre::Overlay * _overlay);
@@ -66,7 +59,7 @@ namespace MyGUI
 
 
 		// закрываем метод базового класса
-		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(m_parent);}
+		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
 
 	protected:
 		void update(); // обновления себя и детей
@@ -88,7 +81,7 @@ namespace MyGUI
 		bool isWidget() {return true;}
 
 		// вспомогательный метод для распарсивания сабвиджетофф
-		WidgetPtr parseSubWidget(const SkinParam & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size);
+		WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size);
 
 	public:
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
@@ -101,7 +94,7 @@ namespace MyGUI
 	protected:
 
 		// создаем и добавляем саб скин виджету
-		BasisWidgetPtr addSubSkin(const tagBasisWidgetInfo & _info, const String & _material);
+		BasisWidgetPtr addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material);
 
 	public:
 		// закрытый деструктор
@@ -110,14 +103,14 @@ namespace MyGUI
 	protected:
 
 		// список всех стейтов
-		const StateInfo & m_stateInfo;
+		const MapWidgetStateInfo & m_stateInfo;
 		// показывает скрывает все сабскины
 		void visible(bool _visible);
 
 		// вектор всех детей виджетов
-		WidgetChild m_widgetChild;
+		VectorWidgetPtr m_widgetChild;
 		// вектор всех детей сабскинов
-		BasisChild m_subSkinChild;
+		VectorBasisWidgetPtr m_subSkinChild;
 
 		// указатель на окно текста
 		BasisWidgetPtr m_text;
@@ -138,4 +131,4 @@ namespace MyGUI
 } // namespace MyGUI
 
 
-#endif
+#endif // __WIDGET_H__

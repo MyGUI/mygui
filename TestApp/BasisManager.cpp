@@ -3,7 +3,7 @@
 #include <OgreLogManager.h>
 #include "BasisManager.h"
 #include <OgreException.h>
-#include "PluginManager.h"
+#include <OgrePanelOverlayElement.h>
 
 BasisManager::BasisManager() :
 	mInputManager(0),
@@ -131,16 +131,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	createInput();
 
-	// load plugin
-#if _DEBUG
-	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin_d.dll");
-#else
-	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin.dll");
-#endif
-
 	changeState(&mOptions); // главное меню
-
-	
 
     mRoot->startRendering();
 }
@@ -171,8 +162,6 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		delete mRoot;
 		mRoot = 0;
 	}
-
-	MyGUI::PluginManager::shutDown();
 
 }
 

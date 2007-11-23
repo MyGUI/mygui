@@ -130,7 +130,7 @@ namespace xml
 		inline const std::string & getName() {return m_name;}
 		inline const std::string & getBody() {return m_body;}
 		inline const VectorAttributes & getAttributes() {return m_attributes;}
-		inline xmlNodePtr getParent() {return m_parent;}
+		inline xmlNodePtr getParent() {return mParent;}
 
 		inline xmlNodeIterator getNodeIterator() {return xmlNodeIterator(m_childs.begin(), m_childs.end());}
 
@@ -139,7 +139,7 @@ namespace xml
 		std::string m_body;
 		VectorAttributes m_attributes;
 		VectorNode m_childs;
-		xmlNodePtr m_parent;
+		xmlNodePtr mParent;
 		xmlNodeType m_type;
 	};
 

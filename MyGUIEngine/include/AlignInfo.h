@@ -1,11 +1,12 @@
-
-#ifndef _ALIGNINFO_H_
-#define _ALIGNINFO_H_
+#ifndef __ALIGNINFO_H__
+#define __ALIGNINFO_H__
 
 #include "Prerequest.h"
 
 namespace MyGUI
 {
+
+	typedef unsigned char Align;
 
 	//Bit flags done easy
 	#ifndef FLAG_NONE
@@ -31,4 +32,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __ALIGNINFO_H__

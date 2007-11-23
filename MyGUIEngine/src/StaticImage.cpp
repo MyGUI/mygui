@@ -1,13 +1,9 @@
 
 #include "StaticImage.h"
-#include "StaticImageParser.h"
+#include "SkinManager.h"
 
 namespace MyGUI
 {
-	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<StaticImage> StaticImageFactoryInstance("StaticImage"); }
-	// парсер команд
-	namespace parser { StaticImageParser StaticImageParserInstance; }
 
 	StaticImage::StaticImage(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
@@ -55,5 +51,28 @@ namespace MyGUI
 		m_element->setUV(offset.left, offset.top, offset.right, offset.bottom);
 	}
 
+	void StaticImage::setImageInfo(const std::string & _material, const FloatSize & _tile)
+	{
+		m_element->setMaterialName(_material);
+		m_sizeTexture = SkinManager::getMaterialSize(_material);
+		m_sizeTile = _tile;
+		m_num = (size_t)-1;
+	}
+
+	void StaticImage::setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile)
+	{
+		m_element->setMaterialName(_material);
+		m_sizeTexture = SkinManager::getMaterialSize(_material);
+		m_rectImage = _rect;
+		m_sizeTile = _tile;
+		m_num = (size_t)-1;
+	}
+
+	void StaticImage::setImageMaterial(const std::string & _material)
+	{
+		m_element->setMaterialName(_material);
+		m_sizeTexture = SkinManager::getMaterialSize(_material);
+		m_num = (size_t)-1;
+	}
 
 } // namespace MyGUI

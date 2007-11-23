@@ -1,6 +1,7 @@
 #ifndef __MYGUI_FONT_MANAGER_H__
 #define __MYGUI_FONT_MANAGER_H__
 
+#include "Prerequest.h"
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
@@ -15,9 +16,6 @@ namespace MyGUI
 		INSTANCE_HEADER(FontManager);
 
 	public:
-		FontManager();
-		~FontManager();
-
 		bool load(const std::string & _file);
 
     protected:

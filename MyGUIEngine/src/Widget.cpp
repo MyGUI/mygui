@@ -1,18 +1,12 @@
 
 #include "Widget.h"
-#include "BasisWidgetManager.h"
+#include "SkinManager.h"
 #include "WidgetManager.h"
-#include "WidgetParser.h"
-#include "Gui.h"
 
 namespace MyGUI
 {
-	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<Widget> WidgetFactoryInstance("Widget"); }
-	// парсер команд для Widget
-	namespace parser { WidgetParser WidgetParserInstance; }
 
-	Widget::Widget(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	Widget::Widget(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		BasisWidget(_x, _y, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
 		m_text(0),
 		m_visible(true),
@@ -26,14 +20,14 @@ namespace MyGUI
 		m_widgetEventSender = this;
 
 		// загружаем кирпичики виджета
-		for (BasisInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
+		for (VectorBasisWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
 			addSubSkin(*iter, _info->getMaterial());
 		}
 
 		// парсим свойства
-		const SkinParam & param = _info->getParams();
+		const MapString & param = _info->getParams();
 		if (!param.empty()) {
-			SkinParam::const_iterator iter = param.find("FontName");
+			MapString::const_iterator iter = param.find("FontName");
 			if (iter != param.end()) setFontName(iter->second);
 			iter = param.find("FontHeight");
 			if (iter != param.end()) setFontHeight(util::parseInt(iter->second));
@@ -48,7 +42,7 @@ namespace MyGUI
 		// а вот теперь нормальный размер
 		size(_cx, _cy);
 		// альфа отца
-		if ( (m_parent != null) && (static_cast<WidgetPtr>(m_parent)->getAlpha() != 1.0f) ) setAlpha(static_cast<WidgetPtr>(m_parent)->getAlpha());
+		if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != 1.0f) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
 		// и все перерисовываем
 		update();
 	}
@@ -56,7 +50,7 @@ namespace MyGUI
 	Widget::~Widget()
 	{
 
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
 			delete (*skin);
 		}
 		m_subSkinChild.clear();
@@ -65,20 +59,20 @@ namespace MyGUI
 	}
 
 
-	WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
+	WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
 		m_widgetChild.push_back(widget);
 		return widget;
 	}
 
-	WidgetPtr Widget::createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _name)
+	WidgetPtr Widget::createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, Align _align, const Ogre::String & _name)
 	{
 		Gui & gui = Gui::getInstance();
 		return createWidget(_type, _skin, (int)(_x*gui.getWidth()), (int)(_y*gui.getHeight()), (int)(_cx*gui.getWidth()), (int)(_cy*gui.getHeight()), _align, _name);
 	}
 
-	BasisWidgetPtr  Widget::addSubSkin(const tagBasisWidgetInfo &_info, const String & _material)
+	BasisWidgetPtr  Widget::addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material)
 	{
 		BasisWidgetPtr sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this);
 		// если это скин текста, то запоминаем
@@ -96,7 +90,7 @@ namespace MyGUI
 			m_subSkinChild[0]->attach(_basis, true);
 		} else {
 			// нет не к нам, а к нашему отцу
-			if (m_parent != null) m_parent->attach(_basis, true);
+			if (mParent != null) mParent->attach(_basis, true);
 		}
 	}
 
@@ -107,19 +101,19 @@ namespace MyGUI
 		m_visible = _visible;
 
 		// если скрыто пользователем, то не показываем
-		if (_visible && !m_show) return;
+		if (_visible && !mShow) return;
 
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_visible);
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_visible);
 	}
 
 	void Widget::show(bool _show)
 	{
-		if (m_show == _show) return;
-		m_show = _show;
+		if (mShow == _show) return;
+		mShow = _show;
 		// если вышло за границу то не показываем
 		if (_show && !m_visible) return;
 
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(m_show);
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->show(mShow);
 	}
 
 	void Widget::align(int _x, int _y, int _cx, int _cy, bool _update)
@@ -130,7 +124,7 @@ namespace MyGUI
 
 	void Widget::align(int _cx, int _cy, bool _update)
 	{
-		if (m_parent == null) return;
+		if (mParent == null) return;
 
 		bool need_move = false;
 		bool need_size = false;
@@ -140,35 +134,35 @@ namespace MyGUI
 		int cy = m_cy;
 
 		// первоначальное выравнивание 
-		if (m_align & ALIGN_RIGHT) {
-			if (m_align & ALIGN_LEFT) {
+		if (mAlign & ALIGN_RIGHT) {
+			if (mAlign & ALIGN_LEFT) {
 				// растягиваем
-				cx = m_cx + (m_parent->width() - _cx);
+				cx = m_cx + (mParent->width() - _cx);
 				need_size = true;
 			} else {
 				// двигаем по правому краю
-				x = m_x + (m_parent->width() - _cx);
+				x = m_x + (mParent->width() - _cx);
 				need_move = true;
 			}
 
-		} else if (!(m_align & ALIGN_LEFT)) {
+		} else if (!(mAlign & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
-			x = (m_parent->width() - m_cx) / 2;
+			x = (mParent->width() - m_cx) / 2;
 			need_move = true;
 		}
 
-		if (m_align & ALIGN_BOTTOM) {
-			if (m_align & ALIGN_TOP) {
+		if (mAlign & ALIGN_BOTTOM) {
+			if (mAlign & ALIGN_TOP) {
 				// растягиваем
-				cy = m_cy + (m_parent->height() - _cy);
+				cy = m_cy + (mParent->height() - _cy);
 				need_size = true;
 			} else {
-				y = m_y + (m_parent->height() - _cy);
+				y = m_y + (mParent->height() - _cy);
 				need_move = true;
 			}
-		} else if (!(m_align & ALIGN_TOP)) {
+		} else if (!(mAlign & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
-			y = (m_parent->height() - m_cy) / 2;
+			y = (mParent->height() - m_cy) / 2;
 			need_move = true;
 		}
 
@@ -209,7 +203,7 @@ namespace MyGUI
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = m_parent ? check_margin() : false;
+		bool margin = mParent ? check_margin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
@@ -222,11 +216,11 @@ namespace MyGUI
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, m_margin || margin);
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, m_margin || margin);
+		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, mMargin || margin);
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, mMargin || margin);
 
 		// запоминаем текущее состояние
-		m_margin = margin;
+		mMargin = margin;
 
 	}
 
@@ -244,7 +238,7 @@ namespace MyGUI
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = m_parent ? check_margin() : false;
+		bool margin = mParent ? check_margin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
@@ -257,18 +251,18 @@ namespace MyGUI
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy, m_margin || margin);
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, m_margin || margin);
+		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy, mMargin || margin);
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, mMargin || margin);
 
 		// запоминаем текущее состояние
-		m_margin = margin;
+		mMargin = margin;
 
 	}
 
 	void Widget::update()
 	{
 
-		bool margin = m_parent ? check_margin() : false;
+		bool margin = mParent ? check_margin() : false;
 
 		// вьюпорт стал битым
 		if (margin) {
@@ -279,29 +273,29 @@ namespace MyGUI
 				// скрываем
 				visible(false);
 				// запоминаем текущее состояние
-				m_margin = margin;
+				mMargin = margin;
 				return;
 			}
 
-		} else if (!m_margin) { // мы не обрезаны и были нормальные
+		} else if (!mMargin) { // мы не обрезаны и были нормальные
 
 			visible(true);
 			// для тех кому нужно подправить себя при движении
-			for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
+			for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->correct();
 
 			return;
 
 		}
 
 		// запоминаем текущее состояние
-		m_margin = margin;
+		mMargin = margin;
 
 		// если скин был скрыт, то покажем
 		visible(true);
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
-		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
+		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
 
 	}
 
@@ -317,7 +311,7 @@ namespace MyGUI
 		return m_text->getCaption();
 	}
 
-	void Widget::setTextAlign(char _align)
+	void Widget::setTextAlign(Align _align)
 	{
 		if (m_text != null) m_text->setTextAlign(_align);
 	}
@@ -326,8 +320,8 @@ namespace MyGUI
 	{
 		if (m_alpha == _alpha) return;
 		m_alpha = _alpha;
-		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(m_alpha);
+		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(m_alpha);
 	}
 
 	void Widget::setColour(const Ogre::ColourValue & _color)
@@ -369,12 +363,12 @@ namespace MyGUI
 
 	void Widget::setState(const Ogre::String & _state)
 	{
-		StateInfo::const_iterator iter = m_stateInfo.find(_state);
+		MapWidgetStateInfo::const_iterator iter = m_stateInfo.find(_state);
 		if (iter == m_stateInfo.end()) return;
 		size_t index=0;
 		// сначала сдвигаем текстуры
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
-			(*skin)->setUVSet(iter->second.m_offsets[index++]);
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+			(*skin)->setUVSet(iter->second.offsets[index++]);
 		}
 		// теперь если нужно цвет текста
 		if ((iter->second.color != Ogre::ColourValue::ZERO) && (m_text != null)) {
@@ -386,11 +380,11 @@ namespace MyGUI
 	LayerItemInfoPtr Widget::findItem(int _x, int _y)
 	{
 		// проверяем попадание
-		if (!m_visible || !m_show || !check_point(_x, _y)) return 0;
+		if (!m_visible || !mShow || !check_point(_x, _y)) return 0;
 		// останавливаем каскадную проверку
 		if (!m_enable) return this;
 		// спрашиваем у детишек
-		for (WidgetChild::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) {
+		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) {
 			LayerItemInfoPtr item = (*widget)->findItem(_x - m_x, _y - m_y);
 			if (item != null) return item;
 		}
@@ -420,7 +414,7 @@ namespace MyGUI
 	// удаляет всех детей
 	void Widget::destroyWidget()
 	{
-		for (WidgetChild::iterator iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++) {
+		for (VectorWidgetPtr::iterator iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++) {
 			WidgetPtr widget = *iter;
 			// удаляем свое имя
 			WidgetManager::getInstance().clearName(widget);
@@ -432,14 +426,14 @@ namespace MyGUI
 
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
 	{
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
 			if (!(*skin)->isText()) _overlay->add2D(static_cast<Ogre::OverlayContainer*>((*skin)->getOverlayElement()));
 		}
 	}
 
 	void Widget::detachToOverlay(Ogre::Overlay * _overlay)
 	{
-		for (BasisChild::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
+		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) {
 			if (!(*skin)->isText()) {
 				PanelAlphaOverlayElement * element = static_cast<PanelAlphaOverlayElement*>((*skin)->getOverlayElement());
 				_overlay->remove2D(element);
@@ -450,15 +444,15 @@ namespace MyGUI
 	}
 
 	// вспомогательный метод для распарсивания сабвиджетофф
-	WidgetPtr Widget::parseSubWidget(const SkinParam & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size)
+	WidgetPtr Widget::parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size)
 	{
 		// парсим заголовок
-		SkinParam::const_iterator iter = _param.find(_skin);
+		MapString::const_iterator iter = _param.find(_skin);
 		if ( (iter != _param.end()) && (! iter->second.empty()) ) {
 			// сохраняем скин
 			std::string skin = iter->second;
 			FloatRect offset;
-			char align;
+			Align align;
 			// смещение в скине
 			iter = _param.find(_offset);
 			if (iter != _param.end()) offset = util::parseFloatRect(iter->second);

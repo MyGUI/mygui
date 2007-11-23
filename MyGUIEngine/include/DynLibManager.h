@@ -4,15 +4,11 @@
 	@date		08/2007
 	@module		libEngine
 */
-#ifndef _DYNLIBMANAGER_H_
-#define _DYNLIBMANAGER_H_
+#ifndef __DYN_LIB_MANAGER_H__
+#define __DYN_LIB_MANAGER_H__
 
 #include "Prerequest.h"
-
 #include "DynLib.h"
-
-#include <string>
-#include <map>
 
 namespace MyGUI
 {
@@ -30,7 +26,7 @@ namespace MyGUI
 		static DynLibManager* Instance();
 
 		//!	Delete instance
-		static void shutDown();
+		static void shutdown();
 
 	private:
 		//!	Pointer to instance
@@ -49,7 +45,7 @@ namespace MyGUI
 	private:
 
 		//! Dynamic libraries map
-		typedef std::map <String, DynLib*> StringDynLibMap;
+		typedef std::map <std::string, DynLib*> StringDynLibMap;
 		
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
@@ -57,4 +53,4 @@ namespace MyGUI
 
 }
 
-#endif
+#endif // __DYN_LIB_MANAGER_H__

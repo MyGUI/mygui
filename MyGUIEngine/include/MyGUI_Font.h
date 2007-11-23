@@ -64,7 +64,7 @@ namespace MyGUI
 		Ogre::uint mTtfResolution;
 
 		CodePoint mSpaceSimbol;
-		uint8 mCountSpaceTab;
+		Ogre::uint8 mCountSpaceTab;
 
 	protected:
 		/// Map from unicode code point to texture coordinates
@@ -117,11 +117,11 @@ namespace MyGUI
 			available.
         @param source An image file or a truetype font, depending on the type of this font
         */
-        void setSource(const String& source);
+		void setSource(const Ogre::String& source);
 
         /** Gets the source this font (either an image or a truetype font).
         */
-        const String& getSource(void) const;
+		const Ogre::String& getSource(void) const;
 
         /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
         @param ttfSize The size of the font in points. Note that the
@@ -316,8 +316,8 @@ namespace MyGUI
 		inline void setSpaceSimbol(CodePoint _simbol) {mSpaceSimbol = _simbol;}
 
 		// устанавливает колличество пробелов для таба
-		inline uint8 getCountSpaceTab() {return mCountSpaceTab;}
-		inline void setCountSpaceTab(uint8 _count) {mCountSpaceTab = _count;}
+		inline Ogre::uint8 getCountSpaceTab() {return mCountSpaceTab;}
+		inline void setCountSpaceTab(Ogre::uint8 _count) {mCountSpaceTab = _count;}
 
     };
 

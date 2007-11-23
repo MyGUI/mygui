@@ -1,18 +1,16 @@
-#ifndef _WIDGETDEFINES_H_
-#define _WIDGETDEFINES_H_
+#ifndef __WIDGET_DEFINES_H__
+#define __WIDGET_DEFINES_H__
 
 #include "Prerequest.h"
-//#include <Ogre.h>
 #include "Common.h"
-
 
 namespace MyGUI
 {
 
-	struct tagBasisWidgetStateInfo
+	struct BasisWidgetStateInfo
 	{
-		tagBasisWidgetStateInfo() {};
-		tagBasisWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _color, float _alpha)
+		BasisWidgetStateInfo() {};
+		BasisWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _color, float _alpha)
 		{
 			offset = _offset;
 			color = _color;
@@ -22,45 +20,55 @@ namespace MyGUI
 		Ogre::ColourValue color;
 		float alpha;
 	};
-	struct tagWidgetStateInfo {
-		tagWidgetStateInfo() : alpha(-1), color(Ogre::ColourValue::ZERO) {}
-		std::vector<FloatRect> m_offsets;
+
+	struct WidgetStateInfo
+	{
+		WidgetStateInfo() : alpha(-1), color(Ogre::ColourValue::ZERO) {}
+		std::vector<FloatRect> offsets;
 		Ogre::ColourValue color;
 		float alpha;
 	};
-	struct tagBasisWidgetInfo {
-		tagBasisWidgetInfo(const std::string & _type, const IntRect & _offset, float _align) : type(_type), offset(_offset), aligin(_align) {}
+
+	struct BasisWidgetInfo
+	{
+		BasisWidgetInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align) {}
 		IntRect offset;
-		char aligin;
+		Align align;
 		std::string type;
 	};
 
-	typedef std::map<std::string, tagBasisWidgetStateInfo> ViewInfo;
-	typedef std::map<std::string, tagWidgetStateInfo> StateInfo;
-	typedef std::vector<tagBasisWidgetInfo> BasisInfo;
-	typedef std::map<std::string, char> MapFlags;
+	typedef std::map<std::string, BasisWidgetStateInfo> MapBasisWidgetStateInfo;
+	typedef std::map<std::string, WidgetStateInfo> MapWidgetStateInfo;
+	typedef std::vector<BasisWidgetInfo> VectorBasisWidgetInfo;
 
-	typedef std::map<std::string, std::string> SkinParam;
-
-	// обязательно указатель на WidgetSkinInfo, так как при добавлении может перераспределяться память
 	class WidgetSkinInfo;
 	typedef WidgetSkinInfo * WidgetSkinInfoPtr;
-	typedef std::map<std::string, WidgetSkinInfoPtr> SkinInfo;
+	typedef std::map<std::string, WidgetSkinInfoPtr> MapWidgetSkinInfoPtr;
 
 	class BasisWidget;
 	typedef BasisWidget * BasisWidgetPtr;
-	typedef std::vector<BasisWidgetPtr> BasisChild;
+	typedef std::vector<BasisWidgetPtr> VectorBasisWidgetPtr;
 
 	class Widget;
 	typedef Widget * WidgetPtr;
+	typedef std::vector<WidgetPtr> VectorWidgetPtr;
+	typedef std::map<std::string, WidgetPtr> MapWidgetPtr;
+
+	typedef std::map<std::string, std::string> MapString;
+
+	/// ???????????????????????????????????
+	typedef std::map<std::string, int> MapInt;
+	typedef std::map<std::string, char> MapFlags;
+	typedef std::map<std::string, BasisWidgetStateInfo> ViewInfo;
+	typedef std::map<std::string, WidgetStateInfo> StateInfo;
+	typedef std::vector<BasisWidgetInfo> BasisInfo;
+	typedef std::map<std::string, char> MapFlags;
+	typedef std::map<std::string, std::string> SkinParam;
+	typedef std::map<std::string, WidgetSkinInfoPtr> SkinInfo;
+	typedef std::vector<BasisWidgetPtr> BasisChild;
 	typedef std::vector<WidgetPtr> WidgetChild;
 	typedef std::map<std::string, WidgetPtr> mapWidgetPtr;
 
-	typedef Ogre::OverlayElement * OverlayElementPtr;
-
-	typedef std::map<std::string, std::string> MapString;
-	typedef std::map<std::string, int> MapInt;
-
 } // namespace MyGUI
 
-#endif
+#endif // __WIDGET_DEFINES_H__

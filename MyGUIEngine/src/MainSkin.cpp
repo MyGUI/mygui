@@ -1,29 +1,24 @@
 
 #include "MainSkin.h"
-//#include "BasisWidgetFactory.h"
-#include "BasisWidgetManager.h"
 
 namespace MyGUI
 {
 
-	// создаем фабрику для этого скина
-	BasisWidgetFactory<MainSkin> factory_mainSkin;
-
-	MainSkin::MainSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) : 
-	BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
+	MainSkin::MainSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidgetPtr _parent) : 
+	BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
 	{
 
-		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+		Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
 
 		m_overlayContainer = static_cast<PanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
-			"PanelAlpha", "MainSkin_" + Ogre::StringConverter::toString((uint32)this)) );
+			"PanelAlpha", "MainSkin_" + Ogre::StringConverter::toString((Ogre::uint32)this)) );
 
-		m_overlayContainer->setMetricsMode(GMM_PIXELS);
-		m_overlayContainer->setPosition(m_parent->left() + m_x, m_parent->top() + m_y);
+		m_overlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
+		m_overlayContainer->setPosition(mParent->left() + m_x, mParent->top() + m_y);
 		m_overlayContainer->setDimensions(m_cx, m_cy);
-		if (!_material.empty() && (_info.offset.width() != 0)) m_overlayContainer->setMaterialName(_material);
+		if (false == _material.empty() && (_info.offset.width() != 0)) m_overlayContainer->setMaterialName(_material);
 
-		m_parent->attach(this, false);
+		mParent->attach(this, false);
 	}
 
 	MainSkin::~MainSkin()
@@ -34,7 +29,6 @@ namespace MyGUI
 		if (manager != null) manager->destroyOverlayElement(m_overlayContainer);
 	}
 
-
 	void MainSkin::setAlpha(float _alpha)
 	{
 		Ogre::uint8 color[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
@@ -43,8 +37,8 @@ namespace MyGUI
 
 	void MainSkin::show(bool _show)
 	{
-		if (m_show == _show) return;
-		m_show = _show;
+		if (mShow == _show) return;
+		mShow = _show;
 		_show ? m_overlayContainer->show() : m_overlayContainer->hide();
 	};
 
@@ -57,8 +51,8 @@ namespace MyGUI
 		}
 
 		// если обновлять не надо, то меняем только размер
-		(m_parent->width() < 0) ? m_cx = 0 : m_cx = m_parent->width();
-		(m_parent->height() < 0) ? m_cy = 0 : m_cy = m_parent->height();
+		(mParent->width() < 0) ? m_cx = 0 : m_cx = mParent->width();
+		(mParent->height() < 0) ? m_cy = 0 : m_cy = mParent->height();
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 
 	}
@@ -66,7 +60,7 @@ namespace MyGUI
 	void MainSkin::align(int _x, int _y, int _cx, int _cy, bool _update)
 	{
 
-		m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left(), m_y + m_parent->top() - m_parent->getParent()->margin_top());
+		m_overlayContainer->setPosition(m_x + mParent->left() - mParent->getParent()->margin_left(), m_y + mParent->top() - mParent->getParent()->margin_top());
 
 		if (_update) {
 			update();
@@ -74,8 +68,8 @@ namespace MyGUI
 		}
 
 		// если обновлять не надо, то меняем только размер
-		(m_parent->width() < 0) ? m_cx = 0 : m_cx = m_parent->width();
-		(m_parent->height() < 0) ? m_cy = 0 : m_cy = m_parent->height();
+		(mParent->width() < 0) ? m_cx = 0 : m_cx = mParent->width();
+		(mParent->height() < 0) ? m_cy = 0 : m_cy = mParent->height();
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 
 	}
@@ -83,26 +77,26 @@ namespace MyGUI
 	void MainSkin::correct()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
-		if (m_parent->getParent()) m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left() + m_left_margin, m_y + m_parent->top() - m_parent->getParent()->margin_top() + m_top_margin);
-		else m_overlayContainer->setPosition(m_x + m_parent->left(), m_y + m_parent->top());
+		if (mParent->getParent()) m_overlayContainer->setPosition(m_x + mParent->left() - mParent->getParent()->margin_left() + m_left_margin, m_y + mParent->top() - mParent->getParent()->margin_top() + m_top_margin);
+		else m_overlayContainer->setPosition(m_x + mParent->left(), m_y + mParent->top());
 	}
 
 	void MainSkin::update()
 	{
-		int cx = m_parent->view_width();
+		int cx = mParent->view_width();
 		if (cx < 0) cx = 0;
-		int cy = m_parent->view_height();
+		int cy = mParent->view_height();
 		if (cy < 0) cy = 0;
 
 		//порубали оверлей
-		m_overlayContainer->setPosition(m_parent->view_left() - (m_parent->getParent() ? m_parent->getParent()->margin_left() : 0), m_parent->view_top() - (m_parent->getParent() ? m_parent->getParent()->margin_top() : 0) );
+		m_overlayContainer->setPosition(mParent->view_left() - (mParent->getParent() ? mParent->getParent()->margin_left() : 0), mParent->view_top() - (mParent->getParent() ? mParent->getParent()->margin_top() : 0) );
 		m_overlayContainer->setDimensions(cx, cy);
 
 		// теперь смещаем текстуру
-		float UV_lft = m_parent->margin_left() / (float)m_parent->width();
-		float UV_top = m_parent->margin_top() / (float)m_parent->height();
-		float UV_rgt = (m_parent->width() - m_parent->margin_right()) / (float)m_parent->width();
-		float UV_btm = (m_parent->height() - m_parent->margin_bottom()) / (float)m_parent->height();
+		float UV_lft = mParent->margin_left() / (float)mParent->width();
+		float UV_top = mParent->margin_top() / (float)mParent->height();
+		float UV_rgt = (mParent->width() - mParent->margin_right()) / (float)mParent->width();
+		float UV_btm = (mParent->height() - mParent->margin_bottom()) / (float)mParent->height();
 
 		float UV_sizeX = m_rectTexture.right - m_rectTexture.left;
 		float UV_sizeY = m_rectTexture.bottom - m_rectTexture.top;
@@ -121,7 +115,7 @@ namespace MyGUI
 		m_overlayContainer->addChild(_basis->getOverlayElement());
 	}
 
-	OverlayElementPtr MainSkin::getOverlayElement()
+	Ogre::OverlayElement* MainSkin::getOverlayElement()
 	{
 		return m_overlayContainer;
 	}
@@ -131,12 +125,12 @@ namespace MyGUI
 		assert(m_overlayContainer);
 		m_rectTexture = _rect;
 		// если обрезаны, то просчитываем с учето обрезки
-		if (m_margin) {
+		if (mMargin) {
 
-			float UV_lft = m_parent->margin_left() / (float)m_parent->width();
-			float UV_top = m_parent->margin_top() / (float)m_parent->height();
-			float UV_rgt = (m_parent->width() - m_parent->margin_right()) / (float)m_parent->width();
-			float UV_btm = (m_parent->height() - m_parent->margin_bottom()) / (float)m_parent->height();
+			float UV_lft = mParent->margin_left() / (float)mParent->width();
+			float UV_top = mParent->margin_top() / (float)mParent->height();
+			float UV_rgt = (mParent->width() - mParent->margin_right()) / (float)mParent->width();
+			float UV_btm = (mParent->height() - mParent->margin_bottom()) / (float)mParent->height();
 
 			float UV_sizeX = m_rectTexture.right - m_rectTexture.left;
 			float UV_sizeY = m_rectTexture.bottom - m_rectTexture.top;

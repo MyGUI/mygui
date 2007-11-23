@@ -1,13 +1,10 @@
 
 #include "Window.h"
-#include "WindowParser.h"
+#include "InputManager.h"
+#include "WidgetManager.h"
 
 namespace MyGUI
 {
-	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<Window> WindowFactoryInstance("Window"); }
-	// парсер команд
-	namespace parser { WindowParser WindowParserInstance; }
 
 	const float WINDOW_ALPHA_ACTIVE = 1.0;
 	const float WINDOW_ALPHA_FOCUS = 0.7;
@@ -15,7 +12,7 @@ namespace MyGUI
 
 	const int WINDOW_TO_STICK = 10;
 
-	Window::Window(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	Window::Window(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null), mWidgetClient(null),
 		m_bIsListenerAlpha(false),
@@ -68,7 +65,7 @@ namespace MyGUI
 	}
 
 	// переопределяем для присвоению клиенту
-	WidgetPtr Window::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name)
+	WidgetPtr Window::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _name)
 	{
 		if (mWidgetClient != null) return mWidgetClient->createWidget(_type, _skin, _x, _y, _cx, _cy, _align, _name);
 		return Widget::createWidget(_type, _skin, _x, _y, _cx, _cy, _align, _name);

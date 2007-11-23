@@ -1,20 +1,18 @@
-#ifndef _MAINSKIN_H_
-#define _MAINSKIN_H_
+#ifndef __MAIN_SKIN_H__
+#define __MAIN_SKIN_H__
 
 #include "Prerequest.h"
-//#include <Ogre.h>
 #include "PanelAlphaOverlayElement.h"
 #include "BasisWidget.h"
 
 namespace MyGUI
 {
-	using namespace Ogre;
 
 	class _MyGUIExport MainSkin : public BasisWidget
 	{
 
 	public:
-		MainSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent);
+		MainSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
 		~MainSkin();
 
 		// вызывается виджетом, если этот саб скин во весь виджет
@@ -28,7 +26,7 @@ namespace MyGUI
 		void align(int _x, int _y, int _cx, int _cy, bool _update);
 
 		void attach(BasisWidgetPtr _basis, bool _child);
-		OverlayElementPtr getOverlayElement();
+		Ogre::OverlayElement* getOverlayElement();
 
 		void setUVSet(const FloatRect & _rect);
 
@@ -46,4 +44,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __MAIN_SKIN_H__

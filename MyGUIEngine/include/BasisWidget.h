@@ -1,9 +1,7 @@
-#ifndef _BASICWIDGET_H_
-#define _BASICWIDGET_H_
+#ifndef __BASIC_WIDGET_H__
+#define __BASIC_WIDGET_H__
 
 #include "Prerequest.h"
-#include <vector>
-//#include <Ogre.h>
 #include <OgreOverlayElement.h>
 #include "WidgetDefines.h"
 
@@ -14,20 +12,14 @@ namespace MyGUI
 	{
 
 	public:
-		BasisWidget(int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent) :
-			m_parent (_parent),
-			m_align (_align),
-			m_x (_x),
-			m_y (_y),
-			m_cx (_cx),
-			m_cy (_cy),
-			m_left_margin (0),
-			m_right_margin (0),
-			m_top_margin (0),
-			m_bottom_margin (0),
-			m_margin(false),
-			m_show(true)
-		{};
+		BasisWidget(int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent) :
+			mParent (_parent),
+			mAlign (_align),
+			m_x (_x), m_y (_y), m_cx (_cx), m_cy (_cy),
+			m_left_margin (0), m_right_margin (0), m_top_margin (0), m_bottom_margin (0),
+			mMargin(false),
+			mShow(true)
+		{}
 		virtual ~BasisWidget() {}
 
 		virtual void move(int _x, int _y) {}
@@ -35,7 +27,7 @@ namespace MyGUI
 		virtual void size(int _cx, int _cy) {}
 
 		virtual void show(bool _show) {}
-		virtual bool isShow() {return m_show;}
+		virtual bool isShow() {return mShow;}
 
 		virtual void setCaption(const Ogre::DisplayString & _caption) {}
 		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}
@@ -53,8 +45,8 @@ namespace MyGUI
 		virtual void setFontHeight(Ogre::ushort _height) {}
 		virtual Ogre::ushort getFontHeight() {return 0;}
 
-		virtual void setTextAlign(char _align) {}
-		inline char getAlign() {return m_align;}
+		virtual void setTextAlign(Align _align) {}
+		inline Align getAlign() {return mAlign;}
 
 		virtual void setTextSelect(size_t _start, size_t _end) {}
 		// возвращает положение курсора по произвольному положению
@@ -75,13 +67,13 @@ namespace MyGUI
 		virtual void attach(BasisWidgetPtr _basis, bool _child) {}//???
 //		virtual void detach(BasisWidgetPtr _basis/*, bool _child*/) {}
 
-		virtual OverlayElementPtr getOverlayElement() {return 0;}//???
+		virtual Ogre::OverlayElement* getOverlayElement() {return 0;}//???
 
 		virtual void setUVSet(const FloatRect & _rect) {}
 
 		virtual bool isText() {return false;}
 
-		inline BasisWidgetPtr getParent() {return m_parent;}
+		inline BasisWidgetPtr getParent() {return mParent;}
 
 		inline int left()       {return m_x;}
 		inline int right()      {return m_x + m_cx;}
@@ -112,26 +104,26 @@ namespace MyGUI
 		{
 			bool margin = false;
 			//вылезли ли налево
-			if (left() <= m_parent->m_left_margin) {
-				m_left_margin = m_parent->m_left_margin - left();
+			if (left() <= mParent->m_left_margin) {
+				m_left_margin = mParent->m_left_margin - left();
 				margin = true;
 			} else m_left_margin = 0;
 
 			//вылезли ли направо
-			if (right() >= m_parent->width() - m_parent->m_right_margin) {
-				m_right_margin = right() - (m_parent->width() - m_parent->m_right_margin);
+			if (right() >= mParent->width() - mParent->m_right_margin) {
+				m_right_margin = right() - (mParent->width() - mParent->m_right_margin);
 				margin = true;
 			} else m_right_margin = 0;
 
 			//вылезли ли вверх
-			if (top() <= m_parent->m_top_margin) {
-				m_top_margin = m_parent->m_top_margin - top();
+			if (top() <= mParent->m_top_margin) {
+				m_top_margin = mParent->m_top_margin - top();
 				margin = true;
 			} else m_top_margin = 0;
 
 			//вылезли ли вниз
-			if (bottom() >= m_parent->height() - m_parent->m_bottom_margin) {
-				m_bottom_margin = bottom() - (m_parent->height() - m_parent->m_bottom_margin);
+			if (bottom() >= mParent->height() - mParent->m_bottom_margin) {
+				m_bottom_margin = bottom() - (mParent->height() - mParent->m_bottom_margin);
 				margin = true;
 			} else m_bottom_margin = 0;
 
@@ -140,26 +132,24 @@ namespace MyGUI
 
 		inline bool check_outside() // проверка на полный выход за границу
 		{
-			return ( (right() <= m_parent->m_left_margin ) || // совсем уехали налево
-				(left() >= m_parent->width() - m_parent->m_right_margin ) || // совсем уехали направо
-				(bottom() <= m_parent->m_top_margin  ) || // совсем уехали вверх
-				(top() >= m_parent->height() - m_parent->m_bottom_margin ) );  // совсем уехали вниз
+			return ( (right() <= mParent->m_left_margin ) || // совсем уехали налево
+				(left() >= mParent->width() - mParent->m_right_margin ) || // совсем уехали направо
+				(bottom() <= mParent->m_top_margin  ) || // совсем уехали вверх
+				(top() >= mParent->height() - mParent->m_bottom_margin ) );  // совсем уехали вниз
 		}
 
 	protected:
 
-		bool m_margin;
+		bool mMargin;
 		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
 
-		BasisWidgetPtr m_parent;
-		bool m_show;
-		char m_align;
+		BasisWidgetPtr mParent;
+		bool mShow;
+		Align mAlign;
 
 	}; // class BasisWidget
 
 } // namespace MyGUI
 
-
-
-#endif
+#endif // __BASIC_WIDGET_H__

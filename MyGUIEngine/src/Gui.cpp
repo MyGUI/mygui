@@ -1,47 +1,99 @@
 
 #include "Gui.h"
-#include "LayoutManager.h"
-#include "LayerManager.h"
-#include "WidgetManager.h"
+#include "Widget.h"
 
 namespace MyGUI
 {
 
 	INSTANCE_IMPLEMENT(Gui);
 
-	Gui::Gui() :
-		m_isInitialise(false),
-		m_height(1), m_width(1)
-	{
-		// регистрируем фабрику текста и панели
-		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-		overlayManager.addOverlayElementFactory(&m_factoryTextSimpleOverlay);
-		overlayManager.addOverlayElementFactory(&m_factoryTextEditOverlay);
-		overlayManager.addOverlayElementFactory(&m_factoryPanelAlphaOverlay);
-	}
-
 	void Gui::initialise(Ogre::RenderWindow* _window)
 	{
+		assert(!mIsInitialise);
+
+		// регистрируем фабрику текста и панели
+		Ogre::OverlayManager &manager = Ogre::OverlayManager::getSingleton();
+		manager.addOverlayElementFactory(&m_factoryTextSimpleOverlay);
+		manager.addOverlayElementFactory(&m_factoryTextEditOverlay);
+		manager.addOverlayElementFactory(&m_factoryPanelAlphaOverlay);
+
 		Ogre::Viewport * port = _window->getViewport(0);
 		m_height = port->getActualHeight();
 		m_width = port->getActualWidth();
-		m_isInitialise = true;
+
+		// создаем и инициализируем синглтоны
+		mInputManager = new InputManager();
+		mInputManager->initialise();
+		mInputManager->load("main.lang");
+
+		mBasisWidgetManager = new BasisWidgetManager();
+		mBasisWidgetManager->initialise();
+
+		mClipboardManager = new ClipboardManager();
+
+		mLayerManager = new LayerManager();
+		mLayerManager->initialise();
+		mLayerManager->load("main.layer");
+
+		mSkinManager = new SkinManager();
+		mSkinManager->initialise();
+		mSkinManager->load("main.skin");
+
+		mParserManager = new ParserManager();
+		mParserManager->initialise();
+
+		mWidgetManager = new WidgetManager();
+		mWidgetManager->initialise();
+
+		mLayoutManager = new LayoutManager();
+
+		mFontManager = new FontManager();
+		mFontManager->load("MyGUI.font");
+
+		mPointerManager = new PointerManager();
+		mPointerManager->initialise();
+		mPointerManager->load("main.pointer");
+		mPointerManager->show();
+
+		mIsInitialise = true;
 	}
 
 	void Gui::shutdown()
 	{
-		if (!m_isInitialise) return;
-		
-		// очищаем уровни
-		LayerManager::getInstance().clear();
+		if (!mIsInitialise) return;
 
-		// удаляем выджеты
+		// деинициализируем и удаляем синглтоны
+		delete mPointerManager;
+
+		mParserManager->shutdown();
+		delete mParserManager;
+
+		delete mFontManager;
+
+		delete mLayoutManager;
+
 		destroyWidget();
+		mWidgetManager->shutdown();
+		delete mWidgetManager;
 
-		m_isInitialise = false;
+		mInputManager->shutdown();
+		delete mInputManager;
+
+		mSkinManager->shutdown();
+		delete mSkinManager;
+
+		mLayerManager->shutdown();
+		delete mLayerManager;
+
+		mBasisWidgetManager->shutdown();
+		delete mBasisWidgetManager;
+
+		delete mClipboardManager;
+
+		mIsInitialise = false;
 	}
 
-	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _layer, const Ogre::String & _name)
+	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, 0, _name);
 		m_widgetChild.push_back(widget);
@@ -72,7 +124,7 @@ namespace MyGUI
 	// удаляет всех детей
 	void Gui::destroyWidget()
 	{
-		for (WidgetChild::iterator iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++) {
+		for (VectorWidgetPtr::iterator iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++) {
 			WidgetPtr widget = *iter;
 			// удаляем свое имя
 			WidgetManager::getInstance().clearName(widget);

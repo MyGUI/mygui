@@ -1,5 +1,5 @@
-#ifndef _SCROLLBASE_H_
-#define _SCROLLBASE_H_
+#ifndef __SCROLL_BASE_H__
+#define __SCROLL_BASE_H__
 
 #include "Widget.h"
 #include "delegate.h"
@@ -60,5 +60,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-
-#endif // _SCROLLBASE_H_
+#endif // __SCROLL_BASE_H__

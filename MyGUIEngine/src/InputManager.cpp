@@ -15,16 +15,29 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(InputManager);
 
-	InputManager::InputManager() :
-		m_widgetMouseFocus(0), m_widgetKeyFocus(0),
-		m_widgetRootMouseFocus(0), m_widgetRootKeyFocus(0),
-		m_isWidgetMouseCapture(false),
-		m_isCharShift(false),
-		mHoldKey(OIS::KC_UNASSIGNED),
-		mIsListener(false)
+	void InputManager::initialise()
 	{
+		assert(!mIsInitialise);
+
+		m_widgetMouseFocus = 0;
+		m_widgetKeyFocus = 0;
+		m_widgetRootMouseFocus = 0;
+		m_widgetRootKeyFocus = 0;
+		m_isWidgetMouseCapture = false;
+		m_isCharShift = false;
+		mHoldKey = OIS::KC_UNASSIGNED;
+		mIsListener = false;
+
 		createDefaultCharSet();
-		loadCharSet("main.lang");
+
+		mIsInitialise = true;
+	}
+
+	void InputManager::shutdown()
+	{
+		if (!mIsInitialise) return;
+
+		mIsInitialise = false;
 	}
 
 	bool InputManager::injectMouseMove( const OIS::MouseEvent & _arg)
@@ -237,7 +250,7 @@ namespace MyGUI
 		for (size_t i=0; i<13; i++) m_nums[i] = nums[i];
 	}
 
-	void InputManager::loadCharSet(const std::string & _file)
+	void InputManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
 		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");

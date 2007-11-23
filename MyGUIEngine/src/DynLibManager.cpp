@@ -43,7 +43,7 @@ namespace MyGUI
 		return m_instance;
 	}
 
-	void DynLibManager::shutDown()
+	void DynLibManager::shutdown()
 	{
 		if (m_instance)
 			delete m_instance;

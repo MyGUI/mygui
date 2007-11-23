@@ -35,7 +35,7 @@ namespace MyGUI
 		static PluginManager* Instance();
 
 		//!	Shut down
-		static void shutDown();
+		static void shutdown();
 
 		//!	Initialization
 		void initialize();

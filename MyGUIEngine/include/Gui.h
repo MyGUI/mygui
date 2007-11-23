@@ -1,34 +1,39 @@
-#ifndef _GUI_H_
-#define _GUI_H_
+#ifndef __GUI_H__
+#define __GUI_H__
 
 #include "Prerequest.h"
 #include "Instance.h"
 #include "Common.h"
-#include "InputManager.h"
 
 #include "TextSimpleOverlayElementFactory.h"
 #include "TextEditOverlayElementFactory.h"
 #include "PanelAlphaOverlayElementFactory.h"
 
+#include "InputManager.h"
+#include "BasisWidgetManager.h"
+#include "ClipboardManager.h"
+#include "LayerManager.h"
+#include "SkinManager.h"
+#include "WidgetManager.h"
+#include "LayoutManager.h"
+#include "MyGUI_FontManager.h"
+#include "ParserManager.h"
+#include "PointerManager.h"
+
 namespace MyGUI
 {
 	
-
 	class _MyGUIExport Gui
 	{
 		friend WidgetManager;
 		INSTANCE_HEADER(Gui);
 
-	private:
-		Gui();
-
 	public:
-
 		void initialise(Ogre::RenderWindow* _window);
 		void shutdown();
 
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _layer, const Ogre::String & _name = "");
-		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, char _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return createWidget(_type, _skin, (int)(_x*m_width), (int)(_y*m_height), (int)(_cx*m_width), (int)(_cy*m_height), _align, _layer, _name);
 		}
@@ -48,18 +53,29 @@ namespace MyGUI
 
 	private:
 		// вектор всех детей виджетов
-		WidgetChild m_widgetChild;
+		VectorWidgetPtr m_widgetChild;
+
+		float m_height, m_width;
 
 		// фабрики наших оверлеев
 		TextSimpleOverlayElementFactory m_factoryTextSimpleOverlay;
 		TextEditOverlayElementFactory m_factoryTextEditOverlay;
 		PanelAlphaOverlayElementFactory m_factoryPanelAlphaOverlay;
 
-		float m_height, m_width;
-		bool m_isInitialise;
+		// синглтоны гуя
+		InputManager * mInputManager;
+		BasisWidgetManager * mBasisWidgetManager;
+		ClipboardManager* mClipboardManager;
+		LayerManager* mLayerManager;
+		SkinManager* mSkinManager;
+		WidgetManager* mWidgetManager;
+		LayoutManager* mLayoutManager;
+		FontManager* mFontManager;
+		ParserManager* mParserManager;
+		PointerManager* mPointerManager;
 
 	}; // class Gui
 
 } // namespace MyGUI
 
-#endif
+#endif // __GUI_H__

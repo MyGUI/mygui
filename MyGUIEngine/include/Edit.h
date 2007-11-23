@@ -1,7 +1,8 @@
-#ifndef _EDIT_H_
-#define _EDIT_H_
+#ifndef __EDIT_H__
+#define __EDIT_H__
 
 #include "Prerequest.h"
+#include "EditFactory.h"
 #include "Widget.h"
 #include "TextChangeHistory.h"
 
@@ -11,13 +12,12 @@ namespace MyGUI
 	class _MyGUIExport Edit : public Widget, public Ogre::FrameListener
 	{
 		// для вызова закрытого конструктора
-		friend WidgetFactory<Edit>;
+		friend factory::EditFactory;
 
 	protected:
 		Edit(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
-		inline const static Ogre::String & getType() {static Ogre::String type("Edit"); return type;};
 
 		// устанавливает текст
 		void setCaption(const Ogre::DisplayString & _caption);
@@ -232,4 +232,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __EDIT_H__

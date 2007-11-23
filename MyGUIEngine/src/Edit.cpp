@@ -1,15 +1,12 @@
 
 #include "Edit.h"
-#include "EditParser.h"
 #include "TextIterator.h"
 #include "ClipboardManager.h"
+#include "SkinManager.h"
+#include "InputManager.h"
 
 namespace MyGUI
 {
-	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<Edit> EditFactoryInstance("Edit"); }
-	// парсер команд
-	namespace parser { EditParser EditParserInstance; }
 
 	const float EDIT_CURSOR_TIMER  = 0.7f;
 	const float EDIT_ACTION_MOUSE_TIMER  = 0.20f;
@@ -54,7 +51,7 @@ namespace MyGUI
 		// парсим свойства
 		const SkinParam & param = _info->getParams();
 		SkinParam::const_iterator iter = param.find("CursorSkin");
-		String skin = "Default";
+		Ogre::String skin = "Default";
 		if (iter != param.end()) skin = iter->second;
 
 		// создаем курсор

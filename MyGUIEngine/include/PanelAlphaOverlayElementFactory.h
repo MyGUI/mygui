@@ -1,5 +1,5 @@
-#ifndef _PANELALPHAOVERLAYELEMENTFACTORY_H_
-#define _PANELALPHAOVERLAYELEMENTFACTORY_H_
+#ifndef __PANEL_ALPHA_OVERLAY_ELEMENT_FACTORY_H__
+#define __PANEL_ALPHA_OVERLAY_ELEMENT_FACTORY_H__
 
 #include "Prerequest.h"
 #include <OgreOverlayElementFactory.h>
@@ -9,22 +9,22 @@ namespace MyGUI
 {
 
 	/** Factory for creating TextSimpleOverlayElementFactory instances. */
-    class _MyGUIExport PanelAlphaOverlayElementFactory: public OverlayElementFactory
+    class _MyGUIExport PanelAlphaOverlayElementFactory: public Ogre::OverlayElementFactory
     {
     public:
         /** See OverlayElementFactory */
-        OverlayElement* createOverlayElement(const String& instanceName)
+        Ogre::OverlayElement* createOverlayElement(const Ogre::String& instanceName)
         {
             return new PanelAlphaOverlayElement(instanceName);
         }
         /** See OverlayElementFactory */
-        const String& getTypeName(void) const
+        const Ogre::String& getTypeName(void) const
         {
-            static String name = "PanelAlpha";
+            static Ogre::String name = "PanelAlpha";
             return name;
         }
     };
 
 } // namespace MyGUI
 
-#endif
+#endif // __PANEL_ALPHA_OVERLAY_ELEMENT_FACTORY_H__

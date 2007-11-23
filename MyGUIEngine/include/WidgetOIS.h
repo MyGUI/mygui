@@ -1,7 +1,7 @@
 //Just an easy way to keep the toggle between dynamic and static builds visible
 
-#ifndef _WIDGETOIS_H_
-#define _WIDGETOIS_H_
+#ifndef __WIDGET_OIS_H__
+#define __WIDGET_OIS_H__
 
 
 
@@ -9,4 +9,4 @@
 #include "OIS\\OIS.h"
 
 
-#endif
+#endif // __WIDGET_OIS_H__

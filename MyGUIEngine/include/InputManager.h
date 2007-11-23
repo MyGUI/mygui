@@ -1,5 +1,5 @@
-#ifndef _INPUTMANAGER_H_
-#define _INPUTMANAGER_H_
+#ifndef __INPUT_MANAGER_H__
+#define __INPUT_MANAGER_H__
 
 #include "WidgetOIS.h"
 #include "Instance.h"
@@ -10,8 +10,6 @@
 namespace MyGUI
 {
 
-	typedef std::vector<wchar_t> LangInfo;
-	typedef std::map<std::string, LangInfo> MapLang;
 	// делегат для смены оповещения смены языков
 	typedef CDelegate1<const std::string &> EventChangeLanguage;
 
@@ -19,10 +17,17 @@ namespace MyGUI
 	{
 		INSTANCE_HEADER(InputManager);
 
-	public:
-		InputManager();
+		typedef std::vector<wchar_t> LangInfo;
+		typedef std::map<std::string, LangInfo> MapLang;
 
 	public:
+		void initialise();
+		void shutdown();
+
+	public:
+
+		void load(const std::string & _file);
+
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
 
@@ -57,7 +62,6 @@ namespace MyGUI
 
 		// создает латинскую раскладку
 		void createDefaultCharSet();
-		void loadCharSet(const std::string & _file);
 
 		// сменяет язык на следующий
 		inline void changeLanguage()
@@ -133,4 +137,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __INPUT_MANAGER_H__

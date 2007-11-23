@@ -42,7 +42,7 @@ namespace MyGUI
         unload();
     }
     //---------------------------------------------------------------------
-    void Font::setSource(const String& source)
+	void Font::setSource(const Ogre::String& source)
     {
         mSource = source;
     }
@@ -57,7 +57,7 @@ namespace MyGUI
         mTtfResolution = ttfResolution;
     }
     //---------------------------------------------------------------------
-    const String& Font::getSource(void) const
+	const Ogre::String& Font::getSource(void) const
     {
         return mSource;
     }
@@ -85,7 +85,7 @@ namespace MyGUI
     void Font::loadImpl()
     {
 		// create texture
-		String texName = mName + "Texture";
+		Ogre::String texName = mName + "Texture";
 		// Create, setting isManual to true and passing self as loader
 		mTexture = Ogre::TextureManager::getSingleton().create(texName, mGroup, true, this);
 		mTexture->setTextureType(Ogre::TEX_TYPE_2D);
@@ -200,7 +200,7 @@ namespace MyGUI
 		// Now work out how big our texture needs to be
 		size_t rawSize = (max_width + char_spacer) * ((max_height >> 6) + char_spacer) * glyphCount;
 
-		uint32 tex_side = static_cast<uint32>(Ogre::Math::Sqrt(rawSize));
+		Ogre::uint32 tex_side = static_cast<Ogre::uint32>(Ogre::Math::Sqrt(rawSize));
 		// just in case the size might chop a glyph in half, add another glyph width/height
 		tex_side += std::max(max_width, (max_height>>6));
 		// Now round up to nearest power of two

@@ -6,12 +6,6 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(LayerManager);
 
-	LayerManager::LayerManager() {}
-	LayerManager::~LayerManager()
-	{
-		clear();
-	}
-
 	bool LayerManager::load(const std::string & _file)
 	{
 		clear();

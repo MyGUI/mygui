@@ -1,28 +1,23 @@
 
 #include "SubSkin.h"
-#include "BasisWidgetManager.h"
 
 namespace MyGUI
 {
 
-	// создаем фабрику для этого скина
-	BasisWidgetFactory<SubSkin> factory_subSkin;
-
-
-	SubSkin::SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) :
-		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
+	SubSkin::SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent) :
+		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		m_overlayContainer = static_cast<PanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
-			"PanelAlpha", "SubSkin_" + Ogre::StringConverter::toString((uint32)this)) );
+			"PanelAlpha", "SubSkin_" + Ogre::StringConverter::toString((Ogre::uint32)this)) );
 
-		m_overlayContainer->setMetricsMode(GMM_PIXELS);
-		m_overlayContainer->setPosition(m_parent->left() + m_x, m_parent->top() + m_y);
+		m_overlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
+		m_overlayContainer->setPosition(mParent->left() + m_x, mParent->top() + m_y);
 		m_overlayContainer->setDimensions(m_cx, m_cy);
-		if (!_material.empty()) m_overlayContainer->setMaterialName(_material);
+		if (false == _material.empty()) m_overlayContainer->setMaterialName(_material);
 
-		m_parent->attach(this, false);
+		mParent->attach(this, false);
 	}
 
 	SubSkin::~SubSkin()
@@ -35,9 +30,9 @@ namespace MyGUI
 
 	void SubSkin::show(bool _show)
 	{
-		if (m_show == _show) return;
-		m_show = _show;
-		m_show ? m_overlayContainer->show():m_overlayContainer->hide();
+		if (mShow == _show) return;
+		mShow = _show;
+		mShow ? m_overlayContainer->show():m_overlayContainer->hide();
 	}
 
 	void SubSkin::setAlpha(float _alpha)
@@ -51,7 +46,7 @@ namespace MyGUI
 		m_overlayContainer->addChild(_basis->getOverlayElement());
 	}
 
-	OverlayElementPtr SubSkin::getOverlayElement()
+	Ogre::OverlayElement* SubSkin::getOverlayElement()
 	{
 		return m_overlayContainer;
 	}
@@ -59,8 +54,8 @@ namespace MyGUI
 	void SubSkin::correct()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
-		if (m_parent->getParent()) m_overlayContainer->setPosition(m_x + m_parent->left() - m_parent->getParent()->margin_left() + m_left_margin, m_y + m_parent->top() - m_parent->getParent()->margin_top() + m_top_margin);
-		else m_overlayContainer->setPosition(m_x + m_parent->left(), m_y + m_parent->top());
+		if (mParent->getParent()) m_overlayContainer->setPosition(m_x + mParent->left() - mParent->getParent()->margin_left() + m_left_margin, m_y + mParent->top() - mParent->getParent()->margin_top() + m_top_margin);
+		else m_overlayContainer->setPosition(m_x + mParent->left(), m_y + mParent->top());
 	}
 
 	void SubSkin::align(int _x, int _y, int _cx, int _cy, bool _update)
@@ -75,37 +70,37 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание 
-		if (m_align & ALIGN_RIGHT) {
-			if (m_align & ALIGN_LEFT) {
+		if (mAlign & ALIGN_RIGHT) {
+			if (mAlign & ALIGN_LEFT) {
 				// растягиваем
-				m_cx = m_cx + (m_parent->width() - _cx);
+				m_cx = m_cx + (mParent->width() - _cx);
 				need_update = true;
-				m_margin = true; // при изменении размеров все пересчитывать
+				mMargin = true; // при изменении размеров все пересчитывать
 			} else {
 				// двигаем по правому краю
-				m_x = m_x + (m_parent->width() - _cx);
+				m_x = m_x + (mParent->width() - _cx);
 				need_update = true;
 			}
 
-		} else if (!(m_align & ALIGN_LEFT)) {
+		} else if (!(mAlign & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
-			m_x = (m_parent->width() - m_cx) / 2;
+			m_x = (mParent->width() - m_cx) / 2;
 			need_update = true;
 		}
 
-		if (m_align & ALIGN_BOTTOM) {
-			if (m_align & ALIGN_TOP) {
+		if (mAlign & ALIGN_BOTTOM) {
+			if (mAlign & ALIGN_TOP) {
 				// растягиваем
-				m_cy = m_cy + (m_parent->height() - _cy);
+				m_cy = m_cy + (mParent->height() - _cy);
 				need_update = true;
-				m_margin = true; // при изменении размеров все пересчитывать
+				mMargin = true; // при изменении размеров все пересчитывать
 			} else {
-				m_y = m_y + (m_parent->height() - _cy);
+				m_y = m_y + (mParent->height() - _cy);
 				need_update = true;
 			}
-		} else if (!(m_align & ALIGN_TOP)) {
+		} else if (!(mAlign & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
-			m_y = (m_parent->height() - m_cy) / 2;
+			m_y = (mParent->height() - m_cy) / 2;
 			need_update = true;
 		}
 
@@ -119,9 +114,9 @@ namespace MyGUI
 		bool margin = check_margin();
 
 		// двигаем всегда, т.к. дети должны двигаться
-		int x = m_x + m_parent->left() - (m_parent->getParent() ? m_parent->getParent()->margin_left() : 0) + m_left_margin;
+		int x = m_x + mParent->left() - (mParent->getParent() ? mParent->getParent()->margin_left() : 0) + m_left_margin;
 //		if (x < 0) x = 0;
-		int y = m_y + m_parent->top() - (m_parent->getParent() ? m_parent->getParent()->margin_top() : 0) + m_top_margin;
+		int y = m_y + mParent->top() - (mParent->getParent() ? mParent->getParent()->margin_top() : 0) + m_top_margin;
 //		if (y < 0) y = 0;
 
 		m_overlayContainer->setPosition(x, y);
@@ -135,7 +130,7 @@ namespace MyGUI
 				// скрываем
 				m_overlayContainer->setTransparent(true);
 				// запоминаем текущее состояние
-				m_margin = margin;
+				mMargin = margin;
 
 				return;
 
@@ -143,7 +138,7 @@ namespace MyGUI
 
 		}
 		
-		if ((m_margin) || (margin)) { // мы обрезаны или были обрезаны
+		if ((mMargin) || (margin)) { // мы обрезаны или были обрезаны
 
 			int cx = view_width();
 			if (cx < 0) cx = 0;
@@ -175,7 +170,7 @@ namespace MyGUI
 		}
 
 		// запоминаем текущее состояние
-		m_margin = margin;
+		mMargin = margin;
 		// если скин был скрыт, то покажем
 		m_overlayContainer->setTransparent(false);
 
@@ -186,7 +181,7 @@ namespace MyGUI
 		assert(m_overlayContainer);
 		m_rectTexture = _rect;
 		// если обрезаны, то просчитываем с учето обрезки
-		if (m_margin) {
+		if (mMargin) {
 
 			float UV_lft = m_left_margin / (float)m_cx;
 			float UV_top = m_top_margin / (float)m_cy;

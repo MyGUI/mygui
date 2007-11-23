@@ -1,10 +1,9 @@
 
 #include "VScroll.h"
+#include "InputManager.h"
 
 namespace MyGUI
 {
-	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<VScroll> VScrollFactoryInstance("VScroll"); }
 
 	VScroll::VScroll(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		ScrollBase(_x, _y, _cx, _cy, _align, _info, _parent, _name)

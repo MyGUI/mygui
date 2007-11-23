@@ -1,5 +1,5 @@
-#ifndef _LAYERMANAGER_H_
-#define _LAYERMANAGER_H_
+#ifndef __LAYER_MANAGER_H__
+#define __LAYER_MANAGER_H__
 
 #include "Prerequest.h"
 #include "Instance.h"
@@ -20,11 +20,11 @@ namespace MyGUI
 
 	class _MyGUIExport LayerManager
 	{
-		friend Gui;
-
 		INSTANCE_HEADER(LayerManager);
 
 	public:
+		inline void initialise() {}
+		inline void shutdown() {clear();}
 
 		void attachItem(LayerItemInfoPtr _item, const std::string & _layer, bool _attachToSearch = false);
 		void detachItem(LayerItemInfoPtr _item);
@@ -34,14 +34,8 @@ namespace MyGUI
 
 		Ogre::Overlay * createOverlay();
 
-		~LayerManager();
-
 		bool load(const std::string & _file);
 		void clear();
-
-	private:
-
-		LayerManager();
 
 	private:
 		MapLayer m_mapLayer;
@@ -51,4 +45,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __LAYER_MANAGER_H__

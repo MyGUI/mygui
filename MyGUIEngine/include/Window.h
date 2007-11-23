@@ -1,6 +1,8 @@
-#ifndef _WINDOW_H_
-#define _WINDOW_H_
+#ifndef __WINDOW_H__
+#define __WINDOW_H__
 
+#include "Prerequest.h"
+#include "WindowFactory.h"
 #include "Widget.h"
 
 namespace MyGUI
@@ -9,16 +11,14 @@ namespace MyGUI
 	class _MyGUIExport Window : public Widget, public Ogre::FrameListener
 	{
 		// для вызова закрытого конструктора
-		friend WidgetFactory<Window>;
+		friend factory::WindowFactory;
 
 	protected:
-		Window(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		Window(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 		// переопределяем для присвоению клиенту
-		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, const Ogre::String & _name = "");
-
-		inline const static Ogre::String & getType() {static Ogre::String type("Window"); return type;};
+		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _name = "");
 
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
@@ -92,4 +92,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // _WINDOW_H_
+#endif // __WINDOW_H__

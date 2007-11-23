@@ -1,21 +1,18 @@
-#ifndef _TEXTSIMPLE_H_
-#define _TEXTSIMPLE_H_
+#ifndef __TEXT_SIMPLE_H__
+#define __TEXT_SIMPLE_H__
 
 #include "Prerequest.h"
-//#include <Ogre.h>
 #include "BasisWidget.h"
 #include "TextSimpleOverlayElement.h"
 
 namespace MyGUI
 {
-	using namespace Ogre;
-
 
 	class _MyGUIExport TextSimple : public BasisWidget
 	{
 
 	public:
-		TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent);
+		TextSimple(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
 		virtual ~TextSimple();
 
 		void show(bool _show);
@@ -36,7 +33,7 @@ namespace MyGUI
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
-		void setTextAlign(char _align);
+		void setTextAlign(Align _align);
 
 		/*void setTextSelect(size_t _start, size_t _end);
 		// возвращает положение курсора по произвольному положению
@@ -58,15 +55,15 @@ namespace MyGUI
 			// изменился текст
 			//m_overlayContainer->updateText();
 			// и делаем полное обновление и выравнивание
-			m_margin = true; // при изменении размеров все пересчитывать
-			align(m_parent->width(), m_parent->height(), true);
+			mMargin = true; // при изменении размеров все пересчитывать
+			align(mParent->width(), mParent->height(), true);
 		}
 
 		bool isText() {return true;};
 
 		inline const static Ogre::String & getType() {static Ogre::String type("TextSimple"); return type;};
 
-		OverlayElementPtr getOverlayElement();
+		Ogre::OverlayElement* getOverlayElement();
 
 	protected:
 
@@ -77,4 +74,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __TEXT_SIMPLE_H__

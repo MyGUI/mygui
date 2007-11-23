@@ -1,12 +1,9 @@
-#ifndef _SKINMANAGER_H_
-#define _SKINMANAGER_H_
-
+#ifndef __SKIN_MANAGER_H__
+#define __SKIN_MANAGER_H__
 
 #include "Prerequest.h"
 #include "Instance.h"
-#include <string>
 #include "WidgetDefines.h"
-
 
 namespace MyGUI
 {
@@ -15,13 +12,11 @@ namespace MyGUI
 	{
 		INSTANCE_HEADER(SkinManager);
 
-	private:
-		SkinManager();
-		~SkinManager();
-
 	public:
+		void initialise();
+		void shutdown();
 
-		char parseAlign(const std::string & _value);
+		Align parseAlign(const std::string & _value);
 		WidgetSkinInfo * getSkin(const Ogre::String & _name);
 
 		//	для ручного создания скина
@@ -33,16 +28,16 @@ namespace MyGUI
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
 		static FloatRect convertMaterialCoord(const FloatRect & _source, const FloatSize & _materialSize);
 
+
 	private:
-		void initialise();
 		void createDefault();
 
 	private:
-		SkinInfo m_skins;
+		MapWidgetSkinInfoPtr m_skins;
 		MapFlags m_mapAlign;
 
 	}; // class SkinManager
 
 } // namespace MyGUI
 
-#endif
+#endif // __SKIN_MANAGER_H__

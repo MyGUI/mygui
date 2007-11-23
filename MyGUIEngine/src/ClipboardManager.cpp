@@ -5,14 +5,6 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(ClipboardManager);
 
-	ClipboardManager::ClipboardManager()
-	{
-	}
-
-	ClipboardManager::~ClipboardManager()
-	{
-	}
-
 	void ClipboardManager::SetClipboardData(const std::string& _type, const std::string& _data)
 	{
 		mClipboardData[_type] = _data;

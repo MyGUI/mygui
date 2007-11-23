@@ -192,6 +192,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\StrangeButtonFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\StrangeButtonParser.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\TestPlugin.cpp"
 				>
 			</File>
@@ -207,6 +215,10 @@
 			>
 			<File
 				RelativePath=".\include\StrangeButton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\StrangeButtonFactory.h"
 				>
 			</File>
 			<File

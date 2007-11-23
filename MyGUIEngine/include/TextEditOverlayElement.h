@@ -21,7 +21,7 @@ namespace MyGUI
 		typedef std::vector<VectorCharInfo> VectorLineInfo;
 
 		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
-		char m_align;
+		Align mAlign;
 
 		bool mRenderGL;// для конвертирования цвета вершин
 		Ogre::RGBA mDefaultColor; // цвет текста
@@ -38,13 +38,13 @@ namespace MyGUI
 
 
 	public:
-		TextEditOverlayElement(const String& name) :
+		TextEditOverlayElement(const Ogre::String& name) :
 			TextAreaOverlayElement(name),
 			m_left_margin (0),
 			m_right_margin (0),
 			m_top_margin (0),
 			m_bottom_margin (0),
-			m_align(ALIGN_CENTER),
+			mAlign(ALIGN_CENTER),
 			mDefaultColor(0xFFFFFFFF),
 			mInverseColor(0xFF000000),
 			mStartSelect(0), mEndSelect(0),
@@ -63,10 +63,10 @@ namespace MyGUI
 		void updateColours(void) { }
 
 		// необходимо обновить все что связанно с стекстом
-		inline void setAlignment(char _align)	
+		inline void setAlignment(Align _align)	
 		{
 			// выравнивание бокса
-			m_align = _align;
+			mAlign = _align;
 			// выравнивание строк внутри бокса
 			if (_align & ALIGN_RIGHT) mAlignment = Right;
 			else if (! (_align & ALIGN_LEFT)) mAlignment = Center;
@@ -134,8 +134,8 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			if (mContextSize.height <= realHeight) {
-				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
+				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
+				else if ( !(mAlign & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
 			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 			bottom = top;
@@ -660,8 +660,8 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			if (mContextSize.height <= realHeight) {
-				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
+				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
+				else if ( !(mAlign & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
 			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 			bottom = top;
@@ -782,8 +782,8 @@ namespace MyGUI
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			if (mContextSize.height <= realHeight) {
-				if ( m_align & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(m_align & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
+				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
+				else if ( !(mAlign & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
 			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 			bottom = top;

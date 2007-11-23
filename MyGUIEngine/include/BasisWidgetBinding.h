@@ -1,15 +1,11 @@
-#ifndef _BASICWIDGETBINDING_H_
-#define _BASICWIDGETBINDING_H_
+#ifndef __BASIS_WIDGET_BINDING_H__
+#define __BASIS_WIDGET_BINDING_H__
 
 #include "Prerequest.h"
-#include <vector>
-//#include <Ogre.h>
 #include "WidgetDefines.h"
-
 
 namespace MyGUI
 {
-	
 
 	// вспомогательный класс для инициализации сабскинов
 	class _MyGUIExport BasisWidgetBinding
@@ -23,12 +19,12 @@ namespace MyGUI
 		{
 		}
 
-		BasisWidgetBinding(const IntRect & _offset, char _aligin, const std::string & _type)
+		BasisWidgetBinding(const IntRect & _offset, Align _aligin, const std::string & _type)
 		{
 			create(_offset, _aligin, _type);
 		}
 
-		void create(const IntRect & _offset, char _aligin, const std::string & _type)
+		void create(const IntRect & _offset, Align _aligin, const std::string & _type)
 		{
 			clear();
 			m_offset = _offset;
@@ -61,20 +57,20 @@ namespace MyGUI
 		void add(const std::string & _name, const FloatRect & _offset, const Ogre::ColourValue  & _color, float _alpha)
 		{
 			// ищем такой же ключ
-			ViewInfo::const_iterator iter = m_states.find(_name);
+			MapBasisWidgetStateInfo::const_iterator iter = m_states.find(_name);
 			if (iter != m_states.end()) ASSERT(!"state is exist");
 			// добавляем
-			m_states[_name] = tagBasisWidgetStateInfo(_offset, _color, _alpha);
+			m_states[_name] = BasisWidgetStateInfo(_offset, _color, _alpha);
 		}
 
 	private:
 		IntRect m_offset;
-		char m_aligin;
+		Align m_aligin;
 		std::string m_type;
-		ViewInfo m_states;
+		MapBasisWidgetStateInfo m_states;
 	};
 
 } // namespace MyGUI
 
 
-#endif
+#endif // __BASIS_WIDGET_BINDING_H__

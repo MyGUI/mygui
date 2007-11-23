@@ -41,7 +41,7 @@ namespace xml
 	xmlNode::xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type, const std::string & _body) : 
 		m_name(_name),
 		m_body(_body),
-		m_parent(_parent),
+		mParent(_parent),
 		m_type(_type)
 	{
 	}

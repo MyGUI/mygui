@@ -1,19 +1,12 @@
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef __COMMON_H__
+#define __COMMON_H__
 
-#include <map>
-#include <string>
-#include <vector>
+#include "Prerequest.h"
 #include "Types.h"
-#include <assert.h>
-#include "LoggingOut.h"
 #include "RenderOut.h"
 #include "utility.h"
 #include "AlignInfo.h"
 #include "ResourcePath.h"
-
-#include "Prerequest.h"
-
 
 namespace MyGUI
 {
@@ -35,4 +28,4 @@ namespace MyGUI
 } // namespace MyGUI
 
 
-#endif
+#endif // __COMMON_H__

@@ -35,7 +35,7 @@ namespace MyGUI
 		return m_instance;
 	}
 
-	void PluginManager::shutDown()
+	void PluginManager::shutdown()
 	{
 		if (m_instance)
 			delete m_instance;
@@ -110,7 +110,7 @@ namespace MyGUI
 		PluginList::iterator it = std::find(mPlugins.begin(), mPlugins.end(), plugin);
 		if (it != mPlugins.end())
 		{
-			plugin->shutDown();
+			plugin->shutdown();
 			plugin->uninstall();
 			mPlugins.erase(it);
 		}

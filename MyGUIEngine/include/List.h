@@ -1,9 +1,10 @@
-#ifndef _LIST_H_
-#define _LIST_H_
+#ifndef __LIST_H__
+#define __LIST_H__
 
+#include "Prerequest.h"
+#include "ListFactory.h"
 #include "Widget.h"
 #include "VScroll.h"
-#include "Button.h"
 
 namespace MyGUI
 {
@@ -11,13 +12,12 @@ namespace MyGUI
 	class _MyGUIExport List : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend WidgetFactory<List>;
+		friend factory::ListFactory;
 
 	protected:
 		List(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
-		inline const static Ogre::String & getType() {static Ogre::String type("List"); return type;};
 
 		inline size_t getItemCount() {return mStringArray.size();}
 		inline const Ogre::DisplayString & getItemString(size_t _index) {assert(_index < mStringArray.size()); return mStringArray[_index];}
@@ -101,4 +101,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // _LIST_H_
+#endif // __LIST_H__

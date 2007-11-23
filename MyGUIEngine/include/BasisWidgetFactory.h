@@ -1,5 +1,5 @@
-#ifndef _BASICWIDGETFACTORY_H_
-#define _BASICWIDGETFACTORY_H_
+#ifndef __BASIS_WIDGET_FACTORY_H__
+#define __BASIS_WIDGET_FACTORY_H__
 
 #include "Prerequest.h"
 #include "BasisWidget.h"
@@ -7,26 +7,24 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport BasisWidgetFactoryBase
+	class _MyGUIExport BasisWidgetFactoryInterface
 	{
 	public:
 		virtual const Ogre::String & getType() = 0;
-		virtual BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent) = 0;
-	}; // BasisWidgetFactoryBase
+		virtual BasisWidget * createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent) = 0;
+	};
 
 	template <class ClassName>
-	class BasisWidgetFactory : public BasisWidgetFactoryBase
+	class BasisWidgetFactory : public BasisWidgetFactoryInterface
 	{
 	public:
-		BasisWidgetFactory() { BasisWidgetManager::getInstance().registerFactory(this); }
-		inline const Ogre::String & getType() {return ClassName::getType();};
-		BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent)
+		const Ogre::String & getType() {return ClassName::getType();};
+		BasisWidget * createBasisWidget(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidget* _parent)
 		{
 			return new ClassName(_info, _material, _parent);
 		}
-	}; // class BasisWidgetFactory : public BasisWidgetFactoryBase
+	}; // class BasisWidgetFactory : public BasisWidgetFactoryInterface
 
 } // namespace MyGUI
 
-
-#endif
+#endif // __BASIS_WIDGET_FACTORY_H__

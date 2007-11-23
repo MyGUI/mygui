@@ -4,12 +4,10 @@
 	@date		09/2007
 	@module		
 */
-#ifndef _PLUGIN_H_
-#define _PLUGIN_H_
+#ifndef __PLUGIN_H__
+#define __PLUGIN_H__
 
 #include "Prerequest.h"
-
-#include <string>
 
 namespace MyGUI
 {
@@ -27,7 +25,7 @@ namespace MyGUI
 			@remarks An implementation must be supplied for this method to uniquely
 			identify the plugin
 		*/
-		virtual std::string getName() const = 0;
+		virtual const std::string& getName() const = 0;
 
 		/*!	Perform the plugin initial installation sequence
 		*/
@@ -40,7 +38,7 @@ namespace MyGUI
 
 		/*!	Perform any tasks the plugin needs to perform when the system is shut down
 		*/
-		virtual void shutDown() = 0;
+		virtual void shutdown() = 0;
 
 		/*!	Perform the final plugin uninstallation sequence
 		*/
@@ -49,4 +47,4 @@ namespace MyGUI
 
 }
 
-#endif
+#endif // __PLUGIN_H__

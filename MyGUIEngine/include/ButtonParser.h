@@ -1,9 +1,7 @@
-#ifndef _BUTTONPARSER_H_
-#define _BUTTONPARSER_H_
-
+#ifndef __BUTTON_PARSER_H__
+#define __BUTTON_PARSER_H__
 
 #include "Prerequest.h"
-//#include <Ogre.h>
 #include "delegate.h"
 #include "ParserManager.h"
 #include "Button.h"
@@ -38,4 +36,4 @@ namespace MyGUI
 } // namespace MyGUI
 
 
-#endif
+#endif // __BUTTON_PARSER_H__

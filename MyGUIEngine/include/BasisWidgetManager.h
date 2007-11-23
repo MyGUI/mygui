@@ -1,11 +1,15 @@
-#ifndef _BUTTON_H_
-#define _BUTTON_H_
+#ifndef __BASIS_WIDGET_MANAGER_H__
+#define __BASIS_WIDGET_MANAGER_H__
 
 #include "Prerequest.h"
 #include "Instance.h"
-#include <vector>
 #include "BasisWidget.h"
 #include "BasisWidgetFactory.h"
+
+#include "MainSkin.h"
+#include "SubSkin.h"
+#include "TextSimple.h"
+#include "TextEdit.h"
 
 namespace MyGUI
 {
@@ -14,21 +18,26 @@ namespace MyGUI
 		INSTANCE_HEADER(BasisWidgetManager);
 
 	public:
+		void initialise();
+		void shutdown();
 
-		BasisWidget * createBasisWidget(const tagBasisWidgetInfo &_info, const String & _material, BasisWidget * _parent);
+		BasisWidget * createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent);
 
-		inline void registerFactory(BasisWidgetFactoryBase * _factory)
+		inline void registerFactory(BasisWidgetFactoryInterface * _factory)
 		{
 			m_factoryList.push_back(_factory);
 		}
 
 	protected:
-		BasisWidgetManager();
-		std::list<BasisWidgetFactoryBase*> m_factoryList;
+		std::list<BasisWidgetFactoryInterface*> m_factoryList;
+
+		BasisWidgetFactory<MainSkin> * mFactoryMainSkin;
+		BasisWidgetFactory<SubSkin> * mFactorySubSkin;
+		BasisWidgetFactory<TextSimple> * mFactoryTextSimple;
+		BasisWidgetFactory<TextEdit> * mFactoryTextEdit;
 
 	}; // BasisWidgetManager
 
 } // namespace MyGUI
 
-
-#endif
+#endif // __BASIS_WIDGET_MANAGER_H__

@@ -1,13 +1,10 @@
 
 #include "StrangeButton.h"
-#include "StrangeButtonParser.h"
 
 namespace MyGUI
 {
-	// парсер команд
-	namespace parser { StrangeButtonParser ButtonParserInstance; }
 
-	StrangeButton::StrangeButton(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	StrangeButton::StrangeButton(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 	Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
 		m_isPressed(false),
 		m_isFocus(false),
@@ -15,9 +12,9 @@ namespace MyGUI
 	{
 
 		// парсим свойства
-		const SkinParam & param = _info->getParams();
+		const MapString & param = _info->getParams();
 		if (!param.empty()) {
-			SkinParam::const_iterator iter = param.find("ButtonPressed");
+			MapString::const_iterator iter = param.find("ButtonPressed");
 			if (iter != param.end()) setButtonPressed(iter->second == "true");
 		}
 	}
@@ -28,7 +25,7 @@ namespace MyGUI
 		m_isFocus = true;
 
 		if (m_text == null) return;
-		String s, str = m_text->getCaption();
+		Ogre::String s, str = m_text->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 
@@ -43,7 +40,7 @@ namespace MyGUI
 		m_isFocus = false;
 
 		if (m_text == null) return;
-		String s, str = m_text->getCaption();
+		Ogre::String s, str = m_text->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 		

@@ -1,13 +1,8 @@
 
 #include "Button.h"
-#include "ButtonParser.h"
 
 namespace MyGUI
 {
-	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<Button> ButtonFactoryInstance("Button"); }
-	// парсер команд
-	namespace parser { ButtonParser ButtonParserInstance; }
 
 	Button::Button(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),

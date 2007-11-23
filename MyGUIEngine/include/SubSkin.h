@@ -1,21 +1,18 @@
-#ifndef _SUBSKIN_H_
-#define _SUBSKIN_H_
+#ifndef __SUB_SKIN_H__
+#define __SUB_SKIN_H__
 
 #include "Prerequest.h"
-//#include <Ogre.h>
 #include "PanelAlphaOverlayElement.h"
 #include "BasisWidget.h"
 
 namespace MyGUI
 {
-	using namespace Ogre;
-
 
 	class _MyGUIExport SubSkin : public BasisWidget
 	{
 
 	public:
-		SubSkin(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent);
+		SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
 		virtual ~SubSkin();
 
 		void show(bool _show);
@@ -33,7 +30,7 @@ namespace MyGUI
 		inline const static Ogre::String & getType() {static Ogre::String type("SubSkin"); return type;};
 
 		void attach(BasisWidgetPtr _basis, bool _child);
-		OverlayElementPtr getOverlayElement();
+		Ogre::OverlayElement* getOverlayElement();
 
 	protected:
 
@@ -44,4 +41,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __SUB_SKIN_H__

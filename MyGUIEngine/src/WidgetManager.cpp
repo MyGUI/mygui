@@ -1,37 +1,72 @@
 
 #include "WidgetManager.h"
 #include "LayerManager.h"
+#include "Widget.h"
 
 namespace MyGUI
 {
 
 	INSTANCE_IMPLEMENT(WidgetManager);
-/*	template<> WidgetManager* Instance<WidgetManager>::msInstance = 0;
-	WidgetManager* WidgetManager::getInstancePtr(void) {return msInstance;}
-	WidgetManager& WidgetManager::getInstance(void)
+
+	void WidgetManager::initialise()
 	{
-		assert(msInstance);
-		return (*msInstance);
-	}*/
+		assert(!mIsInitialise);
 
-	WidgetManager::WidgetManager() {};
+		// создаем фабрики виджетов
+		mWidgetFactory = new factory::WidgetFactory();
+		registerFactory(mWidgetFactory);
+		mButtonFactory = new factory::ButtonFactory();
+		registerFactory(mButtonFactory);
+		mEditFactory = new factory::EditFactory();
+		registerFactory(mEditFactory);
+		mListFactory = new factory::ListFactory();
+		registerFactory(mListFactory);
+		mStaticImageFactory = new factory::StaticImageFactory();
+		registerFactory(mStaticImageFactory);
+		mVScrollFactory = new factory::VScrollFactory();
+		registerFactory(mVScrollFactory);
+		mHScrollFactory = new factory::HScrollFactory();
+		registerFactory(mHScrollFactory);
+		mWindowFactory = new factory::WindowFactory();
+		registerFactory(mWindowFactory);
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, char _align, BasisWidgetPtr _parent, const Ogre::String & _name)
+		mIsInitialise = true;
+	}
+
+	void WidgetManager::shutdown()
+	{
+		if (!mIsInitialise) return;
+
+		mFactoryList.clear();
+
+		delete mWindowFactory;
+		delete mHScrollFactory;
+		delete mVScrollFactory;
+		delete mStaticImageFactory;
+		delete mListFactory;
+		delete mEditFactory;
+		delete mButtonFactory;
+		delete mWidgetFactory;
+
+		mIsInitialise = false;
+	}
+
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name)
 	{
 		Ogre::String name;
-		if (!_name.empty()) {
-			mapWidgetPtr::iterator iter = m_widgets.find(_name);
-			if (iter != m_widgets.end()) OGRE_EXCEPT(0, _name + " - name widget is exist", "WidgetManager::createWidget");
+		if (false == _name.empty()) {
+			MapWidgetPtr::iterator iter = mWidgets.find(_name);
+			if (iter != mWidgets.end()) OGRE_EXCEPT(0, _name + " - name widget is exist", "WidgetManager::createWidget");
 			name = _name;
 		} else {
 			static long num=0;
 			name = Ogre::StringConverter::toString(num++) + "_" + _type;
 		}
 
-		for (std::list<WidgetFactoryBase*>::iterator factory = m_factoryList.begin(); factory != m_factoryList.end(); factory++) {
+		for (ListWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getType() == _type) {
 				WidgetPtr widget = (*factory)->createWidget(_skin, _x, _y, _cx, _cy, _align, _parent, name);
-				m_widgets[name] = widget;
+				mWidgets[name] = widget;
 				return widget;
 			}
 		}
@@ -63,8 +98,8 @@ namespace MyGUI
 
 	WidgetPtr WidgetManager::findWidget(const Ogre::String & _name)
 	{
-		mapWidgetPtr::iterator iter = m_widgets.find(_name);
-		if (iter == m_widgets.end()){
+		MapWidgetPtr::iterator iter = mWidgets.find(_name);
+		if (iter == mWidgets.end()){
 			LOG_MESSAGE("Error: Widget \"" + _name + "\" not found");
 			return 0;
 		}
@@ -74,11 +109,11 @@ namespace MyGUI
 	void WidgetManager::clearName(WidgetPtr _widget)
 	{
 		if (_widget == null) return;
-		mapWidgetPtr::iterator iter = m_widgets.find(_widget->getName());
-		if (iter != m_widgets.end()) m_widgets.erase(iter);
+		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
+		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
 
-	FloatRect WidgetManager::convertOffset(const FloatRect & _offset, char _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight)
+	FloatRect WidgetManager::convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight)
 	{
 		FloatRect offset = _offset;
 

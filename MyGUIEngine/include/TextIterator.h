@@ -1,10 +1,9 @@
-#ifndef _TEXT_ITERATOR_H_
-#define _TEXT_ITERATOR_H_
+#ifndef __TEXT_ITERATOR_H__
+#define __TEXT_ITERATOR_H__
 
 #include "Prerequest.h"
-#include <Ogre.h>
-#include <string>
 #include "TextChangeHistory.h"
+#include "MyGUI_Font.h"
 
 namespace MyGUI
 {
@@ -393,4 +392,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // _TEXT_ITERATOR_H_
+#endif // __TEXT_ITERATOR_H__

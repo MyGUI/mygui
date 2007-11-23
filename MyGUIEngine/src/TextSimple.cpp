@@ -1,28 +1,24 @@
 
 #include "TextSimple.h"
-#include "BasisWidgetManager.h"
-
 #include <OgreStringConverter.h>
 
 namespace MyGUI
 {
-	// создаем фабрику для этого скина
-	BasisWidgetFactory<TextSimple> factory_TextSimple;
 
-	TextSimple::TextSimple(const tagBasisWidgetInfo &_info, const String & _material, BasisWidgetPtr _parent) :
-		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.aligin, _parent)
+	TextSimple::TextSimple(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent) :
+		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		m_overlayContainer = static_cast<TextSimpleOverlayElement *>(overlayManager.createOverlayElement(
-			"TextSimple", "TextSimple_" + Ogre::StringConverter::toString((uint32)this)));
+			"TextSimple", "TextSimple_" + Ogre::StringConverter::toString((Ogre::uint32)this)));
 
-		m_overlayContainer->setMetricsMode(GMM_PIXELS);
+		m_overlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 
 		m_overlayContainer->setPosition(m_x, m_y);
 		m_overlayContainer->setDimensions(m_cx, m_cy);
 
-		m_parent->attach(this, true);
+		mParent->attach(this, true);
 	}
 
 	TextSimple::~TextSimple()
@@ -33,24 +29,24 @@ namespace MyGUI
 		if (manager != null) manager->destroyOverlayElement(m_overlayContainer);
 	}
 
-	void TextSimple::setTextAlign(char _align)
+	void TextSimple::setTextAlign(Align _align)
 	{
 		// выравнивание
 		m_overlayContainer->setAlignment(_align);
 		updateText();
 	}
 
-	OverlayElementPtr TextSimple::getOverlayElement()
+	Ogre::OverlayElement* TextSimple::getOverlayElement()
 	{
 		return m_overlayContainer;
 	}
 
 	void TextSimple::show(bool _show)
 	{
-		if (m_show == _show) return;
-		m_show = _show;
+		if (mShow == _show) return;
+		mShow = _show;
 
-		m_show ? m_overlayContainer->show():m_overlayContainer->hide();
+		mShow ? m_overlayContainer->show():m_overlayContainer->hide();
 	}
 
 	void TextSimple::setCaption(const Ogre::DisplayString & _caption)
@@ -113,8 +109,8 @@ namespace MyGUI
 		bool margin = check_margin();
 
 		// двигаем всегда, т.к. дети должны двигаться
-		int x = m_x  - m_parent->margin_left();
-		int y = m_y  - m_parent->margin_top();
+		int x = m_x  - mParent->margin_left();
+		int y = m_y  - mParent->margin_top();
 
 		m_overlayContainer->setPosition(x, y);
 
@@ -127,13 +123,13 @@ namespace MyGUI
 				// скрываем
 				m_overlayContainer->hide();
 				// запоминаем текущее состояние
-				m_margin = margin;
+				mMargin = margin;
 
 				return;
 			}
 		}
 		
-		if ((m_margin) || (margin)) { // мы обрезаны или были обрезаны
+		if ((mMargin) || (margin)) { // мы обрезаны или были обрезаны
 
 			m_overlayContainer->setMargin(m_left_margin, m_top_margin, m_right_margin, m_bottom_margin);
 			m_overlayContainer->setDimensions(m_cx, m_cy);
@@ -141,7 +137,7 @@ namespace MyGUI
 		}
 
 		// запоминаем текущее состояние
-		m_margin = margin;
+		mMargin = margin;
 		// если скин был скрыт, то покажем
 		m_overlayContainer->show();
 
@@ -158,72 +154,42 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание 
-		if (m_align & ALIGN_RIGHT) {
-			if (m_align & ALIGN_LEFT) {
+		if (mAlign & ALIGN_RIGHT) {
+			if (mAlign & ALIGN_LEFT) {
 				// растягиваем
-				m_cx = m_cx + (m_parent->width() - _cx);
+				m_cx = m_cx + (mParent->width() - _cx);
 				need_update = true;
-				m_margin = true; // при изменении размеров все пересчитывать
+				mMargin = true; // при изменении размеров все пересчитывать
 			} else {
 				// двигаем по правому краю
-				m_x = m_x + (m_parent->width() - _cx);
+				m_x = m_x + (mParent->width() - _cx);
 				need_update = true;
 			}
 
-		} else if (!(m_align & ALIGN_LEFT)) {
+		} else if (!(mAlign & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
-			m_x = (m_parent->width() - m_cx) / 2;
+			m_x = (mParent->width() - m_cx) / 2;
 			need_update = true;
 		}
 
-		if (m_align & ALIGN_BOTTOM) {
-			if (m_align & ALIGN_TOP) {
+		if (mAlign & ALIGN_BOTTOM) {
+			if (mAlign & ALIGN_TOP) {
 				// растягиваем
-				m_cy = m_cy + (m_parent->height() - _cy);
+				m_cy = m_cy + (mParent->height() - _cy);
 				need_update = true;
-				m_margin = true; // при изменении размеров все пересчитывать
+				mMargin = true; // при изменении размеров все пересчитывать
 			} else {
-				m_y = m_y + (m_parent->height() - _cy);
+				m_y = m_y + (mParent->height() - _cy);
 				need_update = true;
 			}
-		} else if (!(m_align & ALIGN_TOP)) {
+		} else if (!(mAlign & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
-			m_y = (m_parent->height() - m_cy) / 2;
+			m_y = (mParent->height() - m_cy) / 2;
 			need_update = true;
 		}
 
 		if (need_update) update();
 
 	}
-
-/*	void TextSimple::setTextSelect(size_t _start, size_t _end)
-	{
-		m_overlayContainer->setSelect(_start, _end);
-	}
-
-	size_t TextSimple::getTextCursorFromPoint(IntPoint & _point)
-	{
-		return m_overlayContainer->getTextCursorFromPoint(_point);
-	}
-
-	IntPoint TextSimple::getTextCursorFromPosition(size_t _position)
-	{
-		return m_overlayContainer->getTextCursorFromPosition(_position);
-	}
-
-	// возвращает размер текста в пикселях
-	IntSize TextSimple::getTextSize()
-	{
-		return m_overlayContainer->getTextSize();
-	}
-	// устанавливает смещение текста в пикселях
-	void TextSimple::setTextShift(IntPoint _point)
-	{
-		m_overlayContainer->setTextShift(_point);
-	}
-	IntPoint TextSimple::getTextShift()
-	{
-		return m_overlayContainer->getTextShift();
-	}*/
 
 } // namespace MyGUI

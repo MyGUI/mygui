@@ -23,15 +23,15 @@ namespace MyGUI
 	class LayerManager;
 	class Gui;
 	class InputManager;
-	class WidgetFactoryBase;
+//	class WidgetFactoryBase;
 
 
 	//	redefine types
-	typedef std::string String;
+	//typedef std::string String;
 
-	typedef unsigned int uint32;
-	typedef unsigned short uint16;
-	typedef unsigned char uint8;
+	//typedef unsigned int uint32;
+	//typedef unsigned short uint16;
+	//typedef unsigned char uint8;
 
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC

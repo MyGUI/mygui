@@ -83,8 +83,8 @@ namespace util
         return ret;
 	}
 
-	inline char parseChar(const std::string& _value) {return parseValue<char>(_value);}
-	inline unsigned char parseUChar(const std::string& _value) {return (unsigned short)parseValue<unsigned short>(_value);}
+	inline char parseChar(const std::string& _value) {return static_cast<char>(parseValue<short>(_value));}
+	inline unsigned char parseUChar(const std::string& _value) {return static_cast<unsigned char>(parseValue<unsigned short>(_value));}
 	inline short parseShort(const std::string& _value) {return parseValue<short>(_value);}
 	inline unsigned short parseUShort(const std::string& _value) {return parseValue<unsigned short>(_value);}
 	inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}

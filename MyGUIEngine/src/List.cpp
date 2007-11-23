@@ -1,13 +1,10 @@
 
 #include "List.h"
-#include "ListParser.h"
+#include "Button.h"
+#include "InputManager.h"
 
 namespace MyGUI
 {
-	// создаем фабрику для этого виджета
-	namespace factory { WidgetFactory<List> ListFactoryInstance("List"); }
-	// парсер команд
-	namespace parser { ListParser ListParserInstance; }
 
 	List::List(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
 		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),

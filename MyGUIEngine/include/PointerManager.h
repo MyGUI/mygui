@@ -1,6 +1,7 @@
-#ifndef _POINTERMANAGER_H_
-#define _POINTERMANAGER_H_
+#ifndef __POINTER_MANAGER_H__
+#define __POINTER_MANAGER_H__
 
+#include "Prerequest.h"
 #include "Platform.h"
 #include "Instance.h"
 #include <OgrePanelOverlayElement.h>
@@ -16,14 +17,17 @@ namespace MyGUI
 		INSTANCE_HEADER(PointerManager);
 
 	public:
-		PointerManager();
+		void initialise();
+		void shutdown();
+
+	public:
 
 		void load(const std::string & _file);
 		void clear();
 
 		void show(bool _show = true);
 		inline void hide() {show(false);}
-		inline bool isShow() {return m_show;}
+		inline bool isShow() {return mShow;}
 
 		void move(int _x, int _y);
 
@@ -33,13 +37,11 @@ namespace MyGUI
 		void attachToOverlay(Ogre::Overlay * _overlay);
 		void detachToOverlay(Ogre::Overlay * _overlay);
 
-		void shutdown();
-
 	private:
 		std::string m_defaultPointer;
 		std::string m_layer;
 		std::string m_material;
-		bool m_show;
+		bool mShow;
 		IntPoint m_point;
 		MapPointerInfo m_mapPointers;
 		PanelAlphaOverlayElement * m_overlayElement;
@@ -48,4 +50,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __POINTER_MANAGER_H__

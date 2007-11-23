@@ -1,6 +1,8 @@
-#ifndef _BUTTON_H_
-#define _BUTTON_H_
+#ifndef __BUTTON_H__
+#define __BUTTON_H__
 
+#include "Prerequest.h"
+#include "ButtonFactory.h"
 #include "Widget.h"
 
 namespace MyGUI
@@ -9,13 +11,12 @@ namespace MyGUI
 	class _MyGUIExport Button : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend WidgetFactory<Button>;
+		friend factory::ButtonFactory;
 
 	protected:
 		Button(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
-		inline const static Ogre::String & getType() {static Ogre::String type("Button"); return type;};
 
 		inline void setButtonPressed(bool _pressed)
 		{
@@ -55,9 +56,8 @@ namespace MyGUI
 
 	}; // class Button : public Widget
 
-	typedef Button * ButtonPtr;
+	typedef Button* ButtonPtr;
 
 } // namespace MyGUI
 
-
-#endif
+#endif // __BUTTON_H__

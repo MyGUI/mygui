@@ -9,14 +9,6 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(FontManager);
 
-	FontManager::FontManager()
-	{
-	}
-
-	FontManager::~FontManager()
-	{
-	}
-
 	bool FontManager::load(const std::string& _file)
 	{
 		xml::xmlDocument doc;
