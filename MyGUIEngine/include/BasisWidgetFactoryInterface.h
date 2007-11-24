@@ -1,5 +1,5 @@
-#ifndef __BASIS_WIDGET_FACTORY_H__
-#define __BASIS_WIDGET_FACTORY_H__
+#ifndef __BASIS_WIDGET_FACTORY_INTERFACE_H__
+#define __BASIS_WIDGET_FACTORY_INTERFACE_H__
 
 #include "Prerequest.h"
 #include "BasisWidget.h"
@@ -27,4 +27,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __BASIS_WIDGET_FACTORY_H__
+#endif // __BASIS_WIDGET_FACTORY_INTERFACE_H__

@@ -4,11 +4,11 @@
 namespace MyGUI
 {
 
-	StrangeButton::StrangeButton(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
-	Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
-		m_isPressed(false),
-		m_isFocus(false),
-		m_isStatePressed(false)
+	StrangeButton::StrangeButton(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
+		mIsPressed(false),
+		mIsFocus(false),
+		mIsStatePressed(false)
 	{
 
 		// парсим свойства
@@ -22,14 +22,14 @@ namespace MyGUI
 	void StrangeButton::_onMouseSetFocus(WidgetPtr _old)
 	{
 		Widget::_onMouseSetFocus(_old);
-		m_isFocus = true;
+		mIsFocus = true;
 
-		if (m_text == null) return;
-		Ogre::String s, str = m_text->getCaption();
+		if (mText == null) return;
+		Ogre::String s, str = mText->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 
-		m_text->setCaption(s);
+		mText->setCaption(s);
 
 		updateButtonState();
 	}
@@ -37,14 +37,14 @@ namespace MyGUI
 	void StrangeButton::_onMouseLostFocus(WidgetPtr _new)
 	{
 		Widget::_onMouseLostFocus(_new);
-		m_isFocus = false;
+		mIsFocus = false;
 
-		if (m_text == null) return;
-		Ogre::String s, str = m_text->getCaption();
+		if (mText == null) return;
+		Ogre::String s, str = mText->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 		
-		m_text->setCaption(s);
+		mText->setCaption(s);
 
 		updateButtonState();
 	}
@@ -53,7 +53,7 @@ namespace MyGUI
 	{
 		Widget::_onMouseButtonPressed(_left);
 		if (!_left) return;
-		m_isPressed = true;
+		mIsPressed = true;
 		updateButtonState();
 	}
 
@@ -61,7 +61,7 @@ namespace MyGUI
 	{
 		Widget::_onMouseButtonReleased(_left);
 		if (!_left) return;
-		m_isPressed = false;
+		mIsPressed = false;
 		updateButtonState();
 	}
 

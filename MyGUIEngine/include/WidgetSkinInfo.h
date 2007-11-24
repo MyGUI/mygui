@@ -18,21 +18,21 @@ namespace MyGUI
 
 		void setInfo(const IntSize & _size, const std::string &_material)
 		{
-			m_size = _size;
-			m_material = _material;
+			mSize = _size;
+			mMaterial = _material;
 		}
 
 		void addInfo(const BasisWidgetBinding & _bind)
 		{
-			checkState(_bind.m_states);
-			m_basis.push_back(BasisWidgetInfo(_bind.m_type, _bind.m_offset, _bind.m_aligin));
+			checkState(_bind.mStates);
+			mBasis.push_back(BasisWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
 			checkBasis();
-			fillState(_bind.m_states, m_basis.size()-1);
+			fillState(_bind.mStates, mBasis.size()-1);
 		}
 
 		inline void addParam(const std::string &_key, const std::string &_value)
 		{
-			m_params[_key] = _value;
+			mParams[_key] = _value;
 		}
 
 	private:
@@ -46,18 +46,18 @@ namespace MyGUI
 		inline void checkState(const std::string & _name)
 		{
 			// ищем такой же ключ
-			MapWidgetStateInfo::const_iterator iter = m_states.find(_name);
-			if (iter == m_states.end()) {
+			MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
+			if (iter == mStates.end()) {
 				// добавляем новый стейт
-				m_states[_name] = WidgetStateInfo();
+				mStates[_name] = WidgetStateInfo();
 			}
 		}
 
 		inline void checkBasis()
 		{
 			// и увеличиваем размер смещений по колличеству сабвиджетов
-			for (MapWidgetStateInfo::iterator iter = m_states.begin(); iter!=m_states.end(); iter++) {
-				while (iter->second.offsets.size() < m_basis.size()) {
+			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); iter++) {
+				while (iter->second.offsets.size() < mBasis.size()) {
 					iter->second.offsets.push_back(FloatRect(0, 0, 1, 1));
 				};
 			}
@@ -67,28 +67,28 @@ namespace MyGUI
 		{
 			for (MapBasisWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
 				// выставляем смещение для текущего саб скина
-				m_states[iter->first].offsets[_index] = iter->second.offset;
+				mStates[iter->first].offsets[_index] = iter->second.offset;
 				// если нужно то выставляем цвета
-				if (iter->second.color != Ogre::ColourValue::ZERO) m_states[iter->first].color = iter->second.color;
+				if (iter->second.color != Ogre::ColourValue::ZERO) mStates[iter->first].color = iter->second.color;
 				// если нужно то выставляем и альфу
-				if (iter->second.alpha != -1) m_states[iter->first].alpha = iter->second.alpha;
+				if (iter->second.alpha != -1) mStates[iter->first].alpha = iter->second.alpha;
 			}
 		}
 
 	public:
-		inline const IntSize & getSize() const {return m_size;}
-		inline const std::string & getMaterial() const {return m_material;};
-		inline const VectorBasisWidgetInfo & getBasisInfo() const {return m_basis;};
-		inline const MapWidgetStateInfo & getStateInfo() const {return m_states;};
-		inline const MapString & getParams() const {return m_params;};
+		inline const IntSize & getSize() const {return mSize;}
+		inline const std::string & getMaterial() const {return mMaterial;};
+		inline const VectorBasisWidgetInfo & getBasisInfo() const {return mBasis;};
+		inline const MapWidgetStateInfo & getStateInfo() const {return mStates;};
+		inline const MapString & getParams() const {return mParams;};
 
 	private:
-		IntSize m_size;
-		std::string m_material;
-		VectorBasisWidgetInfo m_basis;
-		MapWidgetStateInfo m_states;
+		IntSize mSize;
+		std::string mMaterial;
+		VectorBasisWidgetInfo mBasis;
+		MapWidgetStateInfo mStates;
 		// дополнительные параметры скина
-		MapString m_params;
+		MapString mParams;
 
 	};
 

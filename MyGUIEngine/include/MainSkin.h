@@ -22,8 +22,8 @@ namespace MyGUI
 		// корректируем положение скина, нужно при обрезке отца
 		void correct();
 
-		void align(int _cx, int _cy, bool _update);
-		void align(int _x, int _y, int _cx, int _cy, bool _update);
+		void align(int _width, int _height, bool _update);
+		void align(int _left, int _top, int _width, int _height, bool _update);
 
 		void attach(BasisWidgetPtr _basis, bool _child);
 		Ogre::OverlayElement* getOverlayElement();
@@ -32,13 +32,13 @@ namespace MyGUI
 
 		void setAlpha(float _alpha);
 
-		inline const static Ogre::String & getType() {static Ogre::String type("MainSkin"); return type;};
+		inline static const Ogre::String & getType() {static Ogre::String type("MainSkin"); return type;}
 
 	protected:
 
-		PanelAlphaOverlayElement * m_overlayContainer;
+		PanelAlphaOverlayElement * mOverlayContainer;
 
-		FloatRect m_rectTexture;
+		FloatRect mRectTexture;
 
 	}; // class SubSkin
 

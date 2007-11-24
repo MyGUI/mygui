@@ -1,8 +1,7 @@
-#ifndef _LAYERINFO_H_
-#define _LAYERINFO_H_
+#ifndef __LAYER_INFO_H__
+#define __LAYER_INFO_H__
 
 #include "Prerequest.h"
-//#include <Ogre.h>
 #include "Common.h"
 #include "LayerItemInfo.h"
 #include "PanelAlphaOverlayElement.h"
@@ -10,41 +9,39 @@
 namespace MyGUI
 {
 
-	
-
 	class _MyGUIExport LayerInfo
 	{
 		friend LayerManager;
 
 	private:
 		LayerInfo(const std::string & _name, Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :
-			m_name(_name), m_start(_start), m_count(_count?_count:1), mHeight(_height?_height:1)
+			mName(_name), mStart(_start), mCount(_count?_count:1), mHeight(_height?_height:1)
 		{
 		}
 
 		~LayerInfo()
 		{
 			// нуно отсоединить
-			for (size_t pos=0; pos<m_items.size(); pos++) {
+			for (size_t pos=0; pos<mItems.size(); pos++) {
 
 				// защита от удаления после завершения
 				Ogre::OverlayManager * manager = Ogre::OverlayManager::getSingletonPtr();
 				if (manager != null) {
 					// отсоединяем
-					m_items[pos]->detachToOverlay(m_items[pos]->m_overlayInfo);
+					mItems[pos]->detachToOverlay(mItems[pos]->mOverlayInfo);
 					// и удаляем оверлей
-					manager->destroy(m_items[pos]->m_overlayInfo);
+					manager->destroy(mItems[pos]->mOverlayInfo);
 				}
-				m_items[pos]->m_overlayInfo = 0;
-				m_items[pos]->m_layerInfo = null;
+				mItems[pos]->mOverlayInfo = 0;
+				mItems[pos]->mLayerInfo = null;
 			}
 		}
 
-		inline LayerItemInfoPtr findItem(int _x, int _y, LayerItemInfoPtr & rootItem)
+		inline LayerItemInfoPtr findItem(int _left, int _top, LayerItemInfoPtr & rootItem)
 		{
 			// проверяем сверху вниз
-			for (VectorLayerItemInfo::reverse_iterator iter=m_items.rbegin(); iter!=m_items.rend(); iter++) {
-				LayerItemInfoPtr item = (*iter)->findItem(_x, _y);
+			for (VectorLayerItemInfo::reverse_iterator iter=mItems.rbegin(); iter!=mItems.rend(); iter++) {
+				LayerItemInfoPtr item = (*iter)->findItem(_left, _top);
 				if (item != 0) {
 					rootItem = (*iter);
 					return item;
@@ -58,7 +55,7 @@ namespace MyGUI
 //			Ogre::OverlayContainer * container = _item->getItemContainer();
 //			if (container == null) return false;
 			// это чтоб по два раза не коннектили
-			assert(!_item->m_overlayInfo);
+			assert(!_item->mOverlayInfo);
 			// создаем оверлей и присоединяем к нему
 			static long num=0;
 			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(Ogre::StringConverter::toString(num++) + "_LayerInfo");
@@ -66,39 +63,39 @@ namespace MyGUI
 			_item->attachToOverlay(overlay);
 //			overlay->add2D(container);
 			// инициализируем
-			_item->m_overlayInfo = overlay;
-			_item->m_layerInfo = this;
+			_item->mOverlayInfo = overlay;
+			_item->mLayerInfo = this;
 			// если достигли максимального, то лепим в верхний
-			Ogre::ushort pos = (m_items.size() <= m_count) ? (Ogre::ushort)m_items.size() : (m_count-1);
+			Ogre::ushort pos = (mItems.size() <= mCount) ? (Ogre::ushort)mItems.size() : (mCount-1);
 			// добавляем и ставим высоту
-			m_items.push_back(_item);
-			_item->m_overlayInfo->setZOrder(m_start + pos * mHeight);
-//			OUT("level = ", (m_start + pos * mHeight));
+			mItems.push_back(_item);
+			_item->mOverlayInfo->setZOrder(mStart + pos * mHeight);
+//			OUT("level = ", (mStart + pos * mHeight));
 			return true;
 		}
 
 		inline void upItem(LayerItemInfoPtr _item)
 		{
 			// один слой только, выходим
-			if (m_count < 2) return;
+			if (mCount < 2) return;
 			// поднимаем, но не удаляем
 			_upItem(_item, false);
 		}
 
 		inline bool removeItem(LayerItemInfoPtr _item)
 		{
-			if (_item->m_overlayInfo == null) return false;
+			if (_item->mOverlayInfo == null) return false;
 			// отсоединить и удалить оверлей
-			_item->detachToOverlay(_item->m_overlayInfo);
+			_item->detachToOverlay(_item->mOverlayInfo);
 //			Ogre::OverlayContainer * container = _item->getItemContainer();
 //			if (container) {
-//				_item->m_overlayInfo->remove2D(container);
+//				_item->mOverlayInfo->remove2D(container);
 //				((PanelAlphaOverlayElement*)container)->setOverlay(0);
 //			}
 			// и удаляем оверлей
-			Ogre::OverlayManager::getSingleton().destroy(_item->m_overlayInfo);
-			_item->m_overlayInfo = 0;
-			_item->m_layerInfo = 0;
+			Ogre::OverlayManager::getSingleton().destroy(_item->mOverlayInfo);
+			_item->mOverlayInfo = 0;
+			_item->mLayerInfo = 0;
 			// поднимаем, и удаляем
 			_upItem(_item, true);
 			return true;
@@ -108,35 +105,35 @@ namespace MyGUI
 		{
 			// ищем наш элемент
 			bool find = false;
-			size_t count_check = m_items.size()-1;
-			Ogre::ushort current = m_start;
+			size_t count_check = mItems.size()-1;
+			Ogre::ushort current = mStart;
 			for (size_t pos=0; pos<count_check; pos++) {
 
-				if ((find) || (m_items[pos] == _item)) {
+				if ((find) || (mItems[pos] == _item)) {
 					find = true;
 					// сдвигаем все элементы вниз
-					if (pos < count_check) m_items[pos] = m_items[pos+1];
-					if (m_items[pos]->m_overlayInfo->getZOrder() != current) m_items[pos]->m_overlayInfo->setZOrder(current);
+					if (pos < count_check) mItems[pos] = mItems[pos+1];
+					if (mItems[pos]->mOverlayInfo->getZOrder() != current) mItems[pos]->mOverlayInfo->setZOrder(current);
 				}
 
 				// следующая высота
-				if (pos < (Ogre::ushort)(m_count-1)) current += mHeight;
+				if (pos < (Ogre::ushort)(mCount-1)) current += mHeight;
 			}
 
 			if (_destroy) {
 				// удаляем самый верхний
-				m_items.pop_back();
+				mItems.pop_back();
 			} else {
 				// в верхний записываем тот что мы затерли
-				m_items[count_check] = _item;
-				if (_item->m_overlayInfo->getZOrder() != current) _item->m_overlayInfo->setZOrder(current);
+				mItems[count_check] = _item;
+				if (_item->mOverlayInfo->getZOrder() != current) _item->mOverlayInfo->setZOrder(current);
 			}
 		}
 
 	private:
-		VectorLayerItemInfo m_items;
-		Ogre::ushort m_start, m_count, mHeight;
-		std::string m_name;
+		VectorLayerItemInfo mItems;
+		Ogre::ushort mStart, mCount, mHeight;
+		std::string mName;
 
 	};
 

@@ -1,5 +1,5 @@
-#ifndef _XMLDOCUMENT_H_
-#define _XMLDOCUMENT_H_
+#ifndef __XML_DOCUMENT_H__
+#define __XML_DOCUMENT_H__
 
 #include <vector>
 #include <string>
@@ -8,7 +8,6 @@
 #include <sstream>
 
 #include "assert.h"
-
 
 namespace xml
 {
@@ -127,7 +126,7 @@ namespace xml
 
 		bool findAttribute(const std::string & _name, std::string & _value);
 
-		inline const std::string & getName() {return m_name;}
+		inline const std::string & getName() {return mName;}
 		inline const std::string & getBody() {return m_body;}
 		inline const VectorAttributes & getAttributes() {return m_attributes;}
 		inline xmlNodePtr getParent() {return mParent;}
@@ -135,12 +134,12 @@ namespace xml
 		inline xmlNodeIterator getNodeIterator() {return xmlNodeIterator(m_childs.begin(), m_childs.end());}
 
 	private:
-		std::string m_name;
+		std::string mName;
 		std::string m_body;
 		VectorAttributes m_attributes;
 		VectorNode m_childs;
 		xmlNodePtr mParent;
-		xmlNodeType m_type;
+		xmlNodeType mType;
 	};
 
 	//----------------------------------------------------------------------//
@@ -180,17 +179,17 @@ namespace xml
 		xmlNodePtr createInfo(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8");
 		xmlNodePtr createRoot(const std::string & _name);
 
-		inline xmlNodePtr getRoot() {return m_root;}
+		inline xmlNodePtr getRoot() {return mRoot;}
 
 	private:
-		xmlNodePtr m_root;
-		xmlNodePtr m_info;
-		xml::errors::ErrorTypes m_lastError;
-		size_t m_line;
-		size_t m_col;
+		xmlNodePtr mRoot;
+		xmlNodePtr mInfo;
+		xml::errors::ErrorTypes mLastError;
+		size_t mLine;
+		size_t mCol;
 
 	}; // class xmlDocument : public xmlNode
 
 } // namespace xml
 
-#endif // _XMLDOCUMENT_H_
+#endif // __XML_DOCUMENT_H__

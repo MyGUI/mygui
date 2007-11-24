@@ -10,7 +10,9 @@
 #include <set>
 #include <map>
 #include <vector>
+#include <deque>
 #include <assert.h>
+#include "delegate.h"
 #include "LoggingOut.h"
 
 #include "Platform.h"
@@ -24,15 +26,8 @@ namespace MyGUI
 	class LayerManager;
 	class Gui;
 	class InputManager;
-//	class WidgetFactoryBase;
 
-
-	//	redefine types
-	//typedef std::string String;
-
-	//typedef unsigned int uint32;
-	//typedef unsigned short uint16;
-	//typedef unsigned char uint8;
+	using delegates::newDelegate;
 
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
@@ -79,4 +74,5 @@ namespace MyGUI
 
 
 #endif
-}
+
+} // namespace MyGUI

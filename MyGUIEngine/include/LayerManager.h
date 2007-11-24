@@ -3,12 +3,9 @@
 
 #include "Prerequest.h"
 #include "Instance.h"
-#include <string>
-#include <map>
 #include "LayerInfo.h"
 #include "xmlDocument.h"
 #include "WidgetDefines.h"
-
 
 namespace MyGUI
 {
@@ -30,7 +27,7 @@ namespace MyGUI
 		void detachItem(LayerItemInfoPtr _item);
 		void upItem(LayerItemInfoPtr _item);
 
-		LayerItemInfoPtr findWidgetItem(int _x, int _y, LayerItemInfoPtr & _rootItem);
+		LayerItemInfoPtr findWidgetItem(int _left, int _top, LayerItemInfoPtr & _rootItem);
 
 		Ogre::Overlay * createOverlay();
 
@@ -38,8 +35,8 @@ namespace MyGUI
 		void clear();
 
 	private:
-		MapLayer m_mapLayer;
-		MapLayerSearch m_mapLayerSearch;
+		MapLayer mMapLayer;
+		MapLayerSearch mMapLayerSearch;
 
 	}; // class LayerManager
 

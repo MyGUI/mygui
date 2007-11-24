@@ -1,5 +1,5 @@
-#ifndef _UTILSTRING_H_
-#define _UTILSTRING_H_
+#ifndef __UTILSTRING_H__
+#define __UTILSTRING_H__
 
 #include <string>
 #include <sstream>
@@ -152,4 +152,4 @@ namespace util
 
 } // namespace util
 
-#endif // _UTILSTRING_H_
+#endif // __UTILSTRING_H__

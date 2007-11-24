@@ -242,10 +242,6 @@
 				Name="BasisWidget"
 				>
 				<File
-					RelativePath=".\src\BasisWidgetManager.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\MainSkin.cpp"
 					>
 				</File>
@@ -265,6 +261,10 @@
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\src\BasisWidgetManager.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\ClipboardManager.cpp"
 					>
@@ -416,6 +416,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\BasisWidgetBinding.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\Common.h"
 					>
 				</File>
@@ -436,7 +440,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\Platform.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\PointerInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Prerequest.h"
 					>
 				</File>
 				<File
@@ -461,10 +473,6 @@
 				</File>
 				<File
 					RelativePath=".\include\WidgetEvent.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\WidgetFactoryInterface.h"
 					>
 				</File>
 				<File
@@ -552,15 +560,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\BasisWidgetBinding.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\BasisWidgetFactory.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\BasisWidgetManager.h"
+					RelativePath=".\include\BasisWidgetFactoryInterface.h"
 					>
 				</File>
 				<File
@@ -592,10 +592,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\Platform.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\Plugin.h"
 					>
 				</File>
@@ -603,14 +599,14 @@
 					RelativePath=".\include\PluginManager.h"
 					>
 				</File>
-				<File
-					RelativePath=".\include\Prerequest.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\include\BasisWidgetManager.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\ClipboardManager.h"
 					>
@@ -677,6 +673,10 @@
 				</File>
 				<File
 					RelativePath=".\include\WidgetFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\WidgetFactoryInterface.h"
 					>
 				</File>
 				<File

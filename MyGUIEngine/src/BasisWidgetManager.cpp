@@ -29,7 +29,7 @@ namespace MyGUI
 	{
 		if (!mIsInitialise) return;
 
-		m_factoryList.clear();
+		mFactoryList.clear();
 
 		delete mFactoryMainSkin;
 		delete mFactorySubSkin;
@@ -41,7 +41,7 @@ namespace MyGUI
 
 	BasisWidget * BasisWidgetManager::createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent)
 	{
-		for (std::list<BasisWidgetFactoryInterface*>::iterator factory = m_factoryList.begin(); factory != m_factoryList.end(); factory++) {
+		for (std::list<BasisWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createBasisWidget(_info, _material, _parent);
 		}
 		MYGUI_EXCEPT(0, _info.type + " - no find factory BasisWidgetFactory", "BasisWidgetManager::createBasisWidget");

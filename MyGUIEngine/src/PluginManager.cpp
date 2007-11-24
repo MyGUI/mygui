@@ -16,9 +16,9 @@ namespace MyGUI
 	{
 		assert(!mIsInitialise);
 
-		LOG_MESSAGE("* Initialize: Plugin manager");
+		LOG("* Initialize: Plugin manager");
 
-		LOG_MESSAGE("Manager successfully initialized");
+		LOG("Manager successfully initialized");
 
 		mIsInitialise = true;
 	}
@@ -27,7 +27,7 @@ namespace MyGUI
 	{
 		if (!mIsInitialise) return;
 
-		LOG_MESSAGE("* Shut down: Plugin manager");
+		LOG("* Shut down: Plugin manager");
 		unloadAllPlugins();
 
 		mIsInitialise = false;
@@ -76,14 +76,14 @@ namespace MyGUI
 		// check initialise
 		assert(mIsInitialise);
 
-		LOG_MESSAGE("Installing plugin: " + _plugin->getName());
+		LOG("Installing plugin: " + _plugin->getName());
 
 		mPlugins.insert(_plugin);
 		_plugin->install();
 
 		_plugin->initialize();
 		
-		LOG_MESSAGE("Plugin successfully installed");
+		LOG("Plugin successfully installed");
 	}
 
 	void PluginManager::uninstallPlugin(Plugin* _plugin)
@@ -91,7 +91,7 @@ namespace MyGUI
 		// check initialise
 		assert(mIsInitialise);
 
-		LOG_MESSAGE("Uninstalling plugin: " + _plugin->getName());
+		LOG("Uninstalling plugin: " + _plugin->getName());
 		PluginList::iterator it = mPlugins.find(_plugin);
 		if (it != mPlugins.end())
 		{
@@ -99,7 +99,7 @@ namespace MyGUI
 			_plugin->uninstall();
 			mPlugins.erase(it);
 		}
-		LOG_MESSAGE("Plugin successfully uninstalled");
+		LOG("Plugin successfully uninstalled");
 	}
 
 	void PluginManager::unloadAllPlugins()

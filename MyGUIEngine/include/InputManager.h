@@ -5,13 +5,12 @@
 #include "Instance.h"
 #include "Common.h"
 #include "WidgetDefines.h"
-#include "delegate.h"
 
 namespace MyGUI
 {
 
 	// делегат для смены оповещения смены языков
-	typedef CDelegate1<const std::string &> EventChangeLanguage;
+	typedef delegates::CDelegate1<const std::string &> EventChangeLanguage;
 
 	class _MyGUIExport InputManager :  public Ogre::FrameListener
 	{
@@ -38,16 +37,16 @@ namespace MyGUI
 		bool injectKeyPress(const OIS::KeyEvent & _arg);
 		bool injectKeyRelease(const OIS::KeyEvent & _arg);
 
-		inline bool isCaptureMouse() {return m_widgetMouseFocus != null;}
-		inline bool isCaptureKey() {return m_widgetKeyFocus != null;}
+		inline bool isCaptureMouse() {return mWidgetMouseFocus != null;}
+		inline bool isCaptureKey() {return mWidgetKeyFocus != null;}
 
 		void setKeyFocusWidget(WidgetPtr _widget);
 		inline void resetKeyFocusWidget() {setKeyFocusWidget(null);}
 
-		inline WidgetPtr getMouseFocusWidget() {return m_widgetMouseFocus;}
-		inline WidgetPtr getKeyFocusWidget() {return m_widgetKeyFocus;}
-		inline const std::string & getCurrentLanguage() {return m_currentLanguage->first;}
-		inline const IntPoint & getLastLeftPressed() {return m_lastLeftPressed;}
+		inline WidgetPtr getMouseFocusWidget() {return mWidgetMouseFocus;}
+		inline WidgetPtr getKeyFocusWidget() {return mWidgetKeyFocus;}
+		inline const std::string & getCurrentLanguage() {return mCurrentLanguage->first;}
+		inline const IntPoint & getLastLeftPressed() {return mLastLeftPressed;}
 		inline const IntPoint & getMousePosition() {return mMousePosition;}
 
 		// тестовый вариант, очистка фокуса мыши
@@ -66,11 +65,11 @@ namespace MyGUI
 		// сменяет язык на следующий
 		inline void changeLanguage()
 		{
-			m_currentLanguage++;
-			if (m_currentLanguage == m_mapLanguages.end())
-				m_currentLanguage = m_mapLanguages.begin();
+			mCurrentLanguage++;
+			if (mCurrentLanguage == mMapLanguages.end())
+				mCurrentLanguage = mMapLanguages.begin();
 			// послать событие
-			eventChangeLanguage(m_currentLanguage->first);
+			eventChangeLanguage(mCurrentLanguage->first);
 		}
 
 		// запоминает клавишу для поддержки повторения
@@ -106,26 +105,26 @@ namespace MyGUI
 	protected:
 
 		// виджеты которым принадлежит фокус
-		WidgetPtr m_widgetMouseFocus;
-		WidgetPtr m_widgetKeyFocus;
+		WidgetPtr mWidgetMouseFocus;
+		WidgetPtr mWidgetKeyFocus;
 		// корневые виджеты, детям которых принадлежит фокус
-		WidgetPtr m_widgetRootMouseFocus;
-		WidgetPtr m_widgetRootKeyFocus;
+		WidgetPtr mWidgetRootMouseFocus;
+		WidgetPtr mWidgetRootKeyFocus;
 		// захватил ли мышь активный виджет
-		bool m_isWidgetMouseCapture;
+		bool mIsWidgetMouseCapture;
 		// таймер для двойного клика
-	    Ogre::Timer m_time; //used for double click timing
+	    Ogre::Timer mTime; //used for double click timing
 
 		// карта языков
-		MapLang m_mapLanguages;
+		MapLang mMapLanguages;
 		// текущий язык
-		MapLang::iterator m_currentLanguage;
+		MapLang::iterator mCurrentLanguage;
 		// нажат ли шифт
-		bool m_isCharShift;
+		bool mIsCharShift;
 		// массив для нумлока
-		LangInfo m_nums;
+		LangInfo mNums;
 		// там где была последний раз нажата левая кнопка
-		IntPoint m_lastLeftPressed;
+		IntPoint mLastLeftPressed;
 		IntPoint mMousePosition;
 		// клавиша для повтора
 		int mHoldKey;

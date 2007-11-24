@@ -27,16 +27,16 @@ namespace MyGUI
 		void create(const IntRect & _offset, Align _aligin, const std::string & _type)
 		{
 			clear();
-			m_offset = _offset;
-			m_aligin = _aligin;
-			m_type = _type;
+			mOffset = _offset;
+			mAlign = _aligin;
+			mType = _type;
 		}
 
 		void clear()
 		{
-			m_type = "";
-			m_aligin = 0;
-			m_states.clear();
+			mType = "";
+			mAlign = 0;
+			mStates.clear();
 		}
 
 		void add(const std::string & _name, const FloatRect & _offset)
@@ -49,25 +49,25 @@ namespace MyGUI
 			add(_name, FloatRect(-1, -1, -1, -1), Ogre::ColourValue::ZERO, _alpha);
 		}
 
-		void add(const std::string & _name, const Ogre::ColourValue & _color)
+		void add(const std::string & _name, const Ogre::ColourValue & _colour)
 		{
-			add(_name, FloatRect(-1, -1, -1, -1), _color, -1);
+			add(_name, FloatRect(-1, -1, -1, -1), _colour, -1);
 		}
 
-		void add(const std::string & _name, const FloatRect & _offset, const Ogre::ColourValue  & _color, float _alpha)
+		void add(const std::string & _name, const FloatRect & _offset, const Ogre::ColourValue  & _colour, float _alpha)
 		{
 			// ищем такой же ключ
-			MapBasisWidgetStateInfo::const_iterator iter = m_states.find(_name);
-			if (iter != m_states.end()) ASSERT(!"state is exist");
+			MapBasisWidgetStateInfo::const_iterator iter = mStates.find(_name);
+			if (iter != mStates.end()) ASSERT(!"state is exist");
 			// добавляем
-			m_states[_name] = BasisWidgetStateInfo(_offset, _color, _alpha);
+			mStates[_name] = BasisWidgetStateInfo(_offset, _colour, _alpha);
 		}
 
 	private:
-		IntRect m_offset;
-		Align m_aligin;
-		std::string m_type;
-		MapBasisWidgetStateInfo m_states;
+		IntRect mOffset;
+		Align mAlign;
+		std::string mType;
+		MapBasisWidgetStateInfo mStates;
 	};
 
 } // namespace MyGUI

@@ -4,8 +4,8 @@
 namespace MyGUI
 {
 
-	ScrollBase::ScrollBase(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
-		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
+	ScrollBase::ScrollBase(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
 		mWidgetStart(null), mWidgetEnd(null), mWidgetTrack(null),
 		mScrollPosition(0), mScrollRange(0)
 	{
@@ -16,7 +16,7 @@ namespace MyGUI
 		mScrollPage = 1;
 
 		// парсим свойства
-		const SkinParam & param = _info->getParams();
+		const MapString & param = _info->getParams();
 
 		// парсим начальную кнопку
 		mWidgetStart = parseSubWidget(param, "Button", "SkinStart", "OffsetStart", "AlignStart", size);
@@ -39,7 +39,7 @@ namespace MyGUI
 		mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &ScrollBase::notifyMouseReleased);
 		mWidgetTrack->show(false);
 
-		SkinParam::const_iterator iter = param.find("SkinTrackRange");
+		MapString::const_iterator iter = param.find("SkinTrackRange");
 		if (iter != param.end()) {
 			IntSize range = util::parseIntSize(iter->second);
 			mSkinRangeStart = range.width;
@@ -80,8 +80,8 @@ namespace MyGUI
 			updateTrack();
 
 		} else {
-			m_preActionRect.left = _sender->left();
-			m_preActionRect.top = _sender->top();
+			mPreActionRect.left = _sender->getLeft();
+			mPreActionRect.top = _sender->getTop();
 		}
 	}
 
@@ -90,9 +90,9 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void ScrollBase::notifyMouseMove(MyGUI::WidgetPtr _sender, int _x, int _y)
+	void ScrollBase::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
-		notifyTrackMove(_x, _y);
+		notifyTrackMove(_left, _top);
 	}
 
 	void ScrollBase::setScrollRange(size_t _range)
@@ -112,16 +112,16 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void ScrollBase::size(int _cx, int _cy)
+	void ScrollBase::size(int _width, int _height)
 	{
-		Widget::size(_cx, _cy);
+		Widget::size(_width, _height);
 		// обновляем трек
 		updateTrack();
 	}
 
-	void ScrollBase::move(int _x, int _y, int _cx, int _cy)
+	void ScrollBase::move(int _left, int _top, int _width, int _height)
 	{
-		Widget::move(_x, _y, _cx, _cy);
+		Widget::move(_left, _top, _width, _height);
 		// обновляем трек
 		updateTrack();
 	}

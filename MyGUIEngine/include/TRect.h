@@ -1,5 +1,5 @@
-#ifndef _TRECT_H_
-#define _TRECT_H_
+#ifndef __TRECT_H__
+#define __TRECT_H__
 
 namespace types
 {
@@ -42,12 +42,12 @@ namespace types
 			return ! ( (left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom) );
 		}
 
-		T width() const
+		T getWidth() const
 		{
 			return right - left;
 		}
 
-		T height() const
+		T getHeight() const
 		{
 			return bottom - top;
 		}
@@ -74,4 +74,4 @@ namespace types
 
 } // namespace types
 
-#endif
+#endif // __TRECT_H__

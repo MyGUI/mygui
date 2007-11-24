@@ -18,9 +18,12 @@ namespace MyGUI
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name);
+			WidgetPtr createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name);
 
-			// методы для парсинга
+			// методы для парсинга, вызываются для базового класа, поэтому работает и для HScroll
+			void ScrollRange(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void ScrollPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void ScrollPage(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

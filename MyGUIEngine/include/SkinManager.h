@@ -13,6 +13,9 @@ namespace MyGUI
 		INSTANCE_HEADER(SkinManager);
 
 	public:
+		typedef std::map<std::string, Align> MapAlign;
+
+	public:
 		void initialise();
 		void shutdown();
 
@@ -33,8 +36,8 @@ namespace MyGUI
 		void createDefault();
 
 	private:
-		MapWidgetSkinInfoPtr m_skins;
-		MapFlags m_mapAlign;
+		MapWidgetSkinInfoPtr mSkins;
+		MapAlign mMapAlign;
 
 	}; // class SkinManager
 

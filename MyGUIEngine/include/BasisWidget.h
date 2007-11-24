@@ -12,19 +12,19 @@ namespace MyGUI
 	{
 
 	public:
-		BasisWidget(int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent) :
+		BasisWidget(int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent) :
 			mParent (_parent),
 			mAlign (_align),
-			m_x (_x), m_y (_y), m_cx (_cx), m_cy (_cy),
-			m_left_margin (0), m_right_margin (0), m_top_margin (0), m_bottom_margin (0),
+			mLeft (_left), mTop (_top), mWidth (_width), mHeight (_height),
+			mLeftMargin (0), mRightMargin (0), mTopMargin (0), mBottomMargin (0),
 			mMargin(false),
 			mShow(true)
 		{}
 		virtual ~BasisWidget() {}
 
-		virtual void move(int _x, int _y) {}
-		virtual void move(int _x, int _y, int _cx, int _cy) {}
-		virtual void size(int _cx, int _cy) {}
+		virtual void move(int _left, int _top) {}
+		virtual void move(int _left, int _top, int _width, int _height) {}
+		virtual void size(int _width, int _height) {}
 
 		virtual void show(bool _show) {}
 		virtual bool isShow() {return mShow;}
@@ -32,7 +32,7 @@ namespace MyGUI
 		virtual void setCaption(const Ogre::DisplayString & _caption) {}
 		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}
 
-		virtual void setColour(const Ogre::ColourValue & _color) {}
+		virtual void setColour(const Ogre::ColourValue & _colour) {}
 		virtual const Ogre::ColourValue & getColour() {return Ogre::ColourValue::Black;}
 
 		virtual void setAlpha(float _alpha) {}
@@ -61,8 +61,8 @@ namespace MyGUI
 
 		virtual void update() {}
 		virtual void correct() {}
-		virtual void align(int _cx, int _cy, bool _update) {}
-		virtual void align(int _x, int _y, int _cx, int _cy, bool _update) {}
+		virtual void align(int _width, int _height, bool _update) {}
+		virtual void align(int _left, int _top, int _width, int _height, bool _update) {}
 
 		virtual void attach(BasisWidgetPtr _basis, bool _child) {}//???
 //		virtual void detach(BasisWidgetPtr _basis/*, bool _child*/) {}
@@ -75,74 +75,73 @@ namespace MyGUI
 
 		inline BasisWidgetPtr getParent() {return mParent;}
 
-		inline int left()       {return m_x;}
-		inline int right()      {return m_x + m_cx;}
-		inline int top()        {return m_y;}
-		inline int bottom()     {return m_y + m_cy;}
-		inline int width()       {return m_cx;}
-		inline int height()       {return m_cy;}
+		inline int getLeft()       {return mLeft;}
+		inline int getRight()      {return mLeft + mWidth;}
+		inline int getTop()        {return mTop;}
+		inline int getBottom()     {return mTop + mHeight;}
+		inline int getWidth()       {return mWidth;}
+		inline int getHeight()       {return mHeight;}
 
-		inline int view_left()  {return m_x + m_left_margin;}
-		inline int view_right() {return m_x + m_cx - m_right_margin;}
-		inline int view_top()   {return m_y + m_top_margin;}
-		inline int view_bottom() {return m_y + m_cy - m_bottom_margin;}
-		inline int view_width() {return m_cx - m_left_margin - m_right_margin;}
-		inline int view_height() {return m_cy - m_top_margin - m_bottom_margin;}
+		inline int getViewLeft()  {return mLeft + mLeftMargin;}
+		inline int getViewRight() {return mLeft + mWidth - mRightMargin;}
+		inline int getViewTop()   {return mTop + mTopMargin;}
+		inline int getViewBottom() {return mTop + mHeight - mBottomMargin;}
+		inline int getViewWidth() {return mWidth - mLeftMargin - mRightMargin;}
+		inline int view_height() {return mHeight - mTopMargin - mBottomMargin;}
 
-		inline int margin_left() {return m_left_margin;}
-		inline int margin_right() {return m_right_margin;}
-		inline int margin_top() {return m_top_margin;}
-		inline int margin_bottom() {return m_bottom_margin;}
+		inline int getMarginLeft() {return mLeftMargin;}
+		inline int getMarginRight() {return mRightMargin;}
+		inline int getMarginTop() {return mTopMargin;}
+		inline int getMarginBottom() {return mBottomMargin;}
 
-		inline bool check_point (int _x, int _y)
+		inline bool checkPoint (int _left, int _top)
 		{
-//			return ((view_left() <= _x ) && (view_top() <= _y) && (view_right() >= _x) && (view_bottom() >= _y) );
-			return ! ((view_left() > _x ) || (view_top() > _y) || (view_right() < _x) || (view_bottom() < _y) );
+			return ! ((getViewLeft() > _left ) || (getViewTop() > _top) || (getViewRight() < _left) || (getViewBottom() < _top) );
 		}
 
-		inline bool check_margin ()
+		inline bool checkMargin ()
 		{
 			bool margin = false;
 			//вылезли ли налево
-			if (left() <= mParent->m_left_margin) {
-				m_left_margin = mParent->m_left_margin - left();
+			if (getLeft() <= mParent->mLeftMargin) {
+				mLeftMargin = mParent->mLeftMargin - getLeft();
 				margin = true;
-			} else m_left_margin = 0;
+			} else mLeftMargin = 0;
 
 			//вылезли ли направо
-			if (right() >= mParent->width() - mParent->m_right_margin) {
-				m_right_margin = right() - (mParent->width() - mParent->m_right_margin);
+			if (getRight() >= mParent->getWidth() - mParent->mRightMargin) {
+				mRightMargin = getRight() - (mParent->getWidth() - mParent->mRightMargin);
 				margin = true;
-			} else m_right_margin = 0;
+			} else mRightMargin = 0;
 
 			//вылезли ли вверх
-			if (top() <= mParent->m_top_margin) {
-				m_top_margin = mParent->m_top_margin - top();
+			if (getTop() <= mParent->mTopMargin) {
+				mTopMargin = mParent->mTopMargin - getTop();
 				margin = true;
-			} else m_top_margin = 0;
+			} else mTopMargin = 0;
 
 			//вылезли ли вниз
-			if (bottom() >= mParent->height() - mParent->m_bottom_margin) {
-				m_bottom_margin = bottom() - (mParent->height() - mParent->m_bottom_margin);
+			if (getBottom() >= mParent->getHeight() - mParent->mBottomMargin) {
+				mBottomMargin = getBottom() - (mParent->getHeight() - mParent->mBottomMargin);
 				margin = true;
-			} else m_bottom_margin = 0;
+			} else mBottomMargin = 0;
 
 			return margin;
 		}
 
-		inline bool check_outside() // проверка на полный выход за границу
+		inline bool checkOutside() // проверка на полный выход за границу
 		{
-			return ( (right() <= mParent->m_left_margin ) || // совсем уехали налево
-				(left() >= mParent->width() - mParent->m_right_margin ) || // совсем уехали направо
-				(bottom() <= mParent->m_top_margin  ) || // совсем уехали вверх
-				(top() >= mParent->height() - mParent->m_bottom_margin ) );  // совсем уехали вниз
+			return ( (getRight() <= mParent->mLeftMargin ) || // совсем уехали налево
+				(getLeft() >= mParent->getWidth() - mParent->mRightMargin ) || // совсем уехали направо
+				(getBottom() <= mParent->mTopMargin  ) || // совсем уехали вверх
+				(getTop() >= mParent->getHeight() - mParent->mBottomMargin ) );  // совсем уехали вниз
 		}
 
 	protected:
 
 		bool mMargin;
-		int m_x, m_y, m_cx, m_cy; // координаты и ширина с высотой
-		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
+		int mLeft, mTop, mWidth, mHeight; // координаты и ширина с высотой
+		int mLeftMargin, mRightMargin, mTopMargin, mBottomMargin; // перекрытие
 
 		BasisWidgetPtr mParent;
 		bool mShow;

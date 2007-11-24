@@ -39,7 +39,7 @@ namespace MyGUI
 			else LOG("Attribute 'Start' not find {file : '", _file, "' , Name : ", name, "}");
 
 			// а вот теперь добавляем слой
-			m_mapLayer[name] = new LayerInfo(name, start, count, height);
+			mMapLayer[name] = new LayerInfo(name, start, count, height);
 
 		};
 
@@ -48,42 +48,42 @@ namespace MyGUI
 
 	void LayerManager::clear()
 	{
-		for (MapLayer::iterator iter=m_mapLayer.begin();iter!=m_mapLayer.end(); iter++) delete iter->second;
-		m_mapLayer.clear();
+		for (MapLayer::iterator iter=mMapLayer.begin();iter!=mMapLayer.end(); iter++) delete iter->second;
+		mMapLayer.clear();
 	}
 
 	void LayerManager::attachItem(LayerItemInfoPtr _item, const std::string & _layer, bool _attachToSearch)
 	{
 		// это наш уровень
-		LayerInfoPtr layer = m_mapLayer[_layer];
+		LayerInfoPtr layer = mMapLayer[_layer];
 		if (layer == null) MYGUI_EXCEPT(0, _layer + " - no find level", "LayerManager::attachItem");
 		// запоминаем созданный айтем в виджете
 		layer->addItem(_item);
 		// добавляем уровень в карту поиска
 		if (_attachToSearch) {
-			MapLayerSearch::iterator iter = m_mapLayerSearch.find(layer->m_start);
+			MapLayerSearch::iterator iter = mMapLayerSearch.find(layer->mStart);
 			// если не нашли такого то добавляем
-			if (iter == m_mapLayerSearch.end()) m_mapLayerSearch[layer->m_start] = layer;
+			if (iter == mMapLayerSearch.end()) mMapLayerSearch[layer->mStart] = layer;
 		}
 	}
 
 	void LayerManager::detachItem(LayerItemInfoPtr _item)
 	{
 		// удаляем айтем если он приаттачен
-		if (_item->m_layerInfo) _item->m_layerInfo->removeItem(_item);
+		if (_item->mLayerInfo) _item->mLayerInfo->removeItem(_item);
 	}
 
 	void LayerManager::upItem(LayerItemInfoPtr _item)
 	{
 		// берем итем уровня и поднимаем
-		if (_item->m_layerInfo) _item->m_layerInfo->upItem(_item);
+		if (_item->mLayerInfo) _item->mLayerInfo->upItem(_item);
 	}
 
-	LayerItemInfoPtr LayerManager::findWidgetItem(int _x, int _y, LayerItemInfoPtr & _rootItem)
+	LayerItemInfoPtr LayerManager::findWidgetItem(int _left, int _top, LayerItemInfoPtr & _rootItem)
 	{
-		MapLayerSearch::reverse_iterator iter = m_mapLayerSearch.rbegin();
-		while (iter != m_mapLayerSearch.rend()) {
-			LayerItemInfoPtr item = iter->second->findItem(_x, _y, _rootItem);
+		MapLayerSearch::reverse_iterator iter = mMapLayerSearch.rbegin();
+		while (iter != mMapLayerSearch.rend()) {
+			LayerItemInfoPtr item = iter->second->findItem(_left, _top, _rootItem);
 			if (item != null) {
 				if ( ! item->isWidget() ) {
 					_rootItem = null;

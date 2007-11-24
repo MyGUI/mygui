@@ -20,11 +20,11 @@ namespace MyGUI
 		void setCaption(const Ogre::DisplayString & _caption);
 		const Ogre::DisplayString & getCaption();
 
-		void setColour(const Ogre::ColourValue & _color);
-		const Ogre::ColourValue & getColour() {return m_color;}
+		void setColour(const Ogre::ColourValue & _colour);
+		const Ogre::ColourValue & getColour() {return mColour;}
 
 		void setAlpha(float _alpha);
-		float getAlpha() {return m_color.a;};
+		float getAlpha() {return mColour.a;};
 
 		void setFontName(const Ogre::String & _font);
 		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
@@ -46,29 +46,29 @@ namespace MyGUI
 		void setTextShift(IntPoint _point);
 		IntPoint getTextShift();
 
-		void align(int _cx, int _cy, bool _update);
-		void align(int _x, int _y, int _cx, int _cy, bool _update);
+		void align(int _width, int _height, bool _update);
+		void align(int _left, int _top, int _width, int _height, bool _update);
 
 		void update(); // обновления себя и детей
 		inline void updateText() // обновляем все что касаеться текста
 		{
 			// изменился текст
-			//m_overlayContainer->updateText();
+			//mOverlayContainer->updateText();
 			// и делаем полное обновление и выравнивание
 			mMargin = true; // при изменении размеров все пересчитывать
-			align(mParent->width(), mParent->height(), true);
+			align(mParent->getWidth(), mParent->getHeight(), true);
 		}
 
-		bool isText() {return true;};
+		bool isText() {return true;}
 
-		inline const static Ogre::String & getType() {static Ogre::String type("TextEdit"); return type;};
+		inline static const Ogre::String & getType() {static Ogre::String type("TextEdit"); return type;}
 
 		Ogre::OverlayElement* getOverlayElement();
 
 	protected:
 
-		TextEditOverlayElement * m_overlayContainer;
-		Ogre::ColourValue m_color;
+		TextEditOverlayElement * mOverlayContainer;
+		Ogre::ColourValue mColour;
 
 	}; // class TextEdit : public BasisWidget
 

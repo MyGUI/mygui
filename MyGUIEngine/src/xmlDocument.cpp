@@ -39,10 +39,10 @@ namespace xml
 	// class xmlNode
 	//----------------------------------------------------------------------//
 	xmlNode::xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type, const std::string & _body) : 
-		m_name(_name),
+		mName(_name),
 		m_body(_body),
 		mParent(_parent),
-		m_type(_type)
+		mType(_type)
 	{
 	}
 
@@ -60,9 +60,9 @@ namespace xml
 		for (size_t tab=0; tab<_level; tab++) _stream  << "    ";
 
 		// теперь заголовок тега
-		if (m_type == XML_NODE_TYPE_INFO) _stream << "<?";
+		if (mType == XML_NODE_TYPE_INFO) _stream << "<?";
 		else _stream << "<";
-		_stream << m_name;
+		_stream << mName;
 
 		for (VectorAttributes::iterator iter = m_attributes.begin(); iter != m_attributes.end(); iter ++) {
 			_stream << " " << iter->first << "=\"" << iter->second << "\"";
@@ -71,7 +71,7 @@ namespace xml
 		bool empty = m_childs.empty();
 		// если детей нет то закрываем
 		if (empty && m_body.empty()) {
-			if (m_type == XML_NODE_TYPE_INFO) _stream << "?>\n";
+			if (mType == XML_NODE_TYPE_INFO) _stream << "?>\n";
 			else _stream << "/>\n";
 		} else {
 			_stream << ">";
@@ -89,7 +89,7 @@ namespace xml
 			}
 
 			if (!empty) {for (size_t tab=0; tab<_level; tab++) _stream  << "    ";}
-			_stream << "</" << m_name << ">\n";
+			_stream << "</" << mName << ">\n";
 		}
 
 	}
@@ -124,11 +124,11 @@ namespace xml
 	// class xmlDocument
 	//----------------------------------------------------------------------//
 	xmlDocument::xmlDocument():
-		m_root(0),
-		m_info(0),
-		m_lastError(xml::errors::XML_ERROR_NONE),
-		m_line(0),
-		m_col(0)
+		mRoot(0),
+		mInfo(0),
+		mLastError(xml::errors::XML_ERROR_NONE),
+		mLine(0),
+		mCol(0)
 	{
 	}
 
@@ -144,7 +144,7 @@ namespace xml
 		std::ifstream stream;
 		stream.open(_name.c_str());
 		if (!stream) {
-			m_lastError = xml::errors::XML_ERROR_OPEN_FILE;
+			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 			return false;
 		} else return open(stream);
 
@@ -157,7 +157,7 @@ namespace xml
 		std::ifstream stream;
 		stream.open(_name.c_str());
 		if (!stream) {
-			m_lastError = xml::errors::XML_ERROR_OPEN_FILE;
+			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 			return false;
 		} else return open(stream);
 
@@ -166,15 +166,15 @@ namespace xml
 	// сохраняет файл
 	bool xmlDocument::save(const std::string & _name)
 	{
-		if (!m_info) {
-			m_lastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
+		if (!mInfo) {
+			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
 			return false;
 		}
 
 		std::ofstream stream;
 		stream.open(_name.c_str());
 		if (!stream.is_open()) {
-			m_lastError = xml::errors::XML_ERROR_CREATE_FILE;
+			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
 			return false;
 		}
 
@@ -183,8 +183,8 @@ namespace xml
 		stream << (char)0xBB;
 		stream << (char)0xBF;
 
-		m_info->save(stream, 0);
-		if (m_root) m_root->save(stream, 0);
+		mInfo->save(stream, 0);
+		if (mRoot) mRoot->save(stream, 0);
 
 		stream.close();
 		return true;
@@ -193,15 +193,15 @@ namespace xml
 	// сохраняет файл
 	bool xmlDocument::save(const std::wstring & _name)
 	{
-		if (!m_info) {
-			m_lastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
+		if (!mInfo) {
+			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
 			return false;
 		}
 
 		std::ofstream stream;
 		stream.open(_name.c_str());
 		if (!stream.is_open()) {
-			m_lastError = xml::errors::XML_ERROR_CREATE_FILE;
+			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
 			return false;
 		}
 
@@ -210,8 +210,8 @@ namespace xml
 		stream << (char)0xBB;
 		stream << (char)0xBF;
 
-		m_info->save(stream, 0);
-		if (m_root) m_root->save(stream, 0);
+		mInfo->save(stream, 0);
+		if (mRoot) mRoot->save(stream, 0);
 
 		stream.close();
 		return true;
@@ -221,8 +221,8 @@ namespace xml
 	{
 		clearInfo();
 		clearRoot();
-		m_line = 0;
-		m_col = 0;
+		mLine = 0;
+		mCol = 0;
 	}
 
 	const std::string xmlDocument::getLastError()
@@ -243,8 +243,8 @@ namespace xml
 		};
 
 		std::ostringstream stream;
-		stream << "'" << errorNamesString[m_lastError] << "'\n";
-		stream << "line = " << m_line << " , col = " << m_col;
+		stream << "'" << errorNamesString[mLastError] << "'\n";
+		stream << "line = " << mLine << " , col = " << mCol;
 		return stream.str();
 	}
 
@@ -261,8 +261,8 @@ namespace xml
 		while (!_stream.eof()) {
 			// берем новую строку
 			std::getline(_stream, read);
-			m_line ++;
-			m_col = 0; // потом проверить на многострочных тэгах
+			mLine ++;
+			mCol = 0; // потом проверить на многострочных тэгах
 
 			if (read.empty()) continue;
 
@@ -285,7 +285,7 @@ namespace xml
 
 					std::string body_str = line.substr(0, start);
 					// текущий символ
-					m_col = body_str.find_first_not_of(" \t");
+					mCol = body_str.find_first_not_of(" \t");
 					utility::trim(body_str);
 
 					if (currentNode != 0) 	currentNode->addBody(body_str);
@@ -307,13 +307,13 @@ namespace xml
 		}; // while (!stream.eof()) {
 
 		if (currentNode) {
-			m_lastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
+			mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
 			_stream.close();
 			return false;
 		}
 
-		/*if (!m_info) {
-			m_lastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
+		/*if (!mInfo) {
+			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
 			_stream.close();
 			return false;
 		}*/
@@ -334,7 +334,7 @@ namespace xml
 			else {
 				_currentNode = new xmlNode("", 0);
 				// если это первый то запоминаем
-				if (!m_root) m_root = _currentNode;
+				if (!mRoot) mRoot = _currentNode;
 			}
 			return true;
 		}
@@ -354,8 +354,8 @@ namespace xml
 		if (simbol == '/') {
 			if (_currentNode == 0) {
 				// чета мы закрывам а ниче даже и не открыто
-				if (!m_root) {
-					m_lastError = xml::errors::XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG;
+				if (!mRoot) {
+					mLastError = xml::errors::XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG;
 					return false;
 				}
 			}
@@ -370,7 +370,7 @@ namespace xml
 			}
 			// проверяем соответствие открывающего и закрывающего тегов
 			if (_currentNode->getName() != _body) {
-				m_lastError = xml::errors::XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT;
+				mLastError = xml::errors::XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT;
 				return false;
 			}
 			// а теперь снижаем текущий узел вниз
@@ -389,20 +389,20 @@ namespace xml
 			else {
 				if (tag_info) {
 					// информационный тег
-					if (m_info) {
-						m_lastError = xml::errors::XML_ERROR_INFO_IS_EXIST;
+					if (mInfo) {
+						mLastError = xml::errors::XML_ERROR_INFO_IS_EXIST;
 						return false;
 					}
 					_currentNode = new xmlNode(cut, 0, XML_NODE_TYPE_INFO);
-					m_info = _currentNode;
+					mInfo = _currentNode;
 				} else {
 					// рутовый тег
-					if (m_root) {
-						m_lastError = xml::errors::XML_ERROR_ROOT_IS_EXIST;
+					if (mRoot) {
+						mLastError = xml::errors::XML_ERROR_ROOT_IS_EXIST;
 						return false;
 					}
 					_currentNode = new xmlNode(cut, 0, XML_NODE_TYPE_NORMAL);
-					m_root = _currentNode;
+					mRoot = _currentNode;
 				}
 			}
 
@@ -431,18 +431,18 @@ namespace xml
 				// ищем равно
 				start = _body.find('=');
 				if (start == _body.npos) {
-					m_lastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+					mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 					return false;
 				}
 				// ищем вторые ковычки
 				end = _body.find('\"', start+1);
 				if (end == _body.npos) {
-					m_lastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+					mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 					return false;
 				}
 				end = _body.find('\"', end+1);
 				if (end == _body.npos) {
-					m_lastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+					mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 					return false;
 				}
 
@@ -451,7 +451,7 @@ namespace xml
 
 				// проверка на валидность
 				if (! checkPair(key, value)) {
-					m_lastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+					mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 					return false;
 				}
 
@@ -465,7 +465,7 @@ namespace xml
 				start = _body.find_first_not_of(" \t");
 				if (start == _body.npos) break;
 
-				m_col += start;
+				mCol += start;
 
 			};
 
@@ -579,34 +579,34 @@ namespace xml
 
 	void xmlDocument::clearInfo()
 	{
-		if (m_info) {
-			delete m_info;
-			m_info = 0;
+		if (mInfo) {
+			delete mInfo;
+			mInfo = 0;
 		}
 	}
 
 	void xmlDocument::clearRoot()
 	{
-		if (m_root) {
-			delete m_root;
-			m_root = 0;
+		if (mRoot) {
+			delete mRoot;
+			mRoot = 0;
 		}
 	}
 
 	xmlNodePtr xmlDocument::createInfo(const std::string & _version, const std::string & _encoding)
 	{
 		clearInfo();
-		m_info = new xmlNode("xml", 0, XML_NODE_TYPE_INFO);
-		m_info->addAttributes("version", _version);
-		m_info->addAttributes("encoding", _encoding);
-		return m_info;
+		mInfo = new xmlNode("xml", 0, XML_NODE_TYPE_INFO);
+		mInfo->addAttributes("version", _version);
+		mInfo->addAttributes("encoding", _encoding);
+		return mInfo;
 	}
 
 	xmlNodePtr xmlDocument::createRoot(const std::string & _name)
 	{
 		clearRoot();
-		m_root = new xmlNode(_name, 0, XML_NODE_TYPE_NORMAL);
-		return m_root;
+		mRoot = new xmlNode(_name, 0, XML_NODE_TYPE_NORMAL);
+		return mRoot;
 	}
 
 

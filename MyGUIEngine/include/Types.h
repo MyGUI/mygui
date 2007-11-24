@@ -1,9 +1,9 @@
-#ifndef _TYPES_H_
-#define _TYPES_H_
+#ifndef __TYPES_H__
+#define __TYPES_H__
 
 #include "Prerequest.h"
-#include "utility.h"
 #include <Ogre.h>
+#include "utility.h"
 #include "TPoint.h"
 #include "TSize.h"
 #include "TRect.h"
@@ -55,4 +55,4 @@ namespace util
 
 } // namespace util
 
-#endif // _TYPES_H_
+#endif // __TYPES_H__

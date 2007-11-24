@@ -1,19 +1,22 @@
-#ifndef _POINTERINFO_H_
-#define _POINTERINFO_H_
+#ifndef __POINTER_INFO_H__
+#define __POINTER_INFO_H__
 
 #include "Prerequest.h"
-#include <map>
-#include <string>
-#include "TRect.h"
-#include "TSize.h"
+#include "Types.h"
 
 namespace MyGUI
 {
 
 	struct PointerInfo
 	{
-		PointerInfo() {}
-		PointerInfo(const FloatRect &_offset, const IntPoint & _point) : offset(_offset), point(_point) {}
+		PointerInfo()
+		{
+		}
+
+		PointerInfo(const FloatRect &_offset, const IntPoint & _point) : offset(_offset), point(_point)
+		{
+		}
+
 		FloatRect offset;
 		IntPoint point;
 	};
@@ -22,5 +25,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-
-#endif
+#endif // __POINTER_INFO_H__

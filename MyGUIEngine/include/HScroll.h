@@ -8,22 +8,23 @@
 namespace MyGUI
 {
 
+	class HScroll;
+	typedef HScroll * HScrollPtr;
+
 	class _MyGUIExport HScroll : public ScrollBase
 	{
 		// для вызова закрытого конструктора
 		friend factory::HScrollFactory;
 
 	protected:
-		HScroll(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		HScroll(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 
-		void notifyTrackMove(int _x, int _y);
+		void notifyTrackMove(int _left, int _top);
 		void updateTrack();
 
 	}; // class HScroll : public ScrollBase
-
-	typedef HScroll * HScrollPtr;
 
 } // namespace MyGUI
 

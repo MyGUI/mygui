@@ -9,13 +9,16 @@
 namespace MyGUI
 {
 
+	class List;
+	typedef List * ListPtr;
+
 	class _MyGUIExport List : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend factory::ListFactory;
 
 	protected:
-		List(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		List(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 
@@ -40,8 +43,8 @@ namespace MyGUI
 		bool isItemVisible(size_t _index, bool _fill = true);
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
-		virtual void size(int _cx, int _cy);
-		virtual void move(int _x, int _y, int _cx, int _cy);
+		virtual void size(int _width, int _height);
+		virtual void move(int _left, int _top, int _width, int _height);
 
 	protected:
 
@@ -79,7 +82,7 @@ namespace MyGUI
 		WidgetPtr mWidgetClient;
 
 		// наши дети в строках
-		WidgetChild mWidgetLines;
+		VectorWidgetPtr mWidgetLines;
 
 		int mHeightLine; // высота одной строки
 		int mTopIndex; // индекс самого верхнего элемента
@@ -96,8 +99,6 @@ namespace MyGUI
 		int mOldCx, mOldCy;
 
 	}; // class List : public Widget
-
-	typedef List * ListPtr;
 
 } // namespace MyGUI
 

@@ -1,8 +1,7 @@
-#ifndef _LAYERITEMINFO_H_
-#define _LAYERITEMINFO_H_
+#ifndef __LAYER_ITEM_INFO_H__
+#define __LAYER_ITEM_INFO_H__
 
 #include "Prerequest.h"
-//#include <Ogre.h>
 
 namespace MyGUI
 {
@@ -23,10 +22,10 @@ namespace MyGUI
 		friend LayerManager;
 
 	protected:
-		LayerItemInfo() : m_overlayInfo(0), m_layerInfo(0) {}
+		LayerItemInfo() : mOverlayInfo(0), mLayerInfo(0) {}
 
 		// для виджетов нуно это добро переопределить
-		virtual LayerItemInfoPtr findItem(int _x, int _y) {return 0;}
+		virtual LayerItemInfoPtr findItem(int _left, int _top) {return 0;}
 
 		// это нужно для подсоединения к оверлею
 		virtual void attachToOverlay(Ogre::Overlay * _overlay) = 0;
@@ -36,10 +35,10 @@ namespace MyGUI
 		virtual bool isWidget() {return false;}
 
 	private:
-		Ogre::Overlay * m_overlayInfo;
-		LayerInfoPtr m_layerInfo;
+		Ogre::Overlay * mOverlayInfo;
+		LayerInfoPtr mLayerInfo;
 	};
 
 } // namespace MyGUI
 
-#endif
+#endif // __LAYER_ITEM_INFO_H__

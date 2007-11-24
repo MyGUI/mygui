@@ -41,9 +41,9 @@ namespace MyGUI
 			return type;
 		}
 
-		WidgetPtr StaticImageFactory::createWidget(const Ogre::String& _skin, int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name)
+		WidgetPtr StaticImageFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name)
 		{
-			return new StaticImage(_x, _y, _cx, _cy, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new StaticImage(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void StaticImageFactory::ImageMaterial(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

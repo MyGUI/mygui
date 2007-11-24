@@ -36,9 +36,6 @@ private:
 	// фабрики виджетов
 	MyGUI::factory::StrangeButtonFactory * mStrangeButtonFactory;
 
-	// парсеры виджетов
-//	MyGUI::parser::StrangeButtonParser * mStrangeButtonParser;
-
 };
 
 #endif // __TEST_PLUGIN_H__

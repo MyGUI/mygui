@@ -5,19 +5,19 @@
 namespace MyGUI
 {
 
-	StaticImage::StaticImage(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
-		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
-		m_num(0)
+	StaticImage::StaticImage(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
+		mNum(0)
 	{
 		// первоначальная инициализация
-		ASSERT(m_subSkinChild.size() == 1);
-		m_element = static_cast<PanelAlphaOverlayElement *>(m_subSkinChild[0]->getOverlayElement());
-		ASSERT(m_element);
+		ASSERT(mSubSkinChild.size() == 1);
+		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->getOverlayElement());
+		ASSERT(mElement);
 
 		// парсим свойства
-		const SkinParam & param = _info->getParams();
+		const MapString & param = _info->getParams();
 		if (!param.empty()) {
-			SkinParam::const_iterator iter = param.find("ImageMaterial");
+			MapString::const_iterator iter = param.find("ImageMaterial");
 			if (iter != param.end()) setImageMaterial(iter->second);
 			iter = param.find("ImageRect");
 			if (iter != param.end()) setImageRect(util::parseFloatRect(iter->second));
@@ -30,49 +30,49 @@ namespace MyGUI
 
 	void StaticImage::setImageNum(size_t _num)
 	{
-		if (_num == m_num) return;
-		m_num = _num;
+		if (_num == mNum) return;
+		mNum = _num;
 
 		// если размер нулевой, то ставим размер текстуры
-		if (!(m_rectImage.right || m_rectImage.bottom)) {
-			m_rectImage.right = m_sizeTexture.width;
-			m_rectImage.bottom = m_sizeTexture.width;
+		if (!(mRectImage.right || mRectImage.bottom)) {
+			mRectImage.right = mSizeTexture.width;
+			mRectImage.bottom = mSizeTexture.width;
 		}
 
-		size_t count = (size_t)(m_rectImage.width() / m_sizeTile.width);
+		size_t count = (size_t)(mRectImage.getWidth() / mSizeTile.width);
 		if (count < 1) count = 1;
 
 		FloatRect offset(
-			((float)(m_num % count)) * m_sizeTile.width + m_rectImage.left,
-			((float)(m_num / count)) * m_sizeTile.height + m_rectImage.top,
-			m_sizeTile.width, m_sizeTile.height);
+			((float)(mNum % count)) * mSizeTile.width + mRectImage.left,
+			((float)(mNum / count)) * mSizeTile.height + mRectImage.top,
+			mSizeTile.width, mSizeTile.height);
 		// конвертируем и устанавливаем
-		offset = SkinManager::convertMaterialCoord(offset, m_sizeTexture);
-		m_element->setUV(offset.left, offset.top, offset.right, offset.bottom);
+		offset = SkinManager::convertMaterialCoord(offset, mSizeTexture);
+		mElement->setUV(offset.left, offset.top, offset.right, offset.bottom);
 	}
 
 	void StaticImage::setImageInfo(const std::string & _material, const FloatSize & _tile)
 	{
-		m_element->setMaterialName(_material);
-		m_sizeTexture = SkinManager::getMaterialSize(_material);
-		m_sizeTile = _tile;
-		m_num = (size_t)-1;
+		mElement->setMaterialName(_material);
+		mSizeTexture = SkinManager::getMaterialSize(_material);
+		mSizeTile = _tile;
+		mNum = (size_t)-1;
 	}
 
 	void StaticImage::setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile)
 	{
-		m_element->setMaterialName(_material);
-		m_sizeTexture = SkinManager::getMaterialSize(_material);
-		m_rectImage = _rect;
-		m_sizeTile = _tile;
-		m_num = (size_t)-1;
+		mElement->setMaterialName(_material);
+		mSizeTexture = SkinManager::getMaterialSize(_material);
+		mRectImage = _rect;
+		mSizeTile = _tile;
+		mNum = (size_t)-1;
 	}
 
 	void StaticImage::setImageMaterial(const std::string & _material)
 	{
-		m_element->setMaterialName(_material);
-		m_sizeTexture = SkinManager::getMaterialSize(_material);
-		m_num = (size_t)-1;
+		mElement->setMaterialName(_material);
+		mSizeTexture = SkinManager::getMaterialSize(_material);
+		mNum = (size_t)-1;
 	}
 
 } // namespace MyGUI

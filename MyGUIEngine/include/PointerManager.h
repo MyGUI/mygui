@@ -5,7 +5,6 @@
 #include "Platform.h"
 #include "Instance.h"
 #include <OgrePanelOverlayElement.h>
-#include <string>
 #include "LayerManager.h"
 #include "PointerInfo.h"
 
@@ -29,22 +28,22 @@ namespace MyGUI
 		inline void hide() {show(false);}
 		inline bool isShow() {return mShow;}
 
-		void move(int _x, int _y);
+		void move(int _left, int _top);
 
 		void setPointer(const std::string & _name);
-		inline void defaultPointer() {setPointer(m_defaultPointer);};
+		inline void defaultPointer() {setPointer(mDefaultPointer);};
 
 		void attachToOverlay(Ogre::Overlay * _overlay);
 		void detachToOverlay(Ogre::Overlay * _overlay);
 
 	private:
-		std::string m_defaultPointer;
-		std::string m_layer;
-		std::string m_material;
+		std::string mDefaultPointer;
+		std::string mLayer;
+		std::string mMaterial;
 		bool mShow;
-		IntPoint m_point;
-		MapPointerInfo m_mapPointers;
-		PanelAlphaOverlayElement * m_overlayElement;
+		IntPoint mPoint;
+		MapPointerInfo mMapPointers;
+		PanelAlphaOverlayElement * mOverlayElement;
 
 	}; // class PointerManager
 

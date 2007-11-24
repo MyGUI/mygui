@@ -109,9 +109,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
+	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, 0, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _left, _top, _width, _height, _align, 0, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		LayerManager::getInstance().attachItem(widget, _layer, true);

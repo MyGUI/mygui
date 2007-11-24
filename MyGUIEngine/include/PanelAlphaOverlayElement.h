@@ -34,9 +34,9 @@ namespace MyGUI
 			mOverlay = _overlay;
 		}
 
-		void setColor(Ogre::uint32 _color)
+		void setColor(Ogre::uint32 _colour)
 		{
-			mColor = _color;
+			mColor = _colour;
 			mGeomPositionsOutOfDate = true;
 		}
 

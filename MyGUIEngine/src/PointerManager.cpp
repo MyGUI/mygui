@@ -13,9 +13,9 @@ namespace MyGUI
 		assert(!mIsInitialise);
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-		m_overlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
+		mOverlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
 			"PanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
-		m_overlayElement->setMetricsMode(Ogre::GMM_PIXELS);
+		mOverlayElement->setMetricsMode(Ogre::GMM_PIXELS);
 
 		mIsInitialise = true;
 	}
@@ -28,9 +28,9 @@ namespace MyGUI
 		// отсоединяем
 		LayerManager::getInstance().detachItem(this);
 		// удадяем элемент
-		if (m_overlayElement != null) {
-			Ogre::OverlayManager::getSingleton().destroyOverlayElement(m_overlayElement);
-			m_overlayElement = null;
+		if (mOverlayElement != null) {
+			Ogre::OverlayManager::getSingleton().destroyOverlayElement(mOverlayElement);
+			mOverlayElement = null;
 		}
 
 		mIsInitialise = false;
@@ -60,10 +60,10 @@ namespace MyGUI
 			if (pointer->findAttribute("Size", tmp)) size = util::parseInt(tmp);
 
 			// устанавливаем сразу параметры
-			m_overlayElement->setMaterialName(material);
-			m_overlayElement->setDimensions(size, size);
-			m_defaultPointer = defaultPointer;
-			m_layer = layer;
+			mOverlayElement->setMaterialName(material);
+			mOverlayElement->setDimensions(size, size);
+			mDefaultPointer = defaultPointer;
+			mLayer = layer;
 			FloatSize materialSize = SkinManager::getMaterialSize(material);
 
 			
@@ -82,14 +82,14 @@ namespace MyGUI
 				if (info->findAttribute("Offset", tmp)) offset = SkinManager::convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
 
 				// добавляем курсор
-				m_mapPointers[name] = PointerInfo(offset, point);
+				mMapPointers[name] = PointerInfo(offset, point);
 
 			};
 
 			// проверяем и инициализируем
-			if (m_defaultPointer.empty() && !m_mapPointers.empty()) m_defaultPointer = m_mapPointers.begin()->first;
+			if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
 			// подсоединяем к уровням
-			LayerManager::getInstance().attachItem(this, m_layer);
+			LayerManager::getInstance().attachItem(this, mLayer);
 
 			this->defaultPointer();
 
@@ -100,48 +100,48 @@ namespace MyGUI
 
 	void PointerManager::clear()
 	{
-		m_layer.clear();
-		m_defaultPointer.clear();
-		m_material.clear();
-		m_mapPointers.clear();
+		mLayer.clear();
+		mDefaultPointer.clear();
+		mMaterial.clear();
+		mMapPointers.clear();
 	}
 
 	void PointerManager::show(bool _show)
 	{
-		if (m_overlayElement == null) return;
+		if (mOverlayElement == null) return;
 		if (mShow == _show) return;
 		mShow = _show;
-		mShow ? m_overlayElement->show() : m_overlayElement->hide();
+		mShow ? mOverlayElement->show() : mOverlayElement->hide();
 	}
 
-	void PointerManager::move(int _x, int _y)
+	void PointerManager::move(int _left, int _top)
 	{
-		if (m_overlayElement == null) return;
-		m_overlayElement->setPosition(_x-m_point.left, _y-m_point.top);
+		if (mOverlayElement == null) return;
+		mOverlayElement->setPosition(_left-mPoint.left, _top-mPoint.top);
 	}
 
 	void PointerManager::setPointer(const std::string & _name)
 	{
-		MapPointerInfo::iterator iter = m_mapPointers.find(_name);
-		if (iter == m_mapPointers.end()) return;
+		MapPointerInfo::iterator iter = mMapPointers.find(_name);
+		if (iter == mMapPointers.end()) return;
 		const FloatRect & rect = iter->second.offset;
 		// сдвигаем с учетом нового и старого смещения
-		m_overlayElement->setPosition(m_overlayElement->getLeft()+m_point.left-iter->second.point.left, m_overlayElement->getTop()+m_point.top-iter->second.point.top);
-		m_overlayElement->setUV(rect.left, rect.top, rect.right, rect.bottom);
+		mOverlayElement->setPosition(mOverlayElement->getLeft()+mPoint.left-iter->second.point.left, mOverlayElement->getTop()+mPoint.top-iter->second.point.top);
+		mOverlayElement->setUV(rect.left, rect.top, rect.right, rect.bottom);
 		// и сохраняем новое смещение
-		m_point = iter->second.point;
+		mPoint = iter->second.point;
 	}
 
 	void PointerManager::attachToOverlay(Ogre::Overlay * _overlay)
 	{
-		_overlay->add2D(static_cast<Ogre::OverlayContainer*>(m_overlayElement));
+		_overlay->add2D(static_cast<Ogre::OverlayContainer*>(mOverlayElement));
 	}
 
 	void PointerManager::detachToOverlay(Ogre::Overlay * _overlay)
 	{
-		_overlay->remove2D(m_overlayElement);
+		_overlay->remove2D(mOverlayElement);
 		// пока вручную обнуляем отца
-		m_overlayElement->setOverlay(0);
+		mOverlayElement->setOverlay(0);
 	}
 
 } // namespace MyGUI	

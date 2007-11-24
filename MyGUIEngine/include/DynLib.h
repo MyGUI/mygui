@@ -5,12 +5,10 @@
 	@module		
 */
 
-#ifndef _DYNLIB_H_
-#define _DYNLIB_H_
+#ifndef __DYNLIB_H__
+#define __DYNLIB_H__
 
 #include "Prerequest.h"
-
-#include <string>
 
 
 #ifdef WIN32
@@ -76,9 +74,9 @@ namespace MyGUI
 		std::string mName;
 		
 		//! Handle to the loaded library.
-		DYNLIB_HANDLE m_hInst;
+		DYNLIB_HANDLE mInstance;
 	};
 
 }
 
-#endif
+#endif // #ifndef __DYNLIB_H__

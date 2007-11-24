@@ -1,5 +1,5 @@
-#ifndef _WIDGETUSERDATA_H_
-#define _WIDGETUSERDATA_H_
+#ifndef __WIDGET_USER_DATA_H__
+#define __WIDGET_USER_DATA_H__
 
 #include "Prerequest.h"
 #include "WidgetDefines.h"
@@ -9,17 +9,18 @@ namespace MyGUI
 	class _MyGUIExport UserData
 	{
 	public:
+		typedef std::map<std::string, int> MapInt;
 
 		// пользовательские данные виджета строки
 		inline void setUserString(const std::string & _key, const std::string & _value)
 		{
-			m_mapUserString[_key] = _value;
+			mMapUserString[_key] = _value;
 		}
 
 		const std::string & getUserString(const std::string & _key)
 		{
-			MapString::iterator iter = m_mapUserString.find(_key);
-			if (iter == m_mapUserString.end()) {
+			MapString::iterator iter = mMapUserString.find(_key);
+			if (iter == mMapUserString.end()) {
 				static std::string empty;
 				return empty;
 			}
@@ -28,37 +29,37 @@ namespace MyGUI
 
 		inline void clearUserString(const std::string & _key)
 		{
-			MapString::iterator iter = m_mapUserString.find(_key);
-			if (iter != m_mapUserString.end()) m_mapUserString.erase(iter);
+			MapString::iterator iter = mMapUserString.find(_key);
+			if (iter != mMapUserString.end()) mMapUserString.erase(iter);
 		}
 
 		inline void clearUserString()
 		{
-			m_mapUserString.clear();
+			mMapUserString.clear();
 		}
 
 		// пользовательские данные виджета int
 		inline void setUserData(const std::string & _key, int _value)
 		{
-			m_mapUserInt[_key] = _value;
+			mMapUserInt[_key] = _value;
 		}
 
 		const int getUserData(const std::string & _key)
 		{
-			MapInt::iterator iter = m_mapUserInt.find(_key);
-			if (iter == m_mapUserInt.end()) return 0;
+			MapInt::iterator iter = mMapUserInt.find(_key);
+			if (iter == mMapUserInt.end()) return 0;
 			return iter->second;
 		}
 
 		inline void clearUserData(const std::string & _key)
 		{
-			MapInt::iterator iter = m_mapUserInt.find(_key);
-			if (iter != m_mapUserInt.end()) m_mapUserInt.erase(iter);
+			MapInt::iterator iter = mMapUserInt.find(_key);
+			if (iter != mMapUserInt.end()) mMapUserInt.erase(iter);
 		}
 
 		inline void clearUserData()
 		{
-			m_mapUserInt.clear();
+			mMapUserInt.clear();
 		}
 
 		inline int getInternalData() {return mInternalData;}
@@ -66,11 +67,11 @@ namespace MyGUI
 
 	private:
 		// пользовательские данные
-		MapString m_mapUserString;
-		MapInt m_mapUserInt;
+		MapString mMapUserString;
+		MapInt mMapUserInt;
 		// номер для внутренниего или внешнего использования
 		int mInternalData;
 	};
 } // namespace MyGUI
 
-#endif
+#endif // __WIDGET_USER_DATA_H__

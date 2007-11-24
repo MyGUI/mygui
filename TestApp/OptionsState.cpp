@@ -8,7 +8,7 @@
 #include "SkinManager.h"
 #include "WidgetManager.h"
 #include "LayoutManager.h"
-#include "ParserManager.h"
+//#include "ParserManager.h"
 #include "MyGUI_FontManager.h"
 //#include "Window.h"
 #include "Button.h"

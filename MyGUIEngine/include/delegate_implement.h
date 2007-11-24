@@ -1,10 +1,5 @@
-//#ifndef _DELEGATEIMPLEMENT_H_
-//#define _DELEGATEIMPLEMENT_H_
 
-#include "Prerequest.h"
-
-
-namespace MyGUI
+namespace delegates
 {
 
 	#define COMBINE(a,b)       COMBINE1(a,b)
@@ -30,11 +25,11 @@ namespace MyGUI
 	{
 	public:
 		typedef void (*PFunc)(PARAMS);
-		C_STATIC_DELEGATE(PFunc pFunc) { m_pFunc = pFunc; }
-		virtual void Invoke(PARAMS) { m_pFunc(ARGS); }
+		C_STATIC_DELEGATE(PFunc pFunc) { mFunc = pFunc; }
+		virtual void Invoke(PARAMS) { mFunc(ARGS); }
 
 	private:
-		PFunc m_pFunc;
+		PFunc mFunc;
 	};
 
 	// делегат для метода класса
@@ -45,14 +40,14 @@ namespace MyGUI
 		typedef void (TObj::*PMethod)(PARAMS);
 		C_METHOD_DELEGATE(TObj* pObj, PMethod pMethod)
 		{
-			m_pObj = pObj;
-			m_pMethod = pMethod;
+			mObject = pObj;
+			mMethod = pMethod;
 		}
-		virtual void Invoke(PARAMS) { (m_pObj->*m_pMethod)(ARGS); }
+		virtual void Invoke(PARAMS) { (mObject->*mMethod)(ARGS); }
 
 	private:
-		TObj *m_pObj;
-		PMethod m_pMethod;
+		TObj *mObject;
+		PMethod mMethod;
 	};
 
 
@@ -82,28 +77,26 @@ namespace MyGUI
 	public:
 		typedef I_DELEGATE<TEMPLATE_ARGS> IDelegate;
 
-		C_DELEGATE() : m_pDelegate (0) {}
-		~C_DELEGATE() { if (m_pDelegate) delete m_pDelegate; }
+		C_DELEGATE() : mDelegate (0) {}
+		~C_DELEGATE() { if (mDelegate) delete mDelegate; }
 
-		bool IsNull() { return (m_pDelegate == 0); }
+		bool IsNull() { return (mDelegate == 0); }
 
 		C_DELEGATE<TEMPLATE_ARGS>& operator=(IDelegate* pDelegate)
 		{
-			if (m_pDelegate) delete m_pDelegate;
-			m_pDelegate = pDelegate;
+			if (mDelegate) delete mDelegate;
+			mDelegate = pDelegate;
 			return *this;
 		}
 
 		void operator()(PARAMS)
 		{
-			if (m_pDelegate == 0) return;
-			m_pDelegate->Invoke(ARGS);
+			if (mDelegate == 0) return;
+			mDelegate->Invoke(ARGS);
 		}
 
 	private:
-		IDelegate * m_pDelegate;
+		IDelegate * mDelegate;
 	};
 
-} // namespace MyGUI
-
-//#endif
+} // namespace delegates

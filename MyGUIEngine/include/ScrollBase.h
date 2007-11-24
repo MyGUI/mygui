@@ -2,24 +2,26 @@
 #define __SCROLL_BASE_H__
 
 #include "Widget.h"
-#include "delegate.h"
 
 namespace MyGUI
 {
+
+	class ScrollBase;
+	typedef ScrollBase * ScrollBasePtr;
 
 	class _MyGUIExport ScrollBase : public Widget
 	{
 
 	protected:
-		ScrollBase(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		ScrollBase(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _x, int _y);
+		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		virtual void notifyTrackMove(int _x, int _y) = 0;
+		virtual void notifyTrackMove(int _left, int _top) = 0;
 
 		void setScrollRange(size_t _range);
 		inline size_t getScrollRange() {return mScrollRange;}
@@ -31,8 +33,8 @@ namespace MyGUI
 		inline size_t getScrollPage() {return mScrollPage;}
 
 		virtual void updateTrack() = 0;
-		virtual void size(int _cx, int _cy);
-		virtual void move(int _x, int _y, int _cx, int _cy);
+		virtual void size(int _width, int _height);
+		virtual void move(int _left, int _top, int _width, int _height);
 
 		// изменилось положение скрола
 		EventSimpleDataInfo eventScrollChangePosition;
@@ -44,7 +46,7 @@ namespace MyGUI
 		WidgetPtr mWidgetTrack;
 
 		// размеры окна перед началом его изменений
-		IntRect m_preActionRect;
+		IntRect mPreActionRect;
 
 		// диапазон на который трек может двигаться
 		size_t mSkinRangeStart;
@@ -55,8 +57,6 @@ namespace MyGUI
 		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
 
 	}; // class ScrollBase : public Widget
-
-	typedef ScrollBase * ScrollBasePtr;
 
 } // namespace MyGUI
 

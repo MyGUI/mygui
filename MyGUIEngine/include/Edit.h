@@ -9,13 +9,16 @@
 namespace MyGUI
 {
 
+	class Edit;
+	typedef Edit * EditPtr;
+
 	class _MyGUIExport Edit : public Widget, public Ogre::FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend factory::EditFactory;
 
 	protected:
-		Edit(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		Edit(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 
@@ -50,9 +53,9 @@ namespace MyGUI
 		// удаляет текст
 		inline void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
 		// выделяет цветом выделение
-		inline void setTextSelectColor(const Ogre::ColourValue & _color) {setTextSelectColor(_color, false);}
+		inline void setTextSelectColor(const Ogre::ColourValue & _colour) {setTextSelectColor(_colour, false);}
 		// выделяет цветом диапазон
-		inline void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color) {setTextColor(_start, _count, _color, false);}
+		inline void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _colour) {setTextColor(_start, _count, _colour, false);}
 
 		inline bool getEditReadOnly() {return mReadOnly;}
 		inline void setEditReadOnly(bool _read) {mReadOnly=_read;commandResetHistory();}
@@ -63,11 +66,11 @@ namespace MyGUI
 			if (mPassword == _password) return;
 			mPassword = _password;
 			if (mPassword) {
-				mPasswordText = m_text->getCaption();
-				m_text->setCaption(Ogre::DisplayString(mTextLenght, '*'));
+				mPasswordText = mText->getCaption();
+				mText->setCaption(Ogre::DisplayString(mTextLenght, '*'));
 			}
 			else {
-				m_text->setCaption(mPasswordText);
+				mText->setCaption(mPasswordText);
 				mPasswordText.clear();
 			}
 		}
@@ -88,9 +91,9 @@ namespace MyGUI
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
-		void setTextSelectColor(const Ogre::ColourValue & _color, bool _history);
+		void setTextSelectColor(const Ogre::ColourValue & _colour, bool _history);
 		// выделяет цветом диапазон
-		void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _color, bool _history);
+		void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
 	protected:
 
@@ -101,11 +104,11 @@ namespace MyGUI
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _x, int _y);
+		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
 
 		virtual void _onMouseLostFocus(WidgetPtr _new);
 		virtual void _onMouseSetFocus(WidgetPtr _old);
-		virtual void _onMouseMove(int _x, int _y);
+		virtual void _onMouseMove(int _left, int _top);
 		virtual void _onKeyLostFocus(WidgetPtr _new);
 		virtual void _onKeySetFocus(WidgetPtr _old);
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
@@ -113,11 +116,11 @@ namespace MyGUI
 
 		inline void updateEditState()
 		{
-			if (m_isFocus) {
-				if (m_isPressed) setState("select");
+			if (mIsFocus) {
+				if (mIsPressed) setState("select");
 				else setState("active");
 			} else {
-				if (m_isPressed) setState("pressed");
+				if (mIsPressed) setState("pressed");
 				else setState("normal");
 			}
 		}
@@ -131,11 +134,11 @@ namespace MyGUI
 
 		inline IntPoint getWorldPostion(WidgetPtr _widget)
 		{
-			IntPoint point(_widget->left(), _widget->top());
+			IntPoint point(_widget->getLeft(), _widget->getTop());
 			WidgetPtr parent = _widget->getParent();
 			while (parent != null) {
-				point.left += parent->left();
-				point.top += parent->top();
+				point.left += parent->getLeft();
+				point.top += parent->getTop();
 				parent = parent->getParent();
 			};
 			return point;
@@ -145,7 +148,7 @@ namespace MyGUI
 		{
 			if (mStartSelect != SIZE_MAX) {
 				mStartSelect = SIZE_MAX;
-				m_text->setTextSelect(0, 0);
+				mText->setTextSelect(0, 0);
 			}
 		}
 
@@ -171,26 +174,26 @@ namespace MyGUI
 		inline const Ogre::DisplayString & getRealString()
 		{
 			if (mPassword) return mPasswordText;
-			return m_text->getCaption();
+			return mText->getCaption();
 		}
 
 		inline void setRealString(const Ogre::DisplayString & _caption)
 		{
 			if (mPassword) {
 				mPasswordText = _caption;
-				m_text->setCaption(Ogre::DisplayString(mTextLenght, '*'));
+				mText->setCaption(Ogre::DisplayString(mTextLenght, '*'));
 			}
 			else {
-				m_text->setCaption(_caption);
+				mText->setCaption(_caption);
 			}
 		}
 
 
 	protected:
 		// нажата ли кнопка
-		bool m_isPressed;
+		bool mIsPressed;
 		// в фокусе ли кнопка
-		bool m_isFocus;
+		bool mIsFocus;
 
 		WidgetPtr mWidgetUpper;
 		WidgetPtr mWidgetCursor;
@@ -227,8 +230,6 @@ namespace MyGUI
 		Ogre::DisplayString mPasswordText;
 
 	}; // class Edit : public Widget
-
-	typedef Edit * EditPtr;
 
 } // namespace MyGUI
 

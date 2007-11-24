@@ -1,10 +1,7 @@
-#ifndef _TEXT_CHANGE_HISTORY_H_
-#define _TEXT_CHANGE_HISTORY_H_
+#ifndef __TEXT_CHANGE_HISTORY_H__
+#define __TEXT_CHANGE_HISTORY_H__
 
 #include "Prerequest.h"
-#include <Ogre.h>
-#include <deque>
-#include <vector>
 
 namespace MyGUI
 {
@@ -42,4 +39,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // _TEXT_CHANGE_HISTORY_H_
+#endif // __TEXT_CHANGE_HISTORY_H__

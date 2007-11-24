@@ -6,7 +6,6 @@
 #include "Gui.h"
 #include "WidgetFactoryInterface.h"
 #include "LoggingOut.h"
-#include "delegate.h"
 
 #include "WidgetFactory.h"
 #include "ButtonFactory.h"
@@ -21,7 +20,7 @@ namespace MyGUI
 {
 
 	// делегат для парсинга
-	typedef CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
+	typedef delegates::CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
 
 	class _MyGUIExport WidgetManager
 	{
@@ -35,7 +34,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name);
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 		void destroyWidget();
 		void destroyWidget(WidgetPtr & _widget);

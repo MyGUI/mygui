@@ -3,7 +3,6 @@
 
 #include "Prerequest.h"
 #include "Instance.h"
-#include <string>
 #include "Common.h"
 #include "xmlDocument.h"
 #include "WidgetDefines.h"

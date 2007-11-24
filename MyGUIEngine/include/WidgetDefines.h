@@ -9,13 +9,17 @@ namespace MyGUI
 
 	struct BasisWidgetStateInfo
 	{
-		BasisWidgetStateInfo() {};
-		BasisWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _color, float _alpha)
+		BasisWidgetStateInfo()
+		{
+		}
+
+		BasisWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _colour, float _alpha)
 		{
 			offset = _offset;
-			color = _color;
+			color = _colour;
 			alpha = _alpha;
 		}
+
 		FloatRect offset;
 		Ogre::ColourValue color;
 		float alpha;
@@ -23,7 +27,10 @@ namespace MyGUI
 
 	struct WidgetStateInfo
 	{
-		WidgetStateInfo() : alpha(-1), color(Ogre::ColourValue::ZERO) {}
+		WidgetStateInfo() : alpha(-1), color(Ogre::ColourValue::ZERO)
+		{
+		}
+
 		std::vector<FloatRect> offsets;
 		Ogre::ColourValue color;
 		float alpha;
@@ -31,7 +38,10 @@ namespace MyGUI
 
 	struct BasisWidgetInfo
 	{
-		BasisWidgetInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align) {}
+		BasisWidgetInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align)
+		{
+		}
+
 		IntRect offset;
 		Align align;
 		std::string type;
@@ -55,19 +65,6 @@ namespace MyGUI
 	typedef std::map<std::string, WidgetPtr> MapWidgetPtr;
 
 	typedef std::map<std::string, std::string> MapString;
-
-	/// ???????????????????????????????????
-	typedef std::map<std::string, int> MapInt;
-	typedef std::map<std::string, char> MapFlags;
-	typedef std::map<std::string, BasisWidgetStateInfo> ViewInfo;
-	typedef std::map<std::string, WidgetStateInfo> StateInfo;
-	typedef std::vector<BasisWidgetInfo> BasisInfo;
-	typedef std::map<std::string, char> MapFlags;
-	typedef std::map<std::string, std::string> SkinParam;
-	typedef std::map<std::string, WidgetSkinInfoPtr> SkinInfo;
-	typedef std::vector<BasisWidgetPtr> BasisChild;
-	typedef std::vector<WidgetPtr> WidgetChild;
-	typedef std::map<std::string, WidgetPtr> mapWidgetPtr;
 
 } // namespace MyGUI
 

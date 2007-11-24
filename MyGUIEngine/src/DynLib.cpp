@@ -18,7 +18,7 @@ namespace MyGUI
 	DynLib::DynLib( const std::string& name )
 	{
 		mName = name;
-		m_hInst = NULL;
+		mInstance = NULL;
 	}
 
 
@@ -30,16 +30,16 @@ namespace MyGUI
 	void DynLib::load()
 	{
 		// Log library load
-		LOG_MESSAGE("Loading library " + mName);
+		LOG("Loading library " + mName);
 
 		std::string name = mName;
 
-		m_hInst = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
+		mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
 
-		assert(m_hInst);/* && ("Could not load dynamic library " + mName + 
+		assert(mInstance);/* && ("Could not load dynamic library " + mName + 
 			".  System Error: " + dynlibError()));*/
 
-		/*if( !m_hInst )
+		/*if( !mInstance )
 			EXCEPT(Exception::ERR_INTERNAL_ERROR, 
 			"Could not load dynamic library " + mName + 
 			".  System Error: " + dynlibError(), "DynLib::load" );*/
@@ -49,9 +49,9 @@ namespace MyGUI
 	void DynLib::unload()
 	{
 		// Log library unload
-		LOG_MESSAGE("Unloading library " + mName);
+		LOG("Unloading library " + mName);
 
-		if( DYNLIB_UNLOAD( m_hInst ) )
+		if( DYNLIB_UNLOAD( mInstance ) )
 		{
 			assert(0);/* && ("Could not unload dynamic library " + mName +
 				".  System Error: " + dynlibError()));*/
@@ -65,7 +65,7 @@ namespace MyGUI
 
 	void* DynLib::getSymbol( const std::string& strName ) const throw()
 	{
-		return (void*)DYNLIB_GETSYM( m_hInst, strName.c_str() );
+		return (void*)DYNLIB_GETSYM( mInstance, strName.c_str() );
 	}
 
 	std::string DynLib::dynlibError( void ) 

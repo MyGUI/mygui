@@ -16,9 +16,9 @@ namespace MyGUI
 	{
 		assert(!mIsInitialise);
 
-		LOG_MESSAGE("* Initialize: Dynamic Library Manager");
+		LOG("* Initialize: Dynamic Library Manager");
 
-		LOG_MESSAGE("Manager successfully initialized");
+		LOG("Manager successfully initialized");
 
 		mIsInitialise = true;
 	}
@@ -27,7 +27,7 @@ namespace MyGUI
 	{
 		if (!mIsInitialise) return;
 
-		LOG_MESSAGE("* Shut down: Dynamic Library Manager");
+		LOG("* Shut down: Dynamic Library Manager");
 
 		StringDynLibMap::iterator it;
 

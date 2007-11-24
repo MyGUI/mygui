@@ -4,7 +4,7 @@
 #include "Prerequest.h"
 #include "Instance.h"
 #include "BasisWidget.h"
-#include "BasisWidgetFactory.h"
+#include "BasisWidgetFactoryInterface.h"
 
 #include "MainSkin.h"
 #include "SubSkin.h"
@@ -25,11 +25,11 @@ namespace MyGUI
 
 		inline void registerFactory(BasisWidgetFactoryInterface * _factory)
 		{
-			m_factoryList.push_back(_factory);
+			mFactoryList.push_back(_factory);
 		}
 
 	protected:
-		std::list<BasisWidgetFactoryInterface*> m_factoryList;
+		std::list<BasisWidgetFactoryInterface*> mFactoryList;
 
 		BasisWidgetFactory<MainSkin> * mFactoryMainSkin;
 		BasisWidgetFactory<SubSkin> * mFactorySubSkin;

@@ -15,18 +15,18 @@ namespace MyGUI
 		assert(!mIsInitialise);
 
 		// забиваем карту флагами выравнивания
-		REGISTER_VALUE(m_mapAlign, ALIGN_NONE);
-		REGISTER_VALUE(m_mapAlign, ALIGN_HCENTER);
-		REGISTER_VALUE(m_mapAlign, ALIGN_VCENTER);
-		REGISTER_VALUE(m_mapAlign, ALIGN_CENTER);
-		REGISTER_VALUE(m_mapAlign, ALIGN_CENTER_PARENT);
-		REGISTER_VALUE(m_mapAlign, ALIGN_LEFT);
-		REGISTER_VALUE(m_mapAlign, ALIGN_RIGHT);
-		REGISTER_VALUE(m_mapAlign, ALIGN_HSTRETCH);
-		REGISTER_VALUE(m_mapAlign, ALIGN_TOP);
-		REGISTER_VALUE(m_mapAlign, ALIGN_BOTTOM);
-		REGISTER_VALUE(m_mapAlign, ALIGN_VSTRETCH);
-		REGISTER_VALUE(m_mapAlign, ALIGN_STRETCH);
+		REGISTER_VALUE(mMapAlign, ALIGN_NONE);
+		REGISTER_VALUE(mMapAlign, ALIGN_HCENTER);
+		REGISTER_VALUE(mMapAlign, ALIGN_VCENTER);
+		REGISTER_VALUE(mMapAlign, ALIGN_CENTER);
+		REGISTER_VALUE(mMapAlign, ALIGN_CENTER_PARENT);
+		REGISTER_VALUE(mMapAlign, ALIGN_LEFT);
+		REGISTER_VALUE(mMapAlign, ALIGN_RIGHT);
+		REGISTER_VALUE(mMapAlign, ALIGN_HSTRETCH);
+		REGISTER_VALUE(mMapAlign, ALIGN_TOP);
+		REGISTER_VALUE(mMapAlign, ALIGN_BOTTOM);
+		REGISTER_VALUE(mMapAlign, ALIGN_VSTRETCH);
+		REGISTER_VALUE(mMapAlign, ALIGN_STRETCH);
 
 		createDefault();
 
@@ -37,11 +37,11 @@ namespace MyGUI
 	{
 		if (!mIsInitialise) return;
 
-		for (MapWidgetSkinInfoPtr::iterator iter=m_skins.begin(); iter!=m_skins.end(); iter++) {
+		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); iter++) {
 			WidgetSkinInfoPtr info = iter->second;
 			delete info;
 		}
-		m_skins.clear();
+		mSkins.clear();
 
 		mIsInitialise = false;
 	}
@@ -51,19 +51,19 @@ namespace MyGUI
 		Align flag = 0;
 		const std::vector<std::string> & vec = util::split(_value);
 		for (size_t pos=0; pos<vec.size(); pos++) {
-			MapFlags::iterator iter = m_mapAlign.find(vec[pos]);
-			if (iter != m_mapAlign.end()) flag |= iter->second;
+			MapAlign::iterator iter = mMapAlign.find(vec[pos]);
+			if (iter != mMapAlign.end()) flag |= iter->second;
 		}
 		return flag;
 	}
 
 	WidgetSkinInfo * SkinManager::getSkin(const Ogre::String & _name)
 	{
-		MapWidgetSkinInfoPtr::iterator iter = m_skins.find(_name);
+		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
 		// если не нашли, то вернем дефолтный скин
-		if (iter == m_skins.end()) {
+		if (iter == mSkins.end()) {
 			LOG("no find skin, set default");
-			return m_skins["Default"];
+			return mSkins["Default"];
 		}
 		return iter->second;
 	}
@@ -72,7 +72,7 @@ namespace MyGUI
 	WidgetSkinInfo * SkinManager::create(const Ogre::String & _name)
 	{
 		WidgetSkinInfo * skin = new WidgetSkinInfo();
-		m_skins[_name] = skin;
+		mSkins[_name] = skin;
 		return skin;
 	}
 

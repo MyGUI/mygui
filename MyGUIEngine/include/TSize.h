@@ -1,5 +1,5 @@
-#ifndef _TSIZE_H_
-#define _TSIZE_H_
+#ifndef __TSIZE_H__
+#define __TSIZE_H__
 
 namespace types
 {
@@ -60,4 +60,4 @@ namespace types
 
 } // namespace types
 
-#endif
+#endif // __TSIZE_H__

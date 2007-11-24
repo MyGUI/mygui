@@ -2,8 +2,8 @@
 	
 */
 
-#ifndef _MYGUIPLATFORM_H_
-#define _MYGUIPLATFORM_H_
+#ifndef __MYGUI_PLATFORM_H__
+#define __MYGUI_PLATFORM_H__
 
 // Definnition of platforms
 #define MYGUI_PLATFORM_WIN32		1
@@ -13,7 +13,6 @@
 // Definition of compilers
 #define MYGUI_COMPILER_MSVC 1
 #define MYGUI_COMPILER_GNUC 2
-
 
 
 // Find platform
@@ -123,8 +122,4 @@
 //#    include "config.h"
 //#endif
 
-
-
-
-
-#endif
+#endif // __MYGUI_PLATFORM_H__

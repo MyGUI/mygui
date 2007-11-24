@@ -1,9 +1,8 @@
-#ifndef _RENDEROUT_H_
-#define _RENDEROUT_H_
+#ifndef __RENDER_OUT_H__
+#define __RENDER_OUT_H__
 
 #include "Prerequest.h"
 #include "utility.h"
-#include <deque>
 
 #include <OgreFontManager.h>
 #include <OgreOverlayManager.h>
@@ -197,4 +196,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif
+#endif // __RENDER_OUT_H__

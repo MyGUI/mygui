@@ -1,7 +1,5 @@
-#ifndef _DELEGATE_H_
-#define _DELEGATE_H_
-
-#include "Prerequest.h"
+#ifndef __DELEGATE_H__
+#define __DELEGATE_H__
 
 // source
 // http://rsdn.ru/article/cpp/delegates.xml

@@ -20,7 +20,7 @@ namespace MyGUI
 		typedef std::vector<size_t> VectorCharInfo;
 		typedef std::vector<VectorCharInfo> VectorLineInfo;
 
-		int m_left_margin, m_right_margin, m_top_margin, m_bottom_margin; // перекрытие
+		int mLeftMargin, mRightMargin, mTopMargin, mBottomMargin; // перекрытие
 		Align mAlign;
 
 		bool mRenderGL;// для конвертирования цвета вершин
@@ -36,10 +36,10 @@ namespace MyGUI
 	public:
 		TextSimpleOverlayElement(const Ogre::String& name) :
 			TextAreaOverlayElement(name),
-			m_left_margin (0),
-			m_right_margin (0),
-			m_top_margin (0),
-			m_bottom_margin (0),
+			mLeftMargin (0),
+			mRightMargin (0),
+			mTopMargin (0),
+			mBottomMargin (0),
 			mAlign(ALIGN_CENTER),
 			mDefaultColor(0xFFFFFFFF),
 			mRawDataOutOfDate(false),
@@ -67,10 +67,10 @@ namespace MyGUI
 		// устанавливет размеры по которым резать текст
 		inline void setMargin(int _left, int _top, int _right, int _bottom)
 		{
-			m_left_margin = _left;
-			m_top_margin = _top;
-			m_right_margin = _right;
-			m_bottom_margin = _bottom;
+			mLeftMargin = _left;
+			mTopMargin = _top;
+			mRightMargin = _right;
+			mBottomMargin = _bottom;
 			mDerivedOutOfDate = true;
 		}
 
@@ -104,10 +104,10 @@ namespace MyGUI
 			float bottom, top = 1.0 - realTop;
 
 			// края обрезки текста
-			float left_margin = (mPixelScaleX * (float)m_left_margin * 2.0) + left;
-			float top_margin = top - (mPixelScaleY * (float)m_top_margin * 2.0);
-			float right_margin = (left + realWidth) - (mPixelScaleX * (float)m_right_margin * 2.0);
-			float bottom_margin = (top - realHeight) + (mPixelScaleY * (float)m_bottom_margin * 2.0);
+			float left_margin = (mPixelScaleX * (float)mLeftMargin * 2.0) + left;
+			float top_margin = top - (mPixelScaleY * (float)mTopMargin * 2.0);
+			float right_margin = (left + realWidth) - (mPixelScaleX * (float)mRightMargin * 2.0);
+			float bottom_margin = (top - realHeight) + (mPixelScaleY * (float)mBottomMargin * 2.0);
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
@@ -390,9 +390,9 @@ namespace MyGUI
 
 		}
 
-		void setColour(const Ogre::ColourValue & _color)
+		void setColour(const Ogre::ColourValue & _colour)
 		{
-			Ogre::Root::getSingleton().convertColourValue(_color, &mDefaultColor);
+			Ogre::Root::getSingleton().convertColourValue(_colour, &mDefaultColor);
 			mGeomPositionsOutOfDate = true;
 		}
 

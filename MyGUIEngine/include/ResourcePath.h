@@ -1,8 +1,7 @@
-#ifndef _RESOURCEPATH_H_
-#define _RESOURCEPATH_H_
+#ifndef __RESOURCE_PATH_H__
+#define __RESOURCE_PATH_H__
 
 #include "Prerequest.h"
-#include <vector>
 
 namespace MyGUI
 {
@@ -22,22 +21,6 @@ namespace MyGUI
 		template <class T>
 		Ogre::String get_resource_path(const Ogre::String & _mask)
 		{
-
-      /*saFilePath.clear();
-      String strPath;
-      FileInfoListPtr pFileInfo = ResourceGroupManager::getSingleton().findResourceFileInfo(ResourceGroupManager::getSingleton().DEFAULT_RESOURCE_GROUP_NAME, strMaskFileName);
-      
-      
-      for (FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo.getPointer()->end(); fi++) {
-         strPath = fi->archive->getName();
-         strPath += "/";
-         strPath += fi->filename;
-         saFilePath.push_back(strPath);
-      }
-
-      pFileInfo.setNull();*/ 
-
-
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _mask);
 			if (pFileInfo->size() != 1) return "";
 			Ogre::String retval = pFileInfo->front().archive->getName() + "\\" + pFileInfo->front().filename;
@@ -57,4 +40,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // _RESOURCEPATH_H_
+#endif // __RESOURCE_PATH_H__

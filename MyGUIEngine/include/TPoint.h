@@ -1,5 +1,5 @@
-#ifndef _TPONT_H_
-#define _TPONT_H_
+#ifndef __TPONT_H__
+#define __TPONT_H__
 
 namespace types
 {
@@ -59,4 +59,4 @@ namespace types
 
 } // namespace types
 
-#endif
+#endif // __TPONT_H__

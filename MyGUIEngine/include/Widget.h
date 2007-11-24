@@ -21,24 +21,24 @@ namespace MyGUI
 
 	protected:
 		// все создание только через фабрику
-		Widget(int _x, int _y, int _cx, int _cy, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 		// создаем дочку
-		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _name = "");
-		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, Align _align, const Ogre::String & _name = "");
+		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "");
 
-		virtual void move(int _x, int _y);
-		virtual void move(int _x, int _y, int _cx, int _cy);
-		virtual void size(int _cx, int _cy);
+		virtual void move(int _left, int _top);
+		virtual void move(int _left, int _top, int _width, int _height);
+		virtual void size(int _width, int _height);
 
 		void show(bool _show);
 
 		virtual void setCaption(const Ogre::DisplayString & _caption);
 		virtual const Ogre::DisplayString & getCaption();
 
-		void setColour(const Ogre::ColourValue & _color);
-		const Ogre::ColourValue & getColour() {return m_color;};
+		void setColour(const Ogre::ColourValue & _colour);
+		const Ogre::ColourValue & getColour() {return mColour;};
 
 		void setFontName(const Ogre::String & _font);
 		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
@@ -50,7 +50,7 @@ namespace MyGUI
 		void setTextAlign(Align _align);
 
 		void setAlpha(float _alpha);
-		inline float getAlpha() {return m_alpha;};
+		inline float getAlpha() {return mAlpha;};
 	
 		void setState(const Ogre::String & _state);
 
@@ -64,10 +64,10 @@ namespace MyGUI
 	protected:
 		void update(); // обновления себя и детей
 
-		void align(int _cx, int _cy, bool _update);
-		void align(int _x, int _y, int _cx, int _cy, bool _update);
+		void align(int _width, int _height, bool _update);
+		void align(int _left, int _top, int _width, int _height, bool _update);
 
-		inline const Ogre::String & getName() {return m_name;};
+		inline const Ogre::String & getName() {return mName;};
 
 		// присоединяемся к отцу
 		void attach(BasisWidgetPtr _basis, bool _child);
@@ -85,11 +85,11 @@ namespace MyGUI
 
 	public:
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
-		LayerItemInfoPtr findItem(int _x, int _y);
+		LayerItemInfoPtr findItem(int _left, int _top);
 
-		inline bool isNeedKeyFocus() {return m_needKeyFocus;}
-		inline void setNeedKeyFocus(bool _need) {m_needKeyFocus = _need;}
-		inline bool isEnable() {return m_enable;}
+		inline bool isNeedKeyFocus() {return mNeedKeyFocus;}
+		inline void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
+		inline bool isEnable() {return mEnable;}
 
 	protected:
 
@@ -101,34 +101,34 @@ namespace MyGUI
 		virtual ~Widget();
 
 	protected:
-
-		// список всех стейтов
-		const MapWidgetStateInfo & m_stateInfo;
 		// показывает скрывает все сабскины
 		void visible(bool _visible);
+
+	protected:
+		// список всех стейтов
+		const MapWidgetStateInfo & mStateInfo;
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 		// вектор всех детей сабскинов
-		VectorBasisWidgetPtr m_subSkinChild;
+		VectorBasisWidgetPtr mSubSkinChild;
 
 		// указатель на окно текста
-		BasisWidgetPtr m_text;
+		BasisWidgetPtr mText;
 
 		// доступен ли на виджет
-		bool m_enable;
+		bool mEnable;
 		// скрыты ли все сабскины при выходе за границу
-		bool m_visible;
+		bool mVisible;
 		// прозрачность нашего оверлея
-		float m_alpha;
+		float mAlpha;
 		// цвет текста
-		Ogre::ColourValue m_color;
+		Ogre::ColourValue mColour;
 		// имя виджета
-		Ogre::String m_name;
+		Ogre::String mName;
 
 	}; // class Widget
 
 } // namespace MyGUI
-
 
 #endif // __WIDGET_H__

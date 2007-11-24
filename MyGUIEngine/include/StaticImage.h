@@ -9,13 +9,16 @@
 namespace MyGUI
 {
 
+	class StaticImage;
+	typedef StaticImage * StaticImagePtr;
+
 	class _MyGUIExport StaticImage : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend factory::StaticImageFactory;
 
 	protected:
-		StaticImage(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		StaticImage(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
 	public:
 
@@ -25,34 +28,32 @@ namespace MyGUI
 
 		inline void setImageRect(const FloatRect & _rect)
 		{
-			m_rectImage = _rect;
-			m_num = (size_t)-1;
+			mRectImage = _rect;
+			mNum = (size_t)-1;
 		}
 
 		inline void setImageTile(const FloatSize & _tile)
 		{
-			m_sizeTile = _tile;
-			m_num = (size_t)-1;
+			mSizeTile = _tile;
+			mNum = (size_t)-1;
 		}
 
 		void setImageNum(size_t _num);
-		inline size_t getImageNum(size_t _num) {return m_num;}
+		inline size_t getImageNum(size_t _num) {return mNum;}
 
 	private:
 		// кусок в текстуре наших картинок
-		FloatRect m_rectImage;
+		FloatRect mRectImage;
 		// размер одной картинки
-		FloatSize m_sizeTile;
+		FloatSize mSizeTile;
 		// размер текстуры
-		FloatSize m_sizeTexture;
+		FloatSize mSizeTexture;
 		// текущая картинка
-		size_t m_num;
+		size_t mNum;
 		// единственный оверлей нашего виджета
-		PanelAlphaOverlayElement * m_element;
+		PanelAlphaOverlayElement * mElement;
 
 	}; // class StaticImage : public Widget
-
-	typedef StaticImage * StaticImagePtr;
 
 } // namespace MyGUI
 

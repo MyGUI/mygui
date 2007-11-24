@@ -1,5 +1,5 @@
-#ifndef _WIDGETEVENT_H_
-#define _WIDGETEVENT_H_
+#ifndef __WIDGET_EVENT_H__
+#define __WIDGET_EVENT_H__
 
 #include "Prerequest.h"
 #include "delegate.h"
@@ -8,14 +8,13 @@
 namespace MyGUI
 {
 	// делегаты для событий виджета
-	typedef CDelegate1<WidgetPtr> EventSimple;
-	typedef CDelegate2<WidgetPtr, WidgetPtr> EventFocusInfo;
-	typedef CDelegate2<WidgetPtr, bool> EventSimpleInfo;
-	typedef CDelegate2<WidgetPtr, int> EventSimpleDataInfo;
-	typedef CDelegate3<WidgetPtr, int, int> EventCoordInfo;
-	typedef CDelegate3<WidgetPtr, int, wchar_t> EventKeyInfo;
-	typedef CDelegate3<WidgetPtr, const std::string&, const std::string&> EventActionInfo;
-
+	typedef delegates::CDelegate1<WidgetPtr> EventSimple;
+	typedef delegates::CDelegate2<WidgetPtr, WidgetPtr> EventFocusInfo;
+	typedef delegates::CDelegate2<WidgetPtr, bool> EventSimpleInfo;
+	typedef delegates::CDelegate2<WidgetPtr, int> EventSimpleDataInfo;
+	typedef delegates::CDelegate3<WidgetPtr, int, int> EventCoordInfo;
+	typedef delegates::CDelegate3<WidgetPtr, int, wchar_t> EventKeyInfo;
+	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventActionInfo;
 	
 
 	class _MyGUIExport WidgetEvent
@@ -23,7 +22,7 @@ namespace MyGUI
 		friend InputManager;
 
 	protected:
-		WidgetEvent() : m_widgetEventSender(0), m_needKeyFocus(false) {}
+		WidgetEvent() : mWidgetEventSender(0), mNeedKeyFocus(false) {}
 
 
 		/*
@@ -57,7 +56,7 @@ namespace MyGUI
 		EventFocusInfo eventMouseSetFocus;
 
 		//	событие : мышь двигается над захваченным виджетом
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _x, int _y);
+		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _left, int _top);
 		EventCoordInfo eventMouseMove;
 
 		//	событие : крутиться колесик над захваченным виджетом
@@ -111,76 +110,76 @@ namespace MyGUI
 		// сообщения от менеджера ввода
 		virtual void _onMouseLostFocus(WidgetPtr _new)
 		{
-			eventMouseLostFocus(m_widgetEventSender, _new);
+			eventMouseLostFocus(mWidgetEventSender, _new);
 		}
 
 		virtual void _onMouseSetFocus(WidgetPtr _old)
 		{
-			eventMouseSetFocus(m_widgetEventSender, _old);
+			eventMouseSetFocus(mWidgetEventSender, _old);
 		}
 
-		virtual void _onMouseMove(int _x, int _y)
+		virtual void _onMouseMove(int _left, int _top)
 		{
-			eventMouseMove(m_widgetEventSender, _x, _y);
+			eventMouseMove(mWidgetEventSender, _left, _top);
 		}
 
 		virtual void _onMouseSheel(int _rel)
 		{
-			eventMouseSheel(m_widgetEventSender, _rel);
+			eventMouseSheel(mWidgetEventSender, _rel);
 		}
 
 		virtual void _onMouseButtonPressed(bool _left)
 		{
-			eventMouseButtonPressed(m_widgetEventSender, _left);
+			eventMouseButtonPressed(mWidgetEventSender, _left);
 		}
 
 		virtual void _onMouseButtonReleased(bool _left)
 		{
-			eventMouseButtonReleased(m_widgetEventSender, _left);
+			eventMouseButtonReleased(mWidgetEventSender, _left);
 		}
 
 		virtual void _onMouseButtonClick(bool _double)
 		{
-			eventMouseButtonClick(m_widgetEventSender, _double);
+			eventMouseButtonClick(mWidgetEventSender, _double);
 		}
 
 		virtual void _onKeyLostFocus(WidgetPtr _new)
 		{
-			eventKeyLostFocus(m_widgetEventSender, _new);
+			eventKeyLostFocus(mWidgetEventSender, _new);
 		}
 
 		virtual void _onKeySetFocus(WidgetPtr _old)
 		{
-			eventKeySetFocus(m_widgetEventSender, _old);
+			eventKeySetFocus(mWidgetEventSender, _old);
 		}
 
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char)
 		{
-			eventKeyButtonPressed(m_widgetEventSender, _key, _char);
+			eventKeyButtonPressed(mWidgetEventSender, _key, _char);
 		}
 
 		virtual void _onKeyButtonReleased(int _key)
 		{
-			eventKeyButtonReleased(m_widgetEventSender, _key);
+			eventKeyButtonReleased(mWidgetEventSender, _key);
 		}
 
 		virtual void _onMouseChangeRootFocus(bool _focus)
 		{
-			eventMouseChangeRootFocus(m_widgetEventSender, _focus);
+			eventMouseChangeRootFocus(mWidgetEventSender, _focus);
 		}
 
 		virtual void _onKeyChangeRootFocus(bool _focus)
 		{
-			eventKeyChangeRootFocus(m_widgetEventSender, _focus);
+			eventKeyChangeRootFocus(mWidgetEventSender, _focus);
 		}
 
 		// нужен ли виджету ввод с клавы
-		bool m_needKeyFocus;
+		bool mNeedKeyFocus;
 		// от чьего имени мы посылаем сообщения
-		WidgetPtr m_widgetEventSender;
+		WidgetPtr mWidgetEventSender;
 
 	};
 
 } // namespace MyGUI
 
-#endif
+#endif // __WIDGET_EVENT_H__

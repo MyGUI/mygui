@@ -1,3 +1,4 @@
+
 #include "ClipboardManager.h"
 
 namespace MyGUI

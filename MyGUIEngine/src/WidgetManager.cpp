@@ -47,17 +47,17 @@ namespace MyGUI
 	void WidgetManager::registerFactory(WidgetFactoryInterface * _factory)
 	{
 		mFactoryList.insert(_factory);
-		//LOG_MESSAGE("* Register widget factory '" + _factory->getType() + "'");
+		//LOG("* Register widget factory '" + _factory->getType() + "'");
 	}
 
 	void WidgetManager::unregisterFactory(WidgetFactoryInterface * _factory)
 	{
 		SetWidgetFactory::iterator iter = mFactoryList.find(_factory);
 		if (iter != mFactoryList.end()) mFactoryList.erase(iter);
-		//LOG_MESSAGE("* Unregister widget factory '" + _factory->getType() + "'");
+		//LOG("* Unregister widget factory '" + _factory->getType() + "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name)
 	{
 		Ogre::String name;
 		if (false == _name.empty()) {
@@ -71,7 +71,7 @@ namespace MyGUI
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getType() == _type) {
-				WidgetPtr widget = (*factory)->createWidget(_skin, _x, _y, _cx, _cy, _align, _parent, name);
+				WidgetPtr widget = (*factory)->createWidget(_skin, _left, _top, _width, _height, _align, _parent, name);
 				mWidgets[name] = widget;
 				return widget;
 			}
@@ -106,7 +106,7 @@ namespace MyGUI
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
-			LOG_MESSAGE("Error: Widget \"" + _name + "\" not found");
+			LOG("Error: Widget \"" + _name + "\" not found");
 			return 0;
 		}
 		return iter->second;

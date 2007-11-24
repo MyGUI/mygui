@@ -6,8 +6,8 @@
 namespace MyGUI
 {
 
-	List::List(int _x, int _y, int _cx, int _cy, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
-		Widget(_x, _y, _cx, _cy, _align, _info, _parent, _name),
+	List::List(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
 		mWidgetScroll(null), mWidgetClient(null),
 		mOffsetTop(0),
 		mTopIndex(0),
@@ -21,7 +21,7 @@ namespace MyGUI
 		IntSize size = _info->getSize();
 
 		// парсим свойства
-		const SkinParam & param = _info->getParams();
+		const MapString & param = _info->getParams();
 
 		// парсим скролл
 		mWidgetScroll = static_cast<VScrollPtr>(parseSubWidget(param, "VScroll", "SkinScroll", "OffsetScroll", "AlignScroll", size));
@@ -36,7 +36,7 @@ namespace MyGUI
 		// делегаты для событий
 		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 
-		SkinParam::const_iterator iter = param.find("SkinLine");
+		MapString::const_iterator iter = param.find("SkinLine");
 		if (iter != param.end()) mSkinLine = iter->second;
 		iter = param.find("HeightLine");
 		if (iter != param.end()) mHeightLine = util::parseInt(iter->second);
@@ -117,7 +117,7 @@ namespace MyGUI
 
 			if (sel == ITEM_NONE) sel = 0;
 			else {
-				size_t page = mWidgetClient->height() / mHeightLine;
+				size_t page = mWidgetClient->getHeight() / mHeightLine;
 				if (sel <= page) sel = 0;
 				else sel -= page;
 			}
@@ -128,7 +128,7 @@ namespace MyGUI
 
 			if (sel == ITEM_NONE) sel = 0;
 			else {
-				sel += mWidgetClient->height() / mHeightLine;
+				sel += mWidgetClient->getHeight() / mHeightLine;
 				if (sel >= getItemCount()) sel = getItemCount() - 1;
 			}
 
@@ -213,35 +213,35 @@ namespace MyGUI
 	
 	}
 
-	void List::size(int _cx, int _cy)
+	void List::size(int _width, int _height)
 	{
-		Widget::size(_cx, _cy);
+		Widget::size(_width, _height);
 		updateScroll();
 		updateLine();
 	}
 
-	void List::move(int _x, int _y, int _cx, int _cy)
+	void List::move(int _left, int _top, int _width, int _height)
 	{
-		Widget::move(_x, _y, _cx, _cy);
+		Widget::move(_left, _top, _width, _height);
 		updateScroll();
 		updateLine();
 	}
 
 	void List::updateScroll()
 	{
-		mRangeIndex = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->height();
+		mRangeIndex = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->getHeight();
 		//OUT(mRangeIndex);
 
-		if ( (mRangeIndex < 1) || (mWidgetScroll->left() <= mWidgetClient->left()) ) {
+		if ( (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) ) {
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->show(false);
 				// увеличиваем клиентскую зону на ширину скрола
-				mWidgetClient->size(mWidgetClient->width() + mWidgetScroll->width(), mWidgetClient->height());
+				mWidgetClient->size(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 			return;
 		}
 		if (!mWidgetScroll->isShow()) {
-			mWidgetClient->size(mWidgetClient->width() - mWidgetScroll->width(), mWidgetClient->height());
+			mWidgetClient->size(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			mWidgetScroll->show(true);
 		}
 
@@ -257,14 +257,14 @@ namespace MyGUI
 		int position = mTopIndex * mHeightLine + mOffsetTop;
 
 		// если высота увеличивалась то добавляем виджеты
-		if (mOldCy < m_cy) {
+		if (mOldCy < mHeight) {
 
 			int height = (int)mWidgetLines.size() * mHeightLine - mOffsetTop;
 
 			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
-			while ( (height <= (mWidgetClient->height() + mHeightLine)) && (mWidgetLines.size() < mStringArray.size()) ) {
+			while ( (height <= (mWidgetClient->getHeight() + mHeightLine)) && (mWidgetLines.size() < mStringArray.size()) ) {
 				// создаем линию
-				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, height, mWidgetClient->width(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
+				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 				line->eventMouseSheel = newDelegate(this, &List::notifyMouseSheel);
@@ -280,7 +280,7 @@ namespace MyGUI
 
 				//OUT(mRangeIndex);
 				// размер всех помещается в клиент
-				if (mRangeIndex <= 0) {//((int)mStringArray.size()*mHeightLine) <= mWidgetClient->height()) {
+				if (mRangeIndex <= 0) {//((int)mStringArray.size()*mHeightLine) <= mWidgetClient->getHeight()) {
 
 					// обнуляем, если надо
 					if (position || mOffsetTop || mTopIndex) {
@@ -301,8 +301,8 @@ namespace MyGUI
 				} else {
 
 					// прижимаем список к нижней границе
-					int count = mWidgetClient->height() / mHeightLine;
-					mOffsetTop = mHeightLine - (mWidgetClient->height() % mHeightLine);
+					int count = mWidgetClient->getHeight() / mHeightLine;
+					mOffsetTop = mHeightLine - (mWidgetClient->getHeight() % mHeightLine);
 
 					if (mOffsetTop == mHeightLine) {
 						mOffsetTop = 0;
@@ -333,15 +333,15 @@ namespace MyGUI
 			// увеличился размер, но прокрутки вниз небыло, обновляем линии снизу
 			_redrawItemRange(mLastRedrawLine);//???
 
-		} // if (old_cy < m_cy)
+		} // if (old_cy < mHeight)
 
 		//_redrawItemRange();//???
 
 		// просчитываем положение скролла
 		mWidgetScroll->setScrollPosition(position);
 
-		mOldCx = m_cx;
-		mOldCy = m_cy;
+		mOldCx = mWidth;
+		mOldCy = mHeight;
 	}
 
 	void List::_redrawItemRange(size_t _start)
@@ -358,7 +358,7 @@ namespace MyGUI
 				mLastRedrawLine = pos;
 				break;
 			}
-			if (mWidgetLines[pos]->top() > mWidgetClient->height()) {
+			if (mWidgetLines[pos]->getTop() > mWidgetClient->getHeight()) {
 				// запоминаем последнюю перерисованную линию
 				mLastRedrawLine = pos;
 				break;
@@ -379,7 +379,7 @@ namespace MyGUI
 			}
 		}
 
-		//OUT(m_name, "  start : ", _start, "   count : ", pos);
+		//OUT(mName, "  start : ", _start, "   count : ", pos);
 
 		// если цикл весь прошли, то ставим максимальную линию
 		if (pos >= mWidgetLines.size()) mLastRedrawLine = pos;
@@ -420,7 +420,7 @@ namespace MyGUI
 			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
 
 			// строка, после последнего видимого элемента, плюс одна строка (потому что для прокрутки нужно на одну строчку больше)
-			if (mWidgetClient->height() < (offset - mHeightLine)) {
+			if (mWidgetClient->getHeight() < (offset - mHeightLine)) {
 				// просчитываем положение скролла
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
@@ -474,7 +474,7 @@ namespace MyGUI
 			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
 
 			// строка, после последнего видимого элемента
-			if (mWidgetClient->height() < offset) {
+			if (mWidgetClient->getHeight() < offset) {
 				// просчитываем положение скролла
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
@@ -526,7 +526,7 @@ namespace MyGUI
 		// высчитывам положение строки
 		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
 		// строка, после последнего видимого элемента
-		if (mWidgetClient->height() < offset) return;
+		if (mWidgetClient->getHeight() < offset) return;
 
 		static_cast<ButtonPtr>(mWidgetLines[_index-mTopIndex])->setButtonPressed(_select);
 	}
@@ -566,10 +566,10 @@ namespace MyGUI
 		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
 
 		// строка, после последнего видимого элемента
-		if (mWidgetClient->height() < offset) return false;
+		if (mWidgetClient->getHeight() < offset) return false;
 
 		// если мы внизу и нам нужен целый
-		if ((mWidgetClient->height() < (offset + mHeightLine)) && (_fill) ) return false;
+		if ((mWidgetClient->getHeight() < (offset + mHeightLine)) && (_fill) ) return false;
 
 		return true;
 	}

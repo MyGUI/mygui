@@ -43,9 +43,9 @@ namespace MyGUI
 			return type;
 		}
 
-		WidgetPtr EditFactory::createWidget(const Ogre::String& _skin, int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name)
+		WidgetPtr EditFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name)
 		{
-			return new Edit(_x, _y, _cx, _cy, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new Edit(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void EditFactory::Edit_SetCursorPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

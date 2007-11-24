@@ -33,10 +33,10 @@ namespace MyGUI
 		void initialise(Ogre::RenderWindow* _window);
 		void shutdown();
 
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "");
-		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			return createWidget(_type, _skin, (int)(_x*mWidth), (int)(_y*mHeight), (int)(_cx*mWidth), (int)(_cy*mHeight), _align, _layer, _name);
+			return createWidget(_type, _skin, (int)(_left*mWidth), (int)(_top*mHeight), (int)(_width*mWidth), (int)(_height*mHeight), _align, _layer, _name);
 		}
 
 		inline FloatRect convertToReal(const FloatRect & _rect)
