@@ -25,12 +25,11 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
 	// load plugin
-//#if _DEBUG
+#if _DEBUG
 	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin_d.dll");
-	//MyGUI::PluginManager::getInstance().unloadPlugin("TestPlugin_d.dll");
-//#else
-//	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin.dll");
-//#endif
+#else
+	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin.dll");
+#endif
 
 
 //	MyGUI::LayerManager::getInstance().load("main.layer");
@@ -74,14 +73,6 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	edit->setCaption(L"Мы только тем и дороги");
 
-	/*Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
-	if (!mpFont.isNull()) {
-		const Ogre::MaterialPtr & material = mpFont->getMaterial();
-		Ogre::Pass * pass = material->getTechnique(0)->getPass(0);
-		pass->createTextureUnitState("char_select.png", 1);
-		pass->getTextureUnitState(1)->setColourOperationEx(LBX_SOURCE1, LBS_CURRENT, LBS_CURRENT);
-		pass->getTextureUnitState(1)->setAlphaOperation(LBX_BLEND_TEXTURE_ALPHA, LBS_TEXTURE, LBS_CURRENT);
-	}*/
 
 /*	Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
 	Ogre::Overlay * overlay = manager.create("test1");
@@ -93,14 +84,14 @@ void OptionsState::enter(bool bIsChangeState)
 	element->setDimensions(0.5, 0.5);
 	overlay->add2D((Ogre::OverlayContainer*)element);*/
 
-	/*MyGUI::Gui::getInstance().shutdown();
+	MyGUI::Gui::getInstance().shutdown();
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
 	button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	button->setCaption(L"#00FF00хнопка\t=)");
 
 	edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	edit->setCaption(L"Мы только тем и дороги");*/
+	edit->setCaption(L"Мы только тем и дороги");//*/
 
 }
 //===================================================================================

@@ -129,8 +129,10 @@ namespace MyGUI
     //---------------------------------------------------------------------
     void Font::unloadImpl()
     {
-		// Cascade to the texture we created
-        mTexture->unload();
+		// удаляем все созданные ресурсы
+		Ogre::TextureManager::getSingleton().remove(mTexture->getName());
+		Ogre::MaterialManager::getSingleton().remove(mpMaterial->getName());
+		Ogre::MaterialManager::getSingleton().remove(mpMaterialSelectedFont->getName());
     }
     //---------------------------------------------------------------------
 	void Font::loadResource(Ogre::Resource* res)
