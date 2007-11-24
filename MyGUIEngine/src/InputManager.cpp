@@ -19,12 +19,12 @@ namespace MyGUI
 	{
 		assert(!mIsInitialise);
 
-		m_widgetMouseFocus = 0;
-		m_widgetKeyFocus = 0;
-		m_widgetRootMouseFocus = 0;
-		m_widgetRootKeyFocus = 0;
-		m_isWidgetMouseCapture = false;
-		m_isCharShift = false;
+		mWidgetMouseFocus = 0;
+		mWidgetKeyFocus = 0;
+		mWidgetRootMouseFocus = 0;
+		mWidgetRootKeyFocus = 0;
+		mIsWidgetMouseCapture = false;
+		mIsCharShift = false;
 		mHoldKey = OIS::KC_UNASSIGNED;
 		mIsListener = false;
 
@@ -50,13 +50,13 @@ namespace MyGUI
 
 		// проверка на скролл
 		if (_arg.state.Z.rel != 0) {
-			if (m_widgetMouseFocus != null) m_widgetMouseFocus->_onMouseSheel(_arg.state.Z.rel);
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseSheel(_arg.state.Z.rel);
 			return isCaptureMouse();
 		}
 
-		if (m_isWidgetMouseCapture) {
-			if (m_widgetMouseFocus != null) m_widgetMouseFocus->_onMouseMove(_arg.state.X.abs, _arg.state.Y.abs);
-			else m_isWidgetMouseCapture = false;
+		if (mIsWidgetMouseCapture) {
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_arg.state.X.abs, _arg.state.Y.abs);
+			else mIsWidgetMouseCapture = false;
 			return true;
 		}
 
@@ -66,21 +66,21 @@ namespace MyGUI
 		if ( (item != null) && (!item->isEnable()) ) item = null; // неактивное окно
 
 		// ничего не изменилось
-		if (m_widgetMouseFocus == item) return isCaptureMouse();
+		if (mWidgetMouseFocus == item) return isCaptureMouse();
 
 		// смена фокуса
-		if (m_widgetMouseFocus != null) m_widgetMouseFocus->_onMouseLostFocus(item);
-		if (item != null) item->_onMouseSetFocus(m_widgetMouseFocus);
+		if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseLostFocus(item);
+		if (item != null) item->_onMouseSetFocus(mWidgetMouseFocus);
 
 		// изменился рутовый элемент
-		if (rootItem != m_widgetRootMouseFocus) {
-			if (m_widgetRootMouseFocus != null) m_widgetRootMouseFocus->_onMouseChangeRootFocus(false);
+		if (rootItem != mWidgetRootMouseFocus) {
+			if (mWidgetRootMouseFocus != null) mWidgetRootMouseFocus->_onMouseChangeRootFocus(false);
 			if (rootItem != null) static_cast<WidgetPtr>(rootItem)->_onMouseChangeRootFocus(true);
-			m_widgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
+			mWidgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
 		}
 
 		// запоминаем текущее окно
-		m_widgetMouseFocus = item;
+		mWidgetMouseFocus = item;
 
 		return isCaptureMouse();
 	}
@@ -96,19 +96,19 @@ namespace MyGUI
 		// захватываем только по левой клавише и только если виджету надо
 		if ( _id == OIS::MB_Left ) {
 			// захват окна
-			m_isWidgetMouseCapture = true;
+			mIsWidgetMouseCapture = true;
 			// запоминаем место нажатия
-			m_lastLeftPressed.left = (int)_arg.state.X.abs;
-			m_lastLeftPressed.top = (int)_arg.state.Y.abs;
+			mLastLeftPressed.left = (int)_arg.state.X.abs;
+			mLastLeftPressed.top = (int)_arg.state.Y.abs;
 		}
 			
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
-		setKeyFocusWidget(m_widgetMouseFocus);
-		m_widgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
+		setKeyFocusWidget(mWidgetMouseFocus);
+		mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
 
 		// поднимаем виджет, временно
-		if (m_widgetMouseFocus != null) {
-			WidgetPtr tmp = m_widgetMouseFocus;
+		if (mWidgetMouseFocus != null) {
+			WidgetPtr tmp = mWidgetMouseFocus;
 			while (tmp->getParent() != null) tmp = tmp->getParent();
 			LayerManager::getInstance().upItem(tmp);
 		}
@@ -121,15 +121,15 @@ namespace MyGUI
 		if (isCaptureMouse()) {
 
 			// сбрасываем захват
-			m_isWidgetMouseCapture = false;
+			mIsWidgetMouseCapture = false;
 
-			m_widgetMouseFocus->_onMouseButtonReleased(_id == OIS::MB_Left);
+			mWidgetMouseFocus->_onMouseButtonReleased(_id == OIS::MB_Left);
 
-			if ((_id == OIS::MB_Left) && m_time.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
-				m_widgetMouseFocus->_onMouseButtonClick(true);
+			if ((_id == OIS::MB_Left) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
+				mWidgetMouseFocus->_onMouseButtonClick(true);
 			} else {
-			    m_time.reset();
-	            m_widgetMouseFocus->_onMouseButtonClick(false);
+			    mTime.reset();
+	            mWidgetMouseFocus->_onMouseButtonClick(false);
 			}
 
 			// для корректного отображения
@@ -147,7 +147,7 @@ namespace MyGUI
 		detectLangShift(_arg.key, true);
 		
 		//Pass keystrokes to the current active text widget
-		if (isCaptureKey()) m_widgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
+		if (isCaptureKey()) mWidgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
 
 		// запоминаем клавишу
 		storeKey(_arg.key);
@@ -163,7 +163,7 @@ namespace MyGUI
 		// проверка на переключение языков
 		detectLangShift(_arg.key, false);
 
-		if (isCaptureKey()) m_widgetKeyFocus->_onKeyButtonReleased(_arg.key);
+		if (isCaptureKey()) mWidgetKeyFocus->_onKeyButtonReleased(_arg.key);
 
 		return isCaptureKey();
 	}
@@ -172,7 +172,7 @@ namespace MyGUI
 	void InputManager::detectLangShift(int keyEvent, bool bIsKeyPressed)
 	{
 		// если переключать не надо
-		if (m_mapLanguages.size() == 1) return;
+		if (mMapLanguages.size() == 1) return;
 
 		// для облегчения распознавания используются LeftAlt+LeftShift или LeftCtrl+LeftShift,LeftShift+LeftAlt или LeftShift+LeftCtrl
 		static bool bIsFirstKeyPressed = false; // LeftAlt или LeftCtrl
@@ -182,11 +182,11 @@ namespace MyGUI
 		if ((keyEvent == OIS::KC_LSHIFT) || (keyEvent == OIS::KC_RSHIFT))
 		{
 			if (bIsKeyPressed) {
-				m_isCharShift = true;
+				mIsCharShift = true;
 				bIsSecondKeyPressed = true;
 				if (bIsFirstKeyPressed) bIsTwoKeyPressed = true;
 			} else {
-				m_isCharShift = false;
+				mIsCharShift = false;
 				bIsSecondKeyPressed = false;
 				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed)) {
 					bIsTwoKeyPressed = false;
@@ -219,20 +219,20 @@ namespace MyGUI
 
 	wchar_t InputManager::getKeyChar(int keyEvent) // возвращает символ по его скан коду
 	{
-		if (keyEvent < 58) return m_currentLanguage->second[keyEvent + (m_isCharShift ? 58 : 0)];
+		if (keyEvent < 58) return mCurrentLanguage->second[keyEvent + (mIsCharShift ? 58 : 0)];
 		else if (keyEvent < 84) {
-			if (keyEvent > 70) return m_nums[keyEvent-71];
-		} else if (keyEvent == OIS::KC_DIVIDE) return m_currentLanguage->second[OIS::KC_SLASH + (m_isCharShift ? 58 : 0)];//L'/'; // на цифровой клавиатуре //????m_langs[m_currentLang][OIS::KC_BACKSLASH + (m_bShiftChars ? 58 : 0)];
-		else if (keyEvent == OIS::KC_OEM_102) return m_currentLanguage->second[OIS::KC_BACKSLASH + (m_isCharShift ? 58 : 0)];
+			if (keyEvent > 70) return mNums[keyEvent-71];
+		} else if (keyEvent == OIS::KC_DIVIDE) return mCurrentLanguage->second[OIS::KC_SLASH + (mIsCharShift ? 58 : 0)];//L'/'; // на цифровой клавиатуре //????m_langs[m_currentLang][OIS::KC_BACKSLASH + (m_bShiftChars ? 58 : 0)];
+		else if (keyEvent == OIS::KC_OEM_102) return mCurrentLanguage->second[OIS::KC_BACKSLASH + (mIsCharShift ? 58 : 0)];
 		return 0;
 	}
 
 	void InputManager::createDefaultCharSet()
 	{
 		// вставляем английский язык
-		m_mapLanguages[INPUT_DEFAULT_LANGUAGE] = LangInfo();
-		m_currentLanguage = m_mapLanguages.find(INPUT_DEFAULT_LANGUAGE);
-		m_currentLanguage->second.resize(116);
+		mMapLanguages[INPUT_DEFAULT_LANGUAGE] = LangInfo();
+		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
+		mCurrentLanguage->second.resize(116);
 
 		// временный массив
 		wchar_t chars[116] = {
@@ -240,14 +240,14 @@ namespace MyGUI
 			0, 0, 33, 64, 35, 36, 37, 94, 38, 42, 40, 41, 95, 43, 0, 0, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 123, 125, 0, 0, 65, 83, 68, 70, 71, 72, 74, 75, 76, 58, 34, 126, 0, 124, 90, 88, 67, 86, 66, 78, 77, 60, 62, 63, 0, 42, 0, 32 // shift
 		};
 		// копируем в постоянное место
-		LangInfo & lang = m_currentLanguage->second;
+		LangInfo & lang = mCurrentLanguage->second;
 		for (size_t i=0; i<116; i++) lang[i] = chars[i];
 
 		// добавляем клавиши для нумлока
 		wchar_t nums[13] = {55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46};
-		m_nums.resize(13);
+		mNums.resize(13);
 		// копируем в постоянное место
-		for (size_t i=0; i<13; i++) m_nums[i] = nums[i];
+		for (size_t i=0; i<13; i++) mNums[i] = nums[i];
 	}
 
 	void InputManager::load(const std::string & _file)
@@ -268,12 +268,12 @@ namespace MyGUI
 			if (chars.size() == 116) {
 
 				// сначала проверяем есть ли такой язык уже
-				MapLang::iterator iter = m_mapLanguages.find(name);
-				if (iter != m_mapLanguages.end()) MYGUI_EXCEPT(0, "name language is exist", "void InputManager::loadCharSet(const std::string & _file)");
+				MapLang::iterator iter = mMapLanguages.find(name);
+				if (iter != mMapLanguages.end()) MYGUI_EXCEPT(0, "name language is exist", "void InputManager::loadCharSet(const std::string & _file)");
 
 				// создаем язык
-				m_mapLanguages[name] = LangInfo();
-				iter = m_mapLanguages.find(name);
+				mMapLanguages[name] = LangInfo();
+				iter = mMapLanguages.find(name);
 				iter->second.resize(116);
 				LangInfo & lang = iter->second;
 
@@ -284,7 +284,7 @@ namespace MyGUI
 
 		};
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение
-		m_currentLanguage = m_mapLanguages.find(INPUT_DEFAULT_LANGUAGE);
+		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
 	}
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
@@ -295,33 +295,33 @@ namespace MyGUI
 		if (root != null) { while (root->getParent() != null) root = root->getParent(); }
 
 		// если рутовый фокус поменялся, то оповещаем
-		if (m_widgetRootKeyFocus != root) {
-			if (m_widgetRootKeyFocus != null) m_widgetRootKeyFocus->_onKeyChangeRootFocus(false);
+		if (mWidgetRootKeyFocus != root) {
+			if (mWidgetRootKeyFocus != null) mWidgetRootKeyFocus->_onKeyChangeRootFocus(false);
 			if (root != null) root->_onKeyChangeRootFocus(true);
-			m_widgetRootKeyFocus = root;
+			mWidgetRootKeyFocus = root;
 		}
 
 		// а вот тут уже проверяем обыкновенный фокус
-		if (_widget == m_widgetKeyFocus) return;
+		if (_widget == mWidgetKeyFocus) return;
 
-		if (m_widgetKeyFocus != null) m_widgetKeyFocus->_onKeyLostFocus(_widget);
+		if (mWidgetKeyFocus != null) mWidgetKeyFocus->_onKeyLostFocus(_widget);
 		if (_widget != null) {
 			if (_widget->isNeedKeyFocus()) {
-				_widget->_onKeySetFocus(m_widgetKeyFocus);
-				m_widgetKeyFocus = _widget;
+				_widget->_onKeySetFocus(mWidgetKeyFocus);
+				mWidgetKeyFocus = _widget;
 				return;
 			}
 		}
-		m_widgetKeyFocus = null;
+		mWidgetKeyFocus = null;
 
 	}
 
 	void InputManager::resetMouseFocusWidget()
 	{
-		m_widgetMouseFocus = null;
-//		m_widgetKeyFocus = null;
-		m_widgetRootMouseFocus = null;
-//		m_widgetRootKeyFocus = null;
+		mWidgetMouseFocus = null;
+//		mWidgetKeyFocus = null;
+		mWidgetRootMouseFocus = null;
+//		mWidgetRootKeyFocus = null;
 	}
 
 	bool InputManager::frameStarted(const Ogre::FrameEvent& evt)
@@ -342,8 +342,8 @@ namespace MyGUI
 		} else {
 			if (mTimerKey > INPUT_INTERVAL_KEY) {
 				mTimerKey -= INPUT_INTERVAL_KEY;
-				m_widgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
-				m_widgetKeyFocus->_onKeyButtonReleased(mHoldKey);
+				mWidgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
+				mWidgetKeyFocus->_onKeyButtonReleased(mHoldKey);
 			}
 		}
 
