@@ -67,6 +67,7 @@ namespace MyGUI
 	inline void LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8) {templates::file_out<void>(util::toString(p1, p2, p3, p4, p5, p6, p7, p8));}
 
 	#define LOG_MESSAGE(x) {std::stringstream buf; buf << x; LOG(buf.str());}
+  #define MYGUI_EXCEPT(x,y,z) {LOG(y,z);  OGRE_EXCEPT(x,y,z)}
 
 } // namespace MyGUI
 

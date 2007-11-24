@@ -11,7 +11,7 @@ namespace MyGUI
 		clear();
 
 		xml::xmlDocument doc;
-		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) MYGUI_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_LayerInfo") ) return false;
@@ -56,7 +56,7 @@ namespace MyGUI
 	{
 		// это наш уровень
 		LayerInfoPtr layer = m_mapLayer[_layer];
-		if (layer == null) OGRE_EXCEPT(0, _layer + " - no find level", "LayerManager::attachItem");
+		if (layer == null) MYGUI_EXCEPT(0, _layer + " - no find level", "LayerManager::attachItem");
 		// запоминаем созданный айтем в виджете
 		layer->addItem(_item);
 		// добавляем уровень в карту поиска

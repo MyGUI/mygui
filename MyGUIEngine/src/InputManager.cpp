@@ -253,7 +253,7 @@ namespace MyGUI
 	void InputManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) MYGUI_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_LangInfo") ) return;
@@ -269,7 +269,7 @@ namespace MyGUI
 
 				// сначала проверяем есть ли такой язык уже
 				MapLang::iterator iter = m_mapLanguages.find(name);
-				if (iter != m_mapLanguages.end()) OGRE_EXCEPT(0, "name language is exist", "void InputManager::loadCharSet(const std::string & _file)");
+				if (iter != m_mapLanguages.end()) MYGUI_EXCEPT(0, "name language is exist", "void InputManager::loadCharSet(const std::string & _file)");
 
 				// создаем язык
 				m_mapLanguages[name] = LangInfo();

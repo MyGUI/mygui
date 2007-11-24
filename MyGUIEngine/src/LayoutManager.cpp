@@ -13,7 +13,7 @@ namespace MyGUI
 	void LayoutManager::load(const std::string & _file)
 	{
 		xml::xmlDocument doc;
-		if (!doc.open(helper::getResourcePath(_file))) OGRE_EXCEPT(0, doc.getLastError(), "");
+		if (!doc.open(helper::getResourcePath(_file))) MYGUI_EXCEPT(0, doc.getLastError(), "");
 
 		xml::xmlNodePtr xml_root = doc.getRoot();
 		if (xml_root == 0) return;

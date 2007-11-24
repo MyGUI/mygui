@@ -62,7 +62,7 @@ namespace MyGUI
 		Ogre::String name;
 		if (false == _name.empty()) {
 			MapWidgetPtr::iterator iter = mWidgets.find(_name);
-			if (iter != mWidgets.end()) OGRE_EXCEPT(0, _name + " - name widget is exist", "WidgetManager::createWidget");
+			if (iter != mWidgets.end()) MYGUI_EXCEPT(0, _name + " - name widget is exist", "WidgetManager::createWidget");
 			name = _name;
 		} else {
 			static long num=0;
@@ -76,7 +76,7 @@ namespace MyGUI
 				return widget;
 			}
 		}
-		OGRE_EXCEPT(0, _type + " - no find factory WidgetFactory", "WidgetManager::createWidget");
+		MYGUI_EXCEPT(0, _type + " - no find factory WidgetFactory", "WidgetManager::createWidget");
 		return 0;
 	}
 

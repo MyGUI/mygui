@@ -480,7 +480,7 @@ namespace MyGUI
 		{
 			mpFont = FontManager::getInstance().getByName( font );
 			if (mpFont.isNull())
-				OGRE_EXCEPT( Ogre::Exception::ERR_ITEM_NOT_FOUND, "Could not find font " + font,
+				MYGUI_EXCEPT( Ogre::Exception::ERR_ITEM_NOT_FOUND, "Could not find font " + font,
 					"TextAreaOverlayElement::setFontName" );
 			mpFont->load();
 			mpMaterial = mpFont->getMaterialSelectedFont();

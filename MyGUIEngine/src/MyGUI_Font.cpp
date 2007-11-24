@@ -76,7 +76,7 @@ namespace MyGUI
 	{
 		CodePointMap::const_iterator i = mCodePointMap.find(id);
 		if (i == mCodePointMap.end()) {
-			OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, 
+			MYGUI_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, 
 				"Code point " + Ogre::StringConverter::toString(id) + " not found in font " + mName, "Font::getGlyphInfo");
 		}
 		return i->second;
@@ -95,7 +95,7 @@ namespace MyGUI
 		// create new material for simple text
 		mpMaterial =  Ogre::MaterialManager::getSingleton().create("Fonts/" + mName,  mGroup);
 		if (mpMaterial.isNull())
-			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Error creating new material!", "Font::load" );
+			MYGUI_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Error creating new material!", "Font::load" );
 
 		Ogre::TextureUnitState* texLayer = mpMaterial->getTechnique(0)->getPass(0)->createTextureUnitState( texName );
 		// Clamp to avoid fuzzy edges
@@ -107,7 +107,7 @@ namespace MyGUI
 		// create new material for edit text
 		mpMaterialSelectedFont =  Ogre::MaterialManager::getSingleton().create("FontsSelected/" + mName,  mGroup);
 		if (mpMaterialSelectedFont.isNull()) 
-			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Error creating new material!", "Font::load" );
+			MYGUI_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Error creating new material!", "Font::load" );
 
 		texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 0 );
 		// Clamp to avoid fuzzy edges
@@ -146,7 +146,7 @@ namespace MyGUI
 		FT_Library ftLibrary;
 		// Init freetype
         if( FT_Init_FreeType( &ftLibrary ) )
-            OGRE_EXCEPT( Ogre::Exception::ERR_INTERNAL_ERROR, "Could not init FreeType library!", "Font::Font");
+            MYGUI_EXCEPT( Ogre::Exception::ERR_INTERNAL_ERROR, "Could not init FreeType library!", "Font::Font");
 
         FT_Face face;
         // Add a gap between letters vert and horz
@@ -162,14 +162,14 @@ namespace MyGUI
 
         // Load font
         if( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
-            OGRE_EXCEPT( Ogre::Exception::ERR_INTERNAL_ERROR,
+            MYGUI_EXCEPT( Ogre::Exception::ERR_INTERNAL_ERROR,
             "Could not open font face!", "Font::createTextureFromFont" );
 
 
         // Convert our point size to freetype 26.6 fixed point format
         FT_F26Dot6 ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
         if( FT_Set_Char_Size( face, ftSize, 0, mTtfResolution, mTtfResolution ) )
-            OGRE_EXCEPT( Ogre::Exception::ERR_INTERNAL_ERROR,
+            MYGUI_EXCEPT( Ogre::Exception::ERR_INTERNAL_ERROR,
             "Could not set char size!", "Font::createTextureFromFont" );
 
         int max_height = 0, max_width = 0, max_bear = 0;

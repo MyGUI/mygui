@@ -44,7 +44,7 @@ namespace MyGUI
 		for (std::list<BasisWidgetFactoryInterface*>::iterator factory = m_factoryList.begin(); factory != m_factoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createBasisWidget(_info, _material, _parent);
 		}
-		OGRE_EXCEPT(0, _info.type + " - no find factory BasisWidgetFactory", "BasisWidgetManager::createBasisWidget");
+		MYGUI_EXCEPT(0, _info.type + " - no find factory BasisWidgetFactory", "BasisWidgetManager::createBasisWidget");
 		return 0;
 	}
 
