@@ -6,6 +6,7 @@
 #include "Gui.h"
 #include "WidgetFactoryInterface.h"
 #include "LoggingOut.h"
+#include "delegate.h"
 
 #include "WidgetFactory.h"
 #include "ButtonFactory.h"
@@ -19,9 +20,16 @@
 namespace MyGUI
 {
 
+	// делегат для парсинга
+	typedef CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
+
 	class _MyGUIExport WidgetManager
 	{
 		INSTANCE_HEADER(WidgetManager);
+
+	public:
+		typedef std::map<Ogre::String, ParseDelegate> MapDelegate;
+		typedef std::set<WidgetFactoryInterface*> SetWidgetFactory;
 
 	public:
 		void initialise();
@@ -32,24 +40,30 @@ namespace MyGUI
 		void destroyWidget();
 		void destroyWidget(WidgetPtr & _widget);
 
-		inline void registerFactory(WidgetFactoryInterface * _factory)
-		{
-			mFactoryList.push_back(_factory);
-			//LOG_MESSAGE("* Register widget factory '" + _factory->getType() + "'");
-		}
+		void registerFactory(WidgetFactoryInterface * _factory);
+		void unregisterFactory(WidgetFactoryInterface * _factory);
 
 		WidgetPtr findWidget(const Ogre::String & _name);
 
 		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально
 		static FloatRect convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight);
 
-		//	private:
+		// очищает имя в списках
 		void clearName(WidgetPtr _widget);
 
+		// регестрирует делегат
+		ParseDelegate & registerDelegate(const Ogre::String & _key);
+		void unregisterDelegate(const Ogre::String & _key);
+
+		// парсит ключ значение
+		void parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+
+
 	protected:
-		typedef std::list<WidgetFactoryInterface*> ListWidgetFactory;
-		ListWidgetFactory mFactoryList;
+		SetWidgetFactory mFactoryList;
 		MapWidgetPtr mWidgets;
+		MapDelegate mDelegates;
+
 
 		// фабрики виджетов
 		factory::WidgetFactory * mWidgetFactory;

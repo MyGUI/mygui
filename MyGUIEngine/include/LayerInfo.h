@@ -18,7 +18,7 @@ namespace MyGUI
 
 	private:
 		LayerInfo(const std::string & _name, Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :
-			m_name(_name), m_start(_start), m_count(_count?_count:1), m_height(_height?_height:1)
+			m_name(_name), m_start(_start), m_count(_count?_count:1), mHeight(_height?_height:1)
 		{
 		}
 
@@ -72,8 +72,8 @@ namespace MyGUI
 			Ogre::ushort pos = (m_items.size() <= m_count) ? (Ogre::ushort)m_items.size() : (m_count-1);
 			// добавляем и ставим высоту
 			m_items.push_back(_item);
-			_item->m_overlayInfo->setZOrder(m_start + pos * m_height);
-//			OUT("level = ", (m_start + pos * m_height));
+			_item->m_overlayInfo->setZOrder(m_start + pos * mHeight);
+//			OUT("level = ", (m_start + pos * mHeight));
 			return true;
 		}
 
@@ -120,7 +120,7 @@ namespace MyGUI
 				}
 
 				// следующая высота
-				if (pos < (Ogre::ushort)(m_count-1)) current += m_height;
+				if (pos < (Ogre::ushort)(m_count-1)) current += mHeight;
 			}
 
 			if (_destroy) {
@@ -135,7 +135,7 @@ namespace MyGUI
 
 	private:
 		VectorLayerItemInfo m_items;
-		Ogre::ushort m_start, m_count, m_height;
+		Ogre::ushort m_start, m_count, mHeight;
 		std::string m_name;
 
 	};

@@ -6,7 +6,6 @@
 */
 #include "PluginManager.h"
 #include "DynLibManager.h"
-#include <algorithm>
 
 namespace MyGUI
 {
@@ -41,7 +40,7 @@ namespace MyGUI
 		// Load plugin library
 		DynLib* lib = DynLibManager::getInstance().load( _file );
 		// Store for later unload
-		mLibs.push_back(lib);
+		mLibs[_file] = lib;
 
 		// Call startup function
 		DLL_START_PLUGIN pFunc = (DLL_START_PLUGIN)lib->getSymbol("dllStartPlugin");
@@ -60,51 +59,44 @@ namespace MyGUI
 		// check initialise
 		assert(mIsInitialise);
 
-		for (DynLibList::iterator it = mLibs.begin(); it != mLibs.end(); ++it) {
-			if ((*it)->getName() == _file) {
-				// Call plugin shutdown
-				DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*it)->getSymbol("dllStopPlugin");
-				// this must call uninstallPlugin
-				pFunc();
-				// Unload library (destroyed by DynLibManager)
-				DynLibManager::getInstance().unload(*it);
-				mLibs.erase(it);
-
-				return;
-			}
-
+		DynLibList::iterator it = mLibs.find(_file);
+		if (it != mLibs.end()) {
+			// Call plugin shutdown
+			DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*it).second->getSymbol("dllStopPlugin");
+			// this must call uninstallPlugin
+			pFunc();
+			// Unload library (destroyed by DynLibManager)
+			DynLibManager::getInstance().unload((*it).second);
+			mLibs.erase(it);
 		}
 	}
 
-	void PluginManager::installPlugin(Plugin *plugin)
+	void PluginManager::installPlugin(Plugin* _plugin)
 	{
 		// check initialise
 		assert(mIsInitialise);
 
-		LOG_MESSAGE("Installing plugin: " + plugin->getName());
+		LOG_MESSAGE("Installing plugin: " + _plugin->getName());
 
-		mPlugins.push_back(plugin);
-		plugin->install();
+		mPlugins.insert(_plugin);
+		_plugin->install();
 
-		plugin->initialize();
+		_plugin->initialize();
 		
 		LOG_MESSAGE("Plugin successfully installed");
 	}
 
-	void PluginManager::uninstallPlugin(Plugin *plugin)
+	void PluginManager::uninstallPlugin(Plugin* _plugin)
 	{
 		// check initialise
 		assert(mIsInitialise);
 
-		// unload plugin before uninstall
-		unloadPlugin(plugin->getName());
-
-		LOG_MESSAGE("Uninstalling plugin: " + plugin->getName());
-		PluginList::iterator it = std::find(mPlugins.begin(), mPlugins.end(), plugin);
+		LOG_MESSAGE("Uninstalling plugin: " + _plugin->getName());
+		PluginList::iterator it = mPlugins.find(_plugin);
 		if (it != mPlugins.end())
 		{
-			plugin->shutdown();
-			plugin->uninstall();
+			_plugin->shutdown();
+			_plugin->uninstall();
 			mPlugins.erase(it);
 		}
 		LOG_MESSAGE("Plugin successfully uninstalled");
@@ -112,8 +104,8 @@ namespace MyGUI
 
 	void PluginManager::unloadAllPlugins()
 	{
-		while (!mPlugins.empty())
-			uninstallPlugin(*mPlugins.begin());
+		while (false == mLibs.empty())
+			unloadPlugin((*mLibs.begin()).first);
 	}
 
 } // namespace MyGUI

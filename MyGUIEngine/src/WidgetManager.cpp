@@ -38,6 +38,7 @@ namespace MyGUI
 		if (!mIsInitialise) return;
 
 		mFactoryList.clear();
+		mDelegates.clear();
 
 		delete mWindowFactory;
 		delete mHScrollFactory;
@@ -49,6 +50,19 @@ namespace MyGUI
 		delete mWidgetFactory;
 
 		mIsInitialise = false;
+	}
+
+	void WidgetManager::registerFactory(WidgetFactoryInterface * _factory)
+	{
+		mFactoryList.insert(_factory);
+		//LOG_MESSAGE("* Register widget factory '" + _factory->getType() + "'");
+	}
+
+	void WidgetManager::unregisterFactory(WidgetFactoryInterface * _factory)
+	{
+		SetWidgetFactory::iterator iter = mFactoryList.find(_factory);
+		if (iter != mFactoryList.end()) mFactoryList.erase(iter);
+		//LOG_MESSAGE("* Unregister widget factory '" + _factory->getType() + "'");
 	}
 
 	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name)
@@ -63,7 +77,7 @@ namespace MyGUI
 			name = Ogre::StringConverter::toString(num++) + "_" + _type;
 		}
 
-		for (ListWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getType() == _type) {
 				WidgetPtr widget = (*factory)->createWidget(_skin, _x, _y, _cx, _cy, _align, _parent, name);
 				mWidgets[name] = widget;
@@ -128,6 +142,26 @@ namespace MyGUI
 		} else if (!(_align & ALIGN_TOP)) offset.top += (_parentHeight - _parentSkinSize.height) / 2;
 
 		return offset;
+	}
+
+	ParseDelegate & WidgetManager::registerDelegate(const Ogre::String & _key)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter != mDelegates.end()) assert(0 && "name delegate is exist");
+		return (mDelegates[_key] = ParseDelegate());
+	}
+
+	void WidgetManager::unregisterDelegate(const Ogre::String & _key)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter != mDelegates.end()) mDelegates.erase(iter);
+	}
+
+	void WidgetManager::parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter == mDelegates.end()) assert(0 && "name delegate is not find");
+		iter->second(_widget, _key, _value);
 	}
 
 } // namespace MyGUI

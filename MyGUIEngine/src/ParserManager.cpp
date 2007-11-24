@@ -21,7 +21,7 @@ namespace MyGUI
 	{
 		if (!mIsInitialise) return;
 
-		m_delegates.clear();
+		mDelegates.clear();
 
 		// удаляем парсеры
 		delete mWindowParser;
@@ -33,16 +33,22 @@ namespace MyGUI
 
 	void ParserManager::parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 	{
-		MapDelegate::iterator iter = m_delegates.find(_key);
-		if (iter == m_delegates.end()) assert(0 && "name delegate is not find");
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter == mDelegates.end()) assert(0 && "name delegate is not find");
 		iter->second(_widget, _key, _value);
 	}
 
 	ParseDelegate & ParserManager::registerDelegate(const Ogre::String & _key)
 	{
-		MapDelegate::iterator iter = m_delegates.find(_key);
-		if (iter != m_delegates.end()) assert(0 && "name delegate is exist");
-		return (m_delegates[_key] = ParseDelegate());
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter != mDelegates.end()) assert(0 && "name delegate is exist");
+		return (mDelegates[_key] = ParseDelegate());
+	}
+
+	void ParserManager::unregisterDelegate(const Ogre::String & _key)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter != mDelegates.end()) mDelegates.erase(iter);
 	}
 
 } // namespace MyGUI

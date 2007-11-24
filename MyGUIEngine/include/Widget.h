@@ -108,7 +108,7 @@ namespace MyGUI
 		void visible(bool _visible);
 
 		// вектор всех детей виджетов
-		VectorWidgetPtr m_widgetChild;
+		VectorWidgetPtr mWidgetChild;
 		// вектор всех детей сабскинов
 		VectorBasisWidgetPtr m_subSkinChild;
 

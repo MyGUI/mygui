@@ -24,10 +24,12 @@ namespace MyGUI
 		void shutdown();
 
 		void parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+
 		ParseDelegate & registerDelegate(const Ogre::String & _key);
+		void unregisterDelegate(const Ogre::String & _key);
 
 	private:
-		MapDelegate m_delegates;
+		MapDelegate mDelegates;
 
 		// парсеры
 		parser::WidgetParser * mWidgetParser;

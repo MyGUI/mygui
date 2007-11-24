@@ -62,7 +62,7 @@ namespace MyGUI
 	WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, this, _name);
-		m_widgetChild.push_back(widget);
+		mWidgetChild.push_back(widget);
 		return widget;
 	}
 
@@ -216,7 +216,7 @@ namespace MyGUI
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, mMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->align(m_x, m_y, _cx, _cy, mMargin || margin);
 		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(m_x, m_y, _cx, _cy, mMargin || margin);
 
 		// запоминаем текущее состояние
@@ -251,7 +251,7 @@ namespace MyGUI
 		visible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->align(_cx, _cy, mMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->align(_cx, _cy, mMargin || margin);
 		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->align(_cx, _cy, mMargin || margin);
 
 		// запоминаем текущее состояние
@@ -294,7 +294,7 @@ namespace MyGUI
 		visible(true);
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
-		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->update();
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->update();
 		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->update();
 
 	}
@@ -320,7 +320,7 @@ namespace MyGUI
 	{
 		if (m_alpha == _alpha) return;
 		m_alpha = _alpha;
-		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->setAlpha(m_alpha);
 		for (VectorBasisWidgetPtr::iterator skin = m_subSkinChild.begin(); skin != m_subSkinChild.end(); skin++) (*skin)->setAlpha(m_alpha);
 	}
 
@@ -384,7 +384,7 @@ namespace MyGUI
 		// останавливаем каскадную проверку
 		if (!m_enable) return this;
 		// спрашиваем у детишек
-		for (VectorWidgetPtr::iterator widget = m_widgetChild.begin(); widget != m_widgetChild.end(); widget++) {
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) {
 			LayerItemInfoPtr item = (*widget)->findItem(_x - m_x, _y - m_y);
 			if (item != null) return item;
 		}
@@ -395,8 +395,8 @@ namespace MyGUI
 	// удяляет только негодных батюшке государю
 	void Widget::destroyWidget(WidgetPtr & _widget)
 	{
-		for (size_t index = 0; index < m_widgetChild.size(); index++) {
-			WidgetPtr widget = m_widgetChild[index];
+		for (size_t index = 0; index < mWidgetChild.size(); index++) {
+			WidgetPtr widget = mWidgetChild[index];
 			if (_widget == widget) {
 				// удаляем свое имя
 				WidgetManager::getInstance().clearName(_widget);
@@ -404,8 +404,8 @@ namespace MyGUI
 				_widget = 0;
 
 				// удаляем из списка
-				m_widgetChild[index] = m_widgetChild[m_widgetChild.size()-1];
-				m_widgetChild.pop_back();
+				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
+				mWidgetChild.pop_back();
 				return;
 			}
 		}
@@ -414,14 +414,14 @@ namespace MyGUI
 	// удаляет всех детей
 	void Widget::destroyWidget()
 	{
-		for (VectorWidgetPtr::iterator iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++) {
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); iter++) {
 			WidgetPtr widget = *iter;
 			// удаляем свое имя
 			WidgetManager::getInstance().clearName(widget);
 			// и удаляем
 			delete widget;
 		}
-		m_widgetChild.clear();
+		mWidgetChild.clear();
 	}
 
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)

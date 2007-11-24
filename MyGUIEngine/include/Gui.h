@@ -37,16 +37,16 @@ namespace MyGUI
 		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "");
 		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _x, float _y, float _cx, float _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			return createWidget(_type, _skin, (int)(_x*m_width), (int)(_y*m_height), (int)(_cx*m_width), (int)(_cy*m_height), _align, _layer, _name);
+			return createWidget(_type, _skin, (int)(_x*mWidth), (int)(_y*mHeight), (int)(_cx*mWidth), (int)(_cy*mHeight), _align, _layer, _name);
 		}
 
 		inline FloatRect convertToReal(const FloatRect & _rect)
 		{
-			return FloatRect(_rect.left*m_width, _rect.top*m_height, _rect.right*m_width, _rect.bottom*m_height);
+			return FloatRect(_rect.left*mWidth, _rect.top*mHeight, _rect.right*mWidth, _rect.bottom*mHeight);
 		}
 
-		inline float getWidth() {return m_width;}
-		inline float getHeight() {return m_height;}
+		inline float getWidth() {return mWidth;}
+		inline float getHeight() {return mHeight;}
 
 		// уд€л€ет только негодных батюшке государю
 		void destroyWidget(WidgetPtr & _widget);
@@ -55,14 +55,14 @@ namespace MyGUI
 
 	private:
 		// вектор всех детей виджетов
-		VectorWidgetPtr m_widgetChild;
+		VectorWidgetPtr mWidgetChild;
 
-		float m_height, m_width;
+		float mHeight, mWidth;
 
 		// фабрики наших оверлеев
-		TextSimpleOverlayElementFactory m_factoryTextSimpleOverlay;
-		TextEditOverlayElementFactory m_factoryTextEditOverlay;
-		PanelAlphaOverlayElementFactory m_factoryPanelAlphaOverlay;
+		TextSimpleOverlayElementFactory * mFactoryTextSimpleOverlay;
+		TextEditOverlayElementFactory * mFactoryTextEditOverlay;
+		PanelAlphaOverlayElementFactory * mFactoryPanelAlphaOverlay;
 
 		// синглтоны гу€
 		InputManager * mInputManager;

@@ -13,13 +13,17 @@ namespace MyGUI
 
 		// регистрируем фабрику текста и панели
 		Ogre::OverlayManager &manager = Ogre::OverlayManager::getSingleton();
-		manager.addOverlayElementFactory(&m_factoryTextSimpleOverlay);
-		manager.addOverlayElementFactory(&m_factoryTextEditOverlay);
-		manager.addOverlayElementFactory(&m_factoryPanelAlphaOverlay);
+		mFactoryTextSimpleOverlay = new TextSimpleOverlayElementFactory();
+		mFactoryTextEditOverlay = new TextEditOverlayElementFactory();
+		mFactoryPanelAlphaOverlay = new PanelAlphaOverlayElementFactory();
+
+		manager.addOverlayElementFactory(mFactoryTextSimpleOverlay);
+		manager.addOverlayElementFactory(mFactoryTextEditOverlay);
+		manager.addOverlayElementFactory(mFactoryPanelAlphaOverlay);
 
 		Ogre::Viewport * port = _window->getViewport(0);
-		m_height = port->getActualHeight();
-		m_width = port->getActualWidth();
+		mHeight = port->getActualHeight();
+		mWidth = port->getActualWidth();
 
 		// создаем и инициализируем синглтоны
 		mInputManager = new InputManager();
@@ -68,29 +72,30 @@ namespace MyGUI
 	{
 		if (!mIsInitialise) return;
 
-		// деинициализируем и удаляем синглтоны
 		destroyWidget();
-		mWidgetManager->shutdown();
-		delete mWidgetManager;
 
-		mLayerManager->shutdown();
-		delete mLayerManager;
-
+		// деинициализируем и удаляем синглтоны
 		mPluginManager->shutdown();
 		delete mPluginManager;
 
 		mDynLibManager->shutdown();
 		delete mDynLibManager;
 
-		delete mPointerManager;
-
 		mParserManager->shutdown();
 		delete mParserManager;
+
+		mWidgetManager->shutdown();
+		delete mWidgetManager;
+
+
+		mLayerManager->shutdown();
+		delete mLayerManager;
+
+		delete mPointerManager;
 
 		delete mFontManager;
 
 		delete mLayoutManager;
-
 
 		mInputManager->shutdown();
 		delete mInputManager;
@@ -104,13 +109,17 @@ namespace MyGUI
 
 		delete mClipboardManager;
 
+		delete mFactoryTextSimpleOverlay;
+		delete mFactoryTextEditOverlay;
+		delete mFactoryPanelAlphaOverlay;
+
 		mIsInitialise = false;
 	}
 
 	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _x, int _y, int _cx, int _cy, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _x, _y, _cx, _cy, _align, 0, _name);
-		m_widgetChild.push_back(widget);
+		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		LayerManager::getInstance().attachItem(widget, _layer, true);
 		return widget;
@@ -119,8 +128,8 @@ namespace MyGUI
 	// удяляет только негодных батюшке государю
 	void Gui::destroyWidget(WidgetPtr & _widget)
 	{
-		for (size_t index = 0; index < m_widgetChild.size(); index++) {
-			WidgetPtr widget = m_widgetChild[index];
+		for (size_t index = 0; index < mWidgetChild.size(); index++) {
+			WidgetPtr widget = mWidgetChild[index];
 			if (_widget == widget) {
 				// удаляем свое имя
 				WidgetManager::getInstance().clearName(_widget);
@@ -128,8 +137,8 @@ namespace MyGUI
 				_widget = 0;
 
 				// удаляем из списка
-				m_widgetChild[index] = m_widgetChild[m_widgetChild.size()-1];
-				m_widgetChild.pop_back();
+				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
+				mWidgetChild.pop_back();
 				return;
 			}
 		}
@@ -138,7 +147,7 @@ namespace MyGUI
 	// удаляет всех детей
 	void Gui::destroyWidget()
 	{
-		for (VectorWidgetPtr::iterator iter = m_widgetChild.begin(); iter != m_widgetChild.end(); iter++) {
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); iter++) {
 			WidgetPtr widget = *iter;
 			// удаляем свое имя
 			WidgetManager::getInstance().clearName(widget);
@@ -147,7 +156,7 @@ namespace MyGUI
 			// и удаляем
 			delete widget;
 		}
-		m_widgetChild.clear();
+		mWidgetChild.clear();
 	}
 
 } // namespace MyGUI

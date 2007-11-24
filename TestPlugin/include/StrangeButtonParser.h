@@ -11,16 +11,17 @@ namespace MyGUI
 	namespace parser
 	{
 
-		class StrangeButtonParser
+		/*class StrangeButtonParser
 		{
 			friend TestPlugin;
 
 		private:
 			StrangeButtonParser();
+			~StrangeButtonParser();
 
 			void ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
-		};
+		};*/
 
 	} // namespace parser
 } // namespace MyGUI

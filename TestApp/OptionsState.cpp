@@ -27,6 +27,7 @@ void OptionsState::enter(bool bIsChangeState)
 	// load plugin
 //#if _DEBUG
 	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin_d.dll");
+	//MyGUI::PluginManager::getInstance().unloadPlugin("TestPlugin_d.dll");
 //#else
 //	MyGUI::PluginManager::Instance()->loadPlugin("TestPlugin.dll");
 //#endif
@@ -67,8 +68,8 @@ void OptionsState::enter(bool bIsChangeState)
 	list1 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list1"));
 	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));*/
 
-	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	button->setCaption(L"#00FF00хнопка\t=)");
+	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("StrangeButton", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	//button->setCaption(L"#00FF00хнопка\t=)");
 
 	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	edit->setCaption(L"Мы только тем и дороги");
@@ -91,6 +92,15 @@ void OptionsState::enter(bool bIsChangeState)
 	element->setPosition(0.1, 0.1);
 	element->setDimensions(0.5, 0.5);
 	overlay->add2D((Ogre::OverlayContainer*)element);*/
+
+	/*MyGUI::Gui::getInstance().shutdown();
+	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
+
+	button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	button->setCaption(L"#00FF00хнопка\t=)");
+
+	edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	edit->setCaption(L"Мы только тем и дороги");*/
 
 }
 //===================================================================================

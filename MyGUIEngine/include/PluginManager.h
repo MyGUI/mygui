@@ -40,23 +40,23 @@ namespace MyGUI
 			
 			@remarks Calls from plugin
 		*/
-		void installPlugin(Plugin *plugin);
+		void installPlugin(Plugin* _plugin);
 
 		/*!	Uninstall plugin
 			
 			@remarks Calls from plugin
 		*/
-		void uninstallPlugin(Plugin *plugin);
+		void uninstallPlugin(Plugin* _plugin);
 
 		//!	Unload all plugins
 		void unloadAllPlugins();
 
 	private:
 		//!	List of dynamic libraries
-		typedef std::list <DynLib*> DynLibList;
+		typedef std::map <std::string, DynLib*> DynLibList;
 
 		//!	List of plugins
-		typedef std::list <Plugin*> PluginList;
+		typedef std::set <Plugin*> PluginList;
 
 		//!	Loaded libraries
 		DynLibList mLibs;

@@ -1,5 +1,6 @@
 #include "TestPlugin.h"
 #include "StrangeButton.h"
+#include "WidgetManager.h"
 
 TestPlugin::TestPlugin()
 {
@@ -21,21 +22,15 @@ void TestPlugin::initialize()
 {
 
 	// создаем фабрики
-	//mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
-
-	// создаем парсеры
-	//mStrangeButtonParser = new MyGUI::parser::StrangeButtonParser();
+	mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
 
 }
 
 void TestPlugin::shutdown()
 {
 
-	// удаляем парсеры
-	//delete mStrangeButtonParser;
-
 	// удаляем фабрику
-	//delete mStrangeButtonFactory;
+	delete mStrangeButtonFactory;
 
 }
 

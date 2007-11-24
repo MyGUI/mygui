@@ -37,7 +37,7 @@ private:
 	MyGUI::factory::StrangeButtonFactory * mStrangeButtonFactory;
 
 	// ןאנסונû גטהזועמג
-	MyGUI::parser::StrangeButtonParser * mStrangeButtonParser;
+//	MyGUI::parser::StrangeButtonParser * mStrangeButtonParser;
 
 };
 
