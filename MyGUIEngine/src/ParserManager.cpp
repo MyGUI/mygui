@@ -4,7 +4,7 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(ParserManager);
+	/*INSTANCE_IMPLEMENT(ParserManager);
 
 	void ParserManager::initialise()
 	{
@@ -49,6 +49,6 @@ namespace MyGUI
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) mDelegates.erase(iter);
-	}
+	}*/
 
 } // namespace MyGUI

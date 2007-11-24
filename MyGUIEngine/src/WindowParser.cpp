@@ -9,7 +9,7 @@ namespace MyGUI
 	namespace parser
 	{
 
-		WindowParser::WindowParser()
+		/*WindowParser::WindowParser()
 		{
 			// менеджер всех парсеров свойств
 			MyGUI::ParserManager & parser = MyGUI::ParserManager::getInstance();
@@ -35,7 +35,7 @@ namespace MyGUI
 		{
 			TYPE(WindowPtr, _widget);
 			static_cast<WindowPtr>(_widget)->setMinMax(util::parseIntRect(_value));
-		}
+		}*/
 
 	} // namespace parser
 } // namespace MyGUI

@@ -43,9 +43,6 @@ namespace MyGUI
 		mSkinManager->initialise();
 		mSkinManager->load("main.skin");
 
-		mParserManager = new ParserManager();
-		mParserManager->initialise();
-
 		mWidgetManager = new WidgetManager();
 		mWidgetManager->initialise();
 
@@ -81,12 +78,8 @@ namespace MyGUI
 		mDynLibManager->shutdown();
 		delete mDynLibManager;
 
-		mParserManager->shutdown();
-		delete mParserManager;
-
 		mWidgetManager->shutdown();
 		delete mWidgetManager;
-
 
 		mLayerManager->shutdown();
 		delete mLayerManager;

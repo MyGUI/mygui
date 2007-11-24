@@ -3,6 +3,7 @@
 
 #include "Prerequest.h"
 #include "WidgetFactoryInterface.h"
+#include "WidgetDefines.h"
 
 namespace MyGUI
 {

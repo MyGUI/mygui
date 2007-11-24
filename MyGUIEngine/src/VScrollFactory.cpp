@@ -2,11 +2,30 @@
 #include "VScrollFactory.h"
 #include "VScroll.h"
 #include "SkinManager.h"
+#include "WidgetManager.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
+
+		VScrollFactory::VScrollFactory()
+		{
+			// регестрируем себя
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+			manager.registerFactory(this);
+
+			// регестрируем все парсеры
+		}
+
+		VScrollFactory::~VScrollFactory()
+		{
+			// регестрируем себя
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+			manager.registerFactory(this);
+
+			// регестрируем все парсеры
+		}
 
 		const Ogre::String& VScrollFactory::getType()
 		{

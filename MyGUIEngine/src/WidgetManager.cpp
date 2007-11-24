@@ -14,21 +14,13 @@ namespace MyGUI
 
 		// создаем фабрики виджетов
 		mWidgetFactory = new factory::WidgetFactory();
-		registerFactory(mWidgetFactory);
 		mButtonFactory = new factory::ButtonFactory();
-		registerFactory(mButtonFactory);
 		mEditFactory = new factory::EditFactory();
-		registerFactory(mEditFactory);
 		mListFactory = new factory::ListFactory();
-		registerFactory(mListFactory);
 		mStaticImageFactory = new factory::StaticImageFactory();
-		registerFactory(mStaticImageFactory);
 		mVScrollFactory = new factory::VScrollFactory();
-		registerFactory(mVScrollFactory);
 		mHScrollFactory = new factory::HScrollFactory();
-		registerFactory(mHScrollFactory);
 		mWindowFactory = new factory::WindowFactory();
-		registerFactory(mWindowFactory);
 
 		mIsInitialise = true;
 	}

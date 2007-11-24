@@ -290,10 +290,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\ParserManager.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\PointerManager.cpp"
 					>
 				</File>
@@ -355,18 +351,6 @@
 				</File>
 				<File
 					RelativePath=".\src\WindowFactory.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Parser"
-				>
-				<File
-					RelativePath=".\src\WidgetParser.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\WindowParser.cpp"
 					>
 				</File>
 			</Filter>
@@ -652,10 +636,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\ParserManager.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\PointerManager.h"
 					>
 				</File>
@@ -701,18 +681,6 @@
 				</File>
 				<File
 					RelativePath=".\include\WindowFactory.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Parser"
-				>
-				<File
-					RelativePath=".\include\WidgetParser.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\WindowParser.h"
 					>
 				</File>
 			</Filter>

@@ -11,7 +11,7 @@ namespace MyGUI
 	namespace parser
 	{
 
-		class _MyGUIExport WidgetParser
+		/*class _MyGUIExport WidgetParser
 		{
 			friend ParserManager;
 
@@ -30,7 +30,7 @@ namespace MyGUI
 			void NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
-		};
+		};*/
 
 	} // namespace parser
 } // namespace MyGUI

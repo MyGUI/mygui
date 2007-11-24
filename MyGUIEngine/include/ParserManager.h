@@ -12,7 +12,7 @@
 namespace MyGUI
 {
 
-	typedef CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
+	/*typedef CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
 	typedef std::map<Ogre::String, ParseDelegate> MapDelegate;
 
 	class _MyGUIExport ParserManager
@@ -35,7 +35,7 @@ namespace MyGUI
 		parser::WidgetParser * mWidgetParser;
 		parser::WindowParser * mWindowParser;
 
-	};
+	};*/
 
 } // namespace MyGUI
 

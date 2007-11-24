@@ -2,11 +2,30 @@
 #include "HScrollFactory.h"
 #include "HScroll.h"
 #include "SkinManager.h"
+#include "WidgetManager.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
+
+		HScrollFactory::HScrollFactory()
+		{
+			// регестрируем себя
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+			manager.registerFactory(this);
+
+			// регестрируем все парсеры
+		}
+
+		HScrollFactory::~HScrollFactory()
+		{
+			// регестрируем себя
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+			manager.registerFactory(this);
+
+			// регестрируем все парсеры
+		}
 
 		const Ogre::String& HScrollFactory::getType()
 		{

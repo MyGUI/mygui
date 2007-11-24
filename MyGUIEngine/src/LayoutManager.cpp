@@ -2,7 +2,7 @@
 #include "Gui.h"
 #include "LayoutManager.h"
 #include "SkinManager.h"
-#include "ParserManager.h"
+#include "WidgetManager.h"
 #include "Widget.h"
 
 namespace MyGUI
@@ -63,7 +63,7 @@ namespace MyGUI
 				if (false == widget->findAttribute("Key", propertyKey)) continue;
 				if (false == widget->findAttribute("Value", propertyValue)) continue;
 				// и парсим свойство
-				ParserManager::getInstance().parse(wid, propertyKey, propertyValue);
+				WidgetManager::getInstance().parse(wid, propertyKey, propertyValue);
 			}
 
 		};

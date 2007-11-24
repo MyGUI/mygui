@@ -17,7 +17,6 @@
 #include "WidgetManager.h"
 #include "LayoutManager.h"
 #include "MyGUI_FontManager.h"
-#include "ParserManager.h"
 #include "PointerManager.h"
 #include "PluginManager.h"
 #include "DynLibManager.h"
@@ -73,7 +72,6 @@ namespace MyGUI
 		WidgetManager* mWidgetManager;
 		LayoutManager* mLayoutManager;
 		FontManager* mFontManager;
-		ParserManager* mParserManager;
 		PointerManager* mPointerManager;
 		DynLibManager* mDynLibManager;
 		PluginManager* mPluginManager;
