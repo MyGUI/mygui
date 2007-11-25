@@ -412,7 +412,7 @@ namespace MyGUI
 		{
 			mpFont = FontManager::getInstance().getByName( font );
 			if (mpFont.isNull())
-				MYGUI_EXCEPT("Could not find font " + font, "TextAreaOverlayElement::setFontName" );
+				MYGUI_EXCEPT("Could not find font " + font);
 			mpFont->load();
 			mpMaterial = mpFont->getMaterial();
 			mpMaterial->setDepthCheckEnabled(false);

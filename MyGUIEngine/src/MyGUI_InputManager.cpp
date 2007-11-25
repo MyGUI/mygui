@@ -22,7 +22,8 @@ namespace MyGUI
 
 	void InputManager::initialise()
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
@@ -35,13 +36,16 @@ namespace MyGUI
 
 		createDefaultCharSet();
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void InputManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -255,26 +259,38 @@ namespace MyGUI
 		for (size_t i=0; i<13; i++) mNums[i] = nums[i];
 	}
 
-	void InputManager::load(const std::string & _file)
+	bool InputManager::load(const std::string & _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-		if (!doc.open(helper::getResourcePath(_file))) MYGUI_EXCEPT(doc.getLastError(), "");
+		if (false == doc.open((_resource ? helper::getResourcePath(_file) : _file).c_str())) {
+			MYGUI_ERROR(doc.getLastError());
+			return false;
+		}
 
-		xml::xmlNodePtr xml_root = doc.getRoot();
-		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_LangInfo") ) return;
+		xml::xmlNodePtr root = doc.getRoot();
+		if ( (root == 0) || (root->getName() != "MyGUI") ) {
+			MYGUI_ERROR("not find root tag 'MyGUI'");
+			return false;
+		}
 
-		xml::xmlNodeIterator lang = xml_root->getNodeIterator();
+		std::string type;
+		if ( (false == root->findAttribute("type", type)) || (type != "Lang") ) {
+			MYGUI_ERROR("not find root type 'Lang'");
+			return false;
+		}
+
+		xml::xmlNodeIterator lang = root->getNodeIterator();
 		while (lang.nextNode("Lang")) {
 
 			std::string name;
-			if ( false == lang->findAttribute("Name", name)) continue;
+			if ( false == lang->findAttribute("name", name)) continue;
 
 			std::vector<std::string> chars = util::split(lang->getBody());
 			if (chars.size() == 116) {
 
 				// сначала проверяем есть ли такой язык уже
 				MapLang::iterator iter = mMapLanguages.find(name);
-				if (iter != mMapLanguages.end()) MYGUI_EXCEPT("name language is exist", "void InputManager::loadCharSet(const std::string & _file)");
+				if (iter != mMapLanguages.end()) MYGUI_EXCEPT("name language is exist");
 
 				// создаем язык
 				mMapLanguages[name] = LangInfo();
@@ -286,11 +302,13 @@ namespace MyGUI
 				for (size_t j=0; j<116; j++) lang[j] = util::parseInt(chars[j]);
 
 			}
-			else LogManager::getInstance().out("count char is not 116");
+			else MYGUI_LOG("count char is not 116");
 
 		};
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение
 		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
+
+		return true;
 	}
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)

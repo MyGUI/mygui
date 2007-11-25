@@ -8,6 +8,7 @@
 #define __MYGUI_FONT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "OgreResource.h"
 #include "OgreTexture.h"
 #include "OgreMaterial.h"
@@ -378,7 +379,7 @@ namespace MyGUI
 			else
 			{
 				// RHS must be a null pointer
-				assert(r.isNull() && "RHS must be null if it has no mutex!");
+				MYGUI_ASSERT(r.isNull() && "RHS must be null if it has no mutex!");
 				setNull();
 			}
 			return *this;

@@ -15,19 +15,22 @@ namespace MyGUI
 
 	void PointerManager::initialise()
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		mOverlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
 			"PanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
 		mOverlayElement->setMetricsMode(Ogre::GMM_PIXELS);
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void PointerManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
 		clear();
 		// отсоединяем
@@ -38,31 +41,44 @@ namespace MyGUI
 			mOverlayElement = null;
 		}
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 
-	void PointerManager::load(const std::string & _file)
+	bool PointerManager::load(const std::string & _file, bool _resource)
 	{
 		clear();
 
 		xml::xmlDocument doc;
-		if (!doc.open(helper::getResourcePath(_file))) MYGUI_EXCEPT(doc.getLastError(), "");
+		if (false == doc.open((_resource ? helper::getResourcePath(_file) : _file).c_str())) {
+			MYGUI_ERROR(doc.getLastError());
+			return false;
+		}
 
-		xml::xmlNodePtr xml_root = doc.getRoot();
-		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_PointerInfo") ) return;
+		xml::xmlNodePtr root = doc.getRoot();
+		if ( (root == 0) || (root->getName() != "MyGUI") ) {
+			MYGUI_ERROR("not find root tag 'MyGUI'");
+			return false;
+		}
+
+		std::string type;
+		if ( (false == root->findAttribute("type", type)) || (type != "Pointer") ) {
+			MYGUI_ERROR("not find root type 'Pointer'");
+			return false;
+		}
 
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator pointer = xml_root->getNodeIterator();
+		xml::xmlNodeIterator pointer = root->getNodeIterator();
 		while (pointer.nextNode("Pointer")) {
 
 			// значения параметров
 			std::string layer, material, defaultPointer, tmp;
 			int size;
 			// парсим атрибуты
-			pointer->findAttribute("Layer", layer);
-			pointer->findAttribute("Material", material);
-			pointer->findAttribute("Default", defaultPointer);
-			if (pointer->findAttribute("Size", tmp)) size = util::parseInt(tmp);
+			pointer->findAttribute("layer", layer);
+			pointer->findAttribute("material", material);
+			pointer->findAttribute("default", defaultPointer);
+			if (pointer->findAttribute("size", tmp)) size = util::parseInt(tmp);
 
 			// устанавливаем сразу параметры
 			mOverlayElement->setMaterialName(material);
@@ -82,9 +98,9 @@ namespace MyGUI
 				IntPoint point;
 				// парсим атрибуты
 
-				info->findAttribute("Name", name);
-				if (info->findAttribute("Point", tmp)) point = util::parseIntPoint(tmp);
-				if (info->findAttribute("Offset", tmp)) offset = SkinManager::convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
+				info->findAttribute("name", name);
+				if (info->findAttribute("point", tmp)) point = util::parseIntPoint(tmp);
+				if (info->findAttribute("offset", tmp)) offset = SkinManager::convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
 
 				// добавляем курсор
 				mMapPointers[name] = PointerInfo(offset, point);
@@ -98,9 +114,10 @@ namespace MyGUI
 
 			this->defaultPointer();
 
-			return; // нам нужен только один набор
+			return true; // нам нужен только один набор
 		};
 
+		return true;
 	}
 
 	void PointerManager::clear()

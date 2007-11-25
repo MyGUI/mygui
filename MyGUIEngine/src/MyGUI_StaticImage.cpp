@@ -15,9 +15,9 @@ namespace MyGUI
 		mNum(0)
 	{
 		// первоначальная инициализация
-		ASSERT(mSubSkinChild.size() == 1);
+		MYGUI_ASSERT(mSubSkinChild.size() == 1);
 		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->getOverlayElement());
-		ASSERT(mElement);
+		MYGUI_ASSERT(null != mElement);
 
 		// парсим свойства
 		const MapString & param = _info->getParams();

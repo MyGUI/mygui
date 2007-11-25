@@ -64,7 +64,7 @@ namespace MyGUI
 		{
 			// ищем такой же ключ
 			MapBasisWidgetStateInfo::const_iterator iter = mStates.find(_name);
-			if (iter != mStates.end()) ASSERT(!"state is exist");
+			MYGUI_ASSERT(iter == mStates.end());
 			// добавляем
 			mStates[_name] = BasisWidgetStateInfo(_offset, _colour, _alpha);
 		}

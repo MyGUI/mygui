@@ -14,7 +14,12 @@ namespace MyGUI
 
 	void Gui::initialise(Ogre::RenderWindow* _window)
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+
+		Ogre::Viewport * port = _window->getViewport(0);
+		mHeight = port->getActualHeight();
+		mWidth = port->getActualWidth();
 
 		// регистрируем фабрику текста и панели
 		Ogre::OverlayManager &manager = Ogre::OverlayManager::getSingleton();
@@ -26,96 +31,79 @@ namespace MyGUI
 		manager.addOverlayElementFactory(mFactoryTextEditOverlay);
 		manager.addOverlayElementFactory(mFactoryPanelAlphaOverlay);
 
-		Ogre::Viewport * port = _window->getViewport(0);
-		mHeight = port->getActualHeight();
-		mWidth = port->getActualWidth();
-
 		// создаем и инициализируем синглтоны
-		mLogManager = new LogManager();
-
 		mInputManager = new InputManager();
 		mInputManager->initialise();
-		mInputManager->load("main.lang");
-
 		mBasisWidgetManager = new BasisWidgetManager();
 		mBasisWidgetManager->initialise();
-
 		mClipboardManager = new ClipboardManager();
-
+		mClipboardManager->initialise();
 		mLayerManager = new LayerManager();
 		mLayerManager->initialise();
-		mLayerManager->load("main.layer");
-
 		mSkinManager = new SkinManager();
 		mSkinManager->initialise();
-		mSkinManager->load("main.skin");
-
 		mWidgetManager = new WidgetManager();
 		mWidgetManager->initialise();
-
 		mLayoutManager = new LayoutManager();
-
+		mLayoutManager->initialise();
 		mFontManager = new FontManager();
-		mFontManager->load("MyGUI.font");
-
+		mFontManager->initialise();
 		mPointerManager = new PointerManager();
 		mPointerManager->initialise();
+		mDynLibManager = new DynLibManager();
+		mDynLibManager->initialise();
+		mPluginManager = new PluginManager();
+		mPluginManager->initialise();
+
+		// загружаем дефолтные настройки
+		mInputManager->load("main.lang");
+		mLayerManager->load("main.layer");
+		mSkinManager->load("main.skin");
+		mFontManager->load("MyGUI.font");
+		mPluginManager->loadPluginCfg("MyGUI_plugins.cfg");
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
 
-		mDynLibManager = new DynLibManager();
-		mDynLibManager->initialise();
-
-		mPluginManager = new PluginManager();
-		mPluginManager->initialise();
-		mPluginManager->loadPluginCfg("MyGUI_plugins.cfg");
-
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void Gui::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
 		destroyWidget();
 
 		// деинициализируем и удаляем синглтоны
 		mPluginManager->shutdown();
 		delete mPluginManager;
-
 		mDynLibManager->shutdown();
 		delete mDynLibManager;
-
 		mWidgetManager->shutdown();
 		delete mWidgetManager;
-
+		mPointerManager->shutdown();
+		delete mPointerManager;
 		mLayerManager->shutdown();
 		delete mLayerManager;
-
-		delete mPointerManager;
-
+		mFontManager->shutdown();
 		delete mFontManager;
-
+		mLayoutManager->shutdown();
 		delete mLayoutManager;
-
 		mInputManager->shutdown();
 		delete mInputManager;
-
 		mSkinManager->shutdown();
 		delete mSkinManager;
-
-
 		mBasisWidgetManager->shutdown();
 		delete mBasisWidgetManager;
-
+		mClipboardManager->shutdown();
 		delete mClipboardManager;
 
 		delete mFactoryTextSimpleOverlay;
 		delete mFactoryTextEditOverlay;
 		delete mFactoryPanelAlphaOverlay;
 
-		delete mLogManager;
-
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 

@@ -15,15 +15,53 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(LayoutManager);
 
-	void LayoutManager::load(const std::string & _file)
+	void LayoutManager::initialise()
+	{
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		mIsInitialise = true;
+	}
+
+	void LayoutManager::shutdown()
+	{
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		mIsInitialise = false;
+	}
+
+	bool LayoutManager::load(const std::string & _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-		if (!doc.open(helper::getResourcePath(_file))) MYGUI_EXCEPT(doc.getLastError(), "");
+		if (false == doc.open((_resource ? helper::getResourcePath(_file) : _file).c_str())) {
+			MYGUI_ERROR(doc.getLastError());
+			return false;
+		}
 
-		xml::xmlNodePtr xml_root = doc.getRoot();
-		if (xml_root == 0) return;
-		if (xml_root->getName() == "MyGUI_Layout") parseLayoutMyGUI(xml_root);
-		else if (xml_root->getName() == "GUILayout") parseLayoutCEGUI(xml_root);
+		xml::xmlNodePtr root = doc.getRoot();
+		if (root == 0) {
+			MYGUI_ERROR("not find root tag");
+			return false;
+		}
+
+		if (root->getName() == "MyGUI") {
+			std::string type;
+			if ((false == root->findAttribute("type", type)) || (type != "Layout")) {
+				MYGUI_ERROR("not find root type 'Layout'");
+				return false;
+			}
+			parseLayoutMyGUI(root);
+		}
+		else if (root->getName() == "GUILayout") parseLayoutCEGUI(root);
+		else {
+			MYGUI_ERROR("not find root tag 'GUILayout' or 'MyGUI'");
+			return false;
+		}
+
+		return true;
 	}
 
 	void LayoutManager::parseLayoutCEGUI(xml::xmlNodePtr _root)
@@ -45,13 +83,13 @@ namespace MyGUI
 		FloatRect coord;
 		Align align;
 
-		_widget->findAttribute("Type", widgetType);
-		_widget->findAttribute("Skin", widgetSkin);
-		_widget->findAttribute("Name", widgetName);
-		_widget->findAttribute("Layer", widgetLayer);
-		if (_widget->findAttribute("Align", tmp)) align = SkinManager::getInstance().parseAlign(tmp);
-		if (_widget->findAttribute("Position", tmp)) coord = util::parseFloatRect(tmp);
-		if (_widget->findAttribute("PositionReal", tmp)) coord = Gui::getInstance().convertToReal(util::parseFloatRect(tmp));
+		_widget->findAttribute("type", widgetType);
+		_widget->findAttribute("skin", widgetSkin);
+		_widget->findAttribute("name", widgetName);
+		_widget->findAttribute("layer", widgetLayer);
+		if (_widget->findAttribute("align", tmp)) align = SkinManager::getInstance().parseAlign(tmp);
+		if (_widget->findAttribute("position", tmp)) coord = util::parseFloatRect(tmp);
+		if (_widget->findAttribute("position_real", tmp)) coord = Gui::getInstance().convertToReal(util::parseFloatRect(tmp));
 
 		WidgetPtr wid;
 		if (!_parent) wid = Gui::getInstance().createWidget(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetLayer, widgetName);
@@ -65,8 +103,8 @@ namespace MyGUI
 
 				// парсим атрибуты
 				std::string propertyKey, propertyValue;
-				if (false == widget->findAttribute("Key", propertyKey)) continue;
-				if (false == widget->findAttribute("Value", propertyValue)) continue;
+				if (false == widget->findAttribute("key", propertyKey)) continue;
+				if (false == widget->findAttribute("value", propertyValue)) continue;
 				// и парсим свойство
 				WidgetManager::getInstance().parse(wid, propertyKey, propertyValue);
 			}

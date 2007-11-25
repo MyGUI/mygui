@@ -31,7 +31,7 @@ namespace MyGUI
 
 	public:
 
-		void load(const std::string & _file);
+		bool load(const std::string & _file, bool _resource = true);
 
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);

@@ -61,7 +61,7 @@ namespace MyGUI
 //			Ogre::OverlayContainer * container = _item->getItemContainer();
 //			if (container == null) return false;
 			// это чтоб по два раза не коннектили
-			assert(!_item->mOverlayInfo);
+			MYGUI_ASSERT(false == _item->mOverlayInfo);
 			// создаем оверлей и присоединяем к нему
 			static long num=0;
 			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(Ogre::StringConverter::toString(num++) + "_LayerInfo");

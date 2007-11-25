@@ -21,6 +21,10 @@ namespace MyGUI
 	public:
 		typedef std::map<std::string, std::string> MapString;
 
+	public:
+		void initialise();
+		void shutdown();
+
 		void SetClipboardData(const std::string& _type, const std::string& _data);
 		void ClearClipboardData(const std::string& _type);
 		std::string GetClipboardData(const std::string& _type);

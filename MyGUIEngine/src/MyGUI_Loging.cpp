@@ -4,8 +4,8 @@
 	@date		11/2007
 	@module
 */
-#include "MyGUI_LogManager.h"
 
+#include "MyGUI_Loging.h"
 #include "stdio.h"
 #include "time.h"
 #include <iostream>
@@ -16,9 +16,7 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(LogManager);
-
-	void LogManager::out(const std::string _value)
+	void MYGUI_LOG(const std::string & _message)
 	{
 		const std::string _file("MyGUI.log");
 
@@ -33,7 +31,7 @@ namespace MyGUI
 		if (first_run) {
 			stream.open(_file.c_str(), std::ios_base::out);
 			stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl;
-			stream << "                                          logging report for : "
+			stream << "                                          loging report for : "
 				<< std::setw(2) << std::setfill('0') << current_time.tm_mon + 1 << "/"
 				<< std::setw(2) << std::setfill('0') << current_time.tm_mday << "/"
 				<< std::setw(4) << std::setfill('0') << current_time.tm_year + 1900 << "   "
@@ -52,7 +50,7 @@ namespace MyGUI
 				<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
 				<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
 				<< std::setw(2) << std::setfill('0') << current_time.tm_sec << "   "
-				<< _value << std::endl;
+				<< _message << std::endl;
 
 			stream.close();
 		}

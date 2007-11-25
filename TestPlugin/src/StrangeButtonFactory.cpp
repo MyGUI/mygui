@@ -44,7 +44,7 @@ namespace MyGUI
 		// методы для парсинга
 		void StrangeButtonFactory::ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			TYPE(StrangeButtonPtr, _widget);
+			MYGUI_TYPE(StrangeButtonPtr, _widget);
 			static_cast<StrangeButtonPtr>(_widget)->setButtonPressed(util::parseBool(_value));
 		}
 

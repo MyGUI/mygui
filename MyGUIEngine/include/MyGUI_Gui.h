@@ -15,7 +15,6 @@
 #include "MyGUI_TextEditOverlayElementFactory.h"
 #include "MyGUI_PanelAlphaOverlayElementFactory.h"
 
-#include "MyGUI_LogManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_BasisWidgetManager.h"
 #include "MyGUI_ClipboardManager.h"
@@ -71,7 +70,6 @@ namespace MyGUI
 		PanelAlphaOverlayElementFactory * mFactoryPanelAlphaOverlay;
 
 		// синглтоны гу€
-		LogManager * mLogManager;
 		InputManager * mInputManager;
 		BasisWidgetManager * mBasisWidgetManager;
 		ClipboardManager* mClipboardManager;

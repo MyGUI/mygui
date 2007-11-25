@@ -5,7 +5,7 @@
 	@module		
 */
 #include "MyGUI_DynLib.h"
-#include "MyGUI_LogManager.h"
+#include "MyGUI_Common.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <Windows.h>
@@ -29,13 +29,13 @@ namespace MyGUI
 	void DynLib::load()
 	{
 		// Log library load
-		LogManager::getInstance().out("Loading library " + mName);
+		MYGUI_LOG("Loading library " + mName);
 
 		std::string name = mName;
 
 		mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
 
-		assert(mInstance);/* && ("Could not load dynamic library " + mName + 
+		MYGUI_ASSERT(null != mInstance);/* && ("Could not load dynamic library " + mName + 
 			".  System Error: " + dynlibError()));*/
 
 		/*if( !mInstance )
@@ -48,11 +48,11 @@ namespace MyGUI
 	void DynLib::unload()
 	{
 		// Log library unload
-		LogManager::getInstance().out("Unloading library " + mName);
+		MYGUI_LOG("Unloading library " + mName);
 
 		if( DYNLIB_UNLOAD( mInstance ) )
 		{
-			assert(0);/* && ("Could not unload dynamic library " + mName +
+			MYGUI_ASSERT(0);/* && ("Could not unload dynamic library " + mName +
 				".  System Error: " + dynlibError()));*/
 
 			/*EXCEPT(Exception::ERR_INTERNAL_ERROR,

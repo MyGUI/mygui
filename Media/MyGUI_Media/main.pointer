@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI_PointerInfo>
+<MyGUI type="Pointer">
 
-    <Pointer Layer="Pointer" Material="MyGUI_pointerAll" Size="32" Default="arrow">
-        <Info Name="arrow" Point="0 0" Offset="0 0 32 32"/>
-        <Info Name="beam" Point="16 16" Offset="32 0 32 32"/>
-        <Info Name="size_left" Point="16 16" Offset="64 0 32 32"/>
+    <Pointer layer="Pointer" material="MyGUI_pointerAll" size="32" default="arrow">
+        <Info name="arrow" point="0 0" offset="0 0 32 32"/>
+        <Info name="beam" point="16 16" offset="32 0 32 32"/>
+        <Info name="size_left" point="16 16" offset="64 0 32 32"/>
     </Pointer>
 
-</MyGUI_PointerInfo>
+</MyGUI>

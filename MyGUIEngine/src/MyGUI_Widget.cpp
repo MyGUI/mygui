@@ -91,7 +91,7 @@ namespace MyGUI
 	{
 		if (_child) {
 			// это к нам текст хочет прилипиться
-			assert(mSubSkinChild.size() > 0);
+			MYGUI_ASSERT(mSubSkinChild.size() > 0);
 			mSubSkinChild[0]->attach(_basis, true);
 		} else {
 			// нет не к нам, а к нашему отцу

@@ -26,8 +26,8 @@ namespace MyGUI
 		INSTANCE_HEADER(LayerManager);
 
 	public:
-		inline void initialise() {}
-		inline void shutdown() {clear();}
+		void initialise();
+		void shutdown();
 
 		void attachItem(LayerItemInfoPtr _item, const std::string & _layer, bool _attachToSearch = false);
 		void detachItem(LayerItemInfoPtr _item);
@@ -37,7 +37,7 @@ namespace MyGUI
 
 		Ogre::Overlay * createOverlay();
 
-		bool load(const std::string & _file);
+		bool load(const std::string & _file, bool _resource = true);
 		void clear();
 
 	private:

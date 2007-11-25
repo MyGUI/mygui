@@ -290,10 +290,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\MyGUI_LogManager.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\MyGUI_PointerManager.cpp"
 					>
 				</File>
@@ -311,6 +307,10 @@
 				>
 				<File
 					RelativePath=".\src\MyGUI_Font.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Loging.cpp"
 					>
 				</File>
 			</Filter>
@@ -432,6 +432,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Loging.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Platform.h"
 					>
 				</File>
@@ -489,10 +493,6 @@
 				</File>
 				<File
 					RelativePath=".\include\delegate_implement.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_LoggingOut.h"
 					>
 				</File>
 				<File
@@ -625,10 +625,6 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_LayoutManager.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_LogManager.h"
 					>
 				</File>
 				<File

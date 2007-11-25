@@ -7,6 +7,7 @@
 #ifndef __UTILSTRING_H__
 #define __UTILSTRING_H__
 
+#include <vector>
 #include <string>
 #include <sstream>
 

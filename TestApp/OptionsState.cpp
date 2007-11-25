@@ -75,11 +75,20 @@ void OptionsState::enter(bool bIsChangeState)
 	list1 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list1"));
 	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));*/
 
-	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("StrangeButton", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	MYGUI_EXCEPT("1");
+
+	//MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("StrangeButton", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	//button->setCaption(L"#00FF00хнопка\t=)");
 
-	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	edit->setCaption(L"Мы только тем и дороги");
+	//MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	//edit->setCaption(L"Мы только тем и дороги");
+
+	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+
+
+	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
+
+//	MYGUI_EXCEPT("test");
 
 
 /*	Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();

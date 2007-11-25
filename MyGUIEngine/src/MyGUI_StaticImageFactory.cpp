@@ -53,25 +53,25 @@ namespace MyGUI
 
 		void StaticImageFactory::ImageMaterial(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			TYPE(StaticImagePtr, _widget);
+			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageMaterial(_value);
 		}
 
 		void StaticImageFactory::ImageRect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			TYPE(StaticImagePtr, _widget);
+			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageRect(util::parseFloatRect(_value));
 		}
 
 		void StaticImageFactory::ImageTile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			TYPE(StaticImagePtr, _widget);
+			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageTile(util::parseFloatSize(_value));
 		}
 
 		void StaticImageFactory::ImageNum(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			TYPE(StaticImagePtr, _widget);
+			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageNum(util::parseSizeT(_value));
 		}
 

@@ -4,6 +4,8 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_InputManager.h"
@@ -30,14 +32,14 @@ namespace MyGUI
 
 		// парсим скролл
 		mWidgetScroll = static_cast<VScrollPtr>(parseSubWidget(param, "VScroll", "SkinScroll", "OffsetScroll", "AlignScroll", size));
-		ASSERT(mWidgetScroll);
+		MYGUI_ASSERT(null != mWidgetScroll);
 		// делегаты для событий
 		mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
 		mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 
 		// парсим клиент
 		mWidgetClient = parseSubWidget(param, "Widget", "SkinClient", "OffsetClient", "AlignClient", size);
-		ASSERT(mWidgetClient);
+		MYGUI_ASSERT(null != mWidgetClient);
 		// делегаты для событий
 		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 
@@ -47,8 +49,8 @@ namespace MyGUI
 		if (iter != param.end()) mHeightLine = util::parseInt(iter->second);
 		else mHeightLine = 1;
 
-		ASSERT(mHeightLine > 0);
-		ASSERT(mSkinLine.size());
+		MYGUI_ASSERT(mHeightLine > 0);
+		MYGUI_ASSERT(0 != mSkinLine.size());
 
 		mWidgetScroll->setScrollPage((size_t)mHeightLine);
 
@@ -448,7 +450,7 @@ namespace MyGUI
 	void List::deleteItemString(size_t _index)
 	{
 		// доверяй, но проверяй
-		assert(_index < mStringArray.size());
+		MYGUI_ASSERT(_index < mStringArray.size());
 
 		// удяляем физически строку
 		_deleteString(_index);

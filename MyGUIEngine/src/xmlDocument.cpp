@@ -248,8 +248,8 @@ namespace xml
 		};
 
 		std::ostringstream stream;
-		stream << "'" << errorNamesString[mLastError] << "'\n";
-		stream << "line = " << mLine << " , col = " << mCol;
+		stream << "'" << errorNamesString[mLastError] << "' ,  ";
+		stream << "line=" << mLine << " , col=" << mCol;
 		return stream.str();
 	}
 

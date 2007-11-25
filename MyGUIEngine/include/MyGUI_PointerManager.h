@@ -27,7 +27,7 @@ namespace MyGUI
 
 	public:
 
-		void load(const std::string & _file);
+		bool load(const std::string & _file, bool _resource = true);
 		void clear();
 
 		void show(bool _show = true);

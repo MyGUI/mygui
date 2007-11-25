@@ -13,7 +13,8 @@ namespace MyGUI
 
 	void BasisWidgetManager::initialise()
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
 		mFactoryMainSkin = new BasisWidgetFactory<MainSkin>();
 		registerFactory(mFactoryMainSkin);
@@ -27,12 +28,14 @@ namespace MyGUI
 		mFactoryTextEdit = new BasisWidgetFactory<TextEdit>();
 		registerFactory(mFactoryTextEdit);
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void BasisWidgetManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
 		mFactoryList.clear();
 
@@ -41,6 +44,7 @@ namespace MyGUI
 		delete mFactoryTextSimple;
 		delete mFactoryTextEdit;
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -49,7 +53,7 @@ namespace MyGUI
 		for (std::list<BasisWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createBasisWidget(_info, _material, _parent);
 		}
-		MYGUI_EXCEPT(_info.type + " - no find factory BasisWidgetFactory", "BasisWidgetManager::createBasisWidget");
+		MYGUI_EXCEPT(_info.type + " - no find factory BasisWidgetFactory");
 		return 0;
 	}
 

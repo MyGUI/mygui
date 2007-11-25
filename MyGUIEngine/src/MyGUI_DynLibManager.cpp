@@ -5,8 +5,7 @@
 	@module		
 */
 #include "MyGUI_DynLibManager.h"
-#include "MyGUI_LogManager.h"
-
+#include "MyGUI_Common.h"
 
 namespace MyGUI
 {
@@ -15,20 +14,17 @@ namespace MyGUI
 
 	void DynLibManager::initialise()
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
-		LogManager::getInstance().out("* Initialize: Dynamic Library Manager");
-
-		LogManager::getInstance().out("Manager successfully initialized");
-
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void DynLibManager::shutdown()
 	{
-		if (!mIsInitialise) return;
-
-		LogManager::getInstance().out("* Shut down: Dynamic Library Manager");
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
 		StringDynLibMap::iterator it;
 
@@ -42,6 +38,7 @@ namespace MyGUI
 		// Empty the list
 		mLibsMap.clear();
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 

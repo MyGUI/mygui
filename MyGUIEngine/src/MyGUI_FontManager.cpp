@@ -14,22 +14,49 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(FontManager);
 
-	bool FontManager::load(const std::string& _file)
+	void FontManager::initialise()
+	{
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		mIsInitialise = true;
+	}
+
+	void FontManager::shutdown()
+	{
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		mIsInitialise = false;
+	}
+
+	bool FontManager::load(const std::string& _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-		if (false == doc.open(helper::getResourcePath(_file))) return false;
+		if (false == doc.open((_resource ? helper::getResourcePath(_file) : _file).c_str())) {
+			MYGUI_ERROR(doc.getLastError());
+			return false;
+		}
 
 		xml::xmlNodePtr root = doc.getRoot();
-		if ( (root == 0) || (root->getName() != "MyGUI") ) return false;
+		if ( (root == 0) || (root->getName() != "MyGUI") ) {
+			MYGUI_ERROR("not find root tag 'MyGUI'");
+			return false;
+		}
 
-		std::string source;
-		if ( (false == root->findAttribute("type", source)) || (source != "font") ) return false;
+		std::string type;
+		if ( (false == root->findAttribute("type", type)) || (type != "Font") ) {
+			MYGUI_ERROR("not find root type 'Font'");
+			return false;
+		}
 
 		xml::xmlNodeIterator font = root->getNodeIterator();
 
-		while (font.nextNode("font")) {
+		while (font.nextNode("Font")) {
 
-			std::string name, size, resolution, antialias, space, tab;
+			std::string source, name, size, resolution, antialias, space, tab;
 			if (false == font->findAttribute("name", name)) continue;
 			if (false == font->findAttribute("source", source)) continue;
 			if (false == font->findAttribute("size", size)) continue;
@@ -51,7 +78,7 @@ namespace MyGUI
 
 			xml::xmlNodeIterator range = font->getNodeIterator();
 
-			while (range.nextNode("code")) {
+			while (range.nextNode("Code")) {
 				std::string range_value;
 				if (false == range->findAttribute("range", range_value)) continue;
 				pFont->addCodePointRange(util::parseValueEx2<Font::CodePointRange, Font::CodePoint>(range_value));

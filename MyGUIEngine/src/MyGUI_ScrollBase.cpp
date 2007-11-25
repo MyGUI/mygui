@@ -25,19 +25,19 @@ namespace MyGUI
 
 		// парсим начальную кнопку
 		mWidgetStart = parseSubWidget(param, "Button", "SkinStart", "OffsetStart", "AlignStart", size);
-		ASSERT(mWidgetStart);
+		MYGUI_ASSERT(null != mWidgetStart);
 		// делегаты для событий
 		mWidgetStart->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 
 		// парсим конечную кнопку
 		mWidgetEnd = parseSubWidget(param, "Button", "SkinEnd", "OffsetEnd", "AlignEnd", size);
-		ASSERT(mWidgetEnd);
+		MYGUI_ASSERT(null != mWidgetEnd);
 		// делегаты для событий
 		mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 
 		// парсим трэк
 		mWidgetTrack = parseSubWidget(param, "Button", "SkinTrack", "OffsetTrack", "AlignTrack", size);
-		ASSERT(mWidgetTrack);
+		MYGUI_ASSERT(null != mWidgetTrack);
 		// делегаты для событий
 		mWidgetTrack->eventMouseMove = newDelegate(this, &ScrollBase::notifyMouseMove);
 		mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);

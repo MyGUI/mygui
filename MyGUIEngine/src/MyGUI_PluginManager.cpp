@@ -6,7 +6,7 @@
 */
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
-#include "MyGUI_LogManager.h"
+#include "MyGUI_Common.h"
 #include "xmlDocument.h"
 
 namespace MyGUI
@@ -16,29 +16,28 @@ namespace MyGUI
 
 	void PluginManager::initialise()
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
-		LogManager::getInstance().out("* Initialize: Plugin manager");
-
-		LogManager::getInstance().out("Manager successfully initialized");
-
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void PluginManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
-		LogManager::getInstance().out("* Shut down: Plugin manager");
 		unloadAllPlugins();
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 
 	void PluginManager::loadPlugin(const std::string& _file)
 	{
 		// check initialise
-		assert(mIsInitialise);
+		MYGUI_ASSERT(null != mIsInitialise);
 		// Load plugin library
 		DynLib* lib = DynLibManager::getInstance().load( _file );
 		// Store for later unload
@@ -50,7 +49,7 @@ namespace MyGUI
 		/*Assert(pFunc, Exception::ERR_ITEM_NOT_FOUND, "Cannot find symbol dllStartPlugin in library " + fileName,
 			"PluginManager::loadPlugin");*/
 
-		assert(pFunc);// && ("Cannot find symbol dllStartPlugin in library " + fileName));
+		MYGUI_ASSERT(null != pFunc);// && ("Cannot find symbol dllStartPlugin in library " + fileName));
 
 		// This must call installPlugin
 		pFunc();
@@ -59,7 +58,7 @@ namespace MyGUI
 	void PluginManager::unloadPlugin(const std::string& _file)
 	{
 		// check initialise
-		assert(mIsInitialise);
+		MYGUI_ASSERT(null != mIsInitialise);
 
 		DynLibList::iterator it = mLibs.find(_file);
 		if (it != mLibs.end()) {
@@ -77,19 +76,19 @@ namespace MyGUI
 	{
 		xml::xmlDocument doc;
 		if (false == doc.open(_file)) {
-			LogManager::getInstance().out("ERROR : ", doc.getLastError(), " | void PluginManager::loadPluginCfg(const std::string& _file)");
+			MYGUI_ERROR(doc.getLastError());
 			return;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			LogManager::getInstance().out("ERROR : not find root tag 'MyGUI'", " | void PluginManager::loadPluginCfg(const std::string& _file)");
+			MYGUI_ERROR("not find root tag 'MyGUI'");
 			return;
 		}
 
 		std::string source;
 		if ((false == root->findAttribute("type", source)) || (source != "plugin")) {
-			LogManager::getInstance().out("ERROR : not find root type 'plugin'", " | void PluginManager::loadPluginCfg(const std::string& _file)");
+			MYGUI_ERROR("not find root type 'plugin'");
 			return;
 		}
 
@@ -102,24 +101,24 @@ namespace MyGUI
 	void PluginManager::installPlugin(Plugin* _plugin)
 	{
 		// check initialise
-		assert(mIsInitialise);
+		MYGUI_ASSERT(null != mIsInitialise);
 
-		LogManager::getInstance().out("Installing plugin: " + _plugin->getName());
+		MYGUI_LOG("Installing plugin: " + _plugin->getName());
 
 		mPlugins.insert(_plugin);
 		_plugin->install();
 
 		_plugin->initialize();
 		
-		LogManager::getInstance().out("Plugin successfully installed");
+		MYGUI_LOG("Plugin successfully installed");
 	}
 
 	void PluginManager::uninstallPlugin(Plugin* _plugin)
 	{
 		// check initialise
-		assert(mIsInitialise);
+		MYGUI_ASSERT(null != mIsInitialise);
 
-		LogManager::getInstance().out("Uninstalling plugin: " + _plugin->getName());
+		MYGUI_LOG("Uninstalling plugin: " + _plugin->getName());
 		PluginList::iterator it = mPlugins.find(_plugin);
 		if (it != mPlugins.end())
 		{
@@ -127,7 +126,7 @@ namespace MyGUI
 			_plugin->uninstall();
 			mPlugins.erase(it);
 		}
-		LogManager::getInstance().out("Plugin successfully uninstalled");
+		MYGUI_LOG("Plugin successfully uninstalled");
 	}
 
 	void PluginManager::unloadAllPlugins()

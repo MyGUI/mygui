@@ -29,10 +29,18 @@ namespace MyGUI
 	public:
 
 		inline size_t getItemCount() {return mStringArray.size();}
-		inline const Ogre::DisplayString & getItemString(size_t _index) {assert(_index < mStringArray.size()); return mStringArray[_index];}
-		inline void setItemString(size_t _index, const Ogre::DisplayString & _item) {assert(_index < mStringArray.size()); mStringArray[_index]=_item; _redrawItem(_index);}
+		inline const Ogre::DisplayString & getItemString(size_t _index)
+		{
+			MYGUI_ASSERT(_index < mStringArray.size());
+			return mStringArray[_index];
+		}
+		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
+		{
+			MYGUI_ASSERT(_index < mStringArray.size());
+			mStringArray[_index]=_item; _redrawItem(_index);
+		}
 		void insertItemString(size_t _index, const Ogre::DisplayString & _item);
-		inline void addItemString(const Ogre::DisplayString & _item) {insertItemString(ITEM_NONE, _item);}
+		inline void addItemString(const Ogre::DisplayString & _item){insertItemString(ITEM_NONE, _item);}
 		void deleteItemString(size_t _index);
 
 		inline size_t getItemSelect() {return mIndexSelect;}
@@ -42,7 +50,10 @@ namespace MyGUI
 		// методы для показа строк
 		void beginToIndex(size_t _index);
 		inline void beginToStart() {beginToIndex(0);}
-		inline void beginToEnd() {if (!mStringArray.empty()) beginToIndex(mStringArray.size()-1);}
+		inline void beginToEnd()
+		{
+			if (!mStringArray.empty()) beginToIndex(mStringArray.size()-1);
+		}
 		inline void beginToSelect() {beginToIndex(mIndexSelect);}
 
 		// видим ли мы элемент, полностью или нет

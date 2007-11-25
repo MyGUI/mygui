@@ -22,7 +22,10 @@ namespace MyGUI
 		INSTANCE_HEADER(FontManager);
 
 	public:
-		bool load(const std::string & _file);
+		void initialise();
+		void shutdown();
+
+		bool load(const std::string & _file, bool _resource = true);
 
     protected:
 

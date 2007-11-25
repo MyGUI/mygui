@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI_LayerInfo>
+<MyGUI type="Layer">
 
-    <Layer Name="Back" Start="10" Height="4" Count="1"/>
-    <Layer Name="Main" Start="50" Height="4" Count="1"/>
-    <Layer Name="Overlapped" Start="55" Height="5" Count="26"/>
-    <Layer Name="Pointer" Start="200" Height="1" Count="1"/>
+    <Layer name="Back" start="10" height="4" count="1"/>
+    <Layer name="Main" start="50" height="4" count="1"/>
+    <Layer name="Overlapped" start="55" height="5" count="26"/>
+    <Layer name="Pointer" start="200" height="1" count="1"/>
 
-</MyGUI_LayerInfo>
+</MyGUI>

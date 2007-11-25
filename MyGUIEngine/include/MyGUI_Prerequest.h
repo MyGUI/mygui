@@ -8,16 +8,16 @@
 #ifndef __MYGUI_PREREQUEST_H__
 #define __MYGUI_PREREQUEST_H__
 
+#include "MyGUI_Platform.h"
+
 #include <string>
 #include <list>
 #include <set>
 #include <map>
 #include <vector>
 #include <deque>
-#include <assert.h>
+#include "utility.h"
 #include "delegate.h"
-
-#include "MyGUI_Platform.h"
 
 namespace MyGUI
 {

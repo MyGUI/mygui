@@ -1,95 +1,95 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI_Layout>
+<MyGUI type="Layout">
 
-  <Widget Type="StrangeButton" Skin="Button" Position="10 10 150 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="buttonAutoAlpha" >
-    <Property Key="Caption" Value="Auto alpha" />
+  <Widget type="StrangeButton" skin="Button" position="10 10 150 26" align="ALIGN_LEFT ALIGN_TOP" layer="Main" name="buttonAutoAlpha" >
+    <Property key="Caption" value="Auto alpha" />
   </Widget>
 
-  <Widget Type="Button" Skin="Button" Position="10 60 150 26" Align="ALIGN_LEFT ALIGN_TOP" Layer="Main" Name="buttonManualAlpha" >
-    <Property Key="Caption" Value="Auto alpha" />
+  <Widget type="Button" skin="Button" position="10 60 150 26" align="ALIGN_LEFT ALIGN_TOP" layer="Main" name="buttonManualAlpha" >
+    <Property key="Caption" value="Auto alpha" />
   </Widget>
 
-  <Widget Type="Window" Skin="WindowCS" Position="200 200 400 200" Align="ALIGN_LEFT ALIGN_TOP" Layer="Overlapped" Name="windowListDemo" >
-    <Property Key="Caption" Value="List demo" />
-    <Property Key="WindowMinMax" Value="230 100 1000 1000" />
+  <Widget type="Window" skin="WindowCS" position="200 200 400 200" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowListDemo" >
+    <Property key="Caption" value="List demo" />
+    <Property key="WindowMinMax" value="230 100 1000 1000" />
 
-    <Widget Type="Button" Skin="ButtonSmall" Position="187 3 40 26" Align="ALIGN_RIGHT ALIGN_TOP" Name="buttonLeft" >
+    <Widget type="Button" skin="ButtonSmall" position="187 3 40 26" align="ALIGN_RIGHT ALIGN_TOP" name="buttonLeft" >
     </Widget>
 
-    <Widget Type="Button" Skin="ButtonSmall" Position="187 38 40 26" Align="ALIGN_RIGHT ALIGN_TOP" Name="buttonRight" >
+    <Widget type="Button" skin="ButtonSmall" position="187 38 40 26" align="ALIGN_RIGHT ALIGN_TOP" name="buttonRight" >
     </Widget>
 
-    <Widget Type="List" Skin="List" Position="3 3 180 161" Align="ALIGN_STRETCH" Name="list1" >
-      <Property Key="ListAddString" Value="What Is OGRE?" />
-      <Property Key="ListAddString" Value="OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented," />
-      <Property Key="ListAddString" Value="flexible 3D engine written in C++ designed to make it easier and more" />
-      <Property Key="ListAddString" Value="intuitive for developers to produce applications utilising hardware-accelerated 3D graphics." />
-      <Property Key="ListAddString" Value="The class library abstracts all the details of using the underlying system libraries like Direct3D and OpenGL" />
-      <Property Key="ListAddString" Value="and provides an interface based on world objects and other intuitive classes." />
-      <Property Key="ListAddString" Value="What can it do?" />
-      <Property Key="ListAddString" Value="Lots of things! See the features page for an up-to-date list of the current features." />
-      <Property Key="ListAddString" Value="Also, take a look at the screenshots page to see for yourself the kinds of eye candy OGRE can pump out." />
-      <Property Key="ListAddString" Value="Is OGRE A Game Engine?" />
-      <Property Key="ListAddString" Value="No. OGRE can be (and indeed has been) used to make games, but OGRE is deliberately" />
-      <Property Key="ListAddString" Value="designed to provide just a world-class graphics solution;" />
-      <Property Key="ListAddString" Value="for other features like sound, networking," />
-      <Property Key="ListAddString" Value="AI, collision, physics etc, you will need to integrate it with other libraries," />
-      <Property Key="ListAddString" Value="something several frameworks have done, and we have a collision / physics reference integration library as an example in our distribution." />
-      <Property Key="ListAddString" Value="Why? Well, one reason is that not everyone who needs a 3D engine wants to make games," />
-      <Property Key="ListAddString" Value="so we don't assume that you do - you can use OGRE for games, simulations, business applications, anything at all." />
-      <Property Key="ListAddString" Value="Secondly, even within the games industry, requirements can vary widely;" />
-      <Property Key="ListAddString" Value="for example a MMORPG will need a very different kind of network library than an FPS," />
-      <Property Key="ListAddString" Value="and a flight sim will need a different kind of collision / physics system to fighting game. If OGRE included all these features," />
-      <Property Key="ListAddString" Value="we would be enforcing a particular set of libraries on you, with an inbuilt set of assumed requirements, and that's not good design. Instead," />
-      <Property Key="ListAddString" Value="we provide a very integration friendly API and let YOU choose the other libraries, if you want them." />
-      <Property Key="ListAddString" Value="Many experienced game developers have expressed their approval of this approach, because there are no inbuilt constraints." />
-      <Property Key="ListAddString" Value="It can be more daunting for newer users who just want to build another FPS-style game," />
-      <Property Key="ListAddString" Value="but for those people there are a growing number of existing frameworks using OGRE which provide a complete solution using a given combo of libraries;" />
-      <Property Key="ListAddString" Value="but it's important to realise that OGRE itself will always remain separate, flexible enough to be incorporated into any of these." />
-      <Property Key="ListAddString" Value="The principle is of collaboration and integration with other libraries, rather than assimilation of them, a standard tenet of component-based design." />
+    <Widget type="List" skin="List" position="3 3 180 161" align="ALIGN_STRETCH" name="list1" >
+      <Property key="ListAddString" value="What Is OGRE?" />
+      <Property key="ListAddString" value="OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented," />
+      <Property key="ListAddString" value="flexible 3D engine written in C++ designed to make it easier and more" />
+      <Property key="ListAddString" value="intuitive for developers to produce applications utilising hardware-accelerated 3D graphics." />
+      <Property key="ListAddString" value="The class library abstracts all the details of using the underlying system libraries like Direct3D and OpenGL" />
+      <Property key="ListAddString" value="and provides an interface based on world objects and other intuitive classes." />
+      <Property key="ListAddString" value="What can it do?" />
+      <Property key="ListAddString" value="Lots of things! See the features page for an up-to-date list of the current features." />
+      <Property key="ListAddString" value="Also, take a look at the screenshots page to see for yourself the kinds of eye candy OGRE can pump out." />
+      <Property key="ListAddString" value="Is OGRE A Game Engine?" />
+      <Property key="ListAddString" value="No. OGRE can be (and indeed has been) used to make games, but OGRE is deliberately" />
+      <Property key="ListAddString" value="designed to provide just a world-class graphics solution;" />
+      <Property key="ListAddString" value="for other features like sound, networking," />
+      <Property key="ListAddString" value="AI, collision, physics etc, you will need to integrate it with other libraries," />
+      <Property key="ListAddString" value="something several frameworks have done, and we have a collision / physics reference integration library as an example in our distribution." />
+      <Property key="ListAddString" value="Why? Well, one reason is that not everyone who needs a 3D engine wants to make games," />
+      <Property key="ListAddString" value="so we don't assume that you do - you can use OGRE for games, simulations, business applications, anything at all." />
+      <Property key="ListAddString" value="Secondly, even within the games industry, requirements can vary widely;" />
+      <Property key="ListAddString" value="for example a MMORPG will need a very different kind of network library than an FPS," />
+      <Property key="ListAddString" value="and a flight sim will need a different kind of collision / physics system to fighting game. If OGRE included all these features," />
+      <Property key="ListAddString" value="we would be enforcing a particular set of libraries on you, with an inbuilt set of assumed requirements, and that's not good design. Instead," />
+      <Property key="ListAddString" value="we provide a very integration friendly API and let YOU choose the other libraries, if you want them." />
+      <Property key="ListAddString" value="Many experienced game developers have expressed their approval of this approach, because there are no inbuilt constraints." />
+      <Property key="ListAddString" value="It can be more daunting for newer users who just want to build another FPS-style game," />
+      <Property key="ListAddString" value="but for those people there are a growing number of existing frameworks using OGRE which provide a complete solution using a given combo of libraries;" />
+      <Property key="ListAddString" value="but it's important to realise that OGRE itself will always remain separate, flexible enough to be incorporated into any of these." />
+      <Property key="ListAddString" value="The principle is of collaboration and integration with other libraries, rather than assimilation of them, a standard tenet of component-based design." />
     </Widget>
 
-    <Widget2 Type="List" Skin="List" Position="3 3 180 161" Align="ALIGN_STRETCH" Name="list1" >
-      <Property Key="ListAddString" Value="W" />
-      <Property Key="ListAddString" Value="O" />
-      <Property Key="ListAddString" Value="f" />
-      <Property Key="ListAddString" Value="i" />
-      <Property Key="ListAddString" Value="T" />
-      <Property Key="ListAddString" Value="a" />
-      <Property Key="ListAddString" Value="W" />
-      <Property Key="ListAddString" Value="L" />
-      <Property Key="ListAddString" Value="A" />
-      <Property Key="ListAddString" Value="I" />
-      <Property Key="ListAddString" Value="N" />
-      <Property Key="ListAddString" Value="d" />
-      <Property Key="ListAddString" Value="f" />
-      <Property Key="ListAddString" Value="A" />
-      <Property Key="ListAddString" Value="s" />
-      <Property Key="ListAddString" Value="W" />
-      <Property Key="ListAddString" Value="s" />
-      <Property Key="ListAddString" Value="S" />
-      <Property Key="ListAddString" Value="f" />
-      <Property Key="ListAddString" Value="a" />
-      <Property Key="ListAddString" Value="w" />
-      <Property Key="ListAddString" Value="w" />
-      <Property Key="ListAddString" Value="M" />
-      <Property Key="ListAddString" Value="I" />
-      <Property Key="ListAddString" Value="b" />
-      <Property Key="ListAddString" Value="b" />
-      <Property Key="ListAddString" Value="T" />
+    <Widget2 type="List" skin="List" position="3 3 180 161" align="ALIGN_STRETCH" name="list1" >
+      <Property key="ListAddString" value="W" />
+      <Property key="ListAddString" value="O" />
+      <Property key="ListAddString" value="f" />
+      <Property key="ListAddString" value="i" />
+      <Property key="ListAddString" value="T" />
+      <Property key="ListAddString" value="a" />
+      <Property key="ListAddString" value="W" />
+      <Property key="ListAddString" value="L" />
+      <Property key="ListAddString" value="A" />
+      <Property key="ListAddString" value="I" />
+      <Property key="ListAddString" value="N" />
+      <Property key="ListAddString" value="d" />
+      <Property key="ListAddString" value="f" />
+      <Property key="ListAddString" value="A" />
+      <Property key="ListAddString" value="s" />
+      <Property key="ListAddString" value="W" />
+      <Property key="ListAddString" value="s" />
+      <Property key="ListAddString" value="S" />
+      <Property key="ListAddString" value="f" />
+      <Property key="ListAddString" value="a" />
+      <Property key="ListAddString" value="w" />
+      <Property key="ListAddString" value="w" />
+      <Property key="ListAddString" value="M" />
+      <Property key="ListAddString" value="I" />
+      <Property key="ListAddString" value="b" />
+      <Property key="ListAddString" value="b" />
+      <Property key="ListAddString" value="T" />
     </Widget2>
 
-    <Widget Type="List" Skin="List" Position="231 3 160 161" Align="ALIGN_RIGHT ALIGN_VSTRETCH" Name="list2" >
-      <Property Key="ListAddString" Value="it is a ###00ff00green #000000word" />
-      <Property Key="ListAddString" Value="it is a #ff0000red #000000word" />
-      <Property Key="ListAddString" Value="it is a #0000ffblue #000000word" />
-      <Property Key="ListAddString" Value="it is a #ffffffwhite #000000word" />
-      <Property Key="ListAddString" Value="it is a #00ff00m#ff0000a#0000ffd #000000word" />
-      <Property Key="ListAddString" Value="it is a #ffff00yellow #000000word" />
-      <Property Key="ListAddString" Value="it is a #777777gray #000000word" />
+    <Widget type="List" skin="List" position="231 3 160 161" align="ALIGN_RIGHT ALIGN_VSTRETCH" name="list2" >
+      <Property key="ListAddString" value="it is a ###00ff00green #000000word" />
+      <Property key="ListAddString" value="it is a #ff0000red #000000word" />
+      <Property key="ListAddString" value="it is a #0000ffblue #000000word" />
+      <Property key="ListAddString" value="it is a #ffffffwhite #000000word" />
+      <Property key="ListAddString" value="it is a #00ff00m#ff0000a#0000ffd #000000word" />
+      <Property key="ListAddString" value="it is a #ffff00yellow #000000word" />
+      <Property key="ListAddString" value="it is a #777777gray #000000word" />
     </Widget>
 
   </Widget>
 
-</MyGUI_Layout>
+</MyGUI>

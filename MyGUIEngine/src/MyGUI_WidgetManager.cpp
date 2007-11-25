@@ -15,7 +15,8 @@ namespace MyGUI
 
 	void WidgetManager::initialise()
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
 		// создаем фабрики виджетов
 		mWidgetFactory = new factory::WidgetFactory();
@@ -27,12 +28,14 @@ namespace MyGUI
 		mHScrollFactory = new factory::HScrollFactory();
 		mWindowFactory = new factory::WindowFactory();
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void WidgetManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
 		mFactoryList.clear();
 		mDelegates.clear();
@@ -46,6 +49,7 @@ namespace MyGUI
 		delete mButtonFactory;
 		delete mWidgetFactory;
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -67,7 +71,7 @@ namespace MyGUI
 		Ogre::String name;
 		if (false == _name.empty()) {
 			MapWidgetPtr::iterator iter = mWidgets.find(_name);
-			if (iter != mWidgets.end()) MYGUI_EXCEPT(_name + " - name widget is exist", "WidgetManager::createWidget");
+			if (iter != mWidgets.end()) MYGUI_EXCEPT(_name + " - name widget is exist");
 			name = _name;
 		} else {
 			static long num=0;
@@ -81,7 +85,7 @@ namespace MyGUI
 				return widget;
 			}
 		}
-		MYGUI_EXCEPT(_type + " - no find factory WidgetFactory", "WidgetManager::createWidget");
+		MYGUI_EXCEPT(_type + " - no find factory WidgetFactory");
 		return 0;
 	}
 
@@ -111,7 +115,7 @@ namespace MyGUI
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
-			LogManager::getInstance().out("Error: Widget \"" , _name , "\" not found");
+			MYGUI_LOG("Error: Widget \"" , _name , "\" not found");
 			return 0;
 		}
 		return iter->second;
@@ -144,7 +148,7 @@ namespace MyGUI
 	ParseDelegate & WidgetManager::registerDelegate(const Ogre::String & _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter != mDelegates.end()) assert(0 && "name delegate is exist");
+		MYGUI_ASSERT(iter == mDelegates.end() && "name delegate is exist");
 		return (mDelegates[_key] = ParseDelegate());
 	}
 
@@ -157,7 +161,7 @@ namespace MyGUI
 	void WidgetManager::parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter == mDelegates.end()) assert(0 && "name delegate is not find");
+		MYGUI_ASSERT(iter != mDelegates.end() && "name delegate is not find");
 		iter->second(_widget, _key, _value);
 	}
 

@@ -31,7 +31,7 @@ namespace MyGUI
 		//	для ручного создания скина
 		WidgetSkinInfo * create(const Ogre::String & _name);
 
-		void load(const std::string & _file);
+		bool load(const std::string & _file, bool _resource = true);
 
 		static FloatSize getMaterialSize(const std::string & _material);
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер

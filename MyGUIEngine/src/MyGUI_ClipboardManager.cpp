@@ -11,6 +11,24 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(ClipboardManager);
 
+	void ClipboardManager::initialise()
+	{
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		mIsInitialise = true;
+	}
+
+	void ClipboardManager::shutdown()
+	{
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		mIsInitialise = false;
+	}
+
 	void ClipboardManager::SetClipboardData(const std::string& _type, const std::string& _data)
 	{
 		mClipboardData[_type] = _data;

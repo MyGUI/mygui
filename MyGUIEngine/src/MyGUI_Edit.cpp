@@ -43,7 +43,7 @@ namespace MyGUI
 		mMultiLine(true)
 	{
 
-		ASSERT(mText);
+		MYGUI_ASSERT(null != mText);
 
 		// создаем прослойку, чтобы курсор был над текстом
 		mWidgetUpper = createWidget("Widget", "Empty", mText->getLeft(), mText->getTop(), mText->getWidth(), mText->getHeight(), mText->getAlign());
@@ -190,7 +190,7 @@ namespace MyGUI
 	void Edit::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
 		Widget::_onKeyButtonPressed(_key, _char);
-		ASSERT(mText);
+		MYGUI_ASSERT(null != mText);
 
 		if ( ! mWidgetCursor->isShow()) mWidgetCursor->show(true);
 		mCursorTimer = 0.0f;

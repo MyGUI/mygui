@@ -6,7 +6,6 @@
 */
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
-#include "MyGUI_LogManager.h"
 #include "xmlDocument.h"
 
 #include <OgreMaterialManager.h>
@@ -18,37 +17,42 @@ namespace MyGUI
 
 	void SkinManager::initialise()
 	{
-		assert(!mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
 		// забиваем карту флагами выравнивания
-		REGISTER_VALUE(mMapAlign, ALIGN_NONE);
-		REGISTER_VALUE(mMapAlign, ALIGN_HCENTER);
-		REGISTER_VALUE(mMapAlign, ALIGN_VCENTER);
-		REGISTER_VALUE(mMapAlign, ALIGN_CENTER);
-		REGISTER_VALUE(mMapAlign, ALIGN_CENTER_PARENT);
-		REGISTER_VALUE(mMapAlign, ALIGN_LEFT);
-		REGISTER_VALUE(mMapAlign, ALIGN_RIGHT);
-		REGISTER_VALUE(mMapAlign, ALIGN_HSTRETCH);
-		REGISTER_VALUE(mMapAlign, ALIGN_TOP);
-		REGISTER_VALUE(mMapAlign, ALIGN_BOTTOM);
-		REGISTER_VALUE(mMapAlign, ALIGN_VSTRETCH);
-		REGISTER_VALUE(mMapAlign, ALIGN_STRETCH);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_NONE);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HCENTER);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VCENTER);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_CENTER);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_CENTER_PARENT);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_LEFT);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_RIGHT);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HSTRETCH);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_TOP);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_BOTTOM);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VSTRETCH);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_STRETCH);
 
 		createDefault();
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void SkinManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (false == mIsInitialise) return;
+		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
 		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); iter++) {
 			WidgetSkinInfoPtr info = iter->second;
 			delete info;
 		}
 		mSkins.clear();
+		mMapAlign.clear();
 
+		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -68,7 +72,7 @@ namespace MyGUI
 		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
 		// если не нашли, то вернем дефолтный скин
 		if (iter == mSkins.end()) {
-			LogManager::getInstance().out("no find skin, set default");
+			MYGUI_LOG("no find skin, set default");
 			return mSkins["Default"];
 		}
 		return iter->second;
@@ -82,27 +86,39 @@ namespace MyGUI
 		return skin;
 	}
 
-	void SkinManager::load(const std::string & _file)
+	bool SkinManager::load(const std::string & _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-		if (!doc.open(helper::getResourcePath(_file))) MYGUI_EXCEPT(doc.getLastError(), "");
+		if (false == doc.open((_resource ? helper::getResourcePath(_file) : _file).c_str())) {
+			MYGUI_ERROR(doc.getLastError());
+			return false;
+		}
 
-		xml::xmlNodePtr xml_root = doc.getRoot();
-		if ( (xml_root == 0) || (xml_root->getName() != "MyGUI_SkinInfo") ) return;
+		xml::xmlNodePtr root = doc.getRoot();
+		if ( (root == 0) || (root->getName() != "MyGUI") ) {
+			MYGUI_ERROR("not find root tag 'MyGUI'");
+			return false;
+		}
+
+		std::string type;
+		if ( (false == root->findAttribute("type", type)) || (type != "Skin") ) {
+			MYGUI_ERROR("not find root type 'skin'");
+			return false;
+		}
 
 		// вспомогательный класс для биндинга сабскинов
 		BasisWidgetBinding bind;
 
 		// берем детей и крутимся, основной цикл со скинами
-		xml::xmlNodeIterator skin = xml_root->getNodeIterator();
+		xml::xmlNodeIterator skin = root->getNodeIterator();
 		while (skin.nextNode("Skin")) {
 
 			// парсим атрибуты скина
 			Ogre::String skinName, skinMaterial, tmp;
 			IntSize size;
-			skin->findAttribute("Name", skinName);
-			skin->findAttribute("Material", skinMaterial);
-			if (skin->findAttribute("Size", tmp)) size = util::parseIntSize(tmp);
+			skin->findAttribute("name", skinName);
+			skin->findAttribute("material", skinMaterial);
+			if (skin->findAttribute("size", tmp)) size = util::parseIntSize(tmp);
 
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(skinName);
@@ -116,8 +132,8 @@ namespace MyGUI
 				if (basis->getName() == "Property") {
 					// загружаем свойства
 					std::string key, value;
-					if (false == basis->findAttribute("Key", key)) continue;
-					if (false == basis->findAttribute("Value", value)) continue;
+					if (false == basis->findAttribute("key", key)) continue;
+					if (false == basis->findAttribute("value", value)) continue;
 					// добавляем свойство
 					widget_info->addParam(key, value);
 					// все уходим
@@ -130,9 +146,9 @@ namespace MyGUI
 				Ogre::String basisSkinType, tmp;
 				IntRect offset;
 				Align align = ALIGN_NONE;
-				basis->findAttribute("Type", basisSkinType);
-				if (basis->findAttribute("Offset", tmp)) offset = util::parseIntRect(tmp);
-				if (basis->findAttribute("Align", tmp)) align = parseAlign(tmp);
+				basis->findAttribute("type", basisSkinType);
+				if (basis->findAttribute("offset", tmp)) offset = util::parseIntRect(tmp);
+				if (basis->findAttribute("align", tmp)) align = parseAlign(tmp);
 
 				bind.create(offset, align, basisSkinType);
 
@@ -146,10 +162,10 @@ namespace MyGUI
 					Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
 					float alpha = -1;
 
-					state->findAttribute("Name", basisStateName);
-					if (state->findAttribute("Offset", tmp)) offset = convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
-					if (state->findAttribute("Color", tmp)) colour = util::parseColour(tmp);
-					if (state->findAttribute("Alpha", tmp)) alpha = util::parseFloat(tmp);
+					state->findAttribute("name", basisStateName);
+					if (state->findAttribute("offset", tmp)) offset = convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
+					if (state->findAttribute("colour", tmp)) colour = util::parseColour(tmp);
+					if (state->findAttribute("alpha", tmp)) alpha = util::parseFloat(tmp);
 
 					// добавляем инфо о стайте
 					bind.add(basisStateName, offset, colour, alpha);
@@ -161,6 +177,7 @@ namespace MyGUI
 
 			};
 		};
+		return true;
 	}
 
 	FloatSize SkinManager::getMaterialSize(const std::string & _material)

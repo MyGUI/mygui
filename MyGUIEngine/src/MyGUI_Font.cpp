@@ -80,7 +80,7 @@ namespace MyGUI
 	{
 		CodePointMap::const_iterator i = mCodePointMap.find(id);
 		if (i == mCodePointMap.end()) {
-			MYGUI_EXCEPT("Code point " + Ogre::StringConverter::toString(id) + " not found in font " + mName, "Font::getGlyphInfo");
+			MYGUI_EXCEPT("Code point " + Ogre::StringConverter::toString(id) + " not found in font " + mName);
 		}
 		return i->second;
 	}
@@ -98,7 +98,7 @@ namespace MyGUI
 		// create new material for simple text
 		mpMaterial =  Ogre::MaterialManager::getSingleton().create("Fonts/" + mName,  mGroup);
 		if (mpMaterial.isNull())
-			MYGUI_EXCEPT("Error creating new material!", "Font::load" );
+			MYGUI_EXCEPT("Error creating new material!");
 
 		Ogre::TextureUnitState* texLayer = mpMaterial->getTechnique(0)->getPass(0)->createTextureUnitState( texName );
 		// Clamp to avoid fuzzy edges
@@ -110,7 +110,7 @@ namespace MyGUI
 		// create new material for edit text
 		mpMaterialSelectedFont =  Ogre::MaterialManager::getSingleton().create("FontsSelected/" + mName,  mGroup);
 		if (mpMaterialSelectedFont.isNull()) 
-			MYGUI_EXCEPT("Error creating new material!", "Font::load" );
+			MYGUI_EXCEPT("Error creating new material!");
 
 		texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 0 );
 		// Clamp to avoid fuzzy edges
@@ -151,7 +151,7 @@ namespace MyGUI
 		FT_Library ftLibrary;
 		// Init freetype
         if( FT_Init_FreeType( &ftLibrary ) )
-            MYGUI_EXCEPT("Could not init FreeType library!", "Font::Font");
+            MYGUI_EXCEPT("Could not init FreeType library!");
 
         FT_Face face;
         // Add a gap between letters vert and horz
@@ -167,13 +167,13 @@ namespace MyGUI
 
         // Load font
         if( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
-            MYGUI_EXCEPT("Could not open font face!", "Font::createTextureFromFont" );
+            MYGUI_EXCEPT("Could not open font face!");
 
 
         // Convert our point size to freetype 26.6 fixed point format
         FT_F26Dot6 ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
         if( FT_Set_Char_Size( face, ftSize, 0, mTtfResolution, mTtfResolution ) )
-            MYGUI_EXCEPT("Could not set char size!", "Font::createTextureFromFont" );
+            MYGUI_EXCEPT("Could not set char size!");
 
         int max_height = 0, max_width = 0, max_bear = 0;
 
@@ -223,7 +223,7 @@ namespace MyGUI
 		size_t data_width = finalWidth * pixel_bytes;
 		size_t data_size = finalWidth * finalHeight * pixel_bytes;
 
-		LogManager::getInstance().out("Font '", mName, "' using texture size ", finalWidth, " x ", finalHeight);
+		MYGUI_LOG("Font '", mName, "' using texture size ", finalWidth, " x ", finalHeight);
 
         Ogre::uchar* imageData = new Ogre::uchar[data_size];
 		// Reset content (White, transparent)
@@ -254,7 +254,7 @@ namespace MyGUI
 				ftResult = FT_Load_Char( face, cp, FT_LOAD_RENDER );
 				if (ftResult) {
 					// problem loading this glyph, continue
-					LogManager::getInstance().out("Info: cannot load character ", cp, " in font ", mName);
+					MYGUI_LOG("Info: cannot load character ", cp, " in font ", mName);
 					continue;
 				}
 
@@ -264,7 +264,7 @@ namespace MyGUI
 
 				if (null == buffer) {
 					// Yuck, FT didn't detect this but generated a null pointer!
-					LogManager::getInstance().out("Info: Freetype returned null for character ", cp, " in font ", mName);
+					MYGUI_LOG("Info: Freetype returned null for character ", cp, " in font ", mName);
 					continue;
 				}
 

@@ -47,7 +47,7 @@ namespace MyGUI
 
 		void ListFactory::ListAddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			TYPE(ListPtr, _widget);
+			MYGUI_TYPE(ListPtr, _widget);
 			static_cast<ListPtr>(_widget)->addItemString(_value);
 		}
 

@@ -21,7 +21,10 @@ namespace MyGUI
 		INSTANCE_HEADER(LayoutManager);
 
 	public:
-		void load(const std::string & _file);
+		void initialise();
+		void shutdown();
+
+		bool load(const std::string & _file, bool _resource = true);
 
 	private:
 		void parseLayoutMyGUI(xml::xmlNodePtr _root);
