@@ -106,9 +106,9 @@ namespace MyGUI
 		_widget = null;
 	}
 
-	void WidgetManager::destroyWidget()
+	void WidgetManager::destroyAllWidget()
 	{
-		Gui::getInstance().destroyWidget();
+		Gui::getInstance().destroyAllWidget();
 	}
 
 	WidgetPtr WidgetManager::findWidget(const Ogre::String & _name)

@@ -30,10 +30,12 @@
 namespace MyGUI
 {
 	
-	class _MyGUIExport Gui
+	class _MyGUIExport Gui : public Ogre::FrameListener
 	{
 		friend WidgetManager;
 		INSTANCE_HEADER(Gui);
+
+		typedef std::list<Ogre::FrameListener*> ListFrameListener;
 
 	public:
 		void initialise(Ogre::RenderWindow* _window);
@@ -56,7 +58,14 @@ namespace MyGUI
 		// удяляет только негодных батюшке государю
 		void destroyWidget(WidgetPtr & _widget);
 		// удаляет всех детей
-		void destroyWidget();
+		void destroyAllWidget();
+
+		// подписка на кадры
+		bool frameStarted(const Ogre::FrameEvent& evt);
+		bool frameEnded(const Ogre::FrameEvent& evt);
+
+		void addFrameListener(Ogre::FrameListener * _listener);
+		void removeFrameListener(Ogre::FrameListener * _listener);
 
 	private:
 		// вектор всех детей виджетов
@@ -81,6 +90,9 @@ namespace MyGUI
 		PointerManager* mPointerManager;
 		DynLibManager* mDynLibManager;
 		PluginManager* mPluginManager;
+
+		ListFrameListener mListFrameListener;
+		ListFrameListener mListFrameListenerAdd;
 
 	}; // class Gui
 

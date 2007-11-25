@@ -2,17 +2,18 @@
 
 <MyGUI type="Layout">
 
-  <Widget type="StrangeButton" skin="Button" position="10 10 150 26" align="ALIGN_LEFT ALIGN_TOP" layer="Main" name="buttonAutoAlpha" >
+  <Widget2 type="StrangeButton" skin="Button" position="10 10 150 26" align="ALIGN_LEFT ALIGN_TOP" layer="Main" name="buttonAutoAlpha" >
     <Property key="Caption" value="Auto alpha" />
-  </Widget>
+  </Widget2>
 
-  <Widget type="Button" skin="Button" position="10 60 150 26" align="ALIGN_LEFT ALIGN_TOP" layer="Main" name="buttonManualAlpha" >
+  <Widget2 type="Button" skin="Button" position="10 60 150 26" align="ALIGN_LEFT ALIGN_TOP" layer="Main" name="buttonManualAlpha" >
     <Property key="Caption" value="Auto alpha" />
-  </Widget>
+  </Widget2>
 
   <Widget type="Window" skin="WindowCS" position="200 200 400 200" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowListDemo" >
     <Property key="Caption" value="List demo" />
     <Property key="WindowMinMax" value="230 100 1000 1000" />
+    <Property key="WindowAutoAlpha" value="false" />
 
     <Widget type="Button" skin="ButtonSmall" position="187 3 40 26" align="ALIGN_RIGHT ALIGN_TOP" name="buttonLeft" >
     </Widget>

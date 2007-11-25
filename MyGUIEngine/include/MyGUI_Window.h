@@ -24,6 +24,7 @@ namespace MyGUI
 
 	protected:
 		Window(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		~Window();
 
 	public:
 		// переопределяем для присвоению клиенту

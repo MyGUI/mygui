@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_Window.h"
+#include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
 
@@ -69,6 +70,11 @@ namespace MyGUI
 
 	}
 
+	Window::~Window()
+	{
+		Gui::getInstance().removeFrameListener(this);
+	}
+
 	// переопределяем для присвоению клиенту
 	WidgetPtr Window::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name)
 	{
@@ -121,7 +127,7 @@ namespace MyGUI
 		if (mDoAlpha == getAlpha()) {
 			// если мы были подписанны, то отписываемся
 			if (mIsListenerAlpha) {
-				Ogre::Root::getSingleton().removeFrameListener(this);
+				Gui::getInstance().removeFrameListener(this);
 				mIsListenerAlpha = false;
 			}
 			// выходим
@@ -130,7 +136,7 @@ namespace MyGUI
 
 		// если надо, то подписываемся
 		if (!mIsListenerAlpha) {
-			Ogre::Root::getSingleton().addFrameListener(this);
+			Gui::getInstance().addFrameListener(this);
 			mIsListenerAlpha = true;
 		}
 	}
@@ -143,7 +149,7 @@ namespace MyGUI
 
 		float alpha = getAlpha();
 		if (alpha == mDoAlpha) {
-			Ogre::Root::getSingleton().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(this);
 			mIsListenerAlpha = false;
 			return true;
 
@@ -151,14 +157,14 @@ namespace MyGUI
 			alpha -= evt.timeSinceLastFrame * COEF;
 			if (alpha <= mDoAlpha) {
 				alpha = mDoAlpha;
-				Ogre::Root::getSingleton().removeFrameListener(this);
+				Gui::getInstance().removeFrameListener(this);
 				mIsListenerAlpha = false;
 			}
 		} else {
 			alpha += evt.timeSinceLastFrame * COEF;
 			if (alpha >= mDoAlpha) {
 				alpha = mDoAlpha;
-				Ogre::Root::getSingleton().removeFrameListener(this);
+				Gui::getInstance().removeFrameListener(this);
 				mIsListenerAlpha = false;
 			}
 		}

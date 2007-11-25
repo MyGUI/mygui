@@ -41,7 +41,7 @@ namespace MyGUI
 
 		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name);
 
-		void destroyWidget();
+		void destroyAllWidget();
 		void destroyWidget(WidgetPtr & _widget);
 
 		void registerFactory(WidgetFactoryInterface * _factory);

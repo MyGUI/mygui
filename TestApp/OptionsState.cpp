@@ -10,7 +10,7 @@
 #include "MyGUI_LayoutManager.h"
 //#include "MyGUI_ParserManager.h"
 #include "MyGUI_FontManager.h"
-//#include "MyGUI_Window.h"
+#include "MyGUI_Window.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_Edit.h"
 //#include "MyGUI_HScroll.h"
@@ -75,16 +75,22 @@ void OptionsState::enter(bool bIsChangeState)
 	list1 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list1"));
 	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));*/
 
-	MYGUI_EXCEPT("1");
+	//MYGUI_EXCEPT("1");
 
-	//MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("StrangeButton", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	//button->setCaption(L"#00FF00хнопка\t=)");
+	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	button->setCaption(L"#00FF00хнопка\t=)");
 
-	//MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	//edit->setCaption(L"Мы только тем и дороги");
+//	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+//	window->show(false, true);
+
+	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	edit->setCaption(L"Мы только тем и дороги");
 
 	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
+	MyGUI::WidgetManager::getInstance().destroyAllWidget();
+
+	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
@@ -101,7 +107,7 @@ void OptionsState::enter(bool bIsChangeState)
 	element->setDimensions(0.5, 0.5);
 	overlay->add2D((Ogre::OverlayContainer*)element);*/
 
-	/*MyGUI::Gui::getInstance().shutdown();
+	MyGUI::Gui::getInstance().shutdown();
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
 	button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
@@ -110,6 +116,7 @@ void OptionsState::enter(bool bIsChangeState)
 	edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	edit->setCaption(L"Мы только тем и дороги");//*/
 
+	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 
 	/*const std::string _file("test.log"); // файл лога

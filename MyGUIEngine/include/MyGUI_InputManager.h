@@ -79,27 +79,7 @@ namespace MyGUI
 		}
 
 		// запоминает клавишу для поддержки повторения
-		inline void storeKey(int _key)
-		{
-			mHoldKey = OIS::KC_UNASSIGNED;
-
-			if ( ! isCaptureKey() ) return;
-			if ( ! mIsListener) {
-				Ogre::Root::getSingleton().addFrameListener(this);
-				mIsListener = true;
-			}
-			if ( (_key == OIS::KC_LSHIFT)
-				|| (_key == OIS::KC_RSHIFT)
-				|| (_key == OIS::KC_LCONTROL)
-				|| (_key == OIS::KC_RCONTROL)
-				|| (_key == OIS::KC_LMENU)
-				|| (_key == OIS::KC_RMENU)
-				) return;
-
-			mHoldKey = _key;
-			mFirstPressKey = true;
-			mTimerKey = 0.0f;
-		}
+		void storeKey(int _key);
 
 		// сбрасывает клавишу повторения
 		inline void resetKey()

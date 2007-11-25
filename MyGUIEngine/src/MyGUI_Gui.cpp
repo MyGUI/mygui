@@ -64,6 +64,8 @@ namespace MyGUI
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
 
+		Ogre::Root::getSingleton().addFrameListener(this);
+
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -73,7 +75,11 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
-		destroyWidget();
+		Ogre::Root::getSingleton().removeFrameListener(this);
+		mListFrameListener.clear();
+		mListFrameListenerAdd.clear();
+
+		destroyAllWidget();
 
 		// деинициализируем и удаляем синглтоны
 		mPluginManager->shutdown();
@@ -136,7 +142,7 @@ namespace MyGUI
 	}
 
 	// удаляет всех детей
-	void Gui::destroyWidget()
+	void Gui::destroyAllWidget()
 	{
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); iter++) {
 			WidgetPtr widget = *iter;
@@ -148,6 +154,66 @@ namespace MyGUI
 			delete widget;
 		}
 		mWidgetChild.clear();
+	}
+
+	bool Gui::frameStarted(const Ogre::FrameEvent& evt)
+	{
+		// сначала рассылаем
+		ListFrameListener::iterator iter=mListFrameListener.begin();
+		while (iter != mListFrameListener.end()) {
+			if (null == (*iter)) iter = mListFrameListener.erase(iter);
+			else {
+				(*iter)->frameStarted(evt);
+				++iter;
+			}
+		};
+		// теперь меняем массив
+		if (false == mListFrameListenerAdd.empty()) {
+			mListFrameListener.merge(mListFrameListenerAdd);
+		}
+		return true;
+	}
+
+	bool Gui::frameEnded(const Ogre::FrameEvent& evt)
+	{
+		return true;
+	}
+
+	void Gui::addFrameListener(Ogre::FrameListener * _listener)
+	{
+		if (null == _listener) return;
+
+		for (ListFrameListener::iterator iter=mListFrameListener.begin(); iter!=mListFrameListener.end(); ++iter) {
+			if ((*iter) == _listener) return;
+		}
+		for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
+			if ((*iter) == _listener) return;
+		}
+		mListFrameListenerAdd.push_back(_listener);
+	}
+
+	void Gui::removeFrameListener(Ogre::FrameListener * _listener)
+	{
+		if (null == _listener) return;
+
+		bool find = false;
+		for (ListFrameListener::iterator iter=mListFrameListener.begin(); iter!=mListFrameListener.end(); ++iter) {
+			if ((*iter) == _listener) {
+				(*iter) = null;
+				find = true;
+				break;
+			}
+		}
+
+		if (false == find) {
+			for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
+				if ((*iter) == _listener) {
+					mListFrameListenerAdd.erase(iter);
+					break;
+				}
+			}
+		}
+
 	}
 
 } // namespace MyGUI

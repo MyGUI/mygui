@@ -6,6 +6,7 @@
 */
 #include "xmlDocument.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_Widget.h"
@@ -44,6 +45,12 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+
+		// отписываемся
+		if ( mIsListener) {
+			Gui::getInstance().removeFrameListener(this);
+			mIsListener = false;
+		}
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
@@ -377,6 +384,28 @@ namespace MyGUI
 	bool InputManager::frameEnded(const Ogre::FrameEvent& evt)
 	{
 		return true;
+	}
+
+	void InputManager::storeKey(int _key)
+	{
+		mHoldKey = OIS::KC_UNASSIGNED;
+
+		if ( ! isCaptureKey() ) return;
+		if ( ! mIsListener) {
+			Gui::getInstance().addFrameListener(this);
+			mIsListener = true;
+		}
+		if ( (_key == OIS::KC_LSHIFT)
+			|| (_key == OIS::KC_RSHIFT)
+			|| (_key == OIS::KC_LCONTROL)
+			|| (_key == OIS::KC_RCONTROL)
+			|| (_key == OIS::KC_LMENU)
+			|| (_key == OIS::KC_RMENU)
+			) return;
+
+		mHoldKey = _key;
+		mFirstPressKey = true;
+		mTimerKey = 0.0f;
 	}
 
 } // namespace MyGUI
