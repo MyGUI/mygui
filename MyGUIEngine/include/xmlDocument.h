@@ -1,3 +1,9 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
 #ifndef __XML_DOCUMENT_H__
 #define __XML_DOCUMENT_H__
 
@@ -112,32 +118,32 @@ namespace xml
 	public:
 		xmlNodePtr createChild(const std::string & _name, const std::string & _body = "");
 
-		inline void addAttributes(const std::string &_key, const std::string &_value) {m_attributes.push_back(PairAttributes(_key, _value));}
-		inline void addAttributes(const std::string &_key, int _value) {m_attributes.push_back(PairAttributes(_key, utility::toString(_value)));}
-		inline void addAttributes(const std::string &_key, size_t _value) {m_attributes.push_back(PairAttributes(_key, utility::toString(_value)));}
-		inline void addAttributes(const std::string &_key, float _value) {m_attributes.push_back(PairAttributes(_key, utility::toString(_value)));}
+		inline void addAttributes(const std::string &_key, const std::string &_value) {mAttributes.push_back(PairAttributes(_key, _value));}
+		inline void addAttributes(const std::string &_key, int _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
+		inline void addAttributes(const std::string &_key, size_t _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
+		inline void addAttributes(const std::string &_key, float _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
 
-		inline void addBody(const std::string &_body) {m_body.empty() ? m_body = utility::toString(_body) : m_body += utility::toString(" ", _body);}
-		inline void addBody(int _body) {m_body.empty() ? m_body = utility::toString(_body) : m_body += utility::toString(" ", _body);}
-		inline void addBody(size_t _body) {m_body.empty() ? m_body = utility::toString(_body) : m_body += utility::toString(" ", _body);}
-		inline void addBody(float _body) {m_body.empty() ? m_body = utility::toString(_body) : m_body += utility::toString(" ", _body);}
+		inline void addBody(const std::string &_body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
+		inline void addBody(int _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
+		inline void addBody(size_t _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
+		inline void addBody(float _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
 
 		void clear();
 
 		bool findAttribute(const std::string & _name, std::string & _value);
 
 		inline const std::string & getName() {return mName;}
-		inline const std::string & getBody() {return m_body;}
-		inline const VectorAttributes & getAttributes() {return m_attributes;}
+		inline const std::string & getBody() {return mBody;}
+		inline const VectorAttributes & getAttributes() {return mAttributes;}
 		inline xmlNodePtr getParent() {return mParent;}
 
-		inline xmlNodeIterator getNodeIterator() {return xmlNodeIterator(m_childs.begin(), m_childs.end());}
+		inline xmlNodeIterator getNodeIterator() {return xmlNodeIterator(mChilds.begin(), mChilds.end());}
 
 	private:
 		std::string mName;
-		std::string m_body;
-		VectorAttributes m_attributes;
-		VectorNode m_childs;
+		std::string mBody;
+		VectorAttributes mAttributes;
+		VectorNode mChilds;
 		xmlNodePtr mParent;
 		xmlNodeType mType;
 	};

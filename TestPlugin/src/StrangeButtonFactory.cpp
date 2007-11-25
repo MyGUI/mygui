@@ -1,8 +1,8 @@
 
 #include "StrangeButtonFactory.h"
 #include "StrangeButton.h"
-#include "SkinManager.h"
-#include "WidgetManager.h"
+#include "MyGUI_SkinManager.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {

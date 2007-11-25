@@ -1,9 +1,9 @@
 #ifndef __STRANGE_BUTTON_FACTORY_H__
 #define __STRANGE_BUTTON_FACTORY_H__
 
-#include "Prerequest.h"
-#include "WidgetFactoryInterface.h"
-#include "WidgetDefines.h"
+#include "MyGUI_Prerequest.h"
+#include "MyGUI_WidgetFactoryInterface.h"
+#include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI
 {

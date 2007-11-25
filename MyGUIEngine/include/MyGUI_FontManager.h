@@ -1,12 +1,18 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
 #ifndef __MYGUI_FONT_MANAGER_H__
 #define __MYGUI_FONT_MANAGER_H__
 
-#include "Prerequest.h"
+#include "MyGUI_Prerequest.h"
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
 #include "MyGUI_Font.h"
-#include "Instance.h"
+#include "MyGUI_Instance.h"
 
 namespace MyGUI
 {

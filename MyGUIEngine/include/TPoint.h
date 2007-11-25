@@ -1,3 +1,9 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
 #ifndef __TPONT_H__
 #define __TPONT_H__
 

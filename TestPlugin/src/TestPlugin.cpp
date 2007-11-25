@@ -1,6 +1,6 @@
 #include "TestPlugin.h"
 #include "StrangeButton.h"
-#include "WidgetManager.h"
+#include "MyGUI_WidgetManager.h"
 
 TestPlugin::TestPlugin()
 {

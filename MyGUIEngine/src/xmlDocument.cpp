@@ -1,4 +1,9 @@
-
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
 #include "xmlDocument.h"
 
 namespace xml
@@ -40,7 +45,7 @@ namespace xml
 	//----------------------------------------------------------------------//
 	xmlNode::xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type, const std::string & _body) : 
 		mName(_name),
-		m_body(_body),
+		mBody(_body),
 		mParent(_parent),
 		mType(_type)
 	{
@@ -48,10 +53,10 @@ namespace xml
 
 	xmlNode::~xmlNode()
 	{
-		for (VectorNode::iterator iter=m_childs.begin(); iter!=m_childs.end(); iter++) {
+		for (VectorNode::iterator iter=mChilds.begin(); iter!=mChilds.end(); iter++) {
 			delete *iter;
 		}
-		m_childs.clear();
+		mChilds.clear();
 	}
 
 	void xmlNode::save(std::ofstream & _stream, size_t _level)
@@ -64,28 +69,28 @@ namespace xml
 		else _stream << "<";
 		_stream << mName;
 
-		for (VectorAttributes::iterator iter = m_attributes.begin(); iter != m_attributes.end(); iter ++) {
+		for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); iter ++) {
 			_stream << " " << iter->first << "=\"" << iter->second << "\"";
 		}
 
-		bool empty = m_childs.empty();
+		bool empty = mChilds.empty();
 		// если детей нет то закрываем
-		if (empty && m_body.empty()) {
+		if (empty && mBody.empty()) {
 			if (mType == XML_NODE_TYPE_INFO) _stream << "?>\n";
 			else _stream << "/>\n";
 		} else {
 			_stream << ">";
 			if (!empty) _stream << "\n";
 			// если есть тело то сначало оно
-			if (!m_body.empty()) {
+			if (!mBody.empty()) {
 				if (!empty) {
 					for (size_t tab=0; tab<=_level; tab++) _stream  << "    ";
-					_stream << m_body << "\n";
-				} else _stream << m_body;
+					_stream << mBody << "\n";
+				} else _stream << mBody;
 			}
 			// если есть детишки путь сохранятся
-			for (size_t child=0; child<m_childs.size(); child++) {
-				m_childs[child]->save(_stream, _level + 1);
+			for (size_t child=0; child<mChilds.size(); child++) {
+				mChilds[child]->save(_stream, _level + 1);
 			}
 
 			if (!empty) {for (size_t tab=0; tab<_level; tab++) _stream  << "    ";}
@@ -97,21 +102,21 @@ namespace xml
 	xmlNodePtr xmlNode::createChild(const std::string & _name, const std::string & _body) 
 	{
 		xmlNodePtr node = new xmlNode(_name, this, XML_NODE_TYPE_NORMAL, _body);
-		m_childs.push_back(node);
+		mChilds.push_back(node);
 		return node;
 	}
 
 	void xmlNode::clear()
 	{
-		for (VectorNode::iterator iter = m_childs.begin(); iter != m_childs.end(); iter++) delete *iter;
-		m_childs.clear();
-		m_body.clear();
-		m_attributes.clear();
+		for (VectorNode::iterator iter = mChilds.begin(); iter != mChilds.end(); iter++) delete *iter;
+		mChilds.clear();
+		mBody.clear();
+		mAttributes.clear();
 	}
 
 	bool xmlNode::findAttribute(const std::string & _name, std::string & _value)
 	{
-		for (VectorAttributes::iterator iter=m_attributes.begin(); iter!=m_attributes.end(); ++iter) {
+		for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
 			if ( (*iter).first == _name) {
 				_value = (*iter).second;
 				return true;

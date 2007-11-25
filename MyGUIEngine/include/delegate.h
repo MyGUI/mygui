@@ -1,3 +1,9 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
 #ifndef __DELEGATE_H__
 #define __DELEGATE_H__
 

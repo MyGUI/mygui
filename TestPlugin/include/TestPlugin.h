@@ -1,7 +1,7 @@
 #ifndef __TEST_PLUGIN_H__
 #define __TEST_PLUGIN_H__
 
-#include "Plugin.h"
+#include "MyGUI_Plugin.h"
 #include "StrangeButtonFactory.h"
 #include "StrangeButtonParser.h"
 

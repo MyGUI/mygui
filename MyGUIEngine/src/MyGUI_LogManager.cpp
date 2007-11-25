@@ -1,0 +1,61 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
+#include "MyGUI_LogManager.h"
+
+#include "stdio.h"
+#include "time.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <iomanip>
+
+namespace MyGUI
+{
+
+	INSTANCE_IMPLEMENT(LogManager);
+
+	void LogManager::out(const std::string _value)
+	{
+		const std::string _file("MyGUI.log");
+
+		struct tm current_time;
+		time_t info_time;
+		time(&info_time);
+		localtime_s(&current_time, &info_time );
+
+		std::ofstream stream;
+
+		static bool first_run = true;
+		if (first_run) {
+			stream.open(_file.c_str(), std::ios_base::out);
+			stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl;
+			stream << "                                          logging report for : "
+				<< std::setw(2) << std::setfill('0') << current_time.tm_mon + 1 << "/"
+				<< std::setw(2) << std::setfill('0') << current_time.tm_mday << "/"
+				<< std::setw(4) << std::setfill('0') << current_time.tm_year + 1900 << "   "
+				<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
+				<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
+				<< std::setw(2) << std::setfill('0') << current_time.tm_sec << std::endl;
+			stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl << std::endl;
+			first_run = false;
+			stream.close();
+		}
+
+		stream.open(_file.c_str(), std::ios_base::app);
+		if (stream.is_open()) {
+
+			stream
+				<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
+				<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
+				<< std::setw(2) << std::setfill('0') << current_time.tm_sec << "   "
+				<< _value << std::endl;
+
+			stream.close();
+		}
+	}
+
+} // namespace MyGUI

@@ -1,7 +1,13 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
 #ifndef __MYGUI_FONT_H__
 #define __MYGUI_FONT_H__
 
-#include "Prerequest.h"
+#include "MyGUI_Prerequest.h"
 #include "OgreResource.h"
 #include "OgreTexture.h"
 #include "OgreMaterial.h"

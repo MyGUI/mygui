@@ -1,8 +1,8 @@
 #ifndef __STRANGE_BUTTON_PARSER_H__
 #define __STRANGE_BUTTON_PARSER_H__
 
-#include "Prerequest.h"
-#include "WidgetDefines.h"
+#include "MyGUI_Prerequest.h"
+#include "MyGUI_WidgetDefines.h"
 
 class TestPlugin;
 

@@ -1,22 +1,30 @@
 
 #include "BasisManager.h"
 
-#include "Gui.h"
-#include "PluginManager.h"
-#include "LayerManager.h"
-#include "PointerManager.h"
-#include "SkinManager.h"
-#include "WidgetManager.h"
-#include "LayoutManager.h"
-//#include "ParserManager.h"
+#include "MyGUI_Gui.h"
+#include "MyGUI_PluginManager.h"
+#include "MyGUI_LayerManager.h"
+#include "MyGUI_PointerManager.h"
+#include "MyGUI_SkinManager.h"
+#include "MyGUI_WidgetManager.h"
+#include "MyGUI_LayoutManager.h"
+//#include "MyGUI_ParserManager.h"
 #include "MyGUI_FontManager.h"
-//#include "Window.h"
-#include "Button.h"
-#include "Edit.h"
-//#include "HScroll.h"
-//#include "VScroll.h"
-//#include "List.h"
+//#include "MyGUI_Window.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_Edit.h"
+//#include "MyGUI_HScroll.h"
+//#include "MyGUI_VScroll.h"
+//#include "MyGUI_List.h"
 #include "utility.h"
+
+
+#include "stdio.h"
+#include "time.h"
+#include <sstream>
+#include <iostream>
+#include <fstream>
+
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -25,11 +33,11 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
 	// load plugin
-#if _DEBUG
-	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin_d.dll");
-#else
-	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin.dll");
-#endif
+//#if _DEBUG
+//	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin_d.dll");
+//#else
+//	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin.dll");
+//#endif
 
 
 //	MyGUI::LayerManager::getInstance().load("main.layer");
@@ -84,7 +92,7 @@ void OptionsState::enter(bool bIsChangeState)
 	element->setDimensions(0.5, 0.5);
 	overlay->add2D((Ogre::OverlayContainer*)element);*/
 
-	MyGUI::Gui::getInstance().shutdown();
+	/*MyGUI::Gui::getInstance().shutdown();
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
 	button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
@@ -92,6 +100,46 @@ void OptionsState::enter(bool bIsChangeState)
 
 	edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 	edit->setCaption(L"Мы только тем и дороги");//*/
+
+
+
+	/*const std::string _file("test.log"); // файл лога
+	std::ofstream stream;
+
+	struct tm current_time;
+	time_t info_time;
+	time(&info_time);
+	localtime_s(&current_time, &info_time );
+
+	static bool first_run = true;
+	if (first_run) {
+		stream.open(_file.c_str(), std::ios_base::out);
+		stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl;
+		stream << "                                          logging report for : "
+			<< std::setw(2) << std::setfill('0') << current_time.tm_mon + 1 << "/"
+			<< std::setw(2) << std::setfill('0') << current_time.tm_mday << "/"
+			<< std::setw(4) << std::setfill('0') << current_time.tm_year + 1900 << "   "
+			<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
+			<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
+			<< std::setw(2) << std::setfill('0') << current_time.tm_sec << std::endl;
+		stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl << std::endl;
+		first_run = false;
+		stream.close();
+	}
+
+	stream.open(_file.c_str(), std::ios_base::app);
+	if (stream.is_open()) {
+
+		stream
+			<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
+			<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
+			<< std::setw(2) << std::setfill('0') << current_time.tm_sec << "   "
+			<< "dermo" << std::endl;
+
+
+		stream.close();
+	}*/
+
 
 }
 //===================================================================================

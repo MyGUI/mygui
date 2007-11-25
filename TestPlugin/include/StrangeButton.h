@@ -2,7 +2,7 @@
 #define __STRANGE_BUTTON_H__
 
 #include "StrangeButtonFactory.h"
-#include "Widget.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {

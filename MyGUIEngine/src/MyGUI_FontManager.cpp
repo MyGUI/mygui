@@ -1,7 +1,12 @@
-
+/*!
+	@file
+	@author		Albert Semenov
+	@date		11/2007
+	@module
+*/
 #include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
-#include "Common.h"
+#include "MyGUI_Common.h"
 #include "xmlDocument.h"
 
 namespace MyGUI
