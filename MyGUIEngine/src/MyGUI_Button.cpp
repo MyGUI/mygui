@@ -26,32 +26,34 @@ namespace MyGUI
 
 	void Button::_onMouseSetFocus(WidgetPtr _old)
 	{
-		Widget::_onMouseSetFocus(_old);
 		mIsFocus = true;
 		updateButtonState();
+		Widget::_onMouseSetFocus(_old);
 	}
 
 	void Button::_onMouseLostFocus(WidgetPtr _new)
 	{
-		Widget::_onMouseLostFocus(_new);
 		mIsFocus = false;
 		updateButtonState();
+		Widget::_onMouseLostFocus(_new);
 	}
 
 	void Button::_onMouseButtonPressed(bool _left)
 	{
+		if (_left) {
+			mIsPressed = true;
+			updateButtonState();
+		}
 		Widget::_onMouseButtonPressed(_left);
-		if (!_left) return;
-		mIsPressed = true;
-		updateButtonState();
 	}
 
 	void Button::_onMouseButtonReleased(bool _left)
 	{
+		if (_left) {
+			mIsPressed = false;
+			updateButtonState();
+		}
 		Widget::_onMouseButtonReleased(_left);
-		if (!_left) return;
-		mIsPressed = false;
-		updateButtonState();
 	}
 
 } // namespace MyGUI

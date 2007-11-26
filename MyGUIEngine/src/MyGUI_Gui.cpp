@@ -128,8 +128,13 @@ namespace MyGUI
 		for (size_t index = 0; index < mWidgetChild.size(); index++) {
 			WidgetPtr widget = mWidgetChild[index];
 			if (_widget == widget) {
+
 				// удаляем свое имя
 				WidgetManager::getInstance().clearName(_widget);
+
+				// удаляем упоминание в инпуте
+				InputManager::getInstance().widgetUnlink(widget);
+
 				delete _widget;
 				_widget = 0;
 
@@ -150,6 +155,8 @@ namespace MyGUI
 			WidgetManager::getInstance().clearName(widget);
 			// отсоединяем виджет от уровня, если он был присоединен
 			LayerManager::getInstance().detachItem(widget);
+			// удаляем упоминание в инпуте
+			InputManager::getInstance().widgetUnlink(widget);
 			// и удаляем
 			delete widget;
 		}

@@ -99,7 +99,7 @@ namespace MyGUI
 		clearName(_widget);
 
 		// удаляем упоминание в инпуте
-		InputManager::getInstance().widgetUnlink(_widget);
+		InputManager::getInstance().widgetUnlink(_widget); // ???
 
 		// если отца нет то отец гуй
 		WidgetPtr parent = _widget->getParent();
