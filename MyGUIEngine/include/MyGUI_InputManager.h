@@ -58,6 +58,9 @@ namespace MyGUI
 		// тестовый вариант, очистка фокуса мыши
 		void resetMouseFocusWidget();
 
+		// удаляем данный виджет из всех возможных мест
+		void widgetUnlink(WidgetPtr _widget);
+
 		// событие смены языков
 		EventChangeLanguage eventChangeLanguage;
 

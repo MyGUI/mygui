@@ -98,6 +98,9 @@ namespace MyGUI
 		// стираем имя в карте для поиска
 		clearName(_widget);
 
+		// удаляем упоминание в инпуте
+		InputManager::getInstance().widgetUnlink(_widget);
+
 		// если отца нет то отец гуй
 		WidgetPtr parent = _widget->getParent();
 		if (parent == null) Gui::getInstance().destroyWidget(_widget);

@@ -408,4 +408,17 @@ namespace MyGUI
 		mTimerKey = 0.0f;
 	}
 
+	// удаляем данный виджет из всех возможных мест
+	void InputManager::widgetUnlink(WidgetPtr _widget)
+	{
+		if (null == _widget) return;
+		if (_widget == mWidgetMouseFocus) {
+			mIsWidgetMouseCapture = false;
+			mWidgetMouseFocus = null;
+		}
+		if (_widget == mWidgetKeyFocus) mWidgetKeyFocus = null;
+		if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
+		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
+	}
+
 } // namespace MyGUI
