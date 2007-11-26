@@ -12,7 +12,7 @@ material wallpaper
 			texture_unit
 			{
 				filtering linear linear none
-				texture wallpaper.jpg
+				texture wallpaper2.jpg
 			}
 		}
 	}
