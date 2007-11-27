@@ -146,10 +146,17 @@ namespace MyGUI
 
 				if ((_id == OIS::MB_Left) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
 					mWidgetMouseFocus->_onMouseButtonClick(true);
+					//OUT("double click");
 				}
 				else {
 					mTime.reset();
-					mWidgetMouseFocus->_onMouseButtonClick(false);
+					// проверяем над тем ли мы окном сейчас что и были при нажатии
+					LayerItemInfoPtr rootItem = null;
+					WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
+					if ( item == mWidgetMouseFocus) {
+						mWidgetMouseFocus->_onMouseButtonClick(false);
+						//OUT("one click");
+					}
 				}
 			}
 

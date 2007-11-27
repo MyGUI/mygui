@@ -88,15 +88,24 @@ namespace MyGUI
 	void List::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
 		// очень секретный метод, запатентованный механизм движени€ курсора
-		if (getItemCount() == 0) return;
+		if (getItemCount() == 0) {
+
+			// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+			Widget::_onKeyButtonPressed(_key, _char);
+			return;
+		}
 		else if (getItemCount() == 1) {
 			if (mIndexSelect == ITEM_NONE) setItemSelect(0);
+
+			// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+			Widget::_onKeyButtonPressed(_key, _char);
 			return;
 		}
 
 		size_t sel = mIndexSelect;
 
 		if (_key == OIS::KC_UP) {
+
 			if (sel != 0) {
 				if (sel == ITEM_NONE) sel = 0;
 				else sel --;
@@ -107,38 +116,40 @@ namespace MyGUI
 			if (sel == ITEM_NONE) sel = 0;
 			else sel ++;
 
-			if (sel >= getItemCount()) return;
+			if (sel >= getItemCount()) {
+				// старое значение
+				sel = mIndexSelect;
+			}
 
 		} else if (_key == OIS::KC_HOME) {
 
-			if (sel == 0) return;
-			sel = 0;
+			if (sel != 0) sel = 0;
 
 		} else if (_key == OIS::KC_END) {
 
-			if (sel == (getItemCount() - 1)) return;
-
-			sel = getItemCount() - 1;
+			if (sel != (getItemCount() - 1)) {
+				sel = getItemCount() - 1;
+			}
 
 		} else if (_key == OIS::KC_PGUP) {
 
-			if (sel == 0) return;
-
-			if (sel == ITEM_NONE) sel = 0;
-			else {
-				size_t page = mWidgetClient->getHeight() / mHeightLine;
-				if (sel <= page) sel = 0;
-				else sel -= page;
+			if (sel != 0) {
+				if (sel == ITEM_NONE) sel = 0;
+				else {
+					size_t page = mWidgetClient->getHeight() / mHeightLine;
+					if (sel <= page) sel = 0;
+					else sel -= page;
+				}
 			}
 
 		} else if (_key == OIS::KC_PGDOWN) {
 
-			if (sel == (getItemCount() - 1)) return;
-
-			if (sel == ITEM_NONE) sel = 0;
-			else {
-				sel += mWidgetClient->getHeight() / mHeightLine;
-				if (sel >= getItemCount()) sel = getItemCount() - 1;
+			if (sel != (getItemCount() - 1)) {
+				if (sel == ITEM_NONE) sel = 0;
+				else {
+					sel += mWidgetClient->getHeight() / mHeightLine;
+					if (sel >= getItemCount()) sel = getItemCount() - 1;
+				}
 			}
 
 		}

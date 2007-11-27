@@ -811,7 +811,7 @@ namespace MyGUI
 
 	void Edit::updateCursor(IntPoint _point)
 	{
-		OUT(mCursorPosition);
+		//OUT(mCursorPosition);
 
 		WidgetPtr parent = mWidgetUpper;
 		while (parent != null) {
