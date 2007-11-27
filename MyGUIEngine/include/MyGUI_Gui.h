@@ -55,17 +55,18 @@ namespace MyGUI
 		inline float getWidth() {return mWidth;}
 		inline float getHeight() {return mHeight;}
 
-		// удяляет только негодных батюшке государю
-		void destroyWidget(WidgetPtr & _widget);
-		// удаляет всех детей
-		void destroyAllWidget();
-
 		// подписка на кадры
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
 
 		void addFrameListener(Ogre::FrameListener * _listener);
 		void removeFrameListener(Ogre::FrameListener * _listener);
+
+	private:
+		// удяляет только негодных батюшке государю
+		void _destroyChildWidget(WidgetPtr & _widget);
+		// удаляет всех детей
+		void _destroyAllChildWidget();
 
 	private:
 		// вектор всех детей виджетов

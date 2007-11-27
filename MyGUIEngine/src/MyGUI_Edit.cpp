@@ -111,7 +111,7 @@ namespace MyGUI
 	void Edit::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		// останавливаем курсор
-		if ( ! mWidgetCursor->isShow()) mWidgetCursor->show(true);
+		if ( false == mWidgetCursor->isShow()) mWidgetCursor->show(true);
 
 		// сбрасываем все таймеры
 		mCursorTimer = 0;
@@ -142,54 +142,66 @@ namespace MyGUI
 
 	void Edit::_onMouseSetFocus(WidgetPtr _old)
 	{
+		if (false == mIsFocus) {
+			mIsFocus = true;
+			updateEditState();
+		}
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseSetFocus(_old);
-		if (mIsFocus) return;
-		mIsFocus = true;
-		updateEditState();
 	}
 
 	void Edit::_onMouseLostFocus(WidgetPtr _new)
 	{
+		if (! ((false == mIsFocus) || (_new == mWidgetUpper) || (_new == mWidgetCursor)) ) {
+			mIsFocus = false;
+			updateEditState();
+		}
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseLostFocus(_new);
-		if ( (!mIsFocus) || (_new == mWidgetUpper) || (_new == mWidgetCursor) ) return;
-		mIsFocus = false;
-		updateEditState();
 	}
 
 	void Edit::_onMouseMove(int _left, int _top)
 	{
-		Widget::_onMouseMove(_left, _top);
 		notifyMouseMove(null, _left, _top);
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseMove(_left, _top);
 	}
 
 	void Edit::_onKeySetFocus(WidgetPtr _old)
 	{
-		Widget::_onKeySetFocus(_old);
-		if (mIsPressed) return;
-		mIsPressed = true;
-		updateEditState();
+		if (false == mIsPressed) {
+			mIsPressed = true;
+			updateEditState();
 
-		mCursorActive = true;
-		Ogre::Root::getSingleton().addFrameListener(this);
-		mWidgetCursor->show(true);
-		mCursorTimer = 0;
+			mCursorActive = true;
+			Ogre::Root::getSingleton().addFrameListener(this);
+			mWidgetCursor->show(true);
+			mCursorTimer = 0;
+		}
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeySetFocus(_old);
 	}
 
 	void Edit::_onKeyLostFocus(WidgetPtr _new)
 	{
-		Widget::_onKeyLostFocus(_new);
-		if ( ! mIsPressed) return;
-		mIsPressed = false;
-		updateEditState();
+		if (mIsPressed) {
+			mIsPressed = false;
+			updateEditState();
 
-		mCursorActive = false;
-		Ogre::Root::getSingleton().removeFrameListener(this);
-		mWidgetCursor->show(false);
+			mCursorActive = false;
+			Ogre::Root::getSingleton().removeFrameListener(this);
+			mWidgetCursor->show(false);
+		}
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyLostFocus(_new);
 	}
 
 	void Edit::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
-		Widget::_onKeyButtonPressed(_key, _char);
 		MYGUI_ASSERT(null != mText);
 
 		if ( ! mWidgetCursor->isShow()) mWidgetCursor->show(true);
@@ -408,13 +420,18 @@ namespace MyGUI
 			}
 
 		}
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyButtonPressed(_key, _char);
 	}
 
 	void Edit::_onKeyButtonReleased(int _key)
 	{
-		Widget::_onKeyButtonReleased(_key);
 		if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) mShiftPressed = false;
 		if ( (_key == OIS::KC_LCONTROL) || (_key == OIS::KC_RCONTROL) ) mCtrlPressed = false;
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyButtonReleased(_key);
 	}
 
 	bool Edit::frameStarted(const Ogre::FrameEvent& evt)

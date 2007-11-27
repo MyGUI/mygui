@@ -84,21 +84,25 @@ namespace MyGUI
 
 	void Window::_onMouseChangeRootFocus(bool _focus)
 	{
-		Widget::_onMouseChangeRootFocus(_focus);
 		mMouseRootFocus = _focus;
 		updateAlpha();
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseChangeRootFocus(_focus);
 	}
 
 	void Window::_onKeyChangeRootFocus(bool _focus)
 	{
-		Widget::_onKeyChangeRootFocus(_focus);
 		mKeyRootFocus = _focus;
 		updateAlpha();
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyChangeRootFocus(_focus);
 	}
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		if (!_left) return;
+		if (false == _left) return;
 		mPreActionRect.set(mLeft, mTop, mWidth, mHeight);
 	}
 
@@ -145,7 +149,7 @@ namespace MyGUI
 	{
 		const float COEF = 3.0f;
 		// огр отписывает после прохода
-		if (!mIsListenerAlpha) return true;
+		if (false == mIsListenerAlpha) return true;
 
 		float alpha = getAlpha();
 		if (alpha == mDoAlpha) {
@@ -204,7 +208,7 @@ namespace MyGUI
 
 	void Window::hide(bool _smoot, bool _destroy)
 	{
-		if (!_smoot) {
+		if (false == _smoot) {
 			if (_destroy) {
 				WidgetPtr destroy = this;
 				WidgetManager::getInstance().destroyWidget(destroy);
@@ -220,7 +224,7 @@ namespace MyGUI
 
 	void Window::updateAlpha()
 	{
-		if (!mIsAutoAlpha) return;
+		if (false == mIsAutoAlpha) return;
 
 		if (mKeyRootFocus) setDoAlpha(WINDOW_ALPHA_ACTIVE);
 		else if (mMouseRootFocus) setDoAlpha(WINDOW_ALPHA_FOCUS);

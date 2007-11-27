@@ -89,31 +89,6 @@ namespace MyGUI
 		return 0;
 	}
 
-	void WidgetManager::destroyWidget(WidgetPtr & _widget)
-	{
-		if (_widget == null) return;
-		// отсоединяем виджет от уровня, если он был присоединен
-		LayerManager::getInstance().detachItem(_widget);
-
-		// стираем имя в карте для поиска
-		clearName(_widget);
-
-		// удаляем упоминание в инпуте
-		InputManager::getInstance().widgetUnlink(_widget); // ???
-
-		// если отца нет то отец гуй
-		WidgetPtr parent = _widget->getParent();
-		if (parent == null) Gui::getInstance().destroyWidget(_widget);
-		else parent->destroyWidget(_widget);
-
-		_widget = null;
-	}
-
-	void WidgetManager::destroyAllWidget()
-	{
-		Gui::getInstance().destroyAllWidget();
-	}
-
 	WidgetPtr WidgetManager::findWidget(const Ogre::String & _name)
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
@@ -166,6 +141,33 @@ namespace MyGUI
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		MYGUI_ASSERT(iter != mDelegates.end() && "name delegate is not find");
 		iter->second(_widget, _key, _value);
+	}
+
+	void WidgetManager::destroyWidget(WidgetPtr & _widget)
+	{
+		// иначе возможен бесконечный цикл
+		MYGUI_ASSERT(_widget != null);
+
+		// отсоединяем виджет от уровня, если он был присоединен
+		LayerManager::getInstance().detachItem(_widget);
+
+		// стираем имя в карте для поиска
+		clearName(_widget);
+
+		// удаляем упоминание в инпуте
+		InputManager::getInstance().widgetUnlink(_widget);
+
+		// делегирует удаление отцу виджета
+		WidgetPtr parent = _widget->getParent();
+		if (parent == null) Gui::getInstance()._destroyChildWidget(_widget);
+		else parent->_destroyChildWidget(_widget);
+
+		_widget = null;
+	}
+
+	void WidgetManager::destroyAllWidget()
+	{
+		Gui::getInstance()._destroyAllChildWidget();
 	}
 
 } // namespace MyGUI

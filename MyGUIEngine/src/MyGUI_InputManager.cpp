@@ -104,7 +104,7 @@ namespace MyGUI
 	bool InputManager::injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id )
 	{
 
-		if (!isCaptureMouse()) {
+		if (false == isCaptureMouse()) {
 			resetKeyFocusWidget();
 			return false;
 		}
@@ -141,11 +141,16 @@ namespace MyGUI
 
 			mWidgetMouseFocus->_onMouseButtonReleased(_id == OIS::MB_Left);
 
-			if ((_id == OIS::MB_Left) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
-				mWidgetMouseFocus->_onMouseButtonClick(true);
-			} else {
-			    mTime.reset();
-	            mWidgetMouseFocus->_onMouseButtonClick(false);
+			// после вызова, виджет может быть удален
+			if (null != mWidgetMouseFocus) {
+
+				if ((_id == OIS::MB_Left) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
+					mWidgetMouseFocus->_onMouseButtonClick(true);
+				}
+				else {
+					mTime.reset();
+					mWidgetMouseFocus->_onMouseButtonClick(false);
+				}
 			}
 
 			// для корректного отображения

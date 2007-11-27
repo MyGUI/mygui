@@ -112,67 +112,79 @@ namespace MyGUI
 
 	protected:
 
-		// сообщени€ от менеджера ввода
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseLostFocus(WidgetPtr _new)
 		{
 			eventMouseLostFocus(mWidgetEventSender, _new);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseSetFocus(WidgetPtr _old)
 		{
 			eventMouseSetFocus(mWidgetEventSender, _old);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseMove(int _left, int _top)
 		{
 			eventMouseMove(mWidgetEventSender, _left, _top);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseSheel(int _rel)
 		{
 			eventMouseSheel(mWidgetEventSender, _rel);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseButtonPressed(bool _left)
 		{
 			eventMouseButtonPressed(mWidgetEventSender, _left);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseButtonReleased(bool _left)
 		{
 			eventMouseButtonReleased(mWidgetEventSender, _left);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseButtonClick(bool _double)
 		{
 			eventMouseButtonClick(mWidgetEventSender, _double);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onKeyLostFocus(WidgetPtr _new)
 		{
 			eventKeyLostFocus(mWidgetEventSender, _new);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onKeySetFocus(WidgetPtr _old)
 		{
 			eventKeySetFocus(mWidgetEventSender, _old);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char)
 		{
 			eventKeyButtonPressed(mWidgetEventSender, _key, _char);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onKeyButtonReleased(int _key)
 		{
 			eventKeyButtonReleased(mWidgetEventSender, _key);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseChangeRootFocus(bool _focus)
 		{
 			eventMouseChangeRootFocus(mWidgetEventSender, _focus);
 		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onKeyChangeRootFocus(bool _focus)
 		{
 			eventKeyChangeRootFocus(mWidgetEventSender, _focus);

@@ -28,6 +28,7 @@ namespace MyGUI
 	{
 		mIsFocus = true;
 		updateButtonState();
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseSetFocus(_old);
 	}
 
@@ -35,6 +36,7 @@ namespace MyGUI
 	{
 		mIsFocus = false;
 		updateButtonState();
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseLostFocus(_new);
 	}
 
@@ -44,6 +46,7 @@ namespace MyGUI
 			mIsPressed = true;
 			updateButtonState();
 		}
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseButtonPressed(_left);
 	}
 
@@ -53,6 +56,7 @@ namespace MyGUI
 			mIsPressed = false;
 			updateButtonState();
 		}
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseButtonReleased(_left);
 	}
 

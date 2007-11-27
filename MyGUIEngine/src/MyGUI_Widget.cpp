@@ -54,13 +54,11 @@ namespace MyGUI
 
 	Widget::~Widget()
 	{
-
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			delete (*skin);
 		}
 		mSubSkinChild.clear();
-		destroyWidget();
-
+		_destroyAllChildWidget();
 	}
 
 
@@ -397,38 +395,6 @@ namespace MyGUI
 		return this;
 	}
 
-	// уд€л€ет только негодных батюшке государю
-	void Widget::destroyWidget(WidgetPtr & _widget)
-	{
-		for (size_t index = 0; index < mWidgetChild.size(); index++) {
-			WidgetPtr widget = mWidgetChild[index];
-			if (_widget == widget) {
-				// удал€ем свое им€
-				WidgetManager::getInstance().clearName(_widget);
-				delete _widget;
-				_widget = 0;
-
-				// удал€ем из списка
-				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
-				mWidgetChild.pop_back();
-				return;
-			}
-		}
-	}
-
-	// удал€ет всех детей
-	void Widget::destroyWidget()
-	{
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); iter++) {
-			WidgetPtr widget = *iter;
-			// удал€ем свое им€
-			WidgetManager::getInstance().clearName(widget);
-			// и удал€ем
-			delete widget;
-		}
-		mWidgetChild.clear();
-	}
-
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
 	{
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
@@ -472,6 +438,36 @@ namespace MyGUI
 			
 		}
 		return null;
+	}
+
+	// уд€л€ет только негодных батюшке государю
+	void Widget::_destroyChildWidget(WidgetPtr & _widget)
+	{
+		for (size_t index = 0; index < mWidgetChild.size(); index++) {
+			WidgetPtr widget = mWidgetChild[index];
+			if (_widget == widget) {
+
+				delete _widget;
+				_widget = null;
+
+				// удал€ем из списка
+				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
+				mWidgetChild.pop_back();
+				return;
+			}
+		}
+		MYGUI_EXCEPT("Widget is not find");
+	}
+
+	// удал€ет всех детей
+	void Widget::_destroyAllChildWidget()
+	{
+		while (false == mWidgetChild.empty()) {
+			// отсылаем первый, так как он быстрее найдетс€ в массиве
+			// а удаление в векторе производитс€ перестановкой, т.е. быстро
+			WidgetPtr widget = mWidgetChild.front();
+			WidgetManager::getInstance().destroyWidget(widget);
+		}
 	}
 
 } // namespace MyGUI

@@ -79,7 +79,7 @@ namespace MyGUI
 		mListFrameListener.clear();
 		mListFrameListenerAdd.clear();
 
-		destroyAllWidget();
+		_destroyAllChildWidget();
 
 		// деинициализируем и удаляем синглтоны
 		mPluginManager->shutdown();
@@ -120,47 +120,6 @@ namespace MyGUI
 		// присоединяем виджет с уровню
 		LayerManager::getInstance().attachItem(widget, _layer, true);
 		return widget;
-	}
-
-	// удяляет только негодных батюшке государю
-	void Gui::destroyWidget(WidgetPtr & _widget)
-	{
-		for (size_t index = 0; index < mWidgetChild.size(); index++) {
-			WidgetPtr widget = mWidgetChild[index];
-			if (_widget == widget) {
-
-				// удаляем свое имя
-				WidgetManager::getInstance().clearName(_widget);
-
-				// удаляем упоминание в инпуте
-				InputManager::getInstance().widgetUnlink(widget);
-
-				delete _widget;
-				_widget = 0;
-
-				// удаляем из списка
-				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
-				mWidgetChild.pop_back();
-				return;
-			}
-		}
-	}
-
-	// удаляет всех детей
-	void Gui::destroyAllWidget()
-	{
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); iter++) {
-			WidgetPtr widget = *iter;
-			// удаляем свое имя
-			WidgetManager::getInstance().clearName(widget);
-			// отсоединяем виджет от уровня, если он был присоединен
-			LayerManager::getInstance().detachItem(widget);
-			// удаляем упоминание в инпуте
-			InputManager::getInstance().widgetUnlink(widget);
-			// и удаляем
-			delete widget;
-		}
-		mWidgetChild.clear();
 	}
 
 	bool Gui::frameStarted(const Ogre::FrameEvent& evt)
@@ -220,7 +179,48 @@ namespace MyGUI
 				}
 			}
 		}
+	}
 
+	// удяляет только негодных батюшке государю
+	void Gui::_destroyChildWidget(WidgetPtr & _widget)
+	{
+		for (size_t index = 0; index < mWidgetChild.size(); index++) {
+			WidgetPtr widget = mWidgetChild[index];
+			if (_widget == widget) {
+
+				delete _widget;
+				_widget = null;
+
+				// удаляем из списка
+				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
+				mWidgetChild.pop_back();
+				return;
+			}
+		}
+		MYGUI_EXCEPT("Widget is not find");
+	}
+
+	// удаляет всех детей
+	void Gui::_destroyAllChildWidget()
+	{
+		while (false == mWidgetChild.empty()) {
+			// отсылаем первый, так как он быстрее найдется в массиве
+			// а удаление в векторе производится перестановкой, т.е. быстро
+			WidgetPtr widget = mWidgetChild.front();
+			WidgetManager::getInstance().destroyWidget(widget);
+		}
+		/*for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); iter++) {
+			WidgetPtr widget = *iter;
+			// удаляем свое имя
+			WidgetManager::getInstance().clearName(widget);
+			// отсоединяем виджет от уровня, если он был присоединен
+			LayerManager::getInstance().detachItem(widget);
+			// удаляем упоминание в инпуте
+			InputManager::getInstance().widgetUnlink(widget);
+			// и удаляем
+			delete widget;
+		}
+		mWidgetChild.clear();*/
 	}
 
 } // namespace MyGUI

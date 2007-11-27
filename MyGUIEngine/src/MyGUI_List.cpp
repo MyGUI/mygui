@@ -61,30 +61,33 @@ namespace MyGUI
 
 	void List::_onMouseSheel(int _rel)
 	{
-		Widget::_onMouseSheel(_rel);
 		notifyMouseSheel(null, _rel);
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseSheel(_rel);
 	}
 
 	void List::_onKeySetFocus(WidgetPtr _old)
 	{
-		Widget::_onKeySetFocus(_old);
 		mIsFocus = true;
 		_updateState();
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeySetFocus(_old);
 	}
 
 	void List::_onKeyLostFocus(WidgetPtr _new)
 	{
-		Widget::_onKeyLostFocus(_new);
 		mIsFocus = false;
 		_updateState();
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyLostFocus(_new);
 	}
 
 	void List::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
-		Widget::_onKeyButtonPressed(_key, _char);
-
 		// очень секретный метод, запатентованный механизм движени€ курсора
-
 		if (getItemCount() == 0) return;
 		else if (getItemCount() == 1) {
 			if (mIndexSelect == ITEM_NONE) setItemSelect(0);
@@ -94,11 +97,10 @@ namespace MyGUI
 		size_t sel = mIndexSelect;
 
 		if (_key == OIS::KC_UP) {
-
-			if (sel == 0) return;
-
-			if (sel == ITEM_NONE) sel = 0;
-			else sel --;
+			if (sel != 0) {
+				if (sel == ITEM_NONE) sel = 0;
+				else sel --;
+			}
 
 		} else if (_key == OIS::KC_DOWN) {
 
@@ -141,9 +143,13 @@ namespace MyGUI
 
 		}
 
-		if ( ! isItemVisible(sel)) beginToIndex(sel);
-		setItemSelect(sel);
+		if (sel != mIndexSelect) {
+			if ( false == isItemVisible(sel)) beginToIndex(sel);
+			setItemSelect(sel);
+		}
 
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyButtonPressed(_key, _char);
 	}
 
 	void List::notifyMouseSheel(MyGUI::WidgetPtr _sender, int _rel)

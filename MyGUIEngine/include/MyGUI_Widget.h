@@ -29,6 +29,27 @@ namespace MyGUI
 		// все создание только через фабрику
 		Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 
+		void update(); // обновления себя и детей
+
+		void align(int _width, int _height, bool _update);
+		void align(int _left, int _top, int _width, int _height, bool _update);
+
+		inline const Ogre::String & getName() {return mName;};
+
+		// присоединяемся к отцу
+		void attach(BasisWidgetPtr _basis, bool _child);
+
+		// удяляет только негодных батюшке государю
+		void _destroyChildWidget(WidgetPtr & _widget);
+		// удаляет всех детей
+		void _destroyAllChildWidget();
+
+		// наследуется и переопределяется для избежания динамического преобразования
+		bool isWidget() {return true;}
+
+		// вспомогательный метод для распарсивания сабвиджетофф
+		WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size);
+
 	public:
 		// создаем дочку
 		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
@@ -67,29 +88,6 @@ namespace MyGUI
 		// закрываем метод базового класса
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
 
-	protected:
-		void update(); // обновления себя и детей
-
-		void align(int _width, int _height, bool _update);
-		void align(int _left, int _top, int _width, int _height, bool _update);
-
-		inline const Ogre::String & getName() {return mName;};
-
-		// присоединяемся к отцу
-		void attach(BasisWidgetPtr _basis, bool _child);
-
-		// удяляет только негодных батюшке государю
-		void destroyWidget(WidgetPtr & _widget);
-		// удаляет всех детей
-		void destroyWidget();
-
-		// наследуется и переопределяется для избежания динамического преобразования
-		bool isWidget() {return true;}
-
-		// вспомогательный метод для распарсивания сабвиджетофф
-		WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size);
-
-	public:
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
 		LayerItemInfoPtr findItem(int _left, int _top);
 
