@@ -178,7 +178,7 @@ namespace MyGUI
 				WidgetPtr destroy = this;
 				WidgetManager::getInstance().destroyWidget(destroy);
 			} else {
-				Widget::show(false);
+				Widget::hide();
 				mEnabled = true;
 			}
 			return true;
@@ -194,21 +194,25 @@ namespace MyGUI
 		return true;
 	}
 
-	void Window::show(bool _smoot, bool _reset)
+	void Window::show(/*bool _smoot, bool _reset*/)
 	{
+		Widget::show();
+		/*mEnable = true; // это если мы будем показывать, а оно еще и не скрылось
+=======
 		Widget::show(true);
 		mEnabled = true; // это если мы будем показывать, а оно еще и не скрылось
+>>>>>>> .r228
 		if (!_smoot) setAlpha(1.0f);
 		else if (!_reset) setDoAlpha(1.0f);
 		else {
 			setAlpha(0.0f);
 			setDoAlpha(1.0f);
-		}
+		}*/
 	}
 
-	void Window::hide(bool _smoot, bool _destroy)
+	void Window::hide(/*bool _smoot, bool _destroy*/)
 	{
-		if (false == _smoot) {
+		/*if (false == _smoot) {
 			if (_destroy) {
 				WidgetPtr destroy = this;
 				WidgetManager::getInstance().destroyWidget(destroy);
@@ -219,7 +223,7 @@ namespace MyGUI
 			mIsDestroy = _destroy;
 			InputManager::getInstance().resetKeyFocusWidget();
 			InputManager::getInstance().resetMouseFocusWidget();
-		}
+		}*/
 	}
 
 	void Window::updateAlpha()
