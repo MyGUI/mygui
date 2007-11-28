@@ -79,7 +79,7 @@ namespace MyGUI
 		// ищем активное окно
 		LayerItemInfoPtr rootItem = null;
 		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
-		if ( (item != null) && (!item->isEnable()) ) item = null; // неактивное окно
+		if ( (item != null) && (!item->isEnabled()) ) item = null; // неактивное окно
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) return isCaptureMouse();

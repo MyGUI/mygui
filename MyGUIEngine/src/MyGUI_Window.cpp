@@ -179,7 +179,7 @@ namespace MyGUI
 				WidgetManager::getInstance().destroyWidget(destroy);
 			} else {
 				Widget::show(false);
-				mEnable = true;
+				mEnabled = true;
 			}
 			return true;
 		}
@@ -197,7 +197,7 @@ namespace MyGUI
 	void Window::show(bool _smoot, bool _reset)
 	{
 		Widget::show(true);
-		mEnable = true; // это если мы будем показывать, а оно еще и не скрылось
+		mEnabled = true; // это если мы будем показывать, а оно еще и не скрылось
 		if (!_smoot) setAlpha(1.0f);
 		else if (!_reset) setDoAlpha(1.0f);
 		else {
@@ -214,7 +214,7 @@ namespace MyGUI
 				WidgetManager::getInstance().destroyWidget(destroy);
 			} else Widget::show(false);
 		} else {
-			mEnable = false;
+			mEnabled = false;
 			setDoAlpha(0.0);
 			mIsDestroy = _destroy;
 			InputManager::getInstance().resetKeyFocusWidget();

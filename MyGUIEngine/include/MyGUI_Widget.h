@@ -93,7 +93,8 @@ namespace MyGUI
 
 		inline bool isNeedKeyFocus() {return mNeedKeyFocus;}
 		inline void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
-		inline bool isEnable() {return mEnable;}
+    inline bool isEnabled() {return mEnabled;}
+		void setEnabled(bool _enabled);
 
 	protected:
 
@@ -121,7 +122,7 @@ namespace MyGUI
 		BasisWidgetPtr mText;
 
 		// доступен ли на виджет
-		bool mEnable;
+		bool mEnabled;
 		// скрыты ли все сабскины при выходе за границу
 		bool mVisible;
 		// прозрачность нашего оверле€

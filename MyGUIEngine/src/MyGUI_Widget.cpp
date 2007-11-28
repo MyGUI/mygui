@@ -15,7 +15,7 @@ namespace MyGUI
 		BasisWidget(_left, _top, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
 		mText(0),
 		mVisible(true),
-		mEnable(true),
+		mEnabled(true),
 		mAlpha(1.0),
 		mColour(1.0, 1.0, 1.0, 1.0),
 		mStateInfo(_info->getStateInfo()),
@@ -385,7 +385,7 @@ namespace MyGUI
 		// проверяем попадание
 		if (!mVisible || !mShow || !checkPoint(_left, _top)) return 0;
 		// останавливаем каскадную проверку
-		if (!mEnable) return this;
+		if (!mEnabled) return this;
 		// спрашиваем у детишек
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) {
 			LayerItemInfoPtr item = (*widget)->findItem(_left - mLeft, _top - mTop);
@@ -394,6 +394,12 @@ namespace MyGUI
 		// непослушные дети
 		return this;
 	}
+
+ void Widget::setEnabled(bool _enabled)
+ {
+   mEnabled = _enabled;
+   InputManager::getInstance().widgetUnlink(this);
+ }
 
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
 	{
