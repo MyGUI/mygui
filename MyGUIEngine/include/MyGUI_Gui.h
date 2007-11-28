@@ -35,7 +35,7 @@ namespace MyGUI
 		friend WidgetManager;
 		INSTANCE_HEADER(Gui);
 
-		typedef std::list<Ogre::FrameListener*> ListFrameListener;
+		typedef std::list<WidgetPtr> ListFrameListener;
 
 	public:
 		void initialise(Ogre::RenderWindow* _window);
@@ -59,8 +59,8 @@ namespace MyGUI
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
 
-		bool addFrameListener(Ogre::FrameListener * _listener);
-		bool removeFrameListener(Ogre::FrameListener * _listener);
+		bool addFrameListener(WidgetPtr _listener);
+		bool removeFrameListener(WidgetPtr _listener);
 
 	private:
 		// удяляет только негодных батюшке государю

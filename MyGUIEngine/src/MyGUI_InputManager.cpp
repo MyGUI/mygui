@@ -33,7 +33,6 @@ namespace MyGUI
 		mIsWidgetMouseCapture = false;
 		mIsCharShift = false;
 		mHoldKey = OIS::KC_UNASSIGNED;
-		mIsListener = false;
 
 		createDefaultCharSet();
 
@@ -45,12 +44,6 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
-
-		// отписываемся
-		if ( mIsListener) {
-			Gui::getInstance().removeFrameListener(this);
-			mIsListener = false;
-		}
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;
@@ -367,15 +360,15 @@ namespace MyGUI
 //		mWidgetRootKeyFocus = null;
 	}
 
-	bool InputManager::frameStarted(const Ogre::FrameEvent& evt)
+	void InputManager::_frameStarted(float _frame, float _event)
 	{
-		if ( mHoldKey == OIS::KC_UNASSIGNED) return true;
-		if ( ! isCaptureKey() ) {
+		if ( mHoldKey == OIS::KC_UNASSIGNED) return;
+		if ( false == isCaptureKey() ) {
 			mHoldKey = OIS::KC_UNASSIGNED;
-			return true;
+			return;
 		}
 
-		mTimerKey += evt.timeSinceLastFrame;
+		mTimerKey += _frame;
 
 		if (mFirstPressKey) {
 			if (mTimerKey > INPUT_DELAY_FIRST_KEY) {
@@ -390,23 +383,13 @@ namespace MyGUI
 			}
 		}
 
-		return true;
-	}
-
-	bool InputManager::frameEnded(const Ogre::FrameEvent& evt)
-	{
-		return true;
 	}
 
 	void InputManager::storeKey(int _key)
 	{
 		mHoldKey = OIS::KC_UNASSIGNED;
 
-		if ( ! isCaptureKey() ) return;
-		if ( ! mIsListener) {
-			Gui::getInstance().addFrameListener(this);
-			mIsListener = true;
-		}
+		if ( false == isCaptureKey() ) return;
 		if ( (_key == OIS::KC_LSHIFT)
 			|| (_key == OIS::KC_RSHIFT)
 			|| (_key == OIS::KC_LCONTROL)

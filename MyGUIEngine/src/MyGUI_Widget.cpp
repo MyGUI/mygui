@@ -62,9 +62,9 @@ namespace MyGUI
 		_destroyAllChildWidget();
 
 		// удаляем себя из списка рассылки, но мы там быть недолжны
-		//if (Gui::getInstance().removeFrameListener(dynamic_cast<Ogre::FrameListener*>(this))) {
-		//	MYGUI_ERROR("widget is not remove from frame listeners");
-		//}
+		if (Gui::getInstance().removeFrameListener(this)) {
+			MYGUI_ERROR("widget is not remove from frame listeners");
+		}
 
 	}
 

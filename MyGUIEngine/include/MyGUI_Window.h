@@ -17,7 +17,7 @@ namespace MyGUI
 	class Window;
 	typedef Window * WindowPtr;
 
-	class _MyGUIExport Window : public Widget, public Ogre::FrameListener
+	class _MyGUIExport Window : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend factory::WindowFactory;
@@ -29,9 +29,6 @@ namespace MyGUI
 	public:
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
-
-		bool frameStarted(const Ogre::FrameEvent& evt);
-		bool frameEnded(const Ogre::FrameEvent& evt);
 
 		void show();
 		void hide();
@@ -56,6 +53,7 @@ namespace MyGUI
 		EventSimple eventWindowXPressed;
 
 	protected:
+		void _frameStarted(float _frame, float _event);
 
 		virtual void _onMouseChangeRootFocus(bool _focus);
 		virtual void _onKeyChangeRootFocus(bool _focus);

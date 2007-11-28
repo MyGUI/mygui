@@ -139,33 +139,33 @@ namespace MyGUI
 		}
 
 		// если надо, то подписываемся
-		if (!mIsListenerAlpha) {
+		if (false == mIsListenerAlpha) {
 			Gui::getInstance().addFrameListener(this);
 			mIsListenerAlpha = true;
 		}
 	}
 
-	bool Window::frameStarted(const Ogre::FrameEvent& evt)
+	void Window::_frameStarted(float _frame, float _event)
 	{
 		const float COEF = 3.0f;
 		// огр отписывает после прохода
-		if (false == mIsListenerAlpha) return true;
+		if (false == mIsListenerAlpha) return;
 
 		float alpha = getAlpha();
 		if (alpha == mDoAlpha) {
 			Gui::getInstance().removeFrameListener(this);
 			mIsListenerAlpha = false;
-			return true;
+			return;
 
 		} else if (alpha > mDoAlpha) {
-			alpha -= evt.timeSinceLastFrame * COEF;
+			alpha -= _frame * COEF;
 			if (alpha <= mDoAlpha) {
 				alpha = mDoAlpha;
 				Gui::getInstance().removeFrameListener(this);
 				mIsListenerAlpha = false;
 			}
 		} else {
-			alpha += evt.timeSinceLastFrame * COEF;
+			alpha += _frame * COEF;
 			if (alpha >= mDoAlpha) {
 				alpha = mDoAlpha;
 				Gui::getInstance().removeFrameListener(this);
@@ -181,17 +181,11 @@ namespace MyGUI
 				Widget::hide();
 				mEnabled = true;
 			}
-			return true;
+			return;
 		}
 
 		// устанавливаем текущую альфу
 		setAlpha(alpha);
-		return true;
-	}
-
-	bool Window::frameEnded(const Ogre::FrameEvent& evt)
-	{
-		return true;
 	}
 
 	void Window::show(/*bool _smoot, bool _reset*/)

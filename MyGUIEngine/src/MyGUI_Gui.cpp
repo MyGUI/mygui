@@ -129,7 +129,7 @@ namespace MyGUI
 		while (iter != mListFrameListener.end()) {
 			if (null == (*iter)) iter = mListFrameListener.erase(iter);
 			else {
-				(*iter)->frameStarted(evt);
+				(*iter)->frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 				++iter;
 			}
 		};
@@ -142,10 +142,28 @@ namespace MyGUI
 
 	bool Gui::frameEnded(const Ogre::FrameEvent& evt)
 	{
+		// сначала рассылаем
+		ListFrameListener::iterator iter=mListFrameListener.begin();
+		while (iter != mListFrameListener.end()) {
+			if (null == (*iter)) iter = mListFrameListener.erase(iter);
+			else {
+				(*iter)->frameEnded(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+				++iter;
+			}
+		};
+
+		// теперь инпуту
+		mInputManager->_frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+
+		// теперь меняем массив
+		if (false == mListFrameListenerAdd.empty()) {
+			mListFrameListener.merge(mListFrameListenerAdd);
+		}
+
 		return true;
 	}
 
-	bool Gui::addFrameListener(Ogre::FrameListener * _listener)
+	bool Gui::addFrameListener(WidgetPtr _listener)
 	{
 		if (null == _listener) return false;
 
@@ -159,7 +177,7 @@ namespace MyGUI
 		return true;
 	}
 
-	bool Gui::removeFrameListener(Ogre::FrameListener * _listener)
+	bool Gui::removeFrameListener(WidgetPtr _listener)
 	{
 		if (null == _listener) return false;
 

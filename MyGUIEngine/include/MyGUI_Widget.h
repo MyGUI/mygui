@@ -43,6 +43,10 @@ namespace MyGUI
 		// присоединяемся к отцу
 		void attach(BasisWidgetPtr _basis, bool _child);
 
+		// события кадров, работает только по подписке
+		virtual void frameStarted(float _frame, float _event) {}
+		virtual void frameEnded(float _frame, float _event) {}
+
 		// удяляет только негодных батюшке государю
 		void _destroyChildWidget(WidgetPtr & _widget);
 		// удаляет всех детей

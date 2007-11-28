@@ -18,7 +18,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef delegates::CDelegate1<const std::string &> EventChangeLanguage;
 
-	class _MyGUIExport InputManager :  public Ogre::FrameListener
+	class _MyGUIExport InputManager
 	{
 		INSTANCE_HEADER(InputManager);
 
@@ -33,8 +33,7 @@ namespace MyGUI
 
 		bool load(const std::string & _file, bool _resource = true);
 
-		bool frameStarted(const Ogre::FrameEvent& evt);
-		bool frameEnded(const Ogre::FrameEvent& evt);
+		void _frameStarted(float _frame, float _event);
 
 		bool injectMouseMove( const OIS::MouseEvent & _arg);
 		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
@@ -119,7 +118,6 @@ namespace MyGUI
 		int mHoldKey;
 		bool mFirstPressKey;
 		float mTimerKey;
-		bool mIsListener;
 
 	}; // class InputManager
 
