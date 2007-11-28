@@ -62,7 +62,7 @@ namespace MyGUI
 		// создаем курсор
 		WidgetSkinInfo * info = SkinManager::getInstance().getSkin(skin);
 		mWidgetCursor = mWidgetUpper->createWidget("Widget", skin, 0, 0, info->getSize().width, getFontHeight(), ALIGN_LEFT | ALIGN_TOP);
-		mWidgetCursor->show(false);
+		mWidgetCursor->hide();
 		mWidgetCursor->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
 		mWidgetCursor->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
 		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
@@ -111,7 +111,7 @@ namespace MyGUI
 	void Edit::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		// останавливаем курсор
-		if ( false == mWidgetCursor->isShow()) mWidgetCursor->show(true);
+		if ( false == mWidgetCursor->isShow()) mWidgetCursor->show();
 
 		// сбрасываем все таймеры
 		mCursorTimer = 0;
@@ -178,7 +178,7 @@ namespace MyGUI
 
 			mCursorActive = true;
 			Ogre::Root::getSingleton().addFrameListener(this);
-			mWidgetCursor->show(true);
+			mWidgetCursor->show();
 			mCursorTimer = 0;
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -193,7 +193,7 @@ namespace MyGUI
 
 			mCursorActive = false;
 			Ogre::Root::getSingleton().removeFrameListener(this);
-			mWidgetCursor->show(false);
+			mWidgetCursor->hide();
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -204,7 +204,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(null != mText);
 
-		if ( ! mWidgetCursor->isShow()) mWidgetCursor->show(true);
+		if ( false == mWidgetCursor->isShow()) mWidgetCursor->show();
 		mCursorTimer = 0.0f;
 
 		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
@@ -440,7 +440,8 @@ namespace MyGUI
 			mCursorTimer += evt.timeSinceLastFrame;
 
 			if (mCursorTimer > EDIT_CURSOR_TIMER ) {
-				mWidgetCursor->show( ! mWidgetCursor->isShow());
+				if (mWidgetCursor->isShow()) mWidgetCursor->hide();
+				else mWidgetCursor->show();
 				mCursorTimer -= EDIT_CURSOR_TIMER ;
 			}
 		}

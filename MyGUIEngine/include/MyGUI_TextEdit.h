@@ -21,7 +21,8 @@ namespace MyGUI
 		TextEdit(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
 		virtual ~TextEdit();
 
-		void show(bool _show);
+		void show();
+		void hide();
 
 		void setCaption(const Ogre::DisplayString & _caption);
 		const Ogre::DisplayString & getCaption();

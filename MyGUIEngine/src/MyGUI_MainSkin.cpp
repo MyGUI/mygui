@@ -40,12 +40,19 @@ namespace MyGUI
 		mOverlayContainer->setColor(*(Ogre::uint32*)color);
 	}
 
-	void MainSkin::show(bool _show)
+	void MainSkin::show()
 	{
-		if (mShow == _show) return;
-		mShow = _show;
-		_show ? mOverlayContainer->show() : mOverlayContainer->hide();
-	};
+		if (mShow) return;
+		mShow = true;
+		mOverlayContainer->show();
+	}
+
+	void MainSkin::hide()
+	{
+		if (false == mShow) return;
+		mShow = false;
+		mOverlayContainer->hide();
+	}
 
 	void MainSkin::align(int _width, int _height, bool _update)
 	{

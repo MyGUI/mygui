@@ -258,15 +258,15 @@ namespace MyGUI
 
 		if ( (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) ) {
 			if (mWidgetScroll->isShow()) {
-				mWidgetScroll->show(false);
+				mWidgetScroll->hide();
 				// увеличиваем клиентскую зону на ширину скрола
 				mWidgetClient->size(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 			return;
 		}
-		if (!mWidgetScroll->isShow()) {
+		if (false == mWidgetScroll->isShow()) {
 			mWidgetClient->size(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
-			mWidgetScroll->show(true);
+			mWidgetScroll->show();
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
@@ -389,7 +389,7 @@ namespace MyGUI
 			}
 
 			// если был скрыт, то покажем
-			if (!mWidgetLines[pos]->isShow()) mWidgetLines[pos]->show(true);
+			if (false == mWidgetLines[pos]->isShow()) mWidgetLines[pos]->show();
 			// обновляем текст
 			mWidgetLines[pos]->setCaption(mStringArray[index]);
 
@@ -481,7 +481,7 @@ namespace MyGUI
 
 		// если виджетов стало больше , то скрываем крайний
 		if (mWidgetLines.size() > mStringArray.size()) {
-			mWidgetLines[mStringArray.size()]->show(false);
+			mWidgetLines[mStringArray.size()]->hide();
 		}
 
 		// строка, до первого видимого элемента

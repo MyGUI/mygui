@@ -21,7 +21,8 @@ namespace MyGUI
 		SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
 		virtual ~SubSkin();
 
-		void show(bool _show);
+		void show();
+		void hide();
 
 		void update(); // обновления себя и детей
 		void correct();

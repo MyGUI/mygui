@@ -18,16 +18,20 @@
 namespace MyGUI
 {
 
+	class Gui;
+
 	class _MyGUIExport Widget : public BasisWidget , public LayerItemInfo, public UserData, public WidgetEvent
 	{
 		// для вызова закрытых деструкторов
 		friend WidgetManager;
+		friend Gui;
 		// для вызова закрытого конструктора
 		friend factory::WidgetFactory;
 
 	protected:
 		// все создание только через фабрику
 		Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		virtual ~Widget();
 
 		void update(); // обновления себя и детей
 
@@ -59,7 +63,8 @@ namespace MyGUI
 		virtual void move(int _left, int _top, int _width, int _height);
 		virtual void size(int _width, int _height);
 
-		void show(bool _show);
+		void show();
+		void hide();
 
 		virtual void setCaption(const Ogre::DisplayString & _caption);
 		virtual const Ogre::DisplayString & getCaption();
@@ -100,14 +105,8 @@ namespace MyGUI
 
 		// создаем и добавляем саб скин виджету
 		BasisWidgetPtr addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material);
-
-	public:
-		// закрытый деструктор
-		virtual ~Widget();
-
-	protected:
 		// показывает скрывает все сабскины
-		void visible(bool _visible);
+		void _setVisible(bool _visible);
 
 	protected:
 		// список всех стейтов

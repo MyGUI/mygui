@@ -42,7 +42,7 @@ namespace MyGUI
 		mWidgetTrack->eventMouseMove = newDelegate(this, &ScrollBase::notifyMouseMove);
 		mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 		mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &ScrollBase::notifyMouseReleased);
-		mWidgetTrack->show(false);
+		mWidgetTrack->hide();
 
 		MapString::const_iterator iter = param.find("SkinTrackRange");
 		if (iter != param.end()) {

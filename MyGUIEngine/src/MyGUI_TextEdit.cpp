@@ -46,12 +46,18 @@ namespace MyGUI
 		return mOverlayContainer;
 	}
 
-	void TextEdit::show(bool _show)
+	void TextEdit::show()
 	{
-		if (mShow == _show) return;
-		mShow = _show;
+		if (mShow) return;
+		mShow = true;
+		mOverlayContainer->show();
+	}
 
-		mShow ? mOverlayContainer->show():mOverlayContainer->hide();
+	void TextEdit::hide()
+	{
+		if (false == mShow) return;
+		mShow = false;
+		mOverlayContainer->hide();
 	}
 
 	void TextEdit::setCaption(const Ogre::DisplayString & _caption)

@@ -22,11 +22,11 @@ namespace MyGUI
 
 		// скрываем если диапазан маленький или места мало
 		if ((mScrollRange < 2) || (1 > (int)pos)) {
-			mWidgetTrack->show(false);
+			mWidgetTrack->hide();
 			return;
 		}
 		// если скрыт то покажем
-		if (!mWidgetTrack->isShow()) mWidgetTrack->show(true);
+		if (false == mWidgetTrack->isShow()) mWidgetTrack->show();
 
 		// и обновляем позицию
 		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);

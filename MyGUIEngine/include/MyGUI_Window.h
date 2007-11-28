@@ -33,8 +33,8 @@ namespace MyGUI
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
 
-		void show(bool _smoot = true, bool _reset = true);
-		void hide(bool _smoot = true, bool _destroy = false);
+		void show();
+		void hide();
 
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
 		inline void setAutoAlpha(bool _auto) {mIsAutoAlpha=_auto; if(!_auto)setAlpha(1.0f);else updateAlpha();}

@@ -85,7 +85,8 @@ namespace MyGUI
 
 		void WidgetFactory::Show(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			_widget->show(util::parseBool(_value));
+			if (util::parseBool(_value)) _widget->show();
+			else _widget->hide();
 		}
 
 		void WidgetFactory::Color(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

@@ -33,11 +33,18 @@ namespace MyGUI
 		if (manager != null) manager->destroyOverlayElement(mOverlayContainer);
 	}
 
-	void SubSkin::show(bool _show)
+	void SubSkin::show()
 	{
-		if (mShow == _show) return;
-		mShow = _show;
-		mShow ? mOverlayContainer->show():mOverlayContainer->hide();
+		if (mShow) return;
+		mShow = true;
+		mOverlayContainer->show();
+	}
+
+	void SubSkin::hide()
+	{
+		if (false == mShow) return;
+		mShow = false;
+		mOverlayContainer->hide();
 	}
 
 	void SubSkin::setAlpha(float _alpha)

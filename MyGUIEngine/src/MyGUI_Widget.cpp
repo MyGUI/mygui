@@ -97,26 +97,38 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::visible(bool _visible)
+	void Widget::_setVisible(bool _visible)
 	{
-
 		if (mVisible == _visible) return;
 		mVisible = _visible;
 
 		// если скрыто пользователем, то не показываем
-		if (_visible && !mShow) return;
+		if (mVisible && !mShow) return;
 
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->show(mVisible);
+		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+			if (mVisible) (*skin)->show();
+			else (*skin)->hide();
+		}
 	}
 
-	void Widget::show(bool _show)
+	void Widget::show()
 	{
-		if (mShow == _show) return;
-		mShow = _show;
+		if (mShow) return;
+		mShow = true;
 		// если вышло за границу то не показываем
-		if (_show && !mVisible) return;
+		if (mShow && !mVisible) return;
 
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->show(mShow);
+		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->show();
+	}
+
+	void Widget::hide()
+	{
+		if (false == mShow) return;
+		mShow = false;
+		// если вышло за границу то не показываем
+		if (mShow && !mVisible) return;
+
+		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->hide();
 	}
 
 	void Widget::align(int _left, int _top, int _width, int _height, bool _update)
@@ -216,7 +228,7 @@ namespace MyGUI
 			}
 		}
 
-		visible(show);
+		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->align(mLeft, mTop, _width, _height, mMargin || margin);
@@ -251,7 +263,7 @@ namespace MyGUI
 			}
 		}
 
-		visible(show);
+		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->align(_width, _height, mMargin || margin);
@@ -274,7 +286,7 @@ namespace MyGUI
 			if (checkOutside()) {
 
 				// скрываем
-				visible(false);
+				_setVisible(false);
 				// запоминаем текущее состояние
 				mMargin = margin;
 				return;
@@ -282,7 +294,7 @@ namespace MyGUI
 
 		} else if (!mMargin) { // мы не обрезаны и были нормальные
 
-			visible(true);
+			_setVisible(true);
 			// для тех кому нужно подправить себя при движении
 			for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->correct();
 
@@ -294,7 +306,7 @@ namespace MyGUI
 		mMargin = margin;
 
 		// если скин был скрыт, то покажем
-		visible(true);
+		_setVisible(true);
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->update();

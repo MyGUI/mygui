@@ -32,7 +32,8 @@ namespace MyGUI
 		virtual void move(int _left, int _top, int _width, int _height) {}
 		virtual void size(int _width, int _height) {}
 
-		virtual void show(bool _show) {}
+		virtual void show() {}
+		virtual void hide() {}
 		virtual bool isShow() {return mShow;}
 
 		virtual void setCaption(const Ogre::DisplayString & _caption) {}
