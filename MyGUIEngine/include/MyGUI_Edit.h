@@ -25,7 +25,7 @@ namespace MyGUI
 
 	protected:
 		Edit(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
-
+    ~Edit();
 	public:
 
 		// устанавливает текст

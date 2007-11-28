@@ -4,6 +4,7 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Gui.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_ClipboardManager.h"
@@ -76,6 +77,11 @@ namespace MyGUI
 		if (mHalfHeightCursor < 1) mHalfHeightCursor = 1;
 
 	}
+
+  Edit::~Edit()
+  {
+    Gui::getInstance().removeFrameListener(this);
+  }
 
 	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
 	{
@@ -177,7 +183,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = true;
-			Ogre::Root::getSingleton().addFrameListener(this);
+			Gui::getInstance().addFrameListener(this);
 			mWidgetCursor->show();
 			mCursorTimer = 0;
 		}
@@ -192,7 +198,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = false;
-			Ogre::Root::getSingleton().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(this);
 			mWidgetCursor->hide();
 		}
 
