@@ -236,7 +236,7 @@ namespace MyGUI
 		for (CodePointRangeList::const_iterator r = mCodePointRangeList.begin(); r != mCodePointRangeList.end(); ++r) {
 
 			const CodePointRange& range = *r;
-			for(CodePoint cp = range.first; cp <= range.second; ++cp ) {
+			for(CodePoint cp = (CodePoint)range.first; cp <= (CodePoint)range.second; ++cp ) {
 				FT_Error ftResult;
 
 				// сохраняем оригинильный код

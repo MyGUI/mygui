@@ -59,8 +59,8 @@ namespace MyGUI
 		bool frameStarted(const Ogre::FrameEvent& evt);
 		bool frameEnded(const Ogre::FrameEvent& evt);
 
-		void addFrameListener(Ogre::FrameListener * _listener);
-		void removeFrameListener(Ogre::FrameListener * _listener);
+		bool addFrameListener(Ogre::FrameListener * _listener);
+		bool removeFrameListener(Ogre::FrameListener * _listener);
 
 	private:
 		// удяляет только негодных батюшке государю

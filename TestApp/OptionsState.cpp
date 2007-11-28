@@ -77,14 +77,14 @@ void OptionsState::enter(bool bIsChangeState)
 
 	//MYGUI_EXCEPT("1");
 
-	MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	button->setCaption(L"#00FF00хнопка\t=)");
+	//MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	//button->setCaption(L"#00FF00хнопка\t=)");
 
 //	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 //	window->show(false, true);
 
-//	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-//	edit->setCaption(L"Мы только тем и дороги");
+	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	//edit->setCaption(L"Мы только тем и дороги");
 
 //	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
@@ -179,6 +179,10 @@ bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 //===================================================================================
 bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
 {
+
+	MyGUI::WidgetManager::getInstance().destroyAllWidget();
+	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+
 	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
 }

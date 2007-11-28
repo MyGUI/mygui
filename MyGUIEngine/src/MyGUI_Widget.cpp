@@ -7,6 +7,7 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -59,6 +60,12 @@ namespace MyGUI
 		}
 		mSubSkinChild.clear();
 		_destroyAllChildWidget();
+
+		// удаляем себя из списка рассылки, но мы там быть недолжны
+		//if (Gui::getInstance().removeFrameListener(dynamic_cast<Ogre::FrameListener*>(this))) {
+		//	MYGUI_ERROR("widget is not remove from frame listeners");
+		//}
+
 	}
 
 

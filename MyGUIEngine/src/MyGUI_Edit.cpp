@@ -10,6 +10,7 @@
 #include "MyGUI_ClipboardManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -78,10 +79,10 @@ namespace MyGUI
 
 	}
 
-  Edit::~Edit()
-  {
-    Gui::getInstance().removeFrameListener(this);
-  }
+	Edit::~Edit()
+	{
+		Gui::getInstance().removeFrameListener(this);
+	}
 
 	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
 	{

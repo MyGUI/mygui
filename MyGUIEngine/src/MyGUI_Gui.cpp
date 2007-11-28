@@ -145,40 +145,38 @@ namespace MyGUI
 		return true;
 	}
 
-	void Gui::addFrameListener(Ogre::FrameListener * _listener)
+	bool Gui::addFrameListener(Ogre::FrameListener * _listener)
 	{
-		if (null == _listener) return;
+		if (null == _listener) return false;
 
 		for (ListFrameListener::iterator iter=mListFrameListener.begin(); iter!=mListFrameListener.end(); ++iter) {
-			if ((*iter) == _listener) return;
+			if ((*iter) == _listener) return false;
 		}
 		for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
-			if ((*iter) == _listener) return;
+			if ((*iter) == _listener) return false;
 		}
 		mListFrameListenerAdd.push_back(_listener);
+		return true;
 	}
 
-	void Gui::removeFrameListener(Ogre::FrameListener * _listener)
+	bool Gui::removeFrameListener(Ogre::FrameListener * _listener)
 	{
-		if (null == _listener) return;
+		if (null == _listener) return false;
 
-		bool find = false;
 		for (ListFrameListener::iterator iter=mListFrameListener.begin(); iter!=mListFrameListener.end(); ++iter) {
 			if ((*iter) == _listener) {
 				(*iter) = null;
-				find = true;
-				break;
+				return true;
 			}
 		}
 
-		if (false == find) {
-			for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
-				if ((*iter) == _listener) {
-					mListFrameListenerAdd.erase(iter);
-					break;
-				}
+		for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
+			if ((*iter) == _listener) {
+				mListFrameListenerAdd.erase(iter);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	// удяляет только негодных батюшке государю
