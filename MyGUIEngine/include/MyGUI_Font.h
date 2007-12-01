@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
+#include "Ogre.h"
 #include "OgreResource.h"
 #include "OgreTexture.h"
 #include "OgreMaterial.h"
@@ -17,48 +18,51 @@
 namespace MyGUI
 {
 
-    /** Class representing a font in the system.
-    @remarks
-    This class is simply a way of getting a font texture into the OGRE system and
-    to easily retrieve the texture coordinates required to accurately render them.
-    Fonts can either be loaded from precreated textures, or the texture can be generated
-    using a truetype font. You can either create the texture manually in code, or you
-    can use a .fontdef script to define it (probably more practical since you can reuse
-    the definition more easily)
-	@note
-	This class extends both Resource and ManualResourceLoader since it is
-	both a resource in it's own right, but it also provides the manual load
-	implementation for the Texture it creates.
-    */
 	class _MyGUIExport Font : public Ogre::Resource, public Ogre::ManualResourceLoader
     {
 
 	public:
 		typedef Ogre::uint32 CodePoint;
 		typedef Ogre::FloatRect UVRect;
-		/// Information about the position and size of a glyph in a texture
-		struct GlyphInfo 
+		typedef std::pair<CodePoint, CodePoint> PairCodePoint;
+		typedef std::vector<PairCodePoint> VectorPairCodePoint;
+
+		// информация об одном символе
+		struct GlyphInfo
 		{
 			CodePoint codePoint;
 			UVRect uvRect;
 			Ogre::Real aspectRatio;
 
-			GlyphInfo(CodePoint id, const UVRect& rect, Ogre::Real aspect)
-				: codePoint(id), uvRect(rect), aspectRatio(aspect) { }
+			GlyphInfo() : codePoint(0), uvRect(UVRect(0, 0, 0, 0)), aspectRatio(1) { }
+			GlyphInfo(CodePoint _code, const UVRect& _rect, Ogre::Real _aspect) : codePoint(_code), uvRect(_rect), aspectRatio(_aspect) { }
 		};
-		/// A range of code points, inclusive on both ends
-		typedef std::pair<CodePoint, CodePoint> CodePointRange;
-		typedef std::vector<CodePointRange> CodePointRangeList;
+
+		typedef std::vector<GlyphInfo> VectorGlyphInfo;
+
+		// инфомация о диапазоне символов
+		struct RangeInfo
+		{
+			CodePoint first;
+			CodePoint second;
+			VectorGlyphInfo range;
+
+			RangeInfo(CodePoint _first, CodePoint _second) : first(_first), second(_second) { }
+		};
+
+		typedef std::vector<RangeInfo> VectorRangeInfo;
 
 		// constants
 		enum constCodePoints
 		{
 			FONT_CODE_SELECT = 0,
-			FONT_CODE_SPACE = 0x0020,
 			FONT_CODE_TAB = 0x0009,
-			FONT_CODE_NEL = 0x0085,
+			FONT_CODE_LF = 0x000A,
 			FONT_CODE_CR = 0x000D,
-			FONT_CODE_LF = 0x000A
+			FONT_CODE_SPACE = 0x0020,
+			FONT_CODE_LATIN_START = 0x0021,
+			FONT_CODE_NEL = 0x0085,
+			FONT_CODE_LATIN_END = 0x00A6,
 		};
 
 	protected:
@@ -72,11 +76,18 @@ namespace MyGUI
 
 		CodePoint mSpaceSimbol;
 		Ogre::uint8 mCountSpaceTab;
+		Ogre::uint8 mCharSpacer;
+
+		// отдельная информация о символах
+		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo;
+
+		// символы которые не нужно рисовать
+		VectorPairCodePoint mVectorHideCodePoint;
 
 	protected:
-		/// Map from unicode code point to texture coordinates
-		typedef std::map<CodePoint, GlyphInfo> CodePointMap;
-		CodePointMap mCodePointMap;
+
+		// вся информация о символах
+		VectorRangeInfo mVectorRangeInfo;
 
         /// The material which is generated for this font
 		Ogre::MaterialPtr mpMaterial;
@@ -90,9 +101,6 @@ namespace MyGUI
         /// for TRUE_TYPE font only
         bool mAntialiasColour;
 
-		/// Range of code points to generate glyphs for (truetype only)
-		CodePointRangeList mCodePointRangeList;
-
 		/// @copydoc Resource::loadImpl
 		virtual void loadImpl();
 		/// @copydoc Resource::unloadImpl
@@ -103,219 +111,63 @@ namespace MyGUI
 	public:
 
         /** Constructor.
-		@see Resource
-        */
-
+		@see Resource */
 		Font(Ogre::ResourceManager* creator, const Ogre::String& name, Ogre::ResourceHandle handle, const Ogre::String& group, bool isManual = false, Ogre::ManualResourceLoader* loader = 0);
         virtual ~Font();
 
-        /** Sets the source of the font.
-        @remarks
-            If you have created a font of type FT_IMAGE, this method tells the
-            Font which image to use as the source for the characters. So the parameter 
-            should be the name of an appropriate image file. Note that when using an image
-            as a font source, you will also need to tell the font where each character is
-            located using setGlyphTexCoords (for each character).
-        @par
-            If you have created a font of type FT_TRUETYPE, this method tells the
-            Font which .ttf file to use to generate the text. You will also need to call 
-            setTrueTypeSize and setTrueTypeResolution, and call addCodePointRange
-			as many times as required to define the range of glyphs you want to be
-			available.
-        @param source An image file or a truetype font, depending on the type of this font
-        */
-		void setSource(const Ogre::String& source);
+		GlyphInfo * getSpaceGlyphInfo() {return & mSpaceGlyphInfo;}
+		GlyphInfo * getTabGlyphInfo() {return & mTabGlyphInfo;}
+		GlyphInfo * getSelectGlyphInfo() {return & mSelectGlyphInfo;}
+		GlyphInfo * getSelectDeactiveGlyphInfo() {return & mSelectDeactiveGlyphInfo;}
 
-        /** Gets the source this font (either an image or a truetype font).
-        */
-		const Ogre::String& getSource(void) const;
+		void setSource(const Ogre::String& source) { mSource = source; }
+		const Ogre::String& getSource(void) const { return mSource; }
 
-        /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
-        @param ttfSize The size of the font in points. Note that the
-            size of the font does not affect how big it is on the screen, just how large it is in
-            the texture and thus how detailed it is.
-        */
-		void setTrueTypeSize(Ogre::Real ttfSize);
-        /** Gets the resolution (dpi) of the font used to generate the texture
-        (only required for FT_TRUETYPE).
-        @param ttfResolution The resolution in dpi
-        */
-        void setTrueTypeResolution(Ogre::uint ttfResolution);
+		void setTrueTypeSize(Ogre::Real ttfSize) { mTtfSize = ttfSize; }
+		Ogre::Real getTrueTypeSize(void) const { return mTtfSize; }
 
-        /** Gets the point size of the font used to generate the texture.
-        @remarks
-            Only applicable for FT_TRUETYPE Font objects.
-            Note that the size of the font does not affect how big it is on the screen, 
-            just how large it is in the texture and thus how detailed it is.            
-        */
-        Ogre::Real getTrueTypeSize(void) const;
-        /** Gets the resolution (dpi) of the font used to generate the texture.
-        @remarks
-            Only applicable for FT_TRUETYPE Font objects.
-        */
-        Ogre::uint getTrueTypeResolution(void) const;
+		void setTrueTypeResolution(Ogre::uint ttfResolution) { mTtfResolution = ttfResolution; }
+		Ogre::uint getTrueTypeResolution(void) const { return mTtfResolution; }
 
+		GlyphInfo * getGlyphInfo(CodePoint _id);
 
-        /** Returns the teture coordinates of the associated glyph. 
-            @remarks Parameter is a short to allow both ASCII and wide chars.
-            @param id The code point (unicode)
-            @returns A rectangle with the UV coordinates, or null UVs if the
-				code point was not present
-        */
-        inline const UVRect& getGlyphTexCoords(CodePoint id) const
-        {
-			CodePointMap::const_iterator i = mCodePointMap.find(id);
-			if (i != mCodePointMap.end())
-			{
-				return i->second.uvRect;
-			}
-			else
-			{
-				static UVRect nullRect(0.0, 0.0, 0.0, 0.0);
-				return nullRect;
-			}
-        }
-
-        /** Sets the texture coordinates of a glyph.
-        @remarks
-            You only need to call this if you're setting up a font loaded from a texture manually.
-        @note
-            Also sets the aspect ratio (width / height) of this character. textureAspect
-			is the width/height of the texture (may be non-square)
-        */
-        inline void setGlyphTexCoords(CodePoint id, Ogre::Real u1, Ogre::Real v1, Ogre::Real u2, Ogre::Real v2, Ogre::Real textureAspect)
-        {
-			CodePointMap::iterator i = mCodePointMap.find(id);
-			if (i != mCodePointMap.end())
-			{
-				i->second.uvRect.left = u1;
-				i->second.uvRect.top = v1;
-				i->second.uvRect.right = u2;
-				i->second.uvRect.bottom = v2;
-				i->second.aspectRatio = textureAspect * (u2 - u1)  / (v2 - v1);
-			}
-			else
-			{
-				mCodePointMap.insert(
-					CodePointMap::value_type(id, 
-						GlyphInfo(id, UVRect(u1, v1, u2, v2), 
-							textureAspect * (u2 - u1)  / (v2 - v1))));
-			}
-
-        }
-        /** Gets the aspect ratio (width / height) of this character. */
-        inline Ogre::Real getGlyphAspectRatio(CodePoint id) const
-        {
-			CodePointMap::const_iterator i = mCodePointMap.find(id);
-			if (i != mCodePointMap.end())
-			{
-				return i->second.aspectRatio;
-			}
-			else
-			{
-				return 1.0;
-			}
-        }
-        /** Sets the aspect ratio (width / height) of this character.
-        @remarks
-            You only need to call this if you're setting up a font loaded from a 
-			texture manually.
-        */
-        inline void setGlyphAspectRatio(CodePoint id, Ogre::Real ratio)
-        {
-			CodePointMap::iterator i = mCodePointMap.find(id);
-			if (i != mCodePointMap.end())
-			{
-				i->second.aspectRatio = ratio;
-			}
-        }
-
-		/** Gets the information available for a glyph corresponding to a
-			given code point, or throws an exception if it doesn't exist;
-		*/
-		const GlyphInfo& getGlyphInfo(CodePoint id) const;
-
-		/** Adds a range of code points to the list of code point ranges to generate
-			glyphs for, if this is a truetype based font.
-		@remarks
-			In order to save texture space, only the glyphs which are actually
-			needed by the application are generated into the texture. Before this
-			object is loaded you must call this method as many times as necessary
-			to define the code point range that you need.
-		*/
-		void addCodePointRange(const CodePointRange& range)
+		inline void addCodePointRange(Ogre::Real _first, Ogre::Real _second)
 		{
-			mCodePointRangeList.push_back(range);
+			mVectorRangeInfo.push_back(RangeInfo(_first, _second));
 		}
 
-		/** Clear the list of code point ranges.
-		*/
+		inline void addHideCodePointRange(Ogre::Real _first, Ogre::Real _second)
+		{
+			mVectorHideCodePoint.push_back(PairCodePoint(_first, _second));
+		}
+
+		// проверяет, входит ли символ в зоны ненужных символов
+		inline bool checkHidePointCode(CodePoint _id)
+		{
+			for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter) {
+				if ((_id >= iter->first) && (_id <= iter->second)) return true;
+			}
+			return false;
+		}
+
+		/** Clear the list of code point ranges. */
 		void clearCodePointRanges()
 		{
-			mCodePointRangeList.clear();
+			mVectorRangeInfo.clear();
+			mVectorHideCodePoint.clear();
 		}
-		/** Get a const reference to the list of code point ranges to be used to
-			generate glyphs from a truetype font.
-		*/
-		const CodePointRangeList& getCodePointRangeList() const
-		{
-			return mCodePointRangeList;
-		}
-        /** Gets the material generated for this font, as a weak reference. 
-        @remarks
-            This will only be valid after the Font has been loaded. 
-        */
-        inline const Ogre::MaterialPtr& getMaterial() const
-        {
-            return mpMaterial;
-        }
 
-        /** Gets the material generated for this font, as a weak reference. 
-        @remarks
-            This will only be valid after the Font has been loaded. 
-        */
-        inline const Ogre::MaterialPtr& getMaterial()
-        {
-            return mpMaterial;
-        }
+        inline const Ogre::MaterialPtr& getMaterial() const { return mpMaterial; }
+        inline const Ogre::MaterialPtr& getMaterial() {return mpMaterial; }
 
-		inline const Ogre::MaterialPtr& getMaterialSelectedFont() const
-        {
-            return mpMaterialSelectedFont;
-        }
+		inline const Ogre::MaterialPtr& getMaterialSelectedFont() const { return mpMaterialSelectedFont; }
+		inline const Ogre::MaterialPtr& getMaterialSelectedFont() { return mpMaterialSelectedFont; }
 
-		inline const Ogre::MaterialPtr& getMaterialSelectedFont()
-        {
-            return mpMaterialSelectedFont;
-        }
-
-        /** Sets whether or not the colour of this font is antialiased as it is generated
-            from a true type font.
-        @remarks
-        	This is valid only for a FT_TRUETYPE font. If you are planning on using 
-            alpha blending to draw your font, then it is a good idea to set this to
-            false (which is the default), otherwise the darkening of the font will combine
-            with the fading out of the alpha around the edges and make your font look thinner
-            than it should. However, if you intend to blend your font using a colour blending
-            mode (add or modulate for example) then it's a good idea to set this to true, in
-            order to soften your font edges.
-        */
-        inline void setAntialiasColour(bool enabled)
-        {
-        	mAntialiasColour = enabled;
-        }
-
-		/** Gets whether or not the colour of this font is antialiased as it is generated
-		from a true type font.
-		*/
-        inline bool getAntialiasColour(void) const
-        {
-            return mAntialiasColour;
-        }
+        inline void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
+        inline bool getAntialiasColour(void) const { return mAntialiasColour; }
 
 		/** Implementation of ManualResourceLoader::loadResource, called
-			when the Texture that this font creates needs to (re)load.
-		*/
+			when the Texture that this font creates needs to (re)load. */
 		void loadResource(Ogre::Resource* resource);
 
 		// устанавливает и берет значение ширины из символа для пробела
@@ -325,6 +177,9 @@ namespace MyGUI
 		// устанавливает колличество пробелов для таба
 		inline Ogre::uint8 getCountSpaceTab() {return mCountSpaceTab;}
 		inline void setCountSpaceTab(Ogre::uint8 _count) {mCountSpaceTab = _count;}
+
+		inline Ogre::uint8 getCharSpacer() {return mCharSpacer;}
+		inline void setCharSpacer(Ogre::uint8 _spacer) {mCharSpacer = _spacer;}
 
     };
 

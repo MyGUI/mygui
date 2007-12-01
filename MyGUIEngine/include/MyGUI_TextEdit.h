@@ -53,6 +53,9 @@ namespace MyGUI
 		void setTextShift(IntPoint _point);
 		IntPoint getTextShift();
 
+		bool getSelectBackground();
+		void setSelectBackground(bool _normal);
+
 		void align(int _width, int _height, bool _update);
 		void align(int _left, int _top, int _width, int _height, bool _update);
 

@@ -66,6 +66,9 @@ namespace MyGUI
 		virtual void setTextShift(IntPoint _point) {}
 		virtual IntPoint getTextShift() {return IntPoint();}
 
+		virtual bool getSelectBackground() {return true;}
+		virtual void setSelectBackground(bool _normal) {}
+
 		virtual void update() {}
 		virtual void correct() {}
 		virtual void align(int _width, int _height, bool _update) {}

@@ -23,7 +23,26 @@ namespace MyGUI
 	{
 
 	protected:
-		typedef std::vector<size_t> VectorCharInfo;
+		// вспомогательный класс дл€ хранени€ информации о символе
+		class EnumCharInfo
+		{
+		public:
+			explicit EnumCharInfo() : mData(0) {}
+			explicit EnumCharInfo(size_t _value, bool _colour = false) : mData(_colour ? (_value | 0xFF000000) : _value) {}
+			explicit EnumCharInfo(float _value) : mData(*((size_t*)(&_value))) {}
+			explicit EnumCharInfo(Font::GlyphInfo * _info) : mData((size_t)_info) {}
+
+			inline size_t getValueSizeT() { return mData; }
+			inline float getValueFloat() { return *((float*)(&mData)); }
+			inline Ogre::RGBA getColour() { return (Ogre::RGBA) (mData & 0x00FFFFFF); }
+			inline Font::GlyphInfo * getGlyphInfo() {return (Font::GlyphInfo *)mData;}
+			inline bool isColour() { return (mData & 0xFF000000) == 0xFF000000; }
+
+		private:
+			size_t mData;
+		};
+
+		typedef std::vector<EnumCharInfo> VectorCharInfo;
 		typedef std::vector<VectorCharInfo> VectorLineInfo;
 
 		int mLeftMargin, mRightMargin, mTopMargin, mBottomMargin; // перекрытие
@@ -37,6 +56,8 @@ namespace MyGUI
 		float mOldViewportAspectCoef; // последний коээфициент
 		float mTextureHeightOne, mTextureWidthOne; // размер одной текстурной единицы
         FontPtr mpFont;
+		Font::GlyphInfo * mSpaceGlyphInfo;
+		Font::GlyphInfo * mTabGlyphInfo;
 
 
 	public:
@@ -142,7 +163,7 @@ namespace MyGUI
 				VectorCharInfo::iterator index = line->begin();
 				VectorCharInfo::iterator end_index = line->end();
 				// первый всегда длинна строки
-				float len = *((float*)(&(*index)));
+				float len = index->getValueFloat();
 				++index;
 				// второй колличество символов
 				++index;
@@ -156,10 +177,9 @@ namespace MyGUI
 
 						// необходимо парсить теги цветов полюбак
 						for (;index != end_index; ++index) {
-							size_t data = (*index);
 							// провер€ем на смену цвета
-							if ( (data & 0xFF000000) == 0xFF000000) {
-								color = (Ogre::RGBA) (data & 0x00FFFFFF) | (color & 0xFF000000);
+							if ( index->isColour() ) {
+								color = index->getColour() | (color & 0xFF000000);
 							}
 						}
 
@@ -189,15 +209,14 @@ namespace MyGUI
 				// внутренний цикл строки
 				for (;index != end_index; ++index) {
 
-					size_t data = (*index);
 					// провер€ем на смену цвета
-					if ( (data & 0xFF000000) == 0xFF000000) {
-						color = (Ogre::RGBA) (data & 0x00FFFFFF) | (color & 0xFF000000);
+					if ( index->isColour() ) {
+						color = index->getColour() | (color & 0xFF000000);
 						continue;
 					}
 
 					// отображаемый символ
-					Font::GlyphInfo * info = (Font::GlyphInfo * )data;
+					Font::GlyphInfo * info = index->getGlyphInfo();
 					Ogre::Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
 
 					// пересчет опорных данных
@@ -233,10 +252,9 @@ namespace MyGUI
 							index ++;
 							// дл€ того чтобы теги цвета не тер€лись, нужно пройти до конца строки
 							while (index != end_index) {
-								size_t data = (*index);
 								// провер€ем на смену цвета
-								if ( (data & 0xFF000000) == 0xFF000000) {
-									color = (Ogre::RGBA) (data & 0x00FFFFFF) | (color & 0xFF000000);
+								if ( index->isColour() ) {
+									color = index->getColour() | (color & 0xFF000000);
 								}
 								index ++;
 							};
@@ -322,17 +340,12 @@ namespace MyGUI
 					//-------------------------------------------------------------------------------------
 
 					mRenderOp.vertexData->vertexCount += 6;
-					//cur ++;
 
 				}
-
-				// следующа€ строка
-				//cursor += count;
 			}
 
 			// Unlock vertex buffer
 			vbuf->unlock();
-
 		}
 
 		void initialise(void)
@@ -417,6 +430,10 @@ namespace MyGUI
 			mpMaterial = mpFont->getMaterial();
 			mpMaterial->setDepthCheckEnabled(false);
 			mpMaterial->setLightingEnabled(false);
+
+			// достаем пробел и табул€цию
+			mSpaceGlyphInfo = mpFont->getSpaceGlyphInfo();
+			mTabGlyphInfo = mpFont->getTabGlyphInfo();
 			
 			mGeomPositionsOutOfDate = true;
 			mGeomUVsOutOfDate = true;
@@ -439,16 +456,16 @@ namespace MyGUI
 
 			// вычисление размера одной единицы в текстурных координатах
 			float realCharHeight = mCharHeight * 2.0;
-			const Font::GlyphInfo & info = mpFont->getGlyphInfo('A');
-			mTextureHeightOne = (info.uvRect.bottom - info.uvRect.top) / (realCharHeight);
-			mTextureWidthOne = (info.uvRect.right - info.uvRect.left) / (info.aspectRatio * mViewportAspectCoef * realCharHeight);
+			Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
+			mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (realCharHeight);
+			mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mViewportAspectCoef * realCharHeight);
 
 			mLinesInfo.clear();
 
 			// создаем первую строчку
 			mLinesInfo.push_back(VectorCharInfo());
-			mLinesInfo.back().push_back(0); // первый символ всегда ширина в реальных координатах
-			mLinesInfo.back().push_back(0); // второй символ, колличество значимых символов
+			mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
+			mLinesInfo.back().push_back(EnumCharInfo()); // второй символ, колличество значимых символов
 			float len = 0, width = 0;
 			size_t count = 1;
 
@@ -459,16 +476,16 @@ namespace MyGUI
 
 				if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 					// запоминаем размер предыдущей строки
-					mLinesInfo.back()[0] = *((size_t*)(&len));
-					mLinesInfo.back()[1] = count;
+					mLinesInfo.back()[0] = EnumCharInfo(len);
+					mLinesInfo.back()[1] = EnumCharInfo(count);
 					if (width < len) width = len;
 					count = 1;
 					len = 0;
 
 					// и создаем новую
 					mLinesInfo.push_back(VectorCharInfo());
-					mLinesInfo.back().push_back(0); // первый символ всегда ширина в пиксел€х
-					mLinesInfo.back().push_back(0); // второй символ, колличество значимых символов
+					mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в пиксел€х
+					mLinesInfo.back().push_back(EnumCharInfo()); // второй символ, колличество значимых символов
 
 					if (character == Font::FONT_CODE_CR) {
 						Ogre::DisplayString::const_iterator peeki = index;
@@ -488,7 +505,7 @@ namespace MyGUI
 					if (character != '#') {
 
 						// парсим первый символ
-						size_t color = convert_color[character & 0x7F];
+						Ogre::RGBA color = convert_color[character & 0x7F];
 
 						// и еще п€ть символов после шарпа
 						for (char i=0; i<5; i++) {
@@ -502,24 +519,28 @@ namespace MyGUI
 						if (mRenderGL) color = ((color&0x00FF0000)>>16)|((color&0x000000FF)<<16)|(color&0xFF00FF00);
 				
 						// запоминаем цвет, в верхнем байте единицы
-						mLinesInfo.back().push_back( color | 0xFF000000 );
+						mLinesInfo.back().push_back( EnumCharInfo(color, true) );
 
 						continue;
 					}
 				}
 
-				const Font::GlyphInfo & info = mpFont->getGlyphInfo(character);
-				len += info.aspectRatio * realCharHeight * mViewportAspectCoef;
+				Font::GlyphInfo * info;
+				if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
+				else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
+				else info = mpFont->getGlyphInfo(character);
+
+				len += info->aspectRatio * realCharHeight * mViewportAspectCoef;
 
 				// указатель на инфо о символе
-				mLinesInfo.back().push_back( (size_t) &(const_cast<Font::GlyphInfo &>(info)) );
+				mLinesInfo.back().push_back( EnumCharInfo(info) );
 				count ++;
 
 			}
 
 			// запоминаем размер предыдущей строки
-			mLinesInfo.back()[0] = *((size_t*)(&len));
-			mLinesInfo.back()[1] = count;
+			mLinesInfo.back()[0] = EnumCharInfo(len);
+			mLinesInfo.back()[1] = EnumCharInfo(count);
 			if (width < len) width = len;
 
 

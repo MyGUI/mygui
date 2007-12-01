@@ -4,13 +4,10 @@
 	@date		11/2007
 	@module
 */
-#include "MyGUI_Gui.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_TextIterator.h"
-#include "MyGUI_ClipboardManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
-#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -77,12 +74,6 @@ namespace MyGUI
 		mHalfHeightCursor = (mWidgetCursor->getHeight()/2);
 		if (mHalfHeightCursor < 1) mHalfHeightCursor = 1;
 
-	}
-
-	Edit::~Edit()
-	{
-		// на вс€кий отписываем
-		Gui::getInstance().removeFrameListener(this);
 	}
 
 	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
@@ -153,6 +144,7 @@ namespace MyGUI
 		if (false == mIsFocus) {
 			mIsFocus = true;
 			updateEditState();
+			mText->setSelectBackground(true);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -164,6 +156,7 @@ namespace MyGUI
 		if (! ((false == mIsFocus) || (_new == mWidgetUpper) || (_new == mWidgetCursor)) ) {
 			mIsFocus = false;
 			updateEditState();
+			mText->setSelectBackground(false);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -185,7 +178,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = true;
-			Gui::getInstance().addFrameListener(this);
+			Ogre::Root::getSingleton().addFrameListener(this);
 			mWidgetCursor->show();
 			mCursorTimer = 0;
 		}
@@ -200,7 +193,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = false;
-			Gui::getInstance().removeFrameListener(this);
+			Ogre::Root::getSingleton().removeFrameListener(this);
 			mWidgetCursor->hide();
 		}
 
@@ -442,10 +435,10 @@ namespace MyGUI
 		Widget::_onKeyButtonReleased(_key);
 	}
 
-	void Edit::frameStarted(float _frame, float _event)
+	bool Edit::frameStarted(const Ogre::FrameEvent& evt)
 	{
 		if (mCursorActive) {
-			mCursorTimer += _frame;
+			mCursorTimer += evt.timeSinceLastFrame;
 
 			if (mCursorTimer > EDIT_CURSOR_TIMER ) {
 				if (mWidgetCursor->isShow()) mWidgetCursor->hide();
@@ -456,7 +449,7 @@ namespace MyGUI
 
 		// сдвигаем курсор по положению мыши
 		if (mMouseLeftPressed) {
-			mActionMouseTimer += _frame;
+			mActionMouseTimer += evt.timeSinceLastFrame;
 
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER ) {
 				
@@ -535,7 +528,14 @@ namespace MyGUI
 			}
 
 		} // if (mMouseLeftPressed)
-	} // void Edit::frameStarted(float _frame, float _event)
+
+		return true;
+	}
+
+	bool Edit::frameEnded(const Ogre::FrameEvent& evt)
+	{
+		return true;
+	}
 
 	void Edit::setTextCursor(size_t _index)
 	{
@@ -1157,24 +1157,25 @@ namespace MyGUI
 	void Edit::commandCut()
 	{
 		// вырезаем в буфер обмена
-		if ( isTextSelect() ) {
+		/*if ( isTextSelect() ) {
 			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 			if (false == mReadOnly) deleteTextSelect(true);
 		}
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		*/
 	}
 
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-		if ( isTextSelect() ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
-		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+//		if ( isTextSelect() ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
+//		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandPast()
 	{
 		// копируем из буфера обмена
-		std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		/*std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 		if ( (false == mReadOnly) && ( false == clipboard.empty()) ) {
 			// попытка объединени€ двух комманд
 			size_t size = mVectorUndoChangeInfo.size();
@@ -1183,7 +1184,7 @@ namespace MyGUI
 			insertText(clipboard, mCursorPosition, true);
 			// провер€ем на возможность объединени€
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-		}
+		}*/
 	}
 
 } // namespace MyGUI

@@ -18,14 +18,13 @@ namespace MyGUI
 	class Edit;
 	typedef Edit * EditPtr;
 
-	class _MyGUIExport Edit : public Widget
+	class _MyGUIExport Edit : public Widget, public Ogre::FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend factory::EditFactory;
 
 	protected:
 		Edit(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
-		~Edit();
 
 	public:
 
@@ -103,7 +102,9 @@ namespace MyGUI
 		void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
 	protected:
-		void frameStarted(float _frame, float _event);
+
+		bool frameStarted(const Ogre::FrameEvent& evt);
+		bool frameEnded(const Ogre::FrameEvent& evt);
 
 		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);

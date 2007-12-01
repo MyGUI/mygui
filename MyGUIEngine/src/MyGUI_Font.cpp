@@ -25,17 +25,21 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-
-
 namespace MyGUI
 {
+
+	const unsigned char FONT_MASK_SELECT = 0x88;
+	const unsigned char FONT_MASK_SELECT_DEACTIVE = 0x70;
+	const unsigned char FONT_MASK_SPACE = 0x00;
+	const unsigned char FONT_MASK_CHAR = 0xFF;
+	const size_t FONT_TEXTURE_WIDTH = 1024;
 
     //---------------------------------------------------------------------
 	Font::Font(Ogre::ResourceManager* creator, const Ogre::String& name, Ogre::ResourceHandle handle,
 		const Ogre::String& group, bool isManual, Ogre::ManualResourceLoader* loader)
 		: Ogre::Resource (creator, name, handle, group, isManual, loader),
 		mTtfSize(0), mTtfResolution(0), mAntialiasColour(false),
-		mSpaceSimbol('a'), mCountSpaceTab(4)
+		mSpaceSimbol('a'), mCountSpaceTab(4), mCharSpacer(5)
     {
     }
     //---------------------------------------------------------------------
@@ -46,43 +50,14 @@ namespace MyGUI
         unload();
     }
     //---------------------------------------------------------------------
-	void Font::setSource(const Ogre::String& source)
-    {
-        mSource = source;
-    }
-    //---------------------------------------------------------------------
-    void Font::setTrueTypeSize(Ogre::Real ttfSize)
-    {
-        mTtfSize = ttfSize;
-    }
-    //---------------------------------------------------------------------
-    void Font::setTrueTypeResolution(Ogre::uint ttfResolution)
-    {
-        mTtfResolution = ttfResolution;
-    }
-    //---------------------------------------------------------------------
-	const Ogre::String& Font::getSource(void) const
-    {
-        return mSource;
-    }
-    //---------------------------------------------------------------------
-    Ogre::Real Font::getTrueTypeSize(void) const
-    {
-        return mTtfSize;
-    }
-    //---------------------------------------------------------------------
-    Ogre::uint Font::getTrueTypeResolution(void) const
-    {
-        return mTtfResolution;
-    }
-	//---------------------------------------------------------------------
-	const Font::GlyphInfo& Font::getGlyphInfo(CodePoint id) const
+	Font::GlyphInfo * Font::getGlyphInfo(CodePoint _id)
 	{
-		CodePointMap::const_iterator i = mCodePointMap.find(id);
-		if (i == mCodePointMap.end()) {
-			MYGUI_EXCEPT("Code point " + Ogre::StringConverter::toString(id) + " not found in font " + mName);
+		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
+			if ((_id > iter->second) || (_id < iter->first)) continue;
+			return & iter->range[_id - iter->first];
 		}
-		return i->second;
+		MYGUI_EXCEPT(util::toString("Code point ", _id, " not found in font ", mName));
+		return null;
 	}
     //---------------------------------------------------------------------
     void Font::loadImpl()
@@ -140,23 +115,13 @@ namespace MyGUI
     //---------------------------------------------------------------------
 	void Font::loadResource(Ogre::Resource* res)
 	{
-		// добавл€ем пробел
-		addCodePointRange(CodePointRange(FONT_CODE_SPACE, FONT_CODE_SPACE));
-		// добавл€ем знак выделени€
-		addCodePointRange(CodePointRange(FONT_CODE_SELECT, FONT_CODE_SELECT));
-		// добавл€ем знак табул€ции
-		addCodePointRange(CodePointRange(FONT_CODE_TAB, FONT_CODE_TAB));
+		// ваще нет ничего
+		if (mVectorRangeInfo.empty()) mVectorRangeInfo.push_back(RangeInfo(FONT_CODE_LATIN_START, FONT_CODE_LATIN_END));
 
 		// ManualResourceLoader implementation - load the texture
 		FT_Library ftLibrary;
 		// Init freetype
-        if( FT_Init_FreeType( &ftLibrary ) )
-            MYGUI_EXCEPT("Could not init FreeType library!");
-
-        FT_Face face;
-        // Add a gap between letters vert and horz
-        // prevents nasty artefacts when letters are too close together
-        Ogre::uint char_spacer = 5;
+        if( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
 
         // Locate ttf file, load it pre-buffered into memory by wrapping the
 		// original DataStream in a MemoryDataStream
@@ -166,27 +131,30 @@ namespace MyGUI
 		Ogre::MemoryDataStream ttfchunk(dataStreamPtr);
 
         // Load font
-        if( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
+        FT_Face face;
+        if ( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
             MYGUI_EXCEPT("Could not open font face!");
-
 
         // Convert our point size to freetype 26.6 fixed point format
         FT_F26Dot6 ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
-        if( FT_Set_Char_Size( face, ftSize, 0, mTtfResolution, mTtfResolution ) )
+        if ( FT_Set_Char_Size( face, ftSize, 0, mTtfResolution, mTtfResolution ) )
             MYGUI_EXCEPT("Could not set char size!");
 
         int max_height = 0, max_width = 0, max_bear = 0;
 
-		// Backwards compatibility - if codepoints not supplied, assume 33-166
-		if (mCodePointRangeList.empty()) mCodePointRangeList.push_back(CodePointRange(33, 166));
-
 		// Calculate maximum width, height and bearing
-		size_t glyphCount = 0;
-		for (CodePointRangeList::const_iterator r = mCodePointRangeList.begin(); r != mCodePointRangeList.end(); ++r) {
+		FT_Error ftResult;
+		size_t glyphCount = 3; // плюс два служебных и пробел
+        size_t l = 0, m = 0;
+		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
+			for (CodePoint index=iter->first; index<=iter->second; ++index, ++glyphCount) {
 
-			const CodePointRange& range = *r;
-			for(CodePoint cp = range.first; cp <= range.second; ++cp, ++glyphCount) {
-				FT_Load_Char( face, cp, FT_LOAD_RENDER );
+				// символ рисовать ненужно
+				if (checkHidePointCode(index)) continue;
+
+				if (FT_Load_Char( face, index, FT_LOAD_RENDER )) continue;
+				if (null == face->glyph->bitmap.buffer) continue;
+				FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
 
 				if ( ( 2 * ( face->glyph->bitmap.rows << 6 ) - face->glyph->metrics.horiBearingY ) > max_height )
 					max_height = ( 2 * ( face->glyph->bitmap.rows << 6 ) - face->glyph->metrics.horiBearingY );
@@ -196,28 +164,25 @@ namespace MyGUI
 
 				if ( (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 ) > max_width)
 					max_width = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
-			}
 
+				l += (advance + mCharSpacer);
+				if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m ++; l = 0;}
+
+			}
 		}
 
-		// Now work out how big our texture needs to be
-		size_t rawSize = (max_width + char_spacer) * ((max_height >> 6) + char_spacer) * glyphCount;
+		max_height >>= 6;
+		max_bear >>= 6;
 
-		Ogre::uint32 tex_side = static_cast<Ogre::uint32>(Ogre::Math::Sqrt(rawSize));
-		// just in case the size might chop a glyph in half, add another glyph width/height
-		tex_side += std::max(max_width, (max_height>>6));
-		// Now round up to nearest power of two
-		Ogre::uint32 roundUpSize = Ogre::Bitwise::firstPO2From(tex_side);
+		size_t finalWidth = FONT_TEXTURE_WIDTH;
+		size_t finalHeight = (m+1) * (max_height + mCharSpacer);
 
-		// Would we benefit from using a non-square texture (2X width(
-		size_t finalWidth, finalHeight;
+		// вычисл€ем ближайшую кратную 2
+		size_t needHeight = 1;
+		while (needHeight < finalHeight) needHeight <<= 1;
+		finalHeight = needHeight;
 
-		if (roundUpSize*roundUpSize*0.5 >= rawSize) finalHeight = roundUpSize * 0.5;
-		else finalHeight = roundUpSize;
-
-		finalWidth = roundUpSize;
-
-		Ogre::Real textureAspect = finalWidth / finalHeight;
+		Ogre::Real textureAspect = (float)finalWidth / (float)finalHeight;
 
 		const size_t pixel_bytes = 2;
 		size_t data_width = finalWidth * pixel_bytes;
@@ -232,82 +197,146 @@ namespace MyGUI
             imageData[i + 1] = 0x00; // alpha
         }
 
-        size_t l = 0, m = 0;
-		for (CodePointRangeList::const_iterator r = mCodePointRangeList.begin(); r != mCodePointRangeList.end(); ++r) {
+		// текущее положение в текстуре
+		l = 0;
+		m = 0;
 
-			const CodePointRange& range = *r;
-			for(CodePoint cp = (CodePoint)range.first; cp <= (CodePoint)range.second; ++cp ) {
-				FT_Error ftResult;
+		//------------------------------------------------------------------
+		// создаем символ пробела
+		//------------------------------------------------------------------
+		ftResult = FT_Load_Char( face, mSpaceSimbol, FT_LOAD_RENDER );
+		if (ftResult) MYGUI_LOG("Info: cannot load character ", mSpaceSimbol, " in font ", mName);
 
-				// сохран€ем оригинильный код
-				CodePoint original = cp;
+		FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
 
-				// символ дл€ выделени€
-				bool selectedChar = (FONT_CODE_SELECT == cp);
-				bool spaceChar = (FONT_CODE_SPACE == cp);
-				bool tabChar = (FONT_CODE_TAB == cp);
+		unsigned char* buffer = face->glyph->bitmap.buffer;
+		if (null == buffer) MYGUI_EXCEPT(util::toString("Info: Freetype returned null for character ", mSpaceSimbol, " in font ", mName));
 
-				// подмен€ем символ дл€ расчетов
-				if (selectedChar || spaceChar || tabChar) cp = mSpaceSimbol;
+		int y_bearnig = max_bear - ( face->glyph->metrics.horiBearingY >> 6 );
 
-				// Load & render glyph
-				ftResult = FT_Load_Char( face, cp, FT_LOAD_RENDER );
+		for (int j = 0; j < face->glyph->bitmap.rows; j++ ) {
+			int row = j + (int)m + y_bearnig;
+			Ogre::uchar* pDest = &imageData[(row * data_width) + l * pixel_bytes];
+			for (int k = 0; k < face->glyph->bitmap.width; k++ ) {
+				*pDest++= FONT_MASK_CHAR;
+				*pDest++= FONT_MASK_SPACE;
+				buffer++;
+			}
+		}
+
+		mSpaceGlyphInfo.codePoint = FONT_CODE_SPACE;
+		mSpaceGlyphInfo.uvRect.left = (Ogre::Real)l / (Ogre::Real)finalWidth;  // u1
+		mSpaceGlyphInfo.uvRect.top = (Ogre::Real)m / (Ogre::Real)finalHeight;  // v1
+		mSpaceGlyphInfo.uvRect.right = (Ogre::Real)( l + ( face->glyph->advance.x >> 6 ) ) / (Ogre::Real)finalWidth; // u2
+		mSpaceGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
+		mSpaceGlyphInfo.aspectRatio = textureAspect * (mSpaceGlyphInfo.uvRect.right - mSpaceGlyphInfo.uvRect.left)  / (mSpaceGlyphInfo.uvRect.bottom - mSpaceGlyphInfo.uvRect.top);
+		//------------------------------------------------------------------
+		// создаем табул€цию
+		//------------------------------------------------------------------
+		mTabGlyphInfo = mSpaceGlyphInfo;
+		mTabGlyphInfo.aspectRatio = textureAspect * (float)mCountSpaceTab;
+
+		l += (advance + mCharSpacer);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mCharSpacer;l = 0;}
+
+		//------------------------------------------------------------------
+		// создаем выделение
+		//------------------------------------------------------------------
+		for (int j = 0; j < face->glyph->bitmap.rows; j++ ) {
+			int row = j + (int)m + y_bearnig;
+			Ogre::uchar* pDest = &imageData[(row * data_width) + l * pixel_bytes];
+			for(int k = 0; k < face->glyph->bitmap.width; k++ ) {
+				*pDest++= FONT_MASK_CHAR;
+				*pDest++= FONT_MASK_SELECT;
+				buffer++;
+			}
+		}
+
+		mSelectGlyphInfo.codePoint = FONT_CODE_SELECT;
+		mSelectGlyphInfo.uvRect.left = (Ogre::Real)l / (Ogre::Real)finalWidth;  // u1
+		mSelectGlyphInfo.uvRect.top = (Ogre::Real)m / (Ogre::Real)finalHeight;  // v1
+		mSelectGlyphInfo.uvRect.right = (Ogre::Real)( l + ( face->glyph->advance.x >> 6 ) ) / (Ogre::Real)finalWidth; // u2
+		mSelectGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
+		mSelectGlyphInfo.aspectRatio = textureAspect * (mSelectGlyphInfo.uvRect.right - mSelectGlyphInfo.uvRect.left)  / (mSelectGlyphInfo.uvRect.bottom - mSelectGlyphInfo.uvRect.top);
+
+		l += (advance + mCharSpacer);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mCharSpacer;l = 0;}
+
+		//------------------------------------------------------------------
+		// создаем неактивное выделение
+		//------------------------------------------------------------------
+		for (int j = 0; j < face->glyph->bitmap.rows; j++ ) {
+			int row = j + (int)m + y_bearnig;
+			Ogre::uchar* pDest = &imageData[(row * data_width) + l * pixel_bytes];
+			for(int k = 0; k < face->glyph->bitmap.width; k++ ) {
+				*pDest++= FONT_MASK_CHAR;
+				*pDest++= FONT_MASK_SELECT_DEACTIVE;
+				buffer++;
+			}
+		}
+
+		mSelectDeactiveGlyphInfo.codePoint = FONT_CODE_SELECT;
+		mSelectDeactiveGlyphInfo.uvRect.left = (Ogre::Real)l / (Ogre::Real)finalWidth;  // u1
+		mSelectDeactiveGlyphInfo.uvRect.top = (Ogre::Real)m / (Ogre::Real)finalHeight;  // v1
+		mSelectDeactiveGlyphInfo.uvRect.right = (Ogre::Real)( l + ( face->glyph->advance.x >> 6 ) ) / (Ogre::Real)finalWidth; // u2
+		mSelectDeactiveGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
+		mSelectDeactiveGlyphInfo.aspectRatio = textureAspect * (mSelectDeactiveGlyphInfo.uvRect.right - mSelectDeactiveGlyphInfo.uvRect.left)  / (mSelectDeactiveGlyphInfo.uvRect.bottom - mSelectDeactiveGlyphInfo.uvRect.top);
+
+		l += (advance + mCharSpacer);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mCharSpacer;l = 0;}
+
+		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
+
+			// устанавливаем размер на весь диапазон
+			iter->range.resize(iter->second - iter->first + 1);
+			size_t pos = 0;
+
+			for (CodePoint index=iter->first; index<=iter->second; ++index, ++pos) {
+
+				// сомвол рисовать не нада
+				if (checkHidePointCode(index)) continue;
+
+				GlyphInfo & info = iter->range.at(pos);
+
+				ftResult = FT_Load_Char( face, index, FT_LOAD_RENDER );
 				if (ftResult) {
 					// problem loading this glyph, continue
-					MYGUI_LOG("Info: cannot load character ", cp, " in font ", mName);
+					MYGUI_LOG("Info: cannot load character ", index, " in font ", mName);
 					continue;
 				}
 
 				FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
-
 				unsigned char* buffer = face->glyph->bitmap.buffer;
 
 				if (null == buffer) {
 					// Yuck, FT didn't detect this but generated a null pointer!
-					MYGUI_LOG("Info: Freetype returned null for character ", cp, " in font ", mName);
+					MYGUI_LOG("Info: Freetype returned null for character ", index, " in font ", mName);
 					continue;
 				}
 
-				int y_bearnig = ( max_bear >> 6 ) - ( face->glyph->metrics.horiBearingY >> 6 );
+				int y_bearnig = max_bear - ( face->glyph->metrics.horiBearingY >> 6 );
 
 				for(int j = 0; j < face->glyph->bitmap.rows; j++ ) {
-
 					int row = j + (int)m + y_bearnig;
 					Ogre::uchar* pDest = &imageData[(row * data_width) + l * pixel_bytes];
 					for(int k = 0; k < face->glyph->bitmap.width; k++ ) {
-
-						if (spaceChar) {
-							*pDest++= 0xFF;
-							*pDest++= 0x00;
-						} else if (selectedChar) {
-							*pDest++= 0xFF;
-							*pDest++= 0x88;
-						} else {
-							if (mAntialiasColour) *pDest++= *buffer;
-							else *pDest++= 0xFF;
-							*pDest++= *buffer; 
-						}
+						if (mAntialiasColour) *pDest++= *buffer;
+						else *pDest++= FONT_MASK_CHAR;
+						*pDest++= *buffer; 
 						buffer++;
-
 					}
 				}
 
-				this->setGlyphTexCoords(original,
-					(Ogre::Real)l / (Ogre::Real)finalWidth,  // u1
-					(Ogre::Real)m / (Ogre::Real)finalHeight,  // v1
-					(Ogre::Real)( l + ( face->glyph->advance.x >> 6 ) ) / (Ogre::Real)finalWidth, // u2
-					( m + ( max_height >> 6 ) ) / (Ogre::Real)finalHeight, // v2
-					(tabChar ? textureAspect * (float)mCountSpaceTab : textureAspect)
-					);
+				info.codePoint = index;
+				info.uvRect.left = (Ogre::Real)l / (Ogre::Real)finalWidth;  // u1
+				info.uvRect.top = (Ogre::Real)m / (Ogre::Real)finalHeight;  // v1
+				info.uvRect.right = (Ogre::Real)( l + ( face->glyph->advance.x >> 6 ) ) / (Ogre::Real)finalWidth; // u2
+				info.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
+				info.aspectRatio = textureAspect * (info.uvRect.right - info.uvRect.left)  / (info.uvRect.bottom - info.uvRect.top);
 
-				// Advance a column
-				l += (advance + char_spacer);
+				l += (advance + mCharSpacer);
+				if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mCharSpacer;l = 0;}
 
-				// If at end of row
-				if( finalWidth - 1 < l + ( advance ) ) {
-					m += ( max_height >> 6 ) + char_spacer;
-					l = 0;
-				}
 			}
 		}
 

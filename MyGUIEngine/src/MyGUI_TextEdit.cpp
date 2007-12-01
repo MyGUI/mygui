@@ -228,9 +228,20 @@ namespace MyGUI
 	{
 		mOverlayContainer->setTextShift(_point);
 	}
+
 	IntPoint TextEdit::getTextShift()
 	{
 		return mOverlayContainer->getTextShift();
+	}
+
+	bool TextEdit::getSelectBackground()
+	{
+		return mOverlayContainer->getSelectBackground();
+	}
+
+	void TextEdit::setSelectBackground(bool _normal)
+	{
+		mOverlayContainer->setSelectBackground(_normal);
 	}
 
 } // namespace MyGUI

@@ -56,7 +56,7 @@ namespace MyGUI
 
 		while (font.nextNode("Font")) {
 
-			std::string source, name, size, resolution, antialias, space, tab;
+			std::string source, name, size, resolution, antialias, space, tab, spacer;
 			if (false == font->findAttribute("name", name)) continue;
 			if (false == font->findAttribute("source", source)) continue;
 			if (false == font->findAttribute("size", size)) continue;
@@ -65,6 +65,7 @@ namespace MyGUI
 			font->findAttribute("antialias_colour", antialias);
 			font->findAttribute("space_width", space);
 			font->findAttribute("tab_count", tab);
+			font->findAttribute("spaser", spacer);
 
 			FontPtr pFont = create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 			pFont->_notifyOrigin(_file);
@@ -75,13 +76,24 @@ namespace MyGUI
 			if (false == antialias.empty()) pFont->setAntialiasColour(util::parseBool(antialias));
 			if (false == space.empty()) pFont->setSpaceSimbol(space[0]);
 			if (false == tab.empty()) pFont->setCountSpaceTab(util::parseUChar(tab));
+			if (false == spacer.empty()) pFont->setCharSpacer(util::parseUChar(spacer));
 
 			xml::xmlNodeIterator range = font->getNodeIterator();
 
 			while (range.nextNode("Code")) {
 				std::string range_value;
-				if (false == range->findAttribute("range", range_value)) continue;
-				pFont->addCodePointRange(util::parseValueEx2<Font::CodePointRange, Font::CodePoint>(range_value));
+				std::vector<std::string> parse_range;
+				// диапазон включений
+				if (range->findAttribute("range", range_value)) {
+					parse_range = util::split(range_value);
+					if (parse_range.size() == 2) pFont->addCodePointRange(util::parseValue<Ogre::Real>(parse_range[0]), util::parseValue<Ogre::Real>(parse_range[1]));
+				}
+				// диапазон исключений
+				else if (range->findAttribute("hide", range_value)) {
+					parse_range = util::split(range_value);
+					if (parse_range.size() == 2) pFont->addHideCodePointRange(util::parseValue<Ogre::Real>(parse_range[0]), util::parseValue<Ogre::Real>(parse_range[1]));
+					else if (parse_range.size() == 1) pFont->addHideCodePointRange(util::parseValue<Ogre::Real>(parse_range[0]), util::parseValue<Ogre::Real>(parse_range[0]));
+				}
 			};
 
 		};

@@ -156,6 +156,8 @@ void OptionsState::enter(bool bIsChangeState)
 		stream.close();
 	}*/
 
+	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+
 
 }
 //===================================================================================
@@ -180,8 +182,8 @@ bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
 {
 
-	MyGUI::WidgetManager::getInstance().destroyAllWidget();
-	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+//	MyGUI::WidgetManager::getInstance().destroyAllWidget();
+//	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
