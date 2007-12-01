@@ -47,11 +47,6 @@ namespace MyGUI
 			return createWidget(_type, _skin, (int)(_left*mWidth), (int)(_top*mHeight), (int)(_width*mWidth), (int)(_height*mHeight), _align, _layer, _name);
 		}
 
-		inline FloatRect convertToReal(const FloatRect & _rect)
-		{
-			return FloatRect(_rect.left*mWidth, _rect.top*mHeight, _rect.right*mWidth, _rect.bottom*mHeight);
-		}
-
 		inline float getWidth() {return mWidth;}
 		inline float getHeight() {return mHeight;}
 

@@ -31,6 +31,8 @@ namespace MyGUI
 		void parseLayoutCEGUI(xml::xmlNodePtr _root);
 
 		void parseWidgetMyGUI(xml::xmlNodeIterator & _widget, WidgetPtr _parent);
+
+		FloatRect convertToReal(const FloatRect & _rect, WidgetPtr _parent);
 		
 	}; // class LayoutManager
 
