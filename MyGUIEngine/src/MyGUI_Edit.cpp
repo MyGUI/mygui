@@ -4,6 +4,7 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Gui.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_SkinManager.h"
@@ -74,6 +75,12 @@ namespace MyGUI
 		mHalfHeightCursor = (mWidgetCursor->getHeight()/2);
 		if (mHalfHeightCursor < 1) mHalfHeightCursor = 1;
 
+	}
+
+	Edit::~Edit()
+	{
+		// на всякий отписываем
+		Gui::getInstance().removeFrameListener(this);
 	}
 
 	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
@@ -178,7 +185,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = true;
-			Ogre::Root::getSingleton().addFrameListener(this);
+			Gui::getInstance().addFrameListener(this);
 			mWidgetCursor->show();
 			mCursorTimer = 0;
 		}
@@ -193,7 +200,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = false;
-			Ogre::Root::getSingleton().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(this);
 			mWidgetCursor->hide();
 		}
 
@@ -435,10 +442,10 @@ namespace MyGUI
 		Widget::_onKeyButtonReleased(_key);
 	}
 
-	bool Edit::frameStarted(const Ogre::FrameEvent& evt)
+	void Edit::frameStarted(float _frame, float _event)
 	{
 		if (mCursorActive) {
-			mCursorTimer += evt.timeSinceLastFrame;
+			mCursorTimer += _frame;
 
 			if (mCursorTimer > EDIT_CURSOR_TIMER ) {
 				if (mWidgetCursor->isShow()) mWidgetCursor->hide();
@@ -449,7 +456,7 @@ namespace MyGUI
 
 		// сдвигаем курсор по положению мыши
 		if (mMouseLeftPressed) {
-			mActionMouseTimer += evt.timeSinceLastFrame;
+			mActionMouseTimer += _frame;
 
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER ) {
 				
@@ -528,14 +535,7 @@ namespace MyGUI
 			}
 
 		} // if (mMouseLeftPressed)
-
-		return true;
-	}
-
-	bool Edit::frameEnded(const Ogre::FrameEvent& evt)
-	{
-		return true;
-	}
+  }
 
 	void Edit::setTextCursor(size_t _index)
 	{
