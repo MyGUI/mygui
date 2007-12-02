@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport CroppedRectangleFactoryInterface
+	class _MyGUIExport SubWidgetFactoryInterface
 	{
 	public:
 		virtual void getNextId(size_t & _id) = 0;
@@ -22,7 +22,7 @@ namespace MyGUI
 	};
 
 	template <class ClassName>
-	class CroppedRectangleFactory : public CroppedRectangleFactoryInterface
+	class CroppedRectangleFactory : public SubWidgetFactoryInterface
 	{
 	public:
 		void getNextId(size_t & _id) {if (ClassName::_isSharedOverlay())_id++;}
@@ -33,7 +33,7 @@ namespace MyGUI
 			getNextId(_id);
 			return  obj;
 		}
-	}; // class CroppedRectangleFactory : public CroppedRectangleFactoryInterface
+	}; // class CroppedRectangleFactory : public SubWidgetFactoryInterface
 
 } // namespace MyGUI
 

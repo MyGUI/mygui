@@ -33,13 +33,13 @@ namespace MyGUI
 		// подходит ли данный тип для объединения
 		bool isSharedOverlay(const CroppedRectangleInfo &_info);
 
-		inline void registerFactory(CroppedRectangleFactoryInterface * _factory)
+		inline void registerFactory(SubWidgetFactoryInterface * _factory)
 		{
 			mFactoryList.push_back(_factory);
 		}
 
 	protected:
-		std::list<CroppedRectangleFactoryInterface*> mFactoryList;
+		std::list<SubWidgetFactoryInterface*> mFactoryList;
 
 		CroppedRectangleFactory<MainSkin> * mFactoryMainSkin;
 		CroppedRectangleFactory<SubSkin> * mFactorySubSkin;

@@ -9,9 +9,9 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(CroppedRectangleManager);
+	INSTANCE_IMPLEMENT(SubWidgetManager);
 
-	void CroppedRectangleManager::initialise()
+	void SubWidgetManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
 		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
@@ -32,7 +32,7 @@ namespace MyGUI
 		mIsInitialise = true;
 	}
 
-	void CroppedRectangleManager::shutdown()
+	void SubWidgetManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
@@ -48,9 +48,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	CroppedRectangleInterface * CroppedRectangleManager::createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id)
+	CroppedRectangleInterface * SubWidgetManager::createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id)
 	{
-		for (std::list<CroppedRectangleFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createCroppedRectangle(_info, _material, _parent, _id);
 		}
 		MYGUI_EXCEPT(_info.type + " - no find factory CroppedRectangleFactory");
@@ -58,10 +58,10 @@ namespace MyGUI
 	}
 
 	// подходит ли данный тип для объединения
-	bool CroppedRectangleManager::isSharedOverlay(const CroppedRectangleInfo &_info)
+	bool SubWidgetManager::isSharedOverlay(const CroppedRectangleInfo &_info)
 	{
 		size_t id = 0;
-		for (std::list<CroppedRectangleFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) {
 				(*factory)->getNextId(id);
 				break;

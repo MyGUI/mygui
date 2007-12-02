@@ -36,7 +36,7 @@ namespace MyGUI
 		// создаем и инициализируем синглтоны
 		mInputManager = new InputManager();
 		mInputManager->initialise();
-		mCroppedRectangleManager = new CroppedRectangleManager();
+		mCroppedRectangleManager = new SubWidgetManager();
 		mCroppedRectangleManager->initialise();
 		mClipboardManager = new ClipboardManager();
 		mClipboardManager->initialise();
