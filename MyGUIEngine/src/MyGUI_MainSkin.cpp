@@ -9,7 +9,7 @@
 namespace MyGUI
 {
 
-	MainSkin::MainSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidgetPtr _parent) : 
+	MainSkin::MainSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidgetPtr _parent, size_t _id) : 
 	BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
 	{
 

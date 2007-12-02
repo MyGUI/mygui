@@ -14,6 +14,7 @@
 #include "MyGUI_TextSimpleOverlayElementFactory.h"
 #include "MyGUI_TextEditOverlayElementFactory.h"
 #include "MyGUI_PanelAlphaOverlayElementFactory.h"
+#include "MyGUI_SharedPanelAlphaOverlayElementFactory.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_BasisWidgetManager.h"
@@ -73,6 +74,7 @@ namespace MyGUI
 		TextSimpleOverlayElementFactory * mFactoryTextSimpleOverlay;
 		TextEditOverlayElementFactory * mFactoryTextEditOverlay;
 		PanelAlphaOverlayElementFactory * mFactoryPanelAlphaOverlay;
+		SharedPanelAlphaOverlayElementFactory * mFactorySharedPanelAlphaOverlay;
 
 		// синглтоны гу€
 		InputManager * mInputManager;

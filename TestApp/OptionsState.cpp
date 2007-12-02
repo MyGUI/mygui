@@ -84,7 +84,7 @@ void OptionsState::enter(bool bIsChangeState)
 //	window->show(false, true);
 
 	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	//edit->setCaption(L"Мы только тем и дороги");
+	edit->setCaption(L"Мы только тем и дороги");
 
 //	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 

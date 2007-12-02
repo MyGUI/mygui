@@ -16,13 +16,14 @@
 namespace MyGUI
 {
 
-	#define DEFAULT_INITIAL_CHARS 12
-	#define MAIN_BUFFER_BINDING 0
-
 	class _MyGUIExport TextSimpleOverlayElement : public Ogre::TextAreaOverlayElement
 	{
-
 	protected:
+		enum {
+			OVERLAY_POSITION_BINDING = 0,
+			OVERLAY_DEFAULT_INITIAL_CHARS = 12
+		};
+
 		// вспомогательный класс для хранения информации о символе
 		class EnumCharInfo
 		{
@@ -116,7 +117,7 @@ namespace MyGUI
 			mRenderOp.vertexData->vertexCount = 0;
 
 			// Get position / texcoord buffer
-			Ogre::HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(MAIN_BUFFER_BINDING);
+			Ogre::HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(OVERLAY_POSITION_BINDING);
 			float *pVert = static_cast<float*>(vbuf->lock(Ogre::HardwareBuffer::HBL_DISCARD));
 
 			// для уменьшения умножений, поможем компилятору =)
@@ -359,13 +360,13 @@ namespace MyGUI
 				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
 				size_t offset = 0;
 				// Positions
-				decl->addElement(MAIN_BUFFER_BINDING, offset, Ogre::VET_FLOAT3, Ogre::VES_POSITION);
+				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_FLOAT3, Ogre::VES_POSITION);
 				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT3);
 				// Texcoords
-				decl->addElement(MAIN_BUFFER_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, 0);
+				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, 0);
 				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2);
 
-				decl->addElement(MAIN_BUFFER_BINDING, offset, Ogre::VET_COLOUR, Ogre::VES_DIFFUSE);
+				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_COLOUR, Ogre::VES_DIFFUSE);
 				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_COLOUR);
 
 				mRenderOp.operationType = Ogre::RenderOperation::OT_TRIANGLE_LIST;
@@ -373,7 +374,7 @@ namespace MyGUI
 				mRenderOp.vertexData->vertexStart = 0;
 				// Vertex buffer will be created in checkMemoryAllocation
 
-				checkMemoryAllocation( DEFAULT_INITIAL_CHARS );
+				checkMemoryAllocation( OVERLAY_DEFAULT_INITIAL_CHARS );
 
 				mInitialised = true;
 			}
@@ -399,10 +400,10 @@ namespace MyGUI
 				Ogre::HardwareVertexBufferSharedPtr vbuf = 
 					Ogre::HardwareBufferManager::getSingleton().
 						createVertexBuffer(
-							decl->getVertexSize(MAIN_BUFFER_BINDING), 
+							decl->getVertexSize(OVERLAY_POSITION_BINDING), 
 							mRenderOp.vertexData->vertexCount,
 							Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
-				bind->setBinding(MAIN_BUFFER_BINDING, vbuf);
+				bind->setBinding(OVERLAY_POSITION_BINDING, vbuf);
 
 				mAllocSize = numChars;
 			}

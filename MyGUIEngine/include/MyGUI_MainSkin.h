@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 
 	public:
-		MainSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
+		MainSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
 		~MainSkin();
 
 		// вызывается виджетом, если этот саб скин во весь виджет
@@ -40,6 +40,8 @@ namespace MyGUI
 		void setAlpha(float _alpha);
 
 		inline static const Ogre::String & getType() {static Ogre::String type("MainSkin"); return type;}
+		inline static bool isSharedOverlay() {return false;}
+		bool isText() {return false;}
 
 	protected:
 

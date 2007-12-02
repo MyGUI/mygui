@@ -29,9 +29,11 @@ namespace MyGUI
 	#if _DEBUG
 		#define MYGUI_TYPE(_type,_ptr) MYGUI_ASSERT(null != dynamic_cast<_type>(_ptr))
 		#define MYGUI_REGISTER_VALUE(_map,_value) {MYGUI_LOG("Register value : '", #_value, "' = ", _value);_map[#_value]=_value;}
+		#define MYGUI_DEBUG_ASSERT(_exp) MYGUI_ASSERT(_exp)
 	#else
 		#define MYGUI_TYPE(_type,_ptr) ((void)0)
 		#define MYGUI_REGISTER_VALUE(_map,_value) _map[#_value]=_value;
+		#define MYGUI_DEBUG_ASSERT(_exp) ((void)0)
 	#endif
 
 } // namespace MyGUI

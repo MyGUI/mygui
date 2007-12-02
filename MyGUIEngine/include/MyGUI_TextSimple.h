@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 
 	public:
-		TextSimple(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
+		TextSimple(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
 		virtual ~TextSimple();
 
 		void show();
@@ -55,9 +55,9 @@ namespace MyGUI
 			align(mParent->getWidth(), mParent->getHeight(), true);
 		}
 
-		bool isText() {return true;}
-
 		inline const static Ogre::String & getType() {static Ogre::String type("TextSimple"); return type;}
+		inline static bool isSharedOverlay() {return false;}
+		bool isText() {return true;}
 
 		Ogre::OverlayElement* getOverlayElement();
 

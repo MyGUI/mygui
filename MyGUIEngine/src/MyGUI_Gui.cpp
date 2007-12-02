@@ -26,10 +26,12 @@ namespace MyGUI
 		mFactoryTextSimpleOverlay = new TextSimpleOverlayElementFactory();
 		mFactoryTextEditOverlay = new TextEditOverlayElementFactory();
 		mFactoryPanelAlphaOverlay = new PanelAlphaOverlayElementFactory();
+		mFactorySharedPanelAlphaOverlay = new SharedPanelAlphaOverlayElementFactory();
 
 		manager.addOverlayElementFactory(mFactoryTextSimpleOverlay);
 		manager.addOverlayElementFactory(mFactoryTextEditOverlay);
 		manager.addOverlayElementFactory(mFactoryPanelAlphaOverlay);
+		manager.addOverlayElementFactory(mFactorySharedPanelAlphaOverlay);
 
 		// создаем и инициализируем синглтоны
 		mInputManager = new InputManager();
@@ -108,6 +110,7 @@ namespace MyGUI
 		delete mFactoryTextSimpleOverlay;
 		delete mFactoryTextEditOverlay;
 		delete mFactoryPanelAlphaOverlay;
+		delete mFactorySharedPanelAlphaOverlay;
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
 		mIsInitialise = false;

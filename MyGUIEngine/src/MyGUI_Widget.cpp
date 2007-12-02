@@ -20,14 +20,21 @@ namespace MyGUI
 		mAlpha(1.0),
 		mColour(1.0, 1.0, 1.0, 1.0),
 		mStateInfo(_info->getStateInfo()),
-		mName(_name)
+		mName(_name),
+		mCountSharedOverlay(0)
 	{
 		// имя отсылателя сообщений
 		mWidgetEventSender = this;
 
-		// загружаем кирпичики виджета
+		// подсчитаываем колличество оверлеев для объединения
 		for (VectorBasisWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
-			addSubSkin(*iter, _info->getMaterial());
+			if (BasisWidgetManager::getInstance().isSharedOverlay(*iter)) mCountSharedOverlay++;
+		}
+
+		// загружаем кирпичики виджета
+		size_t id = 0;
+		for (VectorBasisWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
+			addSubSkin(*iter, _info->getMaterial(), id);
 		}
 
 		// парсим свойства
@@ -65,9 +72,7 @@ namespace MyGUI
 		if (Gui::getInstance().removeFrameListener(this)) {
 			MYGUI_ERROR("widget is not remove from frame listeners");
 		}
-
 	}
-
 
 	WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name)
 	{
@@ -82,9 +87,9 @@ namespace MyGUI
 		return createWidget(_type, _skin, (int)(_left*gui.getWidth()), (int)(_top*gui.getHeight()), (int)(_width*gui.getWidth()), (int)(_height*gui.getHeight()), _align, _name);
 	}
 
-	BasisWidgetPtr  Widget::addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material)
+	BasisWidgetPtr  Widget::addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, size_t & _id)
 	{
-		BasisWidgetPtr sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this);
+		BasisWidgetPtr sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this, _id);
 		// если это скин текста, то запоминаем
 		if (sub->isText()) mText = sub;
 		// добавляем в общий список
@@ -414,16 +419,19 @@ namespace MyGUI
 		return this;
 	}
 
- void Widget::setEnabled(bool _enabled)
- {
-   mEnabled = _enabled;
-   InputManager::getInstance().widgetUnlink(this);
- }
+	void Widget::setEnabled(bool _enabled)
+	{
+		mEnabled = _enabled;
+		InputManager::getInstance().widgetUnlink(this);
+	}
 
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
 	{
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			if (!(*skin)->isText()) _overlay->add2D(static_cast<Ogre::OverlayContainer*>((*skin)->getOverlayElement()));
+			if (false == (*skin)->isText()) {
+				Ogre::OverlayContainer * element = static_cast<Ogre::OverlayContainer*>((*skin)->getOverlayElement());
+				if (null != element) _overlay->add2D(element);
+			}
 		}
 	}
 
@@ -431,10 +439,13 @@ namespace MyGUI
 	{
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			if (!(*skin)->isText()) {
-				PanelAlphaOverlayElement * element = static_cast<PanelAlphaOverlayElement*>((*skin)->getOverlayElement());
-				_overlay->remove2D(element);
-				// пока вручную обнуляем отца
-				element->setOverlay(0);
+				SharedPanelAlphaOverlayElement * element = static_cast<SharedPanelAlphaOverlayElement*>((*skin)->getOverlayElement());
+				// удаляем только шаред главный
+				if (null != element) {
+					_overlay->remove2D(element);
+					// пока вручную обнуляем отца
+					element->setOverlay(0);
+				}
 			}
 		}
 	}
@@ -493,6 +504,20 @@ namespace MyGUI
 			WidgetPtr widget = mWidgetChild.front();
 			WidgetManager::getInstance().destroyWidget(widget);
 		}
+	}
+	// возвращаем колличество сабскинов без учета текста
+	size_t Widget::_getCountSharedOverlay()
+	{
+		return mCountSharedOverlay;
+	}
+
+	Ogre::OverlayElement* Widget::_getSharedOverlay()
+	{
+		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+			Ogre::OverlayElement* element = (*skin)->_getSharedOverlay();
+			if (null != element) return element;
+		}
+		return null;
 	}
 
 } // namespace MyGUI

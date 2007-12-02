@@ -10,7 +10,7 @@
 namespace MyGUI
 {
 
-	TextEdit::TextEdit(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent) :
+	TextEdit::TextEdit(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id) :
 		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();

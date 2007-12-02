@@ -37,7 +37,7 @@
     </Skin>
     
     <Skin name = "EditCursor" size = "2 19" material = "MyGUI_main" >
-        <BasisSkin type="SubSkin" offset = "0 0 2 19" align = "ALIGN_STRETCH">
+        <BasisSkin type="MainSkin" offset = "0 0 2 19" align = "ALIGN_STRETCH">
             <State name="normal" offset = "126 94 2 19"/>
         </BasisSkin>
     </Skin>
@@ -276,7 +276,7 @@
         <Property key="AlignTrack" value = "ALIGN_LEFT ALIGN_TOP" />
         <Property key="SkinTrackRange" value = "18 39" />
 
-        <BasisSkin type="MainSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
+        <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
         
         <BasisSkin type="SubSkin" offset = "0 16 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
             <State name="normal" offset = "163 18 16 6"/>
@@ -329,7 +329,7 @@
         <Property key="AlignTrack" value = "ALIGN_LEFT ALIGN_TOP" />
         <Property key="SkinTrackRange" value = "18 39" />
 
-        <BasisSkin type="MainSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
+        <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
         
         <BasisSkin type="SubSkin" offset = "16 0 6 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "171 87 6 16"/>

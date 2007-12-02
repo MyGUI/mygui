@@ -16,18 +16,22 @@ namespace MyGUI
 	class _MyGUIExport BasisWidgetFactoryInterface
 	{
 	public:
+		virtual void getNextId(size_t & _id) = 0;
 		virtual const Ogre::String & getType() = 0;
-		virtual BasisWidget * createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent) = 0;
+		virtual BasisWidget * createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent, size_t & _id) = 0;
 	};
 
 	template <class ClassName>
 	class BasisWidgetFactory : public BasisWidgetFactoryInterface
 	{
 	public:
+		void getNextId(size_t & _id) {if (ClassName::isSharedOverlay())_id++;}
 		const Ogre::String & getType() {return ClassName::getType();};
-		BasisWidget * createBasisWidget(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidget* _parent)
+		BasisWidget * createBasisWidget(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidget* _parent, size_t & _id)
 		{
-			return new ClassName(_info, _material, _parent);
+			ClassName * obj = new ClassName(_info, _material, _parent, _id);
+			getNextId(_id);
+			return  obj;
 		}
 	}; // class BasisWidgetFactory : public BasisWidgetFactoryInterface
 

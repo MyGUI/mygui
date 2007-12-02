@@ -536,6 +536,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_SharedPanelAlphaOverlayElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_SharedPanelAlphaOverlayElementFactory.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_TextEditOverlayElement.h"
 					>
 				</File>

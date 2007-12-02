@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 
 	public:
-		TextEdit(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
+		TextEdit(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
 		virtual ~TextEdit();
 
 		void show();
@@ -69,9 +69,9 @@ namespace MyGUI
 			align(mParent->getWidth(), mParent->getHeight(), true);
 		}
 
-		bool isText() {return true;}
-
 		inline static const Ogre::String & getType() {static Ogre::String type("TextEdit"); return type;}
+		inline static bool isSharedOverlay() {return false;}
+		bool isText() {return true;}
 
 		Ogre::OverlayElement* getOverlayElement();
 

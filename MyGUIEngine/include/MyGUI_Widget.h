@@ -102,13 +102,17 @@ namespace MyGUI
 
 		inline bool isNeedKeyFocus() {return mNeedKeyFocus;}
 		inline void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
-    inline bool isEnabled() {return mEnabled;}
+		inline bool isEnabled() {return mEnabled;}
 		void setEnabled(bool _enabled);
+
+		// возвращаем колличество сабскинов без учета текста
+		size_t _getCountSharedOverlay();
+		Ogre::OverlayElement* _getSharedOverlay();
 
 	protected:
 
 		// создаем и добавляем саб скин виджету
-		BasisWidgetPtr addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material);
+		BasisWidgetPtr addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, size_t & _id);
 		// показывает скрывает все сабскины
 		void _setVisible(bool _visible);
 
@@ -134,6 +138,8 @@ namespace MyGUI
 		Ogre::ColourValue mColour;
 		// имя виджета
 		Ogre::String mName;
+
+		size_t mCountSharedOverlay;
 
 	}; // class Widget
 

@@ -17,13 +17,14 @@
 namespace MyGUI
 {
 
-    // vertex buffer bindings, set at compile time (we could look these up but no point)
-    #define POSITION_BINDING 0
-    #define TEXCOORD_BINDING 1
-
 	class _MyGUIExport PanelAlphaOverlayElement : public Ogre::PanelOverlayElement
 	{
 	protected:
+		enum {
+			OVERLAY_POSITION_BINDING = 0,
+			OVERLAY_TEXCOORD_BINDING = 1
+		};
+
 		// цвет вершины
 		Ogre::uint32 mColor;
 
@@ -59,9 +60,9 @@ namespace MyGUI
 				// Create as separate buffers so we can lock & discard separately
 				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
 				size_t offset = 0;
-				decl->addElement(POSITION_BINDING, offset, Ogre::VET_FLOAT3, Ogre::VES_POSITION);
+				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_FLOAT3, Ogre::VES_POSITION);
 				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT3);
-				decl->addElement(POSITION_BINDING, offset , Ogre::VET_COLOUR, Ogre::VES_DIFFUSE); // добавленно
+				decl->addElement(OVERLAY_POSITION_BINDING, offset , Ogre::VET_COLOUR, Ogre::VES_DIFFUSE); // добавленно
 				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_COLOUR);
 
 				// Basic vertex data
@@ -71,13 +72,13 @@ namespace MyGUI
 				// Vertex buffer #1
 				Ogre::HardwareVertexBufferSharedPtr vbuf =
 					Ogre::HardwareBufferManager::getSingleton().createVertexBuffer(
-					decl->getVertexSize(POSITION_BINDING), mRenderOp.vertexData->vertexCount,
+					decl->getVertexSize(OVERLAY_POSITION_BINDING), mRenderOp.vertexData->vertexCount,
 					// попробовать с динамическим буфером
 //					HardwareBuffer::HBU_STATIC_WRITE_ONLY // mostly static except during resizing
 					Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY // mostly static except during resizing
 					);
 				// Bind buffer
-				mRenderOp.vertexData->vertexBufferBinding->setBinding(POSITION_BINDING, vbuf);
+				mRenderOp.vertexData->vertexBufferBinding->setBinding(OVERLAY_POSITION_BINDING, vbuf);
 
 				// No indexes & issue as a strip
 				mRenderOp.useIndexes = false;
@@ -111,7 +112,7 @@ namespace MyGUI
 			bottom =  top -  (mHeight * 2);
 
 			Ogre::HardwareVertexBufferSharedPtr vbuf =
-				mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
+				mRenderOp.vertexData->vertexBufferBinding->getBuffer(OVERLAY_POSITION_BINDING);
 			float* pPos = static_cast<float*>(
 				vbuf->lock(Ogre::HardwareBuffer::HBL_DISCARD) );
 
@@ -160,7 +161,7 @@ namespace MyGUI
 					// Add extra texcoord elements
 					size_t offset = Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2) * mNumTexCoordsInBuffer;
 					for (size_t i = mNumTexCoordsInBuffer; i < numLayers; ++i) {
-						decl->addElement(TEXCOORD_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, static_cast<unsigned short>(i));
+						decl->addElement(OVERLAY_TEXCOORD_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, static_cast<unsigned short>(i));
 						offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2);
 					}
 				}
@@ -170,22 +171,22 @@ namespace MyGUI
 					// NB reference counting will take care of the old one if it exists
 					Ogre::HardwareVertexBufferSharedPtr newbuf =
 						Ogre::HardwareBufferManager::getSingleton().createVertexBuffer(
-						decl->getVertexSize(TEXCOORD_BINDING), mRenderOp.vertexData->vertexCount,
+						decl->getVertexSize(OVERLAY_TEXCOORD_BINDING), mRenderOp.vertexData->vertexCount,
 						Ogre::HardwareBuffer::HBU_STATIC_WRITE_ONLY // mostly static except during resizing
 						);
 					// Bind buffer, note this will unbind the old one and destroy the buffer it had
-					mRenderOp.vertexData->vertexBufferBinding->setBinding(TEXCOORD_BINDING, newbuf);
+					mRenderOp.vertexData->vertexBufferBinding->setBinding(OVERLAY_TEXCOORD_BINDING, newbuf);
 					// Set num tex coords in use now
 					mNumTexCoordsInBuffer = numLayers;
 				}
 
 				// Get the tcoord buffer & lock
 				if (mNumTexCoordsInBuffer) {
-					Ogre::HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
+					Ogre::HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(OVERLAY_TEXCOORD_BINDING);
 					float* pVBStart = static_cast<float*>(vbuf->lock(Ogre::HardwareBuffer::HBL_DISCARD) );
 
 					size_t uvSize = (Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2) + Ogre::VertexElement::getTypeSize(Ogre::VET_COLOUR)) / sizeof(float);
-					size_t vertexSize = decl->getVertexSize(TEXCOORD_BINDING) / sizeof(float);
+					size_t vertexSize = decl->getVertexSize(OVERLAY_TEXCOORD_BINDING) / sizeof(float);
 
 					for (Ogre::ushort i = 0; i < numLayers; ++i) {
 						// Calc upper tex coords

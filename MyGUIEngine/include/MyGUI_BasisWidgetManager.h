@@ -27,7 +27,11 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		BasisWidget * createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent);
+		// создает сабвиджет использу€ фабрику
+		BasisWidget * createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent, size_t & _id);
+
+		// подходит ли данный тип дл€ объединени€
+		bool isSharedOverlay(const BasisWidgetInfo &_info);
 
 		inline void registerFactory(BasisWidgetFactoryInterface * _factory)
 		{

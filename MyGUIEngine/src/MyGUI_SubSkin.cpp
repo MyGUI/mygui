@@ -5,29 +5,43 @@
 	@module
 */
 #include "MyGUI_SubSkin.h"
+#include "utility.h"
 
 namespace MyGUI
 {
 
-	SubSkin::SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent) :
-		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
+	SubSkin::SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id) :
+		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent),
+		mId(_id),
+		mTransparent(false)
 	{
-		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
-		mOverlayContainer = static_cast<PanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
-			"PanelAlpha", "SubSkin_" + Ogre::StringConverter::toString((Ogre::uint32)this)) );
+		// если мы первые, то создаем оверлей
+		if (mId == 0) {
+			Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
-		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
-		mOverlayContainer->setPosition(mParent->getLeft() + mLeft, mParent->getTop() + mTop);
-		mOverlayContainer->setDimensions(mWidth, mHeight);
-		if (false == _material.empty()) mOverlayContainer->setMaterialName(_material);
+			mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
+				"SharedPanelAlpha", util::toString("SubSkin_", this)) );
 
-		mParent->attach(this, false);
+			// устанавливаем колличество саб оверлеев
+			mOverlayContainer->setCountSharedOverlay(_parent->_getCountSharedOverlay());
+
+			mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
+			mOverlayContainer->setPositionInfo(mParent->getLeft() + mLeft, mParent->getTop() + mTop, mWidth, mHeight, mId);
+			if (false == _material.empty()) mOverlayContainer->setMaterialName(_material);
+
+			mParent->attach(this, false);
+		}
+		// мы должны пользоваться общим оверлеем
+		else {
+			mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>(_parent->_getSharedOverlay());
+		}
+
 	}
 
 	SubSkin::~SubSkin()
 	{
-		if (mOverlayContainer == null) return;
+		if ((mOverlayContainer == null) || (mId != 0)) return;
 		// с защитой от удаления после шутдауна рендера
 		Ogre::OverlayManager * manager = Ogre::OverlayManager::getSingletonPtr();
 		if (manager != null) manager->destroyOverlayElement(mOverlayContainer);
@@ -37,6 +51,8 @@ namespace MyGUI
 	{
 		if (mShow) return;
 		mShow = true;
+		if (mTransparent) return;
+//		mOverlayContainer->setTransparentInfo(false, mId);
 		mOverlayContainer->show();
 	}
 
@@ -44,6 +60,8 @@ namespace MyGUI
 	{
 		if (false == mShow) return;
 		mShow = false;
+		if (mTransparent) return;
+//		mOverlayContainer->setTransparentInfo(true, mId);
 		mOverlayContainer->hide();
 	}
 
@@ -55,19 +73,21 @@ namespace MyGUI
 
 	void SubSkin::attach(BasisWidgetPtr _basis, bool _child)
 	{
-		mOverlayContainer->addChild(_basis->getOverlayElement());
+		if (mId == 0) mOverlayContainer->addChild(_basis->getOverlayElement());
 	}
 
 	Ogre::OverlayElement* SubSkin::getOverlayElement()
 	{
+		// возвращаем, если только мы главные
+		if (mId != 0) return null;
 		return mOverlayContainer;
 	}
 
 	void SubSkin::correct()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
-		if (mParent->getParent()) mOverlayContainer->setPosition(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mLeftMargin, mTop + mParent->getTop() - mParent->getParent()->getMarginTop() + mTopMargin);
-		else mOverlayContainer->setPosition(mLeft + mParent->getLeft(), mTop + mParent->getTop());
+		if (mParent->getParent()) mOverlayContainer->setPositionInfo(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mLeftMargin, mTop + mParent->getTop() - mParent->getParent()->getMarginTop() + mTopMargin, mId);
+		else mOverlayContainer->setPositionInfo(mLeft + mParent->getLeft(), mTop + mParent->getTop(), mId);
 	}
 
 	void SubSkin::align(int _left, int _top, int _width, int _height, bool _update)
@@ -127,11 +147,9 @@ namespace MyGUI
 
 		// двигаем всегда, т.к. дети должны двигаться
 		int x = mLeft + mParent->getLeft() - (mParent->getParent() ? mParent->getParent()->getMarginLeft() : 0) + mLeftMargin;
-//		if (x < 0) x = 0;
 		int y = mTop + mParent->getTop() - (mParent->getParent() ? mParent->getParent()->getMarginTop() : 0) + mTopMargin;
-//		if (y < 0) y = 0;
 
-		mOverlayContainer->setPosition(x, y);
+		mOverlayContainer->setPositionInfo(x, y, mId);
 
 		// вьюпорт стал битым
 		if (margin) {
@@ -140,7 +158,7 @@ namespace MyGUI
 			if (checkOutside()) {
 
 				// скрываем
-				mOverlayContainer->setTransparent(true);
+				_setTransparent(true);
 				// запоминаем текущее состояние
 				mMargin = margin;
 
@@ -157,7 +175,7 @@ namespace MyGUI
 			int cy = view_height();
 			if (cy < 0) cy = 0;
 
-			mOverlayContainer->setDimensions(cx, cy);
+			mOverlayContainer->setDimensionInfo(cx, cy, mId);
 
 			if (cx && cy) {
 
@@ -175,7 +193,7 @@ namespace MyGUI
 				float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
 				float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
 
-				mOverlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+				mOverlayContainer->setUVInfo(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total, mId);
 
 			}
 
@@ -184,14 +202,15 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mMargin = margin;
 		// если скин был скрыт, то покажем
-		mOverlayContainer->setTransparent(false);
+		_setTransparent(false);
 
 	}
 
 	void SubSkin::setUVSet(const FloatRect & _rect)
 	{
-		MYGUI_ASSERT(null != mOverlayContainer);
+		MYGUI_DEBUG_ASSERT(null != mOverlayContainer);
 		mRectTexture = _rect;
+
 		// если обрезаны, то просчитываем с учето обрезки
 		if (mMargin) {
 
@@ -208,12 +227,12 @@ namespace MyGUI
 			float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
 			float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
 
-			mOverlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
-
-		} else {
-			// мы не обрезаны, базовые координаты
-			mOverlayContainer->setUV(mRectTexture.left, mRectTexture.top, mRectTexture.right, mRectTexture.bottom);
+			mOverlayContainer->setUVInfo(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total, mId);
 		}
+
+		// мы не обрезаны, базовые координаты
+		else mOverlayContainer->setUVInfo(mRectTexture.left, mRectTexture.top, mRectTexture.right, mRectTexture.bottom, mId);
+
 	}
 
 } // namespace MyGUI

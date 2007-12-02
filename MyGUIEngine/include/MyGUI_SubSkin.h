@@ -8,7 +8,7 @@
 #define __MYGUI_SUB_SKIN_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_PanelAlphaOverlayElement.h"
+#include "MyGUI_SharedPanelAlphaOverlayElement.h"
 #include "MyGUI_BasisWidget.h"
 
 namespace MyGUI
@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 
 	public:
-		SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent);
+		SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
 		virtual ~SubSkin();
 
 		void show();
@@ -34,15 +34,31 @@ namespace MyGUI
 
 		void setAlpha(float _alpha);
 
-		inline static const Ogre::String & getType() {static Ogre::String type("SubSkin"); return type;}
-
 		void attach(BasisWidgetPtr _basis, bool _child);
 		Ogre::OverlayElement* getOverlayElement();
 
+		inline static const Ogre::String & getType() {static Ogre::String type("SubSkin"); return type;}
+		inline static bool isSharedOverlay() {return true;}
+		bool isText() {return false;}
+
+		Ogre::OverlayElement* _getSharedOverlay() {return (mId == 0) ? mOverlayContainer : null;}
+
 	protected:
 
-		PanelAlphaOverlayElement * mOverlayContainer;
+		inline void _setTransparent(bool _transparent)
+		{
+			if (mTransparent == _transparent) return;
+			mTransparent = _transparent;
+			if ((false == mTransparent) && (false == mShow)) return;
+			mOverlayContainer->setTransparentInfo(mTransparent, mId);
+		}
+
+	protected:
+
+		SharedPanelAlphaOverlayElement * mOverlayContainer;
 		FloatRect mRectTexture;
+		size_t mId;
+		bool mTransparent;
 
 	}; // class SubSkin
 

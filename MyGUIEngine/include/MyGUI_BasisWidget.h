@@ -78,6 +78,9 @@ namespace MyGUI
 //		virtual void detach(BasisWidgetPtr _basis/*, bool _child*/) {}
 
 		virtual Ogre::OverlayElement* getOverlayElement() {return 0;}//???
+		// возвращает число саб скинов на одном уровне, без текста
+		virtual size_t _getCountSharedOverlay() {return 0;}
+		virtual Ogre::OverlayElement* _getSharedOverlay() {return null;}
 
 		virtual void setUVSet(const FloatRect & _rect) {}
 
