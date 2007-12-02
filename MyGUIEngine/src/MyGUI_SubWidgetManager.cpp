@@ -4,7 +4,7 @@
 	@date		11/2007
 	@module
 */
-#include "MyGUI_BasisWidgetManager.h"
+#include "MyGUI_SubWidgetManager.h"
 
 namespace MyGUI
 {
@@ -48,10 +48,10 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	CroppedRectangleInterface * SubWidgetManager::createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id)
+	CroppedRectangleInterface * SubWidgetManager::createSubWidget(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id)
 	{
 		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
-			if ((*factory)->getType() == _info.type) return (*factory)->createCroppedRectangle(_info, _material, _parent, _id);
+			if ((*factory)->getType() == _info.type) return (*factory)->createSubWidget(_info, _material, _parent, _id);
 		}
 		MYGUI_EXCEPT(_info.type + " - no find factory CroppedRectangleFactory");
 		return 0;

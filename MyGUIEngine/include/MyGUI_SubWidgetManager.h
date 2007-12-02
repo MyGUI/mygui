@@ -9,8 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_BasisWidget.h"
-#include "MyGUI_BasisWidgetFactoryInterface.h"
+#include "MyGUI_CroppedRectangleInterface.h"
+#include "MyGUI_SubWidgetFactoryInterface.h"
 
 #include "MyGUI_MainSkin.h"
 #include "MyGUI_SubSkin.h"
@@ -28,7 +28,7 @@ namespace MyGUI
 		void shutdown();
 
 		// создает сабвиджет использу€ фабрику
-		CroppedRectangleInterface * createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id);
+		CroppedRectangleInterface * createSubWidget(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id);
 
 		// подходит ли данный тип дл€ объединени€
 		bool isSharedOverlay(const CroppedRectangleInfo &_info);

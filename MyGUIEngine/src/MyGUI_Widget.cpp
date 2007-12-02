@@ -89,7 +89,7 @@ namespace MyGUI
 
 	CroppedRectanglePtr  Widget::addSubSkin(const CroppedRectangleInfo& _info, const Ogre::String& _material, size_t & _id)
 	{
-		CroppedRectanglePtr sub = SubWidgetManager::getInstance().createCroppedRectangle(_info, _material, this, _id);
+		CroppedRectanglePtr sub = SubWidgetManager::getInstance().createSubWidget(_info, _material, this, _id);
 		// если это скин текста, то запоминаем
 		if (sub->_isText()) mText = static_cast<SubWidgetTextPtr>(sub);
 		// добавляем в общий список

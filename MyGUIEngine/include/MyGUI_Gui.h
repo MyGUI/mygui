@@ -17,7 +17,7 @@
 #include "MyGUI_SharedPanelAlphaOverlayElementFactory.h"
 
 #include "MyGUI_InputManager.h"
-#include "MyGUI_BasisWidgetManager.h"
+#include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_ClipboardManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_SkinManager.h"

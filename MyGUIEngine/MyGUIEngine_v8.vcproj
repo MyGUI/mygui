@@ -242,15 +242,15 @@
 				Name="SubWidget"
 				>
 				<File
-					RelativePath=".\src\MyGUI_BasisWidgetManager.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\MyGUI_MainSkin.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_SubSkin.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_SubWidgetManager.cpp"
 					>
 				</File>
 				<File
@@ -564,15 +564,7 @@
 				Name="SubWidget"
 				>
 				<File
-					RelativePath=".\include\MyGUI_BasisWidget.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_BasisWidgetFactoryInterface.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_BasisWidgetManager.h"
+					RelativePath=".\include\MyGUI_CroppedRectangleInterface.h"
 					>
 				</File>
 				<File
@@ -581,6 +573,14 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_SubSkin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_SubWidgetFactoryInterface.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_SubWidgetManager.h"
 					>
 				</File>
 				<File

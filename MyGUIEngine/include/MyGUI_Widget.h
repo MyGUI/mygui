@@ -8,7 +8,7 @@
 #define __MYGUI_WIDGET_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_BasisWidget.h"
+#include "MyGUI_CroppedRectangleInterface.h"
 #include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_LayerItemInfo.h"
