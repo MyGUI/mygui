@@ -61,8 +61,8 @@ namespace MyGUI
 	typedef WidgetSkinInfo * WidgetSkinInfoPtr;
 	typedef std::map<std::string, WidgetSkinInfoPtr> MapWidgetSkinInfoPtr;
 
-	class CroppedRectangleBase;
-	typedef CroppedRectangleBase * CroppedRectanglePtr;
+	class CroppedRectangleInterface;
+	typedef CroppedRectangleInterface * CroppedRectanglePtr;
 	typedef std::vector<CroppedRectanglePtr> VectorCroppedRectanglePtr;
 
 	class Widget;

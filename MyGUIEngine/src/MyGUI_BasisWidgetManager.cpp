@@ -48,7 +48,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	CroppedRectangleBase * CroppedRectangleManager::createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleBase * _parent, size_t & _id)
+	CroppedRectangleInterface * CroppedRectangleManager::createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id)
 	{
 		for (std::list<CroppedRectangleFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createCroppedRectangle(_info, _material, _parent, _id);

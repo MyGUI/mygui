@@ -14,11 +14,11 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport CroppedRectangleBase
+	class _MyGUIExport CroppedRectangleInterface
 	{
 
 	public:
-		CroppedRectangleBase(int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent) :
+		CroppedRectangleInterface(int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent) :
 			mParent (_parent),
 			mAlign (_align),
 			mLeft (_left), mTop (_top), mWidth (_width), mHeight (_height),
@@ -26,7 +26,7 @@ namespace MyGUI
 			mMargin(false),
 			mShow(true)
 		{}
-		virtual ~CroppedRectangleBase() {}
+		virtual ~CroppedRectangleInterface() {}
 
 		virtual void setPosition(int _left, int _top) {}
 		virtual void setPosition(int _left, int _top, int _width, int _height) {}
@@ -163,7 +163,7 @@ namespace MyGUI
 		bool mShow;
 		Align mAlign;
 
-	}; // class CroppedRectangleBase
+	}; // class CroppedRectangleInterface
 
 } // namespace MyGUI
 

@@ -8,13 +8,13 @@
 #define __MYGUI_TEXT_SIMPLE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_BasisWidget.h"
+#include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_TextSimpleOverlayElement.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport TextSimple : public CroppedRectangleBase
+	class _MyGUIExport TextSimple : public SubWidgetTextInterface
 	{
 
 	public:
@@ -66,7 +66,7 @@ namespace MyGUI
 		TextSimpleOverlayElement * mOverlayContainer;
 		Ogre::ColourValue mColour;
 
-	}; // class TextSimple : public CroppedRectangleBase
+	}; // class _MyGUIExport TextSimple : public SubWidgetTextInterface
 
 } // namespace MyGUI
 

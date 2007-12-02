@@ -8,13 +8,13 @@
 #define __MYGUI_TEXT_EDIT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_BasisWidget.h"
+#include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_TextEditOverlayElement.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport TextEdit : public CroppedRectangleBase
+	class _MyGUIExport TextEdit : public SubWidgetTextInterface
 	{
 
 	public:
@@ -80,7 +80,7 @@ namespace MyGUI
 		TextEditOverlayElement * mOverlayContainer;
 		Ogre::ColourValue mColour;
 
-	}; // class TextEdit : public CroppedRectangleBase
+	}; // class _MyGUIExport TextEdit : public SubWidgetTextInterface
 
 } // namespace MyGUI
 

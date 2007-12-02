@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_BasisWidget.h"
+#include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_LayerItemInfo.h"
 #include "MyGUI_WidgetUserData.h"
@@ -20,7 +21,7 @@ namespace MyGUI
 
 	class Gui;
 
-	class _MyGUIExport Widget : public CroppedRectangleBase , public LayerItemInfo, public UserData, public WidgetEvent
+	class _MyGUIExport Widget : public CroppedRectangleInterface , public LayerItemInfo, public UserData, public WidgetEvent
 	{
 		// для вызова закрытых деструкторов
 		friend WidgetManager;
@@ -129,7 +130,7 @@ namespace MyGUI
 		VectorCroppedRectanglePtr mSubSkinChild;
 
 		// указатель на окно текста
-		CroppedRectanglePtr mText;
+		SubWidgetTextPtr mText;
 
 		// доступен ли на виджет
 		bool mEnabled;

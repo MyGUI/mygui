@@ -13,7 +13,7 @@ namespace MyGUI
 {
 
 	Widget::Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		CroppedRectangleBase(_left, _top, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
+		CroppedRectangleInterface(_left, _top, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
 		mText(0),
 		mVisible(true),
 		mEnabled(true),
@@ -91,7 +91,7 @@ namespace MyGUI
 	{
 		CroppedRectanglePtr sub = CroppedRectangleManager::getInstance().createCroppedRectangle(_info, _material, this, _id);
 		// если это скин текста, то запоминаем
-		if (sub->_isText()) mText = sub;
+		if (sub->_isText()) mText = static_cast<SubWidgetTextPtr>(sub);
 		// добавляем в общий список
 		mSubSkinChild.push_back(sub);
 		return sub;
@@ -334,7 +334,7 @@ namespace MyGUI
 
 	const Ogre::DisplayString & Widget::getCaption()
 	{
-		if (mText == null) return CroppedRectangleBase::getCaption();
+		if (mText == null) return CroppedRectangleInterface::getCaption();
 		return mText->getCaption();
 	}
 
@@ -372,7 +372,7 @@ namespace MyGUI
 
 	const Ogre::String & Widget::getFontName()
 	{
-		if (!mText) return CroppedRectangleBase::getFontName();
+		if (!mText) return CroppedRectangleInterface::getFontName();
 		return mText->getFontName();
 	}
 

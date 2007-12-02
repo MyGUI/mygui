@@ -9,12 +9,12 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_PanelAlphaOverlayElement.h"
-#include "MyGUI_BasisWidget.h"
+#include "MyGUI_SubWidgetSkinInterface.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport MainSkin : public CroppedRectangleBase
+	class _MyGUIExport MainSkin : public SubWidgetSkinInterface
 	{
 
 	public:
@@ -50,7 +50,7 @@ namespace MyGUI
 
 		FloatRect mRectTexture;
 
-	}; // class SubSkin
+	}; // class _MyGUIExport MainSkin : public SubWidgetSkinInterface
 
 } // namespace MyGUI
 

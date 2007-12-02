@@ -239,7 +239,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="BasisWidget"
+				Name="SubWidget"
 				>
 				<File
 					RelativePath=".\src\MyGUI_BasisWidgetManager.cpp"
@@ -561,7 +561,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="BasisWidget"
+				Name="SubWidget"
 				>
 				<File
 					RelativePath=".\include\MyGUI_BasisWidget.h"
@@ -581,6 +581,14 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_SubSkin.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_SubWidgetSkinInterface.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_SubWidgetTextInterface.h"
 					>
 				</File>
 				<File

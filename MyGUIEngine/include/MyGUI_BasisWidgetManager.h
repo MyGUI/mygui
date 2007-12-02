@@ -28,7 +28,7 @@ namespace MyGUI
 		void shutdown();
 
 		// создает сабвиджет использу€ фабрику
-		CroppedRectangleBase * createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleBase * _parent, size_t & _id);
+		CroppedRectangleInterface * createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id);
 
 		// подходит ли данный тип дл€ объединени€
 		bool isSharedOverlay(const CroppedRectangleInfo &_info);
