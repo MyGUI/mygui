@@ -18,7 +18,7 @@ namespace MyGUI
 
 	const int WINDOW_TO_STICK = 10;
 
-	Window::Window(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	Window::Window(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null), mWidgetClient(null),
 		mIsListenerAlpha(false),

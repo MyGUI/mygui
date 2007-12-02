@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	List::List(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	List::List(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
 		mWidgetScroll(null), mWidgetClient(null),
 		mOffsetTop(0),

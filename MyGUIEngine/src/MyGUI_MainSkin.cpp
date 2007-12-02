@@ -10,8 +10,8 @@
 namespace MyGUI
 {
 
-	MainSkin::MainSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidgetPtr _parent, size_t _id) : 
-	BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
+	MainSkin::MainSkin(const CroppedRectangleInfo& _info, const Ogre::String& _material, CroppedRectanglePtr _parent, size_t _id) : 
+	CroppedRectangleBase(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
 	{
 
 		Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
@@ -123,7 +123,7 @@ namespace MyGUI
 
 	}
 
-	void MainSkin::_attachChild(BasisWidgetPtr _basis, bool _child)
+	void MainSkin::_attachChild(CroppedRectanglePtr _basis, bool _child)
 	{
 		mOverlayContainer->addChild(_basis->_getOverlayElement());
 	}

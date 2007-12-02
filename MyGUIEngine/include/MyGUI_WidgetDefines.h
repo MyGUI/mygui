@@ -13,13 +13,13 @@
 namespace MyGUI
 {
 
-	struct BasisWidgetStateInfo
+	struct CroppedRectangleStateInfo
 	{
-		BasisWidgetStateInfo()
+		CroppedRectangleStateInfo()
 		{
 		}
 
-		BasisWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _colour, float _alpha)
+		CroppedRectangleStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _colour, float _alpha)
 		{
 			offset = _offset;
 			color = _colour;
@@ -42,9 +42,9 @@ namespace MyGUI
 		float alpha;
 	};
 
-	struct BasisWidgetInfo
+	struct CroppedRectangleInfo
 	{
-		BasisWidgetInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align)
+		CroppedRectangleInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align)
 		{
 		}
 
@@ -53,17 +53,17 @@ namespace MyGUI
 		std::string type;
 	};
 
-	typedef std::map<std::string, BasisWidgetStateInfo> MapBasisWidgetStateInfo;
+	typedef std::map<std::string, CroppedRectangleStateInfo> MapCroppedRectangleStateInfo;
 	typedef std::map<std::string, WidgetStateInfo> MapWidgetStateInfo;
-	typedef std::vector<BasisWidgetInfo> VectorBasisWidgetInfo;
+	typedef std::vector<CroppedRectangleInfo> VectorCroppedRectangleInfo;
 
 	class WidgetSkinInfo;
 	typedef WidgetSkinInfo * WidgetSkinInfoPtr;
 	typedef std::map<std::string, WidgetSkinInfoPtr> MapWidgetSkinInfoPtr;
 
-	class BasisWidget;
-	typedef BasisWidget * BasisWidgetPtr;
-	typedef std::vector<BasisWidgetPtr> VectorBasisWidgetPtr;
+	class CroppedRectangleBase;
+	typedef CroppedRectangleBase * CroppedRectanglePtr;
+	typedef std::vector<CroppedRectanglePtr> VectorCroppedRectanglePtr;
 
 	class Widget;
 	typedef Widget * WidgetPtr;

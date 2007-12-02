@@ -14,11 +14,11 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport SubSkin : public BasisWidget
+	class _MyGUIExport SubSkin : public CroppedRectangleBase
 	{
 
 	public:
-		SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
+		SubSkin(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
 		virtual ~SubSkin();
 
 		void setAlpha(float _alpha);
@@ -34,7 +34,7 @@ namespace MyGUI
 
 		void _setUVSet(const FloatRect & _rect);
 
-		void _attachChild(BasisWidgetPtr _basis, bool _child);
+		void _attachChild(CroppedRectanglePtr _basis, bool _child);
 		Ogre::OverlayElement* _getOverlayElement();
 
 		inline static const Ogre::String & _getType() {static Ogre::String type("SubSkin"); return type;}

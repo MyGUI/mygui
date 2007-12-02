@@ -9,7 +9,7 @@
 namespace MyGUI
 {
 
-	ScrollBase::ScrollBase(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	ScrollBase::ScrollBase(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
 		mWidgetStart(null), mWidgetEnd(null), mWidgetTrack(null),
 		mScrollPosition(0), mScrollRange(0)

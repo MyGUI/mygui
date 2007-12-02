@@ -4,8 +4,8 @@
 	@date		11/2007
 	@module
 */
-#ifndef __MYGUI_BASIS_WIDGET_MANAGER_H__
-#define __MYGUI_BASIS_WIDGET_MANAGER_H__
+#ifndef __MYGUI_CROPPED_RECTANGLE_MANAGER_H__
+#define __MYGUI_CROPPED_RECTANGLE_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
@@ -19,35 +19,35 @@
 
 namespace MyGUI
 {
-	class _MyGUIExport BasisWidgetManager
+	class _MyGUIExport CroppedRectangleManager
 	{
-		INSTANCE_HEADER(BasisWidgetManager);
+		INSTANCE_HEADER(CroppedRectangleManager);
 
 	public:
 		void initialise();
 		void shutdown();
 
 		// создает сабвиджет использу€ фабрику
-		BasisWidget * createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent, size_t & _id);
+		CroppedRectangleBase * createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleBase * _parent, size_t & _id);
 
 		// подходит ли данный тип дл€ объединени€
-		bool isSharedOverlay(const BasisWidgetInfo &_info);
+		bool isSharedOverlay(const CroppedRectangleInfo &_info);
 
-		inline void registerFactory(BasisWidgetFactoryInterface * _factory)
+		inline void registerFactory(CroppedRectangleFactoryInterface * _factory)
 		{
 			mFactoryList.push_back(_factory);
 		}
 
 	protected:
-		std::list<BasisWidgetFactoryInterface*> mFactoryList;
+		std::list<CroppedRectangleFactoryInterface*> mFactoryList;
 
-		BasisWidgetFactory<MainSkin> * mFactoryMainSkin;
-		BasisWidgetFactory<SubSkin> * mFactorySubSkin;
-		BasisWidgetFactory<TextSimple> * mFactoryTextSimple;
-		BasisWidgetFactory<TextEdit> * mFactoryTextEdit;
+		CroppedRectangleFactory<MainSkin> * mFactoryMainSkin;
+		CroppedRectangleFactory<SubSkin> * mFactorySubSkin;
+		CroppedRectangleFactory<TextSimple> * mFactoryTextSimple;
+		CroppedRectangleFactory<TextEdit> * mFactoryTextEdit;
 
-	}; // BasisWidgetManager
+	}; // CroppedRectangleManager
 
 } // namespace MyGUI
 
-#endif // __MYGUI_BASIS_WIDGET_MANAGER_H__
+#endif // __MYGUI_CROPPED_RECTANGLE_MANAGER_H__

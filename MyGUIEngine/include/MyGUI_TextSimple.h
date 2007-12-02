@@ -14,11 +14,11 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport TextSimple : public BasisWidget
+	class _MyGUIExport TextSimple : public CroppedRectangleBase
 	{
 
 	public:
-		TextSimple(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
+		TextSimple(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
 		virtual ~TextSimple();
 
 		void show();
@@ -66,7 +66,7 @@ namespace MyGUI
 		TextSimpleOverlayElement * mOverlayContainer;
 		Ogre::ColourValue mColour;
 
-	}; // class TextSimple : public BasisWidget
+	}; // class TextSimple : public CroppedRectangleBase
 
 } // namespace MyGUI
 

@@ -78,7 +78,7 @@ namespace MyGUI
 
 		// синглтоны гу€
 		InputManager * mInputManager;
-		BasisWidgetManager * mBasisWidgetManager;
+		CroppedRectangleManager * mCroppedRectangleManager;
 		ClipboardManager* mClipboardManager;
 		LayerManager* mLayerManager;
 		SkinManager* mSkinManager;

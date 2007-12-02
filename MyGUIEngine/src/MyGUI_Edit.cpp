@@ -23,7 +23,7 @@ namespace MyGUI
 	const int EDIT_ACTION_MOUSE_ZONE = 50; // область для восприятия мыши за пределом эдита
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
 
-	Edit::Edit(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	Edit::Edit(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
 		mIsPressed(false),
 		mIsFocus(false),

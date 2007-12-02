@@ -17,7 +17,7 @@ namespace MyGUI
 	{
 	public:
 		virtual const Ogre::String& getType() = 0;
-		virtual WidgetPtr createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name) = 0;
+		virtual WidgetPtr createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name) = 0;
 	};
 
 } // namespace MyGUI

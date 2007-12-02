@@ -36,8 +36,8 @@ namespace MyGUI
 		// создаем и инициализируем синглтоны
 		mInputManager = new InputManager();
 		mInputManager->initialise();
-		mBasisWidgetManager = new BasisWidgetManager();
-		mBasisWidgetManager->initialise();
+		mCroppedRectangleManager = new CroppedRectangleManager();
+		mCroppedRectangleManager->initialise();
 		mClipboardManager = new ClipboardManager();
 		mClipboardManager->initialise();
 		mLayerManager = new LayerManager();
@@ -102,8 +102,8 @@ namespace MyGUI
 		delete mInputManager;
 		mSkinManager->shutdown();
 		delete mSkinManager;
-		mBasisWidgetManager->shutdown();
-		delete mBasisWidgetManager;
+		mCroppedRectangleManager->shutdown();
+		delete mCroppedRectangleManager;
 		mClipboardManager->shutdown();
 		delete mClipboardManager;
 

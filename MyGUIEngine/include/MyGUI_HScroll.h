@@ -23,7 +23,7 @@ namespace MyGUI
 		friend factory::HScrollFactory;
 
 	protected:
-		HScroll(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		HScroll(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
 

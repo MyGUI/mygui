@@ -14,11 +14,11 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport TextEdit : public BasisWidget
+	class _MyGUIExport TextEdit : public CroppedRectangleBase
 	{
 
 	public:
-		TextEdit(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
+		TextEdit(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
 		virtual ~TextEdit();
 
 		void show();
@@ -80,7 +80,7 @@ namespace MyGUI
 		TextEditOverlayElement * mOverlayContainer;
 		Ogre::ColourValue mColour;
 
-	}; // class TextEdit : public BasisWidget
+	}; // class TextEdit : public CroppedRectangleBase
 
 } // namespace MyGUI
 

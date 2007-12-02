@@ -10,8 +10,8 @@
 namespace MyGUI
 {
 
-	SubSkin::SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id) :
-		BasisWidget(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent),
+	SubSkin::SubSkin(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id) :
+		CroppedRectangleBase(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent),
 		mId(_id),
 		mTransparent(false)
 	{
@@ -71,7 +71,7 @@ namespace MyGUI
 		mOverlayContainer->setColor(*(Ogre::uint32*)color);
 	}
 
-	void SubSkin::_attachChild(BasisWidgetPtr _basis, bool _child)
+	void SubSkin::_attachChild(CroppedRectanglePtr _basis, bool _child)
 	{
 		if (mId == 0) mOverlayContainer->addChild(_basis->_getOverlayElement());
 	}

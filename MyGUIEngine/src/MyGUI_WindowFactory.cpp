@@ -44,7 +44,7 @@ namespace MyGUI
 			return type;
 		}
 
-		WidgetPtr WindowFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String& _name)
+		WidgetPtr WindowFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
 			return new Window(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}

@@ -12,8 +12,8 @@
 namespace MyGUI
 {
 
-	Widget::Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
-		BasisWidget(_left, _top, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
+	Widget::Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+		CroppedRectangleBase(_left, _top, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
 		mText(0),
 		mVisible(true),
 		mEnabled(true),
@@ -27,13 +27,13 @@ namespace MyGUI
 		mWidgetEventSender = this;
 
 		// подсчитаываем колличество оверлеев для объединения
-		for (VectorBasisWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
-			if (BasisWidgetManager::getInstance().isSharedOverlay(*iter)) mCountSharedOverlay++;
+		for (VectorCroppedRectangleInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
+			if (CroppedRectangleManager::getInstance().isSharedOverlay(*iter)) mCountSharedOverlay++;
 		}
 
 		// загружаем кирпичики виджета
 		size_t id = 0;
-		for (VectorBasisWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
+		for (VectorCroppedRectangleInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
 			addSubSkin(*iter, _info->getMaterial(), id);
 		}
 
@@ -62,7 +62,7 @@ namespace MyGUI
 
 	Widget::~Widget()
 	{
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			delete (*skin);
 		}
 		mSubSkinChild.clear();
@@ -87,9 +87,9 @@ namespace MyGUI
 		return createWidget(_type, _skin, (int)(_left*gui.getWidth()), (int)(_top*gui.getHeight()), (int)(_width*gui.getWidth()), (int)(_height*gui.getHeight()), _align, _name);
 	}
 
-	BasisWidgetPtr  Widget::addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, size_t & _id)
+	CroppedRectanglePtr  Widget::addSubSkin(const CroppedRectangleInfo& _info, const Ogre::String& _material, size_t & _id)
 	{
-		BasisWidgetPtr sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this, _id);
+		CroppedRectanglePtr sub = CroppedRectangleManager::getInstance().createCroppedRectangle(_info, _material, this, _id);
 		// если это скин текста, то запоминаем
 		if (sub->_isText()) mText = sub;
 		// добавляем в общий список
@@ -97,7 +97,7 @@ namespace MyGUI
 		return sub;
 	}
 
-	void Widget::_attachChild(BasisWidgetPtr _basis, bool _child)
+	void Widget::_attachChild(CroppedRectanglePtr _basis, bool _child)
 	{
 		if (_child) {
 			// это к нам текст хочет прилипиться
@@ -117,7 +117,7 @@ namespace MyGUI
 		// если скрыто пользователем, то не показываем
 		if (mVisible && !mShow) return;
 
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			if (mVisible) (*skin)->show();
 			else (*skin)->hide();
 		}
@@ -130,7 +130,7 @@ namespace MyGUI
 		// если вышло за границу то не показываем
 		if (mShow && !mVisible) return;
 
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->show();
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->show();
 	}
 
 	void Widget::hide()
@@ -140,7 +140,7 @@ namespace MyGUI
 		// если вышло за границу то не показываем
 		if (mShow && !mVisible) return;
 
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->hide();
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->hide();
 	}
 
 	void Widget::_setAlign(int _left, int _top, int _width, int _height, bool _update)
@@ -244,7 +244,7 @@ namespace MyGUI
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(mLeft, mTop, _width, _height, mMargin || margin);
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(mLeft, mTop, _width, _height, mMargin || margin);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(mLeft, mTop, _width, _height, mMargin || margin);
 
 		// запоминаем текущее состояние
 		mMargin = margin;
@@ -279,7 +279,7 @@ namespace MyGUI
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(_width, _height, mMargin || margin);
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(_width, _height, mMargin || margin);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(_width, _height, mMargin || margin);
 
 		// запоминаем текущее состояние
 		mMargin = margin;
@@ -308,7 +308,7 @@ namespace MyGUI
 
 			_setVisible(true);
 			// для тех кому нужно подправить себя при движении
-			for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_correctView();
+			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_correctView();
 
 			return;
 
@@ -322,7 +322,7 @@ namespace MyGUI
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_updateView();
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_updateView();
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_updateView();
 
 	}
 
@@ -334,7 +334,7 @@ namespace MyGUI
 
 	const Ogre::DisplayString & Widget::getCaption()
 	{
-		if (mText == null) return BasisWidget::getCaption();
+		if (mText == null) return CroppedRectangleBase::getCaption();
 		return mText->getCaption();
 	}
 
@@ -348,7 +348,7 @@ namespace MyGUI
 		if (mAlpha == _alpha) return;
 		mAlpha = _alpha;
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->setAlpha(mAlpha);
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->setAlpha(mAlpha);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->setAlpha(mAlpha);
 	}
 
 	void Widget::setColour(const Ogre::ColourValue & _colour)
@@ -372,7 +372,7 @@ namespace MyGUI
 
 	const Ogre::String & Widget::getFontName()
 	{
-		if (!mText) return BasisWidget::getFontName();
+		if (!mText) return CroppedRectangleBase::getFontName();
 		return mText->getFontName();
 	}
 
@@ -394,7 +394,7 @@ namespace MyGUI
 		if (iter == mStateInfo.end()) return;
 		size_t index=0;
 		// сначала сдвигаем текстуры
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			(*skin)->_setUVSet(iter->second.offsets[index++]);
 		}
 		// теперь если нужно цвет текста
@@ -427,7 +427,7 @@ namespace MyGUI
 
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
 	{
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			if (false == (*skin)->_isText()) {
 				Ogre::OverlayContainer * element = static_cast<Ogre::OverlayContainer*>((*skin)->_getOverlayElement());
 				if (null != element) _overlay->add2D(element);
@@ -437,7 +437,7 @@ namespace MyGUI
 
 	void Widget::detachToOverlay(Ogre::Overlay * _overlay)
 	{
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			if (false == (*skin)->_isText()) {
 				SharedPanelAlphaOverlayElement * element = static_cast<SharedPanelAlphaOverlayElement*>((*skin)->_getOverlayElement());
 				// удаляем только шаред главный
@@ -513,7 +513,7 @@ namespace MyGUI
 
 	Ogre::OverlayElement* Widget::_getSharedOverlayElement()
 	{
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
 			Ogre::OverlayElement* element = (*skin)->_getSharedOverlayElement();
 			if (null != element) return element;
 		}

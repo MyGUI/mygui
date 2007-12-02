@@ -20,7 +20,7 @@ namespace MyGUI
 
 	class Gui;
 
-	class _MyGUIExport Widget : public BasisWidget , public LayerItemInfo, public UserData, public WidgetEvent
+	class _MyGUIExport Widget : public CroppedRectangleBase , public LayerItemInfo, public UserData, public WidgetEvent
 	{
 		// для вызова закрытых деструкторов
 		friend WidgetManager;
@@ -30,7 +30,7 @@ namespace MyGUI
 
 	protected:
 		// все создание только через фабрику
-		Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 		virtual ~Widget();
 
 		void _updateView(); // обновления себя и детей
@@ -41,7 +41,7 @@ namespace MyGUI
 		inline const Ogre::String & getName() {return mName;};
 
 		// присоединяемся к отцу
-		void _attachChild(BasisWidgetPtr _basis, bool _child);
+		void _attachChild(CroppedRectanglePtr _basis, bool _child);
 
 		// события кадров, работает только по подписке
 		virtual void frameStarted(float _frame, float _event) {}
@@ -115,7 +115,7 @@ namespace MyGUI
 	protected:
 
 		// создаем и добавляем саб скин виджету
-		BasisWidgetPtr addSubSkin(const BasisWidgetInfo& _info, const Ogre::String& _material, size_t & _id);
+		CroppedRectanglePtr addSubSkin(const CroppedRectangleInfo& _info, const Ogre::String& _material, size_t & _id);
 		// показывает скрывает все сабскины
 		void _setVisible(bool _visible);
 
@@ -126,10 +126,10 @@ namespace MyGUI
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 		// вектор всех детей сабскинов
-		VectorBasisWidgetPtr mSubSkinChild;
+		VectorCroppedRectanglePtr mSubSkinChild;
 
 		// указатель на окно текста
-		BasisWidgetPtr mText;
+		CroppedRectanglePtr mText;
 
 		// доступен ли на виджет
 		bool mEnabled;

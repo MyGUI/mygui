@@ -9,30 +9,30 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(BasisWidgetManager);
+	INSTANCE_IMPLEMENT(CroppedRectangleManager);
 
-	void BasisWidgetManager::initialise()
+	void CroppedRectangleManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
 		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
-		mFactoryMainSkin = new BasisWidgetFactory<MainSkin>();
+		mFactoryMainSkin = new CroppedRectangleFactory<MainSkin>();
 		registerFactory(mFactoryMainSkin);
 
-		mFactorySubSkin = new BasisWidgetFactory<SubSkin>();
+		mFactorySubSkin = new CroppedRectangleFactory<SubSkin>();
 		registerFactory(mFactorySubSkin);
 
-		mFactoryTextEdit = new BasisWidgetFactory<TextEdit>();
+		mFactoryTextEdit = new CroppedRectangleFactory<TextEdit>();
 		registerFactory(mFactoryTextEdit);
 
-		mFactoryTextSimple = new BasisWidgetFactory<TextSimple>();
+		mFactoryTextSimple = new CroppedRectangleFactory<TextSimple>();
 		registerFactory(mFactoryTextSimple);
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
 
-	void BasisWidgetManager::shutdown()
+	void CroppedRectangleManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
@@ -48,20 +48,20 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	BasisWidget * BasisWidgetManager::createBasisWidget(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidget * _parent, size_t & _id)
+	CroppedRectangleBase * CroppedRectangleManager::createCroppedRectangle(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleBase * _parent, size_t & _id)
 	{
-		for (std::list<BasisWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
-			if ((*factory)->getType() == _info.type) return (*factory)->createBasisWidget(_info, _material, _parent, _id);
+		for (std::list<CroppedRectangleFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+			if ((*factory)->getType() == _info.type) return (*factory)->createCroppedRectangle(_info, _material, _parent, _id);
 		}
-		MYGUI_EXCEPT(_info.type + " - no find factory BasisWidgetFactory");
+		MYGUI_EXCEPT(_info.type + " - no find factory CroppedRectangleFactory");
 		return 0;
 	}
 
 	// подходит ли данный тип для объединения
-	bool BasisWidgetManager::isSharedOverlay(const BasisWidgetInfo &_info)
+	bool CroppedRectangleManager::isSharedOverlay(const CroppedRectangleInfo &_info)
 	{
 		size_t id = 0;
-		for (std::list<BasisWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+		for (std::list<CroppedRectangleFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) {
 				(*factory)->getNextId(id);
 				break;

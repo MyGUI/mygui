@@ -66,7 +66,7 @@ namespace MyGUI
 		//LOG("* Unregister widget factory '" + _factory->getType() + "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name)
 	{
 		Ogre::String name;
 		if (false == _name.empty()) {

@@ -13,7 +13,7 @@ namespace MyGUI
 		friend factory::StrangeButtonFactory;
 
 	protected:
-		StrangeButton(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
+		StrangeButton(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
 

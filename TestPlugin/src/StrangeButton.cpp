@@ -4,7 +4,7 @@
 namespace MyGUI
 {
 
-	StrangeButton::StrangeButton(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name) :
+	StrangeButton::StrangeButton(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 	Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
 		mIsPressed(false),
 		mIsFocus(false),

@@ -4,8 +4,8 @@
 	@date		11/2007
 	@module
 */
-#ifndef __MYGUI_BASIC_WIDGET_H__
-#define __MYGUI_BASIC_WIDGET_H__
+#ifndef __MYGUI_CROPPED_RECTANGLE_INTERFACE_H__
+#define __MYGUI_CROPPED_RECTANGLE_INTERFACE_H__
 
 #include "MyGUI_Prerequest.h"
 #include <OgreOverlayElement.h>
@@ -14,11 +14,11 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport BasisWidget
+	class _MyGUIExport CroppedRectangleBase
 	{
 
 	public:
-		BasisWidget(int _left, int _top, int _width, int _height, Align _align, BasisWidgetPtr _parent) :
+		CroppedRectangleBase(int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent) :
 			mParent (_parent),
 			mAlign (_align),
 			mLeft (_left), mTop (_top), mWidth (_width), mHeight (_height),
@@ -26,7 +26,7 @@ namespace MyGUI
 			mMargin(false),
 			mShow(true)
 		{}
-		virtual ~BasisWidget() {}
+		virtual ~CroppedRectangleBase() {}
 
 		virtual void setPosition(int _left, int _top) {}
 		virtual void setPosition(int _left, int _top, int _width, int _height) {}
@@ -55,7 +55,7 @@ namespace MyGUI
 		virtual void setTextAlign(Align _align) {}
 		inline Align getAlign() {return mAlign;}
 
-		inline BasisWidgetPtr getParent() {return mParent;}
+		inline CroppedRectanglePtr getParent() {return mParent;}
 
 		inline int getLeft()       {return mLeft;}
 		inline int getRight()      {return mLeft + mWidth;}
@@ -97,7 +97,7 @@ namespace MyGUI
 		virtual void _setAlign(int _width, int _height, bool _update) {}
 		virtual void _setAlign(int _left, int _top, int _width, int _height, bool _update) {}
 
-		virtual void _attachChild(BasisWidgetPtr _basis, bool _child) {}
+		virtual void _attachChild(CroppedRectanglePtr _basis, bool _child) {}
 
 		virtual void _setUVSet(const FloatRect & _rect) {}
 
@@ -159,12 +159,12 @@ namespace MyGUI
 		int mLeft, mTop, mWidth, mHeight; // координаты и ширина с высотой
 		int mLeftMargin, mRightMargin, mTopMargin, mBottomMargin; // перекрытие
 
-		BasisWidgetPtr mParent;
+		CroppedRectanglePtr mParent;
 		bool mShow;
 		Align mAlign;
 
-	}; // class BasisWidget
+	}; // class CroppedRectangleBase
 
 } // namespace MyGUI
 
-#endif // __MYGUI_BASIC_WIDGET_H__
+#endif // __MYGUI_CROPPED_RECTANGLE_INTERFACE_H__
