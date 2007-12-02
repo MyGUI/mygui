@@ -49,6 +49,12 @@ namespace MyGUI
 		inline bool getIsToStick() {return mIsToStick;}
 		inline void setIsToStick(bool _stick) {mIsToStick = _stick;}
 
+    virtual IntRect getClientRect()
+    {
+      if (null == mWidgetClient) return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);
+      else return mWidgetClient->getClientRect();
+    }
+
 		// нажат крестик на окне
 		EventSimple eventWindowXPressed;
 

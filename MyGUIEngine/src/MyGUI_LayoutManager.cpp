@@ -119,7 +119,10 @@ namespace MyGUI
 			return FloatRect(_rect.left*Gui::getInstance().getWidth(), _rect.top*Gui::getInstance().getHeight(), _rect.right*Gui::getInstance().getWidth(), _rect.bottom*Gui::getInstance().getHeight());
 		}
 		else
-			return FloatRect(_rect.left*_parent->getWidth(), _rect.top*_parent->getHeight(), _rect.right*_parent->getWidth(), _rect.bottom*_parent->getHeight());
+    {
+      IntRect ret = _parent->getClientRect();
+			return FloatRect(_rect.left*ret.getWidth(), _rect.top*ret.getHeight(), _rect.right*ret.getWidth(), _rect.bottom*ret.getHeight());
+    }
 	}
 
 } // namespace MyGUI

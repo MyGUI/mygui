@@ -94,6 +94,7 @@ namespace MyGUI
 		inline int getBottom()     {return mTop + mHeight;}
 		inline int getWidth()       {return mWidth;}
 		inline int getHeight()       {return mHeight;}
+    virtual IntRect getClientRect(){return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);}
 
 		inline int getViewLeft()  {return mLeft + mLeftMargin;}
 		inline int getViewRight() {return mLeft + mWidth - mRightMargin;}
