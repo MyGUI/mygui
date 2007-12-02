@@ -9,6 +9,7 @@
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_ClipboardManager.h"
 
 namespace MyGUI
 {
@@ -1157,25 +1158,24 @@ namespace MyGUI
 	void Edit::commandCut()
 	{
 		// вырезаем в буфер обмена
-		/*if ( isTextSelect() ) {
+		if ( isTextSelect() ) {
 			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 			if (false == mReadOnly) deleteTextSelect(true);
 		}
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
-		*/
 	}
 
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-//		if ( isTextSelect() ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
-//		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		if ( isTextSelect() ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
+		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandPast()
 	{
 		// копируем из буфера обмена
-		/*std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 		if ( (false == mReadOnly) && ( false == clipboard.empty()) ) {
 			// попытка объединения двух комманд
 			size_t size = mVectorUndoChangeInfo.size();
@@ -1184,7 +1184,7 @@ namespace MyGUI
 			insertText(clipboard, mCursorPosition, true);
 			// проверяем на возможность объединения
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-		}*/
+		}
 	}
 
 } // namespace MyGUI

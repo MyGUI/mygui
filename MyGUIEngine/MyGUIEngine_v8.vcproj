@@ -354,10 +354,6 @@
 				Name="Utility"
 				>
 				<File
-					RelativePath=".\src\MyGUI_RenderOut.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\xmlDocument.cpp"
 					>
 				</File>

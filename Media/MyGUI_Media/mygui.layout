@@ -21,7 +21,7 @@
     <Widget type="Button" skin="ButtonSmall" position="187 38 40 26" align="ALIGN_RIGHT ALIGN_TOP" name="buttonRight" >
     </Widget>
 
-    <Widget type="List" skin="List" position="3 3 180 161" align="ALIGN_STRETCH" name="list1" >
+    <Widget2 type="List" skin="List" position="3 3 180 161" align="ALIGN_STRETCH" name="list1" >
       <Property key="ListAddString" value="What Is OGRE?" />
       <Property key="ListAddString" value="OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented," />
       <Property key="ListAddString" value="flexible 3D engine written in C++ designed to make it easier and more" />
@@ -49,7 +49,7 @@
       <Property key="ListAddString" value="but for those people there are a growing number of existing frameworks using OGRE which provide a complete solution using a given combo of libraries;" />
       <Property key="ListAddString" value="but it's important to realise that OGRE itself will always remain separate, flexible enough to be incorporated into any of these." />
       <Property key="ListAddString" value="The principle is of collaboration and integration with other libraries, rather than assimilation of them, a standard tenet of component-based design." />
-    </Widget>
+    </Widget2>
 
     <Widget2 type="List" skin="List" position="3 3 180 161" align="ALIGN_STRETCH" name="list1" >
       <Property key="ListAddString" value="W" />
@@ -81,7 +81,7 @@
       <Property key="ListAddString" value="T" />
     </Widget2>
 
-    <Widget type="List" skin="List" position="231 3 160 161" align="ALIGN_RIGHT ALIGN_VSTRETCH" name="list2" >
+    <Widget2 type="List" skin="List" position="231 3 160 161" align="ALIGN_RIGHT ALIGN_VSTRETCH" name="list2" >
       <Property key="ListAddString" value="it is a ###00ff00green #000000word" />
       <Property key="ListAddString" value="it is a #ff0000red #000000word" />
       <Property key="ListAddString" value="it is a #0000ffblue #000000word" />
@@ -89,7 +89,7 @@
       <Property key="ListAddString" value="it is a #00ff00m#ff0000a#0000ffd #000000word" />
       <Property key="ListAddString" value="it is a #ffff00yellow #000000word" />
       <Property key="ListAddString" value="it is a #777777gray #000000word" />
-    </Widget>
+    </Widget2>
 
   </Widget>
 

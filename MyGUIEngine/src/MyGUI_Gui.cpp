@@ -136,6 +136,10 @@ namespace MyGUI
 				++iter;
 			}
 		};
+
+		// теперь инпуту
+		mInputManager->frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+
 		// теперь меняем массив
 		if (false == mListFrameListenerAdd.empty()) {
 			mListFrameListener.merge(mListFrameListenerAdd);
@@ -154,9 +158,6 @@ namespace MyGUI
 				++iter;
 			}
 		};
-
-		// теперь инпуту
-		mInputManager->_frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 
 		// теперь меняем массив
 		if (false == mListFrameListenerAdd.empty()) {

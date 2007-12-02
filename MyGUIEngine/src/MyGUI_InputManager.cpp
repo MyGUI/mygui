@@ -360,7 +360,7 @@ namespace MyGUI
 //		mWidgetRootKeyFocus = null;
 	}
 
-	void InputManager::_frameStarted(float _frame, float _event)
+	void InputManager::frameStarted(float _frame, float _event)
 	{
 		if ( mHoldKey == OIS::KC_UNASSIGNED) return;
 		if ( false == isCaptureKey() ) {

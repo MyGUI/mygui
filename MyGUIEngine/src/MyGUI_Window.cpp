@@ -12,9 +12,12 @@
 namespace MyGUI
 {
 
+	const float WINDOW_ALPHA_MAX = 1.0;
+	const float WINDOW_ALPHA_MIN = 0.0;
 	const float WINDOW_ALPHA_ACTIVE = 1.0;
 	const float WINDOW_ALPHA_FOCUS = 0.7;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3;
+	const float WINDOW_SPEED_COEF = 3.0f;
 
 	const int WINDOW_TO_STICK = 10;
 
@@ -24,7 +27,7 @@ namespace MyGUI
 		mIsListenerAlpha(false),
 		mIsDestroy(false),
 		mMouseRootFocus(false), mKeyRootFocus(false),
-		mIsAutoAlpha(true),
+		mIsAutoAlpha(false),
 		mIsToStick(false)
 	{
 		// дефолтные размеры
@@ -34,8 +37,8 @@ namespace MyGUI
 		IntSize size = _info->getSize();
 
 		// альфа в первоначальное положение
-		setAlpha(0.0f);
-		setDoAlpha(WINDOW_ALPHA_DEACTIVE);
+		//setAlpha(0.0f);
+		//setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -145,9 +148,8 @@ namespace MyGUI
 		}
 	}
 
-	void Window::_frameStarted(float _frame, float _event)
+	void Window::frameStarted(float _frame, float _event)
 	{
-		const float COEF = 3.0f;
 		// огр отписывает после прохода
 		if (false == mIsListenerAlpha) return;
 
@@ -158,14 +160,14 @@ namespace MyGUI
 			return;
 
 		} else if (alpha > mDoAlpha) {
-			alpha -= _frame * COEF;
+			alpha -= _frame * WINDOW_SPEED_COEF;
 			if (alpha <= mDoAlpha) {
 				alpha = mDoAlpha;
 				Gui::getInstance().removeFrameListener(this);
 				mIsListenerAlpha = false;
 			}
 		} else {
-			alpha += _frame * COEF;
+			alpha += _frame * WINDOW_SPEED_COEF;
 			if (alpha >= mDoAlpha) {
 				alpha = mDoAlpha;
 				Gui::getInstance().removeFrameListener(this);
@@ -173,7 +175,7 @@ namespace MyGUI
 			}
 		}
 
-		if (alpha == 0.0) {
+		if (alpha == WINDOW_ALPHA_MIN) {
 			if (mIsDestroy) {
 				WidgetPtr destroy = this;
 				WidgetManager::getInstance().destroyWidget(destroy);
@@ -186,38 +188,6 @@ namespace MyGUI
 
 		// устанавливаем текущую альфу
 		setAlpha(alpha);
-	}
-
-	void Window::show(/*bool _smoot, bool _reset*/)
-	{
-		Widget::show();
-		/*mEnable = true; // это если мы будем показывать, а оно еще и не скрылось
-=======
-		Widget::show(true);
-		mEnabled = true; // это если мы будем показывать, а оно еще и не скрылось
->>>>>>> .r228
-		if (!_smoot) setAlpha(1.0f);
-		else if (!_reset) setDoAlpha(1.0f);
-		else {
-			setAlpha(0.0f);
-			setDoAlpha(1.0f);
-		}*/
-	}
-
-	void Window::hide(/*bool _smoot, bool _destroy*/)
-	{
-		/*if (false == _smoot) {
-			if (_destroy) {
-				WidgetPtr destroy = this;
-				WidgetManager::getInstance().destroyWidget(destroy);
-			} else Widget::show(false);
-		} else {
-			mEnabled = false;
-			setDoAlpha(0.0);
-			mIsDestroy = _destroy;
-			InputManager::getInstance().resetKeyFocusWidget();
-			InputManager::getInstance().resetMouseFocusWidget();
-		}*/
 	}
 
 	void Window::updateAlpha()
@@ -274,6 +244,52 @@ namespace MyGUI
 		if ((_width == mWidth) && (_height == mHeight) ) return;
 
 		Widget::setSize(_width, _height);
+	}
+
+	// для мееедленного показа и скрытия
+	void Window::showSmooth()
+	{
+		// разблокируем на всякий
+		mEnabled = true;
+
+		// если мы с автоальфой, то поднимаем альфу в зависимости от активности
+		float doAlpha = (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX;
+
+		// если мы скрыты, то нуно показать и опустить альфу
+		if (false == mShow) {
+			setAlpha(0);
+			show();
+		}
+
+		// поднимаем альфу
+		setDoAlpha(doAlpha);
+	}
+
+	void Window::hideSmooth(bool _destroy)
+	{
+		if (_destroy) {
+			// мы уже скрыты удаляем
+			if ((false == mShow) || (mAlpha == WINDOW_ALPHA_MIN)) {
+				WidgetPtr destroy = this;
+				WidgetManager::getInstance().destroyWidget(destroy);
+			}
+			// доходим до минимума
+			else {
+				mEnabled = false;
+				setDoAlpha(WINDOW_ALPHA_MIN);
+				mIsDestroy = _destroy;
+				InputManager::getInstance().widgetUnlink(this);
+			}
+		}
+		// удалять не надо, просто меедленно скрываем
+		else {
+			// если нужно то запускаем скрытие
+			if ((mShow) && (mAlpha != WINDOW_ALPHA_MIN)) {
+				// блокируем доступ
+				mEnabled = false;
+				setDoAlpha(WINDOW_ALPHA_MIN);
+			}
+		}
 	}
 
 } // namespace MyGUI

@@ -30,8 +30,9 @@ namespace MyGUI
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
 
-		void show();
-		void hide();
+		// для мееедленного показа и скрытия
+		void showSmooth();
+		void hideSmooth(bool _destroy = false);
 
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
 		inline void setAutoAlpha(bool _auto) {mIsAutoAlpha=_auto; if(!_auto)setAlpha(1.0f);else updateAlpha();}
@@ -49,17 +50,17 @@ namespace MyGUI
 		inline bool getIsToStick() {return mIsToStick;}
 		inline void setIsToStick(bool _stick) {mIsToStick = _stick;}
 
-    virtual IntRect getClientRect()
-    {
-      if (null == mWidgetClient) return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);
-      else return mWidgetClient->getClientRect();
-    }
+		virtual IntRect getClientRect()
+		{
+			if (null == mWidgetClient) return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);
+			return mWidgetClient->getClientRect();
+		}
 
 		// нажат крестик на окне
 		EventSimple eventWindowXPressed;
 
 	protected:
-		void _frameStarted(float _frame, float _event);
+		void frameStarted(float _frame, float _event);
 
 		virtual void _onMouseChangeRootFocus(bool _focus);
 		virtual void _onKeyChangeRootFocus(bool _focus);

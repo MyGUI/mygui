@@ -59,11 +59,13 @@ void OptionsState::enter(bool bIsChangeState)
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);*/
 
 
-/*	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::WidgetManager::getInstance().findWidget("windowListDemo"));
-	window->show(false);
-	//MyGUI::ParserManager::getInstance().parse(window, "Caption", util::utf8<void>("дерьмо"));
+	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+	window->setCaption("caption");
+	window->setAutoAlpha(true);
+	window->hide();
+	window->showSmooth();
 
-	button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonLeft"));
+	/*button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonLeft"));
 	button->setCaption("<<");
 	button->setUserData("button", 1);
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed3);
@@ -156,7 +158,7 @@ void OptionsState::enter(bool bIsChangeState)
 		stream.close();
 	}*/
 
-	MyGUI::LayoutManager::getInstance().load("mygui.layout");
+	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 
 }
@@ -181,9 +183,6 @@ bool OptionsState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 //===================================================================================
 bool OptionsState::keyPressed( const OIS::KeyEvent &arg )
 {
-
-//	MyGUI::WidgetManager::getInstance().destroyAllWidget();
-//	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
 	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;

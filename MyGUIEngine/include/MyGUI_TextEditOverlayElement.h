@@ -851,7 +851,7 @@ namespace MyGUI
 				VectorCharInfo::iterator end_index = line->end();
 
 				// первый всегда длинна строки
-				float len = index->getValueSizeT();
+				float len = index->getValueFloat();
 				++index;
 
 				// колличество символов
