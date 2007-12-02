@@ -19,9 +19,9 @@
 
 namespace MyGUI
 {
-	class _MyGUIExport CroppedRectangleManager
+	class _MyGUIExport SubWidgetManager
 	{
-		INSTANCE_HEADER(CroppedRectangleManager);
+		INSTANCE_HEADER(SubWidgetManager);
 
 	public:
 		void initialise();
@@ -46,7 +46,7 @@ namespace MyGUI
 		CroppedRectangleFactory<TextSimple> * mFactoryTextSimple;
 		CroppedRectangleFactory<TextEdit> * mFactoryTextEdit;
 
-	}; // CroppedRectangleManager
+	}; // SubWidgetManager
 
 } // namespace MyGUI
 
