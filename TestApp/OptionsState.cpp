@@ -13,6 +13,7 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_Edit.h"
+#include "MyGUI_StaticText.h"
 //#include "MyGUI_HScroll.h"
 //#include "MyGUI_VScroll.h"
 //#include "MyGUI_List.h"
@@ -62,8 +63,11 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
 	window->setCaption("caption");
 	window->setAutoAlpha(true);
-	window->hide();
-	window->showSmooth();
+	//window->hide();
+	window->showSmooth(true);
+
+	MyGUI::StaticTextPtr st = static_cast<MyGUI::StaticTextPtr>(MyGUI::Gui::getInstance().createWidget("StaticText", "StaticText", 20, 20, 100, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+	st->setCaption("static");
 
 	/*button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonLeft"));
 	button->setCaption("<<");

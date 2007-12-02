@@ -100,13 +100,23 @@ namespace MyGUI
 
 	void Edit::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		InputManager::getInstance().setKeyFocusWidget(this);
+		// до нажати€ мы были неактивны
+		//if (false == mCursorActive) {
+			//InputManager::getInstance().setKeyFocusWidget(this);
+			//IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
+			//updateCursor(point);
 
-		IntPoint point = InputManager::getInstance().getLastLeftPressed();
-		mCursorPosition = mText->getTextCursorFromPoint(point);
-		updateCursor(point);
+		//}
+		// повторное нажатие
+		//else {
+			InputManager::getInstance().setKeyFocusWidget(this);
 
-		if (_left) mMouseLeftPressed = true;
+			IntPoint point = InputManager::getInstance().getLastLeftPressed();
+			mCursorPosition = mText->getTextCursorFromPoint(point);
+			updateCursor(point);
+
+			if (_left) mMouseLeftPressed = true;
+		//}
 	}
 
 	void Edit::notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left)
@@ -188,6 +198,7 @@ namespace MyGUI
 			mCursorActive = true;
 			Gui::getInstance().addFrameListener(this);
 			mWidgetCursor->show();
+			mText->setSelectBackground(true);
 			mCursorTimer = 0;
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -203,6 +214,7 @@ namespace MyGUI
 			mCursorActive = false;
 			Gui::getInstance().removeFrameListener(this);
 			mWidgetCursor->hide();
+			mText->setSelectBackground(false);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -443,7 +455,7 @@ namespace MyGUI
 		Widget::_onKeyButtonReleased(_key);
 	}
 
-	void Edit::frameStarted(float _frame, float _event)
+	void Edit::_frameStarted(float _frame, float _event)
 	{
 		if (mCursorActive) {
 			mCursorTimer += _frame;

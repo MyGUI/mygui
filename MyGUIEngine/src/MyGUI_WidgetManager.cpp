@@ -23,6 +23,7 @@ namespace MyGUI
 		mButtonFactory = new factory::ButtonFactory();
 		mEditFactory = new factory::EditFactory();
 		mListFactory = new factory::ListFactory();
+		mStaticTextFactory = new factory::StaticTextFactory();
 		mStaticImageFactory = new factory::StaticImageFactory();
 		mVScrollFactory = new factory::VScrollFactory();
 		mHScrollFactory = new factory::HScrollFactory();
@@ -43,6 +44,7 @@ namespace MyGUI
 		delete mWindowFactory;
 		delete mHScrollFactory;
 		delete mVScrollFactory;
+		delete mStaticTextFactory;
 		delete mStaticImageFactory;
 		delete mListFactory;
 		delete mEditFactory;

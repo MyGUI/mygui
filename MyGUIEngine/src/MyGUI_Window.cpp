@@ -148,7 +148,7 @@ namespace MyGUI
 		}
 	}
 
-	void Window::frameStarted(float _frame, float _event)
+	void Window::_frameStarted(float _frame, float _event)
 	{
 		// огр отписывает после прохода
 		if (false == mIsListenerAlpha) return;
@@ -247,7 +247,7 @@ namespace MyGUI
 	}
 
 	// для мееедленного показа и скрытия
-	void Window::showSmooth()
+	void Window::showSmooth(bool _reset)
 	{
 		// разблокируем на всякий
 		mEnabled = true;
@@ -256,7 +256,7 @@ namespace MyGUI
 		float doAlpha = (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX;
 
 		// если мы скрыты, то нуно показать и опустить альфу
-		if (false == mShow) {
+		if ((false == mShow) || (_reset)) {
 			setAlpha(0);
 			show();
 		}

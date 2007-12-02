@@ -103,7 +103,7 @@ namespace MyGUI
 		void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
 	protected:
-		void frameStarted(float _frame, float _event);
+		void _frameStarted(float _frame, float _event);
 
 		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);

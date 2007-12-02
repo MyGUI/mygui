@@ -132,13 +132,13 @@ namespace MyGUI
 		while (iter != mListFrameListener.end()) {
 			if (null == (*iter)) iter = mListFrameListener.erase(iter);
 			else {
-				(*iter)->frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+				(*iter)->_frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 				++iter;
 			}
 		};
 
 		// теперь инпуту
-		mInputManager->frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+		mInputManager->_frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 
 		// теперь меняем массив
 		if (false == mListFrameListenerAdd.empty()) {
@@ -154,7 +154,7 @@ namespace MyGUI
 		while (iter != mListFrameListener.end()) {
 			if (null == (*iter)) iter = mListFrameListener.erase(iter);
 			else {
-				(*iter)->frameEnded(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+				(*iter)->_frameEnded(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 				++iter;
 			}
 		};
@@ -229,18 +229,6 @@ namespace MyGUI
 			WidgetPtr widget = mWidgetChild.front();
 			WidgetManager::getInstance().destroyWidget(widget);
 		}
-		/*for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); iter++) {
-			WidgetPtr widget = *iter;
-			// удаляем свое имя
-			WidgetManager::getInstance().clearName(widget);
-			// отсоединяем виджет от уровня, если он был присоединен
-			LayerManager::getInstance().detachItem(widget);
-			// удаляем упоминание в инпуте
-			InputManager::getInstance().widgetUnlink(widget);
-			// и удаляем
-			delete widget;
-		}
-		mWidgetChild.clear();*/
 	}
 
 } // namespace MyGUI

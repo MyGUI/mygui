@@ -17,6 +17,7 @@
 #include "MyGUI_EditFactory.h"
 #include "MyGUI_ListFactory.h"
 #include "MyGUI_StaticImageFactory.h"
+#include "MyGUI_StaticTextFactory.h"
 #include "MyGUI_VScrollFactory.h"
 #include "MyGUI_HScrollFactory.h"
 #include "MyGUI_WindowFactory.h"
@@ -74,6 +75,7 @@ namespace MyGUI
 		factory::ButtonFactory * mButtonFactory;
 		factory::EditFactory * mEditFactory;
 		factory::ListFactory * mListFactory;
+		factory::StaticTextFactory * mStaticTextFactory;
 		factory::StaticImageFactory * mStaticImageFactory;
 		factory::VScrollFactory * mVScrollFactory;
 		factory::HScrollFactory * mHScrollFactory;

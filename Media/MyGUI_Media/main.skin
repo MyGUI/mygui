@@ -407,5 +407,13 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "StaticText" size = "16 16" material = "MyGUI_main">
+        <Property key="FontName" value = "MyGUI_font" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
+        <BasisSkin type="MainSkin" offset = "0 0 0 0"/>
+        <BasisSkin type="TextSimple" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
+    </Skin>
+
 </MyGUI>
 

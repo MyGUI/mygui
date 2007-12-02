@@ -31,7 +31,7 @@ namespace MyGUI
 		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
 
 		// для мееедленного показа и скрытия
-		void showSmooth();
+		void showSmooth(bool _reset = false);
 		void hideSmooth(bool _destroy = false);
 
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
@@ -60,7 +60,7 @@ namespace MyGUI
 		EventSimple eventWindowXPressed;
 
 	protected:
-		void frameStarted(float _frame, float _event);
+		void _frameStarted(float _frame, float _event);
 
 		virtual void _onMouseChangeRootFocus(bool _focus);
 		virtual void _onKeyChangeRootFocus(bool _focus);
