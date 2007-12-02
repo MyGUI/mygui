@@ -25,8 +25,8 @@ namespace MyGUI
 	class BasisWidgetFactory : public BasisWidgetFactoryInterface
 	{
 	public:
-		void getNextId(size_t & _id) {if (ClassName::isSharedOverlay())_id++;}
-		const Ogre::String & getType() {return ClassName::getType();};
+		void getNextId(size_t & _id) {if (ClassName::_isSharedOverlay())_id++;}
+		const Ogre::String & getType() {return ClassName::_getType();};
 		BasisWidget * createBasisWidget(const BasisWidgetInfo& _info, const Ogre::String& _material, BasisWidget* _parent, size_t & _id)
 		{
 			ClassName * obj = new ClassName(_info, _material, _parent, _id);

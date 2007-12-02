@@ -30,7 +30,7 @@ namespace MyGUI
 
 		// и обновляем позицию
 		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
-		if (mWidgetTrack->getTop() != pos) mWidgetTrack->move(mWidgetTrack->getLeft(), pos);
+		if (mWidgetTrack->getTop() != pos) mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
 	}
 
 	void VScroll::notifyTrackMove(int _left, int _top)
@@ -41,7 +41,7 @@ namespace MyGUI
 		int start = mPreActionRect.top + (_top - point.top);
 		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
 		else if (start > (mHeight - (int)mSkinRangeEnd)) start = (mHeight - (int)mSkinRangeEnd);
-		if (mWidgetTrack->getTop() != start) mWidgetTrack->move(mWidgetTrack->getLeft(), start);
+		if (mWidgetTrack->getTop() != start) mWidgetTrack->setPosition(mWidgetTrack->getLeft(), start);
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции

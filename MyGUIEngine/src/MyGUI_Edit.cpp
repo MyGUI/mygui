@@ -134,7 +134,7 @@ namespace MyGUI
 			point.top -= parent->getTop();
 			parent = parent->getParent();
 		}
-		mWidgetCursor->move(point.left, point.top);
+		mWidgetCursor->setPosition(point.left, point.top);
 
 		// если не было выделения
 		if (mStartSelect == SIZE_MAX) mStartSelect = Old;
@@ -517,7 +517,7 @@ namespace MyGUI
 							point.top -= parent->getTop();
 							parent = parent->getParent();
 						}
-						mWidgetCursor->move(point.left, point.top);
+						mWidgetCursor->setPosition(point.left, point.top);
 
 						mEndSelect = (size_t)mCursorPosition;
 						if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
@@ -576,7 +576,7 @@ namespace MyGUI
 			point.top -= parent->getTop();
 			parent = parent->getParent();
 		}
-		mWidgetCursor->move(point.left, point.top);
+		mWidgetCursor->setPosition(point.left, point.top);
 	}
 
 	bool Edit::deleteTextSelect(bool _history)
@@ -825,7 +825,7 @@ namespace MyGUI
 		// если по горизонтали курсор наполовину виден, то нужно показать весь
 		if (_point.left == -mHalfWidthCursor) _point.left = 0;
 		else if (_point.left == mWidgetUpper->getWidth()-mHalfWidthCursor) _point.left = mWidgetUpper->getWidth() - mWidgetCursor->getWidth();
-		mWidgetCursor->move(_point.left, _point.top);
+		mWidgetCursor->setPosition(_point.left, _point.top);
 
 		if ( (mShiftPressed) && (mStartSelect != SIZE_MAX) ) {
 			// меняем выделение
@@ -913,7 +913,7 @@ namespace MyGUI
 		// ничего не изменилось
 		if (offset.empty()) return;
 
-		mWidgetCursor->move(mWidgetCursor->getLeft() - offset.left, mWidgetCursor->getTop() - offset.top);
+		mWidgetCursor->setPosition(mWidgetCursor->getLeft() - offset.left, mWidgetCursor->getTop() - offset.top);
 
 		point.left += offset.left;
 		point.top += offset.top;

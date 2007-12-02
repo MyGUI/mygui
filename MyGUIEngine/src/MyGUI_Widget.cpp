@@ -53,11 +53,11 @@ namespace MyGUI
 		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
 		// а вот теперь нормальный размер
-		size(_width, _height);
+		setSize(_width, _height);
 		// альфа отца
 		if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != 1.0f) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
 		// и все перерисовываем
-		update();
+		_updateView();
 	}
 
 	Widget::~Widget()
@@ -91,21 +91,21 @@ namespace MyGUI
 	{
 		BasisWidgetPtr sub = BasisWidgetManager::getInstance().createBasisWidget(_info, _material, this, _id);
 		// если это скин текста, то запоминаем
-		if (sub->isText()) mText = sub;
+		if (sub->_isText()) mText = sub;
 		// добавляем в общий список
 		mSubSkinChild.push_back(sub);
 		return sub;
 	}
 
-	void Widget::attach(BasisWidgetPtr _basis, bool _child)
+	void Widget::_attachChild(BasisWidgetPtr _basis, bool _child)
 	{
 		if (_child) {
 			// это к нам текст хочет прилипиться
 			MYGUI_ASSERT(mSubSkinChild.size() > 0);
-			mSubSkinChild[0]->attach(_basis, true);
+			mSubSkinChild[0]->_attachChild(_basis, true);
 		} else {
 			// нет не к нам, а к нашему отцу
-			if (mParent != null) mParent->attach(_basis, true);
+			if (mParent != null) mParent->_attachChild(_basis, true);
 		}
 	}
 
@@ -143,13 +143,13 @@ namespace MyGUI
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->hide();
 	}
 
-	void Widget::align(int _left, int _top, int _width, int _height, bool _update)
+	void Widget::_setAlign(int _left, int _top, int _width, int _height, bool _update)
 	{
 		// для виджета изменение х у  не меняються
-		align(_width, _height, _update);
+		_setAlign(_width, _height, _update);
 	}
 
-	void Widget::align(int _width, int _height, bool _update)
+	void Widget::_setAlign(int _width, int _height, bool _update)
 	{
 		if (mParent == null) return;
 
@@ -194,25 +194,25 @@ namespace MyGUI
 		}
 
 		if (need_move) {
-			if (need_size) move(x, y, cx, cy);
-			else move(x, y);
+			if (need_size) setPosition(x, y, cx, cy);
+			else setPosition(x, y);
 		} else if (need_size) {
-			size(cx, cy);
-		} else update(); // только если не вызвано передвижение и сайз
+			setSize(cx, cy);
+		} else _updateView(); // только если не вызвано передвижение и сайз
 
 	}
 
 
-	void Widget::move(int _left, int _top)
+	void Widget::setPosition(int _left, int _top)
 	{
 		// а вот теперь запоминаем новые координаты
 		mLeft = _left;
 		mTop = _top;
 
-		update();
+		_updateView();
 	}
 
-	void Widget::move(int _left, int _top, int _width, int _height)
+	void Widget::setPosition(int _left, int _top, int _width, int _height)
 	{
 		// а вот теперь запоминаем новые координаты
 		mLeft = _left;
@@ -230,11 +230,11 @@ namespace MyGUI
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = mParent ? checkMargin() : false;
+		bool margin = mParent ? _checkMargin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
-			if (checkOutside()) {
+			if (_checkOutside()) {
 				// скрываем
 				show = false;
 			}
@@ -243,15 +243,15 @@ namespace MyGUI
 		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->align(mLeft, mTop, _width, _height, mMargin || margin);
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->align(mLeft, mTop, _width, _height, mMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(mLeft, mTop, _width, _height, mMargin || margin);
+		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(mLeft, mTop, _width, _height, mMargin || margin);
 
 		// запоминаем текущее состояние
 		mMargin = margin;
 
 	}
 
-	void Widget::size(int _width, int _height)
+	void Widget::setSize(int _width, int _height)
 	{
 		// меняем координаты местами
 		int tmp = mWidth;
@@ -265,11 +265,11 @@ namespace MyGUI
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = mParent ? checkMargin() : false;
+		bool margin = mParent ? _checkMargin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
-			if (checkOutside()) {
+			if (_checkOutside()) {
 				// скрываем
 				show = false;
 			}
@@ -278,24 +278,24 @@ namespace MyGUI
 		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->align(_width, _height, mMargin || margin);
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->align(_width, _height, mMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(_width, _height, mMargin || margin);
+		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(_width, _height, mMargin || margin);
 
 		// запоминаем текущее состояние
 		mMargin = margin;
 
 	}
 
-	void Widget::update()
+	void Widget::_updateView()
 	{
 
-		bool margin = mParent ? checkMargin() : false;
+		bool margin = mParent ? _checkMargin() : false;
 
 		// вьюпорт стал битым
 		if (margin) {
 
 			// проверка на полный выход за границу
-			if (checkOutside()) {
+			if (_checkOutside()) {
 
 				// скрываем
 				_setVisible(false);
@@ -304,11 +304,11 @@ namespace MyGUI
 				return;
 			}
 
-		} else if (!mMargin) { // мы не обрезаны и были нормальные
+		} else if (false == mMargin) { // мы не обрезаны и были нормальные
 
 			_setVisible(true);
 			// для тех кому нужно подправить себя при движении
-			for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->correct();
+			for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_correctView();
 
 			return;
 
@@ -321,8 +321,8 @@ namespace MyGUI
 		_setVisible(true);
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->update();
-		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->update();
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_updateView();
+		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_updateView();
 
 	}
 
@@ -395,7 +395,7 @@ namespace MyGUI
 		size_t index=0;
 		// сначала сдвигаем текстуры
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			(*skin)->setUVSet(iter->second.offsets[index++]);
+			(*skin)->_setUVSet(iter->second.offsets[index++]);
 		}
 		// теперь если нужно цвет текста
 		if ((iter->second.color != Ogre::ColourValue::ZERO) && (mText != null)) {
@@ -407,7 +407,7 @@ namespace MyGUI
 	LayerItemInfoPtr Widget::findItem(int _left, int _top)
 	{
 		// проверяем попадание
-		if (!mVisible || !mShow || !checkPoint(_left, _top)) return 0;
+		if (!mVisible || !mShow || !_checkPoint(_left, _top)) return 0;
 		// останавливаем каскадную проверку
 		if (!mEnabled) return this;
 		// спрашиваем у детишек
@@ -428,8 +428,8 @@ namespace MyGUI
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
 	{
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			if (false == (*skin)->isText()) {
-				Ogre::OverlayContainer * element = static_cast<Ogre::OverlayContainer*>((*skin)->getOverlayElement());
+			if (false == (*skin)->_isText()) {
+				Ogre::OverlayContainer * element = static_cast<Ogre::OverlayContainer*>((*skin)->_getOverlayElement());
 				if (null != element) _overlay->add2D(element);
 			}
 		}
@@ -438,8 +438,8 @@ namespace MyGUI
 	void Widget::detachToOverlay(Ogre::Overlay * _overlay)
 	{
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			if (!(*skin)->isText()) {
-				SharedPanelAlphaOverlayElement * element = static_cast<SharedPanelAlphaOverlayElement*>((*skin)->getOverlayElement());
+			if (false == (*skin)->_isText()) {
+				SharedPanelAlphaOverlayElement * element = static_cast<SharedPanelAlphaOverlayElement*>((*skin)->_getOverlayElement());
 				// удаляем только шаред главный
 				if (null != element) {
 					_overlay->remove2D(element);
@@ -511,10 +511,10 @@ namespace MyGUI
 		return mCountSharedOverlay;
 	}
 
-	Ogre::OverlayElement* Widget::_getSharedOverlay()
+	Ogre::OverlayElement* Widget::_getSharedOverlayElement()
 	{
 		for (VectorBasisWidgetPtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			Ogre::OverlayElement* element = (*skin)->_getSharedOverlay();
+			Ogre::OverlayElement* element = (*skin)->_getSharedOverlayElement();
 			if (null != element) return element;
 		}
 		return null;

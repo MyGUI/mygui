@@ -30,11 +30,11 @@ namespace MyGUI
 			mOverlayContainer->setPositionInfo(mParent->getLeft() + mLeft, mParent->getTop() + mTop, mWidth, mHeight, mId);
 			if (false == _material.empty()) mOverlayContainer->setMaterialName(_material);
 
-			mParent->attach(this, false);
+			mParent->_attachChild(this, false);
 		}
 		// мы должны пользоваться общим оверлеем
 		else {
-			mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>(_parent->_getSharedOverlay());
+			mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>(_parent->_getSharedOverlayElement());
 		}
 
 	}
@@ -71,31 +71,31 @@ namespace MyGUI
 		mOverlayContainer->setColor(*(Ogre::uint32*)color);
 	}
 
-	void SubSkin::attach(BasisWidgetPtr _basis, bool _child)
+	void SubSkin::_attachChild(BasisWidgetPtr _basis, bool _child)
 	{
-		if (mId == 0) mOverlayContainer->addChild(_basis->getOverlayElement());
+		if (mId == 0) mOverlayContainer->addChild(_basis->_getOverlayElement());
 	}
 
-	Ogre::OverlayElement* SubSkin::getOverlayElement()
+	Ogre::OverlayElement* SubSkin::_getOverlayElement()
 	{
 		// возвращаем, если только мы главные
 		if (mId != 0) return null;
 		return mOverlayContainer;
 	}
 
-	void SubSkin::correct()
+	void SubSkin::_correctView()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
 		if (mParent->getParent()) mOverlayContainer->setPositionInfo(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mLeftMargin, mTop + mParent->getTop() - mParent->getParent()->getMarginTop() + mTopMargin, mId);
 		else mOverlayContainer->setPositionInfo(mLeft + mParent->getLeft(), mTop + mParent->getTop(), mId);
 	}
 
-	void SubSkin::align(int _left, int _top, int _width, int _height, bool _update)
+	void SubSkin::_setAlign(int _left, int _top, int _width, int _height, bool _update)
 	{
-		align(_width, _height, _update);
+		_setAlign(_width, _height, _update);
 	}
 
-	void SubSkin::align(int _width, int _height, bool _update)
+	void SubSkin::_setAlign(int _width, int _height, bool _update)
 	{
 
 		// необходимо разобраться
@@ -136,14 +136,14 @@ namespace MyGUI
 			need_update = true;
 		}
 
-		if (need_update) update();
+		if (need_update) _updateView();
 
 	}
 
-	void SubSkin::update()
+	void SubSkin::_updateView()
 	{
 
-		bool margin = checkMargin();
+		bool margin = _checkMargin();
 
 		// двигаем всегда, т.к. дети должны двигаться
 		int x = mLeft + mParent->getLeft() - (mParent->getParent() ? mParent->getParent()->getMarginLeft() : 0) + mLeftMargin;
@@ -155,7 +155,7 @@ namespace MyGUI
 		if (margin) {
 
 			// проверка на полный выход за границу
-			if (checkOutside()) {
+			if (_checkOutside()) {
 
 				// скрываем
 				_setTransparent(true);
@@ -172,7 +172,7 @@ namespace MyGUI
 
 			int cx = getViewWidth();
 			if (cx < 0) cx = 0;
-			int cy = view_height();
+			int cy = getViewHeight();
 			if (cy < 0) cy = 0;
 
 			mOverlayContainer->setDimensionInfo(cx, cy, mId);
@@ -206,7 +206,7 @@ namespace MyGUI
 
 	}
 
-	void SubSkin::setUVSet(const FloatRect & _rect)
+	void SubSkin::_setUVSet(const FloatRect & _rect)
 	{
 		MYGUI_DEBUG_ASSERT(null != mOverlayContainer);
 		mRectTexture = _rect;

@@ -5,7 +5,7 @@
 	@module
 */
 #include "MyGUI_TextSimple.h"
-#include <OgreStringConverter.h>
+#include "utility.h"
 
 namespace MyGUI
 {
@@ -16,14 +16,14 @@ namespace MyGUI
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		mOverlayContainer = static_cast<TextSimpleOverlayElement *>(overlayManager.createOverlayElement(
-			"TextSimple", "TextSimple_" + Ogre::StringConverter::toString((Ogre::uint32)this)));
+			"TextSimple", util::toString("TextSimple_", this)) );
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 
 		mOverlayContainer->setPosition(mLeft, mTop);
 		mOverlayContainer->setDimensions(mWidth, mHeight);
 
-		mParent->attach(this, true);
+		mParent->_attachChild(this, true);
 	}
 
 	TextSimple::~TextSimple()
@@ -38,10 +38,10 @@ namespace MyGUI
 	{
 		// выравнивание
 		mOverlayContainer->setAlignment(_align);
-		updateText();
+		_updateText();
 	}
 
-	Ogre::OverlayElement* TextSimple::getOverlayElement()
+	Ogre::OverlayElement* TextSimple::_getOverlayElement()
 	{
 		return mOverlayContainer;
 	}
@@ -64,7 +64,7 @@ namespace MyGUI
 	{
 		// записывам новую строку
 		mOverlayContainer->setCaption(_caption);
-		updateText();
+		_updateText();
 	}
 
 	const Ogre::DisplayString & TextSimple::getCaption()
@@ -89,14 +89,14 @@ namespace MyGUI
 	void TextSimple::setFontName(const Ogre::String & _font)
 	{
 		mOverlayContainer->setFontName(_font);
-		updateText();
+		_updateText();
 	}
 
 	void TextSimple::setFontName(const Ogre::String & _font, Ogre::ushort _height)
 	{
 		mOverlayContainer->setFontName(_font);
 		mOverlayContainer->setCharHeight(_height);
-		updateText();
+		_updateText();
 	}
 
 	const Ogre::String & TextSimple::getFontName()
@@ -107,7 +107,7 @@ namespace MyGUI
 	void TextSimple::setFontHeight(Ogre::ushort _height)
 	{
 		mOverlayContainer->setCharHeight(_height);
-		updateText();
+		_updateText();
 	}
 
 	Ogre::ushort TextSimple::getFontHeight()
@@ -115,9 +115,9 @@ namespace MyGUI
 		return mOverlayContainer->getCharHeight();
 	}
 
-	void TextSimple::update()
+	void TextSimple::_updateView()
 	{
-		bool margin = checkMargin();
+		bool margin = _checkMargin();
 
 		// двигаем всегда, т.к. дети должны двигаться
 		int x = mLeft  - mParent->getMarginLeft();
@@ -129,7 +129,7 @@ namespace MyGUI
 		if (margin) {
 
 			// проверка на полный выход за границу
-			if (checkOutside()) {
+			if (_checkOutside()) {
 
 				// скрываем
 				mOverlayContainer->hide();
@@ -154,12 +154,12 @@ namespace MyGUI
 
 	}
 
-	void TextSimple::align(int _left, int _top, int _width, int _height, bool _update)
+	void TextSimple::_setAlign(int _left, int _top, int _width, int _height, bool _update)
 	{
-		align(_width, _height, _update);
+		_setAlign(_width, _height, _update);
 	}
 
-	void TextSimple::align(int _width, int _height, bool _update)
+	void TextSimple::_setAlign(int _width, int _height, bool _update)
 	{
 		// необходимо разобраться
 		bool need_update = true;//_update;
@@ -199,7 +199,7 @@ namespace MyGUI
 			need_update = true;
 		}
 
-		if (need_update) update();
+		if (need_update) _updateView();
 
 	}
 

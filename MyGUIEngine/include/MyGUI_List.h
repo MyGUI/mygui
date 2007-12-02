@@ -60,8 +60,8 @@ namespace MyGUI
 		bool isItemVisible(size_t _index, bool _fill = true);
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
-		virtual void size(int _width, int _height);
-		virtual void move(int _left, int _top, int _width, int _height);
+		virtual void setSize(int _width, int _height);
+		virtual void setPosition(int _left, int _top, int _width, int _height);
 
 	protected:
 

@@ -24,6 +24,8 @@ namespace MyGUI
 		void show();
 		void hide();
 
+		void setTextAlign(Align _align);
+
 		void setCaption(const Ogre::DisplayString & _caption);
 		const Ogre::DisplayString & getCaption();
 
@@ -40,26 +42,24 @@ namespace MyGUI
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
-		void setTextAlign(Align _align);
+		void _setAlign(int _width, int _height, bool _update);
+		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
 
-		void align(int _width, int _height, bool _update);
-		void align(int _left, int _top, int _width, int _height, bool _update);
-
-		void update(); // обновления себя и детей
-		inline void updateText() // обновляем все что касаеться текста
+		void _updateView(); // обновления себя и детей
+		inline void _updateText() // обновляем все что касаеться текста
 		{
 			// изменился текст
-			//mOverlayContainer->updateText();
+			//mOverlayContainer->_updateText();
 			// и делаем полное обновление и выравнивание
 			mMargin = true; // при изменении размеров все пересчитывать
-			align(mParent->getWidth(), mParent->getHeight(), true);
+			_setAlign(mParent->getWidth(), mParent->getHeight(), true);
 		}
 
-		inline const static Ogre::String & getType() {static Ogre::String type("TextSimple"); return type;}
-		inline static bool isSharedOverlay() {return false;}
-		bool isText() {return true;}
+		inline const static Ogre::String & _getType() {static Ogre::String type("TextSimple"); return type;}
+		inline static bool _isSharedOverlay() {return false;}
+		bool _isText() {return true;}
 
-		Ogre::OverlayElement* getOverlayElement();
+		Ogre::OverlayElement* _getOverlayElement();
 
 	protected:
 

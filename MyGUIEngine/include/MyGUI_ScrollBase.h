@@ -39,8 +39,8 @@ namespace MyGUI
 		inline size_t getScrollPage() {return mScrollPage;}
 
 		virtual void updateTrack() = 0;
-		virtual void size(int _width, int _height);
-		virtual void move(int _left, int _top, int _width, int _height);
+		virtual void setSize(int _width, int _height);
+		virtual void setPosition(int _left, int _top, int _width, int _height);
 
 		// изменилось положение скрола
 		EventSimpleDataInfo eventScrollChangePosition;

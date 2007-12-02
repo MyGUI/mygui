@@ -34,7 +34,7 @@ namespace MyGUI
 		inline void hide() {show(false);}
 		inline bool isShow() {return mShow;}
 
-		void move(int _left, int _top);
+		void setPosition(int _left, int _top);
 
 		void setPointer(const std::string & _name);
 		inline void defaultPointer() {setPointer(mDefaultPointer);};

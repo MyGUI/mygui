@@ -30,7 +30,7 @@ namespace MyGUI
 
 		// и обновляем позицию
 		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
-		if (mWidgetTrack->getLeft() != (int)pos) mWidgetTrack->move((int)pos, mWidgetTrack->getTop());
+		if (mWidgetTrack->getLeft() != (int)pos) mWidgetTrack->setPosition((int)pos, mWidgetTrack->getTop());
 
 	}
 
@@ -42,7 +42,7 @@ namespace MyGUI
 		int start = mPreActionRect.left + (_left - point.left);
 		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
 		else if (start > (mWidth - (int)mSkinRangeEnd)) start = (mWidth - (int)mSkinRangeEnd);
-		if (mWidgetTrack->getLeft() != start) mWidgetTrack->move(start, mWidgetTrack->getTop());
+		if (mWidgetTrack->getLeft() != start) mWidgetTrack->setPosition(start, mWidgetTrack->getTop());
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции

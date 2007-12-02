@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_MainSkin.h"
+#include "utility.h"
 
 namespace MyGUI
 {
@@ -15,15 +16,15 @@ namespace MyGUI
 
 		Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
 
-		mOverlayContainer = static_cast<PanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
-			"PanelAlpha", "MainSkin_" + Ogre::StringConverter::toString((Ogre::uint32)this)) );
+		mOverlayContainer = static_cast<PanelAlphaOverlayElement*>( overlayManager.createOverlayElement(
+			"PanelAlpha", util::toString("MainSkin_", this)) );
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 		mOverlayContainer->setPosition(mParent->getLeft() + mLeft, mParent->getTop() + mTop);
 		mOverlayContainer->setDimensions(mWidth, mHeight);
 		if (false == _material.empty() && (_info.offset.getWidth() != 0)) mOverlayContainer->setMaterialName(_material);
 
-		mParent->attach(this, false);
+		mParent->_attachChild(this, false);
 	}
 
 	MainSkin::~MainSkin()
@@ -54,11 +55,11 @@ namespace MyGUI
 		mOverlayContainer->hide();
 	}
 
-	void MainSkin::align(int _width, int _height, bool _update)
+	void MainSkin::_setAlign(int _width, int _height, bool _update)
 	{
 
 		if (_update) {
-			update();
+			_updateView();
 			return;
 		}
 
@@ -69,13 +70,13 @@ namespace MyGUI
 
 	}
 
-	void MainSkin::align(int _left, int _top, int _width, int _height, bool _update)
+	void MainSkin::_setAlign(int _left, int _top, int _width, int _height, bool _update)
 	{
 
 		mOverlayContainer->setPosition(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft(), mTop + mParent->getTop() - mParent->getParent()->getMarginTop());
 
 		if (_update) {
-			update();
+			_updateView();
 			return;
 		}
 
@@ -86,18 +87,18 @@ namespace MyGUI
 
 	}
 
-	void MainSkin::correct()
+	void MainSkin::_correctView()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
 		if (mParent->getParent()) mOverlayContainer->setPosition(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mLeftMargin, mTop + mParent->getTop() - mParent->getParent()->getMarginTop() + mTopMargin);
 		else mOverlayContainer->setPosition(mLeft + mParent->getLeft(), mTop + mParent->getTop());
 	}
 
-	void MainSkin::update()
+	void MainSkin::_updateView()
 	{
 		int cx = mParent->getViewWidth();
 		if (cx < 0) cx = 0;
-		int cy = mParent->view_height();
+		int cy = mParent->getViewHeight();
 		if (cy < 0) cy = 0;
 
 		//порубали оверлей
@@ -122,17 +123,17 @@ namespace MyGUI
 
 	}
 
-	void MainSkin::attach(BasisWidgetPtr _basis, bool _child)
+	void MainSkin::_attachChild(BasisWidgetPtr _basis, bool _child)
 	{
-		mOverlayContainer->addChild(_basis->getOverlayElement());
+		mOverlayContainer->addChild(_basis->_getOverlayElement());
 	}
 
-	Ogre::OverlayElement* MainSkin::getOverlayElement()
+	Ogre::OverlayElement* MainSkin::_getOverlayElement()
 	{
 		return mOverlayContainer;
 	}
 
-	void MainSkin::setUVSet(const FloatRect & _rect)
+	void MainSkin::_setUVSet(const FloatRect & _rect)
 	{
 		MYGUI_ASSERT(null != mOverlayContainer);
 		mRectTexture = _rect;

@@ -28,9 +28,9 @@ namespace MyGUI
 		{}
 		virtual ~BasisWidget() {}
 
-		virtual void move(int _left, int _top) {}
-		virtual void move(int _left, int _top, int _width, int _height) {}
-		virtual void size(int _width, int _height) {}
+		virtual void setPosition(int _left, int _top) {}
+		virtual void setPosition(int _left, int _top, int _width, int _height) {}
+		virtual void setSize(int _width, int _height) {}
 
 		virtual void show() {}
 		virtual void hide() {}
@@ -55,37 +55,6 @@ namespace MyGUI
 		virtual void setTextAlign(Align _align) {}
 		inline Align getAlign() {return mAlign;}
 
-		virtual void setTextSelect(size_t _start, size_t _end) {}
-		// возвращает положение курсора по произвольному положению
-		virtual size_t getTextCursorFromPoint(IntPoint & _point) {return 0;}
-		// возвращает положение курсора по позиции
-		virtual IntPoint getTextCursorFromPosition(size_t _position) {return IntPoint();}
-		// возвращает размер текста в пикселях
-		virtual IntSize getTextSize() {return IntSize();}
-		// устанавливает смещение текста в пикселях
-		virtual void setTextShift(IntPoint _point) {}
-		virtual IntPoint getTextShift() {return IntPoint();}
-
-		virtual bool getSelectBackground() {return true;}
-		virtual void setSelectBackground(bool _normal) {}
-
-		virtual void update() {}
-		virtual void correct() {}
-		virtual void align(int _width, int _height, bool _update) {}
-		virtual void align(int _left, int _top, int _width, int _height, bool _update) {}
-
-		virtual void attach(BasisWidgetPtr _basis, bool _child) {}//???
-//		virtual void detach(BasisWidgetPtr _basis/*, bool _child*/) {}
-
-		virtual Ogre::OverlayElement* getOverlayElement() {return 0;}//???
-		// возвращает число саб скинов на одном уровне, без текста
-		virtual size_t _getCountSharedOverlay() {return 0;}
-		virtual Ogre::OverlayElement* _getSharedOverlay() {return null;}
-
-		virtual void setUVSet(const FloatRect & _rect) {}
-
-		virtual bool isText() {return false;}
-
 		inline BasisWidgetPtr getParent() {return mParent;}
 
 		inline int getLeft()       {return mLeft;}
@@ -94,26 +63,59 @@ namespace MyGUI
 		inline int getBottom()     {return mTop + mHeight;}
 		inline int getWidth()       {return mWidth;}
 		inline int getHeight()       {return mHeight;}
-    virtual IntRect getClientRect(){return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);}
 
 		inline int getViewLeft()  {return mLeft + mLeftMargin;}
 		inline int getViewRight() {return mLeft + mWidth - mRightMargin;}
 		inline int getViewTop()   {return mTop + mTopMargin;}
 		inline int getViewBottom() {return mTop + mHeight - mBottomMargin;}
 		inline int getViewWidth() {return mWidth - mLeftMargin - mRightMargin;}
-		inline int view_height() {return mHeight - mTopMargin - mBottomMargin;}
+		inline int getViewHeight() {return mHeight - mTopMargin - mBottomMargin;}
 
 		inline int getMarginLeft() {return mLeftMargin;}
 		inline int getMarginRight() {return mRightMargin;}
 		inline int getMarginTop() {return mTopMargin;}
 		inline int getMarginBottom() {return mBottomMargin;}
 
-		inline bool checkPoint (int _left, int _top)
+
+		virtual void setTextSelect(size_t _start, size_t _end) {}
+		// возвращает положение курсора по произвольному положению
+		virtual size_t getTextCursorFromPoint(IntPoint & _point) {return 0;}
+		// возвращает положение курсора по позиции
+		virtual IntPoint getTextCursorFromPosition(size_t _position) {return IntPoint();}
+		// возвращает размер текста в пикселях
+		virtual IntSize getTextSize() {return IntSize();}
+
+		// устанавливает смещение текста в пикселях
+		virtual void setTextShift(IntPoint _point) {}
+		virtual IntPoint getTextShift() {return IntPoint();}
+
+		virtual bool getSelectBackground() {return true;}
+		virtual void setSelectBackground(bool _normal) {}
+
+		virtual void _updateView() {}
+		virtual void _correctView() {}
+		virtual void _setAlign(int _width, int _height, bool _update) {}
+		virtual void _setAlign(int _left, int _top, int _width, int _height, bool _update) {}
+
+		virtual void _attachChild(BasisWidgetPtr _basis, bool _child) {}
+
+		virtual void _setUVSet(const FloatRect & _rect) {}
+
+		// возвращает число саб скинов на одном уровне, без текста
+		virtual size_t _getCountSharedOverlay() {return 0;}
+
+		virtual Ogre::OverlayElement* _getSharedOverlayElement() {return null;}
+		virtual Ogre::OverlayElement* _getOverlayElement() {return null;}
+
+		virtual bool _isText() {return false;}
+
+	protected:
+		inline bool _checkPoint(int _left, int _top)
 		{
 			return ! ((getViewLeft() > _left ) || (getViewTop() > _top) || (getViewRight() < _left) || (getViewBottom() < _top) );
 		}
 
-		inline bool checkMargin ()
+		inline bool _checkMargin()
 		{
 			bool margin = false;
 			//вылезли ли налево
@@ -143,7 +145,7 @@ namespace MyGUI
 			return margin;
 		}
 
-		inline bool checkOutside() // проверка на полный выход за границу
+		inline bool _checkOutside() // проверка на полный выход за границу
 		{
 			return ( (getRight() <= mParent->mLeftMargin ) || // совсем уехали налево
 				(getLeft() >= mParent->getWidth() - mParent->mRightMargin ) || // совсем уехали направо

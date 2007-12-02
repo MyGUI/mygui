@@ -114,13 +114,13 @@ namespace MyGUI
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		move(mPreActionRect.left + (_left - point.left), mPreActionRect.top + (_top - point.top));
+		setPosition(mPreActionRect.left + (_left - point.left), mPreActionRect.top + (_top - point.top));
 	}
 
 	void Window::notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		size(mPreActionRect.right + (_left - point.left), mPreActionRect.bottom + (_top - point.top));
+		setSize(mPreActionRect.right + (_left - point.left), mPreActionRect.bottom + (_top - point.top));
 	}
 
 	void Window::setDoAlpha(float _alpha)
@@ -229,7 +229,7 @@ namespace MyGUI
 		else setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 	}
 
-	void Window::move(int _left, int _top)
+	void Window::setPosition(int _left, int _top)
 	{
 		// прилепляем к краям
 		if (mIsToStick) {
@@ -246,15 +246,15 @@ namespace MyGUI
 			if ( (_top + mHeight) < height) {if ( (_top + mHeight + WINDOW_TO_STICK) > height ) _top = height - mHeight;}
 			else {	if ( (_top + mHeight - WINDOW_TO_STICK) < height ) _top = height - mHeight;}
 		}
-		Widget::move(_left, _top);
+		Widget::setPosition(_left, _top);
 	}
 
-	void Window::move(int _left, int _top, int _width, int _height)
+	void Window::setPosition(int _left, int _top, int _width, int _height)
 	{
-		Widget::move(_left, _top, _width, _height);
+		Widget::setPosition(_left, _top, _width, _height);
 	}
 
-	void Window::size(int _width, int _height)
+	void Window::setSize(int _width, int _height)
 	{
 		// прилепляем к краям
 		if (mIsToStick) {
@@ -273,7 +273,7 @@ namespace MyGUI
 		else if (_height > mMinmax.bottom) _height = mMinmax.bottom;
 		if ((_width == mWidth) && (_height == mHeight) ) return;
 
-		Widget::size(_width, _height);
+		Widget::setSize(_width, _height);
 	}
 
 } // namespace MyGUI

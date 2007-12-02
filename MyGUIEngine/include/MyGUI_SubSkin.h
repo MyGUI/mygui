@@ -21,27 +21,27 @@ namespace MyGUI
 		SubSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
 		virtual ~SubSkin();
 
+		void setAlpha(float _alpha);
+
 		void show();
 		void hide();
 
-		void update(); // обновления себя и детей
-		void correct();
+		void _updateView(); // обновления себя и детей
+		void _correctView();
 
-		void align(int _width, int _height, bool _update);
-		void align(int _left, int _top, int _width, int _height, bool _update);
+		void _setAlign(int _width, int _height, bool _update);
+		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
 
-		void setUVSet(const FloatRect & _rect);
+		void _setUVSet(const FloatRect & _rect);
 
-		void setAlpha(float _alpha);
+		void _attachChild(BasisWidgetPtr _basis, bool _child);
+		Ogre::OverlayElement* _getOverlayElement();
 
-		void attach(BasisWidgetPtr _basis, bool _child);
-		Ogre::OverlayElement* getOverlayElement();
+		inline static const Ogre::String & _getType() {static Ogre::String type("SubSkin"); return type;}
+		inline static bool _isSharedOverlay() {return true;}
+		bool _isText() {return false;}
 
-		inline static const Ogre::String & getType() {static Ogre::String type("SubSkin"); return type;}
-		inline static bool isSharedOverlay() {return true;}
-		bool isText() {return false;}
-
-		Ogre::OverlayElement* _getSharedOverlay() {return (mId == 0) ? mOverlayContainer : null;}
+		Ogre::OverlayElement* _getSharedOverlayElement() {return (mId == 0) ? mOverlayContainer : null;}
 
 	protected:
 

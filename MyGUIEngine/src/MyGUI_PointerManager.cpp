@@ -136,7 +136,7 @@ namespace MyGUI
 		mShow ? mOverlayElement->show() : mOverlayElement->hide();
 	}
 
-	void PointerManager::move(int _left, int _top)
+	void PointerManager::setPosition(int _left, int _top)
 	{
 		if (mOverlayElement == null) return;
 		mOverlayElement->setPosition(_left-mPoint.left, _top-mPoint.top);

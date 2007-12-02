@@ -42,9 +42,9 @@ namespace MyGUI
 		void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
 		IntRect getMinMax() {return mMinmax;}
 
-		virtual void move(int _left, int _top);
-		virtual void move(int _left, int _top, int _width, int _height);
-		virtual void size(int _width, int _height);
+		virtual void setPosition(int _left, int _top);
+		virtual void setPosition(int _left, int _top, int _width, int _height);
+		virtual void setSize(int _width, int _height);
 
 		inline bool getIsToStick() {return mIsToStick;}
 		inline void setIsToStick(bool _stick) {mIsToStick = _stick;}

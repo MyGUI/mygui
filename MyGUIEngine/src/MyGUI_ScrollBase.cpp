@@ -117,16 +117,16 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void ScrollBase::size(int _width, int _height)
+	void ScrollBase::setSize(int _width, int _height)
 	{
-		Widget::size(_width, _height);
+		Widget::setSize(_width, _height);
 		// обновляем трек
 		updateTrack();
 	}
 
-	void ScrollBase::move(int _left, int _top, int _width, int _height)
+	void ScrollBase::setPosition(int _left, int _top, int _width, int _height)
 	{
-		Widget::move(_left, _top, _width, _height);
+		Widget::setPosition(_left, _top, _width, _height);
 		// обновляем трек
 		updateTrack();
 	}

@@ -73,14 +73,14 @@ namespace MyGUI
 		void WidgetFactory::Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			const std::vector<std::string> & vec = util::split(_value);
-			if (vec.size() == 4) _widget->move( util::parseInt(vec[0]), util::parseInt(vec[1]), util::parseInt(vec[2]), util::parseInt(vec[3]) );
-			else if (vec.size() == 2) _widget->move( util::parseInt(vec[0]), util::parseInt(vec[1]) );
+			if (vec.size() == 4) _widget->setPosition( util::parseInt(vec[0]), util::parseInt(vec[1]), util::parseInt(vec[2]), util::parseInt(vec[3]) );
+			else if (vec.size() == 2) _widget->setPosition( util::parseInt(vec[0]), util::parseInt(vec[1]) );
 		}
 
 		void WidgetFactory::Size(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			const std::vector<std::string> & vec = util::split(_value);
-			if (vec.size() == 2) _widget->size( util::parseInt(vec[0]), util::parseInt(vec[1]) );
+			if (vec.size() == 2) _widget->setSize( util::parseInt(vec[0]), util::parseInt(vec[1]) );
 		}
 
 		void WidgetFactory::Show(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

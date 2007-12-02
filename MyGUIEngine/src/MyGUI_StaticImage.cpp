@@ -16,7 +16,7 @@ namespace MyGUI
 	{
 		// первоначальная инициализация
 		MYGUI_ASSERT(mSubSkinChild.size() == 1);
-		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->getOverlayElement());
+		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->_getOverlayElement());
 		MYGUI_ASSERT(null != mElement);
 
 		// парсим свойства

@@ -189,7 +189,7 @@ namespace MyGUI
 		int offset = 0 - mOffsetTop;
 
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
-			mWidgetLines[pos]->move(0, offset);
+			mWidgetLines[pos]->setPosition(0, offset);
 			offset += mHeightLine;
 		}
 
@@ -237,16 +237,16 @@ namespace MyGUI
 	
 	}
 
-	void List::size(int _width, int _height)
+	void List::setSize(int _width, int _height)
 	{
-		Widget::size(_width, _height);
+		Widget::setSize(_width, _height);
 		updateScroll();
 		updateLine();
 	}
 
-	void List::move(int _left, int _top, int _width, int _height)
+	void List::setPosition(int _left, int _top, int _width, int _height)
 	{
-		Widget::move(_left, _top, _width, _height);
+		Widget::setPosition(_left, _top, _width, _height);
 		updateScroll();
 		updateLine();
 	}
@@ -260,12 +260,12 @@ namespace MyGUI
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->hide();
 				// увеличиваем клиентскую зону на ширину скрола
-				mWidgetClient->size(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
+				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 			return;
 		}
 		if (false == mWidgetScroll->isShow()) {
-			mWidgetClient->size(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
+			mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			mWidgetScroll->show();
 		}
 
@@ -317,7 +317,7 @@ namespace MyGUI
 						// выравниваем
 						int offset = 0;
 						for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
-							mWidgetLines[pos]->move(0, offset);
+							mWidgetLines[pos]->setPosition(0, offset);
 							offset += mHeightLine;
 						}
 					}
@@ -338,7 +338,7 @@ namespace MyGUI
 					// выравниваем
 					int offset = 0 - mOffsetTop;
 					for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
-						mWidgetLines[pos]->move(0, offset);
+						mWidgetLines[pos]->setPosition(0, offset);
 						offset += mHeightLine;
 					}
 

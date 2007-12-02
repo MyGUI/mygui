@@ -21,27 +21,28 @@ namespace MyGUI
 		MainSkin(const BasisWidgetInfo &_info, const Ogre::String & _material, BasisWidgetPtr _parent, size_t _id);
 		~MainSkin();
 
-		// вызывается виджетом, если этот саб скин во весь виджет
-		void update();
+		void setAlpha(float _alpha);
+
 		// скрываем показывает оверлей
 		void show();
 		void hide();
+
+		// вызывается виджетом, если этот саб скин во весь виджет
+		void _updateView();
 		// корректируем положение скина, нужно при обрезке отца
-		void correct();
+		void _correctView();
 
-		void align(int _width, int _height, bool _update);
-		void align(int _left, int _top, int _width, int _height, bool _update);
+		void _setAlign(int _width, int _height, bool _update);
+		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
 
-		void attach(BasisWidgetPtr _basis, bool _child);
-		Ogre::OverlayElement* getOverlayElement();
+		void _attachChild(BasisWidgetPtr _basis, bool _child);
+		Ogre::OverlayElement* _getOverlayElement();
 
-		void setUVSet(const FloatRect & _rect);
+		void _setUVSet(const FloatRect & _rect);
 
-		void setAlpha(float _alpha);
-
-		inline static const Ogre::String & getType() {static Ogre::String type("MainSkin"); return type;}
-		inline static bool isSharedOverlay() {return false;}
-		bool isText() {return false;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("MainSkin"); return type;}
+		inline static bool _isSharedOverlay() {return false;}
+		bool _isText() {return false;}
 
 	protected:
 

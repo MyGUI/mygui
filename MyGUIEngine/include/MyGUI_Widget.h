@@ -33,15 +33,15 @@ namespace MyGUI
 		Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, BasisWidgetPtr _parent, const Ogre::String & _name);
 		virtual ~Widget();
 
-		void update(); // обновления себя и детей
+		void _updateView(); // обновления себя и детей
 
-		void align(int _width, int _height, bool _update);
-		void align(int _left, int _top, int _width, int _height, bool _update);
+		void _setAlign(int _width, int _height, bool _update);
+		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
 
 		inline const Ogre::String & getName() {return mName;};
 
 		// присоединяемся к отцу
-		void attach(BasisWidgetPtr _basis, bool _child);
+		void _attachChild(BasisWidgetPtr _basis, bool _child);
 
 		// события кадров, работает только по подписке
 		virtual void frameStarted(float _frame, float _event) {}
@@ -63,9 +63,9 @@ namespace MyGUI
 		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
 		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "");
 
-		virtual void move(int _left, int _top);
-		virtual void move(int _left, int _top, int _width, int _height);
-		virtual void size(int _width, int _height);
+		virtual void setPosition(int _left, int _top);
+		virtual void setPosition(int _left, int _top, int _width, int _height);
+		virtual void setSize(int _width, int _height);
 
 		void show();
 		void hide();
@@ -107,7 +107,10 @@ namespace MyGUI
 
 		// возвращаем колличество сабскинов без учета текста
 		size_t _getCountSharedOverlay();
-		Ogre::OverlayElement* _getSharedOverlay();
+		Ogre::OverlayElement* _getSharedOverlayElement();
+
+		// возвращает размер клиентской зоны либо всего окна
+		virtual IntRect getClientRect() {return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);}
 
 	protected:
 
