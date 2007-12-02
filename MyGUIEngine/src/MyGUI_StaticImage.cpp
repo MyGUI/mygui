@@ -6,6 +6,7 @@
 */
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_SkinManager.h"
+//#include "MyGUI_CroppedRectangleInterface.h"
 
 namespace MyGUI
 {
@@ -15,9 +16,11 @@ namespace MyGUI
 		mNum(0)
 	{
 		// первоначальная инициализация
-		MYGUI_ASSERT(mSubSkinChild.size() == 1);
+		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1);
+		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText());
+
 		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->_getOverlayElement());
-		MYGUI_ASSERT(null != mElement);
+		MYGUI_DEBUG_ASSERT(null != mElement);
 
 		// парсим свойства
 		const MapString & param = _info->getParams();

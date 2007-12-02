@@ -36,24 +36,8 @@ namespace MyGUI
 		virtual void hide() {}
 		virtual bool isShow() {return mShow;}
 
-		virtual void setCaption(const Ogre::DisplayString & _caption) {}
-		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}
-
-		virtual void setColour(const Ogre::ColourValue & _colour) {}
-		virtual const Ogre::ColourValue & getColour() {return Ogre::ColourValue::Black;}
-
 		virtual void setAlpha(float _alpha) {}
 		virtual float getAlpha() {return 1.0;}
-
-		virtual void setFontName(const Ogre::String & _font) {}
-		virtual void setFontName(const Ogre::String & _font, Ogre::ushort _height) {}
-		virtual const Ogre::String & getFontName() {static Ogre::String name; return name;}
-
-		virtual void setFontHeight(Ogre::ushort _height) {}
-		virtual Ogre::ushort getFontHeight() {return 0;}
-
-		virtual void setTextAlign(Align _align) {}
-		inline Align getAlign() {return mAlign;}
 
 		inline CroppedRectanglePtr getParent() {return mParent;}
 
@@ -76,22 +60,6 @@ namespace MyGUI
 		inline int getMarginTop() {return mTopMargin;}
 		inline int getMarginBottom() {return mBottomMargin;}
 
-
-		virtual void setTextSelect(size_t _start, size_t _end) {}
-		// возвращает положение курсора по произвольному положению
-		virtual size_t getTextCursorFromPoint(IntPoint & _point) {return 0;}
-		// возвращает положение курсора по позиции
-		virtual IntPoint getTextCursorFromPosition(size_t _position) {return IntPoint();}
-		// возвращает размер текста в пикселях
-		virtual IntSize getTextSize() {return IntSize();}
-
-		// устанавливает смещение текста в пикселях
-		virtual void setTextShift(IntPoint _point) {}
-		virtual IntPoint getTextShift() {return IntPoint();}
-
-		virtual bool getSelectBackground() {return true;}
-		virtual void setSelectBackground(bool _normal) {}
-
 		virtual void _updateView() {}
 		virtual void _correctView() {}
 		virtual void _setAlign(int _width, int _height, bool _update) {}
@@ -99,15 +67,12 @@ namespace MyGUI
 
 		virtual void _attachChild(CroppedRectanglePtr _basis, bool _child) {}
 
-		virtual void _setUVSet(const FloatRect & _rect) {}
-
-		// возвращает число саб скинов на одном уровне, без текста
-		virtual size_t _getCountSharedOverlay() {return 0;}
-
-		virtual Ogre::OverlayElement* _getSharedOverlayElement() {return null;}
-		virtual Ogre::OverlayElement* _getOverlayElement() {return null;}
-
+		// вспомогательные методы
 		virtual bool _isText() {return false;}
+		virtual Ogre::OverlayElement* _getOverlayElement() {return null;}
+		virtual size_t _getCountSharedOverlay() {return 0;}
+		virtual Ogre::OverlayElement* _getSharedOverlayElement() {return null;}
+		virtual void _setUVSet(const FloatRect & _rect) {}
 
 	protected:
 		inline bool _checkPoint(int _left, int _top)

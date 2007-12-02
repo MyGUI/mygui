@@ -142,7 +142,7 @@ namespace MyGUI
 		Ogre::ColourValue mColour;
 		// имя виджета
 		Ogre::String mName;
-
+		// колличество оверлеев которые мона объеденить
 		size_t mCountSharedOverlay;
 
 	}; // class Widget

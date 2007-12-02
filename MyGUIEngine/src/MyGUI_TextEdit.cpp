@@ -223,6 +223,7 @@ namespace MyGUI
 	{
 		return mOverlayContainer->getTextSize();
 	}
+
 	// устанавливает смещение текста в пикселях
 	void TextEdit::setTextShift(IntPoint _point)
 	{

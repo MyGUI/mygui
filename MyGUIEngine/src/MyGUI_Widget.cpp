@@ -8,6 +8,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
+//#include "MyGUI_SubWidgetSkinInterface.h"
 
 namespace MyGUI
 {
@@ -328,13 +329,15 @@ namespace MyGUI
 
 	void Widget::setCaption(const Ogre::DisplayString & _caption)
 	{
-		if (mText == null) return;
-		mText->setCaption(_caption);
+		if (null != mText) mText->setCaption(_caption);
 	}
 
 	const Ogre::DisplayString & Widget::getCaption()
 	{
-		if (mText == null) return CroppedRectangleInterface::getCaption();
+		if (null == mText) {
+			static Ogre::DisplayString empty;
+			return empty;
+		}
 		return mText->getCaption();
 	}
 
@@ -354,37 +357,36 @@ namespace MyGUI
 	void Widget::setColour(const Ogre::ColourValue & _colour)
 	{
 		mColour = _colour;
-		if (!mText) return;
-		mText->setColour(_colour);
+		if (null != mText) mText->setColour(_colour);
 	}
 
 	void Widget::setFontName(const Ogre::String & _font)
 	{
-		if (!mText) return;
-		mText->setFontName(_font);
+		if (null != mText) mText->setFontName(_font);
 	}
 
 	void Widget::setFontName(const Ogre::String & _font, Ogre::ushort _height)
 	{
-		if (!mText) return;
-		mText->setFontName(_font, _height);
+		if (null != mText) mText->setFontName(_font, _height);
 	}
 
 	const Ogre::String & Widget::getFontName()
 	{
-		if (!mText) return CroppedRectangleInterface::getFontName();
+		if (null == mText) {
+			static Ogre::String empty;
+			return empty;
+		}
 		return mText->getFontName();
 	}
 
 	void Widget::setFontHeight(Ogre::ushort _height)
 	{
-		if (!mText) return;
-		mText->setFontHeight(_height);
+		if (null != mText) mText->setFontHeight(_height);
 	}
 
 	Ogre::ushort Widget::getFontHeight()
 	{
-		if (!mText) return 0;
+		if (null == mText) return 0;
 		return mText->getFontHeight();
 	}
 
@@ -395,7 +397,8 @@ namespace MyGUI
 		size_t index=0;
 		// сначала сдвигаем текстуры
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			(*skin)->_setUVSet(iter->second.offsets[index++]);
+			CroppedRectanglePtr & info = (*skin);
+			if (false == info->_isText()) info->_setUVSet(iter->second.offsets[index++]);
 		}
 		// теперь если нужно цвет текста
 		if ((iter->second.color != Ogre::ColourValue::ZERO) && (mText != null)) {
@@ -428,8 +431,9 @@ namespace MyGUI
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)
 	{
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			if (false == (*skin)->_isText()) {
-				Ogre::OverlayContainer * element = static_cast<Ogre::OverlayContainer*>((*skin)->_getOverlayElement());
+			CroppedRectanglePtr & info = (*skin);
+			if (false == info->_isText()) {
+				Ogre::OverlayContainer * element = static_cast<Ogre::OverlayContainer*>(info->_getOverlayElement());
 				if (null != element) _overlay->add2D(element);
 			}
 		}
@@ -438,8 +442,9 @@ namespace MyGUI
 	void Widget::detachToOverlay(Ogre::Overlay * _overlay)
 	{
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			if (false == (*skin)->_isText()) {
-				SharedPanelAlphaOverlayElement * element = static_cast<SharedPanelAlphaOverlayElement*>((*skin)->_getOverlayElement());
+			CroppedRectanglePtr & info = (*skin);
+			if (false == info->_isText()) {
+				SharedPanelAlphaOverlayElement * element = static_cast<SharedPanelAlphaOverlayElement*>(info->_getOverlayElement());
 				// удаляем только шаред главный
 				if (null != element) {
 					_overlay->remove2D(element);
@@ -514,8 +519,11 @@ namespace MyGUI
 	Ogre::OverlayElement* Widget::_getSharedOverlayElement()
 	{
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) {
-			Ogre::OverlayElement* element = (*skin)->_getSharedOverlayElement();
-			if (null != element) return element;
+			CroppedRectanglePtr & info = (*skin);
+			if (false == info->_isText()) {
+				Ogre::OverlayElement* element = info->_getSharedOverlayElement();
+				if (null != element) return element;
+			}
 		}
 		return null;
 	}

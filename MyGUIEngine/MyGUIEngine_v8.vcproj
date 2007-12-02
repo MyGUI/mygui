@@ -584,10 +584,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_SubWidgetSkinInterface.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_SubWidgetTextInterface.h"
 					>
 				</File>

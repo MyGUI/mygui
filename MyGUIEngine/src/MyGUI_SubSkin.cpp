@@ -11,7 +11,7 @@ namespace MyGUI
 {
 
 	SubSkin::SubSkin(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id) :
-		SubWidgetSkinInterface(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent),
+		CroppedRectangleInterface(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent),
 		mId(_id),
 		mTransparent(false)
 	{

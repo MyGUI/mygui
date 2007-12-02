@@ -9,12 +9,12 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_PanelAlphaOverlayElement.h"
-#include "MyGUI_SubWidgetSkinInterface.h"
+#include "MyGUI_CroppedRectangleInterface.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport MainSkin : public SubWidgetSkinInterface
+	class _MyGUIExport MainSkin : public CroppedRectangleInterface
 	{
 
 	public:
