@@ -4,8 +4,8 @@
 	@date		11/2007
 	@module
 */
-#ifndef __MYGUI_CROPPED_RECTANGLE_BINDING_H__
-#define __MYGUI_CROPPED_RECTANGLE_BINDING_H__
+#ifndef __MYGUI_SUB_WIDGET_BINDING_H__
+#define __MYGUI_SUB_WIDGET_BINDING_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -14,18 +14,18 @@ namespace MyGUI
 {
 
 	// вспомогательный класс для инициализации сабскинов
-	class _MyGUIExport CroppedRectangleBinding
+	class _MyGUIExport SubWidgetBinding
 	{
 	private:
 		// для доступа к внутренним членам
 		friend 	WidgetSkinInfo;
 
 	public:
-		CroppedRectangleBinding()
+		SubWidgetBinding()
 		{
 		}
 
-		CroppedRectangleBinding(const IntRect & _offset, Align _aligin, const std::string & _type)
+		SubWidgetBinding(const IntRect & _offset, Align _aligin, const std::string & _type)
 		{
 			create(_offset, _aligin, _type);
 		}
@@ -63,20 +63,20 @@ namespace MyGUI
 		void add(const std::string & _name, const FloatRect & _offset, const Ogre::ColourValue  & _colour, float _alpha)
 		{
 			// ищем такой же ключ
-			MapCroppedRectangleStateInfo::const_iterator iter = mStates.find(_name);
+			MapSubWidgetStateInfo::const_iterator iter = mStates.find(_name);
 			MYGUI_ASSERT(iter == mStates.end());
 			// добавляем
-			mStates[_name] = CroppedRectangleStateInfo(_offset, _colour, _alpha);
+			mStates[_name] = SubWidgetStateInfo(_offset, _colour, _alpha);
 		}
 
 	private:
 		IntRect mOffset;
 		Align mAlign;
 		std::string mType;
-		MapCroppedRectangleStateInfo mStates;
+		MapSubWidgetStateInfo mStates;
 	};
 
 } // namespace MyGUI
 
 
-#endif // __MYGUI_CROPPED_RECTANGLE_BINDING_H__
+#endif // __MYGUI_SUB_WIDGET_BINDING_H__

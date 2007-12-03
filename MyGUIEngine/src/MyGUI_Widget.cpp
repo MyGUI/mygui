@@ -28,13 +28,13 @@ namespace MyGUI
 		mWidgetEventSender = this;
 
 		// подсчитаываем колличество оверлеев для объединения
-		for (VectorCroppedRectangleInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
+		for (VectorSubWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
 			if (SubWidgetManager::getInstance().isSharedOverlay(*iter)) mCountSharedOverlay++;
 		}
 
 		// загружаем кирпичики виджета
 		size_t id = 0;
-		for (VectorCroppedRectangleInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
+		for (VectorSubWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); iter ++) {
 			addSubSkin(*iter, _info->getMaterial(), id);
 		}
 
@@ -88,7 +88,7 @@ namespace MyGUI
 		return createWidget(_type, _skin, (int)(_left*gui.getWidth()), (int)(_top*gui.getHeight()), (int)(_width*gui.getWidth()), (int)(_height*gui.getHeight()), _align, _name);
 	}
 
-	CroppedRectanglePtr  Widget::addSubSkin(const CroppedRectangleInfo& _info, const Ogre::String& _material, size_t & _id)
+	CroppedRectanglePtr  Widget::addSubSkin(const SubWidgetInfo& _info, const Ogre::String& _material, size_t & _id)
 	{
 		CroppedRectanglePtr sub = SubWidgetManager::getInstance().createSubWidget(_info, _material, this, _id);
 		// если это скин текста, то запоминаем

@@ -48,7 +48,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	CroppedRectangleInterface * SubWidgetManager::createSubWidget(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id)
+	CroppedRectangleInterface * SubWidgetManager::createSubWidget(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id)
 	{
 		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createSubWidget(_info, _material, _parent, _id);
@@ -58,7 +58,7 @@ namespace MyGUI
 	}
 
 	// подходит ли данный тип для объединения
-	bool SubWidgetManager::isSharedOverlay(const CroppedRectangleInfo &_info)
+	bool SubWidgetManager::isSharedOverlay(const SubWidgetInfo &_info)
 	{
 		size_t id = 0;
 		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {

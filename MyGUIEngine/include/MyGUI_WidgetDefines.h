@@ -13,13 +13,13 @@
 namespace MyGUI
 {
 
-	struct CroppedRectangleStateInfo
+	struct SubWidgetStateInfo
 	{
-		CroppedRectangleStateInfo()
+		SubWidgetStateInfo()
 		{
 		}
 
-		CroppedRectangleStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _colour, float _alpha)
+		SubWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _colour, float _alpha)
 		{
 			offset = _offset;
 			color = _colour;
@@ -42,9 +42,9 @@ namespace MyGUI
 		float alpha;
 	};
 
-	struct CroppedRectangleInfo
+	struct SubWidgetInfo
 	{
-		CroppedRectangleInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align)
+		SubWidgetInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align)
 		{
 		}
 
@@ -53,9 +53,9 @@ namespace MyGUI
 		std::string type;
 	};
 
-	typedef std::map<std::string, CroppedRectangleStateInfo> MapCroppedRectangleStateInfo;
+	typedef std::map<std::string, SubWidgetStateInfo> MapSubWidgetStateInfo;
 	typedef std::map<std::string, WidgetStateInfo> MapWidgetStateInfo;
-	typedef std::vector<CroppedRectangleInfo> VectorCroppedRectangleInfo;
+	typedef std::vector<SubWidgetInfo> VectorSubWidgetInfo;
 
 	class WidgetSkinInfo;
 	typedef WidgetSkinInfo * WidgetSkinInfoPtr;

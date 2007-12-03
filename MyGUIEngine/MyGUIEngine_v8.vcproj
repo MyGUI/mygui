@@ -420,10 +420,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_BasisWidgetBinding.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_Common.h"
 					>
 				</File>
@@ -457,6 +453,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_Prerequest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_SubWidgetBinding.h"
 					>
 				</File>
 				<File

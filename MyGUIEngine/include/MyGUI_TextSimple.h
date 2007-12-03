@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 
 	public:
-		TextSimple(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
+		TextSimple(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
 		virtual ~TextSimple();
 
 		void show();

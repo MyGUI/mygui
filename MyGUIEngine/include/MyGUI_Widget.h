@@ -116,7 +116,7 @@ namespace MyGUI
 	protected:
 
 		// создаем и добавляем саб скин виджету
-		CroppedRectanglePtr addSubSkin(const CroppedRectangleInfo& _info, const Ogre::String& _material, size_t & _id);
+		CroppedRectanglePtr addSubSkin(const SubWidgetInfo& _info, const Ogre::String& _material, size_t & _id);
 		// показывает скрывает все сабскины
 		void _setVisible(bool _visible);
 

@@ -4,8 +4,8 @@
 	@date		11/2007
 	@module
 */
-#ifndef __MYGUI_CROPPED_RECTANGLE_MANAGER_H__
-#define __MYGUI_CROPPED_RECTANGLE_MANAGER_H__
+#ifndef __MYGUI_SUB_WIDGET_MANAGER_H__
+#define __MYGUI_SUB_WIDGET_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
@@ -28,10 +28,10 @@ namespace MyGUI
 		void shutdown();
 
 		// создает сабвиджет использу€ фабрику
-		CroppedRectangleInterface * createSubWidget(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id);
+		CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id);
 
 		// подходит ли данный тип дл€ объединени€
-		bool isSharedOverlay(const CroppedRectangleInfo &_info);
+		bool isSharedOverlay(const SubWidgetInfo &_info);
 
 		inline void registerFactory(SubWidgetFactoryInterface * _factory)
 		{
@@ -50,4 +50,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_CROPPED_RECTANGLE_MANAGER_H__
+#endif // __MYGUI_SUB_WIDGET_MANAGER_H__

@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 
 	public:
-		SubSkin(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
+		SubSkin(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
 		virtual ~SubSkin();
 
 		void setAlpha(float _alpha);

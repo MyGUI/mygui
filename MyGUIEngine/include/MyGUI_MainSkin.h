@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 
 	public:
-		MainSkin(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
+		MainSkin(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
 		~MainSkin();
 
 		void setAlpha(float _alpha);

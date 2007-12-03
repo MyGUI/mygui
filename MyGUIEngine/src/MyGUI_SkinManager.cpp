@@ -107,7 +107,7 @@ namespace MyGUI
 		}
 
 		// вспомогательный класс для биндинга сабскинов
-		CroppedRectangleBinding bind;
+		SubWidgetBinding bind;
 
 		// берем детей и крутимся, основной цикл со скинами
 		xml::xmlNodeIterator skin = root->getNodeIterator();
@@ -234,7 +234,7 @@ namespace MyGUI
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
 		widget_info->setInfo(IntSize(0, 0), Ogre::MaterialManager::getSingleton().getDefaultSettings()->getName());
-		CroppedRectangleBinding bind(IntRect(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
+		SubWidgetBinding bind(IntRect(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
 		widget_info->addInfo(bind);
 		// создаем дефолтный прозрачный скин
 		widget_info = create("Empty");

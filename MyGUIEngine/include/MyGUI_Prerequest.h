@@ -21,13 +21,13 @@
 
 namespace MyGUI
 {
+	class Gui;
+	class InputManager;
 	class DynLib;
 	class Plugin;
 	class WidgetSkinInfo;
 	class WidgetManager;
 	class LayerManager;
-	class Gui;
-	class InputManager;
 
 	using delegates::newDelegate;
 

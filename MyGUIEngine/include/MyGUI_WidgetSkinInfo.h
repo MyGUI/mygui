@@ -8,7 +8,7 @@
 #define __MYGUI_WIDGET_SKIN_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_BasisWidgetBinding.h"
+#include "MyGUI_SubWidgetBinding.h"
 
 namespace MyGUI
 {
@@ -28,10 +28,10 @@ namespace MyGUI
 			mMaterial = _material;
 		}
 
-		void addInfo(const CroppedRectangleBinding & _bind)
+		void addInfo(const SubWidgetBinding & _bind)
 		{
 			checkState(_bind.mStates);
-			mBasis.push_back(CroppedRectangleInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
+			mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
 			checkBasis();
 			fillState(_bind.mStates, mBasis.size()-1);
 		}
@@ -42,9 +42,9 @@ namespace MyGUI
 		}
 
 	private:
-		void checkState(const MapCroppedRectangleStateInfo & _states)
+		void checkState(const MapSubWidgetStateInfo & _states)
 		{
-			for (MapCroppedRectangleStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
+			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
 				checkState(iter->first);
 			}
 		}
@@ -69,9 +69,9 @@ namespace MyGUI
 			}
 		}
 
-		inline void fillState(const MapCroppedRectangleStateInfo & _states, size_t _index)
+		inline void fillState(const MapSubWidgetStateInfo & _states, size_t _index)
 		{
-			for (MapCroppedRectangleStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
+			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
 				// выставляем смещение для текущего саб скина
 				mStates[iter->first].offsets[_index] = iter->second.offset;
 				// если нужно то выставляем цвета
@@ -84,14 +84,14 @@ namespace MyGUI
 	public:
 		inline const IntSize & getSize() const {return mSize;}
 		inline const std::string & getMaterial() const {return mMaterial;};
-		inline const VectorCroppedRectangleInfo & getBasisInfo() const {return mBasis;};
+		inline const VectorSubWidgetInfo & getBasisInfo() const {return mBasis;};
 		inline const MapWidgetStateInfo & getStateInfo() const {return mStates;};
 		inline const MapString & getParams() const {return mParams;};
 
 	private:
 		IntSize mSize;
 		std::string mMaterial;
-		VectorCroppedRectangleInfo mBasis;
+		VectorSubWidgetInfo mBasis;
 		MapWidgetStateInfo mStates;
 		// дополнительные параметры скина
 		MapString mParams;

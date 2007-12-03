@@ -18,7 +18,7 @@ namespace MyGUI
 	public:
 		virtual void getNextId(size_t & _id) = 0;
 		virtual const Ogre::String & getType() = 0;
-		virtual CroppedRectangleInterface * createSubWidget(const CroppedRectangleInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id) = 0;
+		virtual CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id) = 0;
 	};
 
 	template <class ClassName>
@@ -27,7 +27,7 @@ namespace MyGUI
 	public:
 		void getNextId(size_t & _id) {if (ClassName::_isSharedOverlay())_id++;}
 		const Ogre::String & getType() {return ClassName::_getType();};
-		CroppedRectangleInterface * createSubWidget(const CroppedRectangleInfo& _info, const Ogre::String& _material, CroppedRectangleInterface* _parent, size_t & _id)
+		CroppedRectangleInterface * createSubWidget(const SubWidgetInfo& _info, const Ogre::String& _material, CroppedRectangleInterface* _parent, size_t & _id)
 		{
 			ClassName * obj = new ClassName(_info, _material, _parent, _id);
 			getNextId(_id);
