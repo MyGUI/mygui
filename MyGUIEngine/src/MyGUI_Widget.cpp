@@ -425,7 +425,7 @@ namespace MyGUI
 	void Widget::setEnabled(bool _enabled)
 	{
 		mEnabled = _enabled;
-		InputManager::getInstance().widgetUnlink(this);
+		InputManager::getInstance().unlinkWidget(this);
 	}
 
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)

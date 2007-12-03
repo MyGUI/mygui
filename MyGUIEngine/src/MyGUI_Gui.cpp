@@ -140,9 +140,12 @@ namespace MyGUI
 		// теперь инпуту
 		mInputManager->_frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 
-		// теперь меняем массив
+		// теперь объединяем масив
 		if (false == mListFrameListenerAdd.empty()) {
-			mListFrameListener.merge(mListFrameListenerAdd);
+			for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
+				mListFrameListener.push_back(*iter);
+			}
+			mListFrameListenerAdd.clear();
 		}
 		return true;
 	}
@@ -159,9 +162,15 @@ namespace MyGUI
 			}
 		};
 
-		// теперь меняем массив
+		// теперь инпуту
+		mInputManager->_frameEnded(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+
+		// теперь объединяем масив
 		if (false == mListFrameListenerAdd.empty()) {
-			mListFrameListener.merge(mListFrameListenerAdd);
+			for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
+				mListFrameListener.push_back(*iter);
+			}
+			mListFrameListenerAdd.clear();
 		}
 
 		return true;

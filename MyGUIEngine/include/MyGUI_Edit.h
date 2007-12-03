@@ -119,16 +119,7 @@ namespace MyGUI
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
 		virtual void _onKeyButtonReleased(int _key);
 
-		inline void updateEditState()
-		{
-			if (mIsFocus) {
-				if (mIsPressed) setState("select");
-				else setState("active");
-			} else {
-				if (mIsPressed) setState("pressed");
-				else setState("normal");
-			}
-		}
+		void updateEditState();
 
 		// обновляет курсор по координате
 		void updateCursor(IntPoint _point);

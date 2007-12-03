@@ -385,6 +385,11 @@ namespace MyGUI
 
 	}
 
+	void InputManager::_frameEnded(float _frame, float _event)
+	{
+		// ничего не делаем
+	}
+
 	void InputManager::storeKey(int _key)
 	{
 		mHoldKey = OIS::KC_UNASSIGNED;
@@ -404,7 +409,7 @@ namespace MyGUI
 	}
 
 	// удаляем данный виджет из всех возможных мест
-	void InputManager::widgetUnlink(WidgetPtr _widget)
+	void InputManager::unlinkWidget(WidgetPtr _widget)
 	{
 		if (null == _widget) return;
 		if (_widget == mWidgetMouseFocus) {

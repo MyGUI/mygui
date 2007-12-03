@@ -10,6 +10,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ClipboardManager.h"
+#include "MyGUI_PointerManager.h"
 
 namespace MyGUI
 {
@@ -23,6 +24,7 @@ namespace MyGUI
 	const float EDIT_OFFSET_HORZ_CURSOR = 50.0f; // дополнительное смещение для курсора
 	const int EDIT_ACTION_MOUSE_ZONE = 50; // область для восприятия мыши за пределом эдита
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
+	const std::string EDIT_CURSOR_POINTER = "beam";
 
 	Edit::Edit(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
@@ -1196,6 +1198,19 @@ namespace MyGUI
 			insertText(clipboard, mCursorPosition, true);
 			// проверяем на возможность объединения
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+		}
+	}
+
+	void Edit::updateEditState()
+	{
+		if (mIsFocus) {
+			if (mIsPressed) setState("select");
+			else setState("active");
+			PointerManager::getInstance().setPointer(EDIT_CURSOR_POINTER, this);
+		} else {
+			if (mIsPressed) setState("pressed");
+			else setState("normal");
+			PointerManager::getInstance().defaultPointer();
 		}
 	}
 

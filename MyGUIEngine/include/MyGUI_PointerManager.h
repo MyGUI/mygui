@@ -13,6 +13,7 @@
 #include <OgrePanelOverlayElement.h>
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerInfo.h"
+#include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI
 {
@@ -36,8 +37,17 @@ namespace MyGUI
 
 		void setPosition(int _left, int _top);
 
-		void setPointer(const std::string & _name);
-		inline void defaultPointer() {setPointer(mDefaultPointer);};
+		void setPointer(const std::string & _name, WidgetPtr _owner);
+
+		inline void defaultPointer()
+		{
+			setPointer(mDefaultPointer, null);
+		}
+
+		inline void unlinkWidget(WidgetPtr _widget)
+		{
+			if (_widget == mWidgetOwner) defaultPointer();
+		}
 
 		void attachToOverlay(Ogre::Overlay * _overlay);
 		void detachToOverlay(Ogre::Overlay * _overlay);
@@ -50,6 +60,7 @@ namespace MyGUI
 		IntPoint mPoint;
 		MapPointerInfo mMapPointers;
 		PanelAlphaOverlayElement * mOverlayElement;
+		WidgetPtr mWidgetOwner;
 
 	}; // class PointerManager
 

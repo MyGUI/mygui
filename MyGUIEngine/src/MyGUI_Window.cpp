@@ -8,6 +8,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_PointerManager.h"
 
 namespace MyGUI
 {
@@ -20,6 +21,7 @@ namespace MyGUI
 	const float WINDOW_SPEED_COEF = 3.0f;
 
 	const int WINDOW_TO_STICK = 10;
+	const std::string WINDOW_CURSOR_POINTER_RESIZE = "size_left";
 
 	Window::Window(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
@@ -35,10 +37,6 @@ namespace MyGUI
 
 		// запоминаем размер скина
 		IntSize size = _info->getSize();
-
-		// альфа в первоначальное положение
-		//setAlpha(0.0f);
-		//setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -66,6 +64,8 @@ namespace MyGUI
 			// делегаты для событий
 			mWidgetResize->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 			mWidgetResize->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedResize);
+			mWidgetResize->eventMouseSetFocus = newDelegate(this, &Window::notifyMouseSetFocus);
+			mWidgetResize->eventMouseLostFocus = newDelegate(this, &Window::notifyMouseLostFocus);
 		}
 
 		// парсим клиент в последнюю очередь
@@ -278,7 +278,7 @@ namespace MyGUI
 				mEnabled = false;
 				setDoAlpha(WINDOW_ALPHA_MIN);
 				mIsDestroy = _destroy;
-				InputManager::getInstance().widgetUnlink(this);
+				InputManager::getInstance().unlinkWidget(this);
 			}
 		}
 		// удалять не надо, просто меедленно скрываем
@@ -290,6 +290,16 @@ namespace MyGUI
 				setDoAlpha(WINDOW_ALPHA_MIN);
 			}
 		}
+	}
+
+	void Window::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+	{
+		if (mWidgetResize == _sender) PointerManager::getInstance().setPointer(WINDOW_CURSOR_POINTER_RESIZE, this);
+	}
+
+	void Window::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	{
+		if (mWidgetResize == _sender) PointerManager::getInstance().defaultPointer();
 	}
 
 } // namespace MyGUI

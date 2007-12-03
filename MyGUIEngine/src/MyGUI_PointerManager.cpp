@@ -142,7 +142,7 @@ namespace MyGUI
 		mOverlayElement->setPosition(_left-mPoint.left, _top-mPoint.top);
 	}
 
-	void PointerManager::setPointer(const std::string & _name)
+	void PointerManager::setPointer(const std::string & _name, WidgetPtr _owner)
 	{
 		MapPointerInfo::iterator iter = mMapPointers.find(_name);
 		if (iter == mMapPointers.end()) return;
@@ -152,6 +152,7 @@ namespace MyGUI
 		mOverlayElement->setUV(rect.left, rect.top, rect.right, rect.bottom);
 		// и сохраняем новое смещение
 		mPoint = iter->second.point;
+		mWidgetOwner = _owner;
 	}
 
 	void PointerManager::attachToOverlay(Ogre::Overlay * _overlay)

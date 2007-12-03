@@ -7,6 +7,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_PointerManager.h"
 
 namespace MyGUI
 {
@@ -157,7 +158,10 @@ namespace MyGUI
 		clearName(_widget);
 
 		// удаляем упоминание в инпуте
-		InputManager::getInstance().widgetUnlink(_widget);
+		InputManager::getInstance().unlinkWidget(_widget);
+
+		// удаляем упоминание в курсорах
+		PointerManager::getInstance().unlinkWidget(_widget);
 
 		// делегирует удаление отцу виджета
 		WidgetPtr parent = _widget->getParent();
