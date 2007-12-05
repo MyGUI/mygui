@@ -14,18 +14,10 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_StaticText.h"
-//#include "MyGUI_HScroll.h"
-//#include "MyGUI_VScroll.h"
-//#include "MyGUI_List.h"
+#include "MyGUI_HScroll.h"
+#include "MyGUI_VScroll.h"
+#include "MyGUI_List.h"
 #include "utility.h"
-
-
-#include "stdio.h"
-#include "time.h"
-#include <sstream>
-#include <iostream>
-#include <fstream>
-
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -63,11 +55,15 @@ void OptionsState::enter(bool bIsChangeState)
 	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
 	window->setCaption("caption");
 	window->setAutoAlpha(true);
-	//window->hide();
 	window->showSmooth(true);
 
-	MyGUI::StaticTextPtr st = static_cast<MyGUI::StaticTextPtr>(MyGUI::Gui::getInstance().createWidget("StaticText", "StaticText", 20, 20, 100, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	st->setCaption("static");
+	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(window->createWidget("Edit", "Edit", 10, 10, 200, 200, MyGUI::ALIGN_STRETCH));
+	edit->setCaption(L"Мы только тем и дороги\nкому должны вернуть долги");
+
+	//	MyGUI::ListPtr list = static_cast<MyGUI::ListPtr>(window.createWidget("List", "List", 10, 10, 200, 200, MyGUI::ALIGN_STRETCH));
+
+	//MyGUI::StaticTextPtr st = static_cast<MyGUI::StaticTextPtr>(MyGUI::Gui::getInstance().createWidget("StaticText", "StaticText", 20, 20, 100, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
+	//st->setCaption("static");
 
 	/*button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonLeft"));
 	button->setCaption("<<");
@@ -89,8 +85,8 @@ void OptionsState::enter(bool bIsChangeState)
 //	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
 //	window->show(false, true);
 
-	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	edit->setCaption(L"Мы только тем и дороги");
+	//MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
+	//edit->setCaption(L"Мы только тем и дороги");
 
 //	MyGUI::LayoutManager::getInstance().load("mygui.layout");
 

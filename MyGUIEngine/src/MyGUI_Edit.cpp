@@ -866,78 +866,6 @@ namespace MyGUI
 			&& (mWidgetCursor->getBottom() <= mWidgetUpper->getHeight()) );
 	}
 
-	void Edit::updateView(bool _showCursor)
-	{
-		// размер контекста
-		mSizeView = mText->getTextSize();
-		// текущая позиция
-		IntPoint point = mText->getTextShift();
-		// расчетное смещение
-		IntPoint offset;
-
-
-		// проверяем и показываем курсор
-		if (_showCursor && ( false == isShowCursorInView())) {
-
-			// горизонтальное смещение
-			if (mSizeView.width > mWidgetUpper->getWidth()) {
-				if (mWidgetCursor->getLeft() < 0) {
-					offset.left = mWidgetCursor->getLeft() - EDIT_OFFSET_HORZ_CURSOR;
-				}
-				else if (mWidgetCursor->getRight() > mWidgetUpper->getWidth()) {
-					offset.left = mWidgetCursor->getRight() - mWidgetUpper->getWidth() + EDIT_OFFSET_HORZ_CURSOR;
-				}
-			}
-
-			// вертикальное смещение
-			if (mSizeView.height > mWidgetUpper->getHeight()) {
-				if (mWidgetCursor->getTop() < 0) {
-					offset.top = mWidgetCursor->getTop();
-				}
-				else if (mWidgetCursor->getBottom() > mWidgetUpper->getHeight()) {
-					offset.top = mWidgetCursor->getBottom() - mWidgetUpper->getHeight();
-				}
-			}
-
-		}
-
-		if (mSizeView.width > mWidgetUpper->getWidth()) {
-
-			// максимальный выход влево
-			if ((point.left + offset.left) < mHalfWidthCursor) {
-				offset.left = - (mHalfWidthCursor + point.left);
-			}
-			// максимальный выход вправо
-			else if ( (point.left + offset.left) > (mSizeView.width-mWidgetUpper->getWidth()+mHalfWidthCursor) ) {
-				offset.left = (mSizeView.width-mWidgetUpper->getWidth()+mHalfWidthCursor) - point.left;
-			}
-		}
-
-		if (mSizeView.height > mWidgetUpper->getHeight()) {
-
-			// максимальный выход вверх
-			if ((point.top + offset.top) < 0) {
-				offset.top = - point.top;
-			}
-			// максимальный выход вниз
-			else if ( (point.top + offset.top) > (mSizeView.height-mWidgetUpper->getHeight()) ) {
-				offset.top = (mSizeView.height-mWidgetUpper->getHeight()) - point.top;
-			}
-		}
-
-		// ничего не изменилось
-		if (offset.empty()) return;
-
-		mWidgetCursor->setPosition(mWidgetCursor->getLeft() - offset.left, mWidgetCursor->getTop() - offset.top);
-
-		point.left += offset.left;
-		point.top += offset.top;
-		mText->setTextShift(point);
-
-		//OUT("OFFSET : ", point.left, " ,  ", point.top);
-
-	}
-
 	void Edit::setTextSelectColor(const Ogre::ColourValue & _colour, bool _history)
 	{
 		// нужно выделение
@@ -1212,6 +1140,89 @@ namespace MyGUI
 			else setState("normal");
 			PointerManager::getInstance().defaultPointer();
 		}
+	}
+
+	void Edit::setPosition(int _left, int _top, int _width, int _height)
+	{
+		Widget::setPosition(_left, _top, _width, _height);
+		updateView(false);
+	}
+
+	void Edit::setSize(int _width, int _height)
+	{
+		Widget::setSize(_width, _height);
+		updateView(false);
+	}
+
+	void Edit::updateView(bool _showCursor)
+	{
+		// размер контекста
+		mSizeView = mText->getTextSize();
+		// текущая позиция
+		IntPoint point = mText->getTextShift();
+		// расчетное смещение
+		IntPoint offset;
+
+		int add = _showCursor ? mHalfWidthCursor : 0;
+
+		// проверяем и показываем курсор
+		if (_showCursor && ( false == isShowCursorInView())) {
+
+			// горизонтальное смещение
+			if (mSizeView.width > mWidgetUpper->getWidth()) {
+				if (mWidgetCursor->getLeft() < 0) {
+					offset.left = mWidgetCursor->getLeft() - EDIT_OFFSET_HORZ_CURSOR;
+				}
+				else if (mWidgetCursor->getRight() > mWidgetUpper->getWidth()) {
+					offset.left = mWidgetCursor->getRight() - mWidgetUpper->getWidth() + EDIT_OFFSET_HORZ_CURSOR;
+				}
+			}
+
+			// вертикальное смещение
+			if (mSizeView.height > mWidgetUpper->getHeight()) {
+				if (mWidgetCursor->getTop() < 0) {
+					offset.top = mWidgetCursor->getTop();
+				}
+				else if (mWidgetCursor->getBottom() > mWidgetUpper->getHeight()) {
+					offset.top = mWidgetCursor->getBottom() - mWidgetUpper->getHeight();
+				}
+			}
+
+		}
+
+		if (mSizeView.width > mWidgetUpper->getWidth()) {
+
+			// максимальный выход влево
+			if ((point.left + offset.left) <= add) {
+				offset.left = - (add + point.left);
+			}
+			// максимальный выход вправо
+			else if ( (point.left + offset.left) > (mSizeView.width - mWidgetUpper->getWidth() + add) ) {
+				offset.left = (mSizeView.width-mWidgetUpper->getWidth() + add) - point.left;
+			}
+		}
+
+		if (mSizeView.height > mWidgetUpper->getHeight()) {
+
+			// максимальный выход вверх
+			if ((point.top + offset.top) < 0) {
+				offset.top = - point.top;
+			}
+			// максимальный выход вниз
+			else if ( (point.top + offset.top) > (mSizeView.height-mWidgetUpper->getHeight()) ) {
+				offset.top = (mSizeView.height-mWidgetUpper->getHeight()) - point.top;
+			}
+		}
+
+		// ничего не изменилось
+		if (offset.empty()) return;
+
+		mWidgetCursor->setPosition(mWidgetCursor->getLeft() - offset.left, mWidgetCursor->getTop() - offset.top);
+
+		point.left += offset.left;
+		point.top += offset.top;
+		mText->setTextShift(point);
+
 	}
 
 } // namespace MyGUI

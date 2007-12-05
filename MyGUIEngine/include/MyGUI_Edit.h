@@ -85,6 +85,9 @@ namespace MyGUI
 		inline bool getEditMultiLine() {return mMultiLine;}
 		inline void setEditMultiLine(bool _multi) {mMultiLine = _multi;}
 
+		void setPosition(int _left, int _top, int _width, int _height);
+		void setSize(int _width, int _height);
+
 	protected:
 
 		// устанавливает текст
