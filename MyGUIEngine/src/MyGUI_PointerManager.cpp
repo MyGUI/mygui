@@ -99,8 +99,8 @@ namespace MyGUI
 				// парсим атрибуты
 
 				info->findAttribute("name", name);
-				if (info->findAttribute("point", tmp)) point = util::parseIntPoint(tmp);
-				if (info->findAttribute("offset", tmp)) offset = SkinManager::convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
+				if (info->findAttribute("point", tmp)) point = IntPoint::parse(tmp);
+				if (info->findAttribute("offset", tmp)) offset = SkinManager::convertMaterialCoord(FloatRect::parse(tmp), materialSize);
 
 				// добавляем курсор
 				mMapPointers[name] = PointerInfo(offset, point);

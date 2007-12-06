@@ -103,27 +103,33 @@ namespace util
 
 	// для парсинга сложных типов, состоящих из простых
 	template< class T1, class T2 >
-	T1 parseValueEx2(const std::string & _value, const std::string & _delims = "\t\n ")
+	T1 parseValueEx2(const std::string & _value)
 	{
-		const std::vector<std::string> & vec = split(_value, _delims);
-		if (vec.size() == 2) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]) );
-		return T1();
+		T2 p1, p2;
+		std::istringstream str(_value);
+		str >> p1 >> p2;
+		if (str.fail()) return T1();
+		return T1(p1, p2);
 	}
 
 	template< class T1, class T2 >
-	T1 parseValueEx3(const std::string & _value, const std::string & _delims = "\t\n ")
+	T1 parseValueEx3(const std::string & _value)
 	{
-		const std::vector<std::string> & vec = split(_value, _delims);
-		if (vec.size() == 3) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]), parseValue<T2>(vec[2]) );
-		return T1();
+		T2 p1, p2, p3;
+		std::istringstream str(_value);
+		str >> p1 >> p2 >> p3;
+		if (str.fail()) return T1();
+		return T1(p1, p2, p3);
 	}
 
 	template< class T1, class T2 >
-	T1 parseValueEx4(const std::string & _value, const std::string & _delims = "\t\n ")
+	T1 parseValueEx4(const std::string & _value)
 	{
-		const std::vector<std::string> & vec = split(_value, _delims);
-		if (vec.size() == 4) return T1( parseValue<T2>(vec[0]), parseValue<T2>(vec[1]), parseValue<T2>(vec[2]), parseValue<T2>(vec[3]) );
-		return T1();
+		T2 p1, p2, p3, p4;
+		std::istringstream str(_value);
+		str >> p1 >> p2 >> p3 >> p4;
+		if (str.fail()) return T1();
+		return T1(p1, p2, p3, p4);
 	}
 
 	namespace templates

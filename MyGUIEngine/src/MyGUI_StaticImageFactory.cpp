@@ -60,13 +60,13 @@ namespace MyGUI
 		void StaticImageFactory::ImageRect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(StaticImagePtr, _widget);
-			static_cast<StaticImagePtr>(_widget)->setImageRect(util::parseFloatRect(_value));
+			static_cast<StaticImagePtr>(_widget)->setImageRect(FloatRect::parse(_value));
 		}
 
 		void StaticImageFactory::ImageTile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(StaticImagePtr, _widget);
-			static_cast<StaticImagePtr>(_widget)->setImageTile(util::parseFloatSize(_value));
+			static_cast<StaticImagePtr>(_widget)->setImageTile(FloatSize::parse(_value));
 		}
 
 		void StaticImageFactory::ImageNum(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

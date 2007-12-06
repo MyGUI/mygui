@@ -46,7 +46,7 @@ namespace MyGUI
 		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "");
 		inline WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, IntRect _rect, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			return createWidget(_type, _skin, _rect.left, _rect.top, _rect.getWidth(), _rect.getHeight(), _align, _layer, _name);
+			return createWidget(_type, _skin, _rect.left, _rect.top, _rect.width(), _rect.height(), _align, _layer, _name);
 		}
 
 		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
@@ -55,7 +55,7 @@ namespace MyGUI
 		}
 		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, FloatRect _rect, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			return createWidget(_type, _skin, _rect.left, _rect.top, _rect.getWidth(), _rect.getHeight(), _align, _layer, _name);
+			return createWidget(_type, _skin, _rect.left, _rect.top, _rect.width(), _rect.height(), _align, _layer, _name);
 		}
 
 		// шаблоны для создания виджета по типу
@@ -69,7 +69,7 @@ namespace MyGUI
 		template <class T>
 		inline T* createWidgetT(const Ogre::String & _skin, IntRect _rect, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			return createWidgetT<T>(_skin, _rect.left, _rect.top, _rect.getWidth(), _rect.getHeight(), _align, _layer, _name);
+			return createWidgetT<T>(_skin, _rect.left, _rect.top, _rect.width(), _rect.height(), _align, _layer, _name);
 		}
 		template <class T>
 		inline T* createWidgetRealT(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
@@ -81,7 +81,7 @@ namespace MyGUI
 		template <class T>
 		inline T* createWidgetRealT(const Ogre::String & _skin, FloatRect _rect, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			return createWidgetRealT<T>(_skin, _rect.left, _rect.top, _rect.getWidth(), _rect.getHeight(), _align, _layer, _name);
+			return createWidgetRealT<T>(_skin, _rect.left, _rect.top, _rect.width(), _rect.height(), _align, _layer, _name);
 		}
 
 

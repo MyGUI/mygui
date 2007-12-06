@@ -7,42 +7,34 @@
 #ifndef __TPONT_H__
 #define __TPONT_H__
 
+#include <string>
+#include <sstream>
+
 namespace types
 {
 	template< typename T > struct TPoint
 	{
 		T left, top;
 
-		TPoint()
-		: left( 0 ), top( 0 )
-		{
-		}
+		TPoint() : left( 0 ), top( 0 ) { }
+		TPoint( T const & l, T const & t) : left( l ), top( t ) { }
+		TPoint( TPoint const & o ) : left( o.left ), top( o.top ) { }
 
-		TPoint( T const & l, T const & t)
-		: left( l ), top( t )
-		{
-		}
-
-		TPoint( TPoint const & o )
-		: left( o.left ), top( o.top )
-		{
-		}
-
-		TPoint & operator=( TPoint const & o )
+		inline TPoint & operator=( TPoint const & o )
 		{
 			left = o.left;
 			top = o.top;
 			return *this;
 		}
 
-		bool operator==( TPoint const & o )
+		inline bool operator==( TPoint const & o )
 		{
 			return ( (left == o.left) && (top == o.top) );
 		}
 
-		bool operator!=( TPoint const & o )
+		inline bool operator!=( TPoint const & o )
 		{
-			return ! ( (left == o.left) && (top == o.top) );
+			return ! (*this == o);
 		}
 
 		inline void clear()
@@ -59,6 +51,22 @@ namespace types
 		inline bool empty()
 		{
 			return ((left == 0) && (top == 0));
+		}
+
+		inline std::string print() const
+		{
+	        std::ostringstream stream;
+	        stream << left << " " << top;
+		    return stream.str();
+		}
+
+		static TPoint<T> parse(const std::string& _value)
+		{
+			TPoint<T> ret;
+			std::istringstream str(_value);
+			str >> ret.left >> ret.top;
+			if (str.fail()) return TPoint<T>();
+			return ret;
 		}
 
 	};

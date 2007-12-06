@@ -467,7 +467,7 @@ namespace MyGUI
 			Align align;
 			// смещение в скине
 			iter = _param.find(_offset);
-			if (iter != _param.end()) offset = util::parseFloatRect(iter->second);
+			if (iter != _param.end()) offset = FloatRect::parse(iter->second);
 			else offset.clear();
 			// выравнивание скина
 			iter = _param.find(_align);

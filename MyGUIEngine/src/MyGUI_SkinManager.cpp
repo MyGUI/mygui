@@ -118,7 +118,7 @@ namespace MyGUI
 			IntSize size;
 			skin->findAttribute("name", skinName);
 			skin->findAttribute("material", skinMaterial);
-			if (skin->findAttribute("size", tmp)) size = util::parseIntSize(tmp);
+			if (skin->findAttribute("size", tmp)) size = IntSize::parse(tmp);
 
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(skinName);
@@ -147,7 +147,7 @@ namespace MyGUI
 				IntRect offset;
 				Align align = ALIGN_NONE;
 				basis->findAttribute("type", basisSkinType);
-				if (basis->findAttribute("offset", tmp)) offset = util::parseIntRect(tmp);
+				if (basis->findAttribute("offset", tmp)) offset = IntRect::parse(tmp);
 				if (basis->findAttribute("align", tmp)) align = parseAlign(tmp);
 
 				bind.create(offset, align, basisSkinType);
@@ -163,7 +163,7 @@ namespace MyGUI
 					float alpha = -1;
 
 					state->findAttribute("name", basisStateName);
-					if (state->findAttribute("offset", tmp)) offset = convertMaterialCoord(util::parseFloatRect(tmp), materialSize);
+					if (state->findAttribute("offset", tmp)) offset = convertMaterialCoord(FloatRect::parse(tmp), materialSize);
 					if (state->findAttribute("colour", tmp)) colour = util::parseColour(tmp);
 					if (state->findAttribute("alpha", tmp)) alpha = util::parseFloat(tmp);
 

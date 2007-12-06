@@ -64,7 +64,7 @@ namespace MyGUI
 		void WindowFactory::WindowMinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(WindowPtr, _widget);
-			static_cast<WindowPtr>(_widget)->setMinMax(util::parseIntRect(_value));
+			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));
 		}
 
 	} // namespace factory

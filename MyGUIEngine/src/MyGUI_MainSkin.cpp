@@ -22,7 +22,7 @@ namespace MyGUI
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 		mOverlayContainer->setPosition(mParent->getLeft() + mLeft, mParent->getTop() + mTop);
 		mOverlayContainer->setDimensions(mWidth, mHeight);
-		if (false == _material.empty() && (_info.offset.getWidth() != 0)) mOverlayContainer->setMaterialName(_material);
+		if (false == _material.empty() && (_info.offset.width() != 0)) mOverlayContainer->setMaterialName(_material);
 
 		mParent->_attachChild(this, false);
 	}

@@ -28,9 +28,9 @@ namespace MyGUI
 			MapString::const_iterator iter = param.find("ImageMaterial");
 			if (iter != param.end()) setImageMaterial(iter->second);
 			iter = param.find("ImageRect");
-			if (iter != param.end()) setImageRect(util::parseFloatRect(iter->second));
+			if (iter != param.end()) setImageRect(FloatRect::parse(iter->second));
 			iter = param.find("ImageTile");
-			if (iter != param.end()) setImageTile(util::parseFloatSize(iter->second));
+			if (iter != param.end()) setImageTile(FloatSize::parse(iter->second));
 			iter = param.find("ImageNum");
 			if (iter != param.end()) setImageNum(util::parseInt(iter->second));
 		}
@@ -47,7 +47,7 @@ namespace MyGUI
 			mRectImage.bottom = mSizeTexture.width;
 		}
 
-		size_t count = (size_t)(mRectImage.getWidth() / mSizeTile.width);
+		size_t count = (size_t)(mRectImage.width() / mSizeTile.width);
 		if (count < 1) count = 1;
 
 		FloatRect offset(

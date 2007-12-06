@@ -7,6 +7,9 @@
 #ifndef __TRECT_H__
 #define __TRECT_H__
 
+#include <string>
+#include <sstream>
+
 namespace types
 {
 
@@ -14,22 +17,11 @@ namespace types
 	{
 		T left, top, right, bottom;
 
-		TRect()
-		: left( 0 ), top( 0 ), right( 0 ), bottom( 0 )
-		{
-		}
+		TRect() : left( 0 ), top( 0 ), right( 0 ), bottom( 0 ) { }
+		TRect( T const & l, T const & t, T const & r, T const & b ) : left( l ), top( t ), right( r ), bottom( b ) { }
+		TRect( TRect const & o ) : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom ) { }
 
-		TRect( T const & l, T const & t, T const & r, T const & b )
-		: left( l ), top( t ), right( r ), bottom( b )
-		{
-		}
-
-		TRect( TRect const & o )
-		: left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom )
-		{
-		}
-
-		TRect & operator=( TRect const & o )
+		inline TRect & operator=( TRect const & o )
 		{
 			left = o.left;
 			top = o.top;
@@ -38,22 +30,22 @@ namespace types
 			return *this;
 		}
 
-		bool operator==( TRect const & o )
+		inline bool operator==( TRect const & o )
 		{
 			return ( (left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom) );
 		}
 
-		bool operator!=( TRect const & o )
+		inline bool operator!=( TRect const & o )
 		{
-			return ! ( (left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom) );
+			return ! (*this == o);
 		}
 
-		T getWidth() const
+		inline T width() const
 		{
 			return right - left;
 		}
 
-		T getHeight() const
+		inline T height() const
 		{
 			return bottom - top;
 		}
@@ -71,9 +63,25 @@ namespace types
 			bottom = b;
 		}
 
-		inline bool empty()
+		inline bool empty() const
 		{
 			return ((left == 0) && (top == 0) && (right == 0) && (bottom == 0));
+		}
+
+		inline std::string print() const
+		{
+	        std::ostringstream stream;
+	        stream << left << " " << top << " " << right << " " << bottom;
+		    return stream.str();
+		}
+
+		static TRect<T> parse(const std::string& _value)
+		{
+			TRect<T> ret;
+			std::istringstream str(_value);
+			str >> ret.left >> ret.top >> ret.right >> ret.bottom;
+			if (str.fail()) return TRect<T>();
+			return ret;
 		}
 
 	};

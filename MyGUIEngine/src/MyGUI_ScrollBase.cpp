@@ -46,7 +46,7 @@ namespace MyGUI
 
 		MapString::const_iterator iter = param.find("SkinTrackRange");
 		if (iter != param.end()) {
-			IntSize range = util::parseIntSize(iter->second);
+			IntSize range = IntSize::parse(iter->second);
 			mSkinRangeStart = range.width;
 			mSkinRangeEnd = range.height;
 		}

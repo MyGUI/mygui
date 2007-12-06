@@ -7,6 +7,9 @@
 #ifndef __TSIZE_H__
 #define __TSIZE_H__
 
+#include <string>
+#include <sstream>
+
 namespace types
 {
 
@@ -14,36 +17,25 @@ namespace types
 	{
 		T width, height;
 
-		TSize()
-		: width( 0 ), height( 0 )
-		{
-		}
+		TSize() : width( 0 ), height( 0 ) { }
+		TSize( T const & w, T const & h) : width( w ), height( h ) { }
+		TSize( TSize const & o ) : width( o.width ), height( o.height ) { }
 
-		TSize( T const & w, T const & h)
-		: width( w ), height( h )
-		{
-		}
-
-		TSize( TSize const & o )
-		: width( o.width ), height( o.height )
-		{
-		}
-
-		TSize & operator=( TSize const & o )
+		inline TSize & operator=( TSize const & o )
 		{
 			width = o.width;
 			height = o.height;
 			return *this;
 		}
 
-		bool operator==( TSize const & o )
+		inline bool operator==( TSize const & o )
 		{
 			return ( (width == o.width) && (height == o.height) );
 		}
 
-		bool operator!=( TSize const & o )
+		inline bool operator!=( TSize const & o )
 		{
-			return ! ( (width == o.width) && (height == o.height) );
+			return ! (*this == o);
 		}
 
 		inline void clear()
@@ -60,6 +52,22 @@ namespace types
 		inline bool empty()
 		{
 			return ((width == 0) && (height == 0));
+		}
+
+		inline std::string print() const
+		{
+	        std::ostringstream stream;
+	        stream << width << " " << height;
+		    return stream.str();
+		}
+
+		static TSize<T> parse(const std::string& _value)
+		{
+			TSize<T> ret;
+			std::istringstream str(_value);
+			str >> ret.width >> ret.height;
+			if (str.fail()) return TSize<T>();
+			return ret;
 		}
 
 	};

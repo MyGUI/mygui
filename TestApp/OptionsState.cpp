@@ -18,6 +18,7 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_List.h"
 #include "utility.h"
+//#include "test_type.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -77,17 +78,17 @@ void OptionsState::enter(bool bIsChangeState)
 
 	MyGUI::IntRect rect = window->getClientRect();
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.getWidth()-90, rect.getHeight()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.width()-90, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("green");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourGreen);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.getWidth()-180, rect.getHeight()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.width()-180, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("red");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourRed);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.getWidth()-270, rect.getHeight()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.width()-270, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("blue");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourBlue);
 	button->setUserString("Edit", edit->getName());
@@ -193,6 +194,9 @@ void OptionsState::enter(bool bIsChangeState)
 
 	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
 
+	//TRect<float> test;
+	//std::string str = test.toString();
+	//test = TRect<float>::parse("1 2 3 4");
 
 }
 //===================================================================================

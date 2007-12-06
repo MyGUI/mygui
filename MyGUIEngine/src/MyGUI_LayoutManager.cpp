@@ -88,8 +88,8 @@ namespace MyGUI
 		_widget->findAttribute("name", widgetName);
 		_widget->findAttribute("layer", widgetLayer);
 		if (_widget->findAttribute("align", tmp)) align = SkinManager::getInstance().parseAlign(tmp);
-		if (_widget->findAttribute("position", tmp)) coord = util::parseFloatRect(tmp);
-		if (_widget->findAttribute("position_real", tmp)) coord = convertToReal(util::parseFloatRect(tmp), _parent);
+		if (_widget->findAttribute("position", tmp)) coord = FloatRect::parse(tmp);
+		if (_widget->findAttribute("position_real", tmp)) coord = convertToReal(FloatRect::parse(tmp), _parent);
 
 		WidgetPtr wid;
 		if (!_parent) wid = Gui::getInstance().createWidget(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetLayer, widgetName);
@@ -114,15 +114,10 @@ namespace MyGUI
 
 	FloatRect LayoutManager::convertToReal(const FloatRect & _rect, WidgetPtr _parent)
 	{
-		if (null == _parent)
-		{
+		if (null == _parent) 
 			return FloatRect(_rect.left*Gui::getInstance().getWidth(), _rect.top*Gui::getInstance().getHeight(), _rect.right*Gui::getInstance().getWidth(), _rect.bottom*Gui::getInstance().getHeight());
-		}
-		else
-    {
-      IntRect ret = _parent->getClientRect();
-			return FloatRect(_rect.left*ret.getWidth(), _rect.top*ret.getHeight(), _rect.right*ret.getWidth(), _rect.bottom*ret.getHeight());
-    }
+		IntRect ret = _parent->getClientRect();
+		return FloatRect(_rect.left*ret.width(), _rect.top*ret.height(), _rect.right*ret.width(), _rect.bottom*ret.height());
 	}
 
 } // namespace MyGUI
