@@ -25,6 +25,10 @@ namespace MyGUI
 	protected:
 		StaticText(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
+	public:
+		// тип данного виджета
+		inline static const Ogre::String & getType() {static Ogre::String type("StaticText"); return type;}
+
 
 	}; // class _MyGUIExport StaticText : public Widget
 

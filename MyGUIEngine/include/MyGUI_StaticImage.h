@@ -27,6 +27,8 @@ namespace MyGUI
 		StaticImage(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
+		// тип данного виджета
+		inline static const Ogre::String & getType() {static Ogre::String type("StaticImage"); return type;}
 
 		void setImageInfo(const std::string & _material, const FloatSize & _tile);
 		void setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile);

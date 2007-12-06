@@ -27,6 +27,8 @@ namespace MyGUI
 		List(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
+		// тип данного виджета
+		inline static const Ogre::String & getType() {static Ogre::String type("List"); return type;}
 
 		inline size_t getItemCount() {return mStringArray.size();}
 		inline const Ogre::DisplayString & getItemString(size_t _index)

@@ -32,6 +32,8 @@ namespace MyGUI
 	public:
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
+		// тип данного виджета
+		inline static const Ogre::String & getType() {static Ogre::String type("Window"); return type;}
 
 		// для мееедленного показа и скрытия
 		void showSmooth(bool _reset = false);

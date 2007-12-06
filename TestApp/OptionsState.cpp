@@ -52,13 +52,46 @@ void OptionsState::enter(bool bIsChangeState)
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);*/
 
 
-	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	window->setCaption("caption");
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidgetT<MyGUI::Window>("WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
 
-	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(window->createWidget("Edit", "Edit", 10, 10, 200, 200, MyGUI::ALIGN_STRETCH));
-	edit->setCaption(L"ћы только тем и дороги\nкому должны вернуть долги");
+	MyGUI::EditPtr edit = window->createWidgetT<MyGUI::Edit>("Edit", 10, 44, 200, 150, MyGUI::ALIGN_STRETCH);
+	//edit->setCaption(L"ћы только тем и дороги\nкому должны вернуть долги");
+
+	MyGUI::ButtonPtr button = window->createWidgetT<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button->setCaption("multiline");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedMultiLine);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button->setCaption("read only");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedReadOnly);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", 190, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button->setCaption("password");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedPassword);
+	button->setUserString("Edit", edit->getName());
+
+	MyGUI::IntRect rect = window->getClientRect();
+
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.getWidth()-90, rect.getHeight()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button->setCaption("green");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourGreen);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.getWidth()-180, rect.getHeight()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button->setCaption("red");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourRed);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.getWidth()-270, rect.getHeight()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button->setCaption("blue");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourBlue);
+	button->setUserString("Edit", edit->getName());
+
 
 	//	MyGUI::ListPtr list = static_cast<MyGUI::ListPtr>(window.createWidget("List", "List", 10, 10, 200, 200, MyGUI::ALIGN_STRETCH));
 
@@ -204,4 +237,41 @@ void OptionsState::exit()
 void OptionsState::windowResize() // уведомление об изменении размеров окна рендера
 {
 }
-//===================================================================================
+
+void OptionsState::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	if (edit == null) return;
+}
+
+void OptionsState::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	if (edit == null) return;
+}
+
+void OptionsState::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	if (edit == null) return;
+}
+
+void OptionsState::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	if (edit == null) return;
+}
+
+void OptionsState::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	if (edit == null) return;
+}
+
+void OptionsState::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	if (edit == null) return;
+}
+
+

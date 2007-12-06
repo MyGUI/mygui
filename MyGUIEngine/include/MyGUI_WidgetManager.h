@@ -48,7 +48,16 @@ namespace MyGUI
 		void registerFactory(WidgetFactoryInterface * _factory);
 		void unregisterFactory(WidgetFactoryInterface * _factory);
 
+		// метод для поиска виджета
 		WidgetPtr findWidget(const Ogre::String & _name);
+		// шаблонный метод для поиска виджета
+		template <class T>
+		inline T* findWidgetT(const Ogre::String & _name)
+		{
+			Widget * widget = findWidget(_name);
+			MYGUI_TYPE(T*, widget);
+			return static_cast<T*>(widget);
+		}
 
 		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально
 		static FloatRect convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight);

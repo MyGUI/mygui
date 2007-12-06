@@ -29,6 +29,9 @@ namespace MyGUI
 
 	public:
 
+		// тип данного виджета
+		inline static const Ogre::String & getType() {static Ogre::String type("Edit"); return type;}
+
 		// устанавливает текст
 		void setCaption(const Ogre::DisplayString & _caption);
 		// возвращает выделение
