@@ -49,7 +49,7 @@ namespace util
 			if (_value.empty()) return Ogre::ColourValue::ZERO;
 			if (_value[0] == '#') {
 				unsigned long ret = 0;
-				if (0 == sscanf(_value.c_str(), "#%X", &ret)) return Ogre::ColourValue( ((float)(ret&0xFF0000))*(1/(255*256*256)), ((float)(ret&0xFF00))*(1/(255*256)), ((float)(ret&0xFF))*(1/255));
+				if (0 == sscanf(_value.c_str(), "#%X", &ret)) return Ogre::ColourValue( ((float)(ret&0xFF0000))*(1/0xFF0000), ((float)(ret&0xFF00))*(1/0xFF00), ((float)(ret&0xFF))*(1/0xFF));
 			}
 			else {
 				float red, green, blue, alpha = 1;
@@ -62,7 +62,7 @@ namespace util
 //			std::vector<std::string> vec = util::split(_value);
 //			if (vec.size() == 1) {
 //				unsigned long ret = 0;
-//				if (0 == sscanf(vec[0].c_str(), "#%X", &ret)) return Ogre::ColourValue( ((float)(ret&0xFF0000))*(1/(255*256*256)), ((float)(ret&0xFF00))*(1/(255*256)), ((float)(ret&0xFF))*(1/255));
+//				if (0 == sscanf(vec[0].c_str(), "#%X", &ret)) return Ogre::ColourValue( ((float)(ret&0xFF0000))*(1/0xFF0000), ((float)(ret&0xFF00))*(1/0xFF00), ((float)(ret&0xFF))*(1/0xFF));
 //			}
 //			else if (vec.size() == 3) return Ogre::ColourValue(parseFloat(vec[0]), parseFloat(vec[1]), parseFloat(vec[2]));
 //			else if (vec.size() == 4) return Ogre::ColourValue(parseFloat(vec[0]), parseFloat(vec[1]), parseFloat(vec[2]), parseFloat(vec[3]));

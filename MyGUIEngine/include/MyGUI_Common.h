@@ -26,7 +26,7 @@ namespace MyGUI
 	#define MYGUI_EXCEPT(_dest) {MyGUI::MYGUI_LOG("EXCEPT : ", _dest,  "  at  ", __FILE__, " (line ", __LINE__, ")"); OGRE_EXCEPT(0, _dest, "");}
 	#define MYGUI_ASSERT(_exp) {if (!(_exp)) {MyGUI::MYGUI_LOG("ASSERT : '", #_exp,  "'  at  ", __FILE__, " (line ", __LINE__, ")"); OGRE_EXCEPT(0, util::toString("expression = '", #_exp, "'"), "");}}
 
-	#if _DEBUG
+	#if MYGUI_DEBUG_MODE
 		#define MYGUI_TYPE(_type,_ptr) MYGUI_ASSERT(null != dynamic_cast<_type>(_ptr))
 		#define MYGUI_REGISTER_VALUE(_map,_value) {MYGUI_LOG("Register value : '", #_value, "' = ", _value);_map[#_value]=_value;}
 		#define MYGUI_DEBUG_ASSERT(_exp) MYGUI_ASSERT(_exp)
