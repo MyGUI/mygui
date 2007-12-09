@@ -33,8 +33,8 @@ namespace MyGUI
 		// корректируем положение скина, нужно при обрезке отца
 		void _correctView();
 
-		void _setAlign(int _width, int _height, bool _update);
-		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
+		void _setAlign(const IntSize& _size, bool _update);
+		void _setAlign(const IntCoord& _coord, bool _update);
 
 		void _attachChild(CroppedRectanglePtr _basis, bool _child);
 		Ogre::OverlayElement* _getOverlayElement();

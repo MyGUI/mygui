@@ -36,8 +36,8 @@ namespace MyGUI
 
 		void _updateView(); // обновления себя и детей
 
-		void _setAlign(int _width, int _height, bool _update);
-		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
+		void _setAlign(const IntSize& _size, bool _update);
+		void _setAlign(const IntCoord& _coord, bool _update);
 
 		// присоединяемся к отцу
 		void _attachChild(CroppedRectanglePtr _basis, bool _child);
@@ -158,7 +158,7 @@ namespace MyGUI
 		Ogre::OverlayElement* _getSharedOverlayElement();
 
 		// возвращает размер клиентской зоны либо всего окна
-		virtual IntRect getClientRect();
+		virtual const IntCoord& getClientRect();
 
 	protected:
 

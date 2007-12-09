@@ -32,7 +32,7 @@ namespace MyGUI
 
 		void parseWidgetMyGUI(xml::xmlNodeIterator & _widget, WidgetPtr _parent);
 
-		FloatRect convertToReal(const FloatRect & _rect, WidgetPtr _parent);
+		FloatCoord convertFromReal(const FloatCoord & _coord, WidgetPtr _parent);
 		
 	}; // class LayoutManager
 

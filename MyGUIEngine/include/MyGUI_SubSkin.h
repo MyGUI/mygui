@@ -29,8 +29,8 @@ namespace MyGUI
 		void _updateView(); // обновления себя и детей
 		void _correctView();
 
-		void _setAlign(int _width, int _height, bool _update);
-		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
+		void _setAlign(const IntSize& _size, bool _update);
+		void _setAlign(const IntCoord& _coord, bool _update);
 
 		void _setUVSet(const FloatRect& _rect);
 

@@ -37,7 +37,7 @@ namespace MyGUI
 		virtual bool isShow() {return mShow;}
 
 		virtual void setAlpha(float _alpha) {}
-		virtual float getAlpha() {return 1.0;}
+		virtual float getAlpha() {return ALPHA_MAX;}
 
 		inline CroppedRectanglePtr getParent() {return mParent;}
 
@@ -67,8 +67,8 @@ namespace MyGUI
 
 		virtual void _updateView() {}
 		virtual void _correctView() {}
-		virtual void _setAlign(int _width, int _height, bool _update) {}
-		virtual void _setAlign(int _left, int _top, int _width, int _height, bool _update) {}
+		virtual void _setAlign(const IntSize& _size, bool _update) {}
+		virtual void _setAlign(const IntCoord& _coord, bool _update) {}
 
 		virtual void _attachChild(CroppedRectanglePtr _basis, bool _child) {}
 

@@ -113,15 +113,17 @@ namespace MyGUI
 	{
 		FloatRect offset = _offset;
 
-		if (_align & ALIGN_RIGHT) {
-			if (_align & ALIGN_LEFT) offset.right += _parentWidth - _parentSkinSize.width;
+		if (IS_ALIGN_RIGHT(_align)) {
+			if (IS_ALIGN_LEFT(_align)) offset.right += _parentWidth - _parentSkinSize.width;
 			else offset.left += _parentWidth - _parentSkinSize.width;
-		} else if (!(_align & ALIGN_LEFT)) offset.left += (_parentWidth - _parentSkinSize.width) / 2;
+		}
+		else if (false == IS_ALIGN_LEFT(_align)) offset.left += (_parentWidth - _parentSkinSize.width) / 2;
 
-		if (_align & ALIGN_BOTTOM) {
-			if (_align & ALIGN_TOP) offset.bottom += _parentHeight - _parentSkinSize.height;
+		if (IS_ALIGN_BOTTOM(_align)) {
+			if (IS_ALIGN_TOP(_align)) offset.bottom += _parentHeight - _parentSkinSize.height;
 			else offset.top += _parentHeight - _parentSkinSize.height;
-		} else if (!(_align & ALIGN_TOP)) offset.top += (_parentHeight - _parentSkinSize.height) / 2;
+		}
+		else if (false == IS_ALIGN_TOP(_align)) offset.top += (_parentHeight - _parentSkinSize.height) / 2;
 
 		return offset;
 	}

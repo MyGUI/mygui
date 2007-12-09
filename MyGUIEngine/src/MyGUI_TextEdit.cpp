@@ -154,46 +154,46 @@ namespace MyGUI
 
 	}
 
-	void TextEdit::_setAlign(int _left, int _top, int _width, int _height, bool _update)
+	void TextEdit::_setAlign(const IntCoord& _coord, bool _update)
 	{
-		_setAlign(_width, _height, _update);
+		_setAlign(_coord, _update);
 	}
 
-	void TextEdit::_setAlign(int _width, int _height, bool _update)
+	void TextEdit::_setAlign(const IntSize& _size, bool _update)
 	{
 		// необходимо разобраться
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание 
-		if (mAlign & ALIGN_RIGHT) {
-			if (mAlign & ALIGN_LEFT) {
+		if (IS_ALIGN_RIGHT(mAlign)) {
+			if (IS_ALIGN_LEFT(mAlign)) {
 				// растягиваем
-				mCoord.width = mCoord.width + (mParent->getWidth() - _width);
+				mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
 				need_update = true;
 				mIsMargin = true; // при изменении размеров все пересчитывать
 			} else {
 				// двигаем по правому краю
-				mCoord.left = mCoord.left + (mParent->getWidth() - _width);
+				mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
 				need_update = true;
 			}
 
-		} else if (!(mAlign & ALIGN_LEFT)) {
+		} else if (false == IS_ALIGN_LEFT(mAlign)) {
 			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
-		if (mAlign & ALIGN_BOTTOM) {
-			if (mAlign & ALIGN_TOP) {
+		if (IS_ALIGN_BOTTOM(mAlign)) {
+			if (IS_ALIGN_TOP(mAlign)) {
 				// растягиваем
-				mCoord.height = mCoord.height + (mParent->getHeight() - _height);
+				mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
 				need_update = true;
 				mIsMargin = true; // при изменении размеров все пересчитывать
 			} else {
-				mCoord.top = mCoord.top + (mParent->getHeight() - _height);
+				mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
 				need_update = true;
 			}
-		} else if (!(mAlign & ALIGN_TOP)) {
+		} else if (false == IS_ALIGN_TOP(mAlign)) {
 			// выравнивание по вертикали без растяжения
 			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;

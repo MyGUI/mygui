@@ -78,19 +78,19 @@ void OptionsState::enter(bool bIsChangeState)
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedPassword);
 	button->setUserString("Edit", edit->getName());
 
-	MyGUI::IntRect rect = window->getClientRect();
+	const MyGUI::IntCoord& coord = window->getClientRect();
 
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", rect.width()-90, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("green");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourGreen);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", rect.width()-180, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-180, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("red");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourRed);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", rect.width()-270, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-270, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("blue");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourBlue);
 	button->setUserString("Edit", edit->getName());//*/

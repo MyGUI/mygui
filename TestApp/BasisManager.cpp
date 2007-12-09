@@ -122,8 +122,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
 	Ogre::Light* mLight = mSceneMgr->createLight("BasisLight");
-	mLight->setDiffuseColour(1.0, 1.0, 1.0);
-	mLight->setSpecularColour(1, 1, 1);
+	mLight->setDiffuseColour(Ogre::ColourValue::White);
+	mLight->setSpecularColour(Ogre::ColourValue::White);
 	mLight->setAttenuation(8000,1,0.0005,0);
 
 	// Load resources

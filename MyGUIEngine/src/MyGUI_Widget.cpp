@@ -19,7 +19,7 @@ namespace MyGUI
 		mVisible(true),
 		mEnabled(true),
 		mAlpha(1),
-		mColour(1.0, 1.0, 1.0, 1.0),
+		mColour(Ogre::ColourValue::White),
 		mStateInfo(_info->getStateInfo()),
 		mName(_name),
 		mCountSharedOverlay(0)
@@ -56,7 +56,7 @@ namespace MyGUI
 		// а вот теперь нормальный размер
 		setSize(_coord.size());
 		// альфа отца
-		if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != 1.0f) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
+		if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != ALPHA_MAX) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
 		// и все перерисовываем
 		_updateView();
 	}
@@ -144,61 +144,58 @@ namespace MyGUI
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->hide();
 	}
 
-	void Widget::_setAlign(int _left, int _top, int _width, int _height, bool _update)
+	void Widget::_setAlign(const IntCoord& _coord, bool _update)
 	{
 		// для виджета изменение х у  не меняються
-		_setAlign(_width, _height, _update);
+		_setAlign(_coord, _update);
 	}
 
-	void Widget::_setAlign(int _width, int _height, bool _update)
+	void Widget::_setAlign(const IntSize& _size, bool _update)
 	{
 		if (mParent == null) return;
 
 		bool need_move = false;
 		bool need_size = false;
-		int x = mCoord.left;
-		int y = mCoord.top;
-		int cx = mCoord.width;
-		int cy = mCoord.height;
+		IntCoord coord = mCoord;
 
 		// первоначальное выравнивание 
-		if (mAlign & ALIGN_RIGHT) {
-			if (mAlign & ALIGN_LEFT) {
+		if (IS_ALIGN_RIGHT(mAlign)) {
+			if (IS_ALIGN_LEFT(mAlign)) {
 				// растягиваем
-				cx = mCoord.width + (mParent->getWidth() - _width);
+				coord.width = mCoord.width + (mParent->getWidth() - _size.width);
 				need_size = true;
 			} else {
 				// двигаем по правому краю
-				x = mCoord.left + (mParent->getWidth() - _width);
+				coord.left = mCoord.left + (mParent->getWidth() - _size.width);
 				need_move = true;
 			}
 
-		} else if (!(mAlign & ALIGN_LEFT)) {
+		} else if (false == IS_ALIGN_LEFT(mAlign)) {
 			// выравнивание по горизонтали без растяжения
-			x = (mParent->getWidth() - mCoord.width) / 2;
+			coord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_move = true;
 		}
 
-		if (mAlign & ALIGN_BOTTOM) {
-			if (mAlign & ALIGN_TOP) {
+		if (IS_ALIGN_BOTTOM(mAlign)) {
+			if (IS_ALIGN_TOP(mAlign)) {
 				// растягиваем
-				cy = mCoord.height + (mParent->getHeight() - _height);
+				coord.height = mCoord.height + (mParent->getHeight() - _size.height);
 				need_size = true;
 			} else {
-				y = mCoord.top + (mParent->getHeight() - _height);
+				coord.top = mCoord.top + (mParent->getHeight() - _size.height);
 				need_move = true;
 			}
-		} else if (!(mAlign & ALIGN_TOP)) {
+		} else if (false == IS_ALIGN_TOP(mAlign)) {
 			// выравнивание по вертикали без растяжения
-			y = (mParent->getHeight() - mCoord.height) / 2;
+			coord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_move = true;
 		}
 
 		if (need_move) {
-			if (need_size) setPosition(x, y, cx, cy);
-			else setPosition(x, y);
+			if (need_size) setPosition(coord);
+			else setPosition(coord.point());
 		} else if (need_size) {
-			setSize(cx, cy);
+			setSize(coord.size());
 		} else _updateView(); // только если не вызвано передвижение и сайз
 
 	}
@@ -214,17 +211,9 @@ namespace MyGUI
 
 	void Widget::setPosition(const IntCoord& _coord)
 	{
-		// а вот теперь запоминаем новые координаты
-		mCoord = _coord.point();
-
-		// меняем координаты местами
-		int tmp = mCoord.width;
-		mCoord.width = _coord.width;
-		int width = tmp;
-
-		tmp = mCoord.height;
-		mCoord.height = _coord.height;
-		int height = tmp;
+		// устанавливаем новую координату а старую пускаем в расчеты
+		IntCoord old = mCoord;
+		mCoord = _coord;
 
 		bool show = true;
 
@@ -242,8 +231,8 @@ namespace MyGUI
 		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(mCoord.left, mCoord.top, width, height, mIsMargin || margin);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(mCoord.left, mCoord.top, width, height, mIsMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(old, mIsMargin || margin);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(old, mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
@@ -252,14 +241,9 @@ namespace MyGUI
 
 	void Widget::setSize(const IntSize& _size)
 	{
-		// меняем координаты местами
-		int tmp = mCoord.width;
-		mCoord.width = _size.width;
-		int width = tmp;
-
-		tmp = mCoord.height;
-		mCoord.height = _size.height;
-		int height = tmp;
+		// устанавливаем новую координату а старую пускаем в расчеты
+		IntSize old = mCoord.size();
+		mCoord = _size;
 
 		bool show = true;
 
@@ -277,8 +261,8 @@ namespace MyGUI
 		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(width, height, mIsMargin || margin);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(width, height, mIsMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(old, mIsMargin || margin);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(old, mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
@@ -526,9 +510,9 @@ namespace MyGUI
 		return null;
 	}
 
-	IntRect Widget::getClientRect()
+	const IntCoord& Widget::getClientRect()
 	{
-		return IntRect(mCoord.left, mCoord.top, mCoord.right(), mCoord.bottom());
+		return mCoord;
 	}
 
 } // namespace MyGUI

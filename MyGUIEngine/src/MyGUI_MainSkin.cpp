@@ -55,7 +55,7 @@ namespace MyGUI
 		mOverlayContainer->hide();
 	}
 
-	void MainSkin::_setAlign(int _width, int _height, bool _update)
+	void MainSkin::_setAlign(const IntSize& _size, bool _update)
 	{
 
 		if (_update) {
@@ -70,7 +70,7 @@ namespace MyGUI
 
 	}
 
-	void MainSkin::_setAlign(int _left, int _top, int _width, int _height, bool _update)
+	void MainSkin::_setAlign(const IntCoord& _coord, bool _update)
 	{
 
 		mOverlayContainer->setPosition(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft(), mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop());

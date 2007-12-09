@@ -109,8 +109,8 @@ namespace MyGUI
 			// выравнивание бокса
 			mAlign = _align;
 			// выравнивание строк внутри бокса
-			if (_align & ALIGN_RIGHT) mAlignment = Right;
-			else if ( ! (_align & ALIGN_LEFT)) mAlignment = Center;
+			if (IS_ALIGN_RIGHT(_align)) mAlignment = Right;
+			else if (false == IS_ALIGN_LEFT(_align)) mAlignment = Center;
 			else mAlignment = Left;
 			mGeomPositionsOutOfDate = true;
 		}
@@ -176,7 +176,7 @@ namespace MyGUI
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			if (mContextSize.height <= realHeight) {
 				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(mAlign & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
+				else if ( !(IS_ALIGN_TOP(mAlign)) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
 			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 			bottom = top;
@@ -706,7 +706,7 @@ namespace MyGUI
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			if (mContextSize.height <= realHeight) {
 				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(mAlign & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
+				else if ( !(IS_ALIGN_TOP(mAlign)) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
 			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 			bottom = top;
@@ -827,7 +827,7 @@ namespace MyGUI
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			if (mContextSize.height <= realHeight) {
 				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(mAlign & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
+				else if ( !(IS_ALIGN_TOP(mAlign)) ) top += (mContextSize.height - realHeight) * 0.5;
 			}
 			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 			bottom = top;

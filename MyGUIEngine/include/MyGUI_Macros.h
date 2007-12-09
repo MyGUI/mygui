@@ -23,6 +23,9 @@ namespace MyGUI
 	#define FLAG_NONE  0
 	#define FLAG(num)  (1<<(num))
 
+	#define ALPHA_MAX  1.0f
+	#define ALPHA_MIN  0.0f
+
 } // namespace MyGUI
 
 

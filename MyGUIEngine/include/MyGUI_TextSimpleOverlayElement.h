@@ -82,8 +82,8 @@ namespace MyGUI
 			// выравнивание бокса
 			mAlign = _align;
 			// выравнивание строк внутри бокса
-			if (_align & ALIGN_RIGHT) mAlignment = Right;
-			else if (! (_align & ALIGN_LEFT)) mAlignment = Center;
+			if (IS_ALIGN_RIGHT(_align)) mAlignment = Right;
+			else if (false == IS_ALIGN_LEFT(_align)) mAlignment = Center;
 			else mAlignment = Left;
 			mGeomPositionsOutOfDate = true;
 		}
@@ -137,7 +137,7 @@ namespace MyGUI
 			right = left;
 
 			if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-			else if ( !(mAlign & ALIGN_TOP) ) top += (mContextSize.height - realHeight) * 0.5;
+			else if ( !(IS_ALIGN_TOP(mAlign)) ) top += (mContextSize.height - realHeight) * 0.5;
 			bottom = top;
 
 			// данные непосредственно для вывода

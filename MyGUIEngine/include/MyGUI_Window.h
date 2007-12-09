@@ -40,7 +40,12 @@ namespace MyGUI
 		void hideSmooth(bool _destroy = false);
 
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
-		inline void setAutoAlpha(bool _auto) {mIsAutoAlpha=_auto; if(!_auto)setAlpha(1.0f);else updateAlpha();}
+		inline void setAutoAlpha(bool _auto)
+		{
+			mIsAutoAlpha = _auto;
+			if (false == _auto) setAlpha(ALPHA_MAX);
+			else updateAlpha();
+		}
 
 		virtual void setCaption(const Ogre::DisplayString & _caption) {if (mWidgetCaption!=null)mWidgetCaption->setCaption(_caption);};
 		virtual const Ogre::DisplayString & getCaption() {if (mWidgetCaption!=null) return mWidgetCaption->getCaption();return Widget::getCaption();};
@@ -55,7 +60,7 @@ namespace MyGUI
 		inline bool getIsToStick() {return mIsToStick;}
 		inline void setIsToStick(bool _stick) {mIsToStick = _stick;}
 
-		IntRect getClientRect();
+		const IntCoord& getClientRect();
 
 		// нажат крестик на окне
 		EventSimple eventWindowXPressed;

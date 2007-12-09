@@ -14,9 +14,9 @@
 namespace MyGUI
 {
 
-	const float WINDOW_ALPHA_MAX = 1.0f;
-	const float WINDOW_ALPHA_MIN = 0.0f;
-	const float WINDOW_ALPHA_ACTIVE = 1.0f;
+	const float WINDOW_ALPHA_MAX = ALPHA_MAX;
+	const float WINDOW_ALPHA_MIN = ALPHA_MIN;
+	const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
 	const float WINDOW_ALPHA_FOCUS = 0.7f;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3f;
 	const float WINDOW_SPEED_COEF = 3.0f;
@@ -305,7 +305,7 @@ namespace MyGUI
 		if (mWidgetResize == _sender) PointerManager::getInstance().defaultPointer();
 	}
 
-	IntRect Window::getClientRect()
+	const IntCoord& Window::getClientRect()
 	{
 		if (null == mWidgetClient) return Widget::getClientRect();
 		return mWidgetClient->getClientRect();

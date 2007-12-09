@@ -42,8 +42,8 @@ namespace MyGUI
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
-		void _setAlign(int _width, int _height, bool _update);
-		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
+		void _setAlign(const IntSize& _size, bool _update);
+		void _setAlign(const IntCoord& _coord, bool _update);
 
 		void _updateView(); // обновления себя и детей
 		inline void _updateText() // обновляем все что касаеться текста
@@ -52,7 +52,7 @@ namespace MyGUI
 			//mOverlayContainer->_updateText();
 			// и делаем полное обновление и выравнивание
 			mIsMargin = true; // при изменении размеров все пересчитывать
-			_setAlign(mParent->getWidth(), mParent->getHeight(), true);
+			_setAlign(mParent->getDimension(), true);
 		}
 
 		inline const static Ogre::String & _getType() {static Ogre::String type("TextSimple"); return type;}
