@@ -78,6 +78,88 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "EditStretch" size = "40 26" material = "MyGUI_main" >
+        <Property key="FontName" value = "MyGUI_font" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="CursorSkin" value = "EditCursor" />
+        
+        <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="disable" offset = "60 2 2 2"/>
+            <State name="normal" offset = "60 30 2 2"/>
+            <State name="active" offset = "60 58 2 2"/>
+            <State name="pressed" offset = "60 86 2 2"/>
+            <State name="select" offset = "60 114 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 0 36 2" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="disable" offset = "62 2 36 2"/>
+            <State name="normal" offset = "62 30 36 2"/>
+            <State name="active" offset = "62 58 36 2"/>
+            <State name="pressed" offset = "62 86 36 2"/>
+            <State name="select" offset = "62 114 36 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "38 0 2 2" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="disable" offset = "98 2 2 2"/>
+            <State name="normal" offset = "98 30 2 2"/>
+            <State name="active" offset = "98 58 2 2"/>
+            <State name="pressed" offset = "98 86 2 2"/>
+            <State name="select" offset = "98 114 2 2"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 2 2 22" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "60 4 2 22"/>
+            <State name="normal" offset = "60 32 2 22"/>
+            <State name="active" offset = "60 60 2 22"/>
+            <State name="pressed" offset = "60 88 2 22"/>
+            <State name="select" offset = "60 116 2 22"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 2 36 22" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "62 4 36 22"/>
+            <State name="normal" offset = "62 32 36 22"/>
+            <State name="active" offset = "62 60 36 22"/>
+            <State name="pressed" offset = "62 88 36 22"/>
+            <State name="select" offset = "62 116 36 22"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "38 2 2 22" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "98 4 2 22"/>
+            <State name="normal" offset = "98 32 2 22"/>
+            <State name="active" offset = "98 60 2 22"/>
+            <State name="pressed" offset = "98 88 2 22"/>
+            <State name="select" offset = "98 116 2 22"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 24 2 2" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="disable" offset = "60 26 2 2"/>
+            <State name="normal" offset = "60 54 2 2"/>
+            <State name="active" offset = "60 82 2 2"/>
+            <State name="pressed" offset = "60 110 2 2"/>
+            <State name="select" offset = "60 138 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 24 36 2" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="disable" offset = "62 26 36 2"/>
+            <State name="normal" offset = "62 54 36 2"/>
+            <State name="active" offset = "62 82 36 2"/>
+            <State name="pressed" offset = "62 110 36 2"/>
+            <State name="select" offset = "62 138 36 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "38 24 2 2" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="disable" offset = "98 26 2 2"/>
+            <State name="normal" offset = "98 54 2 2"/>
+            <State name="active" offset = "98 82 2 2"/>
+            <State name="pressed" offset = "98 110 2 2"/>
+            <State name="select" offset = "98 138 2 2"/>
+        </BasisSkin>
+
+        <BasisSkin type="TextEdit" offset = "3 0 34 26" align = "ALIGN_STRETCH">
+            <State name="disable" colour="0.87 0.87 0.87"/>
+            <State name="pressed" colour="0 0 0"/>
+            <State name="normal" colour="0 0 0"/>
+            <State name="select" colour="2C8AD5"/>
+            <State name="active" colour="2C8AD5"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "ButtonSmall" size = "40 26" material = "MyGUI_main" >
         <Property key="FontName" value = "MyGUI_font" />
         <Property key="FontHeight" value = "16" />

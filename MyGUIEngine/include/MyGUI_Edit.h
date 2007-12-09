@@ -68,7 +68,12 @@ namespace MyGUI
 		inline void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour) {setTextColour(_start, _count, _colour, false);}
 
 		inline bool getEditReadOnly() {return mReadOnly;}
-		inline void setEditReadOnly(bool _read) {mReadOnly=_read;commandResetHistory();}
+		inline void setEditReadOnly(bool _read)
+		{
+			mReadOnly = _read;
+			// сбрасываем историю
+			commandResetHistory();
+		}
 
 		inline bool getEditPassword() {return mPassword;}
 		inline void setEditPassword(bool _password)
@@ -83,10 +88,23 @@ namespace MyGUI
 				mText->setCaption(mPasswordText);
 				mPasswordText.clear();
 			}
+			// обновл€ем по размерам
+			updateView(false);
+			// сбрасываем историю
+			commandResetHistory();
 		}
 
 		inline bool getEditMultiLine() {return mMultiLine;}
-		inline void setEditMultiLine(bool _multi) {mMultiLine = _multi;}
+		inline void setEditMultiLine(bool _multi)
+		{
+			mMultiLine = _multi;
+			// на вс€кий, дл€ уберани€ переносов
+			if (false == mMultiLine) setCaption(getCaption());
+			// обновл€ем по размерам
+			else updateView(false);
+			// сбрасываем историю
+			commandResetHistory();
+		}
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);

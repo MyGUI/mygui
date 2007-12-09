@@ -55,13 +55,14 @@ void OptionsState::enter(bool bIsChangeState)
 	//MyGUI::ButtonPtr button = MyGUI::Gui::getInstance().createWidgetT<MyGUI::Button>("Button", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	//widget->show();
 
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
+	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
 
-	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("Edit", 10, 44, 200, 150, MyGUI::ALIGN_STRETCH);
-	edit->setCaption(L"Мы только тем и дороги\nкому должны вернуть долги");
+	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_STRETCH);
+	//edit->setCaption(L"Мы только тем и дороги\nкому должны вернуть долги");
 
 	MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 	button->setCaption("multiline");
@@ -247,36 +248,42 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 void OptionsState::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	edit->setEditReadOnly(!edit->getEditReadOnly());
 	if (edit == null) return;
 }
 
 void OptionsState::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	edit->setEditPassword(!edit->getEditPassword());
 	if (edit == null) return;
 }
 
 void OptionsState::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	edit->setEditMultiLine(!edit->getEditMultiLine());
 	if (edit == null) return;
 }
 
 void OptionsState::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	edit->setTextSelectColour(Ogre::ColourValue::Green);
 	if (edit == null) return;
 }
 
 void OptionsState::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	edit->setTextSelectColour(Ogre::ColourValue::Red);
 	if (edit == null) return;
 }
 
 void OptionsState::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	edit->setTextSelectColour(Ogre::ColourValue::Blue);
 	if (edit == null) return;
 }
 
