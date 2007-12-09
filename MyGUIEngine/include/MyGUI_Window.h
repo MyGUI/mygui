@@ -23,7 +23,7 @@ namespace MyGUI
 		friend factory::WindowFactory;
 
 	protected:
-		Window(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 		~Window();
 
 		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
@@ -31,7 +31,7 @@ namespace MyGUI
 
 	public:
 		// переопределяем для присвоению клиенту
-		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
+		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("Window"); return type;}
 
@@ -48,18 +48,14 @@ namespace MyGUI
 		void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
 		IntRect getMinMax() {return mMinmax;}
 
-		virtual void setPosition(int _left, int _top);
-		virtual void setPosition(int _left, int _top, int _width, int _height);
-		virtual void setSize(int _width, int _height);
+		virtual void setPosition(const IntPoint& _pos);
+		virtual void setPosition(const IntCoord& _coord);
+		virtual void setSize(const IntSize& _size);
 
 		inline bool getIsToStick() {return mIsToStick;}
 		inline void setIsToStick(bool _stick) {mIsToStick = _stick;}
 
-		virtual IntRect getClientRect()
-		{
-			if (null == mWidgetClient) return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);
-			return mWidgetClient->getClientRect();
-		}
+		IntRect getClientRect();
 
 		// нажат крестик на окне
 		EventSimple eventWindowXPressed;

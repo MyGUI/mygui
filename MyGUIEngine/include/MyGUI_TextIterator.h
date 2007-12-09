@@ -92,25 +92,25 @@ namespace MyGUI
 		}
 
 		// возвращает цвет
-		inline Ogre::DisplayString getTagColor(bool _clear = false)
+		inline Ogre::DisplayString getTagColour(bool _clear = false)
 		{
 			if (mCurrent == mEnd) return L"";
 
 			Ogre::DisplayString::iterator iter = mCurrent;
-			Ogre::DisplayString color;
+			Ogre::DisplayString colour;
 			// нам нужен последний цвет
-			while (getTagColor(color, iter)) {
+			while (getTagColour(colour, iter)) {
 				if (_clear) {
 					// обязательно обновляем итераторы
 					iter = mCurrent = erase(mCurrent, iter);
 					mEnd = mText.end();
 				}
 			};
-			return color;
+			return colour;
 		}
 
 		// возвращает цвет
-		inline bool getTagColor(Ogre::DisplayString & _colour)
+		inline bool getTagColour(Ogre::DisplayString & _colour)
 		{
 			if (mCurrent == mEnd) return false;
 
@@ -119,7 +119,7 @@ namespace MyGUI
 			// нам нужен последний цвет
 			bool ret = false;
 			while (true) {
-				if (!getTagColor(_colour, iter)) break;
+				if (!getTagColour(_colour, iter)) break;
 				ret = true;
 			};
 
@@ -127,13 +127,13 @@ namespace MyGUI
 		}
 
 		// удаляет цвет
-		inline void clearTagColor() {getTagColor(true);}
+		inline void clearTagColour() {getTagColour(true);}
 
-		bool setTagColor(const Ogre::ColourValue & _colour)
+		bool setTagColour(const Ogre::ColourValue & _colour)
 		{
 			if (mCurrent == mEnd) return false;
 			// очищаем все цвета
-			clearTagColor();
+			clearTagColour();
 			// на всякий
 			if (mCurrent == mEnd) return false;
 
@@ -146,11 +146,11 @@ namespace MyGUI
 			return true;
 		}
 
-		bool setTagColor(Ogre::DisplayString _colour)
+		bool setTagColour(Ogre::DisplayString _colour)
 		{
 			if (mCurrent == mEnd) return false;
 			// очищаем все цвета
-			clearTagColor();
+			clearTagColour();
 			// на всякий
 			if (mCurrent == mEnd) return false;
 
@@ -164,7 +164,7 @@ namespace MyGUI
 		}
 
 		// просто конвертируем цвет в строку
-		inline static Ogre::DisplayString convertTagColor(const Ogre::ColourValue & _colour)
+		inline static Ogre::DisplayString convertTagColour(const Ogre::ColourValue & _colour)
 		{
 			wchar_t buff[16];
 			::wsprintfW(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
@@ -316,7 +316,7 @@ namespace MyGUI
 	private:
 
 		// возвращает цвет
-		bool getTagColor(Ogre::DisplayString & _colour, Ogre::DisplayString::iterator & _iter)
+		bool getTagColour(Ogre::DisplayString & _colour, Ogre::DisplayString::iterator & _iter)
 		{
 			if ( (_iter == mEnd) || ((*_iter) != '#') ) return false;
 

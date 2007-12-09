@@ -8,6 +8,7 @@
 #define __MYGUI_COMMON_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Macros.h"
 #include "MyGUI_Loging.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Types.h"
@@ -18,9 +19,6 @@
 
 namespace MyGUI
 {
-
-	#define null 0
-	#define ITEM_NONE SIZE_MAX
 
 	#define MYGUI_ERROR(_dest) MyGUI::MYGUI_LOG("ERROR : ", _dest, "  at  ", __FILE__, " (line ", __LINE__, ")")
 	#define MYGUI_EXCEPT(_dest) {MyGUI::MYGUI_LOG("EXCEPT : ", _dest,  "  at  ", __FILE__, " (line ", __LINE__, ")"); OGRE_EXCEPT(0, _dest, "");}

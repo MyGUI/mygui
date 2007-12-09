@@ -8,47 +8,56 @@
 #define __MYGUI_WIDGET_DEFINES_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Types.h"
+#include "MyGUI_AlignInfo.h"
+#include "OgreColourValue.h"
 
 namespace MyGUI
 {
 
 	struct SubWidgetStateInfo
 	{
-		SubWidgetStateInfo()
+		SubWidgetStateInfo() :
+			alpha(-1),
+			colour(Ogre::ColourValue::ZERO)
 		{
 		}
 
-		SubWidgetStateInfo(const FloatRect & _offset, const Ogre::ColourValue & _colour, float _alpha)
+		SubWidgetStateInfo(const FloatRect& _offset, const Ogre::ColourValue & _colour, float _alpha) :
+			offset(_offset),
+			colour(_colour),
+			alpha(_alpha)
 		{
-			offset = _offset;
-			color = _colour;
-			alpha = _alpha;
 		}
 
 		FloatRect offset;
-		Ogre::ColourValue color;
+		Ogre::ColourValue colour;
 		float alpha;
 	};
 
 	struct WidgetStateInfo
 	{
-		WidgetStateInfo() : alpha(-1), color(Ogre::ColourValue::ZERO)
+		WidgetStateInfo() :
+			alpha(-1),
+			colour(Ogre::ColourValue::ZERO)
 		{
 		}
 
 		std::vector<FloatRect> offsets;
-		Ogre::ColourValue color;
+		Ogre::ColourValue colour;
 		float alpha;
 	};
 
 	struct SubWidgetInfo
 	{
-		SubWidgetInfo(const std::string & _type, const IntRect & _offset, Align _align) : type(_type), offset(_offset), align(_align)
+		SubWidgetInfo(const std::string & _type, const IntCoord& _coord, Align _align) :
+			type(_type),
+			coord(_coord),
+			align(_align)
 		{
 		}
 
-		IntRect offset;
+		IntCoord coord;
 		Align align;
 		std::string type;
 	};

@@ -42,13 +42,12 @@ namespace MyGUI
 
 		const Ogre::String& StaticImageFactory::getType()
 		{
-			static Ogre::String type("StaticImage");
-			return type;
+			return StaticImage::getType();
 		}
 
-		WidgetPtr StaticImageFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr StaticImageFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new StaticImage(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new StaticImage(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void StaticImageFactory::ImageMaterial(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

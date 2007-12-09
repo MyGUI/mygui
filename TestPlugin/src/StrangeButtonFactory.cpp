@@ -32,13 +32,12 @@ namespace MyGUI
 		// реализация интерфейса фабрики
 		const Ogre::String& StrangeButtonFactory::getType()
 		{
-			static Ogre::String type("StrangeButton");
-			return type;
+			return StrangeButton::getType();
 		}
 
-		WidgetPtr StrangeButtonFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr StrangeButtonFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new StrangeButton(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new StrangeButton(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		// методы для парсинга

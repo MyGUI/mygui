@@ -51,7 +51,7 @@ namespace MyGUI
 			// изменился текст
 			//mOverlayContainer->_updateText();
 			// и делаем полное обновление и выравнивание
-			mMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // при изменении размеров все пересчитывать
 			_setAlign(mParent->getWidth(), mParent->getHeight(), true);
 		}
 

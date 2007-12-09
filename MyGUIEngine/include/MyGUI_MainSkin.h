@@ -8,6 +8,7 @@
 #define __MYGUI_MAIN_SKIN_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "MyGUI_PanelAlphaOverlayElement.h"
 #include "MyGUI_CroppedRectangleInterface.h"
 
@@ -38,7 +39,7 @@ namespace MyGUI
 		void _attachChild(CroppedRectanglePtr _basis, bool _child);
 		Ogre::OverlayElement* _getOverlayElement();
 
-		void _setUVSet(const FloatRect & _rect);
+		void _setUVSet(const FloatRect& _rect);
 
 		inline static const Ogre::String & _getType() {static Ogre::String type("MainSkin"); return type;}
 		inline static bool _isSharedOverlay() {return false;}

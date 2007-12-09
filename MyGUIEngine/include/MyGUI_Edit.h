@@ -24,7 +24,7 @@ namespace MyGUI
 		friend factory::EditFactory;
 
 	protected:
-		Edit(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Edit(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 		~Edit();
 
 	public:
@@ -63,9 +63,9 @@ namespace MyGUI
 		// удаляет текст
 		inline void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
 		// выделяет цветом выделение
-		inline void setTextSelectColor(const Ogre::ColourValue & _colour) {setTextSelectColor(_colour, false);}
+		inline void setTextSelectColour(const Ogre::ColourValue & _colour) {setTextSelectColour(_colour, false);}
 		// выделяет цветом диапазон
-		inline void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _colour) {setTextColor(_start, _count, _colour, false);}
+		inline void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour) {setTextColour(_start, _count, _colour, false);}
 
 		inline bool getEditReadOnly() {return mReadOnly;}
 		inline void setEditReadOnly(bool _read) {mReadOnly=_read;commandResetHistory();}
@@ -88,8 +88,8 @@ namespace MyGUI
 		inline bool getEditMultiLine() {return mMultiLine;}
 		inline void setEditMultiLine(bool _multi) {mMultiLine = _multi;}
 
-		void setPosition(int _left, int _top, int _width, int _height);
-		void setSize(int _width, int _height);
+		void setPosition(const IntCoord& _coord);
+		void setSize(const IntSize& _size);
 
 	protected:
 
@@ -104,9 +104,9 @@ namespace MyGUI
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
-		void setTextSelectColor(const Ogre::ColourValue & _colour, bool _history);
+		void setTextSelectColour(const Ogre::ColourValue & _colour, bool _history);
 		// выделяет цветом диапазон
-		void setTextColor(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
+		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
 	protected:
 		void _frameStarted(float _frame, float _event);
@@ -219,8 +219,7 @@ namespace MyGUI
 
 		// размер
 		IntSize mSizeView;
-		int mHalfWidthCursor;
-		int mHalfHeightCursor;
+		IntSize mHalfCursor;
 
 		bool mMouseLeftPressed;
 

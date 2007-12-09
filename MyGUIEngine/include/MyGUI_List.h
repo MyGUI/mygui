@@ -24,7 +24,7 @@ namespace MyGUI
 		friend factory::ListFactory;
 
 	protected:
-		List(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета
@@ -62,8 +62,8 @@ namespace MyGUI
 		bool isItemVisible(size_t _index, bool _fill = true);
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
-		virtual void setSize(int _width, int _height);
-		virtual void setPosition(int _left, int _top, int _width, int _height);
+		virtual void setSize(const IntSize& _size);
+		virtual void setPosition(const IntCoord& _coord);
 
 	protected:
 
@@ -115,7 +115,8 @@ namespace MyGUI
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;
-		int mOldCx, mOldCy;
+
+		IntSize mOldSize;
 
 	}; // class List : public Widget
 

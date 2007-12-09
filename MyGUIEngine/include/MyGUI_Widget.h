@@ -31,7 +31,7 @@ namespace MyGUI
 
 	protected:
 		// все создание только через фабрику
-		Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 		virtual ~Widget();
 
 		void _updateView(); // обновления себя и детей
@@ -59,51 +59,61 @@ namespace MyGUI
 
 	public:
 		// методы и шаблоны для создания виджета
-		virtual WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "");
-		inline WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, IntRect _rect, Align _align, const Ogre::String & _name = "")
+		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
 		{
-			return createWidget(_type, _skin, _rect.left, _rect.top, _rect.width(), _rect.height(), _align, _name);
+			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
 		}
 
-		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "");
-		inline WidgetPtr createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, FloatRect _rect, Align _align, const Ogre::String & _name = "")
+		WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
 		{
-			return createWidgetReal(_type, _skin, _rect.left, _rect.top, _rect.width(), _rect.height(), _align, _name);
+			return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
 		}
 
 		// шаблоны для создания виджета по типу
 		template <class T>
-		inline T* createWidgetT(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
+		inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
-			Widget * widget = createWidget(T::getType(), _skin, _left, _top, _width, _height, _align, _name);
+			Widget * widget = createWidgetT(T::getType(), _skin, _coord, _align, _name);
 			MYGUI_TYPE(T*, widget);
 			return static_cast<T*>(widget);
 		}
 		template <class T>
-		inline T* createWidgetT(const Ogre::String & _skin, IntRect _rect, Align _align, const Ogre::String & _name = "")
+		inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
 		{
-			return createWidgetT<T>(_skin, _rect.left, _rect.top, _rect.getWidth(), _rect.getHeight(), _align, _name);
+			Widget * widget = createWidgetT(T::getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _name);
+			MYGUI_TYPE(T*, widget);
+			return static_cast<T*>(widget);
 		}
+
 		template <class T>
-		inline T* createWidgetRealT(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
+		inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
-			Widget * widget = createWidgetReal(T::getType(), _skin, _left, _top, _width, _height, _align, _name);
+			Widget * widget = createWidgetRealT(T::getType(), _skin, _coord, _align, _name);
 			MYGUI_TYPE(T*, widget);
 			return static_cast<T*>(widget);
 		}
 		template <class T>
-		inline T* createWidgetRealT(const Ogre::String & _skin, FloatRect _rect, Align _align, const Ogre::String & _name = "")
+		inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
 		{
-			return createWidgetRealT<T>(_skin, _rect.left, _rect.top, _rect.getWidth(), _rect.getHeight(), _align, _name);
+			Widget * widget = createWidgetRealT(T::getType(), _skin, _left, _top, _width, _height, _align, _name);
+			MYGUI_TYPE(T*, widget);
+			return static_cast<T*>(widget);
 		}
 
 
 		inline const Ogre::String & getName() {return mName;}
 		inline static const Ogre::String & getType() {static Ogre::String type("Widget"); return type;}
 
-		virtual void setPosition(int _left, int _top);
-		virtual void setPosition(int _left, int _top, int _width, int _height);
-		virtual void setSize(int _width, int _height);
+		virtual void setPosition(const IntPoint& _pos);
+		virtual void setPosition(const IntCoord& _coord);
+		virtual void setSize(const IntSize& _size);
+
+		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
+		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+
 
 		void show();
 		void hide();
@@ -148,7 +158,7 @@ namespace MyGUI
 		Ogre::OverlayElement* _getSharedOverlayElement();
 
 		// возвращает размер клиентской зоны либо всего окна
-		virtual IntRect getClientRect() {return IntRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight);}
+		virtual IntRect getClientRect();
 
 	protected:
 

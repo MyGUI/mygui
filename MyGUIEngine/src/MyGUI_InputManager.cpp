@@ -55,7 +55,7 @@ namespace MyGUI
 		mMousePosition.set(_arg.state.X.abs, _arg.state.Y.abs);
 
 		// двигаем курсор
-		PointerManager::getInstance().setPosition(_arg.state.X.abs, _arg.state.Y.abs);
+		PointerManager::getInstance().setPosition(IntPoint(_arg.state.X.abs, _arg.state.Y.abs));
 
 		// проверка на скролл
 		if (_arg.state.Z.rel != 0) {

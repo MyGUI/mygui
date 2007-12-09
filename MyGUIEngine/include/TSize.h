@@ -21,6 +21,30 @@ namespace types
 		TSize( T const & w, T const & h) : width( w ), height( h ) { }
 		TSize( TSize const & o ) : width( o.width ), height( o.height ) { }
 
+		inline TSize & operator-=( TSize const & o )
+		{
+			width -= o.width;
+			height -= o.height;
+			return *this;
+		}
+
+		inline TSize & operator+=( TSize const & o )
+		{
+			width += o.width;
+			height += o.height;
+			return *this;
+		}
+
+		inline TSize operator-( TSize const & o ) const
+		{
+			return TSize(width - o.width, height - o.height);
+		}
+
+		inline TSize operator+( TSize const & o ) const
+		{
+			return TSize(width + o.width, height + o.height);
+		}
+
 		inline TSize & operator=( TSize const & o )
 		{
 			width = o.width;
@@ -28,14 +52,14 @@ namespace types
 			return *this;
 		}
 
-		inline bool operator==( TSize const & o )
+		inline bool operator==( TSize const & o ) const
 		{
-			return ( (width == o.width) && (height == o.height) );
+			return ((width == o.width) && (height == o.height));
 		}
 
-		inline bool operator!=( TSize const & o )
+		inline bool operator!=( TSize const & o ) const
 		{
-			return ! (*this == o);
+			return ! ((width == o.width) && (height == o.height));
 		}
 
 		inline void clear()
@@ -49,7 +73,14 @@ namespace types
 			height = h;
 		}
 
-		inline bool empty()
+		inline void swap(TSize& _value)
+		{
+			TSize tmp = _value;
+			_value = *this;
+			*this = tmp;
+		}
+
+		inline bool empty() const
 		{
 			return ((width == 0) && (height == 0));
 		}

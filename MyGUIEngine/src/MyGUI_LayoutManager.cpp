@@ -92,8 +92,8 @@ namespace MyGUI
 		if (_widget->findAttribute("position_real", tmp)) coord = convertToReal(FloatRect::parse(tmp), _parent);
 
 		WidgetPtr wid;
-		if (!_parent) wid = Gui::getInstance().createWidget(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetLayer, widgetName);
-		else wid = _parent->createWidget(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetName);
+		if (null == _parent) wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetLayer, widgetName);
+		else wid = _parent->createWidgetT(widgetType, widgetSkin, coord.left, coord.top, coord.right, coord.bottom, align, widgetName);
 
 		// берем детей и крутимся
 		xml::xmlNodeIterator widget = _widget->getNodeIterator();
@@ -115,7 +115,7 @@ namespace MyGUI
 	FloatRect LayoutManager::convertToReal(const FloatRect & _rect, WidgetPtr _parent)
 	{
 		if (null == _parent) 
-			return FloatRect(_rect.left*Gui::getInstance().getWidth(), _rect.top*Gui::getInstance().getHeight(), _rect.right*Gui::getInstance().getWidth(), _rect.bottom*Gui::getInstance().getHeight());
+			return FloatRect(_rect.left * Gui::getInstance().getViewWidth(), _rect.top * Gui::getInstance().getViewHeight(), _rect.right*Gui::getInstance().getViewWidth(), _rect.bottom*Gui::getInstance().getViewHeight());
 		IntRect ret = _parent->getClientRect();
 		return FloatRect(_rect.left*ret.width(), _rect.top*ret.height(), _rect.right*ret.width(), _rect.bottom*ret.height());
 	}

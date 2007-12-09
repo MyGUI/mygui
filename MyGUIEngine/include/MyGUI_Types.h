@@ -13,6 +13,7 @@
 #include "TPoint.h"
 #include "TSize.h"
 #include "TRect.h"
+#include "TCoord.h"
 
 namespace MyGUI
 {
@@ -26,6 +27,9 @@ namespace MyGUI
 
 	typedef types::TRect<int> IntRect;
 	typedef types::TRect<float> FloatRect;
+
+	typedef types::TCoord<int> IntCoord;
+	typedef types::TCoord<float> FloatCoord;
 
 } // namespace MyGUI
 

@@ -8,20 +8,15 @@
 #define __MYGUI_ALIGN_INFO_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Macros.h"
 
 namespace MyGUI
 {
 
 	typedef unsigned char Align;
 
-	//Bit flags done easy
-	#ifndef FLAG_NONE
-		#define FLAG_NONE  0
-		#define FLAG(num)  (1<<(num))
-	#endif
-
-	enum ALIGN_INFO {
-
+	enum ALIGN_INFO
+	{
 		ALIGN_NONE						= FLAG_NONE,					// 
 		ALIGN_HCENTER					= FLAG_NONE,					// center the window horizontally
 		ALIGN_VCENTER					= FLAG_NONE,					// center the window vertically

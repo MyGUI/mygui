@@ -23,7 +23,7 @@ namespace MyGUI
 		friend factory::StaticTextFactory;
 
 	protected:
-		StaticText(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		StaticText(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета

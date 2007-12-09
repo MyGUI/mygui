@@ -25,7 +25,7 @@ namespace MyGUI
 			manager.registerDelegate("Move") = newDelegate(this, &WidgetFactory::Move);
 			manager.registerDelegate("Size") = newDelegate(this, &WidgetFactory::Size);
 			manager.registerDelegate("Show") = newDelegate(this, &WidgetFactory::Show);
-			manager.registerDelegate("Color") = newDelegate(this, &WidgetFactory::Color);
+			manager.registerDelegate("Colour") = newDelegate(this, &WidgetFactory::Colour);
 			manager.registerDelegate("FontName") = newDelegate(this, &WidgetFactory::FontName);
 			manager.registerDelegate("FontHeight") = newDelegate(this, &WidgetFactory::FontHeight);
 			manager.registerDelegate("Alpha") = newDelegate(this, &WidgetFactory::Alpha);
@@ -45,7 +45,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Move");
 			manager.unregisterDelegate("Size");
 			manager.unregisterDelegate("Show");
-			manager.unregisterDelegate("Color");
+			manager.unregisterDelegate("Colour");
 			manager.unregisterDelegate("FontName");
 			manager.unregisterDelegate("FontHeight");
 			manager.unregisterDelegate("Alpha");
@@ -56,13 +56,12 @@ namespace MyGUI
 
 		const Ogre::String& WidgetFactory::getType()
 		{
-			static Ogre::String type("Widget");
-			return type;
+			return Widget::getType();
 		}
 
-		WidgetPtr WidgetFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr WidgetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new Widget(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new Widget(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void WidgetFactory::SetCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -73,7 +72,7 @@ namespace MyGUI
 		void WidgetFactory::Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			const std::vector<std::string> & vec = util::split(_value);
-			if (vec.size() == 4) _widget->setPosition( util::parseInt(vec[0]), util::parseInt(vec[1]), util::parseInt(vec[2]), util::parseInt(vec[3]) );
+			if (vec.size() == 4) _widget->setPosition(util::parseInt(vec[0]), util::parseInt(vec[1]), util::parseInt(vec[2]), util::parseInt(vec[3]) );
 			else if (vec.size() == 2) _widget->setPosition( util::parseInt(vec[0]), util::parseInt(vec[1]) );
 		}
 
@@ -89,7 +88,7 @@ namespace MyGUI
 			else _widget->hide();
 		}
 
-		void WidgetFactory::Color(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Colour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			const std::vector<std::string> & vec = util::split(_value);
 			if (vec.size() > 2) _widget->setColour(Ogre::ColourValue(util::parseFloat(vec[0]), util::parseFloat(vec[1]), util::parseFloat(vec[2])) );

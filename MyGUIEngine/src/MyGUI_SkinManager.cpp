@@ -144,10 +144,10 @@ namespace MyGUI
 
 				// парсим атрибуты
 				Ogre::String basisSkinType, tmp;
-				IntRect offset;
+				IntCoord offset;
 				Align align = ALIGN_NONE;
 				basis->findAttribute("type", basisSkinType);
-				if (basis->findAttribute("offset", tmp)) offset = IntRect::parse(tmp);
+				if (basis->findAttribute("offset", tmp)) offset = IntCoord::parse(tmp);
 				if (basis->findAttribute("align", tmp)) align = parseAlign(tmp);
 
 				bind.create(offset, align, basisSkinType);
@@ -234,12 +234,12 @@ namespace MyGUI
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
 		widget_info->setInfo(IntSize(0, 0), Ogre::MaterialManager::getSingleton().getDefaultSettings()->getName());
-		SubWidgetBinding bind(IntRect(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
+		SubWidgetBinding bind(IntCoord(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
 		widget_info->addInfo(bind);
 		// создаем дефолтный прозрачный скин
 		widget_info = create("Empty");
 		widget_info->setInfo(IntSize(0, 0), "");
-		bind.create(IntRect(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
+		bind.create(IntCoord(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
 		widget_info->addInfo(bind);
 	}
 

@@ -34,13 +34,12 @@ namespace MyGUI
 
 		const Ogre::String& HScrollFactory::getType()
 		{
-			static Ogre::String type("HScroll");
-			return type;
+			return HScroll::getType();
 		}
 
-		WidgetPtr HScrollFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr HScrollFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new HScroll(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new HScroll(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 	} // namespace factory

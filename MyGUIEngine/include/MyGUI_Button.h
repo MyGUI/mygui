@@ -23,7 +23,7 @@ namespace MyGUI
 		friend factory::ButtonFactory;
 
 	protected:
-		Button(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Button(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета

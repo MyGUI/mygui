@@ -8,6 +8,7 @@
 #define __MYGUI_SUB_WIDGET_BINDING_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI
@@ -23,17 +24,18 @@ namespace MyGUI
 	public:
 		SubWidgetBinding()
 		{
+			clear();
 		}
 
-		SubWidgetBinding(const IntRect & _offset, Align _aligin, const std::string & _type)
+		SubWidgetBinding(const IntCoord& _coord, Align _aligin, const std::string & _type)
 		{
-			create(_offset, _aligin, _type);
+			create(_coord, _aligin, _type);
 		}
 
-		void create(const IntRect & _offset, Align _aligin, const std::string & _type)
+		void create(const IntCoord & _coord, Align _aligin, const std::string & _type)
 		{
 			clear();
-			mOffset = _offset;
+			mOffset = _coord;
 			mAlign = _aligin;
 			mType = _type;
 		}
@@ -45,9 +47,9 @@ namespace MyGUI
 			mStates.clear();
 		}
 
-		void add(const std::string & _name, const FloatRect & _offset)
+		void add(const std::string & _name, const FloatRect& _rect)
 		{
-			add(_name, _offset, Ogre::ColourValue::ZERO, -1);
+			add(_name, _rect, Ogre::ColourValue::ZERO, -1);
 		}
 
 		void add(const std::string & _name, float _alpha)
@@ -60,17 +62,17 @@ namespace MyGUI
 			add(_name, FloatRect(-1, -1, -1, -1), _colour, -1);
 		}
 
-		void add(const std::string & _name, const FloatRect & _offset, const Ogre::ColourValue  & _colour, float _alpha)
+		void add(const std::string & _name, const FloatRect & _rect, const Ogre::ColourValue  & _colour, float _alpha)
 		{
 			// ищем такой же ключ
 			MapSubWidgetStateInfo::const_iterator iter = mStates.find(_name);
 			MYGUI_ASSERT(iter == mStates.end());
 			// добавляем
-			mStates[_name] = SubWidgetStateInfo(_offset, _colour, _alpha);
+			mStates[_name] = SubWidgetStateInfo(_rect, _colour, _alpha);
 		}
 
 	private:
-		IntRect mOffset;
+		IntCoord mOffset;
 		Align mAlign;
 		std::string mType;
 		MapSubWidgetStateInfo mStates;

@@ -52,46 +52,48 @@ void OptionsState::enter(bool bIsChangeState)
 	/*button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonManualAlpha"));
 	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);*/
 
+	//MyGUI::ButtonPtr button = MyGUI::Gui::getInstance().createWidgetT<MyGUI::Button>("Button", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	//widget->show();
 
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidgetT<MyGUI::Window>("WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
 
-	MyGUI::EditPtr edit = window->createWidgetT<MyGUI::Edit>("Edit", 10, 44, 200, 150, MyGUI::ALIGN_STRETCH);
-	//edit->setCaption(L"Мы только тем и дороги\nкому должны вернуть долги");
+	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("Edit", 10, 44, 200, 150, MyGUI::ALIGN_STRETCH);
+	edit->setCaption(L"Мы только тем и дороги\nкому должны вернуть долги");
 
-	MyGUI::ButtonPtr button = window->createWidgetT<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 	button->setCaption("multiline");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedMultiLine);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 	button->setCaption("read only");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedReadOnly);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", 190, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", 190, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 	button->setCaption("password");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedPassword);
 	button->setUserString("Edit", edit->getName());
 
 	MyGUI::IntRect rect = window->getClientRect();
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.width()-90, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", rect.width()-90, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("green");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourGreen);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.width()-180, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", rect.width()-180, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("red");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourRed);
 	button->setUserString("Edit", edit->getName());
 
-	button = window->createWidgetT<MyGUI::Button>("ButtonSmall", rect.width()-270, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", rect.width()-270, rect.height()-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
 	button->setCaption("blue");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourBlue);
-	button->setUserString("Edit", edit->getName());
+	button->setUserString("Edit", edit->getName());//*/
 
 
 	//	MyGUI::ListPtr list = static_cast<MyGUI::ListPtr>(window.createWidget("List", "List", 10, 10, 200, 200, MyGUI::ALIGN_STRETCH));

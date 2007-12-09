@@ -36,13 +36,12 @@ namespace MyGUI
 
 		const Ogre::String& ListFactory::getType()
 		{
-			static Ogre::String type("List");
-			return type;
+			return List::getType();
 		}
 
-		WidgetPtr ListFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr ListFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new List(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new List(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void ListFactory::ListAddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

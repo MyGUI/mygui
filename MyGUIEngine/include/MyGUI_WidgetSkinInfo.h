@@ -75,7 +75,7 @@ namespace MyGUI
 				// выставляем смещение для текущего саб скина
 				mStates[iter->first].offsets[_index] = iter->second.offset;
 				// если нужно то выставляем цвета
-				if (iter->second.color != Ogre::ColourValue::ZERO) mStates[iter->first].color = iter->second.color;
+				if (iter->second.colour != Ogre::ColourValue::ZERO) mStates[iter->first].colour = iter->second.colour;
 				// если нужно то выставляем и альфу
 				if (iter->second.alpha != -1) mStates[iter->first].alpha = iter->second.alpha;
 			}

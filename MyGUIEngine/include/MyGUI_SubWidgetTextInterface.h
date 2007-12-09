@@ -19,8 +19,8 @@ namespace MyGUI
 	class _MyGUIExport SubWidgetTextInterface : public CroppedRectangleInterface
 	{
 	public:
-		SubWidgetTextInterface(int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent) :
-			CroppedRectangleInterface(_left, _top, _width, _height, _align, _parent)
+		SubWidgetTextInterface(const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent) :
+			CroppedRectangleInterface(_coord, _align, _parent)
 		{}
 
 		bool _isText() {return true;}

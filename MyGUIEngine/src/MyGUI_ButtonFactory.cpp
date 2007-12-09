@@ -36,13 +36,12 @@ namespace MyGUI
 
 		const Ogre::String& ButtonFactory::getType()
 		{
-			static Ogre::String type("Button");
-			return type;
+			return Button::getType();
 		}
 
-		WidgetPtr ButtonFactory::createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr ButtonFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new Button(_left, _top, _width, _height, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new Button(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void ButtonFactory::ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

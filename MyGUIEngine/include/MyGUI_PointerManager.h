@@ -35,7 +35,7 @@ namespace MyGUI
 		inline void hide() {show(false);}
 		inline bool isShow() {return mShow;}
 
-		void setPosition(int _left, int _top);
+		void setPosition(const IntPoint& _pos);
 
 		void setPointer(const std::string & _name, WidgetPtr _owner);
 

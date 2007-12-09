@@ -13,12 +13,12 @@
 namespace MyGUI
 {
 
-	Widget::Widget(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		CroppedRectangleInterface(_left, _top, _info->getSize().width, _info->getSize().height, _align, _parent), // размер по скину
-		mText(0),
+	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
+		mText(null),
 		mVisible(true),
 		mEnabled(true),
-		mAlpha(1.0),
+		mAlpha(1),
 		mColour(1.0, 1.0, 1.0, 1.0),
 		mStateInfo(_info->getStateInfo()),
 		mName(_name),
@@ -40,7 +40,7 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		if (!param.empty()) {
+		if (false == param.empty()) {
 			MapString::const_iterator iter = param.find("FontName");
 			if (iter != param.end()) setFontName(iter->second);
 			iter = param.find("FontHeight");
@@ -54,7 +54,7 @@ namespace MyGUI
 		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
 		// а вот теперь нормальный размер
-		setSize(_width, _height);
+		setSize(_coord.size());
 		// альфа отца
 		if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != 1.0f) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
 		// и все перерисовываем
@@ -75,17 +75,17 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr Widget::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name)
+	WidgetPtr Widget::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _left, _top, _width, _height, _align, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, this, _name);
 		mWidgetChild.push_back(widget);
 		return widget;
 	}
 
-	WidgetPtr Widget::createWidgetReal(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name)
+	WidgetPtr Widget::createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name)
 	{
 		Gui & gui = Gui::getInstance();
-		return createWidget(_type, _skin, (int)(_left*gui.getWidth()), (int)(_top*gui.getHeight()), (int)(_width*gui.getWidth()), (int)(_height*gui.getHeight()), _align, _name);
+		return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*gui.getViewWidth()), (int)(_coord.top*gui.getViewHeight()), (int)(_coord.width*gui.getViewWidth()), (int)(_coord.height*gui.getViewHeight())), _align, _name);
 	}
 
 	CroppedRectanglePtr  Widget::addSubSkin(const SubWidgetInfo& _info, const Ogre::String& _material, size_t & _id)
@@ -156,41 +156,41 @@ namespace MyGUI
 
 		bool need_move = false;
 		bool need_size = false;
-		int x = mLeft;
-		int y = mTop;
-		int cx = mWidth;
-		int cy = mHeight;
+		int x = mCoord.left;
+		int y = mCoord.top;
+		int cx = mCoord.width;
+		int cy = mCoord.height;
 
 		// первоначальное выравнивание 
 		if (mAlign & ALIGN_RIGHT) {
 			if (mAlign & ALIGN_LEFT) {
 				// растягиваем
-				cx = mWidth + (mParent->getWidth() - _width);
+				cx = mCoord.width + (mParent->getWidth() - _width);
 				need_size = true;
 			} else {
 				// двигаем по правому краю
-				x = mLeft + (mParent->getWidth() - _width);
+				x = mCoord.left + (mParent->getWidth() - _width);
 				need_move = true;
 			}
 
 		} else if (!(mAlign & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
-			x = (mParent->getWidth() - mWidth) / 2;
+			x = (mParent->getWidth() - mCoord.width) / 2;
 			need_move = true;
 		}
 
 		if (mAlign & ALIGN_BOTTOM) {
 			if (mAlign & ALIGN_TOP) {
 				// растягиваем
-				cy = mHeight + (mParent->getHeight() - _height);
+				cy = mCoord.height + (mParent->getHeight() - _height);
 				need_size = true;
 			} else {
-				y = mTop + (mParent->getHeight() - _height);
+				y = mCoord.top + (mParent->getHeight() - _height);
 				need_move = true;
 			}
 		} else if (!(mAlign & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
-			y = (mParent->getHeight() - mHeight) / 2;
+			y = (mParent->getHeight() - mCoord.height) / 2;
 			need_move = true;
 		}
 
@@ -204,29 +204,27 @@ namespace MyGUI
 	}
 
 
-	void Widget::setPosition(int _left, int _top)
+	void Widget::setPosition(const IntPoint& _pos)
 	{
 		// а вот теперь запоминаем новые координаты
-		mLeft = _left;
-		mTop = _top;
+		mCoord = _pos;
 
 		_updateView();
 	}
 
-	void Widget::setPosition(int _left, int _top, int _width, int _height)
+	void Widget::setPosition(const IntCoord& _coord)
 	{
 		// а вот теперь запоминаем новые координаты
-		mLeft = _left;
-		mTop = _top;
+		mCoord = _coord.point();
 
 		// меняем координаты местами
-		int tmp = mWidth;
-		mWidth = _width;
-		_width = tmp;
+		int tmp = mCoord.width;
+		mCoord.width = _coord.width;
+		int width = tmp;
 
-		tmp = mHeight;
-		mHeight = _height;
-		_height = tmp;
+		tmp = mCoord.height;
+		mCoord.height = _coord.height;
+		int height = tmp;
 
 		bool show = true;
 
@@ -244,24 +242,24 @@ namespace MyGUI
 		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(mLeft, mTop, _width, _height, mMargin || margin);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(mLeft, mTop, _width, _height, mMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(mCoord.left, mCoord.top, width, height, mIsMargin || margin);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(mCoord.left, mCoord.top, width, height, mIsMargin || margin);
 
 		// запоминаем текущее состояние
-		mMargin = margin;
+		mIsMargin = margin;
 
 	}
 
-	void Widget::setSize(int _width, int _height)
+	void Widget::setSize(const IntSize& _size)
 	{
 		// меняем координаты местами
-		int tmp = mWidth;
-		mWidth = _width;
-		_width = tmp;
+		int tmp = mCoord.width;
+		mCoord.width = _size.width;
+		int width = tmp;
 
-		tmp = mHeight;
-		mHeight = _height;
-		_height = tmp;
+		tmp = mCoord.height;
+		mCoord.height = _size.height;
+		int height = tmp;
 
 		bool show = true;
 
@@ -279,11 +277,11 @@ namespace MyGUI
 		_setVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(_width, _height, mMargin || margin);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(_width, _height, mMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_setAlign(width, height, mIsMargin || margin);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->_setAlign(width, height, mIsMargin || margin);
 
 		// запоминаем текущее состояние
-		mMargin = margin;
+		mIsMargin = margin;
 
 	}
 
@@ -301,11 +299,11 @@ namespace MyGUI
 				// скрываем
 				_setVisible(false);
 				// запоминаем текущее состояние
-				mMargin = margin;
+				mIsMargin = margin;
 				return;
 			}
 
-		} else if (false == mMargin) { // мы не обрезаны и были нормальные
+		} else if (false == mIsMargin) { // мы не обрезаны и были нормальные
 
 			_setVisible(true);
 			// для тех кому нужно подправить себя при движении
@@ -316,7 +314,7 @@ namespace MyGUI
 		}
 
 		// запоминаем текущее состояние
-		mMargin = margin;
+		mIsMargin = margin;
 
 		// если скин был скрыт, то покажем
 		_setVisible(true);
@@ -401,8 +399,8 @@ namespace MyGUI
 			if (false == info->_isText()) info->_setUVSet(iter->second.offsets[index++]);
 		}
 		// теперь если нужно цвет текста
-		if ((iter->second.color != Ogre::ColourValue::ZERO) && (mText != null)) {
-			mText->setColour(iter->second.color);
+		if ((iter->second.colour != Ogre::ColourValue::ZERO) && (mText != null)) {
+			mText->setColour(iter->second.colour);
 		}
 	}
 
@@ -415,7 +413,7 @@ namespace MyGUI
 		if (!mEnabled) return this;
 		// спрашиваем у детишек
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) {
-			LayerItemInfoPtr item = (*widget)->findItem(_left - mLeft, _top - mTop);
+			LayerItemInfoPtr item = (*widget)->findItem(_left - mCoord.left, _top - mCoord.top);
 			if (item != null) return item;
 		}
 		// непослушные дети
@@ -474,8 +472,8 @@ namespace MyGUI
 			if (iter != _param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
 			else align = ALIGN_NONE;
 
-			offset = WidgetManager::convertOffset(offset, align, _size, mWidth, mHeight);
-			return createWidget(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align);
+			offset = WidgetManager::convertOffset(offset, align, _size, mCoord.width, mCoord.height);
+			return createWidgetT(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align);
 			
 		}
 		return null;
@@ -526,6 +524,11 @@ namespace MyGUI
 			}
 		}
 		return null;
+	}
+
+	IntRect Widget::getClientRect()
+	{
+		return IntRect(mCoord.left, mCoord.top, mCoord.right(), mCoord.bottom());
 	}
 
 } // namespace MyGUI

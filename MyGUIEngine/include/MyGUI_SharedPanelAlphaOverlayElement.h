@@ -40,7 +40,7 @@ namespace MyGUI
 
 	protected:
 		// цвет вершины
-		Ogre::uint32 mColor;
+		Ogre::uint32 mColour;
 		// вектор всех наших саб оверлеев
 		VectorSharedOverlay mVectorSharedOverlay;
 
@@ -48,7 +48,7 @@ namespace MyGUI
 
 		SharedPanelAlphaOverlayElement(const Ogre::String& _name) :
 			PanelOverlayElement(_name),
-			mColor(0xFFFFFFFF)
+			mColour(0xFFFFFFFF)
 		{
 		}
 
@@ -57,9 +57,9 @@ namespace MyGUI
 			mOverlay = _overlay;
 		}
 
-		void setColor(Ogre::uint32 _colour)
+		void setColour(Ogre::uint32 _colour)
 		{
-			mColor = _colour;
+			mColour = _colour;
 			mGeomPositionsOutOfDate = true;
 		}
 
@@ -227,7 +227,7 @@ namespace MyGUI
 				*pPos++ = zValue;
 				*pPos++ = info.u1;
 				*pPos++ = info.v1;
-				*pPos++ = *((float*)(&mColor));
+				*pPos++ = *((float*)(&mColour));
 
 				// first triangle
 				// left bottom
@@ -236,7 +236,7 @@ namespace MyGUI
 				*pPos++ = zValue;
 				*pPos++ = info.u1;
 				*pPos++ = info.v2;
-				*pPos++ = *((float*)(&mColor));
+				*pPos++ = *((float*)(&mColour));
 
 				// first triangle
 				// right top
@@ -245,7 +245,7 @@ namespace MyGUI
 				*pPos++ = zValue;
 				*pPos++ = info.u2;
 				*pPos++ = info.v1;
-				*pPos++ = *((float*)(&mColor));
+				*pPos++ = *((float*)(&mColour));
 
 				// second triangle
 				// right top
@@ -254,7 +254,7 @@ namespace MyGUI
 				*pPos++ = zValue;
 				*pPos++ = info.u2;
 				*pPos++ = info.v1;
-				*pPos++ = *((float*)(&mColor));
+				*pPos++ = *((float*)(&mColour));
 
 				// second triangle
 				// left bottom
@@ -263,7 +263,7 @@ namespace MyGUI
 				*pPos++ = zValue;
 				*pPos++ = info.u1;
 				*pPos++ = info.v2;
-				*pPos++ = *((float*)(&mColor));
+				*pPos++ = *((float*)(&mColour));
 
 				// second triangle
 				// right botton
@@ -272,7 +272,7 @@ namespace MyGUI
 				*pPos++ = zValue;
 				*pPos++ = info.u2;
 				*pPos++ = info.v2;
-				*pPos++ = *((float*)(&mColor));
+				*pPos++ = *((float*)(&mColour));
 
 			}
 

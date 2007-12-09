@@ -11,7 +11,7 @@ namespace MyGUI
 {
 
 	SubSkin::SubSkin(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id) :
-		CroppedRectangleInterface(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent),
+		CroppedRectangleInterface(_info.coord, _info.align, _parent),
 		mId(_id),
 		mTransparent(false)
 	{
@@ -27,7 +27,7 @@ namespace MyGUI
 			mOverlayContainer->setCountSharedOverlay(_parent->_getCountSharedOverlay());
 
 			mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
-			mOverlayContainer->setPositionInfo(mParent->getLeft() + mLeft, mParent->getTop() + mTop, mWidth, mHeight, mId);
+			mOverlayContainer->setPositionInfo(mParent->getLeft() + mCoord.left, mParent->getTop() + mCoord.top, mCoord.width, mCoord.height, mId);
 			if (false == _material.empty()) mOverlayContainer->setMaterialName(_material);
 
 			mParent->_attachChild(this, false);
@@ -67,8 +67,8 @@ namespace MyGUI
 
 	void SubSkin::setAlpha(float _alpha)
 	{
-		Ogre::uint8 color[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
-		mOverlayContainer->setColor(*(Ogre::uint32*)color);
+		Ogre::uint8 colour[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
+		mOverlayContainer->setColour(*(Ogre::uint32*)colour);
 	}
 
 	void SubSkin::_attachChild(CroppedRectanglePtr _basis, bool _child)
@@ -86,8 +86,8 @@ namespace MyGUI
 	void SubSkin::_correctView()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
-		if (mParent->getParent()) mOverlayContainer->setPositionInfo(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mLeftMargin, mTop + mParent->getTop() - mParent->getParent()->getMarginTop() + mTopMargin, mId);
-		else mOverlayContainer->setPositionInfo(mLeft + mParent->getLeft(), mTop + mParent->getTop(), mId);
+		if (mParent->getParent()) mOverlayContainer->setPositionInfo(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mMargin.left, mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop() + mMargin.top, mId);
+		else mOverlayContainer->setPositionInfo(mCoord.left + mParent->getLeft(), mCoord.top + mParent->getTop(), mId);
 	}
 
 	void SubSkin::_setAlign(int _left, int _top, int _width, int _height, bool _update)
@@ -105,34 +105,34 @@ namespace MyGUI
 		if (mAlign & ALIGN_RIGHT) {
 			if (mAlign & ALIGN_LEFT) {
 				// растягиваем
-				mWidth = mWidth + (mParent->getWidth() - _width);
+				mCoord.width = mCoord.width + (mParent->getWidth() - _width);
 				need_update = true;
-				mMargin = true; // при изменении размеров все пересчитывать
+				mIsMargin = true; // при изменении размеров все пересчитывать
 			} else {
 				// двигаем по правому краю
-				mLeft = mLeft + (mParent->getWidth() - _width);
+				mCoord.left = mCoord.left + (mParent->getWidth() - _width);
 				need_update = true;
 			}
 
 		} else if (!(mAlign & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
-			mLeft = (mParent->getWidth() - mWidth) / 2;
+			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign & ALIGN_BOTTOM) {
 			if (mAlign & ALIGN_TOP) {
 				// растягиваем
-				mHeight = mHeight + (mParent->getHeight() - _height);
+				mCoord.height = mCoord.height + (mParent->getHeight() - _height);
 				need_update = true;
-				mMargin = true; // при изменении размеров все пересчитывать
+				mIsMargin = true; // при изменении размеров все пересчитывать
 			} else {
-				mTop = mTop + (mParent->getHeight() - _height);
+				mCoord.top = mCoord.top + (mParent->getHeight() - _height);
 				need_update = true;
 			}
 		} else if (!(mAlign & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
-			mTop = (mParent->getHeight() - mHeight) / 2;
+			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
@@ -146,8 +146,8 @@ namespace MyGUI
 		bool margin = _checkMargin();
 
 		// двигаем всегда, т.к. дети должны двигаться
-		int x = mLeft + mParent->getLeft() - (mParent->getParent() ? mParent->getParent()->getMarginLeft() : 0) + mLeftMargin;
-		int y = mTop + mParent->getTop() - (mParent->getParent() ? mParent->getParent()->getMarginTop() : 0) + mTopMargin;
+		int x = mCoord.left + mParent->getLeft() - (mParent->getParent() ? mParent->getParent()->getMarginLeft() : 0) + mMargin.left;
+		int y = mCoord.top + mParent->getTop() - (mParent->getParent() ? mParent->getParent()->getMarginTop() : 0) + mMargin.top;
 
 		mOverlayContainer->setPositionInfo(x, y, mId);
 
@@ -160,7 +160,7 @@ namespace MyGUI
 				// скрываем
 				_setTransparent(true);
 				// запоминаем текущее состояние
-				mMargin = margin;
+				mIsMargin = margin;
 
 				return;
 
@@ -168,7 +168,7 @@ namespace MyGUI
 
 		}
 		
-		if ((mMargin) || (margin)) { // мы обрезаны или были обрезаны
+		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
 
 			int cx = getViewWidth();
 			if (cx < 0) cx = 0;
@@ -180,10 +180,10 @@ namespace MyGUI
 			if (cx && cy) {
 
 				// теперь смещаем текстуру
-				float UV_lft = mLeftMargin / (float)mWidth;
-				float UV_top = mTopMargin / (float)mHeight;
-				float UV_rgt = (mWidth - mRightMargin) / (float)mWidth;
-				float UV_btm = (mHeight - mBottomMargin) / (float)mHeight;
+				float UV_lft = mMargin.left / (float)mCoord.width;
+				float UV_top = mMargin.top / (float)mCoord.height;
+				float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
+				float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
 
 				float UV_sizeX = mRectTexture.right - mRectTexture.left;
 				float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
@@ -200,24 +200,24 @@ namespace MyGUI
 		}
 
 		// запоминаем текущее состояние
-		mMargin = margin;
+		mIsMargin = margin;
 		// если скин был скрыт, то покажем
 		_setTransparent(false);
 
 	}
 
-	void SubSkin::_setUVSet(const FloatRect & _rect)
+	void SubSkin::_setUVSet(const FloatRect& _rect)
 	{
 		MYGUI_DEBUG_ASSERT(null != mOverlayContainer);
 		mRectTexture = _rect;
 
 		// если обрезаны, то просчитываем с учето обрезки
-		if (mMargin) {
+		if (mIsMargin) {
 
-			float UV_lft = mLeftMargin / (float)mWidth;
-			float UV_top = mTopMargin / (float)mHeight;
-			float UV_rgt = (mWidth - mRightMargin) / (float)mWidth;
-			float UV_btm = (mHeight - mBottomMargin) / (float)mHeight;
+			float UV_lft = mMargin.left / (float)mCoord.width;
+			float UV_top = mMargin.top / (float)mCoord.height;
+			float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
+			float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
 
 			float UV_sizeX = mRectTexture.right - mRectTexture.left;
 			float UV_sizeY = mRectTexture.bottom - mRectTexture.top;

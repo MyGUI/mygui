@@ -50,7 +50,7 @@ namespace MyGUI
 			mMapUserInt[_key] = _value;
 		}
 
-		const int getUserData(const std::string & _key)
+		int getUserData(const std::string & _key)
 		{
 			MapInt::iterator iter = mMapUserInt.find(_key);
 			if (iter == mMapUserInt.end()) return 0;

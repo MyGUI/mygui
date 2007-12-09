@@ -11,7 +11,7 @@ namespace MyGUI
 {
 
 	MainSkin::MainSkin(const SubWidgetInfo& _info, const Ogre::String& _material, CroppedRectanglePtr _parent, size_t _id) : 
-		CroppedRectangleInterface(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
+		CroppedRectangleInterface(_info.coord, _info.align, _parent)
 	{
 
 		Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
@@ -20,9 +20,9 @@ namespace MyGUI
 			"PanelAlpha", util::toString("MainSkin_", this)) );
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
-		mOverlayContainer->setPosition(mParent->getLeft() + mLeft, mParent->getTop() + mTop);
-		mOverlayContainer->setDimensions(mWidth, mHeight);
-		if (false == _material.empty() && (_info.offset.width() != 0)) mOverlayContainer->setMaterialName(_material);
+		mOverlayContainer->setPosition(mParent->getLeft() + mCoord.left, mParent->getTop() + mCoord.top);
+		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
+		if (false == _material.empty() && (_info.coord.width != 0)) mOverlayContainer->setMaterialName(_material);
 
 		mParent->_attachChild(this, false);
 	}
@@ -37,8 +37,8 @@ namespace MyGUI
 
 	void MainSkin::setAlpha(float _alpha)
 	{
-		Ogre::uint8 color[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
-		mOverlayContainer->setColor(*(Ogre::uint32*)color);
+		Ogre::uint8 colour[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
+		mOverlayContainer->setColour(*(Ogre::uint32*)colour);
 	}
 
 	void MainSkin::show()
@@ -64,16 +64,16 @@ namespace MyGUI
 		}
 
 		// если обновлять не надо, то меняем только размер
-		(mParent->getWidth() < 0) ? mWidth = 0 : mWidth = mParent->getWidth();
-		(mParent->getHeight() < 0) ? mHeight = 0 : mHeight = mParent->getHeight();
-		mOverlayContainer->setDimensions(mWidth, mHeight);
+		(mParent->getWidth() < 0) ? mCoord.width = 0 : mCoord.width = mParent->getWidth();
+		(mParent->getHeight() < 0) ? mCoord.height = 0 : mCoord.height = mParent->getHeight();
+		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
 
 	}
 
 	void MainSkin::_setAlign(int _left, int _top, int _width, int _height, bool _update)
 	{
 
-		mOverlayContainer->setPosition(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft(), mTop + mParent->getTop() - mParent->getParent()->getMarginTop());
+		mOverlayContainer->setPosition(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft(), mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop());
 
 		if (_update) {
 			_updateView();
@@ -81,17 +81,17 @@ namespace MyGUI
 		}
 
 		// если обновлять не надо, то меняем только размер
-		(mParent->getWidth() < 0) ? mWidth = 0 : mWidth = mParent->getWidth();
-		(mParent->getHeight() < 0) ? mHeight = 0 : mHeight = mParent->getHeight();
-		mOverlayContainer->setDimensions(mWidth, mHeight);
+		(mParent->getWidth() < 0) ? mCoord.width = 0 : mCoord.width = mParent->getWidth();
+		(mParent->getHeight() < 0) ? mCoord.height = 0 : mCoord.height = mParent->getHeight();
+		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
 
 	}
 
 	void MainSkin::_correctView()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
-		if (mParent->getParent()) mOverlayContainer->setPosition(mLeft + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mLeftMargin, mTop + mParent->getTop() - mParent->getParent()->getMarginTop() + mTopMargin);
-		else mOverlayContainer->setPosition(mLeft + mParent->getLeft(), mTop + mParent->getTop());
+		if (mParent->getParent()) mOverlayContainer->setPosition(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mMargin.left, mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop() + mMargin.top);
+		else mOverlayContainer->setPosition(mCoord.left + mParent->getLeft(), mCoord.top + mParent->getTop());
 	}
 
 	void MainSkin::_updateView()
@@ -133,12 +133,12 @@ namespace MyGUI
 		return mOverlayContainer;
 	}
 
-	void MainSkin::_setUVSet(const FloatRect & _rect)
+	void MainSkin::_setUVSet(const FloatRect& _rect)
 	{
 		MYGUI_ASSERT(null != mOverlayContainer);
 		mRectTexture = _rect;
 		// если обрезаны, то просчитываем с учето обрезки
-		if (mMargin) {
+		if (mIsMargin) {
 
 			float UV_lft = mParent->getMarginLeft() / (float)mParent->getWidth();
 			float UV_top = mParent->getMarginTop() / (float)mParent->getHeight();

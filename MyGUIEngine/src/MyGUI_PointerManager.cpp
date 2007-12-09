@@ -136,10 +136,10 @@ namespace MyGUI
 		mShow ? mOverlayElement->show() : mOverlayElement->hide();
 	}
 
-	void PointerManager::setPosition(int _left, int _top)
+	void PointerManager::setPosition(const IntPoint& _pos)
 	{
 		if (mOverlayElement == null) return;
-		mOverlayElement->setPosition(_left-mPoint.left, _top-mPoint.top);
+		mOverlayElement->setPosition(_pos.left - mPoint.left, _pos.top - mPoint.top);
 	}
 
 	void PointerManager::setPointer(const std::string & _name, WidgetPtr _owner)

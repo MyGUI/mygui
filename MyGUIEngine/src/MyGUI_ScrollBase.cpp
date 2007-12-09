@@ -9,8 +9,8 @@
 namespace MyGUI
 {
 
-	ScrollBase::ScrollBase(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
+	ScrollBase::ScrollBase(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _name),
 		mWidgetStart(null), mWidgetEnd(null), mWidgetTrack(null),
 		mScrollPosition(0), mScrollRange(0)
 	{
@@ -117,16 +117,16 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void ScrollBase::setSize(int _width, int _height)
+	void ScrollBase::setSize(const IntSize& _size)
 	{
-		Widget::setSize(_width, _height);
+		Widget::setSize(_size);
 		// обновляем трек
 		updateTrack();
 	}
 
-	void ScrollBase::setPosition(int _left, int _top, int _width, int _height)
+	void ScrollBase::setPosition(const IntCoord& _coord)
 	{
-		Widget::setPosition(_left, _top, _width, _height);
+		Widget::setPosition(_coord);
 		// обновляем трек
 		updateTrack();
 	}

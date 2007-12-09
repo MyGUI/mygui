@@ -26,13 +26,13 @@ namespace MyGUI
 		};
 
 		// цвет вершины
-		Ogre::uint32 mColor;
+		Ogre::uint32 mColour;
 
 	public:
 
 		PanelAlphaOverlayElement(const Ogre::String& _name) :
 			PanelOverlayElement(_name),
-			mColor(0xFFFFFFFF)
+			mColour(0xFFFFFFFF)
 		{
 		}
 
@@ -41,9 +41,9 @@ namespace MyGUI
 			mOverlay = _overlay;
 		}
 
-		void setColor(Ogre::uint32 _colour)
+		void setColour(Ogre::uint32 _colour)
 		{
-			mColor = _colour;
+			mColour = _colour;
 			mGeomPositionsOutOfDate = true;
 		}
 
@@ -123,22 +123,22 @@ namespace MyGUI
 			*pPos++ = left;
 			*pPos++ = top;
 			*pPos++ = zValue;
-			*pPos++ = *((float*)(&mColor));
+			*pPos++ = *((float*)(&mColour));
 
 			*pPos++ = left;
 			*pPos++ = bottom;
 			*pPos++ = zValue;
-			*pPos++ = *((float*)(&mColor));
+			*pPos++ = *((float*)(&mColour));
 
 			*pPos++ = right;
 			*pPos++ = top;
 			*pPos++ = zValue;
-			*pPos++ = *((float*)(&mColor));
+			*pPos++ = *((float*)(&mColour));
 
 			*pPos++ = right;
 			*pPos++ = bottom;
 			*pPos++ = zValue;
-			*pPos++ = *((float*)(&mColor));
+			*pPos++ = *((float*)(&mColour));
 
 			vbuf->unlock();
 		}

@@ -444,6 +444,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Macros.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Platform.h"
 					>
 				</File>
@@ -481,6 +485,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_WidgetUserData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\TCoord.h"
 					>
 				</File>
 				<File

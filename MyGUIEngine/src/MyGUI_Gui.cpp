@@ -18,8 +18,7 @@ namespace MyGUI
 		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
 		Ogre::Viewport * port = _window->getViewport(0);
-		mHeight = port->getActualHeight();
-		mWidth = port->getActualWidth();
+		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
 		// регистрируем фабрику текста и панели
 		Ogre::OverlayManager &manager = Ogre::OverlayManager::getSingleton();
@@ -116,9 +115,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	WidgetPtr Gui::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
+	WidgetPtr Gui::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _left, _top, _width, _height, _align, 0, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, 0, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		LayerManager::getInstance().attachItem(widget, _layer, true);

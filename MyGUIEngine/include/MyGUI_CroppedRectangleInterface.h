@@ -8,6 +8,7 @@
 #define __MYGUI_CROPPED_RECTANGLE_INTERFACE_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include <OgreOverlayElement.h>
 #include "MyGUI_WidgetDefines.h"
 
@@ -18,19 +19,18 @@ namespace MyGUI
 	{
 
 	public:
-		CroppedRectangleInterface(int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent) :
+		CroppedRectangleInterface(const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent) :
 			mParent (_parent),
 			mAlign (_align),
-			mLeft (_left), mTop (_top), mWidth (_width), mHeight (_height),
-			mLeftMargin (0), mRightMargin (0), mTopMargin (0), mBottomMargin (0),
-			mMargin(false),
-			mShow(true)
+			mIsMargin(false),
+			mShow(true),
+			mCoord(_coord)
 		{}
 		virtual ~CroppedRectangleInterface() {}
 
-		virtual void setPosition(int _left, int _top) {}
-		virtual void setPosition(int _left, int _top, int _width, int _height) {}
-		virtual void setSize(int _width, int _height) {}
+		virtual void setPosition(const IntPoint& _pos) {}
+		virtual void setPosition(const IntCoord& _coord) {}
+		virtual void setSize(const IntSize& _size) {}
 
 		virtual void show() {}
 		virtual void hide() {}
@@ -41,24 +41,29 @@ namespace MyGUI
 
 		inline CroppedRectanglePtr getParent() {return mParent;}
 
-		inline int getLeft()       {return mLeft;}
-		inline int getRight()      {return mLeft + mWidth;}
-		inline int getTop()        {return mTop;}
-		inline int getBottom()     {return mTop + mHeight;}
-		inline int getWidth()       {return mWidth;}
-		inline int getHeight()       {return mHeight;}
+		inline IntPoint getPosition()       {return IntPoint(mCoord.left, mCoord.top);}
+		inline IntSize getDimension()       {return IntSize(mCoord.width, mCoord.height);}
+		inline const IntCoord& getCoord()       {return mCoord;}
 
-		inline int getViewLeft()  {return mLeft + mLeftMargin;}
-		inline int getViewRight() {return mLeft + mWidth - mRightMargin;}
-		inline int getViewTop()   {return mTop + mTopMargin;}
-		inline int getViewBottom() {return mTop + mHeight - mBottomMargin;}
-		inline int getViewWidth() {return mWidth - mLeftMargin - mRightMargin;}
-		inline int getViewHeight() {return mHeight - mTopMargin - mBottomMargin;}
+		inline int getLeft()       {return mCoord.left;}
+		inline int getRight()      {return mCoord.right();}
+		inline int getTop()        {return mCoord.top;}
+		inline int getBottom()     {return mCoord.bottom();}
+		inline int getWidth()       {return mCoord.width;}
+		inline int getHeight()       {return mCoord.height;}
 
-		inline int getMarginLeft() {return mLeftMargin;}
-		inline int getMarginRight() {return mRightMargin;}
-		inline int getMarginTop() {return mTopMargin;}
-		inline int getMarginBottom() {return mBottomMargin;}
+		inline int getViewLeft()  {return mCoord.left + mMargin.left;}
+		inline int getViewRight() {return mCoord.right() - mMargin.right;}
+		inline int getViewTop()   {return mCoord.top + mMargin.top;}
+		inline int getViewBottom() {return mCoord.bottom() - mMargin.bottom;}
+		inline int getViewWidth() {return mCoord.width - mMargin.left - mMargin.right;}
+		inline int getViewHeight() {return mCoord.height - mMargin.top - mMargin.bottom;}
+
+		inline const IntRect& getMargin() {return mMargin;}
+		inline int getMarginLeft() {return mMargin.left;}
+		inline int getMarginRight() {return mMargin.right;}
+		inline int getMarginTop() {return mMargin.top;}
+		inline int getMarginBottom() {return mMargin.bottom;}
 
 		virtual void _updateView() {}
 		virtual void _correctView() {}
@@ -72,7 +77,7 @@ namespace MyGUI
 		virtual Ogre::OverlayElement* _getOverlayElement() {return null;}
 		virtual size_t _getCountSharedOverlay() {return 0;}
 		virtual Ogre::OverlayElement* _getSharedOverlayElement() {return null;}
-		virtual void _setUVSet(const FloatRect & _rect) {}
+		virtual void _setUVSet(const FloatRect& _rect) {}
 
 	protected:
 		inline bool _checkPoint(int _left, int _top)
@@ -84,45 +89,45 @@ namespace MyGUI
 		{
 			bool margin = false;
 			//вылезли ли налево
-			if (getLeft() <= mParent->mLeftMargin) {
-				mLeftMargin = mParent->mLeftMargin - getLeft();
+			if (getLeft() <= mParent->mMargin.left) {
+				mMargin.left = mParent->mMargin.left - getLeft();
 				margin = true;
-			} else mLeftMargin = 0;
+			} else mMargin.left = 0;
 
 			//вылезли ли направо
-			if (getRight() >= mParent->getWidth() - mParent->mRightMargin) {
-				mRightMargin = getRight() - (mParent->getWidth() - mParent->mRightMargin);
+			if (getRight() >= mParent->getWidth() - mParent->mMargin.right) {
+				mMargin.right = getRight() - (mParent->getWidth() - mParent->mMargin.right);
 				margin = true;
-			} else mRightMargin = 0;
+			} else mMargin.right = 0;
 
 			//вылезли ли вверх
-			if (getTop() <= mParent->mTopMargin) {
-				mTopMargin = mParent->mTopMargin - getTop();
+			if (getTop() <= mParent->mMargin.top) {
+				mMargin.top = mParent->mMargin.top - getTop();
 				margin = true;
-			} else mTopMargin = 0;
+			} else mMargin.top = 0;
 
 			//вылезли ли вниз
-			if (getBottom() >= mParent->getHeight() - mParent->mBottomMargin) {
-				mBottomMargin = getBottom() - (mParent->getHeight() - mParent->mBottomMargin);
+			if (getBottom() >= mParent->getHeight() - mParent->mMargin.bottom) {
+				mMargin.bottom = getBottom() - (mParent->getHeight() - mParent->mMargin.bottom);
 				margin = true;
-			} else mBottomMargin = 0;
+			} else mMargin.bottom = 0;
 
 			return margin;
 		}
 
 		inline bool _checkOutside() // проверка на полный выход за границу
 		{
-			return ( (getRight() <= mParent->mLeftMargin ) || // совсем уехали налево
-				(getLeft() >= mParent->getWidth() - mParent->mRightMargin ) || // совсем уехали направо
-				(getBottom() <= mParent->mTopMargin  ) || // совсем уехали вверх
-				(getTop() >= mParent->getHeight() - mParent->mBottomMargin ) );  // совсем уехали вниз
+			return ( (getRight() <= mParent->mMargin.left ) || // совсем уехали налево
+				(getLeft() >= mParent->getWidth() - mParent->mMargin.right ) || // совсем уехали направо
+				(getBottom() <= mParent->mMargin.top  ) || // совсем уехали вверх
+				(getTop() >= mParent->getHeight() - mParent->mMargin.bottom ) );  // совсем уехали вниз
 		}
 
 	protected:
 
-		bool mMargin;
-		int mLeft, mTop, mWidth, mHeight; // координаты и ширина с высотой
-		int mLeftMargin, mRightMargin, mTopMargin, mBottomMargin; // перекрытие
+		bool mIsMargin;
+		IntRect mMargin; // перекрытие
+		IntCoord mCoord; // координаты
 
 		CroppedRectanglePtr mParent;
 		bool mShow;

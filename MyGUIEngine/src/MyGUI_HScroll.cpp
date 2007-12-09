@@ -10,15 +10,15 @@
 namespace MyGUI
 {
 
-	HScroll::HScroll(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		ScrollBase(_left, _top, _width, _height, _align, _info, _parent, _name)
+	HScroll::HScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+		ScrollBase(_coord, _align, _info, _parent, _name)
 	{
 	}
 
 	void HScroll::updateTrack()
 	{
 		// размер диапазана в пикселях
-		int pos = mWidth - (int)(mSkinRangeStart + mSkinRangeEnd);
+		int pos = mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd);
 
 		// скрываем если диапазан маленький или места мало
 		if ((mScrollRange < 2) || (1 > (int)pos)) {
@@ -30,7 +30,7 @@ namespace MyGUI
 
 		// и обновляем позицию
 		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
-		if (mWidgetTrack->getLeft() != (int)pos) mWidgetTrack->setPosition((int)pos, mWidgetTrack->getTop());
+		if (mWidgetTrack->getLeft() != (int)pos) mWidgetTrack->setPosition(IntPoint((int)pos, mWidgetTrack->getTop()));
 
 	}
 
@@ -41,14 +41,14 @@ namespace MyGUI
 		// расчитываем позицию виджета
 		int start = mPreActionRect.left + (_left - point.left);
 		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
-		else if (start > (mWidth - (int)mSkinRangeEnd)) start = (mWidth - (int)mSkinRangeEnd);
-		if (mWidgetTrack->getLeft() != start) mWidgetTrack->setPosition(start, mWidgetTrack->getTop());
+		else if (start > (mCoord.width - (int)mSkinRangeEnd)) start = (mCoord.width - (int)mSkinRangeEnd);
+		if (mWidgetTrack->getLeft() != start) mWidgetTrack->setPosition(IntPoint(start, mWidgetTrack->getTop()));
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
-		int pos = start - (int)mSkinRangeStart + (mWidth - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
+		int pos = start - (int)mSkinRangeStart + (mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
 		// высчитываем ближайшее значение и обновляем
-		pos = pos * (int)(mScrollRange-1) / (mWidth - (int)(mSkinRangeStart + mSkinRangeEnd));
+		pos = pos * (int)(mScrollRange-1) / (mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd));
 
 		// проверяем на выходы и изменения
 		if (pos < 0) pos = 0;

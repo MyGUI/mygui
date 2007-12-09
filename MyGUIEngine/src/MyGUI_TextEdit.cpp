@@ -11,7 +11,7 @@ namespace MyGUI
 {
 
 	TextEdit::TextEdit(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id) :
-		SubWidgetTextInterface(_info.offset.left, _info.offset.top, _info.offset.right, _info.offset.bottom, _info.align, _parent)
+		SubWidgetTextInterface(_info.coord, _info.align, _parent)
 	{
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
@@ -20,8 +20,8 @@ namespace MyGUI
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 
-		mOverlayContainer->setPosition(mLeft, mTop);
-		mOverlayContainer->setDimensions(mWidth, mHeight);
+		mOverlayContainer->setPosition(mCoord.left, mCoord.top);
+		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
 
 		mParent->_attachChild(this, true);
 	}
@@ -120,8 +120,8 @@ namespace MyGUI
 		bool margin = _checkMargin();
 
 		// двигаем всегда, т.к. дети должны двигаться
-		int x = mLeft  - mParent->getMarginLeft();
-		int y = mTop  - mParent->getMarginTop();
+		int x = mCoord.left  - mParent->getMarginLeft();
+		int y = mCoord.top  - mParent->getMarginTop();
 
 		mOverlayContainer->setPosition(x, y);
 
@@ -134,21 +134,21 @@ namespace MyGUI
 				// скрываем
 				mOverlayContainer->hide();
 				// запоминаем текущее состояние
-				mMargin = margin;
+				mIsMargin = margin;
 
 				return;
 			}
 		}
 		
-		if ((mMargin) || (margin)) { // мы обрезаны или были обрезаны
+		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
 
-			mOverlayContainer->setMargin(mLeftMargin, mTopMargin, mRightMargin, mBottomMargin);
-			mOverlayContainer->setDimensions(mWidth, mHeight);
+			mOverlayContainer->setMargin(mMargin);
+			mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
 
 		}
 
 		// запоминаем текущее состояние
-		mMargin = margin;
+		mIsMargin = margin;
 		// если скин был скрыт, то покажем
 		mOverlayContainer->show();
 
@@ -168,34 +168,34 @@ namespace MyGUI
 		if (mAlign & ALIGN_RIGHT) {
 			if (mAlign & ALIGN_LEFT) {
 				// растягиваем
-				mWidth = mWidth + (mParent->getWidth() - _width);
+				mCoord.width = mCoord.width + (mParent->getWidth() - _width);
 				need_update = true;
-				mMargin = true; // при изменении размеров все пересчитывать
+				mIsMargin = true; // при изменении размеров все пересчитывать
 			} else {
 				// двигаем по правому краю
-				mLeft = mLeft + (mParent->getWidth() - _width);
+				mCoord.left = mCoord.left + (mParent->getWidth() - _width);
 				need_update = true;
 			}
 
 		} else if (!(mAlign & ALIGN_LEFT)) {
 			// выравнивание по горизонтали без растяжения
-			mLeft = (mParent->getWidth() - mWidth) / 2;
+			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign & ALIGN_BOTTOM) {
 			if (mAlign & ALIGN_TOP) {
 				// растягиваем
-				mHeight = mHeight + (mParent->getHeight() - _height);
+				mCoord.height = mCoord.height + (mParent->getHeight() - _height);
 				need_update = true;
-				mMargin = true; // при изменении размеров все пересчитывать
+				mIsMargin = true; // при изменении размеров все пересчитывать
 			} else {
-				mTop = mTop + (mParent->getHeight() - _height);
+				mCoord.top = mCoord.top + (mParent->getHeight() - _height);
 				need_update = true;
 			}
 		} else if (!(mAlign & ALIGN_TOP)) {
 			// выравнивание по вертикали без растяжения
-			mTop = (mParent->getHeight() - mHeight) / 2;
+			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 

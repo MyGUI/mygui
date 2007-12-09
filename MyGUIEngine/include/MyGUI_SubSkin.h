@@ -32,7 +32,7 @@ namespace MyGUI
 		void _setAlign(int _width, int _height, bool _update);
 		void _setAlign(int _left, int _top, int _width, int _height, bool _update);
 
-		void _setUVSet(const FloatRect & _rect);
+		void _setUVSet(const FloatRect& _rect);
 
 		void _attachChild(CroppedRectanglePtr _basis, bool _child);
 		Ogre::OverlayElement* _getOverlayElement();

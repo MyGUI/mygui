@@ -10,15 +10,15 @@
 namespace MyGUI
 {
 
-	VScroll::VScroll(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		ScrollBase(_left, _top, _width, _height, _align, _info, _parent, _name)
+	VScroll::VScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+		ScrollBase(_coord, _align, _info, _parent, _name)
 	{
 	}
 
 	void VScroll::updateTrack()
 	{
 		// размер диапазана в пикселях
-		int pos = mHeight - (int)(mSkinRangeStart + mSkinRangeEnd);
+		int pos = mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);
 
 		// скрываем если диапазан маленький или места мало
 		if ((mScrollRange < 2) || (1 > (int)pos)) {
@@ -40,14 +40,14 @@ namespace MyGUI
 		// расчитываем позицию виджета
 		int start = mPreActionRect.top + (_top - point.top);
 		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
-		else if (start > (mHeight - (int)mSkinRangeEnd)) start = (mHeight - (int)mSkinRangeEnd);
+		else if (start > (mCoord.height - (int)mSkinRangeEnd)) start = (mCoord.height - (int)mSkinRangeEnd);
 		if (mWidgetTrack->getTop() != start) mWidgetTrack->setPosition(mWidgetTrack->getLeft(), start);
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
-		int pos = start - (int)mSkinRangeStart + (mHeight - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
+		int pos = start - (int)mSkinRangeStart + (mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd)) / (((int)mScrollRange-1) * 2);
 		// высчитываем ближайшее значение и обновляем
-		pos = pos * (int)(mScrollRange-1) / (mHeight - (int)(mSkinRangeStart + mSkinRangeEnd));
+		pos = pos * (int)(mScrollRange-1) / (mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd));
 
 		// проверяем на выходы и изменения
 		if (pos < 0) pos = 0;

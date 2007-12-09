@@ -19,7 +19,7 @@ namespace MyGUI
 	{
 
 	protected:
-		ScrollBase(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		ScrollBase(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
 
@@ -39,8 +39,8 @@ namespace MyGUI
 		inline size_t getScrollPage() {return mScrollPage;}
 
 		virtual void updateTrack() = 0;
-		virtual void setSize(int _width, int _height);
-		virtual void setPosition(int _left, int _top, int _width, int _height);
+		virtual void setSize(const IntSize& _size);
+		virtual void setPosition(const IntCoord& _coord);
 
 		// изменилось положение скрола
 		EventSimpleDataInfo eventScrollChangePosition;

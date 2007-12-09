@@ -24,7 +24,7 @@ namespace MyGUI
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
+			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
 		};
 

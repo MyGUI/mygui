@@ -20,6 +20,30 @@ namespace types
 		TPoint( T const & l, T const & t) : left( l ), top( t ) { }
 		TPoint( TPoint const & o ) : left( o.left ), top( o.top ) { }
 
+		inline TPoint & operator-=( TPoint const & o )
+		{
+			left -= o.left;
+			top -= o.top;
+			return *this;
+		}
+
+		inline TPoint & operator+=( TPoint const & o )
+		{
+			left += o.left;
+			top += o.top;
+			return *this;
+		}
+
+		inline TPoint operator-( TPoint const & o ) const
+		{
+			return TPoint(left - o.left, top - o.top);
+		}
+
+		inline TPoint operator+( TPoint const & o ) const
+		{
+			return TPoint(left + o.left, top + o.top);
+		}
+
 		inline TPoint & operator=( TPoint const & o )
 		{
 			left = o.left;
@@ -27,14 +51,14 @@ namespace types
 			return *this;
 		}
 
-		inline bool operator==( TPoint const & o )
+		inline bool operator==( TPoint const & o ) const
 		{
-			return ( (left == o.left) && (top == o.top) );
+			return ((left == o.left) && (top == o.top));
 		}
 
-		inline bool operator!=( TPoint const & o )
+		inline bool operator!=( TPoint const & o ) const
 		{
-			return ! (*this == o);
+			return ! ((left == o.left) && (top == o.top));
 		}
 
 		inline void clear()
@@ -48,7 +72,14 @@ namespace types
 			top = t;
 		}
 
-		inline bool empty()
+		inline void swap(TPoint& _value)
+		{
+			TPoint tmp = _value;
+			_value = *this;
+			*this = tmp;
+		}
+
+		inline bool empty() const
 		{
 			return ((left == 0) && (top == 0));
 		}

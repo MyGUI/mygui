@@ -46,11 +46,11 @@ namespace MyGUI
 		typedef std::vector<EnumCharInfo> VectorCharInfo;
 		typedef std::vector<VectorCharInfo> VectorLineInfo;
 
-		int mLeftMargin, mRightMargin, mTopMargin, mBottomMargin; // перекрытие
+		IntRect mMargin; // перекрытие
 		Align mAlign;
 
 		bool mRenderGL;// для конвертирования цвета вершин
-		Ogre::RGBA mDefaultColor; // цвет текста
+		Ogre::RGBA mDefaultColour; // цвет текста
 		FloatSize mContextSize; // размер всего текста
 		VectorLineInfo mLinesInfo;
 		bool mRawDataOutOfDate;
@@ -64,12 +64,8 @@ namespace MyGUI
 	public:
 		TextSimpleOverlayElement(const Ogre::String& name) :
 			TextAreaOverlayElement(name),
-			mLeftMargin (0),
-			mRightMargin (0),
-			mTopMargin (0),
-			mBottomMargin (0),
 			mAlign(ALIGN_CENTER),
-			mDefaultColor(0xFFFFFFFF),
+			mDefaultColour(0xFFFFFFFF),
 			mRawDataOutOfDate(false),
 			mOldViewportAspectCoef(1.0f)
 		{
@@ -93,12 +89,9 @@ namespace MyGUI
 		}
 
 		// устанавливет размеры по которым резать текст
-		inline void setMargin(int _left, int _top, int _right, int _bottom)
+		inline void setMargin(const IntRect& _margin)
 		{
-			mLeftMargin = _left;
-			mTopMargin = _top;
-			mRightMargin = _right;
-			mBottomMargin = _bottom;
+			mMargin = _margin;
 			mDerivedOutOfDate = true;
 		}
 
@@ -111,7 +104,7 @@ namespace MyGUI
 			updateRawData();
 
 			// текущие цвета
-			Ogre::RGBA color = mDefaultColor;
+			Ogre::RGBA colour = mDefaultColour;
 
 			checkMemoryAllocation( mCaption.size() );
 			mRenderOp.vertexData->vertexCount = 0;
@@ -132,10 +125,10 @@ namespace MyGUI
 			float bottom, top = 1.0 - realTop;
 
 			// края обрезки текста
-			float left_margin = (mPixelScaleX * (float)mLeftMargin * 2.0) + left;
-			float top_margin = top - (mPixelScaleY * (float)mTopMargin * 2.0);
-			float right_margin = (left + realWidth) - (mPixelScaleX * (float)mRightMargin * 2.0);
-			float bottom_margin = (top - realHeight) + (mPixelScaleY * (float)mBottomMargin * 2.0);
+			float left_margin = (mPixelScaleX * (float)mMargin.left * 2.0) + left;
+			float top_margin = top - (mPixelScaleY * (float)mMargin.top * 2.0);
+			float right_margin = (left + realWidth) - (mPixelScaleX * (float)mMargin.right * 2.0);
+			float bottom_margin = (top - realHeight) + (mPixelScaleY * (float)mMargin.bottom * 2.0);
 
 			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 			float left_shift = 0;
@@ -180,7 +173,7 @@ namespace MyGUI
 						for (;index != end_index; ++index) {
 							// проверяем на смену цвета
 							if ( index->isColour() ) {
-								color = index->getColour() | (color & 0xFF000000);
+								colour = index->getColour() | (colour & 0xFF000000);
 							}
 						}
 
@@ -212,7 +205,7 @@ namespace MyGUI
 
 					// проверяем на смену цвета
 					if ( index->isColour() ) {
-						color = index->getColour() | (color & 0xFF000000);
+						colour = index->getColour() | (colour & 0xFF000000);
 						continue;
 					}
 
@@ -255,7 +248,7 @@ namespace MyGUI
 							while (index != end_index) {
 								// проверяем на смену цвета
 								if ( index->isColour() ) {
-									color = index->getColour() | (color & 0xFF000000);
+									colour = index->getColour() | (colour & 0xFF000000);
 								}
 								index ++;
 							};
@@ -293,7 +286,7 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_top;
-					*((Ogre::RGBA *)(pVert++)) = color;
+					*((Ogre::RGBA *)(pVert++)) = colour;
 
 					// Bottom left
 					*pVert++ = vertex_left;
@@ -301,7 +294,7 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_bottom;
-					*((Ogre::RGBA *)(pVert++)) = color;
+					*((Ogre::RGBA *)(pVert++)) = colour;
 
 					// Top right
 					*pVert++ = vertex_right;
@@ -309,7 +302,7 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_top;
-					*((Ogre::RGBA *)(pVert++)) = color;
+					*((Ogre::RGBA *)(pVert++)) = colour;
 					//-------------------------------------------------------------------------------------
 
 					//-------------------------------------------------------------------------------------
@@ -321,7 +314,7 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_top;
-					*((Ogre::RGBA *)(pVert++)) = color;
+					*((Ogre::RGBA *)(pVert++)) = colour;
 
 					// Bottom left (again)
 					*pVert++ = vertex_left;
@@ -329,7 +322,7 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_left;
 					*pVert++ = texture_bottom;
-					*((Ogre::RGBA *)(pVert++)) = color;
+					*((Ogre::RGBA *)(pVert++)) = colour;
 
 					// Bottom right
 					*pVert++ = vertex_right;
@@ -337,7 +330,7 @@ namespace MyGUI
 					*pVert++ = -1.0;
 					*pVert++ = texture_right;
 					*pVert++ = texture_bottom;
-					*((Ogre::RGBA *)(pVert++)) = color;
+					*((Ogre::RGBA *)(pVert++)) = colour;
 					//-------------------------------------------------------------------------------------
 
 					mRenderOp.vertexData->vertexCount += 6;
@@ -412,7 +405,7 @@ namespace MyGUI
 
 		void setColour(const Ogre::ColourValue & _colour)
 		{
-			Ogre::Root::getSingleton().convertColourValue(_colour, &mDefaultColor);
+			Ogre::Root::getSingleton().convertColourValue(_colour, &mDefaultColour);
 			mGeomPositionsOutOfDate = true;
 		}
 
@@ -453,7 +446,7 @@ namespace MyGUI
 			if ( !mRawDataOutOfDate && (mOldViewportAspectCoef == mViewportAspectCoef) ) return;
 
 			// массив для быстрой конвертации цветов
-			static const char convert_color[128] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+			static const char convert_colour[128] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 			// вычисление размера одной единицы в текстурных координатах
 			float realCharHeight = mCharHeight * 2.0;
@@ -506,21 +499,21 @@ namespace MyGUI
 					if (character != '#') {
 
 						// парсим первый символ
-						Ogre::RGBA color = convert_color[character & 0x7F];
+						Ogre::RGBA colour = convert_colour[character & 0x7F];
 
 						// и еще пять символов после шарпа
 						for (char i=0; i<5; i++) {
 							++ index;
 							if (index == end) {--index ;continue;} // это защита
-							color <<= 4;
-							color += convert_color[ OGRE_DEREF_DISPLAYSTRING_ITERATOR(index) & 0x7F];
+							colour <<= 4;
+							colour += convert_colour[ OGRE_DEREF_DISPLAYSTRING_ITERATOR(index) & 0x7F];
 						}
 
 						// если нужно, то меняем красный и синий компоненты
-						if (mRenderGL) color = ((color&0x00FF0000)>>16)|((color&0x000000FF)<<16)|(color&0xFF00FF00);
+						if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
 				
 						// запоминаем цвет, в верхнем байте единицы
-						mLinesInfo.back().push_back( EnumCharInfo(color, true) );
+						mLinesInfo.back().push_back( EnumCharInfo(colour, true) );
 
 						continue;
 					}

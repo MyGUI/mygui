@@ -13,16 +13,15 @@
 namespace MyGUI
 {
 
-	List::List(int _left, int _top, int _width, int _height, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
+	List::List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _name),
 		mWidgetScroll(null), mWidgetClient(null),
 		mOffsetTop(0),
 		mTopIndex(0),
 		mRangeIndex(-1),
 		mLastRedrawLine(0),
 		mIndexSelect(ITEM_NONE),
-		mIsFocus(false),
-		mOldCx(0), mOldCy(0)
+		mIsFocus(false)
 	{
 		// запоминаем размер скина
 		IntSize size = _info->getSize();
@@ -189,7 +188,7 @@ namespace MyGUI
 		int offset = 0 - mOffsetTop;
 
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
-			mWidgetLines[pos]->setPosition(0, offset);
+			mWidgetLines[pos]->setPosition(IntPoint(0, offset));
 			offset += mHeightLine;
 		}
 
@@ -237,16 +236,16 @@ namespace MyGUI
 	
 	}
 
-	void List::setSize(int _width, int _height)
+	void List::setSize(const IntSize& _size)
 	{
-		Widget::setSize(_width, _height);
+		Widget::setSize(_size);
 		updateScroll();
 		updateLine();
 	}
 
-	void List::setPosition(int _left, int _top, int _width, int _height)
+	void List::setPosition(const IntCoord& _coord)
 	{
-		Widget::setPosition(_left, _top, _width, _height);
+		Widget::setPosition(_coord);
 		updateScroll();
 		updateLine();
 	}
@@ -275,20 +274,23 @@ namespace MyGUI
 	void List::updateLine(bool _reset)
 	{
 		// сбрасываем
-		if (_reset) {mOldCx=0;mOldCy=0;mLastRedrawLine=0;}
+		if (_reset) {
+			mOldSize.clear();
+			mLastRedrawLine = 0;
+		}
 
 		// позиция скролла
 		int position = mTopIndex * mHeightLine + mOffsetTop;
 
 		// если высота увеличивалась то добавляем виджеты
-		if (mOldCy < mHeight) {
+		if (mOldSize.height < mCoord.height) {
 
 			int height = (int)mWidgetLines.size() * mHeightLine - mOffsetTop;
 
 			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
 			while ( (height <= (mWidgetClient->getHeight() + mHeightLine)) && (mWidgetLines.size() < mStringArray.size()) ) {
 				// создаем линию
-				WidgetPtr line = mWidgetClient->createWidget("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
+				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 				line->eventMouseSheel = newDelegate(this, &List::notifyMouseSheel);
@@ -357,15 +359,15 @@ namespace MyGUI
 			// увеличился размер, но прокрутки вниз небыло, обновляем линии снизу
 			_redrawItemRange(mLastRedrawLine);//???
 
-		} // if (old_cy < mHeight)
+		} // if (old_cy < mCoord.height)
 
 		//_redrawItemRange();//???
 
 		// просчитываем положение скролла
 		mWidgetScroll->setScrollPosition(position);
 
-		mOldCx = mWidth;
-		mOldCy = mHeight;
+		mOldSize.width = mCoord.width;
+		mOldSize.height = mCoord.height;
 	}
 
 	void List::_redrawItemRange(size_t _start)

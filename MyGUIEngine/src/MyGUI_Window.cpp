@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_Window.h"
+#include "MyGUI_Macros.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
@@ -13,18 +14,18 @@
 namespace MyGUI
 {
 
-	const float WINDOW_ALPHA_MAX = 1.0;
-	const float WINDOW_ALPHA_MIN = 0.0;
-	const float WINDOW_ALPHA_ACTIVE = 1.0;
-	const float WINDOW_ALPHA_FOCUS = 0.7;
-	const float WINDOW_ALPHA_DEACTIVE = 0.3;
+	const float WINDOW_ALPHA_MAX = 1.0f;
+	const float WINDOW_ALPHA_MIN = 0.0f;
+	const float WINDOW_ALPHA_ACTIVE = 1.0f;
+	const float WINDOW_ALPHA_FOCUS = 0.7f;
+	const float WINDOW_ALPHA_DEACTIVE = 0.3f;
 	const float WINDOW_SPEED_COEF = 3.0f;
 
 	const int WINDOW_TO_STICK = 10;
 	const std::string WINDOW_CURSOR_POINTER_RESIZE = "size_left";
 
-	Window::Window(int _left, int _top, int _width, int _height, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_left, _top, _width, _height, _align, _info, _parent, _name),
+	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null), mWidgetClient(null),
 		mIsListenerAlpha(false),
 		mIsDestroy(false),
@@ -79,10 +80,10 @@ namespace MyGUI
 	}
 
 	// переопределяем для присвоению клиенту
-	WidgetPtr Window::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name)
+	WidgetPtr Window::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
 	{
-		if (mWidgetClient != null) return mWidgetClient->createWidget(_type, _skin, _left, _top, _width, _height, _align, _name);
-		return Widget::createWidget(_type, _skin, _left, _top, _width, _height, _align, _name);
+		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_type, _skin, _coord, _align, _name);
+		return Widget::createWidgetT(_type, _skin, _coord, _align, _name);
 	}
 
 	void Window::_onMouseChangeRootFocus(bool _focus)
@@ -106,7 +107,7 @@ namespace MyGUI
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
 		if (false == _left) return;
-		mPreActionRect.set(mLeft, mTop, mWidth, mHeight);
+		mPreActionRect.set(mCoord.left, mCoord.top, mCoord.width, mCoord.height);
 	}
 
 	void Window::notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _left)
@@ -117,13 +118,13 @@ namespace MyGUI
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		setPosition(mPreActionRect.left + (_left - point.left), mPreActionRect.top + (_top - point.top));
+		Widget::setPosition(mPreActionRect.left + (_left - point.left), mPreActionRect.top + (_top - point.top));
 	}
 
 	void Window::notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		setSize(mPreActionRect.right + (_left - point.left), mPreActionRect.bottom + (_top - point.top));
+		Widget::setSize(mPreActionRect.right + (_left - point.left), mPreActionRect.bottom + (_top - point.top));
 	}
 
 	void Window::setDoAlpha(float _alpha)
@@ -199,51 +200,53 @@ namespace MyGUI
 		else setDoAlpha(WINDOW_ALPHA_DEACTIVE);
 	}
 
-	void Window::setPosition(int _left, int _top)
+	void Window::setPosition(const IntPoint& _pos)
 	{
+		IntPoint pos = _pos;
 		// прилепляем к краям
 		if (mIsToStick) {
-			if (_left > 0) {if ( (_left - WINDOW_TO_STICK) <= 0) _left = 0;}
-			else {if ( (_left + WINDOW_TO_STICK) >= 0) _left = 0;}
-			if (_top > 0) {if ( (_top - WINDOW_TO_STICK) <= 0) _top = 0;}
-			else {	if ( (_top + WINDOW_TO_STICK) >= 0) _top = 0;}
+			if (pos.left > 0) {if ( (pos.left - WINDOW_TO_STICK) <= 0) pos.left = 0;}
+			else {if ( (pos.left + WINDOW_TO_STICK) >= 0) pos.left = 0;}
+			if (pos.top > 0) {if ( (pos.top - WINDOW_TO_STICK) <= 0) pos.top = 0;}
+			else {	if ( (pos.top + WINDOW_TO_STICK) >= 0) pos.top = 0;}
 
-			int width = Gui::getInstance().getWidth();
-			int height = Gui::getInstance().getHeight();
+			int width = Gui::getInstance().getViewWidth();
+			int height = Gui::getInstance().getViewHeight();
 
-			if ( (_left + mWidth) < width) {if ( (_left + mWidth + WINDOW_TO_STICK) > width ) _left = width - mWidth;	}
-			else {	if ( (_left + mWidth - WINDOW_TO_STICK) < width ) _left = width - mWidth;}
-			if ( (_top + mHeight) < height) {if ( (_top + mHeight + WINDOW_TO_STICK) > height ) _top = height - mHeight;}
-			else {	if ( (_top + mHeight - WINDOW_TO_STICK) < height ) _top = height - mHeight;}
+			if ( (pos.left + mCoord.width) < width) {if ( (pos.left + mCoord.width + WINDOW_TO_STICK) > width ) pos.left = width - mCoord.width;	}
+			else {	if ( (pos.left + mCoord.width - WINDOW_TO_STICK) < width ) pos.left = width - mCoord.width;}
+			if ( (pos.top + mCoord.height) < height) {if ( (pos.top + mCoord.height + WINDOW_TO_STICK) > height ) pos.top = height - mCoord.height;}
+			else {	if ( (pos.top + mCoord.height - WINDOW_TO_STICK) < height ) pos.top = height - mCoord.height;}
 		}
-		Widget::setPosition(_left, _top);
+		Widget::setPosition(pos);
 	}
 
-	void Window::setPosition(int _left, int _top, int _width, int _height)
+	void Window::setPosition(const IntCoord& _coord)
 	{
-		Widget::setPosition(_left, _top, _width, _height);
+		Widget::setPosition(_coord);
 	}
 
-	void Window::setSize(int _width, int _height)
+	void Window::setSize(const IntSize& _size)
 	{
+		IntSize size = _size;
 		// прилепляем к краям
 		if (mIsToStick) {
-			int width = Gui::getInstance().getWidth();
-			int height = Gui::getInstance().getHeight();
+			int width = Gui::getInstance().getViewWidth();
+			int height = Gui::getInstance().getViewHeight();
 
-			if ( (mLeft + _width) < width) {if ( (mLeft + _width + WINDOW_TO_STICK) > width ) _width = width - mLeft;	}
-			else {	if ( (mLeft + _width - WINDOW_TO_STICK) < width ) _width = width - mLeft;}
-			if ( (mTop + _height) < height) {if ( (mTop + _height + WINDOW_TO_STICK) > height ) _height = height - mTop;}
-			else {	if ( (mTop + _height - WINDOW_TO_STICK) < height ) _height = height - mTop;}
+			if ( (mCoord.left + size.width) < width) {if ( (mCoord.left + size.width + WINDOW_TO_STICK) > width ) size.width = width - mCoord.left;	}
+			else {	if ( (mCoord.left + size.width - WINDOW_TO_STICK) < width ) size.width = width - mCoord.left;}
+			if ( (mCoord.top + size.height) < height) {if ( (mCoord.top + size.height + WINDOW_TO_STICK) > height ) size.height = height - mCoord.top;}
+			else {	if ( (mCoord.top + size.height - WINDOW_TO_STICK) < height ) size.height = height - mCoord.top;}
 		}
 
-		if (_width < mMinmax.left) _width = mMinmax.left;
-		else if (_width > mMinmax.right) _width = mMinmax.right;
-		if (_height < mMinmax.top) _height = mMinmax.top;
-		else if (_height > mMinmax.bottom) _height = mMinmax.bottom;
-		if ((_width == mWidth) && (_height == mHeight) ) return;
+		if (size.width < mMinmax.left) size.width = mMinmax.left;
+		else if (size.width > mMinmax.right) size.width = mMinmax.right;
+		if (size.height < mMinmax.top) size.height = mMinmax.top;
+		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
+		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
 
-		Widget::setSize(_width, _height);
+		Widget::setSize(size);
 	}
 
 	// для мееедленного показа и скрытия
@@ -300,6 +303,12 @@ namespace MyGUI
 	void Window::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 	{
 		if (mWidgetResize == _sender) PointerManager::getInstance().defaultPointer();
+	}
+
+	IntRect Window::getClientRect()
+	{
+		if (null == mWidgetClient) return Widget::getClientRect();
+		return mWidgetClient->getClientRect();
 	}
 
 } // namespace MyGUI

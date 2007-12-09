@@ -21,6 +21,34 @@ namespace types
 		TRect( T const & l, T const & t, T const & r, T const & b ) : left( l ), top( t ), right( r ), bottom( b ) { }
 		TRect( TRect const & o ) : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom ) { }
 
+		inline TRect & operator-=( TRect const & o )
+		{
+			left -= o.left;
+			top -= o.top;
+			right -= o.right;
+			bottom -= o.bottom;
+			return *this;
+		}
+
+		inline TRect & operator+=( TRect const & o )
+		{
+			left += o.left;
+			top += o.top;
+			right += o.right;
+			bottom += o.bottom;
+			return *this;
+		}
+
+		inline TRect operator-( TRect const & o ) const
+		{
+			return TRect(left - o.left, top - o.top, right - o.right, bottom - o.bottom);
+		}
+
+		inline TRect operator+( TRect const & o ) const
+		{
+			return TRect(left + o.left, top + o.top, right + o.right, bottom + o.bottom);
+		}
+
 		inline TRect & operator=( TRect const & o )
 		{
 			left = o.left;
@@ -30,14 +58,14 @@ namespace types
 			return *this;
 		}
 
-		inline bool operator==( TRect const & o )
+		inline bool operator==( TRect const & o ) const
 		{
-			return ( (left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom) );
+			return ((left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom));
 		}
 
-		inline bool operator!=( TRect const & o )
+		inline bool operator!=( TRect const & o ) const
 		{
-			return ! (*this == o);
+			return ! ((left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom));
 		}
 
 		inline T width() const
@@ -61,6 +89,13 @@ namespace types
 			top = t;
 			right = r;
 			bottom = b;
+		}
+
+		inline void swap(TRect& _value)
+		{
+			TRect tmp = _value;
+			_value = *this;
+			*this = tmp;
 		}
 
 		inline bool empty() const

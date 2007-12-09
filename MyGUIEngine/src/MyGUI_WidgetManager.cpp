@@ -69,7 +69,7 @@ namespace MyGUI
 		//LOG("* Unregister widget factory '" + _factory->getType() + "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name)
 	{
 		Ogre::String name;
 		if (false == _name.empty()) {
@@ -78,12 +78,12 @@ namespace MyGUI
 			name = _name;
 		} else {
 			static long num=0;
-			name = Ogre::StringConverter::toString(num++) + "_" + _type;
+			name = util::toString(num++, "_", _type);
 		}
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getType() == _type) {
-				WidgetPtr widget = (*factory)->createWidget(_skin, _left, _top, _width, _height, _align, _parent, name);
+				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, name);
 				mWidgets[name] = widget;
 				return widget;
 			}
