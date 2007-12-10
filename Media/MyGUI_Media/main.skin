@@ -164,6 +164,8 @@
         <Property key="FontName" value = "MyGUI_font" />
         <Property key="FontHeight" value = "16" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "514 2 10 26"/>
             <State name="normal" offset = "514 30 10 26"/>
@@ -186,11 +188,11 @@
             <State name="select" offset = "544 114 10 26"/>
         </BasisSkin>
         <BasisSkin type="TextSimple" offset = "3 0 34 30" align = "ALIGN_STRETCH">
-            <State name="disable" colour="0.87 0.87 0.87"/>
-            <State name="pressed" colour="0 0 0"/>
-            <State name="normal" colour="0 0 0"/>
-            <State name="select" colour="2C8AD5"/>
-            <State name="active" colour="2C8AD5"/>
+            <State2 name="disable" colour="0.87 0.87 0.87"/>
+            <State2 name="pressed" colour="0 0 0"/>
+            <State2 name="normal" colour="0 0 0"/>
+            <State2 name="select" colour="2C8AD5"/>
+            <State2 name="active" colour="2C8AD5"/>
         </BasisSkin>
     </Skin>
 

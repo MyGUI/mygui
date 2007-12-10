@@ -26,181 +26,7 @@ void OptionsState::enter(bool bIsChangeState)
 	new MyGUI::Gui();
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
-	// load plugin
-//#if _DEBUG
-//	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin_d.dll");
-//#else
-//	MyGUI::PluginManager::getInstance().loadPlugin("TestPlugin.dll");
-//#endif
-
-
-//	MyGUI::LayerManager::getInstance().load("main.layer");
-	//MyGUI::PointerManager::getInstance().load("main.pointer");
-	//MyGUI::PointerManager::getInstance().show();
-
-	// загружаем скин
-//	MyGUI::SkinManager::getInstance().load("main.skin");
-	// загружаем лейаут
-	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
-
-	//MyGUI::FontManager::getInstance().load("MyGUI.font");
-
-
-	//MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonAutoAlpha"));
-	//button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed1);
-
-	/*button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonManualAlpha"));
-	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed2);*/
-
-	//MyGUI::ButtonPtr button = MyGUI::Gui::getInstance().createWidgetT<MyGUI::Button>("Button", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
-	//widget->show();
-
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
-	window->setCaption("edit test");
-	window->setAutoAlpha(true);
-	window->showSmooth(true);
-	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
-
-	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_STRETCH);
-	//edit->setCaption(L"Мы только тем и дороги\nкому должны вернуть долги");
-
-	MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
-	button->setCaption("multiline");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedMultiLine);
-	button->setUserString("Edit", edit->getName());
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
-	button->setCaption("read only");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedReadOnly);
-	button->setUserString("Edit", edit->getName());
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", 190, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
-	button->setCaption("password");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedPassword);
-	button->setUserString("Edit", edit->getName());
-
-	const MyGUI::IntCoord& coord = window->getClientRect();
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
-	button->setCaption("green");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourGreen);
-	button->setUserString("Edit", edit->getName());
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-180, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
-	button->setCaption("red");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourRed);
-	button->setUserString("Edit", edit->getName());
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-270, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
-	button->setCaption("blue");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourBlue);
-	button->setUserString("Edit", edit->getName());//*/
-
-
-	//	MyGUI::ListPtr list = static_cast<MyGUI::ListPtr>(window.createWidget("List", "List", 10, 10, 200, 200, MyGUI::ALIGN_STRETCH));
-
-	//MyGUI::StaticTextPtr st = static_cast<MyGUI::StaticTextPtr>(MyGUI::Gui::getInstance().createWidget("StaticText", "StaticText", 20, 20, 100, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped"));
-	//st->setCaption("static");
-
-	/*button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonLeft"));
-	button->setCaption("<<");
-	button->setUserData("button", 1);
-	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed3);
-
-	button = static_cast<MyGUI::ButtonPtr>(MyGUI::WidgetManager::getInstance().findWidget("buttonRight"));
-	button->setCaption(">>");
-	button->eventMouseButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyMousePressed3);
-
-	list1 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list1"));
-	list2 = static_cast<MyGUI::ListPtr>(MyGUI::WidgetManager::getInstance().findWidget("list2"));*/
-
-	//MYGUI_EXCEPT("1");
-
-	//MyGUI::ButtonPtr button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	//button->setCaption(L"#00FF00хнопка\t=)");
-
-//	MyGUI::WindowPtr window = static_cast<MyGUI::WindowPtr>(MyGUI::Gui::getInstance().createWidget("Window", "WindowCS", 20, 20, 300, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-//	window->show(false, true);
-
-	//MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	//edit->setCaption(L"Мы только тем и дороги");
-
-//	MyGUI::LayoutManager::getInstance().load("mygui.layout");
-
-//	MyGUI::WidgetManager::getInstance().destroyAllWidget();
-
-//	MyGUI::LayoutManager::getInstance().load("mygui.layout");
-
-	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
-
-//	MYGUI_EXCEPT("test");
-
-
-/*	Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
-	Ogre::Overlay * overlay = manager.create("test1");
-	overlay->setZOrder(100);
-	overlay->show();
-	Ogre::OverlayElement * element = manager.createOverlayElement("Panel", "test2");
-	element->setMaterialName("test");
-	element->setPosition(0.1, 0.1);
-	element->setDimensions(0.5, 0.5);
-	overlay->add2D((Ogre::OverlayContainer*)element);*/
-
-	//MyGUI::Gui::getInstance().shutdown();
-	//MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
-
-	//button = static_cast<MyGUI::ButtonPtr>(MyGUI::Gui::getInstance().createWidget("Button", "Button", 10, 10, 200, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	//button->setCaption(L"#00FF00хнопка\t=)");
-
-	//edit = static_cast<MyGUI::EditPtr>(MyGUI::Gui::getInstance().createWidget("Edit", "Edit", 200, 50, 300, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main"));
-	//edit->setCaption(L"Мы только тем и дороги");//*/
-
-	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
-
-
-	/*const std::string _file("test.log"); // файл лога
-	std::ofstream stream;
-
-	struct tm current_time;
-	time_t info_time;
-	time(&info_time);
-	localtime_s(&current_time, &info_time );
-
-	static bool first_run = true;
-	if (first_run) {
-		stream.open(_file.c_str(), std::ios_base::out);
-		stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl;
-		stream << "                                          logging report for : "
-			<< std::setw(2) << std::setfill('0') << current_time.tm_mon + 1 << "/"
-			<< std::setw(2) << std::setfill('0') << current_time.tm_mday << "/"
-			<< std::setw(4) << std::setfill('0') << current_time.tm_year + 1900 << "   "
-			<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
-			<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
-			<< std::setw(2) << std::setfill('0') << current_time.tm_sec << std::endl;
-		stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl << std::endl;
-		first_run = false;
-		stream.close();
-	}
-
-	stream.open(_file.c_str(), std::ios_base::app);
-	if (stream.is_open()) {
-
-		stream
-			<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
-			<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
-			<< std::setw(2) << std::setfill('0') << current_time.tm_sec << "   "
-			<< "dermo" << std::endl;
-
-
-		stream.close();
-	}*/
-
-	//MyGUI::LayoutManager::getInstance().load("mygui.layout");
-
-	//TRect<float> test;
-	//std::string str = test.toString();
-	//test = TRect<float>::parse("1 2 3 4");
-
+	createWindowEdit();
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )
@@ -245,24 +71,88 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 {
 }
 
+void OptionsState::createWindowEdit()
+{
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	window->setCaption("edit test");
+	window->setAutoAlpha(true);
+	window->showSmooth(true);
+	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
+
+	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_STRETCH);
+
+	MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button->setCaption("multiline");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedMultiLine);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button->setCaption("read only");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedReadOnly);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", 190, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button->setCaption("password");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedPassword);
+	button->setUserString("Edit", edit->getName());
+
+	const MyGUI::IntCoord& coord = window->getClientRect();
+
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button->setCaption("green");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourGreen);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-180, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button->setCaption("red");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourRed);
+	button->setUserString("Edit", edit->getName());
+
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-270, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+	button->setCaption("blue");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourBlue);
+	button->setUserString("Edit", edit->getName());
+}
+
 void OptionsState::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
-	edit->setEditReadOnly(!edit->getEditReadOnly());
+	if (edit->getEditReadOnly()) {
+		edit->setEditReadOnly(false);
+		_sender->setColour(Ogre::ColourValue::Black);
+	}
+	else {
+		edit->setEditReadOnly(true);
+		_sender->setColour(Ogre::ColourValue::White);
+	}
 	if (edit == null) return;
 }
 
 void OptionsState::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
-	edit->setEditPassword(!edit->getEditPassword());
+	if (edit->getEditPassword()) {
+		edit->setEditPassword(false);
+		_sender->setColour(Ogre::ColourValue::Black);
+	}
+	else {
+		edit->setEditPassword(true);
+		_sender->setColour(Ogre::ColourValue::White);
+	}
 	if (edit == null) return;
 }
 
 void OptionsState::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
-	edit->setEditMultiLine(!edit->getEditMultiLine());
+	if (edit->getEditMultiLine()) {
+		edit->setEditMultiLine(false);
+		_sender->setColour(Ogre::ColourValue::Black);
+	}
+	else {
+		edit->setEditMultiLine(true);
+		_sender->setColour(Ogre::ColourValue::White);
+	}
 	if (edit == null) return;
 }
 

@@ -49,6 +49,8 @@ namespace MyGUI
 			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
 			iter = param.find("AlignText");
 			if (iter != param.end()) setTextAlign(SkinManager::getInstance().parseAlign(iter->second));
+			iter = param.find("Colour");
+			if (iter != param.end()) setColour(util::parseColour(iter->second));
 		}
 
 		// этот стиль есть всегда, даже если создатель не хотел его
