@@ -107,8 +107,7 @@ namespace MyGUI
 			// захват окна
 			mIsWidgetMouseCapture = true;
 			// запоминаем место нажатия
-			mLastLeftPressed.left = (int)_arg.state.X.abs;
-			mLastLeftPressed.top = (int)_arg.state.Y.abs;
+			mLastLeftPressed.set((int)_arg.state.X.abs, (int)_arg.state.Y.abs);
 		}
 			
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
