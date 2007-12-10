@@ -409,7 +409,11 @@ namespace MyGUI
 	void Widget::setEnabled(bool _enabled)
 	{
 		mEnabled = _enabled;
-		InputManager::getInstance().unlinkWidget(this);
+		if (mEnabled) setState("normal");
+		else {
+			setState("disable");
+			InputManager::getInstance().unlinkWidget(this);
+		}
 	}
 
 	void Widget::attachToOverlay(Ogre::Overlay * _overlay)

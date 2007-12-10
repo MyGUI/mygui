@@ -63,9 +63,15 @@ namespace MyGUI
 		// удаляет текст
 		inline void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
 		// выделяет цветом выделение
-		inline void setTextSelectColour(const Ogre::ColourValue & _colour) {setTextSelectColour(_colour, false);}
+		inline void setTextSelectColour(const Ogre::ColourValue & _colour)
+		{
+			setTextSelectColour(_colour, false);
+		}
 		// выделяет цветом диапазон
-		inline void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour) {setTextColour(_start, _count, _colour, false);}
+		inline void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour)
+		{
+			setTextColour(_start, _count, _colour, false);
+		}
 
 		inline bool getEditReadOnly() {return mReadOnly;}
 		inline void setEditReadOnly(bool _read)
@@ -99,7 +105,10 @@ namespace MyGUI
 		{
 			mMultiLine = _multi;
 			// на всякий, для уберания переносов
-			if (false == mMultiLine) setCaption(getCaption());
+			if (false == mMultiLine) {
+				setCaption(getRealString());
+				//setRealString(getRealString());
+			}
 			// обновляем по размерам
 			else updateView(false);
 			// сбрасываем историю
