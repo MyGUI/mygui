@@ -72,14 +72,13 @@ namespace MyGUI
 		// ищем активное окно
 		LayerItemInfoPtr rootItem = null;
 		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
-		if ( (item != null) && (!item->isEnabled()) ) item = null; // неактивное окно
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) return isCaptureMouse();
 
-		// смена фокуса
-		if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseLostFocus(item);
-		if (item != null) item->_onMouseSetFocus(mWidgetMouseFocus);
+		// смена фокуса, проверяем на доступность виджета
+		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) mWidgetMouseFocus->_onMouseLostFocus(item);
+		if ((item != null) && (item->isEnabled())) item->_onMouseSetFocus(mWidgetMouseFocus);
 
 		// изменился рутовый элемент
 		if (rootItem != mWidgetRootMouseFocus) {
@@ -97,10 +96,14 @@ namespace MyGUI
 	bool InputManager::injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id )
 	{
 
+		// если мы щелкнули не  на гуй
 		if (false == isCaptureMouse()) {
 			resetKeyFocusWidget();
 			return false;
 		}
+
+		// если активный элемент заблокирован
+		if (false == mWidgetMouseFocus->isEnabled()) return true;
 
 		// захватываем только по левой клавише и только если виджету надо
 		if ( _id == OIS::MB_Left ) {
@@ -126,7 +129,10 @@ namespace MyGUI
 	bool InputManager::injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id )
 	{
 
-		if (isCaptureMouse()) {
+		if (isCaptureMouse() && mIsWidgetMouseCapture) {
+
+			// если активный элемент заблокирован
+			if (false == mWidgetMouseFocus->isEnabled()) return true;
 
 			// сбрасываем захват
 			mIsWidgetMouseCapture = false;
@@ -147,7 +153,6 @@ namespace MyGUI
 					WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
 					if ( item == mWidgetMouseFocus) {
 						mWidgetMouseFocus->_onMouseButtonClick(false);
-						//OUT("one click");
 					}
 				}
 			}
