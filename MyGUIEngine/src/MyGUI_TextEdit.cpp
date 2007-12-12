@@ -156,7 +156,7 @@ namespace MyGUI
 
 	void TextEdit::_setAlign(const IntCoord& _coord, bool _update)
 	{
-		_setAlign(_coord, _update);
+		_setAlign(_coord.size(), _update);
 	}
 
 	void TextEdit::_setAlign(const IntSize& _size, bool _update)

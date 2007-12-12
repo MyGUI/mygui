@@ -149,7 +149,7 @@ namespace MyGUI
 	void Widget::_setAlign(const IntCoord& _coord, bool _update)
 	{
 		// дл€ виджета изменение х у  не мен€ютьс€
-		_setAlign(_coord, _update);
+		_setAlign(_coord.size(), _update);
 	}
 
 	void Widget::_setAlign(const IntSize& _size, bool _update)

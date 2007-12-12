@@ -92,7 +92,7 @@ namespace MyGUI
 
 	void SubSkin::_setAlign(const IntCoord& _coord, bool _update)
 	{
-		_setAlign(_coord, _update);
+		_setAlign(_coord.size(), _update);
 	}
 
 	void SubSkin::_setAlign(const IntSize& _size, bool _update)

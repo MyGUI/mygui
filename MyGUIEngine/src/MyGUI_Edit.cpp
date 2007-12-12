@@ -42,7 +42,7 @@ namespace MyGUI
 		mActionMouseTimer(0),
 		mReadOnly(false),
 		mPassword(false),
-		mMultiLine(true)
+		mMultiLine(false)
 	{
 
 		MYGUI_ASSERT(null != mText);

@@ -22,6 +22,7 @@ public:
 	void notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double);
 
 	void createWindowEdit();
+	void createWindowList();
 
 public:
 	void enter(bool bIsChangeState);
