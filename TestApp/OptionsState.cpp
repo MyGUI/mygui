@@ -218,7 +218,7 @@ void OptionsState::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _doubl
 //---------------------------------------------------------------------------------------//
 void OptionsState::createWindowList()
 {
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 390, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 20, 20, 390, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("list test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
@@ -247,41 +247,6 @@ void OptionsState::createWindowList()
 	button->setUserString("List", list->getName());
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedDelete);
 
-//	MyGUI::ButtonPtr 	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
-//	button->setCaption("multiline");
-//	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedMultiLine);
-//	button->setUserString("Edit", edit->getName());
-//	button->setColour(Ogre::ColourValue::White);
-
-/*	MyGUI::ButtonPtr button2 = window->createWidget<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
-	button2->setCaption("read only");
-	button2->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedReadOnly);
-	button2->setUserString("Edit", edit->getName());
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", 190, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
-	button->setCaption("password");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedPassword);
-	button->setUserString("Edit", edit->getName());
-
-	const MyGUI::IntCoord& coord = window->getClientRect();
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
-	button->setCaption("green");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourGreen);
-	button->setUserString("Edit", edit->getName());
-	button2->setUserString("ColourGreen", button->getName());
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-180, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
-	button->setCaption("red");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourRed);
-	button->setUserString("Edit", edit->getName());
-	button2->setUserString("ColourRed", button->getName());
-
-	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-270, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
-	button->setCaption("blue");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedColourBlue);
-	button->setUserString("Edit", edit->getName());
-	button2->setUserString("ColourBlue", button->getName());*/
 }
 //---------------------------------------------------------------------------------------//
 void OptionsState::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
