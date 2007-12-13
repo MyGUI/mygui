@@ -2,6 +2,7 @@
 
 #include "BasisState.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_StaticText.h"
 
 class OptionsState : public BasisState
 {
@@ -12,6 +13,8 @@ public:
 	bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 	bool keyPressed( const OIS::KeyEvent &arg );
 	bool keyReleased( const OIS::KeyEvent &arg );
+
+	bool frameStarted(const Ogre::FrameEvent& evt);
 
 	void notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double);
 	void notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double);
@@ -26,6 +29,7 @@ public:
 
 	void notifyEditAccept(MyGUI::WidgetPtr _sender);
 	void notifyListPressedDelete(MyGUI::WidgetPtr _sender);
+	void notifyWindowXPressed(MyGUI::WidgetPtr _widget);
 
 	void createWindowEdit();
 	void createWindowList();
@@ -34,5 +38,8 @@ public:
 	void enter(bool bIsChangeState);
 	void exit();
 	void windowResize(); // уведомление об изменении размеров окна рендера
+
+private:
+	MyGUI::StaticTextPtr mFpsInfo;
 
 };

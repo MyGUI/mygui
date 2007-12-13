@@ -66,10 +66,12 @@ namespace MyGUI
 		virtual void setPosition(const IntCoord& _coord);
 
 
-		// событие нажат ентер, или двойной щелчек
+		// event : нажат ентер, или двойной щелчек
+		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventListSelectAccept;
 
-		// событие нажат Дел на елементе
+		// event : нажат Дел на елементе
+		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventListPressedDelete;
 
 	protected:

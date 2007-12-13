@@ -62,7 +62,8 @@ namespace MyGUI
 
 		const IntCoord& getClientRect();
 
-		// нажат крестик на окне
+		// event : нажат крестик на окне
+		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventWindowXPressed;
 
 	protected:

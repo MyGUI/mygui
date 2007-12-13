@@ -1,5 +1,6 @@
 
 #include "BasisManager.h"
+#include "OptionsState.h"
 
 #include "MyGUI_Gui.h"
 #include "MyGUI_PluginManager.h"
@@ -8,7 +9,6 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayoutManager.h"
-//#include "MyGUI_ParserManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_Window.h"
 #include "MyGUI_Button.h"
@@ -18,13 +18,16 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_List.h"
 #include "utility.h"
-//#include "test_type.h"
 
 void OptionsState::enter(bool bIsChangeState)
 {
 
 	new MyGUI::Gui();
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
+
+	int height = (int)BasisManager::getInstance().mHeight;
+	mFpsInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>("StaticText", 20, height - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
+	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
 	createWindowList();
 }
@@ -62,11 +65,24 @@ bool OptionsState::keyReleased( const OIS::KeyEvent &arg )
 //===================================================================================
 void OptionsState::exit()
 {
-	//MyGUI::PluginManager::shutdown();
 	MyGUI::Gui::getInstance().shutdown();
 	delete MyGUI::Gui::getInstancePtr();
 }
-//===================================================================================
+//------------------------------------------------------------------------------//
+bool OptionsState::frameStarted(const Ogre::FrameEvent& evt)
+{
+	static float time = 0;
+	time += evt.timeSinceLastFrame;
+	if (time > 1) {
+		time -= 1;
+		try {
+			const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
+			mFpsInfo->setCaption(util::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
+		} catch (...) { }
+	}
+	return true;
+}
+//------------------------------------------------------------------------------//
 void OptionsState::windowResize() // уведомление об изменении размеров окна рендера
 {
 }
@@ -223,6 +239,7 @@ void OptionsState::createWindowList()
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
 	window->setMinMax(MyGUI::IntRect(200, 115, 2000, 2000));
+	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 
 	const MyGUI::IntCoord& coord = window->getClientRect();
 
@@ -297,3 +314,8 @@ void OptionsState::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
 	}
 }
 
+void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _widget)
+{
+	MyGUI::WindowPtr window = MyGUI::castWidget<MyGUI::Window>(_widget);
+	window->hideSmooth(true);
+}

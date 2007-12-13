@@ -42,7 +42,8 @@ namespace MyGUI
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 
-		// изменилось положение скрола
+		// event : изменилось положение скрола
+		// signature : void method(MyGUI::WidgetPtr _widget, int _position)
 		EventSimpleDataInfo eventScrollChangePosition;
 
 	protected:

@@ -118,7 +118,8 @@ namespace MyGUI
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
 
-		// событие нажат ентер, или сонтрол энтер в мультилайн
+		// event : нажат ентер, или сонтрол энтер в мультилайн
+		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventEditSelectAccept;
 
 	protected:
