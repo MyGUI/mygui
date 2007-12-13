@@ -92,7 +92,7 @@ namespace MyGUI
 		return 0;
 	}
 
-	WidgetPtr WidgetManager::findWidget(const Ogre::String & _name)
+	WidgetPtr WidgetManager::findWidgetT(const Ogre::String & _name)
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){

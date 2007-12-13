@@ -34,6 +34,16 @@ namespace MyGUI
 		#define MYGUI_DEBUG_ASSERT(_exp) ((void)0)
 	#endif
 
+
+	// шаблонный класс для проверки типа виджета
+	class Widget;
+	template <class T>
+	inline T* castWidget(Widget * _widget)
+	{
+		MYGUI_TYPE(T*, _widget);
+		return static_cast<T*>(_widget);
+	}
+
 } // namespace MyGUI
 
 

@@ -93,13 +93,13 @@ namespace MyGUI
 			Widget::_onKeyButtonPressed(_key, _char);
 			return;
 		}
-		else if (getItemCount() == 1) {
+		/*else if (getItemCount() == 1) {
 			if (mIndexSelect == ITEM_NONE) setItemSelect(0);
 
 			// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 			Widget::_onKeyButtonPressed(_key, _char);
 			return;
-		}
+		}*/
 
 		size_t sel = mIndexSelect;
 
@@ -150,6 +150,12 @@ namespace MyGUI
 					if (sel >= getItemCount()) sel = getItemCount() - 1;
 				}
 			}
+
+		} else if (_key == OIS::KC_RETURN) {
+			if (sel != ITEM_NONE) eventListSelectAccept(this);
+
+		} else if (_key == OIS::KC_DELETE) {
+			if (sel != ITEM_NONE) eventListPressedDelete(this);
 
 		}
 
@@ -206,7 +212,7 @@ namespace MyGUI
 
 	void List::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		if (!_left) return;
+		if (false == _left) return;
 
 		// устанавливаем фокус на себ€
 		if (!mIsFocus) InputManager::getInstance().setKeyFocusWidget(this);

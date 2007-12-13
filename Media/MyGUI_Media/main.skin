@@ -496,5 +496,29 @@
         <BasisSkin type="TextSimple" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
     </Skin>
 
+    <Skin name = "Separator1" size = "2 2" material = "MyGUI_main">
+        <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "290 59 2 2"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "Separator2" size = "2 2" material = "MyGUI_main">
+        <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "311 59 2 2"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "Separator3" size = "2 2" material = "MyGUI_main">
+        <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "281 67 2 2"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "Separator4" size = "2 2" material = "MyGUI_main">
+        <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "284 80 2 2"/>
+        </BasisSkin>
+    </Skin>
+
 </MyGUI>
 

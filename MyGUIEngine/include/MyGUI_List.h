@@ -65,6 +65,13 @@ namespace MyGUI
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 
+
+		// событие нажат ентер, или двойной щелчек
+		EventSimple eventListSelectAccept;
+
+		// событие нажат Дел на елементе
+		EventSimple eventListPressedDelete;
+
 	protected:
 
 		void _onMouseSheel(int _rel);

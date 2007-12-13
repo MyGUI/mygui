@@ -122,7 +122,7 @@ void OptionsState::createWindowEdit()
 void OptionsState::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 {
 	MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-	MyGUI::EditPtr edit = manager.findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	MyGUI::EditPtr edit = manager.findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
 	if (edit == null) return;
 
 	bool enable = true;
@@ -141,17 +141,17 @@ void OptionsState::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 
 	// кнопки управления цветом
 
-	MyGUI::ButtonPtr button = manager.findWidgetT<MyGUI::Button>(_sender->getUserString("ColourBlue"));
+	MyGUI::ButtonPtr button = manager.findWidget<MyGUI::Button>(_sender->getUserString("ColourBlue"));
 	if (null != button) {
 		button->setEnabled(enable);
 		button->setColour(Ogre::ColourValue(colour, colour, colour));
 	}
-	button = manager.findWidgetT<MyGUI::Button>(_sender->getUserString("ColourGreen"));
+	button = manager.findWidget<MyGUI::Button>(_sender->getUserString("ColourGreen"));
 	if (null != button) {
 		button->setEnabled(enable);
 		button->setColour(Ogre::ColourValue(colour, colour, colour));
 	}
-	button = manager.findWidgetT<MyGUI::Button>(_sender->getUserString("ColourRed"));
+	button = manager.findWidget<MyGUI::Button>(_sender->getUserString("ColourRed"));
 	if (null != button) {
 		button->setEnabled(enable);
 		button->setColour(Ogre::ColourValue(colour, colour, colour));
@@ -161,7 +161,7 @@ void OptionsState::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 
 void OptionsState::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 {
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
 	if (edit == null) return;
 
 	if (edit->getEditPassword()) {
@@ -176,7 +176,7 @@ void OptionsState::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 
 void OptionsState::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 {
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
 	if (edit == null) return;
 
 	if (edit->getEditMultiLine()) {
@@ -191,7 +191,7 @@ void OptionsState::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double
 
 void OptionsState::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double)
 {
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
 	if (edit == null) return;
 
 	edit->setTextSelectColour(Ogre::ColourValue::Green);
@@ -199,7 +199,7 @@ void OptionsState::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _doub
 
 void OptionsState::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
 {
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
 	if (edit == null) return;
 
 	edit->setTextSelectColour(Ogre::ColourValue::Red);
@@ -207,7 +207,7 @@ void OptionsState::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double
 
 void OptionsState::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
 {
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidgetT<MyGUI::Edit>(_sender->getUserString("Edit"));
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
 	if (edit == null) return;
 
 	edit->setTextSelectColour(Ogre::ColourValue::Blue);
@@ -218,23 +218,42 @@ void OptionsState::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _doubl
 //---------------------------------------------------------------------------------------//
 void OptionsState::createWindowList()
 {
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 390, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("list test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
-	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
+	window->setMinMax(MyGUI::IntRect(200, 115, 2000, 2000));
 
-	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("Edit", 10, 10, 260, 26, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	const MyGUI::IntCoord& coord = window->getClientRect();
+
+	MyGUI::ListPtr list = window->createWidget<MyGUI::List>("List", 10, 46, coord.width-120, coord.height-56, MyGUI::ALIGN_STRETCH);
+	list->eventListPressedDelete = MyGUI::newDelegate(this, &OptionsState::notifyListPressedDelete);
+
+	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("Edit", 10, 10, coord.width-120, 26, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	edit->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_VCENTER);
+	edit->setUserString("List", list->getName());
+	edit->eventEditSelectAccept = MyGUI::newDelegate(this, &OptionsState::notifyEditAccept);
 
-	MyGUI::ListPtr list = window->createWidget<MyGUI::List>("List", 10, 46, 260, 126, MyGUI::ALIGN_STRETCH);
-/*	MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
-	button->setCaption("multiline");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedMultiLine);
+	MyGUI::WidgetPtr separator = window->createWidget<MyGUI::Widget>("Separator3", coord.width-101, 10, 2, coord.height-20, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_VSTRETCH);
+
+	MyGUI::ButtonPtr 	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, 10, 80, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP);
+	button->setCaption("add");
 	button->setUserString("Edit", edit->getName());
-	button->setColour(Ogre::ColourValue::White);
+	button->setUserString("List", list->getName());
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedAdd);
 
-	MyGUI::ButtonPtr button2 = window->createWidget<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, 46, 80, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP);
+	button->setCaption("delete");
+	button->setUserString("List", list->getName());
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedDelete);
+
+//	MyGUI::ButtonPtr 	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, coord.height-34, 80, 24, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM);
+//	button->setCaption("multiline");
+//	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedMultiLine);
+//	button->setUserString("Edit", edit->getName());
+//	button->setColour(Ogre::ColourValue::White);
+
+/*	MyGUI::ButtonPtr button2 = window->createWidget<MyGUI::Button>("ButtonSmall", 100, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 	button2->setCaption("read only");
 	button2->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedReadOnly);
 	button2->setUserString("Edit", edit->getName());
@@ -265,3 +284,51 @@ void OptionsState::createWindowList()
 	button2->setUserString("ColourBlue", button->getName());*/
 }
 //---------------------------------------------------------------------------------------//
+void OptionsState::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
+	if (edit == null) return;
+
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>(_sender->getUserString("List"));
+	if (list == null) return;
+
+	const Ogre::DisplayString& caption = edit->getCaption();
+	if (false == caption.empty()) {
+		list->addItemString(caption);
+		edit->setCaption("");
+	}
+}
+
+void OptionsState::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>(_sender->getUserString("List"));
+	if (list == null) return;
+
+	size_t select = list->getItemSelect();
+	if (select != ITEM_NONE) {
+		list->deleteItemString(select);
+	}
+}
+
+void OptionsState::notifyEditAccept(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>(_sender->getUserString("List"));
+	if (list == null) return;
+
+	const Ogre::DisplayString& caption = _sender->getCaption();
+	if (false == caption.empty()) {
+		list->addItemString(caption);
+		_sender->setCaption("");
+	}
+}
+	
+void OptionsState::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::ListPtr list = MyGUI::castWidget<MyGUI::List>(_sender);
+
+	size_t select = list->getItemSelect();
+	if (select != ITEM_NONE) {
+		list->deleteItemString(select);
+	}
+}
+

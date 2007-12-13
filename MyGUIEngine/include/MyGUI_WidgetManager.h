@@ -49,12 +49,13 @@ namespace MyGUI
 		void unregisterFactory(WidgetFactoryInterface * _factory);
 
 		// метод для поиска виджета
-		WidgetPtr findWidget(const Ogre::String & _name);
+		WidgetPtr findWidgetT(const Ogre::String & _name);
+
 		// шаблонный метод для поиска виджета
 		template <class T>
-		inline T* findWidgetT(const Ogre::String & _name)
+		inline T* findWidget(const Ogre::String & _name)
 		{
-			Widget * widget = findWidget(_name);
+			Widget * widget = findWidgetT(_name);
 			MYGUI_TYPE(T*, widget);
 			return static_cast<T*>(widget);
 		}

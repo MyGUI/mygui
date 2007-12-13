@@ -118,6 +118,9 @@ namespace MyGUI
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
 
+		// событие нажат ентер, или сонтрол энтер в мультилайн
+		EventSimple eventEditSelectAccept;
+
 	protected:
 
 		// устанавливает текст
@@ -234,11 +237,12 @@ namespace MyGUI
 		size_t mCursorPosition;
 		// максимаотное колличество
 		size_t mTextLenght;
-		// выделение
-		bool mShiftPressed;
-		size_t mStartSelect, mEndSelect;
 
+		bool mShiftPressed;
 		bool mCtrlPressed;
+
+		// выделение
+		size_t mStartSelect, mEndSelect;
 
 		// списоки изменений для отмены и повтора
 		DequeUndoRedoInfo mVectorUndoChangeInfo;

@@ -21,6 +21,12 @@ public:
 	void notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double);
 	void notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double);
 
+	void notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double);
+	void notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double);
+
+	void notifyEditAccept(MyGUI::WidgetPtr _sender);
+	void notifyListPressedDelete(MyGUI::WidgetPtr _sender);
+
 	void createWindowEdit();
 	void createWindowList();
 

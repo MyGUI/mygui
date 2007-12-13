@@ -255,14 +255,19 @@ namespace MyGUI
 			else if (mCtrlPressed) commandCopy();
 
 		} else if (_key == OIS::KC_RETURN) {
-			if ((false == mReadOnly) && (mMultiLine) ) {
-				// попытка объединения двух комманд
-				size_t size = mVectorUndoChangeInfo.size();
-				// непосредственно операции
-				deleteTextSelect(true);
-				insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
-				// проверяем на возможность объединения
-				if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+			// работаем только в режиме редактирования
+			if (false == mReadOnly) {
+				if ((mMultiLine) && (false == mCtrlPressed)) {
+					// попытка объединения двух комманд
+					size_t size = mVectorUndoChangeInfo.size();
+					// непосредственно операции
+					deleteTextSelect(true);
+					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
+					// проверяем на возможность объединения
+					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+				}
+				// при сингл лайн и и мульти+сонтрол шлем эвент
+				else eventEditSelectAccept(this);
 			}
 
 		} else if (_key == OIS::KC_RIGHT) {
