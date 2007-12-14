@@ -17,6 +17,7 @@
 #include "MyGUI_HScroll.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_List.h"
+#include "MyGUI_StretchRectangle.h"
 #include "utility.h"
 
 void OptionsState::enter(bool bIsChangeState)
@@ -29,7 +30,11 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>("StaticText", 20, height - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
-	createWindowList();
+	//createWindowList();
+	//createWindowEdit();
+
+	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+
 }
 //===================================================================================
 bool OptionsState::mouseMoved( const OIS::MouseEvent &arg )

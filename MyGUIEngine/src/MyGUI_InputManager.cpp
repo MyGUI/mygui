@@ -115,7 +115,7 @@ namespace MyGUI
 			
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
 		setKeyFocusWidget(mWidgetMouseFocus);
-		mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
+		if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
 
 		// поднимаем виджет, временно
 		if (mWidgetMouseFocus != null) {

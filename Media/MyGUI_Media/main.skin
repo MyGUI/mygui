@@ -595,5 +595,21 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "MarkerGreen" size = "1 1" material = "MyGUI_main" >
+        <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "560 37 1 1"/>
+            <State name="normal" offset = "560 13 1 1"/>
+            <State name="active" offset = "560 5 1 1"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "MarkerYellow" size = "1 1" material = "MyGUI_main" >
+        <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "560 37 1 1"/>
+            <State name="active" offset = "560 29 1 1"/>
+            <State name="select" offset = "560 21 1 1"/>
+        </BasisSkin>
+    </Skin>
+
 </MyGUI>
 

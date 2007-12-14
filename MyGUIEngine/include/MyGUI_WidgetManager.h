@@ -21,6 +21,7 @@
 #include "MyGUI_VScrollFactory.h"
 #include "MyGUI_HScrollFactory.h"
 #include "MyGUI_WindowFactory.h"
+#include "MyGUI_StretchRectangleFactory.h"
 
 namespace MyGUI
 {
@@ -90,6 +91,7 @@ namespace MyGUI
 		factory::VScrollFactory * mVScrollFactory;
 		factory::HScrollFactory * mHScrollFactory;
 		factory::WindowFactory * mWindowFactory;
+		factory::StretchRectangleFactory * mStretchRectangleFactory;
 
 	};
 
