@@ -31,6 +31,9 @@ public:
 	void notifyListPressedDelete(MyGUI::WidgetPtr _sender);
 	void notifyWindowXPressed(MyGUI::WidgetPtr _widget);
 
+	void notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double);
+	void notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double);
+
 	void createWindowEdit();
 	void createWindowList();
 
@@ -43,5 +46,6 @@ public:
 
 private:
 	MyGUI::StaticTextPtr mFpsInfo;
+	size_t mCountWindow;
 
 };

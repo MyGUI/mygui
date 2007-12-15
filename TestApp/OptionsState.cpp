@@ -21,6 +21,9 @@
 #include "utility.h"
 #include "MyGUI_RenderOut.h"
 
+
+const size_t MAX_CREATE_WINDOW = 20;
+
 void OptionsState::updateWidgetPosition(Ogre::Entity * _entity, Ogre::Camera * _camera, MyGUI::WidgetPtr _widget)
 {
 
@@ -72,6 +75,22 @@ void OptionsState::updateWidgetPosition(Ogre::Entity * _entity, Ogre::Camera * _
 
 }
 
+void OptionsState::notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double)
+{
+	if ((false == _double) && (mCountWindow < MAX_CREATE_WINDOW)) {
+		createWindowList();
+		mCountWindow ++;
+	}
+}
+
+void OptionsState::notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double)
+{
+	if ((false == _double) && (mCountWindow < MAX_CREATE_WINDOW)) {
+		createWindowEdit();
+		mCountWindow ++;
+	}
+}
+
 void OptionsState::enter(bool bIsChangeState)
 {
 
@@ -83,9 +102,19 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
 	//createWindowList();
-	createWindowEdit();
+	//createWindowEdit();
 
 	//MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+
+	mCountWindow = 0;
+
+	MyGUI::ButtonPtr 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", 10, 10, 200, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Main");
+	button->setCaption(L"List demo");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyWindowButton1);
+
+	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", 10, 46, 200, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Main");
+	button->setCaption(L"Edit demo + auto alpha");
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyWindowButton2);
 
 	/*MyGUI::ButtonPtr 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("ButtonSmall", 0, 0, 80, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Overlapped");
 	button->setCaption(L"хнопка");
@@ -156,7 +185,10 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 
 void OptionsState::createWindowEdit()
 {
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 20, 20, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	float x = (BasisManager::getInstance().mWidth - 300) * Ogre::Math::UnitRandom();
+	float y = (BasisManager::getInstance().mHeight - 300) * Ogre::Math::UnitRandom();
+
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", x, y, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
@@ -302,12 +334,16 @@ void OptionsState::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _doubl
 //---------------------------------------------------------------------------------------//
 void OptionsState::createWindowList()
 {
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 20, 20, 390, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	float x = (BasisManager::getInstance().mWidth - 300) * Ogre::Math::UnitRandom();
+	float y = (BasisManager::getInstance().mHeight - 300) * Ogre::Math::UnitRandom();
+
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", x, y, 390, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("list test");
-	window->setAutoAlpha(true);
-	window->showSmooth(true);
+	//window->setAutoAlpha(true);
+	//window->showSmooth(true);
 	window->setMinMax(MyGUI::IntRect(200, 115, 2000, 2000));
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+	window->showSmooth(true);
 
 	const MyGUI::IntCoord& coord = window->getClientRect();
 
@@ -384,4 +420,5 @@ void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _widget)
 {
 	MyGUI::WindowPtr window = MyGUI::castWidget<MyGUI::Window>(_widget);
 	window->hideSmooth(true);
+	mCountWindow --;
 }
