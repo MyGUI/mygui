@@ -69,11 +69,11 @@ namespace MyGUI
 	protected:
 		void _frameStarted(float _frame, float _event);
 
-		virtual void _onMouseChangeRootFocus(bool _focus);
-		virtual void _onKeyChangeRootFocus(bool _focus);
+		void _onMouseChangeRootFocus(bool _focus);
+		void _onKeyChangeRootFocus(bool _focus);
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _double);
 		void notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top);
 		void notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _left, int _top);
 

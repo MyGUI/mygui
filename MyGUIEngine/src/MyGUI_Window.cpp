@@ -59,7 +59,7 @@ namespace MyGUI
 		mWidgetX = parseSubWidget(param, "Button", "SkinX", "OffsetX", "AlignX", size);
 		if (mWidgetX != null) {
 			// делегаты для событий
-			mWidgetX->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressedX);
+			mWidgetX->eventMouseButtonClick = newDelegate(this, &Window::notifyMousePressedX);
 		}
 
 		// парсим ресайзер
@@ -112,9 +112,9 @@ namespace MyGUI
 		if (_left) mPreActionCoord = mCoord;
 	}
 
-	void Window::notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _left)
+	void Window::notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _double)
 	{
-		eventWindowXPressed(this);
+		if (false == _double) eventWindowXPressed(this);
 	}
 
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top)
