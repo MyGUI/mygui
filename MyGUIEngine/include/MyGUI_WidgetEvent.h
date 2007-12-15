@@ -52,62 +52,62 @@ namespace MyGUI
 
 	public:
 
-		//	событие : виджет потерял фокус мыши
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
+		/*	событие : виджет потерял фокус мыши*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);*/
 		EventFocusInfo eventMouseLostFocus;
 
-		//	событие : виджет получил фокус мыши
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
+		/*	событие : виджет получил фокус мыши*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);*/
 		EventFocusInfo eventMouseSetFocus;
 
-		//	событие : мышь двигается над захваченным виджетом
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _left, int _top);
+		/*	событие : мышь двигается над захваченным виджетом*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _left, int _top);*/
 		EventCoordInfo eventMouseMove;
 
-		//	событие : крутиться колесик над захваченным виджетом
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _rel);
+		/*	событие : крутиться колесик над захваченным виджетом*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _rel);*/
 		EventSimpleDataInfo eventMouseSheel;
 
-		//	событие : нажата клавиша мыши
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _left);
+		/*	событие : нажата клавиша мыши*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _left);*/
 		EventSimpleInfo eventMouseButtonPressed;
 
-		//	событие : отпущенна клавиша мыши
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _left);
+		/*	событие : отпущенна клавиша мыши*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _left);*/
 		EventSimpleInfo eventMouseButtonReleased;
 
-		//	событие : нажата и отпущенна клавиша мыши
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _double);
+		/*	событие : нажата и отпущенна клавиша мыши*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _double);*/
 		EventSimpleInfo eventMouseButtonClick;
 
-		//	событие : виджет потерял фокус клавиатуры
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
+		/*	событие : виджет потерял фокус клавиатуры*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);*/
 		EventFocusInfo eventKeyLostFocus;
 
-		//	событие : виджет получил фокус клавиатуры
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
+		/*	событие : виджет получил фокус клавиатуры*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);*/
 		EventFocusInfo eventKeySetFocus;
 
-		//	событие : нажата клавиша
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key, wchar_t _char);
+		/*	событие : нажата клавиша*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key, wchar_t _char);*/
 		EventKeyInfo eventKeyButtonPressed;
 
-		//	событие : отпущенна клавиша
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key);
+		/*	событие : отпущенна клавиша*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key);*/
 		EventSimpleDataInfo eventKeyButtonReleased;
 
-		//	событие : корневой виджет изменил фокус мыши, изменение без дочерних элементов
-		// это событие получает только корневой виджет
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		/*	событие : корневой виджет изменил фокус мыши, изменение без дочерних элементов*/
+		/* инфо : это событие получает только корневой виджет*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/
 		EventSimpleInfo  eventMouseChangeRootFocus;
 
-		//	событие : корневой виджет изменил фокус клавы, изменение без дочерних элементов
-		// это событие получает только корневой виджет
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		/*	событие : корневой виджет изменил фокус клавы, изменение без дочерних элементов*/
+		/* инфо : это событие получает только корневой виджет*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/
 		EventSimpleInfo  eventKeyChangeRootFocus;
 
-		//	событие : общее расширяемое событие для плагинов или особых случаев
-		//	прототип делегата : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
+		/* event : общее расширяемое событие для плагинов или особых случаев*/
+		/* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
 		EventActionInfo eventActionInfo;
 
 	protected:

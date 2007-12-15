@@ -86,7 +86,7 @@ namespace MyGUI
 		WidgetPtr mWidgetCaption, mWidgetX, mWidgetResize, mWidgetClient;
 
 		// размеры окна перед началом его изменений
-		IntRect mPreActionRect;
+		IntCoord mPreActionCoord;
 
 		// подписанны ли мы на фрейм старт
 		bool mIsListenerAlpha;

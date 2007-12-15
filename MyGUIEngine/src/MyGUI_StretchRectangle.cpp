@@ -14,87 +14,75 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _name),
 		mIsPressed(false),
 		mIsFocus(false),
-		mIsStatePressed(false),
-		mLeftBorder(null), mTopBorder(null), mRightBorder(null), mBottomBorder(null),
-		mActionLeft(null), mActionRight(null), mActionTop(null), mActionBottom(null),
-		mActionLeftTop(null), mActionLeftBottom(null), mActionRightTop(null), mActionRightBottom(null)
+		mIsStatePressed(false)
 	{
 		mNeedKeyFocus = true;
-
-		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (!param.empty()) {
-//			MapString::const_iterator iter = param.find("ButtonPressed");
-//			if (iter != param.end()) setButtonPressed(iter->second == "true");
-		}
 
 		const int size_line = 1;
 		const int size_rect = 7;
 
 		// создаем бордюр
-		mLeftBorder = createWidget<Widget>("MarkerGreen", 0, 0, size_line, _coord.height, ALIGN_LEFT | ALIGN_VSTRETCH);
-		mTopBorder = createWidget<Widget>("MarkerGreen", size_line, 0, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_TOP);
-		mRightBorder = createWidget<Widget>("MarkerGreen", _coord.width-size_line, 0, size_line, _coord.height, ALIGN_RIGHT | ALIGN_VSTRETCH);
-		mBottomBorder = createWidget<Widget>("MarkerGreen", size_line, _coord.height-size_line, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_BOTTOM);
+		mWidgetBorder[BORDER_LEFT] = createWidget<Widget>("MarkerGreen", 0, 0, size_line, _coord.height, ALIGN_LEFT | ALIGN_VSTRETCH);
+		mWidgetBorder[BORDER_TOP] = createWidget<Widget>("MarkerGreen", size_line, 0, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_TOP);
+		mWidgetBorder[BORDER_RIGHT] = createWidget<Widget>("MarkerGreen", _coord.width-size_line, 0, size_line, _coord.height, ALIGN_RIGHT | ALIGN_VSTRETCH);
+		mWidgetBorder[BORDER_BOTTOM] = createWidget<Widget>("MarkerGreen", size_line, _coord.height-size_line, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_BOTTOM);
 
-		mActionLeftTop = createWidget<Button>("MarkerGreen", size_line, size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_TOP);
-		mActionLeftBottom = createWidget<Button>("MarkerGreen", size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_BOTTOM);
-		mActionRightTop = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_TOP);
-		mActionRightBottom = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_BOTTOM);
+		mWidgetAction[ACTION_LEFT_TOP] = createWidget<Button>("MarkerGreen", size_line, size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_TOP);
+		mWidgetAction[ACTION_RIGHT_TOP] = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_TOP);
+		mWidgetAction[ACTION_RIGHT_BOTTOM] = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_BOTTOM);
+		mWidgetAction[ACTION_LEFT_BOTTOM] = createWidget<Button>("MarkerGreen", size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_BOTTOM);
 
-		mActionLeft = createWidget<Button>("MarkerGreen", size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_LEFT | ALIGN_VCENTER);
-		mActionTop = createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_TOP);
-		mActionRight = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_RIGHT | ALIGN_VCENTER);
-		mActionBottom = createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_BOTTOM);
-
-		setSize(200, 200);
+		mWidgetAction[ACTION_LEFT] = createWidget<Button>("MarkerGreen", size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_LEFT | ALIGN_VCENTER);
+		mWidgetAction[ACTION_TOP] = createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_TOP);
+		mWidgetAction[ACTION_RIGHT] = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_RIGHT | ALIGN_VCENTER);
+		mWidgetAction[ACTION_BOTTOM] = createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_BOTTOM);
 
 		//----------------------------------------------------------------------//
-		mLeftBorder->setEnabled(false);
-		mTopBorder->setEnabled(false);
-		mRightBorder->setEnabled(false);
-		mBottomBorder->setEnabled(false);
+		for (size_t pos=0; pos<BORDER_COUNT; pos++) {
+			mWidgetBorder[pos]->setEnabled(false);
+		}
 
-		mActionLeftTop->setEnabled(false);
-		mActionLeftBottom->setEnabled(false);
-		mActionRightTop->setEnabled(false);
-		mActionRightBottom->setEnabled(false);
-
-		mActionLeft->setEnabled(false);
-		mActionTop->setEnabled(false);
-		mActionRight->setEnabled(false);
-		mActionBottom->setEnabled(false);
+		for (size_t pos=0; pos<ACTION_COUNT; pos++) {
+			mWidgetAction[pos]->setEnabled(false);
+			mWidgetAction[pos]->eventMouseButtonPressed = newDelegate(this, &StretchRectangle::notifyMousePressed);
+			mWidgetAction[pos]->eventMouseMove = newDelegate(this, &StretchRectangle::notifyMouseMove);
+		}
 
 		//----------------------------------------------------------------------//
-		mLeftBorder->setNeedKeyFocus(true);
-		mTopBorder->setNeedKeyFocus(true);
-		mRightBorder->setNeedKeyFocus(true);
-		mBottomBorder->setNeedKeyFocus(true);
-
-		mActionLeftTop->setNeedKeyFocus(true);
-		mActionLeftBottom->setNeedKeyFocus(true);
-		mActionRightTop->setNeedKeyFocus(true);
-		mActionRightBottom->setNeedKeyFocus(true);
-
-		mActionLeft->setNeedKeyFocus(true);
-		mActionTop->setNeedKeyFocus(true);
-		mActionRight->setNeedKeyFocus(true);
-		mActionBottom->setNeedKeyFocus(true);
-
-		//----------------------------------------------------------------------//
-		mLeftBorder->eventKeyLostFocus = newDelegate(this, &StretchRectangle::notifyKeyLostFocus);
+		mWidgetAction[ACTION_LEFT_TOP]->setUserString("Scale", "1 1 -1 -1");
+		mWidgetAction[ACTION_TOP]->setUserString("Scale", "0 1 0 -1");
+		mWidgetAction[ACTION_RIGHT_TOP]->setUserString("Scale", "0 1 1 -1");
+		mWidgetAction[ACTION_RIGHT]->setUserString("Scale", "0 0 1 0");
+		mWidgetAction[ACTION_RIGHT_BOTTOM]->setUserString("Scale", "0 0 1 1");
+		mWidgetAction[ACTION_BOTTOM]->setUserString("Scale", "0 0 0 1");
+		mWidgetAction[ACTION_LEFT_BOTTOM]->setUserString("Scale", "1 0 -1 1");
+		mWidgetAction[ACTION_LEFT]->setUserString("Scale", "1 0 -1 0");
 
 	}
 
-	void StretchRectangle::notifyKeyLostFocus(WidgetPtr _sender, WidgetPtr _new)
+	void StretchRectangle::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		//_onKeyLostFocus(_new);
+		if (_left) mPreActionCoord = mCoord;
+	}
+
+	void StretchRectangle::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
+	{
+		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+
+		IntCoord coord(_sender->getUserString("Scale"));
+		coord.left *= (_left - point.left);
+		coord.top *= (_top - point.top);
+		coord.width *= (_left - point.left);
+		coord.height *= (_top - point.top);
+		
+		Widget::setPosition(mPreActionCoord + coord);
 	}
 
 	void StretchRectangle::_onMouseSetFocus(WidgetPtr _old)
 	{
 		mIsFocus = true;
 		updateWidgetState();
+
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseSetFocus(_old);
 	}
@@ -103,19 +91,15 @@ namespace MyGUI
 	{
 		mIsFocus = false;
 		updateWidgetState();
+
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseLostFocus(_new);
 	}
 
 	void StretchRectangle::_onKeyLostFocus(WidgetPtr _new)
 	{
-		if (false == isChild(_new)) {
-			mIsPressed = false;
-			updateWidgetState();
-		}
-		else if (_new != null) {
-//			InputManager::getInstance().setKeyFocusWidget(this);
-		}
+		mIsPressed = false;
+		updateWidgetState();
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyLostFocus(_new);
@@ -132,67 +116,39 @@ namespace MyGUI
 
 	void StretchRectangle::_onMouseButtonPressed(bool _left)
 	{
-		InputManager::getInstance().setKeyFocusWidget(this);
+		if (_left) mPreActionCoord = mCoord;
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseButtonPressed(_left);
 	}
 
-	/*void StretchRectangle::_onMouseButtonReleased(bool _left)
+	void StretchRectangle::_onMouseMove(int _left, int _top)
 	{
-		if (_left) {
-			mIsPressed = false;
-			updateWidgetState();
-		}
+		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+		Widget::setPosition(mPreActionCoord + IntPoint(_left - point.left, _top - point.top));
+
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonReleased(_left);
-	}*/
+		Widget::_onMouseMove(_left, _top);
+	}
 
 	void StretchRectangle::updateWidgetState()
 	{
-		Ogre::String state;
-		if (mIsFocus) {
-			if (mIsPressed || mIsStatePressed) state = "select";
-			else state = "active";
-		} else {
-			if (mIsPressed || mIsStatePressed) state = "select";
-			else state = "normal";
-		}
-
 		if ((false == mIsFocus) && (false == mIsPressed)) {
-			mLeftBorder->setEnabled(false);
-			mTopBorder->setEnabled(false);
-			mRightBorder->setEnabled(false);
-			mBottomBorder->setEnabled(false);
+			for (size_t pos=0; pos<BORDER_COUNT; pos++) {
+				mWidgetBorder[pos]->setEnabled(false);
+			}
 		}
 		else {
-			mLeftBorder->setEnabled(true);
-			mTopBorder->setEnabled(true);
-			mRightBorder->setEnabled(true);
-			mBottomBorder->setEnabled(true);
-			if (mIsPressed) {
-				mLeftBorder->setState("active");
-				mTopBorder->setState("active");
-				mRightBorder->setState("active");
-				mBottomBorder->setState("active");
-			}
-			else {
-				mLeftBorder->setState("normal");
-				mTopBorder->setState("normal");
-				mRightBorder->setState("normal");
-				mBottomBorder->setState("normal");
+			for (size_t pos=0; pos<BORDER_COUNT; pos++) {
+				mWidgetBorder[pos]->setEnabled(true);
+				if (mIsPressed) mWidgetBorder[pos]->setState("active");
+				else mWidgetBorder[pos]->setState("normal");
 			}
 		}
 
-		mActionLeftTop->setEnabled(mIsPressed);
-		mActionLeftBottom->setEnabled(mIsPressed);
-		mActionRightTop->setEnabled(mIsPressed);
-		mActionRightBottom->setEnabled(mIsPressed);
-
-		mActionLeft->setEnabled(mIsPressed);
-		mActionTop->setEnabled(mIsPressed);
-		mActionRight->setEnabled(mIsPressed);
-		mActionBottom->setEnabled(mIsPressed);
+		for (size_t pos=0; pos<ACTION_COUNT; pos++) {
+			mWidgetAction[pos]->setEnabled(mIsPressed);
+		}
 
 	}
 

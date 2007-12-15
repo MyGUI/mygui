@@ -24,6 +24,27 @@ namespace MyGUI
 		friend factory::StretchRectangleFactory;
 
 	protected:
+		enum {
+			BORDER_LEFT,
+			BORDER_TOP,
+			BORDER_RIGHT,
+			BORDER_BOTTOM,
+			BORDER_COUNT
+		};
+
+		enum {
+			ACTION_LEFT_TOP,
+			ACTION_TOP,
+			ACTION_RIGHT_TOP,
+			ACTION_RIGHT,
+			ACTION_RIGHT_BOTTOM,
+			ACTION_BOTTOM,
+			ACTION_LEFT_BOTTOM,
+			ACTION_LEFT,
+			ACTION_COUNT
+		};
+
+	protected:
 		StretchRectangle(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 	public:
@@ -37,34 +58,19 @@ namespace MyGUI
 			updateWidgetState();
 		}
 
-		inline bool isChild(WidgetPtr _widget)
-		{
-			return ((mLeftBorder == _widget) ||
-				(mTopBorder == _widget) ||
-				(mRightBorder == _widget) ||
-				(mBottomBorder == _widget) ||
-
-				(mActionLeft == _widget) ||
-				(mActionRight == _widget) ||
-				(mActionTop == _widget) ||
-				(mActionBottom == _widget) ||
-
-				(mActionLeftTop == _widget) ||
-				(mActionLeftBottom == _widget) ||
-				(mActionRightTop == _widget) ||
-				(mActionRightBottom == _widget));
-		}
-
 	protected:
 
-		virtual void _onMouseLostFocus(WidgetPtr _new);
-		virtual void _onMouseSetFocus(WidgetPtr _old);
-		virtual void _onKeyLostFocus(WidgetPtr _new);
-		virtual void _onKeySetFocus(WidgetPtr _old);
+		void _onMouseLostFocus(WidgetPtr _new);
+		void _onMouseSetFocus(WidgetPtr _old);
+		void _onMouseButtonPressed(bool _left);
+		void _onMouseMove(int _left, int _top);
 
-		virtual void _onMouseButtonPressed(bool _left);
+		void _onKeyLostFocus(WidgetPtr _new);
+		void _onKeySetFocus(WidgetPtr _old);
 
-		void notifyKeyLostFocus(WidgetPtr _sender, WidgetPtr _new);
+
+		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
 
 
 		void updateWidgetState();
@@ -78,12 +84,14 @@ namespace MyGUI
 		// статус кнопки нажата или нет
 		bool mIsStatePressed;
 
+		// размеры окна перед началом его изменений
+		IntCoord mPreActionCoord;
+
 		// рамка по краям виджета
-		WidgetPtr mLeftBorder, mTopBorder, mRightBorder, mBottomBorder;
+		WidgetPtr mWidgetBorder[BORDER_COUNT];
 
 		// квадратики для изменений размеров
-		ButtonPtr mActionLeft, mActionRight, mActionTop, mActionBottom;
-		ButtonPtr mActionLeftTop, mActionLeftBottom, mActionRightTop, mActionRightBottom;
+		ButtonPtr mWidgetAction[ACTION_COUNT];
 
 	}; // class StretchRectangle : public Widget
 

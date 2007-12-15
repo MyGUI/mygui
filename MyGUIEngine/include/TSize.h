@@ -20,6 +20,7 @@ namespace types
 		TSize() : width( 0 ), height( 0 ) { }
 		TSize( T const & w, T const & h) : width( w ), height( h ) { }
 		TSize( TSize const & o ) : width( o.width ), height( o.height ) { }
+		explicit TSize(const std::string& _value) {*this = parse(_value);}
 
 		inline TSize & operator-=( TSize const & o )
 		{

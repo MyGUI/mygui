@@ -23,6 +23,7 @@ namespace types
 		TCoord( T const & _left, T const & _top, T const & _width, T const & _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
 		TCoord( TCoord const & _obj ) : left( _obj.left ), top( _obj.top ), width( _obj.width ), height( _obj.height ) { }
 		TCoord( TPoint<T> const & _point, TSize<T> const & _size ) : left( _point.left ), top( _point.top ), width( _size.width ), height( _size.height ) { }
+		explicit TCoord(const std::string& _value) {*this = parse(_value);}
 
 		inline TCoord & operator-=( TCoord const & _obj )
 		{
@@ -47,9 +48,29 @@ namespace types
 			return TCoord(left - _obj.left, top - _obj.top, width - _obj.width, height - _obj.height);
 		}
 
+		inline TCoord operator-( TPoint<T> const & _obj ) const
+		{
+			return TCoord(left - _obj.left, top - _obj.top, width, height);
+		}
+
+		inline TCoord operator-( TSize<T> const & _obj ) const
+		{
+			return TCoord(left, top, width - _obj.width, height - _obj.height);
+		}
+
 		inline TCoord operator+( TCoord const & _obj ) const
 		{
 			return TCoord(left + _obj.left, top + _obj.top, width + _obj.width, height + _obj.height);
+		}
+
+		inline TCoord operator+( TPoint<T> const & _obj ) const
+		{
+			return TCoord(left + _obj.left, top + _obj.top, width, height);
+		}
+
+		inline TCoord operator+( TSize<T> const & _obj ) const
+		{
+			return TCoord(left, top, width + _obj.width, height + _obj.height);
 		}
 
 		inline TCoord & operator=( TCoord const & _obj )

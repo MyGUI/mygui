@@ -10,6 +10,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_RenderOut.h"
 
 namespace MyGUI
 {
@@ -112,13 +113,21 @@ namespace MyGUI
 			// запоминаем место нажатия
 			mLastLeftPressed.set((int)_arg.state.X.abs, (int)_arg.state.Y.abs);
 		}
-			
-		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
-		setKeyFocusWidget(mWidgetMouseFocus);
-		if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
 
-		// поднимаем виджет, временно
+		// ищем вверх тот виджет который может принимать фокус
+		WidgetPtr focus = mWidgetMouseFocus;
+		while ((focus != null) && (false == focus->isNeedKeyFocus())) focus = focus->getParent();
+
+		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
+		setKeyFocusWidget(focus);
+
+		//MYGUI_OUT((size_t)focus);
+
 		if (mWidgetMouseFocus != null) {
+
+			mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
+
+			// поднимаем виджет, временно
 			WidgetPtr tmp = mWidgetMouseFocus;
 			while (tmp->getParent() != null) tmp = tmp->getParent();
 			LayerManager::getInstance().upItem(tmp);

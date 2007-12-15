@@ -106,8 +106,7 @@ namespace MyGUI
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		if (false == _left) return;
-		mPreActionRect.set(mCoord.left, mCoord.top, mCoord.width, mCoord.height);
+		if (_left) mPreActionCoord = mCoord;
 	}
 
 	void Window::notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _left)
@@ -118,13 +117,13 @@ namespace MyGUI
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		Widget::setPosition(mPreActionRect.left + (_left - point.left), mPreActionRect.top + (_top - point.top));
+		Widget::setPosition(mPreActionCoord.point() + IntPoint(_left - point.left, _top - point.top));
 	}
 
 	void Window::notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		Widget::setSize(mPreActionRect.right + (_left - point.left), mPreActionRect.bottom + (_top - point.top));
+		Widget::setSize(mPreActionCoord.size() + IntSize(_left - point.left, _top - point.top));
 	}
 
 	void Window::setDoAlpha(float _alpha)
