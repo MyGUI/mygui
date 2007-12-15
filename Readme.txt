@@ -1,0 +1,3 @@
+Change [Configuration properties->Debugging->working directory] of TestApp to 
+../Shared/$(ConfigurationName)
+if you want run projects from Visual Studio.
