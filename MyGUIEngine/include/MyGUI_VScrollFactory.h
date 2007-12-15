@@ -19,8 +19,8 @@ namespace MyGUI
 		class _MyGUIExport VScrollFactory : public WidgetFactoryInterface
 		{
 		public:
-			VScrollFactory::VScrollFactory();
-			VScrollFactory::~VScrollFactory();
+			VScrollFactory();
+			~VScrollFactory();
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();

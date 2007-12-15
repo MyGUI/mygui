@@ -25,7 +25,7 @@ namespace MyGUI
 
 	protected:
 		Edit(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
-		~Edit();
+		virtual ~Edit();
 
 	public:
 

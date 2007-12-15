@@ -19,8 +19,8 @@ namespace MyGUI
 		class _MyGUIExport EditFactory : public WidgetFactoryInterface
 		{
 		public:
-			EditFactory::EditFactory();
-			EditFactory::~EditFactory();
+			EditFactory();
+			~EditFactory();
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();

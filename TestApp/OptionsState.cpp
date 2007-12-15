@@ -18,6 +18,7 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_List.h"
 #include "MyGUI_StretchRectangle.h"
+#include "MyGUI_ComboBox.h"
 #include "utility.h"
 #include "MyGUI_RenderOut.h"
 
@@ -104,9 +105,11 @@ void OptionsState::enter(bool bIsChangeState)
 	//createWindowList();
 	//createWindowEdit();
 
-	//MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+//	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
-	mCountWindow = 0;
+	MyGUI::ComboBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 200, 200, 100, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+
+	/*mCountWindow = 0;
 
 	MyGUI::ButtonPtr 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", 10, 10, 200, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Main");
 	button->setCaption(L"List demo");
@@ -114,7 +117,7 @@ void OptionsState::enter(bool bIsChangeState)
 
 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", 10, 46, 200, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Main");
 	button->setCaption(L"Edit demo + auto alpha");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyWindowButton2);
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyWindowButton2);*/
 
 	/*MyGUI::ButtonPtr 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("ButtonSmall", 0, 0, 80, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Overlapped");
 	button->setCaption(L"хнопка");

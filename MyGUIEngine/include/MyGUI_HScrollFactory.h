@@ -19,8 +19,8 @@ namespace MyGUI
 		class _MyGUIExport HScrollFactory : public WidgetFactoryInterface
 		{
 		public:
-			HScrollFactory::HScrollFactory();
-			HScrollFactory::~HScrollFactory();
+			HScrollFactory();
+			~HScrollFactory();
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();

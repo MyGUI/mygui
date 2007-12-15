@@ -19,8 +19,8 @@ namespace MyGUI
 		class _MyGUIExport StaticImageFactory : public WidgetFactoryInterface
 		{
 		public:
-			StaticImageFactory::StaticImageFactory();
-			StaticImageFactory::~StaticImageFactory();
+			StaticImageFactory();
+			~StaticImageFactory();
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();

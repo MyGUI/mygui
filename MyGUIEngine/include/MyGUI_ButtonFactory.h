@@ -19,8 +19,8 @@ namespace MyGUI
 		class _MyGUIExport ButtonFactory : public WidgetFactoryInterface
 		{
 		public:
-			ButtonFactory::ButtonFactory();
-			ButtonFactory::~ButtonFactory();
+			ButtonFactory();
+			~ButtonFactory();
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();

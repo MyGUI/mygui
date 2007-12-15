@@ -22,6 +22,7 @@
 #include "MyGUI_HScrollFactory.h"
 #include "MyGUI_WindowFactory.h"
 #include "MyGUI_StretchRectangleFactory.h"
+#include "MyGUI_ComboBoxFactory.h"
 
 namespace MyGUI
 {
@@ -92,6 +93,7 @@ namespace MyGUI
 		factory::HScrollFactory * mHScrollFactory;
 		factory::WindowFactory * mWindowFactory;
 		factory::StretchRectangleFactory * mStretchRectangleFactory;
+		factory::ComboBoxFactory * mComboBoxFactory;
 
 	};
 

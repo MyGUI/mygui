@@ -73,9 +73,11 @@
 #       define MYGUI_DEBUG_MODE 0
 #   endif
 
-#if !defined( __MINGW32__ )
-    #define snprintf _snprintf
-    #define vsnprintf _vsnprintf
+#if !defined( __MINGW32__ ) 
+# if MYGUI_COMP_VER < 1500 
+    #define snprintf _snprintf 
+    #define vsnprintf _vsnprintf 
+# endif 
 #endif
 
 // ------------------------------------------------------------------------------
