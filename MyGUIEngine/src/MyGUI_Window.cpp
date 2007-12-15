@@ -33,6 +33,9 @@ namespace MyGUI
 		mIsAutoAlpha(false),
 		mIsToStick(false)
 	{
+		// нам нужен фокус клавы
+		mNeedKeyFocus = true;
+
 		// дефолтные размеры
 		mMinmax.set(50, 50, 2050, 2050);
 
@@ -117,13 +120,13 @@ namespace MyGUI
 	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		Widget::setPosition(mPreActionCoord.point() + IntPoint(_left - point.left, _top - point.top));
+		setPosition(mPreActionCoord.point() + IntPoint(_left - point.left, _top - point.top));
 	}
 
 	void Window::notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		Widget::setSize(mPreActionCoord.size() + IntSize(_left - point.left, _top - point.top));
+		setSize(mPreActionCoord.size() + IntSize(_left - point.left, _top - point.top));
 	}
 
 	void Window::setDoAlpha(float _alpha)
@@ -222,7 +225,8 @@ namespace MyGUI
 
 	void Window::setPosition(const IntCoord& _coord)
 	{
-		Widget::setPosition(_coord);
+		setPosition(_coord.point());
+		setSize(_coord.size());
 	}
 
 	void Window::setSize(const IntSize& _size)

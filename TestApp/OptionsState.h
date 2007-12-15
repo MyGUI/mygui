@@ -34,6 +34,8 @@ public:
 	void createWindowEdit();
 	void createWindowList();
 
+	void updateWidgetPosition(Ogre::Entity * _entity, Ogre::Camera * _camera, MyGUI::WidgetPtr _widget);
+
 public:
 	void enter(bool bIsChangeState);
 	void exit();

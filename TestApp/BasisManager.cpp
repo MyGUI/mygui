@@ -49,7 +49,7 @@ void BasisManager::createInput() // создаем систему ввода
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
 	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
-	if (!material.isNull()) {
+	if (false == material.isNull()) {
 		Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
 		Ogre::Overlay * overlay = manager.create("wallpaper");
 		overlay->setZOrder(0);

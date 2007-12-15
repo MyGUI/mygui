@@ -47,6 +47,9 @@ namespace MyGUI
 
 		MYGUI_ASSERT(null != mText);
 
+		// нам нужен фокус клавы
+		mNeedKeyFocus = true;
+
 		// создаем прослойку, чтобы курсор был над текстом
 		mWidgetUpper = createWidgetT("Widget", "Empty", mText->getCoord(), mText->getAlign());
 		mWidgetUpper->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
@@ -109,7 +112,7 @@ namespace MyGUI
 		//}
 		// повторное нажатие
 		//else {
-			InputManager::getInstance().setKeyFocusWidget(this);
+			//InputManager::getInstance().setKeyFocusWidget(this);
 
 			IntPoint point = InputManager::getInstance().getLastLeftPressed();
 			mCursorPosition = mText->getTextCursorFromPoint(point);

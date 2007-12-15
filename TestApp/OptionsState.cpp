@@ -19,6 +19,58 @@
 #include "MyGUI_List.h"
 #include "MyGUI_StretchRectangle.h"
 #include "utility.h"
+#include "MyGUI_RenderOut.h"
+
+void OptionsState::updateWidgetPosition(Ogre::Entity * _entity, Ogre::Camera * _camera, MyGUI::WidgetPtr _widget)
+{
+
+	// get the projection of the object's AABB into screen space
+	const Ogre::AxisAlignedBox& bbox = _entity->getWorldBoundingBox(true);
+	Ogre::Matrix4 mat = _camera->getViewMatrix();
+
+	const Ogre::Vector3* corners = bbox.getAllCorners();
+
+	float min_x = 1.0f, max_x = 0.0f, min_y = 1.0f, max_y = 0.0f;
+
+	// expand the screen-space bounding-box so that it completely encloses 
+	// the object's AABB
+	for (int i=0; i<8; i++) {
+		Ogre::Vector3 corner = corners[i];
+
+		// multiply the AABB corner vertex by the view matrix to 
+		// get a camera-space vertex
+		corner = mat * corner;
+
+		// make 2D relative/normalized coords from the view-space vertex
+		// by dividing out the Z (depth) factor -- this is an approximation
+		float x = corner.x / corner.z + 0.5;
+		float y = corner.y / corner.z + 0.5;
+
+		if (x < min_x) min_x = x;
+		if (x > max_x) max_x = x;
+		if (y < min_y) min_y = y;
+		if (y > max_y) max_y = y;
+	}
+
+	Ogre::Viewport * view = _camera->getViewport();
+
+	// корректируем координаты для нормально восприятия
+	// точка отсчета левый верхний угол
+	float tmp = min_x;
+	min_x = (1 - max_x);
+	max_x = (1 - tmp);
+
+	// середина ентити - половина длинны виджета
+	int x = (int)((min_x + ((max_x - min_x) * 0.5)) * view->getActualWidth());
+	x -= (_widget->getWidth() / 2);
+
+	// верх энтити - высота виджета
+	int y = (int)(min_y * view->getActualHeight());
+	y -= _widget->getHeight();
+
+	_widget->setPosition(x, y);
+
+}
 
 void OptionsState::enter(bool bIsChangeState)
 {
@@ -31,9 +83,19 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
 	//createWindowList();
-	//createWindowEdit();
+	createWindowEdit();
 
-	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 100, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	//MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+
+	/*MyGUI::ButtonPtr 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("ButtonSmall", 0, 0, 80, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Overlapped");
+	button->setCaption(L"хнопка");
+
+	Ogre::Entity* ogrehead = BasisManager::getInstance().mSceneMgr->createEntity("ogrehead", "ogrehead.mesh");
+	Ogre::SceneNode* node = BasisManager::getInstance().mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	node->attachObject(ogrehead);
+	node->setPosition(100, 0, 60);
+
+	updateWidgetPosition(ogrehead, BasisManager::getInstance().mCamera, button);*/
 
 }
 //===================================================================================
@@ -94,11 +156,12 @@ void OptionsState::windowResize() // уведомление об изменении размеров окна ренд
 
 void OptionsState::createWindowEdit()
 {
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", 20, 20, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 20, 20, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
 	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
+	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 
 	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_STRETCH);
 	edit->setEditMultiLine(true);
@@ -314,9 +377,7 @@ void OptionsState::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
 	MyGUI::ListPtr list = MyGUI::castWidget<MyGUI::List>(_sender);
 
 	size_t select = list->getItemSelect();
-	if (select != ITEM_NONE) {
-		list->deleteItemString(select);
-	}
+	if (select != ITEM_NONE) list->deleteItemString(select);
 }
 
 void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _widget)

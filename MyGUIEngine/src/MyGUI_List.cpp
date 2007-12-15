@@ -23,6 +23,9 @@ namespace MyGUI
 		mIndexSelect(ITEM_NONE),
 		mIsFocus(false)
 	{
+		// нам нужен фокус клавы
+		mNeedKeyFocus = true;
+
 		// запоминаем размер скина
 		IntSize size = _info->getSize();
 
@@ -152,10 +155,22 @@ namespace MyGUI
 			}
 
 		} else if (_key == OIS::KC_RETURN) {
-			if (sel != ITEM_NONE) eventListSelectAccept(this);
+			if (sel != ITEM_NONE) {
+				eventListSelectAccept(this);
+
+				Widget::_onKeyButtonPressed(_key, _char);
+				// выходим, так как изменили колличество строк
+				return;
+			}
 
 		} else if (_key == OIS::KC_DELETE) {
-			if (sel != ITEM_NONE) eventListPressedDelete(this);
+			if (sel != ITEM_NONE) {
+				eventListPressedDelete(this);
+
+				Widget::_onKeyButtonPressed(_key, _char);
+				// выходим, так как изменили колличество строк
+				return;
+			}
 
 		}
 
@@ -215,7 +230,7 @@ namespace MyGUI
 		if (false == _left) return;
 
 		// устанавливаем фокус на себя
-		if (!mIsFocus) InputManager::getInstance().setKeyFocusWidget(this);
+		//if (!mIsFocus) InputManager::getInstance().setKeyFocusWidget(this);
 
 		if (_sender == mWidgetScroll) return;
 
@@ -486,6 +501,8 @@ namespace MyGUI
 			if (_index < mIndexSelect) mIndexSelect--;
 			else if ( (_index == mIndexSelect) && (mIndexSelect == (mStringArray.size())) ) mIndexSelect--;
 		}
+
+		//MYGUI_OUT(mIndexSelect);
 
 		// если виджетов стало больше , то скрываем крайний
 		if (mWidgetLines.size() > mStringArray.size()) {
