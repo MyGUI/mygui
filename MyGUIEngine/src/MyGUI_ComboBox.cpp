@@ -133,6 +133,8 @@ namespace MyGUI
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
+		if (mModeDrop) eventComboAccept(this);
+
 //		mList->setItemSelect(ITEM_NONE);
 	}
 
@@ -164,6 +166,8 @@ namespace MyGUI
 		//else setCaption("");
 
 		InputManager::getInstance().setKeyFocusWidget(this);
+
+		if (mModeDrop) eventComboAccept(this);
 	}
 
 	void ComboBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)

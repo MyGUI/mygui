@@ -92,6 +92,12 @@ void OptionsState::notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double)
 	}
 }
 
+void OptionsState::comboAccept(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::ComboBoxPtr combo = MyGUI::castWidget<MyGUI::ComboBox>(_sender);
+	MyGUI::MYGUI_OUT(combo->getComboText());
+}
+
 void OptionsState::enter(bool bIsChangeState)
 {
 
@@ -108,8 +114,10 @@ void OptionsState::enter(bool bIsChangeState)
 //	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
 	MyGUI::ComboBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 150, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	box->eventComboAccept = MyGUI::newDelegate(this, &OptionsState::comboAccept);
 
 	box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 500, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	box->eventComboAccept = MyGUI::newDelegate(this, &OptionsState::comboAccept);
 	box->setComboModeDrop(true);
 
 	/*mCountWindow = 0;

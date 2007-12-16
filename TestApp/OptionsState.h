@@ -34,6 +34,8 @@ public:
 	void notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double);
 	void notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double);
 
+	void comboAccept(MyGUI::WidgetPtr _sender);
+
 	void createWindowEdit();
 	void createWindowList();
 
