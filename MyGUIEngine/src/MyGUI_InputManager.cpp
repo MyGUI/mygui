@@ -60,7 +60,7 @@ namespace MyGUI
 
 		// проверка на скролл
 		if (_arg.state.Z.rel != 0) {
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseSheel(_arg.state.Z.rel);
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseWheel(_arg.state.Z.rel);
 			return isCaptureMouse();
 		}
 

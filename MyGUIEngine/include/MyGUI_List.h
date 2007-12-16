@@ -93,14 +93,14 @@ namespace MyGUI
 
 	protected:
 
-		void _onMouseSheel(int _rel);
+		void _onMouseWheel(int _rel);
 		void _onKeyLostFocus(WidgetPtr _new);
 		void _onKeySetFocus(WidgetPtr _old);
 		void _onKeyButtonPressed(int _key, wchar_t _char);
 
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseSheel(MyGUI::WidgetPtr _sender, int _rel);
+		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 
 		void updateScroll();
 		void updateLine(bool _reset = false);

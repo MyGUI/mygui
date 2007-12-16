@@ -66,7 +66,7 @@ namespace MyGUI
 
 		/*	событие : крутитьс€ колесик над захваченным виджетом*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _rel);*/
-		EventSimpleDataInfo eventMouseSheel;
+		EventSimpleDataInfo eventMouseWheel;
 
 		/*	событие : нажата клавиша мыши*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _left);*/
@@ -131,9 +131,9 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseSheel(int _rel)
+		virtual void _onMouseWheel(int _rel)
 		{
-			eventMouseSheel(mWidgetEventSender, _rel);
+			eventMouseWheel(mWidgetEventSender, _rel);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним

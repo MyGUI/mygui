@@ -33,6 +33,7 @@ namespace MyGUI
 		void notifyListSelectAccept(MyGUI::WidgetPtr _widget);
 		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
+		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 
 		void showList();
 		void hideList();
@@ -47,6 +48,7 @@ namespace MyGUI
 
 		bool mListShow;
 		int mMaxHeight;
+		size_t mItemIndex;
 
 	}; // class _MyGUIExport StaticText : public Widget
 

@@ -1110,7 +1110,7 @@ namespace MyGUI
 	void Edit::commandCut()
 	{
 		// вырезаем в буфер обмена
-		if ( isTextSelect() ) {
+		if ( isTextSelect() && (false == mPassword) ) {
 			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 			if (false == mReadOnly) deleteTextSelect(true);
 		}
@@ -1120,7 +1120,7 @@ namespace MyGUI
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-		if ( isTextSelect() ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
+		if ( isTextSelect() && (false == mPassword) ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 

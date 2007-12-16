@@ -6,6 +6,7 @@
 */
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -13,7 +14,8 @@ namespace MyGUI
 	ComboBox::ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Edit(_coord, _align, _info, _parent, _name),
 		mListShow(false),
-		mMaxHeight(0)
+		mMaxHeight(0),
+		mItemIndex(ITEM_NONE)
 	{
 		// запомием размер скина
 		IntSize size = _info->getSize();
@@ -41,17 +43,21 @@ namespace MyGUI
 		mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 		mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
 
+		// подписываем дочерние классы на скролл
+		mWidgetUpper->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
+		mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
+
 		mList->addItemString("Line 1");
 		mList->addItemString("Line 2");
 		mList->addItemString("Line 3");
-		/*mList->addItemString("Line 4");
+		mList->addItemString("Line 4");
 		mList->addItemString("Line 5");
 		mList->addItemString("Line 6");
 		mList->addItemString("Line 7");
 		mList->addItemString("Line 8");
 		mList->addItemString("Line 9");
 		mList->addItemString("Line 10");
-		mList->addItemString("Line 11");*/
+		mList->addItemString("Line 11");//*/
 
 	}
 
@@ -68,13 +74,24 @@ namespace MyGUI
 		// пустой списое не показываем
 		if (mList->getItemCount() == 0) return;
 
+		mListShow = true;
+
 		int height = mList->getListMaxHeight();
 		if (height > mMaxHeight) height = mMaxHeight;
 
-		mListShow = true;
+
 		IntCoord coord = mCoord;
-		coord.top += coord.height;
-		coord.height = height;
+
+		//показываем список вверх
+		if ((coord.top + coord.height + height) > (int)Gui::getInstance().getViewHeight()) {
+			coord.height = height;
+			coord.top -= coord.height;
+		}
+		// показываем список вниз
+		else {
+			coord.top += coord.height;
+			coord.height = height;
+		}
 		mList->setPosition(coord);
 		mList->show();
 
@@ -100,7 +117,10 @@ namespace MyGUI
 	{
 		std::string str;
 		size_t pos = mList->getItemSelect();
-		if (pos != ITEM_NONE) str = mList->getItemString(pos);
+		if (pos != ITEM_NONE) {
+			mItemIndex = pos;
+			str = mList->getItemString(pos);
+		}
 		setCaption(str);
 
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -123,10 +143,33 @@ namespace MyGUI
 
 	void ComboBox::notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
-		if (_position != ITEM_NONE) setCaption(mList->getItemString(_position));
+		if (_position != ITEM_NONE) {
+			mItemIndex = _position;
+			setCaption(mList->getItemString(_position));
+		}
 		//else setCaption("");
 
 		InputManager::getInstance().setKeyFocusWidget(this);
+	}
+
+	void ComboBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
+	{
+		if (mList->getItemCount() == 0) return;
+
+		if (_rel > 0) {
+			if (mItemIndex != 0) {
+				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
+				else mItemIndex --;
+				setCaption(mList->getItemString(mItemIndex));
+			}
+		}
+		else if (_rel < 0) {
+			if ((mItemIndex+1) < mList->getItemCount()) {
+				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
+				else mItemIndex ++;
+				setCaption(mList->getItemString(mItemIndex));
+			}
+		}
 	}
 
 } // namespace MyGUI

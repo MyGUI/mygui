@@ -61,12 +61,12 @@ namespace MyGUI
 
 	}
 
-	void List::_onMouseSheel(int _rel)
+	void List::_onMouseWheel(int _rel)
 	{
-		notifyMouseSheel(null, _rel);
+		notifyMouseWheel(null, _rel);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseSheel(_rel);
+		Widget::_onMouseWheel(_rel);
 	}
 
 	void List::_onKeySetFocus(WidgetPtr _old)
@@ -185,7 +185,7 @@ namespace MyGUI
 		Widget::_onKeyButtonPressed(_key, _char);
 	}
 
-	void List::notifyMouseSheel(MyGUI::WidgetPtr _sender, int _rel)
+	void List::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
 	{
 		if (mRangeIndex <= 0) return;
 
@@ -318,7 +318,7 @@ namespace MyGUI
 				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
 				// подписываемс€ на вс€кие там событи€
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
-				line->eventMouseSheel = newDelegate(this, &List::notifyMouseSheel);
+				line->eventMouseWheel = newDelegate(this, &List::notifyMouseWheel);
 				// присваиваем пор€дковый номер, длу простоты просчета
 				line->setInternalData((int)mWidgetLines.size());
 				// и сохран€ем
