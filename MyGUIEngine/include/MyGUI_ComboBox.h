@@ -35,6 +35,7 @@ namespace MyGUI
 		void notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyEditTextChange(MyGUI::WidgetPtr _sender);
 
 		void showList();
 		void hideList();
@@ -52,8 +53,7 @@ namespace MyGUI
 
 		inline size_t getComboItemIndex()
 		{
-			if (false == mModeDrop) return mItemIndex;
-			return ITEM_NONE;
+			return mItemIndex;
 		}
 
 		inline void setComboText(const Ogre::DisplayString& _text)

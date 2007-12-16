@@ -61,7 +61,7 @@ namespace MyGUI
 		// проверка на скролл
 		if (_arg.state.Z.rel != 0) {
 			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseWheel(_arg.state.Z.rel);
-			return isCaptureMouse();
+			return isFocusMouse();
 		}
 
 		if (mIsWidgetMouseCapture) {
@@ -75,7 +75,7 @@ namespace MyGUI
 		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
 
 		// ничего не изменилось
-		if (mWidgetMouseFocus == item) return isCaptureMouse();
+		if (mWidgetMouseFocus == item) return isFocusMouse();
 
 		// смена фокуса, проверяем на доступность виджета
 		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) mWidgetMouseFocus->_onMouseLostFocus(item);
@@ -91,14 +91,14 @@ namespace MyGUI
 		// запоминаем текущее окно
 		mWidgetMouseFocus = item;
 
-		return isCaptureMouse();
+		return isFocusMouse();
 	}
 
 	bool InputManager::injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id )
 	{
 
 		// если мы щелкнули не  на гуй
-		if (false == isCaptureMouse()) {
+		if (false == isFocusMouse()) {
 			resetKeyFocusWidget();
 			return false;
 		}
@@ -138,7 +138,7 @@ namespace MyGUI
 	bool InputManager::injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id )
 	{
 
-		if (isCaptureMouse() && mIsWidgetMouseCapture) {
+		if (isFocusMouse() && mIsWidgetMouseCapture) {
 
 			// если активный элемент заблокирован
 			if (false == mWidgetMouseFocus->isEnabled()) return true;
@@ -181,12 +181,12 @@ namespace MyGUI
 		detectLangShift(_arg.key, true);
 		
 		//Pass keystrokes to the current active text widget
-		if (isCaptureKey()) mWidgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
+		if (isFocusKey()) mWidgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
 
 		// запоминаем клавишу
 		storeKey(_arg.key);
 
-		return isCaptureKey();
+		return isFocusKey();
 	}
 
 	bool InputManager::injectKeyRelease(const OIS::KeyEvent & _arg)
@@ -197,9 +197,9 @@ namespace MyGUI
 		// проверка на переключение языков
 		detectLangShift(_arg.key, false);
 
-		if (isCaptureKey()) mWidgetKeyFocus->_onKeyButtonReleased(_arg.key);
+		if (isFocusKey()) mWidgetKeyFocus->_onKeyButtonReleased(_arg.key);
 
-		return isCaptureKey();
+		return isFocusKey();
 	}
 
     //Detects switching from an english to a other mode on a keyboard (?)
@@ -343,7 +343,6 @@ namespace MyGUI
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
-
 		// ищем рутовый фокус
 		WidgetPtr root = _widget;
 		if (root != null) { while (root->getParent() != null) root = root->getParent(); }
@@ -381,7 +380,7 @@ namespace MyGUI
 	void InputManager::_frameEntered(float _frame, float _event)
 	{
 		if ( mHoldKey == OIS::KC_UNASSIGNED) return;
-		if ( false == isCaptureKey() ) {
+		if ( false == isFocusKey() ) {
 			mHoldKey = OIS::KC_UNASSIGNED;
 			return;
 		}
@@ -407,7 +406,7 @@ namespace MyGUI
 	{
 		mHoldKey = OIS::KC_UNASSIGNED;
 
-		if ( false == isCaptureKey() ) return;
+		if ( false == isFocusKey() ) return;
 		if ( (_key == OIS::KC_LSHIFT)
 			|| (_key == OIS::KC_RSHIFT)
 			|| (_key == OIS::KC_LCONTROL)

@@ -259,6 +259,8 @@ namespace MyGUI
 				if (mCursorPosition != 0) {
 					mCursorPosition -- ;
 					eraseText(mCursorPosition, 1, true);
+					// отсылаем событие о изменении
+					eventEditTextChange(this);
 				}
 			}
 
@@ -269,6 +271,8 @@ namespace MyGUI
 				if (false == deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLenght) {
 						eraseText(mCursorPosition, 1, true); 
+						// отсылаем событие о изменении
+						eventEditTextChange(this);
 					}
 				}
 			}
@@ -288,6 +292,8 @@ namespace MyGUI
 					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
 					// провер€ем на возможность объединени€
 					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+					// отсылаем событие о изменении
+					eventEditTextChange(this);
 				}
 				// при сингл лайн и и мульти+сонтрол шлем эвент
 				else eventEditSelectAccept(this);
@@ -444,6 +450,8 @@ namespace MyGUI
 					insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
 					// провер€ем на возможность объединени€
 					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+					// отсылаем событие о изменении
+					eventEditTextChange(this);
 				}
 			} else if (_key == OIS::KC_C) {
 				commandCopy();
@@ -467,7 +475,6 @@ namespace MyGUI
 				commandRedo();
 
 			}
-
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -688,6 +695,9 @@ namespace MyGUI
 		IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
 		updateCursor(point);
 
+		// отсылаем событие о изменении
+		eventEditTextChange(this);
+
 		return true;
 	}
 
@@ -725,6 +735,9 @@ namespace MyGUI
 		// обновл€ем по позиции
 		IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
 		updateCursor(point);
+
+		// отсылаем событие о изменении
+		eventEditTextChange(this);
 
 		return true;
 	}
@@ -1132,7 +1145,11 @@ namespace MyGUI
 		// вырезаем в буфер обмена
 		if ( isTextSelect() && (false == mModePassword) ) {
 			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
-			if (false == mModeReadOnly) deleteTextSelect(true);
+			if (false == mModeReadOnly) {
+				deleteTextSelect(true);
+				// отсылаем событие о изменении
+				eventEditTextChange(this);
+			}
 		}
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
@@ -1156,6 +1173,8 @@ namespace MyGUI
 			insertText(clipboard, mCursorPosition, true);
 			// провер€ем на возможность объединени€
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+			// отсылаем событие о изменении
+			eventEditTextChange(this);
 		}
 	}
 

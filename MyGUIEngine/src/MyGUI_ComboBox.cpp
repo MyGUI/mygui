@@ -52,6 +52,10 @@ namespace MyGUI
 		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
 
+		// подписываемся на изменения текста
+		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
+
+
 		mList->addItemString("Line 1");
 		mList->addItemString("Line 2");
 		mList->addItemString("Line 3");
@@ -143,7 +147,14 @@ namespace MyGUI
 		Edit::_onKeyButtonPressed(_key, _char);
 
 		// при нажатии вниз, показываем лист
-		if (_key == OIS::KC_DOWN) showList();
+		if (_key == OIS::KC_DOWN) {
+
+			// выкидываем список только если мыша свободна
+			if (false == InputManager::getInstance().isCaptureMouse()) {
+				showList();
+			}
+			//InputManager::getInstance().resetMouseFocusWidget();
+		}
 		// нажат ввод в окне редиктирования
 		else if (_key == OIS::KC_RETURN) {
 			eventComboAccept(this);
@@ -202,6 +213,14 @@ namespace MyGUI
 
 		// показываем список
 		if (mModeDrop) notifyButtonPressed(null, _left);
+	}
+
+	void ComboBox::notifyEditTextChange(MyGUI::WidgetPtr _sender)
+	{
+		// сбрасываем выделенный элемент
+		mItemIndex = ITEM_NONE;
+		mList->setItemSelect(mItemIndex);
+		mList->beginToStart();
 	}
 
 } // namespace MyGUI

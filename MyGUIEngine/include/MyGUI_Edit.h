@@ -133,6 +133,10 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventEditSelectAccept;
 
+		// event : изменился текст
+		// signature : void method(MyGUI::WidgetPtr _widget)
+		EventSimple eventEditTextChange;
+
 	protected:
 
 		// устанавливает текст

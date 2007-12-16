@@ -42,8 +42,9 @@ namespace MyGUI
 		bool injectKeyPress(const OIS::KeyEvent & _arg);
 		bool injectKeyRelease(const OIS::KeyEvent & _arg);
 
-		inline bool isCaptureMouse() {return mWidgetMouseFocus != null;}
-		inline bool isCaptureKey() {return mWidgetKeyFocus != null;}
+		inline bool isFocusMouse() {return mWidgetMouseFocus != null;}
+		inline bool isFocusKey() {return mWidgetKeyFocus != null;}
+		inline bool isCaptureMouse() {return mIsWidgetMouseCapture;}
 
 		void setKeyFocusWidget(WidgetPtr _widget);
 		inline void resetKeyFocusWidget() {setKeyFocusWidget(null);}
