@@ -42,6 +42,44 @@ namespace MyGUI
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("ComboBox"); return type;}
 
+		inline void setComboItemIndex(size_t _index)
+		{
+			MYGUI_ASSERT(_index < mList->getItemCount());
+			mItemIndex = _index;
+			setCaption(mList->getItemString(_index));
+		}
+
+		inline size_t getComboItemIndex()
+		{
+			if (false == mModeDrop) return mItemIndex;
+			return ITEM_NONE;
+		}
+
+		inline void setComboText(const Ogre::DisplayString& _text)
+		{
+			if (false == mModeDrop) setCaption(_text);
+		}
+
+		inline const Ogre::DisplayString& getComboText()
+		{
+			return getCaption();
+		}
+
+		inline void setComboModeDrop(bool _drop)
+		{
+			mModeDrop = _drop;
+			setEditStatic(mModeDrop);
+		}
+
+		inline bool getComboModeDrop()
+		{
+			return mModeDrop;
+		}
+
+		// event : нажат энтер в комбо режиме или выбран айтем в дроп режиме
+		// signature : void method(MyGUI::WidgetPtr _widget)
+		EventSimple eventComboAccept;
+
 	private:
 		WidgetPtr mButton;
 		ListPtr mList;
@@ -49,6 +87,7 @@ namespace MyGUI
 		bool mListShow;
 		int mMaxHeight;
 		size_t mItemIndex;
+		bool mModeDrop;
 
 	}; // class _MyGUIExport StaticText : public Widget
 

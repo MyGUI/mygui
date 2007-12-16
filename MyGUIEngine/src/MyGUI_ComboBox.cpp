@@ -15,7 +15,8 @@ namespace MyGUI
 		Edit(_coord, _align, _info, _parent, _name),
 		mListShow(false),
 		mMaxHeight(0),
-		mItemIndex(ITEM_NONE)
+		mItemIndex(ITEM_NONE),
+		mModeDrop(false)
 	{
 		// запомием размер скина
 		IntSize size = _info->getSize();
@@ -102,7 +103,7 @@ namespace MyGUI
 	{
 		mListShow = false;
 		mList->hide();
-		mList->setItemSelect(ITEM_NONE);
+		//mList->setItemSelect(ITEM_NONE);
 	}
 
 	void ComboBox::notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
@@ -131,8 +132,14 @@ namespace MyGUI
 	void ComboBox::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
 		Edit::_onKeyButtonPressed(_key, _char);
+
 		// при нажатии вниз, показываем лист
 		if (_key == OIS::KC_DOWN) showList();
+		// нажат ввод в окне редиктирования
+		else if (_key == OIS::KC_RETURN) {
+			eventComboAccept(this);
+		}
+
 	}
 
 	void ComboBox::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
@@ -155,12 +162,14 @@ namespace MyGUI
 	void ComboBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
 	{
 		if (mList->getItemCount() == 0) return;
+		if (InputManager::getInstance().getKeyFocusWidget() != this) return;
 
 		if (_rel > 0) {
 			if (mItemIndex != 0) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex --;
 				setCaption(mList->getItemString(mItemIndex));
+				mList->setItemSelect(mItemIndex);
 			}
 		}
 		else if (_rel < 0) {
@@ -168,6 +177,7 @@ namespace MyGUI
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;
 				setCaption(mList->getItemString(mItemIndex));
+				mList->setItemSelect(mItemIndex);
 			}
 		}
 	}

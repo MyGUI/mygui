@@ -40,9 +40,10 @@ namespace MyGUI
 		mHalfCursor(1, 1),
 		mMouseLeftPressed(false),
 		mActionMouseTimer(0),
-		mReadOnly(false),
-		mPassword(false),
-		mMultiLine(false)
+		mModeReadOnly(false),
+		mModePassword(false),
+		mModeMultiline(false),
+		mModeStatic(false)
 	{
 
 		MYGUI_ASSERT(null != mText);
@@ -107,6 +108,9 @@ namespace MyGUI
 
 	void Edit::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
+		// в статике все недоступно
+		if (mModeStatic) return;
+
 		// до нажати€ мы были неактивны
 		//if (false == mCursorActive) {
 			//InputManager::getInstance().setKeyFocusWidget(this);
@@ -134,6 +138,9 @@ namespace MyGUI
 
 	void Edit::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
+		// в статике все недоступно
+		if (mModeStatic) return;
+
 		// останавливаем курсор
 		if ( false == mWidgetCursor->isShow()) mWidgetCursor->show();
 
@@ -202,11 +209,13 @@ namespace MyGUI
 			mIsPressed = true;
 			updateEditState();
 
-			mCursorActive = true;
-			Gui::getInstance().addFrameListener(this);
-			mWidgetCursor->show();
-			mText->setSelectBackground(true);
-			mCursorTimer = 0;
+			if (false == mModeStatic) {
+				mCursorActive = true;
+				Gui::getInstance().addFrameListener(this);
+				mWidgetCursor->show();
+				mText->setSelectBackground(true);
+				mCursorTimer = 0;
+			}
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeySetFocus(_old);
@@ -232,13 +241,20 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(null != mText);
 
+		// в статическом режиме ничего не доступно
+		if (mModeStatic) {
+			Widget::_onKeyButtonPressed(_key, _char);
+			return;
+		}
+
+
 		if ( false == mWidgetCursor->isShow()) mWidgetCursor->show();
 		mCursorTimer = 0.0f;
 
 		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
 		else if (_key == OIS::KC_BACK) {
 			// если нуно то удал€ем выделенный текст
-			if ( (false == mReadOnly) && (false == deleteTextSelect(true)) ) {
+			if ( (false == mModeReadOnly) && (false == deleteTextSelect(true)) ) {
 				// прыгаем на одну назад и удал€ем
 				if (mCursorPosition != 0) {
 					mCursorPosition -- ;
@@ -248,7 +264,7 @@ namespace MyGUI
 
 		} else if (_key == OIS::KC_DELETE) {
 			if (mShiftPressed) commandCut();
-			else if (false == mReadOnly) {
+			else if (false == mModeReadOnly) {
 				// если нуно то удал€ем выделенный текст
 				if (false == deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLenght) {
@@ -263,8 +279,8 @@ namespace MyGUI
 
 		} else if (_key == OIS::KC_RETURN) {
 			// работаем только в режиме редактировани€
-			if (false == mReadOnly) {
-				if ((mMultiLine) && (false == mCtrlPressed)) {
+			if (false == mModeReadOnly) {
+				if ((mModeMultiline) && (false == mCtrlPressed)) {
 					// попытка объединени€ двух комманд
 					size_t size = mVectorUndoChangeInfo.size();
 					// непосредственно операции
@@ -420,7 +436,7 @@ namespace MyGUI
 
 			// если не нажат контрл, то обрабатываем как текст
 			if ( false == mCtrlPressed ) {
-				if (false == mReadOnly) {
+				if (false == mModeReadOnly) {
 					// попытка объединени€ двух комманд
 					size_t size = mVectorUndoChangeInfo.size();
 					// непосредственно операции
@@ -469,6 +485,9 @@ namespace MyGUI
 
 	void Edit::_frameEntered(float _frame, float _event)
 	{
+		// в статике все недоступно
+		if (mModeStatic) return;
+
 		if (mCursorActive) {
 			mCursorTimer += _frame;
 
@@ -838,6 +857,7 @@ namespace MyGUI
 
 	void Edit::updateCursor(IntPoint _point)
 	{
+		if (mModeStatic) return;
 		//OUT(mCursorPosition);
 
 		WidgetPtr parent = mWidgetUpper;
@@ -919,7 +939,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// вставл€ем текст
-		iterator.setText(_caption, mMultiLine);
+		iterator.setText(_caption, mModeMultiline);
 
 		// обрезаем по максимальной длинне
 		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
@@ -986,7 +1006,7 @@ namespace MyGUI
 		if (need_colour) iterator.setTagColour(colour);
 
 		// а теперь вставл€ем строку
-		iterator.insertText(_text, mMultiLine);
+		iterator.insertText(_text, mModeMultiline);
 
 		// обрезаем по максимальной длинне
 		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
@@ -1110,9 +1130,9 @@ namespace MyGUI
 	void Edit::commandCut()
 	{
 		// вырезаем в буфер обмена
-		if ( isTextSelect() && (false == mPassword) ) {
+		if ( isTextSelect() && (false == mModePassword) ) {
 			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
-			if (false == mReadOnly) deleteTextSelect(true);
+			if (false == mModeReadOnly) deleteTextSelect(true);
 		}
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
@@ -1120,7 +1140,7 @@ namespace MyGUI
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-		if ( isTextSelect() && (false == mPassword) ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
+		if ( isTextSelect() && (false == mModePassword) ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
@@ -1128,7 +1148,7 @@ namespace MyGUI
 	{
 		// копируем из буфера обмена
 		std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
-		if ( (false == mReadOnly) && ( false == clipboard.empty()) ) {
+		if ( (false == mModeReadOnly) && ( false == clipboard.empty()) ) {
 			// попытка объединени€ двух комманд
 			size_t size = mVectorUndoChangeInfo.size();
 			// непосредственно операции
@@ -1144,11 +1164,11 @@ namespace MyGUI
 		if (mIsFocus) {
 			if (mIsPressed) setState("select");
 			else setState("active");
-			PointerManager::getInstance().setPointer(EDIT_CURSOR_POINTER, this);
+			if (false == mModeStatic) PointerManager::getInstance().setPointer(EDIT_CURSOR_POINTER, this);
 		} else {
 			if (mIsPressed) setState("pressed");
 			else setState("normal");
-			PointerManager::getInstance().defaultPointer();
+			if (false == mModeStatic) PointerManager::getInstance().defaultPointer();
 		}
 	}
 

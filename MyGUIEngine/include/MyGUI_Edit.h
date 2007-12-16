@@ -73,20 +73,20 @@ namespace MyGUI
 			setTextColour(_start, _count, _colour, false);
 		}
 
-		inline bool getEditReadOnly() {return mReadOnly;}
+		inline bool getEditReadOnly() {return mModeReadOnly;}
 		inline void setEditReadOnly(bool _read)
 		{
-			mReadOnly = _read;
+			mModeReadOnly = _read;
 			// сбрасываем историю
 			commandResetHistory();
 		}
 
-		inline bool getEditPassword() {return mPassword;}
+		inline bool getEditPassword() {return mModePassword;}
 		inline void setEditPassword(bool _password)
 		{
-			if (mPassword == _password) return;
-			mPassword = _password;
-			if (mPassword) {
+			if (mModePassword == _password) return;
+			mModePassword = _password;
+			if (mModePassword) {
 				mPasswordText = mText->getCaption();
 				mText->setCaption(Ogre::DisplayString(mTextLenght, '*'));
 			}
@@ -100,12 +100,12 @@ namespace MyGUI
 			commandResetHistory();
 		}
 
-		inline bool getEditMultiLine() {return mMultiLine;}
+		inline bool getEditMultiLine() {return mModeMultiline;}
 		inline void setEditMultiLine(bool _multi)
 		{
-			mMultiLine = _multi;
+			mModeMultiline = _multi;
 			// на всякий, для уберания переносов
-			if (false == mMultiLine) {
+			if (false == mModeMultiline) {
 				setCaption(getRealString());
 				//setRealString(getRealString());
 			}
@@ -113,6 +113,17 @@ namespace MyGUI
 			else updateView(false);
 			// сбрасываем историю
 			commandResetHistory();
+		}
+
+		inline void setEditStatic(bool _static)
+		{
+			mModeStatic = _static;
+			resetSelect();
+		}
+
+		inline bool getEditStatic()
+		{
+			return mModeStatic;
 		}
 
 		void setPosition(const IntCoord& _coord);
@@ -206,13 +217,13 @@ namespace MyGUI
 
 		inline const Ogre::DisplayString & getRealString()
 		{
-			if (mPassword) return mPasswordText;
+			if (mModePassword) return mPasswordText;
 			return mText->getCaption();
 		}
 
 		inline void setRealString(const Ogre::DisplayString & _caption)
 		{
-			if (mPassword) {
+			if (mModePassword) {
 				mPasswordText = _caption;
 				mText->setCaption(Ogre::DisplayString(mTextLenght, '*'));
 			}
@@ -255,9 +266,10 @@ namespace MyGUI
 
 		bool mMouseLeftPressed;
 
-		bool mReadOnly;
-		bool mPassword;
-		bool mMultiLine;
+		bool mModeReadOnly;
+		bool mModePassword;
+		bool mModeMultiline;
+		bool mModeStatic;
 
 		// настоящий текст, закрытый за звездочками
 		Ogre::DisplayString mPasswordText;
