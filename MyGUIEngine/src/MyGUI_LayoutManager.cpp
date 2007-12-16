@@ -36,28 +36,33 @@ namespace MyGUI
 	bool LayoutManager::load(const std::string & _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-		if (false == doc.open((_resource ? helper::getResourcePath(_file) : _file).c_str())) {
+		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
+		if ("" == file) {
+			MYGUI_ERROR("Layout: " + _file + " not found");
+			return false;
+		}
+		if (false == doc.open(file)) {
 			MYGUI_ERROR(doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if (root == 0) {
-			MYGUI_ERROR("not find root tag");
+			MYGUI_ERROR("Layout: " + _file + " root tag not found");
 			return false;
 		}
 
 		if (root->getName() == "MyGUI") {
 			std::string type;
 			if ((false == root->findAttribute("type", type)) || (type != "Layout")) {
-				MYGUI_ERROR("not find root type 'Layout'");
+				MYGUI_ERROR("Layout: " + _file + " root type 'Layout' not found");
 				return false;
 			}
 			parseLayoutMyGUI(root);
 		}
 		else if (root->getName() == "GUILayout") parseLayoutCEGUI(root);
 		else {
-			MYGUI_ERROR("not find root tag 'GUILayout' or 'MyGUI'");
+			MYGUI_ERROR("Layout: " + _file + " root type 'GUILayout' or 'MyGUI' not found");
 			return false;
 		}
 

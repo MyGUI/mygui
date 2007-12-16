@@ -73,7 +73,7 @@ namespace MyGUI
 
 		// удаляем себя из списка рассылки, но мы там быть недолжны
 		if (Gui::getInstance().removeFrameListener(this)) {
-			MYGUI_ERROR("widget is not remove from frame listeners");
+			MYGUI_ERROR("Widget wasn`t removed from frame listeners");
 		}
 	}
 

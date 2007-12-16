@@ -191,6 +191,7 @@ namespace xml
 		xmlNodePtr mRoot;
 		xmlNodePtr mInfo;
 		xml::errors::ErrorTypes mLastError;
+    std::string mLastErrorFile;
 		size_t mLine;
 		size_t mCol;
 

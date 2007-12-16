@@ -89,20 +89,25 @@ namespace MyGUI
 	bool SkinManager::load(const std::string & _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-		if (false == doc.open((_resource ? helper::getResourcePath(_file) : _file).c_str())) {
-			MYGUI_ERROR(doc.getLastError());
+		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
+		if ("" == file) {
+			MYGUI_ERROR("Skin: " + _file + " not found");
+			return false;
+		}
+		if (false == doc.open(file)) {
+			MYGUI_ERROR("Skin: " + doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_ERROR("not find root tag 'MyGUI'");
+			MYGUI_ERROR("Skin: " + _file + " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
 		if ( (false == root->findAttribute("type", type)) || (type != "Skin") ) {
-			MYGUI_ERROR("not find root type 'skin'");
+			MYGUI_ERROR("Skin: " + _file + " root type 'Skin' not found");
 			return false;
 		}
 

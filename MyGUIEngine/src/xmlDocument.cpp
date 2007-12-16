@@ -132,6 +132,7 @@ namespace xml
 		mRoot(0),
 		mInfo(0),
 		mLastError(xml::errors::XML_ERROR_NONE),
+		mLastErrorFile(""),
 		mLine(0),
 		mCol(0)
 	{
@@ -148,6 +149,7 @@ namespace xml
 
 		std::ifstream stream;
 		stream.open(_name.c_str());
+		mLastErrorFile = _name;
 		if (!stream) {
 			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 			return false;
@@ -161,6 +163,7 @@ namespace xml
 
 		std::ifstream stream;
 		stream.open(_name.c_str());
+		//mLastErrorFile = _name;
 		if (!stream) {
 			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 			return false;
@@ -173,6 +176,7 @@ namespace xml
 	{
 		if (!mInfo) {
 			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
+			mLastErrorFile = _name;
 			return false;
 		}
 
@@ -180,6 +184,7 @@ namespace xml
 		stream.open(_name.c_str());
 		if (!stream.is_open()) {
 			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
+			mLastErrorFile = _name;
 			return false;
 		}
 
@@ -200,6 +205,7 @@ namespace xml
 	{
 		if (!mInfo) {
 			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
+			//mLastErrorFile = _name;
 			return false;
 		}
 
@@ -207,6 +213,7 @@ namespace xml
 		stream.open(_name.c_str());
 		if (!stream.is_open()) {
 			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
+			//mLastErrorFile = _name;
 			return false;
 		}
 
@@ -232,6 +239,7 @@ namespace xml
 
 	const std::string xmlDocument::getLastError()
 	{
+		if (0 == mLastError) return "";
 		// текстовое описание ошибок
 		static const char * errorNamesString[xml::errors::XML_ERROR_COUNT] = {
 			"XML_ERROR_NONE",
@@ -248,8 +256,9 @@ namespace xml
 		};
 
 		std::ostringstream stream;
-		stream << "'" << errorNamesString[mLastError] << "' ,  ";
-		stream << "line=" << mLine << " , col=" << mCol;
+		stream << "'" << errorNamesString[mLastError] << "' " << mLastErrorFile;
+		if (xml::errors::XML_ERROR_OPEN_FILE != mLastError)
+			stream << ",  "<< "line=" << mLine << " , col=" << mCol;
 		return stream.str();
 	}
 

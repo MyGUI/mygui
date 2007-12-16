@@ -76,19 +76,19 @@ namespace MyGUI
 	{
 		xml::xmlDocument doc;
 		if (false == doc.open(_file)) {
-			MYGUI_ERROR(doc.getLastError());
+			MYGUI_ERROR("Plugin: " + doc.getLastError());
 			return;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_ERROR("not find root tag 'MyGUI'");
+			MYGUI_ERROR("Plugin: " + _file + " root tag 'MyGUI' not found");
 			return;
 		}
 
 		std::string source;
 		if ((false == root->findAttribute("type", source)) || (source != "plugin")) {
-			MYGUI_ERROR("not find root type 'plugin'");
+			MYGUI_ERROR("Skin: " + _file + " root type 'plugin' not found");
 			return;
 		}
 
