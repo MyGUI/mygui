@@ -33,7 +33,7 @@ namespace MyGUI
 		inline static const Ogre::String & getType() {static Ogre::String type("Edit"); return type;}
 
 		// устанавливает текст
-		void setCaption(const Ogre::DisplayString & _caption);
+		virtual void setCaption(const Ogre::DisplayString & _caption);
 		// возвращает выделение
 		void getTextSelect(size_t & _start, size_t & _end);
 		// выделен ли текст

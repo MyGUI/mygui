@@ -32,7 +32,10 @@ namespace MyGUI
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("List"); return type;}
 
-		inline size_t getItemCount() {return mStringArray.size();}
+		inline size_t getItemCount()
+		{
+			return mStringArray.size();
+		}
 		inline const Ogre::DisplayString & getItemString(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mStringArray.size());
@@ -41,10 +44,14 @@ namespace MyGUI
 		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
 		{
 			MYGUI_ASSERT(_index < mStringArray.size());
-			mStringArray[_index]=_item; _redrawItem(_index);
+			mStringArray[_index]=_item;
+			_redrawItem(_index);
 		}
 		void insertItemString(size_t _index, const Ogre::DisplayString & _item);
-		inline void addItemString(const Ogre::DisplayString & _item){insertItemString(ITEM_NONE, _item);}
+		inline void addItemString(const Ogre::DisplayString & _item)
+		{
+			insertItemString(ITEM_NONE, _item);
+		}
 		void deleteItemString(size_t _index);
 
 		inline size_t getItemSelect() {return mIndexSelect;}
@@ -74,10 +81,6 @@ namespace MyGUI
 		// event : нажат ентер, или двойной щелчек
 		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventListSelectAccept;
-
-		// event : нажат ентер, или двойной щелчек
-		// signature : void method(MyGUI::WidgetPtr _widget)
-		//EventSimple eventListSelectMouseAccept;
 
 		// event : нажат Дел на елементе
 		// signature : void method(MyGUI::WidgetPtr _widget)

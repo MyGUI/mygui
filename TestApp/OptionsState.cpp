@@ -95,7 +95,7 @@ void OptionsState::notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double)
 void OptionsState::comboAccept(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ComboBoxPtr combo = MyGUI::castWidget<MyGUI::ComboBox>(_sender);
-	MyGUI::MYGUI_OUT(combo->getComboText());
+	MyGUI::MYGUI_OUT(combo->getCaption());
 }
 
 void OptionsState::enter(bool bIsChangeState)
@@ -115,10 +115,32 @@ void OptionsState::enter(bool bIsChangeState)
 
 	MyGUI::ComboBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 150, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 	box->eventComboAccept = MyGUI::newDelegate(this, &OptionsState::comboAccept);
+	box->addItemString("Line 1");
+	box->addItemString("Line 2");
+	box->addItemString("Line 3");
+	box->addItemString("Line 4");
+	box->addItemString("Line 5");
+	box->addItemString("Line 6");
+	box->addItemString("Line 7");
+	box->addItemString("Line 8");
+	box->addItemString("Line 9");
+	box->addItemString("Line 10");
+	box->addItemString("Line 11");//*/
 
 	box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 500, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 	box->eventComboAccept = MyGUI::newDelegate(this, &OptionsState::comboAccept);
 	box->setComboModeDrop(true);
+	box->addItemString("Line 1");
+	box->addItemString("Line 2");
+	box->addItemString("Line 3");
+	box->addItemString("Line 4");
+	box->addItemString("Line 5");
+	box->addItemString("Line 6");
+	box->addItemString("Line 7");
+	box->addItemString("Line 8");
+	box->addItemString("Line 9");
+	box->addItemString("Line 10");
+	box->addItemString("Line 11");//*/
 
 	/*mCountWindow = 0;
 

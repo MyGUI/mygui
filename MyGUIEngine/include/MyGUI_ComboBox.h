@@ -31,7 +31,6 @@ namespace MyGUI
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		void notifyListSelectAccept(MyGUI::WidgetPtr _widget);
-		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
@@ -48,7 +47,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(_index < mList->getItemCount());
 			mItemIndex = _index;
-			setCaption(mList->getItemString(_index));
+			Edit::setCaption(mList->getItemString(_index));
 		}
 
 		inline size_t getComboItemIndex()
@@ -56,14 +55,9 @@ namespace MyGUI
 			return mItemIndex;
 		}
 
-		inline void setComboText(const Ogre::DisplayString& _text)
+		virtual void setCaption(const Ogre::DisplayString& _text)
 		{
-			if (false == mModeDrop) setCaption(_text);
-		}
-
-		inline const Ogre::DisplayString& getComboText()
-		{
-			return getCaption();
+			if (false == mModeDrop) Edit::setCaption(_text);
 		}
 
 		inline void setComboModeDrop(bool _drop)
@@ -75,6 +69,46 @@ namespace MyGUI
 		inline bool getComboModeDrop()
 		{
 			return mModeDrop;
+		}
+
+		inline size_t getItemCount()
+		{
+			return mList->getItemCount();
+		}
+
+		inline const Ogre::DisplayString & getItemString(size_t _index)
+		{
+			MYGUI_ASSERT(_index < mList->getItemCount());
+			return mList->getItemString(_index);
+		}
+
+		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
+		{
+			MYGUI_ASSERT(_index < mList->getItemCount());
+			mList->setItemString(_index, _item);
+			mItemIndex = ITEM_NONE;
+			mList->setItemSelect(mItemIndex);
+		}
+
+		void insertItemString(size_t _index, const Ogre::DisplayString & _item)
+		{
+			mList->insertItemString(_index, _item);
+			mItemIndex = ITEM_NONE;
+			mList->setItemSelect(mItemIndex);
+		}
+
+		void deleteItemString(size_t _index)
+		{
+			mList->deleteItemString(_index);
+			mItemIndex = ITEM_NONE;
+			mList->setItemSelect(mItemIndex);
+		}
+
+		inline void addItemString(const Ogre::DisplayString& _item)
+		{
+			mList->addItemString(_item);
+			mItemIndex = ITEM_NONE;
+			mList->setItemSelect(mItemIndex);
 		}
 
 		// event : нажат энтер в комбо режиме или выбран айтем в дроп режиме
@@ -89,6 +123,7 @@ namespace MyGUI
 		int mMaxHeight;
 		size_t mItemIndex;
 		bool mModeDrop;
+		bool mDropMouse;
 
 	}; // class _MyGUIExport StaticText : public Widget
 

@@ -16,7 +16,8 @@ namespace MyGUI
 		mListShow(false),
 		mMaxHeight(0),
 		mItemIndex(ITEM_NONE),
-		mModeDrop(false)
+		mModeDrop(false),
+		mDropMouse(false)
 	{
 		// запомием размер скина
 		IntSize size = _info->getSize();
@@ -24,13 +25,16 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & param = _info->getParams();
 
+		MapString::const_iterator iter = param.find("ComboModeDropList");
+		if (iter != param.end()) setComboModeDrop(util::parseBool(iter->second));
+
 		// парсим конечную кнопку
 		mButton = parseSubWidget(param, "Button", "SkinDrop", "OffsetDrop", "AlignDrop", size);
 		MYGUI_ASSERT(null != mButton);
 		mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 
 		// создаем выпадающий список
-		MapString::const_iterator iter = param.find("LayerList");
+		iter = param.find("LayerList");
 		MYGUI_ASSERT(iter != param.end());
 		mList = castWidget<List>(parseSubWidget(param, "List", "SkinList", "OffsetList", "AlignList", size, iter->second));
 		mList->hide();
@@ -41,7 +45,6 @@ namespace MyGUI
 		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();
 
 		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
-		mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 		mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
 
 		// подписываем дочерние классы на скролл
@@ -55,24 +58,13 @@ namespace MyGUI
 		// подписываемся на изменения текста
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
 
-
-		mList->addItemString("Line 1");
-		mList->addItemString("Line 2");
-		mList->addItemString("Line 3");
-		mList->addItemString("Line 4");
-		mList->addItemString("Line 5");
-		mList->addItemString("Line 6");
-		mList->addItemString("Line 7");
-		mList->addItemString("Line 8");
-		mList->addItemString("Line 9");
-		mList->addItemString("Line 10");
-		mList->addItemString("Line 11");//*/
-
 	}
 
 	void ComboBox::notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
 		if (false == _left) return;
+
+		mDropMouse = true;
 
 		if (mListShow) hideList();
 		else showList();
@@ -111,16 +103,18 @@ namespace MyGUI
 	{
 		mListShow = false;
 		mList->hide();
-		//mList->setItemSelect(ITEM_NONE);
 	}
 
 	void ComboBox::notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 	{
-		WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
-		// кнопка сама уберет список
-		if (focus == mButton) return;
-		// в режиме дропа все окна учавствуют
-		if ( (mModeDrop) && (focus == mWidgetUpper) ) return;
+		if (mDropMouse) {
+			mDropMouse = false;
+			WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
+			// кнопка сама уберет список
+			if (focus == mButton) return;
+			// в режиме дропа все окна учавствуют
+			if ( (mModeDrop) && (focus == mWidgetUpper) ) return;
+		}
 
 		hideList();
 	}
@@ -133,13 +127,13 @@ namespace MyGUI
 			mItemIndex = pos;
 			str = mList->getItemString(pos);
 		}
-		setCaption(str);
+		Edit::setCaption(str);
+
+		mDropMouse = false;
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
 		if (mModeDrop) eventComboAccept(this);
-
-//		mList->setItemSelect(ITEM_NONE);
 	}
 
 	void ComboBox::_onKeyButtonPressed(int _key, wchar_t _char)
@@ -162,19 +156,12 @@ namespace MyGUI
 
 	}
 
-	void ComboBox::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
-	{
-		//if (_position != ITEM_NONE) setCaption(mList->getItemString(_position));
-		//else setCaption("");
-	}
-
 	void ComboBox::notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		if (_position != ITEM_NONE) {
 			mItemIndex = _position;
-			setCaption(mList->getItemString(_position));
+			Edit::setCaption(mList->getItemString(_position));
 		}
-		//else setCaption("");
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
@@ -185,12 +172,13 @@ namespace MyGUI
 	{
 		if (mList->getItemCount() == 0) return;
 		if (InputManager::getInstance().getKeyFocusWidget() != this) return;
+		if (InputManager::getInstance().isCaptureMouse()) return;
 
 		if (_rel > 0) {
 			if (mItemIndex != 0) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex --;
-				setCaption(mList->getItemString(mItemIndex));
+				Edit::setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
 			}
@@ -199,7 +187,7 @@ namespace MyGUI
 			if ((mItemIndex+1) < mList->getItemCount()) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;
-				setCaption(mList->getItemString(mItemIndex));
+				Edit::setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
 			}
@@ -210,6 +198,8 @@ namespace MyGUI
 	{
 		// обязательно отдаем отцу, а то мы у него в наглую отняли
 		Edit::notifyMousePressed(_sender, _left);
+
+		mDropMouse = true;
 
 		// показываем список
 		if (mModeDrop) notifyButtonPressed(null, _left);
