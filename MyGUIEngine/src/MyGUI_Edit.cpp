@@ -43,7 +43,8 @@ namespace MyGUI
 		mModeReadOnly(false),
 		mModePassword(false),
 		mModeMultiline(false),
-		mModeStatic(false)
+		mModeStatic(false),
+		mAlwaysNeedFrameListener(false)
 	{
 
 		MYGUI_ASSERT(null != mText);
@@ -228,7 +229,8 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = false;
-			Gui::getInstance().removeFrameListener(this);
+			if (false == mAlwaysNeedFrameListener)
+				Gui::getInstance().removeFrameListener(this);
 			mWidgetCursor->hide();
 			mText->setSelectBackground(false);
 		}
@@ -247,21 +249,22 @@ namespace MyGUI
 			return;
 		}
 
-
 		if ( false == mWidgetCursor->isShow()) mWidgetCursor->show();
 		mCursorTimer = 0.0f;
 
 		if (_key == OIS::KC_ESCAPE) InputManager::getInstance().setKeyFocusWidget(null);
 		else if (_key == OIS::KC_BACK) {
 			// если нуно то удаляем выделенный текст
-			if ( (false == mModeReadOnly) && (false == deleteTextSelect(true)) ) {
-				// прыгаем на одну назад и удаляем
-				if (mCursorPosition != 0) {
-					mCursorPosition -- ;
-					eraseText(mCursorPosition, 1, true);
-					// отсылаем событие о изменении
-					eventEditTextChange(this);
+			if (false == mModeReadOnly) {
+				if (false == deleteTextSelect(true)) {
+					// прыгаем на одну назад и удаляем
+					if (mCursorPosition != 0) {
+						mCursorPosition -- ;
+						eraseText(mCursorPosition, 1, true);
+					}
 				}
+				// отсылаем событие о изменении
+				eventEditTextChange(this);
 			}
 
 		} else if (_key == OIS::KC_DELETE) {
@@ -271,10 +274,10 @@ namespace MyGUI
 				if (false == deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLenght) {
 						eraseText(mCursorPosition, 1, true); 
-						// отсылаем событие о изменении
-						eventEditTextChange(this);
 					}
 				}
+				// отсылаем событие о изменении
+				eventEditTextChange(this);
 			}
 
 		} else if (_key == OIS::KC_INSERT) {

@@ -17,7 +17,8 @@ namespace MyGUI
 		mMaxHeight(0),
 		mItemIndex(ITEM_NONE),
 		mModeDrop(false),
-		mDropMouse(false)
+		mDropMouse(false),
+		mShowSmooth(false)
 	{
 		// запомием размер скина
 		IntSize size = _info->getSize();
@@ -27,6 +28,9 @@ namespace MyGUI
 
 		MapString::const_iterator iter = param.find("ComboModeDropList");
 		if (iter != param.end()) setComboModeDrop(util::parseBool(iter->second));
+
+		iter = param.find("ComboSmoothShow");
+		if (iter != param.end()) setSmoothShow(util::parseBool(iter->second));
 
 		// парсим конечную кнопку
 		mButton = parseSubWidget(param, "Button", "SkinDrop", "OffsetDrop", "AlignDrop", size);
@@ -54,10 +58,11 @@ namespace MyGUI
 		mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
 		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
+		// всегда получаем кадры
+		if (mShowSmooth) mAlwaysNeedFrameListener = true;
 
 		// подписываемся на изменения текста
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
-
 	}
 
 	void ComboBox::notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
@@ -68,41 +73,6 @@ namespace MyGUI
 
 		if (mListShow) hideList();
 		else showList();
-	}
-
-	void ComboBox::showList()
-	{
-		// пустой списое не показываем
-		if (mList->getItemCount() == 0) return;
-
-		mListShow = true;
-
-		int height = mList->getListMaxHeight();
-		if (height > mMaxHeight) height = mMaxHeight;
-
-
-		IntCoord coord = mCoord;
-
-		//показываем список вверх
-		if ((coord.top + coord.height + height) > (int)Gui::getInstance().getViewHeight()) {
-			coord.height = height;
-			coord.top -= coord.height;
-		}
-		// показываем список вниз
-		else {
-			coord.top += coord.height;
-			coord.height = height;
-		}
-		mList->setPosition(coord);
-		mList->show();
-
-		InputManager::getInstance().setKeyFocusWidget(mList);
-	}
-
-	void ComboBox::hideList()
-	{
-		mListShow = false;
-		mList->hide();
 	}
 
 	void ComboBox::notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
@@ -211,6 +181,57 @@ namespace MyGUI
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
 		mList->beginToStart();
+	}
+
+	void ComboBox::showList()
+	{
+		// пустой списое не показываем
+		if (mList->getItemCount() == 0) return;
+
+		mListShow = true;
+
+		int height = mList->getListMaxHeight();
+		if (height > mMaxHeight) height = mMaxHeight;
+
+		IntCoord coord = mCoord;
+
+		//показываем список вверх
+		if ((coord.top + coord.height + height) > (int)Gui::getInstance().getViewHeight()) {
+			coord.height = height;
+			coord.top -= coord.height;
+		}
+		// показываем список вниз
+		else {
+			coord.top += coord.height;
+			coord.height = height;
+		}
+		mList->setPosition(coord);
+
+		mList->show();
+
+		InputManager::getInstance().setKeyFocusWidget(mList);
+	}
+
+	void ComboBox::hideList()
+	{
+		mListShow = false;
+		mList->hide();
+	}
+
+	void ComboBox::setSmoothShow(bool _smooth)
+	{
+		mShowSmooth = _smooth;
+		// один раз и на всегда
+		if (mShowSmooth) {
+			Gui::getInstance().addFrameListener(this);
+			mAlwaysNeedFrameListener = true;
+		}
+	}
+
+	void ComboBox::_frameEntered(float _frame, float _event)
+	{
+		Edit::_frameEntered(_frame, _event);
+		if (false == mShowSmooth) return;
 	}
 
 } // namespace MyGUI

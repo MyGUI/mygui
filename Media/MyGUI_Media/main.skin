@@ -636,6 +636,7 @@
         <Property key="AlignList" value = "ALIGN_LEFT ALIGN_TOP" />
         <Property key="LayerList" value = "Main" />
         <Property key="HeightList" value = "100" />
+        <Property key="ComboSmoothShow" value = "true" />
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>

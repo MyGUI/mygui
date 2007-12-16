@@ -26,6 +26,7 @@ namespace MyGUI
 	protected:
 		ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
+		virtual void _frameEntered(float _frame, float _event);
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
 
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
@@ -111,6 +112,12 @@ namespace MyGUI
 			mList->setItemSelect(mItemIndex);
 		}
 
+		void setSmoothShow(bool _smooth);
+		inline bool getSmoothShow()
+		{
+			return mShowSmooth;
+		}
+
 		// event : нажат энтер в комбо режиме или выбран айтем в дроп режиме
 		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventComboAccept;
@@ -124,8 +131,9 @@ namespace MyGUI
 		size_t mItemIndex;
 		bool mModeDrop;
 		bool mDropMouse;
+		bool mShowSmooth;
 
-	}; // class _MyGUIExport StaticText : public Widget
+	}; // class _MyGUIExport ComboBox : public Edit
 
 } // namespace MyGUI
 
