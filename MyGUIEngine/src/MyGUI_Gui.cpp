@@ -65,7 +65,7 @@ namespace MyGUI
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
 
-		Ogre::Root::getSingleton().addFrameListener(this);
+		//Ogre::Root::getSingleton().addFrameListener(this);
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
@@ -76,7 +76,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
-		Ogre::Root::getSingleton().removeFrameListener(this);
+		//Ogre::Root::getSingleton().removeFrameListener(this);
 		mListFrameListener.clear();
 		mListFrameListenerAdd.clear();
 
@@ -124,7 +124,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	bool Gui::frameStarted(const Ogre::FrameEvent& evt)
+	void Gui::injectFrameStarted(const Ogre::FrameEvent& evt)
 	{
 		// сначала рассылаем
 		ListFrameListener::iterator iter=mListFrameListener.begin();
@@ -146,10 +146,9 @@ namespace MyGUI
 			}
 			mListFrameListenerAdd.clear();
 		}
-		return true;
 	}
 
-	bool Gui::frameEnded(const Ogre::FrameEvent& evt)
+	void Gui::injectFrameEnded(const Ogre::FrameEvent& evt)
 	{
 		// сначала рассылаем
 		ListFrameListener::iterator iter=mListFrameListener.begin();
@@ -171,8 +170,6 @@ namespace MyGUI
 			}
 			mListFrameListenerAdd.clear();
 		}
-
-		return true;
 	}
 
 	bool Gui::addFrameListener(WidgetPtr _listener)

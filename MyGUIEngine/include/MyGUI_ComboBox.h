@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ComboBoxFactory.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_Edit.h"
 
 namespace MyGUI
 {
@@ -17,7 +17,7 @@ namespace MyGUI
 	class ComboBox;
 	typedef ComboBox* ComboBoxPtr;
 
-	class _MyGUIExport ComboBox : public Widget
+	class _MyGUIExport ComboBox : public Edit
 	{
 		// для вызова закрытого конструктора
 		friend factory::ComboBoxFactory;
@@ -28,6 +28,9 @@ namespace MyGUI
 	public:
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("ComboBox"); return type;}
+
+	private:
+		WidgetPtr mButton;
 
 
 	}; // class _MyGUIExport StaticText : public Widget
