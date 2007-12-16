@@ -616,7 +616,7 @@
             <State name="disable" offset = "126 2 17 21"/>
             <State name="normal" offset = "126 25 17 21"/>
             <State name="active" offset = "126 48 17 21"/>
-            <State name="select" offset = "1264 71 17 21"/>
+            <State name="select" offset = "126 71 17 21"/>
         </BasisSkin>
     </Skin>
 
@@ -628,7 +628,7 @@
         <Property key="CursorSkin" value = "EditCursor" />
 
         <Property key="SkinDrop" value = "ComboBoxButton" />
-        <Property key="OffsetDrop" value = "28 3 17 21" />
+        <Property key="OffsetDrop" value = "21 3 17 21" />
         <Property key="AlignDrop" value = "ALIGN_RIGHT ALIGN_VSTRETCH" />
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
@@ -652,7 +652,7 @@
             <State name="pressed" offset = "90 86 10 26"/>
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin type="TextEdit" offset = "3 0 34 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="TextEdit" offset = "3 0 15 26" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>

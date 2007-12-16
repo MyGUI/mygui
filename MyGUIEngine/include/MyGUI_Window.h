@@ -67,7 +67,7 @@ namespace MyGUI
 		EventSimple eventWindowXPressed;
 
 	protected:
-		void _frameStarted(float _frame, float _event);
+		void _frameEntered(float _frame, float _event);
 
 		void _onMouseChangeRootFocus(bool _focus);
 		void _onKeyChangeRootFocus(bool _focus);

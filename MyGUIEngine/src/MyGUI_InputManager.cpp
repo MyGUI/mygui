@@ -373,7 +373,7 @@ namespace MyGUI
 //		mWidgetRootKeyFocus = null;
 	}
 
-	void InputManager::_frameStarted(float _frame, float _event)
+	void InputManager::_frameEntered(float _frame, float _event)
 	{
 		if ( mHoldKey == OIS::KC_UNASSIGNED) return;
 		if ( false == isCaptureKey() ) {
@@ -396,11 +396,6 @@ namespace MyGUI
 			}
 		}
 
-	}
-
-	void InputManager::_frameEnded(float _frame, float _event)
-	{
-		// ничего не делаем
 	}
 
 	void InputManager::storeKey(int _key)

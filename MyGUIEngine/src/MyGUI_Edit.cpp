@@ -463,7 +463,7 @@ namespace MyGUI
 		Widget::_onKeyButtonReleased(_key);
 	}
 
-	void Edit::_frameStarted(float _frame, float _event)
+	void Edit::_frameEntered(float _frame, float _event)
 	{
 		if (mCursorActive) {
 			mCursorTimer += _frame;

@@ -65,8 +65,6 @@ namespace MyGUI
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
 
-		//Ogre::Root::getSingleton().addFrameListener(this);
-
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -76,7 +74,6 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
 
-		//Ogre::Root::getSingleton().removeFrameListener(this);
 		mListFrameListener.clear();
 		mListFrameListenerAdd.clear();
 
@@ -124,44 +121,20 @@ namespace MyGUI
 		return widget;
 	}
 
-	void Gui::injectFrameStarted(const Ogre::FrameEvent& evt)
+	void Gui::injectFrameEntered(const Ogre::FrameEvent& evt)
 	{
 		// сначала рассылаем
 		ListFrameListener::iterator iter=mListFrameListener.begin();
 		while (iter != mListFrameListener.end()) {
 			if (null == (*iter)) iter = mListFrameListener.erase(iter);
 			else {
-				(*iter)->_frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+				(*iter)->_frameEntered(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 				++iter;
 			}
 		};
 
 		// теперь инпуту
-		mInputManager->_frameStarted(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
-
-		// теперь объединяем масив
-		if (false == mListFrameListenerAdd.empty()) {
-			for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
-				mListFrameListener.push_back(*iter);
-			}
-			mListFrameListenerAdd.clear();
-		}
-	}
-
-	void Gui::injectFrameEnded(const Ogre::FrameEvent& evt)
-	{
-		// сначала рассылаем
-		ListFrameListener::iterator iter=mListFrameListener.begin();
-		while (iter != mListFrameListener.end()) {
-			if (null == (*iter)) iter = mListFrameListener.erase(iter);
-			else {
-				(*iter)->_frameEnded(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
-				++iter;
-			}
-		};
-
-		// теперь инпуту
-		mInputManager->_frameEnded(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+		mInputManager->_frameEntered(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
 
 		// теперь объединяем масив
 		if (false == mListFrameListenerAdd.empty()) {

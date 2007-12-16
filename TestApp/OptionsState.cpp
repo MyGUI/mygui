@@ -107,7 +107,7 @@ void OptionsState::enter(bool bIsChangeState)
 
 //	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
-	MyGUI::ComboBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 200, 200, 40, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	MyGUI::ComboBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 200, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
 	/*mCountWindow = 0;
 
@@ -181,7 +181,7 @@ bool OptionsState::frameStarted(const Ogre::FrameEvent& evt)
 	}
 
 	// добавляем время
-	MyGUI::Gui::getInstance().injectFrameStarted(evt);
+	MyGUI::Gui::getInstance().injectFrameEntered(evt);
 
 	return true;
 }

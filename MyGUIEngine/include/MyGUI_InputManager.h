@@ -33,8 +33,7 @@ namespace MyGUI
 
 		bool load(const std::string & _file, bool _resource = true);
 
-		void _frameStarted(float _frame, float _event);
-		void _frameEnded(float _frame, float _event);
+		void _frameEntered(float _frame, float _event);
 
 		bool injectMouseMove( const OIS::MouseEvent & _arg);
 		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );

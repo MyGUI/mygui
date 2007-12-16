@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 	
-	class _MyGUIExport Gui// : public Ogre::FrameListener
+	class _MyGUIExport Gui
 	{
 		friend WidgetManager;
 		INSTANCE_HEADER(Gui);
@@ -95,10 +95,7 @@ namespace MyGUI
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
 		// подписка на кадры
-		//bool frameStarted(const Ogre::FrameEvent& evt);
-		//bool frameEnded(const Ogre::FrameEvent& evt);
-		void injectFrameStarted(const Ogre::FrameEvent& evt);
-		void injectFrameEnded(const Ogre::FrameEvent& evt);
+		void injectFrameEntered(const Ogre::FrameEvent& evt);
 
 		bool addFrameListener(WidgetPtr _listener);
 		bool removeFrameListener(WidgetPtr _listener);
