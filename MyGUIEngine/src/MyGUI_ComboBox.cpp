@@ -46,7 +46,11 @@ namespace MyGUI
 
 		// подписываем дочерние классы на скролл
 		mWidgetUpper->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
+		mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
+
 		mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
+		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
+
 
 		mList->addItemString("Line 1");
 		mList->addItemString("Line 2");
@@ -108,8 +112,11 @@ namespace MyGUI
 
 	void ComboBox::notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 	{
+		WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
 		// кнопка сама уберет список
-		if (InputManager::getInstance().getMouseFocusWidget() == mButton) return;
+		if (focus == mButton) return;
+		// в режиме дропа все окна учавствуют
+		if ( (mModeDrop) && (focus == mWidgetUpper) ) return;
 
 		hideList();
 	}
@@ -170,6 +177,7 @@ namespace MyGUI
 				else mItemIndex --;
 				setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
+				mList->beginToIndex(mItemIndex);
 			}
 		}
 		else if (_rel < 0) {
@@ -178,8 +186,18 @@ namespace MyGUI
 				else mItemIndex ++;
 				setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
+				mList->beginToIndex(mItemIndex);
 			}
 		}
+	}
+
+	void ComboBox::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		// обязательно отдаем отцу, а то мы у него в наглую отняли
+		Edit::notifyMousePressed(_sender, _left);
+
+		// показываем список
+		if (mModeDrop) notifyButtonPressed(null, _left);
 	}
 
 } // namespace MyGUI

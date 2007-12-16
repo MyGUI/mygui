@@ -34,6 +34,7 @@ namespace MyGUI
 		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
+		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 
 		void showList();
 		void hideList();
