@@ -12,7 +12,8 @@ namespace MyGUI
 
 	ComboBox::ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Edit(_coord, _align, _info, _parent, _name),
-		mListShow(false)
+		mListShow(false),
+		mMaxHeight(0)
 	{
 		// запомием размер скина
 		IntSize size = _info->getSize();
@@ -32,6 +33,10 @@ namespace MyGUI
 		mList->hide();
 		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
 
+		iter = param.find("HeightList");
+		if (iter != param.end()) mMaxHeight = util::parseInt(iter->second);
+		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();
+
 		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
 		mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 		mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
@@ -39,7 +44,14 @@ namespace MyGUI
 		mList->addItemString("Line 1");
 		mList->addItemString("Line 2");
 		mList->addItemString("Line 3");
-		mList->addItemString("Line 4");
+		/*mList->addItemString("Line 4");
+		mList->addItemString("Line 5");
+		mList->addItemString("Line 6");
+		mList->addItemString("Line 7");
+		mList->addItemString("Line 8");
+		mList->addItemString("Line 9");
+		mList->addItemString("Line 10");
+		mList->addItemString("Line 11");*/
 
 	}
 
@@ -53,10 +65,16 @@ namespace MyGUI
 
 	void ComboBox::showList()
 	{
+		// пустой списое не показываем
+		if (mList->getItemCount() == 0) return;
+
+		int height = mList->getListMaxHeight();
+		if (height > mMaxHeight) height = mMaxHeight;
+
 		mListShow = true;
 		IntCoord coord = mCoord;
 		coord.top += coord.height;
-		coord.height = 100;
+		coord.height = height;
 		mList->setPosition(coord);
 		mList->show();
 

@@ -46,6 +46,7 @@ namespace MyGUI
 		ListPtr mList;
 
 		bool mListShow;
+		int mMaxHeight;
 
 	}; // class _MyGUIExport StaticText : public Widget
 

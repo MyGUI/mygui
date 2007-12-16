@@ -67,6 +67,9 @@ namespace MyGUI
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 
+		// возвращает максимальную высоту вмещающую все строки и радительский бордюр
+		inline int getListMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
+
 
 		// event : нажат ентер, или двойной щелчек
 		// signature : void method(MyGUI::WidgetPtr _widget)
