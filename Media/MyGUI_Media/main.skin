@@ -631,6 +631,11 @@
         <Property key="OffsetDrop" value = "21 3 17 21" />
         <Property key="AlignDrop" value = "ALIGN_RIGHT ALIGN_VSTRETCH" />
 
+        <Property key="SkinList" value = "List" />
+        <Property key="OffsetList" value = "10 10 30 30" />
+        <Property key="AlignList" value = "ALIGN_LEFT ALIGN_TOP" />
+        <Property key="LayerList" value = "Main" />
+
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
             <State name="normal" offset = "60 30 10 26"/>

@@ -18,6 +18,8 @@ namespace MyGUI
 	class List;
 	typedef List * ListPtr;
 
+	typedef delegates::CDelegate2<WidgetPtr, size_t> EventListChangePositionInfo;
+
 	class _MyGUIExport List : public Widget
 	{
 		// для вызова закрытого конструктора
@@ -70,9 +72,21 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventListSelectAccept;
 
+		// event : нажат ентер, или двойной щелчек
+		// signature : void method(MyGUI::WidgetPtr _widget)
+		//EventSimple eventListSelectMouseAccept;
+
 		// event : нажат Дел на елементе
 		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventSimple eventListPressedDelete;
+
+		// event : изменилась позиция
+		// signature : void method(MyGUI::WidgetPtr _widgetm size_t _position)
+		EventListChangePositionInfo eventListChangePosition;
+
+		// event : мышью выделен элемент
+		// signature : void method(MyGUI::WidgetPtr _widgetm size_t _position)
+		EventListChangePositionInfo eventListMouseChangePosition;
 
 	protected:
 

@@ -444,7 +444,7 @@ namespace MyGUI
 	}
 
 	// вспомогательный метод для распарсивания сабвиджетофф
-	WidgetPtr Widget::parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size)
+	WidgetPtr Widget::parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer)
 	{
 		// парсим заголовок
 		MapString::const_iterator iter = _param.find(_skin);
@@ -463,7 +463,9 @@ namespace MyGUI
 			else align = ALIGN_NONE;
 
 			offset = WidgetManager::convertOffset(offset, align, _size, mCoord.width, mCoord.height);
-			return createWidgetT(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align);
+			// если стой не пустой, создаем дочку
+			if (_layer.empty()) return createWidgetT(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align);
+			return Gui::getInstance().createWidgetT(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align, _layer);
 			
 		}
 		return null;

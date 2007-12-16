@@ -177,6 +177,8 @@ namespace MyGUI
 		if (sel != mIndexSelect) {
 			if ( false == isItemVisible(sel)) beginToIndex(sel);
 			setItemSelect(sel);
+			// изменилась позици€
+			eventListChangePosition(this, mIndexSelect);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -237,24 +239,26 @@ namespace MyGUI
 		// если выделен клиент, то сбрасываем
 		if (_sender == mWidgetClient) {
 
-			if (mIndexSelect == ITEM_NONE) return;
-			_selectIndex(mIndexSelect, false);
-			mIndexSelect = ITEM_NONE;
-		
+			if (mIndexSelect != ITEM_NONE) {
+				_selectIndex(mIndexSelect, false);
+				mIndexSelect = ITEM_NONE;
+				eventListChangePosition(this, mIndexSelect);
+			}
+			eventListMouseChangePosition(this, mIndexSelect);
+
 		// если не клиент, то просчитывам
 		} else {
 			size_t index = (size_t)_sender->getInternalData() + mTopIndex;
 
-			if (mIndexSelect == index) return;
+			if (mIndexSelect != index) {
+				_selectIndex(mIndexSelect, false);
+				_selectIndex(index, true);
+				mIndexSelect = index;
+				eventListChangePosition(this, mIndexSelect);
+			}
+			eventListMouseChangePosition(this, mIndexSelect);
 
-			// если элемент не полностью виден, то показываем его
-			//if ( ! isItemVisible(index)) beginToIndex(index);
-
-			_selectIndex(mIndexSelect, false);
-			_selectIndex(index, true);
-			mIndexSelect = index;
 		}
-	
 	}
 
 	void List::setSize(const IntSize& _size)

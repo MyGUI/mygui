@@ -54,7 +54,7 @@ namespace MyGUI
 		bool isWidget() {return true;}
 
 		// вспомогательный метод для распарсивания сабвиджетофф
-		WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size);
+		WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer = "");
 
 	public:
 		// методы и шаблоны для создания виджета

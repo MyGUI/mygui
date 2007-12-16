@@ -79,6 +79,10 @@ namespace MyGUI
 		if (mHalfCursor.width < 1) mHalfCursor.width = 1;
 		if (mHalfCursor.height < 1) mHalfCursor.height = 1;
 
+		// первоначальна€ инициализаци€ курсора
+		IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
+		updateCursor(point);
+
 	}
 
 	Edit::~Edit()
@@ -89,14 +93,14 @@ namespace MyGUI
 
 	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
 	{
-		if ( (_old == this) || (_old == mWidgetUpper) || (_old == mWidgetCursor) || (mIsFocus) ) return;
+		if ( /*(_old == this) ||*/ (_old == mWidgetUpper) || (_old == mWidgetCursor) || (mIsFocus) ) return;
 		mIsFocus = true;
 		updateEditState();
 	}
 
 	void Edit::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 	{
-		if ( (_new == this) || (_new == mWidgetUpper) || (_new == mWidgetCursor) || (!mIsFocus) ) return;
+		if ( /*(_new == this) ||*/ (_new == mWidgetUpper) || (_new == mWidgetCursor) || (false == mIsFocus) ) return;
 		mIsFocus = false;
 		updateEditState();
 	}
@@ -162,11 +166,11 @@ namespace MyGUI
 
 	void Edit::_onMouseSetFocus(WidgetPtr _old)
 	{
-		if (false == mIsFocus) {
+		/*if (false == mIsFocus) {
 			mIsFocus = true;
 			updateEditState();
 			mText->setSelectBackground(true);
-		}
+		}*/
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseSetFocus(_old);
@@ -174,11 +178,11 @@ namespace MyGUI
 
 	void Edit::_onMouseLostFocus(WidgetPtr _new)
 	{
-		if (! ((false == mIsFocus) || (_new == mWidgetUpper) || (_new == mWidgetCursor)) ) {
+		/*if (! ((false == mIsFocus) || (_new == mWidgetUpper) || (_new == mWidgetCursor)) ) {
 			mIsFocus = false;
 			updateEditState();
 			mText->setSelectBackground(false);
-		}
+		}*/
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseLostFocus(_new);
