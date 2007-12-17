@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layout">
+
+	<Widget type="Window" skin="WindowCS" position="0 0 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowMenu" >
+		<Property key="Caption" value="Menu" />
+		<Property key="WindowAutoAlpha" value="true" />
+
+		<Widget type="Button" skin="Button" position_real="0.1 0.05 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="buttonLoad" >
+			<Property key="Caption" value="Load" />
+		</Widget>
+
+		<Widget type="Button" skin="Button" position_real="0.1 0.20 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="buttonSave" >
+			<Property key="Caption" value="Save" />
+		</Widget>
+
+		<Widget type="Button" skin="Button" position_real="0.1 0.35 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="buttonSaveAs" >
+			<Property key="Caption" value="Save as..." />
+		</Widget>
+	
+		<Widget type="Button" skin="Button" position_real="0.1 0.50 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="buttonQuit" >
+			<Property key="Caption" value="Quit" />
+		</Widget>
+	</Widget>
+
+	<Widget type="Window" skin="WindowCS" position="0 300 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowWidgets" >
+		<Property key="Caption" value="Widgets" />
+		<Property key="WindowAutoAlpha" value="true" />
+
+		<Widget1 type="Button" skin="Button" position_real="0.1 0.05 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetWindow" >
+			<Property key="Caption" value="Window" />
+		</Widget1>
+		
+		<Widget type="Button" skin="Button" position_real="0.1 0.20 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetButton" >
+			<Property key="Caption" value="Button" />
+		</Widget>
+
+		<Widget type="Button" skin="Button" position_real="0.1 0.35 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetEdit" >
+			<Property key="Caption" value="Edit" />
+		</Widget>
+
+		<Widget type="Button" skin="Button" position_real="0.1 0.50 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetList" >
+			<Property key="Caption" value="List" />
+		</Widget>
+
+	</Widget>
+
+	<Widget type="Window" skin="WindowCS" position="600 0 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowProperties" >
+		<Property key="Caption" value="Properties" />
+		<Property key="WindowAutoAlpha" value="true" />
+		
+	</Widget>
+
+	<Widget type="Window" skin="WindowCS" position="600 300 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowSettings" >
+		<Property key="Caption" value="Settings" />
+		<Property key="WindowAutoAlpha" value="true" />
+
+		<Widget type="StaticText" skin="StaticText" position_real="0.1 0.05 0.4 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="gridText" >
+			<Property key="Caption" value="Grid step" />
+		</Widget>
+		
+		<Widget type="Edit" skin="Edit" position_real="0.5 0.05 0.4 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="gridEdit" >
+			<Property key="Caption" value="8" />
+		</Widget>
+
+	</Widget>
+	
+</MyGUI>

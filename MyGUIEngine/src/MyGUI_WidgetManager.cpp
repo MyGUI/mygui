@@ -152,7 +152,7 @@ namespace MyGUI
 		iter->second(_widget, _key, _value);
 	}
 
-	void WidgetManager::destroyWidget(WidgetPtr & _widget)
+	void WidgetManager::destroyWidget(WidgetPtr _widget)
 	{
 		// иначе возможен бесконечный цикл
 		MYGUI_ASSERT(_widget != null);
@@ -174,7 +174,7 @@ namespace MyGUI
 		if (parent == null) Gui::getInstance()._destroyChildWidget(_widget);
 		else parent->_destroyChildWidget(_widget);
 
-		_widget = null;
+		//_widget = null;
 	}
 
 	void WidgetManager::destroyAllWidget()
