@@ -41,10 +41,12 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		for (size_t pos=0; pos<BORDER_COUNT; pos++) {
 			mWidgetBorder[pos]->setEnabled(false);
+			mWidgetBorder[pos]->setUserData("isMarker", 1);
 		}
 
 		for (size_t pos=0; pos<ACTION_COUNT; pos++) {
 			mWidgetAction[pos]->setEnabled(false);
+			mWidgetAction[pos]->setUserData("isMarker", 1);
 			mWidgetAction[pos]->eventMouseButtonPressed = newDelegate(this, &StretchRectangle::notifyMousePressed);
 			mWidgetAction[pos]->eventMouseMove = newDelegate(this, &StretchRectangle::notifyMouseMove);
 		}

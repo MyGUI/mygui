@@ -106,7 +106,7 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	void WidgetManager::clearName(WidgetPtr _widget)
+	void WidgetManager::unlink(WidgetPtr _widget)
 	{
 		if (_widget == null) return;
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
