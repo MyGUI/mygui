@@ -51,6 +51,8 @@ namespace MyGUI
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("StretchRectangle"); return type;}
 
+		inline void setGridStep(int _grid_step) {grid_step = (_grid_step>0)?_grid_step:1;}
+		inline int getGridStep() {return grid_step;}
 		inline void setWidgetPressed(bool _pressed)
 		{
 			if (mIsStatePressed == _pressed) return;
@@ -92,6 +94,9 @@ namespace MyGUI
 
 		// квадратики для изменений размеров
 		ButtonPtr mWidgetAction[ACTION_COUNT];
+
+		// шаг сетки при изменении размеров элемента
+		int grid_step;
 
 	}; // class StretchRectangle : public Widget
 

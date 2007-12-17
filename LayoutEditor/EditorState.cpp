@@ -88,7 +88,8 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 			int x,y,w,h;
 			x = min(x1, x2); y = min(y1, y2);
 			w = abs(x1 - x2); h = abs(y1 - y2);
-			MyGUI::Gui::getInstance().createWidgetT(current_widget_type, current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main", "");
+			MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main", "");
+			rect->setGridStep(grid_step);
 			creating_status = 0;
 			current_widget_type = "";
 			MyGUI::WidgetManager::getInstance().destroyWidget(current_widget);
@@ -158,9 +159,7 @@ void EditorState::notifyWidgetSelect(MyGUI::WidgetPtr _sender, bool _double)
 void EditorState::notifyNewGridStep(MyGUI::WidgetPtr _sender)
 {
 	grid_step = Ogre::StringConverter::parseInt(_sender->getCaption());
-	if (grid_step <= 0)
-	{
-		grid_step = DEFAULT_GRID;
-		_sender->setCaption(Ogre::StringConverter::toString(DEFAULT_GRID));
-	}
+	if (grid_step <= 0) grid_step = DEFAULT_GRID;
+	_sender->setCaption(Ogre::StringConverter::toString(grid_step));
+	// еще надо обойти все созданные прямоугольники и сделать им setGridStep(grid_step)
 }

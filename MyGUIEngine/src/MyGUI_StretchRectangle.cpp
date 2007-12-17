@@ -14,7 +14,8 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _name),
 		mIsPressed(false),
 		mIsFocus(false),
-		mIsStatePressed(false)
+		mIsStatePressed(false),
+		grid_step(8)
 	{
 		mNeedKeyFocus = true;
 
@@ -69,6 +70,9 @@ namespace MyGUI
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 
+		#define TO_GRID(x) (x/grid_step*grid_step)
+		_left = TO_GRID(_left);
+		_top = TO_GRID(_top);
 		IntCoord coord(_sender->getUserString("Scale"));
 		coord.left *= (_left - point.left);
 		coord.top *= (_top - point.top);
@@ -125,6 +129,8 @@ namespace MyGUI
 	void StretchRectangle::_onMouseMove(int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+		_left = TO_GRID(_left);
+		_top = TO_GRID(_top);
 		Widget::setPosition(mPreActionCoord + IntPoint(_left - point.left, _top - point.top));
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода

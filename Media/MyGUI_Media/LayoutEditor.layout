@@ -23,7 +23,7 @@
 		</Widget>
 	</Widget>
 
-	<Widget type="Window" skin="WindowCS" position="0 300 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowWidgets" >
+	<Widget type="Window" skin="WindowCS" position="0 300 200 300" align="ALIGN_LEFT ALIGN_BOTTOM" layer="Overlapped" name="windowWidgets" >
 		<Property key="Caption" value="Widgets" />
 		<Property key="WindowAutoAlpha" value="true" />
 
@@ -45,21 +45,34 @@
 
 	</Widget>
 
-	<Widget type="Window" skin="WindowCS" position="600 0 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowProperties" >
+	<Widget type="Window" skin="WindowCS" position="600 0 200 300" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="windowProperties" >
 		<Property key="Caption" value="Properties" />
 		<Property key="WindowAutoAlpha" value="true" />
-		
+
+    <Widget type="StaticText" skin="StaticText" position_real="0. 0. 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="propertyPositionText" >
+      <Property key="Caption" value="Position" />
+    </Widget>
+    <Widget type="Edit" skin="Edit" position_real="0.4 0. 0.6 0.1" align="ALIGN_TOP ALIGN_HSTRETCH" name="propertyPositionEdit" >
+      <Property key="Caption" value="" />
+    </Widget>
+
+    <Widget type="StaticText" skin="StaticText" position_real="0. 0.10 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="propertySkinText" >
+      <Property key="Caption" value="Skin" />
+    </Widget>
+    <Widget type="Edit" skin="Edit" position_real="0.4 0.10 0.6 0.1" align="ALIGN_TOP ALIGN_HSTRETCH" name="propertySkinEdit" >
+      <Property key="Caption" value="" />
+    </Widget>
 	</Widget>
 
-	<Widget type="Window" skin="WindowCS" position="600 300 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowSettings" >
+	<Widget type="Window" skin="WindowCS" position="600 300 200 300" align="ALIGN_LEFT ALIGN_BOTTOM" layer="Overlapped" name="windowSettings" >
 		<Property key="Caption" value="Settings" />
 		<Property key="WindowAutoAlpha" value="true" />
 
-		<Widget type="StaticText" skin="StaticText" position_real="0.1 0.05 0.4 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="gridText" >
+		<Widget type="StaticText" skin="StaticText" position_real="0. 0. 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="gridText" >
 			<Property key="Caption" value="Grid step" />
 		</Widget>
 		
-		<Widget type="Edit" skin="Edit" position_real="0.5 0.05 0.4 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="gridEdit" >
+		<Widget type="Edit" skin="Edit" position_real="0.4 0. 0.6 0.1" align="ALIGN_TOP ALIGN_HSTRETCH" name="gridEdit" >
 			<Property key="Caption" value="8" />
 		</Widget>
 
