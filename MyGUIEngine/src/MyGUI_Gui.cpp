@@ -121,20 +121,20 @@ namespace MyGUI
 		return widget;
 	}
 
-	void Gui::injectFrameEntered(const Ogre::FrameEvent& evt)
+	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
 	{
 		// сначала рассылаем
 		ListFrameListener::iterator iter=mListFrameListener.begin();
 		while (iter != mListFrameListener.end()) {
 			if (null == (*iter)) iter = mListFrameListener.erase(iter);
 			else {
-				(*iter)->_frameEntered(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+				(*iter)->_frameEntered(timeSinceLastFrame);
 				++iter;
 			}
 		};
 
 		// теперь инпуту
-		mInputManager->_frameEntered(evt.timeSinceLastFrame, evt.timeSinceLastEvent);
+		mInputManager->_frameEntered(timeSinceLastFrame);
 
 		// теперь объединяем масив
 		if (false == mListFrameListenerAdd.empty()) {

@@ -248,9 +248,9 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::_frameEntered(float _frame, float _event)
+	void ComboBox::_frameEntered(float _frame)
 	{
-		Edit::_frameEntered(_frame, _event);
+		Edit::_frameEntered(_frame);
 		if ((false == mShowSmooth) || (mDoAlpha == COMBO_ALPHA_NONE)) return;
 		float alpha = mList->getAlpha();
 

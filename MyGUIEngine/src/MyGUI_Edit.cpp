@@ -493,7 +493,7 @@ namespace MyGUI
 		Widget::_onKeyButtonReleased(_key);
 	}
 
-	void Edit::_frameEntered(float _frame, float _event)
+	void Edit::_frameEntered(float _frame)
 	{
 		// в статике все недоступно
 		if (mModeStatic) return;

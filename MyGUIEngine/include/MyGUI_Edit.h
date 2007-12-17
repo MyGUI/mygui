@@ -155,7 +155,7 @@ namespace MyGUI
 		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
 	protected:
-		virtual void _frameEntered(float _frame, float _event);
+		virtual void _frameEntered(float _frame);
 
 		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);

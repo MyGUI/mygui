@@ -151,7 +151,7 @@ namespace MyGUI
 		}
 	}
 
-	void Window::_frameEntered(float _frame, float _event)
+	void Window::_frameEntered(float _frame)
 	{
 		// огр отписывает после прохода
 		if (false == mIsListenerAlpha) return;

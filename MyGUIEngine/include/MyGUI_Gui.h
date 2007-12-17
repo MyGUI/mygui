@@ -95,7 +95,7 @@ namespace MyGUI
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
 		// подписка на кадры
-		void injectFrameEntered(const Ogre::FrameEvent& evt);
+		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
 
 		bool addFrameListener(WidgetPtr _listener);
 		bool removeFrameListener(WidgetPtr _listener);

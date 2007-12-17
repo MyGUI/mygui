@@ -108,7 +108,7 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>("StaticText", 20, height - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
-	//createWindowList();
+	createWindowList();
 	//createWindowEdit();
 
 //	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
@@ -125,7 +125,18 @@ void OptionsState::enter(bool bIsChangeState)
 	box->addItemString("Line 8");
 	box->addItemString("Line 9");
 	box->addItemString("Line 10");
-	box->addItemString("Line 11");//*/
+	box->addItemString("Line 11");	
+  box->addItemString("Line 1");
+	box->addItemString("Line 2");
+	box->addItemString("Line 3");
+	box->addItemString("Line 4");
+	box->addItemString("Line 5");
+	box->addItemString("Line 6");
+	box->addItemString("Line 7");
+	box->addItemString("Line 8");
+	box->addItemString("Line 9");
+	box->addItemString("Line 10");
+	box->addItemString("Line 11");
 
 	box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 500, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 	box->eventComboAccept = MyGUI::newDelegate(this, &OptionsState::comboAccept);
@@ -214,7 +225,7 @@ bool OptionsState::frameStarted(const Ogre::FrameEvent& evt)
 	}
 
 	// добавляем время
-	MyGUI::Gui::getInstance().injectFrameEntered(evt);
+	MyGUI::Gui::getInstance().injectFrameEntered(evt.timeSinceLastFrame);
 
 	return true;
 }

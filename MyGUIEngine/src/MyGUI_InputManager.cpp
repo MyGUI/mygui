@@ -377,7 +377,7 @@ namespace MyGUI
 //		mWidgetRootKeyFocus = null;
 	}
 
-	void InputManager::_frameEntered(float _frame, float _event)
+	void InputManager::_frameEntered(float _frame)
 	{
 		if ( mHoldKey == OIS::KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {
