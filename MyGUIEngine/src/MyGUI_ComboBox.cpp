@@ -64,9 +64,6 @@ namespace MyGUI
 		mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
 		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
-		// всегда получаем кадры
-		if (mShowSmooth) mAlwaysNeedFrameListener = true;
-
 		// подписываемс€ на изменени€ текста
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
 	}
@@ -241,11 +238,9 @@ namespace MyGUI
 	void ComboBox::setSmoothShow(bool _smooth)
 	{
 		mShowSmooth = _smooth;
-		// один раз и на всегда
-		if (mShowSmooth) {
-			Gui::getInstance().addFrameListener(this);
-			mAlwaysNeedFrameListener = true;
-		}
+
+		if (mShowSmooth) Gui::getInstance().addFrameListener(this);
+		else if (false == mCursorActive) Gui::getInstance().removeFrameListener(this);
 	}
 
 	void ComboBox::_frameEntered(float _frame)
@@ -271,6 +266,41 @@ namespace MyGUI
 			} else mList->setAlpha(alpha);
 		}
 
+	}
+
+	void ComboBox::_onKeySetFocus(WidgetPtr _old)
+	{
+		if (false == mIsPressed) {
+			mIsPressed = true;
+			updateEditState();
+
+			if (false == mModeStatic) {
+				mCursorActive = true;
+				if (false == mShowSmooth) Gui::getInstance().addFrameListener(this);
+				mWidgetCursor->show();
+				mText->setSelectBackground(true);
+				mCursorTimer = 0;
+			}
+		}
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeySetFocus(_old);
+	}
+
+	// чтона€ копи€ отцавского метода с небольштми изменени€ми
+	void ComboBox::_onKeyLostFocus(WidgetPtr _new)
+	{
+		if (mIsPressed) {
+			mIsPressed = false;
+			updateEditState();
+
+			mCursorActive = false;
+			if (false == mShowSmooth) Gui::getInstance().removeFrameListener(this);
+			mWidgetCursor->hide();
+			mText->setSelectBackground(false);
+		}
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyLostFocus(_new);
 	}
 
 } // namespace MyGUI

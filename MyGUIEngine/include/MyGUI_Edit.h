@@ -163,8 +163,8 @@ namespace MyGUI
 		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		virtual void _onMouseLostFocus(WidgetPtr _new);
-		virtual void _onMouseSetFocus(WidgetPtr _old);
+		//virtual void _onMouseLostFocus(WidgetPtr _new);
+		//virtual void _onMouseSetFocus(WidgetPtr _old);
 		virtual void _onMouseMove(int _left, int _top);
 		virtual void _onKeyLostFocus(WidgetPtr _new);
 		virtual void _onKeySetFocus(WidgetPtr _old);
@@ -274,8 +274,6 @@ namespace MyGUI
 		bool mModePassword;
 		bool mModeMultiline;
 		bool mModeStatic;
-
-		bool mAlwaysNeedFrameListener;
 
 		// настоящий текст, закрытый за звездочками
 		Ogre::DisplayString mPasswordText;

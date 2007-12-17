@@ -43,8 +43,7 @@ namespace MyGUI
 		mModeReadOnly(false),
 		mModePassword(false),
 		mModeMultiline(false),
-		mModeStatic(false),
-		mAlwaysNeedFrameListener(false)
+		mModeStatic(false)
 	{
 
 		MYGUI_ASSERT(null != mText);
@@ -172,8 +171,8 @@ namespace MyGUI
 
 	}
 
-	void Edit::_onMouseSetFocus(WidgetPtr _old)
-	{
+	/*void Edit::_onMouseSetFocus(WidgetPtr _old)
+	{*/
 		/*if (false == mIsFocus) {
 			mIsFocus = true;
 			updateEditState();
@@ -181,20 +180,20 @@ namespace MyGUI
 		}*/
 
 		// !!! ÎÁßÇÀÒÅËÜÍÎ âûçûâàòü â êîíöå ìåòîäà
-		Widget::_onMouseSetFocus(_old);
+		/*Widget::_onMouseSetFocus(_old);
 	}
 
 	void Edit::_onMouseLostFocus(WidgetPtr _new)
-	{
+	{*/
 		/*if (! ((false == mIsFocus) || (_new == mWidgetUpper) || (_new == mWidgetCursor)) ) {
 			mIsFocus = false;
 			updateEditState();
 			mText->setSelectBackground(false);
 		}*/
 
-		// !!! ÎÁßÇÀÒÅËÜÍÎ âûçûâàòü â êîíöå ìåòîäà
+		/*// !!! ÎÁßÇÀÒÅËÜÍÎ âûçûâàòü â êîíöå ìåòîäà
 		Widget::_onMouseLostFocus(_new);
-	}
+	}*/
 
 	void Edit::_onMouseMove(int _left, int _top)
 	{
@@ -229,8 +228,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = false;
-			if (false == mAlwaysNeedFrameListener)
-				Gui::getInstance().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(this);
 			mWidgetCursor->hide();
 			mText->setSelectBackground(false);
 		}

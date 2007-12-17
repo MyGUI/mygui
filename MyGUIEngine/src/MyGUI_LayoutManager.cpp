@@ -102,15 +102,30 @@ namespace MyGUI
 		// берем детей и крутимся
 		xml::xmlNodeIterator widget = _widget->getNodeIterator();
 		while (widget.nextNode()) {
+
+			std::string key, value;
+
 			if (widget->getName() == "Widget") parseWidgetMyGUI(widget, wid);
 			else if (widget->getName() == "Property") {
 
 				// парсим атрибуты
-				std::string propertyKey, propertyValue;
-				if (false == widget->findAttribute("key", propertyKey)) continue;
-				if (false == widget->findAttribute("value", propertyValue)) continue;
+				if (false == widget->findAttribute("key", key)) continue;
+				if (false == widget->findAttribute("value", value)) continue;
 				// и парсим свойство
-				WidgetManager::getInstance().parse(wid, propertyKey, propertyValue);
+				WidgetManager::getInstance().parse(wid, key, value);
+			}
+			else if (widget->getName() == "UserString") {
+				// парсим атрибуты
+				if (false == widget->findAttribute("key", key)) continue;
+				if (false == widget->findAttribute("value", value)) continue;
+				wid->setUserString(key, value);
+			}
+			else if (widget->getName() == "UserData") {
+				// парсим атрибуты
+				if (false == widget->findAttribute("key", key)) continue;
+				if (false == widget->findAttribute("value", value)) continue;
+				wid->setUserData(key, util::parseValue<int>(value));
+
 			}
 
 		};
