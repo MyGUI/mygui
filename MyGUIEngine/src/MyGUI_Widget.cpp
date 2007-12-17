@@ -406,9 +406,11 @@ namespace MyGUI
 		return this;
 	}
 
-	void Widget::setEnabled(bool _enabled)
+	void Widget::setEnabled(bool _enabled, bool _silent)
 	{
 		mEnabled = _enabled;
+		if (_silent) return;
+
 		if (mEnabled) setState("normal");
 		else {
 			setState("disable");

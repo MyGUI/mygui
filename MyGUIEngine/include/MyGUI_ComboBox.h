@@ -133,6 +133,8 @@ namespace MyGUI
 		bool mDropMouse;
 		bool mShowSmooth;
 
+		float mDoAlpha;
+
 	}; // class _MyGUIExport ComboBox : public Edit
 
 } // namespace MyGUI

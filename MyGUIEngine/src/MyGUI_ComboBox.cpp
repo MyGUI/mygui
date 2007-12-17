@@ -11,6 +11,11 @@
 namespace MyGUI
 {
 
+	const float COMBO_ALPHA_NONE = -1.0f;
+	const float COMBO_ALPHA_MAX  = 1.0f;
+	const float COMBO_ALPHA_MIN  = 0.0f;
+	const float COMBO_ALPHA_COEF = 4.0f;
+
 	ComboBox::ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Edit(_coord, _align, _info, _parent, _name),
 		mListShow(false),
@@ -18,7 +23,8 @@ namespace MyGUI
 		mItemIndex(ITEM_NONE),
 		mModeDrop(false),
 		mDropMouse(false),
-		mShowSmooth(false)
+		mShowSmooth(false),
+		mDoAlpha(COMBO_ALPHA_NONE)
 	{
 		// запомием размер скина
 		IntSize size = _info->getSize();
@@ -207,7 +213,15 @@ namespace MyGUI
 		}
 		mList->setPosition(coord);
 
-		mList->show();
+		if (mShowSmooth) {
+			if (false == mList->isShow()) {
+				mList->setAlpha(COMBO_ALPHA_MIN);
+				mList->show();
+			}
+			mDoAlpha = COMBO_ALPHA_MAX;
+			mList->setEnabled(true, true);
+		}
+		else mList->show();
 
 		InputManager::getInstance().setKeyFocusWidget(mList);
 	}
@@ -215,7 +229,13 @@ namespace MyGUI
 	void ComboBox::hideList()
 	{
 		mListShow = false;
-		mList->hide();
+		if (mShowSmooth) {
+			if (mList->isShow()) {
+				mDoAlpha = COMBO_ALPHA_MIN;
+				mList->setEnabled(false, true);
+			}
+		}
+		else mList->hide();
 	}
 
 	void ComboBox::setSmoothShow(bool _smooth)
@@ -231,7 +251,26 @@ namespace MyGUI
 	void ComboBox::_frameEntered(float _frame, float _event)
 	{
 		Edit::_frameEntered(_frame, _event);
-		if (false == mShowSmooth) return;
+		if ((false == mShowSmooth) || (mDoAlpha == COMBO_ALPHA_NONE)) return;
+		float alpha = mList->getAlpha();
+
+		if (mDoAlpha == COMBO_ALPHA_MAX) {
+			alpha += _frame * COMBO_ALPHA_COEF;
+			if (alpha >= COMBO_ALPHA_MAX) {
+				alpha = COMBO_ALPHA_MAX;
+				mDoAlpha = COMBO_ALPHA_NONE;
+			}
+			mList->setAlpha(alpha);
+		}
+		else {
+			alpha -= _frame * COMBO_ALPHA_COEF;
+			if (alpha <= COMBO_ALPHA_MIN) {
+				mDoAlpha = COMBO_ALPHA_NONE;
+				mList->hide();
+				mList->setAlpha(COMBO_ALPHA_MAX);
+			} else mList->setAlpha(alpha);
+		}
+
 	}
 
 } // namespace MyGUI

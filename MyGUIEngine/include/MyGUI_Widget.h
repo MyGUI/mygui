@@ -150,7 +150,7 @@ namespace MyGUI
 		inline bool isNeedKeyFocus() {return mNeedKeyFocus;}
 		inline void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
 		inline bool isEnabled() {return mEnabled;}
-		void setEnabled(bool _enabled);
+		void setEnabled(bool _enabled, bool _silent = false);
 
 		// возвращаем колличество сабскинов без учета текста
 		size_t _getCountSharedOverlay();
