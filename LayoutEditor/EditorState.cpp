@@ -61,6 +61,10 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
     current_widget->setPosition(x, y, w, h);
 	}
 
+	MyGUI::LayerItemInfoPtr rootItem = null;
+	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+	if (null != item) MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
+
 	MyGUI::InputManager::getInstance().injectMouseMove(arg);
 	return true;
 }

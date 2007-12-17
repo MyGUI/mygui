@@ -15,7 +15,7 @@ namespace MyGUI
 		mIsPressed(false),
 		mIsFocus(false),
 		mIsStatePressed(false),
-		grid_step(8)
+		grid_step(1)
 	{
 		mNeedKeyFocus = true;
 
