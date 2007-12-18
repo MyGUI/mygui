@@ -66,7 +66,7 @@ namespace MyGUI
 		static FloatRect convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight);
 
 		// очищает имя в списках
-		void unlink(WidgetPtr _widget);
+		void unlinkWidget(WidgetPtr _widget);
 
 		// регестрирует делегат
 		ParseDelegate & registerDelegate(const Ogre::String & _key);

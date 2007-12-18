@@ -46,7 +46,7 @@ namespace MyGUI
 		virtual void _frameEntered(float _frame) {}
 
 		// удяляет только негодных батюшке государю
-		void _destroyChildWidget(WidgetPtr & _widget);
+		void _destroyChildWidget(WidgetPtr _widget);
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 

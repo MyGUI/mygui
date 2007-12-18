@@ -180,15 +180,12 @@ namespace MyGUI
 	}
 
 	// удяляет только негодных батюшке государю
-	void Gui::_destroyChildWidget(WidgetPtr & _widget)
+	void Gui::_destroyChildWidget(WidgetPtr _widget)
 	{
 		for (size_t index = 0; index < mWidgetChild.size(); index++) {
 			WidgetPtr widget = mWidgetChild[index];
 			if (_widget == widget) {
-
 				delete _widget;
-				_widget = null;
-
 				// удаляем из списка
 				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
 				mWidgetChild.pop_back();

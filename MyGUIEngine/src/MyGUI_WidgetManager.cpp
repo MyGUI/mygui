@@ -106,7 +106,7 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	void WidgetManager::unlink(WidgetPtr _widget)
+	void WidgetManager::unlinkWidget(WidgetPtr _widget)
 	{
 		if (_widget == null) return;
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
@@ -161,7 +161,7 @@ namespace MyGUI
 		LayerManager::getInstance().detachItem(_widget);
 
 		// стираем имя в карте для поиска
-		clearName(_widget);
+		unlinkWidget(_widget);
 
 		// удаляем упоминание в инпуте
 		InputManager::getInstance().unlinkWidget(_widget);
