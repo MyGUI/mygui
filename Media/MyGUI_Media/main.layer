@@ -2,9 +2,11 @@
 
 <MyGUI type="Layer">
 
-    <Layer name="Back" start="10" height="4" count="1"/>
-    <Layer name="Overlapped" start="55" height="5" count="26"/>
-    <Layer name="Main" start="194" height="4" count="1"/>
-    <Layer name="Pointer" start="200" height="1" count="1"/>
+    <Layer name="Back" start="10" height="8" count="1"/>
+    <Layer name="Overlapped" start="18" height="8" count="74"/>
+    <Layer name="Main" start="620" height="8" count="1"/>
+    <Layer name="Popup" start="628" height="8" count="1"/>
+    <Layer name="Tooltip" start="636" height="4" count="1"/>
+    <Layer name="Pointer" start="640" height="2" count="1"/>
 
 </MyGUI>

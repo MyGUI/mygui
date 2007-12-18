@@ -64,6 +64,8 @@ namespace MyGUI
 
 		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально
 		static FloatRect convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight);
+		// преобразует точку на виджете в глобальную позицию
+		static IntPoint convertToGlobal(const IntPoint& _point, WidgetPtr _widget);
 
 		// очищает имя в списках
 		void unlinkWidget(WidgetPtr _widget);

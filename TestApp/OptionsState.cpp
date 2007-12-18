@@ -109,17 +109,16 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
 
-	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 100, 100, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+/*	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 100, 100, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
-	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 
 	MyGUI::WidgetPtr widget = window->createWidget<MyGUI::Widget>("Edit", 10, 44, 260, 175, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-//	edit->setEditMultiLine(true);
+//	edit->setEditMultiLine(true);*/
 
 
-//	createWindowList();
+	//createWindowList();
   //createWindowEdit();
 
 //	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
@@ -137,7 +136,7 @@ void OptionsState::enter(bool bIsChangeState)
 	box->addItemString("Line 9");
 	box->addItemString("Line 10");
 	box->addItemString("Line 11");	
-  box->addItemString("Line 1");
+	box->addItemString("Line 1");
 	box->addItemString("Line 2");
 	box->addItemString("Line 3");
 	box->addItemString("Line 4");
@@ -164,15 +163,15 @@ void OptionsState::enter(bool bIsChangeState)
 	box->addItemString("Line 10");
 	box->addItemString("Line 11");//*/
 
-	/*mCountWindow = 0;
+	mCountWindow = 0;
 
 	MyGUI::ButtonPtr 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", 10, 10, 200, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Main");
-	button->setCaption(L"List demo");
+	button->setCaption(L"demo list + combo");
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyWindowButton1);
 
 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", 10, 46, 200, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Main");
 	button->setCaption(L"Edit demo + auto alpha");
-	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyWindowButton2);*/
+	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyWindowButton2);//*/
 
 	/*MyGUI::ButtonPtr 	button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("ButtonSmall", 0, 0, 80, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP, "Overlapped");
 	button->setCaption(L"хнопка");
@@ -254,10 +253,10 @@ void OptionsState::createWindowEdit()
 	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
-	//window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
+	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 
-	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_STRETCH);
 	edit->setEditMultiLine(true);
 
 	MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
@@ -400,7 +399,7 @@ void OptionsState::createWindowList()
 	float y = (BasisManager::getInstance().mHeight - 300) * Ogre::Math::UnitRandom();
 
 	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", x, y, 390, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
-	window->setCaption("list test");
+	window->setCaption("test list + combo");
 	//window->setAutoAlpha(true);
 	//window->showSmooth(true);
 	window->setMinMax(MyGUI::IntRect(200, 115, 2000, 2000));
@@ -412,16 +411,24 @@ void OptionsState::createWindowList()
 	MyGUI::ListPtr list = window->createWidget<MyGUI::List>("List", 10, 46, coord.width-120, coord.height-56, MyGUI::ALIGN_STRETCH);
 	list->eventListPressedDelete = MyGUI::newDelegate(this, &OptionsState::notifyListPressedDelete);
 
-	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("Edit", 10, 10, coord.width-120, 26, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-	edit->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_VCENTER);
-	edit->setUserString("List", list->getName());
-	edit->eventEditSelectAccept = MyGUI::newDelegate(this, &OptionsState::notifyEditAccept);
+	MyGUI::ComboBoxPtr combo = window->createWidget<MyGUI::ComboBox>("ComboBox", 10, 10, coord.width-120, 26, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	combo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_VCENTER);
+	combo->setUserString("List", list->getName());
+	combo->eventComboAccept = MyGUI::newDelegate(this, &OptionsState::notifyEditAccept);
+	combo->addItemString("#FF0000red");
+	combo->addItemString("#00FF00green");
+	combo->addItemString("#0000FFblue");
+	combo->addItemString("#FFFF00yellow");
+	combo->addItemString("#00FFFFcyan");
+	combo->addItemString("#FF00FFmagenta");
+	combo->addItemString("#FFFFFFwhite");
+	combo->addItemString("#000000black");
 
 	MyGUI::WidgetPtr separator = window->createWidget<MyGUI::Widget>("Separator3", coord.width-101, 10, 2, coord.height-20, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_VSTRETCH);
 
 	MyGUI::ButtonPtr 	button = window->createWidget<MyGUI::Button>("ButtonSmall", coord.width-90, 10, 80, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_TOP);
 	button->setCaption("add");
-	button->setUserString("Edit", edit->getName());
+	button->setUserString("ComboBox", combo->getName());
 	button->setUserString("List", list->getName());
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedAdd);
 
@@ -434,16 +441,16 @@ void OptionsState::createWindowList()
 //---------------------------------------------------------------------------------------//
 void OptionsState::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
 {
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
-	if (edit == null) return;
+	MyGUI::ComboBoxPtr combo = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::ComboBox>(_sender->getUserString("ComboBox"));
+	if (combo == null) return;
 
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>(_sender->getUserString("List"));
 	if (list == null) return;
 
-	const Ogre::DisplayString& caption = edit->getCaption();
+	const Ogre::DisplayString& caption = combo->getCaption();
 	if (false == caption.empty()) {
 		list->addItemString(caption);
-		edit->setCaption("");
+		combo->setCaption("");
 	}
 }
 
@@ -481,6 +488,6 @@ void OptionsState::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
 void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _widget)
 {
 	MyGUI::WindowPtr window = MyGUI::castWidget<MyGUI::Window>(_widget);
-	window->hideSmooth(true);
+	window->destroySmooth();
 	mCountWindow --;
 }

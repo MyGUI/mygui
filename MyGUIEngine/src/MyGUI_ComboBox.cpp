@@ -196,7 +196,8 @@ namespace MyGUI
 		int height = mList->getListMaxHeight();
 		if (height > mMaxHeight) height = mMaxHeight;
 
-		IntCoord coord = mCoord;
+		// берем глобальные координаты выджета
+		IntCoord coord(WidgetManager::convertToGlobal(IntPoint(), this), mCoord.size());
 
 		//показываем список вверх
 		if ((coord.top + coord.height + height) > (int)Gui::getInstance().getViewHeight()) {
@@ -302,5 +303,21 @@ namespace MyGUI
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyLostFocus(_new);
 	}
+
+	/*void ComboBox::setPosition(const IntPoint& _pos)
+	{
+		Widget::setPosition(_pos);
+		IntPoint pos = mCoord.point();
+	}
+
+	void ComboBox::setPosition(const IntCoord& _coord)
+	{
+		Widget::setPosition(_coord);
+	}
+
+	void ComboBox::setSize(const IntSize& _size)
+	{
+		Widget::setSize(_size);
+	}*/
 
 } // namespace MyGUI

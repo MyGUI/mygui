@@ -297,20 +297,24 @@ namespace MyGUI
 		}*/
 
 		/** Shows this element if it was hidden. */
-        void show(void)
+        /*void show(void)
 		{
+			Ogre::PanelOverlayElement::show();
+			MYGUI_OUT("show");
 			//mIsShowOverlay = true;
 			//mGeomPositionsOutOfDate = true;
 			//assert(0 || !"show");
-		}
+		}*/
 
         /** Hides this element if it was visible. */
-        void hide(void)
+        /*void hide(void)
 		{
+			Ogre::PanelOverlayElement::hide();
+			MYGUI_OUT("hide");
 			//mIsShowOverlay = false;
 			//mGeomPositionsOutOfDate = true;
 			//assert(0 || !"hide");
-		}
+		}*/
 
 	}; // class SharedPanelAlphaOverlayElement : public PanelOverlayElement
 

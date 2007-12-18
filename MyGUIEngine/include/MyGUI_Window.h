@@ -37,7 +37,8 @@ namespace MyGUI
 
 		// для мееедленного показа и скрытия
 		void showSmooth(bool _reset = false);
-		void hideSmooth(bool _destroy = false);
+		void hideSmooth();
+		void destroySmooth();
 
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
 		inline void setAutoAlpha(bool _auto)

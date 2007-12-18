@@ -634,7 +634,7 @@
         <Property key="SkinList" value = "List" />
         <Property key="OffsetList" value = "10 10 30 30" />
         <Property key="AlignList" value = "ALIGN_LEFT ALIGN_TOP" />
-        <Property key="LayerList" value = "Main" />
+        <Property key="LayerList" value = "Popup" />
         <Property key="HeightList" value = "100" />
         <Property key="ComboSmoothShow" value = "true" />
 

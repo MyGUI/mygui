@@ -132,6 +132,18 @@ namespace MyGUI
 		return offset;
 	}
 
+	// преобразует точку на виджете в глобальную позицию
+	IntPoint WidgetManager::convertToGlobal(const IntPoint& _point, WidgetPtr _widget)
+	{
+		IntPoint ret = _point;
+		WidgetPtr wid = _widget;
+		while (wid != null) {
+			ret += wid->getPosition();
+			wid = wid->getParent();
+		}
+		return ret;
+	}
+
 	ParseDelegate & WidgetManager::registerDelegate(const Ogre::String & _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);

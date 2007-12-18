@@ -42,6 +42,10 @@ namespace MyGUI
 		void showList();
 		void hideList();
 
+		/*virtual void setPosition(const IntPoint& _pos);
+		virtual void setPosition(const IntCoord& _coord);
+		virtual void setSize(const IntSize& _size);*/
+
 	public:
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("ComboBox"); return type;}

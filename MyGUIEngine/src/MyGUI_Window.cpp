@@ -271,30 +271,29 @@ namespace MyGUI
 		setDoAlpha(doAlpha);
 	}
 
-	void Window::hideSmooth(bool _destroy)
+	void Window::hideSmooth()
 	{
-		if (_destroy) {
-			// мы уже скрыты удаляем
-			if ((false == mShow) || (mAlpha == WINDOW_ALPHA_MIN)) {
-				WidgetPtr destroy = this;
-				WidgetManager::getInstance().destroyWidget(destroy);
-			}
-			// доходим до минимума
-			else {
-				mEnabled = false;
-				setDoAlpha(WINDOW_ALPHA_MIN);
-				mIsDestroy = _destroy;
-				InputManager::getInstance().unlinkWidget(this);
-			}
+		// если нужно то запускаем скрытие
+		if ((mShow) && (mAlpha != WINDOW_ALPHA_MIN)) {
+			// блокируем доступ
+			mEnabled = false;
+			setDoAlpha(WINDOW_ALPHA_MIN);
 		}
-		// удалять не надо, просто меедленно скрываем
+	}
+
+	void Window::destroySmooth()
+	{
+		// мы уже скрыты удаляем
+		if ((false == mShow) || (mAlpha == WINDOW_ALPHA_MIN)) {
+			WidgetPtr destroy = this;
+			WidgetManager::getInstance().destroyWidget(destroy);
+		}
+		// доходим до минимума
 		else {
-			// если нужно то запускаем скрытие
-			if ((mShow) && (mAlpha != WINDOW_ALPHA_MIN)) {
-				// блокируем доступ
-				mEnabled = false;
-				setDoAlpha(WINDOW_ALPHA_MIN);
-			}
+			mEnabled = false;
+			setDoAlpha(WINDOW_ALPHA_MIN);
+			mIsDestroy = true;
+			InputManager::getInstance().unlinkWidget(this);
 		}
 	}
 
