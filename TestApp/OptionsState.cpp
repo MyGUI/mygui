@@ -108,12 +108,23 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>("StaticText", 20, height - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
-	createWindowList();
-  createWindowEdit();
+
+	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 100, 100, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	window->setCaption("edit test");
+	window->setAutoAlpha(true);
+	window->showSmooth(true);
+	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+
+	MyGUI::WidgetPtr widget = window->createWidget<MyGUI::Widget>("Edit", 10, 44, 260, 175, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+//	edit->setEditMultiLine(true);
+
+
+//	createWindowList();
+  //createWindowEdit();
 
 //	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
-	MyGUI::ComboBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 150, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+	/*MyGUI::ComboBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::ComboBox>("ComboBox", 150, 200, 240, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 	box->eventComboAccept = MyGUI::newDelegate(this, &OptionsState::comboAccept);
 	box->addItemString("Line 1");
 	box->addItemString("Line 2");
@@ -243,10 +254,10 @@ void OptionsState::createWindowEdit()
 	window->setCaption("edit test");
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
-	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
+	//window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
 	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 
-	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_STRETCH);
+	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	edit->setEditMultiLine(true);
 
 	MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("ButtonSmall", 10, 10, 80, 24, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
