@@ -43,19 +43,19 @@ namespace MyGUI
 		// ширина поля вывода
 		const float __DEBUG_OVERLAY_INFO_WIDTH = 500;
 
+		// структура информации об одной строке
+		struct info
+		{
+			info() : num(0), count(1)  {}
+			info(size_t _num, const std::string & _line) : num(_num), count(1), line(_line) {}
+
+			size_t num;
+			size_t count;
+			std::string line;
+		};
+
 		void render_out(const std::string & _value)
 		{
-			// структура информации об одной строке
-			struct info
-			{
-				info() : num(0), count(1)  {}
-				info(size_t _num, const std::string & _line) : num(_num), count(1), line(_line) {}
-
-				size_t num;
-				size_t count;
-				std::string line;
-			};
-
 			// очередь
 			typedef std::deque<info> DequeInfo;
 

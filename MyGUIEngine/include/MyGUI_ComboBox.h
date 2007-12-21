@@ -21,7 +21,7 @@ namespace MyGUI
 	class _MyGUIExport ComboBox : public Edit
 	{
 		// для вызова закрытого конструктора
-		friend factory::ComboBoxFactory;
+		friend class factory::ComboBoxFactory;
 
 	protected:
 		ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

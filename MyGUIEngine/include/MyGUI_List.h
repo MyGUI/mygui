@@ -23,7 +23,7 @@ namespace MyGUI
 	class _MyGUIExport List : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend factory::ListFactory;
+		friend class factory::ListFactory;
 
 	protected:
 		List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

@@ -20,7 +20,7 @@ namespace MyGUI
 	class _MyGUIExport StaticText : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend factory::StaticTextFactory;
+		friend class factory::StaticTextFactory;
 
 	protected:
 		StaticText(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

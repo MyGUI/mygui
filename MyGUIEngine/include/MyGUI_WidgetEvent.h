@@ -24,7 +24,7 @@ namespace MyGUI
 
 	class _MyGUIExport WidgetEvent
 	{
-		friend InputManager;
+		friend class InputManager;
 
 	protected:
 		WidgetEvent() : mWidgetEventSender(0), mNeedKeyFocus(false) {}

@@ -20,7 +20,7 @@ namespace MyGUI
 	class _MyGUIExport VScroll : public ScrollBase
 	{
 		// для вызова закрытого конструктора
-		friend factory::VScrollFactory;
+		friend class factory::VScrollFactory;
 
 	protected:
 		VScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

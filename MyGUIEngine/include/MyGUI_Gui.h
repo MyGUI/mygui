@@ -33,7 +33,7 @@ namespace MyGUI
 	
 	class _MyGUIExport Gui
 	{
-		friend WidgetManager;
+		friend class WidgetManager;
 		INSTANCE_HEADER(Gui);
 
 		typedef std::list<WidgetPtr> ListFrameListener;

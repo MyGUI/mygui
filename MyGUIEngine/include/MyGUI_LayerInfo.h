@@ -17,7 +17,7 @@ namespace MyGUI
 
 	class _MyGUIExport LayerInfo
 	{
-		friend LayerManager;
+		friend class LayerManager;
 
 	private:
 		LayerInfo(const std::string & _name, Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :

@@ -21,7 +21,7 @@ namespace MyGUI
 	class _MyGUIExport StretchRectangle : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend factory::StretchRectangleFactory;
+		friend class factory::StretchRectangleFactory;
 
 	protected:
 		enum {

@@ -21,7 +21,7 @@ namespace MyGUI
 	class _MyGUIExport StaticImage : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend factory::StaticImageFactory;
+		friend class factory::StaticImageFactory;
 
 	protected:
 		StaticImage(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

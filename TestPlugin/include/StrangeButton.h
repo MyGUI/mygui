@@ -10,7 +10,7 @@ namespace MyGUI
 	class StrangeButton : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend factory::StrangeButtonFactory;
+		friend class factory::StrangeButtonFactory;
 
 	protected:
 		StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

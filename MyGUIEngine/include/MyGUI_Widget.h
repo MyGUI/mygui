@@ -24,10 +24,10 @@ namespace MyGUI
 	class _MyGUIExport Widget : public CroppedRectangleInterface , public LayerItemInfo, public UserData, public WidgetEvent
 	{
 		// для вызова закрытых деструкторов
-		friend WidgetManager;
-		friend Gui;
+		friend class WidgetManager;
+		friend class Gui;
 		// для вызова закрытого конструктора
-		friend factory::WidgetFactory;
+		friend class factory::WidgetFactory;
 
 	protected:
 		// все создание только через фабрику

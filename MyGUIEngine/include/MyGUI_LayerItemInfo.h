@@ -24,8 +24,8 @@ namespace MyGUI
 	class LayerItemInfo
 	{
 		// для доступа
-		friend LayerInfo;
-		friend LayerManager;
+		friend class LayerInfo;
+		friend class LayerManager;
 
 	protected:
 		LayerItemInfo() : mOverlayInfo(0), mLayerInfo(0) {}

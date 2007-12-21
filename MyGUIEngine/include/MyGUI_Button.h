@@ -20,7 +20,7 @@ namespace MyGUI
 	class _MyGUIExport Button : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend factory::ButtonFactory;
+		friend class factory::ButtonFactory;
 
 	protected:
 		Button(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

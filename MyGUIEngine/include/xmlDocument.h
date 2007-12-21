@@ -83,7 +83,7 @@ namespace xml
 	//----------------------------------------------------------------------//
 	class xmlNodeIterator
 	{
-		friend xmlNode;
+		friend class xmlNode;
 
 	private:
 		xmlNodeIterator(VectorNode::iterator _start, VectorNode::iterator _end);
@@ -105,7 +105,7 @@ namespace xml
 	//----------------------------------------------------------------------//
 	class xmlNode
 	{
-		friend  xmlDocument;
+		friend class  xmlDocument;
 
 	public:
 		~xmlNode();

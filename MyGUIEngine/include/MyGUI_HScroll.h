@@ -20,7 +20,7 @@ namespace MyGUI
 	class _MyGUIExport HScroll : public ScrollBase
 	{
 		// для вызова закрытого конструктора
-		friend factory::HScrollFactory;
+		friend class factory::HScrollFactory;
 
 	protected:
 		HScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);

@@ -141,7 +141,8 @@ namespace MyGUI
 			::wsprintfW(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 
 			// непосредственная вставка
-			insert(mCurrent, Ogre::DisplayString(buff));
+			Ogre::DisplayString tmpStr = Ogre::DisplayString(buff);
+			insert(mCurrent, tmpStr);
 
 			return true;
 		}

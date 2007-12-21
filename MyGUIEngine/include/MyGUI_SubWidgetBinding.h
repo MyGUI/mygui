@@ -19,7 +19,7 @@ namespace MyGUI
 	{
 	private:
 		// для доступа к внутренним членам
-		friend 	WidgetSkinInfo;
+		friend class 	WidgetSkinInfo;
 
 	public:
 		SubWidgetBinding()
