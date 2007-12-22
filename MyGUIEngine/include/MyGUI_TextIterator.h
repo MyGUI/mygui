@@ -137,8 +137,11 @@ namespace MyGUI
 			// на всякий
 			if (mCurrent == mEnd) return false;
 
-			wchar_t buff[16];
-			::wsprintfW(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+			//wchar_t buff[16];
+			//::wsprintfW(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+
+			char buff[16];
+			sprintf(buff, "#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 
 			// непосредственная вставка
 			Ogre::DisplayString tmpStr = Ogre::DisplayString(buff);

@@ -20,10 +20,9 @@ namespace MyGUI
 	{
 		const std::string _file("MyGUI.log");
 
-		struct tm current_time;
-		time_t info_time;
-		time(&info_time);
-		localtime_s(&current_time, &info_time );
+    struct tm *current_time;
+    time_t ctTime; time(&ctTime);
+    current_time = localtime( &ctTime );
 
 		std::ofstream stream;
 
@@ -32,12 +31,12 @@ namespace MyGUI
 			stream.open(_file.c_str(), std::ios_base::out);
 			stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl;
 			stream << "                                          loging report for : "
-				<< std::setw(2) << std::setfill('0') << current_time.tm_mon + 1 << "/"
-				<< std::setw(2) << std::setfill('0') << current_time.tm_mday << "/"
-				<< std::setw(4) << std::setfill('0') << current_time.tm_year + 1900 << "   "
-				<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
-				<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
-				<< std::setw(2) << std::setfill('0') << current_time.tm_sec << std::endl;
+				<< std::setw(2) << std::setfill('0') << current_time->tm_mon + 1 << "/"
+				<< std::setw(2) << std::setfill('0') << current_time->tm_mday << "/"
+				<< std::setw(4) << std::setfill('0') << current_time->tm_year + 1900 << "   "
+				<< std::setw(2) << std::setfill('0') << current_time->tm_hour << ":"
+				<< std::setw(2) << std::setfill('0') << current_time->tm_min << ":"
+				<< std::setw(2) << std::setfill('0') << current_time->tm_sec << std::endl;
 			stream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl << std::endl;
 			first_run = false;
 			stream.close();
@@ -47,9 +46,9 @@ namespace MyGUI
 		if (stream.is_open()) {
 
 			stream
-				<< std::setw(2) << std::setfill('0') << current_time.tm_hour << ":"
-				<< std::setw(2) << std::setfill('0') << current_time.tm_min << ":"
-				<< std::setw(2) << std::setfill('0') << current_time.tm_sec << "   "
+				<< std::setw(2) << std::setfill('0') << current_time->tm_hour << ":"
+				<< std::setw(2) << std::setfill('0') << current_time->tm_min << ":"
+				<< std::setw(2) << std::setfill('0') << current_time->tm_sec << "   "
 				<< _message << std::endl;
 
 			stream.close();
