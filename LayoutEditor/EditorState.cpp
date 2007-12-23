@@ -27,6 +27,7 @@ void EditorState::enter(bool bIsChangeState)
 	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
 
   MyGUI::LayoutManager::getInstance().load("LayoutEditor.layout");
+
 	ASSIGN_FUNCTION("buttonLoad", &EditorState::notifyLoad);
 	ASSIGN_FUNCTION("buttonSave", &EditorState::notifySave);
 	ASSIGN_FUNCTION("buttonSaveAs", &EditorState::notifySaveAs);
@@ -63,7 +64,11 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 
 	MyGUI::LayerItemInfoPtr rootItem = null;
 	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
-	if (null != item) MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
+	if (null != item && item->getUserString("isInterface") == "")
+	{
+		if(item->getUserString("isMarker") != "") item = item->getParent();
+		MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
+	}
 
 	MyGUI::InputManager::getInstance().injectMouseMove(arg);
 	return true;
@@ -102,7 +107,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 		{
 			creating_status = 0;
 			current_widget_type = "";
-			MyGUI::WidgetManager::getInstance().destroyWidget(current_widget);
+			if (current_widget) MyGUI::WidgetManager::getInstance().destroyWidget(current_widget);
 		}
 	}
 
@@ -132,6 +137,7 @@ void EditorState::exit()
 //===================================================================================
 bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 {
+	MyGUI::Gui::getInstance().injectFrameEntered(evt.timeSinceLastFrame);
 	return true;
 }
 //===================================================================================
