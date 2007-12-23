@@ -108,8 +108,12 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>("StaticText", 20, height - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
-	//MyGUI::Gui::getInstance().createWidgetT("StretchRectangle", "WindowCSX", 300, 300, 390, 226, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
-	//edit->eventEditSelectAccept = MyGUI::newDelegate(this, &OptionsState::notifyTest);
+	/*MyGUI::WidgetPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("Empty", 300, 300, 390, 226, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	MyGUI::VScrollPtr scroll = window->createWidget<MyGUI::VScroll>("VScroll", 100, 10, 16, 106, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_VSTRETCH);
+	scroll->hide();
+	window->setSize(MyGUI::IntSize(0, 300));
+	window->setSize(MyGUI::IntSize(400, 300));
+	scroll->show();*/
 
 /*	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 100, 100, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("edit test");

@@ -49,7 +49,7 @@ namespace MyGUI
 		{
 			if (mTransparent == _transparent) return;
 			mTransparent = _transparent;
-			if ((false == mTransparent) && (false == mShow)) return;
+			//if (/*(false == mTransparent) &&*/ (false == mShow)) return;
 			mOverlayContainer->setTransparentInfo(mTransparent, mId);
 		}
 
