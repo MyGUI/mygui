@@ -120,13 +120,13 @@ namespace MyGUI
 				if (false == widget->findAttribute("value", value)) continue;
 				wid->setUserString(key, value);
 			}
-			else if (widget->getName() == "UserData") {
+			/*else if (widget->getName() == "UserData") {
 				// парсим атрибуты
 				if (false == widget->findAttribute("key", key)) continue;
 				if (false == widget->findAttribute("value", value)) continue;
 				wid->setUserData(key, util::parseValue<int>(value));
 
-			}
+			}*/
 
 		};
 	}

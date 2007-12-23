@@ -6,6 +6,7 @@
         <Property key="FontName" value = "MyGUI_font" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
+        
         <BasisSkin type="SubSkin" offset = "0 0 20 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "2 2 20 26"/>
             <State name="normal" offset = "2 30 20 26"/>
@@ -37,7 +38,21 @@
     </Skin>
     
     <Skin name = "EditCursor" size = "2 19" material = "MyGUI_main" >
+        <Property key="Pointer" value = "beam" />
+        <Property key="Show" value = "false" />
+        
         <BasisSkin type="MainSkin" offset = "0 0 2 19" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "126 94 2 19"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "EditClient" size = "2 19">
+        <Property key="Pointer" value = "beam" />
+
+        <Child type="Widget" skin="EditCursor" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP" name = "Cursor">
+        </Child>
+
+        <BasisSkin type="MainSkin" offset = "0 0 0 0" align = "ALIGN_STRETCH">
             <State name="normal" offset = "126 94 2 19"/>
         </BasisSkin>
     </Skin>
@@ -47,7 +62,10 @@
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
-        <Property key="CursorSkin" value = "EditCursor" />
+
+        <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+      
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
             <State name="normal" offset = "60 30 10 26"/>
@@ -83,8 +101,10 @@
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
-        <Property key="CursorSkin" value = "EditCursor" />
-        
+
+        <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
         <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="disable" offset = "60 2 2 2"/>
             <State name="normal" offset = "60 30 2 2"/>
@@ -204,9 +224,8 @@
 
     <Skin name = "Window" size = "27 54" material = "MyGUI_main" >
 
-        <Property key="SkinClient" value = "DefaultClient" />
-        <Property key="OffsetClient" value = "3 30 18 18" />
-        <Property key="AlignClient" value = "ALIGN_STRETCH" />
+        <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 2 3 30"/>
@@ -235,15 +254,14 @@
     </Skin>
 
     <Skin name = "WindowC" size = "27 54" material = "MyGUI_main" >
-        <Property key="SkinCaption" value = "WindowCaption" />
-        <Property key="OffsetCaption" value = "3 0 18 30" />
-        <Property key="AlignCaption" value = "ALIGN_HSTRETCH ALIGN_TOP" />
-
-        <Property key="SkinClient" value = "DefaultClient" />
-        <Property key="OffsetClient" value = "3 30 18 18" />
-        <Property key="AlignClient" value = "ALIGN_STRETCH" />
-
         <Property key="WindowToStick" value = "true" />
+
+        <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 2 3 30"/>
@@ -272,26 +290,22 @@
     </Skin>
 
     <Skin name = "WindowCS" size = "27 54" material = "MyGUI_main" >
-        <Property key="SkinCaption" value = "WindowCaption" />
-        <Property key="OffsetCaption" value = "3 0 18 30" />
-        <Property key="AlignCaption" value = "ALIGN_HSTRETCH ALIGN_TOP" />
-
-        <Property key="SkinResize" value = "WindowResize" />
-        <Property key="OffsetResize" value = "12 39 12 12" />
-        <Property key="AlignResize" value = "ALIGN_RIGHT ALIGN_BOTTOM" />
-
-        <Property key="SkinClient" value = "DefaultClient" />
-        <Property key="OffsetClient" value = "3 30 18 18" />
-        <Property key="AlignClient" value = "ALIGN_STRETCH" />
-
         <Property key="WindowToStick" value = "true" />
+
+        <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <Child type="Button" skin="WindowResize" offset = "12 39 12 12" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
+        </Child>
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 2 3 30"/>
         </BasisSkin>
-        <_BasisSkin type="SubSkin" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP">
-            <State name="normal" offset = "380 2 18 30"/>
-        </_BasisSkin>
         <BasisSkin type="SubSkin" offset = "21 0 6 30" align = "ALIGN_RIGHT ALIGN_TOP">
             <State name="normal" offset = "398 2 6 30"/>
         </BasisSkin>
@@ -312,55 +326,11 @@
         </BasisSkin>
     </Skin>
     
-    <Skin name = "WindowCSX" size = "27 54" material = "MyGUI_main" >
-        <Property key="SkinCaption" value = "WindowCaption" />
-        <Property key="OffsetCaption" value = "3 0 -6 30" />
-        <Property key="AlignCaption" value = "ALIGN_HSTRETCH ALIGN_TOP" />
-
-        <Property key="SkinX" value = "WindowX" />
-        <Property key="OffsetX" value = "-3 0 24 30" />
-        <Property key="AlignX" value = "ALIGN_RIGHT ALIGN_TOP" />
-
-        <Property key="SkinResize" value = "WindowResize" />
-        <Property key="OffsetResize" value = "12 39 12 12" />
-        <Property key="AlignResize" value = "ALIGN_RIGHT ALIGN_BOTTOM" />
-
-        <Property key="SkinClient" value = "DefaultClient" />
-        <Property key="OffsetClient" value = "3 30 18 18" />
-        <Property key="AlignClient" value = "ALIGN_STRETCH" />
-
-        <Property key="WindowToStick" value = "true" />
-
-        <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
-            <State name="normal" offset = "377 2 3 30"/>
-        </BasisSkin>
-        <_BasisSkin type="SubSkin" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP">
-            <State name="normal" offset = "380 2 18 30"/>
-        </_BasisSkin>
-        <BasisSkin type="SubSkin" offset = "21 0 6 30" align = "ALIGN_RIGHT ALIGN_TOP">
-            <State name="normal" offset = "398 2 6 30"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "21 30 6 18" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
-            <State name="normal" offset = "398 32 6 18"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "21 48 6 6" align = "ALIGN_RIGHT ALIGN_BOTTOM">
-            <State name="normal" offset = "398 50 6 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "3 48 18 6" align = "ALIGN_BOTTOM ALIGN_HSTRETCH">
-            <State name="normal" offset = "380 50 18 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "0 48 3 6" align = "ALIGN_LEFT ALIGN_BOTTOM">
-            <State name="normal" offset = "377 50 3 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "0 30 3 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
-            <State name="normal" offset = "377 32 3 18"/>
-        </BasisSkin>
-    </Skin>
-
     <Skin name = "WindowCaption" size = "47 30" material = "MyGUI_main" >
         <Property key="FontName" value = "MyGUI_font" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
+
         <BasisSkin type="SubSkin" offset = "0 0 5 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "328 2 5 30"/>
             <State name="active" offset = "328 34 5 30"/>
@@ -387,6 +357,8 @@
     </Skin>
     
     <Skin name = "WindowResize" size = "12 12" material = "MyGUI_main" >
+        <Property key="Pointer" value = "size_left" />
+        
         <BasisSkin type="MainSkin" offset = "0 0 12 12" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "349 66 12 12"/>
             <State name="active" offset = "363 66 12 12"/>
@@ -418,19 +390,16 @@
     </Skin>
 
     <Skin name = "VScroll" size = "16 60" material = "MyGUI_main" >
-
-        <Property key="SkinStart" value = "VScrollTop" />
-        <Property key="OffsetStart" value = "0 0 16 16" />
-        <Property key="AlignStart" value = "ALIGN_HSTRETCH ALIGN_TOP" />
-
-        <Property key="SkinEnd" value = "VScrollBottom" />
-        <Property key="OffsetEnd" value = "0 44 16 16" />
-        <Property key="AlignEnd" value = "ALIGN_HSTRETCH ALIGN_BOTTOM" />
-
-        <Property key="SkinTrack" value = "VScrollTrack" />
-        <Property key="OffsetTrack" value = "0 18 16 21" />
-        <Property key="AlignTrack" value = "ALIGN_LEFT ALIGN_TOP" />
         <Property key="SkinTrackRange" value = "18 39" />
+
+        <Child type="Button" skin="VScrollTop" offset = "0 0 16 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start">
+        </Child>
+
+        <Child type="Button" skin="VScrollBottom" offset = "0 44 16 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End">
+        </Child>
+
+        <Child type="Button" skin="VScrollTrack" offset = "0 18 16 21" align = "ALIGN_LEFT ALIGN_TOP" name = "Track">
+        </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
         
@@ -471,19 +440,16 @@
     </Skin>
 
     <Skin name = "HScroll" size = "60 16" material = "MyGUI_main" >
-
-        <Property key="SkinStart" value = "HScrollLeft" />
-        <Property key="OffsetStart" value = "0 0 16 16" />
-        <Property key="AlignStart" value = "ALIGN_LEFT ALIGN_VSTRETCH" />
-
-        <Property key="SkinEnd" value = "HScrollRight" />
-        <Property key="OffsetEnd" value = " 44 0 16 16" />
-        <Property key="AlignEnd" value = "ALIGN_RIGHT ALIGN_VSTRETCH" />
-
-        <Property key="SkinTrack" value = "HScrollTrack" />
-        <Property key="OffsetTrack" value = "18 0 21 16" />
-        <Property key="AlignTrack" value = "ALIGN_LEFT ALIGN_TOP" />
         <Property key="SkinTrackRange" value = "18 39" />
+
+        <Child type="Button" skin="HScrollLeft" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Start">
+        </Child>
+
+        <Child type="Button" skin="HScrollRight" offset = "44 0 16 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "End">
+        </Child>
+
+        <Child type="Button" skin="HScrollTrack" offset = "18 0 21 16" align = "ALIGN_LEFT ALIGN_TOP" name = "Track">
+        </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
         
@@ -503,6 +469,7 @@
         <Property key="FontName" value = "MyGUI_font" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT | ALIGN_VCENTER" />
+        
         <BasisSkin type="MainSkin" offset = "0 0 5 5">
             <State name="normal" offset = "149 26 5 5"/>
             <State name="active" offset = "149 37 5 5"/>
@@ -517,17 +484,14 @@
 
     <Skin name = "List" size = "9 9" material = "MyGUI_main" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="NeedKey" value = "true" />
-
-        <Property key="SkinScroll" value = "VScroll" />
-        <Property key="OffsetScroll" value = "-10 3 16 3" />
-        <Property key="AlignScroll" value = "ALIGN_RIGHT ALIGN_VSTRETCH" />
-
-        <Property key="SkinClient" value = "DefaultClient" />
-        <Property key="OffsetClient" value = "3 3 -13 3" />
-        <Property key="AlignClient" value = "ALIGN_STRETCH" />
-
         <Property key="SkinLine" value = "ListLine" />
         <Property key="HeightLine" value = "20" />
+
+        <Child type="VScroll" skin="VScroll" offset = "-10 3 16 3" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll">
+        </Child>
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 3 -13 3" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "147 2 3 3"/>
@@ -567,6 +531,7 @@
         <Property key="FontName" value = "MyGUI_font" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
+        
         <BasisSkin type="MainSkin" offset = "0 0 0 0"/>
         <BasisSkin type="TextSimple" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
     </Skin>
@@ -625,18 +590,18 @@
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
-        <Property key="CursorSkin" value = "EditCursor" />
 
-        <Property key="SkinDrop" value = "ComboBoxButton" />
-        <Property key="OffsetDrop" value = "21 3 17 21" />
-        <Property key="AlignDrop" value = "ALIGN_RIGHT ALIGN_VSTRETCH" />
-
-        <Property key="SkinList" value = "List" />
-        <Property key="OffsetList" value = "10 10 30 30" />
-        <Property key="AlignList" value = "ALIGN_LEFT ALIGN_TOP" />
-        <Property key="LayerList" value = "Popup" />
         <Property key="HeightList" value = "100" />
         <Property key="ComboSmoothShow" value = "true" />
+
+        <Child type="Widget" skin="EditClient" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+        <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button">
+        </Child>
+
+        <Child type="List" skin="List" offset = "10 10 30 30" align = "ALIGN_LEFT ALIGN_TOP" name = "List" layer="Popup">
+        </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
@@ -665,6 +630,47 @@
             <State name="normal" colour="0 0 0"/>
             <State name="select" colour="2C8AD5"/>
             <State name="active" colour="2C8AD5"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "WindowCSX" size = "27 54" material = "MyGUI_main" >
+        <Property key="WindowToStick" value = "true" />
+
+        <Child type="Button" skin="WindowCaption" offset = "3 0 -6 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <Child type="Button" skin="WindowResize" offset = "12 39 12 12" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
+        </Child>
+
+        <Child type="Button" skin="WindowX" offset = "-3 0 24 30" align = "ALIGN_RIGHT ALIGN_TOP" name = "Button">
+            <Property key="Event" value = "clouse"/>
+        </Child>
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "377 2 3 30"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "21 0 6 30" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "398 2 6 30"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "21 30 6 18" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "398 32 6 18"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "21 48 6 6" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "398 50 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 48 18 6" align = "ALIGN_BOTTOM ALIGN_HSTRETCH">
+            <State name="normal" offset = "380 50 18 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 48 3 6" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "377 50 3 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 30 3 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "377 32 3 18"/>
         </BasisSkin>
     </Skin>
 

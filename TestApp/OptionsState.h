@@ -29,7 +29,7 @@ public:
 
 	void notifyEditAccept(MyGUI::WidgetPtr _sender);
 	void notifyListPressedDelete(MyGUI::WidgetPtr _sender);
-	void notifyWindowXPressed(MyGUI::WidgetPtr _widget);
+	void notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name);
 
 	void notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double);
 	void notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double);
@@ -40,7 +40,8 @@ public:
 	void createWindowList();
 
 	void updateWidgetPosition(Ogre::Entity * _entity, Ogre::Camera * _camera, MyGUI::WidgetPtr _widget);
-
+	//void notifyTest(MyGUI::WidgetPtr _widget);
+	
 public:
 	void enter(bool bIsChangeState);
 	void exit();

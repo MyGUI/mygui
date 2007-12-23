@@ -15,7 +15,8 @@ namespace MyGUI
 	class _MyGUIExport UserData
 	{
 	public:
-		typedef std::map<std::string, int> MapInt;
+		UserData() : mInternalData(0) {}
+		virtual ~UserData() {}
 
 		// пользовательские данные виджета строки
 		inline void setUserString(const std::string & _key, const std::string & _value)
@@ -44,39 +45,18 @@ namespace MyGUI
 			mMapUserString.clear();
 		}
 
-		// пользовательские данные виджета int
-		inline void setUserData(const std::string & _key, int _value)
-		{
-			mMapUserInt[_key] = _value;
-		}
-
-		int getUserData(const std::string & _key)
-		{
-			MapInt::iterator iter = mMapUserInt.find(_key);
-			if (iter == mMapUserInt.end()) return 0;
-			return iter->second;
-		}
-
-		inline void clearUserData(const std::string & _key)
-		{
-			MapInt::iterator iter = mMapUserInt.find(_key);
-			if (iter != mMapUserInt.end()) mMapUserInt.erase(iter);
-		}
-
-		inline void clearUserData()
-		{
-			mMapUserInt.clear();
-		}
-
 		inline int getInternalData() {return mInternalData;}
 		inline void setInternalData(int _data) {mInternalData = _data;}
+
+		inline const std::string& getInternalString() {return mInternalString;}
+		inline void setInternalString(const std::string& _data) {mInternalString = _data;}
 
 	private:
 		// пользовательские данные
 		MapString mMapUserString;
-		MapInt mMapUserInt;
-		// номер для внутренниего или внешнего использования
+		// номер для внутренниего использования
 		int mInternalData;
+		std::string mInternalString;
 	};
 } // namespace MyGUI
 

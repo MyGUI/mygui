@@ -15,6 +15,7 @@ namespace MyGUI
 
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
+		UserData(),
 		mText(null),
 		mVisible(true),
 		mEnabled(true),
@@ -51,16 +52,43 @@ namespace MyGUI
 			if (iter != param.end()) setTextAlign(SkinManager::getInstance().parseAlign(iter->second));
 			iter = param.find("Colour");
 			if (iter != param.end()) setColour(util::parseColour(iter->second));
+			iter = param.find("Pointer");
+			if (iter != param.end()) mPointer = iter->second;
+			iter = param.find("Show");
+			if (iter != param.end()) {
+				if (util::parseBool(iter->second)) show();
+				else hide();
+			}
 		}
 
 		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
-		// а вот теперь нормальный размер
-		setSize(_coord.size());
 		// альфа отца
 		if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != ALPHA_MAX) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
+
+		// создаем детей
+		const VectorChildSkinInfo& child = _info->getChild();
+		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter) {
+			WidgetPtr widget;
+			if (iter->layer.empty()) {
+				widget = createWidgetT(iter->type, iter->skin, iter->coord, iter->align);
+				widget->setInternalString(iter->name);
+			}
+			else {
+				widget = Gui::getInstance().createWidgetT(iter->type, iter->skin, iter->coord, iter->align, iter->layer);
+				widget->setInternalString(iter->name);
+				mWidgetLinkedChild.push_back(widget);
+			}
+			// заполняем UserString пропертями
+			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop) {
+				widget->setUserString(prop->first, prop->second);
+			}
+		}
+
+		// а вот теперь нормальный размер
+		setSize(_coord.size());
 		// и все перерисовываем
-		_updateView();
+		//_updateView();
 	}
 
 	Widget::~Widget()

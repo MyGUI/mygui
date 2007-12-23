@@ -108,6 +108,8 @@ void OptionsState::enter(bool bIsChangeState)
 	mFpsInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>("StaticText", 20, height - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 	mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
 
+	//MyGUI::Gui::getInstance().createWidgetT("StretchRectangle", "WindowCSX", 300, 300, 390, 226, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
+	//edit->eventEditSelectAccept = MyGUI::newDelegate(this, &OptionsState::notifyTest);
 
 /*	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", 100, 100, 290, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
 	window->setCaption("edit test");
@@ -119,7 +121,7 @@ void OptionsState::enter(bool bIsChangeState)
 
 
 	//createWindowList();
-  //createWindowEdit();
+	//createWindowEdit();
 
 //	MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>("ButtonSmall", 200, 200, 100, 30, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 
@@ -254,7 +256,7 @@ void OptionsState::createWindowEdit()
 	window->setAutoAlpha(true);
 	window->showSmooth(true);
 	window->setMinMax(MyGUI::IntRect(200, 110, 2000, 2000));
-	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+	window->eventWindowButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 
 	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", 10, 44, 260, 175, MyGUI::ALIGN_STRETCH);
 	edit->setEditMultiLine(true);
@@ -403,7 +405,7 @@ void OptionsState::createWindowList()
 	//window->setAutoAlpha(true);
 	//window->showSmooth(true);
 	window->setMinMax(MyGUI::IntRect(200, 115, 2000, 2000));
-	window->eventWindowXPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
+	window->eventWindowButtonPressed = MyGUI::newDelegate(this, &OptionsState::notifyWindowXPressed);
 	window->showSmooth(true);
 
 	const MyGUI::IntCoord& coord = window->getClientRect();
@@ -438,6 +440,12 @@ void OptionsState::createWindowList()
 	button->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedDelete);
 
 }
+//---------------------------------------------------------------------------------------//
+/*void OptionsState::notifyTest(MyGUI::WidgetPtr _widget)
+{
+	Ogre::DisplayString str = _widget->getCaption();
+	int test=0;
+}*/
 //---------------------------------------------------------------------------------------//
 void OptionsState::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
 {
@@ -485,7 +493,7 @@ void OptionsState::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
 	if (select != ITEM_NONE) list->deleteItemString(select);
 }
 
-void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _widget)
+void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name)
 {
 	MyGUI::WindowPtr window = MyGUI::castWidget<MyGUI::Window>(_widget);
 	window->destroySmooth();

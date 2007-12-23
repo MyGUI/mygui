@@ -125,6 +125,14 @@ namespace xml
 		return false;
 	}
 
+	std::string xmlNode::findAttribute(const std::string & _name)
+	{
+		for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
+			if ( (*iter).first == _name) return (*iter).second;
+		}
+		return "";
+	}
+
 	//----------------------------------------------------------------------//
 	// class xmlDocument
 	//----------------------------------------------------------------------//
@@ -150,14 +158,14 @@ namespace xml
 		std::ifstream stream;
 		stream.open(_name.c_str());
 		mLastErrorFile = _name;
-		if (!stream) {
+		if (false == stream) {
 			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 			return false;
 		} else return open(stream);
 
 	}
 
-	bool xmlDocument::open(const std::wstring & _name)
+	/*bool xmlDocument::open(const std::wstring & _name)
 	{
 		clear();
 
@@ -169,7 +177,7 @@ namespace xml
 			return false;
 		} else return open(stream);
 
-	}
+	}*/
 
 	// сохраняет файл
 	bool xmlDocument::save(const std::string & _name)
@@ -201,7 +209,7 @@ namespace xml
 	}
 
 	// сохраняет файл
-	bool xmlDocument::save(const std::wstring & _name)
+	/*bool xmlDocument::save(const std::wstring & _name)
 	{
 		if (!mInfo) {
 			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
@@ -227,7 +235,7 @@ namespace xml
 
 		stream.close();
 		return true;
-	}
+	}*/
 
 	void xmlDocument::clear()
 	{

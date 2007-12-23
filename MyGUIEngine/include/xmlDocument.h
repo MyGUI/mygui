@@ -118,19 +118,28 @@ namespace xml
 	public:
 		xmlNodePtr createChild(const std::string & _name, const std::string & _body = "");
 
-		inline void addAttributes(const std::string &_key, const std::string &_value) {mAttributes.push_back(PairAttributes(_key, _value));}
-		inline void addAttributes(const std::string &_key, int _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
-		inline void addAttributes(const std::string &_key, size_t _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
-		inline void addAttributes(const std::string &_key, float _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
+		template <class T>
+		inline void addAttributes(const std::string &_key, const T& _value)
+		{
+			mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));
+		}
+		//inline void addAttributes(const std::string &_key, int _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
+		//inline void addAttributes(const std::string &_key, size_t _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
+		//inline void addAttributes(const std::string &_key, float _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
 
-		inline void addBody(const std::string &_body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
-		inline void addBody(int _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
-		inline void addBody(size_t _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
-		inline void addBody(float _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
+		template <class T>
+		inline void addBody(const T& _body)
+		{
+			mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);
+		}
+//		inline void addBody(int _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
+//		inline void addBody(size_t _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
+//		inline void addBody(float _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
 
 		void clear();
 
 		bool findAttribute(const std::string & _name, std::string & _value);
+		std::string findAttribute(const std::string & _name);
 
 		inline const std::string & getName() {return mName;}
 		inline const std::string & getBody() {return mBody;}
@@ -158,11 +167,11 @@ namespace xml
 		~xmlDocument();
 
 		bool open(const std::string & _name);
-		bool open(const std::wstring & _name);
+		//bool open(const std::wstring & _name);
 
 		// сохраняет файл
 		bool save(const std::string & _name);
-		bool save(const std::wstring & _name);
+		//bool save(const std::wstring & _name);
 
 		void clear();
 		const std::string getLastError();

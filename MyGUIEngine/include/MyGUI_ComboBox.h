@@ -11,6 +11,7 @@
 #include "MyGUI_ComboBoxFactory.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_List.h"
+#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
@@ -129,7 +130,7 @@ namespace MyGUI
 		EventSimple eventComboAccept;
 
 	private:
-		WidgetPtr mButton;
+		ButtonPtr mButton;
 		ListPtr mList;
 
 		bool mListShow;

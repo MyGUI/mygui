@@ -74,8 +74,11 @@ namespace MyGUI
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
 
+		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
+		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 
 		void updateWidgetState();
+		void _testCount(size_t _count, size_t & _max, WidgetPtr _widget);
 
 
 	private:

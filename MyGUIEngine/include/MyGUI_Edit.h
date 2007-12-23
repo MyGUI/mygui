@@ -41,7 +41,7 @@ namespace MyGUI
 		// возвращает выделенный текст
 		Ogre::DisplayString getSelectedText();
 
-		inline size_t getTextLenght() {return mTextLenght;}
+		inline size_t getTextLength() {return mTextLength;}
 		inline size_t getTextCursor() {return mCursorPosition;}
 
 		void setTextCursor(size_t _index);
@@ -88,7 +88,7 @@ namespace MyGUI
 			mModePassword = _password;
 			if (mModePassword) {
 				mPasswordText = mText->getCaption();
-				mText->setCaption(Ogre::DisplayString(mTextLenght, '*'));
+				mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
 			}
 			else {
 				mText->setCaption(mPasswordText);
@@ -119,6 +119,14 @@ namespace MyGUI
 		{
 			mModeStatic = _static;
 			resetSelect();
+			if (mModeStatic) {
+				mWidgetCursor->setPointer("");
+				mWidgetUpper->setPointer("");
+			}
+			else {
+				mWidgetCursor->setPointer(mOriginalPointer);
+				mWidgetUpper->setPointer(mOriginalPointer);
+			}
 		}
 
 		inline bool getEditStatic()
@@ -201,7 +209,7 @@ namespace MyGUI
 		}
 
 		// запись в историю данных о позиции
-		void commandPosition(size_t _undo, size_t _redo, size_t _lenght, VectorChangeInfo * _info = null);
+		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info = null);
 
 		// команнды отмена и повтор
 		bool commandRedo();
@@ -229,7 +237,7 @@ namespace MyGUI
 		{
 			if (mModePassword) {
 				mPasswordText = _caption;
-				mText->setCaption(Ogre::DisplayString(mTextLenght, '*'));
+				mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
 			}
 			else {
 				mText->setCaption(_caption);
@@ -252,7 +260,7 @@ namespace MyGUI
 		// позиция курсора
 		size_t mCursorPosition;
 		// максимаотное колличество
-		size_t mTextLenght;
+		size_t mTextLength;
 
 		bool mShiftPressed;
 		bool mCtrlPressed;
@@ -277,6 +285,9 @@ namespace MyGUI
 
 		// настоящий текст, закрытый за звездочками
 		Ogre::DisplayString mPasswordText;
+
+		// для поддержки режима статик, где курсор не нужен
+		std::string mOriginalPointer;
 
 	}; // class Edit : public Widget
 

@@ -63,6 +63,9 @@ namespace MyGUI
 		for (size_t pos=0; pos<vec.size(); pos++) {
 			MapAlign::iterator iter = mMapAlign.find(vec[pos]);
 			if (iter != mMapAlign.end()) flag |= iter->second;
+			else {
+				MYGUI_LOG("Cannot parse align '", vec[pos], "'");
+			}
 		}
 		return flag;
 	}
@@ -141,44 +144,60 @@ namespace MyGUI
 					if (false == basis->findAttribute("value", value)) continue;
 					// добавляем свойство
 					widget_info->addParam(key, value);
-					// все уходим
-					continue;
 
 				}
-				else if (basis->getName() != "BasisSkin") continue;
+				else if (basis->getName() == "Child") {
+					ChildSkinInfo child(
+						basis->findAttribute("type"),
+						basis->findAttribute("skin"),
+						basis->findAttribute("name"),
+						IntCoord::parse(basis->findAttribute("offset")),
+						parseAlign(basis->findAttribute("align")),
+						basis->findAttribute("layer")
+						);
 
-				// парсим атрибуты
-				Ogre::String basisSkinType, tmp;
-				IntCoord offset;
-				Align align = ALIGN_NONE;
-				basis->findAttribute("type", basisSkinType);
-				if (basis->findAttribute("offset", tmp)) offset = IntCoord::parse(tmp);
-				if (basis->findAttribute("align", tmp)) align = parseAlign(tmp);
+					xml::xmlNodeIterator child_params = basis->getNodeIterator();
+					while (child_params.nextNode("Property"))
+						child.addParam(child_params->findAttribute("key"), child_params->findAttribute("value"));
 
-				bind.create(offset, align, basisSkinType);
+					widget_info->addChild(child);
+					//continue;
 
-				// берем детей и крутимся, цикл со стейтами
-				xml::xmlNodeIterator state = basis->getNodeIterator();
-				while (state.nextNode("State")) {
+				}
+				else if (basis->getName() == "BasisSkin") {
+					// парсим атрибуты
+					Ogre::String basisSkinType, tmp;
+					IntCoord offset;
+					Align align = ALIGN_NONE;
+					basis->findAttribute("type", basisSkinType);
+					if (basis->findAttribute("offset", tmp)) offset = IntCoord::parse(tmp);
+					if (basis->findAttribute("align", tmp)) align = parseAlign(tmp);
 
-					// парсим атрибуты стейта
-					Ogre::String basisStateName, tmp;
-					FloatRect offset;
-					Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
-					float alpha = -1;
+					bind.create(offset, align, basisSkinType);
 
-					state->findAttribute("name", basisStateName);
-					if (state->findAttribute("offset", tmp)) offset = convertMaterialCoord(FloatRect::parse(tmp), materialSize);
-					if (state->findAttribute("colour", tmp)) colour = util::parseColour(tmp);
-					if (state->findAttribute("alpha", tmp)) alpha = util::parseFloat(tmp);
+					// берем детей и крутимся, цикл со стейтами
+					xml::xmlNodeIterator state = basis->getNodeIterator();
+					while (state.nextNode("State")) {
 
-					// добавляем инфо о стайте
-					bind.add(basisStateName, offset, colour, alpha);
+						// парсим атрибуты стейта
+						Ogre::String basisStateName, tmp;
+						FloatRect offset;
+						Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
+						float alpha = -1;
 
-				};
+						state->findAttribute("name", basisStateName);
+						if (state->findAttribute("offset", tmp)) offset = convertMaterialCoord(FloatRect::parse(tmp), materialSize);
+						if (state->findAttribute("colour", tmp)) colour = util::parseColour(tmp);
+						if (state->findAttribute("alpha", tmp)) alpha = util::parseFloat(tmp);
 
-				// теперь всё вместе добавляем в скин
-				widget_info->addInfo(bind);
+						// добавляем инфо о стайте
+						bind.add(basisStateName, offset, colour, alpha);
+
+					};
+
+					// теперь всё вместе добавляем в скин
+					widget_info->addInfo(bind);
+				}
 
 			};
 		};

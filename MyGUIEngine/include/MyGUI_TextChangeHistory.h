@@ -25,10 +25,10 @@ namespace MyGUI
 	{
 		// для удаления и вставки текста
 		tagChangeInfo(const Ogre::DisplayString & _text, size_t _start, CommandType _type)
-			: text(_text), start(_start), type(_type), undo(SIZE_MAX), redo(SIZE_MAX), lenght(SIZE_MAX) {}
+			: text(_text), start(_start), type(_type), undo(SIZE_MAX), redo(SIZE_MAX), length(SIZE_MAX) {}
 		// для указания позиции
-		tagChangeInfo(size_t _undo, size_t _redo, size_t _lenght)
-			: start(SIZE_MAX), type(COMMAND_POSITION), undo(_undo), redo(_redo), lenght(_lenght) {}
+		tagChangeInfo(size_t _undo, size_t _redo, size_t _length)
+			: start(SIZE_MAX), type(COMMAND_POSITION), undo(_undo), redo(_redo), length(_length) {}
 
 		// строка харрактиризуещая изменения
 		Ogre::DisplayString text;
@@ -37,7 +37,7 @@ namespace MyGUI
 		// инфа о начале позиции
 		size_t start;
 		// инфа о псевдо позиции
-		size_t undo, redo, lenght;
+		size_t undo, redo, length;
 	};
 
 	typedef std::vector<tagChangeInfo> VectorChangeInfo;

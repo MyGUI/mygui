@@ -17,6 +17,8 @@ namespace MyGUI
 	class Window;
 	typedef Window * WindowPtr;
 
+	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventButtonPressedInfo;
+
 	class _MyGUIExport Window : public Widget
 	{
 		// для вызова закрытого конструктора
@@ -25,9 +27,6 @@ namespace MyGUI
 	protected:
 		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 		~Window();
-
-		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
-		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 
 	public:
 		// переопределяем для присвоению клиенту
@@ -63,9 +62,9 @@ namespace MyGUI
 
 		const IntCoord& getClientRect();
 
-		// event : нажат крестик на окне
-		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventSimple eventWindowXPressed;
+		// event : нажат на кнопку в окне
+		// signature : void method(MyGUI::WidgetPtr _widget, const std::string& _name)
+		EventButtonPressedInfo eventWindowButtonPressed;
 
 	protected:
 		void _frameEntered(float _frame);
@@ -74,9 +73,8 @@ namespace MyGUI
 		void _onKeyChangeRootFocus(bool _focus);
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _double);
-		void notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top);
-		void notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
+		void notifyMouseMovedAction(MyGUI::WidgetPtr _sender, int _left, int _top);
 
 		void setDoAlpha(float _alpha);
 
@@ -84,7 +82,7 @@ namespace MyGUI
 		void updateAlpha();
 
 	private:
-		WidgetPtr mWidgetCaption, mWidgetX, mWidgetResize, mWidgetClient;
+		WidgetPtr mWidgetCaption, mWidgetClient;
 
 		// размеры окна перед началом его изменений
 		IntCoord mPreActionCoord;
@@ -107,6 +105,8 @@ namespace MyGUI
 		IntRect mMinmax;
 
 		bool mIsToStick; // прилеплять ли к краям
+
+		IntCoord mCurrentActionScale;
 
 
 	}; // class Window : public Widget

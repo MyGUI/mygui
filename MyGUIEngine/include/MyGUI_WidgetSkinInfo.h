@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_SubWidgetBinding.h"
+#include "MyGUI_ChildSkinInfo.h"
 
 namespace MyGUI
 {
@@ -39,6 +40,11 @@ namespace MyGUI
 		inline void addParam(const std::string &_key, const std::string &_value)
 		{
 			mParams[_key] = _value;
+		}
+
+		inline void addChild(const ChildSkinInfo& _child)
+		{
+			mChilds.push_back(_child);
 		}
 
 	private:
@@ -83,10 +89,11 @@ namespace MyGUI
 
 	public:
 		inline const IntSize & getSize() const {return mSize;}
-		inline const std::string & getMaterial() const {return mMaterial;};
-		inline const VectorSubWidgetInfo & getBasisInfo() const {return mBasis;};
-		inline const MapWidgetStateInfo & getStateInfo() const {return mStates;};
-		inline const MapString & getParams() const {return mParams;};
+		inline const std::string & getMaterial() const {return mMaterial;}
+		inline const VectorSubWidgetInfo & getBasisInfo() const {return mBasis;}
+		inline const MapWidgetStateInfo & getStateInfo() const {return mStates;}
+		inline const MapString & getParams() const {return mParams;}
+		inline const VectorChildSkinInfo& getChild() const {return mChilds;}
 
 	private:
 		IntSize mSize;
@@ -95,6 +102,8 @@ namespace MyGUI
 		MapWidgetStateInfo mStates;
 		// дополнительные параметры скина
 		MapString mParams;
+		// дети скина
+		VectorChildSkinInfo mChilds;
 
 	};
 

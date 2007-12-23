@@ -78,8 +78,24 @@ namespace MyGUI
 		if (mWidgetMouseFocus == item) return isFocusMouse();
 
 		// смена фокуса, проверяем на доступность виджета
-		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) mWidgetMouseFocus->_onMouseLostFocus(item);
-		if ((item != null) && (item->isEnabled())) item->_onMouseSetFocus(mWidgetMouseFocus);
+		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) {
+			mWidgetMouseFocus->_onMouseLostFocus(item);
+		}
+
+		if ((item != null) && (item->isEnabled())) {
+			if (item->getPointer() != mPointer) {
+				mPointer = item->getPointer();
+				if (mPointer.empty()) PointerManager::getInstance().defaultPointer();
+				else PointerManager::getInstance().setPointer(mPointer, item);
+			}
+			item->_onMouseSetFocus(mWidgetMouseFocus);
+
+		}
+		// сбрасываем курсор
+		else if (false == mPointer.empty()) {
+			PointerManager::getInstance().defaultPointer();
+			mPointer.clear();
+		}
 
 		// изменился рутовый элемент
 		if (rootItem != mWidgetRootMouseFocus) {

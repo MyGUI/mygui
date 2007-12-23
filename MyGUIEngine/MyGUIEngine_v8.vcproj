@@ -488,10 +488,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_SubWidgetBinding.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_Types.h"
 					>
 				</File>
@@ -505,10 +501,6 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_WidgetOIS.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_WidgetSkinInfo.h"
 					>
 				</File>
 				<File
@@ -531,6 +523,22 @@
 					RelativePath=".\include\TSize.h"
 					>
 				</File>
+				<Filter
+					Name="Skin"
+					>
+					<File
+						RelativePath=".\include\MyGUI_ChildSkinInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_SubWidgetBinding.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetSkinInfo.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"

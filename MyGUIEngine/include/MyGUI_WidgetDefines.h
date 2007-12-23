@@ -79,8 +79,6 @@ namespace MyGUI
 	typedef std::vector<WidgetPtr> VectorWidgetPtr;
 	typedef std::map<std::string, WidgetPtr> MapWidgetPtr;
 
-	typedef std::map<std::string, std::string> MapString;
-
 } // namespace MyGUI
 
 #endif // __MYGUI_WIDGET_DEFINES_H__

@@ -24,38 +24,40 @@ namespace MyGUI
 		mModeDrop(false),
 		mDropMouse(false),
 		mShowSmooth(false),
-		mDoAlpha(COMBO_ALPHA_NONE)
+		mDoAlpha(COMBO_ALPHA_NONE),
+		mButton(null),
+		mList(null)
 	{
-		// запомием размер скина
-		IntSize size = _info->getSize();
-
 		// парсим свойства
 		const MapString & param = _info->getParams();
-
-		MapString::const_iterator iter = param.find("ComboModeDropList");
-		if (iter != param.end()) setComboModeDrop(util::parseBool(iter->second));
-
-		iter = param.find("ComboSmoothShow");
+		MapString::const_iterator iter = param.find("ComboSmoothShow");
 		if (iter != param.end()) setSmoothShow(util::parseBool(iter->second));
-
-		// парсим конечную кнопку
-		mButton = parseSubWidget(param, "Button", "SkinDrop", "OffsetDrop", "AlignDrop", size);
-		MYGUI_ASSERT(null != mButton);
-		mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
-
-		// создаем выпадающий список
-		iter = param.find("LayerList");
-		MYGUI_ASSERT(iter != param.end());
-		mList = castWidget<List>(parseSubWidget(param, "List", "SkinList", "OffsetList", "AlignList", size, iter->second));
-		mList->hide();
-		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
-
 		iter = param.find("HeightList");
 		if (iter != param.end()) mMaxHeight = util::parseInt(iter->second);
-		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();
 
-		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
-		mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
+		// парсим кнопку
+		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			if ((*iter)->getInternalString() == "Button") {
+				mButton = castWidget<Button>(*iter);
+				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
+			}
+		}
+		MYGUI_ASSERT(null != mButton);
+
+		// парсим список из прилинкованных окон
+		for (VectorWidgetPtr::iterator iter=mWidgetLinkedChild.begin(); iter!=mWidgetLinkedChild.end(); ++iter) {
+			if ((*iter)->getInternalString() == "List") {
+				mList = castWidget<List>(*iter);
+				mList->hide();
+				mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
+				mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
+				mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
+			}
+		}
+		MYGUI_ASSERT(null != mList);
+
+		// корректируем высоту списка
+		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();
 
 		// подписываем дочерние классы на скролл
 		mWidgetUpper->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);

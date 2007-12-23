@@ -19,9 +19,6 @@ namespace MyGUI
 		INSTANCE_HEADER(ClipboardManager);
 
 	public:
-		typedef std::map<std::string, std::string> MapString;
-
-	public:
 		void initialise();
 		void shutdown();
 

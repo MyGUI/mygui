@@ -273,7 +273,7 @@ namespace MyGUI
 			insert(mCurrent, text);
 		}
 
-		void cutMaxLenght(size_t _max)
+		void cutMaxLength(size_t _max)
 		{
 			if ( (mSize != SIZE_MAX) && (mSize <= _max) ) return;
 			if (mPosition > _max) {

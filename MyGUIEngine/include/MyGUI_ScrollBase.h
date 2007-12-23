@@ -8,6 +8,7 @@
 #define __MYGUI_SCROLL_BASE_H__
 
 #include "MyGUI_Widget.h"
+#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
@@ -48,9 +49,9 @@ namespace MyGUI
 
 	protected:
 		// наши кнопки
-		WidgetPtr mWidgetStart;
-		WidgetPtr mWidgetEnd;
-		WidgetPtr mWidgetTrack;
+		ButtonPtr mWidgetStart;
+		ButtonPtr mWidgetEnd;
+		ButtonPtr mWidgetTrack;
 
 		// размеры окна перед началом его изменений
 		IntRect mPreActionRect;

@@ -120,6 +120,8 @@ namespace MyGUI
 		bool mFirstPressKey;
 		float mTimerKey;
 
+		std::string mPointer;
+
 	}; // class InputManager
 
 } // namespace MyGUI

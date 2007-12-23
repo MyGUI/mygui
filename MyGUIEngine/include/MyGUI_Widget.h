@@ -144,6 +144,9 @@ namespace MyGUI
 		// закрываем метод базового класса
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
 
+		inline const VectorWidgetPtr& getChilds() {return mWidgetChild;}
+		inline const VectorWidgetPtr& getLinkedChilds() {return mWidgetLinkedChild;}
+
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
 		LayerItemInfoPtr findItem(int _left, int _top);
 
@@ -159,6 +162,16 @@ namespace MyGUI
 		// возвращает размер клиентской зоны либо всего окна
 		virtual const IntCoord& getClientRect();
 
+		// курсор для этого виджета
+		inline const std::string& getPointer()
+		{
+			return mPointer;
+		}
+		inline void setPointer(const std::string& _pointer)
+		{
+			mPointer = _pointer;
+		}
+
 	protected:
 
 		// создаем и добавляем саб скин виджету
@@ -172,6 +185,8 @@ namespace MyGUI
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
+		// вектор виджетов, которые не являются детьми, но были созданы из скина для нас
+		VectorWidgetPtr mWidgetLinkedChild;
 		// вектор всех детей сабскинов
 		VectorCroppedRectanglePtr mSubSkinChild;
 
@@ -190,6 +205,8 @@ namespace MyGUI
 		Ogre::String mName;
 		// колличество оверлеев которые мона объеденить
 		size_t mCountSharedOverlay;
+		// курсор который будет показан при наведении
+		std::string mPointer;
 
 	}; // class Widget
 

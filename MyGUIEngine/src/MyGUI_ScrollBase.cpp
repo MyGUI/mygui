@@ -15,35 +15,32 @@ namespace MyGUI
 		mScrollPosition(0), mScrollRange(0)
 	{
 
-		// запомием размер скина
-		IntSize size = _info->getSize();
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
 
+		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			if ((*iter)->getInternalString() == "Start") {
+				mWidgetStart = castWidget<Button>(*iter);
+				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
+			}
+			else if ((*iter)->getInternalString() == "End") {
+				mWidgetEnd = castWidget<Button>(*iter);
+				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
+			}
+			else if ((*iter)->getInternalString() == "Track") {
+				mWidgetTrack = castWidget<Button>(*iter);
+				mWidgetTrack->eventMouseMove = newDelegate(this, &ScrollBase::notifyMouseMove);
+				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
+				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &ScrollBase::notifyMouseReleased);
+				mWidgetTrack->hide();
+			}
+		}
+		MYGUI_ASSERT(null != mWidgetStart);
+		MYGUI_ASSERT(null != mWidgetEnd);
+		MYGUI_ASSERT(null != mWidgetTrack);
+
 		// парсим свойства
 		const MapString & param = _info->getParams();
-
-		// парсим начальную кнопку
-		mWidgetStart = parseSubWidget(param, "Button", "SkinStart", "OffsetStart", "AlignStart", size);
-		MYGUI_ASSERT(null != mWidgetStart);
-		// делегаты для событий
-		mWidgetStart->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
-
-		// парсим конечную кнопку
-		mWidgetEnd = parseSubWidget(param, "Button", "SkinEnd", "OffsetEnd", "AlignEnd", size);
-		MYGUI_ASSERT(null != mWidgetEnd);
-		// делегаты для событий
-		mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
-
-		// парсим трэк
-		mWidgetTrack = parseSubWidget(param, "Button", "SkinTrack", "OffsetTrack", "AlignTrack", size);
-		MYGUI_ASSERT(null != mWidgetTrack);
-		// делегаты для событий
-		mWidgetTrack->eventMouseMove = newDelegate(this, &ScrollBase::notifyMouseMove);
-		mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
-		mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &ScrollBase::notifyMouseReleased);
-		mWidgetTrack->hide();
-
 		MapString::const_iterator iter = param.find("SkinTrackRange");
 		if (iter != param.end()) {
 			IntSize range = IntSize::parse(iter->second);

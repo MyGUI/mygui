@@ -24,7 +24,6 @@ namespace MyGUI
 	const float EDIT_OFFSET_HORZ_CURSOR = 50.0f; // дополнительное смещение дл€ курсора
 	const int EDIT_ACTION_MOUSE_ZONE = 50; // область дл€ воспри€ти€ мыши за пределом эдита
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
-	const std::string EDIT_CURSOR_POINTER = "beam";
 
 	Edit::Edit(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
@@ -33,7 +32,7 @@ namespace MyGUI
 		mCursorTimer(0),
 		mCursorActive(false),
 		mCursorPosition(0),
-		mTextLenght(0),
+		mTextLength(0),
 		mShiftPressed(false),
 		mCtrlPressed(false),
 		mStartSelect(SIZE_MAX),
@@ -43,37 +42,46 @@ namespace MyGUI
 		mModeReadOnly(false),
 		mModePassword(false),
 		mModeMultiline(false),
-		mModeStatic(false)
+		mModeStatic(false),
+		mWidgetUpper(null),
+		mWidgetCursor(null)
 	{
 
 		MYGUI_ASSERT(null != mText);
 
+		mOriginalPointer = mPointer;
+
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
-		// создаем прослойку, чтобы курсор был над текстом
-		mWidgetUpper = createWidgetT("Widget", "Empty", mText->getCoord(), mText->getAlign());
-		mWidgetUpper->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
-		mWidgetUpper->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
-		mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
-		mWidgetUpper->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
-		mWidgetUpper->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
+		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			if ((*iter)->getInternalString() == "Client") {
+				mWidgetUpper = (*iter);
+				mWidgetUpper->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
+				mWidgetUpper->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
+				mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
+				mWidgetUpper->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
+				mWidgetUpper->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
+			}
+		}
+		MYGUI_ASSERT(null != mWidgetUpper);
 
-		// парсим свойства
-		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("CursorSkin");
-		Ogre::String skin = "Default";
-		if (iter != param.end()) skin = iter->second;
-
-		// создаем курсор
-		WidgetSkinInfo * info = SkinManager::getInstance().getSkin(skin);
-		mWidgetCursor = mWidgetUpper->createWidgetT("Widget", skin, 0, 0, info->getSize().width, getFontHeight(), ALIGN_LEFT | ALIGN_TOP);
-		mWidgetCursor->hide();
-		mWidgetCursor->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
-		mWidgetCursor->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
-		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
-		mWidgetCursor->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
-		mWidgetCursor->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
+		// курсор принадлежит клиенту, пытаемс€ его найти
+		const VectorWidgetPtr& childs = mWidgetUpper->getChilds();
+		for (VectorWidgetPtr::const_iterator iter=childs.begin(); iter!=childs.end(); ++iter) {
+			if ("Cursor" == (*iter)->getInternalString()) {
+				mWidgetCursor = (*iter);
+				mWidgetCursor->hide();
+				mWidgetCursor->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
+				mWidgetCursor->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
+				mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
+				mWidgetCursor->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
+				mWidgetCursor->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
+				mWidgetCursor->setSize(IntSize(mWidgetCursor->getWidth(), getFontHeight())); // высоту под шрифт
+				break;
+			}
+		}
+		MYGUI_ASSERT(null != mWidgetCursor);
 
 		// высчитываем половинки
 		mHalfCursor.set(mWidgetCursor->getWidth()/2, mWidgetCursor->getHeight()/2);
@@ -94,14 +102,14 @@ namespace MyGUI
 
 	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
 	{
-		if ( /*(_old == this) ||*/ (_old == mWidgetUpper) || (_old == mWidgetCursor) || (mIsFocus) ) return;
+		if ( (_old == mWidgetUpper) || (_old == mWidgetCursor) || (mIsFocus) ) return;
 		mIsFocus = true;
 		updateEditState();
 	}
 
 	void Edit::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 	{
-		if ( /*(_new == this) ||*/ (_new == mWidgetUpper) || (_new == mWidgetCursor) || (false == mIsFocus) ) return;
+		if ( (_new == mWidgetUpper) || (_new == mWidgetCursor) || (false == mIsFocus) ) return;
 		mIsFocus = false;
 		updateEditState();
 	}
@@ -170,30 +178,6 @@ namespace MyGUI
 		else mText->setTextSelect(mStartSelect, mEndSelect);
 
 	}
-
-	/*void Edit::_onMouseSetFocus(WidgetPtr _old)
-	{*/
-		/*if (false == mIsFocus) {
-			mIsFocus = true;
-			updateEditState();
-			mText->setSelectBackground(true);
-		}*/
-
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		/*Widget::_onMouseSetFocus(_old);
-	}
-
-	void Edit::_onMouseLostFocus(WidgetPtr _new)
-	{*/
-		/*if (! ((false == mIsFocus) || (_new == mWidgetUpper) || (_new == mWidgetCursor)) ) {
-			mIsFocus = false;
-			updateEditState();
-			mText->setSelectBackground(false);
-		}*/
-
-		/*// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseLostFocus(_new);
-	}*/
 
 	void Edit::_onMouseMove(int _left, int _top)
 	{
@@ -270,7 +254,7 @@ namespace MyGUI
 			else if (false == mModeReadOnly) {
 				// если нуно то удал€ем выделенный текст
 				if (false == deleteTextSelect(true)) {
-					if (mCursorPosition != mTextLenght) {
+					if (mCursorPosition != mTextLength) {
 						eraseText(mCursorPosition, 1, true); 
 					}
 				}
@@ -301,7 +285,7 @@ namespace MyGUI
 			}
 
 		} else if (_key == OIS::KC_RIGHT) {
-			if ((mCursorPosition) < mTextLenght) {
+			if ((mCursorPosition) < mTextLength) {
 				mCursorPosition ++;
 				IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
 				updateCursor(point);
@@ -341,7 +325,7 @@ namespace MyGUI
 			mCursorPosition = mText->getTextCursorFromPoint(point);
 			// сама€ нижн€€ строчка
 			if ( old == mCursorPosition ) {
-				if (mCursorPosition != mTextLenght) {
+				if (mCursorPosition != mTextLength) {
 					point.left = EDIT_CURSOR_MAX_POSITION;
 					point.top += mHalfCursor.height;
 					mCursorPosition = mText->getTextCursorFromPoint(point);
@@ -465,7 +449,7 @@ namespace MyGUI
 
 			} else if (_key == OIS::KC_A) {
 				// выдел€ем весь текст
-				setTextSelect(0, mTextLenght);
+				setTextSelect(0, mTextLength);
 
 			} else if (_key == OIS::KC_Z) {
 				// отмена
@@ -595,7 +579,7 @@ namespace MyGUI
 		resetSelect();
 
 		// нова€ позици€
-		if (_index > mTextLenght) _index = mTextLenght;
+		if (_index > mTextLength) _index = mTextLength;
 		if (mCursorPosition == _index) return;
 		mCursorPosition = _index;
 
@@ -606,8 +590,8 @@ namespace MyGUI
 
 	void Edit::setTextSelect(size_t _start, size_t _end)
 	{
-		if (_start > mTextLenght) _start = mTextLenght;
-		if (_end > mTextLenght) _end = mTextLenght;
+		if (_start > mTextLength) _start = mTextLength;
+		if (_end > mTextLength) _end = mTextLength;
 		
 		mStartSelect = _start;
 		mEndSelect = _end;
@@ -644,9 +628,9 @@ namespace MyGUI
 		return true;
 	}
 
-	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _lenght, VectorChangeInfo * _info)
+	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info)
 	{
-		if (_info != null) 	_info->push_back(tagChangeInfo(_undo, _redo, _lenght));
+		if (_info != null) 	_info->push_back(tagChangeInfo(_undo, _redo, _length));
 	}
 
 	void Edit::commandMerge()
@@ -685,7 +669,7 @@ namespace MyGUI
 			else if ((*iter).type == COMMAND_ERASE) text.insert((*iter).start, (*iter).text);
 			else {
 				mCursorPosition = (*iter).undo;
-				mTextLenght = (*iter).lenght;
+				mTextLength = (*iter).length;
 			}
 		}
 
@@ -725,7 +709,7 @@ namespace MyGUI
 			else if ((*iter).type == COMMAND_ERASE) text.erase((*iter).start, (*iter).text.size());
 			else {
 				mCursorPosition = (*iter).redo;
-				mTextLenght = (*iter).lenght;
+				mTextLength = (*iter).length;
 			}
 
 		}
@@ -760,7 +744,7 @@ namespace MyGUI
 	Ogre::DisplayString Edit::getText(size_t _start, size_t _count)
 	{
 		// подстраховка
-		if (_start > mTextLenght) _start = mTextLenght;
+		if (_start > mTextLength) _start = mTextLength;
 		// конец диапазона
 		size_t end = _start + _count;
 
@@ -854,7 +838,7 @@ namespace MyGUI
 		};
 
 		// сохран€ем позицию дл€ восстановлени€ курсора
-		commandPosition(_start, _start+_count, mTextLenght, history);
+		commandPosition(_start, _start+_count, mTextLength, history);
 
 		// запоминаем в историю
 		if (_history) {
@@ -956,15 +940,15 @@ namespace MyGUI
 		iterator.setText(_caption, mModeMultiline);
 
 		// обрезаем по максимальной длинне
-		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
+		iterator.cutMaxLength(EDIT_MAX_LENGHT);
 
 		// запоминаем размер строки
-		size_t old = mTextLenght;
+		size_t old = mTextLength;
 		// нова€ позици€ и положение на конец вставки
-		mCursorPosition = mTextLenght = iterator.getSize();
+		mCursorPosition = mTextLength = iterator.getSize();
 
 		// сохран€ем позицию дл€ восстановлени€ курсора
-		commandPosition(0, mTextLenght, old, history);
+		commandPosition(0, mTextLength, old, history);
 
 		// запоминаем в историю
 		if (_history) {
@@ -988,7 +972,7 @@ namespace MyGUI
 		resetSelect();
 
 		// если строка пуста€, или размер максимален
-		if ((_text.empty()) || (mTextLenght == EDIT_MAX_LENGHT) ) return;
+		if ((_text.empty()) || (mTextLength == EDIT_MAX_LENGHT) ) return;
 
 		// истори€ изменений
 		VectorChangeInfo * history = null;
@@ -1023,16 +1007,16 @@ namespace MyGUI
 		iterator.insertText(_text, mModeMultiline);
 
 		// обрезаем по максимальной длинне
-		iterator.cutMaxLenght(EDIT_MAX_LENGHT);
+		iterator.cutMaxLength(EDIT_MAX_LENGHT);
 
 		// запоминаем размер строки
-		size_t old = mTextLenght;
+		size_t old = mTextLength;
 		// нова€ позици€ и положение на конец вставки
-		mTextLenght = iterator.getSize();
-		mCursorPosition += mTextLenght - old;
+		mTextLength = iterator.getSize();
+		mCursorPosition += mTextLength - old;
 
 		// сохран€ем позицию дл€ восстановлени€ курсора
-		commandPosition(_start, _start + mTextLenght - old, old, history);
+		commandPosition(_start, _start + mTextLength - old, old, history);
 
 		// запоминаем в историю
 		if (_history) {
@@ -1119,11 +1103,11 @@ namespace MyGUI
 		if (need_colour) iterator.setTagColour(colour);
 
 		// сохран€ем позицию дл€ восстановлени€ курсора
-		commandPosition(_start + _count, _start, mTextLenght, history);
+		commandPosition(_start + _count, _start, mTextLength, history);
 
 		// на месте удаленного
 		mCursorPosition = _start;
-		mTextLenght -= _count;
+		mTextLength -= _count;
 
 		// запоминаем в историю
 		if (_history) {
@@ -1184,11 +1168,9 @@ namespace MyGUI
 		if (mIsFocus) {
 			if (mIsPressed) setState("select");
 			else setState("active");
-			if (false == mModeStatic) PointerManager::getInstance().setPointer(EDIT_CURSOR_POINTER, this);
 		} else {
 			if (mIsPressed) setState("pressed");
 			else setState("normal");
-			if (false == mModeStatic) PointerManager::getInstance().defaultPointer();
 		}
 	}
 

@@ -22,11 +22,10 @@ namespace MyGUI
 	const float WINDOW_SPEED_COEF = 3.0f;
 
 	const int WINDOW_TO_STICK = 10;
-	const std::string WINDOW_CURSOR_POINTER_RESIZE = "size_left";
 
 	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
-		mWidgetCaption(null), mWidgetX(null), mWidgetResize(null), mWidgetClient(null),
+		mWidgetCaption(null), mWidgetClient(null),
 		mIsListenerAlpha(false),
 		mIsDestroy(false),
 		mMouseRootFocus(false), mKeyRootFocus(false),
@@ -40,40 +39,34 @@ namespace MyGUI
 		mMinmax.set(50, 50, 2050, 2050);
 
 		// запоминаем размер скина
-		IntSize size = _info->getSize();
+		//IntSize size = _info->getSize();
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("WindowToStick");
 		if (iter != param.end()) mIsToStick = util::parseBool(iter->second);
 
-		// парсим заголовок
-		mWidgetCaption = parseSubWidget(param, "Button", "SkinCaption", "OffsetCaption", "AlignCaption", size);
-		if (mWidgetCaption != null) {
-			// делегаты для событий
-			mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-			mWidgetCaption->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedCaption);
+		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			if ((*iter)->getInternalString() == "Client") {
+				mWidgetClient = (*iter);
+			}
+			else if ((*iter)->getInternalString() == "Caption") {
+				mWidgetCaption = (*iter);
+				// делегаты для событий
+				mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
+				mWidgetCaption->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
+				//mWidgetCaption->setUserString("Scale", child[pos].findValue("scale"));
+			}
+			else if ((*iter)->getInternalString() == "Button") {
+				//(*iter)->setUserString("Button", child[pos].findValue("event"));
+				(*iter)->eventMouseButtonClick = newDelegate(this, &Window::notifyPressedButtonEvent);
+			}
+			else if ((*iter)->getInternalString() == "Action") {
+				(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
+				(*iter)->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
+				//(*iter)->setUserString("Scale", child[pos].findValue("scale"));
+			}
 		}
-
-		// парсим крестик
-		mWidgetX = parseSubWidget(param, "Button", "SkinX", "OffsetX", "AlignX", size);
-		if (mWidgetX != null) {
-			// делегаты для событий
-			mWidgetX->eventMouseButtonClick = newDelegate(this, &Window::notifyMousePressedX);
-		}
-
-		// парсим ресайзер
-		mWidgetResize = parseSubWidget(param, "Button", "SkinResize", "OffsetResize", "AlignResize", size);
-		if (mWidgetResize != null) {
-			// делегаты для событий
-			mWidgetResize->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-			mWidgetResize->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedResize);
-			mWidgetResize->eventMouseSetFocus = newDelegate(this, &Window::notifyMouseSetFocus);
-			mWidgetResize->eventMouseLostFocus = newDelegate(this, &Window::notifyMouseLostFocus);
-		}
-
-		// парсим клиент в последнюю очередь
-		mWidgetClient = parseSubWidget(param, "Widget", "SkinClient", "OffsetClient", "AlignClient", size);
 
 	}
 
@@ -109,24 +102,28 @@ namespace MyGUI
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		if (_left) mPreActionCoord = mCoord;
+		if (_left) {
+			mPreActionCoord = mCoord;
+			mCurrentActionScale = IntCoord::parse(_sender->getUserString("Scale"));
+		}
 	}
 
-	void Window::notifyMousePressedX(MyGUI::WidgetPtr _sender, bool _double)
+	void Window::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double)
 	{
-		if (false == _double) eventWindowXPressed(this);
+		if (false == _double) eventWindowButtonPressed(this, _sender->getUserString("Button"));
 	}
 
-	void Window::notifyMouseMovedCaption(MyGUI::WidgetPtr _sender, int _left, int _top)
-	{
-		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		setPosition(mPreActionCoord.point() + IntPoint(_left - point.left, _top - point.top));
-	}
-
-	void Window::notifyMouseMovedResize(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void Window::notifyMouseMovedAction(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		setSize(mPreActionCoord.size() + IntSize(_left - point.left, _top - point.top));
+
+		IntCoord coord = mCurrentActionScale;
+		coord.left *= (_left - point.left);
+		coord.top *= (_top - point.top);
+		coord.width *= (_left - point.left);
+		coord.height *= (_top - point.top);
+		
+		setPosition(mPreActionCoord + coord);
 	}
 
 	void Window::setDoAlpha(float _alpha)
@@ -295,16 +292,6 @@ namespace MyGUI
 			mIsDestroy = true;
 			InputManager::getInstance().unlinkWidget(this);
 		}
-	}
-
-	void Window::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
-	{
-		if (mWidgetResize == _sender) PointerManager::getInstance().setPointer(WINDOW_CURSOR_POINTER_RESIZE, this);
-	}
-
-	void Window::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
-	{
-		if (mWidgetResize == _sender) PointerManager::getInstance().defaultPointer();
 	}
 
 	const IntCoord& Window::getClientRect()

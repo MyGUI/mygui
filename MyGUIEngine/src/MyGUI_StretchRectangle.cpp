@@ -22,31 +22,56 @@ namespace MyGUI
 		const int size_line = 1;
 		const int size_rect = 7;
 
+		size_t count = 0;
+		WidgetPtr widget = this;
+
+		// ищем считаем максимальную глубину виджета
+		_testCount(count, count, widget);
+
+		// теперь удал€ем всех детей
+		_destroyAllChildWidget();
+
+		// теперь создаем бутерброд, чтобы рамки были в самом верху
+		for (size_t pos=0; pos<count; pos++) {
+			widget = widget->createWidget<Widget>("Empty", 0, 0, widget->getWidth(), widget->getHeight(), ALIGN_STRETCH);
+		}
+
+		//widget->setNeedKeyFocus(true);
+
+		/*const VectorWidgetPtr& childs = widget->getChilds();
+		for (VectorWidgetPtr::const_iterator iter=childs.begin(); iter!=childs.end(); ++iter) {
+			WidgetPtr child = const_cast<WidgetPtr >(*iter);
+			child->setEnabled(false);
+		}*/
+
+		//MYGUI_OUT(count);
+
 		// создаем бордюр
-		mWidgetBorder[BORDER_LEFT] = createWidget<Widget>("MarkerGreen", 0, 0, size_line, _coord.height, ALIGN_LEFT | ALIGN_VSTRETCH);
-		mWidgetBorder[BORDER_TOP] = createWidget<Widget>("MarkerGreen", size_line, 0, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_TOP);
-		mWidgetBorder[BORDER_RIGHT] = createWidget<Widget>("MarkerGreen", _coord.width-size_line, 0, size_line, _coord.height, ALIGN_RIGHT | ALIGN_VSTRETCH);
-		mWidgetBorder[BORDER_BOTTOM] = createWidget<Widget>("MarkerGreen", size_line, _coord.height-size_line, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_BOTTOM);
+		mWidgetBorder[BORDER_LEFT] = widget->createWidget<Widget>("MarkerGreen", 0, 0, size_line, _coord.height, ALIGN_LEFT | ALIGN_VSTRETCH);
+		mWidgetBorder[BORDER_TOP] = widget->createWidget<Widget>("MarkerGreen", size_line, 0, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_TOP);
+		mWidgetBorder[BORDER_RIGHT] = widget->createWidget<Widget>("MarkerGreen", _coord.width-size_line, 0, size_line, _coord.height, ALIGN_RIGHT | ALIGN_VSTRETCH);
+		mWidgetBorder[BORDER_BOTTOM] = widget->createWidget<Widget>("MarkerGreen", size_line, _coord.height-size_line, _coord.width - (size_line*2), size_line, ALIGN_HSTRETCH | ALIGN_BOTTOM);
 
-		mWidgetAction[ACTION_LEFT_TOP] = createWidget<Button>("MarkerGreen", size_line, size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_TOP);
-		mWidgetAction[ACTION_RIGHT_TOP] = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_TOP);
-		mWidgetAction[ACTION_RIGHT_BOTTOM] = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_BOTTOM);
-		mWidgetAction[ACTION_LEFT_BOTTOM] = createWidget<Button>("MarkerGreen", size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_BOTTOM);
+		mWidgetAction[ACTION_LEFT_TOP] = widget->createWidget<Button>("MarkerGreen", size_line, size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_TOP);
+		mWidgetAction[ACTION_RIGHT_TOP] = widget->createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_TOP);
+		mWidgetAction[ACTION_RIGHT_BOTTOM] = widget->createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_RIGHT | ALIGN_BOTTOM);
+		mWidgetAction[ACTION_LEFT_BOTTOM] = widget->createWidget<Button>("MarkerGreen", size_line, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_LEFT | ALIGN_BOTTOM);
 
-		mWidgetAction[ACTION_LEFT] = createWidget<Button>("MarkerGreen", size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_LEFT | ALIGN_VCENTER);
-		mWidgetAction[ACTION_TOP] = createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_TOP);
-		mWidgetAction[ACTION_RIGHT] = createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_RIGHT | ALIGN_VCENTER);
-		mWidgetAction[ACTION_BOTTOM] = createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_BOTTOM);
+		mWidgetAction[ACTION_LEFT] = widget->createWidget<Button>("MarkerGreen", size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_LEFT | ALIGN_VCENTER);
+		mWidgetAction[ACTION_TOP] = widget->createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_TOP);
+		mWidgetAction[ACTION_RIGHT] = widget->createWidget<Button>("MarkerGreen", _coord.width - size_rect - size_line, (_coord.height-size_rect)/2, size_rect, size_rect, ALIGN_RIGHT | ALIGN_VCENTER);
+		mWidgetAction[ACTION_BOTTOM] = widget->createWidget<Button>("MarkerGreen", (_coord.width-size_rect)/2, _coord.height - size_rect - size_line, size_rect, size_rect, ALIGN_HCENTER | ALIGN_BOTTOM);
+
+		//widget->eventMouseLostFocus = newDelegate(this, &StretchRectangle::notifyMouseLostFocus);
+		//widget->eventMouseLostFocus = newDelegate(this, &StretchRectangle::notifyMouseSetFocus);
 
 		//----------------------------------------------------------------------//
 		for (size_t pos=0; pos<BORDER_COUNT; pos++) {
 			mWidgetBorder[pos]->setEnabled(false);
-			mWidgetBorder[pos]->setUserData("isMarker", 1);
 		}
 
 		for (size_t pos=0; pos<ACTION_COUNT; pos++) {
 			mWidgetAction[pos]->setEnabled(false);
-			mWidgetAction[pos]->setUserData("isMarker", 1);
 			mWidgetAction[pos]->eventMouseButtonPressed = newDelegate(this, &StretchRectangle::notifyMousePressed);
 			mWidgetAction[pos]->eventMouseMove = newDelegate(this, &StretchRectangle::notifyMouseMove);
 		}
@@ -60,7 +85,31 @@ namespace MyGUI
 		mWidgetAction[ACTION_BOTTOM]->setUserString("Scale", "0 0 0 1");
 		mWidgetAction[ACTION_LEFT_BOTTOM]->setUserString("Scale", "1 0 -1 1");
 		mWidgetAction[ACTION_LEFT]->setUserString("Scale", "1 0 -1 0");
+		widget->setUserString("Scale", "1 1 0 0");
 
+	}
+
+	void StretchRectangle::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	{
+	//	mIsFocus = false;
+	//	updateWidgetState();
+	}
+
+	void StretchRectangle::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+	{
+		//mIsFocus = true;
+		//updateWidgetState();
+	}
+
+	void StretchRectangle::_testCount(size_t _count, size_t & _max, WidgetPtr _widget)
+	{
+		_count ++;
+		if (_count > _max) _max = _count;
+		const VectorWidgetPtr& childs = _widget->getChilds();
+		for (VectorWidgetPtr::const_iterator iter=childs.begin(); iter!=childs.end(); ++iter) {
+			if (false == (*iter)->isShow()) continue;
+			_testCount(_count, _max, (*iter));
+		}
 	}
 
 	void StretchRectangle::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
@@ -130,10 +179,7 @@ namespace MyGUI
 
 	void StretchRectangle::_onMouseMove(int _left, int _top)
 	{
-		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-		_left = TO_GRID(_left);
-		_top = TO_GRID(_top);
-		Widget::setPosition(mPreActionCoord + IntPoint(_left - point.left, _top - point.top));
+		notifyMouseMove(this, _left, _top);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseMove(_left, _top);

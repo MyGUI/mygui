@@ -26,25 +26,22 @@ namespace MyGUI
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
-		// запоминаем размер скина
-		IntSize size = _info->getSize();
+		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			if ((*iter)->getInternalString() == "VScroll") {
+				mWidgetScroll = castWidget<VScroll>(*iter);
+				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
+				mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
+			}
+			else if ((*iter)->getInternalString() == "Client") {
+				mWidgetClient = (*iter);
+				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
+			}
+		}
+		MYGUI_ASSERT(null != mWidgetScroll);
+		MYGUI_ASSERT(null != mWidgetClient);
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-
-		// парсим скролл
-		mWidgetScroll = static_cast<VScrollPtr>(parseSubWidget(param, "VScroll", "SkinScroll", "OffsetScroll", "AlignScroll", size));
-		MYGUI_ASSERT(null != mWidgetScroll);
-		// делегаты для событий
-		mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
-		mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
-
-		// парсим клиент
-		mWidgetClient = parseSubWidget(param, "Widget", "SkinClient", "OffsetClient", "AlignClient", size);
-		MYGUI_ASSERT(null != mWidgetClient);
-		// делегаты для событий
-		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
-
 		MapString::const_iterator iter = param.find("SkinLine");
 		if (iter != param.end()) mSkinLine = iter->second;
 		iter = param.find("HeightLine");
@@ -52,7 +49,7 @@ namespace MyGUI
 		else mHeightLine = 1;
 
 		MYGUI_ASSERT(mHeightLine > 0);
-		MYGUI_ASSERT(0 != mSkinLine.size());
+		MYGUI_ASSERT(false == mSkinLine.empty());
 
 		mWidgetScroll->setScrollPage((size_t)mHeightLine);
 
