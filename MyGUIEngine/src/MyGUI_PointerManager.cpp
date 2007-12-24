@@ -133,12 +133,18 @@ namespace MyGUI
 		mMapPointers.clear();
 	}
 
-	void PointerManager::show(bool _show)
+	void PointerManager::show()
 	{
 		if (mOverlayElement == null) return;
-		if (mShow == _show) return;
-		mShow = _show;
-		mShow ? mOverlayElement->show() : mOverlayElement->hide();
+		if (mOverlayElement->isVisible()) return;
+		mOverlayElement->show();
+	}
+
+	void PointerManager::hide()
+	{
+		if (mOverlayElement == null) return;
+		if (false == mOverlayElement->isVisible()) return;
+		mOverlayElement->hide();
 	}
 
 	void PointerManager::setPosition(const IntPoint& _pos)

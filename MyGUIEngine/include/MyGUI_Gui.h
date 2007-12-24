@@ -48,7 +48,6 @@ namespace MyGUI
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
-
 		inline WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
@@ -58,47 +57,66 @@ namespace MyGUI
 			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
 		}
 
-		// шаблоны для создания виджета по типу
-		template <class T>
-		inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		// создание с указанием типа
+		template <class T> inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			Widget * widget = createWidgetT(T::getType(), _skin, _coord, _align, _layer, _name);
-			MYGUI_TYPE(T*, widget);
-			return static_cast<T*>(widget);
+			return static_cast<T*>(createWidgetT(T::getType(), _skin, _coord, _align, _layer, _name));
 		}
-		template <class T>
-		inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		template <class T> inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			Widget * widget = createWidgetT(T::getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
-			MYGUI_TYPE(T*, widget);
-			return static_cast<T*>(widget);
+			return static_cast<T*>(createWidgetT(T::getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
-
-		template <class T>
-		inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			Widget * widget = createWidgetRealT(T::getType(), _skin, _coord, _align, _layer, _name);
-			MYGUI_TYPE(T*, widget);
-			return static_cast<T*>(widget);
+			return static_cast<T*>(createWidgetRealT(T::getType(), _skin, _coord, _align, _layer, _name));
 		}
-		template <class T>
-		inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
-			Widget * widget = createWidgetRealT(T::getType(), _skin, _left, _top, _width, _height, _align, _layer, _name);
-			MYGUI_TYPE(T*, widget);
-			return static_cast<T*>(widget);
+			return static_cast<T*>(createWidgetRealT(T::getType(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
-
 
 		inline float getViewWidth() {return mViewSize.width;}
 		inline float getViewHeight() {return mViewSize.height;}
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
+		bool addFrameListener(WidgetPtr _listener);
+		bool removeFrameListener(WidgetPtr _listener);
+
 		// подписка на кадры
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
 
-		bool addFrameListener(WidgetPtr _listener);
-		bool removeFrameListener(WidgetPtr _listener);
+		// mirror InputManager
+		inline bool injectMouseMove( const OIS::MouseEvent & _arg) {return mInputManager->injectMouseMove(_arg);}
+		inline bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return mInputManager->injectMousePress(_arg, _id);}
+		inline bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return mInputManager->injectMouseRelease(_arg, _id);}
+
+		inline bool injectKeyPress(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyPress(_arg);}
+		inline bool injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
+
+		// mirror WidgetManaget
+		/*#if MYGUI_DEBUG_MODE == 1
+			#define castWidget(_type,_widget) castWidgetTemplate<_type>(_widget, __FILE__, __LINE__)
+			template <class T> inline T* castWidgetTemplate(Widget * _widget , const char * _file, int _line)
+			{
+				T * widget = dynamic_cast<T*>(_widget);
+				if (null == widget) {
+					MYGUI_LOG("ASSERT : 'null == widget'  at  ", _file, " (line ", _line, ")");
+					throw Ogre::ExceptionFactory::create(Ogre::ExceptionCodeType<0>(), util::toString("expression = 'null == widget'"), "", _file, _line);
+				}
+				return static_cast<T*>(widget);
+			}
+		#else // MYGUI_DEBUG_MODE == 1
+			#define findWidget(_type,_name) static_cast<_type*>(_widget)
+		#endif // MYGUI_DEBUG_MODE == 1*/
+		template <class T> T * findWidget(const std::string& _name) { return mWidgetManager->findWidget<T>(_name); }
+
+		// mirror LayoutManager
+		inline VectorWidgetPtr loadLayout(const std::string & _file, bool _resource = true) {return mLayoutManager->load(_file, _resource);}
+
+		// mirror PointerManager
+		inline void showPointer() {mPointerManager->show();}
+		inline void hidePointer() {mPointerManager->hide();}
+		inline bool isShowPointer() {return mPointerManager->isShow();}
 
 	private:
 		// удяляет только негодных батюшке государю

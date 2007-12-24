@@ -123,18 +123,12 @@ namespace xml
 		{
 			mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));
 		}
-		//inline void addAttributes(const std::string &_key, int _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
-		//inline void addAttributes(const std::string &_key, size_t _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
-		//inline void addAttributes(const std::string &_key, float _value) {mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));}
 
 		template <class T>
 		inline void addBody(const T& _body)
 		{
 			mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);
 		}
-//		inline void addBody(int _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
-//		inline void addBody(size_t _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
-//		inline void addBody(float _body) {mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);}
 
 		void clear();
 
@@ -167,18 +161,14 @@ namespace xml
 		~xmlDocument();
 
 		bool open(const std::string & _name);
-		//bool open(const std::wstring & _name);
 
 		// сохраняет файл
 		bool save(const std::string & _name);
-		//bool save(const std::wstring & _name);
 
 		void clear();
 		const std::string getLastError();
 
 	private:
-
-		bool open(std::ifstream & _stream);
 
 		bool parseTag(xmlNodePtr &_currentNode, std::string _body);
 
@@ -200,7 +190,7 @@ namespace xml
 		xmlNodePtr mRoot;
 		xmlNodePtr mInfo;
 		xml::errors::ErrorTypes mLastError;
-    std::string mLastErrorFile;
+		std::string mLastErrorFile;
 		size_t mLine;
 		size_t mCol;
 

@@ -27,9 +27,9 @@ namespace MyGUI
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
 			// методы для парсинга, вызываются для базового класа, поэтому работает и для HScroll
-			void ScrollRange(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void ScrollPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void ScrollPage(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Scroll_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Scroll_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Scroll_Page(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

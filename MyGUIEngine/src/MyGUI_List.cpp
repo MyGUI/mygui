@@ -28,7 +28,7 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "VScroll") {
-				mWidgetScroll = castWidget<VScroll>(*iter);
+				mWidgetScroll = castWidget(VScroll, *iter);
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
 				mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
@@ -93,13 +93,6 @@ namespace MyGUI
 			Widget::_onKeyButtonPressed(_key, _char);
 			return;
 		}
-		/*else if (getItemCount() == 1) {
-			if (mIndexSelect == ITEM_NONE) setItemSelect(0);
-
-			// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-			Widget::_onKeyButtonPressed(_key, _char);
-			return;
-		}*/
 
 		size_t sel = mIndexSelect;
 
@@ -201,7 +194,6 @@ namespace MyGUI
 
 	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel)
 	{
-		//OUT(mWidgetLines.size());
 		mOffsetTop = (_rel % mHeightLine);
 
 		// смещение с отрицательной стороны
@@ -227,9 +219,6 @@ namespace MyGUI
 	void List::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
 		if (false == _left) return;
-
-		// устанавливаем фокус на себ€
-		//if (!mIsFocus) InputManager::getInstance().setKeyFocusWidget(this);
 
 		if (_sender == mWidgetScroll) return;
 
@@ -275,7 +264,6 @@ namespace MyGUI
 	void List::updateScroll()
 	{
 		mRangeIndex = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->getHeight();
-		//OUT(mRangeIndex);
 
 		if ( (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) ) {
 			if (mWidgetScroll->isShow()) {
@@ -326,9 +314,8 @@ namespace MyGUI
 			// провер€ем на возможность не мен€ть положение списка
 			if (position >= mRangeIndex) {
 
-				//OUT(mRangeIndex);
 				// размер всех помещаетс€ в клиент
-				if (mRangeIndex <= 0) {//((int)mStringArray.size()*mHeightLine) <= mWidgetClient->getHeight()) {
+				if (mRangeIndex <= 0) {
 
 					// обнул€ем, если надо
 					if (position || mOffsetTop || mTopIndex) {
@@ -379,11 +366,9 @@ namespace MyGUI
 			}
 
 			// увеличилс€ размер, но прокрутки вниз небыло, обновл€ем линии снизу
-			_redrawItemRange(mLastRedrawLine);//???
+			_redrawItemRange(mLastRedrawLine);
 
 		} // if (old_cy < mCoord.height)
-
-		//_redrawItemRange();//???
 
 		// просчитываем положение скролла
 		mWidgetScroll->setScrollPosition(position);
@@ -426,8 +411,6 @@ namespace MyGUI
 					static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(false);
 			}
 		}
-
-		//OUT(mName, "  start : ", _start, "   count : ", pos);
 
 		// если цикл весь прошли, то ставим максимальную линию
 		if (pos >= mWidgetLines.size()) mLastRedrawLine = pos;
@@ -482,7 +465,6 @@ namespace MyGUI
 				updateLine(true);
 
 				// позже сюда еще оптимизацию по колличеству перерисовок
-
 			}
 		}
 
@@ -502,8 +484,6 @@ namespace MyGUI
 			if (_index < mIndexSelect) mIndexSelect--;
 			else if ( (_index == mIndexSelect) && (mIndexSelect == (mStringArray.size())) ) mIndexSelect--;
 		}
-
-		//MYGUI_OUT(mIndexSelect);
 
 		// если виджетов стало больше , то скрываем крайний
 		if (mWidgetLines.size() > mStringArray.size()) {
@@ -538,7 +518,6 @@ namespace MyGUI
 				updateLine(true);
 
 				// позже сюда еще оптимизацию по колличеству перерисовок
-
 			}
 		}
 	}

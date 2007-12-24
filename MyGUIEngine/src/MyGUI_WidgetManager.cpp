@@ -63,14 +63,14 @@ namespace MyGUI
 	void WidgetManager::registerFactory(WidgetFactoryInterface * _factory)
 	{
 		mFactoryList.insert(_factory);
-		//LOG("* Register widget factory '" + _factory->getType() + "'");
+		MYGUI_LOG("* Register widget factory '", _factory->getType(), "'");
 	}
 
 	void WidgetManager::unregisterFactory(WidgetFactoryInterface * _factory)
 	{
 		SetWidgetFactory::iterator iter = mFactoryList.find(_factory);
 		if (iter != mFactoryList.end()) mFactoryList.erase(iter);
-		//LOG("* Unregister widget factory '" + _factory->getType() + "'");
+		MYGUI_LOG("* Unregister widget factory '", _factory->getType(), "'");
 	}
 
 	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name)

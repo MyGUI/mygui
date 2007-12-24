@@ -62,8 +62,6 @@ namespace MyGUI
 		void _updateView(); // обновления себя и детей
 		inline void _updateText() // обновляем все что касаеться текста
 		{
-			// изменился текст
-			//mOverlayContainer->_updateText();
 			// и делаем полное обновление и выравнивание
 			mIsMargin = true; // при изменении размеров все пересчитывать
 			_setAlign(mParent->getDimension(), true);

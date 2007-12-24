@@ -38,7 +38,7 @@ namespace MyGUI
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "Button") {
-				mButton = castWidget<Button>(*iter);
+				mButton = castWidget(Button, *iter);
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
 		}
@@ -47,7 +47,7 @@ namespace MyGUI
 		// парсим список из прилинкованных окон
 		for (VectorWidgetPtr::iterator iter=mWidgetLinkedChild.begin(); iter!=mWidgetLinkedChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "List") {
-				mList = castWidget<List>(*iter);
+				mList = castWidget(List, *iter);
 				mList->hide();
 				mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
 				mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
@@ -117,12 +117,10 @@ namespace MyGUI
 
 		// при нажатии вниз, показываем лист
 		if (_key == OIS::KC_DOWN) {
-
 			// выкидываем список только если мыша свободна
 			if (false == InputManager::getInstance().isCaptureMouse()) {
 				showList();
 			}
-			//InputManager::getInstance().resetMouseFocusWidget();
 		}
 		// нажат ввод в окне редиктировани€
 		else if (_key == OIS::KC_RETURN) {
@@ -305,21 +303,5 @@ namespace MyGUI
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyLostFocus(_new);
 	}
-
-	/*void ComboBox::setPosition(const IntPoint& _pos)
-	{
-		Widget::setPosition(_pos);
-		IntPoint pos = mCoord.point();
-	}
-
-	void ComboBox::setPosition(const IntCoord& _coord)
-	{
-		Widget::setPosition(_coord);
-	}
-
-	void ComboBox::setSize(const IntSize& _size)
-	{
-		Widget::setSize(_size);
-	}*/
 
 } // namespace MyGUI

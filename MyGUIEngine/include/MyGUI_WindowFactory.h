@@ -25,9 +25,9 @@ namespace MyGUI
 			const Ogre::String& getType();
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
-			void WindowToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void WindowMinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Window_ToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Window_MinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
 		};
 

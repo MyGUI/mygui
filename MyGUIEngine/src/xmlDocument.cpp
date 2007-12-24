@@ -161,118 +161,7 @@ namespace xml
 		if (false == stream) {
 			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 			return false;
-		} else return open(stream);
-
-	}
-
-	/*bool xmlDocument::open(const std::wstring & _name)
-	{
-		clear();
-
-		std::ifstream stream;
-		stream.open(_name.c_str());
-		//mLastErrorFile = _name;
-		if (!stream) {
-			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
-			return false;
-		} else return open(stream);
-
-	}*/
-
-	// сохраняет файл
-	bool xmlDocument::save(const std::string & _name)
-	{
-		if (!mInfo) {
-			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
-			mLastErrorFile = _name;
-			return false;
 		}
-
-		std::ofstream stream;
-		stream.open(_name.c_str());
-		if (!stream.is_open()) {
-			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
-			mLastErrorFile = _name;
-			return false;
-		}
-
-		// заголовок utf8
-		stream << (char)0xEF;
-		stream << (char)0xBB;
-		stream << (char)0xBF;
-
-		mInfo->save(stream, 0);
-		if (mRoot) mRoot->save(stream, 0);
-
-		stream.close();
-		return true;
-	}
-
-	// сохраняет файл
-	/*bool xmlDocument::save(const std::wstring & _name)
-	{
-		if (!mInfo) {
-			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
-			//mLastErrorFile = _name;
-			return false;
-		}
-
-		std::ofstream stream;
-		stream.open(_name.c_str());
-		if (!stream.is_open()) {
-			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
-			//mLastErrorFile = _name;
-			return false;
-		}
-
-		// заголовок utf8
-		stream << (char)0xEF;
-		stream << (char)0xBB;
-		stream << (char)0xBF;
-
-		mInfo->save(stream, 0);
-		if (mRoot) mRoot->save(stream, 0);
-
-		stream.close();
-		return true;
-	}*/
-
-	void xmlDocument::clear()
-	{
-		clearInfo();
-		clearRoot();
-		mLine = 0;
-		mCol = 0;
-	}
-
-	const std::string xmlDocument::getLastError()
-	{
-		if (0 == mLastError) return "";
-		// текстовое описание ошибок
-		static const char * errorNamesString[xml::errors::XML_ERROR_COUNT] = {
-			"XML_ERROR_NONE",
-			"XML_ERROR_OPEN_FILE",
-			"XML_ERROR_CREATE_FILE",
-			"XML_ERROR_BODY_NON_CORRECT",
-			"XML_ERROR_NON_CLOSE_ALL_TAGS",
-			"XML_ERROR_DOCUMENT_IS_EMPTY",
-			"XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG",
-			"XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT",
-			"XML_ERROR_INFO_IS_EXIST",
-			"XML_ERROR_ROOT_IS_EXIST",
-			"XML_ERROR_ATTRIBUTE_NON_CORRECT",
-		};
-
-		std::ostringstream stream;
-		stream << "'" << errorNamesString[mLastError] << "' " << mLastErrorFile;
-		if (xml::errors::XML_ERROR_OPEN_FILE != mLastError)
-			stream << ",  "<< "line=" << mLine << " , col=" << mCol;
-		return stream.str();
-	}
-
-	bool xmlDocument::open(std::ifstream & _stream)
-	{
-
 		// это текущая строка для разбора
 		std::string line;
 		// это строка из файла
@@ -280,9 +169,9 @@ namespace xml
 		// текущий узел для разбора
 		xmlNodePtr currentNode = 0;
 
-		while (!_stream.eof()) {
+		while (false == stream.eof()) {
 			// берем новую строку
-			std::getline(_stream, read);
+			std::getline(stream, read);
 			mLine ++;
 			mCol = 0; // потом проверить на многострочных тэгах
 
@@ -315,33 +204,89 @@ namespace xml
 				}
 
 				// вырезаем наш тэг и парсим
-				if (!parseTag(currentNode, line.substr(start+1, end-start-1))) {
+				if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
 					// ошибка установится внутри
-					_stream.close();
+					stream.close();
 					return false;
 				}
 
 				// и обрезаем текущую строку разбора
 				line = line.substr(end+1);
 			
-			}; // while (true) {
+			}; // while (true)
 
-		}; // while (!stream.eof()) {
+		}; // while (!stream.eof())
 
 		if (currentNode) {
 			mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
-			_stream.close();
+			stream.close();
 			return false;
 		}
 
-		/*if (!mInfo) {
-			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
-			_stream.close();
-			return false;
-		}*/
-
-		_stream.close();
+		stream.close();
 		return true;
+	}
+
+	// сохраняет файл
+	bool xmlDocument::save(const std::string & _name)
+	{
+		if (!mInfo) {
+			mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
+			mLastErrorFile = _name;
+			return false;
+		}
+
+		std::ofstream stream;
+		stream.open(_name.c_str());
+		if (!stream.is_open()) {
+			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
+			mLastErrorFile = _name;
+			return false;
+		}
+
+		// заголовок utf8
+		stream << (char)0xEF;
+		stream << (char)0xBB;
+		stream << (char)0xBF;
+
+		mInfo->save(stream, 0);
+		if (mRoot) mRoot->save(stream, 0);
+
+		stream.close();
+		return true;
+	}
+
+	void xmlDocument::clear()
+	{
+		clearInfo();
+		clearRoot();
+		mLine = 0;
+		mCol = 0;
+	}
+
+	const std::string xmlDocument::getLastError()
+	{
+		if (0 == mLastError) return "";
+		// текстовое описание ошибок
+		static const char * errorNamesString[xml::errors::XML_ERROR_COUNT] = {
+			"XML_ERROR_NONE",
+			"XML_ERROR_OPEN_FILE",
+			"XML_ERROR_CREATE_FILE",
+			"XML_ERROR_BODY_NON_CORRECT",
+			"XML_ERROR_NON_CLOSE_ALL_TAGS",
+			"XML_ERROR_DOCUMENT_IS_EMPTY",
+			"XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG",
+			"XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT",
+			"XML_ERROR_INFO_IS_EXIST",
+			"XML_ERROR_ROOT_IS_EXIST",
+			"XML_ERROR_ATTRIBUTE_NON_CORRECT",
+		};
+
+		std::ostringstream stream;
+		stream << "'" << errorNamesString[mLastError] << "' " << mLastErrorFile;
+		if (xml::errors::XML_ERROR_OPEN_FILE != mLastError)
+			stream << ",  "<< "line=" << mLine << " , col=" << mCol;
+		return stream.str();
 	}
 
 	bool xmlDocument::parseTag(xmlNodePtr &_currentNode, std::string _body)

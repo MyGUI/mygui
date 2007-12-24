@@ -24,13 +24,13 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		bool load(const std::string & _file, bool _resource = true);
+		VectorWidgetPtr load(const std::string & _file, bool _resource = true);
 
 	private:
-		void parseLayoutMyGUI(xml::xmlNodePtr _root);
-		void parseLayoutCEGUI(xml::xmlNodePtr _root);
+		void parseLayoutMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);
+		void parseLayoutCEGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);
 
-		void parseWidgetMyGUI(xml::xmlNodeIterator & _widget, WidgetPtr _parent);
+		void parseWidgetMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent);
 
 		FloatCoord convertFromReal(const FloatCoord & _coord, WidgetPtr _parent);
 		

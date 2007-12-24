@@ -21,10 +21,10 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("ImageMaterial") = newDelegate(this, &StaticImageFactory::ImageMaterial);
-			manager.registerDelegate("ImageRect") = newDelegate(this, &StaticImageFactory::ImageRect);
-			manager.registerDelegate("ImageTile") = newDelegate(this, &StaticImageFactory::ImageTile);
-			manager.registerDelegate("ImageNum") = newDelegate(this, &StaticImageFactory::ImageNum);
+			manager.registerDelegate("Image_Material") = newDelegate(this, &StaticImageFactory::Image_Material);
+			manager.registerDelegate("Image_Rect") = newDelegate(this, &StaticImageFactory::Image_Rect);
+			manager.registerDelegate("Image_Tile") = newDelegate(this, &StaticImageFactory::Image_Tile);
+			manager.registerDelegate("Image_Num") = newDelegate(this, &StaticImageFactory::Image_Num);
 		}
 
 		StaticImageFactory::~StaticImageFactory()
@@ -34,10 +34,10 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.unregisterDelegate("ImageMaterial");
-			manager.unregisterDelegate("ImageRect");
-			manager.unregisterDelegate("ImageTile");
-			manager.unregisterDelegate("ImageNum");
+			manager.unregisterDelegate("Image_Material");
+			manager.unregisterDelegate("Image_Rect");
+			manager.unregisterDelegate("Image_Tile");
+			manager.unregisterDelegate("Image_Num");
 		}
 
 		const Ogre::String& StaticImageFactory::getType()
@@ -50,25 +50,25 @@ namespace MyGUI
 			return new StaticImage(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
-		void StaticImageFactory::ImageMaterial(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void StaticImageFactory::Image_Material(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageMaterial(_value);
 		}
 
-		void StaticImageFactory::ImageRect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void StaticImageFactory::Image_Rect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageRect(FloatRect::parse(_value));
 		}
 
-		void StaticImageFactory::ImageTile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void StaticImageFactory::Image_Tile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageTile(FloatSize::parse(_value));
 		}
 
-		void StaticImageFactory::ImageNum(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void StaticImageFactory::Image_Num(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(StaticImagePtr, _widget);
 			static_cast<StaticImagePtr>(_widget)->setImageNum(util::parseSizeT(_value));

@@ -31,12 +31,12 @@ namespace MyGUI
 		bool load(const std::string & _file, bool _resource = true);
 		void clear();
 
-		void show(bool _show = true);
-		inline void hide() {show(false);}
-		inline bool isShow() {return mShow;}
+		void show();
+		void hide();
+
+		inline bool isShow() {return mOverlayElement->isVisible();}
 
 		void setPosition(const IntPoint& _pos);
-
 		void setPointer(const std::string & _name, WidgetPtr _owner);
 
 		inline void defaultPointer()
@@ -56,7 +56,6 @@ namespace MyGUI
 		std::string mDefaultPointer;
 		std::string mLayer;
 		std::string mMaterial;
-		bool mShow;
 		IntPoint mPoint;
 		MapPointerInfo mMapPointers;
 		PanelAlphaOverlayElement * mOverlayElement;

@@ -38,9 +38,6 @@ namespace MyGUI
 		// дефолтные размеры
 		mMinmax.set(50, 50, 2050, 2050);
 
-		// запоминаем размер скина
-		//IntSize size = _info->getSize();
-
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("WindowToStick");
@@ -52,19 +49,15 @@ namespace MyGUI
 			}
 			else if ((*iter)->getInternalString() == "Caption") {
 				mWidgetCaption = (*iter);
-				// делегаты для событий
 				mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				mWidgetCaption->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
-				//mWidgetCaption->setUserString("Scale", child[pos].findValue("scale"));
 			}
 			else if ((*iter)->getInternalString() == "Button") {
-				//(*iter)->setUserString("Button", child[pos].findValue("event"));
 				(*iter)->eventMouseButtonClick = newDelegate(this, &Window::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->getInternalString() == "Action") {
 				(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				(*iter)->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
-				//(*iter)->setUserString("Scale", child[pos].findValue("scale"));
 			}
 		}
 
@@ -298,6 +291,12 @@ namespace MyGUI
 	{
 		if (null == mWidgetClient) return Widget::getClientRect();
 		return mWidgetClient->getClientRect();
+	}
+
+	VectorWidgetPtr Window::getChilds()
+	{
+		if (null == mWidgetClient) return Widget::getChilds();
+		return mWidgetClient->getChilds();
 	}
 
 } // namespace MyGUI

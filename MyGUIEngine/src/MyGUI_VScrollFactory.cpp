@@ -21,9 +21,9 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("ScrollRange") = newDelegate(this, &VScrollFactory::ScrollRange);
-			manager.registerDelegate("ScrollPosition") = newDelegate(this, &VScrollFactory::ScrollPosition);
-			manager.registerDelegate("ScrollPage") = newDelegate(this, &VScrollFactory::ScrollPage);
+			manager.registerDelegate("Scroll_Range") = newDelegate(this, &VScrollFactory::Scroll_Range);
+			manager.registerDelegate("Scroll_Position") = newDelegate(this, &VScrollFactory::Scroll_Position);
+			manager.registerDelegate("Scroll_Page") = newDelegate(this, &VScrollFactory::Scroll_Page);
 		}
 
 		VScrollFactory::~VScrollFactory()
@@ -33,9 +33,9 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.unregisterDelegate("ScrollRange");
-			manager.unregisterDelegate("ScrollPosition");
-			manager.unregisterDelegate("ScrollPage");
+			manager.unregisterDelegate("Scroll_Range");
+			manager.unregisterDelegate("Scroll_Position");
+			manager.unregisterDelegate("Scroll_Page");
 		}
 
 		const Ogre::String& VScrollFactory::getType()
@@ -48,19 +48,19 @@ namespace MyGUI
 			return new VScroll(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
-		void VScrollFactory::ScrollRange(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void VScrollFactory::Scroll_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ScrollBasePtr, _widget);
 			static_cast<ScrollBasePtr>(_widget)->setScrollRange(util::parseSizeT(_value));
 		}
 
-		void VScrollFactory::ScrollPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void VScrollFactory::Scroll_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ScrollBasePtr, _widget);
 			static_cast<ScrollBasePtr>(_widget)->setScrollPosition(util::parseSizeT(_value));
 		}
 
-		void VScrollFactory::ScrollPage(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void VScrollFactory::Scroll_Page(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ScrollBasePtr, _widget);
 			static_cast<ScrollBasePtr>(_widget)->setScrollPage(util::parseSizeT(_value));

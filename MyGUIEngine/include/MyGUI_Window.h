@@ -62,6 +62,8 @@ namespace MyGUI
 
 		const IntCoord& getClientRect();
 
+		virtual VectorWidgetPtr getChilds();
+
 		// event : нажат на кнопку в окне
 		// signature : void method(MyGUI::WidgetPtr _widget, const std::string& _name)
 		EventButtonPressedInfo eventWindowButtonPressed;

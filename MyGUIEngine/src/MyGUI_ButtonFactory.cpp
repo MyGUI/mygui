@@ -21,7 +21,7 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("ButtonPressed") = newDelegate(this, &ButtonFactory::ButtonPressed);
+			manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed);
 		}
 
 		ButtonFactory::~ButtonFactory()
@@ -31,7 +31,7 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.unregisterDelegate("ButtonPressed");
+			manager.unregisterDelegate("Button_Pressed");
 		}
 
 		const Ogre::String& ButtonFactory::getType()
@@ -44,7 +44,7 @@ namespace MyGUI
 			return new Button(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
-		void ButtonFactory::ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ButtonFactory::Button_Pressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ButtonPtr, _widget);
 			static_cast<ButtonPtr>(_widget)->setButtonPressed(util::parseBool(_value));

@@ -27,7 +27,7 @@ namespace MyGUI
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
 			// методы для парсинга
-			void ListAddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void List_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

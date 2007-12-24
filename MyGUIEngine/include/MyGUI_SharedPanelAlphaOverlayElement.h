@@ -43,15 +43,12 @@ namespace MyGUI
 		Ogre::uint32 mColour;
 		// вектор всех наших саб оверлеев
 		VectorSharedOverlay mVectorSharedOverlay;
-		// свой способ сокрытия и показа
-		//bool mIsShowOverlay;
 
 	public:
 
 		SharedPanelAlphaOverlayElement(const Ogre::String& _name) :
 			PanelOverlayElement(_name),
 			mColour(0xFFFFFFFF)
-			//mIsShowOverlay(true)
 		{
 		}
 
@@ -181,13 +178,6 @@ namespace MyGUI
 		void updatePositionGeometry(void)
 		{
 
-			/*if (false == mIsShowOverlay) {
-				mRenderOp.vertexData->vertexCount = 0;
-				return;
-			} else {
-				mRenderOp.vertexData->vertexCount = 6 * mVectorSharedOverlay.size();
-			}*/
-
 			float left = _getDerivedLeft() * 2 - 1;
 			float top = -((_getDerivedTop() * 2) - 1);
 
@@ -290,31 +280,6 @@ namespace MyGUI
 		}
 
 		virtual void updateTextureGeometry() { }
-
-		/*void setTransparent(bool isTransparent)
-		{
-			assert(0 || !"setTransparent");
-		}*/
-
-		/** Shows this element if it was hidden. */
-        /*void show(void)
-		{
-			Ogre::PanelOverlayElement::show();
-			MYGUI_OUT("show");
-			//mIsShowOverlay = true;
-			//mGeomPositionsOutOfDate = true;
-			//assert(0 || !"show");
-		}*/
-
-        /** Hides this element if it was visible. */
-        /*void hide(void)
-		{
-			Ogre::PanelOverlayElement::hide();
-			MYGUI_OUT("hide");
-			//mIsShowOverlay = false;
-			//mGeomPositionsOutOfDate = true;
-			//assert(0 || !"hide");
-		}*/
 
 	}; // class SharedPanelAlphaOverlayElement : public PanelOverlayElement
 

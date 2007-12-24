@@ -8,7 +8,6 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
-//#include "MyGUI_SubWidgetSkinInterface.h"
 
 namespace MyGUI
 {
@@ -87,8 +86,6 @@ namespace MyGUI
 
 		// а вот теперь нормальный размер
 		setSize(_coord.size());
-		// и все перерисовываем
-		//_updateView();
 	}
 
 	Widget::~Widget()
@@ -548,6 +545,16 @@ namespace MyGUI
 	const IntCoord& Widget::getClientRect()
 	{
 		return mCoord;
+	}
+
+	VectorWidgetPtr Widget::getChilds()
+	{
+		return mWidgetChild;
+	}
+
+	VectorWidgetPtr Widget::getLinkedChilds()
+	{
+		return mWidgetLinkedChild;
 	}
 
 } // namespace MyGUI

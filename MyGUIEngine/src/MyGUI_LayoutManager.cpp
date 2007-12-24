@@ -33,54 +33,55 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool LayoutManager::load(const std::string & _file, bool _resource)
+	VectorWidgetPtr LayoutManager::load(const std::string & _file, bool _resource)
 	{
+		VectorWidgetPtr ret;
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
 			MYGUI_ERROR("Layout: " + _file + " not found");
-			return false;
+			return ret;
 		}
 		if (false == doc.open(file)) {
 			MYGUI_ERROR(doc.getLastError());
-			return false;
+			return ret;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if (root == 0) {
 			MYGUI_ERROR("Layout: " + _file + " root tag not found");
-			return false;
+			return ret;
 		}
 
 		if (root->getName() == "MyGUI") {
 			std::string type;
 			if ((false == root->findAttribute("type", type)) || (type != "Layout")) {
 				MYGUI_ERROR("Layout: " + _file + " root type 'Layout' not found");
-				return false;
+				return ret;
 			}
-			parseLayoutMyGUI(root);
+			parseLayoutMyGUI(ret, root);
 		}
-		else if (root->getName() == "GUILayout") parseLayoutCEGUI(root);
+		else if (root->getName() == "GUILayout") parseLayoutCEGUI(ret, root);
 		else {
 			MYGUI_ERROR("Layout: " + _file + " root type 'GUILayout' or 'MyGUI' not found");
-			return false;
+			return ret;
 		}
 
-		return true;
+		return ret;
 	}
 
-	void LayoutManager::parseLayoutCEGUI(xml::xmlNodePtr _root)
+	void LayoutManager::parseLayoutCEGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
 	{
 	}
 
-	void LayoutManager::parseLayoutMyGUI(xml::xmlNodePtr _root)
+	void LayoutManager::parseLayoutMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
 	{
 		// берем детей и крутимся
 		xml::xmlNodeIterator widget = _root->getNodeIterator();
-		while (widget.nextNode("Widget")) parseWidgetMyGUI(widget, 0);
+		while (widget.nextNode("Widget")) parseWidgetMyGUI(_widgets, widget, 0);
 	}
 
-	void LayoutManager::parseWidgetMyGUI(xml::xmlNodeIterator & _widget, WidgetPtr _parent)
+	void LayoutManager::parseWidgetMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent)
 	{
 		// парсим атрибуты виджета
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
@@ -96,7 +97,10 @@ namespace MyGUI
 		if (_widget->findAttribute("position_real", tmp)) coord = convertFromReal(FloatCoord::parse(tmp), _parent);
 
 		WidgetPtr wid;
-		if (null == _parent) wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, (int)coord.left, (int)coord.top, (int)coord.width, (int)coord.height, align, widgetLayer, widgetName);
+		if (null == _parent) {
+			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, (int)coord.left, (int)coord.top, (int)coord.width, (int)coord.height, align, widgetLayer, widgetName);
+			_widgets.push_back(wid);
+		}
 		else wid = _parent->createWidgetT(widgetType, widgetSkin, (int)coord.left, (int)coord.top, (int)coord.width, (int)coord.height, align, widgetName);
 
 		// берем детей и крутимся
@@ -105,7 +109,7 @@ namespace MyGUI
 
 			std::string key, value;
 
-			if (widget->getName() == "Widget") parseWidgetMyGUI(widget, wid);
+			if (widget->getName() == "Widget") parseWidgetMyGUI(_widgets, widget, wid);
 			else if (widget->getName() == "Property") {
 
 				// парсим атрибуты
@@ -120,13 +124,6 @@ namespace MyGUI
 				if (false == widget->findAttribute("value", value)) continue;
 				wid->setUserString(key, value);
 			}
-			/*else if (widget->getName() == "UserData") {
-				// парсим атрибуты
-				if (false == widget->findAttribute("key", key)) continue;
-				if (false == widget->findAttribute("value", value)) continue;
-				wid->setUserData(key, util::parseValue<int>(value));
-
-			}*/
 
 		};
 	}

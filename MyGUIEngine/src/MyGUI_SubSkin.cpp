@@ -52,10 +52,6 @@ namespace MyGUI
 		if (mShow) return;
 		mShow = true;
 
-		//if (mTransparent) {
-			//mOverlayContainer->setTransparentInfo(false, mId);
-		//}
-
 		mOverlayContainer->show();
 	}
 
@@ -63,10 +59,6 @@ namespace MyGUI
 	{
 		if (false == mShow) return;
 		mShow = false;
-
-		//if (false == mTransparent) {
-		//	mOverlayContainer->setTransparentInfo(true, mId);
-		//}
 
 		mOverlayContainer->hide();
 	}

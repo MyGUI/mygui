@@ -21,9 +21,9 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("WindowAutoAlpha") = newDelegate(this, &WindowFactory::WindowAutoAlpha);
-			manager.registerDelegate("WindowMinMax") = newDelegate(this, &WindowFactory::WindowMinMax);
-			manager.registerDelegate("WindowToStick") = newDelegate(this, &WindowFactory::WindowToStick);
+			manager.registerDelegate("Window_AutoAlpha") = newDelegate(this, &WindowFactory::Window_AutoAlpha);
+			manager.registerDelegate("Window_MinMax") = newDelegate(this, &WindowFactory::Window_MinMax);
+			manager.registerDelegate("Window_ToStick") = newDelegate(this, &WindowFactory::Window_ToStick);
 		}
 
 		WindowFactory::~WindowFactory()
@@ -33,9 +33,9 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 
 			// удаляем все парсеры
-			manager.unregisterDelegate("WindowAutoAlpha");
-			manager.unregisterDelegate("WindowMinMax");
-			manager.unregisterDelegate("WindowToStick");
+			manager.unregisterDelegate("Window_AutoAlpha");
+			manager.unregisterDelegate("Window_MinMax");
+			manager.unregisterDelegate("Window_ToStick");
 		}
 
 		const Ogre::String& WindowFactory::getType()
@@ -48,19 +48,19 @@ namespace MyGUI
 			return new Window(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
-		void WindowFactory::WindowToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_ToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(WindowPtr, _widget);
 			static_cast<WindowPtr>(_widget)->setIsToStick(util::parseBool(_value));
 		}
 
-		void WindowFactory::WindowAutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(WindowPtr, _widget);
 			static_cast<WindowPtr>(_widget)->setAutoAlpha(util::parseBool(_value));
 		}
 
-		void WindowFactory::WindowMinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_MinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(WindowPtr, _widget);
 			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));

@@ -74,8 +74,7 @@ namespace MyGUI
 					Ogre::HardwareBufferManager::getSingleton().createVertexBuffer(
 					decl->getVertexSize(OVERLAY_POSITION_BINDING), mRenderOp.vertexData->vertexCount,
 					// попробовать с динамическим буфером
-//					HardwareBuffer::HBU_STATIC_WRITE_ONLY // mostly static except during resizing
-					Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY // mostly static except during resizing
+					Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY
 					);
 				// Bind buffer
 				mRenderOp.vertexData->vertexBufferBinding->setBinding(OVERLAY_POSITION_BINDING, vbuf);

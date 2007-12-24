@@ -58,8 +58,6 @@ namespace MyGUI
 
 		bool addItem(LayerItemInfoPtr _item)
 		{
-//			Ogre::OverlayContainer * container = _item->getItemContainer();
-//			if (container == null) return false;
 			// это чтоб по два раза не коннектили
 			MYGUI_ASSERT(false == _item->mOverlayInfo);
 			// создаем оверлей и присоединяем к нему
@@ -67,7 +65,6 @@ namespace MyGUI
 			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(Ogre::StringConverter::toString(num++) + "_LayerInfo");
 			overlay->show();
 			_item->attachToOverlay(overlay);
-//			overlay->add2D(container);
 			// инициализируем
 			_item->mOverlayInfo = overlay;
 			_item->mLayerInfo = this;
@@ -76,7 +73,6 @@ namespace MyGUI
 			// добавляем и ставим высоту
 			mItems.push_back(_item);
 			_item->mOverlayInfo->setZOrder(mStart + pos * mHeight);
-//			OUT("level = ", (mStart + pos * mHeight));
 			return true;
 		}
 
@@ -93,11 +89,6 @@ namespace MyGUI
 			if (_item->mOverlayInfo == null) return false;
 			// отсоединить и удалить оверлей
 			_item->detachToOverlay(_item->mOverlayInfo);
-//			Ogre::OverlayContainer * container = _item->getItemContainer();
-//			if (container) {
-//				_item->mOverlayInfo->remove2D(container);
-//				((PanelAlphaOverlayElement*)container)->setOverlay(0);
-//			}
 			// и удаляем оверлей
 			Ogre::OverlayManager::getSingleton().destroy(_item->mOverlayInfo);
 			_item->mOverlayInfo = 0;

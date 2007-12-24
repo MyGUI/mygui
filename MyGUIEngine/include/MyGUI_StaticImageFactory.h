@@ -27,10 +27,10 @@ namespace MyGUI
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
 			// методы для парсинга
-			void ImageMaterial(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void ImageRect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void ImageTile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void ImageNum(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_Material(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_Rect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_Tile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_Num(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

@@ -119,23 +119,11 @@ namespace MyGUI
 		// в статике все недоступно
 		if (mModeStatic) return;
 
-		// до нажатия мы были неактивны
-		//if (false == mCursorActive) {
-			//InputManager::getInstance().setKeyFocusWidget(this);
-			//IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
-			//updateCursor(point);
+		IntPoint point = InputManager::getInstance().getLastLeftPressed();
+		mCursorPosition = mText->getTextCursorFromPoint(point);
+		updateCursor(point);
 
-		//}
-		// повторное нажатие
-		//else {
-			//InputManager::getInstance().setKeyFocusWidget(this);
-
-			IntPoint point = InputManager::getInstance().getLastLeftPressed();
-			mCursorPosition = mText->getTextCursorFromPoint(point);
-			updateCursor(point);
-
-			if (_left) mMouseLeftPressed = true;
-		//}
+		if (_left) mMouseLeftPressed = true;
 	}
 
 	void Edit::notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left)
@@ -382,36 +370,6 @@ namespace MyGUI
 			if ( old != mCursorPosition ) updateCursor(point);
 			// сбрасываем выделение
 			else if (isTextSelect() && !mShiftPressed) resetSelect();
-
-		/*} else if (_key == OIS::KC_F1) {
-			setTextSelectColour(Ogre::ColourValue::Black, true);
-
-		} else if (_key == OIS::KC_F2) {
-			setTextSelectColour(Ogre::ColourValue::Red, true);
-
-		} else if (_key == OIS::KC_F3) {
-			setTextSelectColour(Ogre::ColourValue::Blue, true);
-
-		} else if (_key == OIS::KC_F4) {
-			setTextSelectColour(Ogre::ColourValue::Green, true);
-
-		} else if (_key == OIS::KC_F5) {
-			setTextSelectColour(Ogre::ColourValue::White, true);
-
-		} else if (_key == OIS::KC_F6) {
-			mText->setTextAlign(ALIGN_LEFT | ALIGN_TOP);
-			IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
-			updateCursor(point);
-
-		} else if (_key == OIS::KC_F7) {
-			mText->setTextAlign(ALIGN_CENTER);
-			IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
-			updateCursor(point);
-
-		} else if (_key == OIS::KC_F8) {
-			mText->setTextAlign(ALIGN_RIGHT | ALIGN_BOTTOM);
-			IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
-			updateCursor(point);*/
 
 		} else if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) {
 			if ( ! mShiftPressed) {
@@ -856,7 +814,6 @@ namespace MyGUI
 	void Edit::updateCursor(IntPoint _point)
 	{
 		if (mModeStatic) return;
-		//OUT(mCursorPosition);
 
 		WidgetPtr parent = mWidgetUpper;
 		while (parent != null) {

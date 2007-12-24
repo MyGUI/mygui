@@ -6,7 +6,6 @@
 */
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_SkinManager.h"
-//#include "MyGUI_CroppedRectangleInterface.h"
 
 namespace MyGUI
 {

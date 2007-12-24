@@ -137,8 +137,6 @@ namespace MyGUI
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
 		setKeyFocusWidget(focus);
 
-		//MYGUI_OUT((size_t)focus);
-
 		if (mWidgetMouseFocus != null) {
 
 			mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
@@ -169,7 +167,6 @@ namespace MyGUI
 
 				if ((_id == OIS::MB_Left) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
 					mWidgetMouseFocus->_onMouseButtonClick(true);
-					//OUT("double click");
 				}
 				else {
 					mTime.reset();
@@ -388,9 +385,7 @@ namespace MyGUI
 	void InputManager::resetMouseFocusWidget()
 	{
 		mWidgetMouseFocus = null;
-//		mWidgetKeyFocus = null;
 		mWidgetRootMouseFocus = null;
-//		mWidgetRootKeyFocus = null;
 	}
 
 	void InputManager::_frameEntered(float _frame)

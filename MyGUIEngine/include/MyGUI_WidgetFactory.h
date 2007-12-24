@@ -27,17 +27,17 @@ namespace MyGUI
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
 			// методы для парсинга
-			void SetCaption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Size(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Show(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Colour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void FontName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void FontHeight(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Alpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Size(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Show(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Colour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_FontName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_FontHeight(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Alpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

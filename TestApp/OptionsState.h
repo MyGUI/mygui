@@ -40,7 +40,6 @@ public:
 	void createWindowList();
 
 	void updateWidgetPosition(Ogre::Entity * _entity, Ogre::Camera * _camera, MyGUI::WidgetPtr _widget);
-	//void notifyTest(MyGUI::WidgetPtr _widget);
 	
 public:
 	void enter(bool bIsChangeState);
@@ -50,5 +49,6 @@ public:
 private:
 	MyGUI::StaticTextPtr mFpsInfo;
 	size_t mCountWindow;
+	MyGUI::Gui * mGUI;
 
 };
