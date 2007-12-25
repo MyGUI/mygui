@@ -174,7 +174,7 @@ void BasisManager::destroyGui()
 {
 	if (mGUI) {
 
-		if (0 == mFpsInfo) {
+		if (mFpsInfo) {
 			mGUI->destroyWidget(mFpsInfo);
 			mFpsInfo = 0;
 		}
@@ -228,14 +228,16 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 	if (mMouse) mMouse->capture();
 	mKeyboard->capture();
 
-	static float time = 0;
-	time += evt.timeSinceLastFrame;
-	if (time > 1) {
-		time -= 1;
-		try {
-			const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
-			mFpsInfo->setCaption(util::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
-		} catch (...) { }
+	if (mFpsInfo) {
+		static float time = 0;
+		time += evt.timeSinceLastFrame;
+		if (time > 1) {
+			time -= 1;
+			try {
+				const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
+				mFpsInfo->setCaption(util::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
+			} catch (...) { }
+		}
 	}
 
 	// добавляем время

@@ -80,6 +80,7 @@ namespace MyGUI
 		_destroyAllChildWidget();
 
 		// деинициализируем и удаляем синглтоны
+
 		mPluginManager->shutdown();
 		delete mPluginManager;
 		mDynLibManager->shutdown();

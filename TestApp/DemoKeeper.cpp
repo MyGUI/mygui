@@ -30,13 +30,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	mWidth = _width;
 	mHeight = _height;
 
-	ButtonPtr button = mGUI->createWidget<Button>("Button", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
-	button->setCaption(L"demo list + combo");
-	button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton1);
+	WidgetPtr widget = mGUI->createWidgetT("StrangeButton", "Button", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	widget->setCaption(L"demo list + combo");
+	widget->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton1);
 
-	button = mGUI->createWidget<Button>("Button", 10, 46, 200, 26, ALIGN_RIGHT | ALIGN_TOP, "Main");
-	button->setCaption(L"Edit demo + auto alpha");
-	button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);
+	//ButtonPtr button = mGUI->createWidget<Button>("Button", 10, 46, 200, 26, ALIGN_RIGHT | ALIGN_TOP, "Main");
+	//button->setCaption(L"Edit demo + auto alpha");
+	//button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);
 }
 
 void DemoKeeper::end()
