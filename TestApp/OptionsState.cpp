@@ -36,7 +36,7 @@ void OptionsState::enter(bool bIsChangeState)
 	button->setCaption(L"Edit demo + auto alpha");
 	button->eventMouseButtonClick = newDelegate(this, &OptionsState::notifyWindowButton2);
 
-	castWidget<Window>(button);
+	//castWidget<Window>(button);
 }
 
 void OptionsState::exit()
