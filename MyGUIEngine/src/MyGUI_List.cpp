@@ -6,6 +6,7 @@
 */
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_CastWidget.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_InputManager.h"
@@ -28,7 +29,7 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "VScroll") {
-				mWidgetScroll = castWidget(VScroll, *iter);
+				mWidgetScroll = castWidget<VScroll>(*iter);
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
 				mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}

@@ -36,7 +36,7 @@ void OptionsState::enter(bool bIsChangeState)
 	button->setCaption(L"Edit demo + auto alpha");
 	button->eventMouseButtonClick = newDelegate(this, &OptionsState::notifyWindowButton2);
 
-	castWidget(Window, button);
+	castWidget<Window>(button);
 }
 
 void OptionsState::exit()
@@ -253,7 +253,7 @@ void OptionsState::createWindowList()
 
 	VectorWidgetPtr roots = mGUI->loadLayout("ListDemo.layout");
 	if (1 <= roots.size()) {
-		WindowPtr window = castWidget(Window, roots[0]);
+		WindowPtr window = castWidget<Window>(roots[0]);
 		window->eventWindowButtonPressed = newDelegate(this, &OptionsState::notifyWindowXPressed);
 		window->setPosition(IntPoint(x, y));
 		window->showSmooth(true);
@@ -261,19 +261,19 @@ void OptionsState::createWindowList()
 		VectorWidgetPtr childs = window->getChilds();
 		if (4 <= childs.size()) {
 
-			ListPtr list = castWidget(List, childs[0]);
+			ListPtr list = castWidget<List>(childs[0]);
 			list->eventListPressedDelete = newDelegate(this, &OptionsState::notifyListPressedDelete);
 
-			ComboBoxPtr combo = castWidget(ComboBox, childs[1]);
+			ComboBoxPtr combo = castWidget<ComboBox>(childs[1]);
 			combo->setUserString("List", list->getName());
 			combo->eventComboAccept = newDelegate(this, &OptionsState::notifyEditAccept);
 
-			ButtonPtr add = castWidget(Button, childs[2]);
+			ButtonPtr add = castWidget<Button>(childs[2]);
 			add->setUserString("ComboBox", combo->getName());
 			add->setUserString("List", list->getName());
 			add->eventMouseButtonClick = MyGUI::newDelegate(this, &OptionsState::notifyPressedAdd);
 
-			ButtonPtr del = castWidget(Button, childs[3]);
+			ButtonPtr del = castWidget<Button>(childs[3]);
 			del->setUserString("List", list->getName());
 			del->eventMouseButtonClick = newDelegate(this, &OptionsState::notifyPressedDelete);
 		}
@@ -358,7 +358,7 @@ void OptionsState::notifyEditAccept(MyGUI::WidgetPtr _sender)
 	
 void OptionsState::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
 {
-	ListPtr list = castWidget(List, _sender);
+	ListPtr list = castWidget<List>(_sender);
 
 	size_t select = list->getItemSelect();
 	if (select != ITEM_NONE) list->deleteItemString(select);
@@ -366,7 +366,7 @@ void OptionsState::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
 
 void OptionsState::notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name)
 {
-	WindowPtr window = castWidget(Window, _widget);
+	WindowPtr window = castWidget<Window>(_widget);
 	window->destroySmooth();
 	mCountWindow --;
 }
@@ -389,7 +389,7 @@ void OptionsState::notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double)
 
 void OptionsState::comboAccept(MyGUI::WidgetPtr _sender)
 {
-	ComboBoxPtr combo = castWidget(ComboBox, _sender);
+	ComboBoxPtr combo = castWidget<ComboBox>(_sender);
 	//MyGUI::MYGUI_OUT(combo->getCaption());
 }
 

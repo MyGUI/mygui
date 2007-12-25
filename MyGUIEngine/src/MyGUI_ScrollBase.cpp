@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_ScrollBase.h"
+#include "MyGUI_CastWidget.h"
 
 namespace MyGUI
 {
@@ -20,15 +21,15 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "Start") {
-				mWidgetStart = castWidget(Button, *iter);
+				mWidgetStart = castWidget<Button>(*iter);
 				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 			}
 			else if ((*iter)->getInternalString() == "End") {
-				mWidgetEnd = castWidget(Button, *iter);
+				mWidgetEnd = castWidget<Button>(*iter);
 				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 			}
 			else if ((*iter)->getInternalString() == "Track") {
-				mWidgetTrack = castWidget(Button, *iter);
+				mWidgetTrack = castWidget<Button>(*iter);
 				mWidgetTrack->eventMouseMove = newDelegate(this, &ScrollBase::notifyMouseMove);
 				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &ScrollBase::notifyMousePressed);
 				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &ScrollBase::notifyMouseReleased);

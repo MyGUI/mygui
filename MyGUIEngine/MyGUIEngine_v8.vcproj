@@ -450,6 +450,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_CastWidget.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Common.h"
 					>
 				</File>

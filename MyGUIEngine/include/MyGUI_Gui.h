@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_CastWidget.h"
 
 #include "MyGUI_TextSimpleOverlayElementFactory.h"
 #include "MyGUI_TextEditOverlayElementFactory.h"
@@ -94,21 +95,10 @@ namespace MyGUI
 		inline bool injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
 
 		// mirror WidgetManaget
-		/*#if MYGUI_DEBUG_MODE == 1
-			#define castWidget(_type,_widget) castWidgetTemplate<_type>(_widget, __FILE__, __LINE__)
-			template <class T> inline T* castWidgetTemplate(Widget * _widget , const char * _file, int _line)
-			{
-				T * widget = dynamic_cast<T*>(_widget);
-				if (null == widget) {
-					MYGUI_LOG("ASSERT : 'null == widget'  at  ", _file, " (line ", _line, ")");
-					throw Ogre::ExceptionFactory::create(Ogre::ExceptionCodeType<0>(), util::toString("expression = 'null == widget'"), "", _file, _line);
-				}
-				return static_cast<T*>(widget);
-			}
-		#else // MYGUI_DEBUG_MODE == 1
-			#define findWidget(_type,_name) static_cast<_type*>(_widget)
-		#endif // MYGUI_DEBUG_MODE == 1*/
-		template <class T> T * findWidget(const std::string& _name) { return mWidgetManager->findWidget<T>(_name); }
+		template <class T> T * findWidget(const std::string& _name)
+		{
+			return mWidgetManager->findWidget<T>(_name);
+		}
 
 		// mirror LayoutManager
 		inline VectorWidgetPtr loadLayout(const std::string & _file, bool _resource = true) {return mLayoutManager->load(_file, _resource);}

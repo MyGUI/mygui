@@ -38,7 +38,7 @@ namespace MyGUI
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "Button") {
-				mButton = castWidget(Button, *iter);
+				mButton = castWidget<Button>(*iter);
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
 		}
@@ -47,7 +47,7 @@ namespace MyGUI
 		// парсим список из прилинкованных окон
 		for (VectorWidgetPtr::iterator iter=mWidgetLinkedChild.begin(); iter!=mWidgetLinkedChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "List") {
-				mList = castWidget(List, *iter);
+				mList = castWidget<List>(*iter);
 				mList->hide();
 				mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
 				mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);

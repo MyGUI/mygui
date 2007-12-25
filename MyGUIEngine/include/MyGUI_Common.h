@@ -34,25 +34,6 @@ namespace MyGUI
 		#define MYGUI_DEBUG_ASSERT(_exp) ((void)0)
 	#endif // MYGUI_DEBUG_MODE == 1
 
-
-	// шаблонный класс для проверки типа виджета
-	class Widget;
-
-	#if MYGUI_DEBUG_MODE == 1
-		#define castWidget(_type,_widget) castWidgetTemplate<_type>(_widget, __FILE__, __LINE__)
-		template <class T> inline T* castWidgetTemplate(Widget * _widget , const char * _file, int _line)
-		{
-			T * widget = dynamic_cast<T*>(_widget);
-			if (null == widget) {
-				MYGUI_LOG("ASSERT : 'null == widget'  at  ", _file, " (line ", _line, ")");
-				throw Ogre::ExceptionFactory::create(Ogre::ExceptionCodeType<0>(), util::toString("expression = 'null == widget'"), "", _file, _line);
-			}
-			return static_cast<T*>(widget);
-		}
-	#else // MYGUI_DEBUG_MODE == 1
-		#define castWidget(_type,_widget) static_cast<_type*>(_widget)
-	#endif // MYGUI_DEBUG_MODE == 1
-
 } // namespace MyGUI
 
 

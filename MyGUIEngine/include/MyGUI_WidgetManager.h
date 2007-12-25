@@ -11,6 +11,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetFactoryInterface.h"
+#include "MyGUI_CastWidget.h"
 
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_ButtonFactory.h"
@@ -52,14 +53,11 @@ namespace MyGUI
 
 		// метод для поиска виджета
 		WidgetPtr findWidgetT(const Ogre::String & _name);
-
-		// шаблонный метод для поиска виджета
-		template <class T>
-		inline T* findWidget(const Ogre::String & _name)
+		template <class T> inline T* findWidget(const Ogre::String & _name)
 		{
-			Widget * widget = findWidgetT(_name);
-			MYGUI_TYPE(T*, widget);
-			return static_cast<T*>(widget);
+			WidgetPtr widget = findWidgetT(_name);
+			if (null == widget) return null;
+			return castWidget<T>(widget);
 		}
 
 		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально

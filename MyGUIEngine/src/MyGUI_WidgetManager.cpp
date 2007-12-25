@@ -101,7 +101,7 @@ namespace MyGUI
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
 			MYGUI_LOG("Error: Widget \"" , _name , "\" not found");
-			return 0;
+			return null;
 		}
 		return iter->second;
 	}
