@@ -13,6 +13,8 @@ BasisManager::BasisManager() :
 	mCamera(0),
 	mSceneMgr(0),
 	mWindow(0),
+	mGUI(0),
+	mFpsInfo(0),
 	m_exit(false)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
@@ -38,31 +40,14 @@ void BasisManager::createInput() // создаем систему ввода
 	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
 	mKeyboard->setEventCallback(this);
 
-
 	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
 	mMouse->setEventCallback(this);
 
-	mRoot->addFrameListener(this);
-
 	windowResized(mWindow); // инициализация
-
-	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
-	if (false == material.isNull()) {
-		Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
-		Ogre::Overlay * overlay = manager.create("wallpaper");
-		overlay->setZOrder(0);
-		overlay->show();
-		Ogre::PanelOverlayElement * panel = static_cast<Ogre::PanelOverlayElement*>(manager.createOverlayElement("Panel", "wallpaper"));
-		panel->setDimensions(1, 1);
-		panel->setMaterialName(material->getName());
-		overlay->add2D(panel);
-	}
 }
+
 void BasisManager::destroyInput() // удаляем систему ввода
 {
-
 	if( mInputManager ) {
 		Ogre::LogManager::getSingletonPtr()->logMessage("*** Destroy OIS ***");
 
@@ -123,20 +108,35 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	// Load resources
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
+	mRoot->addFrameListener(this);
+	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
 	createInput();
 
-	changeState(&mOptions); // главное меню
+	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
+	if (false == material.isNull()) {
+		Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
+		Ogre::Overlay * overlay = manager.create("wallpaper");
+		overlay->setZOrder(0);
+		overlay->show();
+		Ogre::PanelOverlayElement * panel = static_cast<Ogre::PanelOverlayElement*>(manager.createOverlayElement("Panel", "wallpaper"));
+		panel->setDimensions(1, 1);
+		panel->setMaterialName(material->getName());
+		overlay->add2D(panel);
+	}
+
+	createGui();
+
+	createScene();
 
     mRoot->startRendering();
 }
 
 void BasisManager::destroyBasisManager() // очищаем все параметры каркаса приложения
 {
-    // очищаем состояния
-	while (!mStates.empty()) {
-		mStates.back()->exit();
-		mStates.pop_back();
-	}
+
+	destroyGui();
+
 	// очищаем сцену
 	if (mSceneMgr) {
 		mSceneMgr->clearScene();
@@ -157,6 +157,32 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mRoot = 0;
 	}
 
+}
+
+void BasisManager::createGui()
+{
+	mGUI = new MyGUI::Gui();
+	mGUI->initialise(mWindow);
+
+	if (0 == mFpsInfo) {
+		mFpsInfo = mGUI->createWidget<MyGUI::StaticText>("StaticText", 20, (int)mHeight - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
+		mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	}
+}
+
+void BasisManager::destroyGui()
+{
+	if (mGUI) {
+
+		if (0 == mFpsInfo) {
+			mGUI->destroyWidget(mFpsInfo);
+			mFpsInfo = 0;
+		}
+
+		mGUI->shutdown();
+		delete mGUI;
+		mGUI = 0;
+	}
 }
 
 void BasisManager::setupResources(void) // загружаем все ресурсы приложения
@@ -190,6 +216,11 @@ void BasisManager::setupResources(void) // загружаем все ресурсы приложения
     }
 }
 
+void BasisManager::createScene()
+{
+	mDemo.start(mGUI, mWidth, mHeight);
+}
+
 bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 {
 	if (m_exit) return false;
@@ -197,72 +228,56 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 	if (mMouse) mMouse->capture();
 	mKeyboard->capture();
 
-	return mStates.back()->frameStarted(evt);
+	static float time = 0;
+	time += evt.timeSinceLastFrame;
+	if (time > 1) {
+		time -= 1;
+		try {
+			const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
+			mFpsInfo->setCaption(util::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
+		} catch (...) { }
+	}
+
+	// добавляем время
+	mGUI->injectFrameEntered(evt.timeSinceLastFrame);
+
+	return true;
 }
 bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 {
-	return mStates.back()->frameEnded(evt);
+	return true;
 };
 
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
-	return mStates.back()->mouseMoved(arg);
+	mGUI->injectMouseMove(arg);
+	return true;
 }
 
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	return mStates.back()->mousePressed(arg, id);
+	mGUI->injectMousePress(arg, id);
+	return true;
 }
 
 bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	return mStates.back()->mouseReleased(arg, id);
+	mGUI->injectMouseRelease(arg, id);
+	return true;
 }
 
 bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_ESCAPE ) {m_exit = true; return false;}
 
-	return mStates.back()->keyPressed(arg);
+	mGUI->injectKeyPress(arg);
+	return true;
 }
 
 bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 {
-	return mStates.back()->keyReleased(arg);
-}
-
-void BasisManager::changeState(BasisState* state, bool bIsFade)
-{
-	// cleanup the current state
-	if ( !mStates.empty() ) {
-		mStates.back()->exit();
-		mStates.pop_back();
-	}
-	// store and init the new state
-	mStates.push_back(state);
-	mStates.back()->enter(true);
-}
-void BasisManager::pushState(BasisState* state, bool bIsFade)
-{
-	// pause current state
-	if ( !mStates.empty() ) {
-		mStates.back()->pause();
-	}
-	// store and init the new state
-	mStates.push_back(state);
-	mStates.back()->enter(false);
-}
-void BasisManager::popState(bool bIsFade)
-{
-	// cleanup the current state
-	if ( !mStates.empty() ) {
-		mStates.back()->exit();
-		mStates.pop_back();
-	}
-	// resume previous state
-	if ( !mStates.empty() ) {
-		mStates.back()->resume();
-	} else assert(false); // такого быть не должно
+	mGUI->injectKeyRelease(arg);
+	return true;
 }
 
 void BasisManager::windowResized(Ogre::RenderWindow* rw)
@@ -275,10 +290,6 @@ void BasisManager::windowResized(Ogre::RenderWindow* rw)
 		ms.width = (int)mWidth;
 		ms.height = (int)mHeight;
 	}
-
-	 // оповещаем все статусы
-	for (size_t index=0; index<mStates.size(); index++) mStates[index]->windowResize();
-	
 }
 
 void BasisManager::windowClosed(Ogre::RenderWindow* rw)

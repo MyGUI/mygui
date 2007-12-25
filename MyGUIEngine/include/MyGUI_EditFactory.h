@@ -27,11 +27,11 @@ namespace MyGUI
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
 			// методы для парсинга
-			void Edit_SetCursorPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_SetTextSelect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_SetReadOnly(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_SetPassword(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_SetMultiLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_CursorPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_TextSelect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_ReadOnly(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_Password(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_MultiLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

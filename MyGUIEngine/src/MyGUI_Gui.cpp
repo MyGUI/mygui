@@ -206,4 +206,14 @@ namespace MyGUI
 		}
 	}
 
+	void Gui::destroyAllWidget()
+	{
+		mWidgetManager->destroyAllWidget();
+	}
+
+	void Gui::destroyWidget(WidgetPtr _widget)
+	{
+		mWidgetManager->destroyWidget(_widget);
+	}
+
 } // namespace MyGUI

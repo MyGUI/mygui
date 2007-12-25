@@ -1,21 +1,23 @@
-#pragma once
+/*!
+	@file
+	@author		Albert Semenov
+	@date		12/2007
+	@module
+*/
+#ifndef __DEMO_KEEPER_H__
+#define __DEMO_KEEPER_H__
 
-#include "BasisState.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_StaticText.h"
 
-class OptionsState : public BasisState
+class DemoKeeper
 {
 public:
+	DemoKeeper();
 
-	bool mouseMoved( const OIS::MouseEvent &arg );
-	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-	bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-	bool keyPressed( const OIS::KeyEvent &arg );
-	bool keyReleased( const OIS::KeyEvent &arg );
+	void start(MyGUI::Gui * _gui, size_t _width, size_t _height);
+	void end();
 
-	bool frameStarted(const Ogre::FrameEvent& evt);
-
+private:
 	void notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double);
 	void notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double);
 	void notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double);
@@ -34,21 +36,14 @@ public:
 	void notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double);
 	void notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double);
 
-	void comboAccept(MyGUI::WidgetPtr _sender);
-
 	void createWindowEdit();
 	void createWindowList();
 
-	void updateWidgetPosition(Ogre::Entity * _entity, Ogre::Camera * _camera, MyGUI::WidgetPtr _widget);
-	
-public:
-	void enter(bool bIsChangeState);
-	void exit();
-	void windowResize(); // уведомление об изменении размеров окна рендера
-
 private:
-	MyGUI::StaticTextPtr mFpsInfo;
-	size_t mCountWindow;
 	MyGUI::Gui * mGUI;
+	size_t mCountWindow;
+	size_t mWidth, mHeight;
 
 };
+
+#endif // __DEMO_KEEPER_H__

@@ -198,7 +198,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\OptionsState.cpp"
+				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
 		</Filter>
@@ -212,11 +212,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BasisState.h"
-				>
-			</File>
-			<File
-				RelativePath=".\OptionsState.h"
+				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
 		</Filter>

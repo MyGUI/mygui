@@ -1,8 +1,11 @@
-#pragma once
+#ifndef __BASIS_MANAGER_H__
+#define __BASIS_MANAGER_H__
 
 #include <Ogre.h>
 #include "OIS\\OIS.h"
-#include "OptionsState.h"
+#include "MyGUI_Gui.h"
+#include "MyGUI_StaticText.h"
+#include "DemoKeeper.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
@@ -24,7 +27,8 @@ std::string macBundlePath()
 
 class BasisManager : public Ogre::FrameListener, public OIS::MouseListener , public OIS::KeyListener, public Ogre::WindowEventListener
 {
-public:
+
+private:
 	//OIS Input devices
 	OIS::InputManager* mInputManager;
 	OIS::Keyboard* mKeyboard;
@@ -38,21 +42,32 @@ public:
 	bool m_exit; // выходим из цикла приложения
 	size_t mWidth, mHeight; // ширина и высота экрана
 
-	std::vector<BasisState*> mStates; // вектор состояний
-	OptionsState mOptions; // настройки
+	MyGUI::StaticTextPtr mFpsInfo;
+	MyGUI::Gui * mGUI;
+
+	DemoKeeper mDemo;
 
 public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
 
 	BasisManager();
 
-	void createInput(); // создаем систему ввода
-	void destroyInput(); // удаляем систему ввода
-
 	void createBasisManager(); // создаем начальную точки каркаса приложения
 	void destroyBasisManager(); // очищаем все параметры каркаса приложения
 
+	inline int getWidth() {return (int)mWidth;}
+	inline int getHeight() {return (int)mHeight;}
+
+private:
+	void createInput(); // создаем систему ввода
+	void destroyInput(); // удаляем систему ввода
+
+	void createGui();
+	void destroyGui();
+
 	void setupResources(); // загружаем все ресурсы приложения
+
+	void createScene();
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
 	bool frameEnded(const Ogre::FrameEvent& evt);
@@ -62,11 +77,9 @@ public:
 	bool keyPressed( const OIS::KeyEvent &arg );
 	bool keyReleased( const OIS::KeyEvent &arg );
 
-	void changeState(BasisState* state, bool bIsFade = true);
-	void pushState(BasisState* state, bool bIsFade = true);
-	void popState(bool bIsFade = true);
-
 	void windowResized(Ogre::RenderWindow* rw);
 	void windowClosed(Ogre::RenderWindow* rw);
 
 };
+
+#endif // __BASIS_MANAGER_H__

@@ -99,6 +99,8 @@ namespace MyGUI
 		{
 			return mWidgetManager->findWidget<T>(_name);
 		}
+		inline void destroyAllWidget();
+		inline void destroyWidget(WidgetPtr _widget);
 
 		// mirror LayoutManager
 		inline VectorWidgetPtr loadLayout(const std::string & _file, bool _resource = true) {return mLayoutManager->load(_file, _resource);}

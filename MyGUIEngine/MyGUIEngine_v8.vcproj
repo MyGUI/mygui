@@ -384,6 +384,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\updateWidgetFromEntity.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\xmlDocument.cpp"
 					>
 				</File>
@@ -571,6 +575,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_TextIterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\updateWidgetFromEntity.h"
 					>
 				</File>
 				<File
