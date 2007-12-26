@@ -155,10 +155,9 @@ namespace xml
 	{
 		clear();
 
-		std::ifstream stream;
-		stream.open(_name.c_str());
+		std::ifstream stream(_name.c_str());
 		mLastErrorFile = _name;
-		if (false == stream) {
+		if (false == stream.is_open()) {
 			mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 			return false;
 		}
@@ -236,8 +235,7 @@ namespace xml
 			return false;
 		}
 
-		std::ofstream stream;
-		stream.open(_name.c_str());
+		std::ofstream stream(_name.c_str());
 		if (!stream.is_open()) {
 			mLastError = xml::errors::XML_ERROR_CREATE_FILE;
 			mLastErrorFile = _name;
