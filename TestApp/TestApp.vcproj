@@ -215,6 +215,26 @@
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
+			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\resource1.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource"
+			>
+			<File
+				RelativePath=".\mygui.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\TestApp.rc"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
