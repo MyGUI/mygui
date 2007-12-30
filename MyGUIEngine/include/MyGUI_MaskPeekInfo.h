@@ -48,15 +48,16 @@ namespace MyGUI
 			width = (int)pData->width;
 			height = (int)pData->height;
 			size_t size = pData->width * pData->height;
+			data.resize(size);
 
 			pos = 0;
 			for (size_t pos_pix=0; pos_pix<size; pos_pix++) {
-				bool is_null = true;
+				char is_null = 0;
 				for (size_t in_pix=0; in_pix<pixel_size; in_pix++) {
-					if (0xFF != buffer[pos]) is_null = false;
+					if (0xFF != buffer[pos]) is_null = 1;
 					pos++;
 				}
-				data.set(pos_pix, is_null);
+				data[pos_pix] = is_null;
 			}
 
 			encoded.setNull();
@@ -72,16 +73,16 @@ namespace MyGUI
 			int x = ((_point.left * width)-1) / _coord.width;
 			int y = ((_point.top * height)-1) / _coord.height;
 
-			return data.test(y * width + x);
+			return 0 != data[y * width + x];
 		}
 
 		inline bool empty() const
 		{
-			return ! data.any();
+			return data.empty();
 		}
 
 	private:
-		std::bitset<64> data;
+		std::vector<char> data;
 		int width, height;
 	};
 

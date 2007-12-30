@@ -43,6 +43,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);
 
 
+	SkinManager::getInstance().load("test.skin");
+
+	button = mGUI->createWidget<Button>("Button_test", 10, 146, 88, 77, ALIGN_RIGHT | ALIGN_TOP, "Main");
 
 
 	/*std::string file = "test.png";

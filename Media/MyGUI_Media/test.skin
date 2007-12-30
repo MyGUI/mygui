@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+
+    <Skin name = "Button_test" size = "87 77" material = "skin_test" mask="mask_test.png">
+        <BasisSkin type="MainSkin" offset = "0 0 87 77" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "43 1 87 77"/>
+            <State name="active" offset = "135 1 87 77"/>
+            <State_ name="select" offset = "135 1 87 77"/>
+        </BasisSkin>
+    </Skin>
+    
+</MyGUI>
+

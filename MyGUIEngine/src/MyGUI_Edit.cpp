@@ -1211,4 +1211,5 @@ namespace MyGUI
 	{
 		setText(_caption, false);
 	}
+
 } // namespace MyGUI
