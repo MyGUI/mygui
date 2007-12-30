@@ -6,7 +6,7 @@
 
 
 //#define OIS_DYNAMIC_LIB
-#include "OIS\\OIS.h"
+#include "OIS/OIS.h"
 
 
 #endif // __MYGUI_WIDGET_OIS_H__

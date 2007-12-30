@@ -72,13 +72,6 @@
 # else
 #     define MYGUI_DEBUG_MODE 0
 # endif
-#
-# if !defined( __MINGW32__ ) 
-#     if MYGUI_COMP_VER < 1500 
-#         define snprintf _snprintf 
-#         define vsnprintf _vsnprintf 
-#     endif 
-# endif
 #endif
 
 // ------------------------------------------------------------------------------
@@ -113,10 +106,6 @@
     //MYGUI_PLATFORM_LINUX
     #define MYGUI_PLATFORM_LIB "libMYGUIPlatform.so"
 #endif
-
-// Always enable unicode support for the moment
-// Perhaps disable in old versions of gcc if necessary
-#define MYGUI_UNICODE_SUPPORT 1
 
 #endif
 

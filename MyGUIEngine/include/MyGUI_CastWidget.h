@@ -7,10 +7,11 @@
 #ifndef __MYGUI_CAST_WIDGET_H__
 #define __MYGUI_CAST_WIDGET_H__
 
+#include "MyGUI_Widget.h"
+
 namespace MyGUI
 {
 	// шаблонный класс для проверки типа виджета
-	class Widget;
 	template <class T> inline T* castWidget(Widget * _widget)
 	{
 	#if MYGUI_DEBUG_MODE == 1

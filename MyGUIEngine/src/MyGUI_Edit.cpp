@@ -1218,7 +1218,7 @@ namespace MyGUI
 	{
 		// обрезаем теги
 		static Ogre::DisplayString caption;
-		caption.swap(TextIterator::getOnlyText(getRealString()));
+		caption = TextIterator::getOnlyText(getRealString());
 		return caption;
 	}
 

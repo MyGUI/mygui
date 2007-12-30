@@ -13,7 +13,15 @@
 
 namespace MyGUI
 {
-
+// dinamic library linking works for win32 only at the moment
+#if MYGUI_PLATFORM != MYGUI_PLATFORM_WIN32
+	DynLib::DynLib( const std::string& name )  {}
+	DynLib::~DynLib() {}
+	void DynLib::load() {}
+	void DynLib::unload() {}
+	void* DynLib::getSymbol( const std::string& strName ) const throw() {}
+	std::string DynLib::dynlibError( void ) {}
+#else
 	DynLib::DynLib( const std::string& name )
 	{
 		mName = name;
@@ -89,4 +97,5 @@ namespace MyGUI
 	#endif
 	}
 
+#endif
 } // namespace MyGUI

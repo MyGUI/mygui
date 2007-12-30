@@ -95,9 +95,11 @@ namespace MyGUI
 		inline bool injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
 
 		// mirror WidgetManaget
-		template <class T> T * findWidget(const std::string& _name)
+		template <class T> inline T * findWidget(const std::string& _name)
 		{
-			return mWidgetManager->findWidget<T>(_name);
+			WidgetPtr widget = mWidgetManager->findWidgetT(_name);
+			if (null == widget) return null;
+			return castWidget<T>(widget);
 		}
 		inline void destroyAllWidget();
 		inline void destroyWidget(WidgetPtr _widget);
