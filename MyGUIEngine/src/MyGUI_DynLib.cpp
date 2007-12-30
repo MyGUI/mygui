@@ -89,4 +89,4 @@ namespace MyGUI
 	#endif
 	}
 
-}
+} // namespace MyGUI

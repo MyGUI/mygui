@@ -8,6 +8,8 @@
 #define __MYGUI_TEXT_CHANGE_HISTORY_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
+#include <Ogre.h>
 
 namespace MyGUI
 {

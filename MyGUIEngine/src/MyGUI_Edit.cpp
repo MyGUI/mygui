@@ -1211,23 +1211,14 @@ namespace MyGUI
 	void Edit::setCaption(const Ogre::DisplayString & _caption)
 	{
 		// преобразуем в строку с тегами
-		Ogre::DisplayString text(_caption);
-		for (Ogre::DisplayString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
-			// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
-			if ('#' == (*iter)) iter = text.insert(++iter, '#');
-		}
-		setText(text, false);
+		setText(TextIterator::toTagsString(_caption), false);
 	}
 
 	const Ogre::DisplayString & Edit::getCaption()
 	{
 		// обрезаем теги
 		static Ogre::DisplayString caption;
-
-		// итератор нашей строки
-		TextIterator iterator(getRealString(), null);
-		caption.swap(iterator.getOnlyText());
-		
+		caption.swap(TextIterator::getOnlyText(getRealString()));
 		return caption;
 	}
 

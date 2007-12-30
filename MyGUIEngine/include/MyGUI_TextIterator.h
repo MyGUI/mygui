@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		11/2007
+	@date		12/2007
 	@module
 */
 #ifndef __MYGUI_TEXT_ITERATOR_H__
@@ -16,164 +16,29 @@ namespace MyGUI
 
 	class _MyGUIExport TextIterator
 	{
+	private:
+		TextIterator();
+
 	public:
-		TextIterator(const Ogre::DisplayString & _text, VectorChangeInfo * _history = null) :
-			mText(_text),
-			mHistory(_history),
-			mCurrent(mText.begin()),
-			mEnd(mText.end()),
-			mSave(mEnd),
-			mPosition(0),
-			mSize(ITEM_NONE),
-			mFirst(true)
-		{
-		}
+		TextIterator(const Ogre::DisplayString & _text, VectorChangeInfo * _history = null);
 
-		bool moveNext()
-		{
-			if (mCurrent == mEnd) return false;
-			else if (mFirst) {mFirst=false;return true;}
-
-			// ставим на следующий символ проскакивая все тэги
-			for (Ogre::DisplayString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
-
-				if ((*iter) == '#') {
-
-					// следующий символ
-					++ iter;
-					if (iter == mEnd) {
-						mCurrent = mEnd;
-						return false;
-					}
-
-					// две решетки подряд
-					if ((*iter) == '#') {
-
-						// следующий символ
-						mPosition ++;
-						iter++;
-						if (iter == mEnd) {
-							mCurrent = mEnd;
-							return false;
-						}
-
-						// указатель на следующий символ
-						mCurrent = iter;
-						return true;
-					}
-
-					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++) {
-						// следующий символ
-						++ iter;
-						if (iter == mEnd) {
-							mCurrent = mEnd;
-							return false;
-						}
-					}
-
-				} else {
-
-					// обыкновенный символ
-					mPosition ++;
-					iter++;
-					if (iter == mEnd) {
-						mCurrent = mEnd;
-						return false;
-					}
-
-					// указатель на следующий символ
-					mCurrent = iter;
-					return true;
-				}
-			}
-
-			return false;
-		}
+		bool moveNext();
 
 		// возвращает цвет
-		inline Ogre::DisplayString getTagColour(bool _clear = false)
-		{
-			if (mCurrent == mEnd) return L"";
-
-			Ogre::DisplayString::iterator iter = mCurrent;
-			Ogre::DisplayString colour;
-			// нам нужен последний цвет
-			while (getTagColour(colour, iter)) {
-				if (_clear) {
-					// обязательно обновляем итераторы
-					iter = mCurrent = erase(mCurrent, iter);
-					mEnd = mText.end();
-				}
-			};
-			return colour;
-		}
+		Ogre::DisplayString getTagColour(bool _clear = false);
 
 		// возвращает цвет
-		inline bool getTagColour(Ogre::DisplayString & _colour)
-		{
-			if (mCurrent == mEnd) return false;
-
-			Ogre::DisplayString::iterator iter = mCurrent;
-
-			// нам нужен последний цвет
-			bool ret = false;
-			while (true) {
-				if (!getTagColour(_colour, iter)) break;
-				ret = true;
-			};
-
-			return ret;
-		}
+		bool getTagColour(Ogre::DisplayString & _colour);
 
 		// удаляет цвет
 		inline void clearTagColour() {getTagColour(true);}
 
-		bool setTagColour(const Ogre::ColourValue & _colour)
-		{
-			if (mCurrent == mEnd) return false;
-			// очищаем все цвета
-			clearTagColour();
-			// на всякий
-			if (mCurrent == mEnd) return false;
+		bool setTagColour(const Ogre::ColourValue & _colour);
 
-			char buff[16];
-			sprintf(buff, "#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
-
-			// непосредственная вставка
-			Ogre::DisplayString tmpStr = Ogre::DisplayString(buff);
-			insert(mCurrent, tmpStr);
-
-			return true;
-		}
-
-		bool setTagColour(Ogre::DisplayString _colour)
-		{
-			if (mCurrent == mEnd) return false;
-			// очищаем все цвета
-			clearTagColour();
-			// на всякий
-			if (mCurrent == mEnd) return false;
-
-			// проверяем на цвет хоть чуть чуть
-			if ( (_colour.size() != 7) || (_colour.find('#', 1) != _colour.npos) ) return false;
-
-			// непосредственная вставка
-			insert(mCurrent, _colour);
-
-			return true;
-		}
-
-		// просто конвертируем цвет в строку
-		inline static Ogre::DisplayString convertTagColour(const Ogre::ColourValue & _colour)
-		{
-			wchar_t buff[16];
-			::wsprintfW(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
-			return buff;
-		}
+		bool setTagColour(Ogre::DisplayString _colour);
 
 		// сохраняет текущий итератор
-		bool saveStartPoint()
+		inline bool saveStartPoint()
 		{
 			if (mCurrent == mEnd) return false;
 			mSave = mCurrent;
@@ -181,7 +46,7 @@ namespace MyGUI
 		}
 
 		// возвращает строку от сохраненного итератора до текущего
-		Ogre::DisplayString getFromStart()
+		inline Ogre::DisplayString getFromStart()
 		{
 			if (mSave == mEnd) return "";
 			size_t start = mSave-mText.begin();
@@ -189,7 +54,7 @@ namespace MyGUI
 		}
 
 		// удаляет от запомненной точки до текущей
-		bool eraseFromStart()
+		inline bool eraseFromStart()
 		{
 			if (mSave == mEnd) return false;
 			mCurrent = erase(mSave, mCurrent);
@@ -202,14 +67,14 @@ namespace MyGUI
 
 		inline const Ogre::DisplayString & getText() {return mText;}
 
-		void insertText(const Ogre::DisplayString & _insert, bool _multiLine)
+		inline void insertText(const Ogre::DisplayString & _insert, bool _multiLine)
 		{
 			Ogre::DisplayString text = _insert;
 			if (false == _multiLine) clearNewLine(text);
 			insert(mCurrent, text);
 		}
 
-		void clearNewLine(Ogre::DisplayString & _text)
+		inline void clearNewLine(Ogre::DisplayString & _text)
 		{
 			for (Ogre::DisplayString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
 				if ( ((*iter) == Font::FONT_CODE_NEL) || ((*iter) == Font::FONT_CODE_CR) || ((*iter) == Font::FONT_CODE_LF) )
@@ -218,49 +83,12 @@ namespace MyGUI
 		}
 
 		//очищает весь текст
-		void clearText() {clear();}
+		inline void clearText() {clear();}
 
 		// возвращает размер строки
-		size_t getSize()
-		{
-			if (mSize != ITEM_NONE) return mSize;
-			mSize = mPosition;
+		size_t getSize();
 
-			for (Ogre::DisplayString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
-
-				if ((*iter) == '#') {
-					// следующий символ
-					++ iter;
-					if (iter == mEnd) break;
-
-					// тэг цвета
-					if ((*iter) != '#') {
-						// остальные 5 символов цвета
-						for (size_t pos=0; pos<5; pos++) {
-							++ iter;
-							if (iter == mEnd) break;
-						}
-						continue;
-					}
-				}
-
-				// обыкновенный символ
-				mSize ++;
-			}
-
-			return mSize;
-		}
-
-		inline static Ogre::DisplayString getTextNewLine() {return "\n";}
-		inline static Ogre::DisplayString getTextCharInfo(wchar_t _char)
-		{
-			if (_char == L'#') return L"##";
-			wchar_t buff[16] = L"_\0";
-			buff[0] = _char;
-			return buff;
-		}
-
-		void setText(const Ogre::DisplayString & _text, bool _multiLine)
+		inline void setText(const Ogre::DisplayString & _text, bool _multiLine)
 		{
 			// сначала все очищаем
 			clear();
@@ -270,108 +98,48 @@ namespace MyGUI
 			insert(mCurrent, text);
 		}
 
-		void cutMaxLength(size_t _max)
-		{
-			if ( (mSize != ITEM_NONE) && (mSize <= _max) ) return;
-			if (mPosition > _max) {
-				// придется считать сначала
-				mSize = mPosition = 0;
-				mCurrent = mText.begin();
-				mEnd = mSave = mText.end();
-			}
-
-			mSize = mPosition;
-
-			for (Ogre::DisplayString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
-
-				if ((*iter) == '#') {
-					// следующий символ
-					++ iter;
-					if (iter == mEnd) break;
-
-					// тэг цвета
-					if ((*iter) != '#') {
-						// остальные 5 символов цвета
-						for (size_t pos=0; pos<5; pos++) {
-							++ iter;
-							if (iter == mEnd) break;
-						}
-						continue;
-					}
-				}
-
-				// проверяем и обрезаем
-				if (mSize == _max) {
-					mPosition = mSize; // сохраняем
-					mCurrent = erase(iter, mEnd);
-					mSave = mEnd = mText.end();
-					mSize = mPosition; // восстанавливаем
-					return;
-				}
-
-				// увеличиваем
-				mSize ++;
-			}
-		}
+		void cutMaxLength(size_t _max);
 
 		// возвращает текст без тегов
-		Ogre::DisplayString getOnlyText()
+		static Ogre::DisplayString getOnlyText(const Ogre::DisplayString& _text);
+
+		inline static Ogre::DisplayString getTextNewLine()
 		{
-			Ogre::DisplayString ret;
-			ret.reserve(mText.size());
-
-			for (Ogre::DisplayString::iterator iter=mText.begin(); iter!=mEnd; ++iter) {
-
-				if ((*iter) == '#') {
-					// следующий символ
-					++ iter;
-					if (iter == mEnd) break;
-
-					// тэг цвета
-					if ((*iter) != '#') {
-						// остальные 5 символов цвета
-						for (size_t pos=0; pos<5; pos++) {
-							++ iter;
-							if (iter == mEnd) break;
-						}
-						continue;
-					}
-				}
-
-				// обыкновенный символ
-				ret.push_back(*iter);
-			}
-
-			return ret;
+			return "\n";
 		}
+
+		inline static Ogre::DisplayString getTextCharInfo(wchar_t _char)
+		{
+			if (_char == L'#') return L"##";
+			wchar_t buff[16] = L"_\0";
+			buff[0] = _char;
+			return buff;
+		}
+
+		// просто конвертируем цвет в строку
+		inline static Ogre::DisplayString convertTagColour(const Ogre::ColourValue & _colour)
+		{
+			wchar_t buff[16];
+			::wsprintfW(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+			return buff;
+		}
+
+		inline static Ogre::DisplayString toTagsString(const Ogre::DisplayString& _text)
+		{
+			// преобразуем в строку с тегами
+			Ogre::DisplayString text(_text);
+			for (Ogre::DisplayString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
+				// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
+				if ('#' == (*iter)) iter = text.insert(++iter, '#');
+			}
+			return text;
+		}
+
 
 	private:
 
 		// возвращает цвет
-		bool getTagColour(Ogre::DisplayString & _colour, Ogre::DisplayString::iterator & _iter)
-		{
-			if ( (_iter == mEnd) || ((*_iter) != '#') ) return false;
-
-			// следующий символ
-			++_iter;
-			if ( (_iter == mEnd) || ((*_iter) == '#') ) return false;
-
-			// берем цвет
-			wchar_t buff[16] = L"#FFFFFF\0";
-			buff[1] = (wchar_t)(*_iter);
-			for (size_t pos=2; pos<7; pos++) {
-				++_iter;
-				if ( _iter == mEnd ) return false;
-				buff[pos] = (wchar_t)(*_iter);
-			}
-
-			// ставим на следующий тег или символ
-			++_iter;
-
-			// возвращаем цвет
-			_colour = buff;
-			return true;
-		}
+		bool getTagColour(Ogre::DisplayString & _colour, Ogre::DisplayString::iterator & _iter);
 
 		inline void insert(Ogre::DisplayString::iterator & _start, Ogre::DisplayString & _insert)
 		{

@@ -69,5 +69,4 @@ namespace MyGUI
 		library->unload();
 		delete library;
 	}
-
 }

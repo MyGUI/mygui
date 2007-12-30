@@ -384,6 +384,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_TextIterator.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\updateWidgetFromEntity.cpp"
 					>
 				</File>
