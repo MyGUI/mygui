@@ -2,7 +2,7 @@
 
 <MyGUI type="Skin">
 
-    <Skin name = "Button" size = "54 26" material = "MyGUI_main" >
+    <Skin name = "Button" size = "54 26" material = "MyGUI_main">
         <Property key="FontName" value = "MyGUI_font" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />

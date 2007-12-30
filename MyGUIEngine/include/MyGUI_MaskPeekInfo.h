@@ -9,6 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
+#include "OgreCodec.h"
+#include "OgreImageCodec.h"
 
 namespace MyGUI
 {
@@ -16,38 +18,70 @@ namespace MyGUI
 	class _MyGUIExport MaskPeekInfo
 	{
 	public:
-		MaskPeekInfo() :
-		  width(0), height(0)
+		MaskPeekInfo() : width(0), height(0) { }
+
+		bool load(const std::string& _file)
 		{
-			/*data.push_back(0);
-			data.push_back(1);
-			data.push_back(1);
-			data.push_back(0);
-			width = 2;
-			height = 2;*/
+			std::string ext;
+
+			size_t pos = _file.find_last_of(".");
+			if ( pos == std::string::npos ) {
+				MYGUI_LOG("Unable to load image file '", _file, "' - invalid extension.");
+				return false;
+			}
+
+			while ( pos != (_file.length()-1) ) ext += _file[++pos];
+
+			Ogre::Codec * pCodec = Ogre::Codec::getCodec(ext);
+			if ( ! pCodec ) {
+				MYGUI_LOG("Unable to load image file '", _file, "' - no find codec for '", ext, "' extension.");
+				return false;
+			}
+
+			Ogre::DataStreamPtr encoded = Ogre::ResourceGroupManager::getSingleton().openResource(_file);
+			Ogre::Codec::DecodeResult res = pCodec->decode(encoded);
+			Ogre::ImageCodec::ImageData* pData = static_cast<Ogre::ImageCodec::ImageData*>(res.second.getPointer());
+
+			unsigned char * buffer = res.first->getPtr();
+			unsigned char pixel_size = static_cast<unsigned char>(Ogre::PixelUtil::getNumElemBytes( pData->format ));
+
+			width = (int)pData->width;
+			height = (int)pData->height;
+			size_t size = pData->width * pData->height;
+
+			pos = 0;
+			for (size_t pos_pix=0; pos_pix<size; pos_pix++) {
+				bool is_null = true;
+				for (size_t in_pix=0; in_pix<pixel_size; in_pix++) {
+					if (0xFF != buffer[pos]) is_null = false;
+					pos++;
+				}
+				data.set(pos_pix, is_null);
+			}
+
+			encoded.setNull();
+			res.first.setNull();
+			res.second.setNull();
+			return true;
 		}
 
-		MaskPeekInfo(const std::string& _file)
-		{
-		}
-
-		bool peek(const IntPoint& _point, const IntCoord& _coord) const
+		inline bool peek(const IntPoint& _point, const IntCoord& _coord) const
 		{
 			if ((0 == _coord.width) || (0 == _coord.height)) return false;
 
 			int x = ((_point.left * width)-1) / _coord.width;
 			int y = ((_point.top * height)-1) / _coord.height;
 
-			return (0 != data[y * width + x]);
+			return data.test(y * width + x);
 		}
 
-		bool empty() const
+		inline bool empty() const
 		{
-			return data.empty();
+			return ! data.any();
 		}
 
 	private:
-		std::vector<unsigned char> data;
+		std::bitset<64> data;
 		int width, height;
 	};
 

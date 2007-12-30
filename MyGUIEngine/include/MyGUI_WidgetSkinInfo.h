@@ -48,6 +48,11 @@ namespace MyGUI
 			mChilds.push_back(_child);
 		}
 
+		inline bool loadMask(const std::string& _file)
+		{
+			return mMaskPeek.load(_file);
+		}
+
 	private:
 		void checkState(const MapSubWidgetStateInfo & _states)
 		{

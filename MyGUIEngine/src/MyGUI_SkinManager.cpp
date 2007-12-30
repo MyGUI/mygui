@@ -133,6 +133,11 @@ namespace MyGUI
 			widget_info->setInfo(size, skinMaterial);
 			FloatSize materialSize = getMaterialSize(skinMaterial);
 
+			// проверяем маску
+			if (skin->findAttribute("mask", tmp)) {
+				if (false == widget_info->loadMask(tmp)) MYGUI_ERROR("Skin: " + _file + ", mask not load '" + tmp + "'");
+			}
+
 			// берем детей и крутимся, цикл с саб скинами
 			xml::xmlNodeIterator basis = skin->getNodeIterator();
 			while (basis.nextNode()) {

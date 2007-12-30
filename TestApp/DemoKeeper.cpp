@@ -13,6 +13,10 @@
 #include "MyGUI_List.h"
 #include "MyGUI_ComboBox.h"
 
+#include "OgreCodec.h"
+#include "OgreImageCodec.h"
+#include "OgreException.h"
+
 using namespace MyGUI;
 
 const size_t MAX_CREATE_WINDOW = 20;
@@ -38,10 +42,43 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	button->setCaption(L"Edit demo + auto alpha");
 	button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);
 
-	/*EditPtr edit = mGUI->createWidget<Edit>("Edit", IntCoord(10, 80, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
-	edit->setText(L"#00FF00demo");
-	MYGUI_OUT(edit->getCaption());*/
-//	widget->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton1);
+
+
+
+	/*std::string file = "test.png";
+	std::string ext;
+
+	size_t pos = file.find_last_of(".");
+	if( pos == std::string::npos )
+		OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, 
+		"Unable to load image file '" + file + "' - invalid extension.", "Image::load" );
+
+	while ( pos != (file.length()-1) ) ext += file[++pos];
+
+	Ogre::Codec * pCodec = Ogre::Codec::getCodec(ext);
+	if ( !pCodec ) OGRE_EXCEPT( Ogre::Exception::ERR_INVALIDPARAMS, 
+		"Unable to load image file '" + file + "' - invalid extension.", "Image::load" );
+
+	Ogre::DataStreamPtr encoded = Ogre::ResourceGroupManager::getSingleton().openResource(file);
+	Ogre::Codec::DecodeResult res = pCodec->decode(encoded);
+	Ogre::ImageCodec::ImageData* pData = static_cast<Ogre::ImageCodec::ImageData*>(res.second.getPointer());
+
+	unsigned char * buffer = res.first->getPtr();
+
+	unsigned char pixel_size = static_cast<unsigned char>(Ogre::PixelUtil::getNumElemBytes( pData->format ));
+
+	pos = 0;
+	for (size_t y=0; y<pData->height; y++) {
+		for (size_t x=0; x<pData->width; x++) {
+			bool is_null = true;
+			for (size_t in_pix=0; in_pix<pixel_size; in_pix++) {
+				if (0xFF != buffer[pos]) is_null = false;
+				pos++;
+			}
+		}
+	}*/
+
+
 }
 
 void DemoKeeper::end()
