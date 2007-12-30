@@ -56,28 +56,29 @@
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #
 #	if defined( MYGUI_NONCLIENT_BUILD )
-#       	define _MyGUIExport __declspec( dllexport )
-#   	else
-#           if defined( __MINGW32__ )
-#               define _MyGUIExport
-#           else
-#       	    define _MyGUIExport __declspec( dllimport )
-#           endif
-#   	endif
-#endif
-
-// Win32 compilers use _DEBUG for specifying debug builds.
-#   ifdef _DEBUG
-#       define MYGUI_DEBUG_MODE 1
-#   else
-#       define MYGUI_DEBUG_MODE 0
-#   endif
-
-#if (MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32) && !defined( __MINGW32__ ) 
-# if MYGUI_COMP_VER < 1500 
-    #define snprintf _snprintf 
-    #define vsnprintf _vsnprintf 
-# endif 
+#     define _MyGUIExport __declspec( dllexport )
+# else
+#     if defined( __MINGW32__ )
+#          define _MyGUIExport
+#     else
+#         define _MyGUIExport __declspec( dllimport )
+#     endif
+# endif
+#
+#
+#// Win32 compilers use _DEBUG for specifying debug builds.
+# ifdef _DEBUG
+#     define MYGUI_DEBUG_MODE 1
+# else
+#     define MYGUI_DEBUG_MODE 0
+# endif
+#
+# if !defined( __MINGW32__ ) 
+#     if MYGUI_COMP_VER < 1500 
+#         define snprintf _snprintf 
+#         define vsnprintf _vsnprintf 
+#     endif 
+# endif
 #endif
 
 // ------------------------------------------------------------------------------
