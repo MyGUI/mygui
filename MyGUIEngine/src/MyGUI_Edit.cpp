@@ -6,7 +6,6 @@
 */
 #include "MyGUI_Gui.h"
 #include "MyGUI_Edit.h"
-#include "MyGUI_TextIterator.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ClipboardManager.h"
@@ -1210,10 +1209,11 @@ namespace MyGUI
 
 	void Edit::setCaption(const Ogre::DisplayString & _caption)
 	{
-		// преобразуем в строку с тегами
-		setText(TextIterator::toTagsString(_caption), false);
+		setText(_caption, false);
 	}
 
+<<<<<<< .mine
+=======
 	const Ogre::DisplayString & Edit::getCaption()
 	{
 		// обрезаем теги
@@ -1222,4 +1222,5 @@ namespace MyGUI
 		return caption;
 	}
 
+>>>>>>> .r318
 } // namespace MyGUI

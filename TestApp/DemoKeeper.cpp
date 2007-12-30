@@ -380,9 +380,9 @@ void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
 	ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
 	if (list == null) return;
 
-	const Ogre::DisplayString& text = castWidget<ComboBox>(_sender)->getText();
-	if (false == text.empty()) {
-		list->addItemString(text);
+	const Ogre::DisplayString& caption = _sender->getCaption();
+	if (false == caption.empty()) {
+		list->addItemString(caption);
 		_sender->setCaption("");
 	}
 }

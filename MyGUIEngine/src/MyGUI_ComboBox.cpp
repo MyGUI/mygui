@@ -102,7 +102,7 @@ namespace MyGUI
 			mItemIndex = pos;
 			str = mList->getItemString(pos);
 		}
-		Edit::setText(str);
+		Edit::setCaption(str);
 
 		mDropMouse = false;
 
@@ -133,7 +133,7 @@ namespace MyGUI
 	{
 		if (_position != ITEM_NONE) {
 			mItemIndex = _position;
-			Edit::setText(mList->getItemString(_position));
+			Edit::setCaption(mList->getItemString(_position));
 		}
 
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -151,7 +151,7 @@ namespace MyGUI
 			if (mItemIndex != 0) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex --;
-				Edit::setText(mList->getItemString(mItemIndex));
+				Edit::setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
 			}
@@ -160,7 +160,7 @@ namespace MyGUI
 			if ((mItemIndex+1) < mList->getItemCount()) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;
-				Edit::setText(mList->getItemString(mItemIndex));
+				Edit::setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
 			}

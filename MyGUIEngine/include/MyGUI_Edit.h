@@ -11,6 +11,7 @@
 #include "MyGUI_EditFactory.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_TextChangeHistory.h"
+#include "MyGUI_TextIterator.h"
 
 namespace MyGUI
 {
@@ -32,14 +33,12 @@ namespace MyGUI
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("Edit"); return type;}
 
-		// работа с текстом без тегов
-		virtual void setCaption(const Ogre::DisplayString & _caption);
-		virtual const Ogre::DisplayString & getCaption();
-
 		// работа с текстом с тегами
-		inline void setText(const Ogre::DisplayString & _text) {setText(_text, false);}
-		inline const Ogre::DisplayString& getText() {return getRealString();}
-		Ogre::DisplayString getText(size_t _start, size_t _count);
+		virtual void setCaption(const Ogre::DisplayString & _caption);
+
+		// работа с текстом без тегов
+		inline void setOnlyText(const Ogre::DisplayString & _text) {setText(TextIterator::toTagsString(_text), false);}
+		inline Ogre::DisplayString getOnlyText() {return TextIterator::getOnlyText(getRealString());}
 
 		// возвращает выделение
 		void getTextSelect(size_t & _start, size_t & _end);
@@ -59,6 +58,8 @@ namespace MyGUI
 		// наружу выставляем инлайны со сбросом истории
 		//---------------------------------------------------------------//
 
+		// возвращает текст с тегами
+		Ogre::DisplayString getText(size_t _start, size_t _count);
 		// удаляет все что выделенно
 		inline bool deleteTextSelect() {return deleteTextSelect(false);}
 		// вставляет текст в указанную позицию
