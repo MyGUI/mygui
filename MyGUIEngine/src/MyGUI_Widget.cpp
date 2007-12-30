@@ -14,6 +14,7 @@ namespace MyGUI
 
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
+		mMaskPeekInfo(_info->getMask()),
 		UserData(),
 		mText(null),
 		mVisible(true),
@@ -419,13 +420,17 @@ namespace MyGUI
 	LayerItemInfoPtr Widget::findItem(int _left, int _top)
 	{
 		// проверяем попадание
-		if (!mVisible || !mShow || !_checkPoint(_left, _top)) return 0;
+		if (!mVisible || !mShow || !_checkPoint(_left, _top)) return null;
+		// если есть маска, проверяем еще и по маске
+		if ((false == mMaskPeekInfo.empty()) &&
+			(false == mMaskPeekInfo.peek(IntPoint(_left, _top)-mCoord.point(), mCoord))) return null;
 		// останавливаем каскадную проверку
-		if (!mEnabled) return this;
-		// спрашиваем у детишек
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) {
-			LayerItemInfoPtr item = (*widget)->findItem(_left - mCoord.left, _top - mCoord.top);
-			if (item != null) return item;
+		if (mEnabled) {
+			// спрашиваем у детишек
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) {
+				LayerItemInfoPtr item = (*widget)->findItem(_left - mCoord.left, _top - mCoord.top);
+				if (item != null) return item;
+			}
 		}
 		// непослушные дети
 		return this;
@@ -471,7 +476,7 @@ namespace MyGUI
 	}
 
 	// вспомогательный метод для распарсивания сабвиджетофф
-	WidgetPtr Widget::parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer)
+	/*WidgetPtr Widget::parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer)
 	{
 		// парсим заголовок
 		MapString::const_iterator iter = _param.find(_skin);
@@ -496,7 +501,7 @@ namespace MyGUI
 			
 		}
 		return null;
-	}
+	}*/
 
 	// удяляет только негодных батюшке государю
 	void Widget::_destroyChildWidget(WidgetPtr _widget)

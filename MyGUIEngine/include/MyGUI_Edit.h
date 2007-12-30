@@ -32,8 +32,15 @@ namespace MyGUI
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("Edit"); return type;}
 
-		// устанавливает текст
+		// работа с текстом без тегов
 		virtual void setCaption(const Ogre::DisplayString & _caption);
+		virtual const Ogre::DisplayString & getCaption();
+
+		// работа с текстом с тегами
+		inline void setText(const Ogre::DisplayString & _text) {setText(_text, false);}
+		inline const Ogre::DisplayString& getText() {return getRealString();}
+		Ogre::DisplayString getText(size_t _start, size_t _count);
+
 		// возвращает выделение
 		void getTextSelect(size_t & _start, size_t & _end);
 		// выделен ли текст
@@ -47,8 +54,6 @@ namespace MyGUI
 		void setTextCursor(size_t _index);
 		// устанавливает выделение
 		void setTextSelect(size_t _start, size_t _end);
-		// возвращает текст
-		Ogre::DisplayString getText(size_t _start, size_t _count);
 
 		//---------------------------------------------------------------//
 		// наружу выставл€ем инлайны со сбросом истории
@@ -106,8 +111,7 @@ namespace MyGUI
 			mModeMultiline = _multi;
 			// на вс€кий, дл€ уберани€ переносов
 			if (false == mModeMultiline) {
-				setCaption(getRealString());
-				//setRealString(getRealString());
+				setText(getRealString(), false);
 			}
 			// обновл€ем по размерам
 			else updateView(false);

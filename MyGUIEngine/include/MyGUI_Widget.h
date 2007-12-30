@@ -54,7 +54,7 @@ namespace MyGUI
 		bool isWidget() {return true;}
 
 		// вспомогательный метод для распарсивания сабвиджетофф
-		WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer = "");
+		//WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer = "");
 
 	public:
 		// методы и шаблоны для создания виджета
@@ -136,7 +136,7 @@ namespace MyGUI
 		virtual VectorWidgetPtr getLinkedChilds();
 
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
-		LayerItemInfoPtr findItem(int _left, int _top);
+		virtual LayerItemInfoPtr findItem(int _left, int _top);
 
 		inline bool isNeedKeyFocus() {return mNeedKeyFocus;}
 		inline void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
@@ -170,6 +170,8 @@ namespace MyGUI
 	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;
+		// информация о маске для пикинга
+		const MaskPeekInfo & mMaskPeekInfo;
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;

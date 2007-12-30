@@ -541,6 +541,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_MaskPeekInfo.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_SubWidgetBinding.h"
 						>
 					</File>

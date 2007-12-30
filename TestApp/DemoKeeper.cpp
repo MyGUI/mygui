@@ -37,6 +37,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	ButtonPtr button = mGUI->createWidget<Button>("Button", 10, 46, 200, 26, ALIGN_RIGHT | ALIGN_TOP, "Main");
 	button->setCaption(L"Edit demo + auto alpha");
 	button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);
+
+	/*EditPtr edit = mGUI->createWidget<Edit>("Edit", IntCoord(10, 80, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	edit->setText(L"#00FF00demo");
+	MYGUI_OUT(edit->getCaption());*/
+//	widget->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton1);
 }
 
 void DemoKeeper::end()
@@ -310,14 +315,16 @@ void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
 	ComboBoxPtr combo = mGUI->findWidget<ComboBox>(_sender->getUserString("ComboBox"));
 	if (combo == null) return;
 
-	ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
+	notifyEditAccept(combo);
+
+	/*ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
 	if (list == null) return;
 
-	const Ogre::DisplayString& caption = combo->getCaption();
+	const Ogre::DisplayString& caption = castWidget<ComboBox>(combo)->getText();
 	if (false == caption.empty()) {
 		list->addItemString(caption);
 		combo->setCaption("");
-	}
+	}*/
 }
 
 void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
@@ -336,9 +343,9 @@ void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
 	ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
 	if (list == null) return;
 
-	const Ogre::DisplayString& caption = _sender->getCaption();
-	if (false == caption.empty()) {
-		list->addItemString(caption);
+	const Ogre::DisplayString& text = castWidget<ComboBox>(_sender)->getText();
+	if (false == text.empty()) {
+		list->addItemString(text);
 		_sender->setCaption("");
 	}
 }

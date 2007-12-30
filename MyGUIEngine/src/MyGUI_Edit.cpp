@@ -876,11 +876,6 @@ namespace MyGUI
 		else {_start = mStartSelect; _end = mEndSelect;}
 	}
 
-	void Edit::setCaption(const Ogre::DisplayString & _caption)
-	{
-		setText(_caption, false);
-	}
-
 	void Edit::setText(const Ogre::DisplayString & _caption, bool _history)
 	{
 		// сбрасываем выделение
@@ -941,6 +936,7 @@ namespace MyGUI
 		// дефолтный цвет
 		Ogre::DisplayString colour = TextIterator::convertTagColour(mText->getColour());
 		// нужен ли тег текста
+		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
 		bool need_colour = ( (_text.size() > 6) && (_text[0] == '#') && (_text[1] != '#') );
 
 		// цикл прохода по строке
@@ -1210,6 +1206,29 @@ namespace MyGUI
 
 		mText->setTextShift(point + offset);
 
+	}
+
+	void Edit::setCaption(const Ogre::DisplayString & _caption)
+	{
+		// преобразуем в строку с тегами
+		Ogre::DisplayString text(_caption);
+		for (Ogre::DisplayString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
+			// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
+			if ('#' == (*iter)) iter = text.insert(++iter, '#');
+		}
+		setText(text, false);
+	}
+
+	const Ogre::DisplayString & Edit::getCaption()
+	{
+		// обрезаем теги
+		static Ogre::DisplayString caption;
+
+		// итератор нашей строки
+		TextIterator iterator(getRealString(), null);
+		caption.swap(iterator.getOnlyText());
+		
+		return caption;
 	}
 
 } // namespace MyGUI

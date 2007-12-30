@@ -51,7 +51,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(_index < mList->getItemCount());
 			mItemIndex = _index;
-			Edit::setCaption(mList->getItemString(_index));
+			Edit::setText(mList->getItemString(_index));
 		}
 
 		inline size_t getComboItemIndex()
@@ -59,10 +59,10 @@ namespace MyGUI
 			return mItemIndex;
 		}
 
-		virtual void setCaption(const Ogre::DisplayString& _text)
+		/*virtual void setCaption(const Ogre::DisplayString& _text)
 		{
 			if (false == mModeDrop) Edit::setCaption(_text);
-		}
+		}*/
 
 		inline void setComboModeDrop(bool _drop)
 		{

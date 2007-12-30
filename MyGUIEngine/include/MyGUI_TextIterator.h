@@ -314,6 +314,37 @@ namespace MyGUI
 			}
 		}
 
+		// возвращает текст без тегов
+		Ogre::DisplayString getOnlyText()
+		{
+			Ogre::DisplayString ret;
+			ret.reserve(mText.size());
+
+			for (Ogre::DisplayString::iterator iter=mText.begin(); iter!=mEnd; ++iter) {
+
+				if ((*iter) == '#') {
+					// следующий символ
+					++ iter;
+					if (iter == mEnd) break;
+
+					// тэг цвета
+					if ((*iter) != '#') {
+						// остальные 5 символов цвета
+						for (size_t pos=0; pos<5; pos++) {
+							++ iter;
+							if (iter == mEnd) break;
+						}
+						continue;
+					}
+				}
+
+				// обыкновенный символ
+				ret.push_back(*iter);
+			}
+
+			return ret;
+		}
+
 	private:
 
 		// возвращает цвет
