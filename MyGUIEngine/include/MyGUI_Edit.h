@@ -37,7 +37,7 @@ namespace MyGUI
 		// возвращает выделение
 		void getTextSelect(size_t & _start, size_t & _end);
 		// выделен ли текст
-		inline bool isTextSelect() {return ( (mStartSelect != SIZE_MAX) && (mStartSelect != mEndSelect) );}
+		inline bool isTextSelect() {return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) );}
 		// возвращает выделенный текст
 		Ogre::DisplayString getSelectedText();
 
@@ -57,7 +57,7 @@ namespace MyGUI
 		// удаляет все что выделенно
 		inline bool deleteTextSelect() {return deleteTextSelect(false);}
 		// вставляет текст в указанную позицию
-		inline void insertText(const Ogre::DisplayString & _text, size_t _index = SIZE_MAX) {insertText(_text, _index, false);}
+		inline void insertText(const Ogre::DisplayString & _text, size_t _index = ITEM_NONE) {insertText(_text, _index, false);}
 		// добавляет текст в конец
 		inline void addText(const Ogre::DisplayString & _text) {addText(_text, false);}
 		// удаляет текст
@@ -154,7 +154,7 @@ namespace MyGUI
 		// вставляет текст в указанную позицию
 		void insertText(const Ogre::DisplayString & _text, size_t _index, bool _history);
 		// добавляет текст в конец
-		inline void addText(const Ogre::DisplayString & _text, bool _history) {insertText(_text, SIZE_MAX, _history);}
+		inline void addText(const Ogre::DisplayString & _text, bool _history) {insertText(_text, ITEM_NONE, _history);}
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
@@ -200,8 +200,8 @@ namespace MyGUI
 
 		inline void resetSelect()
 		{
-			if (mStartSelect != SIZE_MAX) {
-				mStartSelect = SIZE_MAX;
+			if (mStartSelect != ITEM_NONE) {
+				mStartSelect = ITEM_NONE;
 				mText->setTextSelect(0, 0);
 			}
 		}

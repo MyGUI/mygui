@@ -35,7 +35,7 @@ namespace MyGUI
 		mTextLength(0),
 		mShiftPressed(false),
 		mCtrlPressed(false),
-		mStartSelect(SIZE_MAX),
+		mStartSelect(ITEM_NONE),
 		mHalfCursor(1, 1),
 		mMouseLeftPressed(false),
 		mActionMouseTimer(0),
@@ -158,7 +158,7 @@ namespace MyGUI
 		mWidgetCursor->setPosition(point);
 
 		// если не было выделения
-		if (mStartSelect == SIZE_MAX) mStartSelect = Old;
+		if (mStartSelect == ITEM_NONE) mStartSelect = Old;
 
 		// меняем выделение
 		mEndSelect = (size_t)mCursorPosition;
@@ -374,7 +374,7 @@ namespace MyGUI
 		} else if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) {
 			if ( ! mShiftPressed) {
 				mShiftPressed = true;
-				if (mStartSelect == SIZE_MAX) {
+				if (mStartSelect == ITEM_NONE) {
 					mStartSelect = mEndSelect = mCursorPosition;
 				}
 			}
@@ -827,15 +827,15 @@ namespace MyGUI
 		else if (_point.left == mWidgetUpper->getWidth()-mHalfCursor.width) _point.left = mWidgetUpper->getWidth() - mWidgetCursor->getWidth();
 		mWidgetCursor->setPosition(_point);
 
-		if ( (mShiftPressed) && (mStartSelect != SIZE_MAX) ) {
+		if ( (mShiftPressed) && (mStartSelect != ITEM_NONE) ) {
 			// меняем выделение
 			mEndSelect = (size_t)mCursorPosition;
 			if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
 			else mText->setTextSelect(mStartSelect, mEndSelect);
 
-		} else if (mStartSelect != SIZE_MAX) {
+		} else if (mStartSelect != ITEM_NONE) {
 			// сбрасываем шифт
-			mStartSelect = SIZE_MAX;
+			mStartSelect = ITEM_NONE;
 			mText->setTextSelect(0, 0);
 		}
 
@@ -871,7 +871,7 @@ namespace MyGUI
 
 	void Edit::getTextSelect(size_t & _start, size_t & _end)
 	{
-		if (mStartSelect == SIZE_MAX) {_start=SIZE_MAX; _end=SIZE_MAX;}
+		if (mStartSelect == ITEM_NONE) {_start=ITEM_NONE; _end=ITEM_NONE;}
 		else if (mStartSelect > mEndSelect) {_start = mEndSelect; _end = mStartSelect;}
 		else {_start = mStartSelect; _end = mEndSelect;}
 	}

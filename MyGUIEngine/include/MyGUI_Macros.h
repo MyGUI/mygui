@@ -11,6 +11,7 @@ namespace MyGUI
 {
 
 	#define null 0
+  #undef ITEM_NONE
 	#define ITEM_NONE ((size_t)-1)
 
 	#define BIN__N(x) (x) | x>>3 | x>>6 | x>>9

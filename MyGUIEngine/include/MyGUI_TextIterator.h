@@ -24,7 +24,7 @@ namespace MyGUI
 			mEnd(mText.end()),
 			mSave(mEnd),
 			mPosition(0),
-			mSize(SIZE_MAX),
+			mSize(ITEM_NONE),
 			mFirst(true)
 		{
 		}
@@ -223,7 +223,7 @@ namespace MyGUI
 		// возвращает размер строки
 		size_t getSize()
 		{
-			if (mSize != SIZE_MAX) return mSize;
+			if (mSize != ITEM_NONE) return mSize;
 			mSize = mPosition;
 
 			for (Ogre::DisplayString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
@@ -272,7 +272,7 @@ namespace MyGUI
 
 		void cutMaxLength(size_t _max)
 		{
-			if ( (mSize != SIZE_MAX) && (mSize <= _max) ) return;
+			if ( (mSize != ITEM_NONE) && (mSize <= _max) ) return;
 			if (mPosition > _max) {
 				// придется считать сначала
 				mSize = mPosition = 0;
@@ -345,24 +345,24 @@ namespace MyGUI
 		inline void insert(Ogre::DisplayString::iterator & _start, Ogre::DisplayString & _insert)
 		{
 			// сбрасываем размер
-			mSize = SIZE_MAX;
+			mSize = ITEM_NONE;
 			// записываем в историю
 			if (mHistory) mHistory->push_back(tagChangeInfo(_insert, _start-mText.begin(), COMMAND_INSERT));
 			// запоминаем позицию итератора
 			size_t pos = _start - mText.begin();
-			size_t pos_save = (mSave==mEnd) ? SIZE_MAX : _start - mText.begin();
+			size_t pos_save = (mSave==mEnd) ? ITEM_NONE : _start - mText.begin();
 			// непосредственно вставляем
 			mText.insert(_start, _insert.begin(), _insert.end());
 			// возвращаем итераторы
 			_start = mText.begin() + pos;
 			mEnd = mText.end();
-			(pos_save==SIZE_MAX) ? mSave = mEnd : mSave = mText.begin() + pos_save;
+			(pos_save==ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
 		}
 
 		inline Ogre::DisplayString::iterator erase(Ogre::DisplayString::iterator _start, Ogre::DisplayString::iterator _end)
 		{
 			// сбрасываем размер
-			mSize = SIZE_MAX;
+			mSize = ITEM_NONE;
 			// сохраняем в историю
 			size_t start = _start-mText.begin();
 			if (mHistory) mHistory->push_back(tagChangeInfo(mText.substr(start, _end-_start), start, COMMAND_ERASE));
@@ -381,7 +381,7 @@ namespace MyGUI
 			mText.clear();
 			mCurrent = mText.begin();
 			mEnd = mSave = mText.end();
-			mSize = SIZE_MAX;
+			mSize = ITEM_NONE;
 		}
 
 	private:
