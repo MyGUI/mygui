@@ -1211,16 +1211,4 @@ namespace MyGUI
 	{
 		setText(_caption, false);
 	}
-
-<<<<<<< .mine
-=======
-	const Ogre::DisplayString & Edit::getCaption()
-	{
-		// обрезаем теги
-		static Ogre::DisplayString caption;
-		caption = TextIterator::getOnlyText(getRealString());
-		return caption;
-	}
-
->>>>>>> .r318
 } // namespace MyGUI
