@@ -1,4 +1,3 @@
-
 #include <Ogre.h>
 #include <OgreLogManager.h>
 #include "BasisManager.h"
