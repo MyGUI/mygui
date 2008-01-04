@@ -7,22 +7,22 @@
 
 BasisManager::BasisManager() :
 	mInputManager(0),
-	mMouse(0),
 	mKeyboard(0),
+	mMouse(0),
 	mRoot(0),
 	mCamera(0),
 	mSceneMgr(0),
 	mWindow(0),
-	mGUI(0),
+	m_exit(false),
 	mFpsInfo(0),
-	m_exit(false)
+	mGUI(0)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";
 	#else
 		mResourcePath = "";
 	#endif
-} 
+}
 
 void BasisManager::createInput() // создаем систему ввода
 {
@@ -72,7 +72,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	#ifndef OGRE_STATIC_LIB
 		pluginsPath = mResourcePath + "plugins.cfg";
 	#endif
-	
+
     mRoot = new Ogre::Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
 
 	setupResources();
@@ -93,7 +93,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
     // Create one viewport, entire window
-    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+    /*Ogre::Viewport* vp = */mWindow->addViewport(mCamera);
     // Alter the camera aspect ratio to match the viewport
     mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
 
@@ -143,14 +143,14 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr->destroyAllCameras();
 		mSceneMgr = 0;
 	}
-	
+
 	destroyInput(); // удаляем ввод
 
 	if (mWindow) {
 		mWindow->destroy();
 		mWindow = 0;
 	}
-	
+
 	if (mRoot) {
 		mRoot->getAutoCreatedWindow()->removeAllViewports();
 		delete mRoot;

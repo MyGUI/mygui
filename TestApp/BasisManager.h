@@ -2,9 +2,9 @@
 #define __BASIS_MANAGER_H__
 
 #include <Ogre.h>
-#include "OIS\\OIS.h"
-#include "MyGUI_Gui.h"
-#include "MyGUI_StaticText.h"
+#include <OIS/OIS.h>
+#include <MyGUI_Gui.h>
+#include <MyGUI_StaticText.h>
 #include "DemoKeeper.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE

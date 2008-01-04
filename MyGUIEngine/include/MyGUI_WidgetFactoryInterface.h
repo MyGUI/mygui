@@ -16,6 +16,8 @@ namespace MyGUI
 	class _MyGUIExport WidgetFactoryInterface
 	{
 	public:
+        virtual ~WidgetFactoryInterface() {}
+
 		virtual const Ogre::String& getType() = 0;
 		virtual WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name) = 0;
 	};

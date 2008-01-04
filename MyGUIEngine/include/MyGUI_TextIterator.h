@@ -120,7 +120,7 @@ namespace MyGUI
 		inline static Ogre::DisplayString convertTagColour(const Ogre::ColourValue & _colour)
 		{
 			char buff[16];
-			sprintf(buff, "#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+			sprintf(buff, "#%.2X%.2X%.2X", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 			return buff;
 		}
 

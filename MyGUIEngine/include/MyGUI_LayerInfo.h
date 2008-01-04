@@ -21,7 +21,7 @@ namespace MyGUI
 
 	private:
 		LayerInfo(const std::string & _name, Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :
-			mName(_name), mStart(_start), mCount(_count?_count:1), mHeight(_height?_height:1)
+			mStart(_start), mCount(_count?_count:1), mHeight(_height?_height:1), mName(_name)
 		{
 		}
 

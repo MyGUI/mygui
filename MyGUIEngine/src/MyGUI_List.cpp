@@ -570,7 +570,7 @@ namespace MyGUI
 		int offset = (int)_index * mHeightLine;
 		if (offset >= mRangeIndex) offset = mRangeIndex;
 
-		if (mWidgetScroll->getScrollPosition() == offset) return;
+		if ((int)mWidgetScroll->getScrollPosition() == offset) return;
 
 		mWidgetScroll->setScrollPosition(offset);
 		notifyScrollChangePosition(null, offset);

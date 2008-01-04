@@ -2,7 +2,7 @@
 	@file		DynLib.cpp
 	@author		Denis Koronchik
 	@date		09/2007
-	@module		
+	@module
 */
 #include "MyGUI_DynLib.h"
 #include "MyGUI_Common.h"
@@ -19,8 +19,8 @@ namespace MyGUI
 	DynLib::~DynLib() {}
 	void DynLib::load() {}
 	void DynLib::unload() {}
-	void* DynLib::getSymbol( const std::string& strName ) const throw() {}
-	std::string DynLib::dynlibError( void ) {}
+	void* DynLib::getSymbol( const std::string& strName ) const throw() { return NULL; }
+	std::string DynLib::dynlibError( void ) { return "no unix error function defined yet"; }
 #else
 	DynLib::DynLib( const std::string& name )
 	{
@@ -43,12 +43,12 @@ namespace MyGUI
 
 		mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
 
-		MYGUI_ASSERT(null != mInstance);/* && ("Could not load dynamic library " + mName + 
+		MYGUI_ASSERT(null != mInstance);/* && ("Could not load dynamic library " + mName +
 			".  System Error: " + dynlibError()));*/
 
 		/*if( !mInstance )
-			EXCEPT(Exception::ERR_INTERNAL_ERROR, 
-			"Could not load dynamic library " + mName + 
+			EXCEPT(Exception::ERR_INTERNAL_ERROR,
+			"Could not load dynamic library " + mName +
 			".  System Error: " + dynlibError(), "DynLib::load" );*/
 	}
 
@@ -75,21 +75,21 @@ namespace MyGUI
 		return (void*)DYNLIB_GETSYM( mInstance, strName.c_str() );
 	}
 
-	std::string DynLib::dynlibError( void ) 
+	std::string DynLib::dynlibError( void )
 	{
 	#ifdef WIN32
-		LPVOID lpMsgBuf; 
-		FormatMessage( 
-			FORMAT_MESSAGE_ALLOCATE_BUFFER | 
-			FORMAT_MESSAGE_FROM_SYSTEM | 
-			FORMAT_MESSAGE_IGNORE_INSERTS, 
-			NULL, 
-			GetLastError(), 
-			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), 
-			(LPTSTR) &lpMsgBuf, 
-			0, 
-			NULL 
-			); 
+		LPVOID lpMsgBuf;
+		FormatMessage(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER |
+			FORMAT_MESSAGE_FROM_SYSTEM |
+			FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL,
+			GetLastError(),
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+			(LPTSTR) &lpMsgBuf,
+			0,
+			NULL
+			);
 		std::string ret = (char*)lpMsgBuf;
 		// Free the buffer.
 		LocalFree( lpMsgBuf );

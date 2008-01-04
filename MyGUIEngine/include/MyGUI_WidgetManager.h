@@ -53,12 +53,6 @@ namespace MyGUI
 
 		// метод для поиска виджета
 		WidgetPtr findWidgetT(const Ogre::String & _name);
-		template <class T> inline T* findWidget(const Ogre::String & _name)
-		{
-			WidgetPtr widget = findWidgetT(_name);
-			if (null == widget) return null;
-			return castWidget<T>(widget);
-		}
 
 		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально
 		static FloatRect convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight);

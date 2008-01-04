@@ -51,9 +51,9 @@ namespace MyGUI
 	struct SubWidgetInfo
 	{
 		SubWidgetInfo(const std::string & _type, const IntCoord& _coord, Align _align) :
-			type(_type),
 			coord(_coord),
-			align(_align)
+			align(_align),
+			type(_type)
 		{
 		}
 

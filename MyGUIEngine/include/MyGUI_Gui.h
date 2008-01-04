@@ -94,14 +94,12 @@ namespace MyGUI
 		inline bool injectKeyPress(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyPress(_arg);}
 		inline bool injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
 
-		inline void destroyAllWidget();
-		inline void destroyWidget(WidgetPtr _widget);
+		void destroyAllWidget();
+		void destroyWidget(WidgetPtr _widget);
 
 		// mirror WidgetManager
-		template <class T> T * findWidget(const std::string& _name)
-		{
-			return mWidgetManager->findWidget<T>(_name);
-		}
+		WidgetPtr findWidgetT(const std::string& _name);
+        #define findWidget(_T, _name) castWidget<_T>(Gui::getInstance().findWidgetT(_name))
 
 		// mirror LayoutManager
 		inline VectorWidgetPtr loadLayout(const std::string & _file, bool _resource = true) {return mLayoutManager->load(_file, _resource);}

@@ -122,6 +122,11 @@ namespace MyGUI
 		return widget;
 	}
 
+	WidgetPtr Gui::findWidgetT(const std::string& _name)
+    {
+        return mWidgetManager->findWidgetT(_name);
+    }
+
 	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
 	{
 		// сначала рассылаем

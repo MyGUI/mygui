@@ -14,9 +14,9 @@ namespace MyGUI
 
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
-		mMaskPeekInfo(_info->getMask()),
 		UserData(),
 		mStateInfo(_info->getStateInfo()),
+		mMaskPeekInfo(_info->getMask()),
 		mText(null),
 		mEnabled(true),
 		mVisible(true),
