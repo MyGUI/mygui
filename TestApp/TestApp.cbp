@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/TestApp" prefix_auto="1" extension_auto="1" />
+				<Option output="../Shared/linux/Debug/TestApp" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -15,11 +15,11 @@
 					<Add option="-g" />
 					<Add directory="/usr/include/OGRE" />
 					<Add directory="/usr/include/OIS" />
-					<Add directory="/home/emmo/dev/MyGUI/include" />
+					<Add directory="../MyGUIEngine/include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/TestApp" prefix_auto="1" extension_auto="1" />
+				<Option output="../Shared/linux/Release/TestApp" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -38,7 +38,7 @@
 		<Linker>
 			<Add option="-lOgreMain" />
 			<Add option="-lOIS" />
-			<Add library="/home/emmo/dev/MyGUI/libMyGUI.a" />
+			<Add library="../MyGUIEngine/libMyGUI.a" />
 		</Linker>
 		<Unit filename="BasisManager.cpp" />
 		<Unit filename="BasisManager.h" />
