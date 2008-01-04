@@ -13,13 +13,13 @@ namespace MyGUI
 
 	TextIterator::TextIterator(const Ogre::DisplayString & _text, VectorChangeInfo * _history) :
 		mText(_text),
-		mHistory(_history),
 		mCurrent(mText.begin()),
 		mEnd(mText.end()),
 		mSave(mEnd),
 		mPosition(0),
 		mSize(ITEM_NONE),
-		mFirst(true)
+		mFirst(true),
+		mHistory(_history)
 	{
 	}
 
@@ -129,7 +129,8 @@ namespace MyGUI
 		if (mCurrent == mEnd) return false;
 
 		char buff[16];
-		sprintf(buff, "#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+		memset(buff, 0, 16);
+		sprintf(buff, "#%.2X%.2X%.2X", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 
 		// непосредственная вставка
 		Ogre::DisplayString tmpStr = Ogre::DisplayString(buff);

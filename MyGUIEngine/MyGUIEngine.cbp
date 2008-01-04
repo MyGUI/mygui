@@ -68,6 +68,7 @@
 		<Unit filename="include/MyGUI_Loging.h" />
 		<Unit filename="include/MyGUI_Macros.h" />
 		<Unit filename="include/MyGUI_MainSkin.h" />
+		<Unit filename="include/MyGUI_MaskPeekInfo.h" />
 		<Unit filename="include/MyGUI_PanelAlphaOverlayElement.h" />
 		<Unit filename="include/MyGUI_PanelAlphaOverlayElementFactory.h" />
 		<Unit filename="include/MyGUI_Platform.h" />
@@ -159,6 +160,7 @@
 		<Unit filename="src/MyGUI_SubSkin.cpp" />
 		<Unit filename="src/MyGUI_SubWidgetManager.cpp" />
 		<Unit filename="src/MyGUI_TextEdit.cpp" />
+		<Unit filename="src/MyGUI_TextIterator.cpp" />
 		<Unit filename="src/MyGUI_TextSimple.cpp" />
 		<Unit filename="src/MyGUI_VScroll.cpp" />
 		<Unit filename="src/MyGUI_VScrollFactory.cpp" />
