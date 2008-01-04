@@ -16,12 +16,12 @@ namespace MyGUI
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mMaskPeekInfo(_info->getMask()),
 		UserData(),
+		mStateInfo(_info->getStateInfo()),
 		mText(null),
-		mVisible(true),
 		mEnabled(true),
+		mVisible(true),
 		mAlpha(1),
 		mColour(Ogre::ColourValue::White),
-		mStateInfo(_info->getStateInfo()),
 		mName(_name),
 		mCountSharedOverlay(0)
 	{
@@ -186,7 +186,7 @@ namespace MyGUI
 		bool need_size = false;
 		IntCoord coord = mCoord;
 
-		// первоначальное выравнивание 
+		// первоначальное выравнивание
 		if (IS_ALIGN_RIGHT(mAlign)) {
 			if (IS_ALIGN_LEFT(mAlign)) {
 				// растягиваем
@@ -496,9 +496,9 @@ namespace MyGUI
 
 			offset = WidgetManager::convertOffset(offset, align, _size, mCoord.width, mCoord.height);
 			// если стой не пустой, создаем дочку
-			if (_layer.empty()) return createWidgetT(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align);
-			return Gui::getInstance().createWidgetT(_type, skin, offset.left, offset.top, offset.right, offset.bottom, align, _layer);
-			
+			if (_layer.empty()) return createWidgetT(_type, skin, (int)offset.left, (int)offset.top, (int)offset.right, (int)offset.bottom, align);
+			return Gui::getInstance().createWidgetT(_type, skin, (int)offset.left, (int)offset.top, (int)offset.right, (int)offset.bottom, align, _layer);
+
 		}
 		return null;
 	}*/

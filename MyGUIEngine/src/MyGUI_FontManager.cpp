@@ -76,7 +76,7 @@ namespace MyGUI
 			pFont->_notifyOrigin(_file);
 			pFont->setSource(source);
 			pFont->setTrueTypeSize(util::parseValue<Ogre::Real>(size));
-			pFont->setTrueTypeResolution(util::parseValue<Ogre::Real>(resolution));
+			pFont->setTrueTypeResolution((Ogre::uint)util::parseValue<Ogre::Real>(resolution));
 
 			if (false == antialias.empty()) pFont->setAntialiasColour(util::parseBool(antialias));
 			if (false == space.empty()) pFont->setSpaceSimbol(space[0]);

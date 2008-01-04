@@ -92,7 +92,7 @@ namespace MyGUI
 			mLayer = layer;
 			FloatSize materialSize = SkinManager::getMaterialSize(material);
 
-			
+
 			// берем детей и крутимся, основной цикл
 			xml::xmlNodeIterator info = pointer->getNodeIterator();
 			while (info.nextNode("Info")) {

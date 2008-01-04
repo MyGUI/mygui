@@ -104,7 +104,7 @@ namespace MyGUI
 		void updateColours(void) { }
 
 		// необходимо обновить все что связанно с стекстом
-		inline void setAlignment(Align _align)	
+		inline void setAlignment(Align _align)
 		{
 			// выравнивание бокса
 			mAlign = _align;
@@ -225,7 +225,7 @@ namespace MyGUI
 					// обрезаем
 					vertex_top = top_margin;
 					texture_crop_height = true;
-				} 
+				}
 				if (vertex_bottom < bottom_margin) {
 					// вообще вниз ушли
 					if (vertex_top < bottom_margin) {
@@ -309,7 +309,7 @@ namespace MyGUI
 						// обрезаем
 						vertex_left = left_margin;
 						texture_crop_width = true;
-					} 
+					}
 					if (vertex_right > right_margin) {
 						// вообще строку до конца не нуна
 						if (vertex_left > right_margin) {
@@ -474,7 +474,7 @@ namespace MyGUI
 
 				// Create and bind new buffers
 				// Note that old buffers will be deleted automatically through reference counting
-	            
+
 				// 6 verts per char since we're doing tri lists without indexes
 				// Allocate space for positions & texture coords
 				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
@@ -484,10 +484,10 @@ namespace MyGUI
 
 				// Create dynamic since text tends to change alot
 				// positions & texcoords
-				Ogre::HardwareVertexBufferSharedPtr vbuf = 
+				Ogre::HardwareVertexBufferSharedPtr vbuf =
 					Ogre::HardwareBufferManager::getSingleton().
 						createVertexBuffer(
-							decl->getVertexSize(OVERLAY_POSITION_BINDING), 
+							decl->getVertexSize(OVERLAY_POSITION_BINDING),
 							mRenderOp.vertexData->vertexCount,
 							Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
 				bind->setBinding(OVERLAY_POSITION_BINDING, vbuf);
@@ -533,7 +533,7 @@ namespace MyGUI
 			mBackgroundFill.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 			info = mpFont->getSelectDeactiveGlyphInfo();
 			mBackgroundFillDeactive.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-			
+
 			mGeomPositionsOutOfDate = true;
 			mGeomUVsOutOfDate = true;
 			mRawDataOutOfDate = true;
@@ -590,7 +590,7 @@ namespace MyGUI
 						Ogre::DisplayString::const_iterator peeki = index;
 						peeki++;
 						if (peeki != end && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
-					} 
+					}
 					// следующий символ
 					continue;
 
@@ -616,7 +616,7 @@ namespace MyGUI
 
 						// если нужно, то меняем красный и синий компоненты
 						if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
-				
+
 						// запоминаем цвет, в верхнем байте единицы
 						mLinesInfo.back().push_back( EnumCharInfo(colour, true) );
 
@@ -865,7 +865,7 @@ namespace MyGUI
 				// нашли, возвращаем
 				if (pos == 0) return IntPoint((int)((1.0f + right) / (mPixelScaleX * 2.0)), (int)((1.0f - top) / (mPixelScaleY * 2.0)));
 
-				int currect_pos = 0;
+				unsigned int currect_pos = 0;
 
 				// внутренний цикл строки
 				for (;index != end_index; ++index) {

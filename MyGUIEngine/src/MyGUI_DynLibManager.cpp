@@ -2,7 +2,7 @@
 	@file		DynLibManager.cpp
 	@author		Denis Koronchik
 	@date		09/2007
-	@module		
+	@module
 */
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_Common.h"

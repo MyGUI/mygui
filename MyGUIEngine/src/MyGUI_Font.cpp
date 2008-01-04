@@ -38,8 +38,12 @@ namespace MyGUI
 	Font::Font(Ogre::ResourceManager* creator, const Ogre::String& name, Ogre::ResourceHandle handle,
 		const Ogre::String& group, bool isManual, Ogre::ManualResourceLoader* loader)
 		: Ogre::Resource (creator, name, handle, group, isManual, loader),
-		mTtfSize(0), mTtfResolution(0), mAntialiasColour(false),
-		mSpaceSimbol('a'), mCountSpaceTab(4), mCharSpacer(5)
+		mTtfSize(0),
+		mTtfResolution(0),
+		mSpaceSimbol('a'),
+		mCountSpaceTab(4),
+		mCharSpacer(5),
+		mAntialiasColour(false)
     {
     }
     //---------------------------------------------------------------------
@@ -75,6 +79,8 @@ namespace MyGUI
 		if (mpMaterial.isNull())
 			MYGUI_EXCEPT("Error creating new material!");
 
+        MYGUI_LOG("Material for font loaded");
+
 		Ogre::TextureUnitState* texLayer = mpMaterial->getTechnique(0)->getPass(0)->createTextureUnitState( texName );
 		// Clamp to avoid fuzzy edges
         texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
@@ -84,7 +90,7 @@ namespace MyGUI
 
 		// create new material for edit text
 		mpMaterialSelectedFont =  Ogre::MaterialManager::getSingleton().create("FontsSelected/" + mName,  mGroup);
-		if (mpMaterialSelectedFont.isNull()) 
+		if (mpMaterialSelectedFont.isNull())
 			MYGUI_EXCEPT("Error creating new material!");
 
 		texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 0 );
@@ -322,7 +328,7 @@ namespace MyGUI
 					for(int k = 0; k < face->glyph->bitmap.width; k++ ) {
 						if (mAntialiasColour) *pDest++= *buffer;
 						else *pDest++= FONT_MASK_CHAR;
-						*pDest++= *buffer; 
+						*pDest++= *buffer;
 						buffer++;
 					}
 				}
@@ -346,7 +352,7 @@ namespace MyGUI
 		img.loadRawData( memStream, finalWidth, finalHeight, Ogre::PF_BYTE_LA );
 
 		Ogre::Texture* tex = static_cast<Ogre::Texture*>(res);
-		// Call internal _loadImages, not loadImage since that's external and 
+		// Call internal _loadImages, not loadImage since that's external and
 		// will determine load status etc again, and this is a manual loader inside load()
 		Ogre::ConstImagePtrList imagePtrs;
 		imagePtrs.push_back(&img);

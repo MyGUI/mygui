@@ -28,22 +28,23 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _name),
 		mIsPressed(false),
 		mIsFocus(false),
-		mCursorTimer(0),
+		mWidgetUpper(null),
+		mWidgetCursor(null),
 		mCursorActive(false),
+		mCursorTimer(0),
+		mActionMouseTimer(0),
 		mCursorPosition(0),
 		mTextLength(0),
 		mShiftPressed(false),
 		mCtrlPressed(false),
 		mStartSelect(ITEM_NONE),
+		mEndSelect(0),
 		mHalfCursor(1, 1),
 		mMouseLeftPressed(false),
-		mActionMouseTimer(0),
 		mModeReadOnly(false),
 		mModePassword(false),
 		mModeMultiline(false),
-		mModeStatic(false),
-		mWidgetUpper(null),
-		mWidgetCursor(null)
+		mModeStatic(false)
 	{
 
 		MYGUI_ASSERT(null != mText);
@@ -242,7 +243,7 @@ namespace MyGUI
 				// если нуно то удаляем выделенный текст
 				if (false == deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLength) {
-						eraseText(mCursorPosition, 1, true); 
+						eraseText(mCursorPosition, 1, true);
 					}
 				}
 				// отсылаем событие о изменении
@@ -452,7 +453,7 @@ namespace MyGUI
 			mActionMouseTimer += _frame;
 
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER ) {
-				
+
 				IntPoint point = InputManager::getInstance().getMousePosition();
 
 				WidgetPtr parent = mWidgetUpper;
@@ -484,7 +485,7 @@ namespace MyGUI
 				else if ( (point.left < 0) && (point.left > -EDIT_ACTION_MOUSE_ZONE) ) {
 					if ( (point.top > 0) && (point.top <= mWidgetUpper->getHeight()) ) {
 						point = getWorldPostion(mWidgetCursor);
-						point.left -= EDIT_OFFSET_HORZ_CURSOR;
+						point.left -= (int)EDIT_OFFSET_HORZ_CURSOR;
 						point.top += mHalfCursor.height;
 						action = true;
 					}
@@ -493,7 +494,7 @@ namespace MyGUI
 				else if ( (point.left > mWidgetUpper->getWidth()) && (point.left < (mWidgetUpper->getWidth() + EDIT_ACTION_MOUSE_ZONE)) ) {
 					if ( (point.top > 0) && (point.top <= mWidgetUpper->getHeight()) ) {
 						point = getWorldPostion(mWidgetCursor);
-						point.left += EDIT_OFFSET_HORZ_CURSOR;
+						point.left += (int)EDIT_OFFSET_HORZ_CURSOR;
 						point.top += mHalfCursor.height;
 						action = true;
 					}
@@ -549,7 +550,7 @@ namespace MyGUI
 	{
 		if (_start > mTextLength) _start = mTextLength;
 		if (_end > mTextLength) _end = mTextLength;
-		
+
 		mStartSelect = _start;
 		mEndSelect = _end;
 
@@ -844,9 +845,9 @@ namespace MyGUI
 
 	bool Edit::isShowCursorInView()
 	{
-		return ( (mWidgetCursor->getLeft() >= 0) 
-			&& (mWidgetCursor->getTop() >= 0) 
-			&& (mWidgetCursor->getRight() <= mWidgetUpper->getWidth()) 
+		return ( (mWidgetCursor->getLeft() >= 0)
+			&& (mWidgetCursor->getTop() >= 0)
+			&& (mWidgetCursor->getRight() <= mWidgetUpper->getWidth())
 			&& (mWidgetCursor->getBottom() <= mWidgetUpper->getHeight()) );
 	}
 
@@ -1155,10 +1156,10 @@ namespace MyGUI
 			// горизонтальное смещение
 			if (mSizeView.width > mWidgetUpper->getWidth()) {
 				if (mWidgetCursor->getLeft() < 0) {
-					offset.left = mWidgetCursor->getLeft() - EDIT_OFFSET_HORZ_CURSOR;
+					offset.left = mWidgetCursor->getLeft() - (int)EDIT_OFFSET_HORZ_CURSOR;
 				}
 				else if (mWidgetCursor->getRight() > mWidgetUpper->getWidth()) {
-					offset.left = mWidgetCursor->getRight() - mWidgetUpper->getWidth() + EDIT_OFFSET_HORZ_CURSOR;
+					offset.left = mWidgetCursor->getRight() - mWidgetUpper->getWidth() + (int)EDIT_OFFSET_HORZ_CURSOR;
 				}
 			}
 

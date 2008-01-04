@@ -2,7 +2,7 @@
 	@file		PluginManager.cpp
 	@author		Denis Koronchik
 	@date		09/2007
-	@module		
+	@module
 */
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"

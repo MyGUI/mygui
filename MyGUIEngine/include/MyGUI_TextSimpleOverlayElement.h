@@ -77,7 +77,7 @@ namespace MyGUI
 		void updateColours(void) { }
 
 		// необходимо обновить все что связанно с стекстом
-		inline void setAlignment(Align _align)	
+		inline void setAlignment(Align _align)
 		{
 			// выравнивание бокса
 			mAlign = _align;
@@ -182,7 +182,7 @@ namespace MyGUI
 					// обрезаем
 					vertex_top = top_margin;
 					texture_crop_height = true;
-				} 
+				}
 				if (vertex_bottom < bottom_margin) {
 					// вообще вниз ушли
 					if (vertex_top < bottom_margin) {
@@ -239,7 +239,7 @@ namespace MyGUI
 						// обрезаем
 						vertex_left = left_margin;
 						texture_crop_width = true;
-					} 
+					}
 					if (vertex_right > right_margin) {
 						// вообще строку до конца не нуна
 						if (vertex_left > right_margin) {
@@ -380,7 +380,7 @@ namespace MyGUI
 			{
 				// Create and bind new buffers
 				// Note that old buffers will be deleted automatically through reference counting
-	            
+
 				// 6 verts per char since we're doing tri lists without indexes
 				// Allocate space for positions & texture coords
 				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
@@ -390,10 +390,10 @@ namespace MyGUI
 
 				// Create dynamic since text tends to change alot
 				// positions & texcoords
-				Ogre::HardwareVertexBufferSharedPtr vbuf = 
+				Ogre::HardwareVertexBufferSharedPtr vbuf =
 					Ogre::HardwareBufferManager::getSingleton().
 						createVertexBuffer(
-							decl->getVertexSize(OVERLAY_POSITION_BINDING), 
+							decl->getVertexSize(OVERLAY_POSITION_BINDING),
 							mRenderOp.vertexData->vertexCount,
 							Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
 				bind->setBinding(OVERLAY_POSITION_BINDING, vbuf);
@@ -422,13 +422,15 @@ namespace MyGUI
 				MYGUI_EXCEPT("Could not find font " + font);
 			mpFont->load();
 			mpMaterial = mpFont->getMaterial();
+			if (mpMaterial.isNull())
+				MYGUI_EXCEPT("Could not find material for font " + font);
 			mpMaterial->setDepthCheckEnabled(false);
 			mpMaterial->setLightingEnabled(false);
 
 			// достаем пробел и табуляцию
 			mSpaceGlyphInfo = mpFont->getSpaceGlyphInfo();
 			mTabGlyphInfo = mpFont->getTabGlyphInfo();
-			
+
 			mGeomPositionsOutOfDate = true;
 			mGeomUVsOutOfDate = true;
 			mRawDataOutOfDate = true;
@@ -485,7 +487,7 @@ namespace MyGUI
 						Ogre::DisplayString::const_iterator peeki = index;
 						peeki++;
 						if (peeki != end && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
-					} 
+					}
 					// следующий символ
 					continue;
 

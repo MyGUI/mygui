@@ -21,12 +21,12 @@ namespace helper
 
 		float min_x = 1.0f, max_x = 0.0f, min_y = 1.0f, max_y = 0.0f;
 
-		// expand the screen-space bounding-box so that it completely encloses 
+		// expand the screen-space bounding-box so that it completely encloses
 		// the object's AABB
 		for (int i=0; i<8; i++) {
 			Ogre::Vector3 corner = corners[i];
 
-			// multiply the AABB corner vertex by the view matrix to 
+			// multiply the AABB corner vertex by the view matrix to
 			// get a camera-space vertex
 			corner = mat * corner;
 

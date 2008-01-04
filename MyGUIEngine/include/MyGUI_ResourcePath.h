@@ -19,7 +19,7 @@ namespace MyGUI
 			std::vector<Ogre::String> vec;
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _mask);
 			for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); fi++ ) {
-				vec.push_back(fi->archive->getName() + "\\" + fi->filename);
+				vec.push_back(fi->archive->getName() + "/" + fi->filename);
 			}
 			return vec;
 		}
@@ -29,7 +29,7 @@ namespace MyGUI
 		{
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _mask);
 			if (pFileInfo->size() != 1) return "";
-			Ogre::String retval = pFileInfo->front().archive->getName() + "\\" + pFileInfo->front().filename;
+			Ogre::String retval = pFileInfo->front().archive->getName() + "/" + pFileInfo->front().filename;
 			pFileInfo.setNull();
 			return retval;
 		}

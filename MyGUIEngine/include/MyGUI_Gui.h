@@ -31,7 +31,7 @@
 
 namespace MyGUI
 {
-	
+
 	class _MyGUIExport Gui
 	{
 		friend class WidgetManager;
@@ -94,15 +94,14 @@ namespace MyGUI
 		inline bool injectKeyPress(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyPress(_arg);}
 		inline bool injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
 
-		// mirror WidgetManaget
-		template <class T> inline T * findWidget(const std::string& _name)
-		{
-			WidgetPtr widget = mWidgetManager->findWidgetT(_name);
-			if (null == widget) return null;
-			return castWidget<T>(widget);
-		}
 		inline void destroyAllWidget();
 		inline void destroyWidget(WidgetPtr _widget);
+
+		// mirror WidgetManager
+		template <class T> T * findWidget(const std::string& _name)
+		{
+			return mWidgetManager->findWidget<T>(_name);
+		}
 
 		// mirror LayoutManager
 		inline VectorWidgetPtr loadLayout(const std::string & _file, bool _resource = true) {return mLayoutManager->load(_file, _resource);}

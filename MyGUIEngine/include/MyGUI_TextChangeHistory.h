@@ -27,10 +27,10 @@ namespace MyGUI
 	{
 		// для удаления и вставки текста
 		tagChangeInfo(const Ogre::DisplayString & _text, size_t _start, CommandType _type)
-			: text(_text), start(_start), type(_type), undo(ITEM_NONE), redo(ITEM_NONE), length(ITEM_NONE) {}
+			: text(_text), type(_type), start(_start), undo(ITEM_NONE), redo(ITEM_NONE), length(ITEM_NONE) {}
 		// для указания позиции
 		tagChangeInfo(size_t _undo, size_t _redo, size_t _length)
-			: start(ITEM_NONE), type(COMMAND_POSITION), undo(_undo), redo(_redo), length(_length) {}
+			: type(COMMAND_POSITION), start(ITEM_NONE), undo(_undo), redo(_redo), length(_length) {}
 
 		// строка харрактиризуещая изменения
 		Ogre::DisplayString text;

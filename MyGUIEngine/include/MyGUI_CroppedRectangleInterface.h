@@ -20,11 +20,11 @@ namespace MyGUI
 
 	public:
 		CroppedRectangleInterface(const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent) :
-			mParent (_parent),
-			mAlign (_align),
 			mIsMargin(false),
+			mCoord(_coord),
+			mParent (_parent),
 			mShow(true),
-			mCoord(_coord)
+			mAlign (_align)
 		{}
 		virtual ~CroppedRectangleInterface() {}
 

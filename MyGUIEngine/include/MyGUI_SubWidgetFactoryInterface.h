@@ -16,6 +16,8 @@ namespace MyGUI
 	class _MyGUIExport SubWidgetFactoryInterface
 	{
 	public:
+        virtual ~SubWidgetFactoryInterface() {};
+
 		virtual void getNextId(size_t & _id) = 0;
 		virtual const Ogre::String & getType() = 0;
 		virtual CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id) = 0;

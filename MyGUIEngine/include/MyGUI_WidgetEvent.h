@@ -20,14 +20,17 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, int, int> EventCoordInfo;
 	typedef delegates::CDelegate3<WidgetPtr, int, wchar_t> EventKeyInfo;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventActionInfo;
-	
+
 
 	class _MyGUIExport WidgetEvent
 	{
 		friend class InputManager;
 
+    public:
+		virtual ~WidgetEvent() {};
+
 	protected:
-		WidgetEvent() : mWidgetEventSender(0), mNeedKeyFocus(false) {}
+		WidgetEvent() : mNeedKeyFocus(false), mWidgetEventSender(0) {}
 
 
 		/*
@@ -41,7 +44,7 @@ namespace MyGUI
 				static void anyStaticMethod(...) {}; // статический метод
 				void anyMethod(...) {}; // обычный метод
 			};
-			
+
 			AnyClass anyObject; // объект класса
 
 		создание делегата:

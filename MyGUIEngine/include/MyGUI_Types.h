@@ -45,7 +45,7 @@ namespace util
 		{
 			if (_value.empty()) return Ogre::ColourValue::ZERO;
 			if (_value[0] == '#') {
-				unsigned long ret = 0;
+				unsigned int ret = 0;
 				if (0 == sscanf(_value.c_str(), "#%X", &ret)) return Ogre::ColourValue( ((float)(ret&0xFF0000))*(1/0xFF0000), ((float)(ret&0xFF00))*(1/0xFF00), ((float)(ret&0xFF))*(1/0xFF));
 			}
 			else {

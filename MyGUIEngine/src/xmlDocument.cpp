@@ -13,9 +13,9 @@ namespace xml
 	// class xmlNodeIterator
 	//----------------------------------------------------------------------//
 	xmlNodeIterator::xmlNodeIterator(VectorNode::iterator _start, VectorNode::iterator _end) :
+		m_first(true),
 		m_current(_start),
-		m_end(_end),
-		m_first(true)
+		m_end(_end)
 	{
 	}
 
@@ -43,7 +43,7 @@ namespace xml
 	//----------------------------------------------------------------------//
 	// class xmlNode
 	//----------------------------------------------------------------------//
-	xmlNode::xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type, const std::string & _body) : 
+	xmlNode::xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type, const std::string & _body) :
 		mName(_name),
 		mBody(_body),
 		mParent(_parent),
@@ -99,7 +99,7 @@ namespace xml
 
 	}
 
-	xmlNodePtr xmlNode::createChild(const std::string & _name, const std::string & _body) 
+	xmlNodePtr xmlNode::createChild(const std::string & _name, const std::string & _body)
 	{
 		xmlNodePtr node = new xmlNode(_name, this, XML_NODE_TYPE_NORMAL, _body);
 		mChilds.push_back(node);
@@ -211,7 +211,7 @@ namespace xml
 
 				// и обрезаем текущую строку разбора
 				line = line.substr(end+1);
-			
+
 			}; // while (true)
 
 		}; // while (!stream.eof())
@@ -306,7 +306,7 @@ namespace xml
 
 		char simbol = _body[0];
 		bool tag_info = false;
-		
+
 		if (simbol == '!') return true; // проверяем на коментарии
 
 		if (simbol == '?') { // проверяем на информационный тег
@@ -389,10 +389,10 @@ namespace xml
 					return true;
 				}
 			}
-				
+
 			// а вот здесь уже в цикле разбиваем на атрибуты
 			while (true) {
-				
+
 				// ищем равно
 				start = _body.find('=');
 				if (start == _body.npos) {

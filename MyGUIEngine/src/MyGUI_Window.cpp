@@ -115,7 +115,7 @@ namespace MyGUI
 		coord.top *= (_top - point.top);
 		coord.width *= (_left - point.left);
 		coord.height *= (_top - point.top);
-		
+
 		setPosition(mPreActionCoord + coord);
 	}
 
@@ -202,8 +202,8 @@ namespace MyGUI
 			if (pos.top > 0) {if ( (pos.top - WINDOW_TO_STICK) <= 0) pos.top = 0;}
 			else {	if ( (pos.top + WINDOW_TO_STICK) >= 0) pos.top = 0;}
 
-			int width = Gui::getInstance().getViewWidth();
-			int height = Gui::getInstance().getViewHeight();
+			int width = (int)Gui::getInstance().getViewWidth();
+			int height = (int)Gui::getInstance().getViewHeight();
 
 			if ( (pos.left + mCoord.width) < width) {if ( (pos.left + mCoord.width + WINDOW_TO_STICK) > width ) pos.left = width - mCoord.width;	}
 			else {	if ( (pos.left + mCoord.width - WINDOW_TO_STICK) < width ) pos.left = width - mCoord.width;}
@@ -224,8 +224,8 @@ namespace MyGUI
 		IntSize size = _size;
 		// прилепляем к краям
 		if (mIsToStick) {
-			int width = Gui::getInstance().getViewWidth();
-			int height = Gui::getInstance().getViewHeight();
+			int width = (int)Gui::getInstance().getViewWidth();
+			int height = (int)Gui::getInstance().getViewHeight();
 
 			if ( (mCoord.left + size.width) < width) {if ( (mCoord.left + size.width + WINDOW_TO_STICK) > width ) size.width = width - mCoord.left;	}
 			else {	if ( (mCoord.left + size.width - WINDOW_TO_STICK) < width ) size.width = width - mCoord.left;}

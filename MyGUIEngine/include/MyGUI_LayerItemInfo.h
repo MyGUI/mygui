@@ -27,6 +27,9 @@ namespace MyGUI
 		friend class LayerInfo;
 		friend class LayerManager;
 
+    public:
+		virtual ~LayerItemInfo() {};
+
 	protected:
 		LayerItemInfo() : mOverlayInfo(0), mLayerInfo(0) {}
 

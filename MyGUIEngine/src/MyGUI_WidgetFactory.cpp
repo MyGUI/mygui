@@ -101,7 +101,7 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_FontHeight(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			_widget->setFontHeight(util::parseFloat(_value));
+			_widget->setFontHeight((Ogre::ushort)util::parseFloat(_value));
 		}
 
 		void WidgetFactory::Widget_Alpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

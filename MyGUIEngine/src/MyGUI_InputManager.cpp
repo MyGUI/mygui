@@ -165,7 +165,7 @@ namespace MyGUI
 			// после вызова, виджет может быть удален
 			if (null != mWidgetMouseFocus) {
 
-				if ((_id == OIS::MB_Left) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
+				if ((_id == OIS::MB_Left) && mTime.getMilliseconds() < (unsigned long)INPUT_TIME_DOUBLE_CLICK) {
 					mWidgetMouseFocus->_onMouseButtonClick(true);
 				}
 				else {
@@ -192,7 +192,7 @@ namespace MyGUI
 	{
 		// проверка на переключение языков
 		detectLangShift(_arg.key, true);
-		
+
 		//Pass keystrokes to the current active text widget
 		if (isFocusKey()) mWidgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
 

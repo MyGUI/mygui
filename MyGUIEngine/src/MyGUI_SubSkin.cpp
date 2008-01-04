@@ -99,7 +99,7 @@ namespace MyGUI
 		// необходимо разобраться
 		bool need_update = true;//_update;
 
-		// первоначальное выравнивание 
+		// первоначальное выравнивание
 		if (IS_ALIGN_RIGHT(mAlign)) {
 			if (IS_ALIGN_LEFT(mAlign)) {
 				// растягиваем
@@ -169,7 +169,7 @@ namespace MyGUI
 			}
 
 		}
-		
+
 		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
 
 			int cx = getViewWidth();

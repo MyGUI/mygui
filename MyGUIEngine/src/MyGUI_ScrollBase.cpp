@@ -13,7 +13,7 @@ namespace MyGUI
 	ScrollBase::ScrollBase(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
 		mWidgetStart(null), mWidgetEnd(null), mWidgetTrack(null),
-		mScrollPosition(0), mScrollRange(0)
+		mScrollRange(0), mScrollPosition(0)
 	{
 
 		// при нуле, будет игнорировать кнопки

@@ -18,15 +18,15 @@ namespace MyGUI
 
 	ComboBox::ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Edit(_coord, _align, _info, _parent, _name),
+		mButton(null),
+		mList(null),
 		mListShow(false),
 		mMaxHeight(0),
 		mItemIndex(ITEM_NONE),
 		mModeDrop(false),
 		mDropMouse(false),
 		mShowSmooth(false),
-		mDoAlpha(COMBO_ALPHA_NONE),
-		mButton(null),
-		mList(null)
+		mDoAlpha(COMBO_ALPHA_NONE)
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();

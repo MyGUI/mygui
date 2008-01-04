@@ -106,7 +106,7 @@ namespace MyGUI
 		/// @copydoc Resource::unloadImpl
 		virtual void unloadImpl();
 		/// @copydoc Resource::calculateSize
-		size_t calculateSize(void) const { return 0; } // permanent resource is in the texture 
+		size_t calculateSize(void) const { return 0; } // permanent resource is in the texture
 
 	public:
 
@@ -133,12 +133,12 @@ namespace MyGUI
 
 		inline void addCodePointRange(Ogre::Real _first, Ogre::Real _second)
 		{
-			mVectorRangeInfo.push_back(RangeInfo(_first, _second));
+			mVectorRangeInfo.push_back(RangeInfo((Ogre::uint32)_first, (Ogre::uint32)_second));
 		}
 
 		inline void addHideCodePointRange(Ogre::Real _first, Ogre::Real _second)
 		{
-			mVectorHideCodePoint.push_back(PairCodePoint(_first, _second));
+			mVectorHideCodePoint.push_back(PairCodePoint((unsigned int)_first, (unsigned int)_second));
 		}
 
 		// проверяет, входит ли символ в зоны ненужных символов
@@ -184,19 +184,19 @@ namespace MyGUI
     };
 
 
-	/** Specialisation of SharedPtr to allow SharedPtr to be assigned to FontPtr 
+	/** Specialisation of SharedPtr to allow SharedPtr to be assigned to FontPtr
 	@note Has to be a subclass since we need operator=.
-	We could templatise this instead of repeating per Resource subclass, 
+	We could templatise this instead of repeating per Resource subclass,
 	except to do so requires a form VC6 does not support i.e.
 	ResourceSubclassPtr<T> : public SharedPtr<T>
 	*/
 
-	class _MyGUIExport FontPtr : public Ogre::SharedPtr<Font> 
+	class _MyGUIExport FontPtr : public Ogre::SharedPtr<Font>
 	{
 	public:
 		FontPtr() : Ogre::SharedPtr<Font>() {}
 		explicit FontPtr(Font* rep) : Ogre::SharedPtr<Font>(rep) {}
-		FontPtr(const FontPtr& r) : Ogre::SharedPtr<Font>(r) {} 
+		FontPtr(const FontPtr& r) : Ogre::SharedPtr<Font>(r) {}
 		FontPtr(const Ogre::ResourcePtr& r) : Ogre::SharedPtr<Font>()
 		{
 			// lock & copy other mutex pointer

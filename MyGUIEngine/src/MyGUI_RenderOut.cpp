@@ -121,7 +121,7 @@ namespace MyGUI
 
 			if (lines.empty()) { // первый раз просто добавляем
 				lines.push_back(info(num++, _value));
-				
+
 			} else { // не первый раз мы тут
 				// сравниваем последнюю строку
 				if (lines.back().line == _value) lines.back().count ++;
@@ -130,11 +130,11 @@ namespace MyGUI
 					// удаляем лишнее
 					if (lines.size() > __DEBUG_COUNT_LINE) lines.pop_front();
 				}
-				
+
 			}
 
 			// а вот теперь выводми строки
-			std::string str_out; 
+			std::string str_out;
 			str_out.reserve(2048);
 
 			for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); iter++) {

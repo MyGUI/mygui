@@ -18,8 +18,8 @@ namespace MyGUI
 	struct SubWidgetStateInfo
 	{
 		SubWidgetStateInfo() :
-			alpha(-1),
-			colour(Ogre::ColourValue::ZERO)
+			colour(Ogre::ColourValue::ZERO),
+			alpha(-1)
 		{
 		}
 
@@ -38,8 +38,8 @@ namespace MyGUI
 	struct WidgetStateInfo
 	{
 		WidgetStateInfo() :
-			alpha(-1),
-			colour(Ogre::ColourValue::ZERO)
+			colour(Ogre::ColourValue::ZERO),
+			alpha(-1)
 		{
 		}
 

@@ -112,7 +112,7 @@ namespace MyGUI
 
 	Ogre::ushort TextSimple::getFontHeight()
 	{
-		return mOverlayContainer->getCharHeight();
+		return (Ogre::ushort)mOverlayContainer->getCharHeight();
 	}
 
 	void TextSimple::_updateView()
@@ -139,7 +139,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		
+
 		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
 
 			mOverlayContainer->setMargin(mMargin);
@@ -164,7 +164,7 @@ namespace MyGUI
 		// необходимо разобраться
 		bool need_update = true;//_update;
 
-		// первоначальное выравнивание 
+		// первоначальное выравнивание
 		if (IS_ALIGN_RIGHT(mAlign)) {
 			if (IS_ALIGN_LEFT(mAlign)) {
 				// растягиваем

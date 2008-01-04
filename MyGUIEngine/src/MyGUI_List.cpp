@@ -16,9 +16,10 @@ namespace MyGUI
 
 	List::List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
-		mWidgetScroll(null), mWidgetClient(null),
-		mOffsetTop(0),
+		mWidgetScroll(null),
+		mWidgetClient(null),
 		mTopIndex(0),
+		mOffsetTop(0),
 		mRangeIndex(-1),
 		mLastRedrawLine(0),
 		mIndexSelect(ITEM_NONE),
@@ -187,7 +188,7 @@ namespace MyGUI
 		if (offset >= mRangeIndex) offset = mRangeIndex;
 		else if (offset < 0) offset = 0;
 
-		if (mWidgetScroll->getScrollPosition() == offset) return;
+		if ((int)mWidgetScroll->getScrollPosition() == offset) return;
 
 		mWidgetScroll->setScrollPosition(offset);
 		notifyScrollChangePosition(null, offset);
