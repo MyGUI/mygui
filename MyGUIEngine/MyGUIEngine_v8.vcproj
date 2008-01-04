@@ -221,10 +221,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\MyGUI_StretchRectangle.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\MyGUI_VScroll.cpp"
 				>
 			</File>
@@ -360,10 +356,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\MyGUI_StretchRectangleFactory.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\MyGUI_VScrollFactory.cpp"
 					>
 				</File>
@@ -432,10 +424,6 @@
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_StaticText.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\MyGUI_StretchRectangle.h"
 				>
 			</File>
 			<File
@@ -759,10 +747,6 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_StaticTextFactory.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_StretchRectangleFactory.h"
 					>
 				</File>
 				<File

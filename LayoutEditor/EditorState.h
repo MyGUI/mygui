@@ -2,7 +2,7 @@
 
 #include "BasisState.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_StretchRectangle.h"
+#include "MyGUI_Window.h"
 
 class EditorState : public BasisState
 {
@@ -28,7 +28,7 @@ public:
 	// info for new widget
 	int x1, y1, x2, y2;
 	std::string current_widget_type;
-	MyGUI::StretchRectanglePtr current_widget;
+	MyGUI::WindowPtr current_widget;
 	int creating_status;
 
 	// current settings

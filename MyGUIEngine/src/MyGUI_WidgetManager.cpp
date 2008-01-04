@@ -29,7 +29,6 @@ namespace MyGUI
 		mVScrollFactory = new factory::VScrollFactory();
 		mHScrollFactory = new factory::HScrollFactory();
 		mWindowFactory = new factory::WindowFactory();
-		mStretchRectangleFactory = new factory::StretchRectangleFactory();
 		mComboBoxFactory = new factory::ComboBoxFactory();
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
@@ -53,7 +52,6 @@ namespace MyGUI
 		delete mEditFactory;
 		delete mButtonFactory;
 		delete mWidgetFactory;
-		delete mStretchRectangleFactory;
 		delete mComboBoxFactory;
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");

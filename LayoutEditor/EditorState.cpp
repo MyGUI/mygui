@@ -9,7 +9,6 @@
 #include "MyGUI_HScroll.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_List.h"
-#include "MyGUI_StretchRectangle.h"
 
 #define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
 #define min(a,b)            (((a) < (b)) ? (a) : (b))
@@ -52,14 +51,14 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		w = abs(x1 - x2); h = abs(y1 - y2);
 		
 		creating_status = 2;
-		current_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+		current_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 	}
 	else if (creating_status == 2)
 	{
 		int x,y,w,h;
 		x = min(x1, x2); y = min(y1, y2);
 		w = abs(x1 - x2); h = abs(y1 - y2);
-    current_widget->setPosition(x, y, w, h);
+		//current_widget->setPosition(x, y, w, h);
 	}
 
 	MyGUI::LayerItemInfoPtr rootItem = null;
@@ -97,8 +96,8 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 			int x,y,w,h;
 			x = min(x1, x2); y = min(y1, y2);
 			w = abs(x1 - x2); h = abs(y1 - y2);
-			MyGUI::StretchRectanglePtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::StretchRectangle>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main", "");
-			rect->setGridStep(grid_step);
+			MyGUI::WindowPtr rect = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main", "");
+			//rect->setGridStep(grid_step);
 			creating_status = 0;
 			current_widget_type = "";
 			MyGUI::WidgetManager::getInstance().destroyWidget(current_widget);

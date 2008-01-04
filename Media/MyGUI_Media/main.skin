@@ -675,7 +675,7 @@
     </Skin>
 
 
-    <Skin name = "WindowStretch" size = "50 50" material = "MyGUI_main" >
+    <Skin name = "StretchRectangle" size = "50 50" material = "MyGUI_main" >
         <Property key="Window_ToStick" value = "false" />
         <Property key="Window_MainMove" value = "true" />
 

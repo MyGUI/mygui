@@ -235,6 +235,36 @@ namespace MyGUI
 	{
 		setPosition(_coord.point());
 		setSize(_coord.size());
+		/*IntPoint pos = _coord.point();
+		IntSize size = _coord.size();
+		// прилепляем к краям
+		if (mIsToStick) {
+			if (pos.left > 0) {if ( (pos.left - WINDOW_TO_STICK) <= 0) pos.left = 0;}
+			else {if ( (pos.left + WINDOW_TO_STICK) >= 0) pos.left = 0;}
+			if (pos.top > 0) {if ( (pos.top - WINDOW_TO_STICK) <= 0) pos.top = 0;}
+			else {	if ( (pos.top + WINDOW_TO_STICK) >= 0) pos.top = 0;}
+
+			int width = (int)Gui::getInstance().getViewWidth();
+			int height = (int)Gui::getInstance().getViewHeight();
+
+			if ( (pos.left + mCoord.width) < width) {if ( (pos.left + mCoord.width + WINDOW_TO_STICK) > width ) pos.left = width - mCoord.width;	}
+			else {	if ( (pos.left + mCoord.width - WINDOW_TO_STICK) < width ) pos.left = width - mCoord.width;}
+			if ( (pos.top + mCoord.height) < height) {if ( (pos.top + mCoord.height + WINDOW_TO_STICK) > height ) pos.top = height - mCoord.height;}
+			else {	if ( (pos.top + mCoord.height - WINDOW_TO_STICK) < height ) pos.top = height - mCoord.height;}
+
+			if ( (mCoord.left + size.width) < width) {if ( (mCoord.left + size.width + WINDOW_TO_STICK) > width ) size.width = width - mCoord.left;	}
+			else {	if ( (mCoord.left + size.width - WINDOW_TO_STICK) < width ) size.width = width - mCoord.left;}
+			if ( (mCoord.top + size.height) < height) {if ( (mCoord.top + size.height + WINDOW_TO_STICK) > height ) size.height = height - mCoord.top;}
+			else {	if ( (mCoord.top + size.height - WINDOW_TO_STICK) < height ) size.height = height - mCoord.top;}
+		}
+
+		if (size.width < mMinmax.left) size.width = mMinmax.left;
+		else if (size.width > mMinmax.right) size.width = mMinmax.right;
+		if (size.height < mMinmax.top) size.height = mMinmax.top;
+		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
+		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
+
+		Widget::setPosition(IntCoord(pos, size));*/
 	}
 
 	void Window::setSize(const IntSize& _size)

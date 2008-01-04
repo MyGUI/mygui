@@ -44,15 +44,15 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);
 
 
-    SkinManager::getInstance().load("test.skin");
-
-    button = mGUI->createWidget<Button>("Button_test", 10, 146, 88, 77, ALIGN_RIGHT | ALIGN_TOP, "Main");
+//    SkinManager::getInstance().load("test.skin");
+//    button = mGUI->createWidget<Button>("Button_test", 10, 146, 88, 77, ALIGN_RIGHT | ALIGN_TOP, "Main");
 
 //	Ogre::Log * log = Ogre::LogManager::getSingleton().createLog("test.log");
 //	log->logMessage("test");
 
 
-    mGUI->createWidgetT("Window", "WindowStretch", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
+    WindowPtr window = mGUI->createWidget<Window>("StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	//window->setMinMax
 
 
     /*std::string file = "test.png";
