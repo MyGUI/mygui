@@ -254,7 +254,7 @@
     </Skin>
 
     <Skin name = "WindowC" size = "27 54" material = "MyGUI_main" >
-        <Property key="WindowToStick" value = "true" />
+        <Property key="Window_ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
@@ -290,7 +290,7 @@
     </Skin>
 
     <Skin name = "WindowCS" size = "27 54" material = "MyGUI_main" >
-        <Property key="WindowToStick" value = "true" />
+        <Property key="Window_ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
@@ -634,7 +634,7 @@
     </Skin>
 
     <Skin name = "WindowCSX" size = "27 54" material = "MyGUI_main" >
-        <Property key="WindowToStick" value = "true" />
+        <Property key="Window_ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 -6 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
@@ -673,6 +673,54 @@
             <State name="normal" offset = "377 32 3 18"/>
         </BasisSkin>
     </Skin>
+
+
+    <Skin name = "WindowStretch" size = "50 50" material = "MyGUI_main" >
+        <Property key="Window_ToStick" value = "false" />
+        <Property key="Window_MainMove" value = "true" />
+
+        <Child type="Widget" skin="MarkerGreen" offset = "0 0 50 1" align = "ALIGN_HSTRETCH ALIGN_TOP"/>
+        <Child type="Widget" skin="MarkerGreen" offset = "0 49 50 1" align = "ALIGN_HSTRETCH ALIGN_BOTTOM"/>
+        <Child type="Widget" skin="MarkerGreen" offset = "0 1 1 48" align = "ALIGN_LEFT ALIGN_VSTRETCH"/>
+        <Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "ALIGN_RIGHT ALIGN_VSTRETCH"/>
+
+        <Child type="Button" skin="MarkerGreen" offset = "1 1 7 7" align = "ALIGN_LEFT ALIGN_TOP" name = "Action">
+            <Property key="Scale" value = "1 1 -1 -1"/>
+        </Child>
+
+        <Child type="Button" skin="MarkerGreen" offset = "42 42 7 7" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
+        </Child>
+
+        <Child type="Button" skin="MarkerGreen" offset = "42 1 7 7" align = "ALIGN_RIGHT ALIGN_TOP" name = "Action">
+            <Property key="Scale" value = "0 1 1 -1"/>
+        </Child>
+
+        <Child type="Button" skin="MarkerGreen" offset = "1 42 7 7" align = "ALIGN_LEFT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "1 0 -1 1"/>
+        </Child>
+
+        <Child type="Button" skin="MarkerGreen" offset = "1 22 7 7" align = "ALIGN_LEFT ALIGN_VCENTER" name = "Action">
+            <Property key="Scale" value = "1 0 -1 0"/>
+        </Child>
+
+        <Child type="Button" skin="MarkerGreen" offset = "42 22 7 7" align = "ALIGN_RIGHT ALIGN_VCENTER" name = "Action">
+            <Property key="Scale" value = "0 0 1 0"/>
+        </Child>
+
+        <Child type="Button" skin="MarkerGreen" offset = "22 1 7 7" align = "ALIGN_HCENTER ALIGN_TOP" name = "Action">
+            <Property key="Scale" value = "0 1 0 -1"/>
+        </Child>
+
+        <Child type="Button" skin="MarkerGreen" offset = "22 42 7 7" align = "ALIGN_HCENTER ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "0 0 0 1"/>
+        </Child>
+
+        <BasisSkin type="MainSkin" offset = "0 0 50 50" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "0 0 0 0"/>
+        </BasisSkin>
+    </Skin>
+
 
 </MyGUI>
 

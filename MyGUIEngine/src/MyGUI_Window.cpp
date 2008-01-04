@@ -40,8 +40,10 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("WindowToStick");
+		MapString::const_iterator iter = param.find("Window_ToStick");
 		if (iter != param.end()) mIsToStick = util::parseBool(iter->second);
+		iter = param.find("Window_MainMove");
+		if (iter != param.end()) setUserString("Scale", "1 1 0 0");
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "Client") {
@@ -91,6 +93,22 @@ namespace MyGUI
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyChangeRootFocus(_focus);
+	}
+
+	void Window::_onMouseMove(int _left, int _top)
+	{
+		// на тот случай, если двигать окно, можно за любое место виджета
+		notifyMouseMovedAction(this, _left, _top);
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseMove(_left, _top);
+	}
+
+	void Window::_onMouseButtonPressed(bool _left)
+	{
+		notifyMousePressed(this, _left);
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseButtonPressed(_left);
 	}
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)

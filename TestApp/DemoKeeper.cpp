@@ -17,6 +17,8 @@
 #include "OgreImageCodec.h"
 #include "OgreException.h"
 
+#include "OgreLogManager.h"
+
 using namespace MyGUI;
 
 const size_t MAX_CREATE_WINDOW = 20;
@@ -45,6 +47,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     SkinManager::getInstance().load("test.skin");
 
     button = mGUI->createWidget<Button>("Button_test", 10, 146, 88, 77, ALIGN_RIGHT | ALIGN_TOP, "Main");
+
+//	Ogre::Log * log = Ogre::LogManager::getSingleton().createLog("test.log");
+//	log->logMessage("test");
+
+
+    mGUI->createWidgetT("Window", "WindowStretch", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
 
 
     /*std::string file = "test.png";
