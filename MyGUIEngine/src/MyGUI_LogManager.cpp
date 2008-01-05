@@ -10,17 +10,19 @@
 namespace MyGUI
 {
 
-	std::string LogManager::General = "General";
+	int LogManager::Test = 11;
 
-	std::string LogManager::Critical = "Critical";
-	std::string LogManager::Error = "Error";
-	std::string LogManager::Warning = "Warning";
-	std::string LogManager::Info = "Info";
-	std::string LogManager::Debug = "Debug";
+	const std::string LogManager::General = "General";
 
-	std::string LogManager::separator = "  |  ";
+	const std::string LogManager::Critical = "Critical";
+	const std::string LogManager::Error = "Error";
+	const std::string LogManager::Warning = "Warning";
+	const std::string LogManager::Info = "Info";
+	const std::string LogManager::Debug = "Debug";
 
-	LogStreamEnd LogManager::endl;
+	const std::string LogManager::separator = "  |  ";
+
+	//LogStreamEnd LogManager::endl;
 
 	LogManager* LogManager::msInstance = 0;
 
@@ -31,10 +33,18 @@ namespace MyGUI
 
 	LogManager::~LogManager()
 	{
-		for (MapLogStream::iterator iter=msInstance->mMapSectionFileName.begin(); iter!=msInstance->mMapSectionFileName.end(); ++iter) {
-			delete iter->second;
+		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
+			LogStream * stream = iter->second;
+			if (stream == 0) continue;
+
+			// ищем все такие потоки и обнуляем
+			for (MapLogStream::iterator iter2=iter; iter2!=mapStream.end(); ++iter2) {
+				if (iter2->second == stream) iter2->second = 0;
+			}
+			delete stream;
 		}
-		msInstance->mMapSectionFileName.clear();
+		mapStream.clear();
 		msInstance = 0;
 	}
 
@@ -56,8 +66,9 @@ namespace MyGUI
 
 		if (0 == msInstance) return empty;
 
-		MapLogStream::iterator iter = msInstance->mMapSectionFileName.find(_section);
-		if (iter == msInstance->mMapSectionFileName.end()) return empty;
+		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		MapLogStream::iterator iter = mapStream.find(_section);
+		if (iter == mapStream.end()) return empty;
 
 		iter->second->start(_section, _level);
 		release();
@@ -69,24 +80,39 @@ namespace MyGUI
 	{
 		if (0 == msInstance) new LogManager();
 
-		MapLogStream::iterator iter = msInstance->mMapSectionFileName.find(_section);
-		if (iter != msInstance->mMapSectionFileName.end()) delete iter->second;
+		// ищем такую же секцию и удаляем ее
+		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		MapLogStream::iterator iter = mapStream.find(_section);
+		if (iter != mapStream.end()) {
+			delete iter->second;
+			mapStream.erase(iter);
+		}
 
-		msInstance->mMapSectionFileName[_section] = new LogStream(_file);
+		// ищем поток с таким же именем, если нет, то создаем
+		LogStream * stream = 0;
+		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
+			if (iter->second->getFileName() == _file) {
+				stream = iter->second;
+				break;
+			}
+		}
+		if (0 == stream) stream = new LogStream(_file);
+
+		mapStream[_section] = stream;
 	}
 
-	std::string LogManager::info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/)
+	const std::string& LogManager::info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/)
 	{
-		std::string file="(_file)";
-		file.reserve(200);
-		/*size_t pos = file.find_last_of("\\/");
-		if (pos != std::string::npos) file = file.substr(pos+1);*/
+		std::string file(_file);
+		size_t pos = file.find_last_of("\\/");
+		if (pos != std::string::npos) file = file.substr(pos+1);
 
-		//std::ostringstream stream;
-        //stream << separator + _file + separator << _line;
-		//file = file + separator;
-		//file = separator + file;
-		return file + file + file + file;
+		std::ostringstream stream;
+		stream << separator << file << separator << _line;
+
+		static std::string ret;
+		ret = stream.str();
+		return ret;
 	}
 
 } // namespace MyGUI

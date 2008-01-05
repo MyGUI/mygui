@@ -18,9 +18,8 @@ namespace MyGUI
 
 		// самый первый лог
 		//LogManager::initialise();
-		LogManager::registerSection(LogManager::General, "MyGUI.log");
-
-		//LogManager::out(LogManager::General, LogManager::Info) << "Initialise : " << INSTANCE_TYPE_NAME << LogManager::info(__FILE__, __LINE__) << LogManager::endl;
+		//LogManager::registerSection(LogManager::General, "MyGUI.log");
+		//LogManager::out(LogManager::General, LogManager::Info) << "Initialise : " << INSTANCE_TYPE_NAME << LogManager::info(__FILE__, __LINE__) << endl;
 
 		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 

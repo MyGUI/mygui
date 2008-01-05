@@ -25,7 +25,10 @@ namespace MyGUI
 		inline LogStream& operator<<(const LogStreamEnd& _endl)
 		{
 			std::cout << std::endl;
-			if (mStream.is_open()) mStream.close();
+			if (mStream.is_open()) {
+				mStream << std::endl;
+				mStream.close();
+			}
 			release();
 
 			return *this;
@@ -118,6 +121,8 @@ namespace MyGUI
 
 			return *this;
 		}
+
+		inline const std::string& getFileName() {return mFileName;}
 
 	private:
 		LogStream();

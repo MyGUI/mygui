@@ -63,10 +63,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //	std::ostringstream stream;
 //	int tmp = 11;
 //	stream << tmp;
-	//const std::string Wrapper = "Wrapper";
-	//LogManager::registerSection(Wrapper, "MyGUI.log");
 
-	//LogManager::out(Wrapper, LogManager::Error) << "test" << LogManager::msInstance->info(__FILE__, __LINE__) << LogManager::endl;
+	//const std::string Wrapper = "Wrapper";
+	//LogManager::registerSection(Wrapper, "MyGUI2.log");
+
+	//LogManager::out(Wrapper, LogManager::Error) << "test" << LogManager::info(__FILE__, __LINE__) << endl;
 
 	// ÂÎÒ ÝÒÓ ÑÒÐÎ×ÊÓ ÐÀÑÊÎÌÅÍÒÈÐÓÉ
 	//LogManager::info(__FILE__, __LINE__);

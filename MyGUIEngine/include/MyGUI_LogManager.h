@@ -13,6 +13,8 @@
 namespace MyGUI
 {
 
+	//const LogStreamEnd endl;
+
 	class _MyGUIExport LogManager
 	{
 	public:
@@ -22,7 +24,7 @@ namespace MyGUI
 		static LogStream& out(const std::string& _section, const std::string& _level);
 		static void registerSection(const std::string& _section, const std::string& _file);
 
-		static std::string info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/);
+		static const std::string& info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/);
 
 	private:
 		LogManager();
@@ -38,18 +40,18 @@ namespace MyGUI
 
 	public:
 		//Sections
-		static std::string General;
+		static const std::string General;
 
 		// Levels
-		static std::string Critical;
-		static std::string Error;
-		static std::string Warning;
-		static std::string Info;
-		static std::string Debug;
+		static const std::string Critical;
+		static const std::string Error;
+		static const std::string Warning;
+		static const std::string Info;
+		static const std::string Debug;
 
-		static LogStreamEnd endl;
+		static const std::string separator;
 
-		static std::string separator;
+		static int Test;
 
 	private:
 		static LogManager * msInstance;
