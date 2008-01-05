@@ -30,7 +30,7 @@ namespace MyGUI
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("ComboSmoothShow");
+		MapString::const_iterator iter = param.find("ListSmoothShow");
 		if (iter != param.end()) setSmoothShow(util::parseBool(iter->second));
 		iter = param.find("HeightList");
 		if (iter != param.end()) mMaxHeight = util::parseInt(iter->second);

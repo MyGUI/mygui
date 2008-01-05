@@ -40,9 +40,9 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("Window_ToStick");
+		MapString::const_iterator iter = param.find("ToStick");
 		if (iter != param.end()) mIsToStick = util::parseBool(iter->second);
-		iter = param.find("Window_MainMove");
+		iter = param.find("MainMove");
 		if (iter != param.end()) setUserString("Scale", "1 1 0 0");
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {

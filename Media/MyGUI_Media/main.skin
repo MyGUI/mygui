@@ -254,7 +254,7 @@
     </Skin>
 
     <Skin name = "WindowC" size = "27 54" material = "MyGUI_main" >
-        <Property key="Window_ToStick" value = "true" />
+        <Property key="ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
@@ -290,7 +290,7 @@
     </Skin>
 
     <Skin name = "WindowCS" size = "27 54" material = "MyGUI_main" >
-        <Property key="Window_ToStick" value = "true" />
+        <Property key="ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
@@ -592,7 +592,7 @@
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
         <Property key="HeightList" value = "100" />
-        <Property key="ComboSmoothShow" value = "true" />
+        <Property key="ListSmoothShow" value = "true" />
 
         <Child type="Widget" skin="EditClient" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client">
         </Child>
@@ -634,7 +634,7 @@
     </Skin>
 
     <Skin name = "WindowCSX" size = "27 54" material = "MyGUI_main" >
-        <Property key="Window_ToStick" value = "true" />
+        <Property key="ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 -6 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
@@ -676,8 +676,8 @@
 
 
     <Skin name = "StretchRectangle" size = "50 50" material = "MyGUI_main" >
-        <Property key="Window_ToStick" value = "false" />
-        <Property key="Window_MainMove" value = "true" />
+        <Property key="ToStick" value = "false" />
+        <Property key="MainMove" value = "true" />
 
         <Child type="Widget" skin="MarkerGreen" offset = "0 0 50 1" align = "ALIGN_HSTRETCH ALIGN_TOP"/>
         <Child type="Widget" skin="MarkerGreen" offset = "0 49 50 1" align = "ALIGN_HSTRETCH ALIGN_BOTTOM"/>
