@@ -87,8 +87,6 @@
 		<Unit filename="include/MyGUI_StaticImageFactory.h" />
 		<Unit filename="include/MyGUI_StaticText.h" />
 		<Unit filename="include/MyGUI_StaticTextFactory.h" />
-		<Unit filename="include/MyGUI_StretchRectangle.h" />
-		<Unit filename="include/MyGUI_StretchRectangleFactory.h" />
 		<Unit filename="include/MyGUI_SubSkin.h" />
 		<Unit filename="include/MyGUI_SubWidgetBinding.h" />
 		<Unit filename="include/MyGUI_SubWidgetFactoryInterface.h" />
@@ -155,8 +153,6 @@
 		<Unit filename="src/MyGUI_StaticImageFactory.cpp" />
 		<Unit filename="src/MyGUI_StaticText.cpp" />
 		<Unit filename="src/MyGUI_StaticTextFactory.cpp" />
-		<Unit filename="src/MyGUI_StretchRectangle.cpp" />
-		<Unit filename="src/MyGUI_StretchRectangleFactory.cpp" />
 		<Unit filename="src/MyGUI_SubSkin.cpp" />
 		<Unit filename="src/MyGUI_SubWidgetManager.cpp" />
 		<Unit filename="src/MyGUI_TextEdit.cpp" />
