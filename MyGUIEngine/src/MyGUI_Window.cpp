@@ -36,7 +36,7 @@ namespace MyGUI
 		mNeedKeyFocus = true;
 
 		// дефолтные размеры
-		mMinmax.set(50, 50, 2050, 2050);
+		mMinmax.set(0, 0, 3000, 3000);
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -233,9 +233,7 @@ namespace MyGUI
 
 	void Window::setPosition(const IntCoord& _coord)
 	{
-		setPosition(_coord.point());
-		setSize(_coord.size());
-		/*IntPoint pos = _coord.point();
+		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
 		// прилепляем к краям
 		if (mIsToStick) {
@@ -258,13 +256,35 @@ namespace MyGUI
 			else {	if ( (mCoord.top + size.height - WINDOW_TO_STICK) < height ) size.height = height - mCoord.top;}
 		}
 
-		if (size.width < mMinmax.left) size.width = mMinmax.left;
-		else if (size.width > mMinmax.right) size.width = mMinmax.right;
-		if (size.height < mMinmax.top) size.height = mMinmax.top;
-		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
-		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
+		if (size.width < mMinmax.left) {
+			int offset = mMinmax.left - size.width;
+			size.width = mMinmax.left;
+			if ((pos.left - mCoord.left) > offset) pos.left -= offset;
+			else pos.left = mCoord.left;
+		}
+		else if (size.width > mMinmax.right) {
+			int offset = mMinmax.right - size.width;
+			size.width = mMinmax.right;
+			if ((pos.left - mCoord.left) < offset) pos.left -= offset;
+			else pos.left = mCoord.left;
+		}
+		if (size.height < mMinmax.top) {
+			int offset = mMinmax.top - size.height;
+			size.height = mMinmax.top;
+			if ((pos.top - mCoord.top) > offset) pos.top -= offset;
+			else pos.top = mCoord.top;
+		}
+		else if (size.height > mMinmax.bottom) {
+			int offset = mMinmax.bottom - size.height;
+			size.height = mMinmax.bottom;
+			if ((pos.top - mCoord.top) < offset) pos.top -= offset;
+			else pos.top = mCoord.top;
+		}
 
-		Widget::setPosition(IntCoord(pos, size));*/
+		IntCoord coord(pos, size);
+		if (coord == mCoord) return;
+
+		Widget::setPosition(coord);
 	}
 
 	void Window::setSize(const IntSize& _size)
