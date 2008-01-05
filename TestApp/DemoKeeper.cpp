@@ -35,13 +35,16 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-    WidgetPtr widget = mGUI->createWidgetT("Button", "Button", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	WidgetPtr widget = mGUI->createWidgetT("Window", "StretchRectangle", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	widget->setPosition(IntCoord(100, 100, 100, 100));
+
+    /*WidgetPtr widget = mGUI->createWidgetT("Button", "Button", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
     widget->setCaption(L"demo list + combo");
     widget->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton1);
 
     ButtonPtr button = mGUI->createWidget<Button>("Button", 10, 46, 200, 26, ALIGN_RIGHT | ALIGN_TOP, "Main");
     button->setCaption(L"Edit demo + auto alpha");
-    button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);
+    button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);*/
 
 
 //    SkinManager::getInstance().load("test.skin");
@@ -51,7 +54,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //	log->logMessage("test");
 
 
-    WindowPtr window = mGUI->createWidget<Window>("StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
+    //WindowPtr window = mGUI->createWidget<Window>("StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
 	//window->setMinMax
 
 

@@ -72,8 +72,18 @@ namespace MyGUI
 
 	void MainSkin::_setAlign(const IntCoord& _coord, bool _update)
 	{
+		CroppedRectangleInterface * parent = mParent->getParent();
+		int margin_left, margin_top;
+		if (null != parent) {
+			margin_left = parent->getMarginLeft();
+			margin_top = parent->getMarginTop();
+		}
+		else {
+			margin_left = 0;
+			margin_top = 0;
+		}
 
-		mOverlayContainer->setPosition(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft(), mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop());
+		mOverlayContainer->setPosition(mCoord.left + mParent->getLeft() - margin_left, mCoord.top + mParent->getTop() - margin_top);
 
 		if (_update) {
 			_updateView();
