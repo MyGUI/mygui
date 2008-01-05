@@ -15,6 +15,13 @@ namespace MyGUI
 	void Gui::initialise(Ogre::RenderWindow* _window)
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
+
+		// самый первый лог
+		//LogManager::initialise();
+		LogManager::registerSection(LogManager::General, "MyGUI.log");
+
+		//LogManager::out(LogManager::General, LogManager::Info) << "Initialise : " << INSTANCE_TYPE_NAME << LogManager::info(__FILE__, __LINE__) << LogManager::endl;
+
 		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
 
 		Ogre::Viewport * port = _window->getViewport(0);
@@ -110,6 +117,10 @@ namespace MyGUI
 		delete mFactorySharedPanelAlphaOverlay;
 
 		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+
+		// самый последний лог
+		LogManager::shutdown();
+
 		mIsInitialise = false;
 	}
 

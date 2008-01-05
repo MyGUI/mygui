@@ -18,16 +18,23 @@
 #include "OgreException.h"
 
 #include "OgreLogManager.h"
+#include <fstream>
 
 using namespace MyGUI;
 
 const size_t MAX_CREATE_WINDOW = 20;
 
 DemoKeeper::DemoKeeper() :
-        mGUI(0),
-        mCountWindow(0),
-        mWidth(1), mHeight(1)
-{}
+	mGUI(0),
+	mCountWindow(0),
+	mWidth(1), mHeight(1)
+{
+}
+
+/*std::fstream *stream()
+{
+	
+}*/
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
@@ -52,6 +59,18 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 //	Ogre::Log * log = Ogre::LogManager::getSingleton().createLog("test.log");
 //	log->logMessage("test");
+
+//	std::ostringstream stream;
+//	int tmp = 11;
+//	stream << tmp;
+	//const std::string Wrapper = "Wrapper";
+	//LogManager::registerSection(Wrapper, "MyGUI.log");
+
+	//LogManager::out(Wrapper, LogManager::Error) << "test" << LogManager::msInstance->info(__FILE__, __LINE__) << LogManager::endl;
+
+	// ÂÎÒ ÝÒÓ ÑÒÐÎ×ÊÓ ÐÀÑÊÎÌÅÍÒÈÐÓÉ
+	//LogManager::info(__FILE__, __LINE__);
+
 
 
     //WindowPtr window = mGUI->createWidget<Window>("StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");

@@ -372,6 +372,14 @@
 				Name="Utility"
 				>
 				<File
+					RelativePath=".\src\MyGUI_LogManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_LogStream.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_RenderOut.cpp"
 					>
 				</File>
@@ -555,6 +563,14 @@
 				</File>
 				<File
 					RelativePath=".\include\delegate_implement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_LogManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_LogStream.h"
 					>
 				</File>
 				<File

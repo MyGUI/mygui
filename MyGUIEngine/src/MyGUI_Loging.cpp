@@ -18,7 +18,7 @@ namespace MyGUI
 
 	void MYGUI_LOG(const std::string & _message)
 	{
-		const std::string _file("MyGUI.log");
+		const std::string _file("_MyGUI.log");
 
     struct tm *current_time;
     time_t ctTime; time(&ctTime);
