@@ -3,8 +3,6 @@
 #include "BasisState.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Window.h"
-#include "MyGUI_Button.h"
-#include "MyGUI_Edit.h"
 
 class EditorState : public BasisState
 {
@@ -30,7 +28,7 @@ public:
 	// info for new widget
 	int x1, y1, x2, y2;
 	std::string current_widget_type;
-	MyGUI::EditPtr current_widget;
+	MyGUI::WindowPtr current_widget;
 	int creating_status;
 
 	// current settings

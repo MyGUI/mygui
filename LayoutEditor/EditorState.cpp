@@ -52,7 +52,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		w = abs(x1 - x2); h = abs(y1 - y2);
 		
 		creating_status = 2;
-		current_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+		current_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 	}
 	else if (creating_status == 2)
 	{
