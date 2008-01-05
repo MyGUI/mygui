@@ -13,6 +13,7 @@ namespace MyGUI
 	VScroll::VScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		ScrollBase(_coord, _align, _info, _parent, _name)
 	{
+		mWidgetType = "VScroll";
 	}
 
 	void VScroll::updateTrack()

@@ -53,6 +53,8 @@ namespace MyGUI
 		// наследуется и переопределяется для избежания динамического преобразования
 		bool isWidget() {return true;}
 
+		Ogre::String mWidgetType;
+
 		// вспомогательный метод для распарсивания сабвиджетофф
 		//WidgetPtr parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer = "");
 
@@ -91,6 +93,7 @@ namespace MyGUI
 
 		inline const Ogre::String & getName() {return mName;}
 		inline static const Ogre::String & getType() {static Ogre::String type("Widget"); return type;}
+		inline const Ogre::String & getWidgetType() { return mWidgetType; }
 
 		virtual void setPosition(const IntPoint& _pos);
 		virtual void setPosition(const IntCoord& _coord);
@@ -121,7 +124,7 @@ namespace MyGUI
 
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return mAlpha;};
-	
+
 		void setState(const Ogre::String & _state);
 
 		void attachToOverlay(Ogre::Overlay * _overlay);

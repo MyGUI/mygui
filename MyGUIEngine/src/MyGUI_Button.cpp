@@ -15,6 +15,7 @@ namespace MyGUI
 		mIsFocus(false),
 		mIsStatePressed(false)
 	{
+		mWidgetType = "Button";
 
 		// парсим свойства
 		const MapString & param = _info->getParams();

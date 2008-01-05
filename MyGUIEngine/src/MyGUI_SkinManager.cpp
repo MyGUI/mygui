@@ -262,7 +262,7 @@ namespace MyGUI
 	{
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
-		widget_info->setInfo(IntSize(0, 0), Ogre::MaterialManager::getSingleton().getDefaultSettings()->getName());
+		widget_info->setInfo(IntSize(0, 0), "DefaultSettings");
 		SubWidgetBinding bind(IntCoord(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
 		widget_info->addInfo(bind);
 		// создаем дефолтный прозрачный скин

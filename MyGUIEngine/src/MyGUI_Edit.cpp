@@ -46,6 +46,7 @@ namespace MyGUI
 		mModeMultiline(false),
 		mModeStatic(false)
 	{
+        mWidgetType = "Edit";
 
 		MYGUI_ASSERT(null != mText);
 

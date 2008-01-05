@@ -35,6 +35,7 @@ namespace MyGUI
 	bool FontManager::load(const std::string& _file, bool _resource)
 	{
 		xml::xmlDocument doc;
+
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
 			MYGUI_ERROR("Font: " + _file + " not found");
@@ -100,13 +101,12 @@ namespace MyGUI
 					else if (parse_range.size() == 1) pFont->addHideCodePointRange(util::parseValue<Ogre::Real>(parse_range[0]), util::parseValue<Ogre::Real>(parse_range[0]));
 				}
 			};
-
 		};
-		
+
 		return true;
 	}
 
-	Ogre::Resource* FontManager::createImpl(const Ogre::String& name, Ogre::ResourceHandle handle, 
+	Ogre::Resource* FontManager::createImpl(const Ogre::String& name, Ogre::ResourceHandle handle,
 		const Ogre::String& group, bool isManual, Ogre::ManualResourceLoader* loader,
         const Ogre::NameValuePairList* params)
 	{

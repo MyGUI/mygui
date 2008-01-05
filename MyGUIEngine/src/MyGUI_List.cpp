@@ -27,6 +27,7 @@ namespace MyGUI
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
+		mWidgetType = "Widget";
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->getInternalString() == "VScroll") {
