@@ -10,6 +10,7 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_List.h"
 
+
 #define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
 #define min(a,b)            (((a) < (b)) ? (a) : (b))
 #define TO_GRID(x) (x/grid_step*grid_step)
@@ -36,7 +37,7 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("widgetEdit", &EditorState::notifyWidgetSelect);
 	ASSIGN_FUNCTION("widgetList", &EditorState::notifyWidgetSelect);
 
-	//MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("gridEdit")->eventEditTextChange = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
+	findWidget(MyGUI::Edit, "gridEdit")->eventEditTextChange = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
 }
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
@@ -51,22 +52,23 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		w = abs(x1 - x2); h = abs(y1 - y2);
 		
 		creating_status = 2;
-		current_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
+		current_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Main");
 	}
 	else if (creating_status == 2)
 	{
 		int x,y,w,h;
 		x = min(x1, x2); y = min(y1, y2);
 		w = abs(x1 - x2); h = abs(y1 - y2);
-		//current_widget->setPosition(x, y, w, h);
+		current_widget->setPosition(x, y, w, h);
 	}
 
 	MyGUI::LayerItemInfoPtr rootItem = null;
 	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+
 	if (null != item && item->getUserString("isInterface") == "")
 	{
 		if(item->getUserString("isMarker") != "") item = item->getParent();
-//		MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
+		findWidget(MyGUI::Edit, "propertyPositionEdit")->setCaption(item->getCoord().print());
 	}
 
 	MyGUI::InputManager::getInstance().injectMouseMove(arg);

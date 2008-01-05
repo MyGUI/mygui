@@ -99,7 +99,7 @@ namespace MyGUI
 
 		// mirror WidgetManager
 		WidgetPtr findWidgetT(const std::string& _name);
-        #define findWidget(_T, _name) castWidget<_T>(Gui::getInstance().findWidgetT(_name))
+		#define findWidget(_T, _name) MyGUI::castWidget<_T>(MyGUI::Gui::getInstance().findWidgetT(_name))
 
 		// mirror LayoutManager
 		inline VectorWidgetPtr loadLayout(const std::string & _file, bool _resource = true) {return mLayoutManager->load(_file, _resource);}

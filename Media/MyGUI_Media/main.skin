@@ -645,7 +645,7 @@
         </Child>
 
         <Child type="Button" skin="WindowX" offset = "-3 0 24 30" align = "ALIGN_RIGHT ALIGN_TOP" name = "Button">
-            <Property key="Event" value = "clouse"/>
+            <Property key="Event" value = "close"/>
         </Child>
 
         <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">

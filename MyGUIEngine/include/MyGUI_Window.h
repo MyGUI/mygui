@@ -34,6 +34,10 @@ namespace MyGUI
 		// тип данного виджета
 		inline static const Ogre::String & getType() {static Ogre::String type("Window"); return type;}
 
+		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
+		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+
 		// для мееедленного показа и скрытия
 		void showSmooth(bool _reset = false);
 		void hideSmooth();
