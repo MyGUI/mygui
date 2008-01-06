@@ -104,8 +104,8 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 
-		void show();
-		void hide();
+		virtual void show();
+		virtual void hide();
 
 		virtual void setCaption(const Ogre::DisplayString & _caption);
 		virtual const Ogre::DisplayString & getCaption();
