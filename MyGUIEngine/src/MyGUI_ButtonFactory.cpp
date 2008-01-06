@@ -28,7 +28,7 @@ namespace MyGUI
 		{
 			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
+			manager.unregisterFactory(this);
 
 			// регестрируем все парсеры
 			manager.unregisterDelegate("Button_Pressed");
