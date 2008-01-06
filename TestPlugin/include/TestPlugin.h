@@ -32,9 +32,10 @@ public:
 
 
 private:
-
 	// фабрики виджетов
 	MyGUI::factory::StrangeButtonFactory * mStrangeButtonFactory;
+
+	static const std::string LogSection;
 
 };
 

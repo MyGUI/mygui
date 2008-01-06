@@ -6,6 +6,7 @@
 */
 #include "MyGUI_Gui.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_LogManager.h"
 
 namespace MyGUI
 {
@@ -14,14 +15,12 @@ namespace MyGUI
 
 	void Gui::initialise(Ogre::RenderWindow* _window)
 	{
+		// самый первый лог
+		LogManager::registerSection(LogManager::General, "MyGUI.log");
+
 		MYGUI_ASSERT(false == mIsInitialise);
 
-		// самый первый лог
-		//LogManager::initialise();
-		//LogManager::registerSection(LogManager::General, "MyGUI.log");
-		//LogManager::out(LogManager::General, LogManager::Info) << "Initialise : " << INSTANCE_TYPE_NAME << LogManager::info(__FILE__, __LINE__) << endl;
-
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		Ogre::Viewport * port = _window->getViewport(0);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
@@ -71,14 +70,14 @@ namespace MyGUI
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void Gui::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		mListFrameListener.clear();
 		mListFrameListenerAdd.clear();
@@ -115,7 +114,7 @@ namespace MyGUI
 		delete mFactoryPanelAlphaOverlay;
 		delete mFactorySharedPanelAlphaOverlay;
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
 		// самый последний лог
 		LogManager::shutdown();

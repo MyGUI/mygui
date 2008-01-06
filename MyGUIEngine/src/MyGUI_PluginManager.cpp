@@ -17,20 +17,20 @@ namespace MyGUI
 	void PluginManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void PluginManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		unloadAllPlugins();
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -103,14 +103,14 @@ namespace MyGUI
 		// check initialise
 		MYGUI_ASSERT(null != mIsInitialise);
 
-		MYGUI_LOG("Installing plugin: " + _plugin->getName());
+		_MYGUI_LOG("Installing plugin: " + _plugin->getName());
 
 		mPlugins.insert(_plugin);
 		_plugin->install();
 
 		_plugin->initialize();
 		
-		MYGUI_LOG("Plugin successfully installed");
+		_MYGUI_LOG("Plugin successfully installed");
 	}
 
 	void PluginManager::uninstallPlugin(Plugin* _plugin)
@@ -118,7 +118,7 @@ namespace MyGUI
 		// check initialise
 		MYGUI_ASSERT(null != mIsInitialise);
 
-		MYGUI_LOG("Uninstalling plugin: " + _plugin->getName());
+		_MYGUI_LOG("Uninstalling plugin: " + _plugin->getName());
 		PluginList::iterator it = mPlugins.find(_plugin);
 		if (it != mPlugins.end())
 		{
@@ -126,7 +126,7 @@ namespace MyGUI
 			_plugin->uninstall();
 			mPlugins.erase(it);
 		}
-		MYGUI_LOG("Plugin successfully uninstalled");
+		_MYGUI_LOG("Plugin successfully uninstalled");
 	}
 
 	void PluginManager::unloadAllPlugins()

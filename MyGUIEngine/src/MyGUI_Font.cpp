@@ -79,7 +79,7 @@ namespace MyGUI
 		if (mpMaterial.isNull())
 			MYGUI_EXCEPT("Error creating new material!");
 
-        MYGUI_LOG("Material for font loaded");
+        _MYGUI_LOG("Material for font loaded");
 
 		Ogre::TextureUnitState* texLayer = mpMaterial->getTechnique(0)->getPass(0)->createTextureUnitState( texName );
 		// Clamp to avoid fuzzy edges
@@ -194,7 +194,7 @@ namespace MyGUI
 		size_t data_width = finalWidth * pixel_bytes;
 		size_t data_size = finalWidth * finalHeight * pixel_bytes;
 
-		MYGUI_LOG("Font '", mName, "' using texture size ", finalWidth, " x ", finalHeight);
+		_MYGUI_LOG("Font '", mName, "' using texture size ", finalWidth, " x ", finalHeight);
 
         Ogre::uchar* imageData = new Ogre::uchar[data_size];
 		// Reset content (White, transparent)
@@ -211,7 +211,7 @@ namespace MyGUI
 		// создаем символ пробела
 		//------------------------------------------------------------------
 		ftResult = FT_Load_Char( face, mSpaceSimbol, FT_LOAD_RENDER );
-		if (ftResult) MYGUI_LOG("Info: cannot load character ", mSpaceSimbol, " in font ", mName);
+		if (ftResult) _MYGUI_LOG("Info: cannot load character ", mSpaceSimbol, " in font ", mName);
 
 		FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
 
@@ -307,7 +307,7 @@ namespace MyGUI
 				ftResult = FT_Load_Char( face, index, FT_LOAD_RENDER );
 				if (ftResult) {
 					// problem loading this glyph, continue
-					MYGUI_LOG("Info: cannot load character ", index, " in font ", mName);
+					_MYGUI_LOG("Info: cannot load character ", index, " in font ", mName);
 					continue;
 				}
 
@@ -316,7 +316,7 @@ namespace MyGUI
 
 				if (null == buffer) {
 					// Yuck, FT didn't detect this but generated a null pointer!
-					MYGUI_LOG("Info: Freetype returned null for character ", index, " in font ", mName);
+					_MYGUI_LOG("Info: Freetype returned null for character ", index, " in font ", mName);
 					continue;
 				}
 

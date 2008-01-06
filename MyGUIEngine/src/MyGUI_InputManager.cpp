@@ -25,7 +25,7 @@ namespace MyGUI
 	void InputManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
@@ -37,16 +37,16 @@ namespace MyGUI
 
 		createDefaultCharSet();
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void InputManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -345,7 +345,7 @@ namespace MyGUI
 				for (size_t j=0; j<116; j++) lang[j] = util::parseInt(chars[j]);
 
 			}
-			else MYGUI_LOG("count char is not 116");
+			else _MYGUI_LOG("count char is not 116");
 
 		};
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение

@@ -14,20 +14,20 @@ namespace MyGUI
 	void LayerManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void LayerManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		clear();
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -66,18 +66,18 @@ namespace MyGUI
 			Ogre::ushort start = 0, count = 1, height = 1;
 
 			if ( false == layer->findAttribute("name", name)) {
-				MYGUI_LOG("Attribute 'name' not find {file : ", _file, "}");
+				_MYGUI_LOG("Attribute 'name' not find {file : ", _file, "}");
 				continue;
 			}
 
 			if (layer->findAttribute("height", tmp)) height = util::parseUShort(tmp);
-			else MYGUI_LOG("Attribute 'Height' not find {file : '", _file, "' , name : ", name, "}");
+			else _MYGUI_LOG("Attribute 'Height' not find {file : '", _file, "' , name : ", name, "}");
 
 			if (layer->findAttribute("count", tmp)) count = util::parseUShort(tmp);
-			else MYGUI_LOG("Attribute 'Count' not find {file : '", _file, "' , name : ", name, "}");
+			else _MYGUI_LOG("Attribute 'Count' not find {file : '", _file, "' , name : ", name, "}");
 
 			if (layer->findAttribute("start", tmp)) start = util::parseUShort(tmp);
-			else MYGUI_LOG("Attribute 'Start' not find {file : '", _file, "' , name : ", name, "}");
+			else _MYGUI_LOG("Attribute 'Start' not find {file : '", _file, "' , name : ", name, "}");
 
 			// а вот теперь добавляем слой
 			mMapLayer[name] = new LayerInfo(name, start, count, height);

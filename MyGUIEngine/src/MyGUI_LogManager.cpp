@@ -10,20 +10,20 @@
 namespace MyGUI
 {
 
-	int LogManager::Test = 11;
+	const std::string LogManager::LevelsName[EndLogLevel] = 
+	{
+		"Info",
+		"Warning",
+		"Error",
+		"Assert",
+		"Critical",
+		"Debug"
+	};
 
 	const std::string LogManager::General = "General";
-
-	const std::string LogManager::Critical = "Critical";
-	const std::string LogManager::Error = "Error";
-	const std::string LogManager::Warning = "Warning";
-	const std::string LogManager::Info = "Info";
-	const std::string LogManager::Debug = "Debug";
-
 	const std::string LogManager::separator = "  |  ";
 
-	//LogStreamEnd LogManager::endl;
-
+	LogStreamEnd LogManager::endl;
 	LogManager* LogManager::msInstance = 0;
 
 	LogManager::LogManager()
@@ -58,7 +58,7 @@ namespace MyGUI
 		if (0 == msInstance) new LogManager();
 	}
 
-	LogStream& LogManager::out(const std::string& _section, const std::string& _level)
+	LogStream& LogManager::out(const std::string& _section, LogLevel _level)
 	{
 		lock();
 
@@ -70,7 +70,9 @@ namespace MyGUI
 		MapLogStream::iterator iter = mapStream.find(_section);
 		if (iter == mapStream.end()) return empty;
 
-		iter->second->start(_section, _level);
+		if (_level >= EndLogLevel) _level = Info;
+
+		iter->second->start(_section, LevelsName[_level]);
 		release();
 
 		return *(iter->second);
@@ -101,6 +103,23 @@ namespace MyGUI
 		mapStream[_section] = stream;
 	}
 
+	void LogManager::unregisterSection(const std::string& _section)
+	{
+		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		MapLogStream::iterator iter = mapStream.find(_section);
+		if (iter == mapStream.end()) return;
+
+		LogStream * stream = iter->second;
+		mapStream.erase(iter);
+
+		// если файл еще используеться то удалять не надо
+		for (iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
+			if (iter->second == stream) return;
+		}
+
+		delete stream;
+	}
+
 	const std::string& LogManager::info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/)
 	{
 		std::string file(_file);
@@ -113,6 +132,11 @@ namespace MyGUI
 		static std::string ret;
 		ret = stream.str();
 		return ret;
+	}
+
+	const LogStreamEnd& LogManager::end()
+	{
+		return endl;
 	}
 
 } // namespace MyGUI

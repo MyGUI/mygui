@@ -13,18 +13,38 @@
 namespace MyGUI
 {
 
-	//const LogStreamEnd endl;
+	#define LOGGING(section, level, text) \
+		MyGUI::LogManager::out(section, MyGUI::LogManager::level) \
+		<< text \
+		<< MyGUI::LogManager::info(__FILE__, __LINE__) \
+		<< MyGUI::LogManager::end()
 
 	class _MyGUIExport LogManager
 	{
+
+	public:
+		enum LogLevel
+		{
+			Info,
+			Warning,
+			Error,
+			Assert,
+			Critical,
+			Debug,
+			EndLogLevel
+		};
+
 	public:
 		static void shutdown();
 		static void initialise();
 
-		static LogStream& out(const std::string& _section, const std::string& _level);
 		static void registerSection(const std::string& _section, const std::string& _file);
+		static void unregisterSection(const std::string& _section);
 
+		static LogStream& out(const std::string& _section, LogLevel _level);
 		static const std::string& info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/);
+
+		static const LogStreamEnd& end();
 
 	private:
 		LogManager();
@@ -39,19 +59,11 @@ namespace MyGUI
 		}
 
 	public:
-		//Sections
 		static const std::string General;
-
-		// Levels
-		static const std::string Critical;
-		static const std::string Error;
-		static const std::string Warning;
-		static const std::string Info;
-		static const std::string Debug;
-
 		static const std::string separator;
 
-		static int Test;
+		static LogStreamEnd endl;
+		static const std::string LevelsName[EndLogLevel];
 
 	private:
 		static LogManager * msInstance;

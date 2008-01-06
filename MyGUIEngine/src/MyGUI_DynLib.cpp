@@ -37,7 +37,7 @@ namespace MyGUI
 	void DynLib::load()
 	{
 		// Log library load
-		MYGUI_LOG("Loading library " + mName);
+		_MYGUI_LOG("Loading library " + mName);
 
 		std::string name = mName;
 
@@ -56,7 +56,7 @@ namespace MyGUI
 	void DynLib::unload()
 	{
 		// Log library unload
-		MYGUI_LOG("Unloading library " + mName);
+		_MYGUI_LOG("Unloading library " + mName);
 
 		if( DYNLIB_UNLOAD( mInstance ) )
 		{

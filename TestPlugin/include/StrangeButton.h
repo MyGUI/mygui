@@ -1,6 +1,7 @@
 #ifndef __STRANGE_BUTTON_H__
 #define __STRANGE_BUTTON_H__
 
+#include "MyGUI_Prerequest.h"
 #include "StrangeButtonFactory.h"
 #include "MyGUI_Widget.h"
 

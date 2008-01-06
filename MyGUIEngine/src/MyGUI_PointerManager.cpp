@@ -16,21 +16,21 @@ namespace MyGUI
 	void PointerManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		mOverlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
 			"PanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
 		mOverlayElement->setMetricsMode(Ogre::GMM_PIXELS);
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void PointerManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		clear();
 		// отсоединяем
@@ -41,7 +41,7 @@ namespace MyGUI
 			mOverlayElement = null;
 		}
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

@@ -18,7 +18,7 @@ namespace MyGUI
 	void SkinManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		// забиваем карту флагами выравнивания
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_NONE);
@@ -36,14 +36,14 @@ namespace MyGUI
 
 		createDefault();
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void SkinManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); iter++) {
 			WidgetSkinInfoPtr info = iter->second;
@@ -52,7 +52,7 @@ namespace MyGUI
 		mSkins.clear();
 		mMapAlign.clear();
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -64,7 +64,7 @@ namespace MyGUI
 			MapAlign::iterator iter = mMapAlign.find(vec[pos]);
 			if (iter != mMapAlign.end()) flag |= iter->second;
 			else {
-				MYGUI_LOG("Cannot parse align '", vec[pos], "'");
+				_MYGUI_LOG("Cannot parse align '", vec[pos], "'");
 			}
 		}
 		return flag;
@@ -75,7 +75,7 @@ namespace MyGUI
 		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
 		// если не нашли, то вернем дефолтный скин
 		if (iter == mSkins.end()) {
-			MYGUI_LOG("no find skin, set default");
+			_MYGUI_LOG("no find skin, set default");
 			return mSkins["Default"];
 		}
 		return iter->second;

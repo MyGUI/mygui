@@ -31,11 +31,6 @@ DemoKeeper::DemoKeeper() :
 {
 }
 
-/*std::fstream *stream()
-{
-	
-}*/
-
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
     mGUI = _gui;
@@ -57,65 +52,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //    SkinManager::getInstance().load("test.skin");
 //    button = mGUI->createWidget<Button>("Button_test", 10, 146, 88, 77, ALIGN_RIGHT | ALIGN_TOP, "Main");
 
-//	Ogre::Log * log = Ogre::LogManager::getSingleton().createLog("test.log");
-//	log->logMessage("test");
-
-//	std::ostringstream stream;
-//	int tmp = 11;
-//	stream << tmp;
-
-	//const std::string Wrapper = "Wrapper";
-	//LogManager::registerSection(Wrapper, "MyGUI2.log");
-
-	//LogManager::out(Wrapper, LogManager::Error) << "test" << LogManager::info(__FILE__, __LINE__) << endl;
-
-	// ÂÎÒ ÝÒÓ ÑÒÐÎ×ÊÓ ÐÀÑÊÎÌÅÍÒÈÐÓÉ
-	//LogManager::info(__FILE__, __LINE__);
-
-
-
     //WindowPtr window = mGUI->createWidget<Window>("StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
-	//window->setMinMax
-
-
-    /*std::string file = "test.png";
-    std::string ext;
-
-    size_t pos = file.find_last_of(".");
-    if( pos == std::string::npos )
-    	OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS,
-    	"Unable to load image file '" + file + "' - invalid extension.", "Image::load" );
-
-    while ( pos != (file.length()-1) ) ext += file[++pos];
-
-    Ogre::Codec * pCodec = Ogre::Codec::getCodec(ext);
-    if ( !pCodec ) OGRE_EXCEPT( Ogre::Exception::ERR_INVALIDPARAMS,
-    	"Unable to load image file '" + file + "' - invalid extension.", "Image::load" );
-
-    Ogre::DataStreamPtr encoded = Ogre::ResourceGroupManager::getSingleton().openResource(file);
-    Ogre::Codec::DecodeResult res = pCodec->decode(encoded);
-    Ogre::ImageCodec::ImageData* pData = static_cast<Ogre::ImageCodec::ImageData*>(res.second.getPointer());
-
-    unsigned char * buffer = res.first->getPtr();
-
-    unsigned char pixel_size = static_cast<unsigned char>(Ogre::PixelUtil::getNumElemBytes( pData->format ));
-
-    pos = 0;
-    for (size_t y=0; y<pData->height; y++) {
-    	for (size_t x=0; x<pData->width; x++) {
-    		bool is_null = true;
-    		for (size_t in_pix=0; in_pix<pixel_size; in_pix++) {
-    			if (0xFF != buffer[pos]) is_null = false;
-    			pos++;
-    		}
-    	}
-    }*/
-
 
 }
 
 void DemoKeeper::end()
-{}
+{
+}
 
 void DemoKeeper::createWindowEdit()
 {

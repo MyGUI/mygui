@@ -13,28 +13,28 @@
 namespace MyGUI
 {
 
-	void _MyGUIExport MYGUI_LOG(const std::string & _message);
+	void _MyGUIExport _MYGUI_LOG(const std::string & _message);
 
 	template< class T1,  class T2 >
-	inline void MYGUI_LOG (T1 p1, T2 p2) {MYGUI_LOG(util::toString(p1, p2));}
+	inline void _MYGUI_LOG (T1 p1, T2 p2) {_MYGUI_LOG(util::toString(p1, p2));}
 
 	template< class T1,  class T2,  class T3 >
-	inline void MYGUI_LOG (T1 p1, T2 p2, T3 p3) {MYGUI_LOG(util::toString(p1, p2, p3));}
+	inline void _MYGUI_LOG (T1 p1, T2 p2, T3 p3) {_MYGUI_LOG(util::toString(p1, p2, p3));}
 
 	template< class T1,  class T2,  class T3, class T4 >
-	inline void MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4) {MYGUI_LOG(util::toString(p1, p2, p3, p4));}
+	inline void _MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4) {_MYGUI_LOG(util::toString(p1, p2, p3, p4));}
 
 	template< class T1,  class T2,  class T3, class T4, class T5 >
-	inline void MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5) {MYGUI_LOG(util::toString(p1, p2, p3, p4, p5));}
+	inline void _MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5) {_MYGUI_LOG(util::toString(p1, p2, p3, p4, p5));}
 
 	template< class T1,  class T2,  class T3, class T4, class T5, class T6 >
-	inline void MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6) {MYGUI_LOG(util::toString(p1, p2, p3, p4, p5, p6));}
+	inline void _MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6) {_MYGUI_LOG(util::toString(p1, p2, p3, p4, p5, p6));}
 
 	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7 >
-	inline void MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7) {MYGUI_LOG(util::toString(p1, p2, p3, p4, p5, p6, p7));}
+	inline void _MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7) {_MYGUI_LOG(util::toString(p1, p2, p3, p4, p5, p6, p7));}
 
 	template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7, class T8 >
-	inline void MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8) {MYGUI_LOG(util::toString(p1, p2, p3, p4, p5, p6, p7, p8));}
+	inline void _MYGUI_LOG (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8) {_MYGUI_LOG(util::toString(p1, p2, p3, p4, p5, p6, p7, p8));}
 
 } // namespace MyGUI
 

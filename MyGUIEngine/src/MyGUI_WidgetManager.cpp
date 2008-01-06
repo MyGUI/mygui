@@ -17,7 +17,7 @@ namespace MyGUI
 	void WidgetManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		// создаем фабрики виджетов
 		mWidgetFactory = new factory::WidgetFactory();
@@ -31,14 +31,14 @@ namespace MyGUI
 		mWindowFactory = new factory::WindowFactory();
 		mComboBoxFactory = new factory::ComboBoxFactory();
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void WidgetManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		mFactoryList.clear();
 		mDelegates.clear();
@@ -54,21 +54,21 @@ namespace MyGUI
 		delete mWidgetFactory;
 		delete mComboBoxFactory;
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
 	void WidgetManager::registerFactory(WidgetFactoryInterface * _factory)
 	{
 		mFactoryList.insert(_factory);
-		MYGUI_LOG("* Register widget factory '", _factory->getType(), "'");
+		_MYGUI_LOG("* Register widget factory '", _factory->getType(), "'");
 	}
 
 	void WidgetManager::unregisterFactory(WidgetFactoryInterface * _factory)
 	{
 		SetWidgetFactory::iterator iter = mFactoryList.find(_factory);
 		if (iter != mFactoryList.end()) mFactoryList.erase(iter);
-		MYGUI_LOG("* Unregister widget factory '", _factory->getType(), "'");
+		_MYGUI_LOG("* Unregister widget factory '", _factory->getType(), "'");
 	}
 
 	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name)
@@ -98,7 +98,7 @@ namespace MyGUI
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
-			MYGUI_LOG("Error: Widget \"" , _name , "\" not found");
+			_MYGUI_LOG("Error: Widget \"" , _name , "\" not found");
 			return null;
 		}
 		return iter->second;

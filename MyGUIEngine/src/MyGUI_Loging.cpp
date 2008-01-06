@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 
-	void MYGUI_LOG(const std::string & _message)
+	void _MYGUI_LOG(const std::string & _message)
 	{
 		const std::string _file("_MyGUI.log");
 

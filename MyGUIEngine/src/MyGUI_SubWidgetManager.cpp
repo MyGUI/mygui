@@ -14,7 +14,7 @@ namespace MyGUI
 	void SubWidgetManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise);
-		MYGUI_LOG("* Initialise: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mFactoryMainSkin = new CroppedRectangleFactory<MainSkin>();
 		registerFactory(mFactoryMainSkin);
@@ -28,14 +28,14 @@ namespace MyGUI
 		mFactoryTextSimple = new CroppedRectangleFactory<TextSimple>();
 		registerFactory(mFactoryTextSimple);
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully initialized");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void SubWidgetManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		MYGUI_LOG("* Shutdown: ", INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		mFactoryList.clear();
 
@@ -44,7 +44,7 @@ namespace MyGUI
 		delete mFactoryTextEdit;
 		delete mFactoryTextSimple;
 
-		MYGUI_LOG(INSTANCE_TYPE_NAME, " successfully shutdown");
+		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

@@ -1,4 +1,5 @@
 
+#include "MyGUI_Prerequest.h"
 #include "StrangeButton.h"
 
 namespace MyGUI
