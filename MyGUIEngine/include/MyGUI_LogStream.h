@@ -58,6 +58,14 @@ namespace MyGUI
 			return *this;
 		}
 
+		inline LogStream& operator<<(int _value)
+		{
+			std::cout << _value;
+			if (mStream.is_open()) mStream << _value;
+
+			return *this;
+		}
+
 		inline LogStream& operator<<(long _value)
 		{
 			std::cout << _value;
@@ -91,6 +99,14 @@ namespace MyGUI
 		}
 
 		inline LogStream& operator<<(long double _value)
+		{
+			std::cout << _value;
+			if (mStream.is_open()) mStream << _value;
+
+			return *this;
+		}
+
+		inline LogStream& operator<<(size_t _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;

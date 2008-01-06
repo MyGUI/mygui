@@ -419,11 +419,11 @@ namespace MyGUI
 		{
 			mpFont = FontManager::getInstance().getByName( font );
 			if (mpFont.isNull())
-				MYGUI_EXCEPT("Could not find font " + font);
+				MYGUI_EXCEPT("Could not find font " << font);
 			mpFont->load();
 			mpMaterial = mpFont->getMaterial();
 			if (mpMaterial.isNull())
-				MYGUI_EXCEPT("Could not find material for font " + font);
+				MYGUI_EXCEPT("Could not find material for font " << font);
 			mpMaterial->setDepthCheckEnabled(false);
 			mpMaterial->setLightingEnabled(false);
 

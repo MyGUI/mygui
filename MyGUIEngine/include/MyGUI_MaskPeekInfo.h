@@ -26,7 +26,7 @@ namespace MyGUI
 
 			size_t pos = _file.find_last_of(".");
 			if ( pos == std::string::npos ) {
-				_MYGUI_LOG("Unable to load image file '", _file, "' - invalid extension.");
+				MYGUI_LOG(Error, "Unable to load image file '" << _file << "' - invalid extension.");
 				return false;
 			}
 
@@ -34,7 +34,7 @@ namespace MyGUI
 
 			Ogre::Codec * pCodec = Ogre::Codec::getCodec(ext);
 			if ( ! pCodec ) {
-				_MYGUI_LOG("Unable to load image file '", _file, "' - no find codec for '", ext, "' extension.");
+				MYGUI_LOG(Error, "Unable to load image file '" << _file << "' - no find codec for '" << ext << "' extension.");
 				return false;
 			}
 

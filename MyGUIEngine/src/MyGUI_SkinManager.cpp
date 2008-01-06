@@ -17,7 +17,7 @@ namespace MyGUI
 
 	void SkinManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		// забиваем карту флагами выравнивания
@@ -64,7 +64,7 @@ namespace MyGUI
 			MapAlign::iterator iter = mMapAlign.find(vec[pos]);
 			if (iter != mMapAlign.end()) flag |= iter->second;
 			else {
-				_MYGUI_LOG("Cannot parse align '", vec[pos], "'");
+				MYGUI_LOG(Warning, "Cannot parse align '" << vec[pos] << "'");
 			}
 		}
 		return flag;
@@ -75,7 +75,7 @@ namespace MyGUI
 		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
 		// если не нашли, то вернем дефолтный скин
 		if (iter == mSkins.end()) {
-			_MYGUI_LOG("no find skin, set default");
+			MYGUI_LOG(Warning, "no find skin, set default");
 			return mSkins["Default"];
 		}
 		return iter->second;
@@ -94,23 +94,23 @@ namespace MyGUI
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
-			MYGUI_ERROR("Skin: " + _file + " not found");
+			MYGUI_LOG(Error, "Skin: " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_ERROR("Skin: " + doc.getLastError());
+			MYGUI_LOG(Error, "Skin: " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_ERROR("Skin: " + _file + " root tag 'MyGUI' not found");
+			MYGUI_LOG(Error, "Skin: " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
 		if ( (false == root->findAttribute("type", type)) || (type != "Skin") ) {
-			MYGUI_ERROR("Skin: " + _file + " root type 'Skin' not found");
+			MYGUI_LOG(Error, "Skin: " << _file << " root type 'Skin' not found");
 			return false;
 		}
 
@@ -135,7 +135,9 @@ namespace MyGUI
 
 			// проверяем маску
 			if (skin->findAttribute("mask", tmp)) {
-				if (false == widget_info->loadMask(tmp)) MYGUI_ERROR("Skin: " + _file + ", mask not load '" + tmp + "'");
+				if (false == widget_info->loadMask(tmp)) {
+					MYGUI_LOG(Error, "Skin: " << _file << ", mask not load '" << tmp << "'");
+				}
 			}
 
 			// берем детей и крутимся, цикл с саб скинами

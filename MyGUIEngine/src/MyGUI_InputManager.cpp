@@ -24,7 +24,7 @@ namespace MyGUI
 
 	void InputManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mWidgetMouseFocus = 0;
@@ -302,23 +302,23 @@ namespace MyGUI
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
-			MYGUI_ERROR("Input: " + _file + " not found");
+			MYGUI_LOG(Error, "Input: " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_ERROR("Input: " + doc.getLastError());
+			MYGUI_LOG(Error, "Input: " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_ERROR("Input: " + _file + " root tag 'MyGUI' not found");
+			MYGUI_LOG(Error, "Input: " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
 		if ( (false == root->findAttribute("type", type)) || (type != "Lang") ) {
-			MYGUI_ERROR("Input: " + _file + " root tag 'Lang' not found");
+			MYGUI_LOG(Error, "Input: " << _file << " root tag 'Lang' not found");
 			return false;
 		}
 
@@ -345,7 +345,9 @@ namespace MyGUI
 				for (size_t j=0; j<116; j++) lang[j] = util::parseInt(chars[j]);
 
 			}
-			else _MYGUI_LOG("count char is not 116");
+			else {
+				MYGUI_LOG(Warning, "count char is not 116");
+			}
 
 		};
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение

@@ -16,9 +16,9 @@ namespace MyGUI
 	{
 	#if MYGUI_DEBUG_MODE == 1
 		if (null == dynamic_cast<T*>(_widget)) {
-			std::string error(util::toString("ASSERT : 'null == dynamic_cast<T*>(_widget)'  dest type = '",
+			std::string error(util::toString("'null == dynamic_cast<T*>(_widget)'  dest type = '",
 				T::getType(), ((_widget != null) ? "' source name = '" + _widget->getName() : ""), "'"));
-			MyGUI::_MYGUI_LOG(error, " at  ", __FILE__, " (line ", __LINE__, ")");
+			MYGUI_LOG(Critical, error);
 			OGRE_EXCEPT(0, error, "");
 		}
 	#endif // MYGUI_DEBUG_MODE == 1

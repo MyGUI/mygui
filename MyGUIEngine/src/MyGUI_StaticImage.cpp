@@ -16,11 +16,11 @@ namespace MyGUI
 	{
 		mWidgetType = "StaticImage";
 		// первоначальная инициализация
-		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1);
-		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText());
+		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1, "subskin must be one");
+		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");
 
 		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->_getOverlayElement());
-		MYGUI_DEBUG_ASSERT(null != mElement);
+		MYGUI_DEBUG_ASSERT(null != mElement, "overlay element not find");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();

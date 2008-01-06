@@ -49,7 +49,7 @@ namespace MyGUI
 
 		inline void setComboItemIndex(size_t _index)
 		{
-			MYGUI_ASSERT(_index < mList->getItemCount());
+			MYGUI_ASSERT(_index < mList->getItemCount(), "index out of range");
 			mItemIndex = _index;
 			Edit::setCaption(mList->getItemString(_index));
 		}
@@ -77,13 +77,13 @@ namespace MyGUI
 
 		inline const Ogre::DisplayString & getItemString(size_t _index)
 		{
-			MYGUI_ASSERT(_index < mList->getItemCount());
+			MYGUI_ASSERT(_index < mList->getItemCount(), "index out of range");
 			return mList->getItemString(_index);
 		}
 
 		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
 		{
-			MYGUI_ASSERT(_index < mList->getItemCount());
+			MYGUI_ASSERT(_index < mList->getItemCount(), "index out of range");
 			mList->setItemString(_index, _item);
 			mItemIndex = ITEM_NONE;
 			mList->setItemSelect(mItemIndex);

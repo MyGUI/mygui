@@ -145,7 +145,7 @@ namespace MyGUI
 
 	void MainSkin::_setUVSet(const FloatRect& _rect)
 	{
-		MYGUI_ASSERT(null != mOverlayContainer);
+		MYGUI_ASSERT(null != mOverlayContainer, "overlay is not create");
 		mRectTexture = _rect;
 		// если обрезаны, то просчитываем с учето обрезки
 		if (mIsMargin) {

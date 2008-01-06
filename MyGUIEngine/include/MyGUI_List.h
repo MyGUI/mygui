@@ -38,12 +38,12 @@ namespace MyGUI
 		}
 		inline const Ogre::DisplayString & getItemString(size_t _index)
 		{
-			MYGUI_ASSERT(_index < mStringArray.size());
+			MYGUI_ASSERT(_index < mStringArray.size(), "index out of range");
 			return mStringArray[_index];
 		}
 		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
 		{
-			MYGUI_ASSERT(_index < mStringArray.size());
+			MYGUI_ASSERT(_index < mStringArray.size(), "index out of range");
 			mStringArray[_index]=_item;
 			_redrawItem(_index);
 		}

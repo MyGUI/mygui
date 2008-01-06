@@ -66,7 +66,7 @@ namespace MyGUI
 		{
 			// ищем такой же ключ
 			MapSubWidgetStateInfo::const_iterator iter = mStates.find(_name);
-			MYGUI_ASSERT(iter == mStates.end());
+			MYGUI_ASSERT(iter == mStates.end(), "state '" << _name << "' is exist");
 			// добавляем
 			mStates[_name] = SubWidgetStateInfo(_rect, _colour, _alpha);
 		}

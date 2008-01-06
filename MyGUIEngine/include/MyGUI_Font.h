@@ -234,7 +234,7 @@ namespace MyGUI
 			else
 			{
 				// RHS must be a null pointer
-				MYGUI_ASSERT(r.isNull() && "RHS must be null if it has no mutex!");
+				MYGUI_ASSERT(r.isNull(), "RHS must be null if it has no mutex!");
 				setNull();
 			}
 			return *this;

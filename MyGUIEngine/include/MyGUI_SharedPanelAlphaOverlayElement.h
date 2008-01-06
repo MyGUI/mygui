@@ -71,7 +71,7 @@ namespace MyGUI
 
 		inline void setPositionInfo(float _left, float _top, size_t _id)
 		{
-			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id);
+			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id, "index out of range");
 			OneOverlayDataInfo & info = mVectorSharedOverlay.at(_id);
 			info.left = _left;
 			info.top = _top;
@@ -84,7 +84,7 @@ namespace MyGUI
 
 		inline void setPositionInfo(float _left, float _top, float _width, float _height, size_t _id)
 		{
-			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id);
+			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id, "index out of range");
 			OneOverlayDataInfo & info = mVectorSharedOverlay.at(_id);
 			info.left = _left;
 			info.top = _top;
@@ -99,7 +99,7 @@ namespace MyGUI
 
 		inline void setDimensionInfo(float _width, float _height, size_t _id)
 		{
-			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id);
+			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id, "index out of range");
 			OneOverlayDataInfo & info = mVectorSharedOverlay.at(_id);
 			info.width = _width;
 			info.height = _height;
@@ -108,7 +108,7 @@ namespace MyGUI
 
 		inline void setTransparentInfo(bool _transparent, size_t _id)
 		{
-			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id);
+			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id, "index out of range");
 			OneOverlayDataInfo & info = mVectorSharedOverlay.at(_id);
 			info.transparent = _transparent;
 			mGeomPositionsOutOfDate = true;
@@ -116,7 +116,7 @@ namespace MyGUI
 
 		inline void setUVInfo(float _u1, float _v1, float _u2, float _v2, size_t _id)
 		{
-			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id);
+			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id, "index out of range");
 			OneOverlayDataInfo & info = mVectorSharedOverlay.at(_id);
 			info.u1 = _u1;
 			info.v1 = _v1;
@@ -127,7 +127,7 @@ namespace MyGUI
 
 		inline bool isTransparentInfo(size_t _id)
 		{
-			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id);
+			MYGUI_DEBUG_ASSERT(mVectorSharedOverlay.size() > _id, "index out of range");
 			OneOverlayDataInfo & info = mVectorSharedOverlay.at(_id);
 			return info.transparent;
 		}

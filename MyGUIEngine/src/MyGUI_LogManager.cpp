@@ -15,9 +15,7 @@ namespace MyGUI
 		"Info",
 		"Warning",
 		"Error",
-		"Assert",
-		"Critical",
-		"Debug"
+		"Critical"
 	};
 
 	const std::string LogManager::General = "General";
@@ -122,12 +120,8 @@ namespace MyGUI
 
 	const std::string& LogManager::info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/)
 	{
-		std::string file(_file);
-		size_t pos = file.find_last_of("\\/");
-		if (pos != std::string::npos) file = file.substr(pos+1);
-
 		std::ostringstream stream;
-		stream << separator << file << separator << _line;
+		stream << separator << _file << separator << _line;
 
 		static std::string ret;
 		ret = stream.str();

@@ -37,9 +37,9 @@ namespace MyGUI
 				mWidgetTrack->hide();
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetStart);
-		MYGUI_ASSERT(null != mWidgetEnd);
-		MYGUI_ASSERT(null != mWidgetTrack);
+		MYGUI_ASSERT(null != mWidgetStart, "child is not find");
+		MYGUI_ASSERT(null != mWidgetEnd, "child is not find");
+		MYGUI_ASSERT(null != mWidgetTrack, "child is not find");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();

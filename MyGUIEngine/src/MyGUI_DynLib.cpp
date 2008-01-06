@@ -37,13 +37,13 @@ namespace MyGUI
 	void DynLib::load()
 	{
 		// Log library load
-		_MYGUI_LOG("Loading library " + mName);
+		MYGUI_LOG(Info, "Loading library " << mName);
 
 		std::string name = mName;
 
 		mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
 
-		MYGUI_ASSERT(null != mInstance);/* && ("Could not load dynamic library " + mName +
+		MYGUI_ASSERT(null != mInstance, "library is not load");/* && ("Could not load dynamic library " + mName +
 			".  System Error: " + dynlibError()));*/
 
 		/*if( !mInstance )
@@ -56,11 +56,11 @@ namespace MyGUI
 	void DynLib::unload()
 	{
 		// Log library unload
-		_MYGUI_LOG("Unloading library " + mName);
+		MYGUI_LOG(Info, "Unloading library " << mName);
 
 		if( DYNLIB_UNLOAD( mInstance ) )
 		{
-			MYGUI_ASSERT(0);/* && ("Could not unload dynamic library " + mName +
+			MYGUI_EXCEPT("error unload library");/* && ("Could not unload dynamic library " + mName +
 				".  System Error: " + dynlibError()));*/
 
 			/*EXCEPT(Exception::ERR_INTERNAL_ERROR,

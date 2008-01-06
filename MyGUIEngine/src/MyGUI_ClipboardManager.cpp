@@ -13,7 +13,7 @@ namespace MyGUI
 
 	void ClipboardManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");

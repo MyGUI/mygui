@@ -40,19 +40,19 @@ namespace MyGUI
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetScroll);
-		MYGUI_ASSERT(null != mWidgetClient);
+		MYGUI_ASSERT(null != mWidgetScroll, "child is not find");
+		MYGUI_ASSERT(null != mWidgetClient, "child is not find");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("SkinLine");
 		if (iter != param.end()) mSkinLine = iter->second;
+		MYGUI_ASSERT(false == mSkinLine.empty(), "skin for line is not find");
+
 		iter = param.find("HeightLine");
 		if (iter != param.end()) mHeightLine = util::parseInt(iter->second);
-		else mHeightLine = 1;
+		if (mHeightLine < 1) mHeightLine = 1;
 
-		MYGUI_ASSERT(mHeightLine > 0);
-		MYGUI_ASSERT(false == mSkinLine.empty());
 
 		mWidgetScroll->setScrollPage((size_t)mHeightLine);
 
@@ -476,7 +476,7 @@ namespace MyGUI
 	void List::deleteItemString(size_t _index)
 	{
 		// довер€й, но провер€й
-		MYGUI_ASSERT(_index < mStringArray.size());
+		MYGUI_ASSERT(_index < mStringArray.size(), "index out of range");
 
 		// уд€л€ем физически строку
 		_deleteString(_index);

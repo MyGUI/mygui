@@ -48,7 +48,7 @@ namespace MyGUI
 	{
         mWidgetType = "Edit";
 
-		MYGUI_ASSERT(null != mText);
+		MYGUI_ASSERT(null != mText, "text sub widget is not find");
 
 		mOriginalPointer = mPointer;
 
@@ -65,7 +65,7 @@ namespace MyGUI
 				mWidgetUpper->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetUpper);
+		MYGUI_ASSERT(null != mWidgetUpper, "child is not find");
 
 		// курсор принадлежит клиенту, пытаемся его найти
 		const VectorWidgetPtr& childs = mWidgetUpper->getChilds();
@@ -82,7 +82,7 @@ namespace MyGUI
 				break;
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetCursor);
+		MYGUI_ASSERT(null != mWidgetCursor, "child is not find");
 
 		// высчитываем половинки
 		mHalfCursor.set(mWidgetCursor->getWidth()/2, mWidgetCursor->getHeight()/2);
@@ -212,8 +212,6 @@ namespace MyGUI
 
 	void Edit::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
-		MYGUI_ASSERT(null != mText);
-
 		// в статическом режиме ничего не доступно
 		if (mModeStatic) {
 			Widget::_onKeyButtonPressed(_key, _char);

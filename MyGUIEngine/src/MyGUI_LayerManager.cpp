@@ -13,7 +13,7 @@ namespace MyGUI
 
 	void LayerManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -38,23 +38,23 @@ namespace MyGUI
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
-			MYGUI_ERROR("Layer " + _file + " not found");
+			MYGUI_LOG(Error, "Layer " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_ERROR("Layer " + doc.getLastError());
+			MYGUI_LOG(Error, "Layer " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_ERROR("Layer: " + _file + " root tag 'MyGUI' not found");
+			MYGUI_LOG(Error, "Layer: " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
 		if ( (false == root->findAttribute("type", type)) || (type != "Layer") ) {
-			MYGUI_ERROR("Layer: " + _file + " root type 'Layer' not found");
+			MYGUI_LOG(Error, "Layer: " << _file << " root type 'Layer' not found");
 			return false;
 		}
 
@@ -66,18 +66,24 @@ namespace MyGUI
 			Ogre::ushort start = 0, count = 1, height = 1;
 
 			if ( false == layer->findAttribute("name", name)) {
-				_MYGUI_LOG("Attribute 'name' not find {file : ", _file, "}");
+				MYGUI_LOG(Warning, "Attribute 'name' not find {file : " << _file << "}");
 				continue;
 			}
 
 			if (layer->findAttribute("height", tmp)) height = util::parseUShort(tmp);
-			else _MYGUI_LOG("Attribute 'Height' not find {file : '", _file, "' , name : ", name, "}");
+			else {
+				MYGUI_LOG(Warning, "Attribute 'Height' not find {file : '" << _file << "' , name : " << name << "}");
+			}
 
 			if (layer->findAttribute("count", tmp)) count = util::parseUShort(tmp);
-			else _MYGUI_LOG("Attribute 'Count' not find {file : '", _file, "' , name : ", name, "}");
+			else {
+				MYGUI_LOG(Warning, "Attribute 'Count' not find {file : '" << _file << "' , name : " << name << "}");
+			}
 
 			if (layer->findAttribute("start", tmp)) start = util::parseUShort(tmp);
-			else _MYGUI_LOG("Attribute 'Start' not find {file : '", _file, "' , name : ", name, "}");
+			else {
+				MYGUI_LOG(Warning, "Attribute 'Start' not find {file : '" << _file << "' , name : " << name << "}");
+			}
 
 			// а вот теперь добавляем слой
 			mMapLayer[name] = new LayerInfo(name, start, count, height);
@@ -97,7 +103,7 @@ namespace MyGUI
 	{
 		// это наш уровень
 		LayerInfoPtr layer = mMapLayer[_layer];
-		if (layer == null) MYGUI_EXCEPT(_layer + " - no find level");
+		MYGUI_ASSERT(null != layer, "leyer '" << _layer << "' is not find");
 		// запоминаем созданный айтем в виджете
 		layer->addItem(_item);
 		// добавляем уровень в карту поиска

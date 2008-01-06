@@ -28,9 +28,7 @@ namespace MyGUI
 			Info,
 			Warning,
 			Error,
-			Assert,
 			Critical,
-			Debug,
 			EndLogLevel
 		};
 

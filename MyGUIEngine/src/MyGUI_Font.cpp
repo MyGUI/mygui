@@ -60,7 +60,7 @@ namespace MyGUI
 			if ((_id > iter->second) || (_id < iter->first)) continue;
 			return & iter->range[_id - iter->first];
 		}
-		MYGUI_EXCEPT(util::toString("Code point ", _id, " not found in font ", mName));
+		MYGUI_EXCEPT("Code point " << _id << " not found in font " << mName);
 		return null;
 	}
     //---------------------------------------------------------------------
@@ -76,10 +76,9 @@ namespace MyGUI
 
 		// create new material for simple text
 		mpMaterial =  Ogre::MaterialManager::getSingleton().create("Fonts/" + mName,  mGroup);
-		if (mpMaterial.isNull())
-			MYGUI_EXCEPT("Error creating new material!");
+		MYGUI_ASSERT(false == mpMaterial.isNull(), "Error creating new material!");
 
-        _MYGUI_LOG("Material for font loaded");
+        MYGUI_LOG(Info, "Material for font loaded");
 
 		Ogre::TextureUnitState* texLayer = mpMaterial->getTechnique(0)->getPass(0)->createTextureUnitState( texName );
 		// Clamp to avoid fuzzy edges
@@ -90,8 +89,7 @@ namespace MyGUI
 
 		// create new material for edit text
 		mpMaterialSelectedFont =  Ogre::MaterialManager::getSingleton().create("FontsSelected/" + mName,  mGroup);
-		if (mpMaterialSelectedFont.isNull())
-			MYGUI_EXCEPT("Error creating new material!");
+		MYGUI_ASSERT(false == mpMaterialSelectedFont.isNull(), "Error creating new material!");
 
 		texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 0 );
 		// Clamp to avoid fuzzy edges
@@ -194,7 +192,7 @@ namespace MyGUI
 		size_t data_width = finalWidth * pixel_bytes;
 		size_t data_size = finalWidth * finalHeight * pixel_bytes;
 
-		_MYGUI_LOG("Font '", mName, "' using texture size ", finalWidth, " x ", finalHeight);
+		MYGUI_LOG(Info, "Font '" << mName << "' using texture size " << finalWidth << " x " << finalHeight);
 
         Ogre::uchar* imageData = new Ogre::uchar[data_size];
 		// Reset content (White, transparent)
@@ -211,12 +209,12 @@ namespace MyGUI
 		// создаем символ пробела
 		//------------------------------------------------------------------
 		ftResult = FT_Load_Char( face, mSpaceSimbol, FT_LOAD_RENDER );
-		if (ftResult) _MYGUI_LOG("Info: cannot load character ", mSpaceSimbol, " in font ", mName);
+		if (ftResult) MYGUI_LOG(Warning, "cannot load character " << mSpaceSimbol << " in font " << mName);
 
 		FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
 
 		unsigned char* buffer = face->glyph->bitmap.buffer;
-		if (null == buffer) MYGUI_EXCEPT(util::toString("Info: Freetype returned null for character ", mSpaceSimbol, " in font ", mName));
+		MYGUI_ASSERT(null != buffer, "Info: Freetype returned null for character " << mSpaceSimbol << " in font " << mName);
 
 		int y_bearnig = max_bear - ( face->glyph->metrics.horiBearingY >> 6 );
 
@@ -307,7 +305,7 @@ namespace MyGUI
 				ftResult = FT_Load_Char( face, index, FT_LOAD_RENDER );
 				if (ftResult) {
 					// problem loading this glyph, continue
-					_MYGUI_LOG("Info: cannot load character ", index, " in font ", mName);
+					MYGUI_LOG(Warning, "cannot load character " << index << " in font " << mName);
 					continue;
 				}
 
@@ -316,7 +314,7 @@ namespace MyGUI
 
 				if (null == buffer) {
 					// Yuck, FT didn't detect this but generated a null pointer!
-					_MYGUI_LOG("Info: Freetype returned null for character ", index, " in font ", mName);
+					MYGUI_LOG(Warning, "Freetype returned null for character " << index << " in font " << mName);
 					continue;
 				}
 

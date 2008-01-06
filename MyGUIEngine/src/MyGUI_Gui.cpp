@@ -16,9 +16,9 @@ namespace MyGUI
 	void Gui::initialise(Ogre::RenderWindow* _window)
 	{
 		// самый первый лог
-		LogManager::registerSection(LogManager::General, "MyGUI.log");
+		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
 
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 

@@ -319,10 +319,6 @@
 					RelativePath=".\src\MyGUI_Font.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\src\MyGUI_Loging.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="WidgetFactory"
@@ -475,10 +471,6 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_LayerItemInfo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Loging.h"
 					>
 				</File>
 				<File

@@ -17,7 +17,7 @@ namespace MyGUI
 
 	void LayoutManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -39,31 +39,31 @@ namespace MyGUI
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
-			MYGUI_ERROR("Layout: " + _file + " not found");
+			MYGUI_LOG(Error, "Layout: " << _file << " not found");
 			return ret;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_ERROR(doc.getLastError());
+			MYGUI_LOG(Error, doc.getLastError());
 			return ret;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if (root == 0) {
-			MYGUI_ERROR("Layout: " + _file + " root tag not found");
+			MYGUI_LOG(Error, "Layout: " << _file << " root tag not found");
 			return ret;
 		}
 
 		if (root->getName() == "MyGUI") {
 			std::string type;
 			if ((false == root->findAttribute("type", type)) || (type != "Layout")) {
-				MYGUI_ERROR("Layout: " + _file + " root type 'Layout' not found");
+				MYGUI_LOG(Error, "Layout: " << _file << " root type 'Layout' not found");
 				return ret;
 			}
 			parseLayoutMyGUI(ret, root);
 		}
 		else if (root->getName() == "GUILayout") parseLayoutCEGUI(ret, root);
 		else {
-			MYGUI_ERROR("Layout: " + _file + " root type 'GUILayout' or 'MyGUI' not found");
+			MYGUI_LOG(Error, "Layout: " << _file << " root type 'GUILayout' or 'MyGUI' not found");
 			return ret;
 		}
 

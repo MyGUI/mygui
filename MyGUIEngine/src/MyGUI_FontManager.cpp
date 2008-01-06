@@ -16,7 +16,7 @@ namespace MyGUI
 
 	void FontManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -38,23 +38,23 @@ namespace MyGUI
 
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
-			MYGUI_ERROR("Font: " + _file + " not found");
+			MYGUI_LOG(Error, "Font: " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_ERROR("Font: " + doc.getLastError());
+			MYGUI_LOG(Error, "Font: " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_ERROR("Font: " + _file + " root tag 'MyGUI' not found");
+			MYGUI_LOG(Error, "Font: " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
 		if ( (false == root->findAttribute("type", type)) || (type != "Font") ) {
-			MYGUI_ERROR("Font: " + _file + " root type 'Font' not found");
+			MYGUI_LOG(Error, "Font: " << _file << " root type 'Font' not found");
 			return false;
 		}
 

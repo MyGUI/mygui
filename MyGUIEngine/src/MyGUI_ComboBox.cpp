@@ -43,7 +43,7 @@ namespace MyGUI
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
 		}
-		MYGUI_ASSERT(null != mButton);
+		MYGUI_ASSERT(null != mButton, "child is not find");
 
 		// парсим список из прилинкованных окон
 		for (VectorWidgetPtr::iterator iter=mWidgetLinkedChild.begin(); iter!=mWidgetLinkedChild.end(); ++iter) {
@@ -55,7 +55,7 @@ namespace MyGUI
 				mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
 			}
 		}
-		MYGUI_ASSERT(null != mList);
+		MYGUI_ASSERT(null != mList, "child is not find");
 
 		// корректируем высоту списка
 		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();

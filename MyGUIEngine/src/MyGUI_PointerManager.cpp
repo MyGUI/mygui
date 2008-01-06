@@ -15,7 +15,7 @@ namespace MyGUI
 
 	void PointerManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
@@ -52,23 +52,23 @@ namespace MyGUI
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if ("" == file) {
-			MYGUI_ERROR("Pointer: " + _file + " not found");
+			MYGUI_LOG(Error, "Pointer: " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_ERROR("Pointer: " + doc.getLastError());
+			MYGUI_LOG(Error, "Pointer: " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_ERROR("Pointer: " + _file + " root tag 'MyGUI' not found");
+			MYGUI_LOG(Error, "Pointer: " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
 		if ( (false == root->findAttribute("type", type)) || (type != "Pointer") ) {
-			MYGUI_ERROR("Pointer: " + _file + " root type 'Pointer' not found");
+			MYGUI_LOG(Error, "Pointer: " << _file << " root type 'Pointer' not found");
 			return false;
 		}
 

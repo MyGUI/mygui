@@ -13,7 +13,7 @@ namespace MyGUI
 
 	void SubWidgetManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise);
+		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mFactoryMainSkin = new CroppedRectangleFactory<MainSkin>();
@@ -53,7 +53,7 @@ namespace MyGUI
 		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createSubWidget(_info, _material, _parent, _id);
 		}
-		MYGUI_EXCEPT(_info.type + " - no find factory CroppedRectangleFactory");
+		MYGUI_EXCEPT(_info.type << " - no find factory CroppedRectangleFactory");
 		return 0;
 	}
 

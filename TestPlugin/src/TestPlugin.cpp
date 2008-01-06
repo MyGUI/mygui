@@ -7,7 +7,7 @@ const std::string TestPlugin::LogSection = "TestPlugin";
 
 TestPlugin::TestPlugin()
 {
-	MyGUI::LogManager::registerSection(TestPlugin::LogSection, "MyGUI.log");
+	MyGUI::LogManager::registerSection(TestPlugin::LogSection, MYGUI_LOG_FILENAME);
 }
 
 TestPlugin::~TestPlugin()

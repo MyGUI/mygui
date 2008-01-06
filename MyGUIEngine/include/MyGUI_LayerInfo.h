@@ -59,7 +59,7 @@ namespace MyGUI
 		bool addItem(LayerItemInfoPtr _item)
 		{
 			// это чтоб по два раза не коннектили
-			MYGUI_ASSERT(false == _item->mOverlayInfo && "Only one pointer set must be load");
+			MYGUI_ASSERT(null == _item->mOverlayInfo, "Only one pointer set must be load");
 			// создаем оверлей и присоединяем к нему
 			static long num=0;
 			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(util::toString(num++, "_LayerInfo"));

@@ -100,7 +100,7 @@ namespace MyGUI
 
 		// удаляем себя из списка рассылки, но мы там быть недолжны
 		if (Gui::getInstance().removeFrameListener(this)) {
-			MYGUI_ERROR("Widget wasn`t removed from frame listeners");
+			MYGUI_LOG(Warning, "Widget wasn`t removed from frame listeners");
 		}
 	}
 
@@ -131,7 +131,7 @@ namespace MyGUI
 	{
 		if (_child) {
 			// это к нам текст хочет прилипиться
-			MYGUI_ASSERT(mSubSkinChild.size() > 0);
+			MYGUI_ASSERT(mSubSkinChild.size() > 0, "child is not find");
 			mSubSkinChild[0]->_attachChild(_basis, true);
 		} else {
 			// нет не к нам, а к нашему отцу
