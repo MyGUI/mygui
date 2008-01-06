@@ -19,7 +19,7 @@ namespace MyGUI
 	class LogManager;
 	class _MyGUIExport LogStream
 	{
-		friend LogManager;
+		friend class LogManager;
 
 	public:
 		inline LogStream& operator<<(const LogStreamEnd& _endl)
