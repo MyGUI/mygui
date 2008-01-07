@@ -353,6 +353,7 @@
         <BasisSkin type="MainSkin" offset = "0 0 24 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 63 24 30"/>
             <State name="active" offset = "377 95 24 30"/>
+            <State name="select" offset = "351 95 24 30"/>
         </BasisSkin>
     </Skin>
     
@@ -538,25 +539,25 @@
 
     <Skin name = "Separator1" size = "2 2" material = "MyGUI_main">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "290 59 2 2"/>
+            <State name="normal" offset = "349 83 2 2"/>
         </BasisSkin>
     </Skin>
 
     <Skin name = "Separator2" size = "2 2" material = "MyGUI_main">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "311 59 2 2"/>
+            <State name="normal" offset = "349 89 2 2"/>
         </BasisSkin>
     </Skin>
 
     <Skin name = "Separator3" size = "2 2" material = "MyGUI_main">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "281 67 2 2"/>
+            <State name="normal" offset = "354 81 2 2"/>
         </BasisSkin>
     </Skin>
 
     <Skin name = "Separator4" size = "2 2" material = "MyGUI_main">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "284 80 2 2"/>
+            <State name="normal" offset = "359 81 2 2"/>
         </BasisSkin>
     </Skin>
 
@@ -721,6 +722,107 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "TabRight" size = "13 19" material = "MyGUI_main" >
+        <BasisSkin type="MainSkin" offset = "0 0 13 19" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "311 80 13 19"/>
+            <State name="active" offset = "311 59 13 19"/>
+            <State name="select" offset = "311 101 13 19"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "TabLeft" size = "12 19" material = "MyGUI_main" >
+        <BasisSkin type="MainSkin" offset = "0 0 12 19" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "287 80 12 19"/>
+            <State name="active" offset = "287 59 12 19"/>
+            <State name="select" offset = "287 101 12 19"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "TabPatch" size = "17 9" material = "MyGUI_main" >
+        <BasisSkin type="MainSkin" offset = "0 0 17 9" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "290 21 17 9"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "TabButton" size = "60 28" material = "MyGUI_main" >
+        <Property key="FontName" value = "MyGUI_font" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 11 28" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "219 2 11 28"/>
+            <State name="active" offset = "219 32 11 28"/>
+            <State name="pressed" offset = "219 62 11 28"/>
+            <State name="select" offset = "219 92 11 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "11 0 38 28" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "230 2 38 28"/>
+            <State name="active" offset = "230 32 38 28"/>
+            <State name="pressed" offset = "230 62 38 28"/>
+            <State name="select" offset = "230 92 38 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "49 0 11 28" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "268 2 11 28"/>
+            <State name="active" offset = "268 32 11 28"/>
+            <State name="pressed" offset = "268 62 11 28"/>
+            <State name="select" offset = "268 92 11 28"/>
+        </BasisSkin>
+
+        <BasisSkin type="TextSimple" offset = "11 0 38 28" align = "ALIGN_STRETCH"/>
+
+    </Skin>
+
+    <Skin name = "Tab" size = "43 51" material = "MyGUI_main" >
+
+        <Child type="Widget" skin="Empty" offset = "8 29 27 15" align = "ALIGN_STRETCH" name = "Sheet">
+        </Child>
+        <Child type="Widget" skin="Empty" offset = "8 0 27 28" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Bar">
+        </Child>
+        <Child type="Button" skin="TabLeft" offset = "18 0 12 19" align = "ALIGN_RIGHT ALIGN_TOP" name = "Left">
+        </Child>
+        <Child type="Button" skin="TabRight" offset = "30 0 13 19" align = "ALIGN_RIGHT ALIGN_TOP" name = "Right">
+        </Child>
+        <Child type="Widget" skin="TabPatch" offset = "18 19 17 9" align = "ALIGN_RIGHT ALIGN_TOP" name = "ShowPatch">
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 0 8 28" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "281 2 8 28"/>
+        </BasisSkin>
+       
+        <BasisSkin type="SubSkin" offset = "0 28 8 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "281 30 8 16"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "0 44 8 7" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "281 46 8 7"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "8 44 27 7" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "289 46 27 7"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "35 44 8 7" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "316 46 8 7"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "35 28 8 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "316 30 8 16"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "35 0 8 28" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "316 2 8 28"/>
+        </BasisSkin>
+
+        <_BasisSkin type="SubSkin" offset = "8 0 27 28" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "289 2 27 28"/>
+        </_BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "8 28 27 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "288 31 27 16"/>
+        </BasisSkin>
+        
+    </Skin>
 
 </MyGUI>
 

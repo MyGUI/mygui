@@ -23,6 +23,7 @@
 #include "MyGUI_HScrollFactory.h"
 #include "MyGUI_WindowFactory.h"
 #include "MyGUI_ComboBoxFactory.h"
+#include "MyGUI_TabFactory.h"
 
 namespace MyGUI
 {
@@ -86,6 +87,7 @@ namespace MyGUI
 		factory::HScrollFactory * mHScrollFactory;
 		factory::WindowFactory * mWindowFactory;
 		factory::ComboBoxFactory * mComboBoxFactory;
+		factory::TabFactory * mTabFactory;
 
 	};
 

@@ -30,6 +30,7 @@ namespace MyGUI
 		mHScrollFactory = new factory::HScrollFactory();
 		mWindowFactory = new factory::WindowFactory();
 		mComboBoxFactory = new factory::ComboBoxFactory();
+		mTabFactory = new factory::TabFactory();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -53,6 +54,7 @@ namespace MyGUI
 		delete mButtonFactory;
 		delete mWidgetFactory;
 		delete mComboBoxFactory;
+		delete mTabFactory;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -91,7 +93,7 @@ namespace MyGUI
 			}
 		}
 		MYGUI_EXCEPT("factory '" << _type << "' is not find");
-		return 0;
+		return null;
 	}
 
 	WidgetPtr WidgetManager::findWidgetT(const Ogre::String & _name)

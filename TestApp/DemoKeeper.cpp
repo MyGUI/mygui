@@ -12,6 +12,7 @@
 #include "MyGUI_Edit.h"
 #include "MyGUI_List.h"
 #include "MyGUI_ComboBox.h"
+#include "MyGUI_Tab.h"
 
 #include "OgreCodec.h"
 #include "OgreImageCodec.h"
@@ -37,8 +38,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	WidgetPtr widget = mGUI->createWidgetT("Window", "StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	//WidgetPtr widget = mGUI->createWidgetT("Window", "StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
 	//widget->setPosition(IntCoord(100, 100, 100, 100));
+
+	WidgetPtr widget = mGUI->createWidgetT("Tab", "Tab", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	widget->setCaption(L"Заголовок");
 
     /*WidgetPtr widget = mGUI->createWidgetT("Button", "Button", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
     widget->setCaption(L"demo list + combo");

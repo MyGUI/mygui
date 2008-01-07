@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MyGUI_Tab.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MyGUI_VScroll.cpp"
 				>
 			</File>
@@ -352,6 +356,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_TabFactory.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_VScrollFactory.cpp"
 					>
 				</File>
@@ -428,6 +436,10 @@
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_StaticText.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_Tab.h"
 				>
 			</File>
 			<File
@@ -755,6 +767,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_StaticTextFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_TabFactory.h"
 					>
 				</File>
 				<File
