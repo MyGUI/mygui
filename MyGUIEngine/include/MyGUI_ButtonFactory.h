@@ -20,7 +20,7 @@ namespace MyGUI
 		{
 		public:
 			ButtonFactory();
-			virtual ~ButtonFactory();
+			~ButtonFactory();
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();
