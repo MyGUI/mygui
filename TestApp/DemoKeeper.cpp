@@ -55,7 +55,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	sheet = tab->insertSheet(1, "why here? 3");
 	sheet->createWidgetT("Button", "Button", 60, 70, 200, 26, ALIGN_RIGHT | ALIGN_BOTTOM)->setCaption("button large");
 
-	sheet = tab->insertSheet(3, "tab->insertSheet(3, \"sheet 1\");");
+	sheet = tab->insertSheet(3, "=)");
 	EditPtr edit = sheet->createWidget<Edit>("EditStretch", 10, 10, 540, 200, ALIGN_STRETCH);
 	edit->setEditMultiLine(true);
 	edit->setCaption("#00FF00green\n#808080gray");
