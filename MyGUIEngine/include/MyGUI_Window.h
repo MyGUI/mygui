@@ -54,8 +54,9 @@ namespace MyGUI
 		virtual void setCaption(const Ogre::DisplayString & _caption) {if (mWidgetCaption!=null)mWidgetCaption->setCaption(_caption);};
 		virtual const Ogre::DisplayString & getCaption() {if (mWidgetCaption!=null) return mWidgetCaption->getCaption();return Widget::getCaption();};
 
-		void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
-		IntRect getMinMax() {return mMinmax;}
+		inline void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
+		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) {mMinmax.set(_min_h, _min_v, _max_h, _max_v);}
+		inline IntRect getMinMax() {return mMinmax;}
 
 		virtual void setPosition(const IntPoint& _pos);
 		virtual void setPosition(const IntCoord& _coord);

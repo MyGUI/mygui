@@ -203,4 +203,13 @@ namespace MyGUI
 
 	}
 
+	IntSize TextSimple::getTextSize()
+	{
+		return mOverlayContainer->getTextSize();
+	}
+	IntSize TextSimple::getTextSize(const Ogre::DisplayString& _text)
+	{
+		return mOverlayContainer->getTextSize(_text);
+	}
+
 } // namespace MyGUI

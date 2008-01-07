@@ -40,9 +40,30 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//WidgetPtr widget = mGUI->createWidgetT("Window", "StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
 	//widget->setPosition(IntCoord(100, 100, 100, 100));
-	WidgetPtr widget = mGUI->createWidgetT("Window", "WindowCSX", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
-	widget->createWidgetT("Tab", "Tab", IntCoord(5, 5, 150, 150), ALIGN_STRETCH, "Main");
-	//widget->setCaption(L"Заголовок");
+	WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	window->setMinMax(150, 150, 2000, 2000);
+
+	TabPtr tab = window->createWidget<Tab>("Tab", IntCoord(5, 5, 580, 254), ALIGN_STRETCH);
+
+
+	WidgetPtr sheet = tab->addSheet("sheet 1");
+	sheet->createWidgetT("Edit", "EditStretch", 10, 10, 100, 26, ALIGN_LEFT | ALIGN_TOP)->setCaption("Edit");
+
+	sheet = tab->insertSheet(0, "nice day 2");
+	sheet->createWidgetT("Button", "ButtonSmall", 30, 40, 100, 26, ALIGN_LEFT | ALIGN_TOP)->setCaption("button");
+
+	sheet = tab->insertSheet(1, "why here? 3");
+	sheet->createWidgetT("Button", "Button", 60, 70, 200, 26, ALIGN_RIGHT | ALIGN_BOTTOM)->setCaption("button large");
+
+	sheet = tab->insertSheet(3, "tab->insertSheet(3, \"sheet 1\");");
+	EditPtr edit = sheet->createWidget<Edit>("EditStretch", 10, 10, 540, 200, ALIGN_STRETCH);
+	edit->setEditMultiLine(true);
+	edit->setCaption("#00FF00green\n#808080gray");
+
+	//tab->removeSheetIndex(2);
+	//tab->removeSheetIndex(2);
+	//tab->removeSheetIndex(0);
+
 
     /*WidgetPtr widget = mGUI->createWidgetT("Button", "Button", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
     widget->setCaption(L"demo list + combo");

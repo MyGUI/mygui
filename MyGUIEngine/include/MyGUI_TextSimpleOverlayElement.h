@@ -549,6 +549,72 @@ namespace MyGUI
 
 		} // void updateRawData()
 
+		// возвращает размер текста в пикселях
+		inline IntSize getTextSize()
+		{
+			// если нуно обновить, или изменились пропорции экрана
+			updateRawData();
+			return IntSize( (int)(mContextSize.width / (mPixelScaleX * 2.0)), (int)(mLinesInfo.size() * mPixelCharHeight) );
+		}
+
+		inline IntSize getTextSize(const Ogre::DisplayString& _text)
+		{
+			IntSize size;
+
+			if (mpFont.isNull()) return size;
+
+			float len = 0, width = 0;
+			int height = 1;
+
+			Ogre::DisplayString::const_iterator end = _text.end();
+			for (Ogre::DisplayString::const_iterator index=_text.begin(); index!=end; ++index) {
+
+				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
+
+				if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
+					if (width < len) width = len;
+					len = 0;
+					height ++;
+
+					if (character == Font::FONT_CODE_CR) {
+						Ogre::DisplayString::const_iterator peeki = index;
+						peeki++;
+						if (peeki != end && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
+					}
+					// следующий символ
+					continue;
+
+				} else if (character == '#') {
+					// берем следующий символ
+					++ index;
+					if (index == end) {--index ;continue;} // это защита
+
+					character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
+					// если два подряд, то рисуем один шарп, если нет то меняем цвет
+					if (character != '#') {
+						// и еще пять символов после шарпа
+						for (char i=0; i<5; i++) {
+							++ index;
+							if (index == end) {--index ;continue;} // это защита
+						}
+						continue;
+					}
+				}
+
+				Font::GlyphInfo * info;
+				if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
+				else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
+				else info = mpFont->getGlyphInfo(character);
+
+				len += info->aspectRatio * (float)mPixelCharHeight;
+			}
+
+			if (width < len) width = len;
+
+			size.set((int)width, height * (int)mPixelCharHeight);
+			return size;
+		}
+		
 	}; // class TextSimpleOverlayElement : public TextAreaOverlayElement
 
 } // namespace MyGUI

@@ -29,6 +29,18 @@ namespace MyGUI
 
 	typedef std::vector<TabSheetInfo> VectorTabSheetInfo;
 
+	struct AlphaDataInfo
+	{
+		AlphaDataInfo(WidgetPtr _widget, float _alpha, bool _hide, bool _destroy) :
+			widget(_widget), alpha(_alpha), hide(_hide), destroy(_destroy) {}
+
+		WidgetPtr widget;
+		float alpha;
+		bool hide;
+		bool destroy;
+	};
+	typedef std::vector<AlphaDataInfo> VectorAlphaDataInfo;
+
 	class Tab;
 	typedef Tab* TabPtr;
 
@@ -44,6 +56,23 @@ namespace MyGUI
 
 		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
 		void notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
+
+		int getButtonWidthByName(const Ogre::DisplayString& _text);
+
+		void _showSheet(WidgetPtr _sheet, bool _show, bool _smooth);
+
+		inline void _createSheetButton()
+		{
+			ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
+			button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
+			button->setInternalData((int)mSheetButton.size()); // порядковый номер
+			mSheetButton.push_back(button);
+		}
+
+		void _addToAlphaController(WidgetPtr _widget, float _alpha, bool _hide = false, bool _enabled = true, bool _destroy = false);
+		void _removeFromAlphaController(WidgetPtr _widget);
+
+		void _frameEntered(float _frame);
 
 	public:
 		// тип данного виджета
@@ -61,6 +90,87 @@ namespace MyGUI
 		void showBarButton(const Ogre::DisplayString& _name);
 		inline void showBarSelectButton() {showBarButton(mSelectSheet);}
 
+		inline void setButtonDefaultWidth(int _width)
+		{
+			mButtonDefaultWidth = _width;
+			if (mButtonDefaultWidth < 1) mButtonDefaultWidth = 1;
+			mButtonAutoWidth = false;
+		}
+		inline int getButtonDefaultWidth()
+		{
+			return mButtonDefaultWidth;
+		}
+
+		inline void setButtonAutoWidth(bool _auto)
+		{
+			mButtonAutoWidth = _auto;
+		}
+		inline bool getButtonAutoWidth()
+		{
+			return mButtonAutoWidth;
+		}
+
+		inline void setButtonSmoothShow(bool _smooth)
+		{
+			mButtonSmoothShow = _smooth;
+		}
+		inline bool getButtonSmoothShow()
+		{
+			return mButtonSmoothShow;
+		}
+
+		//--------------------------------------------------------------------
+		// работа с вкладками
+		//--------------------------------------------------------------------
+		inline size_t getSheetCount()
+		{
+			return mSheetsInfo.size();
+		}
+
+		inline const Ogre::DisplayString& getSheetName(size_t _index)
+		{
+			MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
+			return mSheetsInfo[_index].name;
+		}
+
+		inline int getSheetButtonWidth(size_t _index)
+		{
+			MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
+			return mSheetsInfo[_index].width;
+		}
+
+		inline WidgetPtr getSheet(size_t _index)
+		{
+			MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
+			return mSheetsInfo[_index].sheet;
+		}
+
+		inline WidgetPtr findSheet(const Ogre::DisplayString& _name)
+		{
+			for (VectorTabSheetInfo::iterator iter=mSheetsInfo.begin(); iter!=mSheetsInfo.end(); ++iter) {
+				if ((*iter).name == _name) return (*iter).sheet;
+			}
+			return null;
+		}
+
+		void setSheetName(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
+		void setSheetButtonWidth(size_t _index, int _width = DEFAULT);
+
+		inline WidgetPtr addSheet(const Ogre::DisplayString& _name, int _width = DEFAULT)
+		{
+			return insertSheet(ITEM_NONE, _name, _width);
+		}
+
+		WidgetPtr insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
+
+		void removeSheetIndex(size_t _index);
+		void removeSheet(const Ogre::DisplayString& _name);
+		void removeSheet(WidgetPtr _sheet);
+
+		void selectSheetIndex(size_t _index, bool _smooth = true);
+		void selectSheet(const Ogre::DisplayString& _name, bool _smooth = true);
+		void selectSheet(WidgetPtr _sheet, bool _smooth = true);
+
 	private:
 		int mOffsetTab; // смещение бара при показе кнопок
 		bool mButtonShow;
@@ -72,11 +182,19 @@ namespace MyGUI
 		ButtonPtr mButtonLeft, mButtonRight, mButtonList;
 		VectorWidgetPtr mWidgetsPatch; // список виджетов которые нужно показать при показе кнопки
 		WidgetPtr mEmptyBarWidget;
+		WidgetPtr mSheetTemplate;
 
 		// информация о вкладках
 		VectorTabSheetInfo mSheetsInfo;
 		size_t mStartIndex;
 		size_t mSelectSheet;
+
+		int mButtonDefaultWidth;
+		bool mButtonSmoothShow;
+		bool mButtonAutoWidth;
+
+		// список виджетов, для изменения альфы
+		VectorAlphaDataInfo mVectorAlphaDataInfo;
 	};
 
 } // namespace MyGUI

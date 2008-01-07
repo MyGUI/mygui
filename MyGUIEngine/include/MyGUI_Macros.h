@@ -10,9 +10,12 @@
 namespace MyGUI
 {
 
-	#define null 0
-  #undef ITEM_NONE
+	#define null (0)
+
+	#undef ITEM_NONE
 	#define ITEM_NONE ((size_t)-1)
+
+	#define DEFAULT ((int)-1)
 
 	#define BIN__N(x) (x) | x>>3 | x>>6 | x>>9
 	#define BIN__B(x) (x) & 0xf | (x)>>12 & 0xf0

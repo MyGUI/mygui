@@ -79,6 +79,7 @@ namespace MyGUI
 
 		inline float getViewWidth() {return mViewSize.width;}
 		inline float getViewHeight() {return mViewSize.height;}
+		inline float getViewAspect() {return mViewSize.width / mViewSize.height;}
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
 		bool addFrameListener(WidgetPtr _listener);

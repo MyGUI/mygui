@@ -44,6 +44,7 @@ namespace MyGUI
 		inline IntPoint getPosition()       {return IntPoint(mCoord.left, mCoord.top);}
 		inline IntSize getDimension()       {return IntSize(mCoord.width, mCoord.height);}
 		inline const IntCoord& getCoord()       {return mCoord;}
+		inline Align getAlign() {return mAlign;}
 
 		inline int getLeft()       {return mCoord.left;}
 		inline int getRight()      {return mCoord.right();}

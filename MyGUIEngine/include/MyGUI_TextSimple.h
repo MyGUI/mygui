@@ -42,6 +42,9 @@ namespace MyGUI
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
+		IntSize getTextSize();
+		IntSize getTextSize(const Ogre::DisplayString& _text);
+
 		void _setAlign(const IntSize& _size, bool _update);
 		void _setAlign(const IntCoord& _coord, bool _update);
 

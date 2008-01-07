@@ -49,6 +49,7 @@ namespace MyGUI
 		IntPoint getTextCursorFromPosition(size_t _position);
 		// возвращает размер текста в пикселях
 		IntSize getTextSize();
+		IntSize getTextSize(const Ogre::DisplayString& _text);
 		// устанавливает смещение текста в пикселях
 		void setTextShift(IntPoint _point);
 		IntPoint getTextShift();

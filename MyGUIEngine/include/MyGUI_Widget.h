@@ -121,6 +121,9 @@ namespace MyGUI
 		Ogre::ushort getFontHeight();
 
 		void setTextAlign(Align _align);
+		IntCoord getTextCoord();
+		IntSize getTextSize();
+		IntSize getTextSize(const Ogre::DisplayString& _text);
 
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return mAlpha;};

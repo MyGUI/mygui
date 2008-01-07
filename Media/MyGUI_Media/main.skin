@@ -784,16 +784,11 @@
         <Property key="ButtonSkin" value = "TabButton" />
         <Property key="EmptyBarSkin" value = "TabEmpty" />
 
-        <Child type="Widget" skin="Empty" offset = "8 29 27 15" align = "ALIGN_STRETCH" name = "Sheet">
-        </Child>
-        <Child type="Widget" skin="Empty" offset = "8 0 27 28" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Bar">
-        </Child>
-        <Child type="Button" skin="TabLeft" offset = "18 0 12 19" align = "ALIGN_RIGHT ALIGN_TOP" name = "Left">
-        </Child>
-        <Child type="Button" skin="TabRight" offset = "30 0 13 19" align = "ALIGN_RIGHT ALIGN_TOP" name = "Right">
-        </Child>
-        <Child type="Widget" skin="TabPatch" offset = "18 19 17 9" align = "ALIGN_RIGHT ALIGN_TOP" name = "ShowPatch">
-        </Child>
+        <Child type="Widget" skin="Empty" offset = "8 29 27 15" align = "ALIGN_STRETCH" name = "Sheet"/>
+        <Child type="Widget" skin="Empty" offset = "8 0 27 28" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Bar"/>
+        <Child type="Button" skin="TabLeft" offset = "18 0 12 19" align = "ALIGN_RIGHT ALIGN_TOP" name = "Left"/>
+        <Child type="Button" skin="TabRight" offset = "30 0 13 19" align = "ALIGN_RIGHT ALIGN_TOP" name = "Right"/>
+        <Child type="Widget" skin="TabPatch" offset = "18 19 17 9" align = "ALIGN_RIGHT ALIGN_TOP" name = "ShowPatch"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 8 28" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "281 2 8 28"/>

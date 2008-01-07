@@ -563,4 +563,22 @@ namespace MyGUI
 		return mWidgetLinkedChild;
 	}
 
+	IntSize Widget::getTextSize()
+	{
+		if (null == mText) return IntSize();
+		return mText->getTextSize();
+	}
+
+	IntSize Widget::getTextSize(const Ogre::DisplayString& _text)
+	{
+		if (null == mText) return IntSize();
+		return mText->getTextSize(_text);
+	}
+
+	IntCoord Widget::getTextCoord()
+	{
+		if (null == mText) return IntCoord();
+		return mText->getCoord();
+	}
+
 } // namespace MyGUI

@@ -223,6 +223,10 @@ namespace MyGUI
 	{
 		return mOverlayContainer->getTextSize();
 	}
+	IntSize TextEdit::getTextSize(const Ogre::DisplayString& _text)
+	{
+		return mOverlayContainer->getTextSize(_text);
+	}
 
 	// устанавливает смещение текста в пикселях
 	void TextEdit::setTextShift(IntPoint _point)
