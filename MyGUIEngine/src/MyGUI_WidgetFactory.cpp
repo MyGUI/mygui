@@ -66,7 +66,18 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			_widget->setCaption(_value);
+			// change '\n' on char 10
+			size_t pos = _value.find("\\n");
+			if (pos == std::string::npos) _widget->setCaption(_value);
+			else {
+				std::string value(_value);
+				while (pos != std::string::npos) {
+					value[pos++] = '\n';
+					value.erase(pos, 1);
+					pos = value.find("\\n");
+				}
+				_widget->setCaption(value);
+			}
 		}
 
 		void WidgetFactory::Widget_Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

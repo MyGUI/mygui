@@ -39,6 +39,7 @@
         <Property key="Widget_Caption" value="=)" />
 
         <Widget type="Edit" skin="EditStretch" position="10 10 540 200" align="ALIGN_STRETCH">
+          <Property key="Edit_MultiLine" value="true" />
           <Property key="Widget_Caption" value="#00FF00green\n#808080gray" />
         </Widget>
       </Widget>
