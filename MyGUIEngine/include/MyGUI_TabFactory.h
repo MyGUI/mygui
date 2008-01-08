@@ -26,6 +26,12 @@ namespace MyGUI
 			const Ogre::String& getType();
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
+			// методы для парсинга
+			void Tab_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Tab_ButtonAutoWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Tab_SmoothShow(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Tab_AddSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Tab_SelectSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

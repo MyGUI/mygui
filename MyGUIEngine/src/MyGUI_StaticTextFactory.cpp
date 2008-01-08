@@ -23,7 +23,7 @@ namespace MyGUI
 
 		StaticTextFactory::~StaticTextFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
 		}

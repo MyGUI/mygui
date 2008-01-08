@@ -30,11 +30,11 @@ namespace MyGUI
 
 		EditFactory::~EditFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
 
-			// регестрируем все парсеры
+			// удаляем все парсеры
 			manager.unregisterDelegate("Edit_CursorPosition");
 			manager.unregisterDelegate("Edit_TextSelect");
 			manager.unregisterDelegate("Edit_ReadOnly");

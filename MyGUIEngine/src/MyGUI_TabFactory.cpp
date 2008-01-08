@@ -20,14 +20,26 @@ namespace MyGUI
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.registerFactory(this);
 
+			// регестрируем все парсеры
+			manager.registerDelegate("Tab_ButtonWidth") = newDelegate(this, &TabFactory::Tab_ButtonWidth);
+			manager.registerDelegate("Tab_ButtonAutoWidth") = newDelegate(this, &TabFactory::Tab_ButtonAutoWidth);
+			manager.registerDelegate("Tab_SmoothShow") = newDelegate(this, &TabFactory::Tab_SmoothShow);
+			manager.registerDelegate("Tab_AddSheet") = newDelegate(this, &TabFactory::Tab_AddSheet);
+			manager.registerDelegate("Tab_SelectSheet") = newDelegate(this, &TabFactory::Tab_SelectSheet);
 		}
 
 		TabFactory::~TabFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
+			manager.unregisterFactory(this);
 
+			// удаляем все парсеры
+			manager.unregisterDelegate("Tab_ButtonWidth");
+			manager.unregisterDelegate("Tab_ButtonAutoWidth");
+			manager.unregisterDelegate("Tab_SmoothShow");
+			manager.unregisterDelegate("Tab_AddSheet");
+			manager.unregisterDelegate("Tab_SelectSheet");
 		}
 
 		const Ogre::String& TabFactory::getType()
@@ -40,6 +52,35 @@ namespace MyGUI
 			return new Tab(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
+		void TabFactory::Tab_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(TabPtr, _widget);
+			static_cast<TabPtr>(_widget)->setButtonDefaultWidth(util::parseInt(_value));
+		}
+
+		void TabFactory::Tab_ButtonAutoWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(TabPtr, _widget);
+			static_cast<TabPtr>(_widget)->setButtonAutoWidth(util::parseBool(_value));
+		}
+
+		void TabFactory::Tab_SmoothShow(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(TabPtr, _widget);
+			static_cast<TabPtr>(_widget)->setSmoothShow(util::parseBool(_value));
+		}
+
+		void TabFactory::Tab_AddSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(TabPtr, _widget);
+			static_cast<TabPtr>(_widget)->addSheet(_value);
+		}
+
+		void TabFactory::Tab_SelectSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(TabPtr, _widget);
+			static_cast<TabPtr>(_widget)->selectSheetIndex(util::parseSizeT(_value));
+		}
 
 	} // namespace factory
 

@@ -27,12 +27,13 @@ namespace MyGUI
 
 		ComboBoxFactory::~ComboBoxFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
+			manager.unregisterFactory(this);
 
-			// регестрируем все парсеры
+			// удаляем все парсеры
 			manager.unregisterDelegate("Combo_ModeDrop");
+			manager.unregisterDelegate("Combo_AddString");
 		}
 
 		const Ogre::String& ComboBoxFactory::getType()

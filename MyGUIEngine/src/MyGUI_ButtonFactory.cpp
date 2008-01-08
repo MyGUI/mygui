@@ -26,11 +26,11 @@ namespace MyGUI
 
 		ButtonFactory::~ButtonFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
 
-			// регестрируем все парсеры
+			// удаляем все парсеры
 			manager.unregisterDelegate("Button_Pressed");
 		}
 

@@ -24,7 +24,7 @@ namespace MyGUI
 		mSelectSheet(ITEM_NONE),
 		mButtonDefaultWidth(1),
 		mButtonAutoWidth(true),
-		mButtonSmoothShow(true)
+		mSmoothShow(true)
 	{
 
 		// парсим свойства
@@ -232,8 +232,11 @@ namespace MyGUI
 		// стараемся показать выделенную кнопку
 		showBarSelectButton();
 
-		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, mButtonSmoothShow);
-		_showSheet(mSheetsInfo[old].sheet, false, mButtonSmoothShow);
+		// поднимаем страницу для пикинга
+		_forcePeek(mSheetsInfo[mSelectSheet].sheet);
+
+		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, mSmoothShow);
+		_showSheet(mSheetsInfo[old].sheet, false, mSmoothShow);
 	}
 
 	void Tab::showBarButton(size_t _index)
@@ -389,6 +392,9 @@ namespace MyGUI
 		size_t old = mSelectSheet;
 		mSelectSheet = _index;
 		updateBar();
+
+		// поднимаем страницу для пикинга
+		if (_smoot) _forcePeek(mSheetsInfo[mSelectSheet].sheet);
 
 		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, _smoot);
 		_showSheet(mSheetsInfo[old].sheet, false, _smoot);

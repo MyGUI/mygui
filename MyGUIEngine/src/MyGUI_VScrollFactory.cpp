@@ -28,11 +28,11 @@ namespace MyGUI
 
 		VScrollFactory::~VScrollFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
 
-			// регестрируем все парсеры
+			// удаляем все парсеры
 			manager.unregisterDelegate("Scroll_Range");
 			manager.unregisterDelegate("Scroll_Position");
 			manager.unregisterDelegate("Scroll_Page");

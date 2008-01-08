@@ -19,17 +19,13 @@ namespace MyGUI
 			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.registerFactory(this);
-
-			// регестрируем все парсеры
 		}
 
 		HScrollFactory::~HScrollFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
-
-			// регестрируем все парсеры
 		}
 
 		const Ogre::String& HScrollFactory::getType()

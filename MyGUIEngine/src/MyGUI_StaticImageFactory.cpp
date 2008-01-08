@@ -29,11 +29,11 @@ namespace MyGUI
 
 		StaticImageFactory::~StaticImageFactory()
 		{
-			// регестрируем себя
+			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
 
-			// регестрируем все парсеры
+			// удаляем все парсеры
 			manager.unregisterDelegate("Image_Material");
 			manager.unregisterDelegate("Image_Rect");
 			manager.unregisterDelegate("Image_Tile");

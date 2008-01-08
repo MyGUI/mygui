@@ -110,13 +110,13 @@ namespace MyGUI
 			return mButtonAutoWidth;
 		}
 
-		inline void setButtonSmoothShow(bool _smooth)
+		inline void setSmoothShow(bool _smooth)
 		{
-			mButtonSmoothShow = _smooth;
+			mSmoothShow = _smooth;
 		}
-		inline bool getButtonSmoothShow()
+		inline bool getSmoothShow()
 		{
-			return mButtonSmoothShow;
+			return mSmoothShow;
 		}
 
 		//--------------------------------------------------------------------
@@ -190,7 +190,7 @@ namespace MyGUI
 		size_t mSelectSheet;
 
 		int mButtonDefaultWidth;
-		bool mButtonSmoothShow;
+		bool mSmoothShow;
 		bool mButtonAutoWidth;
 
 		// список виджетов, для изменения альфы
