@@ -7,9 +7,12 @@
 #include "MyGUI_Tab.h"
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
+
+	const float TAB_SPEED_FADE_COEF = 5.0f;
 
 	Tab::Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
@@ -385,7 +388,7 @@ namespace MyGUI
 
 		// удаляем страницу
 		TabSheetInfo & info = mSheetsInfo[_index];
-		_removeFromAlphaController(info.sheet);
+		ControllerFadeAlpha::getInstance().removeItem(info.sheet);
 		WidgetManager::getInstance().destroyWidget(info.sheet);
 		mWidthBar -= info.width;
 		mSheetsInfo.erase(mSheetsInfo.begin() + _index);
@@ -464,7 +467,7 @@ namespace MyGUI
 	void Tab::_showSheet(SheetPtr _sheet, bool _show, bool _smooth)
 	{
 		if (false == _smooth) {
-			_removeFromAlphaController(_sheet);
+			ControllerFadeAlpha::getInstance().removeItem(_sheet);
 			_sheet->setAlpha(ALPHA_MAX);
 
 			if (_show) _sheet->show();
@@ -473,46 +476,8 @@ namespace MyGUI
 			return;
 		}
 
-		if (_show) _addToAlphaController(_sheet, ALPHA_MAX);
-		else _addToAlphaController(_sheet, ALPHA_MIN, true, false);
-	}
-
-	void Tab::_addToAlphaController(WidgetPtr _widget, float _alpha, bool _hide, bool _enabled, bool _destroy)
-	{
-		// подготовка виджета
-		_widget->setEnabled(_enabled, true);
-
-		if ((ALPHA_MIN != _alpha) && (false == _widget->isShow())) {
-			_widget->setAlpha(ALPHA_MIN);
-			_widget->show();
-		}
-
-		size_t size = mVectorAlphaDataInfo.size();
-		for (size_t pos=0; pos<size; ++pos) {
-			if (mVectorAlphaDataInfo[pos].widget == _widget) {
-				mVectorAlphaDataInfo[pos].alpha = _alpha;
-				mVectorAlphaDataInfo[pos].destroy = _destroy;
-				mVectorAlphaDataInfo[pos].hide = _hide;
-				return;
-			}
-		}
-		mVectorAlphaDataInfo.push_back(AlphaDataInfo(_widget, _alpha, _hide, _destroy));
-
-		if (0 == size) Gui::getInstance().addFrameListener(this);
-	}
-
-	void Tab::_removeFromAlphaController(WidgetPtr _widget)
-	{
-		size_t size = mVectorAlphaDataInfo.size();
-		for (size_t pos=0; pos<size; ++pos) {
-			if (mVectorAlphaDataInfo[pos].widget == _widget) {
-				mVectorAlphaDataInfo[pos] = mVectorAlphaDataInfo[size-1];
-				mVectorAlphaDataInfo.pop_back();
-				break;
-			}
-		}
-
-		if (1 == size) Gui::getInstance().removeFrameListener(this);
+		if (_show) ControllerFadeAlpha::getInstance().addItem(_sheet, ALPHA_MAX, TAB_SPEED_FADE_COEF);
+		else ControllerFadeAlpha::getInstance().addItem(_sheet, ALPHA_MIN, TAB_SPEED_FADE_COEF, true, false);
 	}
 
 	int Tab::getButtonWidthByName(const Ogre::DisplayString& _text)
@@ -523,43 +488,6 @@ namespace MyGUI
 		IntCoord coord = mSheetButton[0]->getTextCoord();
 
 		return size.width + mSheetButton[0]->getWidth() - coord.width;
-	}
-
-	void Tab::_frameEntered(float _frame)
-	{
-		const float coef = 4.0f;
-
-		for (size_t pos=0; pos<mVectorAlphaDataInfo.size(); pos++) {
-
-			AlphaDataInfo & info = mVectorAlphaDataInfo[pos];
-			float alpha = info.widget->getAlpha();
-
-			// проверяем нужно ли к чему еще стремиться
-			if (info.alpha > alpha) {
-				alpha += _frame * coef;
-				if (info.alpha > alpha) {
-					info.widget->setAlpha(alpha);
-					continue;
-				}
-			}
-			else if (info.alpha < alpha) {
-				alpha -= _frame * coef;
-				if (info.alpha < alpha) {
-					info.widget->setAlpha(alpha);
-					continue;
-				}
-			}
-
-			// если мы тут значит событие свершилось
-			if (info.destroy) WidgetManager::getInstance().destroyWidget(info.widget);
-			else if (info.hide) info.widget->hide();
-
-			// удаляем себя из списка
-			mVectorAlphaDataInfo[pos] = mVectorAlphaDataInfo[mVectorAlphaDataInfo.size()-1];
-			mVectorAlphaDataInfo.pop_back();
-			pos --;
-
-		}
 	}
 
 } // namespace MyGUI

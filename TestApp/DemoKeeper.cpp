@@ -40,12 +40,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mHeight = _height;
 
 	LayoutManager::getInstance().load("TabDemo.layout");
-
-	//std::string str("\n\r");
-
-	//int test=0;
-
-	//mGUI->createWidget<Edit>("EditStretch", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main")->setCaption("#00FF00green\n#808080gray");
+	LayoutManager::getInstance().load("EditDemo.layout");
+	LayoutManager::getInstance().load("ListDemo.layout");
 
 	/*WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main");
 	window->setMinMax(150, 150, 2000, 2000);

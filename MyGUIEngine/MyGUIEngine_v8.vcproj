@@ -384,6 +384,10 @@
 				Name="Utility"
 				>
 				<File
+					RelativePath=".\src\MyGUI_ControllerFadeAlpha.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_LogManager.cpp"
 					>
 				</File>
@@ -482,7 +486,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ControllerInterface.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Font.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_FrameListener.h"
 					>
 				</File>
 				<File
@@ -579,6 +591,10 @@
 				</File>
 				<File
 					RelativePath=".\include\delegate_implement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_ControllerFadeAlpha.h"
 					>
 				</File>
 				<File

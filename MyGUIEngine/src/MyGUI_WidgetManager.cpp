@@ -174,6 +174,9 @@ namespace MyGUI
 		// отсоединяем виджет от уровня, если он был присоединен
 		LayerManager::getInstance().detachItem(_widget);
 
+		// отсоединяем от контроллеров
+		Gui::getInstance()._unlinkWidget(_widget);
+
 		// стираем имя в карте для поиска
 		unlinkWidget(_widget);
 

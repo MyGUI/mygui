@@ -37,6 +37,8 @@ namespace MyGUI
 
 		createDefaultCharSet();
 
+		Gui::getInstance().addFrameListener(this);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -45,6 +47,8 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		Gui::getInstance().removeFrameListener(this);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

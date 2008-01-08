@@ -11,6 +11,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -18,7 +19,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef delegates::CDelegate1<const std::string &> EventChangeLanguage;
 
-	class _MyGUIExport InputManager
+	class _MyGUIExport InputManager : public FrameListener
 	{
 		INSTANCE_HEADER(InputManager);
 
@@ -32,8 +33,6 @@ namespace MyGUI
 	public:
 
 		bool load(const std::string & _file, bool _resource = true);
-
-		void _frameEntered(float _frame);
 
 		bool injectMouseMove( const OIS::MouseEvent & _arg);
 		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
@@ -65,6 +64,8 @@ namespace MyGUI
 		EventChangeLanguage eventChangeLanguage;
 
 	protected:
+		void _frameEntered(float _frame);
+
 		void detectLangShift(int keyEvent, bool bIsKeyPressed);
 		wchar_t getKeyChar(int keyEvent); // возвращает символ по его скан коду
 

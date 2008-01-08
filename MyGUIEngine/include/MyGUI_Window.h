@@ -76,7 +76,7 @@ namespace MyGUI
 		EventButtonPressedInfo eventWindowButtonPressed;
 
 	protected:
-		void _frameEntered(float _frame);
+		//void _frameEntered(float _frame);
 
 		void _onMouseChangeRootFocus(bool _focus);
 		void _onKeyChangeRootFocus(bool _focus);
@@ -87,7 +87,7 @@ namespace MyGUI
 		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
 		void notifyMouseMovedAction(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		void setDoAlpha(float _alpha);
+		//void setDoAlpha(float _alpha);
 
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
@@ -99,11 +99,11 @@ namespace MyGUI
 		IntCoord mPreActionCoord;
 
 		// подписанны ли мы на фрейм старт
-		bool mIsListenerAlpha;
+		//bool mIsListenerAlpha;
 		// альфа, которую мы пытаемся догнать
-		float mDoAlpha;
+		//float mDoAlpha;
 		// уничтожить ли после скрытия
-		bool mIsDestroy;
+		//bool mIsDestroy;
 
 		// наши главные фокусы
 		bool mMouseRootFocus;

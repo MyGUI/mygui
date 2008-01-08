@@ -10,6 +10,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_PointerManager.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -26,8 +27,8 @@ namespace MyGUI
 	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetClient(null),
-		mIsListenerAlpha(false),
-		mIsDestroy(false),
+		//mIsListenerAlpha(false),
+		//mIsDestroy(false),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
 		mIsToStick(false)
@@ -67,7 +68,7 @@ namespace MyGUI
 
 	Window::~Window()
 	{
-		Gui::getInstance().removeFrameListener(this);
+		//Gui::getInstance().removeFrameListener(this);
 	}
 
 	// переопределяем для присвоению клиенту
@@ -137,11 +138,13 @@ namespace MyGUI
 		setPosition(mPreActionCoord + coord);
 	}
 
-	void Window::setDoAlpha(float _alpha)
+/*	void Window::setDoAlpha(float _alpha)
 	{
 		if (mIsDestroy) return;
 
-		mDoAlpha = _alpha;
+//		ControllerFadeAlpha::getInstance().addItem(this, _alpha, WINDOW_SPEED_COEF);
+
+		/*mDoAlpha = _alpha;
 		if (mDoAlpha == getAlpha()) {
 			// если мы были подписанны, то отписываемся
 			if (mIsListenerAlpha) {
@@ -157,9 +160,9 @@ namespace MyGUI
 			Gui::getInstance().addFrameListener(this);
 			mIsListenerAlpha = true;
 		}
-	}
+	}*/
 
-	void Window::_frameEntered(float _frame)
+	/*void Window::_frameEntered(float _frame)
 	{
 		// огр отписывает после прохода
 		if (false == mIsListenerAlpha) return;
@@ -199,15 +202,15 @@ namespace MyGUI
 
 		// устанавливаем текущую альфу
 		setAlpha(alpha);
-	}
+	}*/
 
 	void Window::updateAlpha()
 	{
 		if (false == mIsAutoAlpha) return;
 
-		if (mKeyRootFocus) setDoAlpha(WINDOW_ALPHA_ACTIVE);
-		else if (mMouseRootFocus) setDoAlpha(WINDOW_ALPHA_FOCUS);
-		else setDoAlpha(WINDOW_ALPHA_DEACTIVE);
+		if (mKeyRootFocus) ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_ACTIVE, WINDOW_SPEED_COEF);
+		else if (mMouseRootFocus) ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_FOCUS, WINDOW_SPEED_COEF);
+		else ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_DEACTIVE, WINDOW_SPEED_COEF);
 	}
 
 	void Window::setPosition(const IntPoint& _pos)
@@ -314,35 +317,41 @@ namespace MyGUI
 	void Window::showSmooth(bool _reset)
 	{
 		// разблокируем на всякий
-		mEnabled = true;
+		//mEnabled = true;
 
 		// если мы с автоальфой, то поднимаем альфу в зависимости от активности
-		float doAlpha = (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX;
+		//float doAlpha = (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX;
 
 		// если мы скрыты, то нуно показать и опустить альфу
-		if ((false == mShow) || (_reset)) {
-			setAlpha(0);
+		if (/*(false == mShow) ||*/ (_reset)) {
+			setAlpha(ALPHA_MIN);
 			show();
 		}
 
 		// поднимаем альфу
-		setDoAlpha(doAlpha);
+		//setDoAlpha(doAlpha);
+
+		ControllerFadeAlpha::getInstance().addItem(this,
+			(mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX,
+			WINDOW_SPEED_COEF, false, true, false);
 	}
 
 	void Window::hideSmooth()
 	{
+		ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, true, false, false);
 		// если нужно то запускаем скрытие
-		if ((mShow) && (mAlpha != WINDOW_ALPHA_MIN)) {
+		/*if ((mShow) && (mAlpha != WINDOW_ALPHA_MIN)) {
 			// блокируем доступ
 			mEnabled = false;
 			setDoAlpha(WINDOW_ALPHA_MIN);
-		}
+		}*/
 	}
 
 	void Window::destroySmooth()
 	{
+		ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false, false, true);
 		// мы уже скрыты удаляем
-		if ((false == mShow) || (mAlpha == WINDOW_ALPHA_MIN)) {
+		/*if ((false == mShow) || (mAlpha == WINDOW_ALPHA_MIN)) {
 			WidgetPtr destroy = this;
 			WidgetManager::getInstance().destroyWidget(destroy);
 		}
@@ -352,7 +361,7 @@ namespace MyGUI
 			setDoAlpha(WINDOW_ALPHA_MIN);
 			mIsDestroy = true;
 			InputManager::getInstance().unlinkWidget(this);
-		}
+		}*/
 	}
 
 	const IntCoord& Window::getClientRect()

@@ -70,6 +70,10 @@ namespace MyGUI
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
 
+		// создаем контроллеры
+		mControllerFadeAlpha = new ControllerFadeAlpha();
+		mVectorControllers.push_back(mControllerFadeAlpha);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -84,8 +88,11 @@ namespace MyGUI
 
 		_destroyAllChildWidget();
 
-		// деинициализируем и удаляем синглтоны
+		// удаляем контроллеры
+		mVectorControllers.clear();
+		delete mControllerFadeAlpha;
 
+		// деинициализируем и удаляем синглтоны
 		mPluginManager->shutdown();
 		delete mPluginManager;
 		mDynLibManager->shutdown();
@@ -148,8 +155,15 @@ namespace MyGUI
 			}
 		};
 
-		// теперь инпуту
-		mInputManager->_frameEntered(timeSinceLastFrame);
+		// сначала рассылаем
+		ListFrameListener2::iterator iter2=mListFrameListener2.begin();
+		while (iter2 != mListFrameListener2.end()) {
+			if (null == (*iter2)) iter2 = mListFrameListener2.erase(iter2);
+			else {
+				(*iter2)->_frameEntered(timeSinceLastFrame);
+				++iter2;
+			}
+		};
 
 		// теперь объединяем масив
 		if (false == mListFrameListenerAdd.empty()) {
@@ -157,6 +171,13 @@ namespace MyGUI
 				mListFrameListener.push_back(*iter);
 			}
 			mListFrameListenerAdd.clear();
+		}
+		// теперь объединяем масив
+		if (false == mListFrameListenerAdd2.empty()) {
+			for (ListFrameListener2::iterator iter2=mListFrameListenerAdd2.begin(); iter2!=mListFrameListenerAdd2.end(); ++iter2) {
+				mListFrameListener2.push_back(*iter2);
+			}
+			mListFrameListenerAdd2.clear();
 		}
 	}
 
@@ -194,6 +215,41 @@ namespace MyGUI
 		return false;
 	}
 
+	bool Gui::addFrameListener(FrameListener * _listener)
+	{
+		if (null == _listener) return false;
+
+		for (ListFrameListener2::iterator iter=mListFrameListener2.begin(); iter!=mListFrameListener2.end(); ++iter) {
+			if ((*iter) == _listener) return false;
+		}
+		for (ListFrameListener2::iterator iter=mListFrameListenerAdd2.begin(); iter!=mListFrameListenerAdd2.end(); ++iter) {
+			if ((*iter) == _listener) return false;
+		}
+		mListFrameListenerAdd2.push_back(_listener);
+		return true;
+	}
+
+	bool Gui::removeFrameListener(FrameListener * _listener)
+	{
+		if (null == _listener) return false;
+
+		for (ListFrameListener2::iterator iter=mListFrameListener2.begin(); iter!=mListFrameListener2.end(); ++iter) {
+			if ((*iter) == _listener) {
+				(*iter) = null;
+				return true;
+			}
+		}
+
+		for (ListFrameListener2::iterator iter=mListFrameListenerAdd2.begin(); iter!=mListFrameListenerAdd2.end(); ++iter) {
+			if ((*iter) == _listener) {
+				mListFrameListenerAdd2.erase(iter);
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	// удяляет только негодных батюшке государю
 	void Gui::_destroyChildWidget(WidgetPtr _widget)
 	{
@@ -229,6 +285,13 @@ namespace MyGUI
 	void Gui::destroyWidget(WidgetPtr _widget)
 	{
 		mWidgetManager->destroyWidget(_widget);
+	}
+
+	void Gui::_unlinkWidget(WidgetPtr _widget)
+	{
+		for (VectorControllerInterface::iterator iter=mVectorControllers.begin(); iter!=mVectorControllers.end(); ++iter) {
+			(*iter)->_unlinkWidget(_widget);
+		}
 	}
 
 } // namespace MyGUI

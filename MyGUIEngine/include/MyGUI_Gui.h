@@ -11,6 +11,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_CastWidget.h"
+#include "MyGUI_FrameListener.h"
 
 #include "MyGUI_TextSimpleOverlayElementFactory.h"
 #include "MyGUI_TextEditOverlayElementFactory.h"
@@ -29,6 +30,8 @@
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
 
+#include "MyGUI_ControllerInterface.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -84,6 +87,8 @@ namespace MyGUI
 
 		bool addFrameListener(WidgetPtr _listener);
 		bool removeFrameListener(WidgetPtr _listener);
+		bool addFrameListener(FrameListener * _listener);
+		bool removeFrameListener(FrameListener * _listener);
 
 		// подписка на кадры
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
@@ -116,6 +121,8 @@ namespace MyGUI
 		void _destroyChildWidget(WidgetPtr _widget);
 		// удаляет всех детей
 		void _destroyAllChildWidget();
+		// отписываем от контроллеров
+		void _unlinkWidget(WidgetPtr _widget);
 
 	private:
 		// вектор всех детей виджетов
@@ -145,6 +152,14 @@ namespace MyGUI
 
 		ListFrameListener mListFrameListener;
 		ListFrameListener mListFrameListenerAdd;
+
+		// подписчики на кадры
+		ListFrameListener2 mListFrameListener2;
+		ListFrameListener2 mListFrameListenerAdd2;
+
+		// контроллеры
+		ControllerFadeAlpha * mControllerFadeAlpha;
+		VectorControllerInterface mVectorControllers;
 
 	}; // class Gui
 

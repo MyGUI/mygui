@@ -34,18 +34,6 @@ namespace MyGUI
 
 	typedef std::vector<TabSheetInfo> VectorTabSheetInfo;
 
-	struct AlphaDataInfo
-	{
-		AlphaDataInfo(WidgetPtr _widget, float _alpha, bool _hide, bool _destroy) :
-			widget(_widget), alpha(_alpha), hide(_hide), destroy(_destroy) {}
-
-		WidgetPtr widget;
-		float alpha;
-		bool hide;
-		bool destroy;
-	};
-	typedef std::vector<AlphaDataInfo> VectorAlphaDataInfo;
-
 	class Tab;
 	typedef Tab* TabPtr;
 
@@ -73,11 +61,6 @@ namespace MyGUI
 			button->setInternalData((int)mSheetButton.size()); // порядковый номер
 			mSheetButton.push_back(button);
 		}
-
-		void _addToAlphaController(WidgetPtr _widget, float _alpha, bool _hide = false, bool _enabled = true, bool _destroy = false);
-		void _removeFromAlphaController(WidgetPtr _widget);
-
-		void _frameEntered(float _frame);
 
 	public:
 		// тип данного виджета
@@ -216,8 +199,6 @@ namespace MyGUI
 		bool mSmoothShow;
 		bool mButtonAutoWidth;
 
-		// список виджетов, для изменения альфы
-		VectorAlphaDataInfo mVectorAlphaDataInfo;
 	};
 
 } // namespace MyGUI
