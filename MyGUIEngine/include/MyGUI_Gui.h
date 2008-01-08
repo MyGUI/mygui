@@ -85,8 +85,8 @@ namespace MyGUI
 		inline float getViewAspect() {return mViewSize.width / mViewSize.height;}
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
-		bool addFrameListener(WidgetPtr _listener);
-		bool removeFrameListener(WidgetPtr _listener);
+		/*bool addFrameListener(WidgetPtr _listener);
+		bool removeFrameListener(WidgetPtr _listener);*/
 		bool addFrameListener(FrameListener * _listener);
 		bool removeFrameListener(FrameListener * _listener);
 
@@ -150,8 +150,8 @@ namespace MyGUI
 		DynLibManager* mDynLibManager;
 		PluginManager* mPluginManager;
 
-		ListFrameListener mListFrameListener;
-		ListFrameListener mListFrameListenerAdd;
+		/*ListFrameListener mListFrameListener;
+		ListFrameListener mListFrameListenerAdd;*/
 
 		// подписчики на кадры
 		ListFrameListener2 mListFrameListener2;

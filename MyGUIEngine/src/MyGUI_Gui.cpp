@@ -83,8 +83,8 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		mListFrameListener.clear();
-		mListFrameListenerAdd.clear();
+		mListFrameListener2.clear();
+		mListFrameListenerAdd2.clear();
 
 		_destroyAllChildWidget();
 
@@ -146,14 +146,14 @@ namespace MyGUI
 	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
 	{
 		// сначала рассылаем
-		ListFrameListener::iterator iter=mListFrameListener.begin();
+		/*ListFrameListener::iterator iter=mListFrameListener.begin();
 		while (iter != mListFrameListener.end()) {
 			if (null == (*iter)) iter = mListFrameListener.erase(iter);
 			else {
 				(*iter)->_frameEntered(timeSinceLastFrame);
 				++iter;
 			}
-		};
+		};*/
 
 		// сначала рассылаем
 		ListFrameListener2::iterator iter2=mListFrameListener2.begin();
@@ -166,12 +166,12 @@ namespace MyGUI
 		};
 
 		// теперь объединяем масив
-		if (false == mListFrameListenerAdd.empty()) {
+		/*if (false == mListFrameListenerAdd.empty()) {
 			for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
 				mListFrameListener.push_back(*iter);
 			}
 			mListFrameListenerAdd.clear();
-		}
+		}*/
 		// теперь объединяем масив
 		if (false == mListFrameListenerAdd2.empty()) {
 			for (ListFrameListener2::iterator iter2=mListFrameListenerAdd2.begin(); iter2!=mListFrameListenerAdd2.end(); ++iter2) {
@@ -181,7 +181,7 @@ namespace MyGUI
 		}
 	}
 
-	bool Gui::addFrameListener(WidgetPtr _listener)
+	/*bool Gui::addFrameListener(WidgetPtr _listener)
 	{
 		if (null == _listener) return false;
 
@@ -213,7 +213,7 @@ namespace MyGUI
 			}
 		}
 		return false;
-	}
+	}*/
 
 	bool Gui::addFrameListener(FrameListener * _listener)
 	{

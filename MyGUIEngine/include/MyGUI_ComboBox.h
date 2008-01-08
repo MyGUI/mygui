@@ -30,7 +30,7 @@ namespace MyGUI
 		virtual void _onKeyLostFocus(WidgetPtr _new);
 		virtual void _onKeySetFocus(WidgetPtr _old);
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
-		virtual void _frameEntered(float _frame);
+		//virtual void _frameEntered(float _frame);
 
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
@@ -132,7 +132,7 @@ namespace MyGUI
 		bool mDropMouse;
 		bool mShowSmooth;
 
-		float mDoAlpha;
+		//float mDoAlpha;
 
 	}; // class _MyGUIExport ComboBox : public Edit
 

@@ -7,6 +7,7 @@
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -25,8 +26,8 @@ namespace MyGUI
 		mItemIndex(ITEM_NONE),
 		mModeDrop(false),
 		mDropMouse(false),
-		mShowSmooth(false),
-		mDoAlpha(COMBO_ALPHA_NONE)
+		mShowSmooth(false)
+		//mDoAlpha(COMBO_ALPHA_NONE)
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -188,7 +189,7 @@ namespace MyGUI
 
 	void ComboBox::showList()
 	{
-		// пустой списое не показываем
+		// пустой список не показываем
 		if (mList->getItemCount() == 0) return;
 
 		mListShow = true;
@@ -212,12 +213,13 @@ namespace MyGUI
 		mList->setPosition(coord);
 
 		if (mShowSmooth) {
-			if (false == mList->isShow()) {
+			ControllerFadeAlpha::getInstance().addItem(mList, COMBO_ALPHA_MAX, COMBO_ALPHA_COEF);
+			/*if (false == mList->isShow()) {
 				mList->setAlpha(COMBO_ALPHA_MIN);
 				mList->show();
 			}
 			mDoAlpha = COMBO_ALPHA_MAX;
-			mList->setEnabled(true, true);
+			mList->setEnabled(true, true);*/
 		}
 		else mList->show();
 
@@ -227,11 +229,13 @@ namespace MyGUI
 	void ComboBox::hideList()
 	{
 		mListShow = false;
+
 		if (mShowSmooth) {
-			if (mList->isShow()) {
+			ControllerFadeAlpha::getInstance().addItem(mList, COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, true, false, false);
+			/*if (mList->isShow()) {
 				mDoAlpha = COMBO_ALPHA_MIN;
 				mList->setEnabled(false, true);
-			}
+			}*/
 		}
 		else mList->hide();
 	}
@@ -240,11 +244,11 @@ namespace MyGUI
 	{
 		mShowSmooth = _smooth;
 
-		if (mShowSmooth) Gui::getInstance().addFrameListener(this);
-		else if (false == mCursorActive) Gui::getInstance().removeFrameListener(this);
+		//if (mShowSmooth) Gui::getInstance().addFrameListener(this);
+		//else if (false == mCursorActive) Gui::getInstance().removeFrameListener(this);
 	}
 
-	void ComboBox::_frameEntered(float _frame)
+	/*void ComboBox::_frameEntered(float _frame)
 	{
 		Edit::_frameEntered(_frame);
 		if ((false == mShowSmooth) || (mDoAlpha == COMBO_ALPHA_NONE)) return;
@@ -267,7 +271,7 @@ namespace MyGUI
 			} else mList->setAlpha(alpha);
 		}
 
-	}
+	}*/
 
 	void ComboBox::_onKeySetFocus(WidgetPtr _old)
 	{

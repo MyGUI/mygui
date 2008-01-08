@@ -12,6 +12,7 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
+#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -19,7 +20,7 @@ namespace MyGUI
 	class Edit;
 	typedef Edit * EditPtr;
 
-	class _MyGUIExport Edit : public Widget
+	class _MyGUIExport Edit : public Widget, public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::EditFactory;

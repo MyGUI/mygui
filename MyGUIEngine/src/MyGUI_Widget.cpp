@@ -98,9 +98,9 @@ namespace MyGUI
 		_destroyAllChildWidget();
 
 		// удаляем себя из списка рассылки, но мы там быть недолжны
-		if (Gui::getInstance().removeFrameListener(this)) {
+		/*if (Gui::getInstance().removeFrameListener(this)) {
 			MYGUI_LOG(Warning, "Widget wasn`t removed from frame listeners");
-		}
+		}*/
 	}
 
 	WidgetPtr Widget::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
