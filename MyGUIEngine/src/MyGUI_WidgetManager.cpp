@@ -31,6 +31,7 @@ namespace MyGUI
 		mWindowFactory = new factory::WindowFactory();
 		mComboBoxFactory = new factory::ComboBoxFactory();
 		mTabFactory = new factory::TabFactory();
+		mSheetFactory = new factory::SheetFactory();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -55,6 +56,7 @@ namespace MyGUI
 		delete mWidgetFactory;
 		delete mComboBoxFactory;
 		delete mTabFactory;
+		delete mSheetFactory;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

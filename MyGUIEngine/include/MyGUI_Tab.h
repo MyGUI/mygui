@@ -11,20 +11,25 @@
 #include "MyGUI_TabFactory.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Button.h"
+#include "MyGUI_Sheet.h"
 
 namespace MyGUI
 {
 
+	class Sheet;
+	typedef Sheet* SheetPtr;
+	typedef std::vector<SheetPtr> VectorSheetPtr;
+
 	struct TabSheetInfo
 	{
-		TabSheetInfo(int _width, const Ogre::DisplayString& _name, WidgetPtr _sheet) :
+		TabSheetInfo(int _width, const Ogre::DisplayString& _name, SheetPtr _sheet) :
 			width(_width), name(_name), sheet(_sheet)
 		{
 		}
 
 		int width;
 		Ogre::DisplayString name;
-		WidgetPtr sheet;
+		SheetPtr sheet;
 	};
 
 	typedef std::vector<TabSheetInfo> VectorTabSheetInfo;
@@ -59,7 +64,7 @@ namespace MyGUI
 
 		int getButtonWidthByName(const Ogre::DisplayString& _text);
 
-		void _showSheet(WidgetPtr _sheet, bool _show, bool _smooth);
+		void _showSheet(SheetPtr _sheet, bool _show, bool _smooth);
 
 		inline void _createSheetButton()
 		{
@@ -140,13 +145,13 @@ namespace MyGUI
 			return mSheetsInfo[_index].width;
 		}
 
-		inline WidgetPtr getSheet(size_t _index)
+		inline SheetPtr getSheet(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
 			return mSheetsInfo[_index].sheet;
 		}
 
-		inline WidgetPtr findSheet(const Ogre::DisplayString& _name)
+		inline SheetPtr findSheet(const Ogre::DisplayString& _name)
 		{
 			for (VectorTabSheetInfo::iterator iter=mSheetsInfo.begin(); iter!=mSheetsInfo.end(); ++iter) {
 				if ((*iter).name == _name) return (*iter).sheet;
@@ -157,20 +162,20 @@ namespace MyGUI
 		void setSheetName(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
 		void setSheetButtonWidth(size_t _index, int _width = DEFAULT);
 
-		inline WidgetPtr addSheet(const Ogre::DisplayString& _name, int _width = DEFAULT)
+		inline SheetPtr addSheet(const Ogre::DisplayString& _name, int _width = DEFAULT)
 		{
 			return insertSheet(ITEM_NONE, _name, _width);
 		}
 
-		WidgetPtr insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
+		SheetPtr insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
 
 		void removeSheetIndex(size_t _index);
 		void removeSheet(const Ogre::DisplayString& _name);
-		void removeSheet(WidgetPtr _sheet);
+		void removeSheet(SheetPtr _sheet);
 
 		void selectSheetIndex(size_t _index, bool _smooth = true);
 		void selectSheet(const Ogre::DisplayString& _name, bool _smooth = true);
-		void selectSheet(WidgetPtr _sheet, bool _smooth = true);
+		void selectSheet(SheetPtr _sheet, bool _smooth = true);
 
 	private:
 		int mOffsetTab; // смещение бара при показе кнопок

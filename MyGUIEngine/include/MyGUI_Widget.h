@@ -70,19 +70,19 @@ namespace MyGUI
 		// шаблоны для создания виджета по типу
 		template <class T> inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetT(T::getType(), _skin, _coord, _align, _name));
+			return static_cast<T*>(createWidgetT(T::_getType(), _skin, _coord, _align, _name));
 		}
 		template <class T> inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetT(T::getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
+			return static_cast<T*>(createWidgetT(T::_getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
 		}
 		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetRealT(T::getType(), _skin, _coord, _align, _name));
+			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _coord, _align, _name));
 		}
 		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetRealT(T::getType(), _skin, _left, _top, _width, _height, _align, _name));
+			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _left, _top, _width, _height, _align, _name));
 		}
 
 

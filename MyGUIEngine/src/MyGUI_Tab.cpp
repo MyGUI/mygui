@@ -309,7 +309,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	WidgetPtr Tab::insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width)
+	SheetPtr Tab::insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width)
 	{
 		if (_width <= 0) {
 			if (mButtonAutoWidth) _width = getButtonWidthByName(_name);
@@ -317,7 +317,7 @@ namespace MyGUI
 		}
 
 		mWidthBar += _width;
-		WidgetPtr sheet = createWidget<Widget>("Empty", mSheetTemplate->getCoord(), mSheetTemplate->getAlign());
+		SheetPtr sheet = createWidget<Sheet>("Empty", mSheetTemplate->getCoord(), mSheetTemplate->getAlign());
 
 		// положение и видимость вкладок
 		if (0 == mSheetsInfo.size()) mSelectSheet = 0;
@@ -368,7 +368,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("sheet '" << _name << "' is not find");
 	}
 
-	void Tab::removeSheet(WidgetPtr _sheet)
+	void Tab::removeSheet(SheetPtr _sheet)
 	{
 		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 			if (mSheetsInfo[pos].sheet == _sheet) {
@@ -405,7 +405,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("sheet '" << _name << "' is not find");
 	}
 
-	void Tab::selectSheet(WidgetPtr _sheet, bool _smooth)
+	void Tab::selectSheet(SheetPtr _sheet, bool _smooth)
 	{
 		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 			if (mSheetsInfo[pos].sheet == _sheet) {
@@ -416,7 +416,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("sheet (" << _sheet << ") is not find");
 	}
 
-	void Tab::_showSheet(WidgetPtr _sheet, bool _show, bool _smooth)
+	void Tab::_showSheet(SheetPtr _sheet, bool _show, bool _smooth)
 	{
 		if (false == _smooth) {
 			_removeFromAlphaController(_sheet);

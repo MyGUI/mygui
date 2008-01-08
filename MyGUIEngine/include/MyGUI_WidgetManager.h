@@ -24,6 +24,7 @@
 #include "MyGUI_WindowFactory.h"
 #include "MyGUI_ComboBoxFactory.h"
 #include "MyGUI_TabFactory.h"
+#include "MyGUI_SheetFactory.h"
 
 namespace MyGUI
 {
@@ -88,6 +89,7 @@ namespace MyGUI
 		factory::WindowFactory * mWindowFactory;
 		factory::ComboBoxFactory * mComboBoxFactory;
 		factory::TabFactory * mTabFactory;
+		factory::SheetFactory * mSheetFactory;
 
 	};
 

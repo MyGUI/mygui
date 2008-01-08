@@ -10,17 +10,18 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_SheetFactory.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_Tab.h"
 
 namespace MyGUI
 {
 
-	class Sheet;
-	typedef Sheet* SheetPtr;
+	class Tab;
 
 	class _MyGUIExport Sheet : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::SheetFactory;
+		friend class Tab;
 
 	protected:
 		Sheet(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
@@ -30,6 +31,8 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("Sheet"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+	private:
+		Tab * mOwner;
 
 	}; // class _MyGUIExport Sheet : public Widget
 

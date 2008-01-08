@@ -13,6 +13,7 @@
 #include "MyGUI_List.h"
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_Tab.h"
+#include "MyGUI_Sheet.h"
 
 #include "OgreCodec.h"
 #include "OgreImageCodec.h"
