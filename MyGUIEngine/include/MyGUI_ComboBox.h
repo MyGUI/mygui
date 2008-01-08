@@ -27,10 +27,7 @@ namespace MyGUI
 	protected:
 		ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
-		virtual void _onKeyLostFocus(WidgetPtr _new);
-		virtual void _onKeySetFocus(WidgetPtr _old);
 		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
-		//virtual void _frameEntered(float _frame);
 
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
@@ -111,7 +108,11 @@ namespace MyGUI
 			mList->setItemSelect(mItemIndex);
 		}
 
-		void setSmoothShow(bool _smooth);
+		inline void setSmoothShow(bool _smooth)
+		{
+			mShowSmooth = _smooth;
+		}
+
 		inline bool getSmoothShow()
 		{
 			return mShowSmooth;

@@ -27,7 +27,6 @@ namespace MyGUI
 		mModeDrop(false),
 		mDropMouse(false),
 		mShowSmooth(false)
-		//mDoAlpha(COMBO_ALPHA_NONE)
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -213,13 +212,8 @@ namespace MyGUI
 		mList->setPosition(coord);
 
 		if (mShowSmooth) {
-			ControllerFadeAlpha::getInstance().addItem(mList, COMBO_ALPHA_MAX, COMBO_ALPHA_COEF);
-			/*if (false == mList->isShow()) {
-				mList->setAlpha(COMBO_ALPHA_MIN);
-				mList->show();
-			}
-			mDoAlpha = COMBO_ALPHA_MAX;
-			mList->setEnabled(true, true);*/
+			ControllerFadeAlpha::getInstance().addItem(
+				mList, COMBO_ALPHA_MAX, COMBO_ALPHA_COEF);
 		}
 		else mList->show();
 
@@ -231,81 +225,10 @@ namespace MyGUI
 		mListShow = false;
 
 		if (mShowSmooth) {
-			ControllerFadeAlpha::getInstance().addItem(mList, COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, true, false, false);
-			/*if (mList->isShow()) {
-				mDoAlpha = COMBO_ALPHA_MIN;
-				mList->setEnabled(false, true);
-			}*/
+			ControllerFadeAlpha::getInstance().addItem(
+				mList, COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, true, false, false);
 		}
 		else mList->hide();
-	}
-
-	void ComboBox::setSmoothShow(bool _smooth)
-	{
-		mShowSmooth = _smooth;
-
-		//if (mShowSmooth) Gui::getInstance().addFrameListener(this);
-		//else if (false == mCursorActive) Gui::getInstance().removeFrameListener(this);
-	}
-
-	/*void ComboBox::_frameEntered(float _frame)
-	{
-		Edit::_frameEntered(_frame);
-		if ((false == mShowSmooth) || (mDoAlpha == COMBO_ALPHA_NONE)) return;
-		float alpha = mList->getAlpha();
-
-		if (mDoAlpha == COMBO_ALPHA_MAX) {
-			alpha += _frame * COMBO_ALPHA_COEF;
-			if (alpha >= COMBO_ALPHA_MAX) {
-				alpha = COMBO_ALPHA_MAX;
-				mDoAlpha = COMBO_ALPHA_NONE;
-			}
-			mList->setAlpha(alpha);
-		}
-		else {
-			alpha -= _frame * COMBO_ALPHA_COEF;
-			if (alpha <= COMBO_ALPHA_MIN) {
-				mDoAlpha = COMBO_ALPHA_NONE;
-				mList->hide();
-				mList->setAlpha(COMBO_ALPHA_MAX);
-			} else mList->setAlpha(alpha);
-		}
-
-	}*/
-
-	void ComboBox::_onKeySetFocus(WidgetPtr _old)
-	{
-		if (false == mIsPressed) {
-			mIsPressed = true;
-			updateEditState();
-
-			if (false == mModeStatic) {
-				mCursorActive = true;
-				if (false == mShowSmooth) Gui::getInstance().addFrameListener(this);
-				mWidgetCursor->show();
-				mText->setSelectBackground(true);
-				mCursorTimer = 0;
-			}
-		}
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeySetFocus(_old);
-	}
-
-	// чтона€ копи€ отцавского метода с небольштми изменени€ми
-	void ComboBox::_onKeyLostFocus(WidgetPtr _new)
-	{
-		if (mIsPressed) {
-			mIsPressed = false;
-			updateEditState();
-
-			mCursorActive = false;
-			if (false == mShowSmooth) Gui::getInstance().removeFrameListener(this);
-			mWidgetCursor->hide();
-			mText->setSelectBackground(false);
-		}
-
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyLostFocus(_new);
 	}
 
 } // namespace MyGUI

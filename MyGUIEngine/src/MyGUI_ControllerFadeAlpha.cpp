@@ -25,6 +25,9 @@ namespace MyGUI
 			_widget->show();
 		}
 
+		// отписываем его от ввода
+		if (false == _enabled) InputManager::getInstance().unlinkWidget(_widget);
+
 		if (0 == mListItem.size()) Gui::getInstance().addFrameListener(this);
 
 		for (ListAlphaItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {

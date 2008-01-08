@@ -50,21 +50,22 @@ namespace MyGUI
 
 		void VScrollFactory::Scroll_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(ScrollBasePtr, _widget);
-			static_cast<ScrollBasePtr>(_widget)->setScrollRange(util::parseSizeT(_value));
+			MYGUI_TYPE(VScrollPtr, _widget);
+			static_cast<VScrollPtr>(_widget)->setScrollRange(util::parseSizeT(_value));
 		}
 
 		void VScrollFactory::Scroll_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(ScrollBasePtr, _widget);
-			static_cast<ScrollBasePtr>(_widget)->setScrollPosition(util::parseSizeT(_value));
+			MYGUI_TYPE(VScrollPtr, _widget);
+			static_cast<VScrollPtr>(_widget)->setScrollPosition(util::parseSizeT(_value));
 		}
 
 		void VScrollFactory::Scroll_Page(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(ScrollBasePtr, _widget);
-			static_cast<ScrollBasePtr>(_widget)->setScrollPage(util::parseSizeT(_value));
+			MYGUI_TYPE(VScrollPtr, _widget);
+			static_cast<VScrollPtr>(_widget)->setScrollPage(util::parseSizeT(_value));
 		}
 
 	} // namespace factory
+
 } // namespace MyGUI

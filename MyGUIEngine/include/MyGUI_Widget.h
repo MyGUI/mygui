@@ -42,9 +42,6 @@ namespace MyGUI
 		// присоединяемся к отцу
 		void _attachChild(CroppedRectanglePtr _basis, bool _child);
 
-		// события кадров, работает только по подписке
-		//virtual void _frameEntered(float _frame) {}
-
 		// удяляет только негодных батюшке государю
 		void _destroyChildWidget(WidgetPtr _widget);
 		// удаляет всех детей

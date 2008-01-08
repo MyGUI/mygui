@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_HScrollFactory.h"
-#include "MyGUI_ScrollBase.h"
+#include "MyGUI_VScroll.h"
 
 namespace MyGUI
 {
@@ -17,7 +17,7 @@ namespace MyGUI
 	class HScroll;
 	typedef HScroll * HScrollPtr;
 
-	class _MyGUIExport HScroll : public ScrollBase
+	class _MyGUIExport HScroll : public VScroll
 	{
 		// для вызова закрытого конструктора
 		friend class factory::HScrollFactory;
@@ -30,10 +30,10 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("HScroll"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		void notifyTrackMove(int _left, int _top);
+		void TrackMove(int _left, int _top);
 		void updateTrack();
 
-	}; // class HScroll : public ScrollBase
+	}; // class HScroll : public VScroll
 
 } // namespace MyGUI
 

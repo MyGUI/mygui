@@ -209,10 +209,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\MyGUI_ScrollBase.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\MyGUI_Sheet.cpp"
 				>
 			</File>
@@ -436,10 +432,6 @@
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_List.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\MyGUI_ScrollBase.h"
 				>
 			</File>
 			<File

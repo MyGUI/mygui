@@ -27,8 +27,6 @@ namespace MyGUI
 	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetClient(null),
-		//mIsListenerAlpha(false),
-		//mIsDestroy(false),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
 		mIsToStick(false)
@@ -64,11 +62,6 @@ namespace MyGUI
 			}
 		}
 
-	}
-
-	Window::~Window()
-	{
-		//Gui::getInstance().removeFrameListener(this);
 	}
 
 	// переопределяем для присвоению клиенту
@@ -137,72 +130,6 @@ namespace MyGUI
 
 		setPosition(mPreActionCoord + coord);
 	}
-
-/*	void Window::setDoAlpha(float _alpha)
-	{
-		if (mIsDestroy) return;
-
-//		ControllerFadeAlpha::getInstance().addItem(this, _alpha, WINDOW_SPEED_COEF);
-
-		/*mDoAlpha = _alpha;
-		if (mDoAlpha == getAlpha()) {
-			// если мы были подписанны, то отписываемся
-			if (mIsListenerAlpha) {
-				Gui::getInstance().removeFrameListener(this);
-				mIsListenerAlpha = false;
-			}
-			// выходим
-			return;
-		}
-
-		// если надо, то подписываемся
-		if (false == mIsListenerAlpha) {
-			Gui::getInstance().addFrameListener(this);
-			mIsListenerAlpha = true;
-		}
-	}*/
-
-	/*void Window::_frameEntered(float _frame)
-	{
-		// огр отписывает после прохода
-		if (false == mIsListenerAlpha) return;
-
-		float alpha = getAlpha();
-		if (alpha == mDoAlpha) {
-			Gui::getInstance().removeFrameListener(this);
-			mIsListenerAlpha = false;
-			return;
-
-		} else if (alpha > mDoAlpha) {
-			alpha -= _frame * WINDOW_SPEED_COEF;
-			if (alpha <= mDoAlpha) {
-				alpha = mDoAlpha;
-				Gui::getInstance().removeFrameListener(this);
-				mIsListenerAlpha = false;
-			}
-		} else {
-			alpha += _frame * WINDOW_SPEED_COEF;
-			if (alpha >= mDoAlpha) {
-				alpha = mDoAlpha;
-				Gui::getInstance().removeFrameListener(this);
-				mIsListenerAlpha = false;
-			}
-		}
-
-		if (alpha == WINDOW_ALPHA_MIN) {
-			if (mIsDestroy) {
-				WidgetPtr destroy = this;
-				WidgetManager::getInstance().destroyWidget(destroy);
-			} else {
-				Widget::hide();
-				mEnabled = true;
-			}
-			return;
-		}
-
-		// устанавливаем текущую альфу
-		setAlpha(alpha);
-	}*/
 
 	void Window::updateAlpha()
 	{
@@ -316,20 +243,10 @@ namespace MyGUI
 	// для мееедленного показа и скрытия
 	void Window::showSmooth(bool _reset)
 	{
-		// разблокируем на всякий
-		//mEnabled = true;
-
-		// если мы с автоальфой, то поднимаем альфу в зависимости от активности
-		//float doAlpha = (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX;
-
-		// если мы скрыты, то нуно показать и опустить альфу
-		if (/*(false == mShow) ||*/ (_reset)) {
+		if (_reset) {
 			setAlpha(ALPHA_MIN);
 			show();
 		}
-
-		// поднимаем альфу
-		//setDoAlpha(doAlpha);
 
 		ControllerFadeAlpha::getInstance().addItem(this,
 			(mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX,
@@ -338,30 +255,14 @@ namespace MyGUI
 
 	void Window::hideSmooth()
 	{
-		ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, true, false, false);
-		// если нужно то запускаем скрытие
-		/*if ((mShow) && (mAlpha != WINDOW_ALPHA_MIN)) {
-			// блокируем доступ
-			mEnabled = false;
-			setDoAlpha(WINDOW_ALPHA_MIN);
-		}*/
+		ControllerFadeAlpha::getInstance().addItem(
+			this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, true, false, false);
 	}
 
 	void Window::destroySmooth()
 	{
-		ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false, false, true);
-		// мы уже скрыты удаляем
-		/*if ((false == mShow) || (mAlpha == WINDOW_ALPHA_MIN)) {
-			WidgetPtr destroy = this;
-			WidgetManager::getInstance().destroyWidget(destroy);
-		}
-		// доходим до минимума
-		else {
-			mEnabled = false;
-			setDoAlpha(WINDOW_ALPHA_MIN);
-			mIsDestroy = true;
-			InputManager::getInstance().unlinkWidget(this);
-		}*/
+		ControllerFadeAlpha::getInstance().addItem(
+			this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false, false, true);
 	}
 
 	const IntCoord& Window::getClientRect()

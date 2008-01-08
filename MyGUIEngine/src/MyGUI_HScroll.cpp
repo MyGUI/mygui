@@ -11,7 +11,7 @@ namespace MyGUI
 {
 
 	HScroll::HScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		ScrollBase(_coord, _align, _info, _parent, _name)
+		VScroll(_coord, _align, _info, _parent, _name)
 	{
 	}
 
@@ -34,7 +34,7 @@ namespace MyGUI
 
 	}
 
-	void HScroll::notifyTrackMove(int _left, int _top)
+	void HScroll::TrackMove(int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 

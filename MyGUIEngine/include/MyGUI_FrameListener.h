@@ -18,7 +18,7 @@ namespace MyGUI
 		virtual void _frameEntered(float _time) = 0;
 	};
 
-	typedef std::list<FrameListener*> ListFrameListener2;
+	typedef std::list<FrameListener*> ListFrameListener;
 
 }
 

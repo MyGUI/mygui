@@ -26,7 +26,6 @@ namespace MyGUI
 
 	protected:
 		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
-		~Window();
 
 	public:
 		// переопределяем для присвоению клиенту
@@ -76,7 +75,6 @@ namespace MyGUI
 		EventButtonPressedInfo eventWindowButtonPressed;
 
 	protected:
-		//void _frameEntered(float _frame);
 
 		void _onMouseChangeRootFocus(bool _focus);
 		void _onKeyChangeRootFocus(bool _focus);
@@ -87,8 +85,6 @@ namespace MyGUI
 		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
 		void notifyMouseMovedAction(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		//void setDoAlpha(float _alpha);
-
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
 
@@ -97,13 +93,6 @@ namespace MyGUI
 
 		// размеры окна перед началом его изменений
 		IntCoord mPreActionCoord;
-
-		// подписанны ли мы на фрейм старт
-		//bool mIsListenerAlpha;
-		// альфа, которую мы пытаемся догнать
-		//float mDoAlpha;
-		// уничтожить ли после скрытия
-		//bool mIsDestroy;
 
 		// наши главные фокусы
 		bool mMouseRootFocus;

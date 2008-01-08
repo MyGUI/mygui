@@ -6,13 +6,46 @@
 */
 #include "MyGUI_VScroll.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_CastWidget.h"
 
 namespace MyGUI
 {
 
 	VScroll::VScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		ScrollBase(_coord, _align, _info, _parent, _name)
+		Widget(_coord, _align, _info, _parent, _name)
 	{
+		// при нуле, будет игнорировать кнопки
+		mScrollPage = 1;
+
+		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			if ((*iter)->getInternalString() == "Start") {
+				mWidgetStart = castWidget<Button>(*iter);
+				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+			}
+			else if ((*iter)->getInternalString() == "End") {
+				mWidgetEnd = castWidget<Button>(*iter);
+				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+			}
+			else if ((*iter)->getInternalString() == "Track") {
+				mWidgetTrack = castWidget<Button>(*iter);
+				mWidgetTrack->eventMouseMove = newDelegate(this, &VScroll::notifyMouseMove);
+				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &VScroll::notifyMouseReleased);
+				mWidgetTrack->hide();
+			}
+		}
+		MYGUI_ASSERT(null != mWidgetStart, "child is not find");
+		MYGUI_ASSERT(null != mWidgetEnd, "child is not find");
+		MYGUI_ASSERT(null != mWidgetTrack, "child is not find");
+
+		// парсим свойства
+		const MapString & param = _info->getParams();
+		MapString::const_iterator iter = param.find("SkinTrackRange");
+		if (iter != param.end()) {
+			IntSize range = IntSize::parse(iter->second);
+			mSkinRangeStart = range.width;
+			mSkinRangeEnd = range.height;
+		}
 	}
 
 	void VScroll::updateTrack()
@@ -33,7 +66,7 @@ namespace MyGUI
 		if (mWidgetTrack->getTop() != pos) mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
 	}
 
-	void VScroll::notifyTrackMove(int _left, int _top)
+	void VScroll::TrackMove(int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 
@@ -57,6 +90,83 @@ namespace MyGUI
 		mScrollPosition = pos;
 		// отсылаем событие
 		eventScrollChangePosition(this, (int)mScrollPosition);
+	}
+
+	void VScroll::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		if (false == _left) return;
+
+		// диспечерезируем нажатие своих детей как свое
+		eventMouseButtonPressed(this, _left);
+
+		if (_sender == mWidgetStart) {
+			// минимальное значение
+			if (mScrollPosition == 0) return;
+
+			// расчитываем следующее положение
+			if (mScrollPosition > mScrollPage) mScrollPosition -= mScrollPage;
+			else mScrollPosition = 0;
+
+			// оповещаем
+			eventScrollChangePosition(this, (int)mScrollPosition);
+			updateTrack();
+
+		} else if (_sender == mWidgetEnd){
+			// максимальное значение
+			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
+
+			// расчитываем следующее положение
+			if ((mScrollPosition + mScrollPage) < (mScrollRange-1)) mScrollPosition += mScrollPage;
+			else mScrollPosition = mScrollRange - 1;
+
+			// оповещаем
+			eventScrollChangePosition(this, (int)mScrollPosition);
+			updateTrack();
+
+		} else {
+			mPreActionRect.left = _sender->getLeft();
+			mPreActionRect.top = _sender->getTop();
+		}
+	}
+
+	void VScroll::notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		updateTrack();
+	}
+
+	void VScroll::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
+	{
+		TrackMove(_left, _top);
+	}
+
+	void VScroll::setScrollRange(size_t _range)
+	{
+		if (_range == mScrollRange) return;
+		mScrollRange = _range;
+		mScrollPosition = 0;
+		updateTrack();
+	}
+
+	void VScroll::setScrollPosition(size_t _position)
+	{
+		if (_position == mScrollPosition) return;
+		if (_position >= mScrollRange) _position = 0;
+		mScrollPosition = _position;
+		updateTrack();
+	}
+
+	void VScroll::setSize(const IntSize& _size)
+	{
+		Widget::setSize(_size);
+		// обновляем трек
+		updateTrack();
+	}
+
+	void VScroll::setPosition(const IntCoord& _coord)
+	{
+		Widget::setPosition(_coord);
+		// обновляем трек
+		updateTrack();
 	}
 
 } // namespace MyGUI

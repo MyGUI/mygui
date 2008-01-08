@@ -9,7 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_VScrollFactory.h"
-#include "MyGUI_ScrollBase.h"
+#include "MyGUI_Widget.h"
+#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
@@ -17,7 +18,7 @@ namespace MyGUI
 	class VScroll;
 	typedef VScroll* VScrollPtr;
 
-	class _MyGUIExport VScroll : public ScrollBase
+	class _MyGUIExport VScroll : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::VScrollFactory;
@@ -30,10 +31,51 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("VScroll"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		void notifyTrackMove(int _left, int _top);
-		void updateTrack();
+		virtual void TrackMove(int _left, int _top);
+		virtual void updateTrack();
 
-	}; // class VScroll : public ScrollBase
+		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
+
+		void setScrollRange(size_t _range);
+		inline size_t getScrollRange() {return mScrollRange;}
+
+		void setScrollPosition(size_t _position);
+		inline size_t getScrollPosition() {return mScrollPosition;}
+
+		inline void setScrollPage(size_t _page = 1) {mScrollPage = _page;}
+		inline size_t getScrollPage() {return mScrollPage;}
+
+		virtual void setSize(const IntSize& _size);
+		virtual void setPosition(const IntCoord& _coord);
+
+		inline void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
+		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+
+		// event : изменилось положение скрола
+		// signature : void method(MyGUI::WidgetPtr _widget, int _position)
+		EventSimpleDataInfo eventScrollChangePosition;
+
+	protected:
+		// наши кнопки
+		ButtonPtr mWidgetStart;
+		ButtonPtr mWidgetEnd;
+		ButtonPtr mWidgetTrack;
+
+		// размеры окна перед началом его изменений
+		IntRect mPreActionRect;
+
+		// диапазон на который трек может двигаться
+		size_t mSkinRangeStart;
+		size_t mSkinRangeEnd;
+
+		size_t mScrollRange;
+		size_t mScrollPosition;
+		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
+
+	}; // class VScroll : public Widget
 
 } // namespace MyGUI
 
