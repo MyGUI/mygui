@@ -40,7 +40,7 @@ namespace MyGUI
 
 		const Ogre::String& VScrollFactory::getType()
 		{
-			return VScroll::getType();
+			return VScroll::_getType();
 		}
 
 		WidgetPtr VScrollFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)

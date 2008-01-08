@@ -28,7 +28,6 @@ namespace MyGUI
 		mShowSmooth(false),
 		mDoAlpha(COMBO_ALPHA_NONE)
 	{
-		mWidgetType = "ComboBox";
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("ListSmoothShow");

@@ -36,7 +36,7 @@ namespace MyGUI
 
 		const Ogre::String& ButtonFactory::getType()
 		{
-			return Button::getType();
+			return Button::_getType();
 		}
 
 		WidgetPtr ButtonFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)

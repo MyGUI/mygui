@@ -31,8 +31,10 @@ namespace MyGUI
 	public:
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
+
 		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("Window"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("Window"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}

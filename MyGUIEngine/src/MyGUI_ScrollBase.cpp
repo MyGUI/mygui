@@ -15,7 +15,6 @@ namespace MyGUI
 		mWidgetStart(null), mWidgetEnd(null), mWidgetTrack(null),
 		mScrollRange(0), mScrollPosition(0)
 	{
-		mWidgetType = "ScrollBase";
 
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;

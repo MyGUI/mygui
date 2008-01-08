@@ -73,12 +73,6 @@ namespace MyGUI
 		// создаем виджет, носитель скина пустоты бара
 		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
 
-		/*mSheetsInfo.push_back(TabSheetInfo(100, "sheet 1", 0));
-		mSheetsInfo.push_back(TabSheetInfo(130, "sheet 2", 0));
-		mWidthBar = 230;
-		mStartIndex = 1;
-		mSelectSheet = 1;*/
-
 		updateBar();
 	}
 

@@ -45,7 +45,8 @@ namespace MyGUI
 
 	public:
 		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("ComboBox"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("ComboBox"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		inline void setComboItemIndex(size_t _index)
 		{

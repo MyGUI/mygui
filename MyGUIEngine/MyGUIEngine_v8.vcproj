@@ -213,6 +213,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MyGUI_Sheet.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MyGUI_StaticImage.cpp"
 				>
 			</File>
@@ -348,6 +352,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_SheetFactory.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_StaticImageFactory.cpp"
 					>
 				</File>
@@ -428,6 +436,10 @@
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_ScrollBase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_Sheet.h"
 				>
 			</File>
 			<File
@@ -759,6 +771,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_ListFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_SheetFactory.h"
 					>
 				</File>
 				<File

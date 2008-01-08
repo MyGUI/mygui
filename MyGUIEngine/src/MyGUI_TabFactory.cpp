@@ -44,7 +44,7 @@ namespace MyGUI
 
 		const Ogre::String& TabFactory::getType()
 		{
-			return Tab::getType();
+			return Tab::_getType();
 		}
 
 		WidgetPtr TabFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)

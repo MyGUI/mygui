@@ -27,7 +27,8 @@ namespace MyGUI
 
 	public:
 		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("StaticText"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("StaticText"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 
 	}; // class _MyGUIExport StaticText : public Widget

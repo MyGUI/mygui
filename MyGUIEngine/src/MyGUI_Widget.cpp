@@ -15,7 +15,6 @@ namespace MyGUI
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		UserData(),
-		mWidgetType("Widget"),
 		mStateInfo(_info->getStateInfo()),
 		mMaskPeekInfo(_info->getMask()),
 		mText(null),
@@ -475,34 +474,6 @@ namespace MyGUI
 			}
 		}
 	}
-
-	// вспомогательный метод для распарсивания сабвиджетофф
-	/*WidgetPtr Widget::parseSubWidget(const MapString & _param, const std::string & _type, const std::string & _skin, const std::string & _offset, const std::string & _align, const IntSize &_size, const std::string& _layer)
-	{
-		// парсим заголовок
-		MapString::const_iterator iter = _param.find(_skin);
-		if ( (iter != _param.end()) && (! iter->second.empty()) ) {
-			// сохраняем скин
-			std::string skin = iter->second;
-			FloatRect offset;
-			Align align;
-			// смещение в скине
-			iter = _param.find(_offset);
-			if (iter != _param.end()) offset = FloatRect::parse(iter->second);
-			else offset.clear();
-			// выравнивание скина
-			iter = _param.find(_align);
-			if (iter != _param.end()) align = SkinManager::getInstance().parseAlign(iter->second);
-			else align = ALIGN_NONE;
-
-			offset = WidgetManager::convertOffset(offset, align, _size, mCoord.width, mCoord.height);
-			// если стой не пустой, создаем дочку
-			if (_layer.empty()) return createWidgetT(_type, skin, (int)offset.left, (int)offset.top, (int)offset.right, (int)offset.bottom, align);
-			return Gui::getInstance().createWidgetT(_type, skin, (int)offset.left, (int)offset.top, (int)offset.right, (int)offset.bottom, align, _layer);
-
-		}
-		return null;
-	}*/
 
 	// удяляет только негодных батюшке государю
 	void Widget::_destroyChildWidget(WidgetPtr _widget)

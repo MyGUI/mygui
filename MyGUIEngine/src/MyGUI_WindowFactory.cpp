@@ -40,7 +40,7 @@ namespace MyGUI
 
 		const Ogre::String& WindowFactory::getType()
 		{
-			return Window::getType();
+			return Window::_getType();
 		}
 
 		WidgetPtr WindowFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)

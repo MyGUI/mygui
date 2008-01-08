@@ -34,7 +34,6 @@ namespace MyGUI
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
-		mWidgetType = "Window";
 
 		// дефолтные размеры
 		mMinmax.set(0, 0, 3000, 3000);

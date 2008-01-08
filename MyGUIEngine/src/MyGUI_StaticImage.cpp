@@ -14,7 +14,6 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _name),
 		mNum(0)
 	{
-		mWidgetType = "StaticImage";
 		// первоначальная инициализация
 		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1, "subskin must be one");
 		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");

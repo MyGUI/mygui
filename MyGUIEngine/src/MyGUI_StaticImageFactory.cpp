@@ -42,7 +42,7 @@ namespace MyGUI
 
 		const Ogre::String& StaticImageFactory::getType()
 		{
-			return StaticImage::getType();
+			return StaticImage::_getType();
 		}
 
 		WidgetPtr StaticImageFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)

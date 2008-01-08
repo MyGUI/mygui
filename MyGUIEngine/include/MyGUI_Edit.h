@@ -31,7 +31,8 @@ namespace MyGUI
 	public:
 
 		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("Edit"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("Edit"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// работа с текстом с тегами
 		virtual void setCaption(const Ogre::DisplayString & _caption);

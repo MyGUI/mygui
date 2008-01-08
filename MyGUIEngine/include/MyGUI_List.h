@@ -30,7 +30,8 @@ namespace MyGUI
 
 	public:
 		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("List"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("List"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		inline size_t getItemCount()
 		{

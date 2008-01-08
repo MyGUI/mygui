@@ -46,7 +46,6 @@ namespace MyGUI
 		mModeMultiline(false),
 		mModeStatic(false)
 	{
-        mWidgetType = "Edit";
 
 		MYGUI_ASSERT(null != mText, "text sub widget is not find");
 

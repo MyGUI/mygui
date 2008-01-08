@@ -76,7 +76,8 @@ namespace MyGUI
 
 	public:
 		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("Tab"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("Tab"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);

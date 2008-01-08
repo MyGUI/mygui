@@ -28,7 +28,8 @@ namespace MyGUI
 
 	public:
 		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("StaticImage"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("StaticImage"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		void setImageInfo(const std::string & _material, const FloatSize & _tile);
 		void setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile);

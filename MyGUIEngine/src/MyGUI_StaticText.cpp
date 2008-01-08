@@ -12,7 +12,6 @@ namespace MyGUI
 	StaticText::StaticText(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name)
 	{
-		mWidgetType = "StaticText";
 	}
 
 } // namespace MyGUI

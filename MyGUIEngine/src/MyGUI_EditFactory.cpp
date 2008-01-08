@@ -44,7 +44,7 @@ namespace MyGUI
 
 		const Ogre::String& EditFactory::getType()
 		{
-			return Edit::getType();
+			return Edit::_getType();
 		}
 
 		WidgetPtr EditFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
