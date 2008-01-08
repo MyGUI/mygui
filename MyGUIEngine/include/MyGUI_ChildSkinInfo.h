@@ -15,10 +15,7 @@ namespace MyGUI
 
 	struct _MyGUIExport ChildSkinInfo
 	{
-		ChildSkinInfo() :
-			align(ALIGN_NONE)
-		{
-		}
+		ChildSkinInfo() : align(ALIGN_DEFAULT) { }
 
 		ChildSkinInfo(const std::string& _type, const std::string& _skin, const std::string& _name, const IntCoord& _coord, Align _align, const std::string& _layer) :
 			type(_type),

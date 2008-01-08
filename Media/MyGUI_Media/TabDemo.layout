@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layout">
+
+
+  <Widget type="Window" skin="WindowCS" position="100 100 600 300" align="ALIGN_DEFAULT" layer="Overlapped">
+    <Property key="Widget_Caption" value="tab demo" />
+    <Property key="Window_MinMax" value="150 150 2000 2000" />
+    <Property key="Window_AutoAlpha" value="true" />
+
+    <Widget type="Tab" skin="Tab" position="5 5 580 254" align="ALIGN_STRETCH">
+
+      <Widget type="Sheet">
+        <Property key="Widget_Caption" value="sheet 1" />
+
+        <Widget type="Edit" skin="EditStretch" position="10 10 100 26" align="ALIGN_LEFT ALIGN_TOP">
+          <Property key="Widget_Caption" value="Edit" />
+        </Widget>
+      </Widget>
+
+      <Widget type="Sheet">
+        <Property key="Widget_Caption" value="nice day 2" />
+
+        <Widget type="Button" skin="ButtonSmall" position="30 40 100 26" align="ALIGN_LEFT ALIGN_TOP">
+          <Property key="Widget_Caption" value="button" />
+        </Widget>
+      </Widget>
+
+      <Widget type="Sheet">
+        <Property key="Widget_Caption" value="why here? 3" />
+        <Property key="Sheet_Select" value="true" />
+
+        <Widget type="Button" skin="Button" position="340 170 200 26" align="ALIGN_RIGHT ALIGN_BOTTOM">
+          <Property key="Widget_Caption" value="button large" />
+        </Widget>
+      </Widget>
+
+      <Widget type="Sheet">
+        <Property key="Widget_Caption" value="=)" />
+
+        <Widget type="Edit" skin="EditStretch" position="10 10 540 200" align="ALIGN_STRETCH">
+          <Property key="Widget_Caption" value="#00FF00green\n#808080gray" />
+        </Widget>
+      </Widget>
+
+    </Widget>
+
+  </Widget>
+
+</MyGUI>

@@ -21,7 +21,6 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		// забиваем карту флагами выравнивания
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_NONE);
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HCENTER);
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VCENTER);
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_CENTER);
@@ -33,6 +32,7 @@ namespace MyGUI
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_BOTTOM);
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VSTRETCH);
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_STRETCH);
+		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_DEFAULT);
 
 		createDefault();
 
@@ -175,7 +175,7 @@ namespace MyGUI
 					// парсим атрибуты
 					Ogre::String basisSkinType, tmp;
 					IntCoord offset;
-					Align align = ALIGN_NONE;
+					Align align = ALIGN_DEFAULT;
 					basis->findAttribute("type", basisSkinType);
 					if (basis->findAttribute("offset", tmp)) offset = IntCoord::parse(tmp);
 					if (basis->findAttribute("align", tmp)) align = parseAlign(tmp);
@@ -265,12 +265,12 @@ namespace MyGUI
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
 		widget_info->setInfo(IntSize(0, 0), "DefaultSettings");
-		SubWidgetBinding bind(IntCoord(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
+		SubWidgetBinding bind(IntCoord(0, 0, 1, 1), ALIGN_DEFAULT, "MainSkin");
 		widget_info->addInfo(bind);
 		// создаем дефолтный прозрачный скин
 		widget_info = create("Empty");
 		widget_info->setInfo(IntSize(0, 0), "");
-		bind.create(IntCoord(0, 0, 1, 1), ALIGN_NONE, "MainSkin");
+		bind.create(IntCoord(0, 0, 1, 1), ALIGN_DEFAULT, "MainSkin");
 		widget_info->addInfo(bind);
 	}
 

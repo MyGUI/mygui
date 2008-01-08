@@ -86,7 +86,7 @@ namespace MyGUI
 		// парсим атрибуты виджета
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
 		FloatCoord coord;
-		Align align;
+		Align align = ALIGN_DEFAULT;
 
 		_widget->findAttribute("type", widgetType);
 		_widget->findAttribute("skin", widgetSkin);

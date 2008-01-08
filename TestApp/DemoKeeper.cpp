@@ -39,15 +39,15 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	//WidgetPtr widget = mGUI->createWidgetT("Window", "StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
-	//widget->setPosition(IntCoord(100, 100, 100, 100));
-	WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	LayoutManager::getInstance().load("TabDemo.layout");
+
+	/*WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main");
 	window->setMinMax(150, 150, 2000, 2000);
+	window->setCaption("tab demo");
 
 	TabPtr tab = window->createWidget<Tab>("Tab", IntCoord(5, 5, 580, 254), ALIGN_STRETCH);
 
-
-	WidgetPtr sheet = tab->addSheet("sheet 1");
+	SheetPtr sheet = tab->addSheet("sheet 1");
 	sheet->createWidgetT("Edit", "EditStretch", 10, 10, 100, 26, ALIGN_LEFT | ALIGN_TOP)->setCaption("Edit");
 
 	sheet = tab->insertSheet(0, "nice day 2");
@@ -59,26 +59,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	sheet = tab->insertSheet(3, "=)");
 	EditPtr edit = sheet->createWidget<Edit>("EditStretch", 10, 10, 540, 200, ALIGN_STRETCH);
 	edit->setEditMultiLine(true);
-	edit->setCaption("#00FF00green\n#808080gray");
+	edit->setCaption("#00FF00green\n#808080gray");//*/
 
-	//tab->removeSheetIndex(2);
-	//tab->removeSheetIndex(2);
-	//tab->removeSheetIndex(0);
-
-
-    /*WidgetPtr widget = mGUI->createWidgetT("Button", "Button", IntCoord(10, 10, 200, 26), ALIGN_RIGHT | ALIGN_TOP, "Main");
-    widget->setCaption(L"demo list + combo");
-    widget->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton1);
-
-    ButtonPtr button = mGUI->createWidget<Button>("Button", 10, 46, 200, 26, ALIGN_RIGHT | ALIGN_TOP, "Main");
-    button->setCaption(L"Edit demo + auto alpha");
-    button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyWindowButton2);*/
-
-
-//    SkinManager::getInstance().load("test.skin");
-//    button = mGUI->createWidget<Button>("Button_test", 10, 146, 88, 77, ALIGN_RIGHT | ALIGN_TOP, "Main");
-
-    //WindowPtr window = mGUI->createWidget<Window>("StretchRectangle", IntCoord(100, 100, 200, 200), ALIGN_RIGHT | ALIGN_TOP, "Main");
+	/*tab->removeSheetIndex(2);
+	tab->removeSheetIndex(2);
+	tab->removeSheetIndex(0);
+	tab->removeSheetIndex(0);//*/
 
 }
 

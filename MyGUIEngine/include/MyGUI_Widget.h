@@ -98,7 +98,6 @@ namespace MyGUI
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
-
 		virtual void show();
 		virtual void hide();
 

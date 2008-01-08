@@ -76,6 +76,54 @@ namespace MyGUI
 		updateBar();
 	}
 
+	// переопределяем для особого обслуживания страниц
+	WidgetPtr Tab::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
+	{
+		if (Sheet::_getType() == _type) {
+			SheetPtr sheet = static_cast<SheetPtr>(Widget::createWidgetT(_type, "Empty", mSheetTemplate->getCoord(), mSheetTemplate->getAlign()));
+			sheet->mOwner = this;
+
+			// добавляем инфу о вкладке
+			int width = (mButtonAutoWidth ? getButtonWidthByName("") : mButtonDefaultWidth);
+			mWidthBar += width;
+
+			// положение и видимость вкладок
+			if (0 == mSheetsInfo.size()) mSelectSheet = 0;
+			else sheet->hide();
+
+			mSheetsInfo.push_back(TabSheetInfo(width, "", sheet));
+			updateBar();
+
+			return sheet;
+		}
+		return Widget::createWidgetT(_type, _skin, _coord, _align, _name);
+	}
+
+	SheetPtr Tab::addSheet(const Ogre::DisplayString& _name, int _width)
+	{
+		SheetPtr sheet = static_cast<SheetPtr>(createWidgetT(Sheet::_getType(), "", IntCoord(), ALIGN_DEFAULT));
+		setSheetNameIndex(mSheetsInfo.size()-1, _name, _width);
+		return sheet;
+	}
+
+	SheetPtr Tab::insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width)
+	{
+		SheetPtr sheet = addSheet(_name, _width);
+		size_t size = mSheetsInfo.size();
+		if ((_index >= mSheetsInfo.size()) || (1 == size) ) return sheet;
+
+		// меняем кнопки и корректируем выделенную вкладку
+		TabSheetInfo tmp = mSheetsInfo[size-1];
+		mSheetsInfo[size-1] = mSheetsInfo[_index];
+		mSheetsInfo[_index] = tmp;
+	
+		if (_index <= mSelectSheet) mSelectSheet ++;
+
+		updateBar();
+
+		return sheet;
+	}
+
 	void Tab::setPosition(const IntCoord& _coord)
 	{
 		Widget::setPosition(_coord);
@@ -278,7 +326,7 @@ namespace MyGUI
 		MYGUI_LOG(Warning, "sheet '" << _name << "' is not find");
 	}
 
-	void Tab::setSheetButtonWidth(size_t _index, int _width)
+	void Tab::setSheetButtonWidthIndex(size_t _index, int _width)
 	{
 		MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
 
@@ -293,7 +341,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setSheetName(size_t _index, const Ogre::DisplayString& _name, int _width)
+	void Tab::setSheetNameIndex(size_t _index, const Ogre::DisplayString& _name, int _width)
 	{
 		MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
 		mSheetsInfo[_index].name = _name;
@@ -309,29 +357,26 @@ namespace MyGUI
 		updateBar();
 	}
 
-	SheetPtr Tab::insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width)
+	void Tab::setSheetName(SheetPtr _sheet, const Ogre::DisplayString& _name, int _width)
 	{
-		if (_width <= 0) {
-			if (mButtonAutoWidth) _width = getButtonWidthByName(_name);
-			else _width = mButtonDefaultWidth;
+		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
+			if (mSheetsInfo[pos].sheet == _sheet) {
+				setSheetNameIndex(pos, _name, _width);
+				return;
+			}
 		}
+		MYGUI_EXCEPT("sheet (" << _sheet << ") is not find");
+	}
 
-		mWidthBar += _width;
-		SheetPtr sheet = createWidget<Sheet>("Empty", mSheetTemplate->getCoord(), mSheetTemplate->getAlign());
-
-		// положение и видимость вкладок
-		if (0 == mSheetsInfo.size()) mSelectSheet = 0;
-		else {
-			if (_index <= mSelectSheet) mSelectSheet ++;
-			sheet->hide();
+	void Tab::setSheetButtonWidth(SheetPtr _sheet, int _width)
+	{
+		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
+			if (mSheetsInfo[pos].sheet == _sheet) {
+				setSheetButtonWidthIndex(pos, _width);
+				return;
+			}
 		}
-
-		if (_index >= mSheetsInfo.size()) mSheetsInfo.push_back(TabSheetInfo(_width, _name, sheet));
-		else mSheetsInfo.insert(mSheetsInfo.begin() + _index, TabSheetInfo(_width, _name, sheet));
-
-		updateBar();
-
-		return sheet;
+		MYGUI_EXCEPT("sheet (" << _sheet << ") is not find");
 	}
 
 	void Tab::removeSheetIndex(size_t _index)

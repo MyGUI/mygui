@@ -84,6 +84,9 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("Tab"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+		// переопределяем для особого обслуживания страниц
+		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
+
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
 
@@ -133,16 +136,31 @@ namespace MyGUI
 			return mSheetsInfo.size();
 		}
 
-		inline const Ogre::DisplayString& getSheetName(size_t _index)
+		inline const Ogre::DisplayString& getSheetName(SheetPtr _sheet)
+		{
+			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
+				if (mSheetsInfo[pos].sheet == _sheet) return mSheetsInfo[pos].name;
+			}
+			MYGUI_EXCEPT("sheet (" << _sheet << ") is not find");
+		}
+
+		inline const Ogre::DisplayString& getSheetNameIndex(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
 			return mSheetsInfo[_index].name;
 		}
 
-		inline int getSheetButtonWidth(size_t _index)
+		inline int getSheetButtonWidthIndex(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
 			return mSheetsInfo[_index].width;
+		}
+		inline int getSheetButtonWidth(SheetPtr _sheet)
+		{
+			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
+				if (mSheetsInfo[pos].sheet == _sheet) mSheetsInfo[pos].width;
+			}
+			MYGUI_EXCEPT("sheet (" << _sheet << ") is not find");
 		}
 
 		inline SheetPtr getSheet(size_t _index)
@@ -159,14 +177,13 @@ namespace MyGUI
 			return null;
 		}
 
-		void setSheetName(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
-		void setSheetButtonWidth(size_t _index, int _width = DEFAULT);
+		void setSheetNameIndex(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
+		void setSheetName(SheetPtr _sheet, const Ogre::DisplayString& _name, int _width = DEFAULT);
 
-		inline SheetPtr addSheet(const Ogre::DisplayString& _name, int _width = DEFAULT)
-		{
-			return insertSheet(ITEM_NONE, _name, _width);
-		}
+		void setSheetButtonWidthIndex(size_t _index, int _width = DEFAULT);
+		void setSheetButtonWidth(SheetPtr _sheet, int _width = DEFAULT);
 
+		SheetPtr addSheet(const Ogre::DisplayString& _name, int _width = DEFAULT);
 		SheetPtr insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width = DEFAULT);
 
 		void removeSheetIndex(size_t _index);
