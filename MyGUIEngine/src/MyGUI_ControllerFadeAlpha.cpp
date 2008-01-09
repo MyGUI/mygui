@@ -28,9 +28,11 @@ namespace MyGUI
 		// отписываем его от ввода
 		if (false == _enabled) InputManager::getInstance().unlinkWidget(_widget);
 
+		// если виджет первый, то подписываемся на кадры
 		if (0 == mListItem.size()) Gui::getInstance().addFrameListener(this);
 
 		for (ListAlphaItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
+			// такой уже в списке есть, меняем его же параметры и выходим
 			if ((*iter).widget == _widget) {
 				if ((*iter).destroy) {
 					MYGUI_LOG(Warning, "widget '" << _widget->getName() << "' must be deleted, ignore change status alpha in controller");
@@ -43,11 +45,13 @@ namespace MyGUI
 			}
 		}
 
+		// вставляем виджет в самый конец
 		mListItem.insert(mListItem.end(), AlphaItem(_widget, _alpha, _coef, _hide, _destroy));
 	}
 
 	void ControllerFadeAlpha::removeItem(WidgetPtr _widget)
 	{
+		// не удаляем из списка, а обнуляем, в цикле он будет удален
 		for (ListAlphaItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
 			if ((*iter).widget == _widget) {
 				(*iter).widget = null;

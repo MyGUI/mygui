@@ -130,7 +130,6 @@ namespace MyGUI
 
 		// return copy
 		virtual VectorWidgetPtr getChilds();
-		virtual VectorWidgetPtr getLinkedChilds();
 
 		// возвращает указатель на айтем в этой точке попадание в виджет (наследуеться от LayerItemInfo)
 		virtual LayerItemInfoPtr findItem(int _left, int _top);
@@ -186,8 +185,6 @@ namespace MyGUI
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
-		// вектор виджетов, которые не являются детьми, но были созданы из скина для нас
-		VectorWidgetPtr mWidgetLinkedChild;
 		// вектор всех детей сабскинов
 		VectorCroppedRectanglePtr mSubSkinChild;
 

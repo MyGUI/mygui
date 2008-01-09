@@ -12,9 +12,8 @@
 namespace MyGUI
 {
 
-	const float COMBO_ALPHA_NONE = -1.0f;
-	const float COMBO_ALPHA_MAX  = 1.0f;
-	const float COMBO_ALPHA_MIN  = 0.0f;
+	const float COMBO_ALPHA_MAX  = ALPHA_MAX;
+	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
 	ComboBox::ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
@@ -30,10 +29,24 @@ namespace MyGUI
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("ListSmoothShow");
-		if (iter != param.end()) setSmoothShow(util::parseBool(iter->second));
-		iter = param.find("HeightList");
+		MapString::const_iterator iter = param.find("HeightList");
 		if (iter != param.end()) mMaxHeight = util::parseInt(iter->second);
+
+		iter = param.find("ListSmoothShow");
+		if (iter != param.end()) setSmoothShow(util::parseBool(iter->second));
+
+		std::string listSkin, listLayer;
+		iter = param.find("ListSkin");
+		if (iter != param.end()) listSkin = iter->second;
+		iter = param.find("ListLayer");
+		if (iter != param.end()) listLayer = iter->second;
+
+		// создаем список
+		mList = Gui::getInstance().createWidget<List>(listSkin, IntCoord(), ALIGN_DEFAULT, listLayer);
+		mList->hide();
+		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
+		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
+		mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
 
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -43,18 +56,6 @@ namespace MyGUI
 			}
 		}
 		MYGUI_ASSERT(null != mButton, "child is not find");
-
-		// парсим список из прилинкованных окон
-		for (VectorWidgetPtr::iterator iter=mWidgetLinkedChild.begin(); iter!=mWidgetLinkedChild.end(); ++iter) {
-			if ((*iter)->getInternalString() == "List") {
-				mList = castWidget<List>(*iter);
-				mList->hide();
-				mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
-				mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
-				mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
-			}
-		}
-		MYGUI_ASSERT(null != mList, "child is not find");
 
 		// корректируем высоту списка
 		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();

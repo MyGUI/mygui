@@ -594,14 +594,13 @@
 
         <Property key="HeightList" value = "100" />
         <Property key="ListSmoothShow" value = "true" />
+        <Property key="ListSkin" value = "List" />
+        <Property key="ListLayer" value = "Popup" />
 
         <Child type="Widget" skin="EditClient" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client">
         </Child>
 
         <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button">
-        </Child>
-
-        <Child type="List" skin="List" offset = "10 10 30 30" align = "ALIGN_LEFT ALIGN_TOP" name = "List" layer="Popup">
         </Child>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">

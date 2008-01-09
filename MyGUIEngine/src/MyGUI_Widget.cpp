@@ -69,16 +69,8 @@ namespace MyGUI
 		// создаем детей
 		const VectorChildSkinInfo& child = _info->getChild();
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter) {
-			WidgetPtr widget;
-			if (iter->layer.empty()) {
-				widget = createWidgetT(iter->type, iter->skin, iter->coord, iter->align);
-				widget->setInternalString(iter->name);
-			}
-			else {
-				widget = Gui::getInstance().createWidgetT(iter->type, iter->skin, iter->coord, iter->align, iter->layer);
-				widget->setInternalString(iter->name);
-				mWidgetLinkedChild.push_back(widget);
-			}
+			WidgetPtr widget = createWidgetT(iter->type, iter->skin, iter->coord, iter->align);
+			widget->setInternalString(iter->name);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop) {
 				widget->setUserString(prop->first, prop->second);
@@ -521,11 +513,6 @@ namespace MyGUI
 	VectorWidgetPtr Widget::getChilds()
 	{
 		return mWidgetChild;
-	}
-
-	VectorWidgetPtr Widget::getLinkedChilds()
-	{
-		return mWidgetLinkedChild;
 	}
 
 	IntSize Widget::getTextSize()

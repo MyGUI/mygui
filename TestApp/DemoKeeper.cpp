@@ -42,11 +42,15 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mHeight = _height;
 
 	//LayoutManager::getInstance().load("TabDemo.layout");
-	LayoutManager::getInstance().load("EditDemo.layout");
-	LayoutManager::getInstance().load("ListDemo.layout");
 
-	mGUI->createWidget<VScroll>("VScroll", IntCoord(100, 100, 16, 300), ALIGN_DEFAULT, "Main");
-	mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
+//	createWindowEdit();
+	createWindowList();
+
+	//LayoutManager::getInstance().load("EditDemo.layout");
+	//LayoutManager::getInstance().load("ListDemo.layout");
+
+	//mGUI->createWidget<VScroll>("VScroll", IntCoord(100, 100, 16, 300), ALIGN_DEFAULT, "Main");
+	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
 	/*WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main");
 	window->setMinMax(150, 150, 2000, 2000);
