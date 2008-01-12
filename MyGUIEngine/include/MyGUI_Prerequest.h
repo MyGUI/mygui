@@ -31,6 +31,15 @@ namespace MyGUI
 
 	using delegates::newDelegate;
 
+	// Define version
+    #define MYGUI_VERSION_MAJOR 2
+    #define MYGUI_VERSION_MINOR 0
+    #define MYGUI_VERSION_PATCH 1
+	#define MYGUI_VERSION_SUFFIX ""
+    #define MYGUI_VERSION_NAME "Friend"
+
+    #define MYGUI_VERSION    ((MYGUI_VERSION_MAJOR << 16) | (MYGUI_VERSION_MINOR << 8) | MYGUI_VERSION_PATCH)
+
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
