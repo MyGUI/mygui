@@ -32,7 +32,8 @@ namespace MyGUI
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		void notifyListSelectAccept(MyGUI::WidgetPtr _widget);
-		void notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
+		void notifyListMouseItemActivate(MyGUI::WidgetPtr _widget, size_t _position);
+		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyEditTextChange(MyGUI::WidgetPtr _sender);
@@ -120,7 +121,11 @@ namespace MyGUI
 
 		// event : нажат энтер в комбо режиме или выбран айтем в дроп режиме
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventSimple eventComboAccept;
+		EventInfo_Void eventComboAccept;
+
+		// event : изменилась позиция
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _index)
+		EventInfo_SizeT eventComboChangePosition;
 
 	private:
 		ButtonPtr mButton;

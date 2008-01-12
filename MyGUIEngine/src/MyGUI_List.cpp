@@ -155,14 +155,14 @@ namespace MyGUI
 				return;
 			}
 
-		} else if (_key == OIS::KC_DELETE) {
+		/*} else if (_key == OIS::KC_DELETE) {
 			if (sel != ITEM_NONE) {
 				eventListPressedDelete(this);
 
 				Widget::_onKeyButtonPressed(_key, _char);
 				// выходим, так как изменили колличество строк
 				return;
-			}
+			}*/
 
 		}
 
@@ -232,7 +232,7 @@ namespace MyGUI
 				mIndexSelect = ITEM_NONE;
 				eventListChangePosition(this, mIndexSelect);
 			}
-			eventListMouseChangePosition(this, mIndexSelect);
+			eventListMouseItemActivate(this, mIndexSelect);
 
 		// если не клиент, то просчитывам
 		} else {
@@ -244,7 +244,7 @@ namespace MyGUI
 				mIndexSelect = index;
 				eventListChangePosition(this, mIndexSelect);
 			}
-			eventListMouseChangePosition(this, mIndexSelect);
+			eventListMouseItemActivate(this, mIndexSelect);
 
 		}
 	}

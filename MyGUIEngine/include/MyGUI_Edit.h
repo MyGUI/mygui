@@ -150,11 +150,11 @@ namespace MyGUI
 
 		// event : нажат ентер, или сонтрол энтер в мультилайн
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventSimple eventEditSelectAccept;
+		EventInfo_Void eventEditSelectAccept;
 
 		// event : изменился текст
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventSimple eventEditTextChange;
+		EventInfo_Void eventEditTextChange;
 
 	protected:
 

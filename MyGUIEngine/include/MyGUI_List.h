@@ -18,8 +18,6 @@ namespace MyGUI
 	class List;
 	typedef List * ListPtr;
 
-	typedef delegates::CDelegate2<WidgetPtr, size_t> EventListChangePositionInfo;
-
 	class _MyGUIExport List : public Widget
 	{
 		// для вызова закрытого конструктора
@@ -82,22 +80,17 @@ namespace MyGUI
 		// возвращает максимальную высоту вмещающую все строки и радительский бордюр
 		inline int getListMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
-
 		// event : нажат ентер, или двойной щелчек
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventSimple eventListSelectAccept;
-
-		// event : нажат Дел на елементе
-		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventSimple eventListPressedDelete;
+		EventInfo_Void eventListSelectAccept;
 
 		// event : изменилась позиция
-		// signature : void method(MyGUI::WidgetPtr _widgetm size_t _position)
-		EventListChangePositionInfo eventListChangePosition;
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_SizeT eventListChangePosition;
 
 		// event : мышью выделен элемент
-		// signature : void method(MyGUI::WidgetPtr _widgetm size_t _position)
-		EventListChangePositionInfo eventListMouseChangePosition;
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_SizeT eventListMouseItemActivate;
 
 	protected:
 

@@ -35,6 +35,11 @@ DemoKeeper::DemoKeeper() :
 {
 }
 
+void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
+{
+	MYGUI_OUT(_index);
+}
+
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
     mGUI = _gui;
@@ -43,7 +48,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//LayoutManager::getInstance().load("TabDemo.layout");
 
-//	createWindowEdit();
+	createWindowEdit();
 	createWindowList();
 
 	//LayoutManager::getInstance().load("EditDemo.layout");
@@ -51,6 +56,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mGUI->createWidget<VScroll>("VScroll", IntCoord(100, 100, 16, 300), ALIGN_DEFAULT, "Main");
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
+
+	ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(100, 100, 600, 26), ALIGN_DEFAULT, "Main");
+	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
+	combo->addItemString("line 1");
+	combo->addItemString("line 2");
+	combo->addItemString("line 3");
 
 	/*WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main");
 	window->setMinMax(150, 150, 2000, 2000);
@@ -302,7 +313,7 @@ void DemoKeeper::createWindowList()
         {
 
             ListPtr list = castWidget<List>(childs[0]);
-            list->eventListPressedDelete = newDelegate(this, &DemoKeeper::notifyListPressedDelete);
+			list->eventKeyButtonPressed = newDelegate(this, &DemoKeeper::notifyListButtonPressed);
 
             ComboBoxPtr combo = castWidget<ComboBox>(childs[1]);
             combo->setUserString("List", list->getName());
@@ -328,7 +339,7 @@ void DemoKeeper::createWindowList()
     	const MyGUI::IntCoord& coord = window->getClientRect();
 
     	MyGUI::ListPtr list = window->createWidget<MyGUI::List>("List", 10, 46, coord.width-120, coord.height-56, MyGUI::ALIGN_STRETCH);
-    	list->eventListPressedDelete = MyGUI::newDelegate(this, &DemoKeeper::notifyListPressedDelete);
+    	list->eventListPressedDelete = MyGUI::newDelegate(this, &DemoKeeper::notifyListButtonPressed);
 
     	MyGUI::ComboBoxPtr combo = window->createWidget<MyGUI::ComboBox>("ComboBox", 10, 10, coord.width-120, 26, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
     	combo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_VCENTER);
@@ -400,12 +411,14 @@ void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
     }
 }
 
-void DemoKeeper::notifyListPressedDelete(MyGUI::WidgetPtr _sender)
+void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, wchar_t _char)
 {
-    ListPtr list = castWidget<List>(_sender);
+	if (_key == OIS::KC_DELETE) {
+		ListPtr list = castWidget<List>(_sender);
 
-    size_t select = list->getItemSelect();
-    if (select != ITEM_NONE) list->deleteItemString(select);
+		size_t select = list->getItemSelect();
+		if (select != ITEM_NONE) list->deleteItemString(select);
+	}
 }
 
 void DemoKeeper::notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name)

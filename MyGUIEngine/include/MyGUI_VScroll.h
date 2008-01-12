@@ -56,7 +56,7 @@ namespace MyGUI
 
 		// event : изменилось положение скрола
 		// signature : void method(MyGUI::WidgetPtr _widget, int _position)
-		EventSimpleDataInfo eventScrollChangePosition;
+		EventInfo_Int eventScrollChangePosition;
 
 	protected:
 		// наши кнопки

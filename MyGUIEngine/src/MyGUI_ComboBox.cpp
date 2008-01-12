@@ -46,7 +46,8 @@ namespace MyGUI
 		mList->hide();
 		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
 		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
-		mList->eventListMouseChangePosition = newDelegate(this, &ComboBox::notifyListMouseChangePosition);
+		mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
+		mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -112,6 +113,11 @@ namespace MyGUI
 		if (mModeDrop) eventComboAccept(this);
 	}
 
+	void ComboBox::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
+	{
+		eventComboChangePosition(this, _position);
+	}
+
 	void ComboBox::_onKeyButtonPressed(int _key, wchar_t _char)
 	{
 		Edit::_onKeyButtonPressed(_key, _char);
@@ -130,7 +136,7 @@ namespace MyGUI
 
 	}
 
-	void ComboBox::notifyListMouseChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
+	void ComboBox::notifyListMouseItemActivate(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		if (_position != ITEM_NONE) {
 			mItemIndex = _position;
@@ -155,6 +161,7 @@ namespace MyGUI
 				Edit::setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
+				eventComboChangePosition(this, mItemIndex);
 			}
 		}
 		else if (_rel < 0) {
@@ -164,6 +171,7 @@ namespace MyGUI
 				Edit::setCaption(mList->getItemString(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
+				eventComboChangePosition(this, mItemIndex);
 			}
 		}
 	}
@@ -182,9 +190,12 @@ namespace MyGUI
 	void ComboBox::notifyEditTextChange(MyGUI::WidgetPtr _sender)
 	{
 		// сбрасываем выделенный элемент
-		mItemIndex = ITEM_NONE;
-		mList->setItemSelect(mItemIndex);
-		mList->beginToStart();
+		if (ITEM_NONE != mItemIndex) {
+			mItemIndex = ITEM_NONE;
+			mList->setItemSelect(mItemIndex);
+			mList->beginToStart();
+			eventComboChangePosition(this, mItemIndex);
+		}
 	}
 
 	void ComboBox::showList()
