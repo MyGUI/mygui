@@ -21,6 +21,10 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* MyGUI version "
+			<< MYGUI_VERSION_MAJOR << "."
+			<< MYGUI_VERSION_MINOR << "."
+			<< MYGUI_VERSION_PATCH);
 
 		Ogre::Viewport * port = _window->getViewport(0);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
