@@ -115,7 +115,7 @@ namespace MyGUI
 
 	void Window::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double)
 	{
-		if (false == _double) eventWindowButtonPressed(this, _sender->getUserString("Button"));
+		if (false == _double) eventWindowButtonPressed(this, _sender->getUserString("Event"));
 	}
 
 	void Window::notifyMouseMovedAction(MyGUI::WidgetPtr _sender, int _left, int _top)
