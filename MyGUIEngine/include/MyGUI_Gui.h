@@ -40,7 +40,13 @@ namespace MyGUI
 		INSTANCE_HEADER(Gui);
 
 	public:
-		void initialise(Ogre::RenderWindow* _window);
+		void initialise(Ogre::RenderWindow* _window,
+			const std::string& _lang = "main.lang",
+			const std::string& _layer = "main.layer",
+			const std::string& _skin = "main.skin",
+			const std::string& _font = "main.font",
+			const std::string& _pointer = "main.pointer",
+			const std::string& _plugin = "main.plugin");
 		void shutdown();
 
 		// методы и шаблоны для создания виджета

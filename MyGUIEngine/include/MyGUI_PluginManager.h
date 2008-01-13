@@ -37,7 +37,7 @@ namespace MyGUI
 		void unloadPlugin(const std::string& _file);
 
 
-		void loadPluginCfg(const std::string& _file);
+		void load(const std::string& _file);
 
 		/*!	Install plugin
 			

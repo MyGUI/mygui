@@ -72,7 +72,7 @@ namespace MyGUI
 		}
 	}
 
-	void PluginManager::loadPluginCfg(const std::string& _file)
+	void PluginManager::load(const std::string& _file)
 	{
 		xml::xmlDocument doc;
 		if (false == doc.open(_file)) {

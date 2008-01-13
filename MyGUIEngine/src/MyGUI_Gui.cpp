@@ -13,7 +13,13 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(Gui);
 
-	void Gui::initialise(Ogre::RenderWindow* _window)
+	void Gui::initialise(Ogre::RenderWindow* _window,
+		const std::string& _lang,
+		const std::string& _layer,
+		const std::string& _skin,
+		const std::string& _font,
+		const std::string& _pointer,
+		const std::string& _plugin)
 	{
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
@@ -69,12 +75,12 @@ namespace MyGUI
 		mControllerManager->initialise();
 
 		// загружаем дефолтные настройки
-		mInputManager->load("main.lang");
-		mLayerManager->load("main.layer");
-		mSkinManager->load("main.skin");
-		mFontManager->load("main.font");
-		mPluginManager->loadPluginCfg("main.plugin");
-		mPointerManager->load("main.pointer");
+		mInputManager->load(_lang);
+		mLayerManager->load(_layer);
+		mSkinManager->load(_skin);
+		mFontManager->load(_font);
+		mPointerManager->load(_pointer);
+		mPluginManager->load(_plugin);
 		mPointerManager->show();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
