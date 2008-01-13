@@ -14,11 +14,12 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerInfo.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_UnlinkWidget.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : public LayerItemInfo
+	class _MyGUIExport PointerManager : public LayerItemInfo, public UnlinkWidget
 	{
 		INSTANCE_HEADER(PointerManager);
 
@@ -44,10 +45,7 @@ namespace MyGUI
 			setPointer(mDefaultPointer, null);
 		}
 
-		inline void unlinkWidget(WidgetPtr _widget)
-		{
-			if (_widget == mWidgetOwner) defaultPointer();
-		}
+		void _unlinkWidget(WidgetPtr _widget);
 
 		void attachToOverlay(Ogre::Overlay * _overlay);
 		void detachToOverlay(Ogre::Overlay * _overlay);

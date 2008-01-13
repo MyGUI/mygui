@@ -12,6 +12,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_FrameListener.h"
+#include "MyGUI_UnlinkWidget.h"
 
 namespace MyGUI
 {
@@ -19,7 +20,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef delegates::CDelegate1<const std::string &> EventChangeLanguage;
 
-	class _MyGUIExport InputManager : public FrameListener
+	class _MyGUIExport InputManager : public FrameListener, public UnlinkWidget
 	{
 		INSTANCE_HEADER(InputManager);
 
@@ -58,7 +59,7 @@ namespace MyGUI
 		void resetMouseFocusWidget();
 
 		// удаляем данный виджет из всех возможных мест
-		void unlinkWidget(WidgetPtr _widget);
+		void _unlinkWidget(WidgetPtr _widget);
 
 		// событие смены языков
 		EventChangeLanguage eventChangeLanguage;

@@ -8,46 +8,44 @@
 #define __MYGUI_CONTROLLER_FADE_ALPHA_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_FrameListener.h"
-#include "MyGUI_ControllerInterface.h"
+#include "MyGUI_ControllerItem.h"
 
 namespace MyGUI
 {
 
-	const float DEFAULT_SPEED_ALPHA = 1.0f;
-
-	struct AlphaItem
+	class _MyGUIExport ControllerFadeAlpha : public ControllerItem
 	{
-		AlphaItem(WidgetPtr _widget, float _alpha, float _coef, bool _hide, bool _destroy) :
-			widget(_widget), alpha(_alpha), hide(_hide), destroy(_destroy), coef(_coef)
-		{ }
-
-		WidgetPtr widget;
-		float alpha;
-		bool hide;
-		bool destroy;
-		float coef;
-	};
-
-	typedef std::list<AlphaItem> ListAlphaItem;
-
-	class _MyGUIExport ControllerFadeAlpha : public FrameListener, public ControllerInterface
-	{
-		INSTANCE_HEADER(ControllerFadeAlpha);
+	public:
+		enum ControllerAction
+		{
+			ACTION_NONE,
+			ACTION_HIDE,
+			ACTION_DESTROY,
+		};
 
 	public:
-		void addItem(WidgetPtr _widget, float _alpha, float _coef = DEFAULT_SPEED_ALPHA, bool _hide = false, bool _enabled = true, bool _destroy = false);
-		void removeItem(WidgetPtr _widget);
-	
-	private:
-		void _frameEntered(float _time);
-		void _unlinkWidget(WidgetPtr _widget);
+		ControllerFadeAlpha(float _alpha, float _coef, ControllerAction _action, bool _enabled);
 
 	private:
-		// список виджетов, для изменения альфы
-		ListAlphaItem mListItem;
+		ControllerFadeAlpha();
+
+		const std::string & getType();
+		bool addTime(WidgetPtr _widget, float _time);
+		void prepareItem(WidgetPtr _widget);
+		void replaseItem(WidgetPtr _widget, ControllerItem * _item);
+
+		inline ControllerAction getAction() {return mAction;}
+		inline bool getEnabled() {return mEnabled;}
+		inline float getAlpha() {return mAlpha;}
+		inline float getCoef() {return mCoef;}
+
+	private:
+		ControllerAction mAction;
+		bool mEnabled;
+		float mAlpha;
+		float mCoef;
+
 	};
 
 }

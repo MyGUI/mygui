@@ -19,6 +19,8 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
+		registerUnlinker(this);
+
 		// создаем фабрики виджетов
 		mWidgetFactory = new factory::WidgetFactory();
 		mButtonFactory = new factory::ButtonFactory();
@@ -42,8 +44,11 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		unregisterUnlinker(this);
+
 		mFactoryList.clear();
 		mDelegates.clear();
+		mVectorUnlinkWidget.clear();
 
 		delete mWindowFactory;
 		delete mHScrollFactory;
@@ -108,7 +113,7 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	void WidgetManager::unlinkWidget(WidgetPtr _widget)
+	void WidgetManager::_unlinkWidget(WidgetPtr _widget)
 	{
 		if (_widget == null) return;
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
@@ -171,20 +176,8 @@ namespace MyGUI
 		// иначе возможен бесконечный цикл
 		MYGUI_ASSERT(_widget != null, "widget is deleted");
 
-		// отсоединяем виджет от уровня, если он был присоединен
-		LayerManager::getInstance().detachItem(_widget);
-
-		// отсоединяем от контроллеров
-		Gui::getInstance()._unlinkWidget(_widget);
-
-		// стираем имя в карте для поиска
-		unlinkWidget(_widget);
-
-		// удаляем упоминание в инпуте
-		InputManager::getInstance().unlinkWidget(_widget);
-
-		// удаляем упоминание в курсорах
-		PointerManager::getInstance().unlinkWidget(_widget);
+		// отписываем от всех
+		unlinkFromUnlinkers(_widget);
 
 		// делегирует удаление отцу виджета
 		WidgetPtr parent = _widget->getParent();
@@ -196,6 +189,30 @@ namespace MyGUI
 	void WidgetManager::destroyAllWidget()
 	{
 		Gui::getInstance()._destroyAllChildWidget();
+	}
+
+	void WidgetManager::registerUnlinker(UnlinkWidget * _unlink)
+	{
+		unregisterUnlinker(_unlink);
+		mVectorUnlinkWidget.push_back(_unlink);
+	}
+
+	void WidgetManager::unregisterUnlinker(UnlinkWidget * _unlink)
+	{
+		for (size_t pos=0; pos<mVectorUnlinkWidget.size(); pos++) {
+			if (mVectorUnlinkWidget[pos] == _unlink) {
+				mVectorUnlinkWidget[pos] = mVectorUnlinkWidget[mVectorUnlinkWidget.size()-1];
+				mVectorUnlinkWidget.pop_back();
+				return;
+			}
+		}
+	}
+
+	void WidgetManager::unlinkFromUnlinkers(WidgetPtr _widget)
+	{
+		for (size_t pos=0; pos<mVectorUnlinkWidget.size(); pos++) {
+			mVectorUnlinkWidget[pos]->_unlinkWidget(_widget);
+		}
 	}
 
 } // namespace MyGUI

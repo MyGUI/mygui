@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -16,6 +17,8 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
+		WidgetManager::getInstance().registerUnlinker(this);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -25,6 +28,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		WidgetManager::getInstance().unregisterUnlinker(this);
 		clear();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
@@ -141,6 +145,11 @@ namespace MyGUI
 			iter++;
 		}
 		return null;
+	}
+
+	void LayerManager::_unlinkWidget(WidgetPtr _widget)
+	{
+		detachItem(_widget);
 	}
 
 } // namespace MyGUI

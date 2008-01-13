@@ -388,7 +388,8 @@ namespace MyGUI
 
 		// удал€ем страницу
 		TabSheetInfo & info = mSheetsInfo[_index];
-		ControllerFadeAlpha::getInstance().removeItem(info.sheet);
+		// при удалении сам отпишетьс€
+		//ControllerManager::getInstance().removeItem(info.sheet);
 		WidgetManager::getInstance().destroyWidget(info.sheet);
 		mWidthBar -= info.width;
 		mSheetsInfo.erase(mSheetsInfo.begin() + _index);
@@ -467,7 +468,7 @@ namespace MyGUI
 	void Tab::_showSheet(SheetPtr _sheet, bool _show, bool _smooth)
 	{
 		if (false == _smooth) {
-			ControllerFadeAlpha::getInstance().removeItem(_sheet);
+			ControllerManager::getInstance().removeItem(_sheet);
 			_sheet->setAlpha(ALPHA_MAX);
 
 			if (_show) _sheet->show();
@@ -476,8 +477,8 @@ namespace MyGUI
 			return;
 		}
 
-		if (_show) ControllerFadeAlpha::getInstance().addItem(_sheet, ALPHA_MAX, TAB_SPEED_FADE_COEF);
-		else ControllerFadeAlpha::getInstance().addItem(_sheet, ALPHA_MIN, TAB_SPEED_FADE_COEF, true, false);
+		if (_show) ControllerManager::getInstance().addItem(_sheet, new ControllerFadeAlpha(ALPHA_MAX, TAB_SPEED_FADE_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+		else ControllerManager::getInstance().addItem(_sheet, new ControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
 	}
 
 	int Tab::getButtonWidthByName(const Ogre::DisplayString& _text)

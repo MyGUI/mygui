@@ -37,7 +37,8 @@ DemoKeeper::DemoKeeper() :
 
 void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
 {
-	MYGUI_OUT(_index);
+	if (_index == ITEM_NONE) MYGUI_OUT("reset select");
+	else MYGUI_OUT(_index);
 }
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
@@ -57,11 +58,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//mGUI->createWidget<VScroll>("VScroll", IntCoord(100, 100, 16, 300), ALIGN_DEFAULT, "Main");
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(100, 100, 600, 26), ALIGN_DEFAULT, "Main");
+	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(100, 100, 600, 26), ALIGN_DEFAULT, "Main");
 	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
 	combo->addItemString("line 1");
 	combo->addItemString("line 2");
-	combo->addItemString("line 3");
+	combo->addItemString("line 3");*/
 
 	/*WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main");
 	window->setMinMax(150, 150, 2000, 2000);
@@ -375,15 +376,6 @@ void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
     if (combo == null) return;
 
     notifyEditAccept(combo);
-
-    /*ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
-    if (list == null) return;
-
-    const Ogre::DisplayString& caption = castWidget<ComboBox>(combo)->getText();
-    if (false == caption.empty()) {
-    	list->addItemString(caption);
-    	combo->setCaption("");
-    }*/
 }
 
 void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
@@ -423,9 +415,11 @@ void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, wch
 
 void DemoKeeper::notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name)
 {
-    WindowPtr window = castWidget<Window>(_widget);
-    window->destroySmooth();
-    mCountWindow --;
+	if (_name == "close") {
+		WindowPtr window = castWidget<Window>(_widget);
+		window->destroySmooth();
+		mCountWindow --;
+	}
 }
 
 void DemoKeeper::notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double)

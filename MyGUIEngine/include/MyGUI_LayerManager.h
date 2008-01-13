@@ -12,6 +12,7 @@
 #include "MyGUI_LayerInfo.h"
 #include "xmlDocument.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_UnlinkWidget.h"
 
 namespace MyGUI
 {
@@ -21,7 +22,7 @@ namespace MyGUI
 	// карта для упорядочивания по высоте
 	typedef std::map<Ogre::ushort, LayerInfoPtr> MapLayerSearch;
 
-	class _MyGUIExport LayerManager
+	class _MyGUIExport LayerManager : public UnlinkWidget
 	{
 		INSTANCE_HEADER(LayerManager);
 
@@ -39,6 +40,9 @@ namespace MyGUI
 
 		bool load(const std::string & _file, bool _resource = true);
 		void clear();
+
+	private:
+		void _unlinkWidget(WidgetPtr _widget);
 
 	private:
 		MapLayer mMapLayer;

@@ -135,9 +135,12 @@ namespace MyGUI
 	{
 		if (false == mIsAutoAlpha) return;
 
-		if (mKeyRootFocus) ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_ACTIVE, WINDOW_SPEED_COEF);
-		else if (mMouseRootFocus) ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_FOCUS, WINDOW_SPEED_COEF);
-		else ControllerFadeAlpha::getInstance().addItem(this, WINDOW_ALPHA_DEACTIVE, WINDOW_SPEED_COEF);
+		float alpha;
+		if (mKeyRootFocus) alpha = WINDOW_ALPHA_ACTIVE;
+		else if (mMouseRootFocus) alpha = WINDOW_ALPHA_FOCUS;
+		else alpha = WINDOW_ALPHA_DEACTIVE;
+
+		ControllerManager::getInstance().addItem(this, new ControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
 	}
 
 	void Window::setPosition(const IntPoint& _pos)
@@ -248,21 +251,21 @@ namespace MyGUI
 			show();
 		}
 
-		ControllerFadeAlpha::getInstance().addItem(this,
-			(mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX,
-			WINDOW_SPEED_COEF, false, true, false);
+		ControllerManager::getInstance().addItem(
+			this, new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX,
+			WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
 	}
 
 	void Window::hideSmooth()
 	{
-		ControllerFadeAlpha::getInstance().addItem(
-			this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, true, false, false);
+		ControllerManager::getInstance().addItem(
+			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
 	}
 
 	void Window::destroySmooth()
 	{
-		ControllerFadeAlpha::getInstance().addItem(
-			this, WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false, false, true);
+		ControllerManager::getInstance().addItem(
+			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_DESTROY, false));
 	}
 
 	const IntCoord& Window::getClientRect()

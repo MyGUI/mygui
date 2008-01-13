@@ -11,6 +11,7 @@
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderOut.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -37,6 +38,7 @@ namespace MyGUI
 
 		createDefaultCharSet();
 
+		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().addFrameListener(this);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -49,6 +51,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().removeFrameListener(this);
+		WidgetManager::getInstance().unregisterUnlinker(this);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -438,7 +441,7 @@ namespace MyGUI
 	}
 
 	// удаляем данный виджет из всех возможных мест
-	void InputManager::unlinkWidget(WidgetPtr _widget)
+	void InputManager::_unlinkWidget(WidgetPtr _widget)
 	{
 		if (null == _widget) return;
 		if (_widget == mWidgetMouseFocus) {

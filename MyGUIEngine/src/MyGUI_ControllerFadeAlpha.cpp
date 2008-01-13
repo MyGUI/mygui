@@ -7,105 +7,83 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_InputManager.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(ControllerFadeAlpha);
-
-	void ControllerFadeAlpha::addItem(WidgetPtr _widget, float _alpha, float _coef, bool _hide, bool _enabled, bool _destroy)
+	ControllerFadeAlpha::ControllerFadeAlpha()
 	{
-		MYGUI_DEBUG_ASSERT(_coef > 0, "coef must be > 0");
-		// подготовка виджета
-		_widget->setEnabled(_enabled, true);
+	}
 
-		if ((ALPHA_MIN != _alpha) && (false == _widget->isShow())) {
+	ControllerFadeAlpha::ControllerFadeAlpha(float _alpha, float _coef, ControllerAction _action, bool _enabled) :
+		mAlpha(_alpha), mCoef(_coef), mAction(_action), mEnabled(_enabled)
+	{
+	}
+
+	const std::string & ControllerFadeAlpha::getType()
+	{
+		static std::string type("FadeAlphaController");
+		return type;
+	}
+
+	void ControllerFadeAlpha::prepareItem(WidgetPtr _widget)
+	{
+		MYGUI_DEBUG_ASSERT(mCoef > 0, "coef must be > 0");
+		// подготовка виджета
+		_widget->setEnabled(mEnabled, true);
+
+		if ((ALPHA_MIN != mAlpha) && (false == _widget->isShow())) {
 			_widget->setAlpha(ALPHA_MIN);
 			_widget->show();
 		}
 
 		// отписываем его от ввода
-		if (false == _enabled) InputManager::getInstance().unlinkWidget(_widget);
-
-		// если виджет первый, то подписываемся на кадры
-		if (0 == mListItem.size()) Gui::getInstance().addFrameListener(this);
-
-		for (ListAlphaItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
-			// такой уже в списке есть, меняем его же параметры и выходим
-			if ((*iter).widget == _widget) {
-				if ((*iter).destroy) {
-					MYGUI_LOG(Warning, "widget '" << _widget->getName() << "' must be deleted, ignore change status alpha in controller");
-					return;
-				}
-				(*iter).alpha = _alpha;
-				(*iter).destroy = _destroy;
-				(*iter).hide = _hide;
-				return;
-			}
-		}
-
-		// вставляем виджет в самый конец
-		mListItem.insert(mListItem.end(), AlphaItem(_widget, _alpha, _coef, _hide, _destroy));
+		if (false == mEnabled) InputManager::getInstance()._unlinkWidget(_widget);
 	}
 
-	void ControllerFadeAlpha::removeItem(WidgetPtr _widget)
+	void ControllerFadeAlpha::replaseItem(WidgetPtr _widget, ControllerItem * _item)
 	{
-		// не удаляем из списка, а обнуляем, в цикле он будет удален
-		for (ListAlphaItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
-			if ((*iter).widget == _widget) {
-				(*iter).widget = null;
-				break;
-			}
+		ControllerFadeAlpha * item = static_cast<ControllerFadeAlpha*>(_item);
+		if (mAction != ACTION_DESTROY) {
+			mAction = item->getAction();
+			mEnabled = item->getEnabled();
+			mCoef = item->getCoef();
+			mAlpha = item->getAlpha();
 		}
 	}
 
-	void ControllerFadeAlpha::_frameEntered(float _time)
+	bool ControllerFadeAlpha::addTime(WidgetPtr _widget, float _time)
 	{
-		for (ListAlphaItem::iterator iter=mListItem.begin(); iter!=mListItem.end();) {
+		float alpha = _widget->getAlpha();
 
-			if (null == (*iter).widget) {
-				// удаляем из списка, итератор не увеличиваем и на новый круг
-				iter = mListItem.erase(iter);
-				continue;
+		// проверяем нужно ли к чему еще стремиться
+		if (mAlpha > alpha) {
+			alpha += _time * mCoef;
+			if (mAlpha > alpha) {
+				_widget->setAlpha(alpha);
+				return true;
 			}
-
-			float alpha = (*iter).widget->getAlpha();
-
-			// проверяем нужно ли к чему еще стремиться
-			if ((*iter).alpha > alpha) {
-				alpha += _time * (*iter).coef;
-				if ((*iter).alpha > alpha) {
-					(*iter).widget->setAlpha(alpha);
-					// увеличиваем итератор и на следующий круг
-					++iter;
-					continue;
-				}
+			else {
+				_widget->setAlpha(mAlpha);
 			}
-			else if ((*iter).alpha < alpha) {
-				alpha -= _time * (*iter).coef;
-				if ((*iter).alpha < alpha) {
-					(*iter).widget->setAlpha(alpha);
-					// увеличиваем итератор и на следующий круг
-					++iter;
-					continue;
-				}
+		}
+		else if (mAlpha < alpha) {
+			alpha -= _time * mCoef;
+			if (mAlpha < alpha) {
+				_widget->setAlpha(alpha);
+				return true;
 			}
-
-			// если мы тут значит событие свершилось
-			if ((*iter).destroy) WidgetManager::getInstance().destroyWidget((*iter).widget);
-			else if ((*iter).hide) (*iter).widget->hide();
-
-			// на следующей итерации виджет вылетит из списка
-			(*iter).widget = null;
+			else {
+				_widget->setAlpha(mAlpha);
+			}
 		}
 
-		if (0 == mListItem.size()) Gui::getInstance().removeFrameListener(this);
-	}
+		if (mAction == ACTION_HIDE) _widget->hide();
+		else if (mAction == ACTION_DESTROY) WidgetManager::getInstance().destroyWidget(_widget);
 
-	void ControllerFadeAlpha::_unlinkWidget(WidgetPtr _widget)
-	{
-		removeItem(_widget);
+		return false;
 	}
 
 } // namespace MyGUI

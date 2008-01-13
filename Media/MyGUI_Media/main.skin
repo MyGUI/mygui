@@ -640,12 +640,20 @@
             <Property key="Scale" value = "1 1 0 0"/>
         </Child>
 
-        <Child type="Button" skin="WindowResize" offset = "12 39 12 12" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
-            <Property key="Scale" value = "0 0 1 1"/>
-        </Child>
-
         <Child type="Button" skin="WindowX" offset = "-3 0 24 30" align = "ALIGN_RIGHT ALIGN_TOP" name = "Button">
             <Property key="Event" value = "close"/>
+        </Child>
+
+        <Child_ type="Button" skin="WindowX" offset = "-27 0 24 30" align = "ALIGN_RIGHT ALIGN_TOP" name = "Button">
+            <Property key="Event" value = "minimized"/>
+        </Child_>
+
+        <Child_ type="Button" skin="WindowX" offset = "-51 0 24 30" align = "ALIGN_RIGHT ALIGN_TOP" name = "Button">
+            <Property key="Event" value = "maximized"/>
+        </Child_>
+
+        <Child type="Button" skin="WindowResize" offset = "12 39 12 12" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
         </Child>
 
         <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">

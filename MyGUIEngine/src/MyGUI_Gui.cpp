@@ -42,41 +42,40 @@ namespace MyGUI
 		manager.addOverlayElementFactory(mFactorySharedPanelAlphaOverlay);
 
 		// создаем и инициализируем синглтоны
-		mInputManager = new InputManager();
-		mInputManager->initialise();
-		mCroppedRectangleManager = new SubWidgetManager();
-		mCroppedRectangleManager->initialise();
-		mClipboardManager = new ClipboardManager();
-		mClipboardManager->initialise();
-		mLayerManager = new LayerManager();
-		mLayerManager->initialise();
-		mSkinManager = new SkinManager();
-		mSkinManager->initialise();
 		mWidgetManager = new WidgetManager();
-		mWidgetManager->initialise();
+		mInputManager = new InputManager();
+		mCroppedRectangleManager = new SubWidgetManager();
+		mClipboardManager = new ClipboardManager();
+		mLayerManager = new LayerManager();
+		mSkinManager = new SkinManager();
 		mLayoutManager = new LayoutManager();
-		mLayoutManager->initialise();
 		mFontManager = new FontManager();
-		mFontManager->initialise();
 		mPointerManager = new PointerManager();
-		mPointerManager->initialise();
 		mDynLibManager = new DynLibManager();
-		mDynLibManager->initialise();
 		mPluginManager = new PluginManager();
+		mControllerManager = new ControllerManager();
+
+		mWidgetManager->initialise();
+		mInputManager->initialise();
+		mCroppedRectangleManager->initialise();
+		mClipboardManager->initialise();
+		mLayerManager->initialise();
+		mSkinManager->initialise();
+		mLayoutManager->initialise();
+		mFontManager->initialise();
+		mPointerManager->initialise();
+		mDynLibManager->initialise();
 		mPluginManager->initialise();
+		mControllerManager->initialise();
 
 		// загружаем дефолтные настройки
 		mInputManager->load("main.lang");
 		mLayerManager->load("main.layer");
 		mSkinManager->load("main.skin");
-		mFontManager->load("MyGUI.font");
-		mPluginManager->loadPluginCfg("MyGUI_plugins.cfg");
+		mFontManager->load("main.font");
+		mPluginManager->loadPluginCfg("main.plugin");
 		mPointerManager->load("main.pointer");
 		mPointerManager->show();
-
-		// создаем контроллеры
-		mControllerFadeAlpha = new ControllerFadeAlpha();
-		mVectorControllers.push_back(mControllerFadeAlpha);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -88,37 +87,35 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		mListFrameListener.clear();
-		mListFrameListenerAdd.clear();
 
 		_destroyAllChildWidget();
 
-		// удаляем контроллеры
-		mVectorControllers.clear();
-		delete mControllerFadeAlpha;
-
 		// деинициализируем и удаляем синглтоны
 		mPluginManager->shutdown();
-		delete mPluginManager;
 		mDynLibManager->shutdown();
-		delete mDynLibManager;
 		mWidgetManager->shutdown();
-		delete mWidgetManager;
 		mPointerManager->shutdown();
-		delete mPointerManager;
 		mLayerManager->shutdown();
-		delete mLayerManager;
 		mFontManager->shutdown();
-		delete mFontManager;
 		mLayoutManager->shutdown();
-		delete mLayoutManager;
 		mInputManager->shutdown();
-		delete mInputManager;
 		mSkinManager->shutdown();
-		delete mSkinManager;
 		mCroppedRectangleManager->shutdown();
-		delete mCroppedRectangleManager;
 		mClipboardManager->shutdown();
+		mControllerManager->shutdown();
+
+		delete mPluginManager;
+		delete mDynLibManager;
+		delete mWidgetManager;
+		delete mPointerManager;
+		delete mLayerManager;
+		delete mFontManager;
+		delete mLayoutManager;
+		delete mInputManager;
+		delete mSkinManager;
+		delete mCroppedRectangleManager;
 		delete mClipboardManager;
+		delete mControllerManager;
 
 		delete mFactoryTextSimpleOverlay;
 		delete mFactoryTextEditOverlay;
@@ -158,48 +155,26 @@ namespace MyGUI
 				++iter;
 			}
 		};
-
-		// теперь объединяем масив
-		if (false == mListFrameListenerAdd.empty()) {
-			for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
-				mListFrameListener.push_back(*iter);
-			}
-			mListFrameListenerAdd.clear();
-		}
 	}
 
-	bool Gui::addFrameListener(FrameListener * _listener)
+	void Gui::addFrameListener(FrameListener * _listener)
 	{
-		if (null == _listener) return false;
+		if (null == _listener) return;
 
-		for (ListFrameListener::iterator iter=mListFrameListener.begin(); iter!=mListFrameListener.end(); ++iter) {
-			if ((*iter) == _listener) return false;
-		}
-		for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
-			if ((*iter) == _listener) return false;
-		}
-		mListFrameListenerAdd.push_back(_listener);
-		return true;
+		removeFrameListener(_listener);
+		mListFrameListener.push_back(_listener);
 	}
 
-	bool Gui::removeFrameListener(FrameListener * _listener)
+	void Gui::removeFrameListener(FrameListener * _listener)
 	{
-		if (null == _listener) return false;
+		if (null == _listener) return;
 
 		for (ListFrameListener::iterator iter=mListFrameListener.begin(); iter!=mListFrameListener.end(); ++iter) {
 			if ((*iter) == _listener) {
 				(*iter) = null;
-				return true;
+				return;
 			}
 		}
-
-		for (ListFrameListener::iterator iter=mListFrameListenerAdd.begin(); iter!=mListFrameListenerAdd.end(); ++iter) {
-			if ((*iter) == _listener) {
-				mListFrameListenerAdd.erase(iter);
-				return true;
-			}
-		}
-		return false;
 	}
 
 
@@ -238,13 +213,6 @@ namespace MyGUI
 	void Gui::destroyWidget(WidgetPtr _widget)
 	{
 		mWidgetManager->destroyWidget(_widget);
-	}
-
-	void Gui::_unlinkWidget(WidgetPtr _widget)
-	{
-		for (VectorControllerInterface::iterator iter=mVectorControllers.begin(); iter!=mVectorControllers.end(); ++iter) {
-			(*iter)->_unlinkWidget(_widget);
-		}
 	}
 
 } // namespace MyGUI

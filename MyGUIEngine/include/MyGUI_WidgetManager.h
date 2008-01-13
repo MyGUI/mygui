@@ -12,6 +12,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetFactoryInterface.h"
 #include "MyGUI_CastWidget.h"
+#include "MyGUI_UnlinkWidget.h"
 
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_ButtonFactory.h"
@@ -32,7 +33,7 @@ namespace MyGUI
 	// делегат для парсинга
 	typedef delegates::CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
 
-	class _MyGUIExport WidgetManager
+	class _MyGUIExport WidgetManager : public UnlinkWidget
 	{
 		INSTANCE_HEADER(WidgetManager);
 
@@ -61,7 +62,7 @@ namespace MyGUI
 		static IntPoint convertToGlobal(const IntPoint& _point, WidgetPtr _widget);
 
 		// очищает имя в списках
-		void unlinkWidget(WidgetPtr _widget);
+		void _unlinkWidget(WidgetPtr _widget);
 
 		// регестрирует делегат
 		ParseDelegate & registerDelegate(const Ogre::String & _key);
@@ -70,6 +71,10 @@ namespace MyGUI
 		// парсит ключ значение
 		void parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
+		// все кто хочет отписать у себя виджет при удалении
+		void registerUnlinker(UnlinkWidget * _unlink);
+		void unregisterUnlinker(UnlinkWidget * _unlink);
+		void unlinkFromUnlinkers(WidgetPtr _widget);
 
 	protected:
 		SetWidgetFactory mFactoryList;
@@ -90,6 +95,9 @@ namespace MyGUI
 		factory::ComboBoxFactory * mComboBoxFactory;
 		factory::TabFactory * mTabFactory;
 		factory::SheetFactory * mSheetFactory;
+
+		// список менеджеров для отписки при удалении
+		VectorUnlinkWidget mVectorUnlinkWidget;
 
 	};
 

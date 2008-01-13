@@ -29,9 +29,7 @@
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
-
-#include "MyGUI_ControllerInterface.h"
-#include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_ControllerManager.h"
 
 namespace MyGUI
 {
@@ -83,8 +81,8 @@ namespace MyGUI
 		inline float getViewAspect() {return mViewSize.width / mViewSize.height;}
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
-		bool addFrameListener(FrameListener * _listener);
-		bool removeFrameListener(FrameListener * _listener);
+		void addFrameListener(FrameListener * _listener);
+		void removeFrameListener(FrameListener * _listener);
 
 		// подписка на кадры
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
@@ -117,8 +115,6 @@ namespace MyGUI
 		void _destroyChildWidget(WidgetPtr _widget);
 		// удаляет всех детей
 		void _destroyAllChildWidget();
-		// отписываем от контроллеров
-		void _unlinkWidget(WidgetPtr _widget);
 
 	private:
 		// вектор всех детей виджетов
@@ -145,14 +141,10 @@ namespace MyGUI
 		PointerManager* mPointerManager;
 		DynLibManager* mDynLibManager;
 		PluginManager* mPluginManager;
+		ControllerManager* mControllerManager;
 
 		// подписчики на кадры
 		ListFrameListener mListFrameListener;
-		ListFrameListener mListFrameListenerAdd;
-
-		// контроллеры
-		ControllerFadeAlpha * mControllerFadeAlpha;
-		VectorControllerInterface mVectorControllers;
 
 	}; // class Gui
 

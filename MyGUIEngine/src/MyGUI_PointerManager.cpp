@@ -6,6 +6,7 @@
 */
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_WidgetManager.h"
 #include "xmlDocument.h"
 
 namespace MyGUI
@@ -17,6 +18,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
+		WidgetManager::getInstance().registerUnlinker(this);
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		mOverlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
@@ -40,6 +43,8 @@ namespace MyGUI
 			Ogre::OverlayManager::getSingleton().destroyOverlayElement(mOverlayElement);
 			mOverlayElement = null;
 		}
+
+		WidgetManager::getInstance().unregisterUnlinker(this);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -176,6 +181,11 @@ namespace MyGUI
 		_overlay->remove2D(mOverlayElement);
 		// пока вручную обнуляем отца
 		mOverlayElement->setOverlay(0);
+	}
+
+	void PointerManager::_unlinkWidget(WidgetPtr _widget)
+	{
+		if (_widget == mWidgetOwner) defaultPointer();
 	}
 
 } // namespace MyGUI	

@@ -430,7 +430,7 @@ namespace MyGUI
 		if (mEnabled) setState("normal");
 		else {
 			setState("disable");
-			InputManager::getInstance().unlinkWidget(this);
+			InputManager::getInstance()._unlinkWidget(this);
 		}
 	}
 
