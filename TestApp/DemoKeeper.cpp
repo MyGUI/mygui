@@ -47,10 +47,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	//LayoutManager::getInstance().load("TabDemo.layout");
+	LayoutManager::getInstance().load("TabDemo.layout");
 
-	createWindowEdit();
-	createWindowList();
+	//createWindowEdit();
+	//createWindowList();
 
 	//LayoutManager::getInstance().load("EditDemo.layout");
 	//LayoutManager::getInstance().load("ListDemo.layout");

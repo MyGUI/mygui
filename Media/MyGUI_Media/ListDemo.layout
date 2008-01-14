@@ -8,7 +8,7 @@
     <Property key="Window_MinMax" value="200 115 2000 2000" />
     <Property key="Window_AutoAlpha" value="false" />
 
-    <Widget type="List" skin="List" position="10 46 261 208" align="ALIGN_STRETCH">
+    <Widget type="List" skin="List" position="10 46 361 208" align="ALIGN_STRETCH">
     </Widget>
 
     <Widget type="ComboBox" skin="ComboBox" position="10 10 261 26" align="ALIGN_TOP ALIGN_HSTRETCH">
