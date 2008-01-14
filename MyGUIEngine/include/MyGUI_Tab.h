@@ -124,7 +124,7 @@ namespace MyGUI
 			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 				if (mSheetsInfo[pos].sheet == _sheet) return mSheetsInfo[pos].name;
 			}
-			MYGUI_EXCEPT("sheet (" << _sheet << ") not find");
+			MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 		}
 
 		inline const Ogre::DisplayString& getSheetNameIndex(size_t _index)
@@ -143,7 +143,7 @@ namespace MyGUI
 			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 				if (mSheetsInfo[pos].sheet == _sheet) mSheetsInfo[pos].width;
 			}
-			MYGUI_EXCEPT("sheet (" << _sheet << ") not find");
+			MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 		}
 
 		inline SheetPtr getSheet(size_t _index)

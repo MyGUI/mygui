@@ -99,7 +99,7 @@ namespace MyGUI
 				return widget;
 			}
 		}
-		MYGUI_EXCEPT("factory '" << _type << "' not find");
+		MYGUI_EXCEPT("factory '" << _type << "' not found");
 		return null;
 	}
 
@@ -107,7 +107,7 @@ namespace MyGUI
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
-			MYGUI_LOG(Error, "Widget \"" << _name << "\" not found");
+			MYGUI_LOG(Error, "Widget '" << _name << "' not found");
 			return null;
 		}
 		return iter->second;

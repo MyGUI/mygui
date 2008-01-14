@@ -19,7 +19,7 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");
 
 		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->_getOverlayElement());
-		MYGUI_DEBUG_ASSERT(null != mElement, "overlay element not find");
+		MYGUI_DEBUG_ASSERT(null != mElement, "overlay element not found");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();

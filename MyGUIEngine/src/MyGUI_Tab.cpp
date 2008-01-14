@@ -326,7 +326,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_LOG(Warning, "sheet '" << _name << "' not find");
+		MYGUI_LOG(Warning, "sheet '" << _name << "' not found");
 	}
 
 	void Tab::setSheetButtonWidthIndex(size_t _index, int _width)
@@ -368,7 +368,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not find");
+		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 	}
 
 	void Tab::setSheetButtonWidth(SheetPtr _sheet, int _width)
@@ -379,7 +379,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not find");
+		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 	}
 
 	void Tab::removeSheetIndex(size_t _index)
@@ -414,7 +414,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("sheet '" << _name << "' not find");
+		MYGUI_EXCEPT("sheet '" << _name << "' not found");
 	}
 
 	void Tab::removeSheet(SheetPtr _sheet)
@@ -425,7 +425,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not find");
+		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 	}
 
 	void Tab::selectSheetIndex(size_t _index, bool _smoot)
@@ -451,7 +451,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("sheet '" << _name << "' not find");
+		MYGUI_EXCEPT("sheet '" << _name << "' not found");
 	}
 
 	void Tab::selectSheet(SheetPtr _sheet, bool _smooth)
@@ -462,7 +462,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not find");
+		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 	}
 
 	void Tab::_showSheet(SheetPtr _sheet, bool _show, bool _smooth)

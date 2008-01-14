@@ -34,7 +34,7 @@ namespace MyGUI
 
 			Ogre::Codec * pCodec = Ogre::Codec::getCodec(ext);
 			if ( ! pCodec ) {
-				MYGUI_LOG(Error, "Unable to load image file '" << _file << "' - no find codec for '" << ext << "' extension.");
+				MYGUI_LOG(Error, "Unable to load image file '" << _file << "' - can`t find codec for '" << ext << "' extension.");
 				return false;
 			}
 

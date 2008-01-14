@@ -30,9 +30,7 @@ namespace MyGUI
 		// Log library load
 		MYGUI_LOG(Info, "Loading library " << mName);
 
-		std::string name = mName;
-
-		mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
+		mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( mName.c_str() );
 
 		MYGUI_ASSERT(null != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
 	}

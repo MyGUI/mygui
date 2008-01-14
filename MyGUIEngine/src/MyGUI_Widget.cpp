@@ -474,7 +474,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("Widget not find");
+		MYGUI_EXCEPT("Widget not found");
 	}
 
 	// удаляет всех детей

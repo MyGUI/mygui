@@ -206,7 +206,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("Widget not find");
+		MYGUI_EXCEPT("Widget not found");
 	}
 
 	// удаляет всех детей
@@ -260,7 +260,7 @@ namespace MyGUI
 			if (iter != mMapLoadXmlDelegate.end()) {
 				if ((false == _match) || (type == _type)) (*iter).second(root, file);
 				else {
-					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not find");
+					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not found");
 					return false;
 				}
 			}
@@ -283,7 +283,7 @@ namespace MyGUI
 					}
 				}
 				else {
-					MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'type' not find");
+					MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'type' not found");
 				}
 			}
 		}

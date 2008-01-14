@@ -54,23 +54,23 @@ namespace MyGUI
 			Ogre::ushort start = 0, count = 1, height = 1;
 
 			if ( false == layer->findAttribute("name", name)) {
-				MYGUI_LOG(Warning, "Attribute 'name' not find {file : " << _file << "}");
+				MYGUI_LOG(Warning, "Attribute 'name' not found {file : " << _file << "}");
 				continue;
 			}
 
 			if (layer->findAttribute("height", tmp)) height = util::parseUShort(tmp);
 			else {
-				MYGUI_LOG(Warning, "Attribute 'Height' not find {file : '" << _file << "' , name : " << name << "}");
+				MYGUI_LOG(Warning, "Attribute 'Height' not found {file : '" << _file << "' , name : " << name << "}");
 			}
 
 			if (layer->findAttribute("count", tmp)) count = util::parseUShort(tmp);
 			else {
-				MYGUI_LOG(Warning, "Attribute 'Count' not find {file : '" << _file << "' , name : " << name << "}");
+				MYGUI_LOG(Warning, "Attribute 'Count' not found {file : '" << _file << "' , name : " << name << "}");
 			}
 
 			if (layer->findAttribute("start", tmp)) start = util::parseUShort(tmp);
 			else {
-				MYGUI_LOG(Warning, "Attribute 'Start' not find {file : '" << _file << "' , name : " << name << "}");
+				MYGUI_LOG(Warning, "Attribute 'Start' not found {file : '" << _file << "' , name : " << name << "}");
 			}
 
 			// а вот теперь добавляем слой
@@ -89,7 +89,7 @@ namespace MyGUI
 	{
 		// это наш уровень
 		LayerInfoPtr layer = mMapLayer[_layer];
-		MYGUI_ASSERT(null != layer, "layer '" << _layer << "' not find");
+		MYGUI_ASSERT(null != layer, "layer '" << _layer << "' not found");
 		// запоминаем созданный айтем в виджете
 		layer->addItem(_item);
 		// добавляем уровень в карту поиска
