@@ -3,12 +3,12 @@
 <MyGUI>
 
     <MyGUI type="List">
-	    <List file="core.lang" resource="true"/>
-	    <List file="core.layer" resource="true"/>
-	    <List file="core.skin" resource="true"/>
-	    <List file="core.font" resource="true"/>
-	    <List file="core.pointer" resource="true"/>
-	    <List file="core.plugin" resource="false"/>
+	    <List file="core.lang" group="General"/>
+	    <List file="core.layer" group="General"/>
+	    <List file="core.skin" group="General"/>
+	    <List file="core.font" group="General"/>
+	    <List file="core.pointer" group="General"/>
+	    <List file="core.plugin"/>
     </MyGUI>
 
 </MyGUI>

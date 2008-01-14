@@ -96,9 +96,9 @@ namespace MyGUI
 		return skin;
 	}
 
-	bool SkinManager::load(const std::string & _file, bool _resource)
+	bool SkinManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _resource, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void SkinManager::_load(xml::xmlNodePtr _node, const std::string & _file)

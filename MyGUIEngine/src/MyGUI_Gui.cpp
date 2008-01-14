@@ -15,7 +15,7 @@ namespace MyGUI
 
 	INSTANCE_IMPLEMENT(Gui);
 
-	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core)
+	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group)
 	{
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
@@ -73,7 +73,7 @@ namespace MyGUI
 		mControllerManager->initialise();
 
 		// загружаем дефолтные настройки
-		load(_core);
+		load(_core, _group);
 
 		// показываем курсор
 		mPointerManager->show();
@@ -230,15 +230,15 @@ namespace MyGUI
 		mWidgetManager->destroyWidget(_widget);
 	}
 
-	bool Gui::load(const std::string & _file, bool _resource)
+	bool Gui::load(const std::string & _file, const std::string & _group)
 	{
-		return _loadImplement(_file, _resource, false, "", INSTANCE_TYPE_NAME);
+		return _loadImplement(_file, _group, false, "", INSTANCE_TYPE_NAME);
 	}
 
-	bool Gui::_loadImplement(const std::string & _file, bool _resource, bool _match, const std::string & _type, const std::string & _instance)
+	bool Gui::_loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance)
 	{
 		xml::xmlDocument doc;
-		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
+		std::string file(_group.empty() ? _file : helper::getResourcePath(_file, _group));
 		if (file.empty()) {
 			MYGUI_LOG(Error, _instance << " : '" << _file << "' not found");
 			return false;
@@ -296,12 +296,11 @@ namespace MyGUI
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator node = _node->getNodeIterator();
 		while (node.nextNode(XML_TYPE)) {
-			std::string source, resource;
+			std::string source;
 			if (false == node->findAttribute("file", source)) continue;
-			resource = node->findAttribute("resource");
-			bool res = resource.empty() ? true : util::parseBool(resource);
-			MYGUI_LOG(Info, "Load ini file '" << source << "' from " << (res ? "resource" : "current") << " path");
-			_loadImplement(source, res, false, "", INSTANCE_TYPE_NAME);
+			std::string group = node->findAttribute("group");
+			MYGUI_LOG(Info, "Load ini file '" << source << "' from " << (group.empty() ? "current path" : "resource group : ") << group);
+			_loadImplement(source, group, false, "", INSTANCE_TYPE_NAME);
 		};
 	}
 

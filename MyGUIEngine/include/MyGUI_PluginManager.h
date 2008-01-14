@@ -8,6 +8,7 @@
 #define __MYGUI_PLUGIN_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "Ogre.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Plugin.h"
 #include "xmlDocument.h"
@@ -38,7 +39,7 @@ namespace MyGUI
 		void unloadPlugin(const std::string& _file);
 
 
-		bool load(const std::string& _file, bool _resource = true);
+		bool load(const std::string& _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		/*!	Install plugin

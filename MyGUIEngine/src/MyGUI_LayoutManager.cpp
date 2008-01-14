@@ -39,10 +39,10 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	VectorWidgetPtr LayoutManager::load(const std::string & _file, bool _resource)
+	VectorWidgetPtr LayoutManager::load(const std::string & _file, const std::string & _group)
 	{
 		mVectorWidgetPtr.clear();
-		Gui::getInstance()._loadImplement(_file, _resource, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 		return mVectorWidgetPtr;
 	}
 

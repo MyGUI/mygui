@@ -44,7 +44,7 @@ namespace MyGUI
 		INSTANCE_HEADER(Gui);
 
 	public:
-		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml");
+		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void shutdown();
 
 		// методы и шаблоны для создания виджета
@@ -106,9 +106,6 @@ namespace MyGUI
 		WidgetPtr findWidgetT(const std::string& _name);
 		#define findWidget(_T, _name) MyGUI::castWidget<_T>(MyGUI::Gui::getInstance().findWidgetT(_name))
 
-		// mirror LayoutManager
-		inline VectorWidgetPtr loadLayout(const std::string & _file, bool _resource = true) {return mLayoutManager->load(_file, _resource);}
-
 		// mirror PointerManager
 		inline void showPointer() {mPointerManager->show();}
 		inline void hidePointer() {mPointerManager->hide();}
@@ -118,10 +115,13 @@ namespace MyGUI
 		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
 		void unregisterLoadXmlDelegate(const Ogre::String & _key);
 
-		bool load(const std::string & _file, bool _resource = true);
+		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
-		bool _loadImplement(const std::string & _file, bool _resource, bool _match, const std::string & _type, const std::string & _instance);
+		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
+
+		// mirror LayoutManager
+		inline VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) {return mLayoutManager->load(_file, _group);}
 
 	private:
 		// удяляет только негодных батюшке государю

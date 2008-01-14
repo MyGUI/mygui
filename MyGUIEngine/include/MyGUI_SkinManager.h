@@ -32,7 +32,7 @@ namespace MyGUI
 		//	для ручного создания скина
 		WidgetSkinInfo * create(const Ogre::String & _name);
 
-		bool load(const std::string & _file, bool _resource = true);
+		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		static FloatSize getMaterialSize(const std::string & _material);

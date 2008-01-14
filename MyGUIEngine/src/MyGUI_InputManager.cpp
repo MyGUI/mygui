@@ -306,9 +306,9 @@ namespace MyGUI
 		for (size_t i=0; i<13; i++) mNums[i] = nums[i];
 	}
 
-	bool InputManager::load(const std::string & _file, bool _resource)
+	bool InputManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _resource, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file)
