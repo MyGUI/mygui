@@ -10,6 +10,8 @@
 namespace MyGUI
 {
 
+	const std::string XML_TYPE("Layer");
+
 	INSTANCE_IMPLEMENT(LayerManager);
 
 	void LayerManager::initialise()
@@ -18,6 +20,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().registerUnlinker(this);
+		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -29,6 +32,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
+		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 		clear();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
@@ -37,34 +41,40 @@ namespace MyGUI
 
 	bool LayerManager::load(const std::string & _file, bool _resource)
 	{
-		clear();
 
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if ("" == file) {
-			MYGUI_LOG(Error, "Layer " << _file << " not found");
+		if (file.empty()) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, "Layer " << doc.getLastError());
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
-		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, "Layer: " << _file << " root tag 'MyGUI' not found");
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
-		if ( (false == root->findAttribute("type", type)) || (type != "Layer") ) {
-			MYGUI_LOG(Error, "Layer: " << _file << " root type 'Layer' not found");
+		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
 			return false;
 		}
 
+		_load(root, file);
+
+		return true;
+	}
+
+	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	{
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator layer = root->getNodeIterator();
-		while (layer.nextNode("Layer")) {
+		xml::xmlNodeIterator layer = _node->getNodeIterator();
+		while (layer.nextNode(XML_TYPE)) {
 
 			std::string name, tmp;
 			Ogre::ushort start = 0, count = 1, height = 1;
@@ -91,10 +101,8 @@ namespace MyGUI
 
 			// а вот теперь добавляем слой
 			mMapLayer[name] = new LayerInfo(name, start, count, height);
-
 		};
 
-		return true;
 	}
 
 	void LayerManager::clear()

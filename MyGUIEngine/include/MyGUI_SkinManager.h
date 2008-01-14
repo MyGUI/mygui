@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
+#include "xmlDocument.h"
 
 namespace MyGUI
 {
@@ -32,6 +33,7 @@ namespace MyGUI
 		WidgetSkinInfo * create(const Ogre::String & _name);
 
 		bool load(const std::string & _file, bool _resource = true);
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		static FloatSize getMaterialSize(const std::string & _material);
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер

@@ -15,7 +15,7 @@
 
 namespace MyGUI
 {
-
+	const std::string XML_TYPE("Lang");
 	const std::string INPUT_DEFAULT_LANGUAGE = "English";
 	const int INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
@@ -40,6 +40,7 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().addFrameListener(this);
+		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -52,6 +53,7 @@ namespace MyGUI
 
 		Gui::getInstance().removeFrameListener(this);
 		WidgetManager::getInstance().unregisterUnlinker(this);
+		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -308,29 +310,36 @@ namespace MyGUI
 	{
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if ("" == file) {
-			MYGUI_LOG(Error, "Input: " << _file << " not found");
+		if (file.empty()) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, "Input: " << doc.getLastError());
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
-		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, "Input: " << _file << " root tag 'MyGUI' not found");
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
-		if ( (false == root->findAttribute("type", type)) || (type != "Lang") ) {
-			MYGUI_LOG(Error, "Input: " << _file << " root tag 'Lang' not found");
+		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
 			return false;
 		}
 
-		xml::xmlNodeIterator lang = root->getNodeIterator();
-		while (lang.nextNode("Lang")) {
+		_load(root, file);
+
+		return true;
+	}
+
+	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	{
+		xml::xmlNodeIterator lang = _node->getNodeIterator();
+		while (lang.nextNode(XML_TYPE)) {
 
 			std::string name;
 			if ( false == lang->findAttribute("name", name)) continue;
@@ -357,10 +366,9 @@ namespace MyGUI
 			}
 
 		};
+
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение
 		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
-
-		return true;
 	}
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)

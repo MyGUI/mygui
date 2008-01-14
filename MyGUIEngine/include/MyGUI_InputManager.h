@@ -7,12 +7,14 @@
 #ifndef __MYGUI_INPUT_MANAGER_H__
 #define __MYGUI_INPUT_MANAGER_H__
 
+#include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_FrameListener.h"
 #include "MyGUI_UnlinkWidget.h"
+#include "xmlDocument.h"
 
 namespace MyGUI
 {
@@ -34,6 +36,7 @@ namespace MyGUI
 	public:
 
 		bool load(const std::string & _file, bool _resource = true);
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		bool injectMouseMove( const OIS::MouseEvent & _arg);
 		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );

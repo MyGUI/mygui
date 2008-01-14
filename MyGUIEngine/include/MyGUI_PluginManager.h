@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Plugin.h"
+#include "xmlDocument.h"
 
 typedef void (*DLL_START_PLUGIN)(void);
 typedef void (*DLL_STOP_PLUGIN)(void);
@@ -37,7 +38,8 @@ namespace MyGUI
 		void unloadPlugin(const std::string& _file);
 
 
-		void load(const std::string& _file);
+		bool load(const std::string& _file, bool _resource = true);
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		/*!	Install plugin
 			

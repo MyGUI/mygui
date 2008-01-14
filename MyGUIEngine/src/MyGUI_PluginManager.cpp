@@ -5,12 +5,13 @@
 	@module
 */
 #include "MyGUI_PluginManager.h"
+#include "MyGUI_Gui.h"
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_Common.h"
-#include "xmlDocument.h"
 
 namespace MyGUI
 {
+	const std::string XML_TYPE("Plugin");
 
 	INSTANCE_IMPLEMENT(PluginManager);
 
@@ -18,6 +19,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
+		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PluginManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -29,6 +32,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		unloadAllPlugins();
+		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -72,27 +76,40 @@ namespace MyGUI
 		}
 	}
 
-	void PluginManager::load(const std::string& _file)
+	bool PluginManager::load(const std::string& _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-		if (false == doc.open(_file)) {
-			MYGUI_LOG(Error, "Plugin: " << doc.getLastError());
-			return;
+		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
+		if (file.empty()) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
+			return false;
+		}
+		if (false == doc.open(file)) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
+			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
-		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, "Plugin: " << _file << " root tag 'MyGUI' not found");
-			return;
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
+			return false;
 		}
 
+		std::string type;
+		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
+			return false;
+		}
+
+		_load(root, file);
+
+		return true;
+	}
+
+	void PluginManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	{
+		xml::xmlNodeIterator node = _node->getNodeIterator();
 		std::string source;
-		if ((false == root->findAttribute("type", source)) || (source != "plugin")) {
-			MYGUI_LOG(Error, "Skin: " << _file << " root type 'plugin' not found");
-			return;
-		}
-
-		xml::xmlNodeIterator node = root->getNodeIterator();
 		while (node.nextNode("path")) {
 			if (node->findAttribute("source", source)) loadPlugin(source);
 		}

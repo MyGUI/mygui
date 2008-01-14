@@ -6,6 +6,7 @@
 */
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_Gui.h"
 #include "xmlDocument.h"
 
 #include <OgreMaterialManager.h>
@@ -13,12 +14,16 @@
 namespace MyGUI
 {
 
+	const std::string XML_TYPE("Skin");
+
 	INSTANCE_IMPLEMENT(SkinManager);
 
 	void SkinManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
+		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
 
 		// забиваем карту флагами выравнивания
 		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HCENTER);
@@ -44,6 +49,8 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); iter++) {
 			WidgetSkinInfoPtr info = iter->second;
@@ -93,33 +100,40 @@ namespace MyGUI
 	{
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if ("" == file) {
-			MYGUI_LOG(Error, "Skin: " << _file << " not found");
+		if (file.empty()) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, "Skin: " << doc.getLastError());
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
-		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, "Skin: " << _file << " root tag 'MyGUI' not found");
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
-		if ( (false == root->findAttribute("type", type)) || (type != "Skin") ) {
-			MYGUI_LOG(Error, "Skin: " << _file << " root type 'Skin' not found");
+		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
 			return false;
 		}
 
+		_load(root, file);
+
+		return true;
+	}
+
+	void SkinManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	{
 		// вспомогательный класс для биндинга сабскинов
 		SubWidgetBinding bind;
 
 		// берем детей и крутимся, основной цикл со скинами
-		xml::xmlNodeIterator skin = root->getNodeIterator();
-		while (skin.nextNode("Skin")) {
+		xml::xmlNodeIterator skin = _node->getNodeIterator();
+		while (skin.nextNode(XML_TYPE)) {
 
 			// парсим атрибуты скина
 			Ogre::String skinName, skinMaterial, tmp;
@@ -208,8 +222,7 @@ namespace MyGUI
 
 			};
 		};
-		return true;
-	}
+	}	
 
 	FloatSize SkinManager::getMaterialSize(const std::string & _material)
 	{

@@ -8,11 +8,13 @@
 #define __MYGUI_FONT_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "OgrePrerequisites.h"
 #include "OgreSingleton.h"
 #include "OgreResourceManager.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_Instance.h"
+#include "xmlDocument.h"
 
 namespace MyGUI
 {
@@ -26,6 +28,7 @@ namespace MyGUI
 		void shutdown();
 
 		bool load(const std::string & _file, bool _resource = true);
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
     protected:
 

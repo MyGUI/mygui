@@ -32,6 +32,8 @@ namespace MyGUI
 		bool load(const std::string & _file, bool _resource = true);
 		void clear();
 
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
+
 		void show();
 		void hide();
 

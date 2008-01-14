@@ -38,7 +38,7 @@ namespace MyGUI
 		VectorWidgetPtr ret;
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if ("" == file) {
+		if (file.empty()) {
 			MYGUI_LOG(Error, "Layout: " << _file << " not found");
 			return ret;
 		}

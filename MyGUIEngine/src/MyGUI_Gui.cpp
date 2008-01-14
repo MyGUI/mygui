@@ -75,12 +75,12 @@ namespace MyGUI
 		mControllerManager->initialise();
 
 		// загружаем дефолтные настройки
-		mInputManager->load(_lang);
-		mLayerManager->load(_layer);
-		mSkinManager->load(_skin);
-		mFontManager->load(_font);
-		mPointerManager->load(_pointer);
-		mPluginManager->load(_plugin);
+		/*mInputManager->*/load(_lang);
+		/*mLayerManager->*/load(_layer);
+		/*mSkinManager->*/load(_skin);
+		/*mFontManager->*/load(_font);
+		/*mPointerManager->*/load(_pointer);
+		/*mPluginManager->*/load(_plugin, false);
 		mPointerManager->show();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -93,6 +93,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		mListFrameListener.clear();
+		mMapLoadXmlDelegate.clear();
 
 		_destroyAllChildWidget();
 
@@ -183,6 +184,18 @@ namespace MyGUI
 		}
 	}
 
+	LoadXmlDelegate & Gui::registerLoadXmlDelegate(const Ogre::String & _key)
+	{
+		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
+		MYGUI_ASSERT(iter == mMapLoadXmlDelegate.end(), "name delegate is exist");
+		return (mMapLoadXmlDelegate[_key] = LoadXmlDelegate());
+	}
+
+	void Gui::unregisterLoadXmlDelegate(const Ogre::String & _key)
+	{
+		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
+		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
+	}
 
 	// удяляет только негодных батюшке государю
 	void Gui::_destroyChildWidget(WidgetPtr _widget)
@@ -219,6 +232,36 @@ namespace MyGUI
 	void Gui::destroyWidget(WidgetPtr _widget)
 	{
 		mWidgetManager->destroyWidget(_widget);
+	}
+
+	bool Gui::load(const std::string & _file, bool _resource)
+	{
+		xml::xmlDocument doc;
+		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
+		if (file.empty()) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
+			return false;
+		}
+		if (false == doc.open(file)) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
+			return false;
+		}
+
+		xml::xmlNodePtr root = doc.getRoot();
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
+			return false;
+		}
+
+		std::string type;
+		if (root->findAttribute("type", type)) {
+			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
+			if (iter != mMapLoadXmlDelegate.end()) {
+				(*iter).second(root, file);
+			}
+		}
+
+		return true;
 	}
 
 } // namespace MyGUI

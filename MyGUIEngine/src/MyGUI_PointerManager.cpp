@@ -12,6 +12,8 @@
 namespace MyGUI
 {
 
+	const std::string XML_TYPE("Pointer");
+
 	INSTANCE_IMPLEMENT(PointerManager);
 
 	void PointerManager::initialise()
@@ -20,6 +22,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().registerUnlinker(this);
+		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		mOverlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
@@ -45,6 +48,7 @@ namespace MyGUI
 		}
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
+		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -52,34 +56,39 @@ namespace MyGUI
 
 	bool PointerManager::load(const std::string & _file, bool _resource)
 	{
-		clear();
-
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if ("" == file) {
-			MYGUI_LOG(Error, "Pointer: " << _file << " not found");
+		if (file.empty()) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, "Pointer: " << doc.getLastError());
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
-		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, "Pointer: " << _file << " root tag 'MyGUI' not found");
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
-		if ( (false == root->findAttribute("type", type)) || (type != "Pointer") ) {
-			MYGUI_LOG(Error, "Pointer: " << _file << " root type 'Pointer' not found");
+		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
 			return false;
 		}
 
+		_load(root, file);
+
+		return true;
+	}
+
+	void PointerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	{
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator pointer = root->getNodeIterator();
-		while (pointer.nextNode("Pointer")) {
+		xml::xmlNodeIterator pointer = _node->getNodeIterator();
+		while (pointer.nextNode(XML_TYPE)) {
 
 			// значения параметров
 			std::string layer, material, defaultPointer, tmp;
@@ -116,18 +125,14 @@ namespace MyGUI
 				mMapPointers[name] = PointerInfo(offset, point);
 
 			};
-
-			// проверяем и инициализируем
-			if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
-			// подсоединяем к уровням
-			LayerManager::getInstance().attachItem(this, mLayer);
-
-			this->defaultPointer();
-
-			return true; // нам нужен только один набор
 		};
 
-		return true;
+		// проверяем и инициализируем
+		if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
+		// подсоединяем к уровням
+		LayerManager::getInstance().attachItem(this, mLayer);
+
+		this->defaultPointer();
 	}
 
 	void PointerManager::clear()

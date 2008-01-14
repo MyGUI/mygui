@@ -34,6 +34,9 @@
 namespace MyGUI
 {
 
+	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
+	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
+
 	class _MyGUIExport Gui
 	{
 		friend class WidgetManager;
@@ -116,6 +119,12 @@ namespace MyGUI
 		inline void hidePointer() {mPointerManager->hide();}
 		inline bool isShowPointer() {return mPointerManager->isShow();}
 
+		// регестрирует делегат для парсинга блоков
+		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
+		void unregisterLoadXmlDelegate(const Ogre::String & _key);
+
+		bool load(const std::string & _file, bool _resource = true);
+
 	private:
 		// удяляет только негодных батюшке государю
 		void _destroyChildWidget(WidgetPtr _widget);
@@ -125,6 +134,8 @@ namespace MyGUI
 	private:
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
+		// карта с делегатами для парсинга хмл блоков
+		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		// размеры экрана
 		FloatSize mViewSize;

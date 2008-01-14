@@ -5,12 +5,14 @@
 	@module
 */
 #include "MyGUI_Font.h"
+#include "MyGUI_Gui.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_Common.h"
 #include "xmlDocument.h"
 
 namespace MyGUI
 {
+	const std::string XML_TYPE("Font");
 
 	INSTANCE_IMPLEMENT(FontManager);
 
@@ -18,6 +20,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
+		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -28,6 +32,8 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
@@ -35,32 +41,38 @@ namespace MyGUI
 	bool FontManager::load(const std::string& _file, bool _resource)
 	{
 		xml::xmlDocument doc;
-
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if ("" == file) {
-			MYGUI_LOG(Error, "Font: " << _file << " not found");
+		if (file.empty()) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, "Font: " << doc.getLastError());
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
-		if ( (root == 0) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, "Font: " << _file << " root tag 'MyGUI' not found");
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
-		if ( (false == root->findAttribute("type", type)) || (type != "Font") ) {
-			MYGUI_LOG(Error, "Font: " << _file << " root type 'Font' not found");
+		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
+			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
 			return false;
 		}
 
-		xml::xmlNodeIterator font = root->getNodeIterator();
+		_load(root, file);
 
-		while (font.nextNode("Font")) {
+		return true;
+	}
+
+	void FontManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	{
+
+		xml::xmlNodeIterator font = _node->getNodeIterator();
+		while (font.nextNode(XML_TYPE)) {
 
 			std::string source, name, size, resolution, antialias, space, tab, spacer;
 			if (false == font->findAttribute("name", name)) continue;
@@ -71,7 +83,7 @@ namespace MyGUI
 			font->findAttribute("antialias_colour", antialias);
 			font->findAttribute("space_width", space);
 			font->findAttribute("tab_count", tab);
-			font->findAttribute("spaser", spacer);
+			font->findAttribute("spacer", spacer);
 
 			FontPtr pFont = create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 			pFont->_notifyOrigin(_file);
@@ -102,8 +114,6 @@ namespace MyGUI
 				}
 			};
 		};
-
-		return true;
 	}
 
 	Ogre::Resource* FontManager::createImpl(const Ogre::String& name, Ogre::ResourceHandle handle,
