@@ -21,8 +21,8 @@
 #define INSTANCE_IMPLEMENT(type) \
 	type* type::msInstance = 0; \
 	type* type::getInstancePtr(void) {return msInstance;} \
-	type& type::getInstance(void) {MYGUI_ASSERT(0 != msInstance, "instance is not create");return (*msInstance);} \
-	type::type() : mIsInitialise(false) {MYGUI_ASSERT(0 == msInstance, "instance is exsist");msInstance=this;} \
+	type& type::getInstance(void) {MYGUI_ASSERT(0 != msInstance, "instance " << #type << " was not created");return (*msInstance);} \
+	type::type() : mIsInitialise(false) {MYGUI_ASSERT(0 == msInstance, "instance " << #type << " is exsist");msInstance=this;} \
 	type::~type() {msInstance=0;} \
 	const std::string INSTANCE_TYPE_NAME(#type);
 

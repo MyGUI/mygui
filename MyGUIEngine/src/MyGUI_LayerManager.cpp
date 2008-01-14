@@ -16,7 +16,7 @@ namespace MyGUI
 
 	void LayerManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
+		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().registerUnlinker(this);
@@ -115,7 +115,7 @@ namespace MyGUI
 	{
 		// это наш уровень
 		LayerInfoPtr layer = mMapLayer[_layer];
-		MYGUI_ASSERT(null != layer, "leyer '" << _layer << "' is not find");
+		MYGUI_ASSERT(null != layer, "layer '" << _layer << "' not find");
 		// запоминаем созданный айтем в виджете
 		layer->addItem(_item);
 		// добавляем уровень в карту поиска

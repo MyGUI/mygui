@@ -13,15 +13,6 @@
 
 namespace MyGUI
 {
-// dinamic library linking works for win32 only at the moment
-#if MYGUI_PLATFORM != MYGUI_PLATFORM_WIN32
-	DynLib::DynLib( const std::string& name )  {}
-	DynLib::~DynLib() {}
-	void DynLib::load() {}
-	void DynLib::unload() {}
-	void* DynLib::getSymbol( const std::string& strName ) const throw() { return NULL; }
-	std::string DynLib::dynlibError( void ) { return "no unix error function defined yet"; }
-#else
 	DynLib::DynLib( const std::string& name )
 	{
 		mName = name;
@@ -43,13 +34,7 @@ namespace MyGUI
 
 		mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( name.c_str() );
 
-		MYGUI_ASSERT(null != mInstance, "library is not load");/* && ("Could not load dynamic library " + mName +
-			".  System Error: " + dynlibError()));*/
-
-		/*if( !mInstance )
-			EXCEPT(Exception::ERR_INTERNAL_ERROR,
-			"Could not load dynamic library " + mName +
-			".  System Error: " + dynlibError(), "DynLib::load" );*/
+		MYGUI_ASSERT(null != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
 	}
 
 
@@ -60,14 +45,8 @@ namespace MyGUI
 
 		if( DYNLIB_UNLOAD( mInstance ) )
 		{
-			MYGUI_EXCEPT("error unload library");/* && ("Could not unload dynamic library " + mName +
-				".  System Error: " + dynlibError()));*/
-
-			/*EXCEPT(Exception::ERR_INTERNAL_ERROR,
-				"Could not unload dynamic library " + mName +
-				".  System Error: " + dynlibError(), "DynLib::unload");*/
+			MYGUI_EXCEPT("Could not unload dynamic library '" << mName << "'. System Error: " << dynlibError());
 		}
-
 	}
 
 	void* DynLib::getSymbol( const std::string& strName ) const throw()
@@ -94,8 +73,8 @@ namespace MyGUI
 		// Free the buffer.
 		LocalFree( lpMsgBuf );
 		return ret;
+	#else
+		return "no unix error function defined yet";
 	#endif
 	}
-
-#endif
 } // namespace MyGUI

@@ -24,7 +24,7 @@ namespace MyGUI
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
 
-		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
+		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 		MYGUI_LOG(Info, "* MyGUI version "

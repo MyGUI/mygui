@@ -56,7 +56,7 @@ namespace MyGUI
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
 		}
-		MYGUI_ASSERT(null != mButton, "child is not find");
+		MYGUI_ASSERT(null != mButton, "Child Button not found in skin (combobox must have Button)");
 
 		// корректируем высоту списка
 		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();

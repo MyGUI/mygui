@@ -117,7 +117,7 @@ namespace MyGUI
 	{
 		if (_child) {
 			// это к нам текст хочет прилипиться
-			MYGUI_ASSERT(mSubSkinChild.size() > 0, "child is not find");
+			MYGUI_ASSERT(mSubSkinChild.size() > 0, "Widget must have at least one subskin");
 			mSubSkinChild[0]->_attachChild(_basis, true);
 		} else {
 			// нет не к нам, а к нашему отцу

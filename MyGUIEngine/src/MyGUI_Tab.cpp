@@ -70,8 +70,8 @@ namespace MyGUI
 				mSheetTemplate->hide();
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetBar, "child is not find");
-		MYGUI_ASSERT(null != mSheetTemplate, "child is not find");
+		MYGUI_ASSERT(null != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
+		MYGUI_ASSERT(null != mSheetTemplate, "Child Widget Sheet not found in skin (Tab must have Sheet)");
 
 		// создаем виджет, носитель скина пустоты бара
 		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
@@ -331,7 +331,7 @@ namespace MyGUI
 
 	void Tab::setSheetButtonWidthIndex(size_t _index, int _width)
 	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
+		MYGUI_ASSERT(_index < mSheetsInfo.size(), "setSheetButtonWidthIndex: index '" << _index << "' out of range");
 
 		if (_width <= 0) {
 			if (mButtonAutoWidth) _width = getButtonWidthByName(mSheetsInfo[_index].name);
@@ -346,7 +346,7 @@ namespace MyGUI
 
 	void Tab::setSheetNameIndex(size_t _index, const Ogre::DisplayString& _name, int _width)
 	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
+		MYGUI_ASSERT(_index < mSheetsInfo.size(), "setSheetNameIndex: index '" << _index << "' out of range");
 		mSheetsInfo[_index].name = _name;
 
 		if (_width <= 0) {
@@ -384,7 +384,7 @@ namespace MyGUI
 
 	void Tab::removeSheetIndex(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
+		MYGUI_ASSERT(_index < mSheetsInfo.size(), "removeSheetIndex: index '" << _index << "' out of range");
 
 		// удаляем страницу
 		TabSheetInfo & info = mSheetsInfo[_index];
@@ -430,7 +430,7 @@ namespace MyGUI
 
 	void Tab::selectSheetIndex(size_t _index, bool _smoot)
 	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "index out of range");
+		MYGUI_ASSERT(_index < mSheetsInfo.size(), "selectSheetIndex: index '" << _index << "' out of range");
 		if (mSelectSheet == _index) return;
 		size_t old = mSelectSheet;
 		mSelectSheet = _index;

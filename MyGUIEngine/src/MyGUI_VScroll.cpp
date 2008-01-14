@@ -34,9 +34,9 @@ namespace MyGUI
 				mWidgetTrack->hide();
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetStart, "child is not find");
-		MYGUI_ASSERT(null != mWidgetEnd, "child is not find");
-		MYGUI_ASSERT(null != mWidgetTrack, "child is not find");
+		MYGUI_ASSERT(null != mWidgetStart, "Child Button Start not found in skin (VScroll must have Start)");
+		MYGUI_ASSERT(null != mWidgetEnd, "Child Button End not found in skin (VScroll must have End)");
+		MYGUI_ASSERT(null != mWidgetTrack, "Child Button Track not found in skin (VScroll must have Track)");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();

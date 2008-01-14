@@ -16,7 +16,7 @@ namespace MyGUI
 
 	void WidgetManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
+		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		registerUnlinker(this);
@@ -85,7 +85,7 @@ namespace MyGUI
 		Ogre::String name;
 		if (false == _name.empty()) {
 			MapWidgetPtr::iterator iter = mWidgets.find(_name);
-			MYGUI_ASSERT(iter == mWidgets.end(), "widget name '" << _name << "' is exist");
+			MYGUI_ASSERT(iter == mWidgets.end(), "widget with name '" << _name << "' already exist");
 			name = _name;
 		} else {
 			static long num=0;
@@ -154,7 +154,7 @@ namespace MyGUI
 	ParseDelegate & WidgetManager::registerDelegate(const Ogre::String & _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		MYGUI_ASSERT(iter == mDelegates.end(), "name delegate is exist");
+		MYGUI_ASSERT(iter == mDelegates.end(), "delegate with name '" << _key << "' already exist");
 		return (mDelegates[_key] = ParseDelegate());
 	}
 
@@ -167,7 +167,7 @@ namespace MyGUI
 	void WidgetManager::parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		MYGUI_ASSERT(iter != mDelegates.end(), "name delegate is not find");
+		MYGUI_ASSERT(iter != mDelegates.end(), "Unknown key '" << _key << "' with value '" << _value << "'");
 		iter->second(_widget, _key, _value);
 	}
 

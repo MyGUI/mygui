@@ -47,7 +47,7 @@ namespace MyGUI
 		mModeStatic(false)
 	{
 
-		MYGUI_ASSERT(null != mText, "text sub widget is not find");
+		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit must have TextEdit)");
 
 		mOriginalPointer = mPointer;
 
@@ -64,8 +64,7 @@ namespace MyGUI
 				mWidgetUpper->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetUpper, "child is not find");
-
+		MYGUI_ASSERT(null != mWidgetUpper, "Child Widget Client not found in skin (Edit must have Client)");
 		// курсор принадлежит клиенту, пытаемся его найти
 		const VectorWidgetPtr& childs = mWidgetUpper->getChilds();
 		for (VectorWidgetPtr::const_iterator iter=childs.begin(); iter!=childs.end(); ++iter) {
@@ -81,7 +80,7 @@ namespace MyGUI
 				break;
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetCursor, "child is not find");
+		MYGUI_ASSERT(null != mWidgetCursor, "Child Widget Cursor not found in skin in Client (Edit must have Cursor)");
 
 		// высчитываем половинки
 		mHalfCursor.set(mWidgetCursor->getWidth()/2, mWidgetCursor->getHeight()/2);

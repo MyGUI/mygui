@@ -25,7 +25,7 @@ namespace MyGUI
 
 	void InputManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
+		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mWidgetMouseFocus = 0;

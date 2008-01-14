@@ -17,7 +17,7 @@ namespace MyGUI
 
 	void PluginManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, "initialise already");
+		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PluginManager::_load);
@@ -41,7 +41,7 @@ namespace MyGUI
 	void PluginManager::loadPlugin(const std::string& _file)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, "is not initialised");
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
 		// Load plugin library
 		DynLib* lib = DynLibManager::getInstance().load( _file );
 		// Store for later unload
@@ -53,7 +53,7 @@ namespace MyGUI
 		/*Assert(pFunc, Exception::ERR_ITEM_NOT_FOUND, "Cannot find symbol dllStartPlugin in library " + fileName,
 			"PluginManager::loadPlugin");*/
 
-		MYGUI_ASSERT(null != pFunc, "Cannot find symbol dllStartPlugin in library " << _file);
+		MYGUI_ASSERT(null != pFunc, INSTANCE_TYPE_NAME << ":Cannot find symbol dllStartPlugin in library " << _file);
 
 		// This must call installPlugin
 		pFunc();
@@ -62,7 +62,7 @@ namespace MyGUI
 	void PluginManager::unloadPlugin(const std::string& _file)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, "is not initialised");
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
 
 		DynLibList::iterator it = mLibs.find(_file);
 		if (it != mLibs.end()) {
@@ -118,7 +118,7 @@ namespace MyGUI
 	void PluginManager::installPlugin(Plugin* _plugin)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, "is not initialised");
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
 
 		MYGUI_LOG(Info, "Installing plugin: " << _plugin->getName());
 
@@ -133,7 +133,7 @@ namespace MyGUI
 	void PluginManager::uninstallPlugin(Plugin* _plugin)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, "is not initialised");
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
 
 		MYGUI_LOG(Info, "Uninstalling plugin: " << _plugin->getName());
 		PluginList::iterator it = mPlugins.find(_plugin);
