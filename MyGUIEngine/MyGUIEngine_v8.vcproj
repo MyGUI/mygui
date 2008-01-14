@@ -189,22 +189,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<Filter
-				Name="DynLib"
-				>
-				<File
-					RelativePath=".\src\MyGUI_DynLib.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_DynLibManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_PluginManager.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Widget"
 				>
 				<File
@@ -376,6 +360,22 @@
 					>
 					<File
 						RelativePath=".\src\MyGUI_Font.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="DynLib"
+					>
+					<File
+						RelativePath=".\src\MyGUI_DynLib.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_DynLibManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_PluginManager.cpp"
 						>
 					</File>
 				</Filter>
@@ -607,26 +607,6 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="DynLib"
-				>
-				<File
-					RelativePath=".\include\MyGUI_DynLib.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_DynLibManager.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Plugin.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_PluginManager.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Core"
 				>
 				<File
@@ -846,6 +826,26 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_TextSimple.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="DynLib"
+					>
+					<File
+						RelativePath=".\include\MyGUI_DynLib.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_DynLibManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Plugin.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_PluginManager.h"
 						>
 					</File>
 				</Filter>

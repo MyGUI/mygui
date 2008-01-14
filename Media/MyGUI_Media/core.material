@@ -1,4 +1,4 @@
-material MyGUI_main
+material MyGUI_CoreMaterial
 {
 	technique
 	{
@@ -12,7 +12,7 @@ material MyGUI_main
 			texture_unit
 			{
 				filtering linear linear none
-				texture main.png
+				texture core.png
 			}
 		}
 	}

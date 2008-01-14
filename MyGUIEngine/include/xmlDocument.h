@@ -93,6 +93,7 @@ namespace xml
 		bool nextNode(const std::string & _name);
 
 		inline xmlNodePtr operator->() const {assert(m_current != m_end); return (*m_current);}
+		inline xmlNodePtr currentNode() {assert(m_current != m_end); return (*m_current);}
 
 	private:
 		bool m_first;

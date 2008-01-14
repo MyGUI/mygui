@@ -99,7 +99,7 @@ namespace MyGUI
 				return widget;
 			}
 		}
-		MYGUI_EXCEPT("factory '" << _type << "' is not find");
+		MYGUI_EXCEPT("factory '" << _type << "' not find");
 		return null;
 	}
 

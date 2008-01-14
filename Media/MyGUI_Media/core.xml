@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI>
+
+    <MyGUI type="List">
+	    <List file="core.lang" resource="true"/>
+	    <List file="core.layer" resource="true"/>
+	    <List file="core.skin" resource="true"/>
+	    <List file="core.font" resource="true"/>
+	    <List file="core.pointer" resource="true"/>
+	    <List file="core.plugin" resource="false"/>
+    </MyGUI>
+
+</MyGUI>

@@ -2,8 +2,8 @@
 
 <MyGUI type="Skin">
 
-    <Skin name = "Button" size = "54 26" material = "MyGUI_main">
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "Button" size = "54 26" material = "MyGUI_CoreMaterial">
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         
@@ -37,7 +37,7 @@
         </BasisSkin>
     </Skin>
     
-    <Skin name = "EditCursor" size = "2 19" material = "MyGUI_main" >
+    <Skin name = "EditCursor" size = "2 19" material = "MyGUI_CoreMaterial" >
         <Property key="Pointer" value = "beam" />
         <Property key="Show" value = "false" />
         
@@ -57,8 +57,8 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "Edit" size = "40 26" material = "MyGUI_main" >
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "Edit" size = "40 26" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
@@ -96,8 +96,8 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "EditStretch" size = "40 26" material = "MyGUI_main" >
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "EditStretch" size = "40 26" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
@@ -180,8 +180,8 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "ButtonSmall" size = "40 26" material = "MyGUI_main" >
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "ButtonSmall" size = "40 26" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "16" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -216,13 +216,13 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "DefaultClient" size = "16 16" material = "MyGUI_main">
+    <Skin name = "DefaultClient" size = "16 16" material = "MyGUI_CoreMaterial">
         <BasisSkin type="MainSkin" offset = "0 0 16 16">
             <State name="normal" offset = "413 4 96 59"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "Window" size = "27 54" material = "MyGUI_main" >
+    <Skin name = "Window" size = "27 54" material = "MyGUI_CoreMaterial" >
 
         <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
         </Child>
@@ -253,7 +253,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "WindowC" size = "27 54" material = "MyGUI_main" >
+    <Skin name = "WindowC" size = "27 54" material = "MyGUI_CoreMaterial" >
         <Property key="ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
@@ -289,7 +289,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "WindowCS" size = "27 54" material = "MyGUI_main" >
+    <Skin name = "WindowCS" size = "27 54" material = "MyGUI_CoreMaterial" >
         <Property key="ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
@@ -326,8 +326,8 @@
         </BasisSkin>
     </Skin>
     
-    <Skin name = "WindowCaption" size = "47 30" material = "MyGUI_main" >
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "WindowCaption" size = "47 30" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
 
@@ -349,7 +349,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "WindowX" size = "24 30" material = "MyGUI_main" >
+    <Skin name = "WindowX" size = "24 30" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 24 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 63 24 30"/>
             <State name="active" offset = "377 95 24 30"/>
@@ -357,7 +357,7 @@
         </BasisSkin>
     </Skin>
     
-    <Skin name = "WindowResize" size = "12 12" material = "MyGUI_main" >
+    <Skin name = "WindowResize" size = "12 12" material = "MyGUI_CoreMaterial" >
         <Property key="Pointer" value = "size_left" />
         
         <BasisSkin type="MainSkin" offset = "0 0 12 12" align = "ALIGN_LEFT ALIGN_TOP">
@@ -366,7 +366,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "VScrollTrack" size = "16 21" material = "MyGUI_main" >
+    <Skin name = "VScrollTrack" size = "16 21" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 16 21" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "163 64 16 21"/>
             <State name="active" offset = "181 64 16 21"/>
@@ -374,7 +374,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "VScrollTop" size = "16 16" material = "MyGUI_main" >
+    <Skin name = "VScrollTop" size = "16 16" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "163 2 16 16"/>
             <State name="active" offset = "181 2 16 16"/>
@@ -382,7 +382,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "VScrollBottom" size = "16 16" material = "MyGUI_main" >
+    <Skin name = "VScrollBottom" size = "16 16" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "163 46 16 16"/>
             <State name="active" offset = "181 46 16 16"/>
@@ -390,7 +390,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "VScroll" size = "16 60" material = "MyGUI_main" >
+    <Skin name = "VScroll" size = "16 60" material = "MyGUI_CoreMaterial" >
         <Property key="SkinTrackRange" value = "18 39" />
 
         <Child type="Button" skin="VScrollTop" offset = "0 0 16 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start">
@@ -416,7 +416,7 @@
     </Skin>
 
 
-    <Skin name = "HScrollTrack" size = "16 21" material = "MyGUI_main" >
+    <Skin name = "HScrollTrack" size = "16 21" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 21 16" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "174 105 21 16"/>
             <State name="active" offset = "174 123 21 16"/>
@@ -424,7 +424,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "HScrollLeft" size = "16 16" material = "MyGUI_main" >
+    <Skin name = "HScrollLeft" size = "16 16" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "155 87 16 16"/>
             <State name="active" offset = "155 105 16 16"/>
@@ -432,7 +432,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "HScrollRight" size = "16 16" material = "MyGUI_main" >
+    <Skin name = "HScrollRight" size = "16 16" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "199 87 16 16"/>
             <State name="active" offset = "199 105 16 16"/>
@@ -440,7 +440,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "HScroll" size = "60 16" material = "MyGUI_main" >
+    <Skin name = "HScroll" size = "60 16" material = "MyGUI_CoreMaterial" >
         <Property key="SkinTrackRange" value = "18 39" />
 
         <Child type="Button" skin="HScrollLeft" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Start">
@@ -466,10 +466,10 @@
     </Skin>
 
 
-    <Skin name = "ListLine" size = "5 5" material = "MyGUI_main" >
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "ListLine" size = "5 5" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_LEFT | ALIGN_VCENTER" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         
         <BasisSkin type="MainSkin" offset = "0 0 5 5">
             <State name="normal" offset = "149 26 5 5"/>
@@ -483,7 +483,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "List" size = "9 9" material = "MyGUI_main" align = "ALIGN_LEFT ALIGN_TOP">
+    <Skin name = "List" size = "9 9" material = "MyGUI_CoreMaterial" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="NeedKey" value = "true" />
         <Property key="SkinLine" value = "ListLine" />
         <Property key="HeightLine" value = "20" />
@@ -528,8 +528,8 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "StaticText" size = "16 16" material = "MyGUI_main">
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "StaticText" size = "16 16" material = "MyGUI_CoreMaterial">
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         
@@ -537,31 +537,31 @@
         <BasisSkin type="TextSimple" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
     </Skin>
 
-    <Skin name = "Separator4" size = "2 2" material = "MyGUI_main">
+    <Skin name = "Separator4" size = "2 2" material = "MyGUI_CoreMaterial">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
             <State name="normal" offset = "349 83 2 2"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "Separator3" size = "2 2" material = "MyGUI_main">
+    <Skin name = "Separator3" size = "2 2" material = "MyGUI_CoreMaterial">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
             <State name="normal" offset = "349 89 2 2"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "Separator2" size = "2 2" material = "MyGUI_main">
+    <Skin name = "Separator2" size = "2 2" material = "MyGUI_CoreMaterial">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
             <State name="normal" offset = "354 81 2 2"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "Separator1" size = "2 2" material = "MyGUI_main">
+    <Skin name = "Separator1" size = "2 2" material = "MyGUI_CoreMaterial">
         <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "ALIGN_STRETCH">
             <State name="normal" offset = "359 81 2 2"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "MarkerGreen" size = "1 1" material = "MyGUI_main" >
+    <Skin name = "MarkerGreen" size = "1 1" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "ALIGN_STRETCH">
             <State name="disable" offset = "560 37 1 1"/>
             <State name="normal" offset = "560 13 1 1"/>
@@ -569,7 +569,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "MarkerYellow" size = "1 1" material = "MyGUI_main" >
+    <Skin name = "MarkerYellow" size = "1 1" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "ALIGN_STRETCH">
             <State name="normal" offset = "560 37 1 1"/>
             <State name="active" offset = "560 29 1 1"/>
@@ -577,7 +577,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "ComboBoxButton" size = "17 21" material = "MyGUI_main">
+    <Skin name = "ComboBoxButton" size = "17 21" material = "MyGUI_CoreMaterial">
         <BasisSkin type="MainSkin" offset = "0 0 17 21" align = "ALIGN_STRETCH">
             <State name="disable" offset = "126 2 17 21"/>
             <State name="normal" offset = "126 25 17 21"/>
@@ -586,8 +586,8 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "ComboBox" size = "40 26" material = "MyGUI_main" >
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "ComboBox" size = "40 26" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
@@ -633,7 +633,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "WindowCSX" size = "27 54" material = "MyGUI_main" >
+    <Skin name = "WindowCSX" size = "27 54" material = "MyGUI_CoreMaterial" >
         <Property key="ToStick" value = "true" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 -6 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
@@ -683,7 +683,7 @@
     </Skin>
 
 
-    <Skin name = "StretchRectangle" size = "50 50" material = "MyGUI_main" >
+    <Skin name = "StretchRectangle" size = "50 50" material = "MyGUI_CoreMaterial" >
         <Property key="ToStick" value = "false" />
         <Property key="MainMove" value = "true" />
 
@@ -729,7 +729,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "TabRight" size = "13 19" material = "MyGUI_main" >
+    <Skin name = "TabRight" size = "13 19" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 13 19" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "311 80 13 19"/>
             <State name="active" offset = "311 59 13 19"/>
@@ -737,7 +737,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "TabLeft" size = "12 19" material = "MyGUI_main" >
+    <Skin name = "TabLeft" size = "12 19" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 12 19" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "287 80 12 19"/>
             <State name="active" offset = "287 59 12 19"/>
@@ -745,14 +745,14 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "TabPatch" size = "17 9" material = "MyGUI_main" >
+    <Skin name = "TabPatch" size = "17 9" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "0 0 17 9" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "290 21 17 9"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "TabButton" size = "60 28" material = "MyGUI_main" >
-        <Property key="FontName" value = "MyGUI_font" />
+    <Skin name = "TabButton" size = "60 28" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -780,13 +780,13 @@
 
     </Skin>
 
-    <Skin name = "TabEmpty" size = "27 28" material = "MyGUI_main" >
+    <Skin name = "TabEmpty" size = "27 28" material = "MyGUI_CoreMaterial" >
         <BasisSkin type="MainSkin" offset = "8 0 27 28" align = "ALIGN_STRETCH">
             <State name="normal" offset = "289 2 27 28"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "Tab" size = "43 51" material = "MyGUI_main" >
+    <Skin name = "Tab" size = "43 51" material = "MyGUI_CoreMaterial" >
         <Property key="OffsetBar" value = "17" />
         <Property key="ButtonSkin" value = "TabButton" />
         <Property key="EmptyBarSkin" value = "TabEmpty" />

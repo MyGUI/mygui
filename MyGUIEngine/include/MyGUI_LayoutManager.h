@@ -25,14 +25,15 @@ namespace MyGUI
 		void shutdown();
 
 		VectorWidgetPtr load(const std::string & _file, bool _resource = true);
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 	private:
-		void parseLayoutMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);
-		void parseLayoutCEGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);
-
-		void parseWidgetMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent);
-
+		void parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);
+		void parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent);
 		FloatCoord convertFromReal(const FloatCoord & _coord, WidgetPtr _parent);
+
+		// для возврата последней загрузки
+		VectorWidgetPtr mVectorWidgetPtr;
 		
 	}; // class LayoutManager
 

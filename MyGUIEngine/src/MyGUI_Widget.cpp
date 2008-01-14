@@ -20,7 +20,7 @@ namespace MyGUI
 		mText(null),
 		mEnabled(true),
 		mVisible(true),
-		mAlpha(1),
+		mAlpha(ALPHA_MAX),
 		mColour(Ogre::ColourValue::White),
 		mName(_name),
 		mCountSharedOverlay(0)
@@ -474,7 +474,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("Widget is not find");
+		MYGUI_EXCEPT("Widget not find");
 	}
 
 	// удаляет всех детей

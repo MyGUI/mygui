@@ -98,32 +98,7 @@ namespace MyGUI
 
 	bool SkinManager::load(const std::string & _file, bool _resource)
 	{
-		xml::xmlDocument doc;
-		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if (file.empty()) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
-			return false;
-		}
-		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
-			return false;
-		}
-
-		xml::xmlNodePtr root = doc.getRoot();
-		if ( (null == root) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
-			return false;
-		}
-
-		std::string type;
-		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
-			return false;
-		}
-
-		_load(root, file);
-
-		return true;
+		return Gui::getInstance()._loadImplement(_file, _resource, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void SkinManager::_load(xml::xmlNodePtr _node, const std::string & _file)

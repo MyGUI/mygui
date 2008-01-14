@@ -11,15 +11,11 @@
 namespace MyGUI
 {
 
+	const std::string XML_TYPE("List");
+
 	INSTANCE_IMPLEMENT(Gui);
 
-	void Gui::initialise(Ogre::RenderWindow* _window,
-		const std::string& _lang,
-		const std::string& _layer,
-		const std::string& _skin,
-		const std::string& _font,
-		const std::string& _pointer,
-		const std::string& _plugin)
+	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core)
 	{
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
@@ -34,6 +30,8 @@ namespace MyGUI
 
 		Ogre::Viewport * port = _window->getViewport(0);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
+
+		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &Gui::_load);
 
 		// регистрируем фабрику текста и панели
 		Ogre::OverlayManager &manager = Ogre::OverlayManager::getSingleton();
@@ -75,12 +73,9 @@ namespace MyGUI
 		mControllerManager->initialise();
 
 		// загружаем дефолтные настройки
-		/*mInputManager->*/load(_lang);
-		/*mLayerManager->*/load(_layer);
-		/*mSkinManager->*/load(_skin);
-		/*mFontManager->*/load(_font);
-		/*mPointerManager->*/load(_pointer);
-		/*mPluginManager->*/load(_plugin, false);
+		load(_core);
+
+		// показываем курсор
 		mPointerManager->show();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -92,6 +87,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		unregisterLoadXmlDelegate(XML_TYPE);
 		mListFrameListener.clear();
 		mMapLoadXmlDelegate.clear();
 
@@ -210,7 +206,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("Widget is not find");
+		MYGUI_EXCEPT("Widget not find");
 	}
 
 	// удаляет всех детей
@@ -236,20 +232,25 @@ namespace MyGUI
 
 	bool Gui::load(const std::string & _file, bool _resource)
 	{
+		return _loadImplement(_file, _resource, false, "", INSTANCE_TYPE_NAME);
+	}
+
+	bool Gui::_loadImplement(const std::string & _file, bool _resource, bool _match, const std::string & _type, const std::string & _instance)
+	{
 		xml::xmlDocument doc;
 		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
 		if (file.empty()) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
+			MYGUI_LOG(Error, _instance << " : '" << _file << "' not found");
 			return false;
 		}
 		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
+			MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
 			return false;
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
 		if ( (null == root) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
+			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
 			return false;
 		}
 
@@ -257,11 +258,51 @@ namespace MyGUI
 		if (root->findAttribute("type", type)) {
 			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 			if (iter != mMapLoadXmlDelegate.end()) {
-				(*iter).second(root, file);
+				if ((false == _match) || (type == _type)) (*iter).second(root, file);
+				else {
+					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not find");
+					return false;
+				}
+			}
+			else {
+				MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
+				return false;
+			}
+		}
+		// предпологаем что будут вложенные
+		else if (false == _match) {
+			xml::xmlNodeIterator node = root->getNodeIterator();
+			while (node.nextNode("MyGUI")) {
+				if (node->findAttribute("type", type)) {
+					MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
+					if (iter != mMapLoadXmlDelegate.end()) {
+						(*iter).second(node.currentNode(), file);
+					}
+					else {
+						MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
+					}
+				}
+				else {
+					MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'type' not find");
+				}
 			}
 		}
 
 		return true;
+	}
+
+	void Gui::_load(xml::xmlNodePtr _node, const std::string & _file)
+	{
+		// берем детей и крутимся, основной цикл
+		xml::xmlNodeIterator node = _node->getNodeIterator();
+		while (node.nextNode(XML_TYPE)) {
+			std::string source, resource;
+			if (false == node->findAttribute("file", source)) continue;
+			resource = node->findAttribute("resource");
+			bool res = resource.empty() ? true : util::parseBool(resource);
+			MYGUI_LOG(Info, "Load ini file '" << source << "' from " << (res ? "resource" : "current") << " path");
+			_loadImplement(source, res, false, "", INSTANCE_TYPE_NAME);
+		};
 	}
 
 } // namespace MyGUI

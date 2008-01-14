@@ -13,12 +13,16 @@
 namespace MyGUI
 {
 
+	const std::string XML_TYPE("Layout");
+
 	INSTANCE_IMPLEMENT(LayoutManager);
 
 	void LayoutManager::initialise()
 	{
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
+		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -29,59 +33,32 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
 	VectorWidgetPtr LayoutManager::load(const std::string & _file, bool _resource)
 	{
-		VectorWidgetPtr ret;
-		xml::xmlDocument doc;
-		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if (file.empty()) {
-			MYGUI_LOG(Error, "Layout: " << _file << " not found");
-			return ret;
-		}
-		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, doc.getLastError());
-			return ret;
-		}
-
-		xml::xmlNodePtr root = doc.getRoot();
-		if (root == 0) {
-			MYGUI_LOG(Error, "Layout: " << _file << " root tag not found");
-			return ret;
-		}
-
-		if (root->getName() == "MyGUI") {
-			std::string type;
-			if ((false == root->findAttribute("type", type)) || (type != "Layout")) {
-				MYGUI_LOG(Error, "Layout: " << _file << " root type 'Layout' not found");
-				return ret;
-			}
-			parseLayoutMyGUI(ret, root);
-		}
-		else if (root->getName() == "GUILayout") parseLayoutCEGUI(ret, root);
-		else {
-			MYGUI_LOG(Error, "Layout: " << _file << " root type 'GUILayout' or 'MyGUI' not found");
-			return ret;
-		}
-
-		return ret;
+		mVectorWidgetPtr.clear();
+		Gui::getInstance()._loadImplement(_file, _resource, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return mVectorWidgetPtr;
 	}
 
-	void LayoutManager::parseLayoutCEGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
+	void LayoutManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
+		parseLayout(mVectorWidgetPtr, _node);
 	}
 
-	void LayoutManager::parseLayoutMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
+	void LayoutManager::parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
 	{
 		// берем детей и крутимся
 		xml::xmlNodeIterator widget = _root->getNodeIterator();
-		while (widget.nextNode("Widget")) parseWidgetMyGUI(_widgets, widget, 0);
+		while (widget.nextNode("Widget")) parseWidget(_widgets, widget, 0);
 	}
 
-	void LayoutManager::parseWidgetMyGUI(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent)
+	void LayoutManager::parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent)
 	{
 		// парсим атрибуты виджета
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
@@ -109,7 +86,7 @@ namespace MyGUI
 
 			std::string key, value;
 
-			if (widget->getName() == "Widget") parseWidgetMyGUI(_widgets, widget, wid);
+			if (widget->getName() == "Widget") parseWidget(_widgets, widget, wid);
 			else if (widget->getName() == "Property") {
 
 				// парсим атрибуты

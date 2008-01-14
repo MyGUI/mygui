@@ -12,6 +12,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_FrameListener.h"
+#include "xmlDocument.h"
 
 #include "MyGUI_TextSimpleOverlayElementFactory.h"
 #include "MyGUI_TextEditOverlayElementFactory.h"
@@ -43,13 +44,7 @@ namespace MyGUI
 		INSTANCE_HEADER(Gui);
 
 	public:
-		void initialise(Ogre::RenderWindow* _window,
-			const std::string& _lang = "main.lang",
-			const std::string& _layer = "main.layer",
-			const std::string& _skin = "main.skin",
-			const std::string& _font = "main.font",
-			const std::string& _pointer = "main.pointer",
-			const std::string& _plugin = "main.plugin");
+		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml");
 		void shutdown();
 
 		// методы и шаблоны для создания виджета
@@ -124,6 +119,9 @@ namespace MyGUI
 		void unregisterLoadXmlDelegate(const Ogre::String & _key);
 
 		bool load(const std::string & _file, bool _resource = true);
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
+
+		bool _loadImplement(const std::string & _file, bool _resource, bool _match, const std::string & _type, const std::string & _instance);
 
 	private:
 		// удяляет только негодных батюшке государю

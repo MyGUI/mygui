@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 	const std::string XML_TYPE("Lang");
-	const std::string INPUT_DEFAULT_LANGUAGE = "English";
+	const std::string INPUT_DEFAULT_LANGUAGE("English");
 	const int INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
@@ -308,32 +308,7 @@ namespace MyGUI
 
 	bool InputManager::load(const std::string & _file, bool _resource)
 	{
-		xml::xmlDocument doc;
-		std::string file = (_resource ? helper::getResourcePath(_file) : _file).c_str();
-		if (file.empty()) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " not found");
-			return false;
-		}
-		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << doc.getLastError());
-			return false;
-		}
-
-		xml::xmlNodePtr root = doc.getRoot();
-		if ( (null == root) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root tag 'MyGUI' not found");
-			return false;
-		}
-
-		std::string type;
-		if ( (false == root->findAttribute("type", type)) || (type != XML_TYPE) ) {
-			MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : " << _file << " root type " << XML_TYPE << "not found");
-			return false;
-		}
-
-		_load(root, file);
-
-		return true;
+		return Gui::getInstance()._loadImplement(_file, _resource, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file)
