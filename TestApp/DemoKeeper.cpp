@@ -17,11 +17,6 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_HScroll.h"
 
-#include "OgreCodec.h"
-#include "OgreImageCodec.h"
-#include "OgreException.h"
-
-#include "OgreLogManager.h"
 #include <fstream>
 
 using namespace MyGUI;

@@ -9,8 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "OgreCodec.h"
-#include "OgreImageCodec.h"
+#include <OgreCodec.h>
+#include <OgreImageCodec.h>
 
 namespace MyGUI
 {

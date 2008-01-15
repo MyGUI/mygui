@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
-#include "Ogre.h"
+#include <Ogre.h>
 
 namespace helper
 {

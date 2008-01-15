@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Ogre.h>
-#include "OIS/OIS.h"
+#include <OIS/OIS.h>
 #include "EditorState.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE

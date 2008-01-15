@@ -9,11 +9,11 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "Ogre.h"
-#include "OgreResource.h"
-#include "OgreTexture.h"
-#include "OgreMaterial.h"
-#include "OgreCommon.h"
+#include <Ogre.h>
+#include <OgreResource.h>
+#include <OgreTexture.h>
+#include <OgreMaterial.h>
+#include <OgreCommon.h>
 
 namespace MyGUI
 {

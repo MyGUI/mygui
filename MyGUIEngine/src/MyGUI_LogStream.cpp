@@ -7,7 +7,7 @@
 #include "MyGUI_LogStream.h"
 #include "MyGUI_LogManager.h"
 #include <iomanip>
-#include "time.h"
+#include <time.h>
 
 namespace MyGUI
 {

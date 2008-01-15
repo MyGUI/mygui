@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_AlignInfo.h"
-#include "OgreColourValue.h"
+#include <OgreColourValue.h>
 
 namespace MyGUI
 {

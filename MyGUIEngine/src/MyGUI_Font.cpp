@@ -4,23 +4,23 @@
 	@date		11/2007
 	@module
 */
-#include "OgreStableHeaders.h"
+#include <OgreStableHeaders.h>
 
 #include "MyGUI_Font.h"
 #include "MyGUI_Common.h"
-#include "OgreMaterialManager.h"
-#include "OgreTextureManager.h"
-#include "OgreTexture.h"
-#include "OgreResourceGroupManager.h"
-#include "OgreStringConverter.h"
-#include "OgreRenderWindow.h"
-#include "OgreException.h"
-#include "OgreBlendMode.h"
-#include "OgreTextureUnitState.h"
-#include "OgreTechnique.h"
-#include "OgrePass.h"
-#include "OgreMaterial.h"
-#include "OgreBitwise.h"
+#include <OgreMaterialManager.h>
+#include <OgreTextureManager.h>
+#include <OgreTexture.h>
+#include <OgreResourceGroupManager.h>
+#include <OgreStringConverter.h>
+#include <OgreRenderWindow.h>
+#include <OgreException.h>
+#include <OgreBlendMode.h>
+#include <OgreTextureUnitState.h>
+#include <OgreTechnique.h>
+#include <OgrePass.h>
+#include <OgreMaterial.h>
+#include <OgreBitwise.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H

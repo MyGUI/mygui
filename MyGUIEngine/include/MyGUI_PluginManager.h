@@ -8,7 +8,7 @@
 #define __MYGUI_PLUGIN_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "Ogre.h"
+#include <Ogre.h>
 #include "MyGUI_Instance.h"
 #include "MyGUI_Plugin.h"
 #include "xmlDocument.h"

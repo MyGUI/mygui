@@ -9,9 +9,9 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "OgrePrerequisites.h"
-#include "OgreSingleton.h"
-#include "OgreResourceManager.h"
+#include <OgrePrerequisites.h>
+#include <OgreSingleton.h>
+#include <OgreResourceManager.h>
 #include "MyGUI_Font.h"
 #include "MyGUI_Instance.h"
 #include "xmlDocument.h"
