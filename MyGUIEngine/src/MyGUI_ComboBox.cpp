@@ -43,6 +43,7 @@ namespace MyGUI
 
 		// создаем список
 		mList = Gui::getInstance().createWidget<List>(listSkin, IntCoord(), ALIGN_DEFAULT, listLayer);
+		mList->_setOwner(this);
 		mList->hide();
 		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
 		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);

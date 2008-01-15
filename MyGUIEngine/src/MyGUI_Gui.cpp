@@ -135,7 +135,7 @@ namespace MyGUI
 
 	WidgetPtr Gui::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, 0, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		LayerManager::getInstance().attachItem(widget, _layer, true);

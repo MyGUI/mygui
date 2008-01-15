@@ -83,6 +83,13 @@ namespace MyGUI
 		LayerItemInfoPtr rootItem = null;
 		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
 
+		// спускаемся по владельцу
+		if (null != rootItem) {
+			while (null != static_cast<WidgetPtr>(rootItem)->_getOwner()) {
+				rootItem = static_cast<WidgetPtr>(rootItem)->_getOwner();
+			}
+		}
+
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) return isFocusMouse();
 
@@ -350,7 +357,7 @@ namespace MyGUI
 	{
 		// ищем рутовый фокус
 		WidgetPtr root = _widget;
-		if (root != null) { while (root->getParent() != null) root = root->getParent(); }
+		if (root != null) { while (root->_getOwner() != null) root = root->_getOwner(); }
 
 		// если рутовый фокус поменялся, то оповещаем
 		if (mWidgetRootKeyFocus != root) {

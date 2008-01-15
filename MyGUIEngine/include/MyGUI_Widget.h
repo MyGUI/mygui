@@ -127,6 +127,9 @@ namespace MyGUI
 
 		// закрываем метод базового класса
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
+		// дл€ поддержки окон напр€мую не €вл€ющиес€ детьми
+		inline WidgetPtr _getOwner() {return mOwner;}
+		inline void _setOwner(WidgetPtr _widget) {mOwner = _widget;}
 
 		// return copy
 		virtual VectorWidgetPtr getChilds();
@@ -205,6 +208,10 @@ namespace MyGUI
 		size_t mCountSharedOverlay;
 		// курсор который будет показан при наведении
 		std::string mPointer;
+
+		// дл€ поддержки окон, напр€мую не €вл€ющимис€ детьми
+		// всплывающие окна, списки комбобоксов и т.д.
+		WidgetPtr mOwner;
 
 	}; // class Widget
 
