@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Evmenov Georgiy
-	@date		11/2007
+	@author		Georgiy Evmenov
+	@date		01/2008
 	@module
 */
 #ifndef __MYGUI_H__

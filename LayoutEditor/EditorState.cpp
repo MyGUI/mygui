@@ -2,14 +2,7 @@
 #include "BasisManager.h"
 #include "EditorState.h"
 
-#include "MyGUI_Window.h"
-#include "MyGUI_Button.h"
-#include "MyGUI_Edit.h"
-#include "MyGUI_StaticText.h"
-#include "MyGUI_HScroll.h"
-#include "MyGUI_VScroll.h"
-#include "MyGUI_List.h"
-
+#include "MyGUI.h"
 
 #define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
 #define min(a,b)            (((a) < (b)) ? (a) : (b))

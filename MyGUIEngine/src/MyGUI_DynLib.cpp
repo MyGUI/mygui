@@ -1,6 +1,7 @@
 /*!
-	@file		DynLib.cpp
+	@file
 	@author		Denis Koronchik
+	@author		Georgiy Evmenov
 	@date		09/2007
 	@module
 */

@@ -1,8 +1,8 @@
-/*!	
-	@file		Prerequest.h
+/*!
+	@file
 	@author		Denis Koronchik
+	@author		Georgiy Evmenov
 	@date		09/2007
-	@module		
 */
 
 #ifndef __MYGUI_PREREQUEST_H__

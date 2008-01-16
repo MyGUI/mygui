@@ -1,6 +1,6 @@
 /*!
 	@file
-	@author		Albert Semenov
+	@author		Georgiy Evmenov
 	@date		11/2007
 	@module
 */

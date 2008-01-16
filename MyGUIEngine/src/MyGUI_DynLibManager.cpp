@@ -1,5 +1,5 @@
 /*!
-	@file		DynLibManager.cpp
+	@file
 	@author		Denis Koronchik
 	@date		09/2007
 	@module

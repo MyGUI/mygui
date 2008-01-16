@@ -1,5 +1,5 @@
 /*!
-	@file		DynlibManager.h
+	@file
 	@author		Denis Koronchik
 	@date		08/2007
 	@module		libEngine
