@@ -8,16 +8,11 @@
 #define __MYGUI_TAB_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_TabFactory.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_Button.h"
-#include "MyGUI_Sheet.h"
 
 namespace MyGUI
 {
 
-	class Sheet;
-	typedef Sheet* SheetPtr;
 	typedef std::vector<SheetPtr> VectorSheetPtr;
 
 	struct TabSheetInfo
@@ -54,13 +49,7 @@ namespace MyGUI
 
 		void _showSheet(SheetPtr _sheet, bool _show, bool _smooth);
 
-		inline void _createSheetButton()
-		{
-			ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
-			button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
-			button->setInternalData((int)mSheetButton.size()); // порядковый номер
-			mSheetButton.push_back(button);
-		}
+		void _createSheetButton();
 
 	public:
 		// тип данного виджета

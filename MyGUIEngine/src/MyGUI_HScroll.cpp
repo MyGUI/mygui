@@ -6,6 +6,7 @@
 */
 #include "MyGUI_HScroll.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_Button.h"
 
 namespace MyGUI
 {

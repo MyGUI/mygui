@@ -2,12 +2,12 @@
 #define __STRANGE_BUTTON_H__
 
 #include "MyGUI_Prerequest.h"
-#include "StrangeButtonFactory.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
 
+	namespace factory{class StrangeButtonFactory;}
 	class StrangeButton : public Widget
 	{
 		// для вызова закрытого конструктора

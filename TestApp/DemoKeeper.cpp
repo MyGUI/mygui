@@ -6,16 +6,7 @@
 */
 #include "DemoKeeper.h"
 
-#include "MyGUI_Gui.h"
-#include "MyGUI_Window.h"
-#include "MyGUI_Button.h"
-#include "MyGUI_Edit.h"
-#include "MyGUI_List.h"
-#include "MyGUI_ComboBox.h"
-#include "MyGUI_Tab.h"
-#include "MyGUI_Sheet.h"
-#include "MyGUI_VScroll.h"
-#include "MyGUI_HScroll.h"
+#include "MyGUI.h"
 
 #include <fstream>
 

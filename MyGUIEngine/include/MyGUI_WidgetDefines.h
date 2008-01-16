@@ -79,6 +79,9 @@ namespace MyGUI
 	typedef std::vector<WidgetPtr> VectorWidgetPtr;
 	typedef std::map<std::string, WidgetPtr> MapWidgetPtr;
 
+	class SubWidgetTextInterface;
+	typedef SubWidgetTextInterface * SubWidgetTextPtr;
+
 } // namespace MyGUI
 
 #endif // __MYGUI_WIDGET_DEFINES_H__

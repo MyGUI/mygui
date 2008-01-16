@@ -8,6 +8,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderOut.h"

@@ -1,6 +1,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "StrangeButton.h"
+#include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_SubWidgetTextInterface.h"
 
 namespace MyGUI
 {

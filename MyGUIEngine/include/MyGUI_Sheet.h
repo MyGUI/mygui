@@ -8,14 +8,10 @@
 #define __MYGUI_SHEET_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_SheetFactory.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_Tab.h"
 
 namespace MyGUI
 {
-
-	class Tab;
 
 	class _MyGUIExport Sheet : public Widget
 	{
@@ -56,7 +52,7 @@ namespace MyGUI
 		void removeSheet();
 
 	private:
-		Tab * mOwner;
+		TabPtr mOwner;
 
 	}; // class _MyGUIExport Sheet : public Widget
 

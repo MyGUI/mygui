@@ -8,7 +8,6 @@
 #define __MYGUI_INPUT_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
@@ -20,7 +19,7 @@ namespace MyGUI
 {
 
 	// делегат для смены оповещения смены языков
-	typedef delegates::CDelegate1<const std::string &> EventChangeLanguage;
+	typedef delegates::CDelegate1<const std::string &> EventInfo_String;
 
 	class _MyGUIExport InputManager : public FrameListener, public UnlinkWidget
 	{
@@ -65,7 +64,7 @@ namespace MyGUI
 		void _unlinkWidget(WidgetPtr _widget);
 
 		// событие смены языков
-		EventChangeLanguage eventChangeLanguage;
+		EventInfo_String eventChangeLanguage;
 
 	protected:
 		void _frameEntered(float _frame);

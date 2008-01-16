@@ -8,14 +8,10 @@
 #define __MYGUI_HSCROLL_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_HScrollFactory.h"
 #include "MyGUI_VScroll.h"
 
 namespace MyGUI
 {
-
-	class HScroll;
-	typedef HScroll * HScrollPtr;
 
 	class _MyGUIExport HScroll : public VScroll
 	{

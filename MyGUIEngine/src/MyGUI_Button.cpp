@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_Button.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {

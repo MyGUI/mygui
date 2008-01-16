@@ -10,6 +10,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ClipboardManager.h"
 #include "MyGUI_PointerManager.h"
+#include "MyGUI_SubWidgetTextInterface.h"
 
 namespace MyGUI
 {
@@ -583,6 +584,14 @@ namespace MyGUI
 		return true;
 	}
 
+	void Edit::resetSelect()
+	{
+		if (mStartSelect != ITEM_NONE) {
+			mStartSelect = ITEM_NONE;
+			mText->setTextSelect(0, 0);
+		}
+	}
+
 	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info)
 	{
 		if (_info != null) 	_info->push_back(tagChangeInfo(_undo, _redo, _length));
@@ -873,6 +882,24 @@ namespace MyGUI
 		else {_start = mStartSelect; _end = mEndSelect;}
 	}
 
+	void Edit::setEditPassword(bool _password)
+	{
+		if (mModePassword == _password) return;
+		mModePassword = _password;
+		if (mModePassword) {
+			mPasswordText = mText->getCaption();
+			mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
+		}
+		else {
+			mText->setCaption(mPasswordText);
+			mPasswordText.clear();
+		}
+		// обновляем по размерам
+		updateView(false);
+		// сбрасываем историю
+		commandResetHistory();
+	}
+
 	void Edit::setText(const Ogre::DisplayString & _caption, bool _history)
 	{
 		// сбрасываем выделение
@@ -1110,6 +1137,23 @@ namespace MyGUI
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
 			// отсылаем событие о изменении
 			eventEditTextChange(this);
+		}
+	}
+
+	const Ogre::DisplayString & Edit::getRealString()
+	{
+		if (mModePassword) return mPasswordText;
+		return mText->getCaption();
+	}
+
+	void Edit::setRealString(const Ogre::DisplayString & _caption)
+	{
+		if (mModePassword) {
+			mPasswordText = _caption;
+			mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
+		}
+		else {
+			mText->setCaption(_caption);
 		}
 	}
 

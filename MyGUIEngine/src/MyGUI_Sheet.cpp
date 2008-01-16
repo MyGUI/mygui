@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_Sheet.h"
+#include "MyGUI_Tab.h"
 
 namespace MyGUI
 {

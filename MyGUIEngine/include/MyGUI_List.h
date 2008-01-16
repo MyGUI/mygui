@@ -8,15 +8,10 @@
 #define __MYGUI_LIST_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_ListFactory.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_VScroll.h"
 
 namespace MyGUI
 {
-
-	class List;
-	typedef List * ListPtr;
 
 	class _MyGUIExport List : public Widget
 	{
@@ -82,15 +77,15 @@ namespace MyGUI
 
 		// event : нажат ентер, или двойной щелчек
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventInfo_Void eventListSelectAccept;
+		EventInfo_WidgetVoid eventListSelectAccept;
 
 		// event : изменилась позиция
 		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
-		EventInfo_SizeT eventListChangePosition;
+		EventInfo_WidgetSizeT eventListChangePosition;
 
 		// event : мышью выделен элемент
 		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
-		EventInfo_SizeT eventListMouseItemActivate;
+		EventInfo_WidgetSizeT eventListMouseItemActivate;
 
 	protected:
 

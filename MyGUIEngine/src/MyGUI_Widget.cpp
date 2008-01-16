@@ -4,10 +4,14 @@
 	@date		11/2007
 	@module
 */
-#include "MyGUI_Widget.h"
-#include "MyGUI_SkinManager.h"
-#include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_Widget.h"
+#include "MyGUI_InputManager.h"
+#include "MyGUI_SkinManager.h"
+#include "MyGUI_SubWidgetManager.h"
+#include "MyGUI_WidgetManager.h"
+#include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {

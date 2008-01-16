@@ -22,14 +22,71 @@
 namespace MyGUI
 {
 	class Gui;
-	class InputManager;
 	class DynLib;
 	class Plugin;
-	class WidgetSkinInfo;
-	class WidgetManager;
-	class LayerManager;
 
+	class WidgetSkinInfo;
 	using delegates::newDelegate;
+	class MaskPeekInfo;
+	class PanelAlphaOverlayElement;
+
+	// managers
+	class InputManager;
+	class SubWidgetManager;
+	class ClipboardManager;
+	class LayerManager;
+	class SkinManager;
+	class WidgetManager;
+	class LayoutManager;
+	class FontManager;
+	class PointerManager;
+	class DynLibManager;
+	class PluginManager;
+	class ControllerManager;
+
+	// widgets
+	class Button;
+	class ComboBox;
+	class Edit;
+	class HScroll;
+	class List;
+	class Sheet;
+	class StaticImage;
+	class StaticText;
+	class Tab;
+	class VScroll;
+	class Window;
+
+	// widget pointers
+	typedef Button* ButtonPtr;
+	typedef ComboBox* ComboBoxPtr;
+	typedef Edit * EditPtr;
+	typedef HScroll * HScrollPtr;
+	typedef List * ListPtr;
+	typedef Sheet * SheetPtr;
+	typedef StaticImage * StaticImagePtr;
+	typedef StaticText* StaticTextPtr;
+	typedef Tab* TabPtr;
+	typedef VScroll* VScrollPtr;
+	typedef Window * WindowPtr;
+
+	class WidgetFactoryInterface;
+	namespace factory{
+		class WidgetFactory;
+		class ButtonFactory;
+		class ComboBoxFactory;
+		class EditFactory;
+		class HScrollFactory;
+		class ListFactory;
+		class SheetFactory;
+		class StaticImageFactory;
+		class StaticTextFactory;
+		class TabFactory;
+		class VScrollFactory;
+		class WidgetFactory;
+		class WindowFactory;
+		class StrangeButtonFactory;
+	}
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2

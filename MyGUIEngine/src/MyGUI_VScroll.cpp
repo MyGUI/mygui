@@ -7,6 +7,8 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_CastWidget.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {

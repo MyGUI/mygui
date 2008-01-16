@@ -8,7 +8,6 @@
 #define __MYGUI_EDIT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_EditFactory.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
@@ -16,9 +15,6 @@
 
 namespace MyGUI
 {
-
-	class Edit;
-	typedef Edit * EditPtr;
 
 	class _MyGUIExport Edit : public Widget, public FrameListener
 	{
@@ -90,23 +86,7 @@ namespace MyGUI
 		}
 
 		inline bool getEditPassword() {return mModePassword;}
-		inline void setEditPassword(bool _password)
-		{
-			if (mModePassword == _password) return;
-			mModePassword = _password;
-			if (mModePassword) {
-				mPasswordText = mText->getCaption();
-				mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
-			}
-			else {
-				mText->setCaption(mPasswordText);
-				mPasswordText.clear();
-			}
-			// обновляем по размерам
-			updateView(false);
-			// сбрасываем историю
-			commandResetHistory();
-		}
+		void setEditPassword(bool _password);
 
 		inline bool getEditMultiLine() {return mModeMultiline;}
 		inline void setEditMultiLine(bool _multi)
@@ -150,11 +130,11 @@ namespace MyGUI
 
 		// event : нажат ентер, или сонтрол энтер в мультилайн
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventInfo_Void eventEditSelectAccept;
+		EventInfo_WidgetVoid eventEditSelectAccept;
 
 		// event : изменился текст
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventInfo_Void eventEditTextChange;
+		EventInfo_WidgetVoid eventEditTextChange;
 
 	protected:
 
@@ -209,13 +189,7 @@ namespace MyGUI
 			return point;
 		}
 
-		inline void resetSelect()
-		{
-			if (mStartSelect != ITEM_NONE) {
-				mStartSelect = ITEM_NONE;
-				mText->setTextSelect(0, 0);
-			}
-		}
+		void resetSelect();
 
 		// запись в историю данных о позиции
 		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info = null);
@@ -236,22 +210,9 @@ namespace MyGUI
 		void commandPast();
 
 
-		inline const Ogre::DisplayString & getRealString()
-		{
-			if (mModePassword) return mPasswordText;
-			return mText->getCaption();
-		}
+		const Ogre::DisplayString & getRealString();
 
-		inline void setRealString(const Ogre::DisplayString & _caption)
-		{
-			if (mModePassword) {
-				mPasswordText = _caption;
-				mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
-			}
-			else {
-				mText->setCaption(_caption);
-			}
-		}
+		void setRealString(const Ogre::DisplayString & _caption);
 
 
 	protected:

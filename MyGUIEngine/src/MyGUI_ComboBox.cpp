@@ -5,9 +5,14 @@
 	@module
 */
 #include "MyGUI_ComboBox.h"
+#include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_List.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
@@ -242,6 +247,53 @@ namespace MyGUI
 				mList, new ControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
 		}
 		else mList->hide();
+	}
+
+	void ComboBox::setComboItemIndex(size_t _index)
+	{
+		MYGUI_ASSERT(_index < mList->getItemCount(), "setComboItemIndex: index " << _index <<" out of range");
+		mItemIndex = _index;
+		Edit::setCaption(mList->getItemString(_index));
+	}
+
+	size_t ComboBox::getItemCount()
+	{
+		return mList->getItemCount();
+	}
+
+	const Ogre::DisplayString & ComboBox::getItemString(size_t _index)
+	{
+		MYGUI_ASSERT(_index < mList->getItemCount(), "getItemString: index " << _index <<" out of range");
+		return mList->getItemString(_index);
+	}
+
+	void ComboBox::setItemString(size_t _index, const Ogre::DisplayString & _item)
+	{
+		MYGUI_ASSERT(_index < mList->getItemCount(), "setItemString: index " << _index <<" out of range");
+		mList->setItemString(_index, _item);
+		mItemIndex = ITEM_NONE;
+		mList->setItemSelect(mItemIndex);
+	}
+
+	void ComboBox::insertItemString(size_t _index, const Ogre::DisplayString & _item)
+	{
+		mList->insertItemString(_index, _item);
+		mItemIndex = ITEM_NONE;
+		mList->setItemSelect(mItemIndex);
+	}
+
+	void ComboBox::deleteItemString(size_t _index)
+	{
+		mList->deleteItemString(_index);
+		mItemIndex = ITEM_NONE;
+		mList->setItemSelect(mItemIndex);
+	}
+
+	void ComboBox::addItemString(const Ogre::DisplayString& _item)
+	{
+		mList->addItemString(_item);
+		mItemIndex = ITEM_NONE;
+		mList->setItemSelect(mItemIndex);
 	}
 
 } // namespace MyGUI

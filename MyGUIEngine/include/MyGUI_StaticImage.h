@@ -8,15 +8,10 @@
 #define __MYGUI_STATIC_IMAGE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_StaticImageFactory.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_PanelAlphaOverlayElement.h"
 
 namespace MyGUI
 {
-
-	class StaticImage;
-	typedef StaticImage * StaticImagePtr;
 
 	class _MyGUIExport StaticImage : public Widget
 	{

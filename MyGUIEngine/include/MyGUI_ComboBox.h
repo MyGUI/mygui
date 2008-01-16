@@ -8,16 +8,10 @@
 #define __MYGUI_COMBO_BOX_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_ComboBoxFactory.h"
 #include "MyGUI_Edit.h"
-#include "MyGUI_List.h"
-#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
-
-	class ComboBox;
-	typedef ComboBox* ComboBoxPtr;
 
 	class _MyGUIExport ComboBox : public Edit
 	{
@@ -46,12 +40,7 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("ComboBox"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		inline void setComboItemIndex(size_t _index)
-		{
-			MYGUI_ASSERT(_index < mList->getItemCount(), "setComboItemIndex: index " << _index <<" out of range");
-			mItemIndex = _index;
-			Edit::setCaption(mList->getItemString(_index));
-		}
+		void setComboItemIndex(size_t _index);
 
 		inline size_t getComboItemIndex()
 		{
@@ -69,45 +58,17 @@ namespace MyGUI
 			return mModeDrop;
 		}
 
-		inline size_t getItemCount()
-		{
-			return mList->getItemCount();
-		}
+		size_t getItemCount();
 
-		inline const Ogre::DisplayString & getItemString(size_t _index)
-		{
-			MYGUI_ASSERT(_index < mList->getItemCount(), "getItemString: index " << _index <<" out of range");
-			return mList->getItemString(_index);
-		}
+		const Ogre::DisplayString & getItemString(size_t _index);
 
-		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
-		{
-			MYGUI_ASSERT(_index < mList->getItemCount(), "setItemString: index " << _index <<" out of range");
-			mList->setItemString(_index, _item);
-			mItemIndex = ITEM_NONE;
-			mList->setItemSelect(mItemIndex);
-		}
+		void setItemString(size_t _index, const Ogre::DisplayString & _item);
 
-		void insertItemString(size_t _index, const Ogre::DisplayString & _item)
-		{
-			mList->insertItemString(_index, _item);
-			mItemIndex = ITEM_NONE;
-			mList->setItemSelect(mItemIndex);
-		}
+		void insertItemString(size_t _index, const Ogre::DisplayString & _item);
 
-		void deleteItemString(size_t _index)
-		{
-			mList->deleteItemString(_index);
-			mItemIndex = ITEM_NONE;
-			mList->setItemSelect(mItemIndex);
-		}
+		void deleteItemString(size_t _index);
 
-		inline void addItemString(const Ogre::DisplayString& _item)
-		{
-			mList->addItemString(_item);
-			mItemIndex = ITEM_NONE;
-			mList->setItemSelect(mItemIndex);
-		}
+		void addItemString(const Ogre::DisplayString& _item);
 
 		inline void setSmoothShow(bool _smooth)
 		{
@@ -121,11 +82,11 @@ namespace MyGUI
 
 		// event : нажат энтер в комбо режиме или выбран айтем в дроп режиме
 		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventInfo_Void eventComboAccept;
+		EventInfo_WidgetVoid eventComboAccept;
 
 		// event : изменилась позиция
 		// signature : void method(MyGUI::WidgetPtr _widget, size_t _index)
-		EventInfo_SizeT eventComboChangePosition;
+		EventInfo_WidgetSizeT eventComboChangePosition;
 
 	private:
 		ButtonPtr mButton;

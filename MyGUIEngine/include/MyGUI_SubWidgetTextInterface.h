@@ -13,9 +13,6 @@
 namespace MyGUI
 {
 
-	class SubWidgetTextInterface;
-	typedef SubWidgetTextInterface * SubWidgetTextPtr;
-
 	class _MyGUIExport SubWidgetTextInterface : public CroppedRectangleInterface
 	{
 	public:

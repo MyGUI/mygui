@@ -8,14 +8,10 @@
 #define __MYGUI_STATIC_TEXT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_StaticTextFactory.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
-
-	class StaticText;
-	typedef StaticText* StaticTextPtr;
 
 	class _MyGUIExport StaticText : public Widget
 	{

@@ -8,15 +8,10 @@
 #define __MYGUI_VSCROLL_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_VScrollFactory.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
-
-	class VScroll;
-	typedef VScroll* VScrollPtr;
 
 	class _MyGUIExport VScroll : public Widget
 	{
@@ -56,7 +51,7 @@ namespace MyGUI
 
 		// event : изменилось положение скрола
 		// signature : void method(MyGUI::WidgetPtr _widget, int _position)
-		EventInfo_Int eventScrollChangePosition;
+		EventInfo_WidgetInt eventScrollChangePosition;
 
 	protected:
 		// наши кнопки

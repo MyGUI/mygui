@@ -6,7 +6,20 @@
 */
 #include "MyGUI_Gui.h"
 #include "MyGUI_Widget.h"
+
+#include "MyGUI_InputManager.h"
+#include "MyGUI_SubWidgetManager.h"
+#include "MyGUI_ClipboardManager.h"
+#include "MyGUI_LayerManager.h"
 #include "MyGUI_LogManager.h"
+#include "MyGUI_SkinManager.h"
+#include "MyGUI_WidgetManager.h"
+#include "MyGUI_LayoutManager.h"
+#include "MyGUI_FontManager.h"
+#include "MyGUI_PointerManager.h"
+#include "MyGUI_PluginManager.h"
+#include "MyGUI_DynLibManager.h"
+#include "MyGUI_ControllerManager.h"
 
 namespace MyGUI
 {
@@ -133,33 +146,6 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	WidgetPtr Gui::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
-	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, _name);
-		mWidgetChild.push_back(widget);
-		// присоединяем виджет с уровню
-		LayerManager::getInstance().attachItem(widget, _layer, true);
-		return widget;
-	}
-
-	WidgetPtr Gui::findWidgetT(const std::string& _name)
-    {
-        return mWidgetManager->findWidgetT(_name);
-    }
-
-	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
-	{
-		// сначала рассылаем
-		ListFrameListener::iterator iter=mListFrameListener.begin();
-		while (iter != mListFrameListener.end()) {
-			if (null == (*iter)) iter = mListFrameListener.erase(iter);
-			else {
-				(*iter)->_frameEntered(timeSinceLastFrame);
-				++iter;
-			}
-		};
-	}
-
 	void Gui::addFrameListener(FrameListener * _listener)
 	{
 		if (null == _listener) return;
@@ -179,6 +165,44 @@ namespace MyGUI
 			}
 		}
 	}
+
+	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
+	{
+		// сначала рассылаем
+		ListFrameListener::iterator iter=mListFrameListener.begin();
+		while (iter != mListFrameListener.end()) {
+			if (null == (*iter)) iter = mListFrameListener.erase(iter);
+			else {
+				(*iter)->_frameEntered(timeSinceLastFrame);
+				++iter;
+			}
+		};
+	}
+
+	bool Gui::injectMouseMove( const OIS::MouseEvent & _arg) {return mInputManager->injectMouseMove(_arg);}
+	bool Gui::injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return mInputManager->injectMousePress(_arg, _id);}
+	bool Gui::injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return mInputManager->injectMouseRelease(_arg, _id);}
+
+	bool Gui::injectKeyPress(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyPress(_arg);}
+	bool Gui::injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
+
+	WidgetPtr Gui::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
+	{
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, _name);
+		mWidgetChild.push_back(widget);
+		// присоединяем виджет с уровню
+		LayerManager::getInstance().attachItem(widget, _layer, true);
+		return widget;
+	}
+
+	WidgetPtr Gui::findWidgetT(const std::string& _name)
+	{
+		return mWidgetManager->findWidgetT(_name);
+	}
+
+	void Gui::showPointer() {mPointerManager->show();}
+	void Gui::hidePointer() {mPointerManager->hide();}
+	bool Gui::isShowPointer() {return mPointerManager->isShow();}
 
 	LoadXmlDelegate & Gui::registerLoadXmlDelegate(const Ogre::String & _key)
 	{
@@ -303,5 +327,11 @@ namespace MyGUI
 			_loadImplement(source, group, false, "", INSTANCE_TYPE_NAME);
 		};
 	}
+
+	VectorWidgetPtr Gui::loadLayout(const std::string & _file, const std::string & _group)
+	{
+		return mLayoutManager->load(_file, _group);
+	}
+
 
 } // namespace MyGUI

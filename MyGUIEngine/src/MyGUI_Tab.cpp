@@ -6,8 +6,12 @@
 */
 #include "MyGUI_Tab.h"
 #include "MyGUI_CastWidget.h"
+#include "MyGUI_ControllerManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_Sheet.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
@@ -479,6 +483,14 @@ namespace MyGUI
 
 		if (_show) ControllerManager::getInstance().addItem(_sheet, new ControllerFadeAlpha(ALPHA_MAX, TAB_SPEED_FADE_COEF, ControllerFadeAlpha::ACTION_NONE, true));
 		else ControllerManager::getInstance().addItem(_sheet, new ControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+	}
+
+	void Tab::_createSheetButton()
+	{
+		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
+		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
+		button->setInternalData((int)mSheetButton.size()); // порядковый номер
+		mSheetButton.push_back(button);
 	}
 
 	int Tab::getButtonWidthByName(const Ogre::DisplayString& _text)

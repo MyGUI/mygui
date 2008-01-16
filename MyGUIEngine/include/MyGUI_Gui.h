@@ -14,23 +14,12 @@
 #include "MyGUI_FrameListener.h"
 #include "xmlDocument.h"
 
+#include "MyGUI_WidgetOIS.h"
+
 #include "MyGUI_TextSimpleOverlayElementFactory.h"
 #include "MyGUI_TextEditOverlayElementFactory.h"
 #include "MyGUI_PanelAlphaOverlayElementFactory.h"
 #include "MyGUI_SharedPanelAlphaOverlayElementFactory.h"
-
-#include "MyGUI_InputManager.h"
-#include "MyGUI_SubWidgetManager.h"
-#include "MyGUI_ClipboardManager.h"
-#include "MyGUI_LayerManager.h"
-#include "MyGUI_SkinManager.h"
-#include "MyGUI_WidgetManager.h"
-#include "MyGUI_LayoutManager.h"
-#include "MyGUI_FontManager.h"
-#include "MyGUI_PointerManager.h"
-#include "MyGUI_PluginManager.h"
-#include "MyGUI_DynLibManager.h"
-#include "MyGUI_ControllerManager.h"
 
 namespace MyGUI
 {
@@ -92,12 +81,12 @@ namespace MyGUI
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
 
 		// mirror InputManager
-		inline bool injectMouseMove( const OIS::MouseEvent & _arg) {return mInputManager->injectMouseMove(_arg);}
-		inline bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return mInputManager->injectMousePress(_arg, _id);}
-		inline bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return mInputManager->injectMouseRelease(_arg, _id);}
+		bool injectMouseMove( const OIS::MouseEvent & _arg);
+		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
+		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
 
-		inline bool injectKeyPress(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyPress(_arg);}
-		inline bool injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
+		bool injectKeyPress(const OIS::KeyEvent & _arg);
+		bool injectKeyRelease(const OIS::KeyEvent & _arg);
 
 		void destroyAllWidget();
 		void destroyWidget(WidgetPtr _widget);
@@ -116,9 +105,9 @@ namespace MyGUI
 		}
 
 		// mirror PointerManager
-		inline void showPointer() {mPointerManager->show();}
-		inline void hidePointer() {mPointerManager->hide();}
-		inline bool isShowPointer() {return mPointerManager->isShow();}
+		void showPointer();
+		void hidePointer();
+		bool isShowPointer();
 
 		// регестрирует делегат для парсинга блоков
 		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
@@ -130,7 +119,7 @@ namespace MyGUI
 		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
 
 		// mirror LayoutManager
-		inline VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) {return mLayoutManager->load(_file, _group);}
+		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 	private:
 		// удяляет только негодных батюшке государю

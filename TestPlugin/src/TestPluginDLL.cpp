@@ -1,6 +1,5 @@
 #include "TestPlugin.h"
 #include "MyGUI_PluginManager.h"
-#include "MyGUI_Platform.h"
 
 TestPlugin *plugin = 0;
 

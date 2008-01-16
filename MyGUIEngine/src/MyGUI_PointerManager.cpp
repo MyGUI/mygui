@@ -4,6 +4,8 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Gui.h"
+#include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"

@@ -8,10 +8,8 @@
 #define __MYGUI_POINTER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Platform.h"
 #include "MyGUI_Instance.h"
 #include <OgrePanelOverlayElement.h>
-#include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerInfo.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_UnlinkWidget.h"

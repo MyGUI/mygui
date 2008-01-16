@@ -4,10 +4,24 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_PointerManager.h"
+
+#include "MyGUI_WidgetFactory.h"
+#include "MyGUI_ButtonFactory.h"
+#include "MyGUI_EditFactory.h"
+#include "MyGUI_ListFactory.h"
+#include "MyGUI_StaticImageFactory.h"
+#include "MyGUI_StaticTextFactory.h"
+#include "MyGUI_VScrollFactory.h"
+#include "MyGUI_HScrollFactory.h"
+#include "MyGUI_WindowFactory.h"
+#include "MyGUI_ComboBoxFactory.h"
+#include "MyGUI_TabFactory.h"
+#include "MyGUI_SheetFactory.h"
 
 namespace MyGUI
 {

@@ -6,6 +6,7 @@
 */
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {

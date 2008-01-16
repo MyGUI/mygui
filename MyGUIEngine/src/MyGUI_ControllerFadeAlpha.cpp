@@ -8,6 +8,7 @@
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI

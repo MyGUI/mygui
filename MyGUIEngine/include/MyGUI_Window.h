@@ -8,16 +8,12 @@
 #define __MYGUI_WINDOW_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_WindowFactory.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
 
-	class Window;
-	typedef Window * WindowPtr;
-
-	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventButtonPressedInfo;
+	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventInfo_WidgetString;
 
 	class _MyGUIExport Window : public Widget
 	{
@@ -72,7 +68,7 @@ namespace MyGUI
 
 		// event : нажат на кнопку в окне
 		// signature : void method(MyGUI::WidgetPtr _widget, const std::string& _name)
-		EventButtonPressedInfo eventWindowButtonPressed;
+		EventInfo_WidgetString eventWindowButtonPressed;
 
 	protected:
 

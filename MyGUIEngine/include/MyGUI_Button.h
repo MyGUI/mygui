@@ -8,14 +8,10 @@
 #define __MYGUI_BUTTON_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_ButtonFactory.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
-
-	class Button;
-	typedef Button* ButtonPtr;
 
 	class _MyGUIExport Button : public Widget
 	{

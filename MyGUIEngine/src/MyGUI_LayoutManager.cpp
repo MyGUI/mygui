@@ -4,11 +4,13 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Common.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
+
 
 namespace MyGUI
 {
