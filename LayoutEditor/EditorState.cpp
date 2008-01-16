@@ -37,7 +37,7 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("widgetEdit", &EditorState::notifyWidgetSelect);
 	ASSIGN_FUNCTION("widgetList", &EditorState::notifyWidgetSelect);
 
-	findWidget(MyGUI::Edit, "gridEdit")->eventEditTextChange = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
+	MyGUI::Gui::getInstance().findWidget<MyGUI::Edit>("gridEdit")->eventEditTextChange = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
 }
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
@@ -68,7 +68,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 	if (null != item && item->getUserString("isInterface") == "")
 	{
 		if(item->getUserString("isMarker") != "") item = item->getParent();
-		findWidget(MyGUI::Edit, "propertyPositionEdit")->setCaption(item->getCoord().print());
+		MyGUI::Gui::getInstance().findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
 	}
 
 	MyGUI::InputManager::getInstance().injectMouseMove(arg);

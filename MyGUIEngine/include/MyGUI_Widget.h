@@ -129,7 +129,7 @@ namespace MyGUI
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
 		// дл€ поддержки окон напр€мую не €вл€ющиес€ детьми
 		inline WidgetPtr _getOwner() {return mOwner;}
-		inline void _setOwner(WidgetPtr _widget) {mOwner = _widget;}
+		inline void _setOwner(WidgetPtr _widget) { if (null == mParent) mOwner = _widget; }
 
 		// return copy
 		virtual VectorWidgetPtr getChilds();

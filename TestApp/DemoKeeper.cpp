@@ -44,8 +44,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	LayoutManager::getInstance().load("TabDemo.layout");
 
-	//createWindowEdit();
-	//createWindowList();
+	createWindowList(mGUI->findWidget<Widget>("sheet1"));
+	createWindowEdit(mGUI->findWidget<Widget>("sheet2"));
 
 	//LayoutManager::getInstance().load("EditDemo.layout");
 	//LayoutManager::getInstance().load("ListDemo.layout");
@@ -90,20 +90,20 @@ void DemoKeeper::end()
 {
 }
 
-void DemoKeeper::createWindowEdit()
+void DemoKeeper::createWindowEdit(MyGUI::WidgetPtr _widget)
 {
     float x = (mWidth - 300) * Ogre::Math::UnitRandom();
     float y = (mHeight - 300) * Ogre::Math::UnitRandom();
 
-    VectorWidgetPtr roots = mGUI->loadLayout("EditDemo.layout");
-    if (1 <= roots.size())
-    {
-        WindowPtr window = castWidget<Window>(roots[0]);
+    //VectorWidgetPtr roots = mGUI->loadLayout("EditDemo.layout");
+    //if (1 <= roots.size())
+    //{
+        /*WindowPtr window = castWidget<Window>(roots[0]);
         window->eventWindowButtonPressed = newDelegate(this, &DemoKeeper::notifyWindowXPressed);
         window->setPosition(IntPoint((int)x, (int)y));
-        window->showSmooth(true);
+        window->showSmooth(true);*/
 
-        VectorWidgetPtr childs = window->getChilds();
+        VectorWidgetPtr childs = _widget->getChilds();
         if (7 <= childs.size())
         {
 
@@ -137,7 +137,7 @@ void DemoKeeper::createWindowEdit()
             button2->setUserString("ColourBlue", button->getName());
 
         }
-    }
+    //}
 
     /*WindowPtr window = mGUI->createWidget<Window>("WindowCSX", x, y, 290, 300, ALIGN_LEFT | ALIGN_TOP, "Overlapped");
     window->setCaption("edit test");
@@ -188,7 +188,7 @@ void DemoKeeper::createWindowEdit()
 
 void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = findWidget(Edit, _sender->getUserString("Edit"));
+    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     bool enable = true;
@@ -208,21 +208,21 @@ void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
     }
 
     // кнопки управления цветом
-    ButtonPtr button = findWidget(Button, _sender->getUserString("ColourBlue"));
+    ButtonPtr button = mGUI->findWidget<Button>(_sender->getUserString("ColourBlue"));
     if (null != button)
     {
         button->setEnabled(enable);
         button->setColour(Ogre::ColourValue(colour, colour, colour));
     }
 
-    button = findWidget(Button, _sender->getUserString("ColourGreen"));
+    button = mGUI->findWidget<Button>(_sender->getUserString("ColourGreen"));
     if (null != button)
     {
         button->setEnabled(enable);
         button->setColour(Ogre::ColourValue(colour, colour, colour));
     }
 
-    button = findWidget(Button, _sender->getUserString("ColourRed"));
+    button = mGUI->findWidget<Button>(_sender->getUserString("ColourRed"));
     if (null != button)
     {
         button->setEnabled(enable);
@@ -232,7 +232,7 @@ void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = findWidget(Edit, _sender->getUserString("Edit"));
+    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     if (edit->getEditPassword())
@@ -249,7 +249,7 @@ void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = findWidget(Edit, _sender->getUserString("Edit"));
+    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     if (edit->getEditMultiLine())
@@ -266,7 +266,7 @@ void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = findWidget(Edit, _sender->getUserString("Edit"));
+    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     edit->setTextSelectColour(Ogre::ColourValue::Green);
@@ -274,7 +274,7 @@ void DemoKeeper::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double
 
 void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = findWidget(Edit, _sender->getUserString("Edit"));
+    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     edit->setTextSelectColour(Ogre::ColourValue::Red);
@@ -282,7 +282,7 @@ void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = findWidget(Edit, _sender->getUserString("Edit"));
+    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     edit->setTextSelectColour(Ogre::ColourValue::Blue);
@@ -291,20 +291,20 @@ void DemoKeeper::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
 //---------------------------------------------------------------------------------------//
 // окно с листом
 //---------------------------------------------------------------------------------------//
-void DemoKeeper::createWindowList()
+void DemoKeeper::createWindowList(MyGUI::WidgetPtr _widget)
 {
     float x = (mWidth - 300) * Ogre::Math::UnitRandom();
     float y = (mHeight - 300) * Ogre::Math::UnitRandom();
 
-    VectorWidgetPtr roots = mGUI->loadLayout("ListDemo.layout");
+    /*VectorWidgetPtr roots = mGUI->loadLayout("ListDemo.layout");
     if (1 <= roots.size())
     {
         WindowPtr window = castWidget<Window>(roots[0]);
         window->eventWindowButtonPressed = newDelegate(this, &DemoKeeper::notifyWindowXPressed);
         window->setPosition(IntPoint((int)x, (int)y));
-        window->showSmooth(true);
+        window->showSmooth(true);*/
 
-        VectorWidgetPtr childs = window->getChilds();
+        VectorWidgetPtr childs = _widget->getChilds();
         if (4 <= childs.size())
         {
 
@@ -324,7 +324,7 @@ void DemoKeeper::createWindowList()
             del->setUserString("List", list->getName());
             del->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedDelete);
         }
-    }
+    //}
 
     /*	MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", x, y, 390, 300, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped");
     	window->setCaption("test list + combo");
@@ -367,7 +367,7 @@ void DemoKeeper::createWindowList()
 
 void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
 {
-    ComboBoxPtr combo = findWidget(ComboBox, _sender->getUserString("ComboBox"));
+    ComboBoxPtr combo = mGUI->findWidget<ComboBox>(_sender->getUserString("ComboBox"));
     if (combo == null) return;
 
     notifyEditAccept(combo);
@@ -375,7 +375,7 @@ void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
 {
-    ListPtr list = findWidget(List, _sender->getUserString("List"));
+    ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
     if (list == null) return;
 
     size_t select = list->getItemSelect();
@@ -387,7 +387,7 @@ void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
 {
-    ListPtr list = findWidget(List, _sender->getUserString("List"));
+    ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
     if (list == null) return;
 
     const Ogre::DisplayString& caption = _sender->getCaption();
@@ -421,7 +421,7 @@ void DemoKeeper::notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double)
 {
     if ((false == _double) && (mCountWindow < MAX_CREATE_WINDOW))
     {
-        createWindowList();
+        //createWindowList();
         mCountWindow ++;
     }
 }
@@ -430,7 +430,7 @@ void DemoKeeper::notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double)
 {
     if ((false == _double) && (mCountWindow < MAX_CREATE_WINDOW))
     {
-        createWindowEdit();
+        //createWindowEdit();
         mCountWindow ++;
     }
 }

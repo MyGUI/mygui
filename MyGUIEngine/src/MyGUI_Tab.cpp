@@ -83,7 +83,7 @@ namespace MyGUI
 	WidgetPtr Tab::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
 	{
 		if (Sheet::_getType() == _type) {
-			SheetPtr sheet = static_cast<SheetPtr>(Widget::createWidgetT(_type, "Empty", mSheetTemplate->getCoord(), mSheetTemplate->getAlign()));
+			SheetPtr sheet = static_cast<SheetPtr>(Widget::createWidgetT(_type, "Empty", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), _name));
 			sheet->mOwner = this;
 
 			// добавляем инфу о вкладке

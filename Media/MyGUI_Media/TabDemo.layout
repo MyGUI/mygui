@@ -10,7 +10,7 @@
 
     <Widget type="Tab" skin="Tab" position="5 5 580 254" align="ALIGN_STRETCH">
 
-      <Widget type="Sheet">
+      <Widget type="Sheet" name="sheet1">
         <Property key="Widget_Caption" value="test list + combo" />
 
         <Widget type="List" skin="List" position="10 46 445 161" align="ALIGN_STRETCH">
@@ -43,7 +43,7 @@
 
       </Widget>
 
-      <Widget type="Sheet">
+      <Widget type="Sheet" name="sheet2">
         <Property key="Widget_Caption" value="edit test" />
         <Property key="Sheet_Select" value="true" />
 

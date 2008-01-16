@@ -38,8 +38,8 @@ private:
 
 	void notifyTest(MyGUI::WidgetPtr _sender, size_t _index);
 
-	void createWindowEdit();
-	void createWindowList();
+	void createWindowEdit(MyGUI::WidgetPtr _widget);
+	void createWindowList(MyGUI::WidgetPtr _widget);
 
 private:
 	MyGUI::Gui * mGUI;
