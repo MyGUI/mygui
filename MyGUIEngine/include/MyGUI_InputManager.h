@@ -13,6 +13,7 @@
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_FrameListener.h"
 #include "MyGUI_UnlinkWidget.h"
+#include "MyGUI_WidgetDefines.h"
 #include "xmlDocument.h"
 
 namespace MyGUI
@@ -49,6 +50,7 @@ namespace MyGUI
 		inline bool isCaptureMouse() {return mIsWidgetMouseCapture;}
 
 		void setKeyFocusWidget(WidgetPtr _widget);
+		inline void resetKeyFocusWidget(WidgetPtr _widget) {if (mWidgetKeyFocus == _widget) setKeyFocusWidget(null);}
 		inline void resetKeyFocusWidget() {setKeyFocusWidget(null);}
 
 		inline WidgetPtr getMouseFocusWidget() {return mWidgetMouseFocus;}
@@ -65,6 +67,9 @@ namespace MyGUI
 
 		// событие смены языков
 		EventInfo_String eventChangeLanguage;
+
+		void addWidgetModal(WidgetPtr _widget);
+		void removeWidgetModal(WidgetPtr _widget);
 
 	protected:
 		void _frameEntered(float _frame);
@@ -124,7 +129,12 @@ namespace MyGUI
 		bool mFirstPressKey;
 		float mTimerKey;
 
+		// текущий отображаемый указатель
 		std::string mPointer;
+
+		// список виджетов с модальным режимом
+		VectorWidgetPtr mVectorModalRootWidget;
+
 
 	}; // class InputManager
 

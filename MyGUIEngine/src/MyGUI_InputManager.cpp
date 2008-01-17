@@ -94,6 +94,14 @@ namespace MyGUI
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) return isFocusMouse();
 
+		// проверяем на модальность
+		if (0 != mVectorModalRootWidget.size()) {
+			if (rootItem != mVectorModalRootWidget.back()) {
+				rootItem = null;
+				item = null;
+			}
+		}
+
 		// смена фокуса, проверяем на доступность виджета
 		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) {
 			mWidgetMouseFocus->_onMouseLostFocus(item);
@@ -384,8 +392,15 @@ namespace MyGUI
 
 	void InputManager::resetMouseFocusWidget()
 	{
-		mWidgetMouseFocus = null;
-		mWidgetRootMouseFocus = null;
+		mIsWidgetMouseCapture = false;
+		if (null != mWidgetMouseFocus) {
+			mWidgetMouseFocus->_onMouseLostFocus(null);
+			mWidgetMouseFocus = null;
+		}
+		if (null != mWidgetRootMouseFocus) {
+			mWidgetRootMouseFocus->_onMouseChangeRootFocus(false);
+			mWidgetRootMouseFocus = null;
+		}
 	}
 
 	void InputManager::_frameEntered(float _frame)
@@ -442,6 +457,46 @@ namespace MyGUI
 		if (_widget == mWidgetKeyFocus) mWidgetKeyFocus = null;
 		if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
 		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
+
+		// ручками сбрасываем, чтобы не менять фокусы
+		for (VectorWidgetPtr::iterator iter=mVectorModalRootWidget.begin(); iter!=mVectorModalRootWidget.end(); ++iter) {
+			if ((*iter == _widget)) {
+				mVectorModalRootWidget.erase(iter);
+				break;
+			}
+		}
+
+	}
+
+	void InputManager::addWidgetModal(WidgetPtr _widget)
+	{
+		if (null == _widget) return;
+		MYGUI_ASSERT(null == _widget->getParent(), "Modal widget must be root");
+
+		resetMouseFocusWidget();
+		removeWidgetModal(_widget);
+		mVectorModalRootWidget.push_back(_widget);
+
+		setKeyFocusWidget(_widget);
+		LayerManager::getInstance().upItem(_widget);
+	}
+
+	void InputManager::removeWidgetModal(WidgetPtr _widget)
+	{
+		resetKeyFocusWidget(_widget);
+		resetMouseFocusWidget();
+
+		for (VectorWidgetPtr::iterator iter=mVectorModalRootWidget.begin(); iter!=mVectorModalRootWidget.end(); ++iter) {
+			if ((*iter == _widget)) {
+				mVectorModalRootWidget.erase(iter);
+				break;
+			}
+		}
+		// если еще есть модальные то их фокусируем и поднимаем
+		if (false == mVectorModalRootWidget.empty()) {
+			setKeyFocusWidget(mVectorModalRootWidget.back());
+			LayerManager::getInstance().upItem(mVectorModalRootWidget.back());
+		}
 	}
 
 } // namespace MyGUI

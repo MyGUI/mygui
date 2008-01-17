@@ -145,6 +145,17 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, new ControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
 	}
 
+	void Window::setAutoAlpha(bool _auto)
+	{
+		mIsAutoAlpha = _auto;
+		if (false == _auto) {
+			setAlpha(ALPHA_MAX);
+		}
+		else {
+			updateAlpha();
+		}
+	}
+
 	void Window::setPosition(const IntPoint& _pos)
 	{
 		IntPoint pos = _pos;

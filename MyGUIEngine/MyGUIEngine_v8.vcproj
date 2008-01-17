@@ -430,10 +430,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\include\MyGUI.h"
-				>
-			</File>
 			<Filter
 				Name="Widget"
 				>
@@ -688,6 +684,10 @@
 				<Filter
 					Name="Common"
 					>
+					<File
+						RelativePath=".\include\MyGUI.h"
+						>
+					</File>
 					<File
 						RelativePath=".\include\MyGUI_AlignInfo.h"
 						>

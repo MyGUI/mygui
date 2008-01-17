@@ -21,9 +21,14 @@ DemoKeeper::DemoKeeper() :
 {
 }
 
+//WidgetPtr test, test2;
+
 void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
 {
-	if (_index == ITEM_NONE) MYGUI_OUT("reset select");
+	if (_index == ITEM_NONE) {
+		MYGUI_OUT("reset select");
+//		InputManager::getInstance().removeWidgetModal(test2);
+	}
 	else MYGUI_OUT(_index);
 }
 
@@ -33,22 +38,28 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	LayoutManager::getInstance().load("TabDemo.layout");
+	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
+	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
+	combo->addItemString("line 1");
+	combo->addItemString("line 2");
+	combo->addItemString("line 3");*/
+//	test2 = combo;
+
+//	InputManager::getInstance().addWidgetModal(combo);
+
+	VectorWidgetPtr demo = LayoutManager::getInstance().load("TabDemo.layout");
 
 	createWindowList(mGUI->findWidget<Widget>("sheet1"));
 	createWindowEdit(mGUI->findWidget<Widget>("sheet2"));
+
+//	test = demo.front();
+//	InputManager::getInstance().addWidgetModal(test);
 
 	//LayoutManager::getInstance().load("EditDemo.layout");
 	//LayoutManager::getInstance().load("ListDemo.layout");
 
 	//mGUI->createWidget<VScroll>("VScroll", IntCoord(100, 100, 16, 300), ALIGN_DEFAULT, "Main");
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
-
-	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(100, 100, 600, 26), ALIGN_DEFAULT, "Main");
-	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
-	combo->addItemString("line 1");
-	combo->addItemString("line 2");
-	combo->addItemString("line 3");*/
 
 	/*WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main");
 	window->setMinMax(150, 150, 2000, 2000);
@@ -240,6 +251,7 @@ void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 {
+//	InputManager::getInstance().removeWidgetModal(test);//???
     EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 

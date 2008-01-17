@@ -41,12 +41,7 @@ namespace MyGUI
 		void destroySmooth();
 
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
-		inline void setAutoAlpha(bool _auto)
-		{
-			mIsAutoAlpha = _auto;
-			if (false == _auto) setAlpha(ALPHA_MAX);
-			else updateAlpha();
-		}
+		void setAutoAlpha(bool _auto);
 
 		virtual void setCaption(const Ogre::DisplayString & _caption) {if (mWidgetCaption!=null)mWidgetCaption->setCaption(_caption);};
 		virtual const Ogre::DisplayString & getCaption() {if (mWidgetCaption!=null) return mWidgetCaption->getCaption();return Widget::getCaption();};

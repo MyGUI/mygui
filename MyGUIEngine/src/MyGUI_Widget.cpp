@@ -347,14 +347,6 @@ namespace MyGUI
 		if (mText != null) mText->setTextAlign(_align);
 	}
 
-	void Widget::setAlpha(float _alpha)
-	{
-		if (mAlpha == _alpha) return;
-		mAlpha = _alpha;
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->setAlpha(mAlpha);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->setAlpha(mAlpha);
-	}
-
 	void Widget::setColour(const Ogre::ColourValue & _colour)
 	{
 		mColour = _colour;
@@ -536,6 +528,14 @@ namespace MyGUI
 	{
 		if (null == mText) return IntCoord();
 		return mText->getCoord();
+	}
+
+	void Widget::setAlpha(float _alpha)
+	{
+		if (mAlpha == _alpha) return;
+		mAlpha = _alpha;
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->setAlpha(mAlpha);
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->setAlpha(mAlpha);
 	}
 
 } // namespace MyGUI
