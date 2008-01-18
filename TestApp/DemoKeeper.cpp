@@ -38,6 +38,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	mGUI->createWidget<Message>("Edit", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
+
 	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
 	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
 	combo->addItemString("line 1");

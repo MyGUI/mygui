@@ -20,6 +20,7 @@
 #include "MyGUI_Tab.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_Window.h"
+#include "MyGUI_Message.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"

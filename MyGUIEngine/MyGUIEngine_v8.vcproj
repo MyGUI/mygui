@@ -212,6 +212,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_Message.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Sheet.cpp"
 					>
 				</File>
@@ -260,6 +264,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_ListFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MessageFactory.cpp"
 						>
 					</File>
 					<File
@@ -454,6 +462,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Message.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Sheet.h"
 					>
 				</File>
@@ -502,6 +514,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ListFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MessageFactory.h"
 						>
 					</File>
 					<File
