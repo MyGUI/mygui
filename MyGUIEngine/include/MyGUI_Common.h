@@ -20,6 +20,28 @@
 
 namespace MyGUI
 {
+	class _MyGUIExport MyGUIException : public Ogre::Exception 
+	{
+	public:
+		MyGUIException(int number, const Ogre::String& description, const Ogre::String& source, const char* file, long line)
+			: Exception(number, description, source, "MyGUIException", file, line) {}
+		virtual ~MyGUIException() {}
+	};
+
+	// just other number
+	#define ERR_MY_GUI Ogre::Exception::ERR_NOT_IMPLEMENTED+1
+	static MyGUIException create(
+			Ogre::ExceptionCodeType<ERR_MY_GUI> code, 
+			const Ogre::String& desc, 
+			const Ogre::String& src, const char* file, long line)
+		{
+			return MyGUIException(code.number, desc, src, file, line);
+		}
+
+
+
+	// copy of OGRE_EXCEPT with MyGUIException create
+	#define OGRE_BASED_EXCEPT(desc, src)	throw MyGUI::create(Ogre::ExceptionCodeType<ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
 
 	#define MYGUI_LOG_SECTION "General"
 	#define MYGUI_LOG_FILENAME "MyGUI.log"
@@ -29,8 +51,8 @@ namespace MyGUI
 	{ \
 		MYGUI_LOG(Critical, dest); \
 		std::ostringstream stream; \
-		stream << dest << "\n" << __FILE__ << "  ( " << __LINE__ << " )"; \
-		OGRE_EXCEPT(0, stream.str(), ""); \
+		stream << dest << "\n"; \
+		OGRE_BASED_EXCEPT(stream.str(), "MyGUI"); \
 	}
 
 	#define MYGUI_ASSERT(exp, dest) \
@@ -38,8 +60,8 @@ namespace MyGUI
 		if ( ! (exp) ) { \
 			MYGUI_LOG(Critical, dest); \
 			std::ostringstream stream; \
-			stream << dest << "\n" << __FILE__ << "  ( " << __LINE__ << " )"; \
-			OGRE_EXCEPT(0, stream.str(), ""); \
+			stream << dest << "\n"; \
+			OGRE_BASED_EXCEPT(stream.str(), "MyGUI"); \
 		} \
 	}
 

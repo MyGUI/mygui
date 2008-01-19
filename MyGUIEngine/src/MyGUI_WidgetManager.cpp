@@ -22,6 +22,7 @@
 #include "MyGUI_ComboBoxFactory.h"
 #include "MyGUI_TabFactory.h"
 #include "MyGUI_SheetFactory.h"
+#include "MyGUI_MessageFactory.h"
 
 namespace MyGUI
 {
@@ -48,6 +49,7 @@ namespace MyGUI
 		mComboBoxFactory = new factory::ComboBoxFactory();
 		mTabFactory = new factory::TabFactory();
 		mSheetFactory = new factory::SheetFactory();
+		mMessageFactory = new factory::MessageFactory();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -76,6 +78,7 @@ namespace MyGUI
 		delete mComboBoxFactory;
 		delete mTabFactory;
 		delete mSheetFactory;
+		delete mMessageFactory;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

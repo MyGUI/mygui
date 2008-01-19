@@ -89,6 +89,7 @@ namespace MyGUI
 		factory::ComboBoxFactory * mComboBoxFactory;
 		factory::TabFactory * mTabFactory;
 		factory::SheetFactory * mSheetFactory;
+		factory::MessageFactory * mMessageFactory;
 
 		// список менеджеров для отписки при удалении
 		VectorUnlinkWidget mVectorUnlinkWidget;
