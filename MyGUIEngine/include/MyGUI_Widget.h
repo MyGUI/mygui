@@ -112,6 +112,8 @@ namespace MyGUI
 
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return mAlpha;};
+		inline float _getRealAlpha() {return mRealAlpha;}
+		void _updateAlpha();
 
 		void setState(const Ogre::String & _state);
 
@@ -194,6 +196,7 @@ namespace MyGUI
 		bool mVisible;
 		// прозрачность нашего оверлея
 		float mAlpha;
+		float mRealAlpha;
 		// цвет текста
 		Ogre::ColourValue mColour;
 		// имя виджета

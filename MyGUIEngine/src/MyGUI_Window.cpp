@@ -148,11 +148,11 @@ namespace MyGUI
 	void Window::setAutoAlpha(bool _auto)
 	{
 		mIsAutoAlpha = _auto;
-		if (false == _auto) {
-			setAlpha(ALPHA_MAX);
-		}
+		if (false == _auto) setAlpha(ALPHA_MAX);
 		else {
-			updateAlpha();
+			if (mKeyRootFocus) setAlpha(WINDOW_ALPHA_ACTIVE);
+			else if (mMouseRootFocus) setAlpha(WINDOW_ALPHA_FOCUS);
+			else setAlpha(WINDOW_ALPHA_DEACTIVE);
 		}
 	}
 

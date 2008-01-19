@@ -25,7 +25,7 @@ namespace MyGUI
 		mText(null),
 		mEnabled(true),
 		mVisible(true),
-		mAlpha(ALPHA_MAX),
+		mAlpha(ALPHA_MIN),
 		mColour(Ogre::ColourValue::White),
 		mName(_name),
 		mCountSharedOverlay(0)
@@ -68,8 +68,9 @@ namespace MyGUI
 
 		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
+		setAlpha(ALPHA_MAX);
 		// альфа отца
-		if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != ALPHA_MAX) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
+		//if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != ALPHA_MAX) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
 
 		// создаем детей
 		const VectorChildSkinInfo& child = _info->getChild();
@@ -534,8 +535,19 @@ namespace MyGUI
 	{
 		if (mAlpha == _alpha) return;
 		mAlpha = _alpha;
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->setAlpha(mAlpha);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->setAlpha(mAlpha);
+		if (null != mParent) mRealAlpha = mAlpha * static_cast<Widget*>(mParent)->_getRealAlpha();
+		else mRealAlpha = mAlpha;
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_updateAlpha();
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->setAlpha(mRealAlpha);
+	}
+
+	void Widget::_updateAlpha()
+	{
+		MYGUI_DEBUG_ASSERT(null != mParent, "parent must be");
+		mRealAlpha = mAlpha * static_cast<Widget*>(mParent)->_getRealAlpha();
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); widget++) (*widget)->_updateAlpha();
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); skin++) (*skin)->setAlpha(mRealAlpha);
 	}
 
 } // namespace MyGUI
