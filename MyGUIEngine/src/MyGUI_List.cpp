@@ -88,7 +88,7 @@ namespace MyGUI
 		Widget::_onKeyLostFocus(_new);
 	}
 
-	void List::_onKeyButtonPressed(int _key, wchar_t _char)
+	void List::_onKeyButtonPressed(int _key, Char _char)
 	{
 		// очень секретный метод, запатентованный механизм движения курсора
 		if (getItemCount() == 0) {

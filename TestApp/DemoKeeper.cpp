@@ -49,6 +49,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 //	InputManager::getInstance().addWidgetModal(combo);
 
+
+	TEXT("test");
+
 	VectorWidgetPtr demo = LayoutManager::getInstance().load("TabDemo.layout");
 
 	createWindowList(mGUI->findWidget<Widget>("sheet1"));
@@ -395,7 +398,7 @@ void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
     ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
     if (list == null) return;
 
-    const Ogre::DisplayString& caption = _sender->getCaption();
+	const Ogre::DisplayString& caption = _sender->getCaption();
     if (false == caption.empty())
     {
         list->addItemString(caption);
@@ -403,7 +406,7 @@ void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
     }
 }
 
-void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, wchar_t _char)
+void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, Char _char)
 {
 	if (_key == OIS::KC_DELETE) {
 		ListPtr list = castWidget<List>(_sender);

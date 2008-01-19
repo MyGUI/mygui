@@ -21,7 +21,7 @@ namespace MyGUI
 	protected:
 		ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
-		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
+		virtual void _onKeyButtonPressed(int _key, Char _char);
 
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);

@@ -79,6 +79,27 @@ namespace MyGUI
 		#define MYGUI_DEBUG_ASSERT(exp, dest) ((void)0)
 	#endif // MYGUI_DEBUG_MODE == 1
 
+
+	#define MYGUI_DEFAULT_CHARSET "Unicode"
+
+	#if OGRE_UNICODE_SUPPORT
+		#define _T(_str) L##_str
+		#define _sprintf swprintf
+		#define MYGUI_CHARSET "Unicode"
+		#define MYGUI_UNICODE_SUPPORT 1
+		#define MYGUI_CHARSET_LIMIT 65535
+		#define MYGUI_DEREF_DISPLAYSTRING_ITERATOR(it) it.getCharacter()
+		typedef wchar_t Char;
+	#else
+		#define _T(_str) _str
+		#define _sprintf sprintf
+		#define MYGUI_CHARSET "Multi-Byte"
+		#define MYGUI_UNICODE_SUPPORT 0
+		#define MYGUI_CHARSET_LIMIT 255
+		#define MYGUI_DEREF_DISPLAYSTRING_ITERATOR(it) ((unsigned char)*it)
+		typedef char Char;
+	#endif
+
 } // namespace MyGUI
 
 

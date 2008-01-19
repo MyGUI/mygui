@@ -8,6 +8,7 @@
 #define __MYGUI_WIDGET_EVENT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Macros.h"
 #include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI
@@ -19,7 +20,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<WidgetPtr, int> EventInfo_WidgetInt;
 	typedef delegates::CDelegate2<WidgetPtr, size_t> EventInfo_WidgetSizeT;
 	typedef delegates::CDelegate3<WidgetPtr, int, int> EventInfo_WidgetIntInt;
-	typedef delegates::CDelegate3<WidgetPtr, int, wchar_t> EventInfo_WidgetIntWcharT;
+	typedef delegates::CDelegate3<WidgetPtr, int, Char> EventInfo_WidgetIntChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
 
 
@@ -93,8 +94,8 @@ namespace MyGUI
 		EventInfo_WidgetWidget eventKeySetFocus;
 
 		/*	событие : нажата клавиша*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key, wchar_t _char);*/
-		EventInfo_WidgetIntWcharT eventKeyButtonPressed;
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);*/
+		EventInfo_WidgetIntChar eventKeyButtonPressed;
 
 		/*	событие : отпущенна клавиша*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key);*/
@@ -171,7 +172,7 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeyButtonPressed(int _key, wchar_t _char)
+		virtual void _onKeyButtonPressed(int _key, Char _char)
 		{
 			eventKeyButtonPressed(mWidgetEventSender, _key, _char);
 		}

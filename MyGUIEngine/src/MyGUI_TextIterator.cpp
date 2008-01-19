@@ -31,7 +31,7 @@ namespace MyGUI
 		// ставим на следующий символ проскакивая все тэги
 		for (Ogre::DisplayString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
 
-			if ((*iter) == '#') {
+			if ((*iter) == _T('#')) {
 
 				// следующий символ
 				++ iter;
@@ -41,7 +41,7 @@ namespace MyGUI
 				}
 
 				// две решетки подряд
-				if ((*iter) == '#') {
+				if ((*iter) == _T('#')) {
 
 					// следующий символ
 					mPosition ++;
@@ -88,7 +88,7 @@ namespace MyGUI
 	// возвращает цвет
 	Ogre::DisplayString TextIterator::getTagColour(bool _clear)
 	{
-		if (mCurrent == mEnd) return L"";
+		if (mCurrent == mEnd) return _T("");
 
 		Ogre::DisplayString::iterator iter = mCurrent;
 		Ogre::DisplayString colour;
@@ -128,9 +128,9 @@ namespace MyGUI
 		// на всякий
 		if (mCurrent == mEnd) return false;
 
-		char buff[16];
+		Char buff[16];
 		memset(buff, 0, 16);
-		sprintf(buff, "#%.2X%.2X%.2X", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+		_sprintf(buff, _T("#%.2X%.2X%.2X"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 
 		// непосредственная вставка
 		Ogre::DisplayString tmpStr = Ogre::DisplayString(buff);
@@ -148,7 +148,7 @@ namespace MyGUI
 		if (mCurrent == mEnd) return false;
 
 		// проверяем на цвет хоть чуть чуть
-		if ( (_colour.size() != 7) || (_colour.find('#', 1) != _colour.npos) ) return false;
+		if ( (_colour.size() != 7) || (_colour.find(_T('#'), 1) != _colour.npos) ) return false;
 
 		// непосредственная вставка
 		insert(mCurrent, _colour);
@@ -164,13 +164,13 @@ namespace MyGUI
 
 		for (Ogre::DisplayString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
 
-			if ((*iter) == '#') {
+			if ((*iter) == _T('#')) {
 				// следующий символ
 				++ iter;
 				if (iter == mEnd) break;
 
 				// тэг цвета
-				if ((*iter) != '#') {
+				if ((*iter) != _T('#')) {
 					// остальные 5 символов цвета
 					for (size_t pos=0; pos<5; pos++) {
 						++ iter;
@@ -201,13 +201,13 @@ namespace MyGUI
 
 		for (Ogre::DisplayString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
 
-			if ((*iter) == '#') {
+			if ((*iter) == _T('#')) {
 				// следующий символ
 				++ iter;
 				if (iter == mEnd) break;
 
 				// тэг цвета
-				if ((*iter) != '#') {
+				if ((*iter) != _T('#')) {
 					// остальные 5 символов цвета
 					for (size_t pos=0; pos<5; pos++) {
 						++ iter;
@@ -240,13 +240,13 @@ namespace MyGUI
 		Ogre::DisplayString::const_iterator end = _text.end();
 		for (Ogre::DisplayString::const_iterator iter=_text.begin(); iter!=end; ++iter) {
 
-			if ((*iter) == '#') {
+			if ((*iter) == _T('#')) {
 				// следующий символ
 				++ iter;
 				if (iter == end) break;
 
 				// тэг цвета
-				if ((*iter) != '#') {
+				if ((*iter) != _T('#')) {
 					// остальные 5 символов цвета
 					for (size_t pos=0; pos<5; pos++) {
 						++ iter;
@@ -266,19 +266,19 @@ namespace MyGUI
 	// возвращает цвет
 	bool TextIterator::getTagColour(Ogre::DisplayString & _colour, Ogre::DisplayString::iterator & _iter)
 	{
-		if ( (_iter == mEnd) || ((*_iter) != '#') ) return false;
+		if ( (_iter == mEnd) || ((*_iter) != _T('#')) ) return false;
 
 		// следующий символ
 		++_iter;
-		if ( (_iter == mEnd) || ((*_iter) == '#') ) return false;
+		if ( (_iter == mEnd) || ((*_iter) == _T('#')) ) return false;
 
 		// берем цвет
-		wchar_t buff[16] = L"#FFFFFF\0";
-		buff[1] = (wchar_t)(*_iter);
+		Char buff[16] = _T("#FFFFFF\0");
+		buff[1] = (Char)(*_iter);
 		for (size_t pos=2; pos<7; pos++) {
 			++_iter;
 			if ( _iter == mEnd ) return false;
-			buff[pos] = (wchar_t)(*_iter);
+			buff[pos] = (Char)(*_iter);
 		}
 
 		// ставим на следующий тег или символ

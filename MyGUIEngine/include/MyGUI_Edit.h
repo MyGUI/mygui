@@ -165,7 +165,7 @@ namespace MyGUI
 		virtual void _onMouseMove(int _left, int _top);
 		virtual void _onKeyLostFocus(WidgetPtr _new);
 		virtual void _onKeySetFocus(WidgetPtr _old);
-		virtual void _onKeyButtonPressed(int _key, wchar_t _char);
+		virtual void _onKeyButtonPressed(int _key, Char _char);
 		virtual void _onKeyButtonReleased(int _key);
 
 		void updateEditState();

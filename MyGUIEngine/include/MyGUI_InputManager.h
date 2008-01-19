@@ -8,6 +8,7 @@
 #define __MYGUI_INPUT_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Macros.h"
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
@@ -26,7 +27,7 @@ namespace MyGUI
 	{
 		INSTANCE_HEADER(InputManager);
 
-		typedef std::vector<wchar_t> LangInfo;
+		typedef std::vector<Char> LangInfo;
 		typedef std::map<std::string, LangInfo> MapLang;
 
 	public:
@@ -75,7 +76,7 @@ namespace MyGUI
 		void _frameEntered(float _frame);
 
 		void detectLangShift(int keyEvent, bool bIsKeyPressed);
-		wchar_t getKeyChar(int keyEvent); // возвращает символ по его скан коду
+		Char getKeyChar(int keyEvent); // возвращает символ по его скан коду
 
 		// создает латинскую раскладку
 		void createDefaultCharSet();

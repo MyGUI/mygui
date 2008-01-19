@@ -8,6 +8,7 @@
 #define __MYGUI_TEXT_EDIT_OVERLAY_ELEMENT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Macros.h"
 #include <OgreTextAreaOverlayElement.h>
 #include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
@@ -64,7 +65,6 @@ namespace MyGUI
 		Font::GlyphInfo * mSpaceGlyphInfo;
 		Font::GlyphInfo * mTabGlyphInfo;
 		bool mBackgroundNormal;
-
 
 	public:
 		TextEditOverlayElement(const Ogre::String& name) :
@@ -509,7 +509,9 @@ namespace MyGUI
 
 		void setCaption(const Ogre::DisplayString& text)
 		{
-			TextAreaOverlayElement::setCaption(text);
+	        mCaption = text;
+			mGeomPositionsOutOfDate = true;
+			mGeomUVsOutOfDate = true;
 			mRawDataOutOfDate = true;
 		}
 
@@ -571,7 +573,7 @@ namespace MyGUI
 			Ogre::DisplayString::const_iterator end = mCaption.end();
 			for (Ogre::DisplayString::const_iterator index=mCaption.begin(); index!=end; ++index) {
 
-				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
+				Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
 
 				if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 					// запоминаем размер предыдущей строки
@@ -589,19 +591,19 @@ namespace MyGUI
 					if (character == Font::FONT_CODE_CR) {
 						Ogre::DisplayString::const_iterator peeki = index;
 						peeki++;
-						if (peeki != end && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
+						if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
 					}
 					// следующий символ
 					continue;
 
-				} else if (character == '#') {
+				} else if (character == _T('#')) {
 					// берем следующий символ
 					++ index;
 					if (index == end) {--index ;continue;} // это защита
 
-					character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
+					character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
 					// если два подряд, то рисуем один шарп, если нет то меняем цвет
-					if (character != '#') {
+					if (character != _T('#')) {
 
 						// парсим первый символ
 						Ogre::RGBA colour = convert_colour[character & 0x7F];
@@ -611,7 +613,7 @@ namespace MyGUI
 							++ index;
 							if (index == end) {--index ;continue;} // это защита
 							colour <<= 4;
-							colour += convert_colour[ OGRE_DEREF_DISPLAYSTRING_ITERATOR(index) & 0x7F];
+							colour += convert_colour[ MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index) & 0x7F];
 						}
 
 						// если нужно, то меняем красный и синий компоненты
@@ -672,7 +674,7 @@ namespace MyGUI
 			Ogre::DisplayString::const_iterator end = _text.end();
 			for (Ogre::DisplayString::const_iterator index=_text.begin(); index!=end; ++index) {
 
-				Font::CodePoint character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
+				Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
 
 				if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 					if (width < len) width = len;
@@ -682,19 +684,19 @@ namespace MyGUI
 					if (character == Font::FONT_CODE_CR) {
 						Ogre::DisplayString::const_iterator peeki = index;
 						peeki++;
-						if (peeki != end && OGRE_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
+						if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
 					}
 					// следующий символ
 					continue;
 
-				} else if (character == '#') {
+				} else if (character == _T('#')) {
 					// берем следующий символ
 					++ index;
 					if (index == end) {--index ;continue;} // это защита
 
-					character = OGRE_DEREF_DISPLAYSTRING_ITERATOR(index);
+					character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
 					// если два подряд, то рисуем один шарп, если нет то меняем цвет
-					if (character != '#') {
+					if (character != _T('#')) {
 						// и еще пять символов после шарпа
 						for (char i=0; i<5; i++) {
 							++ index;

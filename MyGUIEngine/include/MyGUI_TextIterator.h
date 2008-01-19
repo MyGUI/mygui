@@ -48,7 +48,7 @@ namespace MyGUI
 		// возвращает строку от сохраненного итератора до текущего
 		inline Ogre::DisplayString getFromStart()
 		{
-			if (mSave == mEnd) return "";
+			if (mSave == mEnd) return _T("");
 			size_t start = mSave-mText.begin();
 			return mText.substr(start, mCurrent-mText.begin()-start);
 		}
@@ -105,13 +105,13 @@ namespace MyGUI
 
 		inline static Ogre::DisplayString getTextNewLine()
 		{
-			return "\n";
+			return _T("\n");
 		}
 
-		inline static Ogre::DisplayString getTextCharInfo(wchar_t _char)
+		inline static Ogre::DisplayString getTextCharInfo(Char _char)
 		{
-			if (_char == L'#') return L"##";
-			wchar_t buff[16] = L"_\0";
+			if (_char == _T('#')) return _T("##");
+			Char buff[16] = _T("_\0");
 			buff[0] = _char;
 			return buff;
 		}
@@ -119,8 +119,8 @@ namespace MyGUI
 		// просто конвертируем цвет в строку
 		inline static Ogre::DisplayString convertTagColour(const Ogre::ColourValue & _colour)
 		{
-			char buff[16];
-			sprintf(buff, "#%.2X%.2X%.2X", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+			Char buff[16];
+			_sprintf(buff, _T("#%.2X%.2X%.2X"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 			return buff;
 		}
 
@@ -130,7 +130,7 @@ namespace MyGUI
 			Ogre::DisplayString text(_text);
 			for (Ogre::DisplayString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
 				// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
-				if ('#' == (*iter)) iter = text.insert(++iter, '#');
+				if (_T('#') == (*iter)) iter = text.insert(++iter, _T('#'));
 			}
 			return text;
 		}

@@ -209,7 +209,7 @@ namespace MyGUI
 		Widget::_onKeyLostFocus(_new);
 	}
 
-	void Edit::_onKeyButtonPressed(int _key, wchar_t _char)
+	void Edit::_onKeyButtonPressed(int _key, Char _char)
 	{
 		// в статическом режиме ничего не доступно
 		if (mModeStatic) {
@@ -961,7 +961,7 @@ namespace MyGUI
 		Ogre::DisplayString colour = TextIterator::convertTagColour(mText->getColour());
 		// нужен ли тег текста
 		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
-		bool need_colour = ( (_text.size() > 6) && (_text[0] == '#') && (_text[1] != '#') );
+		bool need_colour = ( (_text.size() > 6) && (_text[0] == _T('#')) && (_text[1] != _T('#')) );
 
 		// цикл прохода по строке
 		while (iterator.moveNext()) {

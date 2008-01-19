@@ -124,7 +124,7 @@ namespace MyGUI
 		eventComboChangePosition(this, _position);
 	}
 
-	void ComboBox::_onKeyButtonPressed(int _key, wchar_t _char)
+	void ComboBox::_onKeyButtonPressed(int _key, Char _char)
 	{
 		Edit::_onKeyButtonPressed(_key, _char);
 

@@ -30,7 +30,7 @@ private:
 	void notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double);
 
 	void notifyEditAccept(MyGUI::WidgetPtr _sender);
-	void notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, wchar_t _char);
+	void notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
 	void notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name);
 
 	void notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double);
