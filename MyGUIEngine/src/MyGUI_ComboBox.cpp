@@ -57,7 +57,7 @@ namespace MyGUI
 
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->getInternalString() == "Button") {
+			if ((*iter)->_getInternalString() == "Button") {
 				mButton = castWidget<Button>(*iter);
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}

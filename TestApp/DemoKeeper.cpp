@@ -5,9 +5,6 @@
 	@module
 */
 #include "DemoKeeper.h"
-
-#include "MyGUI.h"
-
 #include <fstream>
 
 using namespace MyGUI;
@@ -32,13 +29,23 @@ void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
 	else MYGUI_OUT(_index);
 }
 
+void DemoKeeper::test(MyGUI::WidgetPtr _sender, MyGUI::Message::ButtonInfo _button)
+{
+	MYGUI_OUT(_button);
+}
+
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
     mGUI = _gui;
     mWidth = _width;
     mHeight = _height;
 
-	mGUI->createWidget<Message>("Edit", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
+	/*MessagePtr mess = mGUI->createWidget<Message>("Message", IntCoord(60, 100, 400, 126), ALIGN_DEFAULT, "Overlapped");
+	mess->setCaption("message box");
+	mess->setMessage("message");
+	mess->addButtonName("test1");
+	mess->addButtonName("test2");
+	mess->eventMessageBoxEnd = newDelegate(this, &DemoKeeper::test);*/
 
 	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
 	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
@@ -49,13 +56,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 //	InputManager::getInstance().addWidgetModal(combo);
 
+	VectorWidgetPtr demo = LayoutManager::getInstance().load("MessageDemo.layout");
 
-	TEXT("test");
+	//VectorWidgetPtr demo = LayoutManager::getInstance().load("TabDemo.layout");
 
-	VectorWidgetPtr demo = LayoutManager::getInstance().load("TabDemo.layout");
-
-	createWindowList(mGUI->findWidget<Widget>("sheet1"));
-	createWindowEdit(mGUI->findWidget<Widget>("sheet2"));
+	//createWindowList(mGUI->findWidget<Widget>("sheet1"));
+	//createWindowEdit(mGUI->findWidget<Widget>("sheet2"));
 
 //	test = demo.front();
 //	InputManager::getInstance().addWidgetModal(test);

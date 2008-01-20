@@ -47,29 +47,29 @@ namespace MyGUI
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->getInternalString() == "Bar") {
+			if ((*iter)->_getInternalString() == "Bar") {
 				mWidgetBar = (*iter);
 			}
-			else if ((*iter)->getInternalString() == "Left") {
+			else if ((*iter)->_getInternalString() == "Left") {
 				mButtonLeft = castWidget<Button>(*iter);
 				mButtonLeft->hide();
 				mButtonLeft->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->getInternalString() == "Right") {
+			else if ((*iter)->_getInternalString() == "Right") {
 				mButtonRight = castWidget<Button>(*iter);
 				mButtonRight->hide();
 				mButtonRight->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->getInternalString() == "List") {
+			else if ((*iter)->_getInternalString() == "List") {
 				mButtonList = castWidget<Button>(*iter);
 				mButtonList->hide();
 				mButtonList->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->getInternalString() == "ShowPatch") {
+			else if ((*iter)->_getInternalString() == "ShowPatch") {
 				mWidgetsPatch.push_back((*iter));
 				(*iter)->hide();
 			}
-			else if ((*iter)->getInternalString() == "Sheet") {
+			else if ((*iter)->_getInternalString() == "Sheet") {
 				mSheetTemplate = (*iter);
 				mSheetTemplate->hide();
 			}
@@ -255,7 +255,7 @@ namespace MyGUI
 	{
 		if (_double) return;
 
-		size_t select = (size_t)_sender->getInternalData() + mStartIndex;
+		size_t select = (size_t)_sender->_getInternalData() + mStartIndex;
 		// щелкнули по той же кнопке
 		if (select == mSelectSheet) {
 			// стараемся показать выделенную кнопку
@@ -489,7 +489,7 @@ namespace MyGUI
 	{
 		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
 		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
-		button->setInternalData((int)mSheetButton.size()); // порядковый номер
+		button->_setInternalData((int)mSheetButton.size()); // порядковый номер
 		mSheetButton.push_back(button);
 	}
 

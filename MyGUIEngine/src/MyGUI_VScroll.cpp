@@ -20,15 +20,15 @@ namespace MyGUI
 		mScrollPage = 1;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->getInternalString() == "Start") {
+			if ((*iter)->_getInternalString() == "Start") {
 				mWidgetStart = castWidget<Button>(*iter);
 				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 			}
-			else if ((*iter)->getInternalString() == "End") {
+			else if ((*iter)->_getInternalString() == "End") {
 				mWidgetEnd = castWidget<Button>(*iter);
 				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 			}
-			else if ((*iter)->getInternalString() == "Track") {
+			else if ((*iter)->_getInternalString() == "Track") {
 				mWidgetTrack = castWidget<Button>(*iter);
 				mWidgetTrack->eventMouseMove = newDelegate(this, &VScroll::notifyMouseMove);
 				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);

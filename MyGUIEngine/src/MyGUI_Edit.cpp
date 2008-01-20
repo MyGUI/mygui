@@ -56,7 +56,7 @@ namespace MyGUI
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->getInternalString() == "Client") {
+			if ((*iter)->_getInternalString() == "Client") {
 				mWidgetUpper = (*iter);
 				mWidgetUpper->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
 				mWidgetUpper->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
@@ -69,7 +69,7 @@ namespace MyGUI
 		// курсор принадлежит клиенту, пытаемся его найти
 		const VectorWidgetPtr& childs = mWidgetUpper->getChilds();
 		for (VectorWidgetPtr::const_iterator iter=childs.begin(); iter!=childs.end(); ++iter) {
-			if ("Cursor" == (*iter)->getInternalString()) {
+			if ("Cursor" == (*iter)->_getInternalString()) {
 				mWidgetCursor = (*iter);
 				mWidgetCursor->hide();
 				mWidgetCursor->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);

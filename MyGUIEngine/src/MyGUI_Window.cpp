@@ -47,18 +47,18 @@ namespace MyGUI
 		if (iter != param.end()) setUserString("Scale", "1 1 0 0");
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->getInternalString() == "Client") {
+			if ((*iter)->_getInternalString() == "Client") {
 				mWidgetClient = (*iter);
 			}
-			else if ((*iter)->getInternalString() == "Caption") {
+			else if ((*iter)->_getInternalString() == "Caption") {
 				mWidgetCaption = (*iter);
 				mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				mWidgetCaption->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
 			}
-			else if ((*iter)->getInternalString() == "Button") {
+			else if ((*iter)->_getInternalString() == "Button") {
 				(*iter)->eventMouseButtonClick = newDelegate(this, &Window::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->getInternalString() == "Action") {
+			else if ((*iter)->_getInternalString() == "Action") {
 				(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				(*iter)->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
 			}

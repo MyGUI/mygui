@@ -7,7 +7,7 @@
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include "MyGUI_Gui.h"
+#include "MyGUI.h"
 
 class DemoKeeper
 {
@@ -40,6 +40,8 @@ private:
 
 	void createWindowEdit(MyGUI::WidgetPtr _widget);
 	void createWindowList(MyGUI::WidgetPtr _widget);
+
+	void test(MyGUI::WidgetPtr _sender, MyGUI::Message::ButtonInfo _button);
 
 private:
 	MyGUI::Gui * mGUI;

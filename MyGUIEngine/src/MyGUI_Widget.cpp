@@ -76,7 +76,7 @@ namespace MyGUI
 		const VectorChildSkinInfo& child = _info->getChild();
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter) {
 			WidgetPtr widget = createWidgetT(iter->type, iter->skin, iter->coord, iter->align);
-			widget->setInternalString(iter->name);
+			widget->_setInternalString(iter->name);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop) {
 				widget->setUserString(prop->first, prop->second);

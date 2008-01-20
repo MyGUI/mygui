@@ -45,11 +45,11 @@ namespace MyGUI
 			mMapUserString.clear();
 		}
 
-		inline int getInternalData() {return mInternalData;}
-		inline void setInternalData(int _data) {mInternalData = _data;}
+		inline int _getInternalData() {return mInternalData;}
+		inline void _setInternalData(int _data) {mInternalData = _data;}
 
-		inline const std::string& getInternalString() {return mInternalString;}
-		inline void setInternalString(const std::string& _data) {mInternalString = _data;}
+		inline const std::string& _getInternalString() {return mInternalString;}
+		inline void _setInternalString(const std::string& _data) {mInternalString = _data;}
 
 	private:
 		// пользовательские данные
