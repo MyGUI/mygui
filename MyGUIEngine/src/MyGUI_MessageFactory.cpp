@@ -17,6 +17,7 @@ namespace MyGUI
 
 		std::vector<Ogre::DisplayString> MessageFactory::mVectorButtonName;
 		std::map<std::string, size_t> MessageFactory::mMapButtonType;
+		std::string MessageFactory::mDefaultSkin;
 
 		MessageFactory::MessageFactory()
 		{
@@ -32,6 +33,7 @@ namespace MyGUI
 			manager.registerDelegate("Message_Modal") = newDelegate(this, &MessageFactory::Message_Modal);
 			manager.registerDelegate("Message_Button") = newDelegate(this, &MessageFactory::Message_Button);
 			manager.registerDelegate("Message_AddButton") = newDelegate(this, &MessageFactory::Message_AddButton);
+			manager.registerDelegate("Message_Smooth") = newDelegate(this, &MessageFactory::Message_Smooth);
 		}
 
 		MessageFactory::~MessageFactory()
@@ -48,6 +50,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Message_Modal");
 			manager.unregisterDelegate("Message_Button");
 			manager.unregisterDelegate("Message_AddButton");
+			manager.unregisterDelegate("Message_Smooth");
 		}
 
 		const Ogre::String& MessageFactory::getType()
@@ -97,6 +100,12 @@ namespace MyGUI
 			static_cast<MessagePtr>(_widget)->addButtonName(_value);
 		}
 
+		void MessageFactory::Message_Smooth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(MessagePtr, _widget);
+			static_cast<MessagePtr>(_widget)->setWindowSmooth(util::parseBool(_value));
+		}
+
 		size_t MessageFactory::parseButton(const std::string & _info)
 		{
 			size_t ret = 0;
@@ -110,6 +119,8 @@ namespace MyGUI
 
 		void MessageFactory::initialise()
 		{
+			// потом загружать из файла
+			mDefaultSkin = "Message";
 			mVectorButtonName.push_back("Ok");
 			mVectorButtonName.push_back("Yes");
 			mVectorButtonName.push_back("No");

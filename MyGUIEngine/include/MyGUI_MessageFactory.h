@@ -27,6 +27,7 @@ namespace MyGUI
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
 
 			static Ogre::DisplayString _getButtonName(size_t _index);
+			inline static const std::string & _getDefaultSkin() {return mDefaultSkin;}
 
 		private:
 			void initialise();
@@ -38,12 +39,14 @@ namespace MyGUI
 			void Message_Modal(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Message_Button(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Message_AddButton(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Message_Smooth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
 			size_t parseButton(const std::string & _info);
 
 		private:
 			static std::vector<Ogre::DisplayString> mVectorButtonName;
 			static std::map<std::string, size_t> mMapButtonType;
+			static std::string mDefaultSkin;
 
 		};
 

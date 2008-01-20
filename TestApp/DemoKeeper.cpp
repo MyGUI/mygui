@@ -7,8 +7,6 @@
 #include "DemoKeeper.h"
 #include <fstream>
 
-using namespace MyGUI;
-
 const size_t MAX_CREATE_WINDOW = 20;
 
 DemoKeeper::DemoKeeper() :
@@ -23,16 +21,26 @@ DemoKeeper::DemoKeeper() :
 void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
 {
 	if (_index == ITEM_NONE) {
-		MYGUI_OUT("reset select");
+		MyGUI::MYGUI_OUT("reset select");
 //		InputManager::getInstance().removeWidgetModal(test2);
 	}
-	else MYGUI_OUT(_index);
+	else MyGUI::MYGUI_OUT(_index);
 }
 
 void DemoKeeper::test(MyGUI::WidgetPtr _sender, MyGUI::Message::ButtonInfo _button)
 {
-	MYGUI_OUT(_button);
+	MyGUI::MYGUI_OUT(_button);
 }
+
+/*typedef delegates::IDelegate2<int,  int> testDelegate;
+
+void test3(int _test, int _test2)
+{
+}
+
+void test2(testDelegate * _delegate)
+{
+}*/
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
@@ -40,12 +48,18 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	/*MessagePtr mess = mGUI->createWidget<Message>("Message", IntCoord(60, 100, 400, 126), ALIGN_DEFAULT, "Overlapped");
+	//test2(MyGUI::newDelegate(test3));
+
+	/*MyGUI::MessagePtr mess = mGUI->createWidget<MyGUI::Message>("Message", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "");
 	mess->setCaption("message box");
 	mess->setMessage("message");
 	mess->addButtonName("test1");
 	mess->addButtonName("test2");
-	mess->eventMessageBoxEnd = newDelegate(this, &DemoKeeper::test);*/
+	mess->eventMessageBoxEnd = newDelegate(this, &DemoKeeper::test);
+	//LayerManager::getInstance().detachItem(mess);
+	MyGUI::LayerManager::getInstance().attachItem(mess, mess->getDefaultLayer(), true);*/
+
+	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
 	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
 	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
@@ -56,7 +70,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 //	InputManager::getInstance().addWidgetModal(combo);
 
-	VectorWidgetPtr demo = LayoutManager::getInstance().load("MessageDemo.layout");
+	//MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
 
 	//VectorWidgetPtr demo = LayoutManager::getInstance().load("TabDemo.layout");
 
@@ -116,35 +130,35 @@ void DemoKeeper::createWindowEdit(MyGUI::WidgetPtr _widget)
         window->setPosition(IntPoint((int)x, (int)y));
         window->showSmooth(true);*/
 
-        VectorWidgetPtr childs = _widget->getChilds();
+        MyGUI::VectorWidgetPtr childs = _widget->getChilds();
         if (7 <= childs.size())
         {
 
-            EditPtr edit = castWidget<Edit>(childs[0]);
+            MyGUI::EditPtr edit = MyGUI::castWidget<MyGUI::Edit>(childs[0]);
 
-            ButtonPtr button = castWidget<Button>(childs[1]);
+            MyGUI::ButtonPtr button = MyGUI::castWidget<MyGUI::Button>(childs[1]);
             button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedMultiLine);
             button->setUserString("Edit", edit->getName());
 
-            ButtonPtr button2 = castWidget<Button>(childs[2]);
+            MyGUI::ButtonPtr button2 = MyGUI::castWidget<MyGUI::Button>(childs[2]);
             button2->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedReadOnly);
             button2->setUserString("Edit", edit->getName());
 
-            button = castWidget<Button>(childs[3]);
+            button = MyGUI::castWidget<MyGUI::Button>(childs[3]);
             button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedPassword);
             button->setUserString("Edit", edit->getName());
 
-            button = castWidget<Button>(childs[4]);
+            button = MyGUI::castWidget<MyGUI::Button>(childs[4]);
             button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedColourGreen);
             button->setUserString("Edit", edit->getName());
             button2->setUserString("ColourGreen", button->getName());
 
-            button = castWidget<Button>(childs[5]);
+            button = MyGUI::castWidget<MyGUI::Button>(childs[5]);
             button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedColourRed);
             button->setUserString("Edit", edit->getName());
             button2->setUserString("ColourRed", button->getName());
 
-            button = castWidget<Button>(childs[6]);
+            button = MyGUI::castWidget<MyGUI::Button>(childs[6]);
             button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedColourBlue);
             button->setUserString("Edit", edit->getName());
             button2->setUserString("ColourBlue", button->getName());
@@ -201,7 +215,7 @@ void DemoKeeper::createWindowEdit(MyGUI::WidgetPtr _widget)
 
 void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
+    MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     bool enable = true;
@@ -221,21 +235,21 @@ void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
     }
 
     // кнопки управления цветом
-    ButtonPtr button = mGUI->findWidget<Button>(_sender->getUserString("ColourBlue"));
+   MyGUI::ButtonPtr button = mGUI->findWidget<MyGUI::Button>(_sender->getUserString("ColourBlue"));
     if (null != button)
     {
         button->setEnabled(enable);
         button->setColour(Ogre::ColourValue(colour, colour, colour));
     }
 
-    button = mGUI->findWidget<Button>(_sender->getUserString("ColourGreen"));
+    button = mGUI->findWidget<MyGUI::Button>(_sender->getUserString("ColourGreen"));
     if (null != button)
     {
         button->setEnabled(enable);
         button->setColour(Ogre::ColourValue(colour, colour, colour));
     }
 
-    button = mGUI->findWidget<Button>(_sender->getUserString("ColourRed"));
+    button = mGUI->findWidget<MyGUI::Button>(_sender->getUserString("ColourRed"));
     if (null != button)
     {
         button->setEnabled(enable);
@@ -245,7 +259,7 @@ void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
+    MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     if (edit->getEditPassword())
@@ -263,7 +277,7 @@ void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
 void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 {
 //	InputManager::getInstance().removeWidgetModal(test);//???
-    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
+    MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     if (edit->getEditMultiLine())
@@ -280,7 +294,7 @@ void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
+    MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     edit->setTextSelectColour(Ogre::ColourValue::Green);
@@ -288,7 +302,7 @@ void DemoKeeper::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double
 
 void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
+    MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     edit->setTextSelectColour(Ogre::ColourValue::Red);
@@ -296,7 +310,7 @@ void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
 {
-    EditPtr edit = mGUI->findWidget<Edit>(_sender->getUserString("Edit"));
+    MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 
     edit->setTextSelectColour(Ogre::ColourValue::Blue);
@@ -318,23 +332,23 @@ void DemoKeeper::createWindowList(MyGUI::WidgetPtr _widget)
         window->setPosition(IntPoint((int)x, (int)y));
         window->showSmooth(true);*/
 
-        VectorWidgetPtr childs = _widget->getChilds();
+        MyGUI::VectorWidgetPtr childs = _widget->getChilds();
         if (4 <= childs.size())
         {
 
-            ListPtr list = castWidget<List>(childs[0]);
+            MyGUI::ListPtr list = MyGUI::castWidget<MyGUI::List>(childs[0]);
 			list->eventKeyButtonPressed = newDelegate(this, &DemoKeeper::notifyListButtonPressed);
 
-            ComboBoxPtr combo = castWidget<ComboBox>(childs[1]);
+            MyGUI::ComboBoxPtr combo = MyGUI::castWidget<MyGUI::ComboBox>(childs[1]);
             combo->setUserString("List", list->getName());
             combo->eventComboAccept = newDelegate(this, &DemoKeeper::notifyEditAccept);
 
-            ButtonPtr add = castWidget<Button>(childs[2]);
+            MyGUI::ButtonPtr add = MyGUI::castWidget<MyGUI::Button>(childs[2]);
             add->setUserString("ComboBox", combo->getName());
             add->setUserString("List", list->getName());
             add->eventMouseButtonClick = MyGUI::newDelegate(this, &DemoKeeper::notifyPressedAdd);
 
-            ButtonPtr del = castWidget<Button>(childs[3]);
+            MyGUI::ButtonPtr del = MyGUI::castWidget<MyGUI::Button>(childs[3]);
             del->setUserString("List", list->getName());
             del->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyPressedDelete);
         }
@@ -381,7 +395,7 @@ void DemoKeeper::createWindowList(MyGUI::WidgetPtr _widget)
 
 void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
 {
-    ComboBoxPtr combo = mGUI->findWidget<ComboBox>(_sender->getUserString("ComboBox"));
+    MyGUI::ComboBoxPtr combo = mGUI->findWidget<MyGUI::ComboBox>(_sender->getUserString("ComboBox"));
     if (combo == null) return;
 
     notifyEditAccept(combo);
@@ -389,7 +403,7 @@ void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
 {
-    ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
+    MyGUI::ListPtr list = mGUI->findWidget<MyGUI::List>(_sender->getUserString("List"));
     if (list == null) return;
 
     size_t select = list->getItemSelect();
@@ -401,7 +415,7 @@ void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
 {
-    ListPtr list = mGUI->findWidget<List>(_sender->getUserString("List"));
+    MyGUI::ListPtr list = mGUI->findWidget<MyGUI::List>(_sender->getUserString("List"));
     if (list == null) return;
 
 	const Ogre::DisplayString& caption = _sender->getCaption();
@@ -412,10 +426,10 @@ void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
     }
 }
 
-void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, Char _char)
+void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char)
 {
 	if (_key == OIS::KC_DELETE) {
-		ListPtr list = castWidget<List>(_sender);
+		MyGUI::ListPtr list = MyGUI::castWidget<MyGUI::List>(_sender);
 
 		size_t select = list->getItemSelect();
 		if (select != ITEM_NONE) list->deleteItemString(select);
@@ -425,7 +439,7 @@ void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, Cha
 void DemoKeeper::notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name)
 {
 	if (_name == "close") {
-		WindowPtr window = castWidget<Window>(_widget);
+		MyGUI::WindowPtr window = MyGUI::castWidget<MyGUI::Window>(_widget);
 		window->destroySmooth();
 		mCountWindow --;
 	}

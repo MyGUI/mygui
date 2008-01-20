@@ -3,10 +3,12 @@
 <MyGUI type="Layout">
 
 
-  <Widget type="Message" skin="Message" position="100 100 600 300" align="ALIGN_DEFAULT" layer="Overlapped">
+  <Widget type="Message" skin="Message" layer="Overlapped">
     <Property key="Widget_Caption" value="message demo" />
     <Property key="Message_Message" value="message" />
     <Property key="Message_Button" value="OkCancel" />
+    <Property key="Message_Modal" value="true" />
+    <Property key="Message_Smooth" value="true" />
 
   </Widget>
 

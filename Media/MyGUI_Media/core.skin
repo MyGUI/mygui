@@ -852,6 +852,7 @@
         <Property key="ButtonType" value = "Button" />
         <Property key="ButtonSize" value = "100 26" />
         <Property key="ButtonOffset" value = "20 43" />
+        <Property key="DefaultLayer" value = "Info" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>

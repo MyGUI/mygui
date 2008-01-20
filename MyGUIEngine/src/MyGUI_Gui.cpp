@@ -191,7 +191,7 @@ namespace MyGUI
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
-		LayerManager::getInstance().attachItem(widget, _layer, true);
+		if (false == _layer.empty()) LayerManager::getInstance().attachItem(widget, _layer, true);
 		return widget;
 	}
 

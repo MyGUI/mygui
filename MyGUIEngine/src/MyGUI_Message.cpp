@@ -7,8 +7,11 @@
 #include "MyGUI_Message.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_LayerManager.h"
+#include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_MessageFactory.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -17,7 +20,8 @@ namespace MyGUI
 		Window(_coord, _align, _info, _parent, _name),
 		mWidgetText(null),
 		mInfoOk(Ok), mInfoCancel(Ok),
-		mButton1Index(0)
+		mButton1Index(0),
+		mSmooth(true)
 	{
 		// ищем индекс первой кнопки
 		size_t but1 = (size_t)Button1;
@@ -47,6 +51,9 @@ namespace MyGUI
 			if (iter != param.end()) mButtonSize = IntSize::parse(iter->second);
 			iter = param.find("ButtonOffset");
 			if (iter != param.end()) mButtonOffset = IntSize::parse(iter->second);
+			iter = param.find("DefaultLayer");
+			if (iter != param.end()) mDefaultLayer = iter->second;
+			
 		}
 	}
 
@@ -110,7 +117,8 @@ namespace MyGUI
 		}
 		offset += mButtonOffset.width;
 
-		setSize(size);
+		IntSize view((int)Gui::getInstance().getViewWidth(), (int)Gui::getInstance().getViewHeight());
+		setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
 		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter) {
 			(*iter)->setPosition(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
@@ -121,7 +129,8 @@ namespace MyGUI
 	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender, bool _double)
 	{
 		if (false == _double) eventMessageBoxEnd(this, (ButtonInfo)_sender->_getInternalData());
-		WidgetManager::getInstance().destroyWidget(this);
+		if (mSmooth) destroySmooth();
+		else WidgetManager::getInstance().destroyWidget(this);
 	}
 
 	void Message::clearButton()
@@ -137,12 +146,62 @@ namespace MyGUI
 		Window::_onKeyButtonPressed(_key, _char);
 		if (_key == OIS::KC_RETURN) {
 			eventMessageBoxEnd(this, mInfoOk);
-			WidgetManager::getInstance().destroyWidget(this);
+			if (mSmooth) destroySmooth();
+			else WidgetManager::getInstance().destroyWidget(this);
 		}
 		else if (_key == OIS::KC_ESCAPE) {
 			eventMessageBoxEnd(this, mInfoCancel);
-			WidgetManager::getInstance().destroyWidget(this);
+			if (mSmooth) destroySmooth();
+			else WidgetManager::getInstance().destroyWidget(this);
 		}
+	}
+
+	void Message::setWindowSmooth(bool _smooth)
+	{
+		mSmooth = _smooth;
+		if (mSmooth) showSmooth(true);
+	}
+
+	void Message::setMessageImage(size_t _image)
+	{
+	}
+
+	void Message::_createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, size_t _image, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ButtonInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
+	{
+		Gui * gui = Gui::getInstancePtr();
+		if (null == gui) return;
+
+		MessagePtr mess = gui->createWidget<Message>(_skin.empty() ? factory::MessageFactory::_getDefaultSkin() : _skin, IntCoord(), ALIGN_DEFAULT, _layer);
+		mess->setCaption(_caption);
+		mess->setMessage(_message);
+		mess->setMessageImage(_image);
+		if (null != _delegate) mess->eventMessageBoxEnd = _delegate;
+		if (None != _info) mess->setButton(_info);
+
+		if (false == _button1.empty()) {
+			mess->addButtonName(_button1);
+			if (false == _button2.empty()) {
+				mess->addButtonName(_button2);
+				if (false == _button3.empty()) {
+					mess->addButtonName(_button3);
+					if (false == _button4.empty()) {
+						mess->addButtonName(_button4);
+						if (false == _button5.empty()) {
+							mess->addButtonName(_button5);
+							if (false == _button6.empty()) {
+								mess->addButtonName(_button6);
+								if (false == _button7.empty()) {
+									mess->addButtonName(_button7);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (_layer.empty()) LayerManager::getInstance().attachItem(mess, mess->getDefaultLayer(), true);
+		if (_modal) InputManager::getInstance().addWidgetModal(mess);
 	}
 
 } // namespace MyGUI

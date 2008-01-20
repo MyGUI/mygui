@@ -49,6 +49,7 @@ namespace MyGUI
 		};
 		typedef unsigned short ButtonInfo;
 		typedef delegates::CDelegate2<WidgetPtr, ButtonInfo> EventInfo_WidgetMessage;
+		typedef delegates::IDelegate2<WidgetPtr, ButtonInfo> EventMessageEnd;
 
 	protected:
 		Message(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
@@ -73,6 +74,38 @@ namespace MyGUI
 		// создание кнопок по битовым полям
 		void setButton(ButtonInfo _info);
 
+		void setWindowSmooth(bool _smooth);
+
+		inline const std::string & getDefaultLayer() {return mDefaultLayer;}
+		void setMessageImage(size_t _image);
+
+		static void _createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, size_t _image,
+			const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ButtonInfo _info,
+			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "",
+			const std::string & _button5 = "", const std::string & _button6 = "", const std::string & _button7 = "");
+
+		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, ButtonInfo _info)
+		{
+			_createMessage(_caption, _message, ITEM_NONE, "", "", _modal, null, _info);
+		}
+
+		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, EventMessageEnd * _delegate, ButtonInfo _info)
+		{
+			_createMessage(_caption, _message, ITEM_NONE, "", "", _modal, _delegate, _info);
+		}
+
+		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
+			const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
+		{
+			_createMessage(_caption, _message, ITEM_NONE, "", "", _modal, null, None, _button1, _button2, _button3);
+		}
+
+		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
+			EventMessageEnd * _delegate, const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
+		{
+			_createMessage(_caption, _message, ITEM_NONE, "", "", _modal, _delegate, None, _button1, _button2, _button3);
+		}
+
 	public:
 		/*	событие : надата кнопка на окне сообщений*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::ButtonInfo _button);*/
@@ -88,7 +121,10 @@ namespace MyGUI
 		VectorWidgetPtr mVectorButton;
 		ButtonInfo mInfoOk, mInfoCancel;
 		size_t mButton1Index;
+		bool mSmooth;
 
+		std::string mDefaultLayer;
+		std::string mDefaultCaption;
 	}; // class _MyGUIExport Message : public Window
 
 } // namespace MyGUI
