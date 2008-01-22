@@ -177,6 +177,8 @@ namespace MyGUI
 
 	void Message::setWindowFade(bool _fade)
 	{
+		return; //пока пропустим
+
 		if (_fade) {
 			if (null == mWidgetFade) {
 				Gui & gui = Gui::getInstance();

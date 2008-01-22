@@ -27,6 +27,8 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(null != mElement, "overlay element not found");
 
 		createRenderMaterial();
+
+		mPointer = "hand"; // дл€ теста
 	}
 
 	RenderBox::~RenderBox()
@@ -42,11 +44,11 @@ namespace MyGUI
 	}
 
 	// добавл€ет в сцену объект, старый удал€етьс€
-	void RenderBox::injectObject(Ogre::String _name, Ogre::String _meshName)
+	void RenderBox::injectObject(const Ogre::String& _meshName)
 	{
 		clear();
 
-		mEntity = mScene->createEntity(_name, _meshName);
+		mEntity = mScene->createEntity(util::toString(this, "_RenderBoxMesh_", _meshName), _meshName);
 		mNode->attachObject(mEntity);
 
 		updateViewport();
@@ -98,7 +100,7 @@ namespace MyGUI
 	void RenderBox::createRenderMaterial()
 	{
 		// создаем новый сцен менеджер
-		mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, "SceneManagerRenderBox_" + Ogre::StringConverter::toString((Ogre::uint32)this));
+		mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, util::toString(this, "_SceneManagerRenderBox"));
 
 		// создаем нод к которуму будем вс€кую др€нь атачить
 		mNode = mScene->getRootSceneNode()->createChildSceneNode();
@@ -108,21 +110,21 @@ namespace MyGUI
 		// главный источник света
 		Ogre::Vector3 dir(-1, -1, 0.5);
 		dir.normalise();
-		Ogre::Light * light = mScene->createLight("LightDirectRender_" + Ogre::StringConverter::toString((Ogre::uint32)this));
+		Ogre::Light * light = mScene->createLight(util::toString(this, "_LightRenderBox"));
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		light->setDirection(dir);
 
 		// создаем материал
-		mMaterial = "MaterialRenderBox_" + Ogre::StringConverter::toString((Ogre::uint32)this);
+		mMaterial = util::toString(this, "_MaterialRenderBox");
 		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(mMaterial, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState("TextureRenderBox_" + Ogre::StringConverter::toString((Ogre::uint32)this));
+		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(util::toString(this, "_TextureRenderBox"));
 
 		// Setup Render To Texture for preview window
-		mTexture = Ogre::Root::getSingleton().getRenderSystem()->createRenderTexture( "TextureRenderBox_" + Ogre::StringConverter::toString((Ogre::uint32)this), 512, 512, Ogre::TEX_TYPE_2D, Ogre::PF_R8G8B8 );
+		mTexture = Ogre::Root::getSingleton().getRenderSystem()->createRenderTexture(util::toString(this, "_TextureRenderBox"), 512, 512, Ogre::TEX_TYPE_2D, Ogre::PF_R8G8B8 );
 
-		mRttCam = mScene->createCamera("CameraRenderBox_" + Ogre::StringConverter::toString((Ogre::uint32)this));
-		mCamNode = mScene->getRootSceneNode()->createChildSceneNode("CameraNodeRenderBox_" + Ogre::StringConverter::toString((Ogre::uint32)this));
+		mRttCam = mScene->createCamera(util::toString(this, "_CameraRenderBox"));
+		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(util::toString(this, "_CameraNodeRenderBox"));
 		mCamNode->attachObject(mRttCam);
 		mRttCam->setNearClipDistance(1);
 		mRttCam->setAspectRatio(getWidth()/getHeight());
@@ -139,6 +141,8 @@ namespace MyGUI
 
 	void RenderBox::updateViewport()
 	{
+		// при нуле вылетает
+		if ((getWidth() <= 1) || (getHeight() <= 1)) return;
 
 		if ((float)getWidth()/(float)getHeight() > 0)mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
@@ -158,7 +162,6 @@ namespace MyGUI
 		// центр объекта + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
 		mCamNode->setPosition(box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2));
 		mCamNode->lookAt(box.getCenter(), Ogre::Node::TS_WORLD);
-		mCamNode->showBoundingBox(true);
 	}
 
 } // namespace MyGUI

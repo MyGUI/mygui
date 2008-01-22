@@ -30,12 +30,10 @@ namespace MyGUI
 
 		/** Add mesh to scene and remove previous one
 			@param
-			_name The name to be given to the entity (must be unique).
-			@param
 				_meshName The name of the Mesh it is to be based on (e.g. 'knot.oof'). The
 				mesh will be loaded if it is not already.
 		*/
-		void injectObject(Ogre::String _name, Ogre::String _meshName);
+		void injectObject(const Ogre::String& _meshName);
 
 		/** Clear scene */
 		void clear();

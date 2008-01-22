@@ -254,6 +254,9 @@ bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
 	mGUI->injectMouseMove(arg);
 	this->mDemo.move((size_t)arg.state.X.abs);
+
+	//MyGUI::MYGUI_OUT(arg.state.X.abs, "   ", arg.state.Y.abs);
+
 	return true;
 }
 
