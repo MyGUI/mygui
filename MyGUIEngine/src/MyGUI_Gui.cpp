@@ -44,6 +44,8 @@ namespace MyGUI
 		Ogre::Viewport * port = _window->getViewport(0);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
+		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
+
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &Gui::_load);
 
 		// регистрируем фабрику текста и панели
