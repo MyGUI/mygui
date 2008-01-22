@@ -40,6 +40,7 @@ namespace MyGUI
 			void Message_Button(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Message_AddButton(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Message_Smooth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Message_Fade(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
 			size_t parseButton(const std::string & _info);
 

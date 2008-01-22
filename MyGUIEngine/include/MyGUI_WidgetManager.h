@@ -90,6 +90,7 @@ namespace MyGUI
 		factory::TabFactory * mTabFactory;
 		factory::SheetFactory * mSheetFactory;
 		factory::MessageFactory * mMessageFactory;
+		factory::ProgressFactory * mProgressFactory;
 
 		// список менеджеров для отписки при удалении
 		VectorUnlinkWidget mVectorUnlinkWidget;

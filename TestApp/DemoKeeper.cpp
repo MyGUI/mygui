@@ -42,11 +42,21 @@ void test2(testDelegate * _delegate)
 {
 }*/
 
+MyGUI::ProgressPtr prog = null;
+
+void DemoKeeper::move(size_t _pos)
+{
+	if (null != prog) prog->setProgressPosition(_pos);
+}
+
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
     mGUI = _gui;
     mWidth = _width;
     mHeight = _height;
+
+	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel", "Continue");
+	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
 	//test2(MyGUI::newDelegate(test3));
 
@@ -59,7 +69,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//LayerManager::getInstance().detachItem(mess);
 	MyGUI::LayerManager::getInstance().attachItem(mess, mess->getDefaultLayer(), true);*/
 
-	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
+//	MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
+	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
 	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
 	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
@@ -70,12 +81,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 //	InputManager::getInstance().addWidgetModal(combo);
 
-	//MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
 
-	//VectorWidgetPtr demo = LayoutManager::getInstance().load("TabDemo.layout");
+	/*MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
 
-	//createWindowList(mGUI->findWidget<Widget>("sheet1"));
-	//createWindowEdit(mGUI->findWidget<Widget>("sheet2"));
+	createWindowList(mGUI->findWidget<MyGUI::Widget>("sheet1"));
+	createWindowEdit(mGUI->findWidget<MyGUI::Widget>("sheet2"));*/
 
 //	test = demo.front();
 //	InputManager::getInstance().addWidgetModal(test);
@@ -83,11 +93,16 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//LayoutManager::getInstance().load("EditDemo.layout");
 	//LayoutManager::getInstance().load("ListDemo.layout");
 
-	//mGUI->createWidget<VScroll>("VScroll", IntCoord(100, 100, 16, 300), ALIGN_DEFAULT, "Main");
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	/*WindowPtr window = mGUI->createWidget<Window>("WindowCS", IntCoord(100, 100, 600, 300), ALIGN_DEFAULT, "Main");
-	window->setMinMax(150, 150, 2000, 2000);
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
+	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	prog->setProgressAutoTrack(true);
+
+	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 45, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	prog->setProgressRange(mWidth);
+
+	/*window->setMinMax(150, 150, 2000, 2000);
 	window->setCaption("tab demo");
 
 	TabPtr tab = window->createWidget<Tab>("Tab", IntCoord(5, 5, 580, 254), ALIGN_STRETCH);
@@ -310,6 +325,10 @@ void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
 
 void DemoKeeper::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
 {
+	//MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
+	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel", "Continue");
+	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
+
     MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
 

@@ -2,13 +2,13 @@
 
 <MyGUI type="Layer">
 
-    <Layer name="Fide" start="640" height="1" count="1"/>
+    <Layer name="Fade" start="640" height="1" count="1"/>
 
     <Layer name="Pointer" start="638" height="2" count="1"/>
     <Layer name="Tooltip" start="634" height="4" count="1"/>
-    <Layer name="Info" start="594" height="8" count="5"/>
+    <Layer name="Info" start="596" height="8" count="4"/>
 
-    <Layer name="FideMiddle" start="593" height="1" count="1"/>
+    <Layer name="FadeMiddle" start="593" height="1" count="1"/>
 
     <Layer name="Popup" start="553" height="8" count="5"/>
     <Layer name="Main" start="545" height="8" count="1"/>

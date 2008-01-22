@@ -23,6 +23,7 @@
 #include "MyGUI_TabFactory.h"
 #include "MyGUI_SheetFactory.h"
 #include "MyGUI_MessageFactory.h"
+#include "MyGUI_ProgressFactory.h"
 
 namespace MyGUI
 {
@@ -50,6 +51,7 @@ namespace MyGUI
 		mTabFactory = new factory::TabFactory();
 		mSheetFactory = new factory::SheetFactory();
 		mMessageFactory = new factory::MessageFactory();
+		mProgressFactory = new factory::ProgressFactory();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -79,6 +81,7 @@ namespace MyGUI
 		delete mTabFactory;
 		delete mSheetFactory;
 		delete mMessageFactory;
+		delete mProgressFactory;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

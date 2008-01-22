@@ -141,6 +141,7 @@ namespace MyGUI
 		if (mKeyRootFocus) alpha = WINDOW_ALPHA_ACTIVE;
 		else if (mMouseRootFocus) alpha = WINDOW_ALPHA_FOCUS;
 		else alpha = WINDOW_ALPHA_DEACTIVE;
+		//MYGUI_OUT(alpha);
 
 		ControllerManager::getInstance().addItem(this, new ControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
 	}

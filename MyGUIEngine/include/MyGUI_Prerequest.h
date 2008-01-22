@@ -57,6 +57,7 @@ namespace MyGUI
 	class VScroll;
 	class Window;
 	class Message;
+	class Progress;
 
 	// widget pointers
 	typedef Button* ButtonPtr;
@@ -71,6 +72,7 @@ namespace MyGUI
 	typedef VScroll* VScrollPtr;
 	typedef Window * WindowPtr;
 	typedef Message * MessagePtr;
+	typedef Progress * ProgressPtr;
 
 	class WidgetFactoryInterface;
 	namespace factory{
@@ -87,8 +89,8 @@ namespace MyGUI
 		class VScrollFactory;
 		class WidgetFactory;
 		class WindowFactory;
-		//class StrangeButtonFactory;
 		class MessageFactory;
+		class ProgressFactory;
 	}
 
 	// Define version

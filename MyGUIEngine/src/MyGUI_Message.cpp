@@ -12,16 +12,23 @@
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_MessageFactory.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_ControllerManager.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
+
+	const float MESSAGE_ALPHA_MAX = 0.5f;
+	const float MESSAGE_ALPHA_MIN = 0.0f;
+	const float MESSAGE_SPEED_COEF = 3.0f;
 
 	Message::Message(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Window(_coord, _align, _info, _parent, _name),
 		mWidgetText(null),
 		mInfoOk(Ok), mInfoCancel(Ok),
 		mButton1Index(0),
-		mSmooth(true)
+		mSmooth(false),
+		mWidgetFade(null)
 	{
 		// ищем индекс первой кнопки
 		size_t but1 = (size_t)Button1;
@@ -53,8 +60,12 @@ namespace MyGUI
 			if (iter != param.end()) mButtonOffset = IntSize::parse(iter->second);
 			iter = param.find("DefaultLayer");
 			if (iter != param.end()) mDefaultLayer = iter->second;
-			
+			iter = param.find("FadeSkin");
+			if (iter != param.end()) mFadeSkin = iter->second;
+			iter = param.find("FadeLayer");
+			if (iter != param.end()) mFadeLayer = iter->second;
 		}
+
 	}
 
 	void Message::setMessage(const Ogre::DisplayString & _message)
@@ -128,9 +139,7 @@ namespace MyGUI
 
 	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender, bool _double)
 	{
-		if (false == _double) eventMessageBoxEnd(this, (ButtonInfo)_sender->_getInternalData());
-		if (mSmooth) destroySmooth();
-		else WidgetManager::getInstance().destroyWidget(this);
+		if (false == _double) _destroyMessage((ButtonInfo)_sender->_getInternalData());
 	}
 
 	void Message::clearButton()
@@ -144,22 +153,48 @@ namespace MyGUI
 	void Message::_onKeyButtonPressed(int _key, Char _char)
 	{
 		Window::_onKeyButtonPressed(_key, _char);
-		if (_key == OIS::KC_RETURN) {
-			eventMessageBoxEnd(this, mInfoOk);
-			if (mSmooth) destroySmooth();
-			else WidgetManager::getInstance().destroyWidget(this);
+		if (_key == OIS::KC_RETURN) _destroyMessage(mInfoOk);
+		else if (_key == OIS::KC_ESCAPE) _destroyMessage(mInfoCancel);
+	}
+
+	void Message::_destroyMessage(ButtonInfo _result)
+	{
+		eventMessageBoxEnd(this, _result);
+		if (null != mWidgetFade) {
+			if (mSmooth) ControllerManager::getInstance().addItem(mWidgetFade,
+				new ControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, ControllerFadeAlpha::ACTION_DESTROY, false));
+			else WidgetManager::getInstance().destroyWidget(mWidgetFade);
 		}
-		else if (_key == OIS::KC_ESCAPE) {
-			eventMessageBoxEnd(this, mInfoCancel);
-			if (mSmooth) destroySmooth();
-			else WidgetManager::getInstance().destroyWidget(this);
-		}
+		if (mSmooth) destroySmooth();
+		else WidgetManager::getInstance().destroyWidget(this);
 	}
 
 	void Message::setWindowSmooth(bool _smooth)
 	{
 		mSmooth = _smooth;
 		if (mSmooth) showSmooth(true);
+	}
+
+	void Message::setWindowFade(bool _fade)
+	{
+		if (_fade) {
+			if (null == mWidgetFade) {
+				Gui & gui = Gui::getInstance();
+				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, gui.getViewWidth(), gui.getViewHeight()), ALIGN_STRETCH, mFadeLayer);
+				if (mSmooth) {
+					mWidgetFade->hide();
+					ControllerManager::getInstance().addItem(mWidgetFade,
+						new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, false));
+				}
+				else mWidgetFade->setAlpha(MESSAGE_ALPHA_MAX);
+			}
+		}
+		else {
+			if (null != mWidgetFade) {
+				WidgetManager::getInstance().destroyWidget(mWidgetFade);
+				mWidgetFade = null;
+			}
+		}
 	}
 
 	void Message::setMessageImage(size_t _image)
@@ -172,9 +207,11 @@ namespace MyGUI
 		if (null == gui) return;
 
 		MessagePtr mess = gui->createWidget<Message>(_skin.empty() ? factory::MessageFactory::_getDefaultSkin() : _skin, IntCoord(), ALIGN_DEFAULT, _layer);
+		mess->setWindowSmooth(true);
 		mess->setCaption(_caption);
 		mess->setMessage(_message);
 		mess->setMessageImage(_image);
+		if (_modal) mess->setWindowFade(true);
 		if (null != _delegate) mess->eventMessageBoxEnd = _delegate;
 		if (None != _info) mess->setButton(_info);
 

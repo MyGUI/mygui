@@ -34,6 +34,7 @@ namespace MyGUI
 			manager.registerDelegate("Message_Button") = newDelegate(this, &MessageFactory::Message_Button);
 			manager.registerDelegate("Message_AddButton") = newDelegate(this, &MessageFactory::Message_AddButton);
 			manager.registerDelegate("Message_Smooth") = newDelegate(this, &MessageFactory::Message_Smooth);
+			manager.registerDelegate("Message_Fade") = newDelegate(this, &MessageFactory::Message_Fade);
 		}
 
 		MessageFactory::~MessageFactory()
@@ -51,6 +52,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Message_Button");
 			manager.unregisterDelegate("Message_AddButton");
 			manager.unregisterDelegate("Message_Smooth");
+			manager.unregisterDelegate("Message_Fade");
 		}
 
 		const Ogre::String& MessageFactory::getType()
@@ -104,6 +106,12 @@ namespace MyGUI
 		{
 			MYGUI_TYPE(MessagePtr, _widget);
 			static_cast<MessagePtr>(_widget)->setWindowSmooth(util::parseBool(_value));
+		}
+
+		void MessageFactory::Message_Fade(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(MessagePtr, _widget);
+			static_cast<MessagePtr>(_widget)->setWindowFade(util::parseBool(_value));
 		}
 
 		size_t MessageFactory::parseButton(const std::string & _info)

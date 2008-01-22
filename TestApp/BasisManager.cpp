@@ -252,6 +252,7 @@ bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
 	mGUI->injectMouseMove(arg);
+	this->mDemo.move((size_t)arg.state.X.abs);
 	return true;
 }
 

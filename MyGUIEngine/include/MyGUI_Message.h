@@ -59,6 +59,7 @@ namespace MyGUI
 		void clearButton();
 
 		void _onKeyButtonPressed(int _key, Char _char);
+		void _destroyMessage(ButtonInfo _result);
 
 	public:
 		// тип данного виджета
@@ -78,6 +79,7 @@ namespace MyGUI
 
 		inline const std::string & getDefaultLayer() {return mDefaultLayer;}
 		void setMessageImage(size_t _image);
+		void setWindowFade(bool _fade);
 
 		static void _createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, size_t _image,
 			const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ButtonInfo _info,
@@ -123,8 +125,9 @@ namespace MyGUI
 		size_t mButton1Index;
 		bool mSmooth;
 
-		std::string mDefaultLayer;
-		std::string mDefaultCaption;
+		std::string mDefaultLayer, mDefaultCaption;
+		std::string mFadeSkin, mFadeLayer;
+		WidgetPtr mWidgetFade;
 	}; // class _MyGUIExport Message : public Window
 
 } // namespace MyGUI

@@ -16,6 +16,7 @@ public:
 
 	void start(MyGUI::Gui * _gui, size_t _width, size_t _height);
 	void end();
+	void move(size_t _pos);
 
 private:
 	void notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double);

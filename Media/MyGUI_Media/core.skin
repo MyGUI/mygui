@@ -577,6 +577,18 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "MarkerBlack" size = "1 1" material = "MyGUI_CoreMaterial" >
+        <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "560 45 1 1"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "MarkerWhite" size = "1 1" material = "MyGUI_CoreMaterial" >
+        <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "560 53 1 1"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "ComboBoxButton" size = "17 21" material = "MyGUI_CoreMaterial">
         <BasisSkin type="MainSkin" offset = "0 0 17 21" align = "ALIGN_STRETCH">
             <State name="disable" offset = "126 2 17 21"/>
@@ -853,6 +865,8 @@
         <Property key="ButtonSize" value = "100 26" />
         <Property key="ButtonOffset" value = "20 43" />
         <Property key="DefaultLayer" value = "Info" />
+        <Property key="FadeSkin" value = "MarkerBlack" />
+        <Property key="FadeLayer" value = "FadeMiddle" />
 
         <Child type="Button" skin="WindowCaption" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
@@ -885,6 +899,55 @@
         <BasisSkin type="SubSkin" offset = "3 30 18 18" align = "ALIGN_STRETCH">
             <State name="normal" offset = "413 4 96 59"/>
         </BasisSkin>
+    </Skin>
+
+
+    <Skin name = "ProgressTrack" size = "11 16" material = "MyGUI_CoreMaterial" >
+        <BasisSkin type="MainSkin" offset = "0 0 11 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "411 95 11 16"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "ProgressClient" size = "10 16" material = "MyGUI_CoreMaterial" >
+        <BasisSkin type="MainSkin" offset = "0 0 10 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "414 74 10 16"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "Progress" size = "16 22" material = "MyGUI_CoreMaterial" >
+        <Property key="TrackSkin" value = "ProgressTrack" />
+        <Property key="TrackWidth" value = "11" />
+
+        <Child type="Widget" skin="ProgressClient" offset = "3 3 10 16" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "411 71 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 10 3" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "414 71 10 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "13 0 3 3" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "424 71 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "13 3 3 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "424 74 3 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "13 19 3 3" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "424 90 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 19 10 3" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "414 90 10 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 19 3 3" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "411 90 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "411 74 3 16"/>
+        </BasisSkin>
+        <_BasisSkin type="SubSkin" offset = "3 3 10 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "414 74 10 16"/>
+        </_BasisSkin>
     </Skin>
 
 </MyGUI>
