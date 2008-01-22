@@ -24,6 +24,7 @@
 #include "MyGUI_SheetFactory.h"
 #include "MyGUI_MessageFactory.h"
 #include "MyGUI_ProgressFactory.h"
+#include "MyGUI_RenderBoxFactory.h"
 
 namespace MyGUI
 {
@@ -38,20 +39,21 @@ namespace MyGUI
 		registerUnlinker(this);
 
 		// создаем фабрики виджетов
-		mWidgetFactory = new factory::WidgetFactory();
-		mButtonFactory = new factory::ButtonFactory();
-		mEditFactory = new factory::EditFactory();
-		mListFactory = new factory::ListFactory();
-		mStaticTextFactory = new factory::StaticTextFactory();
-		mStaticImageFactory = new factory::StaticImageFactory();
-		mVScrollFactory = new factory::VScrollFactory();
-		mHScrollFactory = new factory::HScrollFactory();
-		mWindowFactory = new factory::WindowFactory();
-		mComboBoxFactory = new factory::ComboBoxFactory();
-		mTabFactory = new factory::TabFactory();
-		mSheetFactory = new factory::SheetFactory();
-		mMessageFactory = new factory::MessageFactory();
-		mProgressFactory = new factory::ProgressFactory();
+		mIntegratedFactoryList.insert(new factory::WidgetFactory());
+		mIntegratedFactoryList.insert(new factory::ButtonFactory());
+		mIntegratedFactoryList.insert(new factory::EditFactory());
+		mIntegratedFactoryList.insert(new factory::ListFactory());
+		mIntegratedFactoryList.insert(new factory::StaticTextFactory());
+		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
+		mIntegratedFactoryList.insert(new factory::VScrollFactory());
+		mIntegratedFactoryList.insert(new factory::HScrollFactory());
+		mIntegratedFactoryList.insert(new factory::WindowFactory());
+		mIntegratedFactoryList.insert(new factory::ComboBoxFactory());
+		mIntegratedFactoryList.insert(new factory::TabFactory());
+		mIntegratedFactoryList.insert(new factory::SheetFactory());
+		mIntegratedFactoryList.insert(new factory::MessageFactory());
+		mIntegratedFactoryList.insert(new factory::ProgressFactory());
+		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -68,20 +70,8 @@ namespace MyGUI
 		mDelegates.clear();
 		mVectorUnlinkWidget.clear();
 
-		delete mWindowFactory;
-		delete mHScrollFactory;
-		delete mVScrollFactory;
-		delete mStaticTextFactory;
-		delete mStaticImageFactory;
-		delete mListFactory;
-		delete mEditFactory;
-		delete mButtonFactory;
-		delete mWidgetFactory;
-		delete mComboBoxFactory;
-		delete mTabFactory;
-		delete mSheetFactory;
-		delete mMessageFactory;
-		delete mProgressFactory;
+		for (SetWidgetFactory::iterator iter = mIntegratedFactoryList.begin(); iter != mIntegratedFactoryList.end(); ++iter) delete*iter;
+		mIntegratedFactoryList.clear();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

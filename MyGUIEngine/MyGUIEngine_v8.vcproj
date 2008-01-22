@@ -220,6 +220,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_RenderBox.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Sheet.cpp"
 					>
 				</File>
@@ -304,6 +308,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_WindowFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\RenderBoxFactory.cpp"
 						>
 					</File>
 				</Filter>
@@ -478,6 +486,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_RenderBox.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Sheet.h"
 					>
 				</File>
@@ -534,6 +546,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ProgressFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RenderBoxFactory.h"
 						>
 					</File>
 					<File

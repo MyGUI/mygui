@@ -22,6 +22,7 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_Message.h"
 #include "MyGUI_Progress.h"
+#include "MyGUI_RenderBox.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"

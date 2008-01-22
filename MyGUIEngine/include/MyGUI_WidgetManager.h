@@ -75,22 +75,8 @@ namespace MyGUI
 		MapWidgetPtr mWidgets;
 		MapDelegate mDelegates;
 
-
-		// фабрики виджетов
-		factory::WidgetFactory * mWidgetFactory;
-		factory::ButtonFactory * mButtonFactory;
-		factory::EditFactory * mEditFactory;
-		factory::ListFactory * mListFactory;
-		factory::StaticTextFactory * mStaticTextFactory;
-		factory::StaticImageFactory * mStaticImageFactory;
-		factory::VScrollFactory * mVScrollFactory;
-		factory::HScrollFactory * mHScrollFactory;
-		factory::WindowFactory * mWindowFactory;
-		factory::ComboBoxFactory * mComboBoxFactory;
-		factory::TabFactory * mTabFactory;
-		factory::SheetFactory * mSheetFactory;
-		factory::MessageFactory * mMessageFactory;
-		factory::ProgressFactory * mProgressFactory;
+		// set of integrated factories
+		SetWidgetFactory mIntegratedFactoryList;
 
 		// список менеджеров для отписки при удалении
 		VectorUnlinkWidget mVectorUnlinkWidget;

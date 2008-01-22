@@ -272,6 +272,7 @@ bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_ESCAPE ) {m_exit = true; return false;}
+	if ( arg.key == OIS::KC_SYSRQ ) {mWindow->writeContentsToFile("screenshot.png");}
 
 	mGUI->injectKeyPress(arg);
 	return true;

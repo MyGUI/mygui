@@ -58,6 +58,7 @@ namespace MyGUI
 	class Window;
 	class Message;
 	class Progress;
+	class RenderBox;
 
 	// widget pointers
 	typedef Button* ButtonPtr;
@@ -73,6 +74,7 @@ namespace MyGUI
 	typedef Window * WindowPtr;
 	typedef Message * MessagePtr;
 	typedef Progress * ProgressPtr;
+	typedef RenderBox * RenderBoxPtr;
 
 	class WidgetFactoryInterface;
 	namespace factory{
@@ -91,6 +93,7 @@ namespace MyGUI
 		class WindowFactory;
 		class MessageFactory;
 		class ProgressFactory;
+		class RenderBoxFactory;
 	}
 
 	// Define version

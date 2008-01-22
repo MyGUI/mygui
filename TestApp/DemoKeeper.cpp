@@ -96,11 +96,16 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
 	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
-	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	/*prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressAutoTrack(true);
 
 	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 45, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-	prog->setProgressRange(mWidth);
+	prog->setProgressRange(mWidth);*/
+
+	MyGUI::RenderBoxPtr renderbox = window->createWidget<MyGUI::RenderBox>("Empty", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_STRETCH);
+	renderbox->injectObject("123", "cube.mesh");
+	renderbox->injectObject("123", "robot.mesh");
+	renderbox->setAutoRotate();
 
 	/*window->setMinMax(150, 150, 2000, 2000);
 	window->setCaption("tab demo");
