@@ -151,7 +151,8 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 	}
 
 	if (mRoot) {
-		mRoot->getAutoCreatedWindow()->removeAllViewports();
+		Ogre::RenderWindow * mWindow = mRoot->getAutoCreatedWindow();
+		if (mWindow) mWindow->removeAllViewports();
 		delete mRoot;
 		mRoot = 0;
 	}

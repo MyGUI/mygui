@@ -212,11 +212,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BasisState.h"
+				RelativePath=".\EditorState.h"
 				>
 			</File>
 			<File
-				RelativePath=".\EditorState.h"
+				RelativePath=".\resource.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource"
+			>
+			<File
+				RelativePath=".\LayoutEditor.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\mygui.ico"
 				>
 			</File>
 		</Filter>
