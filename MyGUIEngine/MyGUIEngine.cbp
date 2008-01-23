@@ -38,6 +38,7 @@
 			<Add directory="/usr/include/OGRE" />
 			<Add directory="/usr/include/freetype2" />
 		</Compiler>
+		<Unit filename="include/MyGUI.h" />
 		<Unit filename="include/MyGUI_AlignInfo.h" />
 		<Unit filename="include/MyGUI_Button.h" />
 		<Unit filename="include/MyGUI_ButtonFactory.h" />
@@ -47,6 +48,9 @@
 		<Unit filename="include/MyGUI_ComboBox.h" />
 		<Unit filename="include/MyGUI_ComboBoxFactory.h" />
 		<Unit filename="include/MyGUI_Common.h" />
+		<Unit filename="include/MyGUI_ControllerFadeAlpha.h" />
+		<Unit filename="include/MyGUI_ControllerItem.h" />
+		<Unit filename="include/MyGUI_ControllerManager.h" />
 		<Unit filename="include/MyGUI_CroppedRectangleInterface.h" />
 		<Unit filename="include/MyGUI_DynLib.h" />
 		<Unit filename="include/MyGUI_DynLibManager.h" />
@@ -54,6 +58,7 @@
 		<Unit filename="include/MyGUI_EditFactory.h" />
 		<Unit filename="include/MyGUI_Font.h" />
 		<Unit filename="include/MyGUI_FontManager.h" />
+		<Unit filename="include/MyGUI_FrameListener.h" />
 		<Unit filename="include/MyGUI_Gui.h" />
 		<Unit filename="include/MyGUI_HScroll.h" />
 		<Unit filename="include/MyGUI_HScrollFactory.h" />
@@ -70,6 +75,8 @@
 		<Unit filename="include/MyGUI_Macros.h" />
 		<Unit filename="include/MyGUI_MainSkin.h" />
 		<Unit filename="include/MyGUI_MaskPeekInfo.h" />
+		<Unit filename="include/MyGUI_Message.h" />
+		<Unit filename="include/MyGUI_MessageFactory.h" />
 		<Unit filename="include/MyGUI_PanelAlphaOverlayElement.h" />
 		<Unit filename="include/MyGUI_PanelAlphaOverlayElementFactory.h" />
 		<Unit filename="include/MyGUI_Platform.h" />
@@ -78,11 +85,17 @@
 		<Unit filename="include/MyGUI_PointerInfo.h" />
 		<Unit filename="include/MyGUI_PointerManager.h" />
 		<Unit filename="include/MyGUI_Prerequest.h" />
+		<Unit filename="include/MyGUI_Progress.h" />
+		<Unit filename="include/MyGUI_ProgressFactory.h" />
+		<Unit filename="include/MyGUI_RenderBox.h" />
+		<Unit filename="include/MyGUI_RenderBoxFactory.h" />
 		<Unit filename="include/MyGUI_RenderOut.h" />
 		<Unit filename="include/MyGUI_ResourcePath.h" />
 		<Unit filename="include/MyGUI_ScrollBase.h" />
 		<Unit filename="include/MyGUI_SharedPanelAlphaOverlayElement.h" />
 		<Unit filename="include/MyGUI_SharedPanelAlphaOverlayElementFactory.h" />
+		<Unit filename="include/MyGUI_Sheet.h" />
+		<Unit filename="include/MyGUI_SheetFactory.h" />
 		<Unit filename="include/MyGUI_SkinManager.h" />
 		<Unit filename="include/MyGUI_StaticImage.h" />
 		<Unit filename="include/MyGUI_StaticImageFactory.h" />
@@ -93,6 +106,8 @@
 		<Unit filename="include/MyGUI_SubWidgetFactoryInterface.h" />
 		<Unit filename="include/MyGUI_SubWidgetManager.h" />
 		<Unit filename="include/MyGUI_SubWidgetTextInterface.h" />
+		<Unit filename="include/MyGUI_Tab.h" />
+		<Unit filename="include/MyGUI_TabFactory.h" />
 		<Unit filename="include/MyGUI_TextChangeHistory.h" />
 		<Unit filename="include/MyGUI_TextEdit.h" />
 		<Unit filename="include/MyGUI_TextEditOverlayElement.h" />
@@ -102,6 +117,7 @@
 		<Unit filename="include/MyGUI_TextSimpleOverlayElement.h" />
 		<Unit filename="include/MyGUI_TextSimpleOverlayElementFactory.h" />
 		<Unit filename="include/MyGUI_Types.h" />
+		<Unit filename="include/MyGUI_UnlinkWidget.h" />
 		<Unit filename="include/MyGUI_VScroll.h" />
 		<Unit filename="include/MyGUI_VScrollFactory.h" />
 		<Unit filename="include/MyGUI_Widget.h" />
@@ -129,6 +145,8 @@
 		<Unit filename="src/MyGUI_ClipboardManager.cpp" />
 		<Unit filename="src/MyGUI_ComboBox.cpp" />
 		<Unit filename="src/MyGUI_ComboBoxFactory.cpp" />
+		<Unit filename="src/MyGUI_ControllerFadeAlpha.cpp" />
+		<Unit filename="src/MyGUI_ControllerManager.cpp" />
 		<Unit filename="src/MyGUI_DynLib.cpp" />
 		<Unit filename="src/MyGUI_DynLibManager.cpp" />
 		<Unit filename="src/MyGUI_Edit.cpp" />
@@ -146,10 +164,18 @@
 		<Unit filename="src/MyGUI_LogManager.cpp" />
 		<Unit filename="src/MyGUI_LogStream.cpp" />
 		<Unit filename="src/MyGUI_MainSkin.cpp" />
+		<Unit filename="src/MyGUI_Message.cpp" />
+		<Unit filename="src/MyGUI_MessageFactory.cpp" />
 		<Unit filename="src/MyGUI_PluginManager.cpp" />
 		<Unit filename="src/MyGUI_PointerManager.cpp" />
+		<Unit filename="src/MyGUI_Progress.cpp" />
+		<Unit filename="src/MyGUI_ProgressFactory.cpp" />
+		<Unit filename="src/MyGUI_RenderBox.cpp" />
+		<Unit filename="src/MyGUI_RenderBoxFactory.cpp" />
 		<Unit filename="src/MyGUI_RenderOut.cpp" />
 		<Unit filename="src/MyGUI_ScrollBase.cpp" />
+		<Unit filename="src/MyGUI_Sheet.cpp" />
+		<Unit filename="src/MyGUI_SheetFactory.cpp" />
 		<Unit filename="src/MyGUI_SkinManager.cpp" />
 		<Unit filename="src/MyGUI_StaticImage.cpp" />
 		<Unit filename="src/MyGUI_StaticImageFactory.cpp" />
@@ -157,6 +183,8 @@
 		<Unit filename="src/MyGUI_StaticTextFactory.cpp" />
 		<Unit filename="src/MyGUI_SubSkin.cpp" />
 		<Unit filename="src/MyGUI_SubWidgetManager.cpp" />
+		<Unit filename="src/MyGUI_Tab.cpp" />
+		<Unit filename="src/MyGUI_TabFactory.cpp" />
 		<Unit filename="src/MyGUI_TextEdit.cpp" />
 		<Unit filename="src/MyGUI_TextIterator.cpp" />
 		<Unit filename="src/MyGUI_TextSimple.cpp" />
