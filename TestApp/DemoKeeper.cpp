@@ -50,9 +50,10 @@ MyGUI::RenderBoxPtr renderbox = null;
 void DemoKeeper::move(size_t _pos)
 {
 	if (null != renderbox){
-		renderbox->setRenderTarget(mCamera);
+		//renderbox->setRenderTarget(mCamera);
 		//renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);
 	}
+
 	if (null != prog) prog->setProgressPosition(_pos);
 }
 
@@ -62,7 +63,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	MyGUI::Message::createMessage("#FF00FFcaption", "message", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::OkCancel | MyGUI::Message::IconInfo);
+	//MyGUI::Message::createMessage("#FF00FFcaption", "message", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::OkCancel | MyGUI::Message::IconInfo);
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
 	//test2(MyGUI::newDelegate(test3));
@@ -97,13 +98,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //	test = demo.front();
 //	InputManager::getInstance().addWidgetModal(test);
 
-	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 	//LayoutManager::getInstance().load("ListDemo.layout");
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
 	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 355), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	window->setAutoAlpha(1);
+	window->setAutoAlpha(true);
 	//window->setAutoAlpha(true);
 	/*prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressAutoTrack(true);
@@ -111,11 +112,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 45, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressRange(mWidth);*/
 
-	renderbox = window->createWidget<MyGUI::RenderBox>("Empty", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
-	renderbox->injectObject("robot.mesh");
-	//renderbox->injectObject("ogrehead.mesh");
+	renderbox = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
+	renderbox->injectObject("ogrehead.mesh");
 	renderbox->setAutorotationSpeed();
-	renderbox->setMouseRotation(1);
+	renderbox->setMouseRotation(true);
+
+	renderbox->setRenderTarget(mCamera);
 
 	/*window->setMinMax(150, 150, 2000, 2000);
 	window->setCaption("tab demo");

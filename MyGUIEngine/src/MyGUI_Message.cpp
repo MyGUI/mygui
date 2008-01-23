@@ -192,7 +192,7 @@ namespace MyGUI
 		if (_fade) {
 			if (null == mWidgetFade) {
 				Gui & gui = Gui::getInstance();
-				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, gui.getViewWidth(), gui.getViewHeight()), ALIGN_STRETCH, mFadeLayer);
+				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), ALIGN_STRETCH, mFadeLayer);
 				if (mSmooth) {
 					mWidgetFade->hide();
 					ControllerManager::getInstance().addItem(mWidgetFade,

@@ -93,6 +93,7 @@ namespace MyGUI
 
 		void _onMouseDrag(int _left, int _top);
 		void _onMouseButtonPressed(bool _left);
+		void _onMouseButtonReleased(bool _left);
 
 	private:
 		void createRenderMaterial();
@@ -116,6 +117,10 @@ namespace MyGUI
 		Ogre::ColourValue mBackgroungColour;
 		bool mMouseRotation;
 		int mLastPointerX;
+
+		std::string mPointerKeeper;
+		bool mLeftPressed;
+
 	}; // class RenderBox : public Widget
 
 } // namespace MyGUI

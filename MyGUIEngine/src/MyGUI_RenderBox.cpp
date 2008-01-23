@@ -16,19 +16,23 @@ namespace MyGUI
 
 	RenderBox::RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
-		mUserViewport(0),
+		mUserViewport(false),
 		mEntity(null),
 		mRotationSpeed(0),
 		mBackgroungColour(Ogre::ColourValue::Blue),
-		mMouseRotation(0)
+		mMouseRotation(false),
+		mLeftPressed(false)
 	{
+
 		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1, "subskin must be one");
 		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");
 		mElementSkin = mSubSkinChild.front();
 
-		createRenderMaterial();
+		// сохран€ем оригинальный курсор
+		mPointerKeeper = mPointer;
+		mPointer.clear();
 
-		mPointer = "hand"; // дл€ теста
+		createRenderMaterial();
 	}
 
 	RenderBox::~RenderBox()
@@ -100,6 +104,7 @@ namespace MyGUI
 	void RenderBox::setMouseRotation(bool _enable)
 	{
 		mMouseRotation = _enable;
+		mPointer = mMouseRotation ? mPointerKeeper : "";
 	}
 
 	void RenderBox::setRenderTarget(Ogre::Camera * _camera)
@@ -108,7 +113,7 @@ namespace MyGUI
 		Ogre::MaterialManager * manager = Ogre::MaterialManager::getSingletonPtr();
 		if (manager != 0) manager->remove(mMaterial);
 
-		mUserViewport = 1;
+		mUserViewport = true;
 		mRttCam = _camera;
 
 		mMaterial = util::toString(this, "_MaterialRenderBox");
@@ -124,33 +129,32 @@ namespace MyGUI
 		mTexture = Ogre::TextureManager::getSingleton().createManual(util::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
 			->getBuffer()->getRenderTarget();
 
-		//mRttCam->setAspectRatio(getWidth()/getHeight());
-
 		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
+		v->setClearEveryFrame(true);
 
 		mElementSkin->_setMaterialName(mMaterial);
 	}
 
 	void RenderBox::setPosition(const IntCoord& _coord)
 	{
-		if (null != mRttCam) updateViewport();
+		updateViewport();
 		Widget::setPosition(_coord);
 	}
 
 	void RenderBox::setSize(const IntSize& _size)
 	{
-		if (null != mRttCam) updateViewport();
+		updateViewport();
 		Widget::setSize(_size);
 	}
 
 	void RenderBox::_frameEntered(float _time)
 	{
-		if (mRotationSpeed) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
+		if ((mRotationSpeed) && (false == mLeftPressed)) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
 	}
 
 	void RenderBox::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
-		if (mMouseRotation){
+		if (mMouseRotation) {
 			mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
 			mLastPointerX = _left;
 		}
@@ -158,7 +162,7 @@ namespace MyGUI
 
 	void RenderBox::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		if (mMouseRotation){
+		if (mMouseRotation) {
 			const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 			mLastPointerX = point.left;
 		}
@@ -174,10 +178,19 @@ namespace MyGUI
 
 	void RenderBox::_onMouseButtonPressed(bool _left)
 	{
+		if (_left) mLeftPressed = true;
 		notifyMousePressed(this, _left);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseButtonPressed(_left);
+	}
+
+	void RenderBox::_onMouseButtonReleased(bool _left)
+	{
+		if (_left) mLeftPressed = false;
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseButtonReleased(_left);
 	}
 
 	void RenderBox::createRenderMaterial()
@@ -225,9 +238,9 @@ namespace MyGUI
 	void RenderBox::updateViewport()
 	{
 		// при нуле вылетает
-		if ((getWidth() <= 1) || (getHeight() <= 1)) return;
+		if ((getWidth() <= 1) || (getHeight() <= 1) ) return;
 
-		if (0 == mUserViewport){
+		if ((false == mUserViewport) && (null != mEntity) && (null != mRttCam)) {
 			mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
 			// вычисл€ем рассто€ние, чтобы был виден весь объект
