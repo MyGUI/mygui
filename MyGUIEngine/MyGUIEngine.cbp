@@ -65,7 +65,8 @@
 		<Unit filename="include/MyGUI_LayoutManager.h" />
 		<Unit filename="include/MyGUI_List.h" />
 		<Unit filename="include/MyGUI_ListFactory.h" />
-		<Unit filename="include/MyGUI_Loging.h" />
+		<Unit filename="include/MyGUI_LogManager.h" />
+		<Unit filename="include/MyGUI_LogStream.h" />
 		<Unit filename="include/MyGUI_Macros.h" />
 		<Unit filename="include/MyGUI_MainSkin.h" />
 		<Unit filename="include/MyGUI_MaskPeekInfo.h" />
@@ -142,7 +143,8 @@
 		<Unit filename="src/MyGUI_LayoutManager.cpp" />
 		<Unit filename="src/MyGUI_List.cpp" />
 		<Unit filename="src/MyGUI_ListFactory.cpp" />
-		<Unit filename="src/MyGUI_Loging.cpp" />
+		<Unit filename="src/MyGUI_LogManager.cpp" />
+		<Unit filename="src/MyGUI_LogStream.cpp" />
 		<Unit filename="src/MyGUI_MainSkin.cpp" />
 		<Unit filename="src/MyGUI_PluginManager.cpp" />
 		<Unit filename="src/MyGUI_PointerManager.cpp" />

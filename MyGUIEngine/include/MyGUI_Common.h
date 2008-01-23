@@ -20,19 +20,19 @@
 
 namespace MyGUI
 {
-	class _MyGUIExport MyGUIException : public Ogre::Exception 
+	class _MyGUIExport MyGUIException : public Ogre::Exception
 	{
 	public:
 		MyGUIException(int number, const Ogre::String& description, const Ogre::String& source, const char* file, long line)
 			: Exception(number, description, source, "MyGUIException", file, line) {}
-		virtual ~MyGUIException() {}
+		//virtual ~MyGUIException() {}
 	};
 
 	// just other number
 	#define ERR_MY_GUI Ogre::Exception::ERR_NOT_IMPLEMENTED+1
 	static MyGUIException create(
-			Ogre::ExceptionCodeType<ERR_MY_GUI> code, 
-			const Ogre::String& desc, 
+			Ogre::ExceptionCodeType<ERR_MY_GUI> code,
+			const Ogre::String& desc,
 			const Ogre::String& src, const char* file, long line)
 		{
 			return MyGUIException(code.number, desc, src, file, line);
