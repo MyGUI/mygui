@@ -76,7 +76,7 @@ namespace MyGUI
 		}
 
 		if (mIsWidgetMouseCapture) {
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_arg.state.X.abs, _arg.state.Y.abs);
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseDrag(_arg.state.X.abs, _arg.state.Y.abs);
 			else mIsWidgetMouseCapture = false;
 			return true;
 		}

@@ -47,7 +47,7 @@ MyGUI::RenderBoxPtr renderbox = null;
 
 void DemoKeeper::move(size_t _pos)
 {
-	if (null != renderbox){ renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);}
+	//if (null != renderbox){ renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);}
 	if (null != prog) prog->setProgressPosition(_pos);
 }
 
@@ -92,7 +92,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //	test = demo.front();
 //	InputManager::getInstance().addWidgetModal(test);
 
-	//LayoutManager::getInstance().load("EditDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 	//LayoutManager::getInstance().load("ListDemo.layout");
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
@@ -109,6 +109,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	renderbox->injectObject("robot.mesh");
 	//renderbox->injectObject("ogrehead.mesh");
 	renderbox->setAutorotationSpeed();
+	renderbox->setMouseRotation(1);
 
 	/*window->setMinMax(150, 150, 2000, 2000);
 	window->setCaption("tab demo");

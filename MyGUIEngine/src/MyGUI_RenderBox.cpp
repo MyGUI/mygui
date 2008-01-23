@@ -4,8 +4,9 @@
 	@date		01/2008
 	@module
 */
-#include "MyGUI_RenderBox.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_RenderBox.h"
+#include "MyGUI_InputManager.h"
 #include <Ogre.h> // FIXME
 
 namespace MyGUI
@@ -17,7 +18,8 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _name),
 		mEntity(null),
 		mRotationSpeed(0),
-		mBackgroungColour(Ogre::ColourValue::Blue)
+		mBackgroungColour(Ogre::ColourValue::Blue),
+		mMouseRotation(0)
 	{
 		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1, "subskin must be one");
 		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");
@@ -91,6 +93,11 @@ namespace MyGUI
 		mNode->yaw(Ogre::Radian(_rotationAngle));
 	}
 
+	void RenderBox::setMouseRotation(bool _enable)
+	{
+		mMouseRotation = _enable;
+	}
+
 	void RenderBox::setPosition(const IntCoord& _coord)
 	{
 		if (null != mRttCam) updateViewport();
@@ -106,6 +113,38 @@ namespace MyGUI
 	void RenderBox::_frameEntered(float _time)
 	{
 		if (mRotationSpeed) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
+	}
+
+	void RenderBox::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	{
+		if (mMouseRotation){
+			mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
+			mLastPointerX = _left;
+		}
+	}
+
+	void RenderBox::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		if (mMouseRotation){
+			const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+			mLastPointerX = point.left;
+		}
+	}
+
+	void RenderBox::_onMouseDrag(int _left, int _top)
+	{
+		notifyMouseDrag(this, _left, _top);
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseDrag(_left, _top);
+	}
+
+	void RenderBox::_onMouseButtonPressed(bool _left)
+	{
+		notifyMousePressed(this, _left);
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseButtonPressed(_left);
 	}
 
 	void RenderBox::createRenderMaterial()

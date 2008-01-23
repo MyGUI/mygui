@@ -67,7 +67,7 @@ namespace MyGUI
 
 		/*	событие : мышь двигаетс€ над захваченным виджетом*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _left, int _top);*/
-		EventInfo_WidgetIntInt eventMouseMove;
+		EventInfo_WidgetIntInt eventMouseDrag;
 
 		/*	событие : крутитьс€ колесик над захваченным виджетом*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _rel);*/
@@ -130,9 +130,9 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseMove(int _left, int _top)
+		virtual void _onMouseDrag(int _left, int _top)
 		{
-			eventMouseMove(mWidgetEventSender, _left, _top);
+			eventMouseDrag(mWidgetEventSender, _left, _top);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним

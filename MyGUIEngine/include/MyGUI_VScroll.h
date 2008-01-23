@@ -31,7 +31,7 @@ namespace MyGUI
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 
 		void setScrollRange(size_t _range);
 		inline size_t getScrollRange() {return mScrollRange;}

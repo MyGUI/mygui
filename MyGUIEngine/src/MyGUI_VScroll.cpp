@@ -30,7 +30,7 @@ namespace MyGUI
 			}
 			else if ((*iter)->_getInternalString() == "Track") {
 				mWidgetTrack = castWidget<Button>(*iter);
-				mWidgetTrack->eventMouseMove = newDelegate(this, &VScroll::notifyMouseMove);
+				mWidgetTrack->eventMouseDrag = newDelegate(this, &VScroll::notifyMouseDrag);
 				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &VScroll::notifyMouseReleased);
 				mWidgetTrack->hide();
@@ -136,7 +136,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void VScroll::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void VScroll::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		TrackMove(_left, _top);
 	}

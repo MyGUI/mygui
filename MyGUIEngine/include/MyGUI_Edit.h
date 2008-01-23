@@ -160,9 +160,9 @@ namespace MyGUI
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		virtual void _onMouseMove(int _left, int _top);
+		virtual void _onMouseDrag(int _left, int _top);
 		virtual void _onKeyLostFocus(WidgetPtr _new);
 		virtual void _onKeySetFocus(WidgetPtr _old);
 		virtual void _onKeyButtonPressed(int _key, Char _char);

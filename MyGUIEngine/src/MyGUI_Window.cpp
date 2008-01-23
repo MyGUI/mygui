@@ -53,14 +53,14 @@ namespace MyGUI
 			else if ((*iter)->_getInternalString() == "Caption") {
 				mWidgetCaption = (*iter);
 				mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-				mWidgetCaption->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
+				mWidgetCaption->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
 			}
 			else if ((*iter)->_getInternalString() == "Button") {
 				(*iter)->eventMouseButtonClick = newDelegate(this, &Window::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->_getInternalString() == "Action") {
 				(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-				(*iter)->eventMouseMove = newDelegate(this, &Window::notifyMouseMovedAction);
+				(*iter)->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
 			}
 		}
 
@@ -91,13 +91,13 @@ namespace MyGUI
 		Widget::_onKeyChangeRootFocus(_focus);
 	}
 
-	void Window::_onMouseMove(int _left, int _top)
+	void Window::_onMouseDrag(int _left, int _top)
 	{
 		// на тот случай, если двигать окно, можно за любое место виджета
-		notifyMouseMovedAction(this, _left, _top);
+		notifyMouseDrag(this, _left, _top);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseMove(_left, _top);
+		Widget::_onMouseDrag(_left, _top);
 	}
 
 	void Window::_onMouseButtonPressed(bool _left)
@@ -120,7 +120,7 @@ namespace MyGUI
 		if (false == _double) eventWindowButtonPressed(this, _sender->getUserString("Event"));
 	}
 
-	void Window::notifyMouseMovedAction(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void Window::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 

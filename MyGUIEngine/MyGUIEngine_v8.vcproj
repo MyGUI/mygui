@@ -283,6 +283,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_RenderBoxFactory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_SheetFactory.cpp"
 						>
 					</File>
@@ -308,10 +312,6 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_WindowFactory.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\RenderBoxFactory.cpp"
 						>
 					</File>
 				</Filter>

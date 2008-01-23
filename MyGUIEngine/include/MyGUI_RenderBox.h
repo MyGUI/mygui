@@ -66,6 +66,12 @@ namespace MyGUI
 		*/
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 
+		/** Set possibility to rotate mesh by mouse drag.
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
+		*/
+		void setMouseRotation(bool _enable);
+
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
 
@@ -75,6 +81,12 @@ namespace MyGUI
 
 	protected:
 		void _frameEntered(float _time);
+
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+
+		void _onMouseDrag(int _left, int _top);
+		void _onMouseButtonPressed(bool _left);
 
 	private:
 		void createRenderMaterial();
@@ -95,6 +107,8 @@ namespace MyGUI
 
 		int mRotationSpeed;
 		Ogre::ColourValue mBackgroungColour;
+		bool mMouseRotation;
+		int mLastPointerX;
 	}; // class RenderBox : public Widget
 
 } // namespace MyGUI

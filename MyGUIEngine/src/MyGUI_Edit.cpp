@@ -62,7 +62,7 @@ namespace MyGUI
 				mWidgetUpper->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
 				mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
 				mWidgetUpper->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
-				mWidgetUpper->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
+				mWidgetUpper->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetUpper, "Child Widget Client not found in skin (Edit must have Client)");
@@ -76,7 +76,7 @@ namespace MyGUI
 				mWidgetCursor->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
 				mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
 				mWidgetCursor->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
-				mWidgetCursor->eventMouseMove = newDelegate(this, &Edit::notifyMouseMove);
+				mWidgetCursor->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
 				mWidgetCursor->setSize(IntSize(mWidgetCursor->getWidth(), getFontHeight())); // высоту под шрифт
 				break;
 			}
@@ -132,7 +132,7 @@ namespace MyGUI
 		mMouseLeftPressed = false;
 	}
 
-	void Edit::notifyMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void Edit::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		// в статике все недоступно
 		if (mModeStatic) return;
@@ -167,12 +167,12 @@ namespace MyGUI
 
 	}
 
-	void Edit::_onMouseMove(int _left, int _top)
+	void Edit::_onMouseDrag(int _left, int _top)
 	{
-		notifyMouseMove(null, _left, _top);
+		notifyMouseDrag(null, _left, _top);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseMove(_left, _top);
+		Widget::_onMouseDrag(_left, _top);
 	}
 
 	void Edit::_onKeySetFocus(WidgetPtr _old)
