@@ -13,6 +13,9 @@
 
 namespace MyGUI
 {
+	/** default RenderBox autorotation speed (if enabled) */
+	const size_t RENDER_BOX_AUTO_ROTATION_SPEED = 20;
+
 	/** Widget that show one entity or anything from viewport.
 	*/
 	class _MyGUIExport RenderBox : public Widget, public FrameListener
@@ -44,9 +47,9 @@ namespace MyGUI
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.
 			@param
-				_speed of rotation in degrees per second. If 0 then turn rotation off. If 1 then set defaul rotation speed.
+				_speed of rotation in degrees per second. If 0 then turn rotation off.
 		*/
-		void setAutorotationSpeed(int _speed = 1);
+		void setAutorotationSpeed(int _speed = RENDER_BOX_AUTO_ROTATION_SPEED);
 		/** Get speed of entity rotation.*/
 		inline int getAutorotationSpeed() {return mRotationSpeed;};
 
@@ -62,7 +65,7 @@ namespace MyGUI
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.
 			@note
-				Example: use this if your mesh look in other than Vector3(1,0,0) direction.
+				Example: use this if your mesh look at other than Vector3(1,0,0) direction.
 		*/
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 
@@ -71,6 +74,9 @@ namespace MyGUI
 				This function will take no effect if user Viewport provided via setViewport.
 		*/
 		void setMouseRotation(bool _enable);
+
+		/** Set any user created Camera instead of showing one mesh*/
+		void setRenderTarget(Ogre::Camera * _camera);
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
@@ -92,12 +98,13 @@ namespace MyGUI
 		void createRenderMaterial();
 		void updateViewport();
 
+		bool mUserViewport;
 		// все, что касается сцены
 		Ogre::SceneManager * mScene;
 		Ogre::Entity * mEntity;
 		Ogre::SceneNode * mNode;
 		Ogre::String mMaterial;
-		Ogre::RenderTexture * mTexture;
+		Ogre::RenderTexture* mTexture;
 
 		Ogre::Camera* mRttCam;
 		Ogre::SceneNode* mCamNode;

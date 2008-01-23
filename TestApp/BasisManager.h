@@ -35,7 +35,7 @@ private:
 	OIS::Mouse*    mMouse;
 
     Ogre::Root *mRoot;
-    Ogre::Camera* mCamera;
+    //Ogre::Camera* mCamera;
     Ogre::SceneManager* mSceneMgr;
     Ogre::RenderWindow* mWindow;
 	Ogre::String mResourcePath;

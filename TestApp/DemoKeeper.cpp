@@ -9,6 +9,8 @@
 
 const size_t MAX_CREATE_WINDOW = 20;
 
+Ogre::Camera* mCamera;
+
 DemoKeeper::DemoKeeper() :
 	mGUI(0),
 	mCountWindow(0),
@@ -47,7 +49,10 @@ MyGUI::RenderBoxPtr renderbox = null;
 
 void DemoKeeper::move(size_t _pos)
 {
-	//if (null != renderbox){ renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);}
+	if (null != renderbox){
+		renderbox->setRenderTarget(mCamera);
+		//renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);
+	}
 	if (null != prog) prog->setProgressPosition(_pos);
 }
 
@@ -97,7 +102,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 355), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 355), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	window->setAutoAlpha(1);
 	//window->setAutoAlpha(true);
 	/*prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressAutoTrack(true);

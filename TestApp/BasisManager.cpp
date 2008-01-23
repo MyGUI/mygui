@@ -9,7 +9,7 @@ BasisManager::BasisManager() :
 	mKeyboard(0),
 	mMouse(0),
 	mRoot(0),
-	mCamera(0),
+	//mCamera(0),
 	mSceneMgr(0),
 	mWindow(0),
 	m_exit(false),
@@ -92,7 +92,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
     // Create one viewport, entire window
-    /*Ogre::Viewport* vp = */mWindow->addViewport(mCamera);
+    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
     // Alter the camera aspect ratio to match the viewport
     mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
 

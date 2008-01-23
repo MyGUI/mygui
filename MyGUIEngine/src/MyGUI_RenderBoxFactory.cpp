@@ -25,6 +25,7 @@ namespace MyGUI
 			manager.registerDelegate("RenderBox_AutorotationSpeed") = newDelegate(this, &RenderBoxFactory::RenderBox_AutorotationSpeed);
 			manager.registerDelegate("RenderBox_BackgroungColour") = newDelegate(this, &RenderBoxFactory::RenderBox_BackgroungColour);
 			manager.registerDelegate("RenderBox_RotationAngle") = newDelegate(this, &RenderBoxFactory::RenderBox_RotationAngle);
+			manager.registerDelegate("RenderBox_MouseRotation") = newDelegate(this, &RenderBoxFactory::RenderBox_MouseRotation);
 		}
 
 		RenderBoxFactory::~RenderBoxFactory()
@@ -38,6 +39,7 @@ namespace MyGUI
 			manager.unregisterDelegate("RenderBox_AutorotationSpeed");
 			manager.unregisterDelegate("RenderBox_BackgroungColour");
 			manager.unregisterDelegate("RenderBox_RotationAngle");
+			manager.unregisterDelegate("RenderBox_MouseRotation");
 		}
 
 		const Ogre::String& RenderBoxFactory::getType()
@@ -72,6 +74,12 @@ namespace MyGUI
 		{
 			MYGUI_TYPE(RenderBoxPtr, _widget);
 			static_cast<RenderBoxPtr>(_widget)->setRotationAngle(Ogre::Degree(util::parseInt(_value)));
+		}
+
+		void RenderBoxFactory::RenderBox_MouseRotation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(RenderBoxPtr, _widget);
+			static_cast<RenderBoxPtr>(_widget)->setMouseRotation(util::parseBool(_value));
 		}
 
 	} // namespace factory

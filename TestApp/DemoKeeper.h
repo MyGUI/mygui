@@ -9,6 +9,8 @@
 
 #include "MyGUI.h"
 
+extern Ogre::Camera* mCamera;
+
 class DemoKeeper
 {
 public:
