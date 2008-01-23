@@ -43,9 +43,11 @@ void test2(testDelegate * _delegate)
 }*/
 
 MyGUI::ProgressPtr prog = null;
+MyGUI::RenderBoxPtr renderbox = null;
 
 void DemoKeeper::move(size_t _pos)
 {
+	if (null != renderbox){ renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);}
 	if (null != prog) prog->setProgressPosition(_pos);
 }
 
@@ -103,11 +105,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 45, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressRange(mWidth);*/
 
-	MyGUI::RenderBoxPtr renderbox = window->createWidget<MyGUI::RenderBox>("Empty", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
+	renderbox = window->createWidget<MyGUI::RenderBox>("Empty", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
 	renderbox->injectObject("robot.mesh");
 	//renderbox->injectObject("ogrehead.mesh");
-	//renderbox->injectObject("123", "robot.mesh");
-	renderbox->setAutoRotate();
+	renderbox->setAutorotationSpeed();
 
 	/*window->setMinMax(150, 150, 2000, 2000);
 	window->setCaption("tab demo");

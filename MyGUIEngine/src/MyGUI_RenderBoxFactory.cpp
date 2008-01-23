@@ -22,6 +22,9 @@ namespace MyGUI
 
 			// регестрируем все парсеры
 			manager.registerDelegate("RenderBox_Mesh") = newDelegate(this, &RenderBoxFactory::RenderBox_Mesh);
+			manager.registerDelegate("RenderBox_AutorotationSpeed") = newDelegate(this, &RenderBoxFactory::RenderBox_AutorotationSpeed);
+			manager.registerDelegate("RenderBox_BackgroungColour") = newDelegate(this, &RenderBoxFactory::RenderBox_BackgroungColour);
+			manager.registerDelegate("RenderBox_RotationAngle") = newDelegate(this, &RenderBoxFactory::RenderBox_RotationAngle);
 		}
 
 		RenderBoxFactory::~RenderBoxFactory()
@@ -32,6 +35,9 @@ namespace MyGUI
 
 			// удаляем все парсеры
 			manager.unregisterDelegate("RenderBox_Mesh");
+			manager.unregisterDelegate("RenderBox_AutorotationSpeed");
+			manager.unregisterDelegate("RenderBox_BackgroungColour");
+			manager.unregisterDelegate("RenderBox_RotationAngle");
 		}
 
 		const Ogre::String& RenderBoxFactory::getType()
@@ -47,7 +53,25 @@ namespace MyGUI
 		void RenderBoxFactory::RenderBox_Mesh(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(RenderBoxPtr, _widget);
-			//static_cast<RenderBoxPtr>(_widget)->setMesh(_value);
+			static_cast<RenderBoxPtr>(_widget)->injectObject(_value);
+		}
+
+		void RenderBoxFactory::RenderBox_AutorotationSpeed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(RenderBoxPtr, _widget);
+			static_cast<RenderBoxPtr>(_widget)->setAutorotationSpeed(util::parseInt(_value));
+		}
+
+		void RenderBoxFactory::RenderBox_BackgroungColour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(RenderBoxPtr, _widget);
+			static_cast<RenderBoxPtr>(_widget)->setBackgroungColour(util::parseColour(_value));
+		}
+
+		void RenderBoxFactory::RenderBox_RotationAngle(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_TYPE(RenderBoxPtr, _widget);
+			static_cast<RenderBoxPtr>(_widget)->setRotationAngle(Ogre::Degree(util::parseInt(_value)));
 		}
 
 	} // namespace factory

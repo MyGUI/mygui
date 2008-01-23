@@ -16,15 +16,12 @@ namespace MyGUI
 	RenderBox::RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
 		mEntity(null),
-		mRttCam(null),
-		mCamNode(null),
-		mRotationSpeed(0)
+		mRotationSpeed(0),
+		mBackgroungColour(Ogre::ColourValue::Blue)
 	{
 		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1, "subskin must be one");
 		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");
-
-		mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->_getOverlayElement());
-		MYGUI_DEBUG_ASSERT(null != mElement, "overlay element not found");
+		mElementSkin = mSubSkinChild.front();
 
 		createRenderMaterial();
 
@@ -57,7 +54,8 @@ namespace MyGUI
 	// очищает сцену
 	void RenderBox::clear()
 	{
-		setAutoRotate(0);
+		setAutorotationSpeed(0);
+		setRotationAngle(Ogre::Degree(0));
 
 		if (mEntity) {
 			mNode->detachObject(mEntity);
@@ -66,7 +64,7 @@ namespace MyGUI
 		}
 	}
 
-	void RenderBox::setAutoRotate(int _speed)
+	void RenderBox::setAutorotationSpeed(int _speed)
 	{
 		if (mRotationSpeed == _speed) return;
 		mRotationSpeed = _speed;
@@ -78,6 +76,19 @@ namespace MyGUI
 		else {
 			Gui::getInstance().removeFrameListener(this);
 		}
+	}
+
+	void RenderBox::setBackgroungColour(const Ogre::ColourValue & _colour)
+	{
+		mBackgroungColour = _colour;
+		Ogre::Viewport *v = mTexture->getViewport(0);
+		v->setBackgroundColour(mBackgroungColour);
+	}
+
+	void RenderBox::setRotationAngle(const Ogre::Degree & _rotationAngle)
+	{
+		mNode->resetOrientation();
+		mNode->yaw(Ogre::Radian(_rotationAngle));
 	}
 
 	void RenderBox::setPosition(const IntCoord& _coord)
@@ -132,11 +143,11 @@ namespace MyGUI
 		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
 		v->setOverlaysEnabled(false);
 		v->setClearEveryFrame( true );
-		v->setBackgroundColour( Ogre::ColourValue::Blue);
+		v->setBackgroundColour(mBackgroungColour);
 		v->setShadowsEnabled(true);
 		v->setSkiesEnabled(false);
 
-		mElement->setMaterialName(mMaterial);
+		mElementSkin->_setMaterialName(mMaterial);
 	}
 
 	void RenderBox::updateViewport()
@@ -144,7 +155,7 @@ namespace MyGUI
 		// при нуле вылетает
 		if ((getWidth() <= 1) || (getHeight() <= 1)) return;
 
-		if ((float)getWidth()/(float)getHeight() > 0)mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
+		mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
 		// вычисляем расстояние, чтобы был виден весь объект
 		const Ogre::AxisAlignedBox & box = mEntity->getBoundingBox();

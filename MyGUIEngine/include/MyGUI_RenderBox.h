@@ -13,7 +13,8 @@
 
 namespace MyGUI
 {
-
+	/** Widget that show one entity or anything from viewport.
+	*/
 	class _MyGUIExport RenderBox : public Widget, public FrameListener
 	{
 		// дл€ вызова закрытого конструктора
@@ -29,9 +30,10 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		/** Add mesh to scene and remove previous one
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
 			@param
-				_meshName The name of the Mesh it is to be based on (e.g. 'knot.oof'). The
-				mesh will be loaded if it is not already.
+				_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
 		void injectObject(const Ogre::String& _meshName);
 
@@ -39,10 +41,30 @@ namespace MyGUI
 		void clear();
 
 		/** Set speed of entity rotation.
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
 			@param
-				speed of rotation in degrees per second. If 0 then turn rotation off. If 1 then set defaul rotation speed.
+				_speed of rotation in degrees per second. If 0 then turn rotation off. If 1 then set defaul rotation speed.
 		*/
-		void setAutoRotate(int _speed = 1);
+		void setAutorotationSpeed(int _speed = 1);
+		/** Get speed of entity rotation.*/
+		inline int getAutorotationSpeed() {return mRotationSpeed;};
+
+		/** Set colour behind entity.
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
+		*/
+		void setBackgroungColour(const Ogre::ColourValue & _backgroundColour);
+		/** Get colour behind entity.*/
+		inline Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
+
+		/** Set rotation angle of entity.
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
+			@note
+				Example: use this if your mesh look in other than Vector3(1,0,0) direction.
+		*/
+		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
@@ -58,6 +80,7 @@ namespace MyGUI
 		void createRenderMaterial();
 		void updateViewport();
 
+		// все, что касаетс€ сцены
 		Ogre::SceneManager * mScene;
 		Ogre::Entity * mEntity;
 		Ogre::SceneNode * mNode;
@@ -67,13 +90,11 @@ namespace MyGUI
 		Ogre::Camera* mRttCam;
 		Ogre::SceneNode* mCamNode;
 
-		// € там чудок накос€чил, измени управление напр€мую оверлеем
-		// на класс кроппед, методы € добавил, дл€ примера посмотри статик имадж
-		PanelAlphaOverlayElement * mElement;
-
-		bool mFrameListener;
+		// единственный сабскин нашего виджета
+		CroppedRectanglePtr mElementSkin;
 
 		int mRotationSpeed;
+		Ogre::ColourValue mBackgroungColour;
 	}; // class RenderBox : public Widget
 
 } // namespace MyGUI

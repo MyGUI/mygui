@@ -28,6 +28,9 @@ namespace MyGUI
 
 			// методы для парсинга
 			void RenderBox_Mesh(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void RenderBox_AutorotationSpeed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void RenderBox_BackgroungColour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void RenderBox_RotationAngle(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

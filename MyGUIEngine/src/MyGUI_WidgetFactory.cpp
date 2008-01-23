@@ -101,8 +101,7 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_Colour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			const std::vector<std::string> & vec = util::split(_value);
-			if (vec.size() > 2) _widget->setColour(Ogre::ColourValue(util::parseFloat(vec[0]), util::parseFloat(vec[1]), util::parseFloat(vec[2])) );
+			_widget->setColour(util::parseColour(_value));
 		}
 
 		void WidgetFactory::Widget_FontName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
