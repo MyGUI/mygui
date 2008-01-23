@@ -79,6 +79,7 @@ namespace MyGUI
 		virtual size_t _getCountSharedOverlay() {return 0;}
 		virtual Ogre::OverlayElement* _getSharedOverlayElement() {return null;}
 		virtual void _setUVSet(const FloatRect& _rect) {}
+		virtual void _setMaterialName(const Ogre::String& _material) {}
 
 	protected:
 		inline bool _checkPoint(int _left, int _top)

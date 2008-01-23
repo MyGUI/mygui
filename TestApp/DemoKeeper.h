@@ -42,7 +42,7 @@ private:
 	void createWindowEdit(MyGUI::WidgetPtr _widget);
 	void createWindowList(MyGUI::WidgetPtr _widget);
 
-	void test(MyGUI::WidgetPtr _sender, MyGUI::Message::ButtonInfo _button);
+	void test(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 
 private:
 	MyGUI::Gui * mGUI;

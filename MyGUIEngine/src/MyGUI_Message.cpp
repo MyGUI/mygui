@@ -14,6 +14,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_StaticImage.h"
 
 namespace MyGUI
 {
@@ -28,7 +29,8 @@ namespace MyGUI
 		mInfoOk(Ok), mInfoCancel(Ok),
 		mButton1Index(0),
 		mSmooth(false),
-		mWidgetFade(null)
+		mWidgetFade(null),
+		mIcon(null)
 	{
 		// ищем индекс первой кнопки
 		size_t but1 = (size_t)Button1;
@@ -43,6 +45,9 @@ namespace MyGUI
 			if ((*iter)->_getInternalString() == "Text") {
 				mWidgetText = (*iter);
 				mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
+			}
+			else if ((*iter)->_getInternalString() == "Icon") {
+				mIcon = castWidget<StaticImage>(*iter);
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
@@ -74,14 +79,14 @@ namespace MyGUI
 		updateSize();
 	}
 
-	Message::ButtonInfo Message::addButtonName(const Ogre::DisplayString & _name)
+	Message::ViewInfo Message::addButtonName(const Ogre::DisplayString & _name)
 	{
 		if (mVectorButton.size() >= 7) {
 			MYGUI_LOG(Warning, "in message box many buttons, ignored");
 			return None;
 		}
 		// бит, номер кнопки + смещение до Button1
-		ButtonInfo info = (ButtonInfo)(FLAG(mVectorButton.size() + mButton1Index));
+		ViewInfo info = (ViewInfo)(FLAG(mVectorButton.size() + mButton1Index));
 
 		// запоминаем кнопки для отмены и подтверждения
 		if (mVectorButton.empty()) mInfoOk = info;
@@ -97,13 +102,13 @@ namespace MyGUI
 		return info;
 	}
 
-	void Message::setButton(ButtonInfo _info)
+	void Message::setButton(ViewInfo _info)
 	{
 		clearButton();
 		size_t current = 0;
 		size_t info = (size_t)_info;
 
-		while (0 != info) {
+		while ((0 != info) && (current < mButton1Index)) {
 			if (0 != (info & 1)) {
 				// если бит есть то ставим кнопку
 				addButtonName(factory::MessageFactory::_getButtonName(current));
@@ -119,7 +124,12 @@ namespace MyGUI
 
 	void Message::updateSize()
 	{
-		IntSize size = mWidgetText->getTextSize(mWidgetText->getCaption()) + mOffsetText;
+		IntSize size = mWidgetText->getTextSize(mWidgetText->getCaption());
+		// минимум высота иконки
+		if ((null != mIcon) && (size.height < mIcon->getHeight())) size.height = mIcon->getHeight();
+
+		size += mOffsetText;
+
 		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);
 		int offset = size.width - width;
 		if (size.width < width) {
@@ -139,7 +149,7 @@ namespace MyGUI
 
 	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender, bool _double)
 	{
-		if (false == _double) _destroyMessage((ButtonInfo)_sender->_getInternalData());
+		if (false == _double) _destroyMessage((ViewInfo)_sender->_getInternalData());
 	}
 
 	void Message::clearButton()
@@ -157,7 +167,7 @@ namespace MyGUI
 		else if (_key == OIS::KC_ESCAPE) _destroyMessage(mInfoCancel);
 	}
 
-	void Message::_destroyMessage(ButtonInfo _result)
+	void Message::_destroyMessage(ViewInfo _result)
 	{
 		eventMessageBoxEnd(this, _result);
 		if (null != mWidgetFade) {
@@ -201,18 +211,34 @@ namespace MyGUI
 
 	void Message::setMessageImage(size_t _image)
 	{
+		if (null != mIcon) mIcon->setImageNum(_image);
 	}
 
-	void Message::_createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, size_t _image, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ButtonInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
+	void Message::_createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
 	{
 		Gui * gui = Gui::getInstancePtr();
 		if (null == gui) return;
+
+		// ищем индекс первой иконки
+		size_t image = (size_t)_info;
+		size_t tmp = (size_t)Icon1;
+		while (true) {
+			tmp >>= 1;
+			if (tmp == 0) break;
+			image >>= 1;
+		}
+		tmp = 0;
+		while (0 != image) {
+			image >>= 1;
+			tmp++;
+		}
+		image = tmp == 0 ? ITEM_NONE : tmp - 1;
 
 		MessagePtr mess = gui->createWidget<Message>(_skin.empty() ? factory::MessageFactory::_getDefaultSkin() : _skin, IntCoord(), ALIGN_DEFAULT, _layer);
 		mess->setWindowSmooth(true);
 		mess->setCaption(_caption);
 		mess->setMessage(_message);
-		mess->setMessageImage(_image);
+		mess->setMessageImage(image);
 		if (_modal) mess->setWindowFade(true);
 		if (null != _delegate) mess->eventMessageBoxEnd = _delegate;
 		if (None != _info) mess->setButton(_info);

@@ -850,11 +850,21 @@
     <Skin name = "MessageClient" size = "10 10" material = "MyGUI_CoreMaterial" >
         <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_TOP" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
         <BasisSkin type="MainSkin"/>
         <BasisSkin type="TextSimple" offset = "0 0 10 10" align = "ALIGN_STRETCH">
             <State name="normal" colour = "0 0 0"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "MessageIcon" size = "45 45" material = "Empty" >
+        <Property key="ImageMaterial" value = "MyGUI_CoreMaterial" />
+        <Property key="ImageRect" value = "1 170 181 215" />
+        <Property key="ImageTile" value = "45 45" />
+        <Property key="ImageNum" value = "0" />
+
+        <BasisSkin type="MainSkin">
         </BasisSkin>
     </Skin>
 
@@ -872,8 +882,8 @@
             <Property key="Scale" value = "1 1 0 0"/>
         </Child>
 
-        <Child type="Widget" skin="MessageClient" offset = "10 35 7 -36" align = "ALIGN_STRETCH" name = "Text">
-        </Child>
+        <Child type="Widget" skin="MessageClient" offset = "60 35 7 -36" align = "ALIGN_STRETCH" name = "Text"/>
+        <Child type="StaticImage" skin="MessageIcon" offset = "6 34 45 45" align = "ALIGN_DEFAULT" name = "Icon"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 2 3 30"/>

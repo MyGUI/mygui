@@ -27,7 +27,7 @@ void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
 	else MyGUI::MYGUI_OUT(_index);
 }
 
-void DemoKeeper::test(MyGUI::WidgetPtr _sender, MyGUI::Message::ButtonInfo _button)
+void DemoKeeper::test(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
 {
 	MyGUI::MYGUI_OUT(_button);
 }
@@ -55,7 +55,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel", "Continue");
+	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::OkCancel | MyGUI::Message::IconInfo);
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
 	//test2(MyGUI::newDelegate(test3));

@@ -93,7 +93,7 @@ namespace MyGUI
 		void MessageFactory::Message_Button(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(MessagePtr, _widget);
-			static_cast<MessagePtr>(_widget)->setButton((Message::ButtonInfo)parseButton(_value));
+			static_cast<MessagePtr>(_widget)->setButton((Message::ViewInfo)parseButton(_value));
 		}
 
 		void MessageFactory::Message_AddButton(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

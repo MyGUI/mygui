@@ -171,5 +171,11 @@ namespace MyGUI
 		}
 	}
 
+	void MainSkin::_setMaterialName(const Ogre::String& _material)
+	{
+		MYGUI_ASSERT(null != mOverlayContainer, "overlay is not create");
+		if (false == _material.empty()) mOverlayContainer->setMaterialName(_material);
+	}
+
 
 } // namespace MainSkin

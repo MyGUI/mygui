@@ -54,8 +54,8 @@ namespace MyGUI
 		FloatSize mSizeTexture;
 		// текущая картинка
 		size_t mNum;
-		// единственный оверлей нашего виджета
-		PanelAlphaOverlayElement * mElement;
+		// единственный сабскин нашего виджета
+		CroppedRectanglePtr mElementSkin;
 
 	}; // class StaticImage : public Widget
 

@@ -67,6 +67,8 @@ namespace MyGUI
 		Ogre::Camera* mRttCam;
 		Ogre::SceneNode* mCamNode;
 
+		// € там чудок накос€чил, измени управление напр€мую оверлеем
+		// на класс кроппед, методы € добавил, дл€ примера посмотри статик имадж
 		PanelAlphaOverlayElement * mElement;
 
 		bool mFrameListener;

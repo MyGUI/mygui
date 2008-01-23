@@ -40,6 +40,7 @@ namespace MyGUI
 		Ogre::OverlayElement* _getOverlayElement();
 
 		void _setUVSet(const FloatRect& _rect);
+		void _setMaterialName(const Ogre::String& _material);
 
 		inline static const Ogre::String & _getType() {static Ogre::String type("MainSkin"); return type;}
 		inline static bool _isSharedOverlay() {return false;}
