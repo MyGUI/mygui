@@ -119,8 +119,15 @@ namespace MyGUI
 		// просто конвертируем цвет в строку
 		inline static Ogre::DisplayString convertTagColour(const Ogre::ColourValue & _colour)
 		{
-			Char buff[16];
-			_sprintf(buff, _T("#%.2X%.2X%.2X"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+			const size_t SIZE = 16;
+			Char buff[SIZE];
+
+			#if MYGUI_UNICODE_SUPPORT
+				swprintf(buff, SIZE, _T("#%.2X%.2X%.2X\0"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+			#else
+				sprintf(buff, _T("#%.2X%.2X%.2X\0"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+			#endif
+
 			return buff;
 		}
 

@@ -128,9 +128,14 @@ namespace MyGUI
 		// на всякий
 		if (mCurrent == mEnd) return false;
 
-		Char buff[16];
-		memset(buff, 0, 16);
-		_sprintf(buff, _T("#%.2X%.2X%.2X"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+		const size_t SIZE = 16;
+		Char buff[SIZE];
+
+		#if MYGUI_UNICODE_SUPPORT
+			swprintf(buff, SIZE, _T("#%.2X%.2X%.2X\0"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+		#else
+			sprintf(buff, _T("#%.2X%.2X%.2X\0"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+		#endif
 
 		// непосредственная вставка
 		Ogre::DisplayString tmpStr = Ogre::DisplayString(buff);

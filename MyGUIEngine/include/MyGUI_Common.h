@@ -84,7 +84,6 @@ namespace MyGUI
 
 	#if OGRE_UNICODE_SUPPORT
 		#define _T(_str) L##_str
-		#define _sprintf swprintf
 		#define MYGUI_CHARSET "Unicode"
 		#define MYGUI_UNICODE_SUPPORT 1
 		#define MYGUI_CHARSET_LIMIT 65535
@@ -92,7 +91,6 @@ namespace MyGUI
 		typedef wchar_t Char;
 	#else
 		#define _T(_str) _str
-		#define _sprintf sprintf
 		#define MYGUI_CHARSET "Multi-Byte"
 		#define MYGUI_UNICODE_SUPPORT 0
 		#define MYGUI_CHARSET_LIMIT 255

@@ -55,7 +55,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::OkCancel | MyGUI::Message::IconInfo);
+	MyGUI::Message::createMessage("#FF00FFcaption", "message", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::OkCancel | MyGUI::Message::IconInfo);
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
 	//test2(MyGUI::newDelegate(test3));
