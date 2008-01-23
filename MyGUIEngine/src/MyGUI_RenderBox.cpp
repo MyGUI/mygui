@@ -127,11 +127,6 @@ namespace MyGUI
 		//mRttCam->setAspectRatio(getWidth()/getHeight());
 
 		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
-		v->setOverlaysEnabled(false);
-		v->setClearEveryFrame( true );
-		v->setBackgroundColour(mBackgroungColour);
-		v->setShadowsEnabled(true);
-		v->setSkiesEnabled(false);
 
 		mElementSkin->_setMaterialName(mMaterial);
 	}
