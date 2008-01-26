@@ -103,19 +103,20 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 355), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	window->setAutoAlpha(true);
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	window->setMinMax(40, 40, 2000, 115);
 	//window->setAutoAlpha(true);
-	/*prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	//window->setAutoAlpha(true);
+	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressAutoTrack(true);
 
 	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 45, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-	prog->setProgressRange(mWidth);*/
+	prog->setProgressRange(mWidth);
 
-	renderbox = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
+	/*renderbox = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
 	renderbox->injectObject("ogrehead.mesh");
 	renderbox->setAutorotationSpeed();
-	renderbox->setMouseRotation(true);
+	renderbox->setMouseRotation(true);*/
 
 	//renderbox->setRenderTarget(mCamera);
 
