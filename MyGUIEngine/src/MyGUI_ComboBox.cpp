@@ -35,10 +35,10 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("HeightList");
-		if (iter != param.end()) mMaxHeight = util::parseInt(iter->second);
+		if (iter != param.end()) mMaxHeight = utility::parseInt(iter->second);
 
 		iter = param.find("ListSmoothShow");
-		if (iter != param.end()) setSmoothShow(util::parseBool(iter->second));
+		if (iter != param.end()) setSmoothShow(utility::parseBool(iter->second));
 
 		std::string listSkin, listLayer;
 		iter = param.find("ListSkin");

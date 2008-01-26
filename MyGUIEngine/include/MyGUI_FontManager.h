@@ -14,7 +14,7 @@
 #include <OgreResourceManager.h>
 #include "MyGUI_Font.h"
 #include "MyGUI_Instance.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 
 namespace MyGUI
 {

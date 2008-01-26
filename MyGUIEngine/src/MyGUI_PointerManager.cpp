@@ -9,7 +9,7 @@
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 
 namespace MyGUI
 {
@@ -74,7 +74,7 @@ namespace MyGUI
 			pointer->findAttribute("layer", layer);
 			pointer->findAttribute("material", material);
 			pointer->findAttribute("default", defaultPointer);
-			if (pointer->findAttribute("size", tmp)) size = util::parseInt(tmp);
+			if (pointer->findAttribute("size", tmp)) size = utility::parseInt(tmp);
 
 			// устанавливаем сразу параметры
 			mOverlayElement->setMaterialName(material);

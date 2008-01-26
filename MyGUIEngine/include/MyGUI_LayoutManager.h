@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI

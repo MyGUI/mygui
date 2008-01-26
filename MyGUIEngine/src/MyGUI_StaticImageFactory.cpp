@@ -71,7 +71,7 @@ namespace MyGUI
 		void StaticImageFactory::Image_Num(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(StaticImagePtr, _widget);
-			static_cast<StaticImagePtr>(_widget)->setImageNum(util::parseSizeT(_value));
+			static_cast<StaticImagePtr>(_widget)->setImageNum(utility::parseSizeT(_value));
 		}
 
 	} // namespace factory

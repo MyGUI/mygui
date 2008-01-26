@@ -12,7 +12,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_FrameListener.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 
 #include "MyGUI_WidgetOIS.h"
 

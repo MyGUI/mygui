@@ -7,7 +7,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_Gui.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 
 #include <OgreMaterialManager.h>
 
@@ -66,7 +66,7 @@ namespace MyGUI
 	Align SkinManager::parseAlign(const std::string & _value)
 	{
 		Align flag = 0;
-		const std::vector<std::string> & vec = util::split(_value);
+		const std::vector<std::string> & vec = utility::split(_value);
 		for (size_t pos=0; pos<vec.size(); pos++) {
 			MapAlign::iterator iter = mMapAlign.find(vec[pos]);
 			if (iter != mMapAlign.end()) flag |= iter->second;
@@ -183,8 +183,8 @@ namespace MyGUI
 
 						state->findAttribute("name", basisStateName);
 						if (state->findAttribute("offset", tmp)) offset = convertMaterialCoord(FloatRect::parse(tmp), materialSize);
-						if (state->findAttribute("colour", tmp)) colour = util::parseColour(tmp);
-						if (state->findAttribute("alpha", tmp)) alpha = util::parseFloat(tmp);
+						if (state->findAttribute("colour", tmp)) colour = utility::parseColour(tmp);
+						if (state->findAttribute("alpha", tmp)) alpha = utility::parseFloat(tmp);
 
 						// добавляем инфо о стайте
 						bind.add(basisStateName, offset, colour, alpha);

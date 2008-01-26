@@ -58,7 +58,7 @@ namespace MyGUI
 
 		clear();
 
-		mEntity = mScene->createEntity(util::toString(this, "_RenderBoxMesh_", _meshName), _meshName);
+		mEntity = mScene->createEntity(utility::toString(this, "_RenderBoxMesh_", _meshName), _meshName);
 		mNode->attachObject(mEntity);
 		mPointer = mMouseRotation ? mPointerKeeper : "";
 
@@ -131,15 +131,19 @@ namespace MyGUI
 		mRttCam = _camera;
 		//mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
-		mMaterial = util::toString(this, "_MaterialRenderBox");
+		mMaterial = utility::toString(this, "_MaterialRenderBox");
 		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(mMaterial, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(util::toString(this, "_TextureRenderBox"));
+		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(utility::toString(this, "_TextureRenderBox"));
 		mat->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
 		mat->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
 
-		Ogre::TextureManager::getSingleton().remove(util::toString(this, "_TextureRenderBox"));
-		mTexture = Ogre::TextureManager::getSingleton().createManual(util::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
+		// Setup Render To Texture for preview window
+		Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(utility::toString(this, "_TextureRenderBox"));
+		manager->remove(utility::toString(this, "_TextureRenderBox"));
+
+		Ogre::TextureManager::getSingleton().remove(utility::toString(this, "_TextureRenderBox"));
+		mTexture = Ogre::TextureManager::getSingleton().createManual(utility::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
 			->getBuffer()->getRenderTarget();
 
 		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
@@ -211,7 +215,7 @@ namespace MyGUI
 		mPointer = mMouseRotation ? mPointerKeeper : "";
 
 		// создаем новый сцен менеджер
-		mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, util::toString(this, "_SceneManagerRenderBox"));
+		mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, utility::toString(this, "_SceneManagerRenderBox"));
 
 		// создаем нод к которуму будем всякую дрянь атачить
 		mNode = mScene->getRootSceneNode()->createChildSceneNode();
@@ -221,24 +225,24 @@ namespace MyGUI
 		// главный источник света
 		Ogre::Vector3 dir(-1, -1, 0.5);
 		dir.normalise();
-		Ogre::Light * light = mScene->createLight(util::toString(this, "_LightRenderBox"));
+		Ogre::Light * light = mScene->createLight(utility::toString(this, "_LightRenderBox"));
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		light->setDirection(dir);
 
 		// создаем материал
-		mMaterial = util::toString(this, "_MaterialRenderBox");
+		mMaterial = utility::toString(this, "_MaterialRenderBox");
 		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(mMaterial, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(util::toString(this, "_TextureRenderBox"));
+		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(utility::toString(this, "_TextureRenderBox"));
 		mat->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
 		mat->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
 
-		Ogre::TextureManager::getSingleton().remove(util::toString(this, "_TextureRenderBox"));
-		mTexture = Ogre::TextureManager::getSingleton().createManual(util::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
+		Ogre::TextureManager::getSingleton().remove(utility::toString(this, "_TextureRenderBox"));
+		mTexture = Ogre::TextureManager::getSingleton().createManual(utility::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
 			->getBuffer()->getRenderTarget();
 
-		mRttCam = mScene->createCamera(util::toString(this, "_CameraRenderBox"));
-		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(util::toString(this, "_CameraNodeRenderBox"));
+		mRttCam = mScene->createCamera(utility::toString(this, "_CameraRenderBox"));
+		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(utility::toString(this, "_CameraNodeRenderBox"));
 		mCamNode->attachObject(mRttCam);
 		mRttCam->setNearClipDistance(1);
 		mRttCam->setAspectRatio(getWidth()/getHeight());

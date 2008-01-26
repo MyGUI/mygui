@@ -4,7 +4,7 @@
 	@date		11/2007
 	@module
 */
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
@@ -344,7 +344,7 @@ namespace MyGUI
 				continue;
 			}
 
-			std::vector<std::string> chars = util::split(lang->getBody());
+			std::vector<std::string> chars = utility::split(lang->getBody());
 			if (chars.size() == INPUT_COUNT_LOAD_CHAR) {
 
 				// сначала проверяем есть ли такой язык уже
@@ -359,7 +359,7 @@ namespace MyGUI
 
 				// и заполняем его
 				for (size_t j=0; j<INPUT_COUNT_LOAD_CHAR; j++) {
-					unsigned int ch = util::parseUInt(chars[j]);
+					unsigned int ch = utility::parseUInt(chars[j]);
 					if (MYGUI_CHARSET_LIMIT < ch) {
 						lang[j] = 0;
 						MYGUI_LOG(Warning, "character with code '" << ch << "' is not supported in " << MYGUI_CHARSET << " mode");

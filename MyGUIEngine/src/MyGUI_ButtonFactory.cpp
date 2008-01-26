@@ -47,7 +47,7 @@ namespace MyGUI
 		void ButtonFactory::Button_Pressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ButtonPtr, _widget);
-			static_cast<ButtonPtr>(_widget)->setButtonPressed(util::parseBool(_value));
+			static_cast<ButtonPtr>(_widget)->setButtonPressed(utility::parseBool(_value));
 		}
 
 	} // namespace factory

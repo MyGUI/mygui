@@ -99,7 +99,7 @@ namespace MyGUI
 			name = _name;
 		} else {
 			static long num=0;
-			name = util::toString(num++, "_", _type);
+			name = utility::toString(num++, "_", _type);
 		}
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {

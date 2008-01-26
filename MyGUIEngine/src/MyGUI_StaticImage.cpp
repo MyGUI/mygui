@@ -34,7 +34,7 @@ namespace MyGUI
 			iter = param.find("ImageTile");
 			if (iter != param.end()) setImageTile(FloatSize::parse(iter->second));
 			iter = param.find("ImageNum");
-			if (iter != param.end()) setImageNum(util::parseInt(iter->second));
+			if (iter != param.end()) setImageNum(utility::parseInt(iter->second));
 		}
 	}
 

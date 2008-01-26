@@ -16,7 +16,7 @@
 #include "MyGUI_AlignInfo.h"
 #include "MyGUI_ResourcePath.h"
 #include <OgreException.h>
-#include "utility.h"
+#include "MyGUI_Utility.h"
 
 namespace MyGUI
 {

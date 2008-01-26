@@ -62,7 +62,7 @@ namespace MyGUI
 			MYGUI_ASSERT(null == _item->mOverlayInfo, "Only one mouse pointer set must be load");
 			// создаем оверлей и присоединяем к нему
 			static long num=0;
-			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(util::toString(num++, "_LayerInfo"));
+			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(utility::toString(num++, "_LayerInfo"));
 			overlay->show();
 			_item->attachToOverlay(overlay);
 			// инициализируем

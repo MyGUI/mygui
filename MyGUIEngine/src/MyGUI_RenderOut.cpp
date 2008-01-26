@@ -6,7 +6,7 @@
 */
 
 #include "MyGUI_RenderOut.h"
-#include "utility.h"
+#include "MyGUI_Utility.h"
 
 #include <OgreFontManager.h>
 #include <OgreOverlayManager.h>
@@ -97,7 +97,7 @@ namespace MyGUI
 					overlayDebugInfoShadow->setWidth(win->getWidth()-__DEBUG_OVERLAY_OFFSET-1);
 					overlayDebugInfoShadow->setHeight(win->getHeight()-__DEBUG_OVERLAY_OFFSET-1);
 					overlayDebugInfoShadow->setParameter("font_name", fontName);
-					overlayDebugInfoShadow->setParameter("char_height", util::toString(__DEBUG_FONT_SIZE) );
+					overlayDebugInfoShadow->setParameter("char_height", utility::toString(__DEBUG_FONT_SIZE) );
 					overlayDebugInfoShadow->setParameter("colour_top", __DEBUG_FONT_SHADOW_COLOUR);
 					overlayDebugInfoShadow->setParameter("colour_bottom", __DEBUG_FONT_SHADOW_COLOUR);
 					overlay->add2D(overlayDebugInfoShadow); // добавляем контейнер на оверлей
@@ -110,7 +110,7 @@ namespace MyGUI
 				overlayDebugInfo->setWidth(win->getWidth()-__DEBUG_OVERLAY_OFFSET);
 				overlayDebugInfo->setHeight(win->getHeight()-__DEBUG_OVERLAY_OFFSET);
 				overlayDebugInfo->setParameter("font_name", fontName);
-				overlayDebugInfo->setParameter("char_height", util::toString(__DEBUG_FONT_SIZE) );
+				overlayDebugInfo->setParameter("char_height", utility::toString(__DEBUG_FONT_SIZE) );
 				overlayDebugInfo->setParameter("colour_top", __DEBUG_FONT_COLOUR);
 				overlayDebugInfo->setParameter("colour_bottom", __DEBUG_FONT_COLOUR);
 
@@ -138,7 +138,7 @@ namespace MyGUI
 			str_out.reserve(2048);
 
 			for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); iter++) {
-				str_out += util::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + util::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
+				str_out += utility::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + utility::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
 			}
 
 			// непосредственный вывод

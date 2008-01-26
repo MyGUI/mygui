@@ -86,7 +86,7 @@ namespace MyGUI
 		void MessageFactory::Message_Modal(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(MessagePtr, _widget);
-			if (util::parseBool(_value)) InputManager::getInstance().addWidgetModal(_widget);
+			if (utility::parseBool(_value)) InputManager::getInstance().addWidgetModal(_widget);
 			else InputManager::getInstance().removeWidgetModal(_widget);
 		}
 
@@ -105,19 +105,19 @@ namespace MyGUI
 		void MessageFactory::Message_Smooth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(MessagePtr, _widget);
-			static_cast<MessagePtr>(_widget)->setWindowSmooth(util::parseBool(_value));
+			static_cast<MessagePtr>(_widget)->setWindowSmooth(utility::parseBool(_value));
 		}
 
 		void MessageFactory::Message_Fade(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(MessagePtr, _widget);
-			static_cast<MessagePtr>(_widget)->setWindowFade(util::parseBool(_value));
+			static_cast<MessagePtr>(_widget)->setWindowFade(utility::parseBool(_value));
 		}
 
 		size_t MessageFactory::parseButton(const std::string & _info)
 		{
 			size_t ret = 0;
-			std::vector<std::string> vec = util::split(_info);
+			std::vector<std::string> vec = utility::split(_info);
 			for (std::vector<std::string>::iterator iter=vec.begin(); iter!=vec.end(); ++iter) {
 				std::map<std::string, size_t>::iterator value = mMapButtonType.find(*iter);
 				if (value != mMapButtonType.end()) ret |= (*value).second;

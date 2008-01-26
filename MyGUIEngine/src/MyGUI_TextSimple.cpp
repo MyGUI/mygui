@@ -5,7 +5,7 @@
 	@module
 */
 #include "MyGUI_TextSimple.h"
-#include "utility.h"
+#include "MyGUI_Utility.h"
 
 namespace MyGUI
 {
@@ -16,7 +16,7 @@ namespace MyGUI
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		mOverlayContainer = static_cast<TextSimpleOverlayElement *>(overlayManager.createOverlayElement(
-			"TextSimple", util::toString("TextSimple_", this)) );
+			"TextSimple", utility::toString("TextSimple_", this)) );
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 

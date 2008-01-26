@@ -53,7 +53,7 @@ namespace MyGUI
 		void SheetFactory::Sheet_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(SheetPtr, _widget);
-			static_cast<SheetPtr>(_widget)->setSheetButtonWidth(util::parseInt(_value));
+			static_cast<SheetPtr>(_widget)->setSheetButtonWidth(utility::parseInt(_value));
 		}
 
 		void SheetFactory::Sheet_Name(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -65,7 +65,7 @@ namespace MyGUI
 		void SheetFactory::Sheet_Select(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(SheetPtr, _widget);
-			if (false == util::parseBool(_value)) return;
+			if (false == utility::parseBool(_value)) return;
 			static_cast<SheetPtr>(_widget)->selectSheet(_key == "Sheet_SmoothSelect");
 		}
 

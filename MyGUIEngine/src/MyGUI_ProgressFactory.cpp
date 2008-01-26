@@ -52,19 +52,19 @@ namespace MyGUI
 		void ProgressFactory::Progress_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ProgressPtr, _widget);
-			static_cast<ProgressPtr>(_widget)->setProgressRange(util::parseSizeT(_value));
+			static_cast<ProgressPtr>(_widget)->setProgressRange(utility::parseSizeT(_value));
 		}
 
 		void ProgressFactory::Progress_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ProgressPtr, _widget);
-			static_cast<ProgressPtr>(_widget)->setProgressPosition(util::parseSizeT(_value));
+			static_cast<ProgressPtr>(_widget)->setProgressPosition(utility::parseSizeT(_value));
 		}
 
 		void ProgressFactory::Progress_AutoTrack(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ProgressPtr, _widget);
-			static_cast<ProgressPtr>(_widget)->setProgressAutoTrack(util::parseBool(_value));
+			static_cast<ProgressPtr>(_widget)->setProgressAutoTrack(utility::parseBool(_value));
 		}
 
 	} // namespace factory

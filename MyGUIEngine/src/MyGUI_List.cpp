@@ -51,7 +51,7 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property or skin not found (List must have SkinLine property)");
 
 		iter = param.find("HeightLine");
-		if (iter != param.end()) mHeightLine = util::parseInt(iter->second);
+		if (iter != param.end()) mHeightLine = utility::parseInt(iter->second);
 		if (mHeightLine < 1) mHeightLine = 1;
 
 

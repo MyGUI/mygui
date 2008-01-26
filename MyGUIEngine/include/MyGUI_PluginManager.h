@@ -11,7 +11,7 @@
 #include <Ogre.h>
 #include "MyGUI_Instance.h"
 #include "MyGUI_Plugin.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 
 typedef void (*DLL_START_PLUGIN)(void);
 typedef void (*DLL_STOP_PLUGIN)(void);

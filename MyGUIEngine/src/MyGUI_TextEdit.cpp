@@ -5,7 +5,7 @@
 	@module
 */
 #include "MyGUI_TextEdit.h"
-#include "utility.h"
+#include "MyGUI_Utility.h"
 
 namespace MyGUI
 {
@@ -16,7 +16,7 @@ namespace MyGUI
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 		mOverlayContainer = static_cast<TextEditOverlayElement *>(overlayManager.createOverlayElement(
-			"TextEdit", util::toString("TextEdit_", this)) );
+			"TextEdit", utility::toString("TextEdit_", this)) );
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 

@@ -16,8 +16,8 @@
 #include <map>
 #include <vector>
 #include <deque>
-#include "utility.h"
-#include "delegate.h"
+#include "MyGUI_Utility.h"
+#include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {
@@ -25,8 +25,9 @@ namespace MyGUI
 	class DynLib;
 	class Plugin;
 
+	using MyGUI::delegates::newDelegate;
+
 	class WidgetSkinInfo;
-	using delegates::newDelegate;
 	class MaskPeekInfo;
 	class PanelAlphaOverlayElement;
 

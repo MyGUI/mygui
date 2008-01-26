@@ -5,7 +5,7 @@
 	@module
 */
 #include "MyGUI_MainSkin.h"
-#include "utility.h"
+#include "MyGUI_Utility.h"
 
 namespace MyGUI
 {
@@ -17,7 +17,7 @@ namespace MyGUI
 		Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
 
 		mOverlayContainer = static_cast<PanelAlphaOverlayElement*>( overlayManager.createOverlayElement(
-			"PanelAlpha", util::toString("MainSkin_", this)) );
+			"PanelAlpha", utility::toString("MainSkin_", this)) );
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 		mOverlayContainer->setPosition(mParent->getLeft() + mCoord.left, mParent->getTop() + mCoord.top);

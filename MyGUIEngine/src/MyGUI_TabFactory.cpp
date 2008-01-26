@@ -55,19 +55,19 @@ namespace MyGUI
 		void TabFactory::Tab_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(TabPtr, _widget);
-			static_cast<TabPtr>(_widget)->setButtonDefaultWidth(util::parseInt(_value));
+			static_cast<TabPtr>(_widget)->setButtonDefaultWidth(utility::parseInt(_value));
 		}
 
 		void TabFactory::Tab_ButtonAutoWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(TabPtr, _widget);
-			static_cast<TabPtr>(_widget)->setButtonAutoWidth(util::parseBool(_value));
+			static_cast<TabPtr>(_widget)->setButtonAutoWidth(utility::parseBool(_value));
 		}
 
 		void TabFactory::Tab_SmoothShow(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(TabPtr, _widget);
-			static_cast<TabPtr>(_widget)->setSmoothShow(util::parseBool(_value));
+			static_cast<TabPtr>(_widget)->setSmoothShow(utility::parseBool(_value));
 		}
 
 		void TabFactory::Tab_AddSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -79,7 +79,7 @@ namespace MyGUI
 		void TabFactory::Tab_SelectSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(TabPtr, _widget);
-			static_cast<TabPtr>(_widget)->selectSheetIndex(util::parseSizeT(_value));
+			static_cast<TabPtr>(_widget)->selectSheetIndex(utility::parseSizeT(_value));
 		}
 
 	} // namespace factory

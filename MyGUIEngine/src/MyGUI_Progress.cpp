@@ -34,7 +34,7 @@ namespace MyGUI
 		MapString::const_iterator iter = param.find("TrackSkin");
 		if (iter != param.end()) mTrackSkin = iter->second;
 		iter = param.find("TrackWidth");
-		if (iter != param.end()) mTrackWidth = util::parseInt(iter->second);
+		if (iter != param.end()) mTrackWidth = utility::parseInt(iter->second);
 		if (1 > mTrackWidth) mTrackWidth = 1;
 
 	}

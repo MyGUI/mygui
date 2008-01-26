@@ -38,7 +38,7 @@ namespace MyGUI
 		const MapString & param = _info->getParams();
 		if (false == param.empty()) {
 			MapString::const_iterator iter = param.find("OffsetBar");
-			if (iter != param.end()) mOffsetTab = util::parseInt(iter->second);
+			if (iter != param.end()) mOffsetTab = utility::parseInt(iter->second);
 
 			iter = param.find("ButtonSkin");
 			if (iter != param.end()) mButtonSkinName = iter->second;

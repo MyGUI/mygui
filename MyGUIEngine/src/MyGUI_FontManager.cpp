@@ -8,7 +8,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_Common.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 
 namespace MyGUI
 {
@@ -62,13 +62,13 @@ namespace MyGUI
 			FontPtr pFont = create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 			pFont->_notifyOrigin(_file);
 			pFont->setSource(source);
-			pFont->setTrueTypeSize(util::parseValue<Ogre::Real>(size));
-			pFont->setTrueTypeResolution((Ogre::uint)util::parseValue<Ogre::Real>(resolution));
+			pFont->setTrueTypeSize(utility::parseValue<Ogre::Real>(size));
+			pFont->setTrueTypeResolution((Ogre::uint)utility::parseValue<Ogre::Real>(resolution));
 
-			if (false == antialias.empty()) pFont->setAntialiasColour(util::parseBool(antialias));
+			if (false == antialias.empty()) pFont->setAntialiasColour(utility::parseBool(antialias));
 			if (false == space.empty()) pFont->setSpaceSimbol(space[0]);
-			if (false == tab.empty()) pFont->setCountSpaceTab(util::parseUChar(tab));
-			if (false == spacer.empty()) pFont->setCharSpacer(util::parseUChar(spacer));
+			if (false == tab.empty()) pFont->setCountSpaceTab(utility::parseUChar(tab));
+			if (false == spacer.empty()) pFont->setCharSpacer(utility::parseUChar(spacer));
 
 			xml::xmlNodeIterator range = font->getNodeIterator();
 
@@ -77,14 +77,14 @@ namespace MyGUI
 				std::vector<std::string> parse_range;
 				// диапазон включений
 				if (range->findAttribute("range", range_value)) {
-					parse_range = util::split(range_value);
-					if (parse_range.size() == 2) pFont->addCodePointRange(util::parseValue<Ogre::Real>(parse_range[0]), util::parseValue<Ogre::Real>(parse_range[1]));
+					parse_range = utility::split(range_value);
+					if (parse_range.size() == 2) pFont->addCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[1]));
 				}
 				// диапазон исключений
 				else if (range->findAttribute("hide", range_value)) {
-					parse_range = util::split(range_value);
-					if (parse_range.size() == 2) pFont->addHideCodePointRange(util::parseValue<Ogre::Real>(parse_range[0]), util::parseValue<Ogre::Real>(parse_range[1]));
-					else if (parse_range.size() == 1) pFont->addHideCodePointRange(util::parseValue<Ogre::Real>(parse_range[0]), util::parseValue<Ogre::Real>(parse_range[0]));
+					parse_range = utility::split(range_value);
+					if (parse_range.size() == 2) pFont->addHideCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[1]));
+					else if (parse_range.size() == 1) pFont->addHideCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[0]));
 				}
 			};
 		};

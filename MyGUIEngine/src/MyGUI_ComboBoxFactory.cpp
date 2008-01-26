@@ -50,7 +50,7 @@ namespace MyGUI
 		void ComboBoxFactory::Combo_ModeDrop(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(ComboBoxPtr, _widget);
-			static_cast<ComboBoxPtr>(_widget)->setComboModeDrop(util::parseBool(_value));
+			static_cast<ComboBoxPtr>(_widget)->setComboModeDrop(utility::parseBool(_value));
 		}
 
 		void ComboBoxFactory::Combo_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

@@ -59,17 +59,17 @@ namespace MyGUI
 				continue;
 			}
 
-			if (layer->findAttribute("height", tmp)) height = util::parseUShort(tmp);
+			if (layer->findAttribute("height", tmp)) height = utility::parseUShort(tmp);
 			else {
 				MYGUI_LOG(Warning, "Attribute 'Height' not found {file : '" << _file << "' , name : " << name << "}");
 			}
 
-			if (layer->findAttribute("count", tmp)) count = util::parseUShort(tmp);
+			if (layer->findAttribute("count", tmp)) count = utility::parseUShort(tmp);
 			else {
 				MYGUI_LOG(Warning, "Attribute 'Count' not found {file : '" << _file << "' , name : " << name << "}");
 			}
 
-			if (layer->findAttribute("start", tmp)) start = util::parseUShort(tmp);
+			if (layer->findAttribute("start", tmp)) start = utility::parseUShort(tmp);
 			else {
 				MYGUI_LOG(Warning, "Attribute 'Start' not found {file : '" << _file << "' , name : " << name << "}");
 			}

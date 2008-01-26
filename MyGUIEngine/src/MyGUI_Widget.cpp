@@ -50,18 +50,18 @@ namespace MyGUI
 			MapString::const_iterator iter = param.find("FontName");
 			if (iter != param.end()) setFontName(iter->second);
 			iter = param.find("FontHeight");
-			if (iter != param.end()) setFontHeight(util::parseInt(iter->second));
+			if (iter != param.end()) setFontHeight(utility::parseInt(iter->second));
 			iter = param.find("NeedKey");
 			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
 			iter = param.find("AlignText");
 			if (iter != param.end()) setTextAlign(SkinManager::getInstance().parseAlign(iter->second));
 			iter = param.find("Colour");
-			if (iter != param.end()) setColour(util::parseColour(iter->second));
+			if (iter != param.end()) setColour(utility::parseColour(iter->second));
 			iter = param.find("Pointer");
 			if (iter != param.end()) mPointer = iter->second;
 			iter = param.find("Show");
 			if (iter != param.end()) {
-				if (util::parseBool(iter->second)) show();
+				if (utility::parseBool(iter->second)) show();
 				else hide();
 			}
 		}

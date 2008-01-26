@@ -51,19 +51,19 @@ namespace MyGUI
 		void VScrollFactory::Scroll_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(VScrollPtr, _widget);
-			static_cast<VScrollPtr>(_widget)->setScrollRange(util::parseSizeT(_value));
+			static_cast<VScrollPtr>(_widget)->setScrollRange(utility::parseSizeT(_value));
 		}
 
 		void VScrollFactory::Scroll_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(VScrollPtr, _widget);
-			static_cast<VScrollPtr>(_widget)->setScrollPosition(util::parseSizeT(_value));
+			static_cast<VScrollPtr>(_widget)->setScrollPosition(utility::parseSizeT(_value));
 		}
 
 		void VScrollFactory::Scroll_Page(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(VScrollPtr, _widget);
-			static_cast<VScrollPtr>(_widget)->setScrollPage(util::parseSizeT(_value));
+			static_cast<VScrollPtr>(_widget)->setScrollPage(utility::parseSizeT(_value));
 		}
 
 	} // namespace factory

@@ -42,7 +42,7 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("ToStick");
-		if (iter != param.end()) mIsToStick = util::parseBool(iter->second);
+		if (iter != param.end()) mIsToStick = utility::parseBool(iter->second);
 		iter = param.find("MainMove");
 		if (iter != param.end()) setUserString("Scale", "1 1 0 0");
 

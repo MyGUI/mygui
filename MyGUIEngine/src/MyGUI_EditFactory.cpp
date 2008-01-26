@@ -55,32 +55,32 @@ namespace MyGUI
 		void EditFactory::Edit_CursorPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(EditPtr, _widget);
-			static_cast<EditPtr>(_widget)->setTextCursor(util::parseSizeT(_value));
+			static_cast<EditPtr>(_widget)->setTextCursor(utility::parseSizeT(_value));
 		}
 
 		void EditFactory::Edit_TextSelect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(EditPtr, _widget);
-			std::vector<std::string> vec = util::split(_value);
-			if (vec.size() == 2) static_cast<EditPtr>(_widget)->setTextSelect(util::parseSizeT(vec[0]), util::parseSizeT(vec[1]));
+			std::vector<std::string> vec = utility::split(_value);
+			if (vec.size() == 2) static_cast<EditPtr>(_widget)->setTextSelect(utility::parseSizeT(vec[0]), utility::parseSizeT(vec[1]));
 		}
 
 		void EditFactory::Edit_ReadOnly(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(EditPtr, _widget);
-			static_cast<EditPtr>(_widget)->setEditReadOnly(util::parseBool(_value));
+			static_cast<EditPtr>(_widget)->setEditReadOnly(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_Password(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(EditPtr, _widget);
-			static_cast<EditPtr>(_widget)->setEditPassword(util::parseBool(_value));
+			static_cast<EditPtr>(_widget)->setEditPassword(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_MultiLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(EditPtr, _widget);
-			static_cast<EditPtr>(_widget)->setEditMultiLine(util::parseBool(_value));
+			static_cast<EditPtr>(_widget)->setEditMultiLine(utility::parseBool(_value));
 		}
 
 	} // namespace factory

@@ -15,7 +15,7 @@
 #include "MyGUI_FrameListener.h"
 #include "MyGUI_UnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
-#include "xmlDocument.h"
+#include "MyGUI_XmlDocument.h"
 
 namespace MyGUI
 {

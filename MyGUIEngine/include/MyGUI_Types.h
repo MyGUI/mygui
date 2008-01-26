@@ -8,8 +8,8 @@
 #define __MYGUI_TYPES_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Utility.h"
 #include <Ogre.h>
-#include "utility.h"
 #include "TPoint.h"
 #include "TSize.h"
 #include "TRect.h"
@@ -32,36 +32,36 @@ namespace MyGUI
 	typedef types::TCoord<float> FloatCoord;
 
 	typedef std::map<std::string, std::string> MapString;
+	typedef std::vector<std::string> VectorString;
+
+	namespace utility
+	{
+		namespace templates
+		{
+			template <class T>
+			Ogre::ColourValue parseColour(const std::string& _value)
+			{
+				if (_value.empty()) return Ogre::ColourValue::ZERO;
+				if (_value[0] == '#') {
+					unsigned int ret = 0;
+					if (0 == sscanf(_value.c_str(), "#%X", &ret)) return Ogre::ColourValue( ((float)(ret&0xFF0000))*(1/0xFF0000), ((float)(ret&0xFF00))*(1/0xFF00), ((float)(ret&0xFF))*(1/0xFF));
+				}
+				else {
+					float red, green, blue, alpha = 1;
+					std::istringstream str(_value);
+					str >> red >> green >> blue;
+					if (str.fail()) return Ogre::ColourValue::ZERO;
+					str >> alpha;
+					return Ogre::ColourValue(red, green, blue, alpha);
+				}
+				return Ogre::ColourValue::ZERO;
+			}
+		} // namespace templates
+
+		inline Ogre::ColourValue parseColour(const std::string& _value) {return templates::parseColour<void>(_value);}
+
+	} // namespace utility
 
 } // namespace MyGUI
-
-namespace util
-{
-
-	namespace templates
-	{
-		template <class T>
-		Ogre::ColourValue parseColour(const std::string& _value)
-		{
-			if (_value.empty()) return Ogre::ColourValue::ZERO;
-			if (_value[0] == '#') {
-				unsigned int ret = 0;
-				if (0 == sscanf(_value.c_str(), "#%X", &ret)) return Ogre::ColourValue( ((float)(ret&0xFF0000))*(1/0xFF0000), ((float)(ret&0xFF00))*(1/0xFF00), ((float)(ret&0xFF))*(1/0xFF));
-			}
-			else {
-				float red, green, blue, alpha = 1;
-				std::istringstream str(_value);
-				str >> red >> green >> blue;
-				if (str.fail()) return Ogre::ColourValue::ZERO;
-				str >> alpha;
-				return Ogre::ColourValue(red, green, blue, alpha);
-			}
-			return Ogre::ColourValue::ZERO;
-		}
-	} // namespace templates
-
-	inline Ogre::ColourValue parseColour(const std::string& _value) {return templates::parseColour<void>(_value);}
-
-} // namespace util
 
 #endif // __MYGUI_TYPES_H__

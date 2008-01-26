@@ -5,7 +5,7 @@
 	@module
 */
 #include "MyGUI_SubSkin.h"
-#include "utility.h"
+#include "MyGUI_Utility.h"
 
 namespace MyGUI
 {
@@ -21,7 +21,7 @@ namespace MyGUI
 			Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
 			mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
-				"SharedPanelAlpha", util::toString("SubSkin_", this)) );
+				"SharedPanelAlpha", utility::toString("SubSkin_", this)) );
 
 			// устанавливаем колличество саб оверлеев
 			mOverlayContainer->setCountSharedOverlay(_parent->_getCountSharedOverlay());

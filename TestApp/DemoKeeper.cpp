@@ -117,7 +117,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	renderbox->setAutorotationSpeed();
 	renderbox->setMouseRotation(true);
 
-	renderbox->setRenderTarget(mCamera);
+	//renderbox->setRenderTarget(mCamera);
 
 	/*window->setMinMax(150, 150, 2000, 2000);
 	window->setCaption("tab demo");

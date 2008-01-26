@@ -416,11 +416,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\updateWidgetFromEntity.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\xmlDocument.cpp"
+					RelativePath=".\src\MyGUI_XmlDocument.cpp"
 					>
 				</File>
 				<Filter
@@ -590,11 +586,11 @@
 				Name="Utility"
 				>
 				<File
-					RelativePath=".\include\delegate.h"
+					RelativePath=".\include\MyGUI_Delegate.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\delegate_implement.h"
+					RelativePath=".\include\MyGUI_DelegateImplement.h"
 					>
 				</File>
 				<File
@@ -614,15 +610,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\updateWidgetFromEntity.h"
+					RelativePath=".\include\MyGUI_Utility.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\utility.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\xmlDocument.h"
+					RelativePath=".\include\MyGUI_XmlDocument.h"
 					>
 				</File>
 				<Filter
