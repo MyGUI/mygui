@@ -162,18 +162,14 @@ namespace MyGUI
 		IntPoint pos = _pos;
 		// прилепляем к краям
 		if (mIsToStick) {
-			if (pos.left > 0) {if ( (pos.left - WINDOW_TO_STICK) <= 0) pos.left = 0;}
-			else {if ( (pos.left + WINDOW_TO_STICK) >= 0) pos.left = 0;}
-			if (pos.top > 0) {if ( (pos.top - WINDOW_TO_STICK) <= 0) pos.top = 0;}
-			else {	if ( (pos.top + WINDOW_TO_STICK) >= 0) pos.top = 0;}
+			if (abs(pos.left) <= WINDOW_TO_STICK) pos.left = 0;
+			if (abs(pos.top) <= WINDOW_TO_STICK) pos.top = 0;
 
 			int width = (int)Gui::getInstance().getViewWidth();
 			int height = (int)Gui::getInstance().getViewHeight();
 
-			if ( (pos.left + mCoord.width) < width) {if ( (pos.left + mCoord.width + WINDOW_TO_STICK) > width ) pos.left = width - mCoord.width;	}
-			else {	if ( (pos.left + mCoord.width - WINDOW_TO_STICK) < width ) pos.left = width - mCoord.width;}
-			if ( (pos.top + mCoord.height) < height) {if ( (pos.top + mCoord.height + WINDOW_TO_STICK) > height ) pos.top = height - mCoord.height;}
-			else {	if ( (pos.top + mCoord.height - WINDOW_TO_STICK) < height ) pos.top = height - mCoord.height;}
+			if ( abs(pos.left + mCoord.width - width) < WINDOW_TO_STICK) pos.left = width - mCoord.width;
+			if ( abs(pos.top + mCoord.height - height) < WINDOW_TO_STICK) pos.top = height - mCoord.height;
 		}
 		Widget::setPosition(pos);
 	}
@@ -184,23 +180,17 @@ namespace MyGUI
 		IntSize size = _coord.size();
 		// прилепляем к краям
 		if (mIsToStick) {
-			if (pos.left > 0) {if ( (pos.left - WINDOW_TO_STICK) <= 0) pos.left = 0;}
-			else {if ( (pos.left + WINDOW_TO_STICK) >= 0) pos.left = 0;}
-			if (pos.top > 0) {if ( (pos.top - WINDOW_TO_STICK) <= 0) pos.top = 0;}
-			else {	if ( (pos.top + WINDOW_TO_STICK) >= 0) pos.top = 0;}
+			if (abs(pos.left) <= WINDOW_TO_STICK) pos.left = 0;
+			if (abs(pos.top) <= WINDOW_TO_STICK) pos.top = 0;
 
 			int width = (int)Gui::getInstance().getViewWidth();
 			int height = (int)Gui::getInstance().getViewHeight();
 
-			if ( (pos.left + mCoord.width) < width) {if ( (pos.left + mCoord.width + WINDOW_TO_STICK) > width ) pos.left = width - mCoord.width;	}
-			else {	if ( (pos.left + mCoord.width - WINDOW_TO_STICK) < width ) pos.left = width - mCoord.width;}
-			if ( (pos.top + mCoord.height) < height) {if ( (pos.top + mCoord.height + WINDOW_TO_STICK) > height ) pos.top = height - mCoord.height;}
-			else {	if ( (pos.top + mCoord.height - WINDOW_TO_STICK) < height ) pos.top = height - mCoord.height;}
+			if ( abs(pos.left + mCoord.width - width) < WINDOW_TO_STICK) pos.left = width - mCoord.width;
+			if ( abs(pos.top + mCoord.height - height) < WINDOW_TO_STICK) pos.top = height - mCoord.height;
 
-			if ( (mCoord.left + size.width) < width) {if ( (mCoord.left + size.width + WINDOW_TO_STICK) > width ) size.width = width - mCoord.left;	}
-			else {	if ( (mCoord.left + size.width - WINDOW_TO_STICK) < width ) size.width = width - mCoord.left;}
-			if ( (mCoord.top + size.height) < height) {if ( (mCoord.top + size.height + WINDOW_TO_STICK) > height ) size.height = height - mCoord.top;}
-			else {	if ( (mCoord.top + size.height - WINDOW_TO_STICK) < height ) size.height = height - mCoord.top;}
+			if ( abs(mCoord.left + size.width - width) < WINDOW_TO_STICK) size.width = width - mCoord.left;
+			if ( abs(mCoord.top + size.height - height) < WINDOW_TO_STICK) size.height = height - mCoord.top;
 		}
 
 		if (size.width < mMinmax.left) {
@@ -242,10 +232,8 @@ namespace MyGUI
 			int width = (int)Gui::getInstance().getViewWidth();
 			int height = (int)Gui::getInstance().getViewHeight();
 
-			if ( (mCoord.left + size.width) < width) {if ( (mCoord.left + size.width + WINDOW_TO_STICK) > width ) size.width = width - mCoord.left;	}
-			else {	if ( (mCoord.left + size.width - WINDOW_TO_STICK) < width ) size.width = width - mCoord.left;}
-			if ( (mCoord.top + size.height) < height) {if ( (mCoord.top + size.height + WINDOW_TO_STICK) > height ) size.height = height - mCoord.top;}
-			else {	if ( (mCoord.top + size.height - WINDOW_TO_STICK) < height ) size.height = height - mCoord.top;}
+			if ( abs(mCoord.left + size.width - width) < WINDOW_TO_STICK) size.width = width - mCoord.left;
+			if ( abs(mCoord.top + size.height - height) < WINDOW_TO_STICK) size.height = height - mCoord.top;
 		}
 
 		if (size.width < mMinmax.left) size.width = mMinmax.left;

@@ -129,12 +129,14 @@ namespace MyGUI
 		// создаем новый материал
 		mUserViewport = true;
 		mRttCam = _camera;
-		mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
+		//mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
 		mMaterial = util::toString(this, "_MaterialRenderBox");
 		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(mMaterial, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(util::toString(this, "_TextureRenderBox"));
+		mat->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
+		mat->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
 
 		Ogre::TextureManager::getSingleton().remove(util::toString(this, "_TextureRenderBox"));
 		mTexture = Ogre::TextureManager::getSingleton().createManual(util::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
@@ -228,6 +230,8 @@ namespace MyGUI
 		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(mMaterial, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(util::toString(this, "_TextureRenderBox"));
+		mat->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
+		mat->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
 
 		Ogre::TextureManager::getSingleton().remove(util::toString(this, "_TextureRenderBox"));
 		mTexture = Ogre::TextureManager::getSingleton().createManual(util::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
@@ -254,10 +258,10 @@ namespace MyGUI
 		// при нуле вылетает
 		if ((getWidth() <= 1) || (getHeight() <= 1) ) return;
 
-		// не ясно, нужно ли растягивать камеру, установленную юзером
-		mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
-
 		if ((false == mUserViewport) && (null != mEntity) && (null != mRttCam)) {
+			// не ясно, нужно ли растягивать камеру, установленную юзером
+			mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
+
 			// вычисляем расстояние, чтобы был виден весь объект
 			const Ogre::AxisAlignedBox & box = mEntity->getBoundingBox();
 			box.getCenter();
