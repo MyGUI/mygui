@@ -56,7 +56,7 @@ namespace MyGUI
 		VectorWidgetPtr mVectorTrack;
 		size_t mRange;
 		size_t mStartPosition, mEndPosition;
-		size_t mAutoPosition;
+		float mAutoPosition;
 		bool mAutoTrack;
 
 	}; // class _MyGUIExport Progress : public Widget

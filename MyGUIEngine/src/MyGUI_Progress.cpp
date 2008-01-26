@@ -135,7 +135,8 @@ namespace MyGUI
 		if (mAutoTrack) {
 			Gui::getInstance().addFrameListener(this);
 			mRange = PROGRESS_AUTO_RANGE;
-			mAutoPosition = mEndPosition = mStartPosition = 0;
+			mEndPosition = mStartPosition = 0;
+			mAutoPosition = 0.0f;
 		}
 		else {
 			Gui::getInstance().removeFrameListener(this);
@@ -147,15 +148,16 @@ namespace MyGUI
 	void Progress::_frameEntered(float _time)
 	{
 		if (false == mAutoTrack) return;
-		mAutoPosition += (size_t) (PROGRESS_AUTO_COEF * _time);
+		mAutoPosition += (PROGRESS_AUTO_COEF * _time);
+		size_t pos = (size_t)mAutoPosition;
 
-		if (mAutoPosition > (mRange + PROGRESS_AUTO_WIDTH)) mAutoPosition = 0;
+		if (pos > (mRange + PROGRESS_AUTO_WIDTH)) mAutoPosition = 0.0f;
 
-		if (mAutoPosition > mRange) mEndPosition = mRange;
+		if (pos > mRange) mEndPosition = mRange;
 		else mEndPosition = mAutoPosition;
 
-		if (mAutoPosition < PROGRESS_AUTO_WIDTH) mStartPosition = 0;
-		else mStartPosition = mAutoPosition - PROGRESS_AUTO_WIDTH;
+		if (pos < PROGRESS_AUTO_WIDTH) mStartPosition = 0;
+		else mStartPosition = pos - PROGRESS_AUTO_WIDTH;
 
 		updateTrack();
 	}
