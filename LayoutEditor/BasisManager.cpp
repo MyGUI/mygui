@@ -87,14 +87,13 @@ void BasisManager::destroyInput() // удаляем систему ввода
 
 void BasisManager::createBasisManager(void) // создаем начальную точки каркаса приложения
 {
-
 	Ogre::String pluginsPath;
 	// only use plugins.cfg if not static
 	#ifndef OGRE_STATIC_LIB
 		pluginsPath = mResourcePath + "plugins.cfg";
 	#endif
 	
-    mRoot = new Ogre::Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
+	mRoot = new Ogre::Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
 
 	setupResources();
 
@@ -106,20 +105,20 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mWidth = mWindow->getWidth();
 	mHeight = mWindow->getHeight();
 
-    mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BasisSceneManager");
+	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BasisSceneManager");
 
-    mCamera = mSceneMgr->createCamera("BasisCamera");
-    mCamera->setNearClipDistance(5);
+	mCamera = mSceneMgr->createCamera("BasisCamera");
+	mCamera->setNearClipDistance(5);
 	mCamera->setPosition(Ogre::Vector3(200, 200, 200));
 	mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
-    // Create one viewport, entire window
+	// Create one viewport, entire window
 	Ogre::Viewport * vp = mWindow->addViewport(mCamera);
-    // Alter the camera aspect ratio to match the viewport
-    mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
+	// Alter the camera aspect ratio to match the viewport
+	mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
 
-    // Set default mipmap level (NB some APIs ignore this)
-    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+	// Set default mipmap level (NB some APIs ignore this)
+	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
 	Ogre::Light* mLight = mSceneMgr->createLight("BasisLight");
 	mLight->setDiffuseColour(Ogre::ColourValue::White);
@@ -133,7 +132,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	changeState(&mOptions); // главное меню
 
-    mRoot->startRendering();
+	mRoot->startRendering();
 }
 
 void BasisManager::destroyBasisManager() // очищаем все параметры каркаса приложения

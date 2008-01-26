@@ -23,13 +23,20 @@ public:
 
   void notifyWidgetSelect(MyGUI::WidgetPtr _sender, bool _double);
 
-	void notifyNewGridStep(MyGUI::WidgetPtr _sender);
+	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender);
+	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
+
+	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
 
 	// info for new widget
 	int x1, y1, x2, y2;
 	std::string current_widget_type;
 	MyGUI::WindowPtr current_widget;
+	MyGUI::WindowPtr current_widget_rectangle;
+	// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
 	int creating_status;
+	// for unique names
+	int counter;
 
 	// current settings
 	int grid_step;

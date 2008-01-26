@@ -201,6 +201,10 @@
 				RelativePath=".\EditorState.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\WidgetContainer.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -217,6 +221,10 @@
 			</File>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WidgetContainer.h"
 				>
 			</File>
 		</Filter>
