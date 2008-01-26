@@ -65,6 +65,10 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _widget, const std::string& _name)
 		EventInfo_WidgetString eventWindowButtonPressed;
 
+		// event : изменились размеры окна
+		// signature : void method(MyGUI::WidgetPtr _widget)
+		EventInfo_WidgetVoid eventWindowChangeCoord;
+
 	protected:
 
 		void _onMouseChangeRootFocus(bool _focus);

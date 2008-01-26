@@ -131,6 +131,9 @@ namespace MyGUI
 		coord.height *= (_top - point.top);
 
 		setPosition(mPreActionCoord + coord);
+		
+		// посылаем событие о изменении позиции и размере
+		eventWindowChangeCoord(this);
 	}
 
 	void Window::updateAlpha()
