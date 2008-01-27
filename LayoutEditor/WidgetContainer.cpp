@@ -67,13 +67,13 @@ bool EditorWidgets::load(std::string _fileName)
 			}
 		}
 	}
-
-	return true;*/
+*/
+	return true;
 }
 
 bool EditorWidgets::save(std::string _fileName)
 {
-
+	return true;
 }
 
 void EditorWidgets::add(std::string _name, MyGUI::WidgetPtr _widget, MyGUI::WidgetPtr _widget_rectangle)
