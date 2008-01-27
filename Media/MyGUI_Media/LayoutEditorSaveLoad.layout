@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layout">
+
+	<Widget type="Window" skin="WindowC" position="0 0 300 100" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowSaveLoad" >
+		<Property key="Widget_Caption" value="Select file name." />
+
+		<Widget type="Edit" skin="Edit" position_real="0.05 0. 0.9 0.45" name="editFileName" >
+			<Property key="Widget_Caption" value="Default.layout" />
+		</Widget>
+
+		<Widget type="Button" skin="Button" position_real="0.05 0.5 0.4 0.45" name="buttonSaveLoad" >
+			<Property key="Widget_Caption" value="Ok" />
+		</Widget>
+
+		<Widget type="Button" skin="Button" position_real="0.55 0.5 0.4 0.45" name="buttonCancel" >
+			<Property key="Widget_Caption" value="Cancel" />
+		</Widget>
+
+	</Widget>
+</MyGUI>

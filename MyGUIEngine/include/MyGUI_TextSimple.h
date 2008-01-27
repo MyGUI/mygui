@@ -53,7 +53,7 @@ namespace MyGUI
 		{
 			// и делаем полное обновление и выравнивание
 			mIsMargin = true; // при изменении размеров все пересчитывать
-			_setAlign(mParent->getDimension(), true);
+			_setAlign(mParent->getSize(), true);
 		}
 
 		inline const static Ogre::String & _getType() {static Ogre::String type("TextSimple"); return type;}

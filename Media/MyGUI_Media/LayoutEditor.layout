@@ -2,7 +2,7 @@
 
 <MyGUI type="Layout">
 
-	<Widget type="Window" skin="WindowCS" position="0 0 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowMenu" >
+	<Widget type="Window" skin="WindowC" position="0 0 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowMenu" >
 		<Property key="Widget_Caption" value="Menu" />
 		<Property key="Window_AutoAlpha" value="true" />
 
@@ -23,26 +23,34 @@
 		</Widget>
 	</Widget>
 
-	<Widget type="Window" skin="WindowCS" position="0 300 200 300" align="ALIGN_LEFT ALIGN_BOTTOM" layer="Overlapped" name="windowWidgets" >
+	<Widget type="Window" skin="WindowC" position="0 300 200 300" layer="Overlapped" name="windowWidgets" >
 		<Property key="Widget_Caption" value="Widgets" />
 		<Property key="Window_AutoAlpha" value="true" />
 
-		<Widget1 type="Button" skin="Button" position_real="0.1 0.05 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetWindow" >
-			<Property key="Widget_Caption" value="Window" />
-		</Widget1>
-		
-		<Widget type="Button" skin="Button" position_real="0.1 0.20 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetButton" >
+		<Widget type="Button" skin="Button" position_real="0.1 0.05 0.8 0.1" name="widgetButton" >
 			<Property key="Widget_Caption" value="Button" />
 		</Widget>
+		
+		<Widget type="Button" skin="Button" position_real="0.1 0.20 0.8 0.1" name="widgetComboBox" >
+			<Property key="Widget_Caption" value="ComboBox" />
+		</Widget>
 
-		<Widget type="Button" skin="Button" position_real="0.1 0.35 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetEdit" >
+		<Widget type="Button" skin="Button" position_real="0.1 0.35 0.8 0.1" name="widgetEdit" >
 			<Property key="Widget_Caption" value="Edit" />
 		</Widget>
 
-		<Widget type="Button" skin="Button" position_real="0.1 0.50 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="widgetList" >
+		<Widget type="Button" skin="Button" position_real="0.1 0.50 0.8 0.1" name="widgetHScroll" >
+			<Property key="Widget_Caption" value="HScroll" />
+		</Widget>
+
+		<Widget type="Button" skin="Button" position_real="0.1 0.65 0.8 0.1" name="widgetList" >
 			<Property key="Widget_Caption" value="List" />
 		</Widget>
 
+		<Widget type="Button" skin="Button" position_real="0.1 0.80 0.8 0.1" name="widgetWindow" >
+			<Property key="Widget_Caption" value="Window" />
+		</Widget>
+		
 	</Widget>
 
 	<Widget type="Window" skin="WindowCS" position="600 0 200 300" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="windowProperties" >

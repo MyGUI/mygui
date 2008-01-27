@@ -64,8 +64,8 @@ namespace MyGUI
 		return null;
 	}
     //---------------------------------------------------------------------
-    void Font::loadImpl()
-    {
+	void Font::loadImpl()
+	{
 		// create texture
 		Ogre::String texName = mName + "Texture";
 		// Create, setting isManual to true and passing self as loader
@@ -78,14 +78,14 @@ namespace MyGUI
 		mpMaterial =  Ogre::MaterialManager::getSingleton().create("Fonts/" + mName,  mGroup);
 		MYGUI_ASSERT(false == mpMaterial.isNull(), "Error creating new material!");
 
-        MYGUI_LOG(Info, "Material for font loaded");
+		MYGUI_LOG(Info, "Material for font loaded");
 
 		Ogre::TextureUnitState* texLayer = mpMaterial->getTechnique(0)->getPass(0)->createTextureUnitState( texName );
 		// Clamp to avoid fuzzy edges
-        texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
+		texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
 		// Allow min/mag filter, but no mip
 		texLayer->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-        mpMaterial->setSceneBlending( Ogre::SBT_TRANSPARENT_ALPHA );
+		mpMaterial->setSceneBlending( Ogre::SBT_TRANSPARENT_ALPHA );
 
 		// create new material for edit text
 		mpMaterialSelectedFont =  Ogre::MaterialManager::getSingleton().create("FontsSelected/" + mName,  mGroup);
@@ -93,14 +93,14 @@ namespace MyGUI
 
 		texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 0 );
 		// Clamp to avoid fuzzy edges
-        texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
+		texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
 		// Allow min/mag filter, but no mip
 		texLayer->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-        mpMaterialSelectedFont->setSceneBlending( Ogre::SBT_TRANSPARENT_ALPHA );
+		mpMaterialSelectedFont->setSceneBlending( Ogre::SBT_TRANSPARENT_ALPHA );
 
 		texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 1 );
 		// Clamp to avoid fuzzy edges
-        texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
+		texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
 		// Allow min/mag filter, but no mip
 		texLayer->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 
@@ -109,13 +109,13 @@ namespace MyGUI
 
 	}
     //---------------------------------------------------------------------
-    void Font::unloadImpl()
-    {
+  void Font::unloadImpl()
+  {
 		// удаляем все созданные ресурсы
 		Ogre::TextureManager::getSingleton().remove(mTexture->getName());
 		Ogre::MaterialManager::getSingleton().remove(mpMaterial->getName());
 		Ogre::MaterialManager::getSingleton().remove(mpMaterialSelectedFont->getName());
-    }
+	}
     //---------------------------------------------------------------------
 	void Font::loadResource(Ogre::Resource* res)
 	{
@@ -125,26 +125,26 @@ namespace MyGUI
 		// ManualResourceLoader implementation - load the texture
 		FT_Library ftLibrary;
 		// Init freetype
-        if( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
+		if( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
 
-        // Locate ttf file, load it pre-buffered into memory by wrapping the
+		// Locate ttf file, load it pre-buffered into memory by wrapping the
 		// original DataStream in a MemoryDataStream
 		Ogre::DataStreamPtr dataStreamPtr =
-			Ogre::ResourceGroupManager::getSingleton().openResource(
-				mSource, mGroup, true, this);
+		Ogre::ResourceGroupManager::getSingleton().openResource(
+			mSource, mGroup, true, this);
 		Ogre::MemoryDataStream ttfchunk(dataStreamPtr);
 
-        // Load font
-        FT_Face face;
-        if ( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
-            MYGUI_EXCEPT("Could not open font face!");
+    // Load font
+    FT_Face face;
+    if ( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
+        MYGUI_EXCEPT("Could not open font face!");
 
-        // Convert our point size to freetype 26.6 fixed point format
-        FT_F26Dot6 ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
-        if ( FT_Set_Char_Size( face, ftSize, 0, mTtfResolution, mTtfResolution ) )
-            MYGUI_EXCEPT("Could not set char size!");
+    // Convert our point size to freetype 26.6 fixed point format
+    FT_F26Dot6 ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
+    if ( FT_Set_Char_Size( face, ftSize, 0, mTtfResolution, mTtfResolution ) )
+        MYGUI_EXCEPT("Could not set char size!");
 
-        int max_height = 0, max_width = 0, max_bear = 0;
+    int max_height = 0, max_width = 0, max_bear = 0;
 
 		// Calculate maximum width, height and bearing
 		FT_Error ftResult;

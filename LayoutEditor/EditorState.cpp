@@ -10,31 +10,46 @@
 #define TO_GRID(x) ((x)/grid_step*grid_step)
 
 const size_t DEFAULT_GRID = 8;
+
+EditorWidgets * ew;
+MyGUI::Gui * mGUI;
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
 {
-	new EditorWidgets();
+	ew = new EditorWidgets();
   current_widget_type = "";
 	creating_status = 0;
 	grid_step = DEFAULT_GRID;
+	fileName = "";
 
-	new MyGUI::Gui();
-	MyGUI::Gui::getInstance().initialise(BasisManager::getInstance().mWindow);
+	mGUI = new MyGUI::Gui();
+	mGUI->initialise(BasisManager::getInstance().mWindow);
 
   MyGUI::LayoutManager::getInstance().load("LayoutEditor.layout");
 
-	ASSIGN_FUNCTION("buttonLoad", &EditorState::notifyLoad);
+	ASSIGN_FUNCTION("buttonLoad", &EditorState::notifyLoadSaveAs);
 	ASSIGN_FUNCTION("buttonSave", &EditorState::notifySave);
-	ASSIGN_FUNCTION("buttonSaveAs", &EditorState::notifySaveAs);
+	ASSIGN_FUNCTION("buttonSaveAs", &EditorState::notifyLoadSaveAs);
 	ASSIGN_FUNCTION("buttonQuit", &EditorState::notifyQuit);
 
 	ASSIGN_FUNCTION("widgetButton", &EditorState::notifyWidgetSelect);
+	ASSIGN_FUNCTION("widgetComboBox", &EditorState::notifyWidgetSelect);
 	ASSIGN_FUNCTION("widgetEdit", &EditorState::notifyWidgetSelect);
+	ASSIGN_FUNCTION("widgetHScroll", &EditorState::notifyWidgetSelect);
 	ASSIGN_FUNCTION("widgetList", &EditorState::notifyWidgetSelect);
+	ASSIGN_FUNCTION("widgetWindow", &EditorState::notifyWidgetSelect);
 
-	MyGUI::EditPtr gridEdit= MyGUI::Gui::getInstance().findWidget<MyGUI::Edit>("gridEdit");
+	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("gridEdit");
 	gridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyNewGridStepAccept);
 	gridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
+}
+//===================================================================================
+void EditorState::exit()
+{
+	mGUI->shutdown();
+	delete mGUI;
+	ew->shutdown();
+	delete ew;
 }
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
@@ -50,8 +65,8 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		
 		creating_status = 2;
 		std::string name = MyGUI::utility::toString(current_widget_type, counter, "_rectangle");
-		current_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Back", name);
-		current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped", name + "_rectangle");
+		current_widget = mGUI->createWidget<MyGUI::Window>(current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Back", name);
+		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Overlapped", name + "_rectangle");
 	}
 	else if (creating_status == 2)
 	{
@@ -68,7 +83,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 	if (null != item && item->getUserString("isInterface") == "")
 	{
 		if(item->getUserString("isMarker") != "") item = item->getParent();
-		MyGUI::Gui::getInstance().findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
+		mGUI->findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
 	}
 
 	MyGUI::InputManager::getInstance().injectMouseMove(arg);
@@ -102,7 +117,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 			creating_status = 0;
 			current_widget_type = "";
 			counter++;
-			EditorWidgets::getInstance().add(current_widget->getName(), current_widget, current_widget_rectangle);
+			ew->add(current_widget->getName(), current_widget, current_widget_rectangle);
 			current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
 		}
 		else
@@ -133,36 +148,52 @@ bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 	return true;
 }
 //===================================================================================
-void EditorState::exit()
-{
-	MyGUI::Gui::getInstance().shutdown();
-	delete MyGUI::Gui::getInstancePtr();
-}
-//===================================================================================
 bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 {
-	MyGUI::Gui::getInstance().injectFrameEntered(evt.timeSinceLastFrame);
+	mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 	return true;
 }
 //===================================================================================
-void EditorState::notifyLoad(MyGUI::WidgetPtr _sender, bool _double)
-{
-	EditorWidgets::getInstance().load();
-}
-
 void EditorState::notifySave(MyGUI::WidgetPtr _sender, bool _double)
 {
-	EditorWidgets::getInstance().save();
+	if (fileName != "") ew->save(fileName);
+	else notifyLoadSaveAs(_sender, _double);
 }
 
-void EditorState::notifySaveAs(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender, bool _double)
 {
-  
+	// create message box with file name and two buttons
+  MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("LayoutEditorSaveLoad.layout")[0];
+	MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
+	MyGUI::IntSize size(messageWindow->getSize());
+	messageWindow->setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
+	MyGUI::InputManager::getInstance().addWidgetModal(messageWindow);
+	
+	MyGUI::VectorWidgetPtr childs = messageWindow->getChilds();
+	// set fileName in edit
+
+	if (fileName != "") childs[0]->setCaption(fileName);
+	if (_sender->getCaption() == "SaveAs...") childs[1]->setCaption("Save");
+	else childs[1]->setCaption(_sender->getCaption());
+	childs[1]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveAccept);
+	childs[2]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
 }
 
 void EditorState::notifyQuit(MyGUI::WidgetPtr _sender, bool _double)
 {
   BasisManager::getInstance().m_exit = true;
+}
+
+void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender, bool _double)
+{
+  if (_sender->getCaption() == "Load") ew->load(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
+  else/*(_sender->getCaption() == "Save")*/ ew->save(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
+}
+
+void EditorState::notifyLoadSaveCancel(MyGUI::WidgetPtr _sender, bool _double)
+{
+	MyGUI::InputManager::getInstance().removeWidgetModal(_sender->getParent()->getParent());
+	MyGUI::WidgetManager::getInstance().destroyWidget(_sender->getParent()->getParent());
 }
 
 void EditorState::notifyWidgetSelect(MyGUI::WidgetPtr _sender, bool _double)

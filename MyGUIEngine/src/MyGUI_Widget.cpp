@@ -462,15 +462,14 @@ namespace MyGUI
 	// удяляет только негодных батюшке государю
 	void Widget::_destroyChildWidget(WidgetPtr _widget)
 	{
-		for (size_t index = 0; index < mWidgetChild.size(); index++) {
-			WidgetPtr widget = mWidgetChild[index];
-			if (_widget == widget) {
-				delete _widget;
-				// удаляем из списка
-				mWidgetChild[index] = mWidgetChild[mWidgetChild.size()-1];
-				mWidgetChild.pop_back();
-				return;
-			}
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		if(iter != mWidgetChild.end())
+		{
+			delete *iter;
+			// удаляем из списка
+			*iter = mWidgetChild.back();
+			mWidgetChild.pop_back();
+			return;
 		}
 		MYGUI_EXCEPT("Widget not found");
 	}

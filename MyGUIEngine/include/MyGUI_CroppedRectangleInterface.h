@@ -42,7 +42,7 @@ namespace MyGUI
 		inline CroppedRectanglePtr getParent() {return mParent;}
 
 		inline IntPoint getPosition()       {return IntPoint(mCoord.left, mCoord.top);}
-		inline IntSize getDimension()       {return IntSize(mCoord.width, mCoord.height);}
+		inline IntSize getSize()       {return IntSize(mCoord.width, mCoord.height);}
 		inline const IntCoord& getCoord()       {return mCoord;}
 		inline Align getAlign() {return mAlign;}
 

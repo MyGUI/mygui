@@ -25,8 +25,10 @@ class EditorWidgets{
 	INSTANCE_HEADER(EditorWidgets);
 
 public:
-	void load();
-	void save();
+	void initialise();
+	void shutdown();
+	void load(std::string _fileName);
+	void save(std::string _fileName);
 	WidgetContainer * find(MyGUI::WidgetPtr _widget, bool _isRectangle = 0);
 	WidgetContainer * find(std::string _name, bool _isRectangle = 0);
 	void add(std::string _name, MyGUI::WidgetPtr _widget, MyGUI::WidgetPtr _widget_rectangle);

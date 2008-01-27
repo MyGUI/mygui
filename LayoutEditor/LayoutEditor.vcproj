@@ -247,6 +247,10 @@
 				RelativePath="..\Media\MyGUI_Media\LayoutEditor.layout"
 				>
 			</File>
+			<File
+				RelativePath="..\Media\MyGUI_Media\LayoutEditorSaveLoad.layout"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

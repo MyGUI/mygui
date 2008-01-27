@@ -16,10 +16,12 @@ public:
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
 
-	void notifyLoad(MyGUI::WidgetPtr _sender = 0, bool _double = 0);
 	void notifySave(MyGUI::WidgetPtr _sender = 0, bool _double = 0);
-	void notifySaveAs(MyGUI::WidgetPtr _sender = 0, bool _double = 0);
+	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender = 0, bool _double = 0);
   void notifyQuit(MyGUI::WidgetPtr _sender = 0, bool _double = 0);
+
+	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender = 0, bool _double = 0);
+	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0, bool _double = 0);
 
   void notifyWidgetSelect(MyGUI::WidgetPtr _sender, bool _double);
 
@@ -40,6 +42,7 @@ public:
 
 	// current settings
 	int grid_step;
+	std::string fileName;
 public:
 	void enter(bool bIsChangeState);
 	void exit();
