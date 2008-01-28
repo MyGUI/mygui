@@ -64,7 +64,7 @@ namespace MyGUI
 	{
 		// парсим атрибуты виджета
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
-		FloatCoord coord;
+		IntCoord coord;
 		Align align = ALIGN_DEFAULT;
 
 		_widget->findAttribute("type", widgetType);
@@ -72,15 +72,15 @@ namespace MyGUI
 		_widget->findAttribute("name", widgetName);
 		_widget->findAttribute("layer", widgetLayer);
 		if (_widget->findAttribute("align", tmp)) align = SkinManager::getInstance().parseAlign(tmp);
-		if (_widget->findAttribute("position", tmp)) coord = FloatCoord::parse(tmp);
-		if (_widget->findAttribute("position_real", tmp)) coord = convertFromReal(FloatCoord::parse(tmp), _parent);
+		if (_widget->findAttribute("position", tmp)) coord = IntCoord::parse(tmp);
+		if (_widget->findAttribute("position_real", tmp)) coord = convertRelativeToInt(FloatCoord::parse(tmp), _parent);
 
 		WidgetPtr wid;
 		if (null == _parent) {
-			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, (int)coord.left, (int)coord.top, (int)coord.width, (int)coord.height, align, widgetLayer, widgetName);
+			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
 			_widgets.push_back(wid);
 		}
-		else wid = _parent->createWidgetT(widgetType, widgetSkin, (int)coord.left, (int)coord.top, (int)coord.width, (int)coord.height, align, widgetName);
+		else wid = _parent->createWidgetT(widgetType, widgetSkin, coord, align, widgetName);
 
 		// берем детей и крутимс€
 		xml::xmlNodeIterator widget = _widget->getNodeIterator();
@@ -107,14 +107,24 @@ namespace MyGUI
 		};
 	}
 
-	FloatCoord LayoutManager::convertFromReal(const FloatCoord& _coord, WidgetPtr _parent)
+	IntCoord LayoutManager::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
 	{
 		const FloatSize& size = Gui::getInstance().getViewSize();
 		if (null == _parent) {
-			return FloatCoord(_coord.left * size.width, _coord.top * size.height, _coord.width * size.width, _coord.height * size.height);
+			return IntCoord(_coord.left * size.width, _coord.top * size.height, _coord.width * size.width, _coord.height * size.height);
 		}
 		const IntCoord& coord = _parent->getClientRect();
-		return FloatCoord(_coord.left * coord.width, _coord.top * coord.height, _coord.width * coord.width, _coord.height * coord.height);
+		return IntCoord(_coord.left * coord.width, _coord.top * coord.height, _coord.width * coord.width, _coord.height * coord.height);
+	}
+
+	FloatCoord LayoutManager::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
+	{
+		const FloatSize& size = Gui::getInstance().getViewSize();
+		if (null == _parent) {
+			return FloatCoord(_coord.left / size.width, _coord.top / size.height, _coord.width / size.width, _coord.height / size.height);
+		}
+		const IntCoord& coord = _parent->getClientRect();
+		return FloatCoord(_coord.left / coord.width, _coord.top / coord.height, _coord.width / coord.width, _coord.height / coord.height);
 	}
 
 } // namespace MyGUI
