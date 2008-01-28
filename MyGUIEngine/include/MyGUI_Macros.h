@@ -12,7 +12,9 @@
 namespace MyGUI
 {
 
-	#define null (0)
+	#ifndef null
+		#define null (0)
+	#endif
 
 	#undef ITEM_NONE
 	#define ITEM_NONE ((size_t)-1)

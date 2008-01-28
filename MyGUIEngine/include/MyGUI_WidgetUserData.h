@@ -15,7 +15,7 @@ namespace MyGUI
 	class _MyGUIExport UserData
 	{
 	public:
-		UserData() : mInternalData(0) {}
+		UserData() : mInternalData(0), mUserData(0) {}
 		virtual ~UserData() {}
 
 		// пользовательские данные виджета строки
@@ -51,12 +51,25 @@ namespace MyGUI
 		inline const std::string& _getInternalString() {return mInternalString;}
 		inline void _setInternalString(const std::string& _data) {mInternalString = _data;}
 
+		template <class T> inline void setUserData(T _data)
+		{
+			MYGUI_ASSERT((sizeof(T) <= sizeof(mUserData)), "Type is not correct");
+			*((T*)(&mUserData)) = _data;
+		}
+		template <class T> inline T getUserData()
+		{
+			MYGUI_ASSERT((sizeof(T) <= sizeof(mUserData)), "Type is not correct");
+			return *((T*)(&mUserData));
+		}
+
 	private:
 		// пользовательские данные
 		MapString mMapUserString;
 		// номер для внутренниего использования
 		int mInternalData;
 		std::string mInternalString;
+
+		size_t mUserData;
 	};
 } // namespace MyGUI
 

@@ -105,6 +105,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	window->setMinMax(40, 40, 2000, 115);
+
+	window->setUserData<MyGUI::WindowPtr>(window);
+	window = window->getUserData<MyGUI::WindowPtr>();
+
 	//window->setAutoAlpha(true);
 	//window->setAutoAlpha(true);
 	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
