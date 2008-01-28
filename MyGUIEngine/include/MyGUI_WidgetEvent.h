@@ -23,6 +23,25 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, int, Char> EventInfo_WidgetIntChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
 
+	/**
+	General information about creating delegate for event :
+
+		void anyFunc(...) {}; // global function
+
+		class AnyClass
+		{
+		public:
+			static void anyStaticMethod(...) {}; // static method
+			void anyMethod(...) {}; // обычный метод
+		};
+
+		AnyClass anyObject; // class instance
+
+	delegate creating:
+		eventAny = MyGUI::newDelegate(anyFunc);
+		eventAny = MyGUI::newDelegate(AnyClass::anyStaticMethod);
+		eventAny = MyGUI::newDelegate(&anyObject, &AnyClass::anyMethod);
+	*/
 
 	class _MyGUIExport WidgetEvent
 	{
@@ -33,27 +52,6 @@ namespace MyGUI
 
 	protected:
 		WidgetEvent() : mNeedKeyFocus(false), mWidgetEventSender(0) {}
-
-
-		/*
-		Общая информация по созданию делегата для события :
-
-			void anyFunc(...) {}; // глобальная функция
-
-			class AnyClass
-			{
-			public:
-				static void anyStaticMethod(...) {}; // статический метод
-				void anyMethod(...) {}; // обычный метод
-			};
-
-			AnyClass anyObject; // объект класса
-
-		создание делегата:
-			eventAny = MyGUI::newDelegate(anyFunc);
-			eventAny = MyGUI::newDelegate(AnyClass::anyStaticMethod);
-			eventAny = MyGUI::newDelegate(&anyObject, &AnyClass::anyMethod);
-		*/
 
 	public:
 
