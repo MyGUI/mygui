@@ -124,18 +124,18 @@ namespace MyGUI
 
 	void Message::updateSize()
 	{
-		IntSize size = mWidgetText->getTextSize(mWidgetText->getCaption());
+		// + " " чтобы текст у самого края не кончался
+		IntSize size = mWidgetText->getTextSize(mWidgetText->getCaption() + " ");
 		// минимум высота иконки
 		if ((null != mIcon) && (size.height < mIcon->getHeight())) size.height = mIcon->getHeight();
 
 		size += mOffsetText;
+		size.width += mIcon->getWidth();
 
 		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);
-		int offset = size.width - width;
-		if (size.width < width) {
-			size.width = width;
-			offset = 0;
-		}
+		if (size.width < width) size.width = width;
+
+		int offset = (size.width - width)/2;
 		offset += mButtonOffset.width;
 
 		IntSize view((int)Gui::getInstance().getViewWidth(), (int)Gui::getInstance().getViewHeight());

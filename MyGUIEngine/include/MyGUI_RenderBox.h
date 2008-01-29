@@ -59,7 +59,7 @@ namespace MyGUI
 		*/
 		void setBackgroungColour(const Ogre::ColourValue & _backgroundColour);
 		/** Get colour behind entity.*/
-		inline Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
+		inline const Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
 
 		/** Set rotation angle of entity.
 			@remarks
