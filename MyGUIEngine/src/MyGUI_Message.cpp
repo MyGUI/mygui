@@ -28,7 +28,7 @@ namespace MyGUI
 		mWidgetText(null),
 		mInfoOk(Ok), mInfoCancel(Ok),
 		mButton1Index(0),
-		mSmooth(false),
+		mSmoothShow(false),
 		mWidgetFade(null),
 		mIcon(null)
 	{
@@ -125,12 +125,12 @@ namespace MyGUI
 	void Message::updateSize()
 	{
 		// + " " чтобы текст у самого края не кончался
+		// ширина = (ширина текста+1символ) + ширина иконки + смещение текста
 		IntSize size = mWidgetText->getTextSize(mWidgetText->getCaption() + " ");
+		size.width += mIcon->getWidth();
 		// минимум высота иконки
 		if ((null != mIcon) && (size.height < mIcon->getHeight())) size.height = mIcon->getHeight();
-
 		size += mOffsetText;
-		size.width += mIcon->getWidth();
 
 		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);
 		if (size.width < width) size.width = width;
@@ -171,18 +171,18 @@ namespace MyGUI
 	{
 		eventMessageBoxEnd(this, _result);
 		if (null != mWidgetFade) {
-			if (mSmooth) ControllerManager::getInstance().addItem(mWidgetFade,
+			if (mSmoothShow) ControllerManager::getInstance().addItem(mWidgetFade,
 				new ControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, ControllerFadeAlpha::ACTION_DESTROY, false));
 			else WidgetManager::getInstance().destroyWidget(mWidgetFade);
 		}
-		if (mSmooth) destroySmooth();
+		if (mSmoothShow) destroySmooth();
 		else WidgetManager::getInstance().destroyWidget(this);
 	}
 
-	void Message::setWindowSmooth(bool _smooth)
+	void Message::setSmoothShow(bool _smooth)
 	{
-		mSmooth = _smooth;
-		if (mSmooth) showSmooth(true);
+		mSmoothShow = _smooth;
+		if (mSmoothShow) showSmooth(true);
 	}
 
 	void Message::setWindowFade(bool _fade)
@@ -193,7 +193,7 @@ namespace MyGUI
 			if (null == mWidgetFade) {
 				Gui & gui = Gui::getInstance();
 				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), ALIGN_STRETCH, mFadeLayer);
-				if (mSmooth) {
+				if (mSmoothShow) {
 					mWidgetFade->hide();
 					ControllerManager::getInstance().addItem(mWidgetFade,
 						new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, false));
@@ -235,7 +235,7 @@ namespace MyGUI
 		image = tmp == 0 ? ITEM_NONE : tmp - 1;
 
 		MessagePtr mess = gui->createWidget<Message>(_skin.empty() ? factory::MessageFactory::_getDefaultSkin() : _skin, IntCoord(), ALIGN_DEFAULT, _layer);
-		mess->setWindowSmooth(true);
+		mess->setSmoothShow(true);
 		mess->setCaption(_caption);
 		mess->setMessage(_message);
 		mess->setMessageImage(image);

@@ -67,12 +67,11 @@ namespace MyGUI
 
 		/**
 			Returns the address of the given symbol from the loaded library.
-			@param strName The name of the symbol to search for
-
-			@returns If the function succeeds, the returned value is a handle to
-						the symbol.
-			@par If the function fails, the returned value is <b>NULL</b>.
-
+			@param
+				strName The name of the symbol to search for
+			@returns
+				If the function succeeds, the returned value is a handle to the symbol.
+				If the function fails, the returned value is <b>NULL</b>.
 		*/
 		void* getSymbol( const std::string& strName ) const throw();
 

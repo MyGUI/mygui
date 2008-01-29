@@ -23,7 +23,7 @@ namespace MyGUI
 			// регестрируем все парсеры
 			manager.registerDelegate("Window_AutoAlpha") = newDelegate(this, &WindowFactory::Window_AutoAlpha);
 			manager.registerDelegate("Window_MinMax") = newDelegate(this, &WindowFactory::Window_MinMax);
-			manager.registerDelegate("Window_ToStick") = newDelegate(this, &WindowFactory::Window_ToStick);
+			manager.registerDelegate("Window_Snap") = newDelegate(this, &WindowFactory::Window_Snap);
 		}
 
 		WindowFactory::~WindowFactory()
@@ -35,7 +35,7 @@ namespace MyGUI
 			// удаляем все парсеры
 			manager.unregisterDelegate("Window_AutoAlpha");
 			manager.unregisterDelegate("Window_MinMax");
-			manager.unregisterDelegate("Window_ToStick");
+			manager.unregisterDelegate("Window_Snap");
 		}
 
 		const Ogre::String& WindowFactory::getType()
@@ -48,10 +48,10 @@ namespace MyGUI
 			return new Window(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
-		void WindowFactory::Window_ToStick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(WindowPtr, _widget);
-			static_cast<WindowPtr>(_widget)->setIsToStick(utility::parseBool(_value));
+			static_cast<WindowPtr>(_widget)->setSnap(utility::parseBool(_value));
 		}
 
 		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

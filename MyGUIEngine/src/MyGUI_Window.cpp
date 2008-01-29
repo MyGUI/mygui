@@ -24,14 +24,14 @@ namespace MyGUI
 	const float WINDOW_ALPHA_DEACTIVE = 0.3f;
 	const float WINDOW_SPEED_COEF = 3.0f;
 
-	const int WINDOW_TO_STICK = 10;
+	const int WINDOW_SNAP_DISTANSE = 10;
 
 	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
 		mWidgetCaption(null), mWidgetClient(null),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
-		mIsToStick(false)
+		mSnap(false)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -41,8 +41,8 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("ToStick");
-		if (iter != param.end()) mIsToStick = utility::parseBool(iter->second);
+		MapString::const_iterator iter = param.find("Snap");
+		if (iter != param.end()) mSnap = utility::parseBool(iter->second);
 		iter = param.find("MainMove");
 		if (iter != param.end()) setUserString("Scale", "1 1 0 0");
 
@@ -164,15 +164,15 @@ namespace MyGUI
 	{
 		IntPoint pos = _pos;
 		// прилепляем к краям
-		if (mIsToStick) {
-			if (abs(pos.left) <= WINDOW_TO_STICK) pos.left = 0;
-			if (abs(pos.top) <= WINDOW_TO_STICK) pos.top = 0;
+		if (mSnap) {
+			if (abs(pos.left) <= WINDOW_SNAP_DISTANSE) pos.left = 0;
+			if (abs(pos.top) <= WINDOW_SNAP_DISTANSE) pos.top = 0;
 
 			int width = (int)Gui::getInstance().getViewWidth();
 			int height = (int)Gui::getInstance().getViewHeight();
 
-			if ( abs(pos.left + mCoord.width - width) < WINDOW_TO_STICK) pos.left = width - mCoord.width;
-			if ( abs(pos.top + mCoord.height - height) < WINDOW_TO_STICK) pos.top = height - mCoord.height;
+			if ( abs(pos.left + mCoord.width - width) < WINDOW_SNAP_DISTANSE) pos.left = width - mCoord.width;
+			if ( abs(pos.top + mCoord.height - height) < WINDOW_SNAP_DISTANSE) pos.top = height - mCoord.height;
 		}
 		Widget::setPosition(pos);
 	}
@@ -182,18 +182,18 @@ namespace MyGUI
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
 		// прилепляем к краям
-		if (mIsToStick) {
-			if (abs(pos.left) <= WINDOW_TO_STICK) pos.left = 0;
-			if (abs(pos.top) <= WINDOW_TO_STICK) pos.top = 0;
+		if (mSnap) {
+			if (abs(pos.left) <= WINDOW_SNAP_DISTANSE) pos.left = 0;
+			if (abs(pos.top) <= WINDOW_SNAP_DISTANSE) pos.top = 0;
 
 			int width = (int)Gui::getInstance().getViewWidth();
 			int height = (int)Gui::getInstance().getViewHeight();
 
-			if ( abs(pos.left + mCoord.width - width) < WINDOW_TO_STICK) pos.left = width - mCoord.width;
-			if ( abs(pos.top + mCoord.height - height) < WINDOW_TO_STICK) pos.top = height - mCoord.height;
+			if ( abs(pos.left + mCoord.width - width) < WINDOW_SNAP_DISTANSE) pos.left = width - mCoord.width;
+			if ( abs(pos.top + mCoord.height - height) < WINDOW_SNAP_DISTANSE) pos.top = height - mCoord.height;
 
-			if ( abs(mCoord.left + size.width - width) < WINDOW_TO_STICK) size.width = width - mCoord.left;
-			if ( abs(mCoord.top + size.height - height) < WINDOW_TO_STICK) size.height = height - mCoord.top;
+			if ( abs(mCoord.left + size.width - width) < WINDOW_SNAP_DISTANSE) size.width = width - mCoord.left;
+			if ( abs(mCoord.top + size.height - height) < WINDOW_SNAP_DISTANSE) size.height = height - mCoord.top;
 		}
 
 		if (size.width < mMinmax.left) {
@@ -231,12 +231,12 @@ namespace MyGUI
 	{
 		IntSize size = _size;
 		// прилепляем к краям
-		if (mIsToStick) {
+		if (mSnap) {
 			int width = (int)Gui::getInstance().getViewWidth();
 			int height = (int)Gui::getInstance().getViewHeight();
 
-			if ( abs(mCoord.left + size.width - width) < WINDOW_TO_STICK) size.width = width - mCoord.left;
-			if ( abs(mCoord.top + size.height - height) < WINDOW_TO_STICK) size.height = height - mCoord.top;
+			if ( abs(mCoord.left + size.width - width) < WINDOW_SNAP_DISTANSE) size.width = width - mCoord.left;
+			if ( abs(mCoord.top + size.height - height) < WINDOW_SNAP_DISTANSE) size.height = height - mCoord.top;
 		}
 
 		if (size.width < mMinmax.left) size.width = mMinmax.left;

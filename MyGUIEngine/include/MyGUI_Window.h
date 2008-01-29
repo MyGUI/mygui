@@ -54,8 +54,8 @@ namespace MyGUI
 		virtual void setPosition(const IntCoord& _coord);
 		virtual void setSize(const IntSize& _size);
 
-		inline bool getIsToStick() {return mIsToStick;}
-		inline void setIsToStick(bool _stick) {mIsToStick = _stick;}
+		inline bool getSnap() {return mSnap;}
+		inline void setSnap(bool _snap) {mSnap = _snap;}
 
 		const IntCoord& getClientRect();
 
@@ -99,7 +99,7 @@ namespace MyGUI
 		// минимальные и максимальные размеры окна
 		IntRect mMinmax;
 
-		bool mIsToStick; // прилеплять ли к краям
+		bool mSnap; // прилеплять ли к краям
 
 		IntCoord mCurrentActionScale;
 

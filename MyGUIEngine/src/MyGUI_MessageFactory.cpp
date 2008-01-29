@@ -33,7 +33,7 @@ namespace MyGUI
 			manager.registerDelegate("Message_Modal") = newDelegate(this, &MessageFactory::Message_Modal);
 			manager.registerDelegate("Message_Button") = newDelegate(this, &MessageFactory::Message_Button);
 			manager.registerDelegate("Message_AddButton") = newDelegate(this, &MessageFactory::Message_AddButton);
-			manager.registerDelegate("Message_Smooth") = newDelegate(this, &MessageFactory::Message_Smooth);
+			manager.registerDelegate("Message_SmoothShow") = newDelegate(this, &MessageFactory::Message_SmoothShow);
 			manager.registerDelegate("Message_Fade") = newDelegate(this, &MessageFactory::Message_Fade);
 		}
 
@@ -51,7 +51,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Message_Modal");
 			manager.unregisterDelegate("Message_Button");
 			manager.unregisterDelegate("Message_AddButton");
-			manager.unregisterDelegate("Message_Smooth");
+			manager.unregisterDelegate("Message_SmoothShow");
 			manager.unregisterDelegate("Message_Fade");
 		}
 
@@ -102,10 +102,10 @@ namespace MyGUI
 			static_cast<MessagePtr>(_widget)->addButtonName(_value);
 		}
 
-		void MessageFactory::Message_Smooth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void MessageFactory::Message_SmoothShow(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_TYPE(MessagePtr, _widget);
-			static_cast<MessagePtr>(_widget)->setWindowSmooth(utility::parseBool(_value));
+			static_cast<MessagePtr>(_widget)->setSmoothShow(utility::parseBool(_value));
 		}
 
 		void MessageFactory::Message_Fade(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

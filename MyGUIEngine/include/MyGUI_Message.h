@@ -82,42 +82,58 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("Message"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		// установка текста сообщения
+		/** setMessage text*/
 		void setMessage(const Ogre::DisplayString & _message);
 
-		// создание кнопки со своим именем
+		/** Create button with specific name*/
 		Message::ViewInfo addButtonName(const Ogre::DisplayString & _name);
 
-		// создание кнопок по битовым полям
+		/** Create button using ViewValueInfo*/
 		void setButton(ViewInfo _info);
 
-		void setWindowSmooth(bool _smooth);
+		/** set smooth Window showing*/
+		void setSmoothShow(bool _smooth);
 
+		/** get name of default layer*/
 		inline const std::string & getDefaultLayer() {return mDefaultLayer;}
 		void setMessageImage(size_t _image);
 		void setWindowFade(bool _fade);
 
+		/** static method for creating message with one command
+			@param
+				_modal if true all other GUI elements will be blocked untill message is closed
+			@param
+				_delegate event called on message close
+			@param
+				_info any combination of flags from ViewValueInfo
+			@param
+				_button1 ... _button7 specific buttons names
+		*/
 		static void _createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, 
 			const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info,
 			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "",
 			const std::string & _button5 = "", const std::string & _button6 = "", const std::string & _button7 = "");
 
+		/** see Message::_createMessage*/
 		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, ViewInfo _info)
 		{
 			_createMessage(_caption, _message, "", "", _modal, null, _info);
 		}
 
+		/** see Message::_createMessage*/
 		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, EventMessageEnd * _delegate, ViewInfo _info)
 		{
 			_createMessage(_caption, _message, "", "", _modal, _delegate, _info);
 		}
 
+		/** see Message::_createMessage*/
 		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
 			const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{
 			_createMessage(_caption, _message, "", "", _modal, null, None, _button1, _button2, _button3);
 		}
 
+		/** see Message::_createMessage*/
 		inline static void createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
 			EventMessageEnd * _delegate, const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{
@@ -139,7 +155,7 @@ namespace MyGUI
 		VectorWidgetPtr mVectorButton;
 		ViewInfo mInfoOk, mInfoCancel;
 		size_t mButton1Index;
-		bool mSmooth;
+		bool mSmoothShow;
 
 		std::string mDefaultLayer, mDefaultCaption;
 		std::string mFadeSkin, mFadeLayer;
