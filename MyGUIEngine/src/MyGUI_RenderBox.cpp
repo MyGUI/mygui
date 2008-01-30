@@ -39,6 +39,8 @@ namespace MyGUI
 	{
 		clear();
 
+		if (mRotationSpeed) Gui::getInstance().removeFrameListener(this);
+
 		Ogre::MaterialManager * manager = Ogre::MaterialManager::getSingletonPtr();
 		if (manager != 0) manager->remove(mMaterial);
 
@@ -82,11 +84,8 @@ namespace MyGUI
 		if (mRotationSpeed == _speed) return;
 		mRotationSpeed = _speed;
 
-		if (mRotationSpeed) {
-			Gui::getInstance().addFrameListener(this);
-		}
-		else {
-			Gui::getInstance().removeFrameListener(this);
+		if (mRotationSpeed) Gui::getInstance().addFrameListener(this);
+		else Gui::getInstance().removeFrameListener(this);
 		}
 	}
 
