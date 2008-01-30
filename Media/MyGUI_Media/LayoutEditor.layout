@@ -5,9 +5,11 @@
 	<Widget type="Window" skin="WindowC" position="0 0 200 300" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowMenu" >
 		<Property key="Widget_Caption" value="Menu" />
 		<Property key="Window_AutoAlpha" value="true" />
+		<Property key="Window_Snap" value="true" />
 
-		<Widget type="Button" skin="Button" position_real="0.1 0.05 0.8 0.1" align="" name="buttonLoad" >
+		<Widget type="Button" skin="Button" position_real="0.1 0.05 0.8 0.1" name="buttonLoad" >
 			<Property key="Widget_Caption" value="Load" />
+			<UserString key="isInterface" value="true" />
 		</Widget>
 
 		<Widget type="Button" skin="Button" position_real="0.1 0.20 0.8 0.1" align="ALIGN_RIGHT ALIGN_TOP" name="buttonSave" >
@@ -26,6 +28,7 @@
 	<Widget type="Window" skin="WindowC" position="0 300 200 300" layer="Overlapped" name="windowWidgets" >
 		<Property key="Widget_Caption" value="Widgets" />
 		<Property key="Window_AutoAlpha" value="true" />
+		<Property key="Window_Snap" value="true" />
 
 		<Widget type="Button" skin="Button" position_real="0.1 0.05 0.8 0.1" name="widgetButton" >
 			<Property key="Widget_Caption" value="Button" />
@@ -56,6 +59,7 @@
 	<Widget type="Window" skin="WindowCS" position="600 0 200 300" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="windowProperties" >
 		<Property key="Widget_Caption" value="Properties" />
 		<Property key="Window_AutoAlpha" value="true" />
+		<Property key="Window_Snap" value="true" />
 
     <Widget type="StaticText" skin="StaticText" position_real="0. 0. 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="propertyPositionText" >
       <Property key="Widget_Caption" value="Position" />
@@ -75,6 +79,7 @@
 	<Widget type="Window" skin="WindowCS" position="600 300 200 300" align="ALIGN_LEFT ALIGN_BOTTOM" layer="Overlapped" name="windowSettings" >
 		<Property key="Widget_Caption" value="Settings" />
 		<Property key="Window_AutoAlpha" value="true" />
+		<Property key="Window_Snap" value="true" />
 
 		<Widget type="StaticText" skin="StaticText" position_real="0. 0. 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="gridText" >
 			<Property key="Widget_Caption" value="Grid step" />

@@ -2,22 +2,26 @@
 #define __WIDGET_CONTAINER_H__
 
 #include <vector>
-#include <MyGUI_Widget.h>
+#include "MyGUI.h"
 
-class WidgetContainer
+class WidgetContainer : public MyGUI::UserData
 {
 public:
 	WidgetContainer(){}
-	WidgetContainer(std::string _name, MyGUI::WidgetPtr _widget, MyGUI::WidgetPtr _widget_rectangle):
+	WidgetContainer(std::string _name, MyGUI::WidgetPtr _widget):
 		name(_name),
-		widget(_widget),
-		widget_rectangle(_widget_rectangle)
+		widget(_widget)
 	{}
 
 public:
-	std::string name;
 	MyGUI::WidgetPtr widget;
-	MyGUI::WidgetPtr widget_rectangle;
+	std::string name;
+	std::string type;
+	std::string skin;
+	std::string layer;
+	std::string align;
+	std::string position;
+	std::string position_real;
 };
 
 class EditorWidgets{
@@ -29,10 +33,13 @@ public:
 	void shutdown();
 	bool load(std::string _fileName);
 	bool save(std::string _fileName);
-	WidgetContainer * find(MyGUI::WidgetPtr _widget, bool _isRectangle = 0);
-	WidgetContainer * find(std::string _name, bool _isRectangle = 0);
-	void add(std::string _name, MyGUI::WidgetPtr _widget, MyGUI::WidgetPtr _widget_rectangle);
+	WidgetContainer * find(MyGUI::WidgetPtr _widget);
+	WidgetContainer * find(std::string _name);
+	void add(std::string _name, MyGUI::WidgetPtr _widget);
+	void add(WidgetContainer * _container);
 private:
+	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent);
+
 	std::vector<WidgetContainer*> widgets;
 };
 

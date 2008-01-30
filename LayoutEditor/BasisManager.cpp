@@ -130,7 +130,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	createInput();
 
-	changeState(&mOptions); // главное меню
+	changeState(&mEditor);
 
 	mRoot->startRendering();
 }

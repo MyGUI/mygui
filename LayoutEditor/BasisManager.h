@@ -39,7 +39,7 @@ public:
 	size_t mWidth, mHeight; // ширина и высота экрана
 
 	std::vector<BasisState*> mStates; // вектор состояний
-	EditorState mOptions; // настройки
+	EditorState mEditor; // настройки
 
 public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
