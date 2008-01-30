@@ -86,7 +86,6 @@ namespace MyGUI
 
 		if (mRotationSpeed) Gui::getInstance().addFrameListener(this);
 		else Gui::getInstance().removeFrameListener(this);
-		}
 	}
 
 	void RenderBox::setBackgroungColour(const Ogre::ColourValue & _colour)
