@@ -223,6 +223,9 @@
     </Skin>
 
     <Skin name = "Window" size = "27 54" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
 
         <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
         </Child>
@@ -250,6 +253,9 @@
         </BasisSkin>
         <BasisSkin type="SubSkin" offset = "0 30 3 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "377 32 3 18"/>
+        </BasisSkin>
+        <BasisSkin type="TextSimple" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" colour = "0 0 0"/>
         </BasisSkin>
     </Skin>
 

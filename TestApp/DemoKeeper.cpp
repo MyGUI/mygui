@@ -103,8 +103,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	window->setMinMax(40, 40, 2000, 115);
+	window->setCaption("test");
 
 	window->setUserData<MyGUI::WindowPtr>(window);
 	window = window->getUserData<MyGUI::WindowPtr>();
