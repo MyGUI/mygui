@@ -79,11 +79,6 @@ bool EditorWidgets::save(std::string _fileName)
 	return true;
 }
 
-void EditorWidgets::add(std::string _name, MyGUI::WidgetPtr _widget)
-{
-	widgets.push_back(new WidgetContainer(_name, _widget));
-}
-
 void EditorWidgets::add(WidgetContainer * _container)
 {
 	widgets.push_back(_container);
@@ -127,7 +122,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	_widget->findAttribute("layer", container->layer);
 	if (_widget->findAttribute("align", container->align)) align = MyGUI::SkinManager::getInstance().parseAlign(container->align);
 	if (_widget->findAttribute("position", container->position)) coord = MyGUI::IntCoord::parse(container->position);
-	if (_widget->findAttribute("position_real", container->position_real)) coord = MyGUI::LayoutManager::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(container->position_real), _parent);
+	if (_widget->findAttribute("position_real", container->position_real)) coord = MyGUI::Gui::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(container->position_real), _parent);
 
 	// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
 	if (false == container->name.empty()) {
@@ -145,16 +140,12 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	}
 
 	if (null == _parent) {
-		// FIXME пока приходится создавать кнопки вместо всех виджетов, т.к. криво работают сообщения
-		container->widget = MyGUI::Gui::getInstance().createWidgetT("Button", "Button", coord, align, container->layer, container->name);
-		//container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, container->name);
+		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, container->name);
 		add(container);
 	}
 	else
 	{
-		// FIXME пока приходится создавать кнопки вместо всех виджетов, т.к. криво работают сообщения
-		container->widget = _parent->createWidgetT("Button", "Button", coord, align, container->name);
-		//container->widget = _parent->createWidgetT(container->type, container->skin, coord, align, container->name);
+		container->widget = _parent->createWidgetT(container->type, container->skin, coord, align, container->name);
 		add(container);
 	}
 
@@ -171,10 +162,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
 			// и парсим свойство
-			// FIXME пока приходится создавать кнопки вместо всех виджетов, т.к. криво работают сообщения
-			//MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
-
-			// wid_rectangle store all fields from layout
+			MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
 			container->mProperty.push_back(std::make_pair(key, value));
 		}
 		else if (widget->getName() == "UserString") {
@@ -217,6 +205,8 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
 		// ты мой папа?
-		if (_container->widget == (*iter)->widget->getParent()) serialiseWidget(*iter, node);
+		// FIXME по хорошему надо бы просто (*iter)->widget->getParent() (1 раз)
+		if (null != (*iter)->widget->getParent())
+			if (_container->widget == (*iter)->widget->getParent()->getParent()) serialiseWidget(*iter, node);
 	}
 }

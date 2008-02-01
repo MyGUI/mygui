@@ -41,6 +41,7 @@ public:
 	// info for new widget
 	int x1, y1, x2, y2;
 	std::string current_widget_type;
+	std::string current_widget_skin;
 	MyGUI::WidgetPtr current_widget;
 	MyGUI::WindowPtr current_widget_rectangle;
 	// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
@@ -50,6 +51,7 @@ public:
 
 	// current settings
 	int grid_step;
+	// last loaded/saved file name
 	std::string fileName;
 public:
 	void enter(bool bIsChangeState);

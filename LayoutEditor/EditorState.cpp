@@ -2,6 +2,7 @@
 #include "BasisManager.h"
 #include "EditorState.h"
 #include "WidgetContainer.h"
+#include "Types.h"
 
 #include "MyGUI.h"
 
@@ -19,7 +20,8 @@ void EditorState::enter(bool bIsChangeState)
 {
 	ew = new EditorWidgets();
 	ew->initialise();
-  current_widget_type = "";
+	current_widget_type = "";
+	current_widget_skin = "";
 	creating_status = 0;
 	grid_step = DEFAULT_GRID;
 	fileName = "";
@@ -27,27 +29,29 @@ void EditorState::enter(bool bIsChangeState)
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(BasisManager::getInstance().mWindow);
 
-  MyGUI::LayoutManager::getInstance().load("LayoutEditor.layout");
+	MyGUI::LayoutManager::getInstance().load("LayoutEditor.layout");
 
-	// widgets panel
+	// menu panel (should be dropdown menu)
 	ASSIGN_FUNCTION("buttonLoad", &EditorState::notifyLoadSaveAs);
 	ASSIGN_FUNCTION("buttonSave", &EditorState::notifySave);
 	ASSIGN_FUNCTION("buttonSaveAs", &EditorState::notifyLoadSaveAs);
 	ASSIGN_FUNCTION("buttonQuit", &EditorState::notifyQuit);
 
-	ASSIGN_FUNCTION("widgetButton", &EditorState::notifySelectWidgetType);
-	ASSIGN_FUNCTION("widgetComboBox", &EditorState::notifySelectWidgetType);
-	ASSIGN_FUNCTION("widgetEdit", &EditorState::notifySelectWidgetType);
-	ASSIGN_FUNCTION("widgetHScroll", &EditorState::notifySelectWidgetType);
-	ASSIGN_FUNCTION("widgetList", &EditorState::notifySelectWidgetType);
-	ASSIGN_FUNCTION("widgetWindow", &EditorState::notifySelectWidgetType);
+	// widgets panel
+	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("windowWidgets");
+	for (int i = 0; i<NUM_WIDGETS; i++)
+	{
+		MyGUI::ButtonPtr button = windowWidgets->createWidgetReal<MyGUI::Button>("Button", 0.0 + i%2*0.5, 0.05 + i/2*0.1, 0.5, 0.1, MyGUI::ALIGN_DEFAULT);
+		button->setCaption(widget_types[i].widget + " " + widget_types[i].skin);
+		button->setUserString("widget", widget_types[i].widget);
+		button->setUserString("skin", widget_types[i].skin);
+		button->eventMouseButtonClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetType);
+	}
 
 	// editor settings panel
 	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("gridEdit");
 	gridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyNewGridStepAccept);
 	gridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
-
-	gridEdit->eventMouseButtonPressed = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 
 	// rectangle for widgets moving/resizing
 	//current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", IntCoord(), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Popup");
@@ -75,12 +79,13 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		w = abs(x1 - x2); h = abs(y1 - y2);
 
 		creating_status = 2;
-		std::string name = MyGUI::utility::toString(current_widget_type, counter);
-		// FIXME пока приходится создавать кнопки вместо всех виджетов, т.к. криво работают сообщения
-		current_widget = mGUI->createWidget<MyGUI::Button>("Button", x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Back", name);
-		//current_widget = mGUI->createWidgetT(current_widget_type, current_widget_type, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Back", name);
-		current_widget->setCaption(current_widget_type);
-		current_widget->eventMouseButtonClick = newDelegate(this, &EditorState::notifySelectWidget);
+		std::string name = MyGUI::utility::toString(current_widget_skin, counter);
+
+		current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Back", name);
+
+		current_widget->setCaption(name);
+		// сделаю, если все виджеты будут реагировать на такое событие
+		//current_widget->eventMouseButtonClick = newDelegate(this, &EditorState::notifySelectWidget);
 	}
 	else if (creating_status == 2)
 	{
@@ -145,13 +150,11 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 		if ((x1-x2)*(y1-y2) != 0)
 		{
 			// создали виджет, все счастливы
-			int x,y,w,h;
-			x = min(x1, x2); y = min(y1, y2);
-			w = abs(x1 - x2); h = abs(y1 - y2);
+			ew->add(new WidgetContainer(current_widget->getName(), current_widget_type, current_widget_skin, current_widget));
 			creating_status = 0;
 			current_widget_type = "";
+			current_widget_skin = "";
 			counter++;
-			ew->add(current_widget->getName(), current_widget);
 		}
 		else
 		{
@@ -196,7 +199,7 @@ void EditorState::notifySave(MyGUI::WidgetPtr _sender, bool _double)
 void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender, bool _double)
 {
 	// create message box with file name and two buttons
-  MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("LayoutEditorSaveLoad.layout")[0];
+	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("LayoutEditorSaveLoad.layout")[0];
 	MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
 	MyGUI::IntSize size(messageWindow->getSize());
 	messageWindow->setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
@@ -221,13 +224,19 @@ void EditorState::notifyQuit(MyGUI::WidgetPtr _sender, bool _double)
 void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender, bool _double)
 {
 	bool success;
-  if (_sender->getCaption() == "Load") success = ew->load(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
-  else/*(_sender->getCaption() == "Save")*/ success = ew->save(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
+	if (_sender->getCaption() == "Load") success = ew->load(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
+	else/*(_sender->getCaption() == "Save")*/ success = ew->save(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
+
 	if (false == success) 
 	{
 		MyGUI::Message::createMessage("Warning", "Failed to " + _sender->getCaption() + " file", 1, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
-	else notifyLoadSaveCancel(_sender);
+	else
+	{
+		// запоминает последнее удачное имя файла
+		fileName = mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption();
+		notifyLoadSaveCancel(_sender);
+	}
 }
 
 void EditorState::notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget)
@@ -243,7 +252,8 @@ void EditorState::notifyLoadSaveCancel(MyGUI::WidgetPtr _sender, bool _double)
 
 void EditorState::notifySelectWidgetType(MyGUI::WidgetPtr _sender, bool _double)
 {
-  current_widget_type = _sender->getCaption();
+	current_widget_type = _sender->getUserString("widget");
+	current_widget_skin = _sender->getUserString("skin");
 }
 
 void EditorState::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)

@@ -10,9 +10,12 @@ typedef std::map<std::string, std::string> MapString;
 struct WidgetContainer
 {
 	WidgetContainer(){}
-	WidgetContainer(std::string _container_name, MyGUI::WidgetPtr _widget):
+	WidgetContainer(std::string _container_name, std::string _type, std::string _skin, MyGUI::WidgetPtr _widget, std::string _name = ""):
 		container_name(_container_name),
-		widget(_widget)
+		type(_type),
+		skin(_skin),
+		widget(_widget),
+		name()
 	{}
 
 	std::string container_name;
@@ -43,7 +46,6 @@ public:
 	bool save(std::string _fileName);
 	WidgetContainer * find(MyGUI::WidgetPtr _widget);
 	WidgetContainer * find(std::string _name);
-	void add(std::string _name, MyGUI::WidgetPtr _widget);
 	void add(WidgetContainer * _container);
 private:
 	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent);
