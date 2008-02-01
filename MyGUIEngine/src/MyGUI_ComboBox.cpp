@@ -254,6 +254,7 @@ namespace MyGUI
 		MYGUI_ASSERT(_index < mList->getItemCount(), "setComboItemIndex: index " << _index <<" out of range");
 		mItemIndex = _index;
 		Edit::setCaption(mList->getItemString(_index));
+		Edit::updateView(0); // hook for update
 	}
 
 	size_t ComboBox::getItemCount()

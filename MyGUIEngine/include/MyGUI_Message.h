@@ -142,7 +142,7 @@ namespace MyGUI
 
 	public:
 		/*	событие : надата кнопка на окне сообщений*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::ViewInfo _button);*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);*/
 		EventInfo_WidgetMessage eventMessageBoxEnd;
 
 	private:

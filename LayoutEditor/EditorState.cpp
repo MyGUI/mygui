@@ -18,6 +18,7 @@ MyGUI::Gui * mGUI;
 void EditorState::enter(bool bIsChangeState)
 {
 	ew = new EditorWidgets();
+	ew->initialise();
   current_widget_type = "";
 	creating_status = 0;
 	grid_step = DEFAULT_GRID;
@@ -72,7 +73,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		int x,y,w,h;
 		x = min(x1, x2); y = min(y1, y2);
 		w = abs(x1 - x2); h = abs(y1 - y2);
-		
+
 		creating_status = 2;
 		std::string name = MyGUI::utility::toString(current_widget_type, counter);
 		// FIXME пока приходится создавать кнопки вместо всех виджетов, т.к. криво работают сообщения
@@ -89,8 +90,13 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		current_widget->setPosition(x, y, w, h);
 	}
 
-	//if(item->getUserString("isMarker") != "") item = item->getParent();
-	//mGUI->findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
+	MyGUI::LayerItemInfoPtr rootItem = null;
+	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+
+	if (null != ew->find(item))
+	{
+		mGUI->findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
+	}
 
 	MyGUI::InputManager::getInstance().injectMouseMove(arg);
 	return true;
@@ -219,7 +225,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender, bool _double)
   else/*(_sender->getCaption() == "Save")*/ success = ew->save(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
 	if (false == success) 
 	{
-		MyGUI::Message::createMessage("Warning", "Failed to " + _sender->getCaption() + " file \nasrtyuryurtuyrtu2345rtyurutyudf", 1, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::createMessage("Warning", "Failed to " + _sender->getCaption() + " file", 1, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else notifyLoadSaveCancel(_sender);
 }

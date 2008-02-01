@@ -80,11 +80,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //	MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
-	/*ComboBoxPtr combo = mGUI->createWidget<ComboBox>("ComboBox", IntCoord(60, 100, 400, 26), ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(60, 100, 400, 66), MyGUI::ALIGN_DEFAULT, "Back");
 	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
+	combo->setComboModeDrop(true);
 	combo->addItemString("line 1");
 	combo->addItemString("line 2");
-	combo->addItemString("line 3");*/
+	combo->addItemString("line 3");
+	combo->setComboItemIndex(2);*/
 //	test2 = combo;
 
 //	InputManager::getInstance().addWidgetModal(combo);
@@ -103,44 +105,46 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	window->setMinMax(40, 40, 2000, 115);
-	window->setCaption("test");
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 330, 335), MyGUI::ALIGN_DEFAULT, "Overlapped");
+
+	//window->setMinMax(40, 40, 2000, 115);
+	/*window->setCaption("test");
+	window->setAutoAlpha(true);
 
 	window->setUserData<MyGUI::WindowPtr>(window);
-	window = window->getUserData<MyGUI::WindowPtr>();
+	window = window->getUserData<MyGUI::WindowPtr>();*/
 
 	//window->setAutoAlpha(true);
 	//window->setAutoAlpha(true);
-	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	/*prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressAutoTrack(true);
 
 	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 45, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-	prog->setProgressRange(mWidth);
+	prog->setProgressRange(mWidth);*/
 
-	/*renderbox = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
-	renderbox->injectObject("ogrehead.mesh");
+	renderbox = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
+	renderbox->injectObject("robot.mesh");
 	renderbox->setAutorotationSpeed();
-	renderbox->setMouseRotation(true);*/
+	renderbox->setMouseRotation(true);
 
 	//renderbox->setRenderTarget(mCamera);
 
 	/*window->setMinMax(150, 150, 2000, 2000);
 	window->setCaption("tab demo");
 
-	TabPtr tab = window->createWidget<Tab>("Tab", IntCoord(5, 5, 580, 254), ALIGN_STRETCH);
+	MyGUI::TabPtr tab = window->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(5, 5, 580, 254), MyGUI::ALIGN_STRETCH);
 
-	SheetPtr sheet = tab->addSheet("sheet 1");
-	sheet->createWidgetT("Edit", "EditStretch", 10, 10, 100, 26, ALIGN_LEFT | ALIGN_TOP)->setCaption("Edit");
+	MyGUI::SheetPtr sheet = tab->addSheet("sheet 1");
+	sheet->createWidgetT("Edit", "EditStretch", 10, 10, 100, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP)->setCaption("Edit");
 
 	sheet = tab->insertSheet(0, "nice day 2");
-	sheet->createWidgetT("Button", "ButtonSmall", 30, 40, 100, 26, ALIGN_LEFT | ALIGN_TOP)->setCaption("button");
+	sheet->createWidgetT("Button", "ButtonSmall", 30, 40, 100, 26, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP)->setCaption("button");
 
 	sheet = tab->insertSheet(1, "why here? 3");
-	sheet->createWidgetT("Button", "Button", 60, 70, 200, 26, ALIGN_RIGHT | ALIGN_BOTTOM)->setCaption("button large");
+	sheet->createWidgetT("Button", "Button", 60, 70, 200, 26, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM)->setCaption("button large");
 
 	sheet = tab->insertSheet(3, "=)");
-	EditPtr edit = sheet->createWidget<Edit>("EditStretch", 10, 10, 540, 200, ALIGN_STRETCH);
+	MyGUI::EditPtr edit = sheet->createWidget<MyGUI::Edit>("EditStretch", 10, 10, 540, 200, MyGUI::ALIGN_STRETCH);
 	edit->setEditMultiLine(true);
 	edit->setCaption("#00FF00green\n#808080gray");//*/
 

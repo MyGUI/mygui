@@ -8,7 +8,7 @@ INSTANCE_IMPLEMENT(EditorWidgets);
 
 void EditorWidgets::initialise()
 {
-	MyGUI::LogManager::registerSection(LogSection, MYGUI_LOG_FILENAME);
+	MyGUI::LogManager::registerSection(LogSection, "LayoutEditor.log");
 }
 
 void EditorWidgets::shutdown()
@@ -53,6 +53,29 @@ bool EditorWidgets::load(std::string _fileName)
 
 bool EditorWidgets::save(std::string _fileName)
 {
+	std::string _instance = "Editor";
+
+	MyGUI::xml::xmlDocument doc;
+	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	if (file.empty()) {
+		file = _fileName;
+	}
+
+	doc.createInfo();
+	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
+	root->addAttributes("type", "Layout");
+
+	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+	{
+		// в корень только сирот
+		if (null == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
+	}
+
+	if (false == doc.save(file)) {
+		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		return false;
+	}
+
 	return true;
 }
 
@@ -83,7 +106,7 @@ WidgetContainer * EditorWidgets::find(std::string _name)
 	// найдем соответствующий виджет и переместим/растянем
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
-		if ((*iter)->name == _name)
+		if ((*iter)->container_name == _name)
 		{
 			return *iter;
 		}
@@ -115,9 +138,10 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			static long renameN=0;
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
+		container->container_name = container->name;
 	} else {
 		static long num=0;
-		container->name = MyGUI::utility::toString(container->type, num++);
+		container->container_name = MyGUI::utility::toString(container->type, num++);
 	}
 
 	if (null == _parent) {
@@ -149,15 +173,50 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			// и парсим свойство
 			// FIXME пока приходится создавать кнопки вместо всех виджетов, т.к. криво работают сообщения
 			//MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
+
 			// wid_rectangle store all fields from layout
-			container->setUserString(key, value);
+			container->mProperty.push_back(std::make_pair(key, value));
 		}
 		else if (widget->getName() == "UserString") {
 			// парсим атрибуты
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
-			container->widget->setUserString(key, value);
+			container->mUserString.insert(std::make_pair(key, value));
 		}
 
 	};
+}
+
+void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node)
+{
+	MyGUI::xml::xmlNodePtr node = _node->createChild("Widget");
+
+	node->addAttributes("type", _container->type);
+	node->addAttributes("skin", _container->skin);
+	if ("" != _container->position) node->addAttributes("position", _container->position);
+	if ("" != _container->position_real) node->addAttributes("position_real", _container->position_real);
+	if ("" != _container->align) node->addAttributes("align", _container->align);
+	if ("" != _container->layer) node->addAttributes("layer", _container->layer);
+	if ("" != _container->name) node->addAttributes("name", _container->name);
+
+	for (StringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
+	{
+		MyGUI::xml::xmlNodePtr nodeProp = node->createChild("Property");
+		nodeProp->addAttributes("key", iter->first);
+		nodeProp->addAttributes("value", iter->second);
+	}
+
+	for (MapString::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
+	{
+		MyGUI::xml::xmlNodePtr nodeProp = node->createChild("UserString");
+		nodeProp->addAttributes("key", iter->first);
+		nodeProp->addAttributes("value", iter->second);
+	}
+
+	// метод медленный, т.к. квадратичная сложность
+	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+	{
+		// ты мой папа?
+		if (_container->widget == (*iter)->widget->getParent()) serialiseWidget(*iter, node);
+	}
 }

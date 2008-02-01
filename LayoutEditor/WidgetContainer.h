@@ -4,24 +4,32 @@
 #include <vector>
 #include "MyGUI.h"
 
-class WidgetContainer : public MyGUI::UserData
+typedef std::vector<std::pair<std::string, std::string>> StringPairs;
+typedef std::map<std::string, std::string> MapString;
+
+struct WidgetContainer
 {
-public:
 	WidgetContainer(){}
-	WidgetContainer(std::string _name, MyGUI::WidgetPtr _widget):
-		name(_name),
+	WidgetContainer(std::string _container_name, MyGUI::WidgetPtr _widget):
+		container_name(_container_name),
 		widget(_widget)
 	{}
 
-public:
+	std::string container_name;
 	MyGUI::WidgetPtr widget;
-	std::string name;
+	StringPairs mProperty;
+	MapString mUserString;
+	// necessary
 	std::string type;
 	std::string skin;
-	std::string layer;
-	std::string align;
 	std::string position;
+	// or
 	std::string position_real;
+	// necessary for root widgets
+	std::string layer;
+	// not necessary
+	std::string align;
+	std::string name;
 };
 
 class EditorWidgets{
@@ -39,6 +47,7 @@ public:
 	void add(WidgetContainer * _container);
 private:
 	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent);
+	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node);
 
 	std::vector<WidgetContainer*> widgets;
 };

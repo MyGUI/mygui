@@ -1241,7 +1241,7 @@ namespace MyGUI
 		}
 
 		// ничего не изменилось
-		if (offset.empty()) return;
+		//if (offset.empty()) return; // hook for update не использовать !!!, т.к. код далее вызывает апдейт, хотя координаты на 1-й взгляд не изменились
 
 		mWidgetCursor->setPosition(mWidgetCursor->getPosition() - offset);
 
