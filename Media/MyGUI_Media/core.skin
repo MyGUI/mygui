@@ -971,5 +971,24 @@
         <BasisSkin type="MainSkin" offset = "0 0 10 10"/>
     </Skin>
 
+    <Skin name = "CheckBox" size = "100 22" material = "MyGUI_CoreMaterial">
+        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
+        
+        <BasisSkin type="SubSkin" offset = "0 2 18 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "104 2 18 18"/>
+            <State name="normal" offset = "104 22 18 18"/>
+            <State name="active" offset = "104 42 18 18"/>
+            <State name="pressed" offset = "104 62 18 18"/>
+            <State name="select" offset = "104 82 18 18"/>
+        </BasisSkin>
+        <BasisSkin type="TextSimple" offset = "20 0 80 22" align = "ALIGN_STRETCH">
+            <State name="normal" colour="0 0 0"/>
+        </BasisSkin>
+    </Skin>
+
 </MyGUI>
 
