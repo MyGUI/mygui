@@ -105,8 +105,7 @@ namespace MyGUI
 
 	WidgetPtr Widget::createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name)
 	{
-		Gui & gui = Gui::getInstance();
-		return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*gui.getViewWidth()), (int)(_coord.top*gui.getViewHeight()), (int)(_coord.width*gui.getViewWidth()), (int)(_coord.height*gui.getViewHeight())), _align, _name);
+		return createWidgetT(_type, _skin, Gui::getInstance().convertRelativeToInt(_coord, this), _align, _name);
 	}
 
 	CroppedRectanglePtr  Widget::addSubSkin(const SubWidgetInfo& _info, const Ogre::String& _material, size_t & _id)

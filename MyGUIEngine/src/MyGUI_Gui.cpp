@@ -334,5 +334,24 @@ namespace MyGUI
 		return mLayoutManager->load(_file, _group);
 	}
 
+	IntCoord Gui::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
+	{
+		const FloatSize& size = getViewSize();
+		if (null == _parent) {
+			return IntCoord(_coord.left * size.width, _coord.top * size.height, _coord.width * size.width, _coord.height * size.height);
+		}
+		const IntCoord& coord = _parent->getClientRect();
+		return IntCoord(_coord.left * coord.width, _coord.top * coord.height, _coord.width * coord.width, _coord.height * coord.height);
+	}
+
+	FloatCoord Gui::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
+	{
+		const FloatSize& size = getViewSize();
+		if (null == _parent) {
+			return FloatCoord(_coord.left / size.width, _coord.top / size.height, _coord.width / size.width, _coord.height / size.height);
+		}
+		const IntCoord& coord = _parent->getClientRect();
+		return FloatCoord(_coord.left / coord.width, _coord.top / coord.height, _coord.width / coord.width, _coord.height / coord.height);
+	}
 
 } // namespace MyGUI
