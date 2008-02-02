@@ -63,7 +63,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	//MyGUI::Message::createMessage("#FF00FFcaption", "message", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::OkCancel | MyGUI::Message::IconInfo);
+	//MyGUI::Message::createMessage(L"Ошибка", L"Поле ввода имени пустое.", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::Ok | MyGUI::Message::IconWarning);
+
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
 	//test2(MyGUI::newDelegate(test3));
@@ -80,6 +81,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //	MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
+//	MyGUI::ItemBoxPtr box = mGUI->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(60, 100, 400, 326), MyGUI::ALIGN_DEFAULT, "Overlapped");
+
+
+	/*combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
 	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(60, 100, 400, 66), MyGUI::ALIGN_DEFAULT, "Back");
 	combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
 	combo->setComboModeDrop(true);
@@ -105,7 +110,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 330, 335), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	window->setMinMax(40, 40, 2000, 115);
+	window->setCaption("test");//*/
+	/*MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 330, 335), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	window->eventWindowButtonPressed = newDelegate(this, &DemoKeeper::notifyWindowXPressed);
 
 	//window->setMinMax(40, 40, 2000, 115);
 	/*window->setCaption("test");
@@ -122,10 +131,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	prog = window->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 45, 300, 22), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 	prog->setProgressRange(mWidth);*/
 
-	renderbox = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
+	/*renderbox = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_STRETCH);
 	renderbox->injectObject("robot.mesh");
 	renderbox->setAutorotationSpeed();
-	renderbox->setMouseRotation(true);
+	renderbox->setMouseRotation(true);*/
 
 	//renderbox->setRenderTarget(mCamera);
 
@@ -486,8 +495,9 @@ void DemoKeeper::notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::strin
 {
 	if (_name == "close") {
 		MyGUI::WindowPtr window = MyGUI::castWidget<MyGUI::Window>(_widget);
-		window->destroySmooth();
-		mCountWindow --;
+		//window->destroySmooth();
+		window->hideSmooth();
+		/*mCountWindow --;*/
 	}
 }
 

@@ -16,12 +16,14 @@ namespace MyGUI
 
 		Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
 
-		mOverlayContainer = static_cast<PanelAlphaOverlayElement*>( overlayManager.createOverlayElement(
-			"PanelAlpha", utility::toString("MainSkin_", this)) );
+		mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>( overlayManager.createOverlayElement(
+			"SharedPanelAlpha", utility::toString("MainSkin_", this)) );
+
+		// устанавливаем колличество саб оверлеев
+		mOverlayContainer->setCountSharedOverlay(1);
 
 		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
-		mOverlayContainer->setPosition(mParent->getLeft() + mCoord.left, mParent->getTop() + mCoord.top);
-		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
+		mOverlayContainer->setPositionInfo(mParent->getLeft() + mCoord.left, mParent->getTop() + mCoord.top, mCoord.width, mCoord.height, 0);
 		if (false == _material.empty() && (_info.coord.width != 0)) mOverlayContainer->setMaterialName(_material);
 
 		mParent->_attachChild(this, false);
@@ -66,7 +68,7 @@ namespace MyGUI
 		// если обновлять не надо, то меняем только размер
 		(mParent->getWidth() < 0) ? mCoord.width = 0 : mCoord.width = mParent->getWidth();
 		(mParent->getHeight() < 0) ? mCoord.height = 0 : mCoord.height = mParent->getHeight();
-		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
+		mOverlayContainer->setDimensionInfo(mCoord.width, mCoord.height, 0);
 
 	}
 
@@ -83,7 +85,7 @@ namespace MyGUI
 			margin_top = 0;
 		}
 
-		mOverlayContainer->setPosition(mCoord.left + mParent->getLeft() - margin_left, mCoord.top + mParent->getTop() - margin_top);
+		mOverlayContainer->setPositionInfo(mCoord.left + mParent->getLeft() - margin_left, mCoord.top + mParent->getTop() - margin_top, 0);
 
 		if (_update) {
 			_updateView();
@@ -93,15 +95,15 @@ namespace MyGUI
 		// если обновлять не надо, то меняем только размер
 		(mParent->getWidth() < 0) ? mCoord.width = 0 : mCoord.width = mParent->getWidth();
 		(mParent->getHeight() < 0) ? mCoord.height = 0 : mCoord.height = mParent->getHeight();
-		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
+		mOverlayContainer->setDimensionInfo(mCoord.width, mCoord.height, 0);
 
 	}
 
 	void MainSkin::_correctView()
 	{
 		// либо просто двигаться, либо с учетом выравнивания отца
-		if (mParent->getParent()) mOverlayContainer->setPosition(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mMargin.left, mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop() + mMargin.top);
-		else mOverlayContainer->setPosition(mCoord.left + mParent->getLeft(), mCoord.top + mParent->getTop());
+		if (mParent->getParent()) mOverlayContainer->setPositionInfo(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mMargin.left, mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop() + mMargin.top, 0);
+		else mOverlayContainer->setPositionInfo(mCoord.left + mParent->getLeft(), mCoord.top + mParent->getTop(), 0);
 	}
 
 	void MainSkin::_updateView()
@@ -112,8 +114,7 @@ namespace MyGUI
 		if (cy < 0) cy = 0;
 
 		//порубали оверлей
-		mOverlayContainer->setPosition(mParent->getViewLeft() - (mParent->getParent() ? mParent->getParent()->getMarginLeft() : 0), mParent->getViewTop() - (mParent->getParent() ? mParent->getParent()->getMarginTop() : 0) );
-		mOverlayContainer->setDimensions(cx, cy);
+		mOverlayContainer->setPositionInfo(mParent->getViewLeft() - (mParent->getParent() ? mParent->getParent()->getMarginLeft() : 0), mParent->getViewTop() - (mParent->getParent() ? mParent->getParent()->getMarginTop() : 0), cx, cy, 0);
 
 		// теперь смещаем текстуру
 		float UV_lft = mParent->getMarginLeft() / (float)mParent->getWidth();
@@ -129,7 +130,7 @@ namespace MyGUI
 		float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
 		float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
 
-		mOverlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+		mOverlayContainer->setUVInfo(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total, 0);
 
 	}
 
@@ -163,11 +164,11 @@ namespace MyGUI
 			float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
 			float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
 
-			mOverlayContainer->setUV(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+			mOverlayContainer->setUVInfo(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total, 0);
 
 		} else {
 			// мы не обрезаны, базовые координаты
-			mOverlayContainer->setUV(mRectTexture.left, mRectTexture.top, mRectTexture.right, mRectTexture.bottom);
+			mOverlayContainer->setUVInfo(mRectTexture.left, mRectTexture.top, mRectTexture.right, mRectTexture.bottom, 0);
 		}
 	}
 

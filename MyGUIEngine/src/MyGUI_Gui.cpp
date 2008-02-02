@@ -52,12 +52,10 @@ namespace MyGUI
 		Ogre::OverlayManager &manager = Ogre::OverlayManager::getSingleton();
 		mFactoryTextSimpleOverlay = new TextSimpleOverlayElementFactory();
 		mFactoryTextEditOverlay = new TextEditOverlayElementFactory();
-		mFactoryPanelAlphaOverlay = new PanelAlphaOverlayElementFactory();
 		mFactorySharedPanelAlphaOverlay = new SharedPanelAlphaOverlayElementFactory();
 
 		manager.addOverlayElementFactory(mFactoryTextSimpleOverlay);
 		manager.addOverlayElementFactory(mFactoryTextEditOverlay);
-		manager.addOverlayElementFactory(mFactoryPanelAlphaOverlay);
 		manager.addOverlayElementFactory(mFactorySharedPanelAlphaOverlay);
 
 		// создаем и инициализируем синглтоны
@@ -137,7 +135,6 @@ namespace MyGUI
 
 		delete mFactoryTextSimpleOverlay;
 		delete mFactoryTextEditOverlay;
-		delete mFactoryPanelAlphaOverlay;
 		delete mFactorySharedPanelAlphaOverlay;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");

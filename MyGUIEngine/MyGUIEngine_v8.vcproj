@@ -6,7 +6,6 @@
 	ProjectGUID="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 	RootNamespace="MyGUIEngine"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -69,8 +68,6 @@
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				SubSystem="0"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				ImportLibrary="lib\Debug\MyGUI_d.lib"
 				TargetMachine="1"
 			/>
@@ -91,6 +88,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -148,8 +148,6 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				ImportLibrary="lib\Release\MyGUI.lib"
 				TargetMachine="1"
 			/>
@@ -170,6 +168,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -202,6 +203,10 @@
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_HScroll.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_ItemBox.cpp"
 					>
 				</File>
 				<File
@@ -265,6 +270,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_HScrollFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ItemBoxFactory.cpp"
 						>
 					</File>
 					<File
@@ -400,6 +409,22 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="OverlayElement"
+					>
+					<File
+						RelativePath=".\src\MyGUI_SharedPanelAlphaOverlayElement.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_TextEditOverlayElement.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_TextSimpleOverlayElement.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
@@ -467,6 +492,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ItemBox.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_List.h"
 					>
 				</File>
@@ -527,6 +556,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_HscrollFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ItemBoxFactory.h"
 						>
 					</File>
 					<File
@@ -686,11 +719,11 @@
 					Name="OverlayElement"
 					>
 					<File
-						RelativePath=".\include\MyGUI_PanelAlphaOverlayElement.h"
+						RelativePath=".\include\MyGUI_EnumCharInfo.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_PanelAlphaOverlayElementFactory.h"
+						RelativePath=".\include\MyGUI_OneOverlayDataInfo.h"
 						>
 					</File>
 					<File

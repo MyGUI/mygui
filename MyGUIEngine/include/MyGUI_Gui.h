@@ -18,7 +18,6 @@
 
 #include "MyGUI_TextSimpleOverlayElementFactory.h"
 #include "MyGUI_TextEditOverlayElementFactory.h"
-#include "MyGUI_PanelAlphaOverlayElementFactory.h"
 #include "MyGUI_SharedPanelAlphaOverlayElementFactory.h"
 
 namespace MyGUI
@@ -153,7 +152,6 @@ namespace MyGUI
 		// фабрики наших оверлеев
 		TextSimpleOverlayElementFactory * mFactoryTextSimpleOverlay;
 		TextEditOverlayElementFactory * mFactoryTextEditOverlay;
-		PanelAlphaOverlayElementFactory * mFactoryPanelAlphaOverlay;
 		SharedPanelAlphaOverlayElementFactory * mFactorySharedPanelAlphaOverlay;
 
 		// синглтоны гу€

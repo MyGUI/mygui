@@ -29,7 +29,6 @@ namespace MyGUI
 
 	class WidgetSkinInfo;
 	class MaskPeekInfo;
-	class PanelAlphaOverlayElement;
 
 	// managers
 	class InputManager;
@@ -60,6 +59,7 @@ namespace MyGUI
 	class Message;
 	class Progress;
 	class RenderBox;
+	class ItemBox;
 
 	// widget pointers
 	typedef Button* ButtonPtr;
@@ -76,6 +76,7 @@ namespace MyGUI
 	typedef Message * MessagePtr;
 	typedef Progress * ProgressPtr;
 	typedef RenderBox * RenderBoxPtr;
+	typedef ItemBox * ItemBoxPtr;
 
 	class WidgetFactoryInterface;
 	namespace factory{
@@ -95,6 +96,7 @@ namespace MyGUI
 		class MessageFactory;
 		class ProgressFactory;
 		class RenderBoxFactory;
+		class ItemBoxFactory;
 	}
 
 	// Define version

@@ -9,10 +9,10 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include <OgrePanelOverlayElement.h>
 #include "MyGUI_PointerInfo.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_UnlinkWidget.h"
+#include "MyGUI_SharedPanelAlphaOverlayElement.h"
 
 namespace MyGUI
 {
@@ -56,7 +56,7 @@ namespace MyGUI
 		std::string mMaterial;
 		IntPoint mPoint;
 		MapPointerInfo mMapPointers;
-		PanelAlphaOverlayElement * mOverlayElement;
+		SharedPanelAlphaOverlayElement * mOverlayElement;
 		WidgetPtr mWidgetOwner;
 
 	}; // class PointerManager

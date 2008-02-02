@@ -27,8 +27,11 @@ namespace MyGUI
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-		mOverlayElement = static_cast<PanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
-			"PanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
+		mOverlayElement = static_cast<SharedPanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
+			"SharedPanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
+		// устанавливаем колличество саб оверлеев
+		mOverlayElement->setCountSharedOverlay(1);
+
 		mOverlayElement->setMetricsMode(Ogre::GMM_PIXELS);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -78,7 +81,7 @@ namespace MyGUI
 
 			// устанавливаем сразу параметры
 			mOverlayElement->setMaterialName(material);
-			mOverlayElement->setDimensions(size, size);
+			mOverlayElement->setDimensionInfo(size, size, 0);
 			if (false == defaultPointer.empty()) mDefaultPointer = defaultPointer;
 			mLayer = layer;
 			FloatSize materialSize = SkinManager::getMaterialSize(material);
@@ -137,7 +140,7 @@ namespace MyGUI
 	void PointerManager::setPosition(const IntPoint& _pos)
 	{
 		if (mOverlayElement == null) return;
-		mOverlayElement->setPosition(_pos.left - mPoint.left, _pos.top - mPoint.top);
+		mOverlayElement->setPositionInfo(_pos.left - mPoint.left, _pos.top - mPoint.top, 0);
 	}
 
 	void PointerManager::setPointer(const std::string & _name, WidgetPtr _owner)
@@ -146,8 +149,8 @@ namespace MyGUI
 		if (iter == mMapPointers.end()) return;
 		const FloatRect & rect = iter->second.offset;
 		// сдвигаем с учетом нового и старого смещения
-		mOverlayElement->setPosition(mOverlayElement->getLeft()+mPoint.left-iter->second.point.left, mOverlayElement->getTop()+mPoint.top-iter->second.point.top);
-		mOverlayElement->setUV(rect.left, rect.top, rect.right, rect.bottom);
+		mOverlayElement->setPositionInfo(mOverlayElement->getLeft()+mPoint.left-iter->second.point.left, mOverlayElement->getTop()+mPoint.top-iter->second.point.top, 0);
+		mOverlayElement->setUVInfo(rect.left, rect.top, rect.right, rect.bottom, 0);
 		// и сохраняем новое смещение
 		mPoint = iter->second.point;
 		mWidgetOwner = _owner;

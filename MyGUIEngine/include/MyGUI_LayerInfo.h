@@ -10,7 +10,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_LayerItemInfo.h"
-#include "MyGUI_PanelAlphaOverlayElement.h"
 
 namespace MyGUI
 {

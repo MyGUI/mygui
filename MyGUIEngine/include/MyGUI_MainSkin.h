@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_PanelAlphaOverlayElement.h"
+#include "MyGUI_SharedPanelAlphaOverlayElement.h"
 #include "MyGUI_CroppedRectangleInterface.h"
 
 namespace MyGUI
@@ -48,7 +48,7 @@ namespace MyGUI
 
 	protected:
 
-		PanelAlphaOverlayElement * mOverlayContainer;
+		SharedPanelAlphaOverlayElement * mOverlayContainer;
 
 		FloatRect mRectTexture;
 

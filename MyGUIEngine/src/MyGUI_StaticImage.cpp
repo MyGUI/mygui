@@ -6,7 +6,7 @@
 */
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_PanelAlphaOverlayElement.h"
+//#include "MyGUI_SharedPanelAlphaOverlayElement.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI

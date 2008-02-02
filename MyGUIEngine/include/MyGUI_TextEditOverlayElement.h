@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		11/2007
+	@date		02/2008
 	@module
 */
 #ifndef __MYGUI_TEXT_EDIT_OVERLAY_ELEMENT_H__
@@ -9,43 +9,37 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Macros.h"
-#include <OgreTextAreaOverlayElement.h>
 #include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_AlignInfo.h"
+#include "MyGUI_EnumCharInfo.h"
+
+#include <OgreOverlayElement.h>
 
 namespace MyGUI
 {
 
-	class _MyGUIExport TextEditOverlayElement : public Ogre::TextAreaOverlayElement
+	class _MyGUIExport TextEditOverlayElement : public Ogre::OverlayElement
 	{
+
 	protected:
 		enum {
 			OVERLAY_POSITION_BINDING = 0,
 			OVERLAY_DEFAULT_INITIAL_CHARS = 12
 		};
 
-		// вспомогательный класс для хранения информации о символе
-		class EnumCharInfo
-		{
-		public:
-			explicit EnumCharInfo() : mData(0) {}
-			explicit EnumCharInfo(size_t _value, bool _colour = false) : mData(_colour ? (_value | 0xFF000000) : _value) {}
-			explicit EnumCharInfo(float _value) : mData(*((size_t*)(&_value))) {}
-			explicit EnumCharInfo(Font::GlyphInfo * _info) : mData((size_t)_info) {}
+		/// Flag indicating if this panel should be visual or just group things
+        bool mTransparent;
 
-			inline size_t getValueSizeT() { return mData; }
-			inline float getValueFloat() { return *((float*)(&mData)); }
-			inline Ogre::RGBA getColour() { return (Ogre::RGBA) (mData & 0x00FFFFFF); }
-			inline Font::GlyphInfo * getGlyphInfo() {return (Font::GlyphInfo *)mData;}
-			inline bool isColour() { return (mData & 0xFF000000) == 0xFF000000; }
+        /// Render operation
+        Ogre::RenderOperation mRenderOp;
 
-		private:
-			size_t mData;
-		};
+        static Ogre::String msTypeName;
 
-		typedef std::vector<EnumCharInfo> VectorCharInfo;
-		typedef std::vector<VectorCharInfo> VectorLineInfo;
+        Ogre::Real mCharHeight;
+        Ogre::ushort mPixelCharHeight;
+        size_t mAllocSize;
+		Ogre::Real mViewportAspectCoef;
 
 		IntRect mMargin; // перекрытие
 		Align mAlign;
@@ -67,24 +61,72 @@ namespace MyGUI
 		bool mBackgroundNormal;
 
 	public:
-		TextEditOverlayElement(const Ogre::String& name) :
-			TextAreaOverlayElement(name),
-			mAlign(ALIGN_CENTER),
-			mDefaultColour(0xFFFFFFFF),
-			mInverseColour(0xFF000000),
-			mStartSelect(0), mEndSelect(0),
-			mRawDataOutOfDate(false),
-			mOldViewportAspectCoef(1.0f),
-			mSpaceGlyphInfo(null),
-			mTabGlyphInfo(null),
-			mBackgroundNormal(true)
+        /** Constructor. */
+        TextEditOverlayElement(const Ogre::String& name);
+        virtual ~TextEditOverlayElement();
+
+        virtual void initialise(void);
+		virtual void setCaption(const Ogre::DisplayString& text);
+
+        void setCharHeight( Ogre::Real height );
+        Ogre::Real getCharHeight() const;
+
+        void setFontName( const Ogre::String& font );
+        const Ogre::String& getFontName() const;
+
+        /** See OverlayElement. */
+        virtual const Ogre::String& getTypeName(void) const;
+        /** See Renderable. */
+        void getRenderOperation(Ogre::RenderOperation& op);
+        /** Overridden from OverlayElement */
+        void setMaterialName(const Ogre::String& matName);
+
+        /** Sets the colour of the text. 
+        @remarks
+            This method establishes a constant colour for 
+            the entire text. Also see setColourBottom and 
+            setColourTop which allow you to set a colour gradient.
+        */
+        void setColour(const Ogre::ColourValue& col);
+
+        /** Gets the colour of the text. */
+        const Ogre::ColourValue& getColour(void) const;
+
+        /** Overridden from OverlayElement */
+        void setMetricsMode(Ogre::GuiMetricsMode gmm);
+
+        /** Overridden from OverlayElement */
+        void _update(void);
+
+        /// Method for setting up base parameters for this class
+		// переопределяем для пустоты
+        void addBaseParameters(void);
+
+        /// Internal method to allocate memory, only reallocates when necessary
+        void checkMemoryAllocation( size_t numChars );
+        /// Inherited function
+        virtual void updatePositionGeometry();
+		/// Inherited function
+		virtual void updateTextureGeometry();
+
+		IntSize getTextSize(const Ogre::DisplayString& _text);
+
+		void updateRawData();
+
+		size_t getTextCursorFromPoint(IntPoint & _point);
+
+		IntPoint getTextCursorFromPosition(size_t _position);
+
+		inline size_t getSelectStart()
 		{
-			// для конвертирования цвета вершин
-			mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
+			return mStartSelect;
 		}
 
-		inline size_t getSelectStart() {return mStartSelect;}
-		inline size_t getSelectEnd() {return mEndSelect;}
+		inline size_t getSelectEnd()
+		{
+			return mEndSelect;
+		}
+
 		inline void setSelect(size_t _start, size_t _end)
 		{
 			mStartSelect=_start;
@@ -92,7 +134,11 @@ namespace MyGUI
 			mGeomPositionsOutOfDate = true;
 		}
 
-		inline bool getSelectBackground() {return mBackgroundNormal;}
+		inline bool getSelectBackground()
+		{
+			return mBackgroundNormal;
+		}
+
 		inline void setSelectBackground(bool _normal)
 		{
 			if (mBackgroundNormal == _normal) return;
@@ -100,18 +146,11 @@ namespace MyGUI
 			mGeomPositionsOutOfDate = true;
 		}
 
-		// обязательно перекрываем, а то он там буферов понасоздает
-		void updateColours(void) { }
-
 		// необходимо обновить все что связанно с стекстом
 		inline void setAlignment(Align _align)
 		{
 			// выравнивание бокса
 			mAlign = _align;
-			// выравнивание строк внутри бокса
-			if (IS_ALIGN_RIGHT(_align)) mAlignment = Right;
-			else if (false == IS_ALIGN_LEFT(_align)) mAlignment = Center;
-			else mAlignment = Left;
 			mGeomPositionsOutOfDate = true;
 		}
 
@@ -122,538 +161,6 @@ namespace MyGUI
 			mDerivedOutOfDate = true;
 		}
 
-		virtual void updatePositionGeometry()
-		{
-			// нет шрифта, не вечеринки
-			if (mpFont.isNull()) return;
-
-			// если нуно обновить, или изменились пропорции экрана
-			updateRawData();
-
-			// позиция отображаемого символа
-			size_t cursor = 0;
-
-			// текущие цвета
-			Ogre::RGBA colour_current, colour = mDefaultColour;
-			Ogre::RGBA colour_inverse = mInverseColour;
-
-			FloatPoint background(mBackgroundFill);
-			if (false == mBackgroundNormal) background = mBackgroundFillDeactive;
-
-			checkMemoryAllocation( mCaption.size() );
-			mRenderOp.vertexData->vertexCount = 0;
-
-			// Get position / texcoord buffer
-			Ogre::HardwareVertexBufferSharedPtr vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(OVERLAY_POSITION_BINDING);
-			float *pVert = static_cast<float*>(vbuf->lock(Ogre::HardwareBuffer::HBL_DISCARD));
-
-			// для уменьшения умножений, поможем компилятору =)
-			float realCharHeight = mCharHeight * 2.0;
-			float realWidth = _getWidth() * 2.0;
-			float realHeight = _getHeight() * 2.0;
-			float realLeft = _getDerivedLeft() * 2.0;
-			float realTop = _getDerivedTop() * 2.0;
-
-			// опорное смещение вершин
-			float right, left = realLeft - 1.0;
-			float bottom, top = 1.0 - realTop;
-
-			// края обрезки текста
-			float left_margin = (mPixelScaleX * (float)mMargin.left * 2.0) + left;
-			float top_margin = top - (mPixelScaleY * (float)mMargin.top * 2.0);
-			float right_margin = (left + realWidth) - (mPixelScaleX * (float)mMargin.right * 2.0);
-			float bottom_margin = (top - realHeight) + (mPixelScaleY * (float)mMargin.bottom * 2.0);
-
-			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			float left_shift = 0;
-			if (mContextSize.width <= realWidth) {
-				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
-				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
-			}
-			else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
-			right = left;
-
-			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if (mContextSize.height <= realHeight) {
-				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(IS_ALIGN_TOP(mAlign)) ) top += (mContextSize.height - realHeight) * 0.5;
-			}
-			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
-			bottom = top;
-
-			// данные непосредственно для вывода
-			float vertex_top, vertex_bottom, vertex_left, vertex_right;
-
-			// основной цикл
-			VectorLineInfo::iterator end = mLinesInfo.end();
-			for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
-
-				// пересчет опорных данных
-				top = bottom;
-				bottom -= realCharHeight;
-				// присваиваем и вершинным
-				vertex_top = top;
-				vertex_bottom = bottom;
-
-				VectorCharInfo::iterator index = line->begin();
-				VectorCharInfo::iterator end_index = line->end();
-				// первый всегда длинна строки
-				float len = index->getValueFloat();
-				++index;
-				// второй колличество символов
-				size_t count = index->getValueSizeT();
-				++index;
-
-				// нуна ли пересчитывать текстурные координаты
-				bool texture_crop_height = false;
-
-				if (vertex_top > top_margin) {
-					// проверка на полный выход
-					if (vertex_bottom > top_margin) {
-
-						// необходимо парсить теги цветов полюбак
-						for (;index != end_index; ++index) {
-							if ( index->isColour() ) {
-								colour = index->getColour() | (colour & 0xFF000000);
-								colour_inverse = colour ^ 0x00FFFFFF;
-							}
-						}
-
-						cursor += count;
-						continue;
-					}
-					// обрезаем
-					vertex_top = top_margin;
-					texture_crop_height = true;
-				}
-				if (vertex_bottom < bottom_margin) {
-					// вообще вниз ушли
-					if (vertex_top < bottom_margin) {
-						line = end;
-						line --;
-						cursor += count;
-						continue;
-					}
-					// обрезаем
-					vertex_bottom = bottom_margin;
-					texture_crop_height = true;
-				}
-
-				// пересчет опорных данных
-				right = (realLeft - 1.0) - left_shift; // выравнивание по левой стороне
-				if ( mAlignment == Right ) right += (mContextSize.width - len); // выравнивание по правой стороне
-				else if ( mAlignment == Center ) right += (mContextSize.width - len) * 0.5; // выравнивание по центру
-
-				// текущее положение в строке
-				size_t cur = cursor;
-
-				// внутренний цикл строки
-				for (;index != end_index; ++index) {
-
-					// проверяем на смену цвета
-					if (index->isColour()) {
-						colour = index->getColour() | (colour & 0xFF000000);
-						colour_inverse = colour ^ 0x00FFFFFF;
-						continue;
-					}
-
-					// отображаемый символ
-					Font::GlyphInfo * info = index->getGlyphInfo();
-					Ogre::Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
-
-					// пересчет опорных данных
-					left = right;
-					right += horiz_height;
-
-					// смещение текстуры для фона
-					FloatPoint background_current;
-
-					// символ не выделен
-					if ( (cur >= mEndSelect) || (cur < mStartSelect) ) {
-
-						// если пробел или табуляция то рисуем только при выделении
-						if ( (info->codePoint == Font::FONT_CODE_SPACE) || (info->codePoint == Font::FONT_CODE_TAB) ) {
-							cur ++;
-							continue;
-						}
-
-						colour_current = colour;
-						background_current = mBackgroundEmpty;
-					}
-					// символ выделен
-					else {
-						// инверсные цвета
-						colour_current = colour_inverse;
-						background_current = background;
-					}
-
-					// присваиваем и вершинным
-					vertex_left = left;
-					vertex_right = right;
-
-					// текущие текстурные координаты
-					float texture_left = info->uvRect.left;
-					float texture_right = info->uvRect.right;
-					float texture_top = info->uvRect.top;
-					float texture_bottom = info->uvRect.bottom;
-
-					// нуна ли пересчитывать текстурные координаты
-					bool texture_crop_width = false;
-
-					if (vertex_left < left_margin) {
-						// проверка на полный выход
-						if (vertex_right < left_margin) {
-							cur ++;
-							continue;
-						}
-						// обрезаем
-						vertex_left = left_margin;
-						texture_crop_width = true;
-					}
-					if (vertex_right > right_margin) {
-						// вообще строку до конца не нуна
-						if (vertex_left > right_margin) {
-							index ++;
-							// для того чтобы теги цвета не терялись, нужно пройти до конца строки
-							while (index != end_index) {
-								// проверяем на смену цвета
-								if ( index->isColour() ) {
-									colour = index->getColour() | (colour & 0xFF000000);
-									colour_inverse = colour ^ 0x00FFFFFF;
-								}
-								index ++;
-							};
-							index --; // чтобы при увеличении показывал на end
-							continue;
-						}
-						// обрезаем
-						vertex_right = right_margin;
-						texture_crop_width = true;
-					}
-
-					// смещение текстуры по вертикили
-					if (texture_crop_height) {
-						// прибавляем размер смещения в текстурных координатах
-						texture_top += (top - vertex_top) * mTextureHeightOne;
-						// отнимаем размер смещения в текстурных координатах
-						texture_bottom -= (vertex_bottom - bottom) * mTextureHeightOne;
-					}
-
-					// смещение текстуры по горизонтали
-					if (texture_crop_width) {
-						// прибавляем размер смещения в текстурных координатах
-						texture_left += (vertex_left - left) * mTextureWidthOne;
-						// отнимаем размер смещения в текстурных координатах
-						texture_right -= (right - vertex_right) * mTextureWidthOne;
-					}
-
-					// each vert is (x, y, z, u, v)
-					//-------------------------------------------------------------------------------------
-					// First tri
-					//
-					// Upper left
-					*pVert++ = vertex_left;
-					*pVert++ = vertex_top;
-					*pVert++ = -1.0;
-					*pVert++ = texture_left;
-					*pVert++ = texture_top;
-					*pVert++ = background_current.left;
-					*pVert++ = background_current.top;
-					*((Ogre::RGBA *)(pVert++)) = colour_current;
-
-					// Bottom left
-					*pVert++ = vertex_left;
-					*pVert++ = vertex_bottom;
-					*pVert++ = -1.0;
-					*pVert++ = texture_left;
-					*pVert++ = texture_bottom;
-					*pVert++ = background_current.left;
-					*pVert++ = background_current.top;
-					*((Ogre::RGBA *)(pVert++)) = colour_current;
-
-					// Top right
-					*pVert++ = vertex_right;
-					*pVert++ = vertex_top;
-					*pVert++ = -1.0;
-					*pVert++ = texture_right;
-					*pVert++ = texture_top;
-					*pVert++ = background_current.left;
-					*pVert++ = background_current.top;
-					*((Ogre::RGBA *)(pVert++)) = colour_current;
-					//-------------------------------------------------------------------------------------
-
-					//-------------------------------------------------------------------------------------
-					// Second tri
-					//
-					// Top right (again)
-					*pVert++ = vertex_right;
-					*pVert++ = vertex_top;
-					*pVert++ = -1.0;
-					*pVert++ = texture_right;
-					*pVert++ = texture_top;
-					*pVert++ = background_current.left;
-					*pVert++ = background_current.top;
-					*((Ogre::RGBA *)(pVert++)) = colour_current;
-
-					// Bottom left (again)
-					*pVert++ = vertex_left;
-					*pVert++ = vertex_bottom;
-					*pVert++ = -1.0;
-					*pVert++ = texture_left;
-					*pVert++ = texture_bottom;
-					*pVert++ = background_current.left;
-					*pVert++ = background_current.top;
-					*((Ogre::RGBA *)(pVert++)) = colour_current;
-
-					// Bottom right
-					*pVert++ = vertex_right;
-					*pVert++ = vertex_bottom;
-					*pVert++ = -1.0;
-					*pVert++ = texture_right;
-					*pVert++ = texture_bottom;
-					*pVert++ = background_current.left;
-					*pVert++ = background_current.top;
-					*((Ogre::RGBA *)(pVert++)) = colour_current;
-					//-------------------------------------------------------------------------------------
-
-					mRenderOp.vertexData->vertexCount += 6;
-					cur ++;
-
-				}
-
-				// следующая строка
-				cursor += count;
-			}
-
-			// Unlock vertex buffer
-			vbuf->unlock();
-
-		}
-
-		void initialise(void)
-		{
-			if (!mInitialised)
-			{
-				// Set up the render op
-				// Combine positions and texture coords since they tend to change together
-				// since character sizes are different
-				mRenderOp.vertexData = new Ogre::VertexData();
-				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
-				size_t offset = 0;
-				// Positions
-				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_FLOAT3, Ogre::VES_POSITION);
-				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT3);
-				// Texcoords
-				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, 0);
-				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2);
-
-				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES, 1);
-				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2);
-
-				decl->addElement(OVERLAY_POSITION_BINDING, offset, Ogre::VET_COLOUR, Ogre::VES_DIFFUSE);
-				offset += Ogre::VertexElement::getTypeSize(Ogre::VET_COLOUR);
-
-				mRenderOp.operationType = Ogre::RenderOperation::OT_TRIANGLE_LIST;
-				mRenderOp.useIndexes = false;
-				mRenderOp.vertexData->vertexStart = 0;
-				// Vertex buffer will be created in checkMemoryAllocation
-
-				checkMemoryAllocation( OVERLAY_DEFAULT_INITIAL_CHARS );
-
-				mInitialised = true;
-			}
-
-		}
-
-		void checkMemoryAllocation( size_t numChars )
-		{
-			if( mAllocSize < numChars)
-			{
-				// увеличиваем еще на немного
-				numChars += OVERLAY_DEFAULT_INITIAL_CHARS;
-
-				// Create and bind new buffers
-				// Note that old buffers will be deleted automatically through reference counting
-
-				// 6 verts per char since we're doing tri lists without indexes
-				// Allocate space for positions & texture coords
-				Ogre::VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
-				Ogre::VertexBufferBinding* bind = mRenderOp.vertexData->vertexBufferBinding;
-
-				mRenderOp.vertexData->vertexCount = numChars * 6;
-
-				// Create dynamic since text tends to change alot
-				// positions & texcoords
-				Ogre::HardwareVertexBufferSharedPtr vbuf =
-					Ogre::HardwareBufferManager::getSingleton().
-						createVertexBuffer(
-							decl->getVertexSize(OVERLAY_POSITION_BINDING),
-							mRenderOp.vertexData->vertexCount,
-							Ogre::HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
-				bind->setBinding(OVERLAY_POSITION_BINDING, vbuf);
-
-				mAllocSize = numChars;
-			}
-
-		}
-
-		void setColour(const Ogre::ColourValue & _colour)
-		{
-			Ogre::Root::getSingleton().convertColourValue(_colour, &mDefaultColour);
-
-			// инвертируемый цвет
-			mInverseColour = mDefaultColour ^ 0x00FFFFFF;
-
-			mGeomPositionsOutOfDate = true;
-		}
-
-		void setCaption(const Ogre::DisplayString& text)
-		{
-	        mCaption = text;
-			mGeomPositionsOutOfDate = true;
-			mGeomUVsOutOfDate = true;
-			mRawDataOutOfDate = true;
-		}
-
-		void setFontName( const Ogre::String& font )
-		{
-			mpFont = FontManager::getInstance().getByName( font );
-			if (mpFont.isNull()) MYGUI_EXCEPT("Could not find font " << font);
-			mpFont->load();
-			mpMaterial = mpFont->getMaterialSelectedFont();
-			mpMaterial->setDepthCheckEnabled(false);
-			mpMaterial->setLightingEnabled(false);
-
-			// достаем пробел и табуляцию
-			mSpaceGlyphInfo = mpFont->getSpaceGlyphInfo();
-			mTabGlyphInfo = mpFont->getTabGlyphInfo();
-
-			// достаем средние точки на текстуре для выделения текста
-			Font::GlyphInfo * info = mSpaceGlyphInfo;
-			mBackgroundEmpty.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-			info = mpFont->getSelectGlyphInfo();
-			mBackgroundFill.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-			info = mpFont->getSelectDeactiveGlyphInfo();
-			mBackgroundFillDeactive.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-
-			mGeomPositionsOutOfDate = true;
-			mGeomUVsOutOfDate = true;
-			mRawDataOutOfDate = true;
-		}
-
-		void setCharHeight( Ogre::Real height )
-		{
-			TextAreaOverlayElement::setCharHeight( height );
-			mRawDataOutOfDate = true;
-		}
-
-		void updateRawData()
-		{
-			if (mpFont.isNull()) return;
-			if ( ! mRawDataOutOfDate && (mOldViewportAspectCoef == mViewportAspectCoef) ) return;
-
-			// массив для быстрой конвертации цветов
-			static const char convert_colour[128] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-			// вычисление размера одной единицы в текстурных координатах
-			float realCharHeight = mCharHeight * 2.0;
-			Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
-			mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (realCharHeight);
-			mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mViewportAspectCoef * realCharHeight);
-
-			mLinesInfo.clear();
-
-			// создаем первую строчку
-			mLinesInfo.push_back(VectorCharInfo());
-			mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-			mLinesInfo.back().push_back(EnumCharInfo()); // второй символ, колличество значимых символов
-			float len = 0, width = 0;
-			size_t count = 1;
-
-			Ogre::DisplayString::const_iterator end = mCaption.end();
-			for (Ogre::DisplayString::const_iterator index=mCaption.begin(); index!=end; ++index) {
-
-				Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-
-				if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
-					// запоминаем размер предыдущей строки
-					mLinesInfo.back()[0] = EnumCharInfo(len);
-					mLinesInfo.back()[1] = EnumCharInfo(count);
-					if (width < len) width = len;
-					count = 1;
-					len = 0;
-
-					// и создаем новую
-					mLinesInfo.push_back(VectorCharInfo());
-					mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в пикселях
-					mLinesInfo.back().push_back(EnumCharInfo()); // второй символ, колличество значимых символов
-
-					if (character == Font::FONT_CODE_CR) {
-						Ogre::DisplayString::const_iterator peeki = index;
-						peeki++;
-						if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
-					}
-					// следующий символ
-					continue;
-
-				} else if (character == _T('#')) {
-					// берем следующий символ
-					++ index;
-					if (index == end) {--index ;continue;} // это защита
-
-					character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-					// если два подряд, то рисуем один шарп, если нет то меняем цвет
-					if (character != _T('#')) {
-
-						// парсим первый символ
-						Ogre::RGBA colour = convert_colour[character & 0x7F];
-
-						// и еще пять символов после шарпа
-						for (char i=0; i<5; i++) {
-							++ index;
-							if (index == end) {--index ;continue;} // это защита
-							colour <<= 4;
-							colour += convert_colour[ MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index) & 0x7F];
-						}
-
-						// если нужно, то меняем красный и синий компоненты
-						if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
-
-						// запоминаем цвет, в верхнем байте единицы
-						mLinesInfo.back().push_back( EnumCharInfo(colour, true) );
-
-						continue;
-					}
-				}
-
-				Font::GlyphInfo * info;
-				if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
-				else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
-				else info = mpFont->getGlyphInfo(character);
-
-				len += info->aspectRatio * realCharHeight * mViewportAspectCoef;
-
-				// указатель на инфо о символе
-				mLinesInfo.back().push_back( EnumCharInfo(info) );
-				count ++;
-
-			}
-
-			// запоминаем размер предыдущей строки
-			mLinesInfo.back()[0] = EnumCharInfo(len);
-			mLinesInfo.back()[1] = EnumCharInfo(count);
-			if (width < len) width = len;
-
-
-			// сбрасывам флаги
-			mRawDataOutOfDate = false;
-			mOldViewportAspectCoef = mViewportAspectCoef;
-
-			// устанавливаем размер текста
-			mContextSize.set(width, (float)mLinesInfo.size() * mCharHeight * 2.0);
-
-		} // void updateRawData()
-
 		// возвращает размер текста в пикселях
 		inline IntSize getTextSize()
 		{
@@ -662,301 +169,20 @@ namespace MyGUI
 			return IntSize( (int)(mContextSize.width / (mPixelScaleX * 2.0)), (int)(mLinesInfo.size() * mPixelCharHeight) );
 		}
 
-		inline IntSize getTextSize(const Ogre::DisplayString& _text)
-		{
-			IntSize size;
-
-			if (mpFont.isNull()) return size;
-
-			float len = 0, width = 0;
-			int height = 1;
-
-			Ogre::DisplayString::const_iterator end = _text.end();
-			for (Ogre::DisplayString::const_iterator index=_text.begin(); index!=end; ++index) {
-
-				Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-
-				if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
-					if (width < len) width = len;
-					len = 0;
-					height ++;
-
-					if (character == Font::FONT_CODE_CR) {
-						Ogre::DisplayString::const_iterator peeki = index;
-						peeki++;
-						if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
-					}
-					// следующий символ
-					continue;
-
-				} else if (character == _T('#')) {
-					// берем следующий символ
-					++ index;
-					if (index == end) {--index ;continue;} // это защита
-
-					character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-					// если два подряд, то рисуем один шарп, если нет то меняем цвет
-					if (character != _T('#')) {
-						// и еще пять символов после шарпа
-						for (char i=0; i<5; i++) {
-							++ index;
-							if (index == end) {--index ;continue;} // это защита
-						}
-						continue;
-					}
-				}
-
-				Font::GlyphInfo * info;
-				if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
-				else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
-				else info = mpFont->getGlyphInfo(character);
-
-				len += info->aspectRatio * (float)mPixelCharHeight;
-			}
-
-			if (width < len) width = len;
-
-			size.set((int)width, height * (int)mPixelCharHeight);
-			return size;
-		}
-
 		// устанавливает смещение текста в пикселях
 		inline void setTextShift(IntPoint _point)
 		{
 			mPointShift = _point;
 			mRawDataOutOfDate = true;
 			mGeomPositionsOutOfDate = true;
-			//mIsAutoOffsetContext = false;
 		}
 
-		inline IntPoint getTextShift() {return mPointShift;}
-
-		size_t getTextCursorFromPoint(IntPoint & _point)
+		inline IntPoint getTextShift()
 		{
-			// если нуно обновить, или изменились пропорции экрана
-			updateRawData();
-
-			// позиция символа
-			size_t position = 0;
-
-			// для уменьшения умножений, поможем компилятору =)
-			float realCharHeight = mCharHeight * 2.0;
-			float realWidth = _getWidth() * 2.0;
-			float realHeight = _getHeight() * 2.0;
-			float realLeft = _getDerivedLeft() * 2.0;
-			float realTop = _getDerivedTop() * 2.0;
-
-			// абсалютные координаты
-			float x = mPixelScaleX * (float)_point.left * 2.0;
-			float y = ( 1.0f - (mPixelScaleY * (float)_point.top * 2.0) );
-
-			// опорное смещение вершин
-			float right, left = realLeft - 1.0;
-			float bottom, top = 1.0 - realTop;
-
-			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			float left_shift = 0;
-			if (mContextSize.width <= realWidth) {
-				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
-				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
-			}
-			else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
-			right = left;
-
-			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if (mContextSize.height <= realHeight) {
-				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(IS_ALIGN_TOP(mAlign)) ) top += (mContextSize.height - realHeight) * 0.5;
-			}
-			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
-			bottom = top;
-
-			// корректируем координату до нижней строки
-			if (y < (bottom - mContextSize.height)) y = bottom - mContextSize.height;
-
-			// основной цикл
-			VectorLineInfo::iterator end = mLinesInfo.end();
-			for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
-
-				// пересчет опорных данных
-				top = bottom;
-				bottom -= realCharHeight;
-
-				VectorCharInfo::iterator index = line->begin();
-				VectorCharInfo::iterator end_index = line->end();
-
-				// первый всегда длинна строки
-				float len = index->getValueFloat();
-				++index;
-
-				// колличество символов
-				size_t count = index->getValueSizeT();
-				++index;
-
-				// следующая строчка
-				if (y < bottom) {
-					position += count;
-					continue;
-				}
-
-				// пересчет опорных данных
-				right = (realLeft - 1.0) - left_shift; // выравнивание по левой стороне
-				if ( mAlignment == Right ) right += (mContextSize.width - len); // выравнивание по правой стороне
-				else if ( mAlignment == Center ) right += (mContextSize.width - len) * 0.5; // выравнивание по центру
-
-				if (x <= (1.0 + right)) {
-					// в начало строки
-					_point.left = (int)((1.0f + right) / (mPixelScaleX * 2.0));
-					_point.top = (int)((1.0f - top) / (mPixelScaleY * 2.0));
-					return position;
-
-				} else if (x >= (1.0 + right + len)) {
-					// в конец строки
-					_point.left = (int)((1.0f + right + len) / (mPixelScaleX * 2.0));
-					_point.top = (int)((1.0f - top) / (mPixelScaleY * 2.0));
-					position += count - 1;
-					return position;
-				}
-
-				// внутренний цикл строки
-				for (;index != end_index; ++index) {
-
-					// проверяем на смену цвета
-					if ( index->isColour() ) continue;
-
-					// отображаемый символ
-					Font::GlyphInfo * info = index->getGlyphInfo();
-					Ogre::Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
-
-					// пересчет опорных данных
-					left = right;
-					right += horiz_height;
-
-					// попали в символ, сравниваем с половиной ширины
-					if (x < (1.0 + right)) {
-						if (x < ((1.0 + right) - (horiz_height * 0.5)) ) {
-							// в левой половине символа
-							_point.left = (int)((1.0f + left) / (mPixelScaleX * 2.0));
-
-						} else {
-							// в правой половине символа
-							position ++;
-							_point.left = (int)((1.0f + right) / (mPixelScaleX * 2.0));
-						}
-						_point.top = (int)((1.0f - top) / (mPixelScaleY * 2.0));
-						return position;
-					}
-
-					// следующий символ
-					position ++;
-
-				}
-			}
-
-			return position;
+			return mPointShift;
 		}
 
-		IntPoint getTextCursorFromPosition(size_t _position)
-		{
-			// если нуно обновить, или изменились пропорции экрана
-			updateRawData();
-
-			// позиция каретки
-			size_t pos = _position;
-
-			// для уменьшения умножений, поможем компилятору =)
-			float realCharHeight = mCharHeight * 2.0;
-			float realWidth = _getWidth() * 2.0;
-			float realHeight = _getHeight() * 2.0;
-			float realLeft = _getDerivedLeft() * 2.0;
-			float realTop = _getDerivedTop() * 2.0;
-
-			// опорное смещение вершин
-			float right, left = realLeft - 1.0;
-			float bottom, top = 1.0 - realTop;
-
-			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			float left_shift = 0;
-			if (mContextSize.width <= realWidth) {
-				if ( mAlignment == Right ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
-				else if ( mAlignment == Center ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
-			}
-			else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
-			right = left;
-
-			// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-			if (mContextSize.height <= realHeight) {
-				if ( mAlign & ALIGN_BOTTOM ) top += (mContextSize.height - realHeight);
-				else if ( !(IS_ALIGN_TOP(mAlign)) ) top += (mContextSize.height - realHeight) * 0.5;
-			}
-			else top += mPixelScaleY * (float)mPointShift.top * 2.0;
-			bottom = top;
-
-			// основной цикл
-			VectorLineInfo::iterator end = mLinesInfo.end();
-			for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
-
-				// пересчет опорных данных
-				top = bottom;
-				bottom -= realCharHeight;
-
-				VectorCharInfo::iterator index = line->begin();
-				VectorCharInfo::iterator end_index = line->end();
-
-				// первый всегда длинна строки
-				float len = index->getValueFloat();
-				++index;
-
-				// колличество символов
-				size_t count = index->getValueSizeT();
-				++index;
-
-				// следующая строчка
-				if (pos >= count) {
-					pos -= count;
-					continue;
-				}
-
-				// пересчет опорных данных
-				right = (realLeft - 1.0) - left_shift; // выравнивание по левой стороне
-				if ( mAlignment == Right ) right += (mContextSize.width - len); // выравнивание по правой стороне
-				else if ( mAlignment == Center ) right += (mContextSize.width - len) * 0.5; // выравнивание по центру
-
-				// нашли, возвращаем
-				if (pos == 0) return IntPoint((int)((1.0f + right) / (mPixelScaleX * 2.0)), (int)((1.0f - top) / (mPixelScaleY * 2.0)));
-
-				unsigned int currect_pos = 0;
-
-				// внутренний цикл строки
-				for (;index != end_index; ++index) {
-
-					// проверяем на смену цвета
-					if ( index->isColour() ) continue;
-
-					// отображаемый символ
-					Font::GlyphInfo * info = index->getGlyphInfo();
-					Ogre::Real horiz_height = info->aspectRatio * mViewportAspectCoef * realCharHeight;
-
-					// пересчет опорных данных
-					left = right;
-					right += horiz_height;
-
-					// нашли, возвращаем
-					if (pos == currect_pos) return IntPoint((int)((1.0f + left) / (mPixelScaleX * 2.0)), (int)((1.0f - top) / (mPixelScaleY * 2.0)));
-					else if (pos == (currect_pos+1)) return IntPoint((int)((1.0f + right) / (mPixelScaleX * 2.0)), (int)((1.0f - top) / (mPixelScaleY * 2.0)));
-
-					// следующий символ
-					currect_pos ++;
-
-				}
-
-			}
-
-			// в самый конец
-			return IntPoint((int)((1.0f + right) / (mPixelScaleX * 2.0)), (int)((1.0f - top) / (mPixelScaleY * 2.0)));
-		}
-
-	}; // class TextEditOverlayElement : public TextAreaOverlayElement
+	}; // class TextEditOverlayElement : public Ogre::OverlayElement
 
 } // namespace MyGUI
 
