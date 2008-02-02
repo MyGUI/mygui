@@ -41,9 +41,6 @@ namespace MyGUI
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 
-		// наследуется и переопределяется для избежания динамического преобразования
-		bool isWidget() {return true;}
-
 	public:
 		// методы и шаблоны для создания виджета
 		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");

@@ -168,6 +168,11 @@ namespace MyGUI
 		mOverlayElement->setOverlay(0);
 	}
 
+	LayerItemInfoPtr PointerManager::findItem(int _left, int _top)
+	{
+		return null;
+	}
+
 	void PointerManager::_unlinkWidget(WidgetPtr _widget)
 	{
 		if (_widget == mWidgetOwner) defaultPointer();

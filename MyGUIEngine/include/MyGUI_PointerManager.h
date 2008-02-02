@@ -47,6 +47,8 @@ namespace MyGUI
 
 		void _unlinkWidget(WidgetPtr _widget);
 
+		LayerItemInfoPtr findItem(int _left, int _top);
+
 		void attachToOverlay(Ogre::Overlay * _overlay);
 		void detachToOverlay(Ogre::Overlay * _overlay);
 

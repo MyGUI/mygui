@@ -20,7 +20,9 @@ namespace MyGUI
 
 	private:
 		LayerInfo(const std::string & _name, Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :
-			mStart(_start), mCount(_count?_count:1), mHeight(_height?_height:1), mName(_name)
+			mStart(_start), mCount(_count?_count:1), mHeight(_height?_height:1), mName(_name),
+			mCountSharedItem(0),
+			mOverlay(null)
 		{
 		}
 
@@ -55,17 +57,34 @@ namespace MyGUI
 			return 0;
 		}
 
+		inline void upItem(LayerItemInfoPtr _item)
+		{
+			// один слой только, выходим
+			if (mCount < 2) return;
+			// поднимаем, но не удаляем
+			_upItem(_item, false);
+		}
+
 		bool addItem(LayerItemInfoPtr _item)
 		{
 			// это чтоб по два раза не коннектили
 			MYGUI_ASSERT(null == _item->mOverlayInfo, "Only one mouse pointer set must be load");
-			// создаем оверлей и присоединяем к нему
+
 			static long num=0;
-			Ogre::Overlay * overlay = Ogre::OverlayManager::getSingleton().create(utility::toString(num++, "_LayerInfo"));
-			overlay->show();
-			_item->attachToOverlay(overlay);
+
+			// если один слой, то пихаем все в один оверлей
+			if ((1 != mCount) || (0 == mCountSharedItem)) {
+				// создаем оверлей и присоединяем к нему
+				mOverlay = Ogre::OverlayManager::getSingleton().create(utility::toString(num++, "_LayerInfo"));
+				mOverlay->show();
+			}
+
+			// актуально только для однослойного уровня
+			mCountSharedItem++;
+
+			_item->attachToOverlay(mOverlay);
 			// инициализируем
-			_item->mOverlayInfo = overlay;
+			_item->mOverlayInfo = mOverlay;
 			_item->mLayerInfo = this;
 			// если достигли максимального, то лепим в верхний
 			Ogre::ushort pos = (mItems.size() <= mCount) ? (Ogre::ushort)mItems.size() : (mCount-1);
@@ -75,21 +94,21 @@ namespace MyGUI
 			return true;
 		}
 
-		inline void upItem(LayerItemInfoPtr _item)
-		{
-			// один слой только, выходим
-			if (mCount < 2) return;
-			// поднимаем, но не удаляем
-			_upItem(_item, false);
-		}
-
 		inline bool removeItem(LayerItemInfoPtr _item)
 		{
 			if (_item->mOverlayInfo == null) return false;
 			// отсоединить и удалить оверлей
 			_item->detachToOverlay(_item->mOverlayInfo);
-			// и удаляем оверлей
-			Ogre::OverlayManager::getSingleton().destroy(_item->mOverlayInfo);
+
+			// актуально только для однослойного уровня
+			mCountSharedItem--;
+
+			if ((1 != mCount) || (0 == mCountSharedItem)) {
+				// и удаляем оверлей
+				Ogre::OverlayManager::getSingleton().destroy(_item->mOverlayInfo);
+				mOverlay = null;
+			}
+
 			_item->mOverlayInfo = 0;
 			_item->mLayerInfo = 0;
 			// поднимаем, и удаляем
@@ -129,8 +148,10 @@ namespace MyGUI
 	private:
 		VectorLayerItemInfo mItems;
 		Ogre::ushort mStart, mCount, mHeight;
+		size_t mCountSharedItem;
 		std::string mName;
 
+		Ogre::Overlay * mOverlay;
 	};
 
 } // namespace MyGUI

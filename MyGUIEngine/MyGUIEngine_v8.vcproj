@@ -425,6 +425,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="LayerItem"
+					>
+					<File
+						RelativePath=".\src\MyGUI_LayerItemInfo.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
@@ -783,14 +791,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_LayerInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_LayerItemInfo.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_Macros.h"
 						>
 					</File>
@@ -920,6 +920,18 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_PluginManager.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="LayerItem"
+					>
+					<File
+						RelativePath=".\include\MyGUI_LayerInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_LayerItemInfo.h"
 						>
 					</File>
 				</Filter>

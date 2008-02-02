@@ -118,13 +118,7 @@ namespace MyGUI
 		MapLayerSearch::reverse_iterator iter = mMapLayerSearch.rbegin();
 		while (iter != mMapLayerSearch.rend()) {
 			LayerItemInfoPtr item = iter->second->findItem(_left, _top, _rootItem);
-			if (item != null) {
-				if ( ! item->isWidget() ) {
-					_rootItem = null;
-					return null;
-				}
-				return item;
-			}
+			if (item != null) return item;
 			iter++;
 		}
 		return null;

@@ -8,6 +8,7 @@
 #define __MYGUI_LAYER_ITEM_INFO_H__
 
 #include "MyGUI_Prerequest.h"
+#include <Ogre.h>
 
 namespace MyGUI
 {
@@ -21,27 +22,24 @@ namespace MyGUI
 	typedef std::vector<LayerItemInfoPtr> VectorLayerItemInfo;
 
 	// вспомогательня структура для управления уровнями оверлеев
-	class LayerItemInfo
+	class _MyGUIExport LayerItemInfo
 	{
 		// для доступа
 		friend class LayerInfo;
 		friend class LayerManager;
 
     public:
-		virtual ~LayerItemInfo() {};
+		virtual ~LayerItemInfo();
 
 	protected:
-		LayerItemInfo() : mOverlayInfo(0), mLayerInfo(0) {}
+		LayerItemInfo();
 
 		// для виджетов нуно это добро переопределить
-		virtual LayerItemInfoPtr findItem(int _left, int _top) {return 0;}
+		virtual LayerItemInfoPtr findItem(int _left, int _top) = 0;
 
 		// это нужно для подсоединения к оверлею
 		virtual void attachToOverlay(Ogre::Overlay * _overlay) = 0;
 		virtual void detachToOverlay(Ogre::Overlay * _overlay) = 0;
-
-		// для виджетов переопределить, для остальных низя
-		virtual bool isWidget() {return false;}
 
 	private:
 		Ogre::Overlay * mOverlayInfo;

@@ -110,7 +110,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mGUI->createWidget<HScroll>("HScroll", IntCoord(100, 10, 300, 16), ALIGN_DEFAULT, "Main");
 
-	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	window->setMinMax(40, 40, 2000, 115);
 	window->setCaption("test");//*/
 	/*MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 330, 335), MyGUI::ALIGN_DEFAULT, "Overlapped");
@@ -161,6 +161,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(2);
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
+
+	mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
+	mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
 
 }
 
