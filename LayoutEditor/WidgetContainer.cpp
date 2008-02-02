@@ -8,7 +8,6 @@ INSTANCE_IMPLEMENT(EditorWidgets);
 
 void EditorWidgets::initialise()
 {
-	MyGUI::LogManager::registerSection(LogSection, "LayoutEditor.log");
 }
 
 void EditorWidgets::shutdown()

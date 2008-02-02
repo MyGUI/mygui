@@ -7,6 +7,8 @@
 class EditorState : public BasisState
 {
 public:
+	void enter(bool bIsChangeState);
+	void exit();
 
 	bool mouseMoved( const OIS::MouseEvent &arg );
 	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
@@ -16,6 +18,9 @@ public:
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
 
+private:
+	void loadSettings();
+	void saveSettings();
 	// main panel
 	void notifySave(MyGUI::WidgetPtr _sender, bool _double = 0);
 	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender, bool _double = 0);
@@ -29,7 +34,7 @@ public:
 	// widget panel
   void notifySelectWidgetType(MyGUI::WidgetPtr _sender, bool _double = 0);
 
-	//settings panel
+	// settings panel
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender = 0, MyGUI::WidgetPtr _new = 0);
 	// дублирует предыдущий метод
 	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender = 0);
@@ -53,10 +58,6 @@ public:
 	int grid_step;
 	// last loaded/saved file name
 	std::string fileName;
-public:
-	void enter(bool bIsChangeState);
-	void exit();
 
-private:
 	size_t grid;
 };

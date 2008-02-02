@@ -1,3 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Property key="Grid" value="10">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Settings">
+    <Property key="Grid" value="10"/>
+</MyGUI>

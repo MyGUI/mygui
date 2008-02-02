@@ -1,4 +1,3 @@
-
 #include "BasisManager.h"
 #include "EditorState.h"
 #include "WidgetContainer.h"
@@ -10,7 +9,7 @@
 #define min(a,b)            (((a) < (b)) ? (a) : (b))
 #define TO_GRID(x) ((x)/grid_step*grid_step)
 
-const size_t DEFAULT_GRID = 8;
+const std::string LogSection = "LayoutEditor";
 
 EditorWidgets * ew;
 MyGUI::Gui * mGUI;
@@ -48,12 +47,12 @@ MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPt
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
 {
+	MyGUI::LogManager::registerSection(LogSection, "LayoutEditor.log");
 	ew = new EditorWidgets();
 	ew->initialise();
 	current_widget_type = "";
 	current_widget_skin = "";
 	creating_status = 0;
-	grid_step = DEFAULT_GRID;
 	fileName = "";
 
 	mGUI = new MyGUI::Gui();
@@ -83,14 +82,12 @@ void EditorState::enter(bool bIsChangeState)
 	gridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyNewGridStepAccept);
 	gridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
 
-	// rectangle for widgets moving/resizing
-	//current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", IntCoord(), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Popup");
-	//current_widget_rectangle->hide();
-	//current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
+	loadSettings();
 }
 //===================================================================================
 void EditorState::exit()
 {
+	saveSettings();
 	mGUI->shutdown();
 	delete mGUI;
 	ew->shutdown();
@@ -225,6 +222,78 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 	return true;
 }
 //===================================================================================
+void EditorState::loadSettings()
+{
+	std::string _fileName = "settings.xml";
+	std::string _instance = "Editor";
+
+	MyGUI::xml::xmlDocument doc;
+	std::string file(MyGUI::helper::getResourcePath("settings.xml", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	if (file.empty()) {
+		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
+		return;
+	}
+	if (false == doc.open(file)) {
+		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		return;
+	}
+
+	MyGUI::xml::xmlNodePtr root = doc.getRoot();
+	if ( (null == root) || (root->getName() != "MyGUI") ) {
+		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
+		return;
+	}
+
+	std::string type;
+	if (root->findAttribute("type", type)) {
+		if (type == "Settings")
+		{
+			// берем детей и крутимся
+			MyGUI::xml::xmlNodeIterator field = root->getNodeIterator();
+			while (field.nextNode()) {
+
+				std::string key, value;
+
+				if (field->getName() == "Property")
+				{
+					if (false == field->findAttribute("key", key)) continue;
+					if (false == field->findAttribute("value", value)) continue;
+
+					if (key == "Grid") grid_step = MyGUI::utility::parseInt(value);
+				}
+			}
+		}
+	}
+	// apply loaded settings
+	if (grid_step <= 0) grid_step = 1;
+	mGUI->findWidget<MyGUI::Edit>("gridEdit")->setCaption(Ogre::StringConverter::toString(grid_step));
+}
+
+void EditorState::saveSettings()
+{
+	std::string _fileName = "settings.xml";
+	std::string _instance = "Editor";
+
+	MyGUI::xml::xmlDocument doc;
+	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	if (file.empty()) {
+		file = _fileName;
+	}
+
+	doc.createInfo();
+	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
+	root->addAttributes("type", "Settings");
+
+	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "Grid");
+	nodeProp->addAttributes("value", grid_step);
+
+	if (false == doc.save(file)) {
+		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		return;
+	}
+}
+
 void EditorState::notifySave(MyGUI::WidgetPtr _sender, bool _double)
 {
 	if (fileName != "") ew->save(fileName);
@@ -294,7 +363,7 @@ void EditorState::notifySelectWidgetType(MyGUI::WidgetPtr _sender, bool _double)
 void EditorState::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 {
 	grid_step = Ogre::StringConverter::parseInt(_sender->getCaption());
-	if (grid_step <= 0) grid_step = DEFAULT_GRID;
+	if (grid_step <= 0) grid_step = 1;
 	_sender->setCaption(Ogre::StringConverter::toString(grid_step));
 }
 
