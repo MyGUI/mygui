@@ -162,8 +162,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
-	mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
+	mGUI->createWidget<MyGUI::Widget>("Edit", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
+	mGUI->createWidget<MyGUI::Widget>("Edit", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
 
 }
 

@@ -19,12 +19,16 @@ namespace MyGUI
 		{
 		}
 
-		PointerInfo(const FloatRect &_offset, const IntPoint & _point) : offset(_offset), point(_point)
+		PointerInfo(const FloatRect &_offset, const IntPoint & _point, const std::string& _material) :
+			offset(_offset),
+			point(_point),
+			material(_material)
 		{
 		}
 
 		FloatRect offset;
 		IntPoint point;
+		std::string material;
 	};
 
 	typedef std::map<std::string, PointerInfo> MapPointerInfo;

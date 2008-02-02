@@ -79,6 +79,9 @@ namespace MyGUI
 			pointer->findAttribute("default", defaultPointer);
 			if (pointer->findAttribute("size", tmp)) size = utility::parseInt(tmp);
 
+			// сохраняем общий материал
+			mMaterial = material;
+
 			// устанавливаем сразу параметры
 			mOverlayElement->setMaterialName(material);
 			mOverlayElement->setDimensionInfo(size, size, 0);
@@ -92,17 +95,22 @@ namespace MyGUI
 			while (info.nextNode("Info")) {
 
 				// значения параметров
-				std::string name, tmp;
-				FloatRect offset;
+				FloatRect offset(0, 0, 1, 1);
 				IntPoint point;
 				// парсим атрибуты
 
-				info->findAttribute("name", name);
-				if (info->findAttribute("point", tmp)) point = IntPoint::parse(tmp);
-				if (info->findAttribute("offset", tmp)) offset = SkinManager::convertMaterialCoord(FloatRect::parse(tmp), materialSize);
+				std::string material = info->findAttribute("material");
+				std::string name = info->findAttribute("name");
+				point = IntPoint::parse(info->findAttribute("point"));
+
+				std::string offset_str = info->findAttribute("offset");
+				if (false == offset_str.empty()) {
+					if (material.empty()) offset = SkinManager::convertMaterialCoord(FloatRect::parse(offset_str), materialSize);
+					else offset = SkinManager::convertMaterialCoord(FloatRect::parse(offset_str), SkinManager::getMaterialSize(material));
+				}
 
 				// добавляем курсор
-				mMapPointers[name] = PointerInfo(offset, point);
+				mMapPointers[name] = PointerInfo(offset, point, material);
 
 			};
 		};
@@ -148,6 +156,15 @@ namespace MyGUI
 		MapPointerInfo::iterator iter = mMapPointers.find(_name);
 		if (iter == mMapPointers.end()) return;
 		const FloatRect & rect = iter->second.offset;
+
+		// если курсор имеет свой материал
+		if (false == iter->second.material.empty()) {
+			if (mOverlayElement->getMaterialName() != iter->second.material) mOverlayElement->setMaterialName(iter->second.material);
+		}
+		else if (false == mMaterial.empty()) {
+			if (mOverlayElement->getMaterialName() != mMaterial) mOverlayElement->setMaterialName(mMaterial);
+		}
+
 		// сдвигаем с учетом нового и старого смещения
 		mOverlayElement->setPositionInfo(mOverlayElement->getLeft()+mPoint.left-iter->second.point.left, mOverlayElement->getTop()+mPoint.top-iter->second.point.top, 0);
 		mOverlayElement->setUVInfo(rect.left, rect.top, rect.right, rect.bottom, 0);

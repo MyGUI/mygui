@@ -57,6 +57,7 @@ namespace MyGUI
 		std::string mLayer;
 		std::string mMaterial;
 		IntPoint mPoint;
+		IntSize mSize;
 		MapPointerInfo mMapPointers;
 		SharedPanelAlphaOverlayElement * mOverlayElement;
 		WidgetPtr mWidgetOwner;
