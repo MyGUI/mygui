@@ -180,7 +180,7 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	MyGUI::xml::xmlNodePtr node = _node->createChild("Widget");
 
 	node->addAttributes("type", _container->type);
-	node->addAttributes("skin", _container->skin);
+	if ("" != _container->skin) node->addAttributes("skin", _container->skin);
 	if ("" != _container->position) node->addAttributes("position", _container->position);
 	if ("" != _container->position_real) node->addAttributes("position_real", _container->position_real);
 	if ("" != _container->align) node->addAttributes("align", _container->align);
@@ -205,8 +205,10 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
 		// ты мой папа?
-		// FIXME по хорошему надо бы просто (*iter)->widget->getParent() (1 раз)
-		if (null != (*iter)->widget->getParent())
-			if (_container->widget == (*iter)->widget->getParent()->getParent()) serialiseWidget(*iter, node);
+		if (_container->widget->getWidgetType() == "Window"){
+			// FIXME по хорошему надо бы просто (*iter)->widget->getParent() (1 раз)
+			if (null != (*iter)->widget->getParent())
+				if (_container->widget == (*iter)->widget->getParent()->getParent()) serialiseWidget(*iter, node);
+		}else if (_container->widget == (*iter)->widget->getParent()) serialiseWidget(*iter, node);
 	}
 }

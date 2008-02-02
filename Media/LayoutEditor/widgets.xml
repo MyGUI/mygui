@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Widget name="Button">
+	<Skin key="Button"/>
+	<Skin key="ButtonSmall"/>
+	<Skin key="CheckBox"/>
+	<Parameter key="Button_Pressed" type "Bool"/>
+	<...>
+<Widget/>
+
+<Widget name="ComboBox">
+	<Skin key="ComboBox"/>
+<Widget/>
+	
+<Widget name="Edit">
+	<Skin key="Edit"/>
+	<Skin key="EditStretch"/>
+<Widget/>
+
+<Widget name="HScroll">
+	<Skin key="HScroll"/>
+<Widget/>
+
+<Widget name="List">
+	<Skin key="List"/>
+<Widget/>
+
+<Widget name="Message">
+	<Skin key="Message"/>
+<Widget/>
+
+<Widget name="Progress">
+	<Skin key="Progress"/>
+<Widget/>
+
+<Widget name="RenderBox">
+	<Skin key="RenderBox"/>
+<Widget/>
+
+<Widget name="StaticImage">
+	<Skin key="StaticImage"/>
+<Widget/>
+
+<Widget name="StaticText">
+	<Skin key="StaticText"/>
+<Widget/>
+
+<Widget name="Tab">
+	<Skin key="Tab"/>
+<Widget/>
+
+<Widget name="VScroll">
+	<Skin key="VScroll"/>
+<Widget/>
+
+<Widget name="Widget">
+	<Skin key="Separator1"/>
+	<Skin key="Separator2"/>
+	<Skin key="Separator3"/>
+	<Skin key="Separator4"/>
+<Widget/>
+
+<Widget name="Window">
+	<Skin key="Window"/>
+	<Skin key="WindowC"/>
+	<Skin key="WindowCS"/>
+	<Skin key="WindowCSX"/>
+<Widget/>

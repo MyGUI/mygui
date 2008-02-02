@@ -22,17 +22,13 @@ struct WidgetContainer
 	MyGUI::WidgetPtr widget;
 	StringPairs mProperty;
 	MapString mUserString;
-	// necessary
-	std::string type;
-	std::string skin;
-	std::string position;
-	// or
-	std::string position_real;
-	// necessary for root widgets
-	std::string layer;
-	// not necessary
-	std::string align;
-	std::string name;
+	std::string type;	// necessary
+	std::string skin;	// necessary (except Sheet)
+	std::string position; // necessary this or position_real (except Sheet)
+	std::string position_real; // necessary this or position (except Sheet)
+	std::string layer; // necessary for root widgets
+	std::string align; // not necessary
+	std::string name; // not necessary
 };
 
 class EditorWidgets{

@@ -245,11 +245,19 @@
 			Name="Layout"
 			>
 			<File
-				RelativePath="..\Media\MyGUI_Media\LayoutEditor.layout"
+				RelativePath="..\Media\LayoutEditor\interface.layout"
 				>
 			</File>
 			<File
-				RelativePath="..\Media\MyGUI_Media\LayoutEditorSaveLoad.layout"
+				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\settings.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\widgets.xml"
 				>
 			</File>
 		</Filter>

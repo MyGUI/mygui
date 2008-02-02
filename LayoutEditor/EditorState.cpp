@@ -15,6 +15,36 @@ const size_t DEFAULT_GRID = 8;
 EditorWidgets * ew;
 MyGUI::Gui * mGUI;
 
+MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
+{
+	MyGUI::WidgetPtr parent = widget->getParent();
+	if (null != parent){
+		if (parent->getWidgetType() == "Widget")// если наш папа - Window
+		{
+			parent = parent->getParent();
+			coord = coord - parent->getPosition() - MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top);
+		}else coord = coord - parent->getPosition();
+		// а может у нас и дедушка есть? а может и прадед...
+		coord = convertCoordToParentCoord(coord, parent);
+	}
+	return coord;
+}
+
+MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
+{
+	MyGUI::WidgetPtr parent = widget->getParent();
+	if (null != parent){
+		if (parent->getWidgetType() == "Widget")// если наш папа - Window
+		{
+			parent = parent->getParent();
+			coord = coord + parent->getPosition() + MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top);
+		}else coord = coord + parent->getPosition();
+		// а может у нас и дедушка есть? а может и прадед...
+		coord = convertParentCoordToCoord(coord, parent);
+	}
+	return coord;
+}
+
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
 {
@@ -29,7 +59,7 @@ void EditorState::enter(bool bIsChangeState)
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(BasisManager::getInstance().mWindow);
 
-	MyGUI::LayoutManager::getInstance().load("LayoutEditor.layout");
+	MyGUI::LayoutManager::getInstance().load("interface.layout");
 
 	// menu panel (should be dropdown menu)
 	ASSIGN_FUNCTION("buttonLoad", &EditorState::notifyLoadSaveAs);
@@ -41,7 +71,7 @@ void EditorState::enter(bool bIsChangeState)
 	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("windowWidgets");
 	for (int i = 0; i<NUM_WIDGETS; i++)
 	{
-		MyGUI::ButtonPtr button = windowWidgets->createWidgetReal<MyGUI::Button>("Button", 0.0 + i%2*0.5, 0.05 + i/2*0.1, 0.5, 0.1, MyGUI::ALIGN_DEFAULT);
+		MyGUI::ButtonPtr button = windowWidgets->createWidgetReal<MyGUI::Button>("Button", 0. + i%2*0.5, 0. + i/2*0.1, 0.5, 0.1, MyGUI::ALIGN_DEFAULT);
 		button->setCaption(widget_types[i].widget + " " + widget_types[i].skin);
 		button->setUserString("widget", widget_types[i].widget);
 		button->setUserString("skin", widget_types[i].skin);
@@ -74,14 +104,18 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 
 	if ((creating_status == 1) && ((x1-x2)*(y1-y2) != 0))
 	{
-		int x,y,w,h;
-		x = min(x1, x2); y = min(y1, y2);
-		w = abs(x1 - x2); h = abs(y1 - y2);
+		MyGUI::IntCoord coord(min(x1, x2), min(y1, y2), abs(x1 - x2), abs(y1 - y2));
 
 		creating_status = 2;
 		std::string name = MyGUI::utility::toString(current_widget_skin, counter);
 
-		current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, x, y, w, h, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Back", name);
+		// внимание current_widget родитель и потом сразу же сын
+		if (current_widget)
+		{
+			coord = coord - current_widget->getPosition();
+			current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, name);
+		}
+		else current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Back", name);
 
 		current_widget->setCaption(name);
 		// сделаю, если все виджеты будут реагировать на такое событие
@@ -89,10 +123,9 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 	}
 	else if (creating_status == 2)
 	{
-		int x,y,w,h;
-		x = min(x1, x2); y = min(y1, y2);
-		w = abs(x1 - x2); h = abs(y1 - y2);
-		current_widget->setPosition(x, y, w, h);
+		MyGUI::IntCoord coord(min(x1, x2), min(y1, y2), abs(x1 - x2), abs(y1 - y2));
+		coord = convertCoordToParentCoord(coord, current_widget);
+		current_widget->setPosition(coord);
 	}
 
 	MyGUI::LayerItemInfoPtr rootItem = null;
@@ -113,7 +146,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	y1 = TO_GRID(arg.state.Y.abs);
 
 	if (id == OIS::MB_Left && !creating_status && current_widget_type != "") creating_status = 1;
-	else
+	//else
 	{
 		// select current winget and create StretchRectangle for it
 
@@ -123,7 +156,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		if (null != ew->find(item))
 		{
 			notifySelectWidget(item);
-			MyGUI::InputManager::getInstance().injectMouseMove(arg); // это чтобы сразу можно было тащить
+			if (creating_status != 1) MyGUI::InputManager::getInstance().injectMouseMove(arg); // это чтобы сразу можно было тащить
 		}
 		else if ((item != current_widget_rectangle) &&
 			(!item || (item && !item->getParent() || (item->getParent() && item->getParent() != current_widget_rectangle))))
@@ -133,6 +166,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 				MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
 				current_widget_rectangle = null;
 			}
+			current_widget = null;
 		}
 	}
 
@@ -151,6 +185,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 		{
 			// создали виджет, все счастливы
 			ew->add(new WidgetContainer(current_widget->getName(), current_widget_type, current_widget_skin, current_widget));
+			notifySelectWidget(current_widget);
 			creating_status = 0;
 			current_widget_type = "";
 			current_widget_skin = "";
@@ -199,7 +234,7 @@ void EditorState::notifySave(MyGUI::WidgetPtr _sender, bool _double)
 void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender, bool _double)
 {
 	// create message box with file name and two buttons
-	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("LayoutEditorSaveLoad.layout")[0];
+	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("SaveLoadMessage.layout")[0];
 	MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
 	MyGUI::IntSize size(messageWindow->getSize());
 	messageWindow->setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
@@ -276,9 +311,15 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender, bool _double)
 		MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
 		current_widget_rectangle = null;
 	}
+
+	MyGUI::IntCoord coord = _sender->getCoord();
+
 	MyGUI::WidgetPtr parent = _sender->getParent();
-	if (null == parent) current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", _sender->getCoord(), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Popup");
-	else current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", _sender->getCoord() + MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Popup");
+	if (null == parent) current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Popup");
+	else{
+		coord = convertParentCoordToCoord(coord, _sender);
+		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Popup");
+	}
 	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
 }
 
@@ -293,7 +334,7 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 	coord.width = TO_GRID(coord.width);
 	coord.height = TO_GRID(coord.height);
 	current_widget_rectangle->setPosition(coord);
-	MyGUI::WidgetPtr parent = current_widget->getParent();
-	if (null != parent) coord = coord - MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top);
+
+	coord = convertCoordToParentCoord(coord, current_widget);
 	current_widget->setPosition(coord);
 }
