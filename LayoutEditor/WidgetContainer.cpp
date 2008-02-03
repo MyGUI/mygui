@@ -83,6 +83,23 @@ void EditorWidgets::add(WidgetContainer * _container)
 	widgets.push_back(_container);
 }
 
+void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
+{
+	// дети вперед
+	MyGUI::VectorWidgetPtr childs = _widget->getChilds();
+	for (MyGUI::VectorWidgetPtr::iterator iter = childs.begin(); iter != childs.end(); ++iter)
+	{
+		if (null != find(*iter)) remove(*iter);
+	}
+	WidgetContainer * _container = find(_widget);
+
+	MyGUI::WidgetPtr parent = _widget->getParent();
+	if ((null != parent) && (parent->getWidgetType() == "Tab")) MyGUI::castWidget<MyGUI::Tab>(parent)->removeSheet(MyGUI::castWidget<MyGUI::Sheet>(_widget));
+	else MyGUI::Gui::getInstance().destroyWidget(_widget);
+	// что-то не то :)
+	widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
+}
+
 WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
 {
 	// найдем соответствующий виджет и переместим/растянем
@@ -138,6 +155,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 		container->container_name = MyGUI::utility::toString(container->type, num++);
 	}
 
+	// FIXME возможно Sheet добавлять в список не надо...
 	if (null == _parent) {
 		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, container->name);
 		add(container);
@@ -203,11 +221,12 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	// метод медленный, т.к. квадратичная сложность
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
-		// ты мой папа?
+		MyGUI::WidgetPtr parent = (*iter)->widget->getParent();
+		// сынок - это ты?
 		if (_container->widget->getWidgetType() == "Window"){
 			// FIXME по хорошему надо бы просто (*iter)->widget->getParent() (1 раз)
-			if (null != (*iter)->widget->getParent())
-				if (_container->widget == (*iter)->widget->getParent()->getParent()) serialiseWidget(*iter, node);
-		}else if (_container->widget == (*iter)->widget->getParent()) serialiseWidget(*iter, node);
+			if (null != parent)
+				if (_container->widget == parent->getParent()) serialiseWidget(*iter, node);
+		}else if (_container->widget == parent) serialiseWidget(*iter, node);
 	}
 }

@@ -43,6 +43,7 @@ public:
 	WidgetContainer * find(MyGUI::WidgetPtr _widget);
 	WidgetContainer * find(std::string _name);
 	void add(WidgetContainer * _container);
+	void remove(MyGUI::WidgetPtr _widget);
 private:
 	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node);

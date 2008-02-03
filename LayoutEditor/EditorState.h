@@ -41,7 +41,12 @@ private:
 
 	// widget selecting/resizing
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
+	void unselectWidget();
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
+
+	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
+	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
+	MyGUI::IntCoord snapToGrid(MyGUI::IntCoord coord);
 
 	// info for new widget
 	int x1, y1, x2, y2;

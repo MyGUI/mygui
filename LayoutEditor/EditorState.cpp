@@ -14,36 +14,6 @@ const std::string LogSection = "LayoutEditor";
 EditorWidgets * ew;
 MyGUI::Gui * mGUI;
 
-MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
-{
-	MyGUI::WidgetPtr parent = widget->getParent();
-	if (null != parent){
-		if (parent->getWidgetType() == "Widget")// если наш папа - Window
-		{
-			parent = parent->getParent();
-			coord = coord - parent->getPosition() - MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top);
-		}else coord = coord - parent->getPosition();
-		// а может у нас и дедушка есть? а может и прадед...
-		coord = convertCoordToParentCoord(coord, parent);
-	}
-	return coord;
-}
-
-MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
-{
-	MyGUI::WidgetPtr parent = widget->getParent();
-	if (null != parent){
-		if (parent->getWidgetType() == "Widget")// если наш папа - Window
-		{
-			parent = parent->getParent();
-			coord = coord + parent->getPosition() + MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top);
-		}else coord = coord + parent->getPosition();
-		// а может у нас и дедушка есть? а может и прадед...
-		coord = convertParentCoordToCoord(coord, parent);
-	}
-	return coord;
-}
-
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
 {
@@ -70,7 +40,7 @@ void EditorState::enter(bool bIsChangeState)
 	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("windowWidgets");
 	for (int i = 0; i<NUM_WIDGETS; i++)
 	{
-		MyGUI::ButtonPtr button = windowWidgets->createWidgetReal<MyGUI::Button>("Button", 0. + i%2*0.5, 0. + i/2*0.1, 0.5, 0.1, MyGUI::ALIGN_DEFAULT);
+		MyGUI::ButtonPtr button = windowWidgets->createWidgetReal<MyGUI::Button>("Button", 0. + i%2*0.5, 0. + i/2*0.075, 0.5, 0.075, MyGUI::ALIGN_DEFAULT);
 		button->setCaption(widget_types[i].widget + " " + widget_types[i].skin);
 		button->setUserString("widget", widget_types[i].widget);
 		button->setUserString("skin", widget_types[i].skin);
@@ -127,9 +97,13 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 
 	MyGUI::LayerItemInfoPtr rootItem = null;
 	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
-
-	if (null != ew->find(item))
+	while ((null == ew->find(item)) && (null != item))
 	{
+		item = item->getParent();
+	}
+	if (null != item)
+	{
+		//updatePropertiesPanel(item);
 		mGUI->findWidget<MyGUI::Edit>("propertyPositionEdit")->setCaption(item->getCoord().print());
 	}
 
@@ -146,24 +120,20 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	//else
 	{
 		// select current winget and create StretchRectangle for it
+		unselectWidget();
 
 		MyGUI::LayerItemInfoPtr rootItem = null;
 		MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
 
-		if (null != ew->find(item))
+		while ((null == ew->find(item)) && (null != item))
+		{
+			item = item->getParent();
+		}
+
+		if (null != item) // нашли
 		{
 			notifySelectWidget(item);
 			if (creating_status != 1) MyGUI::InputManager::getInstance().injectMouseMove(arg); // это чтобы сразу можно было тащить
-		}
-		else if ((item != current_widget_rectangle) &&
-			(!item || (item && !item->getParent() || (item->getParent() && item->getParent() != current_widget_rectangle))))
-		{
-			if (current_widget_rectangle)
-			{
-				MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
-				current_widget_rectangle = null;
-			}
-			current_widget = null;
 		}
 	}
 
@@ -205,6 +175,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 {
 	//if ( arg.key == OIS::KC_ESCAPE ) notifyQuit();
 	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
+	else if ( arg.key == OIS::KC_DELETE ) {if (current_widget){ ew->remove(current_widget); unselectWidget(); }}
 
 	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
@@ -390,6 +361,19 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP, "Popup");
 	}
 	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
+
+	//updatePropertiesPanel(current_widget);
+}
+
+void EditorState::unselectWidget()
+{
+	if (current_widget_rectangle)
+	{
+		MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
+		current_widget_rectangle = null;
+		current_widget = null;
+	}
+	//updatePropertiesPanel(null);
 }
 
 void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
@@ -398,12 +382,48 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	// align to grid
 	MyGUI::IntCoord coord = _sender->getCoord();
-	coord.left = TO_GRID(coord.left + grid_step-1);
-	coord.top = TO_GRID(coord.top + grid_step-1);
-	coord.width = TO_GRID(coord.width);
-	coord.height = TO_GRID(coord.height);
+	coord = snapToGrid(coord);
 	current_widget_rectangle->setPosition(coord);
 
 	coord = convertCoordToParentCoord(coord, current_widget);
 	current_widget->setPosition(coord);
+}
+
+MyGUI::IntCoord EditorState::convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
+{
+	MyGUI::WidgetPtr parent = widget->getParent();
+	if (null != parent){
+		if (parent->getWidgetType() == "Widget")// если наш папа - Window
+		{
+			parent = parent->getParent();
+			coord = coord - parent->getPosition() - MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top);
+		}else coord = coord - parent->getPosition();
+		// а может у нас и дедушка есть? а может и прадед...
+		coord = convertCoordToParentCoord(coord, parent);
+	}
+	return coord;
+}
+
+MyGUI::IntCoord EditorState::convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
+{
+	MyGUI::WidgetPtr parent = widget->getParent();
+	if (null != parent){
+		if (parent->getWidgetType() == "Widget")// если наш папа - Window
+		{
+			parent = parent->getParent();
+			coord = coord + parent->getPosition() + MyGUI::IntPoint(parent->getClientRect().left,parent->getClientRect().top);
+		}else coord = coord + parent->getPosition();
+		// а может у нас и дедушка есть? а может и прадед...
+		coord = convertParentCoordToCoord(coord, parent);
+	}
+	return coord;
+}
+
+MyGUI::IntCoord EditorState::snapToGrid(MyGUI::IntCoord coord)
+{
+	coord.left = TO_GRID(coord.left + grid_step-1);
+	coord.top = TO_GRID(coord.top + grid_step-1);
+	coord.width = TO_GRID(coord.width);
+	coord.height = TO_GRID(coord.height);
+	return coord;
 }

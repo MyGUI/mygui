@@ -25,7 +25,7 @@ namespace MyGUI
 	#if MYGUI_DEBUG_MODE == 1
 		#define MYGUI_RETURN_IS_FALSE_TYPE(type, ptr, key) \
 		if (null == dynamic_cast<type>(ptr)) { \
-			MYGUI_LOG(Error, "key '" << key << "' is not support widget type '" << ptr->getWidgetType() << "'"); \
+			MYGUI_LOG(Error, "Property '" << key << "' is not supported by '" << ptr->getWidgetType() << "' widget"); \
 			return; \
 		}
 	#else
