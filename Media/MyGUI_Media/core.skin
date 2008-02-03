@@ -61,7 +61,7 @@
         <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
-        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="AlignText" value = "ALIGN_DEFAULT" />
 
         <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client">
         </Child>
@@ -537,7 +537,8 @@
     <Skin name = "StaticText" size = "16 16" material = "MyGUI_CoreMaterial">
         <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_CENTER" />
+        <Property key="Colour" value = "0 0 0" />
+        <Property key="AlignText" value = "ALIGN_DEFAULT" />
         
         <BasisSkin type="MainSkin" offset = "0 0 0 0"/>
         <BasisSkin type="TextSimple" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>

@@ -115,9 +115,9 @@ namespace MyGUI
 		}
 	}
 
-	void Window::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double)
+	void Window::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender)
 	{
-		if (false == _double) eventWindowButtonPressed(this, _sender->getUserString("Event"));
+		eventWindowButtonPressed(this, _sender->getUserString("Event"));
 	}
 
 	void Window::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)

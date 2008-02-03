@@ -196,7 +196,7 @@ namespace MyGUI
 		notifyScrollChangePosition(null, offset);
 	}
 
-	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel)
+	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel)
 	{
 		mOffsetTop = (_rel % mHeightLine);
 

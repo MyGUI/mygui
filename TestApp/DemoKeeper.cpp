@@ -162,8 +162,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	mGUI->createWidget<MyGUI::Widget>("Edit", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
-	mGUI->createWidget<MyGUI::Widget>("Edit", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::StaticTextPtr widget = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
+	widget->setCaption("dgspfgjh;dlfojsdkgljsdfljglsdjfglsjdh;fljsflg");
+
+
+	//MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
+	//win->setCaption("test");
 
 }
 
@@ -267,7 +271,7 @@ void DemoKeeper::createWindowEdit(MyGUI::WidgetPtr _widget)
     button2->setUserString("ColourBlue", button->getName());*/
 }
 
-void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender)
 {
     MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
@@ -311,7 +315,7 @@ void DemoKeeper::notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double)
     }
 }
 
-void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender)
 {
     MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
@@ -328,7 +332,7 @@ void DemoKeeper::notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double)
     }
 }
 
-void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender)
 {
 //	InputManager::getInstance().removeWidgetModal(test);//???
     MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
@@ -346,7 +350,7 @@ void DemoKeeper::notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double)
     }
 }
 
-void DemoKeeper::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedColourGreen(MyGUI::WidgetPtr _sender)
 {
     MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
@@ -354,7 +358,7 @@ void DemoKeeper::notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double
     edit->setTextSelectColour(Ogre::ColourValue::Green);
 }
 
-void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender)
 {
     MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;
@@ -362,7 +366,7 @@ void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double)
     edit->setTextSelectColour(Ogre::ColourValue::Red);
 }
 
-void DemoKeeper::notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedColourBlue(MyGUI::WidgetPtr _sender)
 {
 	//MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
 	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel", "Continue");
@@ -451,7 +455,7 @@ void DemoKeeper::createWindowList(MyGUI::WidgetPtr _widget)
     */
 }
 
-void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender)
 {
     MyGUI::ComboBoxPtr combo = mGUI->findWidget<MyGUI::ComboBox>(_sender->getUserString("ComboBox"));
     if (combo == null) return;
@@ -459,7 +463,7 @@ void DemoKeeper::notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double)
     notifyEditAccept(combo);
 }
 
-void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender)
 {
     MyGUI::ListPtr list = mGUI->findWidget<MyGUI::List>(_sender->getUserString("List"));
     if (list == null) return;
@@ -504,18 +508,18 @@ void DemoKeeper::notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::strin
 	}
 }
 
-void DemoKeeper::notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyWindowButton1(MyGUI::WidgetPtr _sender)
 {
-    if ((false == _double) && (mCountWindow < MAX_CREATE_WINDOW))
+    if (mCountWindow < MAX_CREATE_WINDOW)
     {
         //createWindowList();
         mCountWindow ++;
     }
 }
 
-void DemoKeeper::notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double)
+void DemoKeeper::notifyWindowButton2(MyGUI::WidgetPtr _sender)
 {
-    if ((false == _double) && (mCountWindow < MAX_CREATE_WINDOW))
+    if (mCountWindow < MAX_CREATE_WINDOW)
     {
         //createWindowEdit();
         mCountWindow ++;

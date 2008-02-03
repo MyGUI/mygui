@@ -51,6 +51,11 @@
 #   define FORCEINLINE __inline
 #endif
 
+#ifdef MYGUI_STATIC_LINK
+#
+# define _MyGUIExport
+#
+#else
 
 // Windows settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -73,6 +78,8 @@
 #     define MYGUI_DEBUG_MODE 0
 # endif
 #endif
+
+#endif // #ifdef MYGUI_STATIC_LINK
 
 // ------------------------------------------------------------------------------
 // Linux/Apple Settings

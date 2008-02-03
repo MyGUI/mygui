@@ -21,23 +21,23 @@ public:
 	void move(size_t _pos);
 
 private:
-	void notifyPressedReadOnly(MyGUI::WidgetPtr _sender, bool _double);
-	void notifyPressedPassword(MyGUI::WidgetPtr _sender, bool _double);
-	void notifyPressedMultiLine(MyGUI::WidgetPtr _sender, bool _double);
+	void notifyPressedReadOnly(MyGUI::WidgetPtr _sender);
+	void notifyPressedPassword(MyGUI::WidgetPtr _sender);
+	void notifyPressedMultiLine(MyGUI::WidgetPtr _sender);
 
-	void notifyPressedColourGreen(MyGUI::WidgetPtr _sender, bool _double);
-	void notifyPressedColourRed(MyGUI::WidgetPtr _sender, bool _double);
-	void notifyPressedColourBlue(MyGUI::WidgetPtr _sender, bool _double);
+	void notifyPressedColourGreen(MyGUI::WidgetPtr _sender);
+	void notifyPressedColourRed(MyGUI::WidgetPtr _sender);
+	void notifyPressedColourBlue(MyGUI::WidgetPtr _sender);
 
-	void notifyPressedAdd(MyGUI::WidgetPtr _sender, bool _double);
-	void notifyPressedDelete(MyGUI::WidgetPtr _sender, bool _double);
+	void notifyPressedAdd(MyGUI::WidgetPtr _sender);
+	void notifyPressedDelete(MyGUI::WidgetPtr _sender);
 
 	void notifyEditAccept(MyGUI::WidgetPtr _sender);
 	void notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
 	void notifyWindowXPressed(MyGUI::WidgetPtr _widget, const std::string& _name);
 
-	void notifyWindowButton1(MyGUI::WidgetPtr _sender, bool _double);
-	void notifyWindowButton2(MyGUI::WidgetPtr _sender, bool _double);
+	void notifyWindowButton1(MyGUI::WidgetPtr _sender);
+	void notifyWindowButton2(MyGUI::WidgetPtr _sender);
 
 	void notifyTest(MyGUI::WidgetPtr _sender, size_t _index);
 

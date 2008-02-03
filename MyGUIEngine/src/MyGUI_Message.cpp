@@ -147,9 +147,9 @@ namespace MyGUI
 		}
 	}
 
-	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender, bool _double)
+	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		if (false == _double) _destroyMessage((ViewInfo)_sender->_getInternalData());
+		_destroyMessage((ViewInfo)_sender->_getInternalData());
 	}
 
 	void Message::clearButton()
@@ -214,10 +214,10 @@ namespace MyGUI
 		if (null != mIcon) mIcon->setImageNum(_image);
 	}
 
-	void Message::_createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
+	MyGUI::MessagePtr Message::_createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
 	{
 		Gui * gui = Gui::getInstancePtr();
-		if (null == gui) return;
+		if (null == gui) return null;
 
 		// ищем индекс первой иконки
 		size_t image = (size_t)_info;
@@ -267,6 +267,8 @@ namespace MyGUI
 
 		if (_layer.empty()) LayerManager::getInstance().attachItem(mess, mess->getDefaultLayer(), true);
 		if (_modal) InputManager::getInstance().addWidgetModal(mess);
+
+		return mess;
 	}
 
 } // namespace MyGUI

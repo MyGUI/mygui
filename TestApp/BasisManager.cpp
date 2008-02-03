@@ -166,7 +166,8 @@ void BasisManager::createGui()
 
 	if (0 == mFpsInfo) {
 		mFpsInfo = mGUI->createWidget<MyGUI::StaticText>("StaticText", 20, (int)mHeight - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
-		mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+		//mFpsInfo->setTextAlign(MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+		mFpsInfo->setColour(Ogre::ColourValue::White);
 	}
 }
 

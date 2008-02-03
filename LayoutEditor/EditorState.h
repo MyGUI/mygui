@@ -22,17 +22,17 @@ private:
 	void loadSettings();
 	void saveSettings();
 	// main panel
-	void notifySave(MyGUI::WidgetPtr _sender, bool _double = 0);
-	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender, bool _double = 0);
-  void notifyQuit(MyGUI::WidgetPtr _sender, bool _double = 0);
+	void notifySave(MyGUI::WidgetPtr _sender);
+	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender);
+  void notifyQuit(MyGUI::WidgetPtr _sender);
 
-	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender, bool _double = 0);
+	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender);
 	// дублирует предыдущий метод
 	void notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget = 0);
-	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender, bool _double = 0);
+	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender);
 
 	// widget panel
-  void notifySelectWidgetType(MyGUI::WidgetPtr _sender, bool _double = 0);
+  void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 
 	// settings panel
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender = 0, MyGUI::WidgetPtr _new = 0);
@@ -40,7 +40,7 @@ private:
 	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender = 0);
 
 	// widget selecting/resizing
-	void notifySelectWidget(MyGUI::WidgetPtr _sender, bool _double = 0);
+	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
 
 	// info for new widget

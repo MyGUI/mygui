@@ -85,7 +85,7 @@ namespace MyGUI
 		void _onMouseButtonPressed(bool _left);
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
+		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 
 		// просто обновляет альфу взависимости от флагов

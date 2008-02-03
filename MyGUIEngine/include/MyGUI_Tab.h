@@ -42,8 +42,8 @@ namespace MyGUI
 
 		void updateBar();
 
-		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
-		void notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender, bool _double);
+		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
+		void notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender);
 
 		int getButtonWidthByName(const Ogre::DisplayString& _text);
 

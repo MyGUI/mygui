@@ -230,10 +230,8 @@ namespace MyGUI
 
 	}
 
-	void Tab::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender, bool _double)
+	void Tab::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender)
 	{
-		if (_double) return;
-
 		if (_sender == mButtonLeft) {
 			if (mStartIndex > 0) {
 				mStartIndex --;
@@ -251,10 +249,8 @@ namespace MyGUI
 		}
 	}
 
-	void Tab::notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender, bool _double)
+	void Tab::notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender)
 	{
-		if (_double) return;
-
 		size_t select = (size_t)_sender->_getInternalData() + mStartIndex;
 		// щелкнули по той же кнопке
 		if (select == mSelectSheet) {

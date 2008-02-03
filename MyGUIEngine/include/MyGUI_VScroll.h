@@ -50,8 +50,8 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : изменилось положение скрола
-		// signature : void method(MyGUI::WidgetPtr _widget, int _position)
-		EventInfo_WidgetInt eventScrollChangePosition;
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_WidgetSizeT eventScrollChangePosition;
 
 	protected:
 		// наши кнопки

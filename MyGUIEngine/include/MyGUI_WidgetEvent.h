@@ -80,8 +80,12 @@ namespace MyGUI
 		EventInfo_WidgetBool eventMouseButtonReleased;
 
 		/*	событие : нажата и отпущенна клавиша мыши*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _double);*/
-		EventInfo_WidgetBool eventMouseButtonClick;
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender);*/
+		EventInfo_WidgetVoid eventMouseButtonClick;
+
+		/*	событие : двойной клик*/
+		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender);*/
+		EventInfo_WidgetVoid eventMouseButtonDoubleClick;
 
 		/*	событие : виджет потер€л фокус клавиатуры*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);*/
@@ -152,9 +156,15 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseButtonClick(bool _double)
+		virtual void _onMouseButtonClick()
 		{
-			eventMouseButtonClick(mWidgetEventSender, _double);
+			eventMouseButtonClick(mWidgetEventSender);
+		}
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
+		virtual void _onMouseButtonDoubleClick()
+		{
+			eventMouseButtonDoubleClick(mWidgetEventSender);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним

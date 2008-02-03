@@ -94,7 +94,7 @@ namespace MyGUI
 		Widget::_onKeyLostFocus(_new);
 	}
 
-	void ItemBox::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel)
+	void ItemBox::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel)
 	{
 		mOffsetTop = (_rel % mSizeItem.height);
 

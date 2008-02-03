@@ -294,13 +294,13 @@ void EditorState::saveSettings()
 	}
 }
 
-void EditorState::notifySave(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifySave(MyGUI::WidgetPtr _sender)
 {
 	if (fileName != "") ew->save(fileName);
-	else notifyLoadSaveAs(_sender, _double);
+	else notifyLoadSaveAs(_sender);
 }
 
-void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender)
 {
 	// create message box with file name and two buttons
 	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("SaveLoadMessage.layout")[0];
@@ -320,12 +320,12 @@ void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender, bool _double)
 	childs[2]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
 }
 
-void EditorState::notifyQuit(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
 {
   BasisManager::getInstance().m_exit = true;
 }
 
-void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 {
 	bool success;
 	if (_sender->getCaption() == "Load") success = ew->load(mGUI->findWidget<MyGUI::Edit>("editFileName")->getCaption());
@@ -348,13 +348,13 @@ void EditorState::notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget)
 	notifyLoadSaveAccept(mGUI->findWidgetT("buttonSaveLoad"));
 }
 
-void EditorState::notifyLoadSaveCancel(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifyLoadSaveCancel(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::InputManager::getInstance().removeWidgetModal(mGUI->findWidgetT("windowSaveLoad"));
 	MyGUI::WidgetManager::getInstance().destroyWidget(mGUI->findWidgetT("windowSaveLoad"));
 }
 
-void EditorState::notifySelectWidgetType(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifySelectWidgetType(MyGUI::WidgetPtr _sender)
 {
 	current_widget_type = _sender->getUserString("widget");
 	current_widget_skin = _sender->getUserString("skin");
@@ -372,7 +372,7 @@ void EditorState::notifyNewGridStepAccept(MyGUI::WidgetPtr _sender)
 	notifyNewGridStep();
 }
 
-void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender, bool _double)
+void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 {
 	current_widget = _sender;
 	if (current_widget_rectangle)

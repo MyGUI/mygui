@@ -94,7 +94,7 @@ namespace MyGUI
 		void _onKeySetFocus(WidgetPtr _old);
 		void _onKeyButtonPressed(int _key, Char _char);
 
-		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel);
+		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 

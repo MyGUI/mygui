@@ -93,7 +93,7 @@ namespace MyGUI
 		void _onKeyLostFocus(WidgetPtr _new);
 		void _onKeySetFocus(WidgetPtr _old);
 
-		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, int _rel);
+		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 
 		// ќбновл€ет данные о айтемах, при изменении размеров 
