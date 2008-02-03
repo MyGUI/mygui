@@ -50,19 +50,19 @@ namespace MyGUI
 
 		void WindowFactory::Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(WindowPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setSnap(utility::parseBool(_value));
 		}
 
 		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(WindowPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setAutoAlpha(utility::parseBool(_value));
 		}
 
 		void WindowFactory::Window_MinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(WindowPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));
 		}
 

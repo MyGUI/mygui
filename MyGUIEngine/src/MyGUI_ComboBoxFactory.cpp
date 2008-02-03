@@ -49,13 +49,13 @@ namespace MyGUI
 		// методы для парсинга
 		void ComboBoxFactory::Combo_ModeDrop(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(ComboBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->setComboModeDrop(utility::parseBool(_value));
 		}
 
 		void ComboBoxFactory::Combo_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(ComboBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->addItemString(_value);
 		}
 

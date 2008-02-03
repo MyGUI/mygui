@@ -54,31 +54,31 @@ namespace MyGUI
 
 		void RenderBoxFactory::RenderBox_Mesh(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(RenderBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
 			static_cast<RenderBoxPtr>(_widget)->injectObject(_value);
 		}
 
 		void RenderBoxFactory::RenderBox_AutorotationSpeed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(RenderBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
 			static_cast<RenderBoxPtr>(_widget)->setAutorotationSpeed(utility::parseInt(_value));
 		}
 
 		void RenderBoxFactory::RenderBox_BackgroungColour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(RenderBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
 			static_cast<RenderBoxPtr>(_widget)->setBackgroungColour(utility::parseColour(_value));
 		}
 
 		void RenderBoxFactory::RenderBox_RotationAngle(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(RenderBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
 			static_cast<RenderBoxPtr>(_widget)->setRotationAngle(Ogre::Degree(utility::parseInt(_value)));
 		}
 
 		void RenderBoxFactory::RenderBox_MouseRotation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(RenderBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
 			static_cast<RenderBoxPtr>(_widget)->setMouseRotation(utility::parseBool(_value));
 		}
 

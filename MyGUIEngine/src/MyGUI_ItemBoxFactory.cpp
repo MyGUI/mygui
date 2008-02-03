@@ -46,7 +46,7 @@ namespace MyGUI
 
 		/*void ItemBoxFactory::ItemBox_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(ItemBoxPtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(ItemBoxPtr, _widget, _key);
 			static_cast<ItemBoxPtr>(_widget)->addItemString(_value);
 		}*/
 

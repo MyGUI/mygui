@@ -52,25 +52,25 @@ namespace MyGUI
 
 		void StaticImageFactory::Image_Material(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(StaticImagePtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageMaterial(_value);
 		}
 
 		void StaticImageFactory::Image_Rect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(StaticImagePtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageRect(FloatRect::parse(_value));
 		}
 
 		void StaticImageFactory::Image_Tile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(StaticImagePtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageTile(FloatSize::parse(_value));
 		}
 
 		void StaticImageFactory::Image_Num(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(StaticImagePtr, _widget);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageNum(utility::parseSizeT(_value));
 		}
 

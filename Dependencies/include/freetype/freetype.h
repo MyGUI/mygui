@@ -940,7 +940,7 @@ FT_BEGIN_HEADER
     FT_Int            num_charmaps;
     FT_CharMap*       charmaps;
 
-    FT_Generic        generic;
+    FT_Generic        _generic;
 
     /*# the following are only relevant to scalable outlines */
     FT_BBox           bbox;
@@ -971,7 +971,7 @@ FT_BEGIN_HEADER
     FT_Generic        autohint;
     void*             extensions;
 
-    FT_Face_Internal  internal;
+    FT_Face_Internal  _internal;
 
     /*@private end */
 
@@ -1325,9 +1325,9 @@ FT_BEGIN_HEADER
   typedef struct  FT_SizeRec_
   {
     FT_Face           face;      /* parent face object              */
-    FT_Generic        generic;   /* generic pointer for client uses */
+    FT_Generic        _generic;   /* generic pointer for client uses */
     FT_Size_Metrics   metrics;   /* size metrics                    */
-    FT_Size_Internal  internal;
+    FT_Size_Internal  _internal;
 
   } FT_SizeRec;
 
@@ -1530,7 +1530,7 @@ FT_BEGIN_HEADER
     FT_Face           face;
     FT_GlyphSlot      next;
     FT_UInt           reserved;       /* retained for binary compatibility */
-    FT_Generic        generic;
+    FT_Generic        _generic;
 
     FT_Glyph_Metrics  metrics;
     FT_Fixed          linearHoriAdvance;
@@ -1556,7 +1556,7 @@ FT_BEGIN_HEADER
 
     void*             other;
 
-    FT_Slot_Internal  internal;
+    FT_Slot_Internal  _internal;
 
   } FT_GlyphSlotRec;
 

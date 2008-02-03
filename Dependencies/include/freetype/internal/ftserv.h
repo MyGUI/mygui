@@ -246,14 +246,14 @@ FT_BEGIN_HEADER
     FT_Pointer*  Pptr = (FT_Pointer*)&(ptr);                   \
                                                                \
                                                                \
-    svc = FT_FACE( face )->internal->services. service_ ## id; \
+    svc = FT_FACE( face )->_internal->services. service_ ## id; \
     if ( svc == FT_SERVICE_UNAVAILABLE )                       \
       svc = NULL;                                              \
     else if ( svc == NULL )                                    \
     {                                                          \
       FT_FACE_FIND_SERVICE( face, svc, id );                   \
                                                                \
-      FT_FACE( face )->internal->services. service_ ## id =    \
+      FT_FACE( face )->_internal->services. service_ ## id =    \
         (FT_Pointer)( svc != NULL ? svc                        \
                                   : FT_SERVICE_UNAVAILABLE );  \
     }                                                          \
@@ -267,14 +267,14 @@ FT_BEGIN_HEADER
     FT_Pointer  svc;                                           \
                                                                \
                                                                \
-    svc = FT_FACE( face )->internal->services. service_ ## id; \
+    svc = FT_FACE( face )->_internal->services. service_ ## id; \
     if ( svc == FT_SERVICE_UNAVAILABLE )                       \
       svc = NULL;                                              \
     else if ( svc == NULL )                                    \
     {                                                          \
       FT_FACE_FIND_SERVICE( face, svc, id );                   \
                                                                \
-      FT_FACE( face )->internal->services. service_ ## id =    \
+      FT_FACE( face )->_internal->services. service_ ## id =    \
         (FT_Pointer)( svc != NULL ? svc                        \
                                   : FT_SERVICE_UNAVAILABLE );  \
     }                                                          \

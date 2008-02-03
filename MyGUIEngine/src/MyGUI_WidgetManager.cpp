@@ -179,7 +179,10 @@ namespace MyGUI
 	void WidgetManager::parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		MYGUI_ASSERT(iter != mDelegates.end(), "Unknown key '" << _key << "' with value '" << _value << "'");
+		if (iter == mDelegates.end()) {
+			MYGUI_LOG(Error, "Unknown key '" << _key << "' with value '" << _value << "'");
+			return;
+		}
 		iter->second(_widget, _key, _value);
 	}
 

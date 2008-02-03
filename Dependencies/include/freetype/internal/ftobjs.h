@@ -312,7 +312,7 @@ FT_BEGIN_HEADER
     FT_Module_Class*  clazz;
     FT_Library        library;
     FT_Memory         memory;
-    FT_Generic        generic;
+    FT_Generic        _generic;
 
   } FT_ModuleRec;
 
@@ -650,7 +650,7 @@ FT_BEGIN_HEADER
   {
     FT_Memory          memory;           /* library's memory manager */
 
-    FT_Generic         generic;
+    FT_Generic         _generic;
 
     FT_Int             version_major;
     FT_Int             version_minor;

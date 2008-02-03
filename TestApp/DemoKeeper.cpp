@@ -164,12 +164,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
 
-	MyGUI::ButtonPtr button = widget->createWidget<MyGUI::Button>("RadioBox", MyGUI::IntCoord(10, 10, 100, 22), MyGUI::ALIGN_DEFAULT);
-	//button->setButtonPressed(true);
-	//widget->setColour(Ogre::ColourValue::White);
-	button->setEnabled(false);
+	MyGUI::ButtonPtr button = widget->createWidget<MyGUI::Button>("CheckBox", MyGUI::IntCoord(10, 10, 100, 22), MyGUI::ALIGN_DEFAULT);
 	button->setCaption("radio");
 	button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyRadio);
+	MyGUI::MYGUI_OUT(button->getFontName());
 
 
 	//MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");

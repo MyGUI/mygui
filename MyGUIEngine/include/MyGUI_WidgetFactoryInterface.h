@@ -22,6 +22,16 @@ namespace MyGUI
 		virtual WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name) = 0;
 	};
 
+	#if MYGUI_DEBUG_MODE == 1
+		#define MYGUI_RETURN_IS_FALSE_TYPE(type, ptr, key) \
+		if (null == dynamic_cast<type>(ptr)) { \
+			MYGUI_LOG(Error, "key '" << key << "' is not support widget type '" << ptr->getWidgetType() << "'"); \
+			return; \
+		}
+	#else
+		#define MYGUI_RETURN_IS_FALSE_TYPE(type, ptr, key) ((void)0)
+	#endif
+
 } // namespace MyGUI
 
 #endif // __MYGUI_WIDGET_FACTORY_INTERFACE_H__
