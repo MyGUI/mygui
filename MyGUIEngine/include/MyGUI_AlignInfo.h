@@ -31,9 +31,9 @@ namespace MyGUI
 		ALIGN_DEFAULT					= ALIGN_LEFT | ALIGN_TOP,
 	};
 
-	#define IS_ALIGN_HCENTER(align) (ALIGN_HCENTER == (align & ALIGN_HCENTER))
-	#define IS_ALIGN_VCENTER(align) (ALIGN_VCENTER == (align & ALIGN_VCENTER))
-	#define IS_ALIGN_CENTER(align) (ALIGN_CENTER == (align & ALIGN_CENTER))
+	#define IS_ALIGN_HCENTER(align) (ALIGN_HCENTER == (align & (ALIGN_LEFT | ALIGN_RIGHT)))
+	#define IS_ALIGN_VCENTER(align) (ALIGN_VCENTER == (align & (ALIGN_TOP | ALIGN_BOTTOM)))
+	#define IS_ALIGN_CENTER(align) (ALIGN_CENTER == (align & (ALIGN_LEFT | ALIGN_RIGHT | ALIGN_TOP | ALIGN_BOTTOM)))
 	#define IS_ALIGN_CENTER_PARENT(align) (ALIGN_CENTER_PARENT == (align & ALIGN_CENTER_PARENT))
 
 	#define IS_ALIGN_LEFT(align) (ALIGN_LEFT == (align & ALIGN_LEFT))

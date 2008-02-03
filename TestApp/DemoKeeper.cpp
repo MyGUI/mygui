@@ -162,8 +162,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	MyGUI::StaticTextPtr widget = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(100, 100, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
-	widget->setCaption("dgspfgjh;dlfojsdkgljsdfljglsdjfglsjdh;fljsflg");
+	MyGUI::StaticTextPtr widget = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, 1024, 768), MyGUI::ALIGN_DEFAULT, "Main");
+	widget->setColour(Ogre::ColourValue::White);
+	widget->setTextAlign(MyGUI::ALIGN_DEFAULT);
+	widget->setCaption("dgspfgjh;dlfojsdkgljsdfljglsdjfgls\njdh;fljsflg");
 
 
 	//MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
