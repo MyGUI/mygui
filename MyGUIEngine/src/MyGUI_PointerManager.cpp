@@ -71,23 +71,22 @@ namespace MyGUI
 		while (pointer.nextNode(XML_TYPE)) {
 
 			// значения параметров
-			std::string layer, material, defaultPointer, tmp;
-			int size;
+			std::string layer, defaultPointer;
+
 			// парсим атрибуты
 			pointer->findAttribute("layer", layer);
-			pointer->findAttribute("material", material);
 			pointer->findAttribute("default", defaultPointer);
-			if (pointer->findAttribute("size", tmp)) size = utility::parseInt(tmp);
 
-			// сохраняем общий материал
-			mMaterial = material;
+			// сохраняем
+			mMaterial = pointer->findAttribute("material");
+			mSize = IntSize::parse(pointer->findAttribute("size"));
 
 			// устанавливаем сразу параметры
-			mOverlayElement->setMaterialName(material);
-			mOverlayElement->setDimensionInfo(size, size, 0);
+			mOverlayElement->setMaterialName(mMaterial);
+			mOverlayElement->setDimensionInfo(mSize.width, mSize.height, 0);
 			if (false == defaultPointer.empty()) mDefaultPointer = defaultPointer;
 			mLayer = layer;
-			FloatSize materialSize = SkinManager::getMaterialSize(material);
+			FloatSize materialSize = SkinManager::getMaterialSize(mMaterial);
 
 
 			// берем детей и крутимся, основной цикл
@@ -96,21 +95,21 @@ namespace MyGUI
 
 				// значения параметров
 				FloatRect offset(0, 0, 1, 1);
-				IntPoint point;
+
 				// парсим атрибуты
+				std::string material(info->findAttribute("material"));
+				std::string name(info->findAttribute("name"));
+				std::string size(info->findAttribute("size"));
+				IntPoint point = IntPoint::parse(info->findAttribute("point"));
 
-				std::string material = info->findAttribute("material");
-				std::string name = info->findAttribute("name");
-				point = IntPoint::parse(info->findAttribute("point"));
-
-				std::string offset_str = info->findAttribute("offset");
+				std::string offset_str(info->findAttribute("offset"));
 				if (false == offset_str.empty()) {
 					if (material.empty()) offset = SkinManager::convertMaterialCoord(FloatRect::parse(offset_str), materialSize);
 					else offset = SkinManager::convertMaterialCoord(FloatRect::parse(offset_str), SkinManager::getMaterialSize(material));
 				}
 
 				// добавляем курсор
-				mMapPointers[name] = PointerInfo(offset, point, material);
+				mMapPointers[name] = PointerInfo(offset, point, IntSize::parse(size), material);
 
 			};
 		};
@@ -165,8 +164,12 @@ namespace MyGUI
 			if (mOverlayElement->getMaterialName() != mMaterial) mOverlayElement->setMaterialName(mMaterial);
 		}
 
+		// если курсор имеет свой размер
+		IntSize size(mSize);
+		if (0 < iter->second.size.width) size = iter->second.size;
+
 		// сдвигаем с учетом нового и старого смещения
-		mOverlayElement->setPositionInfo(mOverlayElement->getLeft()+mPoint.left-iter->second.point.left, mOverlayElement->getTop()+mPoint.top-iter->second.point.top, 0);
+		mOverlayElement->setPositionInfo(mOverlayElement->getLeft()+mPoint.left-iter->second.point.left, mOverlayElement->getTop()+mPoint.top-iter->second.point.top, size.width, size.height, 0);
 		mOverlayElement->setUVInfo(rect.left, rect.top, rect.right, rect.bottom, 0);
 		// и сохраняем новое смещение
 		mPoint = iter->second.point;
