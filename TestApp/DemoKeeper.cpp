@@ -162,15 +162,24 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	MyGUI::StaticTextPtr widget = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, 1024, 768), MyGUI::ALIGN_DEFAULT, "Main");
-	widget->setColour(Ogre::ColourValue::White);
-	widget->setTextAlign(MyGUI::ALIGN_DEFAULT);
-	widget->setCaption("dgspfgjh;dlfojsdkgljsdfljglsdjfgls\njdh;fljsflg");
+	MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+
+	MyGUI::ButtonPtr button = widget->createWidget<MyGUI::Button>("RadioBox", MyGUI::IntCoord(10, 10, 100, 22), MyGUI::ALIGN_DEFAULT);
+	//button->setButtonPressed(true);
+	//widget->setColour(Ogre::ColourValue::White);
+	button->setEnabled(false);
+	button->setCaption("radio");
+	button->eventMouseButtonClick = newDelegate(this, &DemoKeeper::notifyRadio);
 
 
 	//MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
 	//win->setCaption("test");
 
+}
+
+void DemoKeeper::notifyRadio(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::castWidget<MyGUI::Button>(_sender)->setButtonPressed( ! MyGUI::castWidget<MyGUI::Button>(_sender)->getButtonPressed());
 }
 
 void DemoKeeper::end()

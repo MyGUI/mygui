@@ -46,6 +46,8 @@ private:
 
 	void test(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 
+	void notifyRadio(MyGUI::WidgetPtr _sender);
+
 private:
 	MyGUI::Gui * mGUI;
 	size_t mCountWindow;
