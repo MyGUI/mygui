@@ -61,7 +61,7 @@
         <Property key="FontName" value = "MyGUI_CoreFont" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
-        <Property key="AlignText" value = "ALIGN_DEFAULT" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
         <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client">
         </Child>
