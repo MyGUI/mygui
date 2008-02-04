@@ -39,13 +39,16 @@ namespace MyGUI
         bool isTransparent(void) const;
 
         /** See OverlayElement. */
-        virtual const String& getTypeName(void) const;
+        virtual const Ogre::String& getTypeName(void) const;
         /** See Renderable. */
-        void getRenderOperation(RenderOperation& op);
+        void getRenderOperation(Ogre::RenderOperation& op);
         /** Overridden from OverlayElement */
-        void setMaterialName(const String& matName);
+        void setMaterialName(const Ogre::String& matName);
         /** Overridden from OverlayContainer */
-        void _updateRenderQueue(RenderQueue* queue);
+        void _updateRenderQueue(Ogre::RenderQueue* queue);
+
+		/** Overridden from OverlayElement */
+        void setMetricsMode(Ogre::GuiMetricsMode gmm);
 
     protected:
         // Flag indicating if this panel should be visual or just group things
@@ -56,25 +59,18 @@ namespace MyGUI
         /// internal method for setting up geometry, called by OverlayElement::update
         virtual void updatePositionGeometry(void);
 
+		/// Inherited function
 		virtual void updateTextureGeometry(void);
+
+		/// Inherited function
+        virtual void _update(void);
+		/// Inherited function
+        virtual void _updateFromParent(void);
+        /** Overridden from OverlayElement */
+		virtual void _notifyViewport();
 
         /// Method for setting up base parameters for this class
         void addBaseParameters(void);
-
-        static String msTypeName;
-
-
-	protected:
-		enum {
-			OVERLAY_POSITION_BINDING = 0,
-			OVERLAY_POSITION_HIDE = -50000
-		};
-
-	protected:
-		// цвет вершины
-		Ogre::uint32 mColour;
-		// вектор всех наших саб оверлеев
-		VectorSharedOverlay mVectorSharedOverlay;
 
 	public:
 
@@ -157,6 +153,21 @@ namespace MyGUI
 			OneOverlayDataInfo & info = mVectorSharedOverlay.at(_id);
 			return info.transparent;
 		}
+
+	protected:
+		enum {
+			OVERLAY_POSITION_BINDING = 0,
+			OVERLAY_POSITION_HIDE = -50000
+		};
+
+	protected:
+		// цвет вершины
+		Ogre::uint32 mColour;
+		// вектор всех наших саб оверлеев
+		VectorSharedOverlay mVectorSharedOverlay;
+
+		static String msTypeName;
+
 
 	}; // class _MyGUIExport SharedPanelAlphaOverlayElement : public Ogre::OverlayContainer
 

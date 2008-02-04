@@ -187,6 +187,10 @@ namespace MyGUI
 				mWidgetCursor->show();
 				mText->setSelectBackground(true);
 				mCursorTimer = 0;
+				// дл€ первоначального обновлени€
+				IntPoint point = mText->getTextCursorFromPosition(mCursorPosition);
+				updateCursor(point);
+
 			}
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода

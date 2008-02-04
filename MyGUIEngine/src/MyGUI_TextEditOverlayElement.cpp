@@ -6,6 +6,7 @@
 */
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextEditOverlayElement.h"
+#include "MyGUI_Gui.h"
 
 #include <OgreRoot.h>
 #include <OgreOverlayManager.h>
@@ -23,17 +24,18 @@ namespace MyGUI
 		mDefaultColour(0xFFFFFFFF), mInverseColour(0xFF000000),
 		mStartSelect(0), mEndSelect(0),
 		mRawDataOutOfDate(false),
-		mOldViewportAspectCoef(1.0f),
 		mSpaceGlyphInfo(null),
 		mTabGlyphInfo(null),
 		mBackgroundNormal(true),
 		mTransparent(false),
 		mAllocSize(0),
         mCharHeight(0.02), mPixelCharHeight(12),
-		mViewportAspectCoef(1)
+		mViewportAspectCoef(-1),
+		mOldViewportAspectCoef(1.0f)
     {
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
-    }
+		setMetricsMode(Ogre::GMM_PIXELS);
+	}
 
 	TextEditOverlayElement::~TextEditOverlayElement()
 	{
@@ -510,34 +512,32 @@ namespace MyGUI
 
     void TextEditOverlayElement::setMetricsMode(Ogre::GuiMetricsMode gmm)
     {
-        Ogre::Real vpWidth, vpHeight;
+		const FloatSize & size = Gui::getInstance().getViewSize();
 
-		vpWidth = (Ogre::Real) (Ogre::OverlayManager::getSingleton().getViewportWidth());
-        vpHeight = (Ogre::Real) (Ogre::OverlayManager::getSingleton().getViewportHeight());
-		mViewportAspectCoef = vpHeight/vpWidth;
+		mViewportAspectCoef = size.height / size.width;
+		mPixelScaleX = 1.0 / size.width;
+		mPixelScaleY = 1.0 / size.height;
 
-		Ogre::OverlayElement::setMetricsMode(gmm);
+		if (mMetricsMode == Ogre::GMM_RELATIVE) {
+			mPixelLeft = mLeft;
+			mPixelTop = mTop;
+			mPixelWidth = mWidth;
+			mPixelHeight = mHeight;
+		}
+
+		mLeft = mPixelLeft * mPixelScaleX;
+		mTop = mPixelTop * mPixelScaleY;
+		mWidth = mPixelWidth * mPixelScaleX;
+		mHeight = mPixelHeight * mPixelScaleY;
+
+		mMetricsMode = gmm;
+		mDerivedOutOfDate = true;
+		_positionsOutOfDate();
+
 		// Set pixel variables based on viewport multipliers
-		mPixelCharHeight = static_cast<unsigned>(mCharHeight * vpHeight);
+		mPixelCharHeight = static_cast<unsigned>(mCharHeight * size.height);
     }
 
-    //-----------------------------------------------------------------------
-    void TextEditOverlayElement::_update(void)
-    {
-        Ogre::Real vpWidth, vpHeight;
-
-        vpWidth = (Ogre::Real) (Ogre::OverlayManager::getSingleton().getViewportWidth());
-        vpHeight = (Ogre::Real) (Ogre::OverlayManager::getSingleton().getViewportHeight());
-		mViewportAspectCoef = vpHeight/vpWidth;
-		
-		if (Ogre::OverlayManager::getSingleton().hasViewportChanged() || mGeomPositionsOutOfDate) {
-            // Recalc character size
-
-            mCharHeight = (Ogre::Real) mPixelCharHeight / vpHeight;
-			mGeomPositionsOutOfDate = true;
-        }
-        Ogre::OverlayElement::_update();
-    }
     //---------------------------------------------------------------------------------------------
 	void TextEditOverlayElement::updateRawData()
 	{
@@ -928,5 +928,108 @@ namespace MyGUI
 		size.set((int)width, height * (int)mPixelCharHeight);
 		return size;
 	}
+
+    void TextEditOverlayElement::_update(void)
+    {
+		const FloatSize & size = Gui::getInstance().getViewSize();
+
+		mViewportAspectCoef = size.height / size.width;
+
+		if (Ogre::OverlayManager::getSingleton().hasViewportChanged() || mGeomPositionsOutOfDate) {
+			// Recalc character size
+			mCharHeight = (Ogre::Real) mPixelCharHeight / size.height;//vpHeight;
+			mGeomPositionsOutOfDate = true;
+		}
+
+
+		mPixelScaleX = 1.0 / size.width;
+		mPixelScaleY = 1.0 / size.height;
+
+		mLeft = mPixelLeft * mPixelScaleX;
+		mTop = mPixelTop * mPixelScaleY;
+		mWidth = mPixelWidth * mPixelScaleX;
+		mHeight = mPixelHeight * mPixelScaleY;
+
+		_updateFromParent();
+		// NB container subclasses will update children too
+
+		// Tell self to update own position geometry
+		if (mGeomPositionsOutOfDate && mInitialised) {
+			updatePositionGeometry();
+			mGeomPositionsOutOfDate = false;
+		}
+		// Tell self to update own texture geometry
+		if (mGeomUVsOutOfDate && mInitialised) {
+			updateTextureGeometry();
+			mGeomUVsOutOfDate = false;
+		}
+
+    }
+
+	void TextEditOverlayElement::_updateFromParent(void)
+    {
+		const FloatSize & size = Gui::getInstance().getViewSize();
+
+		Ogre::Real parentLeft, parentTop, parentBottom, parentRight;
+
+		if (mParent) {
+			parentLeft = mParent->_getDerivedLeft();
+			parentTop = mParent->_getDerivedTop();
+		}
+		else {
+			Ogre::RenderSystem* rSys = Ogre::Root::getSingleton().getRenderSystem();
+
+			// Calculate offsets required for mapping texel origins to pixel origins in the
+			// current rendersystem
+			Ogre::Real hOffset = rSys->getHorizontalTexelOffset() / size.width;
+			Ogre::Real vOffset = rSys->getVerticalTexelOffset() / size.height;
+
+			parentLeft = 0.0f + hOffset;
+			parentTop = 0.0f + vOffset;
+			parentRight = 1.0f + hOffset;
+			parentBottom = 1.0f + vOffset;
+		}
+
+		mDerivedLeft = parentLeft + mLeft;
+
+		mDerivedTop = parentTop + mTop;
+
+		mDerivedOutOfDate = false;
+
+		if (mParent != 0) {
+			Ogre::Rectangle parent;
+			Ogre::Rectangle child;
+
+			mParent->_getClippingRegion(parent);
+
+			child.left   = mDerivedLeft;
+			child.top    = mDerivedTop;
+			child.right  = mDerivedLeft + mWidth;
+			child.bottom = mDerivedTop + mHeight;
+
+			mClippingRegion = intersect(parent, child);
+		}
+		else {
+			mClippingRegion.left   = mDerivedLeft;
+			mClippingRegion.top    = mDerivedTop;
+			mClippingRegion.right  = mDerivedLeft + mWidth;
+			mClippingRegion.bottom = mDerivedTop + mHeight;
+		}
+    }
+
+    void TextEditOverlayElement::_notifyViewport()
+    {
+		const FloatSize & size = Gui::getInstance().getViewSize();
+
+		mPixelScaleX = 1.0 / size.width;
+		mPixelScaleY = 1.0 / size.height;
+
+		mLeft = mPixelLeft * mPixelScaleX;
+		mTop = mPixelTop * mPixelScaleY;
+		mWidth = mPixelWidth * mPixelScaleX;
+		mHeight = mPixelHeight * mPixelScaleY;
+
+		mGeomPositionsOutOfDate = true;
+    }
 
 } // namespace MyGUI

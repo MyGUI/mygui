@@ -18,7 +18,7 @@ namespace MyGUI
 		mOverlayContainer = static_cast<TextSimpleOverlayElement *>(overlayManager.createOverlayElement(
 			"TextSimple", utility::toString("TextSimple_", this)) );
 
-		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
+		//mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 
 		mOverlayContainer->setPosition(mCoord.left, mCoord.top);
 		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);

@@ -26,7 +26,7 @@ namespace MyGUI
 			// устанавливаем колличество саб оверлеев
 			mOverlayContainer->setCountSharedOverlay(_parent->_getCountSharedOverlay());
 
-			mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
+			//mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 			mOverlayContainer->setPositionInfo(mParent->getLeft() + mCoord.left, mParent->getTop() + mCoord.top, mCoord.width, mCoord.height, mId);
 			if (false == _material.empty()) mOverlayContainer->setMaterialName(_material);
 

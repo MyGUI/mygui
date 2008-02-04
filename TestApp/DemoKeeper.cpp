@@ -162,9 +162,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	//MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(10, 10, 100, 26), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::EditPtr edit = widget->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(10, 10, 80, 26), MyGUI::ALIGN_DEFAULT);
 	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);
 
 

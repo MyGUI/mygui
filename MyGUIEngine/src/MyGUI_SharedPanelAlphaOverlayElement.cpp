@@ -6,6 +6,7 @@
 */
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_SharedPanelAlphaOverlayElement.h"
+#include "MyGUI_Gui.h"
 
 #include <OgreHardwareBufferManager.h>
 #include <OgreRoot.h>
@@ -21,6 +22,7 @@ namespace MyGUI
         mTransparent(false),
 		mColour(0xFFFFFFFF)
     {
+		setMetricsMode(Ogre::GMM_PIXELS);
     }
     //---------------------------------------------------------------------
     SharedPanelAlphaOverlayElement::~SharedPanelAlphaOverlayElement()
@@ -228,6 +230,129 @@ namespace MyGUI
 
 	void SharedPanelAlphaOverlayElement::addBaseParameters(void)
     {
+    }
+
+	void SharedPanelAlphaOverlayElement::_update(void)
+    {
+		const FloatSize & size = Gui::getInstance().getViewSize();
+
+		mPixelScaleX = 1.0 / size.width;
+		mPixelScaleY = 1.0 / size.height;
+
+		mLeft = mPixelLeft * mPixelScaleX;
+		mTop = mPixelTop * mPixelScaleY;
+		mWidth = mPixelWidth * mPixelScaleX;
+		mHeight = mPixelHeight * mPixelScaleY;
+
+		_updateFromParent();
+		// NB container subclasses will update children too
+
+		// Tell self to update own position geometry
+		if (mGeomPositionsOutOfDate && mInitialised) {
+			updatePositionGeometry();
+			mGeomPositionsOutOfDate = false;
+		}
+		// Tell self to update own texture geometry
+		if (mGeomUVsOutOfDate && mInitialised) {
+			updateTextureGeometry();
+			mGeomUVsOutOfDate = false;
+		}
+
+		// Update children
+		ChildIterator it = getChildIterator();
+		while (it.hasMoreElements()) {
+			it.getNext()->_update();
+		}
+
+    }
+
+	void SharedPanelAlphaOverlayElement::_updateFromParent(void)
+    {
+		const FloatSize & size = Gui::getInstance().getViewSize();
+
+		Ogre::Real parentLeft, parentTop, parentBottom, parentRight;
+
+		if (mParent) {
+			parentLeft = mParent->_getDerivedLeft();
+			parentTop = mParent->_getDerivedTop();
+		}
+		else {
+			Ogre::RenderSystem* rSys = Ogre::Root::getSingleton().getRenderSystem();
+
+			// Calculate offsets required for mapping texel origins to pixel origins in the
+			// current rendersystem
+			Ogre::Real hOffset = rSys->getHorizontalTexelOffset() / size.width;
+			Ogre::Real vOffset = rSys->getVerticalTexelOffset() / size.height;
+
+			parentLeft = 0.0f + hOffset;
+			parentTop = 0.0f + vOffset;
+			parentRight = 1.0f + hOffset;
+			parentBottom = 1.0f + vOffset;
+		}
+
+		mDerivedLeft = parentLeft + mLeft;
+		mDerivedTop = parentTop + mTop;
+
+		mDerivedOutOfDate = false;
+
+		if (mParent != 0) {
+			Ogre::Rectangle parent;
+			Ogre::Rectangle child;
+
+			mParent->_getClippingRegion(parent);
+
+			child.left   = mDerivedLeft;
+			child.top    = mDerivedTop;
+			child.right  = mDerivedLeft + mWidth;
+			child.bottom = mDerivedTop + mHeight;
+
+			mClippingRegion = intersect(parent, child);
+		}
+		else {
+			mClippingRegion.left   = mDerivedLeft;
+			mClippingRegion.top    = mDerivedTop;
+			mClippingRegion.right  = mDerivedLeft + mWidth;
+			mClippingRegion.bottom = mDerivedTop + mHeight;
+		}
+    }
+
+    void SharedPanelAlphaOverlayElement::setMetricsMode(Ogre::GuiMetricsMode gmm)
+    {
+		const FloatSize & size = Gui::getInstance().getViewSize();
+
+		mPixelScaleX = 1.0 / size.width;
+		mPixelScaleY = 1.0 / size.height;
+
+		if (mMetricsMode == Ogre::GMM_RELATIVE) {
+			mPixelLeft = mLeft;
+			mPixelTop = mTop;
+			mPixelWidth = mWidth;
+			mPixelHeight = mHeight;
+		}
+
+		mLeft = mPixelLeft * mPixelScaleX;
+		mTop = mPixelTop * mPixelScaleY;
+		mWidth = mPixelWidth * mPixelScaleX;
+		mHeight = mPixelHeight * mPixelScaleY;
+
+		mMetricsMode = gmm;
+		mDerivedOutOfDate = true;
+		_positionsOutOfDate();
+    }
+
+    void SharedPanelAlphaOverlayElement::_notifyViewport()
+    {
+		const FloatSize & size = Gui::getInstance().getViewSize();
+
+		mPixelScaleX = 1.0 / size.width;
+		mPixelScaleY = 1.0 / size.height;
+
+		mLeft = mPixelLeft * mPixelScaleX;
+		mTop = mPixelTop * mPixelScaleY;
+		mWidth = mPixelWidth * mPixelScaleX;
+		mHeight = mPixelHeight * mPixelScaleY;
+
+		mGeomPositionsOutOfDate = true;
     }
 
 } // namespace MyGUI

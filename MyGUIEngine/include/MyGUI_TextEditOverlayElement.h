@@ -93,10 +93,13 @@ namespace MyGUI
         const Ogre::ColourValue& getColour(void) const;
 
         /** Overridden from OverlayElement */
-        void setMetricsMode(Ogre::GuiMetricsMode gmm);
+        virtual void setMetricsMode(Ogre::GuiMetricsMode gmm);
 
         /** Overridden from OverlayElement */
-        void _update(void);
+        virtual void _update(void);
+
+        /** Overridden from OverlayElement */
+		virtual void _notifyViewport();
 
         /// Method for setting up base parameters for this class
 		// переопределяем для пустоты
@@ -108,6 +111,9 @@ namespace MyGUI
         virtual void updatePositionGeometry();
 		/// Inherited function
 		virtual void updateTextureGeometry();
+
+		/// Inherited function
+        virtual void _updateFromParent(void);
 
 		IntSize getTextSize(const Ogre::DisplayString& _text);
 

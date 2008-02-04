@@ -18,7 +18,7 @@ namespace MyGUI
 		mOverlayContainer = static_cast<TextEditOverlayElement *>(overlayManager.createOverlayElement(
 			"TextEdit", utility::toString("TextEdit_", this)) );
 
-		mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
+		//mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
 
 		mOverlayContainer->setPosition(mCoord.left, mCoord.top);
 		mOverlayContainer->setDimensions(mCoord.width, mCoord.height);
