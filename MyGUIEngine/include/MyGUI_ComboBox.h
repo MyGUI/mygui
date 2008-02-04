@@ -21,6 +21,38 @@ namespace MyGUI
 	protected:
 		ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
+	public:
+		// тип данного виджета
+		inline static const Ogre::String & _getType() {static Ogre::String type("ComboBox"); return type;}
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
+
+		//------------------------------------------------------------------------------------//
+		// методы дл€ манипул€ций строками
+		size_t getItemCount();
+
+		void insertItem(size_t _index, const Ogre::DisplayString & _item);
+		void addItem(const Ogre::DisplayString& _item);
+		void setItem(size_t _index, const Ogre::DisplayString & _item);
+		const Ogre::DisplayString & getItem(size_t _index);
+
+		void deleteItem(size_t _index);
+		void deleteAllItems();
+
+		void setItemSelect(size_t _index);
+		inline size_t getItemSelect() { return mItemIndex; }
+
+
+		//------------------------------------------------------------------------------------//
+		// методы дл€ управлени€ отображением
+		void setComboModeDrop(bool _drop);
+		inline bool getComboModeDrop() { return mModeDrop; }
+
+		inline bool getSmoothShow() { return mShowSmooth; }
+		inline void setSmoothShow(bool _smooth) { mShowSmooth = _smooth; }
+
+		//------------------------------------------------------------------------------------//
+
+	protected:
 		virtual void _onKeyButtonPressed(int _key, Char _char);
 
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
@@ -36,51 +68,6 @@ namespace MyGUI
 		void hideList();
 
 	public:
-		// тип данного виджета
-		inline static const Ogre::String & _getType() {static Ogre::String type("ComboBox"); return type;}
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
-		void setItemSelect(size_t _index);
-
-		inline size_t getItemSelect()
-		{
-			return mItemIndex;
-		}
-
-		inline void setComboModeDrop(bool _drop)
-		{
-			mModeDrop = _drop;
-			setEditStatic(mModeDrop);
-		}
-
-		inline bool getComboModeDrop()
-		{
-			return mModeDrop;
-		}
-
-		size_t getItemCount();
-
-		const Ogre::DisplayString & getItem(size_t _index);
-
-		void setItem(size_t _index, const Ogre::DisplayString & _item);
-
-		void insertItem(size_t _index, const Ogre::DisplayString & _item);
-
-		void deleteItem(size_t _index);
-		void deleteAllItems();
-
-		void addItem(const Ogre::DisplayString& _item);
-
-		inline void setSmoothShow(bool _smooth)
-		{
-			mShowSmooth = _smooth;
-		}
-
-		inline bool getSmoothShow()
-		{
-			return mShowSmooth;
-		}
-
 		// event : нажат энтер в комбо режиме или выбран айтем в дроп режиме
 		// signature : void method(MyGUI::WidgetPtr _widget)
 		EventInfo_WidgetVoid eventComboAccept;

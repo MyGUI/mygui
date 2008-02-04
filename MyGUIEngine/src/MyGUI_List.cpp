@@ -618,4 +618,17 @@ namespace MyGUI
 		updateLine(true);
 	}
 
+	void List::setItem(size_t _index, const Ogre::DisplayString & _item)
+	{
+		MYGUI_ASSERT(_index < mStringArray.size(), "setItemString: index " << _index <<" out of range");
+		mStringArray[_index]=_item;
+		_redrawItem(_index);
+	}
+
+	const Ogre::DisplayString & List::getItem(size_t _index)
+	{
+		MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
+		return mStringArray[_index];
+	}
+
 } // namespace MyGUI

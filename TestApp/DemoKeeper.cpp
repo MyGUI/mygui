@@ -162,19 +162,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	MyGUI::ListPtr list = mGUI->createWidget<MyGUI::List>("List", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::ListPtr list = mGUI->createWidget<MyGUI::List>("List", MyGUI::IntCoord(100, 100, 400, 100), MyGUI::ALIGN_DEFAULT, "Main");
 
-	/*list->addItem("1");
-	list->addItem("2");
-	list->addItem("3");
-	list->addItem("4");
-	list->addItem("5");
-	list->addItem("6");
-	list->addItem("7");
-	list->addItem("8");
-	list->addItem("9");
-	list->addItem("0");
-	list->addItem("-");*/
+	list->addItem("#FF0000red#00FF00green#0000FFblue");
 
 	/*MyGUI::EditPtr edit = widget->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(10, 10, 80, 26), MyGUI::ALIGN_DEFAULT);
 	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);*/

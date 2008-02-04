@@ -26,47 +26,36 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("List"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		inline size_t getItemCount()
-		{
-			return mStringArray.size();
-		}
-		inline const Ogre::DisplayString & getItem(size_t _index)
-		{
-			MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
-			return mStringArray[_index];
-		}
-		inline void setItem(size_t _index, const Ogre::DisplayString & _item)
-		{
-			MYGUI_ASSERT(_index < mStringArray.size(), "setItemString: index " << _index <<" out of range");
-			mStringArray[_index]=_item;
-			_redrawItem(_index);
-		}
-		void insertItem(size_t _index, const Ogre::DisplayString & _item);
-		inline void addItem(const Ogre::DisplayString & _item)
-		{
-			insertItem(ITEM_NONE, _item);
-		}
-		void deleteItem(size_t _index);
+		//------------------------------------------------------------------------------------//
+		// методы для манипуляций строками
+		inline size_t getItemCount() { return mStringArray.size();}
 
+		void insertItem(size_t _index, const Ogre::DisplayString & _item);
+		inline void addItem(const Ogre::DisplayString & _item) {insertItem(ITEM_NONE, _item);}
+		void setItem(size_t _index, const Ogre::DisplayString & _item);
+		const Ogre::DisplayString & getItem(size_t _index);
+
+		void deleteItem(size_t _index);
 		void deleteAllItems();
 
 		inline size_t getItemSelect() {return mIndexSelect;}
 		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
 		void setItemSelect(size_t _index);
 
+
+		//------------------------------------------------------------------------------------//
 		// методы для показа строк
 		void beginToIndex(size_t _index);
-		inline void beginToStart() {beginToIndex(0);}
-		inline void beginToEnd()
-		{
-			if (!mStringArray.empty()) beginToIndex(mStringArray.size()-1);
-		}
-		inline void beginToSelect() {beginToIndex(mIndexSelect);}
+		inline void beginToStart() { beginToIndex(0); }
+		inline void beginToEnd() { if (!mStringArray.empty()) beginToIndex(mStringArray.size()-1); }
+		inline void beginToSelect() { beginToIndex(mIndexSelect); }
 
 		// видим ли мы элемент, полностью или нет
 		bool isItemVisible(size_t _index, bool _fill = true);
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
+
+		//------------------------------------------------------------------------------------//
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 

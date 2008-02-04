@@ -303,4 +303,10 @@ namespace MyGUI
 		mList->deleteAllItems();
 	}
 
+	void ComboBox::setComboModeDrop(bool _drop)
+	{
+		mModeDrop = _drop;
+		setEditStatic(mModeDrop);
+	}
+
 } // namespace MyGUI
