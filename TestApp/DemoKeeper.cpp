@@ -162,10 +162,22 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::ListPtr list = mGUI->createWidget<MyGUI::List>("List", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
 
-	MyGUI::EditPtr edit = widget->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(10, 10, 80, 26), MyGUI::ALIGN_DEFAULT);
-	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);
+	/*list->addItem("1");
+	list->addItem("2");
+	list->addItem("3");
+	list->addItem("4");
+	list->addItem("5");
+	list->addItem("6");
+	list->addItem("7");
+	list->addItem("8");
+	list->addItem("9");
+	list->addItem("0");
+	list->addItem("-");*/
+
+	/*MyGUI::EditPtr edit = widget->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(10, 10, 80, 26), MyGUI::ALIGN_DEFAULT);
+	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);*/
 
 
 	//MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(200, 200, 330, 115), MyGUI::ALIGN_DEFAULT, "Main");
@@ -478,7 +490,7 @@ void DemoKeeper::notifyPressedDelete(MyGUI::WidgetPtr _sender)
     size_t select = list->getItemSelect();
     if (select != ITEM_NONE)
     {
-        list->deleteItemString(select);
+        list->deleteItem(select);
     }
 }
 
@@ -490,7 +502,7 @@ void DemoKeeper::notifyEditAccept(MyGUI::WidgetPtr _sender)
 	const Ogre::DisplayString& caption = _sender->getCaption();
     if (false == caption.empty())
     {
-        list->addItemString(caption);
+        list->addItem(caption);
         _sender->setCaption("");
     }
 }
@@ -501,7 +513,7 @@ void DemoKeeper::notifyListButtonPressed(MyGUI::WidgetPtr _sender, int _key, MyG
 		MyGUI::ListPtr list = MyGUI::castWidget<MyGUI::List>(_sender);
 
 		size_t select = list->getItemSelect();
-		if (select != ITEM_NONE) list->deleteItemString(select);
+		if (select != ITEM_NONE) list->deleteItem(select);
 	}
 }
 

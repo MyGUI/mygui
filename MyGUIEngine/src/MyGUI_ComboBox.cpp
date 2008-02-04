@@ -108,7 +108,7 @@ namespace MyGUI
 		size_t pos = mList->getItemSelect();
 		if (pos != ITEM_NONE) {
 			mItemIndex = pos;
-			str = mList->getItemString(pos);
+			str = mList->getItem(pos);
 		}
 		Edit::setCaption(str);
 
@@ -146,7 +146,7 @@ namespace MyGUI
 	{
 		if (_position != ITEM_NONE) {
 			mItemIndex = _position;
-			Edit::setCaption(mList->getItemString(_position));
+			Edit::setCaption(mList->getItem(_position));
 		}
 
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -164,7 +164,7 @@ namespace MyGUI
 			if (mItemIndex != 0) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex --;
-				Edit::setCaption(mList->getItemString(mItemIndex));
+				Edit::setCaption(mList->getItem(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
 				eventComboChangePosition(this, mItemIndex);
@@ -174,7 +174,7 @@ namespace MyGUI
 			if ((mItemIndex+1) < mList->getItemCount()) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;
-				Edit::setCaption(mList->getItemString(mItemIndex));
+				Edit::setCaption(mList->getItem(mItemIndex));
 				mList->setItemSelect(mItemIndex);
 				mList->beginToIndex(mItemIndex);
 				eventComboChangePosition(this, mItemIndex);
@@ -249,11 +249,11 @@ namespace MyGUI
 		else mList->hide();
 	}
 
-	void ComboBox::setComboItemIndex(size_t _index)
+	void ComboBox::setItemSelect(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mList->getItemCount(), "setComboItemIndex: index " << _index <<" out of range");
 		mItemIndex = _index;
-		Edit::setCaption(mList->getItemString(_index));
+		Edit::setCaption(mList->getItem(_index));
 		Edit::updateView(0); // hook for update
 	}
 
@@ -262,39 +262,45 @@ namespace MyGUI
 		return mList->getItemCount();
 	}
 
-	const Ogre::DisplayString & ComboBox::getItemString(size_t _index)
+	const Ogre::DisplayString & ComboBox::getItem(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mList->getItemCount(), "getItemString: index " << _index <<" out of range");
-		return mList->getItemString(_index);
+		return mList->getItem(_index);
 	}
 
-	void ComboBox::setItemString(size_t _index, const Ogre::DisplayString & _item)
+	void ComboBox::setItem(size_t _index, const Ogre::DisplayString & _item)
 	{
 		MYGUI_ASSERT(_index < mList->getItemCount(), "setItemString: index " << _index <<" out of range");
-		mList->setItemString(_index, _item);
+		mList->setItem(_index, _item);
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
 	}
 
-	void ComboBox::insertItemString(size_t _index, const Ogre::DisplayString & _item)
+	void ComboBox::insertItem(size_t _index, const Ogre::DisplayString & _item)
 	{
-		mList->insertItemString(_index, _item);
+		mList->insertItem(_index, _item);
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
 	}
 
-	void ComboBox::deleteItemString(size_t _index)
+	void ComboBox::deleteItem(size_t _index)
 	{
-		mList->deleteItemString(_index);
+		mList->deleteItem(_index);
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
 	}
 
-	void ComboBox::addItemString(const Ogre::DisplayString& _item)
+	void ComboBox::addItem(const Ogre::DisplayString& _item)
 	{
-		mList->addItemString(_item);
+		mList->addItem(_item);
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
+	}
+
+	void ComboBox::deleteAllItems()
+	{
+		mItemIndex = ITEM_NONE;
+		mList->deleteAllItems();
 	}
 
 } // namespace MyGUI

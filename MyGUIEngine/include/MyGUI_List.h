@@ -30,23 +30,25 @@ namespace MyGUI
 		{
 			return mStringArray.size();
 		}
-		inline const Ogre::DisplayString & getItemString(size_t _index)
+		inline const Ogre::DisplayString & getItem(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
 			return mStringArray[_index];
 		}
-		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
+		inline void setItem(size_t _index, const Ogre::DisplayString & _item)
 		{
 			MYGUI_ASSERT(_index < mStringArray.size(), "setItemString: index " << _index <<" out of range");
 			mStringArray[_index]=_item;
 			_redrawItem(_index);
 		}
-		void insertItemString(size_t _index, const Ogre::DisplayString & _item);
-		inline void addItemString(const Ogre::DisplayString & _item)
+		void insertItem(size_t _index, const Ogre::DisplayString & _item);
+		inline void addItem(const Ogre::DisplayString & _item)
 		{
-			insertItemString(ITEM_NONE, _item);
+			insertItem(ITEM_NONE, _item);
 		}
-		void deleteItemString(size_t _index);
+		void deleteItem(size_t _index);
+
+		void deleteAllItems();
 
 		inline size_t getItemSelect() {return mIndexSelect;}
 		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}

@@ -157,16 +157,11 @@ namespace MyGUI
 				return;
 			}
 
-		/*} else if (_key == OIS::KC_DELETE) {
-			if (sel != ITEM_NONE) {
-				eventListPressedDelete(this);
-
-				Widget::_onKeyButtonPressed(_key, _char);
-				// выходим, так как изменили колличество строк
-				return;
-			}*/
-
 		}
+		/*else if (_key == OIS::KC_DELETE) {
+			deleteAllItems();
+			return;
+		}*/
 
 		if (sel != mIndexSelect) {
 			if ( false == isItemVisible(sel)) beginToIndex(sel);
@@ -432,7 +427,7 @@ namespace MyGUI
 		mWidgetLines[_index]->setCaption(mStringArray[_index + mTopIndex]);
 	}
 
-	void List::insertItemString(size_t _index, const Ogre::DisplayString & _item)
+	void List::insertItem(size_t _index, const Ogre::DisplayString & _item)
 	{
 		if (_index > mStringArray.size()) _index = mStringArray.size();
 		// вставляем физически
@@ -474,7 +469,7 @@ namespace MyGUI
 
 	}
 
-	void List::deleteItemString(size_t _index)
+	void List::deleteItem(size_t _index)
 	{
 		// доверяй, но проверяй
 		MYGUI_ASSERT(_index < mStringArray.size(), "deleteItemString: index '" << _index << "' out of range");
@@ -605,6 +600,22 @@ namespace MyGUI
 		if ((mWidgetClient->getHeight() < (offset + mHeightLine)) && (_fill) ) return false;
 
 		return true;
+	}
+
+	void List::deleteAllItems()
+	{
+		mTopIndex = 0;
+		mIndexSelect = ITEM_NONE;
+		mOffsetTop = 0;
+
+		mStringArray.clear();
+
+		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+			mWidgetLines[pos]->hide();
+
+		// обновляем все
+		updateScroll();
+		updateLine(true);
 	}
 
 } // namespace MyGUI

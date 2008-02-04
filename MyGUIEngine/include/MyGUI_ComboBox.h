@@ -40,9 +40,9 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("ComboBox"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		void setComboItemIndex(size_t _index);
+		void setItemSelect(size_t _index);
 
-		inline size_t getComboItemIndex()
+		inline size_t getItemSelect()
 		{
 			return mItemIndex;
 		}
@@ -60,15 +60,16 @@ namespace MyGUI
 
 		size_t getItemCount();
 
-		const Ogre::DisplayString & getItemString(size_t _index);
+		const Ogre::DisplayString & getItem(size_t _index);
 
-		void setItemString(size_t _index, const Ogre::DisplayString & _item);
+		void setItem(size_t _index, const Ogre::DisplayString & _item);
 
-		void insertItemString(size_t _index, const Ogre::DisplayString & _item);
+		void insertItem(size_t _index, const Ogre::DisplayString & _item);
 
-		void deleteItemString(size_t _index);
+		void deleteItem(size_t _index);
+		void deleteAllItems();
 
-		void addItemString(const Ogre::DisplayString& _item);
+		void addItem(const Ogre::DisplayString& _item);
 
 		inline void setSmoothShow(bool _smooth)
 		{
