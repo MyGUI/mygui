@@ -60,6 +60,7 @@ namespace MyGUI
 	class Progress;
 	class RenderBox;
 	class ItemBox;
+	class MultiList;
 
 	// widget pointers
 	typedef Button* ButtonPtr;
@@ -77,6 +78,7 @@ namespace MyGUI
 	typedef Progress * ProgressPtr;
 	typedef RenderBox * RenderBoxPtr;
 	typedef ItemBox * ItemBoxPtr;
+	typedef MultiList * MultiListPtr;
 
 	class WidgetFactoryInterface;
 	namespace factory{
@@ -97,6 +99,7 @@ namespace MyGUI
 		class ProgressFactory;
 		class RenderBoxFactory;
 		class ItemBoxFactory;
+		class MultiListFactory;
 	}
 
 	// Define version

@@ -24,6 +24,7 @@
 #include "MyGUI_Progress.h"
 #include "MyGUI_RenderBox.h"
 #include "MyGUI_ItemBox.h"
+#include "MyGUI_MultiList.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"

@@ -96,7 +96,7 @@ namespace MyGUI
 
 	void ItemBox::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel)
 	{
-		mOffsetTop = (_rel % mSizeItem.height);
+		mOffsetTop = ((int)_rel % mSizeItem.height);
 
 		// смещение с отрицательной стороны
 		int offsetVert = 0 - mOffsetTop;
@@ -117,7 +117,7 @@ namespace MyGUI
 		}
 
 		// если индекс изменился, то перерисовываем линии
-		int top = (_rel / mSizeItem.height) * mCountItemInLine;
+		int top = ((int)_rel / mSizeItem.height) * mCountItemInLine;
 		if (top != mTopIndex) {
 			mTopIndex = top;
 			_redrawAllVisible();

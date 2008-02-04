@@ -26,6 +26,7 @@
 #include "MyGUI_ProgressFactory.h"
 #include "MyGUI_RenderBoxFactory.h"
 #include "MyGUI_ItemBoxFactory.h"
+#include "MyGUI_MultiListFactory.h"
 
 namespace MyGUI
 {
@@ -56,6 +57,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::ProgressFactory());
 		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 		mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
+		mIntegratedFactoryList.insert(new factory::MultiListFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

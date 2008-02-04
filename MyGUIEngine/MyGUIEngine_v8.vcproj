@@ -218,6 +218,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_MultiList.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Progress.cpp"
 					>
 				</File>
@@ -282,6 +286,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_MessageFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MultiListFactory.cpp"
 						>
 					</File>
 					<File
@@ -512,6 +520,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_MultiList.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Progress.h"
 					>
 				</File>
@@ -576,6 +588,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_MessageFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MultiListFactory.h"
 						>
 					</File>
 					<File
