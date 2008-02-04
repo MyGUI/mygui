@@ -233,7 +233,7 @@ namespace MyGUI
 	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
-			(*iter).list->setItemSelect(_position);
+			if (_widget != (*iter).list) (*iter).list->setItemSelect(_position);
 	}
 
 } // namespace MyGUI
