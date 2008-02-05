@@ -27,16 +27,14 @@ namespace MyGUI
 
 	void Button::_onMouseSetFocus(WidgetPtr _old)
 	{
-		mIsFocus = true;
-		updateButtonState();
+		_setMouseFocus(true);
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseSetFocus(_old);
 	}
 
 	void Button::_onMouseLostFocus(WidgetPtr _new)
 	{
-		mIsFocus = false;
-		updateButtonState();
+		_setMouseFocus(false);
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseLostFocus(_new);
 	}

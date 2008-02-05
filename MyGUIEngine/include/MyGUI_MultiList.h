@@ -18,9 +18,11 @@ namespace MyGUI
 		ListPtr list;
 		ButtonPtr button;
 		int width;
+		Ogre::DisplayString name;
 	};
 
 	typedef std::vector<RowInfo> VectorRowInfo;
+	typedef std::vector<size_t> VectorSizeT;
 
 	class _MyGUIExport MultiList : public Widget
 	{
@@ -80,9 +82,16 @@ namespace MyGUI
 
 	protected:
 		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
+		void notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position);
+		void notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position);
+		void notifyButtonClick(MyGUI::WidgetPtr _widget);
 
 		void updateRows();
+		void redrawButtons();
 		void updateOnlyEmpty();
+
+		void sortList();
+		size_t getInsertIndex(size_t _row, bool _up, const Ogre::DisplayString& _item);
 
 	private:
 		int mHeightButton;
@@ -92,7 +101,17 @@ namespace MyGUI
 
 		WidgetPtr mWidgetClient;
 		VectorRowInfo mVectorRowInfo;
-		//ListPtr mMainList;
+
+		size_t mLastMouseFocusIndex;
+
+		bool mSortUp;
+		size_t mSortRowIndex;
+
+
+		// векторы для быстрого маппинга в сортированном списке
+		VectorSizeT mToSortIndex;
+		//VectorSizeT mFromSortIndex;
+		
 
 
 	}; // class _MyGUIExport MultiList : public Widget

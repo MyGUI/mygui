@@ -54,6 +54,13 @@ namespace MyGUI
 		bool isItemVisible(size_t _index, bool _fill = true);
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
+		void needVisibleScroll(bool _visible);
+		void setScrollPosition(size_t _position);
+
+		//------------------------------------------------------------------------------------//
+		// вспомогательные методы для составных списков
+		void _setItemFocus(size_t _position, bool _focus);
+		void _sendEventChangeScroll(size_t _position);
 
 		//------------------------------------------------------------------------------------//
 		virtual void setSize(const IntSize& _size);
@@ -78,6 +85,14 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
 		EventInfo_WidgetSizeT eventListMouseItemActivate;
 
+		// event : над элементом находиться мышь
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_WidgetSizeT eventListMouseItemFocus;
+
+		// event : изменилось положение скролла вью
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_WidgetSizeT eventListChangeScroll;
+
 	protected:
 
 		void _onMouseWheel(int _rel);
@@ -88,9 +103,12 @@ namespace MyGUI
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
+		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
+		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 
 		void updateScroll();
 		void updateLine(bool _reset = false);
+		void _setScrollView(size_t _position);
 
 		// перерисовывает от индекса до низа
 		void _redrawItemRange(size_t _start = 0);
@@ -123,11 +141,13 @@ namespace MyGUI
 		size_t mLastRedrawLine; // последняя перерисованная линия
 
 		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
+		size_t mLineActive; // текущий виджет над которым мыша
 
 		std::vector<Ogre::DisplayString> mStringArray;
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;
+		bool mNeedVisibleScroll;
 
 		IntSize mOldSize;
 

@@ -35,6 +35,12 @@ namespace MyGUI
 
 		inline bool getButtonPressed() {return mIsStatePressed;}
 
+		inline void _setMouseFocus(bool _focus)
+		{
+			mIsFocus = _focus;
+			updateButtonState();
+		}
+
 	protected:
 
 		virtual void _onMouseLostFocus(WidgetPtr _new);

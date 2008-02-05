@@ -17,7 +17,11 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _name),
 		mHeightButton(0),
 		mWidgetClient(null),
-		mWidthBar(0)
+		mButtonMain(null),
+		mWidthBar(0),
+		mLastMouseFocusIndex(ITEM_NONE),
+		mSortUp(true),
+		mSortRowIndex(ITEM_NONE)
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -30,6 +34,12 @@ namespace MyGUI
 
 			iter = param.find("SkinList");
 			if (iter != param.end()) mSkinList = iter->second;
+
+			iter = param.find("SkinButtonEmpty");
+			if (iter != param.end()) {
+				mButtonMain = mWidgetClient->createWidget<Button>(iter->second,
+					IntCoord(0, 0, mWidgetClient->getWidth(), mHeightButton), ALIGN_DEFAULT);
+			}
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -40,9 +50,6 @@ namespace MyGUI
 		}
 		// мона и без клиента
 		if (null == mWidgetClient) mWidgetClient = this;
-
-		mButtonMain = mWidgetClient->createWidget<Button>(mSkinButton, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightButton), ALIGN_DEFAULT);
-		//mMainList = mWidgetClient->createWidget<List>(mSkinButton, IntCoord(0, mHeightButton, mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHeightButton), ALIGN_LEFT | ALIGN_VSTRETCH);
 
 	}
 
@@ -56,27 +63,48 @@ namespace MyGUI
 		Widget::setPosition(_coord);
 	}
 
+	//----------------------------------------------------------------------------------//
+	// методы для работы со столбцами
 	void MultiList::insertRow(size_t _index, int _width, const Ogre::DisplayString & _name)
 	{
+		// скрываем у крайнего скролл
+		if (false == mVectorRowInfo.empty()) 
+			mVectorRowInfo.back().list->needVisibleScroll(false);
+		else mSortRowIndex = 0;
+
 		RowInfo row;
 		row.width = _width < 0 ? 0 : _width;
 
 		row.list = mWidgetClient->createWidget<List>(mSkinList, IntCoord(), ALIGN_LEFT | ALIGN_VSTRETCH);
 		row.list->eventListChangePosition = newDelegate(this, &MultiList::notifyListChangePosition);
+		row.list->eventListMouseItemFocus = newDelegate(this, &MultiList::notifyListChangeFocus);
+		row.list->eventListChangeScroll = newDelegate(this, &MultiList::notifyListChangeScrollPosition);
 
 		row.button = mWidgetClient->createWidget<Button>(mSkinButton, IntCoord(), ALIGN_DEFAULT);
-		row.button->setCaption(_name);
+		row.button->eventMouseButtonClick = newDelegate(this, &MultiList::notifyButtonClick);
+		row.name = _name;
+
+		// если уже были столбики, то делаем то же колличество полей
+		if (false == mVectorRowInfo.empty()) {
+			size_t count = mVectorRowInfo.front().list->getItemCount();
+			for (size_t pos=0; pos<count; ++pos)
+				row.list->addItem("");
+		}
 
 		if (_index > mVectorRowInfo.size()) _index = mVectorRowInfo.size();
 		mVectorRowInfo.insert(mVectorRowInfo.begin() + _index, row);
 
 		updateRows();
+
+		// показываем скролл нового крайнего
+		mVectorRowInfo.back().list->needVisibleScroll(true);
 	}
 
 	void MultiList::setRowName(size_t _index, const Ogre::DisplayString & _name)
 	{
 		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
-		mVectorRowInfo[_index].button->setCaption(_name);
+		mVectorRowInfo[_index].name = _name;
+		redrawButtons();
 	}
 
 	void MultiList::setRowWidth(size_t _index, int _width)
@@ -90,7 +118,7 @@ namespace MyGUI
 	const Ogre::DisplayString & MultiList::getRowName(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
-		return mVectorRowInfo[_index].button->getCaption();
+		return mVectorRowInfo[_index].name;
 	}
 
 	int MultiList::getRowWidth(size_t _index)
@@ -110,6 +138,13 @@ namespace MyGUI
 
 		mVectorRowInfo.erase(mVectorRowInfo.begin() + _index);
 
+		if (mVectorRowInfo.empty()) mSortRowIndex = ITEM_NONE;
+		else {
+			mSortRowIndex = 0;
+			mSortUp = true;
+			sortList();
+		}
+
 		updateRows();
 	}
 
@@ -121,39 +156,13 @@ namespace MyGUI
 			gui.destroyWidget((*iter).list);
 		}
 		mVectorRowInfo.clear();
+		mSortRowIndex = ITEM_NONE;
 
 		updateRows();
 	}
 
-	void MultiList::updateRows()
-	{
-		mWidthBar = 0;
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
-			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
-
-			mWidthBar += (*iter).width;
-		}
-
-		// кнопка, для заполнения пустоты
-		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
-		else {
-			mButtonMain->setPosition(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
-			mButtonMain->show();
-		}
-	}
-
-	void MultiList::updateOnlyEmpty()
-	{
-		// кнопка, для заполнения пустоты
-		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
-		else {
-			mButtonMain->setPosition(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
-			mButtonMain->show();
-		}
-	}
-
-
+	//------------------------------------------------------------------------------//
+	// методы для работы со строками
 	size_t MultiList::getItemCount()
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
@@ -163,36 +172,58 @@ namespace MyGUI
 	void MultiList::insertItem(size_t _index, const Ogre::DisplayString & _item)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		if (_index > mVectorRowInfo.front().list->getItemCount()) _index = mVectorRowInfo.front().list->getItemCount();
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
-			(*iter).list->insertItem(_index, "");
-		mVectorRowInfo.front().list->setItem(_index, _item);
+		if (ITEM_NONE == _index) _index = mVectorRowInfo.front().list->getItemCount();
+
+		// отсортированное место для индекса
+		size_t index = getInsertIndex(mSortRowIndex, mSortUp, mSortRowIndex == 0 ? _item : "");
+
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			(*iter).list->insertItem(index, "");
+		}
+		mVectorRowInfo.front().list->setItem(index, _item);
+
+		// все индексты что больше или равны вставляемому увеличиваем на 1
+		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
+			if (mToSortIndex[pos] >= index) mToSortIndex[pos]++;
+		}
+
+		// записываем реальный индекс
+		mToSortIndex.insert(mToSortIndex.begin() + _index, index);
+
 	}
 
 	void MultiList::setItem(size_t _index, const Ogre::DisplayString & _item)
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		mVectorRowInfo.front().list->setItem(_index, _item);
+		setSubItem(0, _index, _item);
 	}
 
 	const Ogre::DisplayString & MultiList::getItem(size_t _index)
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		return mVectorRowInfo.front().list->getItem(_index);
+		return getSubItem(0, _index);
 	}
 
 	void MultiList::deleteItem(size_t _index)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 			(*iter).list->deleteItem(_index);
+		}
+
+		size_t index = mToSortIndex[_index];
+		// все индексты что меньше уменьшаем
+		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
+			if (mToSortIndex[pos] < index) mToSortIndex[pos]--;
+		}
+		mToSortIndex.erase(mToSortIndex.begin() + _index);
 	}
 
 	void MultiList::deleteAllItems()
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 			(*iter).list->deleteAllItems();
+		}
+		mToSortIndex.clear();
 	}
 
 	size_t MultiList::getItemSelect()
@@ -215,25 +246,125 @@ namespace MyGUI
 			(*iter).list->setItemSelect(_index);
 	}
 
-	// саб строки
+	//----------------------------------------------------------------------------------//
+	// методы для работы с саб строками
 	void MultiList::setSubItem(size_t _row, size_t _index, const Ogre::DisplayString & _item)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
+		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
 		mVectorRowInfo[_row].list->setItem(_index, _item);
 	}
 
 	const Ogre::DisplayString & MultiList::getSubItem(size_t _row, size_t _index)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
+		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
 		return mVectorRowInfo[_row].list->getItem(_index);
+	}
+	//----------------------------------------------------------------------------------//
+
+	void MultiList::updateRows()
+	{
+		mWidthBar = 0;
+		int index = 0;
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
+			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
+
+			(*iter).button->_setInternalData(index++);
+
+			mWidthBar += (*iter).width;
+		}
+
+		redrawButtons();
+		updateOnlyEmpty();
+	}
+
+	void MultiList::updateOnlyEmpty()
+	{
+		if (null == mButtonMain) return;
+		// кнопка, для заполнения пустоты
+		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
+		else {
+			mButtonMain->setPosition(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
+			mButtonMain->show();
+		}
 	}
 
 	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
 			if (_widget != (*iter).list) (*iter).list->setItemSelect(_position);
+	}
+
+	void MultiList::notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position)
+	{
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			if (_widget != (*iter).list) {
+				if (ITEM_NONE != mLastMouseFocusIndex) (*iter).list->_setItemFocus(mLastMouseFocusIndex, false);
+				if (ITEM_NONE != _position) (*iter).list->_setItemFocus(_position, true);
+			}
+		}
+		mLastMouseFocusIndex = _position;
+	}
+
+	void MultiList::notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position)
+	{
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			if (_widget != (*iter).list)
+				(*iter).list->setScrollPosition(_position);
+		}
+	}
+
+	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _widget)
+	{
+		if (_widget->_getInternalData() == mSortRowIndex) mSortUp = !mSortUp;
+		else {
+			mSortRowIndex = (size_t)_widget->_getInternalData();
+			mSortUp = true;
+		}
+		redrawButtons();
+		sortList();
+	}
+
+	void MultiList::redrawButtons()
+	{
+		size_t pos = 0;
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			if (pos == mSortRowIndex) {
+				if (mSortUp) (*iter).button->setCaption((*iter).name + "  ^");
+				else (*iter).button->setCaption((*iter).name + "  v");
+			}
+			else (*iter).button->setCaption((*iter).name);
+			pos++;
+		}
+	}
+
+	void MultiList::sortList()
+	{
+		if (ITEM_NONE == mSortRowIndex) return;
+		//std::string str1("test1");
+		//std::string str2("test2");
+		//MYGUI_OUT(str2 < str1);
+		//std::list::sort(
+		//mVectorRowInfo.so
+	}
+
+	size_t MultiList::getInsertIndex(size_t _row, bool _up, const Ogre::DisplayString& _item)
+	{
+		size_t index = 0;
+		ListPtr list = mVectorRowInfo[_row].list;
+		size_t count = list->getItemCount();
+
+		for (; index<count; ++index) {
+			if (_up) {
+				if (list->getItem(index) > _item) break;
+			}
+			else {
+				if (list->getItem(index) < _item) break;
+			}
+		}
+		return index;
 	}
 
 } // namespace MyGUI

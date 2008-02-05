@@ -25,7 +25,9 @@ namespace MyGUI
 		mRangeIndex(-1),
 		mLastRedrawLine(0),
 		mIndexSelect(ITEM_NONE),
-		mIsFocus(false)
+		mLineActive(ITEM_NONE),
+		mIsFocus(false),
+		mNeedVisibleScroll(true)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -158,13 +160,12 @@ namespace MyGUI
 			}
 
 		}
-		/*else if (_key == OIS::KC_DELETE) {
-			deleteAllItems();
-			return;
-		}*/
 
 		if (sel != mIndexSelect) {
-			if ( false == isItemVisible(sel)) beginToIndex(sel);
+			if ( false == isItemVisible(sel)) {
+				beginToIndex(sel);
+				_sendEventChangeScroll(mWidgetScroll->getScrollPosition());
+			}
 			setItemSelect(sel);
 			// изменилась позиция
 			eventListChangePosition(this, mIndexSelect);
@@ -188,31 +189,14 @@ namespace MyGUI
 		if ((int)mWidgetScroll->getScrollPosition() == offset) return;
 
 		mWidgetScroll->setScrollPosition(offset);
-		notifyScrollChangePosition(null, offset);
+		_setScrollView(offset);
+		_sendEventChangeScroll(offset);
 	}
 
-	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel)
+	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position)
 	{
-		mOffsetTop = ((int)_rel % mHeightLine);
-
-		// смещение с отрицательной стороны
-		int offset = 0 - mOffsetTop;
-
-		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
-			mWidgetLines[pos]->setPosition(IntPoint(0, offset));
-			offset += mHeightLine;
-		}
-
-		// если индех изменился, то перерисовываем линии
-		int top = ((int)_rel / mHeightLine);
-		if (top != mTopIndex) {
-			mTopIndex = top;
-			_redrawItemRange();
-		}
-
-		// прорисовываем все нижние строки, если они появились
-		_redrawItemRange(mLastRedrawLine);
-
+		_setScrollView(_position);
+		_sendEventChangeScroll(_position);
 	}
 
 	void List::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
@@ -264,12 +248,13 @@ namespace MyGUI
 	{
 		mRangeIndex = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->getHeight();
 
-		if ( (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) ) {
+		if ( (false == mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) ) {
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->hide();
 				// увеличиваем клиентскую зону на ширину скрола
 				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
+			mWidgetScroll->setScrollRange(mRangeIndex + 1);
 			return;
 		}
 		if (false == mWidgetScroll->isShow()) {
@@ -303,6 +288,8 @@ namespace MyGUI
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 				line->eventMouseWheel = newDelegate(this, &List::notifyMouseWheel);
+				line->eventMouseSetFocus = newDelegate(this, &List::notifyMouseSetFocus);
+				line->eventMouseLostFocus = newDelegate(this, &List::notifyMouseLostFocus);
 				// присваиваем порядковый номер, длу простоты просчета
 				line->_setInternalData((int)mWidgetLines.size());
 				// и сохраняем
@@ -629,6 +616,71 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
 		return mStringArray[_index];
+	}
+
+	void List::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+	{
+		mLineActive = _sender->_getInternalData();
+		eventListMouseItemFocus(this, mLineActive + (size_t)mTopIndex);
+	}
+
+	void List::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	{
+		if ((null == _new) || (_new->getParent() != mWidgetClient)) {
+			mLineActive = ITEM_NONE;
+			eventListMouseItemFocus(this, ITEM_NONE);
+		}
+	}
+
+	void List::_setItemFocus(size_t _position, bool _focus)
+	{
+		size_t index = (_position - mTopIndex);
+		if (index < mWidgetLines.size())
+			static_cast<ButtonPtr>(mWidgetLines[index])->_setMouseFocus(_focus);
+	}	
+
+	void List::needVisibleScroll(bool _visible)
+	{
+		if (mNeedVisibleScroll == _visible) return;
+		mNeedVisibleScroll = _visible;
+		updateScroll();
+	}
+
+	void List::setScrollPosition(size_t _position)
+	{
+		if (mWidgetScroll->getScrollRange() > _position) {
+			mWidgetScroll->setScrollPosition(_position);
+			_setScrollView(_position);
+		}
+	}
+
+	void List::_setScrollView(size_t _position)
+	{
+		mOffsetTop = ((int)_position % mHeightLine);
+
+		// смещение с отрицательной стороны
+		int offset = 0 - mOffsetTop;
+
+		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+			mWidgetLines[pos]->setPosition(IntPoint(0, offset));
+			offset += mHeightLine;
+		}
+
+		// если индех изменился, то перерисовываем линии
+		int top = ((int)_position / mHeightLine);
+		if (top != mTopIndex) {
+			mTopIndex = top;
+			_redrawItemRange();
+		}
+
+		// прорисовываем все нижние строки, если они появились
+		_redrawItemRange(mLastRedrawLine);
+	}
+
+	void List::_sendEventChangeScroll(size_t _position)
+	{
+		eventListChangeScroll(this, _position);
+		if (ITEM_NONE != mLineActive) eventListMouseItemFocus(this, mLineActive + (size_t)mTopIndex);
 	}
 
 } // namespace MyGUI

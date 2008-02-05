@@ -162,17 +162,30 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	MyGUI::MultiListPtr list = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 400, 300), MyGUI::ALIGN_DEFAULT, "Main");
-	list->addRow(50, "test");
+	MyGUI::MultiListPtr list = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 316, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	list->addRow(80, "test");
 	list->addRow(80, "test 2");
-	list->addRow(80, "test 3");
+	list->addRow(150, "test 3");
 
+	list->addItem("line7");
+	list->addItem("line6");
+	list->addItem("line3");
+	list->addItem("line4");
+	list->addItem("line9");
+	list->addItem("line5");
+	list->addItem("line8");
 	list->addItem("line1");
 	list->addItem("line2");
-	list->addItem("line3");
 
-	list->setSubItem(1, 1, "test 1");
-	list->setSubItem(2, 0, "test 2");
+	list->setSubItem(2, 0, "test 1");
+	list->setSubItem(2, 1, "test 2");
+	list->setSubItem(2, 2, "test 3");
+	list->setSubItem(2, 3, "test 4");
+	list->setSubItem(2, 4, "test 5");
+	list->setSubItem(2, 5, "test 6");
+	list->setSubItem(2, 6, "test 7");
+	list->setSubItem(2, 7, "test 8");
+	list->setSubItem(2, 8, "test 9");
 
 	//list->addItem("#FF0000red#00FF00green#0000FFblue");
 

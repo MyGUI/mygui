@@ -1072,15 +1072,28 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "MultiSubList" size = "9 9" material = "MyGUI_CoreMaterial" align = "ALIGN_LEFT ALIGN_TOP">
+        <Property key="NeedKey" value = "true" />
+        <Property key="SkinLine" value = "ListLine" />
+        <Property key="HeightLine" value = "20" />
+
+        <Child type="VScroll" skin="VScroll" offset = "-7 0 16 9" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll">
+        </Child>
+
+        <Child type="Widget" skin="Empty" offset = "0 0 -7 9" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+        <BasisSkin type="MainSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
+
+    </Skin>
+
     <Skin name = "MultiList" size = "9 9" material = "MyGUI_CoreMaterial" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="NeedKey" value = "true" />
         <Property key="SkinButton" value = "ButtonSmall" />
+        <Property key="_SkinButtonEmpty" value = "Edit" />
         <Property key="HeightButton" value = "20" />
 
-        <Property key="SkinList" value = "List" />
-
-        <_Child type="VScroll" skin="VScroll" offset = "-10 3 16 3" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll">
-        </_Child>
+        <Property key="SkinList" value = "MultiSubList" />
 
         <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "ALIGN_STRETCH" name = "Client">
         </Child>
