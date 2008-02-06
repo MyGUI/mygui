@@ -441,7 +441,7 @@ namespace MyGUI
 
 		struct Keeper
 		{
-			inline void keep(ListPtr list, VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
 			{
 				text.resize(info.size());
 				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
