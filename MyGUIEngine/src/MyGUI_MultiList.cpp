@@ -434,88 +434,6 @@ namespace MyGUI
 		size_t count = list->getItemCount();
 		if (0 == count) return;
 
-		/*int i, j;
-
-		Ogre::DisplayString tmp;
-		int index1, index2, index_tmp;
-
-		for ( i=0; i < count; i++) {  // цикл проходов, i - номер прохода
-			tmp = list->getItem(i);
-			index_tmp = convertFromSort(i);
-			//x = a[i];
-			// поиск места элемента в готовой последовательности 
-			if (mSortUp) {
-				for ( j=i-1; j>=0 && list->getItem(j) > tmp; j--) {
-
-					list->setItem(j+1, list->getItem(j));
-
-					index1 = convertFromSort(j+1);
-					index2 = convertFromSort(j);
-
-					mToSortIndex[index1] = mToSortIndex[index2];
-
-					//a[j+1] = a[j];  	// сдвигаем элемент направо, пока не дошли
-				}
-				// место найдено, вставить элемент
-				list->setItem(j+1, tmp);
-
-				index1 = convertFromSort(j+1);
-				mToSortIndex[index1] = index_tmp;
-//				a[j+1] = x;
-			}
-			else {
-				for ( j=i-1; j>=0 && list->getItem(j) < tmp; j--) {
-
-					list->setItem(j+1, list->getItem(j));
-
-					index1 = convertFromSort(j+1);
-					index2 = convertFromSort(j);
-
-					mToSortIndex[index1] = mToSortIndex[index2];
-
-					//a[j+1] = a[j];  	// сдвигаем элемент направо, пока не дошли
-				}
-				// место найдено, вставить элемент
-				list->setItem(j+1, tmp);
-
-				index1 = convertFromSort(j+1);
-				mToSortIndex[index1] = index_tmp;
-//				a[j+1] = x;
-			}
-		}*/
-
-		/*Ogre::DisplayString tmp;
-		tmp.reserve(64);
-		size_t index1, index2, index_tmp;
-
-		for( size_t i=count-1; i>0; --i ) {
-			for( size_t j=0; j<i; ++j ) {
-				if (mSortUp) {
-					if ( list->getItem(j) <= list->getItem(j+1) ) continue;
-				}
-				else {
-					if( list->getItem(j) >= list->getItem(j+1) ) continue;
-				}
-
-				//swapLine(j, j+1);
-				for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-					tmp = (*iter).list->getItem(j);
-					(*iter).list->setItem(j, (*iter).list->getItem(j+1));
-					(*iter).list->setItem(j+1, tmp);
-				}
-				index1 = convertFromSort(j);
-				index2 = convertFromSort(j+1);
-
-				index_tmp = mToSortIndex[index1];
-				mToSortIndex[index1] = mToSortIndex[index2];
-				mToSortIndex[index2] = index_tmp;
-			}
-		}*/
-
-		//Ogre::DisplayString tmp;
-		//tmp.reserve(64);
-		//size_t index1, index2;
-
 		VectorSizeT vec;
 		size_t size = mToSortIndex.size();
 		vec.resize(size);
@@ -523,7 +441,7 @@ namespace MyGUI
 
 		struct Keeper
 		{
-			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+			inline void keep(ListPtr list, VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
 			{
 				text.resize(info.size());
 				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
@@ -568,19 +486,6 @@ namespace MyGUI
 					keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+1);
 					keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+1);
 
-					/*for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-						tmp = (*iter).list->getItem(index1);
-						(*iter).list->setItem(index1, (*iter).list->getItem(index2));
-						(*iter).list->setItem(index2, tmp);
-					}
-
-					index_tmp = mToSortIndex[vec[index1]];
-					mToSortIndex[vec[index1]] = mToSortIndex[vec[index2]];
-					mToSortIndex[vec[index2]] = index_tmp;
-
-					index_tmp2 = vec[index1];
-					vec[index1] = vec[index2];
-					vec[index2] = index_tmp2;*/
 				}
 			}
 		}
@@ -592,22 +497,6 @@ namespace MyGUI
 					keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
 					keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+1);
 					keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+1);
-					/*for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-						tmp = (*iter).list->getItem(j);
-						(*iter).list->setItem(j, (*iter).list->getItem(j+1));
-						(*iter).list->setItem(j+1, tmp);
-					}
-
-					index1 = vec[j];
-					index2 = vec[j+1];
-
-					//index_tmp = mToSortIndex[index1];
-					mToSortIndex[index1] = mToSortIndex[index2];
-					mToSortIndex[index2] = j;//index_tmp;
-
-					//index_tmp = vec[j];
-					vec[j] = vec[j+1];
-					vec[j+1] = index1;//index_tmp;*/
 				}
 			}
 		}
