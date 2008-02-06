@@ -167,25 +167,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	list->addRow(80, "test 2");
 	list->addRow(150, "test 3");
 
-	list->addItem("line7");
-	list->addItem("line6");
-	list->addItem("line3");
-	list->addItem("line4");
-	list->addItem("line9");
-	list->addItem("line5");
-	list->addItem("line8");
-	list->addItem("line1");
-	list->addItem("line2");
-
-	list->setSubItem(2, 0, "test 1");
-	list->setSubItem(2, 1, "test 2");
-	list->setSubItem(2, 2, "test 3");
-	list->setSubItem(2, 3, "test 4");
-	list->setSubItem(2, 4, "test 5");
-	list->setSubItem(2, 5, "test 6");
-	list->setSubItem(2, 6, "test 7");
-	list->setSubItem(2, 7, "test 8");
-	list->setSubItem(2, 8, "test 9");
+	size_t count = 500;
+	for (size_t pos=0; pos<count; pos++) list->addItem(MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
+	for (size_t pos=0; pos<count; pos++) list->setSubItem(1, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
+	for (size_t pos=0; pos<count; pos++) list->setSubItem(2, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
 
 	//list->addItem("#FF0000red#00FF00green#0000FFblue");
 

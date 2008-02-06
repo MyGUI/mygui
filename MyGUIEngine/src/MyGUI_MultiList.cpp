@@ -21,7 +21,8 @@ namespace MyGUI
 		mWidthBar(0),
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
-		mSortRowIndex(ITEM_NONE)
+		mSortRowIndex(ITEM_NONE),
+		mIsDirtySort(false)
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -50,7 +51,11 @@ namespace MyGUI
 		}
 		// мона и без клиента
 		if (null == mWidgetClient) mWidgetClient = this;
+	}
 
+	MultiList::~MultiList()
+	{
+		Gui::getInstance().removeFrameListener(this);
 	}
 
 	void MultiList::setSize(const IntSize& _size)
@@ -174,22 +179,15 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
 		if (ITEM_NONE == _index) _index = mVectorRowInfo.front().list->getItemCount();
 
-		// отсортированное место для индекса
-		size_t index = getInsertIndex(mSortRowIndex, mSortUp, mSortRowIndex == 0 ? _item : "");
-
+		// вставляем во все поля пустые, а потом присваиваем первому
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-			(*iter).list->insertItem(index, "");
+			(*iter).list->insertItem(_index, "");
 		}
-		mVectorRowInfo.front().list->setItem(index, _item);
+		mVectorRowInfo.front().list->setItem(_index, _item);
 
-		// все индексты что больше или равны вставляемому увеличиваем на 1
-		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
-			if (mToSortIndex[pos] >= index) mToSortIndex[pos]++;
-		}
-
-		// записываем реальный индекс
-		mToSortIndex.insert(mToSortIndex.begin() + _index, index);
-
+		_insertSortIndex(_index);
+		setDirtySort();
+		//sortList();
 	}
 
 	void MultiList::setItem(size_t _index, const Ogre::DisplayString & _item)
@@ -208,13 +206,7 @@ namespace MyGUI
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 			(*iter).list->deleteItem(_index);
 		}
-
-		size_t index = mToSortIndex[_index];
-		// все индексты что меньше уменьшаем
-		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
-			if (mToSortIndex[pos] < index) mToSortIndex[pos]--;
-		}
-		mToSortIndex.erase(mToSortIndex.begin() + _index);
+		_eraseSortIndex(_index);
 	}
 
 	void MultiList::deleteAllItems()
@@ -223,27 +215,30 @@ namespace MyGUI
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 			(*iter).list->deleteAllItems();
 		}
-		mToSortIndex.clear();
+		_clearSortIndex();
 	}
 
 	size_t MultiList::getItemSelect()
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		return mVectorRowInfo.front().list->getItemSelect();
+		return convertFromSort(mVectorRowInfo.front().list->getItemSelect());
 	}
 
 	void MultiList::resetItemSelect()
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 			(*iter).list->resetItemSelect();
+		}
 	}
 
 	void MultiList::setItemSelect(size_t _index)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
-			(*iter).list->setItemSelect(_index);
+		size_t index = convertFromSort(_index);
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			(*iter).list->setItemSelect(index);
+		}
 	}
 
 	//----------------------------------------------------------------------------------//
@@ -252,14 +247,18 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
 		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		mVectorRowInfo[_row].list->setItem(_index, _item);
+		mVectorRowInfo[_row].list->setItem(convertFromSort(_index), _item);
+
+		// если мы попортили список с активным сортом, надо пересчитывать
+		if (_row == mSortRowIndex) setDirtySort();
+			//sortList();
 	}
 
 	const Ogre::DisplayString & MultiList::getSubItem(size_t _row, size_t _index)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
 		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		return mVectorRowInfo[_row].list->getItem(_index);
+		return mVectorRowInfo[_row].list->getItem(convertToSort(_index));
 	}
 	//----------------------------------------------------------------------------------//
 
@@ -268,12 +267,12 @@ namespace MyGUI
 		mWidthBar = 0;
 		int index = 0;
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
 			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
-
-			(*iter).button->_setInternalData(index++);
+			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
+			(*iter).button->_setInternalData(index);
 
 			mWidthBar += (*iter).width;
+			index++;
 		}
 
 		redrawButtons();
@@ -318,13 +317,20 @@ namespace MyGUI
 
 	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _widget)
 	{
-		if (_widget->_getInternalData() == mSortRowIndex) mSortUp = !mSortUp;
+		if (_widget->_getInternalData() == mSortRowIndex) {
+			mSortUp = !mSortUp;
+			redrawButtons();
+			// если было недосортированно то сортируем
+			if (mIsDirtySort) sortList();
+
+			flipList();
+		}
 		else {
 			mSortRowIndex = (size_t)_widget->_getInternalData();
 			mSortUp = true;
+			redrawButtons();
+			sortList();
 		}
-		redrawButtons();
-		sortList();
 	}
 
 	void MultiList::redrawButtons()
@@ -340,31 +346,247 @@ namespace MyGUI
 		}
 	}
 
+	size_t MultiList::convertFromSort(size_t _index)
+	{
+		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
+			if (mToSortIndex[pos] == _index) return pos;
+		}
+		MYGUI_EXCEPT("index not found");
+		return ITEM_NONE;
+	}
+
+	size_t MultiList::convertToSort(size_t _index)
+	{
+		MYGUI_DEBUG_ASSERT(_index < mToSortIndex.size(), "index out of range");
+		return mToSortIndex[_index];
+	}
+
+	void MultiList::_insertSortIndex(size_t _index)
+	{
+		// все индексты что больше или равны вставляемому увеличиваем на 1
+		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
+			if (mToSortIndex[pos] >= _index) mToSortIndex[pos]++;
+		}
+		// записываем индекс
+		mToSortIndex.insert(mToSortIndex.begin() + _index, _index);
+	}
+
+	void MultiList::_eraseSortIndex(size_t _index)
+	{
+		size_t index = mToSortIndex[_index];
+		// все индексты что меньше уменьшаем
+		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
+			if (mToSortIndex[pos] < index) mToSortIndex[pos]--;
+		}
+		mToSortIndex.erase(mToSortIndex.begin() + _index);
+	}
+
+	void MultiList::_clearSortIndex()
+	{
+		mToSortIndex.clear();
+	}
+
+	void MultiList::flipList()
+	{
+
+		if (ITEM_NONE == mSortRowIndex) return;
+
+		size_t end = mVectorRowInfo.front().list->getItemCount();
+		if (0 == end) return;
+		end --;
+		size_t start = 0;
+
+		Ogre::DisplayString tmp;
+		tmp.reserve(64);
+		size_t index1, index2;
+
+		VectorSizeT vec;
+		size_t size2 = mToSortIndex.size();
+		vec.resize(size2);
+		for (size_t pos=0; pos<size2; ++pos) vec[mToSortIndex[pos]] = pos;
+
+		while (start < end) {
+
+			for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+				tmp = (*iter).list->getItem(start);
+				(*iter).list->setItem(start, (*iter).list->getItem(end));
+				(*iter).list->setItem(end, tmp);
+			}
+
+			index1 = vec[start];
+			index2 = vec[end];
+
+			mToSortIndex[index1] = mToSortIndex[index2];
+			mToSortIndex[index2] = start;
+
+			vec[start] = vec[end];
+			vec[end] = index1;
+
+			start++;
+			end--;
+		}
+	}
+
 	void MultiList::sortList()
 	{
 		if (ITEM_NONE == mSortRowIndex) return;
-		//std::string str1("test1");
-		//std::string str2("test2");
-		//MYGUI_OUT(str2 < str1);
-		//std::list::sort(
-		//mVectorRowInfo.so
-	}
-
-	size_t MultiList::getInsertIndex(size_t _row, bool _up, const Ogre::DisplayString& _item)
-	{
-		size_t index = 0;
-		ListPtr list = mVectorRowInfo[_row].list;
+		ListPtr list = mVectorRowInfo[mSortRowIndex].list;
 		size_t count = list->getItemCount();
+		if (0 == count) return;
 
-		for (; index<count; ++index) {
-			if (_up) {
-				if (list->getItem(index) > _item) break;
+		/*int i, j;
+
+		Ogre::DisplayString tmp;
+		int index1, index2, index_tmp;
+
+		for ( i=0; i < count; i++) {  // цикл проходов, i - номер прохода
+			tmp = list->getItem(i);
+			index_tmp = convertFromSort(i);
+			//x = a[i];
+			// поиск места элемента в готовой последовательности 
+			if (mSortUp) {
+				for ( j=i-1; j>=0 && list->getItem(j) > tmp; j--) {
+
+					list->setItem(j+1, list->getItem(j));
+
+					index1 = convertFromSort(j+1);
+					index2 = convertFromSort(j);
+
+					mToSortIndex[index1] = mToSortIndex[index2];
+
+					//a[j+1] = a[j];  	// сдвигаем элемент направо, пока не дошли
+				}
+				// место найдено, вставить элемент
+				list->setItem(j+1, tmp);
+
+				index1 = convertFromSort(j+1);
+				mToSortIndex[index1] = index_tmp;
+//				a[j+1] = x;
 			}
 			else {
-				if (list->getItem(index) < _item) break;
+				for ( j=i-1; j>=0 && list->getItem(j) < tmp; j--) {
+
+					list->setItem(j+1, list->getItem(j));
+
+					index1 = convertFromSort(j+1);
+					index2 = convertFromSort(j);
+
+					mToSortIndex[index1] = mToSortIndex[index2];
+
+					//a[j+1] = a[j];  	// сдвигаем элемент направо, пока не дошли
+				}
+				// место найдено, вставить элемент
+				list->setItem(j+1, tmp);
+
+				index1 = convertFromSort(j+1);
+				mToSortIndex[index1] = index_tmp;
+//				a[j+1] = x;
+			}
+		}*/
+
+		/*Ogre::DisplayString tmp;
+		tmp.reserve(64);
+		size_t index1, index2, index_tmp;
+
+		for( size_t i=count-1; i>0; --i ) {
+			for( size_t j=0; j<i; ++j ) {
+				if (mSortUp) {
+					if ( list->getItem(j) <= list->getItem(j+1) ) continue;
+				}
+				else {
+					if( list->getItem(j) >= list->getItem(j+1) ) continue;
+				}
+
+				//swapLine(j, j+1);
+				for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+					tmp = (*iter).list->getItem(j);
+					(*iter).list->setItem(j, (*iter).list->getItem(j+1));
+					(*iter).list->setItem(j+1, tmp);
+				}
+				index1 = convertFromSort(j);
+				index2 = convertFromSort(j+1);
+
+				index_tmp = mToSortIndex[index1];
+				mToSortIndex[index1] = mToSortIndex[index2];
+				mToSortIndex[index2] = index_tmp;
+			}
+		}*/
+
+		Ogre::DisplayString tmp;
+		tmp.reserve(64);
+		size_t index1, index2;//, index_tmp;
+
+		VectorSizeT vec;
+		size_t size2 = mToSortIndex.size();
+		vec.resize(size2);
+		for (size_t pos=0; pos<size2; ++pos) vec[mToSortIndex[pos]] = pos;
+
+		if (mSortUp) {
+			for( size_t i=count-1; i>0; --i ) {
+				for( size_t j=0; j<i; ++j ) {
+					if ( list->getItem(j) <= list->getItem(j+1) ) continue;
+
+					for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+						tmp = (*iter).list->getItem(j);
+						(*iter).list->setItem(j, (*iter).list->getItem(j+1));
+						(*iter).list->setItem(j+1, tmp);
+					}
+
+					index1 = vec[j];
+					index2 = vec[j+1];
+
+					//index_tmp = mToSortIndex[index1];
+					mToSortIndex[index1] = mToSortIndex[index2];
+					mToSortIndex[index2] = j;//index_tmp;
+
+					//index_tmp = vec[j];
+					vec[j] = vec[j+1];
+					vec[j+1] = index1;//index_tmp;
+				}
 			}
 		}
-		return index;
+		else {
+			for( size_t i=count-1; i>0; --i ) {
+				for( size_t j=0; j<i; ++j ) {
+					if ( list->getItem(j) >= list->getItem(j+1) ) continue;
+
+					for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+						tmp = (*iter).list->getItem(j);
+						(*iter).list->setItem(j, (*iter).list->getItem(j+1));
+						(*iter).list->setItem(j+1, tmp);
+					}
+
+					index1 = vec[j];
+					index2 = vec[j+1];
+
+					//index_tmp = mToSortIndex[index1];
+					mToSortIndex[index1] = mToSortIndex[index2];
+					mToSortIndex[index2] = j;//index_tmp;
+
+					//index_tmp = vec[j];
+					vec[j] = vec[j+1];
+					vec[j+1] = index1;//index_tmp;
+				}
+			}
+		}
+
+		mIsDirtySort = false;
+	}
+
+	void MultiList::setDirtySort()
+	{
+		if (mIsDirtySort) return;
+		Gui::getInstance().addFrameListener(this);
+		mIsDirtySort = true;
+	}
+
+	void MultiList::_frameEntered(float _frame)
+	{
+		if (false == mIsDirtySort) {
+			Gui::getInstance().removeFrameListener(this);
+			return;
+		}
+		sortList();
 	}
 
 } // namespace MyGUI

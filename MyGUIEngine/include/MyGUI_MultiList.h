@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -24,13 +25,14 @@ namespace MyGUI
 	typedef std::vector<RowInfo> VectorRowInfo;
 	typedef std::vector<size_t> VectorSizeT;
 
-	class _MyGUIExport MultiList : public Widget
+	class _MyGUIExport MultiList : public Widget , public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::MultiListFactory;
 
 	protected:
 		MultiList(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		virtual ~MultiList();
 
 	public:
 		// тип данного виджета
@@ -81,6 +83,8 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 	protected:
+		virtual void _frameEntered(float _frame);
+
 		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position);
@@ -91,7 +95,16 @@ namespace MyGUI
 		void updateOnlyEmpty();
 
 		void sortList();
-		size_t getInsertIndex(size_t _row, bool _up, const Ogre::DisplayString& _item);
+		void flipList();
+
+		void _insertSortIndex(size_t _index);
+		void _eraseSortIndex(size_t _index);
+		void _clearSortIndex();
+
+		size_t convertFromSort(size_t _index);
+		size_t convertToSort(size_t _index);
+
+		void setDirtySort();
 
 	private:
 		int mHeightButton;
@@ -110,7 +123,7 @@ namespace MyGUI
 
 		// векторы для быстрого маппинга в сортированном списке
 		VectorSizeT mToSortIndex;
-		//VectorSizeT mFromSortIndex;
+		bool mIsDirtySort;
 		
 
 

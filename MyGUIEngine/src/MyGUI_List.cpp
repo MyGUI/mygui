@@ -409,7 +409,9 @@ namespace MyGUI
 		if (_index < (size_t)mTopIndex) return;
 		_index -= (size_t)mTopIndex;
 		// тоже невидно
-		if (_index > mLastRedrawLine) return;
+		if (_index >= mLastRedrawLine) return;
+
+		MYGUI_DEBUG_ASSERT(_index < mWidgetLines.size(), "index out range");
 		// перерисовываем
 		mWidgetLines[_index]->setCaption(mStringArray[_index + mTopIndex]);
 	}
