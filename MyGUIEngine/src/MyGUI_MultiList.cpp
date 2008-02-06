@@ -512,36 +512,75 @@ namespace MyGUI
 			}
 		}*/
 
-		Ogre::DisplayString tmp;
-		tmp.reserve(64);
-		size_t index1, index2;//, index_tmp;
+		//Ogre::DisplayString tmp;
+		//tmp.reserve(64);
+		//size_t index1, index2;
 
 		VectorSizeT vec;
-		size_t size2 = mToSortIndex.size();
-		vec.resize(size2);
-		for (size_t pos=0; pos<size2; ++pos) vec[mToSortIndex[pos]] = pos;
+		size_t size = mToSortIndex.size();
+		vec.resize(size);
+		for (size_t pos=0; pos<size; ++pos) vec[mToSortIndex[pos]] = pos;
+
+		struct Keeper
+		{
+			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+			{
+				text.resize(info.size());
+				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
+				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
+					(*itext) = (*iter).list->getItem(_index);
+				}
+				index1 = _index;
+				index2 = vec2[_index];
+			}
+
+			inline void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+			{
+				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
+				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
+					(*iter).list->setItem(_index, *itext);
+				}
+				vec[vec2[_index]] = index1;
+				vec2[_index] = index2;
+			}
+
+			inline void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index1, size_t _index2)
+			{
+				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
+					(*iter).list->setItem(_index1, (*iter).list->getItem(_index2));
+				}
+				vec[vec2[_index1]] = _index2;
+				vec2[_index1] = vec2[_index2];
+			}
+
+			std::vector<Ogre::DisplayString> text;
+			size_t index1, index2;
+		};
+
+		Keeper keeper;
 
 		if (mSortUp) {
 			for( size_t i=count-1; i>0; --i ) {
 				for( size_t j=0; j<i; ++j ) {
 					if ( list->getItem(j) <= list->getItem(j+1) ) continue;
 
-					for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-						tmp = (*iter).list->getItem(j);
-						(*iter).list->setItem(j, (*iter).list->getItem(j+1));
-						(*iter).list->setItem(j+1, tmp);
+					keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
+					keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+1);
+					keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+1);
+
+					/*for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+						tmp = (*iter).list->getItem(index1);
+						(*iter).list->setItem(index1, (*iter).list->getItem(index2));
+						(*iter).list->setItem(index2, tmp);
 					}
 
-					index1 = vec[j];
-					index2 = vec[j+1];
+					index_tmp = mToSortIndex[vec[index1]];
+					mToSortIndex[vec[index1]] = mToSortIndex[vec[index2]];
+					mToSortIndex[vec[index2]] = index_tmp;
 
-					//index_tmp = mToSortIndex[index1];
-					mToSortIndex[index1] = mToSortIndex[index2];
-					mToSortIndex[index2] = j;//index_tmp;
-
-					//index_tmp = vec[j];
-					vec[j] = vec[j+1];
-					vec[j+1] = index1;//index_tmp;
+					index_tmp2 = vec[index1];
+					vec[index1] = vec[index2];
+					vec[index2] = index_tmp2;*/
 				}
 			}
 		}
@@ -550,7 +589,10 @@ namespace MyGUI
 				for( size_t j=0; j<i; ++j ) {
 					if ( list->getItem(j) >= list->getItem(j+1) ) continue;
 
-					for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+					keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
+					keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+1);
+					keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+1);
+					/*for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 						tmp = (*iter).list->getItem(j);
 						(*iter).list->setItem(j, (*iter).list->getItem(j+1));
 						(*iter).list->setItem(j+1, tmp);
@@ -565,7 +607,7 @@ namespace MyGUI
 
 					//index_tmp = vec[j];
 					vec[j] = vec[j+1];
-					vec[j+1] = index1;//index_tmp;
+					vec[j+1] = index1;//index_tmp;*/
 				}
 			}
 		}
