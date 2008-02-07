@@ -165,6 +165,7 @@ namespace MyGUI
 		void selectSheetIndex(size_t _index, bool _smooth = true);
 		void selectSheet(const Ogre::DisplayString& _name, bool _smooth = true);
 		void selectSheet(SheetPtr _sheet, bool _smooth = true);
+		inline size_t getSelectSheetIndex() {return mSelectSheet;}
 
 	private:
 		int mOffsetTab; // смещение бара при показе кнопок
