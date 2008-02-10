@@ -144,6 +144,8 @@ namespace MyGUI
 				if (_item->mOverlayInfo->getZOrder() != current) _item->mOverlayInfo->setZOrder(current);
 			}
 		}
+	public:
+		inline const std::string & getName() {return mName;}
 
 	private:
 		VectorLayerItemInfo mItems;

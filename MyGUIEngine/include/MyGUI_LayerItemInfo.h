@@ -28,8 +28,10 @@ namespace MyGUI
 		friend class LayerInfo;
 		friend class LayerManager;
 
-    public:
+	public:
 		virtual ~LayerItemInfo();
+
+		const std::string & getLayerName();
 
 	protected:
 		LayerItemInfo();

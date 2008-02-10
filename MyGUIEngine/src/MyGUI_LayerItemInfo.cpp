@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_LayerItemInfo.h"
+#include "MyGUI_LayerInfo.h"
 
 namespace MyGUI
 {
@@ -16,6 +17,11 @@ namespace MyGUI
 
 	LayerItemInfo::~LayerItemInfo()
 	{
+	}
+
+	const std::string & LayerItemInfo::getLayerName()
+	{
+		return mLayerInfo->getName();
 	}
 
 } // namespace MyGUI
