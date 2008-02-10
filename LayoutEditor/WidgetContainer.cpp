@@ -94,15 +94,19 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 	WidgetContainer * _container = find(_widget);
 
 	MyGUI::WidgetPtr parent = _widget->getParent();
+	// FIXME у таба все не как у людей
 	if ((null != parent) && (parent->getWidgetType() == "Tab")) MyGUI::castWidget<MyGUI::Tab>(parent)->removeSheet(MyGUI::castWidget<MyGUI::Sheet>(_widget));
 	else MyGUI::Gui::getInstance().destroyWidget(_widget);
-	// что-то не то :)
-	widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
+
+	if (null != _container)
+	{
+		widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
+		delete _container;
+	}
 }
 
 WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
 {
-	// найдем соответствующий виджет и переместим/растянем
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
 		if ((*iter)->widget == _widget)
@@ -114,10 +118,9 @@ WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
 }
 WidgetContainer * EditorWidgets::find(std::string _name)
 {
-	// найдем соответствующий виджет и переместим/растянем
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
-		if ((*iter)->container_name == _name)
+		if ((*iter)->name == _name)
 		{
 			return *iter;
 		}
@@ -149,13 +152,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			static long renameN=0;
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
-		container->container_name = container->name;
-	} else {
-		static long num=0;
-		container->container_name = MyGUI::utility::toString(container->type, num++);
 	}
 
-	// FIXME возможно Sheet добавлять в список не надо...
 	if (null == _parent) {
 		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, container->name);
 		add(container);
@@ -224,7 +222,6 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 		MyGUI::WidgetPtr parent = (*iter)->widget->getParent();
 		// сынок - это ты?
 		if (_container->widget->getWidgetType() == "Window"){
-			// FIXME по хорошему надо бы просто (*iter)->widget->getParent() (1 раз)
 			if (null != parent)
 				if (_container->widget == parent->getParent()) serialiseWidget(*iter, node);
 		}else if (_container->widget == parent) serialiseWidget(*iter, node);

@@ -202,6 +202,10 @@
 				RelativePath=".\WidgetContainer.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\WidgetTypes.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -221,11 +225,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Types.h"
+				RelativePath=".\WidgetContainer.h"
 				>
 			</File>
 			<File
-				RelativePath=".\WidgetContainer.h"
+				RelativePath=".\WidgetTypes.h"
 				>
 			</File>
 		</Filter>
@@ -250,6 +254,10 @@
 			</File>
 			<File
 				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\Settings.layout"
 				>
 			</File>
 			<File

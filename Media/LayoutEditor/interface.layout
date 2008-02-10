@@ -1,69 +1,35 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="Layout">
-
-	<Widget type="Window" skin="WindowC" position="0 0 200 200" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="windowMenu" >
-		<Property key="Widget_Caption" value="Menu" />
-		<Property key="Window_AutoAlpha" value="true" />
-		<Property key="Window_Snap" value="true" />
-
-		<Widget type="Button" skin="Button" position="10 5 175 26" name="buttonLoad" >
-			<Property key="Widget_Caption" value="Load" />
-			<UserString key="isInterface" value="true" />
-		</Widget>
-
-		<Widget type="Button" skin="Button" position="10 40 175 26" align="ALIGN_RIGHT ALIGN_TOP" name="buttonSave" >
-			<Property key="Widget_Caption" value="Save" />
-		</Widget>
-
-		<Widget type="Button" skin="Button" position="10 75 175 26" align="ALIGN_RIGHT ALIGN_TOP" name="buttonSaveAs" >
-			<Property key="Widget_Caption" value="Save as..." />
-		</Widget>
-	
-		<Widget type="Button" skin="Button" position="10 110 175 26" align="ALIGN_RIGHT ALIGN_TOP" name="buttonQuit" >
-			<Property key="Widget_Caption" value="Quit" />
-		</Widget>
-	</Widget>
-
-	<Widget type="Window" skin="WindowC" position="0 200 200 400" layer="Overlapped" name="windowWidgets" >
-		<Property key="Widget_Caption" value="Widgets" />
-		<Property key="Window_AutoAlpha" value="true" />
-		<Property key="Window_Snap" value="true" />		
-	</Widget>
-
-	<Widget type="Window" skin="WindowCS" position="600 0 200 300" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="windowProperties" >
-		<Property key="Widget_Caption" value="Properties" />
-		<Property key="Window_AutoAlpha" value="true" />
-		<Property key="Window_Snap" value="true" />
-
-    <Widget type="StaticText" skin="StaticText" position_real="0. 0. 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="propertyPositionText" >
-      <Property key="Widget_Caption" value="Position" />
+    <Widget type="Window" skin="WindowC" position="0 0 200 208" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="LayoutEditor_windowMen">
+        <Property key="Widget_Caption" value="Menu"/>
+        <Property key="Window_AutoAlpha" value="false"/>
+        <Property key="Window_Snap" value="true"/>
+        <Widget type="Button" skin="Button" position="5 2 184 24" name="LayoutEditor_buttonLoad">
+            <Property key="Widget_Caption" value="Load"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="5 34 184 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonSave">
+            <Property key="Widget_Caption" value="Save"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="5 66 184 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonSaveAs">
+            <Property key="Widget_Caption" value="Save as..."/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="5 146 184 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonQuit">
+            <Property key="Widget_Caption" value="Quit"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="5 98 184 24" name="LayoutEditor_buttonSettings">
+            <Property key="Widget_Caption" value="Settings"/>
+            <Property key="" value="LyoutEditor_buttonSettings"/>
+        </Widget>
     </Widget>
-    <Widget type="Edit" skin="Edit" position_real="0.4 0. 0.6 0.1" align="ALIGN_TOP ALIGN_HSTRETCH" name="propertyPositionEdit" >
-      <Property key="Widget_Caption" value="" />
+    <Widget type="Window" skin="WindowC" position="0 208 200 360" layer="Overlapped" name="LayoutEditor_windowWidgets">
+        <Property key="Widget_Caption" value="Widgets"/>
+        <Property key="Window_AutoAlpha" value="false"/>
+        <Property key="Window_Snap" value="true"/>
     </Widget>
-
-    <Widget type="StaticText" skin="StaticText" position_real="0. 0.10 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="propertySkinText" >
-      <Property key="Widget_Caption" value="Skin" />
+    <Widget type="Window" skin="WindowCS" position="736 0 280 400" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="LayoutEditor_windowProperties">
+        <Property key="Widget_Caption" value="Properties"/>
+        <Property key="Window_AutoAlpha" value="false"/>
+        <Property key="Window_Snap" value="true"/>
+        <Property key="Widget_Move" value="716 0 280 400"/>
     </Widget>
-    <Widget type="Edit" skin="Edit" position_real="0.4 0.10 0.6 0.1" align="ALIGN_TOP ALIGN_HSTRETCH" name="propertySkinEdit" >
-      <Property key="Widget_Caption" value="" />
-    </Widget>
-	</Widget>
-
-	<Widget type="Window" skin="WindowCS" position="600 300 200 300" align="ALIGN_LEFT ALIGN_BOTTOM" layer="Overlapped" name="windowSettings" >
-		<Property key="Widget_Caption" value="Settings" />
-		<Property key="Window_AutoAlpha" value="true" />
-		<Property key="Window_Snap" value="true" />
-
-		<Widget type="StaticText" skin="StaticText" position_real="0. 0. 0.4 0.1" align="ALIGN_LEFT ALIGN_TOP" name="gridText" >
-			<Property key="Widget_Caption" value="Grid step" />
-		</Widget>
-		
-		<Widget type="Edit" skin="Edit" position_real="0.4 0. 0.6 0.1" align="ALIGN_TOP ALIGN_HSTRETCH" name="gridEdit" >
-			<Property key="Widget_Caption" value="8" />
-		</Widget>
-
-  </Widget>
-	
 </MyGUI>

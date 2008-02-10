@@ -24,25 +24,29 @@ private:
 	// main panel
 	void notifySave(MyGUI::WidgetPtr _sender);
 	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender);
+	void notifySettings(MyGUI::WidgetPtr _sender);
   void notifyQuit(MyGUI::WidgetPtr _sender);
 
 	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender);
-	// дублирует предыдущий метод
-	void notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget = 0);
-	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender);
+	void notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget = 0); // calls previous method
+	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0);
 
 	// widget panel
   void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 
 	// settings panel
-	void notifyNewGridStep(MyGUI::WidgetPtr _sender = 0, MyGUI::WidgetPtr _new = 0);
-	// дублирует предыдущий метод
-	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender = 0);
+	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
+	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender); // calls previous method
+	void notifyOkSettings(MyGUI::WidgetPtr _sender);
 
 	// widget selecting/resizing
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
-	void unselectWidget();
+	void updatePropertiesPanel(MyGUI::WidgetPtr _widget);
+	void createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::string _property, std::string _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
+	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
+	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget/*, size_t _index = 0*/); // calls previous method
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
+	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
 
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
@@ -65,4 +69,8 @@ private:
 	std::string fileName;
 
 	size_t grid;
+
+	// properties wndow
+	MyGUI::VectorWidgetPtr propertiesText;
+	MyGUI::VectorWidgetPtr propertiesElement;
 };

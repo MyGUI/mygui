@@ -1,7 +1,6 @@
 #ifndef __WIDGET_CONTAINER_H__
 #define __WIDGET_CONTAINER_H__
 
-#include <vector>
 #include "MyGUI.h"
 
 typedef std::vector<std::pair<std::string, std::string>> StringPairs;
@@ -10,15 +9,13 @@ typedef std::map<std::string, std::string> MapString;
 struct WidgetContainer
 {
 	WidgetContainer(){}
-	WidgetContainer(std::string _container_name, std::string _type, std::string _skin, MyGUI::WidgetPtr _widget, std::string _name = ""):
-		container_name(_container_name),
+	WidgetContainer(std::string _type, std::string _skin, MyGUI::WidgetPtr _widget, std::string _name = ""):
 		type(_type),
 		skin(_skin),
 		widget(_widget),
-		name()
+		name(_name)
 	{}
 
-	std::string container_name;
 	MyGUI::WidgetPtr widget;
 	StringPairs mProperty;
 	MapString mUserString;
