@@ -163,6 +163,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 			// создали виджет, все счастливы
 			WidgetContainer * widgetContainer = new WidgetContainer(current_widget_type, current_widget_skin, current_widget);
 			widgetContainer->position = current_widget->getCoord().print();
+			widgetContainer->layer = current_widget->getLayerName();
 			ew->add(widgetContainer);
 			notifySelectWidget(current_widget);
 			mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
@@ -378,6 +379,7 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 	current_widget->setCaption(current_widget_skin);
 	WidgetContainer * widgetContainer = new WidgetContainer(current_widget_type, current_widget_skin, current_widget);
 	widgetContainer->position = current_widget->getCoord().print();
+	widgetContainer->layer = current_widget->getLayerName();
 	ew->add(widgetContainer);
 	notifySelectWidget(current_widget);
 	mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);

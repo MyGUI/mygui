@@ -8,11 +8,9 @@
         </Widget>
         <Widget type="Edit" skin="Edit" position="101 2 136 24" name="LayoutEditor_gridEdit">
             <Property key="Widget_Caption" value="8"/>
-            <Property key="" value="LayoutEditor_gridEdit"/>
         </Widget>
         <Widget type="Button" skin="Button" position="5 234 232 24" name="LayoutEditor_buttonOkSettings">
             <Property key="Widget_Caption" value="Ok"/>
-            <Property key="" value="LayoutEditor_buttonOkSettings"/>
         </Widget>
     </Widget>
 </MyGUI>
