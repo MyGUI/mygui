@@ -243,7 +243,8 @@ namespace MyGUI
 		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(utility::toString(this, "_CameraNodeRenderBox"));
 		mCamNode->attachObject(mRttCam);
 		mRttCam->setNearClipDistance(1);
-		mRttCam->setAspectRatio(getWidth()/getHeight());
+		if (getHeight() == 0) mRttCam->setAspectRatio(1);
+		else mRttCam->setAspectRatio(getWidth()/getHeight());
 
 		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
 		v->setOverlaysEnabled(false);

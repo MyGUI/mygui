@@ -33,6 +33,7 @@ private:
 
 	// widget panel
   void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
+	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
 
 	// settings panel
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
@@ -60,15 +61,13 @@ private:
 	MyGUI::WindowPtr current_widget_rectangle;
 	// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
 	int creating_status;
-	// for unique names
-	int counter;
 
 	// current settings
 	int grid_step;
+	// if true 
+	bool shiftPressed;
 	// last loaded/saved file name
 	std::string fileName;
-
-	size_t grid;
 
 	// properties wndow
 	MyGUI::VectorWidgetPtr propertiesText;

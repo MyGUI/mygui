@@ -18,7 +18,6 @@
         </Widget>
         <Widget type="Button" skin="Button" position="5 98 184 24" name="LayoutEditor_buttonSettings">
             <Property key="Widget_Caption" value="Settings"/>
-            <Property key="" value="LyoutEditor_buttonSettings"/>
         </Widget>
     </Widget>
     <Widget type="Window" skin="WindowC" position="0 208 200 360" layer="Overlapped" name="LayoutEditor_windowWidgets">
@@ -30,6 +29,6 @@
         <Property key="Widget_Caption" value="Properties"/>
         <Property key="Window_AutoAlpha" value="false"/>
         <Property key="Window_Snap" value="true"/>
-        <Property key="Widget_Move" value="716 0 280 400"/>
+        <Property key="Widget_Show" value="false"/>
     </Widget>
 </MyGUI>

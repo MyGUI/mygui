@@ -202,7 +202,7 @@
     <Property key="FadeMiddle"/>
     <Property key="Info"/>
     <Property key="Tooltip"/>
-    <Property key="Pointer"/>
-    <Property key="Fade"/>
+    <!--Property key="Pointer"/-->
+    <!--Property key="Fade"/-->
   </Value>
 </MyGUI>
