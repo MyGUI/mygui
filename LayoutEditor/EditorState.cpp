@@ -347,7 +347,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 
 	if (false == success) 
 	{
-		MyGUI::Message::createMessage("Warning", "Failed to " + _sender->getCaption() + " file", 1, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::createMessage("Warning", "Failed to " + _sender->getCaption() + " file", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else
 	{
@@ -610,7 +610,10 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Align")
 	{
 		widgetContainer->align = value;
-		widgetContainer->widget->
+		_sender->setCaption("Save");
+		this->notifyLoadSaveAccept(_sender);
+		_sender->setCaption("Load");
+		this->notifyLoadSaveAccept(_sender);
 		return;
 	}
 	else if (action == "Layer")
