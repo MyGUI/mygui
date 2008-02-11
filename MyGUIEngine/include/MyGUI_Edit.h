@@ -33,6 +33,7 @@ namespace MyGUI
 
 		// работа с текстом с тегами
 		virtual void setCaption(const Ogre::DisplayString & _caption);
+		virtual const Ogre::DisplayString& getCaption();
 
 		// работа с текстом без тегов
 		inline void setOnlyText(const Ogre::DisplayString & _text) {setText(TextIterator::toTagsString(_text), false);}

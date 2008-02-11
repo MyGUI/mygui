@@ -1258,4 +1258,9 @@ namespace MyGUI
 		setText(_caption, false);
 	}
 
+	const Ogre::DisplayString& Edit::getCaption()
+	{
+		return getRealString();
+	}
+
 } // namespace MyGUI
