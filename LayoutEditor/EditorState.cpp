@@ -572,8 +572,23 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	}
 
 	editOrCombo->setUserString("action", _property);
+
+	// trim "ALIGN_"
+	std::string tmp = "";
+	const std::vector<std::string> & vec = MyGUI::utility::split(_value);
+	for (size_t pos=0; pos<vec.size(); pos++) {
+
+		prop = vec[pos];
+		iter = std::find(prop.begin(), prop.end(), '_');
+		if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
+
+		if (!tmp.empty()) tmp += " ";
+		tmp += prop;
+	}
+	tmp;
+
 	if (_value.empty()) editOrCombo->setCaption("DEFAULT");
-	else editOrCombo->setCaption(_value);
+	else editOrCombo->setCaption(tmp);
 	propertiesText.push_back(text);
 	propertiesElement.push_back(editOrCombo);
 }
@@ -610,10 +625,8 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Align")
 	{
 		widgetContainer->align = value;
-		_sender->setCaption("Save");
-		this->notifyLoadSaveAccept(_sender);
-		_sender->setCaption("Load");
-		this->notifyLoadSaveAccept(_sender);
+		widgetContainer->widget->setAlign(MyGUI::SkinManager::getInstance().parseAlign(value));
+		// FIXME применяется только после сохранения и повторной загрузки
 		return;
 	}
 	else if (action == "Layer")

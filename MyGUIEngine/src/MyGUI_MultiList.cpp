@@ -477,29 +477,36 @@ namespace MyGUI
 
 		Keeper keeper;
 
-		if (mSortUp) {
-			for( size_t i=count-1; i>0; --i ) {
-				for( size_t j=0; j<i; ++j ) {
-					if ( list->getItem(j) <= list->getItem(j+1) ) continue;
-
-					keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
-					keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+1);
-					keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+1);
-
-				}
+    int step = count/2;
+ 
+		if (mSortUp){
+			for( ; step>0 ; ){
+					for( size_t i=0; i<(count-step); ++i ){
+							int j = i;
+							while ( (j>=0) && (list->getItem(j) > list->getItem(j+step)) ){
+									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
+									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
+									keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
+									--j;
+							}
+					}
+					step >>= 1;
+			}
+		}else{
+			for( ; step>0 ; ){
+					for( size_t i=0; i<(count-step); ++i ){
+							int j = i;
+							while ( (j>=0) && (list->getItem(j) < list->getItem(j+step)) ){
+									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
+									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
+									keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
+									--j;
+							}
+					}
+					step >>= 1;
 			}
 		}
-		else {
-			for( size_t i=count-1; i>0; --i ) {
-				for( size_t j=0; j<i; ++j ) {
-					if ( list->getItem(j) >= list->getItem(j+1) ) continue;
 
-					keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
-					keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+1);
-					keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+1);
-				}
-			}
-		}
 
 		mIsDirtySort = false;
 	}

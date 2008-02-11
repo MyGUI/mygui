@@ -162,12 +162,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
-	MyGUI::MultiListPtr list = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 316, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::MultiListPtr list = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 316, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	list->addRow(80, "test");
 	list->addRow(80, "test 2");
 	list->addRow(150, "test 3");
 
-	size_t count = 500;
+	size_t count = 1000;
 	for (size_t pos=0; pos<count; pos++) list->addItem(MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
 	for (size_t pos=0; pos<count; pos++) list->setSubItem(1, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
 	for (size_t pos=0; pos<count; pos++) list->setSubItem(2, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
