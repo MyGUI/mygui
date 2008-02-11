@@ -154,42 +154,47 @@
   </Widget>
 
   <Value name="Align">
-    <!-- FIXME -->
-    <!--
-  ALIGN_HCENTER					= FLAG_NONE,					// center the window horizontally
-  ALIGN_VCENTER					= FLAG_NONE,					// center the window vertically
-  ALIGN_CENTER					= ALIGN_HCENTER | ALIGN_VCENTER,		// center the window in the dead center
-  ALIGN_CENTER_PARENT		    = FLAG(0),						// do not use it in your application это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
-  ALIGN_LEFT						= FLAG(1),						// align from the left (and center the window vertically)
-  ALIGN_RIGHT					= FLAG(2),						// align from the left (and center the window vertically)
-  ALIGN_HSTRETCH				    = ALIGN_LEFT | ALIGN_RIGHT,			// stretch horizontally proportionate to parent window
-  ALIGN_TOP						= FLAG(3),						// align from the top (and center the window horizontally)
-  ALIGN_BOTTOM					= FLAG(4),						// align from the bottom (and center the window horizontally)
-  ALIGN_VSTRETCH				    = ALIGN_TOP | ALIGN_BOTTOM,			// stretch vertically proportionate to parent window
-  ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch proportionate to parent window
-  ALIGN_DEFAULT					= ALIGN_LEFT | ALIGN_TOP,
-    -->
+    <Property key="DEFAULT"/>
+    <Property key="TOP LEFT"/>
+    <Property key="TOP"/>
+    <Property key="TOP RIGHT"/>
+    <Property key="LEFT"/>
+    <Property key="CENTER"/>
+    <Property key="RIGHT"/>
+    <Property key="BOTTOM LEFT"/>
+    <Property key="BOTTOM"/>
+    <Property key="BOTTOM RIGHT"/>
+    <Property key="VSTRETCH LEFT"/>
+    <Property key="VSTRETCH HCENTER"/>
+    <Property key="VSTRETCH RIGHT"/>
+    <Property key="HSTRETCH TOP"/>
+    <Property key="HSTRETCH VCENTER"/>
+    <Property key="HSTRETCH BOTTOM"/>
+    <Property key="STRETCH"/>
   </Value>
 
   <Value name="Bool">
     <Property key="true"/>
     <Property key="false"/>
+    <Property key="DEFAULT"/>
   </Value>
 
   <Value name="Font">
+    <Property key="DEFAULT"/>
     <Property key="MyGUI_CoreFont"/>
   </Value>
   
   <Value name="TextAlign">
-    <Property key="ALIGN_TOP ALIGN_LEFT"/>
-    <Property key="ALIGN_TOP"/>
-    <Property key="ALIGN_TOP ALIGN_RIGHT"/>
-    <Property key="ALIGN_LEFT"/>
-    <Property key="ALIGN_CENTER"/>
-    <Property key="ALIGN_RIGHT"/>
-    <Property key="ALIGN_BOTTOM ALIGN_LEFT"/>
-    <Property key="ALIGN_BOTTOM"/>
-    <Property key="ALIGN_BOTTOM ALIGN_RIGHT"/>
+    <Property key="DEFAULT"/>
+    <Property key="TOP LEFT"/>
+    <Property key="TOP"/>
+    <Property key="TOP RIGHT"/>
+    <Property key="LEFT"/>
+    <Property key="CENTER"/>
+    <Property key="RIGHT"/>
+    <Property key="BOTTOM LEFT"/>
+    <Property key="BOTTOM"/>
+    <Property key="BOTTOM RIGHT"/>
   </Value>
 
   <Value name="Layer">

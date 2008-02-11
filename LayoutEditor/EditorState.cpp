@@ -212,6 +212,16 @@ bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 //===================================================================================
 bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 {
+	/*static float time = 0;
+	time += evt.timeSinceLastFrame;
+	if (time > 1) {
+		time -= 1;
+		try {
+			const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
+			MyGUI::MYGUI_OUT(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
+		} catch (...) { }
+	}*/
+
 	mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 	return true;
 }
@@ -456,11 +466,24 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			createPropertiesWidgetsPair(window, "Position", _widget->getCoord().print(), "Position", x1, x2, w1, w2, y, h);
 			y += h;
 		}
+
+		createPropertiesWidgetsPair(window, "Align", widgetContainer->align, "Align", x1, x2, w1, w2, y, h);
+		y += h;
+
 		if (null == _widget->getParent())
 		{
 			createPropertiesWidgetsPair(window, "Layer", _widget->getLayerName(), "Layer", x1, x2, w1, w2, y, h);
 			y += h;
 		}
+
+		// separator
+		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
+		MyGUI::StaticTextPtr text;
+		text = window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1 + w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+		text->setCaption(current_widget->getWidgetType() + " specific properties");
+		text->setTextAlign(MyGUI::ALIGN_CENTER);
+		propertiesText.push_back(text);
+		y += h;
 
 		//all other
 		for (MapString::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
@@ -471,6 +494,14 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			createPropertiesWidgetsPair(window, iter->first, value, iter->second, x1, x2, w1, w2, y, h);
 			y += h;
 		}
+
+		// separator
+		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
+		text = window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1 + w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+		text->setCaption("Other properties");
+		text->setTextAlign(MyGUI::ALIGN_CENTER);
+		propertiesText.push_back(text);
+		y += h;
 
 		if (widgetType->resizeable)
 		{
@@ -508,14 +539,18 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	else if ("2 float" == _type) widget_for_type = 0;
 	// надо сделать проще FIXME
 	else if ("Colour" == _type) widget_for_type = 0;//"Colour" хорошо бы колорпикером
-	else if ("Align" == _type) widget_for_type = 0;//"Align" - одной комбой не катит
+	else if ("Align" == _type) widget_for_type = 1;//"Align" - одной комбой не катит
 	else if ("MessageButton" == _type) widget_for_type = 0;//"MessageButton" - тож хз
 	// неправильно FIXME
 	else if ("WidgetState" == _type) widget_for_type = 1;//по идее комба, но тогда надо еще и все состояния доступные в xml вписать
 	else  widget_for_type = 1;
 
 	text = _window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1, h, MyGUI::ALIGN_DEFAULT);
-	text->setCaption(_property);
+	std::string prop = _property;
+	// trim widget name
+	std::string::iterator iter = std::find(prop.begin(), prop.end(), '_');
+	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
+	text->setCaption(prop);
 
 	if (widget_for_type == 0)
 	{
@@ -550,6 +585,17 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
 	if (value == "DEFAULT") value = "";
 
+	if (std::string::npos != action.find("Align"))
+	{
+		std::string tmp = "";
+		const std::vector<std::string> & vec = MyGUI::utility::split(value);
+		for (size_t pos=0; pos<vec.size(); pos++) {
+			if (!tmp.empty()) tmp += " ";
+			tmp += "ALIGN_" + vec[pos];
+		}
+		value = tmp;
+	}
+
 	if (action == "Name")
 	{
 		widgetContainer->name = value;
@@ -559,6 +605,12 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	{
 		widgetContainer->position = value;
 		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
+		return;
+	}
+	else if (action == "Align")
+	{
+		widgetContainer->align = value;
+		widgetContainer->widget->
 		return;
 	}
 	else if (action == "Layer")
@@ -604,6 +656,9 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 		coord = convertCoordToParentCoord(coord, current_widget);
 		current_widget->setPosition(coord);
 		widgetContainer->position = coord.print();
+		//updatePropertiesPanel(current_widget);
+		propertiesElement[1]->setCaption(coord.print());
+		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
 	}
 	else
 	{
