@@ -28,7 +28,7 @@ namespace MyGUI
 
 		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 		mOverlayElement = static_cast<SharedPanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
-			"SharedPanelAlpha", Ogre::StringConverter::toString((int)this) + "_PointerManager" ));
+			"SharedPanelAlpha", Ogre::StringConverter::toString((size_t)this) + "_PointerManager" ));
 		// устанавливаем колличество саб оверлеев
 		mOverlayElement->setCountSharedOverlay(1);
 

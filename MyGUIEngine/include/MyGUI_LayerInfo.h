@@ -20,8 +20,8 @@ namespace MyGUI
 
 	private:
 		LayerInfo(const std::string & _name, Ogre::ushort _start, Ogre::ushort _count, Ogre::ushort _height) :
-			mStart(_start), mCount(_count?_count:1), mHeight(_height?_height:1), mName(_name),
-			mCountSharedItem(0),
+			mStart(_start), mCount(_count?_count:1), mHeight(_height?_height:1),
+			mCountSharedItem(0), mName(_name),
 			mOverlay(null)
 		{
 		}

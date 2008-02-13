@@ -194,7 +194,11 @@ namespace MyGUI
 		MYGUI_ASSERT(_widget != null, "widget is deleted");
 
 		// отписываем от всех
+		VectorWidgetPtr childs = _widget->getChilds();
+		for (VectorWidgetPtr::iterator iter = childs.begin(); iter != childs.end(); ++iter)
+			unlinkFromUnlinkers(*iter);
 		unlinkFromUnlinkers(_widget);
+
 
 		// делегирует удаление отцу виджета
 		WidgetPtr parent = _widget->getParent();

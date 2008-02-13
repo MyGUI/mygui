@@ -260,14 +260,30 @@ namespace MyGUI
 	bool Gui::_loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance)
 	{
 		xml::xmlDocument doc;
-		std::string file(_group.empty() ? _file : helper::getResourcePath(_file, _group));
-		if (file.empty()) {
-			MYGUI_LOG(Error, _instance << " : '" << _file << "' not found");
-			return false;
+		std::string file;
+		if (_group.empty())
+		{
+			file = _file;
+			if (file.empty()) {
+				MYGUI_LOG(Error, _instance << " : '" << _file << "' not found");
+				return false;
+			}
+			if (false == doc.open(file)) {
+				MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
+				return false;
+			}
 		}
-		if (false == doc.open(file)) {
-			MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
-			return false;
+		else
+		{
+			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource (_file, _group);
+			if (stream.isNull()) {
+				MYGUI_LOG(Error, _instance << " : '" << _file << "' not found");
+				return false;
+			}
+			if (false == doc.open(stream)) {
+				MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
+				return false;
+			}
 		}
 
 		xml::xmlNodePtr root = doc.getRoot();
