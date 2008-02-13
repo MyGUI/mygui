@@ -96,7 +96,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 
 		// внимание current_widget родитель и потом сразу же сын
 		// пока не найдем ближайшего над нами способного быть родителем
-		std::string tmpname = MyGUI::utility::toString(current_widget_type, global_counter);
+		std::string tmpname = MyGUI::utility::toString("LayoutEditor_", current_widget_type, global_counter);
 		global_counter++;
 		while (current_widget && false == wt->find(current_widget->getWidgetType())->parent) current_widget = current_widget->getParent();
 		if (current_widget && wt->find(current_widget_type)->child)
@@ -433,7 +433,17 @@ void EditorState::notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::Widge
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
 		std::string item;
-		if ((*iter)->name.empty()) item = MyGUI::utility::toString("[", (*iter)->widget->getName(), "]");
+		if ((*iter)->name.empty())
+		{				
+			// trim "LayoutEditor_"
+			std::string tmp = (*iter)->widget->getName();
+			if (0 == strncmp("LayoutEditor_", tmp.c_str(), 13))
+			{
+					std::string::iterator iter = std::find(tmp.begin(), tmp.end(), '_');
+					if (iter != tmp.end()) tmp.erase(tmp.begin(), ++iter);
+			}
+			item = MyGUI::utility::toString("[", tmp, "]");
+		}
 		else item = (*iter)->name + " ";
 		allWidgetsCombo->addItem(item + (*iter)->widget->getWidgetType());
 	}
@@ -506,7 +516,16 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
 		WidgetContainer * widgetContainer = ew->find(current_widget);
 
-		if (widgetContainer->name.empty()) allWidgetsCombo->setCaption(MyGUI::utility::toString("[", current_widget->getName(), "]", current_widget->getWidgetType()));
+		if (widgetContainer->name.empty()){
+			// trim "LayoutEditor_"
+			std::string tmp = current_widget->getName();
+			if (0 == strncmp("LayoutEditor_", tmp.c_str(), 13))
+			{
+					std::string::iterator iter = std::find(tmp.begin(), tmp.end(), '_');
+					if (iter != tmp.end()) tmp.erase(tmp.begin(), ++iter);
+			}
+			allWidgetsCombo->setCaption(MyGUI::utility::toString("[", tmp, "]", current_widget->getWidgetType()));
+		}
 		else allWidgetsCombo->setCaption(widgetContainer->name + " " + current_widget->getWidgetType());
 
 		createPropertiesWidgetsPair(window, "Name", widgetContainer->name, "Name", x1, x2, w1, w2, y, h);
@@ -601,6 +620,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	std::string::iterator iter = std::find(prop.begin(), prop.end(), '_');
 	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
 	text->setCaption(prop);
+	text->setFontHeight(h-2);
 
 	if (widget_for_type == 0)
 	{
@@ -622,9 +642,9 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	}
 
 	editOrCombo->setUserString("action", _property);
+	text->setFontHeight(h-4);
 
 	// trim "ALIGN_"
-	
 	if (0 == strncmp("ALIGN_", _value.c_str(), 6))
 	{
 		std::string tmp = "";

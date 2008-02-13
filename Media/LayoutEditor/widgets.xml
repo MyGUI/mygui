@@ -71,7 +71,7 @@
 
   <Widget name="RenderBox">
 	  <Property key="Skin" value="RenderBox"/>
-    <Parameter key="RenderBox_Mesh" value="String"/>
+    <!--Parameter key="RenderBox_Mesh" value="String"/FIXME-->
     <Parameter key="RenderBox_AutorotationSpeed" value="1 int"/>
     <Parameter key="RenderBox_BackgroungColour" value="colour"/>
     <Parameter key="RenderBox_RotationAngle" value="1 int"/>
@@ -91,7 +91,7 @@
 
   <Widget name="StaticImage">
 	  <Property key="Skin" value="StaticImage"/>
-    <Parameter key="Image_Material" value="String"/>
+    <!--Parameter key="Image_Material" value="String"/FIXME-->
     <Parameter key="Image_Rect" value="4 int"/>
     <Parameter key="Image_Tile" value="2 float"/>
     <Parameter key="Image_Num" value="1 int"/>
