@@ -16,7 +16,7 @@
     <!--Property key="OnDoubleClick" value="Combo_AddString"/-->
     <!-- all properties -->
   </Widget>
-  	
+
   <Widget name="Edit">
 	  <Property key="Skin" value="Edit"/>
 	  <Property key="Skin" value="EditStretch"/>

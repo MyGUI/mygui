@@ -1,26 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="0 0 200 208" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="LayoutEditor_windowMen">
+    <Widget type="Window" skin="WindowC" position="0 0 200 248" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="LayoutEditor_windowMenu">
         <Property key="Widget_Caption" value="Menu"/>
         <Property key="Window_AutoAlpha" value="false"/>
         <Property key="Window_Snap" value="true"/>
-        <Widget type="Button" skin="Button" position="5 2 184 24" name="LayoutEditor_buttonLoad">
+        <Widget type="Button" skin="Button" position="5 2 184 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_buttonLoad">
             <Property key="Widget_Caption" value="Load"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="5 34 184 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonSave">
+        <Widget type="Button" skin="Button" position="5 34 184 24" name="LayoutEditor_buttonSave">
             <Property key="Widget_Caption" value="Save"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="5 66 184 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonSaveAs">
+        <Widget type="Button" skin="Button" position="5 66 184 24" name="LayoutEditor_buttonSaveAs">
             <Property key="Widget_Caption" value="Save as..."/>
         </Widget>
-        <Widget type="Button" skin="Button" position="5 146 184 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonQuit">
+        <Widget type="Button" skin="Button" position="5 178 184 24" name="LayoutEditor_buttonQuit">
             <Property key="Widget_Caption" value="Quit"/>
         </Widget>
         <Widget type="Button" skin="Button" position="5 98 184 24" name="LayoutEditor_buttonSettings">
             <Property key="Widget_Caption" value="Settings"/>
         </Widget>
+        <Widget type="Button" skin="Button" position="5 146 184 24" name="LayoutEditor_buttonClear">
+            <Property key="Widget_Caption" value="Clear"/>
+        </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="0 208 200 360" layer="Overlapped" name="LayoutEditor_windowWidgets">
+    <Widget type="Window" skin="WindowC" position="0 248 200 320" layer="Overlapped" name="LayoutEditor_windowWidgets">
         <Property key="Widget_Caption" value="Widgets"/>
         <Property key="Window_AutoAlpha" value="false"/>
         <Property key="Window_Snap" value="true"/>

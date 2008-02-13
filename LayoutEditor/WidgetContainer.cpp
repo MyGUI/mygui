@@ -22,11 +22,15 @@ bool EditorWidgets::load(std::string _fileName)
 
 	MyGUI::xml::xmlDocument doc;
 	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
-	if (file.empty()) {
-		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
-		return false;
+	if (file.empty())
+	{
+		if (false == doc.open(_fileName)) {
+			LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
+			return false;
+		}
 	}
-	if (false == doc.open(file)) {
+	else if (false == doc.open(file))
+	{
 		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return false;
 	}
@@ -105,6 +109,14 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 	}
 }
 
+void EditorWidgets::clear()
+{
+	while (!widgets.empty())
+	{
+		remove(widgets[widgets.size()-1]->widget);
+	}
+}
+
 WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
 {
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
@@ -144,7 +156,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	if (_widget->findAttribute("position_real", container->position_real)) coord = MyGUI::Gui::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(container->position_real), _parent);
 
 	// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
-	if (false == container->name.empty()) {
+	if (false == container->name.empty())
+	{
 		WidgetContainer * iter = find(container->name);
 		if (null != iter)
 		{
@@ -154,13 +167,20 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 		}
 	}
 
+	std::string tmpname = container->name;
+	if (tmpname.empty()) 
+	{
+		tmpname = MyGUI::utility::toString(container->type, global_counter);
+		global_counter++;
+	}
+
 	if (null == _parent) {
-		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, container->name);
+		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, tmpname);
 		add(container);
 	}
 	else
 	{
-		container->widget = _parent->createWidgetT(container->type, container->skin, coord, align, container->name);
+		container->widget = _parent->createWidgetT(container->type, container->skin, coord, align, tmpname);
 		add(container);
 	}
 
@@ -177,7 +197,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
 			// и парсим свойство
-			MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
+			if ("Message_Modal" != key) MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
 			container->mProperty.push_back(std::make_pair(key, value));
 		}
 		else if (widget->getName() == "UserString") {

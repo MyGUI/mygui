@@ -2,10 +2,10 @@
 
 <MyGUI type="Layout">
 
-	<Widget type="Window" skin="WindowC" position="0 0 300 100" align="ALIGN_LEFT ALIGN_TOP" layer="Tooltip" name="LayoutEditor_windowSaveLoad" >
+	<Widget type="Window" skin="WindowC" position="0 0 400 100" align="ALIGN_LEFT ALIGN_TOP" layer="Tooltip" name="LayoutEditor_windowSaveLoad" >
 		<Property key="Widget_Caption" value="Select file name." />
 
-		<Widget type="Edit" skin="Edit" position_real="0.05 0. 0.9 0.45" name="LayoutEditor_editFileName" >
+		<Widget type="ComboBox" skin="ComboBox" position_real="0.05 0. 0.9 0.45" name="LayoutEditor_editFileName" >
 			<Property key="Widget_Caption" value="Default.layout" />
 		</Widget>
 

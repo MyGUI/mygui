@@ -101,7 +101,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 		if (!mRoot->showConfigDialog()) return; // ничего не получилось, покажем диалог
 	}
 
-	mWindow = mRoot->initialise(true);
+	mWindow = mRoot->initialise(true, "MyGUI Layout Editor");
 	mWidth = mWindow->getWidth();
 	mHeight = mWindow->getHeight();
 

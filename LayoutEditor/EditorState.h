@@ -25,6 +25,7 @@ private:
 	void notifySave(MyGUI::WidgetPtr _sender);
 	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender);
 	void notifySettings(MyGUI::WidgetPtr _sender);
+	void notifyClear(MyGUI::WidgetPtr _sender = 0);
   void notifyQuit(MyGUI::WidgetPtr _sender);
 
 	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender);
@@ -34,6 +35,8 @@ private:
 	// widget panel
   void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
+	void notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
+	void notifyWidgetsTabSelect(MyGUI::WidgetPtr _widget, size_t _index);
 
 	// settings panel
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
@@ -52,6 +55,8 @@ private:
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord snapToGrid(MyGUI::IntCoord coord);
+
+	MyGUI::ComboBoxPtr allWidgetsCombo;
 
 	// info for new widget
 	int x1, y1, x2, y2;

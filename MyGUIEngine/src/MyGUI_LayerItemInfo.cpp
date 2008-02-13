@@ -21,7 +21,9 @@ namespace MyGUI
 
 	const std::string & LayerItemInfo::getLayerName()
 	{
-		return mLayerInfo->getName();
+		static std::string str = "";
+		if (mLayerInfo) return mLayerInfo->getName();
+		return str;
 	}
 
 } // namespace MyGUI
