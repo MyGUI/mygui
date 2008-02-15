@@ -28,6 +28,7 @@ private:
 	void notifyClear(MyGUI::WidgetPtr _sender = 0);
   void notifyQuit(MyGUI::WidgetPtr _sender);
 
+	// save load message
 	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender);
 	void notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget = 0); // calls previous method
 	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0);
@@ -51,6 +52,7 @@ private:
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget/*, size_t _index = 0*/); // calls previous method
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
+	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
 
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести

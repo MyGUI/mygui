@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="0 0 200 248" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="LayoutEditor_windowMenu">
+    <Widget type="Window" skin="WindowC" position="0 0 200 248" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowMenu">
         <Property key="Widget_Caption" value="Menu"/>
         <Property key="Window_AutoAlpha" value="false"/>
         <Property key="Window_Snap" value="true"/>
@@ -23,12 +23,12 @@
             <Property key="Widget_Caption" value="Clear"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="0 248 200 320" layer="Overlapped" name="LayoutEditor_windowWidgets">
+    <Widget type="Window" skin="WindowC" position="0 248 200 320" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowWidgets">
         <Property key="Widget_Caption" value="Widgets"/>
         <Property key="Window_AutoAlpha" value="false"/>
         <Property key="Window_Snap" value="true"/>
     </Widget>
-    <Widget type="Window" skin="WindowCS" position="736 0 280 400" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="LayoutEditor_windowProperties">
+    <Widget type="Window" skin="WindowCS" position="736 0 280 400" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowProperties">
         <Property key="Widget_Caption" value="Properties"/>
         <Property key="Window_AutoAlpha" value="false"/>
         <Property key="Window_Snap" value="true"/>

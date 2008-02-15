@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layer">
+
+    <Layer name="Fade" start="640" height="2" count="1"/>
+    <Layer name="Pointer" start="638" height="2" count="1"/>
+
+    <Layer name="LayoutEditor_Popup" start="622" height="8" count="2"/>
+    <Layer name="LayoutEditor_Overlapped" start="584" height="6" count="5"/>
+    <Layer name="LayoutEditor_Rectangle" start="582" height="2" count="1"/>
+
+    <Layer name="Tooltip" start="578" height="4" count="1"/>
+    <Layer name="Info" start="546" height="8" count="4"/>
+
+    <Layer name="FadeMiddle" start="544" height="2" count="1"/>
+
+    <Layer name="Popup" start="504" height="8" count="5"/>
+    <Layer name="Main" start="496" height="8" count="1"/>
+
+    <Layer name="Modal" start="416" height="8" count="10"/>
+    <Layer name="Middle" start="408" height="8" count="1"/>
+
+    <Layer name="Overlapped" start="18" height="8" count="45"/>
+    <Layer name="Back" start="10" height="8" count="1"/>
+
+</MyGUI>

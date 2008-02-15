@@ -2,6 +2,7 @@
 #include "EditorState.h"
 #include "WidgetContainer.h"
 #include "WidgetTypes.h"
+#include "UndoManager.h"
 
 #include "MyGUI.h"
 #include <string>
@@ -16,6 +17,7 @@ const std::string LogSection = "LayoutEditor";
 EditorWidgets * ew;
 WidgetTypes * wt;
 MyGUI::Gui * mGUI;
+UndoManager * um;
 
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
@@ -25,10 +27,10 @@ void EditorState::enter(bool bIsChangeState)
 	wt->initialise();
 	ew = new EditorWidgets();
 	ew->initialise();
-	notifyClear();
+	um = new UndoManager(ew);
 
 	mGUI = new MyGUI::Gui();
-	mGUI->initialise(BasisManager::getInstance().mWindow);
+	mGUI->initialise(BasisManager::getInstance().mWindow, "editor.xml");
 
 	MyGUI::LayoutManager::getInstance().load("interface.layout");
 
@@ -60,7 +62,7 @@ void EditorState::enter(bool bIsChangeState)
 		}
 	}
 	i++;
-	allWidgetsCombo = windowWidgets->createWidget<MyGUI::ComboBox>("ComboBox", 0, (i/2)*h, w*2, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH);
+	allWidgetsCombo = windowWidgets->createWidget<MyGUI::ComboBox>("EditorComboBox", 0, (i/2)*h, w*2, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH);
 	allWidgetsCombo->setComboModeDrop(true);
 	allWidgetsCombo->eventKeySetFocus = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabPressed);
 	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabSelect);
@@ -69,7 +71,7 @@ void EditorState::enter(bool bIsChangeState)
 	windowWidgets->setSize(windowWidgets->getSize().width, height + (i/2+1)*h);
 
 	loadSettings();
-	updatePropertiesPanel(null);
+	notifyClear();
 }
 //===================================================================================
 void EditorState::exit()
@@ -77,6 +79,7 @@ void EditorState::exit()
 	saveSettings();
 	mGUI->shutdown();
 	delete mGUI;
+	delete um;
 	ew->shutdown();
 	delete ew;
 	wt->shutdown();
@@ -129,36 +132,41 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 //===================================================================================
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	x1 = TO_GRID(arg.state.X.abs);
-	y1 = TO_GRID(arg.state.Y.abs);
-
-	if (id == OIS::MB_Left && !creating_status && current_widget_type != "") creating_status = 1;
-
-	// чтобы прямоугольник не мешался
-	if (current_widget_rectangle)
+	if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
+		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+	else
 	{
-		MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
-		current_widget_rectangle = null;
-	}
+		x1 = TO_GRID(arg.state.X.abs);
+		y1 = TO_GRID(arg.state.Y.abs);
 
-	MyGUI::LayerItemInfoPtr rootItem = null;
-	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
-	if (null != item)
-	{
-		while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+		if (id == OIS::MB_Left && !creating_status && current_widget_type != "") creating_status = 1;
 
-		if (null != item) // нашли
+		// чтобы прямоугольник не мешался
+		if (current_widget_rectangle)
 		{
-			MyGUI::IntSize size = item->getTextSize();
-			notifySelectWidget(item);
-			if (creating_status != 1){
-				MyGUI::InputManager::getInstance().injectMouseMove(arg);
-			}// это чтобы сразу можно было тащить
+			MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
+			current_widget_rectangle = null;
 		}
-		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-	}else{
-		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-		notifySelectWidget(item);
+
+		MyGUI::LayerItemInfoPtr rootItem = null;
+		MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+		if (null != item)
+		{
+			while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+
+			if (null != item) // нашли
+			{
+				MyGUI::IntSize size = item->getTextSize();
+				notifySelectWidget(item);
+				if (creating_status != 1){
+					MyGUI::InputManager::getInstance().injectMouseMove(arg);
+				}// это чтобы сразу можно было тащить
+			}
+			MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+		}else{
+			MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+			notifySelectWidget(item);
+		}
 	}
 
 	return true;
@@ -362,6 +370,7 @@ void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
 	shiftPressed = false;
 	fileName = "";
 	ew->clear();
+	notifySelectWidget(null);
 }
 
 void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
@@ -486,9 +495,10 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 
 		MyGUI::WidgetPtr parent = _sender->getParent();
 		if (null != parent) coord = convertParentCoordToCoord(coord, _sender);
-		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_DEFAULT, "Tooltip");
+		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
 		current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
 		current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(this, &EditorState::notifyRectangleDoubleClick);
+		current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &EditorState::notifyRectangleKeyPressed);
 	}
 
 	updatePropertiesPanel(current_widget);
@@ -795,5 +805,21 @@ void EditorState::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 		MyGUI::SheetPtr sheet = tab->addSheet(name);
 		sheet->setCaption(name);
 		ew->add(new WidgetContainer("Sheet", "Sheet", sheet, name));
+	}
+}
+
+void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char)
+{
+	if (OIS::KC_TAB == _key)
+	{
+		if ((null != current_widget->getParent()) && (current_widget->getParent()->getWidgetType() == "Tab")) notifySelectWidget(current_widget->getParent());
+		if (current_widget->getWidgetType() == "Tab")
+		{
+			MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
+			size_t sheet = tab->getSelectSheetIndex();
+			sheet++;
+			if (sheet >= tab->getSheetCount()) sheet = 0;
+			tab->selectSheetIndex(sheet);
+		}
 	}
 }

@@ -542,4 +542,3 @@ void DemoKeeper::notifyWindowButton2(MyGUI::WidgetPtr _sender)
         mCountWindow ++;
     }
 }
-
