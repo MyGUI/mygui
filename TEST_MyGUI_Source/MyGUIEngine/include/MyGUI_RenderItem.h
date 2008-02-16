@@ -54,6 +54,11 @@ namespace MyGUI
 			}
 		}
 
+		inline void reallockDrawItem(DrawItem * _item, size_t _add)
+		{
+			mNeedVertexCount += _add;
+		}
+
 		inline void outOfDate() { mOutDate = true; }
 
 		inline float getMaximumDepth() {return mMaximumDepth;}

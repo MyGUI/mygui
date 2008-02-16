@@ -80,7 +80,7 @@ namespace MyGUI
 	typedef std::map<std::string, WidgetPtr> MapWidgetPtr;
 
 	class SubWidgetTextInterface;
-	typedef SubWidgetTextInterface * SubWidgetTextPtr;
+	typedef SubWidgetTextInterface * SubWidgetTextInterfacePtr;
 
 } // namespace MyGUI
 

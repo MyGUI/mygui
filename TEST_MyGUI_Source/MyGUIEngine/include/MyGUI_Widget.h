@@ -93,7 +93,7 @@ namespace MyGUI
 		virtual const Ogre::DisplayString & getCaption();
 
 		void setColour(const Ogre::ColourValue & _colour);
-		const Ogre::ColourValue & getColour() {return mColour;};
+		const Ogre::ColourValue & getColour();
 
 		void setFontName(const Ogre::String & _font);
 		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
@@ -181,7 +181,7 @@ namespace MyGUI
 		VectorCroppedRectanglePtr mSubSkinChild;
 
 		// указатель на окно текста
-		SubWidgetTextPtr mText;
+		SubWidgetTextInterfacePtr mText;
 
 		// доступен ли на виджет
 		bool mEnabled;
@@ -191,7 +191,7 @@ namespace MyGUI
 		float mAlpha;
 		float mRealAlpha;
 		// цвет текста
-		Ogre::ColourValue mColour;
+		//Ogre::ColourValue mColour;
 		// имя виджета
 		Ogre::String mName;
 		// курсор который будет показан при наведении

@@ -132,8 +132,6 @@ namespace MyGUI
 		if (mTextureName.empty()) return;
 		if (mNeedVertexCount > mVertexCount) resizeVertexBuffer();
 
-		//mTextureName = "wallpaper3.JPG";
-
 		if (mOutDate) {
 
 			Vertex * buffer = (Vertex*)mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);

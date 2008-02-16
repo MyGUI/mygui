@@ -233,6 +233,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_SimpleText.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_SubSkin.cpp"
 						>
 					</File>
@@ -483,6 +487,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_SimpleText.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_SubSkin.h"
 						>
 					</File>
@@ -492,6 +500,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_SubWidgetManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_SubWidgetTextInterface.h"
 						>
 					</File>
 				</Filter>

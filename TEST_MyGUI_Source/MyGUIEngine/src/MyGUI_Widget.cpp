@@ -15,6 +15,7 @@
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_RenderItem.h"
+#include "MyGUI_SubWidgetTextInterface.h"
 
 namespace MyGUI
 {
@@ -29,7 +30,6 @@ namespace MyGUI
 		mEnabled(true),
 		mVisible(true),
 		mAlpha(ALPHA_MIN),
-		mColour(Ogre::ColourValue::White),
 		mName(_name),
 		mLayerKeeper(null),
 		mLayerItemKeeper(null),
@@ -45,7 +45,9 @@ namespace MyGUI
 		// загружаем кирпичики виджета
 		SubWidgetManager & manager = SubWidgetManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter) {
-			mSubSkinChild.push_back(manager.createSubWidget(*iter, this));
+			CroppedRectangleInterface * sub = manager.createSubWidget(*iter, this);
+			mSubSkinChild.push_back(sub);
+			if (sub->_isText()) mText = static_cast<SubWidgetTextInterfacePtr>(mText);
 		}
 
 		// парсим свойства
@@ -125,6 +127,10 @@ namespace MyGUI
 
 		// если скрыто пользователем, то не показываем
 		if (mVisible && !mShow) return;
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+			(*widget)->_setVisible(mVisible);
+		}
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			if (mVisible) (*skin)->show();
@@ -250,58 +256,60 @@ namespace MyGUI
 
 	void Widget::setCaption(const Ogre::DisplayString & _caption)
 	{
-		//if (null != mText) mText->setCaption(_caption);
+		if (null != mText) mText->setCaption(_caption);
 	}
 
 	const Ogre::DisplayString & Widget::getCaption()
 	{
-		//if (null == mText) {
+		if (null == mText) {
 			static Ogre::DisplayString empty;
 			return empty;
-		//}
-		//return mText->getCaption();
+		}
+		return mText->getCaption();
 	}
 
 	void Widget::setTextAlign(Align _align)
 	{
-		//if (mText != null) mText->setTextAlign(_align);
+		if (mText != null) mText->setTextAlign(_align);
 	}
 
 	void Widget::setColour(const Ogre::ColourValue & _colour)
 	{
-		mColour = _colour;
-		//if (null != mText) mText->setColour(_colour);
+		if (null != mText) mText->setColour(_colour);
+	}
+
+	const Ogre::ColourValue & Widget::getColour()
+	{
+		return (null == mText) ? Ogre::ColourValue::ZERO : mText->getColour();
 	}
 
 	void Widget::setFontName(const Ogre::String & _font)
 	{
-		//if (null != mText) mText->setFontName(_font);
+		if (null != mText) mText->setFontName(_font);
 	}
 
 	void Widget::setFontName(const Ogre::String & _font, Ogre::ushort _height)
 	{
-		//if (null != mText) mText->setFontName(_font, _height);
+		if (null != mText) mText->setFontName(_font, _height);
 	}
 
 	const Ogre::String & Widget::getFontName()
 	{
-		//if (null == mText) {
+		if (null == mText) {
 			static Ogre::String empty;
 			return empty;
-		//}
-		//return mText->getFontName();
+		}
+		return mText->getFontName();
 	}
 
 	void Widget::setFontHeight(Ogre::ushort _height)
 	{
-		//if (null != mText) mText->setFontHeight(_height);
+		if (null != mText) mText->setFontHeight(_height);
 	}
 
 	Ogre::ushort Widget::getFontHeight()
 	{
-		return 0;
-		//if (null == mText) return 0;
-		//return mText->getFontHeight();
+		return (null == mText) ? 0 : mText->getFontHeight();
 	}
 
 	void Widget::setState(const Ogre::String & _state)
@@ -374,23 +382,17 @@ namespace MyGUI
 
 	IntSize Widget::getTextSize()
 	{
-		//if (null == mText) 
-			return IntSize();
-		//return mText->getTextSize();
+		return (null == mText) ? IntSize() : mText->getTextSize();
 	}
 
 	IntSize Widget::getTextSize(const Ogre::DisplayString& _text)
 	{
-		//if (null == mText) 
-			return IntSize();
-		//return mText->getTextSize(_text);
+		return (null == mText) ? IntSize() : mText->getTextSize(_text);
 	}
 
 	IntCoord Widget::getTextCoord()
 	{
-		//if (null == mText) 
-			return IntCoord();
-		//return mText->getCoord();
+		return (null == mText) ? IntCoord() : mText->getCoord();
 	}
 
 	void Widget::setAlpha(float _alpha)
@@ -459,6 +461,7 @@ namespace MyGUI
 
 		mCoord = _pos;
 		_updateView();
+
 	}
 
 	void Widget::setPosition(const IntCoord& _coord)
