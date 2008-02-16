@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layer">
+
+    <_Layer name="Fade" overlapped="false"/>
+
+    <_Layer name="Pointer" overlapped="false"/>
+    <_Layer name="Tooltip"overlapped="false"/>
+    <_Layer name="Info" overlapped="true"/>
+
+    <_Layer name="FadeMiddle" overlapped="false"/>
+
+    <_Layer name="Popup" overlapped="true"/>
+    <_Layer name="Main" overlapped="false"/>
+
+    <_Layer name="Modal" overlapped="true"/>
+    <_Layer name="Middle" overlapped="false"/>
+
+    <Layer name="Overlapped" overlapped="true"/>
+    <_Layer name="Back" overlapped="false"/>
+
+</MyGUI>
