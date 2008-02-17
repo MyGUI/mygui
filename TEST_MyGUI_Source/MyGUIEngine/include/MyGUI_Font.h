@@ -90,10 +90,10 @@ namespace MyGUI
 		VectorRangeInfo mVectorRangeInfo;
 
         /// The material which is generated for this font
-		Ogre::MaterialPtr mpMaterial;
+		//Ogre::MaterialPtr mpMaterial;
 
         /// The material which is generated for this font
-		Ogre::MaterialPtr mpMaterialSelectedFont;
+		//Ogre::MaterialPtr mpMaterialSelectedFont;
 
 		/// Texture pointer
 		Ogre::TexturePtr mTexture;
@@ -157,11 +157,14 @@ namespace MyGUI
 			mVectorHideCodePoint.clear();
 		}
 
-        inline const Ogre::MaterialPtr& getMaterial() const { return mpMaterial; }
-        inline const Ogre::MaterialPtr& getMaterial() {return mpMaterial; }
+        //inline const Ogre::MaterialPtr& getMaterial() const { return mpMaterial; }
+        //inline const Ogre::MaterialPtr& getMaterial() {return mpMaterial; }
 
-		inline const Ogre::MaterialPtr& getMaterialSelectedFont() const { return mpMaterialSelectedFont; }
-		inline const Ogre::MaterialPtr& getMaterialSelectedFont() { return mpMaterialSelectedFont; }
+		//inline const Ogre::MaterialPtr& getMaterialSelectedFont() const { return mpMaterialSelectedFont; }
+		//inline const Ogre::MaterialPtr& getMaterialSelectedFont() { return mpMaterialSelectedFont; }
+
+		inline const Ogre::TexturePtr& getTextureFont() const { return mTexture; }
+		inline const Ogre::TexturePtr& getTextureFont() { return mTexture; }
 
         inline void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
         inline bool getAntialiasColour(void) const { return mAntialiasColour; }

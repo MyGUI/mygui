@@ -84,10 +84,7 @@ namespace MyGUI
 		virtual void _setUVSet(const FloatRect& _rect) {}
 		virtual void _setMaterialName(const Ogre::String& _material) {}
 
-		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item) {};
-		virtual void _detachFromLayerItemKeeper() {};
-
-		virtual void _createDrawItem(RenderItem * _item) {};
+		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) {};
 		virtual void _destroyDrawItem() {};
 		
 

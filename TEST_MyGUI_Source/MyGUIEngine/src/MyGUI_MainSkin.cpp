@@ -194,7 +194,7 @@ namespace MyGUI
 		return MAINSKIN_COUNT_VERTEX;
 	}
 
-	void MainSkin::_createDrawItem(RenderItem * _item)
+	void MainSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, MAINSKIN_COUNT_VERTEX);

@@ -65,7 +65,7 @@ namespace MyGUI
 
 		void updateRawData();
 
-		virtual void _createDrawItem(RenderItem * _item);
+		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
 		virtual void _destroyDrawItem();
 
 		// метод для отрисовки себя
@@ -78,9 +78,6 @@ namespace MyGUI
 		uint32 mCurrentColour;
 		IntCoord mCurrentCoord;
 
-		RenderItem * mRenderItem;
-		size_t mCountVertex;
-
 		Ogre::DisplayString mCaption;
 		bool mTextOutDate;
 		Align mTextAlign;
@@ -89,9 +86,9 @@ namespace MyGUI
 		float mAlpha;
 		bool mRenderGL;
 
-		Ogre::MaterialPtr mpMaterial;
+		FontPtr mpFont;
+		Ogre::TexturePtr mpTexture;
 		uint16 mFontHeight;
-		FontPtr mFont;
 		Font::GlyphInfo * mSpaceGlyphInfo;
 		Font::GlyphInfo * mTabGlyphInfo;
 		float mAspectCoef;
@@ -99,9 +96,13 @@ namespace MyGUI
 		float mTextureHeightOne, mTextureWidthOne;
 		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive;
 
-		IntPoint mPointShift; // смещение текста
-		FloatSize mContextSize; // размер всего текста
 		VectorLineInfo mLinesInfo;
+		IntPoint mPointShift; // смещение текста
+		FloatSize mContextRealSize; // размер всего текста
+
+		LayerItemKeeper * mItemKeeper;
+		RenderItem * mRenderItem;
+		size_t mCountVertex;
 
 	};
 

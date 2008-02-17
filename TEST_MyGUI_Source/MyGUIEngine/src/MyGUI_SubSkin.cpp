@@ -271,7 +271,7 @@ namespace MyGUI
 		return SUBSKIN_COUNT_VERTEX;
 	}
 
-	void SubSkin::_createDrawItem(RenderItem * _item)
+	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);

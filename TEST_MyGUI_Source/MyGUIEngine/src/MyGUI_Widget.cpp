@@ -47,8 +47,11 @@ namespace MyGUI
 		for (VectorSubWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter) {
 			CroppedRectangleInterface * sub = manager.createSubWidget(*iter, this);
 			mSubSkinChild.push_back(sub);
-			if (sub->_isText()) mText = static_cast<SubWidgetTextInterfacePtr>(mText);
+			if (sub->_isText()) mText = static_cast<SubWidgetTextInterfacePtr>(sub);
 		}
+
+		// если отец уже приаттачен, то и мы аттачимся
+		if ((null != mParent) && (null != getParent()->getLayerItemKeeper())) 	_attachToLayerItemKeeper(getParent()->getLayerItemKeeper());
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -92,8 +95,6 @@ namespace MyGUI
 		// а вот теперь нормальный размер
 		setSize(_coord.size());
 
-		// если отец уже приаттачен, то и мы аттачимся
-		if ((null != mParent) && (null != getParent()->getLayerItemKeeper())) _attachToLayerItemKeeper(getParent()->getLayerItemKeeper());
 	}
 
 	Widget::~Widget()
@@ -432,19 +433,6 @@ namespace MyGUI
 		return this;
 	}
 
-	void Widget::_attachToLayerKeeper(LayerKeeper * _keeper)
-	{
-		mLayerKeeper = _keeper;
-		_attachToLayerItemKeeper(mLayerKeeper->getItem());
-	}
-
-	void Widget::_detachFromLayerKeeper()
-	{
-		_detachFromLayerItemKeeper();
-		mLayerKeeper->leaveItem(mLayerItemKeeper);
-		mLayerItemKeeper = null;
-	}
-
 	void Widget::_updateAbsolutePoint()
 	{
 		mAbsolutePosition = mParent->getAbsolutePosition() + mCoord.point();
@@ -527,13 +515,26 @@ namespace MyGUI
 
 	}
 
+	void Widget::_attachToLayerKeeper(LayerKeeper * _keeper)
+	{
+		mLayerKeeper = _keeper;
+		_attachToLayerItemKeeper(mLayerKeeper->getItem());
+	}
+
+	void Widget::_detachFromLayerKeeper()
+	{
+		_detachFromLayerItemKeeper();
+		mLayerKeeper->leaveItem(mLayerItemKeeper);
+		mLayerItemKeeper = null;
+	}
+
 	void Widget::_attachToLayerItemKeeper(LayerItemKeeper * _item)
 	{
 		mLayerItemKeeper = _item;
 		RenderItem * renderItem = mLayerItemKeeper->addToRenderItem(mTexture, true, false);
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
-			(*skin)->_createDrawItem(renderItem);
+			(*skin)->_createDrawItem(mLayerItemKeeper, renderItem);
 		}
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {

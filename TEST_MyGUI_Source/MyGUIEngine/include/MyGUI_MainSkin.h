@@ -36,7 +36,7 @@ namespace MyGUI
 
 		void _setUVSet(const FloatRect& _rect);
 
-		virtual void _createDrawItem(RenderItem * _item);
+		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
 		virtual void _destroyDrawItem();
 
 		// метод для отрисовки себя

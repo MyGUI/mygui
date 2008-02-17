@@ -37,6 +37,43 @@
         </BasisSkin>
     </Skin>
     
+    <Skin name = "ButtonSmall" size = "40 26" texture = "core.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontHeight" value = "16" />
+        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "514 2 10 26"/>
+            <State name="normal" offset = "514 30 10 26"/>
+            <State name="active" offset = "514 58 10 26"/>
+            <State name="pressed" offset = "514 86 10 26"/>
+            <State name="select" offset = "514 114 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 20 26" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "524 2 20 26"/>
+            <State name="normal" offset = "524 30 20 26"/>
+            <State name="active" offset = "524 58 20 26"/>
+            <State name="pressed" offset = "524 86 20 26"/>
+            <State name="select" offset = "524 114 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "30 0 10 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "544 2 10 26"/>
+            <State name="normal" offset = "544 30 10 26"/>
+            <State name="active" offset = "544 58 10 26"/>
+            <State name="pressed" offset = "544 86 10 26"/>
+            <State name="select" offset = "544 114 10 26"/>
+        </BasisSkin>
+        <!--BasisSkin type="SimpleText" offset = "3 0 34 30" align = "ALIGN_STRETCH"-->
+        <BasisSkin type="SimpleText" offset = "0 0 40 26" align = "ALIGN_STRETCH">
+            <State2 name="disable" colour="0.87 0.87 0.87"/>
+            <State2 name="pressed" colour="0 0 0"/>
+            <State2 name="normal" colour="0 0 0"/>
+            <State2 name="select" colour="2C8AD5"/>
+            <State2 name="active" colour="2C8AD5"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "EditCursor" size = "2 19" texture = "core.png" >
         <Property key="Pointer" value = "beam" />
         <Property key="Show" value = "false" />
@@ -177,42 +214,6 @@
             <State name="normal" colour="0 0 0"/>
             <State name="select" colour="2C8AD5"/>
             <State name="active" colour="2C8AD5"/>
-        </BasisSkin>
-    </Skin>
-
-    <Skin name = "ButtonSmall" size = "40 26" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
-        <Property key="FontHeight" value = "16" />
-        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
-        <Property key="Colour" value = "0 0 0" />
-
-        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
-            <State name="disable" offset = "514 2 10 26"/>
-            <State name="normal" offset = "514 30 10 26"/>
-            <State name="active" offset = "514 58 10 26"/>
-            <State name="pressed" offset = "514 86 10 26"/>
-            <State name="select" offset = "514 114 10 26"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "10 0 20 26" align = "ALIGN_STRETCH">
-            <State name="disable" offset = "524 2 20 26"/>
-            <State name="normal" offset = "524 30 20 26"/>
-            <State name="active" offset = "524 58 20 26"/>
-            <State name="pressed" offset = "524 86 20 26"/>
-            <State name="select" offset = "524 114 20 26"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "30 0 10 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
-            <State name="disable" offset = "544 2 10 26"/>
-            <State name="normal" offset = "544 30 10 26"/>
-            <State name="active" offset = "544 58 10 26"/>
-            <State name="pressed" offset = "544 86 10 26"/>
-            <State name="select" offset = "544 114 10 26"/>
-        </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "3 0 34 30" align = "ALIGN_STRETCH">
-            <State2 name="disable" colour="0.87 0.87 0.87"/>
-            <State2 name="pressed" colour="0 0 0"/>
-            <State2 name="normal" colour="0 0 0"/>
-            <State2 name="select" colour="2C8AD5"/>
-            <State2 name="active" colour="2C8AD5"/>
         </BasisSkin>
     </Skin>
 
