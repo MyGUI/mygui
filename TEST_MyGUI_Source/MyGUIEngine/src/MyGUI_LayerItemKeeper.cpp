@@ -41,6 +41,7 @@ namespace MyGUI
 
 	RenderItem * LayerItemKeeper::addToRenderItem(const std::string& _texture, bool _first, bool _separate)
 	{
+		// для первичной очереди нужен порядок
 		if (_first) {
 			if (_separate || (mFirstRenderItems.empty()) || (mFirstRenderItems.back()->getTextureName() != _texture)) {
 				RenderItem * item = new RenderItem(_texture);
@@ -49,10 +50,12 @@ namespace MyGUI
 			return mFirstRenderItems.back();
 		}
 
-		if (_separate || (mSecondRenderItems.empty()) || (mSecondRenderItems.back()->getTextureName() != _texture)) {
-			RenderItem * item = new RenderItem(_texture);
-			mSecondRenderItems.push_back(item);
+		// для второй очереди порядок неважен
+		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
+			if ((*iter)->getTextureName() == _texture) return (*iter);
 		}
+		// не найденно создадим новый
+		mSecondRenderItems.push_back(new RenderItem(_texture));
 		return mSecondRenderItems.back();
 	}
 

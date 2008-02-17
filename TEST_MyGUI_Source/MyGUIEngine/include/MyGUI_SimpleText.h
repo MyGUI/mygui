@@ -76,6 +76,7 @@ namespace MyGUI
 
 		bool mTransparent;
 		uint32 mCurrentColour;
+		uint32 mCurrentAlpha;
 		IntCoord mCurrentCoord;
 
 		Ogre::DisplayString mCaption;

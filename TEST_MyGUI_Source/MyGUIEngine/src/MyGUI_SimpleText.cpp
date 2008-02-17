@@ -12,23 +12,24 @@
 namespace MyGUI
 {
 
-	const size_t SIMPLETEXT_COUNT_VERTEX = 116 * VERTEX_IN_QUAD;//???
+	const size_t SIMPLETEXT_COUNT_VERTEX = 16 * VERTEX_IN_QUAD;
 
 	SimpleText::SimpleText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
 		SubWidgetTextInterface(_info.coord, _info.align, _parent),
 		mTransparent(false),
 		mCurrentCoord(_info.coord),
 		mTextOutDate(false),
-		mCurrentColour(0xFFFFFFFF),
-		mAlpha(ALPHA_MAX),
+		mCurrentColour(0x00FFFFFF),
+		mCurrentAlpha(0xFF000000),
 		mColour(Ogre::ColourValue::White),
+		mAlpha(ALPHA_MAX),
 		mFontHeight(16),
 		mAspectCoef(0),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mItemKeeper(null),
 		mRenderItem(null)
 	{
-		mCaption = "test\ntesttest";//..........................";//???
+		// потом перенести
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 	}
 
@@ -164,7 +165,15 @@ namespace MyGUI
 	{
 		mCaption = _caption;
 		mTextOutDate = true;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+
+		if (null != mRenderItem) {
+			// если вершин не хватит, делаем реалок
+			if (mCountVertex < mCaption.size()) {
+				mCountVertex = (mCaption.size() * VERTEX_IN_QUAD) + SIMPLETEXT_COUNT_VERTEX;
+				mRenderItem->reallockDrawItem(this, mCountVertex);
+			}
+			mRenderItem->outOfDate();
+		}
 	}
 
 	const Ogre::DisplayString & SimpleText::getCaption()
@@ -175,7 +184,10 @@ namespace MyGUI
 	void SimpleText::setColour(const Ogre::ColourValue & _colour)
 	{
 		mColour = _colour;
-		mCurrentColour = ((uint8)(mAlpha*255) << 24) | ((uint8)(mColour.r*255) << 16) | ((uint8)(mColour.g*255) << 8) | (uint8)(mColour.b*255);
+		uint32 colour;
+		Ogre::Root::getSingleton().convertColourValue(_colour, &colour);
+		mCurrentColour = (colour & 0x00FFFFFF) | mCurrentAlpha;
+
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
@@ -187,7 +199,9 @@ namespace MyGUI
 	void SimpleText::setAlpha(float _alpha)
 	{
 		mAlpha = _alpha;
-		mCurrentColour = ((uint8)(mAlpha*255) << 24) | ((uint8)(mColour.r*255) << 16) | ((uint8)(mColour.g*255) << 8) | (uint8)(mColour.b*255);
+		mCurrentAlpha = ((uint8)(mAlpha*255) << 24);
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
+
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
@@ -391,12 +405,13 @@ namespace MyGUI
 		if (mpFont.isNull()) return 0;
 		if ((false == mShow) || (mTransparent)) return 0;
 		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return 0;
+
 		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
 
 		size_t vertex_count = 0;
 
 		// текущие цвета
-		Ogre::RGBA colour = 0xFFFFFFFF;//mCurrentColour;
+		Ogre::RGBA colour = mCurrentColour;
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -404,17 +419,10 @@ namespace MyGUI
 
 		float real_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
 		float real_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-
 		float real_width = (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
 		float real_height = (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
-
 		float real_right = real_left + real_width;
 		float real_bottom = real_top - real_height;
-
-		float left_margin = real_left;// + (mMargin.left * mRenderItem->getPixScaleX() * 2);
-		float right_margin = real_right;
-		float top_margin = real_top;
-		float bottom_margin = real_bottom;
 
 		float margin_left = (mMargin.left * mRenderItem->getPixScaleX() * 2);
 		float margin_right = (mMargin.right * mRenderItem->getPixScaleX() * 2);
@@ -422,13 +430,11 @@ namespace MyGUI
 		float margin_bottom = (mMargin.bottom * mRenderItem->getPixScaleY() * 2);
 
 		// опорное смещение вершин
-		float left = real_left, right = 0;
-		float top = 0, bottom = real_top;
+		float left, right, top, bottom = real_top, left_shift = 0;
 
 		mTextAlign = ALIGN_HCENTER | ALIGN_VCENTER;
 
 		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
-		float left_shift = 0;
 		if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 		else if ( IS_ALIGN_HCENTER(mTextAlign) ) left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
 
@@ -462,9 +468,9 @@ namespace MyGUI
 			// нуна ли пересчитывать текстурные координаты
 			bool texture_crop_height = false;
 
-			if (vertex_top > top_margin) {
+			if (vertex_top > real_top) {
 				// проверка на полный выход
-				if (vertex_bottom > top_margin) {
+				if (vertex_bottom > real_top) {
 
 					// необходимо парсить теги цветов полюбак
 					for (;index != end_index; ++index) {
@@ -477,18 +483,18 @@ namespace MyGUI
 					continue;
 				}
 				// обрезаем
-				vertex_top = top_margin;
+				vertex_top = real_top;
 				texture_crop_height = true;
 			}
-			if (vertex_bottom < bottom_margin) {
+			if (vertex_bottom < real_bottom) {
 				// вообще вниз ушли
-				if (vertex_top < bottom_margin) {
+				if (vertex_top < real_bottom) {
 					line = end;
 					line --;
 					continue;
 				}
 				// обрезаем
-				vertex_bottom = bottom_margin;
+				vertex_bottom = real_bottom;
 				texture_crop_height = true;
 			}
 
@@ -530,16 +536,16 @@ namespace MyGUI
 				// нуна ли пересчитывать текстурные координаты
 				bool texture_crop_width = false;
 
-				if (vertex_left < left_margin) {
+				if (vertex_left < real_left) {
 					// проверка на полный выход
-					if (vertex_right < left_margin) continue;
+					if (vertex_right < real_left) continue;
 					// обрезаем
-					vertex_left = left_margin;
+					vertex_left = real_left;
 					texture_crop_width = true;
 				}
-				if (vertex_right > right_margin) {
+				if (vertex_right > real_right) {
 					// вообще строку до конца не нуна
-					if (vertex_left > right_margin) {
+					if (vertex_left > real_right) {
 						index ++;
 						// для того чтобы теги цвета не терялись, нужно пройти до конца строки
 						while (index != end_index) {
@@ -553,7 +559,7 @@ namespace MyGUI
 						continue;
 					}
 					// обрезаем
-					vertex_right = right_margin;
+					vertex_right = real_right;
 					texture_crop_width = true;
 				}
 
