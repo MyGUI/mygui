@@ -28,7 +28,7 @@ namespace MyGUI
 		mItemKeeper(null),
 		mRenderItem(null)
 	{
-		mCaption = "test";//..........................";//???
+		mCaption = "test\ntesttest";//..........................";//???
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 	}
 
@@ -396,7 +396,7 @@ namespace MyGUI
 		size_t vertex_count = 0;
 
 		// текущие цвета
-		Ogre::RGBA colour = mCurrentColour;
+		Ogre::RGBA colour = 0xFFFFFFFF;//mCurrentColour;
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -411,26 +411,30 @@ namespace MyGUI
 		float real_right = real_left + real_width;
 		float real_bottom = real_top - real_height;
 
-		float left_margin = real_left + (mMargin.left * mRenderItem->getPixScaleX() * 2);
+		float left_margin = real_left;// + (mMargin.left * mRenderItem->getPixScaleX() * 2);
 		float right_margin = real_right;
 		float top_margin = real_top;
 		float bottom_margin = real_bottom;
 
+		float margin_left = (mMargin.left * mRenderItem->getPixScaleX() * 2);
+		float margin_right = (mMargin.right * mRenderItem->getPixScaleX() * 2);
+		float margin_top = (mMargin.top * mRenderItem->getPixScaleY() * 2);
+		float margin_bottom = (mMargin.bottom * mRenderItem->getPixScaleY() * 2);
+
 		// опорное смещение вершин
 		float left = real_left, right = 0;
-		float top = real_top, bottom = 0;
+		float top = 0, bottom = real_top;
 
-		mTextAlign = ALIGN_LEFT | ALIGN_VCENTER;
+		mTextAlign = ALIGN_HCENTER | ALIGN_VCENTER;
 
 		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 		float left_shift = 0;
 		if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 		else if ( IS_ALIGN_HCENTER(mTextAlign) ) left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
-		right = left;
 
-		if ( IS_ALIGN_BOTTOM(mTextAlign) ) top += (mContextRealSize.height - real_height);
-		else if ( IS_ALIGN_VCENTER(mTextAlign) ) top += (mContextRealSize.height - real_height) * 0.5;
-		bottom = top;
+		if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
+		else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
+		else if ( IS_ALIGN_VCENTER(mTextAlign) ) bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
 
 		// данные непосредственно для вывода
 		float vertex_top, vertex_bottom, vertex_left, vertex_right;
@@ -442,6 +446,7 @@ namespace MyGUI
 			// пересчет опорных данных
 			top = bottom;
 			bottom -= real_fontHeight;
+
 			// присваиваем и вершинным
 			vertex_top = top;
 			vertex_bottom = bottom;
@@ -488,9 +493,9 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			right = real_left - left_shift; // выравнивание по левой стороне
-			if ( IS_ALIGN_RIGHT(mTextAlign) ) right += (mContextRealSize.width - len); // выравнивание по правой стороне
-			else if ( IS_ALIGN_HCENTER(mTextAlign) ) right += (mContextRealSize.width - len) * 0.5; // выравнивание по центру
+			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
+			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
 
 			// внутренний цикл строки
 			for (;index != end_index; ++index) {
