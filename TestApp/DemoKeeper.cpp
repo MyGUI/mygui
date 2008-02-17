@@ -64,7 +64,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mHeight = _height;
 
 	//for (size_t pos=0; pos<500; pos++)
-	mGUI->createWidget<MyGUI::Widget>("Window", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
+//	mGUI->createWidget<MyGUI::Widget>("Window", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
+
+	MyGUI::WidgetPtr but = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	but->setCaption("test");
+	//MyGUI::MYGUI_OUT("test");
 
 	//MyGUI::Message::createMessage(L"Ошибка", L"Поле ввода имени пустое.", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::Ok | MyGUI::Message::IconWarning);
 

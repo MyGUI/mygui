@@ -23,7 +23,7 @@ namespace MyGUI
 		// показывать ли тень текста
 		const bool __DEBUG_SHOW_SHADOW = 1;
 		// шрифт по умолчанию
-		const char * __DEBUG_FONT_DEFAULT = "BlueHighway";
+		const char * __DEBUG_FONT_DEFAULT = "Comic.16";//BlueHighway";
 		// размер шрифта
 		const float __DEBUG_FONT_SIZE = 16;
 		// цвет шрифта
