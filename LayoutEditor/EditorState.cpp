@@ -53,7 +53,7 @@ void EditorState::enter(bool bIsChangeState)
 		{
 			MyGUI::ButtonPtr button = windowWidgets->createWidget<MyGUI::Button>("ButtonSmall", i%2*w, i/2*h, w, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH, MyGUI::utility::toString((*iter)->name, *iterSkin));
 			button->setCaption(*iterSkin);
-			button->setTextAlign(MyGUI::ALIGN_LEFT);
+			button->setTextAlign(MyGUI::ALIGN_CENTER);
 			button->setUserString("widget", (*iter)->name);
 			button->setUserString("skin", *iterSkin);
 			button->eventMouseButtonClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetType);

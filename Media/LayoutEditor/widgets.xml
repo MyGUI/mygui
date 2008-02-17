@@ -155,22 +155,24 @@
 
   <Value name="Align">
     <Property key="DEFAULT"/>
-    <Property key="TOP LEFT"/>
-    <Property key="TOP"/>
-    <Property key="TOP RIGHT"/>
-    <Property key="LEFT"/>
-    <Property key="CENTER"/>
-    <Property key="RIGHT"/>
-    <Property key="BOTTOM LEFT"/>
-    <Property key="BOTTOM"/>
-    <Property key="BOTTOM RIGHT"/>
-    <Property key="VSTRETCH LEFT"/>
-    <Property key="VSTRETCH HCENTER"/>
-    <Property key="VSTRETCH RIGHT"/>
-    <Property key="HSTRETCH TOP"/>
-    <Property key="HSTRETCH VCENTER"/>
-    <Property key="HSTRETCH BOTTOM"/>
     <Property key="STRETCH"/>
+    <Property key="CENTER"/>
+    <Property key="LEFT TOP"/>
+    <Property key="LEFT BOTTOM"/>
+    <Property key="LEFT VSTRETCH"/>
+    <Property key="LEFT VCENTER"/>
+    <Property key="RIGHT TOP"/>
+    <Property key="RIGHT BOTTOM"/>
+    <Property key="RIGHT VSTRETCH"/>
+    <Property key="RIGHT VCENTER"/>
+    <Property key="HSTRETCH TOP"/>
+    <Property key="HSTRETCH BOTTOM"/>
+    <Property key="HSTRETCH VSTRETCH"/>
+    <Property key="HSTRETCH VCENTER"/>
+    <Property key="HCENTER TOP"/>
+    <Property key="HCENTER BOTTOM"/>
+    <Property key="HCENTER VSTRETCH"/>
+    <Property key="HCENTER VCENTER"/>
   </Value>
 
   <Value name="Bool">
@@ -186,15 +188,16 @@
   
   <Value name="TextAlign">
     <Property key="DEFAULT"/>
-    <Property key="TOP LEFT"/>
-    <Property key="TOP"/>
-    <Property key="TOP RIGHT"/>
-    <Property key="LEFT"/>
     <Property key="CENTER"/>
-    <Property key="RIGHT"/>
-    <Property key="BOTTOM LEFT"/>
-    <Property key="BOTTOM"/>
-    <Property key="BOTTOM RIGHT"/>
+    <Property key="LEFT TOP"/>
+    <Property key="LEFT BOTTOM"/>
+    <Property key="LEFT VCENTER"/>
+    <Property key="RIGHT TOP"/>
+    <Property key="RIGHT BOTTOM"/>
+    <Property key="RIGHT VCENTER"/>
+    <Property key="HCENTER TOP"/>
+    <Property key="HCENTER BOTTOM"/>
+    <Property key="HCENTER VCENTER"/>
   </Value>
 
   <Value name="Layer">
