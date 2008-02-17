@@ -70,6 +70,9 @@ void EditorState::enter(bool bIsChangeState)
 	int height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
 	windowWidgets->setSize(windowWidgets->getSize().width, height + (i/2+1)*h);
 
+	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");
+	window->setPosition(mGUI->getViewWidth() - window->getSize().width, 0);
+
 	loadSettings();
 	clear();
 }
@@ -237,8 +240,16 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	}
 	else
 	{
-		if ( arg.key == OIS::KC_ESCAPE ) if (!want_quit){ notifySelectWidget(null); notifyQuit();}
-		else if ( arg.key == OIS::KC_DELETE ) {
+		if ( arg.key == OIS::KC_ESCAPE )
+		{
+			if (!want_quit)
+			{
+				notifySelectWidget(null);
+				notifyQuit();
+			}
+		}
+		else if ( arg.key == OIS::KC_DELETE )
+		{
 			if (MyGUI::InputManager::getInstance().getKeyFocusWidget() == current_widget_rectangle){
 				if (current_widget){ ew->remove(current_widget); notifySelectWidget(null); }
 				um->addValue();
@@ -597,9 +608,9 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 	else
 	{
 		window->show();
-		int x1 = 0, x2 = 120;
+		int x1 = 0, x2 = 125;
 		int w1 = 120;
-		int w2 = window->getClientRect().width - w1;
+		int w2 = window->getClientRect().width - w1 - 5;
 		int y = 0;
 		const int h = 20;
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
@@ -682,6 +693,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		}
 		int height = window->getHeight() - window->getClientRect().height;
 		window->setSize(window->getSize().width, height + y);
+		window->setMinMax(window->getSize().width, height + y, mGUI->getViewWidth(), height + y);
 	}
 }
 
@@ -717,6 +729,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
 	text->setCaption(prop);
 	text->setFontHeight(h-2);
+	text->setTextAlign(MyGUI::ALIGN_RIGHT);
 
 	if (widget_for_type == 0)
 	{
@@ -825,7 +838,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		return;
 	}
 
-	if ("Message_Modal" != action)
+	if (("Message_Modal" != action) && ("Window_AutoAlpha" != action))
 	{
 		if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
 		{

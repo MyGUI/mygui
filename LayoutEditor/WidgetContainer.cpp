@@ -231,7 +231,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
 			// и парсим свойство
-			if ("Message_Modal" != key) MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
+			if (("Message_Modal" != key) && ("Window_AutoAlpha" != key)) MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
 			container->mProperty.push_back(std::make_pair(key, value));
 		}
 		else if (widget->getName() == "UserString") {
