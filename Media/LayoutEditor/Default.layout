@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowCS" position="100 100 600 300" align="ALIGN_DEFAULT" layer="Overlapped">
+    <Widget type="Window" skin="WindowCS" position="240 336 600 296" align="ALIGN_DEFAULT" layer="Overlapped">
         <Property key="Widget_Caption" value="tab demo"/>
         <Property key="Window_MinMax" value="226 164 2000 2000"/>
         <Property key="Window_AutoAlpha" value="false"/>
@@ -55,8 +55,6 @@
                     <Property key="Widget_Caption" value="#000088blue"/>
                 </Widget>
             </Widget>
-            <Widget type="Sheet" skin="Sheet"/>
-            <Widget type="Sheet" skin="Sheet" name="Sheet4"/>
         </Widget>
     </Widget>
 </MyGUI>

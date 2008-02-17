@@ -1,5 +1,4 @@
 #include "UndoManager.h"
-#include "WidgetContainer.h"
 
 const int UNDO_COUNT = 64;
 
@@ -9,41 +8,53 @@ UndoManager::UndoManager(EditorWidgets * _ew):
 	last_property(PR_DEFAULT),
 	ew(_ew)
 {
-
 }
 
-void UndoManager::addValue( const UndoOperation & _undoOp, int _property)
+UndoManager::~UndoManager()
 {
-	UndoOperation top = operations.Front();
+	for (size_t i=0; i<operations.GetSize(); i++){ delete operations[i];}
+}
 
+void UndoManager::undo()
+{
+	if (pos == operations.GetSize() - 1) return;
+	pos++;
+	ew->clear();
+	ew->loadxmlDocument(operations[pos]);
+}
+
+void UndoManager::redo()
+{
+	if (pos == 0) return;
+	pos--;
+	ew->clear();
+	ew->loadxmlDocument(operations[pos]);
+}
+
+void UndoManager::addValue(int _property)
+{
 	if ((_property != PR_DEFAULT) && (_property == last_property))
 	{
-		if ((1 == _undoOp.containers.size()) && (1 == top.containers.size()))
-		{
-			// "merge" (just delete last one)
-			operations.Pop();
-			operations.Push(_undoOp);
-			return;
-		}
+		delete operations.Front();
+		operations.PopFirst();
+		operations.Push( ew->savexmlDocument() );
+		return;
 	}
 
 	last_property = _property;
-	size_t sz = operations.GetSize( );
 
-	if ( pos < sz - 1 )
+	if ( pos != 0 )
 	{
 		last_property = PR_DEFAULT;
-		while ( pos != ( sz - 1 ) )
+		while (pos)
 		{
-			UndoOperation pop = operations.Front( );
-			if (pop.operation = OP_DELETE)
-				for (std::vector<WidgetContainer*>::iterator iter = pop.containers.begin(); iter != pop.containers.end(); ++iter) ;//delete *iter;
-			operations.Pop();
-			sz = operations.GetSize( );
+			delete operations.Front();
+			operations.PopFirst();
+			pos--;
 		}
 	}
 
-	operations.Push( _undoOp );
-	sz = operations.GetSize( );
-	pos = sz - 1;
+	if ( operations.IsFull() ) delete operations.Back();
+	operations.Push( ew->savexmlDocument() );
+	pos = 0;
 }

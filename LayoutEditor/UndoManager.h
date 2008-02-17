@@ -1,3 +1,4 @@
+#include "WidgetContainer.h"
 #include <vector>
 
 /// Fixed size cyclic buffer.
@@ -73,51 +74,40 @@ public:
 			--count;
 	}
 
+	void PopFirst()
+	{
+		if ( !IsEmpty() )
+		{
+			Front() = value_type();
+			--count;
+			--pos;
+		}
+	}
+
 private:
 	size_type pos, count, size;
 	value_type *c;
 };
 
-struct WidgetContainer;
-class EditorWidgets;
-
-enum {OP_NONE, OP_CREATE, OP_DELETE, OP_CHANGE};
-struct UndoOperation
-{
-	UndoOperation():operation(OP_NONE){};
-	UndoOperation(int _operation, WidgetContainer* _widget_container):
-		operation(_operation)
-	{
-		containers.push_back(_widget_container);
-	}
-	UndoOperation(int _operation, std::vector<WidgetContainer*> _containers):
-		operation(_operation)
-	{
-		containers = _containers;
-	}
-
-	int operation;
-	std::vector<WidgetContainer*> containers;
-};
-
-enum {PR_DEFAULT, PR_POSITION};
+enum {PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION};
 class UndoManager
 {
 public:
 	UndoManager(EditorWidgets * ew);
+	~UndoManager();
 
 	void undo();
 	void redo();
-	void addValue( const UndoOperation & _undoOp, int _property = PR_DEFAULT);
-	int getCount();
+	void addValue(int _property = PR_DEFAULT);
 
-	UndoOperation getLast( );
-	UndoOperation getAt( size_t _pos );
-
-	size_t pos;
+	void dropLastProperty(){last_property = PR_DEFAULT;}
 
 private:
-	CyclicBuffer<UndoOperation> operations;
+	// position in the bufer (0 - newest element)
+	size_t pos;
+	MyGUI::xml::xmlDocument last_condition;
+
+	CyclicBuffer<MyGUI::xml::xmlDocument*> operations;
 	int last_property;
 
 	EditorWidgets * ew;

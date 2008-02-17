@@ -1,6 +1,4 @@
-#include "MyGUI.h"
 #include "WidgetTypes.h"
-#include <string>
 
 const std::string LogSection = "LayoutEditor";
 

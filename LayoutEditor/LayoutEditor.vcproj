@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UndoManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\WidgetContainer.cpp"
 				>
 			</File>
@@ -223,6 +227,10 @@
 			</File>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UndoManager.h"
 				>
 			</File>
 			<File

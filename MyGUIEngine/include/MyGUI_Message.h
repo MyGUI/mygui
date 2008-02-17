@@ -103,7 +103,7 @@ namespace MyGUI
 			@param
 				_modal if true all other GUI elements will be blocked untill message is closed
 			@param
-				_delegate event called on message close
+				_delegate event called on message close. void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 			@param
 				_info any combination of flags from ViewValueInfo
 			@param

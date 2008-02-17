@@ -39,6 +39,8 @@ public:
 	void shutdown();
 	bool load(std::string _fileName);
 	bool save(std::string _fileName);
+	void loadxmlDocument(MyGUI::xml::xmlDocument * doc);
+	MyGUI::xml::xmlDocument * savexmlDocument();
 	WidgetContainer * find(MyGUI::WidgetPtr _widget);
 	WidgetContainer * find(std::string _name);
 	void add(WidgetContainer * _container);

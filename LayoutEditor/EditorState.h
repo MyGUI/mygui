@@ -1,8 +1,7 @@
 #pragma once
 
 #include "BasisState.h"
-#include "MyGUI_Gui.h"
-#include "MyGUI_Window.h"
+#include "MyGUI.h"
 
 class EditorState : public BasisState
 {
@@ -26,7 +25,11 @@ private:
 	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender);
 	void notifySettings(MyGUI::WidgetPtr _sender);
 	void notifyClear(MyGUI::WidgetPtr _sender = 0);
-  void notifyQuit(MyGUI::WidgetPtr _sender);
+  void notifyQuit(MyGUI::WidgetPtr _sender = 0);
+
+	void notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
+	void clear();
+	void notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 
 	// save load message
 	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender);
@@ -68,11 +71,14 @@ private:
 	MyGUI::WindowPtr current_widget_rectangle;
 	// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
 	int creating_status;
+	// drop select after skin change
+	bool recreate;
 
 	// current settings
 	int grid_step;
-	// if true 
+
 	bool shiftPressed;
+	bool ctrlPressed;
 	// last loaded/saved file name
 	std::string fileName;
 

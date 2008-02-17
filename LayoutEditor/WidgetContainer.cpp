@@ -1,5 +1,4 @@
 #include "WidgetContainer.h"
-#include "MyGUI.h"
 #include "BasisManager.h"
 
 const std::string LogSection = "LayoutEditor";
@@ -80,6 +79,38 @@ bool EditorWidgets::save(std::string _fileName)
 	}
 
 	return true;
+}
+
+void EditorWidgets::loadxmlDocument(MyGUI::xml::xmlDocument * doc)
+{
+	MyGUI::xml::xmlNodePtr root = doc->getRoot();
+
+	std::string type;
+	if (root->findAttribute("type", type)) {
+		if (type == "Layout")
+		{
+			// берем детей и крутимся
+			MyGUI::xml::xmlNodeIterator widget = root->getNodeIterator();
+			while (widget.nextNode("Widget")) parseWidget(widget, 0);
+		}
+	}
+}
+
+MyGUI::xml::xmlDocument * EditorWidgets::savexmlDocument()
+{
+	MyGUI::xml::xmlDocument * doc = new MyGUI::xml::xmlDocument();
+
+	doc->createInfo();
+	MyGUI::xml::xmlNodePtr root = doc->createRoot("MyGUI");
+	root->addAttributes("type", "Layout");
+
+	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+	{
+		// в корень только сирот
+		if (null == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
+	}
+
+	return doc;
 }
 
 void EditorWidgets::add(WidgetContainer * _container)
@@ -170,9 +201,12 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	std::string tmpname = container->name;
 	if (tmpname.empty()) 
 	{
-		tmpname = MyGUI::utility::toString("LayoutEditor_", container->type, global_counter);
+		tmpname = MyGUI::utility::toString(/*"LayoutEditor_",*/ container->type, global_counter);
 		global_counter++;
 	}
+
+	//может и не стоит
+	tmpname = "LayoutEditor_" + tmpname;
 
 	if (null == _parent) {
 		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, tmpname);
