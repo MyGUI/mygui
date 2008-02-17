@@ -555,7 +555,17 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 		MyGUI::IntCoord coord = _sender->getCoord();
 
 		MyGUI::WidgetPtr parent = _sender->getParent();
-		if (null != parent) coord = convertParentCoordToCoord(coord, _sender);
+		if (null != parent)
+		{
+			// если выбрали виджет на табе, то поднять лист таба
+			if (parent->getWidgetType() == "Sheet")
+			{
+				MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(parent->getParent());
+				tab->selectSheet(MyGUI::castWidget<MyGUI::Sheet>(parent));
+			}
+			//
+			coord = convertParentCoordToCoord(coord, _sender);
+		}
 		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
 		current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
 		current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(this, &EditorState::notifyRectangleDoubleClick);
