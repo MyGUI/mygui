@@ -1,0 +1,8 @@
+Comic.16
+{
+   type       truetype
+   source     Comic.TTF
+   size       16
+   resolution 72
+} 
+
