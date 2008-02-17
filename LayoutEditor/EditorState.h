@@ -79,6 +79,7 @@ private:
 
 	bool shiftPressed;
 	bool ctrlPressed;
+	bool want_quit;
 	// last loaded/saved file name
 	std::string fileName;
 

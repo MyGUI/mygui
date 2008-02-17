@@ -52,7 +52,7 @@ void EditorState::enter(bool bIsChangeState)
 		for (std::vector<std::string>::iterator iterSkin = (*iter)->skin.begin(); iterSkin != (*iter)->skin.end(); ++iterSkin)
 		{
 			MyGUI::ButtonPtr button = windowWidgets->createWidget<MyGUI::Button>("ButtonSmall", i%2*w, i/2*h, w, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH, MyGUI::utility::toString((*iter)->name, *iterSkin));
-			button->setCaption((*iter)->name + " " + *iterSkin);
+			button->setCaption(*iterSkin);
 			button->setTextAlign(MyGUI::ALIGN_LEFT);
 			button->setUserString("widget", (*iter)->name);
 			button->setUserString("skin", *iterSkin);
@@ -133,6 +133,8 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
+		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+	else if (want_quit)
 		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
 	else
 	{
@@ -235,7 +237,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	}
 	else
 	{
-		if ( arg.key == OIS::KC_ESCAPE ) notifyQuit();
+		if ( arg.key == OIS::KC_ESCAPE ) if (!want_quit){ notifySelectWidget(null); notifyQuit();}
 		else if ( arg.key == OIS::KC_DELETE ) {
 			if (MyGUI::InputManager::getInstance().getKeyFocusWidget() == current_widget_rectangle){
 				if (current_widget){ ew->remove(current_widget); notifySelectWidget(null); }
@@ -420,6 +422,7 @@ void EditorState::clear()
 	recreate = false;
 	shiftPressed = false;
 	ctrlPressed = false;
+	want_quit = false;
 	fileName = "";
 	ew->clear();
 	notifySelectWidget(null);
@@ -429,11 +432,13 @@ void EditorState::clear()
 void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::Message::createMessage("Warning", "Are you sure you want to exit?", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	want_quit = true;
 }
 
 void EditorState::notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
 {
 	if (_button == MyGUI::Message::Yes) BasisManager::getInstance().m_exit = true;
+	want_quit = false;
 }
 
 void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
@@ -768,7 +773,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string type = _sender->getUserString("type");
 	if (value == "DEFAULT") value = "";
 
-	if (std::string::npos != action.find("Align"))
+	if ((action == "Align") || (action == "TextAlign"))
 	{
 		std::string tmp = "";
 		const std::vector<std::string> & vec = MyGUI::utility::split(value);
@@ -800,7 +805,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Position")
 	{
 		widgetContainer->position = value;
-		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
+		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Move", value);
 		um->addValue(PR_PROPERTIES);
 		return;
 	}
@@ -824,7 +829,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	{
 		if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
 		{
-			if ((value != "") && (value.find_first_of("0123456789") != std::string::npos))
+			if ((value != "") && (value.find("0123456789") != std::string::npos))
 				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 		}
 		else
