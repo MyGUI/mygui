@@ -5,7 +5,7 @@
     <Layer name="Fade" start="640" height="2" count="1"/>
     <Layer name="Pointer" start="638" height="2" count="1"/>
 
-    <Layer name="LayoutEditor_Popup" start="622" height="8" count="2"/>
+    <Layer name="LayoutEditor_Popup" start="622" height="8" count="1"/>
     <Layer name="LayoutEditor_Overlapped" start="584" height="8" count="16"/>
     <Layer name="LayoutEditor_Rectangle" start="582" height="2" count="1"/>
 
