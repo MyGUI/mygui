@@ -43,7 +43,7 @@ namespace MyGUI
 		virtual void _destroyDrawItem();
 
 		// метод для отрисовки себя
-		virtual void _drawItem(Vertex * _vertex, size_t & _count);
+		virtual size_t _drawItem(Vertex * _vertex);
 
 
 	protected:

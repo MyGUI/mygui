@@ -137,13 +137,17 @@ namespace MyGUI
 
 			Vertex * buffer = (Vertex*)mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
 
-			size_t index = 0;
 
+			size_t count_all = 0;
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-				(*iter)->_drawItem(&buffer[index], index);
+				size_t count = (*iter).first->_drawItem(buffer);
+				// колличество отрисованных вершин
+				MYGUI_DEBUG_ASSERT(count <= (*iter).second, "It is too much vertexes");
+				buffer += count;
+				count_all += count;
 			}
 
-			mRenderOperation.vertexData->vertexCount = index;
+			mRenderOperation.vertexData->vertexCount = count_all;
 			mVertexBuffer->unlock();
 
 			mOutDate = false;

@@ -8,7 +8,7 @@
 #define __MYGUI_RENDER_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
+#include "MyGUI_Common.h"
 
 #include <OgreHardwareBufferManager.h>
 #include <OgreHardwareVertexBuffer.h>
@@ -24,7 +24,9 @@ namespace MyGUI
 	enum {VERTEX_IN_QUAD = 6};
 
 	class DrawItem;
-	typedef std::vector<DrawItem *> VectorDrawItem;
+	typedef std::pair<DrawItem *, size_t> DrawItemInfo;
+	typedef std::vector<DrawItemInfo> VectorDrawItem;
+
 
 	class _MyGUIExport RenderItem
 	{
@@ -39,26 +41,46 @@ namespace MyGUI
 
 		inline void addDrawItem(DrawItem * _item, size_t _count)
 		{
-			mDrawItems.push_back(_item);
+
+// проверяем только в дебаге
+#if MYGUI_DEBUG_MODE == 1
+			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
+				MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
+			}
+#endif
+
+			mDrawItems.push_back(DrawItemInfo(_item, _count));
 			mNeedVertexCount += _count;
 			mOutDate = true;
 		}
 
-		inline void removeDrawItem(DrawItem * _item, size_t _count)
+		inline void removeDrawItem(DrawItem * _item)
 		{
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-				if ((*iter) == _item) {
+				if ((*iter).first == _item) {
+					mNeedVertexCount -= (*iter).second;
 					mDrawItems.erase(iter);
-					mNeedVertexCount -= _count;
 					mOutDate = true;
-					break;
+					return;
 				}
 			}
+			MYGUI_EXCEPT("DrawItem not found");
 		}
 
-		inline void reallockDrawItem(DrawItem * _item, size_t _add)
+		inline void reallockDrawItem(DrawItem * _item, size_t _count)
 		{
-			mNeedVertexCount += _add;
+			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
+				if ((*iter).first == _item) {
+					// если нужно меньше, то ниче не делаем
+					if ((*iter).second >= _count) break;
+
+					mNeedVertexCount -= (*iter).second;
+					mNeedVertexCount += _count;
+					(*iter).second = _count;
+					return;
+				}
+			}
+			MYGUI_EXCEPT("DrawItem not found");
 		}
 
 		inline void outOfDate() { mOutDate = true; }

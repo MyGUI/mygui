@@ -151,12 +151,14 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void SimpleText::_drawItem(Vertex * _vertex, size_t & _count)
+	size_t SimpleText::_drawItem(Vertex * _vertex)
 	{
-		if (mFont.isNull()) return;
-		if ((false == mShow) || (mTransparent)) return;
-		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return;
+		if (mFont.isNull()) return 0;
+		if ((false == mShow) || (mTransparent)) return 0;
+		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return 0;
 		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
+
+		return 0;
 
 		/*float vertex_z = mRenderItem->getMaximumDepth();
 

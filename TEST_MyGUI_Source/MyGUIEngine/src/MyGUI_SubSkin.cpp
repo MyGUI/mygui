@@ -207,10 +207,10 @@ namespace MyGUI
 
 	}
 
-	void SubSkin::_drawItem(Vertex * _vertex, size_t & _count)
+	size_t SubSkin::_drawItem(Vertex * _vertex)
 	{
-		if ((false == mShow) || (mTransparent)) return;
-		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return;
+		if ((false == mShow) || (mTransparent)) return 0;
+		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return 0;
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -268,7 +268,7 @@ namespace MyGUI
 		_vertex[5].u = mCurrentTexture.right;
 		_vertex[5].v = mCurrentTexture.bottom;
 
-		_count += SUBSKIN_COUNT_VERTEX;
+		return SUBSKIN_COUNT_VERTEX;
 	}
 
 	void SubSkin::_createDrawItem(RenderItem * _item)
@@ -279,7 +279,7 @@ namespace MyGUI
 
 	void SubSkin::_destroyDrawItem()
 	{
-		mRenderItem->removeDrawItem(this, SUBSKIN_COUNT_VERTEX);
+		mRenderItem->removeDrawItem(this);
 	}
 
 } // namespace MyGUI
