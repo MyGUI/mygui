@@ -44,7 +44,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MYGUIENGINE_EXPORTS; MYGUI_NONCLIENT_BUILD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib"
+				AdditionalDependencies="OgreMain_d.lib freetype230_D.lib"
 				ShowProgress="0"
 				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
@@ -206,6 +206,10 @@
 				Name="Core"
 				>
 				<File
+					RelativePath=".\src\MyGUI_FontManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Gui.cpp"
 					>
 				</File>
@@ -266,6 +270,10 @@
 				Name="Utility"
 				>
 				<File
+					RelativePath=".\src\MyGUI_Font.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_RenderOut.cpp"
 					>
 				</File>
@@ -324,6 +332,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Font.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_RenderOut.h"
 					>
 				</File>
@@ -355,6 +367,10 @@
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\include\MyGUI_FontManager.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\MyGUI_Gui.h"
 					>
@@ -392,6 +408,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Common.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_EnumCharInfo.h"
 						>
 					</File>
 					<File

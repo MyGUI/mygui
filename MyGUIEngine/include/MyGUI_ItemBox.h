@@ -64,7 +64,7 @@ namespace MyGUI
 		// видим ли мы элемент, полностью или нет
 		bool isItemVisible(size_t _index, bool _fill = true);
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
-
+*/
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 
@@ -73,7 +73,7 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// возвращает максимальную высоту вмещающую все строки и радительский бордюр
-		inline int getItemBoxMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
+		/*inline int getItemBoxMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
 		// event : нажат ентер, или двойной щелчек
 		// signature : void method(MyGUI::WidgetPtr _widget)
@@ -105,9 +105,12 @@ namespace MyGUI
 		// просто перерисовывает все виджеты что видны
 		void _redrawAllVisible();
 
+		void updateFromResize(const IntSize& _size);
+
 		// отрисовка конкретного айтема
 		virtual void redrawItem(WidgetPtr _widget, size_t _index);
 
+		WidgetPtr getItemWidget(size_t _index);
 		/*void _onKeyButtonPressed(int _key, Char _char);
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);

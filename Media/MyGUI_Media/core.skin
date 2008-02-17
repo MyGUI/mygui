@@ -1131,6 +1131,29 @@
             <State name="select" offset = "147 16 3 3"/>
         </BasisSkin>
     </Skin>
+    
+    <Skin name = "Test" size = "500 500" material = "MyGUI_CoreMaterial">
+        <Property key="MainMove" value = "true" />
+   
+        <BasisSkin type="SubSkin" offset = "0 0 500 500" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "2 30 54 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 10 480 480" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "2 30 54 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "20 20 460 460" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "2 30 54 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "30 30 440 440" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "2 30 54 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "40 40 420 420" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "2 30 54 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "50 50 400 400" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "2 30 54 26"/>
+        </BasisSkin>
+    </Skin>
 
 </MyGUI>
 

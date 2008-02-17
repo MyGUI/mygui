@@ -35,6 +35,7 @@ namespace MyGUI
 	class LayerManager;
 	class SkinManager;
 	class WidgetManager;
+	class FontManager;
 
 	class WidgetFactoryInterface;
 	namespace factory {

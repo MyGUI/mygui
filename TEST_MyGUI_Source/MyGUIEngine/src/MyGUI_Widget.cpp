@@ -133,8 +133,7 @@ namespace MyGUI
 		}
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
-			if (mVisible) (*skin)->show();
-			else (*skin)->hide();
+			mVisible ? (*skin)->show() : (*skin)->hide();
 		}
 	}
 

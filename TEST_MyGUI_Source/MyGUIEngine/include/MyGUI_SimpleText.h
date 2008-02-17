@@ -11,6 +11,10 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_DrawItem.h"
+#include "MyGUI_Font.h"
+#include "MyGUI_EnumCharInfo.h"
+
+#include <OgreMaterial.h>
 
 namespace MyGUI
 {
@@ -26,10 +30,10 @@ namespace MyGUI
 
 		inline static const Ogre::String & _getType() {static Ogre::String type("SimpleText"); return type;}
 
-		void setAlpha(float _alpha);
-
 		void show();
 		void hide();
+
+		void setTextAlign(Align _align);
 
 		void _updateView();
 		void _correctView();
@@ -37,7 +41,29 @@ namespace MyGUI
 		void _setAlign(const IntSize& _size, bool _update);
 		void _setAlign(const IntCoord& _coord, bool _update);
 
-		void _setUVSet(const FloatRect& _rect);
+		void setCaption(const Ogre::DisplayString & _caption);
+		const Ogre::DisplayString & getCaption();
+
+		void setColour(const Ogre::ColourValue & _colour);
+		const Ogre::ColourValue & getColour();
+
+		void setAlpha(float _alpha);
+		float getAlpha();
+
+		void setFontName(const std::string & _font);
+		const std::string & getFontName();
+		void setFontHeight(uint16 _height);
+		uint16 getFontHeight();
+		inline void setFontName(const std::string & _font, uint16 _height)
+		{
+			setFontName(_font);
+			setFontHeight(_height);
+		}
+
+		IntSize getTextSize();
+		IntSize getTextSize(const Ogre::DisplayString& _text);
+
+		void updateRawData();
 
 		virtual void _createDrawItem(RenderItem * _item);
 		virtual void _destroyDrawItem();
@@ -48,15 +74,34 @@ namespace MyGUI
 
 	protected:
 
-		FloatRect mRectTexture;
 		bool mTransparent;
-
-		uint32 mCurrentAlpha;
-
-		FloatRect mCurrentTexture;
+		uint32 mCurrentColour;
 		IntCoord mCurrentCoord;
 
 		RenderItem * mRenderItem;
+		size_t mCountVertex;
+
+		Ogre::DisplayString mCaption;
+		bool mTextOutDate;
+		Align mTextAlign;
+
+		Ogre::ColourValue mColour;
+		float mAlpha;
+		bool mRenderGL;
+
+		Ogre::MaterialPtr mpMaterial;
+		uint16 mFontHeight;
+		FontPtr mFont;
+		Font::GlyphInfo * mSpaceGlyphInfo;
+		Font::GlyphInfo * mTabGlyphInfo;
+		float mAspectCoef;
+
+		float mTextureHeightOne, mTextureWidthOne;
+		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive;
+
+		IntPoint mPointShift; // смещение текста
+		FloatSize mContextSize; // размер всего текста
+		VectorLineInfo mLinesInfo;
 
 	};
 

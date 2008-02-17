@@ -64,8 +64,39 @@ namespace MyGUI
 
 		updateMetrics();
 		updateScroll();
+		_redrawAllVisible();
 		//updateLine();
 
+	}
+
+	void ItemBox::setSize(const IntSize& _size)
+	{
+		IntCoord old = mCoord;
+		Widget::setSize(_size);
+		updateFromResize(old.size());
+	}
+
+	void ItemBox::setPosition(const IntCoord& _coord)
+	{
+		IntCoord old = mCoord;
+		Widget::setPosition(_coord);
+		updateFromResize(old.size());
+	}
+
+	void ItemBox::updateFromResize(const IntSize& _size)
+	{
+		int old_count = mCountItemInLine;
+		updateMetrics();
+		updateScroll();
+
+		// если колличество айтемов в строке изменилось, то перерисовываем все
+		if (old_count == mCountItemInLine) {
+			// если строк стало меньшн то ничего не нужно
+			if (_size.height >= mCoord.height) return;
+		}
+
+		notifyScrollChangePosition(null, mWidgetScroll->getScrollPosition());
+		_redrawAllVisible();
 	}
 
 	void ItemBox::_onMouseWheel(int _rel)
@@ -186,21 +217,15 @@ namespace MyGUI
 
 		int count = mCountLineVisible * mCountItemInLine + mTopIndex;
 		size_t iwid = 0; // индекс виджета
-		for (int pos = mTopIndex; pos<count; ++pos) {
+		for (int pos = mTopIndex; pos<count; ++pos, ++iwid) {
 			// дальше нет айтемов
 			if (pos >= mCountItems) break;
 
-			// еще нет такого виджета, нуно создать
-			if (iwid >= mVectorItems.size()) {
-				WidgetPtr widget = mWidgetClient->createWidgetT("Widget", "Edit", IntCoord((pos % mCountItemInLine) * mSizeItem.width, (pos / mCountItemInLine) + mOffsetTop, mSizeItem.width, mSizeItem.height), ALIGN_DEFAULT);
-				widget->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-				mVectorItems.push_back(widget);
-			}
+			WidgetPtr widget = getItemWidget(iwid);
 
-			mVectorItems[iwid]->show();
-			redrawItem(mVectorItems[iwid], (size_t)pos);
+			widget->show();
+			redrawItem(widget, (size_t)pos);
 
-			iwid ++;
 		}
 
 		// все виджеты еще есть, то их надо бы скрыть
@@ -217,6 +242,19 @@ namespace MyGUI
 	void ItemBox::redrawItem(WidgetPtr _widget, size_t _index)
 	{
 		_widget->setCaption(utility::toString(_index));
+	}
+
+	WidgetPtr ItemBox::getItemWidget(size_t _index)
+	{
+		// еще нет такого виджета, нуно создать
+		if (_index >= mVectorItems.size()) {
+			int pos = mTopIndex + (int)mVectorItems.size();
+			WidgetPtr widget = mWidgetClient->createWidgetT("Widget", "Edit", IntCoord((pos % mCountItemInLine) * mSizeItem.width, ((pos / mCountItemInLine) * mSizeItem.height)  + mOffsetTop, mSizeItem.width, mSizeItem.height), ALIGN_DEFAULT);
+			widget->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
+			mVectorItems.push_back(widget);
+			return mVectorItems.back();
+		}
+		return mVectorItems[_index];
 	}
 
 	/*void ItemBox::_onKeyButtonPressed(int _key, Char _char)
@@ -330,23 +368,9 @@ namespace MyGUI
 			eventItemBoxMouseItemActivate(this, mIndexSelect);
 
 		}
-	}
+	}*/
 
-	void ItemBox::setSize(const IntSize& _size)
-	{
-		Widget::setSize(_size);
-		updateScroll();
-		updateLine();
-	}
-
-	void ItemBox::setPosition(const IntCoord& _coord)
-	{
-		Widget::setPosition(_coord);
-		updateScroll();
-		updateLine();
-	}
-
-	void ItemBox::updateLine(bool _reset)
+	/*void ItemBox::updateLine(bool _reset)
 	{
 		// сбрасываем
 		if (_reset) {

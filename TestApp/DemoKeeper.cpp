@@ -63,6 +63,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	//for (size_t pos=0; pos<500; pos++)
+	mGUI->createWidget<MyGUI::Widget>("Window", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
+
 	//MyGUI::Message::createMessage(L"Ошибка", L"Поле ввода имени пустое.", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::Ok | MyGUI::Message::IconWarning);
 
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
@@ -81,7 +84,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 //	MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
 	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
-//	MyGUI::ItemBoxPtr box = mGUI->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(60, 100, 400, 326), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	const MyGUI::IntCoord & client = window->getClientRect();
+	MyGUI::ItemBoxPtr box = window->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(0, 0, client.width, client.height), MyGUI::ALIGN_STRETCH);*/
+
+	//MyGUI::WindowPtr widget1 = mGUI->createWidget<MyGUI::Window>("Test", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	//MyGUI::WindowPtr widget2 = mGUI->createWidget<MyGUI::Window>("Test", MyGUI::IntCoord(200, 200, 500, 500), MyGUI::ALIGN_DEFAULT, "Overlapped");
 
 
 	/*combo->eventComboChangePosition = newDelegate(this, &DemoKeeper::notifyTest);
@@ -162,7 +170,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->removeSheetIndex(0);
 	tab->removeSheetIndex(0);//*/
 
+//<<<<<<< .mine
+	/*MyGUI::MultiListPtr list = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 316, 100), MyGUI::ALIGN_DEFAULT, "Main");
+=======
 	MyGUI::MultiListPtr list = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 316, 200), MyGUI::ALIGN_DEFAULT, "Main");
+>>>>>>> .r462
 	list->addRow(80, "test");
 	list->addRow(80, "test 2");
 	list->addRow(150, "test 3");
@@ -170,7 +182,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	size_t count = 1000;
 	for (size_t pos=0; pos<count; pos++) list->addItem(MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
 	for (size_t pos=0; pos<count; pos++) list->setSubItem(1, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
-	for (size_t pos=0; pos<count; pos++) list->setSubItem(2, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
+	for (size_t pos=0; pos<count; pos++) list->setSubItem(2, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));*/
 
 	//list->addItem("#FF0000red#00FF00green#0000FFblue");
 

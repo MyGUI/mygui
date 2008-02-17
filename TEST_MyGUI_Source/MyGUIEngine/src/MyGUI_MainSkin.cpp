@@ -10,7 +10,7 @@
 namespace MyGUI
 {
 
-	const size_t SUBSKIN_COUNT_VERTEX = 6;
+	const size_t MAINSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	MainSkin::MainSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
 		CroppedRectangleInterface(_info.coord, _info.align, _parent),
@@ -191,18 +191,18 @@ namespace MyGUI
 		_vertex[5].u = mCurrentTexture.right;
 		_vertex[5].v = mCurrentTexture.bottom;
 
-		_count += SUBSKIN_COUNT_VERTEX;
+		_count += MAINSKIN_COUNT_VERTEX;
 	}
 
 	void MainSkin::_createDrawItem(RenderItem * _item)
 	{
 		mRenderItem = _item;
-		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
+		mRenderItem->addDrawItem(this, MAINSKIN_COUNT_VERTEX);
 	}
 
 	void MainSkin::_destroyDrawItem()
 	{
-		mRenderItem->removeDrawItem(this, SUBSKIN_COUNT_VERTEX);
+		mRenderItem->removeDrawItem(this, MAINSKIN_COUNT_VERTEX);
 	}
 
 } // namespace MyGUI

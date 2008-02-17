@@ -21,6 +21,8 @@
 namespace MyGUI
 {
 
+	enum {VERTEX_IN_QUAD = 6};
+
 	class DrawItem;
 	typedef std::vector<DrawItem *> VectorDrawItem;
 
@@ -69,6 +71,8 @@ namespace MyGUI
 		inline float getHOffset() {return mHOffset;}
 		inline float getVOffset() {return mVOffset;}
 
+		inline float getAspectCoef() {return mAspectCoef;}
+
 	private:
 		void initRenderState();
 
@@ -102,6 +106,8 @@ namespace MyGUI
 		// смещение для того, чтобы тексель попал в пиксель
         float mHOffset;
         float mVOffset;
+
+		float mAspectCoef;
 
 		// координата зю
 		float mMaximumDepth;

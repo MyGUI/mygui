@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	const size_t RENDER_ITEM_STEEP_REALLOCK = 30;
+	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
 	RenderItem::RenderItem(const std::string& _texture) :
 		mTextureName(_texture),
@@ -21,7 +21,8 @@ namespace MyGUI
 		mNeedVertexCount(0),
 		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
 		mPixScaleX(1), mPixScaleY(1),
-        mHOffset(0), mVOffset(0)
+        mHOffset(0), mVOffset(0),
+		mAspectCoef(1)
 	{
 		mRenderSystem = Ogre::Root::getSingleton().getRenderSystem();
 		mTextureManager = Ogre::TextureManager::getSingletonPtr();
@@ -163,6 +164,7 @@ namespace MyGUI
 	{
 		mPixScaleX = 1.0 / _size.width;
 		mPixScaleY = 1.0 / _size.height;
+		mAspectCoef = _size.height / _size.width;
 
         mHOffset = mRenderSystem->getHorizontalTexelOffset() / _size.width;
         mVOffset = mRenderSystem->getVerticalTexelOffset() / _size.height;

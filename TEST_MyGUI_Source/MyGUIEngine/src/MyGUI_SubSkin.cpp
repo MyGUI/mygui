@@ -5,15 +5,12 @@
 	@module
 */
 #include "MyGUI_SubSkin.h"
-//#include "MyGUI_Utility.h"
-//#include "MyGUI_Gui.h"
-//#include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_RenderItem.h"
 
 namespace MyGUI
 {
 
-	const size_t SUBSKIN_COUNT_VERTEX = 6;
+	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	SubSkin::SubSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
 		CroppedRectangleInterface(_info.coord, _info.align, _parent),

@@ -144,9 +144,10 @@ namespace MyGUI
 		// синглтоны гу€
 		InputManager * mInputManager;
 		SubWidgetManager * mCroppedRectangleManager;
-		LayerManager* mRenderManager;
+		LayerManager* mLayerManager;
 		SkinManager* mSkinManager;
 		WidgetManager* mWidgetManager;
+		FontManager* mFontManager;
 
 		// подписчики на кадры
 		ListFrameListener mListFrameListener;

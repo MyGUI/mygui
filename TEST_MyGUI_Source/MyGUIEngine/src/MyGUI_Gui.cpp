@@ -13,6 +13,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_FontManager.h"
 
 namespace MyGUI
 {
@@ -43,17 +44,19 @@ namespace MyGUI
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &Gui::_load);
 
 		// создаем и инициализируем синглтоны
-		mRenderManager = new LayerManager();
+		mLayerManager = new LayerManager();
 		mWidgetManager = new WidgetManager();
 		mInputManager = new InputManager();
 		mCroppedRectangleManager = new SubWidgetManager();
 		mSkinManager = new SkinManager();
+		mFontManager = new FontManager();
 
-		mRenderManager->initialise();
+		mLayerManager->initialise();
 		mWidgetManager->initialise();
 		mInputManager->initialise();
 		mCroppedRectangleManager->initialise();
 		mSkinManager->initialise();
+		mFontManager->initialise();
 
 		// подписываемся на изменение размеров окна и сразу оповещаем
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
@@ -85,13 +88,15 @@ namespace MyGUI
 		mInputManager->shutdown();
 		mSkinManager->shutdown();
 		mCroppedRectangleManager->shutdown();
-		mRenderManager->shutdown();
+		mLayerManager->shutdown();
+		mFontManager->shutdown();
 
 		delete mWidgetManager;
 		delete mInputManager;
 		delete mSkinManager;
 		delete mCroppedRectangleManager;
-		delete mRenderManager;
+		delete mLayerManager;
+		delete mFontManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
@@ -304,7 +309,7 @@ namespace MyGUI
 		Ogre::Viewport * port = rw->getViewport(0);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
-		mRenderManager->_windowResized(mViewSize);
+		mLayerManager->_windowResized(mViewSize);
 	}
 
 } // namespace MyGUI
