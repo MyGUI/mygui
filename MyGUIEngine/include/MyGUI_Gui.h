@@ -26,7 +26,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
 
-	class _MyGUIExport Gui
+	class _MyGUIExport Gui : public Ogre::WindowEventListener
 	{
 		friend class WidgetManager;
 		INSTANCE_HEADER(Gui);
@@ -134,6 +134,10 @@ namespace MyGUI
 				_parent Widget.
 		*/
 		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
+
+		// для оповещений об изменении окна рендера
+		virtual void windowResized(Ogre::RenderWindow* rw);
+
 	private:
 		// удяляет только негодных батюшке государю
 		void _destroyChildWidget(WidgetPtr _widget);
@@ -170,6 +174,8 @@ namespace MyGUI
 
 		// подписчики на кадры
 		ListFrameListener mListFrameListener;
+
+		Ogre::RenderWindow * mWindow;
 
 	}; // class Gui
 

@@ -41,7 +41,9 @@ namespace MyGUI
 			<< MYGUI_VERSION_MINOR << "."
 			<< MYGUI_VERSION_PATCH);
 
-		Ogre::Viewport * port = _window->getViewport(0);
+		// сохраняем окно и размеры
+		mWindow = _window;
+		Ogre::Viewport * port = mWindow->getViewport(0);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
 		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
@@ -85,6 +87,9 @@ namespace MyGUI
 		mPluginManager->initialise();
 		mControllerManager->initialise();
 
+		// подписываемся на изменение размеров окна и сразу оповещаем
+		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
 		// загружаем дефолтные настройки
 		load(_core, _group);
 
@@ -99,6 +104,9 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		// сразу отписываемся
+		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 
 		unregisterLoadXmlDelegate(XML_TYPE);
 		mListFrameListener.clear();
@@ -365,6 +373,13 @@ namespace MyGUI
 		}
 		const IntCoord& coord = _parent->getClientRect();
 		return FloatCoord(_coord.left / coord.width, _coord.top / coord.height, _coord.width / coord.width, _coord.height / coord.height);
+	}
+
+	// для оповещений об изменении окна рендера
+	void Gui::windowResized(Ogre::RenderWindow* rw)
+	{
+		Ogre::Viewport * port = rw->getViewport(0);
+		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 	}
 
 } // namespace MyGUI
