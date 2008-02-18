@@ -784,7 +784,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
 	std::string type = _sender->getUserString("type");
 
-	if ((action == "Align") || (action == "TextAlign"))
+	if ((action == "Widget_Align") || (action == "Widget_AlignText"))
 	{
 		std::string tmp = "";
 		const std::vector<std::string> & vec = MyGUI::utility::split(value);
