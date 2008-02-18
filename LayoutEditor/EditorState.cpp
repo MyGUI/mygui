@@ -652,7 +652,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		}
 
 		// separator
-		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
+		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2 + 5, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
 		MyGUI::StaticTextPtr text;
 		text = window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1 + w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 		text->setCaption(current_widget->getWidgetType() + " specific properties");
@@ -671,7 +671,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		}
 
 		// separator
-		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
+		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2 + 5, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
 		text = window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1 + w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
 		text->setCaption("Other properties");
 		text->setTextAlign(MyGUI::ALIGN_CENTER);
@@ -692,8 +692,8 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			}
 		}
 		int height = window->getHeight() - window->getClientRect().height;
-		window->setSize(window->getSize().width, height + y);
 		window->setMinMax(window->getSize().width, height + y, mGUI->getViewWidth(), height + y);
+		window->setSize(window->getSize().width, height + y);
 	}
 }
 
@@ -784,7 +784,6 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string action = _sender->getUserString("action");
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
 	std::string type = _sender->getUserString("type");
-	if (value == "DEFAULT") value = "";
 
 	if ((action == "Align") || (action == "TextAlign"))
 	{
@@ -796,6 +795,8 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		}
 		value = tmp;
 	}
+
+	if (value == "DEFAULT") value = "";
 
 	if (action == "Name")
 	{
@@ -845,7 +846,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 			if ((value != "") && (value.find("0123456789") != std::string::npos))
 				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 		}
-		else
+		else if (value != "" || "Widget_FontName" != action)
 			MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 	}
 

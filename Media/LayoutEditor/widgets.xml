@@ -132,7 +132,7 @@
     <!--Parameter key="Widget_Size" value="2 int"/-->
     <Parameter key="Widget_Show" value="Bool"/>
     <Parameter key="Widget_Colour" value="Colour"/>
-    <Parameter key="Widget_FontName" value="Fonts"/>
+    <Parameter key="Widget_FontName" value="Font"/>
     <Parameter key="Widget_Alpha" value="1 float"/>
     <!--Parameter key="Widget_State" value="WidgetState"/-->
     <Parameter key="Widget_NeedKey" value="Bool"/>
