@@ -210,8 +210,8 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 				mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
 				current_widget_type = "";
 				current_widget_skin = "";
+				if (creating_status == 2) global_counter--;
 				creating_status = 0;
-				global_counter--;
 			}
 		}
 	}
@@ -221,7 +221,6 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 
 	if (recreate)
 	{
-		MyGUI::InputManager::getInstance().setKeyFocusWidget(null);
 		notifySelectWidget(null);
 		recreate = false;
 	}

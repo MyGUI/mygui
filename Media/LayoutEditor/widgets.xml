@@ -3,14 +3,14 @@
 <MyGUI type="Widgets">
   <Widget name="Button">
     <Property key="Skin" value="Button"/>
-	  <Property key="Skin" value="ButtonSmall"/>
-	  <Property key="Skin" value="CheckBox"/>
-	  <Parameter key="Button_Pressed" value="Bool"/>
+    <Property key="Skin" value="ButtonSmall"/>
+    <Property key="Skin" value="CheckBox"/>
+    <Parameter key="Button_Pressed" value="Bool"/>
     <!-- all properties -->
   </Widget>
 
   <Widget name="ComboBox">
-	  <Property key="Skin" value="ComboBox"/>
+    <Property key="Skin" value="ComboBox"/>
     <Parameter key="Combo_ModeDrop" value="Bool"/>
     <Parameter key="Combo_AddString" value="String"/>
     <!--Property key="OnDoubleClick" value="Combo_AddString"/-->
@@ -18,8 +18,8 @@
   </Widget>
 
   <Widget name="Edit">
-	  <Property key="Skin" value="Edit"/>
-	  <Property key="Skin" value="EditStretch"/>
+    <Property key="Skin" value="Edit"/>
+    <Property key="Skin" value="EditStretch"/>
     <Parameter key="Edit_CursorPosition" value="2 int"/>
     <Parameter key="Edit_TextSelect" value="2 int"/>
     <Parameter key="Edit_ReadOnly" value="Bool"/>
@@ -29,7 +29,7 @@
   </Widget>
 
   <Widget name="HScroll">
-	  <Property key="Skin" value="HScroll"/>
+    <Property key="Skin" value="HScroll"/>
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -42,14 +42,14 @@
   </Widget>
 
   <Widget name="List">
-	  <Property key="Skin" value="List"/>
+    <Property key="Skin" value="List"/>
     <!--Parameter key="List_AddString" value="String"/-->
     <!--Property key="OnDoubleClick" value="List_AddString"/-->
     <!-- all properties -->
   </Widget>
 
   <Widget name="Message">
-	  <Property key="Skin" value="Message"/>
+    <Property key="Skin" value="Message"/>
     <Parameter key="Message_Caption" value="String"/>
     <Parameter key="Message_Message" value="String"/>
     <Parameter key="Message_Modal" value="Bool"/>
@@ -62,7 +62,7 @@
   </Widget>
 
   <Widget name="Progress">
-	  <Property key="Skin" value="Progress"/>
+    <Property key="Skin" value="Progress"/>
     <Parameter key="Progress_Range" value="2 int"/>
     <Parameter key="Progress_Position" value="2 int"/>
     <Parameter key="Progress_AutoTrack" value="Bool"/>
@@ -70,7 +70,7 @@
   </Widget>
 
   <Widget name="RenderBox">
-	  <Property key="Skin" value="RenderBox"/>
+    <Property key="Skin" value="RenderBox"/>
     <!--Parameter key="RenderBox_Mesh" value="String"/FIXME-->
     <Parameter key="RenderBox_AutorotationSpeed" value="1 int"/>
     <Parameter key="RenderBox_BackgroungColour" value="colour"/>
@@ -90,7 +90,7 @@
   </Widget>
 
   <Widget name="StaticImage">
-	  <Property key="Skin" value="StaticImage"/>
+    <Property key="Skin" value="StaticImage"/>
     <!--Parameter key="Image_Material" value="String"/FIXME-->
     <Parameter key="Image_Rect" value="4 int"/>
     <Parameter key="Image_Tile" value="2 float"/>
@@ -99,12 +99,12 @@
   </Widget>
 
   <Widget name="StaticText">
-	  <Property key="Skin" value="StaticText"/>
+    <Property key="Skin" value="StaticText"/>
     <!-- all properties -->
   </Widget>
 
   <Widget name="Tab">
-	  <Property key="Skin" value="Tab"/>
+    <Property key="Skin" value="Tab"/>
     <Parameter key="Tab_ButtonWidth" value="1 int"/>
     <Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
     <Parameter key="Tab_SmoothShow" value="Bool"/>
@@ -115,7 +115,7 @@
   </Widget>
 
   <Widget name="VScroll">
-	  <Property key="Skin" value="VScroll"/>
+    <Property key="Skin" value="VScroll"/>
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -123,10 +123,10 @@
   </Widget>
 
   <Widget name="Widget">
-	  <Property key="Skin" value="Separator1"/>
-	  <Property key="Skin" value="Separator2"/>
-	  <Property key="Skin" value="Separator3"/>
-	  <Property key="Skin" value="Separator4"/>
+    <Property key="Skin" value="Separator1"/>
+    <Property key="Skin" value="Separator2"/>
+    <Property key="Skin" value="Separator3"/>
+    <Property key="Skin" value="Separator4"/>
     <Parameter key="Widget_Caption" value="String"/>
     <!--Parameter key="Widget_Move" value="2 или 4 int"/-->
     <!--Parameter key="Widget_Size" value="2 int"/-->
@@ -143,10 +143,10 @@
   <Widget name="Window">
     <Property key="Parent" value="true"/>
     <Property key="Child" value="false"/>
-	  <Property key="Skin" value="Window"/>
-	  <Property key="Skin" value="WindowC"/>
-	  <Property key="Skin" value="WindowCS"/>
-	  <Property key="Skin" value="WindowCSX"/>
+    <Property key="Skin" value="Window"/>
+    <Property key="Skin" value="WindowC"/>
+    <Property key="Skin" value="WindowCS"/>
+    <Property key="Skin" value="WindowCSX"/>
     <Parameter key="Window_AutoAlpha" value="Bool"/>
     <Parameter key="Window_MinMax" value="4 int"/>
     <Parameter key="Window_Snap" value="Bool"/>

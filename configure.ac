@@ -1,10 +1,10 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.50)
-AC_INIT( [MYGUI], 2.0.0 )
+AC_INIT( [MYGUI], 2.1.0 )
 
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE( [MYGUI], 2.0.0 )
+AM_INIT_AUTOMAKE( [MYGUI], 2.1.0 )
 
 CFLAGS="$CFLAGS"
 CXXFLAGS="$CXXFLAGS"
@@ -29,5 +29,6 @@ AC_CONFIG_FILES([Makefile
                  MyGUIEngine/src/Makefile
                  MyGUIEngine/include/Makefile
                  TestApp/Makefile
+				 LayoutEditor/Makefile
                  MyGUI.pc])
 AC_OUTPUT
