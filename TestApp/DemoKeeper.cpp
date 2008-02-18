@@ -66,7 +66,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//for (size_t pos=0; pos<500; pos++)
 //	mGUI->createWidget<MyGUI::Widget>("Window", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
 
-	MyGUI::WidgetPtr but = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::WidgetPtr but = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Overlapped");
 	but->setCaption("test");
 	//MyGUI::MYGUI_OUT("test");
 

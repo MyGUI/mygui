@@ -144,6 +144,9 @@ namespace MyGUI
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 
+		// выравнивает рутовые виджеты
+		void _alignWidget(WidgetPtr _widget, const FloatSize& _old, const FloatSize& _new);
+
 	private:
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;

@@ -1030,6 +1030,9 @@ namespace MyGUI
 		mHeight = mPixelHeight * mPixelScaleY;
 
 		mGeomPositionsOutOfDate = true;
-    }
+		mRawDataOutOfDate = true;
+		mDerivedOutOfDate = true;
+
+	}
 
 } // namespace MyGUI

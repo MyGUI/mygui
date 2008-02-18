@@ -353,6 +353,12 @@ namespace MyGUI
 		mHeight = mPixelHeight * mPixelScaleY;
 
 		mGeomPositionsOutOfDate = true;
+		mDerivedOutOfDate = true;
+
+        ChildIterator it = getChildIterator();
+        while (it.hasMoreElements()) {
+            it.getNext()->_notifyViewport();
+        }
     }
 
 } // namespace MyGUI
