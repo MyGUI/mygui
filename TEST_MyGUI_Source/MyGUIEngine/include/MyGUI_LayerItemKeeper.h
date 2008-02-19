@@ -13,8 +13,10 @@
 namespace MyGUI
 {
 
+	class LayerItem;
 	class RenderItem;
 	typedef std::vector<RenderItem*> VectorRenderItem;
+	typedef std::vector<LayerItem*> VectorLayerItem;
 
 	class _MyGUIExport LayerItemKeeper
 	{
@@ -30,13 +32,35 @@ namespace MyGUI
 		void _resize(const FloatSize& _size);
 
 		RenderItem * addToRenderItem(const std::string& _texture, bool _first, bool _separate);
-		//RenderItem * insertToRenderItem(const std::string& _texture, bool _first);
+
+		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
+
+		inline void _addPeekItem(LayerItem * _root)
+		{
+			mPeekLayerItems.push_back(_root);
+		}
+
+		inline void _removePeekItem(LayerItem * _root)
+		{
+			for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
+				if ((*iter) == _root) {
+					(*iter) = mPeekLayerItems.back();
+					mPeekLayerItems.pop_back();
+					break;
+				}
+			}
+		}
 
 	private:
 		size_t mCountUsing;
 
+		// список двух очередей отрисовки, для сабскинов и текста
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
+
+		// список всех рутовых виджетов
+		// у перекрывающегося слоя здесь только один
+		VectorLayerItem mPeekLayerItems;
 
 	};
 

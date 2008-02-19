@@ -114,20 +114,20 @@ namespace MyGUI
 
 		void setState(const Ogre::String & _state);
 
+		// €вл€емс€ ли мы рутовым виджетом
+		inline bool isRootWidget() {return null == mParent;}
+
 		// закрываем метод базового класса
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
 		// дл€ поддержки окон напр€мую не €вл€ющиес€ детьми
 		inline WidgetPtr _getOwner() {return mOwner;}
-		inline void _setOwner(WidgetPtr _widget) { if (null == mParent) mOwner = _widget; }
+		inline void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
 
 		// return copy
 		virtual VectorWidgetPtr getChilds();
 
 		// наследуемс€ он LayerInfo
 		virtual LayerItem * _findLayerItem(int _left, int _top);
-		virtual void _attachToLayerKeeper(LayerKeeper * _keeper);
-		virtual void _detachFromLayerKeeper();
-
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item);
 		virtual void _detachFromLayerItemKeeper();
 
@@ -162,7 +162,7 @@ namespace MyGUI
 				}
 			}
 		}*/
-		inline LayerItemKeeper * getLayerItemKeeper() { return mLayerItemKeeper; }
+		//inline LayerItemKeeper * getLayerItemKeeper() { return mLayerItemKeeper; }
 
 	protected:
 
@@ -190,8 +190,6 @@ namespace MyGUI
 		// прозрачность нашего оверле€
 		float mAlpha;
 		float mRealAlpha;
-		// цвет текста
-		//Ogre::ColourValue mColour;
 		// им€ виджета
 		Ogre::String mName;
 		// курсор который будет показан при наведении
@@ -201,9 +199,6 @@ namespace MyGUI
 		// дл€ поддержки окон, напр€мую не €вл€ющимис€ детьми
 		// всплывающие окна, списки комбобоксов и т.д.
 		WidgetPtr mOwner;
-
-		LayerKeeper * mLayerKeeper;
-		LayerItemKeeper * mLayerItemKeeper;
 
 	};
 

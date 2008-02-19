@@ -42,6 +42,9 @@ namespace MyGUI
 		class WidgetFactory;
 	}
 
+	class Widget;
+	typedef Widget * WidgetPtr;
+
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
     #define MYGUI_VERSION_MINOR 0

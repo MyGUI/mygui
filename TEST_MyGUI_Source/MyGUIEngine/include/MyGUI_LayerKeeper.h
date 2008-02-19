@@ -13,6 +13,7 @@
 namespace MyGUI
 {
 
+	class LayerItem;
 	class LayerItemKeeper;
 	typedef std::vector<LayerItemKeeper*> VectorLayerItemKeeper;
 
@@ -20,6 +21,7 @@ namespace MyGUI
 	{
 	public:
 		LayerKeeper(const std::string& _name, bool _overlapped);
+		~LayerKeeper();
 
 		inline const std::string& getName() { return mName; }
 
@@ -29,6 +31,8 @@ namespace MyGUI
 
 		void _render();
 		void _resize(const FloatSize& _size);
+
+		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
 
 	private:
 		std::string mName;

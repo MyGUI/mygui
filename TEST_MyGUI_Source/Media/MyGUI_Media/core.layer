@@ -16,7 +16,7 @@
     <_Layer name="Modal" overlapped="true"/>
     <_Layer name="Middle" overlapped="false"/>
 
-    <Layer name="Overlapped" overlapped="true"/>
+    <Layer name="Overlapped" overlapped="false"/>
     <_Layer name="Back" overlapped="false"/>
 
 </MyGUI>

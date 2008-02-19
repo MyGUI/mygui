@@ -19,10 +19,9 @@
 namespace MyGUI
 {
 
+	class LayerItem;
 	class LayerKeeper;
 	typedef std::vector<LayerKeeper*> VectorLayerKeeper;
-
-	class LayerItem;
 
 	class _MyGUIExport LayerManager : public Ogre::RenderQueueListener, public UnlinkWidget
 	{
@@ -32,14 +31,15 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		void attachToLayerKeeper(const std::string& _name, LayerItem * _item);
-		void detachFromLayerKeeper(LayerItem * _item);
+		void attachToLayerKeeper(const std::string& _name, WidgetPtr _item);
+		void detachFromLayerKeeper(WidgetPtr _item);
+
+		void upLayerItem(WidgetPtr _item);
 
 		bool load(const std::string & _file, const std::string & _group);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
-		LayerItem * _findLayerItem(int _left, int _top, LayerItem * _root);
-		void _upLayerItem(LayerItem * _item);
+		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
 
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);

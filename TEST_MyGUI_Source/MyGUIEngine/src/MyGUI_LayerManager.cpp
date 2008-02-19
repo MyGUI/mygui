@@ -8,6 +8,7 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_LayerKeeper.h"
 #include "MyGUI_LayerItem.h"
+#include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Gui.h"
@@ -38,6 +39,12 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		// удаляем все хранители слоев
+		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+			delete (*iter);
+		}
+		mLayerKeepers.clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -90,31 +97,82 @@ namespace MyGUI
 
 	void LayerManager::_unlinkWidget(WidgetPtr _widget)
 	{
+		detachFromLayerKeeper(_widget);
 	}
 
-	void LayerManager::attachToLayerKeeper(const std::string& _name, LayerItem * _item)
+	// поправить на виджет и проверять на рутовость
+	void LayerManager::attachToLayerKeeper(const std::string& _name, WidgetPtr _item)
 	{
+		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
+
+		// сначала отсоединяем
+		detachFromLayerKeeper(_item);
+
+		// а теперь аттачим
 		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			if (_name == (*iter)->getName()) {
-				_item->_attachToLayerKeeper(*iter);
+
+				// запоминаем в рутовом виджете хранитель лееров
+				_item->mLayerKeeper = (*iter);
+
+				// достаем из хранителя леер для себя
+				_item->mLayerItemKeeper = (*iter)->getItem();
+
+				// подписываемся на пиккинг
+				_item->mLayerItemKeeper->_addPeekItem(_item);
+
+				// физически подсоединяем иерархию
+				_item->_attachToLayerItemKeeper(_item->mLayerItemKeeper);
+
 				return;
 			}
 		}
 		MYGUI_EXCEPT("Layer '" << _name << "' is not found");
 	}
 
-	void LayerManager::detachFromLayerKeeper(LayerItem * _item)
+	void LayerManager::detachFromLayerKeeper(WidgetPtr _item)
 	{
-		_item->_detachFromLayerKeeper();
+		MYGUI_ASSERT(null != _item, "pointer must be valid");
+
+		// мы уже отдетачены в доску
+		if (null == _item->mLayerKeeper) return;
+
+		// отписываемся от пиккинга
+		_item->mLayerItemKeeper->_removePeekItem(_item);
+
+		// при детаче обнулиться
+		LayerItemKeeper * save = _item->mLayerItemKeeper;
+
+		// физически отсоединяем 
+		_item->_detachFromLayerItemKeeper();
+
+		// отсоединяем леер и обнуляем у рутового виджета
+		_item->mLayerKeeper->leaveItem(save);
+		_item->mLayerItemKeeper = null;
+		_item->mLayerKeeper = null;
 	}
 
-	LayerItem * LayerManager::_findLayerItem(int _left, int _top, LayerItem * _root)
+	LayerItem * LayerManager::_findLayerItem(int _left, int _top, LayerItem* &_root)
 	{
+		VectorLayerKeeper::reverse_iterator iter = mLayerKeepers.rbegin();
+		while (iter != mLayerKeepers.rend()) {
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top, _root);
+			if (item != null) return item;
+			++iter;
+		}
 		return null;
 	}
 
-	void LayerManager::_upLayerItem(LayerItem * _item)
+	void LayerManager::upLayerItem(WidgetPtr _item)
 	{
+		if (null == _item) return;
+
+		// добираемся до рута
+		while (_item->getParent() != null) _item = _item->getParent();
+
+		// если приаттачены, то поднимаем
+		if (null != _item->mLayerKeeper) _item->mLayerKeeper->upItem(_item->mLayerItemKeeper);
+
 	}
 
 	void LayerManager::_windowResized(const FloatSize& _size)

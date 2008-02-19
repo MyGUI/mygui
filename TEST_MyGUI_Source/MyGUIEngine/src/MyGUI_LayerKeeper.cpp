@@ -5,6 +5,8 @@
 	@module
 */
 
+#include "MyGUI_Common.h"
+#include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerKeeper.h"
 #include "MyGUI_LayerItemKeeper.h"
 
@@ -15,6 +17,15 @@ namespace MyGUI
 		mName(_name),
 		mIsOverlapped(_overlapped)
 	{
+	}
+
+	LayerKeeper::~LayerKeeper()
+	{
+		for (VectorLayerItemKeeper::iterator iter=mLayerItemKeepers.begin(); iter!=mLayerItemKeepers.end(); ++iter) {
+			delete (*iter);
+			MYGUI_LOG(Error, "all layers must be detached before destroy")
+		}
+		mLayerItemKeepers.clear();
 	}
 
 	void LayerKeeper::_render()
@@ -28,12 +39,15 @@ namespace MyGUI
 	{
 		LayerItemKeeper * layer = 0;
 
-		if ((mIsOverlapped) || (mLayerItemKeepers.empty())) layer = new LayerItemKeeper();
-		else layer = mLayerItemKeepers.front();
+		if ((mIsOverlapped) || (mLayerItemKeepers.empty())) {
+			layer = new LayerItemKeeper();
+			mLayerItemKeepers.push_back(layer);
+		}
+		else {
+			layer = mLayerItemKeepers.front();
+		}
 
-		mLayerItemKeepers.push_back(layer);
 		layer->_addUsing();
-
 		return layer;
 	}
 
@@ -46,9 +60,10 @@ namespace MyGUI
 					delete _item;
 					mLayerItemKeepers.erase(iter);
 				}
-				break;
+				return;
 			}
 		}
+		MYGUI_EXCEPT("item keeper not found");
 	}
 
 	void LayerKeeper::upItem(LayerItemKeeper * _item)
@@ -68,6 +83,17 @@ namespace MyGUI
 		for (VectorLayerItemKeeper::iterator iter=mLayerItemKeepers.begin(); iter!=mLayerItemKeepers.end(); ++iter) {
 			(*iter)->_resize(_size);
 		}
+	}
+
+	LayerItem * LayerKeeper::_findLayerItem(int _left, int _top, LayerItem* &_root)
+	{
+		VectorLayerItemKeeper::reverse_iterator iter = mLayerItemKeepers.rbegin();
+		while (iter != mLayerItemKeepers.rend()) {
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top, _root);
+			if (item != null) return item;
+			++iter;
+		}
+		return null;
 	}
 
 } // namespace MyGUI

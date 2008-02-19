@@ -160,10 +160,8 @@ namespace MyGUI
 
 			mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
 
-			// поднимаем виджет, временно
-			WidgetPtr tmp = mWidgetMouseFocus;
-			while (tmp->getParent() != null) tmp = tmp->getParent();
-			LayerManager::getInstance()._upLayerItem(tmp);
+			// поднимаем виджет
+			LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
 		}
 		return true;
 	}
@@ -487,7 +485,7 @@ namespace MyGUI
 		mVectorModalRootWidget.push_back(_widget);
 
 		setKeyFocusWidget(_widget);
-		LayerManager::getInstance()._upLayerItem(_widget);
+		LayerManager::getInstance().upLayerItem(_widget);
 	}
 
 	void InputManager::removeWidgetModal(WidgetPtr _widget)
@@ -504,7 +502,7 @@ namespace MyGUI
 		// если еще есть модальные то их фокусируем и поднимаем
 		if (false == mVectorModalRootWidget.empty()) {
 			setKeyFocusWidget(mVectorModalRootWidget.back());
-			LayerManager::getInstance()._upLayerItem(mVectorModalRootWidget.back());
+			LayerManager::getInstance().upLayerItem(mVectorModalRootWidget.back());
 		}
 	}
 

@@ -24,6 +24,7 @@ namespace MyGUI
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mOwner(static_cast<Widget*>(_parent)),
 		UserData(),
+		LayerItem(),
 		mStateInfo(_info->getStateInfo()),
 		mMaskPeekInfo(_info->getMask()),
 		mText(null),
@@ -31,8 +32,6 @@ namespace MyGUI
 		mVisible(true),
 		mAlpha(ALPHA_MIN),
 		mName(_name),
-		mLayerKeeper(null),
-		mLayerItemKeeper(null),
 		mTexture(_info->getTextureName())
 	{
 		// корректируем абсолютные координаты
@@ -99,7 +98,7 @@ namespace MyGUI
 
 	Widget::~Widget()
 	{
-		if (null != mLayerItemKeeper) _detachFromLayerItemKeeper();
+		_detachFromLayerItemKeeper();
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			delete (*skin);
@@ -166,7 +165,7 @@ namespace MyGUI
 
 	void Widget::_setAlign(const IntSize& _size, bool _update)
 	{
-		if (mParent == null) return;
+		if (null == mParent) return;
 
 		bool need_move = false;
 		bool need_size = false;
@@ -515,35 +514,29 @@ namespace MyGUI
 
 	}
 
-	void Widget::_attachToLayerKeeper(LayerKeeper * _keeper)
-	{
-		mLayerKeeper = _keeper;
-		_attachToLayerItemKeeper(mLayerKeeper->getItem());
-	}
-
-	void Widget::_detachFromLayerKeeper()
-	{
-		_detachFromLayerItemKeeper();
-		mLayerKeeper->leaveItem(mLayerItemKeeper);
-		mLayerItemKeeper = null;
-	}
-
 	void Widget::_attachToLayerItemKeeper(LayerItemKeeper * _item)
 	{
-		mLayerItemKeeper = _item;
-		RenderItem * renderItem = mLayerItemKeeper->addToRenderItem(mTexture, true, false);
+		MYGUI_DEBUG_ASSERT(null != _item, "attached item must be valid");
+
+		// сохран€ем, чтобы последующие дети могли приаттачитьс€
+		setLayerItemKeeper(_item);
+
+		RenderItem * renderItem = _item->addToRenderItem(mTexture, true, false);
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
-			(*skin)->_createDrawItem(mLayerItemKeeper, renderItem);
+			(*skin)->_createDrawItem(_item, renderItem);
 		}
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
-			(*widget)->_attachToLayerItemKeeper(mLayerItemKeeper);
+			(*widget)->_attachToLayerItemKeeper(_item);
 		}
 	}
 
 	void Widget::_detachFromLayerItemKeeper()
 	{
+		// мы уже отаттачены
+		if (null == getLayerItemKeeper()) return;
+
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
 			(*widget)->_detachFromLayerItemKeeper();
 		}
@@ -552,7 +545,8 @@ namespace MyGUI
 			(*skin)->_destroyDrawItem();
 		}
 
-		mLayerItemKeeper = null;
+		// очищаем 
+		setLayerItemKeeper(null);
 	}
 
 } // namespace MyGUI

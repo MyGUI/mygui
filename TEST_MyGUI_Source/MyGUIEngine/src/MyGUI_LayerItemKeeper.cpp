@@ -7,6 +7,7 @@
 
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_RenderItem.h"
+#include "MyGUI_LayerItem.h"
 
 namespace MyGUI
 {
@@ -67,6 +68,19 @@ namespace MyGUI
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
 			(*iter)->_resize(_size);
 		}
+	}
+
+	LayerItem * LayerItemKeeper::_findLayerItem(int _left, int _top, LayerItem* &_root)
+	{
+		for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
+			if (null != item) {
+				_root = (*iter);
+				return item;
+			}
+		}
+
+		return null;
 	}
 
 } // namespace MyGUI
