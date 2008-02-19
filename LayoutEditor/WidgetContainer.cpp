@@ -201,7 +201,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	std::string tmpname = container->name;
 	if (tmpname.empty()) 
 	{
-		tmpname = MyGUI::utility::toString(/*"LayoutEditor_",*/ container->type, global_counter);
+		tmpname = MyGUI::utility::toString(container->type, global_counter);
 		global_counter++;
 	}
 

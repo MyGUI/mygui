@@ -12,8 +12,7 @@
   <Widget name="ComboBox">
     <Property key="Skin" value="ComboBox"/>
     <Parameter key="Combo_ModeDrop" value="Bool"/>
-    <Parameter key="Combo_AddString" value="String"/>
-    <!--Property key="OnDoubleClick" value="Combo_AddString"/-->
+    <!--Parameter key="Combo_AddString" value="String"/-->
     <!-- all properties -->
   </Widget>
 
@@ -36,15 +35,14 @@
     <!-- all properties -->
   </Widget>
 
-  <Widget name="ItemBox">
+  <NotReadyWidget name="ItemBox">
     <Property key="Skin" value="ItemBox"/>
     <!-- all properties -->
-  </Widget>
+  </NotReadyWidget>
 
   <Widget name="List">
     <Property key="Skin" value="List"/>
     <!--Parameter key="List_AddString" value="String"/-->
-    <!--Property key="OnDoubleClick" value="List_AddString"/-->
     <!-- all properties -->
   </Widget>
 
@@ -57,9 +55,13 @@
     <!--Parameter key="Message_AddButton" value="String"/-->
     <Parameter key="Message_SmoothShow" value="Bool"/>
     <Parameter key="Message_Fade" value="Bool"/>
-    <!--Property key="OnDoubleClick" value="Message_AddButton"/-->
     <!-- all properties -->
   </Widget>
+
+  <NotReadyWidget name="MultiList">
+    <Property key="Skin" value="MultiList"/>
+    <!-- all properties -->
+  </NotReadyWidget>
 
   <Widget name="Progress">
     <Property key="Skin" value="Progress"/>
@@ -71,7 +73,7 @@
 
   <Widget name="RenderBox">
     <Property key="Skin" value="RenderBox"/>
-    <!--Parameter key="RenderBox_Mesh" value="String"/FIXME-->
+    <Parameter key="RenderBox_Mesh" value="String"/>
     <Parameter key="RenderBox_AutorotationSpeed" value="1 int"/>
     <Parameter key="RenderBox_BackgroungColour" value="colour"/>
     <Parameter key="RenderBox_RotationAngle" value="1 int"/>
@@ -91,7 +93,7 @@
 
   <Widget name="StaticImage">
     <Property key="Skin" value="StaticImage"/>
-    <!--Parameter key="Image_Material" value="String"/FIXME-->
+    <Parameter key="Image_Material" value="String"/>
     <Parameter key="Image_Rect" value="4 int"/>
     <Parameter key="Image_Tile" value="2 float"/>
     <Parameter key="Image_Num" value="1 int"/>
@@ -110,7 +112,6 @@
     <Parameter key="Tab_SmoothShow" value="Bool"/>
     <!--Parameter key="Tab_AddSheet" value="String"/-->
     <Parameter key="Tab_SelectSheet" value="1 int"/>
-    <!--Property key="OnDoubleClick" value="Tab_AddSheet"/-->
     <!-- all properties -->
   </Widget>
 
@@ -128,7 +129,7 @@
     <Property key="Skin" value="Separator3"/>
     <Property key="Skin" value="Separator4"/>
     <Parameter key="Widget_Caption" value="String"/>
-    <!--Parameter key="Widget_Move" value="2 или 4 int"/-->
+    <!--Parameter key="Widget_Move" value="2 or 4 int"/-->
     <!--Parameter key="Widget_Size" value="2 int"/-->
     <Parameter key="Widget_Show" value="Bool"/>
     <Parameter key="Widget_Colour" value="Colour"/>

@@ -62,13 +62,13 @@ void EditorState::enter(bool bIsChangeState)
 		}
 	}
 	i++;
-	allWidgetsCombo = windowWidgets->createWidget<MyGUI::ComboBox>("EditorComboBox", 0, (i/2)*h, w*2, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH);
+	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");//windowWidgets->createWidget<MyGUI::ComboBox>("EditorComboBox", 0, (i/2)*h, w*2, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH);
 	allWidgetsCombo->setComboModeDrop(true);
 	allWidgetsCombo->eventKeySetFocus = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabPressed);
 	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabSelect);
 
 	int height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
-	windowWidgets->setSize(windowWidgets->getSize().width, height + (i/2+1)*h);
+	windowWidgets->setSize(windowWidgets->getSize().width, height + (i/2+2)*h);
 
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");
 	window->setPosition(mGUI->getViewWidth() - window->getSize().width, 0);
@@ -101,8 +101,8 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		creating_status = 2;
 
 		// внимание current_widget родитель и потом сразу же сын
-		std::string tmpname = MyGUI::utility::toString("LayoutEditor_", current_widget_type, global_counter);
-		global_counter++;
+		std::string tmpname = MyGUI::utility::toString("LayoutEditor_", current_widget_type, ew->global_counter);
+		ew->global_counter++;
 		// пока не найдем ближайшего над нами способного быть родителем
 		while (current_widget && false == wt->find(current_widget->getWidgetType())->parent) current_widget = current_widget->getParent();
 		if (current_widget && wt->find(current_widget_type)->child)
@@ -210,7 +210,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 				mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
 				current_widget_type = "";
 				current_widget_skin = "";
-				if (creating_status == 2) global_counter--;
+				if (creating_status == 2) ew->global_counter--;
 				creating_status = 0;
 			}
 		}
@@ -256,8 +256,8 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		}
 		if (ctrlPressed)
 		{
-			if (arg.key == OIS::KC_O) notifyLoadSaveAs(mGUI->findWidgetT("LayoutEditor_buttonLoad"));
-			else if (arg.key == OIS::KC_S) notifyLoadSaveAs(mGUI->findWidgetT("LayoutEditor_buttonSave"));
+			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L) notifyLoadSaveAs(mGUI->findWidgetT("LayoutEditor_buttonLoad"));
+			else if (arg.key == OIS::KC_S) notifySave(mGUI->findWidgetT("LayoutEditor_buttonSave"));
 			else if (arg.key == OIS::KC_Z){
 				um->undo();
 				notifySelectWidget(null);
@@ -405,7 +405,10 @@ void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifySettings(MyGUI::WidgetPtr _sender)
 {
-	MyGUI::LayoutManager::getInstance().load("Settings.layout");
+	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowSettings");
+	window->show();
+	MyGUI::LayerManager::getInstance().upItem(window);
+
 	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("LayoutEditor_gridEdit");
 	gridEdit->setCaption(MyGUI::utility::toString(grid_step));
 	gridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyNewGridStepAccept);
@@ -497,7 +500,7 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 
 	MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
 	MyGUI::IntSize size(current_widget->getSize());
-	current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*size.width*/, /*size.height*/100); // FIXME
+	current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
 
 	current_widget->setCaption(current_widget_skin);
 	WidgetContainer * widgetContainer = new WidgetContainer(current_widget_type, current_widget_skin, current_widget);
@@ -553,7 +556,7 @@ void EditorState::notifyNewGridStepAccept(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyOkSettings(MyGUI::WidgetPtr _sender)
 {
-	mGUI->destroyWidget(mGUI->findWidgetT("LayoutEditor_windowSettings"));
+	mGUI->findWidgetT("LayoutEditor_windowSettings")->hide();
 }
 
 void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
@@ -650,13 +653,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			y += h;
 		}
 
-		// separator
-		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2 + 5, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
-		MyGUI::StaticTextPtr text;
-		text = window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1 + w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-		text->setCaption(current_widget->getWidgetType() + " specific properties");
-		text->setTextAlign(MyGUI::ALIGN_CENTER);
-		propertiesText.push_back(text);
+		createSeparator(window, current_widget->getWidgetType() + " specific properties", x1, y, w1+w2+5, h);
 		y += h;
 
 		//all other
@@ -669,12 +666,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			y += h;
 		}
 
-		// separator
-		propertiesElement.push_back(window->createWidget<MyGUI::Widget>("Separator1", x1, y, w1 + w2 + 5, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
-		text = window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1 + w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-		text->setCaption("Other properties");
-		text->setTextAlign(MyGUI::ALIGN_CENTER);
-		propertiesText.push_back(text);
+		createSeparator(window, "Other properties", x1, y, w1+w2+5, h);
 		y += h;
 
 		if (widgetType->resizeable)
@@ -707,6 +699,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	else if ("Position" == _type) widget_for_type = 0;
 	else if ("Layer" == _type) widget_for_type = 1;
 	else if ("String" == _type) widget_for_type = 0;
+	else if ("Align" == _type) widget_for_type = 1;
 	// не совсем правильно FIXME
 	else if ("1 int" == _type) widget_for_type = 0;
 	else if ("2 int" == _type) widget_for_type = 0;
@@ -715,11 +708,10 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	else if ("2 float" == _type) widget_for_type = 0;
 	// надо сделать проще FIXME
 	else if ("Colour" == _type) widget_for_type = 0;//"Colour" хорошо бы колорпикером
-	else if ("Align" == _type) widget_for_type = 1;//"Align" - одной комбой не катит
 	else if ("MessageButton" == _type) widget_for_type = 0;//"MessageButton" - тож хз
 	// неправильно FIXME
 	else if ("WidgetState" == _type) widget_for_type = 1;//по идее комба, но тогда надо еще и все состояния доступные в xml вписать
-	else  widget_for_type = 1;
+	else widget_for_type = 1;
 
 	text = _window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1, h, MyGUI::ALIGN_DEFAULT);
 	std::string prop = _property;
@@ -733,7 +725,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	if (widget_for_type == 0)
 	{
 		editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-		MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditTextChange = newDelegate (this, &EditorState::notifyApplyProperties);
+		if (_property != "RenderBox_Mesh" && _property != "Image_Material") MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditTextChange = newDelegate (this, &EditorState::notifyApplyProperties);
 		MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditSelectAccept = newDelegate (this, &EditorState::notifyApplyProperties);
 	}
 	else if (widget_for_type == 1)
@@ -777,6 +769,15 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	propertiesElement.push_back(editOrCombo);
 }
 
+void EditorState::createSeparator(MyGUI::WindowPtr _window, std::string _caption, int x1, int y, int w, int h)
+{
+	propertiesElement.push_back(_window->createWidget<MyGUI::Widget>("Separator1", x1, y, w, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
+	MyGUI::StaticTextPtr text = _window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+	text->setCaption(_caption);
+	text->setTextAlign(MyGUI::ALIGN_CENTER);
+	propertiesText.push_back(text);
+}
+
 void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 {
 	WidgetContainer * widgetContainer = ew->find(current_widget);
@@ -784,7 +785,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
 	std::string type = _sender->getUserString("type");
 
-	if ((action == "Widget_Align") || (action == "Widget_AlignText"))
+	if ((action == "Align") || (action == "Widget_AlignText"))
 	{
 		std::string tmp = "";
 		const std::vector<std::string> & vec = MyGUI::utility::split(value);
@@ -838,16 +839,21 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		return;
 	}
 
-	if (("Message_Modal" != action) && ("Window_AutoAlpha" != action))
-	{
-		if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
+	try{
+		if (("Message_Modal" != action) && ("Window_AutoAlpha" != action))
 		{
-			if ((value != "") && (value.find("0123456789") != std::string::npos))
+			if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
+			{
+				if ((value != "") && (value.find("0123456789") != std::string::npos))
+					MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
+			}
+			else if (value != "" || "Widget_FontName" != action)
 				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 		}
-		else if (value != "" || "Widget_FontName" != action)
-			MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
-	}
+	}catch(...)
+	{
+		MyGUI::Message::createMessage("Warning", "No such " + action + ": '" + value + "'", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+	}// for incorrect meshes or materials
 
 	// если такое св-во было, то заменим (или удалим если стерли) значение
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
@@ -931,7 +937,7 @@ void EditorState::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 	{
 		MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
 		std::string name = MyGUI::utility::toString("Sheet", tab->getSheetCount()+1);
-		MyGUI::SheetPtr sheet = tab->addSheet(name);
+		MyGUI::SheetPtr sheet = tab->addSheet("");
 		sheet->setCaption(name);
 		WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet, name);
 		ew->add(wc);
@@ -951,7 +957,7 @@ void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, 
 			size_t sheet = tab->getSelectSheetIndex();
 			sheet++;
 			if (sheet >= tab->getSheetCount()) sheet = 0;
-			tab->selectSheetIndex(sheet);
+			if (tab->getSheetCount()) tab->selectSheetIndex(sheet);
 		}
 	}
 	else if (OIS::KC_LEFT == _key)

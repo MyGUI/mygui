@@ -6,10 +6,10 @@ Save/Load:
 
 Controls:
   Keyboard:
-    Ctrl + O    - open file
-    Ctrl + S    - save file
-    Ctrl + Z    - undo
-    Ctrl + Y    - redo
+    Ctrl + O, Ctrl + L - открыть файл
+    Ctrl + S           - save file
+    Ctrl + Z           - undo
+    Ctrl + Y           - redo
 
     Keyboard arrows - move widget
     Shift           - omit grid when moving/resizing widget

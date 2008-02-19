@@ -51,6 +51,7 @@ private:
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 	void updatePropertiesPanel(MyGUI::WidgetPtr _widget);
 	void createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::string _property, std::string _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
+	void createSeparator(MyGUI::WindowPtr _window, std::string _caption, int x1, int y, int w, int h);
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget/*, size_t _index = 0*/); // calls previous method
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);

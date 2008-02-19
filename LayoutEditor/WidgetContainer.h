@@ -6,8 +6,6 @@
 typedef std::vector<std::pair<std::string, std::string>> StringPairs;
 typedef std::map<std::string, std::string> MapString;
 
-static int global_counter;
-
 struct WidgetContainer
 {
 	WidgetContainer(){}
@@ -48,6 +46,7 @@ public:
 	void clear();
 
 	std::vector<WidgetContainer*> widgets;
+	int global_counter;
 private:
 	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node);
