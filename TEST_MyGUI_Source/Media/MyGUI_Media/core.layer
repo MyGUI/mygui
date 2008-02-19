@@ -2,26 +2,16 @@
 
 <MyGUI type="Layer">
 
-    <_Layer name="Back" overlapped="false"/>
-
-    <Layer name="Overlapped" overlapped="true"/>
-
-    <_Layer name="Middle" overlapped="false"/>
-
-    <_Layer name="Modal" overlapped="true"/>
-
-    <Layer name="Main" overlapped="false"/>
-
-    <_Layer name="Popup" overlapped="true"/>
-
-    <_Layer name="FadeMiddle" overlapped="false"/>
-
-    <_Layer name="Info" overlapped="true"/>
-
-    <_Layer name="Tooltip"overlapped="false"/>
-
-    <Layer name="Pointer" overlapped="false"/>
-
-    <_Layer name="Fade" overlapped="false"/>
+    <Layer name="Back" overlapped="false" peek="true"/>
+    <Layer name="Overlapped" overlapped="true" peek="true"/>
+    <Layer name="Middle" overlapped="false" peek="true"/>
+    <Layer name="Modal" overlapped="true" peek="true"/>
+    <Layer name="Main" overlapped="false" peek="true"/>
+    <Layer name="Popup" overlapped="true" peek="true"/>
+    <Layer name="FadeMiddle" overlapped="false" peek="false"/>
+    <Layer name="Info" overlapped="true" peek="true"/>
+    <Layer name="Tooltip"overlapped="false" peek="true"/>
+    <Layer name="Pointer" overlapped="false" peek="false"/>
+    <Layer name="Fade" overlapped="false" peek="false"/>
 
 </MyGUI>

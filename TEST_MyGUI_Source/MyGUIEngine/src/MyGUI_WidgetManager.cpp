@@ -203,4 +203,11 @@ namespace MyGUI
 		}
 	}
 
+	void WidgetManager::_deleteWidget(WidgetPtr _widget)
+	{
+		if (null == _widget) return;
+		unlinkFromUnlinkers(_widget);
+		delete _widget;
+	}
+
 } // namespace MyGUI

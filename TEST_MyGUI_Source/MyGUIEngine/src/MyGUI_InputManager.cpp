@@ -12,6 +12,7 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_PointerManager.h"
 
 namespace MyGUI
 {
@@ -62,6 +63,9 @@ namespace MyGUI
 
 	bool InputManager::injectMouseMove( const OIS::MouseEvent & _arg)
 	{
+		// двигаем курсор
+		PointerManager::getInstance().setPosition(IntPoint(_arg.state.X.abs, _arg.state.Y.abs));
+
 		// запоминаем позицию
 		mMousePosition.set(_arg.state.X.abs, _arg.state.Y.abs);
 

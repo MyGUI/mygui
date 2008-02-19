@@ -90,6 +90,7 @@ namespace MyGUI
 		_destroyAllChildWidget();
 
 		// деинициализируем и удаляем синглтоны
+		mPointerManager->shutdown();
 		mWidgetManager->shutdown();
 		mInputManager->shutdown();
 		mSkinManager->shutdown();
@@ -97,8 +98,8 @@ namespace MyGUI
 		mLayerManager->shutdown();
 		mFontManager->shutdown();
 		mControllerManager->shutdown();
-		mPointerManager->shutdown();
 
+		delete mPointerManager;
 		delete mWidgetManager;
 		delete mInputManager;
 		delete mSkinManager;
@@ -106,7 +107,6 @@ namespace MyGUI
 		delete mLayerManager;
 		delete mFontManager;
 		delete mControllerManager;
-		delete mPointerManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
@@ -195,7 +195,9 @@ namespace MyGUI
 			mWidgetChild.pop_back();
 			return;
 		}
-		MYGUI_EXCEPT("Widget not found");
+		// некоторые менеджеры могут себе создавать
+		MYGUI_LOG(Warning, "Widget's owner not found");
+		//MYGUI_EXCEPT("Widget not found");
 	}
 
 	// удаляет всех детей

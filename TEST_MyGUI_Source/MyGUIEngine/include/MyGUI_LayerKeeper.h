@@ -20,7 +20,7 @@ namespace MyGUI
 	class _MyGUIExport LayerKeeper
 	{
 	public:
-		LayerKeeper(const std::string& _name, bool _overlapped);
+		LayerKeeper(const std::string& _name, bool _overlapped, bool _peek);
 		~LayerKeeper();
 
 		inline const std::string& getName() { return mName; }
@@ -37,6 +37,7 @@ namespace MyGUI
 	private:
 		std::string mName;
 		bool mIsOverlapped;
+		bool mIsPeek;
 
 		VectorLayerItemKeeper mLayerItemKeepers;
 

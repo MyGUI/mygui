@@ -13,9 +13,10 @@
 namespace MyGUI
 {
 
-	LayerKeeper::LayerKeeper(const std::string& _name, bool _overlapped) :
+	LayerKeeper::LayerKeeper(const std::string& _name, bool _overlapped, bool _peek) :
 		mName(_name),
-		mIsOverlapped(_overlapped)
+		mIsOverlapped(_overlapped),
+		mIsPeek(_peek)
 	{
 	}
 
@@ -87,6 +88,7 @@ namespace MyGUI
 
 	LayerItem * LayerKeeper::_findLayerItem(int _left, int _top, LayerItem* &_root)
 	{
+		if (false == mIsPeek) return null;
 		VectorLayerItemKeeper::reverse_iterator iter = mLayerItemKeepers.rbegin();
 		while (iter != mLayerItemKeepers.rend()) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top, _root);

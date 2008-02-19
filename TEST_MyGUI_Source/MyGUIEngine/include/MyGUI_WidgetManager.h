@@ -58,6 +58,10 @@ namespace MyGUI
 		// очищает имя в списках
 		void _unlinkWidget(WidgetPtr _widget);
 
+		// только удаляет и отписывает виджет
+		// метод для тех кто ручками создал виджет
+		void _deleteWidget(WidgetPtr _widget);
+
 		// регестрирует делегат
 		ParseDelegate & registerDelegate(const Ogre::String & _key);
 		void unregisterDelegate(const Ogre::String & _key);

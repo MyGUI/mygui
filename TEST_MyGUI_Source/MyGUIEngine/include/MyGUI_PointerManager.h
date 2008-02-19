@@ -12,12 +12,11 @@
 #include "MyGUI_PointerInfo.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_UnlinkWidget.h"
-//#include "MyGUI_SharedPanelAlphaOverlayElement.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : /*public LayerItemInfo, */public UnlinkWidget
+	class _MyGUIExport PointerManager : public UnlinkWidget
 	{
 		INSTANCE_HEADER(PointerManager);
 
@@ -40,30 +39,19 @@ namespace MyGUI
 		void setPosition(const IntPoint& _pos);
 		void setPointer(const std::string & _name, WidgetPtr _owner);
 
-		inline void defaultPointer()
-		{
-			setPointer(mDefaultPointer, null);
-		}
-
 		void _unlinkWidget(WidgetPtr _widget);
-
-		//LayerItemInfoPtr findItem(int _left, int _top);
-
-		//void attachToOverlay(Ogre::Overlay * _overlay);
-		//void detachToOverlay(Ogre::Overlay * _overlay);
 
 	private:
 		std::string mDefaultPointer;
-		std::string mLayer;
 		std::string mTexture;
 		IntPoint mPoint;
-		IntSize mSize;
-		MapPointerInfo mMapPointers;
-		//SharedPanelAlphaOverlayElement * mOverlayElement;
-		WidgetPtr mWidgetOwner;
-		WidgetPtr mWidgetMouse;
-
 		bool mShow;
+
+		MapPointerInfo mMapPointers;
+
+		WidgetPtr mWidgetOwner;
+		WidgetPtr mMousePointer;
+
 
 	}; // class PointerManager
 

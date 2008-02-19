@@ -64,20 +64,16 @@ namespace MyGUI
 		xml::xmlNodeIterator layer = _node->getNodeIterator();
 		while (layer.nextNode(XML_TYPE)) {
 
-			std::string name, tmp;
-			bool overlapped = false;
+			std::string name;
 
 			if ( false == layer->findAttribute("name", name)) {
 				MYGUI_LOG(Warning, "Attribute 'name' not found {file : " << _file << "}");
 				continue;
 			}
 
-			if (layer->findAttribute("overlapped", tmp)) overlapped = utility::parseBool(tmp);
-			else {
-				MYGUI_LOG(Warning, "Attribute 'overlapped' not found {file : '" << _file << "' , name : " << name << "}");
-			}
-
-			mLayerKeepers.push_back(new LayerKeeper(name, overlapped));
+			mLayerKeepers.push_back(new LayerKeeper(name,
+				utility::parseBool(layer->findAttribute("overlapped")),
+				utility::parseBool(layer->findAttribute("peek")) ));
 		};
 	}
 
