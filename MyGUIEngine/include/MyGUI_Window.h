@@ -56,7 +56,7 @@ namespace MyGUI
 
 		inline void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
 		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) {mMinmax.set(_min_h, _min_v, _max_h, _max_v);}
-		inline IntRect getMinMax() {return mMinmax;}
+		inline const IntRect& getMinMax() {return mMinmax;}
 
 		virtual void setPosition(const IntPoint& _pos);
 		virtual void setPosition(const IntCoord& _coord);

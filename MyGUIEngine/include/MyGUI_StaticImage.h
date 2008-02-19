@@ -43,7 +43,7 @@ namespace MyGUI
 		}
 
 		void setImageNum(size_t _num);
-		inline size_t getImageNum(size_t _num) {return mNum;}
+		inline size_t getImageNum() {return mNum;}
 
 	private:
 		// кусок в текстуре наших картинок
