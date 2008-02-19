@@ -190,14 +190,30 @@
 				Name="Widget"
 				>
 				<File
+					RelativePath=".\src\MyGUI_Button.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Widget.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Window.cpp"
 					>
 				</File>
 				<Filter
 					Name="WidgetFactory"
 					>
 					<File
+						RelativePath=".\src\MyGUI_ButtonFactory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_WidgetFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_WindowFactory.cpp"
 						>
 					</File>
 				</Filter>
@@ -205,6 +221,10 @@
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\src\MyGUI_ControllerManager.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\MyGUI_FontManager.cpp"
 					>
@@ -219,6 +239,10 @@
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_LayerManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_PointerManager.cpp"
 					>
 				</File>
 				<File
@@ -265,6 +289,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Controller"
+					>
+					<File
+						RelativePath=".\src\MyGUI_ControllerFadeAlpha.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
@@ -304,18 +336,34 @@
 				Name="Widget"
 				>
 				<File
+					RelativePath=".\include\MyGUI_Button.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Widget.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Window.h"
 					>
 				</File>
 				<Filter
 					Name="WidgetFactory"
 					>
 					<File
+						RelativePath=".\include\MyGUI_ButtonFactory.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_WidgetFactory.h"
 						>
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetFactoryInterface.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WindowFactory.h"
 						>
 					</File>
 				</Filter>
@@ -368,6 +416,10 @@
 				Name="Core"
 				>
 				<File
+					RelativePath=".\include\MyGUI_ControllerManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_FontManager.h"
 					>
 				</File>
@@ -381,6 +433,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_LayerManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_PointerManager.h"
 					>
 				</File>
 				<File
@@ -428,6 +484,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Platform.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_PointerInfo.h"
 						>
 					</File>
 					<File
@@ -548,6 +608,18 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_RenderItem.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Controller"
+					>
+					<File
+						RelativePath=".\include\MyGUI_ControllerFadeAlpha.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ControllerItem.h"
 						>
 					</File>
 				</Filter>

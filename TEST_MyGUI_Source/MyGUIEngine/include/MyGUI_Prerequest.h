@@ -36,14 +36,25 @@ namespace MyGUI
 	class SkinManager;
 	class WidgetManager;
 	class FontManager;
+	class ControllerManager;
+	class PointerManager;
 
 	class WidgetFactoryInterface;
-	namespace factory {
+
+	namespace factory
+	{
 		class WidgetFactory;
+		class ButtonFactory;
+		class WindowFactory;
 	}
 
 	class Widget;
+	class Button;
+	class Window;
+
 	typedef Widget * WidgetPtr;
+	typedef Button * ButtonPtr;
+	typedef Window * WindowPtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2

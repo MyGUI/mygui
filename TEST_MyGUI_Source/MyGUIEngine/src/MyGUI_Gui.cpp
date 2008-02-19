@@ -14,6 +14,8 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_FontManager.h"
+#include "MyGUI_ControllerManager.h"
+#include "MyGUI_PointerManager.h"
 
 namespace MyGUI
 {
@@ -50,6 +52,8 @@ namespace MyGUI
 		mCroppedRectangleManager = new SubWidgetManager();
 		mSkinManager = new SkinManager();
 		mFontManager = new FontManager();
+		mControllerManager = new ControllerManager();
+		mPointerManager = new PointerManager();
 
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
@@ -57,6 +61,8 @@ namespace MyGUI
 		mCroppedRectangleManager->initialise();
 		mSkinManager->initialise();
 		mFontManager->initialise();
+		mControllerManager->initialise();
+		mPointerManager->initialise();
 
 		// подписываемся на изменение размеров окна и сразу оповещаем
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
@@ -90,6 +96,8 @@ namespace MyGUI
 		mCroppedRectangleManager->shutdown();
 		mLayerManager->shutdown();
 		mFontManager->shutdown();
+		mControllerManager->shutdown();
+		mPointerManager->shutdown();
 
 		delete mWidgetManager;
 		delete mInputManager;
@@ -97,6 +105,8 @@ namespace MyGUI
 		delete mCroppedRectangleManager;
 		delete mLayerManager;
 		delete mFontManager;
+		delete mControllerManager;
+		delete mPointerManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 

@@ -10,6 +10,8 @@
 #include "MyGUI_Widget.h"
 
 #include "MyGUI_WidgetFactory.h"
+#include "MyGUI_ButtonFactory.h"
+#include "MyGUI_WindowFactory.h"
 
 namespace MyGUI
 {
@@ -25,6 +27,8 @@ namespace MyGUI
 
 		// создаем фабрики виджетов
 		mIntegratedFactoryList.insert(new factory::WidgetFactory());
+		mIntegratedFactoryList.insert(new factory::ButtonFactory());
+		mIntegratedFactoryList.insert(new factory::WindowFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

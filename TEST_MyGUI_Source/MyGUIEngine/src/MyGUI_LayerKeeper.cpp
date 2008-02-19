@@ -23,7 +23,7 @@ namespace MyGUI
 	{
 		for (VectorLayerItemKeeper::iterator iter=mLayerItemKeepers.begin(); iter!=mLayerItemKeepers.end(); ++iter) {
 			delete (*iter);
-			MYGUI_LOG(Error, "all layers must be detached before destroy")
+			MYGUI_LOG(Error, "all layers must be detached before destroy");
 		}
 		mLayerItemKeepers.clear();
 	}

@@ -148,6 +148,8 @@ namespace MyGUI
 		SkinManager* mSkinManager;
 		WidgetManager* mWidgetManager;
 		FontManager* mFontManager;
+		ControllerManager* mControllerManager;
+		PointerManager* mPointerManager;
 
 		// подписчики на кадры
 		ListFrameListener mListFrameListener;
