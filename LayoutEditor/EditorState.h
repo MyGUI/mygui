@@ -58,6 +58,11 @@ private:
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
 
+	// strings panel
+	void notifyAddString(MyGUI::WidgetPtr _sender);
+	void notifyDeleteString(MyGUI::WidgetPtr _sender);
+	void notifySelectString(MyGUI::WidgetPtr _sender);
+
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord snapToGrid(MyGUI::IntCoord coord);

@@ -7,6 +7,7 @@ INSTANCE_IMPLEMENT(EditorWidgets);
 
 void EditorWidgets::initialise()
 {
+	global_counter = 0;
 }
 
 void EditorWidgets::shutdown()

@@ -70,8 +70,22 @@ void EditorState::enter(bool bIsChangeState)
 	int height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
 	windowWidgets->setSize(windowWidgets->getSize().width, height + (i/2+2)*h);
 
+	// properties panel
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");
 	window->setPosition(mGUI->getViewWidth() - window->getSize().width, 0);
+
+	// settings panel
+	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("LayoutEditor_gridEdit");
+	gridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyNewGridStepAccept);
+	gridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
+	ASSIGN_FUNCTION("LayoutEditor_buttonOkSettings", &EditorState::notifyOkSettings);
+
+	// strings panel
+	MyGUI::WindowPtr windowStrings = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowStrings");
+	windowStrings->setPosition(mGUI->getViewWidth() - windowStrings->getSize().width, mGUI->getViewHeight() - windowStrings->getSize().height);
+	ASSIGN_FUNCTION("LayoutEditor_buttonAddString", &EditorState::notifyAddString);
+	ASSIGN_FUNCTION("LayoutEditor_buttonDeleteString", &EditorState::notifyDeleteString);
+	ASSIGN_FUNCTION("LayoutEditor_buttonSelectString", &EditorState::notifySelectString);
 
 	loadSettings();
 	clear();
@@ -408,13 +422,8 @@ void EditorState::notifySettings(MyGUI::WidgetPtr _sender)
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowSettings");
 	window->show();
 	MyGUI::LayerManager::getInstance().upItem(window);
-
 	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("LayoutEditor_gridEdit");
 	gridEdit->setCaption(MyGUI::utility::toString(grid_step));
-	gridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyNewGridStepAccept);
-	gridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
-	mGUI->findWidget<MyGUI::Button>("LayoutEditor_buttonOkSettings")
-		->eventMouseButtonClick = MyGUI::newDelegate(this, &EditorState::notifyOkSettings);
 }
 
 void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
@@ -598,6 +607,8 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 {
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");
 	window->hide();
+	MyGUI::WindowPtr windowStrings = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowStrings");
+	windowStrings->hide();
 
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = propertiesText.begin(); iter != propertiesText.end(); ++iter) mGUI->destroyWidget(*iter);
@@ -617,6 +628,13 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		const int h = 20;
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
 		WidgetContainer * widgetContainer = ew->find(current_widget);
+
+		// update settings panel if needed
+		if (widgetType->many_strings)
+		{
+			windowStrings->show();
+			//...
+		}
 
 		if (widgetContainer->name.empty()){
 			// trim "LayoutEditor_"
@@ -988,3 +1006,16 @@ void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, 
 		um->addValue(PR_KEY_POSITION);
 	}
 }
+
+void EditorState::notifyAddString(MyGUI::WidgetPtr _sender)
+{
+}
+
+void EditorState::notifyDeleteString(MyGUI::WidgetPtr _sender)
+{
+}
+
+void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
+{
+}
+

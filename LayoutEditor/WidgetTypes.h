@@ -13,6 +13,8 @@ struct WidgetType{
 	bool child;
 	// can be selected
 	bool resizeable;
+	// have many strings (such as List, ComboBox, Message, etc...)
+	bool many_strings;
 };
 
 struct PossibleValue{
