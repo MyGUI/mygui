@@ -23,6 +23,7 @@ namespace MyGUI
 
 	enum {VERTEX_IN_QUAD = 6};
 
+	class LayerItemKeeper;
 	class DrawItem;
 	typedef std::pair<DrawItem *, size_t> DrawItemInfo;
 	typedef std::vector<DrawItemInfo> VectorDrawItem;
@@ -31,7 +32,7 @@ namespace MyGUI
 	class _MyGUIExport RenderItem
 	{
 	public:
-		RenderItem(const std::string& _texture);
+		RenderItem(const std::string& _texture, LayerItemKeeper * _parent);
 		~RenderItem();
 
 		void _render();
@@ -54,18 +55,7 @@ namespace MyGUI
 			mOutDate = true;
 		}
 
-		inline void removeDrawItem(DrawItem * _item)
-		{
-			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-				if ((*iter).first == _item) {
-					mNeedVertexCount -= (*iter).second;
-					mDrawItems.erase(iter);
-					mOutDate = true;
-					return;
-				}
-			}
-			MYGUI_EXCEPT("DrawItem not found");
-		}
+		void removeDrawItem(DrawItem * _item);
 
 		inline void reallockDrawItem(DrawItem * _item, size_t _count)
 		{
@@ -83,6 +73,12 @@ namespace MyGUI
 			MYGUI_EXCEPT("DrawItem not found");
 		}
 
+		inline void setTextureName(const std::string& _texture)
+		{
+			MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
+			mTextureName = _texture;
+		}
+
 		inline void outOfDate() { mOutDate = true; }
 
 		inline float getMaximumDepth() {return mMaximumDepth;}
@@ -94,6 +90,9 @@ namespace MyGUI
 		inline float getVOffset() {return mVOffset;}
 
 		inline float getAspectCoef() {return mAspectCoef;}
+
+		inline size_t getVertexCount() {return mVertexCount;}
+		inline size_t getNeedVertexCount() {return mNeedVertexCount;}
 
 	private:
 		void initRenderState();
@@ -133,6 +132,8 @@ namespace MyGUI
 
 		// координата зю
 		float mMaximumDepth;
+
+		LayerItemKeeper * mParent;
 
 	};
 

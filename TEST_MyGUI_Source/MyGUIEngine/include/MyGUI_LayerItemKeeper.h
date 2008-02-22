@@ -51,6 +51,9 @@ namespace MyGUI
 			}
 		}
 
+		// обновляет очередь буферов
+		void _update();
+
 	private:
 		size_t mCountUsing;
 

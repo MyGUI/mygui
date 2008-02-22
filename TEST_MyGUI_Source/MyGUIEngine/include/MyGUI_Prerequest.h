@@ -46,19 +46,28 @@ namespace MyGUI
 		class WidgetFactory;
 		class ButtonFactory;
 		class WindowFactory;
+		class ListFactory;
+		class HScrollFactory;
+		class VScrollFactory;
 	}
 
 	class Widget;
 	class Button;
 	class Window;
+	class List;
+	class HScroll;
+	class VScroll;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
 	typedef Window * WindowPtr;
+	typedef List * ListPtr;
+	typedef HScroll * HScrollPtr;
+	typedef VScroll * VScrollPtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
-    #define MYGUI_VERSION_MINOR 0
+    #define MYGUI_VERSION_MINOR 1
     #define MYGUI_VERSION_PATCH 1
 
     #define MYGUI_VERSION    ((MYGUI_VERSION_MAJOR << 16) | (MYGUI_VERSION_MINOR << 8) | MYGUI_VERSION_PATCH)

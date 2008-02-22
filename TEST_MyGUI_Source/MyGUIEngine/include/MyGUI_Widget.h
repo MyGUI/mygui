@@ -113,6 +113,10 @@ namespace MyGUI
 		void _updateAlpha();
 
 		void setState(const Ogre::String & _state);
+		void _setUVSet(const FloatRect& _rect);
+
+		virtual void _setTextureName(const Ogre::String& _texture);
+		virtual const Ogre::String& _getTextureName();
 
 		// являемся ли мы рутовым виджетом
 		inline bool isRootWidget() {return null == mParent;}
@@ -182,6 +186,8 @@ namespace MyGUI
 
 		// указатель на окно текста
 		SubWidgetTextInterfacePtr mText;
+		// указатель на первый не текстовой сабскин
+		CroppedRectangleInterface * mMainSkin;
 
 		// доступен ли на виджет
 		bool mEnabled;

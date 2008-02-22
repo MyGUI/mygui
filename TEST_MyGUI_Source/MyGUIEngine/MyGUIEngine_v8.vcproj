@@ -194,6 +194,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_HScroll.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_List.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_VScroll.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Widget.cpp"
 					>
 				</File>
@@ -206,6 +218,18 @@
 					>
 					<File
 						RelativePath=".\src\MyGUI_ButtonFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_HScrollFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ListFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_VScrollFactory.cpp"
 						>
 					</File>
 					<File
@@ -340,6 +364,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_HScroll.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_List.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_VScroll.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Widget.h"
 					>
 				</File>
@@ -352,6 +388,18 @@
 					>
 					<File
 						RelativePath=".\include\MyGUI_ButtonFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_HScrollFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ListFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_VScrollFactory.h"
 						>
 					</File>
 					<File

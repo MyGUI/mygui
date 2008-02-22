@@ -18,6 +18,8 @@ public:
 	void end();
 	void move(int _left, int _top);
 
+	void test(MyGUI::WidgetPtr _sender, bool _left);
+
 private:
 	MyGUI::Gui * mGUI;
 	size_t mWidth, mHeight;

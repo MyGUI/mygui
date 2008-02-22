@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_RenderItem.h"
+#include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_LayerManager.h"
 
@@ -15,7 +16,8 @@ namespace MyGUI
 
 	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
-	RenderItem::RenderItem(const std::string& _texture) :
+	RenderItem::RenderItem(const std::string& _texture, LayerItemKeeper * _parent) :
+		mParent(_parent),
 		mTextureName(_texture),
 		mOutDate(false),
 		mNeedVertexCount(0),
@@ -174,6 +176,26 @@ namespace MyGUI
         mVOffset = mRenderSystem->getVerticalTexelOffset() / _size.height;
 
 		mOutDate = true;
+	}
+
+	inline void RenderItem::removeDrawItem(DrawItem * _item)
+	{
+		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
+			if ((*iter).first == _item) {
+				mNeedVertexCount -= (*iter).second;
+				mDrawItems.erase(iter);
+				mOutDate = true;
+
+				// если все отдетачились, расскажем отцу
+				if (mDrawItems.empty()) {
+					mTextureName.clear();
+					mParent->_update();
+				}
+
+				return;
+			}
+		}
+		MYGUI_EXCEPT("DrawItem not found");
 	}
 
 } // namespace MyGUI

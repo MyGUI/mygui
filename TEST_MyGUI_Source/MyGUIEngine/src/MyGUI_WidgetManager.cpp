@@ -12,6 +12,9 @@
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_ButtonFactory.h"
 #include "MyGUI_WindowFactory.h"
+#include "MyGUI_ListFactory.h"
+#include "MyGUI_VScrollFactory.h"
+#include "MyGUI_HScrollFactory.h"
 
 namespace MyGUI
 {
@@ -29,6 +32,9 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::WidgetFactory());
 		mIntegratedFactoryList.insert(new factory::ButtonFactory());
 		mIntegratedFactoryList.insert(new factory::WindowFactory());
+		mIntegratedFactoryList.insert(new factory::ListFactory());
+		mIntegratedFactoryList.insert(new factory::HScrollFactory());
+		mIntegratedFactoryList.insert(new factory::VScrollFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

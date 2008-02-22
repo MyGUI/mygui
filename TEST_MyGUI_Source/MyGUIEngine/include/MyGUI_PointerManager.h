@@ -38,6 +38,7 @@ namespace MyGUI
 
 		void setPosition(const IntPoint& _pos);
 		void setPointer(const std::string & _name, WidgetPtr _owner);
+		inline void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, null); }
 
 		void _unlinkWidget(WidgetPtr _widget);
 

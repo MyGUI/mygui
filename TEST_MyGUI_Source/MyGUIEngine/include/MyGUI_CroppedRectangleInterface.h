@@ -82,10 +82,11 @@ namespace MyGUI
 		// вспомогательные методы
 		virtual bool _isText() {return false;}
 		virtual void _setUVSet(const FloatRect& _rect) {}
-		virtual void _setMaterialName(const Ogre::String& _material) {}
+		//virtual void _setTextuteName(const Ogre::String& _texture) {}
+		//virtual void _getTextuteName(const Ogre::String& _texture) = 0;
 
-		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) {};
-		virtual void _destroyDrawItem() {};
+		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) {}
+		virtual void _destroyDrawItem() {}
 		
 
 	protected:

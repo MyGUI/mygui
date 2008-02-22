@@ -32,7 +32,8 @@ namespace MyGUI
 		mVisible(true),
 		mAlpha(ALPHA_MIN),
 		mName(_name),
-		mTexture(_info->getTextureName())
+		mTexture(_info->getTextureName()),
+		mMainSkin(null)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -47,6 +48,7 @@ namespace MyGUI
 			CroppedRectangleInterface * sub = manager.createSubWidget(*iter, this);
 			mSubSkinChild.push_back(sub);
 			if (sub->_isText()) mText = static_cast<SubWidgetTextInterfacePtr>(sub);
+			else if (null == mMainSkin) mMainSkin = sub;
 		}
 
 		// если отец уже приаттачен, то и мы аттачимся
@@ -547,6 +549,31 @@ namespace MyGUI
 
 		// очищаем 
 		setLayerItemKeeper(null);
+	}
+
+	void Widget::_setUVSet(const FloatRect& _rect)
+	{
+		if (null != mMainSkin) mMainSkin->_setUVSet(_rect);
+	}
+
+	void Widget::_setTextureName(const Ogre::String& _texture)
+	{
+		if (_texture == mTexture) return;
+
+		// если мы приаттаченны, то детачим себя, меняем текстуру, и снова аттачим
+		LayerItemKeeper * save = getLayerItemKeeper();
+		if (null != save) {
+			// позже сделать детач без текста
+			_detachFromLayerItemKeeper();
+			mTexture = _texture;
+			_attachToLayerItemKeeper(save);
+		}
+
+	}
+
+	const Ogre::String& Widget::_getTextureName()
+	{
+		return mTexture;
 	}
 
 } // namespace MyGUI

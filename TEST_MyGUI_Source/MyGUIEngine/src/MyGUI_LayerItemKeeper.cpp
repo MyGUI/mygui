@@ -44,19 +44,52 @@ namespace MyGUI
 	{
 		// для первичной очереди нужен порядок
 		if (_first) {
-			if (_separate || (mFirstRenderItems.empty()) || (mFirstRenderItems.back()->getTextureName() != _texture)) {
-				RenderItem * item = new RenderItem(_texture);
+			if (mFirstRenderItems.empty()) {
+
+				// создаем новый буфер
+				RenderItem * item = new RenderItem(_texture, this);
 				mFirstRenderItems.push_back(item);
+
+				return item;
 			}
-			return mFirstRenderItems.back();
+
+			// если последний буфер пустой, то мона не создавать
+			if (mFirstRenderItems.back()->getNeedVertexCount() == 0) {
+				// пустых может быть сколько угодно, нужен самый первый из пустых
+				for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
+					if ((*iter)->getNeedVertexCount() == 0) {
+						(*iter)->setTextureName(_texture);
+						return (*iter);
+					}
+				}
+			}
+
+			// та же текстура
+			if (mFirstRenderItems.back()->getTextureName() == _texture) {
+				return mFirstRenderItems.back();
+			}
+
+			// создаем новый буфер
+			RenderItem * item = new RenderItem(_texture, this);
+			mFirstRenderItems.push_back(item);
+
+			return item;
 		}
 
 		// для второй очереди порядок неважен
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
-			if ((*iter)->getTextureName() == _texture) return (*iter);
+			// либо такая же текстура, либо пустой буфер
+			if ((*iter)->getTextureName() == _texture) {
+				return (*iter);
+			}
+			else if ((*iter)->getNeedVertexCount() == 0) {
+				(*iter)->setTextureName(_texture);
+				return (*iter);
+			}
+			
 		}
 		// не найденно создадим новый
-		mSecondRenderItems.push_back(new RenderItem(_texture));
+		mSecondRenderItems.push_back(new RenderItem(_texture, this));
 		return mSecondRenderItems.back();
 	}
 
@@ -81,6 +114,26 @@ namespace MyGUI
 		}
 
 		return null;
+	}
+
+	void LayerItemKeeper::_update()
+	{
+		// буферы освобождаются по одному всегда
+
+		if (mFirstRenderItems.size() > 1) {
+			// пытаемся поднять пустой буфер выше полных
+			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
+			VectorRenderItem::iterator iter2 = iter1 + 1;
+			while (iter2 != mFirstRenderItems.end()) {
+				if ((*iter1)->getNeedVertexCount() == 0) {
+					RenderItem * tmp = (*iter1);
+					(*iter1) = (*iter2);
+					(*iter2) = tmp;
+				}
+				iter1 = iter2;
+				++iter2;
+			}
+		}
 	}
 
 } // namespace MyGUI

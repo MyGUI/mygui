@@ -111,12 +111,15 @@ namespace MyGUI
 		if ((item != null) && (item->isEnabled())) {
 			if (item->getPointer() != mPointer) {
 				mPointer = item->getPointer();
+				if (mPointer.empty()) PointerManager::getInstance().setDefaultPointer();
+				else PointerManager::getInstance().setPointer(mPointer, item);
 			}
 			item->_onMouseSetFocus(mWidgetMouseFocus);
 
 		}
 		// сбрасываем курсор
 		else if (false == mPointer.empty()) {
+			PointerManager::getInstance().setDefaultPointer();
 			mPointer.clear();
 		}
 

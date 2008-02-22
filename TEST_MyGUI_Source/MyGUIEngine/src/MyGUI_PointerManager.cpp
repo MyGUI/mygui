@@ -101,7 +101,7 @@ namespace MyGUI
 		// если есть левел, то пересоеденяем, если нет виджета, то создаем
 		if (false == layer.empty()) {
 			if (null == mMousePointer) {
-				mMousePointer = WidgetManager::getInstance().createWidget("Widget", "DefaultClient", IntCoord(), ALIGN_DEFAULT, null, "");
+				mMousePointer = WidgetManager::getInstance().createWidget("Widget", "StaticImage", IntCoord(), ALIGN_DEFAULT, null, "");
 				//WidgetManager::getInstance().unlinkFromUnlinkers(mMousePointer);
 			}
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
@@ -157,10 +157,10 @@ namespace MyGUI
 
 		// если курсор имеет свой материал
 		if (false == iter->second.texture.empty()) {
-			//if (mOverlayElement->getMaterialName() != iter->second.material) mOverlayElement->setMaterialName(iter->second.material);
+			if (mMousePointer->_getTextureName() != iter->second.texture) mMousePointer->_setTextureName(iter->second.texture);
 		}
 		else if (false == mTexture.empty()) {
-			//if (mOverlayElement->getMaterialName() != mMaterial) mOverlayElement->setMaterialName(mMaterial);
+			if (mMousePointer->_getTextureName() != mTexture) mMousePointer->_setTextureName(mTexture);
 		}
 
 		// сдвигаем с учетом нового и старого смещения
