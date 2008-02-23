@@ -3,7 +3,7 @@
 
 #include "MyGUI.h"
 
-typedef std::vector<std::pair<std::string, std::string>> StringPairs;
+typedef std::vector<std::pair<std::string, std::string> > StringPairs;
 typedef std::map<std::string, std::string> MapString;
 
 struct WidgetContainer

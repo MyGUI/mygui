@@ -29,6 +29,6 @@ AC_CONFIG_FILES([Makefile
                  MyGUIEngine/src/Makefile
                  MyGUIEngine/include/Makefile
                  TestApp/Makefile
-				 LayoutEditor/Makefile
+                 LayoutEditor/Makefile
                  MyGUI.pc])
 AC_OUTPUT
