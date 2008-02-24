@@ -63,7 +63,7 @@ private:
 	void syncStrings(bool _apply, bool _add = 0, Ogre::String _value = "");
 	void notifyAddString(MyGUI::WidgetPtr _sender);
 	void notifyDeleteString(MyGUI::WidgetPtr _sender);
-	void notifySelectString(MyGUI::WidgetPtr _sender);// в общем то эта ф-ия не используется
+	void notifySelectString(MyGUI::WidgetPtr _sender);
 	void notifyUpdateString(MyGUI::WidgetPtr _widget);
 	void notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position);
 

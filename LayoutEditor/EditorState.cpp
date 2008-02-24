@@ -84,11 +84,15 @@ void EditorState::enter(bool bIsChangeState)
 	Ogre::ConfigOptionMap map = BasisManager::getInstance().mRoot->getRenderSystem()->getConfigOptions();
 	Ogre::ConfigOptionMap::iterator iter = map.find("Video Mode");
 	int selectedIdx = 0;
+	int wid, hei;
 	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++){
 		Ogre::String videoMode = iter->second.possibleValues[j];
+		std::string tmp;
+		std::istringstream str(videoMode);
+		str >> wid >> tmp >> hei;
 		if(iter->second.possibleValues[j] == iter->second.currentValue)
 			selectedIdx = j;
-		combo->addItem(videoMode);
+		combo->addItem(MyGUI::utility::toString(wid, " x ", hei));
 	}
 	combo->setItemSelect(selectedIdx);
 	MyGUI::ComboBoxPtr comboFullScreen = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxFullscreen");
@@ -450,7 +454,7 @@ void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
 {
-	if (_button == MyGUI::Message::Yes) clear();
+	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) clear();
 }
 
 void EditorState::clear()
@@ -477,7 +481,7 @@ void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
 {
-	if (_button == MyGUI::Message::Yes) BasisManager::getInstance().m_exit = true;
+	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) BasisManager::getInstance().m_exit = true;
 	want_quit = false;
 }
 
@@ -659,6 +663,8 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		if (widgetType->many_strings)
 		{
 			windowStrings->show();
+			if (widgetType->name == "Tab") windowStrings->setCaption("Sheets");
+			else windowStrings->setCaption("Items");
 			syncStrings(false);
 			MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSelectString");
 			if (widgetType->name == "Tab") but->show();
@@ -705,7 +711,10 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		if (widgetType->name == "Widget")
 		{
 			if (current_widget->getWidgetType() != "Widget")
+			{
 				createSeparator(window, current_widget->getWidgetType() + " properties not aviable", x1, y, w1+w2+5, h);
+				y += h;
+			}
 		}
 		else
 		{
@@ -749,6 +758,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 {
 	MyGUI::StaticTextPtr text;
 	MyGUI::WidgetPtr editOrCombo;
+	//int string_int_float; // 0 - string, 1 - int, 2 - float
 
 	int widget_for_type;// 0 - Edit, 1 - Combo, 2 - ...
 	if ("Name" == _type) widget_for_type = 0;
@@ -1148,20 +1158,24 @@ void EditorState::notifyAddString(MyGUI::WidgetPtr _sender)
 void EditorState::notifyDeleteString(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
-	syncStrings(true, false, list->getItem(list->getItemSelect()));
-	list->deleteItem(list->getItemSelect());
+	size_t item = list->getItemSelect();
+	if (ITEM_NONE == item) return;
+	syncStrings(true, false, list->getItem(item));
+	list->deleteItem(item);
 	um->addValue();
 }
 
 void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
-	MyGUI::castWidget<MyGUI::Tab>(current_widget)->selectSheetIndex(list->getItemSelect());
+	size_t item = list->getItemSelect();
+	if (ITEM_NONE == item) return;
+	MyGUI::castWidget<MyGUI::Tab>(current_widget)->selectSheetIndex(item);
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 
 	Ogre::String action = "Tab_SelectSheet";
-	Ogre::String value = MyGUI::utility::toString(list->getItemSelect());
+	Ogre::String value = MyGUI::utility::toString(item);
 	MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 	// если такое св-во было, то заменим (или удалим если стерли) значение
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
@@ -1182,11 +1196,12 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 {
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
-
+	size_t item = list->getItemSelect();
+	if (ITEM_NONE == item) return;
 	Ogre::String action;
 	Ogre::String value = edit->getOnlyText();
-	Ogre::String lastitem = list->getItem(list->getItemSelect());
-	list->setItem(list->getItemSelect(), value);
+	Ogre::String lastitem = list->getItem(item);
+	list->setItem(item, value);
 
 	if (current_widget->getWidgetType() == "ComboBox") action = "Combo_AddString";
 	else if (current_widget->getWidgetType() == "List") action = "List_AddString";
@@ -1219,6 +1234,8 @@ void EditorState::notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _posit
 {
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
-	Ogre::String value = list->getItem(list->getItemSelect());
+	size_t item = list->getItemSelect();
+	if (ITEM_NONE == item) return;
+	Ogre::String value = list->getItem(item);
 	edit->setOnlyText(value);
 }
