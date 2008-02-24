@@ -6,7 +6,7 @@ Save/Load:
 
 Controls:
   Keyboard:
-    Ctrl + O, Ctrl + L - открыть файл
+    Ctrl + O, Ctrl + L - open file
     Ctrl + S           - save file
     Ctrl + Z           - undo
     Ctrl + Y           - redo
@@ -15,10 +15,10 @@ Controls:
     Shift           - omit grid when moving/resizing widget
 	Delete          - delete selected widget and all child widgets
     Tab             - change Sheet (for Tab widget only)
-	
+
   Mouse:	
     doubleclick on any widget in widget panel - create widget in center
-    doubleclick on selected Tab - create Sheet
+    doubleclick on selected Tab - add Sheet
 
 
 All possible values can be found in Media/LayoutEditor/widgets.xml

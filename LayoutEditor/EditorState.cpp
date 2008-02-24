@@ -80,6 +80,28 @@ void EditorState::enter(bool bIsChangeState)
 	gridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
 	ASSIGN_FUNCTION("LayoutEditor_buttonOkSettings", &EditorState::notifyOkSettings);
 
+	MyGUI::ComboBoxPtr combo= mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxResolution");
+	Ogre::ConfigOptionMap map = BasisManager::getInstance().mRoot->getRenderSystem()->getConfigOptions();
+	Ogre::ConfigOptionMap::iterator iter = map.find("Video Mode");
+	int selectedIdx = 0;
+	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++){
+		Ogre::String videoMode = iter->second.possibleValues[j];
+		if(iter->second.possibleValues[j] == iter->second.currentValue)
+			selectedIdx = j;
+		combo->addItem(videoMode);
+	}
+	combo->setItemSelect(selectedIdx);
+	MyGUI::ComboBoxPtr comboFullScreen = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxFullscreen");
+	iter = map.find("Full Screen");
+	selectedIdx = 0;
+	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++){
+		Ogre::String videoMode = iter->second.possibleValues[j];
+		if(iter->second.possibleValues[j] == iter->second.currentValue)
+			selectedIdx = j;
+		comboFullScreen->addItem(videoMode);
+	}
+	comboFullScreen->setItemSelect(selectedIdx);
+
 	// strings panel
 	MyGUI::WindowPtr windowStrings = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowStrings");
 	windowStrings->setPosition(mGUI->getViewWidth() - windowStrings->getSize().width, mGUI->getViewHeight() - windowStrings->getSize().height);
@@ -561,6 +583,15 @@ void EditorState::notifyNewGridStepAccept(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyOkSettings(MyGUI::WidgetPtr _sender)
 {
+	bool fullscreen;
+	int width, height;
+	MyGUI::ComboBoxPtr combo= mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxResolution");
+	MyGUI::ComboBoxPtr comboFullScreen = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxFullscreen");
+	std::string tmp;
+	std::istringstream str(combo->getCaption());
+	str >> width >> tmp >> height;
+	fullscreen = (comboFullScreen->getCaption() == "Yes");
+	BasisManager::getInstance().mWindow->setFullscreen(fullscreen, width, height);
 	mGUI->findWidgetT("LayoutEditor_windowSettings")->hide();
 }
 
