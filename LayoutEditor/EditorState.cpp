@@ -86,6 +86,8 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_buttonAddString", &EditorState::notifyAddString);
 	ASSIGN_FUNCTION("LayoutEditor_buttonDeleteString", &EditorState::notifyDeleteString);
 	ASSIGN_FUNCTION("LayoutEditor_buttonSelectString", &EditorState::notifySelectString);
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+	edit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateString);
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	list->eventListMouseItemActivate = MyGUI::newDelegate(this, &EditorState::notifySelectStringItem);
 
@@ -825,7 +827,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	if (action == "Name")
 	{
 		widgetContainer->name = value;
-		um->addValue(PR_PROPERTIES);
+		um->addValue();
 		return;
 	}
 	else if (action == "Skin")
@@ -837,21 +839,21 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		delete save;
 		recreate = true;
 
-		um->addValue(PR_PROPERTIES);
+		um->addValue();
 		return;
 	}
 	else if (action == "Position")
 	{
 		widgetContainer->position = value;
 		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Move", value);
-		um->addValue(PR_PROPERTIES);
+		um->addValue();
 		return;
 	}
 	else if (action == "Align")
 	{
 		widgetContainer->align = value;
 		widgetContainer->widget->setAlign(MyGUI::SkinManager::getInstance().parseAlign(value));
-		um->addValue(PR_PROPERTIES);
+		um->addValue();
 		return;
 	}
 	else if (action == "Layer")
@@ -859,7 +861,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		widgetContainer->layer = value;
 		MyGUI::LayerManager::getInstance().detachItem(current_widget);
 		MyGUI::LayerManager::getInstance().attachItem(current_widget, widgetContainer->layer, true);
-		um->addValue(PR_PROPERTIES);
+		um->addValue();
 		return;
 	}
 
@@ -885,13 +887,14 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		if (iterProperty->first == action){
 			if (value.empty()) widgetContainer->mProperty.erase(iterProperty);
 			else iterProperty->second = value;
-			um->addValue(PR_PROPERTIES);
+			um->addValue();
 			return;
 		}
 	}
 
 	// если такого свойства не было раньше, то сохраняем
 	widgetContainer->mProperty.push_back(std::make_pair(action, value));
+	um->addValue();
 }
 
 void EditorState::notifyApplyPropertiesCombo(MyGUI::WidgetPtr _sender/*, size_t _index*/)
@@ -975,13 +978,7 @@ void EditorState::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 {
 	if (current_widget->getWidgetType() == "Tab")
 	{
-		MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
-		std::string name = MyGUI::utility::toString("Sheet", tab->getSheetCount()+1);
-		MyGUI::SheetPtr sheet = tab->addSheet("");
-		sheet->setCaption(name);
-		WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet, name);
-		ew->add(wc);
-		um->addValue();
+		addSheetToTab(current_widget);
 	}
 }
 
@@ -1030,6 +1027,16 @@ void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, 
 	}
 }
 
+void EditorState::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
+{
+	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(_tab);
+	MyGUI::SheetPtr sheet = tab->addSheet(_caption);
+	WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet);
+	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
+	ew->add(wc);
+	um->addValue();
+}
+
 void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 {
 	Ogre::String action;
@@ -1037,32 +1044,42 @@ void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 	if (current_widget->getWidgetType() == "ComboBox") action = "Combo_AddString";
 	else if (current_widget->getWidgetType() == "List") action = "List_AddString";
 	//else if (current_widget->getWidgetType() == "Message") action = "Message_AddButton";
-	//else if (current_widget->getWidgetType() == "Tab") action = "Tab_AddSheet";
+	else if (current_widget->getWidgetType() == "Tab") action = "Tab_AddSheet";
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	if (_apply)
 	{
 		if (_add)
 		{
-			MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, _value);
-			widgetContainer->mProperty.push_back(std::make_pair(action, _value));
+			if (action == "Tab_AddSheet") addSheetToTab(current_widget, _value);
+			else{
+				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, _value);
+				widgetContainer->mProperty.push_back(std::make_pair(action, _value));
+			}
 		}
 		else
 		{
-			int index = 0;
-			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+			if (action == "Tab_AddSheet")
 			{
-				if (iterProperty->first == action){
-					if (iterProperty->second == _value)
-					{
-						widgetContainer->mProperty.erase(iterProperty);
-						if (current_widget->getWidgetType() == "ComboBox") MyGUI::castWidget<MyGUI::ComboBox>(current_widget)->deleteItem(index);
-						else if (current_widget->getWidgetType() == "List") MyGUI::castWidget<MyGUI::List>(current_widget)->deleteItem(index);
-						//else if (current_widget->getWidgetType() == "Message") MyGUI::castWidget<MyGUI::Message>(current_widget)->deleteItem(index);
-						//else if (current_widget->getWidgetType() == "Tab") MyGUI::castWidget<MyGUI::Tab>(current_widget)->removeSheet(_value);
-						return;
+				ew->remove(MyGUI::castWidget<MyGUI::Tab>(current_widget)->findSheet(_value));
+			}
+			else
+			{
+				int index = 0;
+				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+				{
+					if (iterProperty->first == action){
+						if (iterProperty->second == _value)
+						{
+							widgetContainer->mProperty.erase(iterProperty);
+							if (current_widget->getWidgetType() == "ComboBox") MyGUI::castWidget<MyGUI::ComboBox>(current_widget)->deleteItem(index);
+							else if (current_widget->getWidgetType() == "List") MyGUI::castWidget<MyGUI::List>(current_widget)->deleteItem(index);
+							//else if (current_widget->getWidgetType() == "Message") MyGUI::castWidget<MyGUI::Message>(current_widget)->deleteItem(index);
+							//else if (current_widget->getWidgetType() == "Tab") MyGUI::castWidget<MyGUI::Tab>(current_widget)->removeSheet(_value);
+							return;
+						}
+						++index;
 					}
-					++index;
 				}
 			}
 		}
@@ -1071,10 +1088,18 @@ void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 	{
 		MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 		list->deleteAllItems();
-		for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+		if (action == "Tab_AddSheet")
 		{
-			if (iterProperty->first == action){
-				list->addItem(iterProperty->second);
+			for (size_t i = 0; i<MyGUI::castWidget<MyGUI::Tab>(current_widget)->getSheetCount(); ++i)
+				list->addItem(MyGUI::castWidget<MyGUI::Tab>(current_widget)->getSheetNameIndex(i));
+		}
+		else
+		{
+			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+			{
+				if (iterProperty->first == action){
+					list->addItem(iterProperty->second);
+				}
 			}
 		}
 	}
@@ -1086,6 +1111,7 @@ void EditorState::notifyAddString(MyGUI::WidgetPtr _sender)
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
 	syncStrings(true, true, MyGUI::TextIterator::toTagsString(edit->getOnlyText()));
 	list->addItem(edit->getOnlyText());
+	um->addValue();
 }
 
 void EditorState::notifyDeleteString(MyGUI::WidgetPtr _sender)
@@ -1093,6 +1119,7 @@ void EditorState::notifyDeleteString(MyGUI::WidgetPtr _sender)
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	syncStrings(true, false, list->getItem(list->getItemSelect()));
 	list->deleteItem(list->getItemSelect());
+	um->addValue();
 }
 
 void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
@@ -1109,15 +1136,52 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
 		if (iterProperty->first == action){
-			if (value.empty()) widgetContainer->mProperty.erase(iterProperty);
-			else iterProperty->second = value;
-			um->addValue(PR_PROPERTIES);
+			iterProperty->second = value;
+			um->addValue();
 			return;
 		}
 	}
 
 	// если такого свойства не было раньше, то сохраняем
 	widgetContainer->mProperty.push_back(std::make_pair(action, value));
+	um->addValue();
+}
+
+void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
+{
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+
+	Ogre::String action;
+	Ogre::String value = edit->getOnlyText();
+	Ogre::String lastitem = list->getItem(list->getItemSelect());
+	list->setItem(list->getItemSelect(), value);
+
+	if (current_widget->getWidgetType() == "ComboBox") action = "Combo_AddString";
+	else if (current_widget->getWidgetType() == "List") action = "List_AddString";
+	else if (current_widget->getWidgetType() == "Tab")
+	{
+		addSheetToTab(current_widget, value);
+		um->addValue();
+		return;
+	}
+
+	WidgetContainer * widgetContainer = ew->find(current_widget);
+	int index = 0;
+	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+	{
+		if (iterProperty->first == action){
+			if (iterProperty->second == lastitem){
+				iterProperty->second = value;
+				if (current_widget->getWidgetType() == "ComboBox") MyGUI::castWidget<MyGUI::ComboBox>(current_widget)->setItem(index, value);
+				else if (current_widget->getWidgetType() == "List") MyGUI::castWidget<MyGUI::List>(current_widget)->setItem(index, value);
+				um->addValue();
+				return;
+			}
+			++index;
+		}
+	}
+	um->addValue();
 }
 
 void EditorState::notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position)

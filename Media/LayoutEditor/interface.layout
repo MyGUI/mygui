@@ -27,7 +27,7 @@
         <Property key="Widget_Caption" value="Widgets"/>
         <Property key="Window_AutoAlpha" value="false"/>
         <Property key="Window_Snap" value="true"/>
-        <Widget type="ComboBox" skin="ComboBox" position="0 260 191 24" align="ALIGN_HCENTER ALIGN_BOTTOM" name="LayoutEditor_allWidgetsCombo"/>
+        <Widget type="ComboBox" skin="EditorComboBox" position="0 260 191 24" align="ALIGN_HCENTER ALIGN_BOTTOM" name="LayoutEditor_allWidgetsCombo"/>
         <Widget type="Widget" skin="Separator1" position="0 236 191 2" align="ALIGN_HSTRETCH ALIGN_BOTTOM"/>
         <Widget type="StaticText" skin="StaticText" position="0 236 191 24" align="ALIGN_HSTRETCH ALIGN_BOTTOM">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>

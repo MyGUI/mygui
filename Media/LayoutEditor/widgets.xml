@@ -110,7 +110,7 @@
 
   <Widget name="Tab">
     <Property key="Skin" value="Tab"/>
-    <!--Property key="StringManager" value="true"/-->
+    <Property key="StringManager" value="true"/>
     <Parameter key="Tab_ButtonWidth" value="1 int"/>
     <Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
     <Parameter key="Tab_SmoothShow" value="Bool"/>
