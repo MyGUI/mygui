@@ -50,7 +50,7 @@
 
   <Widget name="Message">
     <Property key="Skin" value="Message"/>
-    <Property key="StringManager" value="true"/>
+    <!--Property key="StringManager" value="true"/-->
     <Parameter key="Message_Caption" value="String"/>
     <Parameter key="Message_Message" value="String"/>
     <Parameter key="Message_Modal" value="Bool"/>
@@ -110,7 +110,7 @@
 
   <Widget name="Tab">
     <Property key="Skin" value="Tab"/>
-    <Property key="StringManager" value="true"/>
+    <!--Property key="StringManager" value="true"/-->
     <Parameter key="Tab_ButtonWidth" value="1 int"/>
     <Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
     <Parameter key="Tab_SmoothShow" value="Bool"/>
@@ -213,8 +213,8 @@
     <Property key="Main"/>
     <Property key="Popup"/>
     <Property key="FadeMiddle"/>
-    <Property key="Info"/>
-    <Property key="Tooltip"/>
+    <!--Property key="Info"/-->
+    <!--Property key="Tooltip"/-->
     <!--Property key="Pointer"/-->
     <!--Property key="Fade"/-->
   </Value>

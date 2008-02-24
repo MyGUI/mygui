@@ -266,10 +266,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Media\LayoutEditor\Settings.layout"
-				>
-			</File>
-			<File
 				RelativePath="..\Media\LayoutEditor\settings.xml"
 				>
 			</File>

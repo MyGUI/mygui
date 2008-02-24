@@ -26,7 +26,7 @@ WidgetType* WidgetTypes::find(std::string _type)
 			return *iter;
 		}
 	}
-	return null;
+	return find("Widget");
 }
 
 std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)

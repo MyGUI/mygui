@@ -3,8 +3,8 @@
 
 #include "MyGUI.h"
 
-typedef std::vector<std::pair<std::string, std::string> > StringPairs;
-typedef std::map<std::string, std::string> MapString;
+typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
+typedef std::map<Ogre::String, Ogre::String> MapString;
 
 struct WidgetContainer
 {
@@ -25,7 +25,7 @@ struct WidgetContainer
 	std::string position_real; // necessary this or position (except Sheet)
 	std::string layer; // necessary for root widgets
 	std::string align; // not necessary
-	std::string name; // not necessary
+	Ogre::String name; // not necessary
 };
 
 class EditorWidgets{

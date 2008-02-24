@@ -86,6 +86,8 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_buttonAddString", &EditorState::notifyAddString);
 	ASSIGN_FUNCTION("LayoutEditor_buttonDeleteString", &EditorState::notifyDeleteString);
 	ASSIGN_FUNCTION("LayoutEditor_buttonSelectString", &EditorState::notifySelectString);
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	list->eventListMouseItemActivate = MyGUI::newDelegate(this, &EditorState::notifySelectStringItem);
 
 	loadSettings();
 	clear();
@@ -135,23 +137,13 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		current_widget->setPosition(coord);
 	}
 
-	/*MyGUI::LayerItemInfoPtr rootItem = null;
-	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
-	while ((null == ew->find(item)) && (null != item)) item = item->getParent();
-	if (null != item)
-	{
-		updatePropertiesPanel(item);
-	}*/
-
 	MyGUI::InputManager::getInstance().injectMouseMove(arg);
 	return true;
 }
 //===================================================================================
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
-		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-	else if (want_quit)
+	if ((null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad")) || (want_quit))
 		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
 	else
 	{
@@ -184,7 +176,13 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 			MyGUI::InputManager::getInstance().injectMousePress(arg, id);
 		}else{
 			MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-			notifySelectWidget(item);
+			notifySelectWidget(null);
+		}
+
+		// вернем прямоугольник
+		if (current_widget && !current_widget_rectangle)
+		{
+			current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", convertParentCoordToCoord(current_widget->getCoord(), current_widget), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
 		}
 	}
 
@@ -235,8 +233,8 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 
 	if (recreate)
 	{
-		notifySelectWidget(null);
 		recreate = false;
+		notifySelectWidget(null); // виджет пересоздался, теперь никто незнает его адреса :)
 	}
 
 	return true;
@@ -244,8 +242,6 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 //===================================================================================
 bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 {
-	MyGUI::InputManager::getInstance().injectKeyPress(arg);
-
 	if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
 	{
 		if (arg.key == OIS::KC_ESCAPE) notifyLoadSaveCancel();
@@ -255,11 +251,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	{
 		if ( arg.key == OIS::KC_ESCAPE )
 		{
-			if (!want_quit)
-			{
-				notifySelectWidget(null);
-				notifyQuit();
-			}
+			if (!want_quit){ notifyQuit(); return true;}
 		}
 		else if ( arg.key == OIS::KC_DELETE )
 		{
@@ -287,6 +279,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	if ( arg.key == OIS::KC_LCONTROL || arg.key == OIS::KC_RCONTROL ) ctrlPressed = true;
 	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
 
+	MyGUI::InputManager::getInstance().injectKeyPress(arg);
 	return true;
 }
 //===================================================================================
@@ -442,6 +435,7 @@ void EditorState::clear()
 	current_widget_skin = "";
 	creating_status = 0;
 	recreate = false;
+	arrow_move = false;
 	shiftPressed = false;
 	ctrlPressed = false;
 	want_quit = false;
@@ -590,7 +584,6 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 				MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(parent->getParent());
 				tab->selectSheet(MyGUI::castWidget<MyGUI::Sheet>(parent));
 			}
-			//
 			coord = convertParentCoordToCoord(coord, _sender);
 		}
 		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
@@ -629,11 +622,16 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
 		WidgetContainer * widgetContainer = ew->find(current_widget);
 
-		// update settings panel if needed
+		// update strings panel if needed
 		if (widgetType->many_strings)
 		{
 			windowStrings->show();
-			//...
+			syncStrings(false);
+			MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSelectString");
+			if (widgetType->name == "Tab") but->show();
+			else but->hide();
+			MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+			edit->setCaption("");
 		}
 
 		if (widgetContainer->name.empty()){
@@ -671,17 +669,25 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			y += h;
 		}
 
-		createSeparator(window, current_widget->getWidgetType() + " specific properties", x1, y, w1+w2+5, h);
-		y += h;
-
-		//all other
-		for (MapString::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
+		if (widgetType->name == "Widget")
 		{
-			std::string value = "";
-			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-				if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
-			createPropertiesWidgetsPair(window, iter->first, value, iter->second, x1, x2, w1, w2, y, h);
+			if (current_widget->getWidgetType() != "Widget")
+				createSeparator(window, current_widget->getWidgetType() + " properties not aviable", x1, y, w1+w2+5, h);
+		}
+		else
+		{
+			createSeparator(window, current_widget->getWidgetType() + " specific properties", x1, y, w1+w2+5, h);
 			y += h;
+
+			//all other
+			for (MapString::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
+			{
+				std::string value = "";
+				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+					if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
+				createPropertiesWidgetsPair(window, iter->first, value, iter->second, x1, x2, w1, w2, y, h);
+				y += h;
+			}
 		}
 
 		createSeparator(window, "Other properties", x1, y, w1+w2+5, h);
@@ -897,17 +903,42 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 {
 	// найдем соответствующий контейнер виджета и переместим/растянем
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	// align to grid
-	MyGUI::IntCoord coord = _sender->getCoord();
 	if (wt->find(current_widget->getWidgetType())->resizeable)
 	{
-		if (!shiftPressed) coord = snapToGrid(coord);
+		MyGUI::IntCoord coord = _sender->getCoord();
+		MyGUI::IntCoord old_coord = convertParentCoordToCoord(current_widget->getCoord(), current_widget);
+		// align to grid
+		if (!shiftPressed  && !arrow_move){
+			if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
+			{
+				coord.left = TO_GRID(coord.left + grid_step-1 - old_coord.left) + old_coord.left;
+				coord.top = TO_GRID(coord.top + grid_step-1 - old_coord.top) + old_coord.top;
+			}
+			else // если растягиваем
+			{
+				if (old_coord.left != coord.left){
+					coord.left = TO_GRID(coord.left + grid_step-1);
+					coord.width = old_coord.right() - coord.left;
+				}else if (old_coord.width != coord.width){
+					coord.width = TO_GRID(coord.width + old_coord.left) - old_coord.left;
+				}
+
+				if (old_coord.top != coord.top){
+					coord.top = TO_GRID(coord.top + grid_step-1);
+					coord.height = old_coord.bottom() - coord.top;
+				}else if (old_coord.height != coord.height){
+					coord.height = TO_GRID(coord.height + old_coord.top) - old_coord.top;
+				}
+			}
+		}
+
+		arrow_move = false;
+
 		current_widget_rectangle->setPosition(coord);
 
 		coord = convertCoordToParentCoord(coord, current_widget);
 		current_widget->setPosition(coord);
 		widgetContainer->position = coord.print();
-		//updatePropertiesPanel(current_widget);
 		propertiesElement[1]->setCaption(coord.print());
 		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
 		um->addValue(PR_POSITION);
@@ -937,15 +968,6 @@ MyGUI::IntCoord EditorState::convertParentCoordToCoord(MyGUI::IntCoord coord, My
 		// а может у нас и дедушка есть? а может и прадед...
 		coord = convertParentCoordToCoord(coord, parent);
 	}
-	return coord;
-}
-
-MyGUI::IntCoord EditorState::snapToGrid(MyGUI::IntCoord coord)
-{
-	coord.left = TO_GRID(coord.left + grid_step-1);
-	coord.top = TO_GRID(coord.top + grid_step-1);
-	coord.width = TO_GRID(coord.width);
-	coord.height = TO_GRID(coord.height);
 	return coord;
 }
 
@@ -1001,21 +1023,107 @@ void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, 
 
 	if (delta != MyGUI::IntPoint())
 	{
+		arrow_move = true;
 		current_widget_rectangle->setPosition(current_widget_rectangle->getPosition() + delta);
 		notifyRectangleResize(current_widget_rectangle);
 		um->addValue(PR_KEY_POSITION);
 	}
 }
 
+void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
+{
+	Ogre::String action;
+	// FIXME/2 как-то громоздко и не настраиваемо...
+	if (current_widget->getWidgetType() == "ComboBox") action = "Combo_AddString";
+	else if (current_widget->getWidgetType() == "List") action = "List_AddString";
+	//else if (current_widget->getWidgetType() == "Message") action = "Message_AddButton";
+	//else if (current_widget->getWidgetType() == "Tab") action = "Tab_AddSheet";
+
+	WidgetContainer * widgetContainer = ew->find(current_widget);
+	if (_apply)
+	{
+		if (_add)
+		{
+			MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, _value);
+			widgetContainer->mProperty.push_back(std::make_pair(action, _value));
+		}
+		else
+		{
+			int index = 0;
+			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+			{
+				if (iterProperty->first == action){
+					if (iterProperty->second == _value)
+					{
+						widgetContainer->mProperty.erase(iterProperty);
+						if (current_widget->getWidgetType() == "ComboBox") MyGUI::castWidget<MyGUI::ComboBox>(current_widget)->deleteItem(index);
+						else if (current_widget->getWidgetType() == "List") MyGUI::castWidget<MyGUI::List>(current_widget)->deleteItem(index);
+						//else if (current_widget->getWidgetType() == "Message") MyGUI::castWidget<MyGUI::Message>(current_widget)->deleteItem(index);
+						//else if (current_widget->getWidgetType() == "Tab") MyGUI::castWidget<MyGUI::Tab>(current_widget)->removeSheet(_value);
+						return;
+					}
+					++index;
+				}
+			}
+		}
+	}
+	else // if !apply (if load)
+	{
+		MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+		list->deleteAllItems();
+		for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+		{
+			if (iterProperty->first == action){
+				list->addItem(iterProperty->second);
+			}
+		}
+	}
+}
+
 void EditorState::notifyAddString(MyGUI::WidgetPtr _sender)
 {
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+	syncStrings(true, true, MyGUI::TextIterator::toTagsString(edit->getOnlyText()));
+	list->addItem(edit->getOnlyText());
 }
 
 void EditorState::notifyDeleteString(MyGUI::WidgetPtr _sender)
 {
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	syncStrings(true, false, list->getItem(list->getItemSelect()));
+	list->deleteItem(list->getItemSelect());
 }
 
 void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 {
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	MyGUI::castWidget<MyGUI::Tab>(current_widget)->selectSheetIndex(list->getItemSelect());
+
+	WidgetContainer * widgetContainer = ew->find(current_widget);
+
+	Ogre::String action = "Tab_SelectSheet";
+	Ogre::String value = MyGUI::utility::toString(list->getItemSelect());
+	MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
+	// если такое св-во было, то заменим (или удалим если стерли) значение
+	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+	{
+		if (iterProperty->first == action){
+			if (value.empty()) widgetContainer->mProperty.erase(iterProperty);
+			else iterProperty->second = value;
+			um->addValue(PR_PROPERTIES);
+			return;
+		}
+	}
+
+	// если такого свойства не было раньше, то сохраняем
+	widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
+void EditorState::notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position)
+{
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+	Ogre::String value = list->getItem(list->getItemSelect());
+	edit->setOnlyText(value);
+}

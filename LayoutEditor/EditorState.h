@@ -50,7 +50,7 @@ private:
 	// widget selecting/resizing
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 	void updatePropertiesPanel(MyGUI::WidgetPtr _widget);
-	void createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::string _property, std::string _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
+	void createPropertiesWidgetsPair(MyGUI::WindowPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
 	void createSeparator(MyGUI::WindowPtr _window, std::string _caption, int x1, int y, int w, int h);
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget/*, size_t _index = 0*/); // calls previous method
@@ -59,13 +59,14 @@ private:
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
 
 	// strings panel
+	void syncStrings(bool _apply, bool _add = 0, Ogre::String _value = "");
 	void notifyAddString(MyGUI::WidgetPtr _sender);
 	void notifyDeleteString(MyGUI::WidgetPtr _sender);
-	void notifySelectString(MyGUI::WidgetPtr _sender);
+	void notifySelectString(MyGUI::WidgetPtr _sender);// в общем то эта ф-ия не используется
+	void notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position);
 
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
-	MyGUI::IntCoord snapToGrid(MyGUI::IntCoord coord);
 
 	MyGUI::ComboBoxPtr allWidgetsCombo;
 
@@ -79,6 +80,8 @@ private:
 	int creating_status;
 	// drop select after skin change
 	bool recreate;
+	// widget was moved by keyboard arrows
+	bool arrow_move;
 
 	// current settings
 	int grid_step;
@@ -87,7 +90,7 @@ private:
 	bool ctrlPressed;
 	bool want_quit;
 	// last loaded/saved file name
-	std::string fileName;
+	Ogre::String fileName;
 
 	// properties wndow
 	MyGUI::VectorWidgetPtr propertiesText;
