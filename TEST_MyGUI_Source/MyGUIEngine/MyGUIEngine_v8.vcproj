@@ -293,6 +293,10 @@
 					Name="SubWidget"
 					>
 					<File
+						RelativePath=".\src\MyGUI_EditText.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_MainSkin.cpp"
 						>
 					</File>
@@ -644,6 +648,10 @@
 					>
 					<File
 						RelativePath=".\include\MyGUI_CroppedRectangleInterface.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_EditText.h"
 						>
 					</File>
 					<File

@@ -59,12 +59,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setSize(100, 100);//*/
 
 	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	edit->setEditMultiLine(true);
 	//window->setCaption("WindowCSX\ntest");
 
 	for (size_t pos=0; pos<1; ++pos) {
 
 		//MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10+pos*15, 10+pos*15, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
-		//window->setCaption("WindowCSX\ntest");
+		//window->setCaption("WindowCSX");
 		//window->setAutoAlpha(true);
 
 		/*MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::ALIGN_DEFAULT);

@@ -19,9 +19,11 @@ namespace MyGUI
 		mFactorySubSkin = new CroppedRectangleFactory<SubSkin>();
 		mFactoryMainSkin = new CroppedRectangleFactory<MainSkin>();
 		mFactorySimpleText = new CroppedRectangleFactory<SimpleText>();
+		mFactoryEditText = new CroppedRectangleFactory<EditText>();
 		registerFactory(mFactorySubSkin);
 		registerFactory(mFactoryMainSkin);
 		registerFactory(mFactorySimpleText);
+		registerFactory(mFactoryEditText);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -37,6 +39,7 @@ namespace MyGUI
 		delete mFactorySubSkin;
 		delete mFactoryMainSkin;
 		delete mFactorySimpleText;
+		delete mFactoryEditText;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

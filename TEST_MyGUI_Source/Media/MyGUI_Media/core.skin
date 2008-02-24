@@ -111,7 +111,7 @@
             <State name="pressed" offset = "90 86 10 26"/>
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin type="TextEdit" offset = "3 0 34 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="EditEdit" offset = "3 0 34 26" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>
@@ -195,7 +195,7 @@
             <State name="select" offset = "98 138 2 2"/>
         </BasisSkin>
 
-        <BasisSkin type="SimpleText" offset = "3 0 34 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="EditText" offset = "3 0 34 26" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>
@@ -213,7 +213,7 @@
     <Skin name = "WindowCaption" size = "47 30" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_RIGHT" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
 
         <BasisSkin type="SubSkin" offset = "0 0 5 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "328 2 5 30"/>
@@ -227,7 +227,7 @@
             <State name="normal" offset = "370 2 5 30"/>
             <State name="active" offset = "370 34 5 30"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "5 0 37 30" align = "ALIGN_STRETCH">
+        <BasisSkin type="EditText" offset = "5 0 37 30" align = "ALIGN_STRETCH">
             <State name="normal" colour="0 0 0"/>
             <State name="active" colour="0 0 0"/>
         </BasisSkin>
@@ -684,7 +684,7 @@
             <State name="pressed" offset = "90 86 10 26"/>
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin type="TextEdit" offset = "3 0 15 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="EditText" offset = "3 0 15 26" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>

@@ -4,8 +4,8 @@
 	@date		02/2008
 	@module
 */
-#ifndef __MYGUI_SIMPLE_TEXT_H__
-#define __MYGUI_SIMPLE_TEXT_H__
+#ifndef __MYGUI_EDIT_TEXT_H__
+#define __MYGUI_EDIT_TEXT_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -21,14 +21,14 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport SimpleText : public SubWidgetTextInterface, public DrawItem
+	class _MyGUIExport EditText : public SubWidgetTextInterface, public DrawItem
 	{
 
 	public:
-		SimpleText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
-		virtual ~SimpleText();
+		EditText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
+		virtual ~EditText();
 
-		inline static const Ogre::String & _getType() {static Ogre::String type("SimpleText"); return type;}
+		inline static const Ogre::String & _getType() {static Ogre::String type("EditText"); return type;}
 
 		void show();
 		void hide();
@@ -133,4 +133,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_SIMPLE_TEXT_H__
+#endif // __MYGUI_EDIT_TEXT_H__

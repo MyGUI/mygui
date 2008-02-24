@@ -173,7 +173,7 @@ namespace MyGUI
 		void updateEditState();
 
 		// обновляет курсор по координате
-		void updateCursor(IntPoint _point);
+		void updateCursor();
 		// виден ли курсор в окне просмотра
 		bool isShowCursorInView();
 		// обновление представления
@@ -232,7 +232,7 @@ namespace MyGUI
 
 		// позиция курсора
 		size_t mCursorPosition;
-		// максимаотное колличество
+		// максимальное колличество
 		size_t mTextLength;
 
 		bool mShiftPressed;

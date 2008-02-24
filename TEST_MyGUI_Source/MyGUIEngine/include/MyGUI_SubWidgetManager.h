@@ -15,6 +15,7 @@
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_MainSkin.h"
 #include "MyGUI_SimpleText.h"
+#include "MyGUI_EditText.h"
 
 namespace MyGUI
 {
@@ -40,6 +41,7 @@ namespace MyGUI
 		CroppedRectangleFactory<SubSkin> * mFactorySubSkin;
 		CroppedRectangleFactory<MainSkin> * mFactoryMainSkin;
 		CroppedRectangleFactory<SimpleText> * mFactorySimpleText;
+		CroppedRectangleFactory<EditText> * mFactoryEditText;
 		
 	};
 

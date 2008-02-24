@@ -41,7 +41,7 @@ namespace MyGUI
 		virtual void setCursorPosition(size_t _pos) {}
 
 		// возвращает положение курсора по произвольному положению
-		virtual size_t getTextCursorFromPoint(IntPoint & _point) {return 0;}
+		virtual size_t getTextCursorFromPoint(const IntPoint & _point) {return 0;}
 
 		// возвращает текущее положение курсора
 		virtual IntPoint getTextCursorFromPosition(size_t _position) {return IntPoint();}
