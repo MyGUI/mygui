@@ -38,6 +38,7 @@ namespace MyGUI
 	class FontManager;
 	class ControllerManager;
 	class PointerManager;
+	class ClipboardManager;
 
 	class WidgetFactoryInterface;
 
@@ -49,6 +50,7 @@ namespace MyGUI
 		class ListFactory;
 		class HScrollFactory;
 		class VScrollFactory;
+		class EditFactory;
 	}
 
 	class Widget;
@@ -57,6 +59,7 @@ namespace MyGUI
 	class List;
 	class HScroll;
 	class VScroll;
+	class Edit;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -64,6 +67,7 @@ namespace MyGUI
 	typedef List * ListPtr;
 	typedef HScroll * HScrollPtr;
 	typedef VScroll * VScrollPtr;
+	typedef Edit * EditPtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2

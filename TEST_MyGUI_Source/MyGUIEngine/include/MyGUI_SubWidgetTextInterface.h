@@ -20,13 +20,32 @@ namespace MyGUI
 			CroppedRectangleInterface(_coord, _align, _parent)
 		{}
 
+		// для каста сабскина
 		bool _isText() {return true;}
 
+		// работа с выделенным текстом
+		virtual size_t getSelectStart() {return 0;}
+		virtual size_t getSelectEnd() {return 0;}
 		virtual void setTextSelect(size_t _start, size_t _end) {}
+
+		// интенсивность выделенного текста
+		virtual bool getSelectBackground() {return true;}
+		virtual void setSelectBackground(bool _normal) {}
+
+		// управление видимостью курсора
+		virtual bool isCursorShow() {return false;}
+		virtual void setShowCursor(bool _show) {}
+
+		// управление положением курсора
+		virtual size_t getCursorPosition() {return 0;}
+		virtual void setCursorPosition(size_t _pos) {}
+
 		// возвращает положение курсора по произвольному положению
 		virtual size_t getTextCursorFromPoint(IntPoint & _point) {return 0;}
-		// возвращает положение курсора по позиции
+
+		// возвращает текущее положение курсора
 		virtual IntPoint getTextCursorFromPosition(size_t _position) {return IntPoint();}
+
 		// возвращает размер текста в пикселях
 		virtual IntSize getTextSize() {return IntSize();}
 		virtual IntSize getTextSize(const Ogre::DisplayString& _text) {return IntSize();}
@@ -35,9 +54,6 @@ namespace MyGUI
 		virtual void setTextShift(IntPoint _point) {}
 		virtual IntPoint getTextShift() {return IntPoint();}
 
-		virtual bool getSelectBackground() {return true;}
-		virtual void setSelectBackground(bool _normal) {}
-
 		virtual void setCaption(const Ogre::DisplayString & _caption) {}
 		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}
 
@@ -45,14 +61,19 @@ namespace MyGUI
 		virtual const Ogre::ColourValue & getColour() {return Ogre::ColourValue::Black;}
 
 		virtual void setFontName(const Ogre::String & _font) {}
-		virtual void setFontName(const Ogre::String & _font, Ogre::ushort _height) {}
 		virtual const Ogre::String & getFontName() {static Ogre::String name; return name;}
 
-		virtual void setFontHeight(Ogre::ushort _height) {}
-		virtual Ogre::ushort getFontHeight() {return 0;}
+		virtual void setFontHeight(uint16 _height) {}
+		virtual uint16 getFontHeight() {return 0;}
+
+		inline void setFontName(const Ogre::String & _font, uint16 _height)
+		{
+			setFontName(_font);
+			setFontHeight(_height);
+		}
 
 		virtual void setTextAlign(Align _align) {}
-		inline Align getAlign() {return mAlign;}
+		virtual Align getTextAlign() {return ALIGN_DEFAULT;}
 
 	};
 

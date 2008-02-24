@@ -15,6 +15,7 @@
 #include "MyGUI_ListFactory.h"
 #include "MyGUI_VScrollFactory.h"
 #include "MyGUI_HScrollFactory.h"
+#include "MyGUI_EditFactory.h"
 
 namespace MyGUI
 {
@@ -35,6 +36,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::ListFactory());
 		mIntegratedFactoryList.insert(new factory::HScrollFactory());
 		mIntegratedFactoryList.insert(new factory::VScrollFactory());
+		mIntegratedFactoryList.insert(new factory::EditFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

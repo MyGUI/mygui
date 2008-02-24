@@ -39,6 +39,9 @@ namespace MyGUI
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 
+		// показывает скрывает все сабскины
+		void _setVisible(bool _visible);
+
 	public:
 		// методы и шаблоны для создания виджета
 		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
@@ -88,6 +91,10 @@ namespace MyGUI
 
 		virtual void show();
 		virtual void hide();
+
+		// для внутреннего использования
+		void _inheritedShow();
+		void _inheritedHide();
 
 		virtual void setCaption(const Ogre::DisplayString & _caption);
 		virtual const Ogre::DisplayString & getCaption();
@@ -169,11 +176,6 @@ namespace MyGUI
 		//inline LayerItemKeeper * getLayerItemKeeper() { return mLayerItemKeeper; }
 
 	protected:
-
-		// показывает скрывает все сабскины
-		void _setVisible(bool _visible);
-
-	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;
 		// информация о маске для пикинга
@@ -193,6 +195,8 @@ namespace MyGUI
 		bool mEnabled;
 		// скрыты ли все сабскины при выходе за границу
 		bool mVisible;
+		// для иерархического скрытия
+		bool mInheritedShow;
 		// прозрачность нашего оверлея
 		float mAlpha;
 		float mRealAlpha;

@@ -14,7 +14,7 @@ namespace MyGUI
 
 	SubSkin::SubSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
 		CroppedRectangleInterface(_info.coord, _info.align, _parent),
-		mTransparent(false),
+		mEmptyView(false),
 		mRenderItem(null),
 		mCurrentCoord(_info.coord),
 		mCurrentAlpha(0xFFFFFFFF)
@@ -49,6 +49,7 @@ namespace MyGUI
 
 	void SubSkin::_correctView()
 	{
+		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
@@ -113,6 +114,8 @@ namespace MyGUI
 	{
 		bool margin = _checkMargin();
 
+		mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
@@ -123,7 +126,9 @@ namespace MyGUI
 			if (_checkOutside()) {
 
 				// скрываем
-				if (false == mTransparent) mTransparent = true;
+				//mEmptyView = true;
+				//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
@@ -168,7 +173,8 @@ namespace MyGUI
 		mIsMargin = margin;
 
 		// если скин был скрыт, то покажем
-		if (mTransparent) mTransparent = false;
+		//mEmptyView = false;
+		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
@@ -209,8 +215,8 @@ namespace MyGUI
 
 	size_t SubSkin::_drawItem(Vertex * _vertex)
 	{
-		if ((false == mShow) || (mTransparent)) return 0;
-		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return 0;
+		if ((false == mShow) || (mEmptyView)) return 0;
+		//if ((0 >= getViewWidth()) || (0 >= getViewHeight())) return 0;
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 

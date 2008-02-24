@@ -37,69 +37,74 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	for (size_t pos=0; pos<1; pos++) {
-		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10+pos*15, 10+pos*15, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
-		window->setCaption("WindowCSX");
-		window->setAutoAlpha(true);
+
+	/*MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::WidgetPtr widget2 = widget1->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 260, 260), MyGUI::ALIGN_DEFAULT);
+	MyGUI::WidgetPtr widget3 = widget2->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 220, 220), MyGUI::ALIGN_DEFAULT);
+	MyGUI::WidgetPtr widget4 = widget3->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 180, 180), MyGUI::ALIGN_DEFAULT);
+	MyGUI::WidgetPtr widget5 = widget4->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 140, 140), MyGUI::ALIGN_DEFAULT);
+	MyGUI::WidgetPtr widget6 = widget5->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::ALIGN_DEFAULT);
+	MyGUI::WidgetPtr widget7 = widget6->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 60, 60), MyGUI::ALIGN_DEFAULT);
+
+	widget1->hide();
+	widget3->hide();
+	widget6->hide();
+
+	widget6->show();
+	widget1->show();*/
+
+	/*MyGUI::VScrollPtr window = mGUI->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	window->hide();
+	window->setScrollRange(100);
+	window->setSize(100, 100);//*/
+
+	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	//window->setCaption("WindowCSX\ntest");
+
+	for (size_t pos=0; pos<1; ++pos) {
+
+		//MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10+pos*15, 10+pos*15, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+		//window->setCaption("WindowCSX\ntest");
+		//window->setAutoAlpha(true);
 
 		/*MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::ALIGN_DEFAULT);
 		button->setCaption("Button 1");
 		button->setTextAlign(MyGUI::ALIGN_DEFAULT);*/
 
-		
-		MyGUI::ListPtr list = window->createWidget<MyGUI::List>("List", MyGUI::IntCoord(MyGUI::IntPoint(), window->getClientRect().size()), MyGUI::ALIGN_STRETCH);
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		list->addItem("line 1");
-		//wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
+	
+		/*MyGUI::ListPtr list = window->createWidget<MyGUI::List>("List", MyGUI::IntCoord(MyGUI::IntPoint(), window->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+		list->addItem("#000000line 1");
+		list->addItem("#0000FFline 2");
+		list->addItem("#00FF00line 3");
+		list->addItem("#00FFFFline 4");
+		list->addItem("#FF0000line 5");
+		list->addItem("#FF00FFline 6");
+		list->addItem("#FFFF00line 7");
+		list->addItem("#FFFFFFline 8");
+		list->addItem("line 9");
+		list->addItem("line 10");
+		list->addItem("line 11");
+		list->addItem("line 12");
+		list->addItem("line 13");
+		list->addItem("line 14");
+		list->addItem("line 15");
+		list->addItem("line 16");//*/
 
-		/*wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 200, 200), MyGUI::ALIGN_DEFAULT);
-		wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
-
-		wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 160, 160), MyGUI::ALIGN_DEFAULT);
-		wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
-
-		wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 120, 120), MyGUI::ALIGN_DEFAULT);
-		wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
-
-		wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::ALIGN_DEFAULT);
-		wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);*/
 	}
+
+	//wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
+
+	/*wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 200, 200), MyGUI::ALIGN_DEFAULT);
+	wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
+
+	wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 160, 160), MyGUI::ALIGN_DEFAULT);
+	wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
+
+	wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 120, 120), MyGUI::ALIGN_DEFAULT);
+	wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
+
+	wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::ALIGN_DEFAULT);
+	wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);*/
 
 	 //but = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::ALIGN_DEFAULT, "Pointer");
 

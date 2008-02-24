@@ -49,7 +49,7 @@ namespace MyGUI
 	protected:
 
 		FloatRect mRectTexture;
-		bool mTransparent;
+		bool mEmptyView;
 
 		uint32 mCurrentAlpha;
 

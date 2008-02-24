@@ -12,14 +12,64 @@
 namespace MyGUI
 {
 
-	const size_t SIMPLETEXT_COUNT_VERTEX = 16 * VERTEX_IN_QUAD;
+	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
+
+	// рисковать не будем с инлайнами
+	#define __MYGUI_DRAW_QUAD(buf, v_left, v_top, v_rignt, v_bottom, v_z, col, t_left, t_top, t_right, t_bottom, count) \
+	{\
+		buf[0].x = v_left; \
+		buf[0].y = v_top; \
+		buf[0].z = v_z; \
+		buf[0].colour = col; \
+		buf[0].u = t_left; \
+		buf[0].v = t_top; \
+		\
+		buf[1].x = v_left; \
+		buf[1].y = v_bottom; \
+		buf[1].z = v_z; \
+		buf[1].colour = col; \
+		buf[1].u = t_left; \
+		buf[1].v = t_bottom; \
+		\
+		buf[2].x = v_rignt; \
+		buf[2].y = v_top; \
+		buf[2].z = v_z; \
+		buf[2].colour = col; \
+		buf[2].u = t_right; \
+		buf[2].v = t_top; \
+		\
+		buf[3].x = v_rignt; \
+		buf[3].y = v_top; \
+		buf[3].z = v_z; \
+		buf[3].colour = col; \
+		buf[3].u = t_right; \
+		buf[3].v = t_top; \
+		\
+		buf[4].x = v_left; \
+		buf[4].y = v_bottom; \
+		buf[4].z = v_z; \
+		buf[4].colour = col; \
+		buf[4].u = t_left; \
+		buf[4].v = t_bottom; \
+		\
+		buf[5].x = v_rignt; \
+		buf[5].y = v_bottom; \
+		buf[5].z = v_z; \
+		buf[5].colour = col; \
+		buf[5].u = t_right; \
+		buf[5].v = t_bottom; \
+		\
+		buf += VERTEX_IN_QUAD; \
+		count += VERTEX_IN_QUAD; \
+	}
+
 
 	SimpleText::SimpleText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
 		SubWidgetTextInterface(_info.coord, _info.align, _parent),
-		mTransparent(false),
+		mEmptyView(false),
 		mCurrentCoord(_info.coord),
 		mTextOutDate(false),
-		mCurrentColour(0x00FFFFFF),
+		mCurrentColour(0x00FFFFFF), mInverseColour(0x00000000),
 		mCurrentAlpha(0xFF000000),
 		mColour(Ogre::ColourValue::White),
 		mAlpha(ALPHA_MAX),
@@ -27,10 +77,18 @@ namespace MyGUI
 		mAspectCoef(0),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mItemKeeper(null),
-		mRenderItem(null)
+		mRenderItem(null),
+		mBackgroundNormal(true),
+		mStartSelect(0), mEndSelect(0),
+		mCursorPosition(0), mShowCursor(false)
 	{
 		// потом перенести
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
+
+		//mStartSelect = 0;
+		//mEndSelect = 0;
+		//mShowCursor = true;
+		//mCursorPosition = 9;
 	}
 
 	SimpleText::~SimpleText()
@@ -119,6 +177,8 @@ namespace MyGUI
 	{
 		bool margin = _checkMargin();
 
+		mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
@@ -129,7 +189,7 @@ namespace MyGUI
 			if (_checkOutside()) {
 
 				// скрываем
-				if (false == mTransparent) mTransparent = true;
+				//mEmptyView = true;
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
@@ -150,14 +210,8 @@ namespace MyGUI
 		mIsMargin = margin;
 
 		// если скин был скрыт, то покажем
-		if (mTransparent) mTransparent = false;
+		//mEmptyView = false;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	void SimpleText::setTextAlign(Align _align)
-	{
-		mTextAlign = _align;
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
@@ -167,9 +221,10 @@ namespace MyGUI
 		mTextOutDate = true;
 
 		if (null != mRenderItem) {
-			// если вершин не хватит, делаем реалок
-			if (mCountVertex < mCaption.size()) {
-				mCountVertex = (mCaption.size() * VERTEX_IN_QUAD) + SIMPLETEXT_COUNT_VERTEX;
+			// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
+			size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
+			if (mCountVertex < need) {
+				mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
 				mRenderItem->reallockDrawItem(this, mCountVertex);
 			}
 			mRenderItem->outOfDate();
@@ -183,10 +238,12 @@ namespace MyGUI
 
 	void SimpleText::setColour(const Ogre::ColourValue & _colour)
 	{
+		if (mColour == _colour) return;
 		mColour = _colour;
-		uint32 colour;
-		Ogre::Root::getSingleton().convertColourValue(_colour, &colour);
-		mCurrentColour = (colour & 0x00FFFFFF) | mCurrentAlpha;
+		Ogre::Root::getSingleton().convertColourValue(_colour, &mCurrentColour);
+
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
+		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
@@ -198,9 +255,11 @@ namespace MyGUI
 
 	void SimpleText::setAlpha(float _alpha)
 	{
+		if (mAlpha == _alpha) return;
 		mAlpha = _alpha;
 		mCurrentAlpha = ((uint8)(mAlpha*255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
+		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
@@ -228,6 +287,9 @@ namespace MyGUI
 		mBackgroundFill.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 		info = mpFont->getSelectDeactiveGlyphInfo();
 		mBackgroundFillDeactive.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
+
+		info = mpFont->getCursorGlyphInfo();
+		mCursorTexture.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 
 		mTextOutDate = true;
 
@@ -261,16 +323,6 @@ namespace MyGUI
 	uint16 SimpleText::getFontHeight()
 	{
 		return mFontHeight;
-	}
-
-	IntSize SimpleText::getTextSize()
-	{
-		return IntSize(); //???
-	}
-
-	IntSize SimpleText::getTextSize(const Ogre::DisplayString& _text)
-	{
-		return IntSize(); //???
 	}
 
 	void SimpleText::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
@@ -324,6 +376,10 @@ namespace MyGUI
 			Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
 
 			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
+
+				// ширина курсора
+				len += (mRenderItem->getPixScaleX() * 2 * 2);
+
 				// запоминаем размер предыдущей строки
 				mLinesInfo.back()[0] = EnumCharInfo(len);
 				mLinesInfo.back()[1] = EnumCharInfo(count);
@@ -387,6 +443,9 @@ namespace MyGUI
 
 		}
 
+		// ширина курсора
+		len += (mRenderItem->getPixScaleX() * 2 * 2);
+
 		// запоминаем размер предыдущей строки
 		mLinesInfo.back()[0] = EnumCharInfo(len);
 		mLinesInfo.back()[1] = EnumCharInfo(count);
@@ -395,23 +454,27 @@ namespace MyGUI
 
 		// устанавливаем размер текста
 		mContextRealSize.set(width, (float)mLinesInfo.size() * real_fontHeight);
-
 	}
-
-
 
 	size_t SimpleText::_drawItem(Vertex * _vertex)
 	{
 		if (mpFont.isNull()) return 0;
-		if ((false == mShow) || (mTransparent)) return 0;
-		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return 0;
+		if ((false == mShow) || (mEmptyView)) return 0;
 
 		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
 
+		// колличество отрисованных вершин
 		size_t vertex_count = 0;
 
+		// позиция отображаемого символа
+		size_t cursor = 0;
+
 		// текущие цвета
-		Ogre::RGBA colour = mCurrentColour;
+		uint32 colour_current, colour = mCurrentColour;
+		uint32 colour_inverse = mInverseColour;
+
+		FloatPoint background(mBackgroundFill);
+		if (false == mBackgroundNormal) background = mBackgroundFillDeactive;
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -432,11 +495,13 @@ namespace MyGUI
 		// опорное смещение вершин
 		float left, right, top, bottom = real_top, left_shift = 0;
 
-		mTextAlign = ALIGN_HCENTER | ALIGN_VCENTER;
-
 		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
 		if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
-		else if ( IS_ALIGN_HCENTER(mTextAlign) ) left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
+		else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
+			left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
+			// выравниваем по  целому пикселю
+			if (!((uint32)mCurrentCoord.width & 0x01)) left_shift += mRenderItem->getPixScaleX();
+		}
 
 		if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 		else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
@@ -463,6 +528,7 @@ namespace MyGUI
 			float len = index->getValueFloat();
 			++index;
 			// второй колличество символов
+			size_t count = index->getValueSizeT();
 			++index;
 
 			// нуна ли пересчитывать текстурные координаты
@@ -477,9 +543,11 @@ namespace MyGUI
 						// проверяем на смену цвета
 						if ( index->isColour() ) {
 							colour = index->getColour() | (colour & 0xFF000000);
+							colour_inverse = colour ^ 0x00FFFFFF;
 						}
 					}
 
+					cursor += count;
 					continue;
 				}
 				// обрезаем
@@ -491,6 +559,7 @@ namespace MyGUI
 				if (vertex_top < real_bottom) {
 					line = end;
 					line --;
+					cursor += count;
 					continue;
 				}
 				// обрезаем
@@ -503,12 +572,16 @@ namespace MyGUI
 			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
 			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
 
+			// текущее положение в строке
+			size_t cur = cursor;
+
 			// внутренний цикл строки
 			for (;index != end_index; ++index) {
 
 				// проверяем на смену цвета
 				if ( index->isColour() ) {
 					colour = index->getColour() | (colour & 0xFF000000);
+					colour_inverse = colour ^ 0x00FFFFFF;
 					continue;
 				}
 
@@ -520,8 +593,28 @@ namespace MyGUI
 				left = right;
 				right += horiz_height;
 
-				// если пробел или табуляция то не рисуем
-				if ( (info->codePoint == Font::FONT_CODE_SPACE) || (info->codePoint == Font::FONT_CODE_TAB) ) continue;
+				// смещение текстуры для фона
+				FloatPoint background_current;
+				bool select = !( (cur >= mEndSelect) || (cur < mStartSelect) );
+
+				// символ не выделен
+				if (false == select) {
+
+					// если пробел или табуляция то не рисуем
+					/*if ( (info->codePoint == Font::FONT_CODE_SPACE) || (info->codePoint == Font::FONT_CODE_TAB) ) {
+						cur ++;
+						continue;
+					}*/
+
+					colour_current = colour;
+					background_current = mBackgroundEmpty;
+				}
+				// символ выделен
+				else {
+					// инверсные цвета
+					colour_current = colour_inverse;
+					background_current = background;
+				}
 
 				// присваиваем и вершинным
 				vertex_left = left;
@@ -538,7 +631,10 @@ namespace MyGUI
 
 				if (vertex_left < real_left) {
 					// проверка на полный выход
-					if (vertex_right < real_left) continue;
+					if (vertex_right < real_left) {
+						cur ++;
+						continue;
+					}
 					// обрезаем
 					vertex_left = real_left;
 					texture_crop_width = true;
@@ -552,6 +648,7 @@ namespace MyGUI
 							// проверяем на смену цвета
 							if ( index->isColour() ) {
 								colour = index->getColour() | (colour & 0xFF000000);
+								colour_inverse = colour ^ 0x00FFFFFF;
 							}
 							index ++;
 						};
@@ -579,62 +676,234 @@ namespace MyGUI
 					texture_right -= (right - vertex_right) * mTextureWidthOne;
 				}
 
-				// first triangle - left top
-				_vertex[0].x = vertex_left;
-				_vertex[0].y = vertex_top;
-				_vertex[0].z = vertex_z;
-				_vertex[0].colour = colour;
-				_vertex[0].u = texture_left;
-				_vertex[0].v = texture_top;
+				// если нужно рисуем выделение
+				if (select) {
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+						background_current.left, background_current.top, background_current.left, background_current.top, vertex_count);
+				}
 
-				// first triangle - left bottom
-				_vertex[1].x = vertex_left;
-				_vertex[1].y = vertex_bottom;
-				_vertex[1].z = vertex_z;
-				_vertex[1].colour = colour;
-				_vertex[1].u = texture_left;
-				_vertex[1].v = texture_bottom;
+				__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+					texture_left, texture_top, texture_right, texture_bottom, vertex_count);
 
-				// first triangle - right top
-				_vertex[2].x = vertex_right;
-				_vertex[2].y = vertex_top;
-				_vertex[2].z = vertex_z;
-				_vertex[2].colour = colour;
-				_vertex[2].u = texture_right;
-				_vertex[2].v = texture_top;
+				cur ++;
 
-				// second triangle - right top
-				_vertex[3].x = vertex_right;
-				_vertex[3].y = vertex_top;
-				_vertex[3].z = vertex_z;
-				_vertex[3].colour = colour;
-				_vertex[3].u = texture_right;
-				_vertex[3].v = texture_top;
+				if (mShowCursor) {
+					if (cur-1 != mCursorPosition) {
+						if ((cur == mCursorPosition) && (cur+1 == cursor + count)) {
+							if (vertex_right != right) continue;
+							if ((vertex_right + (mRenderItem->getPixScaleX() * 4)) > real_right) continue;
+							vertex_left = vertex_right;
+						}
+						else continue;
+					}
+					else {
+						if (vertex_left != left) continue;
+						if (vertex_right < (left + (mRenderItem->getPixScaleX() * 4))) continue;
+					}
 
-				// second triangle = left bottom
-				_vertex[4].x = vertex_left;
-				_vertex[4].y = vertex_bottom;
-				_vertex[4].z = vertex_z;
-				_vertex[4].colour = colour;
-				_vertex[4].u = texture_left;
-				_vertex[4].v = texture_bottom;
+					vertex_right = vertex_left + (mRenderItem->getPixScaleX() * 2);
 
-				// second triangle - right botton
-				_vertex[5].x = vertex_right;
-				_vertex[5].y = vertex_bottom;
-				_vertex[5].z = vertex_z;
-				_vertex[5].colour = colour;
-				_vertex[5].u = texture_right;
-				_vertex[5].v = texture_bottom;
+					// первая половинка белая
+					colour_current |= 0x00FFFFFF;
 
-				// меняем указатель и колличество отрисованных вершин
-				_vertex += VERTEX_IN_QUAD;
-				vertex_count += VERTEX_IN_QUAD;
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+						mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
+					vertex_left = vertex_right;
+					vertex_right += (mRenderItem->getPixScaleX() * 2);
+
+					// вторая половинка черная
+					colour_current = colour_current & 0xFF000000;
+
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+						mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
+					
+				}
+
+			}
+
+			// следующая строка
+			cursor += count;
+		}
+
+		// пустая строка, нужно показать курсор
+		if (mShowCursor && (1 == cursor)) {
+			if ((right >= real_left) && ((right + (mRenderItem->getPixScaleX() * 4)) <= real_right)) {
+				vertex_left = right;
+				vertex_right = vertex_left + (mRenderItem->getPixScaleX() * 2);
+
+				// первая половинка белая
+				colour_current |= 0x00FFFFFF;
+
+				__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+					mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
+
+				vertex_left = vertex_right;
+				vertex_right += (mRenderItem->getPixScaleX() * 2);
+
+				// вторая половинка черная
+				colour_current = colour_current & 0xFF000000;
+
+				__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+					mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 			}
 		}
 
 		return vertex_count;
+	}
+
+	size_t SimpleText::getSelectStart()
+	{
+		return mStartSelect;
+	}
+
+	size_t SimpleText::getSelectEnd()
+	{
+		return mEndSelect;
+	}
+
+	void SimpleText::setTextSelect(size_t _start, size_t _end)
+	{
+		mStartSelect=_start;
+		mEndSelect=_end;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	bool SimpleText::getSelectBackground()
+	{
+		return mBackgroundNormal;
+	}
+
+	void SimpleText::setSelectBackground(bool _normal)
+	{
+		if (mBackgroundNormal == _normal) return;
+		mBackgroundNormal = _normal;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	bool SimpleText::isCursorShow()
+	{
+		return mShowCursor;
+	}
+
+	void SimpleText::setShowCursor(bool _show)
+	{
+		if (mShowCursor == _show) return;
+		mShowCursor = _show;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	size_t SimpleText::getCursorPosition()
+	{
+		return mCursorPosition;
+	}
+
+	void SimpleText::setCursorPosition(size_t _pos)
+	{
+		if (mCursorPosition == _pos) return;
+		mCursorPosition = _pos;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	void SimpleText::setTextAlign(Align _align)
+	{
+		mTextAlign = _align;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	Align SimpleText::getTextAlign()
+	{
+		return mTextAlign;
+	}
+
+	IntSize SimpleText::getTextSize()
+	{
+		if (null == mRenderItem) return IntSize();
+		// если нуно обновить, или изменились пропорции экрана
+		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
+		return IntSize( (int)(mContextRealSize.width / (mRenderItem->getPixScaleX() * 2.0)), (int)(mLinesInfo.size() * mFontHeight) );
+	}
+
+	IntSize SimpleText::getTextSize(const Ogre::DisplayString& _text)
+	{
+		if (mpFont.isNull()) return IntSize();
+
+		float len = 0, width = 0;
+		int height = 1;
+
+		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);
+
+		Ogre::DisplayString::const_iterator end = _text.end();
+		for (Ogre::DisplayString::const_iterator index=_text.begin(); index!=end; ++index) {
+
+			Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
+
+			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
+				if (width < len) width = len;
+				len = 0;
+				height ++;
+
+				if (character == Font::FONT_CODE_CR) {
+					Ogre::DisplayString::const_iterator peeki = index;
+					peeki++;
+					if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
+				}
+				// следующий символ
+				continue;
+
+			} else if (character == _T('#')) {
+				// берем следующий символ
+				++ index;
+				if (index == end) {--index ;continue;} // это защита
+
+				character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
+				// если два подряд, то рисуем один шарп, если нет то меняем цвет
+				if (character != _T('#')) {
+					// и еще пять символов после шарпа
+					for (char i=0; i<5; i++) {
+						++ index;
+						if (index == end) {--index ;continue;} // это защита
+					}
+					continue;
+				}
+			}
+
+			Font::GlyphInfo * info;
+			if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
+			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
+			else info = mpFont->getGlyphInfo(character);
+
+			len += info->aspectRatio * real_fontHeight;
+		}
+
+		if (width < len) width = len;
+
+		// плюс ширина курсора
+		return IntSize((int)width + 2, height * (int)mFontHeight);
+	}
+
+	void SimpleText::setTextShift(IntPoint _point)
+	{
+		mPointShift = _point;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+		
+	IntPoint SimpleText::getTextShift()
+	{
+		return mPointShift;
+	}
+
+	// возвращает положение курсора по произвольному положению
+	size_t SimpleText::getTextCursorFromPoint(IntPoint & _point)
+	{
+		return 0; //???
+	}
+
+	// возвращает текущее положение курсора
+	IntPoint SimpleText::getTextCursorFromPosition(size_t _position)
+	{
+		setCursorPosition(_position);
+		return IntPoint(); //???
 	}
 
 } // namespace MyGUI

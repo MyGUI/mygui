@@ -16,6 +16,7 @@
 #include "MyGUI_FontManager.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_PointerManager.h"
+#include "MyGUI_ClipboardManager.h"
 
 namespace MyGUI
 {
@@ -54,6 +55,7 @@ namespace MyGUI
 		mFontManager = new FontManager();
 		mControllerManager = new ControllerManager();
 		mPointerManager = new PointerManager();
+		mClipboardManager = new ClipboardManager();
 
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
@@ -63,6 +65,7 @@ namespace MyGUI
 		mFontManager->initialise();
 		mControllerManager->initialise();
 		mPointerManager->initialise();
+		mClipboardManager->initialise();
 
 		// подписываемся на изменение размеров окна и сразу оповещаем
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
@@ -98,6 +101,7 @@ namespace MyGUI
 		mLayerManager->shutdown();
 		mFontManager->shutdown();
 		mControllerManager->shutdown();
+		mClipboardManager->shutdown();
 
 		delete mPointerManager;
 		delete mWidgetManager;
@@ -107,6 +111,7 @@ namespace MyGUI
 		delete mLayerManager;
 		delete mFontManager;
 		delete mControllerManager;
+		delete mClipboardManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 

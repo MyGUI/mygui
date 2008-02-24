@@ -111,7 +111,7 @@ namespace MyGUI
 		// initialise texture settings
 		mRenderSystem->_setTextureCoordCalculation(0, Ogre::TEXCALC_NONE);
 		mRenderSystem->_setTextureCoordSet(0, 0);
-		mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
+		mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 		mRenderSystem->_setTextureAddressingMode(0, mTextureAddressMode);
 		mRenderSystem->_setTextureMatrix(0, Ogre::Matrix4::IDENTITY);
 		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0);

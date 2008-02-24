@@ -30,6 +30,7 @@ namespace MyGUI
 		mText(null),
 		mEnabled(true),
 		mVisible(true),
+		mInheritedShow(true),
 		mAlpha(ALPHA_MIN),
 		mName(_name),
 		mTexture(_info->getTextureName()),
@@ -52,6 +53,7 @@ namespace MyGUI
 		}
 
 		// если отец уже приаттачен, то и мы аттачимся
+		// ??? проверить что уже аттачиться при сет текстуре
 		if ((null != mParent) && (null != getParent()->getLayerItemKeeper())) 	_attachToLayerItemKeeper(getParent()->getLayerItemKeeper());
 
 		// парсим свойства
@@ -122,43 +124,6 @@ namespace MyGUI
 		return createWidgetT(_type, _skin, Gui::getInstance().convertRelativeToInt(_coord, this), _align, _name);
 	}
 
-	void Widget::_setVisible(bool _visible)
-	{
-		if (mVisible == _visible) return;
-		mVisible = _visible;
-
-		// если скрыто пользователем, то не показываем
-		if (mVisible && !mShow) return;
-
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
-			(*widget)->_setVisible(mVisible);
-		}
-
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
-			mVisible ? (*skin)->show() : (*skin)->hide();
-		}
-	}
-
-	void Widget::show()
-	{
-		if (mShow) return;
-		mShow = true;
-		// если вышло за границу то не показываем
-		if (mShow && !mVisible) return;
-
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
-	}
-
-	void Widget::hide()
-	{
-		if (false == mShow) return;
-		mShow = false;
-		// если вышло за границу то не показываем
-		if (mShow && !mVisible) return;
-
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
-	}
-
 	void Widget::_setAlign(const IntCoord& _coord, bool _update)
 	{
 		// для виджета изменение х у  не меняються
@@ -226,10 +191,12 @@ namespace MyGUI
 			// проверка на полный выход за границу
 			if (_checkOutside()) {
 
-				// скрываем
-				_setVisible(false);
 				// запоминаем текущее состояние
 				mIsMargin = margin;
+
+				// скрываем
+				_setVisible(false);
+
 				return;
 			}
 
@@ -325,7 +292,7 @@ namespace MyGUI
 		}
 		// теперь если нужно цвет текста
 		if ((iter->second.colour != Ogre::ColourValue::ZERO) && (mText != null)) {
-			//mText->setColour(iter->second.colour);
+			mText->setColour(iter->second.colour);
 		}
 	}
 
@@ -574,6 +541,66 @@ namespace MyGUI
 	const Ogre::String& Widget::_getTextureName()
 	{
 		return mTexture;
+	}
+
+	void Widget::_setVisible(bool _visible)
+	{
+		if (mVisible == _visible) return;
+		mVisible = _visible;
+
+		// просто обновляем
+		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+			(*skin)->_updateView();
+		}
+	}
+
+	void Widget::show()
+	{
+		if (mShow) return;
+		mShow = true;
+
+		if (mInheritedShow) {
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedShow();
+			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
+		}
+
+	}
+
+	void Widget::hide()
+	{
+		if (false == mShow) return;
+		mShow = false;
+
+		// если мы уже скрыты отцом, то рассылать не нужно
+		if (mInheritedShow) {
+			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedHide();
+		}
+
+	}
+
+	void Widget::_inheritedShow()
+	{
+		if (mInheritedShow) return;
+		mInheritedShow = true;
+
+		if (mShow) {
+			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedShow();
+		}
+
+	}
+
+	void Widget::_inheritedHide()
+	{
+		if (false == mInheritedShow) return;
+		mInheritedShow = false;
+
+		if (mShow) {
+			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedHide();
+		}
+
 	}
 
 } // namespace MyGUI

@@ -74,47 +74,12 @@ namespace MyGUI
 		mTexture->setNumMipmaps(0);
 		mTexture->load();
 
-		// create new material for simple text
-		//mpMaterial =  Ogre::MaterialManager::getSingleton().create("Fonts/" + mName,  mGroup);
-		//MYGUI_ASSERT(false == mpMaterial.isNull(), "Error creating new material!");
-
-		//MYGUI_LOG(Info, "Material for font loaded");
-
-		//Ogre::TextureUnitState* texLayer = mpMaterial->getTechnique(0)->getPass(0)->createTextureUnitState( texName );
-		// Clamp to avoid fuzzy edges
-		//texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
-		// Allow min/mag filter, but no mip
-		//texLayer->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-		//mpMaterial->setSceneBlending( Ogre::SBT_TRANSPARENT_ALPHA );
-
-		// create new material for edit text
-		//mpMaterialSelectedFont =  Ogre::MaterialManager::getSingleton().create("FontsSelected/" + mName,  mGroup);
-		//MYGUI_ASSERT(false == mpMaterialSelectedFont.isNull(), "Error creating new material!");
-
-		//texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 0 );
-		// Clamp to avoid fuzzy edges
-		//texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
-		// Allow min/mag filter, but no mip
-		//texLayer->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-		//mpMaterialSelectedFont->setSceneBlending( Ogre::SBT_TRANSPARENT_ALPHA );
-
-		//texLayer = mpMaterialSelectedFont->getTechnique(0)->getPass(0)->createTextureUnitState( texName, 1 );
-		// Clamp to avoid fuzzy edges
-		//texLayer->setTextureAddressingMode( Ogre::TextureUnitState::TAM_CLAMP );
-		// Allow min/mag filter, but no mip
-		//texLayer->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-
-		//texLayer->setColourOperationEx(Ogre::LBX_SOURCE1, Ogre::LBS_CURRENT, Ogre::LBS_CURRENT);
-		//texLayer->setAlphaOperation(Ogre::LBX_BLEND_TEXTURE_ALPHA, Ogre::LBS_TEXTURE, Ogre::LBS_CURRENT);
-
 	}
     //---------------------------------------------------------------------
   void Font::unloadImpl()
   {
 		// удаляем все созданные ресурсы
 		Ogre::TextureManager::getSingleton().remove(mTexture->getName());
-		//Ogre::MaterialManager::getSingleton().remove(mpMaterial->getName());
-		//Ogre::MaterialManager::getSingleton().remove(mpMaterialSelectedFont->getName());
 	}
     //---------------------------------------------------------------------
 	void Font::loadResource(Ogre::Resource* res)
@@ -146,10 +111,17 @@ namespace MyGUI
 
 		int max_height = 0, max_width = 0, max_bear = 0;
 
+		// достаем сразу символ для пробела
+		FT_Error ftResult = FT_Load_Char( face, mSpaceSimbol, FT_LOAD_RENDER );
+		if (ftResult) MYGUI_LOG(Warning, "cannot load character " << mSpaceSimbol << " in font " << mName);
+		FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
+		unsigned char* buffer = face->glyph->bitmap.buffer;
+		MYGUI_ASSERT(null != buffer, "Info: Freetype returned null for character " << mSpaceSimbol << " in font " << mName);
+
 		// Calculate maximum width, height and bearing
-		FT_Error ftResult;
-		size_t glyphCount = 3; // плюс два служебных и пробел
-        size_t l = 0, m = 0;
+		size_t glyphCount = 4; // плюс два служебных, пробел и курсор
+        size_t l = glyphCount * (advance + mCharSpacer), m = 0;
+
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 			for (CodePoint index=iter->first; index<=iter->second; ++index, ++glyphCount) {
 
@@ -210,10 +182,8 @@ namespace MyGUI
 		//------------------------------------------------------------------
 		ftResult = FT_Load_Char( face, mSpaceSimbol, FT_LOAD_RENDER );
 		if (ftResult) MYGUI_LOG(Warning, "cannot load character " << mSpaceSimbol << " in font " << mName);
-
-		FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
-
-		unsigned char* buffer = face->glyph->bitmap.buffer;
+		advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
+		buffer = face->glyph->bitmap.buffer;
 		MYGUI_ASSERT(null != buffer, "Info: Freetype returned null for character " << mSpaceSimbol << " in font " << mName);
 
 		int y_bearnig = max_bear - ( face->glyph->metrics.horiBearingY >> 6 );
@@ -289,6 +259,32 @@ namespace MyGUI
 		l += (advance + mCharSpacer);
 		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mCharSpacer;l = 0;}
 
+		//------------------------------------------------------------------
+		// создаем курсор
+		//------------------------------------------------------------------
+		for (int j = 0; j < face->glyph->bitmap.rows; j++ ) {
+			int row = j + (int)m + y_bearnig;
+			Ogre::uchar* pDest = &imageData[(row * data_width) + l * pixel_bytes];
+			for(int k = 0; k < face->glyph->bitmap.width; k++ ) {
+				*pDest++= FONT_MASK_CHAR;
+				*pDest++= FONT_MASK_CHAR;
+				buffer++;
+			}
+		}
+
+		mCursorGlyphInfo.codePoint = FONT_CODE_SELECT;
+		mCursorGlyphInfo.uvRect.left = (Ogre::Real)l / (Ogre::Real)finalWidth;  // u1
+		mCursorGlyphInfo.uvRect.top = (Ogre::Real)m / (Ogre::Real)finalHeight;  // v1
+		mCursorGlyphInfo.uvRect.right = (Ogre::Real)( l + ( face->glyph->advance.x >> 6 ) ) / (Ogre::Real)finalWidth; // u2
+		mCursorGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
+		mCursorGlyphInfo.aspectRatio = textureAspect * (mCursorGlyphInfo.uvRect.right - mCursorGlyphInfo.uvRect.left)  / (mCursorGlyphInfo.uvRect.bottom - mCursorGlyphInfo.uvRect.top);
+
+		l += (advance + mCharSpacer);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mCharSpacer;l = 0;}
+
+		//------------------------------------------------------------------
+		// создаем все остальные символы
+		//------------------------------------------------------------------
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 
 			// устанавливаем размер на весь диапазон

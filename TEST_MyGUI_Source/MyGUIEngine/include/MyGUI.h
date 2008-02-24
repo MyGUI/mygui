@@ -10,8 +10,8 @@
 #include "MyGUI_Gui.h"
 
 #include "MyGUI_Button.h"
-/*#include "MyGUI_ComboBox.h"
-#include "MyGUI_Edit.h"*/
+/*#include "MyGUI_ComboBox.h"*/
+#include "MyGUI_Edit.h"
 #include "MyGUI_HScroll.h"
 #include "MyGUI_List.h"
 /*#include "MyGUI_Sheet.h"
@@ -28,7 +28,7 @@
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"
-//#include "MyGUI_ClipboardManager.h"
+#include "MyGUI_ClipboardManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_LogManager.h"
 #include "MyGUI_SkinManager.h"

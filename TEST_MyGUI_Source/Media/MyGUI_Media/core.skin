@@ -3,7 +3,7 @@
 <MyGUI type="Skin">
 
     <Skin name = "Button" size = "54 26" texture = "core.png">
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         
@@ -38,8 +38,8 @@
     </Skin>
     
     <Skin name = "ButtonSmall" size = "40 26" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
-        <Property key="FontHeight" value = "16" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -64,22 +64,12 @@
             <State name="pressed" offset = "544 86 10 26"/>
             <State name="select" offset = "544 114 10 26"/>
         </BasisSkin>
-        <!--BasisSkin type="SimpleText" offset = "3 0 34 30" align = "ALIGN_STRETCH"-->
         <BasisSkin type="SimpleText" offset = "0 0 40 26" align = "ALIGN_STRETCH">
             <State2 name="disable" colour="0.87 0.87 0.87"/>
             <State2 name="pressed" colour="0 0 0"/>
             <State2 name="normal" colour="0 0 0"/>
             <State2 name="select" colour="2C8AD5"/>
             <State2 name="active" colour="2C8AD5"/>
-        </BasisSkin>
-    </Skin>
-
-    <Skin name = "EditCursor" size = "2 19" texture = "core.png" >
-        <Property key="Pointer" value = "beam" />
-        <Property key="Show" value = "false" />
-        
-        <BasisSkin type="MainSkin" offset = "0 0 2 19" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "126 94 2 19"/>
         </BasisSkin>
     </Skin>
 
@@ -95,14 +85,11 @@
     </Skin>
 
     <Skin name = "Edit" size = "40 26" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
-        <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client">
-        </Child>
-      
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
             <State name="normal" offset = "60 30 10 26"/>
@@ -134,7 +121,7 @@
     </Skin>
 
     <Skin name = "EditStretch" size = "40 26" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
@@ -208,7 +195,7 @@
             <State name="select" offset = "98 138 2 2"/>
         </BasisSkin>
 
-        <BasisSkin type="TextEdit" offset = "3 0 34 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="SimpleText" offset = "3 0 34 26" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>
@@ -223,8 +210,31 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "WindowCaption" size = "47 30" texture = "core.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_RIGHT" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 5 30" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "328 2 5 30"/>
+            <State name="active" offset = "328 34 5 30"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "5 0 37 30" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "333 2 37 30"/>
+            <State name="active" offset = "333 34 37 30"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "42 0 5 30" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "370 2 5 30"/>
+            <State name="active" offset = "370 34 5 30"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "5 0 37 30" align = "ALIGN_STRETCH">
+            <State name="normal" colour="0 0 0"/>
+            <State name="active" colour="0 0 0"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "Window" size = "27 54" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
 
@@ -333,29 +343,6 @@
         </BasisSkin>
     </Skin>
     
-    <Skin name = "WindowCaption" size = "47 30" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
-        <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_CENTER" />
-
-        <BasisSkin type="SubSkin" offset = "0 0 5 30" align = "ALIGN_LEFT ALIGN_TOP">
-            <State name="normal" offset = "328 2 5 30"/>
-            <State name="active" offset = "328 34 5 30"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "5 0 37 30" align = "ALIGN_HSTRETCH ALIGN_TOP">
-            <State name="normal" offset = "333 2 37 30"/>
-            <State name="active" offset = "333 34 37 30"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "42 0 5 30" align = "ALIGN_RIGHT ALIGN_TOP">
-            <State name="normal" offset = "370 2 5 30"/>
-            <State name="active" offset = "370 34 5 30"/>
-        </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "5 0 37 30" align = "ALIGN_STRETCH">
-            <State name="normal" colour="0 0 0"/>
-            <State name="active" colour="0 0 0"/>
-        </BasisSkin>
-    </Skin>
-
     <Skin name = "WindowX" size = "24 30" texture = "core.png" >
         <BasisSkin type="MainSkin" offset = "0 0 24 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 63 24 30"/>
@@ -423,7 +410,7 @@
     </Skin>
 
     <Skin name = "VScrollTrack" size = "16 21" texture = "core.png" >
-        <BasisSkin type="MainSkin" offset = "0 0 16 21" align = "ALIGN_LEFT ALIGN_TOP">
+        <BasisSkin type="MainSkin" offset = "0 0 16 21" align = "ALIGN_HSTRETCH ALIGN_TOP">
             <State name="normal" offset = "163 64 16 21"/>
             <State name="active" offset = "181 64 16 21"/>
             <State name="select" offset = "199 64 16 21"/>
@@ -473,7 +460,7 @@
 
 
     <Skin name = "HScrollTrack" size = "16 21" texture = "core.png" >
-        <BasisSkin type="MainSkin" offset = "0 0 21 16" align = "ALIGN_LEFT ALIGN_TOP">
+        <BasisSkin type="MainSkin" offset = "0 0 21 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "174 105 21 16"/>
             <State name="active" offset = "174 123 21 16"/>
             <State name="select" offset = "174 141 21 16"/>
@@ -523,7 +510,7 @@
 
 
     <Skin name = "ListLine" size = "5 5" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         
@@ -585,7 +572,7 @@
     </Skin>
 
     <Skin name = "StaticText" size = "16 16" texture = "core.png">
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="Colour" value = "0 0 0" />
         <Property key="AlignText" value = "ALIGN_DEFAULT" />
@@ -660,7 +647,7 @@
     </Skin>
 
     <Skin name = "ComboBox" size = "40 26" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
@@ -775,7 +762,7 @@
     </Skin>
 
     <Skin name = "TabButton" size = "60 28" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -859,7 +846,7 @@
     </Skin>
 
     <Skin name = "MessageClient" size = "10 10" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
@@ -977,7 +964,7 @@
     </Skin>
 
     <Skin name = "ItemLine" size = "5 5" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         
@@ -1039,7 +1026,7 @@
     </Skin>
 
     <Skin name = "CheckBox" size = "100 22" texture = "core.png">
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
@@ -1058,7 +1045,7 @@
     </Skin>
 
     <Skin name = "RadioBox" size = "100 22" texture = "core.png">
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 

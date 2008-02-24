@@ -150,6 +150,7 @@ namespace MyGUI
 		FontManager* mFontManager;
 		ControllerManager* mControllerManager;
 		PointerManager* mPointerManager;
+		ClipboardManager* mClipboardManager;
 
 		// подписчики на кадры
 		ListFrameListener mListFrameListener;

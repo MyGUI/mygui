@@ -10,15 +10,18 @@
 namespace MyGUI
 {
 
-	const size_t MAINSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
+	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	MainSkin::MainSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
-		CroppedRectangleInterface(_info.coord, _info.align, _parent),
-		mTransparent(false),
+		// корректируем под маин
+		CroppedRectangleInterface(IntCoord(IntPoint(), _parent->getSize()), ALIGN_STRETCH, _parent),
+		mEmptyView(false),
 		mRenderItem(null),
-		mCurrentCoord(_info.coord),
+		mCurrentCoord(IntCoord(IntPoint(), _parent->getSize())),
 		mCurrentAlpha(0xFFFFFFFF)
 	{
+		mCoord = IntCoord(IntPoint(), _parent->getSize());
+		mAlign = ALIGN_STRETCH;
 	}
 
 	MainSkin::~MainSkin()
@@ -49,51 +52,132 @@ namespace MyGUI
 
 	void MainSkin::_correctView()
 	{
+		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	void MainSkin::_setAlign(const IntCoord& _coord, bool _update)
+	{
+		_setAlign(_coord.size(), _update);
+	}
+
+	void MainSkin::_setAlign(const IntSize& _size, bool _update)
+	{
+
+		// необходимо разобраться
+		bool need_update = true;//_update;
+
+		// первоначальное выравнивание
+		if (IS_ALIGN_RIGHT(mAlign)) {
+			if (IS_ALIGN_LEFT(mAlign)) {
+				// растягиваем
+				mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
+				need_update = true;
+				mIsMargin = true; // при изменении размеров все пересчитывать
+			}
+			else {
+				// двигаем по правому краю
+				mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
+				need_update = true;
+			}
+
+		}
+		else if (false == IS_ALIGN_LEFT(mAlign)) {
+			// выравнивание по горизонтали без растяжения
+			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
+			need_update = true;
+		}
+
+		if (IS_ALIGN_BOTTOM(mAlign)) {
+			if (IS_ALIGN_TOP(mAlign)) {
+				// растягиваем
+				mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
+				need_update = true;
+				mIsMargin = true; // при изменении размеров все пересчитывать
+			}
+			else {
+				mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
+				need_update = true;
+			}
+		}
+		else if (false == IS_ALIGN_TOP(mAlign)) {
+			// выравнивание по вертикали без растяжения
+			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
+			need_update = true;
+		}
+
+		if (need_update) {
+			mCurrentCoord = mCoord;
+			_updateView();
+		}
+
 	}
 
 	void MainSkin::_updateView()
 	{
+		bool margin = _checkMargin();
 
-		if (mParent->isMargin()) {
+		mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
-			if ((mParent->getViewWidth() <= 0) || (mParent->getViewHeight() <= 0)) {
+		mCurrentCoord.left = mCoord.left + mMargin.left;
+		mCurrentCoord.top = mCoord.top + mMargin.top;
+
+		// вьюпорт стал битым
+		if (margin) {
+
+			// проверка на полный выход за границу
+			if (_checkOutside()) {
+
 				// скрываем
-				if (false == mTransparent) mTransparent = true;
-				mIsMargin = true;
+				//mEmptyView = true;
+				//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+
+				// запоминаем текущее состояние
+				mIsMargin = margin;
 
 				// обновить перед выходом
 				if (null != mRenderItem) mRenderItem->outOfDate();
 				return;
+
 			}
-
-			// теперь смещаем текстуру
-			float UV_lft = (float)mParent->getMarginLeft() / (float)mParent->getWidth();
-			float UV_top = (float)mParent->getMarginTop() / (float)mParent->getHeight();
-			float UV_rgt = (float)(mParent->getWidth() - mParent->getMarginRight()) / (float)mParent->getWidth();
-			float UV_btm = (float)(mParent->getHeight() - mParent->getMarginBottom()) / (float)mParent->getHeight();
-
-			float UV_sizeX = mRectTexture.right - mRectTexture.left;
-			float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
-
-			float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
-			float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
-			float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
-			float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
-
-			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
-
 		}
-		else if (mIsMargin) {
-			// мы не обрезаны, базовые координаты
+
+		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
+
+			mCurrentCoord.width = getViewWidth();
+			mCurrentCoord.height = getViewHeight();
+
+			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0)) {
+
+				// теперь смещаем текстуру
+				float UV_lft = mMargin.left / (float)mCoord.width;
+				float UV_top = mMargin.top / (float)mCoord.height;
+				float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
+				float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
+
+				float UV_sizeX = mRectTexture.right - mRectTexture.left;
+				float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
+
+				float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
+				float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
+				float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
+				float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
+
+				mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+			}
+		}
+
+		if ((mIsMargin) && (false == margin)) {
+			// мы не обрезаны, но были, ставим базовые координаты
 			mCurrentTexture = mRectTexture;
 		}
 
 		// запоминаем текущее состояние
-		mIsMargin = mParent->isMargin();
+		mIsMargin = margin;
 
 		// если скин был скрыт, то покажем
-		if (mTransparent) mTransparent = false;
+		//mEmptyView = false;
+		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
@@ -103,12 +187,12 @@ namespace MyGUI
 		mRectTexture = _rect;
 
 		// если обрезаны, то просчитываем с учето обрезки
-		if (mParent->isMargin()) {
+		if (mIsMargin) {
 
-			float UV_lft = (float)mParent->getMarginLeft() / (float)mParent->getWidth();
-			float UV_top = (float)mParent->getMarginTop() / (float)mParent->getHeight();
-			float UV_rgt = (float)(mParent->getWidth() - mParent->getMarginRight()) / (float)mParent->getWidth();
-			float UV_btm = (float)(mParent->getHeight() - mParent->getMarginBottom()) / (float)mParent->getHeight();
+			float UV_lft = mMargin.left / (float)mCoord.width;
+			float UV_top = mMargin.top / (float)mCoord.height;
+			float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
+			float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
 
 			float UV_sizeX = mRectTexture.right - mRectTexture.left;
 			float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
@@ -121,26 +205,28 @@ namespace MyGUI
 			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 
 		}
+
+		// мы не обрезаны, базовые координаты
 		else {
-			// мы не обрезаны, базовые координаты
 			mCurrentTexture = mRectTexture;
 
 		}
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
+
 	}
 
 	size_t MainSkin::_drawItem(Vertex * _vertex)
 	{
-		if ((false == mShow) || (mTransparent)) return 0;
-		if ((0 >= mCurrentCoord.width) || (0 >= mCurrentCoord.height)) return 0;
+		if ((false == mShow) || (mEmptyView)) return 0;
+		//if ((0 >= getViewWidth()) || (0 >= getViewHeight())) return 0;
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
-		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mParent->getMarginLeft() + mParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mParent->getViewWidth() * 2);
-		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mParent->getMarginTop() + mParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mParent->getViewHeight() * 2);
+		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
+		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
+		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
 		// first triangle - left top
 		_vertex[0].x = vertex_left;
@@ -191,13 +277,13 @@ namespace MyGUI
 		_vertex[5].u = mCurrentTexture.right;
 		_vertex[5].v = mCurrentTexture.bottom;
 
-		return MAINSKIN_COUNT_VERTEX;
+		return SUBSKIN_COUNT_VERTEX;
 	}
 
 	void MainSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
 		mRenderItem = _item;
-		mRenderItem->addDrawItem(this, MAINSKIN_COUNT_VERTEX);
+		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
 	void MainSkin::_destroyDrawItem()

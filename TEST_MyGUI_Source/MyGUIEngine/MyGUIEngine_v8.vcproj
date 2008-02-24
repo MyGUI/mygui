@@ -194,6 +194,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_Edit.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_HScroll.cpp"
 					>
 				</File>
@@ -221,6 +225,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_EditFactory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_HScrollFactory.cpp"
 						>
 					</File>
@@ -245,6 +253,10 @@
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\src\MyGUI_ClipboardManager.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\MyGUI_ControllerManager.cpp"
 					>
@@ -334,6 +346,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_TextIterator.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_XmlDocument.cpp"
 					>
 				</File>
@@ -364,6 +380,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Edit.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_HScroll.h"
 					>
 				</File>
@@ -388,6 +408,10 @@
 					>
 					<File
 						RelativePath=".\include\MyGUI_ButtonFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_EditFactory.h"
 						>
 					</File>
 					<File
@@ -440,6 +464,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_TextChangeHistory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_TextIterator.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Utility.h"
 					>
 				</File>
@@ -463,6 +495,10 @@
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\include\MyGUI_ClipboardManager.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\MyGUI_ControllerManager.h"
 					>

@@ -33,7 +33,11 @@ namespace MyGUI
 		void show();
 		void hide();
 
-		void setTextAlign(Align _align);
+		// обновляет все данные связанные с тектом
+		void updateRawData();
+
+		// метод для отрисовки себя
+		virtual size_t _drawItem(Vertex * _vertex);
 
 		void _updateView();
 		void _correctView();
@@ -50,32 +54,48 @@ namespace MyGUI
 		void setAlpha(float _alpha);
 		float getAlpha();
 
-		void setFontName(const std::string & _font);
-		const std::string & getFontName();
-		void setFontHeight(uint16 _height);
-		uint16 getFontHeight();
-		inline void setFontName(const std::string & _font, uint16 _height)
-		{
-			setFontName(_font);
-			setFontHeight(_height);
-		}
+		virtual void setFontName(const std::string & _font);
+		virtual const std::string & getFontName();
 
-		IntSize getTextSize();
-		IntSize getTextSize(const Ogre::DisplayString& _text);
-
-		void updateRawData();
+		virtual void setFontHeight(uint16 _height);
+		virtual uint16 getFontHeight();
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
 		virtual void _destroyDrawItem();
 
-		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex);
+		virtual void setTextAlign(Align _align);
+		virtual Align getTextAlign();
 
+		virtual size_t getSelectStart();
+		virtual size_t getSelectEnd();
+		virtual void setTextSelect(size_t _start, size_t _end);
+
+		virtual bool getSelectBackground();
+		virtual void setSelectBackground(bool _normal);
+
+		virtual bool isCursorShow();
+		virtual void setShowCursor(bool _show);
+
+		virtual size_t getCursorPosition();
+		virtual void setCursorPosition(size_t _pos);
+
+		virtual IntSize getTextSize();
+		virtual IntSize getTextSize(const Ogre::DisplayString& _text);
+
+		// устанавливает смещение текста в пикселях
+		virtual void setTextShift(IntPoint _point);
+		virtual IntPoint getTextShift();
+
+		// возвращает положение курсора по произвольному положению
+		virtual size_t getTextCursorFromPoint(IntPoint & _point);
+
+		// возвращает текущее положение курсора
+		virtual IntPoint getTextCursorFromPosition(size_t _position);
 
 	protected:
 
-		bool mTransparent;
-		uint32 mCurrentColour;
+		bool mEmptyView;
+		uint32 mCurrentColour, mInverseColour;
 		uint32 mCurrentAlpha;
 		IntCoord mCurrentCoord;
 
@@ -95,7 +115,11 @@ namespace MyGUI
 		float mAspectCoef;
 
 		float mTextureHeightOne, mTextureWidthOne;
-		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive;
+		bool mBackgroundNormal;
+		size_t mStartSelect, mEndSelect;
+		size_t mCursorPosition;
+		bool mShowCursor;
+		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive, mCursorTexture;
 
 		VectorLineInfo mLinesInfo;
 		IntPoint mPointShift; // смещение текста

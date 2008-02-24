@@ -34,6 +34,9 @@ namespace MyGUI
 		void _updateView();
 		void _correctView();
 
+		void _setAlign(const IntSize& _size, bool _update);
+		void _setAlign(const IntCoord& _coord, bool _update);
+
 		void _setUVSet(const FloatRect& _rect);
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
@@ -46,7 +49,7 @@ namespace MyGUI
 	protected:
 
 		FloatRect mRectTexture;
-		bool mTransparent;
+		bool mEmptyView;
 
 		uint32 mCurrentAlpha;
 
@@ -59,4 +62,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MAIN_SKIN_H__
+#endif // __MYGUI_SUB_SKIN_H__

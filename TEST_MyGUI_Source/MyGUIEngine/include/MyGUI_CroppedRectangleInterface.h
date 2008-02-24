@@ -79,11 +79,10 @@ namespace MyGUI
 		virtual void _setAlign(const IntSize& _size, bool _update) {}
 		virtual void _setAlign(const IntCoord& _coord, bool _update) {}
 
-		// вспомогательные методы
+		// для каста сабскина
 		virtual bool _isText() {return false;}
+
 		virtual void _setUVSet(const FloatRect& _rect) {}
-		//virtual void _setTextuteName(const Ogre::String& _texture) {}
-		//virtual void _getTextuteName(const Ogre::String& _texture) = 0;
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) {}
 		virtual void _destroyDrawItem() {}
