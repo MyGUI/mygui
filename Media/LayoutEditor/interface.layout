@@ -34,7 +34,7 @@
             <Property key="Widget_Caption" value="All created widgets"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="200 120 248 296" align="ALIGN_LEFT ALIGN_TOP" layer="Middle" name="LayoutEditor_windowSettings">
+    <Widget type="Window" skin="WindowC" position="200 120 248 296" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowSettings">
         <Property key="Widget_Caption" value="Settings"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Widget_Show" value="false"/>
