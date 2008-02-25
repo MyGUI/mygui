@@ -104,6 +104,11 @@ namespace types
 			return ((left == 0) && (top == 0) && (right == 0) && (bottom == 0));
 		}
 
+		inline bool inside(const TRect<T>&  _value) const
+		{
+			return ( (_value.left >= left) && (_value.right <= right) && (_value.top >= top) && (_value.bottom <= bottom) );
+		}
+
 		inline std::string print() const
 		{
 	        std::ostringstream stream;

@@ -14,8 +14,6 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
 
-//#include <OgreMaterial.h>
-
 namespace MyGUI
 {
 
@@ -84,7 +82,7 @@ namespace MyGUI
 
 		// устанавливает смещение текста в пикселях
 		virtual void setTextShift(IntPoint _point);
-		virtual IntPoint getTextShift();
+		virtual IntPoint etViewOffset();
 
 		// возвращает положение курсора по произвольному положению
 		virtual size_t getTextCursorFromPoint(const IntPoint & _point);
@@ -122,7 +120,7 @@ namespace MyGUI
 		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive, mCursorTexture;
 
 		VectorLineInfo mLinesInfo;
-		IntPoint mPointShift; // смещение текста
+		IntPoint mViewOffset; // смещение текста
 		FloatSize mContextRealSize; // размер всего текста
 
 		LayerItemKeeper * mItemKeeper;

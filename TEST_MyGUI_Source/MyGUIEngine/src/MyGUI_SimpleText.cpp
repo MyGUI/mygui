@@ -884,13 +884,13 @@ namespace MyGUI
 
 	void SimpleText::setTextShift(IntPoint _point)
 	{
-		mPointShift = _point;
+		mViewOffset = _point;
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 		
-	IntPoint SimpleText::getTextShift()
+	IntPoint SimpleText::etViewOffset()
 	{
-		return mPointShift;
+		return mViewOffset;
 	}
 
 	// возвращает положение курсора по произвольному положению

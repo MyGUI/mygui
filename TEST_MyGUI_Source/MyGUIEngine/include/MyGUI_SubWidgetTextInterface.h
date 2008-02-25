@@ -41,10 +41,24 @@ namespace MyGUI
 		virtual void setCursorPosition(size_t _pos) {}
 
 		// возвращает положение курсора по произвольному положению
-		virtual size_t getTextCursorFromPoint(const IntPoint & _point) {return 0;}
+		virtual size_t getCursorPosition(const IntPoint & _point) {return 0;}
 
-		// возвращает текущее положение курсора
-		virtual IntPoint getTextCursorFromPosition(size_t _position) {return IntPoint();}
+		// возвращает положение курсора в обсолютных координатах
+		virtual IntCoord getCursorCoord(size_t _position) {return IntCoord();}
+
+		// возвращает положение курсора в обсолютных координатах
+		inline IntPoint getCursorPoint(size_t _position)
+		{
+			const IntCoord & coord = getCursorCoord(_position);
+			return IntPoint(coord.left + coord.width / 2, coord.top + coord.height / 2);
+		}
+
+		// возвращает положение курсора в обсолютных координатах
+		inline IntRect getCursorRect(size_t _position)
+		{
+			const IntCoord & coord = getCursorCoord(_position);
+			return IntRect(coord.left, coord.top, coord.left + coord.width, coord.top + coord.height);
+		}
 
 		// возвращает размер текста в пикселях
 		virtual IntSize getTextSize() {return IntSize();}
@@ -52,7 +66,7 @@ namespace MyGUI
 
 		// устанавливает смещение текста в пикселях
 		virtual void setTextShift(IntPoint _point) {}
-		virtual IntPoint getTextShift() {return IntPoint();}
+		virtual IntPoint etViewOffset() {return IntPoint();}
 
 		virtual void setCaption(const Ogre::DisplayString & _caption) {}
 		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}

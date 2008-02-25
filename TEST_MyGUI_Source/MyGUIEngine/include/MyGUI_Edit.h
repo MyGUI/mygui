@@ -107,14 +107,8 @@ namespace MyGUI
 		{
 			mModeStatic = _static;
 			resetSelect();
-			if (mModeStatic) {
-				//mWidgetCursor->setPointer("");
-				mWidgetUpper->setPointer("");
-			}
-			else {
-				//mWidgetCursor->setPointer(mOriginalPointer);
-				mWidgetUpper->setPointer(mOriginalPointer);
-			}
+			if (mModeStatic) mWidgetUpper->setPointer("");
+			else mWidgetUpper->setPointer(mOriginalPointer);
 		}
 
 		inline bool getEditStatic()
@@ -173,9 +167,7 @@ namespace MyGUI
 		void updateEditState();
 
 		// обновляет курсор по координате
-		void updateCursor();
-		// виден ли курсор в окне просмотра
-		bool isShowCursorInView();
+		void updateSelectText();
 		// обновление представления
 		void updateView(bool _showCursor);
 
@@ -225,7 +217,6 @@ namespace MyGUI
 		bool mIsFocus;
 
 		WidgetPtr mWidgetUpper;
-		//WidgetPtr mWidgetCursor;
 
 		bool mCursorActive;
 		float mCursorTimer, mActionMouseTimer;
@@ -246,8 +237,7 @@ namespace MyGUI
 		DequeUndoRedoInfo mVectorRedoChangeInfo;
 
 		// размер
-		IntSize mSizeView;
-		//IntSize mHalfCursor;
+		IntSize mSizeTextView;
 
 		bool mMouseLeftPressed;
 

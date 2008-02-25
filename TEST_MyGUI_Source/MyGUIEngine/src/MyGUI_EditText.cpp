@@ -323,7 +323,7 @@ namespace MyGUI
 
 	void EditText::updateRawData()
 	{
-		if (mpFont.isNull()) return;
+		if ((mpFont.isNull() || null == mRenderItem)) return;
 		// сбрасывам флаги
 		mAspectCoef = mRenderItem->getAspectCoef();
 		mTextOutDate = false;
@@ -480,14 +480,14 @@ namespace MyGUI
 				if (!((uint32)mCurrentCoord.width & 0x01)) left_shift += mRenderItem->getPixScaleX();
 			}
 		}
-		else left_shift = mRenderItem->getPixScaleX() * (float)mPointShift.left * 2.0;
+		else left_shift = mRenderItem->getPixScaleX() * (float)mViewOffset.left * 2.0;
 
 		if (mContextRealSize.height <= real_height) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
 			else if ( IS_ALIGN_VCENTER(mTextAlign) ) bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
 		}
-		else bottom += mRenderItem->getPixScaleY() * (float)mPointShift.top * 2.0;
+		else bottom += mRenderItem->getPixScaleY() * (float)mViewOffset.top * 2.0;
 
 		// данные непосредственно для вывода
 		float vertex_top, vertex_bottom, vertex_left, vertex_right;
@@ -795,7 +795,7 @@ namespace MyGUI
 
 	IntSize EditText::getTextSize(const Ogre::DisplayString& _text)
 	{
-		if (mpFont.isNull()) return IntSize();
+		if ((mpFont.isNull() || null == mRenderItem)) return IntSize();
 
 		float len = 0, width = 0;
 		int height = 1;
@@ -853,19 +853,19 @@ namespace MyGUI
 
 	void EditText::setTextShift(IntPoint _point)
 	{
-		mPointShift = _point;
+		mViewOffset = _point;
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 		
-	IntPoint EditText::getTextShift()
+	IntPoint EditText::etViewOffset()
 	{
-		return mPointShift;
+		return mViewOffset;
 	}
 
 	// возвращает положение курсора по произвольному положению
-	size_t EditText::getTextCursorFromPoint(const IntPoint & _point)
+	size_t EditText::getCursorPosition(const IntPoint & _point)
 	{
-		if (mpFont.isNull()) return 0;
+		if ((mpFont.isNull() || null == mRenderItem)) return 0;
 		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
 
 		// позиция отображаемого символа
@@ -901,14 +901,14 @@ namespace MyGUI
 				if (!((uint32)mCurrentCoord.width & 0x01)) left_shift += mRenderItem->getPixScaleX();
 			}
 		}
-		else left_shift = mRenderItem->getPixScaleX() * (float)mPointShift.left * 2.0;
+		else left_shift = mRenderItem->getPixScaleX() * (float)mViewOffset.left * 2.0;
 
 		if (mContextRealSize.height <= real_height) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
 			else if ( IS_ALIGN_VCENTER(mTextAlign) ) bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
 		}
-		else bottom += mRenderItem->getPixScaleY() * (float)mPointShift.top * 2.0;
+		else bottom += mRenderItem->getPixScaleY() * (float)mViewOffset.top * 2.0;
 
 		// корректируем координату до нижней строки
 		if (y < (bottom - mContextRealSize.height)) y = bottom - mContextRealSize.height;
@@ -985,10 +985,10 @@ namespace MyGUI
 		return position;
 	}
 
-	// возвращает текущее положение курсора
-	IntPoint EditText::getTextCursorFromPosition(size_t _position)
+	// возвращает положение курсора в обсолютных координатах
+	IntCoord EditText::getCursorCoord(size_t _position)
 	{
-		if (mpFont.isNull()) return IntPoint();
+		if ((mpFont.isNull() || null == mRenderItem)) return IntCoord();
 
 		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
 
@@ -1021,14 +1021,14 @@ namespace MyGUI
 				if (!((uint32)mCurrentCoord.width & 0x01)) left_shift += mRenderItem->getPixScaleX();
 			}
 		}
-		else left_shift = mRenderItem->getPixScaleX() * (float)mPointShift.left * 2.0;
+		else left_shift = mRenderItem->getPixScaleX() * (float)mViewOffset.left * 2.0;
 
 		if (mContextRealSize.height <= real_height) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
 			else if ( IS_ALIGN_VCENTER(mTextAlign) ) bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
 		}
-		else bottom += mRenderItem->getPixScaleY() * (float)mPointShift.top * 2.0;
+		else bottom += mRenderItem->getPixScaleY() * (float)mViewOffset.top * 2.0;
 
 		// основной цикл
 		VectorLineInfo::iterator end = mLinesInfo.end();
@@ -1071,7 +1071,7 @@ namespace MyGUI
 
 				// отрисовка курсора
 				if ((mShowCursor) && (cur == mCursorPosition)) {
-					return IntPoint((int)((1.0f + left) / (mRenderItem->getPixScaleX() * 2.0)) + 1, (int)((1.0f - top) / (mRenderItem->getPixScaleY() * 2.0)) + (mFontHeight / 2));
+					return IntCoord((int)((1.0f + left) / (mRenderItem->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mRenderItem->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 				}
 
@@ -1081,7 +1081,7 @@ namespace MyGUI
 
 			// отрисовка курсора
 			if ((mShowCursor) && (cur == mCursorPosition)) {
-				return IntPoint((int)((1.0f + right) / (mRenderItem->getPixScaleX() * 2.0)) + 1, (int)((1.0f - top) / (mRenderItem->getPixScaleY() * 2.0)) + (mFontHeight / 2));
+				return IntCoord((int)((1.0f + right) / (mRenderItem->getPixScaleX() * 2.0)), (int)((1.0f - bottom) / (mRenderItem->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 			}
 
@@ -1090,8 +1090,8 @@ namespace MyGUI
 
 		}
 		
-		// колличество реально отрисованных вершин
-		return IntPoint();
+		return IntCoord();
 	}
+		
 
 } // namespace MyGUI

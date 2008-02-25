@@ -48,6 +48,9 @@ namespace MyGUI
 		inline IntSize getSize()       {return mCoord.size();}
 
 		inline const IntPoint& getAbsolutePosition() {return mAbsolutePosition;}
+		inline IntRect getAbsoluteRect() {return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height);}
+		inline IntCoord getAbsoluteCoord() {return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height);}
+
 		inline float getAbsoluteLeft() {return mAbsolutePosition.left;}
 		inline float getAbsoluteTop() {return mAbsolutePosition.top;}
 
