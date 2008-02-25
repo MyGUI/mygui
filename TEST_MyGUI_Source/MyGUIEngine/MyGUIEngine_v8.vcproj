@@ -194,6 +194,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ComboBox.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Edit.cpp"
 					>
 				</File>
@@ -202,7 +206,43 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ItemBox.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_List.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Message.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_MultiList.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Progress.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_RenderBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Sheet.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_StaticImage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_StaticText.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Tab.cpp"
 					>
 				</File>
 				<File
@@ -225,6 +265,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_ComboBoxFactory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_EditFactory.cpp"
 						>
 					</File>
@@ -233,7 +277,43 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_ItemBoxFactory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_ListFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MessageFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MultiListFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ProgressFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_RenderBoxFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_SheetFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_StaticImageFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_StaticTextFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_TabFactory.cpp"
 						>
 					</File>
 					<File
@@ -384,6 +464,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ComboBox.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Edit.h"
 					>
 				</File>
@@ -392,7 +476,43 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ItemBox.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_List.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Message.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_MultiList.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Progress.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_RenderBox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Sheet.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_StaticImage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_StaticText.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Tab.h"
 					>
 				</File>
 				<File
@@ -415,6 +535,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_ComboBoxFactory.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_EditFactory.h"
 						>
 					</File>
@@ -423,7 +547,43 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_ItemBoxFactory.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_ListFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MessageFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MultiListFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ProgressFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RenderBoxFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_SheetFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_StaticImageFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_StaticTextFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_TabFactory.h"
 						>
 					</File>
 					<File

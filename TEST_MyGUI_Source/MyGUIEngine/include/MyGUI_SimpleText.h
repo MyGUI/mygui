@@ -81,14 +81,8 @@ namespace MyGUI
 		virtual IntSize getTextSize(const Ogre::DisplayString& _text);
 
 		// устанавливает смещение текста в пикселях
-		virtual void setTextShift(IntPoint _point);
-		virtual IntPoint etViewOffset();
-
-		// возвращает положение курсора по произвольному положению
-		virtual size_t getTextCursorFromPoint(const IntPoint & _point);
-
-		// возвращает текущее положение курсора
-		virtual IntPoint getTextCursorFromPosition(size_t _position);
+		virtual void setViewOffset(IntPoint _point);
+		virtual IntPoint getViewOffset();
 
 	protected:
 

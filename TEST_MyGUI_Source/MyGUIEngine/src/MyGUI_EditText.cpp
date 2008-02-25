@@ -60,11 +60,6 @@ namespace MyGUI
 	{
 		// потом перенести
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
-
-		//mStartSelect = 0;
-		//mEndSelect = 0;
-		//mShowCursor = true;
-		//mCursorPosition = 2;
 	}
 
 	EditText::~EditText()
@@ -842,7 +837,7 @@ namespace MyGUI
 			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
 			else info = mpFont->getGlyphInfo(character);
 
-			len += info->aspectRatio * real_fontHeight;
+			len += info->aspectRatio * mFontHeight;
 		}
 
 		if (width < len) width = len;
@@ -851,13 +846,13 @@ namespace MyGUI
 		return IntSize((int)width + 2, height * (int)mFontHeight);
 	}
 
-	void EditText::setTextShift(IntPoint _point)
+	void EditText::setViewOffset(IntPoint _point)
 	{
 		mViewOffset = _point;
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 		
-	IntPoint EditText::etViewOffset()
+	IntPoint EditText::getViewOffset()
 	{
 		return mViewOffset;
 	}
@@ -980,6 +975,7 @@ namespace MyGUI
 				position ++;
 
 			}
+			return position;
 		}
 
 		return position;
@@ -1070,7 +1066,7 @@ namespace MyGUI
 				right += horiz_height;
 
 				// отрисовка курсора
-				if ((mShowCursor) && (cur == mCursorPosition)) {
+				if (cur == mCursorPosition) {
 					return IntCoord((int)((1.0f + left) / (mRenderItem->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mRenderItem->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 				}
@@ -1080,8 +1076,8 @@ namespace MyGUI
 			}
 
 			// отрисовка курсора
-			if ((mShowCursor) && (cur == mCursorPosition)) {
-				return IntCoord((int)((1.0f + right) / (mRenderItem->getPixScaleX() * 2.0)), (int)((1.0f - bottom) / (mRenderItem->getPixScaleY() * 2.0)), 2, mFontHeight);
+			if (cur == mCursorPosition) {
+				return IntCoord((int)((1.0f + right) / (mRenderItem->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mRenderItem->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 			}
 

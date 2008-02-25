@@ -52,9 +52,20 @@ namespace MyGUI
 			else if (null == mMainSkin) mMainSkin = sub;
 		}
 
-		// если отец уже приаттачен, то и мы аттачимся
-		// ??? проверить что уже аттачиться при сет текстуре
-		if ((null != mParent) && (null != getParent()->getLayerItemKeeper())) 	_attachToLayerItemKeeper(getParent()->getLayerItemKeeper());
+		if (false == isRootWidget()) {
+			// если отец уже приаттачен, то и мы аттачимся ??? проверить что уже аттачиться при сет текстуре
+			if ((null != getParent()->getLayerItemKeeper())) _attachToLayerItemKeeper(getParent()->getLayerItemKeeper());
+
+			// проверяем наследуемую скрытость
+			if ((!mParent->isShow()) || (!getParent()->_isInheritedShow())) {
+				mInheritedShow = false;
+				// скрываем только саб скины, детей у нас еще нет
+				for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
+			}
+		}
+
+		// этот стиль есть всегда, даже если создатель не хотел его
+		setState("normal");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -78,11 +89,8 @@ namespace MyGUI
 			}
 		}
 
-		// этот стиль есть всегда, даже если создатель не хотел его
-		setState("normal");
+		// выставляем альфу, корректировка по отцу автоматически
 		setAlpha(ALPHA_MAX);
-		// альфа отца
-		//if ( (mParent != null) && (static_cast<WidgetPtr>(mParent)->getAlpha() != ALPHA_MAX) ) setAlpha(static_cast<WidgetPtr>(mParent)->getAlpha());
 
 		// создаем детей
 		const VectorChildSkinInfo& child = _info->getChild();
@@ -490,7 +498,8 @@ namespace MyGUI
 		// сохраняем, чтобы последующие дети могли приаттачиться
 		setLayerItemKeeper(_item);
 
-		RenderItem * renderItem = _item->addToRenderItem(mTexture, true, false);
+		// если у нас нет саб скинов, то и не будем начего себе заказывать
+		RenderItem * renderItem = mSubSkinChild.empty() ? null : _item->addToRenderItem(mTexture, true, false);
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			(*skin)->_createDrawItem(_item, renderItem);
@@ -526,6 +535,7 @@ namespace MyGUI
 	void Widget::_setTextureName(const Ogre::String& _texture)
 	{
 		if (_texture == mTexture) return;
+		mTexture = _texture;
 
 		// если мы приаттаченны, то детачим себя, меняем текстуру, и снова аттачим
 		LayerItemKeeper * save = getLayerItemKeeper();
@@ -601,6 +611,20 @@ namespace MyGUI
 			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedHide();
 		}
 
+	}
+
+	// дает приоритет виджету при пиккинге
+	void Widget::_forcePeek(WidgetPtr _widget)
+	{
+		size_t size = mWidgetChild.size();
+		if ( (size < 2) || (mWidgetChild[0] == _widget) ) return;
+		for (size_t pos=1; pos<size; pos++) {
+			if (mWidgetChild[pos] == _widget) {
+				mWidgetChild[pos] = mWidgetChild[0];
+				mWidgetChild[0] = _widget;
+				return;
+			}
+		}
 	}
 
 } // namespace MyGUI

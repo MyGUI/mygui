@@ -58,9 +58,35 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	edit->setEditMultiLine(true);
-	//window->setCaption("WindowCSX\ntest");
+	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	combo->addItem("test");
+
+	MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(300, 300, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	text->setCaption("StaticText");*/
+
+	/*MyGUI::StaticImagePtr image = (MyGUI::StaticImagePtr)MyGUI::WidgetManager::getInstance().createWidget("StaticImage", "StaticImage", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, null, "");
+
+	image->_setTextureName("core.png");
+
+	MyGUI::LayerManager::getInstance().attachToLayerKeeper("Main", image);*/
+
+
+
+	MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(500, 400, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+
+	MyGUI::SheetPtr sheet = tab->addSheet("Test 1");
+	sheet->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(30, 30, 100, 30), MyGUI::ALIGN_DEFAULT);
+
+	sheet = tab->addSheet("Test 2");
+	sheet->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(40, 40, 100, 30), MyGUI::ALIGN_DEFAULT);
+
+
+	MyGUI::Message::createMessage("test", "message", true, MyGUI::Message::Ok | MyGUI::Message::IconInfo);//*/
+
+	MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("StaticImage", MyGUI::IntCoord(700, 200, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	box->injectObject("robot.mesh");
+	box->setAutoRotation(true);
+	box->setAlpha(0.3);
 
 	for (size_t pos=0; pos<1; ++pos) {
 

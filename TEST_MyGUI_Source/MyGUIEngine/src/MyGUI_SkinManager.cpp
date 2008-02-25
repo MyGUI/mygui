@@ -239,13 +239,6 @@ namespace MyGUI
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
 		widget_info->setInfo(IntSize(0, 0), "");
-		SubWidgetBinding bind(IntCoord(0, 0, 1, 1), ALIGN_DEFAULT, "MainSkin");
-		widget_info->addInfo(bind);
-		// создаем дефолтный прозрачный скин
-		widget_info = create("Empty");
-		widget_info->setInfo(IntSize(0, 0), "");
-		bind.create(IntCoord(0, 0, 1, 1), ALIGN_DEFAULT, "MainSkin");
-		widget_info->addInfo(bind);
 	}
 
 

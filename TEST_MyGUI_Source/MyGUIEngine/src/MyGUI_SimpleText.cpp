@@ -826,7 +826,7 @@ namespace MyGUI
 
 	IntSize SimpleText::getTextSize(const Ogre::DisplayString& _text)
 	{
-		if (mpFont.isNull()) return IntSize();
+		if (mpFont.isNull() || (null == mRenderItem)) return IntSize();
 
 		float len = 0, width = 0;
 		int height = 1;
@@ -873,7 +873,7 @@ namespace MyGUI
 			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
 			else info = mpFont->getGlyphInfo(character);
 
-			len += info->aspectRatio * real_fontHeight;
+			len += info->aspectRatio * mFontHeight;
 		}
 
 		if (width < len) width = len;
@@ -882,28 +882,15 @@ namespace MyGUI
 		return IntSize((int)width + 2, height * (int)mFontHeight);
 	}
 
-	void SimpleText::setTextShift(IntPoint _point)
+	void SimpleText::setViewOffset(IntPoint _point)
 	{
 		mViewOffset = _point;
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 		
-	IntPoint SimpleText::etViewOffset()
+	IntPoint SimpleText::getViewOffset()
 	{
 		return mViewOffset;
-	}
-
-	// возвращает положение курсора по произвольному положению
-	size_t SimpleText::getTextCursorFromPoint(const IntPoint & _point)
-	{
-		return 0; //???
-	}
-
-	// возвращает текущее положение курсора
-	IntPoint SimpleText::getTextCursorFromPosition(size_t _position)
-	{
-		setCursorPosition(_position);
-		return IntPoint(); //???
 	}
 
 } // namespace MyGUI

@@ -202,7 +202,6 @@ namespace MyGUI
 		}
 		// некоторые менеджеры могут себе создавать
 		MYGUI_LOG(Warning, "Widget's owner not found");
-		//MYGUI_EXCEPT("Widget not found");
 	}
 
 	// удаляет всех детей

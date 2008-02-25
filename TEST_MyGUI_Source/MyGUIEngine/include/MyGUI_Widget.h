@@ -95,6 +95,7 @@ namespace MyGUI
 		// для внутреннего использования
 		void _inheritedShow();
 		void _inheritedHide();
+		inline bool _isInheritedShow() {return mInheritedShow;}
 
 		virtual void setCaption(const Ogre::DisplayString & _caption);
 		virtual const Ogre::DisplayString & getCaption();
@@ -161,19 +162,7 @@ namespace MyGUI
 		}
 
 		// дает приоритет виджету при пиккинге
-		/*inline void _forcePeek(WidgetPtr _widget)
-		{
-			size_t size = mWidgetChild.size();
-			if ( (size < 2) || (mWidgetChild[0] == _widget) ) return;
-			for (size_t pos=1; pos<size; pos++) {
-				if (mWidgetChild[pos] == _widget) {
-					mWidgetChild[pos] = mWidgetChild[0];
-					mWidgetChild[0] = _widget;
-					return;
-				}
-			}
-		}*/
-		//inline LayerItemKeeper * getLayerItemKeeper() { return mLayerItemKeeper; }
+		void _forcePeek(WidgetPtr _widget);
 
 	protected:
 		// список всех стейтов

@@ -16,6 +16,16 @@
 #include "MyGUI_VScrollFactory.h"
 #include "MyGUI_HScrollFactory.h"
 #include "MyGUI_EditFactory.h"
+#include "MyGUI_ComboBoxFactory.h"
+#include "MyGUI_StaticTextFactory.h"
+#include "MyGUI_SheetFactory.h"
+#include "MyGUI_TabFactory.h"
+#include "MyGUI_ProgressFactory.h"
+#include "MyGUI_ItemBoxFactory.h"
+#include "MyGUI_MultiListFactory.h"
+#include "MyGUI_StaticImageFactory.h"
+#include "MyGUI_MessageFactory.h"
+#include "MyGUI_RenderBoxFactory.h"
 
 namespace MyGUI
 {
@@ -37,6 +47,16 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::HScrollFactory());
 		mIntegratedFactoryList.insert(new factory::VScrollFactory());
 		mIntegratedFactoryList.insert(new factory::EditFactory());
+		mIntegratedFactoryList.insert(new factory::ComboBoxFactory());
+		mIntegratedFactoryList.insert(new factory::StaticTextFactory());
+		mIntegratedFactoryList.insert(new factory::SheetFactory());
+		mIntegratedFactoryList.insert(new factory::TabFactory());
+		mIntegratedFactoryList.insert(new factory::ProgressFactory());
+		mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
+		mIntegratedFactoryList.insert(new factory::MultiListFactory());
+		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
+		mIntegratedFactoryList.insert(new factory::MessageFactory());
+		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

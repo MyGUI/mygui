@@ -500,6 +500,9 @@ namespace MyGUI
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER ) {
 
 				IntPoint mouse = InputManager::getInstance().getMousePosition();
+				const IntRect& view = mWidgetUpper->getAbsoluteRect();
+				mouse.left -= view.left;
+				mouse.top -= view.top;
 				IntPoint point;
 
 				bool action = false;
@@ -540,6 +543,8 @@ namespace MyGUI
 				if (action) {
 					size_t old = mCursorPosition;
 					mCursorPosition = mText->getCursorPosition(point);
+					MYGUI_OUT(mCursorPosition);
+
 					if ( old != mCursorPosition ) {
 
 						mText->setCursorPosition(mCursorPosition);
@@ -548,9 +553,9 @@ namespace MyGUI
 						if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
 						else mText->setTextSelect(mStartSelect, mEndSelect);
 
+						// пытаемся показать курсор
+						updateView(true);
 					}
-					// пытаемся показать курсор
-					updateView(true);
 
 				}
 				// если в зону не попадает то сбрасываем
@@ -1167,14 +1172,17 @@ namespace MyGUI
 
 	void Edit::updateView(bool _showCursor)
 	{
-		// размер контекста
+		// размер контекста текста
 		mSizeTextView = mText->getTextSize();
-		// текущая позиция
+		// текущая смещение контекста текста
 		IntPoint point = mText->getViewOffset();
 		// расчетное смещение
 		IntPoint offset;
 
-		const IntRect& cursor = mText->getCursorRect(mCursorPosition);
+		// абсолютные координаты курсора
+		IntRect cursor = mText->getCursorRect(mCursorPosition);
+		cursor.right += 2;
+		// абсолютные координаты вью
 		const IntRect& view = mWidgetUpper->getAbsoluteRect();
 
 		bool inside = view.inside(cursor);
@@ -1185,56 +1193,29 @@ namespace MyGUI
 			// горизонтальное смещение
 			if (mSizeTextView.width > mWidgetUpper->getWidth()) {
 				if (cursor.left < view.left) {
-					offset.left = cursor.left - (int)EDIT_OFFSET_HORZ_CURSOR;
+					offset.left = -(view.left - cursor.left);// - (int)EDIT_OFFSET_HORZ_CURSOR;
 				}
-				else if (cursor.right > view.right) {
-					offset.right = cursor.right + (int)EDIT_OFFSET_HORZ_CURSOR;
+				else if ((cursor.right) > view.right) {
+					offset.left = -(view.right - cursor.right);// - 2);// + (int)EDIT_OFFSET_HORZ_CURSOR;
 				}
 			}
 
 			// вертикальное смещение
 			if (mSizeTextView.height > mWidgetUpper->getHeight()) {
 				if (cursor.top < view.top) {
-					offset.top = cursor.top - (int)EDIT_OFFSET_VERT_CURSOR;
+					offset.top = -(view.top - cursor.top);
+					MYGUI_OUT("offset = " , offset.top , "  pos = " , mCursorPosition , "  cursor = " , cursor.top);
 				}
-				else if (mWidgetCursor->getBottom() > mWidgetUpper->getHeight()) {
-					offset.bottom = cursor.bottom + (int)EDIT_OFFSET_VERT_CURSOR;
+				else if (cursor.bottom > view.bottom) {
+					offset.top = -(view.bottom - cursor.bottom);
 				}
 			}
 
 		}
 
-		if (mSizeTextView.width > mWidgetUpper->getWidth()) {
-
-			// максимальный выход влево
-			if ((point.left + offset.left) <= 0) {
-				offset.left = - (point.left);
-			}
-			// максимальный выход вправо
-			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + add) ) {
-				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth()) - point.left;
-			}
-		}
-
-		if (mSizeTextView.height > mWidgetUpper->getHeight()) {
-
-			// максимальный выход вверх
-			if ((point.top + offset.top) < 0) {
-				offset.top = - point.top;
-			}
-			// максимальный выход вниз
-			else if ( (point.top + offset.top) > (mSizeTextView.height-mWidgetUpper->getHeight()) ) {
-				offset.top = (mSizeTextView.height-mWidgetUpper->getHeight()) - point.top;
-			}
-		}
-
-		// ничего не изменилось
-		//if (offset.empty()) return; // hook for update не использовать !!!, т.к. код далее вызывает апдейт, хотя координаты на 1-й взгляд не изменились
-
-		//mWidgetCursor->setPosition(mWidgetCursor->getPosition() - offset);
-
-		mText->setTextShift(point + offset);
-
+		// поменялся вью
+		if (false == offset.empty()) mText->setViewOffset(point + offset);
+		
 	}
 
 	void Edit::setCaption(const Ogre::DisplayString & _caption)

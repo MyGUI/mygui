@@ -51,6 +51,16 @@ namespace MyGUI
 		class HScrollFactory;
 		class VScrollFactory;
 		class EditFactory;
+		class ComboBoxFactory;
+		class StaticTextFactory;
+		class SheetFactory;
+		class TabFactory;
+		class ProgressFactory;
+		class ItemBoxFactory;
+		class MultiListFactory;
+		class StaticImageFactory;
+		class MessageFactory;
+		class RenderBoxFactory;
 	}
 
 	class Widget;
@@ -60,6 +70,16 @@ namespace MyGUI
 	class HScroll;
 	class VScroll;
 	class Edit;
+	class ComboBox;
+	class StaticText;
+	class Sheet;
+	class Tab;
+	class Progress;
+	class ItemBox;
+	class MultiList;
+	class StaticImage;
+	class Message;
+	class RenderBox;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -68,6 +88,16 @@ namespace MyGUI
 	typedef HScroll * HScrollPtr;
 	typedef VScroll * VScrollPtr;
 	typedef Edit * EditPtr;
+	typedef ComboBox * ComboBoxPtr;
+	typedef StaticText * StaticTextPtr;
+	typedef Sheet * SheetPtr;
+	typedef Tab * TabPtr;
+	typedef Progress * ProgressPtr;
+	typedef ItemBox * ItemBoxPtr;
+	typedef MultiList * MultiListPtr;
+	typedef StaticImage * StaticImagePtr;
+	typedef Message * MessagePtr;
+	typedef RenderBox * RenderBoxPtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
