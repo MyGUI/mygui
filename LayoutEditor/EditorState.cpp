@@ -911,7 +911,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		{
 			if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
 			{
-				if ((value != "") && (value.find("0123456789") != std::string::npos))
+				if ((value != "") && (value.find_first_of("0123456789") != std::string::npos))
 					MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 			}
 			else if (value != "" || "Widget_FontName" != action)

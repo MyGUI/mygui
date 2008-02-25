@@ -159,7 +159,7 @@ namespace MyGUI
 			if ( IS_ALIGN_RIGHT(mAlign) ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mAlign) ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 		}
-		else left_shift = mPixelScaleX * (float)mViewOffset.left * 2.0;
+		else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
 		right = left;
 
 		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
@@ -167,7 +167,7 @@ namespace MyGUI
 			if ( IS_ALIGN_BOTTOM(mAlign) ) top += (mContextSize.height - realHeight);
 			else if ( IS_ALIGN_VCENTER(mAlign) ) top += (mContextSize.height - realHeight) * 0.5;
 		}
-		else top += mPixelScaleY * (float)mViewOffset.top * 2.0;
+		else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 		bottom = top;
 
 		// данные непосредственно для вывода
@@ -646,7 +646,7 @@ namespace MyGUI
 
 	} // void updateRawData()
 
-	size_t TextEditOverlayElement::getTextCursorFromPoint(const IntPoint & _point)
+	size_t TextEditOverlayElement::getTextCursorFromPoint(IntPoint & _point)
 	{
 		// если нуно обновить, или изменились пропорции экрана
 		updateRawData();
@@ -675,7 +675,7 @@ namespace MyGUI
 			if ( IS_ALIGN_RIGHT(mAlign) ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mAlign) ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 		}
-		else left_shift = mPixelScaleX * (float)mViewOffset.left * 2.0;
+		else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
 		right = left;
 
 		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
@@ -683,7 +683,7 @@ namespace MyGUI
 			if ( IS_ALIGN_BOTTOM(mAlign) ) top += (mContextSize.height - realHeight);
 			else if ( IS_ALIGN_VCENTER(mAlign) ) top += (mContextSize.height - realHeight) * 0.5;
 		}
-		else top += mPixelScaleY * (float)mViewOffset.top * 2.0;
+		else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 		bottom = top;
 
 		// корректируем координату до нижней строки
@@ -796,7 +796,7 @@ namespace MyGUI
 			if ( IS_ALIGN_RIGHT(mAlign) ) left_shift = mContextSize.width - realWidth; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mAlign) ) left_shift = (mContextSize.width - realWidth) * 0.5; // выравнивание по центру
 		}
-		else left_shift = mPixelScaleX * (float)mViewOffset.left * 2.0;
+		else left_shift = mPixelScaleX * (float)mPointShift.left * 2.0;
 		right = left;
 
 		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
@@ -804,7 +804,7 @@ namespace MyGUI
 			if ( IS_ALIGN_BOTTOM(mAlign) ) top += (mContextSize.height - realHeight);
 			else if ( IS_ALIGN_VCENTER(mAlign) ) top += (mContextSize.height - realHeight) * 0.5;
 		}
-		else top += mPixelScaleY * (float)mViewOffset.top * 2.0;
+		else top += mPixelScaleY * (float)mPointShift.top * 2.0;
 		bottom = top;
 
 		// основной цикл
