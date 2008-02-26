@@ -253,7 +253,7 @@ bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
 	mGUI->injectMouseMove(arg);
-	this->mDemo.move((size_t)arg.state.X.abs);
+	//this->mDemo.move((size_t)arg.state.X.abs);
 
 	//MyGUI::MYGUI_OUT(arg.state.X.abs, "   ", arg.state.Y.abs);
 
@@ -263,6 +263,10 @@ bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	mGUI->injectMousePress(arg, id);
+
+	if (id == OIS::MB_Right) {
+		this->mDemo.press(arg.state.X.abs, arg.state.Y.abs);
+	}
 	return true;
 }
 

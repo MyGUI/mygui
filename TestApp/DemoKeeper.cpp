@@ -18,43 +18,11 @@ DemoKeeper::DemoKeeper() :
 {
 }
 
-//WidgetPtr test, test2;
+MyGUI::PopupMenuPtr menu = null;
 
-void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
+void DemoKeeper::press(int _left, int _top)
 {
-	if (_index == ITEM_NONE) {
-		MyGUI::MYGUI_OUT("reset select");
-//		InputManager::getInstance().removeWidgetModal(test2);
-	}
-	else MyGUI::MYGUI_OUT(_index);
-}
-
-void DemoKeeper::test(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
-{
-	//MyGUI::MYGUI_OUT(_button);
-}
-
-/*typedef delegates::IDelegate2<int,  int> testDelegate;
-
-void test3(int _test, int _test2)
-{
-}
-
-void test2(testDelegate * _delegate)
-{
-}*/
-
-//MyGUI::ProgressPtr prog = null;
-//MyGUI::RenderBoxPtr renderbox = null;
-
-void DemoKeeper::move(size_t _pos)
-{
-	//if (null != renderbox){
-		//renderbox->setRenderTarget(mCamera);
-		//renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);
-	//}
-
-	//if (null != prog) prog->setProgressPosition(_pos);
+	if (null != menu) menu->showPopupMenu(MyGUI::IntPoint(_left, _top));
 }
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
@@ -63,10 +31,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	menu->addItem(L"Передать WM");
+	menu->addItem(L"Информация о персонаже");
+	menu->addItem(L"Создать персонажа");
 
-	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
-	MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
-	MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
 	//for (size_t pos=0; pos<500; pos++)
 //	mGUI->createWidget<MyGUI::Widget>("Window", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
 
@@ -406,8 +378,8 @@ void DemoKeeper::notifyPressedColourRed(MyGUI::WidgetPtr _sender)
 void DemoKeeper::notifyPressedColourBlue(MyGUI::WidgetPtr _sender)
 {
 	//MyGUI::VectorWidgetPtr demo = MyGUI::LayoutManager::getInstance().load("MessageDemo.layout");
-	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel", "Continue");
-	MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
+	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel", "Continue");
+	//MyGUI::Message::createMessage("caption", "message", true, newDelegate(this, &DemoKeeper::test), "OK", "Cancel");
 
     MyGUI::EditPtr edit = mGUI->findWidget<MyGUI::Edit>(_sender->getUserString("Edit"));
     if (edit == null) return;

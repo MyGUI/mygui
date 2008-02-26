@@ -34,6 +34,8 @@ namespace MyGUI
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::vector<std::string> VectorString;
 
+	typedef std::vector<std::string> VectorUTFString;
+
 	namespace utility
 	{
 		namespace templates

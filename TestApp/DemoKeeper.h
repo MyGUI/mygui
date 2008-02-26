@@ -18,7 +18,8 @@ public:
 
 	void start(MyGUI::Gui * _gui, size_t _width, size_t _height);
 	void end();
-	void move(size_t _pos);
+
+	void press(int _left, int _top);
 
 private:
 	void notifyPressedReadOnly(MyGUI::WidgetPtr _sender);
@@ -39,12 +40,8 @@ private:
 	void notifyWindowButton1(MyGUI::WidgetPtr _sender);
 	void notifyWindowButton2(MyGUI::WidgetPtr _sender);
 
-	void notifyTest(MyGUI::WidgetPtr _sender, size_t _index);
-
 	void createWindowEdit(MyGUI::WidgetPtr _widget);
 	void createWindowList(MyGUI::WidgetPtr _widget);
-
-	void test(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 
 	void notifyRadio(MyGUI::WidgetPtr _sender);
 

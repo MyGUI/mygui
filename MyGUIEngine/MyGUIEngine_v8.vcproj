@@ -222,6 +222,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_PopupMenu.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Progress.cpp"
 					>
 				</File>
@@ -290,6 +294,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_MultiListFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_PopupMenuFactory.cpp"
 						>
 					</File>
 					<File
@@ -524,6 +532,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_PopupMenu.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Progress.h"
 					>
 				</File>
@@ -592,6 +604,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_MultiListFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_PopupMenuFactory.h"
 						>
 					</File>
 					<File
