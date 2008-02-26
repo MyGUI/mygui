@@ -50,20 +50,20 @@ void BasisManager::createInput() // создаем систему ввода
 
 	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
 	if (false == material.isNull()) {
-		Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
+		/*Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
 		Ogre::Overlay * overlay = manager.create("wallpaper");
 		overlay->setZOrder(0);
 		overlay->show();
 		Ogre::PanelOverlayElement * panel = static_cast<Ogre::PanelOverlayElement*>(manager.createOverlayElement("Panel", "wallpaper"));
-		panel->setDimensions(1, 1);
+		panel->setDimensions(1, 1);*/
 		/*Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
 		mpFont->load();
 		if (!mpFont.isNull()) {
 			const Ogre::MaterialPtr & material2 = mpFont->getMaterial();
 			panel->setMaterialName(material2->getName());
 		}*/
-		panel->setMaterialName(material->getName());
-		overlay->add2D(panel);
+		/*panel->setMaterialName(material->getName());
+		overlay->add2D(panel);*/
 	}
 }
 void BasisManager::destroyInput() // удаляем систему ввода

@@ -1216,8 +1216,8 @@ namespace MyGUI
 		if (mSizeTextView.width > mWidgetUpper->getWidth()) {
 
 			// максимальный выход влево
-			if ((point.left + offset.left) < add) {
-				offset.left = - (add + point.left);
+			if ((point.left + offset.left) < 0) {
+				offset.left = - (0 + point.left);
 			}
 			// максимальный выход вправо
 			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + add) ) {
@@ -1239,11 +1239,11 @@ namespace MyGUI
 
 		// восстановление нулевого вью
 		if ((offset.left == 0) && (point.left != 0)) {
-			offset.left = -point.left;
+			//offset.left = -point.left;
 			//point.left = 0;
 		}
 		if ((offset.top == 0) && (point.top != 0)) {
-			offset.top = -point.top;
+			//offset.top = -point.top;
 			//point.top = 0;
 		}
 
