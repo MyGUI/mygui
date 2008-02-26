@@ -30,6 +30,8 @@ namespace MyGUI
 
 	public:
 
+		inline LayerKeeper * getLayerKeeper() {return mLayerKeeper;}
+
 		// наш текущий хранитель леера
 		inline LayerItemKeeper * getLayerItemKeeper() { return mLayerItemKeeper; }
 		inline void setLayerItemKeeper(LayerItemKeeper * _item) {mLayerItemKeeper = _item;}

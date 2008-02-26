@@ -627,4 +627,11 @@ namespace MyGUI
 		}
 	}
 
+	std::string Widget::getLayerName()
+	{
+		LayerKeeper * keeper = getLayerKeeper();
+		if (null == keeper) return "";
+		return keeper->getName();
+	}
+
 } // namespace MyGUI

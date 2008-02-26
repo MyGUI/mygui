@@ -1220,8 +1220,8 @@ namespace MyGUI
 				offset.left = - (add + point.left);
 			}
 			// максимальный выход вправо
-			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + 0) ) {
-				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth() + 0) - point.left;
+			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + add) ) {
+				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth() + add) - point.left;
 			}
 		}
 

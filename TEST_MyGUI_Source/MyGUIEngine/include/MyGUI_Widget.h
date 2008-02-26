@@ -164,6 +164,13 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(WidgetPtr _widget);
 
+		// возвращает имя леера, к которому приаттачен виджет
+		// актуально только для рутового виджета
+		std::string getLayerName();
+
+		// устанавливает выравнивание для виджета
+		inline void setAlign(Align _align) {mAlign = _align;}
+
 	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;
