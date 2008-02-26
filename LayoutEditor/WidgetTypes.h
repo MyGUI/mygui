@@ -3,7 +3,7 @@
 typedef std::map<std::string, std::string> MapString;
 
 struct WidgetType{
-	WidgetType(): parent(false), child(true), resizeable(true) {}
+	WidgetType(): parent(false), child(true), resizeable(true), many_strings(false) {}
 	std::string name;
 	std::vector<std::string> skin;
 	MapString parameter;
@@ -13,7 +13,7 @@ struct WidgetType{
 	bool child;
 	// can be selected
 	bool resizeable;
-	// have many strings (such as List, ComboBox, Message, etc...)
+	// have many strings (such as List, ComboBox, Tab, etc...)
 	bool many_strings;
 };
 
