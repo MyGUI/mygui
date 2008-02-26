@@ -73,22 +73,13 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "EditClient" size = "2 19">
-        <Property key="Pointer" value = "beam" />
-
-        <Child type="Widget" skin="EditCursor" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP" name = "Cursor">
-        </Child>
-
-        <BasisSkin type="MainSkin" offset = "0 0 0 0" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "126 94 2 19"/>
-        </BasisSkin>
-    </Skin>
-
     <Skin name = "Edit" size = "40 26" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+
+        <Child type="Widget" skin="Default" offset = "3 3 34 20" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
@@ -111,7 +102,7 @@
             <State name="pressed" offset = "90 86 10 26"/>
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin type="EditEdit" offset = "3 0 34 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="EditText" offset = "3 0 34 26" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>
@@ -126,8 +117,7 @@
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
 
-        <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client">
-        </Child>
+        <Child type="Widget" skin="Default" offset = "3 3 34 20" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="disable" offset = "60 2 2 2"/>
@@ -214,6 +204,7 @@
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
+        <Property key="Colour" value = "0 0 0" />
 
         <BasisSkin type="SubSkin" offset = "0 0 5 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "328 2 5 30"/>
@@ -227,16 +218,15 @@
             <State name="normal" offset = "370 2 5 30"/>
             <State name="active" offset = "370 34 5 30"/>
         </BasisSkin>
-        <BasisSkin type="EditText" offset = "5 0 37 30" align = "ALIGN_STRETCH">
-            <State name="normal" colour="0 0 0"/>
-            <State name="active" colour="0 0 0"/>
-        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "5 0 37 30" align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "Window" size = "27 54" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
+        <Property key="Colour" value = "0 0 0" />
 
         <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
         </Child>
@@ -265,9 +255,8 @@
         <BasisSkin type="SubSkin" offset = "0 30 3 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "377 32 3 18"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP">
-            <State name="normal" colour = "0 0 0"/>
-        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP"/>
     </Skin>
 
     <Skin name = "WindowC" size = "27 54" texture = "core.png" >
@@ -445,8 +434,6 @@
         <Child type="Button" skin="VScrollTrack" offset = "0 18 16 21" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track">
         </Child>
 
-        <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
-        
         <BasisSkin type="SubSkin" offset = "0 16 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
             <State name="normal" offset = "163 18 16 6"/>
         </BasisSkin>
@@ -495,8 +482,6 @@
         <Child type="Button" skin="HScrollTrack" offset = "18 0 21 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track">
         </Child>
 
-        <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
-        
         <BasisSkin type="SubSkin" offset = "16 0 6 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "171 87 6 16"/>
         </BasisSkin>
@@ -513,6 +498,7 @@
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
         
         <BasisSkin type="MainSkin" offset = "0 0 5 5">
             <State name="normal" offset = "149 26 5 5"/>
@@ -520,10 +506,8 @@
             <State name="pressed" offset = "149 48 5 5"/>
             <State name="select" offset = "149 59 5 5"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "ALIGN_STRETCH">
-            <State name="normal" colour="0 0 0"/>
-            <State name="active" colour="0 0 0"/>
-        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "List" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
@@ -574,10 +558,9 @@
     <Skin name = "StaticText" size = "16 16">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
-        <Property key="Colour" value = "0 1 0" />
         <Property key="AlignText" value = "ALIGN_DEFAULT" />
+        <Property key="Colour" value = "0 0 0" />
         
-        <_BasisSkin type="MainSkin" offset = "0 0 0 0"/>
         <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
     </Skin>
 
@@ -657,11 +640,8 @@
         <Property key="ListSkin" value = "List" />
         <Property key="ListLayer" value = "Popup" />
 
-        <Child type="Widget" skin="EditClient" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client">
-        </Child>
-
-        <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button">
-        </Child>
+        <Child type="Widget" skin="Default" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
@@ -734,9 +714,9 @@
             <Property key="Scale" value = "0 0 0 1"/>
         </Child>
 
-        <BasisSkin type="MainSkin" offset = "0 0 50 50" align = "ALIGN_LEFT ALIGN_TOP">
+        <_BasisSkin type="MainSkin" offset = "0 0 50 50" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "0 0 0 0"/>
-        </BasisSkin>
+        </_BasisSkin>
     </Skin>
 
     <Skin name = "TabRight" size = "13 19" texture = "core.png" >
@@ -849,10 +829,9 @@
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
 
-        <BasisSkin type="SimpleText" offset = "0 0 10 10" align = "ALIGN_STRETCH">
-            <State name="normal" colour = "0 0 0"/>
-        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "0 0 10 10" align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "MessageIcon" size = "45 45">
@@ -924,8 +903,7 @@
         <Property key="TrackSkin" value = "ProgressTrack" />
         <Property key="TrackWidth" value = "11" />
 
-        <Child type="Widget" skin="ProgressClient" offset = "3 3 10 16" align = "ALIGN_STRETCH" name = "Client">
-        </Child>
+        <Child type="Widget" skin="ProgressClient" offset = "3 3 10 16" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "411 71 3 3"/>
@@ -956,15 +934,11 @@
         </_BasisSkin>
     </Skin>
 
-    <_Skin name = "RenderBox" size = "10 10" texture = "core.png">
-        <Property key="Pointer" value = "hand" />
-        <BasisSkin type="MainSkin" offset = "0 0 10 10"/>
-    </_Skin>
-
     <Skin name = "ItemLine" size = "5 5" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
         
         <BasisSkin type="MainSkin" offset = "0 0 5 5">
             <State name="normal" offset = "149 26 5 5"/>
@@ -972,10 +946,8 @@
             <State name="pressed" offset = "149 48 5 5"/>
             <State name="select" offset = "149 59 5 5"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "ALIGN_STRETCH">
-            <State name="normal" colour="0 0 0"/>
-            <State name="active" colour="0 0 0"/>
-        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "ItemBox" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
@@ -1027,9 +999,8 @@
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
 
-        <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
-        
         <BasisSkin type="SubSkin" offset = "0 2 18 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "104 2 18 18"/>
             <State name="normal" offset = "104 22 18 18"/>
@@ -1037,9 +1008,7 @@
             <State name="pressed" offset = "104 62 18 18"/>
             <State name="select" offset = "104 82 18 18"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "24 0 76 22" align = "ALIGN_STRETCH">
-            <State name="normal" colour="0 0 0"/>
-        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "24 0 76 22" align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "RadioBox" size = "100 22" texture = "core.png">
@@ -1047,8 +1016,6 @@
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
-        <BasisSkin type="SubSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
-        
         <BasisSkin type="SubSkin" offset = "2 2 18 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "566 0 18 18"/>
             <State name="normal" offset = "566 18 18 18"/>
@@ -1056,9 +1023,7 @@
             <State name="pressed" offset = "566 54 18 18"/>
             <State name="select" offset = "566 72 18 18"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset = "24 0 76 22" align = "ALIGN_STRETCH">
-            <State name="normal" colour="0 0 0"/>
-        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "24 0 76 22" align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "MultiSubList" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
@@ -1072,7 +1037,7 @@
         <Child type="Widget" skin="Default" offset = "0 0 -7 9" align = "ALIGN_STRETCH" name = "Client">
         </Child>
 
-        <BasisSkin type="MainSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
+        <_BasisSkin type="MainSkin" offset = "0 0 0 0" align = "ALIGN_LEFT ALIGN_TOP"/>
 
     </Skin>
 

@@ -39,8 +39,13 @@ namespace MyGUI
 	class ControllerManager;
 	class PointerManager;
 	class ClipboardManager;
+	class LayoutManager;
+	class PluginManager;
+	class DynLibManager;
 
 	class WidgetFactoryInterface;
+
+	class DynLib;
 
 	namespace factory
 	{

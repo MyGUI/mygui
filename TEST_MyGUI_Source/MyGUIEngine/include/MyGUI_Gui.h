@@ -151,6 +151,9 @@ namespace MyGUI
 		ControllerManager* mControllerManager;
 		PointerManager* mPointerManager;
 		ClipboardManager* mClipboardManager;
+		LayoutManager* mLayoutManager;
+		DynLibManager* mDynLibManager;
+		PluginManager* mPluginManager;
 
 		// подписчики на кадры
 		ListFrameListener mListFrameListener;

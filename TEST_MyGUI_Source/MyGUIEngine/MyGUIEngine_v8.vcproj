@@ -342,6 +342,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_DynLibManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_FontManager.cpp"
 					>
 				</File>
@@ -355,6 +359,14 @@
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_LayerManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_LayoutManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_PluginManager.cpp"
 					>
 				</File>
 				<File
@@ -421,6 +433,10 @@
 			<Filter
 				Name="Utility"
 				>
+				<File
+					RelativePath=".\src\MyGUI_DynLib.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\MyGUI_Font.cpp"
 					>
@@ -616,7 +632,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_DynLib.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Font.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Plugin.h"
 					>
 				</File>
 				<File
@@ -668,6 +692,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_DynLibManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_FontManager.h"
 					>
 				</File>
@@ -681,6 +709,14 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_LayerManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_LayoutManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_PluginManager.h"
 					>
 				</File>
 				<File

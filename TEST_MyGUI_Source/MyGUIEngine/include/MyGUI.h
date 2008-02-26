@@ -33,11 +33,11 @@
 #include "MyGUI_LogManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
-//#include "MyGUI_LayoutManager.h"
+#include "MyGUI_LayoutManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_PointerManager.h"
-//#include "MyGUI_PluginManager.h"
-//#include "MyGUI_DynLibManager.h"
+#include "MyGUI_PluginManager.h"
+#include "MyGUI_DynLibManager.h"
 #include "MyGUI_ControllerManager.h"
 
 #endif // __MYGUI_H__

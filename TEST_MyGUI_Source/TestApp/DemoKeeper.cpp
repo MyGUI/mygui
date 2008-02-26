@@ -72,7 +72,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 
 
-	MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(500, 400, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(500, 400, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 
 	MyGUI::SheetPtr sheet = tab->addSheet("Test 1");
 	sheet->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(30, 30, 100, 30), MyGUI::ALIGN_DEFAULT);
@@ -81,12 +81,21 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	sheet->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(40, 40, 100, 30), MyGUI::ALIGN_DEFAULT);
 
 
-	MyGUI::Message::createMessage("test", "message", true, MyGUI::Message::Ok | MyGUI::Message::IconInfo);//*/
+	//MyGUI::Message::createMessage("test", "message", true, MyGUI::Message::Ok | MyGUI::Message::IconInfo);//*/
 
-	MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("StaticImage", MyGUI::IntCoord(700, 200, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("StaticImage", MyGUI::IntCoord(700, 200, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	box->injectObject("robot.mesh");
 	box->setAutoRotation(true);
-	box->setAlpha(0.3);
+	box->setAlpha(0.3);*/
+
+
+	MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
+
+	//MyGUI::ProgressPtr progress = mGUI->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(40, 40, 400, 20), MyGUI::ALIGN_DEFAULT, "Main");
+	//progress->setProgressAutoTrack(true);
+	
 
 	for (size_t pos=0; pos<1; ++pos) {
 

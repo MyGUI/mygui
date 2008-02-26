@@ -31,7 +31,7 @@ void DemoKeeper::notifyTest(MyGUI::WidgetPtr _sender, size_t _index)
 
 void DemoKeeper::test(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
 {
-	MyGUI::MYGUI_OUT(_button);
+	//MyGUI::MYGUI_OUT(_button);
 }
 
 /*typedef delegates::IDelegate2<int,  int> testDelegate;
@@ -44,17 +44,17 @@ void test2(testDelegate * _delegate)
 {
 }*/
 
-MyGUI::ProgressPtr prog = null;
-MyGUI::RenderBoxPtr renderbox = null;
+//MyGUI::ProgressPtr prog = null;
+//MyGUI::RenderBoxPtr renderbox = null;
 
 void DemoKeeper::move(size_t _pos)
 {
-	if (null != renderbox){
+	//if (null != renderbox){
 		//renderbox->setRenderTarget(mCamera);
 		//renderbox->injectObject("robot.mesh"); renderbox->setAutorotationSpeed(2);
-	}
+	//}
 
-	if (null != prog) prog->setProgressPosition(_pos);
+	//if (null != prog) prog->setProgressPosition(_pos);
 }
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
@@ -63,11 +63,15 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+
+	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
 	//for (size_t pos=0; pos<500; pos++)
 //	mGUI->createWidget<MyGUI::Widget>("Window", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
 
-	MyGUI::WidgetPtr but = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Overlapped");
-	but->setCaption("test");
+	//MyGUI::WidgetPtr but = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Overlapped");
+	//but->setCaption("test");
 	//MyGUI::MYGUI_OUT("test");
 
 	//MyGUI::Message::createMessage(L"Ошибка", L"Поле ввода имени пустое.", true, newDelegate(this, &DemoKeeper::test), MyGUI::Message::Ok | MyGUI::Message::IconWarning);

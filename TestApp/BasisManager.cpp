@@ -114,14 +114,14 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
 	if (false == material.isNull()) {
-		Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
+		/*Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
 		Ogre::Overlay * overlay = manager.create("wallpaper");
 		overlay->setZOrder(0);
 		overlay->show();
 		Ogre::PanelOverlayElement * panel = static_cast<Ogre::PanelOverlayElement*>(manager.createOverlayElement("Panel", "wallpaper"));
 		panel->setDimensions(1, 1);
 		panel->setMaterialName(material->getName());
-		overlay->add2D(panel);
+		overlay->add2D(panel);*/
 	}
 
 	createGui();
