@@ -185,7 +185,7 @@
             <State name="select" offset = "98 138 2 2"/>
         </BasisSkin>
 
-        <BasisSkin type="EditText" offset = "3 0 34 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="EditText" offset = "3 3 34 20" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>

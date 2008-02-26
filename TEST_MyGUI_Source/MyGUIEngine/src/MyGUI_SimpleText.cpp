@@ -345,6 +345,147 @@ namespace MyGUI
 		mItemKeeper = null;
 	}
 
+	size_t SimpleText::getSelectStart()
+	{
+		return mStartSelect;
+	}
+
+	size_t SimpleText::getSelectEnd()
+	{
+		return mEndSelect;
+	}
+
+	void SimpleText::setTextSelect(size_t _start, size_t _end)
+	{
+		mStartSelect=_start;
+		mEndSelect=_end;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	bool SimpleText::getSelectBackground()
+	{
+		return mBackgroundNormal;
+	}
+
+	void SimpleText::setSelectBackground(bool _normal)
+	{
+		if (mBackgroundNormal == _normal) return;
+		mBackgroundNormal = _normal;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	bool SimpleText::isCursorShow()
+	{
+		return mShowCursor;
+	}
+
+	void SimpleText::setShowCursor(bool _show)
+	{
+		if (mShowCursor == _show) return;
+		mShowCursor = _show;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	size_t SimpleText::getCursorPosition()
+	{
+		return mCursorPosition;
+	}
+
+	void SimpleText::setCursorPosition(size_t _pos)
+	{
+		if (mCursorPosition == _pos) return;
+		mCursorPosition = _pos;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	void SimpleText::setTextAlign(Align _align)
+	{
+		mTextAlign = _align;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	Align SimpleText::getTextAlign()
+	{
+		return mTextAlign;
+	}
+
+	IntSize SimpleText::getTextSize()
+	{
+		if (null == mRenderItem) return IntSize();
+		// если нуно обновить, или изменились пропорции экрана
+		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
+		return IntSize( (int)(mContextRealSize.width / (mRenderItem->getPixScaleX() * 2.0)), (int)(mLinesInfo.size() * mFontHeight) );
+	}
+
+	IntSize SimpleText::getTextSize(const Ogre::DisplayString& _text)
+	{
+		if (mpFont.isNull() || (null == mRenderItem)) return IntSize();
+
+		float len = 0, width = 0;
+		int height = 1;
+
+		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);
+
+		Ogre::DisplayString::const_iterator end = _text.end();
+		for (Ogre::DisplayString::const_iterator index=_text.begin(); index!=end; ++index) {
+
+			Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
+
+			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
+				if (width < len) width = len;
+				len = 0;
+				height ++;
+
+				if (character == Font::FONT_CODE_CR) {
+					Ogre::DisplayString::const_iterator peeki = index;
+					peeki++;
+					if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
+				}
+				// следующий символ
+				continue;
+
+			} else if (character == _T('#')) {
+				// берем следующий символ
+				++ index;
+				if (index == end) {--index ;continue;} // это защита
+
+				character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
+				// если два подряд, то рисуем один шарп, если нет то меняем цвет
+				if (character != _T('#')) {
+					// и еще пять символов после шарпа
+					for (char i=0; i<5; i++) {
+						++ index;
+						if (index == end) {--index ;continue;} // это защита
+					}
+					continue;
+				}
+			}
+
+			Font::GlyphInfo * info;
+			if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
+			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
+			else info = mpFont->getGlyphInfo(character);
+
+			len += info->aspectRatio * mFontHeight;
+		}
+
+		if (width < len) width = len;
+
+		// плюс ширина курсора
+		return IntSize((int)width + 2, height * (int)mFontHeight);
+	}
+
+	void SimpleText::setViewOffset(IntPoint _point)
+	{
+		mViewOffset = _point;
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+		
+	IntPoint SimpleText::getViewOffset()
+	{
+		return mViewOffset;
+	}
+
 	void SimpleText::updateRawData()
 	{
 		if (mpFont.isNull()) return;
@@ -500,12 +641,16 @@ namespace MyGUI
 		else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
 			left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
 			// выравниваем по  целому пикселю
-			if (!((uint32)mCurrentCoord.width & 0x01)) left_shift += mRenderItem->getPixScaleX();
+			if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mRenderItem->getPixScaleX();
 		}
 
 		if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 		else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
-		else if ( IS_ALIGN_VCENTER(mTextAlign) ) bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
+		else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
+			bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
+			// выравниваем по  целому пикселю
+			if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mRenderItem->getPixScaleY();
+		}
 
 		// данные непосредственно для вывода
 		float vertex_top, vertex_bottom, vertex_left, vertex_right;
@@ -750,147 +895,6 @@ namespace MyGUI
 		}
 
 		return vertex_count;
-	}
-
-	size_t SimpleText::getSelectStart()
-	{
-		return mStartSelect;
-	}
-
-	size_t SimpleText::getSelectEnd()
-	{
-		return mEndSelect;
-	}
-
-	void SimpleText::setTextSelect(size_t _start, size_t _end)
-	{
-		mStartSelect=_start;
-		mEndSelect=_end;
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	bool SimpleText::getSelectBackground()
-	{
-		return mBackgroundNormal;
-	}
-
-	void SimpleText::setSelectBackground(bool _normal)
-	{
-		if (mBackgroundNormal == _normal) return;
-		mBackgroundNormal = _normal;
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	bool SimpleText::isCursorShow()
-	{
-		return mShowCursor;
-	}
-
-	void SimpleText::setShowCursor(bool _show)
-	{
-		if (mShowCursor == _show) return;
-		mShowCursor = _show;
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	size_t SimpleText::getCursorPosition()
-	{
-		return mCursorPosition;
-	}
-
-	void SimpleText::setCursorPosition(size_t _pos)
-	{
-		if (mCursorPosition == _pos) return;
-		mCursorPosition = _pos;
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	void SimpleText::setTextAlign(Align _align)
-	{
-		mTextAlign = _align;
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	Align SimpleText::getTextAlign()
-	{
-		return mTextAlign;
-	}
-
-	IntSize SimpleText::getTextSize()
-	{
-		if (null == mRenderItem) return IntSize();
-		// если нуно обновить, или изменились пропорции экрана
-		if ((mAspectCoef != mRenderItem->getAspectCoef()) || mTextOutDate) updateRawData();
-		return IntSize( (int)(mContextRealSize.width / (mRenderItem->getPixScaleX() * 2.0)), (int)(mLinesInfo.size() * mFontHeight) );
-	}
-
-	IntSize SimpleText::getTextSize(const Ogre::DisplayString& _text)
-	{
-		if (mpFont.isNull() || (null == mRenderItem)) return IntSize();
-
-		float len = 0, width = 0;
-		int height = 1;
-
-		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);
-
-		Ogre::DisplayString::const_iterator end = _text.end();
-		for (Ogre::DisplayString::const_iterator index=_text.begin(); index!=end; ++index) {
-
-			Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-
-			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
-				if (width < len) width = len;
-				len = 0;
-				height ++;
-
-				if (character == Font::FONT_CODE_CR) {
-					Ogre::DisplayString::const_iterator peeki = index;
-					peeki++;
-					if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
-				}
-				// следующий символ
-				continue;
-
-			} else if (character == _T('#')) {
-				// берем следующий символ
-				++ index;
-				if (index == end) {--index ;continue;} // это защита
-
-				character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-				// если два подряд, то рисуем один шарп, если нет то меняем цвет
-				if (character != _T('#')) {
-					// и еще пять символов после шарпа
-					for (char i=0; i<5; i++) {
-						++ index;
-						if (index == end) {--index ;continue;} // это защита
-					}
-					continue;
-				}
-			}
-
-			Font::GlyphInfo * info;
-			if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
-			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
-			else info = mpFont->getGlyphInfo(character);
-
-			len += info->aspectRatio * mFontHeight;
-		}
-
-		if (width < len) width = len;
-
-		// плюс ширина курсора
-		return IntSize((int)width + 2, height * (int)mFontHeight);
-	}
-
-	void SimpleText::setViewOffset(IntPoint _point)
-	{
-		mViewOffset = _point;
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-		
-	IntPoint SimpleText::getViewOffset()
-	{
-		return mViewOffset;
 	}
 
 } // namespace MyGUI

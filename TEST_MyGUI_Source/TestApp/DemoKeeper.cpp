@@ -89,8 +89,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->setAlpha(0.3);*/
 
 
-	MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
-	MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
 	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 
 	//MyGUI::ProgressPtr progress = mGUI->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(40, 40, 400, 20), MyGUI::ALIGN_DEFAULT, "Main");

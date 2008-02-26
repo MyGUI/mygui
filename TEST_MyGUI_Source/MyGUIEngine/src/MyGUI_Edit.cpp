@@ -1193,10 +1193,10 @@ namespace MyGUI
 			// горизонтальное смещение
 			if (mSizeTextView.width > mWidgetUpper->getWidth()) {
 				if (cursor.left < view.left) {
-					offset.left = -(view.left - cursor.left);// - (int)EDIT_OFFSET_HORZ_CURSOR;
+					offset.left = -(view.left - cursor.left + (int)EDIT_OFFSET_HORZ_CURSOR);
 				}
 				else if ((cursor.right) > view.right) {
-					offset.left = -(view.right - cursor.right);// - 2);// + (int)EDIT_OFFSET_HORZ_CURSOR;
+					offset.left = -(view.right - cursor.right - (int)EDIT_OFFSET_HORZ_CURSOR);
 				}
 			}
 
@@ -1204,7 +1204,6 @@ namespace MyGUI
 			if (mSizeTextView.height > mWidgetUpper->getHeight()) {
 				if (cursor.top < view.top) {
 					offset.top = -(view.top - cursor.top);
-					MYGUI_OUT("offset = " , offset.top , "  pos = " , mCursorPosition , "  cursor = " , cursor.top);
 				}
 				else if (cursor.bottom > view.bottom) {
 					offset.top = -(view.bottom - cursor.bottom);
@@ -1213,9 +1212,35 @@ namespace MyGUI
 
 		}
 
+		int add = 2;
+		if (mSizeTextView.width > mWidgetUpper->getWidth()) {
+
+			// максимальный выход влево
+			if ((point.left + offset.left) < add) {
+				offset.left = - (add + point.left);
+			}
+			// максимальный выход вправо
+			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + add) ) {
+				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth() + add) - point.left;
+			}
+		}
+
+		if (mSizeTextView.height > mWidgetUpper->getHeight()) {
+
+			// максимальный выход вверх
+			if ((point.top + offset.top) < 0) {
+				offset.top = - point.top;
+			}
+			// максимальный выход вниз
+			else if ( (point.top + offset.top) > (mSizeTextView.height-mWidgetUpper->getHeight()) ) {
+				offset.top = (mSizeTextView.height-mWidgetUpper->getHeight()) - point.top;
+			}
+		}
+
+
 		// поменялся вью
 		if (false == offset.empty()) mText->setViewOffset(point + offset);
-		
+
 	}
 
 	void Edit::setCaption(const Ogre::DisplayString & _caption)
