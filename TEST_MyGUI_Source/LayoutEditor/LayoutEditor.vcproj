@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
-	Name="TestApp"
-	ProjectGUID="{382942A7-8159-4340-A6D7-252E10064543}"
+	Version="8,00"
+	Name="LayoutEditor"
+	ProjectGUID="{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}"
 	RootNamespace="TestApp"
 	Keyword="Win32Proj"
 	AssemblyReferenceSearchPaths="&quot;..\MyGUIEngine\lib\debug&quot;"
-	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
-		<Platform
+	    <Platform
 			Name="Win32"
 		/>
 	</Platforms>
@@ -71,8 +70,6 @@
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeForWindows98="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -92,6 +89,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -147,8 +147,6 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -170,6 +168,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -177,6 +178,11 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
+			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}"
+			RelativePathToProject=".\TestPlugin\TestPlugin.vcproj"
 		/>
 	</References>
 	<Files>
@@ -190,7 +196,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DemoKeeper.cpp"
+				RelativePath=".\EditorState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UndoManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WidgetContainer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WidgetTypes.cpp"
 				>
 			</File>
 		</Filter>
@@ -204,15 +222,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DemoKeeper.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource"
-			>
-			<File
-				RelativePath=".\mygui.ico"
+				RelativePath=".\EditorState.h"
 				>
 			</File>
 			<File
@@ -220,7 +230,47 @@
 				>
 			</File>
 			<File
-				RelativePath=".\TestApp.rc"
+				RelativePath=".\UndoManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WidgetContainer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WidgetTypes.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource"
+			>
+			<File
+				RelativePath=".\LayoutEditor.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\mygui.ico"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Layout"
+			>
+			<File
+				RelativePath="..\Media\LayoutEditor\interface.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\settings.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\widgets.xml"
 				>
 			</File>
 		</Filter>
