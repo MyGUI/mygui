@@ -73,7 +73,7 @@ namespace MyGUI
 		mElementSkin->_setMaterialName(_material);
 		mSizeTexture = SkinManager::getMaterialSize(_material);
 		mSizeTile = _tile;
-		mNum = (size_t)-1;
+		mNum = ITEM_NONE;
 	}
 
 	void StaticImage::setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile)
@@ -82,14 +82,21 @@ namespace MyGUI
 		mSizeTexture = SkinManager::getMaterialSize(_material);
 		mRectImage = _rect;
 		mSizeTile = _tile;
-		mNum = (size_t)-1;
+		mNum = ITEM_NONE;
 	}
 
 	void StaticImage::setImageMaterial(const std::string & _material)
 	{
 		mElementSkin->_setMaterialName(_material);
 		mSizeTexture = SkinManager::getMaterialSize(_material);
-		mNum = (size_t)-1;
+		mNum = ITEM_NONE;
+
+		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(_material);
+		if (false == material.isNull()) {
+			material->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
+			material->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+		}
+
 	}
 
 } // namespace MyGUI

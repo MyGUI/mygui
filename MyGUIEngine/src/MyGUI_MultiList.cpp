@@ -13,6 +13,43 @@
 namespace MyGUI
 {
 
+	// структура для внутреннего использования в процессе сортировки
+	struct Keeper
+	{
+		inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+		{
+			text.resize(info.size());
+			std::vector<Ogre::DisplayString>::iterator itext = text.begin();
+			for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
+				(*itext) = (*iter).list->getItem(_index);
+			}
+			index1 = _index;
+			index2 = vec2[_index];
+		}
+
+		inline void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+		{
+			std::vector<Ogre::DisplayString>::iterator itext = text.begin();
+			for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
+				(*iter).list->setItem(_index, *itext);
+			}
+			vec[vec2[_index]] = index1;
+			vec2[_index] = index2;
+		}
+
+		inline void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index1, size_t _index2)
+		{
+			for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
+				(*iter).list->setItem(_index1, (*iter).list->getItem(_index2));
+			}
+			vec[vec2[_index1]] = _index2;
+			vec2[_index1] = vec2[_index2];
+		}
+
+		std::vector<Ogre::DisplayString> text;
+		size_t index1, index2;
+	};
+
 	MultiList::MultiList(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _name),
 		mHeightButton(0),
@@ -221,7 +258,9 @@ namespace MyGUI
 	size_t MultiList::getItemSelect()
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		return convertFromSort(mVectorRowInfo.front().list->getItemSelect());
+		size_t select = mVectorRowInfo.front().list->getItemSelect();
+		if (ITEM_NONE == select) return ITEM_NONE;
+		return convertFromSort(select);
 	}
 
 	void MultiList::resetItemSelect()
@@ -439,74 +478,38 @@ namespace MyGUI
 		vec.resize(size);
 		for (size_t pos=0; pos<size; ++pos) vec[mToSortIndex[pos]] = pos;
 
-		struct Keeper
-		{
-			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
-			{
-				text.resize(info.size());
-				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
-				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
-					(*itext) = (*iter).list->getItem(_index);
-				}
-				index1 = _index;
-				index2 = vec2[_index];
-			}
-
-			inline void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
-			{
-				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
-				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
-					(*iter).list->setItem(_index, *itext);
-				}
-				vec[vec2[_index]] = index1;
-				vec2[_index] = index2;
-			}
-
-			inline void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index1, size_t _index2)
-			{
-				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
-					(*iter).list->setItem(_index1, (*iter).list->getItem(_index2));
-				}
-				vec[vec2[_index1]] = _index2;
-				vec2[_index1] = vec2[_index2];
-			}
-
-			std::vector<Ogre::DisplayString> text;
-			size_t index1, index2;
-		};
-
 		Keeper keeper;
 
-    int step = count/2;
+		int step = (int)(count/2);
  
-		if (mSortUp){
-			for( ; step>0 ; ){
-					for( size_t i=0; i<(count-step); ++i ){
-							int j = i;
-							while ( (j>=0) && (list->getItem(j) > list->getItem(j+step)) ){
-									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
-									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
-									keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
-									--j;
-							}
+		if (mSortUp) {
+			for( ; step>0 ; ) {
+				for( size_t i=0; i<(count-step); ++i ) {
+					int j = (int)i;
+					while ( (j>=0) && (list->getItem(j) > list->getItem(j+step)) ){
+						keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
+						keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
+						keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
+						--j;
 					}
-					step >>= 1;
-			}
-		}else{
-			for( ; step>0 ; ){
-					for( size_t i=0; i<(count-step); ++i ){
-							int j = i;
-							while ( (j>=0) && (list->getItem(j) < list->getItem(j+step)) ){
-									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
-									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
-									keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
-									--j;
-							}
-					}
-					step >>= 1;
+				}
+				step >>= 1;
 			}
 		}
-
+		else {
+			for ( ; step>0 ; ) {
+				for( size_t i=0; i<(count-step); ++i ) {
+					int j = (int)i;
+					while ( (j>=0) && (list->getItem(j) < list->getItem(j+step)) ) {
+						keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
+						keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
+						keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
+						--j;
+					}
+				}
+				step >>= 1;
+			}
+		}
 
 		mIsDirtySort = false;
 	}
