@@ -1220,8 +1220,8 @@ namespace MyGUI
 				offset.left = - (add + point.left);
 			}
 			// максимальный выход вправо
-			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + add) ) {
-				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth() + add) - point.left;
+			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + 0) ) {
+				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth() + 0) - point.left;
 			}
 		}
 
@@ -1237,9 +1237,20 @@ namespace MyGUI
 			}
 		}
 
+		// восстановление нулевого вью
+		if ((offset.left == 0) && (point.left != 0)) {
+			offset.left = -point.left;
+			//point.left = 0;
+		}
+		if ((offset.top == 0) && (point.top != 0)) {
+			offset.top = -point.top;
+			//point.top = 0;
+		}
 
 		// поменялся вью
 		if (false == offset.empty()) mText->setViewOffset(point + offset);
+
+		MYGUI_OUT(point + offset);
 
 	}
 
