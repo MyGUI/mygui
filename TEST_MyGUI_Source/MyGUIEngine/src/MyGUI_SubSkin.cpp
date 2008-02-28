@@ -6,6 +6,7 @@
 */
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_RenderItem.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
@@ -19,6 +20,7 @@ namespace MyGUI
 		mCurrentCoord(_info.coord),
 		mCurrentAlpha(0xFFFFFFFF)
 	{
+		mManager = LayerManager::getInstancePtr();
 	}
 
 	SubSkin::~SubSkin()
@@ -213,17 +215,17 @@ namespace MyGUI
 
 	}
 
-	size_t SubSkin::_drawItem(Vertex * _vertex)
+	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
 	{
 		if ((false == mShow) || (mEmptyView)) return 0;
 		//if ((0 >= getViewWidth()) || (0 >= getViewHeight())) return 0;
 
-		float vertex_z = mRenderItem->getMaximumDepth();
+		float vertex_z = mManager->getMaximumDepth();
 
-		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
+		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
+		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
 		// first triangle - left top
 		_vertex[0].x = vertex_left;

@@ -29,8 +29,8 @@ namespace MyGUI
 		void leaveItem(LayerItemKeeper * _item);
 		void upItem(LayerItemKeeper * _item);
 
-		void _render();
-		void _resize(const FloatSize& _size);
+		void _render(bool _update);
+		//void _resize(const FloatSize& _size);
 
 		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
 

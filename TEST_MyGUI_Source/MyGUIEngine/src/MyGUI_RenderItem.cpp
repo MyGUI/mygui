@@ -21,14 +21,11 @@ namespace MyGUI
 		mTextureName(_texture),
 		mOutDate(false),
 		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
-		mPixScaleX(1), mPixScaleY(1),
-        mHOffset(0), mVOffset(0),
-		mAspectCoef(1)
+		mVertexCount(RENDER_ITEM_STEEP_REALLOCK)
 	{
 		mRenderSystem = Ogre::Root::getSingleton().getRenderSystem();
 		mTextureManager = Ogre::TextureManager::getSingletonPtr();
-		mMaximumDepth = mRenderSystem->getMaximumDepthInputValue();
+		//mMaximumDepth = mRenderSystem->getMaximumDepthInputValue();
 
 		createVertexBuffer();
 
@@ -48,7 +45,7 @@ namespace MyGUI
 		mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 
 		// обновляем данные
-		_resize(LayerManager::getInstance().getViewSize());
+		//_resize(LayerManager::getInstance().getViewSize());
 
 	}
 
@@ -130,19 +127,19 @@ namespace MyGUI
 		createVertexBuffer();
 	}
 
-	void RenderItem::_render()
+	void RenderItem::_render(bool _update)
 	{
 		if (mTextureName.empty()) return;
 		if (mNeedVertexCount > mVertexCount) resizeVertexBuffer();
 
-		if (mOutDate) {
+		if (mOutDate || _update) {
 
 			Vertex * buffer = (Vertex*)mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
 
 
 			size_t count_all = 0;
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-				size_t count = (*iter).first->_drawItem(buffer);
+				size_t count = (*iter).first->_drawItem(buffer, _update);
 				// колличество отрисованных вершин
 				MYGUI_DEBUG_ASSERT(count <= (*iter).second, "It is too much vertexes");
 				buffer += count;
@@ -166,7 +163,7 @@ namespace MyGUI
 		mRenderSystem->_render(mRenderOperation);
 	}
 
-	void RenderItem::_resize(const FloatSize& _size)
+	/*void RenderItem::_resize(const FloatSize& _size)
 	{
 		mPixScaleX = 1.0 / _size.width;
 		mPixScaleY = 1.0 / _size.height;
@@ -176,7 +173,7 @@ namespace MyGUI
         mVOffset = mRenderSystem->getVerticalTexelOffset() / _size.height;
 
 		mOutDate = true;
-	}
+	}*/
 
 	inline void RenderItem::removeDrawItem(DrawItem * _item)
 	{

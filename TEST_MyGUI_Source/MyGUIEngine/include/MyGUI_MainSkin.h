@@ -11,20 +11,21 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_CroppedRectangleInterface.h"
 #include "MyGUI_DrawItem.h"
+#include "MyGUI_SubSkin.h"
 
 namespace MyGUI
 {
 
 	class RenderItem;
 
-	class _MyGUIExport MainSkin : public CroppedRectangleInterface, public DrawItem
+	class _MyGUIExport MainSkin : public SubSkin//CroppedRectangleInterface, public DrawItem
 	{
 
 	public:
 		MainSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~MainSkin();
 
-		inline static const Ogre::String & _getType() {static Ogre::String type("MainSkin"); return type;}
+		/*inline static const Ogre::String & _getType() {static Ogre::String type("MainSkin"); return type;}
 
 		void setAlpha(float _alpha);
 
@@ -43,7 +44,7 @@ namespace MyGUI
 		virtual void _destroyDrawItem();
 
 		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex);
+		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 
 	protected:
@@ -58,6 +59,7 @@ namespace MyGUI
 
 		RenderItem * mRenderItem;
 
+		LayerManager * mManager;*/
 	};
 
 } // namespace MyGUI

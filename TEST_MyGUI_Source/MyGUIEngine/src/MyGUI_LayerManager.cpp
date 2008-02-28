@@ -31,6 +31,12 @@ namespace MyGUI
 		Ogre::SceneManager * mSceneManager = Ogre::Root::getSingleton().getSceneManagerIterator().getNext();
 		mSceneManager->addRenderQueueListener(this);
 
+		// инициализация
+		mPixScaleX = mPixScaleY = 1;
+        mHOffset = mVOffset = 0;
+		mAspectCoef = 1;
+		mUpdate = false;
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -82,8 +88,11 @@ namespace MyGUI
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
 
 		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			(*iter)->_render();
+			(*iter)->_render(mUpdate);
 		}
+
+		// сбрасываем флаг
+		mUpdate = false;
 
 	}
 
@@ -173,11 +182,24 @@ namespace MyGUI
 
 	void LayerManager::_windowResized(const FloatSize& _size)
 	{
+		// новый размер
 		mViewSize = _size;
 
-		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		mPixScaleX = 1.0 / _size.width;
+		mPixScaleY = 1.0 / _size.height;
+		mAspectCoef = _size.height / _size.width;
+
+		Ogre::RenderSystem * render = Ogre::Root::getSingleton().getRenderSystem();
+
+        mHOffset = render->getHorizontalTexelOffset() / _size.width;
+        mVOffset = render->getVerticalTexelOffset() / _size.height;
+
+		// обновить всех
+		mUpdate = true;
+
+		/*for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			(*iter)->_resize(mViewSize);
-		}
+		}*/
 	}
 
 } // namespace MyGUI

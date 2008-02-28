@@ -361,10 +361,10 @@ namespace MyGUI
 		return (null == mText) ? IntSize() : mText->getTextSize();
 	}
 
-	IntSize Widget::getTextSize(const Ogre::DisplayString& _text)
+	/*IntSize Widget::getTextSize(const Ogre::DisplayString& _text)
 	{
 		return (null == mText) ? IntSize() : mText->getTextSize(_text);
-	}
+	}*/
 
 	IntCoord Widget::getTextCoord()
 	{
@@ -498,10 +498,13 @@ namespace MyGUI
 		// сохраняем, чтобы последующие дети могли приаттачиться
 		setLayerItemKeeper(_item);
 
-		// если у нас нет саб скинов, то и не будем начего себе заказывать
-		RenderItem * renderItem = mSubSkinChild.empty() ? null : _item->addToRenderItem(mTexture, true, false);
+		RenderItem * renderItem = null;
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+			// создаем только если есть хоть один не текстовой сабскин
+			if ((null == renderItem) && (false == (*skin)->_isText())) {
+				renderItem = _item->addToRenderItem(mTexture, true, false);
+			}
 			(*skin)->_createDrawItem(_item, renderItem);
 		}
 

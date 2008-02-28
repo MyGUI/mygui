@@ -188,7 +188,7 @@
 
   <Value name="Font">
     <Property key="DEFAULT"/>
-    <Property key="MyGUI_CoreFont.12"/>
+    <Property key="ACMESA.18"/>
 	<Property key="MyGUI_CoreFont.18"/>
 	<Property key="MyGUI_CoreFont.24"/>
   </Value>

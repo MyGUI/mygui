@@ -24,7 +24,7 @@ namespace MyGUI
 		SubSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~SubSkin();
 
-		inline static const Ogre::String & _getType() {static Ogre::String type("SubSkin"); return type;}
+		//inline static const Ogre::String & _getType() {static Ogre::String type("SubSkin"); return type;}
 
 		void setAlpha(float _alpha);
 
@@ -43,7 +43,7 @@ namespace MyGUI
 		virtual void _destroyDrawItem();
 
 		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex);
+		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 
 	protected:
@@ -58,6 +58,7 @@ namespace MyGUI
 
 		RenderItem * mRenderItem;
 
+		LayerManager * mManager;
 	};
 
 } // namespace MyGUI

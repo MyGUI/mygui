@@ -16,7 +16,7 @@ namespace MyGUI
 	class _MyGUIExport SubWidgetFactoryInterface
 	{
 	public:
-		virtual const Ogre::String & getType() = 0;
+		virtual const std::string & getType() = 0;
 		virtual CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) = 0;
 	};
 
@@ -25,12 +25,16 @@ namespace MyGUI
 	{
 
 	public:
-		const Ogre::String & getType() {return ClassName::_getType();};
+		CroppedRectangleFactory(const std::string& _type) : mType(_type) {}
+
+		const std::string & getType() {return mType;};
 
 		CroppedRectangleInterface * createSubWidget(const SubWidgetInfo& _info, CroppedRectangleInterface* _parent)
 		{
 			return new ClassName(_info, _parent);
 		}
+	private:
+		std::string mType;
 
 	};
 

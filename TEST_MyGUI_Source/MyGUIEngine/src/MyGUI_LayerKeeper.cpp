@@ -29,10 +29,10 @@ namespace MyGUI
 		mLayerItemKeepers.clear();
 	}
 
-	void LayerKeeper::_render()
+	void LayerKeeper::_render(bool _update)
 	{
 		for (VectorLayerItemKeeper::iterator iter=mLayerItemKeepers.begin(); iter!=mLayerItemKeepers.end(); ++iter) {
-			(*iter)->_render();
+			(*iter)->_render(_update);
 		}
 	}
 
@@ -79,12 +79,12 @@ namespace MyGUI
 		}
 	}
 
-	void LayerKeeper::_resize(const FloatSize& _size)
+	/*void LayerKeeper::_resize(const FloatSize& _size)
 	{
 		for (VectorLayerItemKeeper::iterator iter=mLayerItemKeepers.begin(); iter!=mLayerItemKeepers.end(); ++iter) {
 			(*iter)->_resize(_size);
 		}
-	}
+	}*/
 
 	LayerItem * LayerKeeper::_findLayerItem(int _left, int _top, LayerItem* &_root)
 	{

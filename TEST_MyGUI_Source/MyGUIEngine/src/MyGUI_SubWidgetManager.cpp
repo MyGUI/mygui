@@ -16,10 +16,10 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		mFactorySubSkin = new CroppedRectangleFactory<SubSkin>();
-		mFactoryMainSkin = new CroppedRectangleFactory<MainSkin>();
-		mFactorySimpleText = new CroppedRectangleFactory<SimpleText>();
-		mFactoryEditText = new CroppedRectangleFactory<EditText>();
+		mFactorySubSkin = new CroppedRectangleFactory<SubSkin>("SubSkin");
+		mFactoryMainSkin = new CroppedRectangleFactory<MainSkin>("MainSkin");
+		mFactorySimpleText = new CroppedRectangleFactory<SimpleText>("SimpleText");
+		mFactoryEditText = new CroppedRectangleFactory<EditText>("EditText");
 		registerFactory(mFactorySubSkin);
 		registerFactory(mFactoryMainSkin);
 		registerFactory(mFactorySimpleText);

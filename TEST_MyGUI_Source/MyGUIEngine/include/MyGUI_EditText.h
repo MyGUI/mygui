@@ -28,7 +28,7 @@ namespace MyGUI
 		EditText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~EditText();
 
-		inline static const Ogre::String & _getType() {static Ogre::String type("EditText"); return type;}
+		//inline static const Ogre::String & _getType() {static Ogre::String type("EditText"); return type;}
 
 		void show();
 		void hide();
@@ -37,7 +37,7 @@ namespace MyGUI
 		void updateRawData();
 
 		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex);
+		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 		void _updateView();
 		void _correctView();
@@ -112,7 +112,6 @@ namespace MyGUI
 		uint16 mFontHeight;
 		Font::GlyphInfo * mSpaceGlyphInfo;
 		Font::GlyphInfo * mTabGlyphInfo;
-		float mAspectCoef;
 
 		float mTextureHeightOne, mTextureWidthOne;
 		bool mBackgroundNormal;
@@ -124,10 +123,15 @@ namespace MyGUI
 		VectorLineInfo mLinesInfo;
 		IntPoint mViewOffset; // смещение текста
 		FloatSize mContextRealSize; // размер всего текста
+		FloatSize mContextSize; // размер всего текста
 
 		LayerItemKeeper * mItemKeeper;
 		RenderItem * mRenderItem;
 		size_t mCountVertex;
+
+		LayerManager * mManager;
+
+		bool mManualView;
 
 	};
 

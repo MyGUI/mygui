@@ -124,9 +124,9 @@ namespace MyGUI
 
 	void Message::updateSize()
 	{
-		// + " " чтобы текст у самого края не кончался
-		// ширина = (ширина текста+1символ) + ширина иконки + смещение текста
-		IntSize size = mWidgetText->getTextSize(mWidgetText->getCaption() + " ");
+		//??? + " " чтобы текст у самого края не кончался
+		//??? ширина = (ширина текста+1символ) + ширина иконки + смещение текста
+		IntSize size = mWidgetText->getTextSize(/*mWidgetText->getCaption() + " "*/);
 		size.width += mIcon->getWidth();
 		// минимум высота иконки
 		if ((null != mIcon) && (size.height < mIcon->getHeight())) size.height = mIcon->getHeight();

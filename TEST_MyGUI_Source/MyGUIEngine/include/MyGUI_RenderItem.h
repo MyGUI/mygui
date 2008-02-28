@@ -35,8 +35,8 @@ namespace MyGUI
 		RenderItem(const std::string& _texture, LayerItemKeeper * _parent);
 		~RenderItem();
 
-		void _render();
-		void _resize(const FloatSize& _size);
+		void _render(bool _update);
+		//void _resize(const FloatSize& _size);
 
 		inline const std::string& getTextureName() { return mTextureName; }
 
@@ -81,15 +81,15 @@ namespace MyGUI
 
 		inline void outOfDate() { mOutDate = true; }
 
-		inline float getMaximumDepth() {return mMaximumDepth;}
+		//inline float getMaximumDepth() {return mMaximumDepth;}
 
-		inline float getPixScaleX() {return mPixScaleX;}
+		/*inline float getPixScaleX() {return mPixScaleX;}
 		inline float getPixScaleY() {return mPixScaleY;}
 
 		inline float getHOffset() {return mHOffset;}
 		inline float getVOffset() {return mVOffset;}
 
-		inline float getAspectCoef() {return mAspectCoef;}
+		inline float getAspectCoef() {return mAspectCoef;}*/
 
 		inline size_t getVertexCount() {return mVertexCount;}
 		inline size_t getNeedVertexCount() {return mNeedVertexCount;}
@@ -121,7 +121,7 @@ namespace MyGUI
 		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
 
 		// размер пикселя в относительных координатах
-		float mPixScaleX;
+		/*float mPixScaleX;
 		float mPixScaleY;
 
 		// смещение для того, чтобы тексель попал в пиксель
@@ -131,7 +131,7 @@ namespace MyGUI
 		float mAspectCoef;
 
 		// координата зю
-		float mMaximumDepth;
+		float mMaximumDepth;*/
 
 		LayerItemKeeper * mParent;
 

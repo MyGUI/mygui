@@ -62,7 +62,7 @@ namespace MyGUI
 
 		// возвращает размер текста в пикселях
 		virtual IntSize getTextSize() {return IntSize();}
-		virtual IntSize getTextSize(const Ogre::DisplayString& _text) {return IntSize();}
+		//???virtual IntSize getTextSize(const Ogre::DisplayString& _text) {return IntSize();}
 
 		// устанавливает смещение текста в пикселях
 		virtual void setViewOffset(IntPoint _point) {}

@@ -13,20 +13,21 @@
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
+#include "MyGUI_EditText.h"
 
 namespace MyGUI
 {
 
 	class RenderItem;
 
-	class _MyGUIExport SimpleText : public SubWidgetTextInterface, public DrawItem
+	class _MyGUIExport SimpleText : public EditText//SubWidgetTextInterface, public DrawItem
 	{
 
 	public:
 		SimpleText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~SimpleText();
 
-		inline static const Ogre::String & _getType() {static Ogre::String type("SimpleText"); return type;}
+		/*inline static const Ogre::String & _getType() {static Ogre::String type("SimpleText"); return type;}
 
 		void show();
 		void hide();
@@ -35,7 +36,7 @@ namespace MyGUI
 		void updateRawData();
 
 		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex);
+		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 		void _updateView();
 		void _correctView();
@@ -104,7 +105,6 @@ namespace MyGUI
 		uint16 mFontHeight;
 		Font::GlyphInfo * mSpaceGlyphInfo;
 		Font::GlyphInfo * mTabGlyphInfo;
-		float mAspectCoef;
 
 		float mTextureHeightOne, mTextureWidthOne;
 		bool mBackgroundNormal;
@@ -120,6 +120,8 @@ namespace MyGUI
 		LayerItemKeeper * mItemKeeper;
 		RenderItem * mRenderItem;
 		size_t mCountVertex;
+
+		LayerManager * mManager;*/
 
 	};
 

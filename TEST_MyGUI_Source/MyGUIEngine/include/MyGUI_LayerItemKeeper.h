@@ -28,8 +28,8 @@ namespace MyGUI
 		inline void _removeUsing() { mCountUsing--; }
 		inline size_t _countUsing() { return mCountUsing; }
 
-		void _render();
-		void _resize(const FloatSize& _size);
+		void _render(bool _update);
+		//void _resize(const FloatSize& _size);
 
 		RenderItem * addToRenderItem(const std::string& _texture, bool _first, bool _separate);
 

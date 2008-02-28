@@ -1250,7 +1250,7 @@ namespace MyGUI
 		// поменялся вью
 		if (false == offset.empty()) mText->setViewOffset(point + offset);
 
-		MYGUI_OUT(point + offset);
+		//MYGUI_OUT(point + offset);
 
 	}
 

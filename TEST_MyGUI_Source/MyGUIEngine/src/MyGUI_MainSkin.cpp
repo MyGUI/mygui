@@ -6,29 +6,36 @@
 */
 #include "MyGUI_MainSkin.h"
 #include "MyGUI_RenderItem.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
 
-	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
+	//const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	MainSkin::MainSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
+		SubSkin(_info, _parent)
 		// корректируем под маин
-		CroppedRectangleInterface(IntCoord(IntPoint(), _parent->getSize()), ALIGN_STRETCH, _parent),
+		/*CroppedRectangleInterface(IntCoord(IntPoint(), _parent->getSize()), ALIGN_STRETCH, _parent),
 		mEmptyView(false),
 		mRenderItem(null),
 		mCurrentCoord(IntCoord(IntPoint(), _parent->getSize())),
-		mCurrentAlpha(0xFFFFFFFF)
+		mCurrentAlpha(0xFFFFFFFF)*/
 	{
-		mCoord = IntCoord(IntPoint(), _parent->getSize());
 		mAlign = ALIGN_STRETCH;
+		setPosition(IntCoord(0, 0, _parent->getWidth(), _parent->getHeight()));
+		//mCurrentCoord.set(0, 0, _parent->getWidth(), _parent->getHeight());
+		/*mManager = LayerManager::getInstancePtr();
+
+		mCoord = IntCoord(IntPoint(), _parent->getSize());
+		mAlign = ALIGN_STRETCH;*/
 	}
 
 	MainSkin::~MainSkin()
 	{
 	}
 
-	void MainSkin::show()
+	/*void MainSkin::show()
 	{
 		if (mShow) return;
 		mShow = true;
@@ -216,17 +223,17 @@ namespace MyGUI
 
 	}
 
-	size_t MainSkin::_drawItem(Vertex * _vertex)
+	size_t MainSkin::_drawItem(Vertex * _vertex, bool _update)
 	{
 		if ((false == mShow) || (mEmptyView)) return 0;
 		//if ((0 >= getViewWidth()) || (0 >= getViewHeight())) return 0;
 
-		float vertex_z = mRenderItem->getMaximumDepth();
+		float vertex_z = mManager->getMaximumDepth();
 
-		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
+		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
+		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
 		// first triangle - left top
 		_vertex[0].x = vertex_left;
@@ -289,6 +296,6 @@ namespace MyGUI
 	void MainSkin::_destroyDrawItem()
 	{
 		mRenderItem->removeDrawItem(this);
-	}
+	}*/
 
 } // namespace MyGUI

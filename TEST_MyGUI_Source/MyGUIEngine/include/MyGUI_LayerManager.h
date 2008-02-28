@@ -48,6 +48,16 @@ namespace MyGUI
 
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
+		inline float getMaximumDepth() {return mMaximumDepth;}
+
+		inline float getPixScaleX() {return mPixScaleX;}
+		inline float getPixScaleY() {return mPixScaleY;}
+
+		inline float getHOffset() {return mHOffset;}
+		inline float getVOffset() {return mVOffset;}
+
+		inline float getAspectCoef() {return mAspectCoef;}
+
 	private:
 
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
@@ -57,6 +67,23 @@ namespace MyGUI
 		VectorLayerKeeper mLayerKeepers;
 
 		FloatSize mViewSize;
+
+		// флаг для обновления всех и вся
+		bool mUpdate;
+
+		// размер пикселя в относительных координатах
+		float mPixScaleX;
+		float mPixScaleY;
+
+		// смещение для того, чтобы тексель попал в пиксель
+        float mHOffset;
+        float mVOffset;
+
+		float mAspectCoef;
+
+		// координата зю
+		float mMaximumDepth;
+
 
 	};
 

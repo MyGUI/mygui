@@ -30,13 +30,13 @@ namespace MyGUI
 		mSecondRenderItems.clear();
 	}
 
-	void LayerItemKeeper::_render()
+	void LayerItemKeeper::_render(bool _update)
 	{
 		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
-			(*iter)->_render();
+			(*iter)->_render(_update);
 		}
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
-			(*iter)->_render();
+			(*iter)->_render(_update);
 		}
 	}
 
@@ -93,7 +93,7 @@ namespace MyGUI
 		return mSecondRenderItems.back();
 	}
 
-	void LayerItemKeeper::_resize(const FloatSize& _size)
+	/*void LayerItemKeeper::_resize(const FloatSize& _size)
 	{
 		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
 			(*iter)->_resize(_size);
@@ -101,7 +101,7 @@ namespace MyGUI
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
 			(*iter)->_resize(_size);
 		}
-	}
+	}*/
 
 	LayerItem * LayerItemKeeper::_findLayerItem(int _left, int _top, LayerItem* &_root)
 	{
