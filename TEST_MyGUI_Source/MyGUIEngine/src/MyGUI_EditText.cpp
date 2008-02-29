@@ -65,6 +65,8 @@ namespace MyGUI
 
 		// потом перенести
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
+
+		//mEndSelect = 100;
 	}
 
 	EditText::~EditText()
@@ -494,7 +496,7 @@ namespace MyGUI
 		// опорное смещение вершин
 		float left, right, top, bottom = real_top, left_shift = 0;
 
-		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
+		// сдвиг текста
 		if (false == mManualView) {
 			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
@@ -503,7 +505,7 @@ namespace MyGUI
 				if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mManager->getPixScaleX();
 			}
 		}
-		//else left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
+		else left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
 
 		if (false == mManualView) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
@@ -514,7 +516,7 @@ namespace MyGUI
 				if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
 			}
 		}
-		//else bottom += mManager->getPixScaleY() * (float)mViewOffset.top * 2.0;
+		else bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 
 		// корректируем координату до нижней строки
 		if (y < (bottom - mContextRealSize.height)) y = bottom - mContextRealSize.height;
@@ -619,7 +621,7 @@ namespace MyGUI
 		// опорное смещение вершин
 		float left, right, top, bottom = real_top, left_shift = 0;
 
-		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
+		// сдвиг текста
 		if (false == mManualView) {
 			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
@@ -628,7 +630,7 @@ namespace MyGUI
 				if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mManager->getPixScaleX();
 			}
 		}
-		//else left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
+		else left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
 
 		if (false == mManualView) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
@@ -639,7 +641,7 @@ namespace MyGUI
 				if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
 			}
 		}
-		//else bottom += mManager->getPixScaleY() * (float)mViewOffset.top * 2.0;
+		else bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 
 		// основной цикл
 		VectorLineInfo::iterator end = mLinesInfo.end();
@@ -706,6 +708,7 @@ namespace MyGUI
 
 	size_t EditText::_drawItem(Vertex * _vertex, bool _update)
 	{
+
 		if (_update) mTextOutDate = true;
 
 		if (mpFont.isNull()) return 0;
@@ -745,15 +748,16 @@ namespace MyGUI
 		// опорное смещение вершин
 		float left, right, top, bottom = real_top, left_shift = 0;
 
-		// сдвиг текста, если вью меньше или автоматическое выравнивание то сдвигаем по внутренним правилам
+		// сдвиг текста
 		if (false == mManualView) {
 			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
-				left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
+				left_shift = ((mContextRealSize.width - real_width) * 0.5); // выравнивание по центру
 				// выравниваем по  целому пикселю
 				if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mManager->getPixScaleX();
 			}
 		}
+		else left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
 
 		if (false == mManualView) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
@@ -764,8 +768,7 @@ namespace MyGUI
 				if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
 			}
 		}
-		//else bottom += mManager->getPixScaleY() * (float)mViewOffset.top * 2.0;
-
+		else bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 
 		// данные непосредственно для вывода
 		float vertex_top, vertex_bottom, vertex_left, vertex_right;
@@ -1109,7 +1112,7 @@ namespace MyGUI
 
 		// устанавливаем размер текста
 		mContextSize.set(width, (float)mLinesInfo.size() * mFontHeight);
-		mContextRealSize.set(width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
+		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}
 
 } // namespace MyGUI

@@ -297,6 +297,7 @@ namespace MyGUI
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			CroppedRectanglePtr & info = (*skin);
 			if (false == info->_isText()) info->_setUVSet(iter->second.offsets[index++]);
+			//else info->_correctView();//???
 		}
 		// теперь если нужно цвет текста
 		if ((iter->second.colour != Ogre::ColourValue::ZERO) && (mText != null)) {

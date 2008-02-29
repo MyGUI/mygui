@@ -15,9 +15,13 @@ DemoKeeper::DemoKeeper() :
 
 MyGUI::WidgetPtr but = 0;
 
+MyGUI::ButtonPtr button = 0;
+
 void DemoKeeper::move(int _left, int _top)
 {
 	if (but != 0) but->setPosition(_left+2, _top+2);
+
+	//if (button != 0) MyGUI::MYGUI_OUT(button->getTextSize());
 }
 
 void DemoKeeper::test(MyGUI::WidgetPtr _sender, bool _left)
@@ -93,8 +97,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
 	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 
-	//MyGUI::ProgressPtr progress = mGUI->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(40, 40, 400, 20), MyGUI::ALIGN_DEFAULT, "Main");
-	//progress->setProgressAutoTrack(true);
+	//button = mGUI->createWidget<MyGUI::Button>("ButtonSmall", MyGUI::IntCoord(10, 40, 1000, 30), MyGUI::ALIGN_DEFAULT, "Main");
+	//button->setCaption("testirovanie;adlihga;dlkfhg;s dufgs; odufg8 9seru 89t8 9ehsotgih d;flgh d;lfjgs; dlfj gs;dlkfjg;l");
+	//MyGUI::IntSize size = button->getTextSize();
 	
 
 	for (size_t pos=0; pos<1; ++pos) {

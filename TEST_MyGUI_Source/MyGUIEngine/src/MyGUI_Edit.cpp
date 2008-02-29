@@ -1174,18 +1174,20 @@ namespace MyGUI
 	{
 		// размер контекста текста
 		mSizeTextView = mText->getTextSize();
-		// текущая смещение контекста текста
+		// текущее смещение контекста текста
 		IntPoint point = mText->getViewOffset();
 		// расчетное смещение
 		IntPoint offset;
 
 		// абсолютные координаты курсора
 		IntRect cursor = mText->getCursorRect(mCursorPosition);
-		cursor.right += 2;
+		//cursor.right += 2;
 		// абсолютные координаты вью
 		const IntRect& view = mWidgetUpper->getAbsoluteRect();
 
 		bool inside = view.inside(cursor);
+
+		//MYGUI_OUT(inside);
 
 		// проверяем и показываем курсор
 		if (_showCursor && ( false == inside)) {
@@ -1196,7 +1198,7 @@ namespace MyGUI
 					offset.left = -(view.left - cursor.left + (int)EDIT_OFFSET_HORZ_CURSOR);
 				}
 				else if ((cursor.right) > view.right) {
-					offset.left = -(view.right - cursor.right - (int)EDIT_OFFSET_HORZ_CURSOR);
+					offset.left = -(view.right - cursor.right/* - (int)EDIT_OFFSET_HORZ_CURSOR*/);
 				}
 			}
 
@@ -1212,7 +1214,35 @@ namespace MyGUI
 
 		}
 
-		int add = 2;
+		if (mSizeTextView.width > mWidgetUpper->getWidth()) {
+			// максимальный выход влево
+			if ((point.left + offset.left) < 0) {
+				offset.left = - (point.left);
+			}
+			// максимальный выход вправо
+			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth()) ) {
+				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth()) - point.left;
+			}
+		}
+		else {
+			offset.left = -((mWidgetUpper->getWidth() - mSizeTextView.width) / 2);
+		}
+
+		if (mSizeTextView.height > mWidgetUpper->getHeight()) {
+			// максимальный выход вверх
+			if ((point.top + offset.top) < 0) {
+				offset.top = - point.top;
+			}
+			// максимальный выход вниз
+			else if ( (point.top + offset.top) > (mSizeTextView.height-mWidgetUpper->getHeight()) ) {
+				offset.top = (mSizeTextView.height-mWidgetUpper->getHeight()) - point.top;
+			}
+		}
+		else {
+			offset.top = -((mWidgetUpper->getHeight() - mSizeTextView.height) / 2);
+		}
+
+		/*int add = 2;
 		if (mSizeTextView.width > mWidgetUpper->getWidth()) {
 
 			// максимальный выход влево
@@ -1248,9 +1278,10 @@ namespace MyGUI
 		}
 
 		// поменялся вью
-		if (false == offset.empty()) mText->setViewOffset(point + offset);
 
-		//MYGUI_OUT(point + offset);
+		//MYGUI_OUT(point + offset);*/
+
+		if (false == offset.empty()) mText->setViewOffset(point + offset);
 
 	}
 
