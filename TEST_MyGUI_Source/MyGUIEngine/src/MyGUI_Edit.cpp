@@ -70,6 +70,10 @@ namespace MyGUI
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
+		//setCaption("erghsdkflhgs;flhgs;lkjh;lsdkfh;dkkflhgkljdhfgklsdhfkglshdfkglhdflkhg");
+		//mText->setViewOffset(IntPoint(-100, -100));
+
+
 	}
 
 	Edit::~Edit()
@@ -163,8 +167,8 @@ namespace MyGUI
 				mText->setSelectBackground(true);
 				mCursorTimer = 0;
 				// для первоначального обновления
-				mText->setCursorPosition(mCursorPosition);
-				updateSelectText();
+				//mText->setCursorPosition(mCursorPosition);
+				//updateSelectText();
 
 			}
 		}
@@ -543,7 +547,7 @@ namespace MyGUI
 				if (action) {
 					size_t old = mCursorPosition;
 					mCursorPosition = mText->getCursorPosition(point);
-					MYGUI_OUT(mCursorPosition);
+					//MYGUI_OUT(mCursorPosition);
 
 					if ( old != mCursorPosition ) {
 
@@ -1170,121 +1174,6 @@ namespace MyGUI
 		updateView(false);
 	}
 
-	void Edit::updateView(bool _showCursor)
-	{
-		// размер контекста текста
-		mSizeTextView = mText->getTextSize();
-		// текущее смещение контекста текста
-		IntPoint point = mText->getViewOffset();
-		// расчетное смещение
-		IntPoint offset;
-
-		// абсолютные координаты курсора
-		IntRect cursor = mText->getCursorRect(mCursorPosition);
-		//cursor.right += 2;
-		// абсолютные координаты вью
-		const IntRect& view = mWidgetUpper->getAbsoluteRect();
-
-		bool inside = view.inside(cursor);
-
-		//MYGUI_OUT(inside);
-
-		// проверяем и показываем курсор
-		if (_showCursor && ( false == inside)) {
-
-			// горизонтальное смещение
-			if (mSizeTextView.width > mWidgetUpper->getWidth()) {
-				if (cursor.left < view.left) {
-					offset.left = -(view.left - cursor.left + (int)EDIT_OFFSET_HORZ_CURSOR);
-				}
-				else if ((cursor.right) > view.right) {
-					offset.left = -(view.right - cursor.right/* - (int)EDIT_OFFSET_HORZ_CURSOR*/);
-				}
-			}
-
-			// вертикальное смещение
-			if (mSizeTextView.height > mWidgetUpper->getHeight()) {
-				if (cursor.top < view.top) {
-					offset.top = -(view.top - cursor.top);
-				}
-				else if (cursor.bottom > view.bottom) {
-					offset.top = -(view.bottom - cursor.bottom);
-				}
-			}
-
-		}
-
-		if (mSizeTextView.width > mWidgetUpper->getWidth()) {
-			// максимальный выход влево
-			if ((point.left + offset.left) < 0) {
-				offset.left = - (point.left);
-			}
-			// максимальный выход вправо
-			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth()) ) {
-				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth()) - point.left;
-			}
-		}
-		else {
-			offset.left = -((mWidgetUpper->getWidth() - mSizeTextView.width) / 2);
-		}
-
-		if (mSizeTextView.height > mWidgetUpper->getHeight()) {
-			// максимальный выход вверх
-			if ((point.top + offset.top) < 0) {
-				offset.top = - point.top;
-			}
-			// максимальный выход вниз
-			else if ( (point.top + offset.top) > (mSizeTextView.height-mWidgetUpper->getHeight()) ) {
-				offset.top = (mSizeTextView.height-mWidgetUpper->getHeight()) - point.top;
-			}
-		}
-		else {
-			offset.top = -((mWidgetUpper->getHeight() - mSizeTextView.height) / 2);
-		}
-
-		/*int add = 2;
-		if (mSizeTextView.width > mWidgetUpper->getWidth()) {
-
-			// максимальный выход влево
-			if ((point.left + offset.left) < 0) {
-				offset.left = - (0 + point.left);
-			}
-			// максимальный выход вправо
-			else if ( (point.left + offset.left) > (mSizeTextView.width - mWidgetUpper->getWidth() + add) ) {
-				offset.left = (mSizeTextView.width-mWidgetUpper->getWidth() + add) - point.left;
-			}
-		}
-
-		if (mSizeTextView.height > mWidgetUpper->getHeight()) {
-
-			// максимальный выход вверх
-			if ((point.top + offset.top) < 0) {
-				offset.top = - point.top;
-			}
-			// максимальный выход вниз
-			else if ( (point.top + offset.top) > (mSizeTextView.height-mWidgetUpper->getHeight()) ) {
-				offset.top = (mSizeTextView.height-mWidgetUpper->getHeight()) - point.top;
-			}
-		}
-
-		// восстановление нулевого вью
-		if ((offset.left == 0) && (point.left != 0)) {
-			//offset.left = -point.left;
-			//point.left = 0;
-		}
-		if ((offset.top == 0) && (point.top != 0)) {
-			//offset.top = -point.top;
-			//point.top = 0;
-		}
-
-		// поменялся вью
-
-		//MYGUI_OUT(point + offset);*/
-
-		if (false == offset.empty()) mText->setViewOffset(point + offset);
-
-	}
-
 	void Edit::setCaption(const Ogre::DisplayString & _caption)
 	{
 		setText(_caption, false);
@@ -1313,6 +1202,91 @@ namespace MyGUI
 
 		// пытаемся показать курсор
 		updateView(true);
+	}
+
+	void Edit::updateView(bool _showCursor)
+	{
+		// размер контекста текста
+		IntSize textSize = mText->getTextSize();
+		// текущее смещение контекста текста
+		IntPoint point = mText->getViewOffset();
+		// расчетное смещение
+		IntPoint offset = point;
+
+		// абсолютные координаты курсора
+		IntRect cursor = mText->getCursorRect(mCursorPosition);
+		cursor.right ++;
+		// абсолютные координаты вью
+		const IntRect& view = mWidgetUpper->getAbsoluteRect();
+
+		// тестируем видимость курсора
+		bool inside = view.inside(cursor);
+
+		// проверяем и показываем курсор
+		if (_showCursor && ( false == inside)) {
+
+			// горизонтальное смещение
+			if (textSize.width >= view.width()) {
+				if (cursor.left < view.left) {
+					offset.left = point.left - (view.left - cursor.left);
+					// добавляем смещение, только если курсор не перепрыгнет
+					if ((view.width() - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left -= EDIT_OFFSET_HORZ_CURSOR;
+				}
+				else if (cursor.right > view.right) {
+					offset.left = point.left + (cursor.right - view.right);
+					// добавляем смещение, только если курсор не перепрыгнет
+					if ((view.width() - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left += EDIT_OFFSET_HORZ_CURSOR;
+				}
+			}
+
+			// вертикальное смещение
+			if (textSize.height >= view.height()) {
+				if (cursor.top < view.top) {
+					offset.top = point.top - (view.top - cursor.top);
+				}
+				else if (cursor.bottom > view.bottom) {
+					offset.top = point.top + (cursor.bottom - view.bottom);
+				}
+			}
+
+		}
+
+		// выравнивание текста
+		Align align = mText->getTextAlign();
+
+		if (textSize.width >= view.width()) {
+			// максимальный выход влево
+			if ((offset.left + view.width()) > textSize.width) {
+				offset.left = textSize.width - view.width();
+			}
+			// максимальный выход вправо
+			else if (offset.left < 0) {
+				offset.left = 0;
+			}
+		}
+		else {
+			if (IS_ALIGN_LEFT(align)) offset.left = 0;
+			else if (IS_ALIGN_RIGHT(align)) offset.left = textSize.width - view.width();
+			else if (IS_ALIGN_HCENTER(align)) offset.left = (textSize.width - view.width()) / 2;
+		}
+
+		if (textSize.height >= view.height()) {
+			// максимальный выход вверх
+			if ((offset.top + view.height()) > textSize.height) {
+				offset.top = textSize.height - view.height();
+			}
+			// максимальный выход вниз
+			else if (offset.top < 0) {
+				offset.top = 0;
+			}
+		}
+		else {
+			if (IS_ALIGN_TOP(align)) offset.top = 0;
+			else if (IS_ALIGN_BOTTOM(align)) offset.top = textSize.height - view.height();
+			else if (IS_ALIGN_VCENTER(align)) offset.top = (textSize.height - view.height()) / 2;
+		}
+		
+		if (offset != point) mText->setViewOffset(offset);
 	}
 
 } // namespace MyGUI

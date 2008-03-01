@@ -236,9 +236,6 @@ namespace MyGUI
 		DequeUndoRedoInfo mVectorUndoChangeInfo;
 		DequeUndoRedoInfo mVectorRedoChangeInfo;
 
-		// размер
-		IntSize mSizeTextView;
-
 		bool mMouseLeftPressed;
 
 		bool mModeReadOnly;
