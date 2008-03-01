@@ -378,6 +378,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_WidgetCreator.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_WidgetManager.cpp"
 					>
 				</File>
@@ -784,6 +788,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_UnlinkWidget.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetCreator.h"
 						>
 					</File>
 					<File

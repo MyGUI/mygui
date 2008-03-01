@@ -176,9 +176,9 @@ namespace MyGUI
 	bool Gui::injectKeyPress(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyPress(_arg);}
 	bool Gui::injectKeyRelease(const OIS::KeyEvent & _arg) {return mInputManager->injectKeyRelease(_arg);}
 
-	WidgetPtr Gui::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name)
+	WidgetPtr Gui::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
@@ -203,34 +203,48 @@ namespace MyGUI
 		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
 	}
 
-	// удяляет только негодных батюшке государю
+	// удяляет неудачника
 	void Gui::_destroyChildWidget(WidgetPtr _widget)
 	{
+		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
+
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if(iter != mWidgetChild.end())
-		{
-			delete *iter;
+		if (iter != mWidgetChild.end()) {
+
+			// сохраняем указатель
+			MyGUI::WidgetPtr widget = *iter;
+
 			// удаляем из списка
 			*iter = mWidgetChild.back();
 			mWidgetChild.pop_back();
-			return;
+
+			// отписываем от всех
+			mWidgetManager->unlinkFromUnlinkers(_widget);
+
+			// непосредственное удаление
+			_deleteWidget(widget);
 		}
-		// некоторые менеджеры могут себе создавать
-		MYGUI_LOG(Warning, "Widget's owner not found");
+		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
 	}
 
 	// удаляет всех детей
 	void Gui::_destroyAllChildWidget()
 	{
 		while (false == mWidgetChild.empty()) {
-			// отсылаем первый, так как он быстрее найдется в массиве
-			// а удаление в векторе производится перестановкой, т.е. быстро
-			WidgetPtr widget = mWidgetChild.front();
-			WidgetManager::getInstance().destroyWidget(widget);
+
+			// сразу себя отписывем, иначе вложенной удаление убивает все
+			WidgetPtr widget = mWidgetChild.back();
+			mWidgetChild.pop_back();
+
+			// отписываем от всех
+			mWidgetManager->unlinkFromUnlinkers(widget);
+
+			// и сами удалим, так как его больше в списке нет
+			_deleteWidget(widget);
 		}
 	}
 
-	void Gui::destroyAllWidget()
+	/*void Gui::destroyAllWidget()
 	{
 		mWidgetManager->destroyAllWidget();
 	}
@@ -238,7 +252,7 @@ namespace MyGUI
 	void Gui::destroyWidget(WidgetPtr _widget)
 	{
 		mWidgetManager->destroyWidget(_widget);
-	}
+	}*/
 
 	bool Gui::load(const std::string & _file, const std::string & _group)
 	{
@@ -341,6 +355,11 @@ namespace MyGUI
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
 		mLayerManager->_windowResized(mViewSize);
+	}
+
+	inline void Gui::destroyWidget(WidgetPtr _widget)
+	{
+		mWidgetManager->destroyWidget(_widget);
 	}
 
 } // namespace MyGUI

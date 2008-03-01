@@ -45,9 +45,9 @@ namespace MyGUI
 			return Sheet::_getType();
 		}
 
-		WidgetPtr SheetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr SheetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
-			return new Sheet(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new Sheet(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		void SheetFactory::Sheet_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

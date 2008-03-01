@@ -93,18 +93,21 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->setAlpha(0.3);*/
 
 
-	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
-	//MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
-	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setEditMultiLine(true);
 	edit->setCaption("ww");
+	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);//*/
 
-	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);
-	//button->setCaption("testirovanie;adlihga;dlkfhg;s dufgs; odufg8 9seru 89t8 9ehsotgih d;flgh d;lfjgs; dlfj gs;dlkfjg;l");
-	//MyGUI::IntSize size = button->getTextSize();
-	
+	//MyGUI::WidgetManager::getInstance().destroyWidget(edit);//*/
+
+
+	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::WidgetManager::getInstance().destroyWidget(combo);//*/
+
 
 	for (size_t pos=0; pos<1; ++pos) {
 

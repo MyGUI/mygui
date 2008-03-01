@@ -14,13 +14,14 @@
 #include "MyGUI_LayerKeeper.h"
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_LayerItem.h"
+#include "MyGUI_LayerManager.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_SubWidgetTextInterface.h"
 
 namespace MyGUI
 {
 
-	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
+	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mOwner(static_cast<Widget*>(_parent)),
 		UserData(),
@@ -34,7 +35,8 @@ namespace MyGUI
 		mAlpha(ALPHA_MIN),
 		mName(_name),
 		mTexture(_info->getTextureName()),
-		mMainSkin(null)
+		mMainSkin(null),
+		mWidgetCreator(_creator)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -120,10 +122,14 @@ namespace MyGUI
 		_destroyAllChildWidget();
 	}
 
-	WidgetPtr Widget::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
+	WidgetPtr Widget::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, this, _name);
-		mWidgetChild.push_back(widget);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, _layer.empty() ? this : null, this, _name);
+
+		// присоединяем виджет с уровню и не добавляем себе
+		if (_layer.empty()) mWidgetChild.push_back(widget);
+		else LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
+
 		return widget;
 	}
 
@@ -321,29 +327,45 @@ namespace MyGUI
 		}
 	}
 
-	// удяляет только негодных батюшке государю
+	// удяляет неудачника
 	void Widget::_destroyChildWidget(WidgetPtr _widget)
 	{
+		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
+
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if(iter != mWidgetChild.end())
-		{
-			delete *iter;
+		if (iter != mWidgetChild.end()) {
+
+			// сохраняем указатель
+			MyGUI::WidgetPtr widget = *iter;
+
 			// удаляем из списка
 			*iter = mWidgetChild.back();
 			mWidgetChild.pop_back();
-			return;
+
+			// отписываем от всех
+			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
+
+			// непосредственное удаление
+			_deleteWidget(widget);
 		}
-		MYGUI_EXCEPT("Widget not found");
+		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
 	}
 
 	// удаляет всех детей
 	void Widget::_destroyAllChildWidget()
 	{
+		WidgetManager & manager = WidgetManager::getInstance();
 		while (false == mWidgetChild.empty()) {
-			// отсылаем первый, так как он быстрее найдется в массиве
-			// а удаление в векторе производится перестановкой, т.е. быстро
-			WidgetPtr widget = mWidgetChild.front();
-			WidgetManager::getInstance().destroyWidget(widget);
+
+			// сразу себя отписывем, иначе вложенной удаление убивает все
+			WidgetPtr widget = mWidgetChild.back();
+			mWidgetChild.pop_back();
+
+			// отписываем от всех
+			manager.unlinkFromUnlinkers(widget);
+
+			// и сами удалим, так как его больше в списке нет
+			delete widget;
 		}
 	}
 

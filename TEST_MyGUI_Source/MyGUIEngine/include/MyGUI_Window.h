@@ -21,7 +21,7 @@ namespace MyGUI
 		friend class factory::WindowFactory;
 
 	protected:
-		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета
@@ -29,7 +29,7 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// переопределяем для присвоению клиенту
-		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}

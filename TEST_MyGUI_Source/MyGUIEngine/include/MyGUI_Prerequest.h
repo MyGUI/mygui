@@ -28,6 +28,7 @@ namespace MyGUI
 
 	class WidgetSkinInfo;
 	class MaskPeekInfo;
+	class WidgetCreator;
 
 	// managers
 	class InputManager;

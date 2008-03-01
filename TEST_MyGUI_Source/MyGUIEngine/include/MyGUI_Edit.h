@@ -22,7 +22,7 @@ namespace MyGUI
 		friend class factory::EditFactory;
 
 	protected:
-		Edit(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Edit(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Edit();
 
 	public:
@@ -52,6 +52,9 @@ namespace MyGUI
 		void setTextCursor(size_t _index);
 		// устанавливает выделение
 		void setTextSelect(size_t _start, size_t _end);
+
+		virtual void setTextAlign(Align _align);
+
 
 		//---------------------------------------------------------------//
 		// наружу выставляем инлайны со сбросом истории

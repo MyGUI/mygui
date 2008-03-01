@@ -20,7 +20,7 @@ namespace MyGUI
 		friend class Tab;
 
 	protected:
-		Sheet(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Sheet(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 		// перекрываем методы, но через базовый они будут доступны
 		void setPosition(const IntPoint& _pos);

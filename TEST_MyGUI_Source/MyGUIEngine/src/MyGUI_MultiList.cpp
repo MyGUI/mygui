@@ -9,12 +9,13 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
 
-	MultiList::MultiList(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _name),
+	MultiList::MultiList(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mHeightButton(0),
 		mWidgetClient(null),
 		mButtonMain(null),
@@ -137,9 +138,10 @@ namespace MyGUI
 		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
 
 		RowInfo & info = mVectorRowInfo[_index];
-		Gui & gui = Gui::getInstance();
-		gui.destroyWidget(info.button);
-		gui.destroyWidget(info.list);
+
+		WidgetManager & manager = WidgetManager::getInstance();
+		manager.destroyWidget(info.button);
+		manager.destroyWidget(info.list);
 
 		mVectorRowInfo.erase(mVectorRowInfo.begin() + _index);
 
@@ -155,10 +157,10 @@ namespace MyGUI
 
 	void MultiList::deleteAllRows()
 	{
-		Gui & gui = Gui::getInstance();
+		WidgetManager & manager = WidgetManager::getInstance();
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-			gui.destroyWidget((*iter).button);
-			gui.destroyWidget((*iter).list);
+			manager.destroyWidget((*iter).button);
+			manager.destroyWidget((*iter).list);
 		}
 		mVectorRowInfo.clear();
 		mSortRowIndex = ITEM_NONE;

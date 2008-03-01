@@ -12,21 +12,21 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetEvent.h"
+#include "MyGUI_WidgetCreator.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Widget : public CroppedRectangleInterface , public LayerItem, public UserData, public WidgetEvent
+	class _MyGUIExport Widget : public CroppedRectangleInterface , public LayerItem, public UserData, public WidgetEvent, public WidgetCreator
 	{
 		// для вызова закрытых деструкторов
-		friend class WidgetManager;
-		friend class Gui;
+		friend class WidgetCreator;
 		// для вызова закрытого конструктора
 		friend class factory::WidgetFactory;
 
 	protected:
 		// все создание только через фабрику
-		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Widget();
 
 		void _updateView(); // обновления себя и детей
@@ -34,17 +34,25 @@ namespace MyGUI
 		void _setAlign(const IntSize& _size, bool _update);
 		void _setAlign(const IntCoord& _coord, bool _update);
 
-		// удяляет только негодных батюшке государю
-		void _destroyChildWidget(WidgetPtr _widget);
-		// удаляет всех детей
-		void _destroyAllChildWidget();
-
 		// показывает скрывает все сабскины
 		void _setVisible(bool _visible);
 
+		// создает виджет
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+
+		// удяляет неудачника
+		virtual void _destroyChildWidget(WidgetPtr _widget);
+
+		// удаляет всех детей
+		virtual void _destroyAllChildWidget();
+
 	public:
+
 		// методы и шаблоны для создания виджета
-		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
+		{
+			return _createWidget(_type, _skin, _coord, _align, "", _name);
+		}
 		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
@@ -110,7 +118,7 @@ namespace MyGUI
 		void setFontHeight(Ogre::ushort _height);
 		Ogre::ushort getFontHeight();
 
-		void setTextAlign(Align _align);
+		virtual void setTextAlign(Align _align);
 		IntCoord getTextCoord();
 		IntSize getTextSize();
 		//IntSize getTextSize(const Ogre::DisplayString& _text);
@@ -171,6 +179,11 @@ namespace MyGUI
 		// устанавливает выравнивание для виджета
 		inline void setAlign(Align _align) {mAlign = _align;}
 
+		inline WidgetCreator * _getWidgetCreator()
+		{
+			return mWidgetCreator;
+		}
+
 	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;
@@ -205,6 +218,9 @@ namespace MyGUI
 		// для поддержки окон, напрямую не являющимися детьми
 		// всплывающие окна, списки комбобоксов и т.д.
 		WidgetPtr mOwner;
+
+		// это тот кто нас создал, и кто нас будет удалять
+		WidgetCreator * mWidgetCreator;
 
 	};
 

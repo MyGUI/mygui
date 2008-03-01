@@ -8,6 +8,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_WidgetCreator.h"
 
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_ButtonFactory.h"
@@ -93,9 +94,9 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getType() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name)
 	{
-		Ogre::String name;
+		std::string name;
 		if (false == _name.empty()) {
 			MapWidgetPtr::iterator iter = mWidgets.find(_name);
 			MYGUI_ASSERT(iter == mWidgets.end(), "widget with name '" << _name << "' already exist");
@@ -107,7 +108,7 @@ namespace MyGUI
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getType() == _type) {
-				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, name);
+				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, _creator, name);
 				mWidgets[name] = widget;
 				return widget;
 			}
@@ -193,18 +194,20 @@ namespace MyGUI
 		MYGUI_ASSERT(_widget != null, "widget is deleted");
 
 		// отписываем от всех
-		unlinkFromUnlinkers(_widget);
+		//unlinkFromUnlinkers(_widget);
 
 		// делегирует удаление отцу виджета
-		WidgetPtr parent = _widget->getParent();
-		if (parent == null) Gui::getInstance()._destroyChildWidget(_widget);
-		else parent->_destroyChildWidget(_widget);
+		WidgetCreator * creator = _widget->_getWidgetCreator();
+		creator->_destroyChildWidget(_widget);
+
+//		if (parent == null) Gui::getInstance()._destroyChildWidget(_widget);
+//		else parent->_destroyChildWidget(_widget);
 
 	}
 
 	void WidgetManager::destroyAllWidget()
 	{
-		Gui::getInstance()._destroyAllChildWidget();
+		//Gui::getInstance()._destroyAllChildWidget();
 	}
 
 	void WidgetManager::registerUnlinker(UnlinkWidget * _unlink)
@@ -231,11 +234,11 @@ namespace MyGUI
 		}
 	}
 
-	void WidgetManager::_deleteWidget(WidgetPtr _widget)
+	/*void WidgetManager::_deleteWidget(WidgetPtr _widget)
 	{
 		if (null == _widget) return;
 		unlinkFromUnlinkers(_widget);
 		delete _widget;
-	}
+	}*/
 
 } // namespace MyGUI

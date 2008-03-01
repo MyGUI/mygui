@@ -39,6 +39,9 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		// удал€ем все виджеты
+		_destroyAllChildWidget();
+
 		clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
@@ -101,8 +104,7 @@ namespace MyGUI
 		// если есть левел, то пересоеден€ем, если нет виджета, то создаем
 		if (false == layer.empty()) {
 			if (null == mMousePointer) {
-				mMousePointer = WidgetManager::getInstance().createWidget("Widget", "StaticImage", IntCoord(), ALIGN_DEFAULT, null, "");
-				//WidgetManager::getInstance().unlinkFromUnlinkers(mMousePointer);
+				mMousePointer = _createWidget("Widget", "StaticImage", IntCoord(), ALIGN_DEFAULT, "", "");
 			}
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
 		}
@@ -120,10 +122,10 @@ namespace MyGUI
 
 	void PointerManager::clear()
 	{
-		if (null != mMousePointer) {
+		/*if (null != mMousePointer) {
 			WidgetManager::getInstance()._deleteWidget(mMousePointer);
 			mMousePointer = null;
-		}
+		}*/
 		mWidgetOwner = null;
 		mDefaultPointer.clear();
 		mTexture.clear();
@@ -177,7 +179,59 @@ namespace MyGUI
 	void PointerManager::_unlinkWidget(WidgetPtr _widget)
 	{
 		if (_widget == mWidgetOwner) setPointer(mDefaultPointer, null);
-		//else if (_widget == mMousePointer) mMousePointer = null;
+		else if (_widget == mMousePointer) mMousePointer = null;
+	}
+
+	// создает виджет
+	WidgetPtr PointerManager::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	{
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);
+		mWidgetChild.push_back(widget);
+		// присоедин€ем виджет с уровню
+		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
+		return widget;
+	}
+
+	// уд€л€ет неудачника
+	void PointerManager::_destroyChildWidget(WidgetPtr _widget)
+	{
+		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
+
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		if (iter != mWidgetChild.end()) {
+
+			// сохран€ем указатель
+			MyGUI::WidgetPtr widget = *iter;
+
+			// удал€ем из списка
+			*iter = mWidgetChild.back();
+			mWidgetChild.pop_back();
+
+			// отписываем от всех
+			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
+
+			// непосредственное удаление
+			_deleteWidget(widget);
+		}
+		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+	}
+
+	// удал€ет всех детей
+	void PointerManager::_destroyAllChildWidget()
+	{
+		WidgetManager & manager = WidgetManager::getInstance();
+		while (false == mWidgetChild.empty()) {
+
+			// сразу себ€ отписывем, иначе вложенной удаление убивает все
+			WidgetPtr widget = mWidgetChild.back();
+			mWidgetChild.pop_back();
+
+			// отписываем от всех
+			manager.unlinkFromUnlinkers(widget);
+
+			// и сами удалим, так как его больше в списке нет
+			_deleteWidget(widget);
+		}
 	}
 
 } // namespace MyGUI	

@@ -38,7 +38,7 @@ namespace MyGUI
 		friend class factory::TabFactory;
 
 	protected:
-		Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 		void updateBar();
 
@@ -57,7 +57,7 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// переопределяем для особого обслуживания страниц
-		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);

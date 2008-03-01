@@ -47,9 +47,9 @@ namespace MyGUI
 			return Tab::_getType();
 		}
 
-		WidgetPtr TabFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr TabFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
-			return new Tab(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new Tab(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		void TabFactory::Tab_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

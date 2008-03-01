@@ -12,11 +12,12 @@
 #include "MyGUI_PointerInfo.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_UnlinkWidget.h"
+#include "MyGUI_WidgetCreator.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : public UnlinkWidget
+	class _MyGUIExport PointerManager : public UnlinkWidget, public WidgetCreator
 	{
 		INSTANCE_HEADER(PointerManager);
 
@@ -43,6 +44,19 @@ namespace MyGUI
 		void _unlinkWidget(WidgetPtr _widget);
 
 	private:
+		// создает виджет
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+
+		// удяляет неудачника
+		virtual void _destroyChildWidget(WidgetPtr _widget);
+
+		// удаляет всех детей
+		virtual void _destroyAllChildWidget();
+
+	private:
+		// вектор всех детей виджетов
+		VectorWidgetPtr mWidgetChild;
+
 		std::string mDefaultPointer;
 		std::string mTexture;
 		IntPoint mPoint;

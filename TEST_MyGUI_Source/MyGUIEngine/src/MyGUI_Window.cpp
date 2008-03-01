@@ -26,8 +26,8 @@ namespace MyGUI
 
 	const int WINDOW_SNAP_DISTANSE = 10;
 
-	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _name),
+	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetCaption(null), mWidgetClient(null),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
@@ -67,10 +67,10 @@ namespace MyGUI
 	}
 
 	// переопределяем для присвоению клиенту
-	WidgetPtr Window::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
+	WidgetPtr Window::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_type, _skin, _coord, _align, _name);
-		return Widget::createWidgetT(_type, _skin, _coord, _align, _name);
+		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
 	void Window::_onMouseChangeRootFocus(bool _focus)

@@ -18,8 +18,8 @@ namespace MyGUI
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
-	Tab::Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _name),
+	Tab::Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mOffsetTab(0),
 		mWidgetBar(null),
 		mButtonLeft(null), mButtonRight(null), mButtonList(null),
@@ -84,10 +84,10 @@ namespace MyGUI
 	}
 
 	// переопределяем для особого обслуживания страниц
-	WidgetPtr Tab::createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name)
+	WidgetPtr Tab::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (Sheet::_getType() == _type) {
-			SheetPtr sheet = static_cast<SheetPtr>(Widget::createWidgetT(_type, "Empty", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), _name));
+			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(_type, "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), _layer, _name));
 			sheet->mOwner = this;
 
 			// добавляем инфу о вкладке
@@ -103,7 +103,7 @@ namespace MyGUI
 
 			return sheet;
 		}
-		return Widget::createWidgetT(_type, _skin, _coord, _align, _name);
+		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
 	SheetPtr Tab::addSheet(const Ogre::DisplayString& _name, int _width)

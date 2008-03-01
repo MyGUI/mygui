@@ -175,7 +175,7 @@ void BasisManager::destroyGui()
 	if (mGUI) {
 
 		if (mFpsInfo) {
-			mGUI->destroyWidget(mFpsInfo);
+			mGUI->destroyChildWidget(mFpsInfo);
 			mFpsInfo = 0;
 		}
 

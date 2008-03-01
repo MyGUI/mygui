@@ -24,7 +24,7 @@ namespace MyGUI
 		friend class factory::RenderBoxFactory;
 
 	protected:
-		RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~RenderBox();
 
 	public:

@@ -60,9 +60,9 @@ namespace MyGUI
 			return Message::_getType();
 		}
 
-		WidgetPtr MessageFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr MessageFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
-			return new Message(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new Message(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		Ogre::DisplayString MessageFactory::_getButtonName(size_t _index)

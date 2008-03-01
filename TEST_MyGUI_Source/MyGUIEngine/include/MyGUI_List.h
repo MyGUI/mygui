@@ -19,7 +19,7 @@ namespace MyGUI
 		friend class factory::ListFactory;
 
 	protected:
-		List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета

@@ -13,6 +13,7 @@
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_FrameListener.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_WidgetCreator.h"
 
 #include "MyGUI_WidgetOIS.h"
 
@@ -22,7 +23,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
 
-	class _MyGUIExport Gui : public Ogre::WindowEventListener
+	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator
 	{
 		friend class WidgetManager;
 		INSTANCE_HEADER(Gui);
@@ -32,7 +33,10 @@ namespace MyGUI
 		void shutdown();
 
 		// методы и шаблоны для создания виджета
-		WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "");
+		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		{
+			return _createWidget(_type, _skin, _coord, _align, _layer, _name);
+		}
 		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
@@ -83,11 +87,16 @@ namespace MyGUI
 		bool injectKeyPress(const OIS::KeyEvent & _arg);
 		bool injectKeyRelease(const OIS::KeyEvent & _arg);
 
-		void destroyAllWidget();
+		// mirror WidgetManager
+		// удаляет любой виджет в системе
 		void destroyWidget(WidgetPtr _widget);
 
 		// mirror WidgetManager
+		// ищет виджет по имени
 		WidgetPtr findWidgetT(const std::string& _name);
+
+		// mirror WidgetManager
+		// ищет виджет по имени и кастует его с проверкой в дебаге
 		template <class T> inline T* findWidget(const std::string& _name)
 		{
 			WidgetPtr widget = findWidgetT(_name);
@@ -126,9 +135,25 @@ namespace MyGUI
 		// для оповещений об изменении окна рендера
 		virtual void windowResized(Ogre::RenderWindow* rw);
 
+		// удяляет неудачника
+		inline void destroyChildWidget(WidgetPtr _widget)
+		{
+			_destroyChildWidget(_widget);
+		}
+
+		// удаляет всех детей
+		inline void destroyAllChildWidget()
+		{
+			_destroyAllChildWidget();
+		}
+
 	private:
-		// удяляет только негодных батюшке государю
+		// создает виджет
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+
+		// удяляет неудачника
 		void _destroyChildWidget(WidgetPtr _widget);
+
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 
