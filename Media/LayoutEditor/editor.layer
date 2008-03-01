@@ -22,5 +22,7 @@
 
     <Layer name="Overlapped" start="18" height="8" count="45"/>
     <Layer name="Back" start="10" height="8" count="1"/>
+	
+	<Layer name="LayoutEditor_Back" start="2" height="2" count="1"/>
 
 </MyGUI>

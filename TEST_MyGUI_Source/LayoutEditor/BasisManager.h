@@ -40,6 +40,7 @@ public:
 
 	std::vector<BasisState*> mStates; // вектор состояний
 	EditorState mEditor;
+	//TestState mTest;
 
 public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
@@ -62,9 +63,9 @@ public:
 	bool keyPressed( const OIS::KeyEvent &arg );
 	bool keyReleased( const OIS::KeyEvent &arg );
 
-	void changeState(BasisState* state, bool bIsFade = true);
-	void pushState(BasisState* state, bool bIsFade = true);
-	void popState(bool bIsFade = true);
+	void changeState(BasisState* state);
+	void pushState(BasisState* state);
+	void popState();
 
 	void windowResized(Ogre::RenderWindow* rw);
 	void windowClosed(Ogre::RenderWindow* rw);

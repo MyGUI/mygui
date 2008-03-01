@@ -20,7 +20,12 @@ Controls:
     doubleclick on any widget in widget panel - create widget in center
     doubleclick on selected Tab - add Sheet
 
+Hidden widgets can be selected only through combo with all widgets.
+You can't move or delete hidden widget.
+	
+Ignoreg properties:
+"Message_Modal" and "Window_AutoAlpha" ingnored in edit mode (but this properties will be saved and will work fine in test mode and your application).
 
 All possible values can be found in Media/LayoutEditor/widgets.xml
-  For example if you want add you own skin in editor add your *.skin to Media/LayoutEditor/editor.xml
+  For example if you want add you own skin in editor add your my_skin.skin file to Media/LayoutEditor/editor.xml
   and add <Property key="Skin" value="MySkin"/> to appropriate widget.

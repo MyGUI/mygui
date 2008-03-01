@@ -7,7 +7,7 @@
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
-        <Property key="HeightList" value = "100" />
+        <Property key="HeightList" value = "140" />
         <Property key="ListSmoothShow" value = "true" />
         <Property key="ListSkin" value = "List" />
         <Property key="ListLayer" value = "LayoutEditor_Popup" />

@@ -162,6 +162,7 @@ WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
 }
 WidgetContainer * EditorWidgets::find(std::string _name)
 {
+	if (_name.empty()) return null;
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
 		if ((*iter)->name == _name)

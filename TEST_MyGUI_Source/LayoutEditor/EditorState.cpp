@@ -12,6 +12,8 @@
 #define min(a,b)            (((a) < (b)) ? (a) : (b))
 #define TO_GRID(x) ((x)/grid_step*grid_step)
 
+#define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
+
 const std::string LogSection = "LayoutEditor";
 
 EditorWidgets * ew;
@@ -39,6 +41,7 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_buttonSave", &EditorState::notifySave);
 	ASSIGN_FUNCTION("LayoutEditor_buttonSaveAs", &EditorState::notifyLoadSaveAs);
 	ASSIGN_FUNCTION("LayoutEditor_buttonSettings", &EditorState::notifySettings);
+	ASSIGN_FUNCTION("LayoutEditor_buttonTest", &EditorState::notifyTest);
 	ASSIGN_FUNCTION("LayoutEditor_buttonClear", &EditorState::notifyClear);
 	ASSIGN_FUNCTION("LayoutEditor_buttonQuit", &EditorState::notifyQuit);
 
@@ -117,6 +120,12 @@ void EditorState::enter(bool bIsChangeState)
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	list->eventListMouseItemActivate = MyGUI::newDelegate(this, &EditorState::notifySelectStringItem);
 
+	// create widget rectangle
+	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
+	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
+	current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(this, &EditorState::notifyRectangleDoubleClick);
+	current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &EditorState::notifyRectangleKeyPressed);
+
 	loadSettings();
 	clear();
 }
@@ -172,47 +181,51 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	if ((null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad")) || (want_quit))
-		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-	else
 	{
-		x1 = TO_GRID(arg.state.X.abs);
-		y1 = TO_GRID(arg.state.Y.abs);
-
-		if (id == OIS::MB_Left && !creating_status && current_widget_type != "") creating_status = 1;
-
-		// чтобы прямоугольник не мешался
-		if (current_widget_rectangle)
-		{
-			MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
-			current_widget_rectangle = null;
-		}
-
-		MyGUI::LayerItem * rootItem = null;
-		MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance()._findLayerItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
-		if (null != item)
-		{
-			while ((null == ew->find(item)) && (null != item)) item = item->getParent();
-
-			if (null != item) // нашли
-			{
-				MyGUI::IntSize size = item->getTextSize();
-				notifySelectWidget(item);
-				if (creating_status != 1){
-					MyGUI::InputManager::getInstance().injectMouseMove(arg);
-				}// это чтобы сразу можно было тащить
-			}
-			MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-		}else{
-			MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-			notifySelectWidget(null);
-		}
-
-		// вернем прямоугольник
-		if (current_widget && !current_widget_rectangle)
-		{
-			current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", convertParentCoordToCoord(current_widget->getCoord(), current_widget), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
-		}
+		// if we have modal widgets we can't select any widget
+		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+		return true;
 	}
+
+	x1 = TO_GRID(arg.state.X.abs);
+	y1 = TO_GRID(arg.state.Y.abs);
+
+	if (id == OIS::MB_Left && !creating_status && current_widget_type != "") creating_status = 1;
+
+	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
+	//MyGUI::LayerItemInfoPtr rootItem = null;
+	//MyGUI::WidgetPtr itemWithRect = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+	// не стал это доделывать, т.к. неоднозначность выбора виджета получается, если кто скажет как выбирать - сделаю
+
+	// чтобы прямоугольник не мешался
+	current_widget_rectangle->hide();
+
+
+	MyGUI::LayerItem * rootItem = null;
+	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance()._findLayerItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+	if (null != item)
+	{
+		while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+
+		if (null != item) // нашли
+		{
+			MyGUI::IntSize size = item->getTextSize();
+			notifySelectWidget(item);
+			if (creating_status != 1){
+				MyGUI::InputManager::getInstance().injectMouseMove(arg);// это чтобы сразу можно было тащить
+			}
+		}
+		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+	}else{
+		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+		notifySelectWidget(null);
+	}
+
+	// вернем прямоугольник
+	if (current_widget && !creating_status)
+		current_widget_rectangle->show();
+	else if (creating_status)
+		current_widget_rectangle->hide();
 
 	return true;
 }
@@ -236,7 +249,8 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 				widgetContainer->position = current_widget->getCoord().print();
 				widgetContainer->layer = current_widget->getLayerName();
 				ew->add(widgetContainer);
-				notifySelectWidget(current_widget);
+				current_widget = null;
+				notifySelectWidget(widgetContainer->widget);
 				mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
 				current_widget_type = "";
 				current_widget_skin = "";
@@ -299,6 +313,11 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			else if ((arg.key == OIS::KC_Y) || ((shiftPressed) && (arg.key == OIS::KC_Z))){
 				um->redo();
 				notifySelectWidget(null);
+			}
+			else if (arg.key == OIS::KC_T)
+			{
+				notifyTest();
+				return true;
 			}
 		}
 	}
@@ -447,6 +466,11 @@ void EditorState::notifySettings(MyGUI::WidgetPtr _sender)
 	gridEdit->setCaption(MyGUI::utility::toString(grid_step));
 }
 
+void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
+{
+	//BasisManager::getInstance().pushState(&BasisManager::getInstance().mTest);
+}
+
 void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::Message::createMessage("Warning", "Are you sure you want to delete all widgets?", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
@@ -527,18 +551,26 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 	current_widget_type = _sender->getUserString("widget");
 	current_widget_skin = _sender->getUserString("skin");
 
-	current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "Back");
+	std::string tmpname = MyGUI::utility::toString("LayoutEditor_", current_widget_type, ew->global_counter);
+	ew->global_counter++;
 
-	MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
-	MyGUI::IntSize size(current_widget->getSize());
-	current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
-
+	if (current_widget && wt->find(current_widget_type)->child)
+		current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, tmpname);
+	else
+	{
+		MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
+		current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "Back", tmpname);
+		MyGUI::IntSize size(current_widget->getSize());
+		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
+	}
 	current_widget->setCaption(current_widget_skin);
+
 	WidgetContainer * widgetContainer = new WidgetContainer(current_widget_type, current_widget_skin, current_widget);
 	widgetContainer->position = current_widget->getCoord().print();
 	widgetContainer->layer = current_widget->getLayerName();
 	ew->add(widgetContainer);
-	notifySelectWidget(current_widget);
+	current_widget = null;
+	notifySelectWidget(widgetContainer->widget);
 	mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
 	current_widget_type = "";
 	current_widget_skin = "";
@@ -561,10 +593,10 @@ void EditorState::notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::Widge
 					std::string::iterator iter = std::find(tmp.begin(), tmp.end(), '_');
 					if (iter != tmp.end()) tmp.erase(tmp.begin(), ++iter);
 			}
-			item = MyGUI::utility::toString("[", tmp, "]");
+			item = MyGUI::utility::toString("[#333333", tmp, "#000000]");
 		}
-		else item = (*iter)->name + " ";
-		allWidgetsCombo->addItem(item + (*iter)->widget->getWidgetType());
+		else item = (*iter)->name;
+		allWidgetsCombo->addItem(item + " #0000FF" + (*iter)->widget->getWidgetType());
 	}
 }
 
@@ -601,18 +633,24 @@ void EditorState::notifyOkSettings(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 {
-	current_widget = _sender;
-	if (current_widget_rectangle)
+	if (_sender == current_widget)
 	{
-		MyGUI::WidgetManager::getInstance().destroyWidget(current_widget_rectangle);
-		current_widget_rectangle = null;
+		if (current_widget)
+		{
+			current_widget_rectangle->show();
+			MyGUI::InputManager::getInstance().setKeyFocusWidget(current_widget_rectangle);
+		}
+		return;
 	}
 
-	if (null != current_widget)
-	{
-		MyGUI::IntCoord coord = _sender->getCoord();
+	current_widget = _sender;
 
-		MyGUI::WidgetPtr parent = _sender->getParent();
+	if (null == _sender)
+		current_widget_rectangle->hide();
+	else
+	{
+		MyGUI::IntCoord coord = current_widget->getCoord();
+		MyGUI::WidgetPtr parent = current_widget->getParent();
 		if (null != parent)
 		{
 			// если выбрали виджет на табе, то поднять лист таба
@@ -621,16 +659,14 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 				MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(parent->getParent());
 				tab->selectSheet(MyGUI::castWidget<MyGUI::Sheet>(parent));
 			}
-			coord = convertParentCoordToCoord(coord, _sender);
+			coord = convertParentCoordToCoord(coord, current_widget);
 		}
-		current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", coord, MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
-		current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
-		current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(this, &EditorState::notifyRectangleDoubleClick);
-		current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &EditorState::notifyRectangleKeyPressed);
+		current_widget_rectangle->show();
+		current_widget_rectangle->setPosition(coord);
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(current_widget_rectangle);
 	}
 
-	updatePropertiesPanel(current_widget);
+	updatePropertiesPanel(_sender);
 }
 
 void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
@@ -647,7 +683,8 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		propertiesElement.clear();
 	}
 
-	if (null == _widget) allWidgetsCombo->setCaption("");
+	if (null == _widget)
+		allWidgetsCombo->setCaption("");
 	else
 	{
 		window->show();
@@ -659,7 +696,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
 		WidgetContainer * widgetContainer = ew->find(current_widget);
 
-		// update strings panel if needed
+		// show/update strings panel if needed
 		if (widgetType->many_strings)
 		{
 			windowStrings->show();
@@ -681,15 +718,15 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 					std::string::iterator iter = std::find(tmp.begin(), tmp.end(), '_');
 					if (iter != tmp.end()) tmp.erase(tmp.begin(), ++iter);
 			}
-			allWidgetsCombo->setCaption(MyGUI::utility::toString("[", tmp, "]", current_widget->getWidgetType()));
+			allWidgetsCombo->setCaption(MyGUI::utility::toString("[#333333", tmp, "#000000] #0000FF", current_widget->getWidgetType()));
 		}
-		else allWidgetsCombo->setCaption(widgetContainer->name + " " + current_widget->getWidgetType());
+		else allWidgetsCombo->setCaption(widgetContainer->name + " #0000FF" + current_widget->getWidgetType());
 
 		createPropertiesWidgetsPair(window, "Name", widgetContainer->name, "Name", x1, x2, w1, w2, y, h);
 		y += h;
 		if (widgetType->resizeable)
 		{
-			createPropertiesWidgetsPair(window, "Position", _widget->getCoord().print(), "Position", x1, x2, w1, w2, y, h);
+			createPropertiesWidgetsPair(window, "Position", current_widget->getCoord().print(), "Position", x1, x2, w1, w2, y, h);
 			y += h;
 		}
 
@@ -702,9 +739,9 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		createPropertiesWidgetsPair(window, "Align", widgetContainer->align, "Align", x1, x2, w1, w2, y, h);
 		y += h;
 
-		if (null == _widget->getParent())
+		if (null == current_widget->getParent())
 		{
-			createPropertiesWidgetsPair(window, "Layer", _widget->getLayerName(), "Layer", x1, x2, w1, w2, y, h);
+			createPropertiesWidgetsPair(window, "Layer", current_widget->getLayerName(), "Layer", x1, x2, w1, w2, y, h);
 			y += h;
 		}
 
@@ -847,6 +884,7 @@ void EditorState::createSeparator(MyGUI::WindowPtr _window, std::string _caption
 
 void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 {
+	ON_EXIT(um->addValue());
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	std::string action = _sender->getUserString("action");
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
@@ -867,8 +905,13 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 
 	if (action == "Name")
 	{
+		if ((!value.empty()) && (null != ew->find(value)) && (widgetContainer != ew->find(value)))
+		{
+			MyGUI::Message::createMessage("Warning", "Widget with name '" + value + "' already exist.", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::castWidget<MyGUI::Edit>(_sender)->setCaption(widgetContainer->name);
+			return;
+		}
 		widgetContainer->name = value;
-		um->addValue();
 		return;
 	}
 	else if (action == "Skin")
@@ -879,22 +922,18 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		ew->loadxmlDocument(save);
 		delete save;
 		recreate = true;
-
-		um->addValue();
 		return;
 	}
 	else if (action == "Position")
 	{
 		widgetContainer->position = value;
 		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Move", value);
-		um->addValue();
 		return;
 	}
 	else if (action == "Align")
 	{
 		widgetContainer->align = value;
 		widgetContainer->widget->setAlign(MyGUI::SkinManager::getInstance().parseAlign(value));
-		um->addValue();
 		return;
 	}
 	else if (action == "Layer")
@@ -902,7 +941,6 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		widgetContainer->layer = value;
 		MyGUI::LayerManager::getInstance().detachFromLayerKeeper(current_widget);
 		MyGUI::LayerManager::getInstance().attachToLayerKeeper(widgetContainer->layer, current_widget);
-		um->addValue();
 		return;
 	}
 
@@ -928,14 +966,12 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		if (iterProperty->first == action){
 			if (value.empty()) widgetContainer->mProperty.erase(iterProperty);
 			else iterProperty->second = value;
-			um->addValue();
 			return;
 		}
 	}
 
 	// если такого свойства не было раньше, то сохраняем
 	widgetContainer->mProperty.push_back(std::make_pair(action, value));
-	um->addValue();
 }
 
 void EditorState::notifyApplyPropertiesCombo(MyGUI::WidgetPtr _sender/*, size_t _index*/)
@@ -945,6 +981,7 @@ void EditorState::notifyApplyPropertiesCombo(MyGUI::WidgetPtr _sender/*, size_t 
 
 void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 {
+	if (!_sender->isShow()) return;
 	// найдем соответствующий контейнер виджета и переместим/растянем
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	if (wt->find(current_widget->getWidgetType())->resizeable)
@@ -975,16 +1012,16 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 				}
 			}
 		}
-
 		arrow_move = false;
-
-		current_widget_rectangle->setPosition(coord);
 
 		coord = convertCoordToParentCoord(coord, current_widget);
 		current_widget->setPosition(coord);
+		// update coord because of current_widget can have MinMax size
+		coord = current_widget->getCoord();
 		widgetContainer->position = coord.print();
 		propertiesElement[1]->setCaption(coord.print());
-		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
+		coord = convertParentCoordToCoord(current_widget->getCoord(), current_widget);
+		current_widget_rectangle->setPosition(coord);
 		um->addValue(PR_POSITION);
 	}
 	else
@@ -1020,6 +1057,9 @@ void EditorState::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 	if (current_widget->getWidgetType() == "Tab")
 	{
 		addSheetToTab(current_widget);
+		// update strings panel
+		syncStrings(false);
+		um->addValue();
 	}
 }
 
@@ -1072,10 +1112,9 @@ void EditorState::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
 {
 	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(_tab);
 	MyGUI::SheetPtr sheet = tab->addSheet(_caption);
-	WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet);
+	WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet, _caption);
 	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
 	ew->add(wc);
-	um->addValue();
 }
 
 void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
@@ -1092,8 +1131,13 @@ void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 	{
 		if (_add)
 		{
-			if (action == "Tab_AddSheet") addSheetToTab(current_widget, _value);
-			else{
+			if (action == "Tab_AddSheet")
+			{
+				addSheetToTab(current_widget, _value);
+				um->addValue();
+			}
+			else
+			{
 				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, _value);
 				widgetContainer->mProperty.push_back(std::make_pair(action, _value));
 			}
@@ -1150,7 +1194,7 @@ void EditorState::notifyAddString(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
-	syncStrings(true, true, MyGUI::TextIterator::toTagsString(edit->getOnlyText()));
+	syncStrings(true, true, edit->getOnlyText());
 	list->addItem(edit->getOnlyText());
 	um->addValue();
 }
@@ -1170,6 +1214,7 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item) return;
+	ON_EXIT(um->addValue());
 	MyGUI::castWidget<MyGUI::Tab>(current_widget)->selectSheetIndex(item);
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
@@ -1182,14 +1227,12 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	{
 		if (iterProperty->first == action){
 			iterProperty->second = value;
-			um->addValue();
 			return;
 		}
 	}
 
 	// если такого свойства не было раньше, то сохраняем
 	widgetContainer->mProperty.push_back(std::make_pair(action, value));
-	um->addValue();
 }
 
 void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
@@ -1198,6 +1241,7 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item) return;
+	ON_EXIT(um->addValue());
 	Ogre::String action;
 	Ogre::String value = edit->getOnlyText();
 	Ogre::String lastitem = list->getItem(item);
@@ -1208,7 +1252,6 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	else if (current_widget->getWidgetType() == "Tab")
 	{
 		addSheetToTab(current_widget, value);
-		um->addValue();
 		return;
 	}
 
@@ -1221,13 +1264,11 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 				iterProperty->second = value;
 				if (current_widget->getWidgetType() == "ComboBox") MyGUI::castWidget<MyGUI::ComboBox>(current_widget)->setItem(index, value);
 				else if (current_widget->getWidgetType() == "List") MyGUI::castWidget<MyGUI::List>(current_widget)->setItem(index, value);
-				um->addValue();
 				return;
 			}
 			++index;
 		}
 	}
-	um->addValue();
 }
 
 void EditorState::notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position)

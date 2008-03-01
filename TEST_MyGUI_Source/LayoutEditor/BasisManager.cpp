@@ -1,9 +1,32 @@
-
 #include <Ogre.h>
 #include <OgreLogManager.h>
 #include "BasisManager.h"
 #include <OgreException.h>
 #include <OgrePanelOverlayElement.h>
+
+#ifdef WIN32
+#include <windows.h>
+#include "resource.h"
+void g_setMainWindowInfo(char *strWindowCaption, unsigned int uIconResourceID)
+{
+	HWND hWnd = ::FindWindow("OgreD3D9Wnd", "MyGUI Layout Editor");
+	if (!::IsWindow(hWnd)) hWnd = ::FindWindow("OgreGLWindow", "MyGUI Layout Editor");
+	if (::IsWindow(hWnd)) {
+		if (strWindowCaption) ::SetWindowText(hWnd, strWindowCaption);
+		// берем имя нашего экзешника
+		char buf[1024];
+		::GetModuleFileName(0, (LPCH)&buf, 1024);
+		// берем инстанс нашего модуля
+		HINSTANCE instance = ::GetModuleHandle(buf);
+		// побыстрому грузим иконку
+		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(uIconResourceID));
+		if (hIcon) {
+			::SendMessage(hWnd, WM_SETICON, 1, (LPARAM)hIcon);
+			::SendMessage(hWnd, WM_SETICON, 0, (LPARAM)hIcon);
+		}
+	}
+}
+#endif
 
 BasisManager::BasisManager() :
 	mInputManager(0),
@@ -132,6 +155,10 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	changeState(&mEditor);
 
+#ifdef WIN32
+	g_setMainWindowInfo("MyGUI Layout Editor", IDI_ICON);
+#endif
+
 	mRoot->startRendering();
 }
 
@@ -235,7 +262,7 @@ bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 	return mStates.back()->keyReleased(arg);
 }
 
-void BasisManager::changeState(BasisState* state, bool bIsFade)
+void BasisManager::changeState(BasisState* state)
 {
 	// cleanup the current state
 	if ( !mStates.empty() ) {
@@ -246,7 +273,7 @@ void BasisManager::changeState(BasisState* state, bool bIsFade)
 	mStates.push_back(state);
 	mStates.back()->enter(true);
 }
-void BasisManager::pushState(BasisState* state, bool bIsFade)
+void BasisManager::pushState(BasisState* state)
 {
 	// pause current state
 	if ( !mStates.empty() ) {
@@ -256,7 +283,7 @@ void BasisManager::pushState(BasisState* state, bool bIsFade)
 	mStates.push_back(state);
 	mStates.back()->enter(false);
 }
-void BasisManager::popState(bool bIsFade)
+void BasisManager::popState()
 {
 	// cleanup the current state
 	if ( !mStates.empty() ) {

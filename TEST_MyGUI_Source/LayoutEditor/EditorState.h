@@ -24,6 +24,7 @@ private:
 	void notifySave(MyGUI::WidgetPtr _sender);
 	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender);
 	void notifySettings(MyGUI::WidgetPtr _sender);
+	void notifyTest(MyGUI::WidgetPtr _sender = 0);
 	void notifyClear(MyGUI::WidgetPtr _sender = 0);
   void notifyQuit(MyGUI::WidgetPtr _sender = 0);
 

@@ -9,7 +9,7 @@
 	AssemblyReferenceSearchPaths="&quot;..\MyGUIEngine\lib\debug&quot;"
 	>
 	<Platforms>
-	    <Platform
+		<Platform
 			Name="Win32"
 		/>
 	</Platforms>
@@ -246,11 +246,11 @@
 			Name="Resource"
 			>
 			<File
-				RelativePath=".\LayoutEditor.rc"
+				RelativePath=".\editor.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\mygui.ico"
+				RelativePath=".\LayoutEditor.rc"
 				>
 			</File>
 		</Filter>
