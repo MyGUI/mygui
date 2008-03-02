@@ -47,12 +47,16 @@ namespace MyGUI
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.
 			@param
-				_speed of rotation in degrees per second. If 0 then turn rotation off.
+				_speed of rotation in degrees per second.
 		*/
 		void setAutoRotationSpeed(int _speed = RENDER_BOX_AUTO_ROTATION_SPEED);
 		/** Get speed of entity rotation.*/
 		inline int getAutoRotationSpeed() {return mRotationSpeed;};
 
+		/** Enable or disable auto rotation
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
+		*/
 		void setAutoRotation(bool _auto);
 		inline bool getAutoRotation() {return mAutoRotation;}
 
@@ -64,11 +68,9 @@ namespace MyGUI
 		/** Get colour behind entity.*/
 		inline const Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
 
-		/** Set rotation angle of entity.
+		/** Set start rotation angle of entity.
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.
-			@note
-				Example: use this if your mesh look at other than Vector3(1,0,0) direction.
 		*/
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 

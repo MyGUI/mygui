@@ -77,8 +77,9 @@
   <Widget name="RenderBox">
     <Property key="Skin" value="RenderBox"/>
     <Parameter key="RenderBox_Mesh" value="String"/>
-    <Parameter key="RenderBox_AutorotationSpeed" value="1 int"/>
-    <Parameter key="RenderBox_BackgroungColour" value="colour"/>
+    <Parameter key="RenderBox_AutoRotation" value="Bool"/>
+    <Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
+    <Parameter key="RenderBox_BackgroungColour" value="Colour"/>
     <Parameter key="RenderBox_RotationAngle" value="1 int"/>
     <Parameter key="RenderBox_MouseRotation" value="Bool"/>
     <!-- all properties -->

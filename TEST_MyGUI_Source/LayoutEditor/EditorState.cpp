@@ -25,7 +25,7 @@ UndoManager * um;
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
 {
-	MyGUI::LogManager::registerSection(LogSection, "LayoutEditor.log");
+	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
 	wt = new WidgetTypes();
 	wt->initialise();
 	ew = new EditorWidgets();
@@ -181,7 +181,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 //===================================================================================
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	if ((null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad")) || (want_quit))
+	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 		// if we have modal widgets we can't select any widget
 		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
@@ -233,7 +233,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 //===================================================================================
 bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
+	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 	}
 	else
@@ -285,16 +285,19 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 //===================================================================================
 bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 {
-	if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
+	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
-		if (arg.key == OIS::KC_ESCAPE) notifyLoadSaveCancel();
-		else if (arg.key == OIS::KC_RETURN) notifyLoadSaveEditAccept();
+		if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
+		{
+			if (arg.key == OIS::KC_ESCAPE) notifyLoadSaveCancel();
+			else if (arg.key == OIS::KC_RETURN) notifyLoadSaveEditAccept();
+		}
 	}
 	else
 	{
 		if ( arg.key == OIS::KC_ESCAPE )
 		{
-			if (!want_quit){ notifyQuit(); return true;}
+			notifyQuit(); return true;
 		}
 		else if ( arg.key == OIS::KC_DELETE )
 		{
@@ -825,7 +828,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	std::string::iterator iter = std::find(prop.begin(), prop.end(), '_');
 	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
 	text->setCaption(prop);
-	text->setFontHeight(h-2);
+	text->setFontHeight(h-3);
 	text->setTextAlign(MyGUI::ALIGN_RIGHT);
 
 	if (widget_for_type == 0)
@@ -957,10 +960,13 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 			else if (value != "" || "Widget_FontName" != action)
 				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 		}
-	}catch(...)
+		Ogre::Root::getSingleton().renderOneFrame();
+	}
+	catch(...)
 	{
 		MyGUI::Message::createMessage("Warning", "No such " + action + ": '" + value + "'", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-	}// for incorrect meshes or materials
+		if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
+	}// for incorrect meshes or textures
 
 	// если такое св-во было, то заменим (или удалим если стерли) значение
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)

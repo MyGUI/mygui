@@ -248,9 +248,9 @@ namespace MyGUI
 
 			len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 
-			// центр объекта + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
+			// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
 			mCamNode->setPosition(box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2));
-			mCamNode->lookAt(box.getCenter(), Ogre::Node::TS_WORLD);
+			mCamNode->lookAt(Ogre::Vector3(0, box.getCenter().y, 0), Ogre::Node::TS_WORLD);
 		}
 	}
 
