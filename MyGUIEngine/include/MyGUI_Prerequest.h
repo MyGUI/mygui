@@ -62,6 +62,7 @@ namespace MyGUI
 	class ItemBox;
 	class MultiList;
 	class PopupMenu;
+	class FoorBar;
 
 	// widget pointers
 	typedef Button* ButtonPtr;
@@ -81,6 +82,7 @@ namespace MyGUI
 	typedef ItemBox * ItemBoxPtr;
 	typedef MultiList * MultiListPtr;
 	typedef PopupMenu * PopupMenuPtr;
+	//typedef FooBar* FooBarPtr;
 
 	class WidgetFactoryInterface;
 	namespace factory{
@@ -103,6 +105,7 @@ namespace MyGUI
 		class ItemBoxFactory;
 		class MultiListFactory;
 		class PopupMenuFactory;
+		class FooBarFactory;
 	}
 
 	// Define version

@@ -28,6 +28,7 @@
 #include "MyGUI_ItemBoxFactory.h"
 #include "MyGUI_MultiListFactory.h"
 #include "MyGUI_PopupMenuFactory.h"
+#include "MyGUI_FooBarFactory.h"
 
 namespace MyGUI
 {
@@ -60,6 +61,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
 		mIntegratedFactoryList.insert(new factory::MultiListFactory());
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
+		mIntegratedFactoryList.insert(new factory::FooBarFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

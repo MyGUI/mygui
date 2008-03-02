@@ -65,6 +65,7 @@
 				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\Dependencies\lib\Debug"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				SubSystem="0"
@@ -76,6 +77,8 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				UseUnicodeResponseFiles="true"
+				SuppressStartupBanner="true"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -202,6 +205,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_FooBar.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_HScroll.cpp"
 					>
 				</File>
@@ -274,6 +281,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_EditFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_FooBarFactory.cpp"
 						>
 					</File>
 					<File
@@ -512,6 +523,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_FooBar.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_HScroll.h"
 					>
 				</File>
@@ -584,6 +599,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_EditFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_FooBarFactory.h"
 						>
 					</File>
 					<File
