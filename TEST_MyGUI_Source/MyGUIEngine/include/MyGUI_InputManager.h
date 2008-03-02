@@ -69,8 +69,11 @@ namespace MyGUI
 		// событие смены языков
 		EventInfo_String eventChangeLanguage;
 
+		// работа с модальными окнами
 		void addWidgetModal(WidgetPtr _widget);
 		void removeWidgetModal(WidgetPtr _widget);
+
+		bool isModalAny() {return !mVectorModalRootWidget.empty();}
 
 	protected:
 		void _frameEntered(float _frame);
