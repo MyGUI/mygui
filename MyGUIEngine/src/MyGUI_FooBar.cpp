@@ -229,10 +229,14 @@ namespace MyGUI
 		{
 			WidgetPtr widget = mItemsOrder[i];
 
-			if (i != mMouseWidget)
-				sz = mWidth / 1.2;
-			else
-				sz = mWidth;
+			if (mMouseWidget != -1)
+			{
+				if (abs(i - mMouseWidget) < 5)
+					sz = mWidth / (1.0 + 0.12 * abs(i - mMouseWidget));
+				else
+					sz = mWidth / 1.7;
+			}else
+				sz = mWidth / 1.7;
 
 			widget->setSize(sz, sz);
 		}
@@ -334,7 +338,12 @@ namespace MyGUI
 	void FooBar::_removeAllChildItems()
 	{
 		while (!mItems.empty())
-			_removeChildItem(mItems.begin()->first);
+		{
+			_destroyChildWidget(mItems.begin()->second);
+			mItems.erase(mItems.begin());
+		}
+
+		mItemsOrder.clear();
 	}
 
 }
