@@ -96,7 +96,7 @@
 
   <Widget name="StaticImage">
     <Property key="Skin" value="StaticImage"/>
-    <Parameter key="Image_Material" value="String"/>
+    <Parameter key="Image_Texture" value="String"/>
     <Parameter key="Image_Rect" value="4 int"/>
     <Parameter key="Image_Tile" value="2 float"/>
     <Parameter key="Image_Num" value="1 int"/>
@@ -160,6 +160,7 @@
   </Widget>
 
   <Value name="Align">
+    <Property key="#444444DEFAULT"/>
     <Property key="DEFAULT"/>
     <Property key="STRETCH"/>
     <Property key="CENTER"/>
@@ -184,16 +185,17 @@
   <Value name="Bool">
     <Property key="true"/>
     <Property key="false"/>
-    <Property key="DEFAULT"/>
+    <Property key="#444444DEFAULT"/>
   </Value>
 
   <Value name="Font">
-    <Property key="DEFAULT"/>
+    <Property key="#444444DEFAULT"/>
     <Property key="ACMESA.18"/>
 	<Property key="MyGUI_CoreFont.18"/>
   </Value>
   
   <Value name="TextAlign">
+    <Property key="#444444DEFAULT"/>
     <Property key="DEFAULT"/>
     <Property key="CENTER"/>
     <Property key="LEFT TOP"/>

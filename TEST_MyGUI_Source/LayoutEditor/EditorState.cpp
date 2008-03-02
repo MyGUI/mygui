@@ -15,6 +15,7 @@
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
 const std::string LogSection = "LayoutEditor";
+const std::string DEFAULT_VALUE = "#444444DEFAULT";
 
 EditorWidgets * ew;
 WidgetTypes * wt;
@@ -165,7 +166,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		}
 		else current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::ALIGN_DEFAULT, "Back", tmpname);
 
-		current_widget->setCaption(current_widget_skin);
+		current_widget->setCaption(MyGUI::utility::toString("#888888",current_widget_skin));
 	}
 	else if (creating_status == 2)
 	{
@@ -563,7 +564,7 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 		MyGUI::IntSize size(current_widget->getSize());
 		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
 	}
-	current_widget->setCaption(current_widget_skin);
+	current_widget->setCaption(MyGUI::utility::toString("#888888",current_widget_skin));
 
 	WidgetContainer * widgetContainer = new WidgetContainer(current_widget_type, current_widget_skin, current_widget);
 	widgetContainer->position = current_widget->getCoord().print();
@@ -649,6 +650,7 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 		current_widget_rectangle->hide();
 	else
 	{
+		MyGUI::LayerManager::getInstance().upLayerItem(current_widget);
 		MyGUI::IntCoord coord = current_widget->getCoord();
 		MyGUI::WidgetPtr parent = current_widget->getParent();
 		if (null != parent)
@@ -829,7 +831,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	if (widget_for_type == 0)
 	{
 		editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-		if (_property != "RenderBox_Mesh" && _property != "Image_Material") MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditTextChange = newDelegate (this, &EditorState::notifyApplyProperties);
+		if (_property != "RenderBox_Mesh" && _property != "Image_Texture") MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditTextChange = newDelegate (this, &EditorState::notifyApplyProperties);
 		MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditSelectAccept = newDelegate (this, &EditorState::notifyApplyProperties);
 	}
 	else if (widget_for_type == 1)
@@ -849,7 +851,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 
 	editOrCombo->setUserString("action", _property);
 	editOrCombo->setUserString("type", _type);
-	text->setFontHeight(h-4);
+	editOrCombo->setFontHeight(h-2);
 
 	// trim "ALIGN_"
 	if (0 == strncmp("ALIGN_", _value.c_str(), 6))
@@ -867,7 +869,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 		_value = tmp;
 	}
 
-	if (_value.empty()) editOrCombo->setCaption("DEFAULT");
+	if (_value.empty()) editOrCombo->setCaption(DEFAULT_VALUE);
 	else MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->setOnlyText(_value);
 	propertiesText.push_back(text);
 	propertiesElement.push_back(editOrCombo);
@@ -890,7 +892,8 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
 	std::string type = _sender->getUserString("type");
 
-	if ((action == "Align") || (action == "Widget_AlignText"))
+	if (value == DEFAULT_VALUE) value = "";
+	else if ((action == "Align") || (action == "Widget_AlignText"))
 	{
 		std::string tmp = "";
 		const std::vector<std::string> & vec = MyGUI::utility::split(value);
@@ -900,8 +903,6 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		}
 		value = tmp;
 	}
-
-	if (value == "DEFAULT") value = "";
 
 	if (action == "Name")
 	{

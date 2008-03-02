@@ -932,6 +932,11 @@
         </_BasisSkin>
     </Skin>
 
+	<Skin name = "RenderBox" size = "10 10" material = "MyGUI_CoreMaterial">
+        <Property key="Pointer" value = "hand" />
+        <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+    </Skin>
+	
     <Skin name = "ItemLine" size = "5 5" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
