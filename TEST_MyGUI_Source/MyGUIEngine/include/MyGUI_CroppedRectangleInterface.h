@@ -41,6 +41,9 @@ namespace MyGUI
 		virtual void setAlpha(float _alpha) {}
 		virtual float getAlpha() {return ALPHA_MAX;}
 
+		virtual void setColourAlign(const Ogre::ColourValue & _colour, Align _align) {}
+		virtual const Ogre::ColourValue & getColourAlign(Align _align) {return Ogre::ColourValue::Black;}
+
 		inline CroppedRectanglePtr getParent() {return mParent;}
 
 		inline const IntCoord& getCoord()       {return mCoord;}

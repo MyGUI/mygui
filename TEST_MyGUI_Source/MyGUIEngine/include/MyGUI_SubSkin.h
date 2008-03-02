@@ -24,8 +24,6 @@ namespace MyGUI
 		SubSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~SubSkin();
 
-		//inline static const Ogre::String & _getType() {static Ogre::String type("SubSkin"); return type;}
-
 		void setAlpha(float _alpha);
 
 		void show();

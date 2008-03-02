@@ -69,6 +69,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
+	MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("ColourRect", MyGUI::IntCoord(400, 200, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+
 	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	combo->addItem("test");
 	combo->show();

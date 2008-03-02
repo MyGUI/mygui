@@ -52,7 +52,6 @@ namespace MyGUI
 		mColour(Ogre::ColourValue::White),
 		mAlpha(ALPHA_MAX),
 		mFontHeight(16),
-		//mAspectCoef(0),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mItemKeeper(null),
 		mRenderItem(null),
@@ -67,7 +66,6 @@ namespace MyGUI
 		// потом перенести
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 
-		//mEndSelect = 100;
 	}
 
 	EditText::~EditText()

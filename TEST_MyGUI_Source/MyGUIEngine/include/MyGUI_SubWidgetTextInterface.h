@@ -80,7 +80,7 @@ namespace MyGUI
 		virtual uint16 getFontHeight() {return 0;}
 
 		virtual void setTextAlign(Align _align) {}
-		virtual Align getTextAlign() {return ALIGN_DEFAULT;}
+		virtual Align getTextAlign() { return ALIGN_DEFAULT; }
 
 	};
 

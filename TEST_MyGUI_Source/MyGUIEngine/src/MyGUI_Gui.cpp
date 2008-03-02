@@ -30,6 +30,9 @@ namespace MyGUI
 
 	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group)
 	{
+		// группа с которой работает весь гуй
+		mResourceGroup = _group;
+
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
 
@@ -81,7 +84,7 @@ namespace MyGUI
 		windowResized(mWindow);
 
 		// загружаем дефолтные настройки
-		load(_core, _group);
+		load(_core, mResourceGroup);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

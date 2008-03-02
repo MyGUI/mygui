@@ -147,6 +147,11 @@ namespace MyGUI
 			_destroyAllChildWidget();
 		}
 
+		inline const std::string& getResourceGroup()
+		{
+			return mResourceGroup;
+		}
+
 	private:
 		// создает виджет
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
@@ -185,6 +190,8 @@ namespace MyGUI
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;
+
+		std::string mResourceGroup;
 
 	}; // class Gui
 

@@ -217,8 +217,7 @@ namespace MyGUI
 
 	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
 	{
-		if ((false == mShow) || (mEmptyView)) return 0;
-		//if ((0 >= getViewWidth()) || (0 >= getViewHeight())) return 0;
+		if ((false == mShow) || mEmptyView) return 0;
 
 		float vertex_z = mManager->getMaximumDepth();
 		//vertex_z = 0;

@@ -397,6 +397,10 @@
 					Name="SubWidget"
 					>
 					<File
+						RelativePath=".\src\MyGUI_ColourRect.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_EditText.cpp"
 						>
 					</File>
@@ -866,6 +870,10 @@
 				<Filter
 					Name="SubWidget"
 					>
+					<File
+						RelativePath=".\include\MyGUI_ColourRect.h"
+						>
+					</File>
 					<File
 						RelativePath=".\include\MyGUI_CroppedRectangleInterface.h"
 						>

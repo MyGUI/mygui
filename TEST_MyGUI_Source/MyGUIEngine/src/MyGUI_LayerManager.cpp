@@ -41,6 +41,7 @@ namespace MyGUI
 		mIsInitialise = true;
 
 		// не забывай, о великий построитель гуёв
+		// Кто здесь?
 		mMaximumDepth = Ogre::Root::getSingleton().getRenderSystem()->getMaximumDepthInputValue();
 	}
 

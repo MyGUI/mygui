@@ -8,6 +8,7 @@
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_Gui.h"
 
 #include <OgreRoot.h>
 
@@ -153,7 +154,7 @@ namespace MyGUI
 		}
 
 		if (false == mTextureManager->resourceExists(mTextureName)) 
-			mTextureManager->load(mTextureName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+			mTextureManager->load(mTextureName, Gui::getInstance().getResourceGroup());
 
 		// set texture that will be applied to all vertices rendered.
 		mRenderSystem->_setTexture(0, true, mTextureName);
