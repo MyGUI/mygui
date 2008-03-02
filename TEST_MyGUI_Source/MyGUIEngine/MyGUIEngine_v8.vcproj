@@ -202,6 +202,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_FooBar.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_HScroll.cpp"
 					>
 				</File>
@@ -270,6 +274,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_EditFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_FooBarFactory.cpp"
 						>
 					</File>
 					<File
@@ -492,6 +500,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_FooBar.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_HScroll.h"
 					>
 				</File>
@@ -560,6 +572,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_EditFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_FooBarFactory.h"
 						>
 					</File>
 					<File

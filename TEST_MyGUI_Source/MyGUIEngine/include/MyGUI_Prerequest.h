@@ -67,6 +67,7 @@ namespace MyGUI
 		class StaticImageFactory;
 		class MessageFactory;
 		class RenderBoxFactory;
+		class FooBarFactory;
 	}
 
 	class Widget;
@@ -86,6 +87,7 @@ namespace MyGUI
 	class StaticImage;
 	class Message;
 	class RenderBox;
+	class FooBar;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -104,6 +106,7 @@ namespace MyGUI
 	typedef StaticImage * StaticImagePtr;
 	typedef Message * MessagePtr;
 	typedef RenderBox * RenderBoxPtr;
+	typedef FooBar * FooBarPtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2

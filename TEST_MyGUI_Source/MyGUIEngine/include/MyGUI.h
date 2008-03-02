@@ -39,5 +39,6 @@
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_ControllerManager.h"
+#include "MyGUI_FooBar.h"
 
 #endif // __MYGUI_H__

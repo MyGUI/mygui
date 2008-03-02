@@ -27,6 +27,7 @@
 #include "MyGUI_StaticImageFactory.h"
 #include "MyGUI_MessageFactory.h"
 #include "MyGUI_RenderBoxFactory.h"
+#include "MyGUI_FooBarFactory.h"
 
 namespace MyGUI
 {
@@ -58,6 +59,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
 		mIntegratedFactoryList.insert(new factory::MessageFactory());
 		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
+		mIntegratedFactoryList.insert(new factory::FooBarFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
