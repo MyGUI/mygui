@@ -43,16 +43,8 @@ namespace MyGUI
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
 		void setAutoAlpha(bool _auto);
 
-		virtual void setCaption(const Ogre::DisplayString & _caption)
-		{
-			if (mWidgetCaption != null) mWidgetCaption->setCaption(_caption);
-			else Widget::setCaption(_caption);
-		}
-		virtual const Ogre::DisplayString & getCaption()
-		{
-			if (mWidgetCaption!=null) return mWidgetCaption->getCaption();
-			return Widget::getCaption();
-		}
+		virtual void setCaption(const Ogre::DisplayString & _caption);
+		virtual const Ogre::DisplayString & getCaption();
 
 		inline void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
 		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) {mMinmax.set(_min_h, _min_v, _max_h, _max_v);}
@@ -64,6 +56,18 @@ namespace MyGUI
 
 		inline bool getSnap() {return mSnap;}
 		inline void setSnap(bool _snap) {mSnap = _snap;}
+
+		virtual void setTextAlign(Align _align);
+		virtual Align getTextAlign();
+
+		virtual void setColour(const Ogre::ColourValue & _colour);
+		virtual const Ogre::ColourValue & getColour();
+
+		virtual void setFontName(const Ogre::String & _font);
+		virtual const Ogre::String & getFontName();
+
+		virtual void setFontHeight(uint16 _height);
+		virtual uint16 getFontHeight();
 
 		const IntCoord& getClientRect();
 

@@ -54,7 +54,9 @@ namespace MyGUI
 		inline float getAbsoluteLeft() {return mAbsolutePosition.left;}
 		inline float getAbsoluteTop() {return mAbsolutePosition.top;}
 
+		inline void setAlign(Align _align) {mAlign = _align;}
 		inline Align getAlign() {return mAlign;}
+
 		inline bool isMargin() {return mIsMargin;}
 
 		inline int getLeft()       {return mCoord.left;}

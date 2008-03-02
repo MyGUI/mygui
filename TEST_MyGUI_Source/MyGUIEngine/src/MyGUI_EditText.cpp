@@ -389,7 +389,7 @@ namespace MyGUI
 
 	IntSize EditText::getTextSize()
 	{
-		if (null == mRenderItem) return IntSize();
+		//if (null == mRenderItem) return IntSize();
 		// если нуно обновить, или изменились пропорции экрана
 		if (mTextOutDate) updateRawData();
 		return IntSize(mContextSize.width, mContextSize.height);
@@ -1004,7 +1004,7 @@ namespace MyGUI
 
 	void EditText::updateRawData()
 	{
-		if ((mpFont.isNull() || null == mRenderItem)) return;
+		if (mpFont.isNull()/* || (null == mRenderItem)*/) return;
 		// сбрасывам флаги
 		//mAspectCoef = mManager->getAspectCoef();
 		mTextOutDate = false;

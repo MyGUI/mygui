@@ -124,12 +124,14 @@ namespace MyGUI
 
 	void Message::updateSize()
 	{
-		//??? + " " чтобы текст у самого края не кончался
-		//??? ширина = (ширина текста+1символ) + ширина иконки + смещение текста
-		IntSize size = mWidgetText->getTextSize(/*mWidgetText->getCaption() + " "*/);
-		size.width += mIcon->getWidth();
+		// ширина = (ширина текста + 5 pix) + ширина иконки + смещение текста
+		IntSize size = mWidgetText->getTextSize();
+		size.width += 5; // для растояния от правого края
 		// минимум высота иконки
-		if ((null != mIcon) && (size.height < mIcon->getHeight())) size.height = mIcon->getHeight();
+		if (null != mIcon) {
+			size.width += mIcon->getWidth();
+			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
+		}
 		size += mOffsetText;
 
 		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);

@@ -285,4 +285,64 @@ namespace MyGUI
 		return mWidgetClient->getChilds();
 	}
 
+	void Window::setCaption(const Ogre::DisplayString & _caption)
+	{
+		if (mWidgetCaption != null) mWidgetCaption->setCaption(_caption);
+		else Widget::setCaption(_caption);
+	}
+
+	const Ogre::DisplayString & Window::getCaption()
+	{
+		if (mWidgetCaption != null) return mWidgetCaption->getCaption();
+		return Widget::getCaption();
+	}
+
+	void Window::setTextAlign(Align _align)
+	{
+		if (mWidgetCaption != null) mWidgetCaption->setTextAlign(_align);
+		else Widget::setTextAlign(_align);
+	}
+
+	Align Window::getTextAlign()
+	{
+		if (mWidgetCaption != null) return mWidgetCaption->getTextAlign();
+		return Widget::getTextAlign();
+	}
+
+	void Window::setColour(const Ogre::ColourValue & _colour)
+	{
+		if (mWidgetCaption != null) mWidgetCaption->setColour(_colour);
+		else Widget::setColour(_colour);
+	}
+
+	const Ogre::ColourValue & Window::getColour()
+	{
+		if (mWidgetCaption != null) return mWidgetCaption->getColour();
+		return Widget::getColour();
+	}
+
+	void Window::setFontName(const Ogre::String & _font)
+	{
+		if (mWidgetCaption != null) mWidgetCaption->setFontName(_font);
+		else Widget::setFontName(_font);
+	}
+
+	const Ogre::String & Window::getFontName()
+	{
+		if (mWidgetCaption != null) return mWidgetCaption->getFontName();
+		return Widget::getFontName();
+	}
+
+	void Window::setFontHeight(uint16 _height)
+	{
+		if (mWidgetCaption != null) mWidgetCaption->setFontHeight(_height);
+		else Widget::setFontHeight(_height);
+	}
+
+	uint16 Window::getFontHeight()
+	{
+		if (mWidgetCaption != null) return mWidgetCaption->getFontHeight();
+		return Widget::getFontHeight();
+	}
+
 } // namespace MyGUI

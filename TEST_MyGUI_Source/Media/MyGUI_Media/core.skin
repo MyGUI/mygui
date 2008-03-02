@@ -73,13 +73,17 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "EditClient" size = "10 10">
+        <Property key="Pointer" value = "beam" />
+    </Skin>
+
     <Skin name = "Edit" size = "40 26" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
 
-        <Child type="Widget" skin="Default" offset = "3 3 34 20" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Widget" skin="EditClient" offset = "3 3 34 20" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
@@ -117,7 +121,7 @@
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
 
-        <Child type="Widget" skin="Default" offset = "3 3 34 20" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Widget" skin="EditClient" offset = "3 3 34 20" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="disable" offset = "60 2 2 2"/>
@@ -425,14 +429,9 @@
     <Skin name = "VScroll" size = "16 60" texture = "core.png" >
         <Property key="SkinTrackRange" value = "18 39" />
 
-        <Child type="Button" skin="VScrollTop" offset = "0 0 16 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start">
-        </Child>
-
-        <Child type="Button" skin="VScrollBottom" offset = "0 44 16 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End">
-        </Child>
-
-        <Child type="Button" skin="VScrollTrack" offset = "0 18 16 21" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track">
-        </Child>
+        <Child type="Button" skin="VScrollTop" offset = "0 0 16 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start"/>
+        <Child type="Button" skin="VScrollBottom" offset = "0 44 16 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End"/>
+        <Child type="Button" skin="VScrollTrack" offset = "0 18 16 21" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
 
         <BasisSkin type="SubSkin" offset = "0 16 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
             <State name="normal" offset = "163 18 16 6"/>
@@ -446,7 +445,7 @@
     </Skin>
 
 
-    <Skin name = "HScrollTrack" size = "16 21" texture = "core.png" >
+    <Skin name = "HScrollTrack" size = "21 16" texture = "core.png" >
         <BasisSkin type="MainSkin" offset = "0 0 21 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "174 105 21 16"/>
             <State name="active" offset = "174 123 21 16"/>
@@ -473,14 +472,9 @@
     <Skin name = "HScroll" size = "60 16" texture = "core.png" >
         <Property key="SkinTrackRange" value = "18 39" />
 
-        <Child type="Button" skin="HScrollLeft" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Start">
-        </Child>
-
-        <Child type="Button" skin="HScrollRight" offset = "44 0 16 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "End">
-        </Child>
-
-        <Child type="Button" skin="HScrollTrack" offset = "18 0 21 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track">
-        </Child>
+        <Child type="Button" skin="HScrollLeft" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Start"/>
+        <Child type="Button" skin="HScrollRight" offset = "44 0 16 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "End"/>
+        <Child type="Button" skin="HScrollTrack" offset = "18 0 21 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track"/>
 
         <BasisSkin type="SubSkin" offset = "16 0 6 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "171 87 6 16"/>
@@ -640,7 +634,7 @@
         <Property key="ListSkin" value = "List" />
         <Property key="ListLayer" value = "Popup" />
 
-        <Child type="Widget" skin="Default" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Widget" skin="EditClient" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client"/>
         <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
@@ -840,7 +834,7 @@
         <Property key="ImageTile" value = "45 45" />
         <Property key="ImageNum" value = "0" />
 
-        <BasisSkin type="MainSkin"/>
+        <BasisSkin type="MainSkin" offset = "0 0 45 45" align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "Message" size = "27 54" texture = "core.png" >

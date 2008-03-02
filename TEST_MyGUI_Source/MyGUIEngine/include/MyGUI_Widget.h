@@ -108,20 +108,20 @@ namespace MyGUI
 		virtual void setCaption(const Ogre::DisplayString & _caption);
 		virtual const Ogre::DisplayString & getCaption();
 
-		void setColour(const Ogre::ColourValue & _colour);
-		const Ogre::ColourValue & getColour();
+		virtual void setColour(const Ogre::ColourValue & _colour);
+		virtual const Ogre::ColourValue & getColour();
 
-		void setFontName(const Ogre::String & _font);
-		void setFontName(const Ogre::String & _font, Ogre::ushort _height);
-		const Ogre::String & getFontName();
+		virtual void setFontName(const Ogre::String & _font);
+		virtual const Ogre::String & getFontName();
 
-		void setFontHeight(Ogre::ushort _height);
-		Ogre::ushort getFontHeight();
+		virtual void setFontHeight(uint16 _height);
+		virtual Ogre::ushort getFontHeight();
 
 		virtual void setTextAlign(Align _align);
+		virtual Align getTextAlign();
+
 		IntCoord getTextCoord();
 		IntSize getTextSize();
-		//IntSize getTextSize(const Ogre::DisplayString& _text);
 
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return mAlpha;};
@@ -139,6 +139,7 @@ namespace MyGUI
 
 		// закрываем метод базового класса
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
+
 		// дл€ поддержки окон напр€мую не €вл€ющиес€ детьми
 		inline WidgetPtr _getOwner() {return mOwner;}
 		inline void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
@@ -164,6 +165,7 @@ namespace MyGUI
 		{
 			return mPointer;
 		}
+
 		inline void setPointer(const std::string& _pointer)
 		{
 			mPointer = _pointer;
@@ -175,9 +177,6 @@ namespace MyGUI
 		// возвращает им€ леера, к которому приаттачен виджет
 		// актуально только дл€ рутового виджета
 		std::string getLayerName();
-
-		// устанавливает выравнивание дл€ виджета
-		inline void setAlign(Align _align) {mAlign = _align;}
 
 		inline WidgetCreator * _getWidgetCreator()
 		{

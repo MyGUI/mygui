@@ -82,17 +82,17 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	sheet->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(30, 30, 100, 30), MyGUI::ALIGN_DEFAULT);
 
 	sheet = tab->addSheet("Test 2");
-	sheet->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(40, 40, 100, 30), MyGUI::ALIGN_DEFAULT);
+	sheet->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(40, 40, 100, 30), MyGUI::ALIGN_DEFAULT);*/
 
 
-	//MyGUI::Message::createMessage("test", "message", true, MyGUI::Message::Ok | MyGUI::Message::IconInfo);//*/
+	MyGUI::Message::createMessage("test", "message is very cool.", true, MyGUI::Message::Ok | MyGUI::Message::IconInfo);//*/
 
 	/*MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("StaticImage", MyGUI::IntCoord(700, 200, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	box->injectObject("robot.mesh");
 	box->setAutoRotation(true);
 	box->setAlpha(0.3);*/
 
-	MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	//MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	//tab->addSheet("test");
 
 	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");

@@ -255,6 +255,12 @@ namespace MyGUI
 		if (mText != null) mText->setTextAlign(_align);
 	}
 
+	Align Widget::getTextAlign()
+	{
+		if (mText != null) return mText->getTextAlign();
+		return ALIGN_DEFAULT;
+	}
+
 	void Widget::setColour(const Ogre::ColourValue & _colour)
 	{
 		if (null != mText) mText->setColour(_colour);
@@ -270,11 +276,6 @@ namespace MyGUI
 		if (null != mText) mText->setFontName(_font);
 	}
 
-	void Widget::setFontName(const Ogre::String & _font, Ogre::ushort _height)
-	{
-		if (null != mText) mText->setFontName(_font, _height);
-	}
-
 	const Ogre::String & Widget::getFontName()
 	{
 		if (null == mText) {
@@ -284,12 +285,12 @@ namespace MyGUI
 		return mText->getFontName();
 	}
 
-	void Widget::setFontHeight(Ogre::ushort _height)
+	void Widget::setFontHeight(uint16 _height)
 	{
 		if (null != mText) mText->setFontHeight(_height);
 	}
 
-	Ogre::ushort Widget::getFontHeight()
+	uint16 Widget::getFontHeight()
 	{
 		return (null == mText) ? 0 : mText->getFontHeight();
 	}
@@ -383,11 +384,6 @@ namespace MyGUI
 	{
 		return (null == mText) ? IntSize() : mText->getTextSize();
 	}
-
-	/*IntSize Widget::getTextSize(const Ogre::DisplayString& _text)
-	{
-		return (null == mText) ? IntSize() : mText->getTextSize(_text);
-	}*/
 
 	IntCoord Widget::getTextCoord()
 	{
