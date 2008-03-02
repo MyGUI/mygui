@@ -39,6 +39,9 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
+
+		// не забывай, о великий построитель гуёв
+		mMaximumDepth = Ogre::Root::getSingleton().getRenderSystem()->getMaximumDepthInputValue();
 	}
 
 	void LayerManager::shutdown()
@@ -98,6 +101,7 @@ namespace MyGUI
 
 	void LayerManager::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
 	{
+		1;
 	}
 
 	void LayerManager::_unlinkWidget(WidgetPtr _widget)

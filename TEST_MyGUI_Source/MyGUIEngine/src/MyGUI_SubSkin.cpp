@@ -221,6 +221,7 @@ namespace MyGUI
 		//if ((0 >= getViewWidth()) || (0 >= getViewHeight())) return 0;
 
 		float vertex_z = mManager->getMaximumDepth();
+		//vertex_z = 0;
 
 		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
 		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
