@@ -21,6 +21,8 @@
 namespace MyGUI
 {
 
+	const std::string Widget::msEmptyString;
+
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mOwner(static_cast<Widget*>(_parent)),
@@ -124,12 +126,8 @@ namespace MyGUI
 
 	WidgetPtr Widget::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, _layer.empty() ? this : null, this, _name);
-
-		// присоединяем виджет с уровню и не добавляем себе
-		if (_layer.empty()) mWidgetChild.push_back(widget);
-		else LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
-
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, this, this, _name);
+		mWidgetChild.push_back(widget);
 		return widget;
 	}
 
@@ -276,12 +274,9 @@ namespace MyGUI
 		if (null != mText) mText->setFontName(_font);
 	}
 
-	const Ogre::String & Widget::getFontName()
+	const std::string & Widget::getFontName()
 	{
-		if (null == mText) {
-			static Ogre::String empty;
-			return empty;
-		}
+		if (null == mText) return msEmptyString;
 		return mText->getFontName();
 	}
 
@@ -649,10 +644,10 @@ namespace MyGUI
 		}
 	}
 
-	std::string Widget::getLayerName()
+	const std::string& Widget::getLayerName()
 	{
 		LayerKeeper * keeper = getLayerKeeper();
-		if (null == keeper) return "";
+		if (null == keeper) return msEmptyString;
 		return keeper->getName();
 	}
 

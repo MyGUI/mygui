@@ -31,7 +31,8 @@ namespace MyGUI
 		mSelectSheet(ITEM_NONE),
 		mButtonDefaultWidth(1),
 		mButtonAutoWidth(true),
-		mSmoothShow(true)
+		mSmoothShow(true),
+		mShutDown(false)
 	{
 
 		// парсим свойства
@@ -83,12 +84,20 @@ namespace MyGUI
 		updateBar();
 	}
 
+	Tab::~Tab()
+	{
+		mShutDown = true;
+		// просто очищаем список, виджеты сами удалятся
+		// и вкладки при удалении себя не найдет в списке
+		//mSheetsInfo.clear();
+	}
+
 	// переопределяем для особого обслуживания страниц
 	WidgetPtr Tab::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (Sheet::_getType() == _type) {
 			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(_type, "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), _layer, _name));
-			sheet->mOwner = this;
+			//sheet->mOwner = this;
 
 			// добавляем инфу о вкладке
 			int width = (mButtonAutoWidth ? getButtonWidthByName("") : mButtonDefaultWidth);
@@ -386,8 +395,9 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(_index < mSheetsInfo.size(), "removeSheetIndex: index '" << _index << "' out of range");
 
+		this->_destroyChildWidget(mSheetsInfo[_index].sheet);
 		// удаляем страницу
-		TabSheetInfo & info = mSheetsInfo[_index];
+		/*TabSheetInfo & info = mSheetsInfo[_index];
 		// при удалении сам отпишеться
 		//ControllerManager::getInstance().removeItem(info.sheet);
 		WidgetManager::getInstance().destroyWidget(info.sheet);
@@ -403,7 +413,7 @@ namespace MyGUI
 			}
 		}
 
-		updateBar();
+		updateBar();*/
 	}
 
 	void Tab::removeSheet(const Ogre::DisplayString& _name)
@@ -502,6 +512,41 @@ namespace MyGUI
 		mSheetButton[0]->setCaption(save);
 
 		return size.width + mSheetButton[0]->getWidth() - coord.width;
+	}
+
+	void Tab::_notifyDeleteSheet(SheetPtr _sheet)
+	{
+		// общий шутдаун виджета
+		if (mShutDown) return;
+
+		for (VectorTabSheetInfo::iterator iter=mSheetsInfo.begin(); iter!=mSheetsInfo.end(); ++iter) {
+			if ((*iter).sheet == _sheet) {
+
+				//TabSheetInfo & info = mSheetsInfo[_index];
+				// при удалении сам отпишеться
+				//ControllerManager::getInstance().removeItem(info.sheet);
+				//WidgetManager::getInstance().destroyWidget(info.sheet);
+				size_t index = iter - mSheetsInfo.begin();
+
+				mWidthBar -= (*iter).width;
+				mSheetsInfo.erase(iter);
+
+				if (0 == mSheetsInfo.size()) mSelectSheet = ITEM_NONE;
+				else {
+					if (index < mSelectSheet) mSelectSheet --;
+					else if (index == mSelectSheet) {
+						if (mSelectSheet == mSheetsInfo.size()) mSelectSheet --;
+						mSheetsInfo[mSelectSheet].sheet->show();
+					}
+				}
+
+				updateBar();
+
+				//removeSheetIndex(pos);
+				return;
+			}
+		}
+		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 	}
 
 } // namespace MyGUI

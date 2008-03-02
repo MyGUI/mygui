@@ -163,6 +163,7 @@ namespace MyGUI
 		// курсор для этого виджета
 		inline const std::string& getPointer()
 		{
+			if (false == mEnabled) return msEmptyString;
 			return mPointer;
 		}
 
@@ -176,12 +177,16 @@ namespace MyGUI
 
 		// возвращает имя леера, к которому приаттачен виджет
 		// актуально только для рутового виджета
-		std::string getLayerName();
+		const std::string& getLayerName();
 
 		inline WidgetCreator * _getWidgetCreator()
 		{
 			return mWidgetCreator;
 		}
+
+	public:
+		// строка для возвратов
+		const static std::string msEmptyString;
 
 	protected:
 		// список всех стейтов

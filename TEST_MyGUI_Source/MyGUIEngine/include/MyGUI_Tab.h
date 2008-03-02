@@ -29,16 +29,16 @@ namespace MyGUI
 
 	typedef std::vector<TabSheetInfo> VectorTabSheetInfo;
 
-	class Tab;
-	typedef Tab* TabPtr;
-
 	class _MyGUIExport Tab : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::TabFactory;
+		// для уведобления об удалении
+		friend class Sheet;
 
 	protected:
 		Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Tab();
 
 		void updateBar();
 
@@ -50,6 +50,9 @@ namespace MyGUI
 		void _showSheet(SheetPtr _sheet, bool _show, bool _smooth);
 
 		void _createSheetButton();
+
+		// вкладка при удалении уведомляет таб
+		void _notifyDeleteSheet(SheetPtr _sheet);
 
 	public:
 		// тип данного виджета
@@ -188,6 +191,9 @@ namespace MyGUI
 		int mButtonDefaultWidth;
 		bool mSmoothShow;
 		bool mButtonAutoWidth;
+
+		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
+		bool mShutDown;
 
 	};
 

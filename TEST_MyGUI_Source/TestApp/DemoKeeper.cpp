@@ -17,6 +17,8 @@ MyGUI::WidgetPtr but = 0;
 
 MyGUI::ButtonPtr button = 0;
 
+MyGUI::SheetPtr sheet = null;
+
 void DemoKeeper::move(int _left, int _top)
 {
 	if (but != 0) but->setPosition(_left+2, _top+2);
@@ -26,12 +28,17 @@ void DemoKeeper::move(int _left, int _top)
 
 void DemoKeeper::test(MyGUI::WidgetPtr _sender, bool _left)
 {
-	char * names [3] = {"core.png", "foto.png", "1.jpg"};
+	if (null != sheet) {
+		//MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Tab>("main_tab")->removeSheet(sheet);
+		sheet = null;
+	}
+
+	/*char * names [3] = {"core.png", "foto.png", "1.jpg"};
 	static size_t num = 0;
 	num++;
 	if (num > 2) num = 0;
 
-	_sender->_setTextureName(names[num]);
+	_sender->_setTextureName(names[num]);*/
 	
 }
 
@@ -69,7 +76,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("ColourRect", MyGUI::IntCoord(400, 200, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	//MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("ColourRect", MyGUI::IntCoord(400, 200, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 
 	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	combo->addItem("test");
@@ -105,7 +112,17 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	//tab->addSheet("test");
 
-	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
+	MyGUI::VectorWidgetPtr wid = MyGUI::LayoutManager::getInstance().load("default.layout");
+
+	MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+	manager.destroyWidget(manager.findWidget<MyGUI::Sheet>("sheet1"));
+
+
+//	manager.findWidget<MyGUI::Sheet>("sheet1")->removeSheet();
+	//manager.findWidget<MyGUI::Tab>("main_tab")->removeSheet(manager.findWidget<MyGUI::Sheet>("sheet1"));
+
+	//sheet = MyGUI::castWidget<MyGUI::Sheet>(manager.findWidget<MyGUI::Sheet>("sheet1"));
+
 	//MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
 	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 
