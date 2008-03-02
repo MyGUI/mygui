@@ -884,7 +884,7 @@ void EditorState::createSeparator(MyGUI::WindowPtr _window, std::string _caption
 
 void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 {
-	ON_EXIT(um->addValue());
+	ON_EXIT(um->addValue(PR_PROPERTIES));
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	std::string action = _sender->getUserString("action");
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
@@ -928,6 +928,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	{
 		widgetContainer->position = value;
 		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Move", value);
+		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
 		return;
 	}
 	else if (action == "Align")
@@ -1251,8 +1252,16 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	else if (current_widget->getWidgetType() == "List") action = "List_AddString";
 	else if (current_widget->getWidgetType() == "Tab")
 	{
-		addSheetToTab(current_widget, value);
-		return;
+		action = "Widget_Caption";
+		MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
+		MyGUI::SheetPtr sheet = tab->getSheet(item);
+		WidgetContainer * widgetContainer = ew->find(sheet);
+		MyGUI::WidgetManager::getInstance().parse(sheet, "Widget_Caption", value);
+		for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+		{
+			if (iterProperty->first == action) iterProperty->second = value;
+			return;
+		}
 	}
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);

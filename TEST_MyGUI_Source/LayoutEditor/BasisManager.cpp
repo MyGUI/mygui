@@ -127,9 +127,11 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mWindow = mRoot->initialise(true, "MyGUI Layout Editor");
 	mWidth = mWindow->getWidth();
 	mHeight = mWindow->getHeight();
+#ifdef WIN32
+	g_setMainWindowInfo("MyGUI Layout Editor", IDI_ICON);
+#endif
 
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BasisSceneManager");
-
 	mCamera = mSceneMgr->createCamera("BasisCamera");
 	mCamera->setNearClipDistance(5);
 	mCamera->setPosition(Ogre::Vector3(200, 200, 200));
@@ -152,12 +154,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	createInput();
-
 	changeState(&mEditor);
-
-#ifdef WIN32
-	g_setMainWindowInfo("MyGUI Layout Editor", IDI_ICON);
-#endif
 
 	mRoot->startRendering();
 }
