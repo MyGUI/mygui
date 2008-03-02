@@ -39,6 +39,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	tab->addSheet("test");
 
+	
+	MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
+	bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
+	for (int i = 0; i < 10; i++)
+		bar->addItem(Ogre::StringConverter::toString(i), "wallpaper");
 
 	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
