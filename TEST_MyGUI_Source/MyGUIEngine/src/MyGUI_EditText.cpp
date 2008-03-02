@@ -59,7 +59,8 @@ namespace MyGUI
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mManualView(false)
+		mManualView(false),
+		mTextAlign(ALIGN_DEFAULT)
 	{
 		mManager = LayerManager::getInstancePtr();
 
@@ -198,15 +199,15 @@ namespace MyGUI
 		mCaption = _caption;
 		mTextOutDate = true;
 
-		if (null != mRenderItem) {
+		//if (null != mRenderItem) {
 			// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
 			size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
 			if (mCountVertex < need) {
 				mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
-				mRenderItem->reallockDrawItem(this, mCountVertex);
+				if (null != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 			}
-			mRenderItem->outOfDate();
-		}
+			if (null != mRenderItem) mRenderItem->outOfDate();
+		//}
 	}
 
 	const Ogre::DisplayString & EditText::getCaption()

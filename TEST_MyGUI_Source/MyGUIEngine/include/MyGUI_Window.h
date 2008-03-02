@@ -31,10 +31,6 @@ namespace MyGUI
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
-		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
-		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
-		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
-
 		// для мееедленного показа и скрытия
 		void showSmooth(bool _reset = false);
 		void hideSmooth();
@@ -53,6 +49,10 @@ namespace MyGUI
 		virtual void setPosition(const IntPoint& _pos);
 		virtual void setPosition(const IntCoord& _coord);
 		virtual void setSize(const IntSize& _size);
+
+		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
+		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		inline bool getSnap() {return mSnap;}
 		inline void setSnap(bool _snap) {mSnap = _snap;}

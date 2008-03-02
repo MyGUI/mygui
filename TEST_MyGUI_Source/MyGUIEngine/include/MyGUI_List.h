@@ -58,6 +58,20 @@ namespace MyGUI
 		void setScrollPosition(size_t _position);
 
 		//------------------------------------------------------------------------------------//
+		// для изменения у всех строк
+		/*virtual void setTextAlign(Align _align);
+		virtual Align getTextAlign();
+
+		virtual void setColour(const Ogre::ColourValue & _colour);
+		virtual const Ogre::ColourValue & getColour();
+
+		virtual void setFontName(const Ogre::String & _font);
+		virtual const Ogre::String & getFontName();
+
+		virtual void setFontHeight(uint16 _height);
+		virtual uint16 getFontHeight();*/
+
+		//------------------------------------------------------------------------------------//
 		// вспомогательные методы для составных списков
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
