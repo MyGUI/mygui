@@ -537,6 +537,7 @@ namespace MyGUI
 					else if (index == mSelectSheet) {
 						if (mSelectSheet == mSheetsInfo.size()) mSelectSheet --;
 						mSheetsInfo[mSelectSheet].sheet->show();
+						mSheetsInfo[mSelectSheet].sheet->setAlpha(ALPHA_MAX);
 					}
 				}
 
