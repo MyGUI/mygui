@@ -92,10 +92,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->setAutoRotation(true);
 	box->setAlpha(0.3);*/
 
+	MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	//tab->addSheet("test");
 
-	MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
-	MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
-	MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
+	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 
 	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setEditMultiLine(true);

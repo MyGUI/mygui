@@ -31,10 +31,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	/*menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
 	menu->addItem(L"Передать WM");
 	menu->addItem(L"Информация о персонаже");
-	menu->addItem(L"Создать персонажа");
+	menu->addItem(L"Создать персонажа");*/
+
+	MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	tab->addSheet("test");
+
 
 	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 	//MyGUI::LayoutManager::getInstance().load("TabDemo.layout");

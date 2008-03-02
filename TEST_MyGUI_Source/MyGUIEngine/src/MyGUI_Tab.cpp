@@ -493,10 +493,13 @@ namespace MyGUI
 	{
 		if (0 == mSheetButton.size()) _createSheetButton();
 
+		Ogre::DisplayString save = mSheetButton[0]->getCaption();
 		mSheetButton[0]->setCaption(_text);
+
 		IntSize size = mSheetButton[0]->getTextSize();
 		IntCoord coord = mSheetButton[0]->getTextCoord();
-		mSheetButton[0]->setCaption("");
+
+		mSheetButton[0]->setCaption(save);
 
 		return size.width + mSheetButton[0]->getWidth() - coord.width;
 	}

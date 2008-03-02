@@ -741,6 +741,12 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "TabEmpty" size = "27 28" texture = "core.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 27 28" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "289 2 27 28"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "TabButton" size = "60 28" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
@@ -768,12 +774,6 @@
 
         <BasisSkin type="SimpleText" offset = "11 0 38 28" align = "ALIGN_STRETCH"/>
 
-    </Skin>
-
-    <Skin name = "TabEmpty" size = "27 28" texture = "core.png" >
-        <BasisSkin type="MainSkin" offset = "8 0 27 28" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "289 2 27 28"/>
-        </BasisSkin>
     </Skin>
 
     <Skin name = "Tab" size = "43 51" texture = "core.png" >
