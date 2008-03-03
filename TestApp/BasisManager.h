@@ -5,6 +5,7 @@
 #include <OIS/OIS.h>
 #include <MyGUI.h>
 #include "DemoKeeper.h"
+#include "InputManager.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
@@ -28,10 +29,13 @@ class BasisManager : public Ogre::FrameListener, public OIS::MouseListener , pub
 {
 
 private:
+	// система ввода
+	input::InputManager mInput;
+
 	//OIS Input devices
-	OIS::InputManager* mInputManager;
+	/*OIS::InputManager* mInputManager;
 	OIS::Keyboard* mKeyboard;
-	OIS::Mouse*    mMouse;
+	OIS::Mouse*    mMouse;*/
 
     Ogre::Root *mRoot;
     //Ogre::Camera* mCamera;
@@ -58,8 +62,8 @@ public:
 	inline int getHeight() {return (int)mHeight;}
 
 private:
-	void createInput(); // создаем систему ввода
-	void destroyInput(); // удаляем систему ввода
+	//void createInput(); // создаем систему ввода
+	//void destroyInput(); // удаляем систему ввода
 
 	void createGui();
 	void destroyGui();

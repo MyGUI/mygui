@@ -199,6 +199,10 @@
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\InputManager.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -211,6 +215,10 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InputManager.h"
 				>
 			</File>
 			<File

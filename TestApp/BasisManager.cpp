@@ -4,10 +4,24 @@
 #include <OgreException.h>
 #include <OgrePanelOverlayElement.h>
 
+#include <windows.h>
+
+HWND hWnd;
+static LRESULT OldWindowProc = NULL;
+//static LRESULT NewWindowProc = NULL;
+
+LRESULT CALLBACK MyWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	if (uMsg == WM_LBUTTONDOWN) {
+		//int test = 0;
+	}
+	return CallWindowProc((WNDPROC)OldWindowProc, hWnd, uMsg, wParam, lParam);
+}
+
 BasisManager::BasisManager() :
-	mInputManager(0),
-	mKeyboard(0),
-	mMouse(0),
+	//mInputManager(0),
+	//mKeyboard(0),
+	//mMouse(0),
 	mRoot(0),
 	//mCamera(0),
 	mSceneMgr(0),
@@ -23,7 +37,7 @@ BasisManager::BasisManager() :
 	#endif
 }
 
-void BasisManager::createInput() // создаем систему ввода
+/*void BasisManager::createInput() // создаем систему ввода
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
 	OIS::ParamList pl;
@@ -43,9 +57,13 @@ void BasisManager::createInput() // создаем систему ввода
 	mMouse->setEventCallback(this);
 
 	windowResized(mWindow); // инициализация
-}
 
-void BasisManager::destroyInput() // удаляем систему ввода
+	//OldWindowProc = GetWindowLong((HWND)windowHnd, GWL_WNDPROC);
+	//SetWindowLong((HWND)windowHnd, GWL_WNDPROC, (long)MyWindowProc); // Задаём новый адрес 'оконной процедуры' и присваеваем новый адрес уже 'оконной процедуры' глобальной переменной.
+
+}*/
+
+/*void BasisManager::destroyInput() // удаляем систему ввода
 {
 	if( mInputManager ) {
 		Ogre::LogManager::getSingletonPtr()->logMessage("*** Destroy OIS ***");
@@ -61,7 +79,7 @@ void BasisManager::destroyInput() // удаляем систему ввода
 		OIS::InputManager::destroyInputSystem(mInputManager);
 		mInputManager = 0;
 	}
-}
+}*/
 
 void BasisManager::createBasisManager(void) // создаем начальную точки каркаса приложения
 {
@@ -110,7 +128,13 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mRoot->addFrameListener(this);
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
-	createInput();
+	//createInput();
+	mInput.createInput(mWindow);
+	mInput.setKeyEventCallback(this);
+	mInput.setMouseEventCallback(this);
+
+	// освобождаем мышь
+	mInput.setMouseExclusive(false);
 
 	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
 	if (false == material.isNull()) {
@@ -143,7 +167,8 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr = 0;
 	}
 
-	destroyInput(); // удаляем ввод
+	mInput.destroyInput();
+	//destroyInput(); // удаляем ввод
 
 	if (mWindow) {
 		mWindow->destroy();
@@ -168,6 +193,7 @@ void BasisManager::createGui()
 		/*mFpsInfo = mGUI->createWidget<MyGUI::StaticText>("StaticText", 20, (int)mHeight - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 		mFpsInfo->setColour(Ogre::ColourValue::White);*/
 	}
+	mGUI->hidePointer();
 }
 
 void BasisManager::destroyGui()
@@ -225,8 +251,9 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 {
 	if (m_exit) return false;
 
-	if (mMouse) mMouse->capture();
-	mKeyboard->capture();
+	mInput.capture();
+	//if (mMouse) mMouse->capture();
+	//mKeyboard->capture();
 
 	if (mFpsInfo) {
 		static float time = 0;
@@ -296,17 +323,19 @@ void BasisManager::windowResized(Ogre::RenderWindow* rw)
 	mWidth = rw->getWidth();
 	mHeight = rw->getHeight();
 
-	if (mMouse) {
+	mInput.windowResized(mWidth, mHeight);
+	/*if (mMouse) {
 		const OIS::MouseState &ms = mMouse->getMouseState();
 		ms.width = (int)mWidth;
 		ms.height = (int)mHeight;
-	}
+	}*/
 }
 
 void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 {
 	m_exit = true;
-	destroyInput();
+	mInput.destroyInput();
+	//destroyInput();
 }
 
 //=======================================================================================
