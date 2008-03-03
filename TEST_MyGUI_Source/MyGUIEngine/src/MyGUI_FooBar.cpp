@@ -9,6 +9,15 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_ControllerManager.h"
+#include "MyGUI_ControllerFadeAlpha.h"
+
+const float WINDOW_ALPHA_MAX = ALPHA_MAX;
+const float WINDOW_ALPHA_MIN = ALPHA_MIN;
+const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
+const float WINDOW_ALPHA_FOCUS = 0.7f;
+const float WINDOW_ALPHA_DEACTIVE = 0.3f;
+const float WINDOW_SPEED_COEF = 3.0f;
 
 namespace MyGUI
 {
@@ -18,7 +27,8 @@ namespace MyGUI
 		mSnapDistance(0),
 		mLayout(FBL_COORDS),
 		mWidth(70),
-		mMouseWidget(-1)
+		mMouseWidget(-1),
+		mDragging(false)
 	{
 		Gui::getInstance().addFrameListener(this);
 	}
@@ -45,6 +55,24 @@ namespace MyGUI
 		updateSize(_size);
 	}
 
+	void FooBar::showSmooth(bool _reset)
+	{
+		if (_reset) {
+			setAlpha(ALPHA_MIN);
+			show();
+		}
+
+		ControllerManager::getInstance().addItem(
+			this, new ControllerFadeAlpha(WINDOW_ALPHA_DEACTIVE,
+			WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+	}
+
+	void FooBar::hideSmooth()
+	{
+		ControllerManager::getInstance().addItem(
+			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+	}
+
 	void FooBar::_frameEntered(float _time)
 	{
 		IntPoint pt = InputManager::getInstance().getMousePosition();
@@ -58,10 +86,11 @@ namespace MyGUI
 				updateItemsLayout();
 			}
 			mMouseWidget = -1;
-
+			
 			return;
 		}
-		
+
+				
 		int n = (int)mItemsOrder.size();
 		for (int i = 0; i < n; i++)
 			if (checkPoint(pt.left, pt.top, mItemsOrder[i]))
@@ -77,10 +106,35 @@ namespace MyGUI
 
 	void FooBar::_onMouseDrag(int _left, int _top)
 	{
+		if (_checkPoint(_left, _top))
+			mDragging = true;
 		
-		
+		if (!mDragging)
+			return;
 
+		int width = (int)Gui::getInstance().getViewWidth();
+		int height = (int)Gui::getInstance().getViewHeight();
+
+		if (_left < mWidth)
+			setLayout(FBL_SNAP_LEFT);
+		else
+			if ((width - mWidth) < _left)
+				setLayout(FBL_SNAP_RIGHT);
+			else
+				if (_top < mWidth)
+					setLayout(FBL_SNAP_TOP);
+				else
+					if ((height - mWidth) < _top)
+						setLayout(FBL_SNAP_BOTTOM);
+		
 		Widget::_onMouseDrag(_left, _top);
+	}
+
+	void FooBar::_onMouseButtonReleased(bool _left)
+	{
+		mDragging = false;
+
+		Widget::_onMouseButtonReleased(_left);
 	}
 
 	bool FooBar::checkPoint(int left, int top, WidgetPtr widget)
@@ -119,6 +173,7 @@ namespace MyGUI
 			mLayout = layout;
 			updatePosition(getPosition());
 			updateSize(IntSize(mCoord.width, mCoord.height));
+			updateItemsLayout();
 		}else
 			mLayout = layout;
 	}
