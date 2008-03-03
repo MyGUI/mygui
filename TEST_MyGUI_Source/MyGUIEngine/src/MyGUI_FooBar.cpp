@@ -230,8 +230,8 @@ namespace MyGUI
 
 			if (mMouseWidget != -1)
 			{
-				if (abs(i - mMouseWidget) < 3)
-					sz = mWidth / (1.2 + 0.15 * abs(i - mMouseWidget));
+				if (abs(i - mMouseWidget) < 2)
+					sz = mWidth / (1.2 + 0.25 * abs(i - mMouseWidget));
 				else
 					sz = mWidth / 1.7;
 			}else
@@ -285,6 +285,10 @@ namespace MyGUI
 	void FooBar::addItem(const Ogre::String &name, const Ogre::String &texture)
 	{
 		StaticImagePtr item = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), ALIGN_DEFAULT);
+
+		if (false == Ogre::TextureManager::getSingleton().resourceExists(texture)) 
+			Ogre::TextureManager::getSingleton().load(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
 		item->setImageTexture(texture);
 
 		_addChildItem(name, item);

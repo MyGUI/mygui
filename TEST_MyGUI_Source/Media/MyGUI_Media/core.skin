@@ -1101,22 +1101,18 @@
         </BasisSkin>
     </Skin>
 
-	<Skin name = "FooBar" size = "64 32" texture = "core.png">
+	<Skin name = "FooBar" size = "40 26" texture = "core.png">
 	
-		<BasisSkin type="SubSkin" offset = "0 0 64 16" align = "ALIGN_STRETCH">
-            <State name="disable" offset = "590 2 64 32"/>
-            <State name="normal" offset = "590 2 64 32"/>
-            <State name="active" offset = "590 2 64 32"/>
-            <State name="pressed" offset = "590 2 64 32"/>
-            <State name="select" offset = "590 2 64 32"/>
+		<BasisSkin type="SubSkin" offset = "0 0 40 8" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "517 3 33 20"/>
         </BasisSkin>
 		
 	</Skin>
 	
-	<Skin name = "FooBarItem" size = "32 32" texture = "core.png">
+	<Skin name = "FooBarItem" size = "64 64" texture = "0.png">
 	
-		<BasisSkin type="SubSkin" offset = "0 0 32 32" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "90 170 44 44"/>
+		<BasisSkin type="SubSkin" offset = "0 0 64 64" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "0 0 63 63"/>
         </BasisSkin>
 		
 	</Skin>
