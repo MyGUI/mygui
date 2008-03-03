@@ -32,11 +32,6 @@ private:
 	// система ввода
 	input::InputManager mInput;
 
-	//OIS Input devices
-	/*OIS::InputManager* mInputManager;
-	OIS::Keyboard* mKeyboard;
-	OIS::Mouse*    mMouse;*/
-
     Ogre::Root *mRoot;
     //Ogre::Camera* mCamera;
     Ogre::SceneManager* mSceneMgr;
@@ -50,6 +45,8 @@ private:
 
 	DemoKeeper mDemo;
 
+	bool mFullscreen;
+
 public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
 
@@ -61,9 +58,10 @@ public:
 	inline int getWidth() {return (int)mWidth;}
 	inline int getHeight() {return (int)mHeight;}
 
+	inline bool isFullscreen() { return mFullscreen; }
+	void setFullscreen(bool _fullscreen);
+
 private:
-	//void createInput(); // создаем систему ввода
-	//void destroyInput(); // удаляем систему ввода
 
 	void createGui();
 	void destroyGui();
@@ -82,6 +80,8 @@ private:
 
 	void windowResized(Ogre::RenderWindow* rw);
 	void windowClosed(Ogre::RenderWindow* rw);
+
+	void correctResolution();
 
 };
 

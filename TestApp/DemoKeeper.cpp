@@ -40,6 +40,29 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	tab->addSheet("test1");
 	tab->addSheet("test2");
 
+	MyGUI::ListPtr list = mGUI->createWidget<MyGUI::List>("List", MyGUI::IntCoord(340, 340, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
+	list->addItem("test 1");
 	
 	MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
 	bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
