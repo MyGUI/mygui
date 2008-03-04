@@ -54,7 +54,7 @@
     <Parameter key="Message_Caption" value="String"/>
     <Parameter key="Message_Message" value="String"/>
     <Parameter key="Message_Modal" value="Bool"/>
-    <!--Parameter key="Message_Button" value="MessageButton"/-->
+    <Parameter key="Message_Button" value="MessageButton"/>
     <!--Parameter key="Message_AddButton" value="String"/-->
     <Parameter key="Message_SmoothShow" value="Bool"/>
     <Parameter key="Message_Fade" value="Bool"/>
@@ -222,5 +222,15 @@
     <Property key="Middle"/>
     <Property key="Overlapped"/>
     <Property key="Back"/>
+  </Value>
+
+  <Value name="MessageButton">
+    <Property key="Ok"/>
+    <Property key="OkCancel"/>
+    <Property key="YesNo"/>
+    <Property key="YesNoCancel"/>
+    <Property key="RetryCancel"/>
+    <Property key="AbortRetryIgnore"/>
+    <Property key="CancelTryContinue"/>
   </Value>
 </MyGUI>

@@ -129,10 +129,7 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 	}
 	WidgetContainer * _container = find(_widget);
 
-	MyGUI::WidgetPtr parent = _widget->getParent();
-	// FIXME у таба все не как у людей
-	if ((null != parent) && (parent->getWidgetType() == "Tab")) MyGUI::castWidget<MyGUI::Tab>(parent)->removeSheet(MyGUI::castWidget<MyGUI::Sheet>(_widget));
-	else MyGUI::Gui::getInstance().destroyWidget(_widget);
+	MyGUI::Gui::getInstance().destroyWidget(_widget);
 
 	if (null != _container)
 	{

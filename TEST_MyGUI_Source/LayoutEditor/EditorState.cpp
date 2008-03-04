@@ -110,6 +110,10 @@ void EditorState::enter(bool bIsChangeState)
 	}
 	comboFullScreen->setItemSelect(selectedIdx);
 
+#ifdef NO_EXCLUSIVE_INPUT
+	MyGUI::PointerManager::getInstance().hide();
+#endif
+
 	// strings panel
 	MyGUI::WindowPtr windowStrings = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowStrings");
 	windowStrings->setPosition(mGUI->getViewWidth() - windowStrings->getSize().width, mGUI->getViewHeight() - windowStrings->getSize().height);
@@ -817,7 +821,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	else if ("2 float" == _type) widget_for_type = 0;
 	// надо сделать проще FIXME
 	else if ("Colour" == _type) widget_for_type = 0;//"Colour" хорошо бы колорпикером
-	else if ("MessageButton" == _type) widget_for_type = 0;//"MessageButton" - тож хз
+	else if ("MessageButton" == _type) widget_for_type = 1;//"MessageButton" - тож хз
 	// неправильно FIXME
 	else if ("WidgetState" == _type) widget_for_type = 1;//по идее комба, но тогда надо еще и все состояния доступные в xml вписать
 	else widget_for_type = 1;
@@ -960,6 +964,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 			else if (value != "" || "Widget_FontName" != action)
 				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 		}
+		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
 		Ogre::Root::getSingleton().renderOneFrame();
 	}
 	catch(...)
