@@ -19,6 +19,7 @@ public:
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
 
+	void windowResize();
 private:
 	void loadSettings();
 	void saveSettings();

@@ -1,3 +1,5 @@
+LayoutEditor v1.0 RC1
+
 Save/Load:
   absolute names (C:/LayoutEditor/Media/my.layout)
   relative names (../Media/my.layout)

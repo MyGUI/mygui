@@ -357,6 +357,14 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 	return true;
 }
 //===================================================================================
+void EditorState::windowResize()
+{
+	// force update
+	MyGUI::WidgetPtr current_widget1 = current_widget;
+	current_widget = null;
+	notifySelectWidget(current_widget1);
+}
+//===================================================================================
 void EditorState::loadSettings()
 {
 	std::string _fileName = "settings.xml";
