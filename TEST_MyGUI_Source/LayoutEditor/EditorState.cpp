@@ -4,12 +4,7 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 
-#include "MyGUI.h"
-#include <string>
-#include <stdlib.h>
-
 #define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
-#define min(a,b)            (((a) < (b)) ? (a) : (b))
 #define TO_GRID(x) ((x)/grid_step*grid_step)
 
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
@@ -154,7 +149,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 
 	if ((creating_status == 1) && ((x1-x2)*(y1-y2) != 0))
 	{
-		MyGUI::IntCoord coord(min(x1, x2), min(y1, y2), abs(x1 - x2), abs(y1 - y2));
+		MyGUI::IntCoord coord(std::min(x1, x2), std::min(y1, y2), abs(x1 - x2), abs(y1 - y2));
 
 		creating_status = 2;
 
@@ -174,7 +169,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 	}
 	else if (creating_status == 2)
 	{
-		MyGUI::IntCoord coord(min(x1, x2), min(y1, y2), abs(x1 - x2), abs(y1 - y2));
+		MyGUI::IntCoord coord(std::min(x1, x2), std::min(y1, y2), abs(x1 - x2), abs(y1 - y2));
 		coord = convertCoordToParentCoord(coord, current_widget);
 		current_widget->setPosition(coord);
 	}

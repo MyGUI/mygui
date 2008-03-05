@@ -430,7 +430,7 @@
     </Skin>
 
     <Skin name = "VScroll" size = "16 60" texture = "core.png" >
-        <Property key="SkinTrackRange" value = "18 39" />
+        <Property key="TrackRangeMargins" value = "17 17" />
 
         <Child type="Button" skin="VScrollTop" offset = "0 0 16 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start"/>
         <Child type="Button" skin="VScrollBottom" offset = "0 44 16 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End"/>
@@ -473,7 +473,7 @@
     </Skin>
 
     <Skin name = "HScroll" size = "60 16" texture = "core.png" >
-        <Property key="SkinTrackRange" value = "18 39" />
+        <Property key="TrackRangeMargins" value = "17 17" />
 
         <Child type="Button" skin="HScrollLeft" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Start"/>
         <Child type="Button" skin="HScrollRight" offset = "44 0 16 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "End"/>

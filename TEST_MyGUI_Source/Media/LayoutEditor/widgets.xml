@@ -226,6 +226,14 @@
 
   <Value name="MessageButton">
     <Property key="Ok"/>
+    <Property key="Yes"/>
+    <Property key="No"/>
+    <Property key="Abort"/>
+    <Property key="Retry"/>
+    <Property key="Ignore"/>
+    <Property key="Cancel"/>
+    <Property key="Try"/>
+    <Property key="Continue"/>
     <Property key="OkCancel"/>
     <Property key="YesNo"/>
     <Property key="YesNoCancel"/>

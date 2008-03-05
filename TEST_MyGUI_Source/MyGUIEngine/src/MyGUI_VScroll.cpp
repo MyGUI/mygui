@@ -36,17 +36,17 @@ namespace MyGUI
 				mWidgetTrack->hide();
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetStart, "Child Button Start not found in skin (VScroll must have Start)");
-		MYGUI_ASSERT(null != mWidgetEnd, "Child Button End not found in skin (VScroll must have End)");
-		MYGUI_ASSERT(null != mWidgetTrack, "Child Button Track not found in skin (VScroll must have Track)");
+		MYGUI_ASSERT(null != mWidgetStart, "Child Button Start not found in skin (Scroll must have Start)");
+		MYGUI_ASSERT(null != mWidgetEnd, "Child Button End not found in skin (Scroll must have End)");
+		MYGUI_ASSERT(null != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("SkinTrackRange");
+		MapString::const_iterator iter = param.find("TrackRangeMargins");
 		if (iter != param.end()) {
 			IntSize range = IntSize::parse(iter->second);
 			mSkinRangeStart = range.width;
-			mSkinRangeEnd = range.height;
+			mSkinRangeEnd = range.height + mWidgetTrack->getHeight();
 		}
 	}
 
@@ -145,7 +145,7 @@ namespace MyGUI
 	{
 		if (_range == mScrollRange) return;
 		mScrollRange = _range;
-		mScrollPosition = 0;
+		mScrollPosition = (mScrollPosition < mScrollRange) ? mScrollPosition : 0;
 		updateTrack();
 	}
 
