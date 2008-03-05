@@ -48,12 +48,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
+	/*MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
 	bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
 	//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Main", bar);
 	bar->show();
 	for (int i = 0; i < 10; i++)
-		bar->addItem(Ogre::StringConverter::toString(i), Ogre::StringConverter::toString(i) + ".png");
+		bar->addItem(Ogre::StringConverter::toString(i), Ogre::StringConverter::toString(i) + ".png");*/
 
 
 	//MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
@@ -112,10 +112,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	//tab->addSheet("test");
 
-	MyGUI::VectorWidgetPtr wid = MyGUI::LayoutManager::getInstance().load("default.layout");
+	/*MyGUI::VectorWidgetPtr wid = MyGUI::LayoutManager::getInstance().load("default.layout");
 
 	MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-	manager.destroyWidget(manager.findWidget<MyGUI::Sheet>("sheet1"));
+	manager.destroyWidget(manager.findWidget<MyGUI::Sheet>("sheet1"));*/
 
 
 //	manager.findWidget<MyGUI::Sheet>("sheet1")->removeSheet();
@@ -123,7 +123,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//sheet = MyGUI::castWidget<MyGUI::Sheet>(manager.findWidget<MyGUI::Sheet>("sheet1"));
 
-	//MyGUI::LayoutManager::getInstance().load("ListDemo.layout");
+	MyGUI::LayoutManager::getInstance().load("test.xml");
 	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 
 	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");

@@ -354,15 +354,60 @@ namespace MyGUI
 	// для оповещений об изменении окна рендера
 	void Gui::windowResized(Ogre::RenderWindow* rw)
 	{
+		FloatSize oldViewSize = mViewSize;
+
 		Ogre::Viewport * port = rw->getViewport(0);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
-
 		mLayerManager->_windowResized(mViewSize);
+
+		// выравниваем рутовые окна
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			_alignWidget((*iter), oldViewSize, mViewSize);
+		}
 	}
 
 	inline void Gui::destroyWidget(WidgetPtr _widget)
 	{
 		mWidgetManager->destroyWidget(_widget);
+	}
+
+	void Gui::_alignWidget(WidgetPtr _widget, const FloatSize& _old, const FloatSize& _new)
+	{
+		if (null == _widget) return;
+		
+		Align align = _widget->getAlign();
+		if (ALIGN_DEFAULT == align) return;
+
+		IntCoord coord = _widget->getCoord();
+
+		// первоначальное выравнивание
+		if (IS_ALIGN_RIGHT(align)) {
+			if (IS_ALIGN_LEFT(align)) {
+				// растягиваем
+				coord.width += _new.width - _old.width;
+			} else {
+				// двигаем по правому краю
+				coord.left += _new.width - _old.width;
+			}
+
+		} else if (false == IS_ALIGN_LEFT(align)) {
+			// выравнивание по горизонтали без растяжения
+			coord.left = (_new.width - coord.width) / 2;
+		}
+
+		if (IS_ALIGN_BOTTOM(align)) {
+			if (IS_ALIGN_TOP(align)) {
+				// растягиваем
+				coord.height += _new.height - _old.height;
+			} else {
+				coord.top += _new.height - _old.height;
+			}
+		} else if (false == IS_ALIGN_TOP(align)) {
+			// выравнивание по вертикали без растяжения
+			coord.top = (_new.height - coord.height) / 2;
+		}
+
+		_widget->setPosition(coord);
 	}
 
 } // namespace MyGUI
