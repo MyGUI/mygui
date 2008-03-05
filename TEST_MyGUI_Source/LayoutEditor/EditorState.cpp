@@ -345,8 +345,8 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 {
 	/*static float time = 0;
 	time += evt.timeSinceLastFrame;
-	if (time > 1) {
-		time -= 1;
+	if (time > 2) {
+		time -= 2;
 		try {
 			const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
 			MyGUI::MYGUI_OUT(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
@@ -476,7 +476,7 @@ void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
 {
-	MyGUI::Message::createMessage("Warning", "Are you sure you want to delete all widgets?", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::Message::_createMessage("Warning", "Are you sure you want to delete all widgets?", "", "LayoutEditor_Popup", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 }
 
 void EditorState::notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
@@ -502,7 +502,7 @@ void EditorState::clear()
 
 void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
 {
-	MyGUI::Message::createMessage("Warning", "Are you sure you want to exit?", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::Message::_createMessage("Warning", "Are you sure you want to exit?", "", "LayoutEditor_Popup", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 	want_quit = true;
 }
 
@@ -520,7 +520,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 
 	if (false == success) 
 	{
-		MyGUI::Message::createMessage("Warning", "Failed to " + _sender->getCaption() + " file", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file", "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else
 	{
@@ -891,7 +891,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	ON_EXIT(um->addValue(PR_PROPERTIES));
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	std::string action = _sender->getUserString("action");
-	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
+	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getCaption();
 	std::string type = _sender->getUserString("type");
 
 	if (value == DEFAULT_VALUE) value = "";
@@ -910,7 +910,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	{
 		if ((!value.empty()) && (null != ew->find(value)) && (widgetContainer != ew->find(value)))
 		{
-			MyGUI::Message::createMessage("Warning", "Widget with name '" + value + "' already exist.", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage("Warning", "Widget with name '" + value + "' already exist.", "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			MyGUI::castWidget<MyGUI::Edit>(_sender)->setCaption(widgetContainer->name);
 			return;
 		}
@@ -949,7 +949,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 
 	try{
-		if (("Message_Modal" != action) && ("Window_AutoAlpha" != action))
+		if (("Message_Modal" != action) && ("Window_AutoAlpha" != action) && ("Window_Snap" != action))
 		{
 			if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
 			{
@@ -964,7 +964,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 	catch(...)
 	{
-		MyGUI::Message::createMessage("Warning", "No such " + action + ": '" + value + "'", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage("Warning", "No such " + action + ": '" + value + "'", "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
 	}// for incorrect meshes or textures
 

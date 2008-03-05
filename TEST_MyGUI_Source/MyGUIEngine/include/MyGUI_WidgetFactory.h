@@ -38,6 +38,7 @@ namespace MyGUI
 			void Widget_State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Enabled(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

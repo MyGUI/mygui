@@ -194,7 +194,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			static long renameN=0;
 			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
 			LOGGING(LogSection, Warning, mess);
-			MyGUI::Message::createMessage("Warning", mess, true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage("Warning", mess, "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -234,13 +234,13 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 
 			// и парсим свойство
 			try{
-				if (("Message_Modal" != key) && ("Window_AutoAlpha" != key))
+				if (("Message_Modal" != key) && ("Window_AutoAlpha" != key) && ("Window_Snap" != key))
 					MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
 				Ogre::Root::getSingleton().renderOneFrame();
 			}
 			catch(...)
 			{
-				MyGUI::Message::createMessage("Warning", "No such " + key + ": '" + value + "'", true, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				MyGUI::Message::_createMessage("Warning", "No such " + key + ": '" + value + "'", "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 				if (key == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(container->widget, key, "");
 			}// for incorrect meshes or textures
 
