@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Widgets">
+
   <Widget name="Button">
     <Property key="Skin" value="Button"/>
     <Property key="Skin" value="ButtonSmall"/>
     <Property key="Skin" value="CheckBox"/>
+    <Property key="Skin" value="RadioBox"/>
     <Parameter key="Button_Pressed" value="Bool"/>
     <!-- all properties -->
   </Widget>
