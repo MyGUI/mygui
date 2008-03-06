@@ -128,6 +128,9 @@ void EditorState::enter(bool bIsChangeState)
 
 	loadSettings();
 	clear();
+
+	/*MyGUI::WidgetPtr mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main", "fpsInfo");
+	mFpsInfo->setColour(Ogre::ColourValue::White);*/
 }
 //===================================================================================
 void EditorState::exit()
@@ -345,11 +348,11 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 {
 	/*static float time = 0;
 	time += evt.timeSinceLastFrame;
-	if (time > 2) {
-		time -= 2;
+	if (time > 1) {
+		time -= 1;
 		try {
 			const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
-			MyGUI::MYGUI_OUT(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
+			mGUI->findWidgetT("fpsInfo")->setCaption(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
 		} catch (...) { }
 	}*/
 
@@ -798,7 +801,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			}
 		}
 		int height = window->getHeight() - window->getClientRect().height;
-		window->setMinMax(window->getSize().width, height + y, mGUI->getViewWidth(), height + y);
+		window->setMinMax(window->getMinMax().left, height + y, mGUI->getViewWidth(), height + y);
 		window->setSize(window->getSize().width, height + y);
 	}
 }
@@ -1231,14 +1234,33 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item) return;
 	ON_EXIT(um->addValue());
-	MyGUI::castWidget<MyGUI::Tab>(current_widget)->selectSheetIndex(item);
+	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
+	tab->selectSheetIndex(item);
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 
 	Ogre::String action = "Tab_SelectSheet";
 	Ogre::String value = MyGUI::utility::toString(item);
 	MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
-	// если такое св-во было, то заменим (или удалим если стерли) значение
+
+	action = "Sheet_Select";
+	for (size_t i = 0; i < tab->getSheetCount(); ++i)
+	{
+		WidgetContainer * sheetContainer = ew->find(tab->getSheet(i));
+		StringPairs::iterator iterProperty;
+		for (iterProperty = sheetContainer->mProperty.begin(); iterProperty != sheetContainer->mProperty.end(); ++iterProperty)
+		{
+			if (iterProperty->first == action){
+				if (i == item) iterProperty->second = "true";
+				else sheetContainer->mProperty.erase(iterProperty);
+				break;
+			}
+		}
+		// если не нашли, то добавим
+		if ((i == item) && (iterProperty == sheetContainer->mProperty.end()))
+			sheetContainer->mProperty.push_back(std::make_pair(action, "true"));
+	}
+	/*// если такое св-во было, то заменим (или удалим если стерли) значение
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
 		if (iterProperty->first == action){
@@ -1248,7 +1270,7 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	}
 
 	// если такого свойства не было раньше, то сохраняем
-	widgetContainer->mProperty.push_back(std::make_pair(action, value));
+	widgetContainer->mProperty.push_back(std::make_pair(action, value));*/
 }
 
 void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)

@@ -118,7 +118,7 @@
     <Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
     <Parameter key="Tab_SmoothShow" value="Bool"/>
     <!--Parameter key="Tab_AddSheet" value="String"/-->
-    <Parameter key="Tab_SelectSheet" value="1 int"/>
+    <!--Parameter key="Tab_SelectSheet" value="1 int"/-->
     <!-- all properties -->
   </Widget>
 
@@ -132,7 +132,6 @@
 
   <Widget name="Widget">
     <Property key="Parent" value="true"/>
-    <Property key="Child" value="true"/>
     <Property key="Skin" value="Panel"/>
     <Property key="Skin" value="Separator1"/>
     <Property key="Skin" value="Separator2"/>
@@ -197,7 +196,6 @@
 
   <Value name="Font">
     <Property key="#444444DEFAULT"/>
-    <Property key="ACMESA.18"/>
 	<Property key="MyGUI_CoreFont.18"/>
   </Value>
   

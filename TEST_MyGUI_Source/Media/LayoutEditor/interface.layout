@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
 
     <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="ALIGN_STRETCH" layer="LayoutEditor_Back">
-        <Property key="Image_Texture" value="wallpaper3.jpg"/>
+        <Property key="Image_Texture" value="wallpaper.jpg"/>
     </Widget>
 
     <Widget type="Window" skin="WindowC" position="0 0 200 272" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowMenu">
@@ -84,6 +84,7 @@
     <Widget type="Window" skin="WindowCS" position="300 0 280 400" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowProperties">
         <Property key="Widget_Caption" value="Properties"/>
         <Property key="Window_Snap" value="true"/>
+        <Property key="Window_MinMax" value="280 0 2048 2048"/>
         <Property key="Widget_Show" value="false"/>
     </Widget>
     <Widget type="Window" skin="WindowCS" position="300 400 280 232" align="ALIGN_RIGHT ALIGN_BOTTOM" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowStrings">
