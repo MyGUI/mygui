@@ -1117,5 +1117,36 @@
 		
 	</Skin>
 
+    <Skin name = "Panel" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "147 2 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "150 2 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 3 3" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "153 2 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 3 3" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "153 5 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 6 3 3" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "153 8 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 3 3" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "150 8 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 3 3" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "147 8 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "147 5 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 3 3 3" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "413 4 96 59"/>
+        </BasisSkin>
+    </Skin>
+
 </MyGUI>
 
