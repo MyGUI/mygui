@@ -1118,6 +1118,10 @@
 	</Skin>
 
     <Skin name = "Panel" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
+        <Property key="Colour" value = "0 0 0" />
 
         <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "147 2 3 3"/>
@@ -1146,6 +1150,8 @@
         <BasisSkin type="SubSkin" offset = "3 3 3 3" align = "ALIGN_STRETCH">
             <State name="normal" offset = "413 4 96 59"/>
         </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "3 3 3 3" align = "ALIGN_STRETCH"/>
     </Skin>
 
 </MyGUI>
