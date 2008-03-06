@@ -899,7 +899,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	ON_EXIT(um->addValue(PR_PROPERTIES));
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	std::string action = _sender->getUserString("action");
-	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getCaption();
+	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
 	std::string type = _sender->getUserString("type");
 
 	if (value == DEFAULT_VALUE) value = "";
