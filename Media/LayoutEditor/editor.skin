@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+    <Skin name = "EditorComboBox" size = "40 26" material = "MyGUI_CoreMaterial" >
+        <Property key="FontName" value = "MyGUI_CoreFont" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+
+        <Property key="HeightList" value = "140" />
+        <Property key="ListSmoothShow" value = "true" />
+        <Property key="ListSkin" value = "List" />
+        <Property key="ListLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="EditClient" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+        <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button">
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "60 2 10 26"/>
+            <State name="normal" offset = "60 30 10 26"/>
+            <State name="active" offset = "60 58 10 26"/>
+            <State name="pressed" offset = "60 86 10 26"/>
+            <State name="select" offset = "60 114 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 20 26" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "70 2 20 26"/>
+            <State name="normal" offset = "70 30 20 26"/>
+            <State name="active" offset = "70 58 20 26"/>
+            <State name="pressed" offset = "70 86 20 26"/>
+            <State name="select" offset = "70 114 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "30 0 10 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "90 2 10 26"/>
+            <State name="normal" offset = "90 30 10 26"/>
+            <State name="active" offset = "90 58 10 26"/>
+            <State name="pressed" offset = "90 86 10 26"/>
+            <State name="select" offset = "90 114 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="TextEdit" offset = "3 0 15 26" align = "ALIGN_STRETCH">
+            <State name="disable" colour="0.87 0.87 0.87"/>
+            <State name="pressed" colour="0 0 0"/>
+            <State name="normal" colour="0 0 0"/>
+            <State name="select" colour="2C8AD5"/>
+            <State name="active" colour="2C8AD5"/>
+        </BasisSkin>
+    </Skin>
+
+</MyGUI>

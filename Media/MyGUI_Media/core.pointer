@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Pointer">
+
+    <Pointer layer="Pointer" size="32 32" material="MyGUI_CoreMaterial" default="arrow">
+        <Info name="arrow" point="1 1" offset="0 224 32 32"/>
+        <Info name="beam" point="16 16" offset="32 224 32 32"/>
+        <Info name="size_left" point="16 16" offset="64 224 32 32"/>
+        <Info name="hand" point="16 16" offset="96 224 32 32"/>
+
+        <_Info name="beam" point="16 16" size="100 100" material="Examples/Robot"/>
+    </Pointer>
+
+</MyGUI>

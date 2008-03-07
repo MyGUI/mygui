@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MyGUI" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libMyGUI.a" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libMyGUI.a" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="include" />
+			<Add directory="/usr/include/OGRE" />
+			<Add directory="/usr/include/freetype2" />
+		</Compiler>
+		<Unit filename="include/MyGUI.h" />
+		<Unit filename="include/MyGUI_AlignInfo.h" />
+		<Unit filename="include/MyGUI_Button.h" />
+		<Unit filename="include/MyGUI_ButtonFactory.h" />
+		<Unit filename="include/MyGUI_CastWidget.h" />
+		<Unit filename="include/MyGUI_ChildSkinInfo.h" />
+		<Unit filename="include/MyGUI_ClipboardManager.h" />
+		<Unit filename="include/MyGUI_ComboBox.h" />
+		<Unit filename="include/MyGUI_ComboBoxFactory.h" />
+		<Unit filename="include/MyGUI_Common.h" />
+		<Unit filename="include/MyGUI_ControllerFadeAlpha.h" />
+		<Unit filename="include/MyGUI_ControllerItem.h" />
+		<Unit filename="include/MyGUI_ControllerManager.h" />
+		<Unit filename="include/MyGUI_CroppedRectangleInterface.h" />
+		<Unit filename="include/MyGUI_DynLib.h" />
+		<Unit filename="include/MyGUI_DynLibManager.h" />
+		<Unit filename="include/MyGUI_Edit.h" />
+		<Unit filename="include/MyGUI_EditFactory.h" />
+		<Unit filename="include/MyGUI_Font.h" />
+		<Unit filename="include/MyGUI_FontManager.h" />
+		<Unit filename="include/MyGUI_FrameListener.h" />
+		<Unit filename="include/MyGUI_Gui.h" />
+		<Unit filename="include/MyGUI_HScroll.h" />
+		<Unit filename="include/MyGUI_HScrollFactory.h" />
+		<Unit filename="include/MyGUI_InputManager.h" />
+		<Unit filename="include/MyGUI_Instance.h" />
+		<Unit filename="include/MyGUI_LayerInfo.h" />
+		<Unit filename="include/MyGUI_LayerItemInfo.h" />
+		<Unit filename="include/MyGUI_LayerManager.h" />
+		<Unit filename="include/MyGUI_LayoutManager.h" />
+		<Unit filename="include/MyGUI_List.h" />
+		<Unit filename="include/MyGUI_ListFactory.h" />
+		<Unit filename="include/MyGUI_LogManager.h" />
+		<Unit filename="include/MyGUI_LogStream.h" />
+		<Unit filename="include/MyGUI_Macros.h" />
+		<Unit filename="include/MyGUI_MainSkin.h" />
+		<Unit filename="include/MyGUI_MaskPeekInfo.h" />
+		<Unit filename="include/MyGUI_Message.h" />
+		<Unit filename="include/MyGUI_MessageFactory.h" />
+		<Unit filename="include/MyGUI_PanelAlphaOverlayElement.h" />
+		<Unit filename="include/MyGUI_PanelAlphaOverlayElementFactory.h" />
+		<Unit filename="include/MyGUI_Platform.h" />
+		<Unit filename="include/MyGUI_Plugin.h" />
+		<Unit filename="include/MyGUI_PluginManager.h" />
+		<Unit filename="include/MyGUI_PointerInfo.h" />
+		<Unit filename="include/MyGUI_PointerManager.h" />
+		<Unit filename="include/MyGUI_Prerequest.h" />
+		<Unit filename="include/MyGUI_Progress.h" />
+		<Unit filename="include/MyGUI_ProgressFactory.h" />
+		<Unit filename="include/MyGUI_RenderBox.h" />
+		<Unit filename="include/MyGUI_RenderBoxFactory.h" />
+		<Unit filename="include/MyGUI_RenderOut.h" />
+		<Unit filename="include/MyGUI_ResourcePath.h" />
+		<Unit filename="include/MyGUI_ScrollBase.h" />
+		<Unit filename="include/MyGUI_SharedPanelAlphaOverlayElement.h" />
+		<Unit filename="include/MyGUI_SharedPanelAlphaOverlayElementFactory.h" />
+		<Unit filename="include/MyGUI_Sheet.h" />
+		<Unit filename="include/MyGUI_SheetFactory.h" />
+		<Unit filename="include/MyGUI_SkinManager.h" />
+		<Unit filename="include/MyGUI_StaticImage.h" />
+		<Unit filename="include/MyGUI_StaticImageFactory.h" />
+		<Unit filename="include/MyGUI_StaticText.h" />
+		<Unit filename="include/MyGUI_StaticTextFactory.h" />
+		<Unit filename="include/MyGUI_SubSkin.h" />
+		<Unit filename="include/MyGUI_SubWidgetBinding.h" />
+		<Unit filename="include/MyGUI_SubWidgetFactoryInterface.h" />
+		<Unit filename="include/MyGUI_SubWidgetManager.h" />
+		<Unit filename="include/MyGUI_SubWidgetTextInterface.h" />
+		<Unit filename="include/MyGUI_Tab.h" />
+		<Unit filename="include/MyGUI_TabFactory.h" />
+		<Unit filename="include/MyGUI_TextChangeHistory.h" />
+		<Unit filename="include/MyGUI_TextEdit.h" />
+		<Unit filename="include/MyGUI_TextEditOverlayElement.h" />
+		<Unit filename="include/MyGUI_TextEditOverlayElementFactory.h" />
+		<Unit filename="include/MyGUI_TextIterator.h" />
+		<Unit filename="include/MyGUI_TextSimple.h" />
+		<Unit filename="include/MyGUI_TextSimpleOverlayElement.h" />
+		<Unit filename="include/MyGUI_TextSimpleOverlayElementFactory.h" />
+		<Unit filename="include/MyGUI_Types.h" />
+		<Unit filename="include/MyGUI_UnlinkWidget.h" />
+		<Unit filename="include/MyGUI_VScroll.h" />
+		<Unit filename="include/MyGUI_VScrollFactory.h" />
+		<Unit filename="include/MyGUI_Widget.h" />
+		<Unit filename="include/MyGUI_WidgetDefines.h" />
+		<Unit filename="include/MyGUI_WidgetEvent.h" />
+		<Unit filename="include/MyGUI_WidgetFactory.h" />
+		<Unit filename="include/MyGUI_WidgetFactoryInterface.h" />
+		<Unit filename="include/MyGUI_WidgetManager.h" />
+		<Unit filename="include/MyGUI_WidgetOIS.h" />
+		<Unit filename="include/MyGUI_WidgetSkinInfo.h" />
+		<Unit filename="include/MyGUI_WidgetUserData.h" />
+		<Unit filename="include/MyGUI_Window.h" />
+		<Unit filename="include/MyGUI_WindowFactory.h" />
+		<Unit filename="include/TCoord.h" />
+		<Unit filename="include/TPoint.h" />
+		<Unit filename="include/TRect.h" />
+		<Unit filename="include/TSize.h" />
+		<Unit filename="include/delegate.h" />
+		<Unit filename="include/delegate_implement.h" />
+		<Unit filename="include/updateWidgetFromEntity.h" />
+		<Unit filename="include/utility.h" />
+		<Unit filename="include/xmlDocument.h" />
+		<Unit filename="src/MyGUI_Button.cpp" />
+		<Unit filename="src/MyGUI_ButtonFactory.cpp" />
+		<Unit filename="src/MyGUI_ClipboardManager.cpp" />
+		<Unit filename="src/MyGUI_ComboBox.cpp" />
+		<Unit filename="src/MyGUI_ComboBoxFactory.cpp" />
+		<Unit filename="src/MyGUI_ControllerFadeAlpha.cpp" />
+		<Unit filename="src/MyGUI_ControllerManager.cpp" />
+		<Unit filename="src/MyGUI_DynLib.cpp" />
+		<Unit filename="src/MyGUI_DynLibManager.cpp" />
+		<Unit filename="src/MyGUI_Edit.cpp" />
+		<Unit filename="src/MyGUI_EditFactory.cpp" />
+		<Unit filename="src/MyGUI_Font.cpp" />
+		<Unit filename="src/MyGUI_FontManager.cpp" />
+		<Unit filename="src/MyGUI_Gui.cpp" />
+		<Unit filename="src/MyGUI_HScroll.cpp" />
+		<Unit filename="src/MyGUI_HScrollFactory.cpp" />
+		<Unit filename="src/MyGUI_InputManager.cpp" />
+		<Unit filename="src/MyGUI_LayerManager.cpp" />
+		<Unit filename="src/MyGUI_LayoutManager.cpp" />
+		<Unit filename="src/MyGUI_List.cpp" />
+		<Unit filename="src/MyGUI_ListFactory.cpp" />
+		<Unit filename="src/MyGUI_LogManager.cpp" />
+		<Unit filename="src/MyGUI_LogStream.cpp" />
+		<Unit filename="src/MyGUI_MainSkin.cpp" />
+		<Unit filename="src/MyGUI_Message.cpp" />
+		<Unit filename="src/MyGUI_MessageFactory.cpp" />
+		<Unit filename="src/MyGUI_PluginManager.cpp" />
+		<Unit filename="src/MyGUI_PointerManager.cpp" />
+		<Unit filename="src/MyGUI_Progress.cpp" />
+		<Unit filename="src/MyGUI_ProgressFactory.cpp" />
+		<Unit filename="src/MyGUI_RenderBox.cpp" />
+		<Unit filename="src/MyGUI_RenderBoxFactory.cpp" />
+		<Unit filename="src/MyGUI_RenderOut.cpp" />
+		<Unit filename="src/MyGUI_ScrollBase.cpp" />
+		<Unit filename="src/MyGUI_Sheet.cpp" />
+		<Unit filename="src/MyGUI_SheetFactory.cpp" />
+		<Unit filename="src/MyGUI_SkinManager.cpp" />
+		<Unit filename="src/MyGUI_StaticImage.cpp" />
+		<Unit filename="src/MyGUI_StaticImageFactory.cpp" />
+		<Unit filename="src/MyGUI_StaticText.cpp" />
+		<Unit filename="src/MyGUI_StaticTextFactory.cpp" />
+		<Unit filename="src/MyGUI_SubSkin.cpp" />
+		<Unit filename="src/MyGUI_SubWidgetManager.cpp" />
+		<Unit filename="src/MyGUI_Tab.cpp" />
+		<Unit filename="src/MyGUI_TabFactory.cpp" />
+		<Unit filename="src/MyGUI_TextEdit.cpp" />
+		<Unit filename="src/MyGUI_TextIterator.cpp" />
+		<Unit filename="src/MyGUI_TextSimple.cpp" />
+		<Unit filename="src/MyGUI_VScroll.cpp" />
+		<Unit filename="src/MyGUI_VScrollFactory.cpp" />
+		<Unit filename="src/MyGUI_Widget.cpp" />
+		<Unit filename="src/MyGUI_WidgetFactory.cpp" />
+		<Unit filename="src/MyGUI_WidgetManager.cpp" />
+		<Unit filename="src/MyGUI_Window.cpp" />
+		<Unit filename="src/MyGUI_WindowFactory.cpp" />
+		<Unit filename="src/updateWidgetFromEntity.cpp" />
+		<Unit filename="src/xmlDocument.cpp" />
+		<Extensions>
+			<code_completion />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

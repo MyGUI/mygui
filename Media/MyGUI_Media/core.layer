@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layer">
+
+    <Layer name="Fade" start="640" height="1" count="1"/>
+
+    <Layer name="Pointer" start="638" height="2" count="1"/>
+    <Layer name="Tooltip" start="634" height="4" count="1"/>
+    <Layer name="Info" start="596" height="8" count="4"/>
+
+    <Layer name="FadeMiddle" start="593" height="1" count="1"/>
+
+    <Layer name="Popup" start="553" height="8" count="5"/>
+    <Layer name="Main" start="545" height="8" count="1"/>
+
+    <Layer name="Modal" start="465" height="8" count="10"/>
+    <Layer name="Middle" start="457" height="8" count="1"/>
+
+    <Layer name="Overlapped" start="18" height="8" count="54"/>
+    <Layer name="Back" start="10" height="8" count="1"/>
+
+</MyGUI>

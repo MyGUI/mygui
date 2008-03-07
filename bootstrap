@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# clean up files which cause confusion when switch versions of auto*
+rm -rf autom4te.cache
+
+# Fire up autotools
+libtoolize --force --copy
+aclocal $ACLOCAL_FLAGS
+automake --include-deps --add-missing --foreign --copy
+autoconf 
