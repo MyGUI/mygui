@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layout">
+
+
+  <Widget type="Message" skin="Message" layer="Info">
+    <Property key="Widget_Caption" value="message demo" />
+    <Property key="Message_Message" value="message" />
+    <Property key="Message_Button" value="OkCancel" />
+    <Property key="Message_Modal" value="true" />
+    <Property key="Message_Smooth" value="true" />
+    <Property key="Message_Fade" value="true" />
+
+  </Widget>
+
+</MyGUI>

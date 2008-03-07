@@ -1,0 +1,87 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		01/2008
+	@module
+*/
+#include "MyGUI_TabFactory.h"
+#include "MyGUI_Tab.h"
+#include "MyGUI_SkinManager.h"
+#include "MyGUI_WidgetManager.h"
+
+namespace MyGUI
+{
+	namespace factory
+	{
+
+		TabFactory::TabFactory()
+		{
+			// регестрируем себя
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+			manager.registerFactory(this);
+
+			// регестрируем все парсеры
+			manager.registerDelegate("Tab_ButtonWidth") = newDelegate(this, &TabFactory::Tab_ButtonWidth);
+			manager.registerDelegate("Tab_ButtonAutoWidth") = newDelegate(this, &TabFactory::Tab_ButtonAutoWidth);
+			manager.registerDelegate("Tab_SmoothShow") = newDelegate(this, &TabFactory::Tab_SmoothShow);
+			manager.registerDelegate("Tab_AddSheet") = newDelegate(this, &TabFactory::Tab_AddSheet);
+			manager.registerDelegate("Tab_SelectSheet") = newDelegate(this, &TabFactory::Tab_SelectSheet);
+		}
+
+		TabFactory::~TabFactory()
+		{
+			// удаляем себя
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+			manager.unregisterFactory(this);
+
+			// удаляем все парсеры
+			manager.unregisterDelegate("Tab_ButtonWidth");
+			manager.unregisterDelegate("Tab_ButtonAutoWidth");
+			manager.unregisterDelegate("Tab_SmoothShow");
+			manager.unregisterDelegate("Tab_AddSheet");
+			manager.unregisterDelegate("Tab_SelectSheet");
+		}
+
+		const Ogre::String& TabFactory::getType()
+		{
+			return Tab::_getType();
+		}
+
+		WidgetPtr TabFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		{
+			return new Tab(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+		}
+
+		void TabFactory::Tab_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(TabPtr, _widget, _key);
+			static_cast<TabPtr>(_widget)->setButtonDefaultWidth(utility::parseInt(_value));
+		}
+
+		void TabFactory::Tab_ButtonAutoWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(TabPtr, _widget, _key);
+			static_cast<TabPtr>(_widget)->setButtonAutoWidth(utility::parseBool(_value));
+		}
+
+		void TabFactory::Tab_SmoothShow(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(TabPtr, _widget, _key);
+			static_cast<TabPtr>(_widget)->setSmoothShow(utility::parseBool(_value));
+		}
+
+		void TabFactory::Tab_AddSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(TabPtr, _widget, _key);
+			static_cast<TabPtr>(_widget)->addSheet(_value);
+		}
+
+		void TabFactory::Tab_SelectSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(TabPtr, _widget, _key);
+			static_cast<TabPtr>(_widget)->selectSheetIndex(utility::parseSizeT(_value));
+		}
+
+	} // namespace factory
+
+} // namespace MyGUI
