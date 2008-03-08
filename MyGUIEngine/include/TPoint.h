@@ -88,30 +88,18 @@ namespace types
 		inline std::string print() const
 		{
 	        std::ostringstream stream;
-	        stream << *this;
+	        stream << left << " " << top;
 		    return stream.str();
 		}
 
-		inline static TPoint<T> parse(const std::string& _value)
+		static TPoint<T> parse(const std::string& _value)
 		{
 			TPoint<T> ret;
-	        std::istringstream stream(_value);
-	        stream >> ret;
-		    return ret;
+			std::istringstream str(_value);
+			str >> ret.left >> ret.top;
+			if (str.fail()) return TPoint<T>();
+			return ret;
 		}
-
-        inline friend std::ostream& operator << ( std::ostream& _stream, const TPoint<T>&  _value )
-        {
-            _stream << _value.left << " " << _value.top;
-            return _stream;
-        }
-
-        inline friend std::istream& operator >> ( std::istream& _stream, TPoint<T>&  _value )
-        {
-            _stream >> _value.left >> _value.top;
-			if (_stream.fail()) _value.clear();
-            return _stream;
-        }
 
 	};
 

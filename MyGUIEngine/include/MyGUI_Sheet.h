@@ -17,19 +17,18 @@ namespace MyGUI
 	{
 		// для вызова закрытого конструктора
 		friend class factory::SheetFactory;
-		//friend class Tab;
+		friend class Tab;
 
 	protected:
-		Sheet(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~Sheet();
+		Sheet(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 
 		// перекрываем методы, но через базовый они будут доступны
-		//void setPosition(const IntPoint& _pos);
-		//void setPosition(const IntCoord& _coord);
-		//void setSize(const IntSize& _size);
+		void setPosition(const IntPoint& _pos);
+		void setPosition(const IntCoord& _coord);
+		void setSize(const IntSize& _size);
 
-		//void show();
-		//void hide();
+		void show();
+		void hide();
 
 	public:
 		// тип данного виджета

@@ -22,7 +22,7 @@ namespace MyGUI
 		friend class factory::EditFactory;
 
 	protected:
-		Edit(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Edit(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
 		virtual ~Edit();
 
 	public:
@@ -52,9 +52,6 @@ namespace MyGUI
 		void setTextCursor(size_t _index);
 		// устанавливает выделение
 		void setTextSelect(size_t _start, size_t _end);
-
-		virtual void setTextAlign(Align _align);
-
 
 		//---------------------------------------------------------------//
 		// наружу выставляем инлайны со сбросом истории
@@ -110,8 +107,14 @@ namespace MyGUI
 		{
 			mModeStatic = _static;
 			resetSelect();
-			if (mModeStatic) mWidgetUpper->setPointer("");
-			else mWidgetUpper->setPointer(mOriginalPointer);
+			if (mModeStatic) {
+				mWidgetCursor->setPointer("");
+				mWidgetUpper->setPointer("");
+			}
+			else {
+				mWidgetCursor->setPointer(mOriginalPointer);
+				mWidgetUpper->setPointer(mOriginalPointer);
+			}
 		}
 
 		inline bool getEditStatic()
@@ -154,7 +157,6 @@ namespace MyGUI
 	protected:
 		virtual void _frameEntered(float _frame);
 
-		// потом убрать все нотифи в сраку
 		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
@@ -170,11 +172,12 @@ namespace MyGUI
 		void updateEditState();
 
 		// обновляет курсор по координате
-		void updateSelectText();
+		void updateCursor(IntPoint _point);
+		// виден ли курсор в окне просмотра
+		bool isShowCursorInView();
 		// обновление представления
 		void updateView(bool _showCursor);
 
-		// переделать, так как теперь нам все известно о глобальных координатах
 		inline IntPoint getWorldPostion(WidgetPtr _widget)
 		{
 			IntPoint point(_widget->getLeft(), _widget->getTop());
@@ -220,13 +223,14 @@ namespace MyGUI
 		bool mIsFocus;
 
 		WidgetPtr mWidgetUpper;
+		WidgetPtr mWidgetCursor;
 
 		bool mCursorActive;
 		float mCursorTimer, mActionMouseTimer;
 
 		// позиция курсора
 		size_t mCursorPosition;
-		// максимальное колличество
+		// максимаотное колличество
 		size_t mTextLength;
 
 		bool mShiftPressed;
@@ -238,6 +242,10 @@ namespace MyGUI
 		// списоки изменений для отмены и повтора
 		DequeUndoRedoInfo mVectorUndoChangeInfo;
 		DequeUndoRedoInfo mVectorRedoChangeInfo;
+
+		// размер
+		IntSize mSizeView;
+		IntSize mHalfCursor;
 
 		bool mMouseLeftPressed;
 

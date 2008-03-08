@@ -9,13 +9,11 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
+#include <OgreOverlayElement.h>
 #include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI
 {
-
-	class LayerItemKeeper;
-	class RenderItem;
 
 	class _MyGUIExport CroppedRectangleInterface
 	{
@@ -41,26 +39,13 @@ namespace MyGUI
 		virtual void setAlpha(float _alpha) {}
 		virtual float getAlpha() {return ALPHA_MAX;}
 
-		virtual void setColourAlign(const Ogre::ColourValue & _colour, Align _align) {}
-		virtual const Ogre::ColourValue & getColourAlign(Align _align) {return Ogre::ColourValue::Black;}
-
 		inline CroppedRectanglePtr getParent() {return mParent;}
 
+		inline IntPoint getPosition()       {return IntPoint(mCoord.left, mCoord.top);}
+		inline IntSize getSize()       {return IntSize(mCoord.width, mCoord.height);}
 		inline const IntCoord& getCoord()       {return mCoord;}
-		inline IntPoint getPosition()       {return mCoord.point();}
-		inline IntSize getSize()       {return mCoord.size();}
-
-		inline const IntPoint& getAbsolutePosition() {return mAbsolutePosition;}
-		inline IntRect getAbsoluteRect() {return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height);}
-		inline IntCoord getAbsoluteCoord() {return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height);}
-
-		inline float getAbsoluteLeft() {return mAbsolutePosition.left;}
-		inline float getAbsoluteTop() {return mAbsolutePosition.top;}
-
-		inline void setAlign(Align _align) {mAlign = _align;}
 		inline Align getAlign() {return mAlign;}
-
-		inline bool isMargin() {return mIsMargin;}
+		inline void setAlign(Align _align) {mAlign = _align;}
 
 		inline int getLeft()       {return mCoord.left;}
 		inline int getRight()      {return mCoord.right();}
@@ -87,14 +72,15 @@ namespace MyGUI
 		virtual void _setAlign(const IntSize& _size, bool _update) {}
 		virtual void _setAlign(const IntCoord& _coord, bool _update) {}
 
-		// для каста сабскина
+		virtual void _attachChild(CroppedRectanglePtr _basis, bool _child) {}
+
+		// вспомогательные методы
 		virtual bool _isText() {return false;}
-
+		virtual Ogre::OverlayElement* _getOverlayElement() {return null;}
+		virtual size_t _getCountSharedOverlay() {return 0;}
+		virtual Ogre::OverlayElement* _getSharedOverlayElement() {return null;}
 		virtual void _setUVSet(const FloatRect& _rect) {}
-
-		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) {}
-		virtual void _destroyDrawItem() {}
-		
+		virtual void _setMaterialName(const Ogre::String& _material) {}
 
 	protected:
 		inline bool _checkPoint(int _left, int _top)
@@ -106,25 +92,25 @@ namespace MyGUI
 		{
 			bool margin = false;
 			//вылезли ли налево
-			if (getLeft() < mParent->mMargin.left) {
+			if (getLeft() <= mParent->mMargin.left) {
 				mMargin.left = mParent->mMargin.left - getLeft();
 				margin = true;
 			} else mMargin.left = 0;
 
 			//вылезли ли направо
-			if (getRight() > mParent->getWidth() - mParent->mMargin.right) {
+			if (getRight() >= mParent->getWidth() - mParent->mMargin.right) {
 				mMargin.right = getRight() - (mParent->getWidth() - mParent->mMargin.right);
 				margin = true;
 			} else mMargin.right = 0;
 
 			//вылезли ли вверх
-			if (getTop() < mParent->mMargin.top) {
+			if (getTop() <= mParent->mMargin.top) {
 				mMargin.top = mParent->mMargin.top - getTop();
 				margin = true;
 			} else mMargin.top = 0;
 
 			//вылезли ли вниз
-			if (getBottom() > mParent->getHeight() - mParent->mMargin.bottom) {
+			if (getBottom() >= mParent->getHeight() - mParent->mMargin.bottom) {
 				mMargin.bottom = getBottom() - (mParent->getHeight() - mParent->mMargin.bottom);
 				margin = true;
 			} else mMargin.bottom = 0;
@@ -134,10 +120,10 @@ namespace MyGUI
 
 		inline bool _checkOutside() // проверка на полный выход за границу
 		{
-			return ( (getRight() < mParent->mMargin.left ) || // совсем уехали налево
-				(getLeft() > mParent->getWidth() - mParent->mMargin.right ) || // совсем уехали направо
-				(getBottom() < mParent->mMargin.top  ) || // совсем уехали вверх
-				(getTop() > mParent->getHeight() - mParent->mMargin.bottom ) );  // совсем уехали вниз
+			return ( (getRight() <= mParent->mMargin.left ) || // совсем уехали налево
+				(getLeft() >= mParent->getWidth() - mParent->mMargin.right ) || // совсем уехали направо
+				(getBottom() <= mParent->mMargin.top  ) || // совсем уехали вверх
+				(getTop() >= mParent->getHeight() - mParent->mMargin.bottom ) );  // совсем уехали вниз
 		}
 
 	protected:
@@ -145,13 +131,12 @@ namespace MyGUI
 		bool mIsMargin;
 		IntRect mMargin; // перекрытие
 		IntCoord mCoord; // координаты
-		IntPoint mAbsolutePosition; // обсолютные координаты
 
 		CroppedRectanglePtr mParent;
 		bool mShow;
 		Align mAlign;
 
-	};
+	}; // class CroppedRectangleInterface
 
 } // namespace MyGUI
 

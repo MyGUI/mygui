@@ -32,7 +32,6 @@ namespace MyGUI
 			manager.registerDelegate("Widget_State") = newDelegate(this, &WidgetFactory::Widget_State);
 			manager.registerDelegate("Widget_NeedKey") = newDelegate(this, &WidgetFactory::Widget_NeedKey);
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
-			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
 		}
 
 		WidgetFactory::~WidgetFactory()
@@ -53,7 +52,6 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_State");
 			manager.unregisterDelegate("Widget_NeedKey");
 			manager.unregisterDelegate("Widget_AlignText");
-			manager.unregisterDelegate("Widget_Enabled");
 		}
 
 		const Ogre::String& WidgetFactory::getType()
@@ -61,9 +59,9 @@ namespace MyGUI
 			return Widget::_getType();
 		}
 
-		WidgetPtr WidgetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr WidgetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new Widget(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
+			return new Widget(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -134,11 +132,6 @@ namespace MyGUI
 		void WidgetFactory::Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			_widget->setTextAlign(SkinManager::getInstance().parseAlign(_value));
-		}
-
-		void WidgetFactory::Widget_Enabled(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
-		{
-			_widget->setEnabled(utility::parseBool(_value));
 		}
 
 	} // namespace factory

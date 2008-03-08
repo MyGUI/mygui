@@ -5,6 +5,7 @@
 #include <OIS/OIS.h>
 #include <MyGUI.h>
 #include "DemoKeeper.h"
+#include "InputManager.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
@@ -28,23 +29,23 @@ class BasisManager : public Ogre::FrameListener, public OIS::MouseListener , pub
 {
 
 private:
-	//OIS Input devices
-	OIS::InputManager* mInputManager;
-	OIS::Keyboard* mKeyboard;
-	OIS::Mouse*    mMouse;
+	// система ввода
+	input::InputManager mInput;
 
     Ogre::Root *mRoot;
-    Ogre::Camera* mCamera;
+    //Ogre::Camera* mCamera;
     Ogre::SceneManager* mSceneMgr;
     Ogre::RenderWindow* mWindow;
 	Ogre::String mResourcePath;
 	bool m_exit; // выходим из цикла приложения
 	size_t mWidth, mHeight; // ширина и высота экрана
 
-	MyGUI::WidgetPtr mFpsInfo;
+	MyGUI::StaticTextPtr mFpsInfo;
 	MyGUI::Gui * mGUI;
 
 	DemoKeeper mDemo;
+
+	bool mFullscreen;
 
 public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
@@ -57,9 +58,10 @@ public:
 	inline int getWidth() {return (int)mWidth;}
 	inline int getHeight() {return (int)mHeight;}
 
+	inline bool isFullscreen() { return mFullscreen; }
+	void setFullscreen(bool _fullscreen);
+
 private:
-	void createInput(); // создаем систему ввода
-	void destroyInput(); // удаляем систему ввода
 
 	void createGui();
 	void destroyGui();
@@ -78,6 +80,8 @@ private:
 
 	void windowResized(Ogre::RenderWindow* rw);
 	void windowClosed(Ogre::RenderWindow* rw);
+
+	void correctResolution();
 
 };
 

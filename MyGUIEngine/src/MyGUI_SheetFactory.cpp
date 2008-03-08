@@ -22,6 +22,7 @@ namespace MyGUI
 
 			// регестрируем все парсеры
 			manager.registerDelegate("Sheet_ButtonWidth") = newDelegate(this, &SheetFactory::Sheet_ButtonWidth);
+			manager.registerDelegate("Sheet_Name") = newDelegate(this, &SheetFactory::Sheet_Name);
 			manager.registerDelegate("Sheet_Select") = newDelegate(this, &SheetFactory::Sheet_Select);
 			manager.registerDelegate("Sheet_SmoothSelect") = newDelegate(this, &SheetFactory::Sheet_Select);
 		}
@@ -34,6 +35,7 @@ namespace MyGUI
 
 			// удаляем все парсеры
 			manager.unregisterDelegate("Sheet_ButtonWidth");
+			manager.unregisterDelegate("Sheet_Name");
 			manager.unregisterDelegate("Sheet_Select");
 			manager.unregisterDelegate("Sheet_SmoothSelect");
 		}
@@ -43,15 +45,21 @@ namespace MyGUI
 			return Sheet::_getType();
 		}
 
-		WidgetPtr SheetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr SheetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
 		{
-			return new Sheet(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
+			return new Sheet(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
 		}
 
 		void SheetFactory::Sheet_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(SheetPtr, _widget, _key);
 			static_cast<SheetPtr>(_widget)->setSheetButtonWidth(utility::parseInt(_value));
+		}
+
+		void SheetFactory::Sheet_Name(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(SheetPtr, _widget, _key);
+			static_cast<SheetPtr>(_widget)->setSheetName(_value);
 		}
 
 		void SheetFactory::Sheet_Select(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

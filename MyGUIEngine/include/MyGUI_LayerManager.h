@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		11/2007
 	@module
 */
 #ifndef __MYGUI_LAYER_MANAGER_H__
@@ -9,21 +9,20 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
+#include "MyGUI_LayerInfo.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_WidgetDefines.h"
 #include "MyGUI_UnlinkWidget.h"
-
-#include <Ogre.h>
-#include <OgrePrerequisites.h>
-#include <OgreRenderQueueListener.h>
 
 namespace MyGUI
 {
+	
+	// карта для поиска по имени
+	typedef std::map<std::string, LayerInfoPtr> MapLayer;
+	// карта для упорядочивания по высоте
+	typedef std::map<Ogre::ushort, LayerInfoPtr> MapLayerSearch;
 
-	class LayerItem;
-	class LayerKeeper;
-	typedef std::vector<LayerKeeper*> VectorLayerKeeper;
-
-	class _MyGUIExport LayerManager : public Ogre::RenderQueueListener, public UnlinkWidget
+	class _MyGUIExport LayerManager : public UnlinkWidget
 	{
 		INSTANCE_HEADER(LayerManager);
 
@@ -31,61 +30,26 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		void attachToLayerKeeper(const std::string& _name, WidgetPtr _item);
-		void detachFromLayerKeeper(WidgetPtr _item);
+		void attachItem(LayerItemInfoPtr _item, const std::string & _layer, bool _attachToSearch = false);
+		void detachItem(LayerItemInfoPtr _item);
+		void upItem(LayerItemInfoPtr _item);
 
-		void upLayerItem(WidgetPtr _item);
+		LayerItemInfoPtr findWidgetItem(int _left, int _top, LayerItemInfoPtr & _rootItem);
 
-		bool load(const std::string & _file, const std::string & _group);
+		Ogre::Overlay * createOverlay();
+
+		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		void clear();
+
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
-
-		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
-
-		// удаляем данный виджет из всех возможных мест
+	private:
 		void _unlinkWidget(WidgetPtr _widget);
 
-		void _windowResized(const FloatSize& _size);
-
-		inline const FloatSize& getViewSize() {return mViewSize;}
-
-		inline float getMaximumDepth() {return mMaximumDepth;}
-
-		inline float getPixScaleX() {return mPixScaleX;}
-		inline float getPixScaleY() {return mPixScaleY;}
-
-		inline float getHOffset() {return mHOffset;}
-		inline float getVOffset() {return mVOffset;}
-
-		inline float getAspectCoef() {return mAspectCoef;}
-
 	private:
+		MapLayer mMapLayer;
+		MapLayerSearch mMapLayerSearch;
 
-		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
-		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
-
-	private:
-		VectorLayerKeeper mLayerKeepers;
-
-		FloatSize mViewSize;
-
-		// флаг для обновления всех и вся
-		bool mUpdate;
-
-		// размер пикселя в относительных координатах
-		float mPixScaleX;
-		float mPixScaleY;
-
-		// смещение для того, чтобы тексель попал в пиксель
-        float mHOffset;
-        float mVOffset;
-
-		float mAspectCoef;
-
-		// координата зю
-		float mMaximumDepth;
-
-
-	};
+	}; // class LayerManager
 
 } // namespace MyGUI
 

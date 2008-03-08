@@ -12,11 +12,10 @@
 #include "MyGUI_CroppedRectangleInterface.h"
 #include "MyGUI_SubWidgetFactoryInterface.h"
 
-#include "MyGUI_SubSkin.h"
 #include "MyGUI_MainSkin.h"
-#include "MyGUI_SimpleText.h"
-#include "MyGUI_EditText.h"
-#include "MyGUI_ColourRect.h"
+#include "MyGUI_SubSkin.h"
+#include "MyGUI_TextSimple.h"
+#include "MyGUI_TextEdit.h"
 
 namespace MyGUI
 {
@@ -29,7 +28,10 @@ namespace MyGUI
 		void shutdown();
 
 		// создает сабвиджет использу€ фабрику
-		CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id);
+
+		// подходит ли данный тип дл€ объединени€
+		bool isSharedOverlay(const SubWidgetInfo &_info);
 
 		inline void registerFactory(SubWidgetFactoryInterface * _factory)
 		{
@@ -39,13 +41,12 @@ namespace MyGUI
 	protected:
 		std::list<SubWidgetFactoryInterface*> mFactoryList;
 
-		CroppedRectangleFactory<SubSkin> * mFactorySubSkin;
 		CroppedRectangleFactory<MainSkin> * mFactoryMainSkin;
-		CroppedRectangleFactory<SimpleText> * mFactorySimpleText;
-		CroppedRectangleFactory<EditText> * mFactoryEditText;
-		CroppedRectangleFactory<ColourRect> * mFactoryColourRect;
-		
-	};
+		CroppedRectangleFactory<SubSkin> * mFactorySubSkin;
+		CroppedRectangleFactory<TextSimple> * mFactoryTextSimple;
+		CroppedRectangleFactory<TextEdit> * mFactoryTextEdit;
+
+	}; // SubWidgetManager
 
 } // namespace MyGUI
 
