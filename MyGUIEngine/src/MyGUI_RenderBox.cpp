@@ -7,32 +7,33 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderBox.h"
 #include "MyGUI_InputManager.h"
-#include <Ogre.h> // FIXME
+
+#include <OgreTextureManager.h>
 
 namespace MyGUI
 {
 
 	const size_t TEXTURE_SIZE = 512;
 
-	RenderBox::RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _name),
+	RenderBox::RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mUserViewport(false),
 		mEntity(null),
-		mRotationSpeed(0),
 		mBackgroungColour(Ogre::ColourValue::Blue),
 		mMouseRotation(false),
-		mLeftPressed(false)
+		mLeftPressed(false),
+		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
+		mAutoRotation(false)
 	{
 
-		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1, "subskin must be one");
-		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");
-		mElementSkin = mSubSkinChild.front();
+		// первоначальна€ инициализаци€
+		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
 
 		// сохран€ем оригинальный курсор
 		mPointerKeeper = mPointer;
 		mPointer.clear();
 
-		createRenderMaterial();
+		createRenderTexture();
 	}
 
 	RenderBox::~RenderBox()
@@ -41,9 +42,6 @@ namespace MyGUI
 
 		if (mRotationSpeed) Gui::getInstance().removeFrameListener(this);
 
-		Ogre::MaterialManager * manager = Ogre::MaterialManager::getSingletonPtr();
-		if (manager != 0) manager->remove(mMaterial);
-
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root && mScene) root->destroySceneManager(mScene);
 	}
@@ -51,18 +49,15 @@ namespace MyGUI
 	// добавл€ет в сцену объект, старый удал€етьс€
 	void RenderBox::injectObject(const Ogre::String& _meshName)
 	{
-		if(mUserViewport){
+		if(mUserViewport) {
 			mUserViewport = false;
-			Ogre::MaterialManager * manager = Ogre::MaterialManager::getSingletonPtr();
-			if (null != manager) manager->remove(mMaterial);
-			createRenderMaterial();
+			createRenderTexture();
 		}
 
 		clear();
 
 		mEntity = mScene->createEntity(utility::toString(this, "_RenderBoxMesh_", _meshName), _meshName);
 		mNode->attachObject(mEntity);
-		//mNode->showBoundingBox(true);
 		mPointer = mMouseRotation ? mPointerKeeper : "";
 
 		updateViewport();
@@ -80,13 +75,9 @@ namespace MyGUI
 		}
 	}
 
-	void RenderBox::setAutorotationSpeed(int _speed)
+	void RenderBox::setAutoRotationSpeed(int _speed)
 	{
-		if (mRotationSpeed == _speed) return;
 		mRotationSpeed = _speed;
-
-		if (mRotationSpeed) Gui::getInstance().addFrameListener(this);
-		else Gui::getInstance().removeFrameListener(this);
 	}
 
 	void RenderBox::setBackgroungColour(const Ogre::ColourValue & _colour)
@@ -118,9 +109,6 @@ namespace MyGUI
 		clear();
 		mPointer = "";
 
-		Ogre::MaterialManager * manager = Ogre::MaterialManager::getSingletonPtr();
-		if (manager != 0) manager->remove(mMaterial);
-
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root && mScene) root->destroySceneManager(mScene);
 		mScene = 0;
@@ -128,27 +116,22 @@ namespace MyGUI
 		// создаем новый материал
 		mUserViewport = true;
 		mRttCam = _camera;
-		//mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
-		mMaterial = utility::toString(this, "_MaterialRenderBox");
-		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(mMaterial, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		std::string texture(utility::toString(this, "_TextureRenderBox"));
 
-		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(utility::toString(this, "_TextureRenderBox"));
-		mat->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
-		mat->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+		Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(texture);
 
-		// Setup Render To Texture for preview window
-		Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(utility::toString(this, "_TextureRenderBox"));
-		manager->remove(utility::toString(this, "_TextureRenderBox"));
+		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
+		manager.remove(texture);
 
-		Ogre::TextureManager::getSingleton().remove(utility::toString(this, "_TextureRenderBox"));
-		mTexture = Ogre::TextureManager::getSingleton().createManual(utility::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
+		mTexture = manager.createManual(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
 			->getBuffer()->getRenderTarget();
 
 		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
 		v->setClearEveryFrame(true);
 
-		mElementSkin->_setMaterialName(mMaterial);
+		_setTextureName(texture);
 	}
 
 	void RenderBox::setPosition(const IntCoord& _coord)
@@ -165,28 +148,15 @@ namespace MyGUI
 
 	void RenderBox::_frameEntered(float _time)
 	{
-		if ((false == mUserViewport) && (mRotationSpeed) && (false == mLeftPressed)) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
-	}
-
-	void RenderBox::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
-	{
-		if ((false == mUserViewport) && mMouseRotation) {
-			mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
-			mLastPointerX = _left;
-		}
-	}
-
-	void RenderBox::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
-	{
-		if (mMouseRotation) {
-			const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-			mLastPointerX = point.left;
-		}
+		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
 	}
 
 	void RenderBox::_onMouseDrag(int _left, int _top)
 	{
-		notifyMouseDrag(this, _left, _top);
+		if ((false == mUserViewport) && mMouseRotation && mAutoRotation) {
+			mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
+			mLastPointerX = _left;
+		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseDrag(_left, _top);
@@ -194,8 +164,11 @@ namespace MyGUI
 
 	void RenderBox::_onMouseButtonPressed(bool _left)
 	{
-		if (_left) mLeftPressed = true;
-		notifyMousePressed(this, _left);
+		if (mMouseRotation && mAutoRotation) {
+			const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+			mLastPointerX = point.left;
+			mLeftPressed = true;
+		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseButtonPressed(_left);
@@ -209,7 +182,7 @@ namespace MyGUI
 		Widget::_onMouseButtonReleased(_left);
 	}
 
-	void RenderBox::createRenderMaterial()
+	void RenderBox::createRenderTexture()
 	{
 		mPointer = mMouseRotation ? mPointerKeeper : "";
 
@@ -228,20 +201,16 @@ namespace MyGUI
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		light->setDirection(dir);
 
-		// создаем материал
-		mMaterial = utility::toString(this, "_MaterialRenderBox");
-		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(mMaterial, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-
-		Ogre::TextureUnitState* t = mat->getTechnique(0)->getPass(0)->createTextureUnitState(utility::toString(this, "_TextureRenderBox"));
-		mat->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
-		mat->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-
-		Ogre::TextureManager::getSingleton().remove(utility::toString(this, "_TextureRenderBox"));
-		mTexture = Ogre::TextureManager::getSingleton().createManual(utility::toString(this, "_TextureRenderBox"), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
+		std::string texture(utility::toString(this, "_TextureRenderBox"));
+		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
+		manager.remove(texture);
+		mTexture = manager.createManual(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
 			->getBuffer()->getRenderTarget();
 
-		mRttCam = mScene->createCamera(utility::toString(this, "_CameraRenderBox"));
-		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(utility::toString(this, "_CameraNodeRenderBox"));
+		std::string camera(utility::toString(this, "_CameraRenderBox"));
+		mRttCam = mScene->createCamera(camera);
+		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(camera);
 		mCamNode->attachObject(mRttCam);
 		mRttCam->setNearClipDistance(1);
 		if (getHeight() == 0) mRttCam->setAspectRatio(1);
@@ -254,7 +223,7 @@ namespace MyGUI
 		v->setShadowsEnabled(true);
 		v->setSkiesEnabled(false);
 
-		mElementSkin->_setMaterialName(mMaterial);
+		_setTextureName(texture);
 	}
 
 	void RenderBox::updateViewport()
@@ -283,6 +252,13 @@ namespace MyGUI
 			mCamNode->setPosition(box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2));
 			mCamNode->lookAt(Ogre::Vector3(0, box.getCenter().y, 0), Ogre::Node::TS_WORLD);
 		}
+	}
+
+	void RenderBox::setAutoRotation(bool _auto)
+	{
+		mAutoRotation = _auto;
+		if (mAutoRotation) Gui::getInstance().addFrameListener(this);
+		else Gui::getInstance().removeFrameListener(this);
 	}
 
 } // namespace MyGUI

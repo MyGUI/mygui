@@ -12,12 +12,12 @@
 #include "MyGUI_PointerInfo.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_UnlinkWidget.h"
-#include "MyGUI_SharedPanelAlphaOverlayElement.h"
+#include "MyGUI_WidgetCreator.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : public LayerItemInfo, public UnlinkWidget
+	class _MyGUIExport PointerManager : public UnlinkWidget, public WidgetCreator
 	{
 		INSTANCE_HEADER(PointerManager);
 
@@ -35,32 +35,38 @@ namespace MyGUI
 		void show();
 		void hide();
 
-		inline bool isShow() {return mOverlayElement->isVisible();}
+		inline bool isShow() {return mShow;}
 
 		void setPosition(const IntPoint& _pos);
 		void setPointer(const std::string & _name, WidgetPtr _owner);
-
-		inline void defaultPointer()
-		{
-			setPointer(mDefaultPointer, null);
-		}
+		inline void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, null); }
 
 		void _unlinkWidget(WidgetPtr _widget);
 
-		LayerItemInfoPtr findItem(int _left, int _top);
+	private:
+		// создает виджет
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
-		void attachToOverlay(Ogre::Overlay * _overlay);
-		void detachToOverlay(Ogre::Overlay * _overlay);
+		// удяляет неудачника
+		virtual void _destroyChildWidget(WidgetPtr _widget);
+
+		// удаляет всех детей
+		virtual void _destroyAllChildWidget();
 
 	private:
+		// вектор всех детей виджетов
+		VectorWidgetPtr mWidgetChild;
+
 		std::string mDefaultPointer;
-		std::string mLayer;
-		std::string mMaterial;
+		std::string mTexture;
 		IntPoint mPoint;
-		IntSize mSize;
+		bool mShow;
+
 		MapPointerInfo mMapPointers;
-		SharedPanelAlphaOverlayElement * mOverlayElement;
+
 		WidgetPtr mWidgetOwner;
+		WidgetPtr mMousePointer;
+
 
 	}; // class PointerManager
 

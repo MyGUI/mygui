@@ -178,11 +178,9 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}"
-			RelativePathToProject=".\TestPlugin\TestPlugin.vcproj"
 		/>
 	</References>
 	<Files>

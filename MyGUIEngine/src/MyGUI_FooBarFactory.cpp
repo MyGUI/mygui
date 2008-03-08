@@ -6,9 +6,9 @@
 */
 
 #include "MyGUI_FooBarFactory.h"
-#include "MyGUI_FooBar.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_FooBar.h"
 
 namespace MyGUI
 {
@@ -44,9 +44,9 @@ namespace MyGUI
 			return FooBar::_getType();
 		}
 
-		WidgetPtr FooBarFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr FooBarFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
-			return new FooBar(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new FooBar(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 	/*	void WindowFactory::Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

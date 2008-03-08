@@ -22,7 +22,8 @@ namespace MyGUI
 
 			// регестрируем все парсеры
 			manager.registerDelegate("RenderBox_Mesh") = newDelegate(this, &RenderBoxFactory::RenderBox_Mesh);
-			manager.registerDelegate("RenderBox_AutorotationSpeed") = newDelegate(this, &RenderBoxFactory::RenderBox_AutorotationSpeed);
+			manager.registerDelegate("RenderBox_AutoRotation") = newDelegate(this, &RenderBoxFactory::RenderBox_AutoRotation);
+			manager.registerDelegate("RenderBox_AutoRotationSpeed") = newDelegate(this, &RenderBoxFactory::RenderBox_AutoRotationSpeed);
 			manager.registerDelegate("RenderBox_BackgroungColour") = newDelegate(this, &RenderBoxFactory::RenderBox_BackgroungColour);
 			manager.registerDelegate("RenderBox_RotationAngle") = newDelegate(this, &RenderBoxFactory::RenderBox_RotationAngle);
 			manager.registerDelegate("RenderBox_MouseRotation") = newDelegate(this, &RenderBoxFactory::RenderBox_MouseRotation);
@@ -36,7 +37,8 @@ namespace MyGUI
 
 			// удаляем все парсеры
 			manager.unregisterDelegate("RenderBox_Mesh");
-			manager.unregisterDelegate("RenderBox_AutorotationSpeed");
+			manager.unregisterDelegate("RenderBox_AutoRotation");
+			manager.unregisterDelegate("RenderBox_AutoRotationSpeed");
 			manager.unregisterDelegate("RenderBox_BackgroungColour");
 			manager.unregisterDelegate("RenderBox_RotationAngle");
 			manager.unregisterDelegate("RenderBox_MouseRotation");
@@ -47,9 +49,9 @@ namespace MyGUI
 			return RenderBox::_getType();
 		}
 
-		WidgetPtr RenderBoxFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr RenderBoxFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
-			return new RenderBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new RenderBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		void RenderBoxFactory::RenderBox_Mesh(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
@@ -58,10 +60,16 @@ namespace MyGUI
 			static_cast<RenderBoxPtr>(_widget)->injectObject(_value);
 		}
 
-		void RenderBoxFactory::RenderBox_AutorotationSpeed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void RenderBoxFactory::RenderBox_AutoRotation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
-			static_cast<RenderBoxPtr>(_widget)->setAutorotationSpeed(utility::parseInt(_value));
+			static_cast<RenderBoxPtr>(_widget)->setAutoRotation(utility::parseBool(_value));
+		}
+
+		void RenderBoxFactory::RenderBox_AutoRotationSpeed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
+			static_cast<RenderBoxPtr>(_widget)->setAutoRotationSpeed(utility::parseInt(_value));
 		}
 
 		void RenderBoxFactory::RenderBox_BackgroungColour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

@@ -1,7 +1,7 @@
-Comic.16
+acmesa.16
 {
    type       truetype
-   source     Comic.TTF
+   source     acmesa.ttf
    size       16
    resolution 72
 } 

@@ -23,8 +23,8 @@ namespace MyGUI
 	const float MESSAGE_ALPHA_MIN = 0.0f;
 	const float MESSAGE_SPEED_COEF = 3.0f;
 
-	Message::Message(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Window(_coord, _align, _info, _parent, _name),
+	Message::Message(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		Window(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetText(null),
 		mInfoOk(Ok), mInfoCancel(Ok),
 		mButton1Index(0),
@@ -124,12 +124,14 @@ namespace MyGUI
 
 	void Message::updateSize()
 	{
-		// + " " чтобы текст у самого края не кончался
-		// ширина = (ширина текста+1символ) + ширина иконки + смещение текста
-		IntSize size = mWidgetText->getTextSize(mWidgetText->getCaption() + " ");
-		size.width += mIcon->getWidth();
+		// ширина = (ширина текста + 5 pix) + ширина иконки + смещение текста
+		IntSize size = mWidgetText->getTextSize();
+		size.width += 5; // для растояния от правого края
 		// минимум высота иконки
-		if ((null != mIcon) && (size.height < mIcon->getHeight())) size.height = mIcon->getHeight();
+		if (null != mIcon) {
+			size.width += mIcon->getWidth();
+			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
+		}
 		size += mOffsetText;
 
 		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);
@@ -265,7 +267,7 @@ namespace MyGUI
 			}
 		}
 
-		if (_layer.empty()) LayerManager::getInstance().attachItem(mess, mess->getDefaultLayer(), true);
+		if (_layer.empty()) LayerManager::getInstance().attachToLayerKeeper(mess->getDefaultLayer(), mess);
 		if (_modal) InputManager::getInstance().addWidgetModal(mess);
 
 		return mess;

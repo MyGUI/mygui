@@ -55,30 +55,6 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON                ICON                    "mygui.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog
-//
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
-BEGIN
-    IDD_DIALOG1, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 471
-        TOPMARGIN, 6
-        BOTTOMMARGIN, 295
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
 #endif    // Russian resources
 /////////////////////////////////////////////////////////////////////////////
 

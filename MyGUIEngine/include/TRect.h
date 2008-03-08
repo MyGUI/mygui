@@ -104,21 +104,38 @@ namespace types
 			return ((left == 0) && (top == 0) && (right == 0) && (bottom == 0));
 		}
 
+		inline bool inside(const TRect<T>&  _value) const
+		{
+			return ( (_value.left >= left) && (_value.right <= right) && (_value.top >= top) && (_value.bottom <= bottom) );
+		}
+
 		inline std::string print() const
 		{
 	        std::ostringstream stream;
-	        stream << left << " " << top << " " << right << " " << bottom;
+	        stream << *this;
 		    return stream.str();
 		}
 
-		static TRect<T> parse(const std::string& _value)
+		inline static TRect<T> parse(const std::string& _value)
 		{
 			TRect<T> ret;
-			std::istringstream str(_value);
-			str >> ret.left >> ret.top >> ret.right >> ret.bottom;
-			if (str.fail()) return TRect<T>();
-			return ret;
+	        std::istringstream stream(_value);
+	        stream >> ret;
+		    return ret;
 		}
+
+        inline friend std::ostream& operator << ( std::ostream& _stream, const TRect<T>&  _value )
+        {
+            _stream << _value.left << " " << _value.top << " " << _value.right << " " << _value.bottom;
+            return _stream;
+        }
+
+        inline friend std::istream& operator >> ( std::istream& _stream, TRect<T>&  _value )
+        {
+            _stream >> _value.left >> _value.top >> _value.right >> _value.bottom;
+			if (_stream.fail()) _value.clear();
+            return _stream;
+        }
 
 	};
 

@@ -20,7 +20,7 @@ namespace MyGUI
 		friend class factory::FooBarFactory;
 
 	protected:
-		FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~FooBar();
 
 	public:
@@ -48,15 +48,24 @@ namespace MyGUI
 		// frame event
 		virtual void _frameEntered(float _time);
 
-		// mouse movements
+		// mouse events
 		void _onMouseDrag(int _left, int _top);
+		void _onMouseButtonReleased(bool _left);
+
+		// show/hide with alpha smoothing
+		void showSmooth(bool _reset = false);
+		void hideSmooth();
 
 	protected:
 		bool checkPoint(int left, int top, WidgetPtr widget);
 
+		
+
 	protected:
 		// id of widget under mouse
 		int mMouseWidget;
+		// dragging flag
+		bool mDragging;
 
 		
 	public:
@@ -93,7 +102,7 @@ namespace MyGUI
 		Layout mLayout;
 
 	public:
-		void addItem(const Ogre::String &name, const Ogre::String &material);
+		void addItem(const Ogre::String &name, const Ogre::String &texture);
 		void removeItem(const Ogre::String &name);
 
 	protected:

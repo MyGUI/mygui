@@ -19,7 +19,7 @@ namespace MyGUI
 		friend class factory::ListFactory;
 
 	protected:
-		List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета
@@ -56,6 +56,20 @@ namespace MyGUI
 
 		void needVisibleScroll(bool _visible);
 		void setScrollPosition(size_t _position);
+
+		//------------------------------------------------------------------------------------//
+		// для изменения у всех строк
+		/*virtual void setTextAlign(Align _align);
+		virtual Align getTextAlign();
+
+		virtual void setColour(const Ogre::ColourValue & _colour);
+		virtual const Ogre::ColourValue & getColour();
+
+		virtual void setFontName(const Ogre::String & _font);
+		virtual const Ogre::String & getFontName();
+
+		virtual void setFontHeight(uint16 _height);
+		virtual uint16 getFontHeight();*/
 
 		//------------------------------------------------------------------------------------//
 		// вспомогательные методы для составных списков

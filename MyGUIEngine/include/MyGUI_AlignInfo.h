@@ -21,6 +21,7 @@ namespace MyGUI
 		ALIGN_VCENTER					= FLAG_NONE,					// center the window vertically
 		ALIGN_CENTER					= ALIGN_HCENTER | ALIGN_VCENTER,		// center the window in the dead center
 		ALIGN_CENTER_PARENT		    = FLAG(0),						// do not use it in your application это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
+
 		ALIGN_LEFT						= FLAG(1),						// align from the left (and center the window vertically)
 		ALIGN_RIGHT					= FLAG(2),						// align from the left (and center the window vertically)
 		ALIGN_HSTRETCH				    = ALIGN_LEFT | ALIGN_RIGHT,			// stretch horizontally proportionate to parent window
@@ -29,6 +30,11 @@ namespace MyGUI
 		ALIGN_VSTRETCH				    = ALIGN_TOP | ALIGN_BOTTOM,			// stretch vertically proportionate to parent window
 		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch proportionate to parent window
 		ALIGN_DEFAULT					= ALIGN_LEFT | ALIGN_TOP,
+
+		ALIGN_LEFT_TOP             = ALIGN_LEFT | ALIGN_TOP,
+		ALIGN_RIGHT_TOP             = ALIGN_RIGHT | ALIGN_TOP,
+		ALIGN_RIGHT_BOTTOM             = ALIGN_RIGHT | ALIGN_BOTTOM,
+		ALIGN_LEFT_BOTTOM             = ALIGN_LEFT | ALIGN_BOTTOM,
 	};
 
 	#define IS_ALIGN_HCENTER(align) (ALIGN_HCENTER == (align & (ALIGN_LEFT | ALIGN_RIGHT)))
@@ -46,6 +52,11 @@ namespace MyGUI
 
 	#define IS_ALIGN_STRETCH(align) (ALIGN_STRETCH == (align & ALIGN_STRETCH))
 	#define IS_ALIGN_DEFAULT(align) (ALIGN_DEFAULT == (align & ALIGN_DEFAULT))
+
+	#define IS_ALIGN_LEFT_TOP(align) (ALIGN_LEFT_TOP == (align & ALIGN_LEFT_TOP))
+	#define IS_ALIGN_RIGHT_TOP(align) (ALIGN_RIGHT_TOP == (align & ALIGN_RIGHT_TOP))
+	#define IS_ALIGN_RIGHT_BOTTOM(align) (ALIGN_RIGHT_BOTTOM == (align & ALIGN_RIGHT_BOTTOM))
+	#define IS_ALIGN_LEFT_BOTTOM(align) (ALIGN_LEFT_BOTTOM == (align & ALIGN_LEFT_BOTTOM))
 
 } // namespace MyGUI
 

@@ -6,29 +6,23 @@
 */
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_SkinManager.h"
-//#include "MyGUI_SharedPanelAlphaOverlayElement.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
 
-	StaticImage::StaticImage(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _name),
+	StaticImage::StaticImage(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mNum(ITEM_NONE)
 	{
 		// первоначальная инициализация
-		MYGUI_DEBUG_ASSERT(mSubSkinChild.size() == 1, "subskin must be one");
-		MYGUI_DEBUG_ASSERT(false == mSubSkinChild[0]->_isText(), "subskin must be not text");
-		mElementSkin = mSubSkinChild.front();
-
-		//mElement = static_cast<PanelAlphaOverlayElement *>(mSubSkinChild[0]->_getOverlayElement());
-		//MYGUI_DEBUG_ASSERT(null != mElement, "overlay element not found");
+		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		if (!param.empty()) {
-			MapString::const_iterator iter = param.find("ImageMaterial");
-			if (iter != param.end()) setImageMaterial(iter->second);
+			MapString::const_iterator iter = param.find("ImageTexture");
+			if (iter != param.end()) setImageTexture(iter->second);
 			iter = param.find("ImageRect");
 			if (iter != param.end()) setImageRect(FloatRect::parse(iter->second));
 			iter = param.find("ImageTile");
@@ -44,8 +38,7 @@ namespace MyGUI
 		mNum = _num;
 
 		if (_num == ITEM_NONE) {
-			mElementSkin->_setUVSet(FloatRect());
-			//mElement->setUV(0, 0, 0, 0);
+			_setUVSet(FloatRect());
 			return;
 		}
 
@@ -63,40 +56,32 @@ namespace MyGUI
 			((float)(mNum / count)) * mSizeTile.height + mRectImage.top,
 			mSizeTile.width, mSizeTile.height);
 		// конвертируем и устанавливаем
-		offset = SkinManager::convertMaterialCoord(offset, mSizeTexture);
-		//mElement->setUV(offset.left, offset.top, offset.right, offset.bottom);
-		mElementSkin->_setUVSet(offset);
+		offset = SkinManager::convertTextureCoord(offset, mSizeTexture);
+		_setUVSet(offset);
 	}
 
-	void StaticImage::setImageInfo(const std::string & _material, const FloatSize & _tile)
+	void StaticImage::setImageInfo(const std::string & _texture, const FloatSize & _tile)
 	{
-		mElementSkin->_setMaterialName(_material);
-		mSizeTexture = SkinManager::getMaterialSize(_material);
+		_setTextureName(_texture);
+		mSizeTexture = SkinManager::getTextureSize(_texture);
 		mSizeTile = _tile;
 		mNum = ITEM_NONE;
 	}
 
-	void StaticImage::setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile)
+	void StaticImage::setImageInfo(const std::string & _texture, const FloatRect & _rect, const FloatSize & _tile)
 	{
-		mElementSkin->_setMaterialName(_material);
-		mSizeTexture = SkinManager::getMaterialSize(_material);
+		_setTextureName(_texture);
+		mSizeTexture = SkinManager::getTextureSize(_texture);
 		mRectImage = _rect;
 		mSizeTile = _tile;
 		mNum = ITEM_NONE;
 	}
 
-	void StaticImage::setImageMaterial(const std::string & _material)
+	void StaticImage::setImageTexture(const std::string & _texture)
 	{
-		mElementSkin->_setMaterialName(_material);
-		mSizeTexture = SkinManager::getMaterialSize(_material);
+		_setTextureName(_texture);
+		mSizeTexture = SkinManager::getTextureSize(_texture);
 		mNum = ITEM_NONE;
-
-		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(_material);
-		if (false == material.isNull()) {
-			material->getTechnique(0)->setDiffuse(1, 1, 1, 0.5);
-			material->getTechnique(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-		}
-
 	}
 
 } // namespace MyGUI

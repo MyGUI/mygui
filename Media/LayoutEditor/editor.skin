@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Skin">
-    <Skin name = "EditorComboBox" size = "40 26" material = "MyGUI_CoreMaterial" >
-        <Property key="FontName" value = "MyGUI_CoreFont" />
+    <Skin name = "EditorComboBox" size = "40 26" texture = "core.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
@@ -12,11 +12,8 @@
         <Property key="ListSkin" value = "List" />
         <Property key="ListLayer" value = "LayoutEditor_Popup" />
 
-        <Child type="Widget" skin="EditClient" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client">
-        </Child>
-
-        <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button">
-        </Child>
+        <Child type="Widget" skin="Default" offset = "3 0 15 26" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Button" skin="ComboBoxButton" offset = "21 3 17 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Button"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
@@ -39,7 +36,7 @@
             <State name="pressed" offset = "90 86 10 26"/>
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin type="TextEdit" offset = "3 0 15 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="EditText" offset = "3 0 15 26" align = "ALIGN_STRETCH">
             <State name="disable" colour="0.87 0.87 0.87"/>
             <State name="pressed" colour="0 0 0"/>
             <State name="normal" colour="0 0 0"/>
@@ -47,5 +44,4 @@
             <State name="active" colour="2C8AD5"/>
         </BasisSkin>
     </Skin>
-
 </MyGUI>
