@@ -8,26 +8,25 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_PointerManager.h"
+#include "MyGUI_WidgetCreator.h"
 
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_ButtonFactory.h"
-#include "MyGUI_EditFactory.h"
+#include "MyGUI_WindowFactory.h"
 #include "MyGUI_ListFactory.h"
-#include "MyGUI_StaticImageFactory.h"
-#include "MyGUI_StaticTextFactory.h"
 #include "MyGUI_VScrollFactory.h"
 #include "MyGUI_HScrollFactory.h"
-#include "MyGUI_WindowFactory.h"
+#include "MyGUI_EditFactory.h"
 #include "MyGUI_ComboBoxFactory.h"
-#include "MyGUI_TabFactory.h"
+#include "MyGUI_StaticTextFactory.h"
 #include "MyGUI_SheetFactory.h"
-#include "MyGUI_MessageFactory.h"
+#include "MyGUI_TabFactory.h"
 #include "MyGUI_ProgressFactory.h"
-#include "MyGUI_RenderBoxFactory.h"
 #include "MyGUI_ItemBoxFactory.h"
 #include "MyGUI_MultiListFactory.h"
-#include "MyGUI_PopupMenuFactory.h"
+#include "MyGUI_StaticImageFactory.h"
+#include "MyGUI_MessageFactory.h"
+#include "MyGUI_RenderBoxFactory.h"
 #include "MyGUI_FooBarFactory.h"
 
 namespace MyGUI
@@ -45,22 +44,21 @@ namespace MyGUI
 		// создаем фабрики виджетов
 		mIntegratedFactoryList.insert(new factory::WidgetFactory());
 		mIntegratedFactoryList.insert(new factory::ButtonFactory());
-		mIntegratedFactoryList.insert(new factory::EditFactory());
-		mIntegratedFactoryList.insert(new factory::ListFactory());
-		mIntegratedFactoryList.insert(new factory::StaticTextFactory());
-		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
-		mIntegratedFactoryList.insert(new factory::VScrollFactory());
-		mIntegratedFactoryList.insert(new factory::HScrollFactory());
 		mIntegratedFactoryList.insert(new factory::WindowFactory());
+		mIntegratedFactoryList.insert(new factory::ListFactory());
+		mIntegratedFactoryList.insert(new factory::HScrollFactory());
+		mIntegratedFactoryList.insert(new factory::VScrollFactory());
+		mIntegratedFactoryList.insert(new factory::EditFactory());
 		mIntegratedFactoryList.insert(new factory::ComboBoxFactory());
-		mIntegratedFactoryList.insert(new factory::TabFactory());
+		mIntegratedFactoryList.insert(new factory::StaticTextFactory());
 		mIntegratedFactoryList.insert(new factory::SheetFactory());
-		mIntegratedFactoryList.insert(new factory::MessageFactory());
+		mIntegratedFactoryList.insert(new factory::TabFactory());
 		mIntegratedFactoryList.insert(new factory::ProgressFactory());
-		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 		mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
 		mIntegratedFactoryList.insert(new factory::MultiListFactory());
-		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
+		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
+		mIntegratedFactoryList.insert(new factory::MessageFactory());
+		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 		mIntegratedFactoryList.insert(new factory::FooBarFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -98,9 +96,9 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getType() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name)
 	{
-		Ogre::String name;
+		std::string name;
 		if (false == _name.empty()) {
 			MapWidgetPtr::iterator iter = mWidgets.find(_name);
 			MYGUI_ASSERT(iter == mWidgets.end(), "widget with name '" << _name << "' already exist");
@@ -112,7 +110,7 @@ namespace MyGUI
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getType() == _type) {
-				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, name);
+				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, _creator, name);
 				mWidgets[name] = widget;
 				return widget;
 			}
@@ -198,22 +196,20 @@ namespace MyGUI
 		MYGUI_ASSERT(_widget != null, "widget is deleted");
 
 		// отписываем от всех
-		VectorWidgetPtr childs = _widget->getChilds();
-		for (VectorWidgetPtr::iterator iter = childs.begin(); iter != childs.end(); ++iter)
-			unlinkFromUnlinkers(*iter);
-		unlinkFromUnlinkers(_widget);
-
+		//unlinkFromUnlinkers(_widget);
 
 		// делегирует удаление отцу виджета
-		WidgetPtr parent = _widget->getParent();
-		if (parent == null) Gui::getInstance()._destroyChildWidget(_widget);
-		else parent->_destroyChildWidget(_widget);
+		WidgetCreator * creator = _widget->_getWidgetCreator();
+		creator->_destroyChildWidget(_widget);
+
+//		if (parent == null) Gui::getInstance()._destroyChildWidget(_widget);
+//		else parent->_destroyChildWidget(_widget);
 
 	}
 
 	void WidgetManager::destroyAllWidget()
 	{
-		Gui::getInstance()._destroyAllChildWidget();
+		//Gui::getInstance()._destroyAllChildWidget();
 	}
 
 	void WidgetManager::registerUnlinker(UnlinkWidget * _unlink)
@@ -239,5 +235,12 @@ namespace MyGUI
 			mVectorUnlinkWidget[pos]->_unlinkWidget(_widget);
 		}
 	}
+
+	/*void WidgetManager::_deleteWidget(WidgetPtr _widget)
+	{
+		if (null == _widget) return;
+		unlinkFromUnlinkers(_widget);
+		delete _widget;
+	}*/
 
 } // namespace MyGUI

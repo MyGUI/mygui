@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
+#include "MyGUI_WidgetCreator.h"
 #include "MyGUI_UnlinkWidget.h"
 
 namespace MyGUI
@@ -29,7 +30,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 		void destroyAllWidget();
 		void destroyWidget(WidgetPtr _widget);
@@ -57,6 +58,10 @@ namespace MyGUI
 
 		// очищает имя в списках
 		void _unlinkWidget(WidgetPtr _widget);
+
+		// только удаляет и отписывает виджет
+		// метод для тех кто ручками создал виджет
+		//void _deleteWidget(WidgetPtr _widget);
 
 		// регестрирует делегат
 		ParseDelegate & registerDelegate(const Ogre::String & _key);

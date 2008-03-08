@@ -89,18 +89,30 @@ namespace types
 		inline std::string print() const
 		{
 	        std::ostringstream stream;
-	        stream << width << " " << height;
+	        stream << *this;
 		    return stream.str();
 		}
 
-		static TSize<T> parse(const std::string& _value)
+		inline static TSize<T> parse(const std::string& _value)
 		{
 			TSize<T> ret;
-			std::istringstream str(_value);
-			str >> ret.width >> ret.height;
-			if (str.fail()) return TSize<T>();
-			return ret;
+	        std::istringstream stream(_value);
+	        stream >> ret;
+		    return ret;
 		}
+
+        inline friend std::ostream& operator << ( std::ostream& _stream, const TSize<T>&  _value )
+        {
+            _stream << _value.width << " " << _value.height;
+            return _stream;
+        }
+
+        inline friend std::istream& operator >> ( std::istream& _stream, TSize<T>&  _value )
+        {
+            _stream >> _value.width >> _value.height;
+			if (_stream.fail()) _value.clear();
+            return _stream;
+        }
 
 	};
 

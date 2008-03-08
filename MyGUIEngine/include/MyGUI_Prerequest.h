@@ -2,6 +2,7 @@
 	@file
 	@author		Denis Koronchik
 	@author		Georgiy Evmenov
+	@author		Ну и я чуть чуть =)
 	@date		09/2007
 */
 
@@ -22,95 +23,94 @@
 namespace MyGUI
 {
 	class Gui;
-	class DynLib;
-	class Plugin;
 
 	using MyGUI::delegates::newDelegate;
 
 	class WidgetSkinInfo;
 	class MaskPeekInfo;
+	class WidgetCreator;
 
 	// managers
 	class InputManager;
 	class SubWidgetManager;
-	class ClipboardManager;
 	class LayerManager;
 	class SkinManager;
 	class WidgetManager;
-	class LayoutManager;
 	class FontManager;
-	class PointerManager;
-	class DynLibManager;
-	class PluginManager;
 	class ControllerManager;
-
-	// widgets
-	class Button;
-	class ComboBox;
-	class Edit;
-	class HScroll;
-	class List;
-	class Sheet;
-	class StaticImage;
-	class StaticText;
-	class Tab;
-	class VScroll;
-	class Window;
-	class Message;
-	class Progress;
-	class RenderBox;
-	class ItemBox;
-	class MultiList;
-	class PopupMenu;
-	class FoorBar;
-
-	// widget pointers
-	typedef Button* ButtonPtr;
-	typedef ComboBox* ComboBoxPtr;
-	typedef Edit * EditPtr;
-	typedef HScroll * HScrollPtr;
-	typedef List * ListPtr;
-	typedef Sheet * SheetPtr;
-	typedef StaticImage * StaticImagePtr;
-	typedef StaticText* StaticTextPtr;
-	typedef Tab* TabPtr;
-	typedef VScroll* VScrollPtr;
-	typedef Window * WindowPtr;
-	typedef Message * MessagePtr;
-	typedef Progress * ProgressPtr;
-	typedef RenderBox * RenderBoxPtr;
-	typedef ItemBox * ItemBoxPtr;
-	typedef MultiList * MultiListPtr;
-	typedef PopupMenu * PopupMenuPtr;
-	//typedef FooBar* FooBarPtr;
+	class PointerManager;
+	class ClipboardManager;
+	class LayoutManager;
+	class PluginManager;
+	class DynLibManager;
 
 	class WidgetFactoryInterface;
-	namespace factory{
+
+	class DynLib;
+
+	namespace factory
+	{
 		class WidgetFactory;
 		class ButtonFactory;
-		class ComboBoxFactory;
-		class EditFactory;
-		class HScrollFactory;
-		class ListFactory;
-		class SheetFactory;
-		class StaticImageFactory;
-		class StaticTextFactory;
-		class TabFactory;
-		class VScrollFactory;
-		class WidgetFactory;
 		class WindowFactory;
-		class MessageFactory;
+		class ListFactory;
+		class HScrollFactory;
+		class VScrollFactory;
+		class EditFactory;
+		class ComboBoxFactory;
+		class StaticTextFactory;
+		class SheetFactory;
+		class TabFactory;
 		class ProgressFactory;
-		class RenderBoxFactory;
 		class ItemBoxFactory;
 		class MultiListFactory;
-		class PopupMenuFactory;
+		class StaticImageFactory;
+		class MessageFactory;
+		class RenderBoxFactory;
 		class FooBarFactory;
 	}
 
+	class Widget;
+	class Button;
+	class Window;
+	class List;
+	class HScroll;
+	class VScroll;
+	class Edit;
+	class ComboBox;
+	class StaticText;
+	class Sheet;
+	class Tab;
+	class Progress;
+	class ItemBox;
+	class MultiList;
+	class StaticImage;
+	class Message;
+	class RenderBox;
+	class FooBar;
+
+	typedef Widget * WidgetPtr;
+	typedef Button * ButtonPtr;
+	typedef Window * WindowPtr;
+	typedef List * ListPtr;
+	typedef HScroll * HScrollPtr;
+	typedef VScroll * VScrollPtr;
+	typedef Edit * EditPtr;
+	typedef ComboBox * ComboBoxPtr;
+	typedef StaticText * StaticTextPtr;
+	typedef Sheet * SheetPtr;
+	typedef Tab * TabPtr;
+	typedef Progress * ProgressPtr;
+	typedef ItemBox * ItemBoxPtr;
+	typedef MultiList * MultiListPtr;
+	typedef StaticImage * StaticImagePtr;
+	typedef Message * MessagePtr;
+	typedef RenderBox * RenderBoxPtr;
+	typedef FooBar * FooBarPtr;
+
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
-    #define MYGUI_VERSION_MINOR 0
+    #define MYGUI_VERSION_MINOR 1
     #define MYGUI_VERSION_PATCH 1
 
     #define MYGUI_VERSION    ((MYGUI_VERSION_MAJOR << 16) | (MYGUI_VERSION_MINOR << 8) | MYGUI_VERSION_PATCH)

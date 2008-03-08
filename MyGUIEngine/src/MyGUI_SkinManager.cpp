@@ -52,7 +52,7 @@ namespace MyGUI
 
 		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); iter++) {
+		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); ++iter) {
 			WidgetSkinInfoPtr info = iter->second;
 			delete info;
 		}
@@ -111,16 +111,16 @@ namespace MyGUI
 		while (skin.nextNode(XML_TYPE)) {
 
 			// парсим атрибуты скина
-			Ogre::String skinName, skinMaterial, tmp;
+			Ogre::String name, texture, tmp;
 			IntSize size;
-			skin->findAttribute("name", skinName);
-			skin->findAttribute("material", skinMaterial);
+			skin->findAttribute("name", name);
+			skin->findAttribute("texture", texture);
 			if (skin->findAttribute("size", tmp)) size = IntSize::parse(tmp);
 
 			// создаем скин
-			WidgetSkinInfo * widget_info = create(skinName);
-			widget_info->setInfo(size, skinMaterial);
-			FloatSize materialSize = getMaterialSize(skinMaterial);
+			WidgetSkinInfo * widget_info = create(name);
+			widget_info->setInfo(size, texture);
+			FloatSize materialSize = getTextureSize(texture);
 
 			// проверяем маску
 			if (skin->findAttribute("mask", tmp)) {
@@ -182,7 +182,7 @@ namespace MyGUI
 						float alpha = -1;
 
 						state->findAttribute("name", basisStateName);
-						if (state->findAttribute("offset", tmp)) offset = convertMaterialCoord(FloatRect::parse(tmp), materialSize);
+						if (state->findAttribute("offset", tmp)) offset = convertTextureCoord(FloatRect::parse(tmp), materialSize);
 						if (state->findAttribute("colour", tmp)) colour = utility::parseColour(tmp);
 						if (state->findAttribute("alpha", tmp)) alpha = utility::parseFloat(tmp);
 
@@ -199,31 +199,17 @@ namespace MyGUI
 		};
 	}	
 
-	FloatSize SkinManager::getMaterialSize(const std::string & _material)
+	FloatSize SkinManager::getTextureSize(const std::string & _texture)
 	{
 		FloatSize size(1, 1);
 
-		if (_material.empty()) return size;
+		if (_texture.empty()) return size;
 
-		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName(_material);
-		if (mat.isNull()) return size;
+		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
+		if (false == manager.resourceExists(_texture)) 
+			manager.load(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-		// обязательно загружаем
-		mat->load();
-
-		// только так, иначе при пустых викидывает
-		Ogre::Material::TechniqueIterator iTechnique = mat->getTechniqueIterator();
-		if ( ! iTechnique.hasMoreElements() ) return size;
-
-		Ogre::Pass * pass = iTechnique.getNext()->getPass(0);
-		if (!pass) return size;
-
-		Ogre::Pass::TextureUnitStateIterator iUnit = pass->getTextureUnitStateIterator();
-		if ( ! iUnit.hasMoreElements()) return size;
-
-		const Ogre::String & textName = iUnit.getNext()->getTextureName();
-
-		Ogre::TexturePtr tex = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(textName);
+		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture);
 		if (tex.isNull()) return size;
 
 		size.width = (float)tex->getWidth();
@@ -235,15 +221,15 @@ namespace MyGUI
 		return size;
 	}
 
-	FloatRect SkinManager::convertMaterialCoord(const FloatRect & _source, const FloatSize & _materialSize)
+	FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const FloatSize & _textureSize)
 	{
 		FloatRect retRect;
-		if (!_materialSize.width || !_materialSize.height) return retRect;
+		if (!_textureSize.width || !_textureSize.height) return retRect;
 
-		retRect.left = _source.left / _materialSize.width;
-		retRect.top = _source.top / _materialSize.height;
-		retRect.right = (_source.left + _source.right) / _materialSize.width;
-		retRect.bottom = (_source.top + _source.bottom) / _materialSize.height;
+		retRect.left = _source.left / _textureSize.width;
+		retRect.top = _source.top / _textureSize.height;
+		retRect.right = (_source.left + _source.right) / _textureSize.width;
+		retRect.bottom = (_source.top + _source.bottom) / _textureSize.height;
 
 		return retRect;
 	}
@@ -252,14 +238,7 @@ namespace MyGUI
 	{
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
-		widget_info->setInfo(IntSize(0, 0), "DefaultSettings");
-		SubWidgetBinding bind(IntCoord(0, 0, 1, 1), ALIGN_DEFAULT, "MainSkin");
-		widget_info->addInfo(bind);
-		// создаем дефолтный прозрачный скин
-		widget_info = create("Empty");
 		widget_info->setInfo(IntSize(0, 0), "");
-		bind.create(IntCoord(0, 0, 1, 1), ALIGN_DEFAULT, "MainSkin");
-		widget_info->addInfo(bind);
 	}
 
 

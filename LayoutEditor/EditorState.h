@@ -3,6 +3,8 @@
 #include "BasisState.h"
 #include "MyGUI.h"
 
+#define NO_EXCLUSIVE_INPUT
+
 class EditorState : public BasisState
 {
 public:
@@ -17,6 +19,7 @@ public:
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
 
+	void windowResize();
 private:
 	void loadSettings();
 	void saveSettings();

@@ -129,10 +129,7 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 	}
 	WidgetContainer * _container = find(_widget);
 
-	MyGUI::WidgetPtr parent = _widget->getParent();
-	// FIXME у таба все не как у людей
-	if ((null != parent) && (parent->getWidgetType() == "Tab")) MyGUI::castWidget<MyGUI::Tab>(parent)->removeSheet(MyGUI::castWidget<MyGUI::Sheet>(_widget));
-	else MyGUI::Gui::getInstance().destroyWidget(_widget);
+	MyGUI::Gui::getInstance().destroyWidget(_widget);
 
 	if (null != _container)
 	{
@@ -194,8 +191,10 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 		WidgetContainer * iter = find(container->name);
 		if (null != iter)
 		{
-			LOGGING(LogSection, Warning, "widget with same name name '" << container->name << "'. Renamed");
 			static long renameN=0;
+			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
+			LOGGING(LogSection, Warning, mess);
+			MyGUI::Message::_createMessage("Warning", mess, "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -232,8 +231,19 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			// парсим атрибуты
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
+
 			// и парсим свойство
-			if (("Message_Modal" != key) && ("Window_AutoAlpha" != key)) MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
+			try{
+				if (("Message_Modal" != key) && ("Window_AutoAlpha" != key) && ("Window_Snap" != key))
+					MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
+				Ogre::Root::getSingleton().renderOneFrame();
+			}
+			catch(...)
+			{
+				MyGUI::Message::_createMessage("Warning", "No such " + key + ": '" + value + "'", "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				if (key == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(container->widget, key, "");
+			}// for incorrect meshes or textures
+
 			container->mProperty.push_back(std::make_pair(key, value));
 		}
 		else if (widget->getName() == "UserString") {

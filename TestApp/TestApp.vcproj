@@ -7,6 +7,7 @@
 	RootNamespace="TestApp"
 	Keyword="Win32Proj"
 	AssemblyReferenceSearchPaths="&quot;..\MyGUIEngine\lib\debug&quot;"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -70,6 +71,8 @@
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeForWindows98="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -89,9 +92,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -147,6 +147,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -168,9 +170,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -178,11 +177,6 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
-		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}"
-			RelativePathToProject=".\TestPlugin\TestPlugin.vcproj"
 		/>
 	</References>
 	<Files>
@@ -199,10 +193,6 @@
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\InputManager.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -217,20 +207,16 @@
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
-			<File
-				RelativePath=".\InputManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\resource.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource"
 			>
 			<File
 				RelativePath=".\mygui.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\resource.h"
 				>
 			</File>
 			<File

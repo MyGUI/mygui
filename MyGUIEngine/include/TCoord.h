@@ -155,18 +155,30 @@ namespace types
 		inline std::string print() const
 		{
 	        std::ostringstream stream;
-	        stream << left << " " << top << " " << width << " " << height;
+	        stream << *this;
 		    return stream.str();
 		}
 
-		static TCoord<T> parse(const std::string& _value)
+		inline static TCoord<T> parse(const std::string& _value)
 		{
 			TCoord<T> ret;
-			std::istringstream str(_value);
-			str >> ret.left >> ret.top >> ret.width >> ret.height;
-			if (str.fail()) return TCoord<T>();
-			return ret;
+	        std::istringstream stream(_value);
+	        stream >> ret;
+		    return ret;
 		}
+
+        inline friend std::ostream& operator << ( std::ostream& _stream, const TCoord<T>&  _value )
+        {
+            _stream << _value.left << " " << _value.top << " " << _value.width << " " << _value.height;
+            return _stream;
+        }
+
+        inline friend std::istream& operator >> ( std::istream& _stream, TCoord<T>&  _value )
+        {
+            _stream >> _value.left >> _value.top >> _value.width >> _value.height;
+			if (_stream.fail()) _value.clear();
+            return _stream;
+        }
 
 	};
 

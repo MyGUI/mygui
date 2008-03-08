@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Widgets">
+
   <Widget name="Button">
     <Property key="Skin" value="Button"/>
     <Property key="Skin" value="ButtonSmall"/>
     <Property key="Skin" value="CheckBox"/>
+    <Property key="Skin" value="RadioBox"/>
     <Parameter key="Button_Pressed" value="Bool"/>
     <!-- all properties -->
   </Widget>
@@ -54,7 +56,7 @@
     <Parameter key="Message_Caption" value="String"/>
     <Parameter key="Message_Message" value="String"/>
     <Parameter key="Message_Modal" value="Bool"/>
-    <!--Parameter key="Message_Button" value="MessageButton"/-->
+    <Parameter key="Message_Button" value="MessageButton"/>
     <!--Parameter key="Message_AddButton" value="String"/-->
     <Parameter key="Message_SmoothShow" value="Bool"/>
     <Parameter key="Message_Fade" value="Bool"/>
@@ -77,8 +79,9 @@
   <Widget name="RenderBox">
     <Property key="Skin" value="RenderBox"/>
     <Parameter key="RenderBox_Mesh" value="String"/>
-    <Parameter key="RenderBox_AutorotationSpeed" value="1 int"/>
-    <Parameter key="RenderBox_BackgroungColour" value="colour"/>
+    <Parameter key="RenderBox_AutoRotation" value="Bool"/>
+    <Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
+    <Parameter key="RenderBox_BackgroungColour" value="Colour"/>
     <Parameter key="RenderBox_RotationAngle" value="1 int"/>
     <Parameter key="RenderBox_MouseRotation" value="Bool"/>
     <!-- all properties -->
@@ -88,15 +91,15 @@
     <Property key="Parent" value="true"/>
     <Property key="Resizeable" value="false"/>
     <Parameter key="Sheet_ButtonWidth" value="1 int"/>
-    <Parameter key="Sheet_Name" value="String"/>
     <Parameter key="Sheet_Select" value="Bool"/>
     <Parameter key="Sheet_SmoothSelect" value="Bool"/>
+    <Parameter key="Widget_Caption" value="String"/>
     <!-- all properties -->
   </Widget>
 
   <Widget name="StaticImage">
     <Property key="Skin" value="StaticImage"/>
-    <Parameter key="Image_Material" value="String"/>
+    <Parameter key="Image_Texture" value="String"/>
     <Parameter key="Image_Rect" value="4 int"/>
     <Parameter key="Image_Tile" value="2 float"/>
     <Parameter key="Image_Num" value="1 int"/>
@@ -115,7 +118,7 @@
     <Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
     <Parameter key="Tab_SmoothShow" value="Bool"/>
     <!--Parameter key="Tab_AddSheet" value="String"/-->
-    <Parameter key="Tab_SelectSheet" value="1 int"/>
+    <!--Parameter key="Tab_SelectSheet" value="1 int"/-->
     <!-- all properties -->
   </Widget>
 
@@ -128,6 +131,8 @@
   </Widget>
 
   <Widget name="Widget">
+    <Property key="Parent" value="true"/>
+    <Property key="Skin" value="Panel"/>
     <Property key="Skin" value="Separator1"/>
     <Property key="Skin" value="Separator2"/>
     <Property key="Skin" value="Separator3"/>
@@ -138,10 +143,12 @@
     <Parameter key="Widget_Show" value="Bool"/>
     <Parameter key="Widget_Colour" value="Colour"/>
     <Parameter key="Widget_FontName" value="Font"/>
+    <Parameter key="Widget_FontHeight" value="1 int"/>
     <Parameter key="Widget_Alpha" value="1 float"/>
     <!--Parameter key="Widget_State" value="WidgetState"/-->
     <Parameter key="Widget_NeedKey" value="Bool"/>
     <Parameter key="Widget_AlignText" value="TextAlign"/>
+    <Parameter key="Widget_Enabled" value="Bool"/>
     <!-- all properties -->
   </Widget>
 
@@ -159,6 +166,7 @@
   </Widget>
 
   <Value name="Align">
+    <Property key="#444444DEFAULT"/>
     <Property key="DEFAULT"/>
     <Property key="STRETCH"/>
     <Property key="CENTER"/>
@@ -183,15 +191,16 @@
   <Value name="Bool">
     <Property key="true"/>
     <Property key="false"/>
-    <Property key="DEFAULT"/>
+    <Property key="#444444DEFAULT"/>
   </Value>
 
   <Value name="Font">
-    <Property key="DEFAULT"/>
-    <Property key="MyGUI_CoreFont"/>
+    <Property key="#444444DEFAULT"/>
+	<Property key="MyGUI_CoreFont.18"/>
   </Value>
   
   <Value name="TextAlign">
+    <Property key="#444444DEFAULT"/>
     <Property key="DEFAULT"/>
     <Property key="CENTER"/>
     <Property key="LEFT TOP"/>
@@ -206,16 +215,34 @@
   </Value>
 
   <Value name="Layer">
-    <Property key="Back"/>
-    <Property key="Overlapped"/>
-    <Property key="Middle"/>
-    <Property key="Modal"/>
-    <Property key="Main"/>
-    <Property key="Popup"/>
-    <Property key="FadeMiddle"/>
-    <!--Property key="Info"/-->
-    <!--Property key="Tooltip"/-->
-    <!--Property key="Pointer"/-->
     <!--Property key="Fade"/-->
+    <!--Property key="Pointer"/-->
+    <!--Property key="Tooltip"/-->
+    <Property key="Info"/>
+    <Property key="FadeMiddle"/>
+    <Property key="Popup"/>
+    <Property key="Main"/>
+    <Property key="Modal"/>
+    <Property key="Middle"/>
+    <Property key="Overlapped"/>
+    <Property key="Back"/>
+  </Value>
+
+  <Value name="MessageButton">
+    <Property key="Ok"/>
+    <Property key="Yes"/>
+    <Property key="No"/>
+    <Property key="Abort"/>
+    <Property key="Retry"/>
+    <Property key="Ignore"/>
+    <Property key="Cancel"/>
+    <Property key="Try"/>
+    <Property key="Continue"/>
+    <Property key="OkCancel"/>
+    <Property key="YesNo"/>
+    <Property key="YesNoCancel"/>
+    <Property key="RetryCancel"/>
+    <Property key="AbortRetryIgnore"/>
+    <Property key="CancelTryContinue"/>
   </Value>
 </MyGUI>

@@ -8,6 +8,8 @@
 #define __MYGUI_LAYER_ITEM_INFO_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_LayerItemKeeper.h"
+
 #include <Ogre.h>
 
 namespace MyGUI
@@ -28,10 +30,8 @@ namespace MyGUI
 		friend class LayerInfo;
 		friend class LayerManager;
 
-	public:
+    public:
 		virtual ~LayerItemInfo();
-
-		const std::string & getLayerName();
 
 	protected:
 		LayerItemInfo();
@@ -43,8 +43,9 @@ namespace MyGUI
 		virtual void attachToOverlay(Ogre::Overlay * _overlay) = 0;
 		virtual void detachToOverlay(Ogre::Overlay * _overlay) = 0;
 
-	private:
+	protected:
 		Ogre::Overlay * mOverlayInfo;
+		LayerItemKeeper * mLayerItemKeeperInfo;
 		LayerInfoPtr mLayerInfo;
 	};
 

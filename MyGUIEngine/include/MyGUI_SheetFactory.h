@@ -24,10 +24,9 @@ namespace MyGUI
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
+			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name);
 
 			void Sheet_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Sheet_Name(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Sheet_Select(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 

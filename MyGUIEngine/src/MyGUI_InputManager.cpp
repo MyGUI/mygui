@@ -9,10 +9,10 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_LayerManager.h"
-#include "MyGUI_PointerManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_PointerManager.h"
 
 namespace MyGUI
 {
@@ -63,11 +63,11 @@ namespace MyGUI
 
 	bool InputManager::injectMouseMove( const OIS::MouseEvent & _arg)
 	{
-		// запоминаем позицию
-		mMousePosition.set(_arg.state.X.abs, _arg.state.Y.abs);
-
 		// двигаем курсор
 		PointerManager::getInstance().setPosition(IntPoint(_arg.state.X.abs, _arg.state.Y.abs));
+
+		// запоминаем позицию
+		mMousePosition.set(_arg.state.X.abs, _arg.state.Y.abs);
 
 		// проверка на скролл
 		if (_arg.state.Z.rel != 0) {
@@ -82,8 +82,8 @@ namespace MyGUI
 		}
 
 		// ищем активное окно
-		LayerItemInfoPtr rootItem = null;
-		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
+		LayerItem *  rootItem = null;
+		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
 
 		// спускаемся по владельцу
 		if (null != rootItem) {
@@ -111,7 +111,7 @@ namespace MyGUI
 		if ((item != null) && (item->isEnabled())) {
 			if (item->getPointer() != mPointer) {
 				mPointer = item->getPointer();
-				if (mPointer.empty()) PointerManager::getInstance().defaultPointer();
+				if (mPointer.empty()) PointerManager::getInstance().setDefaultPointer();
 				else PointerManager::getInstance().setPointer(mPointer, item);
 			}
 			item->_onMouseSetFocus(mWidgetMouseFocus);
@@ -119,7 +119,7 @@ namespace MyGUI
 		}
 		// сбрасываем курсор
 		else if (false == mPointer.empty()) {
-			PointerManager::getInstance().defaultPointer();
+			PointerManager::getInstance().setDefaultPointer();
 			mPointer.clear();
 		}
 
@@ -167,10 +167,8 @@ namespace MyGUI
 
 			mWidgetMouseFocus->_onMouseButtonPressed(_id == OIS::MB_Left);
 
-			// поднимаем виджет, временно
-			WidgetPtr tmp = mWidgetMouseFocus;
-			while (tmp->getParent() != null) tmp = tmp->getParent();
-			LayerManager::getInstance().upItem(tmp);
+			// поднимаем виджет
+			LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
 		}
 		return true;
 	}
@@ -197,8 +195,8 @@ namespace MyGUI
 				else {
 					mTime.reset();
 					// проверяем над тем ли мы окном сейчас что и были при нажатии
-					LayerItemInfoPtr rootItem = null;
-					WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance().findWidgetItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
+					LayerItem * rootItem = null;
+					WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_arg.state.X.abs, _arg.state.Y.abs, rootItem));
 					if ( item == mWidgetMouseFocus) {
 						mWidgetMouseFocus->_onMouseButtonClick();
 					}
@@ -494,7 +492,7 @@ namespace MyGUI
 		mVectorModalRootWidget.push_back(_widget);
 
 		setKeyFocusWidget(_widget);
-		LayerManager::getInstance().upItem(_widget);
+		LayerManager::getInstance().upLayerItem(_widget);
 	}
 
 	void InputManager::removeWidgetModal(WidgetPtr _widget)
@@ -511,7 +509,7 @@ namespace MyGUI
 		// если еще есть модальные то их фокусируем и поднимаем
 		if (false == mVectorModalRootWidget.empty()) {
 			setKeyFocusWidget(mVectorModalRootWidget.back());
-			LayerManager::getInstance().upItem(mVectorModalRootWidget.back());
+			LayerManager::getInstance().upLayerItem(mVectorModalRootWidget.back());
 		}
 	}
 

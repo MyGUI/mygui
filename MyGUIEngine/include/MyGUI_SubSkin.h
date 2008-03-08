@@ -1,24 +1,27 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		11/2007
+	@date		02/2008
 	@module
 */
 #ifndef __MYGUI_SUB_SKIN_H__
 #define __MYGUI_SUB_SKIN_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_SharedPanelAlphaOverlayElement.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_CroppedRectangleInterface.h"
+#include "MyGUI_DrawItem.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport SubSkin : public CroppedRectangleInterface
+	class RenderItem;
+
+	class _MyGUIExport SubSkin : public CroppedRectangleInterface, public DrawItem
 	{
 
 	public:
-		SubSkin(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id);
+		SubSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~SubSkin();
 
 		void setAlpha(float _alpha);
@@ -26,7 +29,7 @@ namespace MyGUI
 		void show();
 		void hide();
 
-		void _updateView(); // обновления себя и детей
+		void _updateView();
 		void _correctView();
 
 		void _setAlign(const IntSize& _size, bool _update);
@@ -34,32 +37,27 @@ namespace MyGUI
 
 		void _setUVSet(const FloatRect& _rect);
 
-		void _attachChild(CroppedRectanglePtr _basis, bool _child);
-		Ogre::OverlayElement* _getOverlayElement();
+		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
+		virtual void _destroyDrawItem();
 
-		inline static const Ogre::String & _getType() {static Ogre::String type("SubSkin"); return type;}
-		inline static bool _isSharedOverlay() {return true;}
-		bool _isText() {return false;}
+		// метод для отрисовки себя
+		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
-		Ogre::OverlayElement* _getSharedOverlayElement() {return (mId == 0) ? mOverlayContainer : null;}
 
 	protected:
 
-		inline void _setTransparent(bool _transparent)
-		{
-			if (mTransparent == _transparent) return;
-			mTransparent = _transparent;
-			mOverlayContainer->setTransparentInfo(mTransparent, mId);
-		}
-
-	protected:
-
-		SharedPanelAlphaOverlayElement * mOverlayContainer;
 		FloatRect mRectTexture;
-		size_t mId;
-		bool mTransparent;
+		bool mEmptyView;
 
-	}; // class _MyGUIExport SubSkin : public SubWidgetSkinInterface
+		uint32 mCurrentAlpha;
+
+		FloatRect mCurrentTexture;
+		IntCoord mCurrentCoord;
+
+		RenderItem * mRenderItem;
+
+		LayerManager * mManager;
+	};
 
 } // namespace MyGUI
 

@@ -5,7 +5,6 @@
 	@module
 */
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_Common.h"
 
 namespace MyGUI
 {
@@ -55,7 +54,7 @@ namespace MyGUI
 
 		xmlNode::~xmlNode()
 		{
-			for (VectorNode::iterator iter=mChilds.begin(); iter!=mChilds.end(); iter++) {
+			for (VectorNode::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter) {
 				delete *iter;
 			}
 			mChilds.clear();
@@ -64,14 +63,14 @@ namespace MyGUI
 		void xmlNode::save(std::ofstream & _stream, size_t _level)
 		{
 			// сначала табул€ции намутим
-			for (size_t tab=0; tab<_level; tab++) _stream  << "    ";
+			for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";
 
 			// теперь заголовок тега
 			if (mType == XML_NODE_TYPE_INFO) _stream << "<?";
 			else _stream << "<";
 			_stream << mName;
 
-			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); iter ++) {
+			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter) {
 				_stream << " " << iter->first << "=\"" << iter->second << "\"";
 			}
 
@@ -86,7 +85,7 @@ namespace MyGUI
 				// если есть тело то сначало оно
 				if (!mBody.empty()) {
 					if (!empty) {
-						for (size_t tab=0; tab<=_level; tab++) _stream  << "    ";
+						for (size_t tab=0; tab<=_level; ++tab) _stream  << "    ";
 						_stream << mBody << "\n";
 					} else _stream << mBody;
 				}
@@ -95,7 +94,7 @@ namespace MyGUI
 					mChilds[child]->save(_stream, _level + 1);
 				}
 
-				if (!empty) {for (size_t tab=0; tab<_level; tab++) _stream  << "    ";}
+				if (!empty) {for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";}
 				_stream << "</" << mName << ">\n";
 			}
 
@@ -110,7 +109,7 @@ namespace MyGUI
 
 		void xmlNode::clear()
 		{
-			for (VectorNode::iterator iter = mChilds.begin(); iter != mChilds.end(); iter++) delete *iter;
+			for (VectorNode::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter) delete *iter;
 			mChilds.clear();
 			mBody.clear();
 			mAttributes.clear();
@@ -151,73 +150,6 @@ namespace MyGUI
 		xmlDocument::~xmlDocument()
 		{
 			clear();
-		}
-
-		bool xmlDocument::open(const Ogre::DataStreamPtr& stream)
-		{
-			clear();
-
-			mLastErrorFile = stream->getName();
-			// это текуща€ строка дл€ разбора
-			std::string line;
-			// это строка из файла
-			std::string read;
-			// текущий узел дл€ разбора
-			xmlNodePtr currentNode = 0;
-
-			while (false == stream->eof()) {
-				// берем новую строку
-				read = stream->getLine (false);
-				mLine ++;
-				mCol = 0; // потом проверить на многострочных тэгах
-
-				if (read.empty()) continue;
-
-				// текуща€ строка дл€ разбора и то что еще прочитали
-				line += read;
-
-				// крутимс€ пока в строке есть теги
-				while (true) {
-
-					// сначала ищем по угловым скобкам
-					size_t start = find(line, '<');
-					if (start == line.npos) break;
-
-					size_t end = find(line, '>', start+1);
-					if (end == line.npos) break;
-
-					// провер€ем на наличее тела
-					size_t body = line.find_first_not_of(" \t<");
-					if (body < start) {
-
-						std::string body_str = line.substr(0, start);
-						// текущий символ
-						mCol = body_str.find_first_not_of(" \t");
-						utility::trim(body_str);
-
-						if (currentNode != 0) 	currentNode->addBody(body_str);
-
-					}
-
-					// вырезаем наш тэг и парсим
-					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
-						// ошибка установитс€ внутри
-						return false;
-					}
-
-					// и обрезаем текущую строку разбора
-					line = line.substr(end+1);
-
-				}; // while (true)
-
-			}; // while (!stream.eof())
-
-			if (currentNode) {
-				mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
-				return false;
-			}
-
-			return true;
 		}
 
 		bool xmlDocument::open(const std::string & _name)

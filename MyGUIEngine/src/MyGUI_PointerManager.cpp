@@ -26,13 +26,9 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
-		Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-		mOverlayElement = static_cast<SharedPanelAlphaOverlayElement *>(overlayManager.createOverlayElement(
-			"SharedPanelAlpha", Ogre::StringConverter::toString((size_t)this) + "_PointerManager" ));
-		// устанавливаем колличество саб оверлеев
-		mOverlayElement->setCountSharedOverlay(1);
-
-		mOverlayElement->setMetricsMode(Ogre::GMM_PIXELS);
+		mMousePointer = null;
+		mWidgetOwner = null;
+		mShow = false;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -43,14 +39,10 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		// удаляем все виджеты
+		_destroyAllChildWidget();
+
 		clear();
-		// отсоединяем
-		LayerManager::getInstance().detachItem(this);
-		// удадяем элемент
-		if (mOverlayElement != null) {
-			Ogre::OverlayManager::getSingleton().destroyOverlayElement(mOverlayElement);
-			mOverlayElement = null;
-		}
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -66,28 +58,20 @@ namespace MyGUI
 
 	void PointerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
+		std::string layer, def, text;
+
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator pointer = _node->getNodeIterator();
 		while (pointer.nextNode(XML_TYPE)) {
 
-			// значения параметров
-			std::string layer, defaultPointer;
-
 			// парсим атрибуты
 			pointer->findAttribute("layer", layer);
-			pointer->findAttribute("default", defaultPointer);
+			pointer->findAttribute("default", def);
 
 			// сохраняем
-			mMaterial = pointer->findAttribute("material");
-			mSize = IntSize::parse(pointer->findAttribute("size"));
+			text = pointer->findAttribute("texture");
 
-			// устанавливаем сразу параметры
-			mOverlayElement->setMaterialName(mMaterial);
-			mOverlayElement->setDimensionInfo(mSize.width, mSize.height, 0);
-			if (false == defaultPointer.empty()) mDefaultPointer = defaultPointer;
-			mLayer = layer;
-			FloatSize materialSize = SkinManager::getMaterialSize(mMaterial);
-
+			FloatSize textureSize = SkinManager::getTextureSize(text);
 
 			// берем детей и крутимся, основной цикл
 			xml::xmlNodeIterator info = pointer->getNodeIterator();
@@ -97,105 +81,157 @@ namespace MyGUI
 				FloatRect offset(0, 0, 1, 1);
 
 				// парсим атрибуты
-				std::string material(info->findAttribute("material"));
+				std::string texture(info->findAttribute("texture"));
 				std::string name(info->findAttribute("name"));
 				std::string size(info->findAttribute("size"));
 				IntPoint point = IntPoint::parse(info->findAttribute("point"));
 
 				std::string offset_str(info->findAttribute("offset"));
 				if (false == offset_str.empty()) {
-					if (material.empty()) offset = SkinManager::convertMaterialCoord(FloatRect::parse(offset_str), materialSize);
-					else offset = SkinManager::convertMaterialCoord(FloatRect::parse(offset_str), SkinManager::getMaterialSize(material));
+					if (texture.empty()) offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
+					else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), SkinManager::getTextureSize(texture));
 				}
 
 				// добавляем курсор
-				mMapPointers[name] = PointerInfo(offset, point, IntSize::parse(size), material);
+				if (mMapPointers.find(name) != mMapPointers.end()) {
+					MYGUI_LOG(Warning, "pointer '" << name << "' exist, erase old data");
+				}
+				mMapPointers[name] = PointerInfo(offset, point, IntSize::parse(size), texture);
 
 			};
 		};
 
-		// проверяем и инициализируем
-		if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
-		// подсоединяем к уровням
-		LayerManager::getInstance().attachItem(this, mLayer);
+		// если есть левел, то пересоеденяем, если нет виджета, то создаем
+		if (false == layer.empty()) {
+			if (null == mMousePointer) {
+				mMousePointer = _createWidget("Widget", "StaticImage", IntCoord(), ALIGN_DEFAULT, "", "");
+			}
+			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
+		}
 
-		this->defaultPointer();
+		// если есть дефолтный курсор то меняем
+		if (false == def.empty()) mDefaultPointer = def;
+		if (false == text.empty()) mTexture = text;
+
+		// если дефолтного нет, то пробуем первый из списка
+		if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
+
+		// ставим дефолтный указатель
+		setPointer(mDefaultPointer, null);
 	}
 
 	void PointerManager::clear()
 	{
-		mLayer.clear();
+		/*if (null != mMousePointer) {
+			WidgetManager::getInstance()._deleteWidget(mMousePointer);
+			mMousePointer = null;
+		}*/
+		mWidgetOwner = null;
 		mDefaultPointer.clear();
-		mMaterial.clear();
+		mTexture.clear();
 		mMapPointers.clear();
 	}
 
 	void PointerManager::show()
 	{
-		if (mOverlayElement == null) return;
-		if (mOverlayElement->isVisible()) return;
-		mOverlayElement->show();
+		if (null != mMousePointer) mMousePointer->show();
+		mShow = true;
 	}
 
 	void PointerManager::hide()
 	{
-		if (mOverlayElement == null) return;
-		if (false == mOverlayElement->isVisible()) return;
-		mOverlayElement->hide();
+		if (null != mMousePointer) mMousePointer->hide();
+		mShow = false;
 	}
 
 	void PointerManager::setPosition(const IntPoint& _pos)
 	{
-		if (mOverlayElement == null) return;
-		mOverlayElement->setPositionInfo(_pos.left - mPoint.left, _pos.top - mPoint.top, 0);
+		if (null != mMousePointer) mMousePointer->setPosition(_pos - mPoint);
 	}
 
 	void PointerManager::setPointer(const std::string & _name, WidgetPtr _owner)
 	{
+		if (null == mMousePointer) return;
+
 		MapPointerInfo::iterator iter = mMapPointers.find(_name);
 		if (iter == mMapPointers.end()) return;
 		const FloatRect & rect = iter->second.offset;
 
 		// если курсор имеет свой материал
-		if (false == iter->second.material.empty()) {
-			if (mOverlayElement->getMaterialName() != iter->second.material) mOverlayElement->setMaterialName(iter->second.material);
+		if (false == iter->second.texture.empty()) {
+			if (mMousePointer->_getTextureName() != iter->second.texture) mMousePointer->_setTextureName(iter->second.texture);
 		}
-		else if (false == mMaterial.empty()) {
-			if (mOverlayElement->getMaterialName() != mMaterial) mOverlayElement->setMaterialName(mMaterial);
+		else if (false == mTexture.empty()) {
+			if (mMousePointer->_getTextureName() != mTexture) mMousePointer->_setTextureName(mTexture);
 		}
-
-		// если курсор имеет свой размер
-		IntSize size(mSize);
-		if (0 < iter->second.size.width) size = iter->second.size;
 
 		// сдвигаем с учетом нового и старого смещения
-		mOverlayElement->setPositionInfo(mOverlayElement->getLeft()+mPoint.left-iter->second.point.left, mOverlayElement->getTop()+mPoint.top-iter->second.point.top, size.width, size.height, 0);
-		mOverlayElement->setUVInfo(rect.left, rect.top, rect.right, rect.bottom, 0);
+		if (null != mMousePointer) {
+			mMousePointer->setPosition(mMousePointer->getLeft()+mPoint.left-iter->second.point.left, mMousePointer->getTop()+mPoint.top-iter->second.point.top, iter->second.size.width, iter->second.size.height);
+			mMousePointer->_setUVSet(rect);
+		}
+
 		// и сохраняем новое смещение
 		mPoint = iter->second.point;
 		mWidgetOwner = _owner;
 	}
 
-	void PointerManager::attachToOverlay(Ogre::Overlay * _overlay)
-	{
-		_overlay->add2D(static_cast<Ogre::OverlayContainer*>(mOverlayElement));
-	}
-
-	void PointerManager::detachToOverlay(Ogre::Overlay * _overlay)
-	{
-		_overlay->remove2D(mOverlayElement);
-		// пока вручную обнуляем отца
-		mOverlayElement->setOverlay(0);
-	}
-
-	LayerItemInfoPtr PointerManager::findItem(int _left, int _top)
-	{
-		return null;
-	}
-
 	void PointerManager::_unlinkWidget(WidgetPtr _widget)
 	{
-		if (_widget == mWidgetOwner) defaultPointer();
+		if (_widget == mWidgetOwner) setPointer(mDefaultPointer, null);
+		else if (_widget == mMousePointer) mMousePointer = null;
+	}
+
+	// создает виджет
+	WidgetPtr PointerManager::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	{
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);
+		mWidgetChild.push_back(widget);
+		// присоединяем виджет с уровню
+		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
+		return widget;
+	}
+
+	// удяляет неудачника
+	void PointerManager::_destroyChildWidget(WidgetPtr _widget)
+	{
+		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
+
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		if (iter != mWidgetChild.end()) {
+
+			// сохраняем указатель
+			MyGUI::WidgetPtr widget = *iter;
+
+			// удаляем из списка
+			*iter = mWidgetChild.back();
+			mWidgetChild.pop_back();
+
+			// отписываем от всех
+			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
+
+			// непосредственное удаление
+			_deleteWidget(widget);
+		}
+		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+	}
+
+	// удаляет всех детей
+	void PointerManager::_destroyAllChildWidget()
+	{
+		WidgetManager & manager = WidgetManager::getInstance();
+		while (false == mWidgetChild.empty()) {
+
+			// сразу себя отписывем, иначе вложенной удаление убивает все
+			WidgetPtr widget = mWidgetChild.back();
+			mWidgetChild.pop_back();
+
+			// отписываем от всех
+			manager.unlinkFromUnlinkers(widget);
+
+			// и сами удалим, так как его больше в списке нет
+			_deleteWidget(widget);
+		}
 	}
 
 } // namespace MyGUI	

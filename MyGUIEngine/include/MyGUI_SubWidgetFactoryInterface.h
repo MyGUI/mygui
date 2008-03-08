@@ -16,26 +16,27 @@ namespace MyGUI
 	class _MyGUIExport SubWidgetFactoryInterface
 	{
 	public:
-        virtual ~SubWidgetFactoryInterface() {};
-
-		virtual void getNextId(size_t & _id) = 0;
-		virtual const Ogre::String & getType() = 0;
-		virtual CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectangleInterface * _parent, size_t & _id) = 0;
+		virtual const std::string & getType() = 0;
+		virtual CroppedRectangleInterface * createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) = 0;
 	};
 
 	template <class ClassName>
 	class CroppedRectangleFactory : public SubWidgetFactoryInterface
 	{
+
 	public:
-		void getNextId(size_t & _id) {if (ClassName::_isSharedOverlay())_id++;}
-		const Ogre::String & getType() {return ClassName::_getType();};
-		CroppedRectangleInterface * createSubWidget(const SubWidgetInfo& _info, const Ogre::String& _material, CroppedRectangleInterface* _parent, size_t & _id)
+		CroppedRectangleFactory(const std::string& _type) : mType(_type) {}
+
+		const std::string & getType() {return mType;};
+
+		CroppedRectangleInterface * createSubWidget(const SubWidgetInfo& _info, CroppedRectangleInterface* _parent)
 		{
-			ClassName * obj = new ClassName(_info, _material, _parent, _id);
-			getNextId(_id);
-			return  obj;
+			return new ClassName(_info, _parent);
 		}
-	}; // class CroppedRectangleFactory : public SubWidgetFactoryInterface
+	private:
+		std::string mType;
+
+	};
 
 } // namespace MyGUI
 

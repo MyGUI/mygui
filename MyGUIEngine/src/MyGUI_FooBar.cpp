@@ -9,16 +9,26 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_ControllerManager.h"
+#include "MyGUI_ControllerFadeAlpha.h"
+
+const float WINDOW_ALPHA_MAX = ALPHA_MAX;
+const float WINDOW_ALPHA_MIN = ALPHA_MIN;
+const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
+const float WINDOW_ALPHA_FOCUS = 0.7f;
+const float WINDOW_ALPHA_DEACTIVE = 0.3f;
+const float WINDOW_SPEED_COEF = 3.0f;
 
 namespace MyGUI
 {
 
-	FooBar::FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) : 
-		Widget(_coord, _align, _info, _parent, _name),
+	FooBar::FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) : 
+		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mSnapDistance(0),
 		mLayout(FBL_COORDS),
 		mWidth(70),
-		mMouseWidget(-1)
+		mMouseWidget(-1),
+		mDragging(false)
 	{
 		Gui::getInstance().addFrameListener(this);
 	}
@@ -45,6 +55,24 @@ namespace MyGUI
 		updateSize(_size);
 	}
 
+	void FooBar::showSmooth(bool _reset)
+	{
+		if (_reset) {
+			setAlpha(ALPHA_MIN);
+			show();
+		}
+
+		ControllerManager::getInstance().addItem(
+			this, new ControllerFadeAlpha(WINDOW_ALPHA_DEACTIVE,
+			WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+	}
+
+	void FooBar::hideSmooth()
+	{
+		ControllerManager::getInstance().addItem(
+			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+	}
+
 	void FooBar::_frameEntered(float _time)
 	{
 		IntPoint pt = InputManager::getInstance().getMousePosition();
@@ -58,11 +86,11 @@ namespace MyGUI
 				updateItemsLayout();
 			}
 			mMouseWidget = -1;
-
+			
 			return;
 		}
-		
 
+				
 		int n = (int)mItemsOrder.size();
 		for (int i = 0; i < n; i++)
 			if (checkPoint(pt.left, pt.top, mItemsOrder[i]))
@@ -73,15 +101,40 @@ namespace MyGUI
 					return;
 				}
 
-		
+
 	}
 
 	void FooBar::_onMouseDrag(int _left, int _top)
 	{
+		if (_checkPoint(_left, _top))
+			mDragging = true;
 		
-		
+		if (!mDragging)
+			return;
 
+		int width = (int)Gui::getInstance().getViewWidth();
+		int height = (int)Gui::getInstance().getViewHeight();
+
+		if (_left < mWidth)
+			setLayout(FBL_SNAP_LEFT);
+		else
+			if ((width - mWidth) < _left)
+				setLayout(FBL_SNAP_RIGHT);
+			else
+				if (_top < mWidth)
+					setLayout(FBL_SNAP_TOP);
+				else
+					if ((height - mWidth) < _top)
+						setLayout(FBL_SNAP_BOTTOM);
+		
 		Widget::_onMouseDrag(_left, _top);
+	}
+
+	void FooBar::_onMouseButtonReleased(bool _left)
+	{
+		mDragging = false;
+
+		Widget::_onMouseButtonReleased(_left);
 	}
 
 	bool FooBar::checkPoint(int left, int top, WidgetPtr widget)
@@ -120,6 +173,7 @@ namespace MyGUI
 			mLayout = layout;
 			updatePosition(getPosition());
 			updateSize(IntSize(mCoord.width, mCoord.height));
+			updateItemsLayout();
 		}else
 			mLayout = layout;
 	}
@@ -231,8 +285,8 @@ namespace MyGUI
 
 			if (mMouseWidget != -1)
 			{
-				if (abs(i - mMouseWidget) < 5)
-					sz = mWidth / (1.0 + 0.12 * abs(i - mMouseWidget));
+				if (abs(i - mMouseWidget) < 2)
+					sz = mWidth / (1.2 + 0.25 * abs(i - mMouseWidget));
 				else
 					sz = mWidth / 1.7;
 			}else
@@ -283,10 +337,14 @@ namespace MyGUI
 		}
 	}
 
-	void FooBar::addItem(const Ogre::String &name, const Ogre::String &material)
+	void FooBar::addItem(const Ogre::String &name, const Ogre::String &texture)
 	{
 		StaticImagePtr item = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), ALIGN_DEFAULT);
-		item->setImageMaterial(material);
+
+		if (false == Ogre::TextureManager::getSingleton().resourceExists(texture)) 
+			Ogre::TextureManager::getSingleton().load(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+		item->setImageTexture(texture);
 
 		_addChildItem(name, item);
 

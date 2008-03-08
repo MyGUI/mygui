@@ -5,20 +5,62 @@
 #include <OgrePanelOverlayElement.h>
 
 BasisManager::BasisManager() :
+	mInputManager(0),
+	mKeyboard(0),
+	mMouse(0),
 	mRoot(0),
-	//mCamera(0),
+	mCamera(0),
 	mSceneMgr(0),
 	mWindow(0),
 	m_exit(false),
 	mFpsInfo(0),
-	mGUI(0),
-	mFullscreen(false)
+	mGUI(0)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";
 	#else
 		mResourcePath = "";
 	#endif
+}
+
+void BasisManager::createInput() // создаем систему ввода
+{
+	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
+	OIS::ParamList pl;
+	size_t windowHnd = 0;
+	std::ostringstream windowHndStr;
+
+	mWindow->getCustomAttribute("WINDOW", &windowHnd);
+	windowHndStr << windowHnd;
+	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+
+	mInputManager = OIS::InputManager::createInputSystem( pl );
+
+	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
+	mKeyboard->setEventCallback(this);
+
+	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
+	mMouse->setEventCallback(this);
+
+	windowResized(mWindow); // инициализация
+}
+
+void BasisManager::destroyInput() // удаляем систему ввода
+{
+	if( mInputManager ) {
+		Ogre::LogManager::getSingletonPtr()->logMessage("*** Destroy OIS ***");
+
+		if (mMouse) {
+			mInputManager->destroyInputObject( mMouse );
+			mMouse = 0;
+		}
+		if (mKeyboard) {
+			mInputManager->destroyInputObject( mKeyboard );
+			mKeyboard = 0;
+		}
+		OIS::InputManager::destroyInputSystem(mInputManager);
+		mInputManager = 0;
+	}
 }
 
 void BasisManager::createBasisManager(void) // создаем начальную точки каркаса приложения
@@ -68,11 +110,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mRoot->addFrameListener(this);
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
-	// узнам в каком режиме экрана мы запущенны
-	mFullscreen = mRoot->getRenderSystem()->getConfigOptions().find("Full Screen")->second.currentValue == "Yes";
-
-	// создаем систему ввода
-	mInput.createInput(mWindow, mFullscreen, this, this);
+	createInput();
 
 	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
 	if (false == material.isNull()) {
@@ -105,8 +143,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr = 0;
 	}
 
-	// удаляем ввод
-	mInput.destroyInput();
+	destroyInput(); // удаляем ввод
 
 	if (mWindow) {
 		mWindow->destroy();
@@ -127,12 +164,10 @@ void BasisManager::createGui()
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(mWindow);
 
-	if (0 == mFpsInfo) {
-		/*mFpsInfo = mGUI->createWidget<MyGUI::StaticText>("StaticText", 20, (int)mHeight - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
-		mFpsInfo->setColour(Ogre::ColourValue::White);*/
-	}
-	// если оконное, то скрываем
-	if (!mFullscreen) mGUI->hidePointer();
+	/*if (0 == mFpsInfo) {
+		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mHeight - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
+		mFpsInfo->setColour(Ogre::ColourValue::White);
+	}*/
 }
 
 void BasisManager::destroyGui()
@@ -140,7 +175,7 @@ void BasisManager::destroyGui()
 	if (mGUI) {
 
 		if (mFpsInfo) {
-			mGUI->destroyWidget(mFpsInfo);
+			mGUI->destroyChildWidget(mFpsInfo);
 			mFpsInfo = 0;
 		}
 
@@ -190,7 +225,8 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 {
 	if (m_exit) return false;
 
-	mInput.capture();
+	if (mMouse) mMouse->capture();
+	mKeyboard->capture();
 
 	if (mFpsInfo) {
 		static float time = 0;
@@ -217,7 +253,8 @@ bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
 	mGUI->injectMouseMove(arg);
-	//this->mDemo.move((size_t)arg.state.X.abs);
+
+	mDemo.move(arg.state.X.abs, arg.state.Y.abs);
 
 	//MyGUI::MYGUI_OUT(arg.state.X.abs, "   ", arg.state.Y.abs);
 
@@ -227,10 +264,6 @@ bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	mGUI->injectMousePress(arg, id);
-
-	if (id == OIS::MB_Right) {
-		this->mDemo.press(arg.state.X.abs, arg.state.Y.abs);
-	}
 	return true;
 }
 
@@ -244,8 +277,6 @@ bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_ESCAPE ) {m_exit = true; return false;}
 	if ( arg.key == OIS::KC_SYSRQ ) {mWindow->writeContentsToFile("screenshot.png");}
-
-	if ( arg.key == OIS::KC_SPACE ) {setFullscreen(!isFullscreen());}
 
 	mGUI->injectKeyPress(arg);
 	return true;
@@ -262,96 +293,19 @@ void BasisManager::windowResized(Ogre::RenderWindow* rw)
 	mWidth = rw->getWidth();
 	mHeight = rw->getHeight();
 
-	mInput.windowResized(mWidth, mHeight);
+	if (mMouse) {
+		const OIS::MouseState &ms = mMouse->getMouseState();
+		ms.width = (int)mWidth;
+		ms.height = (int)mHeight;
+	}
 }
 
 void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 {
 	m_exit = true;
-	mInput.destroyInput();
+	destroyInput();
 }
 
-void BasisManager::setFullscreen(bool _fullscreen)
-{
-	if (mFullscreen != _fullscreen) {
-		mFullscreen = _fullscreen;
-
-		// если полноэкранное, то нужно не кривое разрешение
-		if (mFullscreen) correctResolution();
-
-		// физически переключаем режимы
-		mWindow->setFullscreen(mFullscreen, mWidth, mHeight);
-
-		MYGUI_LOG(Info, "Change video mode : " << (mFullscreen ? "fullscreen  " : "windowed  ") << mWidth << " x " << mHeight);
-
-		// переключаем мышку
-		mInput.setMouseExclusive(mFullscreen);
-
-		// если нужно скрываем курсор
-		if (mGUI) {
-			mFullscreen ? mGUI->showPointer() : mGUI->hidePointer();
-		}
-
-		// после коррекции разрешение может поменяться
-		windowResized(mWindow);
-	}
-}
-
-void BasisManager::correctResolution()
-{
-
-	typedef std::pair<size_t, size_t> PairResolution;
-	typedef std::vector<PairResolution> VectorPairResolution;
-
-	VectorPairResolution resolution;
-	
-	Ogre::ConfigOptionMap::iterator iter = mRoot->getRenderSystem()->getConfigOptions().find("Video Mode");
-
-	size_t width, height;
-	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++) {
-		std::string tmp;
-		std::istringstream str(iter->second.possibleValues[j]);
-		str >> width >> tmp >> height;
-
-		resolution.push_back(PairResolution(width, height));
-	}
-
-	if (resolution.empty()) {
-		MYGUI_LOG(Error, "no find resolution info");
-		return;
-	}
-
-	// это минимум
-	width = 640;
-	height = 480;
-
-	// ищем максимально приближенное по горизонтали и вертикали
-	for (VectorPairResolution::iterator iter=resolution.begin(); iter!=resolution.end(); ++iter) {
-		if ((*iter).first == mWidth) {
-			width = mWidth;
-			break;
-		}
-		if (((*iter).first > width) && ((*iter).first < mWidth)) {
-			width = (*iter).first;
-		}
-	}
-
-	for (VectorPairResolution::iterator iter=resolution.begin(); iter!=resolution.end(); ++iter) {
-		if ((*iter).first != width) continue;
-
-		if ((*iter).second == mHeight) {
-			height = mHeight;
-			break;
-		}
-
-		if (((*iter).second > height) && ((*iter).second < mHeight)) {
-			height = (*iter).second;
-		}
-	}
-
-	mWidth = width;
-	mHeight = height;
-}
 //=======================================================================================
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN

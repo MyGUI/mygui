@@ -29,16 +29,16 @@ namespace MyGUI
 
 	typedef std::vector<TabSheetInfo> VectorTabSheetInfo;
 
-	class Tab;
-	typedef Tab* TabPtr;
-
 	class _MyGUIExport Tab : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::TabFactory;
+		// для уведобления об удалении
+		friend class Sheet;
 
 	protected:
-		Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Tab();
 
 		void updateBar();
 
@@ -51,13 +51,16 @@ namespace MyGUI
 
 		void _createSheetButton();
 
+		// вкладка при удалении уведомляет таб
+		void _notifyDeleteSheet(SheetPtr _sheet);
+
 	public:
 		// тип данного виджета
 		inline static const Ogre::String & _getType() {static Ogre::String type("Tab"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// переопределяем для особого обслуживания страниц
-		virtual WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "");
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
@@ -188,6 +191,9 @@ namespace MyGUI
 		int mButtonDefaultWidth;
 		bool mSmoothShow;
 		bool mButtonAutoWidth;
+
+		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
+		bool mShutDown;
 
 	};
 

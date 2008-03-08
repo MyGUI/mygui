@@ -35,9 +35,9 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
-		static FloatSize getMaterialSize(const std::string & _material);
+		static FloatSize getTextureSize(const std::string & _texture);
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
-		static FloatRect convertMaterialCoord(const FloatRect & _source, const FloatSize & _materialSize);
+		static FloatRect convertTextureCoord(const FloatRect & _source, const FloatSize & _textureSize);
 
 
 	private:

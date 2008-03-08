@@ -19,16 +19,16 @@ namespace MyGUI
 		friend class factory::StaticImageFactory;
 
 	protected:
-		StaticImage(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		StaticImage(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета
 		inline static const Ogre::String & _getType() {static Ogre::String type("StaticImage"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		void setImageInfo(const std::string & _material, const FloatSize & _tile);
-		void setImageInfo(const std::string & _material, const FloatRect & _rect, const FloatSize & _tile);
-		void setImageMaterial(const std::string & _material);
+		void setImageInfo(const std::string & _texture, const FloatSize & _tile);
+		void setImageInfo(const std::string & _texture, const FloatRect & _rect, const FloatSize & _tile);
+		void setImageTexture(const std::string & _texture);
 
 		inline void setImageRect(const FloatRect & _rect)
 		{
@@ -54,8 +54,6 @@ namespace MyGUI
 		FloatSize mSizeTexture;
 		// текущая картинка
 		size_t mNum;
-		// единственный сабскин нашего виджета
-		CroppedRectanglePtr mElementSkin;
 
 	}; // class StaticImage : public Widget
 
