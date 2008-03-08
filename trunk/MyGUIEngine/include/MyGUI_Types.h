@@ -53,7 +53,7 @@ namespace MyGUI
 				if (_value[0] == '#') {
 					int ret = 0;
 					if (1 == sscanf(_value.c_str(), "#%X", &ret))
-						return Ogre::ColourValue( unsigned char( ret >> 16 ) / 256.0f, unsigned char( ret >> 8 ) / 256.0f, unsigned char( ret ) / 256.0f );
+						return Ogre::ColourValue( (unsigned char)( ret >> 16 ) / 256.0f, (unsigned char)( ret >> 8 ) / 256.0f, (unsigned char)( ret ) / 256.0f );
 				}
 				else {
 					float red, green, blue, alpha = 1;

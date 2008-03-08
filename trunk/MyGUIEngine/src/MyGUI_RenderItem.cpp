@@ -176,7 +176,7 @@ namespace MyGUI
 		mOutDate = true;
 	}*/
 
-	inline void RenderItem::removeDrawItem(DrawItem * _item)
+	void RenderItem::removeDrawItem(DrawItem * _item)
 	{
 		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
 			if ((*iter).first == _item) {

@@ -10,7 +10,7 @@
 namespace MyGUI
 {
 
-	inline void WidgetCreator::_deleteWidget(WidgetPtr _widget)
+	void WidgetCreator::_deleteWidget(WidgetPtr _widget)
 	{
 		delete _widget;
 	}
