@@ -7,13 +7,20 @@
 #include "MyGUI_HScroll.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Button.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
 
-	HScroll::HScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		VScroll(_coord, _align, _info, _parent, _name)
+	HScroll::HScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		VScroll(_coord, _align, _info, _parent, _creator, _name)
 	{
+		// парсим свойство
+		const MapString & param = _info->getParams();
+		MapString::const_iterator iter = param.find("TrackRangeMargins");
+		if (iter != param.end()) {
+			mSkinRangeEnd += mWidgetTrack->getWidth() - mWidgetTrack->getHeight();
+		}
 	}
 
 	void HScroll::updateTrack()

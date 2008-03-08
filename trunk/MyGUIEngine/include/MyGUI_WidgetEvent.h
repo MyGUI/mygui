@@ -106,12 +106,12 @@ namespace MyGUI
 		/*	событие : корневой виджет изменил фокус мыши, изменение без дочерних элементов*/
 		/* инфо : это событие получает только корневой виджет*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/
-		EventInfo_WidgetBool  eventMouseChangeRootFocus;
+		EventInfo_WidgetBool  eventRootMouseChangeFocus;
 
 		/*	событие : корневой виджет изменил фокус клавы, изменение без дочерних элементов*/
 		/* инфо : это событие получает только корневой виджет*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/
-		EventInfo_WidgetBool  eventKeyChangeRootFocus;
+		EventInfo_WidgetBool  eventRootKeyChangeFocus;
 
 		/* event : общее расшир€емое событие дл€ плагинов или особых случаев*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
@@ -194,13 +194,13 @@ namespace MyGUI
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onMouseChangeRootFocus(bool _focus)
 		{
-			eventMouseChangeRootFocus(mWidgetEventSender, _focus);
+			eventRootMouseChangeFocus(mWidgetEventSender, _focus);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
 		virtual void _onKeyChangeRootFocus(bool _focus)
 		{
-			eventKeyChangeRootFocus(mWidgetEventSender, _focus);
+			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
 		}
 
 		// нужен ли виджету ввод с клавы

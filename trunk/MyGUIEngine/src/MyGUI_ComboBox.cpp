@@ -13,6 +13,7 @@
 #include "MyGUI_List.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
@@ -21,8 +22,8 @@ namespace MyGUI
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
-	ComboBox::ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name) :
-		Edit(_coord, _align, _info, _parent, _name),
+	ComboBox::ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+		Edit(_coord, _align, _info, _parent, _creator, _name),
 		mButton(null),
 		mList(null),
 		mListShow(false),
@@ -46,9 +47,14 @@ namespace MyGUI
 		iter = param.find("ListLayer");
 		if (iter != param.end()) listLayer = iter->second;
 
-		// создаем список
-		mList = Gui::getInstance().createWidget<List>(listSkin, IntCoord(), ALIGN_DEFAULT, listLayer);
+		// ручками создаем список
+		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::_getType(), listSkin, IntCoord(), ALIGN_DEFAULT, null, this, ""));
+		// присоединяем виджет с уровню и не добавляем себе
+		LayerManager::getInstance().attachToLayerKeeper(listLayer, mList);
+
+		//mList = static_cast<List>(_createWidget(List::_getType(), listSkin, IntCoord(), ALIGN_DEFAULT, listLayer, ""));
 		mList->_setOwner(this);
+
 		mList->hide();
 		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
 		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
@@ -71,11 +77,18 @@ namespace MyGUI
 		mWidgetUpper->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
 		mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
-		mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
-		mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
+		//mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
+		//mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
 		// подписываемся на изменения текста
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
+	}
+
+	ComboBox::~ComboBox()
+	{
+		// чтобы теперь удалить, виджет должен быть в нашем списке
+		mWidgetChild.push_back(mList);
+		WidgetManager::getInstance().destroyWidget(mList);
 	}
 
 	void ComboBox::notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left)

@@ -56,6 +56,20 @@ void BasisManager::createInput() // создаем систему ввода
 	windowHndStr << windowHnd;
 	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
+#ifdef NO_EXCLUSIVE_INPUT
+	#if defined OIS_WIN32_PLATFORM
+	pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
+	pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+	pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
+	pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
+	#elif defined OIS_LINUX_PLATFORM
+	pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
+	pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+	pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
+	pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
+	#endif
+#endif
+
 	mInputManager = OIS::InputManager::createInputSystem( pl );
 
 	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
@@ -73,20 +87,20 @@ void BasisManager::createInput() // создаем систему ввода
 
 	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
 	if (false == material.isNull()) {
-		Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
+		/*Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
 		Ogre::Overlay * overlay = manager.create("wallpaper");
 		overlay->setZOrder(0);
 		overlay->show();
 		Ogre::PanelOverlayElement * panel = static_cast<Ogre::PanelOverlayElement*>(manager.createOverlayElement("Panel", "wallpaper"));
-		panel->setDimensions(1, 1);
+		panel->setDimensions(1, 1);*/
 		/*Ogre::FontPtr mpFont = Ogre::FontManager::getSingleton().getByName("MyGUI_font");
 		mpFont->load();
 		if (!mpFont.isNull()) {
 			const Ogre::MaterialPtr & material2 = mpFont->getMaterial();
 			panel->setMaterialName(material2->getName());
 		}*/
-		panel->setMaterialName(material->getName());
-		overlay->add2D(panel);
+		/*panel->setMaterialName(material->getName());
+		overlay->add2D(panel);*/
 	}
 }
 void BasisManager::destroyInput() // удаляем систему ввода
@@ -127,9 +141,11 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mWindow = mRoot->initialise(true, "MyGUI Layout Editor");
 	mWidth = mWindow->getWidth();
 	mHeight = mWindow->getHeight();
+#ifdef WIN32
+	g_setMainWindowInfo("MyGUI Layout Editor", IDI_ICON);
+#endif
 
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BasisSceneManager");
-
 	mCamera = mSceneMgr->createCamera("BasisCamera");
 	mCamera->setNearClipDistance(5);
 	mCamera->setPosition(Ogre::Vector3(200, 200, 200));
@@ -152,12 +168,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	createInput();
-
 	changeState(&mEditor);
-
-#ifdef WIN32
-	g_setMainWindowInfo("MyGUI Layout Editor", IDI_ICON);
-#endif
 
 	mRoot->startRendering();
 }

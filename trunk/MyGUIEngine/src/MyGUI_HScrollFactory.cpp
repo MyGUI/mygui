@@ -33,9 +33,9 @@ namespace MyGUI
 			return HScroll::_getType();
 		}
 
-		WidgetPtr HScrollFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr HScrollFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
-			return new HScroll(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new HScroll(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 	} // namespace factory

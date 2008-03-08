@@ -24,7 +24,7 @@ namespace MyGUI
 		friend class factory::RenderBoxFactory;
 
 	protected:
-		RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		RenderBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~RenderBox();
 
 	public:
@@ -47,11 +47,18 @@ namespace MyGUI
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.
 			@param
-				_speed of rotation in degrees per second. If 0 then turn rotation off.
+				_speed of rotation in degrees per second.
 		*/
-		void setAutorotationSpeed(int _speed = RENDER_BOX_AUTO_ROTATION_SPEED);
+		void setAutoRotationSpeed(int _speed = RENDER_BOX_AUTO_ROTATION_SPEED);
 		/** Get speed of entity rotation.*/
-		inline int getAutorotationSpeed() {return mRotationSpeed;};
+		inline int getAutoRotationSpeed() {return mRotationSpeed;};
+
+		/** Enable or disable auto rotation
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
+		*/
+		void setAutoRotation(bool _auto);
+		inline bool getAutoRotation() {return mAutoRotation;}
 
 		/** Set colour behind entity.
 			@remarks
@@ -61,11 +68,9 @@ namespace MyGUI
 		/** Get colour behind entity.*/
 		inline const Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
 
-		/** Set rotation angle of entity.
+		/** Set start rotation angle of entity.
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.
-			@note
-				Example: use this if your mesh look at other than Vector3(1,0,0) direction.
 		*/
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 
@@ -88,15 +93,12 @@ namespace MyGUI
 	protected:
 		void _frameEntered(float _time);
 
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-
 		void _onMouseDrag(int _left, int _top);
 		void _onMouseButtonPressed(bool _left);
 		void _onMouseButtonReleased(bool _left);
 
 	private:
-		void createRenderMaterial();
+		void createRenderTexture();
 		void updateViewport();
 
 		bool mUserViewport;
@@ -104,14 +106,10 @@ namespace MyGUI
 		Ogre::SceneManager * mScene;
 		Ogre::Entity * mEntity;
 		Ogre::SceneNode * mNode;
-		Ogre::String mMaterial;
 		Ogre::RenderTexture* mTexture;
 
 		Ogre::Camera* mRttCam;
 		Ogre::SceneNode* mCamNode;
-
-		// единственный сабскин нашего виджета
-		CroppedRectanglePtr mElementSkin;
 
 		int mRotationSpeed;
 		Ogre::ColourValue mBackgroungColour;
@@ -120,6 +118,8 @@ namespace MyGUI
 
 		std::string mPointerKeeper;
 		bool mLeftPressed;
+
+		bool mAutoRotation;
 
 	}; // class RenderBox : public Widget
 

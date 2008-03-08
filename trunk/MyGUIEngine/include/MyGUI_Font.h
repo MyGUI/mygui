@@ -79,7 +79,7 @@ namespace MyGUI
 		Ogre::uint8 mCharSpacer;
 
 		// отдельная информация о символах
-		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo;
+		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
 
 		// символы которые не нужно рисовать
 		VectorPairCodePoint mVectorHideCodePoint;
@@ -88,12 +88,6 @@ namespace MyGUI
 
 		// вся информация о символах
 		VectorRangeInfo mVectorRangeInfo;
-
-        /// The material which is generated for this font
-		Ogre::MaterialPtr mpMaterial;
-
-        /// The material which is generated for this font
-		Ogre::MaterialPtr mpMaterialSelectedFont;
 
 		/// Texture pointer
 		Ogre::TexturePtr mTexture;
@@ -119,6 +113,7 @@ namespace MyGUI
 		GlyphInfo * getTabGlyphInfo() {return & mTabGlyphInfo;}
 		GlyphInfo * getSelectGlyphInfo() {return & mSelectGlyphInfo;}
 		GlyphInfo * getSelectDeactiveGlyphInfo() {return & mSelectDeactiveGlyphInfo;}
+		GlyphInfo * getCursorGlyphInfo() {return & mCursorGlyphInfo;}
 
 		void setSource(const Ogre::String& source) { mSource = source; }
 		const Ogre::String& getSource(void) const { return mSource; }
@@ -157,11 +152,8 @@ namespace MyGUI
 			mVectorHideCodePoint.clear();
 		}
 
-        inline const Ogre::MaterialPtr& getMaterial() const { return mpMaterial; }
-        inline const Ogre::MaterialPtr& getMaterial() {return mpMaterial; }
-
-		inline const Ogre::MaterialPtr& getMaterialSelectedFont() const { return mpMaterialSelectedFont; }
-		inline const Ogre::MaterialPtr& getMaterialSelectedFont() { return mpMaterialSelectedFont; }
+		inline const Ogre::TexturePtr& getTextureFont() const { return mTexture; }
+		inline const Ogre::TexturePtr& getTextureFont() { return mTexture; }
 
         inline void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
         inline bool getAntialiasColour(void) const { return mAntialiasColour; }

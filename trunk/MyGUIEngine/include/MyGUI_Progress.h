@@ -20,7 +20,7 @@ namespace MyGUI
 		friend class factory::ProgressFactory;
 
 	protected:
-		Progress(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Progress(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		~Progress();
 
 		void _frameEntered(float _time);

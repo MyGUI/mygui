@@ -1,50 +1,30 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		11/2007
+	@date		02/2008
 	@module
 */
 #include "MyGUI_SubSkin.h"
-#include "MyGUI_Utility.h"
+#include "MyGUI_RenderItem.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
 
-	SubSkin::SubSkin(const SubWidgetInfo &_info, const Ogre::String & _material, CroppedRectanglePtr _parent, size_t _id) :
+	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
+
+	SubSkin::SubSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
 		CroppedRectangleInterface(_info.coord, _info.align, _parent),
-		mId(_id),
-		mTransparent(false)
+		mEmptyView(false),
+		mRenderItem(null),
+		mCurrentCoord(_info.coord),
+		mCurrentAlpha(0xFFFFFFFF)
 	{
-
-		// если мы первые, то создаем оверлей
-		if (mId == 0) {
-			Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-
-			mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>(overlayManager.createOverlayElement(
-				"SharedPanelAlpha", utility::toString("SubSkin_", this)) );
-
-			// устанавливаем колличество саб оверлеев
-			mOverlayContainer->setCountSharedOverlay(_parent->_getCountSharedOverlay());
-
-			//mOverlayContainer->setMetricsMode(Ogre::GMM_PIXELS);
-			mOverlayContainer->setPositionInfo(mParent->getLeft() + mCoord.left, mParent->getTop() + mCoord.top, mCoord.width, mCoord.height, mId);
-			if (false == _material.empty()) mOverlayContainer->setMaterialName(_material);
-
-			mParent->_attachChild(this, false);
-		}
-		// мы должны пользоваться общим оверлеем
-		else {
-			mOverlayContainer = static_cast<SharedPanelAlphaOverlayElement*>(_parent->_getSharedOverlayElement());
-		}
-
+		mManager = LayerManager::getInstancePtr();
 	}
 
 	SubSkin::~SubSkin()
 	{
-		if ((mOverlayContainer == null) || (mId != 0)) return;
-		// с защитой от удаления после шутдауна рендера
-		Ogre::OverlayManager * manager = Ogre::OverlayManager::getSingletonPtr();
-		if (manager != null) manager->destroyOverlayElement(mOverlayContainer);
 	}
 
 	void SubSkin::show()
@@ -52,7 +32,7 @@ namespace MyGUI
 		if (mShow) return;
 		mShow = true;
 
-		mOverlayContainer->show();
+		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::hide()
@@ -60,32 +40,19 @@ namespace MyGUI
 		if (false == mShow) return;
 		mShow = false;
 
-		mOverlayContainer->hide();
+		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::setAlpha(float _alpha)
 	{
-		Ogre::uint8 colour[4] = {255, 255, 255, (Ogre::uint8)(_alpha*255)};
-		mOverlayContainer->setColour(*(Ogre::uint32*)colour);
-	}
-
-	void SubSkin::_attachChild(CroppedRectanglePtr _basis, bool _child)
-	{
-		if (mId == 0) mOverlayContainer->addChild(_basis->_getOverlayElement());
-	}
-
-	Ogre::OverlayElement* SubSkin::_getOverlayElement()
-	{
-		// возвращаем, если только мы главные
-		if (mId != 0) return null;
-		return mOverlayContainer;
+		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
+		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::_correctView()
 	{
-		// либо просто двигаться, либо с учетом выравнивания отца
-		if (mParent->getParent()) mOverlayContainer->setPositionInfo(mCoord.left + mParent->getLeft() - mParent->getParent()->getMarginLeft() + mMargin.left, mCoord.top + mParent->getTop() - mParent->getParent()->getMarginTop() + mMargin.top, mId);
-		else mOverlayContainer->setPositionInfo(mCoord.left + mParent->getLeft(), mCoord.top + mParent->getTop(), mId);
+		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::_setAlign(const IntCoord& _coord, bool _update)
@@ -138,20 +105,21 @@ namespace MyGUI
 			need_update = true;
 		}
 
-		if (need_update) _updateView();
+		if (need_update) {
+			mCurrentCoord = mCoord;
+			_updateView();
+		}
 
 	}
 
 	void SubSkin::_updateView()
 	{
-
 		bool margin = _checkMargin();
 
-		// двигаем всегда, т.к. дети должны двигаться
-		int x = mCoord.left + mParent->getLeft() - (mParent->getParent() ? mParent->getParent()->getMarginLeft() : 0) + mMargin.left;
-		int y = mCoord.top + mParent->getTop() - (mParent->getParent() ? mParent->getParent()->getMarginTop() : 0) + mMargin.top;
+		mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
-		mOverlayContainer->setPositionInfo(x, y, mId);
+		mCurrentCoord.left = mCoord.left + mMargin.left;
+		mCurrentCoord.top = mCoord.top + mMargin.top;
 
 		// вьюпорт стал битым
 		if (margin) {
@@ -160,26 +128,25 @@ namespace MyGUI
 			if (_checkOutside()) {
 
 				// скрываем
-				_setTransparent(true);
+				//mEmptyView = true;
+				//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
+				// обновить перед выходом
+				if (null != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
-
 		}
 
 		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
 
-			int cx = getViewWidth();
-			if (cx < 0) cx = 0;
-			int cy = getViewHeight();
-			if (cy < 0) cy = 0;
+			mCurrentCoord.width = getViewWidth();
+			mCurrentCoord.height = getViewHeight();
 
-			mOverlayContainer->setDimensionInfo(cx, cy, mId);
-
-			if (cx && cy) {
+			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0)) {
 
 				// теперь смещаем текстуру
 				float UV_lft = mMargin.left / (float)mCoord.width;
@@ -195,22 +162,27 @@ namespace MyGUI
 				float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
 				float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
 
-				mOverlayContainer->setUVInfo(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total, mId);
-
+				mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 			}
+		}
 
+		if ((mIsMargin) && (false == margin)) {
+			// мы не обрезаны, но были, ставим базовые координаты
+			mCurrentTexture = mRectTexture;
 		}
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
-		// если скин был скрыт, то покажем
-		_setTransparent(false);
 
+		// если скин был скрыт, то покажем
+		//mEmptyView = false;
+		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+
+		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::_setUVSet(const FloatRect& _rect)
 	{
-		MYGUI_DEBUG_ASSERT(null != mOverlayContainer, "overlay is not create");
 		mRectTexture = _rect;
 
 		// если обрезаны, то просчитываем с учето обрезки
@@ -229,12 +201,93 @@ namespace MyGUI
 			float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
 			float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
 
-			mOverlayContainer->setUVInfo(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total, mId);
+			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+
 		}
 
 		// мы не обрезаны, базовые координаты
-		else mOverlayContainer->setUVInfo(mRectTexture.left, mRectTexture.top, mRectTexture.right, mRectTexture.bottom, mId);
+		else {
+			mCurrentTexture = mRectTexture;
 
+		}
+
+		if (null != mRenderItem) mRenderItem->outOfDate();
+
+	}
+
+	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
+	{
+		if ((false == mShow) || mEmptyView) return 0;
+
+		float vertex_z = mManager->getMaximumDepth();
+		//vertex_z = 0;
+
+		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
+		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
+		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
+
+		// first triangle - left top
+		_vertex[0].x = vertex_left;
+		_vertex[0].y = vertex_top;
+		_vertex[0].z = vertex_z;
+		_vertex[0].colour = mCurrentAlpha;
+		_vertex[0].u = mCurrentTexture.left;
+		_vertex[0].v = mCurrentTexture.top;
+		
+
+		// first triangle - left bottom
+		_vertex[1].x = vertex_left;
+		_vertex[1].y = vertex_bottom;
+		_vertex[1].z = vertex_z;
+		_vertex[1].colour = mCurrentAlpha;
+		_vertex[1].u = mCurrentTexture.left;
+		_vertex[1].v = mCurrentTexture.bottom;
+
+		// first triangle - right top
+		_vertex[2].x = vertex_right;
+		_vertex[2].y = vertex_top;
+		_vertex[2].z = vertex_z;
+		_vertex[2].colour = mCurrentAlpha;
+		_vertex[2].u = mCurrentTexture.right;
+		_vertex[2].v = mCurrentTexture.top;
+
+		// second triangle - right top
+		_vertex[3].x = vertex_right;
+		_vertex[3].y = vertex_top;
+		_vertex[3].z = vertex_z;
+		_vertex[3].colour = mCurrentAlpha;
+		_vertex[3].u = mCurrentTexture.right;
+		_vertex[3].v = mCurrentTexture.top;
+
+		// second triangle = left bottom
+		_vertex[4].x = vertex_left;
+		_vertex[4].y = vertex_bottom;
+		_vertex[4].z = vertex_z;
+		_vertex[4].colour = mCurrentAlpha;
+		_vertex[4].u = mCurrentTexture.left;
+		_vertex[4].v = mCurrentTexture.bottom;
+
+		// second triangle - right botton
+		_vertex[5].x = vertex_right;
+		_vertex[5].y = vertex_bottom;
+		_vertex[5].z = vertex_z;
+		_vertex[5].colour = mCurrentAlpha;
+		_vertex[5].u = mCurrentTexture.right;
+		_vertex[5].v = mCurrentTexture.bottom;
+
+		return SUBSKIN_COUNT_VERTEX;
+	}
+
+	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
+	{
+		mRenderItem = _item;
+		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
+	}
+
+	void SubSkin::_destroyDrawItem()
+	{
+		mRenderItem->removeDrawItem(this);
 	}
 
 } // namespace MyGUI

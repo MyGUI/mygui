@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_workspace_file>
-	<Workspace title="Workspace">
-		<Project filename="MyGUIEngine/MyGUIEngine.cbp" />
-		<Project filename="TestApp/TestApp.cbp" active="1">
-			<Depends filename="MyGUIEngine/MyGUIEngine.cbp" />
-		</Project>
-	</Workspace>
-</CodeBlocks_workspace_file>

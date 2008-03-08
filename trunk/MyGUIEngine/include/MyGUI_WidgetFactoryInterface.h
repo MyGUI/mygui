@@ -19,7 +19,7 @@ namespace MyGUI
         virtual ~WidgetFactoryInterface() {}
 
 		virtual const Ogre::String& getType() = 0;
-		virtual WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name) = 0;
+		virtual WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name) = 0;
 	};
 
 	#if MYGUI_DEBUG_MODE == 1

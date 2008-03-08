@@ -24,7 +24,7 @@ namespace MyGUI
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name);
+			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name);
 
 			// методы для парсинга
 			void Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
@@ -38,6 +38,7 @@ namespace MyGUI
 			void Widget_State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_Enabled(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

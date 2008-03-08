@@ -15,6 +15,8 @@
 namespace MyGUI
 {
 
+	//std::
+
 	class _MyGUIExport LayoutManager
 	{
 		INSTANCE_HEADER(LayoutManager);
@@ -25,10 +27,14 @@ namespace MyGUI
 
 		VectorWidgetPtr load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
+
+		//void unload(const std::string & _file);
+
 	private:
 		void parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);
 		void parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent);
 
+	private:
 		// для возврата последней загрузки
 		VectorWidgetPtr mVectorWidgetPtr;
 		

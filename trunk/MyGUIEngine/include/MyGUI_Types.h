@@ -34,7 +34,13 @@ namespace MyGUI
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::vector<std::string> VectorString;
 
-	typedef std::vector<std::string> VectorUTFString;
+	typedef char int8;
+	typedef short int16;
+	typedef int int32;
+	typedef unsigned char uint8;
+	typedef unsigned short uint16;
+	typedef unsigned int uint32;
+	typedef unsigned int uint;
 
 	namespace utility
 	{

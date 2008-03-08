@@ -23,7 +23,7 @@ namespace MyGUI
 		// ïîêàçûâàòü ëè òåíü òåêñòà
 		const bool __DEBUG_SHOW_SHADOW = 1;
 		// øğèôò ïî óìîë÷àíèş
-		const char * __DEBUG_FONT_DEFAULT = "Comic.16";//BlueHighway";
+		const char * __DEBUG_FONT_DEFAULT = "BlueHighway";
 		// ğàçìåğ øğèôòà
 		const float __DEBUG_FONT_SIZE = 16;
 		// öâåò øğèôòà
@@ -137,7 +137,7 @@ namespace MyGUI
 			std::string str_out;
 			str_out.reserve(2048);
 
-			for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); iter++) {
+			for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); ++iter) {
 				str_out += utility::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + utility::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
 			}
 

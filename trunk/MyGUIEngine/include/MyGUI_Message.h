@@ -68,7 +68,7 @@ namespace MyGUI
 		typedef delegates::IDelegate2<WidgetPtr, ViewInfo> EventMessageEnd;
 
 	protected:
-		Message(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		Message(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 		void updateSize();
 		void notifyButtonClick(MyGUI::WidgetPtr _sender);
@@ -82,7 +82,7 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {static Ogre::String type("Message"); return type;}
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		/** setMessage text*/
+		/** Set message text*/
 		void setMessage(const Ogre::DisplayString & _message);
 
 		/** Create button with specific name*/
@@ -91,12 +91,15 @@ namespace MyGUI
 		/** Create button using ViewValueInfo*/
 		void setButton(ViewInfo _info);
 
-		/** set smooth Window showing*/
+		/** Set smooth message showing*/
 		void setSmoothShow(bool _smooth);
 
-		/** get name of default layer*/
+		/** Get name of default layer for Message*/
 		inline const std::string & getDefaultLayer() {return mDefaultLayer;}
+
+		/** Set message image*/
 		void setMessageImage(size_t _image);
+		/** Set fade under message*/
 		void setWindowFade(bool _fade);
 
 		/** static method for creating message with one command
@@ -141,8 +144,9 @@ namespace MyGUI
 		}
 
 	public:
-		/*	событие : надата кнопка на окне сообщений*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);*/
+		/** Event : button on message window pressed.\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
+		*/
 		EventInfo_WidgetMessage eventMessageBoxEnd;
 
 	private:
@@ -161,6 +165,7 @@ namespace MyGUI
 		std::string mFadeSkin, mFadeLayer;
 		WidgetPtr mWidgetFade;
 		StaticImagePtr mIcon;
+
 	}; // class _MyGUIExport Message : public Window
 
 } // namespace MyGUI

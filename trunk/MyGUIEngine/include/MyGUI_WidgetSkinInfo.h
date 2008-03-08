@@ -24,10 +24,10 @@ namespace MyGUI
 			checkState("normal");
 		}
 
-		void setInfo(const IntSize & _size, const std::string &_material)
+		void setInfo(const IntSize & _size, const std::string &_texture)
 		{
 			mSize = _size;
-			mMaterial = _material;
+			mTexture = _texture;
 		}
 
 		void addInfo(const SubWidgetBinding & _bind)
@@ -56,7 +56,7 @@ namespace MyGUI
 	private:
 		void checkState(const MapSubWidgetStateInfo & _states)
 		{
-			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
+			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
 				checkState(iter->first);
 			}
 		}
@@ -74,7 +74,7 @@ namespace MyGUI
 		inline void checkBasis()
 		{
 			// и увеличиваем размер смещений по колличеству сабвиджетов
-			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); iter++) {
+			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
 				while (iter->second.offsets.size() < mBasis.size()) {
 					iter->second.offsets.push_back(FloatRect(0, 0, 1, 1));
 				};
@@ -83,7 +83,7 @@ namespace MyGUI
 
 		inline void fillState(const MapSubWidgetStateInfo & _states, size_t _index)
 		{
-			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); iter ++) {
+			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
 				// выставляем смещение для текущего саб скина
 				mStates[iter->first].offsets[_index] = iter->second.offset;
 				// если нужно то выставляем цвета
@@ -95,7 +95,7 @@ namespace MyGUI
 
 	public:
 		inline const IntSize & getSize() const {return mSize;}
-		inline const std::string & getMaterial() const {return mMaterial;}
+		inline const std::string & getTextureName() const {return mTexture;}
 		inline const VectorSubWidgetInfo & getBasisInfo() const {return mBasis;}
 		inline const MapWidgetStateInfo & getStateInfo() const {return mStates;}
 		inline const MapString & getParams() const {return mParams;}
@@ -104,7 +104,7 @@ namespace MyGUI
 
 	private:
 		IntSize mSize;
-		std::string mMaterial;
+		std::string mTexture;
 		VectorSubWidgetInfo mBasis;
 		MapWidgetStateInfo mStates;
 		// дополнительные параметры скина
