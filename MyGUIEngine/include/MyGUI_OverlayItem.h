@@ -14,6 +14,8 @@
 
 namespace MyGUI
 {
+	typedef std::pair<DrawItem *, size_t> DrawItemInfo;
+	typedef std::vector<DrawItemInfo> VectorDrawItem;
 
 	class _MyGUIExport OverlayItem
 	{

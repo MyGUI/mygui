@@ -366,7 +366,7 @@ namespace MyGUI
 		}
 	}
 
-	inline void Gui::destroyWidget(WidgetPtr _widget)
+	void Gui::destroyWidget(WidgetPtr _widget)
 	{
 		mWidgetManager->destroyWidget(_widget);
 	}
