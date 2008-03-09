@@ -8,3 +8,6 @@ sh bootstrap
 ./configure
 make
 make install
+
+For Code::Blocs users there are MyGUIEngine/MyGUIEngin.cbp and LayoutEditor/LayoutEditor.cbp
+But be careful this files can be outdated because of no one from MyGUI developers use Code::Blocs.
