@@ -38,10 +38,10 @@
     <!-- all properties -->
   </Widget>
 
-  <NotReadyWidget name="ItemBox">
+  <Widget name="ItemBox">
     <Property key="Skin" value="ItemBox"/>
     <!-- all properties -->
-  </NotReadyWidget>
+  </Widget>
 
   <Widget name="List">
     <Property key="Skin" value="List"/>
@@ -63,10 +63,10 @@
     <!-- all properties -->
   </Widget>
 
-  <NotReadyWidget name="MultiList">
+  <Widget name="MultiList">
     <Property key="Skin" value="MultiList"/>
     <!-- all properties -->
-  </NotReadyWidget>
+  </Widget>
 
   <Widget name="Progress">
     <Property key="Skin" value="Progress"/>
@@ -166,7 +166,7 @@
   </Widget>
 
   <Value name="Align">
-    <Property key="#444444DEFAULT"/>
+    <Property key="#444444[DEFAULT]"/>
     <Property key="DEFAULT"/>
     <Property key="STRETCH"/>
     <Property key="CENTER"/>
@@ -191,16 +191,16 @@
   <Value name="Bool">
     <Property key="true"/>
     <Property key="false"/>
-    <Property key="#444444DEFAULT"/>
+    <Property key="#444444[DEFAULT]"/>
   </Value>
 
   <Value name="Font">
-    <Property key="#444444DEFAULT"/>
+    <Property key="#444444[DEFAULT]"/>
 	<Property key="MyGUI_CoreFont.18"/>
   </Value>
   
   <Value name="TextAlign">
-    <Property key="#444444DEFAULT"/>
+    <Property key="#444444[DEFAULT]"/>
     <Property key="DEFAULT"/>
     <Property key="CENTER"/>
     <Property key="LEFT TOP"/>

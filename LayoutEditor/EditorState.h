@@ -51,18 +51,21 @@ private:
 	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender); // calls previous method
 	void notifyOkSettings(MyGUI::WidgetPtr _sender);
 
-	// widget selecting/resizing
+	// widget selecting, properties panel
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 	void updatePropertiesPanel(MyGUI::WidgetPtr _widget);
 	void createPropertiesWidgetsPair(MyGUI::WindowPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
 	void createSeparator(MyGUI::WindowPtr _window, std::string _caption, int x1, int y, int w, int h);
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget/*, size_t _index = 0*/); // calls previous method
+
+	// widget editing
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
-
 	void addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption = "");
+
+	void notifyMinimizePanel(MyGUI::WidgetPtr _sender);
 	// strings panel
 	void syncStrings(bool _apply, bool _add = 0, Ogre::String _value = "");
 	void notifyAddString(MyGUI::WidgetPtr _sender);
@@ -70,6 +73,7 @@ private:
 	void notifySelectString(MyGUI::WidgetPtr _sender);
 	void notifyUpdateString(MyGUI::WidgetPtr _widget);
 	void notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position);
+	// UserData panel
 
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
