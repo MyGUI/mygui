@@ -209,12 +209,21 @@ namespace MyGUI
 				// скрываем
 				_setVisible(false);
 
+				// для тех кому нужно подправить себя при движении
+				//for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
+
+				// вся иерархия должна быть проверенна
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateView();
+
 				return;
 			}
 
 		} else if (false == mIsMargin) { // мы не обрезаны и были нормальные
 
-			_setVisible(true);
+			// запоминаем текущее состояние
+			//mIsMargin = margin;
+
+			//_setVisible(true);
 			// для тех кому нужно подправить себя при движении
 			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
 
