@@ -58,7 +58,6 @@ namespace MyGUI
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mManualView(false),
 		mTextAlign(ALIGN_DEFAULT)
 	{
 		mManager = LayerManager::getInstancePtr();
@@ -66,6 +65,7 @@ namespace MyGUI
 		// потом перенести
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 
+		mManualView = true;
 	}
 
 	EditText::~EditText()
@@ -546,9 +546,18 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			/*if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
 			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
+			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру*/
+			// пересчет опорных данных
+			if (false == mManualView) {
+				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
+				else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
+			}
+			else {
+				right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			}
 
 			if (x <= (1.0 + right)) {
 				// в начало строки
@@ -660,9 +669,18 @@ namespace MyGUI
 			++index;
 
 			// пересчет опорных данных
-			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			/*if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
 			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
+			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру*/
+			// пересчет опорных данных
+			if (false == mManualView) {
+				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
+				else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
+			}
+			else {
+				right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			}
 
 			// текущее положение в строке
 			size_t cur = position;
@@ -722,7 +740,8 @@ namespace MyGUI
 		size_t position = 0;
 
 		// текущие цвета
-		uint32 colour_current, colour = mCurrentColour;
+		uint32 colour_current = mCurrentColour;
+		uint32 colour = mCurrentColour;
 		uint32 colour_inverse = mInverseColour;
 
 		FloatPoint background(mBackgroundFill);
@@ -756,7 +775,7 @@ namespace MyGUI
 				if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mManager->getPixScaleX();
 			}
 		}
-		else left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
+		else left_shift = (mManager->getPixScaleX() * (float)mViewOffset.left * 2.0);
 
 		if (false == mManualView) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
@@ -830,9 +849,14 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
+			if (false == mManualView) {
+				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
+				else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
+			}
+			else {
+				right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			}
 
 			// текущее положение в строке
 			size_t cur = position;

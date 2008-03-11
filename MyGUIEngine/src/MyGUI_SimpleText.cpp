@@ -93,6 +93,7 @@ namespace MyGUI
 		//mEndSelect = 0;
 		//mShowCursor = true;
 		//mCursorPosition = 9;
+		mManualView = false;
 	}
 
 	SimpleText::~SimpleText()

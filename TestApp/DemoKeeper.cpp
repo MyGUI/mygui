@@ -123,7 +123,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//sheet = MyGUI::castWidget<MyGUI::Sheet>(manager.findWidget<MyGUI::Sheet>("sheet1"));
 
-	MyGUI::PointerManager::getInstance().hide();
+	//MyGUI::PointerManager::getInstance().hide();
 
 	MyGUI::LayoutManager::getInstance().load("DIP.layout");
 	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
