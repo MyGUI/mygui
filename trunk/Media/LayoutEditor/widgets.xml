@@ -133,6 +133,7 @@
   <Widget name="Widget">
     <Property key="Parent" value="true"/>
     <Property key="Skin" value="Panel"/>
+    <Property key="Skin" value="PanelSmall"/>
     <Property key="Skin" value="Separator1"/>
     <Property key="Skin" value="Separator2"/>
     <Property key="Skin" value="Separator3"/>
