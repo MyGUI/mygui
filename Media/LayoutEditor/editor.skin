@@ -44,4 +44,14 @@
             <State name="active" colour="2C8AD5"/>
         </BasisSkin>
     </Skin>
+
+    <Skin name = "ButtonMinimize" size = "16 16" texture = "minimize.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "0 0 16 16"/>
+            <State name="normal" offset = "0 20 16 16"/>
+            <State name="active" offset = "0 40 16 16"/>
+            <State name="pressed" offset = "0 60 16 16"/>
+            <State name="select" offset = "0 80 16 16"/>
+        </BasisSkin>
+    </Skin>
 </MyGUI>

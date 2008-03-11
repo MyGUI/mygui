@@ -13,19 +13,29 @@ struct WidgetContainer
 		type(_type),
 		skin(_skin),
 		widget(_widget),
-		name(_name)
+		name(_name),
+		relative_mode(0)
 	{}
 
 	MyGUI::WidgetPtr widget;
 	StringPairs mProperty;
 	MapString mUserString;
-	std::string type;	// necessary
-	std::string skin;	// necessary (except Sheet)
-	std::string position; // necessary this or position_real (except Sheet)
-	std::string position_real; // necessary this or position (except Sheet)
-	std::string layer; // necessary for root widgets
-	std::string align; // not necessary
-	Ogre::String name; // not necessary
+	std::string type;
+	std::string skin;
+	//std::string position;
+	//std::string position_real;
+	//std::string layer;
+	std::string align;
+	Ogre::String name;
+	// not for saving
+	//inline type() { return widget->getWidgetType(); }
+	inline std::string position()
+	{
+		if (relative_mode) return MyGUI::Gui::getInstance().convertIntToRelative(widget->getCoord(), widget->getParent()).print();
+		return widget->getCoord().print();
+	}
+	inline std::string layer() { return widget->getLayerName(); }
+	bool relative_mode;
 };
 
 class EditorWidgets{
