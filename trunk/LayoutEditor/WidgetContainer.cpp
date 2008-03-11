@@ -176,14 +176,20 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	// парсим атрибуты виджета
 	MyGUI::IntCoord coord;
 	MyGUI::Align align = MyGUI::ALIGN_DEFAULT;
+	std::string position;
+	std::string layer;
 
 	_widget->findAttribute("name", container->name);
 	_widget->findAttribute("type", container->type);
 	_widget->findAttribute("skin", container->skin);
-	_widget->findAttribute("layer", container->layer);
+	_widget->findAttribute("layer", layer);
 	if (_widget->findAttribute("align", container->align)) align = MyGUI::SkinManager::getInstance().parseAlign(container->align);
-	if (_widget->findAttribute("position", container->position)) coord = MyGUI::IntCoord::parse(container->position);
-	if (_widget->findAttribute("position_real", container->position_real)) coord = MyGUI::Gui::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(container->position_real), _parent);
+	if (_widget->findAttribute("position", position)) coord = MyGUI::IntCoord::parse(position);
+	if (_widget->findAttribute("position_real", position))
+	{
+		container->relative_mode = true;
+		coord = MyGUI::Gui::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(position), _parent);
+	}
 
 	// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
 	if (false == container->name.empty())
@@ -194,7 +200,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			static long renameN=0;
 			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
 			LOGGING(LogSection, Warning, mess);
-			MyGUI::Message::_createMessage("Warning", mess, "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage("Warning", mess, "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -210,7 +216,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	tmpname = "LayoutEditor_" + tmpname;
 
 	if (null == _parent) {
-		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, container->layer, tmpname);
+		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, layer, tmpname);
 		add(container);
 	}
 	else
@@ -240,7 +246,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			}
 			catch(...)
 			{
-				MyGUI::Message::_createMessage("Warning", "No such " + key + ": '" + value + "'", "", "LayoutEditor_Popup", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				MyGUI::Message::_createMessage("Warning", "No such " + key + ": '" + value + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 				if (key == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(container->widget, key, "");
 			}// for incorrect meshes or textures
 
@@ -261,11 +267,11 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	MyGUI::xml::xmlNodePtr node = _node->createChild("Widget");
 
 	node->addAttributes("type", _container->type);
-	if ("" != _container->skin) node->addAttributes("skin", _container->skin);
-	if ("" != _container->position) node->addAttributes("position", _container->position);
-	if ("" != _container->position_real) node->addAttributes("position_real", _container->position_real);
+	node->addAttributes("skin", _container->skin);
+	if (!_container->relative_mode) node->addAttributes("position", _container->position());
+	else node->addAttributes("position_real", _container->position());
 	if ("" != _container->align) node->addAttributes("align", _container->align);
-	if ("" != _container->layer) node->addAttributes("layer", _container->layer);
+	if ("" != _container->layer()) node->addAttributes("layer", _container->layer());
 	if ("" != _container->name) node->addAttributes("name", _container->name);
 
 	for (StringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)

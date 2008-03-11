@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-
     <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="ALIGN_STRETCH" layer="LayoutEditor_Back">
         <Property key="Image_Texture" value="wallpaperEditor.jpg"/>
     </Widget>
-
     <Widget type="Window" skin="WindowC" position="0 0 200 272" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowMenu">
         <Property key="Widget_Caption" value="Menu"/>
         <Property key="Window_Snap" value="true"/>
@@ -47,7 +45,7 @@
         <Property key="Window_Snap" value="true"/>
         <Property key="Widget_Show" value="false"/>
         <Widget type="StaticText" skin="StaticText" position="5 26 80 24">
-            <Property key="Widget_AlignText" value="ALIGN_LEFT"/>
+            <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
             <Property key="Widget_Caption" value="Grid step"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="85 26 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_gridEdit">
@@ -81,27 +79,51 @@
             <Property key="Widget_Caption" value="Editor settings"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowCS" position="300 0 280 400" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowProperties">
+    <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowProperties">
         <Property key="Widget_Caption" value="Properties"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 0 2048 2048"/>
-        <Property key="Widget_Show" value="false"/>
-    </Widget>
-    <Widget type="Window" skin="WindowCS" position="300 400 280 232" align="ALIGN_RIGHT ALIGN_BOTTOM" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowStrings">
-        <Property key="Widget_Show" value="false"/>
-        <Property key="Window_Snap" value="true"/>
-        <Property key="Window_MinMax" value="280 128 2048 2048"/>
-        <Property key="Widget_Show" value="false"/>
-        <Widget type="Edit" skin="Edit" position="1 2 192 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_editString"/>
-        <Widget type="List" skin="List" position="1 34 192 160" align="ALIGN_STRETCH" name="LayoutEditor_listStrings"/>
-        <Widget type="Button" skin="ButtonSmall" position="201 2 64 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonAddString">
-            <Property key="Widget_Caption" value="Add"/>
+        <Property key="Widget_Show" value="true"/>
+        <Widget type="Widget" skin="Panel" position="0 330 271 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_panelStrings">
+            <Property key="Window_Snap" value="true"/>
+            <Property key="Window_MinMax" value="280 128 2048 2048"/>
+            <Property key="Widget_Show" value="true"/>
+            <Widget type="Edit" skin="Edit" position="3 24 265 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_editString"/>
+            <Widget type="List" skin="List" position="3 48 265 85" align="ALIGN_STRETCH" name="LayoutEditor_listStrings"/>
+            <Widget type="Button" skin="ButtonSmall" position="3 133 88 24" align="ALIGN_LEFT ALIGN_BOTTOM" name="LayoutEditor_buttonAddString">
+                <Property key="Widget_Caption" value="Add"/>
+            </Widget>
+            <Widget type="Button" skin="ButtonSmall" position="95 133 88 24" align="ALIGN_LEFT ALIGN_BOTTOM" name="LayoutEditor_buttonDeleteString">
+                <Property key="Widget_Caption" value="Delete"/>
+            </Widget>
+            <Widget type="Button" skin="ButtonSmall" position="188 133 80 24" align="ALIGN_LEFT ALIGN_BOTTOM" name="LayoutEditor_buttonSelectString">
+                <Property key="Widget_Caption" value="Select"/>
+            </Widget>
+            <Widget type="StaticText" skin="StaticText" position="3 2 242 22" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_captionString">
+                <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
+                <Property key="Widget_Caption" value="Items"/>
+            </Widget>
+            <Widget type="Button" skin="ButtonMinimize" position="250 6 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_minimizeString"/>
         </Widget>
-        <Widget type="Button" skin="ButtonSmall" position="201 34 64 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonDeleteString">
-            <Property key="Widget_Caption" value="Delete"/>
+        <Widget type="Widget" skin="Panel" position="0 490 271 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_panelUserData">
+            <Property key="Widget_Caption" value=""/>
+            <Widget type="Edit" skin="Edit" position="3 24 132 24" name="LayoutEditor_editKeyUserData"/>
+            <Widget type="Button" skin="ButtonSmall" position="3 133 132 24" align="ALIGN_LEFT ALIGN_BOTTOM" name="LayoutEditor_editAddUserData">
+                <Property key="Widget_Caption" value="Add"/>
+            </Widget>
+            <Widget type="Button" skin="ButtonSmall" position="136 133 132 24" align="ALIGN_LEFT ALIGN_BOTTOM" name="LayoutEditor_editDeleteUserData">
+                <Property key="Widget_Caption" value="Delete"/>
+            </Widget>
+            <Widget type="MultiList" skin="MultiList" position="3 48 265 85" align="ALIGN_STRETCH" name="LayoutEditor_multilistUserData"/>
+            <Widget type="StaticText" skin="StaticText" position="3 2 242 22" align="ALIGN_HSTRETCH ALIGN_TOP">
+                <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
+                <Property key="Widget_Caption" value="UserData"/>
+            </Widget>
+            <Widget type="Button" skin="ButtonMinimize" position="250 6 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_minimizeUserData"/>
+            <Widget type="Edit" skin="Edit" position="136 24 132 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="LayoutEditor_editValueUserData"/>
         </Widget>
-        <Widget type="Button" skin="ButtonSmall" position="201 66 64 24" align="ALIGN_RIGHT ALIGN_TOP" name="LayoutEditor_buttonSelectString">
-            <Property key="Widget_Caption" value="Select"/>
+        <Widget type="Button" skin="ButtonSmall" position="5 20 64 20">
+            <Property key="Widget_Caption" value="% [R]"/>
         </Widget>
     </Widget>
 </MyGUI>
