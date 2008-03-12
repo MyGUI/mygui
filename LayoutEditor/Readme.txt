@@ -12,6 +12,7 @@ Controls:
     Ctrl + S           - save file
     Ctrl + Z           - undo
     Ctrl + Y           - redo
+	Ctrl + R           - toggle relative coordinates
 
     Keyboard arrows - move widget
     Shift           - omit grid when moving/resizing widget
