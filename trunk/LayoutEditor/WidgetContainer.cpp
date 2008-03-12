@@ -269,7 +269,7 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	node->addAttributes("type", _container->type);
 	node->addAttributes("skin", _container->skin);
 	if (!_container->relative_mode) node->addAttributes("position", _container->position());
-	else node->addAttributes("position_real", _container->position());
+	else node->addAttributes("position_real", _container->position(false));
 	if ("" != _container->align) node->addAttributes("align", _container->align);
 	if ("" != _container->layer()) node->addAttributes("layer", _container->layer());
 	if ("" != _container->name) node->addAttributes("name", _container->name);

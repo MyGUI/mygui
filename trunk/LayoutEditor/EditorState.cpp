@@ -11,6 +11,7 @@
 
 const std::string LogSection = "LayoutEditor";
 const std::string DEFAULT_VALUE = "#444444[DEFAULT]";
+const int PANELS_MARGIN = 2;
 
 EditorWidgets * ew;
 WidgetTypes * wt;
@@ -72,6 +73,7 @@ void EditorState::enter(bool bIsChangeState)
 	// properties panel
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");
 	window->setPosition(mGUI->getViewWidth() - window->getSize().width, 0);
+	ASSIGN_FUNCTION("LayoutEditor_buttonReativePosition", &EditorState::notifyToggleRelativeMode);
 
 	// settings panel
 	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("LayoutEditor_gridEdit");
@@ -204,6 +206,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	MyGUI::LayerItem * rootItem = null;
 	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance()._findLayerItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
 
+	// не убираем пр€моугольник если нажали на его раст€гивалку
 	if (item && (item->getParent() != current_widget_rectangle))
 	{
 		// чтобы пр€моугольник не мешалс€
@@ -330,10 +333,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			}
 			else if (arg.key == OIS::KC_R)
 			{
-				if (current_widget){
-					WidgetContainer * widgetContainer = ew->find(current_widget);
-					widgetContainer->relative_mode = !widgetContainer->relative_mode;
-				}
+				notifyToggleRelativeMode();
 				return true;
 			}
 		}
@@ -733,10 +733,21 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 
 		createPropertiesWidgetsPair(window, "Name", widgetContainer->name, "Name", x1, x2, w1, w2, y, h);
 		y += h;
+
+		MyGUI::WidgetPtr buttonReativePosition = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_buttonReativePosition");
 		if (widgetType->resizeable)
 		{
+			// update caption of LayoutEditor_buttonReativePosition
+			buttonReativePosition->show();
+			if (widgetContainer->relative_mode) buttonReativePosition->setCaption("to pix");
+			else buttonReativePosition->setCaption("to %");
+	
 			createPropertiesWidgetsPair(window, "Position", widgetContainer->position(), "Position", x1, x2, w1, w2, y, h);
 			y += h;
+		}
+		else
+		{
+			buttonReativePosition->hide();
 		}
 
 		createPropertiesWidgetsPair(window, "Align", widgetContainer->align, "Align", x1, x2, w1, w2, y, h);
@@ -795,12 +806,14 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			}
 		}
 
+		y += PANELS_MARGIN;
+
 		// show/update strings panel if needed
 		MyGUI::WidgetPtr panelStrings = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelStrings");
 		if (widgetType->many_strings)
 		{
 			panelStrings->show();
-			panelStrings->setPosition(0, y);
+			panelStrings->setPosition(PANELS_MARGIN, y);
 			MyGUI::WidgetPtr captionStrings = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_captionString");
 			if (widgetType->name == "Tab") captionStrings->setCaption("Sheets");
 			else captionStrings->setCaption("Items");
@@ -815,11 +828,11 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		{
 			panelStrings->hide();
 		}
-		y += panelStrings->isShow()*panelStrings->getHeight();
+		y += panelStrings->isShow()*(panelStrings->getHeight() + PANELS_MARGIN);
 
 		MyGUI::WidgetPtr panelUserData = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelUserData");
-		panelUserData->setPosition(0, y);
-		y += panelUserData->isShow()*panelUserData->getHeight();
+		panelUserData->setPosition(PANELS_MARGIN, y);
+		y += panelUserData->isShow()*(panelUserData->getHeight() + PANELS_MARGIN);
 
 		int height = window->getHeight() - window->getClientRect().height;
 		window->setMinMax(window->getMinMax().left, height + y, mGUI->getViewWidth(), height + y);
@@ -974,6 +987,19 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 	else if (action == "Position")
 	{
+		if (widgetContainer->relative_mode){
+			std::istringstream str(value);
+			MyGUI::FloatCoord float_coord;
+			str >> float_coord;
+			float_coord.left = float_coord.left/100;
+			float_coord.top = float_coord.top/100;
+			float_coord.width = float_coord.width/100;
+			float_coord.height = float_coord.height/100;
+			MyGUI::IntCoord coord = MyGUI::Gui::getInstance().convertRelativeToInt(float_coord, current_widget->getParent());
+			current_widget->setPosition(coord);
+			current_widget_rectangle->setPosition(convertParentCoordToCoord(coord, current_widget));
+			return;
+		}
 		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Move", value);
 		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
 		return;
@@ -1025,9 +1051,21 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
-void EditorState::notifyApplyPropertiesCombo(MyGUI::WidgetPtr _sender/*, size_t _index*/)
+void EditorState::notifyApplyPropertiesCombo(MyGUI::WidgetPtr _sender)
 {
 	notifyApplyProperties(_sender);
+}
+
+void EditorState::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)
+{
+	if (current_widget){
+		WidgetContainer * widgetContainer = ew->find(current_widget);
+		MyGUI::WidgetPtr buttonReativePosition = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_buttonReativePosition");
+		if (widgetContainer->relative_mode) buttonReativePosition->setCaption("to %");
+		else buttonReativePosition->setCaption("to pix");
+		widgetContainer->relative_mode = !widgetContainer->relative_mode;
+		propertiesElement[1]->setCaption(widgetContainer->position());
+	}
 }
 
 void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
@@ -1069,7 +1107,7 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 		current_widget->setPosition(coord);
 		// update coord because of current_widget can have MinMax size
 		coord = current_widget->getCoord();
-		propertiesElement[1]->setCaption(coord.print());
+		propertiesElement[1]->setCaption(widgetContainer->position());
 		coord = convertParentCoordToCoord(current_widget->getCoord(), current_widget);
 		current_widget_rectangle->setPosition(coord);
 		um->addValue(PR_POSITION);
@@ -1178,7 +1216,7 @@ void EditorState::notifyMinimizePanel(MyGUI::WidgetPtr _sender)
 	MyGUI::WidgetPtr panelUserData = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelUserData");
 	if (panel == panelStrings)
 	{
-		panelUserData->setPosition(0, panelUserData->getTop() - dy);
+		panelUserData->setPosition(PANELS_MARGIN, panelUserData->getTop() - dy);
 	}
 	MyGUI::WindowPtr windowProperties = MyGUI::castWidget<MyGUI::Window>(panel->getParent()->getParent());
 	MyGUI::IntRect newMinMax = windowProperties->getMinMax() + MyGUI::IntRect(0, -dy, 0, -dy);
