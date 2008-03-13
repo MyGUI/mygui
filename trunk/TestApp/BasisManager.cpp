@@ -164,10 +164,10 @@ void BasisManager::createGui()
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(mWindow);
 
-	/*if (0 == mFpsInfo) {
-		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mHeight - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
+	if (0 == mFpsInfo) {
+		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, 20, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 		mFpsInfo->setColour(Ogre::ColourValue::White);
-	}*/
+	}
 }
 
 void BasisManager::destroyGui()

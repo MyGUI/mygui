@@ -48,12 +48,24 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	/*MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
+	MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
 	bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
 	//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Main", bar);
 	bar->show();
-	for (int i = 0; i < 10; i++)
-		bar->addItem(Ogre::StringConverter::toString(i), Ogre::StringConverter::toString(i) + ".png");*/
+	bar->setWidth(64);
+	//for (int i = 0; i < 10; i++)
+		//bar->addItem(Ogre::StringConverter::toString(i), Ogre::StringConverter::toString(i) + ".png");
+	bar->addItem(MyGUI::FooBarItemInfo("item1", "foobar.png", 0, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item2", "foobar.png", 1, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item3", "foobar.png", 2, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item4", "foobar.png", 3, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item5", "foobar.png", 4, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item6", "foobar.png", 5, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item7", "foobar.png", 6, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item8", "foobar.png", 7, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item9", "foobar.png", 8, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item10", "foobar.png", 9, MyGUI::FloatSize(64.f, 64.f)));
+	//bar->addItem(MyGUI::FooBarItemInfo("item7", "0.png", 0, MyGUI::FloatSize(64.f, 64.f)));
 
 
 	//MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
@@ -125,7 +137,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//MyGUI::PointerManager::getInstance().hide();
 
-	MyGUI::LayoutManager::getInstance().load("DIP.layout");
+	//MyGUI::LayoutManager::getInstance().load("DIP.layout");
 	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 
 	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
