@@ -14,7 +14,7 @@ namespace MyGUI
 		friend class factory::StrangeButtonFactory;
 
 	protected:
-		StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, const Ogre::String & _name);
+		StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
 		// тип данного виджета

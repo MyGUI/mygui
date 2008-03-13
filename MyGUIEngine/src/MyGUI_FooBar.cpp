@@ -28,7 +28,8 @@ namespace MyGUI
 		mLayout(FBL_COORDS),
 		mWidth(70),
 		mMouseWidget(-1),
-		mDragging(false)
+		mDragging(false),
+		mFocus(false)
 	{
 		Gui::getInstance().addFrameListener(this);
 	}
@@ -75,22 +76,31 @@ namespace MyGUI
 
 	void FooBar::_frameEntered(float _time)
 	{
+		// nothing to do if not mouse focuse
+		if (!mFocus)
+			return;
+
 		IntPoint pt = InputManager::getInstance().getMousePosition();
 
-		if ((mCoord.left > pt.left || (mCoord.left + mCoord.width) < pt.left) ||
+		/*if ((mCoord.left > pt.left || (mCoord.left + mCoord.width) < pt.left) ||
 			(mCoord.top > pt.top || (mCoord.top + mCoord.height) < pt.top))
-		{
-			if (mMouseWidget != -1)
+		{*/
+			/*if (mMouseWidget != -1)
 			{
 				mMouseWidget = -1;
 				updateItemsLayout();
 			}
-			mMouseWidget = -1;
+			mMouseWidget = -1;*/
 			
-			return;
-		}
+		//	return;
+		//}
 
-				
+		bool upd = false;
+		// remember if we would update layout
+		if (mMouseWidget > -1)
+			upd = true;
+
+		mMouseWidget = -1;	
 		int n = (int)mItemsOrder.size();
 		for (int i = 0; i < n; i++)
 			if (checkPoint(pt.left, pt.top, mItemsOrder[i]))
@@ -101,6 +111,8 @@ namespace MyGUI
 					return;
 				}
 
+		if (upd)
+			updateItemsLayout();
 
 	}
 
@@ -135,6 +147,16 @@ namespace MyGUI
 		mDragging = false;
 
 		Widget::_onMouseButtonReleased(_left);
+	}
+
+	void FooBar::_onMouseChangeRootFocus(bool _focus)
+	{
+		mFocus = _focus;
+
+		if (!mFocus)
+			mMouseWidget = -1;
+
+		Widget::_onMouseChangeRootFocus(_focus);
 	}
 
 	bool FooBar::checkPoint(int left, int top, WidgetPtr widget)
@@ -187,7 +209,11 @@ namespace MyGUI
 	{
 		mWidth = width;
 		if (mLayout != FBL_COORDS)
+		{
+			updatePosition(getPosition());
 			updateSize(IntSize(mCoord.width, mCoord.height));
+			updateItemsLayout();
+		}
 	}
 
 	int FooBar::getWidth() const
@@ -286,11 +312,11 @@ namespace MyGUI
 			if (mMouseWidget != -1)
 			{
 				if (abs(i - mMouseWidget) < 2)
-					sz = mWidth / (1.2 + 0.25 * abs(i - mMouseWidget));
+					sz = mWidth / (1.1 + 0.2 * abs(i - mMouseWidget));
 				else
-					sz = mWidth / 1.7;
+					sz = mWidth / 1.5;
 			}else
-				sz = mWidth / 1.7;
+				sz = mWidth / 1.5;
 
 			widget->setSize(sz, sz);
 		}
@@ -326,29 +352,37 @@ namespace MyGUI
 		{
 			IntSize sz = mItemsOrder[i]->getSize();
 
-			IntPoint pt;
-			pt.left = (dw + 5) * w;
-			pt.top = (dh + 5) * h;
+			int dl, dt;
 
-			dw += (sz.width + 5) * w;
-			dh += (sz.height + 5) * h;
+			dl = (mWidth - sz.width) * h / 2;
+			dt = (mWidth - sz.height) * w / 2;
+
+			IntPoint pt;
+			pt.left = dw * w + dl;
+			pt.top = dh * h + dt;
+
+			dw += sz.width * w + dl;
+			dh += sz.height * h + dt;
 
 			mItemsOrder[i]->setPosition(pt);
 		}
 	}
 
-	void FooBar::addItem(const Ogre::String &name, const Ogre::String &texture)
+	WidgetPtr FooBar::addItem(FooBarItemInfo &item)
 	{
-		StaticImagePtr item = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), ALIGN_DEFAULT);
+		StaticImagePtr w = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), ALIGN_DEFAULT);
 
-		if (false == Ogre::TextureManager::getSingleton().resourceExists(texture)) 
-			Ogre::TextureManager::getSingleton().load(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		w->setImageTile(item.tileSize);
+		w->setImageTexture(item.texture);
+		w->setImageNum(item.enabled);
 
-		item->setImageTexture(texture);
-
-		_addChildItem(name, item);
+		item.widget = (WidgetPtr)w;
+		_addChildItem(item.name, item);
+		
 
 		updateItemsLayout();
+
+		return w;
 	}
 
 	void FooBar::removeItem(const Ogre::String &name)
@@ -356,26 +390,28 @@ namespace MyGUI
 
 	}
 
-	void FooBar::_addChildItem(const Ogre::String &name, MyGUI::WidgetPtr widget)
+	void FooBar::_addChildItem(const Ogre::String &name, const FooBarItemInfo &item)
 	{
 		if (_isChildItem(name))
 			return;
 
-		mItems[name] = widget;
-		mItemsOrder.push_back(widget);
+		mItems[name] = item;
+		mItemsOrder.push_back(item.widget);
 	}
 
 	void FooBar::_removeChildItem(const Ogre::String &name)
 	{
-		WidgetMap::iterator it = mItems.find(name);
+		ItemsMap::iterator it = mItems.find(name);
 
 		if (it != mItems.end())
 		{
 			int n = (int)mItemsOrder.size();
 			for (int i = 0; i < n; i++)
-				if (mItemsOrder[i] == it->second)
+				if (mItemsOrder[i] == it->second.widget)
 				{
 					mItemsOrder.erase(mItemsOrder.begin() + i);
+
+					// todo: make deleting of items widget
 					break;
 				}
 
@@ -385,7 +421,7 @@ namespace MyGUI
 
 	bool FooBar::_isChildItem(const Ogre::String &name)
 	{
-		WidgetMap::iterator it = mItems.find(name);
+		ItemsMap::iterator it = mItems.find(name);
 
 		if (it != mItems.end())
 			return true;
@@ -397,7 +433,7 @@ namespace MyGUI
 	{
 		while (!mItems.empty())
 		{
-			_destroyChildWidget(mItems.begin()->second);
+			_destroyChildWidget(mItems.begin()->second.widget);
 			mItems.erase(mItems.begin());
 		}
 

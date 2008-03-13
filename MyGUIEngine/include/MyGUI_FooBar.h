@@ -13,6 +13,64 @@
 
 namespace MyGUI
 {
+	// class to store items information
+	class _MyGUIExport FooBarItemInfo
+	{
+		friend class FooBar;
+
+	public:
+		// texture name
+		Ogre::String texture;
+		// number of image that will use when item enabled
+		int enabled;
+		// number of image that will use when item disabled
+		int disabled;
+		// number of image that will use when item focused (under mouse)
+		int focused;
+		// name of item
+		Ogre::String name;
+		// image size
+		FloatSize tileSize;
+
+		FooBarItemInfo()
+		{
+			name = "";
+			enabled = -1;
+			disabled = -1;
+			focused = -1;
+			widget = 0;
+			texture = "";
+			tileSize = FloatSize(0.f, 0.f);
+		}
+
+		FooBarItemInfo(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const FloatSize &_size){
+			name = _name;
+			enabled = _enabled;
+			disabled = _enabled;
+			focused = _enabled;
+			widget = 0;
+			texture = _texture;
+			tileSize = _size;
+		}
+
+		FooBarItemInfo(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, int _disabled, int _focused, const FloatSize &_size)
+		{
+			name = _name;
+			enabled = _enabled;
+			disabled = _disabled;
+			focused = _focused;
+			widget = 0;
+			texture = _texture;
+			tileSize = _size;
+		}
+
+	protected:
+		// pointer to widget
+		WidgetPtr widget;
+	};
+
+
+
 	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventInfo_WidgetString;
 
 	class _MyGUIExport FooBar : public Widget, public FrameListener
@@ -49,8 +107,9 @@ namespace MyGUI
 		virtual void _frameEntered(float _time);
 
 		// mouse events
-		void _onMouseDrag(int _left, int _top);
-		void _onMouseButtonReleased(bool _left);
+		virtual void _onMouseDrag(int _left, int _top);
+		virtual void _onMouseButtonReleased(bool _left);
+		virtual void _onMouseChangeRootFocus(bool _focus);
 
 		// show/hide with alpha smoothing
 		void showSmooth(bool _reset = false);
@@ -66,6 +125,8 @@ namespace MyGUI
 		int mMouseWidget;
 		// dragging flag
 		bool mDragging;
+		// focused flag
+		bool mFocus;
 
 		
 	public:
@@ -102,12 +163,12 @@ namespace MyGUI
 		Layout mLayout;
 
 	public:
-		void addItem(const Ogre::String &name, const Ogre::String &texture);
+		WidgetPtr addItem(FooBarItemInfo &item);
 		void removeItem(const Ogre::String &name);
 
 	protected:
 		//	add child item
-		void _addChildItem(const Ogre::String &name, WidgetPtr widget);
+		void _addChildItem(const Ogre::String &name, const FooBarItemInfo &item);
 		//	remove child item
 		void _removeChildItem(const Ogre::String &name);
 		//	check if item exists
@@ -117,8 +178,8 @@ namespace MyGUI
 
 	protected:
 		// map of child widgets
-		typedef std::map<Ogre::String, WidgetPtr> WidgetMap;
-		WidgetMap mItems;
+		typedef std::map<Ogre::String, FooBarItemInfo> ItemsMap;
+		ItemsMap mItems;
 
 		typedef std::vector<WidgetPtr> WidgetVector;
 		WidgetVector mItemsOrder;
