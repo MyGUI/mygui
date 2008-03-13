@@ -15,9 +15,6 @@
 const float WINDOW_ALPHA_MAX = ALPHA_MAX;
 const float WINDOW_ALPHA_MIN = ALPHA_MIN;
 const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
-const float WINDOW_ALPHA_FOCUS = 0.7f;
-const float WINDOW_ALPHA_DEACTIVE = 0.3f;
-const float WINDOW_SPEED_COEF = 3.0f;
 
 namespace MyGUI
 {
@@ -29,7 +26,11 @@ namespace MyGUI
 		mWidth(70),
 		mMouseWidget(-1),
 		mDragging(false),
-		mFocus(false)
+		mFocus(false),
+		mAutoAlpha(true),
+		mAlphaFocused(0.8f),
+		mAlphaIncative(0.2f),
+		mAlphaSpeed(1.0f)
 	{
 		Gui::getInstance().addFrameListener(this);
 	}
@@ -64,14 +65,14 @@ namespace MyGUI
 		}
 
 		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(WINDOW_ALPHA_DEACTIVE,
-			WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+			this, new ControllerFadeAlpha(mAlphaIncative,
+			mAlphaSpeed, ControllerFadeAlpha::ACTION_NONE, true));
 	}
 
 	void FooBar::hideSmooth()
 	{
 		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, mAlphaSpeed, ControllerFadeAlpha::ACTION_HIDE, false));
 	}
 
 	void FooBar::_frameEntered(float _time)
@@ -156,6 +157,8 @@ namespace MyGUI
 		if (!mFocus)
 			mMouseWidget = -1;
 
+		updateAlpha();
+			
 		Widget::_onMouseChangeRootFocus(_focus);
 	}
 
@@ -219,6 +222,47 @@ namespace MyGUI
 	int FooBar::getWidth() const
 	{
 		return mWidth;
+	}
+
+	void FooBar::setAutoAlpha(bool _alpha)
+	{
+		mAutoAlpha = _alpha;
+		updateAlpha();
+	}
+
+	bool FooBar::getAutoAlpha() const
+	{
+		return mAutoAlpha;
+	}
+
+	void FooBar::setAlphaInactive(const Ogre::Real &_alpha)
+	{
+		mAlphaIncative = _alpha;
+	}
+
+	Ogre::Real FooBar::getAlphaInactive() const
+	{
+		return mAlphaIncative;
+	}
+
+	void FooBar::setAlphaFocused(const Ogre::Real &_alpha)
+	{
+		mAlphaFocused = _alpha;
+	}
+
+	Ogre::Real FooBar::getAlphaFocused() const
+	{
+		return mAlphaFocused;
+	}
+
+	void FooBar::setAlphaSpeed(const Ogre::Real &_alpha)
+	{
+		mAlphaSpeed = _alpha;
+	}
+
+	Ogre::Real FooBar::getAlphaSpeed() const
+	{
+		return mAlphaSpeed;
 	}
 
 	void FooBar::updatePosition(const IntPoint& _pos)
@@ -366,6 +410,17 @@ namespace MyGUI
 
 			mItemsOrder[i]->setPosition(pt);
 		}
+	}
+
+	void FooBar::updateAlpha()
+	{
+		if (false == mAutoAlpha) return;
+
+		float alpha;
+		if (mFocus) alpha = mAlphaFocused;
+			else alpha = mAlphaIncative;
+		
+		ControllerManager::getInstance().addItem(this, new ControllerFadeAlpha(alpha, mAlphaSpeed, ControllerFadeAlpha::ACTION_NONE, true));
 	}
 
 	WidgetPtr FooBar::addItem(FooBarItemInfo &item)
