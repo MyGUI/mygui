@@ -115,18 +115,45 @@ namespace MyGUI
 		void showSmooth(bool _reset = false);
 		void hideSmooth();
 
+		//! Set auto alpha
+		void setAutoAlpha(bool _alpha);
+		//!	Get auto alpha flag
+		bool getAutoAlpha() const;
+
+		//!	Set inactive alpha value
+		void setAlphaInactive(const Ogre::Real &_alpha);
+		//!	Get inactive alpha value
+		Ogre::Real getAlphaInactive() const;
+		//!	Set focused alpha value
+		void setAlphaFocused(const Ogre::Real &_alpha);
+		//!	Get focused alpha value
+		Ogre::Real getAlphaFocused() const;
+		//!	Set speed to alpha change
+		void setAlphaSpeed(const Ogre::Real &_alpha);
+		//!	Get speed to alpha change
+		Ogre::Real getAlphaSpeed() const;
+
 	protected:
 		bool checkPoint(int left, int top, WidgetPtr widget);
 
 		
 
 	protected:
-		// id of widget under mouse
+		//! Id of widget under mouse
 		int mMouseWidget;
-		// dragging flag
+		//! Dragging flag
 		bool mDragging;
-		// focused flag
+		//! Focused flag
 		bool mFocus;
+		//! Auto alpha flag
+		bool mAutoAlpha;
+		//! Inactive alpha value
+		Ogre::Real mAlphaIncative;
+		//!	Focused alpha value
+		Ogre::Real mAlphaFocused;
+		//!	Speed to alpha change
+		Ogre::Real mAlphaSpeed;
+
 
 		
 	public:
@@ -145,6 +172,8 @@ namespace MyGUI
 		void updateItemsLayout();
 		void updateItemsSize();
 		void updateItemsPosition();
+
+		void updateAlpha();
 
 	public:
 		// set/get snap distance
