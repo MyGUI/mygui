@@ -35,9 +35,9 @@ namespace MyGUI
 			return StrangeButton::getType();
 		}
 
-		WidgetPtr StrangeButtonFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, const Ogre::String& _name)
+		WidgetPtr StrangeButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
-			return new StrangeButton(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _name);
+			return new StrangeButton(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		// методы для парсинга
