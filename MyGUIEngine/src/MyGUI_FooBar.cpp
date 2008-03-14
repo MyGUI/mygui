@@ -77,7 +77,7 @@ namespace MyGUI
 
 	void FooBar::_frameEntered(float _time)
 	{
-		// nothing to do if not mouse focuse
+		// nothing to do if not mouse focus
 		if (!mFocus)
 			return;
 
