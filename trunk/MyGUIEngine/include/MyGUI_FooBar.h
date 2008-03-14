@@ -91,28 +91,38 @@ namespace MyGUI
 		} Layout;
 
 	public:
-		// get type of widget
+		//! Get type of widget
 		inline static const Ogre::String & _getType() {static Ogre::String type("FooBar"); return type;}
+		//!	Get type of widget
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 
-		// set/get position
+		//!	Set bar position
 		virtual void setPosition(const IntPoint& _pos);
+		//!	Set bar position
 		virtual void setPosition(const IntCoord& _coord);
 
-		// set/get size
+		//!	Set width of bar
+		void setWidth(int width);
+		//!	Get width of bar
+		int getWidth() const;
+
+		//!	Set bar size
 		virtual void setSize(const IntSize& _size);
 
-		// frame event
+		//!	@copydoc FrameListener::_frameEntered(float)
 		virtual void _frameEntered(float _time);
 
-		// mouse events
+		//!	@copydoc Widget::_onMouseDrag(int, int)
 		virtual void _onMouseDrag(int _left, int _top);
+		//!	@copydoc Widget::_onMouseButtonReleased(bool)
 		virtual void _onMouseButtonReleased(bool _left);
+		//!	@copydoc Widget::_onMouseChangeRootFocus(bool)
 		virtual void _onMouseChangeRootFocus(bool _focus);
 
-		// show/hide with alpha smoothing
+		//!	Show bar with alpha smoothing
 		void showSmooth(bool _reset = false);
+		//!	Hide bar with alpha smoothing
 		void hideSmooth();
 
 		//! Set auto alpha
@@ -133,9 +143,51 @@ namespace MyGUI
 		//!	Get speed to alpha change
 		Ogre::Real getAlphaSpeed() const;
 
-	protected:
-		bool checkPoint(int left, int top, WidgetPtr widget);
+		/*!	Set layout type
 
+			\n	There is available types of layout:
+			\li	FBL_COORDS - use window coordinates (not works)
+			\li FBL_SNAP_LEFT - snap bar to left border of screen
+			\li FBL_SNAP_RIGHT - snap bar to the right border of screen
+			\li FBL_SNAP_TOP - snap bar to the top border of screen
+			\li	FBL_SNAP_BOTTOM - snap bar to the bottom border of screen
+		*/
+		void setLayout(Layout layout);
+		//!	Get layout type
+		Layout getLayout() const;
+
+		// set/get snap distance
+		void setSnapDistance(const Ogre::Real &sd);
+		const Ogre::Real& getSnapDistance() const;
+
+		WidgetPtr addItem(FooBarItemInfo &item);
+		void removeItem(const Ogre::String &name);
+
+	protected:
+		//!	Check if point in widget bounds
+		bool checkPoint(int left, int top, WidgetPtr widget);
+		//! Count position of bar
+		void updatePosition(const IntPoint& _pos);
+		//!	Recalculate size of bar
+		void updateSize(const IntSize& _size);
+		//!	Relayout items
+		void updateItemsLayout();
+		//!	Recalculate items size
+		void updateItemsSize();
+		//!	Recalculate items positions
+		void updateItemsPosition();
+		//!	Update alpha value depending on focus flag
+		void updateAlpha();
+
+
+		//!	Add child item to map
+		void _addChildItem(const Ogre::String &name, const FooBarItemInfo &item);
+		//!	Remove child item from map
+		void _removeChildItem(const Ogre::String &name);
+		//!	Check if item exists in map
+		bool _isChildItem(const Ogre::String &name);
+		//! Remove all child items from map
+		void _removeAllChildItems();
 		
 
 	protected:
@@ -153,64 +205,24 @@ namespace MyGUI
 		Ogre::Real mAlphaFocused;
 		//!	Speed to alpha change
 		Ogre::Real mAlphaSpeed;
-
-
-		
-	public:
-		// set/get width of bar
-		void setWidth(int width);
-		int getWidth() const;
-
-	protected:
-		// width of bar
+		//! Width of bar
 		int mWidth;
-
-	protected:
-		// count position and size
-		void updatePosition(const IntPoint& _pos);
-		void updateSize(const IntSize& _size);
-		void updateItemsLayout();
-		void updateItemsSize();
-		void updateItemsPosition();
-
-		void updateAlpha();
-
-	public:
-		// set/get snap distance
-		void setSnapDistance(const Ogre::Real &sd);
-		const Ogre::Real& getSnapDistance() const;
-
-	protected:
+		//!	Distance to border to snap window
 		Ogre::Real mSnapDistance;
-
-	public:
-		// set/get layout
-		void setLayout(Layout layout);
-		Layout getLayout() const;
-
-	protected:
+		//!	Layout type
 		Layout mLayout;
 
-	public:
-		WidgetPtr addItem(FooBarItemInfo &item);
-		void removeItem(const Ogre::String &name);
+			
 
-	protected:
-		//	add child item
-		void _addChildItem(const Ogre::String &name, const FooBarItemInfo &item);
-		//	remove child item
-		void _removeChildItem(const Ogre::String &name);
-		//	check if item exists
-		bool _isChildItem(const Ogre::String &name);
-		// remove all child items
-		void _removeAllChildItems();
-
-	protected:
-		// map of child widgets
+		//!	Map of child widgets
 		typedef std::map<Ogre::String, FooBarItemInfo> ItemsMap;
+		//!	Map of items
 		ItemsMap mItems;
-
+		//!	Vector of widgets pointer
 		typedef std::vector<WidgetPtr> WidgetVector;
+		/*!	Ordered items
+			\n They will be layout with this order
+		*/
 		WidgetVector mItemsOrder;
 
 
