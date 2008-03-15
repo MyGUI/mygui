@@ -82,6 +82,14 @@ namespace MyGUI
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
+		// event : нажат ентер, или двойной щелчек
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_WidgetSizeT eventListSelectAccept;
+
+		// event : изменилась позиция
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_WidgetSizeT eventListChangePosition;
+
 	protected:
 		virtual void _frameEntered(float _frame);
 
@@ -89,6 +97,7 @@ namespace MyGUI
 		void notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyButtonClick(MyGUI::WidgetPtr _widget);
+		void notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position);
 
 		void updateRows();
 		void redrawButtons();
