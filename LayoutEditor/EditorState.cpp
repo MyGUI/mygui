@@ -121,7 +121,23 @@ void EditorState::enter(bool bIsChangeState)
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
 	edit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateString);
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
-	list->eventListMouseItemActivate = MyGUI::newDelegate(this, &EditorState::notifySelectStringItem);
+	list->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectStringItem);
+
+	// UserData panel
+	ASSIGN_FUNCTION("LayoutEditor_buttonAddUserData", &EditorState::notifyAddUserData);
+	ASSIGN_FUNCTION("LayoutEditor_buttonDeleteUserData", &EditorState::notifyDeleteUserData);
+	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
+	editKey->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateUserData);
+	MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
+	editValue->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateUserData);
+	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
+	multilist->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectUserDataItem);
+	multilist->addRow(multilist->getWidth()/2, "Key");
+	multilist->addRow(multilist->getWidth()/2, "Value");
+
+	/*size_t count = 10;
+	for (size_t pos=0; pos<count; pos++) multilist->addItem(MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
+	for (size_t pos=0; pos<count; pos++) multilist->setSubItem(1, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));*/
 
 	// create widget rectangle
 	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
@@ -806,8 +822,8 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			}
 		}
 
-		y += PANELS_MARGIN;
 
+		y += PANELS_MARGIN;
 		// show/update strings panel if needed
 		MyGUI::WidgetPtr panelStrings = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelStrings");
 		if (widgetType->many_strings)
@@ -828,10 +844,21 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		{
 			panelStrings->hide();
 		}
+
 		y += panelStrings->isShow()*(panelStrings->getHeight() + PANELS_MARGIN);
 
+		MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
+		MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
 		MyGUI::WidgetPtr panelUserData = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelUserData");
 		panelUserData->setPosition(PANELS_MARGIN, y);
+		MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
+		multilist->deleteAllItems();
+		for (MapString::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
+		{
+			multilist->addItem(iterProperty->first);
+			multilist->setSubItem(1, multilist->getItemCount() - 1, iterProperty->second);
+		}
+
 		y += panelUserData->isShow()*(panelUserData->getHeight() + PANELS_MARGIN);
 
 		int height = window->getHeight() - window->getClientRect().height;
@@ -1221,7 +1248,7 @@ void EditorState::notifyMinimizePanel(MyGUI::WidgetPtr _sender)
 	MyGUI::WindowPtr windowProperties = MyGUI::castWidget<MyGUI::Window>(panel->getParent()->getParent());
 	MyGUI::IntRect newMinMax = windowProperties->getMinMax() + MyGUI::IntRect(0, -dy, 0, -dy);
 	windowProperties->setMinMax(newMinMax);
-	windowProperties->setSize(panel->getWidth(), windowProperties->getHeight() - dy);
+	windowProperties->setSize(panel->getWidth() + 2*PANELS_MARGIN, windowProperties->getHeight() - dy);
 }
 
 void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
@@ -1366,7 +1393,7 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
 	size_t item = list->getItemSelect();
-	if (ITEM_NONE == item) return;
+	if (ITEM_NONE == item){ notifyAddString(); return;}
 	ON_EXIT(um->addValue());
 	Ogre::String action;
 	Ogre::String value = edit->getOnlyText();
@@ -1413,4 +1440,67 @@ void EditorState::notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _posit
 	if (ITEM_NONE == item) return;
 	Ogre::String value = list->getItem(item);
 	edit->setOnlyText(value);
+}
+
+void EditorState::notifyAddUserData(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
+	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
+	MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
+	Ogre::String key = editKey->getOnlyText();
+	Ogre::String value = editValue->getOnlyText();
+	WidgetContainer * widgetContainer = ew->find(current_widget);
+	if (widgetContainer->mUserString.find(key) == widgetContainer->mUserString.end())
+	{
+		multilist->addItem(key);
+		multilist->setSubItem(1, multilist->getItemCount() - 1, value);
+	}
+	widgetContainer->mUserString[key] = value;
+	um->addValue();
+}
+
+void EditorState::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
+	size_t item = multilist->getItemSelect();
+	if (ITEM_NONE == item) return;
+
+	WidgetContainer * widgetContainer = ew->find(current_widget);
+	MapString::iterator iterProperty = widgetContainer->mUserString.find(multilist->getItem(item));
+	widgetContainer->mUserString.erase(multilist->getItem(item));
+
+	multilist->deleteItem(item);
+	um->addValue();
+}
+
+void EditorState::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
+{
+	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
+	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
+	MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
+	size_t item = multilist->getItemSelect();
+	if (ITEM_NONE == item){ notifyAddUserData(); return;}
+	ON_EXIT(um->addValue());
+	Ogre::String key = editKey->getOnlyText();
+	Ogre::String value = editValue->getOnlyText();
+	Ogre::String lastkey = multilist->getItem(item);
+	multilist->setSubItem(0, item, key);
+	multilist->setSubItem(1, item, value);
+
+	WidgetContainer * widgetContainer = ew->find(current_widget);
+	widgetContainer->mUserString.erase(lastkey);
+	widgetContainer->mUserString[key] = value;
+}
+
+void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _position)
+{
+	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
+	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
+	MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
+	size_t item = multilist->getItemSelect();
+	if (ITEM_NONE == item) return;
+	Ogre::String key = multilist->getSubItem(0, item);
+	Ogre::String value = multilist->getSubItem(1, item);
+	editKey->setOnlyText(key);
+	editValue->setOnlyText(value);
 }
