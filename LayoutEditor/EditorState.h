@@ -70,12 +70,16 @@ private:
 	void notifyMinimizePanel(MyGUI::WidgetPtr _sender);
 	// strings panel
 	void syncStrings(bool _apply, bool _add = 0, Ogre::String _value = "");
-	void notifyAddString(MyGUI::WidgetPtr _sender);
+	void notifyAddString(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteString(MyGUI::WidgetPtr _sender);
 	void notifySelectString(MyGUI::WidgetPtr _sender);
 	void notifyUpdateString(MyGUI::WidgetPtr _widget);
 	void notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position);
 	// UserData panel
+	void notifyAddUserData(MyGUI::WidgetPtr _sender = 0);
+	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
+	void notifyUpdateUserData(MyGUI::WidgetPtr _widget);
+	void notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _position);
 
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести

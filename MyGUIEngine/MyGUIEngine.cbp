@@ -7,43 +7,49 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="lib\debug\libMyGUI" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
+				<Option output="lib\debug\MyGUI_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="lib\debug" />
 				<Option object_output="obj\Debug\" />
-				<Option type="2" />
+				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
 					<Add library="OgreMain_d" />
+					<Add library="libfreetype235_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="lib\release\libMyGUI" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
+				<Option output="lib\release\MyGUI" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="lib\release" />
 				<Option object_output="obj\Release\" />
-				<Option type="2" />
+				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="OgreMain" />
+					<Add library="libfreetype235" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-D_WIN32" />
-			<Add option="-DWINDOWS" />
+			<Add option="-DWIN32" />
+			<Add option="-D_WINDOWS" />
+			<Add option="-D_USRDLL" />
+			<Add option="-DMYGUIENGINE_EXPORTS" />
+			<Add option="-DMYGUI_NONCLIENT_BUILD" />
 			<Add directory="include" />
 			<Add directory="$(OGRE_HOME)\OgreMain\include" />
-			<Add directory="$(OGRE_HOME)\Dependencies\include\freetype" />
 			<Add directory="$(OGRE_HOME)\Dependencies\include" />
+			<Add directory="$(OGRE_HOME)\Dependencies\include\freetype" />
 		</Compiler>
 		<Linker>
 			<Add directory="$(OGRE_HOME)\Dependencies\lib\$(TARGET_NAME)" />
@@ -56,6 +62,7 @@
 		<Unit filename="include\MyGUI_CastWidget.h" />
 		<Unit filename="include\MyGUI_ChildSkinInfo.h" />
 		<Unit filename="include\MyGUI_ClipboardManager.h" />
+		<Unit filename="include\MyGUI_ColourRect.h" />
 		<Unit filename="include\MyGUI_ComboBox.h" />
 		<Unit filename="include\MyGUI_ComboBoxFactory.h" />
 		<Unit filename="include\MyGUI_Common.h" />
@@ -65,10 +72,12 @@
 		<Unit filename="include\MyGUI_CroppedRectangleInterface.h" />
 		<Unit filename="include\MyGUI_Delegate.h" />
 		<Unit filename="include\MyGUI_DelegateImplement.h" />
+		<Unit filename="include\MyGUI_DrawItem.h" />
 		<Unit filename="include\MyGUI_DynLib.h" />
 		<Unit filename="include\MyGUI_DynLibManager.h" />
 		<Unit filename="include\MyGUI_Edit.h" />
 		<Unit filename="include\MyGUI_EditFactory.h" />
+		<Unit filename="include\MyGUI_EditText.h" />
 		<Unit filename="include\MyGUI_EnumCharInfo.h" />
 		<Unit filename="include\MyGUI_Font.h" />
 		<Unit filename="include\MyGUI_FontManager.h" />
@@ -82,8 +91,10 @@
 		<Unit filename="include\MyGUI_Instance.h" />
 		<Unit filename="include\MyGUI_ItemBox.h" />
 		<Unit filename="include\MyGUI_ItemBoxFactory.h" />
-		<Unit filename="include\MyGUI_LayerInfo.h" />
+		<Unit filename="include\MyGUI_LayerItem.h" />
 		<Unit filename="include\MyGUI_LayerItemInfo.h" />
+		<Unit filename="include\MyGUI_LayerItemKeeper.h" />
+		<Unit filename="include\MyGUI_LayerKeeper.h" />
 		<Unit filename="include\MyGUI_LayerManager.h" />
 		<Unit filename="include\MyGUI_LayoutManager.h" />
 		<Unit filename="include\MyGUI_List.h" />
@@ -97,25 +108,23 @@
 		<Unit filename="include\MyGUI_MessageFactory.h" />
 		<Unit filename="include\MyGUI_MultiList.h" />
 		<Unit filename="include\MyGUI_MultiListFactory.h" />
-		<Unit filename="include\MyGUI_OneOverlayDataInfo.h" />
+		<Unit filename="include\MyGUI_OverlayItem.h" />
 		<Unit filename="include\MyGUI_Platform.h" />
 		<Unit filename="include\MyGUI_Plugin.h" />
 		<Unit filename="include\MyGUI_PluginManager.h" />
 		<Unit filename="include\MyGUI_PointerInfo.h" />
 		<Unit filename="include\MyGUI_PointerManager.h" />
-		<Unit filename="include\MyGUI_PopupMenu.h" />
-		<Unit filename="include\MyGUI_PopupMenuFactory.h" />
 		<Unit filename="include\MyGUI_Prerequest.h" />
 		<Unit filename="include\MyGUI_Progress.h" />
 		<Unit filename="include\MyGUI_ProgressFactory.h" />
 		<Unit filename="include\MyGUI_RenderBox.h" />
 		<Unit filename="include\MyGUI_RenderBoxFactory.h" />
+		<Unit filename="include\MyGUI_RenderItem.h" />
 		<Unit filename="include\MyGUI_RenderOut.h" />
 		<Unit filename="include\MyGUI_ResourcePath.h" />
-		<Unit filename="include\MyGUI_SharedPanelAlphaOverlayElement.h" />
-		<Unit filename="include\MyGUI_SharedPanelAlphaOverlayElementFactory.h" />
 		<Unit filename="include\MyGUI_Sheet.h" />
 		<Unit filename="include\MyGUI_SheetFactory.h" />
+		<Unit filename="include\MyGUI_SimpleText.h" />
 		<Unit filename="include\MyGUI_SkinManager.h" />
 		<Unit filename="include\MyGUI_StaticImage.h" />
 		<Unit filename="include\MyGUI_StaticImageFactory.h" />
@@ -129,19 +138,14 @@
 		<Unit filename="include\MyGUI_Tab.h" />
 		<Unit filename="include\MyGUI_TabFactory.h" />
 		<Unit filename="include\MyGUI_TextChangeHistory.h" />
-		<Unit filename="include\MyGUI_TextEdit.h" />
-		<Unit filename="include\MyGUI_TextEditOverlayElement.h" />
-		<Unit filename="include\MyGUI_TextEditOverlayElementFactory.h" />
 		<Unit filename="include\MyGUI_TextIterator.h" />
-		<Unit filename="include\MyGUI_TextSimple.h" />
-		<Unit filename="include\MyGUI_TextSimpleOverlayElement.h" />
-		<Unit filename="include\MyGUI_TextSimpleOverlayElementFactory.h" />
 		<Unit filename="include\MyGUI_Types.h" />
 		<Unit filename="include\MyGUI_UnlinkWidget.h" />
 		<Unit filename="include\MyGUI_Utility.h" />
 		<Unit filename="include\MyGUI_VScroll.h" />
 		<Unit filename="include\MyGUI_VScrollFactory.h" />
 		<Unit filename="include\MyGUI_Widget.h" />
+		<Unit filename="include\MyGUI_WidgetCreator.h" />
 		<Unit filename="include\MyGUI_WidgetDefines.h" />
 		<Unit filename="include\MyGUI_WidgetEvent.h" />
 		<Unit filename="include\MyGUI_WidgetFactory.h" />
@@ -160,6 +164,7 @@
 		<Unit filename="src\MyGUI_Button.cpp" />
 		<Unit filename="src\MyGUI_ButtonFactory.cpp" />
 		<Unit filename="src\MyGUI_ClipboardManager.cpp" />
+		<Unit filename="src\MyGUI_ColourRect.cpp" />
 		<Unit filename="src\MyGUI_ComboBox.cpp" />
 		<Unit filename="src\MyGUI_ComboBoxFactory.cpp" />
 		<Unit filename="src\MyGUI_ControllerFadeAlpha.cpp" />
@@ -168,6 +173,7 @@
 		<Unit filename="src\MyGUI_DynLibManager.cpp" />
 		<Unit filename="src\MyGUI_Edit.cpp" />
 		<Unit filename="src\MyGUI_EditFactory.cpp" />
+		<Unit filename="src\MyGUI_EditText.cpp" />
 		<Unit filename="src\MyGUI_Font.cpp" />
 		<Unit filename="src\MyGUI_FontManager.cpp" />
 		<Unit filename="src\MyGUI_FooBar.cpp" />
@@ -179,6 +185,8 @@
 		<Unit filename="src\MyGUI_ItemBox.cpp" />
 		<Unit filename="src\MyGUI_ItemBoxFactory.cpp" />
 		<Unit filename="src\MyGUI_LayerItemInfo.cpp" />
+		<Unit filename="src\MyGUI_LayerItemKeeper.cpp" />
+		<Unit filename="src\MyGUI_LayerKeeper.cpp" />
 		<Unit filename="src\MyGUI_LayerManager.cpp" />
 		<Unit filename="src\MyGUI_LayoutManager.cpp" />
 		<Unit filename="src\MyGUI_List.cpp" />
@@ -192,16 +200,15 @@
 		<Unit filename="src\MyGUI_MultiListFactory.cpp" />
 		<Unit filename="src\MyGUI_PluginManager.cpp" />
 		<Unit filename="src\MyGUI_PointerManager.cpp" />
-		<Unit filename="src\MyGUI_PopupMenu.cpp" />
-		<Unit filename="src\MyGUI_PopupMenuFactory.cpp" />
 		<Unit filename="src\MyGUI_Progress.cpp" />
 		<Unit filename="src\MyGUI_ProgressFactory.cpp" />
 		<Unit filename="src\MyGUI_RenderBox.cpp" />
 		<Unit filename="src\MyGUI_RenderBoxFactory.cpp" />
+		<Unit filename="src\MyGUI_RenderItem.cpp" />
 		<Unit filename="src\MyGUI_RenderOut.cpp" />
-		<Unit filename="src\MyGUI_SharedPanelAlphaOverlayElement.cpp" />
 		<Unit filename="src\MyGUI_Sheet.cpp" />
 		<Unit filename="src\MyGUI_SheetFactory.cpp" />
+		<Unit filename="src\MyGUI_SimpleText.cpp" />
 		<Unit filename="src\MyGUI_SkinManager.cpp" />
 		<Unit filename="src\MyGUI_StaticImage.cpp" />
 		<Unit filename="src\MyGUI_StaticImageFactory.cpp" />
@@ -211,14 +218,11 @@
 		<Unit filename="src\MyGUI_SubWidgetManager.cpp" />
 		<Unit filename="src\MyGUI_Tab.cpp" />
 		<Unit filename="src\MyGUI_TabFactory.cpp" />
-		<Unit filename="src\MyGUI_TextEdit.cpp" />
-		<Unit filename="src\MyGUI_TextEditOverlayElement.cpp" />
 		<Unit filename="src\MyGUI_TextIterator.cpp" />
-		<Unit filename="src\MyGUI_TextSimple.cpp" />
-		<Unit filename="src\MyGUI_TextSimpleOverlayElement.cpp" />
 		<Unit filename="src\MyGUI_VScroll.cpp" />
 		<Unit filename="src\MyGUI_VScrollFactory.cpp" />
 		<Unit filename="src\MyGUI_Widget.cpp" />
+		<Unit filename="src\MyGUI_WidgetCreator.cpp" />
 		<Unit filename="src\MyGUI_WidgetFactory.cpp" />
 		<Unit filename="src\MyGUI_WidgetManager.cpp" />
 		<Unit filename="src\MyGUI_Window.cpp" />
@@ -232,6 +236,24 @@
 					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
 				</remote_debugging>
 				<remote_debugging target="Debug">
+					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
+				</remote_debugging>
+				<remote_debugging target="Release">
+					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
+				</remote_debugging>
+				<remote_debugging target="Debug">
+					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
+				</remote_debugging>
+				<remote_debugging target="Debug">
+					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
+				</remote_debugging>
+				<remote_debugging target="Release">
+					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
+				</remote_debugging>
+				<remote_debugging target="Debug">
+					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
+				</remote_debugging>
+				<remote_debugging target="Release">
 					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
 				</remote_debugging>
 			</debugger>
