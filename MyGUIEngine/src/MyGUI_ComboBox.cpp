@@ -115,13 +115,13 @@ namespace MyGUI
 		hideList();
 	}
 
-	void ComboBox::notifyListSelectAccept(MyGUI::WidgetPtr _widget)
+	void ComboBox::notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		std::string str;
-		size_t pos = mList->getItemSelect();
-		if (pos != ITEM_NONE) {
-			mItemIndex = pos;
-			str = mList->getItem(pos);
+		//size_t pos = mList->getItemSelect();
+		if (_position != ITEM_NONE) {
+			mItemIndex = _position;
+			str = mList->getItem(_position);
 		}
 		Edit::setCaption(str);
 

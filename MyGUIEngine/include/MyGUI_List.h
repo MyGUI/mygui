@@ -88,8 +88,8 @@ namespace MyGUI
 		inline int getListMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
 		// event : нажат ентер, или двойной щелчек
-		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventInfo_WidgetVoid eventListSelectAccept;
+		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		// event : изменилась позиция
 		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)

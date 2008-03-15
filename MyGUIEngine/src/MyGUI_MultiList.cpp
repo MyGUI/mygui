@@ -47,7 +47,6 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Client") {
 				mWidgetClient = (*iter);
-				//mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
 		}
 		// мона и без клиента
@@ -85,6 +84,7 @@ namespace MyGUI
 		row.list->eventListChangePosition = newDelegate(this, &MultiList::notifyListChangePosition);
 		row.list->eventListMouseItemFocus = newDelegate(this, &MultiList::notifyListChangeFocus);
 		row.list->eventListChangeScroll = newDelegate(this, &MultiList::notifyListChangeScrollPosition);
+		row.list->eventListSelectAccept = newDelegate(this, &MultiList::notifyListSelectAccept);
 
 		row.button = mWidgetClient->createWidget<Button>(mSkinButton, IntCoord(), ALIGN_DEFAULT);
 		row.button->eventMouseButtonClick = newDelegate(this, &MultiList::notifyButtonClick);
@@ -189,7 +189,6 @@ namespace MyGUI
 
 		_insertSortIndex(_index);
 		setDirtySort();
-		//sortList();
 	}
 
 	void MultiList::setItem(size_t _index, const Ogre::DisplayString & _item)
@@ -222,13 +221,13 @@ namespace MyGUI
 
 	size_t MultiList::getItemSelect()
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		return convertFromSort(mVectorRowInfo.front().list->getItemSelect());
+		if (mVectorRowInfo.empty()) return ITEM_NONE;
+		size_t item = mVectorRowInfo.front().list->getItemSelect();
+		return (ITEM_NONE == item) ? ITEM_NONE : convertFromSort(item);
 	}
 
 	void MultiList::resetItemSelect()
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 			(*iter).list->resetItemSelect();
 		}
@@ -253,7 +252,6 @@ namespace MyGUI
 
 		// если мы попортили список с активным сортом, надо пересчитывать
 		if (_row == mSortRowIndex) setDirtySort();
-			//sortList();
 	}
 
 	const Ogre::DisplayString & MultiList::getSubItem(size_t _row, size_t _index)
@@ -296,6 +294,15 @@ namespace MyGUI
 	{
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
 			if (_widget != (*iter).list) (*iter).list->setItemSelect(_position);
+
+		// наш евент
+		eventListChangePosition(this, _position);
+	}
+
+	void MultiList::notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position)
+	{
+		// наш евент
+		eventListSelectAccept(this, _position);
 	}
 
 	void MultiList::notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position)
@@ -479,12 +486,12 @@ namespace MyGUI
 
 		Keeper keeper;
 
-    int step = count/2;
+		int step = (int)count/2;
  
-		if (mSortUp){
-			for( ; step>0 ; ){
-					for( size_t i=0; i<(count-step); ++i ){
-							int j = i;
+		if (mSortUp) {
+			for( ; step>0 ; ) {
+					for( size_t i=0; i<(count-step); ++i ) {
+							int j = (int)i;
 							while ( (j>=0) && (list->getItem(j) > list->getItem(j+step)) ){
 									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
 									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
@@ -494,10 +501,11 @@ namespace MyGUI
 					}
 					step >>= 1;
 			}
-		}else{
-			for( ; step>0 ; ){
-					for( size_t i=0; i<(count-step); ++i ){
-							int j = i;
+		}
+		else {
+			for( ; step>0 ; ) {
+					for( size_t i=0; i<(count-step); ++i ) {
+							int j = (int)i;
 							while ( (j>=0) && (list->getItem(j) < list->getItem(j+step)) ){
 									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
 									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
