@@ -15,6 +15,8 @@
 #include <sstream>
 #include <assert.h>
 
+#include <OgreDataStream.h>
+
 namespace MyGUI
 {
 	namespace xml
@@ -164,6 +166,8 @@ namespace MyGUI
 			~xmlDocument();
 
 			bool open(const std::string & _name);
+			// открывает по потоку огра
+			bool open(const Ogre::DataStreamPtr& stream);
 
 			// сохраняет файл
 			bool save(const std::string & _name);

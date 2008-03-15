@@ -25,6 +25,8 @@
 #include "MyGUI_RenderBox.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_MultiList.h"
+#include "MyGUI_PopupMenu.h"
+#include "MyGUI_FooBar.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"
@@ -39,6 +41,5 @@
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_ControllerManager.h"
-#include "MyGUI_FooBar.h"
 
 #endif // __MYGUI_H__

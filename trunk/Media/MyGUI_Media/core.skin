@@ -1101,22 +1101,6 @@
         </BasisSkin>
     </Skin>
 
-	<Skin name = "FooBar" size = "40 26" texture = "core.png">
-	
-		<BasisSkin type="SubSkin" offset = "0 0 40 26" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "517 3 33 20"/>
-        </BasisSkin>
-		
-	</Skin>
-	
-	<Skin name = "FooBarItem" size = "64 64" texture = "0.png">
-	
-		<BasisSkin type="SubSkin" offset = "0 0 64 64" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "0 0 63 63"/>
-        </BasisSkin>
-		
-	</Skin>
-
     <Skin name = "Panel" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
