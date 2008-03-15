@@ -152,7 +152,7 @@ namespace MyGUI
 
 		} else if (_key == OIS::KC_RETURN) {
 			if (sel != ITEM_NONE) {
-				eventListSelectAccept(this);
+				eventListSelectAccept(this, sel);
 
 				Widget::_onKeyButtonPressed(_key, _char);
 				// выходим, так как изменили колличество строк

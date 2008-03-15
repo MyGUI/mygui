@@ -58,7 +58,7 @@ namespace MyGUI
 
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
-		void notifyListSelectAccept(MyGUI::WidgetPtr _widget);
+		void notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListMouseItemActivate(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
