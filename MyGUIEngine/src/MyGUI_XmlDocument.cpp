@@ -152,6 +152,73 @@ namespace MyGUI
 			clear();
 		}
 
+		bool xmlDocument::open(const Ogre::DataStreamPtr& stream)
+		{
+			clear();
+
+			mLastErrorFile = stream->getName();
+			// это текущая строка для разбора
+			std::string line;
+			// это строка из файла
+			std::string read;
+			// текущий узел для разбора
+			xmlNodePtr currentNode = 0;
+
+			while (false == stream->eof()) {
+				// берем новую строку
+				read = stream->getLine (false);
+				mLine ++;
+				mCol = 0; // потом проверить на многострочных тэгах
+
+				if (read.empty()) continue;
+
+				// текущая строка для разбора и то что еще прочитали
+				line += read;
+
+				// крутимся пока в строке есть теги
+				while (true) {
+
+					// сначала ищем по угловым скобкам
+					size_t start = find(line, '<');
+					if (start == line.npos) break;
+
+					size_t end = find(line, '>', start+1);
+					if (end == line.npos) break;
+
+					// проверяем на наличее тела
+					size_t body = line.find_first_not_of(" \t<");
+					if (body < start) {
+
+						std::string body_str = line.substr(0, start);
+						// текущий символ
+						mCol = body_str.find_first_not_of(" \t");
+						utility::trim(body_str);
+
+						if (currentNode != 0) 	currentNode->addBody(body_str);
+
+					}
+
+					// вырезаем наш тэг и парсим
+					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
+						// ошибка установится внутри
+						return false;
+					}
+
+					// и обрезаем текущую строку разбора
+					line = line.substr(end+1);
+
+				}; // while (true)
+
+			}; // while (!stream.eof())
+
+			if (currentNode) {
+				mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
+				return false;
+			}
+
+			return true;
+		}
+
 		bool xmlDocument::open(const std::string & _name)
 		{
 			clear();
