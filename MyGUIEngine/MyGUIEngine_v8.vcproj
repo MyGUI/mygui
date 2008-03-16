@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="include;..\Dependencies\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MYGUIENGINE_EXPORTS; MYGUI_NONCLIENT_BUILD"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MYGUI_NONCLIENT_BUILD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
