@@ -16,7 +16,10 @@ namespace MyGUI
 	/** default RenderBox autorotation speed (if enabled) */
 	const size_t RENDER_BOX_AUTO_ROTATION_SPEED = 20;
 
-	/** Widget that show one entity or anything from viewport.
+	/** @brief Widget that show one entity or anything from viewport.
+
+		This widget can show autorotaded and rotatable by mouse mesh.
+		Also you can set your own Ogre::Camera and yo'll see anything from your viewport.
 	*/
 	class _MyGUIExport RenderBox : public Widget, public FrameListener
 	{
@@ -28,8 +31,9 @@ namespace MyGUI
 		virtual ~RenderBox();
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("RenderBox"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		/** Add mesh to scene and remove previous one

@@ -26,9 +26,9 @@ namespace MyGUI
 		virtual ~Edit();
 
 	public:
-
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("Edit"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// работа с текстом с тегами
@@ -127,11 +127,11 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : нажат ентер, или сонтрол энтер в мультилайн
-		// signature : void method(MyGUI::WidgetPtr _widget)
+		// signature : void method(MyGUI::WidgetPtr _sender)
 		EventInfo_WidgetVoid eventEditSelectAccept;
 
 		// event : изменился текст
-		// signature : void method(MyGUI::WidgetPtr _widget)
+		// signature : void method(MyGUI::WidgetPtr _sender)
 		EventInfo_WidgetVoid eventEditTextChange;
 
 	protected:

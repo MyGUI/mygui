@@ -22,8 +22,9 @@ namespace MyGUI
 		ItemBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("ItemBox"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		/*inline size_t getItemCount()
@@ -76,15 +77,15 @@ namespace MyGUI
 		/*inline int getItemBoxMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
 		// event : нажат ентер, или двойной щелчек
-		// signature : void method(MyGUI::WidgetPtr _widget)
+		// signature : void method(MyGUI::WidgetPtr _sender)
 		EventInfo_WidgetVoid eventItemBoxSelectAccept;
 
 		// event : изменилась позиция
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
 		EventInfo_WidgetSizeT eventItemBoxChangePosition;
 
 		// event : мышью выделен элемент
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
 		EventInfo_WidgetSizeT eventItemBoxMouseItemActivate;
 */
 	protected:

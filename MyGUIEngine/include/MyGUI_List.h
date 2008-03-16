@@ -22,24 +22,35 @@ namespace MyGUI
 		List(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("List"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		//------------------------------------------------------------------------------------//
 		// методы дл€ манипул€ций строками
+		//! Get number of items
 		inline size_t getItemCount() { return mStringArray.size();}
 
+		//! Insert an item into a list at a specified position
 		void insertItem(size_t _index, const Ogre::DisplayString & _item);
+		//! Add an item to the end of a list
 		inline void addItem(const Ogre::DisplayString & _item) {insertItem(ITEM_NONE, _item);}
+		//! Replace an item at a specified position
 		void setItem(size_t _index, const Ogre::DisplayString & _item);
+		//! Get item from specified position
 		const Ogre::DisplayString & getItem(size_t _index);
 
+		//! Delete item at a specified position
 		void deleteItem(size_t _index);
+		//! Delete all items
 		void deleteAllItems();
 
+		//! Get number of selected item (ITEM_NONE if none selected)
 		inline size_t getItemSelect() {return mIndexSelect;}
+		//! Reset item selection
 		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		//! Set item selection at a specified position
 		void setItemSelect(size_t _index);
 
 
@@ -84,27 +95,37 @@ namespace MyGUI
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
-		// возвращает максимальную высоту вмещающую все строки и радительский бордюр
-		inline int getListMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
+		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
+		inline int getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
-		// event : нажат ентер, или двойной щелчек
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		/** Event : Enter pressed or double click.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			_index of selected item
+		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
-		// event : изменилась позици€
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		/** Event : Selected item position changed.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			_index of new item
+		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
 
-		// event : мышью выделен элемент
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		/** Event : Item was selected by mouse.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			_index of selected item
+		*/
 		EventInfo_WidgetSizeT eventListMouseItemActivate;
 
-		// event : над элементом находитьс€ мышь
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		/** Event : Mouse is over item.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			_index of focused item
+		*/
 		EventInfo_WidgetSizeT eventListMouseItemFocus;
 
-		// event : изменилось положение скролла вью
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		/** Event : Position of scroll changed.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			_position of scroll
+		*/
 		EventInfo_WidgetSizeT eventListChangeScroll;
 
 	protected:

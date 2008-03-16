@@ -82,9 +82,11 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _left, _top, _width, _height, _align, _name));
 		}
 
-
+		//! Get name if widget
 		inline const Ogre::String & getName() {return mName;}
+		//! Get widget class type
 		inline static const Ogre::String & _getType() {static Ogre::String type("Widget"); return type;}
+		//! Get widget type
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		virtual void setPosition(const IntPoint& _pos);
