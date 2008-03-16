@@ -121,13 +121,13 @@ namespace MyGUI
 
 		inline const Ogre::DisplayString& getSheetNameIndex(size_t _index)
 		{
-			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetNameIndex: index " << _index <<" out of range");
+			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetNameIndex: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].name;
 		}
 
 		inline int getSheetButtonWidthIndex(size_t _index)
 		{
-			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetButtonWidthIndex: index " << _index <<" out of range");
+			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetButtonWidthIndex: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].width;
 		}
 		inline int getSheetButtonWidth(SheetPtr _sheet)
@@ -140,7 +140,7 @@ namespace MyGUI
 
 		inline SheetPtr getSheet(size_t _index)
 		{
-			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheet: index " << _index <<" out of range");
+			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheet: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].sheet;
 		}
 

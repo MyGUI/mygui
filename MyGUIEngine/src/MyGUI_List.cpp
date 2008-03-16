@@ -48,12 +48,12 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("SkinLine");
-		if (iter != param.end()) mSkinLine = iter->second;
+		MapString::const_iterator iterS = param.find("SkinLine");
+		if (iterS != param.end()) mSkinLine = iterS->second;
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property or skin not found (List must have SkinLine property)");
 
-		iter = param.find("HeightLine");
-		if (iter != param.end()) mHeightLine = utility::parseInt(iter->second);
+		iterS = param.find("HeightLine");
+		if (iterS != param.end()) mHeightLine = utility::parseInt(iterS->second);
 		if (mHeightLine < 1) mHeightLine = 1;
 
 

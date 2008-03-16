@@ -236,6 +236,7 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 			try {
 				const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
 				mFpsInfo->setCaption(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
+				//mFpsInfo->setCaption(MyGUI::utility::toString("FPS: ", stats.lastFPS));
 			} catch (...) { }
 		}
 	}

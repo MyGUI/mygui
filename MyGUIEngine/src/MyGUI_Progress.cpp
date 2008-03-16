@@ -31,10 +31,10 @@ namespace MyGUI
 		if (null == mClient) mClient = this;
 
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("TrackSkin");
-		if (iter != param.end()) mTrackSkin = iter->second;
-		iter = param.find("TrackWidth");
-		if (iter != param.end()) mTrackWidth = utility::parseInt(iter->second);
+		MapString::const_iterator iterS = param.find("TrackSkin");
+		if (iterS != param.end()) mTrackSkin = iterS->second;
+		iterS = param.find("TrackWidth");
+		if (iterS != param.end()) mTrackWidth = utility::parseInt(iterS->second);
 		if (1 > mTrackWidth) mTrackWidth = 1;
 
 	}

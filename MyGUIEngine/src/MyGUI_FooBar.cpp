@@ -30,7 +30,7 @@ namespace MyGUI
 		mAutoAlpha(true),
 		mAlphaFocused(0.8f),
 		mAlphaIncative(0.2f),
-		mAlphaSpeed(1.0f)
+		mAlphaSpeed(3.0f)
 	{
 		Gui::getInstance().addFrameListener(this);
 	}
@@ -101,7 +101,7 @@ namespace MyGUI
 		if (mMouseWidget > -1)
 			upd = true;
 
-		mMouseWidget = -1;	
+		//mMouseWidget = -1;
 		int n = (int)mItemsOrder.size();
 		for (int i = 0; i < n; i++)
 			if (checkPoint(pt.left, pt.top, mItemsOrder[i]))
@@ -110,10 +110,14 @@ namespace MyGUI
 					mMouseWidget = i;
 					updateItemsLayout();
 					return;
-				}
-
+				}else	// old item under mouse
+					return;
+		
 		if (upd)
+		{
+			mMouseWidget = -1;
 			updateItemsLayout();
+		}
 
 	}
 
@@ -155,7 +159,10 @@ namespace MyGUI
 		mFocus = _focus;
 
 		if (!mFocus)
+		{
 			mMouseWidget = -1;
+			updateItemsLayout();
+		}
 
 		updateAlpha();
 			
