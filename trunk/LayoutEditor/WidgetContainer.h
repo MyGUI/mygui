@@ -36,7 +36,7 @@ struct WidgetContainer
 			char str[256];
 			MyGUI::FloatCoord coord = MyGUI::Gui::getInstance().convertIntToRelative(widget->getCoord(), widget->getParent());
 			if (_percent) sprintf(str, "%1.4g %1.4g %1.4g %.4g", coord.left*100, coord.top*100, coord.width*100, coord.height*100);
-			else sprintf(str, "%3.9g %3.9g %3.9g %3.9g", coord.left, coord.top, coord.width, coord.height);
+			else sprintf(str, "%1.9g %1.9g %1.9g %1.9g", coord.left, coord.top, coord.width, coord.height);
 			retval = str;
 			return retval;
 		}

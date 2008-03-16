@@ -23,35 +23,66 @@ namespace MyGUI
 		~ComboBox();
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("ComboBox"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		//------------------------------------------------------------------------------------//
 		// методы для манипуляций строками
-		size_t getItemCount();
+		//! Get number of items
+		inline size_t getItemCount();
 
+		//! Insert an item into a list at a specified position
 		void insertItem(size_t _index, const Ogre::DisplayString & _item);
-		void addItem(const Ogre::DisplayString& _item);
+		//! Add an item to the end of a list
+		inline void addItem(const Ogre::DisplayString & _item);
+		//! Replace an item at a specified position
 		void setItem(size_t _index, const Ogre::DisplayString & _item);
+		//! Get item from specified position
 		const Ogre::DisplayString & getItem(size_t _index);
 
+		//! Delete item at a specified position
 		void deleteItem(size_t _index);
+		//! Delete all items
 		void deleteAllItems();
 
+		//! Get number of selected item (ITEM_NONE if none selected)
 		void setItemSelect(size_t _index);
+		//! Reset item selection
+		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		//! Set item selection at a specified position
 		inline size_t getItemSelect() { return mItemIndex; }
-
 
 		//------------------------------------------------------------------------------------//
 		// методы для управления отображением
+		//! Set drop list mode (text can not be edited)
 		void setComboModeDrop(bool _drop);
+		//! Get drop list mode
 		inline bool getComboModeDrop() { return mModeDrop; }
 
-		inline bool getSmoothShow() { return mShowSmooth; }
+		//! Set smooth show of list
 		inline void setSmoothShow(bool _smooth) { mShowSmooth = _smooth; }
+		//! Get smooth show of list
+		inline bool getSmoothShow() { return mShowSmooth; }
+
+		//! Set max list height
+		inline int getMaxListHeight() { return mMaxHeight; }
+		//! Get max list height
+		inline void setMaxListHeight(int _height) { mMaxHeight = _height; }
 
 		//------------------------------------------------------------------------------------//
+
+		/** Event : Enter pressed in combo mode or item selected in drop.\n
+			signature : void method(MyGUI::WidgetPtr _sender)
+		*/
+		EventInfo_WidgetVoid eventComboAccept;
+
+		/** Event : Position changed.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			_index of new position
+		*/
+		EventInfo_WidgetSizeT eventComboChangePosition;
 
 	protected:
 		virtual void _onKeyButtonPressed(int _key, Char _char);
@@ -67,15 +98,6 @@ namespace MyGUI
 
 		void showList();
 		void hideList();
-
-	public:
-		// event : нажат энтер в комбо режиме или выбран айтем в дроп режиме
-		// signature : void method(MyGUI::WidgetPtr _widget)
-		EventInfo_WidgetVoid eventComboAccept;
-
-		// event : изменилась позиция
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _index)
-		EventInfo_WidgetSizeT eventComboChangePosition;
 
 	private:
 		ButtonPtr mButton;

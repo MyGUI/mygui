@@ -66,6 +66,7 @@ void EditorState::enter(bool bIsChangeState)
 	allWidgetsCombo->setComboModeDrop(true);
 	allWidgetsCombo->eventKeySetFocus = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabPressed);
 	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabSelect);
+	allWidgetsCombo->setMaxListHeight(200);
 
 	int height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
 	windowWidgets->setSize(windowWidgets->getSize().width, height + (i/2+2)*h);
@@ -134,10 +135,6 @@ void EditorState::enter(bool bIsChangeState)
 	multilist->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectUserDataItem);
 	multilist->addRow(multilist->getWidth()/2, "Key");
 	multilist->addRow(multilist->getWidth()/2, "Value");
-
-	/*size_t count = 10;
-	for (size_t pos=0; pos<count; pos++) multilist->addItem(MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));
-	for (size_t pos=0; pos<count; pos++) multilist->setSubItem(1, pos, MyGUI::utility::toString(Ogre::Math::RangeRandom(0, count)));*/
 
 	// create widget rectangle
 	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");

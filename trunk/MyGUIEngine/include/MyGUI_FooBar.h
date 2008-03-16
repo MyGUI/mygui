@@ -91,9 +91,9 @@ namespace MyGUI
 		} Layout;
 
 	public:
-		//! Get type of widget
+		//! @copydoc Widget::_getType
 		inline static const Ogre::String & _getType() {static Ogre::String type("FooBar"); return type;}
-		//!	Get type of widget
+		//!	@copydoc Widget::getWidgetType
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 

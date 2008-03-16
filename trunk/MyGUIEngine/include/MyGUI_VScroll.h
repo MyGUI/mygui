@@ -22,8 +22,9 @@ namespace MyGUI
 		VScroll(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("VScroll"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		virtual void TrackMove(int _left, int _top);
@@ -50,7 +51,7 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : изменилось положение скрола
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
 		EventInfo_WidgetSizeT eventScrollChangePosition;
 
 	protected:

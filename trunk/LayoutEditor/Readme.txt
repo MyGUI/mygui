@@ -32,3 +32,9 @@ Ignoreg properties:
 All possible values can be found in Media/LayoutEditor/widgets.xml
   For example if you want add you own skin in editor add your my_skin.skin file to Media/LayoutEditor/editor.xml
   and add <Property key="Skin" value="MySkin"/> to appropriate widget.
+
+Items/Sheelt panel is used to add and edit List or ComboBox items or Tab sheets. Press enter to edit selected item.
+
+UserData panel is used to add UserData to any widget. UserData is map of key value pairs. It used to store any needed info in widget.
+  For example you can add some info data to all widgets and in runtime you'll get it by std::string info = widget->getUserData(key); and show popup with info about widget.
+  Another example: you have 10 buttons and want to have one event handler for all. You can add in user data button number and read it in event handler to understand which button was pressed.

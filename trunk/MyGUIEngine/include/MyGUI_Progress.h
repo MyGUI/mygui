@@ -26,8 +26,9 @@ namespace MyGUI
 		void _frameEntered(float _time);
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("Progress"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		void setProgressRange(size_t _range);

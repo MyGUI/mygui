@@ -78,8 +78,9 @@ namespace MyGUI
 		void _destroyMessage(ViewInfo _result);
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("Message"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		/** Set message text*/
@@ -145,7 +146,8 @@ namespace MyGUI
 
 	public:
 		/** Event : button on message window pressed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)\n
+			_button - id of pressed button
 		*/
 		EventInfo_WidgetMessage eventMessageBoxEnd;
 
