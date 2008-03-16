@@ -224,7 +224,7 @@ namespace MyGUI
 
 		mListShow = true;
 
-		int height = mList->getListMaxHeight();
+		int height = mList->getOptimalHeight();
 		if (height > mMaxHeight) height = mMaxHeight;
 
 		// берем глобальные координаты выджета

@@ -55,8 +55,9 @@ namespace MyGUI
 		void _notifyDeleteSheet(SheetPtr _sheet);
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("Tab"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// переопределяем для особого обслуживания страниц

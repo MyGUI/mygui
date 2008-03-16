@@ -35,8 +35,9 @@ namespace MyGUI
 		virtual ~MultiList();
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("MultiList"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		//----------------------------------------------------------------------------------//
@@ -83,11 +84,11 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : нажат ентер, или двойной щелчек
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		// event : изменилась позиция
-		// signature : void method(MyGUI::WidgetPtr _widget, size_t _position)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
 		EventInfo_WidgetSizeT eventListChangePosition;
 
 	protected:

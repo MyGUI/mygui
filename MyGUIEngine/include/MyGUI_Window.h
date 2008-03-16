@@ -24,8 +24,9 @@ namespace MyGUI
 		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		// тип данного виджета
+		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {static Ogre::String type("Window"); return type;}
+		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// переопределяем для присвоению клиенту
@@ -74,11 +75,11 @@ namespace MyGUI
 		virtual VectorWidgetPtr getChilds();
 
 		// event : нажат на кнопку в окне
-		// signature : void method(MyGUI::WidgetPtr _widget, const std::string& _name)
+		// signature : void method(MyGUI::WidgetPtr _sender, const std::string& _name)
 		EventInfo_WidgetString eventWindowButtonPressed;
 
 		// event : изменились размеры окна
-		// signature : void method(MyGUI::WidgetPtr _widget)
+		// signature : void method(MyGUI::WidgetPtr _sender)
 		EventInfo_WidgetVoid eventWindowChangeCoord;
 
 	protected:
