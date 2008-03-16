@@ -351,7 +351,7 @@ namespace MyGUI
 			std::ostringstream stream;
 			stream << "'" << errorNamesString[mLastError] << "' " << mLastErrorFile;
 			if (xml::errors::XML_ERROR_OPEN_FILE != mLastError)
-				stream << ",  "<< "line=" << mLine << " , col=" << mCol;
+				stream << ",  "<< "line=" << (unsigned int)mLine << " , col=" << (unsigned int)mCol;
 			return stream.str();
 		}
 
