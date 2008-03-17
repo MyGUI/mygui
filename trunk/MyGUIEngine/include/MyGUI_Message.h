@@ -103,7 +103,7 @@ namespace MyGUI
 		/** Set fade under message*/
 		void setWindowFade(bool _fade);
 
-		/** static method for creating message with one command
+		/** Static method for creating message with one command
 			@param
 				_modal if true all other GUI elements will be blocked untill message is closed
 			@param
@@ -118,26 +118,26 @@ namespace MyGUI
 			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "",
 			const std::string & _button5 = "", const std::string & _button6 = "", const std::string & _button7 = "");
 
-		/** see Message::_createMessage*/
+		/** See Message::_createMessage*/
 		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, _info);
 		}
 
-		/** see Message::_createMessage*/
+		/** See Message::_createMessage*/
 		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, EventMessageEnd * _delegate, ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, _info);
 		}
 
-		/** see Message::_createMessage*/
+		/** See Message::_createMessage*/
 		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
 			const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, None, _button1, _button2, _button3);
 		}
 
-		/** see Message::_createMessage*/
+		/** See Message::_createMessage*/
 		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
 			EventMessageEnd * _delegate, const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{

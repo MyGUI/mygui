@@ -74,7 +74,7 @@ namespace MyGUI
 	{
 		// скрываем у крайнего скролл
 		if (false == mVectorRowInfo.empty()) 
-			mVectorRowInfo.back().list->needVisibleScroll(false);
+			mVectorRowInfo.back().list->setScrollVisible(false);
 		else mSortRowIndex = 0;
 
 		RowInfo row;
@@ -103,7 +103,7 @@ namespace MyGUI
 		updateRows();
 
 		// показываем скролл нового крайнего
-		mVectorRowInfo.back().list->needVisibleScroll(true);
+		mVectorRowInfo.back().list->setScrollVisible(true);
 	}
 
 	void MultiList::setRowName(size_t _index, const Ogre::DisplayString & _name)
