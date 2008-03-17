@@ -56,16 +56,30 @@ namespace MyGUI
 
 		//------------------------------------------------------------------------------------//
 		// методы для показа строк
+		//! Move all elements so specified becomes visible
 		void beginToIndex(size_t _index);
+		//! Move all elements so first becomes visible
 		inline void beginToStart() { beginToIndex(0); }
+		//! Move all elements so last becomes visible
 		inline void beginToEnd() { if (!mStringArray.empty()) beginToIndex(mStringArray.size()-1); }
+		//! Move all elements so selected becomes visible
 		inline void beginToSelect() { beginToIndex(mIndexSelect); }
 
 		// видим ли мы элемент, полностью или нет
+		/** Return true if item visible
+			@param
+				_index of item
+			@param
+				_fill if false function return true if only whole item is visible
+				if true function return true even if only part of item is visible
+		*/
 		bool isItemVisible(size_t _index, bool _fill = true);
+		//! Same as isItemVisible for selected item
 		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
 
-		void needVisibleScroll(bool _visible);
+		//! Set scroll visible when it needed
+		void setScrollVisible(bool _visible);
+		//! Set scroll position
 		void setScrollPosition(size_t _position);
 
 		//------------------------------------------------------------------------------------//
@@ -96,6 +110,7 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
+		//! Return optimal height to fit all items in List
 		inline int getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
 		/** Event : Enter pressed or double click.\n

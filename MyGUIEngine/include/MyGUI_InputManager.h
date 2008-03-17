@@ -60,6 +60,9 @@ namespace MyGUI
 		inline const IntPoint & getLastLeftPressed() {return mLastLeftPressed;}
 		inline const IntPoint & getMousePosition() {return mMousePosition;}
 
+		inline void setUseOISKeyLayout (bool b) {mUseOISKeyLayout = b;}
+		inline bool getUseOISKeyLayout () const {return mUseOISKeyLayout;}
+
 		// тестовый вариант, очистка фокуса мыши
 		void resetMouseFocusWidget();
 
@@ -132,6 +135,8 @@ namespace MyGUI
 		int mHoldKey;
 		bool mFirstPressKey;
 		float mTimerKey;
+		
+		bool mUseOISKeyLayout;
 
 		// текущий отображаемый указатель
 		std::string mPointer;
