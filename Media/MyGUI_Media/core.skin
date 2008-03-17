@@ -1209,5 +1209,21 @@
         </BasisSkin>
     </Skin>
 	
+	<Skin name = "FooBar" size = "64 32" texture = "core.png">
+	
+		<BasisSkin type="SubSkin" offset = "0 0 64 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "590 2 64 32"/> 
+        </BasisSkin>
+		
+	</Skin>
+	
+	<Skin name = "FooBarItem" size = "32 32" texture = "core.png">
+		<BasisSkin type="SubSkin" offset = "0 0 32 32" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "90 170 44 44"/>
+        </BasisSkin>
+		
+	</Skin>
+
+	
 </MyGUI>
 
