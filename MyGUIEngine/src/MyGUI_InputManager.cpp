@@ -37,6 +37,7 @@ namespace MyGUI
 		mIsWidgetMouseCapture = false;
 		mIsCharShift = false;
 		mHoldKey = OIS::KC_UNASSIGNED;
+		mUseOISKeyLayout = false;
 
 		createDefaultCharSet();
 
@@ -218,7 +219,19 @@ namespace MyGUI
 		detectLangShift(_arg.key, true);
 
 		//Pass keystrokes to the current active text widget
-		if (isFocusKey()) mWidgetKeyFocus->_onKeyButtonPressed(_arg.key, getKeyChar(_arg.key));
+		if (isFocusKey())
+		{
+			Char ch;
+			if (mUseOISKeyLayout)
+			{
+				ch = _arg.text;
+				if (std::find (mCurrentLanguage->second.begin(), mCurrentLanguage->second.end(), ch) == mCurrentLanguage->second.end())
+					ch = 0;
+			}
+			else
+				ch = getKeyChar(_arg.key);
+			mWidgetKeyFocus->_onKeyButtonPressed(_arg.key, ch);
+		}
 
 		// запоминаем клавишу
 		storeKey(_arg.key);

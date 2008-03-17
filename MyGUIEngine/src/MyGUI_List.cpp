@@ -641,7 +641,7 @@ namespace MyGUI
 			static_cast<ButtonPtr>(mWidgetLines[index])->_setMouseFocus(_focus);
 	}	
 
-	void List::needVisibleScroll(bool _visible)
+	void List::setScrollVisible(bool _visible)
 	{
 		if (mNeedVisibleScroll == _visible) return;
 		mNeedVisibleScroll = _visible;
