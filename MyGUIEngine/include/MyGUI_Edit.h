@@ -229,9 +229,6 @@ namespace MyGUI
 		// максимальное колличество
 		size_t mTextLength;
 
-		bool mShiftPressed;
-		bool mCtrlPressed;
-
 		// выделение
 		size_t mStartSelect, mEndSelect;
 
