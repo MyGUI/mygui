@@ -58,6 +58,9 @@ namespace MyGUI
 
 		inline float getAspectCoef() {return mAspectCoef;}
 
+		// переключаем гуй на другой сцен менеджер
+		void setSceneManager(Ogre::SceneManager * _scene);
+
 	private:
 
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
@@ -84,7 +87,7 @@ namespace MyGUI
 		// координата зю
 		float mMaximumDepth;
 
-
+		Ogre::SceneManager * mSceneManager;
 	};
 
 } // namespace MyGUI

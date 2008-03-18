@@ -28,8 +28,14 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
-		Ogre::SceneManager * mSceneManager = Ogre::Root::getSingleton().getSceneManagerIterator().getNext();
-		mSceneManager->addRenderQueueListener(this);
+		Ogre::SceneManagerEnumerator::SceneManagerIterator iter = Ogre::Root::getSingleton().getSceneManagerIterator();
+		if (iter.hasMoreElements()) {
+			mSceneManager = iter.getNext();
+			mSceneManager->addRenderQueueListener(this);
+		}
+		else {
+			mSceneManager = null;
+		}
 
 		// инициализация
 		mPixScaleX = mPixScaleY = 1;
@@ -91,6 +97,9 @@ namespace MyGUI
 	{
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
 
+		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
+		if ((null == vp) || (false == vp->getOverlaysEnabled())) return;
+
 		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			(*iter)->_render(mUpdate);
 		}
@@ -102,7 +111,6 @@ namespace MyGUI
 
 	void LayerManager::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
 	{
-		1;
 	}
 
 	void LayerManager::_unlinkWidget(WidgetPtr _widget)
@@ -202,9 +210,13 @@ namespace MyGUI
 		// обновить всех
 		mUpdate = true;
 
-		/*for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			(*iter)->_resize(mViewSize);
-		}*/
+	}
+
+	void LayerManager::setSceneManager(Ogre::SceneManager * _scene)
+	{
+		if (null != mSceneManager) mSceneManager->removeRenderQueueListener(this);
+		mSceneManager = _scene;
+		if (null != mSceneManager) mSceneManager->addRenderQueueListener(this);
 	}
 
 } // namespace MyGUI
