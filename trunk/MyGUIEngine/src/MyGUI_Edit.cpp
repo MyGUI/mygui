@@ -35,8 +35,6 @@ namespace MyGUI
 		mActionMouseTimer(0),
 		mCursorPosition(0),
 		mTextLength(0),
-		mShiftPressed(false),
-		mCtrlPressed(false),
 		mStartSelect(ITEM_NONE),
 		mEndSelect(0),
 		mMouseLeftPressed(false),
@@ -69,10 +67,6 @@ namespace MyGUI
 		// первоначальна€ инициализаци€ курсора
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
-
-		//setCaption("erghsdkflhgs;flhgs;lkjh;lsdkfh;dkkflhgkljdhfgklsdhfkglshdfkglhdflkhg");
-		//mText->setViewOffset(IntPoint(-100, -100));
-
 
 	}
 
@@ -194,6 +188,8 @@ namespace MyGUI
 
 	void Edit::_onKeyButtonPressed(int _key, Char _char)
 	{
+		InputManager & input = InputManager::getInstance();
+
 		// в статическом режиме ничего не доступно
 		if (mModeStatic) {
 			Widget::_onKeyButtonPressed(_key, _char);
@@ -222,7 +218,7 @@ namespace MyGUI
 
 		}
 		else if (_key == OIS::KC_DELETE) {
-			if (mShiftPressed) commandCut();
+			if (input.isShiftPressed()) commandCut();
 			else if (false == mModeReadOnly) {
 				// если нуно то удал€ем выделенный текст
 				if (false == deleteTextSelect(true)) {
@@ -236,14 +232,14 @@ namespace MyGUI
 
 		}
 		else if (_key == OIS::KC_INSERT) {
-			if (mShiftPressed) commandPast();
-			else if (mCtrlPressed) commandCopy();
+			if (input.isShiftPressed()) commandPast();
+			else if (input.isControlPressed()) commandCopy();
 
 		}
 		else if (_key == OIS::KC_RETURN) {
 			// работаем только в режиме редактировани€
 			if (false == mModeReadOnly) {
-				if ((mModeMultiline) && (false == mCtrlPressed)) {
+				if ((mModeMultiline) && (false == input.isControlPressed())) {
 					// попытка объединени€ двух комманд
 					size_t size = mVectorUndoChangeInfo.size();
 					// непосредственно операции
@@ -266,7 +262,7 @@ namespace MyGUI
 				updateSelectText();
 			}
 			// сбрасываем выделение
-			else if (isTextSelect() && !mShiftPressed) resetSelect();
+			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 
 		}
 		else if (_key == OIS::KC_LEFT) {
@@ -276,7 +272,7 @@ namespace MyGUI
 				updateSelectText();
 			}
 			// сбрасываем выделение
-			else if (isTextSelect() && !mShiftPressed) resetSelect();
+			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 
 		}
 		else if (_key == OIS::KC_UP) {
@@ -292,7 +288,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -313,7 +309,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -323,7 +319,7 @@ namespace MyGUI
 		}
 		else if (_key == OIS::KC_HOME) {
 			// в начало строки
-			if ( false == mCtrlPressed) {
+			if ( false == input.isControlPressed()) {
 				IntPoint point = mText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MIN_POSITION;
 				size_t old = mCursorPosition;
@@ -332,7 +328,7 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			// в начало всего текста
 			else {
@@ -341,13 +337,13 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 
 		}
 		else if (_key == OIS::KC_END) {
 			// в конец строки
-			if ( false ==   mCtrlPressed) {
+			if ( false ==   input.isControlPressed()) {
 				IntPoint point = mText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MAX_POSITION;
 				size_t old = mCursorPosition;
@@ -356,7 +352,7 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			// в самый конец
 			else {
@@ -365,7 +361,7 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 
 		}
@@ -383,7 +379,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -405,7 +401,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !mShiftPressed) resetSelect();
+				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -413,22 +409,24 @@ namespace MyGUI
 			}
 
 		}
-		else if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) {
-			if ( ! mShiftPressed) {
-				mShiftPressed = true;
+		// потом проверить правильно ли будет выдел€тьс€ при отсутсвии старта
+		// и перенести этот код куда надо
+		/*else if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) {
+			if ( ! input.isShiftPressed()) {
+				input.isShiftPressed() = true;
 				if (mStartSelect == ITEM_NONE) {
 					mStartSelect = mEndSelect = mCursorPosition;
 				}
 			}
 		}
 		else if ( (_key == OIS::KC_LCONTROL) || (_key == OIS::KC_RCONTROL) ) {
-			mCtrlPressed = true;
+			input.isControlPressed() = true;
 
-		}
+		}*/
 		else if (_char != 0) {
 
 			// если не нажат контрл, то обрабатываем как текст
-			if ( false == mCtrlPressed ) {
+			if ( false == input.isControlPressed() ) {
 				if (false == mModeReadOnly) {
 					// попытка объединени€ двух комманд
 					size_t size = mVectorUndoChangeInfo.size();
@@ -476,8 +474,8 @@ namespace MyGUI
 
 	void Edit::_onKeyButtonReleased(int _key)
 	{
-		if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) mShiftPressed = false;
-		if ( (_key == OIS::KC_LCONTROL) || (_key == OIS::KC_RCONTROL) ) mCtrlPressed = false;
+		//if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) input.isShiftPressed() = false;
+		//if ( (_key == OIS::KC_LCONTROL) || (_key == OIS::KC_RCONTROL) ) input.isControlPressed() = false;
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyButtonReleased(_key);
@@ -1188,7 +1186,9 @@ namespace MyGUI
 	{
 		if (mModeStatic) return;
 
-		if ( (mShiftPressed) && (mStartSelect != ITEM_NONE) ) {
+		InputManager & input = InputManager::getInstance();
+
+		if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) ) {
 			// мен€ем выделение
 			mEndSelect = (size_t)mCursorPosition;
 			if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);

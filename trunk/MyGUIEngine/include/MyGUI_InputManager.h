@@ -78,6 +78,9 @@ namespace MyGUI
 
 		bool isModalAny() {return !mVectorModalRootWidget.empty();}
 
+		inline bool isControlPressed() {return mIsControlPressed;}
+		inline bool isShiftPressed() {return mIsShiftPressed;}
+
 	protected:
 		void _frameEntered(float _frame);
 
@@ -101,10 +104,7 @@ namespace MyGUI
 		void storeKey(int _key);
 
 		// сбрасывает клавишу повторения
-		inline void resetKey()
-		{
-			mHoldKey = OIS::KC_UNASSIGNED;
-		}
+		void resetKey(int _key);
 
 
 	protected:
@@ -125,7 +125,9 @@ namespace MyGUI
 		// текущий язык
 		MapLang::iterator mCurrentLanguage;
 		// нажат ли шифт
-		bool mIsCharShift;
+		bool mIsShiftPressed;
+		// нажат ли контрол
+		bool mIsControlPressed;
 		// массив для нумлока
 		LangInfo mNums;
 		// там где была последний раз нажата левая кнопка

@@ -35,7 +35,8 @@ namespace MyGUI
 		mWidgetRootMouseFocus = 0;
 		mWidgetRootKeyFocus = 0;
 		mIsWidgetMouseCapture = false;
-		mIsCharShift = false;
+		mIsShiftPressed = false;
+		mIsControlPressed = false;
 		mHoldKey = OIS::KC_UNASSIGNED;
 		mUseOISKeyLayout = false;
 
@@ -217,35 +218,32 @@ namespace MyGUI
 	{
 		// проверка на переключение языков
 		detectLangShift(_arg.key, true);
+		// запоминаем клавишу
+		storeKey(_arg.key);
 
 		//Pass keystrokes to the current active text widget
-		if (isFocusKey())
-		{
+		if (isFocusKey()) {
 			Char ch;
-			if (mUseOISKeyLayout)
-			{
+			if (mUseOISKeyLayout) {
 				ch = _arg.text;
 				if (std::find (mCurrentLanguage->second.begin(), mCurrentLanguage->second.end(), ch) == mCurrentLanguage->second.end())
 					ch = 0;
 			}
-			else
+			else {
 				ch = getKeyChar(_arg.key);
+			}
 			mWidgetKeyFocus->_onKeyButtonPressed(_arg.key, ch);
 		}
-
-		// запоминаем клавишу
-		storeKey(_arg.key);
 
 		return isFocusKey();
 	}
 
 	bool InputManager::injectKeyRelease(const OIS::KeyEvent & _arg)
 	{
-		// сбрасываем клавишу
-		resetKey();
-
 		// проверка на переключение языков
 		detectLangShift(_arg.key, false);
+		// сбрасываем клавишу
+		resetKey(_arg.key);
 
 		if (isFocusKey()) mWidgetKeyFocus->_onKeyButtonReleased(_arg.key);
 
@@ -263,14 +261,13 @@ namespace MyGUI
 		static bool bIsSecondKeyPressed = false; // LeftShift
 		static bool bIsTwoKeyPressed = false; // обе были зажаты
 
-		if ((keyEvent == OIS::KC_LSHIFT) || (keyEvent == OIS::KC_RSHIFT))
-		{
+		if ((keyEvent == OIS::KC_LSHIFT) || (keyEvent == OIS::KC_RSHIFT)) {
 			if (bIsKeyPressed) {
-				mIsCharShift = true;
+				mIsShiftPressed = true;
 				bIsSecondKeyPressed = true;
 				if (bIsFirstKeyPressed) bIsTwoKeyPressed = true;
 			} else {
-				mIsCharShift = false;
+				mIsShiftPressed = false;
 				bIsSecondKeyPressed = false;
 				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed)) {
 					bIsTwoKeyPressed = false;
@@ -279,8 +276,11 @@ namespace MyGUI
 				}
 			}
 		}
-		else if ((keyEvent == OIS::KC_LMENU) || (keyEvent == OIS::KC_LCONTROL))
-		{
+		else if ((keyEvent == OIS::KC_LMENU) || (keyEvent == OIS::KC_RMENU)
+			|| (keyEvent == OIS::KC_LCONTROL) || (keyEvent == OIS::KC_RCONTROL)) {
+
+			if ((keyEvent == OIS::KC_LCONTROL) || (keyEvent == OIS::KC_RCONTROL)) mIsControlPressed = bIsKeyPressed;
+
 			if (bIsKeyPressed) {
 				bIsFirstKeyPressed = true;
 				if (bIsSecondKeyPressed) bIsTwoKeyPressed = true;
@@ -293,8 +293,7 @@ namespace MyGUI
 				}
 			}
 		}
-		else
-		{
+		else {
 			bIsFirstKeyPressed = false;
 			bIsSecondKeyPressed = false;
 			bIsTwoKeyPressed = false;
@@ -303,11 +302,11 @@ namespace MyGUI
 
 	Char InputManager::getKeyChar(int keyEvent) // возвращает символ по его скан коду
 	{
-		if (keyEvent < 58) return mCurrentLanguage->second[keyEvent + (mIsCharShift ? 58 : 0)];
+		if (keyEvent < 58) return mCurrentLanguage->second[keyEvent + (mIsShiftPressed ? 58 : 0)];
 		else if (keyEvent < 84) {
 			if (keyEvent > 70) return mNums[keyEvent-71];
-		} else if (keyEvent == OIS::KC_DIVIDE) return mCurrentLanguage->second[OIS::KC_SLASH + (mIsCharShift ? 58 : 0)];
-		else if (keyEvent == OIS::KC_OEM_102) return mCurrentLanguage->second[OIS::KC_BACKSLASH + (mIsCharShift ? 58 : 0)];
+		} else if (keyEvent == OIS::KC_DIVIDE) return mCurrentLanguage->second[OIS::KC_SLASH + (mIsShiftPressed ? 58 : 0)];
+		else if (keyEvent == OIS::KC_OEM_102) return mCurrentLanguage->second[OIS::KC_BACKSLASH + (mIsShiftPressed ? 58 : 0)];
 		return 0;
 	}
 
@@ -455,24 +454,6 @@ namespace MyGUI
 
 	}
 
-	void InputManager::storeKey(int _key)
-	{
-		mHoldKey = OIS::KC_UNASSIGNED;
-
-		if ( false == isFocusKey() ) return;
-		if ( (_key == OIS::KC_LSHIFT)
-			|| (_key == OIS::KC_RSHIFT)
-			|| (_key == OIS::KC_LCONTROL)
-			|| (_key == OIS::KC_RCONTROL)
-			|| (_key == OIS::KC_LMENU)
-			|| (_key == OIS::KC_RMENU)
-			) return;
-
-		mHoldKey = _key;
-		mFirstPressKey = true;
-		mTimerKey = 0.0f;
-	}
-
 	// удаляем данный виджет из всех возможных мест
 	void InputManager::_unlinkWidget(WidgetPtr _widget)
 	{
@@ -524,6 +505,26 @@ namespace MyGUI
 			setKeyFocusWidget(mVectorModalRootWidget.back());
 			LayerManager::getInstance().upLayerItem(mVectorModalRootWidget.back());
 		}
+	}
+
+	void InputManager::storeKey(int _key)
+	{
+		mHoldKey = OIS::KC_UNASSIGNED;
+
+		if ( false == isFocusKey() ) return;
+		if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT)
+			|| (_key == OIS::KC_LCONTROL) || (_key == OIS::KC_RCONTROL)
+			|| (_key == OIS::KC_LMENU) || (_key == OIS::KC_RMENU)
+			) return;
+
+		mHoldKey = _key;
+		mFirstPressKey = true;
+		mTimerKey = 0.0f;
+	}
+
+	void InputManager::resetKey(int _key)
+	{
+		mHoldKey = OIS::KC_UNASSIGNED;
 	}
 
 } // namespace MyGUI

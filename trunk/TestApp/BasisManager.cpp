@@ -165,7 +165,7 @@ void BasisManager::createGui()
 	mGUI->initialise(mWindow);
 
 	if (0 == mFpsInfo) {
-		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, 20, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
+		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", 20, 20, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
 		mFpsInfo->setColour(Ogre::ColourValue::White);
 	}
 }
