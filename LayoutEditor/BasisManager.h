@@ -70,4 +70,6 @@ public:
 	void windowResized(Ogre::RenderWindow* rw);
 	void windowClosed(Ogre::RenderWindow* rw);
 
+	void setMainWindowIcon(size_t _iconId);
+
 };
