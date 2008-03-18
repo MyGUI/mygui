@@ -49,7 +49,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mHeight = _height;
 
 
-	MyGUI::PointerManager::getInstance().setPointer("hand", null);
+	//MyGUI::PointerManager::getInstance().setPointer("hand", null);
 
 	/*MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
 	bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
