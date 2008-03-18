@@ -3,30 +3,7 @@
 #include "BasisManager.h"
 #include <OgreException.h>
 #include <OgrePanelOverlayElement.h>
-
-#ifdef WIN32
-#include <windows.h>
 #include "resource.h"
-void g_setMainWindowInfo(char *strWindowCaption, unsigned int uIconResourceID)
-{
-	HWND hWnd = ::FindWindow("OgreD3D9Wnd", "MyGUI Layout Editor");
-	if (!::IsWindow(hWnd)) hWnd = ::FindWindow("OgreGLWindow", "MyGUI Layout Editor");
-	if (::IsWindow(hWnd)) {
-		if (strWindowCaption) ::SetWindowText(hWnd, strWindowCaption);
-		// берем имя нашего экзешника
-		char buf[1024];
-		::GetModuleFileName(0, (LPCH)&buf, 1024);
-		// берем инстанс нашего модуля
-		HINSTANCE instance = ::GetModuleHandle(buf);
-		// побыстрому грузим иконку
-		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(uIconResourceID));
-		if (hIcon) {
-			::SendMessage(hWnd, WM_SETICON, 1, (LPARAM)hIcon);
-			::SendMessage(hWnd, WM_SETICON, 0, (LPARAM)hIcon);
-		}
-	}
-}
-#endif
 
 BasisManager::BasisManager() :
 	mInputManager(0),
@@ -44,6 +21,27 @@ BasisManager::BasisManager() :
 		mResourcePath = "";
 	#endif
 } 
+
+void BasisManager::setMainWindowIcon(size_t _iconId)
+{
+	// берем дискриптор окна
+	size_t hwnd = 0;
+	mWindow->getCustomAttribute("WINDOW", &hwnd );
+
+#ifdef WIN32
+	// берем имя нашего экзешника
+	char buf[1024];
+	::GetModuleFileName(0, (LPCH)&buf, 1024);
+	// берем инстанс нашего модуля
+	HINSTANCE instance = ::GetModuleHandle(buf);
+	// побыстрому грузим иконку
+	HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(_iconId));
+	if (hIcon) {
+		::SendMessage((HWND)hwnd, WM_SETICON, 1, (LPARAM)hIcon);
+		::SendMessage((HWND)hwnd, WM_SETICON, 0, (LPARAM)hIcon);
+	}
+#endif
+}
 
 void BasisManager::createInput() // создаем систему ввода
 {
@@ -141,9 +139,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mWindow = mRoot->initialise(true, "MyGUI Layout Editor");
 	mWidth = mWindow->getWidth();
 	mHeight = mWindow->getHeight();
-#ifdef WIN32
-	g_setMainWindowInfo("MyGUI Layout Editor", IDI_ICON);
-#endif
+
+	setMainWindowIcon(IDI_ICON);
 
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BasisSceneManager");
 	mCamera = mSceneMgr->createCamera("BasisCamera");
