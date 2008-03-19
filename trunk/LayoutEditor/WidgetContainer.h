@@ -8,13 +8,15 @@ typedef std::map<Ogre::String, Ogre::String> MapString;
 
 struct WidgetContainer
 {
-	WidgetContainer(){}
+	WidgetContainer():
+		relative_mode(false)
+	{}
 	WidgetContainer(std::string _type, std::string _skin, MyGUI::WidgetPtr _widget, std::string _name = ""):
 		type(_type),
 		skin(_skin),
 		widget(_widget),
 		name(_name),
-		relative_mode(0)
+		relative_mode(false)
 	{}
 
 	MyGUI::WidgetPtr widget;
