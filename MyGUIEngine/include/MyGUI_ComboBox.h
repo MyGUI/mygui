@@ -36,7 +36,7 @@ namespace MyGUI
 		//! Insert an item into a list at a specified position
 		void insertItem(size_t _index, const Ogre::DisplayString & _item);
 		//! Add an item to the end of a list
-		inline void addItem(const Ogre::DisplayString & _item);
+		void addItem(const Ogre::DisplayString & _item);
 		//! Replace an item at a specified position
 		void setItem(size_t _index, const Ogre::DisplayString & _item);
 		//! Get item from specified position
