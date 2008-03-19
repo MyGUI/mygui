@@ -29,7 +29,7 @@ private:
 	void notifySettings(MyGUI::WidgetPtr _sender);
 	void notifyTest(MyGUI::WidgetPtr _sender = 0);
 	void notifyClear(MyGUI::WidgetPtr _sender = 0);
-  void notifyQuit(MyGUI::WidgetPtr _sender = 0);
+	void notifyQuit(MyGUI::WidgetPtr _sender = 0);
 
 	void notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 	void clear();
@@ -41,7 +41,7 @@ private:
 	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0);
 
 	// widget panel
-  void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
+	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
 	void notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 	void notifyWidgetsTabSelect(MyGUI::WidgetPtr _widget, size_t _index);

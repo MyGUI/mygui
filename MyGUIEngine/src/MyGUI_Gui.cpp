@@ -348,7 +348,7 @@ namespace MyGUI
 			return FloatCoord(_coord.left / size.width, _coord.top / size.height, _coord.width / size.width, _coord.height / size.height);
 		}
 		const IntCoord& coord = _parent->getClientRect();
-		return FloatCoord(_coord.left / coord.width, _coord.top / coord.height, _coord.width / coord.width, _coord.height / coord.height);
+		return FloatCoord(1.*_coord.left / coord.width, 1.*_coord.top / coord.height, 1.*_coord.width / coord.width, 1.*_coord.height / coord.height);
 	}
 
 	// для оповещений об изменении окна рендера
