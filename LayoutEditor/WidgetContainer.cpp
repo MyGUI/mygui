@@ -144,6 +144,7 @@ void EditorWidgets::clear()
 	{
 		remove(widgets[widgets.size()-1]->widget);
 	}
+	global_counter = 0;
 }
 
 WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
