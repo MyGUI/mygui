@@ -50,6 +50,7 @@ private:
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
 	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender); // calls previous method
 	void notifyOkSettings(MyGUI::WidgetPtr _sender);
+	void notifyToggleCheck(MyGUI::WidgetPtr _sender);
 
 	// widget selecting, properties panel
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
@@ -60,6 +61,8 @@ private:
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget); // calls previous method
 	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = 0);
+
+	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
 	// widget editing
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);

@@ -74,9 +74,23 @@
             <Property key="Widget_Caption" value="Screen properties"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 2 248 2"/>
-        <Widget type="StaticText" skin="StaticText" position="-3 2 248 24" align="ALIGN_HCENTER ALIGN_TOP">
+        <Widget type="StaticText" skin="StaticText" position="-4 2 248 24" align="ALIGN_HCENTER ALIGN_TOP">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
             <Property key="Widget_Caption" value="Editor settings"/>
+        </Widget>
+        <Widget type="Widget" skin="Separator1" position="-3 122 248 2"/>
+        <Widget type="StaticText" skin="StaticText" position="-4 122 248 24">
+            <Property key="Widget_Caption" value="Widgets list"/>
+            <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 146 232 24" name="LayoutEditor_checkShowName">
+            <Property key="Widget_Caption" value="Show widget name"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 170 232 24" name="LayoutEditor_checkShowType">
+            <Property key="Widget_Caption" value="Show widget type"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 194 232 24" name="LayoutEditor_checkShowSkin">
+            <Property key="Widget_Caption" value="Show widget skin"/>
         </Widget>
     </Widget>
     <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowProperties">
