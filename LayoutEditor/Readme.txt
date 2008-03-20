@@ -24,7 +24,7 @@ Controls:
     doubleclick on selected Tab - add Sheet
 
 Hidden widgets can be selected only through combo with all widgets.
-You can't move or delete hidden widget.
+You can't move hidden widget.
 	
 Ignoreg properties:
 "Message_Modal", "Window_AutoAlpha" and "Window_Snap" ingnored in edit mode (but this properties will be saved and will work fine in test mode and your application).
@@ -36,5 +36,7 @@ All possible values can be found in Media/LayoutEditor/widgets.xml
 Items/Sheelt panel is used to add and edit List or ComboBox items or Tab sheets. Press enter to edit selected item.
 
 UserData panel is used to add UserData to any widget. UserData is map of key value pairs. It used to store any needed info in widget.
-  For example you can add some info data to all widgets and in runtime you'll get it by std::string info = widget->getUserData(key); and show popup with info about widget.
-  Another example: you have 10 buttons and want to have one event handler for all. You can add in user data button number and read it in event handler to understand which button was pressed.
+Here is several examples:
+  1. You can add some info data to all widgets and in runtime you'll get it by std::string info = widget->getUserData(key); and show popup with info about widget.
+  2. You have 10 buttons and want to have one event handler for all. You can add in user data button number and read it in event handler to understand which button was pressed.
+  3. UserData can be used for different localisations. You can write two pairs like (key="Caption_English" value="Start"), (key="Caption_Russian" value="Старт") and use them when you changing languages.

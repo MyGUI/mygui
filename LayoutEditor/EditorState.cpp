@@ -111,6 +111,10 @@ void EditorState::enter(bool bIsChangeState)
 #ifdef NO_EXCLUSIVE_INPUT
 	MyGUI::PointerManager::getInstance().hide();
 #endif
+	ASSIGN_FUNCTION("LayoutEditor_checkShowName", &EditorState::notifyToggleCheck);
+	ASSIGN_FUNCTION("LayoutEditor_checkShowType", &EditorState::notifyToggleCheck);
+	ASSIGN_FUNCTION("LayoutEditor_checkShowSkin", &EditorState::notifyToggleCheck);
+
 	// minimize panel buttons
 	ASSIGN_FUNCTION("LayoutEditor_minimizeString", &EditorState::notifyMinimizePanel);
 	ASSIGN_FUNCTION("LayoutEditor_minimizeUserData", &EditorState::notifyMinimizePanel);
@@ -133,8 +137,8 @@ void EditorState::enter(bool bIsChangeState)
 	editValue->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateUserData);
 	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 	multilist->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectUserDataItem);
-	multilist->addRow(multilist->getWidth()/2, "Key");
-	multilist->addRow(multilist->getWidth()/2, "Value");
+	multilist->addRow(editKey->getWidth() - 3, "Key");
+	multilist->addRow(multilist->getWidth() - (editKey->getWidth() - 3), "Value");
 
 	// create widget rectangle
 	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
@@ -414,6 +418,10 @@ void EditorState::loadSettings()
 		return;
 	}
 
+	bool print_name;
+	bool print_type;
+	bool print_skin;
+
 	std::string type;
 	if (root->findAttribute("type", type)) {
 		if (type == "Settings")
@@ -430,12 +438,19 @@ void EditorState::loadSettings()
 					if (false == field->findAttribute("value", value)) continue;
 
 					if (key == "Grid") grid_step = MyGUI::utility::parseInt(value);
+					else if (key == "ShowName") print_name = MyGUI::utility::parseBool(value);
+					else if (key == "ShowType") print_type = MyGUI::utility::parseBool(value);
+					else if (key == "ShowSkin") print_skin = MyGUI::utility::parseBool(value);
 				}
 			}
 		}
 	}
 
 	if (grid_step <= 0) grid_step = 1;
+	MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->setButtonPressed(print_name);
+	MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->setButtonPressed(print_type);
+	MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->setButtonPressed(print_skin);
+
 }
 
 void EditorState::saveSettings()
@@ -456,6 +471,22 @@ void EditorState::saveSettings()
 	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "Grid");
 	nodeProp->addAttributes("value", grid_step);
+
+	bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
+	bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
+	bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "ShowName");
+	nodeProp->addAttributes("value", print_name);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "ShowType");
+	nodeProp->addAttributes("value", print_type);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "ShowSkin");
+	nodeProp->addAttributes("value", print_skin);
 
 	if (false == doc.save(file)) {
 		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
@@ -617,22 +648,14 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 void EditorState::notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
 {
 	allWidgetsCombo->deleteAllItems();
+
+	bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
+	bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
+	bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
+
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
-		std::string item;
-		if ((*iter)->name.empty())
-		{				
-			// trim "LayoutEditor_"
-			std::string tmp = (*iter)->widget->getName();
-			if (0 == strncmp("LayoutEditor_", tmp.c_str(), 13))
-			{
-					std::string::iterator iter = std::find(tmp.begin(), tmp.end(), '_');
-					if (iter != tmp.end()) tmp.erase(tmp.begin(), ++iter);
-			}
-			item = MyGUI::utility::toString("[#333333", tmp, "#000000]");
-		}
-		else item = (*iter)->name;
-		allWidgetsCombo->addItem(item + " #0000FF" + (*iter)->widget->getWidgetType());
+		allWidgetsCombo->addItem(getDescriptionString((*iter)->widget, print_name, print_type, print_skin));
 	}
 }
 
@@ -665,6 +688,12 @@ void EditorState::notifyOkSettings(MyGUI::WidgetPtr _sender)
 	fullscreen = (comboFullScreen->getCaption() == "Yes");
 	BasisManager::getInstance().mWindow->setFullscreen(fullscreen, width, height);
 	mGUI->findWidgetT("LayoutEditor_windowSettings")->hide();
+}
+
+void EditorState::notifyToggleCheck(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::ButtonPtr checkbox = MyGUI::castWidget<MyGUI::Button>(_sender);
+	checkbox->setButtonPressed(!checkbox->getButtonPressed());
 }
 
 void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
@@ -732,17 +761,10 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
 		WidgetContainer * widgetContainer = ew->find(current_widget);
 
-		if (widgetContainer->name.empty()){
-			// trim "LayoutEditor_"
-			std::string tmp = current_widget->getName();
-			if (0 == strncmp("LayoutEditor_", tmp.c_str(), 13))
-			{
-					std::string::iterator iter = std::find(tmp.begin(), tmp.end(), '_');
-					if (iter != tmp.end()) tmp.erase(tmp.begin(), ++iter);
-			}
-			allWidgetsCombo->setCaption(MyGUI::utility::toString("[#333333", tmp, "#000000] #0000FF", current_widget->getWidgetType()));
-		}
-		else allWidgetsCombo->setCaption(widgetContainer->name + " #0000FF" + current_widget->getWidgetType());
+		bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
+		bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
+		bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
+		allWidgetsCombo->setCaption(getDescriptionString(current_widget, print_name, print_type, print_skin));
 
 		createPropertiesWidgetsPair(window, "Name", widgetContainer->name, "Name", x1, x2, w1, w2, y, h);
 		y += h;
@@ -985,17 +1007,10 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		}
 		widgetContainer->name = value;
 
-		if (widgetContainer->name.empty()){
-			// trim "LayoutEditor_"
-			std::string tmp = current_widget->getName();
-			if (0 == strncmp("LayoutEditor_", tmp.c_str(), 13))
-			{
-					std::string::iterator iter = std::find(tmp.begin(), tmp.end(), '_');
-					if (iter != tmp.end()) tmp.erase(tmp.begin(), ++iter);
-			}
-			allWidgetsCombo->setCaption(MyGUI::utility::toString("[#333333", tmp, "#000000] #0000FF", current_widget->getWidgetType()));
-		}
-		else allWidgetsCombo->setCaption(widgetContainer->name + " #0000FF" + current_widget->getWidgetType());
+		bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
+		bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
+		bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
+		allWidgetsCombo->setCaption(getDescriptionString(current_widget, print_name, print_type, print_skin));
 
 		return;
 	}
@@ -1090,6 +1105,40 @@ void EditorState::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)
 		widgetContainer->relative_mode = !widgetContainer->relative_mode;
 		propertiesElement[1]->setCaption(widgetContainer->position());
 	}
+}
+
+std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin)
+{
+	std::string name = "";
+	std::string type = "";
+	std::string skin = "";
+
+	WidgetContainer * widgetContainer = ew->find(_widget);
+	if (_print_name)
+	{
+		if (widgetContainer->name.empty()){
+			// trim "LayoutEditor_"
+			name = _widget->getName();
+			if (0 == strncmp("LayoutEditor_", name.c_str(), 13))
+			{
+					std::string::iterator iter = std::find(name.begin(), name.end(), '_');
+					if (iter != name.end()) name.erase(name.begin(), ++iter);
+			}
+			name = "[#333333" + name + "#000000]";
+		}
+		else name = widgetContainer->name;
+	}
+
+	if (_print_type)
+	{
+		type = " #0000FF" + _widget->getWidgetType();
+	}
+
+	if (_print_skin)
+	{
+		skin = " #FFFFFF" + widgetContainer->skin;
+	}
+	return name + type + skin;
 }
 
 void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)

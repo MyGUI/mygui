@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Settings">
     <Property key="Grid" value="8"/>
+    <Property key="ShowName" value="1"/>
+    <Property key="ShowType" value="1"/>
+    <Property key="ShowSkin" value="1"/>
 </MyGUI>
