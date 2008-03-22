@@ -70,4 +70,5 @@ libmygui_la_SOURCES = \
 	MyGUI_WidgetManager.cpp\
 	MyGUI_Window.cpp\
 	MyGUI_WindowFactory.cpp\
-	MyGUI_XmlDocument.cpp
+	MyGUI_XmlDocument.cpp\
+	MyGUI_ActionController.cpp
