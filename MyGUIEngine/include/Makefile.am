@@ -55,6 +55,8 @@ pkginclude_HEADERS = \
 	MyGUI_Platform.h\
 	MyGUI_Plugin.h\
 	MyGUI_PluginManager.h\
+	MyGUI_PopupMenu.h\
+	MyGUI_PopupMenuFactory.h\
 	MyGUI_PointerInfo.h\
 	MyGUI_PointerManager.h\
 	MyGUI_Prerequest.h\
