@@ -144,9 +144,9 @@ namespace MyGUI
 		if (mKeyRootFocus) alpha = WINDOW_ALPHA_ACTIVE;
 		else if (mMouseRootFocus) alpha = WINDOW_ALPHA_FOCUS;
 		else alpha = WINDOW_ALPHA_DEACTIVE;
-		//MYGUI_OUT(alpha);
 
-		ControllerManager::getInstance().addItem(this, new ControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, true);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void Window::setAutoAlpha(bool _auto)
@@ -256,21 +256,22 @@ namespace MyGUI
 			show();
 		}
 
-		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX,
-			WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX, WINDOW_SPEED_COEF, true);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void Window::hideSmooth()
 	{
-		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
+		controller->eventPostAction = newDelegate(action::actionWidgetHide);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void Window::destroySmooth()
 	{
-		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, ControllerFadeAlpha::ACTION_DESTROY, false));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
+		controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	const IntCoord& Window::getClientRect()

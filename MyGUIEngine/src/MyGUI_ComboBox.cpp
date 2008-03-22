@@ -243,8 +243,8 @@ namespace MyGUI
 		mList->setPosition(coord);
 
 		if (mShowSmooth) {
-			ControllerManager::getInstance().addItem(
-				mList, new ControllerFadeAlpha(COMBO_ALPHA_MAX, COMBO_ALPHA_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MAX, COMBO_ALPHA_COEF, true);
+			ControllerManager::getInstance().addItem(mList, controller);
 		}
 		else mList->show();
 
@@ -256,8 +256,9 @@ namespace MyGUI
 		mListShow = false;
 
 		if (mShowSmooth) {
-			ControllerManager::getInstance().addItem(
-				mList, new ControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, false);
+			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			ControllerManager::getInstance().addItem(mList, controller);
 		}
 		else mList->hide();
 	}

@@ -145,8 +145,9 @@ namespace MyGUI
 		// делаем нажатой
 		static_cast<ButtonPtr>(_sender)->setButtonPressed(true);
 
-		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+		controller->eventPostAction = newDelegate(action::actionWidgetHide);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void PopupMenu::showPopupMenu(const IntPoint& _point)
@@ -160,9 +161,8 @@ namespace MyGUI
 			}
 		}
 
-		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(ALPHA_MAX,
-			POPUP_MENU_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, true));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void PopupMenu::_onKeyChangeRootFocus(bool _focus)
@@ -171,8 +171,9 @@ namespace MyGUI
 			// блокируем
 			setEnabled(false, true);
 			// медленно скрываем
-			ControllerManager::getInstance().addItem(
-				this, new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			ControllerManager::getInstance().addItem(this, controller);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
