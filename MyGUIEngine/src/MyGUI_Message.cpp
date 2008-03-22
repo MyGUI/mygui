@@ -173,8 +173,11 @@ namespace MyGUI
 	{
 		eventMessageBoxEnd(this, _result);
 		if (null != mWidgetFade) {
-			if (mSmoothShow) ControllerManager::getInstance().addItem(mWidgetFade,
-				new ControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, ControllerFadeAlpha::ACTION_DESTROY, false));
+			if (mSmoothShow) {
+				ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, false);
+				controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
+				ControllerManager::getInstance().addItem(mWidgetFade, controller);
+			}
 			else WidgetManager::getInstance().destroyWidget(mWidgetFade);
 		}
 		if (mSmoothShow) destroySmooth();
@@ -197,8 +200,8 @@ namespace MyGUI
 				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), ALIGN_STRETCH, mFadeLayer);
 				if (mSmoothShow) {
 					mWidgetFade->hide();
-					ControllerManager::getInstance().addItem(mWidgetFade,
-						new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, ControllerFadeAlpha::ACTION_NONE, false));
+					ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);
+					ControllerManager::getInstance().addItem(mWidgetFade, controller);
 				}
 				else mWidgetFade->setAlpha(MESSAGE_ALPHA_MAX);
 			}

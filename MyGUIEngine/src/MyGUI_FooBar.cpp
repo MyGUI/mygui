@@ -64,15 +64,15 @@ namespace MyGUI
 			show();
 		}
 
-		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(mAlphaIncative,
-			mAlphaSpeed, ControllerFadeAlpha::ACTION_NONE, true));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(mAlphaIncative, mAlphaSpeed, true);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void FooBar::hideSmooth()
 	{
-		ControllerManager::getInstance().addItem(
-			this, new ControllerFadeAlpha(WINDOW_ALPHA_MIN, mAlphaSpeed, ControllerFadeAlpha::ACTION_HIDE, false));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, mAlphaSpeed, false);
+		controller->eventPostAction = newDelegate(action::actionWidgetHide);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void FooBar::_frameEntered(float _time)
@@ -427,7 +427,8 @@ namespace MyGUI
 		if (mFocus) alpha = mAlphaFocused;
 			else alpha = mAlphaIncative;
 		
-		ControllerManager::getInstance().addItem(this, new ControllerFadeAlpha(alpha, mAlphaSpeed, ControllerFadeAlpha::ACTION_NONE, true));
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(alpha, mAlphaSpeed, true);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	WidgetPtr FooBar::addItem(FooBarItemInfo &item)

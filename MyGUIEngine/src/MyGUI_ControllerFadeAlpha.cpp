@@ -18,8 +18,8 @@ namespace MyGUI
 	{
 	}
 
-	ControllerFadeAlpha::ControllerFadeAlpha(float _alpha, float _coef, ControllerAction _action, bool _enabled) :
-		mAlpha(_alpha), mCoef(_coef), mAction(_action), mEnabled(_enabled)
+	ControllerFadeAlpha::ControllerFadeAlpha(float _alpha, float _coef, bool _enabled) :
+		mAlpha(_alpha), mCoef(_coef), mEnabled(_enabled)
 	{
 	}
 
@@ -42,17 +42,17 @@ namespace MyGUI
 
 		// отписываем его от ввода
 		if (false == mEnabled) InputManager::getInstance()._unlinkWidget(_widget);
+
+		// вызываем пользовательский делегат для подготовки
+		eventPreAction(_widget);
 	}
 
 	void ControllerFadeAlpha::replaseItem(WidgetPtr _widget, ControllerItem * _item)
 	{
 		ControllerFadeAlpha * item = static_cast<ControllerFadeAlpha*>(_item);
-		if (mAction != ACTION_DESTROY) {
-			mAction = item->getAction();
-			mEnabled = item->getEnabled();
-			mCoef = item->getCoef();
-			mAlpha = item->getAlpha();
-		}
+		mEnabled = item->getEnabled();
+		mCoef = item->getCoef();
+		mAlpha = item->getAlpha();
 	}
 
 	bool ControllerFadeAlpha::addTime(WidgetPtr _widget, float _time)
@@ -81,8 +81,8 @@ namespace MyGUI
 			}
 		}
 
-		if (mAction == ACTION_HIDE) _widget->hide();
-		else if (mAction == ACTION_DESTROY) WidgetManager::getInstance().destroyWidget(_widget);
+		// вызываем пользовательский елегат пост обработки
+		eventPostAction(_widget);
 
 		return false;
 	}

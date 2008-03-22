@@ -13,6 +13,7 @@
 #include "MyGUI_ControllerItem.h"
 #include "MyGUI_UnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_ActionController.h"
 
 namespace MyGUI
 {
