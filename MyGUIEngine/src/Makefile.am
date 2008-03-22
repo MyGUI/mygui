@@ -41,6 +41,8 @@ libmygui_la_SOURCES = \
 	MyGUI_MultiListFactory.cpp\
 	MyGUI_PluginManager.cpp\
 	MyGUI_PointerManager.cpp\
+	MyGUI_PopupMenu.cpp\
+	MyGUI_PopupMenuFactory.cpp\
 	MyGUI_Progress.cpp\
 	MyGUI_ProgressFactory.cpp\
 	MyGUI_RenderBox.cpp\
