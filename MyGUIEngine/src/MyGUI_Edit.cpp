@@ -409,20 +409,12 @@ namespace MyGUI
 			}
 
 		}
-		// потом проверить правильно ли будет выделяться при отсутсвии старта
-		// и перенести этот код куда надо
-		/*else if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT) ) {
-			if ( ! input.isShiftPressed()) {
-				input.isShiftPressed() = true;
-				if (mStartSelect == ITEM_NONE) {
-					mStartSelect = mEndSelect = mCursorPosition;
-				}
+		else if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT) ) {
+			// для правильно выделения
+			if (mStartSelect == ITEM_NONE) {
+				mStartSelect = mEndSelect = mCursorPosition;
 			}
 		}
-		else if ( (_key == KC_LCONTROL) || (_key == KC_RCONTROL) ) {
-			input.isControlPressed() = true;
-
-		}*/
 		else if (_char != 0) {
 
 			// если не нажат контрл, то обрабатываем как текст
