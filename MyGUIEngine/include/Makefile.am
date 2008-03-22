@@ -105,4 +105,5 @@ pkginclude_HEADERS = \
 	TCoord.h\
 	TPoint.h\
 	TRect.h\
-	TSize.h
+	TSize.h\
+	MyGUI_ActionController.h
