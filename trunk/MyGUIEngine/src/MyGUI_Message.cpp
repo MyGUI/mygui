@@ -165,8 +165,8 @@ namespace MyGUI
 	void Message::_onKeyButtonPressed(int _key, Char _char)
 	{
 		Window::_onKeyButtonPressed(_key, _char);
-		if (_key == OIS::KC_RETURN) _destroyMessage(mInfoOk);
-		else if (_key == OIS::KC_ESCAPE) _destroyMessage(mInfoCancel);
+		if (_key == KC_RETURN) _destroyMessage(mInfoOk);
+		else if (_key == KC_ESCAPE) _destroyMessage(mInfoCancel);
 	}
 
 	void Message::_destroyMessage(ViewInfo _result)
