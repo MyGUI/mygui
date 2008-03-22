@@ -106,4 +106,5 @@ pkginclude_HEADERS = \
 	TPoint.h\
 	TRect.h\
 	TSize.h\
-	MyGUI_ActionController.h
+	MyGUI_ActionController.h\
+	MyGUI_InputDefine.h

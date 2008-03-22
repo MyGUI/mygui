@@ -142,14 +142,14 @@ namespace MyGUI
 		Edit::_onKeyButtonPressed(_key, _char);
 
 		// при нажатии вниз, показываем лист
-		if (_key == OIS::KC_DOWN) {
+		if (_key == KC_DOWN) {
 			// выкидываем список только если мыша свободна
 			if (false == InputManager::getInstance().isCaptureMouse()) {
 				showList();
 			}
 		}
 		// нажат ввод в окне редиктирования
-		else if (_key == OIS::KC_RETURN) {
+		else if (_key == KC_RETURN) {
 			eventComboAccept(this);
 		}
 

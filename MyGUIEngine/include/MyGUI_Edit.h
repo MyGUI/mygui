@@ -175,7 +175,7 @@ namespace MyGUI
 		void updateView(bool _showCursor);
 
 		// переделать, так как теперь нам все известно о глобальных координатах
-		inline IntPoint getWorldPostion(WidgetPtr _widget)
+		/*inline IntPoint getWorldPostion(WidgetPtr _widget)
 		{
 			IntPoint point(_widget->getLeft(), _widget->getTop());
 			WidgetPtr parent = _widget->getParent();
@@ -185,7 +185,7 @@ namespace MyGUI
 				parent = parent->getParent();
 			};
 			return point;
-		}
+		}*/
 
 		void resetSelect();
 

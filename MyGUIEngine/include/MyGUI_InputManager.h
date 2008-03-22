@@ -9,13 +9,14 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Macros.h"
-#include "MyGUI_WidgetOIS.h"
+//#include "MyGUI_WidgetOIS.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_FrameListener.h"
 #include "MyGUI_UnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_InputDefine.h"
 
 namespace MyGUI
 {
@@ -39,12 +40,19 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
-		bool injectMouseMove( const OIS::MouseEvent & _arg);
-		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
-		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
+		bool injectMouseMove(int _absx, int _absy, int _absz);
+		bool injectMousePress(int _absx, int _absy, MouseButton _id);
+		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
 
-		bool injectKeyPress(const OIS::KeyEvent & _arg);
-		bool injectKeyRelease(const OIS::KeyEvent & _arg);
+		bool injectKeyPress(KeyCode _key);
+		bool injectKeyRelease(KeyCode _key);
+
+		// OIS
+		/*inline bool injectMouseMove( const OIS::MouseEvent & _arg) {return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);}
+		inline bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
+		inline bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
+		inline bool injectKeyPress(const OIS::KeyEvent & _arg) {return injectKeyPress((KeyCode)_arg.key);}
+		inline bool injectKeyRelease(const OIS::KeyEvent & _arg) {return injectKeyRelease((KeyCode)_arg.key);}*/
 
 		inline bool isFocusMouse() {return mWidgetMouseFocus != null;}
 		inline bool isFocusKey() {return mWidgetKeyFocus != null;}
@@ -60,8 +68,8 @@ namespace MyGUI
 		inline const IntPoint & getLastLeftPressed() {return mLastLeftPressed;}
 		inline const IntPoint & getMousePosition() {return mMousePosition;}
 
-		inline void setUseOISKeyLayout (bool b) {mUseOISKeyLayout = b;}
-		inline bool getUseOISKeyLayout () const {return mUseOISKeyLayout;}
+		//inline void setUseOISKeyLayout (bool b) {mUseOISKeyLayout = b;}
+		//inline bool getUseOISKeyLayout () const {return mUseOISKeyLayout;}
 
 		// тестовый вариант, очистка фокуса мыши
 		void resetMouseFocusWidget();
@@ -138,7 +146,7 @@ namespace MyGUI
 		bool mFirstPressKey;
 		float mTimerKey;
 		
-		bool mUseOISKeyLayout;
+		//bool mUseOISKeyLayout;
 
 		// текущий отображаемый указатель
 		std::string mPointer;
