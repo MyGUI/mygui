@@ -17,15 +17,7 @@ namespace MyGUI
 	class _MyGUIExport ControllerFadeAlpha : public ControllerItem
 	{
 	public:
-		enum ControllerAction
-		{
-			ACTION_NONE,
-			ACTION_HIDE,
-			ACTION_DESTROY,
-		};
-
-	public:
-		ControllerFadeAlpha(float _alpha, float _coef, ControllerAction _action, bool _enabled);
+		ControllerFadeAlpha(float _alpha, float _coef, bool _enabled);
 
 	private:
 		ControllerFadeAlpha();
@@ -35,13 +27,11 @@ namespace MyGUI
 		void prepareItem(WidgetPtr _widget);
 		void replaseItem(WidgetPtr _widget, ControllerItem * _item);
 
-		inline ControllerAction getAction() {return mAction;}
 		inline bool getEnabled() {return mEnabled;}
 		inline float getAlpha() {return mAlpha;}
 		inline float getCoef() {return mCoef;}
 
 	private:
-		ControllerAction mAction;
 		bool mEnabled;
 		float mAlpha;
 		float mCoef;

@@ -487,8 +487,15 @@ namespace MyGUI
 			return;
 		}
 
-		if (_show) ControllerManager::getInstance().addItem(_sheet, new ControllerFadeAlpha(ALPHA_MAX, TAB_SPEED_FADE_COEF, ControllerFadeAlpha::ACTION_NONE, true));
-		else ControllerManager::getInstance().addItem(_sheet, new ControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, ControllerFadeAlpha::ACTION_HIDE, false));
+		if (_show) {
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, TAB_SPEED_FADE_COEF, true);
+			ControllerManager::getInstance().addItem(_sheet, controller);
+		}
+		else {
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, false);
+			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			ControllerManager::getInstance().addItem(_sheet, controller);
+		}
 	}
 
 	void Tab::_createSheetButton()
