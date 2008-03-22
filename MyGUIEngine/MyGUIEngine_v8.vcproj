@@ -803,6 +803,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_InputDefine.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_Instance.h"
 						>
 					</File>

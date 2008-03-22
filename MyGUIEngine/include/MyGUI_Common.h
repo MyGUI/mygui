@@ -17,6 +17,7 @@
 #include "MyGUI_ResourcePath.h"
 #include <OgreException.h>
 #include "MyGUI_Utility.h"
+#include "MyGUI_InputDefine.h"
 
 namespace MyGUI
 {

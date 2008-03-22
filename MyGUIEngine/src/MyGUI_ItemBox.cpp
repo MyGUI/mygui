@@ -269,14 +269,14 @@ namespace MyGUI
 
 		size_t sel = mIndexSelect;
 
-		if (_key == OIS::KC_UP) {
+		if (_key == KC_UP) {
 
 			if (sel != 0) {
 				if (sel == ITEM_NONE) sel = 0;
 				else sel --;
 			}
 
-		} else if (_key == OIS::KC_DOWN) {
+		} else if (_key == KC_DOWN) {
 
 			if (sel == ITEM_NONE) sel = 0;
 			else sel ++;
@@ -286,17 +286,17 @@ namespace MyGUI
 				sel = mIndexSelect;
 			}
 
-		} else if (_key == OIS::KC_HOME) {
+		} else if (_key == KC_HOME) {
 
 			if (sel != 0) sel = 0;
 
-		} else if (_key == OIS::KC_END) {
+		} else if (_key == KC_END) {
 
 			if (sel != (getItemCount() - 1)) {
 				sel = getItemCount() - 1;
 			}
 
-		} else if (_key == OIS::KC_PGUP) {
+		} else if (_key == KC_PGUP) {
 
 			if (sel != 0) {
 				if (sel == ITEM_NONE) sel = 0;
@@ -307,7 +307,7 @@ namespace MyGUI
 				}
 			}
 
-		} else if (_key == OIS::KC_PGDOWN) {
+		} else if (_key == KC_PGDOWN) {
 
 			if (sel != (getItemCount() - 1)) {
 				if (sel == ITEM_NONE) sel = 0;
@@ -317,7 +317,7 @@ namespace MyGUI
 				}
 			}
 
-		} else if (_key == OIS::KC_RETURN) {
+		} else if (_key == KC_RETURN) {
 			if (sel != ITEM_NONE) {
 				eventItemBoxSelectAccept(this);
 

@@ -199,10 +199,10 @@ namespace MyGUI
 		mText->setShowCursor(true);
 		mCursorTimer = 0.0f;
 
-		if (_key == OIS::KC_ESCAPE) {
+		if (_key == KC_ESCAPE) {
 			InputManager::getInstance().setKeyFocusWidget(null);
 		}
-		else if (_key == OIS::KC_BACK) {
+		else if (_key == KC_BACK) {
 			// если нуно то удал€ем выделенный текст
 			if (false == mModeReadOnly) {
 				if (false == deleteTextSelect(true)) {
@@ -217,7 +217,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_DELETE) {
+		else if (_key == KC_DELETE) {
 			if (input.isShiftPressed()) commandCut();
 			else if (false == mModeReadOnly) {
 				// если нуно то удал€ем выделенный текст
@@ -231,12 +231,12 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_INSERT) {
+		else if (_key == KC_INSERT) {
 			if (input.isShiftPressed()) commandPast();
 			else if (input.isControlPressed()) commandCopy();
 
 		}
-		else if (_key == OIS::KC_RETURN) {
+		else if (_key == KC_RETURN) {
 			// работаем только в режиме редактировани€
 			if (false == mModeReadOnly) {
 				if ((mModeMultiline) && (false == input.isControlPressed())) {
@@ -255,7 +255,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_RIGHT) {
+		else if (_key == KC_RIGHT) {
 			if ((mCursorPosition) < mTextLength) {
 				mCursorPosition ++;
 				mText->setCursorPosition(mCursorPosition);
@@ -265,7 +265,7 @@ namespace MyGUI
 			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 
 		}
-		else if (_key == OIS::KC_LEFT) {
+		else if (_key == KC_LEFT) {
 			if (mCursorPosition != 0) {
 				mCursorPosition --;
 				mText->setCursorPosition(mCursorPosition);
@@ -275,7 +275,7 @@ namespace MyGUI
 			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 
 		}
-		else if (_key == OIS::KC_UP) {
+		else if (_key == KC_UP) {
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
 			point.top -= mText->getFontHeight();
 			size_t old = mCursorPosition;
@@ -296,7 +296,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_DOWN) {
+		else if (_key == KC_DOWN) {
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
 			point.top += mText->getFontHeight();
 			size_t old = mCursorPosition;
@@ -317,7 +317,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_HOME) {
+		else if (_key == KC_HOME) {
 			// в начало строки
 			if ( false == input.isControlPressed()) {
 				IntPoint point = mText->getCursorPoint(mCursorPosition);
@@ -341,7 +341,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_END) {
+		else if (_key == KC_END) {
 			// в конец строки
 			if ( false ==   input.isControlPressed()) {
 				IntPoint point = mText->getCursorPoint(mCursorPosition);
@@ -365,7 +365,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_PGUP) {
+		else if (_key == KC_PGUP) {
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
 			point.top -= (mWidgetUpper->getHeight() > mText->getFontHeight()) ? mWidgetUpper->getHeight() : mText->getFontHeight();
@@ -387,7 +387,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == OIS::KC_PGDOWN) {
+		else if (_key == KC_PGDOWN) {
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
 			point.top += (mWidgetUpper->getHeight() > mText->getFontHeight()) ? mWidgetUpper->getHeight() : mText->getFontHeight();
@@ -411,7 +411,7 @@ namespace MyGUI
 		}
 		// потом проверить правильно ли будет выдел€тьс€ при отсутсвии старта
 		// и перенести этот код куда надо
-		/*else if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) {
+		/*else if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT) ) {
 			if ( ! input.isShiftPressed()) {
 				input.isShiftPressed() = true;
 				if (mStartSelect == ITEM_NONE) {
@@ -419,7 +419,7 @@ namespace MyGUI
 				}
 			}
 		}
-		else if ( (_key == OIS::KC_LCONTROL) || (_key == OIS::KC_RCONTROL) ) {
+		else if ( (_key == KC_LCONTROL) || (_key == KC_RCONTROL) ) {
 			input.isControlPressed() = true;
 
 		}*/
@@ -439,29 +439,29 @@ namespace MyGUI
 					eventEditTextChange(this);
 				}
 			}
-			else if (_key == OIS::KC_C) {
+			else if (_key == KC_C) {
 				commandCopy();
 
 			}
-			else if (_key == OIS::KC_X) {
+			else if (_key == KC_X) {
 				commandCut();
 
 			}
-			else if (_key == OIS::KC_V) {
+			else if (_key == KC_V) {
 				commandPast();
 
 			}
-			else if (_key == OIS::KC_A) {
+			else if (_key == KC_A) {
 				// выдел€ем весь текст
 				setTextSelect(0, mTextLength);
 
 			}
-			else if (_key == OIS::KC_Z) {
+			else if (_key == KC_Z) {
 				// отмена
 				commandUndo();
 
 			}
-			else if (_key == OIS::KC_Y) {
+			else if (_key == KC_Y) {
 				// повтор
 				commandRedo();
 
@@ -474,8 +474,8 @@ namespace MyGUI
 
 	void Edit::_onKeyButtonReleased(int _key)
 	{
-		//if ( (_key == OIS::KC_LSHIFT) || (_key == OIS::KC_RSHIFT) ) input.isShiftPressed() = false;
-		//if ( (_key == OIS::KC_LCONTROL) || (_key == OIS::KC_RCONTROL) ) input.isControlPressed() = false;
+		//if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT) ) input.isShiftPressed() = false;
+		//if ( (_key == KC_LCONTROL) || (_key == KC_RCONTROL) ) input.isControlPressed() = false;
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyButtonReleased(_key);

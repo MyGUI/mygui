@@ -197,7 +197,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		current_widget->setPosition(coord);
 	}
 
-	MyGUI::InputManager::getInstance().injectMouseMove(arg);
+	mGUI->injectMouseMove(arg);
 	return true;
 }
 //===================================================================================
@@ -206,7 +206,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 		// if we have modal widgets we can't select any widget
-		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+		mGUI->injectMousePress(arg, id);
 		return true;
 	}
 
@@ -240,12 +240,13 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 			MyGUI::IntSize size = item->getTextSize();
 			notifySelectWidget(item);
 			if (creating_status != 1){
-				MyGUI::InputManager::getInstance().injectMouseMove(arg);// это чтобы сразу можно было тащить
+				mGUI->injectMouseMove(arg);// это чтобы сразу можно было тащить
 			}
 		}
-		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
-	}else{
-		MyGUI::InputManager::getInstance().injectMousePress(arg, id);
+		mGUI->injectMousePress(arg, id);
+	}
+	else {
+		mGUI->injectMousePress(arg, id);
 		notifySelectWidget(null);
 	}
 
@@ -297,7 +298,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 	}
 
 	um->dropLastProperty();
-	MyGUI::InputManager::getInstance().injectMouseRelease(arg, id);
+	mGUI->injectMouseRelease(arg, id);
 
 	if (recreate)
 	{
@@ -360,7 +361,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	if ( arg.key == OIS::KC_LCONTROL || arg.key == OIS::KC_RCONTROL ) ctrlPressed = true;
 	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
 
-	MyGUI::InputManager::getInstance().injectKeyPress(arg);
+	mGUI->injectKeyPress(arg);
 	return true;
 }
 //===================================================================================
@@ -368,7 +369,7 @@ bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_LSHIFT || arg.key == OIS::KC_RSHIFT ) shiftPressed = false;
 	if ( arg.key == OIS::KC_LCONTROL || arg.key == OIS::KC_RCONTROL ) ctrlPressed = false;
-	MyGUI::InputManager::getInstance().injectKeyRelease(arg);
+	mGUI->injectKeyRelease(arg);
 	return true;
 }
 //===================================================================================
