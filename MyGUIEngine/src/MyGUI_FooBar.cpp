@@ -448,6 +448,11 @@ namespace MyGUI
 		return w;
 	}
 
+	WidgetPtr FooBar::addItem(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const FloatSize &_size)
+	{
+		return addItem(FooBarItemInfo(_name, _texture, _enabled, _size));
+	}
+
 	void FooBar::removeItem(const Ogre::String &name)
 	{
 
@@ -456,7 +461,7 @@ namespace MyGUI
 	void FooBar::_addChildItem(const Ogre::String &name, const FooBarItemInfo &item)
 	{
 		if (_isChildItem(name))
-			return;
+			MYGUI_EXCEPT("Item with name '" + name + "' already exists in FooBar '" + getName() + "'");
 
 		mItems[name] = item;
 		mItemsOrder.push_back(item.widget);
