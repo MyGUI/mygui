@@ -156,11 +156,40 @@ namespace MyGUI
 		//!	Get layout type
 		Layout getLayout() const;
 
-		// set/get snap distance
+		//! Set snap distance
 		void setSnapDistance(const Ogre::Real &sd);
+		//!	Get snap distance
 		const Ogre::Real& getSnapDistance() const;
 
+		/*!	Add item to bar
+
+			@remarks	Add item to the end of items list
+
+			@see FooBarItemInfo
+		*/
 		WidgetPtr addItem(FooBarItemInfo &item);
+		/*!	Add item to bar
+
+			@param	_name		Name of item (must be unique for bar)
+			@param	_texture	Name of file that contains texture for item
+			@param	_enabled	Number of tile in texture file that will use for enabled state
+			@param	_size		Size of tile
+
+			@returns	Pointer to widget that will used as item.
+
+			@remarks	Add item to the end of items list. Tiles in file start numbering from left to right and from top to bottom.
+			\n \bExample:\n
+			<pre>
+				+---+---+---+
+				| 1 | 2 | 3 |
+				+---+---+---+
+				| 4 | 5 | 6 |
+				+---+---+---+
+			</pre>
+
+		*/
+		WidgetPtr addItem(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const FloatSize &_size);
+
 		void removeItem(const Ogre::String &name);
 
 	protected:
