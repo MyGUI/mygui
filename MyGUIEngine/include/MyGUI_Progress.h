@@ -35,7 +35,7 @@ namespace MyGUI
 		inline size_t getProgressRange() {return mRange;}
 
 		void setProgressPosition(size_t _pos);
-		inline size_t getProgressPosition() {return mStartPosition;}
+		inline size_t getProgressPosition() {return mEndPosition;}
 
 		void setProgressAutoTrack(bool _auto);
 

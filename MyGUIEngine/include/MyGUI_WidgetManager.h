@@ -34,6 +34,7 @@ namespace MyGUI
 
 		void destroyAllWidget();
 		void destroyWidget(WidgetPtr _widget);
+		void destroyWidgetsVector(VectorWidgetPtr _widgets);
 
 		void registerFactory(WidgetFactoryInterface * _factory);
 		void unregisterFactory(WidgetFactoryInterface * _factory);
