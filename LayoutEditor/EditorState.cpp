@@ -1125,19 +1125,19 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 					std::string::iterator iter = std::find(name.begin(), name.end(), '_');
 					if (iter != name.end()) name.erase(name.begin(), ++iter);
 			}
-			name = "[#333333" + name + "#000000]";
+			name = "[#333333" + name + "#000000] ";
 		}
 		else name = widgetContainer->name;
 	}
 
 	if (_print_type)
 	{
-		type = " #0000FF" + _widget->getWidgetType();
+		type = "#0000FF" + _widget->getWidgetType() + " ";
 	}
 
 	if (_print_skin)
 	{
-		skin = " #FFFFFF" + widgetContainer->skin;
+		skin = "#FFFFFF" + widgetContainer->skin;
 	}
 	return name + type + skin;
 }

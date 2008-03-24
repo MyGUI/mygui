@@ -371,6 +371,11 @@ namespace MyGUI
 		mWidgetManager->destroyWidget(_widget);
 	}
 
+	void Gui::destroyWidgetsVector(VectorWidgetPtr _widgets)
+	{
+		mWidgetManager->destroyWidgetsVector(_widgets);
+	}
+
 	void Gui::_alignWidget(WidgetPtr _widget, const FloatSize& _old, const FloatSize& _new)
 	{
 		if (null == _widget) return;

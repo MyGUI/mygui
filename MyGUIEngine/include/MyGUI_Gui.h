@@ -132,6 +132,10 @@ namespace MyGUI
 		void destroyWidget(WidgetPtr _widget);
 
 		// mirror of WidgetManager method
+		/** Destroy vector of widgets*/
+		void destroyWidgetsVector(VectorWidgetPtr _widgets);
+
+		// mirror of WidgetManager method
 		/** find widget by name*/
 		WidgetPtr findWidgetT(const std::string& _name);
 
