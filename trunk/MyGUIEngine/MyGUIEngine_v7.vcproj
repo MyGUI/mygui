@@ -129,6 +129,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\src\MyGUI_ActionController.cpp">
+			</File>
+			<File
 				RelativePath=".\src\MyGUI_Button.cpp">
 			</File>
 			<File
@@ -246,6 +249,12 @@
 				RelativePath=".\src\MyGUI_PointerManager.cpp">
 			</File>
 			<File
+				RelativePath=".\src\MyGUI_PopupMenu.cpp">
+			</File>
+			<File
+				RelativePath=".\src\MyGUI_PopupMenuFactory.cpp">
+			</File>
+			<File
 				RelativePath=".\src\MyGUI_Progress.cpp">
 			</File>
 			<File
@@ -336,6 +345,9 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
 				RelativePath=".\include\MyGUI.h">
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_ActionController.h">
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_AlignInfo.h">
@@ -510,6 +522,12 @@
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_PointerManager.h">
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_PopupMenu.h">
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_PopupMenuFactory.h">
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_Prerequest.h">
