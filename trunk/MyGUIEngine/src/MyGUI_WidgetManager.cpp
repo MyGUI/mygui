@@ -209,6 +209,14 @@ namespace MyGUI
 
 	}
 
+	void WidgetManager::destroyWidgetsVector(VectorWidgetPtr _widgets)
+	{
+		for (VectorWidgetPtr::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
+		{
+			destroyWidget(*iter);
+		}
+	}
+
 	void WidgetManager::destroyAllWidget()
 	{
 		//Gui::getInstance()._destroyAllChildWidget();

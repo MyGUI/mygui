@@ -29,7 +29,17 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
+		/** Add controlled widget
+			@param
+				_widget to be controlled
+			@param
+				_item controller with some actions (for example ControllerFadeAlpha or your own)
+		*/
 		void addItem(WidgetPtr _widget, ControllerItem * _item);
+		/** Stop the control over a widget
+			@param
+				_widget to be removed
+		*/
 		void removeItem(WidgetPtr _widget);
 
 		void _unlinkWidget(WidgetPtr _widget);
