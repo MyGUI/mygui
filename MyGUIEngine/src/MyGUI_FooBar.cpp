@@ -450,7 +450,7 @@ namespace MyGUI
 
 	WidgetPtr FooBar::addItem(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const FloatSize &_size)
 	{
-		FooBarItemInfo item = FooBarItemInfo(_name, _texture, _enabled, _size)
+		FooBarItemInfo item = FooBarItemInfo(_name, _texture, _enabled, _size);
 
 		return addItem(item);
 	}
