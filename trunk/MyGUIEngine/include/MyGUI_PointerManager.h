@@ -28,15 +28,18 @@ namespace MyGUI
 	public:
 
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		void clear();
 
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
+		/** Show pointer*/
 		void show();
+		/** Hide pointer*/
 		void hide();
 
+		/** Return visibility of pointer*/
 		inline bool isShow() {return mShow;}
 
+		/** Set pointer position*/
 		void setPosition(const IntPoint& _pos);
 		void setPointer(const std::string & _name, WidgetPtr _owner);
 		inline void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, null); }
@@ -44,6 +47,8 @@ namespace MyGUI
 		void _unlinkWidget(WidgetPtr _widget);
 
 	private:
+
+		void clear();
 		// создает виджет
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 

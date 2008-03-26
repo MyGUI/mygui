@@ -31,9 +31,23 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
+		/** Attach widget to specific layer
+			@param
+				_name of layer
+			@param
+				_item pointer to widget
+		*/
 		void attachToLayerKeeper(const std::string& _name, WidgetPtr _item);
+		/** Detach widget from layer
+			@param
+				_item pointer to widget
+		*/
 		void detachFromLayerKeeper(WidgetPtr _item);
 
+		/** Up widget to be on top of its layer
+			@param
+				_item pointer to widget
+		*/
 		void upLayerItem(WidgetPtr _item);
 
 		bool load(const std::string & _file, const std::string & _group);
@@ -46,6 +60,7 @@ namespace MyGUI
 
 		void _windowResized(const FloatSize& _size);
 
+		/** Get view size of GUI area*/
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
 		inline float getMaximumDepth() {return mMaximumDepth;}

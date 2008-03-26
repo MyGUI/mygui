@@ -155,18 +155,15 @@ namespace MyGUI
 		}
 
 		// mirror PointerManager
-		/** скрывает курсор
-		*/
+		/** Hide pointer*/
 		void hidePointer();
 
 		// mirror PointerManager
-		/** показывает курсор
-		*/
+		/** Show pointer*/
 		void showPointer();
 
 		// mirror PointerManager
-		/** показывает курсор
-		*/
+		/** Return visibility of pointer*/
 		bool isShowPointer();
 
 		/** Register delegate for parsing XML blocks*/
