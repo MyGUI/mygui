@@ -10,8 +10,6 @@
 
 #include <OgreTextureManager.h>
 
-#include "../../debugAxis.h"
-
 namespace MyGUI
 {
 
@@ -158,7 +156,6 @@ namespace MyGUI
 
 	void RenderBox::_frameEntered(float _time)
 	{
-		return;
 		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) {
 			// коррекция под левосторонюю систему координат с осью Z направленную вверх
 			#ifdef LEFT_HANDED_CS_UP_Z
