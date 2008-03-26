@@ -44,6 +44,10 @@ namespace MyGUI
 		*/
 		void injectObject(const Ogre::String& _meshName);
 
+		/** Запускает анимацию у ентити в рендер боксе
+		*/
+		void setAnimation(const Ogre::String& _animation);
+
 		/** Clear scene */
 		void clear();
 
@@ -124,6 +128,8 @@ namespace MyGUI
 		bool mLeftPressed;
 
 		bool mAutoRotation;
+
+		Ogre::AnimationState * mEntityState;
 
 	}; // class RenderBox : public Widget
 
