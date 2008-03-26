@@ -31,7 +31,7 @@ namespace MyGUI
 		//------------------------------------------------------------------------------------//
 		// методы для манипуляций строками
 		//! Get number of items
-		inline size_t getItemCount();
+		size_t getItemCount();
 
 		//! Insert an item into a list at a specified position
 		void insertItem(size_t _index, const Ogre::DisplayString & _item);

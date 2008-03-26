@@ -154,6 +154,21 @@ namespace MyGUI
 			return static_cast<T*>(widget);
 		}
 
+		// mirror PointerManager
+		/** скрывает курсор
+		*/
+		void hidePointer();
+
+		// mirror PointerManager
+		/** показывает курсор
+		*/
+		void showPointer();
+
+		// mirror PointerManager
+		/** показывает курсор
+		*/
+		bool isShowPointer();
+
 		/** Register delegate for parsing XML blocks*/
 		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
 		void unregisterLoadXmlDelegate(const Ogre::String & _key);

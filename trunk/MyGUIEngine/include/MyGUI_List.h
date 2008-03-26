@@ -114,7 +114,7 @@ namespace MyGUI
 		inline int getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
 			_index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
