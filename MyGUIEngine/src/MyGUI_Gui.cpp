@@ -415,4 +415,19 @@ namespace MyGUI
 		_widget->setPosition(coord);
 	}
 
+	void Gui::hidePointer()
+	{
+		mPointerManager->hide();
+	}
+
+	void Gui::showPointer()
+	{
+		mPointerManager->show();
+	}
+
+	bool Gui::isShowPointer()
+	{
+		return mPointerManager->isShow();
+	}
+
 } // namespace MyGUI

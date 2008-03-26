@@ -10,6 +10,8 @@
 
 #include <OgreTextureManager.h>
 
+#include "../../debugAxis.h"
+
 namespace MyGUI
 {
 
@@ -19,11 +21,12 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mUserViewport(false),
 		mEntity(null),
-		mBackgroungColour(Ogre::ColourValue::Blue),
+		mBackgroungColour(Ogre::ColourValue::Black),
 		mMouseRotation(false),
 		mLeftPressed(false),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
-		mAutoRotation(false)
+		mAutoRotation(false),
+		mEntityState(null)
 	{
 
 		// первоначальна€ инициализаци€
@@ -69,9 +72,11 @@ namespace MyGUI
 		setRotationAngle(Ogre::Degree(0));
 
 		if (mEntity) {
+			//Ogre::SkeletonManager::getSingleton().remove();
 			mNode->detachObject(mEntity);
 			mScene->destroyEntity(mEntity);
 			mEntity = 0;
+			mEntityState = null;
 		}
 	}
 
@@ -93,7 +98,12 @@ namespace MyGUI
 	{
 		if (false == mUserViewport){
 			mNode->resetOrientation();
-			mNode->yaw(Ogre::Radian(_rotationAngle));
+			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
+			#ifdef LEFT_HANDED_CS_UP_Z
+				mNode->roll(Ogre::Radian(_rotationAngle));
+			#else
+				mNode->yaw(Ogre::Radian(_rotationAngle));
+			#endif
 		}
 	}
 
@@ -148,13 +158,27 @@ namespace MyGUI
 
 	void RenderBox::_frameEntered(float _time)
 	{
-		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
+		return;
+		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) {
+			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
+			#ifdef LEFT_HANDED_CS_UP_Z
+				mNode->roll(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
+			#else
+				mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
+			#endif
+		}
+		if (null != mEntityState) mEntityState->addTime(_time);
 	}
 
 	void RenderBox::_onMouseDrag(int _left, int _top)
 	{
 		if ((false == mUserViewport) && mMouseRotation && mAutoRotation) {
-			mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
+			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
+			#ifdef LEFT_HANDED_CS_UP_Z
+				mNode->roll(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
+			#else
+				mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
+			#endif
 			mLastPointerX = _left;
 		}
 
@@ -195,7 +219,13 @@ namespace MyGUI
 		mScene->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
 
 		// главный источник света
-		Ogre::Vector3 dir(-1, -1, 0.5);
+		// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
+		#ifdef LEFT_HANDED_CS_UP_Z
+			Ogre::Vector3 dir(-10, -10, 10);
+		#else
+			Ogre::Vector3 dir(-1, -1, 0.5);
+		#endif
+
 		dir.normalise();
 		Ogre::Light * light = mScene->createLight(utility::toString(this, "_LightRenderBox"));
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -210,6 +240,7 @@ namespace MyGUI
 
 		std::string camera(utility::toString(this, "_CameraRenderBox"));
 		mRttCam = mScene->createCamera(camera);
+
 		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(camera);
 		mCamNode->attachObject(mRttCam);
 		mRttCam->setNearClipDistance(1);
@@ -240,25 +271,68 @@ namespace MyGUI
 			box.getCenter();
 			Ogre::Vector3 vec = box.getSize();
 
-			float width = sqrt(vec.x*vec.x + vec.z*vec.z); // самое длинное - диагональ (если крутить модель)
-			float len2 = width / mRttCam->getAspectRatio();
-			float height = vec.y;
-			float len1 = height;
-			if (len1 < len2) len1 = len2;
-
-			len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
-
-			// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
-			mCamNode->setPosition(box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2));
-			mCamNode->lookAt(Ogre::Vector3(0, box.getCenter().y, 0), Ogre::Node::TS_WORLD);
+			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
+			#ifdef LEFT_HANDED_CS_UP_Z
+				float width = sqrt(vec.x*vec.x + vec.y*vec.y); // самое длинное - диагональ (если крутить модель)
+				float len2 = width / mRttCam->getAspectRatio();
+				float height = vec.z;
+				float len1 = height;
+				if (len1 < len2) len1 = len2;
+				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
+				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
+				mCamNode->setPosition(box.getCenter() - Ogre::Vector3(vec.y/2 + len1, 0, 0) - Ogre::Vector3(len1*0.2, 0, -height*0.1));
+				//mCamNode->setDirection(Ogre::Vector3(0, 0, 1) - mCamNode->_getDerivedPosition(), Ogre::Node::TS_WORLD, Ogre::Vector3::NEGATIVE_UNIT_Z);
+			#else
+				float width = sqrt(vec.x*vec.x + vec.z*vec.z); // самое длинное - диагональ (если крутить модель)
+				float len2 = width / mRttCam->getAspectRatio();
+				float height = vec.y;
+				float len1 = height;
+				if (len1 < len2) len1 = len2;
+				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
+				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
+				mCamNode->setPosition(box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2));
+				mCamNode->lookAt(Ogre::Vector3(0, box.getCenter().y, 0), Ogre::Node::TS_WORLD);
+			#endif
 		}
 	}
 
 	void RenderBox::setAutoRotation(bool _auto)
 	{
+		if (mAutoRotation == _auto) return;
 		mAutoRotation = _auto;
-		if (mAutoRotation) Gui::getInstance().addFrameListener(this);
-		else Gui::getInstance().removeFrameListener(this);
+		if ((mAutoRotation) && (null == mEntityState)) Gui::getInstance().addFrameListener(this);
+		else if (null == mEntityState) Gui::getInstance().removeFrameListener(this);
+	}
+
+	void RenderBox::setAnimation(const Ogre::String& _animation)
+	{
+		if (null != mEntityState) {
+			mEntityState = null;
+			if (false == mAutoRotation) Gui::getInstance().removeFrameListener(this);
+		}
+
+		if (null == mEntity) return;
+		Ogre::SkeletonInstance * skeleton = mEntity->getSkeleton();
+		if (null == skeleton) return;
+		Ogre::AnimationStateSet * anim_set = mEntity->getAllAnimationStates();
+		Ogre::AnimationStateIterator iter = anim_set->getAnimationStateIterator();
+
+		while (iter.hasMoreElements()) {
+			Ogre::AnimationState * state = iter.getNext();
+			if (_animation == state ->getAnimationName()) {
+
+				// подписываемс€
+				Gui::getInstance().addFrameListener(this);
+
+				mEntityState = state;
+				mEntityState->setEnabled(true);
+				mEntityState->setLoop(true);
+				mEntityState->setWeight(1.0f);
+
+				return;
+			}
+
+		}
 	}
 
 } // namespace MyGUI
