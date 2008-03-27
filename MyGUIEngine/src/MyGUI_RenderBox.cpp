@@ -19,7 +19,7 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mUserViewport(false),
 		mEntity(null),
-		mBackgroungColour(Ogre::ColourValue::Black),
+		mBackgroungColour(Ogre::ColourValue::Blue),
 		mMouseRotation(false),
 		mLeftPressed(false),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
@@ -218,7 +218,7 @@ namespace MyGUI
 		// главный источник света
 		// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
 		#ifdef LEFT_HANDED_CS_UP_Z
-			Ogre::Vector3 dir(-10, -10, 10);
+			Ogre::Vector3 dir(10, 10, -10);
 		#else
 			Ogre::Vector3 dir(-1, -1, 0.5);
 		#endif
@@ -270,6 +270,7 @@ namespace MyGUI
 
 			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
 			#ifdef LEFT_HANDED_CS_UP_Z
+
 				float width = sqrt(vec.x*vec.x + vec.y*vec.y); // самое длинное - диагональ (если крутить модель)
 				float len2 = width / mRttCam->getAspectRatio();
 				float height = vec.z;
@@ -278,8 +279,17 @@ namespace MyGUI
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
 				mCamNode->setPosition(box.getCenter() - Ogre::Vector3(vec.y/2 + len1, 0, 0) - Ogre::Vector3(len1*0.2, 0, -height*0.1));
-				//mCamNode->setDirection(Ogre::Vector3(0, 0, 1) - mCamNode->_getDerivedPosition(), Ogre::Node::TS_WORLD, Ogre::Vector3::NEGATIVE_UNIT_Z);
+
+				Ogre::Vector3 x = Ogre::Vector3(0, 0, box.getCenter().z) - mCamNode->getPosition();
+				Ogre::Vector3 y = Ogre::Vector3(Ogre::Vector3::UNIT_Z).crossProduct(x);
+				Ogre::Vector3 z = x.crossProduct(y);
+				mCamNode->setOrientation(Ogre::Quaternion(
+					Ogre::Vector3(x.x, y.x, z.x).normalisedCopy(),
+					Ogre::Vector3(x.y, y.y, z.y).normalisedCopy(),
+					Ogre::Vector3(x.z, y.z, z.z).normalisedCopy()));
+
 			#else
+
 				float width = sqrt(vec.x*vec.x + vec.z*vec.z); // самое длинное - диагональ (если крутить модель)
 				float len2 = width / mRttCam->getAspectRatio();
 				float height = vec.y;
@@ -289,6 +299,7 @@ namespace MyGUI
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
 				mCamNode->setPosition(box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2));
 				mCamNode->lookAt(Ogre::Vector3(0, box.getCenter().y, 0), Ogre::Node::TS_WORLD);
+
 			#endif
 		}
 	}
