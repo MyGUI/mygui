@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUIEngine", "MyGUIEngine\MyGUIEngine_v8.vcproj", "{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LayoutEditor", "LayoutEditor\LayoutEditor.vcproj", "{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LayoutEditor", "LayoutEditor\LayoutEditor_v8.vcproj", "{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "TestApp\TestApp_v8.vcproj", "{382942A7-8159-4340-A6D7-252E10064543}"
 EndProject
