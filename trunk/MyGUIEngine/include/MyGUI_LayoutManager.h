@@ -36,6 +36,7 @@ namespace MyGUI
 		VectorWidgetPtr load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
+		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		//void unload(const std::string & _file);
 
 	private:
@@ -45,6 +46,9 @@ namespace MyGUI
 	private:
 		// для возврата последней загрузки
 		VectorWidgetPtr mVectorWidgetPtr;
+
+		// префикс при загрузке лейаута
+		std::string layoutPrefix;
 		
 	}; // class LayoutManager
 
