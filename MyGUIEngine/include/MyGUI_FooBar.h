@@ -90,9 +90,12 @@ namespace MyGUI
 			FBL_SNAP_TOP
 		} Layout;
 
+	protected:
+		static Ogre::String WidgetTypeName;
+
 	public:
 		//! @copydoc Widget::_getType
-		inline static const Ogre::String & _getType() {static Ogre::String type("FooBar"); return type;}
+		inline static const Ogre::String & _getType() {return WidgetTypeName;}
 		//!	@copydoc Widget::getWidgetType
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 

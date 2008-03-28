@@ -77,9 +77,11 @@ namespace MyGUI
 		void _onKeyButtonPressed(int _key, Char _char);
 		void _destroyMessage(ViewInfo _result);
 
+		static Ogre::String WidgetTypeName;
+
 	public:
 		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {static Ogre::String type("Message"); return type;}
+		inline static const Ogre::String & _getType() {return WidgetTypeName;}
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 

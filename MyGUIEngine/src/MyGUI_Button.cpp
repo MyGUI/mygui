@@ -10,6 +10,8 @@
 namespace MyGUI
 {
 
+	Ogre::String Button::WidgetTypeName = "Button";
+
 	Button::Button(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsPressed(false),
