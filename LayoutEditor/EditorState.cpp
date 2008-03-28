@@ -31,7 +31,7 @@ void EditorState::enter(bool bIsChangeState)
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(BasisManager::getInstance().mWindow, "editor.xml");
 
-	MyGUI::LayoutManager::getInstance().load("interface.layout");
+	MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
 	// menu panel (should be dropdown menu)
 	ASSIGN_FUNCTION("LayoutEditor_buttonLoad", &EditorState::notifyLoadSaveAs);

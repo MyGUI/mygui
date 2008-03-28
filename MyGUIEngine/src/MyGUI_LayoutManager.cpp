@@ -25,6 +25,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
+		layoutPrefix = "";
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -53,6 +54,14 @@ namespace MyGUI
 		parseLayout(mVectorWidgetPtr, _node);
 	}
 
+	VectorWidgetPtr LayoutManager::loadLayout(const std::string & _file, const std::string & _prefix, const std::string & _group)
+	{
+		layoutPrefix = _prefix;
+		VectorWidgetPtr widgets = load(_file, _group);
+		layoutPrefix = "";
+		return widgets;
+	}
+
 	void LayoutManager::parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
 	{
 		// берем детей и крутимся
@@ -74,6 +83,8 @@ namespace MyGUI
 		if (_widget->findAttribute("align", tmp)) align = SkinManager::getInstance().parseAlign(tmp);
 		if (_widget->findAttribute("position", tmp)) coord = IntCoord::parse(tmp);
 		if (_widget->findAttribute("position_real", tmp)) coord = Gui::getInstance().convertRelativeToInt(FloatCoord::parse(tmp), _parent);
+
+		if (!widgetName.empty()) widgetName = layoutPrefix + widgetName;
 
 		WidgetPtr wid;
 		if (null == _parent) {
