@@ -31,9 +31,11 @@ namespace MyGUI
 		//void show();
 		//void hide();
 
+		static Ogre::String WidgetTypeName;
+
 	public:
 		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {static Ogre::String type("Sheet"); return type;}
+		inline static const Ogre::String & _getType() {return WidgetTypeName;}
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 

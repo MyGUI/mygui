@@ -20,10 +20,11 @@ namespace MyGUI
 
 	protected:
 		StaticImage(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		static Ogre::String WidgetTypeName;
 
 	public:
 		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {static Ogre::String type("StaticImage"); return type;}
+		inline static const Ogre::String & _getType() {return WidgetTypeName;}
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 

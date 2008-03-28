@@ -16,6 +16,8 @@
 namespace MyGUI
 {
 
+	Ogre::String Tab::WidgetTypeName = "Tab";
+
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
 	Tab::Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :

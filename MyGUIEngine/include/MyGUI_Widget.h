@@ -46,6 +46,8 @@ namespace MyGUI
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
 
+		static Ogre::String WidgetTypeName;
+
 	public:
 
 		// методы и шаблоны для создания виджета
@@ -85,7 +87,7 @@ namespace MyGUI
 		//! Get name if widget
 		inline const Ogre::String & getName() {return mName;}
 		//! Get widget class type
-		inline static const Ogre::String & _getType() {static Ogre::String type("Widget"); return type;}
+		inline static const Ogre::String & _getType() {return WidgetTypeName;}
 		//! Get widget type
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 

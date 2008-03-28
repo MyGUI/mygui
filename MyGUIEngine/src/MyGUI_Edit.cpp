@@ -15,6 +15,8 @@
 namespace MyGUI
 {
 
+	Ogre::String Edit::WidgetTypeName = "Edit";
+
 	const float EDIT_CURSOR_TIMER  = 0.7f;
 	const float EDIT_ACTION_MOUSE_TIMER  = 0.20f;
 	const int EDIT_CURSOR_MAX_POSITION = 100000;
