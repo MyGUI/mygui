@@ -8,6 +8,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "TestApp\TestApp_
 		{5F8593A8-A772-4C4E-99C0-A182D3D9FF64} = {5F8593A8-A772-4C4E-99C0-A182D3D9FF64}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LayoutEditor", "LayoutEditor\LayoutEditor_v7.vcproj", "{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F8593A8-A772-4C4E-99C0-A182D3D9FF64} = {5F8593A8-A772-4C4E-99C0-A182D3D9FF64}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -22,6 +27,10 @@ Global
 		{8AB000C0-B3E6-4291-A674-2AB9392B92FE}.Debug.Build.0 = Debug|Win32
 		{8AB000C0-B3E6-4291-A674-2AB9392B92FE}.Release.ActiveCfg = Release|Win32
 		{8AB000C0-B3E6-4291-A674-2AB9392B92FE}.Release.Build.0 = Release|Win32
+		{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}.Debug.ActiveCfg = Debug|Win32
+		{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}.Debug.Build.0 = Debug|Win32
+		{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}.Release.ActiveCfg = Release|Win32
+		{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
