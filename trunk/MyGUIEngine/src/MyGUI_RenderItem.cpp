@@ -116,6 +116,7 @@ namespace MyGUI
 		mRenderSystem->_setTextureBlendMode(0, mColorBlendMode);
 		mRenderSystem->_setTextureBlendMode(0, mAlphaBlendMode);
 		mRenderSystem->_disableTextureUnitsFrom(1);
+		
 
 		// enable alpha blending
 		mRenderSystem->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);

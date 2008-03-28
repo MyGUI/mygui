@@ -12,6 +12,8 @@
 namespace MyGUI
 {
 
+	Ogre::String Progress::WidgetTypeName = "Progress";
+
 	const size_t PROGRESS_AUTO_WIDTH = 200;
 	const size_t PROGRESS_AUTO_RANGE = 1000;
 	const float PROGRESS_AUTO_COEF = 400;

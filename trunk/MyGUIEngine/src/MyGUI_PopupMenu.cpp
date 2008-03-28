@@ -16,6 +16,8 @@
 namespace MyGUI
 {
 
+	Ogre::String PopupMenu::WidgetTypeName = "PopupMenu";
+
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
 	PopupMenu::PopupMenu(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
@@ -37,12 +39,12 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("SkinLine");
-		if (iter != param.end()) mSkinLine = iter->second;
+		MapString::const_iterator iterS = param.find("SkinLine");
+		if (iterS != param.end()) mSkinLine = iterS->second;
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property or skin not found (PopupMenu must have SkinLine property)");
 
-		iter = param.find("HeightLine");
-		if (iter != param.end()) mHeightLine = utility::parseInt(iter->second);
+		iterS = param.find("HeightLine");
+		if (iterS != param.end()) mHeightLine = utility::parseInt(iterS->second);
 		if (mHeightLine < 1) mHeightLine = 1;
 
 		// первоначально скрываем окно

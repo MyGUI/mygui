@@ -18,6 +18,8 @@
 namespace MyGUI
 {
 
+	Ogre::String ComboBox::WidgetTypeName = "ComboBox";
+
 	const float COMBO_ALPHA_MAX  = ALPHA_MAX;
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
