@@ -136,11 +136,16 @@ namespace MyGUI
 		void destroyWidgetsVector(VectorWidgetPtr _widgets);
 
 		// mirror of WidgetManager method
-		/** find widget by name*/
+		/** Find widget by name*/
 		WidgetPtr findWidgetT(const std::string& _name);
+		/** Find widget by name and prefix*/
+		inline WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
+		{
+			return findWidgetT(_prefix + _name);
+		}
 
 		// mirror WidgetManager
-		/** find widget by name and cast it to T type.
+		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause error in DEBUG mode.
 		*/
 		template <class T> inline T* findWidget(const std::string& _name)
@@ -152,6 +157,12 @@ namespace MyGUI
 				<< "' source name = '" << widget->getName() 
 				<< "' source type = '" << widget->getWidgetType() << "'");
 			return static_cast<T*>(widget);
+		}
+
+		/** Find widget by name and prefix*/
+		template <class T> inline T* findWidget(const std::string& _name, const std::string& _prefix)
+		{
+			return findWidget<T>(_prefix + _name);
 		}
 
 		// mirror PointerManager

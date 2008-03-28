@@ -41,6 +41,10 @@ namespace MyGUI
 
 		// метод для поиска виджета
 		WidgetPtr findWidgetT(const Ogre::String & _name);
+		inline WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
+		{
+			return findWidgetT(_prefix + _name);
+		}
 		template <class T> inline T* findWidget(const std::string& _name)
 		{
 			WidgetPtr widget = findWidgetT(_name);
@@ -50,6 +54,11 @@ namespace MyGUI
 				<< "' source name = '" << widget->getName() 
 				<< "' source type = '" << widget->getWidgetType() << "'");
 			return static_cast<T*>(widget);
+		}
+
+		template <class T> inline T* findWidget(const std::string& _name, const std::string& _prefix)
+		{
+			return findWidget<T>(_prefix + _name);
 		}
 
 		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально
