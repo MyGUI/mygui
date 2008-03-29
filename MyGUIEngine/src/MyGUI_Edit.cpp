@@ -650,7 +650,7 @@ namespace MyGUI
 		mVectorRedoChangeInfo.push_back(info);
 
 		// берем текст для издевательств
-		Ogre::DisplayString text = getRealString();
+		Ogre::UTFString text = getRealString();
 
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::reverse_iterator iter=info.rbegin(); iter!=info.rend(); iter++) {
@@ -690,7 +690,7 @@ namespace MyGUI
 		mVectorUndoChangeInfo.push_back(info);
 
 		// берем текст для издевательств
-		Ogre::DisplayString text = getRealString();
+		Ogre::UTFString text = getRealString();
 
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++) {
@@ -731,7 +731,7 @@ namespace MyGUI
 	}
 
 	// возвращает текст
-	Ogre::DisplayString Edit::getText(size_t _start, size_t _count)
+	Ogre::UTFString Edit::getText(size_t _start, size_t _count)
 	{
 		// подстраховка
 		if (_start > mTextLength) _start = mTextLength;
@@ -742,7 +742,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString());
 
 		// дефолтный цвет
-		Ogre::DisplayString colour = TextIterator::convertTagColour(mText->getColour());
+		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
 
 		// нужно ли вставлять цвет
 		bool need_colour = true;
@@ -796,7 +796,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		Ogre::DisplayString colour = TextIterator::convertTagColour(mText->getColour());
+		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
 
 		// цикл прохода по строке
 		while (iterator.moveNext()) {
@@ -853,7 +853,7 @@ namespace MyGUI
 		setTextColour(start, end-start, _colour, _history);
 	}
 
-	Ogre::DisplayString Edit::getSelectedText()
+	Ogre::UTFString Edit::getSelectedText()
 	{
 		if ( false == isTextSelect()) return "";
 		size_t start, end;
@@ -874,7 +874,7 @@ namespace MyGUI
 		mModePassword = _password;
 		if (mModePassword) {
 			mPasswordText = mText->getCaption();
-			mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
+			mText->setCaption(Ogre::UTFString(mTextLength, '*'));
 		}
 		else {
 			mText->setCaption(mPasswordText);
@@ -886,7 +886,7 @@ namespace MyGUI
 		commandResetHistory();
 	}
 
-	void Edit::setText(const Ogre::DisplayString & _caption, bool _history)
+	void Edit::setText(const Ogre::UTFString & _caption, bool _history)
 	{
 		// сбрасываем выделение
 		resetSelect();
@@ -928,7 +928,7 @@ namespace MyGUI
 		updateSelectText();
 	}
 
-	void Edit::insertText(const Ogre::DisplayString & _text, size_t _start, bool _history)
+	void Edit::insertText(const Ogre::UTFString & _text, size_t _start, bool _history)
 	{
 		// сбрасываем выделение
 		resetSelect();
@@ -944,10 +944,10 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		Ogre::DisplayString colour = TextIterator::convertTagColour(mText->getColour());
+		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
 		// нужен ли тег текста
 		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
-		bool need_colour = ( (_text.size() > 6) && (_text[0] == _T('#')) && (_text[1] != _T('#')) );
+		bool need_colour = ( (_text.size() > 6) && (_text[0] == L'#') && (_text[1] != L'#') );
 
 		// цикл прохода по строке
 		while (iterator.moveNext()) {
@@ -1013,7 +1013,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		Ogre::DisplayString colour;
+		Ogre::UTFString colour;
 		// конец диапазона
 		size_t end = _start + _count;
 		bool need_colour = false;
@@ -1126,17 +1126,17 @@ namespace MyGUI
 		}
 	}
 
-	const Ogre::DisplayString & Edit::getRealString()
+	const Ogre::UTFString & Edit::getRealString()
 	{
 		if (mModePassword) return mPasswordText;
 		return mText->getCaption();
 	}
 
-	void Edit::setRealString(const Ogre::DisplayString & _caption)
+	void Edit::setRealString(const Ogre::UTFString & _caption)
 	{
 		if (mModePassword) {
 			mPasswordText = _caption;
-			mText->setCaption(Ogre::DisplayString(mTextLength, '*'));
+			mText->setCaption(Ogre::UTFString(mTextLength, '*'));
 		}
 		else {
 			mText->setCaption(_caption);
@@ -1166,12 +1166,12 @@ namespace MyGUI
 		updateView(false);
 	}
 
-	void Edit::setCaption(const Ogre::DisplayString & _caption)
+	void Edit::setCaption(const Ogre::UTFString & _caption)
 	{
 		setText(_caption, false);
 	}
 
-	const Ogre::DisplayString& Edit::getCaption()
+	const Ogre::UTFString& Edit::getCaption()
 	{
 		return getRealString();
 	}

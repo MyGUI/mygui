@@ -117,14 +117,14 @@ namespace MyGUI
 		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
-	SheetPtr Tab::addSheet(const Ogre::DisplayString& _name, int _width)
+	SheetPtr Tab::addSheet(const Ogre::UTFString& _name, int _width)
 	{
 		SheetPtr sheet = static_cast<SheetPtr>(createWidgetT(Sheet::_getType(), "", IntCoord(), ALIGN_DEFAULT));
 		setSheetNameIndex(mSheetsInfo.size()-1, _name, _width);
 		return sheet;
 	}
 
-	SheetPtr Tab::insertSheet(size_t _index, const Ogre::DisplayString& _name, int _width)
+	SheetPtr Tab::insertSheet(size_t _index, const Ogre::UTFString& _name, int _width)
 	{
 		SheetPtr sheet = addSheet(_name, _width);
 		size_t size = mSheetsInfo.size();
@@ -329,7 +329,7 @@ namespace MyGUI
 		}
 	}
 
-	void Tab::showBarButton(const Ogre::DisplayString& _name)
+	void Tab::showBarButton(const Ogre::UTFString& _name)
 	{
 		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 			if (mSheetsInfo[pos].name == _name) {
@@ -355,7 +355,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setSheetNameIndex(size_t _index, const Ogre::DisplayString& _name, int _width)
+	void Tab::setSheetNameIndex(size_t _index, const Ogre::UTFString& _name, int _width)
 	{
 		MYGUI_ASSERT(_index < mSheetsInfo.size(), "setSheetNameIndex: index '" << _index << "' out of range");
 		mSheetsInfo[_index].name = _name;
@@ -371,7 +371,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setSheetName(SheetPtr _sheet, const Ogre::DisplayString& _name, int _width)
+	void Tab::setSheetName(SheetPtr _sheet, const Ogre::UTFString& _name, int _width)
 	{
 		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 			if (mSheetsInfo[pos].sheet == _sheet) {
@@ -418,7 +418,7 @@ namespace MyGUI
 		updateBar();*/
 	}
 
-	void Tab::removeSheet(const Ogre::DisplayString& _name)
+	void Tab::removeSheet(const Ogre::UTFString& _name)
 	{
 		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 			if (mSheetsInfo[pos].name == _name) {
@@ -455,7 +455,7 @@ namespace MyGUI
 		_showSheet(mSheetsInfo[old].sheet, false, _smoot);
 	}
 
-	void Tab::selectSheet(const Ogre::DisplayString& _name, bool _smooth)
+	void Tab::selectSheet(const Ogre::UTFString& _name, bool _smooth)
 	{
 		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 			if (mSheetsInfo[pos].name == _name) {
@@ -508,11 +508,11 @@ namespace MyGUI
 		mSheetButton.push_back(button);
 	}
 
-	int Tab::getButtonWidthByName(const Ogre::DisplayString& _text)
+	int Tab::getButtonWidthByName(const Ogre::UTFString& _text)
 	{
 		if (0 == mSheetButton.size()) _createSheetButton();
 
-		Ogre::DisplayString save = mSheetButton[0]->getCaption();
+		Ogre::UTFString save = mSheetButton[0]->getCaption();
 		mSheetButton[0]->setCaption(_text);
 
 		IntSize size = mSheetButton[0]->getTextSize();

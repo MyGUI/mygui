@@ -42,6 +42,8 @@ namespace MyGUI
 	typedef unsigned int uint32;
 	typedef unsigned int uint;
 
+	typedef wchar_t Char;
+
 	namespace utility
 	{
 		namespace templates

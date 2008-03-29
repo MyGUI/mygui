@@ -96,9 +96,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->setInheritsAlpha(false);
 	box->setAlpha(0.5);
 
-	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	combo->addItem("test");
-	combo->show();*/
+	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	edit->setCaption("#FFFFFFF");
 
 	/*MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(300, 300, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	text->setCaption("StaticText");*/

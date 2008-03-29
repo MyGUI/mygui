@@ -34,19 +34,19 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// работа с текстом с тегами
-		virtual void setCaption(const Ogre::DisplayString & _caption);
-		virtual const Ogre::DisplayString& getCaption();
+		virtual void setCaption(const Ogre::UTFString & _caption);
+		virtual const Ogre::UTFString& getCaption();
 
 		// работа с текстом без тегов
-		inline void setOnlyText(const Ogre::DisplayString & _text) {setText(TextIterator::toTagsString(_text), false);}
-		inline Ogre::DisplayString getOnlyText() {return TextIterator::getOnlyText(getRealString());}
+		inline void setOnlyText(const Ogre::UTFString & _text) {setText(TextIterator::toTagsString(_text), false);}
+		inline Ogre::UTFString getOnlyText() {return TextIterator::getOnlyText(getRealString());}
 
 		// возвращает выделение
 		void getTextSelect(size_t & _start, size_t & _end);
 		// выделен ли текст
 		inline bool isTextSelect() {return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) );}
 		// возвращает выделенный текст
-		Ogre::DisplayString getSelectedText();
+		Ogre::UTFString getSelectedText();
 
 		inline size_t getTextLength() {return mTextLength;}
 		inline size_t getTextCursor() {return mCursorPosition;}
@@ -63,13 +63,13 @@ namespace MyGUI
 		//---------------------------------------------------------------//
 
 		// возвращает текст с тегами
-		Ogre::DisplayString getText(size_t _start, size_t _count);
+		Ogre::UTFString getText(size_t _start, size_t _count);
 		// удаляет все что выделенно
 		inline bool deleteTextSelect() {return deleteTextSelect(false);}
 		// вставляет текст в указанную позицию
-		inline void insertText(const Ogre::DisplayString & _text, size_t _index = ITEM_NONE) {insertText(_text, _index, false);}
+		inline void insertText(const Ogre::UTFString & _text, size_t _index = ITEM_NONE) {insertText(_text, _index, false);}
 		// добавляет текст в конец
-		inline void addText(const Ogre::DisplayString & _text) {addText(_text, false);}
+		inline void addText(const Ogre::UTFString & _text) {addText(_text, false);}
 		// удаляет текст
 		inline void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
 		// выделяет цветом выделение
@@ -139,13 +139,13 @@ namespace MyGUI
 	protected:
 
 		// устанавливает текст
-		void setText(const Ogre::DisplayString & _text, bool _history);
+		void setText(const Ogre::UTFString & _text, bool _history);
 		// удаляет все что выделенно
 		bool deleteTextSelect(bool _history);
 		// вставляет текст в указанную позицию
-		void insertText(const Ogre::DisplayString & _text, size_t _index, bool _history);
+		void insertText(const Ogre::UTFString & _text, size_t _index, bool _history);
 		// добавляет текст в конец
-		inline void addText(const Ogre::DisplayString & _text, bool _history) {insertText(_text, ITEM_NONE, _history);}
+		inline void addText(const Ogre::UTFString & _text, bool _history) {insertText(_text, ITEM_NONE, _history);}
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
@@ -210,9 +210,9 @@ namespace MyGUI
 		void commandPast();
 
 
-		const Ogre::DisplayString & getRealString();
+		const Ogre::UTFString & getRealString();
 
-		void setRealString(const Ogre::DisplayString & _caption);
+		void setRealString(const Ogre::UTFString & _caption);
 
 
 	protected:
@@ -246,7 +246,7 @@ namespace MyGUI
 		bool mModeStatic;
 
 		// настоящий текст, закрытый за звездочками
-		Ogre::DisplayString mPasswordText;
+		Ogre::UTFString mPasswordText;
 
 		// для поддержки режима статик, где курсор не нужен
 		std::string mOriginalPointer;

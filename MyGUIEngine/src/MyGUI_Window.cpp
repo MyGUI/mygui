@@ -10,7 +10,6 @@
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
-//#include "MyGUI_PointerManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
@@ -288,13 +287,13 @@ namespace MyGUI
 		return mWidgetClient->getChilds();
 	}
 
-	void Window::setCaption(const Ogre::DisplayString & _caption)
+	void Window::setCaption(const Ogre::UTFString & _caption)
 	{
 		if (mWidgetCaption != null) mWidgetCaption->setCaption(_caption);
 		else Widget::setCaption(_caption);
 	}
 
-	const Ogre::DisplayString & Window::getCaption()
+	const Ogre::UTFString & Window::getCaption()
 	{
 		if (mWidgetCaption != null) return mWidgetCaption->getCaption();
 		return Widget::getCaption();

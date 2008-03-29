@@ -75,13 +75,13 @@ namespace MyGUI
 
 	}
 
-	void Message::setMessage(const Ogre::DisplayString & _message)
+	void Message::setMessage(const Ogre::UTFString & _message)
 	{
 		mWidgetText->setCaption(_message);
 		updateSize();
 	}
 
-	Message::ViewInfo Message::addButtonName(const Ogre::DisplayString & _name)
+	Message::ViewInfo Message::addButtonName(const Ogre::UTFString & _name)
 	{
 		if (mVectorButton.size() >= 7) {
 			MYGUI_LOG(Warning, "in message box many buttons, ignored");
@@ -221,7 +221,7 @@ namespace MyGUI
 		if (null != mIcon) mIcon->setImageNum(_image);
 	}
 
-	MyGUI::MessagePtr Message::_createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
+	MyGUI::MessagePtr Message::_createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
 	{
 		Gui * gui = Gui::getInstancePtr();
 		if (null == gui) return null;

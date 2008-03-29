@@ -246,15 +246,15 @@ namespace MyGUI
 
 	}
 
-	void Widget::setCaption(const Ogre::DisplayString & _caption)
+	void Widget::setCaption(const Ogre::UTFString & _caption)
 	{
 		if (null != mText) mText->setCaption(_caption);
 	}
 
-	const Ogre::DisplayString & Widget::getCaption()
+	const Ogre::UTFString & Widget::getCaption()
 	{
 		if (null == mText) {
-			static Ogre::DisplayString empty;
+			static Ogre::UTFString empty;
 			return empty;
 		}
 		return mText->getCaption();
