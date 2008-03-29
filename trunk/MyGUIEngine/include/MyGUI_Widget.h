@@ -130,6 +130,12 @@ namespace MyGUI
 		void setAlpha(float _alpha);
 		inline float getAlpha() {return mAlpha;};
 		inline float _getRealAlpha() {return mRealAlpha;}
+		inline bool isInheritsAlpha() {return mInheritsAlpha;}
+		inline void setInheritsAlpha(bool _inherits)
+		{
+			mInheritsAlpha = _inherits;
+			_updateAlpha();
+		}
 		void _updateAlpha();
 
 		void setState(const Ogre::String & _state);
@@ -214,9 +220,10 @@ namespace MyGUI
 		bool mVisible;
 		// для иерархического скрытия
 		bool mInheritedShow;
-		// прозрачность нашего оверлея
+		// прозрачность и флаг наследования альфы нашего оверлея
 		float mAlpha;
 		float mRealAlpha;
+		bool mInheritsAlpha;
 		// имя виджета
 		Ogre::String mName;
 		// курсор который будет показан при наведении

@@ -29,6 +29,7 @@ namespace MyGUI
 			manager.registerDelegate("Widget_FontName") = newDelegate(this, &WidgetFactory::Widget_FontName);
 			manager.registerDelegate("Widget_FontHeight") = newDelegate(this, &WidgetFactory::Widget_FontHeight);
 			manager.registerDelegate("Widget_Alpha") = newDelegate(this, &WidgetFactory::Widget_Alpha);
+			manager.registerDelegate("Widget_InheritsAlpha") = newDelegate(this, &WidgetFactory::Widget_InheritsAlpha);
 			manager.registerDelegate("Widget_State") = newDelegate(this, &WidgetFactory::Widget_State);
 			manager.registerDelegate("Widget_NeedKey") = newDelegate(this, &WidgetFactory::Widget_NeedKey);
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
@@ -50,6 +51,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_FontName");
 			manager.unregisterDelegate("Widget_FontHeight");
 			manager.unregisterDelegate("Widget_Alpha");
+			manager.unregisterDelegate("Widget_InheritsAlpha");
 			manager.unregisterDelegate("Widget_State");
 			manager.unregisterDelegate("Widget_NeedKey");
 			manager.unregisterDelegate("Widget_AlignText");
@@ -139,6 +141,11 @@ namespace MyGUI
 		void WidgetFactory::Widget_Enabled(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			_widget->setEnabled(utility::parseBool(_value));
+		}
+
+		void WidgetFactory::Widget_InheritsAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			_widget->setInheritsAlpha(utility::parseBool(_value));
 		}
 
 	} // namespace factory
