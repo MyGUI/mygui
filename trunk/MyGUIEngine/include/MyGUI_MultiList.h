@@ -19,7 +19,7 @@ namespace MyGUI
 		ListPtr list;
 		ButtonPtr button;
 		int width;
-		Ogre::DisplayString name;
+		Ogre::UTFString name;
 	};
 
 	typedef std::vector<RowInfo> VectorRowInfo;
@@ -46,11 +46,11 @@ namespace MyGUI
 		// методы для работы со столбцами
 		inline size_t getRowCount() { return mVectorRowInfo.size();}
 
-		void insertRow(size_t _index, int _width, const Ogre::DisplayString & _name);
-		inline void addRow(int _width, const Ogre::DisplayString & _name) {insertRow(ITEM_NONE, _width, _name);}
-		void setRowName(size_t _index, const Ogre::DisplayString & _name);
+		void insertRow(size_t _index, int _width, const Ogre::UTFString & _name);
+		inline void addRow(int _width, const Ogre::UTFString & _name) {insertRow(ITEM_NONE, _width, _name);}
+		void setRowName(size_t _index, const Ogre::UTFString & _name);
 		void setRowWidth(size_t _index, int _width);
-		const Ogre::DisplayString & getRowName(size_t _index);
+		const Ogre::UTFString & getRowName(size_t _index);
 		int getRowWidth(size_t _index);
 
 		void deleteRow(size_t _index);
@@ -60,10 +60,10 @@ namespace MyGUI
 		// методы для работы со строками
 		size_t getItemCount();
 
-		void insertItem(size_t _index, const Ogre::DisplayString & _item);
-		inline void addItem(const Ogre::DisplayString & _item) {insertItem(ITEM_NONE, _item);}
-		void setItem(size_t _index, const Ogre::DisplayString & _item);
-		const Ogre::DisplayString & getItem(size_t _index);
+		void insertItem(size_t _index, const Ogre::UTFString & _item);
+		inline void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
+		void setItem(size_t _index, const Ogre::UTFString & _item);
+		const Ogre::UTFString & getItem(size_t _index);
 
 		void deleteItem(size_t _index);
 		void deleteAllItems();
@@ -74,8 +74,8 @@ namespace MyGUI
 
 		//----------------------------------------------------------------------------------//
 		// методы для работы с саб строками
-		void setSubItem(size_t _row, size_t _index, const Ogre::DisplayString & _item);
-		const Ogre::DisplayString & getSubItem(size_t _row, size_t _index);
+		void setSubItem(size_t _row, size_t _index, const Ogre::UTFString & _item);
+		const Ogre::UTFString & getSubItem(size_t _row, size_t _index);
 
 		//----------------------------------------------------------------------------------//
 		virtual void setSize(const IntSize& _size);
@@ -136,8 +136,6 @@ namespace MyGUI
 		// векторы для быстрого маппинга в сортированном списке
 		VectorSizeT mToSortIndex;
 		bool mIsDirtySort;
-		
-
 
 	}; // class _MyGUIExport MultiList : public Widget
 

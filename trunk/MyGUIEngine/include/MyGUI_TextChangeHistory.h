@@ -26,14 +26,14 @@ namespace MyGUI
 	struct tagChangeInfo
 	{
 		// для удаления и вставки текста
-		tagChangeInfo(const Ogre::DisplayString & _text, size_t _start, CommandType _type)
+		tagChangeInfo(const Ogre::UTFString & _text, size_t _start, CommandType _type)
 			: text(_text), type(_type), start(_start), undo(ITEM_NONE), redo(ITEM_NONE), length(ITEM_NONE) {}
 		// для указания позиции
 		tagChangeInfo(size_t _undo, size_t _redo, size_t _length)
 			: type(COMMAND_POSITION), start(ITEM_NONE), undo(_undo), redo(_redo), length(_length) {}
 
 		// строка харрактиризуещая изменения
-		Ogre::DisplayString text;
+		Ogre::UTFString text;
 		// тип операции
 		CommandType type;
 		// инфа о начале позиции

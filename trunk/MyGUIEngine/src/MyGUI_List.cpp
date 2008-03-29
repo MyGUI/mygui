@@ -417,7 +417,7 @@ namespace MyGUI
 		mWidgetLines[_index]->setCaption(mStringArray[_index + mTopIndex]);
 	}
 
-	void List::insertItem(size_t _index, const Ogre::DisplayString & _item)
+	void List::insertItem(size_t _index, const Ogre::UTFString & _item)
 	{
 		if (_index > mStringArray.size()) _index = mStringArray.size();
 		// вставляем физически
@@ -519,7 +519,7 @@ namespace MyGUI
 		mStringArray.pop_back();
 	}
 
-	void List::_insertString(size_t _index, const Ogre::DisplayString & _item)
+	void List::_insertString(size_t _index, const Ogre::UTFString & _item)
 	{
 		mStringArray.push_back("");
 		for (size_t pos=mStringArray.size()-1; pos > _index; pos--) {
@@ -608,14 +608,14 @@ namespace MyGUI
 		updateLine(true);
 	}
 
-	void List::setItem(size_t _index, const Ogre::DisplayString & _item)
+	void List::setItem(size_t _index, const Ogre::UTFString & _item)
 	{
 		MYGUI_ASSERT(_index < mStringArray.size(), "setItemString: index " << _index <<" out of range");
 		mStringArray[_index]=_item;
 		_redrawItem(_index);
 	}
 
-	const Ogre::DisplayString & List::getItem(size_t _index)
+	const Ogre::UTFString & List::getItem(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
 		return mStringArray[_index];

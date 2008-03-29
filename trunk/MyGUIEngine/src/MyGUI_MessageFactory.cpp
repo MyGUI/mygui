@@ -15,7 +15,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		std::vector<Ogre::DisplayString> MessageFactory::mVectorButtonName;
+		std::vector<Ogre::UTFString> MessageFactory::mVectorButtonName;
 		std::map<std::string, size_t> MessageFactory::mMapButtonType;
 		std::string MessageFactory::mDefaultSkin;
 
@@ -65,7 +65,7 @@ namespace MyGUI
 			return new Message(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		Ogre::DisplayString MessageFactory::_getButtonName(size_t _index)
+		Ogre::UTFString MessageFactory::_getButtonName(size_t _index)
 		{
 			if (mVectorButtonName.size() <= _index) return "";
 			return mVectorButtonName[_index];

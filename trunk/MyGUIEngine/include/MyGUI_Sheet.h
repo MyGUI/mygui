@@ -17,19 +17,10 @@ namespace MyGUI
 	{
 		// для вызова закрытого конструктора
 		friend class factory::SheetFactory;
-		//friend class Tab;
 
 	protected:
 		Sheet(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Sheet();
-
-		// перекрываем методы, но через базовый они будут доступны
-		//void setPosition(const IntPoint& _pos);
-		//void setPosition(const IntCoord& _coord);
-		//void setSize(const IntSize& _size);
-
-		//void show();
-		//void hide();
 
 		static Ogre::String WidgetTypeName;
 
@@ -39,14 +30,14 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		void setCaption(const Ogre::DisplayString & _caption);
-		const Ogre::DisplayString & getCaption();
+		void setCaption(const Ogre::UTFString & _caption);
+		const Ogre::UTFString & getCaption();
 
 		//--------------------------------------------------------------------
 		// дубликаты методов у таба
 		//--------------------------------------------------------------------
-		const Ogre::DisplayString & getSheetName();
-		void setSheetName(const Ogre::DisplayString & _name, int _width = DEFAULT);
+		const Ogre::UTFString & getSheetName();
+		void setSheetName(const Ogre::UTFString & _name, int _width = DEFAULT);
 
 		int getSheetButtonWidth();
 		void setSheetButtonWidth(int _width = DEFAULT);

@@ -197,19 +197,13 @@ namespace MyGUI
 		// иначе возможен бесконечный цикл
 		MYGUI_ASSERT(_widget != null, "widget is deleted");
 
-		// отписываем от всех
-		//unlinkFromUnlinkers(_widget);
-
 		// делегирует удаление отцу виджета
 		WidgetCreator * creator = _widget->_getWidgetCreator();
 		creator->_destroyChildWidget(_widget);
 
-//		if (parent == null) Gui::getInstance()._destroyChildWidget(_widget);
-//		else parent->_destroyChildWidget(_widget);
-
 	}
 
-	void WidgetManager::destroyWidgetsVector(VectorWidgetPtr _widgets)
+	void WidgetManager::destroyWidgetsVector(VectorWidgetPtr & _widgets)
 	{
 		for (VectorWidgetPtr::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 		{

@@ -14,8 +14,6 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
 
-//#include <OgreMaterial.h>
-
 namespace MyGUI
 {
 
@@ -27,8 +25,6 @@ namespace MyGUI
 	public:
 		EditText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~EditText();
-
-		//inline static const Ogre::String & _getType() {static Ogre::String type("EditText"); return type;}
 
 		void show();
 		void hide();
@@ -45,8 +41,8 @@ namespace MyGUI
 		void _setAlign(const IntSize& _size, bool _update);
 		void _setAlign(const IntCoord& _coord, bool _update);
 
-		void setCaption(const Ogre::DisplayString & _caption);
-		const Ogre::DisplayString & getCaption();
+		void setCaption(const Ogre::UTFString & _caption);
+		const Ogre::UTFString & getCaption();
 
 		void setColour(const Ogre::ColourValue & _colour);
 		const Ogre::ColourValue & getColour();
@@ -80,7 +76,6 @@ namespace MyGUI
 		virtual void setCursorPosition(size_t _pos);
 
 		virtual IntSize getTextSize();
-		virtual IntSize getTextSize(const Ogre::DisplayString& _text);
 
 		// устанавливает смещение текста в пикселях
 		virtual void setViewOffset(IntPoint _point);
@@ -99,7 +94,7 @@ namespace MyGUI
 		uint32 mCurrentAlpha;
 		IntCoord mCurrentCoord;
 
-		Ogre::DisplayString mCaption;
+		Ogre::UTFString mCaption;
 		bool mTextOutDate;
 		Align mTextAlign;
 

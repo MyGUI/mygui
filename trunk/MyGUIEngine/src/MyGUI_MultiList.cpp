@@ -72,7 +72,7 @@ namespace MyGUI
 
 	//----------------------------------------------------------------------------------//
 	// методы для работы со столбцами
-	void MultiList::insertRow(size_t _index, int _width, const Ogre::DisplayString & _name)
+	void MultiList::insertRow(size_t _index, int _width, const Ogre::UTFString & _name)
 	{
 		// скрываем у крайнего скролл
 		if (false == mVectorRowInfo.empty()) 
@@ -108,7 +108,7 @@ namespace MyGUI
 		mVectorRowInfo.back().list->setScrollVisible(true);
 	}
 
-	void MultiList::setRowName(size_t _index, const Ogre::DisplayString & _name)
+	void MultiList::setRowName(size_t _index, const Ogre::UTFString & _name)
 	{
 		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
 		mVectorRowInfo[_index].name = _name;
@@ -123,7 +123,7 @@ namespace MyGUI
 		updateRows();
 	}
 
-	const Ogre::DisplayString & MultiList::getRowName(size_t _index)
+	const Ogre::UTFString & MultiList::getRowName(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
 		return mVectorRowInfo[_index].name;
@@ -178,7 +178,7 @@ namespace MyGUI
 		return mVectorRowInfo.front().list->getItemCount();
 	}
 
-	void MultiList::insertItem(size_t _index, const Ogre::DisplayString & _item)
+	void MultiList::insertItem(size_t _index, const Ogre::UTFString & _item)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
 		if (ITEM_NONE == _index) _index = mVectorRowInfo.front().list->getItemCount();
@@ -193,12 +193,12 @@ namespace MyGUI
 		setDirtySort();
 	}
 
-	void MultiList::setItem(size_t _index, const Ogre::DisplayString & _item)
+	void MultiList::setItem(size_t _index, const Ogre::UTFString & _item)
 	{
 		setSubItem(0, _index, _item);
 	}
 
-	const Ogre::DisplayString & MultiList::getItem(size_t _index)
+	const Ogre::UTFString & MultiList::getItem(size_t _index)
 	{
 		return getSubItem(0, _index);
 	}
@@ -246,7 +246,7 @@ namespace MyGUI
 
 	//----------------------------------------------------------------------------------//
 	// методы для работы с саб строками
-	void MultiList::setSubItem(size_t _row, size_t _index, const Ogre::DisplayString & _item)
+	void MultiList::setSubItem(size_t _row, size_t _index, const Ogre::UTFString & _item)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
 		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
@@ -256,7 +256,7 @@ namespace MyGUI
 		if (_row == mSortRowIndex) setDirtySort();
 	}
 
-	const Ogre::DisplayString & MultiList::getSubItem(size_t _row, size_t _index)
+	const Ogre::UTFString & MultiList::getSubItem(size_t _row, size_t _index)
 	{
 		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
 		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
@@ -407,7 +407,7 @@ namespace MyGUI
 		end --;
 		size_t start = 0;
 
-		Ogre::DisplayString tmp;
+		Ogre::UTFString tmp;
 		tmp.reserve(64);
 		size_t index1, index2;
 
@@ -455,7 +455,7 @@ namespace MyGUI
 			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
 			{
 				text.resize(info.size());
-				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
+				std::vector<Ogre::UTFString>::iterator itext = text.begin();
 				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
 					(*itext) = (*iter).list->getItem(_index);
 				}
@@ -465,7 +465,7 @@ namespace MyGUI
 
 			inline void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
 			{
-				std::vector<Ogre::DisplayString>::iterator itext = text.begin();
+				std::vector<Ogre::UTFString>::iterator itext = text.begin();
 				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
 					(*iter).list->setItem(_index, *itext);
 				}
@@ -482,7 +482,7 @@ namespace MyGUI
 				vec2[_index1] = vec2[_index2];
 			}
 
-			std::vector<Ogre::DisplayString> text;
+			std::vector<Ogre::UTFString> text;
 			size_t index1, index2;
 		};
 

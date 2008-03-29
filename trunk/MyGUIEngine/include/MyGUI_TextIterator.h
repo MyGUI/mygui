@@ -20,22 +20,22 @@ namespace MyGUI
 		TextIterator();
 
 	public:
-		TextIterator(const Ogre::DisplayString & _text, VectorChangeInfo * _history = null);
+		TextIterator(const Ogre::UTFString & _text, VectorChangeInfo * _history = null);
 
 		bool moveNext();
 
 		// возвращает цвет
-		Ogre::DisplayString getTagColour(bool _clear = false);
+		Ogre::UTFString getTagColour(bool _clear = false);
 
 		// возвращает цвет
-		bool getTagColour(Ogre::DisplayString & _colour);
+		bool getTagColour(Ogre::UTFString & _colour);
 
 		// удаляет цвет
 		inline void clearTagColour() {getTagColour(true);}
 
 		bool setTagColour(const Ogre::ColourValue & _colour);
 
-		bool setTagColour(Ogre::DisplayString _colour);
+		bool setTagColour(Ogre::UTFString _colour);
 
 		// сохраняет текущий итератор
 		inline bool saveStartPoint()
@@ -46,9 +46,9 @@ namespace MyGUI
 		}
 
 		// возвращает строку от сохраненного итератора до текущего
-		inline Ogre::DisplayString getFromStart()
+		inline Ogre::UTFString getFromStart()
 		{
-			if (mSave == mEnd) return _T("");
+			if (mSave == mEnd) return L"";
 			size_t start = mSave-mText.begin();
 			return mText.substr(start, mCurrent-mText.begin()-start);
 		}
@@ -65,18 +65,18 @@ namespace MyGUI
 		// возвращает текущую псевдо позицию
 		inline size_t getPosition() {return mPosition;}
 
-		inline const Ogre::DisplayString & getText() {return mText;}
+		inline const Ogre::UTFString & getText() {return mText;}
 
-		inline void insertText(const Ogre::DisplayString & _insert, bool _multiLine)
+		inline void insertText(const Ogre::UTFString & _insert, bool _multiLine)
 		{
-			Ogre::DisplayString text = _insert;
+			Ogre::UTFString text = _insert;
 			if (false == _multiLine) clearNewLine(text);
 			insert(mCurrent, text);
 		}
 
-		inline void clearNewLine(Ogre::DisplayString & _text)
+		inline void clearNewLine(Ogre::UTFString & _text)
 		{
-			for (Ogre::DisplayString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
+			for (Ogre::UTFString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
 				if ( ((*iter) == Font::FONT_CODE_NEL) || ((*iter) == Font::FONT_CODE_CR) || ((*iter) == Font::FONT_CODE_LF) )
 					(*iter) = Font::FONT_CODE_SPACE;
 			}
@@ -88,12 +88,12 @@ namespace MyGUI
 		// возвращает размер строки
 		size_t getSize();
 
-		inline void setText(const Ogre::DisplayString & _text, bool _multiLine)
+		inline void setText(const Ogre::UTFString & _text, bool _multiLine)
 		{
 			// сначала все очищаем
 			clear();
 			// а теперь вставляем
-			Ogre::DisplayString text = _text;
+			Ogre::UTFString text = _text;
 			if (false == _multiLine) clearNewLine(text);
 			insert(mCurrent, text);
 		}
@@ -101,43 +101,39 @@ namespace MyGUI
 		void cutMaxLength(size_t _max);
 
 		// возвращает текст без тегов
-		static Ogre::DisplayString getOnlyText(const Ogre::DisplayString& _text);
+		static Ogre::UTFString getOnlyText(const Ogre::UTFString& _text);
 
-		inline static Ogre::DisplayString getTextNewLine()
+		inline static Ogre::UTFString getTextNewLine()
 		{
-			return _T("\n");
+			return L"\n";
 		}
 
-		inline static Ogre::DisplayString getTextCharInfo(Char _char)
+		inline static Ogre::UTFString getTextCharInfo(Char _char)
 		{
-			if (_char == _T('#')) return _T("##");
-			Char buff[16] = _T("_\0");
+			if (_char == L'#') return L"##";
+			Char buff[16] = L"_\0";
 			buff[0] = _char;
 			return buff;
 		}
 
 		// просто конвертируем цвет в строку
-		inline static Ogre::DisplayString convertTagColour(const Ogre::ColourValue & _colour)
+		inline static Ogre::UTFString convertTagColour(const Ogre::ColourValue & _colour)
 		{
 			const size_t SIZE = 16;
 			Char buff[SIZE];
 
-			#if MYGUI_UNICODE_SUPPORT
-				swprintf(buff, SIZE, _T("#%.2X%.2X%.2X\0"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
-			#else
-				sprintf(buff, _T("#%.2X%.2X%.2X\0"), (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
-			#endif
+			swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 
 			return buff;
 		}
 
-		inline static Ogre::DisplayString toTagsString(const Ogre::DisplayString& _text)
+		inline static Ogre::UTFString toTagsString(const Ogre::UTFString& _text)
 		{
 			// преобразуем в строку с тегами
-			Ogre::DisplayString text(_text);
-			for (Ogre::DisplayString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
+			Ogre::UTFString text(_text);
+			for (Ogre::UTFString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
 				// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
-				if (_T('#') == (*iter)) iter = text.insert(++iter, _T('#'));
+				if (L'#' == (*iter)) iter = text.insert(++iter, L'#');
 			}
 			return text;
 		}
@@ -146,9 +142,9 @@ namespace MyGUI
 	private:
 
 		// возвращает цвет
-		bool getTagColour(Ogre::DisplayString & _colour, Ogre::DisplayString::iterator & _iter);
+		bool getTagColour(Ogre::UTFString & _colour, Ogre::UTFString::iterator & _iter);
 
-		inline void insert(Ogre::DisplayString::iterator & _start, Ogre::DisplayString & _insert)
+		inline void insert(Ogre::UTFString::iterator & _start, Ogre::UTFString & _insert)
 		{
 			// сбрасываем размер
 			mSize = ITEM_NONE;
@@ -165,7 +161,7 @@ namespace MyGUI
 			(pos_save==ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
 		}
 
-		inline Ogre::DisplayString::iterator erase(Ogre::DisplayString::iterator _start, Ogre::DisplayString::iterator _end)
+		inline Ogre::UTFString::iterator erase(Ogre::UTFString::iterator _start, Ogre::UTFString::iterator _end)
 		{
 			// сбрасываем размер
 			mSize = ITEM_NONE;
@@ -192,8 +188,8 @@ namespace MyGUI
 
 	private:
 		// текси и два итератора
-		Ogre::DisplayString mText;
-		Ogre::DisplayString::iterator mCurrent, mEnd, mSave;
+		Ogre::UTFString mText;
+		Ogre::UTFString::iterator mCurrent, mEnd, mSave;
 
 		// позиция и размер
 		size_t mPosition, mSize;

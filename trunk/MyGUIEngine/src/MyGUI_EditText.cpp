@@ -192,23 +192,21 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void EditText::setCaption(const Ogre::DisplayString & _caption)
+	void EditText::setCaption(const Ogre::UTFString & _caption)
 	{
 		mCaption = _caption;
 		mTextOutDate = true;
 
-		//if (null != mRenderItem) {
-			// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
-			size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
-			if (mCountVertex < need) {
-				mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
-				if (null != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
-			}
-			if (null != mRenderItem) mRenderItem->outOfDate();
-		//}
+		// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
+		size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
+		if (mCountVertex < need) {
+			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
+			if (null != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
+		}
+		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	const Ogre::DisplayString & EditText::getCaption()
+	const Ogre::UTFString & EditText::getCaption()
 	{
 		return mCaption;
 	}
@@ -388,69 +386,9 @@ namespace MyGUI
 
 	IntSize EditText::getTextSize()
 	{
-		//if (null == mRenderItem) return IntSize();
 		// если нуно обновить, или изменились пропорции экрана
 		if (mTextOutDate) updateRawData();
 		return IntSize(mContextSize.width, mContextSize.height);
-		//return IntSize( (int)(mContextRealSize.width / (mManager->getPixScaleX() * 2.0)), (int)(mLinesInfo.size() * mFontHeight) );
-	}
-
-	IntSize EditText::getTextSize(const Ogre::DisplayString& _text)
-	{
-		if (mpFont.isNull() || (null == mRenderItem)) return IntSize();
-
-		float len = 0, width = 0;
-		int height = 1;
-
-		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);
-
-		Ogre::DisplayString::const_iterator end = _text.end();
-		for (Ogre::DisplayString::const_iterator index=_text.begin(); index!=end; ++index) {
-
-			Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-
-			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
-				if (width < len) width = len;
-				len = 0;
-				height ++;
-
-				if (character == Font::FONT_CODE_CR) {
-					Ogre::DisplayString::const_iterator peeki = index;
-					peeki++;
-					if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
-				}
-				// следующий символ
-				continue;
-
-			} else if (character == _T('#')) {
-				// берем следующий символ
-				++ index;
-				if (index == end) {--index ;continue;} // это защита
-
-				character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
-				// если два подряд, то рисуем один шарп, если нет то меняем цвет
-				if (character != _T('#')) {
-					// и еще пять символов после шарпа
-					for (char i=0; i<5; i++) {
-						++ index;
-						if (index == end) {--index ;continue;} // это защита
-					}
-					continue;
-				}
-			}
-
-			Font::GlyphInfo * info;
-			if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
-			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
-			else info = mpFont->getGlyphInfo(character);
-
-			len += info->aspectRatio * mFontHeight;
-		}
-
-		if (width < len) width = len;
-
-		// плюс ширина курсора
-		return IntSize((int)width + 2, height * (int)mFontHeight);//*/
 	}
 
 	void EditText::setViewOffset(IntPoint _point)
@@ -545,10 +483,6 @@ namespace MyGUI
 				continue;
 			}
 
-			// пересчет опорных данных
-			/*if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру*/
 			// пересчет опорных данных
 			if (false == mManualView) {
 				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
@@ -668,10 +602,6 @@ namespace MyGUI
 			size_t count = index->getValueSizeT();
 			++index;
 
-			// пересчет опорных данных
-			/*if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-			else right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру*/
 			// пересчет опорных данных
 			if (false == mManualView) {
 				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
@@ -1027,9 +957,8 @@ namespace MyGUI
 
 	void EditText::updateRawData()
 	{
-		if (mpFont.isNull()/* || (null == mRenderItem)*/) return;
+		if (mpFont.isNull()) return;
 		// сбрасывам флаги
-		//mAspectCoef = mManager->getAspectCoef();
 		mTextOutDate = false;
 
 		// массив для быстрой конвертации цветов
@@ -1050,10 +979,10 @@ namespace MyGUI
 		float len = 0, width = 0;
 		size_t count = 1;
 
-		Ogre::DisplayString::const_iterator end = mCaption.end();
-		for (Ogre::DisplayString::const_iterator index=mCaption.begin(); index!=end; ++index) {
+		Ogre::UTFString::const_iterator end = mCaption.end();
+		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index) {
 
-			Font::CodePoint character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
+			Font::CodePoint character = *index;
 
 			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 
@@ -1074,21 +1003,22 @@ namespace MyGUI
 				mLinesInfo.back().push_back(EnumCharInfo()); // второй символ, колличество значимых символов
 
 				if (character == Font::FONT_CODE_CR) {
-					Ogre::DisplayString::const_iterator peeki = index;
+					Ogre::UTFString::const_iterator peeki = index;
 					peeki++;
-					if (peeki != end && MYGUI_DEREF_DISPLAYSTRING_ITERATOR(peeki) == Font::FONT_CODE_LF) index = peeki; // skip both as one newline
+					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
 				}
 				// следующий символ
 				continue;
 
-			} else if (character == _T('#')) {
+			}
+			else if (character == L'#') {
 				// берем следующий символ
 				++ index;
 				if (index == end) {--index ;continue;} // это защита
 
-				character = MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index);
+				character = *index;
 				// если два подряд, то рисуем один шарп, если нет то меняем цвет
-				if (character != _T('#')) {
+				if (character != L'#') {
 
 					// парсим первый символ
 					Ogre::RGBA colour = convert_colour[(character-48) & 0x3F];
@@ -1098,7 +1028,7 @@ namespace MyGUI
 						++ index;
 						if (index == end) {--index ;continue;} // это защита
 						colour <<= 4;
-						colour += convert_colour[ (MYGUI_DEREF_DISPLAYSTRING_ITERATOR(index)-48) & 0x3F];
+						colour += convert_colour[ ((*index) - 48) & 0x3F];
 					}
 
 					// если нужно, то меняем красный и синий компоненты
@@ -1116,7 +1046,7 @@ namespace MyGUI
 			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
 			else info = mpFont->getGlyphInfo(character);
 
-			len += info->aspectRatio * /*mManager->getAspectCoef() * */(float)mFontHeight;
+			len += info->aspectRatio * (float)mFontHeight;
 
 			// указатель на инфо о символе
 			mLinesInfo.back().push_back( EnumCharInfo(info) );

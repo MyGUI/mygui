@@ -34,13 +34,13 @@ namespace MyGUI
 		inline size_t getItemCount() { return mStringArray.size();}
 
 		//! Insert an item into a list at a specified position
-		void insertItem(size_t _index, const Ogre::DisplayString & _item);
+		void insertItem(size_t _index, const Ogre::UTFString & _item);
 		//! Add an item to the end of a list
-		inline void addItem(const Ogre::DisplayString & _item) {insertItem(ITEM_NONE, _item);}
+		inline void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
 		//! Replace an item at a specified position
-		void setItem(size_t _index, const Ogre::DisplayString & _item);
+		void setItem(size_t _index, const Ogre::UTFString & _item);
 		//! Get item from specified position
-		const Ogre::DisplayString & getItem(size_t _index);
+		const Ogre::UTFString & getItem(size_t _index);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
@@ -170,7 +170,7 @@ namespace MyGUI
 		// удаляем строку из списка
 		void _deleteString(size_t _index);
 		// вставляем строку
-		void _insertString(size_t _index, const Ogre::DisplayString & _item);
+		void _insertString(size_t _index, const Ogre::UTFString & _item);
 
 		// ищет и выделяет елемент
 		inline void _selectIndex(size_t _index, bool _select);
@@ -194,7 +194,7 @@ namespace MyGUI
 		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
 		size_t mLineActive; // текущий виджет над которым мыша
 
-		std::vector<Ogre::DisplayString> mStringArray;
+		std::vector<Ogre::UTFString> mStringArray;
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;

@@ -22,6 +22,7 @@ namespace MyGUI
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
 	const size_t INPUT_COUNT_LOAD_CHAR = 116;
+	const size_t INPUT_CHARSET_LIMIT = 65535;
 
 	INSTANCE_IMPLEMENT(InputManager);
 
@@ -353,13 +354,7 @@ namespace MyGUI
 			std::string name, charset;
 			if ( false == lang->findAttribute("name", name)) continue;
 			charset = lang->findAttribute("charset");
-			if (charset.empty()) charset = MYGUI_DEFAULT_CHARSET;
-
-			// если кодировки не соответствуют, то пропускаем
-			if (MYGUI_CHARSET != charset) {
-				MYGUI_LOG(Warning, "Character set doesn`t match : current - '" << MYGUI_CHARSET << "' , loading - '" << charset << "'  , skipped");
-				continue;
-			}
+			if (false == charset.empty()) name = utility::toString(name, "_", charset);
 
 			std::vector<std::string> chars = utility::split(lang->getBody());
 			if (chars.size() == INPUT_COUNT_LOAD_CHAR) {
@@ -377,9 +372,9 @@ namespace MyGUI
 				// и заполняем его
 				for (size_t j=0; j<INPUT_COUNT_LOAD_CHAR; j++) {
 					unsigned int ch = utility::parseUInt(chars[j]);
-					if (MYGUI_CHARSET_LIMIT < ch) {
+					if (INPUT_CHARSET_LIMIT < ch) {
 						lang[j] = 0;
-						MYGUI_LOG(Warning, "character with code '" << ch << "' is not supported in " << MYGUI_CHARSET << " mode");
+						MYGUI_LOG(Warning, "character with code '" << ch << "' out of range");
 					}
 					else lang[j] = (Char)ch;
 				}

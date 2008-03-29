@@ -86,10 +86,10 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		/** Set message text*/
-		void setMessage(const Ogre::DisplayString & _message);
+		void setMessage(const Ogre::UTFString & _message);
 
 		/** Create button with specific name*/
-		Message::ViewInfo addButtonName(const Ogre::DisplayString & _name);
+		Message::ViewInfo addButtonName(const Ogre::UTFString & _name);
 
 		/** Create button using ViewValueInfo*/
 		void setButton(ViewInfo _info);
@@ -115,32 +115,32 @@ namespace MyGUI
 			@param
 				_button1 ... _button7 specific buttons names
 		*/
-		static MyGUI::MessagePtr _createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, 
+		static MyGUI::MessagePtr _createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, 
 			const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info,
 			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "",
 			const std::string & _button5 = "", const std::string & _button6 = "", const std::string & _button7 = "");
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, ViewInfo _info)
+		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, _info);
 		}
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal, EventMessageEnd * _delegate, ViewInfo _info)
+		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, EventMessageEnd * _delegate, ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, _info);
 		}
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
+		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
 			const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, None, _button1, _button2, _button3);
 		}
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::DisplayString & _caption, const Ogre::DisplayString & _message, bool _modal,
+		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
 			EventMessageEnd * _delegate, const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, None, _button1, _button2, _button3);

@@ -26,7 +26,7 @@ namespace MyGUI
 			const Ogre::String& getType();
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name);
 
-			static Ogre::DisplayString _getButtonName(size_t _index);
+			static Ogre::UTFString _getButtonName(size_t _index);
 			inline static const std::string & _getDefaultSkin() {return mDefaultSkin;}
 
 		private:
@@ -45,7 +45,7 @@ namespace MyGUI
 			size_t parseButton(const std::string & _info);
 
 		private:
-			static std::vector<Ogre::DisplayString> mVectorButtonName;
+			static std::vector<Ogre::UTFString> mVectorButtonName;
 			static std::map<std::string, size_t> mMapButtonType;
 			static std::string mDefaultSkin;
 
