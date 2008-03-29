@@ -519,7 +519,7 @@ namespace MyGUI
 		mVectorItems[_index]->setCaption(mStringArray[_index + mTopIndex]);
 	}
 
-	void ItemBox::insertItemString(size_t _index, const Ogre::DisplayString & _item)
+	void ItemBox::insertItemString(size_t _index, const Ogre::UTFString & _item)
 	{
 		if (_index > mStringArray.size()) _index = mStringArray.size();
 		// вставляем физически
@@ -621,7 +621,7 @@ namespace MyGUI
 		mStringArray.pop_back();
 	}
 
-	void ItemBox::_insertString(size_t _index, const Ogre::DisplayString & _item)
+	void ItemBox::_insertString(size_t _index, const Ogre::UTFString & _item)
 	{
 		mStringArray.push_back("");
 		for (size_t pos=mStringArray.size()-1; pos > _index; pos--) {

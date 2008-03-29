@@ -32,19 +32,19 @@ namespace MyGUI
 		{
 			return mStringArray.size();
 		}
-		inline const Ogre::DisplayString & getItemString(size_t _index)
+		inline const Ogre::UTFString & getItemString(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
 			return mStringArray[_index];
 		}
-		inline void setItemString(size_t _index, const Ogre::DisplayString & _item)
+		inline void setItemString(size_t _index, const Ogre::UTFString & _item)
 		{
 			MYGUI_ASSERT(_index < mStringArray.size(), "setItemString: index " << _index <<" out of range");
 			mStringArray[_index]=_item;
 			_redrawItem(_index);
 		}
-		void insertItemString(size_t _index, const Ogre::DisplayString & _item);
-		inline void addItemString(const Ogre::DisplayString & _item)
+		void insertItemString(size_t _index, const Ogre::UTFString & _item);
+		inline void addItemString(const Ogre::UTFString & _item)
 		{
 			insertItemString(ITEM_NONE, _item);
 		}
@@ -128,7 +128,7 @@ namespace MyGUI
 		// удаляем строку из списка
 		void _deleteString(size_t _index);
 		// вставляем строку
-		void _insertString(size_t _index, const Ogre::DisplayString & _item);
+		void _insertString(size_t _index, const Ogre::UTFString & _item);
 
 		// ищет и выделяет елемент
 		inline void _selectIndex(size_t _index, bool _select);*/
@@ -160,7 +160,7 @@ namespace MyGUI
 
 		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
 
-		std::vector<Ogre::DisplayString> mStringArray;*/
+		std::vector<Ogre::UTFString> mStringArray;*/
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;

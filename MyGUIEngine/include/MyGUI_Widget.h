@@ -109,8 +109,8 @@ namespace MyGUI
 		void _inheritedHide();
 		inline bool _isInheritedShow() {return mInheritedShow;}
 
-		virtual void setCaption(const Ogre::DisplayString & _caption);
-		virtual const Ogre::DisplayString & getCaption();
+		virtual void setCaption(const Ogre::UTFString & _caption);
+		virtual const Ogre::UTFString & getCaption();
 
 		virtual void setColour(const Ogre::ColourValue & _colour);
 		virtual const Ogre::ColourValue & getColour();

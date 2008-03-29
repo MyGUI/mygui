@@ -36,13 +36,13 @@ namespace MyGUI
 		size_t getItemCount();
 
 		//! Insert an item into a list at a specified position
-		void insertItem(size_t _index, const Ogre::DisplayString & _item);
+		void insertItem(size_t _index, const Ogre::UTFString & _item);
 		//! Add an item to the end of a list
-		void addItem(const Ogre::DisplayString & _item);
+		void addItem(const Ogre::UTFString & _item);
 		//! Replace an item at a specified position
-		void setItem(size_t _index, const Ogre::DisplayString & _item);
+		void setItem(size_t _index, const Ogre::UTFString & _item);
 		//! Get item from specified position
-		const Ogre::DisplayString & getItem(size_t _index);
+		const Ogre::UTFString & getItem(size_t _index);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);

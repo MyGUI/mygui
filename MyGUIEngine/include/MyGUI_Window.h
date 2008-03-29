@@ -41,8 +41,8 @@ namespace MyGUI
 		inline bool getAutoAlpha() {return mIsAutoAlpha;}
 		void setAutoAlpha(bool _auto);
 
-		virtual void setCaption(const Ogre::DisplayString & _caption);
-		virtual const Ogre::DisplayString & getCaption();
+		virtual void setCaption(const Ogre::UTFString & _caption);
+		virtual const Ogre::UTFString & getCaption();
 
 		inline void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
 		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) {mMinmax.set(_min_h, _min_v, _max_h, _max_v);}

@@ -67,8 +67,8 @@ namespace MyGUI
 		virtual void setViewOffset(IntPoint _point) {}
 		virtual IntPoint getViewOffset() {return IntPoint();}
 
-		virtual void setCaption(const Ogre::DisplayString & _caption) {}
-		virtual const Ogre::DisplayString & getCaption() {static Ogre::DisplayString caption; return caption;}
+		virtual void setCaption(const Ogre::UTFString & _caption) {}
+		virtual const Ogre::UTFString & getCaption() {static Ogre::UTFString caption; return caption;}
 
 		virtual void setColour(const Ogre::ColourValue & _colour) {}
 		virtual const Ogre::ColourValue & getColour() {return Ogre::ColourValue::Black;}
