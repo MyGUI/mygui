@@ -40,7 +40,8 @@ namespace MyGUI
 		mName(_name),
 		mTexture(_info->getTextureName()),
 		mMainSkin(null),
-		mWidgetCreator(_creator)
+		mWidgetCreator(_creator),
+		mInheritsAlpha(true)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -400,7 +401,7 @@ namespace MyGUI
 	{
 		if (mAlpha == _alpha) return;
 		mAlpha = _alpha;
-		if (null != mParent) mRealAlpha = mAlpha * static_cast<Widget*>(mParent)->_getRealAlpha();
+		if (null != mParent) mRealAlpha = mAlpha * (mInheritsAlpha ? static_cast<Widget*>(mParent)->_getRealAlpha() : ALPHA_MAX);
 		else mRealAlpha = mAlpha;
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
@@ -409,8 +410,8 @@ namespace MyGUI
 
 	void Widget::_updateAlpha()
 	{
-		MYGUI_DEBUG_ASSERT(null != mParent, "parent must be");
-		mRealAlpha = mAlpha * static_cast<Widget*>(mParent)->_getRealAlpha();
+		MYGUI_DEBUG_ASSERT(null != mParent, "Widget must have parent");
+		mRealAlpha = mAlpha * (mInheritsAlpha ? static_cast<Widget*>(mParent)->_getRealAlpha() : ALPHA_MAX);
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
 	}
