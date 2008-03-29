@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="ALIGN_STRETCH" layer="Back">
+    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="ALIGN_STRETCH" layer="LayoutEditor_Back">
         <Property key="Image_Texture" value="wallpaperEditor.jpg"/>
     </Widget>
     <Widget type="Window" skin="WindowC" position="0 0 200 272" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowMenu">
