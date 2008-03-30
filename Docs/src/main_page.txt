@@ -1,0 +1,41 @@
+/*!	
+	\mainpage MyGUI documentation page
+	
+	\section section_main_introduction Introduction
+	
+	\n This documentation file contains information about MyGUI library.
+	MyGUI is a graphical user interface library developed especialy for using with Ogre (http://www.ogre3d.org).
+	
+	\section section_main_widgets Widgets
+	
+	\n	Description of widgets......
+	
+	\n\n	List of widgets:
+	\li \link widget_button_page Button \endlink
+	\li	\link widget_combobox_page ComboBox \endlink
+	\li \link widget_edit_page Edit \endlink
+	\li	\link widget_foobar_page FooBar \endlink
+	\li \link widget_hscroll_page HScroll \endlink
+	\li \link widget_itembox_page ItemBox \endlink
+	\li \link widget_list_page List \endlink
+	\li \link widget_message_page Message \endlink
+	\li \link widget_multilist MultiList \endlink
+	\li \link widget_popupmenu_page PopupMenu \endlink
+	\li \link widget_progress_page Progress \endlink
+	\li \link widget_renderbox_page RenderBox \endlink
+	\li \link widget_sheet_page Sheet \endlink
+	\li \link widget_staticimage StaticImage \endlink
+	\li \link widget_statictext_page StaticText \endlink
+	\li	\link widget_tab_page Tab \endlink
+	\li \link widget_vscroll VScroll \endlink
+	\li \link widget_window_page Window \endlink
+			
+			
+	\section section_main_links Links
+	
+	\n	OGRE - http://ogre3d.org
+	\n	MyGUI wiki - http://
+	\n 	MyGUI forum - http://
+	
+
+*/
