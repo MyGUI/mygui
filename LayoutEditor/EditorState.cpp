@@ -31,7 +31,7 @@ void EditorState::enter(bool bIsChangeState)
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(BasisManager::getInstance().mWindow, "editor.xml");
 
-	MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
+	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
 	// menu panel (should be dropdown menu)
 	ASSIGN_FUNCTION("LayoutEditor_buttonLoad", &EditorState::notifyLoadSaveAs);
@@ -167,6 +167,8 @@ void EditorState::exit()
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
+	if (testMode){ mGUI->injectMouseMove(arg); return true;}
+
 	x2 = TO_GRID(arg.state.X.abs);
 	y2 = TO_GRID(arg.state.Y.abs);
 
@@ -203,6 +205,8 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 //===================================================================================
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
+	if (testMode){ mGUI->injectMousePress(arg, id); return true;}
+
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 		// if we have modal widgets we can't select any widget
@@ -261,6 +265,8 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 //===================================================================================
 bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
+	if (testMode){ mGUI->injectMouseRelease(arg, id); return true;}
+
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 	}
@@ -311,6 +317,22 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 //===================================================================================
 bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 {
+	if (testMode)
+	{
+		if ( arg.key == OIS::KC_ESCAPE )
+		{
+			for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+			{
+				(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(2048, 2048));
+			}
+			testMode = false;
+			clear();
+			ew->loadxmlDocument(testLayout);
+		}
+		mGUI->injectKeyPress(arg);
+		return true;
+	}
+
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 		if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
@@ -367,6 +389,8 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 //===================================================================================
 bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 {
+	if (testMode){ mGUI->injectKeyRelease(arg); return true;}
+
 	if ( arg.key == OIS::KC_LSHIFT || arg.key == OIS::KC_RSHIFT ) shiftPressed = false;
 	if ( arg.key == OIS::KC_LCONTROL || arg.key == OIS::KC_RCONTROL ) ctrlPressed = false;
 	mGUI->injectKeyRelease(arg);
@@ -391,6 +415,8 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 //===================================================================================
 void EditorState::windowResize()
 {
+	if (testMode) return;
+
 	// force update
 	MyGUI::WidgetPtr current_widget1 = current_widget;
 	current_widget = null;
@@ -538,7 +564,13 @@ void EditorState::notifySettings(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
 {
-	//BasisManager::getInstance().pushState(&BasisManager::getInstance().mTest);
+	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+	{
+		(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(-2048, -2048));
+	}
+	testMode = true;
+	testLayout = ew->savexmlDocument();
+	notifySelectWidget(null);
 }
 
 void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
@@ -562,6 +594,7 @@ void EditorState::clear()
 	ctrlPressed = false;
 	want_quit = false;
 	fileName = "";
+	testMode = false;
 	ew->clear();
 	notifySelectWidget(null);
 	um->addValue();
