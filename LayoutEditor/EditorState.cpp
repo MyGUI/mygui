@@ -568,9 +568,11 @@ void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
 	{
 		(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(-2048, -2048));
 	}
-	testMode = true;
 	testLayout = ew->savexmlDocument();
+	ew->clear();
 	notifySelectWidget(null);
+	ew->loadxmlDocument(testLayout, true);
+	testMode = true;
 }
 
 void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
@@ -1494,6 +1496,8 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 			if (iterProperty->first == action) iterProperty->second = value;
 			return;
 		}
+		widgetContainer->mProperty.push_back(std::make_pair(action, value));
+		return;
 	}
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);

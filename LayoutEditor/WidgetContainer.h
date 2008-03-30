@@ -57,7 +57,7 @@ public:
 	void shutdown();
 	bool load(std::string _fileName);
 	bool save(std::string _fileName);
-	void loadxmlDocument(MyGUI::xml::xmlDocument * doc);
+	void loadxmlDocument(MyGUI::xml::xmlDocument * doc, bool _test = false);
 	MyGUI::xml::xmlDocument * savexmlDocument();
 	WidgetContainer * find(MyGUI::WidgetPtr _widget);
 	WidgetContainer * find(std::string _name);
@@ -68,7 +68,7 @@ public:
 	std::vector<WidgetContainer*> widgets;
 	int global_counter;
 private:
-	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent);
+	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent, bool _test = false);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node);
 };
 
