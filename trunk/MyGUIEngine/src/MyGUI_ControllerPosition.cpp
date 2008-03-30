@@ -54,8 +54,8 @@ namespace MyGUI
 
 		if (mRadius > 0)
 		{
-			mDelta1 += -mRadius*_time*sin(mAngle);
-			mDelta2 += mRadius*_time*cos(mAngle);
+			mDelta1 += -mRadius*_time*mSpeed*sin(mAngle);
+			mDelta2 += mRadius*_time*mSpeed*cos(mAngle);
 			while ( mDelta1 > 1 ){
 				rect += IntCoord(mDelta1, 0, 0, -abs(mDelta1));
 				mDelta1 -= 1;
@@ -73,8 +73,8 @@ namespace MyGUI
 				mDelta2 += 1;
 			}
 			_widget->setPosition(rect);
-			mRadius -= _time * mSpeed;
-			mAngle += _time * mSpeed;
+			mRadius -= 10*_time * mSpeed;
+			mAngle += 10*_time * mSpeed;
 			return true;
 		}
 

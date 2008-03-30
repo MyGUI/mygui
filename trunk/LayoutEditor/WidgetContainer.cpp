@@ -127,9 +127,9 @@ void EditorWidgets::add(WidgetContainer * _container)
 
 void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 {
-	MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(10);
+	/*MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(1);
 	controller->eventPostAction = MyGUI::newDelegate(actionWidgetDestroy);
-	MyGUI::ControllerManager::getInstance().addItem(_widget, controller);
+	MyGUI::ControllerManager::getInstance().addItem(_widget, controller);*/
 
 	// дети вперед
 	MyGUI::VectorWidgetPtr childs = _widget->getChilds();
@@ -139,7 +139,7 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 	}
 	WidgetContainer * _container = find(_widget);
 
-	//MyGUI::Gui::getInstance().destroyWidget(_widget);
+	MyGUI::Gui::getInstance().destroyWidget(_widget);
 
 	if (null != _container)
 	{
