@@ -31,7 +31,7 @@ SHORT_NAMES            = YES
 JAVADOC_AUTOBRIEF      = NO
 QT_AUTOBRIEF           = NO
 MULTILINE_CPP_IS_BRIEF = NO
-DETAILS_AT_TOP         = NO
+DETAILS_AT_TOP         = YES
 INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 8
@@ -87,12 +87,14 @@ WARN_LOGFILE           = Doxywizard.log
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ../MyGUIEngine
+INPUT                  = ../MyGUIEngine \
+						 ./src
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cpp \
                          *.h \
-                         *.hpp
+                         *.hpp \
+						 *.txt
 RECURSIVE              = YES
 EXCLUDE                = 
 EXCLUDE_SYMLINKS       = NO
@@ -132,9 +134,9 @@ HTML_HEADER            =
 HTML_FOOTER            = 
 HTML_STYLESHEET        = 
 HTML_ALIGN_MEMBERS     = YES
-GENERATE_HTMLHELP      = NO
+GENERATE_HTMLHELP      = YES
 HTML_DYNAMIC_SECTIONS  = NO
-CHM_FILE               = 
+CHM_FILE               = ../MyGUI.chm
 HHC_LOCATION           = 
 GENERATE_CHI           = NO
 BINARY_TOC             = NO
