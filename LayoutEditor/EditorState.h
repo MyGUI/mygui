@@ -114,4 +114,8 @@ private:
 	// properties wndow
 	MyGUI::VectorWidgetPtr propertiesText;
 	MyGUI::VectorWidgetPtr propertiesElement;
+
+	bool testMode;
+	MyGUI::VectorWidgetPtr interfaceWidgets;
+	MyGUI::xml::xmlDocument * testLayout;
 };
