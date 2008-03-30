@@ -8,11 +8,13 @@ Save/Load:
 
 Controls:
   Keyboard:
+    ESC                - exit or exit from test mode
     Ctrl + O, Ctrl + L - open file
     Ctrl + S           - save file
     Ctrl + Z           - undo
     Ctrl + Y           - redo
 	Ctrl + R           - toggle relative coordinates
+	Ctrl + T           - test layout
 
     Keyboard arrows - move widget
     Shift           - omit grid when moving/resizing widget
@@ -25,7 +27,7 @@ Controls:
 
 Hidden widgets can be selected only through combo with all widgets.
 You can't move hidden widget.
-	
+
 Ignoreg properties:
 "Message_Modal", "Window_AutoAlpha" and "Window_Snap" ingnored in edit mode (but this properties will be saved and will work fine in test mode and your application).
 

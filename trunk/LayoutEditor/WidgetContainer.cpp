@@ -88,7 +88,7 @@ bool EditorWidgets::save(std::string _fileName)
 	return true;
 }
 
-void EditorWidgets::loadxmlDocument(MyGUI::xml::xmlDocument * doc)
+void EditorWidgets::loadxmlDocument(MyGUI::xml::xmlDocument * doc, bool _test)
 {
 	MyGUI::xml::xmlNodePtr root = doc->getRoot();
 
@@ -98,7 +98,7 @@ void EditorWidgets::loadxmlDocument(MyGUI::xml::xmlDocument * doc)
 		{
 			// берем детей и крутимся
 			MyGUI::xml::xmlNodeIterator widget = root->getNodeIterator();
-			while (widget.nextNode("Widget")) parseWidget(widget, 0);
+			while (widget.nextNode("Widget")) parseWidget(widget, 0, _test);
 		}
 	}
 }
@@ -181,7 +181,7 @@ WidgetContainer * EditorWidgets::find(std::string _name)
 	return null;
 }
 
-void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent)
+void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent, bool _test)
 {
 	WidgetContainer * container = new WidgetContainer();
 	// парсим атрибуты виджета
@@ -251,7 +251,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 
 			// и парсим свойство
 			try{
-				if (("Message_Modal" != key) && ("Window_AutoAlpha" != key) && ("Window_Snap" != key))
+				if (_test || 
+					 (("Message_Modal" != key) && ("Window_AutoAlpha" != key) && ("Window_Snap" != key)))
 					MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
 				Ogre::Root::getSingleton().renderOneFrame();
 			}
