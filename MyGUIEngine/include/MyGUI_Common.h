@@ -30,7 +30,7 @@ namespace MyGUI
 
 	// just other number
 	#define ERR_MY_GUI Ogre::Exception::ERR_NOT_IMPLEMENTED+1
-	static MyGUIException create(
+	static MyGUIException createException(
 			Ogre::ExceptionCodeType<ERR_MY_GUI> code,
 			const Ogre::String& desc,
 			const Ogre::String& src, const char* file, long line)
@@ -41,7 +41,7 @@ namespace MyGUI
 
 
 	// copy of OGRE_EXCEPT with MyGUIException create
-	#define OGRE_BASED_EXCEPT(desc, src)	throw MyGUI::create(Ogre::ExceptionCodeType<ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
+	#define OGRE_BASED_EXCEPT(desc, src)	throw MyGUI::createException(Ogre::ExceptionCodeType<ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
 
 	#define MYGUI_LOG_SECTION "General"
 	#define MYGUI_LOG_FILENAME "MyGUI.log"

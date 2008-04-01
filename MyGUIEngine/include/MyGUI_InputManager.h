@@ -39,43 +39,66 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
+		/** Iject MouseMove event*/
 		bool injectMouseMove(int _absx, int _absy, int _absz);
+		/** Iject MousePress event*/
 		bool injectMousePress(int _absx, int _absy, MouseButton _id);
+		/** Iject MouseRelease event*/
 		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
 
+		/** Iject KeyPress event*/
 		bool injectKeyPress(KeyCode _key);
+		/** Iject KeyReleas event*/
 		bool injectKeyRelease(KeyCode _key);
 
+		/** Is any widget have mouse focus */
 		inline bool isFocusMouse() {return mWidgetMouseFocus != null;}
+		/** Is any widget have key focus */
 		inline bool isFocusKey() {return mWidgetKeyFocus != null;}
+		/** Is any widget captured mouse */
 		inline bool isCaptureMouse() {return mIsWidgetMouseCapture;}
 
+		/** Set key focus for _widget */
 		void setKeyFocusWidget(WidgetPtr _widget);
+		/** Drop key focus for _widget */
 		inline void resetKeyFocusWidget(WidgetPtr _widget) {if (mWidgetKeyFocus == _widget) setKeyFocusWidget(null);}
+		/** Drop any key focus */
 		inline void resetKeyFocusWidget() {setKeyFocusWidget(null);}
 
+		/** Get mouse focused widget */
 		inline WidgetPtr getMouseFocusWidget() {return mWidgetMouseFocus;}
+		/** Get key focused widget */
 		inline WidgetPtr getKeyFocusWidget() {return mWidgetKeyFocus;}
+		/** Get current language */
 		inline const std::string & getCurrentLanguage() {return mCurrentLanguage->first;}
+		/** Get position of last left mouse button press */
 		inline const IntPoint & getLastLeftPressed() {return mLastLeftPressed;}
+		/** Get current mouse position */
 		inline const IntPoint & getMousePosition() {return mMousePosition;}
 
 		// тестовый вариант, очистка фокуса мыши
+		/** Drop any mouse focus */
 		void resetMouseFocusWidget();
 
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);
 
 		// событие смены языков
+		/** FIXME */
 		EventInfo_String eventChangeLanguage;
 
 		// работа с модальными окнами
+		/** Add modal widget - all other widgets inaccessible while modal widget exist */
 		void addWidgetModal(WidgetPtr _widget);
+		/** Remove modal widget */
 		void removeWidgetModal(WidgetPtr _widget);
 
+		/** Return true if any modal widget exist */
 		bool isModalAny() {return !mVectorModalRootWidget.empty();}
 
+		/** Is control button pressed */
 		inline bool isControlPressed() {return mIsControlPressed;}
+		/** Is shift button pressed */
 		inline bool isShiftPressed() {return mIsShiftPressed;}
 
 	protected:

@@ -19,7 +19,7 @@ namespace MyGUI
 	}
 
 	ControllerPosition::ControllerPosition(float _speed) :
-		mSpeed(_speed), mAngle(0), mDelta1(0), mDelta2(0)
+		mSpeed(_speed), mAngle(0), mDeltaX(0), mDeltaY(0)
 	{
 	}
 
@@ -54,25 +54,17 @@ namespace MyGUI
 
 		if (mRadius > 0)
 		{
-			mDelta1 += -mRadius*_time*mSpeed*sin(mAngle);
-			mDelta2 += mRadius*_time*mSpeed*cos(mAngle);
-			while ( mDelta1 > 1 ){
-				rect += IntCoord(mDelta1, 0, 0, -abs(mDelta1));
-				mDelta1 -= 1;
+			mDeltaX += -mRadius*_time*mSpeed*sin(mAngle);
+			mDeltaY += mRadius*_time*mSpeed*cos(mAngle);
+
+			if (abs(mDeltaX) > 0 && abs(mDeltaY) > 0)
+			{
+				rect += IntCoord(mDeltaX, mDeltaY, -abs(mDeltaY), -abs(mDeltaX));
+				mDeltaX -= int(mDeltaX);
+				mDeltaY -= int(mDeltaY);
+				_widget->setPosition(rect);
 			}
-			while ( mDelta1 < -1 ){
-				rect += IntCoord(mDelta1, 0, 0, -abs(mDelta1));
-				mDelta1 += 1;
-			}
-			while ( mDelta2 > 1 ){
-				rect += IntCoord(0, mDelta2, -abs(mDelta2), 0);
-				mDelta2 -= 1;
-			}
-			while ( mDelta2 < -1 ){
-				rect += IntCoord(0, mDelta2, -abs(mDelta2), 0);
-				mDelta2 += 1;
-			}
-			_widget->setPosition(rect);
+
 			mRadius -= 10*_time * mSpeed;
 			mAngle += 10*_time * mSpeed;
 			return true;

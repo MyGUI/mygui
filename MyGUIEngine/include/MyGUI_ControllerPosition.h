@@ -32,8 +32,8 @@ namespace MyGUI
 		float mAngle;
 		float mSpeed;
 
-		float mDelta1;
-		float mDelta2;
+		float mDeltaX;
+		float mDeltaY;
 
 	};
 

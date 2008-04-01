@@ -28,8 +28,12 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+
 		void setImageInfo(const std::string & _texture, const FloatSize & _tile);
 		void setImageInfo(const std::string & _texture, const FloatRect & _rect, const FloatSize & _tile);
+		/* Set texture for StaticImage
+			_texture file name
+		*/
 		void setImageTexture(const std::string & _texture);
 
 		inline void setImageRect(const FloatRect & _rect)

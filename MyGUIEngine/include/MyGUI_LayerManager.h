@@ -63,17 +63,23 @@ namespace MyGUI
 		/** Get view size of GUI area*/
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
+		/** Get maximum depth */
 		inline float getMaximumDepth() {return mMaximumDepth;}
 
+		/** Get X pixel scale */
 		inline float getPixScaleX() {return mPixScaleX;}
+		/** Get Y pixel scale */
 		inline float getPixScaleY() {return mPixScaleY;}
 
+		/** Get horisontal texel offset divided by window width */
 		inline float getHOffset() {return mHOffset;}
+		/** Get vertical texel offset divided by window height */
 		inline float getVOffset() {return mVOffset;}
 
+		/** Get aspect coefficient */
 		inline float getAspectCoef() {return mAspectCoef;}
 
-		// переключаем гуй на другой сцен менеджер
+		/** Set new scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
 	private:
