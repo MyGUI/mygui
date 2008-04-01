@@ -159,7 +159,7 @@ namespace MyGUI
 			return static_cast<T*>(widget);
 		}
 
-		/** Find widget by name and prefix*/
+		/** Find widget by name and prefix and cast it to T type*/
 		template <class T> inline T* findWidget(const std::string& _name, const std::string& _prefix)
 		{
 			return findWidget<T>(_prefix + _name);

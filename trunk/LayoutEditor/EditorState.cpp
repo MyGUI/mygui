@@ -317,6 +317,8 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 //===================================================================================
 bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 {
+	MyGUI::InputManager & input = MyGUI::InputManager::getInstance();
+
 	if (testMode)
 	{
 		if ( arg.key == OIS::KC_ESCAPE )
@@ -354,7 +356,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				um->addValue();
 			}
 		}
-		if (ctrlPressed)
+		if (input.isControlPressed())
 		{
 			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L) notifyLoadSaveAs(mGUI->findWidgetT("LayoutEditor_buttonLoad"));
 			else if (arg.key == OIS::KC_S) notifySave(mGUI->findWidgetT("LayoutEditor_buttonSave"));
@@ -362,7 +364,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				um->undo();
 				notifySelectWidget(null);
 			}
-			else if ((arg.key == OIS::KC_Y) || ((shiftPressed) && (arg.key == OIS::KC_Z))){
+			else if ((arg.key == OIS::KC_Y) || ((input.isShiftPressed()) && (arg.key == OIS::KC_Z))){
 				um->redo();
 				notifySelectWidget(null);
 			}
@@ -379,8 +381,11 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		}
 	}
 
-	if ( arg.key == OIS::KC_LSHIFT || arg.key == OIS::KC_RSHIFT ) shiftPressed = true;
-	if ( arg.key == OIS::KC_LCONTROL || arg.key == OIS::KC_RCONTROL ) ctrlPressed = true;
+	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
+	static int a = 0;
+	a++;
+	editKey->setCaption(MyGUI::utility::toString(a, " ", input.isControlPressed(), input.isShiftPressed()));
+
 	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
 
 	mGUI->injectKeyPress(arg);
@@ -391,8 +396,6 @@ bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 {
 	if (testMode){ mGUI->injectKeyRelease(arg); return true;}
 
-	if ( arg.key == OIS::KC_LSHIFT || arg.key == OIS::KC_RSHIFT ) shiftPressed = false;
-	if ( arg.key == OIS::KC_LCONTROL || arg.key == OIS::KC_RCONTROL ) ctrlPressed = false;
 	mGUI->injectKeyRelease(arg);
 	return true;
 }
@@ -592,8 +595,6 @@ void EditorState::clear()
 	creating_status = 0;
 	recreate = false;
 	arrow_move = false;
-	shiftPressed = false;
-	ctrlPressed = false;
 	want_quit = false;
 	fileName = "";
 	testMode = false;
@@ -1187,7 +1188,7 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 		MyGUI::IntCoord coord = _sender->getCoord();
 		MyGUI::IntCoord old_coord = convertParentCoordToCoord(current_widget->getCoord(), current_widget);
 		// align to grid
-		if (!shiftPressed  && !arrow_move){
+		if (!MyGUI::InputManager::getInstance().isShiftPressed()  && !arrow_move){
 			if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
 			{
 				coord.left = TO_GRID(coord.left + grid_step-1 - old_coord.left) + old_coord.left;
@@ -1263,6 +1264,7 @@ void EditorState::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char)
 {
 	MyGUI::IntPoint delta;
+	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
 	if (OIS::KC_TAB == _key)
 	{
 		if ((null != current_widget->getParent()) && (current_widget->getParent()->getWidgetType() == "Tab")) notifySelectWidget(current_widget->getParent());
@@ -1277,23 +1279,19 @@ void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, 
 	}
 	else if (OIS::KC_LEFT == _key)
 	{
-		if (!shiftPressed) delta = MyGUI::IntPoint(-grid_step, 0);
-		else delta = MyGUI::IntPoint(-1, 0);
+		delta = MyGUI::IntPoint(-k, 0);
 	}
 	else if (OIS::KC_RIGHT == _key)
 	{
-		if (!shiftPressed) delta = MyGUI::IntPoint(grid_step, 0);
-		else delta = MyGUI::IntPoint(1, 0);
+		delta = MyGUI::IntPoint(k, 0);
 	}
 	else if (OIS::KC_UP == _key)
 	{
-		if (!shiftPressed) delta = MyGUI::IntPoint(0, -grid_step);
-		else delta = MyGUI::IntPoint(0, -1);
+		delta = MyGUI::IntPoint(0, -k);
 	}
 	else if (OIS::KC_DOWN == _key)
 	{
-		if (!shiftPressed) delta = MyGUI::IntPoint(0, grid_step);
-		else delta = MyGUI::IntPoint(0, 1);
+		delta = MyGUI::IntPoint(0, k);
 	}
 
 	if (delta != MyGUI::IntPoint())

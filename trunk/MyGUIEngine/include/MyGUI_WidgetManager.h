@@ -32,8 +32,12 @@ namespace MyGUI
 
 		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
+		/** Destroy all widgets FIXME or remove - doesn't work*/
 		void destroyAllWidget();
+
+		/** Destroy _widget */
 		void destroyWidget(WidgetPtr _widget);
+		/* Destroy vector of widgets */
 		void destroyWidgetsVector(VectorWidgetPtr &_widgets);
 
 		void registerFactory(WidgetFactoryInterface * _factory);

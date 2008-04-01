@@ -30,7 +30,9 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+		//! Set sheet caption
 		void setCaption(const Ogre::UTFString & _caption);
+		//! Get sheet caption
 		const Ogre::UTFString & getCaption();
 
 		//--------------------------------------------------------------------
@@ -39,11 +41,15 @@ namespace MyGUI
 		const Ogre::UTFString & getSheetName();
 		void setSheetName(const Ogre::UTFString & _name, int _width = DEFAULT);
 
+		//! Get width of sheet button
 		int getSheetButtonWidth();
+		//! Set width of sheet button
 		void setSheetButtonWidth(int _width = DEFAULT);
 
+		//! Select sheet (show)
 		void selectSheet(bool _smooth = true);
 
+		//! Remove sheet
 		void removeSheet();
 
 	private:

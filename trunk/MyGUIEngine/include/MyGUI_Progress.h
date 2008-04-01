@@ -33,6 +33,7 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+		//! Set 
 		void setProgressRange(size_t _range);
 		inline size_t getProgressRange() {return mRange;}
 
