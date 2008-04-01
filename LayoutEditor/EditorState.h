@@ -105,8 +105,6 @@ private:
 	// current settings
 	int grid_step;
 
-	bool shiftPressed;
-	bool ctrlPressed;
 	bool want_quit;
 	// last loaded/saved file name
 	Ogre::String fileName;
