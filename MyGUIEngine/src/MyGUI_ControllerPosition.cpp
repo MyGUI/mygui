@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		01/2008
+	@author		Evmenov Georgiy
+	@date		03/2008
 	@module
 */
 #include "MyGUI_Prerequest.h"
@@ -13,13 +13,63 @@
 
 namespace MyGUI
 {
-
-	ControllerPosition::ControllerPosition()
+	void LinearMoveFunction(MyGUI::WidgetPtr _widget, IntCoord & _startRect, IntCoord & _destRect, float _current_time)
 	{
+		float k = _current_time;
+		IntCoord rect(_startRect.left - (_startRect.left - _destRect.left) * k,
+			            _startRect.top - (_startRect.top - _destRect.top) * k,
+								  _startRect.width - (_startRect.width - _destRect.width) * k,
+								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		_widget->setPosition(rect);
 	}
 
-	ControllerPosition::ControllerPosition(float _speed) :
-		mSpeed(_speed), mAngle(0), mDeltaX(0), mDeltaY(0)
+	void AcceleratedMoveFunction(MyGUI::WidgetPtr _widget, IntCoord & _startRect, IntCoord & _destRect, float _current_time)
+	{
+		float k = pow (_current_time, (float)3);
+		IntCoord rect(_startRect.left - (_startRect.left - _destRect.left) * k,
+			            _startRect.top - (_startRect.top - _destRect.top) * k,
+								  _startRect.width - (_startRect.width - _destRect.width) * k,
+								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		_widget->setPosition(rect);
+	}
+
+	void SlowedMoveFunction(MyGUI::WidgetPtr _widget, IntCoord & _startRect, IntCoord & _destRect, float _current_time)
+	{
+		float k = pow (_current_time, (float)0.4);
+		IntCoord rect(_startRect.left - (_startRect.left - _destRect.left) * k,
+			            _startRect.top - (_startRect.top - _destRect.top) * k,
+								  _startRect.width - (_startRect.width - _destRect.width) * k,
+								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		_widget->setPosition(rect);
+	}
+
+	void InertionalMoveFunction(MyGUI::WidgetPtr _widget, IntCoord & _startRect, IntCoord & _destRect, float _current_time)
+	{
+		const float M_PI = 3.14;
+		float k = sin(M_PI * _current_time - M_PI/2);
+		if (k<0) k = (-pow((-k), 2) + 1)/2;
+		else k = (pow((k), 2) + 1)/2;
+		IntCoord rect(_startRect.left - (_startRect.left - _destRect.left) * k,
+			            _startRect.top - (_startRect.top - _destRect.top) * k,
+								  _startRect.width - (_startRect.width - _destRect.width) * k,
+								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		_widget->setPosition(rect);
+	}
+
+	ControllerPosition::ControllerPosition(IntCoord _destRect, float _time, MoveMode _mode):
+		mDestRect(_destRect), mTime(_time), mElapsedTime(0.)
+	{
+		switch (_mode)
+		{
+		case Linear: eventFrameAction = newDelegate(LinearMoveFunction); break;
+		case Accelerated: eventFrameAction = newDelegate(AcceleratedMoveFunction); break;
+		case Slowed: eventFrameAction = newDelegate(SlowedMoveFunction); break;
+		case Inertional: eventFrameAction = newDelegate(InertionalMoveFunction); break;
+		}
+	}
+
+	ControllerPosition::ControllerPosition(IntCoord _destRect, float _time, FrameAction _action):
+		mDestRect(_destRect), mTime(_time), eventFrameAction(_action), mElapsedTime(0.)
 	{
 	}
 
@@ -33,11 +83,7 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(mSpeed > 0, "coef must be > 0");
 
-		IntCoord rect = _widget->getCoord();
-		int x = rect.width;
-		int y = rect.height;
-		mRadius = sqrt(float(x*x + y*y));
-		mAngle = asin(x/mRadius);
+		mStartRect = _widget->getCoord();
 
 		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget);
@@ -50,25 +96,12 @@ namespace MyGUI
 
 	bool ControllerPosition::addTime(WidgetPtr _widget, float _time)
 	{
-		IntCoord rect = _widget->getCoord();
+		mElapsedTime += _time;
 
-		if (mRadius > 0)
-		{
-			mDeltaX += -mRadius*_time*mSpeed*sin(mAngle);
-			mDeltaY += mRadius*_time*mSpeed*cos(mAngle);
-
-			if (abs(mDeltaX) > 0 && abs(mDeltaY) > 0)
-			{
-				rect += IntCoord(mDeltaX, mDeltaY, -abs(mDeltaY), -abs(mDeltaX));
-				mDeltaX -= int(mDeltaX);
-				mDeltaY -= int(mDeltaY);
-				_widget->setPosition(rect);
-			}
-
-			mRadius -= 10*_time * mSpeed;
-			mAngle += 10*_time * mSpeed;
-			return true;
-		}
+		//if (
+			eventFrameAction(_widget, mStartRect, mDestRect, mElapsedTime/mTime);
+		//	)
+		if (mElapsedTime < mTime)	return true;
 
 		// вызываем пользовательский елегат пост обработки
 		eventPostAction(_widget);
