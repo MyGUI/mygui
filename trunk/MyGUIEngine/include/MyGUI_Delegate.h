@@ -60,6 +60,21 @@ namespace MyGUI
 	#undef PARAMS
 	#undef ARGS
 
+	// четыре параметра
+	#define SUFFIX       4
+	#define TEMPLATE_PARAMS  class TP1, class TP2, class TP3, class TP4
+	#define TEMPLATE_ARGS    TP1, TP2, TP3, TP4
+	#define PARAMS       TP1 p1, TP2 p2, TP3 p3, TP4 p4
+	#define ARGS         p1, p2, p3, p4
+
+	#include "MyGUI_DelegateImplement.h"
+
+	#undef SUFFIX
+	#undef TEMPLATE_PARAMS
+	#undef TEMPLATE_ARGS
+	#undef PARAMS
+	#undef ARGS
+
 } // namespace MyGUI
 
 #endif // __MYGUI_DELEGATE_H__
