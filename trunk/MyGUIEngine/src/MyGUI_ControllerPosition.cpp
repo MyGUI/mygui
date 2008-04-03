@@ -81,7 +81,7 @@ namespace MyGUI
 
 	void ControllerPosition::prepareItem(WidgetPtr _widget)
 	{
-		MYGUI_DEBUG_ASSERT(mSpeed > 0, "coef must be > 0");
+		MYGUI_DEBUG_ASSERT(mTime > 0, "Time must be" > 0");
 
 		mStartRect = _widget->getCoord();
 
