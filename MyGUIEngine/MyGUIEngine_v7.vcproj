@@ -182,6 +182,9 @@
 					<File
 						RelativePath=".\src\MyGUI_ControllerFadeAlpha.cpp">
 					</File>
+					<File
+						RelativePath=".\src\MyGUI_ControllerPosition.cpp">
+					</File>
 				</Filter>
 				<Filter
 					Name="LayerItem"
@@ -523,6 +526,9 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ControllerItem.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ControllerPosition.h">
 					</File>
 				</Filter>
 				<Filter
