@@ -45,7 +45,9 @@ namespace MyGUI
 
 	void InertionalMoveFunction(MyGUI::WidgetPtr _widget, IntCoord & _startRect, IntCoord & _destRect, float _current_time)
 	{
+		#ifndef M_PI
 		const float M_PI = 3.14;
+		#endif
 		float k = sin(M_PI * _current_time - M_PI/2);
 		if (k<0) k = (-pow((-k), (float)0.7) + 1)/2;
 		else k = (pow((k), (float)0.7) + 1)/2;
