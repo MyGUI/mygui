@@ -93,17 +93,32 @@
             <Property key="Widget_Caption" value="Show widget skin"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowProperties">
+    <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="windowProperties">
         <Property key="Widget_Caption" value="Properties"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 0 2048 2048"/>
-        <Property key="Widget_Show" value="false"/>
-        <Widget type="Button" skin="ButtonSmall" position="5 20 64 20" name="buttonReativePosition">
+        <Property key="Widget_Show" value="true"/>
+        <Widget type="Button" skin="ButtonSmall" position="5 20 64 20" align="ALIGN_LEFT ALIGN_TOP" name="buttonReativePosition">
             <Property key="Widget_Caption" value="to %"/>
         </Widget>
+        <Widget type="Widget" skin="PanelSmall" position="2 174 267 72" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelSpecificProperties">
+            <Property key="Widget_Caption" value="/widget/ specific properties"/>
+            <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
+            <UserString key="Size" value="0"/>
+            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeSpecificProperties"/>
+        </Widget>
+        <Widget type="Widget" skin="PanelSmall" position="2 248 267 76" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelWidgetProperties">
+            <Property key="Widget_Caption" value="Other properties"/>
+            <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
+            <UserString key="Size" value="0"/>
+            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeWidgetProperties"/>
+        </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 326 267 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelStrings">
+            <Property key="Widget_Caption" value="Items"/>
+            <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
+            <UserString key="Size" value="160"/>
             <Widget type="Edit" skin="Edit" position="3 24 261 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="editString"/>
-            <Widget type="List" skin="List" position="3 48 261 85" align="ALIGN_STRETCH" name="listStrings"/>
+            <Widget type="List" skin="List" position="3 48 261 85" align="ALIGN_HSTRETCH ALIGN_TOP" name="listStrings"/>
             <Widget type="Button" skin="ButtonSmall" position="3 133 88 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonAddString">
                 <Property key="Widget_Caption" value="Add"/>
             </Widget>
@@ -113,27 +128,22 @@
             <Widget type="Button" skin="ButtonSmall" position="181 133 83 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonSelectString">
                 <Property key="Widget_Caption" value="Select"/>
             </Widget>
-            <Widget type="StaticText" skin="StaticText" position="3 2 238 22" align="ALIGN_HSTRETCH ALIGN_TOP" name="captionString">
-                <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
-                <Property key="Widget_Caption" value="Items"/>
-            </Widget>
             <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeString"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 488 267 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelUserData">
-            <Widget type="Edit" skin="Edit" position="3 24 130 24" name="editKeyUserData"/>
+            <Property key="Widget_Caption" value="UserData"/>
+            <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
+            <UserString key="Size" value="160"/>
+            <Widget type="Edit" skin="Edit" position="3 24 130 24" align="ALIGN_LEFT ALIGN_TOP" name="editKeyUserData"/>
+            <Widget type="Edit" skin="Edit" position="134 24 130 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="editValueUserData"/>
             <Widget type="Button" skin="ButtonSmall" position="3 133 130 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonAddUserData">
                 <Property key="Widget_Caption" value="Add"/>
             </Widget>
             <Widget type="Button" skin="ButtonSmall" position="134 133 130 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonDeleteUserData">
                 <Property key="Widget_Caption" value="Delete"/>
             </Widget>
-            <Widget type="MultiList" skin="MultiList" position="3 48 261 85" align="ALIGN_STRETCH" name="multilistUserData"/>
-            <Widget type="StaticText" skin="StaticText" position="3 2 238 22" align="ALIGN_HSTRETCH ALIGN_TOP">
-                <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
-                <Property key="Widget_Caption" value="UserData"/>
-            </Widget>
+            <Widget type="MultiList" skin="MultiList" position="3 48 261 85" align="ALIGN_HSTRETCH ALIGN_TOP" name="multilistUserData"/>
             <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeUserData"/>
-            <Widget type="Edit" skin="Edit" position="134 24 130 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="editValueUserData"/>
         </Widget>
     </Widget>
 </MyGUI>

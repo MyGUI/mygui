@@ -42,4 +42,8 @@
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_ControllerManager.h"
 
+#include "MyGUI_ActionController.h"
+#include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_ControllerPosition.h"
+
 #endif // __MYGUI_H__

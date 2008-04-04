@@ -47,8 +47,8 @@ namespace MyGUI
 	{
 		const float M_PI = 3.14;
 		float k = sin(M_PI * _current_time - M_PI/2);
-		if (k<0) k = (-pow((-k), 2) + 1)/2;
-		else k = (pow((k), 2) + 1)/2;
+		if (k<0) k = (-pow((-k), (float)0.7) + 1)/2;
+		else k = (pow((k), (float)0.7) + 1)/2;
 		IntCoord rect(_startRect.left - (_startRect.left - _destRect.left) * k,
 			            _startRect.top - (_startRect.top - _destRect.top) * k,
 								  _startRect.width - (_startRect.width - _destRect.width) * k,
@@ -92,17 +92,20 @@ namespace MyGUI
 	void ControllerPosition::replaseItem(WidgetPtr _widget, ControllerItem * _item)
 	{
 		ControllerPosition * item = static_cast<ControllerPosition*>(_item);
+		//mElapsedTime = item->getElapsedTime();
 	}
 
 	bool ControllerPosition::addTime(WidgetPtr _widget, float _time)
 	{
 		mElapsedTime += _time;
 
-		//if (
-			eventFrameAction(_widget, mStartRect, mDestRect, mElapsedTime/mTime);
-		//	)
-		if (mElapsedTime < mTime)	return true;
+		eventFrameAction(_widget, mStartRect, mDestRect, mElapsedTime/mTime);
+		if (mElapsedTime < mTime)
+			return true;
 
+		// поставить точно в конец
+		//eventFrameAction(_widget, mStartRect, mDestRect, 1.001);
+		_widget->setPosition(mDestRect);
 		// вызываем пользовательский елегат пост обработки
 		eventPostAction(_widget);
 
