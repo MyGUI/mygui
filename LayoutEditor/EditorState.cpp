@@ -13,7 +13,7 @@ const std::string LogSection = "LayoutEditor";
 const std::string DEFAULT_VALUE = "#444444[DEFAULT]";
 const int PANELS_MARGIN = 2;
 const int PANELS_MIN_HEIGHT = 25;
-const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Accelerated;
+const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Inertional;
 
 EditorWidgets * ew;
 WidgetTypes * wt;
