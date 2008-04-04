@@ -864,25 +864,23 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 				createPropertiesWidgetsPair(panels[0], iter->first, value, iter->second, x1, x2, w1, w2, y - panels[0]->getTop(), h);
 				y += h;
 			}
-			if (widgetType->parameter.empty()){ panels[0]->hide(); y -= h + 3*PANELS_MARGIN;}
+			if (widgetType->parameter.empty()){ panels[0]->hide();}
 			else panels[0]->show();
 		}
 		y += PANELS_MARGIN;
 		panels[0]->setUserString("Size", MyGUI::utility::toString(y - panels[0]->getTop()));
 		std::string resizing = panels[0]->getUserString("resizing");
 		if (resizing == "up")
-		{
 			panels[0]->setSize(panels[0]->getWidth(), PANELS_MIN_HEIGHT);
-			y = panels[0]->getTop() + PANELS_MIN_HEIGHT;
-		}
 		else
 			panels[0]->setSize(panels[0]->getWidth(), y - panels[0]->getTop());
+		y = panels[0]->getTop() + (panels[0]->getHeight() + PANELS_MARGIN)*panels[0]->isShow();
 
-		panels[1]->setPosition(panels[1]->getLeft(), y + PANELS_MARGIN);
+		panels[1]->setPosition(panels[1]->getLeft(), y);
 		panels[1]->setCaption("Other properties");
 		y += h + 3*PANELS_MARGIN;
 
-		if (current_widget->getWidgetType() != "Sheet") // Speci
+		if (current_widget->getWidgetType() != "Sheet")
 		{
 			panels[1]->show();
 			//base properties (from Widget)
@@ -899,26 +897,22 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		else
 		{
 			panels[1]->hide();
-			y -= h + 3*PANELS_MARGIN;
 		}
 		y += PANELS_MARGIN;
 		panels[1]->setUserString("Size", MyGUI::utility::toString(y - panels[1]->getTop()));
 		resizing = panels[1]->getUserString("resizing");
 		if (resizing == "up")
-		{
 			panels[1]->setSize(panels[1]->getWidth(), PANELS_MIN_HEIGHT);
-			y = panels[1]->getTop() + PANELS_MIN_HEIGHT;
-		}
 		else
 			panels[1]->setSize(panels[1]->getWidth(), y - panels[1]->getTop());
+		y = panels[1]->getTop() + (panels[1]->getHeight() + PANELS_MARGIN)*panels[1]->isShow();
 
-		y += PANELS_MARGIN;
 		// show/update strings panel if needed
 		MyGUI::WidgetPtr panelStrings = panels[2];
+		panelStrings->setPosition(PANELS_MARGIN, y);
 		if (widgetType->many_strings)
 		{
 			panelStrings->show();
-			panelStrings->setPosition(PANELS_MARGIN, y);
 			if (widgetType->name == "Tab") panelStrings->setCaption("Sheets");
 			else panelStrings->setCaption("Items");
 			syncStrings(false);
@@ -933,7 +927,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			panelStrings->hide();
 		}
 
-		y += panelStrings->isShow()*(panelStrings->getHeight() + PANELS_MARGIN);
+		y = panelStrings->getTop() + (panelStrings->getHeight() + PANELS_MARGIN)*panelStrings->isShow();
 
 		MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
 		MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
@@ -947,7 +941,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			multilist->setSubItem(1, multilist->getItemCount() - 1, iterProperty->second);
 		}
 
-		y += panelUserData->isShow()*(panelUserData->getHeight() + PANELS_MARGIN);
+		y = panelUserData->getTop() + (panelUserData->getHeight() + PANELS_MARGIN)*panelUserData->isShow();
 
 		int height = window->getHeight() - window->getClientRect().height;
 		window->setMinMax(window->getMinMax().left, height + y, mGUI->getViewWidth(), height + y);
