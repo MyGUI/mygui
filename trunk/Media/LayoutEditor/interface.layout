@@ -97,7 +97,7 @@
         <Property key="Widget_Caption" value="Properties"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 0 2048 2048"/>
-        <Property key="Widget_Show" value="true"/>
+        <Property key="Widget_Show" value="false"/>
         <Widget type="Button" skin="ButtonSmall" position="5 20 64 20" align="ALIGN_LEFT ALIGN_TOP" name="buttonReativePosition">
             <Property key="Widget_Caption" value="to %"/>
         </Widget>
