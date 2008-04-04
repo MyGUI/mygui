@@ -4,8 +4,8 @@
 	@date		03/2008
 	@module
 */
-#ifndef __MYGUI_CONTROLLER_FADE_ALPHA_H__
-#define __MYGUI_CONTROLLER_FADE_ALPHA_H__
+#ifndef __MYGUI_CONTROLLER_POSITION_H__
+#define __MYGUI_CONTROLLER_POSITION_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -53,6 +53,8 @@ namespace MyGUI
 		void prepareItem(WidgetPtr _widget);
 		void replaseItem(WidgetPtr _widget, ControllerItem * _item);
 
+		inline float getElapsedTime() {return mElapsedTime;}
+
 		IntCoord mStartRect;
 		IntCoord mDestRect;
 		float mTime;
@@ -61,4 +63,4 @@ namespace MyGUI
 
 }
 
-#endif // __MYGUI_CONTROLLER_FADE_ALPHA_H__
+#endif // __MYGUI_CONTROLLER_POSITION_H__

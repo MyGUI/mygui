@@ -56,8 +56,7 @@ private:
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
 	void updatePropertiesPanel(MyGUI::WidgetPtr _widget);
-	void createPropertiesWidgetsPair(MyGUI::WindowPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
-	void createSeparator(MyGUI::WindowPtr _window, std::string _caption, int x1, int y, int w, int h);
+	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget); // calls previous method
 	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = 0);
@@ -70,7 +69,9 @@ private:
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
 	void addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption = "");
 
+	// panels mnimizing
 	void notifyMinimizePanel(MyGUI::WidgetPtr _sender);
+	void notifyEndResize(MyGUI::WidgetPtr _sender);
 	// strings panel
 	void syncStrings(bool _apply, bool _add = 0, Ogre::String _value = "");
 	void notifyAddString(MyGUI::WidgetPtr _sender = 0);
@@ -112,6 +113,8 @@ private:
 	// properties wndow
 	MyGUI::VectorWidgetPtr propertiesText;
 	MyGUI::VectorWidgetPtr propertiesElement;
+	MyGUI::VectorWidgetPtr panelMinimizeButtons;
+	MyGUI::VectorWidgetPtr panels;
 
 	bool testMode;
 	MyGUI::VectorWidgetPtr interfaceWidgets;

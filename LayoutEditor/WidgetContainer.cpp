@@ -1,12 +1,6 @@
 #include "WidgetContainer.h"
 #include "BasisManager.h"
 
-		void actionWidgetDestroy(MyGUI::WidgetPtr _widget)
-		{
-			MyGUI::WidgetManager::getInstance().destroyWidget(_widget);
-		}
-#include "MyGUI_ControllerPosition.h"
-
 const std::string LogSection = "LayoutEditor";
 
 INSTANCE_IMPLEMENT(EditorWidgets);
@@ -127,11 +121,6 @@ void EditorWidgets::add(WidgetContainer * _container)
 
 void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 {
-	MyGUI::ControllerPosition::MoveMode a = (_widget->getHeight() > 50) ? MyGUI::ControllerPosition::Accelerated : MyGUI::ControllerPosition::Linear;
-	MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(MyGUI::IntCoord(0,0,0,0), 2, a);
-	controller->eventPostAction = MyGUI::newDelegate(actionWidgetDestroy);
-	MyGUI::ControllerManager::getInstance().addItem(_widget, controller);
-
 	// дети вперед
 	MyGUI::VectorWidgetPtr childs = _widget->getChilds();
 	for (MyGUI::VectorWidgetPtr::iterator iter = childs.begin(); iter != childs.end(); ++iter)
@@ -140,7 +129,7 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 	}
 	WidgetContainer * _container = find(_widget);
 
-	//MyGUI::Gui::getInstance().destroyWidget(_widget);
+	MyGUI::Gui::getInstance().destroyWidget(_widget);
 
 	if (null != _container)
 	{
@@ -225,7 +214,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	}
 
 	//может и не стоит
-	tmpname = "LayoutEditor_" + tmpname;
+	tmpname = "LayoutEditorWidget_" + tmpname;
 
 	if (null == _parent) {
 		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, container->skin, coord, align, layer, tmpname);
