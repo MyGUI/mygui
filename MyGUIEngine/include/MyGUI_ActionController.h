@@ -15,9 +15,9 @@ namespace MyGUI
 	namespace action
 	{
 
-		void actionWidgetHide(WidgetPtr _widget);
+		void _MyGUIExport actionWidgetHide(WidgetPtr _widget);
 
-		void actionWidgetDestroy(WidgetPtr _widget);
+		void _MyGUIExport actionWidgetDestroy(WidgetPtr _widget);
 
 	} // namespace action
 

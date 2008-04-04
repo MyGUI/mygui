@@ -12,6 +12,8 @@
 const std::string LogSection = "LayoutEditor";
 const std::string DEFAULT_VALUE = "#444444[DEFAULT]";
 const int PANELS_MARGIN = 2;
+const int PANELS_MIN_HEIGHT = 25;
+const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Accelerated;
 
 EditorWidgets * ew;
 WidgetTypes * wt;
@@ -116,8 +118,15 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_checkShowSkin", &EditorState::notifyToggleCheck);
 
 	// minimize panel buttons
-	ASSIGN_FUNCTION("LayoutEditor_minimizeString", &EditorState::notifyMinimizePanel);
-	ASSIGN_FUNCTION("LayoutEditor_minimizeUserData", &EditorState::notifyMinimizePanel);
+	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeSpecificProperties"));
+	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeWidgetProperties"));
+	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeString"));
+	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeUserData"));
+	for (MyGUI::VectorWidgetPtr::iterator iter = panelMinimizeButtons.begin(); iter != panelMinimizeButtons.end(); ++iter)
+	{
+		panels.push_back((*iter)->getParent());
+		(*iter)->eventMouseButtonClick = MyGUI::newDelegate(this, &EditorState::notifyMinimizePanel);
+	}
 
 	// strings panel
 	ASSIGN_FUNCTION("LayoutEditor_buttonAddString", &EditorState::notifyAddString);
@@ -179,7 +188,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		creating_status = 2;
 
 		// внимание current_widget родитель и потом сразу же сын
-		std::string tmpname = MyGUI::utility::toString("LayoutEditor_", current_widget_type, ew->global_counter);
+		std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", current_widget_type, ew->global_counter);
 		ew->global_counter++;
 		// пока не найдем ближайшего над нами способного быть родителем
 		while (current_widget && false == wt->find(current_widget->getWidgetType())->parent) current_widget = current_widget->getParent();
@@ -380,11 +389,6 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			}
 		}
 	}
-
-	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
-	static int a = 0;
-	a++;
-	editKey->setCaption(MyGUI::utility::toString(a, " ", input.isControlPressed(), input.isShiftPressed()));
 
 	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
 
@@ -657,7 +661,7 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 	current_widget_type = _sender->getUserString("widget");
 	current_widget_skin = _sender->getUserString("skin");
 
-	std::string tmpname = MyGUI::utility::toString("LayoutEditor_", current_widget_type, ew->global_counter);
+	std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", current_widget_type, ew->global_counter);
 	ew->global_counter++;
 
 	if (current_widget && wt->find(current_widget_type)->child)
@@ -792,7 +796,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		window->show();
 		int x1 = 0, x2 = 125;
 		int w1 = 120;
-		int w2 = window->getClientRect().width - w1 - 5;
+		int w2 = panels[0]->getWidth() - w1 - 4*PANELS_MARGIN;
 		int y = 0;
 		const int h = 20;
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
@@ -837,18 +841,19 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			y += h;
 		}
 
+		panels[0]->setPosition(panels[0]->getLeft(), y + PANELS_MARGIN);
 		if (widgetType->name == "Widget")
 		{
 			if (current_widget->getWidgetType() != "Widget")
 			{
-				createSeparator(window, current_widget->getWidgetType() + " properties not aviable", x1, y, w1+w2+5, h);
-				y += h;
+				panels[0]->setCaption(current_widget->getWidgetType() + " properties not aviable");
+				y += h + 3*PANELS_MARGIN;
 			}
 		}
 		else
 		{
-			createSeparator(window, current_widget->getWidgetType() + " specific properties", x1, y, w1+w2+5, h);
-			y += h;
+			panels[0]->setCaption(current_widget->getWidgetType() + " specific properties");
+			y += h + 3*PANELS_MARGIN;
 
 			//all other
 			for (MapString::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
@@ -856,16 +861,30 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 				std::string value = "";
 				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 					if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
-				createPropertiesWidgetsPair(window, iter->first, value, iter->second, x1, x2, w1, w2, y, h);
+				createPropertiesWidgetsPair(panels[0], iter->first, value, iter->second, x1, x2, w1, w2, y - panels[0]->getTop(), h);
 				y += h;
 			}
+			if (widgetType->parameter.empty()){ panels[0]->hide(); y -= h + 3*PANELS_MARGIN;}
+			else panels[0]->show();
 		}
-
-		createSeparator(window, "Other properties", x1, y, w1+w2+5, h);
-		y += h;
-
-		if (widgetType->resizeable)
+		y += PANELS_MARGIN;
+		panels[0]->setUserString("Size", MyGUI::utility::toString(y - panels[0]->getTop()));
+		std::string resizing = panels[0]->getUserString("resizing");
+		if (resizing == "up")
 		{
+			panels[0]->setSize(panels[0]->getWidth(), PANELS_MIN_HEIGHT);
+			y = panels[0]->getTop() + PANELS_MIN_HEIGHT;
+		}
+		else
+			panels[0]->setSize(panels[0]->getWidth(), y - panels[0]->getTop());
+
+		panels[1]->setPosition(panels[1]->getLeft(), y + PANELS_MARGIN);
+		panels[1]->setCaption("Other properties");
+		y += h + 3*PANELS_MARGIN;
+
+		if (current_widget->getWidgetType() != "Sheet") // Speci
+		{
+			panels[1]->show();
 			//base properties (from Widget)
 			WidgetType * baseType = wt->find("Widget");
 			for (MapString::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
@@ -873,22 +892,35 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 				std::string value = "";
 				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 					if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
-				createPropertiesWidgetsPair(window, iter->first, value, iter->second, x1, x2, w1, w2, y, h);
+				createPropertiesWidgetsPair(panels[1], iter->first, value, iter->second, x1, x2, w1, w2, y - panels[1]->getTop(), h);
 				y += h;
 			}
 		}
-
+		else
+		{
+			panels[1]->hide();
+			y -= h + 3*PANELS_MARGIN;
+		}
+		y += PANELS_MARGIN;
+		panels[1]->setUserString("Size", MyGUI::utility::toString(y - panels[1]->getTop()));
+		resizing = panels[1]->getUserString("resizing");
+		if (resizing == "up")
+		{
+			panels[1]->setSize(panels[1]->getWidth(), PANELS_MIN_HEIGHT);
+			y = panels[1]->getTop() + PANELS_MIN_HEIGHT;
+		}
+		else
+			panels[1]->setSize(panels[1]->getWidth(), y - panels[1]->getTop());
 
 		y += PANELS_MARGIN;
 		// show/update strings panel if needed
-		MyGUI::WidgetPtr panelStrings = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelStrings");
+		MyGUI::WidgetPtr panelStrings = panels[2];
 		if (widgetType->many_strings)
 		{
 			panelStrings->show();
 			panelStrings->setPosition(PANELS_MARGIN, y);
-			MyGUI::WidgetPtr captionStrings = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_captionString");
-			if (widgetType->name == "Tab") captionStrings->setCaption("Sheets");
-			else captionStrings->setCaption("Items");
+			if (widgetType->name == "Tab") panelStrings->setCaption("Sheets");
+			else panelStrings->setCaption("Items");
 			syncStrings(false);
 			MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSelectString");
 			if (widgetType->name == "Tab") but->show();
@@ -905,7 +937,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 
 		MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
 		MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
-		MyGUI::WidgetPtr panelUserData = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelUserData");
+		MyGUI::WidgetPtr panelUserData = panels[3];
 		panelUserData->setPosition(PANELS_MARGIN, y);
 		MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 		multilist->deleteAllItems();
@@ -923,7 +955,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 	}
 }
 
-void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::string _property, std::string _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h)
+void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::string _property, std::string _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h)
 {
 	MyGUI::StaticTextPtr text;
 	MyGUI::WidgetPtr editOrCombo;
@@ -1003,15 +1035,6 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WindowPtr _window, std::str
 	else MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->setOnlyText(_value);
 	propertiesText.push_back(text);
 	propertiesElement.push_back(editOrCombo);
-}
-
-void EditorState::createSeparator(MyGUI::WindowPtr _window, std::string _caption, int x1, int y, int w, int h)
-{
-	propertiesElement.push_back(_window->createWidget<MyGUI::Widget>("Separator1", x1, y, w, 2, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH));
-	MyGUI::StaticTextPtr text = _window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
-	text->setCaption(_caption);
-	text->setTextAlign(MyGUI::ALIGN_CENTER);
-	propertiesText.push_back(text);
 }
 
 void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
@@ -1154,16 +1177,16 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 	if (_print_name)
 	{
 		if (widgetContainer->name.empty()){
-			// trim "LayoutEditor_"
+			// trim "LayoutEditorWidget_"
 			name = _widget->getName();
-			if (0 == strncmp("LayoutEditor_", name.c_str(), 13))
+			if (0 == strncmp("LayoutEditorWidget_", name.c_str(), 19))
 			{
 					std::string::iterator iter = std::find(name.begin(), name.end(), '_');
 					if (iter != name.end()) name.erase(name.begin(), ++iter);
 			}
 			name = "[#333333" + name + "#000000] ";
 		}
-		else name = widgetContainer->name;
+		else name = widgetContainer->name + " ";
 	}
 
 	if (_print_type)
@@ -1315,20 +1338,69 @@ void EditorState::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
 void EditorState::notifyMinimizePanel(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::WidgetPtr panel = _sender->getParent();
-	int dy = -(160 + 25) + 2*panel->getHeight();
-	panel->setSize(panel->getWidth(), panel->getHeight() - dy);
+	int dy;
+	std::string resizing = panel->getUserString("resizing");
+	if ((resizing == "") || (resizing == "down"))
+	{// close
+		dy = PANELS_MIN_HEIGHT - panel->getHeight();
+		panel->setUserString("resizing", "up");
+	}
+	else
+	{// open
+		dy = atoi(panel->getUserString("Size").c_str()) - panel->getHeight();
+		panel->setUserString("resizing", "down");
+	}
 	MyGUI::castWidget<MyGUI::Button>(_sender)->setButtonPressed(!MyGUI::castWidget<MyGUI::Button>(_sender)->getButtonPressed());
 
-	MyGUI::WidgetPtr panelStrings = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelStrings");
-	MyGUI::WidgetPtr panelUserData = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_panelUserData");
-	if (panel == panelStrings)
+	MyGUI::VectorWidgetPtr::iterator panelIter = std::find(panels.begin(), panels.end(), panel);
+
+	MyGUI::IntCoord newcord = (*panelIter)->getCoord() + MyGUI::IntSize(0, dy);
+	MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(newcord, 1, move_mode);
+	MyGUI::ControllerManager::getInstance().addItem((*panelIter), controller);
+
+	for (++panelIter; panelIter != panels.end(); ++panelIter)
 	{
-		panelUserData->setPosition(PANELS_MARGIN, panelUserData->getTop() - dy);
+		MyGUI::IntCoord newcord = (*panelIter)->getCoord() + MyGUI::IntPoint(0, dy);
+		MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(newcord, 1, move_mode);
+		MyGUI::ControllerManager::getInstance().addItem((*panelIter), controller);
 	}
+
 	MyGUI::WindowPtr windowProperties = MyGUI::castWidget<MyGUI::Window>(panel->getParent()->getParent());
-	MyGUI::IntRect newMinMax = windowProperties->getMinMax() + MyGUI::IntRect(0, -dy, 0, -dy);
+	MyGUI::IntRect newMinMax = windowProperties->getMinMax() + MyGUI::IntRect(0, (dy<0)?dy:0, 0, (dy>0)?dy:0);
+	windowProperties->setUserString("resizing", (dy>0)?"down":"up");
 	windowProperties->setMinMax(newMinMax);
-	windowProperties->setSize(panel->getWidth() + 2*PANELS_MARGIN, windowProperties->getHeight() - dy);
+
+	newcord = windowProperties->getCoord() + MyGUI::IntSize(0, dy);
+	controller = new MyGUI::ControllerPosition(newcord, 1, move_mode);
+	controller->eventPostAction = MyGUI::newDelegate(this, &EditorState::notifyEndResize);
+	MyGUI::ControllerManager::getInstance().addItem(windowProperties, controller);
+
+	// сделать все кнопки временно недоступными
+	for (MyGUI::VectorWidgetPtr::iterator iter = panelMinimizeButtons.begin(); iter != panelMinimizeButtons.end(); ++iter)
+		(*iter)->setEnabled(false);
+}
+
+void EditorState::notifyEndResize(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::WindowPtr windowProperties = MyGUI::castWidget<MyGUI::Window>(_sender);
+	std::string resizing = windowProperties->getUserString("resizing");
+	MyGUI::IntRect newMinMax;
+	if ((resizing == "") || (resizing == "down"))
+	{// close
+		newMinMax = windowProperties->getMinMax();
+		newMinMax.top = newMinMax.bottom;
+		windowProperties->setUserString("resizing", "up");
+	}
+	else
+	{// open
+		newMinMax = windowProperties->getMinMax();
+		newMinMax.bottom = newMinMax.top;
+		windowProperties->setUserString("resizing", "down");
+	}
+	windowProperties->setMinMax(newMinMax);
+
+	for (MyGUI::VectorWidgetPtr::iterator iter = panelMinimizeButtons.begin(); iter != panelMinimizeButtons.end(); ++iter)
+		(*iter)->setEnabled(true);
 }
 
 void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
