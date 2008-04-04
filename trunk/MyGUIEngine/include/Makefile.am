@@ -13,6 +13,7 @@ pkginclude_HEADERS = \
 	MyGUI_ControllerFadeAlpha.h\
 	MyGUI_ControllerItem.h\
 	MyGUI_ControllerManager.h\
+	MyGUI_ControllerPosition.h\
 	MyGUI_CroppedRectangleInterface.h\
 	MyGUI_Delegate.h\
 	MyGUI_DelegateImplement.h\
