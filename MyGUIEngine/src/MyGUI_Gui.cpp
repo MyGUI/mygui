@@ -44,9 +44,11 @@ namespace MyGUI
 			<< MYGUI_VERSION_MINOR << "."
 			<< MYGUI_VERSION_PATCH);
 
+		// дефолтный вьюпорт
+		mActiveViewport = 0;
 		// сохраняем окно и размеры
 		mWindow = _window;
-		mViewSize.set(mWindow->getViewport(0)->getActualWidth(), mWindow->getViewport(0)->getActualHeight());
+		mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
 
 		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
 
@@ -356,7 +358,7 @@ namespace MyGUI
 	{
 		FloatSize oldViewSize = mViewSize;
 
-		Ogre::Viewport * port = rw->getViewport(0);
+		Ogre::Viewport * port = rw->getViewport(mActiveViewport);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 		mLayerManager->_windowResized(mViewSize);
 
@@ -428,6 +430,16 @@ namespace MyGUI
 	bool Gui::isShowPointer()
 	{
 		return mPointerManager->isShow();
+	}
+
+	void Gui::setActiveViewport(Ogre::ushort _num)
+	{
+		if (_num == mActiveViewport) return;
+		MYGUI_ASSERT(mWindow, "Gui is not initialised.");
+		MYGUI_ASSERT(mWindow->getNumViewports() >= _num, "index out of range");
+		mActiveViewport = _num;
+		// рассылка обновлений
+		windowResized(mWindow);
 	}
 
 } // namespace MyGUI

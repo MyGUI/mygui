@@ -223,6 +223,13 @@ namespace MyGUI
 			return mResourceGroup;
 		}
 
+		inline Ogre::ushort getActiveViewport()
+		{
+			return mActiveViewport;
+		}
+
+		void setActiveViewport(Ogre::ushort _num);
+
 	private:
 		// создает виджет
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
@@ -265,6 +272,9 @@ namespace MyGUI
 		Ogre::RenderWindow* mWindow;
 
 		std::string mResourceGroup;
+
+		// вьюпорт, с которым работает система
+		Ogre::ushort mActiveViewport;
 
 	}; // class Gui
 

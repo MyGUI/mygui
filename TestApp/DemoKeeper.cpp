@@ -91,13 +91,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setSize(100, 100);//*/
 
 	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 200, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	win->setAutoAlpha(true);
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
-	box->setInheritsAlpha(false);
-	box->setAlpha(0.5);
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	edit->setCaption("#FFFFFFF");
+	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	edit->setCaption("#FFFFFFF");*/
 
 	/*MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(300, 300, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	text->setCaption("StaticText");*/
