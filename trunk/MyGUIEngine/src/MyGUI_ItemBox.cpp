@@ -45,7 +45,7 @@ namespace MyGUI
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetScroll, "Child VScroll not found in skin (ItemBox must have VScroll)");
+		MYGUI_ASSERT(null != mWidgetScroll, "Child VScroll not found in skin (ItemBox must have VScroll)");//???
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client)");
 
 		// парсим свойства
@@ -62,7 +62,7 @@ namespace MyGUI
 		mWidgetScroll->setScrollPage((size_t)mSizeItem.height);
 
 		mSizeItem.set(50, 50);
-		mCountItems = 200;
+		mCountItems = 150;
 
 		updateMetrics();
 		updateScroll();
@@ -94,37 +94,11 @@ namespace MyGUI
 		// если колличество айтемов в строке изменилось, то перерисовываем все
 		if (old_count == mCountItemInLine) {
 			// если строк стало меньшн то ничего не нужно
-			if (_size.height >= mCoord.height) return;
+			//if (_size.height >= mCoord.height) return;
 		}
 
 		notifyScrollChangePosition(null, mWidgetScroll->getScrollPosition());
 		_redrawAllVisible();
-	}
-
-	void ItemBox::_onMouseWheel(int _rel)
-	{
-		notifyMouseWheel(null, _rel);
-
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseWheel(_rel);
-	}
-
-	void ItemBox::_onKeySetFocus(WidgetPtr _old)
-	{
-		mIsFocus = true;
-		setState("select");
-
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeySetFocus(_old);
-	}
-
-	void ItemBox::_onKeyLostFocus(WidgetPtr _new)
-	{
-		mIsFocus = false;
-		setState("normal");
-
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyLostFocus(_new);
 	}
 
 	void ItemBox::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel)
@@ -204,6 +178,10 @@ namespace MyGUI
 				// увеличиваем клиентскую зону на ширину скрола
 				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
+			mWidgetScroll->setScrollPosition(0);
+			mWidgetScroll->setScrollRange(0);
+			mTopIndex = 0;
+			mOffsetTop = 0;
 			return;
 		}
 		if (false == mWidgetScroll->isShow()) {
@@ -211,7 +189,11 @@ namespace MyGUI
 			mWidgetScroll->show();
 		}
 
+		// корректируем позицию скролла
+		size_t pos = mWidgetScroll->getScrollPosition();
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
+		// если позици€ стала недопустима, то отодвигаем ее в самый конец
+		if (pos >= mRangeIndex + 1) mWidgetScroll->setScrollPosition(mRangeIndex);
 	}
 
 	void ItemBox::_redrawAllVisible()
@@ -257,6 +239,32 @@ namespace MyGUI
 			return mVectorItems.back();
 		}
 		return mVectorItems[_index];
+	}
+
+	void ItemBox::_onMouseWheel(int _rel)
+	{
+		notifyMouseWheel(null, _rel);
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onMouseWheel(_rel);
+	}
+
+	void ItemBox::_onKeySetFocus(WidgetPtr _old)
+	{
+		mIsFocus = true;
+		setState("select");
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeySetFocus(_old);
+	}
+
+	void ItemBox::_onKeyLostFocus(WidgetPtr _new)
+	{
+		mIsFocus = false;
+		setState("normal");
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::_onKeyLostFocus(_new);
 	}
 
 	/*void ItemBox::_onKeyButtonPressed(int _key, Char _char)
