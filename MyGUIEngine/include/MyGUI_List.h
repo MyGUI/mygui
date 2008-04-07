@@ -153,6 +153,7 @@ namespace MyGUI
 
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel);
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseDoubleClick(MyGUI::WidgetPtr _sender);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);

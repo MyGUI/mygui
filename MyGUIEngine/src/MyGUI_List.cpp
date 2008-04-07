@@ -231,6 +231,12 @@ namespace MyGUI
 		}
 	}
 
+	void List::notifyMouseDoubleClick(MyGUI::WidgetPtr _sender)
+	{
+		if (mIndexSelect != ITEM_NONE)
+			eventListSelectAccept(this, mIndexSelect);
+	}
+
 	void List::setSize(const IntSize& _size)
 	{
 		Widget::setSize(_size);
@@ -288,6 +294,7 @@ namespace MyGUI
 				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
+				line->eventMouseButtonDoubleClick = newDelegate(this, &List::notifyMouseDoubleClick);
 				line->eventMouseWheel = newDelegate(this, &List::notifyMouseWheel);
 				line->eventMouseSetFocus = newDelegate(this, &List::notifyMouseSetFocus);
 				line->eventMouseLostFocus = newDelegate(this, &List::notifyMouseLostFocus);
