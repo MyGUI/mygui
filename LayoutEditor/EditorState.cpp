@@ -15,6 +15,8 @@ const int PANELS_MARGIN = 2;
 const int PANELS_MIN_HEIGHT = 25;
 const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Inertional;
 
+const float POSITION_CONTROLLER_TIME = 0.5;
+
 EditorWidgets * ew;
 WidgetTypes * wt;
 MyGUI::Gui * mGUI;
@@ -1349,13 +1351,13 @@ void EditorState::notifyMinimizePanel(MyGUI::WidgetPtr _sender)
 	MyGUI::VectorWidgetPtr::iterator panelIter = std::find(panels.begin(), panels.end(), panel);
 
 	MyGUI::IntCoord newcord = (*panelIter)->getCoord() + MyGUI::IntSize(0, dy);
-	MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(newcord, 1, move_mode);
+	MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(newcord, POSITION_CONTROLLER_TIME, move_mode);
 	MyGUI::ControllerManager::getInstance().addItem((*panelIter), controller);
 
 	for (++panelIter; panelIter != panels.end(); ++panelIter)
 	{
 		MyGUI::IntCoord newcord = (*panelIter)->getCoord() + MyGUI::IntPoint(0, dy);
-		MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(newcord, 1, move_mode);
+		MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(newcord, POSITION_CONTROLLER_TIME, move_mode);
 		MyGUI::ControllerManager::getInstance().addItem((*panelIter), controller);
 	}
 
@@ -1365,7 +1367,7 @@ void EditorState::notifyMinimizePanel(MyGUI::WidgetPtr _sender)
 	windowProperties->setMinMax(newMinMax);
 
 	newcord = windowProperties->getCoord() + MyGUI::IntSize(0, dy);
-	controller = new MyGUI::ControllerPosition(newcord, 1, move_mode);
+	controller = new MyGUI::ControllerPosition(newcord, POSITION_CONTROLLER_TIME, move_mode);
 	controller->eventPostAction = MyGUI::newDelegate(this, &EditorState::notifyEndResize);
 	MyGUI::ControllerManager::getInstance().addItem(windowProperties, controller);
 
