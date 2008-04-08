@@ -24,6 +24,7 @@ namespace MyGUI
 			manager.registerDelegate("Progress_Range") = newDelegate(this, &ProgressFactory::Progress_Range);
 			manager.registerDelegate("Progress_Position") = newDelegate(this, &ProgressFactory::Progress_Position);
 			manager.registerDelegate("Progress_AutoTrack") = newDelegate(this, &ProgressFactory::Progress_AutoTrack);
+			manager.registerDelegate("Progress_StartPoint") = newDelegate(this, &ProgressFactory::Progress_StartPoint);
 		}
 
 		ProgressFactory::~ProgressFactory()
@@ -36,6 +37,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Progress_Range");
 			manager.unregisterDelegate("Progress_Position");
 			manager.unregisterDelegate("Progress_AutoTrack");
+			manager.unregisterDelegate("Progress_StartPoint");
 		}
 
 		const Ogre::String& ProgressFactory::getType()
@@ -65,6 +67,12 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressAutoTrack(utility::parseBool(_value));
+		}
+
+		void ProgressFactory::Progress_StartPoint(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
+			static_cast<ProgressPtr>(_widget)->setProgressStartPoint(SkinManager::parseAlign(_value));
 		}
 
 	} // namespace factory

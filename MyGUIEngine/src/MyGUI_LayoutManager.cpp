@@ -80,7 +80,7 @@ namespace MyGUI
 		_widget->findAttribute("skin", widgetSkin);
 		_widget->findAttribute("name", widgetName);
 		_widget->findAttribute("layer", widgetLayer);
-		if (_widget->findAttribute("align", tmp)) align = SkinManager::getInstance().parseAlign(tmp);
+		if (_widget->findAttribute("align", tmp)) align = SkinManager::parseAlign(tmp);
 		if (_widget->findAttribute("position", tmp)) coord = IntCoord::parse(tmp);
 		if (_widget->findAttribute("position_real", tmp)) coord = Gui::getInstance().convertRelativeToInt(FloatCoord::parse(tmp), _parent);
 

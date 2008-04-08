@@ -26,7 +26,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		Align parseAlign(const std::string & _value);
+		static Align parseAlign(const std::string & _value);
 		WidgetSkinInfo * getSkin(const Ogre::String & _name);
 
 		//	для ручного создания скина
@@ -45,7 +45,7 @@ namespace MyGUI
 
 	private:
 		MapWidgetSkinInfoPtr mSkins;
-		MapAlign mMapAlign;
+		static MapAlign mMapAlign;
 
 	}; // class SkinManager
 

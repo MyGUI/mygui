@@ -1103,7 +1103,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Align")
 	{
 		widgetContainer->align = value;
-		widgetContainer->widget->setAlign(MyGUI::SkinManager::getInstance().parseAlign(value));
+		widgetContainer->widget->setAlign(MyGUI::SkinManager::parseAlign(value));
 		return;
 	}
 	else if (action == "Layer")

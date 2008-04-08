@@ -192,7 +192,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	_widget->findAttribute("type", container->type);
 	_widget->findAttribute("skin", container->skin);
 	_widget->findAttribute("layer", layer);
-	if (_widget->findAttribute("align", container->align)) align = MyGUI::SkinManager::getInstance().parseAlign(container->align);
+	if (_widget->findAttribute("align", container->align)) align = MyGUI::SkinManager::parseAlign(container->align);
 	if (_widget->findAttribute("position", position)) coord = MyGUI::IntCoord::parse(position);
 	if (_widget->findAttribute("position_real", position))
 	{

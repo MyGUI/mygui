@@ -135,7 +135,7 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			_widget->setTextAlign(SkinManager::getInstance().parseAlign(_value));
+			_widget->setTextAlign(SkinManager::parseAlign(_value));
 		}
 
 		void WidgetFactory::Widget_Enabled(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)

@@ -18,13 +18,16 @@ MyGUI::WidgetPtr but = 0;
 MyGUI::ButtonPtr button = 0;
 
 MyGUI::SheetPtr sheet = null;
+MyGUI::ProgressPtr progress = null;
 
 void DemoKeeper::move(int _left, int _top)
 {
 	if (but != 0) but->setPosition(_left+2, _top+2);
 
 	//if (button != 0) MyGUI::MYGUI_OUT(button->getTextSize());
+	if (progress) progress->setProgressPosition(_left);
 }
+
 
 void DemoKeeper::test(MyGUI::WidgetPtr _sender, bool _left)
 {
@@ -91,10 +94,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setSize(100, 100);//*/
 
 	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 200, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+	//MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);*/
 
-	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(400, 200, 300, 26), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	edit->setCaption("#FFFFFFF");*/
+	progress = win->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 206, 206), MyGUI::ALIGN_STRETCH);
+	progress->setProgressAutoTrack(true);
+	//progress->setProgressRange(100);
+	//progress->setProgressPosition(100);
+	//progress->setProgressFillTrack(true);
+	//edit->setCaption("#FFFFFFF");
 
 	/*MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(300, 300, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	text->setCaption("StaticText");*/
