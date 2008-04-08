@@ -33,13 +33,17 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		//! Set 
+		/** Set progress range */
 		void setProgressRange(size_t _range);
+		/** Get progress range */
 		inline size_t getProgressRange() {return mRange;}
 
+		/** Set progress position */
 		void setProgressPosition(size_t _pos);
+		/** Get progress position */
 		inline size_t getProgressPosition() {return mEndPosition;}
 
+		/** Enable or disable progress auto tracking */
 		void setProgressAutoTrack(bool _auto);
 
 		void setPosition(const IntCoord& _coord);

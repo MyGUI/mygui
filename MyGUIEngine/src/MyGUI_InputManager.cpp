@@ -18,7 +18,7 @@ namespace MyGUI
 {
 	const std::string XML_TYPE("Lang");
 	const std::string INPUT_DEFAULT_LANGUAGE("English");
-	const int INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
+	const unsigned long INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
 	const size_t INPUT_COUNT_LOAD_CHAR = 116;
@@ -40,6 +40,8 @@ namespace MyGUI
 		mIsControlPressed = false;
 		mHoldKey = KC_UNASSIGNED;
 		//mUseOISKeyLayout = false;
+		mFirstPressKey = true;
+		mTimerKey = 0.0f;
 
 		createDefaultCharSet();
 
@@ -199,7 +201,7 @@ namespace MyGUI
 			// после вызова, виджет может быть удален
 			if (null != mWidgetMouseFocus) {
 
-				if ((MB_Left == _id) && mTime.getMilliseconds() < (unsigned long)INPUT_TIME_DOUBLE_CLICK) {
+				if ((MB_Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
 					mWidgetMouseFocus->_onMouseButtonDoubleClick();
 				}
 				else {
@@ -406,7 +408,7 @@ namespace MyGUI
 		// а вот тут уже проверяем обыкновенный фокус
 		if (_widget == mWidgetKeyFocus) return;
 
-		if (mWidgetKeyFocus != null) mWidgetKeyFocus->_onKeyLostFocus(_widget);
+		if (isFocusKey()) mWidgetKeyFocus->_onKeyLostFocus(_widget);
 		if (_widget != null) {
 			if (_widget->isNeedKeyFocus()) {
 				_widget->_onKeySetFocus(mWidgetKeyFocus);
@@ -436,6 +438,8 @@ namespace MyGUI
 		if ( mHoldKey == KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {
 			mHoldKey = KC_UNASSIGNED;
+			//mFirstPressKey = true;
+			//mTimerKey = 0.0f;
 			return;
 		}
 
@@ -450,7 +454,8 @@ namespace MyGUI
 			if (mTimerKey > INPUT_INTERVAL_KEY) {
 				mTimerKey -= INPUT_INTERVAL_KEY;
 				mWidgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
-				mWidgetKeyFocus->_onKeyButtonReleased(mHoldKey);
+				// focus can be dropped in _onKeyButtonPressed
+				if ( isFocusKey() ) mWidgetKeyFocus->_onKeyButtonReleased(mHoldKey);
 			}
 		}
 
@@ -519,8 +524,8 @@ namespace MyGUI
 			|| (_key == KC_LMENU) || (_key == KC_RMENU)
 			) return;
 
-		mHoldKey = _key;
 		mFirstPressKey = true;
+		mHoldKey = _key;
 		mTimerKey = 0.0f;
 	}
 

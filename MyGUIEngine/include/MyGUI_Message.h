@@ -146,7 +146,6 @@ namespace MyGUI
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, None, _button1, _button2, _button3);
 		}
 
-	public:
 		/** Event : button on message window pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)\n
 			_button - id of pressed button

@@ -28,9 +28,6 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-
-
-
 	}; // class _MyGUIExport StaticText : public Widget
 
 } // namespace MyGUI

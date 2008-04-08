@@ -39,13 +39,13 @@ namespace MyGUI
 		inline void setImageRect(const FloatRect & _rect)
 		{
 			mRectImage = _rect;
-			mNum = (size_t)-1;
+			mNum = ITEM_NONE;
 		}
 
 		inline void setImageTile(const FloatSize & _tile)
 		{
 			mSizeTile = _tile;
-			mNum = (size_t)-1;
+			mNum = ITEM_NONE;
 		}
 
 		void setImageNum(size_t _num);
