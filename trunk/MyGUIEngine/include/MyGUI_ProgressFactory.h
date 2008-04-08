@@ -30,6 +30,7 @@ namespace MyGUI
 			void Progress_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Progress_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Progress_AutoTrack(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Progress_StartPoint(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

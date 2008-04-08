@@ -16,6 +16,8 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Skin");
 
+	SkinManager::MapAlign SkinManager::mMapAlign;
+
 	INSTANCE_IMPLEMENT(SkinManager);
 
 	void SkinManager::initialise()
