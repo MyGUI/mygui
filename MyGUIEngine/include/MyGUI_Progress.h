@@ -43,8 +43,15 @@ namespace MyGUI
 		/** Get progress position */
 		inline size_t getProgressPosition() {return mEndPosition;}
 
+		void setProgressFillTrack(bool _fill);
+		inline bool getProgressFillTrack() {return mFillTrack;}
+
 		/** Enable or disable progress auto tracking */
 		void setProgressAutoTrack(bool _auto);
+		inline bool getProgressAutoTrack() {return mAutoTrack;}
+
+		void setProgressStartPoint(Align _align = ALIGN_LEFT);
+		inline Align getProgressStartPoint() {return mStartPoint;}
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
@@ -56,6 +63,11 @@ namespace MyGUI
 	private:
 		void updateTrack();
 
+		inline int getClientWidth() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mClient->getWidth() : mClient->getHeight();}
+		inline int getClientHeight() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mClient->getHeight() : mClient->getWidth();}
+
+		void setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height);
+
 	private:
 		std::string mTrackSkin;
 		int mTrackWidth;
@@ -66,6 +78,9 @@ namespace MyGUI
 		size_t mStartPosition, mEndPosition;
 		float mAutoPosition;
 		bool mAutoTrack;
+		bool mFillTrack;
+
+		Align mStartPoint;
 
 	}; // class _MyGUIExport Progress : public Widget
 

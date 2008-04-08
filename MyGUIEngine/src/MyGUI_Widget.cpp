@@ -84,7 +84,7 @@ namespace MyGUI
 			iter = param.find("NeedKey");
 			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
 			iter = param.find("AlignText");
-			if (iter != param.end()) setTextAlign(SkinManager::getInstance().parseAlign(iter->second));
+			if (iter != param.end()) setTextAlign(SkinManager::parseAlign(iter->second));
 			iter = param.find("Colour");
 			if (iter != param.end()) setColour(utility::parseColour(iter->second));
 			iter = param.find("Pointer");

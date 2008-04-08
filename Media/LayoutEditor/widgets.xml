@@ -73,6 +73,7 @@
     <Parameter key="Progress_Range" value="1 int"/>
     <Parameter key="Progress_Position" value="1 int"/>
     <Parameter key="Progress_AutoTrack" value="Bool"/>
+    <Parameter key="Progress_StartPoint" value="AlignStartPoint"/>
     <!-- all properties -->
   </Widget>
 
@@ -190,17 +191,14 @@
     <Property key="HCENTER VCENTER"/>
   </Value>
 
-  <Value name="Bool">
-    <Property key="true"/>
-    <Property key="false"/>
+  <Value name="AlignStartPoint">
     <Property key="#444444[DEFAULT]"/>
+    <Property key="LEFT"/>
+    <Property key="TOP"/>
+    <Property key="RIGHT"/>
+    <Property key="BOTTOM"/>
   </Value>
 
-  <Value name="Font">
-    <Property key="#444444[DEFAULT]"/>
-	<Property key="MyGUI_CoreFont.18"/>
-  </Value>
-  
   <Value name="TextAlign">
     <Property key="#444444[DEFAULT]"/>
     <Property key="DEFAULT"/>
@@ -216,6 +214,17 @@
     <Property key="HCENTER VCENTER"/>
   </Value>
 
+  <Value name="Bool">
+    <Property key="true"/>
+    <Property key="false"/>
+    <Property key="#444444[DEFAULT]"/>
+  </Value>
+
+  <Value name="Font">
+    <Property key="#444444[DEFAULT]"/>
+	<Property key="MyGUI_CoreFont.18"/>
+  </Value>
+  
   <Value name="Layer">
     <!--Property key="Fade"/-->
     <!--Property key="Pointer"/-->
