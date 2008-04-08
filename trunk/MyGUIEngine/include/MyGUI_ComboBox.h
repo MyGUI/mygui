@@ -35,7 +35,7 @@ namespace MyGUI
 		//! Get number of items
 		size_t getItemCount();
 
-		//! Insert an item into a list at a specified position
+		//! Insert an item into a list at specified position
 		void insertItem(size_t _index, const Ogre::UTFString & _item);
 		//! Add an item to the end of a list
 		void addItem(const Ogre::UTFString & _item);

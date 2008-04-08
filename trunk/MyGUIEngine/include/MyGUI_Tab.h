@@ -73,34 +73,48 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// сделать видимой кнопку
+		/** Show bar button
+			@param _index of button
+		*/
 		void showBarButton(size_t _index);
+		/** Show bar button
+			@param _name of button
+		*/
 		void showBarButton(const Ogre::UTFString& _name);
+		/** Show selected bar button */
 		inline void showBarSelectButton() {showBarButton(mSelectSheet);}
 
+		/** Set default button width */
 		inline void setButtonDefaultWidth(int _width)
 		{
 			mButtonDefaultWidth = _width;
 			if (mButtonDefaultWidth < 1) mButtonDefaultWidth = 1;
 			mButtonAutoWidth = false;
 		}
+
+		/** Get default button width */
 		inline int getButtonDefaultWidth()
 		{
 			return mButtonDefaultWidth;
 		}
 
+		/** Enable or disable button auto width */
 		inline void setButtonAutoWidth(bool _auto)
 		{
 			mButtonAutoWidth = _auto;
 		}
+		/** Get button auto width */
 		inline bool getButtonAutoWidth()
 		{
 			return mButtonAutoWidth;
 		}
 
+		/** Enable or disable smooth sheets showing*/
 		inline void setSmoothShow(bool _smooth)
 		{
 			mSmoothShow = _smooth;
 		}
+		/** Get smooth sheets showing*/
 		inline bool getSmoothShow()
 		{
 			return mSmoothShow;
@@ -109,11 +123,13 @@ namespace MyGUI
 		//--------------------------------------------------------------------
 		// работа с вкладками
 		//--------------------------------------------------------------------
+		/** Get sheets count */
 		inline size_t getSheetCount()
 		{
 			return mSheetsInfo.size();
 		}
 
+		/** Get _sheet name */
 		inline const Ogre::UTFString& getSheetName(SheetPtr _sheet)
 		{
 			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
@@ -122,17 +138,20 @@ namespace MyGUI
 			MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 		}
 
+		/** Get sheet name by _index */
 		inline const Ogre::UTFString& getSheetNameIndex(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetNameIndex: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].name;
 		}
 
+		/** Get sheet button width by _index */
 		inline int getSheetButtonWidthIndex(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetButtonWidthIndex: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].width;
 		}
+		/** Get _sheet button width */
 		inline int getSheetButtonWidth(SheetPtr _sheet)
 		{
 			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
@@ -141,12 +160,14 @@ namespace MyGUI
 			MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 		}
 
+		/** Get sheet pointer by _index */
 		inline SheetPtr getSheet(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheet: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].sheet;
 		}
 
+		/** Get sheet pointer by _name */
 		inline SheetPtr findSheet(const Ogre::UTFString& _name)
 		{
 			for (VectorTabSheetInfo::iterator iter=mSheetsInfo.begin(); iter!=mSheetsInfo.end(); ++iter) {
@@ -155,22 +176,52 @@ namespace MyGUI
 			return null;
 		}
 
+		/** Set sheet name
+			@param _index of sheet
+			@param _width new width
+		*/
 		void setSheetNameIndex(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT);
+		/** Set _sheet name
+			@param _width new width
+		*/
 		void setSheetName(SheetPtr _sheet, const Ogre::UTFString& _name, int _width = DEFAULT);
 
+		/** Set sheet button width
+			@param _index of sheet
+			@param _width new width
+		*/
 		void setSheetButtonWidthIndex(size_t _index, int _width = DEFAULT);
+		/** Set _sheet button width 
+			@param _width new width
+		*/
 		void setSheetButtonWidth(SheetPtr _sheet, int _width = DEFAULT);
 
+		/** Add sheet at the end
+			@param _name of new sheet
+			@param _width of new sheet
+		*/
 		SheetPtr addSheet(const Ogre::UTFString& _name, int _width = DEFAULT);
+		/** Insert sheet at specified position
+			@param _index where new sheet wil be
+			@param _name of new sheet
+			@param _width of sheet
+		*/
 		SheetPtr insertSheet(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT);
 
+		/** Removee sheet by _index */
 		void removeSheetIndex(size_t _index);
+		/** Removee sheet by _name */
 		void removeSheet(const Ogre::UTFString& _name);
+		/** Removee sheet by _sheet pointer */
 		void removeSheet(SheetPtr _sheet);
 
+		/** Select sheet by _index, with _smooth selecting */
 		void selectSheetIndex(size_t _index, bool _smooth = true);
+		/** Select sheet by _name, with _smooth selecting */
 		void selectSheet(const Ogre::UTFString& _name, bool _smooth = true);
+		/** Select sheet by _sheet pointer, with _smooth selecting */
 		void selectSheet(SheetPtr _sheet, bool _smooth = true);
+		/** Get selected sheet index */
 		inline size_t getSelectSheetIndex() {return mSelectSheet;}
 
 	private:

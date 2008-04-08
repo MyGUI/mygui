@@ -93,7 +93,7 @@
             <Property key="Widget_Caption" value="Show widget skin"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="Overlapped" name="windowProperties">
+    <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowProperties">
         <Property key="Widget_Caption" value="Properties"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 0 2048 2048"/>

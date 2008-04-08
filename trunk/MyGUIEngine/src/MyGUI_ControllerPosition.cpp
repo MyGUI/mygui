@@ -46,7 +46,7 @@ namespace MyGUI
 	void InertionalMoveFunction(MyGUI::WidgetPtr _widget, IntCoord & _startRect, IntCoord & _destRect, float _current_time)
 	{
 		#ifndef M_PI
-		const float M_PI = 3.14;
+		const float M_PI = 3.141593;
 		#endif
 		float k = sin(M_PI * _current_time - M_PI/2);
 		if (k<0) k = (-pow((-k), (float)0.7) + 1)/2;
@@ -101,14 +101,15 @@ namespace MyGUI
 	{
 		mElapsedTime += _time;
 
-		eventFrameAction(_widget, mStartRect, mDestRect, mElapsedTime/mTime);
 		if (mElapsedTime < mTime)
+		{
+			eventFrameAction(_widget, mStartRect, mDestRect, mElapsedTime/mTime);
 			return true;
+		}
 
 		// поставить точно в конец
-		//eventFrameAction(_widget, mStartRect, mDestRect, 1.001);
-		_widget->setPosition(mDestRect);
-		// вызываем пользовательский елегат пост обработки
+		eventFrameAction(_widget, mStartRect, mDestRect, 1.);
+		// вызываем пользовательский делегат пост обработки
 		eventPostAction(_widget);
 
 		return false;
