@@ -167,7 +167,6 @@ namespace MyGUI
 			#endif
 		}
 		if (null != mEntityState) mEntityState->addTime(_time);
-		if (null != mEntityState) mEntityState->addTime(_time);
 	}
 
 	void RenderBox::_onMouseDrag(int _left, int _top)
