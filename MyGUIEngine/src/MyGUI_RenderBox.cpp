@@ -282,14 +282,19 @@ namespace MyGUI
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
 				mCamNode->setPosition(box.getCenter() - Ogre::Vector3(vec.y/2 + len1, 0, 0) - Ogre::Vector3(len1*0.2, 0, -height*0.1));
+				//mCamNode->lookAt(Ogre::Vector3(0, 0, box.getCenter().z), Ogre::Node::TS_WORLD);
 
 				Ogre::Vector3 x = Ogre::Vector3(0, 0, box.getCenter().z) - mCamNode->getPosition();
 				Ogre::Vector3 y = Ogre::Vector3(Ogre::Vector3::UNIT_Z).crossProduct(x);
 				Ogre::Vector3 z = x.crossProduct(y);
-				mCamNode->setOrientation(Ogre::Quaternion(
+				/*mCamNode->setOrientation(Ogre::Quaternion(
 					Ogre::Vector3(x.x, y.x, z.x).normalisedCopy(),
 					Ogre::Vector3(x.y, y.y, z.y).normalisedCopy(),
-					Ogre::Vector3(x.z, y.z, z.z).normalisedCopy()));
+					Ogre::Vector3(x.z, y.z, z.z).normalisedCopy()));*/
+				mCamNode->setOrientation(Ogre::Quaternion(
+					x.normalisedCopy(),
+					y.normalisedCopy(),
+					z.normalisedCopy()));
 
 			#else
 
