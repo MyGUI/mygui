@@ -58,11 +58,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(), MyGUI::ALIGN_BOTTOM, "Main");
-	menu->addItem("test 1");
+	MyGUI::WidgetPtr button = mGUI->createWidgetT("StrangeButton", "Button", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_BOTTOM, "Main");
+	button->setCaption("StrangeButton");
+	/*menu->addItem("test 1");
 	menu->addItem("test 2");
 	menu->addItem("test 3");
-	menu->addItem("test 4");
+	menu->addItem("test 4");*/
 	//menu->showPopupMenu(MyGUI::IntPoint(10, 10));
 
 	//MyGUI::PointerManager::getInstance().setPointer("hand", null);

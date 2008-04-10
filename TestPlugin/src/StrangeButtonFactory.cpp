@@ -32,7 +32,7 @@ namespace MyGUI
 		// реализация интерфейса фабрики
 		const Ogre::String& StrangeButtonFactory::getType()
 		{
-			return StrangeButton::getType();
+			return StrangeButton::_getType();
 		}
 
 		WidgetPtr StrangeButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)

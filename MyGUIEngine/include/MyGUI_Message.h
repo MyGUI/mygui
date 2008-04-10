@@ -68,7 +68,7 @@ namespace MyGUI
 		typedef delegates::IDelegate2<WidgetPtr, ViewInfo> EventMessageEnd;
 
 	protected:
-		Message(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 		void updateSize();
 		void notifyButtonClick(MyGUI::WidgetPtr _sender);

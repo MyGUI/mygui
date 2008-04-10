@@ -19,7 +19,7 @@ namespace MyGUI
 		friend class factory::ComboBoxFactory;
 
 	protected:
-		ComboBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		~ComboBox();
 
 		static Ogre::String WidgetTypeName;

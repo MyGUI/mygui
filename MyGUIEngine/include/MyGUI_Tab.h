@@ -37,7 +37,7 @@ namespace MyGUI
 		friend class Sheet;
 
 	protected:
-		Tab(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Tab();
 
 		void updateBar();

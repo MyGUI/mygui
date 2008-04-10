@@ -173,7 +173,10 @@ namespace MyGUI
 		// курсор для этого виджета
 		inline const std::string& getPointer()
 		{
-			if (false == mEnabled) return msEmptyString;
+			if (false == mEnabled) {
+				static std::string empty;
+				return empty;
+			}
 			return mPointer;
 		}
 
@@ -193,10 +196,6 @@ namespace MyGUI
 		{
 			return mWidgetCreator;
 		}
-
-	public:
-		// строка для возвратов
-		const static std::string msEmptyString;
 
 	protected:
 		// список всех стейтов

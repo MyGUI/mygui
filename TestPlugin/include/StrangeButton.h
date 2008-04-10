@@ -8,6 +8,7 @@ namespace MyGUI
 {
 
 	namespace factory{class StrangeButtonFactory;}
+
 	class StrangeButton : public Widget
 	{
 		// для вызова закрытого конструктора
@@ -17,8 +18,10 @@ namespace MyGUI
 		StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		// тип данного виджета
-		inline static const Ogre::String & getType() {static Ogre::String type("StrangeButton"); return type;}
+		//! @copydoc Widget::_getType()
+		inline static const Ogre::String & _getType() {return WidgetTypeName;}
+		//!	@copydoc Widget::getWidgetType()
+		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		inline void setButtonPressed(bool _pressed)
 		{
