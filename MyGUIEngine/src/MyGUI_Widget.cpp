@@ -23,8 +23,6 @@ namespace MyGUI
 
 	Ogre::String Widget::WidgetTypeName = "Widget";
 
-	const std::string Widget::msEmptyString;
-
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mOwner(static_cast<Widget*>(_parent)),
@@ -288,7 +286,10 @@ namespace MyGUI
 
 	const std::string & Widget::getFontName()
 	{
-		if (null == mText) return msEmptyString;
+		if (null == mText) {
+			static std::string empty;
+			return empty;
+		}
 		return mText->getFontName();
 	}
 
@@ -659,7 +660,10 @@ namespace MyGUI
 	const std::string& Widget::getLayerName()
 	{
 		LayerKeeper * keeper = getLayerKeeper();
-		if (null == keeper) return msEmptyString;
+		if (null == keeper) {
+			static std::string empty;
+			return empty;
+		}
 		return keeper->getName();
 	}
 

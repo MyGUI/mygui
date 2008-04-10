@@ -53,7 +53,7 @@ namespace MyGUI
 		/*Assert(pFunc, Exception::ERR_ITEM_NOT_FOUND, "Cannot find symbol dllStartPlugin in library " + fileName,
 			"PluginManager::loadPlugin");*/
 
-		MYGUI_ASSERT(null != pFunc, INSTANCE_TYPE_NAME << ":Cannot find symbol dllStartPlugin in library " << _file);
+		MYGUI_ASSERT(null != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStartPlugin' in library " << _file);
 
 		// This must call installPlugin
 		pFunc();
@@ -68,6 +68,9 @@ namespace MyGUI
 		if (it != mLibs.end()) {
 			// Call plugin shutdown
 			DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*it).second->getSymbol("dllStopPlugin");
+
+			MYGUI_ASSERT(null != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStopPlugin' in library " << _file);
+
 			// this must call uninstallPlugin
 			pFunc();
 			// Unload library (destroyed by DynLibManager)
