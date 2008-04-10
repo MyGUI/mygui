@@ -117,8 +117,8 @@ namespace MyGUI
 		mControllerManager->shutdown();
 		mClipboardManager->shutdown();
 		mLayoutManager->shutdown();
-		mDynLibManager->shutdown();
 		mPluginManager->shutdown();
+		mDynLibManager->shutdown();
 
 		delete mPointerManager;
 		delete mWidgetManager;

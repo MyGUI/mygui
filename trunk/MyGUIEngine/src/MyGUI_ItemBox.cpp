@@ -18,7 +18,7 @@ namespace MyGUI
 
 	Ogre::String ItemBox::WidgetTypeName = "ItemBox";
 
-	ItemBox::ItemBox(const IntCoord& _coord, char _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	ItemBox::ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetScroll(null),
 		mWidgetClient(null),
@@ -193,7 +193,7 @@ namespace MyGUI
 		size_t pos = mWidgetScroll->getScrollPosition();
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
 		// если позиция стала недопустима, то отодвигаем ее в самый конец
-		if (pos >= mRangeIndex + 1) mWidgetScroll->setScrollPosition(mRangeIndex);
+		if ((int)pos >= mRangeIndex + 1) mWidgetScroll->setScrollPosition(mRangeIndex);
 	}
 
 	void ItemBox::_redrawAllVisible()
