@@ -161,8 +161,8 @@ namespace MyGUI
 			}
 			// ýõ
 			else {
-				int pos = mStartPosition * getClientWidth() / (mRange);
-				setTrackPosition(wid, pos, 0, (mEndPosition * getClientWidth() / (mRange)) - pos, getClientHeight());
+				int pos = (int)mStartPosition * getClientWidth() / (int)mRange;
+				setTrackPosition(wid, pos, 0, ((int)mEndPosition * getClientWidth() / (int)mRange) - pos, getClientHeight());
 			}
 
 			return;

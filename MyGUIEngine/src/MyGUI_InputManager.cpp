@@ -353,10 +353,8 @@ namespace MyGUI
 		xml::xmlNodeIterator lang = _node->getNodeIterator();
 		while (lang.nextNode(XML_TYPE)) {
 
-			std::string name, charset;
+			std::string name;
 			if ( false == lang->findAttribute("name", name)) continue;
-			charset = lang->findAttribute("charset");
-			if (false == charset.empty()) name = utility::toString(name, "_", charset);
 
 			std::vector<std::string> chars = utility::split(lang->getBody());
 			if (chars.size() == INPUT_COUNT_LOAD_CHAR) {
