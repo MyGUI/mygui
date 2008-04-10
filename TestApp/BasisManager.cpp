@@ -265,12 +265,18 @@ bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	mGUI->injectMousePress(arg, id);
+
+	mDemo.pressed(arg.state.X.abs, arg.state.Y.abs, id == OIS::MB_Left);
+
 	return true;
 }
 
 bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	mGUI->injectMouseRelease(arg, id);
+
+	mDemo.released(arg.state.X.abs, arg.state.Y.abs, id == OIS::MB_Left);
+
 	return true;
 }
 

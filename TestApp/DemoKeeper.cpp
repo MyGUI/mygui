@@ -26,10 +26,16 @@ void DemoKeeper::move(int _left, int _top)
 
 	//if (button != 0) MyGUI::MYGUI_OUT(button->getTextSize());
 	if (progress) progress->setProgressPosition(_left);
+
 }
 
+MyGUI::PopupMenuPtr menu = null;
 
-void DemoKeeper::test(MyGUI::WidgetPtr _sender, bool _left)
+void DemoKeeper::pressed(int _left, int _top, bool _leftbutton)
+{
+}
+
+void DemoKeeper::released(int _left, int _top, bool _leftbutton)
 {
 	if (null != sheet) {
 		//MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Tab>("main_tab")->removeSheet(sheet);
@@ -42,6 +48,7 @@ void DemoKeeper::test(MyGUI::WidgetPtr _sender, bool _left)
 	if (num > 2) num = 0;
 
 	_sender->_setTextureName(names[num]);*/
+	if ((menu) && (!_leftbutton)) menu->showPopupMenu(MyGUI::IntPoint(_left, _top));
 	
 }
 
@@ -51,6 +58,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(), MyGUI::ALIGN_BOTTOM, "Main");
+	menu->addItem("test 1");
+	menu->addItem("test 2");
+	menu->addItem("test 3");
+	menu->addItem("test 4");
+	//menu->showPopupMenu(MyGUI::IntPoint(10, 10));
 
 	//MyGUI::PointerManager::getInstance().setPointer("hand", null);
 
@@ -154,10 +167,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//MyGUI::LayoutManager::getInstance().load("EditDemo.layout");
 	//MyGUI::LayoutManager::getInstance().load("playlist.layout");
 
-	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
-	edit->setEditMultiLine(true);
-	edit->setCaption("ww");
-	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);//*/
+	//MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	//edit->setEditMultiLine(true);
+	//edit->setCaption("ww");
+	//MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);//*/
 
 	//MyGUI::WidgetManager::getInstance().destroyWidget(edit);//*/
 

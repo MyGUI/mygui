@@ -163,6 +163,8 @@ namespace MyGUI
 			}
 		}
 
+		ControllerManager::getInstance().removeItem(this);
+
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
