@@ -16,9 +16,10 @@ public:
 
 	void start(MyGUI::Gui * _gui, size_t _width, size_t _height);
 	void end();
-	void move(int _left, int _top);
 
-	void test(MyGUI::WidgetPtr _sender, bool _left);
+	void move(int _left, int _top);
+	void pressed(int _left, int _top, bool _leftbutton);
+	void released(int _left, int _top, bool _leftbutton);
 
 private:
 	MyGUI::Gui * mGUI;
