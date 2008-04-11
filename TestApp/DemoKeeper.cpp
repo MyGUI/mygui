@@ -58,9 +58,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	/*menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(), MyGUI::ALIGN_BOTTOM, "Main");
+	menu->addItem("test 1");
+=======
 	MyGUI::WidgetPtr button = mGUI->createWidgetT("StrangeButton", "Button", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_BOTTOM, "Main");
 	button->setCaption("StrangeButton");
 	/*menu->addItem("test 1");
+>>>>>>> .r638
 	menu->addItem("test 2");
 	menu->addItem("test 3");
 	menu->addItem("test 4");*/
@@ -143,10 +147,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//MyGUI::Message::createMessage("test", "message is very cool.", true, MyGUI::Message::Ok | MyGUI::Message::IconInfo);//*/
 
-	/*MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("StaticImage", MyGUI::IntCoord(700, 200, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	box->injectObject("robot.mesh");
-	box->setAutoRotation(true);
-	box->setAlpha(0.3);*/
+	MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("StaticImage", MyGUI::IntCoord(300, 200, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	box->injectObject("Robot_helper_01.mesh");
+	box->setMouseRotation(true);
+	//box->setAutoRotation(true);
+	//box->setAlpha(0.3);
+	box->setRotationAngle(Ogre::Degree(90));
 
 	//MyGUI::TabPtr tab = mGUI->createWidget<MyGUI::Tab>("Tab", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	//tab->addSheet("test");
