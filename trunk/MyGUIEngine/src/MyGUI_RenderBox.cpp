@@ -171,7 +171,7 @@ namespace MyGUI
 
 	void RenderBox::_onMouseDrag(int _left, int _top)
 	{
-		if ((false == mUserViewport) && mMouseRotation && mAutoRotation) {
+		if ((false == mUserViewport) && mMouseRotation/* && mAutoRotation*/) {
 			// коррекция под левосторонюю систему координат с осью Z направленную вверх
 			#ifdef LEFT_HANDED_CS_UP_Z
 				mNode->roll(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
@@ -187,7 +187,7 @@ namespace MyGUI
 
 	void RenderBox::_onMouseButtonPressed(bool _left)
 	{
-		if (mMouseRotation && mAutoRotation) {
+		if (mMouseRotation/* || mAutoRotation*/) {
 			const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 			mLastPointerX = point.left;
 			mLeftPressed = true;
