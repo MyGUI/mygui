@@ -1,8 +1,8 @@
 
 #include "StrangeButtonParser.h"
 #include "StrangeButton.h"
-#include "delegate.h"
-#include "ParserManager.h"
+#include "MyGUI_Delegate.h"
+#include "MyGUI_ParserManager.h"
 
 namespace MyGUI
 {

@@ -13,6 +13,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LayoutEditor", "LayoutEdito
 		{5F8593A8-A772-4C4E-99C0-A182D3D9FF64} = {5F8593A8-A772-4C4E-99C0-A182D3D9FF64}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPlugin", "TestPlugin\TestPlugin_v7.vcproj", "{CF173C40-C851-402B-8777-7F01D0BACA1D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F8593A8-A772-4C4E-99C0-A182D3D9FF64} = {5F8593A8-A772-4C4E-99C0-A182D3D9FF64}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -31,6 +36,10 @@ Global
 		{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}.Debug.Build.0 = Debug|Win32
 		{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}.Release.ActiveCfg = Release|Win32
 		{73C7D63E-68C2-4B05-99F3-32D88DD3BA41}.Release.Build.0 = Release|Win32
+		{CF173C40-C851-402B-8777-7F01D0BACA1D}.Debug.ActiveCfg = Debug|Win32
+		{CF173C40-C851-402B-8777-7F01D0BACA1D}.Debug.Build.0 = Debug|Win32
+		{CF173C40-C851-402B-8777-7F01D0BACA1D}.Release.ActiveCfg = Release|Win32
+		{CF173C40-C851-402B-8777-7F01D0BACA1D}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
