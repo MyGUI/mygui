@@ -88,7 +88,7 @@ namespace MyGUI
 			FBL_SNAP_RIGHT,
 			FBL_SNAP_BOTTOM,
 			FBL_SNAP_TOP
-		} Layout;
+		} FooBarLayout;
 
 	protected:
 		static Ogre::String WidgetTypeName;
@@ -155,9 +155,9 @@ namespace MyGUI
 			\li FBL_SNAP_TOP - snap bar to the top border of screen
 			\li	FBL_SNAP_BOTTOM - snap bar to the bottom border of screen
 		*/
-		void setLayout(Layout layout);
+		void setLayout(FooBarLayout layout);
 		//!	Get layout type
-		Layout getLayout() const;
+		FooBarLayout getLayout() const;
 
 		//! Set snap distance
 		void setSnapDistance(const Ogre::Real &sd);
@@ -242,7 +242,7 @@ namespace MyGUI
 		//!	Distance to border to snap window
 		Ogre::Real mSnapDistance;
 		//!	Layout type
-		Layout mLayout;
+		FooBarLayout mLayout;
 
 			
 

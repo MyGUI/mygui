@@ -199,7 +199,7 @@ namespace MyGUI
 		return mSnapDistance;
 	}
 
-	void FooBar::setLayout(FooBar::Layout layout)
+	void FooBar::setLayout(FooBar::FooBarLayout layout)
 	{
 		if (mLayout != layout)
 		{
@@ -211,7 +211,7 @@ namespace MyGUI
 			mLayout = layout;
 	}
 
-	FooBar::Layout FooBar::getLayout() const
+	FooBar::FooBarLayout FooBar::getLayout() const
 	{
 		return mLayout;
 	}
