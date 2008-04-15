@@ -32,6 +32,7 @@ namespace MyGUI
 			manager.registerDelegate("Widget_InheritsAlpha") = newDelegate(this, &WidgetFactory::Widget_InheritsAlpha);
 			manager.registerDelegate("Widget_State") = newDelegate(this, &WidgetFactory::Widget_State);
 			manager.registerDelegate("Widget_NeedKey") = newDelegate(this, &WidgetFactory::Widget_NeedKey);
+			manager.registerDelegate("Widget_NeedMouse") = newDelegate(this, &WidgetFactory::Widget_NeedMouse);
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
 			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
 		}
@@ -54,6 +55,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_InheritsAlpha");
 			manager.unregisterDelegate("Widget_State");
 			manager.unregisterDelegate("Widget_NeedKey");
+			manager.unregisterDelegate("Widget_NeedMouse");
 			manager.unregisterDelegate("Widget_AlignText");
 			manager.unregisterDelegate("Widget_Enabled");
 		}
@@ -131,6 +133,11 @@ namespace MyGUI
 		void WidgetFactory::Widget_NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			_widget->setNeedKeyFocus(utility::parseBool(_value));
+		}
+
+		void WidgetFactory::Widget_NeedMouse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			_widget->setNeedMouseFocus(utility::parseBool(_value));
 		}
 
 		void WidgetFactory::Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
