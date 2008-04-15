@@ -5,7 +5,7 @@
 
 
 
-#ifndef NO_OIS
+#ifndef MYGUI_NO_OIS
 #include <OIS/OIS.h>
 #endif
 

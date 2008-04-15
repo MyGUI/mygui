@@ -126,7 +126,7 @@ namespace MyGUI
 		bool injectKeyPress(KeyCode _key);
 		/** Inject KeyReleas event*/
 		bool injectKeyRelease(KeyCode _key);
-#ifndef NO_OIS
+#ifndef MYGUI_NO_OIS
 		/** OIS backend */
 		bool injectMouseMove( const OIS::MouseEvent & _arg) {return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);}
 		/** OIS backend */
