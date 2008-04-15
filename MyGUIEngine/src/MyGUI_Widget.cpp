@@ -39,7 +39,9 @@ namespace MyGUI
 		mTexture(_info->getTextureName()),
 		mMainSkin(null),
 		mWidgetCreator(_creator),
-		mInheritsAlpha(true)
+		mInheritsAlpha(true),
+		mNeedKeyFocus(false),
+		mNeedMouseFocus(true)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -81,6 +83,8 @@ namespace MyGUI
 			if (iter != param.end()) setFontHeight(utility::parseInt(iter->second));
 			iter = param.find("NeedKey");
 			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
+			iter = param.find("NeedMouse");
+			if (iter != param.end()) setNeedMouseFocus(iter->second == "true");
 			iter = param.find("AlignText");
 			if (iter != param.end()) setTextAlign(SkinManager::parseAlign(iter->second));
 			iter = param.find("Colour");
@@ -420,7 +424,7 @@ namespace MyGUI
 	LayerItem * Widget::_findLayerItem(int _left, int _top)
 	{
 		// проверяем попадание
-		if (!mVisible || !mShow || !_checkPoint(_left, _top)) return null;
+		if (!mVisible || !mShow || !mNeedMouseFocus || !_checkPoint(_left, _top)) return null;
 		// если есть маска, проверяем еще и по маске
 		if ((false == mMaskPeekInfo.empty()) &&
 			(false == mMaskPeekInfo.peek(IntPoint(_left, _top)-mCoord.point(), mCoord))) return null;

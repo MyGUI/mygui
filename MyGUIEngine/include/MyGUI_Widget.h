@@ -164,6 +164,9 @@ namespace MyGUI
 
 		inline bool isNeedKeyFocus() {return mNeedKeyFocus;}
 		inline void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
+		inline bool isNeedMouseFocus() {return mNeedMouseFocus;}
+		inline void setNeedMouseFocus(bool _need) {mNeedMouseFocus = _need;}
+
 		inline bool isEnabled() {return mEnabled;}
 		void setEnabled(bool _enabled, bool _silent = false);
 
@@ -235,6 +238,11 @@ namespace MyGUI
 
 		// это тот кто нас создал, и кто нас будет удалять
 		WidgetCreator * mWidgetCreator;
+
+		// нужен ли виджету ввод с клавы
+		bool mNeedKeyFocus;
+		// нужен ли виджету фокус мыши
+		bool mNeedMouseFocus;
 
 	};
 

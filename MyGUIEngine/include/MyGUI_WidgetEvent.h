@@ -51,7 +51,7 @@ namespace MyGUI
 		virtual ~WidgetEvent() {};
 
 	protected:
-		WidgetEvent() : mNeedKeyFocus(false), mWidgetEventSender(0) {}
+		WidgetEvent() : mWidgetEventSender(0) {}
 
 	public:
 
@@ -203,11 +203,8 @@ namespace MyGUI
 			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
 		}
 
-		// нужен ли виджету ввод с клавы
-		bool mNeedKeyFocus;
 		// от чьего имени мы посылаем сообщения
 		WidgetPtr mWidgetEventSender;
-
 	};
 
 } // namespace MyGUI
