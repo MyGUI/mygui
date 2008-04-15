@@ -29,6 +29,7 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+	private:
 		void TrackMove(int _left, int _top);
 		void updateTrack();
 
