@@ -26,6 +26,7 @@ namespace MyGUI
 			manager.registerDelegate("Edit_ReadOnly") = newDelegate(this, &EditFactory::Edit_ReadOnly);
 			manager.registerDelegate("Edit_Password") = newDelegate(this, &EditFactory::Edit_Password);
 			manager.registerDelegate("Edit_MultiLine") = newDelegate(this, &EditFactory::Edit_MultiLine);
+			manager.registerDelegate("Edit_PasswordChar") = newDelegate(this, &EditFactory::Edit_PasswordChar);
 		}
 
 		EditFactory::~EditFactory()
@@ -40,6 +41,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Edit_ReadOnly");
 			manager.unregisterDelegate("Edit_Password");
 			manager.unregisterDelegate("Edit_MultiLine");
+			manager.unregisterDelegate("Edit_PasswordChar");
 		}
 
 		const Ogre::String& EditFactory::getType()
@@ -81,6 +83,12 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
 			static_cast<EditPtr>(_widget)->setEditMultiLine(utility::parseBool(_value));
+		}
+
+		void EditFactory::Edit_PasswordChar(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
+			static_cast<EditPtr>(_widget)->setPasswordChar(_value);
 		}
 
 	} // namespace factory

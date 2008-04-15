@@ -121,6 +121,13 @@ namespace MyGUI
 			return mModeStatic;
 		}
 
+		void setPasswordChar(Char _char);
+		inline void setPasswordChar(const Ogre::UTFString & _char)
+		{
+			if (false == _char.empty()) setPasswordChar(_char[0]);
+		}
+		inline Char getPasswordChar() {return mCharPassword;}
+
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
 
@@ -250,6 +257,8 @@ namespace MyGUI
 
 		// для поддержки режима статик, где курсор не нужен
 		std::string mOriginalPointer;
+
+		Char mCharPassword;
 
 	}; // class Edit : public Widget
 
