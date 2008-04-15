@@ -16,7 +16,7 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("StrangeButtonPressed") = newDelegate(this, &StrangeButtonFactory::ButtonPressed);
+			manager.registerDelegate("StrangeButton_Pressed") = newDelegate(this, &StrangeButtonFactory::ButtonPressed);
 		}
 
 		StrangeButtonFactory::~StrangeButtonFactory()
@@ -26,7 +26,7 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 
 			// удаляем все парсеры
-			manager.unregisterDelegate("StrangeButtonPressed");
+			manager.unregisterDelegate("StrangeButton_Pressed");
 		}
 
 		// реализация интерфейса фабрики

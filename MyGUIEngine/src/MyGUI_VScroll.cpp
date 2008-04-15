@@ -45,10 +45,16 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iterS = param.find("TrackRangeMargins");
-		if (iterS != param.end()) {
+		if (iterS != param.end())
+		{
 			IntSize range = IntSize::parse(iterS->second);
 			mSkinRangeStart = range.width;
 			mSkinRangeEnd = range.height + mWidgetTrack->getHeight();
+		}
+		else
+		{
+			mSkinRangeStart = 0;
+			mSkinRangeEnd = mWidgetTrack->getHeight();
 		}
 	}
 

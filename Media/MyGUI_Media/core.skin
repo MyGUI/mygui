@@ -429,8 +429,29 @@
         </BasisSkin>
     </Skin>
 
+	<Skin name = "VScrollTopPart" size = "16 22" texture = "core.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "163 18 16 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 16 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "163 24 16 16"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VScrollBottomPart" size = "16 22" texture = "core.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 16 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "163 24 16 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 16 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "163 40 16 6"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "VScroll" size = "16 60" texture = "core.png" >
         <Property key="TrackRangeMargins" value = "17 17" />
+
+		<IGNORED_Child type="Button" skin="VScrollTopPart" offset = "0 16 16 6" align = "ALIGN_STRETCH" name = "TopPart"/>
+        <IGNORED_Child type="Button" skin="VScrollBottomPart" offset = "0 38 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "BottomPart"/>
 
         <Child type="Button" skin="VScrollTop" offset = "0 0 16 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start"/>
         <Child type="Button" skin="VScrollBottom" offset = "0 44 16 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End"/>
@@ -490,6 +511,33 @@
         </BasisSkin>
     </Skin>
 
+	<Skin name = "VSlider" size = "22 28" texture = "core.png" >
+        <Child type="Button" skin="HScrollTrack" offset = "0 0 21 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
+
+        <BasisSkin type="SubSkin" offset = "3 0 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "163 18 16 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 16 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "163 24 16 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 22 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "163 40 16 6"/>
+        </BasisSkin>
+    </Skin>
+	
+	<Skin name = "HSlider" size = "28 22" texture = "core.png" >
+        <Child type="Button" skin="VScrollTrack" offset = "0 0 16 21" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track"/>
+
+        <BasisSkin type="SubSkin" offset = "0 3 6 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "171 87 6 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 16 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "177 87 16 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "22 3 6 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "193 87 6 16"/>
+        </BasisSkin>
+    </Skin>
 
     <Skin name = "ListLine" size = "5 5" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />

@@ -115,17 +115,30 @@ namespace MyGUI
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
 
 		// mirror of InputManager methods
-		/** see InputManager::injectMouseMove*/
-		bool injectMouseMove( const OIS::MouseEvent & _arg);
-		/** see InputManager::injectMousePress*/
-		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
-		/** see InputManager::injectMouseRelease*/
-		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id );
+		/** Inject MouseMove event*/
+		bool injectMouseMove(int _absx, int _absy, int _absz);
+		/** Inject MousePress event*/
+		bool injectMousePress(int _absx, int _absy, MouseButton _id);
+		/** Inject MouseRelease event*/
+		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
 
-		/** see InputManager::injectKeyPress*/
-		bool injectKeyPress(const OIS::KeyEvent & _arg);
-		/** see InputManager::injectKeyRelease*/
-		bool injectKeyRelease(const OIS::KeyEvent & _arg);
+		/** Inject KeyPress event*/
+		bool injectKeyPress(KeyCode _key);
+		/** Inject KeyReleas event*/
+		bool injectKeyRelease(KeyCode _key);
+#ifndef NO_OIS
+		/** OIS backend */
+		bool injectMouseMove( const OIS::MouseEvent & _arg) {return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);}
+		/** OIS backend */
+		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
+		/** OIS backend */
+		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
+
+		/** OIS backend */
+		bool injectKeyPress(const OIS::KeyEvent & _arg) {return injectKeyPress((KeyCode)_arg.key);}
+		/** OIS backend */
+		bool injectKeyRelease(const OIS::KeyEvent & _arg) {return injectKeyRelease((KeyCode)_arg.key);}
+#endif
 
 		// mirror of WidgetManager method
 		/** Destroy any created widget*/
