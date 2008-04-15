@@ -43,7 +43,8 @@ namespace MyGUI
 		mModeReadOnly(false),
 		mModePassword(false),
 		mModeMultiline(false),
-		mModeStatic(false)
+		mModeStatic(false),
+		mCharPassword('*')
 	{
 
 		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit must have TextEdit)");
@@ -1136,10 +1137,18 @@ namespace MyGUI
 	{
 		if (mModePassword) {
 			mPasswordText = _caption;
-			mText->setCaption(Ogre::UTFString(mTextLength, '*'));
+			mText->setCaption(Ogre::UTFString(mTextLength, mCharPassword));
 		}
 		else {
 			mText->setCaption(_caption);
+		}
+	}
+
+	void Edit::setPasswordChar(Char _char)
+	{
+		mCharPassword = _char;
+		if (mModePassword) {
+			mText->setCaption(Ogre::UTFString(mTextLength, mCharPassword));
 		}
 	}
 
