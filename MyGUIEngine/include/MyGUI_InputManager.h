@@ -39,16 +39,16 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
-		/** Iject MouseMove event*/
+		/** Inject MouseMove event*/
 		bool injectMouseMove(int _absx, int _absy, int _absz);
-		/** Iject MousePress event*/
+		/** Inject MousePress event*/
 		bool injectMousePress(int _absx, int _absy, MouseButton _id);
-		/** Iject MouseRelease event*/
+		/** Inject MouseRelease event*/
 		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
 
-		/** Iject KeyPress event*/
+		/** Inject KeyPress event*/
 		bool injectKeyPress(KeyCode _key);
-		/** Iject KeyReleas event*/
+		/** Inject KeyReleas event*/
 		bool injectKeyRelease(KeyCode _key);
 
 		/** Is any widget have mouse focus */

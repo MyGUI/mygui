@@ -29,13 +29,6 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		virtual void TrackMove(int _left, int _top);
-		virtual void updateTrack();
-
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
-
 		void setScrollRange(size_t _range);
 		inline size_t getScrollRange() {return mScrollRange;}
 
@@ -57,6 +50,12 @@ namespace MyGUI
 		EventInfo_WidgetSizeT eventScrollChangePosition;
 
 	protected:
+		virtual void updateTrack();
+		virtual void TrackMove(int _left, int _top);
+		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+
 		// наши кнопки
 		ButtonPtr mWidgetStart;
 		ButtonPtr mWidgetEnd;

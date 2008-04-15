@@ -1043,7 +1043,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string type = _sender->getUserString("type");
 
 	if (value == "[DEFAULT]") value = "";
-	else if ((action == "Align") || (action == "Widget_AlignText"))
+	else if ((action == "Align") || (action == "Widget_AlignText") || (action == "Progress_StartPoint"))
 	{
 		std::string tmp = "";
 		const std::vector<std::string> & vec = MyGUI::utility::split(value);
