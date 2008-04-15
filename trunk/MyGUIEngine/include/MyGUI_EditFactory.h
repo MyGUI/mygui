@@ -32,6 +32,7 @@ namespace MyGUI
 			void Edit_ReadOnly(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_Password(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_MultiLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_PasswordChar(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory
