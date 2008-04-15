@@ -440,7 +440,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
 	}
 
-	void Tab::selectSheetIndex(size_t _index, bool _smoot)
+	void Tab::selectSheetIndex(size_t _index, bool _smooth)
 	{
 		MYGUI_ASSERT(_index < mSheetsInfo.size(), "selectSheetIndex: index '" << _index << "' out of range");
 		if (mSelectSheet == _index) return;
@@ -449,10 +449,10 @@ namespace MyGUI
 		updateBar();
 
 		// поднимаем страницу для пикинга
-		if (_smoot) _forcePeek(mSheetsInfo[mSelectSheet].sheet);
+		if (_smooth) _forcePeek(mSheetsInfo[mSelectSheet].sheet);
 
-		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, _smoot);
-		_showSheet(mSheetsInfo[old].sheet, false, _smoot);
+		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, _smooth);
+		_showSheet(mSheetsInfo[old].sheet, false, _smooth);
 	}
 
 	void Tab::selectSheet(const Ogre::UTFString& _name, bool _smooth)

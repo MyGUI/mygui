@@ -24,6 +24,7 @@ namespace MyGUI
 			manager.registerDelegate("Scroll_Range") = newDelegate(this, &VScrollFactory::Scroll_Range);
 			manager.registerDelegate("Scroll_Position") = newDelegate(this, &VScrollFactory::Scroll_Position);
 			manager.registerDelegate("Scroll_Page") = newDelegate(this, &VScrollFactory::Scroll_Page);
+			manager.registerDelegate("Scroll_ViewPage") = newDelegate(this, &VScrollFactory::Scroll_ViewPage);
 		}
 
 		VScrollFactory::~VScrollFactory()
@@ -64,6 +65,12 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(VScrollPtr, _widget, _key);
 			static_cast<VScrollPtr>(_widget)->setScrollPage(utility::parseSizeT(_value));
+		}
+
+		void VScrollFactory::Scroll_ViewPage(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(VScrollPtr, _widget, _key);
+			static_cast<VScrollPtr>(_widget)->setScrollViewPage(utility::parseSizeT(_value));
 		}
 
 	} // namespace factory

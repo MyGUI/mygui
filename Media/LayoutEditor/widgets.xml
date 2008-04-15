@@ -36,6 +36,7 @@
     <Parameter key="Edit_ReadOnly" value="Bool"/>
     <Parameter key="Edit_Password" value="Bool"/>
     <Parameter key="Edit_MultiLine" value="Bool"/>
+    <Parameter key="Edit_PasswordChar" value="String"/>
     <!-- all properties -->
   </Widget>
 
@@ -45,6 +46,7 @@
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
+    <Parameter key="Scroll_ViewPage" value="1 int"/>
     <!-- all properties -->
   </Widget>
 
@@ -139,6 +141,7 @@
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
+    <Parameter key="Scroll_ViewPage" value="1 int"/>
     <!-- all properties -->
   </Widget>
 

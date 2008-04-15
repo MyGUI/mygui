@@ -19,6 +19,7 @@ namespace MyGUI
 	{
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
+		mScrollViewPage = 1;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Start") {
@@ -36,7 +37,16 @@ namespace MyGUI
 				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &VScroll::notifyMouseReleased);
 				mWidgetTrack->hide();
 			}
+			else if ((*iter)->_getInternalString() == "FirstPart") {
+				mWidgetFirstPart = castWidget<Button>(*iter);
+				mWidgetFirstPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+			}
+			else if ((*iter)->_getInternalString() == "SecondPart") {
+				mWidgetSecondPart = castWidget<Button>(*iter);
+				mWidgetSecondPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+			}
 		}
+
 		// slider don't have buttons
 		//MYGUI_ASSERT(null != mWidgetStart, "Child Button Start not found in skin (Scroll must have Start)");
 		//MYGUI_ASSERT(null != mWidgetEnd, "Child Button End not found in skin (Scroll must have End)");
@@ -60,6 +70,7 @@ namespace MyGUI
 
 	void VScroll::updateTrack()
 	{
+		_forcePeek(mWidgetTrack);
 		// размер диапазана в пикселях
 		int pos = mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);
 
@@ -73,7 +84,21 @@ namespace MyGUI
 
 		// и обновляем позицию
 		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
-		if (mWidgetTrack->getTop() != pos) mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
+		if (mWidgetTrack->getTop() != pos)
+		{
+			mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
+			if ( null != mWidgetFirstPart)
+			{
+				int height = pos + mWidgetTrack->getHeight()/2 - mWidgetFirstPart->getTop();
+				mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), height);
+			}
+			if ( null != mWidgetSecondPart)
+			{
+				int top = pos + mWidgetTrack->getHeight()/2;
+				int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
+				mWidgetSecondPart->setPosition(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
+			}
+		}
 	}
 
 	void VScroll::TrackMove(int _left, int _top)
@@ -127,6 +152,30 @@ namespace MyGUI
 
 			// расчитываем следующее положение
 			if ((mScrollPosition + mScrollPage) < (mScrollRange-1)) mScrollPosition += mScrollPage;
+			else mScrollPosition = mScrollRange - 1;
+
+			// оповещаем
+			eventScrollChangePosition(this, (int)mScrollPosition);
+			updateTrack();
+
+		} else if (_sender == mWidgetFirstPart) {
+			// минимальное значение
+			if (mScrollPosition == 0) return;
+
+			// расчитываем следующее положение
+			if (mScrollPosition > mScrollPage) mScrollPosition -= mScrollViewPage;
+			else mScrollPosition = 0;
+
+			// оповещаем
+			eventScrollChangePosition(this, (int)mScrollPosition);
+			updateTrack();
+
+		} else if (_sender == mWidgetSecondPart){
+			// максимальное значение
+			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
+
+			// расчитываем следующее положение
+			if ((mScrollPosition + mScrollPage) < (mScrollRange-1)) mScrollPosition += mScrollViewPage;
 			else mScrollPosition = mScrollRange - 1;
 
 			// оповещаем

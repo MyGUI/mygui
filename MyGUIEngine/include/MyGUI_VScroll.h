@@ -38,6 +38,9 @@ namespace MyGUI
 		inline void setScrollPage(size_t _page = 1) {mScrollPage = _page;}
 		inline size_t getScrollPage() {return mScrollPage;}
 
+		inline void setScrollViewPage(size_t _viewPage = 1) {mScrollViewPage = _viewPage;}
+		inline size_t getScrollViewPage() {return mScrollViewPage;}
+
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 
@@ -60,6 +63,9 @@ namespace MyGUI
 		ButtonPtr mWidgetStart;
 		ButtonPtr mWidgetEnd;
 		ButtonPtr mWidgetTrack;
+		// куски между кнопками
+		ButtonPtr mWidgetFirstPart;
+		ButtonPtr mWidgetSecondPart;
 
 		// размеры окна перед началом его изменений
 		IntRect mPreActionRect;
@@ -71,6 +77,7 @@ namespace MyGUI
 		size_t mScrollRange;
 		size_t mScrollPosition;
 		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
+		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
 
 	}; // class VScroll : public Widget
 
