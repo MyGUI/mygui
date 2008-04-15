@@ -30,6 +30,7 @@ namespace MyGUI
 			void Scroll_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Scroll_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Scroll_Page(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Scroll_ViewPage(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory
