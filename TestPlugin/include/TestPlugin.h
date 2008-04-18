@@ -3,7 +3,6 @@
 
 #include "MyGUI_Plugin.h"
 #include "StrangeButtonFactory.h"
-#include "StrangeButtonParser.h"
 
 /*!	Test plugin to demostrate possibilities of plugins for MyGUI
 */
