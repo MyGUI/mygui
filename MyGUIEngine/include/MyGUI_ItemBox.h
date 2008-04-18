@@ -13,9 +13,33 @@
 namespace MyGUI
 {
 
+	struct ItemInfo
+	{
+		ItemInfo(size_t _index) :
+			index(_index),
+			data(null),
+			only_state(false),
+			select(false),
+			active(false)
+		{
+		}
+
+		// индекс этого елемента
+		size_t index;
+		// пользовательские данные
+		void * data;
+		// изменилось только состо€ние, а не содержимое
+		bool only_state;
+		// нажат ли виджет
+		bool select;
+		// активен ли виджет
+		bool active;
+	};
+	typedef std::vector<ItemInfo> VectorItemInfo;
+
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, WidgetPtr&> EventInfo_WidgetWidgetRefWidget;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, IntSize&> EventInfo_WidgetWidgetRefSize;
-	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, size_t> EventInfo_WidgetWidgetSizeT;
+	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -34,45 +58,6 @@ namespace MyGUI
 
 		void addItem();
 
-		/*inline size_t getItemCount()
-		{
-			return mStringArray.size();
-		}
-		inline const Ogre::UTFString & getItemString(size_t _index)
-		{
-			MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
-			return mStringArray[_index];
-		}
-		inline void setItemString(size_t _index, const Ogre::UTFString & _item)
-		{
-			MYGUI_ASSERT(_index < mStringArray.size(), "setItemString: index " << _index <<" out of range");
-			mStringArray[_index]=_item;
-			_redrawItem(_index);
-		}
-		void insertItemString(size_t _index, const Ogre::UTFString & _item);
-		inline void addItemString(const Ogre::UTFString & _item)
-		{
-			insertItemString(ITEM_NONE, _item);
-		}
-		void deleteItemString(size_t _index);
-
-		inline size_t getItemSelect() {return mIndexSelect;}
-		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
-		void setItemSelect(size_t _index);
-
-		// методы дл€ показа строк
-		void beginToIndex(size_t _index);
-		inline void beginToStart() {beginToIndex(0);}
-		inline void beginToEnd()
-		{
-			if (!mStringArray.empty()) beginToIndex(mStringArray.size()-1);
-		}
-		inline void beginToSelect() {beginToIndex(mIndexSelect);}
-
-		// видим ли мы элемент, полностью или нет
-		bool isItemVisible(size_t _index, bool _fill = true);
-		inline bool isItemSelectVisible(bool _fill = true) {return isItemVisible(mIndexSelect, _fill);}
-*/
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 
@@ -80,24 +65,6 @@ namespace MyGUI
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
-
-		void ini();
-
-		// возвращает максимальную высоту вмещающую все строки и радительский бордюр
-		/*inline int getItemBoxMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
-
-		// event : нажат ентер, или двойной щелчек
-		// signature : void method(MyGUI::WidgetPtr _sender)
-		EventInfo_WidgetVoid eventItemBoxSelectAccept;
-
-		// event : изменилась позици€
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
-		EventInfo_WidgetSizeT eventItemBoxChangePosition;
-
-		// event : мышью выделен элемент
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
-		EventInfo_WidgetSizeT eventItemBoxMouseItemActivate;
-*/
 		// event : запрос на создание айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
 		EventInfo_WidgetWidgetRefWidget requestCreateItem;
@@ -108,7 +75,7 @@ namespace MyGUI
 
 		// event : запрос на обновление айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
-		EventInfo_WidgetWidgetSizeT requestUpdateItem;
+		EventInfo_WidgetWidgetItemInfo requestUpdateItem;
 
 	protected:
 
@@ -118,6 +85,9 @@ namespace MyGUI
 
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _index);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
+		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
+		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
+		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
 
 		// ќбновл€ет данные о айтемах, при изменении размеров 
 		void updateMetrics();
@@ -125,11 +95,8 @@ namespace MyGUI
 		// обновл€ет скролл, по текущим метрикам
 		void updateScroll();
 
-		// просто перерисовывает все виджеты что видны
+		// просто обновл€ет все виджеты что видны
 		void _updateAllVisible(bool _redraw);
-
-		// передвигает все видимые виджеты, не обновл€€ содержимое
-		//void _recalcAllVisible();
 
 		void updateFromResize(const IntSize& _size);
 
@@ -137,27 +104,6 @@ namespace MyGUI
 
 		void _updateScrollWidget();
 
-		/*void _onKeyButtonPressed(int _key, Char _char);
-
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-
-		void updateLine(bool _reset = false);
-
-		// перерисовывает от индекса до низа
-		void _redrawItemRange(size_t _start = 0);
-
-		// перерисовывает индекс
-		void _redrawItem(size_t _index);
-
-		// удал€ем строку из списка
-		void _deleteString(size_t _index);
-		// вставл€ем строку
-		void _insertString(size_t _index, const Ogre::UTFString & _item);
-
-		// ищет и выдел€ет елемент
-		inline void _selectIndex(size_t _index, bool _select);*/
-
-		//inline void _updateState() {setState(mIsFocus ? "select" : "normal");}
 
 	private:
 		//std::string mSkinLine;
@@ -191,17 +137,16 @@ namespace MyGUI
 		// сколько его пикселей не видно сверху
 		int mOffsetTop;
 
-		/*int mHeightLine; // высота одной строки
-		size_t mLastRedrawLine; // последн€€ перерисованна€ лини€
-
-		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
-
-		std::vector<Ogre::UTFString> mStringArray;*/
+		// текущий выделенный элемент или ITEM_NONE
+		size_t mIndexSelect;
+		// подсвеченный элемент или ITEM_NONE
+		size_t mIndexActive;
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;
 
-		//IntSize mOldSize;
+		// структура данных об айтеме
+		VectorItemInfo mItemsInfo;
 
 	}; // class ItemBox : public Widget
 
