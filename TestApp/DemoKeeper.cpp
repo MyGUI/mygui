@@ -54,7 +54,7 @@ void DemoKeeper::released(int _left, int _top, bool _leftbutton)
 
 void requestCreateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
 {
-	_item = _parent->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT);
+	_item = _parent->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT);
 }
 
 void requestSizeItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntSize & _size)
@@ -62,9 +62,14 @@ void requestSizeItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::
 	_size.set(50, 50);
 }
 
-void requestUpdateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
+void requestUpdateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _data)
 {
-	_item->setCaption(MyGUI::utility::toString(_index));
+	if (_data.select) _item->setState(_data.active ? "select" : "pressed");
+	else _item->setState(_data.active ? "active" : "normal");
+
+	if (false == _data.only_state) {
+		_item->setCaption(MyGUI::utility::toString(_data.index));
+	}
 }
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
@@ -137,8 +142,6 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 		box->addItem();
 		num ++;
 	}
-
-	box->ini();
 
 	/*MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(400, 200, 300, 226), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	box->injectObject("Robot_helper_01.mesh");

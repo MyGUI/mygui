@@ -12,6 +12,7 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_InputManager.h"
 
 namespace MyGUI
 {
@@ -27,7 +28,9 @@ namespace MyGUI
 		mIsFocus(false),
 		mCountItems(0),
 		mScrollRange(0),
-		mScrollPosition(0)
+		mScrollPosition(0),
+		mIndexSelect(ITEM_NONE),
+		mIndexActive(ITEM_NONE)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -40,8 +43,8 @@ namespace MyGUI
 			}
 			else if ((*iter)->_getInternalString() == "Client") {
 				mWidgetClient = (*iter);
-				//mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMousePressed);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
+				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetScroll, "Child VScroll not found in skin (ItemBox must have VScroll)");//???
@@ -55,20 +58,9 @@ namespace MyGUI
 
 		iter = param.find("HeightLine");
 		if (iter != param.end()) mHeightLine = utility::parseInt(iter->second);
-		if (mHeightLine < 1) mHeightLine = 1;
+		if (mHeightLine < 1) mHeightLine = 1;*/
 
-*/
 		mSizeItem.set(1, 1);
-		/*mWidgetScroll->setScrollPage((size_t)mSizeItem.height);
-
-		mSizeItem.set(50, 50);
-		mCountItems = 150;
-
-		updateMetrics();
-		updateScroll();
-		_redrawAllVisible();*/
-		//updateLine();
-
 	}
 
 	void ItemBox::addItem()
@@ -76,6 +68,8 @@ namespace MyGUI
 		mCountItems++;
 		updateMetrics();
 		updateScroll();
+
+		mItemsInfo.push_back(ItemInfo(mItemsInfo.size()));
 
 		_updateAllVisible(true);
 	}
@@ -99,6 +93,7 @@ namespace MyGUI
 		if (mWidgetScroll) {
 			mWidgetScroll->setScrollPosition(mScrollPosition);
 			mWidgetScroll->setScrollRange(mScrollRange + 1);
+			mWidgetScroll->setScrollPage(mSizeItem.height);
 		}
 	}
 
@@ -124,62 +119,7 @@ namespace MyGUI
 		mLineTop = mScrollPosition / mSizeItem.height;
 		mOffsetTop = mScrollPosition % mSizeItem.height;
 
-		//_updateScrollWidget();
 		_updateAllVisible(old != mLineTop);
-
-		/*mOffsetTop = ((int)_rel % mSizeItem.height);
-
-		// смещение с отрицательной стороны
-		int offsetVert = 0 - mOffsetTop;
-		int countInLine = 0;
-		int offsetHorz = 0;
-
-		// переставляем тупо виджеты
-		for (size_t pos=0; pos<mVectorItems.size(); pos++) {
-			if (countInLine >= mCountItemInLine) {
-				offsetVert += mSizeItem.height;
-				countInLine = 0;
-				offsetHorz = 0;
-			}
-
-			mVectorItems[pos]->setPosition(IntPoint(offsetHorz, offsetVert));
-			countInLine ++;
-			offsetHorz += mSizeItem.width;
-		}
-
-		// если индекс изменился, то перерисовываем линии
-		int top = ((int)_rel / mSizeItem.height) * mCountItemInLine;
-		if (top != mTopIndex) {
-			mTopIndex = top;
-			_redrawAllVisible();
-		}*/
-
-		// прорисовываем все нижние строки, если они появились
-		//_redrawItemRange(mLastRedrawLine);
-
-	}
-
-	void ItemBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
-	{
-		if (mScrollRange <= 0) return;
-
-		int offset = mScrollPosition;
-		if (_rel < 0) offset += mSizeItem.height;
-		else  offset -= mSizeItem.height;
-
-		if (offset >= mScrollRange) offset = mScrollRange;
-		else if (offset < 0) offset = 0;
-
-		if (mScrollPosition == offset) return;
-
-		mScrollPosition = offset;
-		int old = mLineTop;
-		mLineTop = mScrollPosition / mSizeItem.height;
-		mOffsetTop = mScrollPosition % mSizeItem.height;
-
-		_updateScrollWidget();
-		_updateAllVisible(old != mLineTop);
-
 	}
 
 	void ItemBox::updateMetrics()
@@ -248,42 +188,7 @@ namespace MyGUI
 
 		}
 
-		//MYGUI_OUT(mLineTop, ",  ", mOffsetTop);
-		
-
-		/*mScrollRange= (mSizeItem.height * mCountLines) - mWidgetClient->getHeight();
-
-		if ( (mScrollRange< 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) ) {
-			if (mWidgetScroll->isShow()) {
-				mWidgetScroll->hide();
-				// увеличиваем клиентскую зону на ширину скрола
-				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
-			}
-			mWidgetScroll->setScrollPosition(0);
-			mWidgetScroll->setScrollRange(0);
-			mTopIndex = 0;
-			mOffsetTop = 0;
-			return;
-		}
-		if (false == mWidgetScroll->isShow()) {
-			mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
-			mWidgetScroll->show();
-		}
-
-		// корректируем позицию скролла
-		size_t pos = mWidgetScroll->getScrollPosition();
-		mWidgetScroll->setScrollRange(mScrollRange+ 1);
-		// если позиция стала недопустима, то отодвигаем ее в самый конец
-		if ((int)pos >= mScrollRange+ 1) mWidgetScroll->setScrollPosition(mScrollIndex);*/
-
 		_updateScrollWidget();
-	}
-
-	void ItemBox::ini()
-	{
-		/*mOffsetTop = 10;
-		mScrollPosition = 10;
-		_redrawAllVisible();*/
 	}
 
 	void ItemBox::_updateAllVisible(bool _redraw)
@@ -302,7 +207,11 @@ namespace MyGUI
 				mSizeItem.width, mSizeItem.height));
 
 			widget->show();
-			if (_redraw) requestUpdateItem(this, widget, (size_t)pos);
+			if (_redraw) {
+				ItemInfo & data = mItemsInfo[pos];
+				data.only_state = false;
+				requestUpdateItem(this, widget, data);
+			}
 
 		}
 
@@ -311,8 +220,6 @@ namespace MyGUI
 			mVectorItems[iwid]->hide();
 			iwid ++;
 		}
-
-		//MYGUI_OUT(mVectorItems.size());
 
 	}
 
@@ -326,10 +233,12 @@ namespace MyGUI
 			requestCreateItem(this, mWidgetClient, widget);
 			MYGUI_ASSERT(widget, "not listen requestCreateItem");
 
-			//int pos = (mLineTop * mCountItemInLine) + _index;//(int)mVectorItems.size();
-			//WidgetPtr widget = mWidgetClient->createWidgetT("Widget", "Edit", IntCoord((pos % mCountItemInLine) * mSizeItem.width, ((pos / mCountItemInLine) * mSizeItem.height)  + mOffsetTop, mSizeItem.width, mSizeItem.height), ALIGN_DEFAULT);
-			//widget->setPosition(IntCoord((_item % mCountItemInLine) * mSizeItem.width, ((_item / mCountItemInLine) * mSizeItem.height)  - mOffsetTop, mSizeItem.width, mSizeItem.height));
 			widget->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
+			widget->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
+			widget->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
+			widget->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+
+			widget->_setInternalData((int)mVectorItems.size());
 			mVectorItems.push_back(widget);
 
 			return mVectorItems.back();
@@ -363,439 +272,122 @@ namespace MyGUI
 		Widget::_onKeyLostFocus(_new);
 	}
 
-	/*void ItemBox::_onKeyButtonPressed(int _key, Char _char)
+	void ItemBox::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
 	{
-		// очень секретный метод, запатентованный механизм движения курсора
-		if (getItemCount() == 0) {
+		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
-			// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-			Widget::_onKeyButtonPressed(_key, _char);
-			return;
-		}
-
-		size_t sel = mIndexSelect;
-
-		if (_key == KC_UP) {
-
-			if (sel != 0) {
-				if (sel == ITEM_NONE) sel = 0;
-				else sel --;
-			}
-
-		} else if (_key == KC_DOWN) {
-
-			if (sel == ITEM_NONE) sel = 0;
-			else sel ++;
-
-			if (sel >= getItemCount()) {
-				// старое значение
-				sel = mIndexSelect;
-			}
-
-		} else if (_key == KC_HOME) {
-
-			if (sel != 0) sel = 0;
-
-		} else if (_key == KC_END) {
-
-			if (sel != (getItemCount() - 1)) {
-				sel = getItemCount() - 1;
-			}
-
-		} else if (_key == KC_PGUP) {
-
-			if (sel != 0) {
-				if (sel == ITEM_NONE) sel = 0;
-				else {
-					size_t page = mWidgetClient->getHeight() / mHeightLine;
-					if (sel <= page) sel = 0;
-					else sel -= page;
-				}
-			}
-
-		} else if (_key == KC_PGDOWN) {
-
-			if (sel != (getItemCount() - 1)) {
-				if (sel == ITEM_NONE) sel = 0;
-				else {
-					sel += mWidgetClient->getHeight() / mHeightLine;
-					if (sel >= getItemCount()) sel = getItemCount() - 1;
-				}
-			}
-
-		} else if (_key == KC_RETURN) {
-			if (sel != ITEM_NONE) {
-				eventItemBoxSelectAccept(this);
-
-				Widget::_onKeyButtonPressed(_key, _char);
-				// выходим, так как изменили колличество строк
-				return;
-			}
-
-		}
-
-		if (sel != mIndexSelect) {
-			if ( false == isItemVisible(sel)) beginToIndex(sel);
-			setItemSelect(sel);
-			// изменилась позиция
-			eventItemBoxChangePosition(this, mIndexSelect);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::_onKeyButtonPressed(_key, _char);
+		ItemInfo & data = mItemsInfo[index];
+		data.only_state = true;
+		data.active = true;
+		requestUpdateItem(this, _sender, data);
+		mIndexActive = index;
 	}
 
-	void ItemBox::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	void ItemBox::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 	{
-		if (false == _left) return;
+		// уже сбросили фокус
+		if (mIndexActive == ITEM_NONE) return;
 
-		if (_sender == mWidgetScroll) return;
+		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
-		// если выделен клиент, то сбрасываем
-		if (_sender == mWidgetClient) {
-
-			if (mIndexSelect != ITEM_NONE) {
-				_selectIndex(mIndexSelect, false);
-				mIndexSelect = ITEM_NONE;
-				eventItemBoxChangePosition(this, mIndexSelect);
-			}
-			eventItemBoxMouseItemActivate(this, mIndexSelect);
-
-		// если не клиент, то просчитывам
-		} else {
-			size_t index = (size_t)_sender->_getInternalData() + mTopIndex;
-
-			if (mIndexSelect != index) {
-				_selectIndex(mIndexSelect, false);
-				_selectIndex(index, true);
-				mIndexSelect = index;
-				eventItemBoxChangePosition(this, mIndexSelect);
-			}
-			eventItemBoxMouseItemActivate(this, mIndexSelect);
-
-		}
-	}*/
-
-	/*void ItemBox::updateLine(bool _reset)
-	{
-		// сбрасываем
-		if (_reset) {
-			mOldSize.clear();
-			mLastRedrawLine = 0;
-		}
-
-		// позиция скролла
-		int position = mTopIndex * mHeightLine + mOffsetTop;
-
-		// если высота увеличивалась то добавляем виджеты
-		if (mOldSize.height < mCoord.height) {
-
-			int height = (int)mVectorItems.size() * mHeightLine - mOffsetTop;
-
-			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
-			while ( (height <= (mWidgetClient->getHeight() + mHeightLine)) && (mVectorItems.size() < mStringArray.size()) ) {
-				// создаем линию
-				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
-				// подписываемся на всякие там события
-				line->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMousePressed);
-				line->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-				// присваиваем порядковый номер, длу простоты просчета
-				line->_setInternalData((int)mVectorItems.size());
-				// и сохраняем
-				mVectorItems.push_back(line);
-				height += mHeightLine;
-			};
-
-			// проверяем на возможность не менять положение списка
-			if (position >= mScrollIndex) {
-
-				// размер всех помещается в клиент
-				if (mScrollRange<= 0) {
-
-					// обнуляем, если надо
-					if (position || mOffsetTop || mTopIndex) {
-
-						position = 0;
-						mTopIndex = 0;
-						mOffsetTop = 0;
-						mLastRedrawLine = 0; // чтобы все перерисовалось
-
-						// выравниваем
-						int offset = 0;
-						for (size_t pos=0; pos<mVectorItems.size(); pos++) {
-							mVectorItems[pos]->setPosition(0, offset);
-							offset += mHeightLine;
-						}
-					}
-
-				} else {
-
-					// прижимаем список к нижней границе
-					int count = mWidgetClient->getHeight() / mHeightLine;
-					mOffsetTop = mHeightLine - (mWidgetClient->getHeight() % mHeightLine);
-
-					if (mOffsetTop == mHeightLine) {
-						mOffsetTop = 0;
-						count --;
-					}
-
-					int top = (int)mStringArray.size() - count - 1;
-
-					// выравниваем
-					int offset = 0 - mOffsetTop;
-					for (size_t pos=0; pos<mVectorItems.size(); pos++) {
-						mVectorItems[pos]->setPosition(0, offset);
-						offset += mHeightLine;
-					}
-
-					// высчитываем положение, должно быть максимальным
-					position = top * mHeightLine + mOffsetTop;
-
-					// если индех изменился, то перерисовываем линии
-					if (top != mTopIndex) {
-						mTopIndex = top;
-						_redrawItemRange();
-					}
-
-				}
-			}
-
-			// увеличился размер, но прокрутки вниз небыло, обновляем линии снизу
-			_redrawItemRange(mLastRedrawLine);
-
-		} // if (old_cy < mCoord.height)
-
-		// просчитываем положение скролла
-		mWidgetScroll->setScrollPosition(position);
-
-		mOldSize.width = mCoord.width;
-		mOldSize.height = mCoord.height;
+		ItemInfo & data = mItemsInfo[index];
+		data.only_state = true;
+		data.active = false;
+		requestUpdateItem(this, _sender, data);
+		mIndexActive = ITEM_NONE;
 	}
 
-	void ItemBox::_redrawItemRange(size_t _start)
+	void ItemBox::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		// перерисовываем линии, только те, что видны
-		size_t pos = _start;
-		for (; pos<mVectorItems.size(); pos++) {
-			// индекс в нашем массиве
-			size_t index = pos + (size_t)mTopIndex;
+		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		if (index == mIndexSelect) return;
 
-			// не будем заходить слишком далеко
-			if (index >= mStringArray.size()) {
-				// запоминаем последнюю перерисованную линию
-				mLastRedrawLine = pos;
+		size_t start = (size_t)(mLineTop * mCountItemInLine);
+
+		// сбрасываем старое выделение
+		if (mIndexSelect != ITEM_NONE) {
+			ItemInfo & data = mItemsInfo[mIndexSelect];
+			data.only_state = true;
+			data.select = false;
+			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
+				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
+			}
+		}
+
+		// новый виджет может быть клиентской зоной
+		if (_sender == mWidgetClient) mIndexSelect = ITEM_NONE;
+		else {
+			mIndexSelect = index;
+			ItemInfo & data = mItemsInfo[mIndexSelect];
+			data.only_state = true;
+			data.select = true;
+			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
+				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
+			}
+		}
+	}
+
+	void ItemBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
+	{
+		if (mScrollRange <= 0) return;
+
+		int offset = mScrollPosition;
+		if (_rel < 0) offset += mSizeItem.height;
+		else  offset -= mSizeItem.height;
+
+		if (offset >= mScrollRange) offset = mScrollRange;
+		else if (offset < 0) offset = 0;
+
+		if (mScrollPosition == offset) return;
+
+		// сбрасываем старую подсветку
+		// так как при прокрутке, мышь может находиться над окном
+		if (mIndexActive != ITEM_NONE) {
+			size_t start = (size_t)(mLineTop * mCountItemInLine);
+			ItemInfo & data = mItemsInfo[mIndexActive];
+			data.only_state = true;
+			data.active = false;
+			if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size()))) {
+				requestUpdateItem(this, mVectorItems[mIndexActive - start], data);
+			}
+			mIndexActive = ITEM_NONE;
+		}
+
+		mScrollPosition = offset;
+		int old = mLineTop;
+		mLineTop = mScrollPosition / mSizeItem.height;
+		mOffsetTop = mScrollPosition % mSizeItem.height;
+
+		_updateScrollWidget();
+		_updateAllVisible(old != mLineTop);
+
+		// заново ищем и подсвечиваем айтем
+		const IntPoint& point = InputManager::getInstance().getMousePosition();
+		for (size_t pos=0; pos<mVectorItems.size(); ++pos) {
+			WidgetPtr widget = mVectorItems[pos];
+			const IntRect& rect = widget->getAbsoluteRect();
+			if ((point.left>= rect.left) && (point.left <= rect.right) &&
+				(point.top>= rect.top) && (point.top <= rect.bottom)) {
+
+				size_t index = (size_t)widget->_getInternalData() + (mLineTop * mCountItemInLine);
+				// индекс может быть больше
+				if (index < mItemsInfo.size()) {
+					ItemInfo & data = mItemsInfo[index];
+					data.only_state = true;
+					data.active = true;
+					requestUpdateItem(this, widget, data);
+					mIndexActive = index;
+				}
+				else {
+					mIndexActive = ITEM_NONE;
+				}
+
 				break;
 			}
-			if (mVectorItems[pos]->getTop() > mWidgetClient->getHeight()) {
-				// запоминаем последнюю перерисованную линию
-				mLastRedrawLine = pos;
-				break;
-			}
-
-			// если был скрыт, то покажем
-			if (false == mVectorItems[pos]->isShow()) mVectorItems[pos]->show();
-			// обновляем текст
-			mVectorItems[pos]->setCaption(mStringArray[index]);
-
-			// если нужно выделить ,то выделим
-			if (index == mIndexSelect) {
-				if (!static_cast<ButtonPtr>(mVectorItems[pos])->getButtonPressed())
-					static_cast<ButtonPtr>(mVectorItems[pos])->setButtonPressed(true);
-			} else {
-				if (static_cast<ButtonPtr>(mVectorItems[pos])->getButtonPressed())
-					static_cast<ButtonPtr>(mVectorItems[pos])->setButtonPressed(false);
-			}
-		}
-
-		// если цикл весь прошли, то ставим максимальную линию
-		if (pos >= mVectorItems.size()) mLastRedrawLine = pos;
-	}
-
-	// перерисовывает индекс
-	void ItemBox::_redrawItem(size_t _index)
-	{
-		// невидно
-		if (_index < (size_t)mTopIndex) return;
-		_index -= (size_t)mTopIndex;
-		// тоже невидно
-		if (_index > mLastRedrawLine) return;
-		// перерисовываем
-		mVectorItems[_index]->setCaption(mStringArray[_index + mTopIndex]);
-	}
-
-	void ItemBox::insertItemString(size_t _index, const Ogre::UTFString & _item)
-	{
-		if (_index > mStringArray.size()) _index = mStringArray.size();
-		// вставляем физически
-		_insertString(_index, _item);
-
-		// если надо, то меняем выделенный элемент
-		if ( (mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect) ) mIndexSelect++;
-
-		// строка, до первого видимого элемента
-		if ( (_index <= (size_t)mTopIndex) && (mScrollRange> 0) ) {
-			mTopIndex ++;
-			// просчитываем положение скролла
-			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
-			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
-			mScrollRange+= mHeightLine;
-
-		} else {
-
-			// высчитывам положение строки
-			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
-
-			// строка, после последнего видимого элемента, плюс одна строка (потому что для прокрутки нужно на одну строчку больше)
-			if (mWidgetClient->getHeight() < (offset - mHeightLine)) {
-				// просчитываем положение скролла
-				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
-				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
-				mScrollRange+= mHeightLine;
-
-			// строка в видимой области
-			} else {
-
-				// обновляем все
-				updateScroll();
-				updateLine(true);
-
-				// позже сюда еще оптимизацию по колличеству перерисовок
-			}
 		}
 
 	}
 
-	void ItemBox::deleteItemString(size_t _index)
-	{
-		// доверяй, но проверяй
-		MYGUI_ASSERT(_index < mStringArray.size(), "deleteItemString: index '" << _index << "' out of range");
-
-		// удяляем физически строку
-		_deleteString(_index);
-
-		// если надо, то меняем выделенный элемент
-		if (mStringArray.empty()) mIndexSelect = ITEM_NONE;
-		else if (mIndexSelect != ITEM_NONE) {
-			if (_index < mIndexSelect) mIndexSelect--;
-			else if ( (_index == mIndexSelect) && (mIndexSelect == (mStringArray.size())) ) mIndexSelect--;
-		}
-
-		// если виджетов стало больше , то скрываем крайний
-		if (mVectorItems.size() > mStringArray.size()) {
-			mVectorItems[mStringArray.size()]->hide();
-		}
-
-		// строка, до первого видимого элемента
-		if (_index < (size_t)mTopIndex) {
-			mTopIndex --;
-			// просчитываем положение скролла
-			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
-			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
-			mScrollRange-= mHeightLine;
-
-		} else {
-
-			// высчитывам положение удаляемой строки
-			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
-
-			// строка, после последнего видимого элемента
-			if (mWidgetClient->getHeight() < offset) {
-				// просчитываем положение скролла
-				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
-				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
-				mScrollRange-= mHeightLine;
-
-			// строка в видимой области
-			} else {
-
-				// обновляем все
-				updateScroll();
-				updateLine(true);
-
-				// позже сюда еще оптимизацию по колличеству перерисовок
-			}
-		}
-	}
-
-	void ItemBox::_deleteString(size_t _index)
-	{
-		for (size_t pos=_index+1; pos<mStringArray.size(); pos++) {
-			mStringArray[pos-1] = mStringArray[pos];
-		}
-		mStringArray.pop_back();
-	}
-
-	void ItemBox::_insertString(size_t _index, const Ogre::UTFString & _item)
-	{
-		mStringArray.push_back("");
-		for (size_t pos=mStringArray.size()-1; pos > _index; pos--) {
-			mStringArray[pos] = mStringArray[pos-1];
-		}
-		mStringArray[_index] = _item;
-	}
-
-	void ItemBox::setItemSelect(size_t _index)
-	{
-		if (mIndexSelect == _index) return;
-		_selectIndex(mIndexSelect, false);
-		_selectIndex(_index, true);
-		mIndexSelect = _index;
-	}
-
-	void ItemBox::_selectIndex(size_t _index, bool _select)
-	{
-		if (_index >= mStringArray.size()) return;
-		// не видно строки
-		if (_index < (size_t)mTopIndex) return;
-		// высчитывам положение строки
-		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
-		// строка, после последнего видимого элемента
-		if (mWidgetClient->getHeight() < offset) return;
-
-		static_cast<ButtonPtr>(mVectorItems[_index-mTopIndex])->setButtonPressed(_select);
-	}
-
-	void ItemBox::beginToIndex(size_t _index)
-	{
-		if (_index >= mStringArray.size()) return;
-		if (mScrollRange<= 0) return;
-
-		int offset = (int)_index * mHeightLine;
-		if (offset >= mScrollIndex) offset = mScrollIndex;
-
-		if ((int)mWidgetScroll->getScrollPosition() == offset) return;
-
-		mWidgetScroll->setScrollPosition(offset);
-		notifyScrollChangePosition(null, offset);
-	}
-
-	// видим ли мы элемент, полностью или нет
-	bool ItemBox::isItemVisible(size_t _index, bool _fill)
-	{
-		// если элемента нет, то мы его не видим (в том числе когда их вообще нет)
-		if (_index >= mStringArray.size()) return false;
-		// если скрола нет, то мы палюбак видим
-		if (mScrollRange<= 0) return true;
-
-		// строка, до первого видимого элемента
-		if (_index < (size_t)mTopIndex) return false;
-
-		// строка это верхний выделенный
-		if (_index == (size_t)mTopIndex) {
-			if ( (mOffsetTop != 0) && (_fill) ) return false; // нам нужна полностью видимость
-			return true;
-		}
-
-		// высчитывам положение строки
-		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
-
-		// строка, после последнего видимого элемента
-		if (mWidgetClient->getHeight() < offset) return false;
-
-		// если мы внизу и нам нужен целый
-		if ((mWidgetClient->getHeight() < (offset + mHeightLine)) && (_fill) ) return false;
-
-		return true;
-	}
-*/
 } // namespace MyGUI

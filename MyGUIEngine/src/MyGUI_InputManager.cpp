@@ -42,6 +42,7 @@ namespace MyGUI
 		//mUseOISKeyLayout = false;
 		mFirstPressKey = true;
 		mTimerKey = 0.0f;
+		mOldAbsZ = 0;
 
 		createDefaultCharSet();
 
@@ -72,9 +73,8 @@ namespace MyGUI
 		mMousePosition.set(_absx, _absy);
 
 		// вычисляем прирост по колеса
-		static int oldz = 0;
-		int relz = _absz - oldz;
-		oldz = _absz;
+		int relz = _absz - mOldAbsZ;
+		mOldAbsZ = _absz;
 
 		// двигаем курсор
 		PointerManager::getInstance().setPosition(mMousePosition);
@@ -216,7 +216,7 @@ namespace MyGUI
 			}
 
 			// для корректного отображения
-			injectMouseMove(_absx, _absy, _id);
+			injectMouseMove(_absx, _absy, mOldAbsZ);
 
 			return true;
 		}
