@@ -13,6 +13,10 @@
 namespace MyGUI
 {
 
+	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, WidgetPtr&> EventInfo_WidgetWidgetRefWidget;
+	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, IntSize&> EventInfo_WidgetWidgetRefSize;
+	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, size_t> EventInfo_WidgetWidgetSizeT;
+
 	class _MyGUIExport ItemBox : public Widget
 	{
 		// для вызова закрытого конструктора
@@ -27,6 +31,8 @@ namespace MyGUI
 		inline static const Ogre::String & _getType() {return WidgetTypeName;}
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
+
+		void addItem();
 
 		/*inline size_t getItemCount()
 		{
@@ -74,6 +80,9 @@ namespace MyGUI
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
+
+		void ini();
+
 		// возвращает максимальную высоту вмещающую все строки и радительский бордюр
 		/*inline int getItemBoxMaxHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
@@ -89,13 +98,25 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
 		EventInfo_WidgetSizeT eventItemBoxMouseItemActivate;
 */
+		// event : запрос на создание айтема
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
+		EventInfo_WidgetWidgetRefWidget requestCreateItem;
+
+		// event : запрос на размер айтема
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntSize & _size)
+		EventInfo_WidgetWidgetRefSize requestSizeItem;
+
+		// event : запрос на обновление айтема
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
+		EventInfo_WidgetWidgetSizeT requestUpdateItem;
+
 	protected:
 
 		void _onMouseWheel(int _rel);
 		void _onKeyLostFocus(WidgetPtr _new);
 		void _onKeySetFocus(WidgetPtr _old);
 
-		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel);
+		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _index);
 		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
 
 		// Обновляет данные о айтемах, при изменении размеров 
@@ -105,14 +126,17 @@ namespace MyGUI
 		void updateScroll();
 
 		// просто перерисовывает все виджеты что видны
-		void _redrawAllVisible();
+		void _updateAllVisible(bool _redraw);
+
+		// передвигает все видимые виджеты, не обновляя содержимое
+		//void _recalcAllVisible();
 
 		void updateFromResize(const IntSize& _size);
 
-		// отрисовка конкретного айтема
-		virtual void redrawItem(WidgetPtr _widget, size_t _index);
-
 		WidgetPtr getItemWidget(size_t _index);
+
+		void _updateScrollWidget();
+
 		/*void _onKeyButtonPressed(int _key, Char _char);
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
@@ -143,17 +167,29 @@ namespace MyGUI
 		// наши дети в строках
 		VectorWidgetPtr mVectorItems;
 
+		// размер одного айтема
 		IntSize mSizeItem;
 
-		int mRangeIndex; // размерность скрола
+		// размерность скролла в пикселях
+		int mScrollRange;
+		// позиция скролла п пикселях
+		int mScrollPosition;
 
+		// колличество айтемов в одной строке
 		int mCountItemInLine;
+		// колличество линий
 		int mCountLines;
+		// колличество айтемов всего
 		int mCountItems;
+		// максимальное колличество видимых линий
 		int mCountLineVisible;
 
-		int mTopIndex; // индекс самого верхнего элемента
-		int mOffsetTop; // текущее смещение верхнего элемента в пикселях
+
+		// самая верхняя строка
+		int mLineTop;
+		// текущее смещение верхнего элемента в пикселях
+		// сколько его пикселей не видно сверху
+		int mOffsetTop;
 
 		/*int mHeightLine; // высота одной строки
 		size_t mLastRedrawLine; // последняя перерисованная линия

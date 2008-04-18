@@ -52,6 +52,21 @@ void DemoKeeper::released(int _left, int _top, bool _leftbutton)
 	
 }
 
+void requestCreateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
+{
+	_item = _parent->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT);
+}
+
+void requestSizeItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntSize & _size)
+{
+	_size.set(50, 50);
+}
+
+void requestUpdateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
+{
+	_item->setCaption(MyGUI::utility::toString(_index));
+}
+
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
     mGUI = _gui;
@@ -72,7 +87,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//MyGUI::PointerManager::getInstance().setPointer("hand", null);
 
-	MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
+	/*MyGUI::FooBar* bar = mGUI->createWidget<MyGUI::FooBar>("FooBar", MyGUI::IntCoord(100, 100, 500, 50), MyGUI::ALIGN_BOTTOM, "Main");
 	bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
 	//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Main", bar);
 	bar->show();
@@ -88,7 +103,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	bar->addItem(MyGUI::FooBarItemInfo("item7", "foobar.png", 6, MyGUI::FloatSize(64.f, 64.f)));
 	bar->addItem(MyGUI::FooBarItemInfo("item8", "foobar.png", 7, MyGUI::FloatSize(64.f, 64.f)));
 	bar->addItem(MyGUI::FooBarItemInfo("item9", "foobar.png", 8, MyGUI::FloatSize(64.f, 64.f)));
-	bar->addItem(MyGUI::FooBarItemInfo("item10", "foobar.png", 9, MyGUI::FloatSize(64.f, 64.f)));
+	bar->addItem(MyGUI::FooBarItemInfo("item10", "foobar.png", 9, MyGUI::FloatSize(64.f, 64.f)));*/
 	
 
 	//MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(20, 20, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
@@ -111,8 +126,20 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	//MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 200, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	//MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);*/
+	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
+	box->requestSizeItem = MyGUI::newDelegate(requestSizeItem);
+	box->requestUpdateItem = MyGUI::newDelegate(requestUpdateItem);
+
+	size_t num = 0;
+	while (num < 100) {
+		box->addItem();
+		num ++;
+	}
+
+	box->ini();
+
 	/*MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(400, 200, 300, 226), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	box->injectObject("Robot_helper_01.mesh");
 	box->setAnimation("run_forward");
