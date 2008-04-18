@@ -160,6 +160,7 @@ namespace MyGUI
 		int mHoldKey;
 		bool mFirstPressKey;
 		float mTimerKey;
+		int mOldAbsZ;
 		
 		// текущий отображаемый указатель
 		std::string mPointer;
