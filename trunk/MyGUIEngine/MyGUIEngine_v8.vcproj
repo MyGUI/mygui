@@ -688,10 +688,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_Plugin.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_RenderOut.h"
 					>
 				</File>
