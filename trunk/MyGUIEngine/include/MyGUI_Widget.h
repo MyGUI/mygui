@@ -200,6 +200,11 @@ namespace MyGUI
 			return mWidgetCreator;
 		}
 
+		// метод для запроса номера айтема и главного окна списка
+		void _getDragItemInfo(WidgetPtr & _list, size_t & _index);
+		// метод для установления стейта айтема
+		virtual void _setDragItemInfo(size_t _index, bool _set, bool _accept);
+
 	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;

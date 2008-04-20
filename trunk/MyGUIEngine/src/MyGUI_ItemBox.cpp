@@ -30,7 +30,10 @@ namespace MyGUI
 		mScrollRange(0),
 		mScrollPosition(0),
 		mIndexSelect(ITEM_NONE),
-		mIndexActive(ITEM_NONE)
+		mIndexActive(ITEM_NONE),
+		mItemDrag(null),
+		mOldDrop(null),
+		mDropResult(false)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -47,8 +50,12 @@ namespace MyGUI
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetScroll, "Child VScroll not found in skin (ItemBox must have VScroll)");//???
+		// сли нет скрола, то клиенская зона не обязательно
+		if ((null == mWidgetScroll) && (null == mWidgetClient)) mWidgetClient = this;
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client)");
+
+		// подписываем клиент для драгэндропа
+		mWidgetClient->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
 
 		// парсим свойства
 		/*const MapString & param = _info->getParams();
@@ -125,8 +132,10 @@ namespace MyGUI
 
 	void ItemBox::updateMetrics()
 	{
+		IntCoord coord;
 		// спрашиваем размер иконок
-		requestSizeItem(this, mWidgetClient, mSizeItem);
+		requestCoordItem(this, mWidgetClient, coord, false);
+		mSizeItem = coord.size();
 		MYGUI_ASSERT((mSizeItem.width > 1 && mSizeItem.height > 1), "(mSizeItem.width > 1 && mSizeItem.height > 1)  at requestSizeItem");
 
 		// колличество айтемов на одной строке
@@ -150,18 +159,20 @@ namespace MyGUI
 
 		// тестируем видимость скролла
 		bool change = false;
-		if ((mScrollRange <= 0) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft())) {
-			if (mWidgetScroll->isShow()) {
-				change = true;
-				mWidgetScroll->hide();
-				// увеличиваем клиентскую зону на ширину скрола
-				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
+		if (mWidgetScroll) {
+			if ((mScrollRange <= 0) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft())) {
+				if (mWidgetScroll->isShow()) {
+					change = true;
+					mWidgetScroll->hide();
+					// увеличиваем клиентскую зону на ширину скрола
+					mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
+				}
 			}
-		}
-		else if (false == mWidgetScroll->isShow()) {
-			change = true;
-			mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
-			mWidgetScroll->show();
+			else if (false == mWidgetScroll->isShow()) {
+				change = true;
+				mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
+				mWidgetScroll->show();
+			}
 		}
 
 		// если скролл изменился, то пересчитываем
@@ -238,6 +249,9 @@ namespace MyGUI
 			widget->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
 			widget->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
 			widget->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+			widget->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+			widget->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
+			widget->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
 
 			widget->_setInternalData((int)mVectorItems.size());
 			mVectorItems.push_back(widget);
@@ -300,36 +314,6 @@ namespace MyGUI
 		mIndexActive = ITEM_NONE;
 	}
 
-	void ItemBox::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
-	{
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-		if (index == mIndexSelect) return;
-
-		size_t start = (size_t)(mLineTop * mCountItemInLine);
-
-		// сбрасываем старое выделение
-		if (mIndexSelect != ITEM_NONE) {
-			ItemInfo & data = mItemsInfo[mIndexSelect];
-			data.only_state = true;
-			data.select = false;
-			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
-				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
-			}
-		}
-
-		// новый виджет может быть клиентской зоной
-		if (_sender == mWidgetClient) mIndexSelect = ITEM_NONE;
-		else {
-			mIndexSelect = index;
-			ItemInfo & data = mItemsInfo[mIndexSelect];
-			data.only_state = true;
-			data.select = true;
-			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
-				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
-			}
-		}
-	}
-
 	void ItemBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
 	{
 		if (mScrollRange <= 0) return;
@@ -389,6 +373,165 @@ namespace MyGUI
 			}
 		}
 
+	}
+
+	void ItemBox::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	{
+		// делаем запрос, над кем наша мыша
+		WidgetPtr item = InputManager::getInstance().getWidgetFromPoint(_left, _top);
+
+		if (null == mItemDrag) {
+			requestCreateItem(this, null, mItemDrag);
+			MYGUI_ASSERT(mItemDrag, "not listen requestCreateItem");
+			// спрашиваем размер иконок
+			IntCoord coord;
+			requestCoordItem(this, mWidgetClient, coord, true);
+			mItemDrag->setSize(coord.size());
+			mPointDragOffset = coord.point();
+		}
+
+		IntPoint point = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
+		mItemDrag->setPosition(_left - point.left + mPointDragOffset.left, _top - point.top + mPointDragOffset.top);
+		mItemDrag->show();
+
+		// если равно, значит уже спрашивали
+		if (mOldDrop == item) return;
+
+		// сбрасываем старую подсветку
+		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.index_reseiver, false, false);
+
+		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+
+		mDropResult = false;
+		WidgetPtr reseiver = null;
+		size_t index_reseiver = ITEM_NONE;
+		// есть виджет под нами
+		if (item) {
+			// делаем запрос на индекс по произвольному виджету
+			item->_getDragItemInfo(reseiver, index_reseiver);
+			if (reseiver) {
+				// делаем запрос на возможность дропа
+				mDropInfo.index = index;
+				mDropInfo.reseiver = reseiver;
+				mDropInfo.index_reseiver = index_reseiver;
+				requestDropItem(this, mDropInfo, mDropResult);
+
+				// устанавливаем новую подсветку
+				mDropInfo.reseiver->_setDragItemInfo(mDropInfo.index_reseiver, true, mDropResult);
+			}
+			else {
+				mDropInfo.reset();
+			}
+		}
+		// нет виджета под нами
+		else {
+			mDropInfo.reset();
+		}
+
+		mOldDrop = item;
+
+		// копию создаем
+		ItemInfo data = mItemsInfo[index];
+		data.only_state = false;
+		data.drag = true;
+		data.drag_result = mDropResult;
+		data.drag_accept = false;
+		data.drag_refuse = false;
+		data.select = false;
+		requestUpdateItem(this, mItemDrag, data);
+
+	}
+
+	void ItemBox::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		if (mItemDrag) mItemDrag->hide();
+
+		// сбрасываем старую подсветку
+		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.index_reseiver, false, false);
+
+		// если дроп выполнен успешно
+		if (mDropResult) eventDropAccept(this, mDropInfo);
+
+		// сбрасываем инфу для дропа
+		mDropResult = false;
+		mOldDrop = null;
+		mDropInfo.reset();
+	}
+
+	void ItemBox::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
+	{
+		// сбрасываем инфу для дропа
+		mDropResult = false;
+		mOldDrop = null;
+		mDropInfo.reset();
+
+		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		if (index == mIndexSelect) return;
+
+		size_t start = (size_t)(mLineTop * mCountItemInLine);
+
+		// сбрасываем старое выделение
+		if (mIndexSelect != ITEM_NONE) {
+			ItemInfo & data = mItemsInfo[mIndexSelect];
+			data.only_state = true;
+			data.select = false;
+			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
+				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
+			}
+		}
+
+		// новый виджет может быть клиентской зоной
+		if (_sender == mWidgetClient) mIndexSelect = ITEM_NONE;
+		else {
+			mIndexSelect = index;
+			ItemInfo & data = mItemsInfo[mIndexSelect];
+			data.only_state = true;
+			data.select = true;
+			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
+				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
+			}
+		}
+	}
+
+	void ItemBox::requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index)
+	{
+		if (_sender == mWidgetClient) {
+			_list = this;
+			_index = ITEM_NONE;
+		}
+		else {
+			size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+			if (index < mItemsInfo.size()) {
+				_list = this;
+				_index = index;
+			}
+		}
+	}
+
+	void ItemBox::_setDragItemInfo(size_t _index, bool _set, bool _accept)
+	{
+		if (_index == ITEM_NONE) return;
+		MYGUI_DEBUG_ASSERT(_index < mItemsInfo.size(), "index out of range");
+
+		ItemInfo & data = mItemsInfo[_index];
+		data.only_state = true;
+		if (false == _set) {
+			data.drag_accept = false;
+			data.drag_refuse = false;
+		}
+		else if (_accept) {
+			data.drag_accept = true;
+			data.drag_refuse = false;
+		}
+		else {
+			data.drag_accept = false;
+			data.drag_refuse = true;
+		}
+		size_t start = (size_t)(mLineTop * mCountItemInLine);
+		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
+			requestUpdateItem(this, mVectorItems[_index - start], data);
+		}
 	}
 
 } // namespace MyGUI

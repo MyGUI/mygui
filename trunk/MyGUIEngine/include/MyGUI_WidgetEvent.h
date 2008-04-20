@@ -22,6 +22,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, int, int> EventInfo_WidgetIntInt;
 	typedef delegates::CDelegate3<WidgetPtr, int, Char> EventInfo_WidgetIntChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
+	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr&, size_t &> EventInfo_WidgetRefWidgetRefSizeT;
 
 	/**
 	General information about creating delegate for event :
@@ -116,6 +117,10 @@ namespace MyGUI
 		/* event : общее расширяемое событие для плагинов или особых случаев*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
 		EventInfo_WidgetStringString eventActionInfo;
+
+		/* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
+		/* signature : void method(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);*/
+		EventInfo_WidgetRefWidgetRefSizeT  _requestGetDragItemInfo;
 
 	protected:
 

@@ -54,12 +54,18 @@ void DemoKeeper::released(int _left, int _top, bool _leftbutton)
 
 void requestCreateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
 {
-	_item = _parent->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT);
+	if (_parent) _item = _parent->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT);
+	else _item = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "DragAndDrop");
 }
 
-void requestSizeItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntSize & _size)
+void requestCoordItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
 {
-	_size.set(50, 50);
+	if (_drop) {
+		_coord.set(-10, -10, 100, 70);
+	}
+	else {
+		_coord.set(0, 0, 80, 50);
+	}
 }
 
 void requestUpdateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _data)
@@ -67,9 +73,33 @@ void requestUpdateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const M
 	if (_data.select) _item->setState(_data.active ? "select" : "pressed");
 	else _item->setState(_data.active ? "active" : "normal");
 
-	if (false == _data.only_state) {
-		_item->setCaption(MyGUI::utility::toString(_data.index));
+	if (_data.drag) {
+		MyGUI::IntSize size = _item->getSize();
+		if (_data.drag_result) _item->setAlpha(0.6);
+		else _item->setAlpha(0.2);
 	}
+	else _item->setAlpha(ALPHA_MAX);
+
+	if (_data.drag_accept) _item->setCaption(MyGUI::utility::toString(_data.index, "_accept"));
+	else if (_data.drag_refuse) _item->setCaption(MyGUI::utility::toString(_data.index, "_refuse"));
+	else if (_data.drag) _item->setCaption(MyGUI::utility::toString(_data.index, "_drag"));
+	else _item->setCaption(MyGUI::utility::toString(_data.index));
+
+	if (false == _data.only_state) {
+		if ( ! _data.drag) {
+			_item->setCaption(MyGUI::utility::toString(_data.index));
+		}
+	}
+}
+
+void requestDropItem(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+{
+	_result  = (_info.index_reseiver % 2) == 0;
+}
+
+void eventDropAccept(MyGUI::WidgetPtr _sender, MyGUI::ItemDropInfo _info)
+{
+	MyGUI::MYGUI_OUT("drop");
 }
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
@@ -131,13 +161,31 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 256, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(30, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
-	box->requestSizeItem = MyGUI::newDelegate(requestSizeItem);
+	box->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 	box->requestUpdateItem = MyGUI::newDelegate(requestUpdateItem);
+	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
+	box->eventDropAccept = MyGUI::newDelegate(eventDropAccept);
 
 	size_t num = 0;
+	while (num < 100) {
+		box->addItem();
+		num ++;
+	}
+
+	win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(550, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	win->setCaption("drag and drop demo");
+	box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
+	box->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
+	box->requestUpdateItem = MyGUI::newDelegate(requestUpdateItem);
+	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
+	box->eventDropAccept = MyGUI::newDelegate(eventDropAccept);
+
+	num = 0;
 	while (num < 100) {
 		box->addItem();
 		num ++;
