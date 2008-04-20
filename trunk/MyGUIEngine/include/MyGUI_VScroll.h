@@ -29,16 +29,28 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+		/** Set scroll range */
 		void setScrollRange(size_t _range);
+		/** Get scroll range */
 		inline size_t getScrollRange() {return mScrollRange;}
 
+		/** Set scroll position */
 		void setScrollPosition(size_t _position);
+		/** Get scroll position */
 		inline size_t getScrollPosition() {return mScrollPosition;}
 
+		/** Set scroll page
+			page - tracker step when buttons pressed
+		*/
 		inline void setScrollPage(size_t _page = 1) {mScrollPage = _page;}
+		/** Get scroll page */
 		inline size_t getScrollPage() {return mScrollPage;}
 
+		/** Set scroll view page
+			view page - tracker step when pressed on scroll line
+		*/
 		inline void setScrollViewPage(size_t _viewPage = 1) {mScrollViewPage = _viewPage;}
+		/** Get scroll view page */
 		inline size_t getScrollViewPage() {return mScrollViewPage;}
 
 		virtual void setSize(const IntSize& _size);
@@ -48,8 +60,11 @@ namespace MyGUI
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
-		// event : изменилось положение скрола
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
+		
+		/** Event : scroll tracker position changed.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			_position - new tracker position
+		*/
 		EventInfo_WidgetSizeT eventScrollChangePosition;
 
 	protected:

@@ -94,6 +94,7 @@ namespace MyGUI
 			mWidgetScroll->setScrollPosition(mScrollPosition);
 			mWidgetScroll->setScrollRange(mScrollRange + 1);
 			mWidgetScroll->setScrollPage(mSizeItem.height);
+			mWidgetScroll->setScrollViewPage(mSizeItem.height);
 		}
 	}
 

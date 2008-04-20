@@ -106,6 +106,14 @@ private:
 	// current settings
 	int grid_step;
 
+	// interface settings
+		// widgets panel
+	int widgetsButtonWidth;
+	int widgetsButtonHeight;
+	int widgetsButtonsInOneLine;
+		// properties panel
+	//int 
+
 	bool want_quit;
 	// last loaded/saved file name
 	Ogre::String fileName;

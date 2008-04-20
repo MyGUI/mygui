@@ -43,6 +43,7 @@ namespace MyGUI
 		/** Get progress position */
 		inline size_t getProgressPosition() {return mEndPosition;}
 
+		/** FIXME что оно делает? почему нет в фактори метода? */
 		void setProgressFillTrack(bool _fill);
 		inline bool getProgressFillTrack() {return mFillTrack;}
 
@@ -50,7 +51,11 @@ namespace MyGUI
 		void setProgressAutoTrack(bool _auto);
 		inline bool getProgressAutoTrack() {return mAutoTrack;}
 
+		/** Set progress start point
+			For example with ALIGN_TOP if will be filled from top to bottom.
+		*/
 		void setProgressStartPoint(Align _align = ALIGN_LEFT);
+		/** Get progress start point */
 		inline Align getProgressStartPoint() {return mStartPoint;}
 
 		void setPosition(const IntCoord& _coord);
