@@ -52,6 +52,14 @@ namespace types
 			return *this;
 		}
 
+		template< typename U >
+		inline TPoint & operator=( TPoint<U> const & o )
+		{
+			left = o.left;
+			top = o.top;
+			return *this;
+		}
+
 		inline bool operator==( TPoint const & o ) const
 		{
 			return ((left == o.left) && (top == o.top));

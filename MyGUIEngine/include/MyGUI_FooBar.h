@@ -30,7 +30,7 @@ namespace MyGUI
 		// name of item
 		Ogre::String name;
 		// image size
-		FloatSize tileSize;
+		IntSize tileSize;
 
 		FooBarItemInfo()
 		{
@@ -43,7 +43,7 @@ namespace MyGUI
 			tileSize = FloatSize(0.f, 0.f);
 		}
 
-		FooBarItemInfo(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const FloatSize &_size){
+		FooBarItemInfo(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const IntSize &_size){
 			name = _name;
 			enabled = _enabled;
 			disabled = _enabled;
@@ -53,7 +53,7 @@ namespace MyGUI
 			tileSize = _size;
 		}
 
-		FooBarItemInfo(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, int _disabled, int _focused, const FloatSize &_size)
+		FooBarItemInfo(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, int _disabled, int _focused, const IntSize &_size)
 		{
 			name = _name;
 			enabled = _enabled;
@@ -191,7 +191,7 @@ namespace MyGUI
 			</pre>
 
 		*/
-		WidgetPtr addItem(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const FloatSize &_size);
+		WidgetPtr addItem(const Ogre::String &_name, const Ogre::String &_texture, int _enabled, const IntSize &_size);
 
 		void removeItem(const Ogre::String &name);
 
@@ -220,7 +220,6 @@ namespace MyGUI
 		bool _isChildItem(const Ogre::String &name);
 		//! Remove all child items from map
 		void _removeAllChildItems();
-		
 
 	protected:
 		//! Id of widget under mouse

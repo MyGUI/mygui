@@ -59,6 +59,16 @@ namespace types
 			return *this;
 		}
 
+		template< typename U >
+		inline TRect & operator=( TRect<U> const & o )
+		{
+			left = o.left;
+			top = o.top;
+			right = o.right;
+			bottom = o.bottom;
+			return *this;
+		}
+
 		inline bool operator==( TRect const & o ) const
 		{
 			return ((left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom));

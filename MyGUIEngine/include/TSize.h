@@ -53,6 +53,14 @@ namespace types
 			return *this;
 		}
 
+		template< typename U >
+		inline TSize & operator=( TSize<U> const & o )
+		{
+			width = o.width;
+			height = o.height;
+			return *this;
+		}
+
 		inline bool operator==( TSize const & o ) const
 		{
 			return ((width == o.width) && (height == o.height));

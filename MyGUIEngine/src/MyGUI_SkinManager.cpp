@@ -84,7 +84,7 @@ namespace MyGUI
 		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
 		// если не нашли, то вернем дефолтный скин
 		if (iter == mSkins.end()) {
-			MYGUI_LOG(Warning, "no find skin '" << _name << "', set Default");
+			MYGUI_LOG(Warning, "Skin '" << _name << "' not found, set Default");
 			return mSkins["Default"];
 		}
 		return iter->second;
