@@ -47,8 +47,8 @@ namespace MyGUI
 
 		// и обновляем позицию
 		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
-		if (mWidgetTrack->getLeft() != (int)pos)
-		{
+		//if (mWidgetTrack->getLeft() != (int)pos)
+		//{
 			mWidgetTrack->setPosition(pos, mWidgetTrack->getTop());
 			if ( null != mWidgetFirstPart)
 			{
@@ -61,8 +61,7 @@ namespace MyGUI
 				int width = mWidgetSecondPart->getWidth() + mWidgetSecondPart->getLeft() - left;
 				mWidgetSecondPart->setPosition(left, mWidgetSecondPart->getTop(), width, mWidgetSecondPart->getHeight());
 			}
-		}
-
+		//}
 	}
 
 	void HScroll::TrackMove(int _left, int _top)
