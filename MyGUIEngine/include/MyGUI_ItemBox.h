@@ -20,7 +20,11 @@ namespace MyGUI
 			data(null),
 			only_state(false),
 			select(false),
-			active(false)
+			active(false),
+			drag(false),
+			drag_result(false),
+			drag_accept(false),
+			drag_refuse(false)
 		{
 		}
 
@@ -34,12 +38,53 @@ namespace MyGUI
 		bool select;
 		// активен ли виджет
 		bool active;
+		// виджет для перетаскивания
+		bool drag;
+		// возможность бросить айтем на другой
+		bool drag_result;
+		// айтем принимамет то что на него бросают
+		bool drag_accept;
+		// айтем не берет то что на него бросают
+		bool drag_refuse;
 	};
 	typedef std::vector<ItemInfo> VectorItemInfo;
 
+	struct ItemDropInfo
+	{
+		ItemDropInfo() :
+			index(ITEM_NONE),
+			reseiver(null),
+			index_reseiver(ITEM_NONE)
+		{
+		}
+
+		ItemDropInfo(size_t _index, WidgetPtr _reseiver, size_t _index_reseiver) :
+			index(_index),
+			reseiver(_reseiver),
+			index_reseiver(_index_reseiver)
+		{
+		}
+
+		void reset()
+		{
+			index = ITEM_NONE;
+			reseiver = null;
+			index_reseiver = ITEM_NONE;
+		}
+
+		// индекс запрашивающего виджета
+		size_t index;
+		// принимающий виджета
+		WidgetPtr reseiver;
+		// индекс принимающего виджета
+		size_t index_reseiver;
+	};
+
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, WidgetPtr&> EventInfo_WidgetWidgetRefWidget;
-	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, IntSize&> EventInfo_WidgetWidgetRefSize;
+	typedef delegates::CDelegate4<WidgetPtr, WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetItemDropInfoBoolRef;
+	typedef delegates::CDelegate2<WidgetPtr, ItemDropInfo> EventInfo_WidgetItemDropInfo;
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -70,12 +115,20 @@ namespace MyGUI
 		EventInfo_WidgetWidgetRefWidget requestCreateItem;
 
 		// event : запрос на размер айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntSize & _size)
-		EventInfo_WidgetWidgetRefSize requestSizeItem;
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
+		EventInfo_WidgetWidgetRefCoordBool requestCoordItem;
 
 		// event : запрос на обновление айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
 		EventInfo_WidgetWidgetItemInfo requestUpdateItem;
+
+		// event : запрос на дроп айтема
+		// signature : void method(MyGUI::WidgetPtr _sender, const ItemDropInfo& _info, bool & _result)
+		EventInfo_WidgetItemDropInfoBoolRef requestDropItem;
+
+		// event : запрос на дроп айтема
+		// signature : void method(MyGUI::WidgetPtr _sender, ItemDropInfo _info)
+		EventInfo_WidgetItemDropInfo eventDropAccept;
 
 	protected:
 
@@ -88,6 +141,9 @@ namespace MyGUI
 		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
 		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
 
 		// Обновляет данные о айтемах, при изменении размеров 
 		void updateMetrics();
@@ -104,9 +160,9 @@ namespace MyGUI
 
 		void _updateScrollWidget();
 
+		void _setDragItemInfo(size_t _index, bool _set, bool _accept);
 
 	private:
-		//std::string mSkinLine;
 		VScrollPtr mWidgetScroll;
 		WidgetPtr mWidgetClient;
 
@@ -147,6 +203,12 @@ namespace MyGUI
 
 		// структура данных об айтеме
 		VectorItemInfo mItemsInfo;
+
+		WidgetPtr mItemDrag;
+		WidgetPtr mOldDrop;
+		bool mDropResult;
+		ItemDropInfo mDropInfo;
+		IntPoint mPointDragOffset;
 
 	}; // class ItemBox : public Widget
 

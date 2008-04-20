@@ -532,4 +532,10 @@ namespace MyGUI
 		mHoldKey = KC_UNASSIGNED;
 	}
 
+	WidgetPtr InputManager::getWidgetFromPoint(int _left, int _top)
+	{
+		LayerItem * root = null;
+		return static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, root));
+	}
+
 } // namespace MyGUI

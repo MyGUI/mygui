@@ -671,4 +671,15 @@ namespace MyGUI
 		return keeper->getName();
 	}
 
+	void Widget::_getDragItemInfo(WidgetPtr & _list, size_t & _index)
+	{
+		_list = null;
+		_index = ITEM_NONE;
+		_requestGetDragItemInfo(this, _list, _index);
+	}
+
+	void Widget::_setDragItemInfo(size_t _index, bool _set, bool _accept)
+	{
+	}
+
 } // namespace MyGUI
