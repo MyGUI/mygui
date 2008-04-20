@@ -84,8 +84,8 @@ namespace MyGUI
 
 		// и обновляем позицию
 		pos = (int)(((size_t)pos * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
-		if (mWidgetTrack->getTop() != pos)
-		{
+		//if (mWidgetTrack->getTop() != pos)
+		//{
 			mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
 			if ( null != mWidgetFirstPart)
 			{
@@ -98,7 +98,7 @@ namespace MyGUI
 				int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
 				mWidgetSecondPart->setPosition(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
 			}
-		}
+		//}
 	}
 
 	void VScroll::TrackMove(int _left, int _top)
