@@ -59,6 +59,7 @@ namespace MyGUI
 
 
 		mWidgetScroll->setScrollPage((size_t)mHeightLine);
+		mWidgetScroll->setScrollViewPage((size_t)mHeightLine);
 
 		updateScroll();
 		updateLine();
