@@ -431,7 +431,7 @@ namespace MyGUI
 		// останавливаем каскадную проверку
 		if (mEnabled) {
 			// спрашиваем у детишек
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+			for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {
 				LayerItem * item = (*widget)->_findLayerItem(_left - mCoord.left, _top - mCoord.top);
 				if (item != null) return item;
 			}
@@ -651,11 +651,11 @@ namespace MyGUI
 	void Widget::_forcePeek(WidgetPtr _widget)
 	{
 		size_t size = mWidgetChild.size();
-		if ( (size < 2) || (mWidgetChild[0] == _widget) ) return;
-		for (size_t pos=1; pos<size; pos++) {
+		if ( (size < 2) || (mWidgetChild[size-1] == _widget) ) return;
+		for (size_t pos=0; pos<size; pos++) {
 			if (mWidgetChild[pos] == _widget) {
-				mWidgetChild[pos] = mWidgetChild[0];
-				mWidgetChild[0] = _widget;
+				mWidgetChild[pos] = mWidgetChild[size-1];
+				mWidgetChild[size-1] = _widget;
 				return;
 			}
 		}
