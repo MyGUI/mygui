@@ -104,6 +104,9 @@ namespace MyGUI
 		/** Is shift button pressed */
 		inline bool isShiftPressed() {return mIsShiftPressed;}
 
+		// возвращает виджет, находящийся в указанной точке
+		WidgetPtr getWidgetFromPoint(int _left, int _top);
+
 	protected:
 		void _frameEntered(float _frame);
 
