@@ -37,6 +37,8 @@ void EditorState::enter(bool bIsChangeState)
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
+	loadSettings();
+
 	// menu panel (should be dropdown menu)
 	ASSIGN_FUNCTION("LayoutEditor_buttonLoad", &EditorState::notifyLoadSaveAs);
 	ASSIGN_FUNCTION("LayoutEditor_buttonSave", &EditorState::notifySave);
@@ -48,14 +50,15 @@ void EditorState::enter(bool bIsChangeState)
 
 	// widgets panel
 	int i = 0;
-	int w, h = 24;
+	int w = widgetsButtonWidth, h = widgetsButtonHeight;
 	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowWidgets");
-	w = windowWidgets->getClientRect().width/2;
 	for (std::vector<WidgetType*>::iterator iter = wt->widget_types.begin(); iter != wt->widget_types.end(); ++iter)
 	{
 		for (std::vector<std::string>::iterator iterSkin = (*iter)->skin.begin(); iterSkin != (*iter)->skin.end(); ++iterSkin)
 		{
-			MyGUI::ButtonPtr button = windowWidgets->createWidget<MyGUI::Button>("ButtonSmall", i%2*w, i/2*h, w, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH, MyGUI::utility::toString((*iter)->name, *iterSkin));
+			MyGUI::ButtonPtr button = windowWidgets->createWidget<MyGUI::Button>("ButtonSmall", 
+				i%widgetsButtonsInOneLine * w, i/widgetsButtonsInOneLine * h, w, h,
+				MyGUI::ALIGN_TOP|MyGUI::ALIGN_LEFT, MyGUI::utility::toString((*iter)->name, *iterSkin));
 			button->setCaption(*iterSkin);
 			button->setTextAlign(MyGUI::ALIGN_CENTER);
 			button->setUserString("widget", (*iter)->name);
@@ -66,14 +69,16 @@ void EditorState::enter(bool bIsChangeState)
 		}
 	}
 	i++;
-	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");//windowWidgets->createWidget<MyGUI::ComboBox>("EditorComboBox", 0, (i/2)*h, w*2, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH);
+	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");//windowWidgets->createWidget<MyGUI::ComboBox>("EditorComboBox", 0, (i/widgetsButtonsInOneLine)*h, widgetsButtonsInOneLine * w, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH);
+	allWidgetsCombo->setSize(widgetsButtonsInOneLine * w, h);
 	allWidgetsCombo->setComboModeDrop(true);
 	allWidgetsCombo->eventKeySetFocus = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabPressed);
 	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabSelect);
 	allWidgetsCombo->setMaxListHeight(200);
 
+	int width = windowWidgets->getWidth() - windowWidgets->getClientRect().width;
 	int height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
-	windowWidgets->setSize(windowWidgets->getSize().width, height + (i/2+2)*h);
+	windowWidgets->setSize(width + widgetsButtonsInOneLine * w, height + (i/widgetsButtonsInOneLine+widgetsButtonsInOneLine)*h);
 
 	// properties panel
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");
@@ -104,7 +109,7 @@ void EditorState::enter(bool bIsChangeState)
 	MyGUI::ComboBoxPtr comboFullScreen = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxFullscreen");
 	iter = map.find("Full Screen");
 	selectedIdx = 0;
-	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++){
+	for (size_t j = 0; j<iter->second.possibleValues.size();j++){
 		Ogre::String videoMode = iter->second.possibleValues[j];
 		if(iter->second.possibleValues[j] == iter->second.currentValue)
 			selectedIdx = j;
@@ -157,7 +162,6 @@ void EditorState::enter(bool bIsChangeState)
 	current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(this, &EditorState::notifyRectangleDoubleClick);
 	current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &EditorState::notifyRectangleKeyPressed);
 
-	loadSettings();
 	clear();
 
 	/*MyGUI::WidgetPtr mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main", "fpsInfo");
@@ -477,6 +481,9 @@ void EditorState::loadSettings()
 					else if (key == "ShowName") print_name = MyGUI::utility::parseBool(value);
 					else if (key == "ShowType") print_type = MyGUI::utility::parseBool(value);
 					else if (key == "ShowSkin") print_skin = MyGUI::utility::parseBool(value);
+					else if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
+					else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
+					else if (key == "widgetsButtonsInOneLine") widgetsButtonsInOneLine = MyGUI::utility::parseInt(value);
 				}
 			}
 		}
@@ -523,6 +530,19 @@ void EditorState::saveSettings()
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "ShowSkin");
 	nodeProp->addAttributes("value", print_skin);
+
+	// actually properties below can't be changed in Editor - only by editing settings.xml manually
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "widgetsButtonWidth");
+	nodeProp->addAttributes("value", widgetsButtonWidth);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "widgetsButtonHeight");
+	nodeProp->addAttributes("value", widgetsButtonHeight);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "widgetsButtonsInOneLine");
+	nodeProp->addAttributes("value", widgetsButtonsInOneLine);
 
 	if (false == doc.save(file)) {
 		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
@@ -984,7 +1004,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 	std::string::iterator iter = std::find(prop.begin(), prop.end(), '_');
 	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
 	text->setCaption(prop);
-	text->setFontHeight(h-3);
+	//text->setFontHeight(h-3);
 	text->setTextAlign(MyGUI::ALIGN_RIGHT);
 
 	if (widget_for_type == 0)
@@ -1127,9 +1147,16 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
 		Ogre::Root::getSingleton().renderOneFrame();
 	}
+	catch(MyGUI::MyGUIException & e)
+	{
+		MyGUI::Message::_createMessage("Warning", "Can't apply '" + action + "'property" + ": " + e.getDescription(), "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		_sender->setCaption(DEFAULT_VALUE);
+
+		//if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
+	}
 	catch(...)
 	{
-		MyGUI::Message::_createMessage("Warning", "No such " + action + ": '" + value + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage("Warning", "No such " + action + ": '" + value + "'\n(this value will be saved)", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
 	}// for incorrect meshes or textures
 

@@ -84,7 +84,7 @@ namespace MyGUI
 	Message::ViewInfo Message::addButtonName(const Ogre::UTFString & _name)
 	{
 		if (mVectorButton.size() >= 7) {
-			MYGUI_LOG(Warning, "in message box many buttons, ignored");
+			MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 			return None;
 		}
 		// бит, номер кнопки + смещение до Button1
