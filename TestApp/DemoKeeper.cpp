@@ -260,11 +260,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//MyGUI::WidgetManager::getInstance().destroyWidget(edit);//*/
 
 
-	/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
-	MyGUI::WidgetManager::getInstance().destroyWidget(combo);//*/
+	MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	
 
-
-	for (size_t pos=0; pos<1; ++pos) {
+	for (size_t pos=0; pos<20; ++pos) {
+		combo->addItem("askhaldjkfhglkadhfglkajd");
 
 		//MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10+pos*15, 10+pos*15, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 		//window->setCaption("WindowCSX");
