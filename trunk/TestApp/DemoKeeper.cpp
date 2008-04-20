@@ -164,7 +164,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(30, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
-	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
+	/*box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
 	box->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 	box->requestUpdateItem = MyGUI::newDelegate(requestUpdateItem);
 	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
@@ -189,7 +189,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	while (num < 100) {
 		box->addItem();
 		num ++;
-	}
+	}*/
 
 	/*MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(400, 200, 300, 226), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	box->injectObject("Robot_helper_01.mesh");
@@ -260,11 +260,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//MyGUI::WidgetManager::getInstance().destroyWidget(edit);//*/
 
 
-	MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	//MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	
 
 	for (size_t pos=0; pos<20; ++pos) {
-		combo->addItem("askhaldjkfhglkadhfglkajd");
+		//combo->addItem("askhaldjkfhglkadhfglkajd");
 
 		//MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10+pos*15, 10+pos*15, 300, 300), MyGUI::ALIGN_DEFAULT, "Overlapped");
 		//window->setCaption("WindowCSX");

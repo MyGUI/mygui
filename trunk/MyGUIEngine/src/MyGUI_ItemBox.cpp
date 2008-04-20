@@ -67,7 +67,9 @@ namespace MyGUI
 		if (iter != param.end()) mHeightLine = utility::parseInt(iter->second);
 		if (mHeightLine < 1) mHeightLine = 1;*/
 
-		mSizeItem.set(1, 1);
+		updateMetrics();
+		updateScroll();
+		
 	}
 
 	void ItemBox::addItem()
@@ -132,11 +134,11 @@ namespace MyGUI
 
 	void ItemBox::updateMetrics()
 	{
-		IntCoord coord;
+		IntCoord coord(0, 0, 1, 1);
 		// спрашиваем размер иконок
 		requestCoordItem(this, mWidgetClient, coord, false);
 		mSizeItem = coord.size();
-		MYGUI_ASSERT((mSizeItem.width > 1 && mSizeItem.height > 1), "(mSizeItem.width > 1 && mSizeItem.height > 1)  at requestSizeItem");
+		MYGUI_ASSERT((mSizeItem.width > 0 && mSizeItem.height > 0), "(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordItem");
 
 		// колличество айтемов на одной строке
 		mCountItemInLine = mWidgetClient->getWidth() / mSizeItem.width;
