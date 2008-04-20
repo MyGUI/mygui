@@ -28,36 +28,59 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-
-		void setImageInfo(const std::string & _texture, const FloatSize & _tile);
-		void setImageInfo(const std::string & _texture, const FloatRect & _rect, const FloatSize & _tile);
-		/* Set texture for StaticImage
-			_texture file name
+		/* Set texture and size of image _tile
+			@param _texture file name
+			@param _tile size
+		*/
+		void setImageInfo(const std::string & _texture, const IntSize & _tile);
+		/* Set texture and size of image _tile
+			@param _texture file name
+			@param _rect - part of texture where we take tiles
+			@param _tile size
+		*/
+		void setImageInfo(const std::string & _texture, const IntRect & _rect, const IntSize & _tile);
+		/* Set texture
+			@param _texture file name
 		*/
 		void setImageTexture(const std::string & _texture);
 
-		inline void setImageRect(const FloatRect & _rect)
+		/** Set _rect - part of texture where we take tiles */
+		inline void setImageRect(const IntRect & _rect)
 		{
 			mRectImage = _rect;
 			mNum = ITEM_NONE;
 		}
 
-		inline void setImageTile(const FloatSize & _tile)
+		/** Set _tile size */
+		inline void setImageTile(const IntSize & _tile)
 		{
 			mSizeTile = _tile;
 			mNum = ITEM_NONE;
 		}
 
+		/** Set current tile number
+			@param _num - tile number
+			@remarks Tiles in file start numbering from left to right and from top to bottom.
+			\n \bExample:\n
+			<pre>
+				+---+---+---+
+				| 1 | 2 | 3 |
+				+---+---+---+
+				| 4 | 5 | 6 |
+				+---+---+---+
+			</pre>
+		*/
 		void setImageNum(size_t _num);
+		/** Get current tile number */
 		inline size_t getImageNum() {return mNum;}
 
 	private:
 		// кусок в текстуре наших картинок
-		FloatRect mRectImage;
+		IntRect mRectImage;
 		// размер одной картинки
-		FloatSize mSizeTile;
+		IntSize mSizeTile;
 		// размер текстуры
-		FloatSize mSizeTexture;
+		IntSize mSizeTexture;
 		// текущая картинка
 		size_t mNum;
 

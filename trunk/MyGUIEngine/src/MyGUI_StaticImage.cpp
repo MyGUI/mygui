@@ -26,9 +26,9 @@ namespace MyGUI
 			MapString::const_iterator iter = param.find("ImageTexture");
 			if (iter != param.end()) setImageTexture(iter->second);
 			iter = param.find("ImageRect");
-			if (iter != param.end()) setImageRect(FloatRect::parse(iter->second));
+			if (iter != param.end()) setImageRect(IntRect::parse(iter->second));
 			iter = param.find("ImageTile");
-			if (iter != param.end()) setImageTile(FloatSize::parse(iter->second));
+			if (iter != param.end()) setImageTile(IntSize::parse(iter->second));
 			iter = param.find("ImageNum");
 			if (iter != param.end()) setImageNum(utility::parseInt(iter->second));
 		}
@@ -47,22 +47,29 @@ namespace MyGUI
 		// если размер нулевой, то ставим размер текстуры
 		if (!(mRectImage.right || mRectImage.bottom)) {
 			mRectImage.right = mSizeTexture.width;
-			mRectImage.bottom = mSizeTexture.width;
+			mRectImage.bottom = mSizeTexture.height;
+		}
+
+		if (!(mSizeTile.width || mSizeTile.height)) {
+			mSizeTile.width = mRectImage.width();
+			mSizeTile.height = mRectImage.height();
 		}
 
 		size_t count = (size_t)(mRectImage.width() / mSizeTile.width);
 		if (count < 1) count = 1;
+		if ( (int)_num - 1 > (mRectImage.width() / mSizeTile.width) * (mRectImage.height() / mSizeTile.height))
+			MYGUI_LOG(Warning, "StaticImage tile number " << _num << " out of range");
 
 		FloatRect offset(
 			((float)(mNum % count)) * mSizeTile.width + mRectImage.left,
 			((float)(mNum / count)) * mSizeTile.height + mRectImage.top,
 			mSizeTile.width, mSizeTile.height);
 		// конвертируем и устанавливаем
-		offset = SkinManager::convertTextureCoord(offset, mSizeTexture);
+		offset = SkinManager::convertTextureCoord(offset, FloatSize(mSizeTexture.width, mSizeTexture.height));
 		_setUVSet(offset);
 	}
 
-	void StaticImage::setImageInfo(const std::string & _texture, const FloatSize & _tile)
+	void StaticImage::setImageInfo(const std::string & _texture, const IntSize & _tile)
 	{
 		_setTextureName(_texture);
 		mSizeTexture = SkinManager::getTextureSize(_texture);
@@ -70,7 +77,7 @@ namespace MyGUI
 		mNum = ITEM_NONE;
 	}
 
-	void StaticImage::setImageInfo(const std::string & _texture, const FloatRect & _rect, const FloatSize & _tile)
+	void StaticImage::setImageInfo(const std::string & _texture, const IntRect & _rect, const IntSize & _tile)
 	{
 		_setTextureName(_texture);
 		mSizeTexture = SkinManager::getTextureSize(_texture);

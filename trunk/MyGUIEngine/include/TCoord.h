@@ -82,6 +82,16 @@ namespace types
 			return *this;
 		}
 
+		template< typename U >
+		inline TCoord & operator=( TCoord<U> const & o )
+		{
+			left = _obj.left;
+			top = _obj.top;
+			width = _obj.width;
+			height = _obj.height;
+			return *this;
+		}
+
 		inline TCoord & operator=( TPoint<T> const & _obj )
 		{
 			left = _obj.left;
