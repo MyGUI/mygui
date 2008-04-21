@@ -99,6 +99,9 @@ namespace MyGUI
 		/** Set any user created Camera instead of showing one mesh*/
 		void setRenderTarget(Ogre::Camera * _camera);
 
+		inline void setViewScale(bool _scale) {mUseScale = _scale;}
+		inline bool getViewScale() {return mUseScale;}
+
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
 
@@ -112,6 +115,7 @@ namespace MyGUI
 		void _onMouseDrag(int _left, int _top);
 		void _onMouseButtonPressed(bool _left);
 		void _onMouseButtonReleased(bool _left);
+		void _onMouseWheel(int _rel);
 
 	private:
 		void createRenderTexture();
@@ -138,6 +142,9 @@ namespace MyGUI
 		bool mAutoRotation;
 
 		Ogre::AnimationState * mEntityState;
+
+		float mScale, mCurrentScale;
+		bool mUseScale;
 
 	}; // class RenderBox : public Widget
 
