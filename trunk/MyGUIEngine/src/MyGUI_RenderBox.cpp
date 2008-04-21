@@ -26,7 +26,10 @@ namespace MyGUI
 		mLeftPressed(false),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mAutoRotation(false),
-		mEntityState(null)
+		mEntityState(null),
+		mScale(1.0f),
+		mCurrentScale(1.0f),
+		mUseScale(false)
 	{
 
 		// первоначальна€ инициализаци€
@@ -180,6 +183,20 @@ namespace MyGUI
 			#endif
 		}
 		if (null != mEntityState) mEntityState->addTime(_time);
+
+		if (mCurrentScale != mScale) {
+
+			if (mCurrentScale > mScale) {
+				mCurrentScale -= _time * 0.7f;
+				if (mCurrentScale < mScale) mCurrentScale = mScale;
+			}
+			else {
+				mCurrentScale += _time * 0.7f;
+				if (mCurrentScale > mScale) mCurrentScale = mScale;
+			}
+
+			updateViewport();
+		}
 	}
 
 	void RenderBox::_onMouseDrag(int _left, int _top)
@@ -252,6 +269,7 @@ namespace MyGUI
 
 		std::string camera(utility::toString(this, "_CameraRenderBox"));
 		mRttCam = mScene->createCamera(camera);
+		mRttCam->setNearClipDistance(0.00000001);
 
 		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(camera);
 		mCamNode->attachObject(mRttCam);
@@ -293,16 +311,13 @@ namespace MyGUI
 				if (len1 < len2) len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
-				mCamNode->setPosition(box.getCenter() - Ogre::Vector3(vec.y/2 + len1, 0, 0) - Ogre::Vector3(len1*0.2, 0, -height*0.1));
-				//mCamNode->lookAt(Ogre::Vector3(0, 0, box.getCenter().z), Ogre::Node::TS_WORLD);
+				Ogre::Vector3 result = box.getCenter() - Ogre::Vector3(vec.y/2 + len1, 0, 0) - Ogre::Vector3(len1*0.2, 0, -height*0.1);
+				result.x *= mCurrentScale;
+				mCamNode->setPosition(result);
 
-				Ogre::Vector3 x = Ogre::Vector3(0, 0, box.getCenter().z) - mCamNode->getPosition();
+				Ogre::Vector3 x = Ogre::Vector3(0, 0, box.getCenter().z + box.getCenter().z * (1-mCurrentScale)) - mCamNode->getPosition();
 				Ogre::Vector3 y = Ogre::Vector3(Ogre::Vector3::UNIT_Z).crossProduct(x);
 				Ogre::Vector3 z = x.crossProduct(y);
-				/*mCamNode->setOrientation(Ogre::Quaternion(
-					Ogre::Vector3(x.x, y.x, z.x).normalisedCopy(),
-					Ogre::Vector3(x.y, y.y, z.y).normalisedCopy(),
-					Ogre::Vector3(x.z, y.z, z.z).normalisedCopy()));*/
 				mCamNode->setOrientation(Ogre::Quaternion(
 					x.normalisedCopy(),
 					y.normalisedCopy(),
@@ -317,8 +332,12 @@ namespace MyGUI
 				if (len1 < len2) len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
-				mCamNode->setPosition(box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2));
-				mCamNode->lookAt(Ogre::Vector3(0, box.getCenter().y, 0), Ogre::Node::TS_WORLD);
+				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2);
+				result.z *= mCurrentScale;
+				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y + box.getCenter().y * (1-mCurrentScale), 0);
+
+				mCamNode->setPosition(result);
+				mCamNode->lookAt(look, Ogre::Node::TS_WORLD);
 
 			#endif
 		}
@@ -361,6 +380,20 @@ namespace MyGUI
 			}
 
 		}
+	}
+
+	void RenderBox::_onMouseWheel(int _rel)
+	{
+		if ( ! mUseScale) return;
+
+		const float near_min = 0.5f;
+		const float coef = 0.0005;
+
+		mScale += _rel * coef;
+
+		if (mScale > 1) mScale = 1;
+		else if (mScale < near_min) mScale = near_min;
+
 	}
 
 } // namespace MyGUI
