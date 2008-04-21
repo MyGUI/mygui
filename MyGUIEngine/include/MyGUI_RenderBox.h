@@ -84,6 +84,12 @@ namespace MyGUI
 		*/
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 
+		/** Get rotation angle of entity.
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
+		*/
+		Ogre::Degree getRotationAngle();
+
 		/** Set possibility to rotate mesh by mouse drag.
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.

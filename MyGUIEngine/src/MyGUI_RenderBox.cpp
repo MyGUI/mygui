@@ -96,7 +96,7 @@ namespace MyGUI
 
 	void RenderBox::setRotationAngle(const Ogre::Degree & _rotationAngle)
 	{
-		if (false == mUserViewport){
+		if (false == mUserViewport) {
 			mNode->resetOrientation();
 			// коррекция под левосторонюю систему координат с осью Z направленную вверх
 			#ifdef LEFT_HANDED_CS_UP_Z
@@ -105,6 +105,19 @@ namespace MyGUI
 				mNode->yaw(Ogre::Radian(_rotationAngle));
 			#endif
 		}
+	}
+
+	Ogre::Degree RenderBox::getRotationAngle()
+	{
+		if (false == mUserViewport) {
+			// коррекция под левосторонюю систему координат с осью Z направленную вверх
+			#ifdef LEFT_HANDED_CS_UP_Z
+				return Ogre::Degree(mNode->getOrientation().getRoll());
+			#else
+				return Ogre::Degree(mNode->getOrientation().getYaw());
+			#endif
+		}
+		return Ogre::Degree(0);
 	}
 
 	void RenderBox::setMouseRotation(bool _enable)
