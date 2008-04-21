@@ -195,6 +195,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->injectObject("Robot_helper_01.mesh");
 	box->setAnimation("run_forward");
 	box->setMouseRotation(true);//*/
+	box->setRotationAngle(Ogre::Degree(45));
+	float angle = box->getRotationAngle().valueDegrees();
+	int test = 0;
 
 	//progress = win->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 206, 206), MyGUI::ALIGN_STRETCH);
 	//progress->setProgressAutoTrack(true);
