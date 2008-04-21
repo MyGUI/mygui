@@ -161,10 +161,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(30, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(30, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
-	/*box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
+	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
 	box->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 	box->requestUpdateItem = MyGUI::newDelegate(requestUpdateItem);
 	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
@@ -189,12 +189,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	while (num < 100) {
 		box->addItem();
 		num ++;
-	}*/
+	}//*/
 
-	/*MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(400, 200, 300, 226), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(400, 200, 300, 226), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	box->injectObject("Robot_helper_01.mesh");
 	box->setAnimation("run_forward");
-	box->setAutoRotation(true);*/
+	box->setMouseRotation(true);//*/
 
 	//progress = win->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(10, 10, 206, 206), MyGUI::ALIGN_STRETCH);
 	//progress->setProgressAutoTrack(true);
