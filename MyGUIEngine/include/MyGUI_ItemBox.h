@@ -70,6 +70,7 @@ namespace MyGUI
 
 		void reset()
 		{
+			if (reseiver) reseiver->_eventInvalideDropInfo = null;
 			index = ITEM_NONE;
 			reseiver = null;
 			index_reseiver = ITEM_NONE;
@@ -177,6 +178,7 @@ namespace MyGUI
 		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left);
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 		void requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
+		void notifyInvalideDrop(WidgetPtr _sender);
 
 		// ќбновл€ет данные о айтемах, при изменении размеров 
 		void updateMetrics();

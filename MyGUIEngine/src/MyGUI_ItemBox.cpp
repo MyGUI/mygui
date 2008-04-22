@@ -418,6 +418,9 @@ namespace MyGUI
 			// делаем запрос на индекс по произвольному виджету
 			item->_getDragItemInfo(reseiver, index_reseiver);
 			if (reseiver) {
+				// подписываемся на информацию о валидности дропа
+				reseiver->_eventInvalideDropInfo = newDelegate(this, &ItemBox::notifyInvalideDrop);
+
 				// делаем запрос на возможность дропа
 				mDropInfo.index = index;
 				mDropInfo.reseiver = reseiver;
@@ -632,6 +635,12 @@ namespace MyGUI
 				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
 			}
 		}
+	}
+
+	void ItemBox::notifyInvalideDrop(WidgetPtr _sender)
+	{
+		const IntPoint& point = InputManager::getInstance().getMousePosition();
+		notifyMouseDrag(null, point.left, point.top);
 	}
 
 } // namespace MyGUI
