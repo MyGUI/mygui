@@ -122,6 +122,10 @@ namespace MyGUI
 		/* signature : void method(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);*/
 		EventInfo_WidgetRefWidgetRefSizeT  _requestGetDragItemInfo;
 
+		/* event : внутреннее событие, невалидна информаци€ дл€ дропа*/
+		/* signature : void method(WidgetPtr _sender);*/
+		EventInfo_WidgetVoid _eventInvalideDropInfo;
+
 	protected:
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним

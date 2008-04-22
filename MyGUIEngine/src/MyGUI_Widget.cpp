@@ -41,7 +41,8 @@ namespace MyGUI
 		mWidgetCreator(_creator),
 		mInheritsAlpha(true),
 		mNeedKeyFocus(false),
-		mNeedMouseFocus(true)
+		mNeedMouseFocus(true),
+		mNeedDragDrop(false)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -673,7 +674,7 @@ namespace MyGUI
 
 	void Widget::_getDragItemInfo(WidgetPtr & _list, size_t & _index)
 	{
-		_list = null;
+		_list = mNeedDragDrop ? this : null;
 		_index = ITEM_NONE;
 		_requestGetDragItemInfo(this, _list, _index);
 	}

@@ -80,26 +80,35 @@ void requestUpdateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const M
 	}
 	else _item->setAlpha(ALPHA_MAX);
 
-	if (_data.drag_accept) _item->setCaption(MyGUI::utility::toString(_data.index, "_accept"));
-	else if (_data.drag_refuse) _item->setCaption(MyGUI::utility::toString(_data.index, "_refuse"));
-	else if (_data.drag) _item->setCaption(MyGUI::utility::toString(_data.index, "_drag"));
-	else _item->setCaption(MyGUI::utility::toString(_data.index));
+	if (_data.drag_accept) _item->setCaption(MyGUI::utility::toString((size_t)_data.data, "_accept"));
+	else if (_data.drag_refuse) _item->setCaption(MyGUI::utility::toString((size_t)_data.data, "_refuse"));
+	else if (_data.drag) _item->setCaption(MyGUI::utility::toString((size_t)_data.data, "_drag"));
+	else _item->setCaption(MyGUI::utility::toString((size_t)_data.data));
 
 	if (false == _data.only_state) {
 		if ( ! _data.drag) {
-			_item->setCaption(MyGUI::utility::toString(_data.index));
+			_item->setCaption(MyGUI::utility::toString((size_t)_data.data));
 		}
 	}
 }
 
 void requestDropItem(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 {
-	_result  = (_info.index_reseiver % 2) == 0;
+	_result  = (_info.index_reseiver % 2) == 0 || _info.index_reseiver == ITEM_NONE;
 }
 
 void eventDropAccept(MyGUI::WidgetPtr _sender, MyGUI::ItemDropInfo _info)
 {
 	MyGUI::MYGUI_OUT("drop");
+
+	MyGUI::ItemBoxPtr reseiver = dynamic_cast<MyGUI::ItemBoxPtr>(_info.reseiver);
+	if (reseiver == 0) return;
+
+	MyGUI::ItemBoxPtr sender = dynamic_cast<MyGUI::ItemBoxPtr>(_sender);
+	if (sender == 0) return;
+
+	reseiver->insertItem(_info.index_reseiver, sender->getItem(_info.index));
+	sender->deleteItem(_info.index);
 }
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
@@ -172,7 +181,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	size_t num = 0;
 	while (num < 100) {
-		box->addItem();
+		box->addItem((void*)num);
 		num ++;
 	}
 
@@ -187,7 +196,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	num = 0;
 	while (num < 100) {
-		box->addItem();
+		box->addItem((void*)num);
 		num ++;
 	}//*/
 
