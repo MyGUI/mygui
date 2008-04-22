@@ -15,7 +15,12 @@ namespace MyGUI
 	Ogre::String VScroll::WidgetTypeName = "VScroll";
 
 	VScroll::VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _creator, _name)
+		Widget(_coord, _align, _info, _parent, _creator, _name),
+		mWidgetStart(null),
+		mWidgetEnd(null),
+		mWidgetTrack(null),
+		mWidgetFirstPart(null),
+		mWidgetSecondPart(null)
 	{
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
