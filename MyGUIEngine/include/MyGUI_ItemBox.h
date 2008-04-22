@@ -13,11 +13,12 @@
 namespace MyGUI
 {
 
+	// структура информации об отображении элемента
 	struct ItemInfo
 	{
-		ItemInfo(size_t _index) :
+		ItemInfo(size_t _index, void * _data) :
 			index(_index),
-			data(null),
+			data(_data),
 			only_state(false),
 			select(false),
 			active(false),
@@ -49,6 +50,8 @@ namespace MyGUI
 	};
 	typedef std::vector<ItemInfo> VectorItemInfo;
 
+
+	// структура информации об индексах дропа
 	struct ItemDropInfo
 	{
 		ItemDropInfo() :
@@ -101,8 +104,38 @@ namespace MyGUI
 		//!	@copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		void addItem();
+		//----------------------------------------------------------------//
+		// методы для изменения содержимого бокса
+		//! Get number of items
+		inline size_t getItemCount() { return (size_t)mCountItems;}
 
+		//! Insert an item into a box at a specified position
+		void insertItem(size_t _index, void * _data);
+		inline void insertItem(size_t _index) {insertItem(_index, null);}
+
+		//! Add an item to the end of a box
+		inline void addItem(void * _data) {insertItem(ITEM_NONE, _data);}
+		inline void addItem() {insertItem(ITEM_NONE, null);}
+
+		//! Replace an item at a specified position
+		void setItem(size_t _index, void * _data);
+
+		//! Get item from specified position
+		void * getItem(size_t _index);
+
+		//! Delete item at a specified position
+		void deleteItem(size_t _index);
+		//! Delete all items
+		void deleteAllItems();
+
+		//! Get number of selected item (ITEM_NONE if none selected)
+		inline size_t getItemSelect() {return mIndexSelect;}
+		//! Reset item selection
+		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		//! Set item selection at a specified position
+		void setItemSelect(size_t _index);
+
+		//----------------------------------------------------------------//
 		virtual void setSize(const IntSize& _size);
 		virtual void setPosition(const IntCoord& _coord);
 
@@ -161,6 +194,11 @@ namespace MyGUI
 		void _updateScrollWidget();
 
 		void _setDragItemInfo(size_t _index, bool _set, bool _accept);
+
+		// сбрасываем старую подсветку
+		void resetCurrentActiveItem();
+		// ищет и устанавливает подсвеченный айтем
+		void findCurrentActiveItem();
 
 	private:
 		VScrollPtr mWidgetScroll;
