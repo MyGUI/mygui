@@ -19,33 +19,30 @@ namespace MyGUI
 		ItemInfo(size_t _index, void * _data) :
 			index(_index),
 			data(_data),
-			only_state(false),
+			update(false),
+			drag(false),
 			select(false),
 			active(false),
-			drag(false),
-			drag_result(false),
 			drag_accept(false),
 			drag_refuse(false)
 		{
 		}
 
-		// индекс этого елемента
+		// индекс этого элемента
 		size_t index;
 		// пользовательские данные
 		void * data;
-		// изменилось только состояние, а не содержимое
-		bool only_state;
+		// изменилось не только состояние, но и содержимое
+		bool update;
 		// нажат ли виджет
 		bool select;
 		// активен ли виджет
 		bool active;
-		// виджет для перетаскивания
+		// виджет для перетаскивания или нет
 		bool drag;
-		// возможность бросить айтем на другой
-		bool drag_result;
-		// айтем принимамет то что на него бросают
+		// айтем принимамет дроп
 		bool drag_accept;
-		// айтем не берет то что на него бросают
+		// айтем не берет дроп
 		bool drag_refuse;
 	};
 	typedef std::vector<ItemInfo> VectorItemInfo;
@@ -89,6 +86,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetItemDropInfoBoolRef;
 	typedef delegates::CDelegate2<WidgetPtr, ItemDropInfo> EventInfo_WidgetItemDropInfo;
+	typedef delegates::CDelegate3<WidgetPtr, size_t, bool&> EventInfo_WidgetSizeTBoolRef;
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -155,6 +153,10 @@ namespace MyGUI
 		// event : запрос на обновление айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
 		EventInfo_WidgetWidgetItemInfo requestUpdateItem;
+
+		// event : запрос на начало дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index, bool & _result)
+		EventInfo_WidgetSizeTBoolRef requestStartDrop;
 
 		// event : запрос на дроп айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, const ItemDropInfo& _info, bool & _result)
@@ -249,6 +251,11 @@ namespace MyGUI
 		bool mDropResult;
 		ItemDropInfo mDropInfo;
 		IntPoint mPointDragOffset;
+
+		WidgetPtr mCurrentSender;
+
+		bool mStartDrop;
+		bool mNeedDrop;
 
 	}; // class ItemBox : public Widget
 

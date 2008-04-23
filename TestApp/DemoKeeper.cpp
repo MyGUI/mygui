@@ -52,43 +52,105 @@ void DemoKeeper::released(int _left, int _top, bool _leftbutton)
 	
 }
 
+struct ItemData
+{
+	ItemData(size_t _type, size_t _count) :
+		type(_type),
+		count(_count)
+	{
+	}
+	size_t type;
+	size_t count;
+};
+
 void requestCreateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
 {
-	if (_parent) _item = _parent->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT);
-	else _item = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "DragAndDrop");
+	MyGUI::StaticImagePtr item = null;
+	if (_parent) item = _parent->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 68, 68), MyGUI::ALIGN_DEFAULT);
+	else item = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 68, 68), MyGUI::ALIGN_DEFAULT, "DragAndDrop");
+
+	item->setImageInfo("ItemBox.png", MyGUI::IntRect(0, 0, 68, 68*4), MyGUI::IntSize(68, 68));
+	_item = item;
+
+	item = item->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 68, 68), MyGUI::ALIGN_STRETCH);
+	item->setImageInfo("ItemBox.png", MyGUI::IntRect(68, 0, 68*2, 68*3), MyGUI::IntSize(68, 68));
+	item->setNeedMouseFocus(false);
+
+	item = item->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 68, 68), MyGUI::ALIGN_STRETCH);
+	item->setImageInfo("ItemBox.png", MyGUI::IntRect(68, 0, 68*2, 68*4), MyGUI::IntSize(68, 68));
+	item->setNeedMouseFocus(false);
+
+	MyGUI::StaticTextPtr text = item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, 68, 68), MyGUI::ALIGN_STRETCH);
+	text->setTextAlign(MyGUI::ALIGN_RIGHT_BOTTOM);
+	text->setColour(Ogre::ColourValue::Black);
+	text->setNeedMouseFocus(false);
+	text->setCaption("12");
+
+	text = text->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, 67, 67), MyGUI::ALIGN_STRETCH);
+	text->setTextAlign(MyGUI::ALIGN_RIGHT_BOTTOM);
+	text->setColour(Ogre::ColourValue::White);
+	text->setNeedMouseFocus(false);
+	text->setCaption("12");
 }
 
 void requestCoordItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
 {
 	if (_drop) {
-		_coord.set(-10, -10, 100, 70);
+		_coord.set(0, 0, 68, 68);
 	}
 	else {
-		_coord.set(0, 0, 80, 50);
+		_coord.set(0, 0, 68, 68);
 	}
 }
 
 void requestUpdateItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _data)
 {
-	if (_data.select) _item->setState(_data.active ? "select" : "pressed");
-	else _item->setState(_data.active ? "active" : "normal");
+	MyGUI::StaticImagePtr item1 = MyGUI::castWidget<MyGUI::StaticImage>(_item);
+	MyGUI::StaticImagePtr item2 = MyGUI::castWidget<MyGUI::StaticImage>(item1->getChilds().front());
+	MyGUI::StaticImagePtr item3 = MyGUI::castWidget<MyGUI::StaticImage>(item2->getChilds().front());
+
+	MyGUI::StaticTextPtr text1 = MyGUI::castWidget<MyGUI::StaticText>(item3->getChilds().front());
+	MyGUI::StaticTextPtr text2 = MyGUI::castWidget<MyGUI::StaticText>(text1->getChilds().front());
+
+	ItemData * data = (ItemData*)_data.data;
+
+	if (_data.update) {
+		item3->setImageRect(MyGUI::IntRect(data->type * 68 + 68*2, 0, data->type * 68 + 68*3, 68*3));
+		text1->setCaption((data->count > 1) ? MyGUI::utility::toString(data->count) : "");
+		text2->setCaption((data->count > 1) ? MyGUI::utility::toString(data->count) : "");
+	}
 
 	if (_data.drag) {
-		MyGUI::IntSize size = _item->getSize();
-		if (_data.drag_result) _item->setAlpha(0.6);
-		else _item->setAlpha(0.2);
+		item1->setAlpha(0.8);
+		item1->setImageNum(4);
+		item2->setImageNum(4);
+		if (_data.drag_refuse) item3->setImageNum(1);
+		else if (_data.drag_accept) item3->setImageNum(2);
+		else item3->setImageNum(0);
 	}
-	else _item->setAlpha(ALPHA_MAX);
-
-	if (_data.drag_accept) _item->setCaption(MyGUI::utility::toString((size_t)_data.data, "_accept"));
-	else if (_data.drag_refuse) _item->setCaption(MyGUI::utility::toString((size_t)_data.data, "_refuse"));
-	else if (_data.drag) _item->setCaption(MyGUI::utility::toString((size_t)_data.data, "_drag"));
-	else _item->setCaption(MyGUI::utility::toString((size_t)_data.data));
-
-	if (false == _data.only_state) {
-		if ( ! _data.drag) {
-			_item->setCaption(MyGUI::utility::toString((size_t)_data.data));
+	else {
+		item1->setAlpha(1);
+		if (_data.active) {
+			if (_data.select) item1->setImageNum(2);
+			else item1->setImageNum(3);
 		}
+		else if (_data.select) item1->setImageNum(1);
+		else item1->setImageNum(0);
+
+		if (_data.drag_refuse) item2->setImageNum(1);
+		else if (_data.drag_accept) item2->setImageNum(2);
+		else item2->setImageNum(0);
+
+		item3->setImageNum(0);
+	}
+
+}
+
+void requestStartDrop(MyGUI::WidgetPtr _sender, size_t _index, bool & _result)
+{
+	if (_index != ITEM_NONE) {
+		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_sender);
+		_result = ((ItemData*)sender->getItem(_index))->type != 0;
 	}
 }
 
@@ -176,12 +238,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
 	box->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 	box->requestUpdateItem = MyGUI::newDelegate(requestUpdateItem);
+	box->requestStartDrop = MyGUI::newDelegate(requestStartDrop);
 	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
 	box->eventDropAccept = MyGUI::newDelegate(eventDropAccept);
 
 	size_t num = 0;
-	while (num < 100) {
-		box->addItem((void*)num);
+	while (num < 50) {
+		box->addItem((void*) new ItemData(num%9, (num%9 == 0) ? 0 : 5));
 		num ++;
 	}
 
@@ -191,12 +254,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
 	box->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 	box->requestUpdateItem = MyGUI::newDelegate(requestUpdateItem);
+	box->requestStartDrop = MyGUI::newDelegate(requestStartDrop);
 	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
 	box->eventDropAccept = MyGUI::newDelegate(eventDropAccept);
 
 	num = 0;
-	while (num < 100) {
-		box->addItem((void*)num);
+	while (num < 50) {
+		box->addItem((void*) new ItemData(num%9, (num%9 == 0) ? 0 : 5));
 		num ++;
 	}//*/
 
