@@ -566,6 +566,16 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(_index < mItemsInfo.size() , "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
 		mItemsInfo[_index].data = _data;
+
+		ItemInfo & data = mItemsInfo[_index];
+		data.data = _data;
+
+		data.update = true;
+
+		size_t start = (size_t)(mLineTop * mCountItemInLine);
+		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
+			requestUpdateItem(this, mVectorItems[_index - start], data);
+		}
 	}
 
 	void * ItemBox::getItem(size_t _index)
