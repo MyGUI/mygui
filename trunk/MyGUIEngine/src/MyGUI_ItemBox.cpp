@@ -33,7 +33,10 @@ namespace MyGUI
 		mIndexActive(ITEM_NONE),
 		mItemDrag(null),
 		mOldDrop(null),
-		mDropResult(false)
+		mDropResult(false),
+		mCurrentSender(null),
+		mStartDrop(false),
+		mNeedDrop(false)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -212,7 +215,7 @@ namespace MyGUI
 			widget->show();
 			if (_redraw) {
 				ItemInfo & data = mItemsInfo[pos];
-				data.only_state = false;
+				data.update = true;
 				requestUpdateItem(this, widget, data);
 			}
 
@@ -284,7 +287,7 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
 		ItemInfo & data = mItemsInfo[index];
-		data.only_state = true;
+		data.update = false;
 		data.active = true;
 		requestUpdateItem(this, _sender, data);
 		mIndexActive = index;
@@ -299,7 +302,7 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
 		ItemInfo & data = mItemsInfo[index];
-		data.only_state = true;
+		data.update = false;
 		data.active = false;
 		requestUpdateItem(this, _sender, data);
 		mIndexActive = ITEM_NONE;
@@ -341,7 +344,7 @@ namespace MyGUI
 		if (mIndexActive != ITEM_NONE) {
 			size_t start = (size_t)(mLineTop * mCountItemInLine);
 			ItemInfo & data = mItemsInfo[mIndexActive];
-			data.only_state = true;
+			data.update = false;
 			data.active = false;
 			if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size()))) {
 				requestUpdateItem(this, mVectorItems[mIndexActive - start], data);
@@ -371,7 +374,7 @@ namespace MyGUI
 				// индекс может быть больше
 				if (index < mItemsInfo.size()) {
 					ItemInfo & data = mItemsInfo[index];
-					data.only_state = true;
+					data.update = false;
 					data.active = true;
 					requestUpdateItem(this, widget, data);
 					mIndexActive = index;
@@ -384,6 +387,31 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
+		// нужно ли обновить данные
+		bool update = false;
+
+		// текущий эмитер
+		if (mCurrentSender != _sender) {
+			mCurrentSender = _sender;
+			update = true;
+		}
+
+		size_t index = (size_t)mCurrentSender->_getInternalData() + (mLineTop * mCountItemInLine);
+		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+
+		if (false == mStartDrop) {
+			mStartDrop = true;
+			mNeedDrop = false;
+			// запрос на нужность дропа по индексу
+			requestStartDrop(this, index, mNeedDrop);
+		}
+
+		// дроп не нужен
+		if (false == mNeedDrop) {
+			InputManager::getInstance().resetMouseCaptureWidget();
+			return;
+		}
+
 		// делаем запрос, над кем наша мыша
 		WidgetPtr item = InputManager::getInstance().getWidgetFromPoint(_left, _top);
 
@@ -406,9 +434,6 @@ namespace MyGUI
 
 		// сбрасываем старую подсветку
 		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.index_reseiver, false, false);
-
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
 		mDropResult = false;
 		WidgetPtr reseiver = null;
@@ -443,18 +468,30 @@ namespace MyGUI
 
 		// копию создаем
 		ItemInfo data = mItemsInfo[index];
-		data.only_state = false;
+		data.update = update;
 		data.drag = true;
-		data.drag_result = mDropResult;
-		data.drag_accept = false;
-		data.drag_refuse = false;
+		if (reseiver == null) {
+			data.drag_accept = false;
+			data.drag_refuse = false;
+		}
+		else if (mDropResult) {
+			data.drag_accept = true;
+			data.drag_refuse = false;
+		}
+		else {
+			data.drag_accept = false;
+			data.drag_refuse = true;
+		}
 		data.select = false;
+		data.active = false;
 		requestUpdateItem(this, mItemDrag, data);
 
 	}
 
 	void ItemBox::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
+		if ( ! _left) return;
+
 		// сбрасываем инфу для дропа
 		mDropResult = false;
 		mOldDrop = null;
@@ -463,6 +500,10 @@ namespace MyGUI
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 
 		if (index < mItemsInfo.size()) setItemSelect(index);
+
+		// сбрасываем, чтобы обновился дропный виджет
+		mCurrentSender = null;
+		mStartDrop = false;
 	}
 
 	void ItemBox::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left)
@@ -502,7 +543,7 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(_index < mItemsInfo.size(), "index out of range");
 
 		ItemInfo & data = mItemsInfo[_index];
-		data.only_state = true;
+		data.update = false;
 		if (false == _set) {
 			data.drag_accept = false;
 			data.drag_refuse = false;
@@ -596,7 +637,6 @@ namespace MyGUI
 	{
 		if (0 == mItemsInfo.size()) return;
 
-
 		mItemsInfo.clear();
 		mCountItems = 0;
 
@@ -619,7 +659,7 @@ namespace MyGUI
 		// сбрасываем старое выделение
 		if (mIndexSelect != ITEM_NONE) {
 			ItemInfo & data = mItemsInfo[mIndexSelect];
-			data.only_state = true;
+			data.update = false;
 			data.select = false;
 			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
 				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
@@ -629,7 +669,7 @@ namespace MyGUI
 		mIndexSelect = _index;
 		if (mIndexSelect != ITEM_NONE) {
 			ItemInfo & data = mItemsInfo[mIndexSelect];
-			data.only_state = true;
+			data.update = false;
 			data.select = true;
 			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
 				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);

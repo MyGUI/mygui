@@ -107,6 +107,9 @@ namespace MyGUI
 		// возвращает виджет, находящийся в указанной точке
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
+		// сбрасывает захват мыши, если он был
+		inline void resetMouseCaptureWidget() {mIsWidgetMouseCapture = false;}
+
 	protected:
 		void _frameEntered(float _frame);
 
