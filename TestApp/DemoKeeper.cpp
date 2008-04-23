@@ -150,27 +150,47 @@ void requestStartDrop(MyGUI::WidgetPtr _sender, size_t _index, bool & _result)
 {
 	if (_index != ITEM_NONE) {
 		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_sender);
-		_result = ((ItemData*)sender->getItem(_index))->type != 0;
+		ItemData * data = ((ItemData*)sender->getItem(_index));
+		_result = data->type != 0;
 	}
 }
 
 void requestDropItem(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 {
-	_result  = (_info.index_reseiver % 2) == 0 || _info.index_reseiver == ITEM_NONE;
+	// не на айтем кидаем
+	if (_info.index_reseiver == ITEM_NONE) {
+		_result = false;
+		return;
+	}
+
+	// на себя и на тотже айтем
+	if ((_sender == _info.reseiver) && (_info.index == _info.index_reseiver)) {
+		_result = false;
+		return;
+	}
+
+	ItemData * sender_data = ((ItemData*)MyGUI::castWidget<MyGUI::ItemBox>(_sender)->getItem(_info.index));
+	ItemData * reseiver_data = ((ItemData*)MyGUI::castWidget<MyGUI::ItemBox>(_info.reseiver)->getItem(_info.index_reseiver));
+
+	_result = (reseiver_data->type == 0) || (reseiver_data->type == sender_data->type);
 }
 
 void eventDropAccept(MyGUI::WidgetPtr _sender, MyGUI::ItemDropInfo _info)
 {
-	MyGUI::MYGUI_OUT("drop");
+	MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_sender);
+	MyGUI::ItemBoxPtr reseiver = MyGUI::castWidget<MyGUI::ItemBox>(_info.reseiver);
 
-	MyGUI::ItemBoxPtr reseiver = dynamic_cast<MyGUI::ItemBoxPtr>(_info.reseiver);
-	if (reseiver == 0) return;
+	ItemData * sender_data = ((ItemData*)sender->getItem(_info.index));
+	ItemData * reseiver_data = ((ItemData*)reseiver->getItem(_info.index_reseiver));
 
-	MyGUI::ItemBoxPtr sender = dynamic_cast<MyGUI::ItemBoxPtr>(_sender);
-	if (sender == 0) return;
+	reseiver_data->type = sender_data->type;
+	reseiver_data->count += sender_data->count;
 
-	reseiver->insertItem(_info.index_reseiver, sender->getItem(_info.index));
-	sender->deleteItem(_info.index);
+	sender_data->type = 0;
+	sender_data->count = 0;
+
+	reseiver->setItem(_info.index_reseiver, (void*)reseiver_data);
+	sender->setItem(_info.index, (void*)sender_data);
 }
 
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
