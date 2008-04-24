@@ -103,7 +103,11 @@ namespace MyGUI
 		}
 
 		// ничего не изменилось
-		if (mWidgetMouseFocus == item) return isFocusMouse();
+		if (mWidgetMouseFocus == item)
+		{
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_absx, _absy);
+			return isFocusMouse();
+		}
 
 		// проверяем на модальность
 		if (0 != mVectorModalRootWidget.size()) {
