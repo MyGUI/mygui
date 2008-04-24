@@ -100,13 +100,11 @@ namespace MyGUI
 			while (null != static_cast<WidgetPtr>(rootItem)->_getOwner()) {
 				rootItem = static_cast<WidgetPtr>(rootItem)->_getOwner();
 			}
-		}
-
-		// сли виджет есть, всегда отсылаем
-		if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_absx, _absy);
+		}	
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) {
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_absx, _absy);
 			return isFocusMouse();
 		}
 
@@ -129,6 +127,7 @@ namespace MyGUI
 				if (mPointer.empty()) PointerManager::getInstance().setDefaultPointer();
 				else PointerManager::getInstance().setPointer(mPointer, item);
 			}
+			item->_onMouseMove(_absx, _absy);
 			item->_onMouseSetFocus(mWidgetMouseFocus);
 
 		}
