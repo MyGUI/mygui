@@ -20,7 +20,7 @@ BasisManager::BasisManager() :
 	#else
 		mResourcePath = "";
 	#endif
-} 
+}
 
 void BasisManager::setMainWindowIcon(size_t _iconId)
 {

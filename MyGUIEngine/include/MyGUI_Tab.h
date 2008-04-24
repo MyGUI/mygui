@@ -103,7 +103,7 @@ namespace MyGUI
 		{
 			mButtonAutoWidth = _auto;
 		}
-		/** Get button auto width */
+		/** Get button auto width flag */
 		inline bool getButtonAutoWidth()
 		{
 			return mButtonAutoWidth;
@@ -114,7 +114,7 @@ namespace MyGUI
 		{
 			mSmoothShow = _smooth;
 		}
-		/** Get smooth sheets showing*/
+		/** Get smooth sheets showing flag */
 		inline bool getSmoothShow()
 		{
 			return mSmoothShow;

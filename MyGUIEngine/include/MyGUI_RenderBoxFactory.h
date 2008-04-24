@@ -33,6 +33,8 @@ namespace MyGUI
 			void RenderBox_BackgroungColour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void RenderBox_RotationAngle(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void RenderBox_MouseRotation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void RenderBox_Animation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void RenderBox_ViewScale(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

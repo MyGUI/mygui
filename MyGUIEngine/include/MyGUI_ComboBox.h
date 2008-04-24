@@ -60,12 +60,12 @@ namespace MyGUI
 		// методы для управления отображением
 		//! Set drop list mode (text can not be edited)
 		void setComboModeDrop(bool _drop);
-		//! Get drop list mode
+		//! Get drop list mode flag
 		inline bool getComboModeDrop() { return mModeDrop; }
 
 		//! Set smooth show of list
 		inline void setSmoothShow(bool _smooth) { mShowSmooth = _smooth; }
-		//! Get smooth show of list
+		//! Get smooth show of list flag
 		inline bool getSmoothShow() { return mShowSmooth; }
 
 		//! Set max list height

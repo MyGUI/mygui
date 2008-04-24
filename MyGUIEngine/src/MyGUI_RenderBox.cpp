@@ -44,9 +44,9 @@ namespace MyGUI
 
 	RenderBox::~RenderBox()
 	{
-		clear();
+		if (needFrameUpdate()) Gui::getInstance().removeFrameListener(this);
 
-		if (mRotationSpeed) Gui::getInstance().removeFrameListener(this);
+		clear();
 
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root && mScene) root->destroySceneManager(mScene);
@@ -127,6 +127,21 @@ namespace MyGUI
 	{
 		mMouseRotation = _enable;
 		mPointer = (mMouseRotation && mEntity) ? mPointerKeeper : "";
+	}
+
+	void RenderBox::setViewScale(bool _scale)
+	{
+		if (mUseScale == _scale) return;
+		if (needFrameUpdate())
+		{
+			mUseScale = _scale;
+			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(this);
+		}
+		else
+		{
+			mUseScale = _scale;
+			if (needFrameUpdate()) Gui::getInstance().addFrameListener(this);
+		}
 	}
 
 	void RenderBox::setRenderTarget(Ogre::Camera * _camera)
@@ -334,7 +349,7 @@ namespace MyGUI
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
 				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2);
 				result.z *= mCurrentScale;
-				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y + box.getCenter().y * (1-mCurrentScale), 0);
+				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);
 
 				mCamNode->setPosition(result);
 				mCamNode->lookAt(look, Ogre::Node::TS_WORLD);
@@ -346,22 +361,40 @@ namespace MyGUI
 	void RenderBox::setAutoRotation(bool _auto)
 	{
 		if (mAutoRotation == _auto) return;
-		mAutoRotation = _auto;
-		if ((mAutoRotation) && (null == mEntityState)) Gui::getInstance().addFrameListener(this);
-		else if (null == mEntityState) Gui::getInstance().removeFrameListener(this);
+		if (needFrameUpdate())
+		{
+			mAutoRotation = _auto;
+			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(this);
+		}
+		else
+		{
+			mAutoRotation = _auto;
+			if (needFrameUpdate()) Gui::getInstance().addFrameListener(this);
+		}
 	}
 
 	void RenderBox::setAnimation(const Ogre::String& _animation)
 	{
 		if (null != mEntityState) {
 			mEntityState = null;
-			if (false == mAutoRotation) Gui::getInstance().removeFrameListener(this);
+			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(this);
 		}
+
+		if (_animation.empty()) return;
 
 		if (null == mEntity) return;
 		Ogre::SkeletonInstance * skeleton = mEntity->getSkeleton();
 		if (null == skeleton) return;
 		Ogre::AnimationStateSet * anim_set = mEntity->getAllAnimationStates();
+		// FIXME почему вместо всего что под ним не написать как в закомментированнои коде? € его добавил, но протестить немогу просто
+		// посмотрел код getAnimationState - он как раз провер€ет по имени с которым ты сравниваешь
+		/*
+		Ogre::AnimationState * state = anim_set->getAnimationState(_animation);
+		if (state != null)
+		{
+			// тут то что стоит внутри твоего ифа
+		}
+		*/
 		Ogre::AnimationStateIterator iter = anim_set->getAnimationStateIterator();
 
 		while (iter.hasMoreElements()) {
@@ -378,8 +411,8 @@ namespace MyGUI
 
 				return;
 			}
-
 		}
+		MYGUI_LOG(Warning, "Unable to to set animation '" << _animation << "' - current entity don't have such animation.");
 	}
 
 	void RenderBox::_onMouseWheel(int _rel)

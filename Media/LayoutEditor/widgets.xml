@@ -97,6 +97,8 @@
     <Parameter key="RenderBox_BackgroungColour" value="Colour"/>
     <Parameter key="RenderBox_RotationAngle" value="1 int"/>
     <Parameter key="RenderBox_MouseRotation" value="Bool"/>
+    <Parameter key="RenderBox_Animation" value="String"/>
+    <Parameter key="RenderBox_ViewScale" value="Bool"/>
     <!-- all properties -->
   </Widget>
 
