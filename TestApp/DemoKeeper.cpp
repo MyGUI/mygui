@@ -193,6 +193,11 @@ void eventDropAccept(MyGUI::WidgetPtr _sender, MyGUI::ItemDropInfo _info)
 	sender->setItem(_info.index, (void*)sender_data);
 }
 
+void eventMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
+{
+	MyGUI::MYGUI_OUT(_sender->getCaption(), ": ", _left, ", ", _top);
+}
+
 void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 {
     mGUI = _gui;
@@ -252,7 +257,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(30, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(30, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateItem = MyGUI::newDelegate(requestCreateItem);
@@ -357,7 +362,15 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 
 	//MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(40, 40, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
-	
+
+	MyGUI::ButtonPtr button = mGUI->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::ALIGN_DEFAULT, "Back");
+	button->setCaption("Button 1");
+	button->setTextAlign(MyGUI::ALIGN_DEFAULT);
+	button->eventMouseMove = MyGUI::newDelegate(eventMouseMove);
+
+	button = mGUI->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(300, 300, 250, 250), MyGUI::ALIGN_DEFAULT, "Back");
+	button->setCaption("Button 2");
+	button->eventMouseMove = MyGUI::newDelegate(eventMouseMove);
 
 	for (size_t pos=0; pos<20; ++pos) {
 		//combo->addItem("askhaldjkfhglkadhfglkajd");
