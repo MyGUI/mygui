@@ -102,10 +102,11 @@ namespace MyGUI
 			}
 		}
 
+		// сли виджет есть, всегда отсылаем
+		if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_absx, _absy);
+
 		// ничего не изменилось
-		if (mWidgetMouseFocus == item)
-		{
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_absx, _absy);
+		if (mWidgetMouseFocus == item) {
 			return isFocusMouse();
 		}
 
