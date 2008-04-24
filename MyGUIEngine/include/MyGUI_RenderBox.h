@@ -46,7 +46,8 @@ namespace MyGUI
 		*/
 		void injectObject(const Ogre::String& _meshName);
 
-		/** Запускает анимацию у ентити в рендер боксе
+		/** Run mesh animation if animation with such name exist (else print warning in log).
+			To stop animation use empty string.
 		*/
 		void setAnimation(const Ogre::String& _animation);
 
@@ -68,6 +69,7 @@ namespace MyGUI
 				This function will take no effect if user Viewport provided via setViewport.
 		*/
 		void setAutoRotation(bool _auto);
+		/** Get auto rotation flag */
 		inline bool getAutoRotation() {return mAutoRotation;}
 
 		/** Set colour behind entity.
@@ -95,12 +97,19 @@ namespace MyGUI
 				This function will take no effect if user Viewport provided via setViewport.
 		*/
 		void setMouseRotation(bool _enable);
+		/** Get mouse rotation flag */
+		bool getMouseRotation() {return mMouseRotation;};
+
+		/** Set possibility to zoom mesh by mouse wheel.
+			@remarks
+				This function will take no effect if user Viewport provided via setViewport.
+		*/
+		void setViewScale(bool _scale);
+		/** Get possibility to zoom mesh by mouse wheel flag. */
+		inline bool getViewScale() {return mUseScale;}
 
 		/** Set any user created Camera instead of showing one mesh*/
 		void setRenderTarget(Ogre::Camera * _camera);
-
-		inline void setViewScale(bool _scale) {mUseScale = _scale;}
-		inline bool getViewScale() {return mUseScale;}
 
 		void setPosition(const IntCoord& _coord);
 		void setSize(const IntSize& _size);
@@ -118,6 +127,7 @@ namespace MyGUI
 		void _onMouseWheel(int _rel);
 
 	private:
+		bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState);}
 		void createRenderTexture();
 		void updateViewport();
 

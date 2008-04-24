@@ -45,10 +45,12 @@ namespace MyGUI
 
 		/** FIXME что оно делает? почему нет в фактори метода? */
 		void setProgressFillTrack(bool _fill);
+		/** Get progress fill track flag */
 		inline bool getProgressFillTrack() {return mFillTrack;}
 
 		/** Enable or disable progress auto tracking */
 		void setProgressAutoTrack(bool _auto);
+		/** Get progress auto tracking flag */
 		inline bool getProgressAutoTrack() {return mAutoTrack;}
 
 		/** Set progress start point

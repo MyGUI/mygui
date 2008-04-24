@@ -27,6 +27,8 @@ namespace MyGUI
 			manager.registerDelegate("RenderBox_BackgroungColour") = newDelegate(this, &RenderBoxFactory::RenderBox_BackgroungColour);
 			manager.registerDelegate("RenderBox_RotationAngle") = newDelegate(this, &RenderBoxFactory::RenderBox_RotationAngle);
 			manager.registerDelegate("RenderBox_MouseRotation") = newDelegate(this, &RenderBoxFactory::RenderBox_MouseRotation);
+			manager.registerDelegate("RenderBox_Animation") = newDelegate(this, &RenderBoxFactory::RenderBox_Animation);
+			manager.registerDelegate("RenderBox_ViewScale") = newDelegate(this, &RenderBoxFactory::RenderBox_ViewScale);
 		}
 
 		RenderBoxFactory::~RenderBoxFactory()
@@ -42,6 +44,8 @@ namespace MyGUI
 			manager.unregisterDelegate("RenderBox_BackgroungColour");
 			manager.unregisterDelegate("RenderBox_RotationAngle");
 			manager.unregisterDelegate("RenderBox_MouseRotation");
+			manager.unregisterDelegate("RenderBox_Animation");
+			manager.unregisterDelegate("RenderBox_ViewScale");
 		}
 
 		const Ogre::String& RenderBoxFactory::getType()
@@ -88,6 +92,18 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
 			static_cast<RenderBoxPtr>(_widget)->setMouseRotation(utility::parseBool(_value));
+		}
+
+		void RenderBoxFactory::RenderBox_Animation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
+			static_cast<RenderBoxPtr>(_widget)->setAnimation(_value);
+		}
+
+		void RenderBoxFactory::RenderBox_ViewScale(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(RenderBoxPtr, _widget, _key);
+			static_cast<RenderBoxPtr>(_widget)->setViewScale(utility::parseBool(_value));
 		}
 
 	} // namespace factory
