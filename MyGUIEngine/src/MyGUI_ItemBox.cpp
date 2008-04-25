@@ -13,6 +13,7 @@
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -31,7 +32,7 @@ namespace MyGUI
 		mScrollPosition(0),
 		mIndexSelect(ITEM_NONE),
 		mIndexActive(ITEM_NONE),
-		mItemDrag(null),
+		//mItemDrag(null),
 		mOldDrop(null),
 		mDropResult(false),
 		mCurrentSender(null),
@@ -128,9 +129,9 @@ namespace MyGUI
 	{
 		IntCoord coord(0, 0, 1, 1);
 		// спрашиваем размер иконок
-		requestCoordItem(this, mWidgetClient, coord, false);
+		requestCoordWidgetItem(this, coord, false);
 		mSizeItem = coord.size();
-		MYGUI_ASSERT((mSizeItem.width > 0 && mSizeItem.height > 0), "(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordItem");
+		MYGUI_ASSERT((mSizeItem.width > 0 && mSizeItem.height > 0), "(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordWidgetItem");
 
 		// колличество айтемов на одной строке
 		mCountItemInLine = mWidgetClient->getWidth() / mSizeItem.width;
@@ -207,51 +208,55 @@ namespace MyGUI
 			// дальше нет айтемов
 			if (pos >= mCountItems) break;
 
-			WidgetPtr widget = getItemWidget(iwid);
-			widget->setPosition(IntCoord((iwid % mCountItemInLine) * mSizeItem.width,
+			WidgetItemData & info = getItemWidget(iwid);
+			info.item->setPosition(IntCoord((iwid % mCountItemInLine) * mSizeItem.width,
 				((iwid / mCountItemInLine) * mSizeItem.height)  - mOffsetTop,
 				mSizeItem.width, mSizeItem.height));
 
-			widget->show();
+			info.item->show();
 			if (_redraw) {
 				ItemInfo & data = mItemsInfo[pos];
 				data.update = true;
-				requestUpdateItem(this, widget, data);
+				requestUpdateWidgetItem(this, info, data);
 			}
 
 		}
 
 		// все виджеты еще есть, то их надо бы скрыть
 		while (iwid < mVectorItems.size()) {
-			mVectorItems[iwid]->hide();
+			mVectorItems[iwid].item->hide();
 			iwid ++;
 		}
 
 	}
 
-	WidgetPtr ItemBox::getItemWidget(size_t _index)
+	WidgetItemData & ItemBox::getItemWidget(size_t _index)
 	{
+		// запрашивать только последовательно
+		MYGUI_DEBUG_ASSERT(_index <= mVectorItems.size(), "index out of range");
+
 		// еще нет такого виджета, нуно создать
-		if (_index >= mVectorItems.size()) {
+		if (_index == mVectorItems.size()) {
 
 			// вызываем запрос на создание виджета
-			WidgetPtr widget = null;
-			requestCreateItem(this, mWidgetClient, widget);
-			MYGUI_ASSERT(widget, "not listen requestCreateItem");
+			WidgetItemData data;
+			data.item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), ALIGN_DEFAULT);
 
-			widget->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-			widget->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
-			widget->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
-			widget->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-			widget->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
-			widget->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
-			widget->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
+			requestCreateWidgetItem(this, data);
+			//MYGUI_ASSERT(data.item, "not listen requestCreateWidgetItem");
 
-			widget->_setInternalData((int)mVectorItems.size());
-			mVectorItems.push_back(widget);
+			data.item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
+			data.item->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
+			data.item->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
+			data.item->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+			data.item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+			data.item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
+			data.item->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
 
-			return mVectorItems.back();
+			data.item->_setInternalData((int)mVectorItems.size());
+			mVectorItems.push_back(data);
 		}
+
 		return mVectorItems[_index];
 	}
 
@@ -289,7 +294,7 @@ namespace MyGUI
 		ItemInfo & data = mItemsInfo[index];
 		data.update = false;
 		data.active = true;
-		requestUpdateItem(this, _sender, data);
+		requestUpdateWidgetItem(this, mVectorItems[_sender->_getInternalData()], data);
 		mIndexActive = index;
 	}
 
@@ -304,7 +309,7 @@ namespace MyGUI
 		ItemInfo & data = mItemsInfo[index];
 		data.update = false;
 		data.active = false;
-		requestUpdateItem(this, _sender, data);
+		requestUpdateWidgetItem(this, mVectorItems[_sender->_getInternalData()], data);
 		mIndexActive = ITEM_NONE;
 	}
 
@@ -347,7 +352,7 @@ namespace MyGUI
 			data.update = false;
 			data.active = false;
 			if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size()))) {
-				requestUpdateItem(this, mVectorItems[mIndexActive - start], data);
+				requestUpdateWidgetItem(this, mVectorItems[mIndexActive - start], data);
 			}
 			mIndexActive = ITEM_NONE;
 		}
@@ -366,17 +371,17 @@ namespace MyGUI
 		}
 
 		for (size_t pos=0; pos<mVectorItems.size(); ++pos) {
-			WidgetPtr widget = mVectorItems[pos];
-			const IntRect& rect = widget->getAbsoluteRect();
+			WidgetItemData & info = mVectorItems[pos];
+			const IntRect& rect = info.item->getAbsoluteRect();
 			if ((point.left>= rect.left) && (point.left <= rect.right) && (point.top>= rect.top) && (point.top <= rect.bottom)) {
 
-				size_t index = (size_t)widget->_getInternalData() + (mLineTop * mCountItemInLine);
+				size_t index = (size_t)info.item->_getInternalData() + (mLineTop * mCountItemInLine);
 				// индекс может быть больше
 				if (index < mItemsInfo.size()) {
 					ItemInfo & data = mItemsInfo[index];
 					data.update = false;
 					data.active = true;
-					requestUpdateItem(this, widget, data);
+					requestUpdateWidgetItem(this, info, data);
 					mIndexActive = index;
 				}
 
@@ -415,45 +420,44 @@ namespace MyGUI
 		// делаем запрос, над кем наша мыша
 		WidgetPtr item = InputManager::getInstance().getWidgetFromPoint(_left, _top);
 
-		if (null == mItemDrag) {
-			requestCreateItem(this, null, mItemDrag);
-			MYGUI_ASSERT(mItemDrag, "not listen requestCreateItem");
+		if (null == mItemDrag.item) {
 			// спрашиваем размер иконок
 			IntCoord coord;
-			requestCoordItem(this, mWidgetClient, coord, true);
-			mItemDrag->setSize(coord.size());
 			mPointDragOffset = coord.point();
+			requestCoordWidgetItem(this, coord, true);
+
+			// создаем и запрашиваем детей
+			mItemDrag.item = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), ALIGN_DEFAULT, "DragAndDrop");
+			requestCreateWidgetItem(this, mItemDrag);
 		}
 
 		IntPoint point = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
-		mItemDrag->setPosition(_left - point.left + mPointDragOffset.left, _top - point.top + mPointDragOffset.top);
-		mItemDrag->show();
+		mItemDrag.item->setPosition(_left - point.left + mPointDragOffset.left, _top - point.top + mPointDragOffset.top);
+		mItemDrag.item->show();
 
 		// если равно, значит уже спрашивали
 		if (mOldDrop == item) return;
 
 		// сбрасываем старую подсветку
-		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.index_reseiver, false, false);
+		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
 
 		mDropResult = false;
 		WidgetPtr reseiver = null;
-		size_t index_reseiver = ITEM_NONE;
+		size_t reseiver_index = ITEM_NONE;
 		// есть виджет под нами
 		if (item) {
 			// делаем запрос на индекс по произвольному виджету
-			item->_getDragItemInfo(reseiver, index_reseiver);
+			item->_getDragItemInfo(reseiver, reseiver_index);
 			if (reseiver) {
 				// подписываемся на информацию о валидности дропа
 				reseiver->_eventInvalideDropInfo = newDelegate(this, &ItemBox::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
-				mDropInfo.index = index;
-				mDropInfo.reseiver = reseiver;
-				mDropInfo.index_reseiver = index_reseiver;
+				mDropInfo.set(this, index, 0, reseiver, reseiver_index, 0);
 				requestDropItem(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку
-				mDropInfo.reseiver->_setDragItemInfo(mDropInfo.index_reseiver, true, mDropResult);
+				mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, true, mDropResult);
 			}
 			else {
 				mDropInfo.reset();
@@ -484,7 +488,7 @@ namespace MyGUI
 		}
 		data.select = false;
 		data.active = false;
-		requestUpdateItem(this, mItemDrag, data);
+		requestUpdateWidgetItem(this, mItemDrag, data);
 
 	}
 
@@ -508,10 +512,10 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		if (mItemDrag) mItemDrag->hide();
+		if (mItemDrag.item) mItemDrag.item->hide();
 
 		// сбрасываем старую подсветку
-		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.index_reseiver, false, false);
+		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
 
 		// если дроп выполнен успешно
 		if (mDropResult) eventDropAccept(this, mDropInfo);
@@ -558,7 +562,7 @@ namespace MyGUI
 		}
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
-			requestUpdateItem(this, mVectorItems[_index - start], data);
+			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
 		}
 	}
 
@@ -574,7 +578,7 @@ namespace MyGUI
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
-			requestUpdateItem(this, mVectorItems[_index - start], data);
+			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
 		}
 	}
 
@@ -672,7 +676,7 @@ namespace MyGUI
 			data.update = false;
 			data.select = false;
 			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
-				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
+				requestUpdateWidgetItem(this, mVectorItems[mIndexSelect - start], data);
 			}
 		}
 
@@ -682,7 +686,7 @@ namespace MyGUI
 			data.update = false;
 			data.select = true;
 			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
-				requestUpdateItem(this, mVectorItems[mIndexSelect - start], data);
+				requestUpdateWidgetItem(this, mVectorItems[mIndexSelect - start], data);
 			}
 		}
 	}
