@@ -17,14 +17,14 @@ namespace MyGUI
 	struct ItemInfo
 	{
 		ItemInfo(size_t _index, void * _data) :
-			index(_index),
-			data(_data),
 			update(false),
 			drag(false),
 			select(false),
 			active(false),
 			drag_accept(false),
-			drag_refuse(false)
+			drag_refuse(false),
+			index(_index),
+			data(_data)
 		{
 		}
 
@@ -47,43 +47,78 @@ namespace MyGUI
 	};
 	typedef std::vector<ItemInfo> VectorItemInfo;
 
-
 	// структура информации об индексах дропа
 	struct ItemDropInfo
 	{
 		ItemDropInfo() :
-			index(ITEM_NONE),
 			reseiver(null),
-			index_reseiver(ITEM_NONE)
+			reseiver_index(ITEM_NONE),
+			reseiver_data(null),
+			sender(null),
+			sender_index(ITEM_NONE),
+			sender_data(null)
 		{
 		}
 
-		ItemDropInfo(size_t _index, WidgetPtr _reseiver, size_t _index_reseiver) :
-			index(_index),
+		ItemDropInfo(WidgetPtr _sender, size_t _sender_index, void * _sender_data, WidgetPtr _reseiver, size_t _reseiver_index, void * _reseiver_data) :
+			sender(_sender),
+			sender_index(_sender_index),
+			sender_data(_sender_data),
 			reseiver(_reseiver),
-			index_reseiver(_index_reseiver)
+			reseiver_index(_reseiver_index),
+			reseiver_data(_reseiver_data)
 		{
+		}
+
+		void set(WidgetPtr _sender, size_t _sender_index, void * _sender_data, WidgetPtr _reseiver, size_t _reseiver_index, void * _reseiver_data)
+		{
+			sender = _sender;
+			sender_index = _sender_index;
+			sender_data = _sender_data;
+			reseiver = _reseiver;
+			reseiver_index = _reseiver_index;
+			reseiver_data = _reseiver_data;
 		}
 
 		void reset()
 		{
 			if (reseiver) reseiver->_eventInvalideDropInfo = null;
-			index = ITEM_NONE;
 			reseiver = null;
-			index_reseiver = ITEM_NONE;
+			reseiver_index = ITEM_NONE;
+			reseiver_data = null;
+			sender = null;
+			sender_index = ITEM_NONE;
+			sender_data = null;
 		}
 
-		// индекс запрашивающего виджета
-		size_t index;
-		// принимающий виджета
+		// посылающий виджет 
+		WidgetPtr sender;
+		// индекс посылающего виджета
+		size_t sender_index;
+		// ассоциированные данные отправителя
+		void * sender_data;
+
+		// принимающий виджет
 		WidgetPtr reseiver;
 		// индекс принимающего виджета
-		size_t index_reseiver;
+		size_t reseiver_index;
+		// ассоциированные данные получателя
+		void * reseiver_data;
 	};
 
-	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, WidgetPtr&> EventInfo_WidgetWidgetRefWidget;
-	typedef delegates::CDelegate4<WidgetPtr, WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
-	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
+	// вспомогательная структура для представления одного виджета айтема
+	struct WidgetItemData
+	{
+		WidgetItemData() : item(null), data(null) {}
+		WidgetPtr item;
+		void * data;
+	};
+
+	typedef std::vector<WidgetItemData> VectorWidgetItemData;
+
+	typedef delegates::CDelegate2<WidgetPtr, /*WidgetPtr, */WidgetItemData&> EventInfo_WidgetWidgetRefWidget; //???
+	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
+	typedef delegates::CDelegate3<WidgetPtr, WidgetItemData, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetItemDropInfoBoolRef;
 	typedef delegates::CDelegate2<WidgetPtr, ItemDropInfo> EventInfo_WidgetItemDropInfo;
 	typedef delegates::CDelegate3<WidgetPtr, size_t, bool&> EventInfo_WidgetSizeTBoolRef;
@@ -144,15 +179,15 @@ namespace MyGUI
 
 		// event : запрос на создание айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
-		EventInfo_WidgetWidgetRefWidget requestCreateItem;
+		EventInfo_WidgetWidgetRefWidget requestCreateWidgetItem;
 
 		// event : запрос на размер айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
-		EventInfo_WidgetWidgetRefCoordBool requestCoordItem;
+		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
 
 		// event : запрос на обновление айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
-		EventInfo_WidgetWidgetItemInfo requestUpdateItem;
+		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
 		// event : запрос на начало дропа
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index, bool & _result)
@@ -193,7 +228,7 @@ namespace MyGUI
 
 		void updateFromResize(const IntSize& _size);
 
-		WidgetPtr getItemWidget(size_t _index);
+		WidgetItemData & getItemWidget(size_t _index);
 
 		void _updateScrollWidget();
 
@@ -209,7 +244,7 @@ namespace MyGUI
 		WidgetPtr mWidgetClient;
 
 		// наши дети в строках
-		VectorWidgetPtr mVectorItems;
+		VectorWidgetItemData mVectorItems;
 
 		// размер одного айтема
 		IntSize mSizeItem;
@@ -246,7 +281,7 @@ namespace MyGUI
 		// структура данных об айтеме
 		VectorItemInfo mItemsInfo;
 
-		WidgetPtr mItemDrag;
+		WidgetItemData mItemDrag;
 		WidgetPtr mOldDrop;
 		bool mDropResult;
 		ItemDropInfo mDropInfo;
