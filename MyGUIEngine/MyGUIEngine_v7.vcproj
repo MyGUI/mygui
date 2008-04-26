@@ -180,6 +180,9 @@
 						RelativePath=".\src\MyGUI_ActionController.cpp">
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_ControllerEdgeHide.cpp">
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_ControllerFadeAlpha.cpp">
 					</File>
 					<File
@@ -520,6 +523,9 @@
 					Filter="">
 					<File
 						RelativePath=".\include\MyGUI_ActionController.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ControllerEdgeHide.h">
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ControllerFadeAlpha.h">

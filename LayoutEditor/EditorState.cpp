@@ -15,7 +15,7 @@ const int PANELS_MARGIN = 2;
 const int PANELS_MIN_HEIGHT = 25;
 const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Inertional;
 
-const float POSITION_CONTROLLER_TIME = 0.5;
+const float POSITION_CONTROLLER_TIME = 0.5f;
 
 EditorWidgets * ew;
 WidgetTypes * wt;
@@ -38,6 +38,18 @@ void EditorState::enter(bool bIsChangeState)
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
 	loadSettings();
+
+	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
+	{
+		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"), controller);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"), controller);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
+	}
 
 	// menu panel (should be dropdown menu)
 	ASSIGN_FUNCTION("LayoutEditor_buttonLoad", &EditorState::notifyLoadSaveAs);
@@ -123,6 +135,7 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_checkShowName", &EditorState::notifyToggleCheck);
 	ASSIGN_FUNCTION("LayoutEditor_checkShowType", &EditorState::notifyToggleCheck);
 	ASSIGN_FUNCTION("LayoutEditor_checkShowSkin", &EditorState::notifyToggleCheck);
+	ASSIGN_FUNCTION("LayoutEditor_checkEdgeHide", &EditorState::notifyToggleCheck);
 
 	// minimize panel buttons
 	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeSpecificProperties"));
@@ -458,10 +471,6 @@ void EditorState::loadSettings()
 		return;
 	}
 
-	bool print_name;
-	bool print_type;
-	bool print_skin;
-
 	std::string type;
 	if (root->findAttribute("type", type)) {
 		if (type == "Settings")
@@ -478,9 +487,14 @@ void EditorState::loadSettings()
 					if (false == field->findAttribute("value", value)) continue;
 
 					if (key == "Grid") grid_step = MyGUI::utility::parseInt(value);
-					else if (key == "ShowName") print_name = MyGUI::utility::parseBool(value);
-					else if (key == "ShowType") print_type = MyGUI::utility::parseBool(value);
-					else if (key == "ShowSkin") print_skin = MyGUI::utility::parseBool(value);
+					else if (key == "ShowName")
+						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->setButtonPressed(MyGUI::utility::parseBool(value));
+					else if (key == "ShowType")
+						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->setButtonPressed(MyGUI::utility::parseBool(value));
+					else if (key == "ShowSkin")
+						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->setButtonPressed(MyGUI::utility::parseBool(value));
+					else if (key == "EdgeHide")
+						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->setButtonPressed(MyGUI::utility::parseBool(value));
 					else if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
 					else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
 					else if (key == "widgetsButtonsInOneLine") widgetsButtonsInOneLine = MyGUI::utility::parseInt(value);
@@ -490,9 +504,6 @@ void EditorState::loadSettings()
 	}
 
 	if (grid_step <= 0) grid_step = 1;
-	MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->setButtonPressed(print_name);
-	MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->setButtonPressed(print_type);
-	MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->setButtonPressed(print_skin);
 
 }
 
@@ -515,21 +526,21 @@ void EditorState::saveSettings()
 	nodeProp->addAttributes("key", "Grid");
 	nodeProp->addAttributes("value", grid_step);
 
-	bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
-	bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
-	bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
-
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "ShowName");
-	nodeProp->addAttributes("value", print_name);
+	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed());
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "ShowType");
-	nodeProp->addAttributes("value", print_type);
+	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed());
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "ShowSkin");
-	nodeProp->addAttributes("value", print_skin);
+	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed());
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "EdgeHide");
+	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed());
 
 	// actually properties below can't be changed in Editor - only by editing settings.xml manually
 	nodeProp = root->createChild("Property");
