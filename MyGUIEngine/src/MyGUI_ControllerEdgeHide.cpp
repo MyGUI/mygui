@@ -13,8 +13,8 @@
 
 namespace MyGUI
 {
-	ControllerEdgeHide::ControllerEdgeHide(float _time):
-		mTime(_time)
+	ControllerEdgeHide::ControllerEdgeHide(float _time, int _remainPixels, int _shadowSize ):
+		mTime(_time), mRemainPixels(_remainPixels), mShadowSize(_shadowSize)
 	{
 	}
 
@@ -41,20 +41,33 @@ namespace MyGUI
 	{
 		WidgetPtr keyFocus = InputManager::getInstance().getKeyFocusWidget();
 		WidgetPtr mouseFocus = InputManager::getInstance().getMouseFocusWidget();
+		WidgetPtr keyFocusOwner = InputManager::getInstance().getKeyFocusWidget();
+		WidgetPtr mouseFocusOwner = InputManager::getInstance().getMouseFocusWidget();
 
 		while ((keyFocus != null) && (_widget != keyFocus))
 			keyFocus = keyFocus->getParent();
 		while ((mouseFocus != null) && (_widget != mouseFocus))
 			mouseFocus = mouseFocus->getParent();
+		while ((keyFocusOwner != null) && (_widget != keyFocusOwner))
+			keyFocusOwner = keyFocusOwner->_getOwner();
+		while ((mouseFocusOwner != null) && (_widget != mouseFocusOwner))
+			mouseFocusOwner = mouseFocusOwner->_getOwner();
 
 		// if our widget or his children have focus
-		bool haveFocus = ((keyFocus != null) || (mouseFocus != null)) || (_widget->isShow() == false);
+		bool haveFocus = ((keyFocus != null) || (mouseFocus != null)) || ((keyFocusOwner != null) || (mouseFocusOwner != null)) || (_widget->isShow() == false);
 
 		mElapsedTime += (1 - 2*haveFocus) * _time;
 
-		if (mElapsedTime > mTime) mElapsedTime = mTime;
-		if (mElapsedTime < 0) mElapsedTime = 0.0f;
-		//mElapsedTime -= mTime * (int)(mElapsedTime/mTime);
+		if (mElapsedTime > mTime)
+		{
+			mElapsedTime = mTime;
+			return true;
+		}
+		if (mElapsedTime < 0)
+		{
+			mElapsedTime = 0.0f;
+			return true;
+		}
 
 		#ifndef M_PI
 		const float M_PI = 3.141593;
@@ -67,22 +80,22 @@ namespace MyGUI
 		bool nearBorder = false;
 		if (coord.left <= 0)
 		{
-			coord.left = -coord.width * k;
+			coord.left = -(coord.width - mRemainPixels - mShadowSize) * k;
 			nearBorder = true;
 		}
 		if (coord.top <= 0)
 		{
-			coord.top = -coord.height * k;
+			coord.top = -(coord.height - mRemainPixels - mShadowSize) * k;
 			nearBorder = true;
 		}
 		if (coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth())
 		{
-			coord.left = (int)MyGUI::Gui::getInstance().getViewWidth() - coord.width * (1 - k);
+			coord.left = (int)MyGUI::Gui::getInstance().getViewWidth() - mRemainPixels - (coord.width) * (1 - k);
 			nearBorder = true;
 		}
 		if (coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight())
 		{
-			coord.top = (int)MyGUI::Gui::getInstance().getViewHeight() - coord.height * (1 - k);
+			coord.top = (int)MyGUI::Gui::getInstance().getViewHeight() - mRemainPixels - (coord.height) * (1 - k);
 			nearBorder = true;
 		}
 

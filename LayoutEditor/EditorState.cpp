@@ -11,11 +11,12 @@
 
 const std::string LogSection = "LayoutEditor";
 const std::string DEFAULT_VALUE = "#444444[DEFAULT]";
-const int PANELS_MARGIN = 2;
+const int PANELS_MARGIN = 3;
 const int PANELS_MIN_HEIGHT = 25;
 const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Inertional;
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
+const int HIDE_REMAIN_PIXELS = PANELS_MARGIN;
 
 EditorWidgets * ew;
 WidgetTypes * wt;
@@ -41,13 +42,13 @@ void EditorState::enter(bool bIsChangeState)
 
 	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
 	{
-		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
 		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
 		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
 		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
 		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
 	}
 
@@ -351,6 +352,17 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	{
 		if ( arg.key == OIS::KC_ESCAPE )
 		{
+			if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
+			{
+				MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+				MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"), controller);
+				controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+				MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"), controller);
+				controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+				MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
+				controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+				MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
+			}
 			for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 			{
 				(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(2048, 2048));
@@ -604,6 +616,14 @@ void EditorState::notifySettings(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
 {
+	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
+	{
+		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"));
+		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"));
+		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"));
+		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"));
+	}
+
 	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 	{
 		(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(-2048, -2048));
