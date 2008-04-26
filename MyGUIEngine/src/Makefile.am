@@ -8,6 +8,7 @@ libmygui_la_SOURCES = \
 	MyGUI_ColourRect.cpp\
 	MyGUI_ComboBox.cpp\
 	MyGUI_ComboBoxFactory.cpp\
+	MyGUI_ControllerEdgeHide.cpp\
 	MyGUI_ControllerFadeAlpha.cpp\
 	MyGUI_ControllerManager.cpp\
 	MyGUI_ControllerPosition.cpp\

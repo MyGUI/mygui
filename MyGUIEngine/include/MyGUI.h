@@ -43,6 +43,7 @@
 #include "MyGUI_ControllerManager.h"
 
 #include "MyGUI_ActionController.h"
+#include "MyGUI_ControllerEdgeHide.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_ControllerPosition.h"
 
