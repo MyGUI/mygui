@@ -18,9 +18,11 @@ namespace MyGUI
 	{
 	public:
 		/**
-			@param _time in which widget will reach destination coordinate
+			@param _time in which widget will be hidden or shown
+			@param _remainPixels how many pixels you will see afterr full hide
+			@param _shadowSize adds to _remainPixels when hiding left or top (for example used for windows with shadows)
 		*/
-		ControllerEdgeHide(float _time);
+		ControllerEdgeHide(float _time, int _remainPixels = 0, int _shadowSize = 0);
 
 	private:
 		const std::string & getType();
@@ -30,9 +32,9 @@ namespace MyGUI
 
 		delegates::CDelegate1<WidgetPtr> eventPostAction;
 
-		IntCoord mStartRect;
-		IntCoord mDestRect;
 		float mTime;
+		int mRemainPixels;
+		int mShadowSize;
 		float mElapsedTime;
 	};
 
