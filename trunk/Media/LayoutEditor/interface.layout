@@ -40,7 +40,7 @@
             <Property key="Widget_Caption" value="All created widgets"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="200 120 248 296" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowSettings">
+    <Widget type="Window" skin="WindowC" position="200 120 248 320" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowSettings">
         <Property key="Widget_Caption" value="Settings"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Widget_Show" value="false"/>
@@ -51,25 +51,25 @@
         <Widget type="Edit" skin="Edit" position="85 26 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="gridEdit">
             <Property key="Widget_Caption" value="8"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="5 234 232 24" name="buttonOkSettings">
+        <Widget type="Button" skin="Button" position="5 258 232 24" name="buttonOkSettings">
             <Property key="Widget_Caption" value="Ok"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="5 74 80 24">
+        <Widget type="StaticText" skin="StaticText" position="5 98 80 24">
             <Property key="Widget_Caption" value="Resolution"/>
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
-        <Widget type="ComboBox" skin="EditorComboBox" position="85 74 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxResolution">
+        <Widget type="ComboBox" skin="EditorComboBox" position="85 98 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxResolution">
             <Property key="Combo_ModeDrop" value="true"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="5 98 80 24">
+        <Widget type="StaticText" skin="StaticText" position="5 122 80 24">
             <Property key="Widget_Caption" value="Full screen"/>
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
-        <Widget type="ComboBox" skin="EditorComboBox" position="85 98 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxFullscreen">
+        <Widget type="ComboBox" skin="EditorComboBox" position="85 122 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxFullscreen">
             <Property key="Combo_ModeDrop" value="true"/>
         </Widget>
-        <Widget type="Widget" skin="Separator1" position="-3 50 248 2"/>
-        <Widget type="StaticText" skin="StaticText" position="-3 50 248 24" align="ALIGN_HSTRETCH ALIGN_TOP">
+        <Widget type="Widget" skin="Separator1" position="-3 74 248 2"/>
+        <Widget type="StaticText" skin="StaticText" position="-3 74 248 24" align="ALIGN_HSTRETCH ALIGN_TOP">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
             <Property key="Widget_Caption" value="Screen properties"/>
         </Widget>
@@ -78,19 +78,22 @@
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
             <Property key="Widget_Caption" value="Editor settings"/>
         </Widget>
-        <Widget type="Widget" skin="Separator1" position="-3 122 248 2"/>
-        <Widget type="StaticText" skin="StaticText" position="-4 122 248 24">
+        <Widget type="Widget" skin="Separator1" position="-3 146 248 2"/>
+        <Widget type="StaticText" skin="StaticText" position="-4 146 248 24">
             <Property key="Widget_Caption" value="Widgets list"/>
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
         </Widget>
-        <Widget type="Button" skin="CheckBox" position="5 146 232 24" name="checkShowName">
+        <Widget type="Button" skin="CheckBox" position="5 170 232 24" name="checkShowName">
             <Property key="Widget_Caption" value="Show widget name"/>
         </Widget>
-        <Widget type="Button" skin="CheckBox" position="5 170 232 24" name="checkShowType">
+        <Widget type="Button" skin="CheckBox" position="5 194 232 24" name="checkShowType">
             <Property key="Widget_Caption" value="Show widget type"/>
         </Widget>
-        <Widget type="Button" skin="CheckBox" position="5 194 232 24" name="checkShowSkin">
+        <Widget type="Button" skin="CheckBox" position="5 218 232 24" name="checkShowSkin">
             <Property key="Widget_Caption" value="Show widget skin"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 50 232 24" name="checkEdgeHide">
+            <Property key="Widget_Caption" value="Autohide editor panels"/>
         </Widget>
     </Widget>
     <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowProperties">

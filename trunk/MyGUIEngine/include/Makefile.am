@@ -10,6 +10,7 @@ pkginclude_HEADERS = \
 	MyGUI_ComboBox.h\
 	MyGUI_ComboBoxFactory.h\
 	MyGUI_Common.h\
+	MyGUI_ControllerEdgeHide.h\
 	MyGUI_ControllerFadeAlpha.h\
 	MyGUI_ControllerItem.h\
 	MyGUI_ControllerManager.h\

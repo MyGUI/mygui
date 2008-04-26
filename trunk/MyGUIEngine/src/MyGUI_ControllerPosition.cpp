@@ -108,7 +108,7 @@ namespace MyGUI
 		}
 
 		// поставить точно в конец
-		eventFrameAction(_widget, mStartRect, mDestRect, 1.);
+		eventFrameAction(_widget, mStartRect, mDestRect, 1.0f);
 		// вызываем пользовательский делегат пост обработки
 		eventPostAction(_widget);
 
