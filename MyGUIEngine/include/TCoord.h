@@ -83,7 +83,7 @@ namespace types
 		}
 
 		template< typename U >
-		inline TCoord & operator=( TCoord<U> const & o )
+		inline TCoord & operator=( TCoord<U> const & _obj )
 		{
 			left = _obj.left;
 			top = _obj.top;
