@@ -50,6 +50,7 @@ namespace MyGUI
 		*/
 		void upLayerItem(WidgetPtr _item);
 
+		/** Load additional MyGUI *.layer file */
 		bool load(const std::string & _file, const std::string & _group);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 

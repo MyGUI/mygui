@@ -94,6 +94,7 @@ namespace MyGUI
 	WidgetSkinInfo * SkinManager::create(const Ogre::String & _name)
 	{
 		WidgetSkinInfo * skin = new WidgetSkinInfo();
+		if (mSkins.find(_name) != mSkins.end()) MYGUI_LOG(Warning, "Skin with name '" + _name + "' already exist");
 		mSkins[_name] = skin;
 		return skin;
 	}
@@ -122,7 +123,7 @@ namespace MyGUI
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(name);
 			widget_info->setInfo(size, texture);
-			FloatSize materialSize = getTextureSize(texture);
+			IntSize materialSize = getTextureSize(texture);
 
 			// проверяем маску
 			if (skin->findAttribute("mask", tmp)) {
@@ -201,9 +202,9 @@ namespace MyGUI
 		};
 	}	
 
-	FloatSize SkinManager::getTextureSize(const std::string & _texture)
+	IntSize SkinManager::getTextureSize(const std::string & _texture)
 	{
-		FloatSize size(1, 1);
+		IntSize size(1, 1);
 
 		if (_texture.empty()) return size;
 
@@ -214,16 +215,21 @@ namespace MyGUI
 		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture);
 		if (tex.isNull()) return size;
 
-		size.width = (float)tex->getWidth();
-		size.height = (float)tex->getHeight();
+		size.width = tex->getWidth();
+		size.height = tex->getHeight();
 
 		if (size.width < 1) size.width = 1;
 		if (size.height < 1) size.height = 1;
 
+#if MYGUI_DEBUG_MODE
+		if (isPowerOfTwo(size) == false)
+			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power ow two size");
+#endif
+
 		return size;
 	}
 
-	FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const FloatSize & _textureSize)
+	FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize)
 	{
 		FloatRect retRect;
 		if (!_textureSize.width || !_textureSize.height) return retRect;
@@ -243,5 +249,21 @@ namespace MyGUI
 		widget_info->setInfo(IntSize(0, 0), "");
 	}
 
+	bool SkinManager::isPowerOfTwo(IntSize _size)
+	{
+		int count = 0;
+		while (_size.width > 0) {
+			count += _size.width & 1;
+			_size.width >>= 1;
+		};
+		if (count != 1) return false;
+		count = 0;
+		while (_size.height > 0) {
+			count += _size.height & 1;
+			_size.height >>= 1;
+		};
+		if (count != 1) return false;
+		return true;
+	}
 
 } // namespace MyGUI

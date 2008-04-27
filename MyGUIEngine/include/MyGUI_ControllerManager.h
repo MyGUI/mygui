@@ -34,7 +34,7 @@ namespace MyGUI
 				_widget to be controlled
 			@param
 				_item controller with some actions (for example ControllerFadeAlpha or your own)
-			@note _item will be deleted automatically at end of controller lifetime
+			@note _item will be deleted automatically at end of controller lifetime (or by removeItem)
 		*/
 		void addItem(WidgetPtr _widget, ControllerItem * _item);
 		/** Stop the control over a widget

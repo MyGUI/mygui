@@ -71,7 +71,7 @@ namespace MyGUI
 			// сохраняем
 			text = pointer->findAttribute("texture");
 
-			FloatSize textureSize = SkinManager::getTextureSize(text);
+			IntSize textureSize = SkinManager::getTextureSize(text);
 
 			// берем детей и крутимся, основной цикл
 			xml::xmlNodeIterator info = pointer->getNodeIterator();

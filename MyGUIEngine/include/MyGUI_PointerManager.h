@@ -27,6 +27,7 @@ namespace MyGUI
 
 	public:
 
+		/** Load additional MyGUI *.pointer file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
@@ -41,7 +42,12 @@ namespace MyGUI
 
 		/** Set pointer position*/
 		void setPosition(const IntPoint& _pos);
+		/** Set pointer that will be shown
+			@param _name of pointer
+			@param _owner If _owner widget destroyed - pointer returned to default
+		*/
 		void setPointer(const std::string & _name, WidgetPtr _owner);
+		/** Set default pointer */
 		inline void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, null); }
 
 		void _unlinkWidget(WidgetPtr _widget);
