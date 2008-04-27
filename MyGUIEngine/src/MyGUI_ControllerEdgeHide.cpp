@@ -58,12 +58,12 @@ namespace MyGUI
 
 		mElapsedTime += (1 - 2*haveFocus) * _time;
 
-		if (mElapsedTime > mTime)
+		if (mElapsedTime >= mTime)
 		{
 			mElapsedTime = mTime;
 			return true;
 		}
-		if (mElapsedTime < 0)
+		if (mElapsedTime <= 0)
 		{
 			mElapsedTime = 0.0f;
 			return true;

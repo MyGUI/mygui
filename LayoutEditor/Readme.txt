@@ -13,12 +13,12 @@ Controls:
     Ctrl + S           - save file
     Ctrl + Z           - undo
     Ctrl + Y           - redo
-	Ctrl + R           - toggle relative coordinates
-	Ctrl + T           - test layout
+    Ctrl + R           - toggle relative coordinates
+    Ctrl + T           - test layout
 
     Keyboard arrows - move widget
     Shift           - omit grid when moving/resizing widget
-	Delete          - delete selected widget and all child widgets
+    Delete          - delete selected widget and all child widgets
     Tab             - change Sheet (for Tab widget only)
 
   Mouse:	

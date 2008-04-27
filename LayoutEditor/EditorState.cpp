@@ -4,6 +4,10 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 
+#if defined OIS_WIN32_PLATFORM
+#include "windows.h"
+#endif
+
 #define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
 #define TO_GRID(x) ((x)/grid_step*grid_step)
 
@@ -131,7 +135,7 @@ void EditorState::enter(bool bIsChangeState)
 	comboFullScreen->setItemSelect(selectedIdx);
 
 #ifdef NO_EXCLUSIVE_INPUT
-	MyGUI::PointerManager::getInstance().hide();
+	//MyGUI::PointerManager::getInstance().hide();
 #endif
 	ASSIGN_FUNCTION("LayoutEditor_checkShowName", &EditorState::notifyToggleCheck);
 	ASSIGN_FUNCTION("LayoutEditor_checkShowType", &EditorState::notifyToggleCheck);
@@ -196,6 +200,22 @@ void EditorState::exit()
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
+#ifdef NO_EXCLUSIVE_INPUT
+	#if defined OIS_WIN32_PLATFORM
+	if ((arg.state.X.abs < 1) || (arg.state.X.abs > mGUI->getViewWidth() - 1) || (arg.state.Y.abs < 1) || (arg.state.Y.abs > mGUI->getViewHeight() - 1))
+	{
+		MyGUI::PointerManager::getInstance().hide();
+		ShowCursor(true);
+	}
+	else
+	{
+		MyGUI::PointerManager::getInstance().show();
+		ShowCursor(false);
+	}
+	#endif
+#endif
+
+	//MyGUI::MYGUI_OUT (arg.state.X.abs, " ", arg.state.Y.abs);
 	if (testMode){ mGUI->injectMouseMove(arg); return true;}
 
 	x2 = TO_GRID(arg.state.X.abs);
@@ -872,7 +892,8 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			if (widgetContainer->relative_mode) buttonReativePosition->setCaption("to pix");
 			else buttonReativePosition->setCaption("to %");
 	
-			createPropertiesWidgetsPair(window, "Position", widgetContainer->position(), "Position", x1, x2, w1, w2, y, h);
+			int brpWidth = buttonReativePosition->getWidth();
+			createPropertiesWidgetsPair(window, "Position", widgetContainer->position(), "Position", x1 + brpWidth, x2, w1 - brpWidth, w2, y, h);
 			y += h;
 		}
 		else
