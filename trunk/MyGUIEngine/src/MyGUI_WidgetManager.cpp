@@ -138,7 +138,7 @@ namespace MyGUI
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
 
-	FloatRect WidgetManager::convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight)
+	/*FloatRect WidgetManager::convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight)
 	{
 		FloatRect offset = _offset;
 
@@ -155,7 +155,7 @@ namespace MyGUI
 		else if (false == IS_ALIGN_TOP(_align)) offset.top += (_parentHeight - _parentSkinSize.height) / 2;
 
 		return offset;
-	}
+	}*/
 
 	// преобразует точку на виджете в глобальную позицию
 	IntPoint WidgetManager::convertToGlobal(const IntPoint& _point, WidgetPtr _widget)

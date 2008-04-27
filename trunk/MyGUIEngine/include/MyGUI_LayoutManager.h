@@ -36,6 +36,16 @@ namespace MyGUI
 		VectorWidgetPtr load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
+		/** Load layout file
+			@param
+				_file name of layout
+			@param
+				_prefix will be added to all loaded widgets names
+			@param
+				_group Ogre resource group where _file is
+			@return
+				Return vector of pointers of loaded root widgets (root == without parents)
+		*/
 		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		//void unload(const std::string & _file);
 

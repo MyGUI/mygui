@@ -36,6 +36,7 @@ namespace MyGUI
 
 	public:
 
+		/** Load additional MyGUI *.lang file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 

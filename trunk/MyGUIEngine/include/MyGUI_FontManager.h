@@ -27,6 +27,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
+		/** Load additional MyGUI *.font file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 

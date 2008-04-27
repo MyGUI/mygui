@@ -65,7 +65,7 @@ namespace MyGUI
 			((float)(mNum / count)) * mSizeTile.height + mRectImage.top,
 			mSizeTile.width, mSizeTile.height);
 		// конвертируем и устанавливаем
-		offset = SkinManager::convertTextureCoord(offset, FloatSize(mSizeTexture.width, mSizeTexture.height));
+		offset = SkinManager::convertTextureCoord(offset, IntSize(mSizeTexture.width, mSizeTexture.height));
 		_setUVSet(offset);
 	}
 
