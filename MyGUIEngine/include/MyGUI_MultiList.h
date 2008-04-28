@@ -39,7 +39,7 @@ namespace MyGUI
 	public:
 		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//!	@copydoc Widget::getWidgetType()
+		//! @copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		//----------------------------------------------------------------------------------//
@@ -78,11 +78,15 @@ namespace MyGUI
 		const Ogre::UTFString & getSubItem(size_t _row, size_t _index);
 
 		//----------------------------------------------------------------------------------//
-		virtual void setSize(const IntSize& _size);
-		virtual void setPosition(const IntCoord& _coord);
-
+		//! @copydoc Widget::setPosition(const IntCoord& _coord)
+		void setPosition(const IntCoord& _coord);
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size);
+		//! @copydoc Widget::setPosition(int _left, int _top)
 		inline void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
+		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : нажат ентер, или двойной щелчек

@@ -30,7 +30,7 @@ namespace MyGUI
 	public:
 		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//!	@copydoc Widget::getWidgetType()
+		//! @copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		/** Set edit text applying tags */
@@ -94,13 +94,13 @@ namespace MyGUI
 		/** Erase _count characters from _start position */
 		inline void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
 		// выделяет цветом выделение
-		/** Highlight selected text by _colour */
+		/** Colour selected text */
 		inline void setTextSelectColour(const Ogre::ColourValue & _colour)
 		{
 			setTextSelectColour(_colour, false);
 		}
 		// выделяет цветом диапазон
-		/** Highlight interval by _colour */
+		/** Colour interval */
 		inline void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour)
 		{
 			setTextColour(_start, _count, _colour, false);
@@ -159,11 +159,15 @@ namespace MyGUI
 		/** Get edit password character */
 		inline Char getPasswordChar() {return mCharPassword;}
 
+		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		void setPosition(const IntCoord& _coord);
+		//! @copydoc Widget::setSize(const IntSize& _size)
 		void setSize(const IntSize& _size);
-
+		//! @copydoc Widget::setPosition(int _left, int _top)
 		inline void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
+		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		/** Event : Enter pressed (Ctrl+entre in multiline mode).\n
