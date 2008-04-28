@@ -27,7 +27,7 @@ namespace MyGUI
 	public:
 		//! @copydoc Widget::_getType()
 		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//!	@copydoc Widget::getWidgetType()
+		//! @copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// переопределяем для присвоению клиенту
@@ -48,12 +48,17 @@ namespace MyGUI
 		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) {mMinmax.set(_min_h, _min_v, _max_h, _max_v);}
 		inline IntRect getMinMax() {return mMinmax;}
 
+      //! @copydoc Widget::setPosition(const IntPoint& _pos)
 		virtual void setPosition(const IntPoint& _pos);
+      //! @copydoc Widget::setPosition(const IntCoord& _coord)
 		virtual void setPosition(const IntCoord& _coord);
+		//! @copydoc Widget::setSize(const IntSize& _size)
 		virtual void setSize(const IntSize& _size);
-
+		//! @copydoc Widget::setPosition(int _left, int _top)
 		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
+		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		inline bool getSnap() {return mSnap;}
