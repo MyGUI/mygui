@@ -28,10 +28,6 @@ namespace MyGUI
 		{
 		}
 
-		// индекс этого элемента
-		size_t index;
-		// пользовательские данные
-		void * data;
 		// изменилось не только состояние, но и содержимое
 		bool update;
 		// нажат ли виджет
@@ -44,6 +40,10 @@ namespace MyGUI
 		bool drag_accept;
 		// айтем не берет дроп
 		bool drag_refuse;
+		// индекс этого элемента
+		size_t index;
+		// пользовательские данные
+		void * data;
 	};
 	typedef std::vector<ItemInfo> VectorItemInfo;
 
@@ -121,7 +121,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, WidgetItemData, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
 
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
-	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetItemDropInfo; //???
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -186,7 +186,7 @@ namespace MyGUI
 		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
 
 		// event : запрос на обновление айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _info)
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
 
@@ -199,8 +199,8 @@ namespace MyGUI
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
 		// event : завершение дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::ItemDropInfo _info, bool _result)
-		EventInfo_WidgetItemDropInfo eventEndDrop;
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
+		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
 
 	protected:
 
