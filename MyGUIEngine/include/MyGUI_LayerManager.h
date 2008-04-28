@@ -80,7 +80,7 @@ namespace MyGUI
 		/** Get aspect coefficient */
 		inline float getAspectCoef() {return mAspectCoef;}
 
-		/** Set new scene manager where MyGUI will be rendered */
+		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
 	private:
