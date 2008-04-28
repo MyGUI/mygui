@@ -60,54 +60,56 @@ namespace MyGUI
 		{
 			return _createWidget(_type, _skin, _coord, _align, _layer, _name);
 		}
-		/** See Gui::createWidgetT*/
+		/** See Gui::createWidgetT */
 		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
-		/** Create widget using coordinates relative to parent. see Gui::createWidgetT*/
+		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
 		inline WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
 		}
-		/** Create widget using coordinates relative to parent. see Gui::createWidgetT*/
+		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
 		inline WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
 		}
 
 		// templates for creating specific type widgets
-		/** Same as Gui::createWidgetT but return SomeWidgetClassPtr instead of WidgetPtr*/
+		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::_getType(), _skin, _coord, _align, _layer, _name));
 		}
-		/** Same as Gui::createWidgetT but return SomeWidgetClassPtr instead of WidgetPtr*/
+		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::_getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
-		/** Same as Gui::createWidgetRealT but return SomeWidgetClassPtr instead of WidgetPtr*/
+		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _coord, _align, _layer, _name));
 		}
-		/** Same as Gui::createWidgetRealT but return SomeWidgetClassPtr instead of WidgetPtr*/
+		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
 
-		/** Get width of GUI area*/
+		/** Get width of GUI area */
 		inline float getViewWidth() {return mViewSize.width;}
-		/** Get height of GUI area*/
+		/** Get height of GUI area */
 		inline float getViewHeight() {return mViewSize.height;}
-		/** Get aspect of GUI area*/
+		/** Get aspect of GUI area */
 		inline float getViewAspect() {return mViewSize.width / mViewSize.height;}
-		/** Get view size of GUI area*/
+		/** Get view size of GUI area */
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
+		/** Add GUI frame listener */
 		void addFrameListener(FrameListener * _listener);
+		/** Remove GUI frame listener */
 		void removeFrameListener(FrameListener * _listener);
 
 		/** Inject frame entered event. This function should be called each frame.
@@ -115,16 +117,16 @@ namespace MyGUI
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
 
 		// mirror of InputManager methods
-		/** Inject MouseMove event*/
+		/** Inject MouseMove event */
 		bool injectMouseMove(int _absx, int _absy, int _absz);
-		/** Inject MousePress event*/
+		/** Inject MousePress event */
 		bool injectMousePress(int _absx, int _absy, MouseButton _id);
 		/** Inject MouseRelease event*/
 		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
 
-		/** Inject KeyPress event*/
+		/** Inject KeyPress event */
 		bool injectKeyPress(KeyCode _key);
-		/** Inject KeyReleas event*/
+		/** Inject KeyReleas event */
 		bool injectKeyRelease(KeyCode _key);
 #ifndef MYGUI_NO_OIS
 		/** OIS backend */
@@ -141,17 +143,17 @@ namespace MyGUI
 #endif
 
 		// mirror of WidgetManager method
-		/** Destroy any created widget*/
+		/** Destroy any created widget */
 		void destroyWidget(WidgetPtr _widget);
 
 		// mirror of WidgetManager method
-		/** Destroy vector of widgets*/
+		/** Destroy vector of widgets */
 		void destroyWidgetsVector(VectorWidgetPtr _widgets);
 
 		// mirror of WidgetManager method
-		/** Find widget by name*/
+		/** Find widget by name */
 		WidgetPtr findWidgetT(const std::string& _name);
-		/** Find widget by name and prefix*/
+		/** Find widget by name and prefix */
 		inline WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
 		{
 			return findWidgetT(_prefix + _name);
@@ -159,7 +161,7 @@ namespace MyGUI
 
 		// mirror WidgetManager
 		/** Find widget by name and cast it to T type.
-			If T and found widget have different types cause error in DEBUG mode.
+			If T and found widget have different types cause exception in DEBUG mode.
 		*/
 		template <class T> inline T* findWidget(const std::string& _name)
 		{
@@ -179,22 +181,22 @@ namespace MyGUI
 		}
 
 		// mirror PointerManager
-		/** Hide pointer*/
+		/** Hide pointer */
 		void hidePointer();
 
 		// mirror PointerManager
-		/** Show pointer*/
+		/** Show pointer */
 		void showPointer();
 
 		// mirror PointerManager
-		/** Return visibility of pointer*/
+		/** Return visibility of pointer */
 		bool isShowPointer();
 
-		/** Register delegate for parsing XML blocks*/
+		/** Register delegate for parsing XML blocks */
 		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
 		void unregisterLoadXmlDelegate(const Ogre::String & _key);
 
-		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc)*/
+		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
@@ -215,16 +217,16 @@ namespace MyGUI
 		*/
 		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
 
-		/** Ogre::WindowEventListener method*/
+		/** Ogre::WindowEventListener method */
 		virtual void windowResized(Ogre::RenderWindow* rw);
 
-		/** Destroy child widget or throw exception if this child widget not found*/
+		/** Destroy child widget or throw exception if this child widget not found */
 		inline void destroyChildWidget(WidgetPtr _widget)
 		{
 			_destroyChildWidget(_widget);
 		}
 
-		/** Destroy all child widgets*/
+		/** Destroy all child widgets */
 		inline void destroyAllChildWidget()
 		{
 			_destroyAllChildWidget();
@@ -236,13 +238,18 @@ namespace MyGUI
 			return mResourceGroup;
 		}
 
+		/** Get GUI viewport index */
 		inline Ogre::ushort getActiveViewport()
 		{
 			return mActiveViewport;
 		}
 
+		/** Set GUI viewport index */
 		void setActiveViewport(Ogre::ushort _num);
 
+		// mirror LayerManager
+		/** Set scene manager where MyGUI will be rendered */
+		void setSceneManager(Ogre::SceneManager * _scene);
 	private:
 		// создает виджет
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);

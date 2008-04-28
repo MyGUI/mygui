@@ -442,4 +442,9 @@ namespace MyGUI
 		windowResized(mWindow);
 	}
 
+	void Gui::setSceneManager(Ogre::SceneManager * _scene)
+	{
+		mLayerManager->setSceneManager(_scene);
+	}
+
 } // namespace MyGUI
