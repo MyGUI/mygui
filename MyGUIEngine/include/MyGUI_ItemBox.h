@@ -116,12 +116,12 @@ namespace MyGUI
 
 	typedef std::vector<WidgetItemData> VectorWidgetItemData;
 
-	typedef delegates::CDelegate2<WidgetPtr, /*WidgetPtr, */WidgetItemData&> EventInfo_WidgetWidgetRefWidget; //???
+	typedef delegates::CDelegate2<WidgetPtr, WidgetItemData&> EventInfo_WidgetWidgetRefWidget; //???
 	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetItemData, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
-	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetItemDropInfoBoolRef;
-	typedef delegates::CDelegate2<WidgetPtr, ItemDropInfo> EventInfo_WidgetItemDropInfo;
-	typedef delegates::CDelegate3<WidgetPtr, size_t, bool&> EventInfo_WidgetSizeTBoolRef;
+
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetItemDropInfo; //???
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -152,10 +152,10 @@ namespace MyGUI
 		inline void addItem() {insertItem(ITEM_NONE, null);}
 
 		//! Replace an item at a specified position
-		void setItem(size_t _index, void * _data);
+		void setItemData(size_t _index, void * _data);
 
 		//! Get item from specified position
-		void * getItem(size_t _index);
+		void * getItemData(size_t _index);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
@@ -189,17 +189,18 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, size_t _index)
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
+
 		// event : запрос на начало дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index, bool & _result)
-		EventInfo_WidgetSizeTBoolRef requestStartDrop;
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
 
 		// event : запрос на дроп айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, const ItemDropInfo& _info, bool & _result)
-		EventInfo_WidgetItemDropInfoBoolRef requestDropItem;
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
-		// event : запрос на дроп айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, ItemDropInfo _info)
-		EventInfo_WidgetItemDropInfo eventDropAccept;
+		// event : завершение дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::ItemDropInfo _info, bool _result)
+		EventInfo_WidgetItemDropInfo eventEndDrop;
 
 	protected:
 
@@ -288,6 +289,8 @@ namespace MyGUI
 		IntPoint mPointDragOffset;
 
 		WidgetPtr mCurrentSender;
+		size_t mDropSenderIndex;
+		IntPoint mClickInWidget;
 
 		bool mStartDrop;
 		bool mNeedDrop;

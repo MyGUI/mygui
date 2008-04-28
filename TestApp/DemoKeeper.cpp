@@ -121,8 +121,8 @@ void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _it
 
 	if (_data.update) {
 		info->item3->setImageRect(MyGUI::IntRect(data->type * 68 + 68*2, 0, data->type * 68 + 68*3, 68*3));
-		info->text1->setCaption((data->count > 1) ? MyGUI::utility::toString(data->count) : "");
-		info->text2->setCaption((data->count > 1) ? MyGUI::utility::toString(data->count) : "");
+		info->text1->setCaption(((data->count > 1) && ( ! _data.drag)) ? MyGUI::utility::toString(data->count) : "");
+		info->text2->setCaption(((data->count > 1) && ( ! _data.drag)) ? MyGUI::utility::toString(data->count) : "");
 	}
 
 	if (_data.drag) {
@@ -151,16 +151,16 @@ void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _it
 
 }
 
-void requestStartDrop(MyGUI::WidgetPtr _sender, size_t _index, bool & _result)
+void eventStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 {
-	if (_index != ITEM_NONE) {
-		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_sender);
-		ItemData * data = ((ItemData*)sender->getItem(_index));
+	if (_info.sender_index != ITEM_NONE) {
+		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_info.sender);
+		ItemData * data = (ItemData*)_info.sender_data;
 		_result = data->type != 0;
 	}
 }
 
-void requestDropItem(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+void eventRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 {
 	// не на айтем кидаем
 	if (_info.reseiver_index == ITEM_NONE) {
@@ -169,33 +169,35 @@ void requestDropItem(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info
 	}
 
 	// на себя и на тотже айтем
-	if ((_sender == _info.reseiver) && (_info.sender_index == _info.reseiver_index)) {
+	if ((_info.sender == _info.reseiver) && (_info.sender_index == _info.reseiver_index)) {
 		_result = false;
 		return;
 	}
 
-	ItemData * sender_data = ((ItemData*)MyGUI::castWidget<MyGUI::ItemBox>(_info.sender)->getItem(_info.sender_index));
-	ItemData * reseiver_data = ((ItemData*)MyGUI::castWidget<MyGUI::ItemBox>(_info.reseiver)->getItem(_info.reseiver_index));
+	ItemData * sender_data = ((ItemData*)_info.sender_data);
+	ItemData * reseiver_data = ((ItemData*)_info.reseiver_data);
 
 	_result = (reseiver_data->type == 0) || (reseiver_data->type == sender_data->type);
 }
 
-void eventDropAccept(MyGUI::WidgetPtr _sender, MyGUI::ItemDropInfo _info)
+void eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result)
 {
-	MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_sender);
-	MyGUI::ItemBoxPtr reseiver = MyGUI::castWidget<MyGUI::ItemBox>(_info.reseiver);
+	if (_result) {
+		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_info.sender);
+		MyGUI::ItemBoxPtr reseiver = MyGUI::castWidget<MyGUI::ItemBox>(_info.reseiver);
 
-	ItemData * sender_data = ((ItemData*)sender->getItem(_info.sender_index));
-	ItemData * reseiver_data = ((ItemData*)reseiver->getItem(_info.reseiver_index));
+		ItemData * sender_data = ((ItemData*)_info.sender_data);
+		ItemData * reseiver_data = ((ItemData*)_info.reseiver_data);
 
-	reseiver_data->type = sender_data->type;
-	reseiver_data->count += sender_data->count;
+		reseiver_data->type = sender_data->type;
+		reseiver_data->count += sender_data->count;
 
-	sender_data->type = 0;
-	sender_data->count = 0;
+		sender_data->type = 0;
+		sender_data->count = 0;
 
-	reseiver->setItem(_info.reseiver_index, (void*)reseiver_data);
-	sender->setItem(_info.sender_index, (void*)sender_data);
+		reseiver->setItemData(_info.reseiver_index, (void*)reseiver_data);
+		sender->setItemData(_info.sender_index, (void*)sender_data);
+	}
 }
 
 void eventMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
@@ -268,9 +270,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);
 	box->requestUpdateWidgetItem = MyGUI::newDelegate(requestUpdateWidgetItem);
-	box->requestStartDrop = MyGUI::newDelegate(requestStartDrop);
-	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
-	box->eventDropAccept = MyGUI::newDelegate(eventDropAccept);
+	box->eventStartDrop = MyGUI::newDelegate(eventStartDrop);
+	box->eventRequestDrop = MyGUI::newDelegate(eventRequestDrop);
+	box->eventEndDrop = MyGUI::newDelegate(eventEndDrop);
 
 	size_t num = 0;
 	while (num < 50) {
@@ -284,9 +286,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);
 	box->requestUpdateWidgetItem = MyGUI::newDelegate(requestUpdateWidgetItem);
-	box->requestStartDrop = MyGUI::newDelegate(requestStartDrop);
-	box->requestDropItem = MyGUI::newDelegate(requestDropItem);
-	box->eventDropAccept = MyGUI::newDelegate(eventDropAccept);
+	box->eventStartDrop = MyGUI::newDelegate(eventStartDrop);
+	box->eventRequestDrop = MyGUI::newDelegate(eventRequestDrop);
+	box->eventEndDrop = MyGUI::newDelegate(eventEndDrop);
 
 	num = 0;
 	while (num < 50) {
