@@ -206,6 +206,18 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
 		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
 
+		// event : двойной щелчек мыши или Enter на елементе
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		EventInfo_WidgetSizeT eventSelectItemAccept;
+
+		// event : изменилась позиция выделенного элемента
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		EventInfo_WidgetSizeT eventChangeItemPosition;
+
+		// event : щелчек мыши на элементе
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		EventInfo_WidgetSizeT eventMouseItemActivate;
+
 	protected:
 
 		void _onMouseWheel(int _rel);
