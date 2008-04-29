@@ -239,7 +239,7 @@ namespace MyGUI
 			else if (input.isControlPressed()) commandCopy();
 
 		}
-		else if (_key == KC_RETURN) {
+		else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
 			// работаем только в режиме редактирования
 			if (false == mModeReadOnly) {
 				if ((mModeMultiline) && (false == input.isControlPressed())) {

@@ -152,7 +152,7 @@ namespace MyGUI
 				}
 			}
 
-		} else if (_key == KC_RETURN) {
+		} else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
 			if (sel != ITEM_NONE) {
 				eventListSelectAccept(this, sel);
 

@@ -151,7 +151,7 @@ namespace MyGUI
 			}
 		}
 		// нажат ввод в окне редиктирования
-		else if (_key == KC_RETURN) {
+		else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
 			eventComboAccept(this);
 		}
 
