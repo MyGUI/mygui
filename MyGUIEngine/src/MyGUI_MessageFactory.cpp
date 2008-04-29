@@ -164,6 +164,22 @@ namespace MyGUI
 			REGISTER_VALUE(mMapButtonType, AbortRetryIgnore);
 			REGISTER_VALUE(mMapButtonType, CancelTryContinue);
 
+			REGISTER_VALUE(mMapButtonType, IconDefault);
+
+			REGISTER_VALUE(mMapButtonType, IconInfo);
+			REGISTER_VALUE(mMapButtonType, IconQuest);
+			REGISTER_VALUE(mMapButtonType, IconError);
+			REGISTER_VALUE(mMapButtonType, IconWarning);
+
+			REGISTER_VALUE(mMapButtonType, Icon1);
+			REGISTER_VALUE(mMapButtonType, Icon2);
+			REGISTER_VALUE(mMapButtonType, Icon3);
+			REGISTER_VALUE(mMapButtonType, Icon4);
+			REGISTER_VALUE(mMapButtonType, Icon5);
+			REGISTER_VALUE(mMapButtonType, Icon6);
+			REGISTER_VALUE(mMapButtonType, Icon7);
+			REGISTER_VALUE(mMapButtonType, Icon8);
+
 			#undef REGISTER_VALUE
 
 		}

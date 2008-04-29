@@ -422,7 +422,7 @@ namespace MyGUI
 		const float near_min = 0.5f;
 		const float coef = 0.0005;
 
-		mScale += _rel * coef;
+		mScale += (-_rel) * coef;
 
 		if (mScale > 1) mScale = 1;
 		else if (mScale < near_min) mScale = near_min;

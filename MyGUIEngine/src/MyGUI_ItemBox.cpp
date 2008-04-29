@@ -467,7 +467,9 @@ namespace MyGUI
 
 		// расчитываем новый индекс выделения
 		if (mIndexSelect != ITEM_NONE) {
-			if (mIndexSelect >= _index) mIndexSelect ++;
+			if (mIndexSelect >= _index) {
+				mIndexSelect ++;
+			}
 		}
 
 		// подправляем индексы и выделение
@@ -495,8 +497,12 @@ namespace MyGUI
 
 		// расчитываем новый индекс выделения
 		if (mIndexSelect != ITEM_NONE) {
-			if (mCountItems == 0) mIndexSelect = ITEM_NONE;
-			else if ((mIndexSelect > _index) || (mIndexSelect == mCountItems)) mIndexSelect --;
+			if (mCountItems == 0) {
+				mIndexSelect = ITEM_NONE;
+			}
+			else if ((mIndexSelect > _index) || (mIndexSelect == mCountItems)) {
+				mIndexSelect --;
+			}
 		}
 
 		// подправляем индексы и выделение
@@ -555,6 +561,7 @@ namespace MyGUI
 				requestUpdateWidgetItem(this, mVectorItems[mIndexSelect - start], data);
 			}
 		}
+
 	}
 
 	void ItemBox::notifyInvalideDrop(WidgetPtr _sender)
@@ -566,6 +573,7 @@ namespace MyGUI
 	void ItemBox::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
 	{
 		if ( ! _left) return;
+		size_t old = mIndexSelect;
 
 		// сбрасываем инфу для дропа
 		mDropResult = false;
@@ -590,6 +598,11 @@ namespace MyGUI
 		mStartDrop = false;
 		// смещение внутри виджета, куда кликнули мышкой
 		mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
+
+		// отсылаем событие
+		eventMouseItemActivate(mWidgetEventSender, mIndexSelect);
+		// смену позиции отсылаем только при реальном изменении
+		if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 	}
 
 	void ItemBox::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left)
