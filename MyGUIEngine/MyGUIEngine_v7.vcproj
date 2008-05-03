@@ -35,7 +35,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib freetype230_D.lib"
+				AdditionalDependencies="OgreMain_d.lib freetype235_D.lib"
 				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\Dependencies\lib\Debug"
@@ -89,7 +89,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib freetype230.lib"
+				AdditionalDependencies="OgreMain.lib freetype235.lib"
 				OutputFile="$(OutDir)\MyGUI.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\Dependencies\lib\Release"
