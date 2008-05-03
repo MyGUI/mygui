@@ -72,7 +72,7 @@ namespace MyGUI
 		/** Set text cursor position */
 		void setTextCursor(size_t _index);
 
-		/** Set text align */
+		//! @copydoc Widget::setTextAlign
 		virtual void setTextAlign(Align _align);
 
 		//---------------------------------------------------------------//

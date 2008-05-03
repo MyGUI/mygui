@@ -43,18 +43,13 @@ namespace MyGUI
 
 		// methods for creating widgets
 		/** Create widget
-			\param _type widget type
-			@param
-				_skin widget skin
-			@param
-				_coord int coordinates of widget (_left, _top, _width, _height)
-			@param
-				_align widget align (possible values can be found in enum ALIGN_INFO)
-			@param
-				_layer layer where widget will be created (all layers usually defined in core.layer file).
-				If you widget will overlap with any other you shoud set layer with overlapped="true"
-			@param
-				_name if needed (you can use it for finding widget by name later)
+			@param _type widget type
+			@param _skin widget skin
+			@param _coord int coordinates of widget (_left, _top, _width, _height)
+			@param _align widget align (possible values can be found in enum ALIGN_INFO)
+			@param _layer layer where widget will be created (all layers usually defined in core.layer file).
+				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
+			@param _name if needed (you can use it for finding widget by name later)
 		*/
 		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{
@@ -76,7 +71,7 @@ namespace MyGUI
 			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
 		}
 
-		// templates for creating specific type widgets
+		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
 		{

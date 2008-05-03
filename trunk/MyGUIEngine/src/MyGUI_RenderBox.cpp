@@ -279,7 +279,7 @@ namespace MyGUI
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
 		manager.remove(texture);
 		mTexture = manager.createManual(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
+			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_B8G8R8A8, Ogre::TU_RENDERTARGET)
 			->getBuffer()->getRenderTarget();
 
 		std::string camera(utility::toString(this, "_CameraRenderBox"));
