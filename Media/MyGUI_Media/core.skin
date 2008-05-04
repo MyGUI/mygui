@@ -207,6 +207,12 @@
         </BasisSkin>
     </Skin>
 
+    <Skin name = "TileClient" size = "16 16" texture = "core.png">
+        <BasisSkin type="TileRect" offset = "0 0 16 16">
+            <State name="normal" offset = "413 4 96 59"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "WindowCaption" size = "47 30" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
@@ -1284,6 +1290,26 @@
         </BasisSkin>
 		
 	</Skin>
+
+
+    <Skin name = "Button2" size = "40 26" texture = "core.png">
+        
+        <BasisSkin type="SubSkin" offset = "0 0 5 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "514 2 5 26"/>
+            <State name="active" offset = "514 58 5 26"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "5 0 30 26" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "519 2 30 26"/>
+            <State name="active" offset = "519 58 30 26"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "35 0 5 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "549 2 5 26"/>
+            <State name="active" offset = "549 58 5 26"/>
+        </BasisSkin>
+
+    </Skin>
 
 	
 </MyGUI>
