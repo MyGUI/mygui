@@ -17,6 +17,7 @@
 #include "MyGUI_SimpleText.h"
 #include "MyGUI_EditText.h"
 #include "MyGUI_ColourRect.h"
+#include "MyGUI_TileRect.h"
 
 namespace MyGUI
 {
@@ -44,6 +45,7 @@ namespace MyGUI
 		CroppedRectangleFactory<SimpleText> * mFactorySimpleText;
 		CroppedRectangleFactory<EditText> * mFactoryEditText;
 		CroppedRectangleFactory<ColourRect> * mFactoryColourRect;
+		CroppedRectangleFactory<TileRect> * mFactoryTileRect;
 		
 	};
 

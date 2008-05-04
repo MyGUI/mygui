@@ -4,6 +4,7 @@
 
   <Widget name="Button">
     <Property key="Skin" value="Button"/>
+    <Property key="Skin" value="Button2"/>
     <Property key="Skin" value="ButtonSmall"/>
     <Property key="Skin" value="CheckBox"/>
     <Property key="Skin" value="RadioBox"/>
