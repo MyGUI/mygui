@@ -62,11 +62,11 @@ namespace MyGUI
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
 				if ((*iter).first == _item) {
 					// если нужно меньше, то ниче не делаем
-					if ((*iter).second >= _count) break;
-
-					mNeedVertexCount -= (*iter).second;
-					mNeedVertexCount += _count;
-					(*iter).second = _count;
+					if ((*iter).second < _count) {
+						mNeedVertexCount -= (*iter).second;
+						mNeedVertexCount += _count;
+						(*iter).second = _count;
+					}
 					return;
 				}
 			}

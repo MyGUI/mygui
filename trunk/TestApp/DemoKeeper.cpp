@@ -22,7 +22,7 @@ MyGUI::ProgressPtr progress = null;
 
 void DemoKeeper::move(int _left, int _top)
 {
-	if (but != 0) but->setPosition(_left+2, _top+2);
+	if (but != 0) but->setPosition(_left-310, _top-340);
 
 	//if (button != 0) MyGUI::MYGUI_OUT(button->getTextSize());
 	if (progress) progress->setProgressPosition(_left);
@@ -264,8 +264,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(30, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	win->setCaption("drag and drop demo");
+	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(300, 300, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	but = win->createWidget<MyGUI::Widget>("TileClient", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::ALIGN_DEFAULT);
+	/*win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);
@@ -438,6 +439,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	 //but->setAlpha(0.7);
 	 //but->setColour(Ogre::ColourValue::White);
      //but->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 60, 26), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM );
+
+	/*MyGUI::WidgetPtr fade = mGUI->createWidget<MyGUI::Widget>("MarkerBlack", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), mGUI->getViewHeight()), MyGUI::ALIGN_STRETCH, "FadeBusy");
+	fade->setAlpha(0.5);
+	//fade->setPointer("hand");
+	MyGUI::InputManager::getInstance().addWidgetModal(fade);
+	//MyGUI::PointerManager::getInstance().setPointer("hand", fade);
+
+	mGUI->destroyChildWidget(fade);*/
 
 }
 
