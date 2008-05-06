@@ -86,6 +86,7 @@ pkginclude_HEADERS = \
 	MyGUI_TabFactory.h\
 	MyGUI_TextChangeHistory.h\
 	MyGUI_TextIterator.h\
+	MyGUI_TileRect.h\
 	MyGUI_Types.h\
 	MyGUI_UnlinkWidget.h\
 	MyGUI_Utility.h\
