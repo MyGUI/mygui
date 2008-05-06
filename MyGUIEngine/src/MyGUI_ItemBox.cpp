@@ -341,7 +341,9 @@ namespace MyGUI
 		_updateAllVisible(old != mLineTop);
 
 		// заново ищем и подсвечиваем айтем
-		findCurrentActiveItem();
+		if (false == mNeedDrop) {
+			findCurrentActiveItem();
+		}
 
 	}
 
