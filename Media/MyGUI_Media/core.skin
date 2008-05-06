@@ -412,10 +412,20 @@
     </Skin>
 
     <Skin name = "VScrollTrack" size = "16 21" texture = "core.png" >
-        <BasisSkin type="MainSkin" offset = "0 0 16 21" align = "ALIGN_HSTRETCH ALIGN_TOP">
-            <State name="normal" offset = "163 64 16 21"/>
-            <State name="active" offset = "181 64 16 21"/>
-            <State name="select" offset = "199 64 16 21"/>
+        <BasisSkin type="SubSkin" offset = "0 0 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "163 64 16 6"/>
+            <State name="active" offset = "181 64 16 6"/>
+            <State name="select" offset = "199 64 16 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 16 9" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "163 70 16 9"/>
+            <State name="active" offset = "181 70 16 9"/>
+            <State name="select" offset = "199 70 16 9"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 15 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "163 79 16 6"/>
+            <State name="active" offset = "181 79 16 6"/>
+            <State name="select" offset = "199 79 16 6"/>
         </BasisSkin>
     </Skin>
 
@@ -462,7 +472,8 @@
     </Skin>
 
     <Skin name = "VScroll" size = "16 44" texture = "core.png" >
-        <Property key="TrackRangeMargins" value = "17 17" />
+        <Property key="TrackRangeMargins" value = "16 16" />
+        <Property key="MinTrackSize" value = "18" />
 
 		<Child type="Button" skin="VScrollTopPart" offset = "0 16 16 6" align = "ALIGN_STRETCH" name = "FirstPart"/>
         <Child type="Button" skin="VScrollBottomPart" offset = "0 22 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "SecondPart"/>
@@ -485,10 +496,20 @@
 
 
     <Skin name = "HScrollTrack" size = "21 16" texture = "core.png" >
-        <BasisSkin type="MainSkin" offset = "0 0 21 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
-            <State name="normal" offset = "174 123 21 16"/>
-            <State name="active" offset = "174 141 21 16"/>
-            <State name="select" offset = "174 159 21 16"/>
+        <BasisSkin type="SubSkin" offset = "0 0 6 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "151 141 6 16"/>
+            <State name="active" offset = "174 141 6 16"/>
+            <State name="select" offset = "197 141 6 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 9 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "157 141 9 16"/>
+            <State name="active" offset = "180 141 9 16"/>
+            <State name="select" offset = "203 141 9 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 0 6 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "166 141 6 16"/>
+            <State name="active" offset = "189 141 6 16"/>
+            <State name="select" offset = "212 141 6 16"/>
         </BasisSkin>
     </Skin>
 
@@ -535,7 +556,8 @@
     </Skin>
 	
     <Skin name = "HScroll" size = "44 16" texture = "core.png" >
-        <Property key="TrackRangeMargins" value = "17 17" />
+        <Property key="TrackRangeMargins" value = "16 16" />
+        <Property key="MinTrackSize" value = "18" />
 
 		<Child type="Button" skin="HScrollLeftPart" offset = "16 0 6 16" align = "ALIGN_STRETCH" name = "FirstPart"/>
         <Child type="Button" skin="HScrollRightPart" offset = "22 0 6 16" align = "ALIGN_VSTRETCH ALIGN_RIGHT" name = "SecondPart"/>
@@ -547,12 +569,14 @@
     </Skin>
 
 	<Skin name = "VSlider" size = "22 12" texture = "core.png" >
+        <Property key="MinTrackSize" value = "18" />
 		<Child type="Button" skin="VScrollTopPart" offset = "3 0 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "FirstPart"/>
         <Child type="Button" skin="VScrollBottomPart" offset = "3 6 16 6" align = "ALIGN_STRETCH" name = "SecondPart"/>
         <Child type="Button" skin="HScrollTrack" offset = "0 0 21 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
     </Skin>
 
 	<Skin name = "HSlider" size = "12 22" texture = "core.png" >
+        <Property key="MinTrackSize" value = "18" />
 		<Child type="Button" skin="HScrollLeftPart" offset = "0 3 6 16" align = "ALIGN_VSTRETCH ALIGN_LEFT" name = "FirstPart"/>
         <Child type="Button" skin="HScrollRightPart" offset = "6 3 6 16" align = "ALIGN_STRETCH" name = "SecondPart"/>
         <Child type="Button" skin="VScrollTrack" offset = "0 0 16 21" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track"/>

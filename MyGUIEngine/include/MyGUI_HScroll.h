@@ -29,6 +29,16 @@ namespace MyGUI
 		//! @copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
+		/** Get size in pixels of area where scroll moves */
+		int getLineSize() {return mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd);}
+
+		/** Set size of track in pixels
+			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
+		*/
+		void setTrackSize(size_t _size);
+		/** Get size of track in pixels */
+		int getTrackSize();
+
 	private:
 		void TrackMove(int _left, int _top);
 		void updateTrack();

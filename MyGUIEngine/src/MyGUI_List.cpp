@@ -256,21 +256,22 @@ namespace MyGUI
 	{
 		mRangeIndex = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->getHeight();
 
-		if ( (false == mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) ) {
+		if ( (false == mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) )
+		{
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->hide();
 				// увеличиваем клиентскую зону на ширину скрола
 				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
-			mWidgetScroll->setScrollRange(mRangeIndex + 1);
-			return;
 		}
-		if (false == mWidgetScroll->isShow()) {
+		else if (false == mWidgetScroll->isShow())
+		{
 			mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			mWidgetScroll->show();
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
+		if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
 	}
 
 	void List::updateLine(bool _reset)
@@ -439,6 +440,7 @@ namespace MyGUI
 			mTopIndex ++;
 			// просчитываем положение скролла
 			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
+			if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
 			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			mRangeIndex += mHeightLine;
 
@@ -451,6 +453,7 @@ namespace MyGUI
 			if (mWidgetClient->getHeight() < (offset - mHeightLine)) {
 				// просчитываем положение скролла
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
+				if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				mRangeIndex += mHeightLine;
 
@@ -492,6 +495,7 @@ namespace MyGUI
 			mTopIndex --;
 			// просчитываем положение скролла
 			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
+			if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
 			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			mRangeIndex -= mHeightLine;
 
@@ -504,6 +508,7 @@ namespace MyGUI
 			if (mWidgetClient->getHeight() < offset) {
 				// просчитываем положение скролла
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
+				if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				mRangeIndex -= mHeightLine;
 

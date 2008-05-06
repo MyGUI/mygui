@@ -153,7 +153,7 @@ namespace MyGUI
 	bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
 
-		// если мы щелкнули не  на гуй
+		// если мы щелкнули не на гуй
 		if (false == isFocusMouse()) {
 			resetKeyFocusWidget();
 			return false;

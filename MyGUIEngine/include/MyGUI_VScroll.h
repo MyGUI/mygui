@@ -53,6 +53,21 @@ namespace MyGUI
 		/** Get scroll view page */
 		inline size_t getScrollViewPage() {return mScrollViewPage;}
 
+		/** Get size in pixels of area where scroll moves */
+		int getLineSize() {return mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);}
+
+		/** Set size of track in pixels
+			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
+		*/
+		void setTrackSize(size_t _size);
+		/** Get size of track in pixels */
+		int getTrackSize();
+
+		/** Set minimal track size (used for setTrackSize)*/
+		void setMinTrackSize(size_t _size) {mMinTrackSize = _size;}
+		/** Get minimal track size */
+		int getMinTrackSize() {return mMinTrackSize;}
+
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		virtual void setPosition(const IntCoord& _coord);
 		//! @copydoc Widget::setSize(const IntSize& _size)
@@ -63,7 +78,7 @@ namespace MyGUI
 		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
-		
+
 		/** Event : scroll tracker position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
 			_position - new tracker position
@@ -96,6 +111,8 @@ namespace MyGUI
 		size_t mScrollPosition;
 		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
 		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
+
+		size_t mMinTrackSize;
 
 	}; // class VScroll : public Widget
 
