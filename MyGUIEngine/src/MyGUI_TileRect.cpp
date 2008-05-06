@@ -65,13 +65,60 @@ namespace MyGUI
 	void TileRect::_setAlign(const IntSize& _size, bool _update)
 	{
 
+		// необходимо разобраться
+		bool need_update = true;//_update;
+
+		// первоначальное выравнивание
+		if (IS_ALIGN_RIGHT(mAlign)) {
+			if (IS_ALIGN_LEFT(mAlign)) {
+				// растягиваем
+				mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
+				need_update = true;
+				mIsMargin = true; // при изменении размеров все пересчитывать
+			}
+			else {
+				// двигаем по правому краю
+				mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
+				need_update = true;
+			}
+
+		}
+		else if (false == IS_ALIGN_LEFT(mAlign)) {
+			// выравнивание по горизонтали без растяжения
+			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
+			need_update = true;
+		}
+
+		if (IS_ALIGN_BOTTOM(mAlign)) {
+			if (IS_ALIGN_TOP(mAlign)) {
+				// растягиваем
+				mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
+				need_update = true;
+				mIsMargin = true; // при изменении размеров все пересчитывать
+			}
+			else {
+				mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
+				need_update = true;
+			}
+		}
+		else if (false == IS_ALIGN_TOP(mAlign)) {
+			// выравнивание по вертикали без растяжения
+			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
+			need_update = true;
+		}
+
+		if (need_update) {
+			mCurrentCoord = mCoord;
+			_updateView();
+		}
+
 		// растягиваем
-		mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
+		/*mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
 		mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
 		mIsMargin = true; // при изменении размеров все пересчитывать
 
 		mCurrentCoord = mCoord;
-		_updateView();
+		_updateView();*/
 
 	}
 
@@ -126,6 +173,7 @@ namespace MyGUI
 	void TileRect::_setUVSet(const FloatRect& _rect)
 	{
 		mCurrentTexture = _rect;
+		updateTextureData();
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 

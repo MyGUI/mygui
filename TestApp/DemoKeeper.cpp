@@ -211,6 +211,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	multi->addRow(100, "test1");
+	multi->addRow(89, "test2");
+
+	multi->addItem("line 1");
+	multi->addItem("line 2");
+	multi->setSubItem(1, 0, "line 1");
+	multi->setSubItem(1, 1, "line 2");
 	/*menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(), MyGUI::ALIGN_BOTTOM, "Main");
 	menu->addItem("test 1");
 =======
@@ -264,9 +272,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(300, 300, 100, 100), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	but = win->createWidget<MyGUI::Widget>("TileClient", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::ALIGN_DEFAULT);
-	/*win->setCaption("drag and drop demo");
+	/*MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	//but = win->createWidget<MyGUI::Widget>("TileClient", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::ALIGN_DEFAULT);
+	win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);

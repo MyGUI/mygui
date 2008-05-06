@@ -122,6 +122,8 @@ namespace MyGUI
 
 		void setDirtySort();
 
+		WidgetPtr MultiList::getSeparator(size_t _index);
+
 	private:
 		int mHeightButton;
 		int mWidthBar;
@@ -130,6 +132,8 @@ namespace MyGUI
 
 		WidgetPtr mWidgetClient;
 		VectorRowInfo mVectorRowInfo;
+
+		VectorWidgetPtr mSeparators;
 
 		size_t mLastMouseFocusIndex;
 
@@ -140,6 +144,10 @@ namespace MyGUI
 		// векторы для быстрого маппинга в сортированном списке
 		VectorSizeT mToSortIndex;
 		bool mIsDirtySort;
+
+		int mWidthSeparator;
+		std::string mSkinSeparator;
+		int mOffsetButtonSeparator;
 
 	}; // class _MyGUIExport MultiList : public Widget
 

@@ -25,7 +25,9 @@ namespace MyGUI
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
 		mSortRowIndex(ITEM_NONE),
-		mIsDirtySort(false)
+		mIsDirtySort(false),
+		mWidthSeparator(0),
+		mOffsetButtonSeparator(2)
 	{
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -44,6 +46,11 @@ namespace MyGUI
 				mButtonMain = mWidgetClient->createWidget<Button>(iter->second,
 					IntCoord(0, 0, mWidgetClient->getWidth(), mHeightButton), ALIGN_DEFAULT);
 			}
+
+			iter = param.find("WidthSeparator");
+			if (iter != param.end()) mWidthSeparator = utility::parseInt(iter->second);
+			iter = param.find("SkinSeparator");
+			if (iter != param.end()) mSkinSeparator = iter->second;
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -263,23 +270,6 @@ namespace MyGUI
 		return mVectorRowInfo[_row].list->getItem(convertToSort(_index));
 	}
 	//----------------------------------------------------------------------------------//
-
-	void MultiList::updateRows()
-	{
-		mWidthBar = 0;
-		int index = 0;
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
-			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
-			(*iter).button->_setInternalData(index);
-
-			mWidthBar += (*iter).width;
-			index++;
-		}
-
-		redrawButtons();
-		updateOnlyEmpty();
-	}
 
 	void MultiList::updateOnlyEmpty()
 	{
@@ -538,5 +528,45 @@ namespace MyGUI
 		}
 		sortList();
 	}
+
+	WidgetPtr MultiList::getSeparator(size_t _index)
+	{
+		if (!mWidthSeparator || mSkinSeparator.empty()) return null;
+		// последний столбик
+		if (_index == mVectorRowInfo.size()-1) return null;
+
+		while (_index >= mSeparators.size()) {
+			WidgetPtr separator = mWidgetClient->createWidget<Widget>(mSkinSeparator, IntCoord(), ALIGN_DEFAULT);
+			mSeparators.push_back(separator);
+		}
+
+		return mSeparators[_index];
+	}
+
+	void MultiList::updateRows()
+	{
+		mWidthBar = 0;
+		int index = 0;
+		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
+			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
+			(*iter).button->_setInternalData(index);
+
+			mWidthBar += (*iter).width;
+
+			// промежуток между листами
+			WidgetPtr separator = getSeparator(index);
+			if (separator) {
+				separator->setPosition(mWidthBar, 0, mWidthSeparator, mWidgetClient->getHeight());
+			}
+
+			mWidthBar += mWidthSeparator;
+			index++;
+		}
+
+		redrawButtons();
+		updateOnlyEmpty();
+	}
+
 
 } // namespace MyGUI
