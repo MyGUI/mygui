@@ -368,6 +368,8 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 {
 	MyGUI::InputManager & input = MyGUI::InputManager::getInstance();
 
+	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
+
 	if (testMode)
 	{
 		if ( arg.key == OIS::KC_ESCAPE )
@@ -395,7 +397,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		return true;
 	}
 
-	if (MyGUI::InputManager::getInstance().isModalAny())
+	if (input.isModalAny())
 	{
 		if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
 		{
@@ -411,7 +413,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		}
 		else if ( arg.key == OIS::KC_DELETE )
 		{
-			if (MyGUI::InputManager::getInstance().getKeyFocusWidget() == current_widget_rectangle){
+			if (input.getKeyFocusWidget() == current_widget_rectangle){
 				if (current_widget){ ew->remove(current_widget); notifySelectWidget(null); }
 				um->addValue();
 			}
@@ -440,8 +442,6 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			}
 		}
 	}
-
-	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
 
 	mGUI->injectKeyPress(arg);
 	return true;

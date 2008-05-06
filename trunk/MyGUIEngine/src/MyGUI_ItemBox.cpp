@@ -98,6 +98,7 @@ namespace MyGUI
 			mWidgetScroll->setScrollRange(mScrollRange + 1);
 			mWidgetScroll->setScrollPage(mSizeItem.height);
 			mWidgetScroll->setScrollViewPage(mSizeItem.height);
+			if (mCountLines) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mSizeItem.height / mCountLines );
 		}
 	}
 
