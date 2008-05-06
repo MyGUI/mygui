@@ -64,6 +64,7 @@ libmygui_la_SOURCES = \
 	MyGUI_Tab.cpp\
 	MyGUI_TabFactory.cpp\
 	MyGUI_TextIterator.cpp\
+	MyGUI_TileRect.cpp\
 	MyGUI_VScroll.cpp\
 	MyGUI_VScrollFactory.cpp\
 	MyGUI_Widget.cpp\
