@@ -46,6 +46,8 @@ namespace MyGUI
 			updateButtonState();
 		}
 
+		void setImageIndex(size_t _index);
+
 	protected:
 
 		virtual void _onMouseLostFocus(WidgetPtr _new);
@@ -72,6 +74,8 @@ namespace MyGUI
 		bool mIsFocus;
 		// статус кнопки нажата или нет
 		bool mIsStatePressed;
+
+		StaticImagePtr mImage;
 
 	}; // class Button : public Widget
 
