@@ -212,13 +212,25 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mHeight = _height;
 
 	MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
-	multi->addRow(100, "test1");
+	multi->addRow(100, "testklr;esihga;dklfhg;akfdh1");
 	multi->addRow(89, "test2");
 
 	multi->addItem("line 1");
 	multi->addItem("line 2");
 	multi->setSubItem(1, 0, "line 1");
 	multi->setSubItem(1, 1, "line 2");
+
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
+	multi->addItem("line 2");
 	/*menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(), MyGUI::ALIGN_BOTTOM, "Main");
 	menu->addItem("test 1");
 =======
