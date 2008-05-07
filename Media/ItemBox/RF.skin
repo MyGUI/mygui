@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+
+    <Skin name = "RF_WindowCaption" size = "10 10" texture = "RF_Skin.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
+        <Property key="Colour" value = "0.9 0.9 0.9" />
+
+        <BasisSkin type="SimpleText" offset = "0 0 10 10" align = "ALIGN_STRETCH"/>
+    </Skin>
+
+    <Skin name = "RF_WindowResize">
+        <Property key="Pointer" value = "hand" />
+    </Skin>
+
+    <Skin name = "RF_WindowQ" size = "24 14" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 24 14" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "313 366 0 0"/>
+            <State name="active" offset = "313 328 24 14"/>
+            <State name="select" offset = "313 344 24 14"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "RF_WindowX" size = "24 14" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 24 14" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "339 366 0 0"/>
+            <State name="active" offset = "339 328 24 14"/>
+            <State name="select" offset = "339 344 24 14"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "RF_Window" size = "18 18" texture = "RF_Skin.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_CENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="Button" skin="RF_WindowCaption" offset = "78 6 -139 22" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <Child type="Widget" skin="Default" offset = "6 30 6 -18" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+        <Child type="Widget" skin="RF_WindowResize" offset = "12 12 6 6" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
+        </Child>
+
+        <Child type="Widget" skin="RF_WindowResize" offset = "0 12 6 6" align = "ALIGN_LEFT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "1 0 -1 1"/>
+        </Child>
+
+        <Child type="Button" skin="RF_WindowQ" offset = "10 10 24 14" align = "ALIGN_LEFT ALIGN_TOP" name = "Button">
+            <Property key="Event" value = "quest"/>
+        </Child>
+
+        <Child type="Button" skin="RF_WindowX" offset = "-16 10 24 14" align = "ALIGN_RIGHT ALIGN_TOP" name = "Button">
+            <Property key="Event" value = "close"/>
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 0 6 6" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "365 328 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 6 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "371 328 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "12 0 6 6" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "391 328 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "12 6 6 6" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "391 334 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "12 12 6 6" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "391 352 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 12 6 6" align = "ALIGN_BOTTOM ALIGN_HSTRETCH">
+            <State name="normal" offset = "371 352 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 12 6 6" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "365 352 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 6 6" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "365 334 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 28 6 -16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "372 335 6 6"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "6 6 72 22" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "313 304 72 22"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "-61 6 73 22" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "395 304 73 22"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "78 6 -139 22" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "386 304 8 22"/>
+        </BasisSkin>
+
+        <_BasisSkin type="SimpleText" offset = "3 0 18 30" align = "ALIGN_HSTRETCH ALIGN_TOP"/>
+    </Skin>
+
+
+    <Skin name = "RF_VScrollTrack" size = "11 6" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 11 6" align = "ALIGN_DEFAULT">
+            <State name="normal" offset = "400 339 11 2"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "RF_VScrollTop" size = "11 7" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 11 7" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "400 328 11 7"/>
+            <State name="active" offset = "400 328 11 7"/>
+            <State name="select" offset = "413 328 11 7"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "RF_VScrollBottom" size = "11 7" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 11 7" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "400 344 11 7"/>
+            <State name="active" offset = "400 344 11 7"/>
+            <State name="select" offset = "413 344 11 7"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "RF_VScroll" size = "11 20" texture = "RF_Skin.png" >
+        <Property key="TrackRangeMargins" value = "7 7" />
+        <Property key="MinTrackSize" value = "6" />
+
+		<Child type="Button" skin="Default" offset = "0 7 11 3" align = "ALIGN_STRETCH" name = "FirstPart"/>
+        <Child type="Button" skin="Default" offset = "0 10 11 3" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "SecondPart"/>
+
+        <Child type="Button" skin="RF_VScrollTop" offset = "0 0 11 7" align = "ALIGN_LEFT ALIGN_TOP" name = "Start"/>
+        <Child type="Button" skin="RF_VScrollBottom" offset = "0 13 11 7" align = "ALIGN_LEFT ALIGN_BOTTOM" name = "End"/>
+        <Child type="Button" skin="RF_VScrollTrack" offset = "0 7 11 6" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
+
+    </Skin>
+
+
+    <Skin name = "RF_StaticImage" size = "16 16">
+        <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+    </Skin>
+    
+    <Skin name = "RF_StaticText" size = "16 16">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_DEFAULT" />
+        <Property key="Colour" value = "0 0 0" />
+        
+        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
+    </Skin>
+	
+    <Skin name = "RF_ItemBox" size = "20 20">
+        <Property key="NeedKey" value = "true" />
+
+        <Child type="VScroll" skin="RF_VScroll" offset = "9 0 11 20" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll">
+        </Child>
+
+        <Child type="Widget" skin="Default" offset = "0 0 9 20" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+    </Skin>
+
+	
+</MyGUI>
+

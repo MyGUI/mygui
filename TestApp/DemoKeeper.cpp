@@ -77,29 +77,29 @@ void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _
 	WidgetData * data = new WidgetData();
 	const MyGUI::IntSize & size = _info.item->getSize();
 
-	MyGUI::StaticImagePtr item = _info.item->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
+	MyGUI::StaticImagePtr item = _info.item->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
 
-	item->setImageInfo("ItemBox.png", MyGUI::IntRect(0, 0, 68, 68*4), MyGUI::IntSize(68, 68));
+	item->setImageInfo("RF_Skin.png", MyGUI::IntRect(0, 0, 68, 68*4), MyGUI::IntSize(68, 68));
 	item->setNeedMouseFocus(false);
 	data->item1 = item;
 
-	item = item->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
-	item->setImageInfo("ItemBox.png", MyGUI::IntRect(68, 0, 68*2, 68*3), MyGUI::IntSize(68, 68));
+	item = item->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
+	item->setImageInfo("RF_Skin.png", MyGUI::IntRect(68, 0, 68*2, 68*3), MyGUI::IntSize(68, 68));
 	item->setNeedMouseFocus(false);
 	data->item2 = item;
 
-	item = item->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
-	item->setImageInfo("ItemBox.png", MyGUI::IntRect(68, 0, 68*2, 68*4), MyGUI::IntSize(68, 68));
+	item = item->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
+	item->setImageInfo("RF_Skin.png", MyGUI::IntRect(68, 0, 68*2, 68*4), MyGUI::IntSize(68, 68));
 	item->setNeedMouseFocus(false);
 	data->item3 = item;
 
-	MyGUI::StaticTextPtr text = item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
+	MyGUI::StaticTextPtr text = item->createWidget<MyGUI::StaticText>("RF_StaticText", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
 	text->setTextAlign(MyGUI::ALIGN_RIGHT_BOTTOM);
 	text->setColour(Ogre::ColourValue::Black);
 	text->setNeedMouseFocus(false);
 	data->text1 = text;
 
-	text = text->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, size.width-1, size.height-1), MyGUI::ALIGN_STRETCH);
+	text = text->createWidget<MyGUI::StaticText>("RF_StaticText", MyGUI::IntCoord(0, 0, size.width-1, size.height-1), MyGUI::ALIGN_STRETCH);
 	text->setTextAlign(MyGUI::ALIGN_RIGHT_BOTTOM);
 	text->setColour(Ogre::ColourValue::White);
 	text->setNeedMouseFocus(false);
@@ -211,7 +211,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	/*MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	multi->addRow(100, "testklr;esihga;dklfhg;akfdh1");
 	multi->addRow(89, "test2");
 
@@ -230,7 +230,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	multi->addItem("line 2");
 	multi->addItem("line 2");
 	multi->addItem("line 2");
-	multi->addItem("line 2");
+	multi->addItem("line 2");//*/
 	/*menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(), MyGUI::ALIGN_BOTTOM, "Main");
 	menu->addItem("test 1");
 =======
@@ -284,10 +284,17 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	/*MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
-	//but = win->createWidget<MyGUI::Widget>("TileClient", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::ALIGN_DEFAULT);
+	MyGUI::SkinManager::getInstance().load("RF.skin");
+
+
+	MyGUI::StaticImagePtr back = mGUI->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, mWidth, mHeight), MyGUI::ALIGN_STRETCH, "Back");
+	back->setImageTexture("RF.jpg");
+
+
+	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(50, 100, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	win->setMinMax(170, 60, 1000, 1000);
 	win->setCaption("drag and drop demo");
-	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("RF_ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);
 	box->requestUpdateWidgetItem = MyGUI::newDelegate(requestUpdateWidgetItem);
@@ -301,9 +308,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 		num ++;
 	}
 
-	win = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(550, 100, 440, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	win = mGUI->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(600, 400, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	win->setMinMax(170, 60, 1000, 1000);
 	win->setCaption("drag and drop demo");
-	box = win->createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+	box = win->createWidget<MyGUI::ItemBox>("RF_ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);
 	box->requestUpdateWidgetItem = MyGUI::newDelegate(requestUpdateWidgetItem);
