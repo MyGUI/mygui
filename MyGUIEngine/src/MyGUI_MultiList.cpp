@@ -339,10 +339,11 @@ namespace MyGUI
 		size_t pos = 0;
 		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
 			if (pos == mSortRowIndex) {
-				if (mSortUp) (*iter).button->setCaption((*iter).name + "  ^");
-				else (*iter).button->setCaption((*iter).name + "  v");
+				if (mSortUp) (*iter).button->setImageIndex(SORT_UP);
+				else (*iter).button->setImageIndex(SORT_DOWN);
 			}
-			else (*iter).button->setCaption((*iter).name);
+			else (*iter).button->setImageIndex(SORT_NONE);
+			(*iter).button->setCaption((*iter).name);
 			pos++;
 		}
 	}

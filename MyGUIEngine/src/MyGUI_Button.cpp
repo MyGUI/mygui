@@ -6,6 +6,8 @@
 */
 #include "MyGUI_Button.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_StaticImage.h"
+#include "MyGUI_CastWidget.h"
 
 namespace MyGUI
 {
@@ -16,7 +18,8 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),
-		mIsStatePressed(false)
+		mIsStatePressed(false),
+		mImage(null)
 	{
 
 		// парсим свойства
@@ -24,6 +27,12 @@ namespace MyGUI
 		if (!param.empty()) {
 			MapString::const_iterator iter = param.find("ButtonPressed");
 			if (iter != param.end()) setButtonPressed(iter->second == "true");
+		}
+
+		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+			if ((*iter)->_getInternalString() == "Image") {
+				mImage = castWidget<StaticImage>(*iter);
+			}
 		}
 	}
 
@@ -59,6 +68,11 @@ namespace MyGUI
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onMouseButtonReleased(_left);
+	}
+
+	void Button::setImageIndex(size_t _index)
+	{
+		if (mImage) mImage->setImageNum(_index);
 	}
 
 } // namespace MyGUI

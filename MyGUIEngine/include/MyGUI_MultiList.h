@@ -30,6 +30,13 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::MultiListFactory;
 
+		enum ImageSort
+		{
+			SORT_NONE,
+			SORT_UP,
+			SORT_DOWN
+		};
+
 	protected:
 		MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~MultiList();
