@@ -45,8 +45,7 @@ namespace MyGUI
 		mTextureAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
 		mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 
-		// обновляем данные
-		//_resize(LayerManager::getInstance().getViewSize());
+		mLayerManager = LayerManager::getInstancePtr();
 
 	}
 
@@ -163,6 +162,8 @@ namespace MyGUI
 		initRenderState();
 		// perform the rendering.
 		mRenderSystem->_render(mRenderOperation);
+
+		mLayerManager->_addBatch();
 	}
 
 	/*void RenderItem::_resize(const FloatSize& _size)

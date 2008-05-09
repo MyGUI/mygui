@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Pointer">
+
+    <Pointer layer="Pointer" texture="RF_Skin.png" default="RF_normal">
+        <Info name="RF_normal" point="0 0" size="32 32" offset="494 304 32 32"/>
+        <Info name="RF_resize2" point="16 16" size="32 32" offset="526 304 32 32"/>
+        <Info name="RF_resize1" point="16 16" size="32 32" offset="558 304 32 32"/>
+        <Info name="RF_drop" point="0 0" size="32 32" offset="590 304 32 32"/>
+        <Info name="RF_drop_accept" point="0 0" size="32 32" offset="622 304 32 32"/>
+        <Info name="RF_drop_refuse" point="0 0" size="32 32" offset="654 304 32 32"/>
+    </Pointer>
+
+</MyGUI>

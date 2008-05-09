@@ -450,7 +450,7 @@ namespace MyGUI
 		}
 	}
 
-	void * ItemBox::getItemData(size_t _index)
+	void * ItemBox::_getDropItemData(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mItemsInfo.size() || _index == ITEM_NONE , "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
 		if (_index == ITEM_NONE) return null;
@@ -617,6 +617,7 @@ namespace MyGUI
 
 		// если дроп выполнен успешно
 		eventEndDrop(this, mDropInfo, mDropResult);
+		eventDropState(this, DROP_END);
 
 		// сбрасываем инфу для дропа
 		mDropResult = false;
@@ -637,11 +638,16 @@ namespace MyGUI
 			update = true;
 			// запрос на нужность дропа по индексу
 			eventStartDrop(this, ItemDropInfo(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null), mNeedDrop);
+
+			if (mNeedDrop) eventDropState(this, DROP_START);
+			else {
+				// сбрасываем фокус мыши (не обязательно)
+				InputManager::getInstance().resetMouseCaptureWidget();
+			}
 		}
 
 		// дроп не нужен
 		if (false == mNeedDrop) {
-			InputManager::getInstance().resetMouseCaptureWidget();
 			return;
 		}
 
@@ -681,7 +687,7 @@ namespace MyGUI
 				reseiver->_eventInvalideDropInfo = newDelegate(this, &ItemBox::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
-				mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), reseiver, reseiver_index, getItemData(reseiver_index));
+				mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), reseiver, reseiver_index, reseiver->_getDropItemData(reseiver_index));
 				eventRequestDrop(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку
@@ -697,6 +703,7 @@ namespace MyGUI
 		}
 
 		mOldDrop = item;
+		DropState state;
 
 		// копию создаем
 		ItemInfo data = mItemsInfo[mDropSenderIndex];
@@ -705,19 +712,23 @@ namespace MyGUI
 		if (reseiver == null) {
 			data.drag_accept = false;
 			data.drag_refuse = false;
+			state = DROP_MISS;
 		}
 		else if (mDropResult) {
 			data.drag_accept = true;
 			data.drag_refuse = false;
+			state = DROP_ACCEPT;
 		}
 		else {
 			data.drag_accept = false;
 			data.drag_refuse = true;
+			state = DROP_REFUSE;
 		}
 		data.select = false;
 		data.active = false;
 		requestUpdateWidgetItem(this, mItemDrag, data);
 
+		eventDropState(this, state);
 	}
 
 } // namespace MyGUI

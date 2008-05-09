@@ -93,13 +93,13 @@ void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _
 	item->setNeedMouseFocus(false);
 	data->item3 = item;
 
-	MyGUI::StaticTextPtr text = item->createWidget<MyGUI::StaticText>("RF_StaticText", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
+	MyGUI::StaticTextPtr text = item->createWidget<MyGUI::StaticText>("RF_StaticText", MyGUI::IntCoord(0, 0, size.width, size.height-1), MyGUI::ALIGN_STRETCH);
 	text->setTextAlign(MyGUI::ALIGN_RIGHT_BOTTOM);
 	text->setColour(Ogre::ColourValue::Black);
 	text->setNeedMouseFocus(false);
 	data->text1 = text;
 
-	text = text->createWidget<MyGUI::StaticText>("RF_StaticText", MyGUI::IntCoord(0, 0, size.width-1, size.height-1), MyGUI::ALIGN_STRETCH);
+	text = text->createWidget<MyGUI::StaticText>("RF_StaticText", MyGUI::IntCoord(0, 0, size.width-1, size.height-2), MyGUI::ALIGN_STRETCH);
 	text->setTextAlign(MyGUI::ALIGN_RIGHT_BOTTOM);
 	text->setColour(Ogre::ColourValue::White);
 	text->setNeedMouseFocus(false);
@@ -142,9 +142,18 @@ void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _it
 		else if (_data.select) info->item1->setImageNum(1);
 		else info->item1->setImageNum(0);
 
-		if (_data.drag_refuse) info->item2->setImageNum(1);
-		else if (_data.drag_accept) info->item2->setImageNum(2);
-		else info->item2->setImageNum(0);
+		if (_data.drag_refuse) {
+			info->item2->setImageNum(1);
+			info->text2->setColour(Ogre::ColourValue::Red);
+		}
+		else if (_data.drag_accept) {
+			info->item2->setImageNum(2);
+			info->text2->setColour(Ogre::ColourValue::Green);
+		}
+		else {
+			info->item2->setImageNum(0);
+			info->text2->setColour(Ogre::ColourValue::White);
+		}
 
 		info->item3->setImageNum(0);
 	}
@@ -157,6 +166,9 @@ void eventStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info,
 		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_info.sender);
 		ItemData * data = (ItemData*)_info.sender_data;
 		_result = data->type != 0;
+		if (_result) {
+			MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender);
+		}
 	}
 }
 
@@ -198,6 +210,17 @@ void eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, b
 		reseiver->setItemData(_info.reseiver_index, (void*)reseiver_data);
 		sender->setItemData(_info.sender_index, (void*)sender_data);
 	}
+
+	MyGUI::PointerManager::getInstance().setDefaultPointer();
+}
+
+void eventDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState _state)
+{
+	if (_state == MyGUI::DROP_REFUSE) MyGUI::PointerManager::getInstance().setPointer("RF_drop_refuse", _sender);
+	else if (_state == MyGUI::DROP_ACCEPT) MyGUI::PointerManager::getInstance().setPointer("RF_drop_accept", _sender);
+	else if (_state == MyGUI::DROP_MISS) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender);
+	//else if (_state == MyGUI::DROP_START) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender);
+	else if (_state == MyGUI::DROP_END) MyGUI::PointerManager::getInstance().setDefaultPointer();
 }
 
 void eventMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
@@ -285,6 +308,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setSize(100, 100);//*/
 
 	MyGUI::SkinManager::getInstance().load("RF.skin");
+	MyGUI::PointerManager::getInstance().load("RF.pointer");
+	MyGUI::FontManager::getInstance().load("RF.font");
 
 
 	MyGUI::StaticImagePtr back = mGUI->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, mWidth, mHeight), MyGUI::ALIGN_STRETCH, "Back");
@@ -301,6 +326,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->eventStartDrop = MyGUI::newDelegate(eventStartDrop);
 	box->eventRequestDrop = MyGUI::newDelegate(eventRequestDrop);
 	box->eventEndDrop = MyGUI::newDelegate(eventEndDrop);
+	box->eventDropState = MyGUI::newDelegate(eventDropState);
 
 	size_t num = 0;
 	while (num < 50) {
@@ -308,7 +334,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 		num ++;
 	}
 
-	win = mGUI->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(600, 400, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	win = mGUI->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(mWidth - 424, mHeight - 386, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setMinMax(170, 60, 1000, 1000);
 	win->setCaption("drag and drop demo");
 	box = win->createWidget<MyGUI::ItemBox>("RF_ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
@@ -318,6 +344,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box->eventStartDrop = MyGUI::newDelegate(eventStartDrop);
 	box->eventRequestDrop = MyGUI::newDelegate(eventRequestDrop);
 	box->eventEndDrop = MyGUI::newDelegate(eventEndDrop);
+	box->eventDropState = MyGUI::newDelegate(eventDropState);
 
 	num = 0;
 	while (num < 50) {

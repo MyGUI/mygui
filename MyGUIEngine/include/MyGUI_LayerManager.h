@@ -83,6 +83,9 @@ namespace MyGUI
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
+		inline size_t getBatch() {return mCountBatch;}
+		inline void _addBatch() {mCountBatch ++;}
+
 	private:
 
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
@@ -110,6 +113,8 @@ namespace MyGUI
 		float mMaximumDepth;
 
 		Ogre::SceneManager * mSceneManager;
+
+		size_t mCountBatch;
 	};
 
 } // namespace MyGUI

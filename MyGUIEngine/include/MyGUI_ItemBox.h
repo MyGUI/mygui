@@ -116,12 +116,24 @@ namespace MyGUI
 
 	typedef std::vector<WidgetItemData> VectorWidgetItemData;
 
+	enum DropState {
+		DROP_START,
+		DROP_END,
+		DROP_MISS,
+		DROP_ACCEPT,
+		DROP_REFUSE
+	};
+
+	// делегаты для обновления
 	typedef delegates::CDelegate2<WidgetPtr, WidgetItemData&> EventInfo_WidgetWidgetRefWidget; //???
 	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetItemData, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
 
+	// делегаты для дропа
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
+	typedef delegates::CDelegate2<WidgetPtr, DropState> EventInfo_WidgetDropState;
+
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -155,7 +167,8 @@ namespace MyGUI
 		void setItemData(size_t _index, void * _data);
 
 		//! Get item from specified position
-		void * getItemData(size_t _index);
+		inline void * getItemData(size_t _index) {return _getDropItemData(_index);}
+		virtual void * _getDropItemData(size_t _index);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
@@ -205,6 +218,10 @@ namespace MyGUI
 		// event : завершение дропа
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
 		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
+
+		// event : текущее состояние дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::DropState _state)
+		EventInfo_WidgetDropState eventDropState;
 
 		// event : двойной щелчек мыши или Enter на елементе
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)

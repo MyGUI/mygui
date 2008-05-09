@@ -251,6 +251,9 @@ namespace MyGUI
 		virtual void _getDragItemInfo(WidgetPtr & _list, size_t & _index);
 		// метод для установления стейта айтема
 		virtual void _setDragItemInfo(size_t _index, bool _set, bool _accept);
+		// информация об элементе дропа по индексу
+		virtual void * _getDropItemData(size_t _index);
+
 
       /** Set drag'n'drop mode flag */
 		inline void setNeedDragDrop(bool _need) {mNeedDragDrop = _need;}

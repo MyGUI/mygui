@@ -41,7 +41,7 @@ private:
 	bool m_exit; // выходим из цикла приложения
 	size_t mWidth, mHeight; // ширина и высота экрана
 
-	MyGUI::WidgetPtr mFpsInfo;
+	MyGUI::WidgetPtr mFpsInfo, mFpsInfoShadow;
 	MyGUI::Gui * mGUI;
 
 	DemoKeeper mDemo;
