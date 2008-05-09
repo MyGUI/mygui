@@ -164,8 +164,15 @@ void BasisManager::createGui()
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(mWindow);
 
+	MyGUI::IntSize size(120, 80);
+	if (0 == mFpsInfoShadow) {
+		mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
+		mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
+		mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
+	}
 	if (0 == mFpsInfo) {
-		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", 20, 20, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main");
+		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width-1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
+		mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
 		mFpsInfo->setColour(Ogre::ColourValue::White);
 	}
 }
@@ -177,6 +184,10 @@ void BasisManager::destroyGui()
 		if (mFpsInfo) {
 			mGUI->destroyChildWidget(mFpsInfo);
 			mFpsInfo = 0;
+		}
+		if (mFpsInfoShadow) {
+			mGUI->destroyChildWidget(mFpsInfoShadow);
+			mFpsInfoShadow = 0;
 		}
 
 		mGUI->shutdown();
@@ -235,8 +246,9 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 			time -= 1;
 			try {
 				const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
-				mFpsInfo->setCaption(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
-				//mFpsInfo->setCaption(MyGUI::utility::toString("FPS: ", stats.lastFPS));
+				std::string info = MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount, "\nbatch gui : ", MyGUI::LayerManager::getInstance().getBatch());
+				if (mFpsInfoShadow) mFpsInfoShadow->setCaption(info);
+				mFpsInfo->setCaption(info);
 			} catch (...) { }
 		}
 	}

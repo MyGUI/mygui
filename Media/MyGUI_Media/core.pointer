@@ -7,8 +7,6 @@
         <Info name="beam" point="16 16" size="32 32" offset="32 224 32 32"/>
         <Info name="size_left" point="16 16" size="32 32" offset="64 224 32 32"/>
         <Info name="hand" point="16 16" size="32 32" offset="96 224 32 32"/>
-
-        <_Info name="beam" point="16 16" size="100 100" texture="robot.jpg"/>
     </Pointer>
 
 </MyGUI>

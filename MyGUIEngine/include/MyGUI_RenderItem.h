@@ -134,6 +134,7 @@ namespace MyGUI
 		float mMaximumDepth;*/
 
 		LayerItemKeeper * mParent;
+		LayerManager * mLayerManager;
 
 	};
 
