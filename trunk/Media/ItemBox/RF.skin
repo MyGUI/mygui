@@ -3,7 +3,7 @@
 <MyGUI type="Skin">
 
     <Skin name = "RF_WindowCaption" size = "10 10" texture = "RF_Skin.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontName" value = "RF_font.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0.9 0.9 0.9" />
@@ -11,8 +11,12 @@
         <BasisSkin type="SimpleText" offset = "0 0 10 10" align = "ALIGN_STRETCH"/>
     </Skin>
 
-    <Skin name = "RF_WindowResize">
-        <Property key="Pointer" value = "hand" />
+    <Skin name = "RF_WindowResize1">
+        <Property key="Pointer" value = "RF_resize1" />
+    </Skin>
+
+    <Skin name = "RF_WindowResize2">
+        <Property key="Pointer" value = "RF_resize2" />
     </Skin>
 
     <Skin name = "RF_WindowQ" size = "24 14" texture = "RF_Skin.png" >
@@ -32,7 +36,7 @@
     </Skin>
     
     <Skin name = "RF_Window" size = "18 18" texture = "RF_Skin.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontName" value = "RF_font.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -44,12 +48,12 @@
         <Child type="Widget" skin="Default" offset = "6 30 6 -18" align = "ALIGN_STRETCH" name = "Client">
         </Child>
 
-        <Child type="Widget" skin="RF_WindowResize" offset = "12 12 6 6" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
-            <Property key="Scale" value = "0 0 1 1"/>
+        <Child type="Widget" skin="RF_WindowResize1" offset = "0 12 6 6" align = "ALIGN_LEFT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "1 0 -1 1"/>
         </Child>
 
-        <Child type="Widget" skin="RF_WindowResize" offset = "0 12 6 6" align = "ALIGN_LEFT ALIGN_BOTTOM" name = "Action">
-            <Property key="Scale" value = "1 0 -1 1"/>
+        <Child type="Widget" skin="RF_WindowResize2" offset = "12 12 6 6" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
         </Child>
 
         <Child type="Button" skin="RF_WindowQ" offset = "10 10 24 14" align = "ALIGN_LEFT ALIGN_TOP" name = "Button">
@@ -138,12 +142,12 @@
     </Skin>
 
 
-    <Skin name = "RF_StaticImage" size = "16 16">
+    <Skin name = "RF_StaticImage" size = "16 16" texture = "RF_Skin.png" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
     </Skin>
     
     <Skin name = "RF_StaticText" size = "16 16">
-        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontName" value = "RF_font.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_DEFAULT" />
         <Property key="Colour" value = "0 0 0" />

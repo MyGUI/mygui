@@ -100,6 +100,7 @@ namespace MyGUI
 		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
 		if ((null == vp) || (false == vp->getOverlaysEnabled())) return;
 
+		mCountBatch = 0;
 		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			(*iter)->_render(mUpdate);
 		}

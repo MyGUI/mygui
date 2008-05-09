@@ -683,4 +683,9 @@ namespace MyGUI
 	{
 	}
 
+	void * Widget::_getDropItemData(size_t _index)
+	{
+		return null;
+	}
+
 } // namespace MyGUI
