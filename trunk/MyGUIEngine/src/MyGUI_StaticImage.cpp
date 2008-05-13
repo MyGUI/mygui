@@ -46,8 +46,8 @@ namespace MyGUI
 
 		// если размер нулевой, то ставим размер текстуры
 		if (!(mRectImage.right || mRectImage.bottom)) {
-			mRectImage.right = mSizeTexture.width;
-			mRectImage.bottom = mSizeTexture.height;
+			mRectImage.right = mSizeTexture.width ? mSizeTexture.width : 1;
+			mRectImage.bottom = mSizeTexture.height ? mSizeTexture.height : 1;
 		}
 
 		if (!(mSizeTile.width || mSizeTile.height)) {
@@ -74,7 +74,10 @@ namespace MyGUI
 		_setTextureName(_texture);
 		mSizeTexture = SkinManager::getTextureSize(_texture);
 		mSizeTile = _tile;
-		mNum = ITEM_NONE;
+
+		size_t num = mNum;
+		mNum++;
+		setImageNum(num);
 	}
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntRect & _rect, const IntSize & _tile)
@@ -83,14 +86,38 @@ namespace MyGUI
 		mSizeTexture = SkinManager::getTextureSize(_texture);
 		mRectImage = _rect;
 		mSizeTile = _tile;
-		mNum = ITEM_NONE;
+
+		size_t num = mNum;
+		mNum++;
+		setImageNum(num);
+	}
+
+	void StaticImage::setImageTile(const IntSize & _tile)
+	{
+		mSizeTile = _tile;
+
+		size_t num = mNum;
+		mNum++;
+		setImageNum(num);
+	}
+
+	void StaticImage::setImageRect(const IntRect & _rect)
+	{
+		mRectImage = _rect;
+
+		size_t num = mNum;
+		mNum++;
+		setImageNum(num);
 	}
 
 	void StaticImage::setImageTexture(const std::string & _texture)
 	{
 		_setTextureName(_texture);
 		mSizeTexture = SkinManager::getTextureSize(_texture);
-		mNum = ITEM_NONE;
+
+		size_t num = mNum;
+		mNum++;
+		setImageNum(num);
 	}
 
 } // namespace MyGUI

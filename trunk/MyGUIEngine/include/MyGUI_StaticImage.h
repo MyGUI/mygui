@@ -45,18 +45,10 @@ namespace MyGUI
 		void setImageTexture(const std::string & _texture);
 
 		/** Set _rect - part of texture where we take tiles */
-		inline void setImageRect(const IntRect & _rect)
-		{
-			mRectImage = _rect;
-			mNum = ITEM_NONE;
-		}
+		void setImageRect(const IntRect & _rect);
 
 		/** Set _tile size */
-		inline void setImageTile(const IntSize & _tile)
-		{
-			mSizeTile = _tile;
-			mNum = ITEM_NONE;
-		}
+		void setImageTile(const IntSize & _tile);
 
 		/** Set current tile number
 			@param _num - tile number
