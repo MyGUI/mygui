@@ -437,6 +437,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	button->setCaption("Button 2");
 	button->eventMouseMove = MyGUI::newDelegate(eventMouseMove);//*/
 
+	MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::ALIGN_DEFAULT, "Main");
+
+	image->setImageNum(0);
+	image->setImageRect(MyGUI::IntRect(0, 0, 800, 600));
+	image->setImageTexture("wallpaper3.JPG");
+	image->setImageTile(MyGUI::IntSize(400, 600));
+
 	for (size_t pos=0; pos<20; ++pos) {
 		//combo->addItem("askhaldjkfhglkadhfglkajd");
 
