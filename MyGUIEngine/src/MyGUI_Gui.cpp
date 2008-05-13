@@ -272,7 +272,11 @@ namespace MyGUI
 			MYGUI_LOG(Error, _instance << " : '" << _file << "' not found");
 			return false;
 		}
-		if (false == doc.open(file)) {
+
+		Ogre::DataStreamPtr fileStream;
+		if (!_group.empty()) fileStream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file,_group);
+
+		if ((_group.empty() && (false == doc.open(file))) || (!_group.empty() && (false == doc.open(fileStream)))) {
 			MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
 			return false;
 		}
