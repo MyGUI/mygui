@@ -234,7 +234,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	/*MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::SkinManager::getInstance().load("WM.skin");
+
+	/*MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("WM_MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	multi->addRow(100, "testklr;esihga;dklfhg;akfdh1");
 	multi->addRow(89, "test2");
 
