@@ -266,7 +266,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			// парсим атрибуты
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
-			container->mUserString.insert(std::make_pair(key, value));
+			//container->mUserString.insert(std::make_pair(key, value));
+			container->mUserString.push_back(std::make_pair(key, value));
 		}
 
 	};

@@ -102,7 +102,8 @@ void WidgetTypes::parseWidgetType(MyGUI::xml::xmlNodeIterator _widget)
 		else if (field->getName() == "Parameter") {
 			if (false == field->findAttribute("key", key)) continue;
 			if (false == field->findAttribute("value", value)) continue;
-			widget_type->parameter.insert(std::make_pair(key, value));
+			//widget_type->parameter.insert(std::make_pair(key, value));
+			widget_type->parameter.push_back(std::make_pair(key, value));
 		}
 	}
 }

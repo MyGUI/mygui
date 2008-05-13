@@ -4,7 +4,8 @@
 #include "MyGUI.h"
 
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
-typedef std::map<Ogre::String, Ogre::String> MapString;
+//typedef std::map<Ogre::String, Ogre::String> MapString;
+typedef std::vector<std::pair<std::string, std::string>> MapString;
 
 struct WidgetContainer
 {

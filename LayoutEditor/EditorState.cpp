@@ -27,6 +27,39 @@ WidgetTypes * wt;
 MyGUI::Gui * mGUI;
 UndoManager * um;
 
+void MapSet(MapString & _map, const std::string &_key, const std::string &_value)
+{
+	bool find = true;
+	for (MapString::iterator iter=_map.begin(); iter!=_map.end(); ++iter) {
+		if (iter->first == _key) {
+			iter->second = _value;
+			find = true;
+		}
+	}
+	if (!find) {
+		_map.push_back(std::make_pair(_key, _value));
+	}
+}
+
+MapString::iterator MapFind(MapString & _map, const std::string &_key)
+{
+	MapString::iterator iter = _map.begin();
+	for (; iter!=_map.end(); ++iter) {
+		if (iter->first == _key) break;
+	}
+	return iter;
+}
+
+void MapErase(MapString & _map, const std::string &_key)
+{
+	for (MapString::iterator iter = _map.begin(); iter!=_map.end(); ++iter) {
+		if (iter->first == _key) {
+			_map.erase(iter);
+			return;
+		}
+	}
+}
+
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
 {
@@ -1680,12 +1713,25 @@ void EditorState::notifyAddUserData(MyGUI::WidgetPtr _sender)
 	Ogre::String key = editKey->getOnlyText();
 	Ogre::String value = editValue->getOnlyText();
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	if (widgetContainer->mUserString.find(key) == widgetContainer->mUserString.end())
+	if (MapFind(widgetContainer->mUserString, (key)) == widgetContainer->mUserString.end())
 	{
 		multilist->addItem(key);
 		multilist->setSubItem(1, multilist->getItemCount() - 1, value);
 	}
-	widgetContainer->mUserString[key] = value;
+
+	/*bool find = true;
+	for (MapString::iterator iter=mUserString.begin(); iter!=mUserString.end(); ++iter) {
+		if (iter->first == key) {
+			iter->second = value;
+			find = true;
+		}
+	}
+	if (!find) {
+		mUserString.push_back(std::make_pair(key, value));
+	}*/
+
+	MapSet(widgetContainer->mUserString, key, value);
+	//widgetContainer->mUserString[key] = value;
 	um->addValue();
 }
 
@@ -1696,8 +1742,8 @@ void EditorState::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 	if (ITEM_NONE == item) return;
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	MapString::iterator iterProperty = widgetContainer->mUserString.find(multilist->getItem(item));
-	widgetContainer->mUserString.erase(multilist->getItem(item));
+	MapString::iterator iterProperty = MapFind(widgetContainer->mUserString, multilist->getItem(item));
+	MapErase(widgetContainer->mUserString, multilist->getItem(item));
 
 	multilist->deleteItem(item);
 	um->addValue();
@@ -1718,8 +1764,10 @@ void EditorState::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
 	multilist->setSubItem(1, item, value);
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	widgetContainer->mUserString.erase(lastkey);
-	widgetContainer->mUserString[key] = value;
+	MapErase(widgetContainer->mUserString, lastkey);
+
+	MapSet(widgetContainer->mUserString, key, value);
+	//widgetContainer->mUserString[key] = value;
 }
 
 void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _position)

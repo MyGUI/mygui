@@ -1,6 +1,7 @@
 #include "MyGUI.h"
 
-typedef std::map<std::string, std::string> MapString;
+//typedef std::map<std::string, std::string> MapString;
+typedef std::vector<std::pair<std::string, std::string>> MapString;
 
 struct WidgetType{
 	WidgetType(): parent(false), child(true), resizeable(true), many_strings(false) {}
