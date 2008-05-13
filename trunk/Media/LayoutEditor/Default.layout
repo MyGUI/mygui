@@ -4,10 +4,8 @@
         <Property key="Widget_Caption" value="tab demo"/>
         <Property key="Window_MinMax" value="226 164 2000 2000"/>
         <Property key="Window_AutoAlpha" value="false"/>
-
         <Widget type="Tab" skin="Tab" position="5 5 580 254" align="ALIGN_STRETCH" name="main_tab">
-
-            <Widget type="Sheet" name="sheet1">
+            <Widget type="Sheet" skin="" position="8 29 564 218" name="sheet1">
                 <Property key="Widget_Caption" value="test list + combo"/>
                 <Widget type="List" skin="List" position="10 46 445 161" align="ALIGN_STRETCH"/>
                 <Widget type="ComboBox" skin="ComboBox" position="10 10 445 26" align="ALIGN_TOP ALIGN_HSTRETCH">
@@ -31,11 +29,8 @@
                 </Widget>
                 <Widget type="Widget" skin="Separator3" position="464 10 2 197" align="ALIGN_RIGHT ALIGN_VSTRETCH"/>
             </Widget>
-
-            <Widget type="Sheet" name="sheet2">
+            <Widget type="Sheet" skin="" position="8 29 564 218" name="sheet2">
                 <Property key="Widget_Caption" value="edit test"/>
-                <_Property key="Sheet_Select" value="true"/>
-
                 <Widget type="Edit" skin="EditStretch" position="10 44 543 133" align="ALIGN_STRETCH">
                     <Property key="Edit_MultiLine" value="true"/>
                 </Widget>
@@ -59,7 +54,6 @@
                     <Property key="Widget_Caption" value="#000088blue"/>
                 </Widget>
             </Widget>
-
         </Widget>
     </Widget>
 </MyGUI>
