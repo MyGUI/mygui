@@ -106,6 +106,8 @@ namespace MyGUI
 		//! @copydoc Widget::getChilds
 		virtual VectorWidgetPtr getChilds();
 
+		inline WidgetPtr getWindowClient() {return mWidgetClient;}
+
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string& _name)
 			_name of pressed button
