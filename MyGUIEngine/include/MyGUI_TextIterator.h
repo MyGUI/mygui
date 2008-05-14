@@ -124,7 +124,7 @@ namespace MyGUI
 
 #ifdef __MINGW32__
             swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
-#elif
+#else
             swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 #endif
 			return buff;
