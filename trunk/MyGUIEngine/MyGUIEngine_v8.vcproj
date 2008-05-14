@@ -716,6 +716,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_WidgetTranslate.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_XmlDocument.h"
 					>
 				</File>

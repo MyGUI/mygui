@@ -182,6 +182,9 @@ namespace MyGUI
 		//! Set item selection at a specified position
 		void setItemSelect(size_t _index);
 
+		void setItemBoxAlignVert(bool _vert);
+		inline bool getItemBoxAlignVert() { return mAlignVert; }
+
 		//----------------------------------------------------------------//
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		virtual void setPosition(const IntCoord& _coord);
@@ -327,6 +330,8 @@ namespace MyGUI
 
 		bool mStartDrop;
 		bool mNeedDrop;
+
+		bool mAlignVert;
 
 	}; // class ItemBox : public Widget
 

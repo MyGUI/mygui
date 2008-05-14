@@ -321,7 +321,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	MyGUI::WindowPtr win = mGUI->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(50, 100, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setMinMax(170, 60, 1000, 1000);
 	win->setCaption("drag and drop demo");
-	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("RF_ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("RF_ItemBoxV", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);
 	box->requestUpdateWidgetItem = MyGUI::newDelegate(requestUpdateWidgetItem);
@@ -339,7 +339,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	win = mGUI->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(mWidth - 424, mHeight - 386, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setMinMax(170, 60, 1000, 1000);
 	win->setCaption("drag and drop demo");
-	box = win->createWidget<MyGUI::ItemBox>("RF_ItemBox", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
+	box = win->createWidget<MyGUI::ItemBox>("RF_ItemBoxH", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientRect().size()), MyGUI::ALIGN_STRETCH);
 	box->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 	box->requestCoordWidgetItem = MyGUI::newDelegate(requestCoordWidgetItem);
 	box->requestUpdateWidgetItem = MyGUI::newDelegate(requestUpdateWidgetItem);
@@ -512,10 +512,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	mGUI->destroyChildWidget(fade);*/
 
-	MyGUI::RenderBoxPtr box2 = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 300, 300), MyGUI::ALIGN_DEFAULT, "Main");
+	/*MyGUI::RenderBoxPtr box2 = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 300, 300), MyGUI::ALIGN_DEFAULT, "Main");
 	box2->injectObject("Robot_helper_01.mesh", Ogre::Vector3(1, 1, 1));
 	box2->injectObject("Robot_helper_01.mesh");
-	box2->setAutoRotation(true);
+	box2->setAutoRotation(true);*/
 
 }
 
