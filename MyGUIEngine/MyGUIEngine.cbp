@@ -31,11 +31,15 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-DNDEBUG" />
+					<Add directory="C:\code\my-gui\trunk\MyGUIEngine\include" />
+					<Add directory="C:\OgreSDK_cbp\include" />
+					<Add directory="C:\code\my-gui\trunk\MyGUIEngine\include\freetype2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="OgreMain" />
-					<Add library="libfreetype235" />
+					<Add library="libfreetype" />
+					<Add directory="C:\OgreSDK_cbp\bin\release" />
 				</Linker>
 			</Target>
 		</Build>
@@ -161,14 +165,17 @@
 		<Unit filename="include\TPoint.h" />
 		<Unit filename="include\TRect.h" />
 		<Unit filename="include\TSize.h" />
+		<Unit filename="src\MyGUI_ActionController.cpp" />
 		<Unit filename="src\MyGUI_Button.cpp" />
 		<Unit filename="src\MyGUI_ButtonFactory.cpp" />
 		<Unit filename="src\MyGUI_ClipboardManager.cpp" />
 		<Unit filename="src\MyGUI_ColourRect.cpp" />
 		<Unit filename="src\MyGUI_ComboBox.cpp" />
 		<Unit filename="src\MyGUI_ComboBoxFactory.cpp" />
+		<Unit filename="src\MyGUI_ControllerEdgeHide.cpp" />
 		<Unit filename="src\MyGUI_ControllerFadeAlpha.cpp" />
 		<Unit filename="src\MyGUI_ControllerManager.cpp" />
+		<Unit filename="src\MyGUI_ControllerPosition.cpp" />
 		<Unit filename="src\MyGUI_DynLib.cpp" />
 		<Unit filename="src\MyGUI_DynLibManager.cpp" />
 		<Unit filename="src\MyGUI_Edit.cpp" />
@@ -200,6 +207,8 @@
 		<Unit filename="src\MyGUI_MultiListFactory.cpp" />
 		<Unit filename="src\MyGUI_PluginManager.cpp" />
 		<Unit filename="src\MyGUI_PointerManager.cpp" />
+		<Unit filename="src\MyGUI_PopupMenu.cpp" />
+		<Unit filename="src\MyGUI_PopupMenuFactory.cpp" />
 		<Unit filename="src\MyGUI_Progress.cpp" />
 		<Unit filename="src\MyGUI_ProgressFactory.cpp" />
 		<Unit filename="src\MyGUI_RenderBox.cpp" />
@@ -219,6 +228,7 @@
 		<Unit filename="src\MyGUI_Tab.cpp" />
 		<Unit filename="src\MyGUI_TabFactory.cpp" />
 		<Unit filename="src\MyGUI_TextIterator.cpp" />
+		<Unit filename="src\MyGUI_TileRect.cpp" />
 		<Unit filename="src\MyGUI_VScroll.cpp" />
 		<Unit filename="src\MyGUI_VScrollFactory.cpp" />
 		<Unit filename="src\MyGUI_Widget.cpp" />
@@ -231,32 +241,7 @@
 		<Extensions>
 			<code_completion />
 			<envvars />
-			<debugger>
-				<remote_debugging target="Release">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-				<remote_debugging target="Debug">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-				<remote_debugging target="Release">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-				<remote_debugging target="Debug">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-				<remote_debugging target="Debug">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-				<remote_debugging target="Release">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-				<remote_debugging target="Debug">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-				<remote_debugging target="Release">
-					<options conn_type="0" serial_port="" serial_baud="115200" ip_address="" ip_port="" additional_cmds="" additional_cmds_before="" skip_ld_path="0" />
-				</remote_debugging>
-			</debugger>
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
