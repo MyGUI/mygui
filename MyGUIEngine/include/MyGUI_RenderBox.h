@@ -44,7 +44,7 @@ namespace MyGUI
 			@param
 				_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
-		void injectObject(const Ogre::String& _meshName);
+		void injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position = Ogre::Vector3::ZERO, const Ogre::Quaternion & _orientation = Ogre::Quaternion::IDENTITY, const Ogre::Vector3 & _scale = Ogre::Vector3::UNIT_SCALE);
 
 		/** Run mesh animation if animation with such name exist (else print warning in log).
 			To stop animation use empty string.
@@ -131,7 +131,7 @@ namespace MyGUI
 		void _onMouseWheel(int _rel);
 
 	private:
-		bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState);}
+		inline bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState);}
 		void createRenderTexture();
 		void updateViewport();
 
@@ -159,6 +159,9 @@ namespace MyGUI
 
 		float mScale, mCurrentScale;
 		bool mUseScale;
+
+		typedef std::vector<Ogre::Entity*> VectorEntity;
+		VectorEntity mVectorEntity;
 
 	}; // class RenderBox : public Widget
 

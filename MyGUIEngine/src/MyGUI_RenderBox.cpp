@@ -53,18 +53,23 @@ namespace MyGUI
 	}
 
 	// добавляет в сцену объект, старый удаляеться
-	void RenderBox::injectObject(const Ogre::String& _meshName)
+	void RenderBox::injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position, const Ogre::Quaternion & _orientation, const Ogre::Vector3 & _scale)
 	{
 		if(mUserViewport) {
 			mUserViewport = false;
 			createRenderTexture();
 		}
 
-		clear();
+		static size_t num = 0;
 
-		mEntity = mScene->createEntity(utility::toString(this, "_RenderBoxMesh_", _meshName), _meshName);
-		mNode->attachObject(mEntity);
+		Ogre::Entity * entity = mScene->createEntity(utility::toString(this, "_RenderBoxMesh_", _meshName, num++), _meshName);
+		Ogre::SceneNode * node = mNode->createChildSceneNode(_position, _orientation);
+		node->attachObject(entity);
+		mVectorEntity.push_back(entity);
+
 		mPointer = mMouseRotation ? mPointerKeeper : "";
+
+		if (mEntity == null) mEntity = entity;
 
 		updateViewport();
 	}
@@ -74,13 +79,16 @@ namespace MyGUI
 	{
 		setRotationAngle(Ogre::Degree(0));
 
-		if (mEntity) {
+		//if (mEntity) {
 			//Ogre::SkeletonManager::getSingleton().remove();
-			mNode->detachObject(mEntity);
-			mScene->destroyEntity(mEntity);
-			mEntity = 0;
-			mEntityState = null;
-		}
+			//mNode->detachObject(mEntity);
+		mScene->destroyAllEntities();
+		mNode->removeAndDestroyAllChildren();
+		mVectorEntity.clear();
+
+		mEntity = 0;
+		mEntityState = null;
+		//}
 	}
 
 	void RenderBox::setAutoRotationSpeed(int _speed)
@@ -312,8 +320,16 @@ namespace MyGUI
 			mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
 			// вычисляем расстояние, чтобы был виден весь объект
-			const Ogre::AxisAlignedBox & box = mEntity->getBoundingBox();
-			box.getCenter();
+			Ogre::AxisAlignedBox box;// = mNode->_getWorldAABB();//mEntity->getBoundingBox();
+
+			for (VectorEntity::iterator iter = mVectorEntity.begin(); iter!=mVectorEntity.end(); ++iter) {
+				box.merge((*iter)->getBoundingBox().getMinimum() + (*iter)->getParentSceneNode()->getWorldPosition());
+				box.merge((*iter)->getBoundingBox().getMaximum() + (*iter)->getParentSceneNode()->getWorldPosition());
+			}
+
+			if (box.isNull()) return;
+			
+			//box.getCenter();
 			Ogre::Vector3 vec = box.getSize();
 
 			// коррекция под левосторонюю систему координат с осью Z направленную вверх
