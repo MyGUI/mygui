@@ -41,7 +41,7 @@
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
 
-        <Child type="Button" skin="RF_WindowCaption" offset = "78 6 -139 22" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
+        <Child type="Button" skin="RF_WindowCaption" offset = "38 0 -59 28" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
         </Child>
 
@@ -112,7 +112,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "RF_VScrollTop" size = "11 7" texture = "RF_Skin.png" >
+    <Skin name = "RF_VScrollStart" size = "11 7" texture = "RF_Skin.png" >
         <BasisSkin type="MainSkin" offset = "0 0 11 7" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "400 328 11 7"/>
             <State name="active" offset = "400 328 11 7"/>
@@ -120,7 +120,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "RF_VScrollBottom" size = "11 7" texture = "RF_Skin.png" >
+    <Skin name = "RF_VScrollEnd" size = "11 7" texture = "RF_Skin.png" >
         <BasisSkin type="MainSkin" offset = "0 0 11 7" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "400 344 11 7"/>
             <State name="active" offset = "400 344 11 7"/>
@@ -132,15 +132,49 @@
         <Property key="TrackRangeMargins" value = "7 7" />
         <Property key="MinTrackSize" value = "6" />
 
-		<Child type="Button" skin="Default" offset = "0 7 11 3" align = "ALIGN_STRETCH" name = "FirstPart"/>
+        <Child type="Button" skin="Default" offset = "0 7 11 3" align = "ALIGN_STRETCH" name = "FirstPart"/>
         <Child type="Button" skin="Default" offset = "0 10 11 3" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "SecondPart"/>
 
-        <Child type="Button" skin="RF_VScrollTop" offset = "0 0 11 7" align = "ALIGN_LEFT ALIGN_TOP" name = "Start"/>
-        <Child type="Button" skin="RF_VScrollBottom" offset = "0 13 11 7" align = "ALIGN_LEFT ALIGN_BOTTOM" name = "End"/>
+        <Child type="Button" skin="RF_VScrollStart" offset = "0 0 11 7" align = "ALIGN_LEFT ALIGN_TOP" name = "Start"/>
+        <Child type="Button" skin="RF_VScrollEnd" offset = "0 13 11 7" align = "ALIGN_LEFT ALIGN_BOTTOM" name = "End"/>
         <Child type="Button" skin="RF_VScrollTrack" offset = "0 7 11 6" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
 
     </Skin>
 
+    <Skin name = "RF_HScrollTrack" size = "6 11" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 6 11" align = "ALIGN_DEFAULT">
+            <State name="normal" offset = "436 328 2 11"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "RF_HScrollStart" size = "7 11" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 7 11" align = "ALIGN_DEFAULT">
+            <State name="normal" offset = "426 328 7 11"/>
+            <State name="active" offset = "426 328 7 11"/>
+            <State name="select" offset = "426 341 7 11"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "RF_HScrollEnd" size = "7 11" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 7 11" align = "ALIGN_DEFAULT">
+            <State name="normal" offset = "442 328 7 11"/>
+            <State name="active" offset = "442 328 7 11"/>
+            <State name="select" offset = "442 341 7 11"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "RF_HScroll" size = "20 11" texture = "RF_Skin.png" >
+        <Property key="TrackRangeMargins" value = "7 7" />
+        <Property key="MinTrackSize" value = "6" />
+
+        <Child type="Button" skin="Default" offset = "7 0 3 11" align = "ALIGN_STRETCH" name = "FirstPart"/>
+        <Child type="Button" skin="Default" offset = "10 0 3 11" align = "ALIGN_VSTRETCH ALIGN_RIGHT" name = "SecondPart"/>
+
+        <Child type="Button" skin="RF_HScrollStart" offset = "0 0 7 11" align = "ALIGN_LEFT ALIGN_TOP" name = "Start"/>
+        <Child type="Button" skin="RF_HScrollEnd" offset = "13 0 7 11" align = "ALIGN_RIGHT ALIGN_TOP" name = "End"/>
+        <Child type="Button" skin="RF_HScrollTrack" offset = "7 0 6 11" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track"/>
+
+    </Skin>
 
     <Skin name = "RF_StaticImage" size = "16 16" texture = "RF_Skin.png" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
@@ -155,8 +189,9 @@
         <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
     </Skin>
 	
-    <Skin name = "RF_ItemBox" size = "20 20">
+    <Skin name = "RF_ItemBoxV" size = "20 20">
         <Property key="NeedKey" value = "true" />
+        <Property key="AlignVert" value = "true" />
 
         <Child type="VScroll" skin="RF_VScroll" offset = "9 0 11 20" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll">
         </Child>
@@ -166,6 +201,17 @@
 
     </Skin>
 
-	
+    <Skin name = "RF_ItemBoxH" size = "20 20">
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignVert" value = "false" />
+
+        <Child type="HScroll" skin="RF_HScroll" offset = "0 9 20 11" align = "ALIGN_BOTTOM ALIGN_HSTRETCH" name = "HScroll">
+        </Child>
+
+        <Child type="Widget" skin="Default" offset = "0 0 20 9" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+    </Skin>
+
 </MyGUI>
 

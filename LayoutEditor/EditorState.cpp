@@ -1439,7 +1439,7 @@ void EditorState::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
 {
 	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(_tab);
 	MyGUI::SheetPtr sheet = tab->addSheet(_caption);
-	WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet, _caption);
+	WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet, "");
 	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
 	ew->add(wc);
 }
