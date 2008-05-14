@@ -14,12 +14,13 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-w" />
 					<Add option="-g" />
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
 					<Add library="OgreMain_d" />
-					<Add library="libfreetype235_d" />
+					<Add library="freetype6" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -31,15 +32,11 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-DNDEBUG" />
-					<Add directory="C:\code\my-gui\trunk\MyGUIEngine\include" />
-					<Add directory="C:\OgreSDK_cbp\include" />
-					<Add directory="C:\code\my-gui\trunk\MyGUIEngine\include\freetype2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="OgreMain" />
-					<Add library="libfreetype" />
-					<Add directory="C:\OgreSDK_cbp\bin\release" />
+					<Add library="freetype6" />
 				</Linker>
 			</Target>
 		</Build>
@@ -54,12 +51,16 @@
 			<Add directory="$(OGRE_HOME)\OgreMain\include" />
 			<Add directory="$(OGRE_HOME)\Dependencies\include" />
 			<Add directory="$(OGRE_HOME)\Dependencies\include\freetype" />
+			<Add directory="C:\OgreSDK\include" />
+			<Add directory="include\freetype2" />
 		</Compiler>
 		<Linker>
 			<Add directory="$(OGRE_HOME)\Dependencies\lib\$(TARGET_NAME)" />
 			<Add directory="$(OGRE_HOME)\lib" />
+			<Add directory="C:\OgreSDK\bin\release" />
 		</Linker>
 		<Unit filename="include\MyGUI.h" />
+		<Unit filename="include\MyGUI_ActionController.h" />
 		<Unit filename="include\MyGUI_AlignInfo.h" />
 		<Unit filename="include\MyGUI_Button.h" />
 		<Unit filename="include\MyGUI_ButtonFactory.h" />
@@ -70,9 +71,11 @@
 		<Unit filename="include\MyGUI_ComboBox.h" />
 		<Unit filename="include\MyGUI_ComboBoxFactory.h" />
 		<Unit filename="include\MyGUI_Common.h" />
+		<Unit filename="include\MyGUI_ControllerEdgeHide.h" />
 		<Unit filename="include\MyGUI_ControllerFadeAlpha.h" />
 		<Unit filename="include\MyGUI_ControllerItem.h" />
 		<Unit filename="include\MyGUI_ControllerManager.h" />
+		<Unit filename="include\MyGUI_ControllerPosition.h" />
 		<Unit filename="include\MyGUI_CroppedRectangleInterface.h" />
 		<Unit filename="include\MyGUI_Delegate.h" />
 		<Unit filename="include\MyGUI_DelegateImplement.h" />
@@ -91,6 +94,7 @@
 		<Unit filename="include\MyGUI_Gui.h" />
 		<Unit filename="include\MyGUI_HScroll.h" />
 		<Unit filename="include\MyGUI_HScrollFactory.h" />
+		<Unit filename="include\MyGUI_InputDefine.h" />
 		<Unit filename="include\MyGUI_InputManager.h" />
 		<Unit filename="include\MyGUI_Instance.h" />
 		<Unit filename="include\MyGUI_ItemBox.h" />
@@ -118,6 +122,8 @@
 		<Unit filename="include\MyGUI_PluginManager.h" />
 		<Unit filename="include\MyGUI_PointerInfo.h" />
 		<Unit filename="include\MyGUI_PointerManager.h" />
+		<Unit filename="include\MyGUI_PopupMenu.h" />
+		<Unit filename="include\MyGUI_PopupMenuFactory.h" />
 		<Unit filename="include\MyGUI_Prerequest.h" />
 		<Unit filename="include\MyGUI_Progress.h" />
 		<Unit filename="include\MyGUI_ProgressFactory.h" />
@@ -143,6 +149,7 @@
 		<Unit filename="include\MyGUI_TabFactory.h" />
 		<Unit filename="include\MyGUI_TextChangeHistory.h" />
 		<Unit filename="include\MyGUI_TextIterator.h" />
+		<Unit filename="include\MyGUI_TileRect.h" />
 		<Unit filename="include\MyGUI_Types.h" />
 		<Unit filename="include\MyGUI_UnlinkWidget.h" />
 		<Unit filename="include\MyGUI_Utility.h" />
@@ -157,6 +164,7 @@
 		<Unit filename="include\MyGUI_WidgetManager.h" />
 		<Unit filename="include\MyGUI_WidgetOIS.h" />
 		<Unit filename="include\MyGUI_WidgetSkinInfo.h" />
+		<Unit filename="include\MyGUI_WidgetTranslate.h" />
 		<Unit filename="include\MyGUI_WidgetUserData.h" />
 		<Unit filename="include\MyGUI_Window.h" />
 		<Unit filename="include\MyGUI_WindowFactory.h" />
@@ -165,6 +173,7 @@
 		<Unit filename="include\TPoint.h" />
 		<Unit filename="include\TRect.h" />
 		<Unit filename="include\TSize.h" />
+		<Unit filename="include\ft2build.h" />
 		<Unit filename="src\MyGUI_ActionController.cpp" />
 		<Unit filename="src\MyGUI_Button.cpp" />
 		<Unit filename="src\MyGUI_ButtonFactory.cpp" />
