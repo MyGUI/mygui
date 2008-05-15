@@ -15,7 +15,7 @@ namespace MyGUI
 
 	StaticImage::StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mNum(ITEM_NONE)
+		mNum(0)
 	{
 		// первоначальная инициализация
 		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
