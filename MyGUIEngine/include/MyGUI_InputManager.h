@@ -87,7 +87,7 @@ namespace MyGUI
 		// событие смены языков
 		/** Event : Language has been changed.\n
 			signature : void method(std::string _languageName)\n
-			_languageName nema of current language
+			_languageName name of current language
 		*/
 		EventInfo_String eventChangeLanguage;
 

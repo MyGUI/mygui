@@ -56,63 +56,94 @@ namespace MyGUI
 
 	public:
 
-		/*	событие : виджет потерял фокус мыши*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);*/
+		/** Event : Widget lost mouse focus.\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
+			@param _new widget with mouse focus or null
+		*/
 		EventInfo_WidgetWidget eventMouseLostFocus;
 
-		/*	событие : виджет получил фокус мыши*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);*/
+		/** Event : Widget got mouse focus.\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
+			@param _old widget with mouse focus or null
+		*/
 		EventInfo_WidgetWidget eventMouseSetFocus;
 
-		/*	событие : мышь двигается над захваченным виджетом*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _left, int _top);*/
+		/** Event : Widget mouse move with captured widget.\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top)\n
+			@param _left, _top - pointer position
+		*/
 		EventInfo_WidgetIntInt eventMouseDrag;
 
-		/*	событие : мышь двигается над незахваченным виджетом*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _left, int _top);*/
+		/** Event : Mouse move over widget.\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top)\n
+			@param _left, _top - pointer position
+		*/
 		EventInfo_WidgetIntInt eventMouseMove;
 
-		/*	событие : крутиться колесик над захваченным виджетом*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _rel);*/
+		/** Event : Mouse wheel over widget.\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _rel)\n
+			@param _rel relative wheel position
+		*/
 		EventInfo_WidgetInt eventMouseWheel;
 
-		/*	событие : нажата клавиша мыши*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _left);*/
+		/** Event : Mouse button pressed.\n
+			signature : void method(MyGUI::WidgetPtr _sender, bool _left)\n
+			@param _left true if left button pressed
+		*/
 		EventInfo_WidgetBool eventMouseButtonPressed;
 
-		/*	событие : отпущенна клавиша мыши*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _left);*/
+		/** Event : Mouse button released.\n
+			signature : void method(MyGUI::WidgetPtr _sender, bool _left)\n
+			@param _left true if left button released
+		*/
 		EventInfo_WidgetBool eventMouseButtonReleased;
 
-		/*	событие : нажата и отпущенна клавиша мыши*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender);*/
+		/** Event : Mouse button pressed and released.\n
+			signature : void method(MyGUI::WidgetPtr _sender)
+		*/
 		EventInfo_WidgetVoid eventMouseButtonClick;
 
-		/*	событие : двойной клик*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender);*/
+		/** Event : Mouse button double click.\n
+			signature : void method(MyGUI::WidgetPtr _sender)
+		*/
 		EventInfo_WidgetVoid eventMouseButtonDoubleClick;
 
-		/*	событие : виджет потерял фокус клавиатуры*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);*/
+		/** Event : Widget lost keyboard focus.\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
+			@param _new widget with keyboard focus or null
+		*/
 		EventInfo_WidgetWidget eventKeyLostFocus;
 
-		/*	событие : виджет получил фокус клавиатуры*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);*/
+		/** Event : Widget got keyboard focus.\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
+			@param _old widget with keyboard focus or null
+		*/
 		EventInfo_WidgetWidget eventKeySetFocus;
 
-		/*	событие : нажата клавиша*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);*/
+		/** Event : Key pressed.\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char)\n
+			@param _key code
+			@param _char of pressed symbol (for multilanguage applications)
+		*/
 		EventInfo_WidgetIntChar eventKeyButtonPressed;
 
-		/*	событие : отпущенна клавиша*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, int _key);*/
+		/** Event : Key released.\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _key)\n
+			@param _key code
+		*/
 		EventInfo_WidgetInt eventKeyButtonReleased;
 
+		/** Event : Root widget changed mouse focus.\n
+			signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		*/
 		/*	событие : корневой виджет изменил фокус мыши, изменение без дочерних элементов*/
 		/* инфо : это событие получает только корневой виджет*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/
 		EventInfo_WidgetBool  eventRootMouseChangeFocus;
 
+		/** Event : Root widget changed keyboard focus.\n
+			signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		*/
 		/*	событие : корневой виджет изменил фокус клавы, изменение без дочерних элементов*/
 		/* инфо : это событие получает только корневой виджет*/
 		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/

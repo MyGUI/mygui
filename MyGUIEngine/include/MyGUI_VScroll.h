@@ -64,7 +64,7 @@ namespace MyGUI
 		int getTrackSize();
 
 		/** Set minimal track size (used for setTrackSize)*/
-		void setMinTrackSize(size_t _size) {mMinTrackSize = _size;}
+		void setMinTrackSize(int _size) {mMinTrackSize = _size;}
 		/** Get minimal track size */
 		int getMinTrackSize() {return mMinTrackSize;}
 
@@ -112,7 +112,7 @@ namespace MyGUI
 		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
 		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
 
-		size_t mMinTrackSize;
+		int mMinTrackSize;
 
 	}; // class VScroll : public Widget
 

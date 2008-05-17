@@ -129,7 +129,7 @@ namespace MyGUI
 
 		void setDirtySort();
 
-		WidgetPtr MultiList::getSeparator(size_t _index);
+		WidgetPtr getSeparator(size_t _index);
 
 	private:
 		int mHeightButton;
