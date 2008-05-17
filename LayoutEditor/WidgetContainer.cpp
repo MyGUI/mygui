@@ -121,14 +121,6 @@ void EditorWidgets::add(WidgetContainer * _container)
 
 void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 {
-/*<<<<<<< .mine
-	MyGUI::ControllerPosition::MoveMode a = (_widget->getHeight() > 50) ? MyGUI::ControllerPosition::Slowed : MyGUI::ControllerPosition::Linear;
-	MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(MyGUI::IntCoord(0,0,0,0), 2, a);
-	controller->eventPostAction = MyGUI::newDelegate(actionWidgetDestroy);
-	MyGUI::ControllerManager::getInstance().addItem(_widget, controller);
-
-=======
->>>>>>> .r629*/
 	// дети вперед
 	MyGUI::VectorWidgetPtr childs = _widget->getChilds();
 	for (MyGUI::VectorWidgetPtr::iterator iter = childs.begin(); iter != childs.end(); ++iter)

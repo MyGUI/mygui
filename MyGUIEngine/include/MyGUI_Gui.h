@@ -112,7 +112,9 @@ namespace MyGUI
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
 
 		// mirror of InputManager methods
-		/** Inject MouseMove event */
+		/** Inject MouseMove event
+			@return true if move over GUI element
+		*/
 		bool injectMouseMove(int _absx, int _absy, int _absz);
 		/** Inject MousePress event */
 		bool injectMousePress(int _absx, int _absy, MouseButton _id);
