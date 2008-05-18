@@ -262,4 +262,9 @@ namespace MyGUI
 		return mWidgetTrack->getHeight();
 	}
 
+	int VScroll::getLineSize()
+	{
+		return mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);
+	}
+
 } // namespace MyGUI

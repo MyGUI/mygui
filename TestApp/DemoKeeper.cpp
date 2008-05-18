@@ -476,6 +476,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	}
 
+	/*MyGUI::VScrollPtr scroll = mGUI->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(100, 100, 300, 300), MyGUI::ALIGN_DEFAULT, "Main");
+	scroll->setScrollRange(100);
+	scroll->setScrollPage(10);
+	scroll->setScrollPosition(50);*/
+
 	//wid->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::test);
 
 	/*wid = wid->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(10, 10, 200, 200), MyGUI::ALIGN_DEFAULT);

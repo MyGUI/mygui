@@ -54,14 +54,14 @@ namespace MyGUI
 		inline size_t getScrollViewPage() {return mScrollViewPage;}
 
 		/** Get size in pixels of area where scroll moves */
-		int getLineSize() {return mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);}
+		virtual int getLineSize();
 
 		/** Set size of track in pixels
 			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
 		*/
-		void setTrackSize(size_t _size);
+		virtual void setTrackSize(size_t _size);
 		/** Get size of track in pixels */
-		int getTrackSize();
+		virtual int getTrackSize();
 
 		/** Set minimal track size (used for setTrackSize)*/
 		void setMinTrackSize(int _size) {mMinTrackSize = _size;}
