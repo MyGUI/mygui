@@ -30,7 +30,7 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		/** Get size in pixels of area where scroll moves */
-		int getLineSize() {return mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd);}
+		int getLineSize();
 
 		/** Set size of track in pixels
 			@param _size in pixels, if less than MinTrackSize, MinTrackSize used

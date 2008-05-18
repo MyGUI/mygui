@@ -104,4 +104,9 @@ namespace MyGUI
 		return mWidgetTrack->getWidth();
 	}
 
+	int HScroll::getLineSize()
+	{
+		return mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd);
+	}
+
 } // namespace MyGUI
