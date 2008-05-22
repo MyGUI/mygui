@@ -111,7 +111,7 @@ void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _
 void requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 {
 	if (_drop) _coord.set(-5, -5, 78, 78);
-	else _coord.set(0, 0, 68, 68);
+	else _coord.set(0, 0, _sender->getWidth() - 14/*68*/, 68);
 }
 
 void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _item, const MyGUI::ItemInfo& _data)
@@ -234,7 +234,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	mGUI->load("WM.skin");
+	/*mGUI->load("WM.skin");
 	mGUI->load("WM.font");
 
 	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("WM_Edit", MyGUI::IntCoord(0, 0, mWidth, mHeight), MyGUI::ALIGN_DEFAULT, "Main");
@@ -242,7 +242,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	edit->setCaption("test");
 	edit->setFontHeight(20);
 	edit->setFontName("Verdana_Bold.17");
-	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);
+	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);*/
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("Microsoft_Sans_Serif.13", "Microsoft_Sans_Serif_13.png");
 
@@ -319,7 +319,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	/*MyGUI::SkinManager::getInstance().load("RF.skin");
+	MyGUI::SkinManager::getInstance().load("RF.skin");
 	MyGUI::PointerManager::getInstance().load("RF.pointer");
 	MyGUI::FontManager::getInstance().load("RF.font");
 
