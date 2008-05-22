@@ -5,7 +5,7 @@
 
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 //typedef std::map<Ogre::String, Ogre::String> MapString;
-typedef std::vector<std::pair<std::string, std::string>> MapString;
+//typedef std::vector<std::pair<std::string, std::string>> MapString;
 
 struct WidgetContainer
 {
@@ -22,7 +22,7 @@ struct WidgetContainer
 
 	MyGUI::WidgetPtr widget;
 	StringPairs mProperty;
-	MapString mUserString;
+	StringPairs mUserString;
 	std::string type;
 	std::string skin;
 	//std::string position;

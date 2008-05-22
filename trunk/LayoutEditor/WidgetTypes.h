@@ -1,13 +1,14 @@
 #include "MyGUI.h"
 
-//typedef std::map<std::string, std::string> MapString;
-typedef std::vector<std::pair<std::string, std::string>> MapString;
+typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
+//typedef std::map<Ogre::String, Ogre::String> MapString;
+//typedef std::vector<std::pair<std::string, std::string>> MapString;
 
 struct WidgetType{
 	WidgetType(): parent(false), child(true), resizeable(true), many_strings(false) {}
 	std::string name;
 	std::vector<std::string> skin;
-	MapString parameter;
+	StringPairs parameter;
 	// can have child widgets
 	bool parent;
 	// can have farent
