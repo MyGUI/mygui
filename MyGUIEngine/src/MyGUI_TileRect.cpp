@@ -181,7 +181,8 @@ namespace MyGUI
 	{
 		if ((false == mShow) || mEmptyView) return 0;
 
-		if (_update) updateTextureData();
+		//if (_update) 
+			updateTextureData();
 
 		float vertex_z = mManager->getMaximumDepth();
 
