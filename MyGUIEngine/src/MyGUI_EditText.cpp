@@ -904,8 +904,8 @@ namespace MyGUI
 						// первая половинка белая
 						colour_current |= 0x00FFFFFF;
 
-						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_left+0.2, vertex_top-0.2, vertex_z, colour_current, 
-							0, 0, 1, 1, vertex_count);//mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
+						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+							mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
 						vertex_left = vertex_right;
 						vertex_right += (mManager->getPixScaleX() * 2);
@@ -924,27 +924,25 @@ namespace MyGUI
 			}
 
 			// отрисовка курсора
-			if (mShowCursor) {
-				if (cur == mCursorPosition) {
-					if ((right >= real_left) && ((right + (mManager->getPixScaleX() * 4)) <= real_right)) {
-						vertex_left = right;
-						vertex_right = vertex_left + (mManager->getPixScaleX() * 2);
+			if ((mShowCursor) && (cur == mCursorPosition)) {
+				if ((right >= real_left) && ((right + (mManager->getPixScaleX() * 4)) <= real_right)) {
+					vertex_left = right;
+					vertex_right = vertex_left + (mManager->getPixScaleX() * 2);
 
-						// первая половинка белая
-						colour_current |= 0x00FFFFFF;
+					// первая половинка белая
+					colour_current |= 0x00FFFFFF;
 
-						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
-							mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+						mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
-						vertex_left = vertex_right;
-						vertex_right += (mManager->getPixScaleX() * 2);
+					vertex_left = vertex_right;
+					vertex_right += (mManager->getPixScaleX() * 2);
 
-						// вторая половинка черная
-						colour_current = colour_current & 0xFF000000;
+					// вторая половинка черная
+					colour_current = colour_current & 0xFF000000;
 
-						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
-							mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
-					}
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+						mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 				}
 			}
 
