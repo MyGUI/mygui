@@ -121,10 +121,10 @@ namespace MyGUI
 		updateScroll();
 
 		// если колличество айтемов в строке изменилось, то перерисовываем все
-		if (old_count == mCountItemInLine) {
+		//if (old_count == mCountItemInLine) {
 			// если строк стало меньшн то ничего не нужно
-			if (_size.height >= mCoord.height) return;
-		}
+			//if (_size.height >= mCoord.height) return;
+		//}
 
 		_updateAllVisible(true);
 	}
