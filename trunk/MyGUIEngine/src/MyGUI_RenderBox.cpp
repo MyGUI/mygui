@@ -323,8 +323,8 @@ namespace MyGUI
 			Ogre::AxisAlignedBox box;// = mNode->_getWorldAABB();//mEntity->getBoundingBox();
 
 			for (VectorEntity::iterator iter = mVectorEntity.begin(); iter!=mVectorEntity.end(); ++iter) {
-				box.merge((*iter)->getBoundingBox().getMinimum() + (*iter)->getParentSceneNode()->getWorldPosition());
-				box.merge((*iter)->getBoundingBox().getMaximum() + (*iter)->getParentSceneNode()->getWorldPosition());
+				box.merge((*iter)->getBoundingBox().getMinimum() + (*iter)->getParentSceneNode()->_getDerivedPosition());
+				box.merge((*iter)->getBoundingBox().getMaximum() + (*iter)->getParentSceneNode()->_getDerivedPosition());
 			}
 
 			if (box.isNull()) return;
