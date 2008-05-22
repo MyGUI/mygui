@@ -27,10 +27,10 @@ WidgetTypes * wt;
 MyGUI::Gui * mGUI;
 UndoManager * um;
 
-void MapSet(MapString & _map, const std::string &_key, const std::string &_value)
+void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
 {
 	bool find = true;
-	for (MapString::iterator iter=_map.begin(); iter!=_map.end(); ++iter) {
+	for (StringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter) {
 		if (iter->first == _key) {
 			iter->second = _value;
 			find = true;
@@ -41,18 +41,18 @@ void MapSet(MapString & _map, const std::string &_key, const std::string &_value
 	}
 }
 
-MapString::iterator MapFind(MapString & _map, const std::string &_key)
+StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
 {
-	MapString::iterator iter = _map.begin();
+	StringPairs::iterator iter = _map.begin();
 	for (; iter!=_map.end(); ++iter) {
 		if (iter->first == _key) break;
 	}
 	return iter;
 }
 
-void MapErase(MapString & _map, const std::string &_key)
+void MapErase(StringPairs & _map, const std::string &_key)
 {
-	for (MapString::iterator iter = _map.begin(); iter!=_map.end(); ++iter) {
+	for (StringPairs::iterator iter = _map.begin(); iter!=_map.end(); ++iter) {
 		if (iter->first == _key) {
 			_map.erase(iter);
 			return;
@@ -964,7 +964,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			y += h + 3*PANELS_MARGIN;
 
 			//all other
-			for (MapString::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
+			for (StringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 			{
 				std::string value = "";
 				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
@@ -993,7 +993,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 			panels[1]->show();
 			//base properties (from Widget)
 			WidgetType * baseType = wt->find("Widget");
-			for (MapString::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
+			for (StringPairs::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
 			{
 				std::string value = "";
 				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
@@ -1043,7 +1043,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		panelUserData->setPosition(PANELS_MARGIN, y);
 		MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 		multilist->deleteAllItems();
-		for (MapString::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
+		for (StringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
 		{
 			multilist->addItem(iterProperty->first);
 			multilist->setSubItem(1, multilist->getItemCount() - 1, iterProperty->second);
@@ -1720,7 +1720,7 @@ void EditorState::notifyAddUserData(MyGUI::WidgetPtr _sender)
 	}
 
 	/*bool find = true;
-	for (MapString::iterator iter=mUserString.begin(); iter!=mUserString.end(); ++iter) {
+	for (StringPairs::iterator iter=mUserString.begin(); iter!=mUserString.end(); ++iter) {
 		if (iter->first == key) {
 			iter->second = value;
 			find = true;
@@ -1742,7 +1742,7 @@ void EditorState::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 	if (ITEM_NONE == item) return;
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	MapString::iterator iterProperty = MapFind(widgetContainer->mUserString, multilist->getItem(item));
+	StringPairs::iterator iterProperty = MapFind(widgetContainer->mUserString, multilist->getItem(item));
 	MapErase(widgetContainer->mUserString, multilist->getItem(item));
 
 	multilist->deleteItem(item);

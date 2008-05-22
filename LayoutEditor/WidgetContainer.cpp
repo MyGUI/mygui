@@ -284,7 +284,7 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 		nodeProp->addAttributes("value", iter->second);
 	}
 
-	for (MapString::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
+	for (StringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
 	{
 		MyGUI::xml::xmlNodePtr nodeProp = node->createChild("UserString");
 		nodeProp->addAttributes("key", iter->first);
