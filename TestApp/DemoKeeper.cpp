@@ -234,7 +234,17 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	MyGUI::SkinManager::getInstance().load("WM.skin");
+	mGUI->load("WM.skin");
+	mGUI->load("WM.font");
+
+	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("WM_Edit", MyGUI::IntCoord(0, 0, mWidth, mHeight), MyGUI::ALIGN_DEFAULT, "Main");
+	edit->setTextAlign(MyGUI::ALIGN_CENTER);
+	edit->setCaption("test");
+	edit->setFontHeight(20);
+	edit->setFontName("Verdana_Bold.17");
+	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);
+
+	//MyGUI::FontManager::getInstance().saveFontTexture("Microsoft_Sans_Serif.13", "Microsoft_Sans_Serif_13.png");
 
 	/*MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("WM_MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	multi->addRow(100, "testklr;esihga;dklfhg;akfdh1");
@@ -309,7 +319,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setScrollRange(100);
 	window->setSize(100, 100);//*/
 
-	MyGUI::SkinManager::getInstance().load("RF.skin");
+	/*MyGUI::SkinManager::getInstance().load("RF.skin");
 	MyGUI::PointerManager::getInstance().load("RF.pointer");
 	MyGUI::FontManager::getInstance().load("RF.font");
 
