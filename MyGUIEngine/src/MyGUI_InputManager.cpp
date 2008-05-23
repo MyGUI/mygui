@@ -126,6 +126,8 @@ namespace MyGUI
 				mPointer = item->getPointer();
 				if (mPointer.empty()) PointerManager::getInstance().setDefaultPointer();
 				else PointerManager::getInstance().setPointer(mPointer, item);
+
+				eventChangeMousePointer(mPointer);
 			}
 			item->_onMouseMove(_absx, _absy);
 			item->_onMouseSetFocus(mWidgetMouseFocus);
@@ -135,6 +137,8 @@ namespace MyGUI
 		else if (false == mPointer.empty()) {
 			PointerManager::getInstance().setDefaultPointer();
 			mPointer.clear();
+
+			eventChangeMousePointer(mPointer);
 		}
 
 		// изменился рутовый элемент

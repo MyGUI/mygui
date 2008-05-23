@@ -79,6 +79,8 @@ private:
 	void windowResized(Ogre::RenderWindow* rw);
 	void windowClosed(Ogre::RenderWindow* rw);
 
+	void startRendering();
+
 };
 
 #endif // __BASIS_MANAGER_H__
