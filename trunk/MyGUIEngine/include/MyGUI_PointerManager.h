@@ -52,6 +52,8 @@ namespace MyGUI
 
 		void _unlinkWidget(WidgetPtr _widget);
 
+		inline const std::string & getDefaultPointer() { return mDefaultPointer; }
+
 	private:
 
 		void clear();
