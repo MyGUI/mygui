@@ -38,6 +38,8 @@
     <Parameter key="Edit_Password" value="Bool"/>
     <Parameter key="Edit_MultiLine" value="Bool"/>
     <Parameter key="Edit_PasswordChar" value="String"/>
+    <Parameter key="Edit_MaxTextLength" value="1 int"/>
+    <Parameter key="Edit_OverflowToTheLeft" value="Bool"/>
     <!-- all properties -->
   </Widget>
 
