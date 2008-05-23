@@ -22,7 +22,7 @@ namespace MyGUI
 	const int EDIT_CURSOR_MAX_POSITION = 100000;
 	const int EDIT_CURSOR_MIN_POSITION = -100000;
 	const size_t EDIT_MAX_UNDO = 128;
-	const size_t EDIT_MAX_LENGHT = 2048;
+	const size_t EDIT_DEFAULT_MAX_TEXT_LENGTH = 2048;
 	const float EDIT_OFFSET_HORZ_CURSOR = 50.0f; // дополнительное смещение для курсора
 	const int EDIT_ACTION_MOUSE_ZONE = 50; // область для восприятия мыши за пределом эдита
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
@@ -44,7 +44,9 @@ namespace MyGUI
 		mModePassword(false),
 		mModeMultiline(false),
 		mModeStatic(false),
-		mCharPassword('*')
+		mCharPassword('*'),
+		mOverflowToTheLeft(false),
+		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
 	{
 
 		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit must have TextEdit)");
@@ -902,8 +904,15 @@ namespace MyGUI
 		// вставляем текст
 		iterator.setText(_caption, mModeMultiline);
 
-		// обрезаем по максимальной длинне
-		iterator.cutMaxLength(EDIT_MAX_LENGHT);
+		if (mOverflowToTheLeft)
+		{
+			iterator.cutMaxLengthFromBeginning(mMaxTextLength);
+		}
+		else
+		{
+			// обрезаем по максимальной длинне
+			iterator.cutMaxLength(mMaxTextLength);
+		}
 
 		// запоминаем размер строки
 		size_t old = mTextLength;
@@ -935,7 +944,9 @@ namespace MyGUI
 		resetSelect();
 
 		// если строка пустая, или размер максимален
-		if ((_text.empty()) || (mTextLength == EDIT_MAX_LENGHT) ) return;
+		if (_text.empty()) return;
+
+		if ((mOverflowToTheLeft == false) && (mTextLength == mMaxTextLength)) return;
 
 		// история изменений
 		VectorChangeInfo * history = null;
@@ -970,8 +981,15 @@ namespace MyGUI
 		// а теперь вставляем строку
 		iterator.insertText(_text, mModeMultiline);
 
-		// обрезаем по максимальной длинне
-		iterator.cutMaxLength(EDIT_MAX_LENGHT);
+		if (mOverflowToTheLeft)
+		{
+			iterator.cutMaxLengthFromBeginning(mMaxTextLength);
+		}
+		else
+		{
+			// обрезаем по максимальной длинне
+			iterator.cutMaxLength(mMaxTextLength);
+		}
 
 		// запоминаем размер строки
 		size_t old = mTextLength;

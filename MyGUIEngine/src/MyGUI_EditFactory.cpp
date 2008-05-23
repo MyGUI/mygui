@@ -27,6 +27,8 @@ namespace MyGUI
 			manager.registerDelegate("Edit_Password") = newDelegate(this, &EditFactory::Edit_Password);
 			manager.registerDelegate("Edit_MultiLine") = newDelegate(this, &EditFactory::Edit_MultiLine);
 			manager.registerDelegate("Edit_PasswordChar") = newDelegate(this, &EditFactory::Edit_PasswordChar);
+			manager.registerDelegate("Edit_MaxTextLength") = newDelegate(this, &EditFactory::Edit_MaxTextLength);
+			manager.registerDelegate("Edit_OverflowToTheLeft") = newDelegate(this, &EditFactory::Edit_OverflowToTheLeft);
 		}
 
 		EditFactory::~EditFactory()
@@ -42,6 +44,8 @@ namespace MyGUI
 			manager.unregisterDelegate("Edit_Password");
 			manager.unregisterDelegate("Edit_MultiLine");
 			manager.unregisterDelegate("Edit_PasswordChar");
+			manager.unregisterDelegate("Edit_MaxTextLength");
+			manager.unregisterDelegate("Edit_OverflowToTheLeft");
 		}
 
 		const Ogre::String& EditFactory::getType()
@@ -89,6 +93,18 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
 			static_cast<EditPtr>(_widget)->setPasswordChar(_value);
+		}
+
+		void EditFactory::Edit_MaxTextLength(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
+			static_cast<EditPtr>(_widget)->setMaxTextLength(utility::parseSizeT(_value));
+		}
+
+		void EditFactory::Edit_OverflowToTheLeft(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
+			static_cast<EditPtr>(_widget)->setOverflowToTheLeft(utility::parseBool(_value));
 		}
 
 	} // namespace factory
