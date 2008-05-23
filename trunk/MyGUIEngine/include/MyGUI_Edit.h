@@ -75,6 +75,18 @@ namespace MyGUI
 		//! @copydoc Widget::setTextAlign
 		virtual void setTextAlign(Align _align);
 
+		//! Sets if surplus characters should push characters off the left side rather than ignored
+		void setOverflowToTheLeft(bool _overflowToLeft) { mOverflowToTheLeft = _overflowToLeft; }
+
+		//! Returns true if surplus characters will be pushed off the left rather than ignored
+		bool getOverflowToTheLeft() { return mOverflowToTheLeft; }
+
+		//! Sets the max amount of text allowed in the edit field.
+		void setMaxTextLength(size_t _maxTextLength) { mMaxTextLength = _maxTextLength; }
+
+		//! Gets the max amount of text allowed in the edit field.
+		size_t getMaxTextLength() { return mMaxTextLength; }
+
 		//---------------------------------------------------------------//
 		// наружу выставляем инлайны со сбросом истории
 		//---------------------------------------------------------------//
@@ -294,6 +306,9 @@ namespace MyGUI
 		std::string mOriginalPointer;
 
 		Char mCharPassword;
+
+		bool mOverflowToTheLeft;
+		size_t mMaxTextLength;
 
 	}; // class Edit : public Widget
 

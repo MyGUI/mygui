@@ -100,6 +100,8 @@ namespace MyGUI
 
 		void cutMaxLength(size_t _max);
 
+		void cutMaxLengthFromBeginning(size_t _max);
+
 		// возвращает текст без тегов
 		static Ogre::UTFString getOnlyText(const Ogre::UTFString& _text);
 

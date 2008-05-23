@@ -241,6 +241,48 @@ namespace MyGUI
 		}
 	}
 
+	void TextIterator::cutMaxLengthFromBeginning(size_t _max)
+	{
+		//figure out where to chop off the beginning
+		int diff = (int) mText.size() - (int) _max;
+
+		//if we don't need to chop, return
+		if (diff <= 0) return;
+		
+		int i = 0;
+		for (Ogre::UTFString::iterator iter=mText.begin(); iter<mText.begin() + diff; ++iter, ++i)
+		{
+			if ((*iter) == L'#')
+			{
+				++ iter;
+				++ i;
+				if (iter == mEnd) break;
+
+				if ((*iter) != L'#') {
+					// остальные 5 символов цвета
+					for (size_t pos=0; pos<5; pos++) {
+						++ iter;
+						++ i;
+						if (iter == mEnd) {
+							-- iter;
+							-- i;
+							break;
+						}
+					}
+					continue;
+				}
+			}
+		}
+
+		mText.erase(0, i); 
+
+		//keep our member variables in valid states
+		mPosition = mText.size();
+		mCurrent = mText.begin() + mPosition;
+		mSave = mEnd = mText.end();
+		mSize = mPosition;
+	}
+
 	// возвращает текст без тегов
 	Ogre::UTFString TextIterator::getOnlyText(const Ogre::UTFString& _text)
 	{

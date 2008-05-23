@@ -243,6 +243,8 @@ namespace MyGUI
 		// запоминаем клавишу
 		storeKey(_key);
 
+		bool wasFocusKey = isFocusKey();
+
 		//Pass keystrokes to the current active text widget
 		if (isFocusKey()) {
 			Char ch;
@@ -257,7 +259,7 @@ namespace MyGUI
 			mWidgetKeyFocus->_onKeyButtonPressed(_key, ch);
 		}
 
-		return isFocusKey();
+		return wasFocusKey;
 	}
 
 	bool InputManager::injectKeyRelease(KeyCode _key)
@@ -267,9 +269,11 @@ namespace MyGUI
 		// сбрасываем клавишу
 		resetKey(_key);
 
+		bool wasFocusKey = isFocusKey();
+
 		if (isFocusKey()) mWidgetKeyFocus->_onKeyButtonReleased(_key);
 
-		return isFocusKey();
+		return wasFocusKey;
 	}
 
     //Detects switching from an english to a other mode on a keyboard (?)
