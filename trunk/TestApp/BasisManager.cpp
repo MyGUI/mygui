@@ -128,7 +128,20 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	createScene();
 
-    mRoot->startRendering();
+    startRendering();
+}
+
+void BasisManager::startRendering()
+{
+	// инициализируем все рендер таргеты
+	mRoot->getRenderSystem()->_initRenderTargets();
+
+	// крутимся бесконечно
+	while(true) {
+		Ogre::WindowEventUtilities::messagePump();
+		mWindow->setActive(true);
+		if (!mRoot->renderOneFrame()) break;
+	};
 }
 
 void BasisManager::destroyBasisManager() // очищаем все параметры каркаса приложения

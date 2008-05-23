@@ -86,10 +86,17 @@ namespace MyGUI
 
 		// событие смены языков
 		/** Event : Language has been changed.\n
-			signature : void method(std::string _languageName)\n
+			signature : void method(const std::string & _languageName)\n
 			_languageName name of current language
 		*/
 		EventInfo_String eventChangeLanguage;
+
+		// событие смены курсора
+		/** Event : Pointer has been changed.\n
+			signature : void method(const std::string & _pointerName)\n
+			_pointerName name of current pointer
+		*/
+		EventInfo_String eventChangeMousePointer;
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
