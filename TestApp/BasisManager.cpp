@@ -348,11 +348,51 @@ extern "C" {
 #endif
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
+INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc)
 #else
 int main(int argc, char **argv)
 #endif
 {
+
+	std::vector<std::string> vector_params;
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+
+	std::string delims = " ";
+	std::string source = strCmdLine;
+	size_t start = source.find_first_not_of(delims);
+	while (start != source.npos) {
+		size_t end = source.find_first_of(delims, start);
+		if (end != source.npos) vector_params.push_back(source.substr(start, end-start));
+		else {
+			vector_params.push_back(source.substr(start));
+			break;
+		}
+		start = source.find_first_not_of(delims, end + 1);
+	};
+
+#else
+
+	vector_params.reserve(argc);
+	for (int pos=0; pos<argc; pos++) {
+		vector_params.push_back(argv[pos]);
+	}
+
+#endif
+
+	std::ifstream stream;
+	std::string tmp;
+	for (size_t pos=0; pos<vector_params.size(); pos++) {
+		tmp += vector_params[pos];
+		stream.open(tmp.c_str());
+		if (stream.is_open()) {
+			BasisManager::getInstance().addCommandParam(tmp);
+			tmp.clear();
+			stream.close();
+		} else {
+			tmp += " ";
+		}
+	}
 
 	try {
 
