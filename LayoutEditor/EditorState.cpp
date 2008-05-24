@@ -231,11 +231,7 @@ void EditorState::enter(bool bIsChangeState)
 	typedef std::vector<std::string> Params;
 	Params params = BasisManager::getInstance().getCommandParams();
 	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
-		ew->load(iter->c_str());
-		BasisManager::getInstance().setWindowCaption(*iter + " - Layout Editor");
-
-		fileName = iter->c_str();
-		um->addValue();
+		load(iter->c_str());
 	}
 }
 //===================================================================================
@@ -779,6 +775,20 @@ void EditorState::notifyLoadSaveCancel(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::InputManager::getInstance().removeWidgetModal(mGUI->findWidgetT("LayoutEditor_windowSaveLoad"));
 	MyGUI::WidgetManager::getInstance().destroyWidget(mGUI->findWidgetT("LayoutEditor_windowSaveLoad"));
+}
+
+void EditorState::load(const std::string & _file)
+{
+	if (!ew->load(_file))
+	{
+		MyGUI::Message::_createMessage("Warning", "Failed to load file '" + _file + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		return;
+	}
+
+	BasisManager::getInstance().setWindowCaption(_file + " - Layout Editor");
+
+	fileName = _file;
+	um->addValue();
 }
 
 void EditorState::notifySelectWidgetType(MyGUI::WidgetPtr _sender)
