@@ -2,7 +2,8 @@
 
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 //typedef std::map<Ogre::String, Ogre::String> MapString;
-//typedef std::vector<std::pair<std::string, std::string>> MapString;
+//typedef std::vector<std::pair<std::string, std::string> > MapString;
+typedef std::map< std::string, StringPairs > SkinGroups;
 
 struct WidgetType{
 	WidgetType(): parent(false), child(true), resizeable(true), many_strings(false) {}
@@ -33,6 +34,7 @@ public:
 	std::vector<std::string> findPossibleValues(std::string _name);
 	std::vector<WidgetType*> widget_types;
 	std::vector<PossibleValue*> possible_values;
+	SkinGroups skin_groups;
 private:
 	void loadTypes();
 	void parseWidgetType(MyGUI::xml::xmlNodeIterator _widget);

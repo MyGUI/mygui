@@ -27,13 +27,13 @@ namespace MyGUI
 
 		/** 
 			@param _destRect destination coordinate
-			@param _time in which widget will reach destination coordinate
+			@param _time seconds in which widget will reach destination coordinate
 			@param _mode of moving (see ControllerPosition::MoveMode)
 		*/
 		ControllerPosition(IntCoord _destRect, float _time, MoveMode _mode);
 		/** 
 			@param _destRect destination coordinate
-			@param _time in which widget planned to reach destination coordinate
+			@param _time seconds in which widget planned to reach destination coordinate
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
 		ControllerPosition(IntCoord _destRect, float _time, FrameAction _action);
