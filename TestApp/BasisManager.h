@@ -65,6 +65,8 @@ public:
 	inline int getWidth() {return (int)mWidth;}
 	inline int getHeight() {return (int)mHeight;}
 
+	void setWindowCaption(const std::string & _text);
+
 private:
 	void createInput(); // создаем систему ввода
 	void destroyInput(); // удаляем систему ввода

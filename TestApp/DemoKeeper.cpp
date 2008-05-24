@@ -5,6 +5,7 @@
 	@module
 */
 #include "DemoKeeper.h"
+#include "BasisManager.h"
 #include <fstream>
 
 DemoKeeper::DemoKeeper() :
@@ -238,6 +239,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	BasisManager::getInstance().setWindowCaption("ItemBox and Drag&Drop demo");
 	/*mGUI->load("WM.skin");
 	mGUI->load("WM.font");
 
