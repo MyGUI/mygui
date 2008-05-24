@@ -128,6 +128,12 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	createScene();
 
+
+	size_t num = 0;
+	for (Params::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter) {
+		MyGUI::Message::createMessage(MyGUI::utility::toString("param : ", num++).c_str(), iter->c_str(), false, MyGUI::Message::Ok);
+	}
+
     startRendering();
 }
 
@@ -338,6 +344,12 @@ void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 	destroyInput();
 }
 
+void BasisManager::addCommandParam(const std::string & _param)
+{
+	mParams.push_back(_param);
+	//::MessageBoxA(0, _param.c_str(), "param", MB_OK);
+}
+
 //=======================================================================================
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -354,18 +366,72 @@ int main(int argc, char **argv)
 #endif
 {
 
-	std::vector<std::string> vector_params;
-
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 
+	// при дропе файл может быть запущен в любой дирректории
+	const size_t SIZE = 2048;
+	char buff[SIZE];
+	//::MessageBoxA(0, strCmdLine, "all command", MB_OK);
+
+	::GetModuleFileNameA(hInst, buff, SIZE);
+	//::MessageBoxA(0, buff, "module", MB_OK);
+
+	std::string dir = buff;
+	size_t pos = dir.find_last_of("\\/");
+	if (pos != dir.npos) {
+		// устанавливаем правильную дирректорию
+		::SetCurrentDirectoryA(dir.substr(0, pos+1).c_str());
+	}
+
+	//::GetCurrentDirectoryA(SIZE, buff);
+	//::MessageBoxA(0, buff, "current directory", MB_OK);
+
+	// имена могут содержать пробелы, необходимо
+	//склеивать и проверять файлы на существование
+	std::ifstream stream;
+	std::string tmp;
 	std::string delims = " ";
 	std::string source = strCmdLine;
 	size_t start = source.find_first_not_of(delims);
 	while (start != source.npos) {
 		size_t end = source.find_first_of(delims, start);
-		if (end != source.npos) vector_params.push_back(source.substr(start, end-start));
+		if (end != source.npos) {
+			tmp += source.substr(start, end-start);
+
+			// имена могут быть в ковычках
+			if (tmp.size() > 2) {
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
+					tmp = tmp.substr(1, tmp.size()-2);
+					//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
+				}
+			}
+
+			stream.open(tmp.c_str());
+			if (stream.is_open()) {
+				BasisManager::getInstance().addCommandParam(tmp);
+				tmp.clear();
+				stream.close();
+			}
+			else tmp += " ";
+		}
 		else {
-			vector_params.push_back(source.substr(start));
+			tmp += source.substr(start);
+
+			// имена могут быть в ковычках
+			if (tmp.size() > 2) {
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
+					tmp = tmp.substr(1, tmp.size()-2);
+					//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
+				}
+			}
+
+			stream.open(tmp.c_str());
+			if (stream.is_open()) {
+				BasisManager::getInstance().addCommandParam(tmp);
+				tmp.clear();
+				stream.close();
+			}
+			else tmp += " ";
 			break;
 		}
 		start = source.find_first_not_of(delims, end + 1);
@@ -377,8 +443,6 @@ int main(int argc, char **argv)
 	for (int pos=0; pos<argc; pos++) {
 		vector_params.push_back(argv[pos]);
 	}
-
-#endif
 
 	std::ifstream stream;
 	std::string tmp;
@@ -393,6 +457,8 @@ int main(int argc, char **argv)
 			tmp += " ";
 		}
 	}
+
+#endif
 
 	try {
 

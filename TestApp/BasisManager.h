@@ -58,7 +58,7 @@ public:
 	void destroyBasisManager(); // очищаем все параметры каркаса приложения
 
 	// добавляет строку в список параметров
-	inline void addCommandParam(const std::string & _param) { mParams.push_back(_param); }
+	void addCommandParam(const std::string & _param);
 	// возвращает список параметров коммандной строки
 	inline const Params & getCommandParams() { return mParams; }
 
