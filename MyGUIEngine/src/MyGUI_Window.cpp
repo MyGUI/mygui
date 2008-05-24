@@ -29,7 +29,7 @@ namespace MyGUI
 
 	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mWidgetCaption(null), mWidgetClient(null),
+		mWidgetCaption(null),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
 		mSnap(false)

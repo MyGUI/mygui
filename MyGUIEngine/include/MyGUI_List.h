@@ -185,7 +185,7 @@ namespace MyGUI
 	private:
 		std::string mSkinLine;
 		VScrollPtr mWidgetScroll;
-		WidgetPtr mWidgetClient;
+		//WidgetPtr mWidgetClient;
 
 		// наши дети в строках
 		VectorWidgetPtr mWidgetLines;
