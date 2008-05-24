@@ -4,7 +4,7 @@
 
   <Widget name="Button">
     <Property key="Skin" value="Button"/>
-    <Property key="Skin" value="Button2" group="Non standard"/>
+    <Property key="Skin" value="Button2" group="Other"/>
     <Property key="Skin" value="ButtonSmall"/>
     <Property key="Skin" value="CheckBox"/>
     <Property key="Skin" value="RadioBox"/>
@@ -13,7 +13,7 @@
   </Widget>
 
   <Widget name="StrangeButton">
-    <Property key="Skin" value="Button" group="Non standard"/>
+    <Property key="Skin" value="Button" group="Other"/>
     <Parameter key="StrangeButton_Pressed" value="Bool"/>
     <!-- all properties -->
   </Widget>
@@ -42,7 +42,7 @@
 
   <Widget name="HScroll">
     <Property key="Skin" value="HScroll"/>
-    <Property key="Skin" value="HSlider" group="Non standard"/>
+    <Property key="Skin" value="HSlider" group="Other"/>
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -139,7 +139,7 @@
 
   <Widget name="VScroll">
     <Property key="Skin" value="VScroll"/>
-    <Property key="Skin" value="VSlider" group="Non standard"/>
+    <Property key="Skin" value="VSlider" group="Other"/>
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -149,12 +149,12 @@
 
   <Widget name="Widget">
     <Property key="Parent" value="true"/>
-    <Property key="Skin" value="Panel" group="Simple widgets"/>
-    <Property key="Skin" value="PanelSmall" group="Simple widgets"/>
-    <Property key="Skin" value="Separator1" group="Simple widgets"/>
-    <Property key="Skin" value="Separator2" group="Simple widgets"/>
-    <Property key="Skin" value="Separator3" group="Simple widgets"/>
-    <Property key="Skin" value="Separator4" group="Simple widgets"/>
+    <Property key="Skin" value="Panel"/>
+    <Property key="Skin" value="PanelSmall" group="Other"/>
+    <Property key="Skin" value="Separator1" group="Other"/>
+    <Property key="Skin" value="Separator2" group="Other"/>
+    <Property key="Skin" value="Separator3" group="Other"/>
+    <Property key="Skin" value="Separator4" group="Other"/>
     <Parameter key="Widget_Caption" value="String"/>
     <!--Parameter key="Widget_Move" value="2 or 4 int"/-->
     <!--Parameter key="Widget_Size" value="2 int"/-->

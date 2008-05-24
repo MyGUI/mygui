@@ -121,7 +121,7 @@ void EditorState::enter(bool bIsChangeState)
 			button->eventMouseButtonDoubleClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetTypeDoubleclick);
 			i++;
 		}
-		maxLines = std::max(i/widgetsButtonsInOneLine, maxLines);
+		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
 	}
 
 	int width = tabSkinGroups->getWidth() - sheet->getWidth();
