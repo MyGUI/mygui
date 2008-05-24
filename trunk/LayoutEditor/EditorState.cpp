@@ -99,36 +99,46 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_buttonQuit", &EditorState::notifyQuit);
 
 	// widgets panel
-	int i = 0;
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
-	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowWidgets");
-	for (std::vector<WidgetType*>::iterator iter = wt->widget_types.begin(); iter != wt->widget_types.end(); ++iter)
+
+	MyGUI::TabPtr tabSkinGroups = mGUI->findWidget<MyGUI::Tab>("LayoutEditor_tabSkinGroups");
+	MyGUI::SheetPtr sheet;
+	int maxLines = 0;
+	for (SkinGroups::iterator iter = wt->skin_groups.begin(); iter != wt->skin_groups.end(); ++iter)
 	{
-		for (std::vector<std::string>::iterator iterSkin = (*iter)->skin.begin(); iterSkin != (*iter)->skin.end(); ++iterSkin)
+		sheet = tabSkinGroups->addSheet(iter->first);
+		int i = 0;
+		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 		{
-			MyGUI::ButtonPtr button = windowWidgets->createWidget<MyGUI::Button>("ButtonSmall", 
+			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall", 
 				i%widgetsButtonsInOneLine * w, i/widgetsButtonsInOneLine * h, w, h,
-				MyGUI::ALIGN_TOP|MyGUI::ALIGN_LEFT, MyGUI::utility::toString((*iter)->name, *iterSkin));
-			button->setCaption(*iterSkin);
+				MyGUI::ALIGN_TOP|MyGUI::ALIGN_LEFT, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
+			button->setCaption(iterSkin->first);
 			button->setTextAlign(MyGUI::ALIGN_CENTER);
-			button->setUserString("widget", (*iter)->name);
-			button->setUserString("skin", *iterSkin);
+			button->setUserString("widget", iterSkin->second);
+			button->setUserString("skin", iterSkin->first);
 			button->eventMouseButtonClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetType);
 			button->eventMouseButtonDoubleClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetTypeDoubleclick);
 			i++;
 		}
+		maxLines = std::max(i/widgetsButtonsInOneLine, maxLines);
 	}
-	i++;
-	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");//windowWidgets->createWidget<MyGUI::ComboBox>("EditorComboBox", 0, (i/widgetsButtonsInOneLine)*h, widgetsButtonsInOneLine * w, h, MyGUI::ALIGN_TOP|MyGUI::ALIGN_HSTRETCH);
-	allWidgetsCombo->setSize(widgetsButtonsInOneLine * w, h);
+
+	int width = tabSkinGroups->getWidth() - sheet->getWidth();
+	int height = tabSkinGroups->getHeight() - sheet->getHeight();
+	tabSkinGroups->setSize(width + widgetsButtonsInOneLine * w, height + maxLines*h);
+
+	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");
+	//allWidgetsCombo->setSize(width + widgetsButtonsInOneLine * w, h);
 	allWidgetsCombo->setComboModeDrop(true);
 	allWidgetsCombo->eventKeySetFocus = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabPressed);
 	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabSelect);
 	allWidgetsCombo->setMaxListHeight(200);
 
-	int width = windowWidgets->getWidth() - windowWidgets->getClientRect().width;
-	int height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
-	windowWidgets->setSize(width + widgetsButtonsInOneLine * w, height + (i/widgetsButtonsInOneLine+widgetsButtonsInOneLine)*h);
+	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowWidgets");
+	width = windowWidgets->getWidth() - windowWidgets->getClientRect().width;
+	height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
+	windowWidgets->setSize(width + tabSkinGroups->getWidth(), height + tabSkinGroups->getHeight() + 2*h);
 
 	// properties panel
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");

@@ -88,12 +88,18 @@ void WidgetTypes::parseWidgetType(MyGUI::xml::xmlNodeIterator _widget)
 	MyGUI::xml::xmlNodeIterator field = _widget->getNodeIterator();
 	while (field.nextNode()) {
 
-		std::string key, value;
+		std::string key, value, group;
 
 		if (field->getName() == "Property") {
 			if (false == field->findAttribute("key", key)) continue;
 			if (false == field->findAttribute("value", value)) continue;
-			if (key == "Skin") widget_type->skin.push_back(value);
+			field->findAttribute("group", group);
+			if (key == "Skin")
+			{
+				if (group.empty()) group = "Default";
+				skin_groups[group].push_back(std::make_pair(value, widget_type->name));
+				widget_type->skin.push_back(value);
+			}
 			else if (key == "Parent") widget_type->parent = MyGUI::utility::parseBool(value);
 			else if (key == "Child") widget_type->child = MyGUI::utility::parseBool(value);
 			else if (key == "Resizeable") widget_type->resizeable = MyGUI::utility::parseBool(value);
