@@ -49,6 +49,8 @@ public:
 	// возвращает список параметров коммандной строки
 	inline const Params & getCommandParams() { return mParams; }
 
+	void setWindowCaption(const std::string & _text);
+
 public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
 

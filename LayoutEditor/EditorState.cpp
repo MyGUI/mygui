@@ -232,7 +232,10 @@ void EditorState::enter(bool bIsChangeState)
 	Params params = BasisManager::getInstance().getCommandParams();
 	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
 		ew->load(iter->c_str());
-		//MyGUI::Message::createMessage(MyGUI::utility::toString("param : ", num++).c_str(), iter->c_str(), false, MyGUI::Message::Ok);
+		BasisManager::getInstance().setWindowCaption(*iter + " - Layout Editor");
+
+		fileName = iter->c_str();
+		um->addValue();
 	}
 }
 //===================================================================================
@@ -645,7 +648,11 @@ void EditorState::saveSettings()
 
 void EditorState::notifySave(MyGUI::WidgetPtr _sender)
 {
-	if (fileName != "") ew->save(fileName);
+	if (fileName != "")
+	{
+		if ( !ew->save(fileName))
+			MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + fileName + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+	}
 	else notifyLoadSaveAs(_sender);
 }
 
@@ -745,17 +752,19 @@ void EditorState::notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::Vi
 void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 {
 	bool success;
-	if (_sender->getCaption() == "Load") success = ew->load(mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption());
-	else/*(_sender->getCaption() == "Save")*/ success = ew->save(mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption());
+	Ogre::UTFString fName = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
+	if (_sender->getCaption() == "Load") success = ew->load(fName);
+	else/*(_sender->getCaption() == "Save")*/ success = ew->save(fName);
 
 	if (false == success) 
 	{
-		MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + fName + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else
 	{
 		// запоминает последнее удачное имя файла
-		fileName = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
+		fileName = fName;
+		BasisManager::getInstance().setWindowCaption(fileName + " - Layout Editor");
 		notifyLoadSaveCancel(_sender);
 		um->addValue();
 	}
