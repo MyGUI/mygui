@@ -6,7 +6,7 @@
 #include "resource.h"
 
 
-#ifdef WIN32
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 
 #include <shellapi.h>
 
@@ -17,7 +17,7 @@ LRESULT BasisManager::msOldWindowProc = NULL;
 LRESULT CALLBACK BasisManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 
-	// обновляем курсор
+	// на нас кидаю файлы
 	if (WM_DROPFILES == uMsg) {
 
 		HDROP hDrop = (HDROP)wParam;
@@ -32,6 +32,7 @@ LRESULT CALLBACK BasisManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 		::DragFinish(hDrop);
 		return 0;
 	}
+	// нас пытаются закрыть
 	else if (WM_CLOSE == uMsg)
 	{
 		BasisManager::getInstance().windowClose();
@@ -63,11 +64,7 @@ BasisManager::BasisManager() :
 
 void BasisManager::setMainWindowIcon(size_t _iconId)
 {
-	// берем дискриптор окна
-	size_t hwnd = 0;
-	mWindow->getCustomAttribute("WINDOW", &hwnd );
-
-#ifdef WIN32
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// берем имя нашего экзешника
 	char buf[1024];
 	::GetModuleFileName(0, (LPCH)&buf, 1024);
@@ -76,10 +73,9 @@ void BasisManager::setMainWindowIcon(size_t _iconId)
 	// побыстрому грузим иконку
 	HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(_iconId));
 	if (hIcon) {
-		::SendMessage((HWND)hwnd, WM_SETICON, 1, (LPARAM)hIcon);
-		::SendMessage((HWND)hwnd, WM_SETICON, 0, (LPARAM)hIcon);
+		::SendMessage((HWND)mHwnd, WM_SETICON, 1, (LPARAM)hIcon);
+		::SendMessage((HWND)mHwnd, WM_SETICON, 0, (LPARAM)hIcon);
 	}
-
 #endif
 }
 
@@ -162,6 +158,20 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mWidth = mWindow->getWidth();
 	mHeight = mWindow->getHeight();
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	mWindow->getCustomAttribute("WINDOW", &mHwnd);
+
+	// устанавливаем поддержку дропа файлов
+	long style = ::GetWindowLong((HWND)mHwnd, GWL_EXSTYLE);
+	::SetWindowLong((HWND)mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
+
+	// подсовываем нашу функцию калбеков
+	if (!msOldWindowProc) {
+		msOldWindowProc = GetWindowLong((HWND)mHwnd, GWL_WNDPROC);
+		SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)windowProc);
+	}
+#endif
+
 	setMainWindowIcon(IDI_ICON);
 
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BasisSceneManager");
@@ -189,21 +199,6 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	createInput();
 	changeState(&mEditor);
 
-#ifdef WIN32
-	mWindow->getCustomAttribute("WINDOW", &mHwnd);
-
-	// устанавливаем поддержку дропа файлов
-	long style = ::GetWindowLong((HWND)mHwnd, GWL_EXSTYLE);
-	::SetWindowLong((HWND)mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
-
-	// подсовываем нашу функцию калбеков
-	if (!msOldWindowProc) {
-		msOldWindowProc = GetWindowLong((HWND)mHwnd, GWL_WNDPROC);
-		SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)windowProc);
-	}
-#endif
-
-
 	startRendering();
 }
 
@@ -223,7 +218,7 @@ void BasisManager::startRendering()
 void BasisManager::destroyBasisManager() // очищаем все параметры каркаса приложения
 {
 
-#ifdef WIN32
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// если мы подменили процедуру, то вернем на место
 	if (msOldWindowProc) {
 		::SetWindowLongA((HWND)mHwnd, GWL_WNDPROC, (long)msOldWindowProc);
@@ -393,16 +388,13 @@ void BasisManager::addCommandParam(const std::string & _param)
 void BasisManager::setWindowCaption(const std::string & _text)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	size_t windowHnd = 0;
-	mWindow->getCustomAttribute("WINDOW", &windowHnd);
-	::SetWindowTextA((HWND)windowHnd, _text.c_str());
+	::SetWindowTextA((HWND)mHwnd, _text.c_str());
 #endif
 }
 
 void BasisManager::dropFile(const std::string & _file)
 {
 	mEditor.load(_file);
-	//MyGUI::Message::createMessage("drop file", _file, false, MyGUI::Message::Ok);
 }
 
 void BasisManager::windowClose()

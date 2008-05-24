@@ -87,7 +87,7 @@ public:
 private:
 	void startRendering();
 
-#ifdef WIN32
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// наша оконная процедура
 	static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT msOldWindowProc;
