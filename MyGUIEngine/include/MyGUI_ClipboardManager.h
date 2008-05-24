@@ -43,6 +43,13 @@ namespace MyGUI
 	private:
 		MapString mClipboardData;
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	// дискриптор нашего главного окна
+	size_t mHwnd;
+	// строка, которую мы положили в буфер обмена винды
+	Ogre::DisplayString mPutTextInClipboard;
+#endif
+
 	};
 
 }
