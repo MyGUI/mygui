@@ -227,6 +227,13 @@ void EditorState::enter(bool bIsChangeState)
 
 	/*MyGUI::WidgetPtr mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main", "fpsInfo");
 	mFpsInfo->setColour(Ogre::ColourValue::White);*/
+
+	typedef std::vector<std::string> Params;
+	Params params = BasisManager::getInstance().getCommandParams();
+	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
+		ew->load(iter->c_str());
+		//MyGUI::Message::createMessage(MyGUI::utility::toString("param : ", num++).c_str(), iter->c_str(), false, MyGUI::Message::Ok);
+	}
 }
 //===================================================================================
 void EditorState::exit()
