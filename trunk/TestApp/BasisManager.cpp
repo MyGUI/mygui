@@ -350,6 +350,15 @@ void BasisManager::addCommandParam(const std::string & _param)
 	//::MessageBoxA(0, _param.c_str(), "param", MB_OK);
 }
 
+void BasisManager::setWindowCaption(const std::string & _text)
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	size_t windowHnd = 0;
+	mWindow->getCustomAttribute("WINDOW", &windowHnd);
+	::SetWindowTextA((HWND)windowHnd, _text.c_str());
+#endif
+}
+
 //=======================================================================================
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
