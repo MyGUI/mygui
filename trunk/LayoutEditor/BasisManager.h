@@ -81,4 +81,17 @@ public:
 
 	void setMainWindowIcon(size_t _iconId);
 
+	void dropFile(const std::string & _file);
+
+private:
+	void startRendering();
+
+#ifdef WIN32
+	// наша оконная процедура
+	static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT msOldWindowProc;
+	// дискриптор нашего главного окна
+	size_t mHwnd;
+#endif
+
 };

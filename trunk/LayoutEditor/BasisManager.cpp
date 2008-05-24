@@ -5,6 +5,40 @@
 #include <OgrePanelOverlayElement.h>
 #include "resource.h"
 
+
+#ifdef WIN32
+
+#include <shellapi.h>
+
+// старая процедура, которую мы заменили
+LRESULT BasisManager::msOldWindowProc = NULL;
+
+// наша процедура для фильтрации сообщений
+LRESULT CALLBACK BasisManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+
+	// обновляем курсор
+	if (WM_DROPFILES == uMsg) {
+
+		HDROP hDrop = (HDROP)wParam;
+		TCHAR szFile[MAX_PATH] = { 0 };
+		UINT i, fcount = DragQueryFile(hDrop, 0xFFFFFFFF, NULL, 0);
+
+		for (i = 0; i < fcount; i++) {
+			DragQueryFile(hDrop, i, szFile, MAX_PATH);
+			BasisManager::getInstance().dropFile(szFile);
+		}
+
+		::DragFinish(hDrop);
+		return 0;
+	}
+
+	// вызываем полюбому
+	return CallWindowProc((WNDPROC)msOldWindowProc, hWnd, uMsg, wParam, lParam);
+}
+
+#endif
+
 BasisManager::BasisManager() :
 	mInputManager(0),
 	mMouse(0),
@@ -40,6 +74,7 @@ void BasisManager::setMainWindowIcon(size_t _iconId)
 		::SendMessage((HWND)hwnd, WM_SETICON, 1, (LPARAM)hIcon);
 		::SendMessage((HWND)hwnd, WM_SETICON, 0, (LPARAM)hIcon);
 	}
+
 #endif
 }
 
@@ -149,11 +184,48 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	createInput();
 	changeState(&mEditor);
 
-	mRoot->startRendering();
+#ifdef WIN32
+	mWindow->getCustomAttribute("WINDOW", &mHwnd);
+
+	// устанавливаем поддержку дропа файлов
+	long style = ::GetWindowLong((HWND)mHwnd, GWL_EXSTYLE);
+	::SetWindowLong((HWND)mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
+
+	// подсовываем нашу функцию калбеков
+	if (!msOldWindowProc) {
+		msOldWindowProc = GetWindowLong((HWND)mHwnd, GWL_WNDPROC);
+		SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)windowProc);
+	}
+#endif
+
+
+	startRendering();
+}
+
+void BasisManager::startRendering()
+{
+	// инициализируем все рендер таргеты
+	mRoot->getRenderSystem()->_initRenderTargets();
+
+	// крутимся бесконечно
+	while(true) {
+		Ogre::WindowEventUtilities::messagePump();
+		mWindow->setActive(true);
+		if (!mRoot->renderOneFrame()) break;
+	};
 }
 
 void BasisManager::destroyBasisManager() // очищаем все параметры каркаса приложения
 {
+
+#ifdef WIN32
+	// если мы подменили процедуру, то вернем на место
+	if (msOldWindowProc) {
+		::SetWindowLongA((HWND)mHwnd, GWL_WNDPROC, (long)msOldWindowProc);
+		msOldWindowProc = 0;
+	}
+#endif
+
     // очищаем состояния
 	while (!mStates.empty()) {
 		mStates.back()->exit();
@@ -322,6 +394,10 @@ void BasisManager::setWindowCaption(const std::string & _text)
 #endif
 }
 
+void BasisManager::dropFile(const std::string & _file)
+{
+	MyGUI::Message::createMessage("drop file", _file, false, MyGUI::Message::Ok);
+}
 
 //=======================================================================================
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
