@@ -32,6 +32,11 @@ LRESULT CALLBACK BasisManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 		::DragFinish(hDrop);
 		return 0;
 	}
+	else if (WM_CLOSE == uMsg)
+	{
+		BasisManager::getInstance().windowClose();
+		return 0;
+	}
 
 	// вызываем полюбому
 	return CallWindowProc((WNDPROC)msOldWindowProc, hWnd, uMsg, wParam, lParam);
@@ -398,6 +403,10 @@ void BasisManager::dropFile(const std::string & _file)
 {
 	mEditor.load(_file);
 	//MyGUI::Message::createMessage("drop file", _file, false, MyGUI::Message::Ok);
+}
+
+void BasisManager::windowClose()
+{
 }
 
 //=======================================================================================
