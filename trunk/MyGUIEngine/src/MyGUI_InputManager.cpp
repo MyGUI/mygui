@@ -81,8 +81,9 @@ namespace MyGUI
 
 		// проверка на скролл
 		if (relz != 0) {
+			bool isFocus = isFocusMouse();
 			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseWheel(relz);
-			return isFocusMouse();
+			return isFocus;
 		}
 
 		if (mIsWidgetMouseCapture) {
@@ -104,8 +105,9 @@ namespace MyGUI
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) {
+			bool isFocus = isFocusMouse();
 			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_absx, _absy);
-			return isFocusMouse();
+			return isFocus;
 		}
 
 		// проверяем на модальность
