@@ -308,6 +308,11 @@ void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 	destroyInput();
 }
 
+void BasisManager::addCommandParam(const std::string & _param)
+{
+	mParams.push_back(_param);
+}
+
 //=======================================================================================
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -318,11 +323,105 @@ extern "C" {
 #endif
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
+INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc)
 #else
 int main(int argc, char **argv)
 #endif
 {
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+
+	// при дропе файл может быть запущен в любой дирректории
+	const size_t SIZE = 2048;
+	char buff[SIZE];
+	//::MessageBoxA(0, strCmdLine, "all command", MB_OK);
+
+	::GetModuleFileNameA(hInst, buff, SIZE);
+	//::MessageBoxA(0, buff, "module", MB_OK);
+
+	std::string dir = buff;
+	size_t pos = dir.find_last_of("\\/");
+	if (pos != dir.npos) {
+		// устанавливаем правильную дирректорию
+		::SetCurrentDirectoryA(dir.substr(0, pos+1).c_str());
+	}
+
+	//::GetCurrentDirectoryA(SIZE, buff);
+	//::MessageBoxA(0, buff, "current directory", MB_OK);
+
+	// имена могут содержать пробелы, необходимо
+	//склеивать и проверять файлы на существование
+	std::ifstream stream;
+	std::string tmp;
+	std::string delims = " ";
+	std::string source = strCmdLine;
+	size_t start = source.find_first_not_of(delims);
+	while (start != source.npos) {
+		size_t end = source.find_first_of(delims, start);
+		if (end != source.npos) {
+			tmp += source.substr(start, end-start);
+
+			// имена могут быть в ковычках
+			if (tmp.size() > 2) {
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
+					tmp = tmp.substr(1, tmp.size()-2);
+					//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
+				}
+			}
+
+			stream.open(tmp.c_str());
+			if (stream.is_open()) {
+				BasisManager::getInstance().addCommandParam(tmp);
+				tmp.clear();
+				stream.close();
+			}
+			else tmp += " ";
+		}
+		else {
+			tmp += source.substr(start);
+
+			// имена могут быть в ковычках
+			if (tmp.size() > 2) {
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
+					tmp = tmp.substr(1, tmp.size()-2);
+					//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
+				}
+			}
+
+			stream.open(tmp.c_str());
+			if (stream.is_open()) {
+				BasisManager::getInstance().addCommandParam(tmp);
+				tmp.clear();
+				stream.close();
+			}
+			else tmp += " ";
+			break;
+		}
+		start = source.find_first_not_of(delims, end + 1);
+	};
+
+#else
+
+	/*vector_params.reserve(argc);
+	for (int pos=0; pos<argc; pos++) {
+		vector_params.push_back(argv[pos]);
+	}
+
+	std::ifstream stream;
+	std::string tmp;
+	for (size_t pos=0; pos<vector_params.size(); pos++) {
+		tmp += vector_params[pos];
+		stream.open(tmp.c_str());
+		if (stream.is_open()) {
+			BasisManager::getInstance().addCommandParam(tmp);
+			tmp.clear();
+			stream.close();
+		} else {
+			tmp += " ";
+		}
+	}*/
+
+#endif
 
 	try {
 
@@ -331,9 +430,9 @@ int main(int argc, char **argv)
 
 	} catch(Ogre::Exception & e) {
 		#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-				MessageBox( NULL, e.getFullDescription().c_str(), TEXT("An exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
+			MessageBox( NULL, e.getFullDescription().c_str(), TEXT("An exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
 		#else
-				std::cerr << "An exception has occured: " << e.getFullDescription();
+			std::cerr << "An exception has occured: " << e.getFullDescription();
 		#endif
     }
 

@@ -41,6 +41,13 @@ public:
 	std::vector<BasisState*> mStates; // вектор состояний
 	EditorState mEditor;
 	//TestState mTest;
+	typedef std::vector<std::string> Params;
+	Params mParams;
+
+	// добавляет строку в список параметров
+	void addCommandParam(const std::string & _param);
+	// возвращает список параметров коммандной строки
+	inline const Params & getCommandParams() { return mParams; }
 
 public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
