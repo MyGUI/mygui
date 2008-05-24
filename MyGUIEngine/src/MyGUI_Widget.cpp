@@ -42,7 +42,8 @@ namespace MyGUI
 		mInheritsAlpha(true),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
-		mNeedDragDrop(false)
+		mNeedDragDrop(false),
+		mWidgetClient(null)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();

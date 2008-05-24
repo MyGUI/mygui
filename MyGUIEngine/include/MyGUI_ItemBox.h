@@ -278,7 +278,7 @@ namespace MyGUI
 
 	private:
 		VScrollPtr mWidgetScroll;
-		WidgetPtr mWidgetClient;
+		//WidgetPtr mWidgetClient;
 
 		// наши дети в строках
 		VectorWidgetItemData mVectorItems;

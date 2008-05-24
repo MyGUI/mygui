@@ -59,7 +59,7 @@ namespace MyGUI
 		int mHeightLine;
 		std::string mSkinLine;
 
-		WidgetPtr mWidgetClient;
+		//WidgetPtr mWidgetClient;
 
 		int mMaxWidth;
 
