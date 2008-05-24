@@ -407,6 +407,7 @@ void BasisManager::dropFile(const std::string & _file)
 
 void BasisManager::windowClose()
 {
+	mEditor.notifyQuit();
 }
 
 //=======================================================================================
