@@ -107,36 +107,45 @@ namespace MyGUI
 		/** Remove GUI frame listener */
 		void removeFrameListener(FrameListener * _listener);
 
-		/** Inject frame entered event. This function should be called each frame.
+		/** Inject frame entered event.
+			This function should be called every frame.
 		*/
 		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
 
 		// mirror of InputManager methods
 		/** Inject MouseMove event
-			@return true if move over GUI element
+			@return true if event has been processed by GUI
 		*/
 		bool injectMouseMove(int _absx, int _absy, int _absz);
-		/** Inject MousePress event */
+		/** Inject MousePress event
+			@return true if event has been processed by GUI
+		*/
 		bool injectMousePress(int _absx, int _absy, MouseButton _id);
-		/** Inject MouseRelease event*/
+		/** Inject MouseRelease event
+			@return true if event has been processed by GUI
+		*/
 		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
 
-		/** Inject KeyPress event */
+		/** Inject KeyPress event
+			@return true if event has been processed by GUI
+		*/
 		bool injectKeyPress(KeyCode _key);
-		/** Inject KeyReleas event */
+		/** Inject KeyReleas event
+			@return true if event has been processed by GUI
+		*/
 		bool injectKeyRelease(KeyCode _key);
 
 #ifndef MYGUI_NO_OIS
-		/** OIS backend */
+		/** OIS backend for injectMouseMove(int _absx, int _absy, int _absz) */
 		bool injectMouseMove( const OIS::MouseEvent & _arg) {return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);}
-		/** OIS backend */
+		/** OIS backend injectMousePress(int _absx, int _absy, MouseButton _id) */
 		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
-		/** OIS backend */
+		/** OIS backend for injectMouseRelease(int _absx, int _absy, MouseButton _id) */
 		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
 
-		/** OIS backend */
+		/** OIS backend for injectKeyPress(KeyCode _key) */
 		bool injectKeyPress(const OIS::KeyEvent & _arg) {return injectKeyPress((KeyCode)_arg.key);}
-		/** OIS backend */
+		/** OIS backend for injectKeyRelease(KeyCode _key) */
 		bool injectKeyRelease(const OIS::KeyEvent & _arg) {return injectKeyRelease((KeyCode)_arg.key);}
 #endif
 
