@@ -396,7 +396,8 @@ void BasisManager::setWindowCaption(const std::string & _text)
 
 void BasisManager::dropFile(const std::string & _file)
 {
-	MyGUI::Message::createMessage("drop file", _file, false, MyGUI::Message::Ok);
+	mEditor.load(_file);
+	//MyGUI::Message::createMessage("drop file", _file, false, MyGUI::Message::Ok);
 }
 
 //=======================================================================================

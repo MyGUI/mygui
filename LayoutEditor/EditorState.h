@@ -20,6 +20,8 @@ public:
 	bool frameStarted(const Ogre::FrameEvent& evt);
 
 	void windowResize();
+
+	void load(const std::string & _file);
 private:
 	void loadSettings();
 	void saveSettings();
