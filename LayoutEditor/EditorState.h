@@ -21,8 +21,8 @@ public:
 
 	void windowResize();
 
-	void load(const std::string & _file);
-private:
+//===================================================================================
+
 	void loadSettings();
 	void saveSettings();
 	// main panel
@@ -33,6 +33,8 @@ private:
 	void notifyClear(MyGUI::WidgetPtr _sender = 0);
 	void notifyQuit(MyGUI::WidgetPtr _sender = 0);
 
+	void load(const std::string & _file);
+private:
 	void notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 	void clear();
 	void notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
