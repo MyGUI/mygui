@@ -125,6 +125,7 @@ namespace MyGUI
 		bool injectKeyPress(KeyCode _key);
 		/** Inject KeyReleas event */
 		bool injectKeyRelease(KeyCode _key);
+
 #ifndef MYGUI_NO_OIS
 		/** OIS backend */
 		bool injectMouseMove( const OIS::MouseEvent & _arg) {return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);}
@@ -247,6 +248,9 @@ namespace MyGUI
 		// mirror LayerManager
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
+
+		inline Ogre::RenderWindow * getRenderWindow() { return mWindow; }
+
 	private:
 		// создает виджет
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
