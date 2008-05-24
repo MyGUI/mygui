@@ -247,6 +247,10 @@ namespace MyGUI
 			return mWidgetCreator;
 		}
 
+		// возвращает клиентскую зону
+		inline WidgetPtr getWidgetClient() {return mWidgetClient;}
+
+
 		// метод для запроса номера айтема и главного окна списка
 		virtual void _getDragItemInfo(WidgetPtr & _list, size_t & _index);
 		// метод для установления стейта айтема
@@ -306,6 +310,9 @@ namespace MyGUI
 
 		// нужно и виджету поддержка драг энд дропа
 		bool mNeedDragDrop;
+
+		// клиентская зона окна
+		WidgetPtr mWidgetClient;
 
 	};
 

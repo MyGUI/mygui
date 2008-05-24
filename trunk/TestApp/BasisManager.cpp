@@ -439,7 +439,7 @@ int main(int argc, char **argv)
 
 #else
 
-	vector_params.reserve(argc);
+	/*vector_params.reserve(argc);
 	for (int pos=0; pos<argc; pos++) {
 		vector_params.push_back(argv[pos]);
 	}
@@ -456,7 +456,7 @@ int main(int argc, char **argv)
 		} else {
 			tmp += " ";
 		}
-	}
+	}*/
 
 #endif
 

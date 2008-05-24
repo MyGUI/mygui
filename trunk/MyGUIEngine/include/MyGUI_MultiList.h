@@ -137,7 +137,7 @@ namespace MyGUI
 		std::string mSkinButton, mSkinList;
 		ButtonPtr mButtonMain;
 
-		WidgetPtr mWidgetClient;
+		//WidgetPtr mWidgetClient;
 		VectorRowInfo mVectorRowInfo;
 
 		VectorWidgetPtr mSeparators;

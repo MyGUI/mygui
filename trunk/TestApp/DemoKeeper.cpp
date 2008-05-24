@@ -111,7 +111,11 @@ void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _
 void requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 {
 	if (_drop) _coord.set(-5, -5, 78, 78);
-	else _coord.set(0, 0, _sender->getWidth() - 14/*68*/, 68);
+	else {
+		MyGUI::WidgetPtr client = _sender->getWidgetClient();
+		if (client == null) client = _sender;
+		_coord.set(0, 0, /*client->getWidth()*/68, 68);
+	}
 }
 
 void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _item, const MyGUI::ItemInfo& _data)
@@ -127,7 +131,7 @@ void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _it
 
 	if (_data.drag) {
 		info->item1->setAlpha(0.8);
-		info->item1->setImageNum(4);
+		info->item1->setImageNum(5);
 		info->item2->setImageNum(4);
 		if (_data.drag_refuse) info->item3->setImageNum(1);
 		else if (_data.drag_accept) info->item3->setImageNum(2);
