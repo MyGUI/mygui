@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib freetype235.lib"
+				AdditionalDependencies="OgreMain.lib freetype230.lib"
 				OutputFile="$(OutDir)\MyGUI.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\Dependencies\lib\Release"
