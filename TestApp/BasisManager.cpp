@@ -377,6 +377,10 @@ int main(int argc, char **argv)
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 
+	// устанавливаем локаль из переменной окружения
+	// без этого не будут открываться наши файлы
+	::setlocale( LC_ALL, "" );
+
 	// при дропе файл может быть запущен в любой дирректории
 	const size_t SIZE = 2048;
 	char buff[SIZE];

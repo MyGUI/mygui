@@ -3,6 +3,7 @@
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include "EditorState.h"
+#include "MyGUI.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
@@ -22,13 +23,15 @@ std::string macBundlePath()
 }
 #endif
 
+namespace input { class InputManager; }
+
 class BasisManager : public Ogre::FrameListener, public OIS::MouseListener , public OIS::KeyListener, public Ogre::WindowEventListener
 {
-public:
+private:
 	//OIS Input devices
-	OIS::InputManager* mInputManager;
-	OIS::Keyboard* mKeyboard;
-	OIS::Mouse*    mMouse;
+	//OIS::InputManager* mInputManager;
+	//OIS::Keyboard* mKeyboard;
+	//OIS::Mouse*    mMouse;
 
     Ogre::Root *mRoot;
     Ogre::Camera* mCamera;
@@ -44,6 +47,12 @@ public:
 	typedef std::vector<std::string> Params;
 	Params mParams;
 
+	MyGUI::Gui * mGUI;
+
+public:
+
+	BasisManager();
+
 	// добавляет строку в список параметров
 	void addCommandParam(const std::string & _param);
 	// возвращает список параметров коммандной строки
@@ -51,17 +60,25 @@ public:
 
 	void setWindowCaption(const std::string & _text);
 
-public:
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
 
-	BasisManager();
-
-	void createInput(); // создаем систему ввода
-	void destroyInput(); // удаляем систему ввода
+		//void createInput(); // создаем систему ввода
+	//void destroyInput(); // удаляем систему ввода
 
 	void createBasisManager(); // создаем начальную точки каркаса приложения
 	void destroyBasisManager(); // очищаем все параметры каркаса приложения
 
+	void setMainWindowIcon(size_t _iconId);
+
+	void dropFile(const std::string & _file);
+	void windowClose();
+
+	inline bool isFullscreen() { return mFullscreen; }
+	void setFullscreen(bool _fullscreen);
+
+	inline void eventExit() {m_exit = true;}
+
+private:
 	void setupResources(); // загружаем все ресурсы приложения
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
@@ -79,18 +96,18 @@ public:
 	void windowResized(Ogre::RenderWindow* rw);
 	void windowClosed(Ogre::RenderWindow* rw);
 
-	void setMainWindowIcon(size_t _iconId);
-
-	void dropFile(const std::string & _file);
-	void windowClose();
+	void startRendering();
 
 private:
-	void startRendering();
+	bool mFullscreen;
+
+	// система ввода
+	input::InputManager * mInput;
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// наша оконная процедура
-	static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	static LRESULT msOldWindowProc;
+	//static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	//static LRESULT msOldWindowProc;
 	// дискриптор нашего главного окна
 	size_t mHwnd;
 #endif
