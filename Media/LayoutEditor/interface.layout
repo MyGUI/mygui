@@ -24,7 +24,7 @@
         <Widget type="Button" skin="Button" position="5 178 184 24" name="buttonClear">
             <Property key="Widget_Caption" value="Clear"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="5 146 184 24" name="buttonTest">
+        <Widget type="Button" skin="Button" position="5 130 184 24" name="buttonTest">
             <Property key="Widget_Caption" value="#0000FFTest"/>
         </Widget>
     </Widget>
@@ -102,7 +102,7 @@
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 0 2048 2048"/>
         <Property key="Widget_Show" value="false"/>
-        <Widget type="Button" skin="ButtonSmall" position="5 20 64 20" align="ALIGN_LEFT ALIGN_TOP" name="buttonReativePosition">
+        <Widget type="Button" skin="ButtonSmall" position="2 20 64 20" align="ALIGN_LEFT ALIGN_TOP" name="buttonReativePosition">
             <Property key="Widget_Caption" value="to %"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 174 267 72" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelSpecificProperties">
