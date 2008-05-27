@@ -56,6 +56,40 @@ namespace input
 			return 0;
 		}
 
+		static OIS::MouseEvent mouseEvent(0, msMouseState);
+
+		if (uMsg == WM_NCMOUSEMOVE) {
+
+			POINT point = {0, 0};
+			::ClientToScreen(hWnd, &point);
+
+			point.x = GET_LOWORD(lParam)-point.x;
+			point.y = GET_HIWORD(lParam)-point.y;
+
+			if (point.x < 0) point.x = 0;
+			else if (point.x > msMouseState.width) point.x = msMouseState.width;
+			if (point.y < 0) point.y = 0;
+			else if (point.y > msMouseState.height) point.y = msMouseState.height;
+
+			msMouseState.X.rel = point.x - msMouseState.X.abs;
+			msMouseState.X.abs = point.x;
+			msMouseState.Y.rel = point.y - msMouseState.Y.abs;
+			msMouseState.Y.abs = point.y;
+			msMouseState.Z.rel = 0;
+
+			if (msSkipMouseMove) msSkipMouseMove = false;
+			else msInputManager->mouseMoved(mouseEvent);
+
+			/*if (point.x < 0) {
+				SetCursor((HCURSOR)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
+			}
+			else if (point.x > (msMouseState.width - 1)) {
+				SetCursor((HCURSOR)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
+			}
+			else {
+			}*/
+		}
+
 		// обновляем курсор
 		if (WM_SETCURSOR == uMsg) {
 
@@ -79,8 +113,6 @@ namespace input
 
 		if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST)) {
 
-			static OIS::MouseEvent mouseEvent(0, msMouseState);
-
 			switch (uMsg) {
 				case WM_MOUSEMOVE:
 					msMouseState.X.rel = GET_LOWORD(lParam) - msMouseState.X.abs;
@@ -91,6 +123,7 @@ namespace input
 
 					if (msSkipMouseMove) msSkipMouseMove = false;
 					else msInputManager->mouseMoved(mouseEvent);
+
 					break;
 
 				case WM_MOUSEWHEEL:
