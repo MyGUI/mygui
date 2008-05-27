@@ -297,7 +297,7 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 		MyGUI::WidgetPtr parent = (*iter)->widget->getParent();
 
 		// сынок - это ты?
-		if ((_container->widget->getWidgetType() == "Window") && (_container->widget->getWidgetClient() != null)) {
+		if ((_container->widget->getWidgetType() == "Window") && (_container->widget->getClientWidget() != null)) {
 			if (null != parent) {
 				if (_container->widget == parent->getParent()) serialiseWidget(*iter, node);
 			}
