@@ -627,20 +627,22 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left)
 	{
-		if (mItemDrag.item) mItemDrag.item->hide();
+		if (mStartDrop) {
+			if (mItemDrag.item) mItemDrag.item->hide();
 
-		// сбрасываем старую подсветку
-		if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
+			// сбрасываем старую подсветку
+			if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
 
-		// если дроп выполнен успешно
-		eventEndDrop(this, mDropInfo, mDropResult);
-		eventDropState(this, DROP_END);
+			// если дроп выполнен успешно
+			eventEndDrop(this, mDropInfo, mDropResult);
+			eventDropState(this, DROP_END);
 
-		// сбрасываем инфу для дропа
-		mDropResult = false;
-		mOldDrop = null;
-		mDropInfo.reset();
-		mDropSenderIndex = ITEM_NONE;
+			// сбрасываем инфу для дропа
+			mDropResult = false;
+			mOldDrop = null;
+			mDropInfo.reset();
+			mDropSenderIndex = ITEM_NONE;
+		}
 	}
 
 	void ItemBox::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
