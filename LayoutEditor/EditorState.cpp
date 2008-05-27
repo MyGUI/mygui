@@ -135,8 +135,8 @@ void EditorState::enter(bool bIsChangeState)
 	allWidgetsCombo->setMaxListHeight(200);
 
 	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowWidgets");
-	width = windowWidgets->getWidth() - windowWidgets->getClientRect().width;
-	height = windowWidgets->getHeight() - windowWidgets->getClientRect().height;
+	width = windowWidgets->getWidth() - windowWidgets->getClientCoord().width;
+	height = windowWidgets->getHeight() - windowWidgets->getClientCoord().height;
 	windowWidgets->setSize(width + tabSkinGroups->getWidth(), height + tabSkinGroups->getHeight() + 2*h);
 
 	// properties panel
@@ -1096,7 +1096,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 
 		y = panelUserData->getTop() + (panelUserData->getHeight() + PANELS_MARGIN)*panelUserData->isShow();
 
-		int height = window->getHeight() - window->getClientRect().height;
+		int height = window->getHeight() - window->getClientCoord().height;
 		window->setMinMax(window->getMinMax().left, height + y, mGUI->getViewWidth(), height + y);
 		window->setSize(window->getSize().width, height + y);
 	}
