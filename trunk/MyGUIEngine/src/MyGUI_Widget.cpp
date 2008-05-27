@@ -384,9 +384,10 @@ namespace MyGUI
 		}
 	}
 
-	const IntCoord& Widget::getClientRect()
+	IntCoord Widget::getClientCoord()
 	{
-		return mCoord;
+		if (mWidgetClient != null) return mWidgetClient->getCoord();
+		return IntCoord(0, 0, mCoord.width, mCoord.height);
 	}
 
 	VectorWidgetPtr Widget::getChilds()

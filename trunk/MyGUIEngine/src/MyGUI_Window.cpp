@@ -275,12 +275,6 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	const IntCoord& Window::getClientRect()
-	{
-		if (null == mWidgetClient) return Widget::getClientRect();
-		return mWidgetClient->getClientRect();
-	}
-
 	VectorWidgetPtr Window::getChilds()
 	{
 		if (null == mWidgetClient) return Widget::getChilds();
