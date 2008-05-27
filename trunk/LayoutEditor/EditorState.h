@@ -3,7 +3,7 @@
 #include "BasisState.h"
 #include "MyGUI.h"
 
-#define NO_EXCLUSIVE_INPUT
+//#define NO_EXCLUSIVE_INPUT
 
 class EditorState : public BasisState
 {
@@ -89,6 +89,13 @@ private:
 	void notifyUpdateUserData(MyGUI::WidgetPtr _widget);
 	void notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _position);
 
+	// конвертирует из анси строки в вайд строку
+	Ogre::DisplayString anci_to_utf16(const std::string & _source);
+
+	// конвертирует из вайд в анси
+	std::string utf16_to_anci(const Ogre::DisplayString & _source);
+
+
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 
@@ -131,4 +138,7 @@ private:
 	bool testMode;
 	MyGUI::VectorWidgetPtr interfaceWidgets;
 	MyGUI::xml::xmlDocument * testLayout;
+
+	MyGUI::Gui * mGUI;
+
 };
