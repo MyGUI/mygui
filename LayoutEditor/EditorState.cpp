@@ -29,7 +29,7 @@ UndoManager * um;
 
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
 {
-	bool find = true;
+	bool find = false;
 	for (StringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter) {
 		if (iter->first == _key) {
 			iter->second = _value;
@@ -1656,8 +1656,6 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	if (ITEM_NONE == item) return;
 	ON_EXIT(um->addValue());
 	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
-	tab->selectSheetIndex(item);
-
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 
 	Ogre::String action = "Tab_SelectSheet";
@@ -1668,30 +1666,10 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	for (size_t i = 0; i < tab->getSheetCount(); ++i)
 	{
 		WidgetContainer * sheetContainer = ew->find(tab->getSheet(i));
-		StringPairs::iterator iterProperty;
-		for (iterProperty = sheetContainer->mProperty.begin(); iterProperty != sheetContainer->mProperty.end(); ++iterProperty)
-		{
-			if (iterProperty->first == action){
-				if (i == item) iterProperty->second = "true";
-				else sheetContainer->mProperty.erase(iterProperty);
-				break;
-			}
-		}
-		// если не нашли, то добавим
-		if ((i == item) && (iterProperty == sheetContainer->mProperty.end()))
-			sheetContainer->mProperty.push_back(std::make_pair(action, "true"));
-	}
-	/*// если такое св-во было, то заменим (или удалим если стерли) значение
-	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-	{
-		if (iterProperty->first == action){
-			iterProperty->second = value;
-			return;
-		}
-	}
 
-	// если такого свойства не было раньше, то сохраняем
-	widgetContainer->mProperty.push_back(std::make_pair(action, value));*/
+		if (i == item) MapSet(sheetContainer->mProperty, action, "true");
+		else MapErase(sheetContainer->mProperty, action);
+	}
 }
 
 void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
@@ -1764,19 +1742,7 @@ void EditorState::notifyAddUserData(MyGUI::WidgetPtr _sender)
 		multilist->setSubItem(1, multilist->getItemCount() - 1, value);
 	}
 
-	/*bool find = true;
-	for (StringPairs::iterator iter=mUserString.begin(); iter!=mUserString.end(); ++iter) {
-		if (iter->first == key) {
-			iter->second = value;
-			find = true;
-		}
-	}
-	if (!find) {
-		mUserString.push_back(std::make_pair(key, value));
-	}*/
-
 	MapSet(widgetContainer->mUserString, key, value);
-	//widgetContainer->mUserString[key] = value;
 	um->addValue();
 }
 
@@ -1812,7 +1778,6 @@ void EditorState::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
 	MapErase(widgetContainer->mUserString, lastkey);
 
 	MapSet(widgetContainer->mUserString, key, value);
-	//widgetContainer->mUserString[key] = value;
 }
 
 void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _position)

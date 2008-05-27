@@ -88,13 +88,8 @@ namespace MyGUI
 		/** Show selected bar button */
 		inline void showBarSelectButton() {showBarButton(mSelectSheet);}
 
-		/** Set default button width */
-		inline void setButtonDefaultWidth(int _width)
-		{
-			mButtonDefaultWidth = _width;
-			if (mButtonDefaultWidth < 1) mButtonDefaultWidth = 1;
-			mButtonAutoWidth = false;
-		}
+		/** Set default button width and disable autowidth mode */
+		void setButtonDefaultWidth(int _width);
 
 		/** Get default button width */
 		inline int getButtonDefaultWidth()
@@ -103,10 +98,7 @@ namespace MyGUI
 		}
 
 		/** Enable or disable button auto width */
-		inline void setButtonAutoWidth(bool _auto)
-		{
-			mButtonAutoWidth = _auto;
-		}
+		void setButtonAutoWidth(bool _auto);
 		/** Get button auto width flag */
 		inline bool getButtonAutoWidth()
 		{
