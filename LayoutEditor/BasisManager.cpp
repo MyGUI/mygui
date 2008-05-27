@@ -6,46 +6,6 @@
 #include "InputManager.h"
 #include "resource.h"
 
-
-/*#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-
-#include <shellapi.h>
-
-// старая процедура, которую мы заменили
-LRESULT BasisManager::msOldWindowProc = NULL;
-
-// наша процедура для фильтрации сообщений
-LRESULT CALLBACK BasisManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-
-	// на нас кидаю файлы
-	if (WM_DROPFILES == uMsg) {
-
-		HDROP hDrop = (HDROP)wParam;
-		TCHAR szFile[MAX_PATH] = { 0 };
-		UINT i, fcount = DragQueryFile(hDrop, 0xFFFFFFFF, NULL, 0);
-
-		for (i = 0; i < fcount; i++) {
-			DragQueryFile(hDrop, i, szFile, MAX_PATH);
-			BasisManager::getInstance().dropFile(szFile);
-		}
-
-		::DragFinish(hDrop);
-		return 0;
-	}
-	// нас пытаются закрыть
-	else if (WM_CLOSE == uMsg)
-	{
-		BasisManager::getInstance().windowClose();
-		return 0;
-	}
-
-	// вызываем полюбому
-	return CallWindowProc((WNDPROC)msOldWindowProc, hWnd, uMsg, wParam, lParam);
-}
-
-#endif*/
-
 BasisManager::BasisManager() :
 	//mInputManager(0),
 	//mMouse(0),
@@ -113,15 +73,9 @@ void BasisManager::setMainWindowIcon(size_t _iconId)
 	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
 	mKeyboard->setEventCallback(this);
 
-
 	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
 	mMouse->setEventCallback(this);
 
-	mRoot->addFrameListener(this);
-
-	windowResized(mWindow); // инициализация
-
-	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 }
 
 void BasisManager::destroyInput() // удаляем систему ввода
@@ -170,11 +124,6 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	long style = ::GetWindowLong((HWND)mHwnd, GWL_EXSTYLE);
 	::SetWindowLong((HWND)mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
 
-	// подсовываем нашу функцию калбеков
-	/*if (!msOldWindowProc) {
-		msOldWindowProc = GetWindowLong((HWND)mHwnd, GWL_WNDPROC);
-		SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)windowProc);
-	}*/
 #endif
 
 	setMainWindowIcon(IDI_ICON);
@@ -562,7 +511,7 @@ int main(int argc, char **argv)
 				tmp.clear();
 				stream.close();
 			}
-			else tmp += " ";
+			else tmp += delims;
 		}
 		else {
 			tmp += source.substr(start);
@@ -581,7 +530,7 @@ int main(int argc, char **argv)
 				tmp.clear();
 				stream.close();
 			}
-			else tmp += " ";
+			else tmp += delims;
 			break;
 		}
 		start = source.find_first_not_of(delims, end + 1);

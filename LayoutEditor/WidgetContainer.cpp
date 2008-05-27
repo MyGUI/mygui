@@ -295,10 +295,15 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
 		MyGUI::WidgetPtr parent = (*iter)->widget->getParent();
+
 		// сынок - это ты?
-		if (_container->widget->getWidgetType() == "Window"){
-			if (null != parent)
+		if ((_container->widget->getWidgetType() == "Window") && (_container->widget->getWidgetClient() != null)) {
+			if (null != parent) {
 				if (_container->widget == parent->getParent()) serialiseWidget(*iter, node);
-		}else if (_container->widget == parent) serialiseWidget(*iter, node);
+			}
+		}
+		else if (_container->widget == parent) {
+			serialiseWidget(*iter, node);
+		}
 	}
 }
