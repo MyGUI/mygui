@@ -188,10 +188,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\BasisManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\EditorState.cpp"
 				>
 			</File>
@@ -213,10 +209,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\BasisManager.h"
-				>
-			</File>
 			<File
 				RelativePath=".\EditorState.h"
 				>
@@ -267,6 +259,30 @@
 			</File>
 			<File
 				RelativePath="..\Media\LayoutEditor\widgets.xml"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="InputManager"
+			>
+			<File
+				RelativePath=".\InputManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InputManager.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="BasisManager"
+			>
+			<File
+				RelativePath=".\BasisManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BasisManager.h"
 				>
 			</File>
 		</Filter>

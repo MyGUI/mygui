@@ -24,7 +24,7 @@ const int HIDE_REMAIN_PIXELS = PANELS_MARGIN;
 
 EditorWidgets * ew;
 WidgetTypes * wt;
-MyGUI::Gui * mGUI;
+//MyGUI::Gui * mGUI;
 UndoManager * um;
 
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
@@ -63,15 +63,14 @@ void MapErase(StringPairs & _map, const std::string &_key)
 //===================================================================================
 void EditorState::enter(bool bIsChangeState)
 {
+	mGUI = MyGUI::Gui::getInstancePtr();
+
 	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
 	wt = new WidgetTypes();
 	wt->initialise();
 	ew = new EditorWidgets();
 	ew->initialise();
 	um = new UndoManager(ew);
-
-	mGUI = new MyGUI::Gui();
-	mGUI->initialise(BasisManager::getInstance().mWindow, "editor.xml");
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
@@ -152,7 +151,7 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_buttonOkSettings", &EditorState::notifyOkSettings);
 
 	MyGUI::ComboBoxPtr combo= mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxResolution");
-	Ogre::ConfigOptionMap map = BasisManager::getInstance().mRoot->getRenderSystem()->getConfigOptions();
+	Ogre::ConfigOptionMap map = Ogre::Root::getSingletonPtr()->getRenderSystem()->getConfigOptions();
 	Ogre::ConfigOptionMap::iterator iter = map.find("Video Mode");
 	int selectedIdx = 0;
 	int wid, hei;
@@ -177,9 +176,9 @@ void EditorState::enter(bool bIsChangeState)
 	}
 	comboFullScreen->setItemSelect(selectedIdx);
 
-#ifdef NO_EXCLUSIVE_INPUT
+//#ifdef NO_EXCLUSIVE_INPUT
 	//MyGUI::PointerManager::getInstance().hide();
-#endif
+//#endif
 	ASSIGN_FUNCTION("LayoutEditor_checkShowName", &EditorState::notifyToggleCheck);
 	ASSIGN_FUNCTION("LayoutEditor_checkShowType", &EditorState::notifyToggleCheck);
 	ASSIGN_FUNCTION("LayoutEditor_checkShowSkin", &EditorState::notifyToggleCheck);
@@ -238,8 +237,6 @@ void EditorState::enter(bool bIsChangeState)
 void EditorState::exit()
 {
 	saveSettings();
-	mGUI->shutdown();
-	delete mGUI;
 	delete um;
 	ew->shutdown();
 	delete ew;
@@ -249,7 +246,7 @@ void EditorState::exit()
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
-#ifdef NO_EXCLUSIVE_INPUT
+/*#ifdef NO_EXCLUSIVE_INPUT
 	#if defined OIS_WIN32_PLATFORM
 	if ((arg.state.X.abs < 1) || (arg.state.X.abs > mGUI->getViewWidth() - 1) || (arg.state.Y.abs < 1) || (arg.state.Y.abs > mGUI->getViewHeight() - 1))
 	{
@@ -262,7 +259,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		ShowCursor(false);
 	}
 	#endif
-#endif
+#endif*/
 
 	//MyGUI::MYGUI_OUT (arg.state.X.abs, " ", arg.state.Y.abs);
 	if (testMode){ mGUI->injectMouseMove(arg); return true;}
@@ -416,8 +413,6 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 {
 	MyGUI::InputManager & input = MyGUI::InputManager::getInstance();
-
-	if ( arg.key == OIS::KC_SYSRQ ) {BasisManager::getInstance().mWindow->writeContentsToFile("screenshot.png");}
 
 	if (testMode)
 	{
@@ -646,8 +641,10 @@ void EditorState::notifySave(MyGUI::WidgetPtr _sender)
 {
 	if (fileName != "")
 	{
-		if ( !ew->save(fileName))
-			MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + fileName + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		if ( !ew->save(fileName)) {
+			Ogre::DisplayString file_name = anci_to_utf16(fileName);
+			MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		}
 	}
 	else notifyLoadSaveAs(_sender);
 }
@@ -665,12 +662,16 @@ void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender)
 
 	// set fileName in edit
 	MyGUI::ComboBoxPtr combo = MyGUI::castWidget<MyGUI::ComboBox>(childs[0]);
-	if (fileName != "") combo->setCaption(fileName);
+	if (fileName != "") {
+		const Ogre::DisplayString & item = anci_to_utf16(fileName);
+		combo->setCaption(item);
+	}
 	combo->eventEditSelectAccept = newDelegate(this, &EditorState::notifyLoadSaveEditAccept);
 	std::vector<Ogre::String> strs = MyGUI::helper::getVectorResourcePath("*.layout");
 	for (std::vector<Ogre::String>::iterator iter = strs.begin(); iter != strs.end(); ++iter)
 	{
-		combo->addItem(*iter);
+		const Ogre::DisplayString & item = anci_to_utf16(*iter);
+		combo->addItem(item);
 	}
 	if (_sender->getCaption() == "SaveAs...") childs[1]->setCaption("Save");
 	else childs[1]->setCaption(_sender->getCaption());
@@ -731,6 +732,8 @@ void EditorState::clear()
 	ew->clear();
 	notifySelectWidget(null);
 	um->addValue();
+
+	BasisManager::getInstance().setWindowCaption("MyGUI Layout Editor");
 }
 
 void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
@@ -741,26 +744,31 @@ void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
 
 void EditorState::notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
 {
-	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) BasisManager::getInstance().m_exit = true;
+	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) {
+		BasisManager::getInstance().eventExit();
+	}
 	want_quit = false;
 }
 
 void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 {
 	bool success;
-	Ogre::UTFString fName = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
+	Ogre::UTFString file_name = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
+	// конвертируем
+	std::string fName = utf16_to_anci(file_name);
+
 	if (_sender->getCaption() == "Load") success = ew->load(fName);
 	else/*(_sender->getCaption() == "Save")*/ success = ew->save(fName);
 
 	if (false == success) 
 	{
-		MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + fName + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else
 	{
 		// запоминает последнее удачное имя файла
 		fileName = fName;
-		BasisManager::getInstance().setWindowCaption(fileName + " - Layout Editor");
+		BasisManager::getInstance().setWindowCaption(fileName + " - MyGUI Layout Editor");
 		notifyLoadSaveCancel(_sender);
 		um->addValue();
 	}
@@ -781,11 +789,12 @@ void EditorState::load(const std::string & _file)
 {
 	if (!ew->load(_file))
 	{
-		MyGUI::Message::_createMessage("Warning", "Failed to load file '" + _file + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		Ogre::DisplayString file_name = anci_to_utf16(fileName);
+		MyGUI::Message::_createMessage("Warning", "Failed to load file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return;
 	}
 
-	BasisManager::getInstance().setWindowCaption(_file + " - Layout Editor");
+	BasisManager::getInstance().setWindowCaption(_file + " - MyGUI Layout Editor");
 
 	fileName = _file;
 	um->addValue();
@@ -870,7 +879,7 @@ void EditorState::notifyOkSettings(MyGUI::WidgetPtr _sender)
 	std::istringstream str(combo->getCaption());
 	str >> width >> tmp >> height;
 	fullscreen = (comboFullScreen->getCaption() == "Yes");
-	BasisManager::getInstance().mWindow->setFullscreen(fullscreen, width, height);
+	BasisManager::getInstance().setFullscreen(fullscreen);//setFullscreen, width, height);
 	mGUI->findWidgetT("LayoutEditor_windowSettings")->hide();
 }
 
@@ -1817,4 +1826,35 @@ void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _pos
 	Ogre::String value = multilist->getSubItem(1, item);
 	editKey->setOnlyText(key);
 	editValue->setOnlyText(value);
+}
+
+Ogre::DisplayString EditorState::anci_to_utf16(const std::string & _source)
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	const char* srcPtr = _source.c_str();
+	int tmpSize = MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, 0, 0 );
+	WCHAR* tmpBuff = new WCHAR [ tmpSize + 1 ];
+	MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, tmpBuff, tmpSize );
+	std::wstring ret = tmpBuff;
+	delete[] tmpBuff;
+	return ret;
+#else
+	return Ogre::DisplayString(_source).asWStr();
+#endif
+}
+
+std::string EditorState::utf16_to_anci(const Ogre::DisplayString & _source)
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	const wchar_t* srcPtr = _source.asWStr_c_str(); 
+	int dstSize = WideCharToMultiByte( CP_ACP, 0, srcPtr, (int)_source.size(), 0, 0, 0, 0 ); 
+	char * dest = new char [ dstSize + 1 ];
+	WideCharToMultiByte( CP_ACP, 0, srcPtr, (int)_source.size(), dest, dstSize, 0, 0 ); 
+	dest[dstSize] = 0;
+	std::string ret = dest;
+	delete [] dest;
+	return ret;
+#else
+	return _source.asUTF8();
+#endif
 }

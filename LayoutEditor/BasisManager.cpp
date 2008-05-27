@@ -3,10 +3,11 @@
 #include "BasisManager.h"
 #include <OgreException.h>
 #include <OgrePanelOverlayElement.h>
+#include "InputManager.h"
 #include "resource.h"
 
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+/*#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 
 #include <shellapi.h>
 
@@ -43,17 +44,20 @@ LRESULT CALLBACK BasisManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 	return CallWindowProc((WNDPROC)msOldWindowProc, hWnd, uMsg, wParam, lParam);
 }
 
-#endif
+#endif*/
 
 BasisManager::BasisManager() :
-	mInputManager(0),
-	mMouse(0),
-	mKeyboard(0),
+	//mInputManager(0),
+	//mMouse(0),
+	//mKeyboard(0),
 	mRoot(0),
 	mCamera(0),
 	mSceneMgr(0),
 	mWindow(0),
-	m_exit(false)
+	mInput(null),
+	mFullscreen(false),
+	m_exit(false),
+	mGUI(null)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";
@@ -79,7 +83,7 @@ void BasisManager::setMainWindowIcon(size_t _iconId)
 #endif
 }
 
-void BasisManager::createInput() // создаем систему ввода
+/*void BasisManager::createInput() // создаем систему ввода
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
 	OIS::ParamList pl;
@@ -119,6 +123,7 @@ void BasisManager::createInput() // создаем систему ввода
 
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 }
+
 void BasisManager::destroyInput() // удаляем систему ввода
 {
 
@@ -136,7 +141,7 @@ void BasisManager::destroyInput() // удаляем систему ввода
 		OIS::InputManager::destroyInputSystem(mInputManager);
 		mInputManager = 0;
 	}
-}
+}*/
 
 void BasisManager::createBasisManager(void) // создаем начальную точки каркаса приложения
 {
@@ -166,10 +171,10 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	::SetWindowLong((HWND)mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
 
 	// подсовываем нашу функцию калбеков
-	if (!msOldWindowProc) {
+	/*if (!msOldWindowProc) {
 		msOldWindowProc = GetWindowLong((HWND)mHwnd, GWL_WNDPROC);
 		SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)windowProc);
-	}
+	}*/
 #endif
 
 	setMainWindowIcon(IDI_ICON);
@@ -196,10 +201,38 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	// Load resources
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-	createInput();
+	// узнам в каком режиме экрана мы запущенны
+	mFullscreen = mRoot->getRenderSystem()->getConfigOptions().find("Full Screen")->second.currentValue == "Yes";
+
+	// создаем систему ввода
+	mInput = new input::InputManager();
+	mInput->createInput(mWindow, mFullscreen, this, this);
+
+	mGUI = new MyGUI::Gui();
+	mGUI->initialise(BasisManager::getInstance().mWindow, "editor.xml");
+
+	// подписываемся на события фреймов
+	mRoot->addFrameListener(this);
+	// пдписываемся на события окна
+	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
+	// если оконное, то скрываем
+	if (!mFullscreen) MyGUI::Gui::getInstance().hidePointer();
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	// забиваем карту маппинга на стандартные курсоры
+	mInput->addMapPointer("arrow", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW)));
+	mInput->addMapPointer("beam", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM)));
+	mInput->addMapPointer("size_left", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE)));
+	mInput->addMapPointer("hand", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
+#endif
+
+
+	//createInput();
 	changeState(&mEditor);
 
 	startRendering();
+
 }
 
 void BasisManager::startRendering()
@@ -218,13 +251,17 @@ void BasisManager::startRendering()
 void BasisManager::destroyBasisManager() // очищаем все параметры каркаса приложения
 {
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	// если мы подменили процедуру, то вернем на место
-	if (msOldWindowProc) {
-		::SetWindowLongA((HWND)mHwnd, GWL_WNDPROC, (long)msOldWindowProc);
-		msOldWindowProc = 0;
+	// раскручиваем все стейты
+	while ( ! mStates.empty()) {
+		mStates.back()->exit();
+		mStates.pop_back();
 	}
-#endif
+
+	if (mGUI) {
+		mGUI->shutdown();
+		delete mGUI;
+		mGUI = null;
+	}
 
     // очищаем состояния
 	while (!mStates.empty()) {
@@ -238,7 +275,13 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr = 0;
 	}
 	
-	destroyInput(); // удаляем ввод
+	//destroyInput(); // удаляем ввод
+	// удаляем ввод
+	if (mInput) {
+		mInput->destroyInput();
+		delete mInput;
+		mInput = 0;
+	}
 
 	if (mWindow) {
 		mWindow->destroy();
@@ -287,10 +330,14 @@ void BasisManager::setupResources(void) // загружаем все ресурсы приложения
 
 bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 {
-	if (m_exit) return false;
+	if (m_exit) {
+		return false;
+	}
 
-	if (mMouse) mMouse->capture();
-	mKeyboard->capture();
+	// захватываем ввод для обновления
+	mInput->capture();
+	//if (mMouse) mMouse->capture();
+	//mKeyboard->capture();
 
 	return mStates.back()->frameStarted(evt);
 }
@@ -316,6 +363,19 @@ bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 
 bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
+	// меняем оконный режим по Alt+Enter
+	if (arg.key == OIS::KC_RETURN) {
+		if (mInput->isKeyDown(OIS::KC_RMENU)) {
+			setFullscreen(!isFullscreen());
+			return true;
+		}
+	}
+	else if ( arg.key == OIS::KC_SYSRQ ) {
+		static size_t num = 0;
+		mWindow->writeContentsToFile(MyGUI::utility::toString("screenshot_", num++, ".png"));
+		return true;
+	}
+
 	return mStates.back()->keyPressed(arg);
 }
 
@@ -363,11 +423,12 @@ void BasisManager::windowResized(Ogre::RenderWindow* rw)
 	mWidth = rw->getWidth();
 	mHeight = rw->getHeight();
 
-	if (mMouse) {
+	/*if (mMouse) {
 		const OIS::MouseState &ms = mMouse->getMouseState();
 		ms.width = (int)mWidth;
 		ms.height = (int)mHeight;
-	}
+	}*/
+	mInput->windowResized(mWidth, mHeight);
 
 	 // оповещаем все статусы
 	for (size_t index=0; index<mStates.size(); index++) mStates[index]->windowResize();
@@ -377,7 +438,12 @@ void BasisManager::windowResized(Ogre::RenderWindow* rw)
 void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 {
 	m_exit = true;
-	destroyInput();
+
+	if (mInput) {
+		mInput->destroyInput();
+		delete mInput;
+		mInput = 0;
+	}
 }
 
 void BasisManager::addCommandParam(const std::string & _param)
@@ -402,6 +468,34 @@ void BasisManager::windowClose()
 	mEditor.notifyQuit();
 }
 
+void BasisManager::setFullscreen(bool _fullscreen)
+{
+	if (mFullscreen != _fullscreen) {
+		mFullscreen = _fullscreen;
+
+		// если полноэкранное, то нужно не кривое разрешение
+		if (mFullscreen) {
+			mWidth = 1024;
+			mHeight = 768;
+			//correctResolution();
+		}
+
+		// физически переключаем режимы
+		mWindow->setFullscreen(mFullscreen, mWidth, mHeight);
+
+		MYGUI_LOG(Info, "Change video mode : " << (mFullscreen ? "fullscreen  " : "windowed  ") << mWidth << " x " << mHeight);
+
+		// переключаем мышку
+		mInput->setMouseExclusive(mFullscreen);
+
+		// если нужно скрываем курсор
+		mFullscreen ? MyGUI::Gui::getInstance().showPointer() : MyGUI::Gui::getInstance().hidePointer();
+
+		// после коррекции разрешение может поменяться
+		windowResized(mWindow);
+	}
+}
+
 //=======================================================================================
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -419,6 +513,10 @@ int main(int argc, char **argv)
 {
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+
+	// устанавливаем локаль из переменной окружения
+	// без этого не будут открываться наши файлы
+	::setlocale( LC_ALL, "" );
 
 	// при дропе файл может быть запущен в любой дирректории
 	const size_t SIZE = 2048;
