@@ -217,9 +217,6 @@ namespace MyGUI
 		/** Enable or disable widget */
 		void setEnabled(bool _enabled, bool _silent = false);
 
-		/** Get rect where child widgets placed */
-		virtual const IntCoord& getClientRect();
-
 		/** Get mouse pointer name for this widget */
 		inline const std::string& getPointer()
 		{
@@ -247,8 +244,11 @@ namespace MyGUI
 			return mWidgetCreator;
 		}
 
+		/** Get rect where child widgets placed */
+		IntCoord getClientCoord();
+
 		// возвращает клиентскую зону
-		inline WidgetPtr getWidgetClient() {return mWidgetClient;}
+		inline WidgetPtr getClientWidget() {return mWidgetClient;}
 
 
 		// метод для запроса номера айтема и главного окна списка

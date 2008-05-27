@@ -100,9 +100,6 @@ namespace MyGUI
 		//! @copydoc Widget::getFontHeight
 		virtual uint16 getFontHeight();
 
-		/** Get rect where child widgets placed */
-		const IntCoord& getClientRect();
-
 		//! @copydoc Widget::getChilds
 		virtual VectorWidgetPtr getChilds();
 
