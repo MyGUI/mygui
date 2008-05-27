@@ -18,13 +18,13 @@ namespace MyGUI
 	Ogre::String Edit::WidgetTypeName = "Edit";
 
 	const float EDIT_CURSOR_TIMER  = 0.7f;
-	const float EDIT_ACTION_MOUSE_TIMER  = 0.20f;
+	const float EDIT_ACTION_MOUSE_TIMER  = 0.05f;
 	const int EDIT_CURSOR_MAX_POSITION = 100000;
 	const int EDIT_CURSOR_MIN_POSITION = -100000;
 	const size_t EDIT_MAX_UNDO = 128;
 	const size_t EDIT_DEFAULT_MAX_TEXT_LENGTH = 2048;
-	const float EDIT_OFFSET_HORZ_CURSOR = 50.0f; // дополнительное смещение для курсора
-	const int EDIT_ACTION_MOUSE_ZONE = 50; // область для восприятия мыши за пределом эдита
+	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // дополнительное смещение для курсора
+	const int EDIT_ACTION_MOUSE_ZONE = 1500; // область для восприятия мыши за пределом эдита
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
 
 	Edit::Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
@@ -522,21 +522,22 @@ namespace MyGUI
 						action = true;
 					}
 				}
+
 				// влево на небольшое расстояние
-				else if ( (mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE) ) {
-					if ( (mouse.top > 0) && (mouse.top <= mWidgetUpper->getHeight()) ) {
+				if ( (mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE) ) {
+					//if ( (mouse.top > 0) && (mouse.top <= mWidgetUpper->getHeight()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
 						point.left -= (int)EDIT_OFFSET_HORZ_CURSOR;
 						action = true;
-					}
+					//}
 				}
 				// вправо на небольшое расстояние
 				else if ( (mouse.left > mWidgetUpper->getWidth()) && (mouse.left < (mWidgetUpper->getWidth() + EDIT_ACTION_MOUSE_ZONE)) ) {
-					if ( (mouse.top > 0) && (mouse.top <= mWidgetUpper->getHeight()) ) {
+					//if ( (mouse.top > 0) && (mouse.top <= mWidgetUpper->getHeight()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
 						point.left += (int)EDIT_OFFSET_HORZ_CURSOR;
 						action = true;
-					}
+					//}
 				}
 
 				if (action) {
@@ -1227,6 +1228,7 @@ namespace MyGUI
 
 	void Edit::updateView(bool _showCursor)
 	{
+
 		// размер контекста текста
 		IntSize textSize = mText->getTextSize();
 		// текущее смещение контекста текста
