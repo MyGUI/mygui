@@ -58,7 +58,22 @@ namespace input
 
 		// обновляем курсор
 		if (WM_SETCURSOR == uMsg) {
-			SetCursor(msInputManager->m_showPointer ? (HCURSOR)msInputManager->mCurrentPointer : NULL);
+
+			size_t pointer = NULL;
+
+			if (msInputManager->m_showPointer) {
+/*				if (msMouseState.X.abs < 1) {
+					pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
+				}
+				else if (msMouseState.X.abs > (msMouseState.width - 2)) {
+					pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
+				}
+				else {*/
+					pointer = msInputManager->mCurrentPointer;
+				/*}*/
+			}
+
+			SetCursor((HCURSOR)pointer);
 			return 0;
 		}
 
