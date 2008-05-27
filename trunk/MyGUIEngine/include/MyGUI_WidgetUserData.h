@@ -34,13 +34,22 @@ namespace MyGUI
 			return iter->second;
 		}
 
-		inline void clearUserString(const std::string & _key)
+		inline bool clearUserString(const std::string & _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
-			if (iter != mMapUserString.end()) mMapUserString.erase(iter);
+			if (iter != mMapUserString.end()) {
+				mMapUserString.erase(iter);
+				return true;
+			}
+			return false;
 		}
 
-		inline void clearUserString()
+		inline bool isUserString(const std::string & _key)
+		{
+			return mMapUserString.find(_key) != mMapUserString.end();
+		}
+
+		inline void clearUserStrings()
 		{
 			mMapUserString.clear();
 		}
@@ -51,16 +60,8 @@ namespace MyGUI
 		inline const std::string& _getInternalString() {return mInternalString;}
 		inline void _setInternalString(const std::string& _data) {mInternalString = _data;}
 
-		template <class T> inline void setUserData(T _data)
-		{
-			MYGUI_ASSERT((sizeof(T) <= sizeof(mUserData)), "Type is not correct");
-			*((T*)(&mUserData)) = _data;
-		}
-		template <class T> inline T getUserData()
-		{
-			MYGUI_ASSERT((sizeof(T) <= sizeof(mUserData)), "Type is not correct");
-			return *((T*)(&mUserData));
-		}
+		inline void setUserData(void * _data) { mUserData = _data; }
+		inline void * getUserData() { return mUserData; }
 
 	private:
 		// пользовательские данные
@@ -69,7 +70,7 @@ namespace MyGUI
 		int mInternalData;
 		std::string mInternalString;
 
-		size_t mUserData;
+		void * mUserData;
 	};
 } // namespace MyGUI
 
