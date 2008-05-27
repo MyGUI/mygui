@@ -273,7 +273,7 @@ namespace MyGUI
 		mSelectSheet = select;
 
 		size_t count = 0;
-		for (size_t pos=mStartIndex; pos<mSheetsInfo.size(); pos++) {
+		for (size_t pos=mStartIndex; pos<mSheetButton.size(); pos++) {
 			ButtonPtr button = castWidget<Button>(mSheetButton[count]);
 			if (button->isShow()) {
 				// корректируем нажатость кнопки
@@ -338,6 +338,21 @@ namespace MyGUI
 			}
 		}
 		MYGUI_LOG(Warning, "sheet '" << _name << "' not found");
+	}
+
+	void Tab::setButtonDefaultWidth(int _width)
+	{
+		mButtonDefaultWidth = _width;
+		if (mButtonDefaultWidth < 1) mButtonDefaultWidth = 1;
+		setButtonAutoWidth(false);
+	}
+
+	void Tab::setButtonAutoWidth(bool _auto)
+	{
+		mButtonAutoWidth = _auto;
+		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
+			setSheetButtonWidthIndex(pos);
+		}
 	}
 
 	void Tab::setSheetButtonWidthIndex(size_t _index, int _width)
@@ -453,6 +468,8 @@ namespace MyGUI
 
 		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, _smooth);
 		_showSheet(mSheetsInfo[old].sheet, false, _smooth);
+
+		showBarSelectButton();
 	}
 
 	void Tab::selectSheet(const Ogre::UTFString& _name, bool _smooth)

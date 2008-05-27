@@ -79,7 +79,7 @@ namespace MyGUI
 		void TabFactory::Tab_SelectSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(TabPtr, _widget, _key);
-			static_cast<TabPtr>(_widget)->selectSheetIndex(utility::parseSizeT(_value));
+			static_cast<TabPtr>(_widget)->selectSheetIndex(utility::parseSizeT(_value), false);
 		}
 
 	} // namespace factory
