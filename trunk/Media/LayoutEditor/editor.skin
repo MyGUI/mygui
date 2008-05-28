@@ -54,4 +54,47 @@
             <State name="select" offset = "0 80 16 16"/>
         </BasisSkin>
     </Skin>
+
+    <Skin name = "ComplexProgressTrack" size = "58 42" texture = "progresstrack.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 58 42" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "0 0 58 42"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "ComplexProgress" size = "16 22" texture = "core.png" >
+        <Property key="TrackSkin" value = "ComplexProgressTrack" />
+        <Property key="TrackStep" value = "30" />
+        <Property key="TrackWidth" value = "58" />
+
+        <Child type="Widget" skin="ProgressClient" offset = "3 3 10 16" align = "ALIGN_STRETCH" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "411 71 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 10 3" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "414 71 10 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "13 0 3 3" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "424 71 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "13 3 3 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "424 74 3 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "13 19 3 3" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "424 90 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 19 10 3" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "414 90 10 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 19 3 3" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "411 90 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 16" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "411 74 3 16"/>
+        </BasisSkin>
+        <_BasisSkin type="SubSkin" offset = "3 3 10 16" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "414 74 10 16"/>
+        </_BasisSkin>
+    </Skin>
+
 </MyGUI>

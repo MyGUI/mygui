@@ -20,7 +20,7 @@ const int PANELS_MIN_HEIGHT = 25;
 const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Inertional;
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
-const int HIDE_REMAIN_PIXELS = PANELS_MARGIN;
+const int HIDE_REMAIN_PIXELS = 3;
 
 EditorWidgets * ew;
 WidgetTypes * wt;

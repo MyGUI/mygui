@@ -378,7 +378,7 @@ namespace MyGUI
 		size_t index = mToSortIndex[_index];
 		// все индексты что меньше уменьшаем
 		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
-			if (mToSortIndex[pos] < index) mToSortIndex[pos]--;
+			if (mToSortIndex[pos] > index) mToSortIndex[pos]--;
 		}
 		mToSortIndex.erase(mToSortIndex.begin() + _index);
 	}

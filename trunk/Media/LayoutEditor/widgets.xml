@@ -82,6 +82,7 @@
 
   <Widget name="Progress">
     <Property key="Skin" value="Progress"/>
+    <Property key="Skin" value="ComplexProgress" group="Other"/>
     <Parameter key="Progress_Range" value="1 int"/>
     <Parameter key="Progress_Position" value="1 int"/>
     <Parameter key="Progress_AutoTrack" value="Bool"/>
