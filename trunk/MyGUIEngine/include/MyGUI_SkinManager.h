@@ -50,6 +50,9 @@ namespace MyGUI
 		/** Check that texture have power of two size */
 		static bool isPowerOfTwo(IntSize _size);
 
+		// проверяет скин на существование
+		inline bool isSkinExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end();}
+
 	private:
 		void createDefault();
 

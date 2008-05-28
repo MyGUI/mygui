@@ -71,6 +71,13 @@ public:
 private:
 	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent, bool _test = false);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node);
+
+	// возвращает стандартный скин по типу
+	const std::string & getDefaultSkin(const std::string & _type);
+
+private:
+	typedef std::map<std::string, std::string> MapString;
+	MapString mMapDefaultSkinPair;
 };
 
 #endif // __WIDGET_CONTAINER_H__
