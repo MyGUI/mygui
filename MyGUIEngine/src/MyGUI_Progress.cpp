@@ -23,6 +23,7 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mClient(null),
 		mTrackWidth(1),
+		mTrackStep(0),
 		mRange(0), mEndPosition(0), mStartPosition(0),
 		mAutoTrack(false),
 		mFillTrack(false),
@@ -41,6 +42,9 @@ namespace MyGUI
 		iterS = param.find("TrackWidth");
 		if (iterS != param.end()) mTrackWidth = utility::parseInt(iterS->second);
 		if (1 > mTrackWidth) mTrackWidth = 1;
+		iterS = param.find("TrackStep");
+		if (iterS != param.end()) mTrackStep = utility::parseInt(iterS->second);
+		else mTrackStep = mTrackWidth;
 		iterS = param.find("TrackFill");
 		if (iterS != param.end()) mFillTrack = utility::parseBool(iterS->second);
 		iterS = param.find("StartPoint");
@@ -137,7 +141,7 @@ namespace MyGUI
 		if (mFillTrack) {
 
 			if (mVectorTrack.empty()) {
-				WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackWidth, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
+				WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
 				mVectorTrack.push_back(widget);
 			}
 			else {
@@ -170,15 +174,15 @@ namespace MyGUI
 
 		// сначала проверяем виджеты для трека
 		int width = getClientWidth();
-		int count = width / mTrackWidth;
-		int ost = (width % mTrackWidth);
+		int count = width / mTrackStep;
+		int ost = (width % mTrackStep);
 		if (ost > 0) {
-			width += mTrackWidth - ost;
+			width += mTrackStep - ost;
 			count ++;
 		}
 
 		while ((int)mVectorTrack.size() < count) {
-			WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackWidth, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
+			WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
 			widget->hide();
 			mVectorTrack.push_back(widget);
 		}
@@ -189,7 +193,7 @@ namespace MyGUI
 			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter) {
 				(*iter)->setAlpha(ALPHA_MAX);
 				(*iter)->show();
-				setTrackPosition(*iter, pos * mTrackWidth, 0, mTrackWidth, getClientHeight());
+				setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 				pos++;
 			}
 		}
@@ -197,10 +201,10 @@ namespace MyGUI
 		else {
 			// сколько не видно
 			int hide_pix = (width * (int)mStartPosition / (int)mRange);
-			int hide = hide_pix / mTrackWidth;
+			int hide = hide_pix / mTrackStep;
 			// сколько видно
 			int show_pix = (width * (int)mEndPosition / (int)mRange);
-			int show = show_pix / mTrackWidth;
+			int show = show_pix / mTrackStep;
 
 			int pos = 0;
 			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter) {
@@ -208,23 +212,23 @@ namespace MyGUI
 					(*iter)->hide();
 				}
 				else if (0 == show) {
-					(*iter)->setAlpha((float)(show_pix % mTrackWidth) / (float)mTrackWidth);
+					(*iter)->setAlpha((float)(show_pix % mTrackStep) / (float)mTrackStep);
 					(*iter)->show();
-					setTrackPosition(*iter, pos * mTrackWidth, 0, mTrackWidth, getClientHeight());
+					setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 				}
 				else {
 					if (0 < hide) {
 						(*iter)->hide();
 					}
 					else if (0 == hide) {
-						(*iter)->setAlpha(1.0f - ((float)(hide_pix % mTrackWidth) / (float)mTrackWidth));
+						(*iter)->setAlpha(1.0f - ((float)(hide_pix % mTrackStep) / (float)mTrackStep));
 						(*iter)->show();
-						setTrackPosition(*iter, pos * mTrackWidth, 0, mTrackWidth, getClientHeight());
+						setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 					}
 					else {
 						(*iter)->setAlpha(ALPHA_MAX);
 						(*iter)->show();
-						setTrackPosition(*iter, pos * mTrackWidth, 0, mTrackWidth, getClientHeight());
+						setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 					}
 				}
 				hide --;
