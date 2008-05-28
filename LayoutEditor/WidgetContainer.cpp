@@ -25,7 +25,7 @@ bool EditorWidgets::load(std::string _fileName)
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName)) {
-			LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
+			LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 			return false;
 		}
 	}
