@@ -82,6 +82,7 @@ namespace MyGUI
 	private:
 		std::string mTrackSkin;
 		int mTrackWidth;
+		int mTrackStep;
 		WidgetPtr mClient;
 
 		VectorWidgetPtr mVectorTrack;
