@@ -536,6 +536,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	box2->injectObject("Robot_helper_01.mesh");
 	box2->setAutoRotation(true);*/
 
+	//MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 100, 24), MyGUI::ALIGN_DEFAULT, "Popup");
+	//edit->setMaxTextLength(5);
+
 }
 
 void DemoKeeper::end()
