@@ -1,5 +1,6 @@
 #include "WidgetContainer.h"
 #include "BasisManager.h"
+#include "WidgetTypes.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -8,25 +9,6 @@ INSTANCE_IMPLEMENT(EditorWidgets);
 void EditorWidgets::initialise()
 {
 	global_counter = 0;
-
-	// пока ручками, вдальнейшем загружать из файла
-	mMapDefaultSkinPair["Button"] = "Button";
-	mMapDefaultSkinPair["ComboBox"] = "ComboBox";
-	mMapDefaultSkinPair["Edit"] = "Edit";
-	mMapDefaultSkinPair["HScroll"] = "HScroll";
-	mMapDefaultSkinPair["VScroll"] = "VScroll";
-	mMapDefaultSkinPair["ItemBox"] = "ItemBox";
-	mMapDefaultSkinPair["List"] = "List";
-	mMapDefaultSkinPair["Message"] = "Message";
-	mMapDefaultSkinPair["MultiList"] = "MultiList";
-	mMapDefaultSkinPair["PopupMenu"] = "PopupMenu";
-	mMapDefaultSkinPair["Progress"] = "Progress";
-	mMapDefaultSkinPair["RenderBox"] = "RenderBox";
-	mMapDefaultSkinPair["Sheet"] = "Sheet";
-	mMapDefaultSkinPair["StaticImage"] = "StaticImage";
-	mMapDefaultSkinPair["StaticText"] = "StaticText";
-	mMapDefaultSkinPair["Tab"] = "Tab";
-	mMapDefaultSkinPair["Window"] = "Window";
 }
 
 void EditorWidgets::shutdown()
@@ -190,16 +172,6 @@ WidgetContainer * EditorWidgets::find(std::string _name)
 	return null;
 }
 
-const std::string & EditorWidgets::getDefaultSkin(const std::string & _type)
-{
-	MapString::iterator iter = mMapDefaultSkinPair.find(_type);
-	if (iter == mMapDefaultSkinPair.end()) {
-		static std::string defaultSkin("Default");
-		return defaultSkin;
-	}
-	return iter->second;
-}
-
 void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent, bool _test)
 {
 	WidgetContainer * container = new WidgetContainer();
@@ -245,11 +217,14 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	//может и не стоит
 	tmpname = "LayoutEditorWidget_" + tmpname;
 
+	if (container->skin.empty()) container->skin = "Default";
+
 	// проверяем скин на присутствие
 	std::string skin = container->skin;
 	bool exist = MyGUI::SkinManager::getInstance().isSkinExist(container->skin);
-	if ( ! exist) {
-		skin = getDefaultSkin(container->type);
+	if ( !exist )
+   {
+		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
 		std::string mess = MyGUI::utility::toString("skin not found '", container->skin, "' , change on '", skin, "'");
 		MyGUI::Message::_createMessage("Error", mess , "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
 	}

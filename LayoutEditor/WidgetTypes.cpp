@@ -100,6 +100,7 @@ void WidgetTypes::parseWidgetType(MyGUI::xml::xmlNodeIterator _widget)
 				skin_groups[group].push_back(std::make_pair(value, widget_type->name));
 				widget_type->skin.push_back(value);
 			}
+			else if (key == "DefaultSkin") widget_type->default_skin = value;
 			else if (key == "Parent") widget_type->parent = MyGUI::utility::parseBool(value);
 			else if (key == "Child") widget_type->child = MyGUI::utility::parseBool(value);
 			else if (key == "Resizeable") widget_type->resizeable = MyGUI::utility::parseBool(value);

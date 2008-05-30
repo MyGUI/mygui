@@ -1224,11 +1224,19 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Skin")
 	{
 		widgetContainer->skin = value;
-		MyGUI::xml::xmlDocument * save = ew->savexmlDocument();
-		ew->clear();
-		ew->loadxmlDocument(save);
-		delete save;
-		recreate = true;
+		if ( !MyGUI::SkinManager::getInstance().isSkinExist(widgetContainer->skin) )
+		{
+			MyGUI::xml::xmlDocument * save = ew->savexmlDocument();
+			ew->clear();
+			ew->loadxmlDocument(save);
+			delete save;
+			recreate = true;
+		}
+		else
+		{
+			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
+			MyGUI::Message::_createMessage("Error", mess , "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
+		}
 		return;
 	}
 	else if (action == "Position")
@@ -1284,11 +1292,17 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 
 		//if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
 	}
-	catch(...)
+   catch(Ogre::Exception & e)
 	{
-		MyGUI::Message::_createMessage("Warning", "No such " + action + ": '" + value + "'\n(this value will be saved)", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+      e.getDescription();
+		MyGUI::Message::_createMessage("Warning", "No such " + action + ": '" + value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
 	}// for incorrect meshes or textures
+   catch(...)
+   {
+		MyGUI::Message::_createMessage("Error", "Can't apply '" + action + "'property.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		_sender->setCaption(DEFAULT_VALUE);
+   }
 
 	// если такое св-во было, то заменим (или удалим если стерли) значение
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)

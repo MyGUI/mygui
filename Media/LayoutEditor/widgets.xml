@@ -3,6 +3,7 @@
 <MyGUI type="Widgets">
 
   <Widget name="Button">
+    <Property key="DefaultSkin" value="Button"/>
     <Property key="Skin" value="Button"/>
     <Property key="Skin" value="Button2" group="Other"/>
     <Property key="Skin" value="ButtonSmall"/>
@@ -13,12 +14,14 @@
   </Widget>
 
   <Widget name="StrangeButton">
+    <Property key="DefaultSkin" value="Button"/>
     <Property key="Skin" value="Button" group="Other"/>
     <Parameter key="StrangeButton_Pressed" value="Bool"/>
     <!-- all properties -->
   </Widget>
 
   <Widget name="ComboBox">
+    <Property key="DefaultSkin" value="ComboBox"/>
     <Property key="Skin" value="ComboBox"/>
     <Property key="StringManager" value="true"/>
     <Parameter key="Combo_ModeDrop" value="Bool"/>
@@ -27,6 +30,7 @@
   </Widget>
 
   <Widget name="Edit">
+    <Property key="DefaultSkin" value="Edit"/>
     <Property key="Skin" value="Edit"/>
     <Property key="Skin" value="EditStretch"/>
     <Parameter key="Edit_CursorPosition" value="2 int"/>
@@ -41,6 +45,7 @@
   </Widget>
 
   <Widget name="HScroll">
+    <Property key="DefaultSkin" value="HScroll"/>
     <Property key="Skin" value="HScroll"/>
     <Property key="Skin" value="HSlider" group="Other"/>
     <Parameter key="Scroll_Range" value="1 int"/>
@@ -51,11 +56,13 @@
   </Widget>
 
   <Widget name="ItemBox">
+    <Property key="DefaultSkin" value="ItemBox"/>
     <Property key="Skin" value="ItemBox"/>
     <!-- all properties -->
   </Widget>
 
   <Widget name="List">
+    <Property key="DefaultSkin" value="List"/>
     <Property key="Skin" value="List"/>
     <Property key="StringManager" value="true"/>
     <!--Parameter key="List_AddString" value="String"/-->
@@ -63,6 +70,7 @@
   </Widget>
 
   <Widget name="Message">
+    <Property key="DefaultSkin" value="Message"/>
     <Property key="Skin" value="Message"/>
     <!--Property key="StringManager" value="true"/-->
     <Parameter key="Message_Caption" value="String"/>
@@ -76,11 +84,13 @@
   </Widget>
 
   <Widget name="MultiList">
+    <Property key="DefaultSkin" value="MultiList"/>
     <Property key="Skin" value="MultiList"/>
     <!-- all properties -->
   </Widget>
 
   <Widget name="Progress">
+    <Property key="DefaultSkin" value="Progress"/>
     <Property key="Skin" value="Progress"/>
     <Property key="Skin" value="ComplexProgress" group="Other"/>
     <Parameter key="Progress_Range" value="1 int"/>
@@ -91,6 +101,7 @@
   </Widget>
 
   <Widget name="RenderBox">
+    <Property key="DefaultSkin" value="RenderBox"/>
     <Property key="Skin" value="RenderBox"/>
     <Parameter key="RenderBox_Mesh" value="String"/>
     <Parameter key="RenderBox_AutoRotation" value="Bool"/>
@@ -104,6 +115,7 @@
   </Widget>
 
   <Widget name="Sheet">
+    <Property key="DefaultSkin" value="Default"/>
     <Property key="Parent" value="true"/>
     <Property key="Resizeable" value="false"/>
     <Parameter key="Sheet_ButtonWidth" value="1 int"/>
@@ -114,6 +126,7 @@
   </Widget>
 
   <Widget name="StaticImage">
+    <Property key="DefaultSkin" value="StaticImage"/>
     <Property key="Skin" value="StaticImage"/>
     <Parameter key="Image_Texture" value="String"/>
     <Parameter key="Image_Rect" value="4 int"/>
@@ -123,11 +136,13 @@
   </Widget>
 
   <Widget name="StaticText">
+    <Property key="DefaultSkin" value="StaticText"/>
     <Property key="Skin" value="StaticText"/>
     <!-- all properties -->
   </Widget>
 
   <Widget name="Tab">
+    <Property key="DefaultSkin" value="Tab"/>
     <Property key="Skin" value="Tab"/>
     <Property key="StringManager" value="true"/>
     <Parameter key="Tab_ButtonWidth" value="1 int"/>
@@ -139,6 +154,7 @@
   </Widget>
 
   <Widget name="VScroll">
+    <Property key="DefaultSkin" value="VScroll"/>
     <Property key="Skin" value="VScroll"/>
     <Property key="Skin" value="VSlider" group="Other"/>
     <Parameter key="Scroll_Range" value="1 int"/>
@@ -149,6 +165,7 @@
   </Widget>
 
   <Widget name="Widget">
+    <Property key="DefaultSkin" value="Default"/>
     <Property key="Parent" value="true"/>
     <Property key="Skin" value="Panel"/>
     <Property key="Skin" value="PanelSmall" group="Other"/>
@@ -173,6 +190,7 @@
   </Widget>
 
   <Widget name="Window">
+    <Property key="DefaultSkin" value="Window"/>
     <Property key="Parent" value="true"/>
     <Property key="Child" value="false"/>
     <Property key="Skin" value="Window"/>
