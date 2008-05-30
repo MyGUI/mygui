@@ -9,6 +9,7 @@ struct WidgetType{
 	WidgetType(): parent(false), child(true), resizeable(true), many_strings(false) {}
 	std::string name;
 	std::vector<std::string> skin;
+	std::string default_skin;
 	StringPairs parameter;
 	// can have child widgets
 	bool parent;
