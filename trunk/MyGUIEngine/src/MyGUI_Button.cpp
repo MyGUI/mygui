@@ -50,24 +50,24 @@ namespace MyGUI
 		Widget::_onMouseLostFocus(_new);
 	}
 
-	void Button::_onMouseButtonPressed(bool _left)
+	void Button::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		if (_left) {
+		if (_id == MB_Left) {
 			mIsPressed = true;
 			updateButtonState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonPressed(_left);
+		Widget::_onMouseButtonPressed(_left, _top, _id);
 	}
 
-	void Button::_onMouseButtonReleased(bool _left)
+	void Button::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		if (_left) {
+		if (_id == MB_Left) {
 			mIsPressed = false;
 			updateButtonState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonReleased(_left);
+		Widget::_onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void Button::setImageIndex(size_t _index)

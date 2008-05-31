@@ -150,12 +150,12 @@ namespace MyGUI
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 
-	void VScroll::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	void VScroll::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (false == _left) return;
+		if (MB_Left != _id) return;
 
 		// диспечерезируем нажатие своих детей как свое
-		eventMouseButtonPressed(this, _left);
+		eventMouseButtonPressed(this, _left, _top, _id);
 
 		if (_sender == mWidgetStart) {
 			// минимальное значение
@@ -211,12 +211,12 @@ namespace MyGUI
 		}
 	}
 
-	void VScroll::notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left)
+	void VScroll::notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		updateTrack();
 	}
 
-	void VScroll::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void VScroll::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
 		TrackMove(_left, _top);
 	}

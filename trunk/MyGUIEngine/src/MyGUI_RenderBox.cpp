@@ -238,7 +238,7 @@ namespace MyGUI
 		Widget::_onMouseDrag(_left, _top);
 	}
 
-	void RenderBox::_onMouseButtonPressed(bool _left)
+	void RenderBox::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		if (mMouseRotation/* || mAutoRotation*/) {
 			const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
@@ -247,15 +247,15 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonPressed(_left);
+		Widget::_onMouseButtonPressed(_left, _top, _id);
 	}
 
-	void RenderBox::_onMouseButtonReleased(bool _left)
+	void RenderBox::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		if (_left) mLeftPressed = false;
+		if (MB_Left == _id) mLeftPressed = false;
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonReleased(_left);
+		Widget::_onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void RenderBox::createRenderTexture()

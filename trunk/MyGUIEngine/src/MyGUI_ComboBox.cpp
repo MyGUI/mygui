@@ -93,9 +93,9 @@ namespace MyGUI
 		WidgetManager::getInstance().destroyWidget(mList);
 	}
 
-	void ComboBox::notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
+	void ComboBox::notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (false == _left) return;
+		if (MB_Left != _id) return;
 
 		mDropMouse = true;
 
@@ -103,7 +103,7 @@ namespace MyGUI
 		else showList();
 	}
 
-	void ComboBox::notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	void ComboBox::notifyListLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
 		if (mDropMouse) {
 			mDropMouse = false;
@@ -117,7 +117,7 @@ namespace MyGUI
 		hideList();
 	}
 
-	void ComboBox::notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position)
+	void ComboBox::notifyListSelectAccept(WidgetPtr _widget, size_t _position)
 	{
 		std::string str;
 		//size_t pos = mList->getItemSelect();
@@ -134,7 +134,7 @@ namespace MyGUI
 		if (mModeDrop) eventComboAccept(this);
 	}
 
-	void ComboBox::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
+	void ComboBox::notifyListChangePosition(WidgetPtr _widget, size_t _position)
 	{
 		eventComboChangePosition(this, _position);
 	}
@@ -157,7 +157,7 @@ namespace MyGUI
 
 	}
 
-	void ComboBox::notifyListMouseItemActivate(MyGUI::WidgetPtr _widget, size_t _position)
+	void ComboBox::notifyListMouseItemActivate(WidgetPtr _widget, size_t _position)
 	{
 		if (_position != ITEM_NONE) {
 			mItemIndex = _position;
@@ -169,7 +169,7 @@ namespace MyGUI
 		if (mModeDrop) eventComboAccept(this);
 	}
 
-	void ComboBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
+	void ComboBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
 	{
 		if (mList->getItemCount() == 0) return;
 		if (InputManager::getInstance().getKeyFocusWidget() != this) return;
@@ -197,18 +197,18 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	void ComboBox::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		// обязательно отдаем отцу, а то мы у него в наглую отняли
-		Edit::notifyMousePressed(_sender, _left);
+		Edit::notifyMousePressed(_sender, _left, _top, _id);
 
 		mDropMouse = true;
 
 		// показываем список
-		if (mModeDrop) notifyButtonPressed(null, _left);
+		if (mModeDrop) notifyButtonPressed(null, _left, _top, _id);
 	}
 
-	void ComboBox::notifyEditTextChange(MyGUI::WidgetPtr _sender)
+	void ComboBox::notifyEditTextChange(WidgetPtr _sender)
 	{
 		// сбрасываем выделенный элемент
 		if (ITEM_NONE != mItemIndex) {

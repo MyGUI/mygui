@@ -148,11 +148,11 @@ namespace MyGUI
 		Widget::_onMouseDrag(_left, _top);
 	}
 
-	void FooBar::_onMouseButtonReleased(bool _left)
+	void FooBar::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		mDragging = false;
 
-		Widget::_onMouseButtonReleased(_left);
+		Widget::_onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void FooBar::_onMouseChangeRootFocus(bool _focus)

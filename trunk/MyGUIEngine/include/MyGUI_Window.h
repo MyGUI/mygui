@@ -119,9 +119,9 @@ namespace MyGUI
 		void _onMouseChangeRootFocus(bool _focus);
 		void _onKeyChangeRootFocus(bool _focus);
 		void _onMouseDrag(int _left, int _top);
-		void _onMouseButtonPressed(bool _left);
+		void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
 
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
+		void notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 

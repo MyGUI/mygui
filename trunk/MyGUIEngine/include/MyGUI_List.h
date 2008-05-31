@@ -119,31 +119,31 @@ namespace MyGUI
 		inline int getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mStringArray.size() * mHeightLine);}
 
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(WidgetPtr _sender, size_t _index)\n
 			_index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(WidgetPtr _sender, size_t _index)\n
 			_index of new item
 		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(WidgetPtr _sender, size_t _index)\n
 			_index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(WidgetPtr _sender, size_t _index)\n
 			_index of focused item
 		*/
 		EventInfo_WidgetSizeT eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			signature : void method(WidgetPtr _sender, size_t _position)\n
 			_position of scroll
 		*/
 		EventInfo_WidgetSizeT eventListChangeScroll;
@@ -155,12 +155,12 @@ namespace MyGUI
 		void _onKeySetFocus(WidgetPtr _old);
 		void _onKeyButtonPressed(int _key, Char _char);
 
-		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _rel);
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseDoubleClick(MyGUI::WidgetPtr _sender);
-		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
-		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
-		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
+		void notifyScrollChangePosition(WidgetPtr _sender, size_t _rel);
+		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDoubleClick(WidgetPtr _sender);
+		void notifyMouseWheel(WidgetPtr _sender, int _rel);
+		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
+		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
 
 		void updateScroll();
 		void updateLine(bool _reset = false);

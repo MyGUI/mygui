@@ -189,7 +189,7 @@ namespace MyGUI
 
 		if (mWidgetMouseFocus != null) {
 
-			mWidgetMouseFocus->_onMouseButtonPressed(MB_Left == _id);
+			mWidgetMouseFocus->_onMouseButtonPressed(_absx, _absy, _id);
 			//mWidgetMouseFocus->_onMouseButtonPressed(_id);
 
 			// поднимаем виджет
@@ -209,7 +209,7 @@ namespace MyGUI
 			// сбрасываем захват
 			mIsWidgetMouseCapture = false;
 
-			mWidgetMouseFocus->_onMouseButtonReleased(MB_Left == _id);
+			mWidgetMouseFocus->_onMouseButtonReleased(_absx, _absy, _id);
 			//mWidgetMouseFocus->_onMouseButtonReleased(_id);
 
 			// после вызова, виджет может быть удален

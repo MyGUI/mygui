@@ -183,12 +183,12 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		/** Event : Enter pressed (Ctrl+entre in multiline mode).\n
-			signature : void method(MyGUI::WidgetPtr _sender)
+			signature : void method(WidgetPtr _sender)
 		*/
 		EventInfo_WidgetVoid eventEditSelectAccept;
 
 		/** Event : Text changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender)
+			signature : void method(WidgetPtr _sender)
 		*/
 		EventInfo_WidgetVoid eventEditTextChange;
 
@@ -211,11 +211,11 @@ namespace MyGUI
 		virtual void _frameEntered(float _frame);
 
 		// потом убрать все нотифи в сраку
-		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
-		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
+		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
+		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 
 		virtual void _onMouseDrag(int _left, int _top);
 		virtual void _onKeyLostFocus(WidgetPtr _new);

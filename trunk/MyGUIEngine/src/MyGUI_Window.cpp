@@ -101,16 +101,16 @@ namespace MyGUI
 		Widget::_onMouseDrag(_left, _top);
 	}
 
-	void Window::_onMouseButtonPressed(bool _left)
+	void Window::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		notifyMousePressed(this, _left);
+		notifyMousePressed(this, _left, _top, _id);
 		// !!! ÎÁßÇÀÒÅËÜÍÎ âûçûâàòü â êîíöå ìåòîäà
-		Widget::_onMouseButtonPressed(_left);
+		Widget::_onMouseButtonPressed(_left, _top, _id);
 	}
 
-	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (_left) {
+		if (MB_Left == _id) {
 			mPreActionCoord = mCoord;
 			mCurrentActionScale = IntCoord::parse(_sender->getUserString("Scale"));
 		}

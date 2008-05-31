@@ -119,7 +119,7 @@ namespace MyGUI
 		//!	@copydoc Widget::_onMouseDrag(int, int)
 		virtual void _onMouseDrag(int _left, int _top);
 		//!	@copydoc Widget::_onMouseButtonReleased(bool)
-		virtual void _onMouseButtonReleased(bool _left);
+		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
 		//!	@copydoc Widget::_onMouseChangeRootFocus(bool)
 		virtual void _onMouseChangeRootFocus(bool _focus);
 

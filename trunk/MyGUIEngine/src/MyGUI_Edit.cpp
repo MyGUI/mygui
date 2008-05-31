@@ -81,21 +81,21 @@ namespace MyGUI
 		Gui::getInstance().removeFrameListener(this);
 	}
 
-	void Edit::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+	void Edit::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
 		if ( (_old == mWidgetUpper) || (mIsFocus) ) return;
 		mIsFocus = true;
 		updateEditState();
 	}
 
-	void Edit::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	void Edit::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
 		if ( (_new == mWidgetUpper) || (false == mIsFocus) ) return;
 		mIsFocus = false;
 		updateEditState();
 	}
 
-	void Edit::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	void Edit::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		// в статике все недоступно
 		if (mModeStatic) return;
@@ -107,16 +107,16 @@ namespace MyGUI
 		mCursorTimer = 0;
 		updateSelectText();
 
-		if (_left) mMouseLeftPressed = true;
+		if (_id == MB_Left) mMouseLeftPressed = true;
 	}
 
-	void Edit::notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left)
+	void Edit::notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		// сбрасываем всегда
 		mMouseLeftPressed = false;
 	}
 
-	void Edit::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void Edit::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
 		// в статике все недоступно
 		if (mModeStatic) return;
