@@ -15,15 +15,22 @@ namespace MyGUI
 
 	struct MenuItemInfo
 	{
-		MenuItemInfo(ButtonPtr _button) :
-			button(_button)
+	private:
+		MenuItemInfo() {}
+
+	public:
+		MenuItemInfo(ButtonPtr _button, PopupMenuPtr _menu) :
+			button(_button), menu(_menu)
 		{
 		}
 
 		ButtonPtr button;
+		PopupMenuPtr menu;
 	};
 
 	typedef std::vector<MenuItemInfo> VectorMenuItemInfo;
+
+	typedef delegates::CDelegate3<WidgetPtr, PopupMenuPtr, size_t> EventInfo_WidgetMenuSizeT;
 
 	class _MyGUIExport MenuBar : public Widget
 	{
@@ -52,21 +59,40 @@ namespace MyGUI
 		//! Replace an item at a specified position
 		void setItem(size_t _index, const Ogre::UTFString & _item);
 		//! Get item from specified position
-		const Ogre::UTFString & getItem(size_t _index);
+		const Ogre::UTFString & getItemName(size_t _index);
+
+		PopupMenuPtr getItemMenu(size_t _index);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
 		//! Delete all items
 		void deleteAllItems();
 
+		//! Get number of selected item (ITEM_NONE if none selected)
+		inline size_t getItemSelect() {return mIndexSelect;}
+		//! Reset item selection
+		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		//! Set item selection at a specified position
+		void setItemSelect(size_t _index);
+
+		// event : нажат ентер, или щелчек мыши
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		EventInfo_WidgetMenuSizeT eventPopupMenuAccept;
+
 	private:
 		void update();
+
+		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyPopupMenuClose(WidgetPtr _sender);
+		void notifyPopupMenuAccept(WidgetPtr _sender, size_t _index);
 
 
 	private:
 		VectorMenuItemInfo mVectorMenuItemInfo;
 		std::string mButtonSkinName;
 		int mDistanceButton;
+
+		size_t mIndexSelect;
 
 	}; // class _MyGUIExport MenuBar : public Widget
 
