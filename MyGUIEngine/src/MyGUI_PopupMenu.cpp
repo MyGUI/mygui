@@ -132,6 +132,7 @@ namespace MyGUI
 
 	void PopupMenu::notifyMouseClick(MyGUI::WidgetPtr _sender)
 	{
+		// потом передалть на интернал дата
 		size_t index = ITEM_NONE;
 		for (VectorWidgetPtr::iterator iter=m_listWidgets.begin(); iter!=m_listWidgets.end(); ++iter) {
 			if ((*iter) == _sender) {
@@ -139,7 +140,7 @@ namespace MyGUI
 				break;
 			}
 		}
-		eventPopupMunuAccept(this, index);
+		eventPopupMenuAccept(this, index);
 
 		// блокируем
 		setEnabled(false, true);
@@ -147,9 +148,11 @@ namespace MyGUI
 		// делаем нажатой
 		static_cast<ButtonPtr>(_sender)->setButtonPressed(true);
 
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(action::actionWidgetHide);
-		ControllerManager::getInstance().addItem(this, controller);
+		hidePopupMenu();
+
+		//ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+		//controller->eventPostAction = newDelegate(action::actionWidgetHide);
+		//ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void PopupMenu::showPopupMenu(const IntPoint& _point)
@@ -172,16 +175,22 @@ namespace MyGUI
 	void PopupMenu::_onKeyChangeRootFocus(bool _focus)
 	{
 		if (false == _focus) {
-			// блокируем
-			setEnabled(false, true);
-			// медленно скрываем
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-			controller->eventPostAction = newDelegate(action::actionWidgetHide);
-			ControllerManager::getInstance().addItem(this, controller);
+			hidePopupMenu();
+			eventPopupMenuClose(this);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyChangeRootFocus(_focus);
+	}
+
+	void PopupMenu::hidePopupMenu()
+	{
+		// блокируем
+		setEnabled(false, true);
+		// медленно скрываем
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+		controller->eventPostAction = newDelegate(action::actionWidgetHide);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 } // namespace MyGUI
