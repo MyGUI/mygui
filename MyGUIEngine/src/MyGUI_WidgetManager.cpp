@@ -29,6 +29,7 @@
 #include "MyGUI_RenderBoxFactory.h"
 #include "MyGUI_FooBarFactory.h"
 #include "MyGUI_PopupMenuFactory.h"
+#include "MyGUI_MenuBarFactory.h"
 
 namespace MyGUI
 {
@@ -62,6 +63,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 		mIntegratedFactoryList.insert(new factory::FooBarFactory());
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
+		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

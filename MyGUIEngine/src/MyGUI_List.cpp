@@ -177,7 +177,7 @@ namespace MyGUI
 		Widget::_onKeyButtonPressed(_key, _char);
 	}
 
-	void List::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
+	void List::notifyMouseWheel(WidgetPtr _sender, int _rel)
 	{
 		if (mRangeIndex <= 0) return;
 
@@ -195,15 +195,15 @@ namespace MyGUI
 		_sendEventChangeScroll(offset);
 	}
 
-	void List::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position)
+	void List::notifyScrollChangePosition(WidgetPtr _sender, size_t _position)
 	{
 		_setScrollView(_position);
 		_sendEventChangeScroll(_position);
 	}
 
-	void List::notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left)
+	void List::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (false == _left) return;
+		if (MB_Left != _id) return;
 
 		if (_sender == mWidgetScroll) return;
 
@@ -232,7 +232,7 @@ namespace MyGUI
 		}
 	}
 
-	void List::notifyMouseDoubleClick(MyGUI::WidgetPtr _sender)
+	void List::notifyMouseDoubleClick(WidgetPtr _sender)
 	{
 		if (mIndexSelect != ITEM_NONE)
 			eventListSelectAccept(this, mIndexSelect);
@@ -634,13 +634,13 @@ namespace MyGUI
 		return mStringArray[_index];
 	}
 
-	void List::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+	void List::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
 		mLineActive = _sender->_getInternalData();
 		eventListMouseItemFocus(this, mLineActive + (size_t)mTopIndex);
 	}
 
-	void List::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	void List::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
 		if ((null == _new) || (_new->getParent() != mWidgetClient)) {
 			mLineActive = ITEM_NONE;

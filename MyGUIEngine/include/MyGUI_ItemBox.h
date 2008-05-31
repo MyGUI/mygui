@@ -198,44 +198,44 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : запрос на создание айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _parent, MyGUI::WidgetPtr & _item)
+		// signature : void method(WidgetPtr _sender, WidgetPtr _parent, WidgetPtr & _item)
 		EventInfo_WidgetWidgetRefWidget requestCreateWidgetItem;
 
 		// event : запрос на размер айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
+		// signature : void method(WidgetPtr _sender, WidgetPtr _client, IntCoord & _coord, bool _drop)
 		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
 
 		// event : запрос на обновление айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _info)
+		// signature : void method(WidgetPtr _sender, WidgetPtr _item, const ItemInfo& _info)
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
 
 		// event : запрос на начало дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		// signature : void method(WidgetPtr _sender, const ItemDropInfo& _info, bool & _result)
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
 
 		// event : запрос на дроп айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		// signature : void method(WidgetPtr _sender, const ItemDropInfo& _info, bool & _result)
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
 		// event : завершение дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
+		// signature : void method(WidgetPtr _sender, const ItemDropInfo& _info, bool _result)
 		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
 
 		// event : текущее состояние дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::DropState _state)
+		// signature : void method(WidgetPtr _sender, DropState _state)
 		EventInfo_WidgetDropState eventDropState;
 
 		// event : двойной щелчек мыши или Enter на елементе
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		// signature : void method(WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventSelectItemAccept;
 
 		// event : изменилась позиция выделенного элемента
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		// signature : void method(WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventChangeItemPosition;
 
 		// event : щелчек мыши на элементе
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		// signature : void method(WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventMouseItemActivate;
 
 	protected:
@@ -244,13 +244,13 @@ namespace MyGUI
 		void _onKeyLostFocus(WidgetPtr _new);
 		void _onKeySetFocus(WidgetPtr _old);
 
-		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _index);
-		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
-		void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
-		void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
-		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
+		void notifyMouseWheel(WidgetPtr _sender, int _rel);
+		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
+		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
+		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
 		void notifyInvalideDrop(WidgetPtr _sender);
 

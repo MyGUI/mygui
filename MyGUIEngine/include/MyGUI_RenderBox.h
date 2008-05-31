@@ -126,8 +126,8 @@ namespace MyGUI
 		void _frameEntered(float _time);
 
 		void _onMouseDrag(int _left, int _top);
-		void _onMouseButtonPressed(bool _left);
-		void _onMouseButtonReleased(bool _left);
+		void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
 		void _onMouseWheel(int _rel);
 
 	private:

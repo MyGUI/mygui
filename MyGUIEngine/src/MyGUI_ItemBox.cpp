@@ -128,7 +128,7 @@ namespace MyGUI
 		_updateAllVisible(true);
 	}
 
-	void ItemBox::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _index)
+	void ItemBox::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
 	{
 		mScrollPosition = _index;
 		int old = mLineTop;
@@ -305,7 +305,7 @@ namespace MyGUI
 		Widget::_onKeyLostFocus(_new);
 	}
 
-	void ItemBox::notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+	void ItemBox::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
@@ -317,7 +317,7 @@ namespace MyGUI
 		mIndexActive = index;
 	}
 
-	void ItemBox::notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	void ItemBox::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
 		// уже сбросили фокус
 		if (mIndexActive == ITEM_NONE) return;
@@ -332,7 +332,7 @@ namespace MyGUI
 		mIndexActive = ITEM_NONE;
 	}
 
-	void ItemBox::notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel)
+	void ItemBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
 	{
 		if (mScrollRange <= 0) return;
 
@@ -590,9 +590,9 @@ namespace MyGUI
 		notifyMouseDrag(null, point.left, point.top);
 	}
 
-	void ItemBox::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, bool _left)
+	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if ( ! _left) return;
+		if ( MB_Left != _id) return;
 		size_t old = mIndexSelect;
 
 		// сбрасываем инфу для дропа
@@ -625,7 +625,7 @@ namespace MyGUI
 		if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 	}
 
-	void ItemBox::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, bool _left)
+	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		if (mStartDrop) {
 			if (mItemDrag.item) mItemDrag.item->hide();
@@ -645,7 +645,7 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void ItemBox::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
 		// нужно ли обновить данные
 		bool update = false;
@@ -757,7 +757,7 @@ namespace MyGUI
 		mAlignVert = _vert;
 
 		mCountItemInLine = -1;
-		updateFromResize(MyGUI::IntSize());
+		updateFromResize(IntSize());
 	}
 
 } // namespace MyGUI

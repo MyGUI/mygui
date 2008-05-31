@@ -26,6 +26,7 @@
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_MultiList.h"
 #include "MyGUI_PopupMenu.h"
+#include "MyGUI_MenuBar.h"
 #include "MyGUI_FooBar.h"
 
 #include "MyGUI_InputManager.h"

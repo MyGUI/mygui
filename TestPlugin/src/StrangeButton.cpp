@@ -54,18 +54,18 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void StrangeButton::_onMouseButtonPressed(bool _left)
+	void StrangeButton::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		Widget::_onMouseButtonPressed(_left);
-		if (!_left) return;
+		Widget::_onMouseButtonPressed(_left, _top, _id);
+		if (MB_Left != _id) return;
 		mIsPressed = true;
 		updateButtonState();
 	}
 
-	void StrangeButton::_onMouseButtonReleased(bool _left)
+	void StrangeButton::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		Widget::_onMouseButtonReleased(_left);
-		if (!_left) return;
+		Widget::_onMouseButtonReleased(_left, _top, _id);
+		if (MB_Left != _id) return;
 		mIsPressed = false;
 		updateButtonState();
 	}

@@ -80,7 +80,7 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		/** Event : scroll tracker position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			signature : void method(WidgetPtr _sender, size_t _position)\n
 			_position - new tracker position
 		*/
 		EventInfo_WidgetSizeT eventScrollChangePosition;
@@ -88,9 +88,9 @@ namespace MyGUI
 	protected:
 		virtual void updateTrack();
 		virtual void TrackMove(int _left, int _top);
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseReleased(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 
 		// наши кнопки
 		ButtonPtr mWidgetStart;
