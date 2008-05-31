@@ -539,6 +539,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 100, 24), MyGUI::ALIGN_DEFAULT, "Popup");
 	//edit->setMaxTextLength(5);
 
+	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mWidth, 28), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_HSTRETCH, "Main");
+	//MyGUI::ButtonPtr button = bar->getClientWidget()->createWidget<MyGUI::Button>("MenuBarButton", MyGUI::IntCoord(0, 0, 50, 20), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_TOP);
+	//button->setCaption("File");
+	bar->addItem("File");
+	bar->addItem("Edit");
+
 }
 
 void DemoKeeper::end()

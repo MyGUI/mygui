@@ -36,8 +36,8 @@ namespace MyGUI
 
 		virtual void _onMouseLostFocus(WidgetPtr _new);
 		virtual void _onMouseSetFocus(WidgetPtr _old);
-		virtual void _onMouseButtonPressed(bool _left);
-		virtual void _onMouseButtonReleased(bool _left);
+		virtual void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
 		inline void updateButtonState()
 		{

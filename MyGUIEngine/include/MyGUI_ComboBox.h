@@ -89,14 +89,14 @@ namespace MyGUI
 	protected:
 		virtual void _onKeyButtonPressed(int _key, Char _char);
 
-		void notifyButtonPressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyListLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new);
-		void notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position);
-		void notifyListMouseItemActivate(MyGUI::WidgetPtr _widget, size_t _position);
-		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
-		void notifyMouseWheel(MyGUI::WidgetPtr _sender, int _rel);
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, bool _left);
-		void notifyEditTextChange(MyGUI::WidgetPtr _sender);
+		void notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyListLostFocus(WidgetPtr _sender, MyGUI::WidgetPtr _new);
+		void notifyListSelectAccept(WidgetPtr _widget, size_t _position);
+		void notifyListMouseItemActivate(WidgetPtr _widget, size_t _position);
+		void notifyListChangePosition(WidgetPtr _widget, size_t _position);
+		void notifyMouseWheel(WidgetPtr _sender, int _rel);
+		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyEditTextChange(WidgetPtr _sender);
 
 		void showList();
 		void hideList();

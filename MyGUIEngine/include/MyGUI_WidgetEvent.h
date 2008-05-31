@@ -20,6 +20,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<WidgetPtr, int> EventInfo_WidgetInt;
 	typedef delegates::CDelegate2<WidgetPtr, size_t> EventInfo_WidgetSizeT;
 	typedef delegates::CDelegate3<WidgetPtr, int, int> EventInfo_WidgetIntInt;
+	typedef delegates::CDelegate4<WidgetPtr, int, int, MouseButton> EventInfo_WidgetIntIntButton;
 	typedef delegates::CDelegate3<WidgetPtr, int, Char> EventInfo_WidgetIntChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr&, size_t &> EventInfo_WidgetRefWidgetRefSizeT;
@@ -87,16 +88,16 @@ namespace MyGUI
 		EventInfo_WidgetInt eventMouseWheel;
 
 		/** Event : Mouse button pressed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, bool _left)\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)\n
 			@param _left true if left button pressed
 		*/
-		EventInfo_WidgetBool eventMouseButtonPressed;
+		EventInfo_WidgetIntIntButton eventMouseButtonPressed;
 
 		/** Event : Mouse button released.\n
-			signature : void method(MyGUI::WidgetPtr _sender, bool _left)\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)\n
 			@param _left true if left button released
 		*/
-		EventInfo_WidgetBool eventMouseButtonReleased;
+		EventInfo_WidgetIntIntButton eventMouseButtonReleased;
 
 		/** Event : Mouse button pressed and released.\n
 			signature : void method(MyGUI::WidgetPtr _sender)
@@ -194,15 +195,15 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseButtonPressed(bool _left)
+		virtual void _onMouseButtonPressed(int _left, int _top, MouseButton _id)
 		{
-			eventMouseButtonPressed(mWidgetEventSender, _left);
+			eventMouseButtonPressed(mWidgetEventSender, _left, _top, _id);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseButtonReleased(bool _left)
+		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id)
 		{
-			eventMouseButtonReleased(mWidgetEventSender, _left);
+			eventMouseButtonReleased(mWidgetEventSender, _left, _top, _id);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним

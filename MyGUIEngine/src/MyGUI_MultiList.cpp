@@ -359,6 +359,7 @@ namespace MyGUI
 
 	size_t MultiList::convertToSort(size_t _index)
 	{
+		if (_index == ITEM_NONE) return ITEM_NONE;
 		MYGUI_DEBUG_ASSERT(_index < mToSortIndex.size(), "index out of range");
 		return mToSortIndex[_index];
 	}
