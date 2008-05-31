@@ -6,8 +6,11 @@
 */
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_Button.h"
+#include "MyGUI_PopupMenu.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_Gui.h"
+#include "MyGUI_CastWidget.h"
 
 namespace MyGUI
 {
@@ -15,7 +18,8 @@ namespace MyGUI
 
 	MenuBar::MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mDistanceButton(0)
+		mDistanceButton(0),
+		mIndexSelect(ITEM_NONE)
 	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Client") {
@@ -44,9 +48,14 @@ namespace MyGUI
 		if (_index == ITEM_NONE) _index = mVectorMenuItemInfo.size();
 
 		ButtonPtr button = mWidgetClient->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_DEFAULT);
+		button->eventMouseButtonPressed = newDelegate(this, &MenuBar::notifyMouseButtonPressed);
 		button->setCaption(_item);
 
-		mVectorMenuItemInfo.insert(mVectorMenuItemInfo.begin() + _index, MenuItemInfo(button));
+		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>("PopupMenu", IntCoord(), ALIGN_DEFAULT, "Popup");
+		menu->eventPopupMenuClose = newDelegate(this, &MenuBar::notifyPopupMenuClose);
+		menu->eventPopupMenuAccept = newDelegate(this, &MenuBar::notifyPopupMenuAccept);
+
+		mVectorMenuItemInfo.insert(mVectorMenuItemInfo.begin() + _index, MenuItemInfo(button, menu));
 		update();
 	}
 
@@ -58,10 +67,16 @@ namespace MyGUI
 		update();
 	}
 
-	const Ogre::UTFString & MenuBar::getItem(size_t _index)
+	const Ogre::UTFString & MenuBar::getItemName(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size(), "index '" << _index << "' out of range");
 		return mVectorMenuItemInfo[_index].button->getCaption();
+	}
+
+	PopupMenuPtr MenuBar::getItemMenu(size_t _index)
+	{
+		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size(), "index '" << _index << "' out of range");
+		return mVectorMenuItemInfo[_index].menu;
 	}
 
 	void MenuBar::deleteItem(size_t _index)
@@ -69,6 +84,7 @@ namespace MyGUI
 		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size(), "index '" << _index << "' out of range");
 
 		WidgetManager::getInstance().destroyWidget(mVectorMenuItemInfo[_index].button);
+		WidgetManager::getInstance().destroyWidget(mVectorMenuItemInfo[_index].menu);
 		mVectorMenuItemInfo.erase(mVectorMenuItemInfo.begin() + _index);
 
 		update();
@@ -78,6 +94,7 @@ namespace MyGUI
 	{
 		for (VectorMenuItemInfo::iterator iter=mVectorMenuItemInfo.begin(); iter!=mVectorMenuItemInfo.end(); ++iter) {
 			WidgetManager::getInstance().destroyWidget((*iter).button);
+			WidgetManager::getInstance().destroyWidget((*iter).menu);
 		}
 
 		mVectorMenuItemInfo.clear();
@@ -92,7 +109,44 @@ namespace MyGUI
 			int width = (*iter).button->getCoord().width - (*iter).button->getTextCoord().width + (*iter).button->getTextSize().width;
 			(*iter).button->setPosition(pos, 0, width, mWidgetClient->getHeight());
 			pos += width + mDistanceButton;
+			(*iter).button->_setInternalData(iter - mVectorMenuItemInfo.begin());
 		}
+	}
+
+	void MenuBar::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	{
+		setItemSelect((size_t)_sender->_getInternalData());
+	}
+
+	void MenuBar::setItemSelect(size_t _index)
+	{
+		if (mIndexSelect == _index) return;
+
+		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size() || _index == ITEM_NONE, "index '" << _index << "' out of range");
+
+		if (mIndexSelect != ITEM_NONE) {
+			mVectorMenuItemInfo[mIndexSelect].button->setButtonPressed(false);
+			mVectorMenuItemInfo[mIndexSelect].menu->hidePopupMenu();
+		}
+
+		mIndexSelect = _index;
+
+		if (mIndexSelect != ITEM_NONE) {
+			mVectorMenuItemInfo[mIndexSelect].button->setButtonPressed(true);
+			mVectorMenuItemInfo[mIndexSelect].menu->showPopupMenu(
+				IntPoint(mVectorMenuItemInfo[mIndexSelect].button->getAbsoluteLeft(), getAbsoluteRect().bottom));
+		}
+	}
+
+	void MenuBar::notifyPopupMenuClose(WidgetPtr _sender)
+	{
+		resetItemSelect();
+	}
+
+	void MenuBar::notifyPopupMenuAccept(WidgetPtr _sender, size_t _index)
+	{
+		resetItemSelect();
+		eventPopupMenuAccept(this, castWidget<PopupMenu>(_sender), _index);
 	}
 
 } // namespace MyGUI

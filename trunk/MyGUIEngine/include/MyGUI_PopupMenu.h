@@ -42,9 +42,15 @@ namespace MyGUI
 		// методы для работы с окном
 		void showPopupMenu(const IntPoint& _point);
 
+		void hidePopupMenu();
+
 		// event : нажат ентер, или щелчек мыши
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
-		EventInfo_WidgetSizeT eventPopupMunuAccept;
+		EventInfo_WidgetSizeT eventPopupMenuAccept;
+
+		// event : закрытие меню либо выбором либо сменой фокуса
+		// signature : void method(MyGUI::WidgetPtr _sender)
+		EventInfo_WidgetVoid eventPopupMenuClose;
 
 	private:
 		void notifyMouseClick(MyGUI::WidgetPtr _sender);

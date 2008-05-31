@@ -67,6 +67,8 @@ private:
 
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
+	void notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index);
+
 	// widget editing
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
@@ -140,5 +142,6 @@ private:
 	MyGUI::xml::xmlDocument * testLayout;
 
 	MyGUI::Gui * mGUI;
+	MyGUI::PopupMenuPtr mPopupMenuFile;
 
 };

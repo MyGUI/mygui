@@ -22,6 +22,17 @@ const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition:
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
 
+enum POPUP_MENU_MAIN
+{
+	ITEM_LOAD,
+	ITEM_SAVE,
+	ITEM_SAVE_AS,
+	ITEM_SETTINGS,
+	ITEM_TEST,
+	ITEM_CLEAR,
+	ITEM_QUIT
+};
+
 EditorWidgets * ew;
 WidgetTypes * wt;
 //MyGUI::Gui * mGUI;
@@ -232,8 +243,58 @@ void EditorState::enter(bool bIsChangeState)
 	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
 		load(iter->c_str());
 	}
+
+	// создание меню
+	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_HSTRETCH, "Main");
+	bar->addItem("File");
+
+	mPopupMenuFile = bar->getItemMenu(0);
+	mPopupMenuFile->addItem("Load         ");
+	mPopupMenuFile->addItem("Save");
+	mPopupMenuFile->addItem("Save as...");
+	mPopupMenuFile->addItem("Settings");
+	mPopupMenuFile->addItem("#0000FFTest");
+	mPopupMenuFile->addItem("Clear");
+	mPopupMenuFile->addItem("Quit");
+
+	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
+
+	// скрываем главное окно
+	MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu")->hide();
 }
-//===================================================================================
+
+void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index)
+{
+	if (mPopupMenuFile == _menu) {
+		switch(_index) {
+			case ITEM_LOAD:
+				// сам виноват, нагружаешь разные вещи на один метод =)
+				notifyLoadSaveAs(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonLoad"));
+				break;
+			case ITEM_SAVE:
+				notifySave(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSave"));
+				break;
+			case ITEM_SAVE_AS:
+				// сам виноват, нагружаешь разные вещи на один метод =)
+				notifyLoadSaveAs(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSaveAs"));
+				break;
+			case ITEM_SETTINGS:
+				// а тут страшно Null передавать ><
+				notifySettings(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSettings"));
+				break;
+			case ITEM_TEST:
+				notifyTest();
+				break;
+			case ITEM_CLEAR:
+				notifyClear();
+				break;
+			case ITEM_QUIT:
+				notifyQuit();
+				break;
+		}
+	}
+}
+
 void EditorState::exit()
 {
 	saveSettings();
