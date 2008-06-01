@@ -24,7 +24,7 @@ namespace MyGUI
 		mWidthBar(0),
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
-		mSortRowIndex(ITEM_NONE),
+		mSortColumnIndex(ITEM_NONE),
 		mIsDirtySort(false),
 		mWidthSeparator(0),
 		mOffsetButtonSeparator(2)
@@ -67,134 +67,123 @@ namespace MyGUI
 		Gui::getInstance().removeFrameListener(this);
 	}
 
-	void MultiList::setSize(const IntSize& _size)
-	{
-		Widget::setSize(_size);
-	}
-
-	void MultiList::setPosition(const IntCoord& _coord)
-	{
-		Widget::setPosition(_coord);
-	}
-
 	//----------------------------------------------------------------------------------//
 	// методы для работы со столбцами
-	void MultiList::insertRow(size_t _index, int _width, const Ogre::UTFString & _name)
+	void MultiList::insertColumn(size_t _column, int _width, const Ogre::UTFString & _name)
 	{
 		// скрываем у крайнего скролл
-		if (false == mVectorRowInfo.empty()) 
-			mVectorRowInfo.back().list->setScrollVisible(false);
-		else mSortRowIndex = 0;
+		if (false == mVectorColumnInfo.empty()) 
+			mVectorColumnInfo.back().list->setScrollVisible(false);
+		else mSortColumnIndex = 0;
 
-		RowInfo row;
-		row.width = _width < 0 ? 0 : _width;
+		ColumnInfo column;
+		column.width = _width < 0 ? 0 : _width;
 
-		row.list = mWidgetClient->createWidget<List>(mSkinList, IntCoord(), ALIGN_LEFT | ALIGN_VSTRETCH);
-		row.list->eventListChangePosition = newDelegate(this, &MultiList::notifyListChangePosition);
-		row.list->eventListMouseItemFocus = newDelegate(this, &MultiList::notifyListChangeFocus);
-		row.list->eventListChangeScroll = newDelegate(this, &MultiList::notifyListChangeScrollPosition);
-		row.list->eventListSelectAccept = newDelegate(this, &MultiList::notifyListSelectAccept);
+		column.list = mWidgetClient->createWidget<List>(mSkinList, IntCoord(), ALIGN_LEFT | ALIGN_VSTRETCH);
+		column.list->eventListChangePosition = newDelegate(this, &MultiList::notifyListChangePosition);
+		column.list->eventListMouseItemFocus = newDelegate(this, &MultiList::notifyListChangeFocus);
+		column.list->eventListChangeScroll = newDelegate(this, &MultiList::notifyListChangeScrollPosition);
+		column.list->eventListSelectAccept = newDelegate(this, &MultiList::notifyListSelectAccept);
 
-		row.button = mWidgetClient->createWidget<Button>(mSkinButton, IntCoord(), ALIGN_DEFAULT);
-		row.button->eventMouseButtonClick = newDelegate(this, &MultiList::notifyButtonClick);
-		row.name = _name;
+		column.button = mWidgetClient->createWidget<Button>(mSkinButton, IntCoord(), ALIGN_DEFAULT);
+		column.button->eventMouseButtonClick = newDelegate(this, &MultiList::notifyButtonClick);
+		column.name = _name;
 
 		// если уже были столбики, то делаем то же колличество полей
-		if (false == mVectorRowInfo.empty()) {
-			size_t count = mVectorRowInfo.front().list->getItemCount();
+		if (false == mVectorColumnInfo.empty()) {
+			size_t count = mVectorColumnInfo.front().list->getItemCount();
 			for (size_t pos=0; pos<count; ++pos)
-				row.list->addItem("");
+				column.list->addItem("");
 		}
 
-		if (_index > mVectorRowInfo.size()) _index = mVectorRowInfo.size();
-		mVectorRowInfo.insert(mVectorRowInfo.begin() + _index, row);
+		if (_column > mVectorColumnInfo.size()) _column = mVectorColumnInfo.size();
+		mVectorColumnInfo.insert(mVectorColumnInfo.begin() + _column, column);
 
-		updateRows();
+		updateColumns();
 
 		// показываем скролл нового крайнего
-		mVectorRowInfo.back().list->setScrollVisible(true);
+		mVectorColumnInfo.back().list->setScrollVisible(true);
 	}
 
-	void MultiList::setRowName(size_t _index, const Ogre::UTFString & _name)
+	void MultiList::setColumnName(size_t _column, const Ogre::UTFString & _name)
 	{
-		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
-		mVectorRowInfo[_index].name = _name;
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		mVectorColumnInfo[_column].name = _name;
 		redrawButtons();
 	}
 
-	void MultiList::setRowWidth(size_t _index, int _width)
+	void MultiList::setColumnWidth(size_t _column, int _width)
 	{
-		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
-		mVectorRowInfo[_index].width = _width < 0 ? 0 : _width;
-
-		updateRows();
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		mVectorColumnInfo[_column].width = _width < 0 ? 0 : _width;
+		updateColumns();
 	}
 
-	const Ogre::UTFString & MultiList::getRowName(size_t _index)
+	const Ogre::UTFString & MultiList::getColumnName(size_t _column)
 	{
-		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
-		return mVectorRowInfo[_index].name;
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		return mVectorColumnInfo[_column].name;
 	}
 
-	int MultiList::getRowWidth(size_t _index)
+	int MultiList::getColumnWidth(size_t _column)
 	{
-		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
-		return mVectorRowInfo[_index].width;
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		return mVectorColumnInfo[_column].width;
 	}
 
-	void MultiList::deleteRow(size_t _index)
+	void MultiList::deleteColumn(size_t _column)
 	{
-		MYGUI_ASSERT(_index < mVectorRowInfo.size(), "index " << _index <<" out of range");
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
 
-		RowInfo & info = mVectorRowInfo[_index];
+		ColumnInfo & info = mVectorColumnInfo[_column];
 
 		WidgetManager & manager = WidgetManager::getInstance();
 		manager.destroyWidget(info.button);
 		manager.destroyWidget(info.list);
 
-		mVectorRowInfo.erase(mVectorRowInfo.begin() + _index);
+		mVectorColumnInfo.erase(mVectorColumnInfo.begin() + _column);
 
-		if (mVectorRowInfo.empty()) mSortRowIndex = ITEM_NONE;
+		if (mVectorColumnInfo.empty()) mSortColumnIndex = ITEM_NONE;
 		else {
-			mSortRowIndex = 0;
+			mSortColumnIndex = 0;
 			mSortUp = true;
 			sortList();
 		}
 
-		updateRows();
+		updateColumns();
 	}
 
-	void MultiList::deleteAllRows()
+	void MultiList::deleteAllColumns()
 	{
 		WidgetManager & manager = WidgetManager::getInstance();
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			manager.destroyWidget((*iter).button);
 			manager.destroyWidget((*iter).list);
 		}
-		mVectorRowInfo.clear();
-		mSortRowIndex = ITEM_NONE;
+		mVectorColumnInfo.clear();
+		mSortColumnIndex = ITEM_NONE;
 
-		updateRows();
+		updateColumns();
 	}
 
 	//------------------------------------------------------------------------------//
 	// методы для работы со строками
 	size_t MultiList::getItemCount()
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		return mVectorRowInfo.front().list->getItemCount();
+		if (mVectorColumnInfo.empty()) return 0;
+		return mVectorColumnInfo.front().list->getItemCount();
 	}
 
 	void MultiList::insertItem(size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		if (ITEM_NONE == _index) _index = mVectorRowInfo.front().list->getItemCount();
+		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
+		if (ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
 		// вставляем во все поля пустые, а потом присваиваем первому
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->insertItem(_index, "");
 		}
-		mVectorRowInfo.front().list->setItem(_index, _item);
+		mVectorColumnInfo.front().list->setItem(_index, _item);
 
 		_insertSortIndex(_index);
 		setDirtySort();
@@ -212,17 +201,18 @@ namespace MyGUI
 
 	void MultiList::deleteItem(size_t _index)
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-			(*iter).list->deleteItem(_index);
+		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
+		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+			(*iter).list->deleteItem(convertToSort(_index));
 		}
 		_eraseSortIndex(_index);
 	}
 
 	void MultiList::deleteAllItems()
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		if (mVectorColumnInfo.empty()) return;
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->deleteAllItems();
 		}
 		_clearSortIndex();
@@ -230,44 +220,54 @@ namespace MyGUI
 
 	size_t MultiList::getItemSelect()
 	{
-		if (mVectorRowInfo.empty()) return ITEM_NONE;
-		size_t item = mVectorRowInfo.front().list->getItemSelect();
+		if (mVectorColumnInfo.empty()) return ITEM_NONE;
+		size_t item = mVectorColumnInfo.front().list->getItemSelect();
 		return (ITEM_NONE == item) ? ITEM_NONE : convertFromSort(item);
 	}
 
 	void MultiList::resetItemSelect()
 	{
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->resetItemSelect();
 		}
 	}
 
 	void MultiList::setItemSelect(size_t _index)
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		size_t index = convertFromSort(_index);
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
+		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
+		size_t index = convertToSort(_index);
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->setItemSelect(index);
 		}
 	}
 
 	//----------------------------------------------------------------------------------//
 	// методы для работы с саб строками
-	void MultiList::setSubItem(size_t _row, size_t _index, const Ogre::UTFString & _item)
+	void MultiList::setSubItem(size_t _column, size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		mVectorRowInfo[_row].list->setItem(convertFromSort(_index), _item);
+		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
+		mVectorColumnInfo[_column].list->setItem(convertToSort(_index), _item);
 
 		// если мы попортили список с активным сортом, надо пересчитывать
-		if (_row == mSortRowIndex) setDirtySort();
+		if (_column == mSortColumnIndex) setDirtySort();
 	}
 
-	const Ogre::UTFString & MultiList::getSubItem(size_t _row, size_t _index)
+	const Ogre::UTFString & MultiList::getSubItem(size_t _column, size_t _index)
 	{
-		MYGUI_ASSERT(false == mVectorRowInfo.empty(), "row not found");
-		MYGUI_ASSERT(_index < mVectorRowInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		return mVectorRowInfo[_row].list->getItem(convertToSort(_index));
+		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
+		return mVectorColumnInfo[_column].list->getItem(convertToSort(_index));
+	}
+
+	size_t MultiList::findItem(size_t _column, const Ogre::UTFString & _item)
+	{
+		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
+		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		return convertFromSort(mVectorColumnInfo[_column].list->findItem(_item));
 	}
 	//----------------------------------------------------------------------------------//
 
@@ -284,7 +284,7 @@ namespace MyGUI
 
 	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
 			if (_widget != (*iter).list) (*iter).list->setItemSelect(_position);
 
 		// наш евент
@@ -299,7 +299,7 @@ namespace MyGUI
 
 	void MultiList::notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position)
 	{
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			if (_widget != (*iter).list) {
 				if (ITEM_NONE != mLastMouseFocusIndex) (*iter).list->_setItemFocus(mLastMouseFocusIndex, false);
 				if (ITEM_NONE != _position) (*iter).list->_setItemFocus(_position, true);
@@ -310,7 +310,7 @@ namespace MyGUI
 
 	void MultiList::notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			if (_widget != (*iter).list)
 				(*iter).list->setScrollPosition(_position);
 		}
@@ -318,7 +318,7 @@ namespace MyGUI
 
 	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _widget)
 	{
-		if (_widget->_getInternalData() == mSortRowIndex) {
+		if (_widget->_getInternalData() == mSortColumnIndex) {
 			mSortUp = !mSortUp;
 			redrawButtons();
 			// если было недосортированно то сортируем
@@ -327,7 +327,7 @@ namespace MyGUI
 			flipList();
 		}
 		else {
-			mSortRowIndex = (size_t)_widget->_getInternalData();
+			mSortColumnIndex = (size_t)_widget->_getInternalData();
 			mSortUp = true;
 			redrawButtons();
 			sortList();
@@ -337,8 +337,8 @@ namespace MyGUI
 	void MultiList::redrawButtons()
 	{
 		size_t pos = 0;
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
-			if (pos == mSortRowIndex) {
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+			if (pos == mSortColumnIndex) {
 				if (mSortUp) (*iter).button->setImageIndex(SORT_UP);
 				else (*iter).button->setImageIndex(SORT_DOWN);
 			}
@@ -376,12 +376,13 @@ namespace MyGUI
 
 	void MultiList::_eraseSortIndex(size_t _index)
 	{
-		size_t index = mToSortIndex[_index];
-		// все индексты что меньше уменьшаем
+		// запоминаем чтобы позже удалить
+		size_t index = convertToSort(_index);
+		// все индексы что больше уменьшаем
 		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
-			if (mToSortIndex[pos] > index) mToSortIndex[pos]--;
+			if (mToSortIndex[pos] > _index) mToSortIndex[pos]--;
 		}
-		mToSortIndex.erase(mToSortIndex.begin() + _index);
+		mToSortIndex.erase(mToSortIndex.begin() + index);
 	}
 
 	void MultiList::_clearSortIndex()
@@ -392,9 +393,9 @@ namespace MyGUI
 	void MultiList::flipList()
 	{
 
-		if (ITEM_NONE == mSortRowIndex) return;
+		if (ITEM_NONE == mSortColumnIndex) return;
 
-		size_t end = mVectorRowInfo.front().list->getItemCount();
+		size_t end = mVectorColumnInfo.front().list->getItemCount();
 		if (0 == end) return;
 		end --;
 		size_t start = 0;
@@ -410,7 +411,7 @@ namespace MyGUI
 
 		while (start < end) {
 
-			for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 				tmp = (*iter).list->getItem(start);
 				(*iter).list->setItem(start, (*iter).list->getItem(end));
 				(*iter).list->setItem(end, tmp);
@@ -432,8 +433,8 @@ namespace MyGUI
 
 	void MultiList::sortList()
 	{
-		if (ITEM_NONE == mSortRowIndex) return;
-		ListPtr list = mVectorRowInfo[mSortRowIndex].list;
+		if (ITEM_NONE == mSortColumnIndex) return;
+		ListPtr list = mVectorColumnInfo[mSortColumnIndex].list;
 		size_t count = list->getItemCount();
 		if (0 == count) return;
 
@@ -444,30 +445,30 @@ namespace MyGUI
 
 		struct Keeper
 		{
-			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
 			{
 				text.resize(info.size());
 				std::vector<Ogre::UTFString>::iterator itext = text.begin();
-				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
+				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
 					(*itext) = (*iter).list->getItem(_index);
 				}
 				index1 = _index;
 				index2 = vec2[_index];
 			}
 
-			inline void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index)
+			inline void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
 			{
 				std::vector<Ogre::UTFString>::iterator itext = text.begin();
-				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
+				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
 					(*iter).list->setItem(_index, *itext);
 				}
 				vec[vec2[_index]] = index1;
 				vec2[_index] = index2;
 			}
 
-			inline void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorRowInfo & info, size_t _index1, size_t _index2)
+			inline void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index1, size_t _index2)
 			{
-				for (VectorRowInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
+				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
 					(*iter).list->setItem(_index1, (*iter).list->getItem(_index2));
 				}
 				vec[vec2[_index1]] = _index2;
@@ -487,9 +488,9 @@ namespace MyGUI
 					for( size_t i=0; i<(count-step); ++i ) {
 							int j = (int)i;
 							while ( (j>=0) && (list->getItem(j) > list->getItem(j+step)) ){
-									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
-									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
-									keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
+									keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
+									keeper.swap(mToSortIndex, vec, mVectorColumnInfo, j, j+step);
+									keeper.restore(mToSortIndex, vec, mVectorColumnInfo, j+step);
 									--j;
 							}
 					}
@@ -501,9 +502,9 @@ namespace MyGUI
 					for( size_t i=0; i<(count-step); ++i ) {
 							int j = (int)i;
 							while ( (j>=0) && (list->getItem(j) < list->getItem(j+step)) ){
-									keeper.keep(mToSortIndex, vec, mVectorRowInfo, j);
-									keeper.swap(mToSortIndex, vec, mVectorRowInfo, j, j+step);
-									keeper.restore(mToSortIndex, vec, mVectorRowInfo, j+step);
+									keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
+									keeper.swap(mToSortIndex, vec, mVectorColumnInfo, j, j+step);
+									keeper.restore(mToSortIndex, vec, mVectorColumnInfo, j+step);
 									--j;
 							}
 					}
@@ -535,7 +536,7 @@ namespace MyGUI
 	{
 		if (!mWidthSeparator || mSkinSeparator.empty()) return null;
 		// последний столбик
-		if (_index == mVectorRowInfo.size()-1) return null;
+		if (_index == mVectorColumnInfo.size()-1) return null;
 
 		while (_index >= mSeparators.size()) {
 			WidgetPtr separator = mWidgetClient->createWidget<Widget>(mSkinSeparator, IntCoord(), ALIGN_DEFAULT);
@@ -545,11 +546,11 @@ namespace MyGUI
 		return mSeparators[_index];
 	}
 
-	void MultiList::updateRows()
+	void MultiList::updateColumns()
 	{
 		mWidthBar = 0;
 		int index = 0;
-		for (VectorRowInfo::iterator iter=mVectorRowInfo.begin(); iter!=mVectorRowInfo.end(); ++iter) {
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
 			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
 			(*iter).button->_setInternalData(index);

@@ -50,11 +50,11 @@ namespace MyGUI
 		void deleteAllItems();
 
 		//! Get number of selected item (ITEM_NONE if none selected)
-		void setItemSelect(size_t _index);
+		inline size_t getItemSelect() {return mItemIndex;}
 		//! Reset item selection
 		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
-		//! Set item selection at a specified position
-		inline size_t getItemSelect() { return mItemIndex; }
+		//! Select specified _index
+		void setItemSelect(size_t _index);
 
 		//------------------------------------------------------------------------------------//
 		// методы для управления отображением

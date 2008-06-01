@@ -634,6 +634,15 @@ namespace MyGUI
 		return mStringArray[_index];
 	}
 
+	size_t List::findItem(const Ogre::UTFString & _item)
+	{
+		//std::find(mStringArray.begin(), mStringArray.end(), _item);
+		for (size_t pos=0; pos<mStringArray.size(); pos++) {
+			if (_item == mStringArray[pos]) return pos;
+		}
+		return ITEM_NONE;
+	}
+
 	void List::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
 		mLineActive = _sender->_getInternalData();

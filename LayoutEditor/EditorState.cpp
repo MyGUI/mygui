@@ -10,7 +10,6 @@
 
 #define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
 #define TO_GRID(x) ((x)/grid_step*grid_step)
-
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
 const std::string LogSection = "LayoutEditor";
@@ -32,11 +31,6 @@ enum POPUP_MENU_MAIN
 	ITEM_CLEAR,
 	ITEM_QUIT
 };
-
-EditorWidgets * ew;
-WidgetTypes * wt;
-//MyGUI::Gui * mGUI;
-UndoManager * um;
 
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
 {
@@ -81,7 +75,8 @@ void EditorState::enter(bool bIsChangeState)
 	wt->initialise();
 	ew = new EditorWidgets();
 	ew->initialise();
-	um = new UndoManager(ew);
+	um = new UndoManager();
+	um->initialise(ew);
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
@@ -187,9 +182,6 @@ void EditorState::enter(bool bIsChangeState)
 	}
 	comboFullScreen->setItemSelect(selectedIdx);
 
-//#ifdef NO_EXCLUSIVE_INPUT
-	//MyGUI::PointerManager::getInstance().hide();
-//#endif
 	ASSIGN_FUNCTION("LayoutEditor_checkShowName", &EditorState::notifyToggleCheck);
 	ASSIGN_FUNCTION("LayoutEditor_checkShowType", &EditorState::notifyToggleCheck);
 	ASSIGN_FUNCTION("LayoutEditor_checkShowSkin", &EditorState::notifyToggleCheck);
@@ -224,8 +216,8 @@ void EditorState::enter(bool bIsChangeState)
 	editValue->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateUserData);
 	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 	multilist->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectUserDataItem);
-	multilist->addRow(editKey->getWidth() - 3, "Key");
-	multilist->addRow(multilist->getWidth() - (editKey->getWidth() - 3), "Value");
+	multilist->addColumn(editKey->getWidth() - PANELS_MARGIN, "Key");
+	multilist->addColumn(multilist->getWidth() - editKey->getWidth() - PANELS_MARGIN, "Value");
 
 	// create widget rectangle
 	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
@@ -279,8 +271,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 				notifyLoadSaveAs(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSaveAs"));
 				break;
 			case ITEM_SETTINGS:
-				// а тут страшно Null передавать ><
-				notifySettings(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSettings"));
+				notifySettings();
 				break;
 			case ITEM_TEST:
 				notifyTest();
@@ -298,6 +289,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 void EditorState::exit()
 {
 	saveSettings();
+	um->shutdown();
 	delete um;
 	ew->shutdown();
 	delete ew;
@@ -307,22 +299,6 @@ void EditorState::exit()
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
-/*#ifdef NO_EXCLUSIVE_INPUT
-	#if defined OIS_WIN32_PLATFORM
-	if ((arg.state.X.abs < 1) || (arg.state.X.abs > mGUI->getViewWidth() - 1) || (arg.state.Y.abs < 1) || (arg.state.Y.abs > mGUI->getViewHeight() - 1))
-	{
-		MyGUI::PointerManager::getInstance().hide();
-		ShowCursor(true);
-	}
-	else
-	{
-		MyGUI::PointerManager::getInstance().show();
-		ShowCursor(false);
-	}
-	#endif
-#endif*/
-
-	//MyGUI::MYGUI_OUT (arg.state.X.abs, " ", arg.state.Y.abs);
 	if (testMode){ mGUI->injectMouseMove(arg); return true;}
 
 	x2 = TO_GRID(arg.state.X.abs);
@@ -1247,7 +1223,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 
 void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 {
-	ON_EXIT(um->addValue(PR_PROPERTIES));
+	ON_EXIT(UndoManager::getInstance().addValue(PR_PROPERTIES));
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	std::string action = _sender->getUserString("action");
 	std::string value = MyGUI::castWidget<MyGUI::Edit>(_sender)->getOnlyText();
@@ -1559,7 +1535,7 @@ void EditorState::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
 {
 	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(_tab);
 	MyGUI::SheetPtr sheet = tab->addSheet(_caption);
-	WidgetContainer * wc = new WidgetContainer("Sheet", "Sheet", sheet, "");
+	WidgetContainer * wc = new WidgetContainer("Sheet", "Default", sheet, "");
 	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
 	ew->add(wc);
 }
@@ -1729,7 +1705,7 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item) return;
-	ON_EXIT(um->addValue());
+	ON_EXIT(UndoManager::getInstance().addValue());
 	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 
@@ -1753,7 +1729,7 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item){ notifyAddString(); return;}
-	ON_EXIT(um->addValue());
+	ON_EXIT(UndoManager::getInstance().addValue());
 	Ogre::String action;
 	Ogre::String value = edit->getOnlyText();
 	Ogre::String lastitem = list->getItem(item);
@@ -1811,12 +1787,11 @@ void EditorState::notifyAddUserData(MyGUI::WidgetPtr _sender)
 	Ogre::String key = editKey->getOnlyText();
 	Ogre::String value = editValue->getOnlyText();
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	if (MapFind(widgetContainer->mUserString, (key)) == widgetContainer->mUserString.end())
+	if (MapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
 	{
 		multilist->addItem(key);
-		multilist->setSubItem(1, multilist->getItemCount() - 1, value);
 	}
-
+	multilist->setSubItem(1, multilist->findItem(0, key), value);
 	MapSet(widgetContainer->mUserString, key, value);
 	um->addValue();
 }
@@ -1842,20 +1817,24 @@ void EditorState::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
 	MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
 	size_t item = multilist->getItemSelect();
 	if (ITEM_NONE == item){ notifyAddUserData(); return;}
-	ON_EXIT(um->addValue());
 	Ogre::String key = editKey->getOnlyText();
 	Ogre::String value = editValue->getOnlyText();
 	Ogre::String lastkey = multilist->getItem(item);
-	multilist->setSubItem(0, item, key);
-	multilist->setSubItem(1, item, value);
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
+	multilist->deleteItem(multilist->findItem(0, lastkey));
 	MapErase(widgetContainer->mUserString, lastkey);
-
+	if (MapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
+	{
+		multilist->addItem(key);
+	}
+	multilist->setSubItem(1, multilist->findItem(0, key), value);
+	multilist->setItemSelect(multilist->findItem(0, key));
 	MapSet(widgetContainer->mUserString, key, value);
+	um->addValue();
 }
 
-void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _position)
+void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _index)
 {
 	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");

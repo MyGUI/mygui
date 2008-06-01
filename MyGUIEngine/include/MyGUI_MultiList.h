@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	struct RowInfo
+	struct ColumnInfo
 	{
 		ListPtr list;
 		ButtonPtr button;
@@ -22,7 +22,7 @@ namespace MyGUI
 		Ogre::UTFString name;
 	};
 
-	typedef std::vector<RowInfo> VectorRowInfo;
+	typedef std::vector<ColumnInfo> VectorColumnInfo;
 	typedef std::vector<size_t> VectorSizeT;
 
 	class _MyGUIExport MultiList : public Widget , public FrameListener
@@ -50,58 +50,91 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		//----------------------------------------------------------------------------------//
-		// методы для работы со столбцами
-		inline size_t getRowCount() { return mVectorRowInfo.size();}
+		// Methods for work with columns (RU:методы для работы со столбцами)
+		//! Get number of columns
+		inline size_t getColumnCount() { return mVectorColumnInfo.size();}
 
-		void insertRow(size_t _index, int _width, const Ogre::UTFString & _name);
-		inline void addRow(int _width, const Ogre::UTFString & _name) {insertRow(ITEM_NONE, _width, _name);}
-		void setRowName(size_t _index, const Ogre::UTFString & _name);
-		void setRowWidth(size_t _index, int _width);
-		const Ogre::UTFString & getRowName(size_t _index);
-		int getRowWidth(size_t _index);
+		/** Insert new column
+			@param _column New column will be inserted before _column
+			@param _width Width of new column
+			@param _name Name of new column
+		*/
+		void insertColumn(size_t _column, int _width, const Ogre::UTFString & _name);
+		/** Add new column at last position
+			@param _width Width of new column
+			@param _name Name of new column
+		*/
+		inline void addColumn(int _width, const Ogre::UTFString & _name) {insertColumn(ITEM_NONE, _width, _name);}
+		/** Set column name
+			@param _column Index of column
+			@param _name New name of column
+		*/
+		void setColumnName(size_t _column, const Ogre::UTFString & _name);
+		/** Set column width
+			@param _column Index of column
+			@param _name New width of column
+		*/
+		void setColumnWidth(size_t _column, int _width);
+		/** Get _column name */
+		const Ogre::UTFString & getColumnName(size_t _column);
+		/** Get _column width */
+		int getColumnWidth(size_t _column);
 
-		void deleteRow(size_t _index);
-		void deleteAllRows();
+		/** Delete column */
+		void deleteColumn(size_t _column);
+		/** Delete all columns */
+		void deleteAllColumns();
 
 		//----------------------------------------------------------------------------------//
-		// методы для работы со строками
+		// Methods for work with lines (RU:методы для работы со строками)
+		/** Get number of items (lines) */
 		size_t getItemCount();
 
+		/** Insert new item before _index line */
 		void insertItem(size_t _index, const Ogre::UTFString & _item);
+		/** Add new item at the end */
 		inline void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
+		/** Set item string */
 		void setItem(size_t _index, const Ogre::UTFString & _item);
+		/** Get item string */
 		const Ogre::UTFString & getItem(size_t _index);
 
+		/** Delete item */
 		void deleteItem(size_t _index);
+		/** Delete all items */
 		void deleteAllItems();
 
+		/** Get index of selected item (ITEM_NONE if none selected) */
 		size_t getItemSelect();
+		/** Reset item selection */
 		void resetItemSelect();
+		/** Select specified _index */
 		void setItemSelect(size_t _index);
 
 		//----------------------------------------------------------------------------------//
-		// методы для работы с саб строками
-		void setSubItem(size_t _row, size_t _index, const Ogre::UTFString & _item);
-		const Ogre::UTFString & getSubItem(size_t _row, size_t _index);
-
+		// Methods for work with sub lines (RU:методы для работы со саб строками)
+		/** Set sub item
+			@param _column Index of column
+			@param _index Index of line
+			@param _item New sub item value
+		*/
+		void setSubItem(size_t _column, size_t _index, const Ogre::UTFString & _item);
+		/** Get sub item */
+		const Ogre::UTFString & getSubItem(size_t _column, size_t _index);
+		/** Search item in specified _column, returns index of the first occurrence in column or ITEM_NONE if item not found */
+		size_t findItem(size_t _column, const Ogre::UTFString & _item);
 		//----------------------------------------------------------------------------------//
-		//! @copydoc Widget::setPosition(const IntCoord& _coord)
-		void setPosition(const IntCoord& _coord);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		void setSize(const IntSize& _size);
-		//! @copydoc Widget::setPosition(int _left, int _top)
-		inline void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
-		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
-		//! @copydoc Widget::setSize(int _width, int _height)
-		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
-		// event : нажат ентер, или двойной щелчек
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
+		/** Event : Enter pressed or double click.\n
+			signature : void method(WidgetPtr _sender, size_t _index)\n
+			_index of selected item
+		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
-		// event : изменилась позиция
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _position)
+		/** Event : Selected item position changed.\n
+			signature : void method(WidgetPtr _sender, size_t _index)\n
+			_index of new item
+		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
 
 	protected:
@@ -113,7 +146,7 @@ namespace MyGUI
 		void notifyButtonClick(MyGUI::WidgetPtr _widget);
 		void notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position);
 
-		void updateRows();
+		void updateColumns();
 		void redrawButtons();
 		void updateOnlyEmpty();
 
@@ -138,14 +171,14 @@ namespace MyGUI
 		ButtonPtr mButtonMain;
 
 		//WidgetPtr mWidgetClient;
-		VectorRowInfo mVectorRowInfo;
+		VectorColumnInfo mVectorColumnInfo;
 
 		VectorWidgetPtr mSeparators;
 
 		size_t mLastMouseFocusIndex;
 
 		bool mSortUp;
-		size_t mSortRowIndex;
+		size_t mSortColumnIndex;
 
 
 		// векторы для быстрого маппинга в сортированном списке

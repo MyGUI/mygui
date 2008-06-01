@@ -3,7 +3,9 @@
 #include "BasisState.h"
 #include "MyGUI.h"
 
-//#define NO_EXCLUSIVE_INPUT
+class EditorWidgets;
+class WidgetTypes;
+class UndoManager;
 
 class EditorState : public BasisState
 {
@@ -28,7 +30,7 @@ public:
 	// main panel
 	void notifySave(MyGUI::WidgetPtr _sender);
 	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender);
-	void notifySettings(MyGUI::WidgetPtr _sender);
+	void notifySettings(MyGUI::WidgetPtr _sender = 0);
 	void notifyTest(MyGUI::WidgetPtr _sender = 0);
 	void notifyClear(MyGUI::WidgetPtr _sender = 0);
 	void notifyQuit(MyGUI::WidgetPtr _sender = 0);
@@ -89,7 +91,7 @@ private:
 	void notifyAddUserData(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
 	void notifyUpdateUserData(MyGUI::WidgetPtr _widget);
-	void notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _position);
+	void notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _index);
 
 	// конвертирует из анси строки в вайд строку
 	Ogre::DisplayString anci_to_utf16(const std::string & _source);
@@ -141,7 +143,10 @@ private:
 	MyGUI::VectorWidgetPtr interfaceWidgets;
 	MyGUI::xml::xmlDocument * testLayout;
 
+	EditorWidgets * ew;
+	WidgetTypes * wt;
+	UndoManager * um;
+
 	MyGUI::Gui * mGUI;
 	MyGUI::PopupMenuPtr mPopupMenuFile;
-
 };
