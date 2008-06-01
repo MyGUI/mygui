@@ -43,60 +43,6 @@ void BasisManager::setMainWindowIcon(size_t _iconId)
 #endif
 }
 
-/*void BasisManager::createInput() // создаем систему ввода
-{
-	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
-	OIS::ParamList pl;
-	size_t windowHnd = 0;
-	std::ostringstream windowHndStr;
-
-	mWindow->getCustomAttribute("WINDOW", &windowHnd);
-	windowHndStr << windowHnd;
-	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-#ifdef NO_EXCLUSIVE_INPUT
-	#if defined OIS_WIN32_PLATFORM
-	pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
-	pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
-	pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
-	pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
-	#elif defined OIS_LINUX_PLATFORM
-	pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-	pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
-	pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
-	pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
-	#endif
-#endif
-
-	mInputManager = OIS::InputManager::createInputSystem( pl );
-
-	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
-	mKeyboard->setEventCallback(this);
-
-	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
-	mMouse->setEventCallback(this);
-
-}
-
-void BasisManager::destroyInput() // удал€ем систему ввода
-{
-
-	if( mInputManager ) {
-		Ogre::LogManager::getSingletonPtr()->logMessage("*** Destroy OIS ***");
-
-		if (mMouse) {
-			mInputManager->destroyInputObject( mMouse );
-			mMouse = 0;
-		}
-		if (mKeyboard) {
-			mInputManager->destroyInputObject( mKeyboard );
-			mKeyboard = 0;
-		}
-		OIS::InputManager::destroyInputSystem(mInputManager);
-		mInputManager = 0;
-	}
-}*/
-
 void BasisManager::createBasisManager(void) // создаем начальную точки каркаса приложени€
 {
 	Ogre::String pluginsPath;
