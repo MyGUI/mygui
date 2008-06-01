@@ -93,8 +93,11 @@ enum {PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION};
 class UndoManager
 {
 public:
-	UndoManager(EditorWidgets * ew);
-	~UndoManager();
+	INSTANCE_HEADER(UndoManager);
+
+public:
+	void initialise(EditorWidgets * ew);
+	void shutdown();
 
 	void undo();
 	void redo();

@@ -25,13 +25,9 @@ struct WidgetContainer
 	StringPairs mUserString;
 	std::string type;
 	std::string skin;
-	//std::string position;
-	//std::string position_real;
-	//std::string layer;
 	std::string align;
 	Ogre::String name;
 	// not for saving
-	//inline type() { return widget->getWidgetType(); }
 	inline std::string position(bool _percent = true)
 	{
 		if (relative_mode){

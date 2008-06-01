@@ -33,10 +33,10 @@ private:
 	//OIS::Keyboard* mKeyboard;
 	//OIS::Mouse*    mMouse;
 
-    Ogre::Root *mRoot;
-    Ogre::Camera* mCamera;
-    Ogre::SceneManager* mSceneMgr;
-    Ogre::RenderWindow* mWindow;
+	Ogre::Root *mRoot;
+	Ogre::Camera* mCamera;
+	Ogre::SceneManager* mSceneMgr;
+	Ogre::RenderWindow* mWindow;
 	Ogre::String mResourcePath;
 	bool m_exit; // выходим из цикла приложения
 	size_t mWidth, mHeight; // ширина и высота экрана
@@ -61,9 +61,6 @@ public:
 	void setWindowCaption(const std::string & _text);
 
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
-
-		//void createInput(); // создаем систему ввода
-	//void destroyInput(); // удаляем систему ввода
 
 	void createBasisManager(); // создаем начальную точки каркаса приложения
 	void destroyBasisManager(); // очищаем все параметры каркаса приложения

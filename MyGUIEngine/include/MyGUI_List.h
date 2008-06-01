@@ -41,6 +41,8 @@ namespace MyGUI
 		void setItem(size_t _index, const Ogre::UTFString & _item);
 		//! Get item from specified position
 		const Ogre::UTFString & getItem(size_t _index);
+		//! Search item, returns the position of the first occurrence in list or ITEM_NONE if item not found
+		size_t findItem(const Ogre::UTFString & _item);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
@@ -51,7 +53,7 @@ namespace MyGUI
 		inline size_t getItemSelect() {return mIndexSelect;}
 		//! Reset item selection
 		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
-		//! Set item selection at a specified position
+		//! Select specified _index
 		void setItemSelect(size_t _index);
 
 
