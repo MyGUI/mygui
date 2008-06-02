@@ -174,11 +174,7 @@ namespace MyGUI
 		{
 			WidgetPtr widget = findWidgetT(_name);
 			if (null == widget) return null;
-			MYGUI_DEBUG_ASSERT(null != dynamic_cast<T*>(widget),
-				"Error dynamic cast : dest type = '" << T::_getType() 
-				<< "' source name = '" << widget->getName() 
-				<< "' source type = '" << widget->getWidgetType() << "'");
-			return static_cast<T*>(widget);
+			return castWidget<T>(widget);
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/

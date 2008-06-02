@@ -103,6 +103,27 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_buttonClear", &EditorState::notifyClear);
 	ASSIGN_FUNCTION("LayoutEditor_buttonQuit", &EditorState::notifyQuit);
 
+	// создание меню
+	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "Main");
+	bar->addItem("File");
+
+	mPopupMenuFile = bar->getItemMenu(0);
+	mPopupMenuFile->addItem("Load");
+	mPopupMenuFile->addItem("Save");
+	mPopupMenuFile->addItem("Save as...");
+	mPopupMenuFile->addItem("Settings");
+	mPopupMenuFile->addItem("#0000FFTest");
+	mPopupMenuFile->addItem("Clear");
+	mPopupMenuFile->addItem("Quit");
+
+	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
+
+	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
+   {
+		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, 2, 3);
+		MyGUI::ControllerManager::getInstance().addItem(bar, controller);
+	}
+
 	// widgets panel
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
 
@@ -235,24 +256,6 @@ void EditorState::enter(bool bIsChangeState)
 	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
 		load(iter->c_str());
 	}
-
-	// создание меню
-	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "Main");
-	bar->addItem("File");
-
-	mPopupMenuFile = bar->getItemMenu(0);
-	mPopupMenuFile->addItem("Load         ");
-	mPopupMenuFile->addItem("Save");
-	mPopupMenuFile->addItem("Save as...");
-	mPopupMenuFile->addItem("Settings");
-	mPopupMenuFile->addItem("#0000FFTest");
-	mPopupMenuFile->addItem("Clear");
-	mPopupMenuFile->addItem("Quit");
-
-	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
-
-	// скрываем главное окно
-	MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu")->hide();
 }
 
 void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index)
