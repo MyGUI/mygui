@@ -78,22 +78,23 @@ namespace MyGUI
 
 		MyGUI::IntCoord coord = _widget->getCoord();
 		bool nearBorder = false;
-		if (coord.left <= 0)
+
+		if ((coord.left <= 0) && !(coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()))
 		{
 			coord.left = -(coord.width - mRemainPixels - mShadowSize) * k;
 			nearBorder = true;
 		}
-		if (coord.top <= 0)
+		if ((coord.top <= 0) && !(coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()))
 		{
 			coord.top = -(coord.height - mRemainPixels - mShadowSize) * k;
 			nearBorder = true;
 		}
-		if (coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth())
+		if ((coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()) && !(coord.left <= 0))
 		{
 			coord.left = (int)MyGUI::Gui::getInstance().getViewWidth() - mRemainPixels - (coord.width) * (1 - k);
 			nearBorder = true;
 		}
-		if (coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight())
+		if ((coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()) && !(coord.top <= 0))
 		{
 			coord.top = (int)MyGUI::Gui::getInstance().getViewHeight() - mRemainPixels - (coord.height) * (1 - k);
 			nearBorder = true;
