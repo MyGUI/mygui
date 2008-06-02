@@ -128,6 +128,9 @@ namespace MyGUI
 		// сбрасывает захват мыши, если он был
 		inline void resetMouseCaptureWidget() {mIsWidgetMouseCapture = false;}
 
+		// текущий язык
+		inline const std::string & getCurrentLang() { return (*mCurrentLanguage).first; }
+
 	protected:
 		void _frameEntered(float _frame);
 
