@@ -8,6 +8,7 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_CastWidget.h"
@@ -48,7 +49,7 @@ namespace MyGUI
 		if (_index == ITEM_NONE) _index = mVectorMenuItemInfo.size();
 
 		ButtonPtr button = mWidgetClient->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_DEFAULT);
-		button->eventMouseButtonPressed = newDelegate(this, &MenuBar::notifyMouseButtonPressed);
+		button->eventMouseButtonClick = newDelegate(this, &MenuBar::notifyMouseButtonClick);
 		button->setCaption(_item);
 
 		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>("PopupMenu", IntCoord(), ALIGN_DEFAULT, "Popup");
@@ -113,9 +114,13 @@ namespace MyGUI
 		}
 	}
 
-	void MenuBar::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void MenuBar::notifyMouseButtonClick(MyGUI::WidgetPtr _sender/*, int _left, int _top, MouseButton _id*/)
 	{
-		setItemSelect((size_t)_sender->_getInternalData());
+		//if (_id == MB_Left) {
+			size_t select = (size_t)_sender->_getInternalData();
+			if (mIndexSelect == select) select = ITEM_NONE;
+			setItemSelect(select);
+		//}
 	}
 
 	void MenuBar::setItemSelect(size_t _index)
@@ -140,6 +145,12 @@ namespace MyGUI
 
 	void MenuBar::notifyPopupMenuClose(WidgetPtr _sender)
 	{
+		// при щелчке на активный понкт меню сбрасывать не нужно
+		if (mIndexSelect != ITEM_NONE) {
+			const IntPoint & point = InputManager::getInstance().getMousePosition();
+			WidgetPtr widget = InputManager::getInstance().getWidgetFromPoint(point.left, point.top);
+			if (mVectorMenuItemInfo[mIndexSelect].button == widget) return;
+		}
 		resetItemSelect();
 	}
 
