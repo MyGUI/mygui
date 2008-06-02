@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="MyGUIEngine"
 	ProjectGUID="{5F8593A8-A772-4C4E-99C0-A182D3D9FF64}"
+	RootNamespace="MyGUIEngine"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -23,27 +24,22 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MYGUI_NONCLIENT_BUILD"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				TreatWChar_tAsBuiltInType="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib freetype235_D.lib"
+				ShowProgress="0"
 				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\Dependencies\lib\Debug"
 				IgnoreAllDefaultLibraries="FALSE"
-				IgnoreDefaultLibraryNames="LIBCMTD.lib"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(TargetDir)$(TargetName).pdb"
-				SubSystem="2"
+				SubSystem="0"
 				ImportLibrary="lib\Debug\MyGUI_d.lib"
 				TargetMachine="1"/>
 			<Tool
@@ -72,18 +68,15 @@
 			OutputDirectory="../Shared/$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
-			CharacterSet="2">
+			CharacterSet="2"
+			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="include;..\Dependencies\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL; MYGUI_NONCLIENT_BUILD"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUIENGINE_EXPORTS; MYGUI_NONCLIENT_BUILD"
 				RuntimeLibrary="2"
-				TreatWChar_tAsBuiltInType="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -126,137 +119,10 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<Filter
-				Name="Core"
-				Filter="">
-				<File
-					RelativePath=".\src\MyGUI_ClipboardManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_ControllerManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_DynLibManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_FontManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_Gui.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_InputManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_LayerItemInfo.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_LayerManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_LayoutManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_PluginManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_PointerManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_SkinManager.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_WidgetCreator.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_WidgetManager.cpp">
-				</File>
-				<Filter
-					Name="Controller"
-					Filter="">
-					<File
-						RelativePath=".\src\MyGUI_ActionController.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_ControllerEdgeHide.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_ControllerFadeAlpha.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_ControllerPosition.cpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="LayerItem"
-					Filter="">
-					<File
-						RelativePath=".\src\MyGUI_LayerItemKeeper.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_LayerKeeper.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_RenderItem.cpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="SubWidget"
-					Filter="">
-					<File
-						RelativePath=".\src\MyGUI_ColourRect.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_EditText.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_MainSkin.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_SimpleText.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_SubSkin.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_SubWidgetManager.cpp">
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Utility"
-				Filter="">
-				<File
-					RelativePath=".\src\MyGUI_DynLib.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_Font.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_RenderOut.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_TextIterator.cpp">
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_XmlDocument.cpp">
-				</File>
-				<Filter
-					Name="Logging"
-					Filter="">
-					<File
-						RelativePath=".\src\MyGUI_LogManager.cpp">
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_LogStream.cpp">
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Widget"
-				Filter="">
+				Name="Widget">
 				<File
 					RelativePath=".\src\MyGUI_Button.cpp">
 				</File>
@@ -277,6 +143,9 @@
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_List.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_MenuBar.cpp">
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_Message.cpp">
@@ -315,8 +184,7 @@
 					RelativePath=".\src\MyGUI_Window.cpp">
 				</File>
 				<Filter
-					Name="WidgetFactory"
-					Filter="">
+					Name="WidgetFactory">
 					<File
 						RelativePath=".\src\MyGUI_ButtonFactory.cpp">
 					</File>
@@ -337,6 +205,9 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_ListFactory.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MenuBarFactory.cpp">
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_MessageFactory.cpp">
@@ -376,14 +247,307 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Core">
+				<File
+					RelativePath=".\src\MyGUI_ClipboardManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_ControllerManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_DynLibManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_FontManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Gui.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_InputManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_LayerManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_LayoutManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_PluginManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_PointerManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_SkinManager.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_WidgetCreator.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_WidgetManager.cpp">
+				</File>
+				<Filter
+					Name="SubWidget">
+					<File
+						RelativePath=".\src\MyGUI_ColourRect.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_EditText.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MainSkin.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_SimpleText.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_SubSkin.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_SubWidgetManager.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_TileRect.cpp">
+					</File>
+				</Filter>
+				<Filter
+					Name="LayerItem">
+					<File
+						RelativePath=".\src\MyGUI_LayerItemKeeper.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_LayerKeeper.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_RenderItem.cpp">
+					</File>
+				</Filter>
+				<Filter
+					Name="Controller">
+					<File
+						RelativePath=".\src\MyGUI_ActionController.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ControllerEdgeHide.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ControllerFadeAlpha.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ControllerPosition.cpp">
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Utility">
+				<File
+					RelativePath=".\src\MyGUI_DynLib.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Font.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_RenderOut.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_TextIterator.cpp">
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_XmlDocument.cpp">
+				</File>
+				<Filter
+					Name="Logging">
+					<File
+						RelativePath=".\src\MyGUI_LogManager.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_LogStream.cpp">
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<Filter
-				Name="Core"
-				Filter="">
+				Name="Widget">
+				<File
+					RelativePath=".\include\MyGUI_Button.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_ComboBox.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Edit.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_FooBar.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_HScroll.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_ItemBox.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_List.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_MenuBar.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Message.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_MultiList.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_PopupMenu.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Progress.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_RenderBox.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Sheet.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_StaticImage.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_StaticText.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Tab.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_VScroll.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Widget.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Window.h">
+				</File>
+				<Filter
+					Name="WidgetFactory">
+					<File
+						RelativePath=".\include\MyGUI_ButtonFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ComboBoxFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_EditFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_FooBarFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_HScrollFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ItemBoxFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ListFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MenuBarFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MessageFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MultiListFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_PopupMenuFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ProgressFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RenderBoxFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_SheetFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_StaticImageFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_StaticTextFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_TabFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_VScrollFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetFactory.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetFactoryInterface.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WindowFactory.h">
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Utility">
+				<File
+					RelativePath=".\include\MyGUI_Delegate.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_DelegateImplement.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_DynLib.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Font.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_RenderOut.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_ResourcePath.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_TextChangeHistory.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_TextIterator.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Utility.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_WidgetTranslate.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_XmlDocument.h">
+				</File>
+				<Filter
+					Name="Logging">
+					<File
+						RelativePath=".\include\MyGUI_LogManager.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_LogStream.h">
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Core">
 				<File
 					RelativePath=".\include\MyGUI_ClipboardManager.h">
 				</File>
@@ -403,16 +567,10 @@
 					RelativePath=".\include\MyGUI_InputManager.h">
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_LayerItemInfo.h">
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_LayerManager.h">
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_LayoutManager.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_OverlayItem.h">
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_PluginManager.h">
@@ -424,14 +582,10 @@
 					RelativePath=".\include\MyGUI_SkinManager.h">
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_WidgetFactoryInterface.h">
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_WidgetManager.h">
 				</File>
 				<Filter
-					Name="Common"
-					Filter="">
+					Name="Common">
 					<File
 						RelativePath=".\include\MyGUI.h">
 					</File>
@@ -502,8 +656,7 @@
 						RelativePath=".\include\TSize.h">
 					</File>
 					<Filter
-						Name="Skin"
-						Filter="">
+						Name="Skin">
 						<File
 							RelativePath=".\include\MyGUI_ChildSkinInfo.h">
 						</File>
@@ -519,46 +672,7 @@
 					</Filter>
 				</Filter>
 				<Filter
-					Name="Controller"
-					Filter="">
-					<File
-						RelativePath=".\include\MyGUI_ActionController.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ControllerEdgeHide.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ControllerFadeAlpha.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ControllerItem.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ControllerPosition.h">
-					</File>
-				</Filter>
-				<Filter
-					Name="LayerItem"
-					Filter="">
-					<File
-						RelativePath=".\include\MyGUI_DrawItem.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_LayerItem.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_LayerItemKeeper.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_LayerKeeper.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_RenderItem.h">
-					</File>
-				</Filter>
-				<Filter
-					Name="SubWidget"
-					Filter="">
+					Name="SubWidget">
 					<File
 						RelativePath=".\include\MyGUI_ColourRect.h">
 					</File>
@@ -586,182 +700,47 @@
 					<File
 						RelativePath=".\include\MyGUI_SubWidgetTextInterface.h">
 					</File>
+					<File
+						RelativePath=".\include\MyGUI_TileRect.h">
+					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="Utility"
-				Filter="">
-				<File
-					RelativePath=".\include\MyGUI_Delegate.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_DelegateImplement.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_DynLib.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Font.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Plugin.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_RenderOut.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_ResourcePath.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_TextChangeHistory.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_TextIterator.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Utility.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_XmlDocument.h">
-				</File>
 				<Filter
-					Name="Logging"
-					Filter="">
+					Name="LayerItem">
 					<File
-						RelativePath=".\include\MyGUI_LogManager.h">
+						RelativePath=".\include\MyGUI_DrawItem.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_LogStream.h">
+						RelativePath=".\include\MyGUI_layerItem.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_LayerItemKeeper.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_LayerKeeper.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RenderItem.h">
 					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="Widget"
-				Filter="">
-				<File
-					RelativePath=".\include\MyGUI_Button.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_ComboBox.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Edit.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_FooBar.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_HScroll.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_ItemBox.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_List.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Message.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_MultiList.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_PopupMenu.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Progress.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_RenderBox.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Sheet.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_StaticImage.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_StaticText.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Tab.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_VScroll.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Widget.h">
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Window.h">
-				</File>
 				<Filter
-					Name="WidgetFactory"
-					Filter="">
+					Name="Controller">
 					<File
-						RelativePath=".\include\MyGUI_ButtonFactory.h">
+						RelativePath=".\include\MyGUI_ActionController.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_ComboBoxFactory.h">
+						RelativePath=".\include\MyGUI_ControllerEdgeHide.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_EditFactory.h">
+						RelativePath=".\include\MyGUI_ControllerFadeAlpha.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_FooBarFactory.h">
+						RelativePath=".\include\MyGUI_ControllerItem.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_HScrollFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ItemBoxFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ListFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_MessageFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_MultiListFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_PopupMenuFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ProgressFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_RenderBoxFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_SheetFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_StaticImageFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_StaticTextFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_TabFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_VScrollFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_WidgetFactory.h">
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_WindowFactory.h">
+						RelativePath=".\include\MyGUI_ControllerPosition.h">
 					</File>
 				</Filter>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 		</Filter>
 	</Files>
 	<Globals>

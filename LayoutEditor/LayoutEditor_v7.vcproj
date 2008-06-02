@@ -133,6 +133,9 @@
 				RelativePath=".\EditorState.cpp">
 			</File>
 			<File
+				RelativePath=".\InputManager.cpp">
+			</File>
+			<File
 				RelativePath=".\UndoManager.cpp">
 			</File>
 			<File
