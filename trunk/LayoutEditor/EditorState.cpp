@@ -237,7 +237,7 @@ void EditorState::enter(bool bIsChangeState)
 	}
 
 	// создание меню
-	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_LEFT | MyGUI::ALIGN_HSTRETCH, "Main");
+	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "Main");
 	bar->addItem("File");
 
 	mPopupMenuFile = bar->getItemMenu(0);
