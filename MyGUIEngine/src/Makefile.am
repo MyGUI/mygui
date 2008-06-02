@@ -2,6 +2,7 @@ INCLUDES = $(STLPORT_CFLAGS) $(FT2_CFLAGS) $(OGRE_CFLAGS) $(OIS_CFLAGS) -I$(top_
 
 lib_LTLIBRARIES=libmygui.la
 libmygui_la_SOURCES = \
+	MyGUI_ActionController.cpp\
 	MyGUI_Button.cpp\
 	MyGUI_ButtonFactory.cpp\
 	MyGUI_ClipboardManager.cpp\
@@ -37,6 +38,8 @@ libmygui_la_SOURCES = \
 	MyGUI_LogManager.cpp\
 	MyGUI_LogStream.cpp\
 	MyGUI_MainSkin.cpp\
+	MyGUI_MenuBar.cpp\
+	MyGUI_MenuBarFactory.cpp\
 	MyGUI_Message.cpp\
 	MyGUI_MessageFactory.cpp\
 	MyGUI_MultiList.cpp\
@@ -73,5 +76,4 @@ libmygui_la_SOURCES = \
 	MyGUI_WidgetManager.cpp\
 	MyGUI_Window.cpp\
 	MyGUI_WindowFactory.cpp\
-	MyGUI_XmlDocument.cpp\
-	MyGUI_ActionController.cpp
+	MyGUI_XmlDocument.cpp
