@@ -52,12 +52,7 @@ namespace MyGUI
 
 	}
 
-	void PopupMenu::addItem(const Ogre::UTFString& _item)
-	{
-		insertItem(ITEM_NONE, _item);
-	}
-
-	void PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item)
+	void PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _separator)
 	{
 		if (_index > m_listWidgets.size()) _index = m_listWidgets.size();
 		WidgetPtr widget = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), ALIGN_TOP | ALIGN_HSTRETCH);
@@ -69,6 +64,7 @@ namespace MyGUI
 		widget->_setInternalData(size.width);
 
 		m_listWidgets.insert(m_listWidgets.begin() + _index, widget);
+		m_listSeparators.insert(m_listSeparators.begin() + _index, _separator);
 
 		update();
 	}
@@ -124,6 +120,7 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter=m_listWidgets.begin(); iter!=m_listWidgets.end(); ++iter) {
 			(*iter)->setPosition(0, size.height);
 			size.height += mHeightLine;
+			if (m_listSeparators[iter - m_listWidgets.begin()]) size.height += 10;
 			if ((*iter)->_getInternalData() > size.width) size.width = (*iter)->_getInternalData();
 		}
 

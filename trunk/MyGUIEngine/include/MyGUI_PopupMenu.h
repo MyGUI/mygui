@@ -29,8 +29,8 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// методы для работы со списком
-		void addItem(const Ogre::UTFString& _item);
-		void insertItem(size_t _index, const Ogre::UTFString& _item);
+		inline void addItem(const Ogre::UTFString& _item, bool _separator = false) { insertItem(ITEM_NONE, _item, _separator); }
+		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _separator = false);
 		void setItem(size_t _index, const Ogre::UTFString& _item);
 
 		void deleteItem(size_t _index);
@@ -61,6 +61,8 @@ namespace MyGUI
 
 	private:
 		VectorWidgetPtr m_listWidgets;
+		typedef std::vector<bool> VectorBool;
+		VectorBool m_listSeparators;
 
 		int mHeightLine;
 		std::string mSkinLine;
