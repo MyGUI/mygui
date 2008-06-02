@@ -67,6 +67,8 @@ public:
 
 	void setWindowCaption(const std::string & _text);
 
+	inline const std::string & getCurrentKeyboardLayout() { return m_currentKeyboardLayout; }
+
 private:
 	void createInput(); // создаем систему ввода
 	void destroyInput(); // удаляем систему ввода
@@ -90,6 +92,8 @@ private:
 	void windowClosed(Ogre::RenderWindow* rw);
 
 	void startRendering();
+
+	std::string m_currentKeyboardLayout;
 
 };
 

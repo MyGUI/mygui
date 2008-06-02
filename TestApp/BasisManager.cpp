@@ -124,6 +124,18 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 		overlay->add2D(panel);*/
 	}
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+
+	// узнаем текущую раскладку
+	//if (::GetKeyboardLayoutName(buff)) {
+		// "00000409" - IntToHex (MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT), 8).c_str()
+		// "00000419" - IntToHex (MAKELANGID(LANG_RUSSIAN, SUBLANG_DEFAULT), 8).c_str()
+		//m_currentKeyboardLayout = buff;
+	//}
+
+#endif
+
+
 	createGui();
 
 	createScene();
