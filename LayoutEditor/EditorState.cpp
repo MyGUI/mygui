@@ -26,9 +26,9 @@ enum POPUP_MENU_MAIN
 	ITEM_LOAD,
 	ITEM_SAVE,
 	ITEM_SAVE_AS,
+	ITEM_CLEAR,
 	ITEM_SETTINGS,
 	ITEM_TEST,
-	ITEM_CLEAR,
 	ITEM_QUIT
 };
 
@@ -105,16 +105,16 @@ void EditorState::enter(bool bIsChangeState)
 
 	// создание меню
 	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "Main");
-	bar->addItem("File");
+	bar->addItem("  File  ");
 
 	mPopupMenuFile = bar->getItemMenu(0);
-	mPopupMenuFile->addItem("Load");
-	mPopupMenuFile->addItem("Save");
-	mPopupMenuFile->addItem("Save as...");
-	mPopupMenuFile->addItem("Settings");
-	mPopupMenuFile->addItem("#0000FFTest");
-	mPopupMenuFile->addItem("Clear");
-	mPopupMenuFile->addItem("Quit");
+	mPopupMenuFile->addItem("  Load  ");
+	mPopupMenuFile->addItem("  Save  ");
+	mPopupMenuFile->addItem("  Save as...  ");
+	mPopupMenuFile->addItem("  Clear  ", true);
+	mPopupMenuFile->addItem("  Settings  ");
+	mPopupMenuFile->addItem("  #0000FFTest  ", true);
+	mPopupMenuFile->addItem("  Quit  ");
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 

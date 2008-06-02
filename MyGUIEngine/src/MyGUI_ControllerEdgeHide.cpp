@@ -10,6 +10,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_MenuBar.h"
 
 namespace MyGUI
 {
@@ -55,6 +56,13 @@ namespace MyGUI
 
 		// if our widget or his children have focus
 		bool haveFocus = ((keyFocus != null) || (mouseFocus != null)) || ((keyFocusOwner != null) || (mouseFocusOwner != null)) || (_widget->isShow() == false);
+
+		// временно для меню пока здесь =)
+		if (_widget->getWidgetType() == "MenuBar") {
+			if (castWidget<MenuBar>(_widget)->getItemSelect() != ITEM_NONE) {
+				haveFocus = true;
+			}
+		}
 
 		mElapsedTime += (1 - 2*haveFocus) * _time;
 
