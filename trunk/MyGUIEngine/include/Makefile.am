@@ -1,14 +1,14 @@
 pkginclude_HEADERS = \
-	MyGUI.h\
+	MyGUI_ActionController.h\
 	MyGUI_AlignInfo.h\
-	MyGUI_Button.h\
 	MyGUI_ButtonFactory.h\
+	MyGUI_Button.h\
 	MyGUI_CastWidget.h\
 	MyGUI_ChildSkinInfo.h\
 	MyGUI_ClipboardManager.h\
 	MyGUI_ColourRect.h\
-	MyGUI_ComboBox.h\
 	MyGUI_ComboBoxFactory.h\
+	MyGUI_ComboBox.h\
 	MyGUI_Common.h\
 	MyGUI_ControllerEdgeHide.h\
 	MyGUI_ControllerFadeAlpha.h\
@@ -21,93 +21,97 @@ pkginclude_HEADERS = \
 	MyGUI_DrawItem.h\
 	MyGUI_DynLib.h\
 	MyGUI_DynLibManager.h\
-	MyGUI_Edit.h\
 	MyGUI_EditFactory.h\
+	MyGUI_Edit.h\
 	MyGUI_EditText.h\
 	MyGUI_EnumCharInfo.h\
 	MyGUI_Font.h\
 	MyGUI_FontManager.h\
-	MyGUI_FooBar.h\
 	MyGUI_FooBarFactory.h\
+	MyGUI_FooBar.h\
 	MyGUI_FrameListener.h\
 	MyGUI_Gui.h\
-	MyGUI_HScroll.h\
+	MyGUI.h\
 	MyGUI_HScrollFactory.h\
+	MyGUI_HScroll.h\
+	MyGUI_InputDefine.h\
 	MyGUI_InputManager.h\
 	MyGUI_Instance.h\
-	MyGUI_ItemBox.h\
 	MyGUI_ItemBoxFactory.h\
+	MyGUI_ItemBox.h\
 	MyGUI_LayerItem.h\
 	MyGUI_LayerItemInfo.h\
 	MyGUI_LayerItemKeeper.h\
 	MyGUI_LayerKeeper.h\
 	MyGUI_LayerManager.h\
 	MyGUI_LayoutManager.h\
-	MyGUI_List.h\
 	MyGUI_ListFactory.h\
+	MyGUI_List.h\
 	MyGUI_LogManager.h\
 	MyGUI_LogStream.h\
 	MyGUI_Macros.h\
 	MyGUI_MainSkin.h\
 	MyGUI_MaskPeekInfo.h\
-	MyGUI_Message.h\
+	MyGUI_MenuBarFactory.h\
+	MyGUI_MenuBar.h\
 	MyGUI_MessageFactory.h\
-	MyGUI_MultiList.h\
+	MyGUI_Message.h\
 	MyGUI_MultiListFactory.h\
+	MyGUI_MultiList.h\
+	MyGUI_OverlayItem.h\
 	MyGUI_Platform.h\
 	MyGUI_Plugin.h\
 	MyGUI_PluginManager.h\
-	MyGUI_PopupMenu.h\
-	MyGUI_PopupMenuFactory.h\
 	MyGUI_PointerInfo.h\
 	MyGUI_PointerManager.h\
+	MyGUI_PopupMenuFactory.h\
+	MyGUI_PopupMenu.h\
 	MyGUI_Prerequest.h\
-	MyGUI_Progress.h\
 	MyGUI_ProgressFactory.h\
-	MyGUI_RenderBox.h\
+	MyGUI_Progress.h\
 	MyGUI_RenderBoxFactory.h\
+	MyGUI_RenderBox.h\
 	MyGUI_RenderItem.h\
 	MyGUI_RenderOut.h\
 	MyGUI_ResourcePath.h\
-	MyGUI_Sheet.h\
 	MyGUI_SheetFactory.h\
+	MyGUI_Sheet.h\
 	MyGUI_SimpleText.h\
 	MyGUI_SkinManager.h\
-	MyGUI_StaticImage.h\
 	MyGUI_StaticImageFactory.h\
-	MyGUI_StaticText.h\
+	MyGUI_StaticImage.h\
 	MyGUI_StaticTextFactory.h\
+	MyGUI_StaticText.h\
 	MyGUI_SubSkin.h\
 	MyGUI_SubWidgetBinding.h\
 	MyGUI_SubWidgetFactoryInterface.h\
 	MyGUI_SubWidgetManager.h\
 	MyGUI_SubWidgetTextInterface.h\
-	MyGUI_Tab.h\
 	MyGUI_TabFactory.h\
+	MyGUI_Tab.h\
 	MyGUI_TextChangeHistory.h\
 	MyGUI_TextIterator.h\
 	MyGUI_TileRect.h\
 	MyGUI_Types.h\
 	MyGUI_UnlinkWidget.h\
 	MyGUI_Utility.h\
-	MyGUI_VScroll.h\
 	MyGUI_VScrollFactory.h\
-	MyGUI_Widget.h\
+	MyGUI_VScroll.h\
 	MyGUI_WidgetCreator.h\
 	MyGUI_WidgetDefines.h\
 	MyGUI_WidgetEvent.h\
 	MyGUI_WidgetFactory.h\
 	MyGUI_WidgetFactoryInterface.h\
+	MyGUI_Widget.h\
 	MyGUI_WidgetManager.h\
 	MyGUI_WidgetOIS.h\
 	MyGUI_WidgetSkinInfo.h\
+	MyGUI_WidgetTranslate.h\
 	MyGUI_WidgetUserData.h\
-	MyGUI_Window.h\
 	MyGUI_WindowFactory.h\
+	MyGUI_Window.h\
 	MyGUI_XmlDocument.h\
 	TCoord.h\
 	TPoint.h\
 	TRect.h\
-	TSize.h\
-	MyGUI_ActionController.h\
-	MyGUI_InputDefine.h
+	TSize.h
