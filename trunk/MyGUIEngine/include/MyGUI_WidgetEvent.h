@@ -21,7 +21,8 @@ namespace MyGUI
 	typedef delegates::CDelegate2<WidgetPtr, size_t> EventInfo_WidgetSizeT;
 	typedef delegates::CDelegate3<WidgetPtr, int, int> EventInfo_WidgetIntInt;
 	typedef delegates::CDelegate4<WidgetPtr, int, int, MouseButton> EventInfo_WidgetIntIntButton;
-	typedef delegates::CDelegate3<WidgetPtr, int, Char> EventInfo_WidgetIntChar;
+	typedef delegates::CDelegate2<WidgetPtr, KeyCode> EventInfo_WidgetKeyCode;
+	typedef delegates::CDelegate3<WidgetPtr, KeyCode, Char> EventInfo_WidgetKeyCodeChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr&, size_t &> EventInfo_WidgetRefWidgetRefSizeT;
 
@@ -88,13 +89,13 @@ namespace MyGUI
 		EventInfo_WidgetInt eventMouseWheel;
 
 		/** Event : Mouse button pressed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)\n
 			@param _left true if left button pressed
 		*/
 		EventInfo_WidgetIntIntButton eventMouseButtonPressed;
 
 		/** Event : Mouse button released.\n
-			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)\n
+			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)\n
 			@param _left true if left button released
 		*/
 		EventInfo_WidgetIntIntButton eventMouseButtonReleased;
@@ -122,17 +123,17 @@ namespace MyGUI
 		EventInfo_WidgetWidget eventKeySetFocus;
 
 		/** Event : Key pressed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char)\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)\n
 			@param _key code
 			@param _char of pressed symbol (for multilanguage applications)
 		*/
-		EventInfo_WidgetIntChar eventKeyButtonPressed;
+		EventInfo_WidgetKeyCodeChar eventKeyButtonPressed;
 
 		/** Event : Key released.\n
-			signature : void method(MyGUI::WidgetPtr _sender, int _key)\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key)\n
 			@param _key code
 		*/
-		EventInfo_WidgetInt eventKeyButtonReleased;
+		EventInfo_WidgetKeyCode eventKeyButtonReleased;
 
 		/** Event : Root widget changed mouse focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
@@ -231,13 +232,13 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeyButtonPressed(int _key, Char _char)
+		virtual void _onKeyButtonPressed(KeyCode _key, Char _char)
 		{
 			eventKeyButtonPressed(mWidgetEventSender, _key, _char);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeyButtonReleased(int _key)
+		virtual void _onKeyButtonReleased(KeyCode _key)
 		{
 			eventKeyButtonReleased(mWidgetEventSender, _key);
 		}

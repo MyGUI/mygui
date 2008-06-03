@@ -164,7 +164,7 @@ namespace MyGUI
 		mVectorButton.clear();
 	}
 
-	void Message::_onKeyButtonPressed(int _key, Char _char)
+	void Message::_onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		Window::_onKeyButtonPressed(_key, _char);
 		if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) _destroyMessage(mInfoOk);
