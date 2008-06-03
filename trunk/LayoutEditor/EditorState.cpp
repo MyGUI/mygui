@@ -1264,7 +1264,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Skin")
 	{
 		widgetContainer->skin = value;
-		if ( !MyGUI::SkinManager::getInstance().isSkinExist(widgetContainer->skin) )
+		if ( MyGUI::SkinManager::getInstance().isSkinExist(widgetContainer->skin) )
 		{
 			MyGUI::xml::xmlDocument * save = ew->savexmlDocument();
 			ew->clear();

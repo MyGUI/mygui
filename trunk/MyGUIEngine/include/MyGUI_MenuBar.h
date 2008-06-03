@@ -82,7 +82,7 @@ namespace MyGUI
 	private:
 		void update();
 
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender/*, int _left, int _top, MouseButton _id*/);
+		void eventMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyPopupMenuClose(WidgetPtr _sender);
 		void notifyPopupMenuAccept(WidgetPtr _sender, size_t _index);
 

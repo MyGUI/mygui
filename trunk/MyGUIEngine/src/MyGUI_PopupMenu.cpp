@@ -169,7 +169,7 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	void PopupMenu::_onKeyChangeRootFocus(bool _focus)
+	/*void PopupMenu::_onKeyChangeRootFocus(bool _focus)
 	{
 		if (false == _focus) {
 			hidePopupMenu();
@@ -178,6 +178,23 @@ namespace MyGUI
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::_onKeyChangeRootFocus(_focus);
+	}*/
+
+	void PopupMenu::_onKeyLostFocus(WidgetPtr _new)
+	{
+		if (_new != null)
+		{
+			while (_new->_getOwner() != null)
+			{
+				if (_new == this) return;
+				_new = _new->_getOwner();
+			}
+		}
+		hidePopupMenu();
+		eventPopupMenuClose(this);
+
+		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
+		Widget::eventKeyLostFocus(mWidgetEventSender, _new);
 	}
 
 	void PopupMenu::hidePopupMenu()
