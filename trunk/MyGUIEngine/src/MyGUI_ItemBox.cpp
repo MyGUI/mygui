@@ -129,7 +129,7 @@ namespace MyGUI
 
 	void ItemBox::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
 	{
-		mScrollPosition = _index;
+		mScrollPosition = (int)_index;
 		int old = mLineTop;
 		mLineTop = mScrollPosition / mSizeItem.height;
 		mOffsetTop = mScrollPosition % mSizeItem.height;
@@ -227,8 +227,8 @@ namespace MyGUI
 			if (pos >= mCountItems) break;
 
 			WidgetItemData & info = getItemWidget(iwid);
-			setWidgetPosition(info.item, (iwid % mCountItemInLine) * mSizeItem.width,
-				((iwid / mCountItemInLine) * mSizeItem.height)  - mOffsetTop,
+			setWidgetPosition(info.item, ((int)iwid % mCountItemInLine) * mSizeItem.width,
+				(((int)iwid / mCountItemInLine) * mSizeItem.height)  - mOffsetTop,
 				mSizeItem.width, mSizeItem.height, mAlignVert);
 
 			info.item->show();
@@ -593,42 +593,43 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if ( MB_Left != _id) return;
-		size_t old = mIndexSelect;
+		if ( MB_Left == _id) {
+			size_t old = mIndexSelect;
 
-		// сбрасываем инфу для дропа
-		mDropResult = false;
-		mOldDrop = null;
-		mDropInfo.reset();
+			// сбрасываем инфу для дропа
+			mDropResult = false;
+			mOldDrop = null;
+			mDropInfo.reset();
 
-		if (_sender == mWidgetClient) {
-			// сбрасываем выделение
-			setItemSelect(ITEM_NONE);
+			if (_sender == mWidgetClient) {
+				// сбрасываем выделение
+				setItemSelect(ITEM_NONE);
+			}
+			else {
+				// индекс отправителя
+				mDropSenderIndex = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+				MYGUI_DEBUG_ASSERT(mDropSenderIndex < mItemsInfo.size(), "index out of range");
+
+				// выделенный елемент
+				setItemSelect(mDropSenderIndex);
+			}
+
+			// сбрасываем, чтобы обновился дропный виджет
+			mCurrentSender = null;
+			mStartDrop = false;
+			// смещение внутри виджета, куда кликнули мышкой
+			mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
+
+			// отсылаем событие
+			eventMouseItemActivate(mWidgetEventSender, mIndexSelect);
+			// смену позиции отсылаем только при реальном изменении
+			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
-		else {
-			// индекс отправителя
-			mDropSenderIndex = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-			MYGUI_DEBUG_ASSERT(mDropSenderIndex < mItemsInfo.size(), "index out of range");
-
-			// выделенный елемент
-			setItemSelect(mDropSenderIndex);
-		}
-
-		// сбрасываем, чтобы обновился дропный виджет
-		mCurrentSender = null;
-		mStartDrop = false;
-		// смещение внутри виджета, куда кликнули мышкой
-		mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
-
-		// отсылаем событие
-		eventMouseItemActivate(mWidgetEventSender, mIndexSelect);
-		// смену позиции отсылаем только при реальном изменении
-		if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 
 		// формируем нотифи для индекса
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItemData(this, NotifyItemData(index, NOTIFY_MOUSE_PRESSED, _left, _top, _id));
+		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_PRESSED, _left, _top, _id));
 	}
 
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
@@ -653,7 +654,7 @@ namespace MyGUI
 		// формируем нотифи для индекса
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItemData(this, NotifyItemData(index, NOTIFY_MOUSE_RELEASED, _left, _top, _id));
+		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_RELEASED, _left, _top, _id));
 	}
 
 	void ItemBox::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
@@ -776,7 +777,7 @@ namespace MyGUI
 		// формируем нотифи для индекса
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItemData(this, NotifyItemData(index, NOTIFY_KEY_PRESSED, _key, _char));
+		eventNotifyItem(this, NotifyItemData(index, NOTIFY_KEY_PRESSED, _key, _char));
 	}
 
 	void ItemBox::notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key)
@@ -784,7 +785,7 @@ namespace MyGUI
 		// формируем нотифи для индекса
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItemData(this, NotifyItemData(index, NOTIFY_KEY_RELEASED, _key));
+		eventNotifyItem(this, NotifyItemData(index, NOTIFY_KEY_RELEASED, _key));
 	}
 
 } // namespace MyGUI
