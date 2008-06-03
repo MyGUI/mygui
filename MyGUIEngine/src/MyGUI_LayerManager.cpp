@@ -220,4 +220,12 @@ namespace MyGUI
 		if (null != mSceneManager) mSceneManager->addRenderQueueListener(this);
 	}
 
+	bool LayerManager::exist(const std::string & _name)
+	{
+		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+			if (_name == (*iter)->getName()) return true;
+		}
+		return false;
+	}
+
 } // namespace MyGUI

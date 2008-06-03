@@ -51,7 +51,7 @@ namespace MyGUI
 		void upLayerItem(WidgetPtr _item);
 
 		/** Load additional MyGUI *.layer file */
-		bool load(const std::string & _file, const std::string & _group);
+		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
@@ -85,6 +85,8 @@ namespace MyGUI
 
 		inline size_t getBatch() {return mCountBatch;}
 		inline void _addBatch() {mCountBatch ++;}
+
+		bool exist(const std::string & _name);
 
 	private:
 
