@@ -215,7 +215,10 @@ namespace MyGUI
 		/** Is widget enabled */
 		inline bool isEnabled() {return mEnabled;}
 		/** Enable or disable widget */
-		void setEnabled(bool _enabled, bool _silent = false);
+		virtual void setEnabled(bool _enabled);
+
+		// меняет доступность без изменения стейтов
+		inline void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
 
 		/** Get mouse pointer name for this widget */
 		inline const std::string& getPointer()

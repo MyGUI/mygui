@@ -48,6 +48,8 @@ namespace MyGUI
 
 		void setImageIndex(size_t _index);
 
+		virtual void setEnabled(bool _enabled);
+
 	protected:
 
 		virtual void _onMouseLostFocus(WidgetPtr _new);
@@ -55,16 +57,7 @@ namespace MyGUI
 		virtual void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
-		inline void updateButtonState()
-		{
-			if (mIsFocus) {
-				if (mIsPressed || mIsStatePressed) setState("select");
-				else setState("active");
-			} else {
-				if (mIsPressed || mIsStatePressed) setState("pressed");
-				else setState("normal");
-			}
-		}
+		void updateButtonState();
 
 
 	private:
