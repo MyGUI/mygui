@@ -155,7 +155,7 @@ namespace MyGUI
 		void _onMouseWheel(int _rel);
 		void _onKeyLostFocus(WidgetPtr _new);
 		void _onKeySetFocus(WidgetPtr _old);
-		void _onKeyButtonPressed(int _key, Char _char);
+		void _onKeyButtonPressed(KeyCode _key, Char _char);
 
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _rel);
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);

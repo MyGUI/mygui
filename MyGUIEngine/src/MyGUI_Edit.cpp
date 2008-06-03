@@ -191,7 +191,7 @@ namespace MyGUI
 		Widget::_onKeyLostFocus(_new);
 	}
 
-	void Edit::_onKeyButtonPressed(int _key, Char _char)
+	void Edit::_onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		InputManager & input = InputManager::getInstance();
 
@@ -469,7 +469,7 @@ namespace MyGUI
 		Widget::_onKeyButtonPressed(_key, _char);
 	}
 
-	void Edit::_onKeyButtonReleased(int _key)
+	void Edit::_onKeyButtonReleased(KeyCode _key)
 	{
 		//if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT) ) input.isShiftPressed() = false;
 		//if ( (_key == KC_LCONTROL) || (_key == KC_RCONTROL) ) input.isControlPressed() = false;

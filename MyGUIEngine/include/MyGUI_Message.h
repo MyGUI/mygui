@@ -74,7 +74,7 @@ namespace MyGUI
 		void notifyButtonClick(MyGUI::WidgetPtr _sender);
 		void clearButton();
 
-		void _onKeyButtonPressed(int _key, Char _char);
+		void _onKeyButtonPressed(KeyCode _key, Char _char);
 		void _destroyMessage(ViewInfo _result);
 
 		static Ogre::String WidgetTypeName;

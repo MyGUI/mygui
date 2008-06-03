@@ -124,6 +124,35 @@ namespace MyGUI
 		DROP_REFUSE
 	};
 
+	enum NotifyItem {
+		NOTIFY_MOUSE_PRESSED,
+		NOTIFY_MOUSE_RELEASED,
+		NOTIFY_KEY_PRESSED,
+		NOTIFY_KEY_RELEASED,
+	};
+
+	struct NotifyItemData {
+		NotifyItemData(size_t _index, NotifyItem _notify, int _x, int _y, MouseButton _id) :
+			index(_index), notify(_notify), x(_x), y(_y), id(_id), code(KC_UNASSIGNED), key(0) {}
+
+		NotifyItemData(size_t _index, NotifyItem _notify, KeyCode _code, Char _key) :
+			index(_index), notify(_notify), x(0), y(0), id(MB_None), code(_code), key(_key) { }
+
+		NotifyItemData(size_t _index, NotifyItem _notify, KeyCode _code) :
+			index(_index), notify(_notify), x(0), y(0), id(MB_None), code(_code), key(KC_UNASSIGNED) { }
+
+		size_t index;
+		NotifyItem notify;
+		int x;
+		int y;
+		MouseButton id;
+		KeyCode code;
+		Char key;
+	};
+
+	// делегат для событий айтема
+	typedef delegates::CDelegate2<WidgetPtr, const NotifyItemData &> EventInfo_WidgetNotifyItemData;
+
 	// делегаты для обновления
 	typedef delegates::CDelegate2<WidgetPtr, WidgetItemData&> EventInfo_WidgetWidgetRefWidget; //???
 	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
@@ -238,6 +267,10 @@ namespace MyGUI
 		// signature : void method(WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventMouseItemActivate;
 
+		// event : событие связанной с конкретным айтемом
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
+		EventInfo_WidgetNotifyItemData eventNotifyItemData;
+
 	protected:
 
 		void _onMouseWheel(int _rel);
@@ -253,6 +286,8 @@ namespace MyGUI
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
 		void notifyInvalideDrop(WidgetPtr _sender);
+		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
+		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
 
 		// Обновляет данные о айтемах, при изменении размеров 
 		void updateMetrics();

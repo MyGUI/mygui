@@ -134,8 +134,8 @@ namespace MyGUI
 	protected:
 		void _frameEntered(float _frame);
 
-		void detectLangShift(int keyEvent, bool bIsKeyPressed);
-		Char getKeyChar(int keyEvent); // возвращает символ по его скан коду
+		void detectLangShift(KeyCode keyEvent, bool bIsKeyPressed);
+		Char getKeyChar(KeyCode keyEvent); // возвращает символ по его скан коду
 
 		// создает латинскую раскладку
 		void createDefaultCharSet();
@@ -151,10 +151,10 @@ namespace MyGUI
 		}
 
 		// запоминает клавишу для поддержки повторения
-		void storeKey(int _key);
+		void storeKey(KeyCode _key);
 
 		// сбрасывает клавишу повторения
-		void resetKey(int _key);
+		void resetKey(KeyCode _key);
 
 
 	protected:
@@ -184,7 +184,7 @@ namespace MyGUI
 		IntPoint mLastLeftPressed;
 		IntPoint mMousePosition;
 		// клавиша для повтора
-		int mHoldKey;
+		KeyCode mHoldKey;
 		bool mFirstPressKey;
 		float mTimerKey;
 		int mOldAbsZ;
