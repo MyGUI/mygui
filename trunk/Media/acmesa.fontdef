@@ -1,8 +1,0 @@
-acmesa.16
-{
-   type       truetype
-   source     acmesa.ttf
-   size       16
-   resolution 72
-} 
-
