@@ -326,10 +326,9 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setEnabled(bool _enabled, bool _silent)
+	void Widget::setEnabled(bool _enabled)
 	{
 		mEnabled = _enabled;
-		if (_silent) return;
 
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter) {
 			(*iter)->setEnabled(_enabled);
