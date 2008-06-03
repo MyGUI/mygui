@@ -45,14 +45,14 @@ namespace MyGUI
 			mPutTextInClipboard = TextIterator::getOnlyText(Ogre::UTFString(_data));
 			size_t size = (mPutTextInClipboard.size() + 1) * 2;
 			if (::OpenClipboard((HWND)mHwnd)) {//открываем буфер обмена
-				HGLOBAL hgBuffer;
-				wchar_t * chBuffer;
 				::EmptyClipboard(); //очищаем буфер
-				hgBuffer= ::GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
-				chBuffer= (wchar_t*)GlobalLock(hgBuffer); //блокируем память
-				::memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
-				::GlobalUnlock(hgBuffer);//разблокируем память
-				::SetClipboardData(CF_UNICODETEXT, hgBuffer);//помещаем текст в буфер обмена
+				HGLOBAL hgBuffer = ::GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
+				wchar_t * chBuffer = NULL;
+				if ((hgBuffer) && (chBuffer = (wchar_t*)GlobalLock(hgBuffer))) {
+					::memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
+					::GlobalUnlock(hgBuffer);//разблокируем память
+					::SetClipboardData(CF_UNICODETEXT, hgBuffer);//помещаем текст в буфер обмена
+				}
 				::CloseClipboard(); //закрываем буфер обмена
 			}
 		}
@@ -72,9 +72,11 @@ namespace MyGUI
 			Ogre::UTFString buff;
 			if ( ::OpenClipboard((HWND)mHwnd) ) {//открываем буфер обмена
 				HANDLE hData = ::GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
-				wchar_t * chBuffer= (wchar_t*)::GlobalLock(hData);//блокируем память
-				buff = chBuffer;
-				::GlobalUnlock(hData);//разблокируем память
+				wchar_t * chBuffer = NULL;
+				if ((hData) && (chBuffer = (wchar_t*)::GlobalLock(hData))) {
+					buff = chBuffer;
+					::GlobalUnlock(hData);//разблокируем память
+				}
 				::CloseClipboard();//закрываем буфер обмена
 			}
 			// если в буфере не то что мы ложили, то берем из буфера

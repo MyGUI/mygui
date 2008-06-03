@@ -215,8 +215,8 @@ namespace MyGUI
 		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture);
 		if (tex.isNull()) return size;
 
-		size.width = tex->getWidth();
-		size.height = tex->getHeight();
+		size.width = (int)tex->getWidth();
+		size.height = (int)tex->getHeight();
 
 		if (size.width < 1) size.width = 1;
 		if (size.height < 1) size.height = 1;
