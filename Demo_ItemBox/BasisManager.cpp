@@ -239,7 +239,7 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 	mKeyboard->capture();
 
 	MyGUI::IntSize size(120, 80);
-	if (mFpsInfo) {
+	if (mFpsInfoShadow) {
 		static float time = 0;
 		time += evt.timeSinceLastFrame;
 		if (time > 1) {
@@ -247,23 +247,23 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 			try {
 				const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
 				std::string info = MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount, "\nbatch gui : ", MyGUI::LayerManager::getInstance().getBatch());
-				if (mFpsInfoShadow) {
-					mFpsInfoShadow->setCaption(info);
+				if (mFpsInfo) {
+					mFpsInfo->setCaption(info);
 				}
 				else {
-					mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-					mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
-					mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
+					mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width - 1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
+					mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
+					mFpsInfo->setColour(Ogre::ColourValue::White);
 				}
-				mFpsInfo->setCaption(info);
+				mFpsInfoShadow->setCaption(info);
 			} catch (...) { }
 		}
 	}
 	else {
 		if (MyGUI::LayerManager::getInstance().exist("Statistic")) {
-			mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width-1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-			mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
-			mFpsInfo->setColour(Ogre::ColourValue::White);
+			mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
+			mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
+			mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
 		}
 	}
 
