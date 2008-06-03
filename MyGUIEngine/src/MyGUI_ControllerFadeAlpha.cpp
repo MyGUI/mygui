@@ -33,7 +33,7 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(mCoef > 0, "coef must be > 0");
 		// подготовка виджета
-		_widget->setEnabled(mEnabled, true);
+		_widget->setEnabledSilent(mEnabled);
 
 		if ((ALPHA_MIN != mAlpha) && (false == _widget->isShow())) {
 			_widget->setAlpha(ALPHA_MIN);

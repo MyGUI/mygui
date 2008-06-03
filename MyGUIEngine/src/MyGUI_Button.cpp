@@ -8,6 +8,7 @@
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_CastWidget.h"
+#include "MyGUI_InputManager.h"
 
 namespace MyGUI
 {
@@ -73,6 +74,36 @@ namespace MyGUI
 	void Button::setImageIndex(size_t _index)
 	{
 		if (mImage) mImage->setImageNum(_index);
+	}
+
+	void Button::setEnabled(bool _enabled)
+	{
+		mEnabled = _enabled;
+
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter) {
+			(*iter)->setEnabled(_enabled);
+		}
+
+		updateButtonState();
+
+		if ( ! mEnabled) InputManager::getInstance()._unlinkWidget(this);
+	}
+
+	void Button::updateButtonState()
+	{
+		if ( ! mEnabled) {
+			if (mIsStatePressed) setState("disable_pressed");
+			else setState("disable");
+		}
+		else {
+			if (mIsFocus) {
+				if (mIsPressed || mIsStatePressed) setState("select");
+				else setState("active");
+			} else {
+				if (mIsPressed || mIsStatePressed) setState("pressed");
+				else setState("normal");
+			}
+		}
 	}
 
 } // namespace MyGUI

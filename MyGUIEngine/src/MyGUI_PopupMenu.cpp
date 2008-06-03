@@ -140,7 +140,7 @@ namespace MyGUI
 		eventPopupMenuAccept(this, index);
 
 		// блокируем
-		setEnabled(false, true);
+		setEnabledSilent(false);
 
 		// делаем нажатой
 		static_cast<ButtonPtr>(_sender)->setButtonPressed(true);
@@ -200,7 +200,7 @@ namespace MyGUI
 	void PopupMenu::hidePopupMenu()
 	{
 		// блокируем
-		setEnabled(false, true);
+		setEnabledSilent(false);
 		// медленно скрываем
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
 		controller->eventPostAction = newDelegate(action::actionWidgetHide);
