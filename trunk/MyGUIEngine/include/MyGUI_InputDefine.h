@@ -17,6 +17,7 @@ namespace MyGUI
 		MB_Left = 0,
 		MB_Right,
 		MB_Middle,
+
 		MB_Button0 = 0,
 		MB_Button1,
 		MB_Button2,

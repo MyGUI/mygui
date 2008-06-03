@@ -269,7 +269,7 @@ namespace MyGUI
 
 		// event : событие связанной с конкретным айтемом
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
-		EventInfo_WidgetNotifyItemData eventNotifyItemData;
+		EventInfo_WidgetNotifyItemData eventNotifyItem;
 
 	protected:
 
