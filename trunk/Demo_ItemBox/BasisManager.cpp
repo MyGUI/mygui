@@ -178,19 +178,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 void BasisManager::createGui()
 {
 	mGUI = new MyGUI::Gui();
-	mGUI->initialise(mWindow);
-
-	MyGUI::IntSize size(120, 80);
-	if (0 == mFpsInfoShadow) {
-		mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-		mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
-		mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
-	}
-	if (0 == mFpsInfo) {
-		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width-1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-		mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
-		mFpsInfo->setColour(Ogre::ColourValue::White);
-	}
+	mGUI->initialise(mWindow, ""/*core.xml*/);
 }
 
 void BasisManager::destroyGui()
@@ -250,6 +238,7 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 	if (mMouse) mMouse->capture();
 	mKeyboard->capture();
 
+	MyGUI::IntSize size(120, 80);
 	if (mFpsInfo) {
 		static float time = 0;
 		time += evt.timeSinceLastFrame;
@@ -258,9 +247,23 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 			try {
 				const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
 				std::string info = MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount, "\nbatch gui : ", MyGUI::LayerManager::getInstance().getBatch());
-				if (mFpsInfoShadow) mFpsInfoShadow->setCaption(info);
+				if (mFpsInfoShadow) {
+					mFpsInfoShadow->setCaption(info);
+				}
+				else {
+					mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
+					mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
+					mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
+				}
 				mFpsInfo->setCaption(info);
 			} catch (...) { }
+		}
+	}
+	else {
+		if (MyGUI::LayerManager::getInstance().exist("Statistic")) {
+			mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width-1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
+			mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
+			mFpsInfo->setColour(Ogre::ColourValue::White);
 		}
 	}
 

@@ -2,6 +2,32 @@
 
 <MyGUI type="Skin">
 
+    <Skin name = "StaticImage" size = "16 16">
+        <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+    </Skin>
+
+    <Skin name = "StaticText" size = "16 16">
+        <Property key="FontName" value = "RF_font.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_DEFAULT" />
+        <Property key="Colour" value = "0 0 0" />
+        
+        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
+    </Skin>
+
+    <Skin name = "RF_StaticImage" size = "16 16" texture = "RF_Skin.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+    </Skin>
+    
+    <Skin name = "RF_StaticText" size = "16 16">
+        <Property key="FontName" value = "RF_font.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_DEFAULT" />
+        <Property key="Colour" value = "0 0 0" />
+        
+        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
+    </Skin>
+
     <Skin name = "RF_WindowCaption" size = "10 10" texture = "RF_Skin.png" >
         <Property key="FontName" value = "RF_font.18" />
         <Property key="FontHeight" value = "18" />
@@ -176,19 +202,6 @@
 
     </Skin>
 
-    <Skin name = "RF_StaticImage" size = "16 16" texture = "RF_Skin.png" >
-        <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
-    </Skin>
-    
-    <Skin name = "RF_StaticText" size = "16 16">
-        <Property key="FontName" value = "RF_font.18" />
-        <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_DEFAULT" />
-        <Property key="Colour" value = "0 0 0" />
-        
-        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
-    </Skin>
-	
     <Skin name = "RF_ItemBoxV" size = "20 20">
         <Property key="NeedKey" value = "true" />
         <Property key="AlignVert" value = "true" />
