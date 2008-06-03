@@ -1492,7 +1492,7 @@ void EditorState::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 	}
 }
 
-void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char)
+void EditorState::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
 {
 	MyGUI::IntPoint delta;
 	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;

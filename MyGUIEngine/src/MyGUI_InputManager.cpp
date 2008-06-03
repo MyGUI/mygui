@@ -279,7 +279,7 @@ namespace MyGUI
 	}
 
     //Detects switching from an english to a other mode on a keyboard (?)
-	void InputManager::detectLangShift(int keyEvent, bool bIsKeyPressed)
+	void InputManager::detectLangShift(KeyCode keyEvent, bool bIsKeyPressed)
 	{
 		// если переключать не надо
 		if (mMapLanguages.size() == 1) return;
@@ -328,7 +328,7 @@ namespace MyGUI
 		}
 	}
 
-	Char InputManager::getKeyChar(int keyEvent) // возвращает символ по его скан коду
+	Char InputManager::getKeyChar(KeyCode keyEvent) // возвращает символ по его скан коду
 	{
 		if (keyEvent < 58) return mCurrentLanguage->second[keyEvent + (mIsShiftPressed ? 58 : 0)];
 		else if (keyEvent < 84) {
@@ -530,7 +530,7 @@ namespace MyGUI
 		}
 	}
 
-	void InputManager::storeKey(int _key)
+	void InputManager::storeKey(KeyCode _key)
 	{
 		mHoldKey = KC_UNASSIGNED;
 
@@ -545,7 +545,7 @@ namespace MyGUI
 		mTimerKey = 0.0f;
 	}
 
-	void InputManager::resetKey(int _key)
+	void InputManager::resetKey(KeyCode _key)
 	{
 		mHoldKey = KC_UNASSIGNED;
 	}

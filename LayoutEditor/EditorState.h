@@ -74,7 +74,7 @@ private:
 	// widget editing
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
-	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, int _key, MyGUI::Char _char);
+	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 	void addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption = "");
 
 	// panels mnimizing
