@@ -55,7 +55,8 @@ namespace MyGUI
 	private:
 		void notifyMouseClick(MyGUI::WidgetPtr _sender);
 
-		void _onKeyChangeRootFocus(bool _focus);
+		//void _onKeyChangeRootFocus(bool _focus);
+		void _onKeyLostFocus(WidgetPtr _new);
 
 		void update();
 

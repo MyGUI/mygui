@@ -49,12 +49,13 @@ namespace MyGUI
 		if (_index == ITEM_NONE) _index = mVectorMenuItemInfo.size();
 
 		ButtonPtr button = mWidgetClient->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_DEFAULT);
-		button->eventMouseButtonClick = newDelegate(this, &MenuBar::notifyMouseButtonClick);
+		button->eventMouseButtonPressed = newDelegate(this, &MenuBar::eventMouseButtonPressed);
 		button->setCaption(_item);
 
 		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>("PopupMenu", IntCoord(), ALIGN_DEFAULT, "Popup");
 		menu->eventPopupMenuClose = newDelegate(this, &MenuBar::notifyPopupMenuClose);
 		menu->eventPopupMenuAccept = newDelegate(this, &MenuBar::notifyPopupMenuAccept);
+		menu->_setOwner(this);
 
 		mVectorMenuItemInfo.insert(mVectorMenuItemInfo.begin() + _index, MenuItemInfo(button, menu));
 		update();
@@ -114,13 +115,13 @@ namespace MyGUI
 		}
 	}
 
-	void MenuBar::notifyMouseButtonClick(MyGUI::WidgetPtr _sender/*, int _left, int _top, MouseButton _id*/)
+	void MenuBar::eventMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		//if (_id == MB_Left) {
+		if (_id == MB_Left) {
 			size_t select = (size_t)_sender->_getInternalData();
 			if (mIndexSelect == select) select = ITEM_NONE;
 			setItemSelect(select);
-		//}
+		}
 	}
 
 	void MenuBar::setItemSelect(size_t _index)
