@@ -2,6 +2,7 @@
 #define __WIDGET_CONTAINER_H__
 
 #include "MyGUI.h"
+#include <sstream>
 
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 //typedef std::map<Ogre::String, Ogre::String> MapString;
@@ -31,13 +32,11 @@ struct WidgetContainer
 	inline std::string position(bool _percent = true)
 	{
 		if (relative_mode){
-			std::string retval;
-			char str[256];
 			MyGUI::FloatCoord coord = MyGUI::Gui::getInstance().convertIntToRelative(widget->getCoord(), widget->getParent());
-			if (_percent) sprintf(str, "%1.4g %1.4g %1.4g %.4g", coord.left*100, coord.top*100, coord.width*100, coord.height*100);
-			else sprintf(str, "%1.9g %1.9g %1.9g %1.9g", coord.left, coord.top, coord.width, coord.height);
-			retval = str;
-			return retval;
+			std::ostringstream stream;
+			if (_percent) stream << coord.left*100 << " " << coord.top*100 << " " << coord.width*100 << " " << coord.height*100;
+			else stream << coord.left << " " << coord.top << " " << coord.width << " " << coord.height;
+			return stream.str();
 		}
 		return widget->getCoord().print();
 	}
