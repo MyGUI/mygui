@@ -1315,38 +1315,24 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		return;
 	}
 
-	try{
-		if (("Message_Modal" != action) && ("Window_AutoAlpha" != action) && ("Window_Snap" != action))
-		{
-			if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
-			{
-				if ((value != "") && (value.find_first_of("0123456789") != std::string::npos))
-					MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
-			}
-			else if (value != "" || "Widget_FontName" != action)
-				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
-		}
-		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
-		Ogre::Root::getSingleton().renderOneFrame();
-	}
-	catch(MyGUI::MyGUIException & e)
+	bool success;
+	if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
 	{
-		MyGUI::Message::_createMessage("Warning", "Can't apply '" + action + "'property" + ": " + e.getDescription(), "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-		_sender->setCaption(DEFAULT_VALUE);
+		if ((value != "") && (value.find_first_of("0123456789") != std::string::npos))
+			success = ew->tryToApplyProperty(widgetContainer->widget, action, value);
+	}
+	else if (value != "" || "Widget_FontName" != action)
+		success = ew->tryToApplyProperty(widgetContainer->widget, action, value);
 
-		//if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
-	}
-   catch(Ogre::Exception & e)
+	if (success)
 	{
-      e.getDescription();
-		MyGUI::Message::_createMessage("Warning", "No such " + action + ": '" + value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-		if (action == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, "");
-	}// for incorrect meshes or textures
-   catch(...)
-   {
-		MyGUI::Message::_createMessage("Error", "Can't apply '" + action + "'property.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		current_widget_rectangle->setPosition(convertParentCoordToCoord(current_widget->getCoord(), current_widget));
+	}
+	else
+	{
 		_sender->setCaption(DEFAULT_VALUE);
-   }
+		return;
+	}
 
 	// если такое св-во было, то заменим (или удалим если стерли) значение
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
