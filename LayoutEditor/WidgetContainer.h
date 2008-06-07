@@ -61,6 +61,8 @@ public:
 	void remove(MyGUI::WidgetPtr _widget);
 	void clear();
 
+	bool tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test = false);
+
 	std::vector<WidgetContainer*> widgets;
 	int global_counter;
 private:

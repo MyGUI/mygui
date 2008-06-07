@@ -252,18 +252,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
 
-			// и парсим свойство
-			try{
-				if (_test || 
-					 (("Message_Modal" != key) && ("Window_AutoAlpha" != key) && ("Window_Snap" != key)))
-					MyGUI::WidgetManager::getInstance().parse(container->widget, key, value);
-				Ogre::Root::getSingleton().renderOneFrame();
-			}
-			catch(...)
-			{
-				MyGUI::Message::_createMessage("Warning", "No such " + key + ": '" + value + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-				if (key == "Image_Texture") MyGUI::WidgetManager::getInstance().parse(container->widget, key, "");
-			}// for incorrect meshes or textures
+			// и пытаемся парсить свойство
+			if ( tryToApplyProperty(container->widget, key, value, _test) == false ) continue;
 
 			container->mProperty.push_back(std::make_pair(key, value));
 		}
@@ -276,6 +266,39 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 		}
 
 	};
+}
+
+
+bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test)
+{
+	try{
+		if (_key == "Image_Texture")
+		{
+			if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) )
+			{
+				MyGUI::Message::_createMessage("Warning", "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				return true;
+			}
+		}
+		if (_test || 
+				(("Message_Modal" != _key) && ("Window_AutoAlpha" != _key) && ("Window_Snap" != _key)))
+			MyGUI::WidgetManager::getInstance().parse(_widget, _key, _value);
+		Ogre::Root::getSingleton().renderOneFrame();
+	}
+	catch(MyGUI::MyGUIException & e)
+	{
+		MyGUI::Message::_createMessage("Warning", "Can't apply '" + _key + "'property" + ": " + e.getDescription(), ". This value will be saved.", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+	}
+	catch(Ogre::Exception & e)
+	{
+		MyGUI::Message::_createMessage("Warning", "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+	}// for incorrect meshes or textures
+	catch(...)
+	{
+		MyGUI::Message::_createMessage("Error", "Can't apply '" + _key + "'property.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		return false;
+	}
+	return true;
 }
 
 void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node)
