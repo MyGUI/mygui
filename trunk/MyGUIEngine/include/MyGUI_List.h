@@ -122,31 +122,31 @@ namespace MyGUI
 
 		/** Event : Enter pressed or double click.\n
 			signature : void method(WidgetPtr _sender, size_t _index)\n
-			_index of selected item
+			@param _index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
 			signature : void method(WidgetPtr _sender, size_t _index)\n
-			_index of new item
+			@param _index of new item
 		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
 			signature : void method(WidgetPtr _sender, size_t _index)\n
-			_index of selected item
+			@param _index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
 			signature : void method(WidgetPtr _sender, size_t _index)\n
-			_index of focused item
+			@param _index of focused item
 		*/
 		EventInfo_WidgetSizeT eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
 			signature : void method(WidgetPtr _sender, size_t _position)\n
-			_position of scroll
+			@param _position of scroll
 		*/
 		EventInfo_WidgetSizeT eventListChangeScroll;
 

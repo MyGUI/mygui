@@ -127,13 +127,13 @@ namespace MyGUI
 
 		/** Event : Enter pressed or double click.\n
 			signature : void method(WidgetPtr _sender, size_t _index)\n
-			_index of selected item
+			@param _index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
 			signature : void method(WidgetPtr _sender, size_t _index)\n
-			_index of new item
+			@param _index of new item
 		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
 
