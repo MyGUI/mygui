@@ -90,13 +90,15 @@ namespace MyGUI
 
 		/** Event : Mouse button pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)\n
-			@param _left true if left button pressed
+			@param _left, _top pointer position
+			@param _id Mouse button id
 		*/
 		EventInfo_WidgetIntIntButton eventMouseButtonPressed;
 
 		/** Event : Mouse button released.\n
 			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)\n
-			@param _left true if left button released
+			@param _left, _top pointer position
+			@param _id Mouse button id
 		*/
 		EventInfo_WidgetIntIntButton eventMouseButtonReleased;
 
@@ -136,21 +138,22 @@ namespace MyGUI
 		EventInfo_WidgetKeyCode eventKeyButtonReleased;
 
 		/** Event : Root widget changed mouse focus.\n
+			info : this event sends only to root widget\n
 			signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+			@param _focus Is widget got mouse focus.
 		*/
-		/*	событие : корневой виджет изменил фокус мыши, изменение без дочерних элементов*/
-		/* инфо : это событие получает только корневой виджет*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/
 		EventInfo_WidgetBool  eventRootMouseChangeFocus;
 
 		/** Event : Root widget changed keyboard focus.\n
+			info : this event sends only to root widget\n
 			signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+			@param _focus Is widget got keyboard focus.
 		*/
-		/*	событие : корневой виджет изменил фокус клавы, изменение без дочерних элементов*/
-		/* инфо : это событие получает только корневой виджет*/
-		/*	прототип делегата : void method(MyGUI::WidgetPtr _sender, bool _focus);*/
-		EventInfo_WidgetBool  eventRootKeyChangeFocus;
+		EventInfo_WidgetBool eventRootKeyChangeFocus;
 
+		/** Event : Extendeble event for special cases or plugins.\n
+			signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
+		*/
 		/* event : общее расширяемое событие для плагинов или особых случаев*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
 		EventInfo_WidgetStringString eventActionInfo;

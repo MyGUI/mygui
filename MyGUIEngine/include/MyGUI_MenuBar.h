@@ -52,9 +52,9 @@ namespace MyGUI
 		//! Get number of items
 		inline size_t getItemCount() { return mVectorMenuItemInfo.size();}
 
-		//! Insert an item into a list at a specified position
+		//! Insert an item into a menubar at a specified position
 		void insertItem(size_t _index, const Ogre::UTFString & _item);
-		//! Add an item to the end of a list
+		//! Add an item to the end of a menubar
 		inline void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
 		//! Replace an item at a specified position
 		void setItem(size_t _index, const Ogre::UTFString & _item);
@@ -75,8 +75,10 @@ namespace MyGUI
 		//! Set item selection at a specified position
 		void setItemSelect(size_t _index);
 
-		// event : нажат ентер, или щелчек мыши
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		/** Event : Enter pressed or mouse click.\n
+			signature : void method(WidgetPtr _sender, size_t _index)\n
+			@param _index of selected item
+		*/
 		EventInfo_WidgetMenuSizeT eventPopupMenuAccept;
 
 	private:

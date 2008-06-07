@@ -82,18 +82,6 @@ void EditorState::enter(bool bIsChangeState)
 
 	loadSettings();
 
-	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
-	{
-		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
-	}
-
 	// menu panel (should be dropdown menu)
 	ASSIGN_FUNCTION("LayoutEditor_buttonLoad", &EditorState::notifyLoadSaveAs);
 	ASSIGN_FUNCTION("LayoutEditor_buttonSave", &EditorState::notifySave);
@@ -104,7 +92,7 @@ void EditorState::enter(bool bIsChangeState)
 	ASSIGN_FUNCTION("LayoutEditor_buttonQuit", &EditorState::notifyQuit);
 
 	// создание меню
-	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "Main");
+	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem("  File  ");
 
 	mPopupMenuFile = bar->getItemMenu(0);
@@ -118,10 +106,23 @@ void EditorState::enter(bool bIsChangeState)
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
+
+	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
+	{
+		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"), controller);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"), controller);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
+		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_MenuBar"), controller);
+	}
+
 	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
    {
-		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, 2, 3);
-		MyGUI::ControllerManager::getInstance().addItem(bar, controller);
 	}
 
 	// widgets panel
@@ -468,6 +469,8 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
 				controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
 				MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
+				controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+				MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_MenuBar"), controller);				
 			}
 			for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 			{
@@ -736,6 +739,7 @@ void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
 		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"));
 		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"));
 		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"));
+		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_MenuBar"));
 	}
 
 	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
@@ -1615,10 +1619,12 @@ void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 {
 	Ogre::String action;
 	// FIXME/2 как-то громоздко и не настраиваемо...
-	if (current_widget->getWidgetType() == "ComboBox") action = "Combo_AddString";
-	else if (current_widget->getWidgetType() == "List") action = "List_AddString";
-	//else if (current_widget->getWidgetType() == "Message") action = "Message_AddButton";
-	else if (current_widget->getWidgetType() == "Tab") action = "Tab_AddSheet";
+	if (current_widget->getWidgetType() == "Tab") action = "Tab_AddSheet";
+	else
+	{
+		// for example "Combo_AddString", "List_AddString", etc...
+		action = current_widget->getWidgetType() + "_AddString";
+	}
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	if (_apply)
@@ -1653,8 +1659,8 @@ void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 							widgetContainer->mProperty.erase(iterProperty);
 							if (current_widget->getWidgetType() == "ComboBox") MyGUI::castWidget<MyGUI::ComboBox>(current_widget)->deleteItem(index);
 							else if (current_widget->getWidgetType() == "List") MyGUI::castWidget<MyGUI::List>(current_widget)->deleteItem(index);
+							else if (current_widget->getWidgetType() == "MenuBar") MyGUI::castWidget<MyGUI::MenuBar>(current_widget)->deleteItem(index);
 							//else if (current_widget->getWidgetType() == "Message") MyGUI::castWidget<MyGUI::Message>(current_widget)->deleteItem(index);
-							//else if (current_widget->getWidgetType() == "Tab") MyGUI::castWidget<MyGUI::Tab>(current_widget)->removeSheet(_value);
 							return;
 						}
 						++index;
@@ -1738,22 +1744,19 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	Ogre::String lastitem = list->getItem(item);
 	list->setItem(item, value);
 
-	if (current_widget->getWidgetType() == "ComboBox") action = "Combo_AddString";
-	else if (current_widget->getWidgetType() == "List") action = "List_AddString";
-	else if (current_widget->getWidgetType() == "Tab")
+	if (current_widget->getWidgetType() == "Tab")
 	{
 		action = "Widget_Caption";
 		MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
 		MyGUI::SheetPtr sheet = tab->getSheet(item);
 		WidgetContainer * widgetContainer = ew->find(sheet);
 		MyGUI::WidgetManager::getInstance().parse(sheet, "Widget_Caption", value);
-		for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-		{
-			if (iterProperty->first == action) iterProperty->second = value;
-			return;
-		}
-		widgetContainer->mProperty.push_back(std::make_pair(action, value));
+		MapSet(widgetContainer->mProperty, action, value);
 		return;
+	}
+	else
+	{
+		action = current_widget->getWidgetType() + "_AddString";
 	}
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
@@ -1765,6 +1768,7 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 				iterProperty->second = value;
 				if (current_widget->getWidgetType() == "ComboBox") MyGUI::castWidget<MyGUI::ComboBox>(current_widget)->setItem(index, value);
 				else if (current_widget->getWidgetType() == "List") MyGUI::castWidget<MyGUI::List>(current_widget)->setItem(index, value);
+				else if (current_widget->getWidgetType() == "MenuBar") MyGUI::castWidget<MyGUI::MenuBar>(current_widget)->setItem(index, value);
 				return;
 			}
 			++index;
@@ -1806,9 +1810,7 @@ void EditorState::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 	if (ITEM_NONE == item) return;
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	StringPairs::iterator iterProperty = MapFind(widgetContainer->mUserString, multilist->getItem(item));
 	MapErase(widgetContainer->mUserString, multilist->getItem(item));
-
 	multilist->deleteItem(item);
 	um->addValue();
 }
