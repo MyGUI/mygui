@@ -82,7 +82,7 @@ namespace MyGUI
 
 		/** Event : Position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
-			_index of new position
+			@param _index of new position
 		*/
 		EventInfo_WidgetSizeT eventComboChangePosition;
 

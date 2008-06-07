@@ -105,12 +105,13 @@ namespace MyGUI
 
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string& _name)
-			_name of pressed button
+			@param _name of pressed button
 		*/
 		EventInfo_WidgetString eventWindowButtonPressed;
 
-		/** Event : Window coordinate changed (window was resized or moved).
-			_name of pressed button
+		/** Event : Window coordinate changed (window was resized or moved).\n
+			signature : void method(MyGUI::WidgetPtr _sender)
+			@param _name of pressed button
 		*/
 		EventInfo_WidgetVoid eventWindowChangeCoord;
 

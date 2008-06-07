@@ -81,7 +81,7 @@ private:
 	void notifyMinimizePanel(MyGUI::WidgetPtr _sender);
 	void notifyEndResize(MyGUI::WidgetPtr _sender);
 	// strings panel
-	void syncStrings(bool _apply, bool _add = 0, Ogre::String _value = "");
+	void syncStrings(bool _apply, bool _add = false, Ogre::String _value = "");
 	void notifyAddString(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteString(MyGUI::WidgetPtr _sender);
 	void notifySelectString(MyGUI::WidgetPtr _sender);

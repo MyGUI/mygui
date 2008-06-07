@@ -97,14 +97,14 @@ namespace MyGUI
 		// событие смены языков
 		/** Event : Language has been changed.\n
 			signature : void method(const std::string & _languageName)\n
-			_languageName name of current language
+			@param _languageName name of current language
 		*/
 		EventInfo_String eventChangeLanguage;
 
 		// событие смены курсора
 		/** Event : Pointer has been changed.\n
 			signature : void method(const std::string & _pointerName)\n
-			_pointerName name of current pointer
+			@param _pointerName name of current pointer
 		*/
 		EventInfo_String eventChangeMousePointer;
 
