@@ -21,8 +21,8 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("Combo_ModeDrop") = newDelegate(this, &ComboBoxFactory::Combo_ModeDrop);
-			manager.registerDelegate("Combo_AddString") = newDelegate(this, &ComboBoxFactory::Combo_AddString);
+			manager.registerDelegate("ComboBox_ModeDrop") = newDelegate(this, &ComboBoxFactory::ComboBox_ModeDrop);
+			manager.registerDelegate("ComboBox_AddItem") = newDelegate(this, &ComboBoxFactory::ComboBox_AddItem);
 		}
 
 		ComboBoxFactory::~ComboBoxFactory()
@@ -32,8 +32,8 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 
 			// удаляем все парсеры
-			manager.unregisterDelegate("Combo_ModeDrop");
-			manager.unregisterDelegate("Combo_AddString");
+			manager.unregisterDelegate("ComboBox_ModeDrop");
+			manager.unregisterDelegate("ComboBox_AddItem");
 		}
 
 		const Ogre::String& ComboBoxFactory::getType()
@@ -47,13 +47,13 @@ namespace MyGUI
 		}
 
 		// методы для парсинга
-		void ComboBoxFactory::Combo_ModeDrop(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ComboBoxFactory::ComboBox_ModeDrop(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->setComboModeDrop(utility::parseBool(_value));
 		}
 
-		void ComboBoxFactory::Combo_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ComboBoxFactory::ComboBox_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->addItem(_value);

@@ -212,7 +212,7 @@ void EditorState::enter(bool bIsChangeState)
 	// minimize panel buttons
 	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeSpecificProperties"));
 	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeWidgetProperties"));
-	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeString"));
+	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeItem"));
 	panelMinimizeButtons.push_back(mGUI->findWidgetT("LayoutEditor_minimizeUserData"));
 	for (MyGUI::VectorWidgetPtr::iterator iter = panelMinimizeButtons.begin(); iter != panelMinimizeButtons.end(); ++iter)
 	{
@@ -221,13 +221,13 @@ void EditorState::enter(bool bIsChangeState)
 	}
 
 	// strings panel
-	ASSIGN_FUNCTION("LayoutEditor_buttonAddString", &EditorState::notifyAddString);
-	ASSIGN_FUNCTION("LayoutEditor_buttonDeleteString", &EditorState::notifyDeleteString);
-	ASSIGN_FUNCTION("LayoutEditor_buttonSelectString", &EditorState::notifySelectString);
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
-	edit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateString);
-	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
-	list->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectStringItem);
+	ASSIGN_FUNCTION("LayoutEditor_buttonAddItem", &EditorState::notifyAddItem);
+	ASSIGN_FUNCTION("LayoutEditor_buttonDeleteItem", &EditorState::notifyDeleteItem);
+	ASSIGN_FUNCTION("LayoutEditor_buttonSelectSheet", &EditorState::notifySelectSheet);
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editItem");
+	edit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateItem);
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
+	list->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectItem);
 
 	// UserData panel
 	ASSIGN_FUNCTION("LayoutEditor_buttonAddUserData", &EditorState::notifyAddUserData);
@@ -1108,26 +1108,26 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		y = panels[1]->getTop() + (panels[1]->getHeight() + PANELS_MARGIN)*panels[1]->isShow();
 
 		// show/update strings panel if needed
-		MyGUI::WidgetPtr panelStrings = panels[2];
-		panelStrings->setPosition(PANELS_MARGIN, y);
-		if (widgetType->many_strings)
+		MyGUI::WidgetPtr panelItems = panels[2];
+		panelItems->setPosition(PANELS_MARGIN, y);
+		if (widgetType->many_items)
 		{
-			panelStrings->show();
-			if (widgetType->name == "Tab") panelStrings->setCaption("Sheets");
-			else panelStrings->setCaption("Items");
-			syncStrings(false);
-			MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSelectString");
+			panelItems->show();
+			if (widgetType->name == "Tab") panelItems->setCaption("Sheets");
+			else panelItems->setCaption("Items");
+			syncItems(false);
+			MyGUI::WidgetPtr but = MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSelectSheet");
 			if (widgetType->name == "Tab") but->show();
 			else but->hide();
-			MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+			MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editItem");
 			edit->setCaption("");
 		}
 		else
 		{
-			panelStrings->hide();
+			panelItems->hide();
 		}
 
-		y = panelStrings->getTop() + (panelStrings->getHeight() + PANELS_MARGIN)*panelStrings->isShow();
+		y = panelItems->getTop() + (panelItems->getHeight() + PANELS_MARGIN)*panelItems->isShow();
 
 		MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
 		MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
@@ -1480,7 +1480,7 @@ void EditorState::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 	{
 		addSheetToTab(current_widget);
 		// update strings panel
-		syncStrings(false);
+		syncItems(false);
 		um->addValue();
 	}
 }
@@ -1604,15 +1604,15 @@ void EditorState::notifyEndResize(MyGUI::WidgetPtr _sender)
 		(*iter)->setEnabled(true);
 }
 
-void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
+void EditorState::syncItems(bool _apply, bool _add, Ogre::String _value)
 {
 	Ogre::String action;
 	// FIXME/2 как-то громоздко и не настраиваемо...
 	if (current_widget->getWidgetType() == "Tab") action = "Tab_AddSheet";
 	else
 	{
-		// for example "Combo_AddString", "List_AddString", etc...
-		action = current_widget->getWidgetType() + "_AddString";
+		// for example "ComboBox_AddItem", "List_AddItem", etc...
+		action = current_widget->getWidgetType() + "_AddItem";
 	}
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
@@ -1660,7 +1660,7 @@ void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 	}
 	else // if !apply (if load)
 	{
-		MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+		MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
 		list->deleteAllItems();
 		if (action == "Tab_AddSheet")
 		{
@@ -1679,28 +1679,28 @@ void EditorState::syncStrings(bool _apply, bool _add, Ogre::String _value)
 	}
 }
 
-void EditorState::notifyAddString(MyGUI::WidgetPtr _sender)
+void EditorState::notifyAddItem(MyGUI::WidgetPtr _sender)
 {
-	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
-	syncStrings(true, true, edit->getOnlyText());
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editItem");
+	syncItems(true, true, edit->getOnlyText());
 	list->addItem(edit->getOnlyText());
 	um->addValue();
 }
 
-void EditorState::notifyDeleteString(MyGUI::WidgetPtr _sender)
+void EditorState::notifyDeleteItem(MyGUI::WidgetPtr _sender)
 {
-	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item) return;
-	syncStrings(true, false, list->getItem(item));
+	syncItems(true, false, list->getItem(item));
 	list->deleteItem(item);
 	um->addValue();
 }
 
-void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
+void EditorState::notifySelectSheet(MyGUI::WidgetPtr _sender)
 {
-	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item) return;
 	ON_EXIT(UndoManager::getInstance().addValue());
@@ -1721,12 +1721,12 @@ void EditorState::notifySelectString(MyGUI::WidgetPtr _sender)
 	}
 }
 
-void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
+void EditorState::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 {
-	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editItem");
 	size_t item = list->getItemSelect();
-	if (ITEM_NONE == item){ notifyAddString(); return;}
+	if (ITEM_NONE == item){ notifyAddItem(); return;}
 	ON_EXIT(UndoManager::getInstance().addValue());
 	Ogre::String action;
 	Ogre::String value = edit->getOnlyText();
@@ -1745,7 +1745,7 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	}
 	else
 	{
-		action = current_widget->getWidgetType() + "_AddString";
+		action = current_widget->getWidgetType() + "_AddItem";
 	}
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
@@ -1765,10 +1765,10 @@ void EditorState::notifyUpdateString(MyGUI::WidgetPtr _widget)
 	}
 }
 
-void EditorState::notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position)
+void EditorState::notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position)
 {
-	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listStrings");
-	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editString");
+	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
+	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editItem");
 	size_t item = list->getItemSelect();
 	if (ITEM_NONE == item) return;
 	Ogre::String value = list->getItem(item);

@@ -21,7 +21,7 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			//manager.registerDelegate("ItemBox_AddString") = newDelegate(this, &ItemBoxFactory::ItemBox_AddString);
+			//manager.registerDelegate("ItemBox_AddItem") = newDelegate(this, &ItemBoxFactory::ItemBox_AddItem);
 		}
 
 		ItemBoxFactory::~ItemBoxFactory()
@@ -31,7 +31,7 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 
 			// удаляем все парсеры
-			//manager.unregisterDelegate("ItemBox_AddString");
+			//manager.unregisterDelegate("ItemBox_AddItem");
 		}
 
 		const Ogre::String& ItemBoxFactory::getType()
@@ -44,7 +44,7 @@ namespace MyGUI
 			return new ItemBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		/*void ItemBoxFactory::ItemBox_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		/*void ItemBoxFactory::ItemBox_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ItemBoxPtr, _widget, _key);
 			static_cast<ItemBoxPtr>(_widget)->addItemString(_value);

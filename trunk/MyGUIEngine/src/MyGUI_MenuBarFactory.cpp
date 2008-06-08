@@ -21,7 +21,7 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("MenuBar_AddString") = newDelegate(this, &MenuBarFactory::MenuBar_AddString);
+			manager.registerDelegate("MenuBar_AddItem") = newDelegate(this, &MenuBarFactory::MenuBar_AddItem);
 		}
 
 		MenuBarFactory::~MenuBarFactory()
@@ -31,7 +31,7 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 
 			// удаляем все парсеры
-			manager.unregisterDelegate("MenuBar_AddString");
+			manager.unregisterDelegate("MenuBar_AddItem");
 		}
 
 		const Ogre::String& MenuBarFactory::getType()
@@ -44,7 +44,7 @@ namespace MyGUI
 			return new MenuBar(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void MenuBarFactory::MenuBar_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void MenuBarFactory::MenuBar_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(MenuBarPtr, _widget, _key);
 			static_cast<MenuBarPtr>(_widget)->addItem(_value);
