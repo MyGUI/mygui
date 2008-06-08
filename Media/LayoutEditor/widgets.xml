@@ -22,9 +22,9 @@
   <Widget name="ComboBox">
     <Property key="DefaultSkin" value="ComboBox"/>
     <Property key="Skin" value="ComboBox"/>
-    <Property key="StringManager" value="true"/>
-    <Parameter key="Combo_ModeDrop" value="Bool"/>
-    <!--Parameter key="Combo_AddString" value="String"/-->
+    <Property key="ItemManager" value="true"/>
+    <Parameter key="ComboBox_ModeDrop" value="Bool"/>
+    <!--Parameter key="ComboBox_AddItem" value="String"/-->
     <!-- all properties -->
   </Widget>
 
@@ -63,23 +63,23 @@
   <Widget name="List">
     <Property key="DefaultSkin" value="List"/>
     <Property key="Skin" value="List"/>
-    <Property key="StringManager" value="true"/>
-    <!--Parameter key="List_AddString" value="String"/-->
+    <Property key="ItemManager" value="true"/>
+    <!--Parameter key="List_AddItem" value="String"/-->
     <!-- all properties -->
   </Widget>
 
   <Widget name="MenuBar">
     <Property key="DefaultSkin" value="MenuBar"/>
     <Property key="Skin" value="MenuBar"/>
-    <Property key="StringManager" value="true"/>
-    <!--Parameter key="MenuBar_AddString" value="String"/-->
+    <Property key="ItemManager" value="true"/>
+    <!--Parameter key="MenuBar_AddItem" value="String"/-->
     <!-- all properties -->
   </Widget>
 
   <Widget name="Message">
     <Property key="DefaultSkin" value="Message"/>
     <Property key="Skin" value="Message"/>
-    <!--Property key="StringManager" value="true"/-->
+    <!--Property key="ItemManager" value="true"/-->
     <Parameter key="Message_Caption" value="String"/>
     <Parameter key="Message_Message" value="String"/>
     <Parameter key="Message_Modal" value="Bool"/>
@@ -151,7 +151,7 @@
   <Widget name="Tab">
     <Property key="DefaultSkin" value="Tab"/>
     <Property key="Skin" value="Tab"/>
-    <Property key="StringManager" value="true"/>
+    <Property key="ItemManager" value="true"/>
     <Parameter key="Tab_ButtonWidth" value="1 int"/>
     <Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
     <Parameter key="Tab_SmoothShow" value="Bool"/>
