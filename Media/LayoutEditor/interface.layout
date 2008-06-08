@@ -33,7 +33,7 @@
         <Property key="Widget_Caption" value="Widgets"/>
         <Property key="Window_Snap" value="true"/>
         <Widget type="ComboBox" skin="EditorComboBox" position="0 260 191 24" align="ALIGN_HSTRETCH ALIGN_BOTTOM" name="allWidgetsCombo">
-            <Property key="Combo_ModeDrop" value="true"/>
+            <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="0 236 191 2" align="ALIGN_HSTRETCH ALIGN_BOTTOM"/>
         <Widget type="StaticText" skin="StaticText" position="0 236 191 24" align="ALIGN_HSTRETCH ALIGN_BOTTOM">
@@ -61,14 +61,14 @@
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
         <Widget type="ComboBox" skin="EditorComboBox" position="85 98 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxResolution">
-            <Property key="Combo_ModeDrop" value="true"/>
+            <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 122 80 24">
             <Property key="Widget_Caption" value="Full screen"/>
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
         <Widget type="ComboBox" skin="EditorComboBox" position="85 122 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxFullscreen">
-            <Property key="Combo_ModeDrop" value="true"/>
+            <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 74 248 2"/>
         <Widget type="StaticText" skin="StaticText" position="-3 74 248 24" align="ALIGN_HSTRETCH ALIGN_TOP">
@@ -118,22 +118,22 @@
             <UserString key="Size" value="0"/>
             <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeWidgetProperties"/>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="2 326 267 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelStrings">
+        <Widget type="Widget" skin="PanelSmall" position="2 326 267 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelItems">
             <Property key="Widget_Caption" value="Items"/>
             <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
             <UserString key="Size" value="160"/>
-            <Widget type="Edit" skin="Edit" position="3 24 261 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="editString"/>
-            <Widget type="List" skin="List" position="3 48 261 85" align="ALIGN_HSTRETCH ALIGN_TOP" name="listStrings"/>
-            <Widget type="Button" skin="ButtonSmall" position="3 133 88 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonAddString">
+            <Widget type="Edit" skin="Edit" position="3 24 261 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="editItem"/>
+            <Widget type="List" skin="List" position="3 48 261 85" align="ALIGN_HSTRETCH ALIGN_TOP" name="listItems"/>
+            <Widget type="Button" skin="ButtonSmall" position="3 133 88 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonAddItem">
                 <Property key="Widget_Caption" value="Add"/>
             </Widget>
-            <Widget type="Button" skin="ButtonSmall" position="92 133 88 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonDeleteString">
+            <Widget type="Button" skin="ButtonSmall" position="92 133 88 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonDeleteItem">
                 <Property key="Widget_Caption" value="Delete"/>
             </Widget>
-            <Widget type="Button" skin="ButtonSmall" position="181 133 83 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonSelectString">
+            <Widget type="Button" skin="ButtonSmall" position="181 133 83 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonSelectSheet">
                 <Property key="Widget_Caption" value="Select"/>
             </Widget>
-            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeString"/>
+            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeItem"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 488 267 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelUserData">
             <Property key="Widget_Caption" value="UserData"/>

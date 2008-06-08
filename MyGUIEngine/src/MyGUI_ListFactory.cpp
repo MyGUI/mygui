@@ -21,7 +21,7 @@ namespace MyGUI
 			manager.registerFactory(this);
 
 			// регестрируем все парсеры
-			manager.registerDelegate("List_AddString") = newDelegate(this, &ListFactory::List_AddString);
+			manager.registerDelegate("List_AddItem") = newDelegate(this, &ListFactory::List_AddItem);
 		}
 
 		ListFactory::~ListFactory()
@@ -31,7 +31,7 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 
 			// удаляем все парсеры
-			manager.unregisterDelegate("List_AddString");
+			manager.unregisterDelegate("List_AddItem");
 		}
 
 		const Ogre::String& ListFactory::getType()
@@ -44,7 +44,7 @@ namespace MyGUI
 			return new List(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void ListFactory::List_AddString(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ListFactory::List_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ListPtr, _widget, _key);
 			static_cast<ListPtr>(_widget)->addItem(_value);

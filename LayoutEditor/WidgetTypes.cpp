@@ -104,7 +104,7 @@ void WidgetTypes::parseWidgetType(MyGUI::xml::xmlNodeIterator _widget)
 			else if (key == "Parent") widget_type->parent = MyGUI::utility::parseBool(value);
 			else if (key == "Child") widget_type->child = MyGUI::utility::parseBool(value);
 			else if (key == "Resizeable") widget_type->resizeable = MyGUI::utility::parseBool(value);
-			else if (key == "StringManager") widget_type->many_strings = MyGUI::utility::parseBool(value);
+			else if (key == "ItemManager") widget_type->many_items = MyGUI::utility::parseBool(value);
 		}
 		else if (field->getName() == "Parameter") {
 			if (false == field->findAttribute("key", key)) continue;

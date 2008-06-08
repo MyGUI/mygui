@@ -6,7 +6,7 @@ typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 typedef std::map< std::string, StringPairs > SkinGroups;
 
 struct WidgetType{
-	WidgetType(): parent(false), child(true), resizeable(true), many_strings(false) {}
+	WidgetType(): parent(false), child(true), resizeable(true), many_items(false) {}
 	std::string name;
 	std::vector<std::string> skin;
 	std::string default_skin;
@@ -17,8 +17,8 @@ struct WidgetType{
 	bool child;
 	// can be selected
 	bool resizeable;
-	// have many strings (such as List, ComboBox, Tab, etc...)
-	bool many_strings;
+	// have many items (such as List, ComboBox, Tab, MenuBar, etc...)
+	bool many_items;
 };
 
 struct PossibleValue{

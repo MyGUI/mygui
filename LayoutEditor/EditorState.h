@@ -80,13 +80,13 @@ private:
 	// panels mnimizing
 	void notifyMinimizePanel(MyGUI::WidgetPtr _sender);
 	void notifyEndResize(MyGUI::WidgetPtr _sender);
-	// strings panel
-	void syncStrings(bool _apply, bool _add = false, Ogre::String _value = "");
-	void notifyAddString(MyGUI::WidgetPtr _sender = 0);
-	void notifyDeleteString(MyGUI::WidgetPtr _sender);
-	void notifySelectString(MyGUI::WidgetPtr _sender);
-	void notifyUpdateString(MyGUI::WidgetPtr _widget);
-	void notifySelectStringItem(MyGUI::WidgetPtr _widget, size_t _position);
+	// items panel
+	void syncItems(bool _apply, bool _add = false, Ogre::String _value = "");
+	void notifyAddItem(MyGUI::WidgetPtr _sender = 0);
+	void notifyDeleteItem(MyGUI::WidgetPtr _sender);
+	void notifySelectSheet(MyGUI::WidgetPtr _sender);
+	void notifyUpdateItem(MyGUI::WidgetPtr _widget);
+	void notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position);
 	// UserData panel
 	void notifyAddUserData(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
