@@ -268,6 +268,7 @@ namespace MyGUI
 			data.item->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
 			data.item->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
 			data.item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+			data.item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
 			data.item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
 			data.item->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
 			data.item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
@@ -593,6 +594,11 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
+		// формируем нотифи для индекса
+		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_PRESSED, _left, _top, _id));
+
 		if ( MB_Left == _id) {
 			size_t old = mIndexSelect;
 
@@ -625,23 +631,25 @@ namespace MyGUI
 			// смену позиции отсылаем только при реальном изменении
 			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
-
-		// формируем нотифи для индекса
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_PRESSED, _left, _top, _id));
 	}
 
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
+		// формируем нотифи для индекса
+		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_RELEASED, _left, _top, _id));
+
 		if (mStartDrop) {
 			if (mItemDrag.item) mItemDrag.item->hide();
 
 			// сбрасываем старую подсветку
 			if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
 
-			// если дроп выполнен успешно
+			// при ресете сбрасывается сендер
+			mDropInfo.sender = this;
 			eventEndDrop(this, mDropInfo, mDropResult);
+
 			eventDropState(this, DROP_END);
 
 			// сбрасываем инфу для дропа
@@ -650,11 +658,14 @@ namespace MyGUI
 			mDropInfo.reset();
 			mDropSenderIndex = ITEM_NONE;
 		}
+	}
 
-		// формируем нотифи для индекса
+	void ItemBox::notifyMouseButtonDoubleClick(WidgetPtr _sender)
+	{
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_RELEASED, _left, _top, _id));
+
+		eventSelectItemAccept(this, index);
 	}
 
 	void ItemBox::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
@@ -786,6 +797,14 @@ namespace MyGUI
 		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 		eventNotifyItem(this, NotifyItemData(index, NOTIFY_KEY_RELEASED, _key));
+	}
+
+	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
+	{
+		// формируем нотифи для индекса
+		size_t index = (size_t)_widget->_getInternalData() + (mLineTop * mCountItemInLine);
+		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+		return index;
 	}
 
 } // namespace MyGUI
