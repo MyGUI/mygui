@@ -214,6 +214,9 @@ namespace MyGUI
 		void setItemBoxAlignVert(bool _vert);
 		inline bool getItemBoxAlignVert() { return mAlignVert; }
 
+		// возвращает индекс елемента, по указателю на виджет айтема
+		size_t getIndexByWidget(WidgetPtr _widget);
+
 		//----------------------------------------------------------------//
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		virtual void setPosition(const IntCoord& _coord);
@@ -283,6 +286,7 @@ namespace MyGUI
 		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
 		void notifyInvalideDrop(WidgetPtr _sender);
