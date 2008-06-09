@@ -45,7 +45,7 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "ButtonMinimize" size = "16 16" texture = "minimize.png">       
+    <Skin name = "ButtonMinimize" size = "16 16" texture = "editor.png">       
         <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_STRETCH">
             <State name="disable" offset = "0 0 16 16"/>
             <State name="normal" offset = "0 20 16 16"/>
@@ -97,4 +97,37 @@
         </_BasisSkin>
     </Skin>
 
+    <Skin name = "BackRectangle" size = "16 16" texture = "editor.png" >
+
+        <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "20 0 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 0 12 1" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "22 0 12 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "14 0 2 2" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "34 0 2 2"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 1 1 12" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "20 2 1 12"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 2 12 12" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "22 2 12 12"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "14 2 1 12" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "35 2 1 12"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 14 2 2" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "20 14 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 14 12 1" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "22 15 12 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "14 14 2 2" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "34 14 2 2"/>
+        </BasisSkin>
+    </Skin>
+	
 </MyGUI>
