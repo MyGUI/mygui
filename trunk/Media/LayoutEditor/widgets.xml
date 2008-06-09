@@ -180,6 +180,7 @@
     <Property key="Skin" value="Separator2" group="Other"/>
     <Property key="Skin" value="Separator3" group="Other"/>
     <Property key="Skin" value="Separator4" group="Other"/>
+	<Property key="Skin" value="BackRectangle" group="Other"/>
     <Parameter key="Widget_Caption" value="String"/>
     <!--Parameter key="Widget_Move" value="2 or 4 int"/-->
     <!--Parameter key="Widget_Size" value="2 int"/-->
