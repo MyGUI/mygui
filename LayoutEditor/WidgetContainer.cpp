@@ -281,7 +281,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 			}
 		}
 		if (_test || 
-				(("Message_Modal" != _key) && ("Window_AutoAlpha" != _key) && ("Window_Snap" != _key)))
+				(("Message_Modal" != _key) && ("Window_AutoAlpha" != _key) && ("Window_Snap" != _key) && ("Widget_NeedMouse" != _key)))
 			MyGUI::WidgetManager::getInstance().parse(_widget, _key, _value);
 		Ogre::Root::getSingleton().renderOneFrame();
 	}
@@ -289,7 +289,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 	{
 		MyGUI::Message::_createMessage("Warning", "Can't apply '" + _key + "'property" + ": " + e.getDescription(), ". This value will be saved.", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
-	catch(Ogre::Exception & e)
+	catch(Ogre::Exception & )
 	{
 		MyGUI::Message::_createMessage("Warning", "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}// for incorrect meshes or textures
