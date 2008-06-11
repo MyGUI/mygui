@@ -126,13 +126,13 @@ namespace MyGUI
 		//----------------------------------------------------------------------------------//
 
 		/** Event : Enter pressed or double click.\n
-			signature : void method(WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
 			@param _index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
 			@param _index of new item
 		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
