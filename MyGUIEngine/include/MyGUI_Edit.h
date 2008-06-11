@@ -183,12 +183,12 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		/** Event : Enter pressed (Ctrl+entre in multiline mode).\n
-			signature : void method(WidgetPtr _sender)
+			signature : void method(MyGUI::WidgetPtr _sender)
 		*/
 		EventInfo_WidgetVoid eventEditSelectAccept;
 
 		/** Event : Text changed.\n
-			signature : void method(WidgetPtr _sender)
+			signature : void method(MyGUI::WidgetPtr _sender)
 		*/
 		EventInfo_WidgetVoid eventEditTextChange;
 

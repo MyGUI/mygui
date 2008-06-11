@@ -80,7 +80,7 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		/** Event : scroll tracker position changed.\n
-			signature : void method(WidgetPtr _sender, size_t _position)\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
 			@param _position - new tracker position
 		*/
 		EventInfo_WidgetSizeT eventScrollChangePosition;

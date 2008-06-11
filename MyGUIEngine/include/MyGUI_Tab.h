@@ -220,6 +220,12 @@ namespace MyGUI
 		/** Get selected sheet index */
 		inline size_t getSelectSheetIndex() {return mSelectSheet;}
 
+		/** Event : Смена активной вкладки\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _index
+		*/
+		EventInfo_WidgetSizeT eventTabChangeSelect;
+
 	private:
 		int mOffsetTab; // смещение бара при показе кнопок
 		bool mButtonShow;
