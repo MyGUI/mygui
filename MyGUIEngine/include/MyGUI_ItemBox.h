@@ -230,44 +230,44 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : запрос на создание айтема
-		// signature : void method(WidgetPtr _sender, WidgetPtr _parent, WidgetPtr & _item)
+		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _parent, WidgetPtr & _item)
 		EventInfo_WidgetWidgetRefWidget requestCreateWidgetItem;
 
 		// event : запрос на размер айтема
-		// signature : void method(WidgetPtr _sender, WidgetPtr _client, IntCoord & _coord, bool _drop)
+		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _client, IntCoord & _coord, bool _drop)
 		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
 
 		// event : запрос на обновление айтема
-		// signature : void method(WidgetPtr _sender, WidgetPtr _item, const ItemInfo& _info)
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _info)
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
 
 		// event : запрос на начало дропа
-		// signature : void method(WidgetPtr _sender, const ItemDropInfo& _info, bool & _result)
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
 
 		// event : запрос на дроп айтема
-		// signature : void method(WidgetPtr _sender, const ItemDropInfo& _info, bool & _result)
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
 		// event : завершение дропа
-		// signature : void method(WidgetPtr _sender, const ItemDropInfo& _info, bool _result)
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
 		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
 
 		// event : текущее состояние дропа
-		// signature : void method(WidgetPtr _sender, DropState _state)
+		// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
 		EventInfo_WidgetDropState eventDropState;
 
 		// event : двойной щелчек мыши или Enter на елементе
-		// signature : void method(WidgetPtr _sender, size_t _index)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventSelectItemAccept;
 
 		// event : изменилась позиция выделенного элемента
-		// signature : void method(WidgetPtr _sender, size_t _index)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventChangeItemPosition;
 
 		// event : щелчек мыши на элементе
-		// signature : void method(WidgetPtr _sender, size_t _index)
+		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventMouseItemActivate;
 
 		// event : событие связанной с конкретным айтемом

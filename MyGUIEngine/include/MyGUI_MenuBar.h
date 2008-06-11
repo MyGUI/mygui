@@ -76,7 +76,7 @@ namespace MyGUI
 		void setItemSelect(size_t _index);
 
 		/** Event : Enter pressed or mouse click.\n
-			signature : void method(WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
 			@param _index of selected item
 		*/
 		EventInfo_WidgetMenuSizeT eventPopupMenuAccept;

@@ -293,6 +293,8 @@ namespace MyGUI
 
 		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, mSmoothShow);
 		_showSheet(mSheetsInfo[old].sheet, false, mSmoothShow);
+
+		eventTabChangeSelect(this, mSelectSheet);
 	}
 
 	void Tab::showBarButton(size_t _index)

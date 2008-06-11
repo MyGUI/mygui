@@ -159,11 +159,11 @@ namespace MyGUI
 		EventInfo_WidgetStringString eventActionInfo;
 
 		/* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
-		/* signature : void method(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);*/
+		/* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
 		EventInfo_WidgetRefWidgetRefSizeT  _requestGetDragItemInfo;
 
 		/* event : внутреннее событие, невалидна информация для дропа*/
-		/* signature : void method(WidgetPtr _sender);*/
+		/* signature : void method(MyGUI::WidgetPtr _sender);*/
 		EventInfo_WidgetVoid _eventInvalideDropInfo;
 
 	protected:
