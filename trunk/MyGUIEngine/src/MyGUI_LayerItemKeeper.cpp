@@ -93,16 +93,6 @@ namespace MyGUI
 		return mSecondRenderItems.back();
 	}
 
-	/*void LayerItemKeeper::_resize(const FloatSize& _size)
-	{
-		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
-			(*iter)->_resize(_size);
-		}
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
-			(*iter)->_resize(_size);
-		}
-	}*/
-
 	LayerItem * LayerItemKeeper::_findLayerItem(int _left, int _top, LayerItem* &_root)
 	{
 		for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
