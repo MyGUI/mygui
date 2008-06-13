@@ -102,11 +102,24 @@ namespace MyGUI
 	void FontManager::saveFontTexture(const std::string & _font, const std::string & _file)
 	{
 		FontPtr font = FontManager::getInstance().getByName( _font );
-		if (font.isNull()) MYGUI_EXCEPT("Could not find font " << _font);
+		MYGUI_ASSERT( ! font.isNull(), "Could not find font " << _font);
+
 		font->load();
 		Ogre::TexturePtr texture = font->getTextureFont();
 
-		Ogre::uchar * buff = (Ogre::uchar *)texture->getBuffer()->lock(0, texture->getWidth() * texture->getHeight() * 2, Ogre::HardwareBuffer::HBL_READ_ONLY);
+		Ogre::HardwarePixelBufferSharedPtr readbuffer;
+		readbuffer = texture->getBuffer(0, 0);
+		readbuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL );
+		const Ogre::PixelBox &readrefpb = readbuffer->getCurrentLock();	
+		Ogre::uchar *readrefdata = static_cast<Ogre::uchar*>(readrefpb.data);		
+
+		Ogre::Image img;
+		img = img.loadDynamicImage(readrefdata, texture->getWidth(), texture->getHeight(), texture->getFormat());	
+		img.save(_file);
+
+		readbuffer->unlock();
+
+	/*Ogre::uchar * buff = (Ogre::uchar *)texture->getBuffer()->lock(0, texture->getWidth() * texture->getHeight() * 2, Ogre::HardwareBuffer::HBL_READ_ONLY);
 
 		Ogre::ImageCodec::ImageData *imgData = new Ogre::ImageCodec::ImageData();
 		imgData->width = texture->getWidth();
@@ -136,14 +149,14 @@ namespace MyGUI
 		//texture->getBuffer()->unlock();
 
 		// Wrap buffer in a memory stream
-		Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(pBuffer, texture->getWidth() * texture->getHeight() * 4, false));
+		//Ogre::DataStreamPtr stream(new Ogre::MemoryDataStream(pBuffer, texture->getWidth() * texture->getHeight() * 4, false));
 
 		// Need to flip the read data over in Y though
 		//Ogre::Image img;
 		//img.loadRawData(stream, texture->getWidth(), texture->getHeight(), imgData->format );
 		//img.flipAroundX();
 
-		Ogre::MemoryDataStreamPtr streamFlipped(new Ogre::MemoryDataStream(pBuffer, stream->size(), false));
+		Ogre::MemoryDataStreamPtr stream(new Ogre::MemoryDataStream(pBuffer, texture->getWidth() * texture->getHeight() * 4, false));
 
 		// Get codec 
 		size_t pos = _file.find_last_of(".");
@@ -158,9 +171,9 @@ namespace MyGUI
 
 		// Write out
 		Ogre::Codec::CodecDataPtr ptr(imgData);
-		pCodec->codeToFile(streamFlipped, _file, ptr);
+		pCodec->codeToFile(stream, _file, ptr);
 
-		delete [] pBuffer;
+		delete [] pBuffer;*/
 	}
 
 } // namespace MyGUI
