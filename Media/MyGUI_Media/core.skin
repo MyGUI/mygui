@@ -85,7 +85,7 @@
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
-        <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Widget" skin="EditClient" offset = "2 2 36 22" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="disable" offset = "60 2 10 26"/>
@@ -108,8 +108,8 @@
             <State name="pressed" offset = "90 86 10 26"/>
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
-        <BasisSkin type="EditText" offset = "3 0 34 26" align = "ALIGN_STRETCH">
-            <State name="disable" colour="0.87 0.87 0.87"/>
+        <BasisSkin type="EditText" offset = "2 2 36 22" align = "ALIGN_STRETCH">
+            <!--State name="disable" colour="0.87 0.87 0.87"/-->
             <!--State name="pressed" colour="0 0 0"/-->
             <!--State name="normal" colour="0 0 0"/-->
             <!--State name="select" colour="2C8AD5"/-->
@@ -124,7 +124,7 @@
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
-        <Child type="Widget" skin="EditClient" offset = "3 0 34 26" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Widget" skin="EditClient" offset = "2 2 36 22" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="disable" offset = "60 2 2 2"/>
@@ -192,8 +192,8 @@
             <State name="select" offset = "98 138 2 2"/>
         </BasisSkin>
 
-        <BasisSkin type="EditText" offset = "3 0 34 26" align = "ALIGN_STRETCH">
-            <State name="disable" colour="0.87 0.87 0.87"/>
+        <BasisSkin type="EditText" offset = "2 2 36 22" align = "ALIGN_STRETCH">
+            <!--State name="disable" colour="0.87 0.87 0.87"/-->
             <!--State name="pressed" colour="0 0 0"/-->
             <!--State name="normal" colour="0 0 0"/-->
             <!--State name="select" colour="2C8AD5"/-->

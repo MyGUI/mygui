@@ -23,4 +23,8 @@ namespace MyGUI
 	{
 	}
 
+	void SimpleText::setViewOffset(IntPoint _point)
+	{
+	}
+
 } // namespace MyGUI

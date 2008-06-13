@@ -238,7 +238,7 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 	if (mMouse) mMouse->capture();
 	mKeyboard->capture();
 
-	MyGUI::IntSize size(120, 80);
+	MyGUI::IntSize size(150, 90);
 	if (mFpsInfoShadow) {
 		static float time = 0;
 		time += evt.timeSinceLastFrame;
@@ -254,6 +254,7 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 					mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width - 1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
 					mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
 					mFpsInfo->setColour(Ogre::ColourValue::White);
+					mFpsInfo->setNeedMouseFocus(false);
 				}
 				mFpsInfoShadow->setCaption(info);
 			} catch (...) { }
@@ -264,6 +265,7 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 			mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
 			mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
 			mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
+			mFpsInfoShadow->setNeedMouseFocus(false);
 		}
 	}
 
