@@ -297,36 +297,41 @@ bool BasisManager::frameEnded(const Ogre::FrameEvent& evt)
 bool BasisManager::mouseMoved( const OIS::MouseEvent &arg )
 {
 	mGUI->injectMouseMove(arg);
-
-	mDemo.move(arg.state.X.abs, arg.state.Y.abs);
-
-	//MyGUI::MYGUI_OUT(arg.state.X.abs, "   ", arg.state.Y.abs);
-
 	return true;
 }
 
 bool BasisManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	mGUI->injectMousePress(arg, id);
-
-	mDemo.pressed(arg.state.X.abs, arg.state.Y.abs, id == OIS::MB_Left);
-
 	return true;
 }
 
 bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	mGUI->injectMouseRelease(arg, id);
-
-	mDemo.released(arg.state.X.abs, arg.state.Y.abs, id == OIS::MB_Left);
-
 	return true;
 }
 
 bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_ESCAPE ) {m_exit = true; return false;}
-	if ( arg.key == OIS::KC_SYSRQ ) {mWindow->writeContentsToFile("screenshot.png");}
+	if ( arg.key == OIS::KC_SYSRQ ) {
+		std::ifstream stream;
+		std::string file;
+		do {
+			stream.close();
+			static size_t num = 0;
+			const size_t max_shot = 100;
+			if (num == max_shot) {
+				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
+				return true;
+			}
+			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
+			stream.open(file.c_str());
+		} while (stream.is_open());
+		mWindow->writeContentsToFile(file);
+		return true;
+	}
 
 	mGUI->injectKeyPress(arg);
 	return true;

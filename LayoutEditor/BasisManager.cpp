@@ -265,9 +265,21 @@ bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 			return true;
 		}
 	}
-	else if ( arg.key == OIS::KC_SYSRQ ) {
-		static size_t num = 0;
-		mWindow->writeContentsToFile(MyGUI::utility::toString("screenshot_", num++, ".png"));
+	if ( arg.key == OIS::KC_SYSRQ ) {
+		std::ifstream stream;
+		std::string file;
+		do {
+			stream.close();
+			static size_t num = 0;
+			const size_t max_shot = 100;
+			if (num == max_shot) {
+				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
+				return true;
+			}
+			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
+			stream.open(file.c_str());
+		} while (stream.is_open());
+		mWindow->writeContentsToFile(file);
 		return true;
 	}
 
