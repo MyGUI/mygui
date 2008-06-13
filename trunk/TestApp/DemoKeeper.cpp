@@ -248,7 +248,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	edit->setFontName("Verdana_Bold.17");
 	MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);*/
 
-	//MyGUI::FontManager::getInstance().saveFontTexture("Microsoft_Sans_Serif.13", "Microsoft_Sans_Serif_13.png");
+	MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 
 	/*MyGUI::MultiListPtr multi = mGUI->createWidget<MyGUI::MultiList>("WM_MultiList", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::ALIGN_DEFAULT, "Main");
 	multi->addRow(100, "testklr;esihga;dklfhg;akfdh1");
@@ -547,6 +547,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	MyGUI::PopupMenuPtr menu = bar->getItemMenu(0);
 	menu->addItem("test");*/
+
+	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 100, 24), MyGUI::ALIGN_DEFAULT, "Popup");
+	edit->setCaption("\t");*/
+	
 
 }
 
