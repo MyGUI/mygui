@@ -27,6 +27,8 @@ namespace MyGUI
 		SimpleText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
 		virtual ~SimpleText();
 
+		virtual void setViewOffset(IntPoint _point);
+
 	};
 
 } // namespace MyGUI
