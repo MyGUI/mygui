@@ -449,34 +449,6 @@ namespace MyGUI
 		}
 	}
 
-	void InputManager::_frameEntered(float _frame)
-	{
-		if ( mHoldKey == KC_UNASSIGNED) return;
-		if ( false == isFocusKey() ) {
-			mHoldKey = KC_UNASSIGNED;
-			//mFirstPressKey = true;
-			//mTimerKey = 0.0f;
-			return;
-		}
-
-		mTimerKey += _frame;
-
-		if (mFirstPressKey) {
-			if (mTimerKey > INPUT_DELAY_FIRST_KEY) {
-				mFirstPressKey = false;
-				mTimerKey = 0.0f;
-			}
-		} else {
-			if (mTimerKey > INPUT_INTERVAL_KEY) {
-				mTimerKey -= INPUT_INTERVAL_KEY;
-				mWidgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
-				// focus can be dropped in _onKeyButtonPressed
-				if ( isFocusKey() ) mWidgetKeyFocus->_onKeyButtonReleased(mHoldKey);
-			}
-		}
-
-	}
-
 	// удаляем данный виджет из всех возможных мест
 	void InputManager::_unlinkWidget(WidgetPtr _widget)
 	{
@@ -554,6 +526,34 @@ namespace MyGUI
 	{
 		LayerItem * root = null;
 		return static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, root));
+	}
+
+	void InputManager::_frameEntered(float _frame)
+	{
+		if ( mHoldKey == KC_UNASSIGNED) return;
+		if ( false == isFocusKey() ) {
+			mHoldKey = KC_UNASSIGNED;
+			//mFirstPressKey = true;
+			//mTimerKey = 0.0f;
+			return;
+		}
+
+		mTimerKey += _frame;
+
+		if (mFirstPressKey) {
+			if (mTimerKey > INPUT_DELAY_FIRST_KEY) {
+				mFirstPressKey = false;
+				mTimerKey = 0.0f;
+			}
+		} else {
+			if (mTimerKey > INPUT_INTERVAL_KEY) {
+				mTimerKey -= INPUT_INTERVAL_KEY;
+				mWidgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
+				// focus can be dropped in _onKeyButtonPressed
+				if ( isFocusKey() ) mWidgetKeyFocus->_onKeyButtonReleased(mHoldKey);
+			}
+		}
+
 	}
 
 } // namespace MyGUI
