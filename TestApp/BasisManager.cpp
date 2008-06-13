@@ -195,7 +195,7 @@ void BasisManager::createGui()
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(mWindow);
 
-	/*MyGUI::IntSize size(160, 100);
+	MyGUI::IntSize size(160, 100);
 	if (0 == mFpsInfoShadow) {
 		mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
 		mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
