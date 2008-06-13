@@ -74,9 +74,10 @@ namespace MyGUI
         /// Resolution (dpi) of truetype font
 		Ogre::uint mTtfResolution;
 
-		CodePoint mSpaceSimbol;
-		Ogre::uint8 mCountSpaceTab;
-		Ogre::uint8 mCharSpacer;
+		Ogre::uint8 mDistanceWidth;
+		Ogre::uint8 mSpaceWidth;
+		Ogre::uint8 mTabWidth;
+		Ogre::uint8 mCursorWidth;
 
 		// отдельная информация о символах
 		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
@@ -162,16 +163,21 @@ namespace MyGUI
 			when the Texture that this font creates needs to (re)load. */
 		void loadResource(Ogre::Resource* resource);
 
-		// устанавливает и берет значение ширины из символа для пробела
-		inline CodePoint getSpaceSimbol() {return mSpaceSimbol;}
-		inline void setSpaceSimbol(CodePoint _simbol) {mSpaceSimbol = _simbol;}
+		//ширина пробела в пикселях
+		inline CodePoint setSpaceWidth() {return mSpaceWidth;}
+		inline void setSpaceWidth(Ogre::uint8 _pix) {mSpaceWidth = _pix;}
 
-		// устанавливает колличество пробелов для таба
-		inline Ogre::uint8 getCountSpaceTab() {return mCountSpaceTab;}
-		inline void setCountSpaceTab(Ogre::uint8 _count) {mCountSpaceTab = _count;}
+		// ширина таба в пикселях
+		inline Ogre::uint8 getTabWidth() {return mTabWidth;}
+		inline void setTabWidth(Ogre::uint8 _pix) {mTabWidth = _pix;}
 
-		inline Ogre::uint8 getCharSpacer() {return mCharSpacer;}
-		inline void setCharSpacer(Ogre::uint8 _spacer) {mCharSpacer = _spacer;}
+		// ширина курсора в пикселях
+		inline Ogre::uint8 getCursorWidth() {return mCursorWidth;}
+		inline void setCursorWidth(Ogre::uint8 _pix) {mCursorWidth = _pix;}
+
+		// расстояние между символами при генерации в пикселях
+		inline Ogre::uint8 getDistanceWidth() {return mDistanceWidth;}
+		inline void setDistanceWidth(Ogre::uint8 _pix) {mDistanceWidth = _pix;}
 
     };
 
