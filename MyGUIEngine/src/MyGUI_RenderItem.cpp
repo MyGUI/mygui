@@ -22,11 +22,11 @@ namespace MyGUI
 		mTextureName(_texture),
 		mOutDate(false),
 		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK)
+		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mCountVertex(0)
 	{
 		mRenderSystem = Ogre::Root::getSingleton().getRenderSystem();
 		mTextureManager = Ogre::TextureManager::getSingletonPtr();
-		//mMaximumDepth = mRenderSystem->getMaximumDepthInputValue();
 
 		createVertexBuffer();
 
@@ -138,45 +138,36 @@ namespace MyGUI
 			Vertex * buffer = (Vertex*)mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
 
 
-			size_t count_all = 0;
+			mCountVertex = 0;
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
 				size_t count = (*iter).first->_drawItem(buffer, _update);
 				// колличество отрисованных вершин
 				MYGUI_DEBUG_ASSERT(count <= (*iter).second, "It is too much vertexes");
 				buffer += count;
-				count_all += count;
+				mCountVertex += count;
 			}
 
-			mRenderOperation.vertexData->vertexCount = count_all;
+			mRenderOperation.vertexData->vertexCount = mCountVertex;
 			mVertexBuffer->unlock();
 
 			mOutDate = false;
 		}
 
-		if (false == mTextureManager->resourceExists(mTextureName)) 
-			mTextureManager->load(mTextureName, Gui::getInstance().getResourceGroup());
+		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
+		if (0 != mCountVertex) {
+			if (false == mTextureManager->resourceExists(mTextureName)) {
+				mTextureManager->load(mTextureName, Gui::getInstance().getResourceGroup());
+			}
+			// set texture that will be applied to all vertices rendered.
+			mRenderSystem->_setTexture(0, true, mTextureName);
+			// set render properties prior to rendering.
+			initRenderState();
+			// perform the rendering.
+			mRenderSystem->_render(mRenderOperation);
 
-		// set texture that will be applied to all vertices rendered.
-		mRenderSystem->_setTexture(0, true, mTextureName);
-		// set render properties prior to rendering.
-		initRenderState();
-		// perform the rendering.
-		mRenderSystem->_render(mRenderOperation);
-
-		mLayerManager->_addBatch();
+			mLayerManager->_addBatch();
+		}
 	}
-
-	/*void RenderItem::_resize(const FloatSize& _size)
-	{
-		mPixScaleX = 1.0 / _size.width;
-		mPixScaleY = 1.0 / _size.height;
-		mAspectCoef = _size.height / _size.width;
-
-        mHOffset = mRenderSystem->getHorizontalTexelOffset() / _size.width;
-        mVOffset = mRenderSystem->getVerticalTexelOffset() / _size.height;
-
-		mOutDate = true;
-	}*/
 
 	void RenderItem::removeDrawItem(DrawItem * _item)
 	{
