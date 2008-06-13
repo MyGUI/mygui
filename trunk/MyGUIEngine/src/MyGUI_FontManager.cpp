@@ -50,7 +50,7 @@ namespace MyGUI
 		xml::xmlNodeIterator font = _node->getNodeIterator();
 		while (font.nextNode(XML_TYPE)) {
 
-			std::string source, name, size, resolution, antialias, space, tab, spacer;
+			std::string source, name, size, resolution, antialias, space, tab, distance, cursor;
 			if (false == font->findAttribute("name", name)) continue;
 			if (false == font->findAttribute("source", source)) continue;
 			if (false == font->findAttribute("size", size)) continue;
@@ -58,8 +58,9 @@ namespace MyGUI
 
 			font->findAttribute("antialias_colour", antialias);
 			font->findAttribute("space_width", space);
-			font->findAttribute("tab_count", tab);
-			font->findAttribute("spacer", spacer);
+			font->findAttribute("tab_width", tab);
+			font->findAttribute("cursor_width", cursor);
+			font->findAttribute("distance", distance);
 
 			FontPtr pFont = create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 			pFont->_notifyOrigin(_file);
@@ -68,9 +69,10 @@ namespace MyGUI
 			pFont->setTrueTypeResolution((Ogre::uint)utility::parseValue<Ogre::Real>(resolution));
 
 			if (false == antialias.empty()) pFont->setAntialiasColour(utility::parseBool(antialias));
-			if (false == space.empty()) pFont->setSpaceSimbol(space[0]);
-			if (false == tab.empty()) pFont->setCountSpaceTab(utility::parseUChar(tab));
-			if (false == spacer.empty()) pFont->setCharSpacer(utility::parseUChar(spacer));
+			if (false == space.empty()) pFont->setSpaceWidth(utility::parseUChar(space));
+			if (false == tab.empty()) pFont->setTabWidth(utility::parseUChar(tab));
+			if (false == cursor.empty()) pFont->setCursorWidth(utility::parseUChar(cursor));
+			if (false == distance.empty()) pFont->setDistanceWidth(utility::parseUChar(distance));
 
 			xml::xmlNodeIterator range = font->getNodeIterator();
 
