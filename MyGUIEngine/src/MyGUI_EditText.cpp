@@ -860,7 +860,7 @@ namespace MyGUI
 			else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
 				bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
 				// выравниваем по  целому пикселю
-				if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
+				//if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
 			}
 		}
 		else {
