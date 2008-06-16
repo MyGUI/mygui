@@ -50,7 +50,7 @@ namespace MyGUI
 		xml::xmlNodeIterator font = _node->getNodeIterator();
 		while (font.nextNode(XML_TYPE)) {
 
-			std::string source, name, size, resolution, antialias, space, tab, distance, cursor;
+			std::string source, name, size, resolution, antialias, space, tab, distance, cursor, offsetH;
 			if (false == font->findAttribute("name", name)) continue;
 			if (false == font->findAttribute("source", source)) continue;
 			if (false == font->findAttribute("size", size)) continue;
@@ -61,6 +61,7 @@ namespace MyGUI
 			font->findAttribute("tab_width", tab);
 			font->findAttribute("cursor_width", cursor);
 			font->findAttribute("distance", distance);
+			font->findAttribute("offset_height", offsetH);
 
 			FontPtr pFont = create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 			pFont->_notifyOrigin(_file);
@@ -72,7 +73,8 @@ namespace MyGUI
 			if (false == space.empty()) pFont->setSpaceWidth(utility::parseUChar(space));
 			if (false == tab.empty()) pFont->setTabWidth(utility::parseUChar(tab));
 			if (false == cursor.empty()) pFont->setCursorWidth(utility::parseUChar(cursor));
-			if (false == distance.empty()) pFont->setDistanceWidth(utility::parseUChar(distance));
+			if (false == distance.empty()) pFont->setDistance(utility::parseUChar(distance));
+			if (false == offsetH.empty()) pFont->setOffsetHeight(utility::parseUChar(offsetH));
 
 			xml::xmlNodeIterator range = font->getNodeIterator();
 

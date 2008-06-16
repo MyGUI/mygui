@@ -43,7 +43,7 @@ namespace MyGUI
 		mSpaceWidth(0),
 		mTabWidth(0),
 		mCursorWidth(0),
-		mDistanceWidth(0),
+		mDistance(0),
 		mAntialiasColour(false)
     {
     }
@@ -110,18 +110,9 @@ namespace MyGUI
 		if ( FT_Set_Char_Size( face, ftSize, 0, mTtfResolution, mTtfResolution ) )
 			MYGUI_EXCEPT("Could not set char size!");
 
-		int max_height = 0, max_width = 0, max_bear = 0;
+		int max_height = 0/*, max_width = 0*/, max_bear = 0;
 
-		// достаем сразу символ дл€ пробела
-		/*FT_Error ftResult = FT_Load_Char( face, mSpaceSimbol, FT_LOAD_RENDER );
-		if (ftResult) MYGUI_LOG(Warning, "cannot load character " << mSpaceSimbol << " in font " << mName);
-		FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
-		unsigned char* buffer = face->glyph->bitmap.buffer;
-		MYGUI_ASSERT(null != buffer, "Info: Freetype returned null for character " << mSpaceSimbol << " in font " << mName);*/
-
-		// Calculate maximum width, height and bearing
-		//size_t glyphCount = 0;
-        size_t l = 0, m = 0;
+		size_t l = 0, m = (mOffsetHeight < 0) ? (-mOffsetHeight) : 0;
 
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 			for (CodePoint index=iter->first; index<=iter->second; ++index/*, ++glyphCount*/) {
@@ -139,10 +130,10 @@ namespace MyGUI
 				if ( face->glyph->metrics.horiBearingY > max_bear )
 					max_bear = face->glyph->metrics.horiBearingY;
 
-				if ( (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 ) > max_width)
-					max_width = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
+				//if ( (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 ) > max_width)
+					//max_width = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
 
-				l += (advance + mDistanceWidth);
+				l += (advance + mDistance);
 				if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m ++; l = 0;}
 
 			}
@@ -153,15 +144,15 @@ namespace MyGUI
 
 		//if (max_height & 1) max_height++;
 		// пипец без этого пиксель в пиксель никак
-		max_height = mTtfSize;
+		//max_height = mTtfSize;
 
 		// служебные символы
 		//glyphCount += 5;
 		// ширина служебных равна высоте шрифта
-		l += (max_height + mDistanceWidth) * 5;
+		l += (max_height + mDistance) * 5;
 
 		size_t finalWidth = FONT_TEXTURE_WIDTH;
-		size_t finalHeight = (m+1) * (max_height + mDistanceWidth);
+		size_t finalHeight = (m+1) * (max_height + mDistance);
 
 		// вычисл€ем ближайшую кратную 2
 		size_t needHeight = 1;
@@ -175,6 +166,7 @@ namespace MyGUI
 		size_t data_size = finalWidth * finalHeight * pixel_bytes;
 
 		MYGUI_LOG(Info, "Font '" << mName << "' using texture size " << finalWidth << " x " << finalHeight);
+		MYGUI_LOG(Info, "Font '" << mName << "' using real height " << max_height << " pixels");
 
         Ogre::uchar* imageData = new Ogre::uchar[data_size];
 		// Reset content (White, transparent)
@@ -185,7 +177,7 @@ namespace MyGUI
 
 		// текущее положение в текстуре
 		l = 0;
-		m = 0;
+		m = mOffsetHeight;
 		FT_Int advance = 0;
 
 		//------------------------------------------------------------------
@@ -208,8 +200,8 @@ namespace MyGUI
 		mSpaceGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
 		mSpaceGlyphInfo.aspectRatio = textureAspect * (mSpaceGlyphInfo.uvRect.right - mSpaceGlyphInfo.uvRect.left)  / (mSpaceGlyphInfo.uvRect.bottom - mSpaceGlyphInfo.uvRect.top);
 
-		l += (advance + mDistanceWidth);
-		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistanceWidth;l = 0;}
+		l += (advance + mDistance);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
 		// создаем табул€цию
@@ -231,8 +223,8 @@ namespace MyGUI
 		mTabGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
 		mTabGlyphInfo.aspectRatio = textureAspect * (mTabGlyphInfo.uvRect.right - mTabGlyphInfo.uvRect.left)  / (mTabGlyphInfo.uvRect.bottom - mTabGlyphInfo.uvRect.top);
 
-		l += (advance + mDistanceWidth);
-		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistanceWidth;l = 0;}
+		l += (advance + mDistance);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
 		// создаем выделение
@@ -254,8 +246,8 @@ namespace MyGUI
 		mSelectGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
 		mSelectGlyphInfo.aspectRatio = textureAspect * (mSelectGlyphInfo.uvRect.right - mSelectGlyphInfo.uvRect.left)  / (mSelectGlyphInfo.uvRect.bottom - mSelectGlyphInfo.uvRect.top);
 
-		l += (advance + mDistanceWidth);
-		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistanceWidth;l = 0;}
+		l += (advance + mDistance);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
 		// создаем неактивное выделение
@@ -277,8 +269,8 @@ namespace MyGUI
 		mSelectDeactiveGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
 		mSelectDeactiveGlyphInfo.aspectRatio = textureAspect * (mSelectDeactiveGlyphInfo.uvRect.right - mSelectDeactiveGlyphInfo.uvRect.left)  / (mSelectDeactiveGlyphInfo.uvRect.bottom - mSelectDeactiveGlyphInfo.uvRect.top);
 
-		l += (advance + mDistanceWidth);
-		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistanceWidth;l = 0;}
+		l += (advance + mDistance);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
 		// создаем курсор
@@ -290,7 +282,6 @@ namespace MyGUI
 			for(int k = 0; k < advance; k++ ) {
 				*pDest++= FONT_MASK_CHAR;
 				*pDest++= FONT_MASK_CHAR;
-				//buffer++;
 			}
 		}
 
@@ -301,8 +292,8 @@ namespace MyGUI
 		mCursorGlyphInfo.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
 		mCursorGlyphInfo.aspectRatio = textureAspect * (mCursorGlyphInfo.uvRect.right - mCursorGlyphInfo.uvRect.left)  / (mCursorGlyphInfo.uvRect.bottom - mCursorGlyphInfo.uvRect.top);
 
-		l += (advance + mDistanceWidth);
-		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistanceWidth;l = 0;}
+		l += (advance + mDistance);
+		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
 		// создаем все остальные символы
@@ -328,7 +319,7 @@ namespace MyGUI
 					continue;
 				}
 
-				FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
+				FT_Int advance = (face->glyph->advance.x >> 6 );// + ( face->glyph->metrics.horiBearingX >> 6 );
 				unsigned char* buffer = face->glyph->bitmap.buffer;
 
 				if (null == buffer) {
@@ -341,7 +332,7 @@ namespace MyGUI
 
 				for(int j = 0; j < face->glyph->bitmap.rows; j++ ) {
 					int row = j + (int)m + y_bearnig;
-					Ogre::uchar* pDest = &imageData[(row * data_width) + l * pixel_bytes];
+					Ogre::uchar* pDest = &imageData[(row * data_width) + (l + ( face->glyph->metrics.horiBearingX >> 6 )) * pixel_bytes];
 					for(int k = 0; k < face->glyph->bitmap.width; k++ ) {
 						if (mAntialiasColour) *pDest++= *buffer;
 						else *pDest++= FONT_MASK_CHAR;
@@ -352,13 +343,13 @@ namespace MyGUI
 
 				info.codePoint = index;
 				info.uvRect.left = (Ogre::Real)l / (Ogre::Real)finalWidth;  // u1
-				info.uvRect.top = (Ogre::Real)m / (Ogre::Real)finalHeight;  // v1
-				info.uvRect.right = (Ogre::Real)( l + ( face->glyph->advance.x >> 6 ) ) / (Ogre::Real)finalWidth; // u2
-				info.uvRect.bottom = ( m + max_height ) / (Ogre::Real)finalHeight; // v2
+				info.uvRect.top = (Ogre::Real)(m + mOffsetHeight) / (Ogre::Real)finalHeight;  // v1
+				info.uvRect.right = (Ogre::Real)( l + advance ) / (Ogre::Real)finalWidth; // u2
+				info.uvRect.bottom = ( m + mOffsetHeight + max_height ) / (Ogre::Real)finalHeight; // v2
 				info.aspectRatio = textureAspect * (info.uvRect.right - info.uvRect.left)  / (info.uvRect.bottom - info.uvRect.top);
 
-				l += (advance + mDistanceWidth);
-				if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistanceWidth;l = 0;}
+				l += (advance + mDistance);
+				if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 			}
 		}
