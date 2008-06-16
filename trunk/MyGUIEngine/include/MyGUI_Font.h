@@ -74,10 +74,11 @@ namespace MyGUI
         /// Resolution (dpi) of truetype font
 		Ogre::uint mTtfResolution;
 
-		Ogre::uint8 mDistanceWidth;
+		Ogre::uint8 mDistance;
 		Ogre::uint8 mSpaceWidth;
 		Ogre::uint8 mTabWidth;
 		Ogre::uint8 mCursorWidth;
+		Ogre::uint8 mOffsetHeight;
 
 		// отдельная информация о символах
 		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
@@ -176,8 +177,12 @@ namespace MyGUI
 		inline void setCursorWidth(Ogre::uint8 _pix) {mCursorWidth = _pix;}
 
 		// расстояние между символами при генерации в пикселях
-		inline Ogre::uint8 getDistanceWidth() {return mDistanceWidth;}
-		inline void setDistanceWidth(Ogre::uint8 _pix) {mDistanceWidth = _pix;}
+		inline Ogre::uint8 getDistance() {return mDistance;}
+		inline void setDistance(Ogre::uint8 _pix) {mDistance = _pix;}
+
+		// смещение всех символов по горизонтали
+		inline Ogre::uint8 getOffsetHeight() {return mOffsetHeight;}
+		inline void setOffsetHeight(Ogre::uint8 _pix) {mOffsetHeight = _pix;}
 
     };
 
