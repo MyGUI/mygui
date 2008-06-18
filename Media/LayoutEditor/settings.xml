@@ -5,7 +5,7 @@
     <Property key="ShowType" value="1"/>
     <Property key="ShowSkin" value="1"/>
     <Property key="EdgeHide" value="0"/>
-    <Property key="widgetsButtonWidth" value="95"/>
+    <Property key="widgetsButtonWidth" value="115"/>
     <Property key="widgetsButtonHeight" value="24"/>
     <Property key="widgetsButtonsInOneLine" value="3"/>
 </MyGUI>
