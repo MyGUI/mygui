@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Widgets">
+
+  <Widget name="StrangeButton">
+    <Property key="DefaultSkin" value="Button"/>
+    <Property key="Skin" value="Button" group="Other"/>
+    <Parameter key="StrangeButton_Pressed" value="Bool"/>
+    <!-- all properties -->
+  </Widget>
+
+</MyGUI>

@@ -7,18 +7,8 @@
     <Property key="Skin" value="Button"/>
     <Property key="Skin" value="ButtonSmall"/>
     <Parameter key="Button_Pressed" value="Bool"/>
-  </Widget>
-
-  <Widget name="Button">
     <Property key="Skin" value="CheckBox"/>
     <Property key="Skin" value="RadioBox"/>
-  </Widget>
-
-  <Widget name="StrangeButton">
-    <Property key="DefaultSkin" value="Button"/>
-    <Property key="Skin" value="Button" group="Other"/>
-    <Parameter key="StrangeButton_Pressed" value="Bool"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="ComboBox">
@@ -48,7 +38,7 @@
   <Widget name="HScroll">
     <Property key="DefaultSkin" value="HScroll"/>
     <Property key="Skin" value="HScroll"/>
-    <Property key="Skin" value="HSlider" group="Other"/>
+    <Property key="Skin" value="HSlider"/>
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -101,7 +91,7 @@
   <Widget name="Progress">
     <Property key="DefaultSkin" value="Progress"/>
     <Property key="Skin" value="Progress"/>
-    <Property key="Skin" value="ComplexProgress" group="Other"/>
+    <Property key="Skin" value="ComplexProgress"/>
     <Parameter key="Progress_Range" value="1 int"/>
     <Parameter key="Progress_Position" value="1 int"/>
     <Parameter key="Progress_AutoTrack" value="Bool"/>
@@ -165,7 +155,7 @@
   <Widget name="VScroll">
     <Property key="DefaultSkin" value="VScroll"/>
     <Property key="Skin" value="VScroll"/>
-    <Property key="Skin" value="VSlider" group="Other"/>
+    <Property key="Skin" value="VSlider"/>
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -177,12 +167,12 @@
     <Property key="DefaultSkin" value="Default"/>
     <Property key="Parent" value="true"/>
     <Property key="Skin" value="Panel"/>
-    <Property key="Skin" value="PanelSmall" group="Other"/>
-    <Property key="Skin" value="Separator1" group="Other"/>
-    <Property key="Skin" value="Separator2" group="Other"/>
-    <Property key="Skin" value="Separator3" group="Other"/>
-    <Property key="Skin" value="Separator4" group="Other"/>
-	<Property key="Skin" value="BackRectangle" group="Other"/>
+    <Property key="Skin" value="PanelSmall"/>
+    <Property key="Skin" value="Separator1"/>
+    <Property key="Skin" value="Separator2"/>
+    <Property key="Skin" value="Separator3"/>
+    <Property key="Skin" value="Separator4"/>
+	<Property key="Skin" value="BackRectangle"/>
     <Parameter key="Widget_Caption" value="String"/>
     <!--Parameter key="Widget_Move" value="2 or 4 int"/-->
     <!--Parameter key="Widget_Size" value="2 int"/-->
