@@ -6,7 +6,7 @@ typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 typedef std::map< std::string, StringPairs > SkinGroups;
 
 struct WidgetType{
-	WidgetType(): parent(false), child(true), resizeable(true), many_items(false) {}
+	WidgetType(const std::string & _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
 	std::string name;
 	std::vector<std::string> skin;
 	std::string default_skin;
@@ -33,11 +33,17 @@ public:
 	void shutdown();
 	WidgetType* find(std::string _type);
 	std::vector<std::string> findPossibleValues(std::string _name);
-	std::vector<WidgetType*> widget_types;
+
+	typedef std::vector<WidgetType*> VectorWidgetType;
+	VectorWidgetType widget_types;
+
 	std::vector<PossibleValue*> possible_values;
 	SkinGroups skin_groups;
 private:
-	void loadTypes();
-	void parseWidgetType(MyGUI::xml::xmlNodeIterator _widget);
-	void parseValue(MyGUI::xml::xmlNodeIterator _value);
+	//void loadTypes();
+	void loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file);
+	void loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file);
+
+	WidgetType * getWidgetType(const std::string & _name);
+
 };

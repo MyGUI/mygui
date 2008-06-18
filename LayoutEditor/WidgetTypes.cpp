@@ -6,7 +6,11 @@ INSTANCE_IMPLEMENT(WidgetTypes);
 
 void WidgetTypes::initialise()
 {
-	loadTypes();
+	//loadTypes();
+	MyGUI::Gui::getInstance().registerLoadXmlDelegate("Widgets") = MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
+	MyGUI::Gui::getInstance().registerLoadXmlDelegate("Values") = MyGUI::newDelegate(this, &WidgetTypes::loadValues);
+
+	MyGUI::Gui::getInstance().load("initialise.xml");
 }
 
 void WidgetTypes::shutdown()
@@ -41,7 +45,7 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 	return std::vector<std::string>();
 }
 
-void WidgetTypes::loadTypes()
+/*void WidgetTypes::loadTypes()
 {
 	std::string _fileName = "widgets.xml";
 	std::string _instance = "Editor";
@@ -74,65 +78,82 @@ void WidgetTypes::loadTypes()
 			while (value.nextNode("Value")) parseValue(value);
 		}
 	}
+}*/
+
+WidgetType * WidgetTypes::getWidgetType(const std::string & _name)
+{
+	// ищем тип, если нет, то создаем
+	for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter) {
+		if ((*iter)->name == _name) return (*iter);
+	}
+
+	WidgetType * type = new WidgetType(_name);
+	widget_types.push_back(type);
+
+	return type;
 }
 
-void WidgetTypes::parseWidgetType(MyGUI::xml::xmlNodeIterator _widget)
+void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file)
 {
-	WidgetType * widget_type = new WidgetType();
-	// парсим атрибуты виджета
-	_widget->findAttribute("name", widget_type->name);
+	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
+	while (widgets.nextNode("Widget")) {
 
-	widget_types.push_back(widget_type);
+		WidgetType * widget_type = getWidgetType(widgets->findAttribute("name"));
 
-	// берем детей и крутимся
-	MyGUI::xml::xmlNodeIterator field = _widget->getNodeIterator();
-	while (field.nextNode()) {
+		// берем детей и крутимся
+		MyGUI::xml::xmlNodeIterator field = widgets->getNodeIterator();
+		while (field.nextNode()) {
 
-		std::string key, value, group;
+			std::string key, value, group;
 
-		if (field->getName() == "Property") {
-			if (false == field->findAttribute("key", key)) continue;
-			if (false == field->findAttribute("value", value)) continue;
-			field->findAttribute("group", group);
-			if (key == "Skin")
-			{
-				if (group.empty()) group = "Default";
-				skin_groups[group].push_back(std::make_pair(value, widget_type->name));
-				widget_type->skin.push_back(value);
+			if (field->getName() == "Property") {
+				if (false == field->findAttribute("key", key)) continue;
+				if (false == field->findAttribute("value", value)) continue;
+				field->findAttribute("group", group);
+				if (key == "Skin")
+				{
+					if (group.empty()) group = "Default";
+					skin_groups[group].push_back(std::make_pair(value, widget_type->name));
+					widget_type->skin.push_back(value);
+				}
+				else if (key == "DefaultSkin") widget_type->default_skin = value;
+				else if (key == "Parent") widget_type->parent = MyGUI::utility::parseBool(value);
+				else if (key == "Child") widget_type->child = MyGUI::utility::parseBool(value);
+				else if (key == "Resizeable") widget_type->resizeable = MyGUI::utility::parseBool(value);
+				else if (key == "ItemManager") widget_type->many_items = MyGUI::utility::parseBool(value);
 			}
-			else if (key == "DefaultSkin") widget_type->default_skin = value;
-			else if (key == "Parent") widget_type->parent = MyGUI::utility::parseBool(value);
-			else if (key == "Child") widget_type->child = MyGUI::utility::parseBool(value);
-			else if (key == "Resizeable") widget_type->resizeable = MyGUI::utility::parseBool(value);
-			else if (key == "ItemManager") widget_type->many_items = MyGUI::utility::parseBool(value);
-		}
-		else if (field->getName() == "Parameter") {
-			if (false == field->findAttribute("key", key)) continue;
-			if (false == field->findAttribute("value", value)) continue;
-			//widget_type->parameter.insert(std::make_pair(key, value));
-			widget_type->parameter.push_back(std::make_pair(key, value));
+			else if (field->getName() == "Parameter") {
+				if (false == field->findAttribute("key", key)) continue;
+				if (false == field->findAttribute("value", value)) continue;
+				//widget_type->parameter.insert(std::make_pair(key, value));
+				widget_type->parameter.push_back(std::make_pair(key, value));
+			}
 		}
 	}
 }
 
-void WidgetTypes::parseValue(MyGUI::xml::xmlNodeIterator _value)
+void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file)
 {
-	PossibleValue * possible_value = new PossibleValue();
-	// парсим атрибуты виджета
-	_value->findAttribute("name", possible_value->name);
+	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
+	while (widgets.nextNode("Value")) {
 
-	possible_values.push_back(possible_value);
+		PossibleValue * possible_value = new PossibleValue();
+		// парсим атрибуты виджета
+		_node->findAttribute("name", possible_value->name);
 
-	// берем детей и крутимся
-	MyGUI::xml::xmlNodeIterator field = _value->getNodeIterator();
-	while (field.nextNode()) {
+		possible_values.push_back(possible_value);
 
-		std::string key, value;
+		// берем детей и крутимся
+		MyGUI::xml::xmlNodeIterator field = _node->getNodeIterator();
+		while (field.nextNode()) {
 
-		if (field->getName() == "Property") {
-			if (false == field->findAttribute("key", key)) continue;
-			possible_value->values.push_back(key);
+			std::string key, value;
+
+			if (field->getName() == "Property") {
+				if (false == field->findAttribute("key", key)) continue;
+				possible_value->values.push_back(key);
+			}
+
 		}
-
 	}
 }
