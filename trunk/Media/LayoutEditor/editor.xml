@@ -6,7 +6,7 @@
 	    <List file="core.lang" group="General"/>
 	    <List file="editor.layer" group="General"/>
 	    <List file="core.skin" group="General"/>
-		<List file="editor.skin" group="General"/>
+	    <List file="editor.skin" group="General"/>
 	    <List file="editor.font" group="General"/>
 	    <List file="core.pointer" group="General"/>
 	    <List file="core.plugin"/>
