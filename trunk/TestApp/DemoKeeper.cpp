@@ -21,13 +21,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 140, 26), MyGUI::ALIGN_STRETCH, "Main");
+	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 140, 26), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
-	edit->setCaption("Button");
+	edit->setCaption("ComplexProgress");//*/
 
-	MyGUI::ButtonPtr button = mGUI->createWidget<MyGUI::Button>("ButtonSmall", MyGUI::IntCoord(100, 140, 140, 26), MyGUI::ALIGN_DEFAULT, "Main");
+	/*MyGUI::ButtonPtr button = mGUI->createWidget<MyGUI::Button>("ButtonSmall", MyGUI::IntCoord(100, 140, 100, 26), MyGUI::ALIGN_DEFAULT, "Main");
 	button->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
-	button->setCaption("Button");
+	button->setCaption("ComplexProgress");//*/
 
 }
 
