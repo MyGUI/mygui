@@ -4,7 +4,7 @@
 
   <Widget name="StrangeButton">
     <Property key="DefaultSkin" value="Button"/>
-    <Property key="Skin" value="Button" group="Other"/>
+    <Property key="Skin" value="Button" group="Plugin"/>
     <Parameter key="StrangeButton_Pressed" value="Bool"/>
     <!-- all properties -->
   </Widget>
