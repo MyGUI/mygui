@@ -139,12 +139,12 @@ void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _
 
 		PossibleValue * possible_value = new PossibleValue();
 		// парсим атрибуты виджета
-		_node->findAttribute("name", possible_value->name);
+		widgets->findAttribute("name", possible_value->name);
 
 		possible_values.push_back(possible_value);
 
 		// берем детей и крутимс€
-		MyGUI::xml::xmlNodeIterator field = _node->getNodeIterator();
+		MyGUI::xml::xmlNodeIterator field = widgets->getNodeIterator();
 		while (field.nextNode()) {
 
 			std::string key, value;
