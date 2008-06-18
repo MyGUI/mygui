@@ -276,8 +276,13 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 		{
 			if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) )
 			{
-				MyGUI::Message::_createMessage("Warning", "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-				return true;
+				// сначала пытаем подгрузить, а потом снова проверяем
+				Ogre::TextureManager::getSingleton().load(_value, MyGUI::Gui::getInstance().getResourceGroup());
+
+				if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
+					MyGUI::Message::_createMessage("Warning", "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+					return true;
+				}
 			}
 		}
 		if (_test || 
