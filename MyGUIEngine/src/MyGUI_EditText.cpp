@@ -441,22 +441,20 @@ namespace MyGUI
 		if (false == mManualView) {
 			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
-				left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
-				// выравниваем по  целому пикселю
-				if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mManager->getPixScaleX();
+				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1; // для середины нужно четное число
+				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
 		}
 		else {
-			left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
+			left_shift = (mManager->getPixScaleX() * (float)mViewOffset.left * 2.0);
 		}
 
 		if (false == mManualView) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
 			else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
-				bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
-				// выравниваем по  целому пикселю
-				if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
+				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
+				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
 		else {
@@ -480,8 +478,10 @@ namespace MyGUI
 			// первый всегда длинна строки
 			float len = index->getValueFloat();
 			++index;
-
-			// второй колличество символов
+			// второй всегда длинна строки в пикселях
+			size_t len_pix = index->getValueSizeT();
+			++index;
+			// третий колличество символов
 			size_t count = index->getValueSizeT();
 			++index;
 
@@ -492,23 +492,11 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			if (false == mManualView) {
-				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-				else {
-					right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
-					// выравниваем по  целому пикселю
-					if (!((uint)(len / (mManager->getPixScaleX() * 2.0)) & 1)) right += mManager->getPixScaleX();
-				}
-			}
+			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
 			else {
-				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-				else {
-					right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
-					// выравниваем по  целому пикселю
-					if (((uint)((mContextRealSize.width - len) / (mManager->getPixScaleX() * 2.0)) & 1)) right += mManager->getPixScaleX();
-				}
+				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
+				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0) - margin_left + margin_right) * 0.5); // выравнивание по центру
 			}
 
 			if (x <= (1.0 + right)) {
@@ -585,22 +573,20 @@ namespace MyGUI
 		if (false == mManualView) {
 			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
-				left_shift = (mContextRealSize.width - real_width) * 0.5; // выравнивание по центру
-				// выравниваем по  целому пикселю
-				if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mManager->getPixScaleX();
+				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1; // для середины нужно четное число
+				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
 		}
 		else {
-			left_shift = mManager->getPixScaleX() * (float)mViewOffset.left * 2.0;
+			left_shift = (mManager->getPixScaleX() * (float)mViewOffset.left * 2.0);
 		}
 
 		if (false == mManualView) {
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
 			else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
-				bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
-				// выравниваем по  целому пикселю
-				if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
+				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
+				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
 		else {
@@ -620,28 +606,19 @@ namespace MyGUI
 			// первый всегда длинна строки
 			float len = index->getValueFloat();
 			++index;
-			// второй колличество символов
+			// второй всегда длинна строки в пикселях
+			size_t len_pix = index->getValueSizeT();
+			++index;
+			// третий колличество символов
 			size_t count = index->getValueSizeT();
 			++index;
 
 			// пересчет опорных данных
-			if (false == mManualView) {
-				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-				else {
-					right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
-					// выравниваем по  целому пикселю
-					if (!((uint)(len / (mManager->getPixScaleX() * 2.0)) & 1)) right += mManager->getPixScaleX();
-				}
-			}
+			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
 			else {
-				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-				else {
-					right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
-					// выравниваем по  целому пикселю
-					if (((uint)((mContextRealSize.width - len) / (mManager->getPixScaleX() * 2.0)) & 1)) right += mManager->getPixScaleX();
-				}
+				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
+				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0) - margin_left + margin_right) * 0.5); // выравнивание по центру
 			}
 
 			// текущее положение в строке
@@ -705,7 +682,8 @@ namespace MyGUI
 		// создаем первую строчку
 		mLinesInfo.push_back(VectorCharInfo());
 		mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-		mLinesInfo.back().push_back(EnumCharInfo()); // второй символ, колличество значимых символов
+		mLinesInfo.back().push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
+		mLinesInfo.back().push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 		float len = 0, width = 0;
 		size_t count = 1;
 
@@ -721,7 +699,8 @@ namespace MyGUI
 
 				// запоминаем размер предыдущей строки
 				mLinesInfo.back()[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-				mLinesInfo.back()[1] = EnumCharInfo(count);
+				mLinesInfo.back()[1] = EnumCharInfo((size_t)len);
+				mLinesInfo.back()[2] = EnumCharInfo(count);
 
 				if (width < len) width = len;
 				count = 1;
@@ -729,8 +708,9 @@ namespace MyGUI
 
 				// и создаем новую
 				mLinesInfo.push_back(VectorCharInfo());
-				mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в пикселях
-				mLinesInfo.back().push_back(EnumCharInfo()); // второй символ, колличество значимых символов
+				mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
+				mLinesInfo.back().push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
+				mLinesInfo.back().push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 
 				if (character == Font::FONT_CODE_CR) {
 					Ogre::UTFString::const_iterator peeki = index;
@@ -789,7 +769,8 @@ namespace MyGUI
 
 		// запоминаем размер предыдущей строки
 		mLinesInfo.back()[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-		mLinesInfo.back()[1] = EnumCharInfo(count);
+		mLinesInfo.back()[1] = EnumCharInfo((size_t)len);
+		mLinesInfo.back()[2] = EnumCharInfo(count);
 		if (width < len) width = len;
 
 
@@ -845,9 +826,8 @@ namespace MyGUI
 		if (false == mManualView) {
 			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
 			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
-				left_shift = ((mContextRealSize.width - real_width) * 0.5); // выравнивание по центру
-				// выравниваем по  целому пикселю
-				if (!((uint32)(mCurrentCoord.width - mMargin.left - mMargin.right)  & 0x01)) left_shift += mManager->getPixScaleX();
+				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1; // для середины нужно четное число
+				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
 		}
 		else {
@@ -858,9 +838,8 @@ namespace MyGUI
 			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
 			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
 			else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
-				bottom += (margin_top - margin_bottom + mContextRealSize.height - real_height) * 0.5;
-				// выравниваем по  целому пикселю
-				//if (!((uint32)(mCurrentCoord.height - mMargin.top - mMargin.bottom)  & 0x01)) bottom += mManager->getPixScaleY();
+				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
+				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
 		else {
@@ -887,7 +866,10 @@ namespace MyGUI
 			// первый всегда длинна строки
 			float len = index->getValueFloat();
 			++index;
-			// второй колличество символов
+			// второй всегда длинна в пикселях
+			size_t len_pix = index->getValueSizeT();
+			++index;
+			// третий колличество символов
 			size_t count = index->getValueSizeT();
 			++index;
 
@@ -928,23 +910,11 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			if (false == mManualView) {
-				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-				else {
-					right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
-					// выравниваем по  целому пикселю
-					if (!((uint)(len / (mManager->getPixScaleX() * 2.0)) & 1)) right += mManager->getPixScaleX();
-				}
-			}
+			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
 			else {
-				if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-				else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
-				else {
-					right = real_left - left_shift + (((mContextRealSize.width - len) - margin_left + margin_right) * 0.5); // выравнивание по центру
-					// выравниваем по  целому пикселю
-					if (((uint)((mContextRealSize.width - len) / (mManager->getPixScaleX() * 2.0)) & 1)) right += mManager->getPixScaleX();
-				}
+				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
+				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0) - margin_left + margin_right) * 0.5); // выравнивание по центру
 			}
 
 			// текущее положение в строке

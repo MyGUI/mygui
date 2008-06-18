@@ -30,7 +30,7 @@ namespace MyGUI
 		void hide();
 
 		// обновляет все данные связанные с тектом
-		void updateRawData();
+		virtual void updateRawData();
 
 		// метод для отрисовки себя
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
@@ -118,7 +118,7 @@ namespace MyGUI
 		VectorLineInfo mLinesInfo;
 		IntPoint mViewOffset; // смещение текста
 		FloatSize mContextRealSize; // размер всего текста
-		FloatSize mContextSize; // размер всего текста
+		IntSize mContextSize; // размер всего текста
 
 		LayerItemKeeper * mItemKeeper;
 		RenderItem * mRenderItem;
