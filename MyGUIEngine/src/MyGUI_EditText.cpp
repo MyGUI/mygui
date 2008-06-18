@@ -496,7 +496,7 @@ namespace MyGUI
 			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
 			else {
 				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
-				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0) - margin_left + margin_right) * 0.5); // выравнивание по центру
+				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
 			}
 
 			if (x <= (1.0 + right)) {
@@ -618,7 +618,7 @@ namespace MyGUI
 			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
 			else {
 				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
-				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0) - margin_left + margin_right) * 0.5); // выравнивание по центру
+				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
 			}
 
 			// текущее положение в строке
@@ -914,7 +914,7 @@ namespace MyGUI
 			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
 			else {
 				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
-				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0) - margin_left + margin_right) * 0.5); // выравнивание по центру
+				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
 			}
 
 			// текущее положение в строке
