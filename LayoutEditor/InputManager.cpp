@@ -58,8 +58,36 @@ namespace input
 
 		static OIS::MouseEvent mouseEvent(0, msMouseState);
 
-		if (uMsg == WM_NCMOUSEMOVE) {
+		// See http://msdn.microsoft.com/en-us/library/ms645601(VS.85).aspx
+		if (uMsg == WM_NCHITTEST) {
+			int c = DefWindowProc (hWnd, uMsg, wParam, lParam);
+			size_t pointer = NULL;
+			switch (c)
+			{
+			case HTBOTTOM:
+			case HTTOP:
+				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS));
+				break;
+			case HTBOTTOMLEFT:
+			case HTTOPRIGHT:
+				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW));
+				break;
+			case HTBOTTOMRIGHT:
+			case HTTOPLEFT:
+				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE));
+				break;
+			case HTLEFT:
+			case HTRIGHT:
+				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
+				break;
+			default:
+				pointer = msInputManager->mCurrentPointer;
+				break;
+			}
+			SetCursor((HCURSOR)pointer);
+		}
 
+		if (uMsg == WM_NCMOUSEMOVE) {
 			POINT point = {0, 0};
 			::ClientToScreen(hWnd, &point);
 
@@ -79,35 +107,20 @@ namespace input
 
 			if (msSkipMouseMove) msSkipMouseMove = false;
 			else msInputManager->mouseMoved(mouseEvent);
-
-			/*if (point.x < 0) {
-				SetCursor((HCURSOR)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
-			}
-			else if (point.x > (msMouseState.width - 1)) {
-				SetCursor((HCURSOR)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
-			}
-			else {
-			}*/
 		}
 
-		// обновляем курсор
+		// перехватываем обновление курсора, если не перехватить - будет моргать немного
 		if (WM_SETCURSOR == uMsg) {
 
-			size_t pointer = NULL;
+			/*size_t pointer = NULL;
 
 			if (msInputManager->m_showPointer) {
-/*				if (msMouseState.X.abs < 1) {
-					pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
-				}
-				else if (msMouseState.X.abs > (msMouseState.width - 2)) {
-					pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
-				}
-				else {*/
+				if (!mNonGUIPointer){
 					pointer = msInputManager->mCurrentPointer;
-				/*}*/
-			}
+					SetCursor((HCURSOR)pointer);
+				}
+			}*/
 
-			SetCursor((HCURSOR)pointer);
 			return 0;
 		}
 
