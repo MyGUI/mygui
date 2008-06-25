@@ -22,6 +22,7 @@ struct WidgetContainer
 	{}
 
 	MyGUI::WidgetPtr widget;
+	MyGUI::WidgetPtr back_widget;
 	StringPairs mProperty;
 	StringPairs mUserString;
 	std::string type;

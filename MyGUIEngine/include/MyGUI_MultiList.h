@@ -87,6 +87,9 @@ namespace MyGUI
 
 		//----------------------------------------------------------------------------------//
 		// Methods for work with lines (RU:методы для работы со строками)
+		/** @note
+      	All indexes used here is indexes of unsorted Multilist. Even if you sorted
+			it - all items indexes will be same as before sort.*/
 		/** Get number of items (lines) */
 		size_t getItemCount();
 
