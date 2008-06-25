@@ -85,6 +85,9 @@ namespace MyGUI
 		/** Delete all columns */
 		void deleteAllColumns();
 
+		/** Sort multilist by column */
+		void sortByColumn(size_t _column, bool _backward = false);
+
 		//----------------------------------------------------------------------------------//
 		// Methods for work with lines (RU:методы для работы со строками)
 		/** @note
