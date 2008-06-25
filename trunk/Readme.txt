@@ -1,4 +1,4 @@
-Change [Configuration properties->Debugging->working directory] of TestApp and LayoutEditor to 
+Change [Configuration properties->Debugging->working directory] of TestApp, LayoutEditor and Demos to
 ../Shared/$(ConfigurationName)
 if you want run projects from Visual Studio.
 
