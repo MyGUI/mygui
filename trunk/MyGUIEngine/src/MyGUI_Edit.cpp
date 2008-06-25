@@ -158,13 +158,13 @@ namespace MyGUI
 		mEndSelect = cursorPosition;
 
 		Ogre::UTFString text = this->getOnlyText();
-		Ogre::UTFString::iterator iterBack = text.begin() + cursorPosition - 1;
+		Ogre::UTFString::reverse_iterator iterBack = text.rend() - cursorPosition;
 		Ogre::UTFString::iterator iterForw = text.begin() + cursorPosition;
 		
-		while (iterBack + 1 != text.begin())
+		while (iterBack != text.rend())
 		{
 			if (((*iterBack)<265) && (ispunct(*iterBack) || isspace(*iterBack))) break;
-			iterBack--;
+			iterBack++;
 			mStartSelect--;
 		}
 		while (iterForw != text.end())
@@ -174,8 +174,7 @@ namespace MyGUI
 			mEndSelect++;
 		}
 
-		mText->setCursorPosition(mCursorPosition);
-
+		mText->setCursorPosition(mEndSelect);
 		mText->setTextSelect(mStartSelect, mEndSelect);
 	}
 

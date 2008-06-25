@@ -166,6 +166,24 @@ namespace MyGUI
 		updateColumns();
 	}
 
+	void MultiList::sortByColumn(size_t _column, bool _backward)
+	{
+		mSortColumnIndex = _column;
+		if (_backward) {
+			mSortUp = false;
+			redrawButtons();
+			// если было недосортированно то сортируем
+			if (mIsDirtySort) sortList();
+
+			flipList();
+		}
+		else {
+			mSortUp = true;
+			redrawButtons();
+			sortList();
+		}
+	}
+
 	//------------------------------------------------------------------------------//
 	// методы для работы со строками
 	size_t MultiList::getItemCount()
@@ -318,20 +336,8 @@ namespace MyGUI
 
 	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _widget)
 	{
-		if (_widget->_getInternalData() == mSortColumnIndex) {
-			mSortUp = !mSortUp;
-			redrawButtons();
-			// если было недосортированно то сортируем
-			if (mIsDirtySort) sortList();
-
-			flipList();
-		}
-		else {
-			mSortColumnIndex = (size_t)_widget->_getInternalData();
-			mSortUp = true;
-			redrawButtons();
-			sortList();
-		}
+		size_t index = (size_t)_widget->_getInternalData();
+		sortByColumn(index, index == mSortColumnIndex);
 	}
 
 	void MultiList::redrawButtons()
