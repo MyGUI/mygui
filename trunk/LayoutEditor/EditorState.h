@@ -28,12 +28,12 @@ public:
 	void loadSettings();
 	void saveSettings();
 	// main panel
-	void notifySave(MyGUI::WidgetPtr _sender);
-	void notifyLoadSaveAs(MyGUI::WidgetPtr _sender);
-	void notifySettings(MyGUI::WidgetPtr _sender = 0);
-	void notifyTest(MyGUI::WidgetPtr _sender = 0);
-	void notifyClear(MyGUI::WidgetPtr _sender = 0);
-	void notifyQuit(MyGUI::WidgetPtr _sender = 0);
+	void notifySave();
+	void notifyLoadSaveAs(bool _save);
+	void notifySettings();
+	void notifyTest();
+	void notifyClear();
+	void notifyQuit();
 
 	void load(const std::string & _file);
 private:

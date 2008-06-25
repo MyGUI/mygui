@@ -82,15 +82,6 @@ void EditorState::enter(bool bIsChangeState)
 
 	loadSettings();
 
-	// menu panel (should be dropdown menu)
-	ASSIGN_FUNCTION("LayoutEditor_buttonLoad", &EditorState::notifyLoadSaveAs);
-	ASSIGN_FUNCTION("LayoutEditor_buttonSave", &EditorState::notifySave);
-	ASSIGN_FUNCTION("LayoutEditor_buttonSaveAs", &EditorState::notifyLoadSaveAs);
-	ASSIGN_FUNCTION("LayoutEditor_buttonSettings", &EditorState::notifySettings);
-	ASSIGN_FUNCTION("LayoutEditor_buttonTest", &EditorState::notifyTest);
-	ASSIGN_FUNCTION("LayoutEditor_buttonClear", &EditorState::notifyClear);
-	ASSIGN_FUNCTION("LayoutEditor_buttonQuit", &EditorState::notifyQuit);
-
 	// создание меню
 	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem("  File  ");
@@ -264,15 +255,13 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 	if (mPopupMenuFile == _menu) {
 		switch(_index) {
 			case ITEM_LOAD:
-				// сам виноват, нагружаешь разные вещи на один метод =)
-				notifyLoadSaveAs(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonLoad"));
+				notifyLoadSaveAs(false);
 				break;
 			case ITEM_SAVE:
-				notifySave(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSave"));
+				notifySave();
 				break;
 			case ITEM_SAVE_AS:
-				// сам виноват, нагружаешь разные вещи на один метод =)
-				notifyLoadSaveAs(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_buttonSaveAs"));
+				notifyLoadSaveAs(true);
 				break;
 			case ITEM_SETTINGS:
 				notifySettings();
@@ -510,8 +499,8 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		}
 		if (input.isControlPressed())
 		{
-			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L) notifyLoadSaveAs(mGUI->findWidgetT("LayoutEditor_buttonLoad"));
-			else if (arg.key == OIS::KC_S) notifySave(mGUI->findWidgetT("LayoutEditor_buttonSave"));
+			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L) notifyLoadSaveAs(false);
+			else if (arg.key == OIS::KC_S) notifySave();
 			else if (arg.key == OIS::KC_Z){
 				um->undo();
 				notifySelectWidget(null);
@@ -683,19 +672,19 @@ void EditorState::saveSettings()
 	}
 }
 
-void EditorState::notifySave(MyGUI::WidgetPtr _sender)
+void EditorState::notifySave()
 {
 	if (fileName != "")
 	{
 		if ( !ew->save(fileName)) {
 			Ogre::DisplayString file_name = anci_to_utf16(fileName);
-			MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage("Warning", "Failed to save file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		}
 	}
-	else notifyLoadSaveAs(_sender);
+	else notifyLoadSaveAs(true);
 }
 
-void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender)
+void EditorState::notifyLoadSaveAs(bool _save)
 {
 	// create message box with file name and two buttons
 	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("SaveLoadMessage.layout")[0];
@@ -719,13 +708,14 @@ void EditorState::notifyLoadSaveAs(MyGUI::WidgetPtr _sender)
 		const Ogre::DisplayString & item = anci_to_utf16(*iter);
 		combo->addItem(item);
 	}
-	if (_sender->getCaption() == "SaveAs...") childs[1]->setCaption("Save");
-	else childs[1]->setCaption(_sender->getCaption());
+
+	if (_save) childs[1]->setCaption("Save");
+	else childs[1]->setCaption("Load");
 	childs[1]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveAccept);
 	childs[2]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
 }
 
-void EditorState::notifySettings(MyGUI::WidgetPtr _sender)
+void EditorState::notifySettings()
 {
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowSettings");
 	window->show();
@@ -734,7 +724,7 @@ void EditorState::notifySettings(MyGUI::WidgetPtr _sender)
 	gridEdit->setCaption(MyGUI::utility::toString(grid_step));
 }
 
-void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
+void EditorState::notifyTest()
 {
 	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
 	{
@@ -756,7 +746,7 @@ void EditorState::notifyTest(MyGUI::WidgetPtr _sender)
 	testMode = true;
 }
 
-void EditorState::notifyClear(MyGUI::WidgetPtr _sender)
+void EditorState::notifyClear()
 {
 	MyGUI::Message::_createMessage("Warning", "Are you sure you want to delete all widgets?", "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 }
@@ -783,7 +773,7 @@ void EditorState::clear()
 	BasisManager::getInstance().setWindowCaption("MyGUI Layout Editor");
 }
 
-void EditorState::notifyQuit(MyGUI::WidgetPtr _sender)
+void EditorState::notifyQuit()
 {
 	MyGUI::Message::_createMessage("Warning", "Are you sure you want to exit?", "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 	want_quit = true;
@@ -1318,7 +1308,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		return;
 	}
 
-	bool success;
+	bool success = false;
 	if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
 	{
 		if ((value != "") && (value.find_first_of("0123456789") != std::string::npos))

@@ -64,6 +64,7 @@ namespace MyGUI
 				mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
 				mWidgetUpper->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
 				mWidgetUpper->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
+				mWidgetUpper->eventMouseButtonDoubleClick = newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetUpper, "Child Widget Client not found in skin (Edit must have Client)");
@@ -143,6 +144,39 @@ namespace MyGUI
 		if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
 		else mText->setTextSelect(mStartSelect, mEndSelect);
 
+	}
+
+	void Edit::notifyMouseButtonDoubleClick(WidgetPtr _sender)
+	{
+		// в статике все недоступно
+		if (mModeStatic) return;
+
+		const IntPoint & lastPressed = InputManager::getInstance().getLastLeftPressed();
+
+		size_t cursorPosition = mText->getCursorPosition(lastPressed);
+		mStartSelect = cursorPosition;
+		mEndSelect = cursorPosition;
+
+		Ogre::UTFString text = this->getOnlyText();
+		Ogre::UTFString::iterator iterBack = text.begin() + cursorPosition - 1;
+		Ogre::UTFString::iterator iterForw = text.begin() + cursorPosition;
+		
+		while (iterBack + 1 != text.begin())
+		{
+			if (((*iterBack)<265) && (ispunct(*iterBack) || isspace(*iterBack))) break;
+			iterBack--;
+			mStartSelect--;
+		}
+		while (iterForw != text.end())
+		{
+			if (((*iterForw)<265) && (ispunct(*iterForw) || isspace(*iterForw))) break;
+			iterForw++;
+			mEndSelect++;
+		}
+
+		mText->setCursorPosition(mCursorPosition);
+
+		mText->setTextSelect(mStartSelect, mEndSelect);
 	}
 
 	void Edit::_onMouseDrag(int _left, int _top)
