@@ -220,9 +220,9 @@ namespace MyGUI
 		/** Get selected sheet index */
 		inline size_t getSelectSheetIndex() {return mSelectSheet;}
 
-		/** Event : Смена активной вкладки\n
+		/** Event : Active Tab sheet changed \n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
-			@param _index
+			@param _index Index of selected sheet
 		*/
 		EventInfo_WidgetSizeT eventTabChangeSelect;
 

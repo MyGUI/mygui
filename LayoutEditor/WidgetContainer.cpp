@@ -134,6 +134,7 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 
 	if (null != _container)
 	{
+		//MyGUI::Gui::getInstance().destroyWidget(_container->back_widget);
 		widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
 		delete _container;
 	}

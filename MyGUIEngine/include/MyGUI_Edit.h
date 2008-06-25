@@ -216,6 +216,7 @@ namespace MyGUI
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
+		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 
 		virtual void _onMouseDrag(int _left, int _top);
 		virtual void _onKeyLostFocus(WidgetPtr _new);
