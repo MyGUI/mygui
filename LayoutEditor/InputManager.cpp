@@ -33,6 +33,8 @@ namespace input
 		#define GET_HIWORD(param) ((short)HIWORD(param))
 		#define GET_LOWORD(param) ((short)LOWORD(param))
 
+		static OIS::MouseEvent mouseEvent(0, msMouseState);
+		static bool capture = false;
 
 		// на нас кидаю файлы
 		if (WM_DROPFILES == uMsg) {
@@ -56,10 +58,18 @@ namespace input
 			return 0;
 		}
 
-		static OIS::MouseEvent mouseEvent(0, msMouseState);
+		else if (uMsg == WM_CAPTURECHANGED) {
+			// новый владелец не мы
+			if ((HWND)lParam != hWnd) {
+				if (capture) {
+					msInputManager->mouseReleased(mouseEvent, OIS::MB_Left);
+					capture = false;
+				}
+			}
+		}
 
 		// See http://msdn.microsoft.com/en-us/library/ms645601(VS.85).aspx
-		if (uMsg == WM_NCHITTEST) {
+		else if (uMsg == WM_NCHITTEST) {
 			int c = DefWindowProc (hWnd, uMsg, wParam, lParam);
 			size_t pointer = NULL;
 			switch (c)
@@ -87,44 +97,12 @@ namespace input
 			SetCursor((HCURSOR)pointer);
 		}
 
-		/*if (uMsg == WM_NCMOUSEMOVE) {
-			POINT point = {0, 0};
-			::ClientToScreen(hWnd, &point);
-
-			point.x = GET_LOWORD(lParam)-point.x;
-			point.y = GET_HIWORD(lParam)-point.y;
-
-			if (point.x < 0) point.x = 0;
-			else if (point.x > msMouseState.width) point.x = msMouseState.width;
-			if (point.y < 0) point.y = 0;
-			else if (point.y > msMouseState.height) point.y = msMouseState.height;
-
-			msMouseState.X.rel = point.x - msMouseState.X.abs;
-			msMouseState.X.abs = point.x;
-			msMouseState.Y.rel = point.y - msMouseState.Y.abs;
-			msMouseState.Y.abs = point.y;
-			msMouseState.Z.rel = 0;
-
-			if (msSkipMouseMove) msSkipMouseMove = false;
-			else msInputManager->mouseMoved(mouseEvent);
-		}*/
-
 		// перехватываем обновление курсора, если не перехватить - будет моргать немного
-		if (WM_SETCURSOR == uMsg) {
-
-			/*size_t pointer = NULL;
-
-			if (msInputManager->m_showPointer) {
-				if (!mNonGUIPointer){
-					pointer = msInputManager->mCurrentPointer;
-					SetCursor((HCURSOR)pointer);
-				}
-			}*/
-
+		else if (WM_SETCURSOR == uMsg) {
 			return 0;
 		}
 
-		if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST)) {
+		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST)) {
 
 			switch (uMsg) {
 				case WM_MOUSEMOVE:
@@ -158,6 +136,7 @@ namespace input
 				case WM_LBUTTONDOWN:
 					// захватываем мышь, с этого момента все сообщения шлются нам
 					::SetCapture(hWnd);
+					capture = true;
 					msInputManager->mousePressed(mouseEvent, OIS::MB_Left);
 					break;
 				case WM_LBUTTONDBLCLK:
@@ -176,8 +155,9 @@ namespace input
 
 				case WM_LBUTTONUP:
 					// освобождаем мышь
-					::SetCapture(0);
 					msInputManager->mouseReleased(mouseEvent, OIS::MB_Left);
+					::SetCapture(0);
+					capture = false;
 					break;
 				case WM_RBUTTONUP:
 					msInputManager->mouseReleased(mouseEvent, OIS::MB_Right);
