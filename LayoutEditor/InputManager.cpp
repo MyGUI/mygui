@@ -87,7 +87,7 @@ namespace input
 			SetCursor((HCURSOR)pointer);
 		}
 
-		if (uMsg == WM_NCMOUSEMOVE) {
+		/*if (uMsg == WM_NCMOUSEMOVE) {
 			POINT point = {0, 0};
 			::ClientToScreen(hWnd, &point);
 
@@ -107,7 +107,7 @@ namespace input
 
 			if (msSkipMouseMove) msSkipMouseMove = false;
 			else msInputManager->mouseMoved(mouseEvent);
-		}
+		}*/
 
 		// перехватываем обновление курсора, если не перехватить - будет моргать немного
 		if (WM_SETCURSOR == uMsg) {
@@ -128,14 +128,24 @@ namespace input
 
 			switch (uMsg) {
 				case WM_MOUSEMOVE:
-					msMouseState.X.rel = GET_LOWORD(lParam) - msMouseState.X.abs;
-					msMouseState.X.abs = GET_LOWORD(lParam);
-					msMouseState.Y.rel = GET_HIWORD(lParam) - msMouseState.Y.abs;
-					msMouseState.Y.abs = GET_HIWORD(lParam);
-					msMouseState.Z.rel = 0;
+					{
+						int x = GET_LOWORD(lParam);
+						int y = GET_HIWORD(lParam);
 
-					if (msSkipMouseMove) msSkipMouseMove = false;
-					else msInputManager->mouseMoved(mouseEvent);
+						if (x < 0) x = 0;
+						else if (x > msMouseState.width) x = msMouseState.width;
+						if (y < 0) y = 0;
+						else if (y > msMouseState.height) y = msMouseState.height;
+
+						msMouseState.X.rel = x - msMouseState.X.abs;
+						msMouseState.X.abs = x;
+						msMouseState.Y.rel = y - msMouseState.Y.abs;
+						msMouseState.Y.abs = y;
+						msMouseState.Z.rel = 0;
+
+						if (msSkipMouseMove) msSkipMouseMove = false;
+						else msInputManager->mouseMoved(mouseEvent);
+					}
 
 					break;
 
@@ -146,7 +156,8 @@ namespace input
 					break;
 
 				case WM_LBUTTONDOWN:
-					//::SetCapture(hWnd);
+					// захватываем мышь, с этого момента все сообщения шлются нам
+					::SetCapture(hWnd);
 					msInputManager->mousePressed(mouseEvent, OIS::MB_Left);
 					break;
 				case WM_LBUTTONDBLCLK:
@@ -164,8 +175,9 @@ namespace input
 					break;
 
 				case WM_LBUTTONUP:
+					// освобождаем мышь
+					::SetCapture(0);
 					msInputManager->mouseReleased(mouseEvent, OIS::MB_Left);
-					//::SetCapture(0);
 					break;
 				case WM_RBUTTONUP:
 					msInputManager->mouseReleased(mouseEvent, OIS::MB_Right);
