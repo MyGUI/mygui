@@ -321,8 +321,11 @@ namespace MyGUI
 			//else info->_correctView();//???
 		}
 		// теперь если нужно цвет текста
-		if ((iter->second.colour != Ogre::ColourValue::ZERO) && (mText != null)) {
-			mText->setColour(iter->second.colour);
+		if (mText != null) {
+			if (iter->second.colour != Ogre::ColourValue::ZERO) {
+				mText->setColour(iter->second.colour);
+			}
+			mText->setShiftText(iter->second.shift);
 		}
 	}
 

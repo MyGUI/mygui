@@ -19,33 +19,38 @@ namespace MyGUI
 	{
 		SubWidgetStateInfo() :
 			colour(Ogre::ColourValue::ZERO),
-			alpha(-1)
+			alpha(-1),
+			shift(false)
 		{
 		}
 
-		SubWidgetStateInfo(const FloatRect& _offset, const Ogre::ColourValue & _colour, float _alpha) :
+		SubWidgetStateInfo(const FloatRect& _offset, const Ogre::ColourValue & _colour, float _alpha, bool _shift) :
 			offset(_offset),
 			colour(_colour),
-			alpha(_alpha)
+			alpha(_alpha),
+			shift(_shift)
 		{
 		}
 
 		FloatRect offset;
 		Ogre::ColourValue colour;
 		float alpha;
+		bool shift;
 	};
 
 	struct WidgetStateInfo
 	{
 		WidgetStateInfo() :
 			colour(Ogre::ColourValue::ZERO),
-			alpha(-1)
+			alpha(-1),
+			shift(false)
 		{
 		}
 
 		std::vector<FloatRect> offsets;
 		Ogre::ColourValue colour;
 		float alpha;
+		bool shift;
 	};
 
 	struct SubWidgetInfo

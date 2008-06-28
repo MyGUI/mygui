@@ -82,6 +82,8 @@ namespace MyGUI
 		virtual void setTextAlign(Align _align) {}
 		virtual Align getTextAlign() { return ALIGN_DEFAULT; }
 
+		virtual void setShiftText(bool _shift) {}
+
 	};
 
 } // namespace MyGUI
