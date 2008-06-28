@@ -87,6 +87,8 @@ namespace MyGUI
 		// возвращает положение курсора в обсолютных координатах
 		virtual IntCoord getCursorCoord(size_t _position);
 
+		void setShiftText(bool _shift);
+
 	protected:
 
 		bool mEmptyView;
@@ -127,6 +129,7 @@ namespace MyGUI
 		LayerManager * mManager;
 
 		bool mManualView;
+		bool mShiftText;
 
 	};
 

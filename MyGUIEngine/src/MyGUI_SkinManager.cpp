@@ -183,14 +183,16 @@ namespace MyGUI
 						FloatRect offset;
 						Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
 						float alpha = -1;
+						bool shift = false;
 
 						state->findAttribute("name", basisStateName);
 						if (state->findAttribute("offset", tmp)) offset = convertTextureCoord(FloatRect::parse(tmp), materialSize);
 						if (state->findAttribute("colour", tmp)) colour = utility::parseColour(tmp);
 						if (state->findAttribute("alpha", tmp)) alpha = utility::parseFloat(tmp);
+						if (state->findAttribute("shift", tmp)) shift = utility::parseBool(tmp);
 
 						// добавляем инфо о стайте
-						bind.add(basisStateName, offset, colour, alpha);
+						bind.add(basisStateName, offset, colour, alpha, shift);
 
 					};
 

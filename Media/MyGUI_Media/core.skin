@@ -30,11 +30,11 @@
             <State name="select" offset = "42 114 14 26"/>
         </BasisSkin>
         <BasisSkin type="SimpleText" offset = "23 0 28 26" align = "ALIGN_STRETCH">
-            <State name="disable" colour="0.87 0.87 0.87"/>
-            <!--State name="normal" colour="0 0 0"/-->
-            <!--State name="active" colour="2C8AD5"/-->
-            <!--State name="pressed" colour="0 0 0"/-->
-            <!--State name="select" colour="2C8AD5"/-->
+            <State name="disable"/>
+            <State name="normal"/>
+            <State name="active"/>
+            <State name="pressed" shift="true"/>
+            <State name="select" shift="true"/>
         </BasisSkin>
     </Skin>
     
@@ -66,11 +66,11 @@
             <State name="select" offset = "544 114 10 26"/>
         </BasisSkin>
         <BasisSkin type="SimpleText" offset = "0 0 40 26" align = "ALIGN_STRETCH">
-            <State name="disable" colour="0.87 0.87 0.87"/>
-            <!--State2 name="pressed" colour="0 0 0"/-->
-            <!--State2 name="normal" colour="0 0 0"/-->
-            <!--State2 name="select" colour="2C8AD5"/-->
-            <!--State2 name="active" colour="2C8AD5"/-->
+            <State name="disable" colour="0 0 0" />
+            <State name="normal" colour="0 0 0" />
+            <State name="active" colour="0 0 0" />
+            <State name="pressed" colour="0 0 1" shift="true"/>
+            <State name="select" colour="0 0 1" shift="true"/>
         </BasisSkin>
     </Skin>
 
@@ -109,11 +109,6 @@
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
         <BasisSkin type="EditText" offset = "2 1 36 24" align = "ALIGN_STRETCH">
-            <!--State name="disable" colour="0.87 0.87 0.87"/-->
-            <!--State name="pressed" colour="0 0 0"/-->
-            <!--State name="normal" colour="0 0 0"/-->
-            <!--State name="select" colour="2C8AD5"/-->
-            <!--State name="active" colour="2C8AD5"/-->
         </BasisSkin>
     </Skin>
 
@@ -193,11 +188,6 @@
         </BasisSkin>
 
         <BasisSkin type="EditText" offset = "2 1 36 24" align = "ALIGN_STRETCH">
-            <!--State name="disable" colour="0.87 0.87 0.87"/-->
-            <!--State name="pressed" colour="0 0 0"/-->
-            <!--State name="normal" colour="0 0 0"/-->
-            <!--State name="select" colour="2C8AD5"/-->
-            <!--State name="active" colour="2C8AD5"/-->
         </BasisSkin>
     </Skin>
 
@@ -482,16 +472,6 @@
         <Child type="Button" skin="VScrollBottom" offset = "0 28 16 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End"/>
         <Child type="Button" skin="VScrollTrack" offset = "0 18 16 21" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
 
-		<!-- old skin without buttons on sroll line -->
-        <IGNORED_BasisSkin type="SubSkin" offset = "0 16 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
-            <State name="normal" offset = "163 18 16 6"/>
-        </IGNORED_BasisSkin>
-        <IGNORED_BasisSkin type="SubSkin" offset = "0 22 16 16" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "163 24 16 16"/>
-        </IGNORED_BasisSkin>
-        <IGNORED_BasisSkin type="SubSkin" offset = "0 38 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
-            <State name="normal" offset = "163 40 16 6"/>
-        </IGNORED_BasisSkin>
     </Skin>
 
 
@@ -754,7 +734,7 @@
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
         <BasisSkin type="EditText" offset = "3 0 15 26" align = "ALIGN_STRETCH">
-            <State name="disable" colour="0.87 0.87 0.87"/>
+            <!--State name="disable" colour="0.87 0.87 0.87"--/>
             <!--State name="pressed" colour="0 0 0"/-->
             <!--State name="normal" colour="0 0 0"/-->
             <!--State name="select" colour="2C8AD5"/-->
@@ -861,7 +841,10 @@
             <State name="select" offset = "268 92 11 28"/>
         </BasisSkin>
 
-        <BasisSkin type="SimpleText" offset = "11 0 38 28" align = "ALIGN_STRETCH"/>
+        <BasisSkin type="SimpleText" offset = "11 0 38 28" align = "ALIGN_STRETCH">
+            <State name="pressed" shift="true"/>
+            <State name="select" shift="true"/>
+        </BasisSkin>
 
     </Skin>
 
