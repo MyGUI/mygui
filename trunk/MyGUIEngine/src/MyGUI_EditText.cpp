@@ -58,7 +58,8 @@ namespace MyGUI
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mTextAlign(ALIGN_DEFAULT)
+		mTextAlign(ALIGN_DEFAULT),
+		mShiftText(false)
 	{
 		mManager = LayerManager::getInstancePtr();
 
@@ -808,7 +809,7 @@ namespace MyGUI
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);
 
 		float real_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		float real_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
+		float real_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop() + (mShiftText ? 1 : 0)) + mManager->getVOffset()) * 2) - 1);
 		float real_width = (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
 		float real_height = (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
 		float real_right = real_left + real_width;
@@ -1082,6 +1083,13 @@ namespace MyGUI
 		
 		// колличество реально отрисованных вершин
 		return vertex_count;
+	}
+
+	void EditText::setShiftText(bool _shift)
+	{
+		if (mShiftText == _shift) return;
+		mShiftText = _shift;
+		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
 } // namespace MyGUI

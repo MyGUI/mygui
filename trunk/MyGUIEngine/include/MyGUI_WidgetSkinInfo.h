@@ -90,6 +90,8 @@ namespace MyGUI
 				if (iter->second.colour != Ogre::ColourValue::ZERO) mStates[iter->first].colour = iter->second.colour;
 				// если нужно то выставляем и альфу
 				if (iter->second.alpha != -1) mStates[iter->first].alpha = iter->second.alpha;
+
+				mStates[iter->first].shift = iter->second.shift;
 			}
 		}
 
