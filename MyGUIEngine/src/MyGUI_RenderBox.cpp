@@ -29,7 +29,8 @@ namespace MyGUI
 		mEntityState(null),
 		mScale(1.0f),
 		mCurrentScale(1.0f),
-		mUseScale(false)
+		mUseScale(false),
+		mNodeForSync(null)
 	{
 
 		// первоначальная инициализация
@@ -74,6 +75,142 @@ namespace MyGUI
 		updateViewport();
 	}
 
+	Ogre::MovableObject* findMovableObject(Ogre::SceneNode* _node, const Ogre::String& _name)
+	{
+		for(unsigned short i = 0; i < _node->numAttachedObjects(); i++)
+		{
+			if(_node->getAttachedObject(i)->getName() == _name)
+			{
+				return _node->getAttachedObject(i);
+			}
+		}
+		return null;
+	}
+
+	Ogre::SceneNode* findSceneNodeObject(Ogre::SceneNode* _node, const Ogre::String& _name)
+	{
+		for(int i = 0; i < _node->numChildren(); i++)
+		{
+			if(_node->getChild(i)->getName() == _name)
+			{
+				return (Ogre::SceneNode*)_node->getChild(i);
+			}
+		}
+		return null;
+	}
+
+	void RenderBox::removeEntity(const Ogre::String& _name)
+	{
+		VectorEntity::iterator i = mVectorEntity.begin();
+
+		while(i != mVectorEntity.end())
+		{
+			if((*i)->getName() == _name)
+			{
+				System::Console::WriteLine("erase from VectorEntity");
+				mVectorEntity.erase(i);
+				break;
+			}
+			i++;
+		}
+	}
+
+	void RenderBox::synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode)
+	{
+		if (_newNode == null || _fromNode == null)
+		{
+			MYGUI_ASSERT(_newNode == null || _fromNode == null,"Synchronize scene node error.");
+			return;
+		}
+
+		_newNode->setPosition(_fromNode->getPosition());
+		_newNode->setOrientation(_fromNode->getOrientation());
+
+		for(int i = 0; i < _fromNode->numAttachedObjects(); i++)
+		{
+			Ogre::Entity* entity = dynamic_cast<Ogre::Entity*>(_fromNode->getAttachedObject(i));
+
+			if(entity)
+			{
+				Ogre::Entity* newEntity = dynamic_cast<Ogre::Entity*>(findMovableObject(_newNode, entity->getName()));
+
+				if(!newEntity)
+				{
+					System::Console::WriteLine("create new entity");
+					newEntity = mScene->createEntity(entity->getName(), entity->getMesh()->getName());//new Ogre::Entity(entity->getName(), (Ogre::MeshPtr)entity->getMesh().get()->getHandle());
+					_newNode->attachObject(newEntity);
+					mVectorEntity.push_back(newEntity);
+
+					if(mEntity == null)
+					{
+						mEntity = newEntity;
+					}
+				}
+			}
+		}
+
+		for(int i = 0; i < _fromNode->numChildren(); i++)
+		{
+			Ogre::SceneNode* newChildNode = findSceneNodeObject(_newNode, _fromNode->getChild(i)->getName());
+
+			if(!newChildNode)
+			{
+				System::Console::WriteLine("create new node");
+				newChildNode = _newNode->createChildSceneNode(_fromNode->getChild(i)->getName(), _fromNode->getChild(i)->getPosition(), _fromNode->getChild(i)->getOrientation());
+			}
+
+			synchronizeSceneNode(newChildNode, (Ogre::SceneNode*)_fromNode->getChild(i));
+		}
+
+		int i = 0;
+
+		while (i < _newNode->numChildren())
+		{
+			Ogre::SceneNode* oldNode = findSceneNodeObject(_fromNode, _newNode->getChild(i)->getName());
+
+			if(!oldNode)
+			{
+				Ogre::SceneNode* forDelete = (Ogre::SceneNode*)_newNode->getChild(i);
+
+				for(int j = 0; j < forDelete->numAttachedObjects(); j++)
+				{
+					Ogre::MovableObject* object = forDelete->getAttachedObject(j);
+					forDelete->detachObject(object);
+					removeEntity(object->getName());
+					mScene->destroyMovableObject(object);
+				}
+
+				((Ogre::SceneNode*)_newNode->getChild(i))->removeAndDestroyAllChildren();
+				_newNode->removeAndDestroyChild(i);
+
+				System::Console::WriteLine("remove node");
+			}else
+			{
+				i++;
+			}
+		}
+	}
+
+	void RenderBox::injectSceneNode(Ogre::SceneNode* _sceneNode)
+	{
+		clear();
+
+		if(mUserViewport) {
+			mUserViewport = false;
+			createRenderTexture();
+		}
+
+		Ogre::SceneNode * node = mNode->createChildSceneNode();
+
+		synchronizeSceneNode(node, _sceneNode);
+
+		mNodeForSync = _sceneNode;
+
+		mPointer = mMouseRotation ? mPointerKeeper : "";
+
+		updateViewport();
+	}
+
 	// очищает сцену
 	void RenderBox::clear()
 	{
@@ -88,6 +225,8 @@ namespace MyGUI
 
 		mEntity = 0;
 		mEntityState = null;
+
+		mNodeForSync = null;
 		//}
 	}
 
@@ -197,6 +336,14 @@ namespace MyGUI
 
 	void RenderBox::_frameEntered(float _time)
 	{
+		if(mNodeForSync)
+		{
+			//System::Console::WriteLine("_frameEntered");
+			synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0),mNodeForSync);
+			mNode->getChild(0)->setPosition(Ogre::Vector3::ZERO);
+			mNode->getChild(0)->setOrientation(Ogre::Quaternion::IDENTITY);
+		}
+
 		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) {
 			// коррекция под левосторонюю систему координат с осью Z направленную вверх
 			#ifdef LEFT_HANDED_CS_UP_Z
@@ -328,6 +475,8 @@ namespace MyGUI
 			}
 
 			if (box.isNull()) return;
+
+			box.scale(Ogre::Vector3(1.41f,1.41f,1.41f));
 			
 			//box.getCenter();
 			Ogre::Vector3 vec = box.getSize();
@@ -443,6 +592,16 @@ namespace MyGUI
 		if (mScale > 1) mScale = 1;
 		else if (mScale < near_min) mScale = near_min;
 
+	}
+
+	bool RenderBox::getScreenPosition(const Ogre::Vector3 _world, Ogre::Vector2& _screen)
+	{
+		Ogre::Matrix4 mat = (mRttCam->getProjectionMatrix() * mRttCam->getViewMatrix(true));
+		Ogre::Vector4 Point = mat * Ogre::Vector4(_world.x, _world.y, _world.z, 1);
+		_screen.x = (Point.x / Point.w + 1) * 0.5; 
+		_screen.y = 1 - (Point.y / Point.w + 1) * 0.5; 
+		float Depth = Point.z / Point.w;
+		return (Depth >= 0.0f && Depth <= 1.0f);
 	}
 
 } // namespace MyGUI
