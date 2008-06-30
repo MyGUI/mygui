@@ -46,6 +46,16 @@ namespace MyGUI
 		*/
 		void injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position = Ogre::Vector3::ZERO, const Ogre::Quaternion & _orientation = Ogre::Quaternion::IDENTITY, const Ogre::Vector3 & _scale = Ogre::Vector3::UNIT_SCALE);
 
+		/** Add scene node to scene and remove previous one
+		@remarks
+		This function will take no effect if user Viewport provided via setViewport.
+		@param
+		_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
+		*/
+		void injectSceneNode(Ogre::SceneNode* _sceneNode);
+
+		void synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode);
+
 		/** Run mesh animation if animation with such name exist (else print warning in log).
 			To stop animation use empty string.
 		*/
@@ -111,6 +121,8 @@ namespace MyGUI
 		/** Set any user created Camera instead of showing one mesh*/
 		void setRenderTarget(Ogre::Camera * _camera);
 
+		bool getScreenPosition(const Ogre::Vector3 _world, Ogre::Vector2& _screen);
+
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		void setPosition(const IntCoord& _coord);
 		//! @copydoc Widget::setSize(const IntSize& _size)
@@ -134,6 +146,9 @@ namespace MyGUI
 		inline bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState);}
 		void createRenderTexture();
 		void updateViewport();
+
+		void removeEntity(const Ogre::String& _name);
+
 
 		bool mUserViewport;
 		// все, что касается сцены
@@ -162,6 +177,8 @@ namespace MyGUI
 
 		typedef std::vector<Ogre::Entity*> VectorEntity;
 		VectorEntity mVectorEntity;
+
+		Ogre::SceneNode* mNodeForSync;
 
 	}; // class RenderBox : public Widget
 
