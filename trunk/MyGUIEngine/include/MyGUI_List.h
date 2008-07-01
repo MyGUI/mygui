@@ -49,7 +49,7 @@ namespace MyGUI
 		//! Delete all items
 		void deleteAllItems();
 
-		//! Get number of selected item (ITEM_NONE if none selected)
+		//! Get index of selected item (ITEM_NONE if none selected)
 		inline size_t getItemSelect() {return mIndexSelect;}
 		//! Reset item selection
 		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
