@@ -6,7 +6,7 @@
     <Layer name="Overlapped" overlapped="true" peek="true"/>
     <Layer name="Middle" overlapped="false" peek="true"/>
     <Layer name="Modal" overlapped="true" peek="true"/>
-    <Layer name="Main" overlapped="false" peek="true"/>
+    <Layer name="Main" overlapped="true" peek="true"/>
     <Layer name="Popup" overlapped="true" peek="true"/>
     <Layer name="FadeMiddle" overlapped="false" peek="false"/>
     <Layer name="Info" overlapped="true" peek="true"/>
