@@ -338,10 +338,20 @@ namespace MyGUI
 	{
 		if(mNodeForSync)
 		{
+			BOOL update = FALSE;
+			if(mNode->getChild(0)->getPosition() != Ogre::Vector3::ZERO)
+			{
+				update = TRUE;
+			}
 			//System::Console::WriteLine("_frameEntered");
 			synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0),mNodeForSync);
 			mNode->getChild(0)->setPosition(Ogre::Vector3::ZERO);
 			mNode->getChild(0)->setOrientation(Ogre::Quaternion::IDENTITY);
+
+			if(update)
+			{
+				updateViewport();
+			}
 		}
 
 		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) {
