@@ -163,7 +163,7 @@ namespace MyGUI
 
 		/** Set edit password character ('*' by default) */
 		void setPasswordChar(Char _char);
-		/** Set edit password character ('*' by default) */
+		/** Set edit password character ('*' by default). First character of string used. */
 		inline void setPasswordChar(const Ogre::UTFString & _char)
 		{
 			if (false == _char.empty()) setPasswordChar(_char[0]);
@@ -182,7 +182,7 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
-		/** Event : Enter pressed (Ctrl+entre in multiline mode).\n
+		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
 			signature : void method(MyGUI::WidgetPtr _sender)
 		*/
 		EventInfo_WidgetVoid eventEditSelectAccept;
@@ -222,7 +222,6 @@ namespace MyGUI
 		virtual void _onKeyLostFocus(WidgetPtr _new);
 		virtual void _onKeySetFocus(WidgetPtr _old);
 		virtual void _onKeyButtonPressed(KeyCode _key, Char _char);
-		virtual void _onKeyButtonReleased(KeyCode _key);
 
 		void updateEditState();
 

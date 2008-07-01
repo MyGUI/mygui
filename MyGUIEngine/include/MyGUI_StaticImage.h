@@ -50,8 +50,8 @@ namespace MyGUI
 		/** Set _tile size */
 		void setImageTile(const IntSize & _tile);
 
-		/** Set current tile number
-			@param _num - tile number
+		/** Set current tile index
+			@param _num - tile index
 			@remarks Tiles in file start numbering from left to right and from top to bottom.
 			\n \bExample:\n
 			<pre>
@@ -63,7 +63,7 @@ namespace MyGUI
 			</pre>
 		*/
 		void setImageNum(size_t _num);
-		/** Get current tile number */
+		/** Get current tile index */
 		inline size_t getImageNum() {return mNum;}
 
 	private:
