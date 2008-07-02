@@ -594,10 +594,7 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		// формируем нотифи для индекса
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_PRESSED, _left, _top, _id));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
 
 		if ( MB_Left == _id) {
 			size_t old = mIndexSelect;
@@ -635,10 +632,7 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		// формируем нотифи для индекса
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItem(this, NotifyItemData(index, NOTIFY_MOUSE_RELEASED, _left, _top, _id));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
 
 		if (mStartDrop) {
 			if (mItemDrag.item) mItemDrag.item->hide();
@@ -785,25 +779,23 @@ namespace MyGUI
 
 	void ItemBox::notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char)
 	{
-		// формируем нотифи для индекса
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItem(this, NotifyItemData(index, NOTIFY_KEY_PRESSED, _key, _char));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_PRESSED, _key, _char));
 	}
 
 	void ItemBox::notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key)
 	{
-		// формируем нотифи для индекса
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
-		eventNotifyItem(this, NotifyItemData(index, NOTIFY_KEY_RELEASED, _key));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_RELEASED, _key));
 	}
 
 	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
 	{
 		// формируем нотифи для индекса
-		size_t index = (size_t)_widget->_getInternalData() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+		size_t index = ITEM_NONE;
+		if (_widget != mWidgetClient) {
+			index = (size_t)_widget->_getInternalData() + (mLineTop * mCountItemInLine);
+			MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+			MYGUI_DEBUG_ASSERT(_widget->getParent() == mWidgetClient, "widget is not indexed");
+		}
 		return index;
 	}
 
