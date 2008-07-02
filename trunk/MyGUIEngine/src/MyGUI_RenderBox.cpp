@@ -107,7 +107,7 @@ namespace MyGUI
 		{
 			if((*i)->getName() == _name)
 			{
-				System::Console::WriteLine("erase from VectorEntity");
+				//System::Console::WriteLine("erase from VectorEntity");
 				mVectorEntity.erase(i);
 				break;
 			}
@@ -136,7 +136,7 @@ namespace MyGUI
 
 				if(!newEntity)
 				{
-					System::Console::WriteLine("create new entity");
+					//System::Console::WriteLine("create new entity");
 					newEntity = mScene->createEntity(entity->getName(), entity->getMesh()->getName());//new Ogre::Entity(entity->getName(), (Ogre::MeshPtr)entity->getMesh().get()->getHandle());
 					_newNode->attachObject(newEntity);
 					mVectorEntity.push_back(newEntity);
@@ -155,7 +155,7 @@ namespace MyGUI
 
 			if(!newChildNode)
 			{
-				System::Console::WriteLine("create new node");
+				//System::Console::WriteLine("create new node");
 				newChildNode = _newNode->createChildSceneNode(_fromNode->getChild(i)->getName(), _fromNode->getChild(i)->getPosition(), _fromNode->getChild(i)->getOrientation());
 			}
 
@@ -183,7 +183,7 @@ namespace MyGUI
 				((Ogre::SceneNode*)_newNode->getChild(i))->removeAndDestroyAllChildren();
 				_newNode->removeAndDestroyChild(i);
 
-				System::Console::WriteLine("remove node");
+				//System::Console::WriteLine("remove node");
 			}else
 			{
 				i++;
