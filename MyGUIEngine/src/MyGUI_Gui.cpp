@@ -85,8 +85,9 @@ namespace MyGUI
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 		windowResized(mWindow);
 
-		// загружаем дефолтные настройки
-		load(_core, mResourceGroup);
+		// загружаем дефолтные настройки если надо
+		if ( _core.empty() != false )
+			load(_core, mResourceGroup);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -269,7 +270,7 @@ namespace MyGUI
 		xml::xmlDocument doc;
 		std::string file(_group.empty() ? _file : helper::getResourcePath(_file, _group));
 		if (file.empty()) {
-			MYGUI_LOG(Error, _instance << " : '" << _file << "' not found");
+			MYGUI_LOG(Error, _instance << " : file '" << _file << "' not found");
 			return false;
 		}
 
