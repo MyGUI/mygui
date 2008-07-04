@@ -86,7 +86,7 @@ namespace MyGUI
 		windowResized(mWindow);
 
 		// загружаем дефолтные настройки если надо
-		if ( _core.empty() != false )
+		if ( _core.empty() == false )
 			load(_core, mResourceGroup);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
