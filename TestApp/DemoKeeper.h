@@ -17,9 +17,14 @@ public:
 	void start(MyGUI::Gui * _gui, size_t _width, size_t _height);
 	void end();
 
+	void command(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);
+
+	void consolePressed();
+
 private:
 	MyGUI::Gui * mGUI;
 	size_t mWidth, mHeight;
+	MyGUI::ConsolePtr mConsole;
 
 };
 

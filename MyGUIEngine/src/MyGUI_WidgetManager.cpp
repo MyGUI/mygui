@@ -30,6 +30,7 @@
 #include "MyGUI_FooBarFactory.h"
 #include "MyGUI_PopupMenuFactory.h"
 #include "MyGUI_MenuBarFactory.h"
+#include "MyGUI_ConsoleFactory.h"
 
 namespace MyGUI
 {
@@ -64,6 +65,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::FooBarFactory());
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
 		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
+		mIntegratedFactoryList.insert(new factory::ConsoleFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -139,25 +141,6 @@ namespace MyGUI
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
-
-	/*FloatRect WidgetManager::convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight)
-	{
-		FloatRect offset = _offset;
-
-		if (IS_ALIGN_RIGHT(_align)) {
-			if (IS_ALIGN_LEFT(_align)) offset.right += _parentWidth - _parentSkinSize.width;
-			else offset.left += _parentWidth - _parentSkinSize.width;
-		}
-		else if (false == IS_ALIGN_LEFT(_align)) offset.left += (_parentWidth - _parentSkinSize.width) / 2;
-
-		if (IS_ALIGN_BOTTOM(_align)) {
-			if (IS_ALIGN_TOP(_align)) offset.bottom += _parentHeight - _parentSkinSize.height;
-			else offset.top += _parentHeight - _parentSkinSize.height;
-		}
-		else if (false == IS_ALIGN_TOP(_align)) offset.top += (_parentHeight - _parentSkinSize.height) / 2;
-
-		return offset;
-	}*/
 
 	// преобразует точку на виджете в глобальную позицию
 	IntPoint WidgetManager::convertToGlobal(const IntPoint& _point, WidgetPtr _widget)
@@ -241,12 +224,5 @@ namespace MyGUI
 			mVectorUnlinkWidget[pos]->_unlinkWidget(_widget);
 		}
 	}
-
-	/*void WidgetManager::_deleteWidget(WidgetPtr _widget)
-	{
-		if (null == _widget) return;
-		unlinkFromUnlinkers(_widget);
-		delete _widget;
-	}*/
 
 } // namespace MyGUI

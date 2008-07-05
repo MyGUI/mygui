@@ -70,6 +70,7 @@ namespace MyGUI
 		class FooBarFactory;
 		class PopupMenuFactory;
 		class MenuBarFactory;
+		class ConsoleFactory;
 	}
 
 	class Widget;
@@ -92,6 +93,7 @@ namespace MyGUI
 	class FooBar;
 	class PopupMenu;
 	class MenuBar;
+	class Console;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -113,6 +115,7 @@ namespace MyGUI
 	typedef FooBar * FooBarPtr;
 	typedef PopupMenu * PopupMenuPtr;
 	typedef MenuBar * MenuBarPtr;
+	typedef Console * ConsolePtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
