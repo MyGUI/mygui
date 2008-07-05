@@ -70,6 +70,7 @@ namespace MyGUI
 		} // namespace templates
 
 		inline Ogre::ColourValue parseColour(const std::string& _value) {return templates::parseColour<void>(_value);}
+		inline std::string toString(const Ogre::ColourValue & _colour) { return toString(_colour.r, " " , _colour.g, " " , _colour.b, " ", _colour.a); }
 
 	} // namespace utility
 

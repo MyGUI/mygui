@@ -28,6 +28,7 @@
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_FooBar.h"
+#include "MyGUI_Console.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"

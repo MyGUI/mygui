@@ -81,6 +81,13 @@ namespace MyGUI
 			return stream.str();
 		}
 
+		template< >
+		inline std::string toString<bool> (bool p)
+		{
+			if (p) return "true";
+			return "false";
+		}
+
 
 		// утилиты для парсинга
 		template< class T >
@@ -163,6 +170,130 @@ namespace MyGUI
 		{
 			if (_right) _str.erase(_str.find_last_not_of(" \t\r")+1);
 			if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
+		}
+
+		template<class T1, class T2, class T3, class T4> inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
+		{
+			std::istringstream str(_value);
+
+			T1 p1 = T1();
+			str >> p1;
+			if (str.fail()) return false;
+
+			T2 p2 = T2();
+			str >> p2;
+			if (str.fail()) return false;
+
+			T3 p3 = T3();
+			str >> p3;
+			if (str.fail()) return false;
+
+			T4 p4 = T4();
+			str >> p4;
+			if (str.fail()) return false;
+
+			std::string tmp;
+			str >> tmp;
+			if ( ! str.fail()) {
+				size_t pos = tmp.find_first_not_of(" \t");
+				if (pos != Ogre::UTFString::npos) return false;
+			}
+
+			_p1 = p1;
+			_p2 = p2;
+			_p3 = p3;
+			_p4 = p4;
+
+			return true;
+		}
+
+		template<class T1, class T2, class T3> inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3)
+		{
+			std::istringstream str(_value);
+
+			T1 p1 = T1();
+			str >> p1;
+			if (str.fail()) return false;
+
+			T2 p2 = T2();
+			str >> p2;
+			if (str.fail()) return false;
+
+			T3 p3 = T3();
+			str >> p3;
+			if (str.fail()) return false;
+
+			std::string tmp;
+			str >> tmp;
+			if ( ! str.fail()) {
+				size_t pos = tmp.find_first_not_of(" \t");
+				if (pos != Ogre::UTFString::npos) return false;
+			}
+
+			_p1 = p1;
+			_p2 = p2;
+			_p3 = p3;
+
+			return true;
+		}
+
+		template<class T1, class T2> inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2)
+		{
+			std::istringstream str(_value);
+
+			T1 p1 = T1();
+			str >> p1;
+			if (str.fail()) return false;
+
+			T2 p2 = T2();
+			str >> p2;
+			if (str.fail()) return false;
+
+			std::string tmp;
+			str >> tmp;
+			if ( ! str.fail()) {
+				size_t pos = tmp.find_first_not_of(" \t");
+				if (pos != Ogre::UTFString::npos) return false;
+			}
+
+			_p1 = p1;
+			_p2 = p2;
+
+			return true;
+		}
+
+		template<class T1> inline bool parseComplex(const std::string & _value, T1 & _p1)
+		{
+			std::istringstream str(_value);
+
+			T1 p1 = T1();
+			str >> p1;
+			if (str.fail()) return false;
+
+			std::string tmp;
+			str >> tmp;
+			if ( ! str.fail()) {
+				size_t pos = tmp.find_first_not_of(" \t");
+				if (pos != Ogre::UTFString::npos) return false;
+			}
+
+			_p1 = p1;
+
+			return true;
+		}
+
+		template<> inline bool parseComplex<bool>(const std::string & _value, bool & _p1)
+		{
+			if ((_value == "true") || (_value == "1")) {
+				_p1 = true;
+				return true;
+			}
+			else if ((_value == "false") || (_value == "0")) {
+				_p1 = false;
+				return true;
+			}
+
+			return false;
 		}
 
 	} // namespace utility
