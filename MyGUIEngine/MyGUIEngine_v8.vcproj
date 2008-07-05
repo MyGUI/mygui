@@ -199,6 +199,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_Console.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Edit.cpp"
 					>
 				</File>
@@ -279,6 +283,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_ComboBoxFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ConsoleFactory.cpp"
 						>
 					</File>
 					<File
@@ -533,6 +541,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Console.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Edit.h"
 					>
 				</File>
@@ -613,6 +625,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ComboBoxFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ConsoleFactory.h"
 						>
 					</File>
 					<File

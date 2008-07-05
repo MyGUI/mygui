@@ -318,7 +318,7 @@ bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	if ( arg.key == OIS::KC_ESCAPE ) {m_exit = true; return false;}
-	if ( arg.key == OIS::KC_SYSRQ ) {
+	else if ( arg.key == OIS::KC_SYSRQ ) {
 		std::ifstream stream;
 		std::string file;
 		do {
@@ -342,6 +342,10 @@ bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 
 bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 {
+	if ( arg.key == OIS::KC_GRAVE ) {
+		//mDemo.consolePressed();
+	}
+
 	mGUI->injectKeyRelease(arg);
 	return true;
 }
