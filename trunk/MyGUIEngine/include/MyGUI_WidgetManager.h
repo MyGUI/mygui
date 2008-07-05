@@ -85,7 +85,7 @@ namespace MyGUI
 
 		// регестрирует делегат
 		/** Register delegate for parsing in layout files or by WidgetManager::parse method 
-			@example manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed);
+			@code manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed); @endcode
 		*/
 		ParseDelegate & registerDelegate(const Ogre::String & _key);
 		/** Unregister delegate for parsing in layout files or by WidgetManager::parse method */
@@ -95,8 +95,8 @@ namespace MyGUI
 		/** Parse and apply property to widget
 			@param _widget to which property will be applied
 			@param _key property
-			@param _value
-			@example manager.parse(widget, "Button_Pressed", "true");
+			@param _value for applying
+			@code WidgetManager::getInstance()->parse(widget, "Button_Pressed", "true"); @endcode
 		*/
 		void parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
