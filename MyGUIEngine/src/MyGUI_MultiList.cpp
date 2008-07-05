@@ -170,7 +170,7 @@ namespace MyGUI
 	{
 		mSortColumnIndex = _column;
 		if (_backward) {
-			mSortUp = false;
+			mSortUp = !mSortUp;
 			redrawButtons();
 			// если было недосортированно то сортируем
 			if (mIsDirtySort) sortList();
@@ -487,9 +487,28 @@ namespace MyGUI
 
 		Keeper keeper;
 
-		int step = (int)count/2;
- 
-		if (mSortUp) {
+		// shell sort
+		for(int step = (int)count/2; step>0 ; step >>= 1) {
+			for( int i=0; i<(int)(count-step); ++i ) {
+				int j = i;
+				bool compare;
+				if (operatorLess.IsNull()) compare = list->getItem(j) < list->getItem(j+step);
+				else operatorLess(this, mSortColumnIndex, list->getItem(j), list->getItem(j+step), compare);
+				while ( (j >= 0) && (compare^mSortUp) ){
+					keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
+					keeper.swap(mToSortIndex, vec, mVectorColumnInfo, j, j+step);
+					keeper.restore(mToSortIndex, vec, mVectorColumnInfo, j+step);
+					--j;
+					if (j >= 0)
+					{
+						if (operatorLess.IsNull()) compare = list->getItem(j) < list->getItem(j+step);
+						else operatorLess(this, mSortColumnIndex, list->getItem(j), list->getItem(j+step), compare);
+					}
+				}
+			}
+		}
+
+		/*if (mSortUp) {
 			for( ; step>0 ; ) {
 					for( size_t i=0; i<(count-step); ++i ) {
 							int j = (int)i;
@@ -504,19 +523,12 @@ namespace MyGUI
 			}
 		}
 		else {
-			for( ; step>0 ; ) {
-					for( size_t i=0; i<(count-step); ++i ) {
-							int j = (int)i;
-							while ( (j>=0) && (list->getItem(j) < list->getItem(j+step)) ){
-									keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
-									keeper.swap(mToSortIndex, vec, mVectorColumnInfo, j, j+step);
-									keeper.restore(mToSortIndex, vec, mVectorColumnInfo, j+step);
-									--j;
-							}
-					}
-					step >>= 1;
-			}
-		}
+			//...
+		}*/
+
+
+
+
 
 
 		mIsDirtySort = false;
