@@ -63,7 +63,7 @@ namespace MyGUI
 		Ogre::UTFString getSelectedText();
 
 		/** Get text length excluding tags
-			@example "#00FF00Hello" length is 5
+			For example "#00FF00Hello" length is 5
 		*/
 		inline size_t getTextLength() {return mTextLength;}
 		/** Get text cursor position */
