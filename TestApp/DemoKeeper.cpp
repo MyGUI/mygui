@@ -59,12 +59,13 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 
 
-	MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
-	image->setImageTexture("core.png");
-	image->addItem(MyGUI::IntCoord(2, 170, 45, 45));
-	image->addItemFrame(0, MyGUI::IntCoord(47, 170, 45, 45));
-	image->addItemFrame(0, MyGUI::IntCoord(95, 170, 45, 45));
-	image->setItemFrameRate(0, 1);
+	MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
+	image->setImageTexture("child.png");
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));
+	image->setItemFrameRate(0, 0.1);
 	image->setItemSelect(0);
 
 	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 340, 26), MyGUI::ALIGN_DEFAULT, "Main");
