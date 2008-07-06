@@ -193,28 +193,6 @@ namespace MyGUI
 		if (_index == mIndexSelect) updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::clearItemFrame(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
-		VectorImages::iterator iter = mItems.begin() + _index;
-		iter->images.clear();
-	}
-
-	void StaticImage::addItemFrame(size_t _index, const IntCoord & _item)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
-		VectorImages::iterator iter = mItems.begin() + _index;
-		iter->images.push_back(SkinManager::convertTextureCoord(
-			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
-	}
-
-	void StaticImage::setItemFrameRate(size_t _index, float _rate)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
-		VectorImages::iterator iter = mItems.begin() + _index;
-		iter->frame_rate = _rate;
-	}
-
 	void StaticImage::_frameEntered(float _frame)
 	{
 		if (mIndexSelect == ITEM_NONE) return;
@@ -230,6 +208,91 @@ namespace MyGUI
 		}
 
 		_setUVSet(iter->images[mCurrentFrame]);
+	}
+
+	void StaticImage::deleteAllItemsFrame(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::clearItemFrame");
+		VectorImages::iterator iter = mItems.begin() + _index;
+		iter->images.clear();
+	}
+
+	void StaticImage::addItemFrame(size_t _index, const IntCoord & _item)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::addItemFrame");
+		VectorImages::iterator iter = mItems.begin() + _index;
+		iter->images.push_back(SkinManager::convertTextureCoord(
+			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+	}
+
+	void StaticImage::setItemFrameRate(size_t _index, float _rate)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItemFrameRate");
+		VectorImages::iterator iter = mItems.begin() + _index;
+		iter->frame_rate = _rate;
+	}
+
+	float StaticImage::getItemFrameRate(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::getItemFrameRate");
+		VectorImages::iterator iter = mItems.begin() + _index;
+		return iter->frame_rate;
+	}
+
+	void StaticImage::addItemFrameDublicate(size_t _index, size_t _indexSourceFrame)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::addItemFrameDublicate");
+
+		VectorImages::iterator iter = mItems.begin() + _index;
+		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "StaticImage::addItemFrameDublicate");
+		iter->images.push_back(iter->images[_indexSourceFrame]);
+	}
+
+	void StaticImage::insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::insertItemFrame");
+
+		VectorImages::iterator iter = mItems.begin() + _index;
+		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::insertItemFrame");
+		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
+
+		iter->images.insert(iter->images.begin() + _indexFrame, 
+			SkinManager::convertTextureCoord(FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+	}
+
+	void StaticImage::insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::insertItemFrameDublicate");
+
+		VectorImages::iterator iter = mItems.begin() + _index;
+		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::insertItemFrameDublicate");
+		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
+
+		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "StaticImage::insertItemFrameDublicate");
+
+		iter->images.insert(iter->images.begin() + _indexFrame, iter->images[_indexSourceFrame]);		
+	}
+
+	void StaticImage::setItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItemFrame");
+
+		VectorImages::iterator iter = mItems.begin() + _index;
+		MYGUI_ASSERT_RANGE(_indexFrame, iter->images.size(), "StaticImage::setItemFrame");
+
+		iter->images[_indexFrame] = SkinManager::convertTextureCoord(
+			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture);
+	}
+
+	void StaticImage::deleteItemFrame(size_t _index, size_t _indexFrame)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::deleteItemFrame");
+
+		VectorImages::iterator iter = mItems.begin() + _index;
+		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::deleteItemFrame");
+		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
+
+		iter->images.erase(iter->images.begin() + _indexFrame);
 	}
 
 } // namespace MyGUI

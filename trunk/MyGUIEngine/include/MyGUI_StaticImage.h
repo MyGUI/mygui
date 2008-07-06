@@ -102,9 +102,19 @@ namespace MyGUI
 		void deleteAllItems();
 
 		// работа с фреймами анимированных индексов
-		void clearItemFrame(size_t _index);
 		void addItemFrame(size_t _index, const IntCoord & _item);
+		void insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item);
+
+		void addItemFrameDublicate(size_t _index, size_t _indexSourceFrame);
+		void insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame);
+
+		void setItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item);
+
+		void deleteItemFrame(size_t _index, size_t _indexFrame);
+		void deleteAllItemsFrame(size_t _index);
+
 		void setItemFrameRate(size_t _index, float _rate);
+		float getItemFrameRate(size_t _index);
 
 	private:
 		virtual void _frameEntered(float _frame);
