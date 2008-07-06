@@ -15,12 +15,12 @@ void DemoKeeper::requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::Widget
 
 	MyGUI::StaticImagePtr item = _info.item->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
 
-	item->setImageInfo("RF_Skin.png", MyGUI::IntRect(0, 0, 68, 68*4), MyGUI::IntSize(68, 68));
+	item->setImageInfo("RF_Skin.png", MyGUI::IntRect(0, 0, 68, 68*6), MyGUI::IntSize(68, 68));
 	item->setNeedMouseFocus(false);
 	data->item1 = item;
 
 	item = item->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::ALIGN_STRETCH);
-	item->setImageInfo("RF_Skin.png", MyGUI::IntRect(68, 0, 68*2, 68*3), MyGUI::IntSize(68, 68));
+	item->setImageInfo("RF_Skin.png", MyGUI::IntRect(68, 0, 68*2, 68*5), MyGUI::IntSize(68, 68));
 	item->setNeedMouseFocus(false);
 	data->item2 = item;
 
