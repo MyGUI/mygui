@@ -52,13 +52,20 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 
-	mConsole = mGUI->createWidget<MyGUI::Console>("Console", MyGUI::IntCoord(100, 100, 540, 226), MyGUI::ALIGN_DEFAULT, "Main");
+	//mConsole = mGUI->createWidget<MyGUI::Console>("Console", MyGUI::IntCoord(100, 100, 540, 226), MyGUI::ALIGN_DEFAULT, "Main");
 
-	mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
-	mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
+	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
+	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
 
-	/*MyGUI::ButtonPtr button = mGUI->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(100, 100, 340, 26), MyGUI::ALIGN_DEFAULT, "Main");
-	button->setCaption("Button");//*/
+
+
+	MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	image->setImageTexture("core.png");
+	image->addItem(MyGUI::IntCoord(2, 170, 45, 45));
+	image->addItemFrame(0, MyGUI::IntCoord(47, 170, 45, 45));
+	image->addItemFrame(0, MyGUI::IntCoord(95, 170, 45, 45));
+	image->setItemFrameRate(0, 1);
+	image->setItemSelect(0);
 
 	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 340, 26), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
