@@ -7,6 +7,7 @@
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -15,7 +16,10 @@ namespace MyGUI
 
 	StaticImage::StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mNum(0)
+		mIndexSelect(ITEM_NONE),
+		mFrameAdvise(false),
+		mCurrentTime(0),
+		mCurrentFrame(0)
 	{
 		// первоначальная инициализация
 		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
@@ -34,16 +38,89 @@ namespace MyGUI
 		}
 	}
 
-	void StaticImage::setImageNum(size_t _num)
+	void StaticImage::updateSelectIndex(size_t _index)
 	{
-		if (_num == mNum) return;
-		mNum = _num;
+		mIndexSelect = _index;
 
-		if (_num == ITEM_NONE) {
+		if (_index == ITEM_NONE) {
 			_setUVSet(FloatRect());
 			return;
 		}
 
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::updateSelectIndex");
+		VectorImages::iterator iter = mItems.begin() + _index;
+
+		if (iter->images.size() < 2) {
+			if (mFrameAdvise) {
+				mFrameAdvise = false;
+				Gui::getInstance().removeFrameListener(this);
+			}
+		}
+		else {
+			if ( ! mFrameAdvise) {
+				mCurrentTime = 0;
+				mCurrentFrame = 0;
+				mFrameAdvise = true;
+				Gui::getInstance().addFrameListener(this);
+			}
+		}
+
+		if ( ! iter->images.empty()) {
+			_setUVSet(iter->images.front());
+		}
+	}
+
+	void StaticImage::setImageInfo(const std::string & _texture, const IntSize & _tile)
+	{
+		_setTextureName(_texture);
+		mSizeTexture = SkinManager::getTextureSize(_texture);
+		mSizeTile = _tile;
+
+		recalcIndexes();
+		updateSelectIndex(mIndexSelect);
+	}
+
+	void StaticImage::setImageInfo(const std::string & _texture, const IntRect & _rect, const IntSize & _tile)
+	{
+		_setTextureName(_texture);
+		mSizeTexture = SkinManager::getTextureSize(_texture);
+		mRectImage = _rect;
+		mSizeTile = _tile;
+
+		recalcIndexes();
+		updateSelectIndex(mIndexSelect);
+	}
+
+	void StaticImage::setImageTile(const IntSize & _tile)
+	{
+		mSizeTile = _tile;
+
+		recalcIndexes();
+		updateSelectIndex(mIndexSelect);
+	}
+
+	void StaticImage::setImageRect(const IntRect & _rect)
+	{
+		mRectImage = _rect;
+
+		recalcIndexes();
+		updateSelectIndex(mIndexSelect);
+	}
+
+	void StaticImage::setImageTexture(const std::string & _texture)
+	{
+		_setTextureName(_texture);
+		mSizeTexture = SkinManager::getTextureSize(_texture);
+
+		if (mItems.empty()) _setUVSet(FloatRect(0, 0, 1, 1));
+		else {
+			recalcIndexes();
+			updateSelectIndex(mIndexSelect);
+		}
+	}
+
+	void StaticImage::recalcIndexes()
+	{
 		// если размер нулевой, то ставим размер текстуры
 		if (!(mRectImage.right || mRectImage.bottom)) {
 			mRectImage.right = mSizeTexture.width ? mSizeTexture.width : 1;
@@ -55,69 +132,104 @@ namespace MyGUI
 			mSizeTile.height = mRectImage.height();
 		}
 
-		size_t count = (size_t)(mRectImage.width() / mSizeTile.width);
-		if (count < 1) count = 1;
-		if ( (int)_num - 1 > (mRectImage.width() / mSizeTile.width) * (mRectImage.height() / mSizeTile.height))
-			MYGUI_LOG(Warning, "StaticImage tile number " << _num << " out of range");
+		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
+		size_t count_v = (size_t)(mRectImage.height() / mSizeTile.height);
 
-		FloatRect offset(
-			((float)(mNum % count)) * mSizeTile.width + mRectImage.left,
-			((float)(mNum / count)) * mSizeTile.height + mRectImage.top,
-			mSizeTile.width, mSizeTile.height);
-		// конвертируем и устанавливаем
-		offset = SkinManager::convertTextureCoord(offset, IntSize(mSizeTexture.width, mSizeTexture.height));
-		_setUVSet(offset);
+		deleteAllItems();
+
+		int pos_h = mRectImage.left;
+		int pos_v = mRectImage.top;
+
+		for (size_t v=0; v<count_v; ++v) {
+			for (size_t h=0; h<count_h; ++h) {
+				addItem(IntCoord(pos_h, pos_v, mSizeTile.width, mSizeTile.height));
+				pos_h += mSizeTile.width;
+			}
+			pos_v += mSizeTile.height;
+			pos_h = mRectImage.left;
+		}
 	}
 
-	void StaticImage::setImageInfo(const std::string & _texture, const IntSize & _tile)
+	void StaticImage::deleteItem(size_t _index)
 	{
-		_setTextureName(_texture);
-		mSizeTexture = SkinManager::getTextureSize(_texture);
-		mSizeTile = _tile;
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::deleteItem");
 
-		size_t num = mNum;
-		mNum++;
-		setImageNum(num);
+		mItems.erase(mItems.begin() + _index);
+
+		if (mIndexSelect != ITEM_NONE) {
+			if (mItems.empty()) updateSelectIndex(ITEM_NONE);
+			else if ((_index < mIndexSelect) || (mIndexSelect == mItems.size())) updateSelectIndex(mIndexSelect--);
+		}
 	}
 
-	void StaticImage::setImageInfo(const std::string & _texture, const IntRect & _rect, const IntSize & _tile)
+	void StaticImage::deleteAllItems()
 	{
-		_setTextureName(_texture);
-		mSizeTexture = SkinManager::getTextureSize(_texture);
-		mRectImage = _rect;
-		mSizeTile = _tile;
-
-		size_t num = mNum;
-		mNum++;
-		setImageNum(num);
+		updateSelectIndex(ITEM_NONE);
+		mItems.clear();
 	}
 
-	void StaticImage::setImageTile(const IntSize & _tile)
+	void StaticImage::insertItem(size_t _index, const IntCoord & _item)
 	{
-		mSizeTile = _tile;
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItems.size(), "StaticImage::insertItem");
+		if (_index == ITEM_NONE) _index = mItems.size();
 
-		size_t num = mNum;
-		mNum++;
-		setImageNum(num);
+		VectorImages::iterator iter = mItems.insert(mItems.begin() + _index, ImageItem());
+
+		iter->images.push_back(SkinManager::convertTextureCoord(
+			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+
+		if ((mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect)) updateSelectIndex(mIndexSelect++);
 	}
 
-	void StaticImage::setImageRect(const IntRect & _rect)
+	void StaticImage::setItem(size_t _index, const IntCoord & _item)
 	{
-		mRectImage = _rect;
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
 
-		size_t num = mNum;
-		mNum++;
-		setImageNum(num);
+		VectorImages::iterator iter = mItems.begin() + _index;
+		iter->images.clear();
+		iter->images.push_back(SkinManager::convertTextureCoord(
+			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+
+		if (_index == mIndexSelect) updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::setImageTexture(const std::string & _texture)
+	void StaticImage::clearItemFrame(size_t _index)
 	{
-		_setTextureName(_texture);
-		mSizeTexture = SkinManager::getTextureSize(_texture);
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
+		VectorImages::iterator iter = mItems.begin() + _index;
+		iter->images.clear();
+	}
 
-		size_t num = mNum;
-		mNum++;
-		setImageNum(num);
+	void StaticImage::addItemFrame(size_t _index, const IntCoord & _item)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
+		VectorImages::iterator iter = mItems.begin() + _index;
+		iter->images.push_back(SkinManager::convertTextureCoord(
+			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+	}
+
+	void StaticImage::setItemFrameRate(size_t _index, float _rate)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
+		VectorImages::iterator iter = mItems.begin() + _index;
+		iter->frame_rate = _rate;
+	}
+
+	void StaticImage::_frameEntered(float _frame)
+	{
+		if (mIndexSelect == ITEM_NONE) return;
+		VectorImages::iterator iter = mItems.begin() + mIndexSelect;
+		if ((iter->images.size() < 2) || (iter->frame_rate == 0)) return;
+
+		mCurrentTime += _frame;
+
+		while (mCurrentTime >= iter->frame_rate) {
+			mCurrentTime -= iter->frame_rate;
+			mCurrentFrame ++;
+			if (mCurrentFrame >= (iter->images.size())) mCurrentFrame = 0;
+		}
+
+		_setUVSet(iter->images[mCurrentFrame]);
 	}
 
 } // namespace MyGUI

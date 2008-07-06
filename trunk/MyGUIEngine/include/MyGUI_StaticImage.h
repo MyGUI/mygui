@@ -9,11 +9,22 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport StaticImage : public Widget
+	struct ImageItem
+	{
+		ImageItem() : frame_rate(0) {}
+
+		float frame_rate;
+		std::vector<FloatRect> images;
+	};
+
+	typedef std::vector<ImageItem> VectorImages;
+
+	class _MyGUIExport StaticImage : public Widget, public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::StaticImageFactory;
@@ -51,7 +62,7 @@ namespace MyGUI
 		void setImageTile(const IntSize & _tile);
 
 		/** Set current tile index
-			@param _num - tile index
+			@param _index - tile index
 			@remarks Tiles in file start numbering from left to right and from top to bottom.
 			\n \bExample:\n
 			<pre>
@@ -62,9 +73,44 @@ namespace MyGUI
 				+---+---+---+
 			</pre>
 		*/
-		void setImageNum(size_t _num);
+		inline void setImageNum(size_t _index) { setItemSelect(_index); }
 		/** Get current tile index */
-		inline size_t getImageNum() {return mNum;}
+		inline size_t getImageNum() {return mIndexSelect;}
+
+
+
+		//! Get number of items
+		inline size_t getItemCount() { return mItems.size(); }
+
+		//! Select specified _index
+		inline void setItemSelect(size_t _index) { if (mIndexSelect != _index) updateSelectIndex(_index); }
+		//! Get index of selected item (ITEM_NONE if none selected)
+		inline size_t getItemSelect() { return mIndexSelect; }
+		//! Reset item selection
+		inline void resetItemSelect() { setItemSelect(ITEM_NONE); }
+
+		//! Insert an item into a list at a specified position
+		void insertItem(size_t _index, const IntCoord & _item);
+		//! Add an item to the end of a list
+		inline void addItem(const IntCoord & _item) { insertItem(ITEM_NONE, _item); }
+		//! Replace an item at a specified position
+		void setItem(size_t _index, const IntCoord & _item);
+
+		//! Delete item at a specified position
+		void deleteItem(size_t _index);
+		//! Delete all items
+		void deleteAllItems();
+
+		// работа с фреймами анимированных индексов
+		void clearItemFrame(size_t _index);
+		void addItemFrame(size_t _index, const IntCoord & _item);
+		void setItemFrameRate(size_t _index, float _rate);
+
+	private:
+		virtual void _frameEntered(float _frame);
+
+		void recalcIndexes();
+		void updateSelectIndex(size_t _index);
 
 	private:
 		// кусок в текстуре наших картинок
@@ -74,7 +120,13 @@ namespace MyGUI
 		// размер текстуры
 		IntSize mSizeTexture;
 		// текущая картинка
-		size_t mNum;
+		size_t mIndexSelect;
+
+		VectorImages mItems;
+
+		bool mFrameAdvise;
+		float mCurrentTime;
+		size_t mCurrentFrame;
 
 	}; // class StaticImage : public Widget
 
