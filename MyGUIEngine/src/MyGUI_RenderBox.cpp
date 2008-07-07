@@ -338,10 +338,10 @@ namespace MyGUI
 	{
 		if(mNodeForSync)
 		{
-			BOOL update = FALSE;
+			bool update = false;
 			if(mNode->getChild(0)->getPosition() != Ogre::Vector3::ZERO)
 			{
-				update = TRUE;
+				update = true;
 			}
 			//System::Console::WriteLine("_frameEntered");
 			synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0),mNodeForSync);
