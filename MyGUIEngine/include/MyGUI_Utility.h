@@ -196,7 +196,7 @@ namespace MyGUI
 			str >> tmp;
 			if ( ! str.fail()) {
 				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != Ogre::UTFString::npos) return false;
+				if (pos != std::string::npos) return false;
 			}
 
 			_p1 = p1;
@@ -227,7 +227,7 @@ namespace MyGUI
 			str >> tmp;
 			if ( ! str.fail()) {
 				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != Ogre::UTFString::npos) return false;
+				if (pos != std::string::npos) return false;
 			}
 
 			_p1 = p1;
@@ -253,7 +253,7 @@ namespace MyGUI
 			str >> tmp;
 			if ( ! str.fail()) {
 				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != Ogre::UTFString::npos) return false;
+				if (pos != std::string::npos) return false;
 			}
 
 			_p1 = p1;
@@ -274,7 +274,7 @@ namespace MyGUI
 			str >> tmp;
 			if ( ! str.fail()) {
 				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != Ogre::UTFString::npos) return false;
+				if (pos != std::string::npos) return false;
 			}
 
 			_p1 = p1;
