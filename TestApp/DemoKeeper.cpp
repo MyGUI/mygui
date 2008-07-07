@@ -57,9 +57,389 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
 	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
 
+	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
+	edit->setEditMultiLine(true);
+	std::string tmp = 
+	"\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));\
+	image->addItemFrameDublicate(0, 0);\
+	image->addItemFrameDublicate(0, 3);\
+	image->setItemFrameRate(0, 0.15);\
+	image->setItemSelect(0);\n\
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));\
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));";
+
+	edit->setMaxTextLength(15000);
+	edit->setCaption(tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp + tmp);
+	/*edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
+	edit->setCaption("ComplexProgress");//*/
 
 
-	MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
+	/*MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
 	image->setImageTexture("child.png");
 	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));
 	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));
@@ -68,7 +448,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	image->addItemFrameDublicate(0, 0);
 	image->addItemFrameDublicate(0, 3);
 	image->setItemFrameRate(0, 0.15);
-	image->setItemSelect(0);
+	image->setItemSelect(0);*/
 
 	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 340, 26), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
