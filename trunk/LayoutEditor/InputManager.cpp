@@ -156,8 +156,8 @@ namespace input
 				case WM_LBUTTONUP:
 					// освобождаем мышь
 					msInputManager->mouseReleased(mouseEvent, OIS::MB_Left);
-					::SetCapture(0);
 					capture = false;
+					::SetCapture(0);
 					break;
 				case WM_RBUTTONUP:
 					msInputManager->mouseReleased(mouseEvent, OIS::MB_Right);
