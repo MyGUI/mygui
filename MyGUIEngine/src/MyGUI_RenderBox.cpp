@@ -101,17 +101,13 @@ namespace MyGUI
 
 	void RenderBox::removeNode(Ogre::SceneNode* _node)
 	{
-		//System::Console::WriteLine("remove node");
+		//System::Console::WriteLine("remove node {0}", gcnew System::String(_node->getName().c_str()));
 
 		while(_node->numAttachedObjects() != 0)
 		{
 			Ogre::MovableObject* object = _node->getAttachedObject(0);
 
-			_node->detachObject(object);
-
 			removeEntity(object->getName());
-
-			mScene->destroyMovableObject(object);
 		}
 
 		while (_node->numChildren() != 0)
@@ -126,12 +122,14 @@ namespace MyGUI
 
 	void RenderBox::removeEntity(const Ogre::String& _name)
 	{
-
 		for (VectorEntity::iterator i = mVectorEntity.begin(); i != mVectorEntity.end(); i++)
 		{
 			if((*i)->getName() == _name)
 			{
-				//System::Console::WriteLine("entity node");
+				//System::Console::WriteLine("entity node {0}", gcnew System::String(_name.c_str()));
+
+				(*i)->getParentSceneNode()->detachObject((*i));
+				mScene->destroyMovableObject((*i));
 
 				mVectorEntity.erase(i);
 				break;
@@ -150,7 +148,26 @@ namespace MyGUI
 		_newNode->setPosition(_fromNode->getPosition());
 		_newNode->setOrientation(_fromNode->getOrientation());
 
-		for(int i = 0; i < _fromNode->numAttachedObjects(); i++)
+		int i = 0;
+
+		while (i < _newNode->numAttachedObjects())
+		{
+			Ogre::Entity* entity = dynamic_cast<Ogre::Entity*>(_newNode->getAttachedObject(i));
+
+			if(entity)
+			{
+				Ogre::Entity* oldEntity = dynamic_cast<Ogre::Entity*>(findMovableObject(_fromNode, entity->getName()));
+			
+				if(!oldEntity)
+				{
+					removeEntity(entity->getName());
+					continue;
+				}
+			}
+			i++;
+		}
+
+		for(i = 0; i < _fromNode->numAttachedObjects(); i++)
 		{
 			Ogre::Entity* entity = dynamic_cast<Ogre::Entity*>(_fromNode->getAttachedObject(i));
 
@@ -160,9 +177,11 @@ namespace MyGUI
 
 				if(!newEntity)
 				{
-					//System::Console::WriteLine("create new entity");
+					//System::Console::WriteLine("create new entity {0}", gcnew System::String(entity->getName().c_str()));
+
 					newEntity = mScene->createEntity(entity->getName(), entity->getMesh()->getName());//new Ogre::Entity(entity->getName(), (Ogre::MeshPtr)entity->getMesh().get()->getHandle());
 					_newNode->attachObject(newEntity);
+
 					mVectorEntity.push_back(newEntity);
 
 					if(mEntity == null)
@@ -173,7 +192,7 @@ namespace MyGUI
 			}
 		}
 
-		int i = 0;
+		i = 0;
 
 		while (i < _newNode->numChildren())
 		{
@@ -199,7 +218,7 @@ namespace MyGUI
 
 				if(!newChildNode)
 				{
-					//System::Console::WriteLine("create new node");
+					//System::Console::WriteLine("create new node {0}", gcnew System::String(_fromNode->getChild(i)->getName().c_str()));
 					newChildNode = _newNode->createChildSceneNode(_fromNode->getChild(i)->getName(), _fromNode->getChild(i)->getPosition(), _fromNode->getChild(i)->getOrientation());
 				}
 
@@ -210,6 +229,11 @@ namespace MyGUI
 
 	void RenderBox::injectSceneNode(Ogre::SceneNode* _sceneNode)
 	{
+		if(_sceneNode == mNodeForSync)
+		{
+			return;
+		}
+
 		clear();
 
 		if(mUserViewport) {
