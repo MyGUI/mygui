@@ -61,8 +61,10 @@ namespace MyGUI
 			if ((_id > iter->second) || (_id < iter->first)) continue;
 			return & iter->range[_id - iter->first];
 		}
-		MYGUI_EXCEPT("Code point " << _id << " not found in font " << mName);
-		return null;
+		// при ошибках возвращаем пробел
+		return & mSpaceGlyphInfo;
+		//MYGUI_EXCEPT("Code point " << _id << " not found in font " << mName);
+		//return null;
 	}
     //---------------------------------------------------------------------
 	void Font::loadImpl()
