@@ -147,8 +147,8 @@ namespace MyGUI
 		void createRenderTexture();
 		void updateViewport();
 
+		void removeNode(Ogre::SceneNode* _node);
 		void removeEntity(const Ogre::String& _name);
-
 
 		bool mUserViewport;
 		// все, что касается сцены
