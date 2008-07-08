@@ -132,6 +132,9 @@ namespace MyGUI
 			mSizeTile.height = mRectImage.height();
 		}
 
+		MYGUI_DEBUG_ASSERT(mRectImage.width() >= mSizeTile.width, "argument failed");
+		MYGUI_DEBUG_ASSERT(mRectImage.height() >= mSizeTile.height, "argument failed");
+
 		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
 		size_t count_v = (size_t)(mRectImage.height() / mSizeTile.height);
 
