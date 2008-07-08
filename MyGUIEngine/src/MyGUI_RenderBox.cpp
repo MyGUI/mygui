@@ -99,19 +99,43 @@ namespace MyGUI
 		return null;
 	}
 
+	void RenderBox::removeNode(Ogre::SceneNode* _node)
+	{
+		//System::Console::WriteLine("remove node");
+
+		while(_node->numAttachedObjects() != 0)
+		{
+			Ogre::MovableObject* object = _node->getAttachedObject(0);
+
+			_node->detachObject(object);
+
+			removeEntity(object->getName());
+
+			mScene->destroyMovableObject(object);
+		}
+
+		while (_node->numChildren() != 0)
+		{
+			Ogre::SceneNode* forDelete = (Ogre::SceneNode*)_node->getChild(0);
+
+			removeNode(forDelete);	
+		}
+
+		_node->getParentSceneNode()->removeAndDestroyChild(_node->getName());
+	}
+
 	void RenderBox::removeEntity(const Ogre::String& _name)
 	{
-		VectorEntity::iterator i = mVectorEntity.begin();
 
-		while(i != mVectorEntity.end())
+		for (VectorEntity::iterator i = mVectorEntity.begin(); i != mVectorEntity.end(); i++)
 		{
 			if((*i)->getName() == _name)
 			{
-				//System::Console::WriteLine("erase from VectorEntity");
+				//System::Console::WriteLine("entity node");
+
 				mVectorEntity.erase(i);
 				break;
 			}
-			i++;
 		}
 	}
 
@@ -149,19 +173,6 @@ namespace MyGUI
 			}
 		}
 
-		for(int i = 0; i < _fromNode->numChildren(); i++)
-		{
-			Ogre::SceneNode* newChildNode = findSceneNodeObject(_newNode, _fromNode->getChild(i)->getName());
-
-			if(!newChildNode)
-			{
-				//System::Console::WriteLine("create new node");
-				newChildNode = _newNode->createChildSceneNode(_fromNode->getChild(i)->getName(), _fromNode->getChild(i)->getPosition(), _fromNode->getChild(i)->getOrientation());
-			}
-
-			synchronizeSceneNode(newChildNode, (Ogre::SceneNode*)_fromNode->getChild(i));
-		}
-
 		int i = 0;
 
 		while (i < _newNode->numChildren())
@@ -172,21 +183,27 @@ namespace MyGUI
 			{
 				Ogre::SceneNode* forDelete = (Ogre::SceneNode*)_newNode->getChild(i);
 
-				for(int j = 0; j < forDelete->numAttachedObjects(); j++)
-				{
-					Ogre::MovableObject* object = forDelete->getAttachedObject(j);
-					forDelete->detachObject(object);
-					removeEntity(object->getName());
-					mScene->destroyMovableObject(object);
-				}
-
-				((Ogre::SceneNode*)_newNode->getChild(i))->removeAndDestroyAllChildren();
-				_newNode->removeAndDestroyChild(i);
-
-				//System::Console::WriteLine("remove node");
+				removeNode(forDelete);
 			}else
 			{
 				i++;
+			}
+		}
+
+		for(i = 0; i < _fromNode->numChildren(); i++)
+		{
+			if(_fromNode->getChild(i)->numChildren() != 0 && 
+				((Ogre::SceneNode*)_fromNode->getChild(i))->numAttachedObjects() != 0)
+			{
+				Ogre::SceneNode* newChildNode = findSceneNodeObject(_newNode, _fromNode->getChild(i)->getName());
+
+				if(!newChildNode)
+				{
+					//System::Console::WriteLine("create new node");
+					newChildNode = _newNode->createChildSceneNode(_fromNode->getChild(i)->getName(), _fromNode->getChild(i)->getPosition(), _fromNode->getChild(i)->getOrientation());
+				}
+
+				synchronizeSceneNode(newChildNode, (Ogre::SceneNode*)_fromNode->getChild(i));
 			}
 		}
 	}
@@ -330,8 +347,8 @@ namespace MyGUI
 
 	void RenderBox::setSize(const IntSize& _size)
 	{
-		updateViewport();
 		Widget::setSize(_size);
+		updateViewport();
 	}
 
 	void RenderBox::_frameEntered(float _time)
@@ -476,17 +493,27 @@ namespace MyGUI
 			// не €сно, нужно ли раст€гивать камеру, установленную юзером
 			mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
+			//System::Console::WriteLine("Width {0}, Height {1}", getWidth(), getHeight());
+
 			// вычисл€ем рассто€ние, чтобы был виден весь объект
 			Ogre::AxisAlignedBox box;// = mNode->_getWorldAABB();//mEntity->getBoundingBox();
 
-			for (VectorEntity::iterator iter = mVectorEntity.begin(); iter!=mVectorEntity.end(); ++iter) {
+			VectorEntity::iterator iter = mVectorEntity.begin();
+
+			while (iter != mVectorEntity.end())
+			{
 				box.merge((*iter)->getBoundingBox().getMinimum() + (*iter)->getParentSceneNode()->_getDerivedPosition());
 				box.merge((*iter)->getBoundingBox().getMaximum() + (*iter)->getParentSceneNode()->_getDerivedPosition());
+				iter++;
 			}
 
 			if (box.isNull()) return;
 
 			box.scale(Ogre::Vector3(1.41f,1.41f,1.41f));
+
+			//System::Console::WriteLine("Minimum({0}), Maximum({1})",
+			//	gcnew System::String(Ogre::StringConverter::toString(box.getMinimum()).c_str()),
+			//	gcnew System::String(Ogre::StringConverter::toString(box.getMaximum()).c_str()));
 			
 			//box.getCenter();
 			Ogre::Vector3 vec = box.getSize();
