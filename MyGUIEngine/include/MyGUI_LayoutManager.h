@@ -42,11 +42,13 @@ namespace MyGUI
 			@param
 				_prefix will be added to all loaded widgets names
 			@param
+				_parent widget to load on
+			@param
 				_group Ogre resource group where _file is
 			@return
 				Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", WidgetPtr _parent = NULL, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		//void unload(const std::string & _file);
 
 	private:
@@ -59,6 +61,8 @@ namespace MyGUI
 
 		// префикс при загрузке лейаута
 		std::string layoutPrefix;
+		// префикс при загрузке лейаута
+		WidgetPtr layoutParent;
 		
 	}; // class LayoutManager
 
