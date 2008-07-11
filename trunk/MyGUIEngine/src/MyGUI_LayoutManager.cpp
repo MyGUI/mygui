@@ -26,6 +26,7 @@ namespace MyGUI
 
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
 		layoutPrefix = "";
+		layoutParent = NULL;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -54,11 +55,13 @@ namespace MyGUI
 		parseLayout(mVectorWidgetPtr, _node);
 	}
 
-	VectorWidgetPtr LayoutManager::loadLayout(const std::string & _file, const std::string & _prefix, const std::string & _group)
+	VectorWidgetPtr LayoutManager::loadLayout(const std::string & _file, const std::string & _prefix, WidgetPtr _parent, const std::string & _group)
 	{
 		layoutPrefix = _prefix;
+		layoutParent = _parent;
 		VectorWidgetPtr widgets = load(_file, _group);
 		layoutPrefix = "";
+		layoutParent = NULL;
 		return widgets;
 	}
 
@@ -66,7 +69,7 @@ namespace MyGUI
 	{
 		// берем детей и крутимся
 		xml::xmlNodeIterator widget = _root->getNodeIterator();
-		while (widget.nextNode("Widget")) parseWidget(_widgets, widget, 0);
+		while (widget.nextNode("Widget")) parseWidget(_widgets, widget, layoutParent);
 	}
 
 	void LayoutManager::parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent)
@@ -87,11 +90,12 @@ namespace MyGUI
 		if (!widgetName.empty()) widgetName = layoutPrefix + widgetName;
 
 		WidgetPtr wid;
-		if (null == _parent) {
+		if (null == _parent)
 			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
-			_widgets.push_back(wid);
-		}
-		else wid = _parent->createWidgetT(widgetType, widgetSkin, coord, align, widgetName);
+		else
+			wid = _parent->createWidgetT(widgetType, widgetSkin, coord, align, widgetName);
+
+		if (layoutParent == _parent) _widgets.push_back(wid);
 
 		// берем детей и крутимся
 		xml::xmlNodeIterator widget = _widget->getNodeIterator();
