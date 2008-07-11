@@ -168,6 +168,8 @@ namespace MyGUI
 		std::string mFadeSkin, mFadeLayer;
 		WidgetPtr mWidgetFade;
 		StaticImagePtr mIcon;
+		int mLeftOffset1;
+		int mLeftOffset2;
 
 	}; // class _MyGUIExport Message : public Window
 
