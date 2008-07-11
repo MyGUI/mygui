@@ -60,7 +60,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
 	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
-	std::string read, text;
+
+	/*std::string read, text;
 	std::ifstream stream("eula.txt");
 	if (false != stream.is_open()) {
 		while (false == stream.eof()) {
@@ -76,7 +77,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	edit->setEditMultiLine(true);
 	edit->setEditReadOnly(true);
 	edit->setMaxTextLength(15000);
-	edit->setCaption(text);
+	edit->setCaption(text);*/
+
+	MyGUI::Message::createMessage("none", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, MyGUI::Message::Ok);
+	MyGUI::Message::createMessage("icon", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, MyGUI::Message::Ok | MyGUI::Message::IconQuest);
 	/*edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
 	edit->setCaption("ComplexProgress");//*/
 

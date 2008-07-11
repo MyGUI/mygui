@@ -640,10 +640,7 @@ namespace MyGUI
 			// сбрасываем старую подсветку
 			if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
 
-			// при ресете сбрасывается сендер
-			mDropInfo.sender = this;
 			eventEndDrop(this, mDropInfo, mDropResult);
-
 			eventDropState(this, DROP_END);
 
 			// сбрасываем инфу для дропа
@@ -673,7 +670,8 @@ namespace MyGUI
 			mNeedDrop = false;
 			update = true;
 			// запрос на нужность дропа по индексу
-			eventStartDrop(this, ItemDropInfo(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null), mNeedDrop);
+			mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null);
+			eventStartDrop(this, mDropInfo, mNeedDrop);
 
 			if (mNeedDrop) eventDropState(this, DROP_START);
 			else {
@@ -731,12 +729,12 @@ namespace MyGUI
 				mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, true, mDropResult);
 			}
 			else {
-				mDropInfo.reset();
+				mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null);
 			}
 		}
 		// нет виджета под нами
 		else {
-			mDropInfo.reset();
+			mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null);
 		}
 
 		mOldDrop = item;

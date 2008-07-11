@@ -32,7 +32,9 @@ namespace MyGUI
 		mButton1Index(0),
 		mSmoothShow(false),
 		mWidgetFade(null),
-		mIcon(null)
+		mIcon(null),
+		mLeftOffset1(0),
+		mLeftOffset2(0)
 	{
 		// ищем индекс первой кнопки
 		size_t but1 = (size_t)Button1;
@@ -47,12 +49,17 @@ namespace MyGUI
 			if ((*iter)->_getInternalString() == "Text") {
 				mWidgetText = (*iter);
 				mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
+				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 			}
 			else if ((*iter)->_getInternalString() == "Icon") {
 				mIcon = castWidget<StaticImage>(*iter);
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
+
+		if (mIcon != null) {
+			mLeftOffset2 = mIcon->getRight() + 3;
+		}
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -122,33 +129,6 @@ namespace MyGUI
 		}
 
 		updateSize();
-	}
-
-	void Message::updateSize()
-	{
-		// ширина = (ширина текста + 5 pix) + ширина иконки + смещение текста
-		IntSize size = mWidgetText->getTextSize();
-		size.width += 5; // для растояния от правого края
-		// минимум высота иконки
-		if (null != mIcon) {
-			size.width += mIcon->getWidth();
-			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
-		}
-		size += mOffsetText;
-
-		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);
-		if (size.width < width) size.width = width;
-
-		int offset = (size.width - width)/2;
-		offset += mButtonOffset.width;
-
-		IntSize view((int)Gui::getInstance().getViewWidth(), (int)Gui::getInstance().getViewHeight());
-		setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
-
-		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter) {
-			(*iter)->setPosition(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
-			offset += mButtonOffset.width + mButtonSize.width;
-		}
 	}
 
 	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender)
@@ -276,6 +256,37 @@ namespace MyGUI
 		if (_modal) InputManager::getInstance().addWidgetModal(mess);
 
 		return mess;
+	}
+
+	void Message::updateSize()
+	{
+		IntSize size = mWidgetText->getTextSize();
+		// минимум высота иконки
+		if ((null != mIcon) && (mIcon->getImageNum() != ITEM_NONE)) {
+			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
+			size.width += mIcon->getSize().width;
+		}
+		size += mOffsetText;
+		size.width += 3;
+
+		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);
+		if (size.width < width) size.width = width;
+
+		int offset = (size.width - width)/2;
+		offset += mButtonOffset.width;
+
+		IntSize view((int)Gui::getInstance().getViewWidth(), (int)Gui::getInstance().getViewHeight());
+		setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
+
+		if (null != mIcon) {
+			if (mIcon->getImageNum() != ITEM_NONE) mWidgetText->setPosition(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+			else mWidgetText->setPosition(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+		}
+
+		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter) {
+			(*iter)->setPosition(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
+			offset += mButtonOffset.width + mButtonSize.width;
+		}
 	}
 
 } // namespace MyGUI
