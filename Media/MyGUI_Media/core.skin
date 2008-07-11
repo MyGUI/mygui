@@ -929,7 +929,7 @@
             <Property key="Scale" value = "1 1 0 0"/>
         </Child>
 
-        <Child type="Widget" skin="MessageClient" offset = "60 35 7 -36" align = "ALIGN_STRETCH" name = "Text"/>
+        <Child type="Widget" skin="MessageClient" offset = "10 35 8 -36" align = "ALIGN_STRETCH" name = "Text"/>
         <Child type="StaticImage" skin="MessageIcon" offset = "6 34 45 45" align = "ALIGN_DEFAULT" name = "Icon"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
