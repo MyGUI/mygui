@@ -75,7 +75,13 @@
     </Skin>
 
     <Skin name = "EditClient" size = "10 10">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
         <Property key="Pointer" value = "beam" />
+        <BasisSkin type="EditText" offset = "0 0 10 10" align = "ALIGN_STRETCH">
+        </BasisSkin>
     </Skin>
 
     <Skin name = "Edit" size = "40 26" texture = "core.png" >
@@ -119,7 +125,9 @@
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
-        <Child type="Widget" skin="EditClient" offset = "2 1 36 24" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Widget" skin="EditClient" offset = "2 1 20 8" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="VScroll" skin="VScroll" offset = "23 1 16 8" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll"/>
+        <Child type="HScroll" skin="HScroll" offset = "1 9 22 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "HScroll"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="disable" offset = "60 2 2 2"/>
