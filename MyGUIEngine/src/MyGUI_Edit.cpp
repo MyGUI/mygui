@@ -76,9 +76,11 @@ namespace MyGUI
 			}
 			else if ((*iter)->_getInternalString() == "VScroll") {
 				mVScroll = castWidget<VScroll>(*iter);
+				mVScroll->eventScrollChangePosition = newDelegate(this, &Edit::notifyScrollChangePosition);
 			}
 			else if ((*iter)->_getInternalString() == "HScroll") {
 				mHScroll = castWidget<HScroll>(*iter);
+				mHScroll->eventScrollChangePosition = newDelegate(this, &Edit::notifyScrollChangePosition);
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetUpper, "Child Widget Client not found in skin (Edit must have Client)");
@@ -1362,7 +1364,11 @@ namespace MyGUI
 			else if (IS_ALIGN_VCENTER(align)) offset.top = (textSize.height - view.height()) / 2;
 		}
 		
-		if (offset != point) mText->setViewOffset(offset);
+		if (offset != point) {
+			mText->setViewOffset(offset);
+			if (null != mVScroll) mVScroll->setScrollPosition(offset.top);
+			if (null != mHScroll) mHScroll->setScrollPosition(offset.left);
+		}
 	}
 
 	void Edit::updateScroll()
@@ -1458,12 +1464,26 @@ namespace MyGUI
 		mHRange = (mText->getWidth() >= textSize.width) ? 0 : textSize.width - mText->getWidth();
 
 		if (mVScroll != null) {
-			mVScroll->setScrollRange(mVRange);
+			mVScroll->setScrollRange(mVRange + 1);
 		}
 		if (mHScroll != null) {
-			mHScroll->setScrollRange(mHRange);
+			mHScroll->setScrollRange(mHRange + 1);
 		}
 
+	}
+
+	void Edit::notifyScrollChangePosition(WidgetPtr _sender, size_t _position)
+	{
+		if (_sender == mVScroll) {
+			IntPoint point = mText->getViewOffset();
+			point.top = _position;
+			mText->setViewOffset(point);
+		}
+		else if (_sender == mHScroll) {
+			IntPoint point = mText->getViewOffset();
+			point.left = _position;
+			mText->setViewOffset(point);
+		}
 	}
 
 } // namespace MyGUI
