@@ -182,6 +182,12 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
+		inline void showVScroll(bool _show) { mShowVScroll = _show; updateView(false); }
+		inline bool isShowVScroll() { return mShowVScroll; }
+
+		inline void showHScroll(bool _show) { mShowHScroll = _show; updateView(false); }
+		inline bool isShowHScroll() { return mShowHScroll; }
+
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
 			signature : void method(MyGUI::WidgetPtr _sender)
 		*/
@@ -268,6 +274,9 @@ namespace MyGUI
 
 		void setRealString(const Ogre::UTFString & _caption);
 
+		void updateScroll();
+
+
 
 	protected:
 		// нажата ли кнопка
@@ -309,6 +318,15 @@ namespace MyGUI
 
 		bool mOverflowToTheLeft;
 		size_t mMaxTextLength;
+
+		VScrollPtr mVScroll;
+		HScrollPtr mHScroll;
+
+		bool mShowHScroll;
+		bool mShowVScroll;
+
+		size_t mVRange;
+		size_t mHRange;
 
 	}; // class Edit : public Widget
 
