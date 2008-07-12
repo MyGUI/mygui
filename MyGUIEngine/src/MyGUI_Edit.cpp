@@ -11,6 +11,8 @@
 #include "MyGUI_ClipboardManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_VScroll.h"
+#include "MyGUI_HScroll.h"
 
 namespace MyGUI
 {
@@ -46,7 +48,13 @@ namespace MyGUI
 		mModeStatic(false),
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
-		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
+		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
+		mVScroll(null),
+		mHScroll(null),
+		mShowHScroll(true),
+		mShowVScroll(true),
+		mVRange(0),
+		mHRange(0)
 	{
 
 		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit must have TextEdit)");
@@ -66,10 +74,21 @@ namespace MyGUI
 				mWidgetUpper->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
 				mWidgetUpper->eventMouseButtonDoubleClick = newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
 			}
+			else if ((*iter)->_getInternalString() == "VScroll") {
+				mVScroll = castWidget<VScroll>(*iter);
+			}
+			else if ((*iter)->_getInternalString() == "HScroll") {
+				mHScroll = castWidget<HScroll>(*iter);
+			}
 		}
 		MYGUI_ASSERT(null != mWidgetUpper, "Child Widget Client not found in skin (Edit must have Client)");
 
+		if (null != mWidgetUpper->_getSubWidgetText()) {
+			mText = mWidgetUpper->_getSubWidgetText();
+		}
 
+
+		updateScroll();
 		// первоначальная инициализация курсора
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
@@ -1250,8 +1269,18 @@ namespace MyGUI
 		updateView(true);
 	}
 
+	void Edit::setTextAlign(Align _align)
+	{
+		Widget::setTextAlign(_align);
+		// так как мы сами рулим смещениями
+		updateView(false);
+	}
+
 	void Edit::updateView(bool _showCursor)
 	{
+
+		// проверяем скролы
+		updateScroll();
 
 		// размер контекста текста
 		IntSize textSize = mText->getTextSize();
@@ -1336,11 +1365,105 @@ namespace MyGUI
 		if (offset != point) mText->setViewOffset(offset);
 	}
 
-	void Edit::setTextAlign(Align _align)
+	void Edit::updateScroll()
 	{
-		Widget::setTextAlign(_align);
-		// так как мы сами рулим смещениями
-		updateView(false);
+		IntSize textSize = mText->getTextSize();
+
+		// вертикальный текст не помещается
+		if (textSize.height > mText->getHeight()) {
+			if (mVScroll != null) {
+				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
+					mVScroll->show();
+					mWidgetUpper->setSize(mWidgetUpper->getWidth() - mVScroll->getWidth(), mWidgetUpper->getHeight());
+
+					if (mHScroll != null) {
+						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
+
+						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
+						// пересчитываем горизонтальный скрол на предмет показа
+						if ((textSize.width > mText->getWidth()) && ( ! mHScroll->isShow()) && (mShowHScroll)) {
+							mHScroll->show();
+							mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() - mHScroll->getHeight());
+							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
+						}
+					}
+				}
+			}
+		}
+		// вертикальный текст помещается
+		else {
+			if (mVScroll != null) {
+				if (mVScroll->isShow()) {
+					mVScroll->hide();
+					mWidgetUpper->setSize(mWidgetUpper->getWidth() + mVScroll->getWidth(), mWidgetUpper->getHeight());
+					if (mHScroll != null) {
+						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
+
+						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
+						// пересчитываем горизонтальный скрол на предмет скрытия
+						if ((textSize.width <= mText->getWidth()) && (mHScroll->isShow())) {
+							mHScroll->hide();
+							mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() + mHScroll->getHeight());
+							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
+						}
+					}
+				}
+			}
+		}
+
+
+		// горизонтальный текст не помещается
+		if (textSize.width > mText->getWidth()) {
+			if (mHScroll != null) {
+				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
+					mHScroll->show();
+					mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() - mHScroll->getHeight());
+
+					if (mVScroll != null) {
+						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
+
+						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
+						// пересчитываем вертикальный скрол на предмет показа
+						if ((textSize.height > mText->getHeight()) && ( ! mVScroll->isShow()) && (mShowVScroll)) {
+							mVScroll->show();
+							mWidgetUpper->setSize(mWidgetUpper->getWidth() - mVScroll->getWidth(), mWidgetUpper->getHeight());
+							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
+						}
+					}
+				}
+			}
+		}
+		// горизонтальный текст помещается
+		else {
+			if (mHScroll != null) {
+				if (mHScroll->isShow()) {
+					mHScroll->hide();
+					mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() + mHScroll->getHeight());
+					if (mVScroll != null) {
+						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
+
+						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
+						// пересчитываем вертикальный скрол на предмет скрытия
+						if ((textSize.height <= mText->getHeight()) && (mVScroll->isShow())) {
+							mVScroll->hide();
+							mWidgetUpper->setSize(mWidgetUpper->getWidth() + mVScroll->getWidth(), mWidgetUpper->getHeight());
+							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
+						}
+					}
+				}
+			}
+		}
+
+		mVRange = (mText->getHeight() >= textSize.height) ? 0 : textSize.height - mText->getHeight();
+		mHRange = (mText->getWidth() >= textSize.width) ? 0 : textSize.width - mText->getWidth();
+
+		if (mVScroll != null) {
+			mVScroll->setScrollRange(mVRange);
+		}
+		if (mHScroll != null) {
+			mHScroll->setScrollRange(mHRange);
+		}
+
 	}
 
 } // namespace MyGUI

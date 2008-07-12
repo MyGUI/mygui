@@ -70,17 +70,17 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 			std::getline(stream, read);
 			text += read + "\n";
 		};
-	}
+	}*/
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setTextAlign(MyGUI::ALIGN_DEFAULT);
 	edit->setEditMultiLine(true);
-	edit->setEditReadOnly(true);
-	edit->setMaxTextLength(15000);
-	edit->setCaption(text);*/
+	//edit->setEditReadOnly(true);
+	//edit->setMaxTextLength(15000);
+	//edit->setCaption(text);
 
-	MyGUI::Message::createMessage("none", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, MyGUI::Message::Ok);
-	MyGUI::Message::createMessage("icon", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, MyGUI::Message::Ok | MyGUI::Message::IconQuest);
+	//MyGUI::Message::createMessage("none", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0);
+	//MyGUI::Message::createMessage("icon", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0 | MyGUI::Message::IconQuest);
 	/*edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
 	edit->setCaption("ComplexProgress");//*/
 

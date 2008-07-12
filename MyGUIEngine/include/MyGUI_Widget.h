@@ -267,6 +267,8 @@ namespace MyGUI
       /** Get drag'n'drop mode flag */
 		inline bool getNeedDragDrop() {return mNeedDragDrop;}
 
+		inline SubWidgetTextInterfacePtr _getSubWidgetText() { return mText; }
+
 	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;
