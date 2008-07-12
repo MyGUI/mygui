@@ -1465,9 +1465,12 @@ namespace MyGUI
 
 		if (mVScroll != null) {
 			mVScroll->setScrollRange(mVRange + 1);
+			if (textSize.height) mVScroll->setTrackSize(1. * mVScroll->getLineSize() * mText->getHeight() / textSize.height);
 		}
 		if (mHScroll != null) {
 			mHScroll->setScrollRange(mHRange + 1);
+			mHScroll->setTrackSize(mHRange / mText->getSize().width);
+			if (textSize.width) mHScroll->setTrackSize(1. * mHScroll->getLineSize() * mText->getWidth() / textSize.width);
 		}
 
 	}
