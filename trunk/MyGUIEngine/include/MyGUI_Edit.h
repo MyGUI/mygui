@@ -225,6 +225,7 @@ namespace MyGUI
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _position);
+		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
 		virtual void _onMouseDrag(int _left, int _top);
 		virtual void _onKeyLostFocus(WidgetPtr _new);

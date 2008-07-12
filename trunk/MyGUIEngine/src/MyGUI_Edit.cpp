@@ -28,6 +28,7 @@ namespace MyGUI
 	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // дополнительное смещение для курсора
 	const int EDIT_ACTION_MOUSE_ZONE = 1500; // область для восприятия мыши за пределом эдита
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
+	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
 	Edit::Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
@@ -73,6 +74,7 @@ namespace MyGUI
 				mWidgetUpper->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
 				mWidgetUpper->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
 				mWidgetUpper->eventMouseButtonDoubleClick = newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
+				mWidgetUpper->eventMouseWheel = newDelegate(this, &Edit::notifyMouseWheel);
 			}
 			else if ((*iter)->_getInternalString() == "VScroll") {
 				mVScroll = castWidget<VScroll>(*iter);
@@ -1348,7 +1350,7 @@ namespace MyGUI
 			else if (IS_ALIGN_HCENTER(align)) offset.left = (textSize.width - view.width()) / 2;
 		}
 
-		if (textSize.height >= view.height()) {
+		if (textSize.height > view.height()) {
 			// максимальный выход вверх
 			if ((offset.top + view.height()) > textSize.height) {
 				offset.top = textSize.height - view.height();
@@ -1486,6 +1488,44 @@ namespace MyGUI
 			IntPoint point = mText->getViewOffset();
 			point.left = _position;
 			mText->setViewOffset(point);
+		}
+	}
+
+	void Edit::notifyMouseWheel(WidgetPtr _sender, int _rel)
+	{
+		if (mVRange != 0) {
+			IntPoint point = mText->getViewOffset();
+			int offset = point.top;
+			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
+			else  offset -= EDIT_MOUSE_WHEEL;
+
+			if (offset < 0) offset = 0;
+			else if (offset > (int)mVRange) offset = mVRange;
+
+			if (offset != point.top) {
+				point.top = offset;
+				if (mVScroll != null) {
+					mVScroll->setScrollPosition(offset);
+				}
+				mText->setViewOffset(point);
+			}
+		}
+		else if (mHRange != 0) {
+			IntPoint point = mText->getViewOffset();
+			int offset = point.left;
+			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
+			else  offset -= EDIT_MOUSE_WHEEL;
+
+			if (offset < 0) offset = 0;
+			else if (offset > (int)mHRange) offset = mHRange;
+
+			if (offset != point.left) {
+				point.left = offset;
+				if (mHScroll != null) {
+					mHScroll->setScrollPosition(offset);
+				}
+				mText->setViewOffset(point);
+			}
 		}
 	}
 
