@@ -61,7 +61,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
 	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
 
-	/*std::string read, text;
+	std::string read, text;
 	std::ifstream stream("eula.txt");
 	if (false != stream.is_open()) {
 		while (false == stream.eof()) {
@@ -70,14 +70,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 			std::getline(stream, read);
 			text += read + "\n";
 		};
-	}*/
+	}
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setTextAlign(MyGUI::ALIGN_DEFAULT);
 	edit->setEditMultiLine(true);
 	//edit->setEditReadOnly(true);
-	//edit->setMaxTextLength(15000);
-	//edit->setCaption(text);
+	edit->setMaxTextLength(15000);
+	edit->setCaption(text);
 
 	//MyGUI::Message::createMessage("none", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0);
 	//MyGUI::Message::createMessage("icon", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0 | MyGUI::Message::IconQuest);
