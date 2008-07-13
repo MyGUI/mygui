@@ -222,10 +222,10 @@ namespace MyGUI
 		image = tmp == 0 ? ITEM_NONE : tmp - 1;
 
 		MessagePtr mess = gui->createWidget<Message>(_skin.empty() ? factory::MessageFactory::_getDefaultSkin() : _skin, IntCoord(), ALIGN_DEFAULT, _layer);
+		mess->setMessageImage(image);
 		mess->setSmoothShow(true);
 		mess->setCaption(_caption);
 		mess->setMessage(_message);
-		mess->setMessageImage(image);
 		if (_modal) mess->setWindowFade(true);
 		if (null != _delegate) mess->eventMessageBoxEnd = _delegate;
 		if (None != _info) mess->setButton(_info);
