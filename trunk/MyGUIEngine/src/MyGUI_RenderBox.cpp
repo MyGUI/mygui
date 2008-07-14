@@ -10,6 +10,8 @@
 
 #include <OgreTextureManager.h>
 
+#define SYNC_TIMEOUT 1 / 25.0f
+
 namespace MyGUI
 {
 
@@ -267,6 +269,7 @@ namespace MyGUI
 		mEntity = 0;
 		mEntityState = null;
 
+		mSyncTime = 0.0f;
 		mNodeForSync = null;
 		//}
 	}
@@ -379,20 +382,26 @@ namespace MyGUI
 	{
 		if(mNodeForSync)
 		{
-			bool update = false;
-			if(mNode->getChild(0)->getPosition() != Ogre::Vector3::ZERO)
+			if(mSyncTime > SYNC_TIMEOUT)
 			{
-				update = true;
-			}
-			//System::Console::WriteLine("_frameEntered");
-			synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0),mNodeForSync);
-			mNode->getChild(0)->setPosition(Ogre::Vector3::ZERO);
-			mNode->getChild(0)->setOrientation(Ogre::Quaternion::IDENTITY);
+				bool update = false;
+				if(mNode->getChild(0)->getPosition() != Ogre::Vector3::ZERO)
+				{
+					update = true;
+				}
+				//System::Console::WriteLine("_frameEntered");
+				synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0),mNodeForSync);
+				mNode->getChild(0)->setPosition(Ogre::Vector3::ZERO);
+				mNode->getChild(0)->setOrientation(Ogre::Quaternion::IDENTITY);
 
-			if(update)
-			{
-				updateViewport();
+				if(update)
+				{
+					updateViewport();
+				}
+				mSyncTime = 0.0f;
 			}
+
+			mSyncTime += _time;
 		}
 
 		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) {
@@ -533,7 +542,7 @@ namespace MyGUI
 
 			if (box.isNull()) return;
 
-			box.scale(Ogre::Vector3(1.41f,1.41f,1.41f));
+			//box.scale(Ogre::Vector3(1.41f,1.41f,1.41f));
 
 			//System::Console::WriteLine("Minimum({0}), Maximum({1})",
 			//	gcnew System::String(Ogre::StringConverter::toString(box.getMinimum()).c_str()),
@@ -546,7 +555,7 @@ namespace MyGUI
 			#ifdef LEFT_HANDED_CS_UP_Z
 
 				float width = sqrt(vec.x*vec.x + vec.y*vec.y); // самое длинное - диагональ (если крутить модель)
-				float len2 = width / mRttCam->getAspectRatio();
+				float len2 = width; // mRttCam->getAspectRatio();
 				float height = vec.z;
 				float len1 = height;
 				if (len1 < len2) len1 = len2;
