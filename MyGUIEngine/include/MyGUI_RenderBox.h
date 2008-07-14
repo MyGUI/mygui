@@ -143,7 +143,7 @@ namespace MyGUI
 		void _onMouseWheel(int _rel);
 
 	private:
-		inline bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState);}
+		inline bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState) || (mNodeForSync != null);}
 		void createRenderTexture();
 		void updateViewport();
 
@@ -178,6 +178,7 @@ namespace MyGUI
 		typedef std::vector<Ogre::Entity*> VectorEntity;
 		VectorEntity mVectorEntity;
 
+		float mSyncTime;
 		Ogre::SceneNode* mNodeForSync;
 
 	}; // class RenderBox : public Widget
