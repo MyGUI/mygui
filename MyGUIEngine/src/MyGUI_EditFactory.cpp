@@ -29,6 +29,8 @@ namespace MyGUI
 			manager.registerDelegate("Edit_PasswordChar") = newDelegate(this, &EditFactory::Edit_PasswordChar);
 			manager.registerDelegate("Edit_MaxTextLength") = newDelegate(this, &EditFactory::Edit_MaxTextLength);
 			manager.registerDelegate("Edit_OverflowToTheLeft") = newDelegate(this, &EditFactory::Edit_OverflowToTheLeft);
+			manager.registerDelegate("Edit_ShowVScroll") = newDelegate(this, &EditFactory::Edit_ShowVScroll);
+			manager.registerDelegate("Edit_ShowHScroll") = newDelegate(this, &EditFactory::Edit_ShowHScroll);
 		}
 
 		EditFactory::~EditFactory()
@@ -46,6 +48,8 @@ namespace MyGUI
 			manager.unregisterDelegate("Edit_PasswordChar");
 			manager.unregisterDelegate("Edit_MaxTextLength");
 			manager.unregisterDelegate("Edit_OverflowToTheLeft");
+			manager.unregisterDelegate("Edit_ShowHScroll");
+			manager.unregisterDelegate("Edit_ShowVScroll");
 		}
 
 		const Ogre::String& EditFactory::getType()
@@ -105,6 +109,18 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
 			static_cast<EditPtr>(_widget)->setOverflowToTheLeft(utility::parseBool(_value));
+		}
+
+		void EditFactory::Edit_ShowVScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
+			static_cast<EditPtr>(_widget)->showVScroll(utility::parseBool(_value));
+		}
+
+		void EditFactory::Edit_ShowHScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
+			static_cast<EditPtr>(_widget)->showHScroll(utility::parseBool(_value));
 		}
 
 	} // namespace factory
