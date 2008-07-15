@@ -28,6 +28,7 @@ namespace MyGUI
 
 			// методы для парсинга
 			void Image_Texture(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_Coord(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Image_Rect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Image_Tile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Image_Num(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
