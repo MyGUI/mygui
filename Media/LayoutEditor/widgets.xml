@@ -128,7 +128,7 @@
     <Property key="DefaultSkin" value="StaticImage"/>
     <Property key="Skin" value="StaticImage"/>
     <Parameter key="Image_Texture" value="String"/>
-    <Parameter key="Image_Rect" value="4 int"/>
+    <Parameter key="Image_Coord" value="4 int"/>
     <Parameter key="Image_Tile" value="2 float"/>
     <Parameter key="Image_Num" value="1 int"/>
     <!-- all properties -->
