@@ -96,9 +96,10 @@ namespace MyGUI
 		_setTextureName(_texture);
 		mSizeTexture = SkinManager::getTextureSize(_texture);
 		mSizeTile = _tile;
-		mRectImage = _coord;
-		mRectImage.bottom += mRectImage.top;
-		mRectImage.right += mRectImage.left;
+		mRectImage.left = _coord.left;
+		mRectImage.top = _coord.top;
+		mRectImage.right = _coord.left + _coord.width;
+		mRectImage.bottom = _coord.top + _coord.height;
 
 		recalcIndexes();
 		updateSelectIndex(mIndexSelect);
@@ -122,9 +123,10 @@ namespace MyGUI
 
 	void StaticImage::setImageCoord(const IntCoord & _coord)
 	{
-		mRectImage = _coord;
-		mRectImage.bottom += mRectImage.top;
-		mRectImage.right += mRectImage.left;
+		mRectImage.left = _coord.left;
+		mRectImage.top = _coord.top;
+		mRectImage.right = _coord.left + _coord.width;
+		mRectImage.bottom = _coord.top + _coord.height;
 
 		recalcIndexes();
 		updateSelectIndex(mIndexSelect);
