@@ -91,6 +91,19 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
+	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
+	{
+		_setTextureName(_texture);
+		mSizeTexture = SkinManager::getTextureSize(_texture);
+		mSizeTile = _tile;
+		mRectImage = _coord;
+		mRectImage.bottom += mRectImage.top;
+		mRectImage.right += mRectImage.left;
+
+		recalcIndexes();
+		updateSelectIndex(mIndexSelect);
+	}
+
 	void StaticImage::setImageTile(const IntSize & _tile)
 	{
 		mSizeTile = _tile;
@@ -102,6 +115,16 @@ namespace MyGUI
 	void StaticImage::setImageRect(const IntRect & _rect)
 	{
 		mRectImage = _rect;
+
+		recalcIndexes();
+		updateSelectIndex(mIndexSelect);
+	}
+
+	void StaticImage::setImageCoord(const IntCoord & _coord)
+	{
+		mRectImage = _coord;
+		mRectImage.bottom += mRectImage.top;
+		mRectImage.right += mRectImage.left;
 
 		recalcIndexes();
 		updateSelectIndex(mIndexSelect);
@@ -132,13 +155,24 @@ namespace MyGUI
 			mSizeTile.height = mRectImage.height();
 		}
 
-		MYGUI_DEBUG_ASSERT(mRectImage.width() >= mSizeTile.width, "argument failed");
-		MYGUI_DEBUG_ASSERT(mRectImage.height() >= mSizeTile.height, "argument failed");
+		//MYGUI_ASSERT(mRectImage.width() >= mSizeTile.width, "argument failed");
+		//MYGUI_ASSERT(mRectImage.height() >= mSizeTile.height, "argument failed");
+
+//		if ((count_h * count_v) > 200) {
+//			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << mTexture << " indexes : " << count_h * count_v);
+//		}
+
+		deleteAllItems();
+
+		if ((mRectImage.width() >= mSizeTile.width) || (mRectImage.height() >= mSizeTile.height)) {
+			mRectImage.left = 0;
+			mRectImage.top = 0;
+			mRectImage.right = mSizeTile.width;
+			mRectImage.bottom = mSizeTile.height;
+		}
 
 		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
 		size_t count_v = (size_t)(mRectImage.height() / mSizeTile.height);
-
-		deleteAllItems();
 
 		int pos_h = mRectImage.left;
 		int pos_v = mRectImage.top;
