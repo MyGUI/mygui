@@ -47,7 +47,11 @@ namespace MyGUI
 			return;
 		}
 
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::updateSelectIndex");
+		if (_index >= mItems.size()) {
+			_setUVSet(FloatRect());
+			return;
+		}
+		//MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::updateSelectIndex");
 		VectorImages::iterator iter = mItems.begin() + _index;
 
 		if (iter->images.size() < 2) {
@@ -146,15 +150,19 @@ namespace MyGUI
 
 	void StaticImage::recalcIndexes()
 	{
+		deleteAllItems();
+
 		// если размер нулевой, то ставим размер текстуры
 		if (!(mRectImage.right || mRectImage.bottom)) {
-			mRectImage.right = mSizeTexture.width ? mSizeTexture.width : 1;
-			mRectImage.bottom = mSizeTexture.height ? mSizeTexture.height : 1;
+			return;
+			//mRectImage.right = mSizeTexture.width ? mSizeTexture.width : 1;
+			//mRectImage.bottom = mSizeTexture.height ? mSizeTexture.height : 1;
 		}
 
 		if (!(mSizeTile.width || mSizeTile.height)) {
-			mSizeTile.width = mRectImage.width();
-			mSizeTile.height = mRectImage.height();
+			return;
+			//mSizeTile.width = mRectImage.width();
+			//mSizeTile.height = mRectImage.height();
 		}
 
 		//MYGUI_ASSERT(mRectImage.width() >= mSizeTile.width, "argument failed");
@@ -164,13 +172,14 @@ namespace MyGUI
 //			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << mTexture << " indexes : " << count_h * count_v);
 //		}
 
-		deleteAllItems();
+		//deleteAllItems();
 
-		if ((mRectImage.width() >= mSizeTile.width) || (mRectImage.height() >= mSizeTile.height)) {
-			mRectImage.left = 0;
-			mRectImage.top = 0;
-			mRectImage.right = mSizeTile.width;
-			mRectImage.bottom = mSizeTile.height;
+		if ((mRectImage.width() < 0) || (mRectImage.height() < 0)) {
+			return;
+			//mRectImage.left = 0;
+			//mRectImage.top = 0;
+			//mRectImage.right = mSizeTile.width;
+			//mRectImage.bottom = mSizeTile.height;
 		}
 
 		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
