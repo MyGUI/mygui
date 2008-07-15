@@ -22,6 +22,7 @@ namespace MyGUI
 
 			// регестрируем все парсеры
 			manager.registerDelegate("Image_Texture") = newDelegate(this, &StaticImageFactory::Image_Texture);
+			manager.registerDelegate("Image_Coord") = newDelegate(this, &StaticImageFactory::Image_Coord);
 			manager.registerDelegate("Image_Rect") = newDelegate(this, &StaticImageFactory::Image_Rect);
 			manager.registerDelegate("Image_Tile") = newDelegate(this, &StaticImageFactory::Image_Tile);
 			manager.registerDelegate("Image_Num") = newDelegate(this, &StaticImageFactory::Image_Num);
@@ -35,6 +36,7 @@ namespace MyGUI
 
 			// удаляем все парсеры
 			manager.unregisterDelegate("Image_Texture");
+			manager.unregisterDelegate("Image_Coord");
 			manager.unregisterDelegate("Image_Rect");
 			manager.unregisterDelegate("Image_Tile");
 			manager.unregisterDelegate("Image_Num");
@@ -54,6 +56,12 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageTexture(_value);
+		}
+
+		void StaticImageFactory::Image_Coord(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			static_cast<StaticImagePtr>(_widget)->setImageCoord(IntCoord::parse(_value));
 		}
 
 		void StaticImageFactory::Image_Rect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
