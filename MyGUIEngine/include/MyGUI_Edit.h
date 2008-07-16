@@ -154,8 +154,8 @@ namespace MyGUI
 		{
 			mModeStatic = _static;
 			resetSelect();
-			if (mModeStatic) mWidgetUpper->setPointer("");
-			else mWidgetUpper->setPointer(mOriginalPointer);
+			if (mModeStatic) mWidgetClient->setPointer("");
+			else mWidgetClient->setPointer(mOriginalPointer);
 		}
 
 		/** Get edit static mode flag */
@@ -170,6 +170,12 @@ namespace MyGUI
 		}
 		/** Get edit password character */
 		inline Char getPasswordChar() {return mCharPassword;}
+
+		/** Get edit break line mode flag */
+		inline bool getEditBreakLine() {return mModeBreak;}
+		/** Enable or disable edit break line mode */
+		void setEditBreakLine(bool _break);
+
 
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		void setPosition(const IntCoord& _coord);
@@ -239,19 +245,6 @@ namespace MyGUI
 		// обновление представления
 		void updateView(bool _showCursor);
 
-		// переделать, так как теперь нам все известно о глобальных координатах
-		/*inline IntPoint getWorldPostion(WidgetPtr _widget)
-		{
-			IntPoint point(_widget->getLeft(), _widget->getTop());
-			WidgetPtr parent = _widget->getParent();
-			while (parent != null) {
-				point.left += parent->getLeft();
-				point.top += parent->getTop();
-				parent = parent->getParent();
-			};
-			return point;
-		}*/
-
 		void resetSelect();
 
 		// запись в историю данных о позиции
@@ -287,7 +280,7 @@ namespace MyGUI
 		// в фокусе ли кнопка
 		bool mIsFocus;
 
-		WidgetPtr mWidgetUpper;
+		//WidgetPtr mWidgetUpper;
 
 		bool mCursorActive;
 		float mCursorTimer, mActionMouseTimer;
@@ -310,6 +303,7 @@ namespace MyGUI
 		bool mModePassword;
 		bool mModeMultiline;
 		bool mModeStatic;
+		bool mModeBreak;
 
 		// настоящий текст, закрытый за звездочками
 		Ogre::UTFString mPasswordText;
