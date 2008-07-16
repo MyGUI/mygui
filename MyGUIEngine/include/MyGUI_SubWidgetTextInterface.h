@@ -40,6 +40,8 @@ namespace MyGUI
 		virtual size_t getCursorPosition() {return 0;}
 		virtual void setCursorPosition(size_t _pos) {}
 
+		virtual void setBreakLine(bool _break) {}
+
 		// возвращает положение курсора по произвольному положению
 		virtual size_t getCursorPosition(const IntPoint & _point) {return 0;}
 

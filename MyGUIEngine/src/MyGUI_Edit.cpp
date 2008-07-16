@@ -34,7 +34,7 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),
-		mWidgetUpper(null),
+		//mWidgetClient(null),
 		mCursorActive(false),
 		mCursorTimer(0),
 		mActionMouseTimer(0),
@@ -47,6 +47,7 @@ namespace MyGUI
 		mModePassword(false),
 		mModeMultiline(false),
 		mModeStatic(false),
+		mModeBreak(false),
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
@@ -58,8 +59,6 @@ namespace MyGUI
 		mHRange(0)
 	{
 
-		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit must have TextEdit)");
-
 		mOriginalPointer = mPointer;
 
 		// нам нужен фокус клавы
@@ -67,14 +66,14 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Client") {
-				mWidgetUpper = (*iter);
-				mWidgetUpper->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
-				mWidgetUpper->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
-				mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
-				mWidgetUpper->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
-				mWidgetUpper->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
-				mWidgetUpper->eventMouseButtonDoubleClick = newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
-				mWidgetUpper->eventMouseWheel = newDelegate(this, &Edit::notifyMouseWheel);
+				mWidgetClient = (*iter);
+				mWidgetClient->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
+				mWidgetClient->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
+				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
+				mWidgetClient->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
+				mWidgetClient->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
+				mWidgetClient->eventMouseButtonDoubleClick = newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
+				mWidgetClient->eventMouseWheel = newDelegate(this, &Edit::notifyMouseWheel);
 			}
 			else if ((*iter)->_getInternalString() == "VScroll") {
 				mVScroll = castWidget<VScroll>(*iter);
@@ -85,14 +84,17 @@ namespace MyGUI
 				mHScroll->eventScrollChangePosition = newDelegate(this, &Edit::notifyScrollChangePosition);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetUpper, "Child Widget Client not found in skin (Edit must have Client)");
 
-		if (null != mWidgetUpper->_getSubWidgetText()) {
-			mText = mWidgetUpper->_getSubWidgetText();
+		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (Edit must have Client)");
+
+		if (null != mWidgetClient->_getSubWidgetText()) {
+			mText = mWidgetClient->_getSubWidgetText();
 		}
 
+		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
 		updateScroll();
+
 		// первоначальная инициализация курсора
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
@@ -107,14 +109,14 @@ namespace MyGUI
 
 	void Edit::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
-		if ( (_old == mWidgetUpper) || (mIsFocus) ) return;
+		if ( (_old == mWidgetClient) || (mIsFocus) ) return;
 		mIsFocus = true;
 		updateEditState();
 	}
 
 	void Edit::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
-		if ( (_new == mWidgetUpper) || (false == mIsFocus) ) return;
+		if ( (_new == mWidgetClient) || (false == mIsFocus) ) return;
 		mIsFocus = false;
 		updateEditState();
 	}
@@ -429,7 +431,7 @@ namespace MyGUI
 		else if (_key == KC_PGUP) {
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top -= (mWidgetUpper->getHeight() > mText->getFontHeight()) ? mWidgetUpper->getHeight() : mText->getFontHeight();
+			point.top -= (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
 			// самая верхняя строчка
@@ -451,7 +453,7 @@ namespace MyGUI
 		else if (_key == KC_PGDOWN) {
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top += (mWidgetUpper->getHeight() > mText->getFontHeight()) ? mWidgetUpper->getHeight() : mText->getFontHeight();
+			point.top += (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
 			// самая нижняя строчка
@@ -546,7 +548,7 @@ namespace MyGUI
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER ) {
 
 				IntPoint mouse = InputManager::getInstance().getMousePosition();
-				const IntRect& view = mWidgetUpper->getAbsoluteRect();
+				const IntRect& view = mWidgetClient->getAbsoluteRect();
 				mouse.left -= view.left;
 				mouse.top -= view.top;
 				IntPoint point;
@@ -555,15 +557,15 @@ namespace MyGUI
 
 				// вверх на одну строчку
 				if ( (mouse.top < 0) && (mouse.top > -EDIT_ACTION_MOUSE_ZONE) ) {
-					if ( (mouse.left > 0) && (mouse.left <= mWidgetUpper->getWidth()) ) {
+					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
 						point.top -= mText->getFontHeight();
 						action = true;
 					}
 				}
 				// вниз на одну строчку
-				else if ( (mouse.top > mWidgetUpper->getHeight()) && (mouse.top < (mWidgetUpper->getHeight() + EDIT_ACTION_MOUSE_ZONE)) ) {
-					if ( (mouse.left > 0) && (mouse.left <= mWidgetUpper->getWidth()) ) {
+				else if ( (mouse.top > mWidgetClient->getHeight()) && (mouse.top < (mWidgetClient->getHeight() + EDIT_ACTION_MOUSE_ZONE)) ) {
+					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
 						point.top += mText->getFontHeight();
 						action = true;
@@ -572,15 +574,15 @@ namespace MyGUI
 
 				// влево на небольшое расстояние
 				if ( (mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE) ) {
-					//if ( (mouse.top > 0) && (mouse.top <= mWidgetUpper->getHeight()) ) {
+					//if ( (mouse.top > 0) && (mouse.top <= mWidgetClient->getHeight()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
 						point.left -= (int)EDIT_OFFSET_HORZ_CURSOR;
 						action = true;
 					//}
 				}
 				// вправо на небольшое расстояние
-				else if ( (mouse.left > mWidgetUpper->getWidth()) && (mouse.left < (mWidgetUpper->getWidth() + EDIT_ACTION_MOUSE_ZONE)) ) {
-					//if ( (mouse.top > 0) && (mouse.top <= mWidgetUpper->getHeight()) ) {
+				else if ( (mouse.left > mWidgetClient->getWidth()) && (mouse.left < (mWidgetClient->getWidth() + EDIT_ACTION_MOUSE_ZONE)) ) {
+					//if ( (mouse.top > 0) && (mouse.top <= mWidgetClient->getHeight()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
 						point.left += (int)EDIT_OFFSET_HORZ_CURSOR;
 						action = true;
@@ -1297,7 +1299,7 @@ namespace MyGUI
 		IntRect cursor = mText->getCursorRect(mCursorPosition);
 		cursor.right ++;
 		// абсолютные координаты вью
-		const IntRect& view = mWidgetUpper->getAbsoluteRect();
+		const IntRect& view = mWidgetClient->getAbsoluteRect();
 
 		// тестируем видимость курсора
 		bool inside = view.inside(cursor);
@@ -1382,7 +1384,10 @@ namespace MyGUI
 			if (mVScroll != null) {
 				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
 					mVScroll->show();
-					mWidgetUpper->setSize(mWidgetUpper->getWidth() - mVScroll->getWidth(), mWidgetUpper->getHeight());
+					mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
+
+					// размер текста может измениться
+					textSize = mText->getTextSize();
 
 					if (mHScroll != null) {
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
@@ -1391,8 +1396,11 @@ namespace MyGUI
 						// пересчитываем горизонтальный скрол на предмет показа
 						if ((textSize.width > mText->getWidth()) && ( ! mHScroll->isShow()) && (mShowHScroll)) {
 							mHScroll->show();
-							mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() - mHScroll->getHeight());
+							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
+
+							// размер текста может измениться
+							textSize = mText->getTextSize();
 						}
 					}
 				}
@@ -1403,7 +1411,11 @@ namespace MyGUI
 			if (mVScroll != null) {
 				if (mVScroll->isShow()) {
 					mVScroll->hide();
-					mWidgetUpper->setSize(mWidgetUpper->getWidth() + mVScroll->getWidth(), mWidgetUpper->getHeight());
+					mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
+
+					// размер текста может измениться
+					textSize = mText->getTextSize();
+
 					if (mHScroll != null) {
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
@@ -1411,8 +1423,11 @@ namespace MyGUI
 						// пересчитываем горизонтальный скрол на предмет скрытия
 						if ((textSize.width <= mText->getWidth()) && (mHScroll->isShow())) {
 							mHScroll->hide();
-							mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() + mHScroll->getHeight());
+							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
+
+							// размер текста может измениться
+							textSize = mText->getTextSize();
 						}
 					}
 				}
@@ -1425,7 +1440,10 @@ namespace MyGUI
 			if (mHScroll != null) {
 				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
 					mHScroll->show();
-					mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() - mHScroll->getHeight());
+					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
+
+					// размер текста может измениться
+					textSize = mText->getTextSize();
 
 					if (mVScroll != null) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
@@ -1434,8 +1452,11 @@ namespace MyGUI
 						// пересчитываем вертикальный скрол на предмет показа
 						if ((textSize.height > mText->getHeight()) && ( ! mVScroll->isShow()) && (mShowVScroll)) {
 							mVScroll->show();
-							mWidgetUpper->setSize(mWidgetUpper->getWidth() - mVScroll->getWidth(), mWidgetUpper->getHeight());
+							mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
+
+							// размер текста может измениться
+							textSize = mText->getTextSize();
 						}
 					}
 				}
@@ -1446,7 +1467,11 @@ namespace MyGUI
 			if (mHScroll != null) {
 				if (mHScroll->isShow()) {
 					mHScroll->hide();
-					mWidgetUpper->setSize(mWidgetUpper->getWidth(), mWidgetUpper->getHeight() + mHScroll->getHeight());
+					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
+
+					// размер текста может измениться
+					textSize = mText->getTextSize();
+
 					if (mVScroll != null) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
@@ -1454,8 +1479,11 @@ namespace MyGUI
 						// пересчитываем вертикальный скрол на предмет скрытия
 						if ((textSize.height <= mText->getHeight()) && (mVScroll->isShow())) {
 							mVScroll->hide();
-							mWidgetUpper->setSize(mWidgetUpper->getWidth() + mVScroll->getWidth(), mWidgetUpper->getHeight());
+							mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
+
+							// размер текста может измениться
+							textSize = mText->getTextSize();
 						}
 					}
 				}
@@ -1527,6 +1555,13 @@ namespace MyGUI
 				mText->setViewOffset(point);
 			}
 		}
+	}
+
+	void Edit::setEditBreakLine(bool _break)
+	{
+		mModeBreak = _break;
+		mText->setBreakLine(mModeBreak);
+		mWidgetClient->setSize(mWidgetClient->getSize());
 	}
 
 } // namespace MyGUI
