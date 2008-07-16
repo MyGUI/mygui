@@ -89,6 +89,8 @@ namespace MyGUI
 
 		void setShiftText(bool _shift);
 
+		void setBreakLine(bool _break);
+
 	protected:
 
 		bool mEmptyView;
@@ -130,6 +132,7 @@ namespace MyGUI
 
 		bool mManualView;
 		bool mShiftText;
+		bool mBreakLine;
 
 	};
 

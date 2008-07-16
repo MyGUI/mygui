@@ -77,11 +77,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	edit->setEditMultiLine(true);
 	//edit->setEditReadOnly(true);
 	edit->setMaxTextLength(15000);
-	edit->setCaption(text);
+	edit->setCaption(text);//*/
 
-	MyGUI::Message::createMessage("none", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, MyGUI::Message::None);
+	/*MyGUI::Message::createMessage("none", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, MyGUI::Message::None);
 	MyGUI::Message::createMessage("icon", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0 | MyGUI::Message::IconQuest);
-	MyGUI::Message::createMessage("button", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0 | MyGUI::Message::Ok);
+	MyGUI::Message::createMessage("button", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0 | MyGUI::Message::Ok);*/
 	/*edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
 	edit->setCaption("ComplexProgress");//*/
 
@@ -117,9 +117,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	mlist->setSubItem(1,2,"a");
 	mlist->setSubItem(1,3,"c");*/
 
-	MyGUI::PopupMenuPtr menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::ALIGN_DEFAULT, "Popup");
+	/*MyGUI::PopupMenuPtr menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::ALIGN_DEFAULT, "Popup");
 	menu->addItem("test");
-	menu->showPopupMenu(MyGUI::IntPoint(100, 100));
+	menu->showPopupMenu(MyGUI::IntPoint(100, 100));*/
 
 }
 

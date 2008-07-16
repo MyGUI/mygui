@@ -76,8 +76,8 @@ namespace MyGUI
 		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();
 
 		// подписываем дочерние классы на скролл
-		mWidgetUpper->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
-		mWidgetUpper->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
+		mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
+		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
 		//mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
 		//mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
@@ -111,7 +111,7 @@ namespace MyGUI
 			// кнопка сама уберет список
 			if (focus == mButton) return;
 			// в режиме дропа все окна учавствуют
-			if ( (mModeDrop) && (focus == mWidgetUpper) ) return;
+			if ( (mModeDrop) && (focus == mWidgetClient) ) return;
 		}
 
 		hideList();
