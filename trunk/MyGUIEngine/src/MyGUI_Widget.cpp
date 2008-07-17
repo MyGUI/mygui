@@ -23,6 +23,8 @@ namespace MyGUI
 
 	Ogre::String Widget::WidgetTypeName = "Widget";
 
+	const float WIDGET_TOOLTIP_TIMEOUT = 1;
+
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mOwner(static_cast<Widget*>(_parent)),
@@ -43,7 +45,10 @@ namespace MyGUI
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
 		mNeedDragDrop(false),
-		mWidgetClient(null)
+		mWidgetClient(null),
+		m_toolTipEnable(false),
+		m_toolTipCurrentTime(0),
+		m_toolTipVisible(false)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -690,6 +695,61 @@ namespace MyGUI
 	void * Widget::_getDropItemData(size_t _index)
 	{
 		return null;
+	}
+
+	void Widget::setToolTipEnable(bool _enable)
+	{
+		if (m_toolTipEnable == _enable) return;
+		m_toolTipEnable = _enable;
+
+		if (m_toolTipEnable) {
+			Gui::getInstance().addFrameListener(this);
+			m_toolTipCurrentTime = 0;
+		}
+		else {
+			Gui::getInstance().removeFrameListener(this);
+		}
+	}
+
+	void Widget::_frameEntered(float _frame)
+	{
+		IntPoint point = InputManager::getInstance().getMousePosition();
+		static IntPoint old_point = point;
+
+		if (old_point != point) {
+			if (m_toolTipVisible) {
+				m_toolTipVisible = false;
+				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
+			}
+			m_toolTipCurrentTime = 0;
+			old_point = point;
+		}
+		else {
+			bool inside = getAbsoluteRect().inside(point);
+
+			if (inside) {
+				m_toolTipCurrentTime += _frame;
+				if ( !m_toolTipVisible && m_toolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
+
+					// проверяем не перекрывают ли нас
+					WidgetPtr widget = InputManager::getInstance().getMouseFocusWidget();
+					while (widget != 0) {
+						if (widget->getName() == mName) {
+							m_toolTipVisible = true;
+							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, _getToolTipIndex(point), point));
+							break;
+						}
+						widget = widget->getParent();
+					}
+				}
+			}
+			else {
+				if (m_toolTipVisible) {
+					m_toolTipVisible = false;
+					eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
+				}
+			}
+		}
 	}
 
 } // namespace MyGUI

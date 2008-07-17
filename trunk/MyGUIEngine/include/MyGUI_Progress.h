@@ -9,12 +9,12 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_FrameListener.h"
+//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Progress : public Widget, public FrameListener
+	class _MyGUIExport Progress : public Widget//, public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::ProgressFactory;

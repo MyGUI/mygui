@@ -315,6 +315,8 @@ namespace MyGUI
 		// ищет и устанавливает подсвеченный айтем
 		void findCurrentActiveItem();
 
+		size_t _getToolTipIndex(IntPoint _point);
+
 	private:
 		VScrollPtr mWidgetScroll;
 		//WidgetPtr mWidgetClient;

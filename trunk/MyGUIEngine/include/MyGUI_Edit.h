@@ -11,12 +11,12 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
-#include "MyGUI_FrameListener.h"
+//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Edit : public Widget, public FrameListener
+	class _MyGUIExport Edit : public Widget//, public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::EditFactory;

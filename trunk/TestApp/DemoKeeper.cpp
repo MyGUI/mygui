@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "MyGUI_WidgetToolTip.h"
 
 DemoKeeper::DemoKeeper() :
 	mGUI(0),
@@ -61,7 +62,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
 	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
 
-	std::string read, text;
+	/*std::string read, text;
 	std::ifstream stream("eula.txt");
 	if (false != stream.is_open()) {
 		while (false == stream.eof()) {
@@ -98,6 +99,10 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	image->setItemFrameRate(0, 0.15);
 	image->setItemSelect(0);*/
 
+	/*MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
+	widget->setToolTipEnable(true);
+	widget->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);*/
+
 	/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 340, 26), MyGUI::ALIGN_DEFAULT, "Main");
 	edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
 	edit->setCaption("ComplexProgress");//*/
@@ -132,5 +137,15 @@ void DemoKeeper::consolePressed()
 {
 	if (mConsole) {
 		mConsole->showConsole( ! mConsole->isShowConsole());
+	}
+}
+
+void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info)
+{
+	if (_info.type == MyGUI::TOOLTIP_SHOW) {
+		MyGUI::MYGUI_OUT("SHOW index : ", _info.index);
+	}
+	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
+		MyGUI::MYGUI_OUT("HIDE");
 	}
 }

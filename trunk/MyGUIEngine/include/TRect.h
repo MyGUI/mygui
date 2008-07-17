@@ -119,6 +119,16 @@ namespace types
 			return ( (_value.left >= left) && (_value.right <= right) && (_value.top >= top) && (_value.bottom <= bottom) );
 		}
 
+		inline bool intersect(const TRect<T>&  _value) const
+		{
+			return ( (_value.left <= right) && (_value.right => left) || (_value.top <= bottom) && (_value.bottom >= top) );
+		}
+
+		inline bool inside(const TPoint<T>&  _value) const
+		{
+			return ( (_value.left >= left) && (_value.left <= right) && (_value.top >= top) && (_value.top <= bottom) );
+		}
+
 		inline std::string print() const
 		{
 	        std::ostringstream stream;

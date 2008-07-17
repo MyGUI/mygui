@@ -6,6 +6,7 @@
 */
 #include "DemoKeeper.h"
 #include "BasisManager.h"
+#include "MyGUI_WidgetToolTip.h"
 
 void DemoKeeper::requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _info)
 {
@@ -187,6 +188,9 @@ void DemoKeeper::start()
 	box->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::eventEndDrop);
 	box->eventDropState = MyGUI::newDelegate(this, &DemoKeeper::eventDropState);
 
+	box->setToolTipEnable(true);
+	box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+
 	size_t num = 0;
 	while (num < 50) {
 		box->addItem((void*) new ItemData(num%9, (num%9 == 0) ? 0 : 5));
@@ -205,6 +209,9 @@ void DemoKeeper::start()
 	box->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::eventEndDrop);
 	box->eventDropState = MyGUI::newDelegate(this, &DemoKeeper::eventDropState);
 
+	box->setToolTipEnable(true);
+	box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+
 	num = 0;
 	while (num < 50) {
 		box->addItem((void*) new ItemData(num%9, (num%9 == 0) ? 0 : 5));
@@ -215,4 +222,14 @@ void DemoKeeper::start()
 
 void DemoKeeper::end()
 {
+}
+
+void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info)
+{
+	if (_info.type == MyGUI::TOOLTIP_SHOW) {
+		//MyGUI::MYGUI_OUT("SHOW index : ", _info.index);
+	}
+	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
+		//MyGUI::MYGUI_OUT("HIDE");
+	}
 }
