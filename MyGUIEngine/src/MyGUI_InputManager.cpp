@@ -201,30 +201,32 @@ namespace MyGUI
 	bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)
 	{
 
-		if (isFocusMouse() && mIsWidgetMouseCapture) {
+		if (isFocusMouse()) {
 
 			// если активный элемент заблокирован
 			if (false == mWidgetMouseFocus->isEnabled()) return true;
 
-			// сбрасываем захват
-			mIsWidgetMouseCapture = false;
-
 			mWidgetMouseFocus->_onMouseButtonReleased(_absx, _absy, _id);
-			//mWidgetMouseFocus->_onMouseButtonReleased(_id);
 
-			// после вызова, виджет может быть удален
-			if (null != mWidgetMouseFocus) {
+			if (mIsWidgetMouseCapture) {
 
-				if ((MB_Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
-					mWidgetMouseFocus->_onMouseButtonDoubleClick();
-				}
-				else {
-					mTime.reset();
-					// проверяем над тем ли мы окном сейчас что и были при нажатии
-					LayerItem * rootItem = null;
-					WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy, rootItem));
-					if ( item == mWidgetMouseFocus) {
-						mWidgetMouseFocus->_onMouseButtonClick();
+				// сбрасываем захват
+				mIsWidgetMouseCapture = false;
+
+				// после вызова, виджет может быть удален
+				if (null != mWidgetMouseFocus) {
+
+					if ((MB_Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
+						mWidgetMouseFocus->_onMouseButtonDoubleClick();
+					}
+					else {
+						// проверяем над тем ли мы окном сейчас что и были при нажатии
+						LayerItem * rootItem = null;
+						WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy, rootItem));
+						if ( item == mWidgetMouseFocus) {
+							mWidgetMouseFocus->_onMouseButtonClick();
+						}
+						mTime.reset();
 					}
 				}
 			}
