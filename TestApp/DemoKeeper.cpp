@@ -73,6 +73,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	}
 
 	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
+	edit->showHScroll(false);
 	edit->setTextAlign(MyGUI::ALIGN_DEFAULT);
 	edit->setEditMultiLine(true);
 	//edit->setEditReadOnly(true);
