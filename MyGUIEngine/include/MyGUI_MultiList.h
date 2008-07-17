@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_FrameListener.h"
+//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -26,7 +26,7 @@ namespace MyGUI
 	typedef std::vector<size_t> VectorSizeT;
 	typedef delegates::CDelegate5<WidgetPtr, size_t, const Ogre::UTFString &, const Ogre::UTFString &, bool &> EventInfo_WidgetIntUTFStringUTFStringBool;
 
-	class _MyGUIExport MultiList : public Widget , public FrameListener
+	class _MyGUIExport MultiList : public Widget//, public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::MultiListFactory;
