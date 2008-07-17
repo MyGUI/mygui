@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_FrameListener.h"
+//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -73,7 +73,7 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventInfo_WidgetString;
 
-	class _MyGUIExport FooBar : public Widget, public FrameListener
+	class _MyGUIExport FooBar : public Widget//, public FrameListener
 	{
 		friend class factory::FooBarFactory;
 

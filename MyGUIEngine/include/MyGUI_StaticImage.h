@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_FrameListener.h"
+//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -24,7 +24,7 @@ namespace MyGUI
 
 	typedef std::vector<ImageItem> VectorImages;
 
-	class _MyGUIExport StaticImage : public Widget, public FrameListener
+	class _MyGUIExport StaticImage : public Widget//, public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::StaticImageFactory;

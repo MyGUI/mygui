@@ -896,6 +896,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_WidgetToolTip.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_WidgetUserData.h"
 						>
 					</File>

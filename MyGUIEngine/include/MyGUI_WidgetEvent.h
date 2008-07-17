@@ -10,9 +10,11 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Macros.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_WidgetToolTip.h"
 
 namespace MyGUI
 {
+
 	// делегаты для событий виджета
 	typedef delegates::CDelegate1<WidgetPtr> EventInfo_WidgetVoid;
 	typedef delegates::CDelegate2<WidgetPtr, WidgetPtr> EventInfo_WidgetWidget;
@@ -25,6 +27,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, KeyCode, Char> EventInfo_WidgetKeyCodeChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr&, size_t &> EventInfo_WidgetRefWidgetRefSizeT;
+	typedef delegates::CDelegate2<WidgetPtr, ToolTipInfo> EventInfo_WidgetToolTip;
 
 	/**
 	General information about creating delegate for event :
@@ -165,6 +168,10 @@ namespace MyGUI
 		/* event : внутреннее событие, невалидна информация для дропа*/
 		/* signature : void method(MyGUI::WidgetPtr _sender);*/
 		EventInfo_WidgetVoid _eventInvalideDropInfo;
+
+		/* event : событие для отображения тултипа*/
+		/* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info);*/
+		EventInfo_WidgetToolTip eventToolTip;
 
 	protected:
 

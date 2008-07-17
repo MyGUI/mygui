@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_FrameListener.h"
+//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -21,7 +21,7 @@ namespace MyGUI
 		This widget can show autorotaded and rotatable by mouse mesh.
 		Also you can set your own Ogre::Camera and yo'll see anything from your viewport.
 	*/
-	class _MyGUIExport RenderBox : public Widget, public FrameListener
+	class _MyGUIExport RenderBox : public Widget//, public FrameListener
 	{
 		// для вызова закрытого конструктора
 		friend class factory::RenderBoxFactory;

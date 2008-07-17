@@ -797,4 +797,14 @@ namespace MyGUI
 		return index;
 	}
 
+	size_t ItemBox::_getToolTipIndex(IntPoint _point)
+	{
+		for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+			if (iter->item->getAbsoluteRect().inside(_point)) {
+				return getIndexByWidget(iter->item);
+			}
+		}
+		return ITEM_NONE;
+	}
+
 } // namespace MyGUI

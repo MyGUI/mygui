@@ -42,6 +42,7 @@ private:
 	void eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result);
 	void eventDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState _state);
 
+	void eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info);
 };
 
 #endif // __DEMO_KEEPER_H__

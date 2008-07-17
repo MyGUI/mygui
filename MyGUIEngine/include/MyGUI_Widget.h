@@ -13,11 +13,12 @@
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetEvent.h"
 #include "MyGUI_WidgetCreator.h"
+#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Widget : public CroppedRectangleInterface , public LayerItem, public UserData, public WidgetEvent, public WidgetCreator
+	class _MyGUIExport Widget : public CroppedRectangleInterface, public LayerItem, public UserData, public WidgetEvent, public WidgetCreator, public FrameListener
 	{
 		// для вызова закрытых деструкторов
 		friend class WidgetCreator;
@@ -47,6 +48,10 @@ namespace MyGUI
 		virtual void _destroyAllChildWidget();
 
 		static Ogre::String WidgetTypeName;
+
+		virtual void _frameEntered(float _frame);
+
+		virtual size_t _getToolTipIndex(IntPoint _point) { return ITEM_NONE; }
 
 	public:
 
@@ -269,6 +274,9 @@ namespace MyGUI
 
 		inline SubWidgetTextInterfacePtr _getSubWidgetText() { return mText; }
 
+		inline bool getToolTipEnable() { return m_toolTipEnable; }
+		void setToolTipEnable(bool _enable);
+
 	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;
@@ -318,6 +326,10 @@ namespace MyGUI
 
 		// клиентская зона окна
 		WidgetPtr mWidgetClient;
+
+		bool m_toolTipEnable;
+		float m_toolTipCurrentTime;
+		bool m_toolTipVisible;
 
 	};
 
