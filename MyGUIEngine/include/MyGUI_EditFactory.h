@@ -35,6 +35,7 @@ namespace MyGUI
 			void Edit_PasswordChar(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_MaxTextLength(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_OverflowToTheLeft(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_Static(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_ShowVScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_ShowHScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_BreakLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
