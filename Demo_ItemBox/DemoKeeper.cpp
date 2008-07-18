@@ -6,7 +6,6 @@
 */
 #include "DemoKeeper.h"
 #include "BasisManager.h"
-#include "MyGUI_WidgetToolTip.h"
 
 void DemoKeeper::requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _info)
 {

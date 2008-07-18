@@ -15,6 +15,27 @@ namespace MyGUI
 
 	class _MyGUIExport PopupMenu : public Widget
 	{
+		struct ItemInfo
+		{
+			ItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _submenu) :
+				button(_button),
+				separator(_separator),
+				submenu(_submenu)
+			{
+			}
+
+			/** Button */
+			ButtonPtr button;
+			/** Widget have separator after button */
+			bool separator;
+			/** Sub menu (or NULL if no submenu) */
+			PopupMenuPtr submenu;
+			/** User data */
+			void * data;
+		};
+
+		typedef std::vector<ItemInfo> VectorPopupMenuItemInfo;
+
 		// для вызова закрытого конструктора
 		friend class factory::PopupMenuFactory;
 
@@ -29,8 +50,8 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// методы для работы со списком
-		inline void addItem(const Ogre::UTFString& _item, bool _separator = false) { insertItem(ITEM_NONE, _item, _separator); }
-		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _separator = false);
+		inline void addItem(const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { insertItem(ITEM_NONE, _item, _submenu, _separator); }
+		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
 		void setItem(size_t _index, const Ogre::UTFString& _item);
 
 		void deleteItem(size_t _index);
@@ -38,11 +59,12 @@ namespace MyGUI
 
 		size_t getItemCount();
 		const Ogre::UTFString& getItem(size_t _index);
+		ItemInfo& getItemInfo(size_t _index);
 
 		// методы для работы с окном
 		void showPopupMenu(const IntPoint& _point);
 
-		void hidePopupMenu();
+		void hidePopupMenu(bool _hideParentPopup = true);
 
 		// event : нажат ентер, или щелчек мыши
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
@@ -54,21 +76,17 @@ namespace MyGUI
 
 	private:
 		void notifyMouseClick(MyGUI::WidgetPtr _sender);
+		void notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		//void _onKeyChangeRootFocus(bool _focus);
 		void _onKeyLostFocus(WidgetPtr _new);
 
 		void update();
 
 	private:
-		VectorWidgetPtr m_listWidgets;
-		typedef std::vector<bool> VectorBool;
-		VectorBool m_listSeparators;
+		VectorPopupMenuItemInfo mItems;
 
 		int mHeightLine;
 		std::string mSkinLine;
-
-		//WidgetPtr mWidgetClient;
 
 		int mMaxWidth;
 

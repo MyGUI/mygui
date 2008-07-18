@@ -85,15 +85,22 @@ void EditorState::enter(bool bIsChangeState)
 	// создание меню
 	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem("  File  ");
+	bar->addItem("  Widgets  ");
+	mPopupMenuWidgets = bar->getItemMenu(1);
 
 	mPopupMenuFile = bar->getItemMenu(0);
 	mPopupMenuFile->addItem("  Load  ");
 	mPopupMenuFile->addItem("  Save  ");
 	mPopupMenuFile->addItem("  Save as...  ");
-	mPopupMenuFile->addItem("  Clear  ", true);
+	mPopupMenuFile->addItem("  Clear  ", false, true);
 	mPopupMenuFile->addItem("  Settings  ");
-	mPopupMenuFile->addItem("  #0000FFTest  ", true);
+	mPopupMenuFile->addItem("  #0000FFTest  ", false, true);
 	mPopupMenuFile->addItem("  Quit  ");
+	mPopupMenuFile->addItem("  Submenu  ", true);
+	mPopupMenuFile->getItemInfo(7).submenu->addItem("Hello!");
+	mPopupMenuFile->getItemInfo(7).submenu->addItem("Hello!!!!");
+	mPopupMenuFile->getItemInfo(7).submenu->addItem("Hello?");
+	mPopupMenuFile->getItemInfo(7).submenu->addItem("ah... :(");
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
@@ -886,6 +893,16 @@ void EditorState::notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::Widge
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
 		allWidgetsCombo->addItem(getDescriptionString((*iter)->widget, print_name, print_type, print_skin));
+	}
+
+	mPopupMenuWidgets->deleteAllItems();
+	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
+	{
+		if ((*iter)->widget->getParent() == NULL)
+		{
+			mPopupMenuWidgets->addItem(getDescriptionString((*iter)->widget, print_name, print_type, print_skin));
+			mPopupMenuWidgets->getItemInfo(mPopupMenuWidgets->getItemCount() - 1).data = (*iter)->widget;
+		}
 	}
 }
 

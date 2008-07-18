@@ -10,7 +10,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "MyGUI_WidgetToolTip.h"
 
 DemoKeeper::DemoKeeper() :
 	mGUI(0),

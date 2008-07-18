@@ -149,4 +149,5 @@ private:
 
 	MyGUI::Gui * mGUI;
 	MyGUI::PopupMenuPtr mPopupMenuFile;
+	MyGUI::PopupMenuPtr mPopupMenuWidgets;
 };
