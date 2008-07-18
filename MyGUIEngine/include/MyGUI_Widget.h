@@ -274,7 +274,7 @@ namespace MyGUI
 
 		inline SubWidgetTextInterfacePtr _getSubWidgetText() { return mText; }
 
-		inline bool getToolTipEnable() { return m_toolTipEnable; }
+		inline bool getToolTipEnable() { return mToolTipEnable; }
 		void setToolTipEnable(bool _enable);
 
 	protected:
@@ -327,9 +327,11 @@ namespace MyGUI
 		// клиентская зона окна
 		WidgetPtr mWidgetClient;
 
-		bool m_toolTipEnable;
-		float m_toolTipCurrentTime;
-		bool m_toolTipVisible;
+		bool mToolTipEnable;
+		float mToolTipCurrentTime;
+		bool mToolTipVisible;
+		IntPoint mToolTipOldPoint;
+		size_t mToolTipOldIndex;
 
 	};
 

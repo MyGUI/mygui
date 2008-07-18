@@ -46,9 +46,10 @@ namespace MyGUI
 		mNeedMouseFocus(true),
 		mNeedDragDrop(false),
 		mWidgetClient(null),
-		m_toolTipEnable(false),
-		m_toolTipCurrentTime(0),
-		m_toolTipVisible(false)
+		mToolTipEnable(false),
+		mToolTipCurrentTime(0),
+		mToolTipVisible(false),
+		mToolTipOldIndex(ITEM_NONE)
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -699,12 +700,12 @@ namespace MyGUI
 
 	void Widget::setToolTipEnable(bool _enable)
 	{
-		if (m_toolTipEnable == _enable) return;
-		m_toolTipEnable = _enable;
+		if (mToolTipEnable == _enable) return;
+		mToolTipEnable = _enable;
 
-		if (m_toolTipEnable) {
+		if (mToolTipEnable) {
 			Gui::getInstance().addFrameListener(this);
-			m_toolTipCurrentTime = 0;
+			mToolTipCurrentTime = 0;
 		}
 		else {
 			Gui::getInstance().removeFrameListener(this);
@@ -714,39 +715,93 @@ namespace MyGUI
 	void Widget::_frameEntered(float _frame)
 	{
 		IntPoint point = InputManager::getInstance().getMousePosition();
-		static IntPoint old_point = point;
 
-		if (old_point != point) {
-			if (m_toolTipVisible) {
-				m_toolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
-			}
-			m_toolTipCurrentTime = 0;
-			old_point = point;
-		}
-		else {
+		if (mToolTipOldPoint != point) {
+
+			mToolTipCurrentTime = 0;
+
 			bool inside = getAbsoluteRect().inside(point);
-
 			if (inside) {
-				m_toolTipCurrentTime += _frame;
-				if ( !m_toolTipVisible && m_toolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
+				inside = false;
+				// проверяем не перекрывают ли нас
+				WidgetPtr widget = InputManager::getInstance().getMouseFocusWidget();
+				while (widget != 0) {
+					if (widget->getName() == mName) {
+						inside = true;
+						break;
+					}
+					widget = widget->getParent();
+				}
 
-					// проверяем не перекрывают ли нас
-					WidgetPtr widget = InputManager::getInstance().getMouseFocusWidget();
-					while (widget != 0) {
-						if (widget->getName() == mName) {
-							m_toolTipVisible = true;
-							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, _getToolTipIndex(point), point));
-							break;
+				if (inside) {
+					// теперь смотрим, не поменялся ли индекс внутри окна
+					size_t index = _getToolTipIndex(point);
+					if (mToolTipOldIndex != index) {
+						if (mToolTipVisible) {
+							mToolTipCurrentTime = 0;
+							mToolTipVisible = false;
+							eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
 						}
-						widget = widget->getParent();
+						mToolTipOldIndex = index;
+					}
+
+					/*if ( ! mToolTipVisible) {
+						mToolTipCurrentTime += _frame;
+						if (mToolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
+							mToolTipVisible = true;
+							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, index, point));
+						}
+					}*/
+
+				}
+				else {
+					if (mToolTipVisible) {
+						mToolTipCurrentTime = 0;
+						mToolTipVisible = false;
+						eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
 					}
 				}
+
 			}
 			else {
-				if (m_toolTipVisible) {
-					m_toolTipVisible = false;
+				if (mToolTipVisible) {
+					mToolTipCurrentTime = 0;
+					mToolTipVisible = false;
 					eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
+				}
+			}
+
+			/*if (mToolTipVisible) {
+				mToolTipVisible = false;
+				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
+			}
+			mToolTipCurrentTime = 0;
+			mToolTipOldPoint = point;*/
+			mToolTipOldPoint = point;
+		}
+		else {
+
+			bool inside = getAbsoluteRect().inside(point);
+			if (inside) {
+				inside = false;
+				// проверяем не перекрывают ли нас
+				WidgetPtr widget = InputManager::getInstance().getMouseFocusWidget();
+				while (widget != 0) {
+					if (widget->getName() == mName) {
+						inside = true;
+						break;
+					}
+					widget = widget->getParent();
+				}
+
+				if (inside) {
+					if ( ! mToolTipVisible) {
+						mToolTipCurrentTime += _frame;
+						if (mToolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
+							mToolTipVisible = true;
+							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, mToolTipOldIndex, point));
+						}
+					}
 				}
 			}
 		}
