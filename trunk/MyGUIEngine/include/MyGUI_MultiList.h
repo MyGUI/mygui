@@ -199,7 +199,6 @@ void operatorLess(MyGUI::WidgetPtr _sender, size_t _column, const Ogre::UTFStrin
 		std::string mSkinButton, mSkinList;
 		ButtonPtr mButtonMain;
 
-		//WidgetPtr mWidgetClient;
 		VectorColumnInfo mVectorColumnInfo;
 
 		VectorWidgetPtr mSeparators;

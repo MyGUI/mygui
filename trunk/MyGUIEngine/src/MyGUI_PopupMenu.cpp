@@ -7,11 +7,13 @@
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_Button.h"
+#include "MyGUI_MenuBar.h"
 #include "MyGUI_WidgetManager.h"
 
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -52,52 +54,66 @@ namespace MyGUI
 
 	}
 
-	void PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _separator)
+	void PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
 	{
-		if (_index > m_listWidgets.size()) _index = m_listWidgets.size();
-		WidgetPtr widget = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), ALIGN_TOP | ALIGN_HSTRETCH);
-		widget->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
-		widget->setCaption(_item);
+		if (_index > mItems.size()) _index = mItems.size();
+		ButtonPtr button = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), ALIGN_TOP | ALIGN_HSTRETCH);
+		button->setCaption(_item);
 
-		IntSize size = widget->getTextSize();
+		IntSize size = button->getTextSize();
 		size.width += 7;
-		widget->_setInternalData(size.width);
+		button->_setInternalData(size.width);
 
-		m_listWidgets.insert(m_listWidgets.begin() + _index, widget);
-		m_listSeparators.insert(m_listSeparators.begin() + _index, _separator);
+		PopupMenuPtr submenu = NULL;
+		if (_submenu)
+		{
+			submenu = Gui::getInstance().createWidget<PopupMenu>("PopupMenu", IntCoord(), ALIGN_DEFAULT, "Popup");
+			submenu->_setOwner(this);
+		}
+		else
+		{
+			button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
+		}
+		button->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
+
+		mItems.insert(mItems.begin() + _index, ItemInfo(button, _separator, submenu));
 
 		update();
 	}
 
 	void PopupMenu::setItem(size_t _index, const Ogre::UTFString& _item)
 	{
-		MYGUI_ASSERT(_index < m_listWidgets.size(), "index out of range");
-		WidgetPtr widget = m_listWidgets[_index];
-		widget->setCaption(_item);
+		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
+		ButtonPtr button = mItems[_index].button;
+		button->setCaption(_item);
 
-		IntSize size = widget->getTextSize();
-		widget->_setInternalData(size.width);
+		IntSize size = button->getTextSize();
+		button->_setInternalData(size.width);
 
 		update();
 	}
 
 	void PopupMenu::deleteItem(size_t _index)
 	{
-		MYGUI_ASSERT(_index < m_listWidgets.size(), "index out of range");
-		WidgetManager::getInstance().destroyWidget(m_listWidgets[_index]);
-		m_listWidgets.erase(m_listWidgets.begin() + _index);
+		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
+		WidgetManager::getInstance().destroyWidget(mItems[_index].button);
+		if ( mItems[_index].submenu )
+			WidgetManager::getInstance().destroyWidget(mItems[_index].submenu);
+		mItems.erase(mItems.begin() + _index);
 
 		update();
 	}
 
 	void PopupMenu::deleteAllItems()
 	{
-		if (false == m_listWidgets.empty()) {
+		if (false == mItems.empty()) {
 			WidgetManager & manager = WidgetManager::getInstance();
-			for (VectorWidgetPtr::iterator iter=m_listWidgets.begin(); iter!=m_listWidgets.end(); ++iter) {
-				manager.destroyWidget(*iter);
+			for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+				manager.destroyWidget(iter->button);
+				if ( iter->submenu )
+					manager.destroyWidget(iter->submenu);
 			}
-			m_listWidgets.clear();
+			mItems.clear();
 
 			update();
 		}
@@ -105,23 +121,29 @@ namespace MyGUI
 
 	size_t PopupMenu::getItemCount()
 	{
-		return m_listWidgets.size();
+		return mItems.size();
 	}
 
 	const Ogre::UTFString& PopupMenu::getItem(size_t _index)
 	{
-		MYGUI_ASSERT(_index < m_listWidgets.size(), "index out of range");
-		return m_listWidgets[_index]->getCaption();
+		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
+		return mItems[_index].button->getCaption();
+	}
+
+	PopupMenu::ItemInfo& PopupMenu::getItemInfo(size_t _index)
+	{
+		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
+		return mItems[_index];
 	}
 
 	void PopupMenu::update()
 	{
 		IntSize size;
-		for (VectorWidgetPtr::iterator iter=m_listWidgets.begin(); iter!=m_listWidgets.end(); ++iter) {
-			(*iter)->setPosition(0, size.height);
+		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+			iter->button->setPosition(0, size.height);
 			size.height += mHeightLine;
-			if (m_listSeparators[iter - m_listWidgets.begin()]) size.height += 10;
-			if ((*iter)->_getInternalData() > size.width) size.width = (*iter)->_getInternalData();
+			if (iter->separator) size.height += 10;
+			if (iter->button->_getInternalData() > size.width) size.width = iter->button->_getInternalData();
 		}
 
 		setSize(size + mCoord.size() - mWidgetClient->getSize());
@@ -131,9 +153,9 @@ namespace MyGUI
 	{
 		// потом передалть на интернал дата
 		size_t index = ITEM_NONE;
-		for (VectorWidgetPtr::iterator iter=m_listWidgets.begin(); iter!=m_listWidgets.end(); ++iter) {
-			if ((*iter) == _sender) {
-				index = iter - m_listWidgets.begin();
+		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+			if (iter->button == _sender) {
+				index = iter - mItems.begin();
 				break;
 			}
 		}
@@ -152,14 +174,34 @@ namespace MyGUI
 		//ControllerManager::getInstance().addItem(this, controller);
 	}
 
+	void PopupMenu::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
+	{
+		// потом передалть на интернал дата
+		size_t index = ITEM_NONE;
+		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+		{
+			if (iter->button == _sender) {
+				index = iter - mItems.begin();
+				break;
+			}
+		}
+		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+		{
+			if (iter->submenu)
+				iter->submenu->hidePopupMenu(false);
+		}
+		if (mItems[index].submenu)
+			mItems[index].submenu->showPopupMenu(IntPoint(getRight(), mItems[index].button->getTop() + getTop()));
+	}
+
 	void PopupMenu::showPopupMenu(const IntPoint& _point)
 	{
 		setPosition(_point);
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		for (VectorWidgetPtr::iterator iter=m_listWidgets.begin(); iter!=m_listWidgets.end(); ++iter) {
-			if (static_cast<ButtonPtr>(*iter)->getButtonPressed()) {
-				static_cast<ButtonPtr>(*iter)->setButtonPressed(false);
+		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+			if (iter->button->getButtonPressed()) {
+				iter->button->setButtonPressed(false);
 			}
 		}
 
@@ -168,17 +210,6 @@ namespace MyGUI
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
-
-	/*void PopupMenu::_onKeyChangeRootFocus(bool _focus)
-	{
-		if (false == _focus) {
-			hidePopupMenu();
-			eventPopupMenuClose(this);
-		}
-
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyChangeRootFocus(_focus);
-	}*/
 
 	void PopupMenu::_onKeyLostFocus(WidgetPtr _new)
 	{
@@ -197,8 +228,21 @@ namespace MyGUI
 		Widget::eventKeyLostFocus(mWidgetEventSender, _new);
 	}
 
-	void PopupMenu::hidePopupMenu()
+	void PopupMenu::hidePopupMenu(bool _hideParentPopup)
 	{
+		if ( _hideParentPopup && (NULL != _getOwner()) )
+		{
+			// если наш папа попап меню или меню - спр€чем и его
+			if ( _getOwner()->getWidgetType() == getWidgetType() )
+			{
+				castWidget<PopupMenu>(_getOwner())->hidePopupMenu();
+			}
+			else if ( _getOwner()->getWidgetType() == MenuBar::_getType() )
+			{
+				castWidget<MenuBar>(_getOwner())->resetItemSelect();
+			}
+		}
+
 		// блокируем
 		setEnabledSilent(false);
 		// медленно скрываем
