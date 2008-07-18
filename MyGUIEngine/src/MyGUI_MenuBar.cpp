@@ -53,7 +53,7 @@ namespace MyGUI
 		button->setCaption(_item);
 
 		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>("PopupMenu", IntCoord(), ALIGN_DEFAULT, "Popup");
-		menu->eventPopupMenuClose = newDelegate(this, &MenuBar::notifyPopupMenuClose);
+		//menu->eventPopupMenuClose = newDelegate(this, &MenuBar::notifyPopupMenuClose);
 		menu->eventPopupMenuAccept = newDelegate(this, &MenuBar::notifyPopupMenuAccept);
 		menu->_setOwner(this);
 
@@ -132,7 +132,7 @@ namespace MyGUI
 
 		if (mIndexSelect != ITEM_NONE) {
 			mVectorMenuItemInfo[mIndexSelect].button->setButtonPressed(false);
-			mVectorMenuItemInfo[mIndexSelect].menu->hidePopupMenu();
+			mVectorMenuItemInfo[mIndexSelect].menu->hidePopupMenu(false);
 		}
 
 		mIndexSelect = _index;
@@ -144,7 +144,7 @@ namespace MyGUI
 		}
 	}
 
-	void MenuBar::notifyPopupMenuClose(WidgetPtr _sender)
+	/*void MenuBar::notifyPopupMenuClose(WidgetPtr _sender)
 	{
 		// при щелчке на активный понкт меню сбрасывать не нужно
 		if (mIndexSelect != ITEM_NONE) {
@@ -153,11 +153,11 @@ namespace MyGUI
 			if (mVectorMenuItemInfo[mIndexSelect].button == widget) return;
 		}
 		resetItemSelect();
-	}
+	}*/
 
 	void MenuBar::notifyPopupMenuAccept(WidgetPtr _sender, size_t _index)
 	{
-		resetItemSelect();
+		//resetItemSelect();
 		eventPopupMenuAccept(this, castWidget<PopupMenu>(_sender), _index);
 	}
 
