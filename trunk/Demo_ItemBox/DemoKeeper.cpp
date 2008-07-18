@@ -226,9 +226,9 @@ void DemoKeeper::end()
 void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info)
 {
 	if (_info.type == MyGUI::TOOLTIP_SHOW) {
-		//MyGUI::MYGUI_OUT("SHOW index : ", _info.index);
+		MyGUI::MYGUI_OUT("SHOW index : ", _info.index);
 	}
 	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
-		//MyGUI::MYGUI_OUT("HIDE");
+		MyGUI::MYGUI_OUT("HIDE");
 	}
 }
