@@ -689,15 +689,6 @@ namespace MyGUI
 		_requestGetDragItemInfo(this, _list, _index);
 	}
 
-	void Widget::_setDragItemInfo(size_t _index, bool _set, bool _accept)
-	{
-	}
-
-	void * Widget::_getDropItemData(size_t _index)
-	{
-		return null;
-	}
-
 	void Widget::setToolTipEnable(bool _enable)
 	{
 		if (mToolTipEnable == _enable) return;
@@ -740,25 +731,17 @@ namespace MyGUI
 						if (mToolTipVisible) {
 							mToolTipCurrentTime = 0;
 							mToolTipVisible = false;
-							eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
+							eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
 						}
 						mToolTipOldIndex = index;
 					}
-
-					/*if ( ! mToolTipVisible) {
-						mToolTipCurrentTime += _frame;
-						if (mToolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
-							mToolTipVisible = true;
-							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, index, point));
-						}
-					}*/
 
 				}
 				else {
 					if (mToolTipVisible) {
 						mToolTipCurrentTime = 0;
 						mToolTipVisible = false;
-						eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
+						eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
 					}
 				}
 
@@ -767,16 +750,10 @@ namespace MyGUI
 				if (mToolTipVisible) {
 					mToolTipCurrentTime = 0;
 					mToolTipVisible = false;
-					eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
+					eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
 				}
 			}
 
-			/*if (mToolTipVisible) {
-				mToolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE, ITEM_NONE, IntPoint()));
-			}
-			mToolTipCurrentTime = 0;
-			mToolTipOldPoint = point;*/
 			mToolTipOldPoint = point;
 		}
 		else {
@@ -799,12 +776,22 @@ namespace MyGUI
 						mToolTipCurrentTime += _frame;
 						if (mToolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
 							mToolTipVisible = true;
-							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, mToolTipOldIndex, point));
+							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, mToolTipOldIndex, point, getIndexItemData(mToolTipOldIndex)));
 						}
 					}
 				}
 			}
 		}
+	}
+
+	WidgetPtr Widget::findWidget(const std::string & _name)
+	{
+		if (_name == mName) return this;
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+			WidgetPtr find = (*widget)->findWidget(_name);
+			if (null != find) return find;
+		}
+		return null;
 	}
 
 } // namespace MyGUI

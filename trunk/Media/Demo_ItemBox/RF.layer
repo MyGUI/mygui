@@ -6,6 +6,7 @@
     <Layer name="Overlapped" overlapped="true" peek="true"/>
     <Layer name="Main" overlapped="false" peek="true"/>
     <Layer name="DragAndDrop"overlapped="false" peek="false"/>
+    <Layer name="ToolTip" overlapped="false" peek="false"/>
     <Layer name="Pointer" overlapped="false" peek="false"/>
     <Layer name="Statistic" overlapped="false" peek="false"/>
 

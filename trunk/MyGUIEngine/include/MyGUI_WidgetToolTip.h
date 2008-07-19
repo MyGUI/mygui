@@ -22,12 +22,16 @@ namespace MyGUI
 
 	struct ToolTipInfo
 	{
-		ToolTipInfo(ToolTipType _type, size_t _index, IntPoint _point) :
-			type(_type), index(_index), point(_point) { }
+		ToolTipInfo(ToolTipType _type, size_t _index, IntPoint _point, void * _data) :
+			type(_type), index(_index), point(_point), data(_data) { }
+
+		ToolTipInfo(ToolTipType _type) :
+			type(_type), index(ITEM_NONE), point(), data(0) { }
 
 		ToolTipType type;
 		size_t index;
 		IntPoint point;
+		void * data;
 	};
 
 } // namespace MyGUI

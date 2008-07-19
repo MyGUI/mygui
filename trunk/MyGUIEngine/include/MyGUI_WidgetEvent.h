@@ -27,7 +27,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, KeyCode, Char> EventInfo_WidgetKeyCodeChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr&, size_t &> EventInfo_WidgetRefWidgetRefSizeT;
-	typedef delegates::CDelegate2<WidgetPtr, ToolTipInfo> EventInfo_WidgetToolTip;
+	typedef delegates::CDelegate2<WidgetPtr, const ToolTipInfo & > EventInfo_WidgetToolTip;
 
 	/**
 	General information about creating delegate for event :
