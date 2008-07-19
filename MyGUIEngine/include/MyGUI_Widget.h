@@ -203,6 +203,8 @@ namespace MyGUI
 		/** Get copy of child widgets vector */
 		virtual VectorWidgetPtr getChilds();
 
+		WidgetPtr findWidget(const std::string & _name);
+
 		// наследуемся он LayerInfo
 		virtual LayerItem * _findLayerItem(int _left, int _top);
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item);
@@ -262,9 +264,9 @@ namespace MyGUI
 		// метод для запроса номера айтема и главного окна списка
 		virtual void _getDragItemInfo(WidgetPtr & _list, size_t & _index);
 		// метод для установления стейта айтема
-		virtual void _setDragItemInfo(size_t _index, bool _set, bool _accept);
+		virtual void _setDragItemInfo(size_t _index, bool _set, bool _accept) { }
 		// информация об элементе дропа по индексу
-		virtual void * _getDropItemData(size_t _index);
+		virtual void * getIndexItemData(size_t _index) { return null; }
 
 
       /** Set drag'n'drop mode flag */
@@ -332,6 +334,8 @@ namespace MyGUI
 		bool mToolTipVisible;
 		IntPoint mToolTipOldPoint;
 		size_t mToolTipOldIndex;
+		IntPoint m_oldMousePoint;
+		size_t mOldToolTipIndex;
 
 	};
 

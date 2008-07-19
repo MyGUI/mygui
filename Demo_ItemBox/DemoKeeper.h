@@ -8,6 +8,7 @@
 #define __DEMO_KEEPER_H__
 
 #include <MyGUI.h>
+#include "ToolTip.h"
 
 class DemoKeeper
 {
@@ -18,6 +19,9 @@ public:
 		ItemData(size_t _type, size_t _count) : type(_type), count(_count) {}
 		size_t type;
 		size_t count;
+
+		Ogre::UTFString name;
+		Ogre::UTFString description;
 	};
 
 	// структура для удобного поиска составляющий айтема
@@ -42,7 +46,12 @@ private:
 	void eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result);
 	void eventDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState _state);
 
-	void eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info);
+	void eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
+
+	void showToolTip(const MyGUI::IntPoint & _point, ItemData * _data);
+
+private:
+	ToolTipWindow mToolTipWindow;
 };
 
 #endif // __DEMO_KEEPER_H__

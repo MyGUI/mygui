@@ -49,7 +49,9 @@ namespace MyGUI
 				Return vector of pointers of loaded root widgets (root == without parents)
 		*/
 		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", WidgetPtr _parent = NULL, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		//void unload(const std::string & _file);
+
+		/** Unload layout file */
+		void unloadLayout(VectorWidgetPtr & _widgets);
 
 	private:
 		void parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);

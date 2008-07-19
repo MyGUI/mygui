@@ -469,7 +469,7 @@ namespace MyGUI
 		}
 	}
 
-	void * ItemBox::_getDropItemData(size_t _index)
+	void * ItemBox::getIndexItemData(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mItemsInfo.size() || _index == ITEM_NONE , "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
 		if (_index == ITEM_NONE) return null;
@@ -722,7 +722,7 @@ namespace MyGUI
 				reseiver->_eventInvalideDropInfo = newDelegate(this, &ItemBox::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
-				mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), reseiver, reseiver_index, reseiver->_getDropItemData(reseiver_index));
+				mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), reseiver, reseiver_index, reseiver->getIndexItemData(reseiver_index));
 				eventRequestDrop(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку

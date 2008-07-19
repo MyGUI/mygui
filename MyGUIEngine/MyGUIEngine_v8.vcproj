@@ -503,6 +503,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ResourcePath.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_TextIterator.cpp"
 					>
 				</File>

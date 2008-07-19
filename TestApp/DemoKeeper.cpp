@@ -139,7 +139,7 @@ void DemoKeeper::consolePressed()
 	}
 }
 
-void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info)
+void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
 	if (_info.type == MyGUI::TOOLTIP_SHOW) {
 		MyGUI::MYGUI_OUT("SHOW index : ", _info.index);
