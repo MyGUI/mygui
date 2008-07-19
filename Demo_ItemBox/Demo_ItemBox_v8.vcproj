@@ -188,6 +188,10 @@
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\ToolTip.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -200,6 +204,10 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ToolTip.h"
 				>
 			</File>
 		</Filter>

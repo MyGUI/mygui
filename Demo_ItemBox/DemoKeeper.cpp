@@ -172,6 +172,9 @@ void DemoKeeper::start()
 	MyGUI::LayerManager::getInstance().load("RF.layer");
 	MyGUI::PointerManager::getInstance().load("RF.pointer");
 
+	mToolTipWindow.initialise();
+	mToolTipWindow->hide();
+
 	MyGUI::StaticImagePtr back = gui->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, width, height), MyGUI::ALIGN_STRETCH, "Back");
 	back->setImageTexture("RF.jpg");
 
@@ -223,12 +226,37 @@ void DemoKeeper::end()
 {
 }
 
-void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info)
+void DemoKeeper::showToolTip(const MyGUI::IntPoint & _point, ItemData * _data)
+{
+	const MyGUI::IntPoint offset(10, 10);
+
+	if (_data == null) return;
+	if (_data->type == 0) return;
+
+	MyGUI::IntPoint point = _point + offset;
+	MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
+
+	const MyGUI::IntSize & size = mToolTipWindow->getSize();
+
+	if ((point.left + size.width) > gui->getViewWidth()) {
+		point.left -= offset.left + offset.left + size.width;
+	}
+	if ((point.top + size.height) > gui->getViewHeight()) {
+		point.top -= offset.top + offset.top + size.height;
+	}
+
+	mToolTipWindow.update(_data->count);
+
+	mToolTipWindow->setPosition(point);
+	mToolTipWindow->show();
+}
+
+void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
 	if (_info.type == MyGUI::TOOLTIP_SHOW) {
-		MyGUI::MYGUI_OUT("SHOW index : ", _info.index);
+		showToolTip(_info.point, (ItemData*)_info.data);
 	}
 	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
-		MyGUI::MYGUI_OUT("HIDE");
+		mToolTipWindow->hide();
 	}
 }

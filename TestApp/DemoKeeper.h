@@ -20,7 +20,7 @@ public:
 	void command(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);
 
 	void consolePressed();
-	void eventToolTip(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info);
+	void eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
 
 private:
 	MyGUI::Gui * mGUI;

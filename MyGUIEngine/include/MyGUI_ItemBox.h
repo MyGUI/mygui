@@ -204,8 +204,8 @@ namespace MyGUI
 		void setItemData(size_t _index, void * _data);
 
 		//! Get item from specified position
-		inline void * getItemData(size_t _index) {return _getDropItemData(_index);}
-		virtual void * _getDropItemData(size_t _index);
+		inline void * getItemData(size_t _index) {return getIndexItemData(_index);}
+		virtual void * getIndexItemData(size_t _index);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);

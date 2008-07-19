@@ -10,7 +10,7 @@
         <Property key="FontName" value = "RF_font.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_DEFAULT" />
-        <Property key="Colour" value = "0 0 0" />
+        <Property key="Colour" value = "1 1 1" />
         
         <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
     </Skin>
@@ -23,7 +23,7 @@
         <Property key="FontName" value = "RF_font.18" />
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_DEFAULT" />
-        <Property key="Colour" value = "0 0 0" />
+        <Property key="Colour" value = "1 1 1" />
         
         <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
     </Skin>
@@ -47,7 +47,7 @@
 
     <Skin name = "RF_WindowQ" size = "24 14" texture = "RF_Skin.png" >
         <BasisSkin type="MainSkin" offset = "0 0 24 14" align = "ALIGN_LEFT ALIGN_TOP">
-            <State name="normal" offset = "313 366 0 0"/>
+            <State name="normal" offset = "413 366 0 0"/>
             <State name="active" offset = "313 328 24 14"/>
             <State name="select" offset = "313 344 24 14"/>
         </BasisSkin>
@@ -55,7 +55,7 @@
     
     <Skin name = "RF_WindowX" size = "24 14" texture = "RF_Skin.png" >
         <BasisSkin type="MainSkin" offset = "0 0 24 14" align = "ALIGN_LEFT ALIGN_TOP">
-            <State name="normal" offset = "339 366 0 0"/>
+            <State name="normal" offset = "439 366 0 0"/>
             <State name="active" offset = "339 328 24 14"/>
             <State name="select" offset = "339 344 24 14"/>
         </BasisSkin>
@@ -223,6 +223,46 @@
 
         <Child type="Widget" skin="Default" offset = "0 0 20 9" align = "ALIGN_STRETCH" name = "Client">
         </Child>
+
+    </Skin>
+
+    <Skin name = "RF_ToolTip" size = "36 33" texture = "RF_Skin.png" >
+
+        <BasisSkin type="SubSkin" offset = "0 0 7 7" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "313 364 7 7"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "7 0 22 7" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "320 364 22 7"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "29 0 7 7" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "342 364 7 7"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "29 7 7 19" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "342 371 7 19"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "29 26 7 7" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "342 390 7 7"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "7 26 22 7" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "320 390 22 7"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 26 7 7" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "313 390 7 7"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 7 7 19" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "313 371 7 19"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "7 7 22 19" align = "ALIGN_HSTRETCH ALIGN_VSTRETCH">
+            <State name="normal" offset = "320 371 22 19"/>
+        </BasisSkin>
 
     </Skin>
 

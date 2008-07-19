@@ -65,6 +65,11 @@ namespace MyGUI
 		return widgets;
 	}
 
+	void LayoutManager::unloadLayout(VectorWidgetPtr & _widgets)
+	{
+		WidgetManager::getInstance().destroyWidgetsVector(_widgets);
+	}
+
 	void LayoutManager::parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
 	{
 		// берем детей и крутимся
