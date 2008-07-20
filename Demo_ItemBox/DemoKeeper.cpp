@@ -175,10 +175,24 @@ void DemoKeeper::start()
 	mToolTipWindow.initialise();
 	mToolTipWindow->hide();
 
+	mItemBoxV.initialise();
+	mItemBoxV.addItem(new ItemData2(0, 0, "", ""));
+	mItemBoxV.addItem(new ItemData2(5, 1, L"Свиток", L"описание Свиток"));
+	mItemBoxV.addItem(new ItemData2(5, 2, L"Полотно", L"описание Полотно"));
+	mItemBoxV.addItem(new ItemData2(5, 3, L"Слеза", L"описание Слеза"));
+	mItemBoxV.addItem(new ItemData2(5, 4, L"Глаз", L"описание Глаз"));
+	mItemBoxV.addItem(new ItemData2(5, 5, L"Изумруд", L"описание Изумруд"));
+	mItemBoxV.addItem(new ItemData2(5, 6, L"Крылья", L"описание Крылья"));
+	mItemBoxV.addItem(new ItemData2(5, 7, L"Лед", L"описание Лед"));
+	mItemBoxV.addItem(new ItemData2(5, 8, L"Щит", L"описание Щит"));
+	mItemBoxV.addItem(new ItemData2(5, 9, L"Сапоги", L"описание Сапоги"));
+
+	mItemBoxV.eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+
 	MyGUI::StaticImagePtr back = gui->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, width, height), MyGUI::ALIGN_STRETCH, "Back");
 	back->setImageTexture("RF.jpg");
 
-	MyGUI::WindowPtr win = gui->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(50, 100, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	MyGUI::WindowPtr win = gui->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(450, 100, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setMinMax(170, 60, 1000, 1000);
 	win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("RF_ItemBoxV", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientCoord().size()), MyGUI::ALIGN_STRETCH);
@@ -190,8 +204,8 @@ void DemoKeeper::start()
 	box->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::eventEndDrop);
 	box->eventDropState = MyGUI::newDelegate(this, &DemoKeeper::eventDropState);
 
-	box->setToolTipEnable(true);
-	box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+	//box->setToolTipEnable(true);
+	//box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
 
 	size_t num = 0;
 	while (num < 50) {
@@ -211,8 +225,8 @@ void DemoKeeper::start()
 	box->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::eventEndDrop);
 	box->eventDropState = MyGUI::newDelegate(this, &DemoKeeper::eventDropState);
 
-	box->setToolTipEnable(true);
-	box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+	//box->setToolTipEnable(true);
+	//box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
 
 	num = 0;
 	while (num < 50) {
@@ -226,9 +240,9 @@ void DemoKeeper::end()
 {
 }
 
-void DemoKeeper::showToolTip(const MyGUI::IntPoint & _point, ItemData * _data)
+void DemoKeeper::showToolTip(const MyGUI::IntPoint & _point, ItemData2 * _data)
 {
-	const MyGUI::IntPoint offset(10, 10);
+	/*const MyGUI::IntPoint offset(10, 10);
 
 	if (_data == null) return;
 	if (_data->type == 0) return;
@@ -248,13 +262,14 @@ void DemoKeeper::showToolTip(const MyGUI::IntPoint & _point, ItemData * _data)
 	mToolTipWindow.update(_data->count);
 
 	mToolTipWindow->setPosition(point);
-	mToolTipWindow->show();
+	mToolTipWindow->show();*/
 }
 
-void DemoKeeper::eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
+void DemoKeeper::eventToolTip(ItemBoxVLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData2 * _data)
 {
 	if (_info.type == MyGUI::TOOLTIP_SHOW) {
-		showToolTip(_info.point, (ItemData*)_info.data);
+		//showToolTip(_info.point, _data);
+		mToolTipWindow.show(_data, _info.point);
 	}
 	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
 		mToolTipWindow->hide();

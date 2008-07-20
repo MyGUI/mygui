@@ -31,6 +31,8 @@ namespace MyGUI
 			if (iter != param.end()) setImageTexture(iter->second);
 			iter = param.find("ImageRect");
 			if (iter != param.end()) setImageRect(IntRect::parse(iter->second));
+			iter = param.find("ImageCoord");
+			if (iter != param.end()) setImageCoord(IntCoord::parse(iter->second));
 			iter = param.find("ImageTile");
 			if (iter != param.end()) setImageTile(IntSize::parse(iter->second));
 			iter = param.find("ImageNum");

@@ -181,7 +181,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\BaseItemList.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BaseLayout.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BasisManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CellView.cpp"
 				>
 			</File>
 			<File
@@ -199,11 +211,27 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\BaseItemList.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BaseLayout.h"
+				>
+			</File>
+			<File
 				RelativePath=".\BasisManager.h"
 				>
 			</File>
 			<File
+				RelativePath=".\CellView.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ItemData.h"
 				>
 			</File>
 			<File
