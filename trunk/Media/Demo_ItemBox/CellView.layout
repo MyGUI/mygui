@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 50 50" name="_Main">
+    </Widget>
+</MyGUI>
