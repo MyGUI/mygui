@@ -11,10 +11,10 @@
 #include "BaseLayout.h"
 #include "ItemData.h"
 
-class ToolTipWindow : public BaseLayout
+class ToolTip : public BaseLayout
 {
 public:
-	ToolTipWindow();
+	ToolTip();
 
 	virtual void initialise();
 
