@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="RF_Window" position="50 100 365 256" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="RF_Window" position="750 600 365 256" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="drag and drop demo"/>
         <Property key="Widget_ToolTip" value="true"/>
         <Property key="Window_MinMax" value="170 60 1000 1000"/>

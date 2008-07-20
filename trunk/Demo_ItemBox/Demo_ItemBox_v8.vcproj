@@ -181,10 +181,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\BaseItemList.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\BaseLayout.cpp"
 				>
 			</File>
@@ -201,6 +197,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ItemBoxH.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ItemBoxV.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ToolTip.cpp"
 				>
 			</File>
@@ -210,10 +214,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\BaseItemList.h"
-				>
-			</File>
 			<File
 				RelativePath=".\BaseLayout.h"
 				>
@@ -228,6 +228,14 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ItemBoxH.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ItemBoxV.h"
 				>
 			</File>
 			<File

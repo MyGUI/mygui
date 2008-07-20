@@ -7,12 +7,12 @@
 
 #include "ToolTip.h"
 
-ToolTipWindow::ToolTipWindow() :
+ToolTip::ToolTip() :
 	BaseLayout("ToolTip.layout")
 {
 }
 
-void ToolTipWindow::initialise()
+void ToolTip::initialise()
 {
 	loadLayout();
 
@@ -22,7 +22,7 @@ void ToolTipWindow::initialise()
 	assignWidget(mImageInfo, "image_Info");
 }
 
-void ToolTipWindow::show(ItemData * _data, const MyGUI::IntPoint & _point)
+void ToolTip::show(ItemData * _data, const MyGUI::IntPoint & _point)
 {
 	const MyGUI::IntPoint offset(10, 10);
 
@@ -50,7 +50,7 @@ void ToolTipWindow::show(ItemData * _data, const MyGUI::IntPoint & _point)
 
 }
 
-void ToolTipWindow::hide()
+void ToolTip::hide()
 {
 	mMainWidget->hide();
 }
