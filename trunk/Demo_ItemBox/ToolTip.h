@@ -8,44 +8,24 @@
 #define __TOOL_TIP_H__
 
 #include <MyGUI.h>
+#include "BaseLayout.h"
+#include "ItemData.h"
 
-class ToolTipWindow
+class ToolTipWindow : public BaseLayout
 {
 public:
 	ToolTipWindow();
 
-	void initialise();
-	void shutdown();
+	virtual void initialise();
 
-	inline MyGUI::WidgetPtr operator->() const
-	{
-		MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
-		return mMainWidget;
-	}
-
-	inline MyGUI::WidgetPtr mainWidget()
-	{
-		MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
-		return mMainWidget;
-	}
-
-	void update(size_t count);
+	void show(ItemData2 * _data, const MyGUI::IntPoint & _point);
 
 private:
-	void loadLayout();
-
-	template <typename T>
-	void assignWidget(T * & _widget, const std::string & _name, bool _throw = true);
-
-private:
-	std::string mPrefix;
-	std::string mLayoutName;
-	MyGUI::VectorWidgetPtr mListWindowRoot;
-	MyGUI::WidgetPtr mMainWidget;
 
 	MyGUI::StaticTextPtr mTextName;
 	MyGUI::StaticTextPtr mTextCount;
 	MyGUI::StaticTextPtr mTextDesc;
+	MyGUI::StaticImagePtr mImageInfo;
 };
 
 #endif // __TOOL_TIP_H__

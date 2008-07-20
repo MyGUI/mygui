@@ -7,8 +7,8 @@
     </Skin>
 
     <Skin name = "StaticText" size = "16 16">
-        <Property key="FontName" value = "RF_font.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontName" value = "RF_font.15" />
+        <Property key="FontHeight" value = "15" />
         <Property key="AlignText" value = "ALIGN_DEFAULT" />
         <Property key="Colour" value = "1 1 1" />
         
@@ -20,8 +20,8 @@
     </Skin>
     
     <Skin name = "RF_StaticText" size = "16 16">
-        <Property key="FontName" value = "RF_font.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontName" value = "RF_font.15" />
+        <Property key="FontHeight" value = "15" />
         <Property key="AlignText" value = "ALIGN_DEFAULT" />
         <Property key="Colour" value = "1 1 1" />
         
@@ -29,8 +29,8 @@
     </Skin>
 
     <Skin name = "RF_WindowCaption" size = "10 10" texture = "RF_Skin.png" >
-        <Property key="FontName" value = "RF_font.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontName" value = "RF_font.15" />
+        <Property key="FontHeight" value = "15" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "1 1 1" />
 
@@ -62,12 +62,8 @@
     </Skin>
     
     <Skin name = "RF_Window" size = "18 18" texture = "RF_Skin.png" >
-        <Property key="FontName" value = "RF_font.18" />
-        <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_CENTER" />
-        <Property key="Colour" value = "0 0 0" />
 
-        <Child type="Button" skin="RF_WindowCaption" offset = "38 0 -59 28" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
+        <Child type="Button" skin="RF_WindowCaption" offset = "38 0 -59 32" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
             <Property key="Scale" value = "1 1 0 0"/>
         </Child>
 
