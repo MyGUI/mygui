@@ -7,7 +7,7 @@
 #include "DemoKeeper.h"
 #include "BasisManager.h"
 
-void DemoKeeper::requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _info)
+/*void DemoKeeper::requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _info)
 {
 	// данные виджета
 	WidgetData * data = new WidgetData();
@@ -48,7 +48,7 @@ void DemoKeeper::requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::IntCoor
 {
 	if (_drop) _coord.set(-5, -5, 78, 78);
 	else {
-		_coord.set(0, 0, /*_sender->getClientCoord().width*/68, 68);
+		_coord.set(0, 0, 68, 68);
 	}
 }
 
@@ -96,9 +96,9 @@ void DemoKeeper::requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::Widget
 		info->item3->setImageNum(0);
 	}
 
-}
+}*/
 
-void DemoKeeper::eventStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+void DemoKeeper::notifyStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 {
 	if (_info.sender_index != ITEM_NONE) {
 		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_info.sender);
@@ -110,7 +110,7 @@ void DemoKeeper::eventStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropI
 	}
 }
 
-void DemoKeeper::eventRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+void DemoKeeper::notifyRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 {
 	// не на айтем кидаем
 	if (_info.reseiver_index == ITEM_NONE) {
@@ -130,7 +130,7 @@ void DemoKeeper::eventRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDro
 	_result = (reseiver_data->type == 0) || (reseiver_data->type == sender_data->type);
 }
 
-void DemoKeeper::eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result)
+void DemoKeeper::notifyEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result)
 {
 	if (_result) {
 		MyGUI::ItemBoxPtr sender = MyGUI::castWidget<MyGUI::ItemBox>(_info.sender);
@@ -142,7 +142,7 @@ void DemoKeeper::eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInf
 		reseiver_data->type = sender_data->type;
 		reseiver_data->count += sender_data->count;
 
-		sender_data->type = 0;
+		sender_data->type = TypeNone;
 		sender_data->count = 0;
 
 		reseiver->setItemData(_info.reseiver_index, (void*)reseiver_data);
@@ -152,12 +152,12 @@ void DemoKeeper::eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInf
 	MyGUI::PointerManager::getInstance().setDefaultPointer();
 }
 
-void DemoKeeper::eventDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState _state)
+void DemoKeeper::notifyDropState(ItemBoxVLayout * _sender, MyGUI::DropState _state)
 {
-	if (_state == MyGUI::DROP_REFUSE) MyGUI::PointerManager::getInstance().setPointer("RF_drop_refuse", _sender);
-	else if (_state == MyGUI::DROP_ACCEPT) MyGUI::PointerManager::getInstance().setPointer("RF_drop_accept", _sender);
-	else if (_state == MyGUI::DROP_MISS) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender);
-	//else if (_state == MyGUI::DROP_START) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender);
+	if (_state == MyGUI::DROP_REFUSE) MyGUI::PointerManager::getInstance().setPointer("RF_drop_refuse", _sender->mainWidget());
+	else if (_state == MyGUI::DROP_ACCEPT) MyGUI::PointerManager::getInstance().setPointer("RF_drop_accept", _sender->mainWidget());
+	else if (_state == MyGUI::DROP_MISS) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
+	//else if (_state == MyGUI::DROP_START) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
 	else if (_state == MyGUI::DROP_END) MyGUI::PointerManager::getInstance().setDefaultPointer();
 }
 
@@ -176,23 +176,24 @@ void DemoKeeper::start()
 	mToolTipWindow->hide();
 
 	mItemBoxV.initialise();
-	mItemBoxV.addItem(new ItemData2(0, 0, "", ""));
-	mItemBoxV.addItem(new ItemData2(5, 1, L"Свиток", L"описание Свиток"));
-	mItemBoxV.addItem(new ItemData2(5, 2, L"Полотно", L"описание Полотно"));
-	mItemBoxV.addItem(new ItemData2(5, 3, L"Слеза", L"описание Слеза"));
-	mItemBoxV.addItem(new ItemData2(5, 4, L"Глаз", L"описание Глаз"));
-	mItemBoxV.addItem(new ItemData2(5, 5, L"Изумруд", L"описание Изумруд"));
-	mItemBoxV.addItem(new ItemData2(5, 6, L"Крылья", L"описание Крылья"));
-	mItemBoxV.addItem(new ItemData2(5, 7, L"Лед", L"описание Лед"));
-	mItemBoxV.addItem(new ItemData2(5, 8, L"Щит", L"описание Щит"));
-	mItemBoxV.addItem(new ItemData2(5, 9, L"Сапоги", L"описание Сапоги"));
+	mItemBoxV.addItem(new ItemData(TypeNone, 0, "", ""));
+	mItemBoxV.addItem(new ItemData(TypeRoll, 5, L"Свиток", L"описание Свиток"));
+	mItemBoxV.addItem(new ItemData(TypeCloth, 5, L"Полотно", L"описание Полотно"));
+	mItemBoxV.addItem(new ItemData(TypeTear, 5, L"Слеза", L"описание Слеза"));
+	mItemBoxV.addItem(new ItemData(TypeEye, 5, L"Глаз", L"описание Глаз"));
+	mItemBoxV.addItem(new ItemData(TypeEmerald, 5, L"Изумруд", L"описание Изумруд"));
+	mItemBoxV.addItem(new ItemData(TypeWings, 5, L"Крылья", L"описание Крылья"));
+	mItemBoxV.addItem(new ItemData(TypeIce, 5, L"Лед", L"описание Лед"));
+	mItemBoxV.addItem(new ItemData(TypeBoard, 5, L"Щит", L"описание Щит"));
+	mItemBoxV.addItem(new ItemData(TypeBoots, 5, L"Сапоги", L"описание Сапоги"));
 
-	mItemBoxV.eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+	mItemBoxV.eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
+	mItemBoxV.eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
 
 	MyGUI::StaticImagePtr back = gui->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, width, height), MyGUI::ALIGN_STRETCH, "Back");
 	back->setImageTexture("RF.jpg");
 
-	MyGUI::WindowPtr win = gui->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(450, 100, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
+	/*MyGUI::WindowPtr win = gui->createWidget<MyGUI::Window>("RF_Window", MyGUI::IntCoord(450, 100, 365, 256), MyGUI::ALIGN_DEFAULT, "Overlapped");
 	win->setMinMax(170, 60, 1000, 1000);
 	win->setCaption("drag and drop demo");
 	MyGUI::ItemBoxPtr box = win->createWidget<MyGUI::ItemBox>("RF_ItemBoxV", MyGUI::IntCoord(MyGUI::IntPoint(), win->getClientCoord().size()), MyGUI::ALIGN_STRETCH);
@@ -204,8 +205,8 @@ void DemoKeeper::start()
 	box->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::eventEndDrop);
 	box->eventDropState = MyGUI::newDelegate(this, &DemoKeeper::eventDropState);
 
-	//box->setToolTipEnable(true);
-	//box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+	box->setToolTipEnable(true);
+	box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
 
 	size_t num = 0;
 	while (num < 50) {
@@ -225,14 +226,14 @@ void DemoKeeper::start()
 	box->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::eventEndDrop);
 	box->eventDropState = MyGUI::newDelegate(this, &DemoKeeper::eventDropState);
 
-	//box->setToolTipEnable(true);
-	//box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
+	box->setToolTipEnable(true);
+	box->eventToolTip = newDelegate(this, &DemoKeeper::eventToolTip);
 
 	num = 0;
 	while (num < 50) {
 		box->addItem((void*) new ItemData(num%9, (num%9 == 0) ? 0 : 5));
 		num ++;
-	}
+	}*/
 
 }
 
@@ -240,9 +241,9 @@ void DemoKeeper::end()
 {
 }
 
-void DemoKeeper::showToolTip(const MyGUI::IntPoint & _point, ItemData2 * _data)
+/*void DemoKeeper::showToolTip(const MyGUI::IntPoint & _point, ItemData * _data)
 {
-	/*const MyGUI::IntPoint offset(10, 10);
+	const MyGUI::IntPoint offset(10, 10);
 
 	if (_data == null) return;
 	if (_data->type == 0) return;
@@ -262,16 +263,15 @@ void DemoKeeper::showToolTip(const MyGUI::IntPoint & _point, ItemData2 * _data)
 	mToolTipWindow.update(_data->count);
 
 	mToolTipWindow->setPosition(point);
-	mToolTipWindow->show();*/
-}
+	mToolTipWindow->show();
+}*/
 
-void DemoKeeper::eventToolTip(ItemBoxVLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData2 * _data)
+void DemoKeeper::notifyToolTip(ItemBoxVLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
 {
 	if (_info.type == MyGUI::TOOLTIP_SHOW) {
-		//showToolTip(_info.point, _data);
 		mToolTipWindow.show(_data, _info.point);
 	}
 	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
-		mToolTipWindow->hide();
+		mToolTipWindow.hide();
 	}
 }

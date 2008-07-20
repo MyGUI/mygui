@@ -235,6 +235,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ItemDropInfo.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ToolTip.h"
 				>
 			</File>

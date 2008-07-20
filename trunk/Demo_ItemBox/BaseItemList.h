@@ -11,27 +11,7 @@
 #include "BaseLayout.h"
 #include "CellView.h"
 #include "ItemData.h"
-
-struct ItemDropInfo
-{
-	ItemDropInfo(const MyGUI::ItemDropInfo & _info) :
-		sender((BaseLayout*)_info.sender->getUserData()),
-		sender_index(_info.sender_index),
-		sender_data((ItemData2*)_info.sender_data),
-		reseiver(_info.reseiver ? (BaseLayout*)_info.reseiver->getUserData() : null),
-		reseiver_index(_info.reseiver_index),
-		reseiver_data((ItemData2*)_info.reseiver_data)
-	{
-	}
-
-	BaseLayout * sender;
-	size_t sender_index;
-	ItemData2 * sender_data;
-
-	BaseLayout * reseiver;
-	size_t reseiver_index;
-	ItemData2 * reseiver_data;
-};
+#include "ItemDropInfo.h"
 
 class ItemBoxVLayout : public BaseLayout
 {
@@ -41,7 +21,7 @@ public:
 	virtual void initialise();
 	virtual void shutdown();
 
-	void addItem(ItemData2 * _data);
+	void addItem(ItemData * _data);
 
 private:
 	void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _info);
@@ -61,7 +41,9 @@ public:
 	MyGUI::delegates::CDelegate3<ItemBoxVLayout *, ItemDropInfo, bool &> eventRequestDrop;
 	MyGUI::delegates::CDelegate3<ItemBoxVLayout *, ItemDropInfo, bool> eventEndDrop;
 
-	MyGUI::delegates::CDelegate3<ItemBoxVLayout *, const MyGUI::ToolTipInfo &, ItemData2 *> eventToolTip;
+	MyGUI::delegates::CDelegate2<ItemBoxVLayout *, MyGUI::DropState> eventDropState;
+
+	MyGUI::delegates::CDelegate3<ItemBoxVLayout *, const MyGUI::ToolTipInfo &, ItemData *> eventToolTip;
 
 private:
 	MyGUI::ItemBoxPtr mBoxItems;

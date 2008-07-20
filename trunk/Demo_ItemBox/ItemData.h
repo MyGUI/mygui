@@ -7,19 +7,35 @@
 #ifndef __ITEM_DATA_H__
 #define __ITEM_DATA_H__
 
-class ItemData2
+#include <Ogre.h>
+
+enum ItemType
+{
+	TypeNone,
+	TypeRoll,
+	TypeCloth,
+	TypeTear,
+	TypeEye,
+	TypeEmerald,
+	TypeWings,
+	TypeIce,
+	TypeBoard,
+	TypeBoots
+};
+
+class ItemData
 {
 public:
-	ItemData2(size_t _count, size_t _type, const Ogre::UTFString & _name, const Ogre::UTFString & _description) :
-		count(_count),
+	ItemData(ItemType _type, size_t _count, const Ogre::UTFString & _name, const Ogre::UTFString & _description) :
 		type(_type),
+		count(_count),
 		name(_name),
 		description(_description)
 	{
 	}
 
 	size_t count;
-	size_t type;
+	ItemType type;
 
 	Ogre::UTFString name;
 	Ogre::UTFString description;

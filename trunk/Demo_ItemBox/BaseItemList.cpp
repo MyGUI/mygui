@@ -55,7 +55,7 @@ void ItemBoxVLayout::requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::Int
 
 void ItemBoxVLayout::requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _item, const MyGUI::ItemInfo& _data)
 {
-	((CellView*)_item.data)->update(_data, (ItemData2*)_data.data);
+	((CellView*)_item.data)->update(_data, (ItemData*)_data.data);
 }
 
 void ItemBoxVLayout::notifyStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
@@ -79,15 +79,15 @@ void ItemBoxVLayout::notifyDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState 
 
 void ItemBoxVLayout::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
-	ItemData2 * data = null;
+	ItemData * data = null;
 	if (_info.type == MyGUI::TOOLTIP_SHOW) {
 		if (_info.index == ITEM_NONE) return;
-		data = (ItemData2*)mBoxItems->getItemData(_info.index);
+		data = (ItemData*)mBoxItems->getItemData(_info.index);
 	}
 	eventToolTip(this, _info, data);
 }
 
-void ItemBoxVLayout::addItem(ItemData2 * _data)
+void ItemBoxVLayout::addItem(ItemData * _data)
 {
 	mBoxItems->addItem(_data);
 }

@@ -18,7 +18,7 @@ public:
 
 	void initialise(MyGUI::WidgetPtr _parent);
 
-	void update(const MyGUI::ItemInfo& _info, ItemData2 * _data);
+	void update(const MyGUI::ItemInfo& _info, ItemData * _data);
 
 private:
 
