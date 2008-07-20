@@ -18,7 +18,8 @@ public:
 
 	virtual void initialise();
 
-	void show(ItemData2 * _data, const MyGUI::IntPoint & _point);
+	void show(ItemData * _data, const MyGUI::IntPoint & _point);
+	void hide();
 
 private:
 

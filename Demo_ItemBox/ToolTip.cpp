@@ -22,7 +22,7 @@ void ToolTipWindow::initialise()
 	assignWidget(mImageInfo, "image_Info");
 }
 
-void ToolTipWindow::show(ItemData2 * _data, const MyGUI::IntPoint & _point)
+void ToolTipWindow::show(ItemData * _data, const MyGUI::IntPoint & _point)
 {
 	const MyGUI::IntPoint offset(10, 10);
 
@@ -48,4 +48,9 @@ void ToolTipWindow::show(ItemData2 * _data, const MyGUI::IntPoint & _point)
 	mMainWidget->setPosition(point);
 	mMainWidget->show();
 
+}
+
+void ToolTipWindow::hide()
+{
+	mMainWidget->hide();
 }
