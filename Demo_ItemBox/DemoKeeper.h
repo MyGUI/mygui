@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "ToolTip.h"
+#include "BaseItemList.h"
 
 class DemoKeeper
 {
@@ -46,12 +47,13 @@ private:
 	void eventEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result);
 	void eventDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState _state);
 
-	void eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
+	void eventToolTip(ItemBoxVLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData2 * _data);
 
-	void showToolTip(const MyGUI::IntPoint & _point, ItemData * _data);
+	void showToolTip(const MyGUI::IntPoint & _point, ItemData2 * _data);
 
 private:
 	ToolTipWindow mToolTipWindow;
+	ItemBoxVLayout mItemBoxV;
 };
 
 #endif // __DEMO_KEEPER_H__

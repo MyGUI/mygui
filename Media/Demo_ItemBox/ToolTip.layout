@@ -2,7 +2,6 @@
 <MyGUI type="Layout">
     <Widget type="Widget" skin="RF_ToolTip" position="544 232 192 192" layer="ToolTip" name="_Main">
         <Widget type="StaticImage" skin="StaticImage" position="112 37 68 68" align="ALIGN_RIGHT ALIGN_TOP" name="image_Info">
-            <Property key="Widget_Colour" value=""/>
         </Widget>
         <Widget type="StaticText" skin="RF_StaticText" position="8 8 176 16" name="text_Name">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
