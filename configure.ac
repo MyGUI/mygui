@@ -30,5 +30,6 @@ AC_CONFIG_FILES([Makefile
                  MyGUIEngine/include/Makefile
                  TestApp/Makefile
                  LayoutEditor/Makefile
+                 Demo_ItemBox/Makefile
                  MyGUI.pc])
 AC_OUTPUT
