@@ -359,6 +359,9 @@
 					RelativePath=".\src\MyGUI_RenderOut.cpp">
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ResourcePath.cpp">
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_TextIterator.cpp">
 				</File>
 				<File
@@ -615,9 +618,6 @@
 						RelativePath=".\include\MyGUI_EnumCharInfo.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_FrameListener.h">
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_InputDefine.h">
 					</File>
 					<File
@@ -652,6 +652,9 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetOIS.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetToolTip.h">
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetUserData.h">
@@ -723,7 +726,7 @@
 						RelativePath=".\include\MyGUI_DrawItem.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_layerItem.h">
+						RelativePath=".\include\MyGUI_LayerItem.h">
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_LayerItemKeeper.h">
