@@ -135,7 +135,7 @@ namespace MyGUI
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 	protected:
-		void _frameEntered(float _time);
+		void frameEntered(float _time);
 
 		void _onMouseDrag(int _left, int _top);
 		void _onMouseButtonPressed(int _left, int _top, MouseButton _id);

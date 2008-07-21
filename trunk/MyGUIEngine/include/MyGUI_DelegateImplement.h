@@ -22,6 +22,7 @@ namespace delegates
 	public:
 		virtual ~I_DELEGATE() {}
 		virtual void Invoke(PARAMS) = 0;
+		virtual bool Compare(I_DELEGATE<TEMPLATE_ARGS>* pDelegate) = 0;
 	};
 
 	// делегат для статической функции
@@ -32,7 +33,13 @@ namespace delegates
 		typedef void (*PFunc)(PARAMS);
 		C_STATIC_DELEGATE(PFunc pFunc) { mFunc = pFunc; }
 		virtual void Invoke(PARAMS) { mFunc(ARGS); }
-
+		virtual bool Compare(I_DELEGATE<TEMPLATE_ARGS>* pDelegate)
+		{
+			C_STATIC_DELEGATE<TEMPLATE_ARGS>* pStaticDel =
+			dynamic_cast<C_STATIC_DELEGATE<TEMPLATE_ARGS>*>(pDelegate);
+			if (pStaticDel == NULL || pStaticDel->mFunc != mFunc) return false;
+			return true;
+		}
 	private:
 		PFunc mFunc;
 	};
@@ -49,6 +56,13 @@ namespace delegates
 			mMethod = pMethod;
 		}
 		virtual void Invoke(PARAMS) { (mObject->*mMethod)(ARGS); }
+		virtual bool Compare(I_DELEGATE<TEMPLATE_ARGS>* pDelegate)
+		{
+			C_METHOD_DELEGATE<TObj, TEMPLATE_ARGS>* pMethodDel =
+			dynamic_cast<C_METHOD_DELEGATE<TObj, TEMPLATE_ARGS>*>(pDelegate);
+			if ( pMethodDel == NULL || pMethodDel->mObject != mObject || pMethodDel->mMethod != mMethod ) return false;
+			return true;
+		}
 
 	private:
 		TObj *mObject;

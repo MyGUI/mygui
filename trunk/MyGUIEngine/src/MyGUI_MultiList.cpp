@@ -64,7 +64,7 @@ namespace MyGUI
 
 	MultiList::~MultiList()
 	{
-		Gui::getInstance().removeFrameListener(this);
+		Gui::getInstance().removeFrameListener(newDelegate(this, &MultiList::frameEntered));
 	}
 
 	//----------------------------------------------------------------------------------//
@@ -537,14 +537,14 @@ namespace MyGUI
 	void MultiList::setDirtySort()
 	{
 		if (mIsDirtySort) return;
-		Gui::getInstance().addFrameListener(this);
+		Gui::getInstance().addFrameListener(newDelegate(this, &MultiList::frameEntered));
 		mIsDirtySort = true;
 	}
 
-	void MultiList::_frameEntered(float _frame)
+	void MultiList::frameEntered(float _frame)
 	{
 		if (false == mIsDirtySort) {
-			Gui::getInstance().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(newDelegate(this, &MultiList::frameEntered));
 			return;
 		}
 		sortList();

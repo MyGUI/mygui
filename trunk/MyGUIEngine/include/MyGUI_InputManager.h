@@ -11,7 +11,6 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_FrameListener.h"
 #include "MyGUI_UnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_XmlDocument.h"
@@ -23,7 +22,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef delegates::CDelegate1<const std::string &> EventInfo_String;
 
-	class _MyGUIExport InputManager : public FrameListener, public UnlinkWidget
+	class _MyGUIExport InputManager : public UnlinkWidget
 	{
 		INSTANCE_HEADER(InputManager);
 
@@ -132,7 +131,7 @@ namespace MyGUI
 		inline const std::string & getCurrentLang() { return (*mCurrentLanguage).first; }
 
 	protected:
-		void _frameEntered(float _frame);
+		void frameEntered(float _frame);
 
 		void detectLangShift(KeyCode keyEvent, bool bIsKeyPressed);
 		Char getKeyChar(KeyCode keyEvent); // возвращает символ по его скан коду

@@ -706,15 +706,15 @@ namespace MyGUI
 		mNeedToolTip = _need;
 
 		if (mNeedToolTip) {
-			Gui::getInstance().addFrameListener(this);
+			Gui::getInstance().addFrameListener(newDelegate(this, &Widget::frameEntered));
 			mToolTipCurrentTime = 0;
 		}
 		else {
-			Gui::getInstance().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
 		}
 	}
 
-	void Widget::_frameEntered(float _frame)
+	void Widget::frameEntered(float _frame)
 	{
 		if ( ! mEnableToolTip) return;
 
