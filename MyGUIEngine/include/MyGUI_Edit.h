@@ -11,12 +11,11 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
-//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Edit : public Widget//, public FrameListener
+	class _MyGUIExport Edit : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::EditFactory;
@@ -220,7 +219,7 @@ namespace MyGUI
 		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
 	protected:
-		virtual void _frameEntered(float _frame);
+		void frameEntered(float _frame);
 
 		// потом убрать все нотифи в сраку
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);

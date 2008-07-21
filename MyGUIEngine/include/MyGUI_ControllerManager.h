@@ -9,7 +9,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_FrameListener.h"
 #include "MyGUI_ControllerItem.h"
 #include "MyGUI_UnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
@@ -21,7 +20,7 @@ namespace MyGUI
 	typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
 	typedef std::list<PairControllerItem> ListControllerItem;
 
-	class _MyGUIExport ControllerManager : public FrameListener, public UnlinkWidget
+	class _MyGUIExport ControllerManager : public UnlinkWidget
 	{
 		INSTANCE_HEADER(ControllerManager);
 
@@ -46,7 +45,7 @@ namespace MyGUI
 		void _unlinkWidget(WidgetPtr _widget);
 
 	private:
-		void _frameEntered(float _time);
+		void frameEntered(float _time);
 		void clear();
 
 	private:

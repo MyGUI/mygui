@@ -59,7 +59,7 @@ namespace MyGUI
 		if (iter->images.size() < 2) {
 			if (mFrameAdvise) {
 				mFrameAdvise = false;
-				Gui::getInstance().removeFrameListener(this);
+				Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
 			}
 		}
 		else {
@@ -67,7 +67,7 @@ namespace MyGUI
 				mCurrentTime = 0;
 				mCurrentFrame = 0;
 				mFrameAdvise = true;
-				Gui::getInstance().addFrameListener(this);
+				Gui::getInstance().addFrameListener(newDelegate(this, &StaticImage::frameEntered));
 			}
 		}
 
@@ -243,7 +243,7 @@ namespace MyGUI
 		if (_index == mIndexSelect) updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::_frameEntered(float _frame)
+	void StaticImage::frameEntered(float _frame)
 	{
 		if (mIndexSelect == ITEM_NONE) return;
 		VectorImages::iterator iter = mItems.begin() + mIndexSelect;

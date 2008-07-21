@@ -848,10 +848,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_FrameListener.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_InputDefine.h"
 						>
 					</File>

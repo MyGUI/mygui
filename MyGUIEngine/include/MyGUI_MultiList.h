@@ -9,7 +9,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -26,7 +25,7 @@ namespace MyGUI
 	typedef std::vector<size_t> VectorSizeT;
 	typedef delegates::CDelegate5<WidgetPtr, size_t, const Ogre::UTFString &, const Ogre::UTFString &, bool &> EventInfo_WidgetIntUTFStringUTFStringBool;
 
-	class _MyGUIExport MultiList : public Widget//, public FrameListener
+	class _MyGUIExport MultiList : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::MultiListFactory;
@@ -167,7 +166,7 @@ void operatorLess(MyGUI::WidgetPtr _sender, size_t _column, const Ogre::UTFStrin
 		EventInfo_WidgetIntUTFStringUTFStringBool operatorLess;
 
 	protected:
-		virtual void _frameEntered(float _frame);
+		void frameEntered(float _frame);
 
 		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position);
