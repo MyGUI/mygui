@@ -276,8 +276,11 @@ namespace MyGUI
 
 		inline SubWidgetTextInterfacePtr _getSubWidgetText() { return mText; }
 
-		inline bool getToolTipEnable() { return mToolTipEnable; }
-		void setToolTipEnable(bool _enable);
+		inline bool getNeedToolTip() { return mNeedToolTip; }
+		void setNeedToolTip(bool _need);
+
+		inline bool getEnableToolTip() { return mEnableToolTip; }
+		void enableToolTip(bool _enable);
 
 	protected:
 		// список всех стейтов
@@ -329,9 +332,10 @@ namespace MyGUI
 		// клиентская зона окна
 		WidgetPtr mWidgetClient;
 
-		bool mToolTipEnable;
-		float mToolTipCurrentTime;
+		bool mNeedToolTip;
+		bool mEnableToolTip;
 		bool mToolTipVisible;
+		float mToolTipCurrentTime;
 		IntPoint mToolTipOldPoint;
 		size_t mToolTipOldIndex;
 		IntPoint m_oldMousePoint;
