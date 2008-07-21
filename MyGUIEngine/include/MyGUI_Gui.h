@@ -11,7 +11,6 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_CastWidget.h"
-#include "MyGUI_FrameListener.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetCreator.h"
 
@@ -22,6 +21,9 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
+
+	typedef delegates::IDelegate1<float> FrameEventDelegate;
+	typedef std::list<FrameEventDelegate*> ListFrameEvent;
 
 	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator
 	{
@@ -103,9 +105,9 @@ namespace MyGUI
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
 		/** Add GUI frame listener */
-		void addFrameListener(FrameListener * _listener);
+		void addFrameListener(FrameEventDelegate * _delegate);
 		/** Remove GUI frame listener */
-		void removeFrameListener(FrameListener * _listener);
+		void removeFrameListener(FrameEventDelegate * _delegate);
 
 		/** Inject frame entered event.
 			This function should be called every frame.
@@ -294,7 +296,7 @@ namespace MyGUI
 		PluginManager* mPluginManager;
 
 		// подписчики на кадры
-		ListFrameListener mListFrameListener;
+		ListFrameEvent mListFrameEvent;
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;

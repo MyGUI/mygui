@@ -126,7 +126,7 @@ namespace MyGUI
 		float getItemFrameRate(size_t _index);
 
 	private:
-		virtual void _frameEntered(float _frame);
+		void frameEntered(float _frame);
 
 		void recalcIndexes();
 		void updateSelectIndex(size_t _index);

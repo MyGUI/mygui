@@ -13,12 +13,11 @@
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetEvent.h"
 #include "MyGUI_WidgetCreator.h"
-#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Widget : public CroppedRectangleInterface, public LayerItem, public UserData, public WidgetEvent, public WidgetCreator, public FrameListener
+	class _MyGUIExport Widget : public CroppedRectangleInterface, public LayerItem, public UserData, public WidgetEvent, public WidgetCreator
 	{
 		// для вызова закрытых деструкторов
 		friend class WidgetCreator;
@@ -49,7 +48,7 @@ namespace MyGUI
 
 		static Ogre::String WidgetTypeName;
 
-		virtual void _frameEntered(float _frame);
+		void frameEntered(float _frame);
 
 		virtual size_t _getToolTipIndex(IntPoint _point) { return ITEM_NONE; }
 

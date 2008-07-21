@@ -9,12 +9,11 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Progress : public Widget//, public FrameListener
+	class _MyGUIExport Progress : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::ProgressFactory;
@@ -25,7 +24,7 @@ namespace MyGUI
 
 		static Ogre::String WidgetTypeName;
 
-		void _frameEntered(float _time);
+		void frameEntered(float _time);
 
 	public:
 		//! @copydoc Widget::_getType()

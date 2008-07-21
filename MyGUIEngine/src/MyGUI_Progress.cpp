@@ -54,7 +54,7 @@ namespace MyGUI
 
 	Progress::~Progress()
 	{
-		if (mAutoTrack) Gui::getInstance().removeFrameListener(this);
+		if (mAutoTrack) Gui::getInstance().removeFrameListener(newDelegate(this, &Progress::frameEntered));
 	}
 
 	void Progress::setProgressRange(size_t _range)
@@ -80,19 +80,19 @@ namespace MyGUI
 		mAutoTrack = _auto;
 
 		if (mAutoTrack) {
-			Gui::getInstance().addFrameListener(this);
+			Gui::getInstance().addFrameListener(newDelegate(this, &Progress::frameEntered));
 			mRange = PROGRESS_AUTO_RANGE;
 			mEndPosition = mStartPosition = 0;
 			mAutoPosition = 0.0f;
 		}
 		else {
-			Gui::getInstance().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(newDelegate(this, &Progress::frameEntered));
 			mRange = mEndPosition = mStartPosition = 0;
 		}
 		updateTrack();
 	}
 
-	void Progress::_frameEntered(float _time)
+	void Progress::frameEntered(float _time)
 	{
 		if (false == mAutoTrack) return;
 		mAutoPosition += (PROGRESS_AUTO_COEF * _time);

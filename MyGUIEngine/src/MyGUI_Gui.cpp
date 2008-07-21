@@ -102,7 +102,7 @@ namespace MyGUI
 		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 
 		unregisterLoadXmlDelegate(XML_TYPE);
-		mListFrameListener.clear();
+		mListFrameEvent.clear();
 		mMapLoadXmlDelegate.clear();
 
 		_destroyAllChildWidget();
@@ -140,39 +140,6 @@ namespace MyGUI
 		LogManager::shutdown();
 
 		mIsInitialise = false;
-	}
-
-	void Gui::addFrameListener(FrameListener * _listener)
-	{
-		if (null == _listener) return;
-
-		removeFrameListener(_listener);
-		mListFrameListener.push_back(_listener);
-	}
-
-	void Gui::removeFrameListener(FrameListener * _listener)
-	{
-		if (null == _listener) return;
-
-		for (ListFrameListener::iterator iter=mListFrameListener.begin(); iter!=mListFrameListener.end(); ++iter) {
-			if ((*iter) == _listener) {
-				(*iter) = null;
-				return;
-			}
-		}
-	}
-
-	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
-	{
-		// сначала рассылаем
-		ListFrameListener::iterator iter=mListFrameListener.begin();
-		while (iter != mListFrameListener.end()) {
-			if (null == (*iter)) iter = mListFrameListener.erase(iter);
-			else {
-				(*iter)->_frameEntered(timeSinceLastFrame);
-				++iter;
-			}
-		};
 	}
 
 	bool Gui::injectMouseMove( int _absx, int _absy, int _absz) {return mInputManager->injectMouseMove(_absx, _absy, _absz);}
@@ -450,6 +417,40 @@ namespace MyGUI
 	void Gui::setSceneManager(Ogre::SceneManager * _scene)
 	{
 		mLayerManager->setSceneManager(_scene);
+	}
+
+	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
+	{
+		ListFrameEvent::iterator iterator=mListFrameEvent.begin();
+		while (iterator != mListFrameEvent.end()) {
+			if (null == (*iterator)) iterator = mListFrameEvent.erase(iterator);
+			else {
+				(*iterator)->Invoke(timeSinceLastFrame);
+				++iterator;
+			}
+		};
+	}
+
+	void Gui::addFrameListener(FrameEventDelegate * _delegate)
+	{
+#ifdef _DEBUG
+		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
+			MYGUI_ASSERT( !(*iter) || !(*iter)->Compare(_delegate), "dublicate delegate");
+		}
+#endif
+		mListFrameEvent.push_back(_delegate);
+	}
+
+	void Gui::removeFrameListener(FrameEventDelegate * _delegate)
+	{
+		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
+			if ((*iter) && (*iter)->Compare(_delegate)) {
+				delete _delegate;
+				delete (*iter);
+				(*iter) = null;
+				return;
+			}
+		}
 	}
 
 } // namespace MyGUI

@@ -47,7 +47,7 @@ namespace MyGUI
 		createDefaultCharSet();
 
 		WidgetManager::getInstance().registerUnlinker(this);
-		Gui::getInstance().addFrameListener(this);
+		Gui::getInstance().addFrameListener(newDelegate(this, &InputManager::frameEntered));
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -59,7 +59,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		Gui::getInstance().removeFrameListener(this);
+		Gui::getInstance().removeFrameListener(newDelegate(this, &InputManager::frameEntered));
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
@@ -530,7 +530,7 @@ namespace MyGUI
 		return static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, root));
 	}
 
-	void InputManager::_frameEntered(float _frame)
+	void InputManager::frameEntered(float _frame)
 	{
 		if ( mHoldKey == KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {

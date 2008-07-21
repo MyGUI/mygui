@@ -104,7 +104,7 @@ namespace MyGUI
 	Edit::~Edit()
 	{
 		// на всякий отписываем
-		Gui::getInstance().removeFrameListener(this);
+		Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
 	}
 
 	void Edit::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
@@ -219,7 +219,7 @@ namespace MyGUI
 
 			if (false == mModeStatic) {
 				mCursorActive = true;
-				Gui::getInstance().addFrameListener(this);
+				Gui::getInstance().addFrameListener(newDelegate(this, &Edit::frameEntered));
 				mText->setShowCursor(true);
 				mText->setSelectBackground(true);
 				mCursorTimer = 0;
@@ -240,7 +240,7 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = false;
-			Gui::getInstance().removeFrameListener(this);
+			Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
 			mText->setShowCursor(false);
 			mText->setSelectBackground(false);
 		}
@@ -527,7 +527,7 @@ namespace MyGUI
 		Widget::_onKeyButtonPressed(_key, _char);
 	}
 
-	void Edit::_frameEntered(float _frame)
+	void Edit::frameEntered(float _frame)
 	{
 		// в статике все недоступно
 		if (mModeStatic) return;

@@ -47,7 +47,7 @@ namespace MyGUI
 
 	RenderBox::~RenderBox()
 	{
-		if (needFrameUpdate()) Gui::getInstance().removeFrameListener(this);
+		if (needFrameUpdate()) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 
 		clear();
 
@@ -326,12 +326,12 @@ namespace MyGUI
 		if (needFrameUpdate())
 		{
 			mUseScale = _scale;
-			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(this);
+			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 		else
 		{
 			mUseScale = _scale;
-			if (needFrameUpdate()) Gui::getInstance().addFrameListener(this);
+			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 	}
 
@@ -378,7 +378,7 @@ namespace MyGUI
 		updateViewport();
 	}
 
-	void RenderBox::_frameEntered(float _time)
+	void RenderBox::frameEntered(float _time)
 	{
 		if(mNodeForSync)
 		{
@@ -599,12 +599,12 @@ namespace MyGUI
 		if (needFrameUpdate())
 		{
 			mAutoRotation = _auto;
-			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(this);
+			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 		else
 		{
 			mAutoRotation = _auto;
-			if (needFrameUpdate()) Gui::getInstance().addFrameListener(this);
+			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 	}
 
@@ -612,7 +612,7 @@ namespace MyGUI
 	{
 		if (null != mEntityState) {
 			mEntityState = null;
-			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(this);
+			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 
 		if (_animation.empty()) return;
@@ -637,7 +637,7 @@ namespace MyGUI
 			if (_animation == state ->getAnimationName()) {
 
 				// подписываемся
-				Gui::getInstance().addFrameListener(this);
+				Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered));
 
 				mEntityState = state;
 				mEntityState->setEnabled(true);

@@ -33,12 +33,12 @@ namespace MyGUI
 		mAlphaIncative(0.2f),
 		mAlphaSpeed(3.0f)
 	{
-		Gui::getInstance().addFrameListener(this);
+		Gui::getInstance().addFrameListener(newDelegate(this, &FooBar::frameEntered));
 	}
 
 	FooBar::~FooBar()
 	{
-		Gui::getInstance().removeFrameListener(this);
+		Gui::getInstance().removeFrameListener(newDelegate(this, &FooBar::frameEntered));
 
 		_removeAllChildItems();
 	}
@@ -76,7 +76,7 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	void FooBar::_frameEntered(float _time)
+	void FooBar::frameEntered(float _time)
 	{
 		// nothing to do if not mouse focus
 		if (!mFocus)
