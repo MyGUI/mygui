@@ -642,6 +642,7 @@ namespace MyGUI
 
 			eventEndDrop(this, mDropInfo, mDropResult);
 			eventDropState(this, DROP_END);
+			enableToolTip(true);
 
 			// сбрасываем инфу для дропа
 			mDropResult = false;
@@ -673,7 +674,10 @@ namespace MyGUI
 			mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null);
 			eventStartDrop(this, mDropInfo, mNeedDrop);
 
-			if (mNeedDrop) eventDropState(this, DROP_START);
+			if (mNeedDrop) {
+				eventDropState(this, DROP_START);
+				enableToolTip(false);
+			}
 			else {
 				// сбрасываем фокус мыши (не обязательно)
 				InputManager::getInstance().resetMouseCaptureWidget();
