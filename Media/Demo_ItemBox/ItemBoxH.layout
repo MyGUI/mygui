@@ -5,7 +5,7 @@
         <Property key="Widget_ToolTip" value="true"/>
         <Property key="Window_MinMax" value="170 60 1000 1000"/>
         <Widget type="ItemBox" skin="RF_ItemBoxH" position="0 0 353 220" align="ALIGN_STRETCH" name="box_Items">
-            <Property key="Widget_ToolTip" value="true"/>
+            <Property key="Widget_NeedToolTip" value="true"/>
         </Widget>
     </Widget>
 </MyGUI>

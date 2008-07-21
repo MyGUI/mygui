@@ -46,7 +46,8 @@ namespace MyGUI
 		mNeedMouseFocus(true),
 		mNeedDragDrop(false),
 		mWidgetClient(null),
-		mToolTipEnable(false),
+		mNeedToolTip(false),
+		mEnableToolTip(true),
 		mToolTipCurrentTime(0),
 		mToolTipVisible(false),
 		mToolTipOldIndex(ITEM_NONE)
@@ -689,12 +690,22 @@ namespace MyGUI
 		_requestGetDragItemInfo(this, _list, _index);
 	}
 
-	void Widget::setToolTipEnable(bool _enable)
+	WidgetPtr Widget::findWidget(const std::string & _name)
 	{
-		if (mToolTipEnable == _enable) return;
-		mToolTipEnable = _enable;
+		if (_name == mName) return this;
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+			WidgetPtr find = (*widget)->findWidget(_name);
+			if (null != find) return find;
+		}
+		return null;
+	}
 
-		if (mToolTipEnable) {
+	void Widget::setNeedToolTip(bool _need)
+	{
+		if (mNeedToolTip == _need) return;
+		mNeedToolTip = _need;
+
+		if (mNeedToolTip) {
 			Gui::getInstance().addFrameListener(this);
 			mToolTipCurrentTime = 0;
 		}
@@ -705,6 +716,8 @@ namespace MyGUI
 
 	void Widget::_frameEntered(float _frame)
 	{
+		if ( ! mEnableToolTip) return;
+
 		IntPoint point = InputManager::getInstance().getMousePosition();
 
 		if (mToolTipOldPoint != point) {
@@ -784,14 +797,21 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr Widget::findWidget(const std::string & _name)
+	void Widget::enableToolTip(bool _enable)
 	{
-		if (_name == mName) return this;
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
-			WidgetPtr find = (*widget)->findWidget(_name);
-			if (null != find) return find;
+		if (_enable == mEnableToolTip) return;
+		mEnableToolTip = _enable;
+
+		if ( ! mEnableToolTip) {
+			if (mToolTipVisible) {
+				mToolTipCurrentTime = 0;
+				mToolTipVisible = false;
+				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+			}
 		}
-		return null;
+		else {
+			mToolTipCurrentTime = 0;
+		}
 	}
 
 } // namespace MyGUI

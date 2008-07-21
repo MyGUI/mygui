@@ -35,7 +35,7 @@ namespace MyGUI
 			manager.registerDelegate("Widget_NeedMouse") = newDelegate(this, &WidgetFactory::Widget_NeedMouse);
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
 			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
-			manager.registerDelegate("Widget_ToolTip") = newDelegate(this, &WidgetFactory::Widget_ToolTip);
+			manager.registerDelegate("Widget_NeedToolTip") = newDelegate(this, &WidgetFactory::Widget_NeedToolTip);
 		}
 
 		WidgetFactory::~WidgetFactory()
@@ -59,7 +59,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_NeedMouse");
 			manager.unregisterDelegate("Widget_AlignText");
 			manager.unregisterDelegate("Widget_Enabled");
-			manager.unregisterDelegate("Widget_ToolTip");
+			manager.unregisterDelegate("Widget_NeedToolTip");
 		}
 
 		const Ogre::String& WidgetFactory::getType()
@@ -157,9 +157,9 @@ namespace MyGUI
 			_widget->setInheritsAlpha(utility::parseBool(_value));
 		}
 
-		void WidgetFactory::Widget_ToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_NeedToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			_widget->setToolTipEnable(utility::parseBool(_value));
+			_widget->setNeedToolTip(utility::parseBool(_value));
 		}
 
 	} // namespace factory
