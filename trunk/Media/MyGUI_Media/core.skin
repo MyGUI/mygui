@@ -1133,9 +1133,57 @@
 
     </Skin>
 
+    <Skin name = "MultiListButtonIcon" size = "20 20">
+        <Property key="ImageTexture" value = "core.png" />
+        <Property key="ImageRect" value = "514 142 574 162" />
+        <Property key="ImageTile" value = "20 20" />
+        <Property key="ImageNum" value = "0" />
+        <Property key="NeedMouse" value = "false" />
+
+        <BasisSkin type="MainSkin" offset = "0 0 20 20" align = "ALIGN_STRETCH"/>
+    </Skin>
+
+    <Skin name = "MultiListButton" size = "40 26" texture = "core.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="StaticImage" skin="MultiListButtonIcon" offset = "20 0 20 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Image"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "514 2 10 26"/>
+            <State name="normal" offset = "514 30 10 26"/>
+            <State name="active" offset = "514 58 10 26"/>
+            <State name="pressed" offset = "514 86 10 26"/>
+            <State name="select" offset = "514 114 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 20 26" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "524 2 20 26"/>
+            <State name="normal" offset = "524 30 20 26"/>
+            <State name="active" offset = "524 58 20 26"/>
+            <State name="pressed" offset = "524 86 20 26"/>
+            <State name="select" offset = "524 114 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "30 0 10 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "544 2 10 26"/>
+            <State name="normal" offset = "544 30 10 26"/>
+            <State name="active" offset = "544 58 10 26"/>
+            <State name="pressed" offset = "544 86 10 26"/>
+            <State name="select" offset = "544 114 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "0 0 40 26" align = "ALIGN_STRETCH">
+            <State name="disable" colour="0 0 0" />
+            <State name="normal" colour="0 0 0" />
+            <State name="active" colour="0 0 0" />
+            <State name="pressed" colour="0 0 1" shift="true"/>
+            <State name="select" colour="0 0 1" shift="true"/>
+        </BasisSkin>
+    </Skin>
+
     <Skin name = "MultiList" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="NeedKey" value = "true" />
-        <Property key="SkinButton" value = "ButtonSmall" />
+        <Property key="SkinButton" value = "MultiListButton" />
         <Property key="_SkinButtonEmpty" value = "Edit" />
         <Property key="HeightButton" value = "20" />
 
