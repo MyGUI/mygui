@@ -1012,15 +1012,13 @@ namespace MyGUI
 
 		// создаем первую строчку
 		mLinesInfo.push_back(PairVectorCharInfo());
-		//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-		//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-		//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 		float len = 0, width = 0;
 		size_t count = 1;
 
+		VectorCharInfo::iterator space_rollback;
 		Ogre::UTFString::const_iterator space_point = mCaption.begin();
-
 		Ogre::UTFString::const_iterator end = mCaption.end();
+
 		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index) {
 
 			Font::CodePoint character = *index;
@@ -1031,9 +1029,6 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 				// запоминаем размер предыдущей строки
-				//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-				//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
-				//mLinesInfo.back().second[2] = EnumCharInfo(count);
 				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
@@ -1042,15 +1037,17 @@ namespace MyGUI
 
 				// и создаем новую
 				mLinesInfo.push_back(PairVectorCharInfo());
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 
 				if (character == Font::FONT_CODE_CR) {
 					Ogre::UTFString::const_iterator peeki = index;
 					peeki++;
 					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
 				}
+
+				// сбрасываем на начало
+				space_rollback = mLinesInfo.back().second.end();
+				space_point = index;
+
 				// следующий символ
 				continue;
 
@@ -1087,14 +1084,18 @@ namespace MyGUI
 
 			Font::GlyphInfo * info;
 			if (Font::FONT_CODE_SPACE == character) {
+				space_rollback = mLinesInfo.back().second.end();
 				space_point = index;
 				info = mpFont->getSpaceGlyphInfo();
 			}
 			else if (Font::FONT_CODE_TAB == character) {
+				space_rollback = mLinesInfo.back().second.end();
 				space_point = index;
 				info = mpFont->getTabGlyphInfo();
 			}
-			else info = mpFont->getGlyphInfo(character);
+			else {
+				info = mpFont->getGlyphInfo(character);
+			}
 
 			float len_char = info->aspectRatio * (float)mFontHeight;
 
@@ -1104,10 +1105,12 @@ namespace MyGUI
 				// длинна строки, кратна пикселю, плюс курсор
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
+				// откатываем назад до пробела
+				index = space_point;
+				//mLinesInfo.back().second.pop_back();//.erase(space_rollback, mLinesInfo.back().second.end());
+				//count--;
+
 				// запоминаем размер предыдущей строки
-				//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-				//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
-				//mLinesInfo.back().second[2] = EnumCharInfo(count);
 				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
@@ -1116,17 +1119,9 @@ namespace MyGUI
 
 				// и создаем новую
 				mLinesInfo.push_back(PairVectorCharInfo());
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 
-				if (character == Font::FONT_CODE_CR) {
-					Ogre::UTFString::const_iterator peeki = index;
-					peeki++;
-					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
-				}
 				// следующий символ
-				//continue;
+				continue;
 			}
 
 			len += len_char;
@@ -1141,9 +1136,6 @@ namespace MyGUI
 		len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 		// запоминаем размер предыдущей строки
-		//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-		//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
-		//mLinesInfo.back().second[2] = EnumCharInfo(count);
 		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 		if (width < len) width = len;
