@@ -476,30 +476,31 @@ namespace MyGUI
 			top = bottom;
 			bottom -= real_fontHeight;
 
-			VectorCharInfo::iterator index = line->begin();
-			VectorCharInfo::iterator end_index = line->end();
+			VectorCharInfo::iterator index = line->second.begin();
+			VectorCharInfo::iterator end_index = line->second.end();
 
+			const LineInfo & info = line->first;
 			// первый всегда длинна строки
-			float len = index->getValueFloat();
-			++index;
+			//float len = index->getValueFloat();
+			//++index;
 			// второй всегда длинна строки в пикселях
-			size_t len_pix = index->getValueSizeT();
-			++index;
+			//size_t len_pix = index->getValueSizeT();
+			//++index;
 			// третий колличество символов
-			size_t count = index->getValueSizeT();
-			++index;
+			//size_t count = index->getValueSizeT();
+			//++index;
 
 			// следующая строчка
 			if (y < bottom) {
-				position += count;
+				position += info.count;
 				continue;
 			}
 
 			// пересчет опорных данных
 			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
+			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - info.length) + margin_right; // выравнивание по правой стороне
 			else {
-				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
+				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
 			}
 
@@ -507,9 +508,9 @@ namespace MyGUI
 				// в начало строки
 				return position;
 
-			} else if (x >= (1.0 + right + len)) {
+			} else if (x >= (1.0 + right + info.real_length)) {
 				// в конец строки
-				position += count - 1;
+				position += info.count - 1;
 				return position;
 			}
 
@@ -605,23 +606,25 @@ namespace MyGUI
 			top = bottom;
 			bottom -= real_fontHeight;
 
-			VectorCharInfo::iterator index = line->begin();
-			VectorCharInfo::iterator end_index = line->end();
+			VectorCharInfo::iterator index = line->second.begin();
+			VectorCharInfo::iterator end_index = line->second.end();
+
+			const LineInfo & info = line->first;
 			// первый всегда длинна строки
-			float len = index->getValueFloat();
-			++index;
+			//float len = index->getValueFloat();
+			//++index;
 			// второй всегда длинна строки в пикселях
-			size_t len_pix = index->getValueSizeT();
-			++index;
+			//size_t len_pix = index->getValueSizeT();
+			//++index;
 			// третий колличество символов
-			size_t count = index->getValueSizeT();
-			++index;
+			//size_t count = index->getValueSizeT();
+			//++index;
 
 			// пересчет опорных данных
 			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
+			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right; // выравнивание по правой стороне
 			else {
-				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
+				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
 			}
 
@@ -659,7 +662,7 @@ namespace MyGUI
 			}
 
 			// следующая строка
-			position += count;
+			position += info.count;
 
 		}
 		
@@ -748,17 +751,19 @@ namespace MyGUI
 			vertex_top = top;
 			vertex_bottom = bottom;
 
-			VectorCharInfo::iterator index = line->begin();
-			VectorCharInfo::iterator end_index = line->end();
+			VectorCharInfo::iterator index = line->second.begin();
+			VectorCharInfo::iterator end_index = line->second.end();
+
+			const LineInfo & info = line->first;
 			// первый всегда длинна строки
-			float len = index->getValueFloat();
-			++index;
+			//float len = index->getValueFloat();
+			//++index;
 			// второй всегда длинна в пикселях
-			size_t len_pix = index->getValueSizeT();
-			++index;
+			//size_t len_pix = index->getValueSizeT();
+			//++index;
 			// третий колличество символов
-			size_t count = index->getValueSizeT();
-			++index;
+			//size_t count = index->getValueSizeT();
+			//++index;
 
 			// нуна ли пересчитывать текстурные координаты
 			bool texture_crop_height = false;
@@ -776,7 +781,7 @@ namespace MyGUI
 						}
 					}
 
-					position += count;
+					position += info.count;
 					continue;
 				}
 				// обрезаем
@@ -788,7 +793,7 @@ namespace MyGUI
 				if (vertex_top < real_bottom) {
 					line = end;
 					line --;
-					position += count;
+					position += info.count;
 					continue;
 				}
 				// обрезаем
@@ -798,9 +803,9 @@ namespace MyGUI
 
 			// пересчет опорных данных
 			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - len) + margin_right; // выравнивание по правой стороне
+			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right; // выравнивание по правой стороне
 			else {
-				int tmp = ((mContextSize.width - len_pix) >> 1) << 1; // для середины нужно четное число
+				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
 			}
 
@@ -963,7 +968,7 @@ namespace MyGUI
 			}
 
 			// следующая строка
-			position += count;
+			position += info.count;
 
 		}
 		
@@ -987,6 +992,8 @@ namespace MyGUI
 
 	void EditText::updateRawData()
 	{
+		//??? потом обязательно сделать с резервом для вектора
+
 		if (mpFont.isNull()) return;
 		// сбрасывам флаги
 		mTextOutDate = false;
@@ -995,6 +1002,7 @@ namespace MyGUI
 		static const char convert_colour[64] = {0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0};
 
 		// вычисление размера одной единицы в текстурных координатах
+		// ??? это нуно пересчитывать только при изменении пропорций экрана или смене шрифта
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
 		Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
 		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
@@ -1003,10 +1011,10 @@ namespace MyGUI
 		mLinesInfo.clear();
 
 		// создаем первую строчку
-		mLinesInfo.push_back(VectorCharInfo());
-		mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-		mLinesInfo.back().push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-		mLinesInfo.back().push_back(EnumCharInfo()); // третий символ, колличество значимых символов
+		mLinesInfo.push_back(PairVectorCharInfo());
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 		float len = 0, width = 0;
 		size_t count = 1;
 
@@ -1023,19 +1031,20 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 				// запоминаем размер предыдущей строки
-				mLinesInfo.back()[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-				mLinesInfo.back()[1] = EnumCharInfo((size_t)len);
-				mLinesInfo.back()[2] = EnumCharInfo(count);
+				//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
+				//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
+				//mLinesInfo.back().second[2] = EnumCharInfo(count);
+				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
 				len = 0;
 
 				// и создаем новую
-				mLinesInfo.push_back(VectorCharInfo());
-				mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-				mLinesInfo.back().push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-				mLinesInfo.back().push_back(EnumCharInfo()); // третий символ, колличество значимых символов
+				mLinesInfo.push_back(PairVectorCharInfo());
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 
 				if (character == Font::FONT_CODE_CR) {
 					Ogre::UTFString::const_iterator peeki = index;
@@ -1070,7 +1079,7 @@ namespace MyGUI
 					if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
 
 					// запоминаем цвет, в верхнем байте единицы
-					mLinesInfo.back().push_back( EnumCharInfo(colour, true) );
+					mLinesInfo.back().second.push_back( EnumCharInfo(colour, true) );
 
 					continue;
 				}
@@ -1096,19 +1105,20 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 				// запоминаем размер предыдущей строки
-				mLinesInfo.back()[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-				mLinesInfo.back()[1] = EnumCharInfo((size_t)len);
-				mLinesInfo.back()[2] = EnumCharInfo(count);
+				//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
+				//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
+				//mLinesInfo.back().second[2] = EnumCharInfo(count);
+				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
 				len = 0;
 
 				// и создаем новую
-				mLinesInfo.push_back(VectorCharInfo());
-				mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-				mLinesInfo.back().push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-				mLinesInfo.back().push_back(EnumCharInfo()); // третий символ, колличество значимых символов
+				mLinesInfo.push_back(PairVectorCharInfo());
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 
 				if (character == Font::FONT_CODE_CR) {
 					Ogre::UTFString::const_iterator peeki = index;
@@ -1122,7 +1132,7 @@ namespace MyGUI
 			len += len_char;
 
 			// указатель на инфо о символе
-			mLinesInfo.back().push_back( EnumCharInfo(info) );
+			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
 			count ++;
 
 		}
@@ -1131,9 +1141,11 @@ namespace MyGUI
 		len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 		// запоминаем размер предыдущей строки
-		mLinesInfo.back()[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-		mLinesInfo.back()[1] = EnumCharInfo((size_t)len);
-		mLinesInfo.back()[2] = EnumCharInfo(count);
+		//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
+		//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
+		//mLinesInfo.back().second[2] = EnumCharInfo(count);
+		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
+
 		if (width < len) width = len;
 
 

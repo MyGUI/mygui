@@ -1255,7 +1255,7 @@ namespace MyGUI
 
 	void Edit::updateSelectText()
 	{
-		if (mModeStatic) return;
+		if ( ! mModeStatic) {
 
 		InputManager & input = InputManager::getInstance();
 
@@ -1269,6 +1269,7 @@ namespace MyGUI
 			// сбрасываем шифт
 			mStartSelect = ITEM_NONE;
 			mText->setTextSelect(0, 0);
+		}
 		}
 
 		// пытаемся показать курсор
