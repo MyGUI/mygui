@@ -31,6 +31,7 @@ namespace MyGUI
 
 	protected:
 		StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		~StaticImage();
 		static Ogre::String WidgetTypeName;
 
 	public:
