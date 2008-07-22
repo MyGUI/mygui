@@ -34,7 +34,8 @@ namespace MyGUI
 		mButtonDefaultWidth(1),
 		mButtonAutoWidth(true),
 		mSmoothShow(true),
-		mShutDown(false)
+		mShutDown(false),
+		mButtonDecor(null)
 	{
 
 		// парсим свойства
@@ -67,6 +68,10 @@ namespace MyGUI
 				mButtonList = castWidget<Button>(*iter);
 				mButtonList->hide();
 				mButtonList->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
+			}
+			else if ((*iter)->_getInternalString() == "ButtonDecor") {
+				mButtonDecor = castWidget<Button>(*iter);
+				mButtonDecor->hide();
 			}
 			else if ((*iter)->_getInternalString() == "ShowPatch") {
 				mWidgetsPatch.push_back((*iter));
@@ -165,6 +170,7 @@ namespace MyGUI
 				if (null != mButtonLeft) mButtonLeft->show();
 				if (null != mButtonRight) mButtonRight->show();
 				if (null != mButtonList) mButtonList->show();
+				if (null != mButtonDecor) mButtonDecor->show();
 				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->show();
 				mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
 			}
@@ -175,6 +181,7 @@ namespace MyGUI
 				if (null != mButtonLeft) mButtonLeft->hide();
 				if (null != mButtonRight) mButtonRight->hide();
 				if (null != mButtonList) mButtonList->hide();
+				if (null != mButtonDecor) mButtonDecor->hide();
 				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->hide();
 				mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
 			}

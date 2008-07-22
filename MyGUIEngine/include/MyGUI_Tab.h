@@ -235,6 +235,7 @@ namespace MyGUI
 
 		WidgetPtr mWidgetBar;
 		ButtonPtr mButtonLeft, mButtonRight, mButtonList;
+		WidgetPtr mButtonDecor;
 		VectorWidgetPtr mWidgetsPatch; // список виджетов которые нужно показать при показе кнопки
 		WidgetPtr mEmptyBarWidget;
 		WidgetPtr mSheetTemplate;
