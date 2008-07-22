@@ -1255,21 +1255,20 @@ namespace MyGUI
 
 	void Edit::updateSelectText()
 	{
-		if ( ! mModeStatic) {
+		if ( ! mModeStatic ) {
 
-		InputManager & input = InputManager::getInstance();
+			InputManager & input = InputManager::getInstance();
+			if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) ) {
+				// меняем выделение
+				mEndSelect = (size_t)mCursorPosition;
+				if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
+				else mText->setTextSelect(mStartSelect, mEndSelect);
 
-		if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) ) {
-			// меняем выделение
-			mEndSelect = (size_t)mCursorPosition;
-			if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
-			else mText->setTextSelect(mStartSelect, mEndSelect);
-
-		} else if (mStartSelect != ITEM_NONE) {
-			// сбрасываем шифт
-			mStartSelect = ITEM_NONE;
-			mText->setTextSelect(0, 0);
-		}
+			} else if (mStartSelect != ITEM_NONE) {
+				// сбрасываем шифт
+				mStartSelect = ITEM_NONE;
+				mText->setTextSelect(0, 0);
+			}
 		}
 
 		// пытаемся показать курсор
