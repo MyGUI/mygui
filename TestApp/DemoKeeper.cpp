@@ -77,6 +77,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//edit->setTextAlign(MyGUI::ALIGN_DEFAULT);
 	edit->setEditMultiLine(true);
 	edit->setEditStatic(true);
+	edit->setEditBreakLine(true);
 	//edit->setEditReadOnly(true);
 	edit->setMaxTextLength(15000);
 	edit->setCaption(text);//*/
