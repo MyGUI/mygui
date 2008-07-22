@@ -425,7 +425,12 @@ namespace MyGUI
 		while (iterator != mListFrameEvent.end()) {
 			if (null == (*iterator)) iterator = mListFrameEvent.erase(iterator);
 			else {
-				(*iterator)->Invoke(timeSinceLastFrame);
+				try {
+					(*iterator)->Invoke(timeSinceLastFrame);
+				}
+				catch (...) {
+					MYGUI_EXCEPT("Gui::injectFrameEntered : Invoke()");
+				}
 				++iterator;
 			}
 		};
@@ -451,6 +456,7 @@ namespace MyGUI
 				return;
 			}
 		}
+		delete _delegate;
 	}
 
 } // namespace MyGUI

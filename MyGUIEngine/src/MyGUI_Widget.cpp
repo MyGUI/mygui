@@ -23,7 +23,7 @@ namespace MyGUI
 
 	Ogre::String Widget::WidgetTypeName = "Widget";
 
-	const float WIDGET_TOOLTIP_TIMEOUT = 1;
+	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
@@ -128,6 +128,8 @@ namespace MyGUI
 
 	Widget::~Widget()
 	{
+		Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
+
 		_detachFromLayerItemKeeper();
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
