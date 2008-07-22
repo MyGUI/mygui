@@ -203,22 +203,27 @@ namespace MyGUI
 		// проверяем и обновляем бар
 		int width = 0;
 		size_t count = 0;
-		for (size_t pos=mStartIndex; pos<mSheetsInfo.size(); pos++) {
+		size_t pos=mStartIndex;
+		for (; pos<mSheetsInfo.size(); pos++) {
+
+			// текущая кнопка не влазиет
 			if (width > mWidgetBar->getWidth()) break;
+
+			// следующая не влазиет
+			TabSheetInfo & info = mSheetsInfo[pos]; 
+			if ((width + info.width) > mWidgetBar->getWidth()) {
+				break;
+			}
 
 			// проверяем физическое наличие кнопки
 			if (count >= mSheetButton.size()) _createSheetButton();
 
 			// если кнопка не соответствует, то изменяем ее
-			TabSheetInfo & info = mSheetsInfo[pos]; 
 			ButtonPtr button = castWidget<Button>(mSheetButton[count]);
 			button->show();
 
 			// корректируем нажатость кнопки
-			if (pos == mSelectSheet) {
-				if (false == button->getButtonPressed()) button->setButtonPressed(true);
-			}
-			else if (button->getButtonPressed()) button->setButtonPressed(false);
+			button->setButtonPressed(pos == mSelectSheet);
 
 			if (button->getCaption() != info.name)
 				button->setCaption(info.name);
@@ -237,6 +242,9 @@ namespace MyGUI
 			count ++;
 		}
 
+		bool right = true;
+		if (pos == mSheetsInfo.size()) right = false;
+
 		// корректируем виджет для пустоты
 		if (width < mWidgetBar->getWidth()) {
 			mEmptyBarWidget->show();
@@ -244,6 +252,21 @@ namespace MyGUI
 		}
 		else {
 			mEmptyBarWidget->hide();
+		}
+
+		// корректируем доступность стрелок
+		if (mStartIndex == 0) {
+			if (null != mButtonLeft) mButtonLeft->setEnabled(false);
+		}
+		else {
+			if (null != mButtonLeft) mButtonLeft->setEnabled(true);
+		}
+
+		if (right) {
+			if (null != mButtonRight) mButtonRight->setEnabled(true);
+		}
+		else {
+			if (null != mButtonRight) mButtonRight->setEnabled(false);
 		}
 
 	}
@@ -280,14 +303,11 @@ namespace MyGUI
 		mSelectSheet = select;
 
 		size_t count = 0;
-		for (size_t pos=mStartIndex; pos<mSheetButton.size(); pos++) {
+		for (size_t pos=0; pos<mSheetButton.size(); pos++) {
 			ButtonPtr button = castWidget<Button>(mSheetButton[count]);
 			if (button->isShow()) {
 				// корректируем нажатость кнопки
-				if (pos == mSelectSheet) {
-					if (false == button->getButtonPressed()) button->setButtonPressed(true);
-				}
-				else if (button->getButtonPressed()) button->setButtonPressed(false);
+				button->setButtonPressed((pos + mStartIndex) == mSelectSheet);
 			}
 			count ++;
 		}
