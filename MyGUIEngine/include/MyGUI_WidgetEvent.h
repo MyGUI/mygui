@@ -170,7 +170,7 @@ namespace MyGUI
 		EventInfo_WidgetVoid _eventInvalideDropInfo;
 
 		/* event : событие для отображения тултипа*/
-		/* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::ToolTipInfo _info);*/
+		/* signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);*/
 		EventInfo_WidgetToolTip eventToolTip;
 
 	protected:

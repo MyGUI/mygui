@@ -21,7 +21,7 @@ namespace MyGUI
 	public:
 		WidgetSkinInfo()
 		{
-			checkState("normal");
+			//checkState("normal");
 		}
 
 		void setInfo(const IntSize & _size, const std::string &_texture)
