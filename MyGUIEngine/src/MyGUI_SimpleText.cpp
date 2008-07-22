@@ -45,10 +45,10 @@ namespace MyGUI
 		mLinesInfo.clear();
 
 		// создаем первую строчку
-		mLinesInfo.push_back(VectorCharInfo());
-		mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-		mLinesInfo.back().push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-		mLinesInfo.back().push_back(EnumCharInfo()); // третий символ, колличество значимых символов
+		mLinesInfo.push_back(PairVectorCharInfo());
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 		float len = 0, width = 0;
 		size_t count = 1;
 
@@ -63,19 +63,20 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f));
 
 				// запоминаем размер предыдущей строки
-				mLinesInfo.back()[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-				mLinesInfo.back()[1] = EnumCharInfo((size_t)len);
-				mLinesInfo.back()[2] = EnumCharInfo(count);
+				//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
+				//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
+				//mLinesInfo.back().second[2] = EnumCharInfo(count);
+				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
 				len = 0;
 
 				// и создаем новую
-				mLinesInfo.push_back(VectorCharInfo());
-				mLinesInfo.back().push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-				mLinesInfo.back().push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-				mLinesInfo.back().push_back(EnumCharInfo()); // третий символ, колличество значимых символов
+				mLinesInfo.push_back(PairVectorCharInfo());
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
 
 				if (character == Font::FONT_CODE_CR) {
 					Ogre::UTFString::const_iterator peeki = index;
@@ -110,7 +111,7 @@ namespace MyGUI
 					if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
 
 					// запоминаем цвет, в верхнем байте единицы
-					mLinesInfo.back().push_back( EnumCharInfo(colour, true) );
+					mLinesInfo.back().second.push_back(EnumCharInfo(colour, true) );
 
 					continue;
 				}
@@ -124,7 +125,7 @@ namespace MyGUI
 			len += info->aspectRatio * (float)mFontHeight;
 
 			// указатель на инфо о символе
-			mLinesInfo.back().push_back( EnumCharInfo(info) );
+			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
 			count ++;
 
 		}
@@ -133,9 +134,11 @@ namespace MyGUI
 		len = (float)((uint)(len + 0.99f));
 
 		// запоминаем размер предыдущей строки
-		mLinesInfo.back()[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-		mLinesInfo.back()[1] = EnumCharInfo((size_t)len);
-		mLinesInfo.back()[2] = EnumCharInfo(count);
+		//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
+		//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
+		//mLinesInfo.back().second[2] = EnumCharInfo(count);
+		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
+
 		if (width < len) width = len;
 
 
