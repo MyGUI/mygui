@@ -40,6 +40,11 @@ namespace MyGUI
 		}
 	}
 
+	StaticImage::~StaticImage()
+	{
+		Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
+	}
+
 	void StaticImage::updateSelectIndex(size_t _index)
 	{
 		mIndexSelect = _index;

@@ -47,7 +47,7 @@ namespace MyGUI
 
 	RenderBox::~RenderBox()
 	{
-		if (needFrameUpdate()) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
+		Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 
 		clear();
 

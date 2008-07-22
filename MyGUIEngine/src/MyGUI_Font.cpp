@@ -356,9 +356,9 @@ namespace MyGUI
 			}
 		}
 
-		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size, false) );
+        Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size, true) );
 
-		Ogre::Image img;
+        Ogre::Image img;
 		img.loadRawData( memStream, finalWidth, finalHeight, Ogre::PF_BYTE_LA );
 
 		Ogre::Texture* tex = static_cast<Ogre::Texture*>(res);
@@ -368,7 +368,6 @@ namespace MyGUI
 		imagePtrs.push_back(&img);
 		tex->_loadImages( imagePtrs );
 
-		delete imageData;
 
 		FT_Done_FreeType(ftLibrary);
     }
