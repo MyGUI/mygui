@@ -798,6 +798,7 @@
 
     <Skin name = "TabRight" size = "13 19" texture = "core.png" >
         <BasisSkin type="MainSkin" offset = "0 0 13 19" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="disable" offset = "311 122 13 19"/>
             <State name="normal" offset = "311 80 13 19"/>
             <State name="active" offset = "311 59 13 19"/>
             <State name="select" offset = "311 101 13 19"/>
@@ -806,6 +807,7 @@
 
     <Skin name = "TabLeft" size = "12 19" texture = "core.png" >
         <BasisSkin type="MainSkin" offset = "0 0 12 19" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="disable" offset = "287 122 12 19"/>
             <State name="normal" offset = "287 80 12 19"/>
             <State name="active" offset = "287 59 12 19"/>
             <State name="select" offset = "287 101 12 19"/>
