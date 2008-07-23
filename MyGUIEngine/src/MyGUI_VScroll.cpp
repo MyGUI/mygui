@@ -186,7 +186,7 @@ namespace MyGUI
 			if (mScrollPosition == 0) return;
 
 			// расчитываем следующее положение
-			if (mScrollPosition > mScrollPage) mScrollPosition -= mScrollViewPage;
+			if (mScrollPosition > mScrollViewPage) mScrollPosition -= mScrollViewPage;
 			else mScrollPosition = 0;
 
 			// оповещаем
@@ -198,7 +198,7 @@ namespace MyGUI
 			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
 
 			// расчитываем следующее положение
-			if ((mScrollPosition + mScrollPage) < (mScrollRange-1)) mScrollPosition += mScrollViewPage;
+			if ((mScrollPosition + mScrollViewPage) < (mScrollRange-1)) mScrollPosition += mScrollViewPage;
 			else mScrollPosition = mScrollRange - 1;
 
 			// оповещаем
