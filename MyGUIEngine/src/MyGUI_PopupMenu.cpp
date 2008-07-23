@@ -62,6 +62,7 @@ namespace MyGUI
 
 		IntSize size = button->getTextSize();
 		size.width += 7;
+		button->setImageIndex(_submenu);
 		button->_setInternalData(size.width);
 
 		PopupMenuPtr submenu = NULL;

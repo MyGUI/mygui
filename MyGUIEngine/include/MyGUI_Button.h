@@ -46,7 +46,10 @@ namespace MyGUI
 			updateButtonState();
 		}
 
+		//! Set image index (image should be defined in skin)
 		void setImageIndex(size_t _index);
+		//! Get image index
+		size_t getImageIndex();
 
 		virtual void setEnabled(bool _enabled);
 

@@ -76,6 +76,12 @@ namespace MyGUI
 		if (mImage) mImage->setImageNum(_index);
 	}
 
+	size_t Button::getImageIndex()
+	{
+		if (mImage) return mImage->getImageNum();
+		return ITEM_NONE;
+	}
+
 	void Button::setEnabled(bool _enabled)
 	{
 		mEnabled = _enabled;
