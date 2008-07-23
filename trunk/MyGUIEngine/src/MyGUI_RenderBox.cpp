@@ -42,6 +42,7 @@ namespace MyGUI
 		mPointerKeeper = mPointer;
 		mPointer.clear();
 
+		mMainSkin->_setUVSet(FloatRect(0, 0, 1, 1));
 		createRenderTexture();
 	}
 

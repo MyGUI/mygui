@@ -61,7 +61,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
 	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
 
-	std::string read, text;
+	/*std::string read, text;
 	std::ifstream stream("eula.txt");
 	if (false != stream.is_open()) {
 		while (false == stream.eof()) {
@@ -88,7 +88,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	MyGUI::Message::createMessage("button", "test uiyuiyuitoiutoiutoiutioutoiutoitiu_\nujgfouigifgalf\npiaufgaiufa[f\nPIUFGIugfiGFGifgIFGiufgIFGJhgfjllgljfakfhak;hfklahflkfjh_", false, 0 | MyGUI::Message::Ok);*/
 	/*edit->setTextAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_VCENTER);
 	edit->setCaption("ComplexProgress");//*/
+	
 
+	MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 600, 600), MyGUI::ALIGN_DEFAULT, "Main");
+	box->injectObject("robot.mesh");
+	//box->setMouseRotation(true);
+	//box->setViewScale(true);
+	//box->setAutoRotation(true);
+	//box->setAutoRotation(true);
 
 	/*MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
 	image->setImageTexture("child.png");
