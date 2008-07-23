@@ -133,6 +133,7 @@ namespace MyGUI
 		bool mManualView;
 		bool mShiftText;
 		bool mBreakLine;
+		int mOldWidth;
 
 	};
 
