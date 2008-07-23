@@ -15,6 +15,34 @@ namespace MyGUI
 
 	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
 	const float EDIT_TEXT_WIDTH_CURSOR = 2.0f;
+	const int EDIT_MIN_BREAK_WORD_WIDTH = 10;
+
+	struct RollBackSave
+	{
+		RollBackSave() : rollback(false) {}
+
+		inline void set(
+			VectorCharInfo::iterator & _space_rollback,
+			Ogre::UTFString::const_iterator & _space_point,
+			size_t _count,
+			float _real_length
+		)
+		{
+			space_rollback = _space_rollback;
+			space_point = _space_point;
+			count = _count;
+			real_lenght = _real_length;
+			rollback = true;
+		}
+
+		inline void reset() { rollback = false; }
+
+		VectorCharInfo::iterator space_rollback;
+		Ogre::UTFString::const_iterator space_point;
+		bool rollback;
+		size_t count;
+		float real_lenght;
+	};
 
 	// рисковать не будем с инлайнами
 	#define __MYGUI_DRAW_QUAD(buf, v_left, v_top, v_rignt, v_bottom, v_z, col, t_left, t_top, t_right, t_bottom, count) \
@@ -60,7 +88,8 @@ namespace MyGUI
 		mCursorPosition(0), mShowCursor(false),
 		mTextAlign(ALIGN_DEFAULT),
 		mShiftText(false),
-		mBreakLine(false)
+		mBreakLine(false),
+		mOldWidth(0)
 	{
 		mManager = LayerManager::getInstancePtr();
 
@@ -107,7 +136,12 @@ namespace MyGUI
 	void EditText::_setAlign(const IntSize& _size, bool _update)
 	{
 
-		if (mBreakLine) mTextOutDate = true;
+		if (mBreakLine) {
+			if (mOldWidth != _size.width) {
+				mOldWidth = _size.width;
+				mTextOutDate = true;
+			}
+		}
 
 		// необходимо разобраться
 		bool need_update = true;//_update;
@@ -1015,8 +1049,8 @@ namespace MyGUI
 		float len = 0, width = 0;
 		size_t count = 1;
 
-		VectorCharInfo::iterator space_rollback;
-		Ogre::UTFString::const_iterator space_point = mCaption.begin();
+		RollBackSave roll_back;
+
 		Ogre::UTFString::const_iterator end = mCaption.end();
 
 		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index) {
@@ -1044,9 +1078,8 @@ namespace MyGUI
 					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
 				}
 
-				// сбрасываем на начало
-				space_rollback = mLinesInfo.back().second.end();
-				space_point = index;
+				// отменяем откат
+				roll_back.reset();
 
 				// следующий символ
 				continue;
@@ -1084,13 +1117,11 @@ namespace MyGUI
 
 			Font::GlyphInfo * info;
 			if (Font::FONT_CODE_SPACE == character) {
-				space_rollback = mLinesInfo.back().second.end();
-				space_point = index;
+				if (mBreakLine) roll_back.set(mLinesInfo.back().second.end(), index, count, len);
 				info = mpFont->getSpaceGlyphInfo();
 			}
 			else if (Font::FONT_CODE_TAB == character) {
-				space_rollback = mLinesInfo.back().second.end();
-				space_point = index;
+				if (mBreakLine) roll_back.set(mLinesInfo.back().second.end(), index, count, len);
 				info = mpFont->getTabGlyphInfo();
 			}
 			else {
@@ -1100,15 +1131,20 @@ namespace MyGUI
 			float len_char = info->aspectRatio * (float)mFontHeight;
 
 			// перенос строки
-			if (mBreakLine && (len + len_char + EDIT_TEXT_WIDTH_CURSOR + 1) > mCoord.width) {
+			if (mBreakLine
+				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR + 1) > mCoord.width
+				&& roll_back.rollback
+				&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)) {
+
+				// откатываем назад до пробела
+				len = roll_back.real_lenght;
+				count = roll_back.count;
+				index = roll_back.space_point;
+
+				mLinesInfo.back().second.erase(mLinesInfo.back().second.begin() + (count-1), mLinesInfo.back().second.end());
 
 				// длинна строки, кратна пикселю, плюс курсор
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
-
-				// откатываем назад до пробела
-				index = space_point;
-				//mLinesInfo.back().second.pop_back();//.erase(space_rollback, mLinesInfo.back().second.end());
-				//count--;
 
 				// запоминаем размер предыдущей строки
 				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
@@ -1119,6 +1155,9 @@ namespace MyGUI
 
 				// и создаем новую
 				mLinesInfo.push_back(PairVectorCharInfo());
+
+				// отменяем откат
+				roll_back.reset();
 
 				// следующий символ
 				continue;
@@ -1139,7 +1178,6 @@ namespace MyGUI
 		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 		if (width < len) width = len;
-
 
 		// устанавливаем размер текста
 		mContextSize.set(width, (float)mLinesInfo.size() * mFontHeight);
