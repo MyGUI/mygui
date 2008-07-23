@@ -72,7 +72,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 		};
 	}
 
-	MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::ALIGN_STRETCH);
 	//edit->showHScroll(false);
 	//edit->setTextAlign(MyGUI::ALIGN_DEFAULT);
 	edit->setEditMultiLine(true);
