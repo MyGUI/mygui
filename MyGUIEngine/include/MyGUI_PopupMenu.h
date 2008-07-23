@@ -15,6 +15,7 @@ namespace MyGUI
 
 	class _MyGUIExport PopupMenu : public Widget
 	{
+	public:
 		struct ItemInfo
 		{
 			ItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _submenu) :
@@ -50,9 +51,9 @@ namespace MyGUI
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		// методы для работы со списком
-		inline void addItem(const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { insertItem(ITEM_NONE, _item, _submenu, _separator); }
-		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
-		void setItem(size_t _index, const Ogre::UTFString& _item);
+		inline ItemInfo& addItem(const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { return insertItem(ITEM_NONE, _item, _submenu, _separator); }
+		ItemInfo& insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
+		void setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
 
 		void deleteItem(size_t _index);
 		void deleteAllItems();

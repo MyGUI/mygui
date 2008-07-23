@@ -150,4 +150,5 @@ private:
 	MyGUI::Gui * mGUI;
 	MyGUI::PopupMenuPtr mPopupMenuFile;
 	MyGUI::PopupMenuPtr mPopupMenuWidgets;
+	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
 };

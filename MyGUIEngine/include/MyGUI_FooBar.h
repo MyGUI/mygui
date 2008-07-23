@@ -247,12 +247,10 @@ namespace MyGUI
 		typedef std::map<Ogre::String, FooBarItemInfo> ItemsMap;
 		//!	Map of items
 		ItemsMap mItems;
-		//!	Vector of widgets pointer
-		typedef std::vector<WidgetPtr> WidgetVector;
 		/*!	Ordered items
 			\n They will be layout with this order
 		*/
-		WidgetVector mItemsOrder;
+		VectorWidgetPtr mItemsOrder;
 
 
 	
