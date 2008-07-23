@@ -103,8 +103,11 @@ void EditorState::enter(bool bIsChangeState)
 		menu->addItem("1Hello!");
 		menu->addItem("2Hello!");
 		menu->addItem("3Hello!");
-		menu->addItem("4ah... :(", true);
-		menu = menu->getItemInfo(3).submenu;
+		menu->addItem("4ah... :(111111111");
+		menu->addItem("5ah... :(", true);
+		menu->addItem("6ah... :(");
+		menu = menu->getItemInfo(4).submenu;
+		if (i == 14) menu->addItem("#FF0000YOU DID IT!!! #00FF00CONGRATULATIONS!");
 	}
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
