@@ -1227,6 +1227,7 @@
             <State name="select" offset = "147 16 3 3"/>
         </BasisSkin>
     </Skin>
+
     <Skin name = "ColourRect" size = "16 16" texture = "core.png" align = "ALIGN_DEFAULT">
         <BasisSkin type="ColourRect" offset = "0 0 16 16" align = "ALIGN_STRETCH">
             <State name="normal" offset = "1002 16 1 1"/>
@@ -1307,9 +1308,37 @@
         <BasisSkin type="SimpleText" offset = "2 2 2 2" align = "ALIGN_STRETCH"/>
     </Skin>
 
+    <Skin name = "PopupMenuLineIcon" size = "20 20">
+        <Property key="ImageTexture" value = "core.png" />
+        <Property key="ImageRect" value = "514 162 594 182" />
+        <Property key="ImageTile" value = "20 20" />
+        <Property key="ImageNum" value = "0" />
+        <Property key="NeedMouse" value = "false" />
+
+        <BasisSkin type="MainSkin" offset = "0 0 20 20" align = "ALIGN_STRETCH"/>
+    </Skin>
+
+    <Skin name = "PopupMenuLine" size = "5 5" texture = "core.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-15 0 20 5" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Image"/>
+
+        <BasisSkin type="MainSkin" offset = "0 0 5 5">
+            <State name="normal" offset = "149 26 5 5"/>
+            <State name="active" offset = "149 37 5 5"/>
+            <State name="pressed" offset = "149 48 5 5"/>
+            <State name="select" offset = "149 59 5 5"/>
+        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "ALIGN_STRETCH"/>
+    </Skin>
+
     <Skin name = "PopupMenu" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="NeedKey" value = "true" />
-        <Property key="SkinLine" value = "ListLine" />
+        <Property key="SkinLine" value = "PopupMenuLine" />
         <Property key="HeightLine" value = "20" />
 
         <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "ALIGN_STRETCH" name = "Client">

@@ -61,8 +61,11 @@ namespace MyGUI
 		const Ogre::UTFString& getItem(size_t _index);
 		ItemInfo& getItemInfo(size_t _index);
 
-		// методы для работы с окном
-		void showPopupMenu(const IntPoint& _point);
+		/** Show popup menu
+			@param _point where popup menu will be shown (left top corner in default case)
+			@param _checkBorders Check if Popup out of screen and show it up or left from _point (or up-left)
+		*/
+		void showPopupMenu(const IntPoint& _point, bool _checkBorders = true);
 
 		void hidePopupMenu(bool _hideParentPopup = true);
 

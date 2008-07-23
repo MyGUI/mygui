@@ -97,10 +97,15 @@ void EditorState::enter(bool bIsChangeState)
 	mPopupMenuFile->addItem("  #0000FFTest  ", false, true);
 	mPopupMenuFile->addItem("  Quit  ");
 	mPopupMenuFile->addItem("  Submenu  ", true);
-	mPopupMenuFile->getItemInfo(7).submenu->addItem("Hello!");
-	mPopupMenuFile->getItemInfo(7).submenu->addItem("Hello!!!!");
-	mPopupMenuFile->getItemInfo(7).submenu->addItem("Hello?");
-	mPopupMenuFile->getItemInfo(7).submenu->addItem("ah... :(");
+	MyGUI::PopupMenuPtr menu = mPopupMenuFile->getItemInfo(7).submenu;
+	for (int i = 0; i < 15; i++)
+	{
+		menu->addItem("1Hello!");
+		menu->addItem("2Hello!");
+		menu->addItem("3Hello!");
+		menu->addItem("4ah... :(", true);
+		menu = menu->getItemInfo(3).submenu;
+	}
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 

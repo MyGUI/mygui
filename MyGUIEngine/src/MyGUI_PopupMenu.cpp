@@ -51,7 +51,6 @@ namespace MyGUI
 
 		// первоначально скрываем окно
 		hide();
-
 	}
 
 	void PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
@@ -71,10 +70,7 @@ namespace MyGUI
 			submenu = Gui::getInstance().createWidget<PopupMenu>("PopupMenu", IntCoord(), ALIGN_DEFAULT, "Popup");
 			submenu->_setOwner(this);
 		}
-		else
-		{
-			button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
-		}
+		button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
 		button->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
 
 		mItems.insert(mItems.begin() + _index, ItemInfo(button, _separator, submenu));
@@ -162,17 +158,14 @@ namespace MyGUI
 		}
 		eventPopupMenuAccept(this, index);
 
-		// блокируем
-		setEnabledSilent(false);
-
 		// делаем нажатой
 		static_cast<ButtonPtr>(_sender)->setButtonPressed(true);
 
-		hidePopupMenu();
-
-		//ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-		//controller->eventPostAction = newDelegate(action::actionWidgetHide);
-		//ControllerManager::getInstance().addItem(this, controller);
+		// если есть сабменю, то сообщение все равно отошлем, но скрывать сами не будем
+		if (mItems[index].submenu == NULL)
+		{
+			hidePopupMenu();
+		}
 	}
 
 	void PopupMenu::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
@@ -189,13 +182,19 @@ namespace MyGUI
 		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
 		{
 			if (iter->submenu)
+			{
+				iter->button->setButtonPressed(false);
 				iter->submenu->hidePopupMenu(false);
+			}
 		}
 		if (mItems[index].submenu)
+		{
+			mItems[index].button->setButtonPressed(true);
 			mItems[index].submenu->showPopupMenu(IntPoint(getRight(), mItems[index].button->getTop() + getTop()));
+		}
 	}
 
-	void PopupMenu::showPopupMenu(const IntPoint& _point)
+	void PopupMenu::showPopupMenu(const IntPoint& _point, bool _checkBorders)
 	{
 		setPosition(_point);
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -216,10 +215,15 @@ namespace MyGUI
 	{
 		if (_new != null)
 		{
-			while (_new->_getOwner() != null)
+			// не прятать если выбрали хозяина
+			if (_new == this->_getOwner())
+				return;
+			// не прятать если выбрали сына
+			WidgetPtr owner = _new->_getOwner();
+			while (owner != null)
 			{
-				if (_new == this) return;
-				_new = _new->_getOwner();
+				if (owner == this) return;
+				owner = owner->_getOwner();
 			}
 		}
 		hidePopupMenu();
@@ -250,6 +254,14 @@ namespace MyGUI
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
 		controller->eventPostAction = newDelegate(action::actionWidgetHide);
 		ControllerManager::getInstance().addItem(this, controller);
+
+		// прячем всех детей
+		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+		{
+			if (iter->submenu) {
+				iter->submenu->hidePopupMenu(false);
+			}
+		}
 	}
 
 } // namespace MyGUI
