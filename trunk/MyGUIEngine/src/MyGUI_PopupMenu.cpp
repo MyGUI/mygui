@@ -53,7 +53,7 @@ namespace MyGUI
 		hide();
 	}
 
-	void PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
+	PopupMenu::ItemInfo& PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
 	{
 		if (_index > mItems.size()) _index = mItems.size();
 		ButtonPtr button = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), ALIGN_TOP | ALIGN_HSTRETCH);
@@ -76,18 +76,29 @@ namespace MyGUI
 		mItems.insert(mItems.begin() + _index, ItemInfo(button, _separator, submenu));
 
 		update();
+		return mItems[_index];
 	}
 
-	void PopupMenu::setItem(size_t _index, const Ogre::UTFString& _item)
+	void PopupMenu::setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
 	{
 		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
-		ButtonPtr button = mItems[_index].button;
-		button->setCaption(_item);
 
-		IntSize size = button->getTextSize();
-		button->_setInternalData(size.width);
+		// если сабменю появилось или пропало - проще просто пересоздать
+		if ((_submenu && (mItems[_index].submenu == NULL)) || (!_submenu && (mItems[_index].submenu != NULL)))
+		{
+			deleteItem(_index);
+			insertItem(_index, _item, _submenu, _separator);
+		}
+		else
+		{
+			ButtonPtr button = mItems[_index].button;
+			button->setCaption(_item);
+			mItems[_index].separator = _separator;
+			IntSize size = button->getTextSize();
+			button->_setInternalData(size.width);
 
-		update();
+			update();
+		}
 	}
 
 	void PopupMenu::deleteItem(size_t _index)
@@ -190,12 +201,26 @@ namespace MyGUI
 		if (mItems[index].submenu)
 		{
 			mItems[index].button->setButtonPressed(true);
-			mItems[index].submenu->showPopupMenu(IntPoint(getRight(), mItems[index].button->getTop() + getTop()));
+			// вычисляем куда ставить
+			IntPoint position(getRight(), mItems[index].button->getTop() + getTop());
+			if (position.left + mItems[index].submenu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
+				position.left -= mItems[index].submenu->getWidth() + getWidth();
+			if (position.top + mItems[index].submenu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
+				position.top = mItems[index].button->getBottom() - mItems[index].submenu->getHeight() + getTop();
+			mItems[index].submenu->showPopupMenu(position, false);
 		}
 	}
 
 	void PopupMenu::showPopupMenu(const IntPoint& _point, bool _checkBorders)
 	{
+		if (_checkBorders)
+		{
+			IntPoint point = _point;
+			if (_point.left + getWidth() > MyGUI::Gui::getInstance().getViewWidth())
+				point.left -= getWidth();
+			if (_point.top + getHeight() > MyGUI::Gui::getInstance().getViewHeight())
+				point.top -= getHeight();
+		}
 		setPosition(_point);
 		InputManager::getInstance().setKeyFocusWidget(this);
 
