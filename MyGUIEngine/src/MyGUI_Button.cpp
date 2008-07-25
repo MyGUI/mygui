@@ -84,6 +84,7 @@ namespace MyGUI
 
 	void Button::setEnabled(bool _enabled)
 	{
+		if (mEnabled == _enabled) return;
 		mEnabled = _enabled;
 
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter) {
@@ -92,7 +93,10 @@ namespace MyGUI
 
 		updateButtonState();
 
-		if ( ! mEnabled) InputManager::getInstance()._unlinkWidget(this);
+		if ( ! mEnabled) {
+			InputManager::getInstance()._unlinkWidget(this);
+			mIsFocus = false;
+		}
 	}
 
 	void Button::updateButtonState()
