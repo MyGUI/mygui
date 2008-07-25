@@ -634,21 +634,23 @@ namespace MyGUI
 	{
 		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
 
-		if (mStartDrop) {
-			if (mItemDrag.item) mItemDrag.item->hide();
+		if ( MB_Left == _id) {
+			if (mStartDrop) {
+				if (mItemDrag.item) mItemDrag.item->hide();
 
-			// сбрасываем старую подсветку
-			if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
+				// сбрасываем старую подсветку
+				if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
 
-			eventEndDrop(this, mDropInfo, mDropResult);
-			eventDropState(this, DROP_END);
-			enableToolTip(true);
+				eventEndDrop(this, mDropInfo, mDropResult);
+				eventDropState(this, DROP_END);
+				enableToolTip(true);
 
-			// сбрасываем инфу для дропа
-			mDropResult = false;
-			mOldDrop = null;
-			mDropInfo.reset();
-			mDropSenderIndex = ITEM_NONE;
+				// сбрасываем инфу для дропа
+				mDropResult = false;
+				mOldDrop = null;
+				mDropInfo.reset();
+				mDropSenderIndex = ITEM_NONE;
+			}
 		}
 	}
 
