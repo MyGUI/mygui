@@ -856,6 +856,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_ItemDropInfo.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_Macros.h"
 						>
 					</File>

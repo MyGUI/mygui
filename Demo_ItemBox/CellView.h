@@ -8,16 +8,19 @@
 #define __CELL_VIEW_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseCellView.h"
 #include "ItemData.h"
 
-class CellView : public BaseLayout
+template class BaseCellView<ItemData>;
+
+class CellView : public BaseCellView<ItemData>
 {
 public:
 	CellView();
 
 	void initialise(MyGUI::WidgetPtr _parent);
 
+	//void getSizeCell(WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop);
 	void update(const MyGUI::ItemInfo& _info, ItemData * _data);
 
 private:

@@ -11,6 +11,7 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_WidgetToolTip.h"
+#include "MyGUI_ItemDropInfo.h"
 
 namespace MyGUI
 {
@@ -28,6 +29,12 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventInfo_WidgetStringString;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr&, size_t &> EventInfo_WidgetRefWidgetRefSizeT;
 	typedef delegates::CDelegate2<WidgetPtr, const ToolTipInfo & > EventInfo_WidgetToolTip;
+
+	// делегаты для дропа
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
+	typedef delegates::CDelegate2<WidgetPtr, DropState> EventInfo_WidgetDropState;
+
 
 	/**
 	General information about creating delegate for event :
@@ -168,6 +175,22 @@ namespace MyGUI
 		/* event : внутреннее событие, невалидна информация для дропа*/
 		/* signature : void method(MyGUI::WidgetPtr _sender);*/
 		EventInfo_WidgetVoid _eventInvalideDropInfo;
+
+		// event : запрос на начало дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
+
+		// event : запрос на дроп айтема
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
+
+		// event : завершение дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
+		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
+
+		// event : текущее состояние дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
+		EventInfo_WidgetDropState eventDropState;
 
 		/* event : событие для отображения тултипа*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);*/
