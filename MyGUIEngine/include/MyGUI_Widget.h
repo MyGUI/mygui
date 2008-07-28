@@ -218,6 +218,9 @@ namespace MyGUI
 		/** Set need mouse focus flag */
 		inline void setNeedMouseFocus(bool _need) {mNeedMouseFocus = _need;}
 
+		inline void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
+		inline bool isInheritsPeek() { return mInheritsPeek; }
+
 		/** Is widget enabled */
 		inline bool isEnabled() {return mEnabled;}
 		/** Enable or disable widget */
@@ -324,6 +327,7 @@ namespace MyGUI
 		bool mNeedKeyFocus;
 		// нужен ли виджету фокус мыши
 		bool mNeedMouseFocus;
+		bool mInheritsPeek;
 
 		// нужно и виджету поддержка драг энд дропа
 		bool mNeedDragDrop;

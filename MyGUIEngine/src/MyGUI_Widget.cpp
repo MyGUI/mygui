@@ -42,6 +42,7 @@ namespace MyGUI
 		mMainSkin(null),
 		mWidgetCreator(_creator),
 		mInheritsAlpha(true),
+		mInheritsPeek(false),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
 		mNeedDragDrop(false),
@@ -438,7 +439,7 @@ namespace MyGUI
 	LayerItem * Widget::_findLayerItem(int _left, int _top)
 	{
 		// проверяем попадание
-		if (!mVisible || !mShow || !mNeedMouseFocus || !_checkPoint(_left, _top)) return null;
+		if (!mVisible || !mShow || (!mNeedMouseFocus && !mInheritsPeek) || !_checkPoint(_left, _top)) return null;
 		// если есть маска, проверяем еще и по маске
 		if ((false == mMaskPeekInfo.empty()) &&
 			(false == mMaskPeekInfo.peek(IntPoint(_left, _top)-mCoord.point(), mCoord))) return null;
@@ -451,7 +452,7 @@ namespace MyGUI
 			}
 		}
 		// непослушные дети
-		return this;
+		return mInheritsPeek ? null : this;
 	}
 
 	void Widget::_updateAbsolutePoint()

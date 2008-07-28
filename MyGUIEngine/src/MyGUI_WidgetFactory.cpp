@@ -30,6 +30,7 @@ namespace MyGUI
 			manager.registerDelegate("Widget_FontHeight") = newDelegate(this, &WidgetFactory::Widget_FontHeight);
 			manager.registerDelegate("Widget_Alpha") = newDelegate(this, &WidgetFactory::Widget_Alpha);
 			manager.registerDelegate("Widget_InheritsAlpha") = newDelegate(this, &WidgetFactory::Widget_InheritsAlpha);
+			manager.registerDelegate("Widget_InheritsPeek") = newDelegate(this, &WidgetFactory::Widget_InheritsPeek);
 			manager.registerDelegate("Widget_State") = newDelegate(this, &WidgetFactory::Widget_State);
 			manager.registerDelegate("Widget_NeedKey") = newDelegate(this, &WidgetFactory::Widget_NeedKey);
 			manager.registerDelegate("Widget_NeedMouse") = newDelegate(this, &WidgetFactory::Widget_NeedMouse);
@@ -54,6 +55,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_FontHeight");
 			manager.unregisterDelegate("Widget_Alpha");
 			manager.unregisterDelegate("Widget_InheritsAlpha");
+			manager.unregisterDelegate("Widget_InheritsPeek");
 			manager.unregisterDelegate("Widget_State");
 			manager.unregisterDelegate("Widget_NeedKey");
 			manager.unregisterDelegate("Widget_NeedMouse");
@@ -155,6 +157,11 @@ namespace MyGUI
 		void WidgetFactory::Widget_InheritsAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			_widget->setInheritsAlpha(utility::parseBool(_value));
+		}
+
+		void WidgetFactory::Widget_InheritsPeek(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			_widget->setInheritsPeek(utility::parseBool(_value));
 		}
 
 		void WidgetFactory::Widget_NeedToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
