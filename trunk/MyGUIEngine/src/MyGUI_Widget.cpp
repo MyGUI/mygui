@@ -131,6 +131,8 @@ namespace MyGUI
 	{
 		Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
 
+		if (mToolTipVisible) eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+
 		_detachFromLayerItemKeeper();
 
 		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
@@ -814,6 +816,18 @@ namespace MyGUI
 		}
 		else {
 			mToolTipCurrentTime = 0;
+		}
+	}
+
+	void Widget::_outDateItems(bool _updateOnly)
+	{
+		if ( mEnableToolTip) {
+			if (mToolTipVisible) {
+				mToolTipVisible = false;
+				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+			}
+			mToolTipCurrentTime = 0;
+			mToolTipOldIndex = ITEM_NONE;
 		}
 	}
 

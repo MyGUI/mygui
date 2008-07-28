@@ -11,6 +11,10 @@
 #include "ToolTip.h"
 #include "ItemBoxV.h"
 #include "ItemBoxH.h"
+#include "CellView.h"
+#include "test.h"
+#include "test2.h"
+#include "test3.h"
 
 class DemoKeeper
 {
@@ -25,6 +29,7 @@ private:
 	void notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result);
 	void notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _result);
 	void notifyDropState(BaseLayout * _sender, MyGUI::DropState _state);
+	void notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info);
 
 	void notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data);
 
@@ -32,6 +37,9 @@ private:
 	ToolTip mToolTip;
 	ItemBoxV mItemBoxV;
 	ItemBoxH mItemBoxH;
+
+	TestItemBoxV test1;
+	TestItemBoxH test2;
 };
 
 #endif // __DEMO_KEEPER_H__

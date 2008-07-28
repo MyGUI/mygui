@@ -8,7 +8,7 @@
 #include "CellView.h"
 
 CellView::CellView() :
-	BaseLayout("CellView.layout")
+	BaseCellView("CellView.layout")
 {
 }
 
@@ -23,8 +23,13 @@ void CellView::initialise(MyGUI::WidgetPtr _parent)
 	assignWidget(mTextFront, "text_Front");
 }
 
+/*void CellView::getSizeCell(WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
+{
+}*/
+
 void CellView::update(const MyGUI::ItemInfo& _info, ItemData * _data)
 {
+	//ItemData * data = (ItemData *)_data;
 
 	if (_info.update) {
 		mImageItem->setImageRect(MyGUI::IntRect((int)_data->type * 68 + 68*2, 0, (int)_data->type * 68 + 68*3, 68*3));

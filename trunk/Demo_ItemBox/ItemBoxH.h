@@ -8,9 +8,10 @@
 #define __ITEM_BOXH_H__
 
 #include <MyGUI.h>
-#include "ItemBoxV.h"
+#include "BaseItemBox.h"
+#include "CellView.h"
 
-class ItemBoxH : public ItemBoxV
+class ItemBoxH : public BaseItemBox<CellView>
 {
 public:
 	ItemBoxH();
