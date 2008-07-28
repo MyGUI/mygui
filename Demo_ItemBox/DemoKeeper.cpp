@@ -6,6 +6,7 @@
 */
 #include "DemoKeeper.h"
 #include "BasisManager.h"
+#include "CellView.h"
 
 void DemoKeeper::notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result)
 {
@@ -41,10 +42,17 @@ void DemoKeeper::notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _r
 		_info.sender_data->count = 0;
 
 		
-		((ItemBoxV*)_info.reseiver)->setItemData(_info.reseiver_index, _info.reseiver_data);
-		((ItemBoxV*)_info.sender)->setItemData(_info.sender_index, _info.sender_data);
+		((BaseItemBox<CellView>*)_info.reseiver)->setItemData(_info.reseiver_index, _info.reseiver_data);
+		((BaseItemBox<CellView>*)_info.sender)->setItemData(_info.sender_index, _info.sender_data);
 	}
 
+}
+
+void DemoKeeper::notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info)
+{
+	if (_info.index != ITEM_NONE) {
+		((BaseItemBox<CellView>*)_sender)->removeItem(_info.index);
+	}
 }
 
 void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropState _state)
@@ -89,6 +97,7 @@ void DemoKeeper::start()
 	mItemBoxV.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
 	mItemBoxV.eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
 	mItemBoxV.eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
+	mItemBoxV.eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
 	mItemBoxV.eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
 	mItemBoxH.initialise();
@@ -107,7 +116,17 @@ void DemoKeeper::start()
 	mItemBoxH.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
 	mItemBoxH.eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
 	mItemBoxH.eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
+	mItemBoxH.eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
 	mItemBoxH.eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
+
+
+	ItemData data(TypeEmerald, 5, L"Изумруд", L"описание Изумруд");
+
+	test1.initialise();
+	test1.addItem( & data);
+
+	test2.initialise();
+	test2.addItem( & data);
 
 }
 

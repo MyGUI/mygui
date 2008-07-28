@@ -8,6 +8,6 @@
 #include "ItemBoxH.h"
 
 ItemBoxH::ItemBoxH() :
-	ItemBoxV("ItemBoxH.layout")
+	BaseItemBox<CellView>("ItemBoxH.layout")
 {
 }

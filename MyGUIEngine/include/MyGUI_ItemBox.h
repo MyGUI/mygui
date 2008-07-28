@@ -55,64 +55,6 @@ namespace MyGUI
 	};
 	typedef std::vector<ItemInfo> VectorItemInfo;
 
-	// структура информации об индексах дропа
-	struct ItemDropInfo
-	{
-		ItemDropInfo() :
-			reseiver(null),
-			reseiver_index(ITEM_NONE),
-			reseiver_data(null),
-			sender(null),
-			sender_index(ITEM_NONE),
-			sender_data(null)
-		{
-		}
-
-		ItemDropInfo(WidgetPtr _sender, size_t _sender_index, void * _sender_data, WidgetPtr _reseiver, size_t _reseiver_index, void * _reseiver_data) :
-			sender(_sender),
-			sender_index(_sender_index),
-			sender_data(_sender_data),
-			reseiver(_reseiver),
-			reseiver_index(_reseiver_index),
-			reseiver_data(_reseiver_data)
-		{
-		}
-
-		void set(WidgetPtr _sender, size_t _sender_index, void * _sender_data, WidgetPtr _reseiver, size_t _reseiver_index, void * _reseiver_data)
-		{
-			sender = _sender;
-			sender_index = _sender_index;
-			sender_data = _sender_data;
-			reseiver = _reseiver;
-			reseiver_index = _reseiver_index;
-			reseiver_data = _reseiver_data;
-		}
-
-		void reset()
-		{
-			if (reseiver) reseiver->_eventInvalideDropInfo = null;
-			reseiver = null;
-			reseiver_index = ITEM_NONE;
-			reseiver_data = null;
-			sender = null;
-			sender_index = ITEM_NONE;
-			sender_data = null;
-		}
-
-		// посылающий виджет 
-		WidgetPtr sender;
-		// индекс посылающего виджета
-		size_t sender_index;
-		// ассоциированные данные отправителя
-		void * sender_data;
-
-		// принимающий виджет
-		WidgetPtr reseiver;
-		// индекс принимающего виджета
-		size_t reseiver_index;
-		// ассоциированные данные получателя
-		void * reseiver_data;
-	};
 
 	// вспомогательная структура для представления одного виджета айтема
 	struct WidgetItemData
@@ -123,14 +65,6 @@ namespace MyGUI
 	};
 
 	typedef std::vector<WidgetItemData> VectorWidgetItemData;
-
-	enum DropState {
-		DROP_START,
-		DROP_END,
-		DROP_MISS,
-		DROP_ACCEPT,
-		DROP_REFUSE
-	};
 
 	enum NotifyItem {
 		NOTIFY_MOUSE_PRESSED,
@@ -165,12 +99,6 @@ namespace MyGUI
 	typedef delegates::CDelegate2<WidgetPtr, WidgetItemData&> EventInfo_WidgetWidgetRefWidget; //???
 	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetItemData, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
-
-	// делегаты для дропа
-	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
-	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
-	typedef delegates::CDelegate2<WidgetPtr, DropState> EventInfo_WidgetDropState;
-
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -249,23 +177,6 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _info)
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
-
-		// event : запрос на начало дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
-		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
-
-		// event : запрос на дроп айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
-		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
-
-		// event : завершение дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
-		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
-
-		// event : текущее состояние дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
-		EventInfo_WidgetDropState eventDropState;
-
 		// event : двойной щелчек мыши или Enter на елементе
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventSelectItemAccept;
@@ -324,6 +235,9 @@ namespace MyGUI
 		void findCurrentActiveItem();
 
 		size_t _getToolTipIndex(IntPoint _point);
+
+		// сбрасывает зависимости, при любом колличественном изменении
+		void _outDateItems(bool _updateOnly);
 
 	private:
 		VScrollPtr mWidgetScroll;

@@ -18,6 +18,7 @@ BaseLayout::BaseLayout() :
 
 BaseLayout::BaseLayout(const std::string & _layout) :
 	mMainWidget(null),
+	mParentWidget(null),
 	mLayoutName(_layout)
 {
 	mPrefix = MyGUI::utility::toString(this, "_");
@@ -45,6 +46,11 @@ void BaseLayout::initialise()
 	loadLayout();
 }
 
+void BaseLayout::initialise(MyGUI::WidgetPtr _parent)
+{
+	loadLayout(_parent);
+}
+
 void BaseLayout::shutdown()
 {
 	if (mParentWidget == null) {
@@ -52,3 +58,11 @@ void BaseLayout::shutdown()
 	}
 	mListWindowRoot.clear();
 }
+
+void BaseLayout::assignWidget(BaseLayout & _base, const std::string & _name, bool _throw)
+{
+	MyGUI::WidgetPtr widget = null;
+	assignWidget(widget, _name, _throw);
+	_base.initialise(widget);
+}
+

@@ -51,6 +51,8 @@ namespace MyGUI
 		void frameEntered(float _frame);
 
 		virtual size_t _getToolTipIndex(IntPoint _point) { return ITEM_NONE; }
+		virtual void _outDateItems(bool _updateOnly);
+
 
 	public:
 

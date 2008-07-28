@@ -16,6 +16,7 @@ public:
 	BaseLayout(const std::string & _layout);
 
 	virtual void initialise();
+	virtual void initialise(MyGUI::WidgetPtr _parent);
 	virtual void shutdown();
 
 	inline MyGUI::WidgetPtr operator->() const
@@ -56,6 +57,8 @@ protected:
 		}
 		MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
 	}
+
+	void assignWidget(BaseLayout & _widget, const std::string & _name, bool _throw = true);
 
 protected:
 	std::string mPrefix;

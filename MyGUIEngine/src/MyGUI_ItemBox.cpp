@@ -16,6 +16,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetTranslate.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -125,6 +126,7 @@ namespace MyGUI
 		//}
 
 		_updateAllVisible(true);
+		_outDateItems(true);
 	}
 
 	void ItemBox::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
@@ -135,6 +137,8 @@ namespace MyGUI
 		mOffsetTop = mScrollPosition % mSizeItem.height;
 
 		_updateAllVisible(old != mLineTop);
+
+		_outDateItems(true);
 	}
 
 	void ItemBox::updateMetrics()
@@ -364,6 +368,7 @@ namespace MyGUI
 			findCurrentActiveItem();
 		}
 
+		_outDateItems(true);
 	}
 
 	void ItemBox::resetCurrentActiveItem()
@@ -467,6 +472,8 @@ namespace MyGUI
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
 			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
 		}
+
+		_outDateItems(true);
 	}
 
 	void * ItemBox::getIndexItemData(size_t _index)
@@ -479,6 +486,7 @@ namespace MyGUI
 	void ItemBox::insertItem(size_t _index, void * _data)
 	{
 		MYGUI_ASSERT(((_index < mItemsInfo.size()) || (_index == ITEM_NONE)), "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
+		_outDateItems(false);
 
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
@@ -511,6 +519,7 @@ namespace MyGUI
 	void ItemBox::deleteItem(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mItemsInfo.size() , "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
+		_outDateItems(false);
 
 		resetCurrentActiveItem();
 
@@ -544,6 +553,7 @@ namespace MyGUI
 	void ItemBox::deleteAllItems()
 	{
 		if (0 == mItemsInfo.size()) return;
+		_outDateItems(false);
 
 		mItemsInfo.clear();
 		mCountItems = 0;
@@ -594,8 +604,6 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
-
 		if ( MB_Left == _id) {
 			size_t old = mIndexSelect;
 
@@ -628,12 +636,12 @@ namespace MyGUI
 			// смену позиции отсылаем только при реальном изменении
 			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
+
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
 	}
 
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
-
 		if ( MB_Left == _id) {
 			if (mStartDrop) {
 				if (mItemDrag.item) mItemDrag.item->hide();
@@ -652,6 +660,8 @@ namespace MyGUI
 				mDropSenderIndex = ITEM_NONE;
 			}
 		}
+
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
 	}
 
 	void ItemBox::notifyMouseButtonDoubleClick(WidgetPtr _sender)
@@ -793,10 +803,24 @@ namespace MyGUI
 
 	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
 	{
+
+#if MYGUI_DEBUG_MODE == 1
+		if (_widget != mWidgetClient) {
+			VectorWidgetItemData::iterator iter=mVectorItems.begin();
+			for (; iter!=mVectorItems.end(); ++iter) {
+				if (iter->item == _widget) break;
+			}
+			if (iter == mVectorItems.end()) MYGUI_EXCEPT("ItemBox::getIndexByWidget widget not found");
+		}
+#endif
+
 		// формируем нотифи для индекса
 		size_t index = ITEM_NONE;
-		if (_widget != mWidgetClient) {
+		if ((_widget != mWidgetClient) && (_widget->isShow())) {
 			index = (size_t)_widget->_getInternalData() + (mLineTop * mCountItemInLine);
+			if (index >= mItemsInfo.size()) {
+				int test=0;
+			}
 			MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 			MYGUI_DEBUG_ASSERT(_widget->getParent() == mWidgetClient, "widget is not indexed");
 		}
@@ -806,11 +830,26 @@ namespace MyGUI
 	size_t ItemBox::_getToolTipIndex(IntPoint _point)
 	{
 		for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if (iter->item->getAbsoluteRect().inside(_point)) {
-				return getIndexByWidget(iter->item);
+			if (iter->item->isShow()) {
+				if (iter->item->getAbsoluteRect().inside(_point)) {
+					return getIndexByWidget(iter->item);
+				}
 			}
 		}
 		return ITEM_NONE;
+	}
+
+	void ItemBox::_outDateItems(bool _updateOnly)
+	{
+		// обязательно у базового
+		Widget::_outDateItems(_updateOnly);
+
+		if ( ! _updateOnly) {
+			WidgetManager & instance = WidgetManager::getInstance();
+			for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+				instance.unlinkFromUnlinkers((*iter).item);
+			}
+		}
 	}
 
 } // namespace MyGUI
