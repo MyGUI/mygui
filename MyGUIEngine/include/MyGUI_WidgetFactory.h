@@ -41,6 +41,7 @@ namespace MyGUI
 			void Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_Enabled(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_InheritsAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Widget_InheritsPeek(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_NeedToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			
 		};
