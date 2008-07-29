@@ -76,6 +76,7 @@
 				AdditionalIncludeDirectories="include;..\Dependencies\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUIENGINE_EXPORTS; MYGUI_NONCLIENT_BUILD"
 				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"/>
@@ -622,6 +623,9 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Instance.h">
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ItemDropInfo.h">
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Macros.h">

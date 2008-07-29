@@ -81,10 +81,13 @@ namespace MyGUI
 	private:
 		void notifyMouseClick(MyGUI::WidgetPtr _sender);
 		void notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 
 		void _onKeyLostFocus(WidgetPtr _new);
 
+
 		void update();
+		bool isRelative(WidgetPtr _widget, bool _all = false);
 
 	private:
 		VectorPopupMenuItemInfo mItems;
@@ -92,7 +95,7 @@ namespace MyGUI
 		int mHeightLine;
 		std::string mSkinLine;
 
-		int mMaxWidth;
+		int mSubmenuImageSize;
 
 	}; // class _MyGUIExport PopupMenu : public Widget
 

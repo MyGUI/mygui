@@ -109,7 +109,7 @@ namespace MyGUI
 		inline LogStream& operator<<(size_t _value)
 		{
 			std::cout << (unsigned int)_value;
-			if (mStream.is_open()) mStream << (unsigned int)_value;
+			if (mStream.is_open()) mStream << _value;
 
 			return *this;
 		}

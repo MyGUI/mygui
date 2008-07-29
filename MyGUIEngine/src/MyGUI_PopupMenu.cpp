@@ -9,6 +9,7 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_LayerManager.h"
 
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
@@ -26,7 +27,7 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		//mWidgetClient(null),
 		mHeightLine(1),
-		mMaxWidth(0)
+		mSubmenuImageSize(0)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -38,6 +39,7 @@ namespace MyGUI
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
+		mWidgetClient->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
 
 		// парсим свойства
 		const MapString & param = _info->getParams();
@@ -48,6 +50,8 @@ namespace MyGUI
 		iterS = param.find("HeightLine");
 		if (iterS != param.end()) mHeightLine = utility::parseInt(iterS->second);
 		if (mHeightLine < 1) mHeightLine = 1;
+		iterS = param.find("SubmenuImageSize");
+		if (iterS != param.end()) mSubmenuImageSize = utility::parseInt(iterS->second);
 
 		// первоначально скрываем окно
 		hide();
@@ -72,6 +76,7 @@ namespace MyGUI
 		}
 		button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
 		button->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
+		button->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
 
 		mItems.insert(mItems.begin() + _index, ItemInfo(button, _separator, submenu));
 
@@ -151,10 +156,40 @@ namespace MyGUI
 			iter->button->setPosition(0, size.height);
 			size.height += mHeightLine;
 			if (iter->separator) size.height += 10;
-			if (iter->button->_getInternalData() > size.width) size.width = iter->button->_getInternalData();
+
+			int width = iter->button->_getInternalData();
+			if (iter->submenu != NULL) width += mSubmenuImageSize;
+			if (width > size.width) size.width = width;
 		}
 
 		setSize(size + mCoord.size() - mWidgetClient->getSize());
+	}
+
+	bool PopupMenu::isRelative(WidgetPtr _widget, bool _all)
+	{
+		if (_widget != null)
+		{
+			// да, хозяин
+			if (_widget == this->_getOwner())
+				return true;
+			// сына
+			WidgetPtr owner = _widget->_getOwner();
+			while (owner != null)
+			{
+				if (owner == this) return true;
+				owner = owner->_getOwner();
+			}
+			if (_all)
+			{
+				owner = this->_getOwner();
+				while (owner != null)
+				{
+					if (owner == _widget) return true;
+					owner = owner->_getOwner();
+				}
+			}
+		}
+		return false;
 	}
 
 	void PopupMenu::notifyMouseClick(MyGUI::WidgetPtr _sender)
@@ -236,21 +271,26 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	void PopupMenu::_onKeyLostFocus(WidgetPtr _new)
+	void PopupMenu::notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_new != null)
+		if ( this->getCoord().inside(IntPoint(_left, _top)) == false )
 		{
-			// не прятать если выбрали хозяина
-			if (_new == this->_getOwner())
-				return;
-			// не прятать если выбрали сына
-			WidgetPtr owner = _new->_getOwner();
-			while (owner != null)
+			MyGUI::LayerItem * rootItem = null;
+			MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, rootItem));
+			// проверяем только рутовые виджеты, чтобы не проверять детей попапа
+			while ((item != NULL) && (item->getParent() != NULL)) item = item->getParent();
+			if (!isRelative(item, true))
 			{
-				if (owner == this) return;
-				owner = owner->_getOwner();
+				hidePopupMenu();
+				eventPopupMenuClose(this);
 			}
 		}
+	}
+
+	void PopupMenu::_onKeyLostFocus(WidgetPtr _new)
+	{
+		// не прятать, если фокус перешел к хозяину или сыну
+		if (isRelative(_new)) return;
 		hidePopupMenu();
 		eventPopupMenuClose(this);
 

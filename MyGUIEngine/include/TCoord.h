@@ -162,6 +162,11 @@ namespace types
 			return TSize<T>(width, height);
 		}
 
+		inline bool inside(const TPoint<T>&  _value) const
+		{
+			return ( (_value.left >= left) && (_value.left <= right()) && (_value.top >= top) && (_value.top <= bottom()) );
+		}
+
 		inline std::string print() const
 		{
 	        std::ostringstream stream;
