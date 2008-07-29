@@ -1340,6 +1340,7 @@
         <Property key="NeedKey" value = "true" />
         <Property key="SkinLine" value = "PopupMenuLine" />
         <Property key="HeightLine" value = "20" />
+        <Property key="SubmenuImageSize" value = "12" />
 
         <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "ALIGN_STRETCH" name = "Client">
         </Child>

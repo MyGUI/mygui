@@ -103,7 +103,7 @@ void EditorState::enter(bool bIsChangeState)
 		menu->addItem("1Hello!");
 		menu->addItem("2Hello!");
 		menu->addItem("3Hello!");
-		menu->addItem("4ah... :(111111111");
+		menu->addItem("4ah... :(");
 		menu->addItem("5ah... :(", true);
 		menu->addItem("6ah... :(");
 		menu = menu->getItemInfo(4).submenu;
