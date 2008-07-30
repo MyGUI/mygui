@@ -1341,6 +1341,8 @@
         <Property key="SkinLine" value = "PopupMenuLine" />
         <Property key="HeightLine" value = "20" />
         <Property key="SubmenuImageSize" value = "12" />
+        <Property key="SubMenuSkin" value = "PopupMenu" />
+        <Property key="SubMenuLayer" value = "Popup" />
 
         <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "ALIGN_STRETCH" name = "Client">
         </Child>
@@ -1390,6 +1392,8 @@
     <Skin name = "MenuBar" size = "43 28" texture = "core.png">
         <Property key="SkinButton" value = "MenuBarButton" />
         <Property key="DistanceButton" value = "6" />
+        <Property key="SubMenuSkin" value = "PopupMenu" />
+        <Property key="SubMenuLayer" value = "Popup" />
 
         <Child type="Widget" skin="Default" offset = "6 2 31 20" align = "ALIGN_STRETCH" name = "Client"/>
         

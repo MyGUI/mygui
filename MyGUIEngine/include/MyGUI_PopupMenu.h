@@ -97,6 +97,9 @@ namespace MyGUI
 
 		int mSubmenuImageSize;
 
+		std::string mSubMenuSkin;
+		std::string mSubMenuLayer;
+
 	}; // class _MyGUIExport PopupMenu : public Widget
 
 } // namespace MyGUI
