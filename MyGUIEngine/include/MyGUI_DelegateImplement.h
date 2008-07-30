@@ -6,14 +6,17 @@
 */
 namespace delegates
 {
-
+	#ifndef COMBINE
 	#define COMBINE(a,b)       COMBINE1(a,b)
+	#endif
 	#define COMBINE1(a,b)      a##b
 
 	#define I_DELEGATE         COMBINE(IDelegate, SUFFIX)
 	#define C_STATIC_DELEGATE  COMBINE(CStaticDelegate, SUFFIX)
 	#define C_METHOD_DELEGATE  COMBINE(CMethodDelegate, SUFFIX)
+	#ifndef C_DELEGATE
 	#define C_DELEGATE         COMBINE(CDelegate, SUFFIX)
+	#endif
 
 	// базовый класс всех делегатов
 	template<TEMPLATE_PARAMS>
