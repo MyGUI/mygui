@@ -38,6 +38,15 @@ namespace MyGUI
 
 			iter = param.find("SkinButton");
 			if (iter != param.end()) mButtonSkinName = iter->second;
+			MYGUI_ASSERT(false == mButtonSkinName.empty(), "SkinButton property not found (MenuBar must have SkinButton property)");
+
+			iter = param.find("SubMenuSkin");
+			if (iter != param.end()) mSubMenuSkin = iter->second;
+			MYGUI_ASSERT(false == mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuBar must have SubMenuSkin property)");
+
+			iter = param.find("SubMenuLayer");
+			if (iter != param.end()) mSubMenuLayer = iter->second;
+			MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuBar must have SubMenuLayer property)");
 		}
 
 		if (mWidgetClient == null) mWidgetClient= this;
@@ -52,7 +61,7 @@ namespace MyGUI
 		button->eventMouseButtonPressed = newDelegate(this, &MenuBar::eventMouseButtonPressed);
 		button->setCaption(_item);
 
-		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>("PopupMenu", IntCoord(), ALIGN_DEFAULT, "Popup");
+		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), ALIGN_DEFAULT, mSubMenuLayer);
 		//menu->eventPopupMenuClose = newDelegate(this, &MenuBar::notifyPopupMenuClose);
 		menu->eventPopupMenuAccept = newDelegate(this, &MenuBar::notifyPopupMenuAccept);
 		menu->_setOwner(this);

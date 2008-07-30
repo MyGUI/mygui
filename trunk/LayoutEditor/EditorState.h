@@ -148,6 +148,7 @@ private:
 	UndoManager * um;
 
 	MyGUI::Gui * mGUI;
+	MyGUI::MenuBarPtr bar;
 	MyGUI::PopupMenuPtr mPopupMenuFile;
 	MyGUI::PopupMenuPtr mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;

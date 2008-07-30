@@ -83,7 +83,7 @@ void EditorState::enter(bool bIsChangeState)
 	loadSettings();
 
 	// создание меню
-	MyGUI::MenuBarPtr bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
+	bar = mGUI->createWidget<MyGUI::MenuBar>("EditorMenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem("  File  ");
 	bar->addItem("  Widgets  ");
 	mPopupMenuWidgets = bar->getItemMenu(1);
@@ -482,6 +482,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				{
 					(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(2048, 2048));
 				}
+            bar->show();
 				testMode = false;
 				clear();
 				ew->loadxmlDocument(testLayout);
@@ -754,6 +755,7 @@ void EditorState::notifyTest()
 	{
 		(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(-2048, -2048));
 	}
+   bar->hide();
 	testLayout = ew->savexmlDocument();
 	ew->clear();
 	notifySelectWidget(null);
@@ -1470,10 +1472,10 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 MyGUI::IntCoord EditorState::convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
 {
 	MyGUI::WidgetPtr parent = widget->getParent();
-	if (null != parent){
+	while (null != parent){
 		coord = coord - parent->getPosition();
 		// а может у нас и дедушка есть? а может и прадед...
-		coord = convertCoordToParentCoord(coord, parent);
+		parent = parent->getParent();
 	}
 	return coord;
 }
@@ -1481,10 +1483,10 @@ MyGUI::IntCoord EditorState::convertCoordToParentCoord(MyGUI::IntCoord coord, My
 MyGUI::IntCoord EditorState::convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
 {
 	MyGUI::WidgetPtr parent = widget->getParent();
-	if (null != parent){
+	while (null != parent){
 		coord = coord + parent->getPosition();
 		// а может у нас и дедушка есть? а может и прадед...
-		coord = convertParentCoordToCoord(coord, parent);
+		parent = parent->getParent();
 	}
 	return coord;
 }
