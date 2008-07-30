@@ -129,5 +129,61 @@
             <State name="normal" offset = "34 14 2 2"/>
         </BasisSkin>
     </Skin>
-	
+
+    <Skin name = "EditorPopupMenu" size = "9 9" texture = "core.png" align = "ALIGN_LEFT ALIGN_TOP">
+        <Property key="NeedKey" value = "true" />
+        <Property key="SkinLine" value = "PopupMenuLine" />
+        <Property key="HeightLine" value = "20" />
+        <Property key="SubmenuImageSize" value = "12" />
+        <Property key="SubMenuSkin" value = "EditorPopupMenu" />
+        <Property key="SubMenuLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "ALIGN_STRETCH" name = "Client">
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "147 2 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "150 2 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 3 3" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "153 2 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 3 3" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "153 5 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 6 3 3" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "153 8 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 3 3" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "150 8 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 3 3" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "147 8 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "147 5 3 3"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "EditorMenuBar" size = "43 28" texture = "core.png">
+        <Property key="SkinButton" value = "MenuBarButton" />
+        <Property key="DistanceButton" value = "6" />
+        <Property key="SubMenuSkin" value = "EditorPopupMenu" />
+        <Property key="SubMenuLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="Default" offset = "6 2 31 20" align = "ALIGN_STRETCH" name = "Client"/>
+        
+        <BasisSkin type="SubSkin" offset = "0 0 3 28" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "585 2 3 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 37 28" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "588 2 37 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "40 0 3 28" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "625 2 3 28"/>
+        </BasisSkin>
+    </Skin>
+
 </MyGUI>

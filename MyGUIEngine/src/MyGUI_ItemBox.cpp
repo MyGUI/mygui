@@ -77,7 +77,7 @@ namespace MyGUI
 		/*const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("SkinLine");
 		if (iter != param.end()) mSkinLine = iter->second;
-		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property or skin not found (ItemBox must have SkinLine property)");
+		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (ItemBox must have SkinLine property)");
 
 		iter = param.find("HeightLine");
 		if (iter != param.end()) mHeightLine = utility::parseInt(iter->second);

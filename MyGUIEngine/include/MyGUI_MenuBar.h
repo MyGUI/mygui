@@ -92,6 +92,8 @@ namespace MyGUI
 	private:
 		VectorMenuItemInfo mVectorMenuItemInfo;
 		std::string mButtonSkinName;
+		std::string mSubMenuSkin;
+		std::string mSubMenuLayer;
 		int mDistanceButton;
 
 		size_t mIndexSelect;
