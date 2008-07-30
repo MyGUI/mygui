@@ -122,12 +122,6 @@ void DemoKeeper::start()
 
 	ItemData data(TypeEmerald, 5, L"Изумруд", L"описание Изумруд");
 
-	test1.initialise();
-	test1.addItem( & data);
-
-	test2.initialise();
-	test2.addItem( & data);
-
 }
 
 void DemoKeeper::end()
