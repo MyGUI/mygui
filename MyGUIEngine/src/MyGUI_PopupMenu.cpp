@@ -172,7 +172,7 @@ namespace MyGUI
 			// да, хоз€ин
 			if (_widget == this->_getOwner())
 				return true;
-			// сына
+			// сына, внук и проча€ мелюзга
 			WidgetPtr owner = _widget->_getOwner();
 			while (owner != null)
 			{
@@ -181,6 +181,9 @@ namespace MyGUI
 			}
 			if (_all)
 			{
+				// так это ж €!
+				if (_widget == this) return true;
+				 // предки
 				owner = this->_getOwner();
 				while (owner != null)
 				{
@@ -202,6 +205,8 @@ namespace MyGUI
 				break;
 			}
 		}
+		// если вызвали через событие onMouseRelease и не попали
+		if (index == ITEM_NONE) return;
 		eventPopupMenuAccept(this, index);
 
 		// делаем нажатой
@@ -273,13 +278,19 @@ namespace MyGUI
 
 	void PopupMenu::notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if ( this->getCoord().inside(IntPoint(_left, _top)) == false )
+		// если отжали не на той же кнопке
+		if ( _sender->getAbsoluteCoord().inside(IntPoint(_left, _top)) == false )
 		{
 			MyGUI::LayerItem * rootItem = null;
 			MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, rootItem));
+			MyGUI::WidgetPtr button = item; // может понадобитс€, дл€ вызова notifyMouseClick
 			// провер€ем только рутовые виджеты, чтобы не провер€ть детей попапа
 			while ((item != NULL) && (item->getParent() != NULL)) item = item->getParent();
-			if (!isRelative(item, true))
+			if (isRelative(item, true))
+			{
+				castWidget<PopupMenu>(item)->notifyMouseClick(button);
+			}
+			else
 			{
 				hidePopupMenu();
 				eventPopupMenuClose(this);
