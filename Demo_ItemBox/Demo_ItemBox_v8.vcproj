@@ -209,18 +209,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\test.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\test2.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\test3.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\ToolTip.cpp"
 				>
 			</File>
@@ -268,18 +256,6 @@
 			</File>
 			<File
 				RelativePath=".\ItemDropInfo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\test.h"
-				>
-			</File>
-			<File
-				RelativePath=".\test2.h"
-				>
-			</File>
-			<File
-				RelativePath=".\test3.h"
 				>
 			</File>
 			<File
