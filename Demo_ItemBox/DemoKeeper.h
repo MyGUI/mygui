@@ -12,9 +12,6 @@
 #include "ItemBoxV.h"
 #include "ItemBoxH.h"
 #include "CellView.h"
-#include "test.h"
-#include "test2.h"
-#include "test3.h"
 
 class DemoKeeper
 {
@@ -38,8 +35,6 @@ private:
 	ItemBoxV mItemBoxV;
 	ItemBoxH mItemBoxH;
 
-	TestItemBoxV test1;
-	TestItemBoxH test2;
 };
 
 #endif // __DEMO_KEEPER_H__
