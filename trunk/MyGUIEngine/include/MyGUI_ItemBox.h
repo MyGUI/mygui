@@ -153,6 +153,8 @@ namespace MyGUI
 		// возвращает индекс елемента, по указателю на виджет айтема
 		size_t getIndexByWidget(WidgetPtr _widget);
 
+		inline WidgetPtr getWidgetDrop() { return mItemDrag.item; }
+
 		//----------------------------------------------------------------//
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		virtual void setPosition(const IntCoord& _coord);
@@ -238,6 +240,9 @@ namespace MyGUI
 
 		// сбрасывает зависимости, при любом колличественном изменении
 		void _outDateItems(bool _updateOnly);
+
+		void endDrop(bool _reset);
+
 
 	private:
 		VScrollPtr mWidgetScroll;
