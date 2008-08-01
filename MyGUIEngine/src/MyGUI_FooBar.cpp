@@ -33,7 +33,7 @@ namespace MyGUI
 		mAlphaIncative(0.2f),
 		mAlphaSpeed(3.0f)
 	{
-		Gui::getInstance().addFrameListener(newDelegate(this, &FooBar::frameEntered));
+		Gui::getInstance().addFrameListener(newDelegate(this, &FooBar::frameEntered), this);
 	}
 
 	FooBar::~FooBar()

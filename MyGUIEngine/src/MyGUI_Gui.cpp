@@ -193,6 +193,7 @@ namespace MyGUI
 
 			// отписываем от всех
 			mWidgetManager->unlinkFromUnlinkers(_widget);
+			unlinkFrameEvents(_widget);
 
 			// непосредственное удаление
 			_deleteWidget(widget);
@@ -423,10 +424,10 @@ namespace MyGUI
 	{
 		ListFrameEvent::iterator iterator=mListFrameEvent.begin();
 		while (iterator != mListFrameEvent.end()) {
-			if (null == (*iterator)) iterator = mListFrameEvent.erase(iterator);
+			if (null == (*iterator).first) iterator = mListFrameEvent.erase(iterator);
 			else {
 				try {
-					(*iterator)->Invoke(timeSinceLastFrame);
+					(*iterator).first->Invoke(timeSinceLastFrame);
 				}
 				catch (...) {
 					MYGUI_EXCEPT("Gui::injectFrameEntered : Invoke()");
@@ -436,27 +437,39 @@ namespace MyGUI
 		};
 	}
 
-	void Gui::addFrameListener(FrameEventDelegate * _delegate)
+	void Gui::addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget)
 	{
 #ifdef _DEBUG
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			MYGUI_ASSERT( !(*iter) || !(*iter)->Compare(_delegate), "dublicate delegate");
+			MYGUI_ASSERT( !(*iter).first || !(*iter).first->Compare(_delegate), "dublicate delegate");
 		}
 #endif
-		mListFrameEvent.push_back(_delegate);
+		mListFrameEvent.push_back(PairFrameEvent(_delegate, _widget));
 	}
 
 	void Gui::removeFrameListener(FrameEventDelegate * _delegate)
 	{
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			if ((*iter) && (*iter)->Compare(_delegate)) {
-				delete _delegate;
-				delete (*iter);
-				(*iter) = null;
-				return;
+			if ((*iter).first && (*iter).first->Compare(_delegate)) {
+				delete (*iter).first;
+				(*iter).first = null;
+				break;
 			}
 		}
 		delete _delegate;
+	}
+
+	void Gui::unlinkFrameEvents(WidgetPtr _widget)
+	{
+		if (_widget == null) return;
+		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
+			if ((*iter).first && (*iter).second == _widget) {
+				delete (*iter).first;
+				(*iter).first = null;
+				MYGUI_LOG(Warning, "unlink frame events");
+				//MYGUI_LOG(Warning, "Widget name '" << _widget->getName() << "' type : " << _widget->getWidgetType() << " is not unlink frame events");
+			}
+		}
 	}
 
 } // namespace MyGUI
