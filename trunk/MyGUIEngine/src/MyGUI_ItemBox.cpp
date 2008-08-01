@@ -636,6 +636,11 @@ namespace MyGUI
 			// смену позиции отсылаем только при реальном изменении
 			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
+		// если нажата другая клавиша и был дроп то сбрасываем
+		else {
+			endDrop(true);
+		}
+			
 
 		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
 	}
@@ -643,25 +648,31 @@ namespace MyGUI
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		if ( MB_Left == _id) {
-			if (mStartDrop) {
-				if (mItemDrag.item) mItemDrag.item->hide();
-
-				// сбрасываем старую подсветку
-				if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
-
-				eventEndDrop(this, mDropInfo, mDropResult);
-				eventDropState(this, DROP_END);
-				enableToolTip(true);
-
-				// сбрасываем инфу для дропа
-				mDropResult = false;
-				mOldDrop = null;
-				mDropInfo.reset();
-				mDropSenderIndex = ITEM_NONE;
-			}
+			endDrop(false);
 		}
 
 		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
+	}
+
+	void ItemBox::endDrop(bool _reset)
+	{
+		if (mStartDrop) {
+			if (mItemDrag.item) mItemDrag.item->hide();
+
+			// сбрасываем старую подсветку
+			if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
+
+			if (_reset) mDropResult = false;
+			eventEndDrop(this, mDropInfo, mDropResult);
+			eventDropState(this, DROP_END);
+			enableToolTip(true);
+
+			// сбрасываем инфу для дропа
+			mDropResult = false;
+			mOldDrop = null;
+			mDropInfo.reset();
+			mDropSenderIndex = ITEM_NONE;
+		}
 	}
 
 	void ItemBox::notifyMouseButtonDoubleClick(WidgetPtr _sender)
