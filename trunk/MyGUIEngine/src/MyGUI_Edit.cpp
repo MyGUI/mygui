@@ -104,7 +104,7 @@ namespace MyGUI
 	Edit::~Edit()
 	{
 		// на всякий отписываем
-		Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
+		//Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
 	}
 
 	void Edit::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
@@ -219,7 +219,7 @@ namespace MyGUI
 
 			if (false == mModeStatic) {
 				mCursorActive = true;
-				Gui::getInstance().addFrameListener(newDelegate(this, &Edit::frameEntered));
+				Gui::getInstance().addFrameListener(newDelegate(this, &Edit::frameEntered), this);
 				mText->setShowCursor(true);
 				mText->setSelectBackground(true);
 				mCursorTimer = 0;

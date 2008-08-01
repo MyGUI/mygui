@@ -23,7 +23,8 @@ namespace MyGUI
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
 
 	typedef delegates::IDelegate1<float> FrameEventDelegate;
-	typedef std::list<FrameEventDelegate*> ListFrameEvent;
+	typedef std::pair<FrameEventDelegate*, WidgetPtr> PairFrameEvent;
+	typedef std::list<PairFrameEvent> ListFrameEvent;
 
 	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator
 	{
@@ -105,7 +106,7 @@ namespace MyGUI
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
 		/** Add GUI frame listener */
-		void addFrameListener(FrameEventDelegate * _delegate);
+		void addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget);
 		/** Remove GUI frame listener */
 		void removeFrameListener(FrameEventDelegate * _delegate);
 
@@ -271,6 +272,8 @@ namespace MyGUI
 		void _destroyAllChildWidget();
 
 		void _alignWidget(WidgetPtr _widget, const FloatSize& _old, const FloatSize& _new);
+
+		void unlinkFrameEvents(WidgetPtr _widget);
 
 	private:
 		// вектор всех детей виджетов

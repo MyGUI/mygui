@@ -48,7 +48,7 @@ namespace MyGUI
 
 	RenderBox::~RenderBox()
 	{
-		Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
+		//Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 
 		clear();
 
@@ -332,7 +332,7 @@ namespace MyGUI
 		else
 		{
 			mUseScale = _scale;
-			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered));
+			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
 		}
 	}
 
@@ -605,7 +605,7 @@ namespace MyGUI
 		else
 		{
 			mAutoRotation = _auto;
-			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered));
+			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
 		}
 	}
 
@@ -638,7 +638,7 @@ namespace MyGUI
 			if (_animation == state ->getAnimationName()) {
 
 				// подписываемся
-				Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered));
+				Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
 
 				mEntityState = state;
 				mEntityState->setEnabled(true);

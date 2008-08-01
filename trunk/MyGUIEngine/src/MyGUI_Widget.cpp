@@ -711,7 +711,7 @@ namespace MyGUI
 		mNeedToolTip = _need;
 
 		if (mNeedToolTip) {
-			Gui::getInstance().addFrameListener(newDelegate(this, &Widget::frameEntered));
+			Gui::getInstance().addFrameListener(newDelegate(this, &Widget::frameEntered), this);
 			mToolTipCurrentTime = 0;
 		}
 		else {

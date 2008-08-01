@@ -42,7 +42,7 @@ namespace MyGUI
 
 	StaticImage::~StaticImage()
 	{
-		Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
+		//Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
 	}
 
 	void StaticImage::updateSelectIndex(size_t _index)
@@ -72,7 +72,7 @@ namespace MyGUI
 				mCurrentTime = 0;
 				mCurrentFrame = 0;
 				mFrameAdvise = true;
-				Gui::getInstance().addFrameListener(newDelegate(this, &StaticImage::frameEntered));
+				Gui::getInstance().addFrameListener(newDelegate(this, &StaticImage::frameEntered), this);
 			}
 		}
 
