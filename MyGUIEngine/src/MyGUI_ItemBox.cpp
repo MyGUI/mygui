@@ -668,6 +668,7 @@ namespace MyGUI
 			enableToolTip(true);
 
 			// сбрасываем инфу для дропа
+			mStartDrop = false;
 			mDropResult = false;
 			mOldDrop = null;
 			mDropInfo.reset();
