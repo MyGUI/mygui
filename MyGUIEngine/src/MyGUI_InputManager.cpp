@@ -47,7 +47,7 @@ namespace MyGUI
 		createDefaultCharSet();
 
 		WidgetManager::getInstance().registerUnlinker(this);
-		Gui::getInstance().addFrameListener(newDelegate(this, &InputManager::frameEntered));
+		Gui::getInstance().addFrameListener(newDelegate(this, &InputManager::frameEntered), null);
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");

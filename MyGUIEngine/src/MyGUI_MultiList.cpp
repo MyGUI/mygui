@@ -537,7 +537,7 @@ namespace MyGUI
 	void MultiList::setDirtySort()
 	{
 		if (mIsDirtySort) return;
-		Gui::getInstance().addFrameListener(newDelegate(this, &MultiList::frameEntered));
+		Gui::getInstance().addFrameListener(newDelegate(this, &MultiList::frameEntered), this);
 		mIsDirtySort = true;
 	}
 
