@@ -1192,7 +1192,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 	else if ("WidgetState" == _type) widget_for_type = 1;//по идее комба, но тогда надо еще и все состояния доступные в xml вписать
 	else widget_for_type = 1;
 
-	text = _window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1, h, MyGUI::ALIGN_DEFAULT);
+	text = _window->createWidget<MyGUI::StaticText>("Editor_StaticText", x1, y, w1, h, MyGUI::ALIGN_DEFAULT);
 	std::string prop = _property;
 	// trim widget name
 	std::string::iterator iter = std::find(prop.begin(), prop.end(), '_');

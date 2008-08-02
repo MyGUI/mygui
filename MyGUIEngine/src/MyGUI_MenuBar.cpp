@@ -147,9 +147,14 @@ namespace MyGUI
 		mIndexSelect = _index;
 
 		if (mIndexSelect != ITEM_NONE) {
-			mVectorMenuItemInfo[mIndexSelect].button->setButtonPressed(true);
-			mVectorMenuItemInfo[mIndexSelect].menu->showPopupMenu(
-				IntPoint(mVectorMenuItemInfo[mIndexSelect].button->getAbsoluteLeft(), getAbsoluteRect().bottom));
+			if (0 != mVectorMenuItemInfo[mIndexSelect].menu->getItemCount()) {
+				mVectorMenuItemInfo[mIndexSelect].button->setButtonPressed(true);
+				mVectorMenuItemInfo[mIndexSelect].menu->showPopupMenu(
+					IntPoint(mVectorMenuItemInfo[mIndexSelect].button->getAbsoluteLeft(), getAbsoluteRect().bottom));
+			}
+			else {
+				mIndexSelect = ITEM_NONE;
+			}
 		}
 	}
 

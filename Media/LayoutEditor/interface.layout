@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="ALIGN_STRETCH" layer="LayoutEditor_Back">
+    <Widget type="StaticImage" skin="Editor_StaticImage" position_real="0 0 1 1" align="ALIGN_STRETCH" layer="LayoutEditor_Back">
         <Property key="Image_Texture" value="wallpaperEditor.jpg"/>
     </Widget>
     <Widget type="Window" skin="WindowC" position="0 0 200 272" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowMenu">
@@ -36,7 +36,7 @@
             <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="0 236 191 2" align="ALIGN_HSTRETCH ALIGN_BOTTOM"/>
-        <Widget type="StaticText" skin="StaticText" position="0 236 191 24" align="ALIGN_HSTRETCH ALIGN_BOTTOM">
+        <Widget type="StaticText" skin="Editor_StaticText" position="0 236 191 24" align="ALIGN_HSTRETCH ALIGN_BOTTOM">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
             <Property key="Widget_Caption" value="All created widgets"/>
         </Widget>
@@ -46,7 +46,7 @@
         <Property key="Widget_Caption" value="Settings"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Widget_Show" value="false"/>
-        <Widget type="StaticText" skin="StaticText" position="5 26 80 24">
+        <Widget type="StaticText" skin="Editor_StaticText" position="5 26 80 24">
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
             <Property key="Widget_Caption" value="Grid step"/>
         </Widget>
@@ -56,14 +56,14 @@
         <Widget type="Button" skin="Button" position="5 258 232 24" name="buttonOkSettings">
             <Property key="Widget_Caption" value="Ok"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="5 98 80 24">
+        <Widget type="StaticText" skin="Editor_StaticText" position="5 98 80 24">
             <Property key="Widget_Caption" value="Resolution"/>
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
         <Widget type="ComboBox" skin="EditorComboBox" position="85 98 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxResolution">
             <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="5 122 80 24">
+        <Widget type="StaticText" skin="Editor_StaticText" position="5 122 80 24">
             <Property key="Widget_Caption" value="Full screen"/>
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
@@ -71,17 +71,17 @@
             <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 74 248 2"/>
-        <Widget type="StaticText" skin="StaticText" position="-3 74 248 24" align="ALIGN_HSTRETCH ALIGN_TOP">
+        <Widget type="StaticText" skin="Editor_StaticText" position="-3 74 248 24" align="ALIGN_HSTRETCH ALIGN_TOP">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
             <Property key="Widget_Caption" value="Screen properties"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 2 248 2"/>
-        <Widget type="StaticText" skin="StaticText" position="-4 2 248 24" align="ALIGN_HCENTER ALIGN_TOP">
+        <Widget type="StaticText" skin="Editor_StaticText" position="-4 2 248 24" align="ALIGN_HCENTER ALIGN_TOP">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
             <Property key="Widget_Caption" value="Editor settings"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 146 248 2"/>
-        <Widget type="StaticText" skin="StaticText" position="-4 146 248 24">
+        <Widget type="StaticText" skin="Editor_StaticText" position="-4 146 248 24">
             <Property key="Widget_Caption" value="Widgets list"/>
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
         </Widget>
