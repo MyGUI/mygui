@@ -10,6 +10,8 @@
 	    <List file="editor.font" group="General"/>
 	    <List file="core.pointer" group="General"/>
 	    <List file="core.plugin"/>
+
+	    <List file="helper.skin" group="General"/>
     </MyGUI>
 
 </MyGUI>
