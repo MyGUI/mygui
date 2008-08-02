@@ -94,6 +94,8 @@ namespace MyGUI
 
 		//! Select specified _index
 		inline void setItemSelect(size_t _index) { if (mIndexSelect != _index) updateSelectIndex(_index); }
+		//! Select specified name
+		void setItemSelect(const std::string & _name);
 		//! Get index of selected item (ITEM_NONE if none selected)
 		inline size_t getItemSelect() { return mIndexSelect; }
 		//! Reset item selection
@@ -126,6 +128,9 @@ namespace MyGUI
 		void setItemFrameRate(size_t _index, float _rate);
 		float getItemFrameRate(size_t _index);
 
+		inline void addItemName(const std::string & _name, size_t _index) { mMapIndexName[_name] = _index; }
+		void addItemNames(const std::string & _name);
+
 	private:
 		void frameEntered(float _frame);
 
@@ -147,6 +152,9 @@ namespace MyGUI
 		bool mFrameAdvise;
 		float mCurrentTime;
 		size_t mCurrentFrame;
+
+		typedef std::map<std::string, size_t> MapName;
+		MapName mMapIndexName;
 
 	}; // class StaticImage : public Widget
 
