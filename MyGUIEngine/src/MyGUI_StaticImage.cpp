@@ -13,6 +13,7 @@ namespace MyGUI
 {
 
 	Ogre::String StaticImage::WidgetTypeName = "StaticImage";
+	const size_t IMAGE_MAX_INDEX = 256;
 
 	StaticImage::StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
@@ -191,6 +192,11 @@ namespace MyGUI
 
 		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
 		size_t count_v = (size_t)(mRectImage.height() / mSizeTile.height);
+
+		if ((count_h * count_v) > IMAGE_MAX_INDEX) {
+			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << mTexture << " indexes : " << (count_h * count_v) << " max : " << IMAGE_MAX_INDEX);
+			return;
+		}
 
 		int pos_h = mRectImage.left;
 		int pos_v = mRectImage.top;
