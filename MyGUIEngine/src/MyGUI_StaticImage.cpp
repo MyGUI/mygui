@@ -350,4 +350,23 @@ namespace MyGUI
 		iter->images.erase(iter->images.begin() + _indexFrame);
 	}
 
+	void StaticImage::setItemSelect(const std::string & _name)
+	{
+		size_t index = ITEM_NONE;
+		MapName::iterator iter = mMapIndexName.find(_name);
+		if (iter != mMapIndexName.end()) index = iter->second;
+		setItemSelect(index);
+	}
+
+	void StaticImage::addItemNames(const std::string & _name)
+	{
+		typedef std::vector<std::string> VectorString;
+		VectorString names = utility::split(_name);
+		size_t index = 0;
+		for (VectorString::iterator iter=names.begin(); iter!=names.end(); ++iter) {
+			mMapIndexName[*iter] = index;
+			index++;
+		}
+	}
+
 } // namespace MyGUI

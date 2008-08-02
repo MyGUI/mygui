@@ -25,7 +25,10 @@ namespace MyGUI
 			manager.registerDelegate("Image_Coord") = newDelegate(this, &StaticImageFactory::Image_Coord);
 			manager.registerDelegate("Image_Rect") = newDelegate(this, &StaticImageFactory::Image_Rect);
 			manager.registerDelegate("Image_Tile") = newDelegate(this, &StaticImageFactory::Image_Tile);
-			manager.registerDelegate("Image_Num") = newDelegate(this, &StaticImageFactory::Image_Num);
+			manager.registerDelegate("Image_Num") = newDelegate(this, &StaticImageFactory::Image_Index);
+			manager.registerDelegate("Image_Index") = newDelegate(this, &StaticImageFactory::Image_Index);
+			manager.registerDelegate("Image_Name") = newDelegate(this, &StaticImageFactory::Image_Name);
+			manager.registerDelegate("Image_MapNames") = newDelegate(this, &StaticImageFactory::Image_MapNames);
 		}
 
 		StaticImageFactory::~StaticImageFactory()
@@ -40,6 +43,9 @@ namespace MyGUI
 			manager.unregisterDelegate("Image_Rect");
 			manager.unregisterDelegate("Image_Tile");
 			manager.unregisterDelegate("Image_Num");
+			manager.unregisterDelegate("Image_Index");
+			manager.unregisterDelegate("Image_Name");
+			manager.unregisterDelegate("Image_MapNames");
 		}
 
 		const Ogre::String& StaticImageFactory::getType()
@@ -76,10 +82,22 @@ namespace MyGUI
 			static_cast<StaticImagePtr>(_widget)->setImageTile(IntSize::parse(_value));
 		}
 
-		void StaticImageFactory::Image_Num(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void StaticImageFactory::Image_Index(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
-			static_cast<StaticImagePtr>(_widget)->setImageNum(utility::parseSizeT(_value));
+			static_cast<StaticImagePtr>(_widget)->setItemSelect(utility::parseSizeT(_value));
+		}
+
+		void StaticImageFactory::Image_Name(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			static_cast<StaticImagePtr>(_widget)->setItemSelect(_value);
+		}
+
+		void StaticImageFactory::Image_MapNames(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			static_cast<StaticImagePtr>(_widget)->addItemNames(_value);
 		}
 
 	} // namespace factory

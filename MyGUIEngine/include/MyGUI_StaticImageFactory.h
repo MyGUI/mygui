@@ -31,7 +31,9 @@ namespace MyGUI
 			void Image_Coord(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Image_Rect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Image_Tile(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Image_Num(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_Index(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_Name(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Image_MapNames(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory
