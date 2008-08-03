@@ -251,6 +251,16 @@
             <State name="select" offset = "187 439 12 26"/>
         </BasisSkin>
     </Skin>
+    
+    <Skin name = "ButtonMinimize" size = "20 20" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 20 20" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "9 429 20 20"/>
+            <State name="normal" offset = "9 429 20 20"/>
+            <State name="active" offset = "9 449 20 20"/>
+            <State name="pressed" offset = "9 469 20 20"/>
+            <State name="select" offset = "9 488 20 20"/>
+        </BasisSkin>
+    </Skin>
 
  
 </MyGUI>
