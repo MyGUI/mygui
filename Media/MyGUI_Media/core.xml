@@ -9,6 +9,8 @@
 	    <List file="core.font" group="General"/>
 	    <List file="core.pointer" group="General"/>
 	    <List file="core.plugin"/>
+
+	    <List file="core_new.skin" group="General"/>
     </MyGUI>
 
 </MyGUI>
