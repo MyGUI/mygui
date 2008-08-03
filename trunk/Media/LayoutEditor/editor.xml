@@ -11,7 +11,8 @@
 	    <List file="core.pointer" group="General"/>
 	    <List file="core.plugin"/>
 
-	    <List file="helper.skin" group="General"/>
+      <List file="core_new.skin" group="General"/>
+      <List file="helper.skin" group="General"/>
     </MyGUI>
 
 </MyGUI>
