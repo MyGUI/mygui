@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+
+    <Skin name = "CheckBox" size = "100 21" texture = "core_new.png">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 1 21 21" align = "ALIGN_LEFT ALIGN_VCENTER">
+            <State name="disable" offset = "11 217 21 21"/>
+            <State name="normal" offset = "11 217 21 21"/>
+            <State name="active" offset = "11 239 21 21"/>
+            <State name="pressed" offset = "11 261 21 21"/>
+            <State name="select" offset = "11 283 21 21"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "24 0 76 21" align = "ALIGN_STRETCH">
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "RadioButton" size = "100 21" texture = "core_new.png">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 21 21" align = "ALIGN_LEFT ALIGN_VCENTER">
+            <State name="disable" offset = "9 321 21 21"/>
+            <State name="normal" offset = "9 321 21 21"/>
+            <State name="active" offset = "9 343 21 21"/>
+            <State name="pressed" offset = "9 365 21 21"/>
+            <State name="select" offset = "9 387 21 21"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "24 0 76 19" align = "ALIGN_STRETCH">
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "VScrollTrack" size = "16 21" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 16 6" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "373 417 16 6"/>
+            <State name="active" offset = "399 417 16 6"/>
+            <State name="select" offset = "425 417 16 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 16 9" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "373 444 16 9"/>
+            <State name="active" offset = "399 444 16 9"/>
+            <State name="select" offset = "425 444 16 9"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 15 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "373 572 16 6"/>
+            <State name="active" offset = "399 572 16 6"/>
+            <State name="select" offset = "425 572 16 6"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScrollTop" size = "16 16" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "373 250 16 16"/>
+            <State name="active" offset = "399 250 16 16"/>
+            <State name="select" offset = "425 250 16 16"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScrollBottom" size = "16 16" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "373 591 16 16"/>
+            <State name="active" offset = "399 591 16 16"/>
+            <State name="select" offset = "425 591 16 16"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VScrollTopPart" size = "16 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 16 6" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "373 273 16 6"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VScrollBottomPart" size = "16 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 16 6" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "373 273 16 6"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScroll" size = "16 44" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "16 16" />
+        <Property key="MinTrackSize" value = "18" />
+
+		<Child type="Button" skin="VScrollTopPart" offset = "0 16 16 6" align = "ALIGN_STRETCH" name = "FirstPart"/>
+        <Child type="Button" skin="VScrollBottomPart" offset = "0 22 16 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "SecondPart"/>
+
+        <Child type="Button" skin="VScrollTop" offset = "0 0 16 16" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start"/>
+        <Child type="Button" skin="VScrollBottom" offset = "0 28 16 16" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End"/>
+        <Child type="Button" skin="VScrollTrack" offset = "0 18 16 21" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
+
+    </Skin>
+    
+    <Skin name = "ButtonSmall" size = "150 26" texture = "core_new.png">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "49 498 10 26"/>
+            <State name="normal" offset = "49 498 10 26"/>
+            <State name="active" offset = "49 530 10 26"/>
+            <State name="pressed" offset = "49 564 10 26"/>
+            <State name="select" offset = "49 595 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "ALIGN_HSTRETCH ALIGN_VSTRETCH">
+            <State name="disable" offset = "59 498 128 26"/>
+            <State name="normal" offset = "59 498 128 26"/>
+            <State name="active" offset = "59 530 128 26"/>
+            <State name="pressed" offset = "59 564 128 26"/>
+            <State name="select" offset = "59 595 128 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "187 498 12 26"/>
+            <State name="normal" offset = "187 498 12 26"/>
+            <State name="active" offset = "187 530 12 26"/>
+            <State name="pressed" offset = "187 564 12 26"/>
+            <State name="select" offset = "187 595 12 26"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "1 1 146 22" align = "ALIGN_STRETCH">
+            <State name="disable" shift = "false"/>
+            <State name="normal" shift = "false"/>
+            <State name="active" shift = "false"/>
+            <State name="pressed" shift = "true"/>
+            <State name="select" shift = "true"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "Button" size = "150 26" texture = "core_new.png">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "49 498 10 26"/>
+            <State name="normal" offset = "49 498 10 26"/>
+            <State name="active" offset = "49 530 10 26"/>
+            <State name="pressed" offset = "49 564 10 26"/>
+            <State name="select" offset = "49 595 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "ALIGN_HSTRETCH ALIGN_VSTRETCH">
+            <State name="disable" offset = "59 498 128 26"/>
+            <State name="normal" offset = "59 498 128 26"/>
+            <State name="active" offset = "59 530 128 26"/>
+            <State name="pressed" offset = "59 564 128 26"/>
+            <State name="select" offset = "59 595 128 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "187 498 12 26"/>
+            <State name="normal" offset = "187 498 12 26"/>
+            <State name="active" offset = "187 530 12 26"/>
+            <State name="pressed" offset = "187 564 12 26"/>
+            <State name="select" offset = "187 595 12 26"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "1 1 146 22" align = "ALIGN_STRETCH">
+            <State name="disable" shift = "false"/>
+            <State name="normal" shift = "false"/>
+            <State name="active" shift = "false"/>
+            <State name="pressed" shift = "true"/>
+            <State name="select" shift = "true"/>
+        </BasisSkin>
+    </Skin>
+ 
+
+    <Skin name = "Edit" size = "150 26" texture = "core_new.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="Widget" skin="EditClient" offset = "2 1 144 22" align = "ALIGN_STRETCH" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "49 345 10 26"/>
+            <State name="normal" offset = "49 345 10 26"/>
+            <State name="active" offset = "49 377 10 26"/>
+            <State name="pressed" offset = "49 407 10 26"/>
+            <State name="select" offset = "49 439 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "59 345 20 26"/>
+            <State name="normal" offset = "59 345 20 26"/>
+            <State name="active" offset = "59 377 20 26"/>
+            <State name="pressed" offset = "59 407 20 26"/>
+            <State name="select" offset = "59 439 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "187 345 12 26"/>
+            <State name="normal" offset = "187 345 12 26"/>
+            <State name="active" offset = "187 377 12 26"/>
+            <State name="pressed" offset = "187 407 12 26"/>
+            <State name="select" offset = "187 439 12 26"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "ComboBoxButton" size = "20 17" texture = "core_new.png">
+        <BasisSkin type="MainSkin" offset = "0 0 20 17" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "219 548 20 17"/>
+            <State name="normal" offset = "219 548 20 17"/>
+            <State name="active" offset = "219 565 20 17"/>
+            <State name="pressed" offset = "219 582 20 17"/>
+            <State name="select" offset = "219 598 20 17"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "EditorComboBox" size = "150 26" texture = "core_new.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Property key="HeightList" value = "100" />
+        <Property key="ListSmoothShow" value = "true" />
+        <Property key="ListSkin" value = "List" />
+        <Property key="ListLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="EditClient" offset = "2 1 129 22" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Button" skin="ComboBoxButton" offset = "128 4 20 17" align = "ALIGN_RIGHT ALIGN_VCENTER" name = "Button"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "49 345 10 26"/>
+            <State name="normal" offset = "49 345 10 26"/>
+            <State name="active" offset = "49 377 10 26"/>
+            <State name="pressed" offset = "49 407 10 26"/>
+            <State name="select" offset = "49 439 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "59 345 20 26"/>
+            <State name="normal" offset = "59 345 20 26"/>
+            <State name="active" offset = "59 377 20 26"/>
+            <State name="pressed" offset = "59 407 20 26"/>
+            <State name="select" offset = "59 439 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "187 345 12 26"/>
+            <State name="normal" offset = "187 345 12 26"/>
+            <State name="active" offset = "187 377 12 26"/>
+            <State name="pressed" offset = "187 407 12 26"/>
+            <State name="select" offset = "187 439 12 26"/>
+        </BasisSkin>
+    </Skin>
+
+ 
+</MyGUI>
+
