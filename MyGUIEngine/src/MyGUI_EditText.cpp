@@ -1117,11 +1117,13 @@ namespace MyGUI
 
 			Font::GlyphInfo * info;
 			if (Font::FONT_CODE_SPACE == character) {
-				if (mBreakLine) roll_back.set(mLinesInfo.back().second.end(), index, count, len);
+				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
+				if (mBreakLine) roll_back.set(iter, index, count, len);
 				info = mpFont->getSpaceGlyphInfo();
 			}
 			else if (Font::FONT_CODE_TAB == character) {
-				if (mBreakLine) roll_back.set(mLinesInfo.back().second.end(), index, count, len);
+				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
+				if (mBreakLine) roll_back.set(iter, index, count, len);
 				info = mpFont->getTabGlyphInfo();
 			}
 			else {
