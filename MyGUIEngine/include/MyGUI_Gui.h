@@ -15,6 +15,7 @@
 #include "MyGUI_WidgetCreator.h"
 
 #include "MyGUI_WidgetOIS.h"
+#include "MyGUI_UnlinkWidget.h"
 
 namespace MyGUI
 {
@@ -26,7 +27,7 @@ namespace MyGUI
 	typedef std::pair<FrameEventDelegate*, WidgetPtr> PairFrameEvent;
 	typedef std::list<PairFrameEvent> ListFrameEvent;
 
-	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator
+	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator, public UnlinkWidget
 	{
 		friend class WidgetManager;
 		INSTANCE_HEADER(Gui);
@@ -273,7 +274,7 @@ namespace MyGUI
 
 		void _alignWidget(WidgetPtr _widget, const FloatSize& _old, const FloatSize& _new);
 
-		void unlinkFrameEvents(WidgetPtr _widget);
+		virtual void _unlinkWidget(WidgetPtr _widget);
 
 	private:
 		// вектор всех детей виджетов

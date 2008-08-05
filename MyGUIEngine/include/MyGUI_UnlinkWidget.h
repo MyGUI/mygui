@@ -16,7 +16,7 @@ namespace MyGUI
 	class _MyGUIExport UnlinkWidget
 	{
 	public:
-		virtual void _unlinkWidget(WidgetPtr _widget) {}
+		virtual void _unlinkWidget(WidgetPtr _widget) = 0;
 	};
 
 	typedef std::vector<UnlinkWidget*> VectorUnlinkWidget;

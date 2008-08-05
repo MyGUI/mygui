@@ -8,6 +8,7 @@
 #define __MYGUI_INPUT_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "MyGUI_Macros.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
@@ -130,6 +131,11 @@ namespace MyGUI
 		// текущий язык
 		inline const std::string & getCurrentLang() { return (*mCurrentLanguage).first; }
 
+#if MYGUI_DEBUG_MODE == 1
+		inline void setShowFocus(bool _show) { m_showFocus = _show; }
+		inline bool getShowFocus() { return m_showFocus; }
+#endif
+
 	protected:
 		void frameEntered(float _frame);
 
@@ -194,6 +200,9 @@ namespace MyGUI
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
 
+#if MYGUI_DEBUG_MODE == 1
+		bool m_showFocus;
+#endif
 
 	}; // class InputManager
 
