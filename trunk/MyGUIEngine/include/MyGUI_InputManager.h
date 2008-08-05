@@ -80,8 +80,6 @@ namespace MyGUI
 		inline WidgetPtr getMouseFocusWidget() {return mWidgetMouseFocus;}
 		/** Get key focused widget */
 		inline WidgetPtr getKeyFocusWidget() {return mWidgetKeyFocus;}
-		/** Get current language */
-		inline const std::string & getCurrentLanguage() {return mCurrentLanguage->first;}
 		/** Get position of last left mouse button press */
 		inline const IntPoint & getLastLeftPressed() {return mLastLeftPressed;}
 		/** Get current mouse position */
@@ -128,8 +126,10 @@ namespace MyGUI
 		// сбрасывает захват мыши, если он был
 		inline void resetMouseCaptureWidget() {mIsWidgetMouseCapture = false;}
 
-		// текущий язык
-		inline const std::string & getCurrentLang() { return (*mCurrentLanguage).first; }
+		/** Get current language */
+		inline const std::string & getCurrentLanguage() {return mCurrentLanguage->first;}
+		/** Set current language */
+		void setCurrentLanguage(const std::string & _lang);
 
 #if MYGUI_DEBUG_MODE == 1
 		inline void setShowFocus(bool _show) { m_showFocus = _show; }
