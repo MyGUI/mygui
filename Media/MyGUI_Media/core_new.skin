@@ -214,6 +214,44 @@
         </BasisSkin>
     </Skin>
     
+    <Skin name = "ComboBox" size = "150 26" texture = "core_new.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Property key="HeightList" value = "100" />
+        <Property key="ListSmoothShow" value = "true" />
+        <Property key="ListSkin" value = "List" />
+        <Property key="ListLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="EditClient" offset = "2 1 129 22" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="Button" skin="ComboBoxButton" offset = "128 4 20 17" align = "ALIGN_RIGHT ALIGN_VCENTER" name = "Button"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "49 345 10 26"/>
+            <State name="normal" offset = "49 345 10 26"/>
+            <State name="active" offset = "49 377 10 26"/>
+            <State name="pressed" offset = "49 407 10 26"/>
+            <State name="select" offset = "49 439 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "59 345 20 26"/>
+            <State name="normal" offset = "59 345 20 26"/>
+            <State name="active" offset = "59 377 20 26"/>
+            <State name="pressed" offset = "59 407 20 26"/>
+            <State name="select" offset = "59 439 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "187 345 12 26"/>
+            <State name="normal" offset = "187 345 12 26"/>
+            <State name="active" offset = "187 377 12 26"/>
+            <State name="pressed" offset = "187 407 12 26"/>
+            <State name="select" offset = "187 439 12 26"/>
+        </BasisSkin>
+    </Skin>
+    
     <Skin name = "EditorComboBox" size = "150 26" texture = "core_new.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
