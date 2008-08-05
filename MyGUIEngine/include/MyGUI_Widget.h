@@ -287,7 +287,7 @@ namespace MyGUI
 		void enableToolTip(bool _enable);
 
 		// используется для сравнения виджетов без учета иерархии
-		inline bool compire(WidgetPtr _base) { return mWidgetEventSender == _base->_getBaseWidget(); }
+		inline bool compare(WidgetPtr _base) { return mWidgetEventSender == _base->_getBaseWidget(); }
 
 	protected:
 		// список всех стейтов
