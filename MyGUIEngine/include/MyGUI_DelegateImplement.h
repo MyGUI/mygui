@@ -100,13 +100,20 @@ namespace delegates
 		typedef I_DELEGATE<TEMPLATE_ARGS> IDelegate;
 
 		C_DELEGATE() : mDelegate (0) {}
-		~C_DELEGATE() { if (mDelegate) delete mDelegate; }
+		~C_DELEGATE()
+		{
+			if (mDelegate) {
+				delete mDelegate;
+			}
+		}
 
 		bool IsNull() { return (mDelegate == 0); }
 
 		C_DELEGATE<TEMPLATE_ARGS>& operator=(IDelegate* pDelegate)
 		{
-			if (mDelegate) delete mDelegate;
+			if (mDelegate) {
+				delete mDelegate;
+			}
 			mDelegate = pDelegate;
 			return *this;
 		}

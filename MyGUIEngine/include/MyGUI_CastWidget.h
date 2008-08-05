@@ -7,6 +7,7 @@
 #ifndef __MYGUI_CAST_WIDGET_H__
 #define __MYGUI_CAST_WIDGET_H__
 
+#include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
@@ -15,11 +16,18 @@ namespace MyGUI
 	template <class T> inline T* castWidget(Widget * _widget)
 	{
 		MYGUI_DEBUG_ASSERT(null != _widget, "Error static cast, widget == null");
-		MYGUI_DEBUG_ASSERT(null != dynamic_cast<T*>(_widget),
-			"Error dynamic cast : dest type = '" << T::_getType() 
-			<< "' source name = '" << _widget->getName() 
-			<< "' source type = '" << _widget->getWidgetType() << "'");
+
+#if MYGUI_DEBUG_MODE == 1
+		T * widget = dynamic_cast<T*>(_widget);
+		if (widget == null) {
+			MYGUI_EXCEPT("Error dynamic cast : dest type = '" << T::_getType() 
+				<< "' source name = '" << _widget->getName() 
+				<< "' source type = '" << _widget->getWidgetType() << "'");
+		}
+		return widget;
+#else
 		return static_cast<T*>(_widget);
+#endif
 	}
 
 } // namespace MyGUI
