@@ -44,6 +44,10 @@ namespace MyGUI
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
 
+#if MYGUI_DEBUG_MODE == 1
+		m_showFocus = false;
+#endif
+
 		createDefaultCharSet();
 
 		WidgetManager::getInstance().registerUnlinker(this);
@@ -156,6 +160,10 @@ namespace MyGUI
 
 		// запоминаем текущее окно
 		mWidgetMouseFocus = item;
+
+#if MYGUI_DEBUG_MODE == 1
+		if (m_showFocus) MYGUI_OUT(mWidgetMouseFocus ? mWidgetMouseFocus->getName() : "null");
+#endif
 
 		return isFocusMouse();
 	}

@@ -70,7 +70,7 @@ namespace MyGUI
 				mButtonList->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->_getInternalString() == "ButtonDecor") {
-				mButtonDecor = castWidget<Button>(*iter);
+				mButtonDecor = *iter;
 				mButtonDecor->hide();
 			}
 			else if ((*iter)->_getInternalString() == "ShowPatch") {

@@ -413,7 +413,9 @@ namespace MyGUI
 				mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
 			#endif
 		}
-		if (null != mEntityState) mEntityState->addTime(_time);
+		if (null != mEntityState) {
+			mEntityState->addTime(_time);
+		}
 
 		if (mCurrentScale != mScale) {
 
