@@ -566,4 +566,15 @@ namespace MyGUI
 
 	}
 
+	void InputManager::setCurrentLanguage(const std::string & _lang)
+	{
+		MapLang::iterator iter = mMapLanguages.find(_lang);
+		if (iter != mMapLanguages.end()) {
+			mCurrentLanguage = iter;
+		}
+		else {
+			MYGUI_LOG(Warning, "language '" << _lang << "' not found");
+		}
+	}
+
 } // namespace MyGUI
