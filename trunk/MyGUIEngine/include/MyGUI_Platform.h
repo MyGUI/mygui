@@ -55,6 +55,11 @@
 #
 # define _MyGUIExport
 #
+# ifdef _DEBUG
+#     define MYGUI_DEBUG_MODE 1
+# else
+#     define MYGUI_DEBUG_MODE 0
+# endif
 #else
 
 // Windows settings

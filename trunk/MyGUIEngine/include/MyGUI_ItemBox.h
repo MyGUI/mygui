@@ -155,6 +155,9 @@ namespace MyGUI
 
 		inline WidgetPtr getWidgetDrop() { return mItemDrag.item; }
 
+		// возвращает виджет индекса, если он виден
+		WidgetPtr getWidgetByIndex(size_t _index);
+
 		//----------------------------------------------------------------//
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		virtual void setPosition(const IntCoord& _coord);
