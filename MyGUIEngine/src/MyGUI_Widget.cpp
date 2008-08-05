@@ -735,7 +735,7 @@ namespace MyGUI
 				// проверяем не перекрывают ли нас
 				WidgetPtr widget = InputManager::getInstance().getMouseFocusWidget();
 				while (widget != 0) {
-					if (widget->getName() == mName) {
+					if (this->compare(widget)) {
 						inside = true;
 						break;
 					}
