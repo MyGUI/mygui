@@ -57,7 +57,7 @@ namespace MyGUI
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			if ((*iter)->_getInternalString() == "HScroll") {
-				mWidgetScroll = castWidget<VScroll>(*iter);//???
+				mWidgetScroll = castWidget<HScroll>(*iter);
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			else if ((*iter)->_getInternalString() == "Client") {

@@ -460,7 +460,7 @@ namespace MyGUI
 	{
 		if (_widget == null) return;
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			if ((*iter).first && (*iter).second->compire(_widget)) {
+			if ((*iter).first && (*iter).second->compare(_widget)) {
 				delete (*iter).first;
 				(*iter).first = null;
 			}
