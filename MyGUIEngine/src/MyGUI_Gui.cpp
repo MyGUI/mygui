@@ -428,13 +428,7 @@ namespace MyGUI
 		while (iterator != mListFrameEvent.end()) {
 			if (null == (*iterator).first) iterator = mListFrameEvent.erase(iterator);
 			else {
-				//try {
-					(*iterator).first->Invoke(timeSinceLastFrame);
-				/*}
-				catch (...) {
-					MYGUI_LOG(Critical, (size_t)(*iterator).second);
-					MYGUI_EXCEPT("Gui::injectFrameEntered : Invoke()");
-				}*/
+				(*iterator).first->Invoke(timeSinceLastFrame);
 				++iterator;
 			}
 		};
@@ -466,11 +460,9 @@ namespace MyGUI
 	{
 		if (_widget == null) return;
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			if ((*iter).first && (*iter).second == _widget) {
+			if ((*iter).first && (*iter).second->compire(_widget)) {
 				delete (*iter).first;
 				(*iter).first = null;
-				//MYGUI_LOG(Warning, "unlink frame events");
-				//MYGUI_LOG(Warning, "Widget name '" << _widget->getName() << "' type : " << _widget->getWidgetType() << " is not unlink frame events");
 			}
 		}
 	}
