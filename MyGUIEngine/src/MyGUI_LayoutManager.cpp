@@ -52,6 +52,9 @@ namespace MyGUI
 
 	void LayoutManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
+#if MYGUI_DEBUG_MODE == 1
+		MYGUI_LOG(Info, "load layout '" << _file << "'");
+#endif
 		parseLayout(mVectorWidgetPtr, _node);
 	}
 
@@ -61,7 +64,7 @@ namespace MyGUI
 		layoutParent = _parent;
 		VectorWidgetPtr widgets = load(_file, _group);
 		layoutPrefix = "";
-		layoutParent = NULL;
+		layoutParent = null;
 		return widgets;
 	}
 
