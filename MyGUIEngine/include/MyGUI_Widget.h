@@ -286,6 +286,9 @@ namespace MyGUI
 		inline bool getEnableToolTip() { return mEnableToolTip; }
 		void enableToolTip(bool _enable);
 
+		// используется для сравнения виджетов без учета иерархии
+		inline bool compire(WidgetPtr _base) { return mWidgetEventSender == _base->_getBaseWidget(); }
+
 	protected:
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;

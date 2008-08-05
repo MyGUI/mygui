@@ -62,6 +62,7 @@ namespace MyGUI
 
     public:
 		virtual ~WidgetEvent() {};
+		inline WidgetPtr _getBaseWidget() { return mWidgetEventSender; }
 
 	protected:
 		WidgetEvent() : mWidgetEventSender(0) {}
