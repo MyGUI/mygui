@@ -57,7 +57,7 @@ namespace MyGUI
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			if ((*iter)->_getInternalString() == "HScroll") {
-				mWidgetScroll = castWidget<HScroll>(*iter);
+				mWidgetScroll = castWidget<VScroll>(*iter);//???
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			else if ((*iter)->_getInternalString() == "Client") {
@@ -862,6 +862,19 @@ namespace MyGUI
 				instance.unlinkFromUnlinkers((*iter).item);
 			}
 		}
+	}
+
+	WidgetPtr ItemBox::getWidgetByIndex(size_t _index)
+	{
+		for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+			if (iter->item->isShow()) {
+				size_t index = (size_t)iter->item->_getInternalData() + (mLineTop * mCountItemInLine);
+				MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+
+				if (index == _index) return iter->item;
+			}
+		}
+		return null;
 	}
 
 } // namespace MyGUI

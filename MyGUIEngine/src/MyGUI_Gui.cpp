@@ -81,6 +81,8 @@ namespace MyGUI
 		mDynLibManager->initialise();
 		mPluginManager->initialise();
 
+		WidgetManager::getInstance().registerUnlinker(this);
+
 		// подписываемся на изменение размеров окна и сразу оповещаем
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 		windowResized(mWindow);
@@ -100,6 +102,7 @@ namespace MyGUI
 
 		// сразу отписываемся
 		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+		WidgetManager::getInstance().unregisterUnlinker(this);
 
 		unregisterLoadXmlDelegate(XML_TYPE);
 		mListFrameEvent.clear();
@@ -193,7 +196,6 @@ namespace MyGUI
 
 			// отписываем от всех
 			mWidgetManager->unlinkFromUnlinkers(_widget);
-			unlinkFrameEvents(_widget);
 
 			// непосредственное удаление
 			_deleteWidget(widget);
@@ -426,12 +428,13 @@ namespace MyGUI
 		while (iterator != mListFrameEvent.end()) {
 			if (null == (*iterator).first) iterator = mListFrameEvent.erase(iterator);
 			else {
-				try {
+				//try {
 					(*iterator).first->Invoke(timeSinceLastFrame);
-				}
+				/*}
 				catch (...) {
+					MYGUI_LOG(Critical, (size_t)(*iterator).second);
 					MYGUI_EXCEPT("Gui::injectFrameEntered : Invoke()");
-				}
+				}*/
 				++iterator;
 			}
 		};
@@ -459,14 +462,14 @@ namespace MyGUI
 		delete _delegate;
 	}
 
-	void Gui::unlinkFrameEvents(WidgetPtr _widget)
+	void Gui::_unlinkWidget(WidgetPtr _widget)
 	{
 		if (_widget == null) return;
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
 			if ((*iter).first && (*iter).second == _widget) {
 				delete (*iter).first;
 				(*iter).first = null;
-				MYGUI_LOG(Warning, "unlink frame events");
+				//MYGUI_LOG(Warning, "unlink frame events");
 				//MYGUI_LOG(Warning, "Widget name '" << _widget->getName() << "' type : " << _widget->getWidgetType() << " is not unlink frame events");
 			}
 		}
