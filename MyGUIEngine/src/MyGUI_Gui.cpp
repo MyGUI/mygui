@@ -436,9 +436,11 @@ namespace MyGUI
 
 	void Gui::addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget)
 	{
-#ifdef _DEBUG
+#if MYGUI_DEBUG_MODE == 1
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			MYGUI_ASSERT( !(*iter).first || !(*iter).first->Compare(_delegate), "dublicate delegate");
+			if ((*iter).first && (*iter).first->Compare(_delegate)) {
+				MYGUI_EXCEPT("dublicate delegate");
+			}
 		}
 #endif
 		mListFrameEvent.push_back(PairFrameEvent(_delegate, _widget));
@@ -460,7 +462,7 @@ namespace MyGUI
 	{
 		if (_widget == null) return;
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			if ((*iter).first && (*iter).second->compare(_widget)) {
+			if ((*iter).first && (*iter).second && (*iter).second->compare(_widget)) {
 				delete (*iter).first;
 				(*iter).first = null;
 			}
