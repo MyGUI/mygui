@@ -82,7 +82,7 @@ void DemoKeeper::start()
 	mToolTip->hide();
 
 	mItemBoxV.initialise();
-	mItemBoxV.addItem(new ItemData(TypeNone, 0, "", ""));
+        /*	mItemBoxV.addItem(new ItemData(TypeNone, 0, "", ""));
 	mItemBoxV.addItem(new ItemData(TypeRoll, 5, L"Свиток", L"описание Свиток"));
 	mItemBoxV.addItem(new ItemData(TypeCloth, 5, L"Полотно", L"описание Полотно"));
 	mItemBoxV.addItem(new ItemData(TypeTear, 5, L"Слеза", L"описание Слеза"));
@@ -121,7 +121,7 @@ void DemoKeeper::start()
 
 
 	ItemData data(TypeEmerald, 5, L"Изумруд", L"описание Изумруд");
-
+        */
 }
 
 void DemoKeeper::end()
