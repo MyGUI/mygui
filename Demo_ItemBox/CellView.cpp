@@ -8,7 +8,7 @@
 #include "CellView.h"
 
 CellView::CellView() :
-	BaseCellView("CellView.layout")
+	BaseCellView<ItemData>("CellView.layout")
 {
 }
 

@@ -56,6 +56,7 @@ libmygui_la_SOURCES = \
 	MyGUI_RenderBoxFactory.cpp\
 	MyGUI_RenderItem.cpp\
 	MyGUI_RenderOut.cpp\
+	MyGUI_ResourcePath.cpp\
 	MyGUI_Sheet.cpp\
 	MyGUI_SheetFactory.cpp\
 	MyGUI_SimpleText.cpp\
