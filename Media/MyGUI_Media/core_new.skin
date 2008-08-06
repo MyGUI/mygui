@@ -224,7 +224,7 @@
         <Property key="HeightList" value = "100" />
         <Property key="ListSmoothShow" value = "true" />
         <Property key="ListSkin" value = "List" />
-        <Property key="ListLayer" value = "LayoutEditor_Popup" />
+        <Property key="ListLayer" value = "Popup" />
 
         <Child type="Widget" skin="EditClient" offset = "2 1 129 22" align = "ALIGN_STRETCH" name = "Client"/>
         <Child type="Button" skin="ComboBoxButton" offset = "128 4 20 17" align = "ALIGN_RIGHT ALIGN_VCENTER" name = "Button"/>
