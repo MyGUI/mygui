@@ -31,7 +31,6 @@ pkginclude_HEADERS = \
 	MyGUI_FontManager.h\
 	MyGUI_FooBarFactory.h\
 	MyGUI_FooBar.h\
-	MyGUI_FrameListener.h\
 	MyGUI_Gui.h\
 	MyGUI.h\
 	MyGUI_HScrollFactory.h\
@@ -41,6 +40,7 @@ pkginclude_HEADERS = \
 	MyGUI_Instance.h\
 	MyGUI_ItemBoxFactory.h\
 	MyGUI_ItemBox.h\
+	MyGUI_ItemDropInfo.h\
 	MyGUI_LayerItem.h\
 	MyGUI_LayerItemInfo.h\
 	MyGUI_LayerItemKeeper.h\
@@ -108,6 +108,7 @@ pkginclude_HEADERS = \
 	MyGUI_WidgetManager.h\
 	MyGUI_WidgetOIS.h\
 	MyGUI_WidgetSkinInfo.h\
+	MyGUI_WidgetToolTip.h\
 	MyGUI_WidgetTranslate.h\
 	MyGUI_WidgetUserData.h\
 	MyGUI_WindowFactory.h\
