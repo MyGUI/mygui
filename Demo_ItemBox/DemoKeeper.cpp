@@ -17,13 +17,13 @@ void DemoKeeper::notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool 
 
 void DemoKeeper::notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result)
 {
-	// не на айтем кидаем
+	// Г­ГҐ Г­Г  Г Г©ГІГҐГ¬ ГЄГЁГ¤Г ГҐГ¬
 	if (_info.reseiver_index == ITEM_NONE) {
 		_result = false;
 		return;
 	}
 
-	// на себя и на тотже айтем
+	// Г­Г  Г±ГҐГЎГї ГЁ Г­Г  ГІГ®ГІГ¦ГҐ Г Г©ГІГҐГ¬
 	if ((_info.sender == _info.reseiver) && (_info.sender_index == _info.reseiver_index)) {
 		_result = false;
 		return;
@@ -82,16 +82,16 @@ void DemoKeeper::start()
 	mToolTip->hide();
 
 	mItemBoxV.initialise();
-        /*	mItemBoxV.addItem(new ItemData(TypeNone, 0, "", ""));
-	mItemBoxV.addItem(new ItemData(TypeRoll, 5, L"Свиток", L"описание Свиток"));
-	mItemBoxV.addItem(new ItemData(TypeCloth, 5, L"Полотно", L"описание Полотно"));
-	mItemBoxV.addItem(new ItemData(TypeTear, 5, L"Слеза", L"описание Слеза"));
-	mItemBoxV.addItem(new ItemData(TypeEye, 5, L"Глаз", L"описание Глаз"));
-	mItemBoxV.addItem(new ItemData(TypeEmerald, 5, L"Изумруд", L"описание Изумруд"));
-	mItemBoxV.addItem(new ItemData(TypeWings, 5, L"Крылья", L"описание Крылья"));
-	mItemBoxV.addItem(new ItemData(TypeIce, 5, L"Лед", L"описание Лед"));
-	mItemBoxV.addItem(new ItemData(TypeBoard, 5, L"Щит", L"описание Щит"));
-	mItemBoxV.addItem(new ItemData(TypeBoots, 5, L"Сапоги", L"описание Сапоги"));
+	mItemBoxV.addItem(new ItemData(TypeNone, 0, "", ""));
+	mItemBoxV.addItem(new ItemData(TypeRoll, 5, L"РЎРІРёС‚РѕРє", L"РѕРїРёСЃР°РЅРёРµ РЎРІРёС‚РѕРє"));
+	/*mItemBoxV.addItem(new ItemData(TypeCloth, 5, L"ГЏГ®Г«Г®ГІГ­Г®", L"Г®ГЇГЁГ±Г Г­ГЁГҐ ГЏГ®Г«Г®ГІГ­Г®"));
+	mItemBoxV.addItem(new ItemData(TypeTear, 5, L"Г‘Г«ГҐГ§Г ", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г‘Г«ГҐГ§Г "));
+	mItemBoxV.addItem(new ItemData(TypeEye, 5, L"ГѓГ«Г Г§", L"Г®ГЇГЁГ±Г Г­ГЁГҐ ГѓГ«Г Г§"));
+	mItemBoxV.addItem(new ItemData(TypeEmerald, 5, L"Г€Г§ГіГ¬Г°ГіГ¤", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г€Г§ГіГ¬Г°ГіГ¤"));
+	mItemBoxV.addItem(new ItemData(TypeWings, 5, L"ГЉГ°Г»Г«ГјГї", L"Г®ГЇГЁГ±Г Г­ГЁГҐ ГЉГ°Г»Г«ГјГї"));
+	mItemBoxV.addItem(new ItemData(TypeIce, 5, L"Г‹ГҐГ¤", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г‹ГҐГ¤"));
+	mItemBoxV.addItem(new ItemData(TypeBoard, 5, L"Г™ГЁГІ", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г™ГЁГІ"));
+	mItemBoxV.addItem(new ItemData(TypeBoots, 5, L"Г‘Г ГЇГ®ГЈГЁ", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г‘Г ГЇГ®ГЈГЁ"));
 
 	mItemBoxV.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 	mItemBoxV.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
@@ -102,15 +102,15 @@ void DemoKeeper::start()
 
 	mItemBoxH.initialise();
 	mItemBoxH.addItem(new ItemData(TypeNone, 0, "", ""));
-	mItemBoxH.addItem(new ItemData(TypeRoll, 5, L"Свиток", L"описание Свиток"));
-	mItemBoxH.addItem(new ItemData(TypeCloth, 5, L"Полотно", L"описание Полотно"));
-	mItemBoxH.addItem(new ItemData(TypeTear, 5, L"Слеза", L"описание Слеза"));
-	mItemBoxH.addItem(new ItemData(TypeEye, 5, L"Глаз", L"описание Глаз"));
-	mItemBoxH.addItem(new ItemData(TypeEmerald, 5, L"Изумруд", L"описание Изумруд"));
-	mItemBoxH.addItem(new ItemData(TypeWings, 5, L"Крылья", L"описание Крылья"));
-	mItemBoxH.addItem(new ItemData(TypeIce, 5, L"Лед", L"описание Лед"));
-	mItemBoxH.addItem(new ItemData(TypeBoard, 5, L"Щит", L"описание Щит"));
-	mItemBoxH.addItem(new ItemData(TypeBoots, 5, L"Сапоги", L"описание Сапоги"));
+	mItemBoxH.addItem(new ItemData(TypeRoll, 5, L"Г‘ГўГЁГІГ®ГЄ", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г‘ГўГЁГІГ®ГЄ"));
+	mItemBoxH.addItem(new ItemData(TypeCloth, 5, L"ГЏГ®Г«Г®ГІГ­Г®", L"Г®ГЇГЁГ±Г Г­ГЁГҐ ГЏГ®Г«Г®ГІГ­Г®"));
+	mItemBoxH.addItem(new ItemData(TypeTear, 5, L"Г‘Г«ГҐГ§Г ", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г‘Г«ГҐГ§Г "));
+	mItemBoxH.addItem(new ItemData(TypeEye, 5, L"ГѓГ«Г Г§", L"Г®ГЇГЁГ±Г Г­ГЁГҐ ГѓГ«Г Г§"));
+	mItemBoxH.addItem(new ItemData(TypeEmerald, 5, L"Г€Г§ГіГ¬Г°ГіГ¤", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г€Г§ГіГ¬Г°ГіГ¤"));
+	mItemBoxH.addItem(new ItemData(TypeWings, 5, L"ГЉГ°Г»Г«ГјГї", L"Г®ГЇГЁГ±Г Г­ГЁГҐ ГЉГ°Г»Г«ГјГї"));
+	mItemBoxH.addItem(new ItemData(TypeIce, 5, L"Г‹ГҐГ¤", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г‹ГҐГ¤"));
+	mItemBoxH.addItem(new ItemData(TypeBoard, 5, L"Г™ГЁГІ", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г™ГЁГІ"));
+	mItemBoxH.addItem(new ItemData(TypeBoots, 5, L"Г‘Г ГЇГ®ГЈГЁ", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г‘Г ГЇГ®ГЈГЁ"));
 
 	mItemBoxH.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 	mItemBoxH.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
@@ -120,7 +120,7 @@ void DemoKeeper::start()
 	mItemBoxH.eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
 
-	ItemData data(TypeEmerald, 5, L"Изумруд", L"описание Изумруд");
+	ItemData data(TypeEmerald, 5, L"Г€Г§ГіГ¬Г°ГіГ¤", L"Г®ГЇГЁГ±Г Г­ГЁГҐ Г€Г§ГіГ¬Г°ГіГ¤");
         */
 }
 
