@@ -47,11 +47,13 @@ namespace MyGUI
 		// парсим виджет для текста
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Text") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetText, "widget already assigned");
 				mWidgetText = (*iter);
 				mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
 				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 			}
 			else if ((*iter)->_getInternalString() == "Icon") {
+				MYGUI_DEBUG_ASSERT( ! mIcon, "widget already assigned");
 				mIcon = castWidget<StaticImage>(*iter);
 			}
 		}

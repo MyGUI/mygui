@@ -52,24 +52,29 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Bar") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetBar, "widget already assigned");
 				mWidgetBar = (*iter);
 			}
 			else if ((*iter)->_getInternalString() == "Left") {
+				MYGUI_DEBUG_ASSERT( ! mButtonLeft, "widget already assigned");
 				mButtonLeft = castWidget<Button>(*iter);
 				mButtonLeft->hide();
 				mButtonLeft->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->_getInternalString() == "Right") {
+				MYGUI_DEBUG_ASSERT( ! mButtonRight, "widget already assigned");
 				mButtonRight = castWidget<Button>(*iter);
 				mButtonRight->hide();
 				mButtonRight->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->_getInternalString() == "List") {
+				MYGUI_DEBUG_ASSERT( ! mButtonList, "widget already assigned");
 				mButtonList = castWidget<Button>(*iter);
 				mButtonList->hide();
 				mButtonList->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->_getInternalString() == "ButtonDecor") {
+				MYGUI_DEBUG_ASSERT( ! mButtonDecor, "widget already assigned");
 				mButtonDecor = *iter;
 				mButtonDecor->hide();
 			}
@@ -78,6 +83,7 @@ namespace MyGUI
 				(*iter)->hide();
 			}
 			else if ((*iter)->_getInternalString() == "Sheet") {
+				MYGUI_DEBUG_ASSERT( ! mSheetTemplate, "widget already assigned");
 				mSheetTemplate = (*iter);
 				mSheetTemplate->hide();
 			}

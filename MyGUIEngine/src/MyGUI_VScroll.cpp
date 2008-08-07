@@ -28,14 +28,17 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Start") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetStart, "widget already assigned");
 				mWidgetStart = castWidget<Button>(*iter);
 				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 			}
 			else if ((*iter)->_getInternalString() == "End") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetEnd, "widget already assigned");
 				mWidgetEnd = castWidget<Button>(*iter);
 				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 			}
 			else if ((*iter)->_getInternalString() == "Track") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetTrack, "widget already assigned");
 				mWidgetTrack = castWidget<Button>(*iter);
 				mWidgetTrack->eventMouseDrag = newDelegate(this, &VScroll::notifyMouseDrag);
 				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
@@ -43,10 +46,12 @@ namespace MyGUI
 				mWidgetTrack->hide();
 			}
 			else if ((*iter)->_getInternalString() == "FirstPart") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetFirstPart, "widget already assigned");
 				mWidgetFirstPart = castWidget<Button>(*iter);
 				mWidgetFirstPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 			}
 			else if ((*iter)->_getInternalString() == "SecondPart") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetSecondPart, "widget already assigned");
 				mWidgetSecondPart = castWidget<Button>(*iter);
 				mWidgetSecondPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 			}
