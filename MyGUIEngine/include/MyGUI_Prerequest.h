@@ -44,6 +44,7 @@ namespace MyGUI
 	class PluginManager;
 	class DynLibManager;
 	class DelegateManager;
+	class LanguageManager;
 
 	class WidgetFactoryInterface;
 

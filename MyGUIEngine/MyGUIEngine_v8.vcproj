@@ -395,6 +395,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_LanguageManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_LayerManager.cpp"
 					>
 				</File>
@@ -806,6 +810,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_InputManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_LanguageManager.h"
 					>
 				</File>
 				<File
