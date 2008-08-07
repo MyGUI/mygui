@@ -47,82 +47,107 @@ namespace MyGUI
 
 	void LanguageManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
-		/*std::string layer, def, text;
+		std::string def;
 
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator pointer = _node->getNodeIterator();
 		while (pointer.nextNode(XML_TYPE)) {
 
 			// парсим атрибуты
-			pointer->findAttribute("layer", layer);
 			pointer->findAttribute("default", def);
 
-			// сохраняем
-			text = pointer->findAttribute("texture");
-
-			IntSize textureSize = SkinManager::getTextureSize(text);
-
-			// берем детей и крутимся, основной цикл
+			// берем детей и крутимся
 			xml::xmlNodeIterator info = pointer->getNodeIterator();
 			while (info.nextNode("Info")) {
 
-				// значения параметров
-				FloatRect offset(0, 0, 1, 1);
-
 				// парсим атрибуты
-				std::string texture(info->findAttribute("texture"));
 				std::string name(info->findAttribute("name"));
-				std::string size(info->findAttribute("size"));
-				IntPoint point = IntPoint::parse(info->findAttribute("point"));
+				std::string source(info->findAttribute("source"));
 
-				std::string offset_str(info->findAttribute("offset"));
-				if (false == offset_str.empty()) {
-					if (texture.empty()) offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
-					else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), SkinManager::getTextureSize(texture));
+				// добавляем
+				if (mMapFile.find(name) != mMapFile.end()) {
+					MYGUI_LOG(Warning, "language '" << name << "' exist, erase old data");
 				}
-
-				// добавляем курсор
-				if (mMapPointers.find(name) != mMapPointers.end()) {
-					MYGUI_LOG(Warning, "pointer '" << name << "' exist, erase old data");
-				}
-				mMapPointers[name] = PointerInfo(offset, point, IntSize::parse(size), texture);
+				mMapFile[name] = source;
 
 			};
 		};
 
-		// если есть левел, то пересоеденяем, если нет виджета, то создаем
-		if (false == layer.empty()) {
-			if (null == mMousePointer) {
-				mMousePointer = _createWidget("Widget", "StaticImage", IntCoord(), ALIGN_DEFAULT, "", "");
-			}
-			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
-		}
-
-		// если есть дефолтный курсор то меняем
-		if (false == def.empty()) mDefaultPointer = def;
-		if (false == text.empty()) mTexture = text;
-
-		// если дефолтного нет, то пробуем первый из списка
-		if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
-
-		// ставим дефолтный указатель
-		setPointer(mDefaultPointer, null);*/
+		if ( ! def.empty()) setCurrentLanguage(def);
 	}
 
-	void LanguageManager::setCurrentLanguage(const std::string & _name)
+	bool LanguageManager::setCurrentLanguage(const std::string & _name)
 	{
 		mCurrentLanguage = mMapFile.find(_name);
 		if (mCurrentLanguage == mMapFile.end()) {
 			MYGUI_LOG(Error, "Language '" << _name << "' is not found");
-			return;
+			return false;
 		}
 
-		loadLanguage(mCurrentLanguage->second);
+		return loadLanguage(mCurrentLanguage->second);
 	}
 
-	void LanguageManager::loadLanguage(const std::string & _file)
+	bool LanguageManager::loadLanguage(const std::string & _file)
 	{
 		mMapLanguage.clear();
+
+		std::string group = Gui::getInstance().getResourceGroup();
+		std::string file(group.empty() ? _file : helper::getResourcePath(_file, group));
+		if (file.empty()) {
+			MYGUI_LOG(Error, "file '" << _file << "' not found");
+			return false;
+		}
+
+		if (!group.empty()) {
+			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file, group);
+			_loadLanguage(stream);
+			return true;
+		}
+
+		std::ifstream stream(file.c_str());
+		if (false == stream.is_open()) {
+			MYGUI_LOG(Error, "error open file '" << _file << "'");
+			return false;
+		}
+		_loadLanguage(stream);
+		stream.close();
+
+		return true;
+	}
+
+	void LanguageManager::_loadLanguage(std::ifstream & _stream)
+	{
+		std::string read;
+		while (false == _stream.eof()) {
+			std::getline(_stream, read);
+			if (read.empty()) continue;
+
+			size_t pos = read.find_first_of(" \t");
+			if (pos == std::string::npos) mMapLanguage[read] = "";
+			else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+		};
+	}
+
+	void LanguageManager::_loadLanguage(const Ogre::DataStreamPtr& stream)
+	{
+		std::string read;
+		while (false == stream->eof()) {
+			read = stream->getLine (false);
+			if (read.empty()) continue;
+
+			size_t pos = read.find_first_of(" \t");
+			if (pos == std::string::npos) mMapLanguage[read] = "";
+			else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+		};
+	}
+
+	Ogre::UTFString LanguageManager::replaceLanguage(const Ogre::UTFString & _line)
+	{
+		Ogre::UTFString line(_line);
+
+		size_t pos = line.find("#{");
+
+		return line;
 	}
 
 } // namespace MyGUI	
