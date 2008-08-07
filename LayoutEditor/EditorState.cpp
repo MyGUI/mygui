@@ -1014,7 +1014,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		int w1 = 120;
 		int w2 = panels[0]->getWidth() - w1 - 4*PANELS_MARGIN;
 		int y = 0;
-		const int h = 20;
+		const int h = 22;
 		WidgetType * widgetType = wt->find(current_widget->getWidgetType());
 		WidgetContainer * widgetContainer = ew->find(current_widget);
 
@@ -1224,7 +1224,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 
 	editOrCombo->setUserString("action", _property);
 	editOrCombo->setUserString("type", _type);
-	editOrCombo->setFontHeight(h-2);
+	//editOrCombo->setFontHeight(h-2);
 
 	// trim "ALIGN_"
 	if (0 == strncmp("ALIGN_", _value.c_str(), 6))
