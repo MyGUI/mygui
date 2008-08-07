@@ -29,6 +29,7 @@
     <Parameter key="Edit_ReadOnly" value="Bool"/>
     <Parameter key="Edit_Password" value="Bool"/>
     <Parameter key="Edit_MultiLine" value="Bool"/>
+    <Parameter key="Edit_BreakLine" value="Bool"/>
     <Parameter key="Edit_PasswordChar" value="String"/>
     <Parameter key="Edit_MaxTextLength" value="1 int"/>
     <Parameter key="Edit_OverflowToTheLeft" value="Bool"/>
@@ -189,7 +190,15 @@
     <Parameter key="Widget_InheritsAlpha" value="Bool"/>
     <Parameter key="Widget_AlignText" value="TextAlign"/>
     <Parameter key="Widget_Enabled" value="Bool"/>
+    <Parameter key="Widget_eventMouseLostFocus" value="String"/>
+    <Parameter key="Widget_eventMouseSetFocus" value="String"/>
+    <Parameter key="Widget_eventMouseDrag" value="String"/>
     <Parameter key="Widget_eventMouseMove" value="String"/>
+    <Parameter key="Widget_eventMouseWheel" value="String"/>
+    <Parameter key="Widget_eventMouseButtonPressed" value="String"/>
+    <Parameter key="Widget_eventMouseButtonReleased" value="String"/>
+    <Parameter key="Widget_eventMouseButtonClick" value="String"/>
+    <Parameter key="Widget_eventMouseButtonDoubleClick" value="String"/>
     <!-- all properties -->
   </Widget>
 

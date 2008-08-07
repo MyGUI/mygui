@@ -11,6 +11,14 @@
 #include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
 
+#define FACTORY_WIDGET_EVENT_DELEGATE(eventName) \
+		void WidgetFactory::Widget_##eventName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value) \
+		{ \
+			DelegateManager & manager = DelegateManager::getInstance(); \
+			_widget->setUserString( #eventName, _value); \
+			_widget->eventName = newDelegate(&manager, &DelegateManager::eventName); \
+		}
+
 namespace MyGUI
 {
 	namespace factory
@@ -39,7 +47,15 @@ namespace MyGUI
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
 			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
 			manager.registerDelegate("Widget_NeedToolTip") = newDelegate(this, &WidgetFactory::Widget_NeedToolTip);
+			manager.registerDelegate("Widget_eventMouseLostFocus") = newDelegate(this, &WidgetFactory::Widget_eventMouseLostFocus);
+			manager.registerDelegate("Widget_eventMouseSetFocus") = newDelegate(this, &WidgetFactory::Widget_eventMouseSetFocus);
+			manager.registerDelegate("Widget_eventMouseDrag") = newDelegate(this, &WidgetFactory::Widget_eventMouseDrag);
 			manager.registerDelegate("Widget_eventMouseMove") = newDelegate(this, &WidgetFactory::Widget_eventMouseMove);
+			manager.registerDelegate("Widget_eventMouseWheel") = newDelegate(this, &WidgetFactory::Widget_eventMouseWheel);
+			manager.registerDelegate("Widget_eventMouseButtonPressed") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonPressed);
+			manager.registerDelegate("Widget_eventMouseButtonReleased") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonReleased);
+			manager.registerDelegate("Widget_eventMouseButtonClick") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonClick);
+			manager.registerDelegate("Widget_eventMouseButtonDoubleClick") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonDoubleClick);
 		}
 
 		WidgetFactory::~WidgetFactory()
@@ -65,7 +81,15 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_AlignText");
 			manager.unregisterDelegate("Widget_Enabled");
 			manager.unregisterDelegate("Widget_NeedToolTip");
+			manager.unregisterDelegate("Widget_eventMouseLostFocus");
+			manager.unregisterDelegate("Widget_eventMouseSetFocus");
+			manager.unregisterDelegate("Widget_eventMouseDrag");
 			manager.unregisterDelegate("Widget_eventMouseMove");
+			manager.unregisterDelegate("Widget_eventMouseWheel");
+			manager.unregisterDelegate("Widget_eventMouseButtonPressed");
+			manager.unregisterDelegate("Widget_eventMouseButtonReleased");
+			manager.unregisterDelegate("Widget_eventMouseButtonClick");
+			manager.unregisterDelegate("Widget_eventMouseButtonDoubleClick");
 		}
 
 		const Ogre::String& WidgetFactory::getType()
@@ -176,12 +200,22 @@ namespace MyGUI
 			_widget->setNeedToolTip(utility::parseBool(_value));
 		}
 
-		void WidgetFactory::Widget_eventMouseMove(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseLostFocus);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseSetFocus);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseDrag);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseMove);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseWheel);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonPressed);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonReleased);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonClick);
+		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonDoubleClick);
+
+		/*void WidgetFactory::Widget_eventMouseMove(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-         DelegateManager & manager = DelegateManager::getInstance();
-         _widget->setUserString("eventMouseMove", _value);
-         _widget->eventMouseMove = newDelegate(&manager, &DelegateManager::eventMouseMove);
-		}
+			DelegateManager & manager = DelegateManager::getInstance();
+			_widget->setUserString("eventMouseMove", _value);
+			_widget->eventMouseMove = newDelegate(&manager, &DelegateManager::eventMouseMove);
+		}*/
 
 	} // namespace factory
 } // namespace MyGUI

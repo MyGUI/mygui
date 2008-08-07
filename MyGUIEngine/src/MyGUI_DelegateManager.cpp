@@ -33,7 +33,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-   void DelegateManager::addDelegate(const Ogre::String & _key, IEventInfo_WidgetVoid * _delegate)
+   void DelegateManager::addDelegate(const Ogre::String & _key, IDelegate * _delegate)
    {
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) {
@@ -51,11 +51,11 @@ namespace MyGUI
       mDelegates.erase(iter);
    }
 
-   void DelegateManager::callDelegate(const std::string & _key, WidgetPtr _sender)
+   void DelegateManager::callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event)
    {
       MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) {
-			iter->second(_sender);
+			iter->second(_sender, _key, _event);
 		}
       else
       {
