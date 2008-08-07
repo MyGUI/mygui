@@ -8,6 +8,7 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_DelegateManager.h"
 
 namespace MyGUI
 {
@@ -37,6 +38,7 @@ namespace MyGUI
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
 			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
 			manager.registerDelegate("Widget_NeedToolTip") = newDelegate(this, &WidgetFactory::Widget_NeedToolTip);
+			manager.registerDelegate("Widget_eventMouseMove") = newDelegate(this, &WidgetFactory::Widget_eventMouseMove);
 		}
 
 		WidgetFactory::~WidgetFactory()
@@ -62,6 +64,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_AlignText");
 			manager.unregisterDelegate("Widget_Enabled");
 			manager.unregisterDelegate("Widget_NeedToolTip");
+			manager.unregisterDelegate("Widget_eventMouseMove");
 		}
 
 		const Ogre::String& WidgetFactory::getType()
@@ -167,6 +170,13 @@ namespace MyGUI
 		void WidgetFactory::Widget_NeedToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			_widget->setNeedToolTip(utility::parseBool(_value));
+		}
+
+		void WidgetFactory::Widget_eventMouseMove(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+         DelegateManager & manager = DelegateManager::getInstance();
+         _widget->setUserString("eventMouseMove", _value);
+         _widget->eventMouseMove = newDelegate(&manager, &DelegateManager::eventMouseMove);
 		}
 
 	} // namespace factory

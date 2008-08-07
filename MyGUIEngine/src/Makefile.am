@@ -15,6 +15,7 @@ libmygui_la_SOURCES = \
 	MyGUI_ControllerFadeAlpha.cpp\
 	MyGUI_ControllerManager.cpp\
 	MyGUI_ControllerPosition.cpp\
+	MyGUI_DelegateManager.cpp\
 	MyGUI_DynLib.cpp\
 	MyGUI_DynLibManager.cpp\
 	MyGUI_Edit.cpp\
