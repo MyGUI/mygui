@@ -72,6 +72,7 @@ namespace input
 		else if (uMsg == WM_NCHITTEST) {
 			int c = DefWindowProc (hWnd, uMsg, wParam, lParam);
 			size_t pointer = NULL;
+			msInputManager->mPointerInClient = false;
 			switch (c)
 			{
 			case HTBOTTOM:
@@ -90,8 +91,12 @@ namespace input
 			case HTRIGHT:
 				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
 				break;
-			default:
+			case HTCLIENT:
 				pointer = msInputManager->mCurrentPointer;
+				msInputManager->mPointerInClient = true;
+				break;
+			default:
+				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
 				break;
 			}
 			SetCursor((HCURSOR)pointer);
@@ -190,7 +195,8 @@ namespace input
 		mHwnd(0),
 		mCurrentPointer(0),
 		m_showPointer(true),
-		mMapPointerIni(false)
+		mMapPointerIni(false),
+		mPointerInClient(false)
 	{
 		assert(!msInputManager);
 		msInputManager = this;
@@ -350,7 +356,7 @@ namespace input
 	{
 		mCurrentPointer = _id;
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		::SetCursor(m_showPointer ? (HCURSOR)mCurrentPointer : NULL);
+		if (mPointerInClient) ::SetCursor(m_showPointer ? (HCURSOR)mCurrentPointer : NULL);
 #endif
 	}
 
@@ -358,7 +364,7 @@ namespace input
 	{
 		m_showPointer = _show;
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		::SetCursor(m_showPointer ? (HCURSOR)mCurrentPointer : NULL);
+		if (mPointerInClient) ::SetCursor(m_showPointer ? (HCURSOR)mCurrentPointer : NULL);
 #endif
 	}
 
