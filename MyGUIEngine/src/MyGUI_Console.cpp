@@ -22,14 +22,17 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Console_Send") {
+				MYGUI_DEBUG_ASSERT( ! mSendButton, "widget already assigned");
 				mSendButton = castWidget<Button>(*iter);
 				mSendButton->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
 				mSendButton->setCaption("Submit");
 			}
 			else if ((*iter)->_getInternalString() == "Console_List") {
+				MYGUI_DEBUG_ASSERT( ! mCommandList, "widget already assigned");
 				mCommandList = castWidget<List>(*iter);
 			}
 			else if ((*iter)->_getInternalString() == "Console_Command") {
+				MYGUI_DEBUG_ASSERT( ! mCommandInput, "widget already assigned");
 				mCommandInput = castWidget<ComboBox>(*iter);
 			}
 		}

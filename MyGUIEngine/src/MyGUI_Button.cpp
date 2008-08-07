@@ -32,6 +32,7 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Image") {
+				MYGUI_DEBUG_ASSERT( ! mImage, "widget already assigned");
 				mImage = castWidget<StaticImage>(*iter);
 			}
 		}
