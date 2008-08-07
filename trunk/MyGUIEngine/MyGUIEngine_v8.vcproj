@@ -187,6 +187,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\src\MyGUI_DelegateManager.cpp"
+				>
+			</File>
 			<Filter
 				Name="Widget"
 				>
@@ -782,6 +786,10 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_ControllerManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_DelegateManager.h"
 					>
 				</File>
 				<File
