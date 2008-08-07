@@ -101,6 +101,7 @@ namespace input
 		typedef std::map<std::string, size_t> MapPointer;
 		MapPointer mMapGuiPointer;
 		bool mMapPointerIni;
+		bool mPointerInClient;
 
 	};
 
