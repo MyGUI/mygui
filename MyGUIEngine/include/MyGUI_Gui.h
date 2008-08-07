@@ -299,6 +299,7 @@ namespace MyGUI
 		DynLibManager* mDynLibManager;
 		PluginManager* mPluginManager;
 		DelegateManager* mDelegateManager;
+		LanguageManager* mLanguageManager;
 
 		// подписчики на кадры
 		ListFrameEvent mListFrameEvent;

@@ -9,6 +9,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_DelegateManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -79,9 +80,12 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
+			// временно всегда меняем в строке
 			// change '\n' on char 10
 			size_t pos = _value.find("\\n");
-			if (pos == std::string::npos) _widget->setCaption(_value);
+			if (pos == std::string::npos) {
+				_widget->setCaption(LanguageManager::getInstance().replaceLanguage(_value));
+			}
 			else {
 				std::string value(_value);
 				while (pos != std::string::npos) {
@@ -89,7 +93,7 @@ namespace MyGUI
 					value.erase(pos, 1);
 					pos = value.find("\\n");
 				}
-				_widget->setCaption(value);
+				_widget->setCaption(LanguageManager::getInstance().replaceLanguage(value));
 			}
 		}
 

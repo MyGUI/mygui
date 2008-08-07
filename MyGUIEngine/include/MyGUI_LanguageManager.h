@@ -37,6 +37,8 @@ namespace MyGUI
 
 		Ogre::UTFString replaceLanguage(const Ogre::UTFString & _line);
 
+		inline void _addReplace(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mMapLanguage[_tag] = _replace; }
+
 	private:
 		bool loadLanguage(const std::string & _file);
 		void _loadLanguage(std::ifstream & _stream);
