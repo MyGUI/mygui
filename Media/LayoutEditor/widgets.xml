@@ -189,6 +189,7 @@
     <Parameter key="Widget_InheritsAlpha" value="Bool"/>
     <Parameter key="Widget_AlignText" value="TextAlign"/>
     <Parameter key="Widget_Enabled" value="Bool"/>
+    <Parameter key="Widget_eventMouseMove" value="String"/>
     <!-- all properties -->
   </Widget>
 
