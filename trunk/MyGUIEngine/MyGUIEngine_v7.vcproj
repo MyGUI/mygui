@@ -264,6 +264,9 @@
 					RelativePath=".\src\MyGUI_ControllerManager.cpp">
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_DelegateManager.cpp">
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_DynLibManager.cpp">
 				</File>
 				<File
@@ -570,6 +573,9 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_ControllerManager.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_DelegateManager.h">
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_DynLibManager.h">

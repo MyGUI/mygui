@@ -20,6 +20,7 @@ pkginclude_HEADERS = \
 	MyGUI_CroppedRectangleInterface.h\
 	MyGUI_Delegate.h\
 	MyGUI_DelegateImplement.h\
+	MyGUI_DelegateManager.h\
 	MyGUI_DrawItem.h\
 	MyGUI_DynLib.h\
 	MyGUI_DynLibManager.h\

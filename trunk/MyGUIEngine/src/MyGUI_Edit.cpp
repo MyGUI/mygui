@@ -1499,13 +1499,13 @@ namespace MyGUI
 		size_t page = getFontHeight();
 		if (mVScroll != null) {
 			mVScroll->setScrollPage(page);
-			mVScroll->setScrollViewPage(mCoord.width > page ? mCoord.width : page);
+			mVScroll->setScrollViewPage(mCoord.width > (int)page ? mCoord.width : page);
 			mVScroll->setScrollRange(mVRange + 1);
 			if (textSize.height) mVScroll->setTrackSize(1. * mVScroll->getLineSize() * mText->getHeight() / textSize.height);
 		}
 		if (mHScroll != null) {
 			mHScroll->setScrollPage(page);
-			mHScroll->setScrollViewPage(mCoord.height > page ? mCoord.height : page);
+			mHScroll->setScrollViewPage(mCoord.height > (int)page ? mCoord.height : page);
 			mHScroll->setScrollRange(mHRange + 1);
 			if (textSize.width) mHScroll->setTrackSize(1. * mHScroll->getLineSize() * mText->getWidth() / textSize.width);
 		}

@@ -117,7 +117,7 @@ namespace MyGUI
 		mCommandInput->addItem(_command);
 		MapDelegate::iterator iter = mDelegates.find(_command);
 		if (iter != mDelegates.end()) {
-			MYGUI_LOG(Warning, utility::toString("console - command '", _command, "' already exist"));
+			MYGUI_LOG(Warning, "console - command '" << _command << "' already exist");
 		}
 		mDelegates[_command] = _delegate;
 		if ( ! _format.empty()) mFormates[_command] = _format;

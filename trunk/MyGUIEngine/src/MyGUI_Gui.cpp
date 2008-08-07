@@ -20,6 +20,7 @@
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
+#include "MyGUI_DelegateManager.h"
 
 namespace MyGUI
 {
@@ -67,6 +68,7 @@ namespace MyGUI
 		mLayoutManager = new LayoutManager();
 		mDynLibManager = new DynLibManager();
 		mPluginManager = new PluginManager();
+		mDelegateManager = new DelegateManager();
 
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
@@ -80,6 +82,7 @@ namespace MyGUI
 		mLayoutManager->initialise();
 		mDynLibManager->initialise();
 		mPluginManager->initialise();
+		mDelegateManager->initialise();
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
@@ -123,6 +126,7 @@ namespace MyGUI
 		mLayoutManager->shutdown();
 		mPluginManager->shutdown();
 		mDynLibManager->shutdown();
+		mDelegateManager->shutdown();
 
 		delete mPointerManager;
 		delete mWidgetManager;
@@ -136,6 +140,7 @@ namespace MyGUI
 		delete mLayoutManager;
 		delete mDynLibManager;
 		delete mPluginManager;
+		delete mDelegateManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 

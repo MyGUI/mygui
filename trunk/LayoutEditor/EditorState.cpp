@@ -32,6 +32,16 @@ enum POPUP_MENU_MAIN
 	ITEM_QUIT
 };
 
+void event1(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::MYGUI_OUT("event1");
+}
+
+void event2(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::MYGUI_OUT("event2");
+}
+
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
 {
 	bool find = false;
@@ -77,6 +87,9 @@ void EditorState::enter(bool bIsChangeState)
 	ew->initialise();
 	um = new UndoManager();
 	um->initialise(ew);
+
+	MyGUI::DelegateManager::getInstance().addDelegate("event1", MyGUI::newDelegate(event1));
+	MyGUI::DelegateManager::getInstance().addDelegate("event2", MyGUI::newDelegate(event2));
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
