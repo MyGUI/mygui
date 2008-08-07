@@ -54,10 +54,14 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	MyGUI::SkinManager::getInstance().load("WOT_new.skin");
+	/*MyGUI::SkinManager::getInstance().load("WOT_new.skin");
 	MyGUI::FontManager::getInstance().load("WOT.font");
 	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WOT_WindowCharacter", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
-	window->setCaption("test");
+	window->setCaption("test");*/
+
+	MyGUI::LanguageManager::getInstance().setCurrentLanguage("rus");
+	Ogre::UTFString str = MyGUI::LanguageManager::getInstance().replaceLanguage(L"я хачу #{Blond}, но я не #{Blond}!");
+	MyGUI::Message::createMessage("none", str, false, MyGUI::Message::None);
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 

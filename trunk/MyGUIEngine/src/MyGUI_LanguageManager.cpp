@@ -143,9 +143,55 @@ namespace MyGUI
 
 	Ogre::UTFString LanguageManager::replaceLanguage(const Ogre::UTFString & _line)
 	{
+		// вот хз, что быстрее, итераторы или математика указателей,
+		// для непонятно какого размера одного символа
 		Ogre::UTFString line(_line);
 
-		size_t pos = line.find("#{");
+		if (mMapLanguage.empty()) return _line;
+
+		Ogre::UTFString::iterator end = line.end();
+		for (Ogre::UTFString::iterator iter=line.begin(); iter!=end; ++iter) {
+			if (*iter == '#') {
+				++iter;
+				if (iter == end) {
+					return line;
+				}
+				else {
+					if (*iter != '{') continue;
+					Ogre::UTFString::iterator iter2 = iter;
+					++iter2;
+					while (true) {
+						if (iter2 == end) return line;
+						if (*iter2 == '}') {
+
+							size_t start = iter - line.begin();
+							size_t len = (iter2 - line.begin()) - start - 1;
+							const Ogre::UTFString & tag = line.substr(start + 1, len);
+							
+							MapLanguageString::iterator replace = mMapLanguage.find(tag);
+							if (replace == mMapLanguage.end()) {
+								iter = line.insert(iter, '#') + len + 2;
+								end = line.end();
+								break;
+							}
+							else {
+								iter = line.erase(iter-1, iter2+1);
+								size_t pos = iter - line.begin();
+								line.insert(pos, replace->second);
+								iter = line.begin() + pos + replace->second.length();
+								end = line.end();
+								if (iter == end) return line;
+								break;
+							}
+
+							iter = iter2;
+							break;
+						}
+						++iter2;
+					};
+				}
+			}
+		}
 
 		return line;
 	}
