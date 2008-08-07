@@ -14,6 +14,7 @@ namespace MyGUI
 {
 
 	typedef std::map<std::string, std::string> MapString;
+	typedef std::map<Ogre::UTFString, Ogre::UTFString> MapLanguageString;
 
 	class _MyGUIExport LanguageManager
 	{
@@ -31,18 +32,22 @@ namespace MyGUI
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		inline bool isLanguageExist(const std::string & _name) { return mMapFile.find(_name) != mMapFile.end(); }
-		void setCurrentLanguage(const std::string & _name);
+		bool setCurrentLanguage(const std::string & _name);
 		inline std::string getCurrentLanguage() { return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : ""; }
 
+		Ogre::UTFString replaceLanguage(const Ogre::UTFString & _line);
+
 	private:
-		void loadLanguage(const std::string & _file);
+		bool loadLanguage(const std::string & _file);
+		void _loadLanguage(std::ifstream & _stream);
+		void _loadLanguage(const Ogre::DataStreamPtr& stream);
 
 
 	private:
 		MapString mMapFile;
 		MapString::const_iterator mCurrentLanguage;
 
-		MapString mMapLanguage;
+		MapLanguageString mMapLanguage;
 	};
 
 } // namespace MyGUI
