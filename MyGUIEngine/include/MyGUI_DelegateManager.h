@@ -14,42 +14,133 @@
 
 namespace MyGUI
 {
-   /**
-      Manager for handling delegates by names through layout file.
-   */
 
-	typedef delegates::IDelegate1<WidgetPtr> IEventInfo_WidgetVoid;
+	#define DELEGATE_MANAGER_EVENT0(name) void name(MyGUI::WidgetPtr _sender){callDelegate(_sender, _sender->getUserString(#name), #name);}
+	#define DELEGATE_MANAGER_EVENT1(name, param1) void name(MyGUI::WidgetPtr _sender, param1){callDelegate(_sender, _sender->getUserString(#name), #name);}
+	#define DELEGATE_MANAGER_EVENT2(name, param1, param2) void name(MyGUI::WidgetPtr _sender, param1, param2){callDelegate(_sender, _sender->getUserString(#name), #name);}
+	#define DELEGATE_MANAGER_EVENT3(name, param1, param2, param3) void name(MyGUI::WidgetPtr _sender, param1, param2, param3){callDelegate(_sender, _sender->getUserString(#name), #name);}
+	#define DELEGATE_MANAGER_EVENT4(name, param1, param2, param3, param4) void name(MyGUI::WidgetPtr _sender, param1, param2, param3, param4){callDelegate(_sender, _sender->getUserString(#name), #name);}
+		/*void eventName(MyGUI::WidgetPtr _sender, [parameters])
+		{
+			callDelegate(_sender, _sender->getUserString("eventName"), "eventName");
+		}*/
+
+	/**
+	Manager for handling delegates by names through layout file.
+	*/
 
 	class _MyGUIExport DelegateManager
 	{
 		INSTANCE_HEADER(DelegateManager);
-   public:
-		typedef std::map<std::string, EventInfo_WidgetVoid> MapDelegate;
+	public:
+		typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> Delegate;
+		typedef delegates::IDelegate3<WidgetPtr, const std::string&, const std::string&> IDelegate;
+		typedef std::map<std::string, Delegate> MapDelegate;
 	public:
 		void initialise();
 		void shutdown();
 
-      /** Add new delegate
-			example :
-				registerConsoleDelegate("delegate_name_1", newDelegate(your_func));
-				registerConsoleDelegate("delegate_name_2", newDelegate(your_static_method));
-				registerConsoleDelegate("delegate_name_3", newDelegate(your_class_ptr, &your_class_name::your_method_name));
+		/** Add new delegate
+		example :
+		registerConsoleDelegate("delegate_name_1", newDelegate(your_func));
+		registerConsoleDelegate("delegate_name_2", newDelegate(your_static_method));
+		registerConsoleDelegate("delegate_name_3", newDelegate(your_class_ptr, &your_class_name::your_method_name));
 
-			signature : void method(MyGUI::WidgetPtr _sender)
+		signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
 		*/
-      void addDelegate(const std::string & _key, IEventInfo_WidgetVoid * _delegate);
+		void addDelegate(const std::string & _key, IDelegate * _delegate);
 
-      /** Remove delegate */
-      void removeDelegate(const std::string & _key);
-   private:
-      void callDelegate(const std::string & _key, WidgetPtr _sender);
-   public:
-      void eventMouseMove(MyGUI::WidgetPtr _sender, int _left, int _top)
-      {
-         callDelegate(_sender->getUserString("eventMouseMove"), _sender);
-      }
+		/** Remove delegate */
+		void removeDelegate(const std::string & _key);
+	private:
+		void callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event);
+	public:
+		DELEGATE_MANAGER_EVENT1(eventMouseLostFocus, MyGUI::WidgetPtr _new);
+		DELEGATE_MANAGER_EVENT1(eventMouseSetFocus, MyGUI::WidgetPtr _new);
+		DELEGATE_MANAGER_EVENT2(eventMouseDrag, int _left, int _top);
+		DELEGATE_MANAGER_EVENT2(eventMouseMove, int _left, int _top);
+		DELEGATE_MANAGER_EVENT1(eventMouseWheel, int _rel);
+		DELEGATE_MANAGER_EVENT3(eventMouseButtonPressed, int _left, int _top, MyGUI::MouseButton _id);
+		DELEGATE_MANAGER_EVENT3(eventMouseButtonReleased, int _left, int _top, MyGUI::MouseButton _id);
+		DELEGATE_MANAGER_EVENT0(eventMouseButtonClick);
+		DELEGATE_MANAGER_EVENT0(eventMouseButtonDoubleClick);
 
-      MapDelegate mDelegates;
+
+		///** Event : Widget lost keyboard focus.\n
+		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
+		//	@param _new widget with keyboard focus or null
+		//*/
+		//EventInfo_WidgetWidget eventKeyLostFocus;
+
+		///** Event : Widget got keyboard focus.\n
+		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
+		//	@param _old widget with keyboard focus or null
+		//*/
+		//EventInfo_WidgetWidget eventKeySetFocus;
+
+		///** Event : Key pressed.\n
+		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)\n
+		//	@param _key code
+		//	@param _char of pressed symbol (for multilanguage applications)
+		//*/
+		//EventInfo_WidgetKeyCodeChar eventKeyButtonPressed;
+
+		///** Event : Key released.\n
+		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key)\n
+		//	@param _key code
+		//*/
+		//EventInfo_WidgetKeyCode eventKeyButtonReleased;
+
+		///** Event : Root widget changed mouse focus.\n
+		//	info : this event sends only to root widget\n
+		//	signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		//	@param _focus Is widget got mouse focus.
+		//*/
+		//EventInfo_WidgetBool  eventRootMouseChangeFocus;
+
+		///** Event : Root widget changed keyboard focus.\n
+		//	info : this event sends only to root widget\n
+		//	signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+		//	@param _focus Is widget got keyboard focus.
+		//*/
+		//EventInfo_WidgetBool eventRootKeyChangeFocus;
+
+		///** Event : Extendeble event for special cases or plugins.\n
+		//	signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
+		//*/
+		///* event : общее расширяемое событие для плагинов или особых случаев*/
+		///* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
+		//EventInfo_WidgetStringString eventActionInfo;
+
+		///* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
+		///* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
+		//EventInfo_WidgetRefWidgetRefSizeT  _requestGetDragItemInfo;
+
+		///* event : внутреннее событие, невалидна информация для дропа*/
+		///* signature : void method(MyGUI::WidgetPtr _sender);*/
+		//EventInfo_WidgetVoid _eventInvalideDropInfo;
+
+		//// event : запрос на начало дропа
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		//EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
+
+		//// event : запрос на дроп айтема
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		//EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
+
+		//// event : завершение дропа
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
+		//EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
+
+		//// event : текущее состояние дропа
+		//// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
+		//EventInfo_WidgetDropState eventDropState;
+
+		///* event : событие для отображения тултипа*/
+		///* signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);*/
+		//EventInfo_WidgetToolTip eventToolTip;
+
+		MapDelegate mDelegates;
 	};
 
 } // namespace MyGUI
