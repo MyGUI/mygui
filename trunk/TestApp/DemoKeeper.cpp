@@ -54,6 +54,11 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
+	MyGUI::SkinManager::getInstance().load("WOT_new.skin");
+	MyGUI::FontManager::getInstance().load("WOT.font");
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WOT_WindowCharacter", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
+	window->setCaption("test");
+
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 
 	//mConsole = mGUI->createWidget<MyGUI::Console>("Console", MyGUI::IntCoord(100, 100, 540, 226), MyGUI::ALIGN_DEFAULT, "Main");
@@ -90,8 +95,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	edit->setCaption("ComplexProgress");//*/
 	
 
-	MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 600, 600), MyGUI::ALIGN_DEFAULT, "Main");
-	box->injectObject("robot.mesh");
+	//MyGUI::RenderBoxPtr box = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 600, 600), MyGUI::ALIGN_DEFAULT, "Main");
+	//box->injectObject("robot.mesh");
 	//box->setMouseRotation(true);
 	//box->setViewScale(true);
 	//box->setAutoRotation(true);

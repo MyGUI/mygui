@@ -21,7 +21,6 @@ namespace MyGUI
 
 	Progress::Progress(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mClient(null),
 		mTrackWidth(1),
 		mTrackStep(0),
 		mRange(0), mEndPosition(0), mStartPosition(0),
@@ -31,10 +30,11 @@ namespace MyGUI
 	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Client") {
-				mClient = (*iter);
+				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
+				mWidgetClient = (*iter);
 			}
 		}
-		if (null == mClient) mClient = this;
+		if (null == mWidgetClient) mWidgetClient = this;
 
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iterS = param.find("TrackSkin");
@@ -141,7 +141,7 @@ namespace MyGUI
 		if (mFillTrack) {
 
 			if (mVectorTrack.empty()) {
-				WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
+				WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
 				mVectorTrack.push_back(widget);
 			}
 			else {
@@ -182,7 +182,7 @@ namespace MyGUI
 		}
 
 		while ((int)mVectorTrack.size() < count) {
-			WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
+			WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
 			widget->hide();
 			mVectorTrack.push_back(widget);
 		}
@@ -241,9 +241,9 @@ namespace MyGUI
 	void Progress::setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height)
 	{
 		if (IS_ALIGN_LEFT(mStartPoint)) _widget->setPosition(_left, _top, _width, _height);
-		else if (IS_ALIGN_RIGHT(mStartPoint)) _widget->setPosition(mClient->getWidth() - _left - _width, _top, _width, _height);
+		else if (IS_ALIGN_RIGHT(mStartPoint)) _widget->setPosition(mWidgetClient->getWidth() - _left - _width, _top, _width, _height);
 		else if (IS_ALIGN_TOP(mStartPoint)) _widget->setPosition(_top, _left, _height, _width);
-		else if (IS_ALIGN_BOTTOM(mStartPoint)) _widget->setPosition(_top, mClient->getHeight() - _left - _width, _height, _width);
+		else if (IS_ALIGN_BOTTOM(mStartPoint)) _widget->setPosition(_top, mWidgetClient->getHeight() - _left - _width, _height, _width);
 	}
 
 	void Progress::setProgressStartPoint(Align _align)

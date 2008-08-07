@@ -35,11 +35,13 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "VScroll") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
 				mWidgetScroll = castWidget<VScroll>(*iter);
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
 				mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
 			else if ((*iter)->_getInternalString() == "Client") {
+				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}

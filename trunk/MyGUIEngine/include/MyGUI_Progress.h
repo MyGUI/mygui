@@ -73,8 +73,8 @@ namespace MyGUI
 	private:
 		void updateTrack();
 
-		inline int getClientWidth() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mClient->getWidth() : mClient->getHeight();}
-		inline int getClientHeight() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mClient->getHeight() : mClient->getWidth();}
+		inline int getClientWidth() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mWidgetClient->getWidth() : mWidgetClient->getHeight();}
+		inline int getClientHeight() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mWidgetClient->getHeight() : mWidgetClient->getWidth();}
 
 		void setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height);
 
@@ -82,7 +82,6 @@ namespace MyGUI
 		std::string mTrackSkin;
 		int mTrackWidth;
 		int mTrackStep;
-		WidgetPtr mClient;
 
 		VectorWidgetPtr mVectorTrack;
 		size_t mRange;
