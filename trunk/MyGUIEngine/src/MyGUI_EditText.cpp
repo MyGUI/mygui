@@ -289,7 +289,7 @@ namespace MyGUI
 	void EditText::setFontName(const std::string & _font)
 	{
 		mpFont = FontManager::getInstance().getByName( _font );
-		if (mpFont.isNull()) MYGUI_EXCEPT("Could not find font " << _font);
+		if (mpFont.isNull()) MYGUI_EXCEPT("Could not find font '" << _font << "'");
 		mpFont->load();
 		mpTexture = mpFont->getTextureFont();
 

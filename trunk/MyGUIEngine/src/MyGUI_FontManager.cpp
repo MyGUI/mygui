@@ -106,7 +106,7 @@ namespace MyGUI
 	void FontManager::saveFontTexture(const std::string & _font, const std::string & _file)
 	{
 		FontPtr font = FontManager::getInstance().getByName( _font );
-		MYGUI_ASSERT( ! font.isNull(), "Could not find font " << _font);
+		MYGUI_ASSERT( ! font.isNull(), "Could not find font '" << _font << "'");
 
 		font->load();
 		Ogre::TexturePtr texture = font->getTextureFont();

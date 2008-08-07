@@ -32,14 +32,14 @@ enum POPUP_MENU_MAIN
 	ITEM_QUIT
 };
 
-void event1(MyGUI::WidgetPtr _sender)
+void event1(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
 {
-	MyGUI::MYGUI_OUT("event1");
+	MyGUI::MYGUI_OUT("event1"," ", _key, " ", _event);
 }
 
-void event2(MyGUI::WidgetPtr _sender)
+void event2(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
 {
-	MyGUI::MYGUI_OUT("event2");
+	MyGUI::MYGUI_OUT("event2"," ", _key, " ", _event);
 }
 
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
@@ -111,7 +111,8 @@ void EditorState::enter(bool bIsChangeState)
 	mPopupMenuFile->addItem("  Quit  ");
 	mPopupMenuFile->addItem("  Submenu  ", true);
 	MyGUI::PopupMenuPtr menu = mPopupMenuFile->getItemInfo(7).submenu;
-	for (int i = 0; i < 15; i++)
+	const int SUB = 10;
+	for (int i = 0; i < SUB; i++)
 	{
 		menu->addItem("1Hello!");
 		menu->addItem("2Hello!");
@@ -120,7 +121,7 @@ void EditorState::enter(bool bIsChangeState)
 		menu->addItem("5ah... :(", true);
 		menu->addItem("6ah... :(");
 		menu = menu->getItemInfo(4).submenu;
-		if (i == 14) menu->addItem("#FF0000YOU DID IT!!! #00FF00CONGRATULATIONS!");
+		if (i == SUB-1) menu->addItem("#FF0000YOU DID IT!!! #00FF00CONGRATULATIONS!");
 	}
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
