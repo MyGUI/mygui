@@ -53,11 +53,13 @@
 			<Add directory="$(OGRE_HOME)\Dependencies\include\freetype" />
 			<Add directory="C:\OgreSDK\include" />
 			<Add directory="include\freetype2" />
+			<Add directory="C:\code\freetype-2.3.5\include" />
 		</Compiler>
 		<Linker>
 			<Add directory="$(OGRE_HOME)\Dependencies\lib\$(TARGET_NAME)" />
 			<Add directory="$(OGRE_HOME)\lib" />
 			<Add directory="C:\OgreSDK\bin\release" />
+			<Add directory="C:\OgreSDK\bin\debug" />
 		</Linker>
 		<Unit filename="include\MyGUI.h" />
 		<Unit filename="include\MyGUI_ActionController.h" />
@@ -71,6 +73,8 @@
 		<Unit filename="include\MyGUI_ComboBox.h" />
 		<Unit filename="include\MyGUI_ComboBoxFactory.h" />
 		<Unit filename="include\MyGUI_Common.h" />
+		<Unit filename="include\MyGUI_Console.h" />
+		<Unit filename="include\MyGUI_ConsoleFactory.h" />
 		<Unit filename="include\MyGUI_ControllerEdgeHide.h" />
 		<Unit filename="include\MyGUI_ControllerFadeAlpha.h" />
 		<Unit filename="include\MyGUI_ControllerItem.h" />
@@ -79,6 +83,7 @@
 		<Unit filename="include\MyGUI_CroppedRectangleInterface.h" />
 		<Unit filename="include\MyGUI_Delegate.h" />
 		<Unit filename="include\MyGUI_DelegateImplement.h" />
+		<Unit filename="include\MyGUI_DelegateManager.h" />
 		<Unit filename="include\MyGUI_DrawItem.h" />
 		<Unit filename="include\MyGUI_DynLib.h" />
 		<Unit filename="include\MyGUI_DynLibManager.h" />
@@ -99,6 +104,8 @@
 		<Unit filename="include\MyGUI_Instance.h" />
 		<Unit filename="include\MyGUI_ItemBox.h" />
 		<Unit filename="include\MyGUI_ItemBoxFactory.h" />
+		<Unit filename="include\MyGUI_ItemDropInfo.h" />
+		<Unit filename="include\MyGUI_LanguageManager.h" />
 		<Unit filename="include\MyGUI_LayerItem.h" />
 		<Unit filename="include\MyGUI_LayerItemInfo.h" />
 		<Unit filename="include\MyGUI_LayerItemKeeper.h" />
@@ -166,6 +173,7 @@
 		<Unit filename="include\MyGUI_WidgetManager.h" />
 		<Unit filename="include\MyGUI_WidgetOIS.h" />
 		<Unit filename="include\MyGUI_WidgetSkinInfo.h" />
+		<Unit filename="include\MyGUI_WidgetToolTip.h" />
 		<Unit filename="include\MyGUI_WidgetTranslate.h" />
 		<Unit filename="include\MyGUI_WidgetUserData.h" />
 		<Unit filename="include\MyGUI_Window.h" />
@@ -182,10 +190,13 @@
 		<Unit filename="src\MyGUI_ColourRect.cpp" />
 		<Unit filename="src\MyGUI_ComboBox.cpp" />
 		<Unit filename="src\MyGUI_ComboBoxFactory.cpp" />
+		<Unit filename="src\MyGUI_Console.cpp" />
+		<Unit filename="src\MyGUI_ConsoleFactory.cpp" />
 		<Unit filename="src\MyGUI_ControllerEdgeHide.cpp" />
 		<Unit filename="src\MyGUI_ControllerFadeAlpha.cpp" />
 		<Unit filename="src\MyGUI_ControllerManager.cpp" />
 		<Unit filename="src\MyGUI_ControllerPosition.cpp" />
+		<Unit filename="src\MyGUI_DelegateManager.cpp" />
 		<Unit filename="src\MyGUI_DynLib.cpp" />
 		<Unit filename="src\MyGUI_DynLibManager.cpp" />
 		<Unit filename="src\MyGUI_Edit.cpp" />
@@ -201,6 +212,7 @@
 		<Unit filename="src\MyGUI_InputManager.cpp" />
 		<Unit filename="src\MyGUI_ItemBox.cpp" />
 		<Unit filename="src\MyGUI_ItemBoxFactory.cpp" />
+		<Unit filename="src\MyGUI_LanguageManager.cpp" />
 		<Unit filename="src\MyGUI_LayerItemInfo.cpp" />
 		<Unit filename="src\MyGUI_LayerItemKeeper.cpp" />
 		<Unit filename="src\MyGUI_LayerKeeper.cpp" />
@@ -227,6 +239,7 @@
 		<Unit filename="src\MyGUI_RenderBoxFactory.cpp" />
 		<Unit filename="src\MyGUI_RenderItem.cpp" />
 		<Unit filename="src\MyGUI_RenderOut.cpp" />
+		<Unit filename="src\MyGUI_ResourcePath.cpp" />
 		<Unit filename="src\MyGUI_Sheet.cpp" />
 		<Unit filename="src\MyGUI_SheetFactory.cpp" />
 		<Unit filename="src\MyGUI_SimpleText.cpp" />
