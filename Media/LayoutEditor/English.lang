@@ -1,0 +1,32 @@
+﻿
+File   File  
+Widgets   Widgets  
+Load   Load  
+Save   Save  
+Save_as   Save as...  
+Clear   Clear  
+Settings   Settings  
+Test   #0000FFTest  
+Quit   Quit  
+
+Properties Properties
+Widget_type_propertes #{widget_type} specific properties
+Other_properties Other properties
+
+Add Add
+Delete Delete
+Select Select
+
+Grid_step Grid step
+Resolution Resolution
+Full_screen Full screen
+Screen_properties Screen properties
+Editor_settings Editor settings
+Widgets_list Widgets list
+Show_widget_name Show widget name
+Show_widget_type Show widget type
+Show_widget_skin Show widget skin
+Autohide_editor_panels Autohide editor panels
+
+Key Key
+Value Value

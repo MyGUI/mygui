@@ -141,7 +141,7 @@ namespace MyGUI
 		};
 	}
 
-	Ogre::UTFString LanguageManager::replaceLanguage(const Ogre::UTFString & _line)
+	Ogre::UTFString LanguageManager::replaceTags(const Ogre::UTFString & _line)
 	{
 		// вот хз, что быстрее, итераторы или математика указателей,
 		// для непонятно какого размера одного символа

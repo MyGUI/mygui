@@ -60,7 +60,7 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	window->setCaption("test");*/
 
 	MyGUI::LanguageManager::getInstance().setCurrentLanguage("rus");
-	Ogre::UTFString str = MyGUI::LanguageManager::getInstance().replaceLanguage(L"я хачу #{Blond}, но я не #{Blond}!");
+	Ogre::UTFString str = MyGUI::LanguageManager::getInstance().replaceTags(L"я хачу #{Blond}, но я не #{Blond}!");
 	MyGUI::Message::createMessage("none", str, false, MyGUI::Message::None);
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");

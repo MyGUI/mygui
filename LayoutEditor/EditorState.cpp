@@ -88,6 +88,14 @@ void EditorState::enter(bool bIsChangeState)
 	um = new UndoManager();
 	um->initialise(ew);
 
+	langManager = MyGUI::LanguageManager::getInstancePtr();
+
+	// set locale language if it was taken from OS
+	if (! BasisManager::getInstance().getLanguage().empty() )
+		langManager->setCurrentLanguage(BasisManager::getInstance().getLanguage());
+	// if you want to test LanguageManager uncomment next line
+	//langManager->setCurrentLanguage("Russian");
+
 	MyGUI::DelegateManager::getInstance().addDelegate("event1", MyGUI::newDelegate(event1));
 	MyGUI::DelegateManager::getInstance().addDelegate("event2", MyGUI::newDelegate(event2));
 
@@ -97,18 +105,18 @@ void EditorState::enter(bool bIsChangeState)
 
 	// создание меню
 	bar = mGUI->createWidget<MyGUI::MenuBar>("EditorMenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
-	bar->addItem("  File  ");
-	bar->addItem("  Widgets  ");
+	bar->addItem(langManager->replaceTags("#{File}"));
+	bar->addItem(langManager->replaceTags("#{Widgets}"));
 	mPopupMenuWidgets = bar->getItemMenu(1);
 
 	mPopupMenuFile = bar->getItemMenu(0);
-	mPopupMenuFile->addItem("  Load  ");
-	mPopupMenuFile->addItem("  Save  ");
-	mPopupMenuFile->addItem("  Save as...  ");
-	mPopupMenuFile->addItem("  Clear  ", false, true);
-	mPopupMenuFile->addItem("  Settings  ");
-	mPopupMenuFile->addItem("  #0000FFTest  ", false, true);
-	mPopupMenuFile->addItem("  Quit  ");
+	mPopupMenuFile->addItem(langManager->replaceTags("#{Load}"));
+	mPopupMenuFile->addItem(langManager->replaceTags("#{Save}"));
+	mPopupMenuFile->addItem(langManager->replaceTags("#{Save_as}"));
+	mPopupMenuFile->addItem(langManager->replaceTags("#{Clear}"), false, true);
+	mPopupMenuFile->addItem(langManager->replaceTags("#{Settings}"));
+	mPopupMenuFile->addItem(langManager->replaceTags("#{Test}"), false, true);
+	mPopupMenuFile->addItem(langManager->replaceTags("#{Quit}"));
 	mPopupMenuFile->addItem("  Submenu  ", true);
 	MyGUI::PopupMenuPtr menu = mPopupMenuFile->getItemInfo(7).submenu;
 	const int SUB = 10;
@@ -258,8 +266,8 @@ void EditorState::enter(bool bIsChangeState)
 	editValue->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateUserData);
 	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 	multilist->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectUserDataItem);
-	multilist->addColumn(editKey->getWidth() - PANELS_MARGIN, "Key");
-	multilist->addColumn(multilist->getWidth() - editKey->getWidth() - PANELS_MARGIN, "Value");
+	multilist->addColumn(editKey->getWidth() - PANELS_MARGIN, langManager->replaceTags("#{Key}"));
+	multilist->addColumn(multilist->getWidth() - editKey->getWidth() - PANELS_MARGIN, langManager->replaceTags("#{Value}"));
 
 	// create widget rectangle
 	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
@@ -1083,7 +1091,8 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		}
 		else
 		{
-			panels[0]->setCaption(current_widget->getWidgetType() + " specific properties");
+			langManager->addTag("widget_type", current_widget->getWidgetType());
+			panels[0]->setCaption(langManager->replaceTags(langManager->replaceTags("#{Widget_type_propertes}")));
 			y += h + 3*PANELS_MARGIN;
 
 			//all other
@@ -1108,7 +1117,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		y = panels[0]->getTop() + (panels[0]->getHeight() + PANELS_MARGIN)*panels[0]->isShow();
 
 		panels[1]->setPosition(panels[1]->getLeft(), y);
-		panels[1]->setCaption("Other properties");
+		panels[1]->setCaption(langManager->replaceTags("#{Other_properties}"));
 		y += h + 3*PANELS_MARGIN;
 
 		if (current_widget->getWidgetType() != "Sheet")
