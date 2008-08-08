@@ -423,7 +423,10 @@ int main(int argc, char **argv)
 
 	// устанавливаем локаль из переменной окружения
 	// без этого не будут открываться наши файлы
-	::setlocale( LC_ALL, "" );
+	std::string locale = ::setlocale( LC_ALL, "" );
+	// erase everything after '_' to get language name
+	locale.erase(std::find(locale.begin(), locale.end(), '_'), locale.end());
+	BasisManager::getInstance().setLanguage(locale);
 
 	// при дропе файл может быть запущен в любой дирректории
 	const size_t SIZE = 2048;

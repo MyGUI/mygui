@@ -75,6 +75,9 @@ public:
 
 	inline void eventExit() {m_exit = true;}
 
+	inline std::string getLanguage() {return mLanguage;}
+	inline void setLanguage(std::string _language) {mLanguage = _language;}
+
 private:
 	void setupResources(); // загружаем все ресурсы приложения
 
@@ -100,6 +103,7 @@ private:
 
 	// система ввода
 	input::InputManager * mInput;
+	std::string mLanguage;
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// наша оконная процедура

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Language">
+
+    <Language default="English">
+        <Info name="Russian" source="Russian.lang"/>
+        <Info name="English" source="English.lang"/>
+    </Language>
+
+</MyGUI>

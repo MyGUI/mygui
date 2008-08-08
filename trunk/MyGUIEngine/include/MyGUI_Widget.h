@@ -261,7 +261,7 @@ namespace MyGUI
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
 
-		// возвращает клиентскую зону
+		/** Get clien area widget */
 		inline WidgetPtr getClientWidget() {return mWidgetClient;}
 
 
@@ -273,17 +273,21 @@ namespace MyGUI
 		virtual void * getIndexItemData(size_t _index) { return null; }
 
 
-      /** Set drag'n'drop mode flag */
+		/** Set drag'n'drop mode flag */
 		inline void setNeedDragDrop(bool _need) {mNeedDragDrop = _need;}
-      /** Get drag'n'drop mode flag */
+		/** Get drag'n'drop mode flag */
 		inline bool getNeedDragDrop() {return mNeedDragDrop;}
 
 		inline SubWidgetTextInterfacePtr _getSubWidgetText() { return mText; }
 
+		/** Get need tool tip mode flag */
 		inline bool getNeedToolTip() { return mNeedToolTip; }
+		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
 		void setNeedToolTip(bool _need);
 
+		/** Get tool tip enabled flag */
 		inline bool getEnableToolTip() { return mEnableToolTip; }
+		/** Enable or disable tooltip event */
 		void enableToolTip(bool _enable);
 
 		// используется для сравнения виджетов без учета иерархии
