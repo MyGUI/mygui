@@ -42,6 +42,7 @@ pkginclude_HEADERS = \
 	MyGUI_ItemBoxFactory.h\
 	MyGUI_ItemBox.h\
 	MyGUI_ItemDropInfo.h\
+	MyGUI_LanguageManager.h\
 	MyGUI_LayerItem.h\
 	MyGUI_LayerItemInfo.h\
 	MyGUI_LayerItemKeeper.h\

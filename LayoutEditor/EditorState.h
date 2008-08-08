@@ -148,6 +148,8 @@ private:
 	UndoManager * um;
 
 	MyGUI::Gui * mGUI;
+	MyGUI::LanguageManager * langManager;
+
 	MyGUI::MenuBarPtr bar;
 	MyGUI::PopupMenuPtr mPopupMenuFile;
 	MyGUI::PopupMenuPtr mPopupMenuWidgets;

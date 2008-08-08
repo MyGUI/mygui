@@ -31,6 +31,7 @@ libmygui_la_SOURCES = \
 	MyGUI_InputManager.cpp\
 	MyGUI_ItemBox.cpp\
 	MyGUI_ItemBoxFactory.cpp\
+	MyGUI_LanguageManager.cpp\
 	MyGUI_LayerItemInfo.cpp\
 	MyGUI_LayerItemKeeper.cpp\
 	MyGUI_LayerKeeper.cpp\

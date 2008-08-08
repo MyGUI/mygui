@@ -279,6 +279,9 @@
 					RelativePath=".\src\MyGUI_InputManager.cpp">
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_LanguageManager.cpp">
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_LayerManager.cpp">
 				</File>
 				<File
@@ -590,6 +593,9 @@
 					RelativePath=".\include\MyGUI_InputManager.h">
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_LanguageManager.h">
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_LayerManager.h">
 				</File>
 				<File
@@ -736,7 +742,7 @@
 						RelativePath=".\include\MyGUI_DrawItem.h">
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_LayerItem.h">
+						RelativePath=".\include\MyGUI_layerItem.h">
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_LayerItemKeeper.h">

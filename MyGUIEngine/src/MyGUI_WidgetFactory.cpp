@@ -108,7 +108,7 @@ namespace MyGUI
 			// change '\n' on char 10
 			size_t pos = _value.find("\\n");
 			if (pos == std::string::npos) {
-				_widget->setCaption(LanguageManager::getInstance().replaceLanguage(_value));
+				_widget->setCaption(LanguageManager::getInstance().replaceTags(_value));
 			}
 			else {
 				std::string value(_value);
@@ -117,7 +117,7 @@ namespace MyGUI
 					value.erase(pos, 1);
 					pos = value.find("\\n");
 				}
-				_widget->setCaption(LanguageManager::getInstance().replaceLanguage(value));
+				_widget->setCaption(LanguageManager::getInstance().replaceTags(value));
 			}
 		}
 

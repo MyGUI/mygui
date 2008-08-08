@@ -3,34 +3,8 @@
     <Widget type="StaticImage" skin="Editor_StaticImage" position_real="0 0 1 1" align="ALIGN_STRETCH" layer="LayoutEditor_Back">
         <Property key="Image_Texture" value="wallpaperEditor.jpg"/>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="0 0 200 272" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowMenu">
-        <Property key="Widget_Caption" value="Menu"/>
-        <Property key="Window_Snap" value="true"/>
-		<Property key="Widget_Show" value="false"/>
-        <Widget type="Button" skin="Button" position="5 2 184 24" name="buttonLoad">
-            <Property key="Widget_Caption" value="Load"/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="5 34 184 24" name="buttonSave">
-            <Property key="Widget_Caption" value="Save"/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="5 66 184 24" name="buttonSaveAs">
-            <Property key="Widget_Caption" value="Save as..."/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="5 210 184 24" name="buttonQuit">
-            <Property key="Widget_Caption" value="Quit"/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="5 98 184 24" name="buttonSettings">
-            <Property key="Widget_Caption" value="Settings"/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="5 178 184 24" name="buttonClear">
-            <Property key="Widget_Caption" value="Clear"/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="5 130 184 24" name="buttonTest">
-            <Property key="Widget_Caption" value="#0000FFTest"/>
-        </Widget>
-    </Widget>
     <Widget type="Window" skin="WindowC" position="0 272 200 320" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowWidgets">
-        <Property key="Widget_Caption" value="Widgets"/>
+        <Property key="Widget_Caption" value="#{Widgets}"/>
         <Property key="Window_Snap" value="true"/>
         <Widget type="ComboBox" skin="EditorComboBox" position="0 260 191 24" align="ALIGN_HSTRETCH ALIGN_BOTTOM" name="allWidgetsCombo">
             <Property key="ComboBox_ModeDrop" value="true"/>
@@ -43,12 +17,12 @@
         <Widget type="Tab" skin="Tab" position="0 0 189 234" name="tabSkinGroups"/>
     </Widget>
     <Widget type="Window" skin="WindowC" position="200 120 248 320" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowSettings">
-        <Property key="Widget_Caption" value="Settings"/>
+        <Property key="Widget_Caption" value="#{Settings}"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Widget_Show" value="false"/>
         <Widget type="StaticText" skin="Editor_StaticText" position="5 26 80 24">
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
-            <Property key="Widget_Caption" value="Grid step"/>
+            <Property key="Widget_Caption" value="#{Grid_step}"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="85 26 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="gridEdit">
             <Property key="Widget_Caption" value="8"/>
@@ -57,14 +31,14 @@
             <Property key="Widget_Caption" value="Ok"/>
         </Widget>
         <Widget type="StaticText" skin="Editor_StaticText" position="5 98 80 24">
-            <Property key="Widget_Caption" value="Resolution"/>
+            <Property key="Widget_Caption" value="#{Resolution}"/>
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
         <Widget type="ComboBox" skin="EditorComboBox" position="85 98 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxResolution">
             <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="StaticText" skin="Editor_StaticText" position="5 122 80 24">
-            <Property key="Widget_Caption" value="Full screen"/>
+            <Property key="Widget_Caption" value="#{Full_screen}"/>
             <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_VCENTER"/>
         </Widget>
         <Widget type="ComboBox" skin="EditorComboBox" position="85 122 152 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="comboboxFullscreen">
@@ -73,33 +47,33 @@
         <Widget type="Widget" skin="Separator1" position="-3 74 248 2"/>
         <Widget type="StaticText" skin="Editor_StaticText" position="-3 74 248 24" align="ALIGN_HSTRETCH ALIGN_TOP">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
-            <Property key="Widget_Caption" value="Screen properties"/>
+            <Property key="Widget_Caption" value="#{Screen_properties}"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 2 248 2"/>
         <Widget type="StaticText" skin="Editor_StaticText" position="-4 2 248 24" align="ALIGN_HCENTER ALIGN_TOP">
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
-            <Property key="Widget_Caption" value="Editor settings"/>
+            <Property key="Widget_Caption" value="#{Editor_settings}"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 146 248 2"/>
         <Widget type="StaticText" skin="Editor_StaticText" position="-4 146 248 24">
-            <Property key="Widget_Caption" value="Widgets list"/>
+            <Property key="Widget_Caption" value="#{Widgets_list}"/>
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
         </Widget>
         <Widget type="Button" skin="CheckBox" position="5 170 232 24" name="checkShowName">
-            <Property key="Widget_Caption" value="Show widget name"/>
+            <Property key="Widget_Caption" value="#{Show_widget_name}"/>
         </Widget>
         <Widget type="Button" skin="CheckBox" position="5 194 232 24" name="checkShowType">
-            <Property key="Widget_Caption" value="Show widget type"/>
+            <Property key="Widget_Caption" value="#{Show_widget_type}"/>
         </Widget>
         <Widget type="Button" skin="CheckBox" position="5 218 232 24" name="checkShowSkin">
-            <Property key="Widget_Caption" value="Show widget skin"/>
+            <Property key="Widget_Caption" value="#{Show_widget_skin}"/>
         </Widget>
         <Widget type="Button" skin="CheckBox" position="5 50 232 24" name="checkEdgeHide">
-            <Property key="Widget_Caption" value="Autohide editor panels"/>
+            <Property key="Widget_Caption" value="#{Autohide_editor_panels}"/>
         </Widget>
     </Widget>
     <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="ALIGN_RIGHT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="windowProperties">
-        <Property key="Widget_Caption" value="Properties"/>
+        <Property key="Widget_Caption" value="#{Properties}"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 0 2048 2048"/>
         <Property key="Widget_Show" value="false"/>
@@ -107,13 +81,13 @@
             <Property key="Widget_Caption" value="to %"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 174 267 72" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelSpecificProperties">
-            <Property key="Widget_Caption" value="/widget/ specific properties"/>
+            <Property key="Widget_Caption" value="#{Widget_type_propertes}"/>
             <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
             <UserString key="Size" value="0"/>
             <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeSpecificProperties"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 248 267 76" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelWidgetProperties">
-            <Property key="Widget_Caption" value="Other properties"/>
+            <Property key="Widget_Caption" value="#{Other_properties}"/>
             <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
             <UserString key="Size" value="0"/>
             <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeWidgetProperties"/>
@@ -125,13 +99,13 @@
             <Widget type="Edit" skin="Edit" position="3 24 261 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="editItem"/>
             <Widget type="List" skin="List" position="3 48 261 85" align="ALIGN_HSTRETCH ALIGN_TOP" name="listItems"/>
             <Widget type="Button" skin="ButtonSmall" position="3 133 88 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonAddItem">
-                <Property key="Widget_Caption" value="Add"/>
+                <Property key="Widget_Caption" value="#{Add}"/>
             </Widget>
             <Widget type="Button" skin="ButtonSmall" position="92 133 88 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonDeleteItem">
-                <Property key="Widget_Caption" value="Delete"/>
+                <Property key="Widget_Caption" value="#{Delete}"/>
             </Widget>
             <Widget type="Button" skin="ButtonSmall" position="181 133 83 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonSelectSheet">
-                <Property key="Widget_Caption" value="Select"/>
+                <Property key="Widget_Caption" value="#{Select}"/>
             </Widget>
             <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeItem"/>
         </Widget>
@@ -142,10 +116,10 @@
             <Widget type="Edit" skin="Edit" position="3 24 130 24" align="ALIGN_LEFT ALIGN_TOP" name="editKeyUserData"/>
             <Widget type="Edit" skin="Edit" position="134 24 130 24" align="ALIGN_HSTRETCH ALIGN_TOP" name="editValueUserData"/>
             <Widget type="Button" skin="ButtonSmall" position="3 133 130 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonAddUserData">
-                <Property key="Widget_Caption" value="Add"/>
+                <Property key="Widget_Caption" value="#{Add}"/>
             </Widget>
             <Widget type="Button" skin="ButtonSmall" position="134 133 130 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonDeleteUserData">
-                <Property key="Widget_Caption" value="Delete"/>
+                <Property key="Widget_Caption" value="#{Delete}"/>
             </Widget>
             <Widget type="MultiList" skin="MultiList" position="3 48 261 85" align="ALIGN_HSTRETCH ALIGN_TOP" name="multilistUserData"/>
             <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeUserData"/>
