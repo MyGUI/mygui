@@ -277,8 +277,7 @@
             <Property key="Scale" value = "1 1 0 0"/>
         </Child>
 
-        <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client">
-        </Child>
+        <Child type="Widget" skin="DefaultClient" offset = "3 30 18 18" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "377 2 3 30"/>
@@ -1240,6 +1239,8 @@
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
 
+        <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "ALIGN_STRETCH" name = "Client"/>
+
         <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "147 2 3 3"/>
         </BasisSkin>
@@ -1264,9 +1265,9 @@
         <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "147 5 3 3"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "3 3 3 3" align = "ALIGN_STRETCH">
+        <_BasisSkin type="SubSkin" offset = "3 3 3 3" align = "ALIGN_STRETCH">
             <State name="normal" offset = "413 4 96 59"/>
-        </BasisSkin>
+        </_BasisSkin>
 
         <BasisSkin type="SimpleText" offset = "3 3 3 3" align = "ALIGN_STRETCH"/>
     </Skin>
@@ -1276,6 +1277,8 @@
         <Property key="FontHeight" value = "18" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
+
+        <Child type="Widget" skin="DefaultClient" offset = "2 2 2 2" align = "ALIGN_STRETCH" name = "Client"/>
 
         <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "147 2 2 2"/>
@@ -1301,9 +1304,9 @@
         <BasisSkin type="SubSkin" offset = "0 2 2 2" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "147 5 2 2"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "2 2 2 2" align = "ALIGN_STRETCH">
+        <_BasisSkin type="SubSkin" offset = "2 2 2 2" align = "ALIGN_STRETCH">
             <State name="normal" offset = "413 4 96 59"/>
-        </BasisSkin>
+        </_BasisSkin>
 
         <BasisSkin type="SimpleText" offset = "2 2 2 2" align = "ALIGN_STRETCH"/>
     </Skin>

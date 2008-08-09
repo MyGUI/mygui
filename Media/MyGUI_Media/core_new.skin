@@ -362,7 +362,7 @@
         <Child type="Button" skin="TabButtonRight" offset = "29 4 13 15" align = "ALIGN_RIGHT ALIGN_TOP" name = "Right"/>
 
 
-        <BasisSkin type="SubSkin" offset = "5 28 31 26" align = "ALIGN_STRETCH">
+        <BasisSkin type="SubSkin" offset = "0 28 41 30" align = "ALIGN_STRETCH">
             <State name="normal" offset = "412 132 79 37"/>
         </BasisSkin>
 
