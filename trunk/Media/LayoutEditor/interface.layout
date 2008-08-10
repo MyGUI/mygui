@@ -84,13 +84,13 @@
             <Property key="Widget_Caption" value="#{Widget_type_propertes}"/>
             <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
             <UserString key="Size" value="0"/>
-            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeSpecificProperties"/>
+            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeSpecificProperties"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 248 267 76" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelWidgetProperties">
             <Property key="Widget_Caption" value="#{Other_properties}"/>
             <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_TOP"/>
             <UserString key="Size" value="0"/>
-            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeWidgetProperties"/>
+            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeWidgetProperties"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 326 267 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelItems">
             <Property key="Widget_Caption" value="Items"/>
@@ -107,7 +107,7 @@
             <Widget type="Button" skin="ButtonSmall" position="181 133 83 24" align="ALIGN_LEFT ALIGN_TOP" name="buttonSelectSheet">
                 <Property key="Widget_Caption" value="#{Select}"/>
             </Widget>
-            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeItem"/>
+            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeItem"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 488 267 160" align="ALIGN_HSTRETCH ALIGN_TOP" name="panelUserData">
             <Property key="Widget_Caption" value="UserData"/>
@@ -122,7 +122,7 @@
                 <Property key="Widget_Caption" value="#{Delete}"/>
             </Widget>
             <Widget type="MultiList" skin="MultiList" position="3 48 261 85" align="ALIGN_HSTRETCH ALIGN_TOP" name="multilistUserData"/>
-            <Widget type="Button" skin="ButtonMinimize" position="246 5 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeUserData"/>
+            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="ALIGN_RIGHT ALIGN_TOP" name="minimizeUserData"/>
         </Widget>
     </Widget>
 </MyGUI>
