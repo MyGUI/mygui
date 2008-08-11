@@ -38,65 +38,6 @@
         </BasisSkin>
     </Skin>
     
-    <Skin name = "VScrollTrack" size = "15 20" texture = "core_new.png" >
-        <BasisSkin type="SubSkin" offset = "0 0 15 8" align = "ALIGN_HSTRETCH ALIGN_TOP">
-            <State name="normal" offset = "384 286 15 8"/>
-            <State name="active" offset = "405 286 15 8"/>
-            <State name="select" offset = "426 286 15 8"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "0 8 15 2" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "384 294 15 2"/>
-            <State name="active" offset = "405 294 15 2"/>
-            <State name="select" offset = "426 294 15 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "0 10 15 10" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
-            <State name="normal" offset = "384 313 15 10"/>
-            <State name="active" offset = "405 313 15 10"/>
-            <State name="select" offset = "426 313 15 10"/>
-        </BasisSkin>
-    </Skin>
-
-    <Skin name = "VScrollTop" size = "15 15" texture = "core_new.png" >
-        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "ALIGN_LEFT ALIGN_TOP">
-            <State name="normal" offset = "384 251 15 15"/>
-            <State name="active" offset = "405 251 15 15"/>
-            <State name="select" offset = "426 251 15 15"/>
-        </BasisSkin>
-    </Skin>
-
-    <Skin name = "VScrollBottom" size = "15 15" texture = "core_new.png" >
-        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "ALIGN_LEFT ALIGN_TOP">
-            <State name="normal" offset = "384 337 15 15"/>
-            <State name="active" offset = "405 337 15 15"/>
-            <State name="select" offset = "426 337 15 15"/>
-        </BasisSkin>
-    </Skin>
-
-	<Skin name = "VScrollTopPart" size = "15 6" texture = "core_new.png" >
-        <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "405 266 15 6"/>
-        </BasisSkin>
-    </Skin>
-
-	<Skin name = "VScrollBottomPart" size = "15 6" texture = "core_new.png" >
-        <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "405 266 15 6"/>
-        </BasisSkin>
-    </Skin>
-
-    <Skin name = "VScroll" size = "15 42" texture = "core_new.png" >
-        <Property key="TrackRangeMargins" value = "15 15" />
-        <Property key="MinTrackSize" value = "18" />
-
-		<Child type="Button" skin="VScrollTopPart" offset = "0 15 15 6" align = "ALIGN_STRETCH" name = "FirstPart"/>
-        <Child type="Button" skin="VScrollBottomPart" offset = "0 21 15 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "SecondPart"/>
-
-        <Child type="Button" skin="VScrollTop" offset = "0 0 15 15" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start"/>
-        <Child type="Button" skin="VScrollBottom" offset = "0 27 15 15" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End"/>
-        <Child type="Button" skin="VScrollTrack" offset = "0 18 15 18" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
-
-    </Skin>
-    
     <Skin name = "ButtonSmall" size = "150 26" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
@@ -754,34 +695,6 @@
         </BasisSkin>
     </Skin>
 
-    <Skin name = "PopupMenuLineIcon" size = "13 15">
-        <Property key="ImageTexture" value = "core_new.png" />
-        <Property key="ImageCoord" value = "643 62 26 15" />
-        <Property key="ImageTile" value = "13 15" />
-        <Property key="ImageNum" value = "0" />
-        <Property key="NeedMouse" value = "false" />
-
-        <BasisSkin type="MainSkin" offset = "0 0 13 15" align = "ALIGN_STRETCH"/>
-    </Skin>
-
-    <Skin name = "PopupMenuLine" size = "5 5" texture = "core.png" >
-        <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
-        <Property key="Colour" value = "0 0 0" />
-
-        <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-10 0 13 15" align = "ALIGN_RIGHT ALIGN_VCENTER" name = "Image"/>
-
-        <BasisSkin type="MainSkin" offset = "0 0 5 5">
-            <State name="normal" offset = "149 26 5 5"/>
-            <State name="active" offset = "149 37 5 5"/>
-            <State name="pressed" offset = "149 48 5 5"/>
-            <State name="select" offset = "149 59 5 5"/>
-        </BasisSkin>
-
-        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "ALIGN_STRETCH"/>
-    </Skin>
-
 
     <Skin name = "EditorPopupMenu" size = "11 11" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="NeedKey" value = "true" />
@@ -901,9 +814,9 @@
 
     <Skin name = "MultiList" size = "11 11" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="NeedKey" value = "true" />
-        <Property key="SkinButton" value = "MultiListButton" />
+        <Property key="SkinButton" value = "ButtonSmall2" />
         <Property key="_SkinButtonEmpty" value = "Edit" />
-        <Property key="HeightButton" value = "20" />
+        <Property key="HeightButton" value = "21" />
         <Property key="SkinList" value = "MultiSubList" />
 
         <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "ALIGN_STRETCH" name = "Client"/>
@@ -974,15 +887,301 @@
         </BasisSkin>
     </Skin>
             	    
-    <Skin name = "MultiListButtonIcon" size = "20 20">
-        <Property key="ImageTexture" value = "core.png" />
-        <Property key="ImageRect" value = "514 142 574 162" />
-        <Property key="ImageTile" value = "20 20" />
+    <Skin name = "MultiListButtonIcon" size = "14 12" texture = "core_new.png">
+        <Property key="ImageTexture" value = "core_new.png" />
+        <Property key="ImageCoord" value = "446 525 42 12" />
+        <Property key="ImageTile" value = "14 12" />
         <Property key="ImageNum" value = "0" />
         <Property key="NeedMouse" value = "false" />
 
-        <BasisSkin type="MainSkin" offset = "0 0 20 20" align = "ALIGN_STRETCH"/>
+        <BasisSkin type="MainSkin" offset = "0 0 14 12" align = "ALIGN_STRETCH"/>
+    </Skin>
+
+    <Skin name = "ButtonSmall2" size = "29 21" texture = "core_new.png">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="StaticImage" skin="MultiListButtonIcon" offset = "12 4 14 12" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "Image"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 9 21" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "406 498 9 21"/>
+            <State name="normal" offset = "406 520 9 21"/>
+            <State name="active" offset = "406 542 9 21"/>
+            <State name="pressed" offset = "406 564 9 21"/>
+            <State name="select" offset = "406 586 9 21"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "9 0 9 21" align = "ALIGN_HSTRETCH ALIGN_VSTRETCH">
+            <State name="disable" offset = "415 498 9 21"/>
+            <State name="normal" offset = "415 520 9 21"/>
+            <State name="active" offset = "415 542 9 21"/>
+            <State name="pressed" offset = "415 564 9 21"/>
+            <State name="select" offset = "415 586 9 21"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "18 0 11 21" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "424 498 11 21"/>
+            <State name="normal" offset = "424 520 11 21"/>
+            <State name="active" offset = "424 542 11 21"/>
+            <State name="pressed" offset = "424 564 11 21"/>
+            <State name="select" offset = "424 586 11 21"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "0 0 27 19" align = "ALIGN_STRETCH">
+            <State name="disable" shift = "false"/>
+            <State name="normal" shift = "false"/>
+            <State name="active" shift = "false"/>
+            <State name="pressed" shift = "true"/>
+            <State name="select" shift = "true"/>
+        </BasisSkin>
+    </Skin>
+
+
+    <Skin name = "PopupMenuLine" size = "5 5" texture = "core.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-10 0 12 15" align = "ALIGN_RIGHT ALIGN_VCENTER" name = "Image"/>
+
+        <BasisSkin type="MainSkin" offset = "0 0 5 5">
+            <State name="normal" offset = "149 26 5 5"/>
+            <State name="active" offset = "149 37 5 5"/>
+            <State name="pressed" offset = "149 48 5 5"/>
+            <State name="select" offset = "149 59 5 5"/>
+        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "ALIGN_STRETCH"/>
     </Skin>
     
+    <Skin name = "PopupMenuLineIcon" size = "12 15" texture = "core_new.png">
+        <Property key="ImageTexture" value = "core_new.png" />
+        <Property key="ImageCoord" value = "449 539 24 15" />
+        <Property key="ImageTile" value = "12 15" />
+        <Property key="ImageNum" value = "0" />
+        <Property key="NeedMouse" value = "false" />
+
+        <BasisSkin type="MainSkin" offset = "0 0 12 15" align = "ALIGN_STRETCH"/>
+    </Skin>
+
+
+    <Skin name = "VScrollTrack" size = "15 20" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 8" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "384 286 15 8"/>
+            <State name="active" offset = "405 286 15 8"/>
+            <State name="select" offset = "426 286 15 8"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 8 15 2" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "384 294 15 2"/>
+            <State name="active" offset = "405 294 15 2"/>
+            <State name="select" offset = "426 294 15 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 10 15 10" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "384 313 15 10"/>
+            <State name="active" offset = "405 313 15 10"/>
+            <State name="select" offset = "426 313 15 10"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScrollTop" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "384 251 15 15"/>
+            <State name="active" offset = "405 251 15 15"/>
+            <State name="select" offset = "426 251 15 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScrollBottom" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "384 337 15 15"/>
+            <State name="active" offset = "405 337 15 15"/>
+            <State name="select" offset = "426 337 15 15"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VScrollTopPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "405 266 15 6"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VScrollBottomPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "405 266 15 6"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScroll" size = "15 42" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "15 15" />
+        <Property key="MinTrackSize" value = "18" />
+
+		<Child type="Button" skin="VScrollTopPart" offset = "0 15 15 6" align = "ALIGN_STRETCH" name = "FirstPart"/>
+        <Child type="Button" skin="VScrollBottomPart" offset = "0 21 15 6" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "SecondPart"/>
+
+        <Child type="Button" skin="VScrollTop" offset = "0 0 15 15" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Start"/>
+        <Child type="Button" skin="VScrollBottom" offset = "0 27 15 15" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "End"/>
+        <Child type="Button" skin="VScrollTrack" offset = "0 18 15 18" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Track"/>
+
+    </Skin>
+    
+
+    <Skin name = "HScrollTrack" size = "20 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 8 15" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "484 273 8 15"/>
+            <State name="active" offset = "484 294 8 15"/>
+            <State name="select" offset = "484 315 8 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "8 0 2 15" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "492 273 2 15"/>
+            <State name="active" offset = "492 294 2 15"/>
+            <State name="select" offset = "492 315 2 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 10 15" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "511 273 10 15"/>
+            <State name="active" offset = "511 294 10 15"/>
+            <State name="select" offset = "511 315 10 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HScrollLeft" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "453 273 15 15"/>
+            <State name="active" offset = "453 294 15 15"/>
+            <State name="select" offset = "453 315 15 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HScrollRight" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "539 273 15 15"/>
+            <State name="active" offset = "539 294 15 15"/>
+            <State name="select" offset = "539 315 15 15"/>
+        </BasisSkin>
+    </Skin>
+    
+	<Skin name = "HScrollLeftPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "468 273 6 15"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "HScrollRightPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "468 273 6 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HScroll" size = "42 15" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "15 15" />
+        <Property key="MinTrackSize" value = "18" />
+
+		<Child type="Button" skin="HScrollLeftPart" offset = "15 0 6 15" align = "ALIGN_STRETCH" name = "FirstPart"/>
+        <Child type="Button" skin="HScrollRightPart" offset = "21 0 6 15" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "SecondPart"/>
+
+        <Child type="Button" skin="HScrollLeft" offset = "0 0 15 15" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Start"/>
+        <Child type="Button" skin="HScrollRight" offset = "27 0 15 15" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "End"/>
+        <Child type="Button" skin="HScrollTrack" offset = "18 0 18 15" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track"/>
+
+    </Skin>
+
+    <Skin name = "HSliderLeftPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 3 15" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "453 335 3 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 15" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "456 335 3 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HSliderRightPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 3 15" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "548 335 3 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 15" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "551 335 3 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HSliderTrack" size = "8 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 8 15" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "484 335 8 15"/>
+            <State name="active" offset = "496 335 8 15"/>
+            <State name="select" offset = "508 335 8 15"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "HSlider" size = "20 15" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "2 0" />
+        <Property key="MinTrackSize" value = "8" />
+		<Child type="Button" skin="HSliderLeftPart" offset = "0 0 10 15" align = "ALIGN_VSTRETCH ALIGN_LEFT" name = "FirstPart"/>
+        <Child type="Button" skin="HSliderRightPart" offset = "10 0 10 15" align = "ALIGN_STRETCH" name = "SecondPart"/>
+        <Child type="Button" skin="HSliderTrack" offset = "0 0 8 15" align = "ALIGN_LEFT ALIGN_VSTRETCH" name = "Track"/>
+    </Skin>
+
+
+    <Skin name = "VSliderTopPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 3" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "363 251 15 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 15 3" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "363 254 15 3"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VSliderBottomPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 3" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "363 346 15 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 15 3" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "363 349 15 3"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VSliderTrack" size = "15 8" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 8" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "363 286 15 8"/>
+            <State name="active" offset = "363 296 15 8"/>
+            <State name="select" offset = "363 306 15 8"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VSlider" size = "15 20" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "2 0" />
+        <Property key="MinTrackSize" value = "8" />
+		<Child type="Button" skin="VSliderTopPart" offset = "0 0 15 10" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "FirstPart"/>
+        <Child type="Button" skin="VSliderBottomPart" offset = "0 10 15 10" align = "ALIGN_STRETCH" name = "SecondPart"/>
+        <Child type="Button" skin="VSliderTrack" offset = "0 0 15 8" align = "ALIGN_TOP ALIGN_HSTRETCH" name = "Track"/>
+    </Skin>
+
+    <Skin name = "ProgressTrack" size = "14 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 5 15" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "484 273 5 15"/>
+            <State name="active" offset = "484 294 5 15"/>
+            <State name="select" offset = "484 315 5 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "5 0 2 15" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "492 273 2 15"/>
+            <State name="active" offset = "492 294 2 15"/>
+            <State name="select" offset = "492 315 2 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "7 0 7 15" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "514 273 7 15"/>
+            <State name="active" offset = "514 294 7 15"/>
+            <State name="select" offset = "514 315 7 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "Progress" size = "20 15" texture = "core_new.png" >
+        <Property key="TrackSkin" value = "ProgressTrack" />
+        <Property key="TrackWidth" value = "14" />
+        <Property key="TrackFill" value = "true" />
+
+		<Child type="Button" skin="HSliderLeftPart" offset = "0 0 10 15" align = "ALIGN_LEFT ALIGN_VSTRETCH"/>
+        <Child type="Button" skin="HSliderRightPart" offset = "10 0 10 15" align = "ALIGN_STRETCH"/>
+
+        <Child type="Widget" skin="Default" offset = "2 0 18 15" align = "ALIGN_STRETCH" name = "Client"/>
+    </Skin>
+
 </MyGUI>
 
