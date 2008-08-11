@@ -162,7 +162,7 @@ namespace MyGUI
 		mWidgetMouseFocus = item;
 
 #if MYGUI_DEBUG_MODE == 1
-		if (m_showFocus) MYGUI_OUT(mWidgetMouseFocus ? mWidgetMouseFocus->getName() : "null");
+		updateFocusWidgetHelpers();
 #endif
 
 		return isFocusMouse();
@@ -432,18 +432,21 @@ namespace MyGUI
 		}
 
 		// а вот тут уже проверяем обыкновенный фокус
-		if (_widget == mWidgetKeyFocus) return;
-
-		if (isFocusKey()) mWidgetKeyFocus->_onKeyLostFocus(_widget);
-		if (_widget != null) {
-			if (_widget->isNeedKeyFocus()) {
-				_widget->_onKeySetFocus(mWidgetKeyFocus);
-				mWidgetKeyFocus = _widget;
-				return;
+		if (_widget != mWidgetKeyFocus) {
+			if (isFocusKey()) mWidgetKeyFocus->_onKeyLostFocus(_widget);
+			if (_widget != null) {
+				if (_widget->isNeedKeyFocus()) {
+					_widget->_onKeySetFocus(mWidgetKeyFocus);
+					mWidgetKeyFocus = _widget;
+					return;
+				}
 			}
+			mWidgetKeyFocus = null;
 		}
-		mWidgetKeyFocus = null;
 
+#if MYGUI_DEBUG_MODE == 1
+		updateFocusWidgetHelpers();
+#endif
 	}
 
 	void InputManager::resetMouseFocusWidget()
@@ -457,6 +460,9 @@ namespace MyGUI
 			mWidgetRootMouseFocus->_onMouseChangeRootFocus(false);
 			mWidgetRootMouseFocus = null;
 		}
+#if MYGUI_DEBUG_MODE == 1
+		updateFocusWidgetHelpers();
+#endif
 	}
 
 	// удаляем данный виджет из всех возможных мест
@@ -576,5 +582,53 @@ namespace MyGUI
 			MYGUI_LOG(Warning, "language '" << _lang << "' not found");
 		}
 	}
+
+#if MYGUI_DEBUG_MODE == 1
+	void InputManager::updateFocusWidgetHelpers()
+	{
+		if ( ! m_showFocus) return;
+
+		static WidgetPtr mouse_focus = null;
+		static WidgetPtr mouse_helper = null;
+		if (mWidgetMouseFocus != mouse_focus) {
+			mouse_focus = mWidgetMouseFocus;
+
+			if (mouse_helper == null) {
+				mouse_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerGreen", IntCoord(), ALIGN_DEFAULT, "Statistic");
+				mouse_helper->setNeedMouseFocus(false);
+			}
+
+			if (mWidgetMouseFocus) {
+				MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
+				mouse_helper->setPosition(mWidgetMouseFocus->getAbsoluteCoord());
+				mouse_helper->show();
+			}
+			else {
+				MYGUI_OUT("mouse focus : null");
+				mouse_helper->hide();
+			}
+		}
+
+		static WidgetPtr key_focus = null;
+		static WidgetPtr key_helper = null;
+		if (mWidgetKeyFocus != key_focus) {
+			key_focus = mWidgetKeyFocus;
+
+			if (key_helper == null) {
+				key_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerRed", IntCoord(), ALIGN_DEFAULT, "Statistic");
+				key_helper->setNeedMouseFocus(false);
+			}
+			if (mWidgetKeyFocus) {
+				MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
+				key_helper->setPosition(mWidgetMouseFocus->getAbsoluteCoord());
+				key_helper->show();
+			}
+			else {
+				MYGUI_OUT("key focus : null");
+				key_helper->hide();
+			}
+		}
+	}
+#endif
 
 } // namespace MyGUI
