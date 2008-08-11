@@ -162,7 +162,7 @@ namespace MyGUI
 		mWidgetMouseFocus = item;
 
 #if MYGUI_DEBUG_MODE == 1
-		updateFocusWidgetHelpers();
+		if (m_showFocus) updateFocusWidgetHelpers();
 #endif
 
 		return isFocusMouse();
@@ -445,7 +445,7 @@ namespace MyGUI
 		}
 
 #if MYGUI_DEBUG_MODE == 1
-		updateFocusWidgetHelpers();
+		if (m_showFocus) updateFocusWidgetHelpers();
 #endif
 	}
 
@@ -461,7 +461,7 @@ namespace MyGUI
 			mWidgetRootMouseFocus = null;
 		}
 #if MYGUI_DEBUG_MODE == 1
-		updateFocusWidgetHelpers();
+		if (m_showFocus) updateFocusWidgetHelpers();
 #endif
 	}
 
@@ -472,8 +472,16 @@ namespace MyGUI
 		if (_widget == mWidgetMouseFocus) {
 			mIsWidgetMouseCapture = false;
 			mWidgetMouseFocus = null;
+#if MYGUI_DEBUG_MODE == 1
+		if (m_showFocus) updateFocusWidgetHelpers();
+#endif
 		}
-		if (_widget == mWidgetKeyFocus) mWidgetKeyFocus = null;
+		if (_widget == mWidgetKeyFocus) {
+			mWidgetKeyFocus = null;
+#if MYGUI_DEBUG_MODE == 1
+		if (m_showFocus) updateFocusWidgetHelpers();
+#endif
+		}
 		if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
 		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
 
@@ -546,6 +554,9 @@ namespace MyGUI
 
 	void InputManager::frameEntered(float _frame)
 	{
+#if MYGUI_DEBUG_MODE == 1
+		if (m_showFocus) updateFocusWidgetHelpers();
+#endif
 		if ( mHoldKey == KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {
 			mHoldKey = KC_UNASSIGNED;
@@ -586,11 +597,10 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 	void InputManager::updateFocusWidgetHelpers()
 	{
-		if ( ! m_showFocus) return;
 
 		static WidgetPtr mouse_focus = null;
 		static WidgetPtr mouse_helper = null;
-		if (mWidgetMouseFocus != mouse_focus) {
+		if ((mWidgetMouseFocus != mouse_focus) || ((mWidgetMouseFocus != null) && (mouse_helper != null) && mWidgetMouseFocus->getAbsoluteCoord() != mouse_helper->getAbsoluteCoord())) {
 			mouse_focus = mWidgetMouseFocus;
 
 			if (mouse_helper == null) {
@@ -611,7 +621,7 @@ namespace MyGUI
 
 		static WidgetPtr key_focus = null;
 		static WidgetPtr key_helper = null;
-		if (mWidgetKeyFocus != key_focus) {
+		if ((mWidgetKeyFocus != key_focus) || ((mWidgetKeyFocus != null) && (key_helper != null) && mWidgetKeyFocus->getAbsoluteCoord() != key_helper->getAbsoluteCoord())) {
 			key_focus = mWidgetKeyFocus;
 
 			if (key_helper == null) {
@@ -620,7 +630,7 @@ namespace MyGUI
 			}
 			if (mWidgetKeyFocus) {
 				MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
-				key_helper->setPosition(mWidgetMouseFocus->getAbsoluteCoord());
+				key_helper->setPosition(mWidgetKeyFocus->getAbsoluteCoord());
 				key_helper->show();
 			}
 			else {
