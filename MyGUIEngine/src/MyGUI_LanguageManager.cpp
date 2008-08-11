@@ -100,6 +100,15 @@ namespace MyGUI
 
 		if (!group.empty()) {
 			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file, group);
+
+			// проверяем на сигнатуру utf8
+			uint32 sign = 0;
+			stream->read((void*)&sign, 3);
+			if (sign != 0x00BFBBEF) {
+				MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
+				return false;
+			}
+
 			_loadLanguage(stream);
 			return true;
 		}
@@ -109,6 +118,16 @@ namespace MyGUI
 			MYGUI_LOG(Error, "error open file '" << _file << "'");
 			return false;
 		}
+
+		// проверяем на сигнатуру utf8
+		uint32 sign = 0;
+		stream.read((char*)&sign, 3);
+		if (sign != 0x00BFBBEF) {
+			MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
+			stream.close();
+			return false;
+		}
+
 		_loadLanguage(stream);
 		stream.close();
 
