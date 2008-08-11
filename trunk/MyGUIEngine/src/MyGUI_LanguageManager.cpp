@@ -196,4 +196,13 @@ namespace MyGUI
 		return line;
 	}
 
+	Ogre::UTFString LanguageManager::getTag(const Ogre::UTFString & _tag)
+	{
+		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
+		if (iter == mMapLanguage.end()) {
+			return _tag;
+		}
+		return iter->second;
+	}
+
 } // namespace MyGUI	

@@ -35,8 +35,11 @@ namespace MyGUI
 		bool setCurrentLanguage(const std::string & _name);
 		inline std::string getCurrentLanguage() { return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : ""; }
 
-		/** Replace tags #{tagname} with appropriate string or keep #{tagname} in mo replacement found */
+		/** Replace all tags #{tagname} in _line with appropriate string or keep #{tagname} if no replacement found */
 		Ogre::UTFString replaceTags(const Ogre::UTFString & _line);
+
+		/** Get tag value */
+		Ogre::UTFString getTag(const Ogre::UTFString & _tag);
 
 		inline void addTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mMapLanguage[_tag] = _replace; }
 

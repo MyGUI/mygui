@@ -1,21 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="Layout">
-
-	<Widget type="Window" skin="WindowC" position="0 0 400 100" align="ALIGN_LEFT ALIGN_TOP" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowSaveLoad" >
-		<Property key="Widget_Caption" value="Select file name." />
-
-		<Widget type="ComboBox" skin="EditorComboBox" position_real="0.05 0. 0.9 0.45" name="LayoutEditor_editFileName" >
-			<Property key="Widget_Caption" value="Default.layout" />
-		</Widget>
-
-		<Widget type="Button" skin="Button" position_real="0.05 0.5 0.4 0.45" name="LayoutEditor_buttonSaveLoad" >
-			<Property key="Widget_Caption" value="Ok" />
-		</Widget>
-
-		<Widget type="Button" skin="Button" position_real="0.55 0.5 0.4 0.45" name="LayoutEditor_buttonCancel" >
-			<Property key="Widget_Caption" value="Cancel" />
-		</Widget>
-
-	</Widget>
+    <Widget type="Window" skin="WindowC" position="0 32 384 100" align="ALIGN_LEFT ALIGN_TOP" layer="Overlapped" name="LayoutEditor_windowSaveLoad">
+        <Property key="Widget_Caption" value="#{Select_file_name}"/>
+        <Widget type="ComboBox" skin="EditorComboBox" position="13 3 352 24" name="LayoutEditor_editFileName">
+            <Property key="Widget_Caption" value="Default.layout"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="13 35 160 24" name="LayoutEditor_buttonSaveLoad">
+            <Property key="Widget_Caption" value="#{OK}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="205 35 160 24" name="LayoutEditor_buttonCancel">
+            <Property key="Widget_Caption" value="#{Cancel}"/>
+        </Widget>
+    </Widget>
 </MyGUI>
