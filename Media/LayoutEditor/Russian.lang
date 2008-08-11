@@ -30,3 +30,15 @@ Autohide_editor_panels Автоскрытие панелей редактора
 
 Key Ключ
 Value Значение
+
+Select_file_name Выберите имя файла
+
+OK Ок
+Cancel Отмена
+Warning Внимание
+
+Warn_delete_all_widgets Вы уверены, что хотите удалить все виджеты?
+Warn_exit Вы уверены, что хотите выйти?
+
+to_percents %
+to_pixels пиксели

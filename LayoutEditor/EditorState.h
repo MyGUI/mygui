@@ -149,6 +149,9 @@ private:
 
 	MyGUI::Gui * mGUI;
 	MyGUI::LanguageManager * langManager;
+	inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
+		return langManager->getTag(_str);
+	};
 
 	MyGUI::MenuBarPtr bar;
 	MyGUI::PopupMenuPtr mPopupMenuFile;

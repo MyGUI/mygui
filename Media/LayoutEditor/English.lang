@@ -30,3 +30,15 @@ Autohide_editor_panels Autohide editor panels
 
 Key Key
 Value Value
+
+Select_file_name Select file name
+
+OK OK
+Cancel Cancel
+Warning Warning
+
+Warn_delete_all_widgets Are you sure you want to delete all widgets?
+Warn_exit Are you sure you want to exit?
+
+to_percents %
+to_pixels pixels
