@@ -134,6 +134,7 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 		inline void setShowFocus(bool _show) { m_showFocus = _show; }
 		inline bool getShowFocus() { return m_showFocus; }
+		void updateFocusWidgetHelpers();
 #endif
 
 	protected:
