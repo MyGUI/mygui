@@ -105,18 +105,18 @@ void EditorState::enter(bool bIsChangeState)
 
 	// создание меню
 	bar = mGUI->createWidget<MyGUI::MenuBar>("EditorMenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
-	bar->addItem(langManager->replaceTags("#{File}"));
-	bar->addItem(langManager->replaceTags("#{Widgets}"));
+	bar->addItem(localise("File"));
+	bar->addItem(localise("Widgets"));
 	mPopupMenuWidgets = bar->getItemMenu(1);
 
 	mPopupMenuFile = bar->getItemMenu(0);
-	mPopupMenuFile->addItem(langManager->replaceTags("#{Load}"));
-	mPopupMenuFile->addItem(langManager->replaceTags("#{Save}"));
-	mPopupMenuFile->addItem(langManager->replaceTags("#{Save_as}"));
-	mPopupMenuFile->addItem(langManager->replaceTags("#{Clear}"), false, true);
-	mPopupMenuFile->addItem(langManager->replaceTags("#{Settings}"));
-	mPopupMenuFile->addItem(langManager->replaceTags("#{Test}"), false, true);
-	mPopupMenuFile->addItem(langManager->replaceTags("#{Quit}"));
+	mPopupMenuFile->addItem(localise("Load"));
+	mPopupMenuFile->addItem(localise("Save"));
+	mPopupMenuFile->addItem(localise("Save_as"));
+	mPopupMenuFile->addItem(localise("Clear"), false, true);
+	mPopupMenuFile->addItem(localise("Settings"));
+	mPopupMenuFile->addItem(localise("Test"), false, true);
+	mPopupMenuFile->addItem(localise("Quit"));
 	mPopupMenuFile->addItem("  Submenu  ", true);
 	MyGUI::PopupMenuPtr menu = mPopupMenuFile->getItemInfo(7).submenu;
 	const int SUB = 10;
@@ -198,7 +198,7 @@ void EditorState::enter(bool bIsChangeState)
 	// properties panel
 	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowProperties");
 	window->setPosition(mGUI->getViewWidth() - window->getSize().width, 0);
-	ASSIGN_FUNCTION("LayoutEditor_buttonReativePosition", &EditorState::notifyToggleRelativeMode);
+	ASSIGN_FUNCTION("LayoutEditor_buttonRelativePosition", &EditorState::notifyToggleRelativeMode);
 
 	// settings panel
 	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("LayoutEditor_gridEdit");
@@ -266,8 +266,8 @@ void EditorState::enter(bool bIsChangeState)
 	editValue->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyUpdateUserData);
 	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 	multilist->eventListChangePosition = MyGUI::newDelegate(this, &EditorState::notifySelectUserDataItem);
-	multilist->addColumn(editKey->getWidth() - PANELS_MARGIN, langManager->replaceTags("#{Key}"));
-	multilist->addColumn(multilist->getWidth() - editKey->getWidth() - PANELS_MARGIN, langManager->replaceTags("#{Value}"));
+	multilist->addColumn(editKey->getWidth() - PANELS_MARGIN, localise("Key"));
+	multilist->addColumn(multilist->getWidth() - editKey->getWidth() - PANELS_MARGIN, localise("Value"));
 
 	// create widget rectangle
 	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
@@ -716,7 +716,7 @@ void EditorState::notifySave()
 	{
 		if ( !ew->save(fileName)) {
 			Ogre::DisplayString file_name = anci_to_utf16(fileName);
-			MyGUI::Message::_createMessage("Warning", "Failed to save file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		}
 	}
 	else notifyLoadSaveAs(true);
@@ -787,7 +787,7 @@ void EditorState::notifyTest()
 
 void EditorState::notifyClear()
 {
-	MyGUI::Message::_createMessage("Warning", "Are you sure you want to delete all widgets?", "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_delete_all_widgets"), "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 }
 
 void EditorState::notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
@@ -814,7 +814,7 @@ void EditorState::clear()
 
 void EditorState::notifyQuit()
 {
-	MyGUI::Message::_createMessage("Warning", "Are you sure you want to exit?", "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_exit"), "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 	want_quit = true;
 }
 
@@ -838,7 +838,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 
 	if (false == success) 
 	{
-		MyGUI::Message::_createMessage("Warning", "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else
 	{
@@ -866,7 +866,7 @@ void EditorState::load(const std::string & _file)
 	if (!ew->load(_file))
 	{
 		Ogre::DisplayString file_name = anci_to_utf16(fileName);
-		MyGUI::Message::_createMessage("Warning", "Failed to load file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return;
 	}
 
@@ -1048,21 +1048,21 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		createPropertiesWidgetsPair(window, "Name", widgetContainer->name, "Name", x1, x2, w1, w2, y, h);
 		y += h;
 
-		MyGUI::WidgetPtr buttonReativePosition = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_buttonReativePosition");
+		MyGUI::WidgetPtr buttonRelativePosition = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_buttonRelativePosition");
 		if (widgetType->resizeable)
 		{
-			// update caption of LayoutEditor_buttonReativePosition
-			buttonReativePosition->show();
-			if (widgetContainer->relative_mode) buttonReativePosition->setCaption("to pix");
-			else buttonReativePosition->setCaption("to %");
+			// update caption of LayoutEditor_buttonRelativePosition
+			buttonRelativePosition->show();
+         if (widgetContainer->relative_mode) buttonRelativePosition->setCaption(localise("to_pixels"));
+			else buttonRelativePosition->setCaption(localise("to_percents"));
 	
-			int brpWidth = buttonReativePosition->getWidth();
+			int brpWidth = buttonRelativePosition->getWidth();
 			createPropertiesWidgetsPair(window, "Position", widgetContainer->position(), "Position", x1 + brpWidth, x2, w1 - brpWidth, w2, y, h);
 			y += h;
 		}
 		else
 		{
-			buttonReativePosition->hide();
+			buttonRelativePosition->hide();
 		}
 
 		createPropertiesWidgetsPair(window, "Align", widgetContainer->align, "Align", x1, x2, w1, w2, y, h);
@@ -1092,7 +1092,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		else
 		{
 			langManager->addTag("widget_type", current_widget->getWidgetType());
-			panels[0]->setCaption(langManager->replaceTags(langManager->replaceTags("#{Widget_type_propertes}")));
+			panels[0]->setCaption(localise(localise("Widget_type_propertes")));
 			y += h + 3*PANELS_MARGIN;
 
 			//all other
@@ -1117,7 +1117,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		y = panels[0]->getTop() + (panels[0]->getHeight() + PANELS_MARGIN)*panels[0]->isShow();
 
 		panels[1]->setPosition(panels[1]->getLeft(), y);
-		panels[1]->setCaption(langManager->replaceTags("#{Other_properties}"));
+		panels[1]->setCaption(localise("Other_properties"));
 		y += h + 3*PANELS_MARGIN;
 
 		if (current_widget->getWidgetType() != "Sheet")
@@ -1295,7 +1295,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	{
 		if ((!value.empty()) && (null != ew->find(value)) && (widgetContainer != ew->find(value)))
 		{
-			MyGUI::Message::_createMessage("Warning", "Widget with name '" + value + "' already exist.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage(localise("Warning"), "Widget with name '" + value + "' already exist.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			MyGUI::castWidget<MyGUI::Edit>(_sender)->setCaption(widgetContainer->name);
 			return;
 		}
@@ -1400,9 +1400,9 @@ void EditorState::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)
 {
 	if (current_widget){
 		WidgetContainer * widgetContainer = ew->find(current_widget);
-		MyGUI::WidgetPtr buttonReativePosition = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_buttonReativePosition");
-		if (widgetContainer->relative_mode) buttonReativePosition->setCaption("to %");
-		else buttonReativePosition->setCaption("to pix");
+		MyGUI::WidgetPtr buttonRelativePosition = mGUI->findWidget<MyGUI::Widget>("LayoutEditor_buttonRelativePosition");
+		if (widgetContainer->relative_mode) buttonRelativePosition->setCaption(localise("to_percents"));
+		else buttonRelativePosition->setCaption(localise("to_pixels"));
 		widgetContainer->relative_mode = !widgetContainer->relative_mode;
 		propertiesElement[1]->setCaption(widgetContainer->position());
 	}

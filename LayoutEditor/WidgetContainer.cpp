@@ -6,6 +6,10 @@ const std::string LogSection = "LayoutEditor";
 
 INSTANCE_IMPLEMENT(EditorWidgets);
 
+inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
+	return MyGUI::LanguageManager::getInstance().getTag(_str);
+}
+
 void EditorWidgets::initialise()
 {
 	global_counter = 0;
@@ -203,7 +207,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 			static long renameN=0;
 			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
 			LOGGING(LogSection, Warning, mess);
-			MyGUI::Message::_createMessage("Warning", mess, "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage(localise("Warning"), mess, "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -281,7 +285,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 				Ogre::TextureManager::getSingleton().load(_value, MyGUI::Gui::getInstance().getResourceGroup());
 
 				if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
-					MyGUI::Message::_createMessage("Warning", "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+					MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 					return true;
 				}
 			}
@@ -293,11 +297,11 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 	}
 	catch(MyGUI::MyGUIException & e)
 	{
-		MyGUI::Message::_createMessage("Warning", "Can't apply '" + _key + "'property" + ": " + e.getDescription(), ". This value will be saved.", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription(), ". This value will be saved.", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	catch(Ogre::Exception & )
 	{
-		MyGUI::Message::_createMessage("Warning", "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}// for incorrect meshes or textures
 	catch(...)
 	{
