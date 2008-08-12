@@ -13,6 +13,7 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
 void EditorWidgets::initialise()
 {
 	global_counter = 0;
+	widgets_changed = true;
 }
 
 void EditorWidgets::shutdown()
@@ -56,6 +57,8 @@ bool EditorWidgets::load(std::string _fileName)
 		}
 		
 	}
+
+	widgets_changed = true;
 	return true;
 }
 
@@ -100,6 +103,7 @@ void EditorWidgets::loadxmlDocument(MyGUI::xml::xmlDocument * doc, bool _test)
 			while (widget.nextNode("Widget")) parseWidget(widget, 0, _test);
 		}
 	}
+	widgets_changed = true;
 }
 
 MyGUI::xml::xmlDocument * EditorWidgets::savexmlDocument()
@@ -132,11 +136,13 @@ void EditorWidgets::add(WidgetContainer * _container)
 			containerParent = find(_container->widget->getParent()->getParent());
 		containerParent->childContainers.push_back(_container);
 	}
+	widgets_changed = true;
 }
 
 void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 {
 	remove(find(_widget));
+	widgets_changed = true;
 }
 
 void EditorWidgets::remove(WidgetContainer * _container)
@@ -155,6 +161,7 @@ void EditorWidgets::remove(WidgetContainer * _container)
 			widgets.erase(iter);
 		delete _container;
 	}
+	widgets_changed = true;
 }
 
 void EditorWidgets::clear()
