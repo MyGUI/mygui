@@ -121,25 +121,38 @@ MyGUI::xml::xmlDocument * EditorWidgets::savexmlDocument()
 
 void EditorWidgets::add(WidgetContainer * _container)
 {
-	widgets.push_back(_container);
+	if (null == _container->widget->getParent())
+	{
+		widgets.push_back(_container);
+	}
+	else
+	{
+		WidgetContainer * containerParent = find(_container->widget->getParent());
+		if (NULL == containerParent)
+			containerParent = find(_container->widget->getParent()->getParent());
+		containerParent->childContainers.push_back(_container);
+	}
 }
 
 void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 {
-	// дети вперед
-	MyGUI::VectorWidgetPtr childs = _widget->getChilds();
-	for (MyGUI::VectorWidgetPtr::iterator iter = childs.begin(); iter != childs.end(); ++iter)
-	{
-		if (null != find(*iter)) remove(*iter);
-	}
-	WidgetContainer * _container = find(_widget);
+	remove(find(_widget));
+}
 
-	MyGUI::Gui::getInstance().destroyWidget(_widget);
+void EditorWidgets::remove(WidgetContainer * _container)
+{
+	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
+	{
+		remove(*iter);
+	}
+
+	MyGUI::Gui::getInstance().destroyWidget(_container->widget);
 
 	if (null != _container)
 	{
-		//MyGUI::Gui::getInstance().destroyWidget(_container->back_widget);
-		widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
+		std::vector<WidgetContainer*>::iterator iter = std::find(widgets.begin(), widgets.end(), _container);
+		if (iter != widgets.end())
+			widgets.erase(iter);
 		delete _container;
 	}
 }
@@ -148,31 +161,31 @@ void EditorWidgets::clear()
 {
 	while (!widgets.empty())
 	{
-		remove(widgets[widgets.size()-1]->widget);
+		remove(widgets[widgets.size()-1]);
 	}
 	global_counter = 0;
 }
 
 WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
 {
-	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
-	{
-		if ((*iter)->widget == _widget)
-		{
-			return *iter;
-		}
-	}
-	return null;
+	return _find(_widget, "", widgets);
 }
+
 WidgetContainer * EditorWidgets::find(std::string _name)
 {
-	if (_name.empty()) return null;
-	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+	return _find(NULL, _name, widgets);
+}
+
+WidgetContainer * EditorWidgets::_find(MyGUI::WidgetPtr _widget, std::string _name, std::vector<WidgetContainer*> _widgets)
+{
+	for (std::vector<WidgetContainer*>::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 	{
-		if ((*iter)->name == _name)
+		if (((*iter)->widget == _widget) || ((_name.empty() == false) && ((*iter)->name == _name)))
 		{
 			return *iter;
 		}
+		WidgetContainer * retContainer = _find(_widget, _name, (*iter)->childContainers);
+		if (retContainer) return retContainer;
 	}
 	return null;
 }
@@ -273,7 +286,6 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	};
 }
 
-
 bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test)
 {
 	try{
@@ -337,19 +349,8 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 		nodeProp->addAttributes("value", iter->second);
 	}
 
-	// метод медленный, т.к. квадратичная сложность
-	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
 	{
-		MyGUI::WidgetPtr parent = (*iter)->widget->getParent();
-
-		// сынок - это ты?
-		if ((_container->widget->getWidgetType() == "Window") && (_container->widget->getClientWidget() != null)) {
-			if (null != parent) {
-				if (_container->widget == parent->getParent()) serialiseWidget(*iter, node);
-			}
-		}
-		else if (_container->widget == parent) {
 			serialiseWidget(*iter, node);
-		}
 	}
 }

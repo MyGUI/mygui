@@ -70,12 +70,15 @@ namespace MyGUI
 
 		void hidePopupMenu(bool _hideParentPopup = true);
 
-		// event : нажат ентер, или щелчек мыши
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		/** Event : Enter pressed or mouse clicked.\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _index Index of selected item
+		*/
 		EventInfo_WidgetSizeT eventPopupMenuAccept;
 
-		// event : закрытие меню либо выбором либо сменой фокуса
-		// signature : void method(MyGUI::WidgetPtr _sender)
+		/** Event : Menu was closed by select or focus change.\n
+			signature : void method(MyGUI::WidgetPtr _sender)\n
+		*/
 		EventInfo_WidgetVoid eventPopupMenuClose;
 
 	private:

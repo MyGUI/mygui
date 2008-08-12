@@ -32,14 +32,9 @@ enum POPUP_MENU_MAIN
 	ITEM_QUIT
 };
 
-void event1(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
+void eventInfo(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
 {
-	MyGUI::MYGUI_OUT("event1"," ", _key, " ", _event);
-}
-
-void event2(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
-{
-	MyGUI::MYGUI_OUT("event2"," ", _key, " ", _event);
+	MyGUI::MYGUI_OUT("eventInfo: ", _event);
 }
 
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
@@ -96,8 +91,7 @@ void EditorState::enter(bool bIsChangeState)
 	// if you want to test LanguageManager uncomment next line
 	//langManager->setCurrentLanguage("Russian");
 
-	MyGUI::DelegateManager::getInstance().addDelegate("event1", MyGUI::newDelegate(event1));
-	MyGUI::DelegateManager::getInstance().addDelegate("event2", MyGUI::newDelegate(event2));
+	MyGUI::DelegateManager::getInstance().addDelegate("eventInfo", MyGUI::newDelegate(eventInfo));
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
@@ -107,6 +101,9 @@ void EditorState::enter(bool bIsChangeState)
 	bar = mGUI->createWidget<MyGUI::MenuBar>("EditorMenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem(localise("File"));
 	bar->addItem(localise("Widgets"));
+	// FIXME менюбар сунуть в лейаут
+	interfaceWidgets.push_back(bar);
+
 	mPopupMenuWidgets = bar->getItemMenu(1);
 
 	mPopupMenuFile = bar->getItemMenu(0);
@@ -134,23 +131,13 @@ void EditorState::enter(bool bIsChangeState)
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
-
 	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
 	{
-		MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
-		controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-		MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_MenuBar"), controller);
-	}
-
-	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
-   {
+		for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+		{
+			MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+			MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
+		}
 	}
 
 	// widgets panel
@@ -184,10 +171,9 @@ void EditorState::enter(bool bIsChangeState)
 	tabSkinGroups->setSize(width + widgetsButtonsInOneLine * w, height + maxLines*h);
 
 	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");
-	//allWidgetsCombo->setSize(width + widgetsButtonsInOneLine * w, h);
 	allWidgetsCombo->setComboModeDrop(true);
 	allWidgetsCombo->eventKeySetFocus = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabPressed);
-	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabSelect);
+	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 	allWidgetsCombo->setMaxListHeight(200);
 
 	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowWidgets");
@@ -489,22 +475,17 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			{
 				if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
 				{
-					MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-					MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"), controller);
-					controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-					MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"), controller);
-					controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-					MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"), controller);
-					controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-					MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"), controller);
-					controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-					MyGUI::ControllerManager::getInstance().addItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_MenuBar"), controller);				
+					for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+					{
+						MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+						MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
+					}
 				}
 				for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 				{
 					(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(2048, 2048));
 				}
-            bar->show();
+				bar->show();
 				testMode = false;
 				clear();
 				ew->loadxmlDocument(testLayout);
@@ -764,20 +745,12 @@ void EditorState::notifySettings()
 
 void EditorState::notifyTest()
 {
-	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
-	{
-		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowMenu"));
-		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowWidgets"));
-		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowSettings"));
-		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_windowProperties"));
-		MyGUI::ControllerManager::getInstance().removeItem(MyGUI::WidgetManager::getInstance().findWidgetT("LayoutEditor_MenuBar"));
-	}
-
 	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 	{
+		MyGUI::ControllerManager::getInstance().removeItem(*iter);
 		(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(-2048, -2048));
 	}
-   bar->hide();
+	bar->hide();
 	testLayout = ew->savexmlDocument();
 	ew->clear();
 	notifySelectWidget(null);
@@ -928,19 +901,33 @@ void EditorState::notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::Widge
 	}
 
 	mPopupMenuWidgets->deleteAllItems();
+
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
-		if ((*iter)->widget->getParent() == NULL)
-		{
-			mPopupMenuWidgets->addItem(getDescriptionString((*iter)->widget, print_name, print_type, print_skin));
-			mPopupMenuWidgets->getItemInfo(mPopupMenuWidgets->getItemCount() - 1).data = (*iter)->widget;
-		}
+		createWidgetPopup(*iter, mPopupMenuWidgets);
 	}
 }
 
-void EditorState::notifyWidgetsTabSelect(MyGUI::WidgetPtr _widget, size_t _index)
+void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup)
 {
-	notifySelectWidget(ew->widgets[_index]->widget);
+	_parentPopup->eventPopupMenuAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+	bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
+	bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
+	bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
+	bool submenu = !_container->childContainers.empty();
+	MyGUI::PopupMenu::ItemInfo & item = _parentPopup->addItem(getDescriptionString(_container->widget, print_name, print_type, print_skin), submenu);
+	item.data = _container->widget;
+	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
+	{
+		createWidgetPopup(*iter, item.submenu);
+	}
+}
+
+void EditorState::notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index)
+{
+	void * data = MyGUI::castWidget<MyGUI::PopupMenu>(_widget)->getItemInfo(_index).data;
+	MyGUI::WidgetPtr widget = static_cast<MyGUI::WidgetPtr>(data);
+	notifySelectWidget(widget);
 }
 
 void EditorState::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
@@ -1004,6 +991,12 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 				MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(parent->getParent());
 				tab->selectSheet(MyGUI::castWidget<MyGUI::Sheet>(parent));
 			}
+			// если выбрали лист таба, то подн€ть лист таба
+			if (current_widget->getWidgetType() == "Sheet")
+			{
+				MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(parent);
+				tab->selectSheet(MyGUI::castWidget<MyGUI::Sheet>(current_widget));
+			}
 			coord = convertParentCoordToCoord(coord, current_widget);
 		}
 		current_widget_rectangle->show();
@@ -1053,7 +1046,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		{
 			// update caption of LayoutEditor_buttonRelativePosition
 			buttonRelativePosition->show();
-         if (widgetContainer->relative_mode) buttonRelativePosition->setCaption(localise("to_pixels"));
+			if (widgetContainer->relative_mode) buttonRelativePosition->setCaption(localise("to_pixels"));
 			else buttonRelativePosition->setCaption(localise("to_percents"));
 	
 			int brpWidth = buttonRelativePosition->getWidth();
@@ -1092,7 +1085,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 		else
 		{
 			langManager->addTag("widget_type", current_widget->getWidgetType());
-			panels[0]->setCaption(localise(localise("Widget_type_propertes")));
+			panels[0]->setCaption(langManager->replaceTags(localise("Widget_type_propertes")));
 			y += h + 3*PANELS_MARGIN;
 
 			//all other
