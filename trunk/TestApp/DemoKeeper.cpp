@@ -63,7 +63,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	//Ogre::UTFString str = MyGUI::LanguageManager::getInstance().replaceTags(L"я хачу #{Blond}, но я не #{Blond}!");
 	MyGUI::Message::createMessage("none", "str", false, MyGUI::Message::None);
 
+#if MYGUI_DEBUG_MODE == 1
 	MyGUI::InputManager::getInstance().setShowFocus(true);
+#endif
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 
