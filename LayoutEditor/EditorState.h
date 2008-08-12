@@ -50,8 +50,8 @@ private:
 	// widget panel
 	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
-	void notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
-	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup);
+	void notifyWidgetsUpdate();
+	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
 
 	// settings panel

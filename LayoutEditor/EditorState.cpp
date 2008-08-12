@@ -114,20 +114,6 @@ void EditorState::enter(bool bIsChangeState)
 	mPopupMenuFile->addItem(localise("Settings"));
 	mPopupMenuFile->addItem(localise("Test"), false, true);
 	mPopupMenuFile->addItem(localise("Quit"));
-	mPopupMenuFile->addItem("  Submenu  ", true);
-	MyGUI::PopupMenuPtr menu = mPopupMenuFile->getItemInfo(7).submenu;
-	const int SUB = 10;
-	for (int i = 0; i < SUB; i++)
-	{
-		menu->addItem("1Hello!");
-		menu->addItem("2Hello!");
-		menu->addItem("3Hello!");
-		menu->addItem("4ah... :(");
-		menu->addItem("5ah... :(", true);
-		menu->addItem("6ah... :(");
-		menu = menu->getItemInfo(4).submenu;
-		if (i == SUB-1) menu->addItem("#FF0000YOU DID IT!!! #00FF00CONGRATULATIONS!");
-	}
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
@@ -172,7 +158,6 @@ void EditorState::enter(bool bIsChangeState)
 
 	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");
 	allWidgetsCombo->setComboModeDrop(true);
-	allWidgetsCombo->eventKeySetFocus = MyGUI::newDelegate(this, &EditorState::notifyWidgetsTabPressed);
 	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 	allWidgetsCombo->setMaxListHeight(200);
 
@@ -564,6 +549,11 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 			mGUI->findWidgetT("fpsInfo")->setCaption(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
 		} catch (...) { }
 	}*/
+	if (ew->widgets_changed)
+	{
+		notifyWidgetsUpdate();
+		ew->widgets_changed = false;
+	}
 
 	mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 	return true;
@@ -887,7 +877,7 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 	um->addValue();
 }
 
-void EditorState::notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+void EditorState::notifyWidgetsUpdate()
 {
 	allWidgetsCombo->deleteAllItems();
 
@@ -904,22 +894,19 @@ void EditorState::notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::Widge
 
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
-		createWidgetPopup(*iter, mPopupMenuWidgets);
+		createWidgetPopup(*iter, mPopupMenuWidgets, print_name, print_type, print_skin);
 	}
 }
 
-void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup)
+void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
 {
 	_parentPopup->eventPopupMenuAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
-	bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
-	bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
-	bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
 	bool submenu = !_container->childContainers.empty();
-	MyGUI::PopupMenu::ItemInfo & item = _parentPopup->addItem(getDescriptionString(_container->widget, print_name, print_type, print_skin), submenu);
+	MyGUI::PopupMenu::ItemInfo & item = _parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu);
 	item.data = _container->widget;
 	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
 	{
-		createWidgetPopup(*iter, item.submenu);
+		createWidgetPopup(*iter, item.submenu, _print_name, _print_type, _print_skin);
 	}
 }
 
