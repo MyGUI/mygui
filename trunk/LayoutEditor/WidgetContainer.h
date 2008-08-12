@@ -67,6 +67,7 @@ public:
 
 	std::vector<WidgetContainer*> widgets;
 	int global_counter;
+	bool widgets_changed;
 private:
 	WidgetContainer * _find(MyGUI::WidgetPtr _widget, std::string _name, std::vector<WidgetContainer*> _widgets);
 
