@@ -6,6 +6,7 @@
 class EditorWidgets;
 class WidgetTypes;
 class UndoManager;
+struct WidgetContainer;
 
 class EditorState : public BasisState
 {
@@ -50,7 +51,8 @@ private:
 	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
 	void notifyWidgetsTabPressed(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old);
-	void notifyWidgetsTabSelect(MyGUI::WidgetPtr _widget, size_t _index);
+	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup);
+	void notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
 
 	// settings panel
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);

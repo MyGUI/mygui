@@ -1,8 +1,8 @@
 /*!
-	@file
-	@author		Georgiy Evmenov
-	@date		08/2008
-	@module
+@file
+@author		Georgiy Evmenov
+@date		08/2008
+@module
 */
 #include "MyGUI_DelegateManager.h"
 
@@ -33,8 +33,8 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-   void DelegateManager::addDelegate(const Ogre::String & _key, IDelegate * _delegate)
-   {
+	void DelegateManager::addDelegate(const Ogre::String & _key, IDelegate * _delegate)
+	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) {
 			MYGUI_LOG(Warning, "Delegate '" << _key << "' already exist");
@@ -42,25 +42,25 @@ namespace MyGUI
 		mDelegates[_key] = _delegate;
 	}
 
-   void DelegateManager::removeDelegate(const std::string & _key)
-   {
+	void DelegateManager::removeDelegate(const std::string & _key)
+	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter == mDelegates.end()) {
 			MYGUI_LOG(Warning, "Delegate '" << _key << "' not found");
 		}
-      mDelegates.erase(iter);
-   }
+		mDelegates.erase(iter);
+	}
 
-   void DelegateManager::callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event)
-   {
-      MapDelegate::iterator iter = mDelegates.find(_key);
+	void DelegateManager::callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) {
 			iter->second(_sender, _key, _event);
 		}
-      else
-      {
+		else
+		{
 			MYGUI_LOG(Warning, "Delegate '" << _key << "' not found");
-      }
-   }
+		}
+	}
 
 } // namespace MyGUI
