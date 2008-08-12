@@ -22,7 +22,7 @@ struct WidgetContainer
 	{}
 
 	MyGUI::WidgetPtr widget;
-	MyGUI::WidgetPtr back_widget;
+	std::vector<WidgetContainer*> childContainers;
 	StringPairs mProperty;
 	StringPairs mUserString;
 	std::string type;
@@ -60,6 +60,7 @@ public:
 	WidgetContainer * find(std::string _name);
 	void add(WidgetContainer * _container);
 	void remove(MyGUI::WidgetPtr _widget);
+	void remove(WidgetContainer * _container);
 	void clear();
 
 	bool tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test = false);
@@ -67,6 +68,8 @@ public:
 	std::vector<WidgetContainer*> widgets;
 	int global_counter;
 private:
+	WidgetContainer * _find(MyGUI::WidgetPtr _widget, std::string _name, std::vector<WidgetContainer*> _widgets);
+
 	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent, bool _test = false);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node);
 
