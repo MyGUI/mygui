@@ -302,8 +302,17 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
 	if (testMode){ mGUI->injectMouseMove(arg); return true;}
 
-	x2 = TO_GRID(arg.state.X.abs);
-	y2 = TO_GRID(arg.state.Y.abs);
+	// align to grid if shift not pressed
+	if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
+	{
+		x2 = TO_GRID(arg.state.X.abs);
+		y2 = TO_GRID(arg.state.Y.abs);
+	}
+	else
+	{
+		x2 = arg.state.X.abs;
+		y2 = arg.state.Y.abs;
+	}
 
 	if ((creating_status == 1) && ((x1-x2)*(y1-y2) != 0))
 	{
@@ -347,8 +356,17 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		return true;
 	}
 
-	x1 = TO_GRID(arg.state.X.abs);
-	y1 = TO_GRID(arg.state.Y.abs);
+	// align to grid if shift not pressed
+	if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
+	{
+		x1 = TO_GRID(arg.state.X.abs);
+		y1 = TO_GRID(arg.state.Y.abs);
+	}
+	else
+	{
+		x1 = arg.state.X.abs;
+		y1 = arg.state.Y.abs;
+	}
 
 	if (id == OIS::MB_Left && !creating_status && current_widget_type != "") creating_status = 1;
 
@@ -405,8 +423,17 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 	}
 	else
 	{
-		x2 = TO_GRID(arg.state.X.abs);
-		y2 = TO_GRID(arg.state.Y.abs);
+		// align to grid if shift not pressed
+		if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
+		{
+			x2 = TO_GRID(arg.state.X.abs);
+			y2 = TO_GRID(arg.state.Y.abs);
+		}
+		else
+		{
+			x2 = arg.state.X.abs;
+			y2 = arg.state.Y.abs;
+		}
 
 		if (creating_status > 0)
 		{
@@ -947,6 +974,7 @@ void EditorState::notifyToggleCheck(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ButtonPtr checkbox = MyGUI::castWidget<MyGUI::Button>(_sender);
 	checkbox->setButtonPressed(!checkbox->getButtonPressed());
+	notifyWidgetsUpdate();
 }
 
 void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
@@ -1432,7 +1460,7 @@ void EditorState::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 		MyGUI::IntCoord coord = _sender->getCoord();
 		MyGUI::IntCoord old_coord = convertParentCoordToCoord(current_widget->getCoord(), current_widget);
 		// align to grid
-		if (!MyGUI::InputManager::getInstance().isShiftPressed()  && !arrow_move){
+		if (!MyGUI::InputManager::getInstance().isShiftPressed() && !arrow_move){
 			if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
 			{
 				coord.left = TO_GRID(coord.left + grid_step-1 - old_coord.left) + old_coord.left;
