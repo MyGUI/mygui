@@ -147,18 +147,29 @@ void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
 
 void EditorWidgets::remove(WidgetContainer * _container)
 {
-	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
+	std::vector<WidgetContainer*>::reverse_iterator iter;
+	while (_container->childContainers.empty() == false)
 	{
+		iter = _container->childContainers.rbegin();
 		remove(*iter);
 	}
 
-	MyGUI::Gui::getInstance().destroyWidget(_container->widget);
-
 	if (null != _container)
 	{
-		std::vector<WidgetContainer*>::iterator iter = std::find(widgets.begin(), widgets.end(), _container);
-		if (iter != widgets.end())
-			widgets.erase(iter);
+		if (null == _container->widget->getParent())
+		{
+			widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
+		}
+		else
+		{
+			WidgetContainer * containerParent = find(_container->widget->getParent());
+			if (NULL == containerParent)
+				containerParent = find(_container->widget->getParent()->getParent());
+			containerParent->childContainers.erase(std::find(containerParent->childContainers.begin(), containerParent->childContainers.end(), _container));
+		}
+
+		MyGUI::Gui::getInstance().destroyWidget(_container->widget);
+
 		delete _container;
 	}
 	widgets_changed = true;
@@ -256,13 +267,13 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 
 	if (null == _parent) {
 		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer, tmpname);
-		add(container);
 	}
 	else
 	{
 		container->widget = _parent->createWidgetT(container->type, skin, coord, align, tmpname);
-		add(container);
 	}
+
+	add(container);
 
 	// берем детей и крутимся
 	MyGUI::xml::xmlNodeIterator widget = _widget->getNodeIterator();
