@@ -11,12 +11,13 @@
     <Layer name="Popup" overlapped="true" peek="true"/>
     <Layer name="FadeMiddle" overlapped="false" peek="false"/>
     <Layer name="Info" overlapped="true" peek="true"/>
+    <Layer name="ToolTip" overlapped="false" peek="false"/>
 
     <Layer name="LayoutEditor_Rectangle" overlapped="false" peek="true"/>
     <Layer name="LayoutEditor_Overlapped" overlapped="true" peek="true"/>
     <Layer name="LayoutEditor_Popup" overlapped="true" peek="true"/>
+    <Layer name="LayoutEditor_ToolTip"overlapped="false" peek="false"/>
 
-    <Layer name="Tooltip"overlapped="false" peek="true"/>
     <Layer name="Pointer" overlapped="false" peek="false"/>
     <Layer name="Fade" overlapped="false" peek="false"/>
 </MyGUI>
