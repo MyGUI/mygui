@@ -90,7 +90,7 @@ namespace MyGUI
 			iter->second(this, key, value);
 		}
 		else {
-			if (eventConsoleUnknowCommand.IsNull()) {
+			if (eventConsoleUnknowCommand.empty()) {
 				addToConsole(mStringUnknow + "'" + key + "'");
 			}
 			else {

@@ -9,13 +9,15 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		std::vector<Ogre::UTFString> MessageFactory::mVectorButtonName;
+		VectorUTFString MessageFactory::mVectorButtonName;
+		VectorUTFString MessageFactory::mVectorButtonTag;
 		std::map<std::string, size_t> MessageFactory::mMapButtonType;
 		std::string MessageFactory::mDefaultSkin;
 
@@ -125,19 +127,42 @@ namespace MyGUI
 			return ret;
 		}
 
+		void MessageFactory::changeLanguage(const std::string & _language)
+		{
+			MYGUI_ASSERT(mVectorButtonName.size() == mVectorButtonTag.size(), "error mapping buttons names");
+			LanguageManager & manager = LanguageManager::getInstance();
+			VectorUTFString::iterator iter_name = mVectorButtonName.begin();
+			for (VectorUTFString::iterator iter=mVectorButtonTag.begin(); iter!=mVectorButtonTag.end(); ++iter, ++iter_name) {
+				const Ogre::UTFString & name = manager.getTag(*iter);
+				if ( ! name.empty()) *iter_name = name;
+			}
+		}
+
 		void MessageFactory::initialise()
 		{
 			// потом загружать из файла
 			mDefaultSkin = "Message";
+
 			mVectorButtonName.push_back("Ok");
+			mVectorButtonTag.push_back("MessageBox_Ok");
 			mVectorButtonName.push_back("Yes");
+			mVectorButtonTag.push_back("MessageBox_Yes");
 			mVectorButtonName.push_back("No");
+			mVectorButtonTag.push_back("MessageBox_No");
 			mVectorButtonName.push_back("Abort");
+			mVectorButtonTag.push_back("MessageBox_Abort");
 			mVectorButtonName.push_back("Retry");
+			mVectorButtonTag.push_back("MessageBox_Retry");
 			mVectorButtonName.push_back("Ignore");
+			mVectorButtonTag.push_back("MessageBox_Ignore");
 			mVectorButtonName.push_back("Cancel");
+			mVectorButtonTag.push_back("MessageBox_Cancel");
 			mVectorButtonName.push_back("Try");
+			mVectorButtonTag.push_back("MessageBox_Try");
 			mVectorButtonName.push_back("Continue");
+			mVectorButtonTag.push_back("MessageBox_Continue");
+
+			LanguageManager::getInstance().eventChangeLanguage += newDelegate(MessageFactory::changeLanguage);
 
 			#undef REGISTER_VALUE
 			#if MYGUI_DEBUG_MODE == 1
@@ -186,7 +211,10 @@ namespace MyGUI
 
 		void MessageFactory::shutdown()
 		{
+			LanguageManager::getInstance().eventChangeLanguage -= newDelegate(MessageFactory::changeLanguage);
+
 			mVectorButtonName.clear();
+			mVectorButtonTag.clear();
 			mMapButtonType.clear();
 		}
 
