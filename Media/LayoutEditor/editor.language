@@ -3,8 +3,12 @@
 <MyGUI type="Language">
 
     <Language default="English">
-        <Info name="Russian" source="Russian.lang"/>
-        <Info name="English" source="English.lang"/>
+        <Info name="Russian">
+            <Source>Russian.lang</Source>
+        </Info>
+        <Info name="English">
+            <Source>English.lang</Source>
+        </Info>
     </Language>
 
 </MyGUI>
