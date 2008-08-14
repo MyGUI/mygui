@@ -16,6 +16,9 @@ namespace MyGUI
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::map<Ogre::UTFString, Ogre::UTFString> MapLanguageString;
 
+	// делегат для смены оповещения смены языков
+	typedef delegates::CMultiDelegate1<const std::string &> MultiDelegate_String;
+
 	class _MyGUIExport LanguageManager
 	{
 		INSTANCE_HEADER(LanguageManager);
@@ -42,6 +45,13 @@ namespace MyGUI
 		Ogre::UTFString getTag(const Ogre::UTFString & _tag);
 
 		inline void addTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mMapLanguage[_tag] = _replace; }
+
+		/** Event : Change current language.\n
+			info : \n
+			signature : void method(const std::string & _language);
+			@param _language Current language.
+		*/
+		MultiDelegate_String eventChangeLanguage;
 
 	private:
 		bool loadLanguage(const std::string & _file);
