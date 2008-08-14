@@ -62,7 +62,7 @@
   <Value name="Layer">
     <!--Property key="Fade"/-->
     <!--Property key="Pointer"/-->
-    <!--Property key="Tooltip"/-->
+    <Property key="Tooltip"/>
     <Property key="Info"/>
     <Property key="FadeMiddle"/>
     <Property key="Popup"/>

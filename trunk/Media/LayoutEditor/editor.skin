@@ -14,7 +14,18 @@
     <Skin name = "Editor_StaticImage" size = "16 16">
         <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
     </Skin>
-    
+
+    <Skin name = "EditorStaticEdit" size = "16 16">
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="Widget" skin="Default" offset = "0 0 16 16" align = "ALIGN_STRETCH" name = "Client"/>
+        <BasisSkin type="EditText" offset = "0 0 16 16" align = "ALIGN_STRETCH"/>
+    </Skin>
+
     <Skin name = "EditorComboBox" size = "40 26" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
