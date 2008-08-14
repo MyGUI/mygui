@@ -493,7 +493,7 @@ namespace MyGUI
 			for( int i=0; i<(int)(count-step); ++i ) {
 				int j = i;
 				bool compare;
-				if (operatorLess.IsNull()) compare = list->getItem(j) < list->getItem(j+step);
+				if (operatorLess.empty()) compare = list->getItem(j) < list->getItem(j+step);
 				else operatorLess(this, mSortColumnIndex, list->getItem(j), list->getItem(j+step), compare);
 				while ( (j >= 0) && (compare^mSortUp) ){
 					keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
@@ -502,7 +502,7 @@ namespace MyGUI
 					--j;
 					if (j >= 0)
 					{
-						if (operatorLess.IsNull()) compare = list->getItem(j) < list->getItem(j+step);
+						if (operatorLess.empty()) compare = list->getItem(j) < list->getItem(j+step);
 						else operatorLess(this, mSortColumnIndex, list->getItem(j), list->getItem(j+step), compare);
 					}
 				}

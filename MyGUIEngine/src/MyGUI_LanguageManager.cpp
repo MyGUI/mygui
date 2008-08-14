@@ -84,7 +84,14 @@ namespace MyGUI
 			return false;
 		}
 
-		return loadLanguage(mCurrentLanguage->second);
+		bool ret = loadLanguage(mCurrentLanguage->second);
+		if (ret) {
+			eventChangeLanguage(mCurrentLanguage->first);
+		}
+		else {
+			mCurrentLanguage = mMapFile.end();
+		}
+		return ret;
 	}
 
 	bool LanguageManager::loadLanguage(const std::string & _file)
@@ -163,7 +170,7 @@ namespace MyGUI
 	Ogre::UTFString LanguageManager::replaceTags(const Ogre::UTFString & _line)
 	{
 		// вот хз, что быстрее, итераторы или математика указателей,
-		// для непонятно какого размера одного символа
+		// для непонятно какого размера одного символа UTF8
 		Ogre::UTFString line(_line);
 
 		if (mMapLanguage.empty()) return _line;

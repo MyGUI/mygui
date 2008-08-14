@@ -4,10 +4,14 @@
 	@date		11/2007
 	@module
 */
+
+#include "assert.h"
+#include <list>
+
 namespace delegates
 {
 	#ifndef COMBINE
-	#define COMBINE(a,b)       COMBINE1(a,b)
+		#define COMBINE(a,b)       COMBINE1(a,b)
 	#endif
 	#define COMBINE1(a,b)      a##b
 
@@ -15,7 +19,11 @@ namespace delegates
 	#define C_STATIC_DELEGATE  COMBINE(CStaticDelegate, SUFFIX)
 	#define C_METHOD_DELEGATE  COMBINE(CMethodDelegate, SUFFIX)
 	#ifndef C_DELEGATE
-	#define C_DELEGATE         COMBINE(CDelegate, SUFFIX)
+		#define C_DELEGATE         COMBINE(CDelegate, SUFFIX)
+	#endif
+
+	#ifndef C_MULTI_DELEGATE
+		#define C_MULTI_DELEGATE         COMBINE(CMultiDelegate, SUFFIX)
 	#endif
 
 	// базовый класс всех делегатов
@@ -40,7 +48,7 @@ namespace delegates
 		{
 			C_STATIC_DELEGATE<TEMPLATE_ARGS>* pStaticDel =
 			dynamic_cast<C_STATIC_DELEGATE<TEMPLATE_ARGS>*>(pDelegate);
-			if (pStaticDel == NULL || pStaticDel->mFunc != mFunc) return false;
+			if (pStaticDel == 0 || pStaticDel->mFunc != mFunc) return false;
 			return true;
 		}
 	private:
@@ -63,7 +71,7 @@ namespace delegates
 		{
 			C_METHOD_DELEGATE<TObj, TEMPLATE_ARGS>* pMethodDel =
 			dynamic_cast<C_METHOD_DELEGATE<TObj, TEMPLATE_ARGS>*>(pDelegate);
-			if ( pMethodDel == NULL || pMethodDel->mObject != mObject || pMethodDel->mMethod != mMethod ) return false;
+			if ( pMethodDel == 0 || pMethodDel->mObject != mObject || pMethodDel->mMethod != mMethod ) return false;
 			return true;
 		}
 
@@ -100,14 +108,16 @@ namespace delegates
 		typedef I_DELEGATE<TEMPLATE_ARGS> IDelegate;
 
 		C_DELEGATE() : mDelegate (0) {}
-		~C_DELEGATE()
+		~C_DELEGATE() { clear(); }
+
+		bool empty() { return mDelegate == 0; }
+		void clear()
 		{
 			if (mDelegate) {
 				delete mDelegate;
+				mDelegate = 0;
 			}
 		}
-
-		bool IsNull() { return (mDelegate == 0); }
 
 		C_DELEGATE<TEMPLATE_ARGS>& operator=(IDelegate* pDelegate)
 		{
@@ -126,6 +136,65 @@ namespace delegates
 
 	private:
 		IDelegate * mDelegate;
+	};
+
+	// шаблон класса мульти делегата
+	template<TEMPLATE_PARAMS>
+	class C_MULTI_DELEGATE
+	{
+	public:
+		typedef I_DELEGATE<TEMPLATE_ARGS> IDelegate;
+
+		C_MULTI_DELEGATE() {}
+		~C_MULTI_DELEGATE() { clear(); }
+
+		bool empty() { return mListDelegates.empty(); }
+		void clear()
+		{
+			for (std::list<IDelegate *>::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if (*iter) delete *iter;
+			}
+			mListDelegates.clear();
+		}
+
+		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator+=(IDelegate* pDelegate)
+		{
+			for (std::list<IDelegate *>::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if ((*iter) && (*iter)->Compare(pDelegate)) {
+					assert("dublicate delegate");
+				}
+			}
+			mListDelegates.push_back(pDelegate);
+			return *this;
+		}
+
+		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator-=(IDelegate* pDelegate)
+		{
+			for (std::list<IDelegate *>::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if ((*iter) && (*iter)->Compare(pDelegate)) {
+					delete (*iter);
+					(*iter) = 0;
+					break;
+				}
+			}
+			delete pDelegate;
+			return *this;
+		}
+
+		void operator()(PARAMS)
+		{
+			std::list<IDelegate *>::iterator iter=mListDelegates.begin();
+			while (iter != mListDelegates.end()) {
+				if (0 == (*iter)) iter = mListDelegates.erase(iter);
+				else {
+					(*iter)->Invoke(ARGS);
+					++iter;
+				}
+			};
+		}
+
+	private:
+		std::list<IDelegate *> mListDelegates;
 	};
 
 } // namespace delegates

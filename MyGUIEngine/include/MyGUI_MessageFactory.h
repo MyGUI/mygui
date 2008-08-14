@@ -16,6 +16,8 @@ namespace MyGUI
 	namespace factory
 	{
 
+		typedef std::vector<Ogre::UTFString> VectorUTFString;
+
 		class _MyGUIExport MessageFactory : public WidgetFactoryInterface
 		{
 		public:
@@ -32,6 +34,7 @@ namespace MyGUI
 		private:
 			void initialise();
 			void shutdown();
+			static void changeLanguage(const std::string & _language);
 
 			// методы для парсинга
 			void Message_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
@@ -45,7 +48,8 @@ namespace MyGUI
 			size_t parseButton(const std::string & _info);
 
 		private:
-			static std::vector<Ogre::UTFString> mVectorButtonName;
+			static VectorUTFString mVectorButtonName;
+			static VectorUTFString mVectorButtonTag;
 			static std::map<std::string, size_t> mMapButtonType;
 			static std::string mDefaultSkin;
 
