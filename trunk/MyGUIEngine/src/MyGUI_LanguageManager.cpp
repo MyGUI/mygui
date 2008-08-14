@@ -50,25 +50,29 @@ namespace MyGUI
 		std::string def;
 
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator pointer = _node->getNodeIterator();
-		while (pointer.nextNode(XML_TYPE)) {
+		xml::xmlNodeIterator root = _node->getNodeIterator();
+		while (root.nextNode(XML_TYPE)) {
 
 			// парсим атрибуты
-			pointer->findAttribute("default", def);
+			root->findAttribute("default", def);
 
 			// берем детей и крутимся
-			xml::xmlNodeIterator info = pointer->getNodeIterator();
+			xml::xmlNodeIterator info = root->getNodeIterator();
 			while (info.nextNode("Info")) {
 
 				// парсим атрибуты
 				std::string name(info->findAttribute("name"));
-				std::string source(info->findAttribute("source"));
 
 				// добавляем
-				if (mMapFile.find(name) != mMapFile.end()) {
-					MYGUI_LOG(Warning, "language '" << name << "' exist, erase old data");
+				MapListString::iterator lang = mMapFile.find(name);
+				if (lang == mMapFile.end()) {
+					lang = mMapFile.insert(std::make_pair(name, VectorString())).first;
 				}
-				mMapFile[name] = source;
+
+				xml::xmlNodeIterator source_info = info->getNodeIterator();
+				while (source_info.nextNode("Source")) {
+					lang->second.push_back(source_info->getBody());
+				};
 
 			};
 		};
@@ -84,19 +88,22 @@ namespace MyGUI
 			return false;
 		}
 
-		bool ret = loadLanguage(mCurrentLanguage->second);
-		if (ret) {
-			eventChangeLanguage(mCurrentLanguage->first);
+		loadLanguage(mCurrentLanguage->second);
+		eventChangeLanguage(mCurrentLanguage->first);
+		return true;
+	}
+
+	void LanguageManager::loadLanguage(const VectorString & _list)
+	{
+		mMapLanguage.clear();
+
+		for (VectorString::const_iterator iter=_list.begin(); iter!=_list.end(); ++iter) {
+			loadLanguage(*iter);
 		}
-		else {
-			mCurrentLanguage = mMapFile.end();
-		}
-		return ret;
 	}
 
 	bool LanguageManager::loadLanguage(const std::string & _file)
 	{
-		mMapLanguage.clear();
 
 		std::string group = Gui::getInstance().getResourceGroup();
 		std::string file(group.empty() ? _file : helper::getResourcePath(_file, group));

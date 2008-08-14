@@ -13,6 +13,8 @@
 namespace MyGUI
 {
 
+	typedef std::vector<std::string> VectorString;
+	typedef std::map<std::string, VectorString> MapListString;
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::map<Ogre::UTFString, Ogre::UTFString> MapLanguageString;
 
@@ -54,14 +56,15 @@ namespace MyGUI
 		MultiDelegate_String eventChangeLanguage;
 
 	private:
+		void loadLanguage(const VectorString & _list);
 		bool loadLanguage(const std::string & _file);
 		void _loadLanguage(std::ifstream & _stream);
 		void _loadLanguage(const Ogre::DataStreamPtr& stream);
 
 
 	private:
-		MapString mMapFile;
-		MapString::const_iterator mCurrentLanguage;
+		MapListString mMapFile;
+		MapListString::const_iterator mCurrentLanguage;
 
 		MapLanguageString mMapLanguage;
 	};
