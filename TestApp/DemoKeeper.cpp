@@ -13,7 +13,7 @@
 #include <vector>
 
 
-template<class T>
+/*template<class T>
 class Enumerator
 {
 private:
@@ -48,7 +48,7 @@ private:
 	bool m_first;
 	typename std::vector<T>::iterator m_current;
 	typename std::vector<T>::iterator m_end;
-};
+};*/
 
 
 DemoKeeper::DemoKeeper() :
@@ -109,7 +109,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 
-	//mConsole = mGUI->createWidget<MyGUI::Console>("Console", MyGUI::IntCoord(100, 100, 540, 226), MyGUI::ALIGN_DEFAULT, "Main");
+	mConsole = mGUI->createWidget<MyGUI::Console>("Console", MyGUI::IntCoord(100, 100, 540, 226), MyGUI::ALIGN_DEFAULT, "Main");
+
+	MyGUI::EnumeratorWidgetPtr childs = mConsole->getEnumerator();
+	while(childs.next()) {
+		childs->setAlpha(0.5);
+	};
 
 	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
 	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
@@ -189,8 +194,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	menu->addItem("test");
 	menu->showPopupMenu(MyGUI::IntPoint(100, 100));*/
 
-	std::vector<int> vec;
-	Enumerator<int> test(vec.begin(), vec.end());
+	/*std::vector<int> vec;
+	Enumerator<int> test(vec.begin(), vec.end());*/
 
 }
 
