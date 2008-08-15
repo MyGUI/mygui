@@ -56,6 +56,8 @@ namespace MyGUI
 			manager.registerDelegate("Widget_eventMouseButtonReleased") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonReleased);
 			manager.registerDelegate("Widget_eventMouseButtonClick") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonClick);
 			manager.registerDelegate("Widget_eventMouseButtonDoubleClick") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonDoubleClick);
+			//... many events still missed
+			manager.registerDelegate("Widget_eventToolTip") = newDelegate(this, &WidgetFactory::Widget_eventToolTip);
 		}
 
 		WidgetFactory::~WidgetFactory()
@@ -90,6 +92,8 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_eventMouseButtonReleased");
 			manager.unregisterDelegate("Widget_eventMouseButtonClick");
 			manager.unregisterDelegate("Widget_eventMouseButtonDoubleClick");
+			//... many events still missed
+			manager.unregisterDelegate("Widget_eventToolTip");
 		}
 
 		const Ogre::String& WidgetFactory::getType()
@@ -209,6 +213,8 @@ namespace MyGUI
 		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonReleased);
 		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonClick);
 		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonDoubleClick);
+		//... many events still missed
+		FACTORY_WIDGET_EVENT_DELEGATE(eventToolTip);
 
 		/*void WidgetFactory::Widget_eventMouseMove(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{

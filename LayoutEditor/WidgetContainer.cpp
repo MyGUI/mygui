@@ -261,7 +261,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	if ( !exist )
    {
 		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
-		std::string mess = MyGUI::utility::toString("skin not found '", container->skin, "' , change on '", skin, "'");
+		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to '", skin, "'");
 		MyGUI::Message::_createMessage("Error", mess , "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
 	}
 

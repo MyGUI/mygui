@@ -53,7 +53,9 @@ namespace MyGUI
 			void Widget_eventMouseButtonReleased(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_eventMouseButtonClick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_eventMouseButtonDoubleClick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			
+			//... many events still missed
+			void Widget_eventToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+
 		};
 
 	} // namespace factory
