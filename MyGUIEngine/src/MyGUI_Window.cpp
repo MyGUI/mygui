@@ -277,12 +277,6 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	VectorWidgetPtr Window::getChilds()
-	{
-		if (null == mWidgetClient) return Widget::getChilds();
-		return mWidgetClient->getChilds();
-	}
-
 	void Window::setCaption(const Ogre::UTFString & _caption)
 	{
 		if (mWidgetCaption != null) mWidgetCaption->setCaption(_caption);
@@ -341,6 +335,18 @@ namespace MyGUI
 	{
 		if (mWidgetCaption != null) return mWidgetCaption->getFontHeight();
 		return Widget::getFontHeight();
+	}
+
+	/*VectorWidgetPtr Window::getChilds()
+	{
+		if (null == mWidgetClient) return Widget::getChilds();
+		return mWidgetClient->getChilds();
+	}*/
+
+	EnumeratorWidgetPtr Window::getEnumerator()
+	{
+		if (null == mWidgetClient) return Widget::getEnumerator();
+		return mWidgetClient->getEnumerator();
 	}
 
 } // namespace MyGUI
