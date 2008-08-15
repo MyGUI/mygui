@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -118,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -185,7 +185,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BaseLayout.cpp"
+				RelativePath="..\Common\BaseLayout.cpp"
 				>
 			</File>
 			<File
@@ -227,7 +227,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BaseLayout.h"
+				RelativePath="..\Common\BaseLayout.h"
 				>
 			</File>
 			<File

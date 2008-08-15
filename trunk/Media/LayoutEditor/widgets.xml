@@ -17,7 +17,6 @@
     <Property key="ItemManager" value="true"/>
     <Parameter key="ComboBox_ModeDrop" value="Bool"/>
     <!--Parameter key="ComboBox_AddItem" value="String"/-->
-    <!-- all properties -->
   </Widget>
 
   <Widget name="Edit">
@@ -33,7 +32,6 @@
     <Parameter key="Edit_PasswordChar" value="String"/>
     <Parameter key="Edit_MaxTextLength" value="1 int"/>
     <Parameter key="Edit_OverflowToTheLeft" value="Bool"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="HScroll">
@@ -44,13 +42,11 @@
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
     <Parameter key="Scroll_ViewPage" value="1 int"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="ItemBox">
     <Property key="DefaultSkin" value="ItemBox"/>
     <Property key="Skin" value="ItemBox"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="List">
@@ -58,7 +54,6 @@
     <Property key="Skin" value="List"/>
     <Property key="ItemManager" value="true"/>
     <!--Parameter key="List_AddItem" value="String"/-->
-    <!-- all properties -->
   </Widget>
 
   <Widget name="MenuBar">
@@ -66,7 +61,6 @@
     <Property key="Skin" value="MenuBar"/>
     <Property key="ItemManager" value="true"/>
     <!--Parameter key="MenuBar_AddItem" value="String"/-->
-    <!-- all properties -->
   </Widget>
 
   <Widget name="Message">
@@ -80,13 +74,11 @@
     <!--Parameter key="Message_AddButton" value="String"/-->
     <Parameter key="Message_SmoothShow" value="Bool"/>
     <Parameter key="Message_Fade" value="Bool"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="MultiList">
     <Property key="DefaultSkin" value="MultiList"/>
     <Property key="Skin" value="MultiList"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="Progress">
@@ -97,7 +89,6 @@
     <Parameter key="Progress_Position" value="1 int"/>
     <Parameter key="Progress_AutoTrack" value="Bool"/>
     <Parameter key="Progress_StartPoint" value="AlignStartPoint"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="RenderBox">
@@ -111,7 +102,6 @@
     <Parameter key="RenderBox_MouseRotation" value="Bool"/>
     <Parameter key="RenderBox_Animation" value="String"/>
     <Parameter key="RenderBox_ViewScale" value="Bool"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="Sheet">
@@ -122,7 +112,6 @@
     <Parameter key="Sheet_Select" value="Bool"/>
     <Parameter key="Sheet_SmoothSelect" value="Bool"/>
     <Parameter key="Widget_Caption" value="String"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="StaticImage">
@@ -134,13 +123,11 @@
     <Parameter key="Image_Index" value="1 int"/>
     <Parameter key="Image_Name" value="String"/>
     <Parameter key="Image_MapNames" value="String"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="StaticText">
     <Property key="DefaultSkin" value="StaticText"/>
     <Property key="Skin" value="StaticText"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="Tab">
@@ -152,7 +139,6 @@
     <Parameter key="Tab_SmoothShow" value="Bool"/>
     <!--Parameter key="Tab_AddSheet" value="String"/-->
     <!--Parameter key="Tab_SelectSheet" value="1 int"/-->
-    <!-- all properties -->
   </Widget>
 
   <Widget name="VScroll">
@@ -163,7 +149,6 @@
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
     <Parameter key="Scroll_ViewPage" value="1 int"/>
-    <!-- all properties -->
   </Widget>
 
   <Widget name="Widget">
@@ -199,7 +184,8 @@
     <Parameter key="Widget_eventMouseButtonReleased" value="String"/>
     <Parameter key="Widget_eventMouseButtonClick" value="String"/>
     <Parameter key="Widget_eventMouseButtonDoubleClick" value="String"/>
-    <!-- all properties -->
+    <!-- many events still missed -->
+    <Parameter key="Widget_eventToolTip" value="String"/>
   </Widget>
 
   <Widget name="Window">
@@ -213,7 +199,6 @@
     <Parameter key="Window_AutoAlpha" value="Bool"/>
     <Parameter key="Window_MinMax" value="4 int"/>
     <Parameter key="Window_Snap" value="Bool"/>
-    <!-- all properties -->
   </Widget>
  
 </MyGUI>

@@ -41,11 +41,6 @@ void BaseLayout::loadLayout(MyGUI::WidgetPtr _parent)
 	}
 }
 
-void BaseLayout::initialise()
-{
-	loadLayout();
-}
-
 void BaseLayout::initialise(MyGUI::WidgetPtr _parent)
 {
 	loadLayout(_parent);
