@@ -10,6 +10,46 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
+
+
+template<class T>
+class Enumerator
+{
+private:
+	Enumerator() { }
+	Enumerator(Enumerator<T> const&) { }
+	Enumerator<T>& operator = (Enumerator<T> const&) { return *this; }
+
+public:
+	Enumerator(typename std::vector<T>::iterator _first, typename std::vector<T>::iterator _end) :
+		m_first(true),
+		m_current(_first),
+		m_end(_end)
+	{
+	}
+
+	bool next()
+	{
+		if (m_current == m_end) return false;
+		else if (m_first) {
+			m_first = false;
+			return true;
+		}
+		++ m_current;
+		if (m_current == m_end) return false;
+		return true;
+	}
+
+	inline T operator->() const {assert(m_current != m_end); return (*m_current);}
+	inline T current() {assert(m_current != m_end); return (*m_current);}
+
+private:
+	bool m_first;
+	typename std::vector<T>::iterator m_current;
+	typename std::vector<T>::iterator m_end;
+};
+
 
 DemoKeeper::DemoKeeper() :
 	mGUI(0),
@@ -148,6 +188,9 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	/*MyGUI::PopupMenuPtr menu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::ALIGN_DEFAULT, "Popup");
 	menu->addItem("test");
 	menu->showPopupMenu(MyGUI::IntPoint(100, 100));*/
+
+	std::vector<int> vec;
+	Enumerator<int> test(vec.begin(), vec.end());
 
 }
 
