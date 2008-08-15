@@ -268,8 +268,14 @@ namespace MyGUI
 
 	void ComboBox::setItemSelect(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mList->getItemCount(), "setComboItemIndex: index " << _index <<" out of range");
+		MYGUI_ASSERT(_index < mList->getItemCount() || _index == ITEM_NONE, "setComboItemIndex: index " << _index <<" out of range");
 		mItemIndex = _index;
+		mList->setItemSelect(_index);
+		if (_index == ITEM_NONE)
+		{
+			Edit::setCaption("");
+			return;
+		}
 		Edit::setCaption(mList->getItem(_index));
 		Edit::updateView(0); // hook for update
 	}

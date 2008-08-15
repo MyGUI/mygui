@@ -136,9 +136,7 @@ namespace MyGUI
 		//// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
 		//EventInfo_WidgetDropState eventDropState;
 
-		///* event : событие для отображения тултипа*/
-		///* signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);*/
-		//EventInfo_WidgetToolTip eventToolTip;
+		DELEGATE_MANAGER_EVENT1(eventToolTip, const MyGUI::ToolTipInfo & _info);
 
 		MapDelegate mDelegates;
 	};

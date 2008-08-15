@@ -84,14 +84,16 @@ void EditorState::enter(bool bIsChangeState)
 	um->initialise(ew);
 
 	langManager = MyGUI::LanguageManager::getInstancePtr();
-
 	// set locale language if it was taken from OS
 	if (! BasisManager::getInstance().getLanguage().empty() )
 		langManager->setCurrentLanguage(BasisManager::getInstance().getLanguage());
 	// if you want to test LanguageManager uncomment next line
 	//langManager->setCurrentLanguage("Russian");
 
+	mToolTip.initialise();
+	mToolTip->hide();
 	MyGUI::DelegateManager::getInstance().addDelegate("eventInfo", MyGUI::newDelegate(eventInfo));
+	//MyGUI::DelegateManager::getInstance().addDelegate("eventEditorToolTip", MyGUI::newDelegate(this, &EditorState::notifyToolTip));
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
@@ -145,8 +147,11 @@ void EditorState::enter(bool bIsChangeState)
 			button->setTextAlign(MyGUI::ALIGN_CENTER);
 			button->setUserString("widget", iterSkin->second);
 			button->setUserString("skin", iterSkin->first);
+			button->setUserString("TooTipText", "Widget: " + iterSkin->second + "\nSkin: " + iterSkin->first);
 			button->eventMouseButtonClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetType);
 			button->eventMouseButtonDoubleClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetTypeDoubleclick);
+			button->setNeedToolTip(true);
+			button->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
 			i++;
 		}
 		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
@@ -158,7 +163,7 @@ void EditorState::enter(bool bIsChangeState)
 
 	allWidgetsCombo = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_allWidgetsCombo");
 	allWidgetsCombo->setComboModeDrop(true);
-	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+	allWidgetsCombo->eventComboChangePosition = MyGUI::newDelegate(this, &EditorState::notifyAllWidgetsSelect);
 	allWidgetsCombo->setMaxListHeight(200);
 
 	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowWidgets");
@@ -961,6 +966,11 @@ void EditorState::notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index)
 	notifySelectWidget(widget);
 }
 
+void EditorState::notifyAllWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index)
+{
+	notifySelectWidget(ew->widgets[_index]->widget);
+}
+
 void EditorState::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 {
 	grid_step = Ogre::StringConverter::parseInt(_sender->getCaption());
@@ -1053,6 +1063,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 	{
 		window->hide();
 		allWidgetsCombo->setCaption("");
+		allWidgetsCombo->resetItemSelect();
 	}
 	else
 	{
@@ -1904,6 +1915,16 @@ void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _ind
 	Ogre::String value = multilist->getSubItem(1, item);
 	editKey->setOnlyText(key);
 	editValue->setOnlyText(value);
+}
+
+void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
+{
+	if (_info.type == MyGUI::TOOLTIP_SHOW) {
+		mToolTip.show(_sender->getUserString("TooTipText"), _info.point);
+	}
+	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
+		mToolTip.hide();
+	}
 }
 
 Ogre::DisplayString EditorState::anci_to_utf16(const std::string & _source)

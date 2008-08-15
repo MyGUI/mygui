@@ -2,6 +2,7 @@
 
 #include "BasisState.h"
 #include "MyGUI.h"
+#include "EditorToolTip.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -53,6 +54,7 @@ private:
 	void notifyWidgetsUpdate();
 	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
+	void notifyAllWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
 
 	// settings panel
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
@@ -94,6 +96,9 @@ private:
 	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
 	void notifyUpdateUserData(MyGUI::WidgetPtr _widget);
 	void notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _index);
+
+	// tooltips
+	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
 
 	// конвертирует из анси строки в вайд строку
 	Ogre::DisplayString anci_to_utf16(const std::string & _source);
@@ -144,6 +149,8 @@ private:
 	bool testMode;
 	MyGUI::VectorWidgetPtr interfaceWidgets;
 	MyGUI::xml::xmlDocument * testLayout;
+
+	EditorToolTip mToolTip;
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;

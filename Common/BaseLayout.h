@@ -15,8 +15,7 @@ public:
 	BaseLayout();
 	BaseLayout(const std::string & _layout);
 
-	virtual void initialise();
-	virtual void initialise(MyGUI::WidgetPtr _parent);
+	virtual void initialise(MyGUI::WidgetPtr _parent = null);
 	virtual void shutdown();
 
 	inline MyGUI::WidgetPtr operator->() const
@@ -32,8 +31,7 @@ public:
 	}
 
 protected:
-	inline void loadLayout() { loadLayout(null); }
-	void loadLayout(MyGUI::WidgetPtr _parent);
+	void loadLayout(MyGUI::WidgetPtr _parent = null);
 
 	template <typename T>
 	void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)

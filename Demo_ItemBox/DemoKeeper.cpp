@@ -79,7 +79,7 @@ void DemoKeeper::start()
 	back->setImageTexture("RF.jpg");
 
 	mToolTip.initialise();
-	mToolTip->hide();
+	mToolTip.hide();
 
 	mItemBoxV.initialise();
 	mItemBoxV.addItem(new ItemData(TypeNone, 0, "", ""));
