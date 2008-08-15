@@ -737,6 +737,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Enumerator.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Font.h"
 					>
 				</File>

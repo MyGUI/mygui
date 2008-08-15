@@ -260,7 +260,8 @@ namespace MyGUI
 
 		inline Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
-		inline const VectorWidgetPtr & getChilds() { return mWidgetChild; }
+		//inline const VectorWidgetPtr & getChilds() { return mWidgetChild; }
+		inline EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild.begin(), mWidgetChild.end()); }
 
 	private:
 		// создает виджет

@@ -202,7 +202,8 @@ namespace MyGUI
 		inline void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
 
 		/** Get copy of child widgets vector */
-		virtual VectorWidgetPtr getChilds();
+		//virtual VectorWidgetPtr getChilds();
+		virtual EnumeratorWidgetPtr getEnumerator();
 
 		WidgetPtr findWidget(const std::string & _name);
 

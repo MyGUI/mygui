@@ -729,10 +729,31 @@ void EditorState::notifyLoadSaveAs(bool _save)
 	messageWindow->setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 	MyGUI::InputManager::getInstance().addWidgetModal(messageWindow);
 	
-	MyGUI::VectorWidgetPtr childs = messageWindow->getChilds();
+	//MyGUI::VectorWidgetPtr childs = messageWindow->getChilds();
+	//if (_save) childs[1]->setCaption("Save");
+	//else childs[1]->setCaption("Load");
+	//childs[1]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveAccept);
+	//childs[2]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
+
+	// жесткий код, но оригинал не лучше =/
+	MyGUI::WidgetPtr combo2 = null, button1 = null, button2 = null;
+	size_t pos = 0;
+
+	MyGUI::EnumeratorWidgetPtr childs = messageWindow->getEnumerator();
+	while(childs.next()) {
+		if (pos == 0) combo2 = childs.current();
+		else if (pos == 1) button1 = childs.current();
+		else if (pos == 2) button2 = childs.current();
+		pos++;
+	};
+
+	if (_save) button1->setCaption("Save");
+	else button1->setCaption("Load");
+	button1->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveAccept);
+	button2->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
 
 	// set fileName in edit
-	MyGUI::ComboBoxPtr combo = MyGUI::castWidget<MyGUI::ComboBox>(childs[0]);
+	MyGUI::ComboBoxPtr combo = MyGUI::castWidget<MyGUI::ComboBox>(combo2);
 	if (fileName != "") {
 		const Ogre::DisplayString & item = anci_to_utf16(fileName);
 		combo->setCaption(item);
@@ -745,10 +766,6 @@ void EditorState::notifyLoadSaveAs(bool _save)
 		combo->addItem(item);
 	}
 
-	if (_save) childs[1]->setCaption("Save");
-	else childs[1]->setCaption("Load");
-	childs[1]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveAccept);
-	childs[2]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
 }
 
 void EditorState::notifySettings()

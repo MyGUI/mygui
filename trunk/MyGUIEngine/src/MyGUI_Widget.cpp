@@ -404,11 +404,6 @@ namespace MyGUI
 		return IntCoord(0, 0, mCoord.width, mCoord.height);
 	}
 
-	VectorWidgetPtr Widget::getChilds()
-	{
-		return mWidgetChild;
-	}
-
 	IntSize Widget::getTextSize()
 	{
 		return (null == mText) ? IntSize() : mText->getTextSize();
@@ -829,6 +824,16 @@ namespace MyGUI
 			mToolTipCurrentTime = 0;
 			mToolTipOldIndex = ITEM_NONE;
 		}
+	}
+
+	/*VectorWidgetPtr Widget::getChilds()
+	{
+		return mWidgetChild;
+	}*/
+
+	EnumeratorWidgetPtr Widget::getEnumerator()
+	{
+		return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
 	}
 
 } // namespace MyGUI
