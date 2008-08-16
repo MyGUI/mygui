@@ -24,11 +24,14 @@ namespace MyGUI
 	namespace factory
 	{
 
-		WidgetFactory::WidgetFactory()
+		WidgetFactory::WidgetFactory() :
+			mNeedTranslate(false)
 		{
 			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.registerFactory(this);
+
+			LanguageManager::getInstance().eventChangeLanguage += newDelegate(this, &WidgetFactory::notifyChangeLanguage);
 
 			// регестрируем все парсеры
 			manager.registerDelegate("Widget_Caption") = newDelegate(this, &WidgetFactory::Widget_Caption);
@@ -65,6 +68,8 @@ namespace MyGUI
 			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
+
+			LanguageManager::getInstance().eventChangeLanguage -= newDelegate(this, &WidgetFactory::notifyChangeLanguage);
 
 			// удаляем все парсеры
 			manager.unregisterDelegate("Widget_Caption");
@@ -108,11 +113,10 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			// временно всегда меняем в строке
 			// change '\n' on char 10
 			size_t pos = _value.find("\\n");
 			if (pos == std::string::npos) {
-				_widget->setCaption(LanguageManager::getInstance().replaceTags(_value));
+				_widget->setCaption(mNeedTranslate ? LanguageManager::getInstance().replaceTags(_value) : _value);
 			}
 			else {
 				std::string value(_value);
@@ -121,7 +125,7 @@ namespace MyGUI
 					value.erase(pos, 1);
 					pos = value.find("\\n");
 				}
-				_widget->setCaption(LanguageManager::getInstance().replaceTags(value));
+				_widget->setCaption(mNeedTranslate ? LanguageManager::getInstance().replaceTags(value) : value);
 			}
 		}
 
@@ -222,6 +226,11 @@ namespace MyGUI
 			_widget->setUserString("eventMouseMove", _value);
 			_widget->eventMouseMove = newDelegate(&manager, &DelegateManager::eventMouseMove);
 		}*/
+
+		void WidgetFactory::notifyChangeLanguage(const std::string & _language)
+		{
+			mNeedTranslate = true;
+		}
 
 	} // namespace factory
 } // namespace MyGUI

@@ -7,7 +7,7 @@
 #ifndef __MYGUI_ENUMERATOR_H__
 #define __MYGUI_ENUMERATOR_H__
 
-#include "MyGUI_Prerequest.h"
+#include "assert.h"
 
 namespace MyGUI
 {

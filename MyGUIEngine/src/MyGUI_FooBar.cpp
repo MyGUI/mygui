@@ -12,12 +12,12 @@
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 
-const float WINDOW_ALPHA_MAX = ALPHA_MAX;
-const float WINDOW_ALPHA_MIN = ALPHA_MIN;
-const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
-
 namespace MyGUI
 {
+	const float WINDOW_ALPHA_MAX = ALPHA_MAX;
+	const float WINDOW_ALPHA_MIN = ALPHA_MIN;
+	const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
+
 	Ogre::String FooBar::WidgetTypeName = "FooBar";
 
 	FooBar::FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) : 
@@ -33,13 +33,14 @@ namespace MyGUI
 		mAlphaIncative(0.2f),
 		mAlphaSpeed(3.0f)
 	{
-		Gui::getInstance().addFrameListener(newDelegate(this, &FooBar::frameEntered), this);
+		Gui::getInstance().eventFrameStart += newDelegate(this, &FooBar::frameEntered);
+		//Gui::getInstance().addFrameListener(newDelegate(this, &FooBar::frameEntered), this);
 	}
 
 	FooBar::~FooBar()
 	{
-		Gui::getInstance().removeFrameListener(newDelegate(this, &FooBar::frameEntered));
-
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &FooBar::frameEntered);
+		//Gui::getInstance().removeFrameListener(newDelegate(this, &FooBar::frameEntered));
 		_removeAllChildItems();
 	}
 

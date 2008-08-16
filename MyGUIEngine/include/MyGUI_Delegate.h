@@ -11,9 +11,25 @@
 // http://rsdn.ru/article/cpp/delegates.xml
 
 // генерация делегатов для различного колличества параметров
-
 namespace MyGUI
 {
+
+	// базовый класс для тех классов, что хотят себя отвязывать от мульти делегатов
+	class DelegateUnlink;
+	class _MyGUIExport DelegateUnlink
+	{
+	public:
+		friend DelegateUnlink;
+	public:
+		inline DelegateUnlink() { m_delegateUnlink = this; }
+		inline bool compare(DelegateUnlink * _unlink) { return m_delegateUnlink == _unlink->m_delegateUnlink; }
+
+	private:
+		DelegateUnlink * m_delegateUnlink;
+	};
+
+	inline DelegateUnlink * GetDelegateUnlink(void * _base) { return 0; }
+	inline DelegateUnlink * GetDelegateUnlink(DelegateUnlink * _base) { return _base; }
 
 	// один параметр
 	#define SUFFIX       1

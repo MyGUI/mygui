@@ -97,7 +97,7 @@ namespace MyGUI
 			return None;
 		}
 		// бит, номер кнопки + смещение до Button1
-		ViewInfo info = (ViewInfo)(FLAG(mVectorButton.size() + mButton1Index));
+		ViewInfo info = (ViewInfo)(MYGUI_FLAG(mVectorButton.size() + mButton1Index));
 
 		// запоминаем кнопки для отмены и подтверждения
 		if (mVectorButton.empty()) mInfoOk = info;
@@ -124,7 +124,7 @@ namespace MyGUI
 				// если бит есть то ставим кнопку
 				addButtonName(factory::MessageFactory::_getButtonName(current));
 				// корректируем ее номер
-				mVectorButton.back()->_setInternalData((int)FLAG(current));
+				mVectorButton.back()->_setInternalData((int)MYGUI_FLAG(current));
 			}
 			info >>= 1;
 			current ++;

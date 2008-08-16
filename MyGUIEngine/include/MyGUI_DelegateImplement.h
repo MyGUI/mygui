@@ -31,9 +31,19 @@ namespace delegates
 	class I_DELEGATE
 	{
 	public:
+		I_DELEGATE<TEMPLATE_ARGS>(bool _static) :
+			mStatic(_static)
+		{
+		}
+
 		virtual ~I_DELEGATE() {}
-		virtual void Invoke(PARAMS) = 0;
-		virtual bool Compare(I_DELEGATE<TEMPLATE_ARGS>* pDelegate) = 0;
+		virtual void invoke(PARAMS) = 0;
+		virtual bool compare(I_DELEGATE<TEMPLATE_ARGS>* _delegate) = 0;
+		virtual bool compare(DelegateUnlink * _unlink) { return false; }
+		inline bool isStatic() { return mStatic; }
+
+	protected:
+		bool mStatic;
 	};
 
 	// делегат дл€ статической функции
@@ -41,43 +51,70 @@ namespace delegates
 	class C_STATIC_DELEGATE : public I_DELEGATE<TEMPLATE_ARGS>
 	{
 	public:
-		typedef void (*PFunc)(PARAMS);
-		C_STATIC_DELEGATE(PFunc pFunc) { mFunc = pFunc; }
-		virtual void Invoke(PARAMS) { mFunc(ARGS); }
-		virtual bool Compare(I_DELEGATE<TEMPLATE_ARGS>* pDelegate)
+		typedef void (*Func)(PARAMS);
+
+		C_STATIC_DELEGATE(Func _func) : 
+			I_DELEGATE<TEMPLATE_ARGS>(true),
+			mFunc(_func)
 		{
-			C_STATIC_DELEGATE<TEMPLATE_ARGS>* pStaticDel =
-			dynamic_cast<C_STATIC_DELEGATE<TEMPLATE_ARGS>*>(pDelegate);
-			if (pStaticDel == 0 || pStaticDel->mFunc != mFunc) return false;
+		}
+
+		virtual void invoke(PARAMS)
+		{
+			mFunc(ARGS);
+		}
+
+		virtual bool compare(I_DELEGATE<TEMPLATE_ARGS>* _delegate)
+		{
+			if (!_delegate || !_delegate->isStatic()) return false;
+			C_STATIC_DELEGATE<TEMPLATE_ARGS>* cast =
+				static_cast<C_STATIC_DELEGATE<TEMPLATE_ARGS>*>(_delegate);
+			if (cast->mFunc != mFunc) return false;
 			return true;
 		}
+
 	private:
-		PFunc mFunc;
+		Func mFunc;
 	};
 
 	// делегат дл€ метода класса
-	template<class TObj, TEMPLATE_PARAMS>
+	template<class T, TEMPLATE_PARAMS>
 	class C_METHOD_DELEGATE : public I_DELEGATE<TEMPLATE_ARGS>
 	{
 	public:
-		typedef void (TObj::*PMethod)(PARAMS);
-		C_METHOD_DELEGATE(TObj* pObj, PMethod pMethod)
+		typedef void (T::*Method)(PARAMS);
+
+		C_METHOD_DELEGATE(DelegateUnlink * _unlink, T * _object, Method _method) :
+			I_DELEGATE<TEMPLATE_ARGS>(false),
+			mUnlink(_unlink),
+			mObject(_object),
+			mMethod(_method)
 		{
-			mObject = pObj;
-			mMethod = pMethod;
 		}
-		virtual void Invoke(PARAMS) { (mObject->*mMethod)(ARGS); }
-		virtual bool Compare(I_DELEGATE<TEMPLATE_ARGS>* pDelegate)
+
+		virtual void invoke(PARAMS)
 		{
-			C_METHOD_DELEGATE<TObj, TEMPLATE_ARGS>* pMethodDel =
-			dynamic_cast<C_METHOD_DELEGATE<TObj, TEMPLATE_ARGS>*>(pDelegate);
-			if ( pMethodDel == 0 || pMethodDel->mObject != mObject || pMethodDel->mMethod != mMethod ) return false;
+			(mObject->*mMethod)(ARGS);
+		}
+
+		virtual bool compare(I_DELEGATE<TEMPLATE_ARGS>* _delegate)
+		{
+			if (!_delegate || _delegate->isStatic()) return false;
+			C_METHOD_DELEGATE<T, TEMPLATE_ARGS>* cast =
+				static_cast<C_METHOD_DELEGATE<T, TEMPLATE_ARGS>*>(_delegate);
+			if ( cast->mObject != mObject || cast->mMethod != mMethod ) return false;
 			return true;
 		}
 
+		virtual bool compare(DelegateUnlink * _unlink)
+		{
+			return mUnlink == _unlink;
+		}
+
 	private:
-		TObj *mObject;
-		PMethod mMethod;
+		DelegateUnlink *mUnlink;
+		T * mObject;
+		Method mMethod;
 	};
 
 
@@ -85,20 +122,19 @@ namespace delegates
 	// параметры : указатель на функцию
 	// пример : newDelegate(funk_name);
 	template<TEMPLATE_PARAMS>
-	I_DELEGATE<TEMPLATE_ARGS>* newDelegate(void (*pFunc)(PARAMS))
+	I_DELEGATE<TEMPLATE_ARGS>* newDelegate(void (*_func)(PARAMS))
 	{
-		return new C_STATIC_DELEGATE<TEMPLATE_ARGS>(pFunc);
+		return new C_STATIC_DELEGATE<TEMPLATE_ARGS>(_func);
 	}
 
 	// шаблон дл€ создани€ делегата метода класса
 	// параметры : указатель на объект класса и указатель на метод класса
 	// пример : newDelegate(&object_name, &class_name::method_name);
-	template <class TObj, TEMPLATE_PARAMS>
-	I_DELEGATE<TEMPLATE_ARGS>* newDelegate(TObj* pObj, void (TObj::*pMethod)(PARAMS))
+	template <class T, TEMPLATE_PARAMS>
+	I_DELEGATE<TEMPLATE_ARGS>* newDelegate(T * _object, void (T::*_method)(PARAMS))
 	{
-		return new C_METHOD_DELEGATE<TObj, TEMPLATE_ARGS> (pObj, pMethod);
+		return new C_METHOD_DELEGATE<T, TEMPLATE_ARGS> (GetDelegateUnlink(_object), _object, _method);
 	}
-
 
 	// шаблон класса делегата
 	template<TEMPLATE_PARAMS>
@@ -107,10 +143,21 @@ namespace delegates
 	public:
 		typedef I_DELEGATE<TEMPLATE_ARGS> IDelegate;
 
-		C_DELEGATE() : mDelegate (0) {}
-		~C_DELEGATE() { clear(); }
+		C_DELEGATE() :
+			mDelegate(0)
+		{
+		}
 
-		bool empty() { return mDelegate == 0; }
+		~C_DELEGATE()
+		{
+			clear();
+		}
+
+		bool empty()
+		{
+			return mDelegate == 0;
+		}
+
 		void clear()
 		{
 			if (mDelegate) {
@@ -119,19 +166,19 @@ namespace delegates
 			}
 		}
 
-		C_DELEGATE<TEMPLATE_ARGS>& operator=(IDelegate* pDelegate)
+		C_DELEGATE<TEMPLATE_ARGS>& operator=(IDelegate* _delegate)
 		{
 			if (mDelegate) {
 				delete mDelegate;
 			}
-			mDelegate = pDelegate;
+			mDelegate = _delegate;
 			return *this;
 		}
 
 		void operator()(PARAMS)
 		{
 			if (mDelegate == 0) return;
-			mDelegate->Invoke(ARGS);
+			mDelegate->invoke(ARGS);
 		}
 
 	private:
@@ -144,57 +191,84 @@ namespace delegates
 	{
 	public:
 		typedef I_DELEGATE<TEMPLATE_ARGS> IDelegate;
+		typedef std::list<IDelegate *> ListDelegate;
 
-		C_MULTI_DELEGATE() {}
-		~C_MULTI_DELEGATE() { clear(); }
-
-		bool empty() { return mListDelegates.empty(); }
-		void clear()
+		C_MULTI_DELEGATE()
 		{
-			for (std::list<IDelegate *>::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
-				if (*iter) delete *iter;
-			}
-			mListDelegates.clear();
 		}
 
-		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator+=(IDelegate* pDelegate)
+		~C_MULTI_DELEGATE()
 		{
-			for (std::list<IDelegate *>::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
-				if ((*iter) && (*iter)->Compare(pDelegate)) {
+			clear();
+		}
+
+		bool empty()
+		{
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if (*iter) return false;
+			}
+			return true;
+		}
+
+		void clear()
+		{
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if (*iter) {
+					delete (*iter);
+					(*iter) = 0;
+				}
+			}
+		}
+
+		void clear(DelegateUnlink * _unlink)
+		{
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if ((*iter) && (*iter)->compare(_unlink)) {
+					delete (*iter);
+					(*iter) = 0;
+				}
+			}
+		}
+
+		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator+=(IDelegate* _delegate)
+		{
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if ((*iter) && (*iter)->compare(_delegate)) {
 					assert("dublicate delegate");
 				}
 			}
-			mListDelegates.push_back(pDelegate);
+			mListDelegates.push_back(_delegate);
 			return *this;
 		}
 
-		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator-=(IDelegate* pDelegate)
+		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator-=(IDelegate* _delegate)
 		{
-			for (std::list<IDelegate *>::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
-				if ((*iter) && (*iter)->Compare(pDelegate)) {
-					delete (*iter);
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+				if ((*iter) && (*iter)->compare(_delegate)) {
+					// провер€ем на идентичность делегатов
+					if ((*iter) != _delegate) delete (*iter);
 					(*iter) = 0;
 					break;
 				}
 			}
-			delete pDelegate;
+			delete _delegate;
 			return *this;
 		}
 
 		void operator()(PARAMS)
 		{
-			std::list<IDelegate *>::iterator iter=mListDelegates.begin();
+			ListDelegate::iterator iter=mListDelegates.begin();
 			while (iter != mListDelegates.end()) {
 				if (0 == (*iter)) iter = mListDelegates.erase(iter);
 				else {
-					(*iter)->Invoke(ARGS);
+					(*iter)->invoke(ARGS);
 					++iter;
 				}
 			};
 		}
 
 	private:
-		std::list<IDelegate *> mListDelegates;
+		ListDelegate mListDelegates;
 	};
 
 } // namespace delegates

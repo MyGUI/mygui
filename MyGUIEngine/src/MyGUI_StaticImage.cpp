@@ -65,7 +65,8 @@ namespace MyGUI
 		if (iter->images.size() < 2) {
 			if (mFrameAdvise) {
 				mFrameAdvise = false;
-				Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
+				Gui::getInstance().eventFrameStart -= newDelegate(this, &StaticImage::frameEntered);
+				//Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
 			}
 		}
 		else {
@@ -73,7 +74,8 @@ namespace MyGUI
 				mCurrentTime = 0;
 				mCurrentFrame = 0;
 				mFrameAdvise = true;
-				Gui::getInstance().addFrameListener(newDelegate(this, &StaticImage::frameEntered), this);
+				Gui::getInstance().eventFrameStart += newDelegate(this, &StaticImage::frameEntered);
+				//Gui::getInstance().addFrameListener(newDelegate(this, &StaticImage::frameEntered), this);
 			}
 		}
 

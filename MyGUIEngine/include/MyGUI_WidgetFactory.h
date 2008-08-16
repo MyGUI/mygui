@@ -26,6 +26,9 @@ namespace MyGUI
 			const Ogre::String& getType();
 			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name);
 
+		private:
+			void notifyChangeLanguage(const std::string & _language);
+
 			// методы для парсинга
 			void Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Widget_Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
@@ -55,6 +58,9 @@ namespace MyGUI
 			void Widget_eventMouseButtonDoubleClick(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			//... many events still missed
 			void Widget_eventToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+
+		private:
+			bool mNeedTranslate;
 
 		};
 
