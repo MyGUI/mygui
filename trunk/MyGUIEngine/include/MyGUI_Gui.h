@@ -23,9 +23,11 @@ namespace MyGUI
 	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
 
-	typedef delegates::IDelegate1<float> FrameEventDelegate;
-	typedef std::pair<FrameEventDelegate*, WidgetPtr> PairFrameEvent;
-	typedef std::list<PairFrameEvent> ListFrameEvent;
+	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
+
+	//typedef delegates::IDelegate1<float> FrameEventDelegate;
+	//typedef std::pair<FrameEventDelegate*, WidgetPtr> PairFrameEvent;
+	//typedef std::list<PairFrameEvent> ListFrameEvent;
 
 	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator, public UnlinkWidget
 	{
@@ -107,9 +109,11 @@ namespace MyGUI
 		inline const FloatSize& getViewSize() {return mViewSize;}
 
 		/** Add GUI frame listener */
-		void addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget);
+		//void addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget);
 		/** Remove GUI frame listener */
-		void removeFrameListener(FrameEventDelegate * _delegate);
+		//void removeFrameListener(FrameEventDelegate * _delegate);
+		/** Add or remove GUI frame listener */
+		FrameEventDelegate eventFrameStart;
 
 		/** Inject frame entered event.
 			This function should be called every frame.
@@ -263,6 +267,8 @@ namespace MyGUI
 		//inline const VectorWidgetPtr & getChilds() { return mWidgetChild; }
 		inline EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild.begin(), mWidgetChild.end()); }
 
+
+
 	private:
 		// создает виджет
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
@@ -303,7 +309,7 @@ namespace MyGUI
 		LanguageManager* mLanguageManager;
 
 		// подписчики на кадры
-		ListFrameEvent mListFrameEvent;
+		//ListFrameEvent mListFrameEvent;
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;

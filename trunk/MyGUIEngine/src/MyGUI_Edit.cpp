@@ -222,7 +222,8 @@ namespace MyGUI
 
 			if (false == mModeStatic) {
 				mCursorActive = true;
-				Gui::getInstance().addFrameListener(newDelegate(this, &Edit::frameEntered), this);
+				Gui::getInstance().eventFrameStart += newDelegate(this, &Edit::frameEntered);
+				//Gui::getInstance().addFrameListener(newDelegate(this, &Edit::frameEntered), this);
 				mText->setShowCursor(true);
 				mText->setSelectBackground(true);
 				mCursorTimer = 0;
@@ -243,7 +244,8 @@ namespace MyGUI
 			updateEditState();
 
 			mCursorActive = false;
-			Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
+			Gui::getInstance().eventFrameStart -= newDelegate(this, &Edit::frameEntered);
+			//Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
 			mText->setShowCursor(false);
 			mText->setSelectBackground(false);
 		}

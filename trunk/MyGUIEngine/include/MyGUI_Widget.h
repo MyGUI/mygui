@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Widget : public CroppedRectangleInterface, public LayerItem, public UserData, public WidgetEvent, public WidgetCreator
+	class _MyGUIExport Widget : public CroppedRectangleInterface, public LayerItem, public UserData, public WidgetEvent, public WidgetCreator, public DelegateUnlink
 	{
 		// для вызова закрытых деструкторов
 		friend class WidgetCreator;

@@ -94,27 +94,27 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-	MyGUI::SkinManager::getInstance().load("debug.skin");
+/*	MyGUI::SkinManager::getInstance().load("debug.skin");
+#if MYGUI_DEBUG_MODE == 1
+	MyGUI::InputManager::getInstance().setShowFocus(true);
+#endif*/
+
 	/*MyGUI::FontManager::getInstance().load("WOT.font");
 	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WOT_WindowCharacter", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
 	window->setCaption("test");*/
 
 	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("rus");
 	//Ogre::UTFString str = MyGUI::LanguageManager::getInstance().replaceTags(L"я хачу #{Blond}, но я не #{Blond}!");
-	MyGUI::Message::createMessage("none", "str", false, MyGUI::Message::None);
-
-#if MYGUI_DEBUG_MODE == 1
-	MyGUI::InputManager::getInstance().setShowFocus(true);
-#endif
+	//MyGUI::Message::createMessage("none", "str", false, MyGUI::Message::None);
 
 	//MyGUI::FontManager::getInstance().saveFontTexture("MyGUI_CoreFont.18", "MyGUI_CoreFont.18.png");
 
-	mConsole = mGUI->createWidget<MyGUI::Console>("Console", MyGUI::IntCoord(100, 100, 540, 226), MyGUI::ALIGN_DEFAULT, "Main");
+	/*mConsole = mGUI->createWidget<MyGUI::Console>("Console", MyGUI::IntCoord(100, 100, 540, 226), MyGUI::ALIGN_DEFAULT, "Main");
 
 	MyGUI::EnumeratorWidgetPtr childs = mConsole->getEnumerator();
 	while(childs.next()) {
 		childs->setAlpha(0.5);
-	};
+	};*/
 
 	//mConsole->registerConsoleDelegate("colour", newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
 	//mConsole->registerConsoleDelegate("show", newDelegate(this, &DemoKeeper::command), "show true | false");
@@ -196,6 +196,12 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 
 	/*std::vector<int> vec;
 	Enumerator<int> test(vec.begin(), vec.end());*/
+
+	MyGUI::ProgressPtr progress = mGUI->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
+	progress->setProgressAutoTrack(true);
+	progress->setNeedToolTip(true);
+
+	MyGUI::WidgetManager::getInstance().destroyWidget(progress);
 
 }
 

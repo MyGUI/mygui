@@ -129,7 +129,8 @@ namespace MyGUI
 
 	Widget::~Widget()
 	{
-		Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
+		//Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
 
 		if (mToolTipVisible) eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
 
@@ -706,11 +707,13 @@ namespace MyGUI
 		mNeedToolTip = _need;
 
 		if (mNeedToolTip) {
-			Gui::getInstance().addFrameListener(newDelegate(this, &Widget::frameEntered), this);
+			Gui::getInstance().eventFrameStart += newDelegate(this, &Widget::frameEntered);
+			//Gui::getInstance().addFrameListener(newDelegate(this, &Widget::frameEntered), this);
 			mToolTipCurrentTime = 0;
 		}
 		else {
-			Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
+			Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
+			//Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
 		}
 	}
 

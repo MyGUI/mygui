@@ -17,16 +17,16 @@ namespace MyGUI
 
 	enum ALIGN_INFO
 	{
-		ALIGN_HCENTER					= FLAG_NONE,					// center the window horizontally
-		ALIGN_VCENTER					= FLAG_NONE,					// center the window vertically
+		ALIGN_HCENTER					= MYGUI_FLAG_NONE,					// center the window horizontally
+		ALIGN_VCENTER					= MYGUI_FLAG_NONE,					// center the window vertically
 		ALIGN_CENTER					= ALIGN_HCENTER | ALIGN_VCENTER,		// center the window in the dead center
-		ALIGN_CENTER_PARENT		    = FLAG(0),						// do not use it in your application это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
+		ALIGN_CENTER_PARENT		    = MYGUI_FLAG(0),						// do not use it in your application это скорее флаг, ставит выравнивание по центру отца, по умолчанию относительно текущего положения
 
-		ALIGN_LEFT						= FLAG(1),						// align from the left (and center the window vertically)
-		ALIGN_RIGHT					= FLAG(2),						// align from the left (and center the window vertically)
+		ALIGN_LEFT						= MYGUI_FLAG(1),						// align from the left (and center the window vertically)
+		ALIGN_RIGHT					= MYGUI_FLAG(2),						// align from the left (and center the window vertically)
 		ALIGN_HSTRETCH				    = ALIGN_LEFT | ALIGN_RIGHT,			// stretch horizontally proportionate to parent window
-		ALIGN_TOP						= FLAG(3),						// align from the top (and center the window horizontally)
-		ALIGN_BOTTOM					= FLAG(4),						// align from the bottom (and center the window horizontally)
+		ALIGN_TOP						= MYGUI_FLAG(3),						// align from the top (and center the window horizontally)
+		ALIGN_BOTTOM					= MYGUI_FLAG(4),						// align from the bottom (and center the window horizontally)
 		ALIGN_VSTRETCH				    = ALIGN_TOP | ALIGN_BOTTOM,			// stretch vertically proportionate to parent window
 		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch proportionate to parent window
 		ALIGN_DEFAULT					= ALIGN_LEFT | ALIGN_TOP,

@@ -1768,7 +1768,7 @@ void EditorState::notifyDeleteItem(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
 	size_t item = list->getItemSelect();
-	if (ITEM_NONE == item) return;
+	if (MyGUI::ITEM_NONE == item) return;
 	syncItems(true, false, list->getItem(item));
 	list->deleteItem(item);
 	um->addValue();
@@ -1778,7 +1778,7 @@ void EditorState::notifySelectSheet(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
 	size_t item = list->getItemSelect();
-	if (ITEM_NONE == item) return;
+	if (MyGUI::ITEM_NONE == item) return;
 	ON_EXIT(UndoManager::getInstance().addValue());
 	MyGUI::TabPtr tab = MyGUI::castWidget<MyGUI::Tab>(current_widget);
 	WidgetContainer * widgetContainer = ew->find(current_widget);
@@ -1802,7 +1802,7 @@ void EditorState::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editItem");
 	size_t item = list->getItemSelect();
-	if (ITEM_NONE == item){ notifyAddItem(); return;}
+	if (MyGUI::ITEM_NONE == item){ notifyAddItem(); return;}
 	ON_EXIT(UndoManager::getInstance().addValue());
 	Ogre::String action;
 	Ogre::String value = edit->getOnlyText();
@@ -1846,7 +1846,7 @@ void EditorState::notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position)
 	MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
 	MyGUI::EditPtr edit = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editItem");
 	size_t item = list->getItemSelect();
-	if (ITEM_NONE == item) return;
+	if (MyGUI::ITEM_NONE == item) return;
 	Ogre::String value = list->getItem(item);
 	edit->setOnlyText(value);
 }
@@ -1872,7 +1872,7 @@ void EditorState::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::MultiListPtr multilist = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::MultiList>("LayoutEditor_multilistUserData");
 	size_t item = multilist->getItemSelect();
-	if (ITEM_NONE == item) return;
+	if (MyGUI::ITEM_NONE == item) return;
 
 	WidgetContainer * widgetContainer = ew->find(current_widget);
 	MapErase(widgetContainer->mUserString, multilist->getItem(item));
@@ -1886,7 +1886,7 @@ void EditorState::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
 	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
 	MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
 	size_t item = multilist->getItemSelect();
-	if (ITEM_NONE == item){ notifyAddUserData(); return;}
+	if (MyGUI::ITEM_NONE == item){ notifyAddUserData(); return;}
 	Ogre::String key = editKey->getOnlyText();
 	Ogre::String value = editValue->getOnlyText();
 	Ogre::String lastkey = multilist->getItem(item);
@@ -1910,7 +1910,7 @@ void EditorState::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _ind
 	MyGUI::EditPtr editKey = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editKeyUserData");
 	MyGUI::EditPtr editValue = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Edit>("LayoutEditor_editValueUserData");
 	size_t item = multilist->getItemSelect();
-	if (ITEM_NONE == item) return;
+	if (MyGUI::ITEM_NONE == item) return;
 	Ogre::String key = multilist->getSubItem(0, item);
 	Ogre::String value = multilist->getSubItem(1, item);
 	editKey->setOnlyText(key);

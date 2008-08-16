@@ -48,7 +48,8 @@ namespace MyGUI
 	void ControllerManager::addItem(WidgetPtr _widget, ControllerItem * _item)
 	{
 		// если виджет первый, то подписываемся на кадры
-		if (0 == mListItem.size()) Gui::getInstance().addFrameListener(newDelegate(this, &ControllerManager::frameEntered), null);
+		//if (0 == mListItem.size()) Gui::getInstance().addFrameListener(newDelegate(this, &ControllerManager::frameEntered), null);
+		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
 		// подготавливаем
 		_item->prepareItem(_widget);
@@ -102,7 +103,8 @@ namespace MyGUI
 			(*iter).first = null;
 		}
 
-		if (0 == mListItem.size()) Gui::getInstance().removeFrameListener(newDelegate(this, &ControllerManager::frameEntered));
+		//if (0 == mListItem.size()) Gui::getInstance().removeFrameListener(newDelegate(this, &ControllerManager::frameEntered));
+		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart -= newDelegate(this, &ControllerManager::frameEntered);
 	}
 
 } // namespace MyGUI

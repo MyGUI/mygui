@@ -124,7 +124,7 @@ private:
 	{
 		ItemData * data = null;
 		if (_info.type == MyGUI::TOOLTIP_SHOW) {
-			if (_info.index == ITEM_NONE) return;
+			if (_info.index == MyGUI::ITEM_NONE) return;
 			data = (ItemData*)mBoxItems->getItemData(_info.index);
 		}
 		eventToolTip(this, _info, data);

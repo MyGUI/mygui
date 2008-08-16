@@ -10,7 +10,7 @@
 
 void DemoKeeper::notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result)
 {
-	if (_info.sender_index != ITEM_NONE) {
+	if (_info.sender_index != MyGUI::ITEM_NONE) {
 		_result = (_info.sender_data != null) && (_info.sender_data->type != TypeNone);
 	}
 }
@@ -18,7 +18,7 @@ void DemoKeeper::notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool 
 void DemoKeeper::notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result)
 {
 	// не на айтем кидаем
-	if (_info.reseiver_index == ITEM_NONE) {
+	if (_info.reseiver_index == MyGUI::ITEM_NONE) {
 		_result = false;
 		return;
 	}
@@ -50,7 +50,7 @@ void DemoKeeper::notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _r
 
 void DemoKeeper::notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info)
 {
-	if (_info.index != ITEM_NONE) {
+	if (_info.index != MyGUI::ITEM_NONE) {
 		((BaseItemBox<CellView>*)_sender)->removeItem(_info.index);
 	}
 }

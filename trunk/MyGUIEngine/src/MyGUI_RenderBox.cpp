@@ -327,12 +327,14 @@ namespace MyGUI
 		if (needFrameUpdate())
 		{
 			mUseScale = _scale;
-			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
+			//if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
+			if (needFrameUpdate() == false) Gui::getInstance().eventFrameStart -= newDelegate(this, &RenderBox::frameEntered);
 		}
 		else
 		{
 			mUseScale = _scale;
-			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
+			if (needFrameUpdate()) Gui::getInstance().eventFrameStart += newDelegate(this, &RenderBox::frameEntered);
+			//if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
 		}
 	}
 
@@ -602,12 +604,14 @@ namespace MyGUI
 		if (needFrameUpdate())
 		{
 			mAutoRotation = _auto;
-			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
+			if (needFrameUpdate() == false) Gui::getInstance().eventFrameStart -= newDelegate(this, &RenderBox::frameEntered);
+			//if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 		else
 		{
 			mAutoRotation = _auto;
-			if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
+			if (needFrameUpdate()) Gui::getInstance().eventFrameStart += newDelegate(this, &RenderBox::frameEntered);
+			//if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
 		}
 	}
 
@@ -615,7 +619,8 @@ namespace MyGUI
 	{
 		if (null != mEntityState) {
 			mEntityState = null;
-			if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
+			if (needFrameUpdate() == false) Gui::getInstance().eventFrameStart -= newDelegate(this, &RenderBox::frameEntered);
+			//if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 
 		if (_animation.empty()) return;
@@ -640,7 +645,8 @@ namespace MyGUI
 			if (_animation == state ->getAnimationName()) {
 
 				// подписываемся
-				Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
+				Gui::getInstance().eventFrameStart += newDelegate(this, &RenderBox::frameEntered);
+				//Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
 
 				mEntityState = state;
 				mEntityState->setEnabled(true);
