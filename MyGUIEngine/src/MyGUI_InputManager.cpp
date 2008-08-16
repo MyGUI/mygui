@@ -51,7 +51,8 @@ namespace MyGUI
 		createDefaultCharSet();
 
 		WidgetManager::getInstance().registerUnlinker(this);
-		Gui::getInstance().addFrameListener(newDelegate(this, &InputManager::frameEntered), null);
+		Gui::getInstance().eventFrameStart += newDelegate(this, &InputManager::frameEntered);
+		//Gui::getInstance().addFrameListener(newDelegate(this, &InputManager::frameEntered), null);
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -63,7 +64,8 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		Gui::getInstance().removeFrameListener(newDelegate(this, &InputManager::frameEntered));
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
+		//Gui::getInstance().removeFrameListener(newDelegate(this, &InputManager::frameEntered));
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 

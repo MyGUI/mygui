@@ -111,7 +111,7 @@ namespace MyGUI
 		WidgetManager::getInstance().unregisterUnlinker(this);
 
 		unregisterLoadXmlDelegate(XML_TYPE);
-		mListFrameEvent.clear();
+		//mListFrameEvent.clear();
 		mMapLoadXmlDelegate.clear();
 
 		_destroyAllChildWidget();
@@ -434,17 +434,18 @@ namespace MyGUI
 
 	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
 	{
-		ListFrameEvent::iterator iterator=mListFrameEvent.begin();
+		eventFrameStart(timeSinceLastFrame);
+		/*ListFrameEvent::iterator iterator=mListFrameEvent.begin();
 		while (iterator != mListFrameEvent.end()) {
 			if (null == (*iterator).first) iterator = mListFrameEvent.erase(iterator);
 			else {
 				(*iterator).first->Invoke(timeSinceLastFrame);
 				++iterator;
 			}
-		};
+		};*/
 	}
 
-	void Gui::addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget)
+	/*void Gui::addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget)
 	{
 #if MYGUI_DEBUG_MODE == 1
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
@@ -454,9 +455,9 @@ namespace MyGUI
 		}
 #endif
 		mListFrameEvent.push_back(PairFrameEvent(_delegate, _widget));
-	}
+	}*/
 
-	void Gui::removeFrameListener(FrameEventDelegate * _delegate)
+	/*void Gui::removeFrameListener(FrameEventDelegate * _delegate)
 	{
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
 			if ((*iter).first && (*iter).first->Compare(_delegate)) {
@@ -466,17 +467,27 @@ namespace MyGUI
 			}
 		}
 		delete _delegate;
-	}
+	}*/
 
 	void Gui::_unlinkWidget(WidgetPtr _widget)
 	{
-		if (_widget == null) return;
+		eventFrameStart.clear(_widget);
+		/*MyGUI::Enumerator<FrameEventDelegate::ListDelegate> enumerator = eventFrameStart.getEnumerator();
+		// мультиделегат поддерживает безопасное удаление даже в цикле рассылки
+		while (enumerator.next()) {
+			if (enumerator->Object()) {
+				if (enumerator->Object()->compire(_widget)) {
+					eventFrameStart -= enumerator.current();
+				}
+			}
+		};*/
+		/*if (_widget == null) return;
 		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
 			if ((*iter).first && (*iter).second && (*iter).second->compare(_widget)) {
 				delete (*iter).first;
 				(*iter).first = null;
 			}
-		}
+		}*/
 	}
 
 } // namespace MyGUI
