@@ -94,8 +94,8 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
     mWidth = _width;
     mHeight = _height;
 
-/*	MyGUI::SkinManager::getInstance().load("debug.skin");
-#if MYGUI_DEBUG_MODE == 1
+	MyGUI::SkinManager::getInstance().load("debug.skin");
+/*#if MYGUI_DEBUG_MODE == 1
 	MyGUI::InputManager::getInstance().setShowFocus(true);
 #endif*/
 
@@ -197,11 +197,27 @@ void DemoKeeper::start(MyGUI::Gui * _gui, size_t _width, size_t _height)
 	/*std::vector<int> vec;
 	Enumerator<int> test(vec.begin(), vec.end());*/
 
-	MyGUI::ProgressPtr progress = mGUI->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
+	MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 500, 500), MyGUI::ALIGN_DEFAULT, "Main");
+	window->setCaption("ScrollView demo");
+	MyGUI::ScrollViewPtr view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::ALIGN_STRETCH);
+
+	view->setCanvasSize(168, 300);
+	MyGUI::StaticImagePtr image = view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 168, 300), MyGUI::ALIGN_DEFAULT);
+	image->setImageTexture("child.png");
+	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));
+	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));
+	image->addItemFrame(0, MyGUI::IntCoord(42*2, 0, 42, 75));
+	image->addItemFrame(0, MyGUI::IntCoord(42*3, 0, 42, 75));
+	image->addItemFrameDublicate(0, 0);
+	image->addItemFrameDublicate(0, 3);
+	image->setItemFrameRate(0, 0.15);
+	image->setItemSelect(0);
+
+	/*MyGUI::ProgressPtr progress = mGUI->createWidget<MyGUI::Progress>("Progress", MyGUI::IntCoord(100, 100, 42, 75), MyGUI::ALIGN_DEFAULT, "Main");
 	progress->setProgressAutoTrack(true);
 	progress->setNeedToolTip(true);
 
-	MyGUI::WidgetManager::getInstance().destroyWidget(progress);
+	MyGUI::WidgetManager::getInstance().destroyWidget(progress);*/
 
 }
 

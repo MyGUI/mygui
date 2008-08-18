@@ -1313,6 +1313,7 @@ namespace MyGUI
 		if (_showCursor && ( false == inside)) {
 
 			// горизонтальное смещение
+			// ??? проверить, помоему просто >
 			if (textSize.width >= view.width()) {
 				if (cursor.left < view.left) {
 					offset.left = point.left - (view.left - cursor.left);
@@ -1327,6 +1328,7 @@ namespace MyGUI
 			}
 
 			// вертикальное смещение
+			// ??? проверить, помоему просто >
 			if (textSize.height >= view.height()) {
 				if (cursor.top < view.top) {
 					offset.top = point.top - (view.top - cursor.top);

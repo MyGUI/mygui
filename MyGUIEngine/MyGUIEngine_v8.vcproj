@@ -247,6 +247,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ScrollView.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Sheet.cpp"
 					>
 				</File>
@@ -331,6 +335,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_RenderBoxFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ScrollViewFactory.cpp"
 						>
 					</File>
 					<File
@@ -601,6 +609,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ScrollView.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Sheet.h"
 					>
 				</File>
@@ -685,6 +697,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_RenderBoxFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ScrollViewFactory.h"
 						>
 					</File>
 					<File

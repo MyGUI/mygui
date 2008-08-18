@@ -1183,5 +1183,42 @@
         <Child type="Widget" skin="Default" offset = "2 0 18 15" align = "ALIGN_STRETCH" name = "Client"/>
     </Skin>
 
+
+    <Skin name = "ScrollView" size = "11 11" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
+        <Property key="NeedKey" value = "true" />
+
+        <Child type="VScroll" skin="VScroll" offset = "-9 3 15 -12" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll"/>
+        <Child type="HScroll" skin="HScroll" offset = "3 -9 -12 15" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "HScroll"/>
+        <Child type="Widget" skin="Default" offset = "3 3 -12 -12" align = "ALIGN_STRETCH" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "80 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "85 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 5 3" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "98 121 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 5 3" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "98 126 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 6 5 5" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "98 138 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 3 5" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "85 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 3 5" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "80 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "80 126 3 3"/>
+        </BasisSkin>
+        <_BasisSkin type="SubSkin" offset = "3 3 3 3" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "412 132 79 37"/>
+        </_BasisSkin>
+    </Skin>
+    
 </MyGUI>
 

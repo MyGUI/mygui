@@ -31,6 +31,7 @@
 #include "MyGUI_PopupMenuFactory.h"
 #include "MyGUI_MenuBarFactory.h"
 #include "MyGUI_ConsoleFactory.h"
+#include "MyGUI_ScrollViewFactory.h"
 
 namespace MyGUI
 {
@@ -66,6 +67,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
 		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
 		mIntegratedFactoryList.insert(new factory::ConsoleFactory());
+		mIntegratedFactoryList.insert(new factory::ScrollViewFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
