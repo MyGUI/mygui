@@ -12,20 +12,8 @@
 class DemoKeeper
 {
 public:
-	DemoKeeper();
-
-	void start(MyGUI::Gui * _gui, size_t _width, size_t _height);
+	void start();
 	void end();
-
-	void command(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);
-
-	void consolePressed();
-	void eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
-
-private:
-	MyGUI::Gui * mGUI;
-	size_t mWidth, mHeight;
-	MyGUI::ConsolePtr mConsole;
 
 };
 
