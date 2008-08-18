@@ -19,13 +19,13 @@ namespace MyGUI
 	class _MyGUIExport DelegateUnlink
 	{
 	public:
-		friend DelegateUnlink;
+		friend class DelegateUnlink;
 	public:
-		inline DelegateUnlink() { m_delegateUnlink = this; }
-		inline bool compare(DelegateUnlink * _unlink) { return m_delegateUnlink == _unlink->m_delegateUnlink; }
+		inline DelegateUnlink() { m_baseDelegateUnlink = this; }
+		inline bool compare(DelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
 
 	private:
-		DelegateUnlink * m_delegateUnlink;
+		DelegateUnlink * m_baseDelegateUnlink;
 	};
 
 	inline DelegateUnlink * GetDelegateUnlink(void * _base) { return 0; }
