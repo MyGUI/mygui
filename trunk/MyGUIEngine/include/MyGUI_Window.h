@@ -54,13 +54,21 @@ namespace MyGUI
 		/** Set minimal and maximal possible window size
 			@param _minmax First two values - min width and height, second - max width and height
 		*/
-		inline void setMinMax(IntRect _minmax) {mMinmax = _minmax;}
+		inline void setMinMax(const IntRect & _minmax) { mMinmax = _minmax; }
 		/** Set minimal and maximal possible window size
 			@param First two values - min width and height, second - max width and height
 		*/
-		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) {mMinmax.set(_min_h, _min_v, _max_h, _max_v);}
+		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) { mMinmax.set(_min_h, _min_v, _max_h, _max_v); }
       /** Get minimal and maximal possible window size */
-		inline IntRect getMinMax() {return mMinmax;}
+		inline const IntRect & getMinMax() {return mMinmax;}
+
+		inline void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
+		inline void setMinSize(int _width, int _height) { mMinmax.left = _width; mMinmax.top = _height; }
+		inline IntSize getMinSize() { return IntSize(mMinmax.left, mMinmax.top); }
+
+		inline void setMaxSize(const IntSize & _size) { mMinmax.right = _size.width; mMinmax.bottom = _size.height; }
+		inline void setMaxSize(int _width, int _height) { mMinmax.right = _width; mMinmax.bottom = _height; }
+		inline IntSize getMaxSize() { return IntSize(mMinmax.right, mMinmax.bottom); }
 
       //! @copydoc Widget::setPosition(const IntPoint& _pos)
 		virtual void setPosition(const IntPoint& _pos);

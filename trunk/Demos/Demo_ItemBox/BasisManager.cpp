@@ -178,7 +178,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 void BasisManager::createGui()
 {
 	mGUI = new MyGUI::Gui();
-	mGUI->initialise(mWindow, ""/*core.xml*/);
+	mGUI->initialise(mWindow, "core.xml");
 }
 
 void BasisManager::destroyGui()

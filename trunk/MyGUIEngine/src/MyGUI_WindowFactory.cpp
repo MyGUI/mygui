@@ -22,8 +22,10 @@ namespace MyGUI
 
 			// регестрируем все парсеры
 			manager.registerDelegate("Window_AutoAlpha") = newDelegate(this, &WindowFactory::Window_AutoAlpha);
-			manager.registerDelegate("Window_MinMax") = newDelegate(this, &WindowFactory::Window_MinMax);
 			manager.registerDelegate("Window_Snap") = newDelegate(this, &WindowFactory::Window_Snap);
+			manager.registerDelegate("Window_MinMax") = newDelegate(this, &WindowFactory::Window_MinMax);
+			manager.registerDelegate("Window_MinSize") = newDelegate(this, &WindowFactory::Window_MinSize);
+			manager.registerDelegate("Window_MaxSize") = newDelegate(this, &WindowFactory::Window_MaxSize);
 		}
 
 		WindowFactory::~WindowFactory()
@@ -34,8 +36,10 @@ namespace MyGUI
 
 			// удаляем все парсеры
 			manager.unregisterDelegate("Window_AutoAlpha");
-			manager.unregisterDelegate("Window_MinMax");
 			manager.unregisterDelegate("Window_Snap");
+			manager.unregisterDelegate("Window_MinMax");
+			manager.unregisterDelegate("Window_MinSize");
+			manager.unregisterDelegate("Window_MaxSize");
 		}
 
 		const Ogre::String& WindowFactory::getType()
@@ -48,22 +52,34 @@ namespace MyGUI
 			return new Window(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void WindowFactory::Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
-		{
-			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
-			static_cast<WindowPtr>(_widget)->setSnap(utility::parseBool(_value));
-		}
-
 		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setAutoAlpha(utility::parseBool(_value));
 		}
 
+		void WindowFactory::Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
+			static_cast<WindowPtr>(_widget)->setSnap(utility::parseBool(_value));
+		}
+
 		void WindowFactory::Window_MinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));
+		}
+
+		void WindowFactory::Window_MinSize(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
+			static_cast<WindowPtr>(_widget)->setMinSize(IntSize::parse(_value));
+		}
+
+		void WindowFactory::Window_MaxSize(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
+			static_cast<WindowPtr>(_widget)->setMaxSize(IntSize::parse(_value));
 		}
 
 	} // namespace factory
