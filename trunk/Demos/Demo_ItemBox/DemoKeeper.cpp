@@ -68,7 +68,7 @@ void DemoKeeper::start()
 {
 	// загружаем ресурсы для демо
 	// потом сделать и для мака
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demo_ItemBox", "FileSystem", "General");
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_ItemBox", "FileSystem", "General");
 
 	MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 	int width = (int)gui->getViewWidth();
