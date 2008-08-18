@@ -4,17 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUIEngine", "MyGUIEngine\MyGUIEngine_v8.vcproj", "{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LayoutEditor", "LayoutEditor\LayoutEditor_v8.vcproj", "{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773} = {6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "TestApp\TestApp_v8.vcproj", "{382942A7-8159-4340-A6D7-252E10064543}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A} = {0B1E368C-0E94-40DE-85D0-D0D00F43D57A}
-		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773} = {6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPlugin", "TestPlugin\TestPlugin_v8.vcproj", "{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}"
 EndProject
@@ -39,6 +33,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plugin_StrangeButton", "Plugins\Plugin_StrangeButton\Plugin_StrangeButton_v8.vcproj", "{D43133FF-CFE1-48B2-8529-8918A4C81B05}"
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
@@ -56,10 +54,6 @@ Global
 		{382942A7-8159-4340-A6D7-252E10064543}.Debug|Win32.Build.0 = Debug|Win32
 		{382942A7-8159-4340-A6D7-252E10064543}.Release|Win32.ActiveCfg = Release|Win32
 		{382942A7-8159-4340-A6D7-252E10064543}.Release|Win32.Build.0 = Release|Win32
-		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Debug|Win32.Build.0 = Debug|Win32
-		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Release|Win32.ActiveCfg = Release|Win32
-		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Release|Win32.Build.0 = Release|Win32
 		{27F56E63-8D84-4F8A-B060-BC9625D83364}.Debug|Win32.ActiveCfg = Debug|Win32
 		{27F56E63-8D84-4F8A-B060-BC9625D83364}.Debug|Win32.Build.0 = Debug|Win32
 		{27F56E63-8D84-4F8A-B060-BC9625D83364}.Release|Win32.ActiveCfg = Release|Win32
@@ -79,14 +73,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {FF04096E-87B7-4004-A8A7-A717FB699EB9}
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A} = {F0EE6C2D-8A03-483C-8F2E-4629A95F9835}
-		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773} = {04939F4A-5DB3-4EE4-A9CA-E72EFCDF4518}
 		{382942A7-8159-4340-A6D7-252E10064543} = {04939F4A-5DB3-4EE4-A9CA-E72EFCDF4518}
 		{27F56E63-8D84-4F8A-B060-BC9625D83364} = {53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}
 		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098} = {53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}
 		{D43133FF-CFE1-48B2-8529-8918A4C81B05} = {94EC4CB8-6C05-4159-B33F-790B101CFDF5}
-	EndGlobalSection
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
