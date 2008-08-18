@@ -15,6 +15,10 @@ class DemoKeeper
 public:
 	void start();
 	void end();
+
+private:
+	MyGUI::WidgetPtr m_button;
+
 };
 
 #endif // __DEMO_KEEPER_H__
