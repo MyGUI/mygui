@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
-	Name="TestPlugin"
-	ProjectGUID="{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}"
+	Version="8,00"
+	Name="Plugin_StrangeButton"
+	ProjectGUID="{D43133FF-CFE1-48B2-8529-8918A4C81B05}"
 	RootNamespace="TestPlugin"
 	Keyword="Win32Proj"
 	>
@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../Shared/$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include; include"
+				AdditionalIncludeDirectories="..\..\MyGUIEngine\include; include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS; MYGUI_NONCLIENT_BUILD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,7 +64,7 @@
 				ShowProgress="0"
 				OutputFile="$(OutDir)\TestPlugin_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -96,7 +96,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../Shared/$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -119,7 +119,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include; include"
+				AdditionalIncludeDirectories="..\..\MyGUIEngine\include; include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS;MYGUI_NONCLIENT_BUILD"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -140,7 +140,7 @@
 				AdditionalDependencies="MyGUI.lib OgreMain.lib OIS.lib"
 				OutputFile="$(OutDir)\TestPlugin.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -186,19 +186,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\StrangeButton.cpp"
+				RelativePath=".\StrangeButton.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\StrangeButtonFactory.cpp"
+				RelativePath=".\StrangeButtonFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\TestPlugin.cpp"
+				RelativePath=".\TestPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\TestPluginDLL.cpp"
+				RelativePath=".\TestPluginDLL.cpp"
 				>
 			</File>
 		</Filter>
@@ -208,15 +208,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\StrangeButton.h"
+				RelativePath=".\StrangeButton.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\StrangeButtonFactory.h"
+				RelativePath=".\StrangeButtonFactory.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\TestPlugin.h"
+				RelativePath=".\TestPlugin.h"
 				>
 			</File>
 		</Filter>
