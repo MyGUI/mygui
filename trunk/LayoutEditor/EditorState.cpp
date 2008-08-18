@@ -1342,6 +1342,8 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
 		allWidgetsCombo->setCaption(getDescriptionString(current_widget, print_name, print_type, print_skin));
 
+		ew->widgets_changed = true;
+
 		return;
 	}
 	else if (action == "Skin")
