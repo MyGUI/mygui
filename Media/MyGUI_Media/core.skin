@@ -1442,58 +1442,5 @@
         </BasisSkin>
     </Skin>
 	
-    <Skin name = "Console" size = "27 54" texture = "core.png" >
-        <Property key="ToStick" value = "true" />
-
-        <Property key="Current" value = "#0000FFcurrent : #000000" />
-        <Property key="Error" value = "#FF0000error parse : #000000" />
-        <Property key="Success" value = "#00FF00success parse : #000000" />
-        <Property key="Unknow" value = "#FF0000unknow command : #000000" />
-        <Property key="Format" value = "#00FFFFformat : #000000" />
-
-        <Child type="Button" skin="WindowCaption" offset = "3 0 -6 30" align = "ALIGN_HSTRETCH ALIGN_TOP" name = "Caption">
-            <Property key="Scale" value = "1 1 0 0"/>
-        </Child>
-
-        <Child type="Button" skin="WindowX" offset = "-3 0 24 30" align = "ALIGN_RIGHT ALIGN_TOP" name = "Button">
-            <Property key="Event" value = "close"/>
-        </Child>
-
-        <Child type="Button" skin="WindowResize" offset = "12 39 12 12" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Action">
-            <Property key="Scale" value = "0 0 1 1"/>
-        </Child>
-
-        <Child type="List" skin="List" offset = "3 30 18 -8" align = "ALIGN_STRETCH" name = "Console_List">
-        </Child>
-
-        <Child type="ComboBox" skin="ComboBox" offset = "3 22 -40 26" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "Console_Command">
-        </Child>
-
-        <Child type="Button" skin="ButtonSmall" offset = "-37 22 58 26" align = "ALIGN_RIGHT ALIGN_BOTTOM" name = "Console_Send">
-        </Child>
-
-        <BasisSkin type="SubSkin" offset = "0 0 3 30" align = "ALIGN_LEFT ALIGN_TOP">
-            <State name="normal" offset = "377 2 3 30"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "21 0 6 30" align = "ALIGN_RIGHT ALIGN_TOP">
-            <State name="normal" offset = "398 2 6 30"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "21 30 6 18" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
-            <State name="normal" offset = "398 32 6 18"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "21 48 6 6" align = "ALIGN_RIGHT ALIGN_BOTTOM">
-            <State name="normal" offset = "398 50 6 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "3 48 18 6" align = "ALIGN_BOTTOM ALIGN_HSTRETCH">
-            <State name="normal" offset = "380 50 18 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "0 48 3 6" align = "ALIGN_LEFT ALIGN_BOTTOM">
-            <State name="normal" offset = "377 50 3 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset = "0 30 3 18" align = "ALIGN_LEFT ALIGN_VSTRETCH">
-            <State name="normal" offset = "377 32 3 18"/>
-        </BasisSkin>
-    </Skin>
-    
- </MyGUI>
+</MyGUI>
 
