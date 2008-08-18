@@ -100,13 +100,13 @@ namespace MyGUI
 		}
 
 		/** Get width of GUI area */
-		inline float getViewWidth() {return mViewSize.width;}
+		inline int getViewWidth() { return mViewSize.width; }
 		/** Get height of GUI area */
-		inline float getViewHeight() {return mViewSize.height;}
+		inline int getViewHeight() { return mViewSize.height; }
 		/** Get aspect of GUI area */
-		inline float getViewAspect() {return mViewSize.width / mViewSize.height;}
+		inline float getViewAspect() { return mViewSize.width / mViewSize.height; }
 		/** Get view size of GUI area */
-		inline const FloatSize& getViewSize() {return mViewSize;}
+		inline IntSize getViewSize() { return IntSize(mViewSize.width, mViewSize.height); }
 
 		/** Add GUI frame listener */
 		//void addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget);

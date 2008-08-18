@@ -185,7 +185,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Common\BaseLayout.cpp"
+				RelativePath="..\..\Common\BaseLayout.cpp"
 				>
 			</File>
 			<File
@@ -227,7 +227,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Common\BaseLayout.h"
+				RelativePath="..\..\Common\BaseLayout.h"
 				>
 			</File>
 			<File
