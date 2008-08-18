@@ -20,8 +20,8 @@ void DemoKeeper::start()
 	PluginManager::getInstance().loadPlugin("Plugin_StrangeButton.dll");
 #endif
 
-	ButtonPtr button = castWidget<Button>(Gui::getInstance().createWidgetT("StrangeButton", "Button", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main"));
-	button->setCaption("Plugin StrangeButton demo");
+	m_button = Gui::getInstance().createWidgetT("StrangeButton", "Button", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main");
+	m_button->setCaption("Plugin StrangeButton demo");
 
 }
 
@@ -29,7 +29,7 @@ void DemoKeeper::end()
 {
 	using namespace MyGUI;
 
-	Gui::getInstance().destroyAllChildWidget();
+	Gui::getInstance().destroyChildWidget(m_button);
 
 #ifdef _DEBUG
 	PluginManager::getInstance().unloadPlugin("Plugin_StrangeButton_d.dll");
