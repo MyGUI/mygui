@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="168 72 416 318" layer="Back" name="_Main">
+        <Property key="Widget_Caption" value="Console"/>
+        <Property key="Window_MinMax" value="200 100 2000 2000"/>
+        <Widget type="List" skin="List" position="4 4 401 245" align="ALIGN_STRETCH" name="list_History"/>
+        <Widget type="Edit" skin="Edit" position="5 254 305 26" align="ALIGN_HSTRETCH ALIGN_BOTTOM" name="edit_Command"/>
+        <Widget type="Button" skin="Button" position="313 254 91 26" align="ALIGN_RIGHT ALIGN_BOTTOM" name="button_Submit">
+            <Property key="Widget_Caption" value="Submit"/>
+        </Widget>
+    </Widget>
+</MyGUI>

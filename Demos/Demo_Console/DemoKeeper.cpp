@@ -9,7 +9,7 @@
 
 void DemoKeeper::start()
 {
-	using namespace MyGUI;
+	/*using namespace MyGUI;
 	const IntSize & view = Gui::getInstance().getViewSize();
 	const IntSize size(600, 300);
 
@@ -20,7 +20,7 @@ void DemoKeeper::start()
 
 	scroll_view->setCanvasSize(512, 256);
 	StaticImagePtr image = scroll_view->createWidget<StaticImage>("StaticImage", IntCoord(0, 0, 512, 256), ALIGN_DEFAULT);
-	image->setImageTexture("Ogre.png");
+	image->setImageTexture("Ogre.png");*/
 }
 
 void DemoKeeper::end()
