@@ -72,7 +72,6 @@ namespace MyGUI
 		class FooBarFactory;
 		class PopupMenuFactory;
 		class MenuBarFactory;
-		class ConsoleFactory;
 		class ScrollViewFactory;
 	}
 
@@ -96,7 +95,6 @@ namespace MyGUI
 	class FooBar;
 	class PopupMenu;
 	class MenuBar;
-	class Console;
 	class ScrollView;
 
 	typedef Widget * WidgetPtr;
@@ -119,7 +117,6 @@ namespace MyGUI
 	typedef FooBar * FooBarPtr;
 	typedef PopupMenu * PopupMenuPtr;
 	typedef MenuBar * MenuBarPtr;
-	typedef Console * ConsolePtr;
 	typedef ScrollView * ScrollViewPtr;
 
 	// Define version
