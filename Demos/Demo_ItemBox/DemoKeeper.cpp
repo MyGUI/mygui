@@ -50,9 +50,9 @@ void DemoKeeper::notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _r
 
 void DemoKeeper::notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info)
 {
-	if (_info.index != MyGUI::ITEM_NONE) {
+	/*if (_info.index != MyGUI::ITEM_NONE) {
 		((BaseItemBox<CellView>*)_sender)->removeItem(_info.index);
-	}
+	}*/
 }
 
 void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropState _state)
@@ -66,6 +66,10 @@ void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropState _state)
 
 void DemoKeeper::start()
 {
+	// загружаем ресурсы для демо
+	// потом сделать и для мака
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demo_ItemBox", "FileSystem", "General");
+
 	MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 	int width = (int)gui->getViewWidth();
 	int height = (int)gui->getViewHeight();

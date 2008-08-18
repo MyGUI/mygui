@@ -320,7 +320,7 @@ namespace MyGUI
 
 	IntCoord Gui::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
 	{
-		const FloatSize& size = getViewSize();
+		const FloatSize size(getViewWidth(), getViewHeight());
 		if (null == _parent) {
 			return IntCoord(_coord.left * size.width, _coord.top * size.height, _coord.width * size.width, _coord.height * size.height);
 		}
@@ -330,7 +330,7 @@ namespace MyGUI
 
 	FloatCoord Gui::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
 	{
-		const FloatSize& size = getViewSize();
+		const FloatSize size(getViewWidth(), getViewHeight());
 		if (null == _parent) {
 			return FloatCoord(_coord.left / size.width, _coord.top / size.height, _coord.width / size.width, _coord.height / size.height);
 		}
