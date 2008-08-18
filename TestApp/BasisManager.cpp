@@ -263,7 +263,7 @@ void BasisManager::setupResources(void) // загружаем все ресурсы приложения
 
 void BasisManager::createScene()
 {
-	mDemo.start(mGUI, mWidth, mHeight);
+	mDemo.start();
 }
 
 bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
@@ -342,10 +342,6 @@ bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 
 bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 {
-	if ( arg.key == OIS::KC_GRAVE ) {
-		//mDemo.consolePressed();
-	}
-
 	mGUI->injectKeyRelease(arg);
 	return true;
 }
