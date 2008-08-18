@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="TestApp"
-	ProjectGUID="{382942A7-8159-4340-A6D7-252E10064543}"
-	RootNamespace="TestApp"
+	Name="Demo_ScrollView"
+	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
+	RootNamespace="Demo_ScrollView"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -13,21 +13,22 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../Shared/$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -35,10 +36,9 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
-				OptimizeForWindows98="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -63,18 +63,20 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../Shared/$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -82,7 +84,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -111,9 +113,6 @@
 		</Configuration>
 	</Configurations>
 	<References>
-		<ProjectReference
-			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-			Name="MyGUIEngine"/>
 	</References>
 	<Files>
 		<Filter
@@ -141,13 +140,13 @@
 		<Filter
 			Name="Resource">
 			<File
+				RelativePath=".\Demo_ScrollView.rc">
+			</File>
+			<File
 				RelativePath=".\mygui.ico">
 			</File>
 			<File
 				RelativePath=".\resource.h">
-			</File>
-			<File
-				RelativePath=".\TestApp.rc">
 			</File>
 		</Filter>
 	</Files>

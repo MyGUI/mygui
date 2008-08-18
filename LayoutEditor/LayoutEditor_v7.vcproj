@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -71,7 +71,7 @@
 			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="TRUE"
@@ -123,10 +123,16 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\Common\BaseLayout.cpp">
+			</File>
+			<File
 				RelativePath=".\BasisManager.cpp">
 			</File>
 			<File
 				RelativePath=".\EditorState.cpp">
+			</File>
+			<File
+				RelativePath=".\EditorToolTip.cpp">
 			</File>
 			<File
 				RelativePath=".\InputManager.cpp">
@@ -146,10 +152,16 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath="..\Common\BaseLayout.h">
+			</File>
+			<File
 				RelativePath=".\BasisManager.h">
 			</File>
 			<File
 				RelativePath=".\EditorState.h">
+			</File>
+			<File
+				RelativePath=".\EditorToolTip.h">
 			</File>
 			<File
 				RelativePath=".\InputManager.h">
@@ -175,6 +187,12 @@
 			<File
 				RelativePath=".\LayoutEditor.rc">
 			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\settings.xml">
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\widgets.xml">
+			</File>
 		</Filter>
 		<Filter
 			Name="Layout">
@@ -183,12 +201,6 @@
 			</File>
 			<File
 				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout">
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\settings.xml">
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\widgets.xml">
 			</File>
 		</Filter>
 	</Files>

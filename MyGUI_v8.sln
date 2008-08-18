@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Editors", "Editors", "{F0EE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{04939F4A-5DB3-4EE4-A9CA-E72EFCDF4518}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_ScrollView", "Demos\Demo_ScrollView\Demo_ScrollView.vcproj", "{27F56E63-8D84-4F8A-B060-BC9625D83364}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_ScrollView", "Demos\Demo_ScrollView\Demo_ScrollView_v8.vcproj", "{27F56E63-8D84-4F8A-B060-BC9625D83364}"
 	ProjectSection(ProjectDependencies) = postProject
 		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
 	EndProjectSection

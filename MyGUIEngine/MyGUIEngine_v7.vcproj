@@ -168,6 +168,9 @@
 					RelativePath=".\src\MyGUI_RenderBox.cpp">
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ScrollView.cpp">
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Sheet.cpp">
 				</File>
 				<File
@@ -231,6 +234,9 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_RenderBoxFactory.cpp">
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ScrollViewFactory.cpp">
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_SheetFactory.cpp">
@@ -434,6 +440,9 @@
 					RelativePath=".\include\MyGUI_RenderBox.h">
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ScrollView.h">
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Sheet.h">
 				</File>
 				<File
@@ -499,6 +508,9 @@
 						RelativePath=".\include\MyGUI_RenderBoxFactory.h">
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_ScrollViewFactory.h">
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_SheetFactory.h">
 					</File>
 					<File
@@ -534,6 +546,9 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_DynLib.h">
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_Enumerator.h">
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_Font.h">

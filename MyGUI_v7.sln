@@ -19,7 +19,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPlugin", "TestPlugin\Te
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_ItemBox", "Demo_ItemBox\Demo_ItemBox_v7.vcproj", "{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_ScrollView", "Demos\Demo_ScrollView\Demo_ScrollView_v7.vcproj", "{27F56E63-8D84-4F8A-B060-BC9625D83364}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_ItemBox", "Demos\Demo_ItemBox\Demo_ItemBox_v7.vcproj", "{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
 	EndProjectSection
@@ -48,10 +57,6 @@ Global
 		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Debug.Build.0 = Debug|Win32
 		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Release.ActiveCfg = Release|Win32
 		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Release.Build.0 = Release|Win32
-		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}.Debug.ActiveCfg = Debug|Win32
-		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}.Debug.Build.0 = Debug|Win32
-		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}.Release.ActiveCfg = Release|Win32
-		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
@@ -78,6 +83,10 @@ Global
 		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Debug|Win32.Build.0 = Debug|Win32
 		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Release|Win32.ActiveCfg = Release|Win32
 		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773}.Release|Win32.Build.0 = Release|Win32
+		{27F56E63-8D84-4F8A-B060-BC9625D83364}.Debug|Win32.ActiveCfg = Debug|Win32
+		{27F56E63-8D84-4F8A-B060-BC9625D83364}.Debug|Win32.Build.0 = Debug|Win32
+		{27F56E63-8D84-4F8A-B060-BC9625D83364}.Release|Win32.ActiveCfg = Release|Win32
+		{27F56E63-8D84-4F8A-B060-BC9625D83364}.Release|Win32.Build.0 = Release|Win32
 		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}.Debug|Win32.Build.0 = Debug|Win32
 		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098}.Release|Win32.ActiveCfg = Release|Win32
@@ -87,10 +96,15 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098} = {53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}
 		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {FF04096E-87B7-4004-A8A7-A717FB699EB9}
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A} = {F0EE6C2D-8A03-483C-8F2E-4629A95F9835}
-		{382942A7-8159-4340-A6D7-252E10064543} = {04939F4A-5DB3-4EE4-A9CA-E72EFCDF4518}
 		{6EEC27FD-7CC5-4AB0-9D26-0E038C4BB773} = {04939F4A-5DB3-4EE4-A9CA-E72EFCDF4518}
+		{382942A7-8159-4340-A6D7-252E10064543} = {04939F4A-5DB3-4EE4-A9CA-E72EFCDF4518}
+		{27F56E63-8D84-4F8A-B060-BC9625D83364} = {53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}
+		{8B3B5565-5D4A-4EED-A6B9-9FDB521A5098} = {53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
