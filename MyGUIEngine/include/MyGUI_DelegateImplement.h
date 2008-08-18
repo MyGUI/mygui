@@ -203,7 +203,7 @@ namespace delegates
 		}
 
 		bool empty()
-		{z
+		{
 			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if (*iter) return false;
 			}
