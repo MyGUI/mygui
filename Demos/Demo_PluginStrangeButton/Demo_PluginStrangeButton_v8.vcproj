@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8,00"
 	Name="Demo_PluginStrangeButton"
-	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
+	ProjectGUID="{7E1D6F51-4042-4ACF-A189-96C9D4E33D56}"
 	RootNamespace="Demo_ScrollView"
 	Keyword="Win32Proj"
 	>
@@ -207,7 +207,7 @@
 			Name="Resource"
 			>
 			<File
-				RelativePath=".\Demo_ScrollView.rc"
+				RelativePath=".\Demo_PluginStrangeButton.rc"
 				>
 			</File>
 			<File

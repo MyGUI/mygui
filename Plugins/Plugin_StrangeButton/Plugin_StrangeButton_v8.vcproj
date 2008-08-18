@@ -62,7 +62,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI_d.lib OgreMain_d.lib OIS_d.lib"
 				ShowProgress="0"
-				OutputFile="$(OutDir)\TestPlugin_d.dll"
+				OutputFile="$(OutDir)\Plugin_StrangeButton_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -138,7 +138,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI.lib OgreMain.lib OIS.lib"
-				OutputFile="$(OutDir)\TestPlugin.dll"
+				OutputFile="$(OutDir)\Plugin_StrangeButton.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -186,19 +186,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Plugin_StrangeButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PluginDLL.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\StrangeButton.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\StrangeButtonFactory.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TestPlugin.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TestPluginDLL.cpp"
 				>
 			</File>
 		</Filter>
@@ -208,15 +208,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Plugin_StrangeButton.h"
+				>
+			</File>
+			<File
 				RelativePath=".\StrangeButton.h"
 				>
 			</File>
 			<File
 				RelativePath=".\StrangeButtonFactory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TestPlugin.h"
 				>
 			</File>
 		</Filter>
