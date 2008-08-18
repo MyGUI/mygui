@@ -9,7 +9,6 @@
 	    <List file="core.skin" group="General"/>
 	    <List file="core.font" group="General"/>
 	    <List file="core.pointer" group="General"/>
-	    <List file="core.plugin"/>
 
 	    <List file="core_new.skin" group="General"/>
 	    <List file="core_new.pointer" group="General"/>
