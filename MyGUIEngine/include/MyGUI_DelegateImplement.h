@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "assert.h"
 #include <list>
 
 namespace delegates
@@ -204,7 +203,8 @@ namespace delegates
 
 		bool empty()
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+			typename ListDelegate::iterator iter;
+			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if (*iter) return false;
 			}
 			return true;
@@ -212,7 +212,8 @@ namespace delegates
 
 		void clear()
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+			typename ListDelegate::iterator iter;
+			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if (*iter) {
 					delete (*iter);
 					(*iter) = 0;
@@ -222,7 +223,8 @@ namespace delegates
 
 		void clear(DelegateUnlink * _unlink)
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+			typename ListDelegate::iterator iter;
+			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_unlink)) {
 					delete (*iter);
 					(*iter) = 0;
@@ -232,9 +234,10 @@ namespace delegates
 
 		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator+=(IDelegate* _delegate)
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+			typename ListDelegate::iterator iter;
+			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_delegate)) {
-					assert("dublicate delegate");
+                                  assert("dublicate delegate");
 				}
 			}
 			mListDelegates.push_back(_delegate);
@@ -243,7 +246,8 @@ namespace delegates
 
 		C_MULTI_DELEGATE<TEMPLATE_ARGS>& operator-=(IDelegate* _delegate)
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+			typename ListDelegate::iterator iter;
+			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_delegate)) {
 					// проверяем на идентичность делегатов
 					if ((*iter) != _delegate) delete (*iter);
@@ -257,7 +261,7 @@ namespace delegates
 
 		void operator()(PARAMS)
 		{
-			ListDelegate::iterator iter=mListDelegates.begin();
+			typename ListDelegate::iterator iter=mListDelegates.begin();
 			while (iter != mListDelegates.end()) {
 				if (0 == (*iter)) iter = mListDelegates.erase(iter);
 				else {

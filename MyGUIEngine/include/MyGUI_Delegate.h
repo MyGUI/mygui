@@ -7,6 +7,8 @@
 #ifndef __MYGUI_DELEGATE_H__
 #define __MYGUI_DELEGATE_H__
 
+#include <assert.h>
+
 // source
 // http://rsdn.ru/article/cpp/delegates.xml
 
@@ -18,8 +20,6 @@ namespace MyGUI
 	class DelegateUnlink;
 	class _MyGUIExport DelegateUnlink
 	{
-	public:
-		friend class DelegateUnlink;
 	public:
 		inline DelegateUnlink() { m_baseDelegateUnlink = this; }
 		inline bool compare(DelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
