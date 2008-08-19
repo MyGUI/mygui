@@ -116,7 +116,7 @@ namespace MyGUI
 			// change '\n' on char 10
 			size_t pos = _value.find("\\n");
 			if (pos == std::string::npos) {
-				_widget->setCaption(mNeedTranslate ? LanguageManager::getInstance().replaceTags(_value) : _value);
+				_widget->setCaption(mNeedTranslate ? LanguageManager::getInstance().replaceTags(_value) : Ogre::UTFString(_value));
 			}
 			else {
 				std::string value(_value);
@@ -125,7 +125,7 @@ namespace MyGUI
 					value.erase(pos, 1);
 					pos = value.find("\\n");
 				}
-				_widget->setCaption(mNeedTranslate ? LanguageManager::getInstance().replaceTags(value) : value);
+				_widget->setCaption(mNeedTranslate ? LanguageManager::getInstance().replaceTags(value) : Ogre::UTFString(value));
 			}
 		}
 
