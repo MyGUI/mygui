@@ -1,0 +1,1 @@
+SUBDIRS = Demo_Console Demo_ItemBox Demo_PluginStrangeButton Demo_ScrollView Demo_StaticImage
