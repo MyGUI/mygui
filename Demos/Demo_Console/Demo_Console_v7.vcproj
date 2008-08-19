@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="Demo_Console"
-	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
+	ProjectGUID="{691EEDDA-B30E-4DB9-B99D-6FC45E620B40}"
 	RootNamespace="Demo_ScrollView"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -120,7 +120,13 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\..\Common\BaseLayout.cpp">
+			</File>
+			<File
 				RelativePath=".\BasisManager.cpp">
+			</File>
+			<File
+				RelativePath=".\Console.cpp">
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.cpp">
@@ -131,7 +137,13 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath="..\..\Common\BaseLayout.h">
+			</File>
+			<File
 				RelativePath=".\BasisManager.h">
+			</File>
+			<File
+				RelativePath=".\Console.h">
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h">
@@ -140,7 +152,7 @@
 		<Filter
 			Name="Resource">
 			<File
-				RelativePath=".\Demo_ScrollView.rc">
+				RelativePath=".\Demo_Console.rc">
 			</File>
 			<File
 				RelativePath=".\mygui.ico">
