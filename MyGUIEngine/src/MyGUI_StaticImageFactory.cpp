@@ -29,6 +29,7 @@ namespace MyGUI
 			manager.registerDelegate("Image_Index") = newDelegate(this, &StaticImageFactory::Image_Index);
 			manager.registerDelegate("Image_Name") = newDelegate(this, &StaticImageFactory::Image_Name);
 			manager.registerDelegate("Image_MapNames") = newDelegate(this, &StaticImageFactory::Image_MapNames);
+			manager.registerDelegate("Image_AddItemInfo") = newDelegate(this, &StaticImageFactory::Image_AddItemInfo);
 		}
 
 		StaticImageFactory::~StaticImageFactory()
@@ -46,6 +47,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Image_Index");
 			manager.unregisterDelegate("Image_Name");
 			manager.unregisterDelegate("Image_MapNames");
+			manager.unregisterDelegate("Image_AddItemInfo");
 		}
 
 		const Ogre::String& StaticImageFactory::getType()
@@ -98,6 +100,12 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->addItemNames(_value);
+		}
+
+		void StaticImageFactory::Image_AddItemInfo(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			static_cast<StaticImagePtr>(_widget)->addItemInfo(_value);
 		}
 
 	} // namespace factory

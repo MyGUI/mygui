@@ -377,4 +377,31 @@ namespace MyGUI
 		}
 	}
 
+	void StaticImage::addItemInfo(const std::string & _info)
+	{
+		typedef std::vector<std::string> VectorString;
+
+		VectorString split = utility::split(_info, "|");
+		if (split.size() < 3) {
+			MYGUI_LOG(Warning, "StaticImage::addItemInfo - error parse '" << _info << "'");
+			return;
+		}
+
+		VectorString::iterator iter = split.begin();
+		float rate = utility::parseFloat(*iter);
+		++iter;
+		IntSize size = IntSize::parse(*iter);
+		++iter;
+		IntPoint point = IntPoint::parse(*iter);
+		++iter;
+
+		addItem(IntCoord(point, size));
+		size_t index = mItems.size() - 1;
+		setItemFrameRate(index, rate);
+
+		for (;iter!=split.end(); ++iter) {
+			addItemFrame(index, MyGUI::IntCoord(IntPoint::parse(*iter), size));
+		}
+	}
+
 } // namespace MyGUI
