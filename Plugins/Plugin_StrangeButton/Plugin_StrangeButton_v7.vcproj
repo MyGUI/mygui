@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="Demo_StaticImage"
-	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
-	RootNamespace="Demo_ScrollView"
+	Name="Plugin_StrangeButton"
+	ProjectGUID="{D43133FF-CFE1-48B2-8529-8918A4C81B05}"
+	RootNamespace="TestPlugin"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -14,27 +14,28 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="../../Shared/$(ConfigurationName)"
-			IntermediateDirectory="obj\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2">
+			IntermediateDirectory="obj/$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="..\..\MyGUIEngine\include; include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS; MYGUI_NONCLIENT_BUILD"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
+				AdditionalDependencies="MyGUI_d.lib OgreMain_d.lib OIS_d.lib"
+				ShowProgress="0"
+				OutputFile="$(OutDir)\Plugin_StrangeButton_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
@@ -64,25 +65,25 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="../../Shared/$(ConfigurationName)"
-			IntermediateDirectory="obj\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2"
+			IntermediateDirectory="obj/$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="1"
 			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="..\..\MyGUIEngine\include; include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS;MYGUI_NONCLIENT_BUILD"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
+				AdditionalDependencies="MyGUI.lib OgreMain.lib OIS.lib"
+				OutputFile="$(OutDir)\Plugin_StrangeButton.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
@@ -113,6 +114,9 @@
 		</Configuration>
 	</Configurations>
 	<References>
+		<ProjectReference
+			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
+			Name="MyGUIEngine"/>
 	</References>
 	<Files>
 		<Filter
@@ -120,10 +124,16 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\BasisManager.cpp">
+				RelativePath=".\Plugin_StrangeButton.cpp">
 			</File>
 			<File
-				RelativePath=".\DemoKeeper.cpp">
+				RelativePath=".\PluginDLL.cpp">
+			</File>
+			<File
+				RelativePath=".\StrangeButton.cpp">
+			</File>
+			<File
+				RelativePath=".\StrangeButtonFactory.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -131,22 +141,13 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\BasisManager.h">
+				RelativePath=".\Plugin_StrangeButton.h">
 			</File>
 			<File
-				RelativePath=".\DemoKeeper.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource">
-			<File
-				RelativePath=".\Demo_StaticImage.rc">
+				RelativePath=".\StrangeButton.h">
 			</File>
 			<File
-				RelativePath=".\mygui.ico">
-			</File>
-			<File
-				RelativePath=".\resource.h">
+				RelativePath=".\StrangeButtonFactory.h">
 			</File>
 		</Filter>
 	</Files>
