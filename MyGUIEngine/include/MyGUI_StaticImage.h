@@ -131,6 +131,10 @@ namespace MyGUI
 		inline void addItemName(const std::string & _name, size_t _index) { mMapIndexName[_name] = _index; }
 		void addItemNames(const std::string & _name);
 
+		// добавляет анимационыый или обычный индекс
+		// формат : "rate | size | point1 | point2 | ... "
+		void addItemInfo(const std::string & _info);
+
 	private:
 		void frameEntered(float _frame);
 
