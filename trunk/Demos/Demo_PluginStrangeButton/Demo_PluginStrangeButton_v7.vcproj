@@ -140,7 +140,7 @@
 		<Filter
 			Name="Resource">
 			<File
-				RelativePath=".\Demo_ScrollView.rc">
+				RelativePath=".\Demo_PluginStrangeButton.rc">
 			</File>
 			<File
 				RelativePath=".\mygui.ico">
