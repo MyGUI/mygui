@@ -9,8 +9,6 @@ libmygui_la_SOURCES = \
 	MyGUI_ColourRect.cpp\
 	MyGUI_ComboBox.cpp\
 	MyGUI_ComboBoxFactory.cpp\
-	MyGUI_Console.cpp\
-	MyGUI_ConsoleFactory.cpp\
 	MyGUI_ControllerEdgeHide.cpp\
 	MyGUI_ControllerFadeAlpha.cpp\
 	MyGUI_ControllerManager.cpp\
@@ -59,6 +57,8 @@ libmygui_la_SOURCES = \
 	MyGUI_RenderItem.cpp\
 	MyGUI_RenderOut.cpp\
 	MyGUI_ResourcePath.cpp\
+	MyGUI_ScrollView.cpp\
+	MyGUI_ScrollViewFactory.cpp\
 	MyGUI_Sheet.cpp\
 	MyGUI_SheetFactory.cpp\
 	MyGUI_SimpleText.cpp\

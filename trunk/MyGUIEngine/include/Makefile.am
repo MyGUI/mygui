@@ -10,8 +10,6 @@ pkginclude_HEADERS = \
 	MyGUI_ComboBoxFactory.h\
 	MyGUI_ComboBox.h\
 	MyGUI_Common.h\
-	MyGUI_Console.h\
-	MyGUI_ConsoleFactory.h\
 	MyGUI_ControllerEdgeHide.h\
 	MyGUI_ControllerFadeAlpha.h\
 	MyGUI_ControllerItem.h\
@@ -28,6 +26,7 @@ pkginclude_HEADERS = \
 	MyGUI_Edit.h\
 	MyGUI_EditText.h\
 	MyGUI_EnumCharInfo.h\
+	MyGUI_Enumerator.h\
 	MyGUI_Font.h\
 	MyGUI_FontManager.h\
 	MyGUI_FooBarFactory.h\
@@ -78,6 +77,8 @@ pkginclude_HEADERS = \
 	MyGUI_RenderItem.h\
 	MyGUI_RenderOut.h\
 	MyGUI_ResourcePath.h\
+	MyGUI_ScrollViewFactory.h\
+	MyGUI_ScrollView.h\
 	MyGUI_SheetFactory.h\
 	MyGUI_Sheet.h\
 	MyGUI_SimpleText.h\
