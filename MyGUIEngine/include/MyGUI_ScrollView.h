@@ -44,17 +44,26 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 
+		/** Show VScroll when canvas size larger than ScrollView */
 		inline void showVScroll(bool _show) { mShowVScroll = _show; updateView(); }
+		/** Get Show VScroll flag */
 		inline bool isShowVScroll() { return mShowVScroll; }
 
+		/** Show HScroll when canvas size larger than ScrollView */
 		inline void showHScroll(bool _show) { mShowHScroll = _show; updateView(); }
+		/** Get Show HScroll flag */
 		inline bool isShowHScroll() { return mShowHScroll; }
 
+		/** Get canvas align */
 		inline Align getCanvasAlign() { return mAlignCanvas; }
+		/** Set canvas align */
 		inline void setCanvasAlign(Align _align) { mAlignCanvas = _align; updateView(); }
 
+		/** Get canvas size */
 		inline IntSize getCanvasSize() { return mWidgetCanvas->getSize(); }
+		/** Set canvas size */
 		inline void setCanvasSize(const IntSize & _size) { mWidgetCanvas->setSize(_size); updateView(); }
+		/** Set canvas size */
 		inline void setCanvasSize(int _left, int _top) { mWidgetCanvas->setSize(_left, _top); updateView(); }
 
 		// переопределяем для присвоению холста

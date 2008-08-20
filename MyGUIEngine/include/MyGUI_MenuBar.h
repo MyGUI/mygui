@@ -61,6 +61,7 @@ namespace MyGUI
 		//! Get item from specified position
 		const Ogre::UTFString & getItemName(size_t _index);
 
+		/** Get PopupMenu for _index button */
 		PopupMenuPtr getItemMenu(size_t _index);
 
 		//! Delete item at a specified position
