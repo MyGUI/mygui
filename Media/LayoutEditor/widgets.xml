@@ -104,6 +104,12 @@
     <Parameter key="RenderBox_ViewScale" value="Bool"/>
   </Widget>
 
+  <Widget name="ScrollView">
+    <Property key="DefaultSkin" value="ScrollView"/>
+    <Property key="Skin" value="ScrollView"/>
+    <Property key="Parent" value="true"/>
+  </Widget>
+
   <Widget name="Sheet">
     <Property key="DefaultSkin" value="Default"/>
     <Property key="Parent" value="true"/>
