@@ -187,10 +187,14 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(int _width, int _height)
 		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
+		/** Show VScroll when text size larger than Edit */
 		inline void showVScroll(bool _show) { mShowVScroll = _show; updateView(false); }
+		/** Get Show VScroll flag */
 		inline bool isShowVScroll() { return mShowVScroll; }
 
+		/** Show HScroll when text size larger than Edit */
 		inline void showHScroll(bool _show) { mShowHScroll = _show; updateView(false); }
+		/** Get Show HScroll flag */
 		inline bool isShowHScroll() { return mShowHScroll; }
 
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
