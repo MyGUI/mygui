@@ -51,6 +51,7 @@ namespace MyGUI
 		//! Get image index
 		size_t getImageIndex();
 
+		//! @copydoc Widget::setEnabled(bool _enabled)
 		virtual void setEnabled(bool _enabled);
 
 	protected:
