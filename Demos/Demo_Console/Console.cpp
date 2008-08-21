@@ -135,7 +135,7 @@ void Console::clearConsole()
 	mListHistory->deleteAllItems();
 }
 
-void Console::registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate, const Ogre::UTFString & _format)
+void Console::registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate)
 {
 	mComboCommand->addItem(_command);
 	MapDelegate::iterator iter = mDelegates.find(_command);
@@ -143,29 +143,11 @@ void Console::registerConsoleDelegate(const Ogre::UTFString & _command, Delegate
 		MYGUI_LOG(Warning, "console - command '" << _command << "' already exist");
 	}
 	mDelegates[_command] = _delegate;
-	if ( ! _format.empty()) mFormates[_command] = _format;
 }
 
 void Console::internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 {
 	if (_key == "clear") {
 		clearConsole();
-	}
-}
-
-void Console::printCommandFormat(const Ogre::UTFString & _command)
-{
-	MapFormat::iterator iter = mFormates.find(_command);
-	if (iter != mFormates.end()) addToConsole(getConsoleStringFormat() + iter->second);
-	else addToConsole(getConsoleStringFormat() + "not found");
-}
-
-const Ogre::UTFString & Console::getCommandFormat(const Ogre::UTFString & _command)
-{
-	MapFormat::iterator iter = mFormates.find(_command);
-	if (iter != mFormates.end()) return iter->second;
-	else {
-		static Ogre::UTFString empty;
-		return empty;
 	}
 }
