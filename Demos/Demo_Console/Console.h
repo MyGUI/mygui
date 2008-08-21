@@ -32,9 +32,6 @@ public:
 	}
 
 	void clearConsole();
-	void printCommandFormat(const Ogre::UTFString & _command);
-
-	const Ogre::UTFString & getCommandFormat(const Ogre::UTFString & _command);
 
 	/** Method : add command.\n
 		example :
@@ -44,7 +41,7 @@ public:
 
 		signature your method : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 	*/
-	void registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate, const Ogre::UTFString & _format = "");
+	void registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate);
 
 	/** Event : Unknow command.\n
 		signature : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
@@ -74,9 +71,6 @@ private:
 
 	typedef std::map<Ogre::UTFString, CommandDelegate> MapDelegate;
 	MapDelegate mDelegates;
-
-	typedef std::map<Ogre::UTFString, Ogre::UTFString> MapFormat;
-	MapFormat mFormates;
 
 	Ogre::UTFString mStringCurrent;
 	Ogre::UTFString mStringError;

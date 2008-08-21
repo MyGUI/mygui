@@ -15,8 +15,8 @@ void DemoKeeper::start()
 
 	mConsole.initialise();
 
-	mConsole.registerConsoleDelegate("colour", MyGUI::newDelegate(this, &DemoKeeper::command), "colour red green blue alpha");
-	mConsole.registerConsoleDelegate("show", MyGUI::newDelegate(this, &DemoKeeper::command), "show true | false");
+	mConsole.registerConsoleDelegate("colour", MyGUI::newDelegate(this, &DemoKeeper::command));//, "colour red green blue alpha");
+	mConsole.registerConsoleDelegate("show", MyGUI::newDelegate(this, &DemoKeeper::command));//, "show true | false");
 }
 
 void DemoKeeper::end()
@@ -39,7 +39,7 @@ void DemoKeeper::command(const Ogre::UTFString & _key, const Ogre::UTFString & _
 		else {
 			if ( ! MyGUI::utility::parseComplex(_value, colour.r, colour.g, colour.b, colour.a)) {
 				mConsole.addToConsole(mConsole.getConsoleStringError(), _key, _value);
-				mConsole.printCommandFormat(_key);
+				mConsole.addToConsole(mConsole.getConsoleStringFormat(), _key, "red green blue alpha");
 			}
 			else {
 				mConsole.addToConsole(mConsole.getConsoleStringSuccess(), _key, _value);
@@ -53,7 +53,7 @@ void DemoKeeper::command(const Ogre::UTFString & _key, const Ogre::UTFString & _
 		else {
 			if ( ! MyGUI::utility::parseComplex(_value, show)) {
 				mConsole.addToConsole(mConsole.getConsoleStringError(), _key, _value);
-				mConsole.printCommandFormat(_key);
+				mConsole.addToConsole(mConsole.getConsoleStringFormat(), _key, "true | false");
 			}
 			else {
 				mConsole.addToConsole(mConsole.getConsoleStringSuccess(), _key, _value);
