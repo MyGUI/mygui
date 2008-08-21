@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="400 88 232 544" layer="Back" name="_Main">
+        <Property key="Widget_Caption" value="PanelVew demo"/>
+        <Property key="Window_MinMax" value="150 150 2000 2000"/>
+        <Widget type="ScrollView" skin="ScrollViewEmpty" position="0 0 224 510" align="ALIGN_STRETCH"/>
+    </Widget>
+</MyGUI>
