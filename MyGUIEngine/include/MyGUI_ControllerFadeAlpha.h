@@ -25,7 +25,7 @@ namespace MyGUI
 		const std::string & getType();
 		bool addTime(WidgetPtr _widget, float _time);
 		void prepareItem(WidgetPtr _widget);
-		void replaseItem(WidgetPtr _widget, ControllerItem * _item);
+		//void replaseItem(WidgetPtr _widget, ControllerItem * _item);
 
 		inline bool getEnabled() {return mEnabled;}
 		inline float getAlpha() {return mAlpha;}

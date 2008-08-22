@@ -15,7 +15,8 @@ public:
 	BaseLayout();
 	BaseLayout(const std::string & _layout);
 
-	virtual void initialise(MyGUI::WidgetPtr _parent = null);
+	virtual void initialise();
+	virtual void initialise(MyGUI::WidgetPtr _parent);
 	virtual void shutdown();
 
 	inline MyGUI::WidgetPtr operator->() const

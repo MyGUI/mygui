@@ -20,7 +20,7 @@ void PanelViewWindow::initialise()
 	mPanelView.attach(mScrollView);
 
 	if (mMainWidget->getWidgetType() == MyGUI::Window::_getType()) {
-		static_cast<MyGUI::WindowPtr>(mMainWidget)->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelView::notifyWindowChangeCoord);
+		static_cast<MyGUI::WindowPtr>(mMainWidget)->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
 	}
 }
 

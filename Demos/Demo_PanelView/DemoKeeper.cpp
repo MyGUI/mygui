@@ -9,20 +9,34 @@
 
 void DemoKeeper::start()
 {
+	// загружаем ресурсы для демо
+	// потом сделать и для мака
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_PanelView", "FileSystem", "General");
+
 	using namespace MyGUI;
 	const IntSize & view = Gui::getInstance().getViewSize();
 	const IntSize size(600, 300);
 
-	WindowPtr window = Gui::getInstance().createWidget<Window>("WindowCS", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main");
-	window->setMinSize(200, 100);
-	window->setCaption("ScrollView demo");
-	ScrollViewPtr scroll_view = window->createWidget<ScrollView>("ScrollView", IntCoord(2, 2, window->getClientCoord().width-2, window->getClientCoord().height-2), ALIGN_STRETCH);
+	m_view.initialise();
 
-	scroll_view->setCanvasSize(512, 256);
-	StaticImagePtr image = scroll_view->createWidget<StaticImage>("StaticImage", IntCoord(0, 0, 512, 256), ALIGN_DEFAULT);
-	image->setImageTexture("Ogre.png");
+	m_view.addItem(&m_panel1);
+	m_view.addItem(&m_panel2);
+	m_view.addItem(&m_panel3);
+	m_view.addItem(&m_panel4);
+
+	m_panel1.setCaption("Panel 1");
+	m_panel2.setCaption("Panel 2");
+	m_panel3.setCaption("Panel 3");
+	m_panel4.setCaption("Panel 4");
+
+	//m_panel1.initialise(scroll_view);
+	//m_panel2.initialise();
+
 }
 
 void DemoKeeper::end()
 {
+	m_view.shutdown();
+	//m_panel.shutdown();
+	//m_panel.shutdown();
 }

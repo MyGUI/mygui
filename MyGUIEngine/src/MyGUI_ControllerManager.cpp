@@ -59,8 +59,10 @@ namespace MyGUI
 			// такой уже в списке есть
 			if ((*iter).first == _widget) {
 				if ((*iter).second->getType() == _item->getType()) {
-					(*iter).second->replaseItem((*iter).first, _item);
-					delete _item;
+					delete (*iter).second;
+					(*iter).second = _item;
+					//(*iter).second->replaseItem((*iter).first, _item);
+					//delete _item;
 					return;
 				}
 			}
