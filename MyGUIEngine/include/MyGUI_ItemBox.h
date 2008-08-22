@@ -158,6 +158,8 @@ namespace MyGUI
 		// возвращает виджет индекса, если он виден
 		WidgetPtr getWidgetByIndex(size_t _index);
 
+		inline void resetDrop() { endDrop(true); }
+
 		//----------------------------------------------------------------//
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
 		virtual void setPosition(const IntCoord& _coord);
