@@ -29,7 +29,7 @@ void BaseLayout::loadLayout(MyGUI::WidgetPtr _parent)
 	mParentWidget = _parent;
 	mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
 
-	if (mParentWidget == null) {
+	//if (mParentWidget == null) {
 		const std::string main_name = mPrefix + MAIN_WINDOW;
 		for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
 			if ((*iter)->getName() == main_name) {
@@ -38,7 +38,12 @@ void BaseLayout::loadLayout(MyGUI::WidgetPtr _parent)
 			}
 		}
 		MYGUI_EXCEPT("root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
-	}
+	//}
+}
+
+void BaseLayout::initialise()
+{
+	loadLayout();
 }
 
 void BaseLayout::initialise(MyGUI::WidgetPtr _parent)

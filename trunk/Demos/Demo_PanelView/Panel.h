@@ -19,6 +19,9 @@ public:
 
 	virtual void initialise(MyGUI::WidgetPtr _parent);
 
+	inline void setCaption(const Ogre::UTFString & _caption) { mTextCaption->setCaption(_caption); }
+	inline const Ogre::UTFString & getCaption() { return mTextCaption->getCaption(); }
+
 	DelegateUpdate eventUpdatePanel;
 
 private:
