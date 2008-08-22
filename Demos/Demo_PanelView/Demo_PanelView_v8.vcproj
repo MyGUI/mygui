@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="Demo_ScrollView"
-	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
+	Name="Demo_PanelView"
+	ProjectGUID="{8397B0ED-9AC7-4E8C-B2C6-C7B5358D2267}"
 	RootNamespace="Demo_PanelView"
 	Keyword="Win32Proj"
 	>
@@ -181,11 +181,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\Common\BaseLayout.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BasisManager.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Panel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelVew.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelViewWindow.cpp"
 				>
 			</File>
 		</Filter>
@@ -195,11 +211,27 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\Common\BaseLayout.h"
+				>
+			</File>
+			<File
 				RelativePath=".\BasisManager.h"
 				>
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Panel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelView.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelViewWindow.h"
 				>
 			</File>
 		</Filter>

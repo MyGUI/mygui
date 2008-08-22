@@ -1219,6 +1219,14 @@
             <State name="normal" offset = "412 132 79 37"/>
         </_BasisSkin>
     </Skin>
+
+    <Skin name = "ScrollViewEmpty" size = "30 30" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
+        <Property key="NeedKey" value = "true" />
+
+        <Child type="VScroll" skin="VScroll" offset = "15 0 15 15" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll"/>
+        <Child type="HScroll" skin="HScroll" offset = "0 15 15 15" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "HScroll"/>
+        <Child type="Widget" skin="Default" offset = "0 0 15 15" align = "ALIGN_STRETCH" name = "Client"/>
+    </Skin>    
     
 </MyGUI>
 

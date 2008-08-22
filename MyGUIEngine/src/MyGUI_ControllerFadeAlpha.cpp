@@ -47,13 +47,13 @@ namespace MyGUI
 		eventPreAction(_widget);
 	}
 
-	void ControllerFadeAlpha::replaseItem(WidgetPtr _widget, ControllerItem * _item)
+	/*void ControllerFadeAlpha::replaseItem(WidgetPtr _widget, ControllerItem * _item)
 	{
 		ControllerFadeAlpha * item = static_cast<ControllerFadeAlpha*>(_item);
 		mEnabled = item->getEnabled();
 		mCoef = item->getCoef();
 		mAlpha = item->getAlpha();
-	}
+	}*/
 
 	bool ControllerFadeAlpha::addTime(WidgetPtr _widget, float _time)
 	{

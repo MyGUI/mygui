@@ -206,6 +206,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Delegate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DelegateImplement.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
