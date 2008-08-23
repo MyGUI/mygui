@@ -217,6 +217,10 @@
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
+			<File
+				RelativePath=".\StatisticInfo.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource"

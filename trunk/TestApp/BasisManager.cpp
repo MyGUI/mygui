@@ -13,7 +13,7 @@ BasisManager::BasisManager() :
 	mSceneMgr(0),
 	mWindow(0),
 	m_exit(false),
-	mFpsInfo(0),
+	mInfo(0),
 	mGUI(0)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
@@ -111,36 +111,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
 	createInput();
-
-	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("wallpaper");
-	if (false == material.isNull()) {
-		/*Ogre::OverlayManager & manager = Ogre::OverlayManager::getSingleton();
-		Ogre::Overlay * overlay = manager.create("wallpaper");
-		overlay->setZOrder(0);
-		overlay->show();
-		Ogre::PanelOverlayElement * panel = static_cast<Ogre::PanelOverlayElement*>(manager.createOverlayElement("Panel", "wallpaper"));
-		panel->setDimensions(1, 1);
-		panel->setMaterialName(material->getName());
-		overlay->add2D(panel);*/
-	}
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-
-	// узнаем текущую раскладку
-	//if (::GetKeyboardLayoutName(buff)) {
-		// "00000409" - IntToHex (MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT), 8).c_str()
-		// "00000419" - IntToHex (MAKELANGID(LANG_RUSSIAN, SUBLANG_DEFAULT), 8).c_str()
-		//m_currentKeyboardLayout = buff;
-	//}
-	//size_t windowHnd = 0;
-	//mWindow->getCustomAttribute("WINDOW", &windowHnd);
-	//::ShowWindow((HWND)windowHnd, SW_MAXIMIZE);
-
-#endif
-
-
 	createGui();
-
 	createScene();
 
 
@@ -198,30 +169,16 @@ void BasisManager::createGui()
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise(mWindow);
 
-	MyGUI::IntSize size(160, 100);
-	if (0 == mFpsInfoShadow) {
-		mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-		mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
-		mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
-	}
-	if (0 == mFpsInfo) {
-		mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width-1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-		mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
-		mFpsInfo->setColour(Ogre::ColourValue::White);
-	}//*/
+	mInfo = new StatisticInfo();
 }
 
 void BasisManager::destroyGui()
 {
 	if (mGUI) {
 
-		if (mFpsInfo) {
-			mGUI->destroyChildWidget(mFpsInfo);
-			mFpsInfo = 0;
-		}
-		if (mFpsInfoShadow) {
-			mGUI->destroyChildWidget(mFpsInfoShadow);
-			mFpsInfoShadow = 0;
+		if (mInfo) {
+			delete mInfo;
+			mInfo = 0;
 		}
 
 		mGUI->shutdown();
@@ -273,16 +230,18 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 	if (mMouse) mMouse->capture();
 	mKeyboard->capture();
 
-	if (mFpsInfo) {
+	if (mInfo) {
 		static float time = 0;
 		time += evt.timeSinceLastFrame;
 		if (time > 1) {
 			time -= 1;
 			try {
 				const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
-				std::string info = MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount, "\nbatch gui : ", MyGUI::LayerManager::getInstance().getBatch());
-				if (mFpsInfoShadow) mFpsInfoShadow->setCaption(info);
-				mFpsInfo->setCaption(info);
+				mInfo->change("FPS", stats.lastFPS);
+				mInfo->change("triangle", stats.triangleCount);
+				mInfo->change("batch", stats.batchCount);
+				mInfo->change("batch gui", MyGUI::LayerManager::getInstance().getBatch());
+				mInfo->update();
 			} catch (...) { }
 		}
 	}

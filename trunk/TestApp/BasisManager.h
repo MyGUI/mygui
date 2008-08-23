@@ -5,6 +5,7 @@
 #include <OIS/OIS.h>
 #include <MyGUI.h>
 #include "DemoKeeper.h"
+#include "StatisticInfo.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
@@ -41,8 +42,8 @@ private:
 	bool m_exit; // выходим из цикла приложения
 	size_t mWidth, mHeight; // ширина и высота экрана
 
-	MyGUI::WidgetPtr mFpsInfo, mFpsInfoShadow;
 	MyGUI::Gui * mGUI;
+	StatisticInfo * mInfo;
 
 	DemoKeeper mDemo;
 

@@ -5,8 +5,6 @@
     <MyGUI type="List">
 	    <List file="widgets.xml" group="General"/>
 	    <List file="values.xml" group="General"/>
-
-	    <List file="plugin_widgets.xml" group="General"/>
     </MyGUI>
 
 </MyGUI>
