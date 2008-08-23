@@ -127,16 +127,17 @@ void DemoKeeper::start()
 
 	using namespace MyGUI;
 	const IntSize & view = Gui::getInstance().getViewSize();
-	const IntSize size(57, 53);
+	const IntSize size(1000, 50);
 
-	StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main");
+	/*StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main");
 
 	image->setImageTexture("skin_fl_AZ_new.png");
 	image->addItemInfo("0.5 | 57 53 | 0 0");
 	image->addItemInfo("0.5 | 57 53 | 0 53 | 0 106");
 	image->addItemInfo("0.5 | 57 53 | 0 159 | 0 212");
 	image->addItemNames("normal active select");
-	image->setItemSelect("active");
+	image->setItemSelect("active");*/
+
 
 }
 
