@@ -57,6 +57,7 @@
   <Value name="Font">
     <Property key="#444444[DEFAULT]"/>
 	<Property key="MyGUI_CoreFont.18"/>
+	<Property key="Tahoma.18"/>
   </Value>
   
   <Value name="Layer">
