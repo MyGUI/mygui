@@ -9,9 +9,9 @@
 namespace MyGUI
 {
 
-	Align2::MapAlign2 Align2::mMapAlign;
+	Align::MapAlign Align::mMapAlign;
 
-	Align2 Align2::parse(const std::string & _value)
+	Align Align::parse(const std::string & _value)
 	{
 		static bool first = true;
 		if (first) {
@@ -19,10 +19,10 @@ namespace MyGUI
 			first = false;
 		}
 
-		Align2 flag = 0;
+		Align flag = 0;
 		const std::vector<std::string> & vec = utility::split(_value);
 		for (size_t pos=0; pos<vec.size(); pos++) {
-			MapAlign2::iterator iter = mMapAlign.find(vec[pos]);
+			MapAlign::iterator iter = mMapAlign.find(vec[pos]);
 			if (iter != mMapAlign.end()) flag |= iter->second;
 			else {
 				MYGUI_LOG(Warning, "Cannot parse align '" << vec[pos] << "'");
@@ -31,7 +31,7 @@ namespace MyGUI
 		return flag;
 	}
 
-	void Align2::initialise()
+	void Align::initialise()
 	{
 		mMapAlign.clear();
 
@@ -68,7 +68,7 @@ namespace MyGUI
 		MYGUI_REGISTER_VALUE(mMapAlign, LeftBottom);
 	}
 
-	std::string Align2::print() const
+	std::string Align::print() const
 	{
 		std::string ret;
 

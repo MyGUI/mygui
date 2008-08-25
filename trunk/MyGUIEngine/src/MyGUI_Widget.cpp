@@ -96,7 +96,7 @@ namespace MyGUI
 			iter = param.find("NeedMouse");
 			if (iter != param.end()) setNeedMouseFocus(iter->second == "true");
 			iter = param.find("AlignText");
-			if (iter != param.end()) setTextAlign(SkinManager::parseAlign(iter->second));
+			if (iter != param.end()) setTextAlign(Align::parse(iter->second));
 			iter = param.find("Colour");
 			if (iter != param.end()) setColour(utility::parseColour(iter->second));
 			iter = param.find("Pointer");
@@ -171,8 +171,8 @@ namespace MyGUI
 		IntCoord coord = mCoord;
 
 		// первоначальное выравнивание
-		if (IS_ALIGN_RIGHT(mAlign)) {
-			if (IS_ALIGN_LEFT(mAlign)) {
+		if (mAlign.isRight()) {
+			if (mAlign.isLeft()) {
 				// растягиваем
 				coord.width = mCoord.width + (mParent->getWidth() - _size.width);
 				need_size = true;
@@ -182,14 +182,14 @@ namespace MyGUI
 				need_move = true;
 			}
 
-		} else if (false == IS_ALIGN_LEFT(mAlign)) {
+		} else if (false == mAlign.isLeft()) {
 			// выравнивание по горизонтали без растяжения
 			coord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_move = true;
 		}
 
-		if (IS_ALIGN_BOTTOM(mAlign)) {
-			if (IS_ALIGN_TOP(mAlign)) {
+		if (mAlign.isBottom()) {
+			if (mAlign.isTop()) {
 				// растягиваем
 				coord.height = mCoord.height + (mParent->getHeight() - _size.height);
 				need_size = true;
@@ -197,7 +197,7 @@ namespace MyGUI
 				coord.top = mCoord.top + (mParent->getHeight() - _size.height);
 				need_move = true;
 			}
-		} else if (false == IS_ALIGN_TOP(mAlign)) {
+		} else if (false == mAlign.isTop()) {
 			// выравнивание по вертикали без растяжения
 			coord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_move = true;
@@ -285,7 +285,7 @@ namespace MyGUI
 	Align Widget::getTextAlign()
 	{
 		if (mText != null) return mText->getTextAlign();
-		return ALIGN_DEFAULT;
+		return Align::Default;
 	}
 
 	void Widget::setColour(const Ogre::ColourValue & _colour)

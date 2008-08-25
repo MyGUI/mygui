@@ -8,6 +8,7 @@
 #define __MYGUI_PROGRESS_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Align.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
@@ -53,9 +54,9 @@ namespace MyGUI
 		inline bool getProgressAutoTrack() {return mAutoTrack;}
 
 		/** Set progress start point
-			For example with ALIGN_TOP if will be filled from top to bottom.
+			For example with Align::Top if will be filled from top to bottom.
 		*/
-		void setProgressStartPoint(Align _align = ALIGN_LEFT);
+		void setProgressStartPoint(Align _align = Align::Left);
 		/** Get progress start point */
 		inline Align getProgressStartPoint() {return mStartPoint;}
 
@@ -73,8 +74,8 @@ namespace MyGUI
 	private:
 		void updateTrack();
 
-		inline int getClientWidth() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mWidgetClient->getWidth() : mWidgetClient->getHeight();}
-		inline int getClientHeight() {return ((IS_ALIGN_LEFT(mStartPoint)) || (IS_ALIGN_RIGHT(mStartPoint))) ? mWidgetClient->getHeight() : mWidgetClient->getWidth();}
+		inline int getClientWidth() {return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mWidgetClient->getWidth() : mWidgetClient->getHeight();}
+		inline int getClientHeight() {return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mWidgetClient->getHeight() : mWidgetClient->getWidth();}
 
 		void setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height);
 

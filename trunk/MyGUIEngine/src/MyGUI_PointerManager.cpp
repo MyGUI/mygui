@@ -104,7 +104,7 @@ namespace MyGUI
 		// если есть левел, то пересоеденяем, если нет виджета, то создаем
 		if (false == layer.empty()) {
 			if (null == mMousePointer) {
-				mMousePointer = _createWidget("Widget", "StaticImage", IntCoord(), ALIGN_DEFAULT, "", "");
+				mMousePointer = _createWidget("Widget", "StaticImage", IntCoord(), Align::Default, "", "");
 			}
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
 		}

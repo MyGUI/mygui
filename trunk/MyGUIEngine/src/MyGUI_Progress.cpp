@@ -26,7 +26,7 @@ namespace MyGUI
 		mRange(0), mEndPosition(0), mStartPosition(0),
 		mAutoTrack(false),
 		mFillTrack(false),
-		mStartPoint(ALIGN_LEFT)
+		mStartPoint(Align::Left)
 	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Client") {
@@ -48,7 +48,7 @@ namespace MyGUI
 		iterS = param.find("TrackFill");
 		if (iterS != param.end()) mFillTrack = utility::parseBool(iterS->second);
 		iterS = param.find("StartPoint");
-		if (iterS != param.end()) setProgressStartPoint(SkinManager::parseAlign(iterS->second));
+		if (iterS != param.end()) setProgressStartPoint(Align::parse(iterS->second));
 
 	}
 
@@ -143,7 +143,7 @@ namespace MyGUI
 		if (mFillTrack) {
 
 			if (mVectorTrack.empty()) {
-				WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
+				WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
 				mVectorTrack.push_back(widget);
 			}
 			else {
@@ -184,7 +184,7 @@ namespace MyGUI
 		}
 
 		while ((int)mVectorTrack.size() < count) {
-			WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), ALIGN_LEFT | ALIGN_VSTRETCH);
+			WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
 			widget->hide();
 			mVectorTrack.push_back(widget);
 		}
@@ -242,20 +242,20 @@ namespace MyGUI
 
 	void Progress::setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height)
 	{
-		if (IS_ALIGN_LEFT(mStartPoint)) _widget->setPosition(_left, _top, _width, _height);
-		else if (IS_ALIGN_RIGHT(mStartPoint)) _widget->setPosition(mWidgetClient->getWidth() - _left - _width, _top, _width, _height);
-		else if (IS_ALIGN_TOP(mStartPoint)) _widget->setPosition(_top, _left, _height, _width);
-		else if (IS_ALIGN_BOTTOM(mStartPoint)) _widget->setPosition(_top, mWidgetClient->getHeight() - _left - _width, _height, _width);
+		if (mStartPoint.isLeft()) _widget->setPosition(_left, _top, _width, _height);
+		else if (mStartPoint.isRight()) _widget->setPosition(mWidgetClient->getWidth() - _left - _width, _top, _width, _height);
+		else if (mStartPoint.isTop()) _widget->setPosition(_top, _left, _height, _width);
+		else if (mStartPoint.isBottom()) _widget->setPosition(_top, mWidgetClient->getHeight() - _left - _width, _height, _width);
 	}
 
 	void Progress::setProgressStartPoint(Align _align)
 	{
-		if ((_align == ALIGN_LEFT) || (_align == ALIGN_RIGHT) || (_align == ALIGN_TOP) || (_align == ALIGN_BOTTOM)) {
+		if ((_align == Align::Left) || (_align == Align::Right) || (_align == Align::Top) || (_align == Align::Bottom)) {
 			mStartPoint = _align;
 		}
 		else {
-			mStartPoint = ALIGN_LEFT;
-			MYGUI_LOG(Warning, "Progress bar support only ALIGN_LEFT, ALIGN_RIGHT, ALIGN_TOP or ALIGN_BOTTOM align values");
+			mStartPoint = Align::Left;
+			MYGUI_LOG(Warning, "Progress bar support only Left, Right, Top or Bottom align values");
 		}
 		updateTrack();
 	}

@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Align.h"
 
 namespace MyGUI
 {

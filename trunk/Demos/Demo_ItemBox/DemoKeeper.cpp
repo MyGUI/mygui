@@ -79,7 +79,7 @@ void DemoKeeper::start()
 	MyGUI::LayerManager::getInstance().load("RF.layer");
 	MyGUI::PointerManager::getInstance().load("RF.pointer");
 
-	MyGUI::StaticImagePtr back = gui->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, width, height), MyGUI::ALIGN_STRETCH, "Back");
+	MyGUI::StaticImagePtr back = gui->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, width, height), MyGUI::Align::Stretch, "Back");
 	back->setImageTexture("RF.jpg");
 
 	mToolTip.initialise();

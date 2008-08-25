@@ -251,8 +251,8 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 					mFpsInfo->setCaption(info);
 				}
 				else {
-					mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width - 1, mHeight-size.height-1, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-					mFpsInfo->setTextAlign(MyGUI::ALIGN_CENTER);
+					mFpsInfo = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width - 1, mHeight-size.height-1, size.width, size.height, MyGUI::Align::Right | MyGUI::Align::Bottom, "Statistic");
+					mFpsInfo->setTextAlign(MyGUI::Align::Center);
 					mFpsInfo->setColour(Ogre::ColourValue::White);
 					mFpsInfo->setNeedMouseFocus(false);
 				}
@@ -261,9 +261,9 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 		}
 	}
 	else {
-		if (MyGUI::LayerManager::getInstance().exist("Statistic")) {
-			mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::ALIGN_RIGHT | MyGUI::ALIGN_BOTTOM, "Statistic");
-			mFpsInfoShadow->setTextAlign(MyGUI::ALIGN_CENTER);
+		if (MyGUI::LayerManager::getInstance().isExist("Statistic")) {
+			mFpsInfoShadow = mGUI->createWidget<MyGUI::Widget>("StaticText", mWidth - size.width, mHeight-size.height, size.width, size.height, MyGUI::Align::Right | MyGUI::Align::Bottom, "Statistic");
+			mFpsInfoShadow->setTextAlign(MyGUI::Align::Center);
 			mFpsInfoShadow->setColour(Ogre::ColourValue::Black);
 			mFpsInfoShadow->setNeedMouseFocus(false);
 		}

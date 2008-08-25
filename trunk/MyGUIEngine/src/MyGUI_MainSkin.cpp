@@ -16,19 +16,19 @@ namespace MyGUI
 	MainSkin::MainSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
 		SubSkin(_info, _parent)
 		// корректируем под маин
-		/*CroppedRectangleInterface(IntCoord(IntPoint(), _parent->getSize()), ALIGN_STRETCH, _parent),
+		/*CroppedRectangleInterface(IntCoord(IntPoint(), _parent->getSize()), Align::Stretch, _parent),
 		mEmptyView(false),
 		mRenderItem(null),
 		mCurrentCoord(IntCoord(IntPoint(), _parent->getSize())),
 		mCurrentAlpha(0xFFFFFFFF)*/
 	{
-		mAlign = ALIGN_STRETCH;
+		mAlign = Align::Stretch;
 		setPosition(IntCoord(0, 0, _parent->getWidth(), _parent->getHeight()));
 		//mCurrentCoord.set(0, 0, _parent->getWidth(), _parent->getHeight());
 		/*mManager = LayerManager::getInstancePtr();
 
 		mCoord = IntCoord(IntPoint(), _parent->getSize());
-		mAlign = ALIGN_STRETCH;*/
+		mAlign = Align::Stretch;*/
 	}
 
 	MainSkin::~MainSkin()
@@ -75,8 +75,8 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание
-		if (IS_ALIGN_RIGHT(mAlign)) {
-			if (IS_ALIGN_LEFT(mAlign)) {
+		if (mAlign.isRight()) {
+			if (mAlign.isLeft()) {
 				// растягиваем
 				mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
 				need_update = true;
@@ -89,14 +89,14 @@ namespace MyGUI
 			}
 
 		}
-		else if (false == IS_ALIGN_LEFT(mAlign)) {
+		else if (false == mAlign.isLeft()) {
 			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
-		if (IS_ALIGN_BOTTOM(mAlign)) {
-			if (IS_ALIGN_TOP(mAlign)) {
+		if (mAlign.isBottom()) {
+			if (mAlign.isTop()) {
 				// растягиваем
 				mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
 				need_update = true;
@@ -107,7 +107,7 @@ namespace MyGUI
 				need_update = true;
 			}
 		}
-		else if (false == IS_ALIGN_TOP(mAlign)) {
+		else if (false == mAlign.isTop()) {
 			// выравнивание по вертикали без растяжения
 			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;

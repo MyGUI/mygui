@@ -92,7 +92,7 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mSheetTemplate, "Child Widget Sheet not found in skin (Tab must have Sheet)");
 
 		// создаем виджет, носитель скина пустоты бара
-		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
+		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
 
 		updateBar();
 	}
@@ -130,7 +130,7 @@ namespace MyGUI
 
 	SheetPtr Tab::addSheet(const Ogre::UTFString& _name, int _width)
 	{
-		SheetPtr sheet = static_cast<SheetPtr>(createWidgetT(Sheet::_getType(), "", IntCoord(), ALIGN_DEFAULT));
+		SheetPtr sheet = static_cast<SheetPtr>(createWidgetT(Sheet::_getType(), "", IntCoord(), Align::Default));
 		setSheetNameIndex(mSheetsInfo.size()-1, _name, _width);
 		return sheet;
 	}
@@ -554,7 +554,7 @@ namespace MyGUI
 
 	void Tab::_createSheetButton()
 	{
-		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_LEFT | ALIGN_TOP);
+		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
 		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
 		button->_setInternalData((int)mSheetButton.size()); // порядковый номер
 		mSheetButton.push_back(button);

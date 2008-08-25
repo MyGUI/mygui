@@ -58,11 +58,11 @@ namespace MyGUI
 		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size() || _index == ITEM_NONE, "index '" << _index << "' out of range");
 		if (_index == ITEM_NONE) _index = mVectorMenuItemInfo.size();
 
-		ButtonPtr button = mWidgetClient->createWidget<Button>(mButtonSkinName, IntCoord(), ALIGN_DEFAULT);
+		ButtonPtr button = mWidgetClient->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Default);
 		button->eventMouseButtonPressed = newDelegate(this, &MenuBar::eventMouseButtonPressed);
 		button->setCaption(_item);
 
-		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), ALIGN_DEFAULT, mSubMenuLayer);
+		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 		//menu->eventPopupMenuClose = newDelegate(this, &MenuBar::notifyPopupMenuClose);
 		menu->eventPopupMenuAccept = newDelegate(this, &MenuBar::notifyPopupMenuAccept);
 		menu->_setOwner(this);

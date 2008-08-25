@@ -265,7 +265,7 @@ namespace MyGUI
 
 			// вызываем запрос на создание виджета
 			WidgetItemData data;
-			data.item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), ALIGN_DEFAULT);
+			data.item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
 
 			requestCreateWidgetItem(this, data);
 			//MYGUI_ASSERT(data.item, "not listen requestCreateWidgetItem");
@@ -727,7 +727,7 @@ namespace MyGUI
 			convertWidgetCoord(coord, mAlignVert);
 
 			// создаем и запрашиваем детей
-			mItemDrag.item = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), ALIGN_DEFAULT, "DragAndDrop");
+			mItemDrag.item = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, "DragAndDrop");
 			requestCreateWidgetItem(this, mItemDrag);
 		}
 

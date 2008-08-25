@@ -30,7 +30,7 @@ namespace MyGUI
 		mVRange(0),
 		mHRange(0),
 		mWidgetCanvas(null),
-		mAlignCanvas(ALIGN_CENTER)
+		mAlignCanvas(Align::Center)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -44,7 +44,7 @@ namespace MyGUI
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
 
 				// создаем холт, реальный владелец детей
-				mWidgetCanvas = mWidgetClient->createWidget<Widget>("Default", IntCoord(), ALIGN_DEFAULT);
+				mWidgetCanvas = mWidgetClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
 				mWidgetCanvas->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
 				mWidgetCanvas->eventMouseSetFocus = newDelegate(this, &ScrollView::notifyMouseSetFocus);
 				mWidgetCanvas->eventMouseLostFocus = newDelegate(this, &ScrollView::notifyMouseLostFocus);
@@ -158,9 +158,9 @@ namespace MyGUI
 			}
 		}
 		else {
-			if (IS_ALIGN_LEFT(mAlignCanvas)) offset.left = 0;
-			else if (IS_ALIGN_RIGHT(mAlignCanvas)) offset.left = size.width - mWidgetClient->getWidth();
-			else if (IS_ALIGN_HCENTER(mAlignCanvas)) offset.left = (size.width - mWidgetClient->getWidth()) / 2;
+			if (mAlignCanvas.isLeft()) offset.left = 0;
+			else if (mAlignCanvas.isRight()) offset.left = size.width - mWidgetClient->getWidth();
+			else if (mAlignCanvas.isHCenter()) offset.left = (size.width - mWidgetClient->getWidth()) / 2;
 		}
 
 		if (size.height > mWidgetClient->getHeight()) {
@@ -174,9 +174,9 @@ namespace MyGUI
 			}
 		}
 		else {
-			if (IS_ALIGN_TOP(mAlignCanvas)) offset.top = 0;
-			else if (IS_ALIGN_BOTTOM(mAlignCanvas)) offset.top = size.height - mWidgetClient->getHeight();
-			else if (IS_ALIGN_VCENTER(mAlignCanvas)) offset.top = (size.height - mWidgetClient->getHeight()) / 2;
+			if (mAlignCanvas.isTop()) offset.top = 0;
+			else if (mAlignCanvas.isBottom()) offset.top = size.height - mWidgetClient->getHeight();
+			else if (mAlignCanvas.isVCenter()) offset.top = (size.height - mWidgetClient->getHeight()) / 2;
 		}
 		
 		if (offset != point) {

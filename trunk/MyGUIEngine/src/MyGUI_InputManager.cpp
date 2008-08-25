@@ -606,7 +606,7 @@ namespace MyGUI
 			mouse_focus = mWidgetMouseFocus;
 
 			if (mouse_helper == null) {
-				mouse_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerGreen", IntCoord(), ALIGN_DEFAULT, "Statistic");
+				mouse_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerGreen", IntCoord(), Align::Default, "Statistic");
 				mouse_helper->setNeedMouseFocus(false);
 			}
 
@@ -627,7 +627,7 @@ namespace MyGUI
 			key_focus = mWidgetKeyFocus;
 
 			if (key_helper == null) {
-				key_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerRed", IntCoord(), ALIGN_DEFAULT, "Statistic");
+				key_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerRed", IntCoord(), Align::Default, "Statistic");
 				key_helper->setNeedMouseFocus(false);
 			}
 			if (mWidgetKeyFocus) {

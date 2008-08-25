@@ -72,7 +72,7 @@ namespace MyGUI
 		void ProgressFactory::Progress_StartPoint(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
-			static_cast<ProgressPtr>(_widget)->setProgressStartPoint(SkinManager::parseAlign(_value));
+			static_cast<ProgressPtr>(_widget)->setProgressStartPoint(Align::parse(_value));
 		}
 
 	} // namespace factory

@@ -50,11 +50,11 @@ namespace MyGUI
 		if (iter != param.end()) listLayer = iter->second;
 
 		// ручками создаем список
-		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::_getType(), listSkin, IntCoord(), ALIGN_DEFAULT, null, this, ""));
+		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::_getType(), listSkin, IntCoord(), Align::Default, null, this, ""));
 		// присоединяем виджет с уровню и не добавляем себе
 		LayerManager::getInstance().attachToLayerKeeper(listLayer, mList);
 
-		//mList = static_cast<List>(_createWidget(List::_getType(), listSkin, IntCoord(), ALIGN_DEFAULT, listLayer, ""));
+		//mList = static_cast<List>(_createWidget(List::_getType(), listSkin, IntCoord(), Align::Default, listLayer, ""));
 		mList->_setOwner(this);
 
 		mList->hide();
