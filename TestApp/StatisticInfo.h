@@ -30,7 +30,7 @@ public:
 		const std::string font = "Tahoma.12";
 		if ( ! MyGUI::FontManager::getInstance().isExist(font)) return;
 
-		mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(skin, MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, layer);
+		mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
 		mInfo->setFontName(font);
 		mInfo->setFontHeight(12);
 	}

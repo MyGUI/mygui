@@ -103,7 +103,7 @@ namespace MyGUI
 		if (mVectorButton.empty()) mInfoOk = info;
 		mInfoCancel = info;
 
-		WidgetPtr button = createWidgetT(mButtonType, mButtonSkin, IntCoord(), ALIGN_LEFT | ALIGN_BOTTOM);
+		WidgetPtr button = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
 		button->eventMouseButtonClick = newDelegate(this, &Message::notifyButtonClick);
 		button->setCaption(_name);
 		button->_setInternalData((int)info);
@@ -181,7 +181,7 @@ namespace MyGUI
 		if (_fade) {
 			if (null == mWidgetFade) {
 				Gui & gui = Gui::getInstance();
-				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), ALIGN_STRETCH, mFadeLayer);
+				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), Align::Stretch, mFadeLayer);
 				if (mSmoothShow) {
 					mWidgetFade->hide();
 					ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);
@@ -223,7 +223,7 @@ namespace MyGUI
 		}
 		image = tmp == 0 ? ITEM_NONE : tmp - 1;
 
-		MessagePtr mess = gui->createWidget<Message>(_skin.empty() ? factory::MessageFactory::_getDefaultSkin() : _skin, IntCoord(), ALIGN_DEFAULT, _layer);
+		MessagePtr mess = gui->createWidget<Message>(_skin.empty() ? factory::MessageFactory::_getDefaultSkin() : _skin, IntCoord(), Align::Default, _layer);
 		mess->setMessageImage(image);
 		mess->setSmoothShow(true);
 		mess->setCaption(_caption);

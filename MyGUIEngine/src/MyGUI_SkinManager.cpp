@@ -16,8 +16,6 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Skin");
 
-	SkinManager::MapAlign SkinManager::mMapAlign;
-
 	INSTANCE_IMPLEMENT(SkinManager);
 
 	void SkinManager::initialise()
@@ -26,20 +24,6 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
-
-		// забиваем карту флагами выравнивания
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HCENTER);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VCENTER);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_CENTER);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_CENTER_PARENT);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_LEFT);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_RIGHT);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HSTRETCH);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_TOP);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_BOTTOM);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VSTRETCH);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_STRETCH);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_DEFAULT);
 
 		createDefault();
 
@@ -59,24 +43,9 @@ namespace MyGUI
 			delete info;
 		}
 		mSkins.clear();
-		mMapAlign.clear();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
-	}
-
-	Align SkinManager::parseAlign(const std::string & _value)
-	{
-		Align flag = 0;
-		const std::vector<std::string> & vec = utility::split(_value);
-		for (size_t pos=0; pos<vec.size(); pos++) {
-			MapAlign::iterator iter = mMapAlign.find(vec[pos]);
-			if (iter != mMapAlign.end()) flag |= iter->second;
-			else {
-				MYGUI_LOG(Warning, "Cannot parse align '" << vec[pos] << "'");
-			}
-		}
-		return flag;
 	}
 
 	WidgetSkinInfo * SkinManager::getSkin(const Ogre::String & _name)
@@ -154,7 +123,7 @@ namespace MyGUI
 						basis->findAttribute("skin"),
 						basis->findAttribute("name"),
 						IntCoord::parse(basis->findAttribute("offset")),
-						parseAlign(basis->findAttribute("align")),
+						Align::parse(basis->findAttribute("align")),
 						basis->findAttribute("layer")
 						);
 
@@ -170,10 +139,10 @@ namespace MyGUI
 					// парсим атрибуты
 					Ogre::String basisSkinType, tmp;
 					IntCoord offset;
-					Align align = ALIGN_DEFAULT;
+					Align align = Align::Default;
 					basis->findAttribute("type", basisSkinType);
 					if (basis->findAttribute("offset", tmp)) offset = IntCoord::parse(tmp);
-					if (basis->findAttribute("align", tmp)) align = parseAlign(tmp);
+					if (basis->findAttribute("align", tmp)) align = Align::parse(tmp);
 
 					bind.create(offset, align, basisSkinType);
 

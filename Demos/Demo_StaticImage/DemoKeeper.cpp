@@ -17,7 +17,7 @@ void DemoKeeper::start()
 	const IntSize & view = Gui::getInstance().getViewSize();
 	const IntSize size(42, 75);
 
-	StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main");
+	StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
 	image->setImageTexture("child.png");
 	image->addItem(MyGUI::IntCoord(0, 0, 42, 75));
 	image->addItemFrame(0, MyGUI::IntCoord(42, 0, 42, 75));

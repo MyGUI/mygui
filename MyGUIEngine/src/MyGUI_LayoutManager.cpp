@@ -85,13 +85,13 @@ namespace MyGUI
 		// парсим атрибуты виджета
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
 		IntCoord coord;
-		Align align = ALIGN_DEFAULT;
+		Align align = Align::Default;
 
 		_widget->findAttribute("type", widgetType);
 		_widget->findAttribute("skin", widgetSkin);
 		_widget->findAttribute("name", widgetName);
 		_widget->findAttribute("layer", widgetLayer);
-		if (_widget->findAttribute("align", tmp)) align = SkinManager::parseAlign(tmp);
+		if (_widget->findAttribute("align", tmp)) align = Align::parse(tmp);
 		if (_widget->findAttribute("position", tmp)) coord = IntCoord::parse(tmp);
 		if (_widget->findAttribute("position_real", tmp)) coord = Gui::getInstance().convertRelativeToInt(FloatCoord::parse(tmp), _parent);
 

@@ -34,11 +34,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plugin_StrangeButton", "Plu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_PluginStrangeButton", "Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton_v8.vcproj", "{7E1D6F51-4042-4ACF-A189-96C9D4E33D56}"
 	ProjectSection(ProjectDependencies) = postProject
-		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
 		{D43133FF-CFE1-48B2-8529-8918A4C81B05} = {D43133FF-CFE1-48B2-8529-8918A4C81B05}
+		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Console", "Demos\Demo_Console\Demo_Console_v8.vcproj", "{691EEDDA-B30E-4DB9-B99D-6FC45E620B40}"
+	ProjectSection(ProjectDependencies) = postProject
+		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_StaticImage", "Demos\Demo_StaticImage\Demo_StaticImage_v8.vcproj", "{C64CEBC7-EB2B-4B75-81F8-5CE234625E2E}"
 	ProjectSection(ProjectDependencies) = postProject

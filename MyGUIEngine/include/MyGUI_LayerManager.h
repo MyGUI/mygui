@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
+#include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_UnlinkWidget.h"
 
@@ -21,7 +22,9 @@ namespace MyGUI
 
 	class LayerItem;
 	class LayerKeeper;
-	typedef std::vector<LayerKeeper*> VectorLayerKeeper;
+	typedef LayerKeeper* LayerKeeperPtr;
+	typedef std::vector<LayerKeeperPtr> VectorLayerKeeperPtr;
+	typedef Enumerator<VectorLayerKeeperPtr> EnumeratorLayerKeeperPtr;
 
 	class _MyGUIExport LayerManager : public Ogre::RenderQueueListener, public UnlinkWidget
 	{
@@ -86,7 +89,9 @@ namespace MyGUI
 		inline size_t getBatch() {return mCountBatch;}
 		inline void _addBatch() {mCountBatch ++;}
 
-		bool exist(const std::string & _name);
+		bool isExist(const std::string & _name);
+
+		inline EnumeratorLayerKeeperPtr getEnumerator() { return EnumeratorLayerKeeperPtr(mLayerKeepers.begin(), mLayerKeepers.end()); }
 
 	private:
 
@@ -94,7 +99,7 @@ namespace MyGUI
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
 
 	private:
-		VectorLayerKeeper mLayerKeepers;
+		VectorLayerKeeperPtr mLayerKeepers;
 
 		FloatSize mViewSize;
 

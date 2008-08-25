@@ -8,6 +8,7 @@
 #define __MYGUI_GUI_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Align.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_CastWidget.h"
@@ -52,7 +53,7 @@ namespace MyGUI
 			@param _type widget type
 			@param _skin widget skin
 			@param _coord int coordinates of widget (_left, _top, _width, _height)
-			@param _align widget align (possible values can be found in enum ALIGN_INFO)
+			@param _align widget align (possible values can be found in enum Align)
 			@param _layer layer where widget will be created (all layers usually defined in core.layer file).
 				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
 			@param _name if needed (you can use it for finding widget by name later)

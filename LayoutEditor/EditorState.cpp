@@ -100,7 +100,7 @@ void EditorState::enter(bool bIsChangeState)
 	loadSettings();
 
 	// создание меню
-	bar = mGUI->createWidget<MyGUI::MenuBar>("EditorMenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
+	bar = mGUI->createWidget<MyGUI::MenuBar>("EditorMenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem(localise("File"));
 	bar->addItem(localise("Widgets"));
 	// FIXME менюбар сунуть в лейаут
@@ -142,9 +142,9 @@ void EditorState::enter(bool bIsChangeState)
 		{
 			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall", 
 				i%widgetsButtonsInOneLine * w, i/widgetsButtonsInOneLine * h, w, h,
-				MyGUI::ALIGN_TOP|MyGUI::ALIGN_LEFT, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
+				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
 			button->setCaption(iterSkin->first);
-			button->setTextAlign(MyGUI::ALIGN_CENTER);
+			button->setTextAlign(MyGUI::Align::Center);
 			button->setUserString("widget", iterSkin->second);
 			button->setUserString("skin", iterSkin->first);
 			button->setUserString("TooTipText", "Widget: " + iterSkin->second + "\nSkin: " + iterSkin->first);
@@ -246,14 +246,14 @@ void EditorState::enter(bool bIsChangeState)
 	multilist->addColumn(multilist->getWidth() - editKey->getWidth() - PANELS_MARGIN, localise("Value"));
 
 	// create widget rectangle
-	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "LayoutEditor_Rectangle");
+	current_widget_rectangle = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
 	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &EditorState::notifyRectangleResize);
 	current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(this, &EditorState::notifyRectangleDoubleClick);
 	current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &EditorState::notifyRectangleKeyPressed);
 
 	clear();
 
-	/*MyGUI::WidgetPtr mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::ALIGN_LEFT | MyGUI::ALIGN_BOTTOM, "Main", "fpsInfo");
+	/*MyGUI::WidgetPtr mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::Align::Left | MyGUI::Align::Bottom, "Main", "fpsInfo");
 	mFpsInfo->setColour(Ogre::ColourValue::White);*/
 
 	typedef std::vector<std::string> Params;
@@ -333,9 +333,9 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		if (current_widget && wt->find(current_widget_type)->child)
 		{
 			coord = coord - current_widget->getPosition();
-			current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::ALIGN_DEFAULT, tmpname);
+			current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::Align::Default, tmpname);
 		}
-		else current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::ALIGN_DEFAULT, "Back", tmpname);
+		else current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::Align::Default, "Back", tmpname);
 
 		current_widget->setCaption(MyGUI::utility::toString("#888888",current_widget_skin));
 	}
@@ -905,11 +905,11 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 
 	while (current_widget && false == wt->find(current_widget->getWidgetType())->parent) current_widget = current_widget->getParent();
 	if (current_widget && wt->find(current_widget_type)->child)
-		current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(0, 0, 100, 100), MyGUI::ALIGN_DEFAULT, tmpname);
+		current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, tmpname);
 	else
 	{
 		MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
-		current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(), MyGUI::ALIGN_DEFAULT, "Back", tmpname);
+		current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, "Back", tmpname);
 		MyGUI::IntSize size(current_widget->getSize());
 		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
 	}
@@ -1251,24 +1251,24 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 	else if ("WidgetState" == _type) widget_for_type = 1;//по идее комба, но тогда надо еще и все состояния доступные в xml вписать
 	else widget_for_type = 1;
 
-	text = _window->createWidget<MyGUI::StaticText>("Editor_StaticText", x1, y, w1, h, MyGUI::ALIGN_DEFAULT);
+	text = _window->createWidget<MyGUI::StaticText>("Editor_StaticText", x1, y, w1, h, MyGUI::Align::Default);
 	std::string prop = _property;
 	// trim widget name
 	std::string::iterator iter = std::find(prop.begin(), prop.end(), '_');
 	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
 	text->setCaption(prop);
 	//text->setFontHeight(h-3);
-	text->setTextAlign(MyGUI::ALIGN_RIGHT);
+	text->setTextAlign(MyGUI::Align::Right);
 
 	if (widget_for_type == 0)
 	{
-		editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+		editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
 		if (_property != "RenderBox_Mesh" && _property != "Image_Texture") MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditTextChange = newDelegate (this, &EditorState::notifyApplyProperties);
 		MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->eventEditSelectAccept = newDelegate (this, &EditorState::notifyApplyProperties);
 	}
 	else if (widget_for_type == 1)
 	{
-		editOrCombo = _window->createWidget<MyGUI::ComboBox>("EditorComboBox", x2, y, w2, h, MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH);
+		editOrCombo = _window->createWidget<MyGUI::ComboBox>("EditorComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
 		MyGUI::castWidget<MyGUI::ComboBox>(editOrCombo)->eventComboAccept = newDelegate (this, &EditorState::notifyApplyPropertiesCombo);
 
 		std::vector<std::string> values;
@@ -1286,7 +1286,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 	//editOrCombo->setFontHeight(h-2);
 
 	// trim "ALIGN_"
-	if (0 == strncmp("ALIGN_", _value.c_str(), 6))
+	/*if (0 == strncmp("ALIGN_", _value.c_str(), 6))
 	{
 		std::string tmp = "";
 		const std::vector<std::string> & vec = MyGUI::utility::split(_value);
@@ -1299,7 +1299,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 			tmp += prop;
 		}
 		_value = tmp;
-	}
+	}*/
 
 	if (_value.empty()) editOrCombo->setCaption(DEFAULT_VALUE);
 	else MyGUI::castWidget<MyGUI::Edit>(editOrCombo)->setOnlyText(_value);
@@ -1316,7 +1316,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	std::string type = _sender->getUserString("type");
 
 	if (value == "[DEFAULT]") value = "";
-	else if ((action == "Align") || (action == "Widget_AlignText") || (action == "Progress_StartPoint"))
+	/*else if ((action == "Align") || (action == "Widget_AlignText") || (action == "Progress_StartPoint"))
 	{
 		std::string tmp = "";
 		const std::vector<std::string> & vec = MyGUI::utility::split(value);
@@ -1325,7 +1325,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 			tmp += "ALIGN_" + vec[pos];
 		}
 		value = tmp;
-	}
+	}*/
 
 	if (action == "Name")
 	{
@@ -1349,7 +1349,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Skin")
 	{
 		widgetContainer->skin = value;
-		if ( MyGUI::SkinManager::getInstance().isSkinExist(widgetContainer->skin) )
+		if ( MyGUI::SkinManager::getInstance().isExist(widgetContainer->skin) )
 		{
 			MyGUI::xml::xmlDocument * save = ew->savexmlDocument();
 			ew->clear();
@@ -1386,7 +1386,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	else if (action == "Align")
 	{
 		widgetContainer->align = value;
-		widgetContainer->widget->setAlign(MyGUI::SkinManager::parseAlign(value));
+		widgetContainer->widget->setAlign(MyGUI::Align::parse(value));
 		return;
 	}
 	else if (action == "Layer")

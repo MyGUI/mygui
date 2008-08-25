@@ -9,25 +9,28 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
+#include "MyGUI_Enumerator.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_XmlDocument.h"
 
 namespace MyGUI
 {
 
+	typedef Enumerator<MapWidgetSkinInfoPtr> EnumeratorSkinPtr;
+
 	class _MyGUIExport SkinManager
 	{
 		INSTANCE_HEADER(SkinManager);
 
-	public:
-		typedef std::map<std::string, Align> MapAlign;
+	//public:
+		//typedef std::map<std::string, Align> MapAlign;
 
 	public:
 		void initialise();
 		void shutdown();
 
 		/** Parse align string */
-		static Align parseAlign(const std::string & _value);
+		//static Align parseAlign(const std::string & _value);
 
 		/** Get skin info */
 		WidgetSkinInfo * getSkin(const Ogre::String & _name);
@@ -51,14 +54,16 @@ namespace MyGUI
 		static bool isPowerOfTwo(IntSize _size);
 
 		/** Check is skin exist */
-		inline bool isSkinExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end();}
+		inline bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end();}
+
+		inline EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins.begin(), mSkins.end()); }
 
 	private:
 		void createDefault();
 
 	private:
 		MapWidgetSkinInfoPtr mSkins;
-		static MapAlign mMapAlign;
+		//static MapAlign mMapAlign;
 
 	}; // class SkinManager
 

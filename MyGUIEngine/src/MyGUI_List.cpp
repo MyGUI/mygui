@@ -295,7 +295,7 @@ namespace MyGUI
 			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
 			while ( (height <= (mWidgetClient->getHeight() + mHeightLine)) && (mWidgetLines.size() < mStringArray.size()) ) {
 				// создаем линию
-				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, ALIGN_TOP | ALIGN_HSTRETCH);
+				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, Align::Top | Align::HStretch);
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 				line->eventMouseButtonDoubleClick = newDelegate(this, &List::notifyMouseDoubleClick);

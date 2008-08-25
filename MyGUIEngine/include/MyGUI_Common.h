@@ -13,7 +13,6 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_RenderOut.h"
-#include "MyGUI_AlignInfo.h"
 #include "MyGUI_ResourcePath.h"
 #include <OgreException.h>
 #include "MyGUI_Utility.h"
