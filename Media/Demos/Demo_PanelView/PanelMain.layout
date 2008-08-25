@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="456 152 208 72" layer="Back" name="_Main">
+        <Widget type="Edit" skin="Edit" position="88 8 112 24" align="HStretch Top" name="edit_Name"/>
+        <Widget type="StaticText" skin="StaticText" position="8 8 72 24" align="Left Top">
+            <Property key="Widget_Caption" value="Name"/>
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="8 40 72 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Position"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="88 40 112 24" align="HStretch Top" name="edit_Position"/>
+    </Widget>
+</MyGUI>
