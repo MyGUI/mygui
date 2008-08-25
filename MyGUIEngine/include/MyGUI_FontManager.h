@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Enumerator.h"
 #include <OgrePrerequisites.h>
 #include <OgreSingleton.h>
 #include <OgreResourceManager.h>
@@ -18,6 +19,9 @@
 
 namespace MyGUI
 {
+
+	typedef HashMap<Ogre::String, Ogre::ResourcePtr> ResourceMap;
+	typedef Enumerator<ResourceMap> EnumeratorFontPtr;
 
 	class _MyGUIExport FontManager : public Ogre::ResourceManager
 	{
@@ -32,6 +36,11 @@ namespace MyGUI
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		void saveFontTexture(const std::string & _font, const std::string & _file);
+
+		/** Check is font exist */
+		inline bool isExist(const std::string& _name) { return resourceExists(_name); }
+
+		inline EnumeratorFontPtr getEnumerator() { return EnumeratorFontPtr(mResources.begin(), mResources.end()); }
 
     protected:
 

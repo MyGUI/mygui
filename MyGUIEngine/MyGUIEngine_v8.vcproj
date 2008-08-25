@@ -494,6 +494,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Common"
+					>
+					<File
+						RelativePath=".\src\MyGUI_Align.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
@@ -852,7 +860,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_AlignInfo.h"
+						RelativePath=".\include\MyGUI_Align.h"
 						>
 					</File>
 					<File

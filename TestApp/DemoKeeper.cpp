@@ -118,6 +118,8 @@ private:
 	MapDelegate mDelegates;
 };*/
 
+
+
 void DemoKeeper::start()
 {
 
@@ -125,11 +127,16 @@ void DemoKeeper::start()
 	map["test"] = delegates::delegates::newDelegate(test);*/
 
 
-	using namespace MyGUI;
+	/*using namespace MyGUI;
 	const IntSize & view = Gui::getInstance().getViewSize();
 	const IntSize size(1000, 50);
 
-	/*StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main");
+	EnumeratorFontPtr enume = FontManager::getInstance().getEnumerator();
+	while(enume.next()) {
+		std::string name = enume.current().second->getName();
+	};*/
+
+	/*StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
 
 	image->setImageTexture("skin_fl_AZ_new.png");
 	image->addItemInfo("0.5 | 57 53 | 0 0");

@@ -368,13 +368,13 @@ namespace MyGUI
 		if (null == _widget) return;
 		
 		Align align = _widget->getAlign();
-		if (ALIGN_DEFAULT == align) return;
+		if (align.isDefault()) return;
 
 		IntCoord coord = _widget->getCoord();
 
 		// первоначальное выравнивание
-		if (IS_ALIGN_RIGHT(align)) {
-			if (IS_ALIGN_LEFT(align)) {
+		if (align.isRight()) {
+			if (align.isLeft()) {
 				// растягиваем
 				coord.width += _new.width - _old.width;
 			} else {
@@ -382,19 +382,19 @@ namespace MyGUI
 				coord.left += _new.width - _old.width;
 			}
 
-		} else if (false == IS_ALIGN_LEFT(align)) {
+		} else if (false == align.isLeft()) {
 			// выравнивание по горизонтали без растяжения
 			coord.left = (_new.width - coord.width) / 2;
 		}
 
-		if (IS_ALIGN_BOTTOM(align)) {
-			if (IS_ALIGN_TOP(align)) {
+		if (align.isBottom()) {
+			if (align.isTop()) {
 				// растягиваем
 				coord.height += _new.height - _old.height;
 			} else {
 				coord.top += _new.height - _old.height;
 			}
-		} else if (false == IS_ALIGN_TOP(align)) {
+		} else if (false == align.isTop()) {
 			// выравнивание по вертикали без растяжения
 			coord.top = (_new.height - coord.height) / 2;
 		}

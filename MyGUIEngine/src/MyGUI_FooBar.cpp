@@ -435,7 +435,7 @@ namespace MyGUI
 
 	WidgetPtr FooBar::addItem(FooBarItemInfo &item)
 	{
-		StaticImagePtr w = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), ALIGN_DEFAULT);
+		StaticImagePtr w = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), Align::Default);
 
 		w->setImageTile(item.tileSize);
 		w->setImageTexture(item.texture);

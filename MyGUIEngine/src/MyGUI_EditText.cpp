@@ -86,7 +86,7 @@ namespace MyGUI
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mTextAlign(ALIGN_DEFAULT),
+		mTextAlign(Align::Default),
 		mShiftText(false),
 		mBreakLine(false),
 		mOldWidth(0)
@@ -147,8 +147,8 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание
-		if (IS_ALIGN_RIGHT(mAlign)) {
-			if (IS_ALIGN_LEFT(mAlign)) {
+		if (mAlign.isRight()) {
+			if (mAlign.isLeft()) {
 				// растягиваем
 				mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
 				need_update = true;
@@ -161,14 +161,14 @@ namespace MyGUI
 			}
 
 		}
-		else if (false == IS_ALIGN_LEFT(mAlign)) {
+		else if (false == mAlign.isLeft()) {
 			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
-		if (IS_ALIGN_BOTTOM(mAlign)) {
-			if (IS_ALIGN_TOP(mAlign)) {
+		if (mAlign.isBottom()) {
+			if (mAlign.isTop()) {
 				// растягиваем
 				mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
 				need_update = true;
@@ -179,7 +179,7 @@ namespace MyGUI
 				need_update = true;
 			}
 		}
-		else if (false == IS_ALIGN_TOP(mAlign)) {
+		else if (false == mAlign.isTop()) {
 			// выравнивание по вертикали без растяжения
 			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
@@ -477,8 +477,8 @@ namespace MyGUI
 
 		// сдвиг текста
 		if (false == mManualView) {
-			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
-			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
+			if ( mTextAlign.isRight() ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
+			else if ( mTextAlign.isHCenter() ) {
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1; // для середины нужно четное число
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
@@ -488,9 +488,9 @@ namespace MyGUI
 		}
 
 		if (false == mManualView) {
-			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
-			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
-			else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
+			if ( mTextAlign.isTop() ) 	bottom += margin_top;
+			else if ( mTextAlign.isBottom() ) bottom += mContextRealSize.height - real_height - margin_bottom;
+			else if ( mTextAlign.isVCenter() ) {
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
@@ -531,8 +531,8 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - info.length) + margin_right; // выравнивание по правой стороне
+			if ( mTextAlign.isLeft() ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			else if ( mTextAlign.isRight() ) right = real_left - left_shift + (mContextRealSize.width - info.length) + margin_right; // выравнивание по правой стороне
 			else {
 				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
@@ -610,8 +610,8 @@ namespace MyGUI
 
 		// сдвиг текста
 		if (false == mManualView) {
-			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
-			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
+			if ( mTextAlign.isRight() ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
+			else if ( mTextAlign.isHCenter() ) {
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1; // для середины нужно четное число
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
@@ -621,9 +621,9 @@ namespace MyGUI
 		}
 
 		if (false == mManualView) {
-			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
-			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
-			else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
+			if ( mTextAlign.isTop() ) 	bottom += margin_top;
+			else if ( mTextAlign.isBottom() ) bottom += mContextRealSize.height - real_height - margin_bottom;
+			else if ( mTextAlign.isVCenter() ) {
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
@@ -655,8 +655,8 @@ namespace MyGUI
 			//++index;
 
 			// пересчет опорных данных
-			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right; // выравнивание по правой стороне
+			if ( mTextAlign.isLeft() ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			else if ( mTextAlign.isRight() ) right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right; // выравнивание по правой стороне
 			else {
 				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру
@@ -748,8 +748,8 @@ namespace MyGUI
 
 		// сдвиг текста
 		if (false == mManualView) {
-			if ( IS_ALIGN_RIGHT(mTextAlign) ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
-			else if ( IS_ALIGN_HCENTER(mTextAlign) ) {
+			if ( mTextAlign.isRight() ) left_shift = mContextRealSize.width - real_width; // выравнивание по правой стороне
+			else if ( mTextAlign.isHCenter() ) {
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1; // для середины нужно четное число
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
@@ -759,9 +759,9 @@ namespace MyGUI
 		}
 
 		if (false == mManualView) {
-			if ( IS_ALIGN_TOP(mTextAlign) ) 	bottom += margin_top;
-			else if ( IS_ALIGN_BOTTOM(mTextAlign) ) bottom += mContextRealSize.height - real_height - margin_bottom;
-			else if ( IS_ALIGN_VCENTER(mTextAlign) ) {
+			if ( mTextAlign.isTop() ) 	bottom += margin_top;
+			else if ( mTextAlign.isBottom() ) bottom += mContextRealSize.height - real_height - margin_bottom;
+			else if ( mTextAlign.isVCenter() ) {
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
@@ -836,8 +836,8 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			if ( IS_ALIGN_LEFT(mTextAlign) ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
-			else if ( IS_ALIGN_RIGHT(mTextAlign) ) right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right; // выравнивание по правой стороне
+			if ( mTextAlign.isLeft() ) right = real_left - left_shift - margin_left; // выравнивание по левой стороне
+			else if ( mTextAlign.isRight() ) right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right; // выравнивание по правой стороне
 			else {
 				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left; // выравнивание по центру

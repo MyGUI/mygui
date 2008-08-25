@@ -48,21 +48,21 @@ namespace MyGUI
 
 	void ColourRect::setColourAlign(const Ogre::ColourValue & _colour, Align _align)
 	{
-		if (IS_ALIGN_RIGHT_TOP(_align)) {
+		if (_align.isRightTop()) {
 			if (mColourRightTop == _colour) return;
 			mColourRightTop = _colour;
 			Ogre::Root::getSingleton().convertColourValue(mColourRightTop, &mRenderColourRightTop);
 
 			mRenderColourRightTop = mCurrentAlpha | (mRenderColourRightTop & 0x00FFFFFF);
 		}
-		else if (IS_ALIGN_RIGHT_BOTTOM(_align)) {
+		else if (_align.isRightBottom()) {
 			if (mColourRightBottom == _colour) return;
 			mColourRightBottom = _colour;
 			Ogre::Root::getSingleton().convertColourValue(mColourRightBottom, &mRenderColourRightBottom);
 
 			mRenderColourRightBottom = mCurrentAlpha | (mRenderColourRightBottom & 0x00FFFFFF);
 		}
-		else if (IS_ALIGN_LEFT_BOTTOM(_align)) {
+		else if (_align.isLeftBottom()) {
 			if (mColourLeftBottom == _colour) return;
 			mColourLeftBottom = _colour;
 			Ogre::Root::getSingleton().convertColourValue(mColourLeftBottom, &mRenderColourLeftBottom);
@@ -82,9 +82,9 @@ namespace MyGUI
 
 	const Ogre::ColourValue & ColourRect::getColourAlign(Align _align)
 	{
-		if (IS_ALIGN_RIGHT_TOP(_align)) return mColourRightTop;
-		else if (IS_ALIGN_RIGHT_BOTTOM(_align)) return mColourRightBottom;
-		else if (IS_ALIGN_LEFT_BOTTOM(_align)) return mColourLeftBottom;
+		if (_align.isRightTop()) return mColourRightTop;
+		else if (_align.isRightBottom()) return mColourRightBottom;
+		else if (_align.isLeftBottom()) return mColourLeftBottom;
 		return mColourLeftTop;
 	}
 

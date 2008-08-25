@@ -73,7 +73,7 @@ namespace MyGUI
 	PopupMenu::ItemInfo& PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
 	{
 		if (_index > mItems.size()) _index = mItems.size();
-		ButtonPtr button = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), ALIGN_TOP | ALIGN_HSTRETCH);
+		ButtonPtr button = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
 		button->setCaption(_item);
 
 		IntSize size = button->getTextSize();
@@ -84,7 +84,7 @@ namespace MyGUI
 		PopupMenuPtr submenu = NULL;
 		if (_submenu)
 		{
-			submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), ALIGN_DEFAULT, mSubMenuLayer);
+			submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 			submenu->_setOwner(this);
 		}
 		button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);

@@ -57,7 +57,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		// удал€ем все хранители слоев
-		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			delete (*iter);
 		}
 		mLayerKeepers.clear();
@@ -101,7 +101,7 @@ namespace MyGUI
 		if ((null == vp) || (false == vp->getOverlaysEnabled())) return;
 
 		mCountBatch = 0;
-		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			(*iter)->_render(mUpdate);
 		}
 
@@ -128,7 +128,7 @@ namespace MyGUI
 		detachFromLayerKeeper(_item);
 
 		// а теперь аттачим
-		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			if (_name == (*iter)->getName()) {
 
 				// запоминаем в рутовом виджете хранитель лееров
@@ -173,7 +173,7 @@ namespace MyGUI
 
 	LayerItem * LayerManager::_findLayerItem(int _left, int _top, LayerItem* &_root)
 	{
-		VectorLayerKeeper::reverse_iterator iter = mLayerKeepers.rbegin();
+		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
 		while (iter != mLayerKeepers.rend()) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top, _root);
 			if (item != null) return item;
@@ -220,9 +220,9 @@ namespace MyGUI
 		if (null != mSceneManager) mSceneManager->addRenderQueueListener(this);
 	}
 
-	bool LayerManager::exist(const std::string & _name)
+	bool LayerManager::isExist(const std::string & _name)
 	{
-		for (VectorLayerKeeper::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			if (_name == (*iter)->getName()) return true;
 		}
 		return false;

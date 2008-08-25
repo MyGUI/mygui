@@ -20,7 +20,7 @@ void DemoKeeper::start()
 	PluginManager::getInstance().loadPlugin("Plugin_StrangeButton.dll");
 #endif
 
-	m_button = Gui::getInstance().createWidgetT("StrangeButton", "Button", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), ALIGN_DEFAULT, "Main");
+	m_button = Gui::getInstance().createWidgetT("StrangeButton", "Button", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
 	m_button->setCaption("Plugin StrangeButton demo");
 
 }

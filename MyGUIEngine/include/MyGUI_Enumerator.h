@@ -12,6 +12,32 @@
 namespace MyGUI
 {
 
+	/** Enumerator usage
+	example :
+
+		typedef std::vector<std::string> VectorString;
+		typedef Enumerator<VectorString> EnumeratorVectorString;
+
+		VectorString vec;
+		vec.push_back("value");
+		EnumeratorVectorString enum_vec(vec.begin(), vec.end());
+		while (enum_vec.next()) {
+			std::string value = enum_vec.current();
+		};
+
+		typedef std::pair<std::string, std::string> PairString;
+		typedef std::map<PairString> MapString;
+
+		MapString map;
+		map["key"] = "value";
+		EnumeratorMapString enum_map(map.begin(), map.end());
+		while (enum_map.next()) {
+			std::string key = enum_map.current().first;
+			std::string value = enum_map.current().second;
+		};
+
+	*/
+
 	template<class T>
 	class Enumerator
 	{

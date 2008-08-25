@@ -1354,9 +1354,9 @@ namespace MyGUI
 			}
 		}
 		else {
-			if (IS_ALIGN_LEFT(align)) offset.left = 0;
-			else if (IS_ALIGN_RIGHT(align)) offset.left = textSize.width - view.width();
-			else if (IS_ALIGN_HCENTER(align)) offset.left = (textSize.width - view.width()) / 2;
+			if (align.isLeft()) offset.left = 0;
+			else if (align.isRight()) offset.left = textSize.width - view.width();
+			else if (align.isHCenter()) offset.left = (textSize.width - view.width()) / 2;
 		}
 
 		if (textSize.height > view.height()) {
@@ -1370,9 +1370,9 @@ namespace MyGUI
 			}
 		}
 		else {
-			if (IS_ALIGN_TOP(align)) offset.top = 0;
-			else if (IS_ALIGN_BOTTOM(align)) offset.top = textSize.height - view.height();
-			else if (IS_ALIGN_VCENTER(align)) offset.top = (textSize.height - view.height()) / 2;
+			if (align.isTop()) offset.top = 0;
+			else if (align.isBottom()) offset.top = textSize.height - view.height();
+			else if (align.isVCenter()) offset.top = (textSize.height - view.height()) / 2;
 		}
 		
 		if (offset != point) {

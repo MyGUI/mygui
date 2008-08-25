@@ -12,7 +12,7 @@ void PanelView::attach(MyGUI::ScrollViewPtr _widget)
 	mScrollView = _widget;
 
 	// потом перенести в лейаут
-	mScrollView->setCanvasAlign(MyGUI::ALIGN_HCENTER | MyGUI::ALIGN_TOP);
+	mScrollView->setCanvasAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
 	mScrollView->showHScroll(false);
 
 }

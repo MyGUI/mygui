@@ -213,7 +213,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	WidgetContainer * container = new WidgetContainer();
 	// парсим атрибуты виджета
 	MyGUI::IntCoord coord;
-	MyGUI::Align align = MyGUI::ALIGN_DEFAULT;
+	MyGUI::Align align = MyGUI::Align::Default;
 	std::string position;
 	std::string layer;
 
@@ -221,7 +221,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	_widget->findAttribute("type", container->type);
 	_widget->findAttribute("skin", container->skin);
 	_widget->findAttribute("layer", layer);
-	if (_widget->findAttribute("align", container->align)) align = MyGUI::SkinManager::parseAlign(container->align);
+	if (_widget->findAttribute("align", container->align)) align = MyGUI::Align::parse(container->align);
 	if (_widget->findAttribute("position", position)) coord = MyGUI::IntCoord::parse(position);
 	if (_widget->findAttribute("position_real", position))
 	{
@@ -257,7 +257,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 
 	// проверяем скин на присутствие
 	std::string skin = container->skin;
-	bool exist = MyGUI::SkinManager::getInstance().isSkinExist(container->skin);
+	bool exist = MyGUI::SkinManager::getInstance().isExist(container->skin);
 	if ( !exist )
    {
 		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
