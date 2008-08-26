@@ -30,7 +30,10 @@ void PanelView::updateView()
 	// вычисляем максимальную высоту всего добра
 	int height = 0;
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
-		height += (*iter)->getPanelCell()->mainWidget()->getHeight();
+		MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->mainWidget();
+		if (widget->isShow()) {
+			height += widget->getHeight();
+		}
 	}
 	// ставим высоту холста, и спрашиваем получившуюся ширину клиента
 	mScrollView->setCanvasSize(0, height);
@@ -42,13 +45,15 @@ void PanelView::updateView()
 	int pos = 0;
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 		MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->mainWidget();
-		height = widget->getHeight();
-		widget->setPosition(MyGUI::IntCoord(0, pos, coord.width, height));
-		pos += height;
+		if (widget->isShow()) {
+			height = widget->getHeight();
+			widget->setPosition(MyGUI::IntCoord(0, pos, coord.width, height));
+			pos += height;
+		}
 	}
 }
 
-void PanelView::insertItem(size_t _index, BasePanel * _item)
+void PanelView::insertItem(size_t _index, PanelBase * _item)
 {
 	MYGUI_ASSERT_RANGE_INSERT(_index, mItems.size(), "PanelView::insertItem");
 	if (_index == MyGUI::ITEM_NONE) _index = mItems.size();
@@ -66,13 +71,13 @@ void PanelView::insertItem(size_t _index, BasePanel * _item)
 	updateView();
 }
 
-BasePanel * PanelView::getItem(size_t _index)
+PanelBase * PanelView::getItem(size_t _index)
 {
 	MYGUI_ASSERT_RANGE(_index, mItems.size(), "PanelView::getItem");
 	return mItems[_index];
 }
 
-size_t PanelView::findItem(BasePanel * _item)
+size_t PanelView::findItem(PanelBase * _item)
 {
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 		if ((*iter) == _item) return iter - mItems.begin();
@@ -92,7 +97,7 @@ void PanelView::removeItemAt(size_t _index)
 	updateView();
 }
 
-void PanelView::removeItem(BasePanel * _item)
+void PanelView::removeItem(PanelBase * _item)
 {
 	size_t index = findItem(_item);
 	MYGUI_ASSERT(index != MyGUI::ITEM_NONE, "item is not found");

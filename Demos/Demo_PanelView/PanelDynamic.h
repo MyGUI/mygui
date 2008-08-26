@@ -8,9 +8,9 @@
 #define __PANEL_DYNAMIC_H__
 
 #include <MyGUI.h>
-#include "BasePanel.h"
+#include "PanelBase.h"
 
-class PanelDynamic : public BasePanel
+class PanelDynamic : public PanelBase
 {
 public:
 
@@ -19,10 +19,11 @@ public:
 	virtual void initialiseCell(PanelCell * _cell);
 	virtual void shutdownCell();
 
-private:
+	void setVisibleCount(size_t _count);
 
-	//MyGUI::EditPtr mEditName;
-	//MyGUI::EditPtr mEditPosition;
+private:
+	MyGUI::VectorWidgetPtr mItemsText;
+	MyGUI::VectorWidgetPtr mItemsEdit;
 
 };
 
