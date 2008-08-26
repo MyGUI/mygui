@@ -46,5 +46,37 @@
             <State name="normal" offset = "3 3 10 10"/>
         </BasisSkin>
     </Skin>
+
+    <Skin name = "PanelEmpty" size = "16 16" texture = "helper.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "ALIGN_LEFT ALIGN_TOP">
+            <State name="normal" offset = "0 16 1 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 0 14 1" align = "ALIGN_HSTRETCH ALIGN_TOP">
+            <State name="normal" offset = "1 16 14 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 0 1 1" align = "ALIGN_RIGHT ALIGN_TOP">
+            <State name="normal" offset = "15 16 1 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 1 1 14" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="normal" offset = "0 17 1 14"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 1 14 14" align = "ALIGN_STRETCH">
+            <State name="normal" offset = "3 19 10 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 1 1 14" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="normal" offset = "15 17 1 14"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 15 1 1" align = "ALIGN_LEFT ALIGN_BOTTOM">
+            <State name="normal" offset = "0 31 1 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 15 14 1" align = "ALIGN_HSTRETCH ALIGN_BOTTOM">
+            <State name="normal" offset = "1 31 14 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 15 1 1" align = "ALIGN_RIGHT ALIGN_BOTTOM">
+            <State name="normal" offset = "15 31 1 1"/>
+        </BasisSkin>
+    </Skin>
     
 </MyGUI>

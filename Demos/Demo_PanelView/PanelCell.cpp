@@ -5,16 +5,16 @@
 	@module
 */
 
-#include "Panel.h"
+#include "PanelCell.h"
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
 
-Panel::Panel() :
-	BaseLayout("Panel.layout")
+PanelCell::PanelCell() :
+	BaseLayout("PanelCell.layout")
 {
 }
 
-void Panel::initialise(MyGUI::WidgetPtr _parent)
+void PanelCell::initialise(MyGUI::WidgetPtr _parent)
 {
 	loadLayout(_parent);
 	mMainWidget->setPosition(0, 0);
@@ -23,23 +23,28 @@ void Panel::initialise(MyGUI::WidgetPtr _parent)
 	assignWidget(mButtonMinimize, "button_Minimize");
 	assignWidget(mWidgetClient, "widget_Client");
 
-	mButtonMinimize->eventMouseButtonPressed = MyGUI::newDelegate(this, &Panel::notfyMouseButtonPressed);
+	mButtonMinimize->eventMouseButtonPressed = MyGUI::newDelegate(this, &PanelCell::notfyMouseButtonPressed);
 
 	m_minHeight = mMainWidget->getHeight() - mWidgetClient->getHeight();
 	m_maxHeight = mMainWidget->getHeight();
 }
 
-/*void Panel::show()
+void PanelCell::setClientHeight(int _height, bool _smooth)
 {
-	mMainWidget->show();
+	m_maxHeight = mMainWidget->getHeight() - mWidgetClient->getHeight() + _height;
+	if (_smooth) {
+		if (!mButtonMinimize->getButtonPressed()) {
+			mButtonMinimize->setButtonPressed(true);
+			notfyMouseButtonPressed(null, 0, 0, MyGUI::MB_Left);
+		}
+	}
+	else {
+		mMainWidget->setSize(mMainWidget->getWidth(), m_maxHeight);
+		eventUpdatePanel(this);
+	}
 }
 
-void Panel::hide()
-{
-	mMainWidget->hide();
-}*/
-
-void Panel::notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+void PanelCell::notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 {
 	if (_id == MyGUI::MB_Left) {
 		if (mButtonMinimize->getButtonPressed()) {
@@ -47,7 +52,7 @@ void Panel::notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _to
 
 			MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
 			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::ControllerPosition::Inertional);
-			controller->eventUpdateAction = newDelegate(this, &Panel::notifyUpdateAction);
+			controller->eventUpdateAction = newDelegate(this, &PanelCell::notifyUpdateAction);
 			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 		}
 		else {
@@ -55,13 +60,13 @@ void Panel::notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _to
 
 			MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
 			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::ControllerPosition::Inertional);
-			controller->eventUpdateAction = newDelegate(this, &Panel::notifyUpdateAction);
+			controller->eventUpdateAction = newDelegate(this, &PanelCell::notifyUpdateAction);
 			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 		}
 	}
 }
 
-void Panel::notifyUpdateAction(MyGUI::WidgetPtr _widget)
+void PanelCell::notifyUpdateAction(MyGUI::WidgetPtr _widget)
 {
 	eventUpdatePanel(this);
 }

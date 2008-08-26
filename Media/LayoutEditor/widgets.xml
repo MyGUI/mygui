@@ -160,6 +160,7 @@
   <Widget name="Widget">
     <Property key="DefaultSkin" value="Default"/>
     <Property key="Parent" value="true"/>
+    <Property key="Skin" value="PanelEmpty"/>
     <Property key="Skin" value="Panel"/>
     <Property key="Skin" value="PanelSmall"/>
     <Property key="Skin" value="Separator1"/>
