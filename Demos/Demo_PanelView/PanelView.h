@@ -9,12 +9,12 @@
 
 #include <MyGUI.h>
 #include "PanelCell.h"
-#include "BasePanel.h"
+#include "PanelBase.h"
 
 class PanelView
 {
 public:
-	typedef std::vector<BasePanel*> VectorPanel;
+	typedef std::vector<PanelBase*> VectorPanel;
 
 	//wrap
 	void attach(MyGUI::ScrollViewPtr _widget);
@@ -23,18 +23,25 @@ public:
 	inline size_t getItemCount() { return mItems.size(); }
 
 	//! Insert an item into a list at a specified position
-	void insertItem(size_t _index, BasePanel * _item);
+	void insertItem(size_t _index, PanelBase * _item);
 	//! Add an item to the end of a list
-	inline void addItem(BasePanel * _item) { insertItem(MyGUI::ITEM_NONE, _item); }
+	inline void addItem(PanelBase * _item) { insertItem(MyGUI::ITEM_NONE, _item); }
 	//! Get item from specified position
-	BasePanel * getItem(size_t _index);
+	PanelBase * getItem(size_t _index);
 	//! Search item, returns the position of the first occurrence in list or ITEM_NONE if item not found
-	size_t findItem(BasePanel * _item);
+	size_t findItem(PanelBase * _item);
+
+	inline bool getItemShow(PanelBase * _item) { return _item->getPanelCell()->mainWidget()->isShow(); }
+	inline void setItemShow(PanelBase * _item, bool _show)
+	{
+		_show ? _item->getPanelCell()->mainWidget()->show() : _item->getPanelCell()->mainWidget()->hide();
+		updateView();
+	}
 
 	//! Remove item at a specified position
 	void removeItemAt(size_t _index);
 	//! Remove item at a specified position
-	void removeItem(BasePanel * _item);
+	void removeItem(PanelBase * _item);
 	//! Remove all items
 	void removeAllItems();
 

@@ -10,7 +10,9 @@
 #include <MyGUI.h>
 #include "PanelCell.h"
 #include "PanelViewWindow.h"
-#include "PanelStaticLayout.h"
+#include "PanelDirector.h"
+#include "PanelDynamic.h"
+#include "PanelStatic.h"
 
 class DemoKeeper
 {
@@ -19,11 +21,13 @@ public:
 	void end();
 
 private:
-	PanelViewWindow m_view;
-	PanelStaticLayout m_panel1;
-	/*PanelCell m_panel2;
-	PanelCell m_panel3;
-	PanelCell m_panel4;*/
+	void notifyChangePanels(int _key, size_t _value);
+
+private:
+	PanelViewWindow mView;
+	PanelDirector mPanelDirector;
+	PanelDynamic mPanelDynamic;
+	PanelStatic mPanelStatic;
 };
 
 #endif // __DEMO_KEEPER_H__
