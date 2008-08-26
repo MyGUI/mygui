@@ -373,28 +373,28 @@ namespace MyGUI
 		IntCoord coord = _widget->getCoord();
 
 		// первоначальное выравнивание
-		if (align.isRight()) {
-			if (align.isLeft()) {
-				// растягиваем
-				coord.width += _new.width - _old.width;
-			} else {
-				// двигаем по правому краю
-				coord.left += _new.width - _old.width;
-			}
-
-		} else if (false == align.isLeft()) {
+		if (align.isHStretch()) {
+			// растягиваем
+			coord.width += _new.width - _old.width;
+		}
+		else if (align.isRight()) {
+			// двигаем по правому краю
+			coord.left += _new.width - _old.width;
+		}
+		else if (align.isHCenter()) {
 			// выравнивание по горизонтали без растяжения
 			coord.left = (_new.width - coord.width) / 2;
 		}
 
-		if (align.isBottom()) {
-			if (align.isTop()) {
-				// растягиваем
-				coord.height += _new.height - _old.height;
-			} else {
-				coord.top += _new.height - _old.height;
-			}
-		} else if (false == align.isTop()) {
+		if (align.isVStretch()) {
+			// растягиваем
+			coord.height += _new.height - _old.height;
+		}
+		else if (align.isBottom()) {
+			// двигаем по нижнему краю
+			coord.top += _new.height - _old.height;
+		}
+		else if (align.isVCenter()) {
 			// выравнивание по вертикали без растяжения
 			coord.top = (_new.height - coord.height) / 2;
 		}
