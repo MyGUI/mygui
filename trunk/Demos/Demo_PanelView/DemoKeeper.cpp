@@ -17,26 +17,29 @@ void DemoKeeper::start()
 	const IntSize & view = Gui::getInstance().getViewSize();
 	const IntSize size(600, 300);
 
-	m_view.initialise();
+	mView.initialise();
 
-	m_view.addItem(&m_panel1);
-	//m_view.addItem(&m_panel2);
-	//m_view.addItem(&m_panel3);
-	//m_view.addItem(&m_panel4);
-
-	//m_panel1.setCaption("Panel 1");
-	//m_panel2.setCaption("Panel 2");
-	//m_panel3.setCaption("Panel 3");
-	//m_panel4.setCaption("Panel 4");
-
-	//m_panel1.initialise(scroll_view);
-	//m_panel2.initialise();
+	mPanelDirector.eventChangePanels = MyGUI::newDelegate(this, &DemoKeeper::notifyChangePanels);
+	mView.addItem(&mPanelDirector);
+	mView.addItem(&mPanelDynamic);
+	mView.addItem(&mPanelStatic);
 
 }
 
 void DemoKeeper::end()
 {
-	m_view.shutdown();
-	//m_panel.shutdown();
-	//m_panel.shutdown();
+	mView.shutdown();
+}
+
+void DemoKeeper::notifyChangePanels(int _key, size_t _value)
+{
+	if (_key == EVENT_SHOW_STATIC) {
+		mView.setItemShow(&mPanelStatic, (bool)_value);
+	}
+	else if (_key == EVENT_SHOW_DYNAMIC) {
+		mView.setItemShow(&mPanelDynamic, (bool)_value);
+	}
+	else if (_key == EVENT_COUNT_DYNAMIC) {
+		mPanelDynamic.setVisibleCount(_value);
+	}
 }
