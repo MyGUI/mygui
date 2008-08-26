@@ -193,17 +193,29 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Panel.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelVew.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\PanelViewWindow.cpp"
 				>
 			</File>
+			<Filter
+				Name="Panels"
+				>
+				<File
+					RelativePath=".\PanelStaticLayout.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BasePanel"
+				>
+				<File
+					RelativePath=".\PanelCell.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelVew.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -223,17 +235,33 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Panel.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelView.h"
-				>
-			</File>
-			<File
 				RelativePath=".\PanelViewWindow.h"
 				>
 			</File>
+			<Filter
+				Name="Panels"
+				>
+				<File
+					RelativePath=".\PanelStaticLayout.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BasePanel"
+				>
+				<File
+					RelativePath=".\BasePanel.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelCell.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelView.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"
