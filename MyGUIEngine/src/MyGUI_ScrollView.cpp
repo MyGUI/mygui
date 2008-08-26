@@ -158,9 +158,15 @@ namespace MyGUI
 			}
 		}
 		else {
-			if (mAlignCanvas.isLeft()) offset.left = 0;
-			else if (mAlignCanvas.isRight()) offset.left = size.width - mWidgetClient->getWidth();
-			else if (mAlignCanvas.isHCenter()) offset.left = (size.width - mWidgetClient->getWidth()) / 2;
+			if (mAlignCanvas.isLeft()) {
+				offset.left = 0;
+			}
+			else if (mAlignCanvas.isRight()) {
+				offset.left = size.width - mWidgetClient->getWidth();
+			}
+			else {
+				offset.left = (size.width - mWidgetClient->getWidth()) / 2;
+			}
 		}
 
 		if (size.height > mWidgetClient->getHeight()) {
@@ -174,9 +180,15 @@ namespace MyGUI
 			}
 		}
 		else {
-			if (mAlignCanvas.isTop()) offset.top = 0;
-			else if (mAlignCanvas.isBottom()) offset.top = size.height - mWidgetClient->getHeight();
-			else if (mAlignCanvas.isVCenter()) offset.top = (size.height - mWidgetClient->getHeight()) / 2;
+			if (mAlignCanvas.isTop()) {
+				offset.top = 0;
+			}
+			else if (mAlignCanvas.isBottom()) {
+				offset.top = size.height - mWidgetClient->getHeight();
+			}
+			else {
+				offset.top = (size.height - mWidgetClient->getHeight()) / 2;
+			}
 		}
 		
 		if (offset != point) {

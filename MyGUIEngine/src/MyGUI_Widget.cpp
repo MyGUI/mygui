@@ -171,33 +171,33 @@ namespace MyGUI
 		IntCoord coord = mCoord;
 
 		// первоначальное выравнивание
-		if (mAlign.isRight()) {
-			if (mAlign.isLeft()) {
-				// растягиваем
-				coord.width = mCoord.width + (mParent->getWidth() - _size.width);
-				need_size = true;
-			} else {
-				// двигаем по правому краю
-				coord.left = mCoord.left + (mParent->getWidth() - _size.width);
-				need_move = true;
-			}
-
-		} else if (false == mAlign.isLeft()) {
+		if (mAlign.isHStretch()) {
+			// растягиваем
+			coord.width = mCoord.width + (mParent->getWidth() - _size.width);
+			need_size = true;
+		}
+		else if (mAlign.isRight()) {
+			// двигаем по правому краю
+			coord.left = mCoord.left + (mParent->getWidth() - _size.width);
+			need_move = true;
+		}
+		else if (mAlign.isHCenter()) {
 			// выравнивание по горизонтали без растяжения
 			coord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_move = true;
 		}
 
-		if (mAlign.isBottom()) {
-			if (mAlign.isTop()) {
-				// растягиваем
-				coord.height = mCoord.height + (mParent->getHeight() - _size.height);
-				need_size = true;
-			} else {
-				coord.top = mCoord.top + (mParent->getHeight() - _size.height);
-				need_move = true;
-			}
-		} else if (false == mAlign.isTop()) {
+		if (mAlign.isVStretch()) {
+			// растягиваем
+			coord.height = mCoord.height + (mParent->getHeight() - _size.height);
+			need_size = true;
+		}
+		else if (mAlign.isBottom()) {
+			// двигаем по нижнему краю
+			coord.top = mCoord.top + (mParent->getHeight() - _size.height);
+			need_move = true;
+		}
+		else if (mAlign.isVCenter()) {
 			// выравнивание по вертикали без растяжения
 			coord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_move = true;
@@ -206,9 +206,11 @@ namespace MyGUI
 		if (need_move) {
 			if (need_size) setPosition(coord);
 			else setPosition(coord.point());
-		} else if (need_size) {
+		}
+		else if (need_size) {
 			setSize(coord.size());
-		} else _updateView(); // только если не вызвано передвижение и сайз
+		}
+		else _updateView(); // только если не вызвано передвижение и сайз
 
 	}
 
