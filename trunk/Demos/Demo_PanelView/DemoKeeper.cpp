@@ -20,14 +20,14 @@ void DemoKeeper::start()
 	m_view.initialise();
 
 	m_view.addItem(&m_panel1);
-	m_view.addItem(&m_panel2);
-	m_view.addItem(&m_panel3);
-	m_view.addItem(&m_panel4);
+	//m_view.addItem(&m_panel2);
+	//m_view.addItem(&m_panel3);
+	//m_view.addItem(&m_panel4);
 
-	m_panel1.setCaption("Panel 1");
-	m_panel2.setCaption("Panel 2");
-	m_panel3.setCaption("Panel 3");
-	m_panel4.setCaption("Panel 4");
+	//m_panel1.setCaption("Panel 1");
+	//m_panel2.setCaption("Panel 2");
+	//m_panel3.setCaption("Panel 3");
+	//m_panel4.setCaption("Panel 4");
 
 	//m_panel1.initialise(scroll_view);
 	//m_panel2.initialise();

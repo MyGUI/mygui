@@ -8,8 +8,9 @@
 #define __DEMO_KEEPER_H__
 
 #include <MyGUI.h>
-#include "Panel.h"
+#include "PanelCell.h"
 #include "PanelViewWindow.h"
+#include "PanelStaticLayout.h"
 
 class DemoKeeper
 {
@@ -19,10 +20,10 @@ public:
 
 private:
 	PanelViewWindow m_view;
-	Panel m_panel1;
-	Panel m_panel2;
-	Panel m_panel3;
-	Panel m_panel4;
+	PanelStaticLayout m_panel1;
+	/*PanelCell m_panel2;
+	PanelCell m_panel3;
+	PanelCell m_panel4;*/
 };
 
 #endif // __DEMO_KEEPER_H__

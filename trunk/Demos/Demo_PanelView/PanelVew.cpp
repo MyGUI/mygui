@@ -15,9 +15,12 @@ void PanelView::attach(MyGUI::ScrollViewPtr _widget)
 	mScrollView->setCanvasAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
 	mScrollView->showHScroll(false);
 
+	// лейаут базовой €чейки панели
+	//mPanelCellLayout = "PanelCell.layout";
+
 }
 
-void PanelView::notifyUpdatePanel(Panel * _panel)
+void PanelView::notifyUpdatePanel(PanelCell * _panel)
 {
 	updateView();
 }
@@ -27,7 +30,7 @@ void PanelView::updateView()
 	// вычисл€ем максимальную высоту всего добра
 	int height = 0;
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
-		height += (*iter)->mainWidget()->getHeight();
+		height += (*iter)->getPanelCell()->mainWidget()->getHeight();
 	}
 	// ставим высоту холста, и спрашиваем получившуюс€ ширину клиента
 	mScrollView->setCanvasSize(0, height);
@@ -38,33 +41,38 @@ void PanelView::updateView()
 	// выравниваем все панели
 	int pos = 0;
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
-		MyGUI::WidgetPtr widget = (*iter)->mainWidget();
+		MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->mainWidget();
 		height = widget->getHeight();
 		widget->setPosition(MyGUI::IntCoord(0, pos, coord.width, height));
 		pos += height;
 	}
 }
 
-void PanelView::insertItem(size_t _index, Panel * _item)
+void PanelView::insertItem(size_t _index, BasePanel * _item)
 {
 	MYGUI_ASSERT_RANGE_INSERT(_index, mItems.size(), "PanelView::insertItem");
 	if (_index == MyGUI::ITEM_NONE) _index = mItems.size();
 	MYGUI_ASSERT(findItem(_item) == MyGUI::ITEM_NONE, "panel allready exist");
 
-	_item->initialise(mScrollView);
-	_item->eventUpdatePanel = MyGUI::newDelegate(this, &PanelView::notifyUpdatePanel);
+	// создаем лейаут базовой €чейки
+	PanelCell * cell = new PanelCell();
+	cell->initialise(mScrollView);
+	cell->eventUpdatePanel = MyGUI::newDelegate(this, &PanelView::notifyUpdatePanel);
+
+	// теперь основной лейаут €чейки
+	_item->initialiseCell(cell);
 
 	mItems.insert(mItems.begin() + _index, _item);
 	updateView();
 }
 
-Panel * PanelView::getItem(size_t _index)
+BasePanel * PanelView::getItem(size_t _index)
 {
 	MYGUI_ASSERT_RANGE(_index, mItems.size(), "PanelView::getItem");
 	return mItems[_index];
 }
 
-size_t PanelView::findItem(Panel * _item)
+size_t PanelView::findItem(BasePanel * _item)
 {
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 		if ((*iter) == _item) return iter - mItems.begin();
@@ -76,12 +84,15 @@ void PanelView::removeItemAt(size_t _index)
 {
 	MYGUI_ASSERT_RANGE(_index, mItems.size(), "PanelView::removeItemAt");
 
-	mItems[_index]->shutdown();
+	PanelCell * cell = mItems[_index]->getPanelCell();
+	mItems[_index]->shutdownCell();
+	delete cell;
+
 	mItems.erase(mItems.begin() + _index);
 	updateView();
 }
 
-void PanelView::removeItem(Panel * _item)
+void PanelView::removeItem(BasePanel * _item)
 {
 	size_t index = findItem(_item);
 	MYGUI_ASSERT(index != MyGUI::ITEM_NONE, "item is not found");
@@ -91,7 +102,9 @@ void PanelView::removeItem(Panel * _item)
 void PanelView::removeAllItems()
 {
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
-		(*iter)->shutdown();
+		PanelCell * cell = (*iter)->getPanelCell();
+		(*iter)->shutdownCell();
+		delete cell;
 	}
 	mItems.clear();
 	updateView();

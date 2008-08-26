@@ -8,13 +8,13 @@
 #define __PANEL_VIEW_H__
 
 #include <MyGUI.h>
-//#include "BaseLayout.h"
-#include "Panel.h"
+#include "PanelCell.h"
+#include "BasePanel.h"
 
-class PanelView// : public BaseLayout
+class PanelView
 {
 public:
-	typedef std::vector<Panel*> VectorPanel;
+	typedef std::vector<BasePanel*> VectorPanel;
 
 	//wrap
 	void attach(MyGUI::ScrollViewPtr _widget);
@@ -23,30 +23,30 @@ public:
 	inline size_t getItemCount() { return mItems.size(); }
 
 	//! Insert an item into a list at a specified position
-	void insertItem(size_t _index, Panel * _item);
+	void insertItem(size_t _index, BasePanel * _item);
 	//! Add an item to the end of a list
-	inline void addItem(Panel * _item) { insertItem(MyGUI::ITEM_NONE, _item); }
+	inline void addItem(BasePanel * _item) { insertItem(MyGUI::ITEM_NONE, _item); }
 	//! Get item from specified position
-	Panel * getItem(size_t _index);
+	BasePanel * getItem(size_t _index);
 	//! Search item, returns the position of the first occurrence in list or ITEM_NONE if item not found
-	size_t findItem(Panel * _item);
+	size_t findItem(BasePanel * _item);
 
 	//! Remove item at a specified position
 	void removeItemAt(size_t _index);
 	//! Remove item at a specified position
-	void removeItem(Panel * _item);
+	void removeItem(BasePanel * _item);
 	//! Remove all items
 	void removeAllItems();
 
 	void updateView();
 
 private:
-	void notifyUpdatePanel(Panel * _panel);
+	void notifyUpdatePanel(PanelCell * _panel);
 
 private:
 	MyGUI::ScrollViewPtr mScrollView;
-
 	VectorPanel mItems;
+	//std::string mPanelCellLayout;
 };
 
 #endif // __PANEL_VIEW_H__
