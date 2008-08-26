@@ -67,39 +67,35 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание
-		if (mAlign.isRight()) {
-			if (mAlign.isLeft()) {
-				// растягиваем
-				mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
-				need_update = true;
-				mIsMargin = true; // при изменении размеров все пересчитывать
-			}
-			else {
-				// двигаем по правому краю
-				mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
-				need_update = true;
-			}
-
+		if (mAlign.isHStretch()) {
+			// растягиваем
+			mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
+			need_update = true;
+			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (false == mAlign.isLeft()) {
+		else if (mAlign.isRight()) {
+			// двигаем по правому краю
+			mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
+			need_update = true;
+		}
+		else if (mAlign.isHCenter()) {
 			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
-		if (mAlign.isBottom()) {
-			if (mAlign.isTop()) {
-				// растягиваем
-				mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
-				need_update = true;
-				mIsMargin = true; // при изменении размеров все пересчитывать
-			}
-			else {
-				mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
-				need_update = true;
-			}
+		if (mAlign.isVStretch()) {
+			// растягиваем
+			mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
+			need_update = true;
+			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (false == mAlign.isTop()) {
+		else if (mAlign.isBottom()) {
+			// двигаем по нижнему краю
+			mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
+			need_update = true;
+		}
+		else if (mAlign.isVCenter()) {
 			// выравнивание по вертикали без растяжения
 			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
