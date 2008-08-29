@@ -6,6 +6,7 @@
 */
 #include "MyGUI_Gui.h"
 #include "MyGUI_Edit.h"
+#include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ClipboardManager.h"
@@ -95,6 +96,13 @@ namespace MyGUI
 		}
 
 		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
+
+		// парсим свойства
+		const MapString & param = _info->getParams();
+		if (!param.empty()) {
+			MapString::const_iterator iter = param.find("Memo");
+			if (iter != param.end()) setEditMemo(iter->second == "true");
+		}
 
 		updateScroll();
 
