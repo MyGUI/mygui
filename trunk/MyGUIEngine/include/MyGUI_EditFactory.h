@@ -39,6 +39,7 @@ namespace MyGUI
 			void Edit_ShowVScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_ShowHScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 			void Edit_BreakLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_Memo(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 		};
 
 	} // namespace factory

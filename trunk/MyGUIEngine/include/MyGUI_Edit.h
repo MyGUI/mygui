@@ -160,6 +160,13 @@ namespace MyGUI
 		/** Get edit static mode flag */
 		inline bool getEditStatic() {return mModeStatic;}
 
+		inline void setEditMemo(bool _memo)
+		{
+			setEditBreakLine(_memo);
+			setEditMultiLine(_memo);
+			setEditStatic(_memo);
+		}
+
 		/** Set edit password character ('*' by default) */
 		void setPasswordChar(Char _char);
 		/** Set edit password character ('*' by default). First character of string used. */
