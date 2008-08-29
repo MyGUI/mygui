@@ -1227,6 +1227,17 @@
         <Child type="HScroll" skin="HScroll" offset = "0 15 15 15" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "HScroll"/>
         <Child type="Widget" skin="Default" offset = "0 0 15 15" align = "ALIGN_STRETCH" name = "Client"/>
     </Skin>    
-    
+
+    <Skin name = "StaticTextBreak" size = "16 16" texture = "core_new.png" >
+        <Property key="FontName" value = "MyGUI_CoreFont.18" />
+        <Property key="FontHeight" value = "18" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_TOP" />
+        <Property key="Colour" value = "0 0 0" />
+        <Property key="Memo" value = "true" />
+
+        <BasisSkin type="EditText" offset = "0 0 16 16" align = "ALIGN_STRETCH"/>
+        <Child type="Widget" skin="Default" offset = "0 0 16 16" align = "ALIGN_STRETCH" name = "Client"/>
+    </Skin>
+        
 </MyGUI>
 

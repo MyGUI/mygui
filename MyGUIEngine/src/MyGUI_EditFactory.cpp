@@ -33,6 +33,7 @@ namespace MyGUI
 			manager.registerDelegate("Edit_ShowVScroll") = newDelegate(this, &EditFactory::Edit_ShowVScroll);
 			manager.registerDelegate("Edit_ShowHScroll") = newDelegate(this, &EditFactory::Edit_ShowHScroll);
 			manager.registerDelegate("Edit_BreakLine") = newDelegate(this, &EditFactory::Edit_BreakLine);
+			manager.registerDelegate("Edit_Memo") = newDelegate(this, &EditFactory::Edit_Memo);
 		}
 
 		EditFactory::~EditFactory()
@@ -54,6 +55,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Edit_ShowHScroll");
 			manager.unregisterDelegate("Edit_ShowVScroll");
 			manager.unregisterDelegate("Edit_BreakLine");
+			manager.unregisterDelegate("Edit_Memo");
 		}
 
 		const Ogre::String& EditFactory::getType()
@@ -137,6 +139,12 @@ namespace MyGUI
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
 			static_cast<EditPtr>(_widget)->setEditBreakLine(utility::parseBool(_value));
+		}
+
+		void EditFactory::Edit_Memo(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(EditPtr, _widget, _key);
+			static_cast<EditPtr>(_widget)->setEditMemo(utility::parseBool(_value));
 		}
 
 	} // namespace factory

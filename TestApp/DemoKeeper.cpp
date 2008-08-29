@@ -127,11 +127,11 @@ void DemoKeeper::start()
 	map["test"] = delegates::delegates::newDelegate(test);*/
 
 
-	/*using namespace MyGUI;
+	using namespace MyGUI;
 	const IntSize & view = Gui::getInstance().getViewSize();
-	const IntSize size(1000, 50);
+	const IntSize size(200, 200);
 
-	EnumeratorFontPtr enume = FontManager::getInstance().getEnumerator();
+	/*EnumeratorFontPtr enume = FontManager::getInstance().getEnumerator();
 	while(enume.next()) {
 		std::string name = enume.current().second->getName();
 	};*/
@@ -144,6 +144,10 @@ void DemoKeeper::start()
 	image->addItemInfo("0.5 | 57 53 | 0 159 | 0 212");
 	image->addItemNames("normal active select");
 	image->setItemSelect("active");*/
+
+	EditPtr edit = Gui::getInstance().createWidget<Edit>("StaticTextBreak", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
+
+	edit->setCaption("seig iudy gisudh giluehdi fughdhg lskdhf lg\hdlIHd ILUHds lHs lhG Lshs :Gh :Ohg;OHdg;oHsd liuhf LISDUHf O& tfp&Tf^&OTSED*O&# T YW R p9*YW p97y RP97wy RPI&yr8p &TGILU GIllgx *O& GO&egor&GPwe87 tPO*&Tr oIG RO*&W RO&HGD OY");
 
 
 }
