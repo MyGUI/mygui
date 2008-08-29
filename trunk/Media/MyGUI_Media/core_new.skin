@@ -1228,15 +1228,24 @@
         <Child type="Widget" skin="Default" offset = "0 0 15 15" align = "ALIGN_STRETCH" name = "Client"/>
     </Skin>    
 
-    <Skin name = "StaticTextBreak" size = "16 16" texture = "core_new.png" >
+    <Skin name = "MemoClient" size = "16 16">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
-        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_TOP" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
-        <Property key="Memo" value = "true" />
+        <BasisSkin type="EditText" offset = "0 0 16 16" align = "ALIGN_STRETCH">
+        </BasisSkin>
+    </Skin>
 
-        <BasisSkin type="EditText" offset = "0 0 16 16" align = "ALIGN_STRETCH"/>
-        <Child type="Widget" skin="Default" offset = "0 0 16 16" align = "ALIGN_STRETCH" name = "Client"/>
+    <Skin name = "StaticTextBreak" size = "16 16" texture = "core_new.png" >
+        <Property key="Memo" value = "true" />
+        <Child type="Widget" skin="MemoClient" offset = "0 0 16 16" align = "ALIGN_STRETCH" name = "Client"/>
+    </Skin>
+        
+    <Skin name = "Memo" size = "16 16" texture = "core_new.png" >
+        <Property key="Memo" value = "true" />
+        <Child type="Widget" skin="MemoClient" offset = "0 0 1 16" align = "ALIGN_STRETCH" name = "Client"/>
+        <Child type="VScroll" skin="VScroll" offset = "1 0 15 16" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll"/>
     </Skin>
         
 </MyGUI>
