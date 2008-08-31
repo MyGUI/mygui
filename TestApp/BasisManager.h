@@ -70,6 +70,9 @@ public:
 
 	inline const std::string & getCurrentKeyboardLayout() { return m_currentKeyboardLayout; }
 
+	void addResourceLocation(const Ogre::String & _name, const Ogre::String & _type = "FileSystem", const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	void setWallpaper(const std::string & _filename);
+
 private:
 	void createInput(); // создаем систему ввода
 	void destroyInput(); // удаляем систему ввода

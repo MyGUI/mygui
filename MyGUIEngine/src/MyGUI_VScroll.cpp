@@ -13,6 +13,7 @@
 namespace MyGUI
 {
 	Ogre::String VScroll::WidgetTypeName = "VScroll";
+	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 
 	VScroll::VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
@@ -31,11 +32,13 @@ namespace MyGUI
 				MYGUI_DEBUG_ASSERT( ! mWidgetStart, "widget already assigned");
 				mWidgetStart = castWidget<Button>(*iter);
 				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetStart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 			else if ((*iter)->_getInternalString() == "End") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetEnd, "widget already assigned");
 				mWidgetEnd = castWidget<Button>(*iter);
 				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetEnd->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 			else if ((*iter)->_getInternalString() == "Track") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetTrack, "widget already assigned");
@@ -43,17 +46,20 @@ namespace MyGUI
 				mWidgetTrack->eventMouseDrag = newDelegate(this, &VScroll::notifyMouseDrag);
 				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &VScroll::notifyMouseReleased);
+				mWidgetTrack->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 				mWidgetTrack->hide();
 			}
 			else if ((*iter)->_getInternalString() == "FirstPart") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetFirstPart, "widget already assigned");
 				mWidgetFirstPart = castWidget<Button>(*iter);
 				mWidgetFirstPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetFirstPart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 			else if ((*iter)->_getInternalString() == "SecondPart") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetSecondPart, "widget already assigned");
 				mWidgetSecondPart = castWidget<Button>(*iter);
 				mWidgetSecondPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetSecondPart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 		}
 
@@ -65,14 +71,12 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & param = _info->getParams();
 		MapString::const_iterator iter = param.find("TrackRangeMargins");
-		if (iter != param.end())
-		{
+		if (iter != param.end()) {
 			IntSize range = IntSize::parse(iter->second);
 			mSkinRangeStart = range.width;
 			mSkinRangeEnd = range.height;
 		}
-		else
-		{
+		else {
 			mSkinRangeStart = 0;
 			mSkinRangeEnd = 0;
 		}
@@ -157,10 +161,10 @@ namespace MyGUI
 
 	void VScroll::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MB_Left != _id) return;
-
 		// диспечерезируем нажатие своих детей как свое
 		eventMouseButtonPressed(this, _left, _top, _id);
+
+		if (MB_Left != _id) return;
 
 		if (_sender == mWidgetStart) {
 			// минимальное значение
@@ -174,7 +178,8 @@ namespace MyGUI
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
 
-		} else if (_sender == mWidgetEnd){
+		}
+		else if (_sender == mWidgetEnd) {
 			// максимальное значение
 			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
 
@@ -186,7 +191,8 @@ namespace MyGUI
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
 
-		} else if (_sender == mWidgetFirstPart) {
+		}
+		else if (_sender == mWidgetFirstPart) {
 			// минимальное значение
 			if (mScrollPosition == 0) return;
 
@@ -198,7 +204,8 @@ namespace MyGUI
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
 
-		} else if (_sender == mWidgetSecondPart){
+		}
+		else if (_sender == mWidgetSecondPart) {
 			// максимальное значение
 			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
 
@@ -210,7 +217,8 @@ namespace MyGUI
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
 
-		} else {
+		}
+		else {
 			mPreActionRect.left = _sender->getLeft();
 			mPreActionRect.top = _sender->getTop();
 		}
@@ -270,6 +278,31 @@ namespace MyGUI
 	int VScroll::getLineSize()
 	{
 		return mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);
+	}
+
+	void VScroll::_onMouseWheel(int _rel)
+	{
+		notifyMouseWheel(null, _rel);
+		Widget::_onMouseWheel(_rel);
+	}
+
+	void VScroll::notifyMouseWheel(WidgetPtr _sender, int _rel)
+	{
+		if (mScrollRange < 2) return;
+
+		int offset = mScrollPosition;
+		if (_rel < 0) offset += SCROLL_MOUSE_WHEEL;
+		else  offset -= SCROLL_MOUSE_WHEEL;
+
+		if (offset < 0) offset = 0;
+		else if (offset > (int)(mScrollRange - 1)) offset = mScrollRange - 1;
+
+		if (offset != mScrollPosition) {
+			mScrollPosition = offset;
+			// оповещаем
+			eventScrollChangePosition(this, (int)mScrollPosition);
+			updateTrack();
+		}
 	}
 
 } // namespace MyGUI

@@ -88,9 +88,13 @@ namespace MyGUI
 	protected:
 		virtual void updateTrack();
 		virtual void TrackMove(int _left, int _top);
+
+		virtual void _onMouseWheel(int _rel);
+
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
+		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
 		// наши кнопки
 		ButtonPtr mWidgetStart;
