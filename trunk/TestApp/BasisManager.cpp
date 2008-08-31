@@ -210,12 +210,24 @@ void BasisManager::setupResources(void) // загружаем все ресурсы приложения
 				// OS X does not set the working directory relative to the app,
 				// In order to make things portable on OS X we need to provide
 				// the loading with it's own bundle path location
-				ResourceGroupManager::getSingleton().addResourceLocation(String(macBundlePath() + "/" + archName), typeName, secName);
+				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + archName), typeName, secName);
 			#else
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
 			#endif
         }
     }
+}
+
+void BasisManager::addResourceLocation(const Ogre::String & _name, const Ogre::String & _type, const Ogre::String & _group)
+{
+	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		// OS X does not set the working directory relative to the app,
+		// In order to make things portable on OS X we need to provide
+		// the loading with it's own bundle path location
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group);
+	#else
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group);
+	#endif
 }
 
 void BasisManager::createScene()
@@ -336,6 +348,13 @@ void BasisManager::setWindowCaption(const std::string & _text)
 	mWindow->getCustomAttribute("WINDOW", &windowHnd);
 	::SetWindowTextA((HWND)windowHnd, _text.c_str());
 #endif
+}
+
+void BasisManager::setWallpaper(const std::string & _filename)
+{
+	static MyGUI::StaticImagePtr image = null;
+	if (image == null) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
+	image->setImageTexture(_filename);
 }
 
 //=======================================================================================
