@@ -131,6 +131,12 @@ void DemoKeeper::start()
 	const IntSize & view = Gui::getInstance().getViewSize();
 	const IntSize size(200, 200);
 
+	BasisManager::getInstance().addResourceLocation("../../Media/TestApp");
+	BasisManager::getInstance().setWallpaper("wallpaper4.jpg");
+
+	//StaticImagePtr wallpaper = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord(0, 0, view.width, view.height), Align::Stretch, "Back");
+	//wallpaper->setImageTexture("wallpaper4.jpg");
+
 	/*EnumeratorFontPtr enume = FontManager::getInstance().getEnumerator();
 	while(enume.next()) {
 		std::string name = enume.current().second->getName();
