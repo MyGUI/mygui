@@ -79,6 +79,7 @@ namespace MyGUI
 		Ogre::uint8 mTabWidth;
 		Ogre::uint8 mCursorWidth;
 		Ogre::uint8 mOffsetHeight;
+		Ogre::uint16 mDefaultHeight;
 
 		// отдельная информация о символах
 		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
@@ -159,6 +160,9 @@ namespace MyGUI
 
         inline void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
         inline bool getAntialiasColour(void) const { return mAntialiasColour; }
+
+		inline Ogre::uint16 getDefaultHeight() const { return mDefaultHeight; }
+		inline void setDefaultHeight(Ogre::uint16 _height) { mDefaultHeight = _height; }
 
 		/** Implementation of ManualResourceLoader::loadResource, called
 			when the Texture that this font creates needs to (re)load. */

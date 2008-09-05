@@ -69,6 +69,7 @@ namespace MyGUI
 			pFont->setTrueTypeSize(utility::parseValue<Ogre::Real>(size));
 			pFont->setTrueTypeResolution((Ogre::uint)utility::parseValue<Ogre::Real>(resolution));
 
+			pFont->setDefaultHeight(utility::parseUInt(font->findAttribute("default_height")));
 			if (false == antialias.empty()) pFont->setAntialiasColour(utility::parseBool(antialias));
 			if (false == space.empty()) pFont->setSpaceWidth(utility::parseUChar(space));
 			if (false == tab.empty()) pFont->setTabWidth(utility::parseUChar(tab));
