@@ -95,7 +95,7 @@ namespace base
 		virtual void windowResized(Ogre::RenderWindow* rw);
 		virtual void windowClosed(Ogre::RenderWindow* rw);
 
-	private:
+	protected:
 		static BaseManager * m_instance;
 
 		//OIS Input devices
