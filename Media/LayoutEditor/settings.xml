@@ -3,7 +3,7 @@
     <Property key="Grid" value="8"/>
     <Property key="ShowName" value="1"/>
     <Property key="ShowType" value="1"/>
-    <Property key="ShowSkin" value="1"/>
+    <Property key="ShowSkin" value="0"/>
     <Property key="EdgeHide" value="0"/>
     <Property key="widgetsButtonWidth" value="115"/>
     <Property key="widgetsButtonHeight" value="24"/>

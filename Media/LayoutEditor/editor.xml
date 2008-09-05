@@ -9,7 +9,7 @@
 	    <List file="editor.layer" group="General"/>
 	    <List file="core.skin" group="General"/>
 	    <List file="editor.skin" group="General"/>
-	    <List file="editor.font" group="General"/>
+	    <List file="core.font" group="General"/>
 	    <List file="core.pointer" group="General"/>
 
       <List file="core_new.skin" group="General"/>
