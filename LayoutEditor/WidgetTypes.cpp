@@ -132,16 +132,32 @@ void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & 
 	}
 }
 
+PossibleValue * WidgetTypes::getPassibleValue(const std::string & _name)
+{
+
+	PossibleValue * possible_value = null;
+	for (std::vector<PossibleValue*>::iterator iter=possible_values.begin(); iter!=possible_values.end(); ++iter) {
+		if ((*iter)->name == _name) {
+			return (*iter);
+		}
+	}
+
+	if (possible_value == null) {
+		possible_value = new PossibleValue();
+		possible_value->name = _name;
+		possible_values.push_back(possible_value);
+	}
+
+	return possible_value;
+}
+
 void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file)
 {
 	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
 	while (widgets.nextNode("Value")) {
 
-		PossibleValue * possible_value = new PossibleValue();
-		// парсим атрибуты виджета
-		widgets->findAttribute("name", possible_value->name);
-
-		possible_values.push_back(possible_value);
+		std::string name = widgets->findAttribute("name");
+		PossibleValue * possible_value = getPassibleValue(name);
 
 		// берем детей и крутимс€
 		MyGUI::xml::xmlNodeIterator field = widgets->getNodeIterator();
