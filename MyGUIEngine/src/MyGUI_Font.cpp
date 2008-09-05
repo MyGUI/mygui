@@ -45,7 +45,8 @@ namespace MyGUI
 		mCursorWidth(0),
 		mDistance(0),
 		mAntialiasColour(false),
-		mDefaultHeight(0)
+		mDefaultHeight(0),
+		mHeightPix(0)
     {
     }
     //---------------------------------------------------------------------
@@ -170,6 +171,7 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, "Font '" << mName << "' using texture size " << finalWidth << " x " << finalHeight);
 		MYGUI_LOG(Info, "Font '" << mName << "' using real height " << max_height << " pixels");
+		mHeightPix = max_height;
 
         Ogre::uchar* imageData = new Ogre::uchar[data_size];
 		// Reset content (White, transparent)
