@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelSmall" position="448 208 200 128" layer="LayoutEditor_ToolTip" name="_Main">
-        <Widget type="Edit" skin="EditorStaticEdit" position="3 3 192 120" align="ALIGN_STRETCH" name="Text">
+        <Widget type="Edit" skin="EditorStaticEdit" position="3 3 192 120" align="Stretch" name="Text">
             <Property key="Edit_MultiLine" value="true"/>
             <Property key="Edit_BreakLine" value="true"/>
             <Property key="Edit_ReadOnly" value="true"/>
             <Property key="Widget_Caption" value="[Tool Tip Info]"/>
-            <Property key="Widget_AlignText" value="ALIGN_LEFT ALIGN_TOP"/>
+            <Property key="Widget_AlignText" value="Left Top"/>
         </Widget>
     </Widget>
 </MyGUI>
