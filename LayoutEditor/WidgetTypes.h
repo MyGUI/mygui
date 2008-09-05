@@ -46,4 +46,6 @@ private:
 
 	WidgetType * getWidgetType(const std::string & _name);
 
+	PossibleValue * getPassibleValue(const std::string & _name);
+
 };
