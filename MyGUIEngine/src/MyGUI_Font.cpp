@@ -44,7 +44,8 @@ namespace MyGUI
 		mTabWidth(0),
 		mCursorWidth(0),
 		mDistance(0),
-		mAntialiasColour(false)
+		mAntialiasColour(false),
+		mDefaultHeight(0)
     {
     }
     //---------------------------------------------------------------------

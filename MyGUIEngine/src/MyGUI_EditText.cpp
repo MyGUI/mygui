@@ -79,7 +79,7 @@ namespace MyGUI
 		mCurrentAlpha(0xFF000000),
 		mColour(Ogre::ColourValue::White),
 		mAlpha(ALPHA_MAX),
-		mFontHeight(16),
+		mFontHeight(0),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mItemKeeper(null),
 		mRenderItem(null),
@@ -303,6 +303,11 @@ namespace MyGUI
 
 		info = mpFont->getCursorGlyphInfo();
 		mCursorTexture.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
+
+		// если надо, устанавливаем дефолтный размер шрифта
+		if (mpFont->getDefaultHeight() != 0) {
+			mFontHeight = mpFont->getDefaultHeight();
+		}
 
 		mTextOutDate = true;
 
