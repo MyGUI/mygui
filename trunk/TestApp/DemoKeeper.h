@@ -18,6 +18,8 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
+		void createFont(int _res, int _height);
+
 	};
 
 } // namespace demo

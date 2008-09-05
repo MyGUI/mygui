@@ -80,6 +80,7 @@ namespace MyGUI
 		Ogre::uint8 mCursorWidth;
 		Ogre::uint8 mOffsetHeight;
 		Ogre::uint16 mDefaultHeight;
+		Ogre::uint16 mHeightPix;
 
 		// отдельная информация о символах
 		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
@@ -163,6 +164,8 @@ namespace MyGUI
 
 		inline Ogre::uint16 getDefaultHeight() const { return mDefaultHeight; }
 		inline void setDefaultHeight(Ogre::uint16 _height) { mDefaultHeight = _height; }
+
+		inline Ogre::uint16 getHeightPix() { return mHeightPix; }
 
 		/** Implementation of ManualResourceLoader::loadResource, called
 			when the Texture that this font creates needs to (re)load. */
