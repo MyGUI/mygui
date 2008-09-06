@@ -33,7 +33,6 @@ void Console::initialise()
 	mAutocomleted = false;
 
 	mComboCommand->eventComboAccept = newDelegate(this, &Console::notifyComboAccept);
-	mComboCommand->eventEditTextChange = newDelegate(this, &Console::notifyCommandPrint);
 	mComboCommand->eventKeyButtonPressed = newDelegate(this, &Console::notifyButtonPressed);
 	mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
 }
@@ -100,13 +99,7 @@ void Console::notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key,
 		edit->deleteTextSelect();
 		len = _sender->getCaption().length();
 		edit->eraseText(len-1);
-		notifyCommandPrint(_sender);
 	}
-}
-
-void Console::notifyCommandPrint(MyGUI::WidgetPtr _sender)
-{
-	MyGUI::EditPtr edit = MyGUI::castWidget<MyGUI::Edit>(_sender);
 
 	Ogre::UTFString command = _sender->getCaption();
 	if (command.length() == 0) return;
@@ -115,6 +108,7 @@ void Console::notifyCommandPrint(MyGUI::WidgetPtr _sender)
 	{
 		if (iter->first.find(command) == 0)
 		{
+			if (command == iter->first) break;
 			edit->setCaption(iter->first);
 			edit->setTextSelect(command.length(), iter->first.length());
 			mAutocomleted = true;

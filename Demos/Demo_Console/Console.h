@@ -60,7 +60,6 @@ private:
 	void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 	void notifyComboAccept(MyGUI::WidgetPtr _sender);
 	void notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
-	void notifyCommandPrint(MyGUI::WidgetPtr _sender);
 
 	void internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);
 
