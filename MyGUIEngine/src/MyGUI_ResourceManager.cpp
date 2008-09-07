@@ -4,24 +4,52 @@
 	@date		09/2008
 	@module
 */
-#include "MyGUI_Gui.h"
+//#include "MyGUI_Gui.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Resource.h"
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#include <CoreFoundation/CoreFoundation.h>
+// This function will locate the path to our application on OS X,
+// unlike windows you can not rely on the curent working directory
+// for locating your configuration files and resources.
+namespace MyGUI
+{
+	std::string macBundlePath()
+	{
+		char path[1024];
+		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
+		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
+		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
+		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
+		CFRelease(mainBundleURL);
+		CFRelease(cfStringRef);
+		return std::string(path);
+	}
+}
+#endif
 
 namespace MyGUI
 {
 
 	const std::string XML_TYPE("Resource");
+	const std::string XML_TYPE_LOCATION("Location");
+	const std::string XML_TYPE_LIST("List");
 
 	INSTANCE_IMPLEMENT(ResourceManager);
 
-	void ResourceManager::initialise()
+	void ResourceManager::initialise(const Ogre::String & _group)
 	{
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
+		// группа с которой работает весь гуй
+		mResourceGroup = _group;
+
+		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
+		registerLoadXmlDelegate(XML_TYPE_LOCATION) = newDelegate(this, &ResourceManager::_loadLocation);
+		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -33,7 +61,11 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		clear();
-		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		unregisterLoadXmlDelegate(XML_TYPE);
+		unregisterLoadXmlDelegate(XML_TYPE_LOCATION);
+		unregisterLoadXmlDelegate(XML_TYPE_LIST);
+
+		mMapLoadXmlDelegate.clear();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -41,7 +73,7 @@ namespace MyGUI
 
 	bool ResourceManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return _loadImplement(_file, _group, false, "", INSTANCE_TYPE_NAME);
 	}
 
 	void ResourceManager::_load(xml::xmlNodePtr _node, const std::string & _file)
@@ -74,6 +106,46 @@ namespace MyGUI
 		};
 	}
 
+	void ResourceManager::_loadLocation(xml::xmlNodePtr _node, const std::string & _file)
+	{
+		// берем детей и крутимся, основной цикл
+		xml::xmlNodeIterator root = _node->getNodeIterator();
+		while (root.nextNode(XML_TYPE_LOCATION)) {
+			// парсим атрибуты
+			std::string name, type, group;
+			root->findAttribute("name", name);
+			root->findAttribute("type", type);
+			root->findAttribute("group", group);
+			if (name.empty()) {
+				MYGUI_LOG(Error, "error load resource location, tag 'name' is empty");
+				continue;
+			}
+			if (type.empty()) type = "FileSystem";
+			if (group.empty()) group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+
+			#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+				// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
+				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + name), type, group);
+			#else
+				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, type, group);
+			#endif
+
+		};
+	}
+
+	void ResourceManager::_loadList(xml::xmlNodePtr _node, const std::string & _file)
+	{
+		// берем детей и крутимся, основной цикл
+		xml::xmlNodeIterator node = _node->getNodeIterator();
+		while (node.nextNode(XML_TYPE_LIST)) {
+			std::string source;
+			if (false == node->findAttribute("file", source)) continue;
+			std::string group = node->findAttribute("group");
+			MYGUI_LOG(Info, "Load ini file '" << source << "' from " << (group.empty() ? "current path" : "resource group : ") << group);
+			_loadImplement(source, group, false, "", INSTANCE_TYPE_NAME);
+		};
+	}
+
 	void ResourceManager::clear()
 	{
 		for (MapResource::iterator iter=mResources.begin(); iter!=mResources.end(); ++iter) {
@@ -81,6 +153,79 @@ namespace MyGUI
 		}
 		mResources.clear();
 		mHolders.clear();
+	}
+
+	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const Ogre::String & _key)
+	{
+		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
+		MYGUI_ASSERT(iter == mMapLoadXmlDelegate.end(), "name delegate is exist");
+		return (mMapLoadXmlDelegate[_key] = LoadXmlDelegate());
+	}
+
+	void ResourceManager::unregisterLoadXmlDelegate(const Ogre::String & _key)
+	{
+		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
+		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
+	}
+
+	bool ResourceManager::_loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance)
+	{
+		xml::xmlDocument doc;
+		std::string file(_group.empty() ? _file : helper::getResourcePath(_file, _group));
+		if (file.empty()) {
+			MYGUI_LOG(Error, _instance << " : file '" << _file << "' not found");
+			return false;
+		}
+
+		Ogre::DataStreamPtr fileStream;
+		if (!_group.empty()) fileStream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file,_group);
+
+		if ((_group.empty() && (false == doc.open(file))) || (!_group.empty() && (false == doc.open(fileStream)))) {
+			MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
+			return false;
+		}
+
+		xml::xmlNodePtr root = doc.getRoot();
+		if ( (null == root) || (root->getName() != "MyGUI") ) {
+			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
+			return false;
+		}
+
+		std::string type;
+		if (root->findAttribute("type", type)) {
+			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
+			if (iter != mMapLoadXmlDelegate.end()) {
+				if ((false == _match) || (type == _type)) (*iter).second(root, file);
+				else {
+					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not found");
+					return false;
+				}
+			}
+			else {
+				MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
+				return false;
+			}
+		}
+		// предпологаем что будут вложенные
+		else if (false == _match) {
+			xml::xmlNodeIterator node = root->getNodeIterator();
+			while (node.nextNode("MyGUI")) {
+				if (node->findAttribute("type", type)) {
+					MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
+					if (iter != mMapLoadXmlDelegate.end()) {
+						(*iter).second(node.currentNode(), file);
+					}
+					else {
+						MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
+					}
+				}
+				else {
+					MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'type' not found");
+				}
+			}
+		}
+
+		return true;
 	}
 
 } // namespace MyGUI	

@@ -11,14 +11,15 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_Font", "FileSystem", "General");
+		//base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Font");
+		MyGUI::Gui::getInstance().load("test.xml");
 
-		//mFontPanel.initialise();
+		mFontPanel.initialise();
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		//mFontPanel.shutdown();
+		mFontPanel.shutdown();
 	}
 
 } // namespace demo

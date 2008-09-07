@@ -4,15 +4,16 @@
 	@date		11/2007
 	@module
 */
-#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_Gui.h"
+#include "MyGUI_XmlDocument.h"
+#include "MyGUI_ResourceManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_PointerManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -53,7 +54,7 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().eventFrameStart += newDelegate(this, &InputManager::frameEntered);
 		//Gui::getInstance().addFrameListener(newDelegate(this, &InputManager::frameEntered), null);
-		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -67,7 +68,7 @@ namespace MyGUI
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
 		//Gui::getInstance().removeFrameListener(newDelegate(this, &InputManager::frameEntered));
 		WidgetManager::getInstance().unregisterUnlinker(this);
-		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -375,7 +376,7 @@ namespace MyGUI
 
 	bool InputManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file)

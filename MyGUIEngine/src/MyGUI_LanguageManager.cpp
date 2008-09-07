@@ -4,7 +4,7 @@
 	@date		09/2008
 	@module
 */
-#include "MyGUI_Gui.h"
+#include "MyGUI_ResourceManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_XmlDocument.h"
 
@@ -20,7 +20,7 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LanguageManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LanguageManager::_load);
 
 		mCurrentLanguage = mMapFile.end();
 
@@ -34,7 +34,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -42,7 +42,7 @@ namespace MyGUI
 
 	bool LanguageManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void LanguageManager::_load(xml::xmlNodePtr _node, const std::string & _file)
@@ -105,7 +105,7 @@ namespace MyGUI
 	bool LanguageManager::loadLanguage(const std::string & _file)
 	{
 
-		std::string group = Gui::getInstance().getResourceGroup();
+		std::string group = ResourceManager::getInstance().getResourceGroup();
 		std::string file(group.empty() ? _file : helper::getResourcePath(_file, group));
 		if (file.empty()) {
 			MYGUI_LOG(Error, "file '" << _file << "' not found");
