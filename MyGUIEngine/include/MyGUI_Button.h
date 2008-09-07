@@ -28,21 +28,26 @@ namespace MyGUI
 		//! @copydoc Widget::getWidgetType()
 		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
-		//! Set button pressed state
-		inline void setButtonPressed(bool _pressed)
+		//! OLD Set button check state
+		inline void setButtonPressed(bool _check) { setStateCheck(_check); }
+		//! OLD Get buton check 
+		inline bool getButtonPressed() { return getStateCheck(); }
+
+		//! Set button check state
+		inline void setStateCheck(bool _check)
 		{
-			if (mIsStatePressed == _pressed) return;
-			mIsStatePressed = _pressed;
+			if (mIsStateCheck == _check) return;
+			mIsStateCheck = _check;
 			updateButtonState();
 		}
 
-		//! Get buton pressed
-		inline bool getButtonPressed() {return mIsStatePressed;}
+		//! Get buton check
+		inline bool getStateCheck() {return mIsStateCheck;}
 
 		//! Set button focused state
 		inline void _setMouseFocus(bool _focus)
 		{
-			mIsFocus = _focus;
+			mIsMouseFocus = _focus;
 			updateButtonState();
 		}
 
@@ -66,13 +71,16 @@ namespace MyGUI
 
 	private:
 		// нажата ли кнопка
-		bool mIsPressed;
+		bool mIsMousePressed;
 		// в фокусе ли кнопка
-		bool mIsFocus;
+		bool mIsMouseFocus;
 		// статус кнопки нажата или нет
-		bool mIsStatePressed;
+		bool mIsStateCheck;
 
 		StaticImagePtr mImage;
+
+		// для прозрачной поддержки старого режима
+		bool mModeCheck;
 
 	}; // class Button : public Widget
 

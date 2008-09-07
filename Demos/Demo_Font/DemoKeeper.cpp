@@ -1,20 +1,24 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2008
+	@date		09/2008
 	@module
 */
 #include "DemoKeeper.h"
-#include "BasisManager.h"
 
-void DemoKeeper::start()
+namespace demo
 {
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_Font", "FileSystem", "General");
 
-	mFontPanel.initialise();
-}
+	void DemoKeeper::createScene()
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_Font", "FileSystem", "General");
 
-void DemoKeeper::end()
-{
-	mFontPanel.shutdown();
-}
+		//mFontPanel.initialise();
+	}
+
+	void DemoKeeper::destroyScene()
+	{
+		//mFontPanel.shutdown();
+	}
+
+} // namespace demo

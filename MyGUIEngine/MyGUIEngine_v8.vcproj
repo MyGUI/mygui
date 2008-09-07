@@ -415,6 +415,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ResourceManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_SkinManager.cpp"
 					>
 				</File>
@@ -502,6 +506,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Resource"
+					>
+					<File
+						RelativePath=".\src\MyGUI_ResourceImageSet.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
@@ -512,6 +524,10 @@
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_Font.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_Guid.cpp"
 					>
 				</File>
 				<File
@@ -753,6 +769,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Guid.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_RenderOut.h"
 					>
 				</File>
@@ -845,6 +865,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ResourceManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_SkinManager.h"
 					>
 				</File>
@@ -873,6 +897,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_EnumCharInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ImageInfo.h"
 						>
 					</File>
 					<File
@@ -971,6 +999,14 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Resource"
+						>
+						<File
+							RelativePath=".\include\MyGUI_Resource.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="SubWidget"
@@ -1061,6 +1097,14 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ControllerPosition.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Resource"
+					>
+					<File
+						RelativePath=".\include\MyGUI_ResourceImageSet.h"
 						>
 					</File>
 				</Filter>

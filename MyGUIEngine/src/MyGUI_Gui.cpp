@@ -22,6 +22,7 @@
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_ResourceManager.h"
 
 namespace MyGUI
 {
@@ -71,6 +72,7 @@ namespace MyGUI
 		mPluginManager = new PluginManager();
 		mDelegateManager = new DelegateManager();
 		mLanguageManager = new LanguageManager();
+		mResourceManager = new ResourceManager();
 
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
@@ -86,6 +88,7 @@ namespace MyGUI
 		mPluginManager->initialise();
 		mDelegateManager->initialise();
 		mLanguageManager->initialise();
+		mResourceManager->initialise();
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
@@ -117,6 +120,7 @@ namespace MyGUI
 		_destroyAllChildWidget();
 
 		// деинициализируем и удаляем синглтоны
+		mResourceManager->shutdown();
 		mPointerManager->shutdown();
 		mWidgetManager->shutdown();
 		mInputManager->shutdown();
@@ -132,6 +136,7 @@ namespace MyGUI
 		mDelegateManager->shutdown();
 		mLanguageManager->shutdown();
 
+		delete mResourceManager;
 		delete mPointerManager;
 		delete mWidgetManager;
 		delete mInputManager;

@@ -17,10 +17,11 @@ namespace MyGUI
 
 	Button::Button(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mIsPressed(false),
-		mIsFocus(false),
-		mIsStatePressed(false),
-		mImage(null)
+		mIsMousePressed(false),
+		mIsMouseFocus(false),
+		mIsStateCheck(false),
+		mImage(null),
+		mModeCheck(false)
 	{
 
 		// парсим свойства
@@ -28,6 +29,8 @@ namespace MyGUI
 		if (!param.empty()) {
 			MapString::const_iterator iter = param.find("ButtonPressed");
 			if (iter != param.end()) setButtonPressed(iter->second == "true");
+			iter = param.find("StateCheck");
+			if (iter != param.end()) setStateCheck(iter->second == "true");
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -36,6 +39,10 @@ namespace MyGUI
 				mImage = castWidget<StaticImage>(*iter);
 			}
 		}
+
+		// провер€ем на старый стиль описани€ стейтов скинов
+		mModeCheck = mStateInfo.find("normal_check") != mStateInfo.end();
+
 	}
 
 	void Button::_onMouseSetFocus(WidgetPtr _old)
@@ -55,7 +62,7 @@ namespace MyGUI
 	void Button::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		if (_id == MB_Left) {
-			mIsPressed = true;
+			mIsMousePressed = true;
 			updateButtonState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -65,7 +72,7 @@ namespace MyGUI
 	void Button::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		if (_id == MB_Left) {
-			mIsPressed = false;
+			mIsMousePressed = false;
 			updateButtonState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
@@ -96,23 +103,38 @@ namespace MyGUI
 
 		if ( ! mEnabled) {
 			InputManager::getInstance()._unlinkWidget(this);
-			mIsFocus = false;
+			mIsMouseFocus = false;
 		}
 	}
 
 	void Button::updateButtonState()
 	{
-		if ( ! mEnabled) {
-			if (mIsStatePressed) setState("disable_pressed");
-			else setState("disable");
+		if (mModeCheck) {
+			if (mIsStateCheck) {
+				if ( ! mEnabled) setState("disable_check");
+				else if (mIsMousePressed) setState("pressed_check");
+				else if (mIsMouseFocus) setState("active_check");
+				else setState("normal_check");
+			}
+			else {
+				if ( ! mEnabled) setState("disable");
+				else if (mIsMousePressed) setState("pressed");
+				else if (mIsMouseFocus) setState("active");
+				else setState("normal");
+			}
 		}
 		else {
-			if (mIsFocus) {
-				if (mIsPressed || mIsStatePressed) setState("select");
-				else setState("active");
-			} else {
-				if (mIsPressed || mIsStatePressed) setState("pressed");
-				else setState("normal");
+			if ( ! mEnabled) {
+				setState("disable");
+			}
+			else {
+				if (mIsMouseFocus) {
+					if (mIsMousePressed || mIsStateCheck) setState("select");
+					else setState("active");
+				} else {
+					if (mIsMousePressed || mIsStateCheck) setState("pressed");
+					else setState("normal");
+				}
 			}
 		}
 	}

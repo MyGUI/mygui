@@ -1656,7 +1656,7 @@ void EditorState::notifyMinimizePanel(MyGUI::WidgetPtr _sender)
 
 	// сделать все кнопки временно недоступными
 	for (MyGUI::VectorWidgetPtr::iterator iter = panelMinimizeButtons.begin(); iter != panelMinimizeButtons.end(); ++iter)
-		(*iter)->setEnabled(false);
+		(*iter)->setEnabledSilent(false);
 }
 
 void EditorState::notifyEndResize(MyGUI::WidgetPtr _sender)

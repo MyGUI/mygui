@@ -83,13 +83,13 @@
             <Property key="Widget_Caption" value="#{Widget_type_propertes}"/>
             <Property key="Widget_AlignText" value="HCenter Top"/>
             <UserString key="Size" value="0"/>
-            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="Right Top" name="minimizeSpecificProperties"/>
+            <Widget type="Button" skin="ButtonMinimize" position="244 3 18 18" align="Right Top" name="minimizeSpecificProperties"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 248 267 76" align="HStretch Top" name="panelWidgetProperties">
             <Property key="Widget_Caption" value="#{Other_properties}"/>
             <Property key="Widget_AlignText" value="HCenter Top"/>
             <UserString key="Size" value="0"/>
-            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="Right Top" name="minimizeWidgetProperties"/>
+            <Widget type="Button" skin="ButtonMinimize" position="244 3 18 18" align="Right Top" name="minimizeWidgetProperties"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 326 267 160" align="HStretch Top" name="panelItems">
             <Property key="Widget_Caption" value="Items"/>
@@ -106,7 +106,7 @@
             <Widget type="Button" skin="ButtonSmall" position="181 133 83 24" align="Left Top" name="buttonSelectSheet">
                 <Property key="Widget_Caption" value="#{Select}"/>
             </Widget>
-            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="Right Top" name="minimizeItem"/>
+            <Widget type="Button" skin="ButtonMinimize" position="244 3 18 18" align="Right Top" name="minimizeItem"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="2 488 267 160" align="HStretch Top" name="panelUserData">
             <Property key="Widget_Caption" value="UserData"/>
@@ -121,7 +121,7 @@
                 <Property key="Widget_Caption" value="#{Delete}"/>
             </Widget>
             <Widget type="MultiList" skin="MultiList" position="3 48 261 85" align="HStretch Top" name="multilistUserData"/>
-            <Widget type="Button" skin="ButtonMinimize" position="246 4 16 16" align="Right Top" name="minimizeUserData"/>
+            <Widget type="Button" skin="ButtonMinimize" position="244 3 18 18" align="Right Top" name="minimizeUserData"/>
         </Widget>
     </Widget>
 </MyGUI>
