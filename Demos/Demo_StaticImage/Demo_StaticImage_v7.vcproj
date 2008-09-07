@@ -4,7 +4,7 @@
 	Version="7.10"
 	Name="Demo_StaticImage"
 	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
-	RootNamespace="Demo_ScrollView"
+	RootNamespace="Demo_StaticImage"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform

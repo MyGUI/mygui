@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="Demo_StaticImage"
-	ProjectGUID="{C64CEBC7-EB2B-4B75-81F8-5CE234625E2E}"
-	RootNamespace="Demo_StaticImage"
+	Name="Demo_Font"
+	ProjectGUID="{683D1C80-F7EB-4438-A2E4-6F3E8429F371}"
+	RootNamespace="Demo_Font"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -185,11 +185,23 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\BasisManager.cpp"
+				RelativePath="..\..\Common\BaseLayout.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Common\Base\BaseManager.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FontPanel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\TestApp\Main.cpp"
 				>
 			</File>
 		</Filter>
@@ -199,11 +211,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\BasisManager.h"
+				RelativePath="..\..\Common\BaseLayout.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Common\Base\BaseManager.h"
 				>
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FontPanel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Common\Base\StatisticInfo.h"
 				>
 			</File>
 		</Filter>
@@ -211,15 +235,7 @@
 			Name="Resource"
 			>
 			<File
-				RelativePath=".\Demo_StaticImage.rc"
-				>
-			</File>
-			<File
-				RelativePath=".\mygui.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\resource.h"
+				RelativePath="..\..\Common\Base\BaseResource.rc"
 				>
 			</File>
 		</Filter>

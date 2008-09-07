@@ -26,10 +26,6 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
-	//typedef delegates::IDelegate1<float> FrameEventDelegate;
-	//typedef std::pair<FrameEventDelegate*, WidgetPtr> PairFrameEvent;
-	//typedef std::list<PairFrameEvent> ListFrameEvent;
-
 	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator, public UnlinkWidget
 	{
 		friend class WidgetManager;
@@ -109,10 +105,6 @@ namespace MyGUI
 		/** Get view size of GUI area */
 		inline IntSize getViewSize() { return IntSize(mViewSize.width, mViewSize.height); }
 
-		/** Add GUI frame listener */
-		//void addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget);
-		/** Remove GUI frame listener */
-		//void removeFrameListener(FrameEventDelegate * _delegate);
 		/** Add or remove GUI frame listener */
 		FrameEventDelegate eventFrameStart;
 
@@ -308,9 +300,7 @@ namespace MyGUI
 		PluginManager* mPluginManager;
 		DelegateManager* mDelegateManager;
 		LanguageManager* mLanguageManager;
-
-		// подписчики на кадры
-		//ListFrameEvent mListFrameEvent;
+		ResourceManager* mResourceManager;
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;

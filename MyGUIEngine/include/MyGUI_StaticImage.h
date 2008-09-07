@@ -9,22 +9,12 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-//#include "MyGUI_FrameListener.h"
+#include "MyGUI_ImageInfo.h"
 
 namespace MyGUI
 {
 
-	struct ImageItem
-	{
-		ImageItem() : frame_rate(0) {}
-
-		float frame_rate;
-		std::vector<FloatRect> images;
-	};
-
-	typedef std::vector<ImageItem> VectorImages;
-
-	class _MyGUIExport StaticImage : public Widget//, public FrameListener
+	class _MyGUIExport StaticImage : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::StaticImageFactory;
@@ -57,6 +47,9 @@ namespace MyGUI
 			@param _tile size
 		*/
 		void setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile);
+
+		void setImageInfo(const ImageIndexInfo & _info);
+
 		/* Set texture
 			@param _texture file name
 		*/

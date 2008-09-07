@@ -404,4 +404,27 @@ namespace MyGUI
 		}
 	}
 
+	void StaticImage::setImageInfo(const ImageIndexInfo & _info)
+	{
+		_setTextureName(_info.texture);
+		mSizeTexture = SkinManager::getTextureSize(_info.texture);
+
+		deleteAllItems();
+
+		if (_info.frames.size() != 0) {
+			std::vector<IntPoint>::const_iterator iter = _info.frames.begin();
+
+			addItem(IntCoord(*iter, _info.size));
+			setItemFrameRate(0, _info.rate);
+
+			for (++iter; iter!=_info.frames.end(); ++iter) {
+				addItemFrame(0, MyGUI::IntCoord(*iter, _info.size));
+			}
+
+		}
+
+		mIndexSelect = 0;
+		updateSelectIndex(mIndexSelect);
+	}
+
 } // namespace MyGUI
