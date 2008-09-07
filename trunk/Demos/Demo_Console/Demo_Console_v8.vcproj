@@ -4,7 +4,7 @@
 	Version="8,00"
 	Name="Demo_Console"
 	ProjectGUID="{691EEDDA-B30E-4DB9-B99D-6FC45E620B40}"
-	RootNamespace="Demo_ScrollView"
+	RootNamespace="Demo_Console"
 	Keyword="Win32Proj"
 	>
 	<Platforms>

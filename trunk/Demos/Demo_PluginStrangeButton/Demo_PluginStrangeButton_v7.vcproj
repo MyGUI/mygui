@@ -4,7 +4,7 @@
 	Version="7.10"
 	Name="Demo_PluginStrangeButton"
 	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
-	RootNamespace="Demo_ScrollView"
+	RootNamespace="Demo_PluginStrangeButton"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
