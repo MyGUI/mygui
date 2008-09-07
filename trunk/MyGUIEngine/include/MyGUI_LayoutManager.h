@@ -11,6 +11,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {

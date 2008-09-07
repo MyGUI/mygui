@@ -201,7 +201,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\TestApp\Main.cpp"
+				RelativePath=".\Main.cpp"
 				>
 			</File>
 		</Filter>

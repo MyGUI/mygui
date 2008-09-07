@@ -7,10 +7,10 @@ INSTANCE_IMPLEMENT(WidgetTypes);
 void WidgetTypes::initialise()
 {
 	//loadTypes();
-	MyGUI::Gui::getInstance().registerLoadXmlDelegate("Widgets") = MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
-	MyGUI::Gui::getInstance().registerLoadXmlDelegate("Values") = MyGUI::newDelegate(this, &WidgetTypes::loadValues);
+	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Widgets") = MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
+	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Values") = MyGUI::newDelegate(this, &WidgetTypes::loadValues);
 
-	MyGUI::Gui::getInstance().load("initialise.xml");
+	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 }
 
 void WidgetTypes::shutdown()

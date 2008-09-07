@@ -226,7 +226,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	if (_widget->findAttribute("position_real", position))
 	{
 		container->relative_mode = true;
-		coord = MyGUI::Gui::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(position), _parent);
+		coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(position), _parent);
 	}
 
 	// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать

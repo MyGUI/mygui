@@ -20,18 +20,32 @@ namespace MyGUI
 	typedef delegates::CDelegate2<ResourcePtr &, xml::xmlNodeIterator> CreatorDelegate;
 	typedef delegates::IDelegate2<ResourcePtr &, xml::xmlNodeIterator> * CreatorDelegatePtr;
 
+	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
+	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
+
 	class _MyGUIExport ResourceManager
 	{
 		INSTANCE_HEADER(ResourceManager);
 
 	public:
-		void initialise();
+		void initialise(const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void shutdown();
 
 	public:
+		/** Register delegate for parsing XML blocks */
+		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
+		void unregisterLoadXmlDelegate(const Ogre::String & _key);
 
+		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
+		void _loadLocation(xml::xmlNodePtr _node, const std::string & _file);
+		void _loadList(xml::xmlNodePtr _node, const std::string & _file);
+
+		/** Get name of ResourceGroup*/
+		inline const std::string& getResourceGroup() { return mResourceGroup; }
 
 		ResourcePtr getResource(const Guid & _id, bool _throw = true)
 		{
@@ -65,6 +79,11 @@ namespace MyGUI
 
 		MapDelegate mHolders;
 		MapResource mResources;
+
+		// карта с делегатами для парсинга хмл блоков
+		MapLoadXmlDelegate mMapLoadXmlDelegate;
+
+		std::string mResourceGroup;
 	};
 
 } // namespace MyGUI

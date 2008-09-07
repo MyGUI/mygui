@@ -27,15 +27,10 @@
 namespace MyGUI
 {
 
-	const std::string XML_TYPE("List");
-
 	INSTANCE_IMPLEMENT(Gui);
 
 	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group)
 	{
-		// группа с которой работает весь гуй
-		mResourceGroup = _group;
-
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
 
@@ -55,9 +50,8 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
 
-		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &Gui::_load);
-
 		// создаем и инициализируем синглтоны
+		mResourceManager = new ResourceManager();
 		mLayerManager = new LayerManager();
 		mWidgetManager = new WidgetManager();
 		mInputManager = new InputManager();
@@ -72,8 +66,8 @@ namespace MyGUI
 		mPluginManager = new PluginManager();
 		mDelegateManager = new DelegateManager();
 		mLanguageManager = new LanguageManager();
-		mResourceManager = new ResourceManager();
 
+		mResourceManager->initialise(_group);
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
 		mInputManager->initialise();
@@ -88,7 +82,6 @@ namespace MyGUI
 		mPluginManager->initialise();
 		mDelegateManager->initialise();
 		mLanguageManager->initialise();
-		mResourceManager->initialise();
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
@@ -97,8 +90,7 @@ namespace MyGUI
 		windowResized(mWindow);
 
 		// загружаем дефолтные настройки если надо
-		if ( _core.empty() == false )
-			load(_core, mResourceGroup);
+		if ( _core.empty() == false ) mResourceManager->load(_core, mResourceManager->getResourceGroup());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -113,14 +105,9 @@ namespace MyGUI
 		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 		WidgetManager::getInstance().unregisterUnlinker(this);
 
-		unregisterLoadXmlDelegate(XML_TYPE);
-		//mListFrameEvent.clear();
-		mMapLoadXmlDelegate.clear();
-
 		_destroyAllChildWidget();
 
 		// деинициализируем и удаляем синглтоны
-		mResourceManager->shutdown();
 		mPointerManager->shutdown();
 		mWidgetManager->shutdown();
 		mInputManager->shutdown();
@@ -135,8 +122,8 @@ namespace MyGUI
 		mDynLibManager->shutdown();
 		mDelegateManager->shutdown();
 		mLanguageManager->shutdown();
+		mResourceManager->shutdown();
 
-		delete mResourceManager;
 		delete mPointerManager;
 		delete mWidgetManager;
 		delete mInputManager;
@@ -151,6 +138,7 @@ namespace MyGUI
 		delete mPluginManager;
 		delete mDelegateManager;
 		delete mLanguageManager;
+		delete mResourceManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
@@ -179,19 +167,6 @@ namespace MyGUI
 	WidgetPtr Gui::findWidgetT(const std::string& _name)
 	{
 		return mWidgetManager->findWidgetT(_name);
-	}
-
-	LoadXmlDelegate & Gui::registerLoadXmlDelegate(const Ogre::String & _key)
-	{
-		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
-		MYGUI_ASSERT(iter == mMapLoadXmlDelegate.end(), "name delegate is exist");
-		return (mMapLoadXmlDelegate[_key] = LoadXmlDelegate());
-	}
-
-	void Gui::unregisterLoadXmlDelegate(const Ogre::String & _key)
-	{
-		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
-		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
 	}
 
 	// удяляет неудачника
@@ -235,112 +210,9 @@ namespace MyGUI
 		}
 	}
 
-	/*void Gui::destroyAllWidget()
-	{
-		mWidgetManager->destroyAllWidget();
-	}
-
-	void Gui::destroyWidget(WidgetPtr _widget)
-	{
-		mWidgetManager->destroyWidget(_widget);
-	}*/
-
 	bool Gui::load(const std::string & _file, const std::string & _group)
 	{
-		return _loadImplement(_file, _group, false, "", INSTANCE_TYPE_NAME);
-	}
-
-	bool Gui::_loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance)
-	{
-		xml::xmlDocument doc;
-		std::string file(_group.empty() ? _file : helper::getResourcePath(_file, _group));
-		if (file.empty()) {
-			MYGUI_LOG(Error, _instance << " : file '" << _file << "' not found");
-			return false;
-		}
-
-		Ogre::DataStreamPtr fileStream;
-		if (!_group.empty()) fileStream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file,_group);
-
-		if ((_group.empty() && (false == doc.open(file))) || (!_group.empty() && (false == doc.open(fileStream)))) {
-			MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
-			return false;
-		}
-
-		xml::xmlNodePtr root = doc.getRoot();
-		if ( (null == root) || (root->getName() != "MyGUI") ) {
-			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
-			return false;
-		}
-
-		std::string type;
-		if (root->findAttribute("type", type)) {
-			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
-			if (iter != mMapLoadXmlDelegate.end()) {
-				if ((false == _match) || (type == _type)) (*iter).second(root, file);
-				else {
-					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not found");
-					return false;
-				}
-			}
-			else {
-				MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
-				return false;
-			}
-		}
-		// предпологаем что будут вложенные
-		else if (false == _match) {
-			xml::xmlNodeIterator node = root->getNodeIterator();
-			while (node.nextNode("MyGUI")) {
-				if (node->findAttribute("type", type)) {
-					MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
-					if (iter != mMapLoadXmlDelegate.end()) {
-						(*iter).second(node.currentNode(), file);
-					}
-					else {
-						MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
-					}
-				}
-				else {
-					MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'type' not found");
-				}
-			}
-		}
-
-		return true;
-	}
-
-	void Gui::_load(xml::xmlNodePtr _node, const std::string & _file)
-	{
-		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator node = _node->getNodeIterator();
-		while (node.nextNode(XML_TYPE)) {
-			std::string source;
-			if (false == node->findAttribute("file", source)) continue;
-			std::string group = node->findAttribute("group");
-			MYGUI_LOG(Info, "Load ini file '" << source << "' from " << (group.empty() ? "current path" : "resource group : ") << group);
-			_loadImplement(source, group, false, "", INSTANCE_TYPE_NAME);
-		};
-	}
-
-	IntCoord Gui::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
-	{
-		const FloatSize size(getViewWidth(), getViewHeight());
-		if (null == _parent) {
-			return IntCoord(_coord.left * size.width, _coord.top * size.height, _coord.width * size.width, _coord.height * size.height);
-		}
-		const IntCoord& coord = _parent->getClientCoord();
-		return IntCoord(_coord.left * coord.width, _coord.top * coord.height, _coord.width * coord.width, _coord.height * coord.height);
-	}
-
-	FloatCoord Gui::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
-	{
-		const FloatSize size(getViewWidth(), getViewHeight());
-		if (null == _parent) {
-			return FloatCoord(_coord.left / size.width, _coord.top / size.height, _coord.width / size.width, _coord.height / size.height);
-		}
-		const IntCoord& coord = _parent->getClientCoord();
-		return FloatCoord(1.*_coord.left / coord.width, 1.*_coord.top / coord.height, 1.*_coord.width / coord.width, 1.*_coord.height / coord.height);
+		return mResourceManager->load(_file, _group);
 	}
 
 	// для оповещений об изменении окна рендера
@@ -440,59 +312,16 @@ namespace MyGUI
 	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
 	{
 		eventFrameStart(timeSinceLastFrame);
-		/*ListFrameEvent::iterator iterator=mListFrameEvent.begin();
-		while (iterator != mListFrameEvent.end()) {
-			if (null == (*iterator).first) iterator = mListFrameEvent.erase(iterator);
-			else {
-				(*iterator).first->Invoke(timeSinceLastFrame);
-				++iterator;
-			}
-		};*/
 	}
-
-	/*void Gui::addFrameListener(FrameEventDelegate * _delegate, WidgetPtr _widget)
-	{
-#if MYGUI_DEBUG_MODE == 1
-		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			if ((*iter).first && (*iter).first->Compare(_delegate)) {
-				MYGUI_EXCEPT("dublicate delegate");
-			}
-		}
-#endif
-		mListFrameEvent.push_back(PairFrameEvent(_delegate, _widget));
-	}*/
-
-	/*void Gui::removeFrameListener(FrameEventDelegate * _delegate)
-	{
-		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			if ((*iter).first && (*iter).first->Compare(_delegate)) {
-				delete (*iter).first;
-				(*iter).first = null;
-				break;
-			}
-		}
-		delete _delegate;
-	}*/
 
 	void Gui::_unlinkWidget(WidgetPtr _widget)
 	{
 		eventFrameStart.clear(_widget);
-		/*MyGUI::Enumerator<FrameEventDelegate::ListDelegate> enumerator = eventFrameStart.getEnumerator();
-		// мультиделегат поддерживает безопасное удаление даже в цикле рассылки
-		while (enumerator.next()) {
-			if (enumerator->Object()) {
-				if (enumerator->Object()->compire(_widget)) {
-					eventFrameStart -= enumerator.current();
-				}
-			}
-		};*/
-		/*if (_widget == null) return;
-		for (ListFrameEvent::iterator iter=mListFrameEvent.begin(); iter!=mListFrameEvent.end(); ++iter) {
-			if ((*iter).first && (*iter).second && (*iter).second->compare(_widget)) {
-				delete (*iter).first;
-				(*iter).first = null;
-			}
-		}*/
+	}
+
+	const std::string& Gui::getResourceGroup()
+	{
+		return mResourceManager->getResourceGroup();
 	}
 
 } // namespace MyGUI

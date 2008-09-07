@@ -6,7 +6,7 @@
 */
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
-#include "MyGUI_Gui.h"
+#include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
 
 #include <OgreMaterialManager.h>
@@ -23,7 +23,7 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
 
 		createDefault();
 
@@ -36,7 +36,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); ++iter) {
 			WidgetSkinInfoPtr info = iter->second;
@@ -73,7 +73,7 @@ namespace MyGUI
 
 	bool SkinManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void SkinManager::_load(xml::xmlNodePtr _node, const std::string & _file)

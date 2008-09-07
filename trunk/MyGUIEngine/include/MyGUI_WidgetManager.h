@@ -70,18 +70,12 @@ namespace MyGUI
 			return findWidget<T>(_prefix + _name);
 		}
 
-		// преобразует изначальное смещение, в текущее, так как будто скин был создан изначально
-		//static FloatRect convertOffset(const FloatRect & _offset, Align _align, const IntSize & _parentSkinSize, int _parentWidth, int _parentHeight);
 		// преобразует точку на виджете в глобальную позицию
 		/** Convert position on widget to global position */
 		static IntPoint convertToGlobal(const IntPoint& _point, WidgetPtr _widget);
 
 		// очищает имя в списках
 		void _unlinkWidget(WidgetPtr _widget);
-
-		// только удаляет и отписывает виджет
-		// метод для тех кто ручками создал виджет
-		//void _deleteWidget(WidgetPtr _widget);
 
 		// регестрирует делегат
 		/** Register delegate for parsing in layout files or by WidgetManager::parse method 
@@ -107,6 +101,21 @@ namespace MyGUI
 		void unregisterUnlinker(UnlinkWidget * _unlink);
 		/** Unlink widget */
 		void unlinkFromUnlinkers(WidgetPtr _widget);
+
+		/* Convert from relative to pixel coordinates.
+			@param
+				_coord relative coordinates. (relative to _parent client area coordinates)
+			@param
+				_parent Widget.
+		*/
+		IntCoord convertRelativeToInt(const FloatCoord & _coord, WidgetPtr _parent);
+		/* Convert from pixel to relative coordinates.
+			@param
+				_coord relative coordinates. (relative to _parent client area coordinates)
+			@param
+				_parent Widget.
+		*/
+		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
 
 	protected:
 		SetWidgetFactory mFactoryList;
