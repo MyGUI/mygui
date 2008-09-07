@@ -11,7 +11,7 @@
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_Gui.h"
+#include "MyGUI_ResourceManager.h"
 
 namespace MyGUI
 {
@@ -26,7 +26,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().registerUnlinker(this);
-		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
 		Ogre::SceneManagerEnumerator::SceneManagerIterator iter = Ogre::Root::getSingleton().getSceneManagerIterator();
 		if (iter.hasMoreElements()) {
@@ -63,7 +63,7 @@ namespace MyGUI
 		mLayerKeepers.clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
-		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -71,7 +71,7 @@ namespace MyGUI
 
 	bool LayerManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file)

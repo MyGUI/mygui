@@ -225,4 +225,24 @@ namespace MyGUI
 		}
 	}
 
+	IntCoord WidgetManager::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
+	{
+		if (null == _parent) {
+			const IntSize & size = Gui::getInstance().getViewSize();
+			return IntCoord(_coord.left * (float)size.width, _coord.top * (float)size.height, _coord.width * (float)size.width, _coord.height * (float)size.height);
+		}
+		const IntCoord& coord = _parent->getClientCoord();
+		return IntCoord(_coord.left * coord.width, _coord.top * coord.height, _coord.width * coord.width, _coord.height * coord.height);
+	}
+
+	FloatCoord WidgetManager::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
+	{
+		if (null == _parent) {
+			const IntSize & size = Gui::getInstance().getViewSize();
+			return FloatCoord(_coord.left / (float)size.width, _coord.top / (float)size.height, _coord.width / (float)size.width, _coord.height / (float)size.height);
+		}
+		const IntCoord& coord = _parent->getClientCoord();
+		return FloatCoord(1.*_coord.left / coord.width, 1.*_coord.top / coord.height, 1.*_coord.width / coord.width, 1.*_coord.height / coord.height);
+	}
+
 } // namespace MyGUI

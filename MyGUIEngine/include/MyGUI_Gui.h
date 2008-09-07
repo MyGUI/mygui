@@ -21,9 +21,6 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
-	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
-
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
 	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator, public UnlinkWidget
@@ -161,6 +158,7 @@ namespace MyGUI
 		// mirror of WidgetManager method
 		/** Find widget by name */
 		WidgetPtr findWidgetT(const std::string& _name);
+
 		/** Find widget by name and prefix */
 		inline WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
 		{
@@ -196,30 +194,9 @@ namespace MyGUI
 		/** Return visibility of pointer */
 		bool isShowPointer();
 
-		/** Register delegate for parsing XML blocks */
-		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
-		void unregisterLoadXmlDelegate(const Ogre::String & _key);
-
+		// mirror ResourceManager
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		void _load(xml::xmlNodePtr _node, const std::string & _file);
-
-		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
-
-		/* Convert from relative to pixel coordinates.
-			@param
-				_coord relative coordinates. (relative to _parent client area coordinates)
-			@param
-				_parent Widget.
-		*/
-		IntCoord convertRelativeToInt(const FloatCoord & _coord, WidgetPtr _parent);
-		/* Convert from pixel to relative coordinates.
-			@param
-				_coord relative coordinates. (relative to _parent client area coordinates)
-			@param
-				_parent Widget.
-		*/
-		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
 
 		/** Ogre::WindowEventListener method */
 		virtual void windowResized(Ogre::RenderWindow* rw);
@@ -237,10 +214,7 @@ namespace MyGUI
 		}
 
 		/** Get name of Gui ResourceGroup*/
-		inline const std::string& getResourceGroup()
-		{
-			return mResourceGroup;
-		}
+		const std::string& getResourceGroup();
 
 		/** Get GUI viewport index */
 		inline Ogre::ushort getActiveViewport()
@@ -257,9 +231,7 @@ namespace MyGUI
 
 		inline Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
-		//inline const VectorWidgetPtr & getChilds() { return mWidgetChild; }
 		inline EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild.begin(), mWidgetChild.end()); }
-
 
 
 	private:
@@ -279,8 +251,6 @@ namespace MyGUI
 	private:
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
-		// карта с делегатами для парсинга хмл блоков
-		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		// размеры экрана
 		FloatSize mViewSize;
@@ -305,12 +275,10 @@ namespace MyGUI
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;
 
-		std::string mResourceGroup;
-
 		// вьюпорт, с которым работает система
 		Ogre::ushort mActiveViewport;
 
-	}; // class Gui
+	};
 
 } // namespace MyGUI
 

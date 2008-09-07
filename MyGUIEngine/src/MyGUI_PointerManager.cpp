@@ -4,7 +4,7 @@
 	@date		11/2007
 	@module
 */
-#include "MyGUI_Gui.h"
+#include "MyGUI_ResourceManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_SkinManager.h"
@@ -24,7 +24,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().registerUnlinker(this);
-		Gui::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
 		mMousePointer = null;
 		mWidgetOwner = null;
@@ -45,7 +45,7 @@ namespace MyGUI
 		clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
-		Gui::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -53,7 +53,7 @@ namespace MyGUI
 
 	bool PointerManager::load(const std::string & _file, const std::string & _group)
 	{
-		return Gui::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void PointerManager::_load(xml::xmlNodePtr _node, const std::string & _file)

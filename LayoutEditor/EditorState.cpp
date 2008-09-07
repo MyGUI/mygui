@@ -1374,7 +1374,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 			float_coord.top = float_coord.top/100;
 			float_coord.width = float_coord.width/100;
 			float_coord.height = float_coord.height/100;
-			MyGUI::IntCoord coord = MyGUI::Gui::getInstance().convertRelativeToInt(float_coord, current_widget->getParent());
+			MyGUI::IntCoord coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(float_coord, current_widget->getParent());
 			current_widget->setPosition(coord);
 			current_widget_rectangle->setPosition(convertParentCoordToCoord(coord, current_widget));
 			return;
