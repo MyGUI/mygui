@@ -51,5 +51,6 @@
 #include "MyGUI_ControllerEdgeHide.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_ControllerPosition.h"
+#include "MyGUI_Resource.h"
 
 #endif // __MYGUI_H__

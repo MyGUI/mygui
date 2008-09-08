@@ -38,10 +38,14 @@ namespace MyGUI
 
 		inline bool operator < ( Guid const & _comp ) const
 		{
-			return _comp.fast._data1 < fast._data1
-				|| _comp.fast._data2 < fast._data2
-				|| _comp.fast._data3 < fast._data3
-				|| _comp.fast._data4 < fast._data4;
+			if (_comp.fast._data1 < fast._data1) return true;
+			else if (_comp.fast._data1 > fast._data1) return false;
+			if (_comp.fast._data2 < fast._data2) return true;
+			else if (_comp.fast._data2 > fast._data2) return false;
+			if (_comp.fast._data3 < fast._data3) return true;
+			else if (_comp.fast._data3 > fast._data3) return false;
+			if (_comp.fast._data4 < fast._data4) return true;
+			return false;
 		}
 
 		inline Guid & operator = (Guid const & _rvalue)

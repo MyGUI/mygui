@@ -78,6 +78,7 @@ namespace MyGUI
 
 		void clear();
 
+		inline size_t getResourceCount() { return mResources.size(); }
 		inline bool isExist(const Guid & _id) { return mResources.find(_id) != mResources.end(); }
 		inline EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources.begin(), mResources.end()); }
 
