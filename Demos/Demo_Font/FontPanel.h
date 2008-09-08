@@ -22,6 +22,24 @@ public:
 
 	inline bool isShow() { return mMainWidget->isShow(); } 
 
+private:
+	void update();
+	void notifyMouseButtonClick(MyGUI::WidgetPtr _widget);
+
+private:
+	MyGUI::ComboBoxPtr mComboFont;
+	MyGUI::EditPtr mEditSize;
+	MyGUI::EditPtr mEditResolution;
+	MyGUI::ComboBoxPtr mComboAntialias;
+	MyGUI::EditPtr mEditSpace;
+	MyGUI::EditPtr mEditTab;
+	MyGUI::EditPtr mEditCursor;
+	MyGUI::EditPtr mEditDistance;
+	MyGUI::EditPtr mEditOffset;
+	MyGUI::ButtonPtr mButtonGenerate;
+	MyGUI::EditPtr mEditDemo;
+	MyGUI::StaticTextPtr mTextPix;
+
 };
 
 #endif // __FONT_PANEL_H__
