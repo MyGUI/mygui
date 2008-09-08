@@ -13,6 +13,10 @@ namespace MyGUI
 
 	std::string ResourceImageSet::mType = "ImageSet";
 
+	std::string ResourceImageSet::mTextureEmpty;
+	IntSize ResourceImageSet::mSizeEmpty;
+	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
+
 	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node)
 	{
 		// берем детей и крутимся, основной цикл
@@ -69,28 +73,81 @@ namespace MyGUI
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string & _group, const std::string & _index)
 	{
-		static std::string texture;
-		static IntSize size;
-		static std::vector<IntPoint> frames;
-
-		VectorGroupImage::iterator group = mGroups.begin();
-		while (group != mGroups.end()) {
-			if ((*group).name == _group) {
-
-				VectorIndexImage::iterator index = (*group).indexes.begin();
-				VectorIndexImage::iterator end = (*group).indexes.end();
-				while (index != end) {
-					if ((*index).name == _index) {
-
-						return ImageIndexInfo((*group).texture, (*group).size, (*index).rate, (*index).frames);
-					}
-					++index;
-				};
+		size_t index_group = getGroupIndex(_group);
+		if (index_group != ITEM_NONE) {
+			GroupImage & group = mGroups[index_group];
+			size_t index_image = getImageIndex(group, _index);
+			if (index_image != ITEM_NONE) {
+				IndexImage & index = group.indexes[index_image];
+				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
-			++group;
-		};
+		}
+		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+	}
 
-		return ImageIndexInfo(texture, size, 0, frames);
+	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, const std::string & _index)
+	{
+		if (_group < mGroups.size()) {
+			GroupImage & group = mGroups[_group];
+			size_t index_image = getImageIndex(group, _index);
+			if (index_image != ITEM_NONE) {
+				IndexImage & index = group.indexes[index_image];
+				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
+			}
+		}
+		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+	}
+
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string & _group, size_t _index)
+	{
+		size_t index_group = getGroupIndex(_group);
+		if (index_group != ITEM_NONE) {
+			GroupImage & group = mGroups[index_group];
+			if (_index < group.indexes.size()) {
+				IndexImage & index = group.indexes[_index];
+				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
+			}
+		}
+		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+	}
+
+	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, size_t _index)
+	{
+		if (_group < mGroups.size()) {
+			GroupImage & group = mGroups[_group];
+			if (_index < group.indexes.size()) {
+				IndexImage & index = group.indexes[_index];
+				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
+			}
+		}
+		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+	}
+
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize & _group, size_t _index)
+	{
+		size_t index_group = getGroupIndex(_group);
+		if (index_group != ITEM_NONE) {
+			GroupImage & group = mGroups[index_group];
+			if (_index < group.indexes.size()) {
+				IndexImage & index = group.indexes[_index];
+				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
+			}
+		}
+		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+	}
+
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize & _group, const std::string & _index)
+	{
+		size_t index_group = getGroupIndex(_group);
+		if (index_group != ITEM_NONE) {
+			GroupImage & group = mGroups[index_group];
+			size_t index_image = getImageIndex(group, _index);
+			if (index_image != ITEM_NONE) {
+				IndexImage & index = group.indexes[index_image];
+				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
+			}
+		}
+		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
 	}
 
 } // namespace MyGUI
