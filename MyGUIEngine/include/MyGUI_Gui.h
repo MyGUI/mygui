@@ -14,7 +14,6 @@
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetCreator.h"
-
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_UnlinkWidget.h"
 

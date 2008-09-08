@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Enumerator.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_XmlDocument.h"
 
@@ -22,6 +23,10 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
+
+	typedef std::map<std::string, CreatorDelegate> MapDelegate;
+	typedef std::map<Guid, ResourcePtr> MapResource;
+	typedef Enumerator<MapResource> EnumeratorMapResource;
 
 	class _MyGUIExport ResourceManager
 	{
@@ -73,9 +78,10 @@ namespace MyGUI
 
 		void clear();
 
+		inline bool isExist(const Guid & _id) { return mResources.find(_id) != mResources.end(); }
+		inline EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources.begin(), mResources.end()); }
+
 	private:
-		typedef std::map<std::string, CreatorDelegate> MapDelegate;
-		typedef std::map<Guid, ResourcePtr> MapResource;
 
 		MapDelegate mHolders;
 		MapResource mResources;
