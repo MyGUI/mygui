@@ -8,6 +8,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Resource.h"
+#include "MyGUI_ResourceImageSet.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
@@ -51,6 +52,9 @@ namespace MyGUI
 		registerLoadXmlDelegate(XML_TYPE_LOCATION) = newDelegate(this, &ResourceManager::_loadLocation);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
+		// регестрируем дефолтные ресурсы
+		ResourceImageSet::registryType();
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -59,6 +63,8 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		ResourceImageSet::unregistryType();
 
 		clear();
 		unregisterLoadXmlDelegate(XML_TYPE);
