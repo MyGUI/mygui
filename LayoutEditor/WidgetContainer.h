@@ -29,6 +29,7 @@ struct WidgetContainer
 	std::string skin;
 	std::string align;
 	Ogre::String name;
+	Ogre::String layer;
 	// not for saving
 	inline std::string position(bool _percent = true)
 	{
@@ -41,7 +42,6 @@ struct WidgetContainer
 		}
 		return widget->getCoord().print();
 	}
-	inline std::string layer() { return widget->getLayerName(); }
 	bool relative_mode;
 };
 

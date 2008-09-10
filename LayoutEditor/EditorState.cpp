@@ -1106,7 +1106,7 @@ void EditorState::updatePropertiesPanel(MyGUI::WidgetPtr _widget)
 
 		if (null == current_widget->getParent())
 		{
-			createPropertiesWidgetsPair(window, "Layer", widgetContainer->layer(), "Layer", x1, x2, w1, w2, y, h);
+			createPropertiesWidgetsPair(window, "Layer", widgetContainer->layer, "Layer", x1, x2, w1, w2, y, h);
 			y += h;
 		}
 
@@ -1231,7 +1231,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 	MyGUI::WidgetPtr editOrCombo;
 	//int string_int_float; // 0 - string, 1 - int, 2 - float
 
-	int widget_for_type;// 0 - Edit, 1 - Combo, 2 - ...
+	int widget_for_type;// 0 - Edit, 1 - Combo mode drop, 2 - ...
 	if ("Name" == _type) widget_for_type = 0;
 	else if ("Skin" == _type) widget_for_type = 1;
 	else if ("Position" == _type) widget_for_type = 0;
@@ -1391,8 +1391,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 	else if (action == "Layer")
 	{
-		MyGUI::LayerManager::getInstance().detachFromLayerKeeper(current_widget);
-		MyGUI::LayerManager::getInstance().attachToLayerKeeper(value, current_widget);
+		widgetContainer->layer = value;
 		return;
 	}
 
