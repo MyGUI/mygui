@@ -12,6 +12,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Font");
+		mGUI->load("external.xml");
 		mFontPanel.initialise();
 	}
 
