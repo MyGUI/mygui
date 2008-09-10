@@ -3,6 +3,7 @@
 #include "WidgetTypes.h"
 
 const std::string LogSection = "LayoutEditor";
+const std::string DEFAULT_EDITOR_LAYER = "Overlapped";
 
 INSTANCE_IMPLEMENT(EditorWidgets);
 
@@ -215,12 +216,12 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	MyGUI::IntCoord coord;
 	MyGUI::Align align = MyGUI::Align::Default;
 	std::string position;
-	std::string layer;
+	//std::string layer;
 
 	_widget->findAttribute("name", container->name);
 	_widget->findAttribute("type", container->type);
 	_widget->findAttribute("skin", container->skin);
-	_widget->findAttribute("layer", layer);
+	_widget->findAttribute("layer", container->layer);
 	if (_widget->findAttribute("align", container->align)) align = MyGUI::Align::parse(container->align);
 	if (_widget->findAttribute("position", position)) coord = MyGUI::IntCoord::parse(position);
 	if (_widget->findAttribute("position_real", position))
@@ -259,14 +260,14 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	std::string skin = container->skin;
 	bool exist = MyGUI::SkinManager::getInstance().isExist(container->skin);
 	if ( !exist )
-   {
+	{
 		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
 		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to '", skin, "'");
 		MyGUI::Message::_createMessage("Error", mess , "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
 	}
 
 	if (null == _parent) {
-		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer, tmpname);
+		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, DEFAULT_EDITOR_LAYER/*layer*/, tmpname);
 	}
 	else
 	{
@@ -350,7 +351,7 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	if (!_container->relative_mode) node->addAttributes("position", _container->position());
 	else node->addAttributes("position_real", _container->position(false));
 	if ("" != _container->align) node->addAttributes("align", _container->align);
-	if ("" != _container->layer()) node->addAttributes("layer", _container->layer());
+	if ("" != _container->layer) node->addAttributes("layer", _container->layer);
 	if ("" != _container->name) node->addAttributes("name", _container->name);
 
 	for (StringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
