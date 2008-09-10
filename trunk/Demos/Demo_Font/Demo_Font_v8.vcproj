@@ -201,6 +201,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FontView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Main.cpp"
 				>
 			</File>
@@ -224,6 +228,10 @@
 			</File>
 			<File
 				RelativePath=".\FontPanel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FontView.h"
 				>
 			</File>
 			<File

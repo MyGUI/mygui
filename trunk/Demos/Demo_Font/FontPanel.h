@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "BaseLayout.h"
+#include "FontView.h"
 
 class FontPanel : public BaseLayout
 {
@@ -37,8 +38,9 @@ private:
 	MyGUI::EditPtr mEditDistance;
 	MyGUI::EditPtr mEditOffset;
 	MyGUI::ButtonPtr mButtonGenerate;
-	MyGUI::EditPtr mEditDemo;
 	MyGUI::StaticTextPtr mTextPix;
+
+	FontView mFontView;
 
 };
 
