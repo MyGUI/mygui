@@ -18,7 +18,7 @@ namespace MyGUI
 
 			// реализация интерфейса фабрики
 			const Ogre::String& getType();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name);
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name);
 
 			// методы для парсинга
 			void ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);

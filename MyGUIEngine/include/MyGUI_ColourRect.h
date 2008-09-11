@@ -8,6 +8,7 @@
 #define __MYGUI_COLOUR_RECT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_CroppedRectangleInterface.h"
 #include "MyGUI_DrawItem.h"
@@ -22,7 +23,7 @@ namespace MyGUI
 	{
 
 	public:
-		ColourRect(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
+		ColourRect(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
 		virtual ~ColourRect();
 
 		virtual void setAlpha(float _alpha);
@@ -32,6 +33,9 @@ namespace MyGUI
 
 		// метод для отрисовки себя
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
+
+		// метод для генерации данных из описания xml
+		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	private:
 		Ogre::ColourValue mColourLeftTop;

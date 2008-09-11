@@ -33,7 +33,7 @@ namespace MyGUI
 			return StaticText::_getType();
 		}
 
-		WidgetPtr StaticTextFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr StaticTextFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
 		{
 			return new StaticText(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

@@ -14,6 +14,7 @@
 
 namespace MyGUI
 {
+
 	// вспомогательный класс для инициализации одного скина
 	class _MyGUIExport WidgetSkinInfo
 	{
@@ -21,7 +22,6 @@ namespace MyGUI
 	public:
 		WidgetSkinInfo()
 		{
-			//checkState("normal");
 		}
 
 		void setInfo(const IntSize & _size, const std::string &_texture)
@@ -53,6 +53,13 @@ namespace MyGUI
 			return mMaskPeek.load(_file);
 		}
 
+		inline void clear()
+		{
+			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
+				iter->second.clear();
+			}
+		}
+
 	private:
 		void checkState(const MapSubWidgetStateInfo & _states)
 		{
@@ -75,23 +82,14 @@ namespace MyGUI
 		{
 			// и увеличиваем размер смещений по колличеству сабвиджетов
 			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
-				while (iter->second.offsets.size() < mBasis.size()) {
-					iter->second.offsets.push_back(FloatRect(0, 0, 1, 1));
-				};
+				iter->second.resize(mBasis.size());
 			}
 		}
 
 		inline void fillState(const MapSubWidgetStateInfo & _states, size_t _index)
 		{
 			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
-				// выставляем смещение для текущего саб скина
-				mStates[iter->first].offsets[_index] = iter->second.offset;
-				// если нужно то выставляем цвета
-				if (iter->second.colour != Ogre::ColourValue::ZERO) mStates[iter->first].colour = iter->second.colour;
-				// если нужно то выставляем и альфу
-				if (iter->second.alpha != -1) mStates[iter->first].alpha = iter->second.alpha;
-
-				mStates[iter->first].shift = iter->second.shift;
+				mStates[iter->first].set(_index, iter->second);
 			}
 		}
 

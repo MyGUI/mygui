@@ -13,7 +13,7 @@ namespace MyGUI
 
 	const size_t COLOURRECT_COUNT_VERTEX = VERTEX_IN_QUAD;
 
-	ColourRect::ColourRect(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
+	ColourRect::ColourRect(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
 		SubSkin(_info, _parent),
 		mRenderColourLeftTop(0xFFFFFFFF),
 		mRenderColourRightTop(0xFFFFFFFF),
@@ -149,6 +149,11 @@ namespace MyGUI
 		_vertex[5].v = mCurrentTexture.bottom;
 
 		return COLOURRECT_COUNT_VERTEX;
+	}
+
+	void * ColourRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	{
+		return SubSkin::createStateData(_node, _root);
 	}
 
 } // namespace MyGUI

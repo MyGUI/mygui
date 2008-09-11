@@ -423,7 +423,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\MyGUI_WidgetCreator.cpp"
+					RelativePath=".\src\MyGUI_SubWidgetManager.cpp"
 					>
 				</File>
 				<File
@@ -451,10 +451,6 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_SubSkin.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_SubWidgetManager.cpp"
 						>
 					</File>
 					<File
@@ -503,6 +499,10 @@
 					>
 					<File
 						RelativePath=".\src\MyGUI_Align.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_WidgetCreator.cpp"
 						>
 					</File>
 				</Filter>
@@ -873,6 +873,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_SubWidgetManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_WidgetManager.h"
 					>
 				</File>
@@ -893,6 +897,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Common.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_CroppedRectangleInterface.h"
 						>
 					</File>
 					<File
@@ -1016,10 +1024,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_CroppedRectangleInterface.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_EditText.h"
 						>
 					</File>
@@ -1036,21 +1040,25 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_SubWidgetFactoryInterface.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_SubWidgetManager.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_SubWidgetTextInterface.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_TileRect.h"
 						>
 					</File>
+					<Filter
+						Name="Interfaces"
+						>
+						<File
+							RelativePath=".\include\MyGUI_SubWidgetFactoryInterface.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_SubWidgetInterface.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_SubWidgetTextInterface.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="LayerItem"

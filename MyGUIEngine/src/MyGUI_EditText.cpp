@@ -13,6 +13,12 @@
 namespace MyGUI
 {
 
+	struct EditTextStateData
+	{
+		Ogre::ColourValue colour;
+		bool shift;
+	};
+
 	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
 	const float EDIT_TEXT_WIDTH_CURSOR = 2.0f;
 	const int EDIT_MIN_BREAK_WORD_WIDTH = 10;
@@ -70,7 +76,7 @@ namespace MyGUI
 	}
 
 
-	EditText::EditText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
+	EditText::EditText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
 		SubWidgetTextInterface(_info.coord, _info.align, _parent),
 		mEmptyView(false),
 		mCurrentCoord(_info.coord),
@@ -1230,6 +1236,21 @@ namespace MyGUI
 		// устанавливаем размер текста
 		mContextSize.set(width, (float)mLinesInfo.size() * mFontHeight);
 		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
+	}
+
+	void EditText::_setStateData(void * _data)
+	{
+		EditTextStateData * data = (EditTextStateData*)_data;
+		if (data->colour != Ogre::ColourValue::ZERO) setColour(data->colour);
+		setShiftText(data->shift);
+	}
+
+	void * EditText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	{
+		EditTextStateData * data = new EditTextStateData();
+		data->shift = utility::parseBool(_node->findAttribute("shift"));
+		data->colour = utility::parseColour(_node->findAttribute("colour"));
+		return data;
 	}
 
 } // namespace MyGUI

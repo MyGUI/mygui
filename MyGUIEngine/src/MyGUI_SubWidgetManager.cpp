@@ -16,12 +16,12 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		mFactorySubSkin = new CroppedRectangleFactory<SubSkin>("SubSkin");
-		mFactoryMainSkin = new CroppedRectangleFactory<MainSkin>("MainSkin");
-		mFactorySimpleText = new CroppedRectangleFactory<SimpleText>("SimpleText");
-		mFactoryEditText = new CroppedRectangleFactory<EditText>("EditText");
-		mFactoryColourRect = new CroppedRectangleFactory<ColourRect>("ColourRect");
-		mFactoryTileRect = new CroppedRectangleFactory<TileRect>("TileRect");
+		mFactorySubSkin = new SubWidgetFactory<SubSkin>("SubSkin");
+		mFactoryMainSkin = new SubWidgetFactory<MainSkin>("MainSkin");
+		mFactorySimpleText = new SubWidgetFactory<SimpleText>("SimpleText");
+		mFactoryEditText = new SubWidgetFactory<EditText>("EditText");
+		mFactoryColourRect = new SubWidgetFactory<ColourRect>("ColourRect");
+		mFactoryTileRect = new SubWidgetFactory<TileRect>("TileRect");
 
 		registerFactory(mFactorySubSkin);
 		registerFactory(mFactoryMainSkin);
@@ -52,12 +52,21 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	CroppedRectangleInterface * SubWidgetManager::createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent)
+	SubWidgetInterface * SubWidgetManager::createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent)
 	{
 		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _info.type) return (*factory)->createSubWidget(_info, _parent);
 		}
-		MYGUI_EXCEPT(_info.type << " - no find factory CroppedRectangleFactory");
+		MYGUI_EXCEPT("factory type '" << _info.type << "' not found.");
+		return 0;
+	}
+
+	void * SubWidgetManager::getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	{
+		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+			if ((*factory)->getType() == _factory) return (*factory)->createData(_node, _root);
+		}
+		MYGUI_EXCEPT("factory type '" << _factory << "' not found.");
 		return 0;
 	}
 

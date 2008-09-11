@@ -38,7 +38,7 @@ namespace MyGUI
 		friend class factory::MenuBarFactory;
 
 	protected:
-		MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		static Ogre::String WidgetTypeName;
 
 	public:

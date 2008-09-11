@@ -7,14 +7,20 @@
 #include "MyGUI_TileRect.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_SkinManager.h"
 
 namespace MyGUI
 {
 
+	struct TileRectStateData
+	{
+		FloatRect rect;
+	};
+
 	const size_t TILERECT_COUNT_VERTEX = 16 * VERTEX_IN_QUAD;
 
-	TileRect::TileRect(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
-		CroppedRectangleInterface(_info.coord, _info.align, _parent),
+	TileRect::TileRect(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
+		SubWidgetInterface(_info.coord, _info.align, _parent),
 		mEmptyView(false),
 		mRenderItem(null),
 		mCurrentCoord(_info.coord),
@@ -164,6 +170,12 @@ namespace MyGUI
 		mIsMargin = margin;
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	void TileRect::_setStateData(void * _data)
+	{
+		TileRectStateData * data = (TileRectStateData*)_data;
+		_setUVSet(data->rect);
 	}
 
 	void TileRect::_setUVSet(const FloatRect& _rect)
@@ -357,6 +369,15 @@ namespace MyGUI
 
 		mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
 		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
+	}
+
+	void * TileRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	{
+		const IntSize & size = SkinManager::getInstance().getTextureSize(_root->findAttribute("texture"));
+		TileRectStateData * data = new TileRectStateData();
+		const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
+		data->rect = SkinManager::getInstance().convertTextureCoord(source, size);
+		return data;
 	}
 
 } // namespace MyGUI

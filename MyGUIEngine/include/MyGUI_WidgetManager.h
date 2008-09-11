@@ -31,7 +31,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
 
 		/** Destroy all widgets FIXME or remove - doesn't work*/
 		void destroyAllWidget();

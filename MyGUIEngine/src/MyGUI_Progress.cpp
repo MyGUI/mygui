@@ -19,7 +19,7 @@ namespace MyGUI
 	const size_t PROGRESS_AUTO_RANGE = 1000;
 	const float PROGRESS_AUTO_COEF = 400;
 
-	Progress::Progress(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Progress::Progress(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mTrackWidth(1),
 		mTrackStep(0),

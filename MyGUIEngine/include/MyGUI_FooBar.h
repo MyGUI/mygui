@@ -77,7 +77,7 @@ namespace MyGUI
 		friend class factory::FooBarFactory;
 
 	protected:
-		FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~FooBar();
 
 	public:

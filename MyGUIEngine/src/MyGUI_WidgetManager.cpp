@@ -102,7 +102,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getType() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name)
 	{
 		std::string name;
 		if (false == _name.empty()) {

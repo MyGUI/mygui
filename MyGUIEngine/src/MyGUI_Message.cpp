@@ -25,7 +25,7 @@ namespace MyGUI
 	const float MESSAGE_ALPHA_MIN = 0.0f;
 	const float MESSAGE_SPEED_COEF = 3.0f;
 
-	Message::Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Message::Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Window(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetText(null),
 		mInfoOk(Ok), mInfoCancel(Ok),

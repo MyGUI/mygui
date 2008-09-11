@@ -7,14 +7,21 @@
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerManager.h"
+//#include "MyGUI_SubSkinFactory.h"
+#include "MyGUI_SkinManager.h"
 
 namespace MyGUI
 {
 
+	struct SubSkinStateData
+	{
+		FloatRect rect;
+	};
+
 	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
-	SubSkin::SubSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
-		CroppedRectangleInterface(_info.coord, _info.align, _parent),
+	SubSkin::SubSkin(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
+		SubWidgetInterface(_info.coord, _info.align, _parent),
 		mEmptyView(false),
 		mRenderItem(null),
 		mCurrentCoord(_info.coord),
@@ -177,40 +184,6 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void SubSkin::_setUVSet(const FloatRect& _rect)
-	{
-		mRectTexture = _rect;
-
-		// если обрезаны, то просчитываем с учето обрезки
-		if (mIsMargin) {
-
-			float UV_lft = mMargin.left / (float)mCoord.width;
-			float UV_top = mMargin.top / (float)mCoord.height;
-			float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
-			float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
-
-			float UV_sizeX = mRectTexture.right - mRectTexture.left;
-			float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
-
-			float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
-			float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
-			float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
-			float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
-
-			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
-
-		}
-
-		// мы не обрезаны, базовые координаты
-		else {
-			mCurrentTexture = mRectTexture;
-
-		}
-
-		if (null != mRenderItem) mRenderItem->outOfDate();
-
-	}
-
 	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
 	{
 		if ((false == mShow) || mEmptyView) return 0;
@@ -284,6 +257,51 @@ namespace MyGUI
 	void SubSkin::_destroyDrawItem()
 	{
 		mRenderItem->removeDrawItem(this);
+	}
+
+	void SubSkin::_setStateData(void * _data)
+	{
+		SubSkinStateData * data = (SubSkinStateData*)_data;
+		_setUVSet(data->rect);
+	}
+
+	void SubSkin::_setUVSet(const FloatRect& _rect)
+	{
+		mRectTexture = _rect;
+
+		// если обрезаны, то просчитываем с учето обрезки
+		if (mIsMargin) {
+			float UV_lft = mMargin.left / (float)mCoord.width;
+			float UV_top = mMargin.top / (float)mCoord.height;
+			float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
+			float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
+
+			float UV_sizeX = mRectTexture.right - mRectTexture.left;
+			float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
+
+			float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
+			float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
+			float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
+			float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
+
+			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+		}
+
+		// мы не обрезаны, базовые координаты
+		else {
+			mCurrentTexture = mRectTexture;
+		}
+
+		if (null != mRenderItem) mRenderItem->outOfDate();
+	}
+
+	void * SubSkin::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	{
+		const IntSize & size = SkinManager::getInstance().getTextureSize(_root->findAttribute("texture"));
+		SubSkinStateData * data = new SubSkinStateData();
+		const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
+		data->rect = SkinManager::getInstance().convertTextureCoord(source, size);
+		return data;
 	}
 
 } // namespace MyGUI

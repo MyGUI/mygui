@@ -55,7 +55,7 @@ namespace MyGUI
 		mLayerManager = new LayerManager();
 		mWidgetManager = new WidgetManager();
 		mInputManager = new InputManager();
-		mCroppedRectangleManager = new SubWidgetManager();
+		mSubWidgetManager = new SubWidgetManager();
 		mSkinManager = new SkinManager();
 		mFontManager = new FontManager();
 		mControllerManager = new ControllerManager();
@@ -71,7 +71,7 @@ namespace MyGUI
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
 		mInputManager->initialise();
-		mCroppedRectangleManager->initialise();
+		mSubWidgetManager->initialise();
 		mSkinManager->initialise();
 		mFontManager->initialise();
 		mControllerManager->initialise();
@@ -112,7 +112,7 @@ namespace MyGUI
 		mWidgetManager->shutdown();
 		mInputManager->shutdown();
 		mSkinManager->shutdown();
-		mCroppedRectangleManager->shutdown();
+		mSubWidgetManager->shutdown();
 		mLayerManager->shutdown();
 		mFontManager->shutdown();
 		mControllerManager->shutdown();
@@ -128,7 +128,7 @@ namespace MyGUI
 		delete mWidgetManager;
 		delete mInputManager;
 		delete mSkinManager;
-		delete mCroppedRectangleManager;
+		delete mSubWidgetManager;
 		delete mLayerManager;
 		delete mFontManager;
 		delete mControllerManager;
