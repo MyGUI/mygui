@@ -26,7 +26,7 @@ namespace MyGUI
 
 	protected:
 		// все создание только через фабрику
-		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Widget();
 
 		void _updateView(); // обновления себя и детей
@@ -279,7 +279,7 @@ namespace MyGUI
 		/** Get drag'n'drop mode flag */
 		inline bool getNeedDragDrop() {return mNeedDragDrop;}
 
-		inline SubWidgetTextInterfacePtr _getSubWidgetText() { return mText; }
+		inline SubWidgetTextInterface * _getSubWidgetText() { return mText; }
 
 		/** Get need tool tip mode flag */
 		inline bool getNeedToolTip() { return mNeedToolTip; }
@@ -303,12 +303,12 @@ namespace MyGUI
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 		// вектор всех детей сабскинов
-		VectorCroppedRectanglePtr mSubSkinChild;
+		VectorSubWidget mSubSkinChild;
 
 		// указатель на окно текста
-		SubWidgetTextInterfacePtr mText;
+		SubWidgetTextInterface * mText;
 		// указатель на первый не текстовой сабскин
-		CroppedRectangleInterface * mMainSkin;
+		SubWidgetInterface * mMainSkin;
 
 		// доступен ли на виджет
 		bool mEnabled;

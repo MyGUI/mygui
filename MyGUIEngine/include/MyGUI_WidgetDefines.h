@@ -11,47 +11,57 @@
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_Align.h"
-#include <OgreColourValue.h>
+//#include <OgreColourValue.h>
 
 namespace MyGUI
 {
 
-	struct SubWidgetStateInfo
+	typedef void * SubWidgetStateInfoPtr;
+	/*struct SubWidgetStateInfoPtr
 	{
-		SubWidgetStateInfo() :
-			colour(Ogre::ColourValue::ZERO),
-			alpha(-1),
-			shift(false)
+		SubWidgetStateInfoPtr() :
+			data(0)
 		{
 		}
 
-		SubWidgetStateInfo(const FloatRect& _offset, const Ogre::ColourValue & _colour, float _alpha, bool _shift) :
-			offset(_offset),
-			colour(_colour),
-			alpha(_alpha),
-			shift(_shift)
+		SubWidgetStateInfoPtr(void * _data) :
+			data(_data)
 		{
 		}
 
-		FloatRect offset;
-		Ogre::ColourValue colour;
-		float alpha;
-		bool shift;
-	};
+		void * data;
+	};*/
 
 	struct WidgetStateInfo
 	{
-		WidgetStateInfo() :
-			colour(Ogre::ColourValue::ZERO),
-			alpha(-1),
-			shift(false)
+	public:
+		inline void resize(size_t _count)
 		{
+			data.resize(_count);
 		}
 
-		std::vector<FloatRect> offsets;
-		Ogre::ColourValue colour;
-		float alpha;
-		bool shift;
+		inline SubWidgetStateInfoPtr getStateData(size_t _index) const
+		{
+			return data[_index];
+		}
+
+		inline void set(size_t _index, SubWidgetStateInfoPtr _data)
+		{
+			data.at(_index) = _data;
+		}
+
+		inline void clear()
+		{
+			for (std::vector<SubWidgetStateInfoPtr>::iterator iter=data.begin(); iter!=data.end(); ++iter) {
+				delete *iter;
+				*iter = 0;
+			}
+		}
+
+	private:
+		// колличество в векторе, равно колличеству сабскинов
+		// порядок в векторе, равен порядку сабскинов, вне зависимости от типов
+		std::vector<SubWidgetStateInfoPtr> data;
 	};
 
 	struct SubWidgetInfo
@@ -68,7 +78,7 @@ namespace MyGUI
 		std::string type;
 	};
 
-	typedef std::map<std::string, SubWidgetStateInfo> MapSubWidgetStateInfo;
+	typedef std::map<std::string, SubWidgetStateInfoPtr> MapSubWidgetStateInfo;
 	typedef std::map<std::string, WidgetStateInfo> MapWidgetStateInfo;
 	typedef std::vector<SubWidgetInfo> VectorSubWidgetInfo;
 
@@ -77,17 +87,21 @@ namespace MyGUI
 	typedef std::map<std::string, WidgetSkinInfoPtr> MapWidgetSkinInfoPtr;
 
 	class CroppedRectangleInterface;
-	typedef CroppedRectangleInterface * CroppedRectanglePtr;
-	typedef std::vector<CroppedRectanglePtr> VectorCroppedRectanglePtr;
+	/*typedef CroppedRectangleInterface * CroppedRectangleInterface *;
+	typedef std::vector<CroppedRectangleInterface *> VectorCroppedRectanglePtr;*/
+
+	class SubWidgetInterface;
+	//typedef SubWidgetInterface * SubWidgetPtr;
+	typedef std::vector<SubWidgetInterface*> VectorSubWidget;
+
+	class SubWidgetTextInterface;
+	//typedef SubWidgetTextInterface * SubWidgetTextInterfacePtr;
 
 	class Widget;
 	typedef Widget * WidgetPtr;
 	typedef std::vector<WidgetPtr> VectorWidgetPtr;
 	typedef std::map<std::string, WidgetPtr> MapWidgetPtr;
 	typedef Enumerator<VectorWidgetPtr> EnumeratorWidgetPtr;
-
-	class SubWidgetTextInterface;
-	typedef SubWidgetTextInterface * SubWidgetTextInterfacePtr;
 
 } // namespace MyGUI
 

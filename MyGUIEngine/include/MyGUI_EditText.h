@@ -8,6 +8,7 @@
 #define __MYGUI_EDIT_TEXT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_DrawItem.h"
@@ -19,11 +20,11 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport EditText : public SubWidgetTextInterface, public DrawItem
+	class _MyGUIExport EditText : public SubWidgetTextInterface
 	{
 
 	public:
-		EditText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
+		EditText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
 		virtual ~EditText();
 
 		void show();
@@ -90,6 +91,11 @@ namespace MyGUI
 		void setShiftText(bool _shift);
 
 		void setBreakLine(bool _break);
+
+		virtual void _setStateData(void * _data);
+
+		// метод для генерации данных из описания xml
+		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	protected:
 

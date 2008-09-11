@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	SimpleText::SimpleText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
+	SimpleText::SimpleText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
 		EditText(_info, _parent)
 	{
 		mManualView = false;
@@ -145,6 +145,11 @@ namespace MyGUI
 		// устанавливаем размер текста
 		mContextSize.set(width, (float)mLinesInfo.size() * mFontHeight);
 		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
+	}
+
+	void * SimpleText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	{
+		return EditText::createStateData(_node, _root);
 	}
 
 } // namespace MyGUI

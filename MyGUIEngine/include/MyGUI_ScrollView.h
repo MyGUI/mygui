@@ -19,7 +19,7 @@ namespace MyGUI
 		friend class factory::ScrollViewFactory;
 
 	protected:
-		ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~ScrollView();
 
 		static Ogre::String WidgetTypeName;

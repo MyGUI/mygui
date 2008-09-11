@@ -8,20 +8,20 @@
 #define __MYGUI_TILE_RECT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_CroppedRectangleInterface.h"
-#include "MyGUI_DrawItem.h"
+#include "MyGUI_SubWidgetInterface.h"
 
 namespace MyGUI
 {
 
 	class RenderItem;
 
-	class _MyGUIExport TileRect : public CroppedRectangleInterface, public DrawItem
+	class _MyGUIExport TileRect : public SubWidgetInterface
 	{
 
 	public:
-		TileRect(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
+		TileRect(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
 		virtual ~TileRect();
 
 		void setAlpha(float _alpha);
@@ -42,6 +42,11 @@ namespace MyGUI
 
 		// метод для отрисовки себя
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
+
+		virtual void _setStateData(void * _data);
+
+		// метод для генерации данных из описания xml
+		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	private:
 		void updateTextureData();
