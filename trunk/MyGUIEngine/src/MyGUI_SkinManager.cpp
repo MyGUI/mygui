@@ -8,6 +8,7 @@
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_SubWidgetManager.h"
 
 #include <OgreMaterialManager.h>
 
@@ -40,6 +41,7 @@ namespace MyGUI
 
 		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); ++iter) {
 			WidgetSkinInfoPtr info = iter->second;
+			info->clear();
 			delete info;
 		}
 		mSkins.clear();
@@ -65,6 +67,7 @@ namespace MyGUI
 		WidgetSkinInfo * skin = new WidgetSkinInfo();
 		if (mSkins.find(_name) != mSkins.end()){
 			MYGUI_LOG(Warning, "Skin with name '" + _name + "' already exist");
+			mSkins[_name]->clear();
 			delete mSkins[_name];
 		}
 		mSkins[_name] = skin;
@@ -151,21 +154,14 @@ namespace MyGUI
 					while (state.nextNode("State")) {
 
 						// парсим атрибуты стейта
-						Ogre::String basisStateName, tmp;
-						FloatRect offset;
-						Ogre::ColourValue colour = Ogre::ColourValue::ZERO;
-						float alpha = -1;
-						bool shift = false;
-
+						Ogre::String basisStateName;
 						state->findAttribute("name", basisStateName);
-						if (state->findAttribute("offset", tmp)) offset = convertTextureCoord(FloatRect::parse(tmp), materialSize);
-						if (state->findAttribute("colour", tmp)) colour = utility::parseColour(tmp);
-						if (state->findAttribute("alpha", tmp)) alpha = utility::parseFloat(tmp);
-						if (state->findAttribute("shift", tmp)) shift = utility::parseBool(tmp);
+
+						// конвертируем инфу о стейте
+						SubWidgetStateInfoPtr data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode());
 
 						// добавл€ем инфо о стайте
-						bind.add(basisStateName, offset, colour, alpha, shift);
-
+						bind.add(basisStateName, data);
 					};
 
 					// теперь всЄ вместе добавл€ем в скин
@@ -178,42 +174,41 @@ namespace MyGUI
 
 	IntSize SkinManager::getTextureSize(const std::string & _texture)
 	{
-		IntSize size(1, 1);
+		// предыдущ€ текстура
+		static std::string old_texture;
+		static IntSize old_size;
 
-		if (_texture.empty()) return size;
+		if (old_texture == _texture) return old_size;
+		old_texture = _texture;
+		old_size.clear();
+
+		if (_texture.empty()) return old_size;
 
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
 		if (false == manager.resourceExists(_texture)) 
 			manager.load(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture);
-		if (tex.isNull()) return size;
+		if (tex.isNull()) return old_size;
 
-		size.width = (int)tex->getWidth();
-		size.height = (int)tex->getHeight();
-
-		if (size.width < 1) size.width = 1;
-		if (size.height < 1) size.height = 1;
+		old_size.set((int)tex->getWidth(), (int)tex->getHeight());
 
 #if MYGUI_DEBUG_MODE
-		if (isPowerOfTwo(size) == false)
+		if (isPowerOfTwo(old_size) == false)
 			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power ow two size");
 #endif
 
-		return size;
+		return old_size;
 	}
 
 	FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize)
 	{
-		FloatRect retRect;
-		if (!_textureSize.width || !_textureSize.height) return retRect;
-
-		retRect.left = _source.left / _textureSize.width;
-		retRect.top = _source.top / _textureSize.height;
-		retRect.right = (_source.left + _source.right) / _textureSize.width;
-		retRect.bottom = (_source.top + _source.bottom) / _textureSize.height;
-
-		return retRect;
+		if (!_textureSize.width || !_textureSize.height) return FloatRect();
+		return FloatRect(
+			_source.left / _textureSize.width,
+			_source.top / _textureSize.height,
+			(_source.left + _source.right) / _textureSize.width,
+			(_source.top + _source.bottom) / _textureSize.height);
 	}
 
 	void SkinManager::createDefault()

@@ -22,15 +22,9 @@ namespace MyGUI
 	{
 		INSTANCE_HEADER(SkinManager);
 
-	//public:
-		//typedef std::map<std::string, Align> MapAlign;
-
 	public:
 		void initialise();
 		void shutdown();
-
-		/** Parse align string */
-		//static Align parseAlign(const std::string & _value);
 
 		/** Get skin info */
 		WidgetSkinInfo * getSkin(const Ogre::String & _name);
@@ -54,7 +48,7 @@ namespace MyGUI
 		static bool isPowerOfTwo(IntSize _size);
 
 		/** Check is skin exist */
-		inline bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end();}
+		inline bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }
 
 		inline EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins.begin(), mSkins.end()); }
 
@@ -63,9 +57,8 @@ namespace MyGUI
 
 	private:
 		MapWidgetSkinInfoPtr mSkins;
-		//static MapAlign mMapAlign;
 
-	}; // class SkinManager
+	};
 
 } // namespace MyGUI
 

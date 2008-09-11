@@ -11,7 +11,7 @@
 namespace MyGUI
 {
 
-	MainSkin::MainSkin(const SubWidgetInfo &_info, CroppedRectanglePtr _parent) :
+	MainSkin::MainSkin(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
 		SubSkin(_info, _parent)
 	{
 		mAlign = Align::Stretch;
@@ -20,6 +20,11 @@ namespace MyGUI
 
 	MainSkin::~MainSkin()
 	{
+	}
+
+	void * MainSkin::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	{
+		return SubSkin::createStateData(_node, _root);
 	}
 
 } // namespace MyGUI

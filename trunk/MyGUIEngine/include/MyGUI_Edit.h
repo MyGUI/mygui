@@ -21,7 +21,7 @@ namespace MyGUI
 		friend class factory::EditFactory;
 
 	protected:
-		Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Edit();
 
 		static Ogre::String WidgetTypeName;

@@ -47,28 +47,13 @@ namespace MyGUI
 			mStates.clear();
 		}
 
-		void add(const std::string & _name, const FloatRect& _rect)
-		{
-			add(_name, _rect, Ogre::ColourValue::ZERO, -1, false);
-		}
-
-		void add(const std::string & _name, float _alpha)
-		{
-			add(_name, FloatRect(-1, -1, -1, -1), Ogre::ColourValue::ZERO, _alpha, false);
-		}
-
-		void add(const std::string & _name, const Ogre::ColourValue & _colour)
-		{
-			add(_name, FloatRect(-1, -1, -1, -1), _colour, -1, false);
-		}
-
-		void add(const std::string & _name, const FloatRect & _rect, const Ogre::ColourValue  & _colour, float _alpha, bool _shift)
+		void add(const std::string & _name, void * _data)
 		{
 			// ищем такой же ключ
 			MapSubWidgetStateInfo::const_iterator iter = mStates.find(_name);
 			MYGUI_ASSERT(iter == mStates.end(), "state with name '" << _name << "' already exist");
 			// добавляем
-			mStates[_name] = SubWidgetStateInfo(_rect, _colour, _alpha, _shift);
+			mStates[_name] = SubWidgetStateInfoPtr(_data);
 		}
 
 	private:

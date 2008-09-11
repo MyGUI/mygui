@@ -8,6 +8,7 @@
 #define __MYGUI_SIMPLE_TEXT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_DrawItem.h"
@@ -24,13 +25,16 @@ namespace MyGUI
 	{
 
 	public:
-		SimpleText(const SubWidgetInfo &_info, CroppedRectanglePtr _parent);
+		SimpleText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
 		virtual ~SimpleText();
 
 		virtual void setViewOffset(IntPoint _point);
 
 		// обновляет все данные связанные с тектом
 		virtual void updateRawData();
+
+		// метод для генерации данных из описания xml
+		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	};
 

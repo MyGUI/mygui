@@ -17,7 +17,7 @@ namespace MyGUI
 {
 	Ogre::String MenuBar::WidgetTypeName = "MenuBar";
 
-	MenuBar::MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	MenuBar::MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mDistanceButton(0),
 		mIndexSelect(ITEM_NONE)

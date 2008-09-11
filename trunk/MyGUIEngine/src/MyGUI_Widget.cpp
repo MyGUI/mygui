@@ -11,11 +11,13 @@
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_WidgetDefines.h"
 #include "MyGUI_LayerKeeper.h"
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_RenderItem.h"
+#include "MyGUI_SubWidgetInterface.h"
 #include "MyGUI_SubWidgetTextInterface.h"
 
 namespace MyGUI
@@ -25,7 +27,7 @@ namespace MyGUI
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mOwner(static_cast<Widget*>(_parent)),
 		UserData(),
@@ -63,10 +65,16 @@ namespace MyGUI
 		// загружаем кирпичики виджета
 		SubWidgetManager & manager = SubWidgetManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter) {
-			CroppedRectangleInterface * sub = manager.createSubWidget(*iter, this);
+			SubWidgetInterface * sub = manager.createSubWidget(*iter, this);
 			mSubSkinChild.push_back(sub);
-			if (sub->_isText()) mText = static_cast<SubWidgetTextInterfacePtr>(sub);
-			else if (null == mMainSkin) mMainSkin = sub;
+			if (sub->_isText()) {
+				if (mText == null) {
+					mText = static_cast<SubWidgetTextInterface*>(sub);
+				}
+			}
+			else if (mMainSkin == null) {
+				mMainSkin = sub;
+			}
 		}
 
 		if (false == isRootWidget()) {
@@ -77,11 +85,10 @@ namespace MyGUI
 			if ((!mParent->isShow()) || (!getParent()->_isInheritedShow())) {
 				mInheritedShow = false;
 				// скрываем только саб скины, детей у нас еще нет
-				for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
+				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
 			}
 		}
 
-		// этот стиль есть всегда, даже если создатель не хотел его
 		setState("normal");
 
 		// парсим свойства
@@ -136,7 +143,7 @@ namespace MyGUI
 
 		_detachFromLayerItemKeeper();
 
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			delete (*skin);
 		}
 
@@ -232,7 +239,7 @@ namespace MyGUI
 				_setVisible(false);
 
 				// для тех кому нужно подправить себя при движении
-				//for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
+				//for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
 
 				// вся иерархия должна быть проверенна
 				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateView();
@@ -247,7 +254,7 @@ namespace MyGUI
 
 			//_setVisible(true);
 			// для тех кому нужно подправить себя при движении
-			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
 
 			return;
 
@@ -261,7 +268,7 @@ namespace MyGUI
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateView();
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
 
 	}
 
@@ -329,18 +336,10 @@ namespace MyGUI
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
 		if (iter == mStateInfo.end()) return;
 		size_t index=0;
-		// сначала сдвигаем текстуры
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
-			CroppedRectanglePtr & info = (*skin);
-			if (false == info->_isText()) info->_setUVSet(iter->second.offsets[index++]);
-			//else info->_correctView();//???
-		}
-		// теперь если нужно цвет текста
-		if (mText != null) {
-			if (iter->second.colour != Ogre::ColourValue::ZERO) {
-				mText->setColour(iter->second.colour);
-			}
-			mText->setShiftText(iter->second.shift);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index) {
+			SubWidgetInterface * info = (*skin);
+			void * data = (*iter).second.getStateData(index);
+			if (data != null) info->_setStateData(data);
 		}
 	}
 
@@ -425,7 +424,7 @@ namespace MyGUI
 		else mRealAlpha = mAlpha;
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
 	}
 
 	void Widget::_updateAlpha()
@@ -433,7 +432,7 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(null != mParent, "Widget must have parent");
 		mRealAlpha = mAlpha * (mInheritsAlpha ? static_cast<Widget*>(mParent)->_getRealAlpha() : ALPHA_MAX);
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
 	}
 
 	LayerItem * Widget::_findLayerItem(int _left, int _top)
@@ -459,7 +458,7 @@ namespace MyGUI
 	{
 		mAbsolutePosition = mParent->getAbsolutePosition() + mCoord.point();
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_correctView();
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_correctView();
 	}
 
 	void Widget::setPosition(const IntPoint& _pos)
@@ -500,7 +499,7 @@ namespace MyGUI
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
@@ -530,7 +529,7 @@ namespace MyGUI
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
@@ -546,7 +545,7 @@ namespace MyGUI
 
 		RenderItem * renderItem = null;
 
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			// создаем только если есть хоть один не текстовой сабскин
 			if ((null == renderItem) && (false == (*skin)->_isText())) {
 				renderItem = _item->addToRenderItem(mTexture, true, false);
@@ -568,7 +567,7 @@ namespace MyGUI
 			(*widget)->_detachFromLayerItemKeeper();
 		}
 
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			(*skin)->_destroyDrawItem();
 		}
 
@@ -608,7 +607,7 @@ namespace MyGUI
 		mVisible = _visible;
 
 		// просто обновляем
-		for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			(*skin)->_updateView();
 		}
 	}
@@ -620,7 +619,7 @@ namespace MyGUI
 
 		if (mInheritedShow) {
 			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedShow();
-			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
 		}
 
 	}
@@ -632,7 +631,7 @@ namespace MyGUI
 
 		// если мы уже скрыты отцом, то рассылать не нужно
 		if (mInheritedShow) {
-			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
 			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedHide();
 		}
 
@@ -644,7 +643,7 @@ namespace MyGUI
 		mInheritedShow = true;
 
 		if (mShow) {
-			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
 			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedShow();
 		}
 
@@ -656,7 +655,7 @@ namespace MyGUI
 		mInheritedShow = false;
 
 		if (mShow) {
-			for (VectorCroppedRectanglePtr::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
 			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedHide();
 		}
 
@@ -710,12 +709,10 @@ namespace MyGUI
 
 		if (mNeedToolTip) {
 			Gui::getInstance().eventFrameStart += newDelegate(this, &Widget::frameEntered);
-			//Gui::getInstance().addFrameListener(newDelegate(this, &Widget::frameEntered), this);
 			mToolTipCurrentTime = 0;
 		}
 		else {
 			Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
-			//Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
 		}
 	}
 
@@ -830,11 +827,6 @@ namespace MyGUI
 			mToolTipOldIndex = ITEM_NONE;
 		}
 	}
-
-	/*VectorWidgetPtr Widget::getChilds()
-	{
-		return mWidgetChild;
-	}*/
 
 	EnumeratorWidgetPtr Widget::getEnumerator()
 	{

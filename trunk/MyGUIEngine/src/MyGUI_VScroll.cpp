@@ -15,7 +15,7 @@ namespace MyGUI
 	Ogre::String VScroll::WidgetTypeName = "VScroll";
 	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 
-	VScroll::VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectanglePtr _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	VScroll::VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetStart(null),
 		mWidgetEnd(null),
