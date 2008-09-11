@@ -57,16 +57,21 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		// удаляем все хранители слоев
-		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			delete (*iter);
-		}
-		mLayerKeepers.clear();
+		clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
+	}
+
+	void LayerManager::clear()
+	{
+		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+			delete (*iter);
+		}
+		mLayerKeepers.clear();
 	}
 
 	bool LayerManager::load(const std::string & _file, const std::string & _group)
@@ -76,6 +81,9 @@ namespace MyGUI
 
 	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
+		// каждая новая загрузка, удаляет все слои
+		clear();
+
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator layer = _node->getNodeIterator();
 		while (layer.nextNode(XML_TYPE)) {

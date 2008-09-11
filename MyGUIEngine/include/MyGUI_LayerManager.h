@@ -65,32 +65,33 @@ namespace MyGUI
 		void _windowResized(const FloatSize& _size);
 
 		/** Get view size of GUI area*/
-		inline const FloatSize& getViewSize() {return mViewSize;}
+		inline const FloatSize& getViewSize() { return mViewSize; }
 
 		/** Get maximum depth */
-		inline float getMaximumDepth() {return mMaximumDepth;}
+		inline float getMaximumDepth() { return mMaximumDepth; }
 
 		/** Get X pixel scale */
-		inline float getPixScaleX() {return mPixScaleX;}
+		inline float getPixScaleX() { return mPixScaleX; }
 		/** Get Y pixel scale */
-		inline float getPixScaleY() {return mPixScaleY;}
+		inline float getPixScaleY() { return mPixScaleY; }
 
 		/** Get horisontal texel offset divided by window width */
-		inline float getHOffset() {return mHOffset;}
+		inline float getHOffset() { return mHOffset; }
 		/** Get vertical texel offset divided by window height */
-		inline float getVOffset() {return mVOffset;}
+		inline float getVOffset() { return mVOffset; }
 
 		/** Get aspect coefficient */
-		inline float getAspectCoef() {return mAspectCoef;}
+		inline float getAspectCoef() { return mAspectCoef; }
 
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
-		inline size_t getBatch() {return mCountBatch;}
-		inline void _addBatch() {mCountBatch ++;}
+		inline size_t getBatch() { return mCountBatch; }
+		inline void _addBatch() { mCountBatch ++; }
+
+		void clear();
 
 		bool isExist(const std::string & _name);
-
 		inline EnumeratorLayerKeeperPtr getEnumerator() { return EnumeratorLayerKeeperPtr(mLayerKeepers.begin(), mLayerKeepers.end()); }
 
 	private:
