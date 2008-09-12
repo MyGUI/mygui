@@ -14,6 +14,7 @@
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
@@ -92,10 +93,10 @@ namespace MyGUI
 
 		void setBreakLine(bool _break);
 
-		virtual void _setStateData(void * _data);
+		virtual void _setStateData(StateInfo * _data);
 
 		// метод для генерации данных из описания xml
-		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
+		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	protected:
 

@@ -36,18 +36,18 @@ namespace MyGUI
 		mShowSmooth(false)
 	{
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("HeightList");
-		if (iter != param.end()) mMaxHeight = utility::parseInt(iter->second);
+		const MapString & properties = _info->getProperties();
+		MapString::const_iterator iter = properties.find("HeightList");
+		if (iter != properties.end()) mMaxHeight = utility::parseInt(iter->second);
 
-		iter = param.find("ListSmoothShow");
-		if (iter != param.end()) setSmoothShow(utility::parseBool(iter->second));
+		iter = properties.find("ListSmoothShow");
+		if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
 
 		std::string listSkin, listLayer;
-		iter = param.find("ListSkin");
-		if (iter != param.end()) listSkin = iter->second;
-		iter = param.find("ListLayer");
-		if (iter != param.end()) listLayer = iter->second;
+		iter = properties.find("ListSkin");
+		if (iter != properties.end()) listSkin = iter->second;
+		iter = properties.find("ListLayer");
+		if (iter != properties.end()) listLayer = iter->second;
 
 		// ручками создаем список
 		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::_getType(), listSkin, IntCoord(), Align::Default, null, this, ""));

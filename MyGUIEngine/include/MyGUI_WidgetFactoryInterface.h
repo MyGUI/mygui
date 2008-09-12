@@ -8,7 +8,9 @@
 #define __MYGUI_WIDGET_FACTORY_INTERFACE_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Align.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_CroppedRectangleInterface.h"
 
 namespace MyGUI
 {
@@ -16,10 +18,10 @@ namespace MyGUI
 	class _MyGUIExport WidgetFactoryInterface
 	{
 	public:
-        virtual ~WidgetFactoryInterface() {}
+        virtual ~WidgetFactoryInterface() { }
 
-		virtual const Ogre::String& getType() = 0;
-		virtual WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name) = 0;
+		virtual const std::string & getType() = 0;
+		virtual WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name) = 0;
 	};
 
 	#if MYGUI_DEBUG_MODE == 1

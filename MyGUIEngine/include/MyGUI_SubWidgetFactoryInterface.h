@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_XmlDocument.h"
 
 namespace MyGUI
@@ -19,7 +20,7 @@ namespace MyGUI
 	public:
 		virtual const std::string & getType() = 0;
 		virtual SubWidgetInterface * createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) = 0;
-		virtual void * createData(xml::xmlNodePtr _node, xml::xmlNodePtr _root) = 0;
+		virtual StateInfo * createData(xml::xmlNodePtr _node, xml::xmlNodePtr _root) = 0;
 	};
 
 	template <typename T>
@@ -36,7 +37,7 @@ namespace MyGUI
 			return new T(_info, _parent);
 		}
 
-		virtual void * createData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+		virtual StateInfo * createData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 		{
 			return T::createStateData(_node, _root);
 		}

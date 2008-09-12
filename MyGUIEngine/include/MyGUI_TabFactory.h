@@ -23,15 +23,15 @@ namespace MyGUI
 			~TabFactory();
 
 			// реализация интерфейса фабрики
-			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name);
+			const std::string& getType();
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name);
 
 			// методы для парсинга
-			void Tab_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Tab_ButtonAutoWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Tab_SmoothShow(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Tab_AddSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Tab_SelectSheet(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Tab_ButtonWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Tab_ButtonAutoWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Tab_SmoothShow(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Tab_AddSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Tab_SelectSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory

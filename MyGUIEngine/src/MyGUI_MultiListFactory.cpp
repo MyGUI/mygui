@@ -28,12 +28,12 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 		}
 
-		const Ogre::String& MultiListFactory::getType()
+		const std::string& MultiListFactory::getType()
 		{
 			return MultiList::_getType();
 		}
 
-		WidgetPtr MultiListFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr MultiListFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new MultiList(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

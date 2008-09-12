@@ -50,13 +50,13 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		MapString::const_iterator iterS = param.find("SkinLine");
-		if (iterS != param.end()) mSkinLine = iterS->second;
+		const MapString & properties = _info->getProperties();
+		MapString::const_iterator iterS = properties.find("SkinLine");
+		if (iterS != properties.end()) mSkinLine = iterS->second;
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (List must have SkinLine property)");
 
-		iterS = param.find("HeightLine");
-		if (iterS != param.end()) mHeightLine = utility::parseInt(iterS->second);
+		iterS = properties.find("HeightLine");
+		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
 		if (mHeightLine < 1) mHeightLine = 1;
 
 

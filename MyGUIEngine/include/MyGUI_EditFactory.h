@@ -23,23 +23,23 @@ namespace MyGUI
 			~EditFactory();
 
 			// реализация интерфейса фабрики
-			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name);
+			const std::string& getType();
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name);
 
 			// методы для парсинга
-			void Edit_CursorPosition(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_TextSelect(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_ReadOnly(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_Password(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_MultiLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_PasswordChar(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_MaxTextLength(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_OverflowToTheLeft(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_Static(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_ShowVScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_ShowHScroll(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_BreakLine(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Edit_Memo(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Edit_CursorPosition(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_TextSelect(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_ReadOnly(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_Password(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_MultiLine(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_PasswordChar(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_MaxTextLength(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_OverflowToTheLeft(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_Static(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_ShowVScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_ShowHScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_BreakLine(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_Memo(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory

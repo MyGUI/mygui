@@ -23,11 +23,11 @@ namespace MyGUI
 			~ListFactory();
 
 			// реализация интерфейса фабрики
-			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name);
+			const std::string& getType();
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name);
 
 			// методы для парсинга
-			void List_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void List_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory

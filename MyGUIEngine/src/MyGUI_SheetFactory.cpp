@@ -38,23 +38,23 @@ namespace MyGUI
 			manager.unregisterDelegate("Sheet_SmoothSelect");
 		}
 
-		const Ogre::String& SheetFactory::getType()
+		const std::string& SheetFactory::getType()
 		{
 			return Sheet::_getType();
 		}
 
-		WidgetPtr SheetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr SheetFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new Sheet(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void SheetFactory::Sheet_ButtonWidth(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void SheetFactory::Sheet_ButtonWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(SheetPtr, _widget, _key);
 			static_cast<SheetPtr>(_widget)->setSheetButtonWidth(utility::parseInt(_value));
 		}
 
-		void SheetFactory::Sheet_Select(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void SheetFactory::Sheet_Select(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(SheetPtr, _widget, _key);
 			if (false == utility::parseBool(_value)) return;

@@ -42,41 +42,41 @@ namespace MyGUI
 			manager.unregisterDelegate("Window_MaxSize");
 		}
 
-		const Ogre::String& WindowFactory::getType()
+		const std::string& WindowFactory::getType()
 		{
 			return Window::_getType();
 		}
 
-		WidgetPtr WindowFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr WindowFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new Window(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setAutoAlpha(utility::parseBool(_value));
 		}
 
-		void WindowFactory::Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_Snap(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setSnap(utility::parseBool(_value));
 		}
 
-		void WindowFactory::Window_MinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_MinMax(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));
 		}
 
-		void WindowFactory::Window_MinSize(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_MinSize(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setMinSize(IntSize::parse(_value));
 		}
 
-		void WindowFactory::Window_MaxSize(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_MaxSize(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setMaxSize(IntSize::parse(_value));

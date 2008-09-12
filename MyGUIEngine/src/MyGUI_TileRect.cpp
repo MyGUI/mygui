@@ -26,8 +26,15 @@ namespace MyGUI
 		mCurrentCoord(_info.coord),
 		mCurrentAlpha(0xFFFFFFFF),
 		mTileSize(_info.coord.size()),
-		mCountVertex(TILERECT_COUNT_VERTEX)
+		mCountVertex(TILERECT_COUNT_VERTEX),
+		mTileH(true),
+		mTileV(true)
 	{
+		MapString::const_iterator iter = _info.properties.find("TileH"); 
+		if (iter != _info.properties.end()) mTileH = utility::parseBool(iter->second);
+		iter = _info.properties.find("TileV"); 
+		if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
+
 		mManager = LayerManager::getInstancePtr();
 		updateTextureData();
 	}
@@ -111,16 +118,10 @@ namespace MyGUI
 
 		if (need_update) {
 			mCurrentCoord = mCoord;
+			if (!mTileH) mTileSize.width = mCoord.width;
+			if (!mTileV) mTileSize.height = mCoord.height;
 			_updateView();
 		}
-
-		// растягиваем
-		/*mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
-		mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
-		mIsMargin = true; // при изменении размеров все пересчитывать
-
-		mCurrentCoord = mCoord;
-		_updateView();*/
 
 	}
 
@@ -172,7 +173,7 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void TileRect::_setStateData(void * _data)
+	void TileRect::_setStateData(StateInfo * _data)
 	{
 		TileRectStateData * data = (TileRectStateData*)_data;
 		_setUVSet(data->rect);
@@ -371,7 +372,7 @@ namespace MyGUI
 		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
 	}
 
-	void * TileRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * TileRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 	{
 		const IntSize & size = SkinManager::getInstance().getTextureSize(_root->findAttribute("texture"));
 		TileRectStateData * data = new TileRectStateData();

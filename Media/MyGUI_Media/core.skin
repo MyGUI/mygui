@@ -206,7 +206,9 @@
     </Skin>
 
     <Skin name = "TileClient" size = "16 16" texture = "core.png">
-        <BasisSkin type="TileRect" offset = "0 0 16 16">
+        <BasisSkin type="TileRect" offset = "0 0 16 16" align = "Stretch">
+            <Property key="TileH" value = "true" />
+            <Property key="TileV" value = "true" />
             <State name="normal" offset = "413 4 96 59"/>
         </BasisSkin>
     </Skin>

@@ -155,16 +155,31 @@ namespace demo
 		return ret;
 	}*/
 
+MyGUI::WidgetPtr widget = 0;
+
+	bool DemoKeeper::mouseMoved( const OIS::MouseEvent &arg )
+	{
+		base::BaseManager::mouseMoved(arg);
+
+		if (widget) {
+			widget->setPosition(arg.state.X.abs - 300, arg.state.Y.abs - 300);
+		}
+
+		return true;
+	}
 
 	void DemoKeeper::createScene()
 	{
 
 		using namespace MyGUI;
 		const IntSize & view = Gui::getInstance().getViewSize();
-		const IntSize size(150, 24);
+		const IntSize size(100, 100);
 
 		base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
 		base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
+
+		WidgetPtr win = Gui::getInstance().createWidget<Widget>("Edit", IntCoord(250, 250, 300, 300), Align::Default, "Main");
+		widget = win->createWidget<Widget>("TileClient", IntCoord(10, 10, 100, 100), Align::Default);
 
 		//EditPtr edit = Gui::getInstance().createWidget<Edit>("Memo", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
 		//edit->setCaption("seig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshs seig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshs");
@@ -181,7 +196,7 @@ namespace demo
 
 		//Gui::getInstance().createWidget<ComboBox>("ComboBox", IntCoord(100, 100, 200, 26), Align::Default, "Main");
 
-		ResourceImageSet::registryType();
+		/*ResourceImageSet::registryType();
 		Gui::getInstance().load("resource.xml");
 
 		StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord(100, 100, 100, 100), Align::Default, "Main");
@@ -221,7 +236,7 @@ namespace demo
 		edit->setFontName("font_tmp");
 		height = static_cast<MyGUI::FontPtr>(MyGUI::FontManager::getInstance().getByName("font_tmp"))->getHeightPix();
 		edit->setFontHeight(height);
-		mInfo->change("font pix", MyGUI::utility::toString(height));
+		mInfo->change("font pix", MyGUI::utility::toString(height));*/
 
 	}
 
@@ -231,7 +246,7 @@ namespace demo
 
 	void DemoKeeper::createFont(int _res, int _height)
 	{
-		MyGUI::xml::xmlDocument document;
+		/*MyGUI::xml::xmlDocument document;
 		document.createInfo();
 		MyGUI::xml::xmlNodePtr root = document.createRoot("MyGUI");
 		root->addAttributes("type", "Font");
@@ -252,7 +267,7 @@ namespace demo
 		node->createChild("Code")->addAttributes("range", "33 126");
 		node->createChild("Code")->addAttributes("range", "1025 1105");
 
-		MyGUI::FontManager::getInstance()._load(root, "");
+		MyGUI::FontManager::getInstance()._load(root, "");*/
 
 	}
 

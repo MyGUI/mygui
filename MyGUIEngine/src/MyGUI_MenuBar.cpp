@@ -32,21 +32,21 @@ namespace MyGUI
 		}
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (false == param.empty()) {
-			MapString::const_iterator iter = param.find("DistanceButton");
-			if (iter != param.end()) mDistanceButton = utility::parseInt(iter->second);
+		const MapString & properties = _info->getProperties();
+		if (false == properties.empty()) {
+			MapString::const_iterator iter = properties.find("DistanceButton");
+			if (iter != properties.end()) mDistanceButton = utility::parseInt(iter->second);
 
-			iter = param.find("SkinButton");
-			if (iter != param.end()) mButtonSkinName = iter->second;
+			iter = properties.find("SkinButton");
+			if (iter != properties.end()) mButtonSkinName = iter->second;
 			MYGUI_ASSERT(false == mButtonSkinName.empty(), "SkinButton property not found (MenuBar must have SkinButton property)");
 
-			iter = param.find("SubMenuSkin");
-			if (iter != param.end()) mSubMenuSkin = iter->second;
+			iter = properties.find("SubMenuSkin");
+			if (iter != properties.end()) mSubMenuSkin = iter->second;
 			MYGUI_ASSERT(false == mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuBar must have SubMenuSkin property)");
 
-			iter = param.find("SubMenuLayer");
-			if (iter != param.end()) mSubMenuLayer = iter->second;
+			iter = properties.find("SubMenuLayer");
+			if (iter != properties.end()) mSubMenuLayer = iter->second;
 			MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuBar must have SubMenuLayer property)");
 		}
 

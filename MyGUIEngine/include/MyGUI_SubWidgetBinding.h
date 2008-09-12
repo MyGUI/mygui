@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_SubWidgetInterface.h"
 
 namespace MyGUI
 {
@@ -17,9 +17,8 @@ namespace MyGUI
 	// вспомогательный класс для инициализации сабскинов
 	class _MyGUIExport SubWidgetBinding
 	{
-	private:
 		// для доступа к внутренним членам
-		friend class 	WidgetSkinInfo;
+		friend class WidgetSkinInfo;
 
 	public:
 		SubWidgetBinding()
@@ -47,20 +46,26 @@ namespace MyGUI
 			mStates.clear();
 		}
 
-		void add(const std::string & _name, void * _data)
+		void add(const std::string & _name, StateInfo * _data)
 		{
 			// ищем такой же ключ
-			MapSubWidgetStateInfo::const_iterator iter = mStates.find(_name);
+			MapStateInfo::const_iterator iter = mStates.find(_name);
 			MYGUI_ASSERT(iter == mStates.end(), "state with name '" << _name << "' already exist");
 			// добавляем
-			mStates[_name] = SubWidgetStateInfoPtr(_data);
+			mStates[_name] = _data;
+		}
+
+		void addProperty(const std::string & _key, const std::string & _value)
+		{
+			mProperties[_key] = _value;
 		}
 
 	private:
 		IntCoord mOffset;
 		Align mAlign;
 		std::string mType;
-		MapSubWidgetStateInfo mStates;
+		MapStateInfo mStates;
+		MapString mProperties;
 	};
 
 } // namespace MyGUI

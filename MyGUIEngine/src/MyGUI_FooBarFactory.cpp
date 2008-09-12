@@ -39,29 +39,29 @@ namespace MyGUI
 			manager.unregisterDelegate("Window_Snap");*/
 		}
 
-		const Ogre::String& FooBarFactory::getType()
+		const std::string& FooBarFactory::getType()
 		{
 			return FooBar::_getType();
 		}
 
-		WidgetPtr FooBarFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr FooBarFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new FooBar(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-	/*	void WindowFactory::Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+	/*	void WindowFactory::Window_Snap(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setSnap(utility::parseBool(_value));
 		}
 
-		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setAutoAlpha(utility::parseBool(_value));
 		}
 
-		void WindowFactory::Window_MinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WindowFactory::Window_MinMax(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(WindowPtr, _widget, _key);
 			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));
