@@ -30,7 +30,7 @@ namespace MyGUI
 
 		void setRectColour(const Ogre::ColourValue & _colourLT, const Ogre::ColourValue & _colourRT, const Ogre::ColourValue & _colourLB, const Ogre::ColourValue & _colourRB);
 
-		void serRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB);
+		void setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB);
 
 		virtual void _setStateData(StateInfo * _data);
 
