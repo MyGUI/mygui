@@ -58,7 +58,7 @@ namespace MyGUI
 			if ((*factory)->getType() == _info.type) return (*factory)->createSubWidget(_info, _parent);
 		}
 		MYGUI_EXCEPT("factory type '" << _info.type << "' not found.");
-		return 0;
+		return null;
 	}
 
 	StateInfo * SubWidgetManager::getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root)
@@ -66,8 +66,8 @@ namespace MyGUI
 		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _factory) return (*factory)->createData(_node, _root);
 		}
-		MYGUI_EXCEPT("factory type '" << _factory << "' not found.");
-		return 0;
+		MYGUI_LOG(Error, "factory type '" << _factory << "' not found. (SubWidgetManager::getStateData)");
+		return null;
 	}
 
 } // namespace MyGUI
