@@ -20,14 +20,14 @@ namespace MyGUI
 		mFactoryMainSkin = new SubWidgetFactory<MainSkin>("MainSkin");
 		mFactorySimpleText = new SubWidgetFactory<SimpleText>("SimpleText");
 		mFactoryEditText = new SubWidgetFactory<EditText>("EditText");
-		mFactoryColourRect = new SubWidgetFactory<ColourRect>("ColourRect");
+		mFactoryRawRect = new SubWidgetFactory<RawRect>("RawRect");
 		mFactoryTileRect = new SubWidgetFactory<TileRect>("TileRect");
 
 		registerFactory(mFactorySubSkin);
 		registerFactory(mFactoryMainSkin);
 		registerFactory(mFactorySimpleText);
 		registerFactory(mFactoryEditText);
-		registerFactory(mFactoryColourRect);
+		registerFactory(mFactoryRawRect);
 		registerFactory(mFactoryTileRect);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -45,7 +45,7 @@ namespace MyGUI
 		delete mFactoryMainSkin;
 		delete mFactorySimpleText;
 		delete mFactoryEditText;
-		delete mFactoryColourRect;
+		delete mFactoryRawRect;
 		delete mFactoryTileRect;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");

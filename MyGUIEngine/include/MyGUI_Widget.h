@@ -187,6 +187,7 @@ namespace MyGUI
 
 		/** Set widget's state */
 		void setState(const Ogre::String & _state);
+
 		void _setUVSet(const FloatRect& _rect);
 
 		virtual void _setTextureName(const Ogre::String& _texture);
@@ -283,6 +284,7 @@ namespace MyGUI
 		inline bool getNeedDragDrop() {return mNeedDragDrop;}
 
 		inline SubWidgetTextInterface * _getSubWidgetText() { return mText; }
+		inline SubWidgetInterface * _getSubWidgetMain() { return mMainSkin; }
 
 		/** Get need tool tip mode flag */
 		inline bool getNeedToolTip() { return mNeedToolTip; }
