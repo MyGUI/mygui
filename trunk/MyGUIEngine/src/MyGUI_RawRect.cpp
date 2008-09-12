@@ -82,7 +82,7 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void RawRect::serRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB)
+	void RawRect::setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB)
 	{
 		mRectTextureLT = _pointLT;
 		mRectTextureRT = _pointRT;
