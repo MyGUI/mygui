@@ -434,15 +434,15 @@
 					Name="SubWidget"
 					>
 					<File
-						RelativePath=".\src\MyGUI_ColourRect.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\src\MyGUI_EditText.cpp"
 						>
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_MainSkin.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_RawRect.cpp"
 						>
 					</File>
 					<File
@@ -992,15 +992,15 @@
 					Name="SubWidget"
 					>
 					<File
-						RelativePath=".\include\MyGUI_ColourRect.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_EditText.h"
 						>
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_MainSkin.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RawRect.h"
 						>
 					</File>
 					<File

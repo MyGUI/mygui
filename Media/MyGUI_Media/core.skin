@@ -2,6 +2,12 @@
 
 <MyGUI type="Skin">
 
+    <Skin name = "RawRect" size = "16 16" texture = "core.png">
+        <BasisSkin type="RawRect" offset = "0 0 16 16" align = "Stretch">
+            <State name="normal" offset = "559 52 1 1"/>
+        </BasisSkin>
+    </Skin> 
+    
     <Skin name = "Button" size = "54 26" texture = "core.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
         <Property key="FontHeight" value = "18" />
@@ -1226,12 +1232,6 @@
         <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "ALIGN_LEFT ALIGN_VSTRETCH">
             <State name="normal" offset = "147 5 3 3"/>
             <State name="select" offset = "147 16 3 3"/>
-        </BasisSkin>
-    </Skin>
-
-    <Skin name = "ColourRect" size = "16 16" texture = "core.png" align = "ALIGN_DEFAULT">
-        <BasisSkin type="ColourRect" offset = "0 0 16 16" align = "ALIGN_STRETCH">
-            <State name="normal" offset = "1002 16 1 1"/>
         </BasisSkin>
     </Skin>
 
