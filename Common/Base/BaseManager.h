@@ -72,7 +72,7 @@ namespace base
 
 		void setWallpaper(const std::string & _filename);
 
-	private:
+	protected:
 		void createInput(); // создаем систему ввода
 		void destroyInput(); // удаляем систему ввода
 

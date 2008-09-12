@@ -11,6 +11,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
@@ -37,7 +38,7 @@ namespace MyGUI
 
 		
 		virtual void _setUVSet(const FloatRect& _rect);
-		virtual void _setStateData(void * _data);
+		virtual void _setStateData(StateInfo * _data);
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
 		virtual void _destroyDrawItem();
@@ -46,7 +47,7 @@ namespace MyGUI
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 		// метод для генерации данных из описания xml
-		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
+		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	protected:
 

@@ -17,10 +17,10 @@ namespace MyGUI
 	{
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (!param.empty()) {
-			MapString::const_iterator iter = param.find("ButtonPressed");
-			if (iter != param.end()) setButtonPressed(iter->second == "true");
+		const MapString & properties = _info->getProperties();
+		if (!properties.empty()) {
+			MapString::const_iterator iter = properties.find("ButtonPressed");
+			if (iter != properties.end()) setButtonPressed(iter->second == "true");
 		}
 	}
 

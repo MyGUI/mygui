@@ -22,7 +22,7 @@ namespace MyGUI
 	{
 	}
 
-	void * MainSkin::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * MainSkin::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 	{
 		return SubSkin::createStateData(_node, _root);
 	}

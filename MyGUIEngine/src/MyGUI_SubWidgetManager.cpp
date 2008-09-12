@@ -61,7 +61,7 @@ namespace MyGUI
 		return 0;
 	}
 
-	void * SubWidgetManager::getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * SubWidgetManager::getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 	{
 		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ((*factory)->getType() == _factory) return (*factory)->createData(_node, _root);

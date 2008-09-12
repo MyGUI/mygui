@@ -117,7 +117,7 @@ namespace MyGUI
 					if (false == basis->findAttribute("key", key)) continue;
 					if (false == basis->findAttribute("value", value)) continue;
 					// добавляем свойство
-					widget_info->addParam(key, value);
+					widget_info->addProperty(key, value);
 
 				}
 				else if (basis->getName() == "Child") {
@@ -151,17 +151,28 @@ namespace MyGUI
 
 					// берем детей и крутимся, цикл со стейтами
 					xml::xmlNodeIterator state = basis->getNodeIterator();
-					while (state.nextNode("State")) {
+					while (state.nextNode()) {
 
-						// парсим атрибуты стейта
-						Ogre::String basisStateName;
-						state->findAttribute("name", basisStateName);
+						if (state->getName() == "State") {
+							// парсим атрибуты стейта
+							Ogre::String basisStateName;
+							state->findAttribute("name", basisStateName);
 
-						// конвертируем инфу о стейте
-						SubWidgetStateInfoPtr data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode());
+							// конвертируем инфу о стейте
+							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode());
 
-						// добавляем инфо о стайте
-						bind.add(basisStateName, data);
+							// добавляем инфо о стайте
+							bind.add(basisStateName, data);
+						}
+						else if (state->getName() == "Property") {
+							// загружаем свойства
+							std::string key, value;
+							if (false == state->findAttribute("key", key)) continue;
+							if (false == state->findAttribute("value", value)) continue;
+							// добавляем свойство
+							bind.addProperty(key, value);
+						}
+
 					};
 
 					// теперь всё вместе добавляем в скин

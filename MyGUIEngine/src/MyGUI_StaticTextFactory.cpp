@@ -28,12 +28,12 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 		}
 
-		const Ogre::String& StaticTextFactory::getType()
+		const std::string& StaticTextFactory::getType()
 		{
 			return StaticText::_getType();
 		}
 
-		WidgetPtr StaticTextFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr StaticTextFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new StaticText(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

@@ -98,10 +98,10 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (!param.empty()) {
-			MapString::const_iterator iter = param.find("Memo");
-			if (iter != param.end()) setEditMemo(iter->second == "true");
+		const MapString & properties = _info->getProperties();
+		if (!properties.empty()) {
+			MapString::const_iterator iter = properties.find("Memo");
+			if (iter != properties.end()) setEditMemo(iter->second == "true");
 		}
 
 		updateScroll();

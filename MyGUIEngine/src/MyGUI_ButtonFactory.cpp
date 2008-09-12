@@ -34,17 +34,17 @@ namespace MyGUI
 			manager.unregisterDelegate("Button_Pressed");
 		}
 
-		const Ogre::String& ButtonFactory::getType()
+		const std::string& ButtonFactory::getType()
 		{
 			return Button::_getType();
 		}
 
-		WidgetPtr ButtonFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr ButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new Button(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void ButtonFactory::Button_Pressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ButtonFactory::Button_Pressed(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ButtonPtr, _widget, _key);
 			static_cast<ButtonPtr>(_widget)->setButtonPressed(utility::parseBool(_value));

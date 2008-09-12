@@ -25,8 +25,8 @@ namespace MyGUI
 			~MessageFactory();
 
 			// реализация интерфейса фабрики
-			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name);
+			const std::string& getType();
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name);
 
 			static Ogre::UTFString _getButtonName(size_t _index);
 			inline static const std::string & _getDefaultSkin() {return mDefaultSkin;}
@@ -37,13 +37,13 @@ namespace MyGUI
 			static void changeLanguage(const std::string & _language);
 
 			// методы для парсинга
-			void Message_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Message_Message(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Message_Modal(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Message_Button(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Message_AddButton(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Message_SmoothShow(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Message_Fade(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void Message_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Message_Message(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Message_Modal(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Message_Button(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Message_AddButton(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Message_SmoothShow(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Message_Fade(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 			size_t parseButton(const std::string & _info);
 

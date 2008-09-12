@@ -39,7 +39,7 @@ namespace MyGUI
 			mFactoryList.push_back(_factory);
 		}
 
-		void * getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root);
+		StateInfo * getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	protected:
 		std::list<SubWidgetFactoryInterface*> mFactoryList;

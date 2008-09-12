@@ -69,9 +69,9 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("TrackRangeMargins");
-		if (iter != param.end()) {
+		const MapString & properties = _info->getProperties();
+		MapString::const_iterator iter = properties.find("TrackRangeMargins");
+		if (iter != properties.end()) {
 			IntSize range = IntSize::parse(iter->second);
 			mSkinRangeStart = range.width;
 			mSkinRangeEnd = range.height;
@@ -80,8 +80,8 @@ namespace MyGUI
 			mSkinRangeStart = 0;
 			mSkinRangeEnd = 0;
 		}
-		iter = param.find("MinTrackSize");
-		if (iter != param.end()) mMinTrackSize = utility::parseInt(iter->second);
+		iter = properties.find("MinTrackSize");
+		if (iter != properties.end()) mMinTrackSize = utility::parseInt(iter->second);
 		else mMinTrackSize = 0;
 	}
 

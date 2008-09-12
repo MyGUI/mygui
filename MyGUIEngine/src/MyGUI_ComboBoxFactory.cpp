@@ -36,24 +36,24 @@ namespace MyGUI
 			manager.unregisterDelegate("ComboBox_AddItem");
 		}
 
-		const Ogre::String& ComboBoxFactory::getType()
+		const std::string& ComboBoxFactory::getType()
 		{
 			return ComboBox::_getType();
 		}
 
-		WidgetPtr ComboBoxFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr ComboBoxFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new ComboBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		// методы для парсинга
-		void ComboBoxFactory::ComboBox_ModeDrop(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ComboBoxFactory::ComboBox_ModeDrop(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->setComboModeDrop(utility::parseBool(_value));
 		}
 
-		void ComboBoxFactory::ComboBox_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ComboBoxFactory::ComboBox_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->addItem(_value);

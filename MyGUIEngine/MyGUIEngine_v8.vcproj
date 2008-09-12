@@ -987,34 +987,6 @@
 						RelativePath=".\include\TSize.h"
 						>
 					</File>
-					<Filter
-						Name="Skin"
-						>
-						<File
-							RelativePath=".\include\MyGUI_ChildSkinInfo.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\MyGUI_MaskPeekInfo.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\MyGUI_SubWidgetBinding.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\MyGUI_WidgetSkinInfo.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="Resource"
-						>
-						<File
-							RelativePath=".\include\MyGUI_Resource.h"
-							>
-						</File>
-					</Filter>
 				</Filter>
 				<Filter
 					Name="SubWidget"
@@ -1113,6 +1085,34 @@
 					>
 					<File
 						RelativePath=".\include\MyGUI_ResourceImageSet.h"
+						>
+					</File>
+					<Filter
+						Name="Interface"
+						>
+						<File
+							RelativePath=".\include\MyGUI_Resource.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Skin"
+					>
+					<File
+						RelativePath=".\include\MyGUI_ChildSkinInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MaskPeekInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_SubWidgetBinding.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetSkinInfo.h"
 						>
 					</File>
 				</Filter>

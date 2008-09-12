@@ -43,27 +43,27 @@ namespace MyGUI
 		mWidgetClient->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		MapString::const_iterator iterS = param.find("SkinLine");
-		if (iterS != param.end()) mSkinLine = iterS->second;
+		const MapString & properties = _info->getProperties();
+		MapString::const_iterator iterS = properties.find("SkinLine");
+		if (iterS != properties.end()) mSkinLine = iterS->second;
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (PopupMenu must have SkinLine property)");
 
-		iterS = param.find("HeightLine");
-		if (iterS != param.end()) mHeightLine = utility::parseInt(iterS->second);
+		iterS = properties.find("HeightLine");
+		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
 		if (mHeightLine < 1){
 			MYGUI_LOG(Warning, "PopupMenu HeightLine can't be less thah 1. Set to 1.");
 			mHeightLine = 1;
 		}
 
-		iterS = param.find("SubmenuImageSize");
-		if (iterS != param.end()) mSubmenuImageSize = utility::parseInt(iterS->second);
+		iterS = properties.find("SubmenuImageSize");
+		if (iterS != properties.end()) mSubmenuImageSize = utility::parseInt(iterS->second);
 
-		iterS = param.find("SubMenuSkin");
-		if (iterS != param.end()) mSubMenuSkin = iterS->second;
+		iterS = properties.find("SubMenuSkin");
+		if (iterS != properties.end()) mSubMenuSkin = iterS->second;
 		MYGUI_ASSERT(false == mSubMenuSkin.empty(), "SubMenuSkin property not found (PopupMenu must have SubMenuSkin property)");
 
-		iterS = param.find("SubMenuLayer");
-		if (iterS != param.end()) mSubMenuLayer = iterS->second;
+		iterS = properties.find("SubMenuLayer");
+		if (iterS != properties.end()) mSubMenuLayer = iterS->second;
 		MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (PopupMenu must have SubMenuLayer property)");
 
 		// первоначально скрываем окно

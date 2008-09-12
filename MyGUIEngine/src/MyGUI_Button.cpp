@@ -25,12 +25,12 @@ namespace MyGUI
 	{
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (!param.empty()) {
-			MapString::const_iterator iter = param.find("ButtonPressed");
-			if (iter != param.end()) setButtonPressed(iter->second == "true");
-			iter = param.find("StateCheck");
-			if (iter != param.end()) setStateCheck(iter->second == "true");
+		const MapString & properties = _info->getProperties();
+		if (!properties.empty()) {
+			MapString::const_iterator iter = properties.find("ButtonPressed");
+			if (iter != properties.end()) setButtonPressed(iter->second == "true");
+			iter = properties.find("StateCheck");
+			if (iter != properties.end()) setStateCheck(iter->second == "true");
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {

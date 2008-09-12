@@ -26,7 +26,7 @@ namespace MyGUI
 		virtual ~MainSkin();
 
 		// метод для генерации данных из описания xml
-		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
+		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 	};
 
 } // namespace MyGUI

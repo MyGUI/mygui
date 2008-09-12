@@ -151,7 +151,7 @@ namespace MyGUI
 		return COLOURRECT_COUNT_VERTEX;
 	}
 
-	void * ColourRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * ColourRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 	{
 		return SubSkin::createStateData(_node, _root);
 	}

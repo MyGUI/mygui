@@ -41,11 +41,11 @@ namespace MyGUI
 		mMinmax.set(0, 0, 3000, 3000);
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("Snap");
-		if (iter != param.end()) mSnap = utility::parseBool(iter->second);
-		iter = param.find("MainMove");
-		if (iter != param.end()) setUserString("Scale", "1 1 0 0");
+		const MapString & properties = _info->getProperties();
+		MapString::const_iterator iter = properties.find("Snap");
+		if (iter != properties.end()) mSnap = utility::parseBool(iter->second);
+		iter = properties.find("MainMove");
+		if (iter != properties.end()) setUserString("Scale", "1 1 0 0");
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Client") {

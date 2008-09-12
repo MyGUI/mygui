@@ -40,36 +40,36 @@ namespace MyGUI
 			manager.unregisterDelegate("Progress_StartPoint");
 		}
 
-		const Ogre::String& ProgressFactory::getType()
+		const std::string& ProgressFactory::getType()
 		{
 			return Progress::_getType();
 		}
 
-		WidgetPtr ProgressFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr ProgressFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new Progress(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		// методы для парсинга
-		void ProgressFactory::Progress_Range(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ProgressFactory::Progress_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressRange(utility::parseSizeT(_value));
 		}
 
-		void ProgressFactory::Progress_Position(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ProgressFactory::Progress_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressPosition(utility::parseSizeT(_value));
 		}
 
-		void ProgressFactory::Progress_AutoTrack(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ProgressFactory::Progress_AutoTrack(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressAutoTrack(utility::parseBool(_value));
 		}
 
-		void ProgressFactory::Progress_StartPoint(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ProgressFactory::Progress_StartPoint(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressStartPoint(Align::parse(_value));

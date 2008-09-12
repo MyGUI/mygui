@@ -36,19 +36,19 @@ namespace MyGUI
 		}
 		if (null == mWidgetClient) mWidgetClient = this;
 
-		const MapString & param = _info->getParams();
-		MapString::const_iterator iterS = param.find("TrackSkin");
-		if (iterS != param.end()) mTrackSkin = iterS->second;
-		iterS = param.find("TrackWidth");
-		if (iterS != param.end()) mTrackWidth = utility::parseInt(iterS->second);
+		const MapString & properties = _info->getProperties();
+		MapString::const_iterator iterS = properties.find("TrackSkin");
+		if (iterS != properties.end()) mTrackSkin = iterS->second;
+		iterS = properties.find("TrackWidth");
+		if (iterS != properties.end()) mTrackWidth = utility::parseInt(iterS->second);
 		if (1 > mTrackWidth) mTrackWidth = 1;
-		iterS = param.find("TrackStep");
-		if (iterS != param.end()) mTrackStep = utility::parseInt(iterS->second);
+		iterS = properties.find("TrackStep");
+		if (iterS != properties.end()) mTrackStep = utility::parseInt(iterS->second);
 		else mTrackStep = mTrackWidth;
-		iterS = param.find("TrackFill");
-		if (iterS != param.end()) mFillTrack = utility::parseBool(iterS->second);
-		iterS = param.find("StartPoint");
-		if (iterS != param.end()) setProgressStartPoint(Align::parse(iterS->second));
+		iterS = properties.find("TrackFill");
+		if (iterS != properties.end()) mFillTrack = utility::parseBool(iterS->second);
+		iterS = properties.find("StartPoint");
+		if (iterS != properties.end()) setProgressStartPoint(Align::parse(iterS->second));
 
 	}
 

@@ -15,6 +15,29 @@
 namespace MyGUI
 {
 
+	// информация, об одном сабвиджете
+	struct SubWidgetInfo
+	{
+		SubWidgetInfo(const std::string & _type, const IntCoord& _coord, Align _align, const MapString & _properties) :
+			coord(_coord),
+			align(_align),
+			type(_type),
+			properties(_properties)
+		{
+		}
+
+		IntCoord coord;
+		Align align;
+		std::string type;
+		MapString properties;
+	};
+
+	typedef std::vector<SubWidgetInfo> VectorSubWidgetInfo;
+
+	class WidgetSkinInfo;
+	typedef WidgetSkinInfo * WidgetSkinInfoPtr;
+	typedef std::map<std::string, WidgetSkinInfoPtr> MapWidgetSkinInfoPtr;
+
 	// вспомогательный класс для инициализации одного скина
 	class _MyGUIExport WidgetSkinInfo
 	{
@@ -33,14 +56,14 @@ namespace MyGUI
 		void addInfo(const SubWidgetBinding & _bind)
 		{
 			checkState(_bind.mStates);
-			mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
+			mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign, _bind.mProperties));
 			checkBasis();
 			fillState(_bind.mStates, mBasis.size()-1);
 		}
 
-		inline void addParam(const std::string &_key, const std::string &_value)
+		inline void addProperty(const std::string &_key, const std::string &_value)
 		{
-			mParams[_key] = _value;
+			mProperties[_key] = _value;
 		}
 
 		inline void addChild(const ChildSkinInfo& _child)
@@ -61,9 +84,9 @@ namespace MyGUI
 		}
 
 	private:
-		void checkState(const MapSubWidgetStateInfo & _states)
+		void checkState(const MapStateInfo & _states)
 		{
-			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
+			for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
 				checkState(iter->first);
 			}
 		}
@@ -74,7 +97,7 @@ namespace MyGUI
 			MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
 			if (iter == mStates.end()) {
 				// добавляем новый стейт
-				mStates[_name] = WidgetStateInfo();
+				mStates[_name] = VectorStateInfo();
 			}
 		}
 
@@ -86,21 +109,21 @@ namespace MyGUI
 			}
 		}
 
-		inline void fillState(const MapSubWidgetStateInfo & _states, size_t _index)
+		inline void fillState(const MapStateInfo & _states, size_t _index)
 		{
-			for (MapSubWidgetStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
-				mStates[iter->first].set(_index, iter->second);
+			for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
+				mStates[iter->first][_index] = iter->second;
 			}
 		}
 
 	public:
-		inline const IntSize & getSize() const {return mSize;}
-		inline const std::string & getTextureName() const {return mTexture;}
-		inline const VectorSubWidgetInfo & getBasisInfo() const {return mBasis;}
-		inline const MapWidgetStateInfo & getStateInfo() const {return mStates;}
-		inline const MapString & getParams() const {return mParams;}
-		inline const VectorChildSkinInfo& getChild() const {return mChilds;}
-		inline const MaskPeekInfo& getMask() const {return mMaskPeek;}
+		inline const IntSize & getSize() const { return mSize; }
+		inline const std::string & getTextureName() const { return mTexture; }
+		inline const VectorSubWidgetInfo & getBasisInfo() const { return mBasis; }
+		inline const MapWidgetStateInfo & getStateInfo() const { return mStates; }
+		inline const MapString & getProperties() const { return mProperties; }
+		inline const VectorChildSkinInfo & getChild() const { return mChilds; }
+		inline const MaskPeekInfo & getMask() const { return mMaskPeek; }
 
 	private:
 		IntSize mSize;
@@ -108,7 +131,7 @@ namespace MyGUI
 		VectorSubWidgetInfo mBasis;
 		MapWidgetStateInfo mStates;
 		// дополнительные параметры скина
-		MapString mParams;
+		MapString mProperties;
 		// дети скина
 		VectorChildSkinInfo mChilds;
 		// маска для этого скина для пикинга

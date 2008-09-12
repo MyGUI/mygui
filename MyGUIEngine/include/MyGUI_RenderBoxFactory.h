@@ -23,18 +23,18 @@ namespace MyGUI
 			~RenderBoxFactory();
 
 			// реализация интерфейса фабрики
-			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name);
+			const std::string& getType();
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name);
 
 			// методы для парсинга
-			void RenderBox_Mesh(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void RenderBox_AutoRotation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void RenderBox_AutoRotationSpeed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void RenderBox_BackgroungColour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void RenderBox_RotationAngle(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void RenderBox_MouseRotation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void RenderBox_Animation(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void RenderBox_ViewScale(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+			void RenderBox_Mesh(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_AutoRotation(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_AutoRotationSpeed(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_BackgroungColour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_RotationAngle(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_MouseRotation(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_Animation(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_ViewScale(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory
