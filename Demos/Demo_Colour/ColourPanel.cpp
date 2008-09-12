@@ -23,6 +23,9 @@ void ColourPanel::initialise()
 	assignWidget(mColourRect, "widget_ColourRect");
 	assignWidget(mColourView, "widget_ColourView");
 	assignWidget(mImageColourPicker, "image_Picker");
+	assignWidget(mEditRed, "edit_Red");
+	assignWidget(mEditGreen, "edit_Green");
+	assignWidget(mEditBlue, "edit_Blue");
 
 	mColourRect->eventMouseButtonPressed = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonPressed);
 	mColourRect->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
@@ -34,7 +37,6 @@ void ColourPanel::initialise()
 	mRawColourView = static_cast<MyGUI::RawRect*>(main);
 
 	first_update();
-
 }
 
 void ColourPanel::show()
@@ -66,20 +68,29 @@ void ColourPanel::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 
 	mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
+	update(point);
+}
+
+void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+{
+	if (_id == MyGUI::MB_Left) notifyMouseDrag(null, _left, _top);
+}
+
+void ColourPanel::update(const MyGUI::IntPoint & _point)
+{
 	// вычисляем цвет. Altren 09.2008
-	float x = 1. * point.left / mColourRect->getWidth();
-	float y = 1. * point.top / mColourRect->getHeight();
+	float x = 1. * _point.left / mColourRect->getWidth();
+	float y = 1. * _point.top / mColourRect->getHeight();
 	if (x > 1) x = 1;
 	else if (x < 0) x = 0;
 	if (y > 1) y = 1;
 	else if (y < 0) y = 0;
 
 	mCurrentColour = (1 - y) * (mStartColour * x + Ogre::ColourValue::White * (1 - x));
-
 	mRawColourView->setRectColour(mCurrentColour, mCurrentColour, mCurrentColour, mCurrentColour);
-}
 
-void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
-{
-	if (_id == MyGUI::MB_Left) notifyMouseDrag(null, _left, _top);
+	mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.r * 255)));
+	mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.g * 255)));
+	mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.b * 255)));
+
 }
