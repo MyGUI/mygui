@@ -28,10 +28,15 @@ private:
 	void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 	void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 
+	void update(const MyGUI::IntPoint & _point);
+
 private:
 	MyGUI::WidgetPtr mColourRect;
 	MyGUI::WidgetPtr mColourView;
 	MyGUI::StaticImagePtr mImageColourPicker;
+	MyGUI::EditPtr mEditRed;
+	MyGUI::EditPtr mEditGreen;
+	MyGUI::EditPtr mEditBlue;
 
 	Ogre::ColourValue mCurrentColour;
 	Ogre::ColourValue mStartColour;
