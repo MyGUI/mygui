@@ -9,10 +9,13 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_CroppedRectangleInterface.h"
+#include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_SubWidgetTextInterface.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetEvent.h"
 #include "MyGUI_WidgetCreator.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {

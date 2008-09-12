@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Enumerator.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_XmlDocument.h"
 
 namespace MyGUI

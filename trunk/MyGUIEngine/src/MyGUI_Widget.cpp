@@ -92,24 +92,24 @@ namespace MyGUI
 		setState("normal");
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (false == param.empty()) {
-			MapString::const_iterator iter = param.find("FontName");
-			if (iter != param.end()) setFontName(iter->second);
-			iter = param.find("FontHeight");
-			if (iter != param.end()) setFontHeight(utility::parseInt(iter->second));
-			iter = param.find("NeedKey");
-			if (iter != param.end()) setNeedKeyFocus(iter->second == "true");
-			iter = param.find("NeedMouse");
-			if (iter != param.end()) setNeedMouseFocus(iter->second == "true");
-			iter = param.find("AlignText");
-			if (iter != param.end()) setTextAlign(Align::parse(iter->second));
-			iter = param.find("Colour");
-			if (iter != param.end()) setColour(utility::parseColour(iter->second));
-			iter = param.find("Pointer");
-			if (iter != param.end()) mPointer = iter->second;
-			iter = param.find("Show");
-			if (iter != param.end()) {
+		const MapString & properties = _info->getProperties();
+		if (false == properties.empty()) {
+			MapString::const_iterator iter = properties.find("FontName");
+			if (iter != properties.end()) setFontName(iter->second);
+			iter = properties.find("FontHeight");
+			if (iter != properties.end()) setFontHeight(utility::parseInt(iter->second));
+			iter = properties.find("NeedKey");
+			if (iter != properties.end()) setNeedKeyFocus(iter->second == "true");
+			iter = properties.find("NeedMouse");
+			if (iter != properties.end()) setNeedMouseFocus(iter->second == "true");
+			iter = properties.find("AlignText");
+			if (iter != properties.end()) setTextAlign(Align::parse(iter->second));
+			iter = properties.find("Colour");
+			if (iter != properties.end()) setColour(utility::parseColour(iter->second));
+			iter = properties.find("Pointer");
+			if (iter != properties.end()) mPointer = iter->second;
+			iter = properties.find("Show");
+			if (iter != properties.end()) {
 				if (utility::parseBool(iter->second)) show();
 				else hide();
 			}
@@ -338,7 +338,7 @@ namespace MyGUI
 		size_t index=0;
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index) {
 			SubWidgetInterface * info = (*skin);
-			void * data = (*iter).second.getStateData(index);
+			void * data = (*iter).second[index];
 			if (data != null) info->_setStateData(data);
 		}
 	}

@@ -12,7 +12,7 @@
 #include "MyGUI_LanguageManager.h"
 
 #define FACTORY_WIDGET_EVENT_DELEGATE(eventName) \
-		void WidgetFactory::Widget_##eventName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value) \
+		void WidgetFactory::Widget_##eventName(WidgetPtr _widget, const std::string &_key, const std::string &_value) \
 		{ \
 			DelegateManager & manager = DelegateManager::getInstance(); \
 			_widget->setUserString( #eventName, _value); \
@@ -101,17 +101,17 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_eventToolTip");
 		}
 
-		const Ogre::String& WidgetFactory::getType()
+		const std::string& WidgetFactory::getType()
 		{
 			return Widget::_getType();
 		}
 
-		WidgetPtr WidgetFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr WidgetFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new Widget(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			// change '\n' on char 10
 			size_t pos = _value.find("\\n");
@@ -129,81 +129,81 @@ namespace MyGUI
 			}
 		}
 
-		void WidgetFactory::Widget_Move(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_Move(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			const std::vector<std::string> & vec = utility::split(_value);
 			if (vec.size() == 4) _widget->setPosition(utility::parseInt(vec[0]), utility::parseInt(vec[1]), utility::parseInt(vec[2]), utility::parseInt(vec[3]) );
 			else if (vec.size() == 2) _widget->setPosition( utility::parseInt(vec[0]), utility::parseInt(vec[1]) );
 		}
 
-		void WidgetFactory::Widget_Size(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_Size(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			const std::vector<std::string> & vec = utility::split(_value);
 			if (vec.size() == 2) _widget->setSize( utility::parseInt(vec[0]), utility::parseInt(vec[1]) );
 		}
 
-		void WidgetFactory::Widget_Show(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_Show(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (utility::parseBool(_value)) _widget->show();
 			else _widget->hide();
 		}
 
-		void WidgetFactory::Widget_Colour(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_Colour(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setColour(utility::parseColour(_value));
 		}
 
-		void WidgetFactory::Widget_FontName(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_FontName(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setFontName(_value);
 		}
 
-		void WidgetFactory::Widget_FontHeight(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_FontHeight(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setFontHeight((Ogre::ushort)utility::parseFloat(_value));
 		}
 
-		void WidgetFactory::Widget_Alpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_Alpha(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setAlpha(utility::parseFloat(_value));
 		}
 
-		void WidgetFactory::Widget_State(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_State(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setState(_value);
 		}
 
-		void WidgetFactory::Widget_NeedKey(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_NeedKey(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setNeedKeyFocus(utility::parseBool(_value));
 		}
 
-		void WidgetFactory::Widget_NeedMouse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_NeedMouse(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setNeedMouseFocus(utility::parseBool(_value));
 		}
 
-		void WidgetFactory::Widget_AlignText(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_AlignText(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setTextAlign(Align::parse(_value));
 		}
 
-		void WidgetFactory::Widget_Enabled(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_Enabled(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setEnabled(utility::parseBool(_value));
 		}
 
-		void WidgetFactory::Widget_InheritsAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_InheritsAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setInheritsAlpha(utility::parseBool(_value));
 		}
 
-		void WidgetFactory::Widget_InheritsPeek(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_InheritsPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setInheritsPeek(utility::parseBool(_value));
 		}
 
-		void WidgetFactory::Widget_NeedToolTip(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void WidgetFactory::Widget_NeedToolTip(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setNeedToolTip(utility::parseBool(_value));
 		}
@@ -220,7 +220,7 @@ namespace MyGUI
 		//... many events still missed
 		FACTORY_WIDGET_EVENT_DELEGATE(eventToolTip);
 
-		/*void WidgetFactory::Widget_eventMouseMove(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		/*void WidgetFactory::Widget_eventMouseMove(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			DelegateManager & manager = DelegateManager::getInstance();
 			_widget->setUserString("eventMouseMove", _value);

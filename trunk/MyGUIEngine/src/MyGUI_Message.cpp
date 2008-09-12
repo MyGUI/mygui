@@ -64,22 +64,22 @@ namespace MyGUI
 		}
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (!param.empty()) {
-			MapString::const_iterator iter = param.find("ButtonSkin");
-			if (iter != param.end()) mButtonSkin = iter->second;
-			iter = param.find("ButtonType");
-			if (iter != param.end()) mButtonType = iter->second;
-			iter = param.find("ButtonSize");
-			if (iter != param.end()) mButtonSize = IntSize::parse(iter->second);
-			iter = param.find("ButtonOffset");
-			if (iter != param.end()) mButtonOffset = IntSize::parse(iter->second);
-			iter = param.find("DefaultLayer");
-			if (iter != param.end()) mDefaultLayer = iter->second;
-			iter = param.find("FadeSkin");
-			if (iter != param.end()) mFadeSkin = iter->second;
-			iter = param.find("FadeLayer");
-			if (iter != param.end()) mFadeLayer = iter->second;
+		const MapString & properties = _info->getProperties();
+		if (!properties.empty()) {
+			MapString::const_iterator iter = properties.find("ButtonSkin");
+			if (iter != properties.end()) mButtonSkin = iter->second;
+			iter = properties.find("ButtonType");
+			if (iter != properties.end()) mButtonType = iter->second;
+			iter = properties.find("ButtonSize");
+			if (iter != properties.end()) mButtonSize = IntSize::parse(iter->second);
+			iter = properties.find("ButtonOffset");
+			if (iter != properties.end()) mButtonOffset = IntSize::parse(iter->second);
+			iter = properties.find("DefaultLayer");
+			if (iter != properties.end()) mDefaultLayer = iter->second;
+			iter = properties.find("FadeSkin");
+			if (iter != properties.end()) mFadeSkin = iter->second;
+			iter = properties.find("FadeLayer");
+			if (iter != properties.end()) mFadeLayer = iter->second;
 		}
 
 	}

@@ -34,17 +34,17 @@ namespace MyGUI
 			manager.unregisterDelegate("List_AddItem");
 		}
 
-		const Ogre::String& ListFactory::getType()
+		const std::string& ListFactory::getType()
 		{
 			return List::_getType();
 		}
 
-		WidgetPtr ListFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr ListFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new List(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		void ListFactory::List_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void ListFactory::List_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ListPtr, _widget, _key);
 			static_cast<ListPtr>(_widget)->addItem(_value);

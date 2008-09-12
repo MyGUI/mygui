@@ -45,10 +45,10 @@ namespace MyGUI
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
-		const MapString & param = _info->getParams();
-		if (false == param.empty()) {
-			MapString::const_iterator iter = param.find("AlignVert");
-			if (iter != param.end()) mAlignVert = utility::parseBool(iter->second);
+		const MapString & properties = _info->getProperties();
+		if (false == properties.empty()) {
+			MapString::const_iterator iter = properties.find("AlignVert");
+			if (iter != properties.end()) mAlignVert = utility::parseBool(iter->second);
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -77,13 +77,13 @@ namespace MyGUI
 		mWidgetClient->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
 
 		// парсим свойства
-		/*const MapString & param = _info->getParams();
-		MapString::const_iterator iter = param.find("SkinLine");
-		if (iter != param.end()) mSkinLine = iter->second;
+		/*const MapString & properties = _info->getProperties();
+		MapString::const_iterator iter = properties.find("SkinLine");
+		if (iter != properties.end()) mSkinLine = iter->second;
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (ItemBox must have SkinLine property)");
 
-		iter = param.find("HeightLine");
-		if (iter != param.end()) mHeightLine = utility::parseInt(iter->second);
+		iter = properties.find("HeightLine");
+		if (iter != properties.end()) mHeightLine = utility::parseInt(iter->second);
 		if (mHeightLine < 1) mHeightLine = 1;*/
 
 		updateMetrics();

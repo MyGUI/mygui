@@ -30,27 +30,27 @@ namespace MyGUI
 		mOffsetButtonSeparator(2)
 	{
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (false == param.empty()) {
-			MapString::const_iterator iter = param.find("SkinButton");
-			if (iter != param.end()) mSkinButton = iter->second;
-			iter = param.find("HeightButton");
-			if (iter != param.end()) mHeightButton = utility::parseInt(iter->second);
+		const MapString & properties = _info->getProperties();
+		if (false == properties.empty()) {
+			MapString::const_iterator iter = properties.find("SkinButton");
+			if (iter != properties.end()) mSkinButton = iter->second;
+			iter = properties.find("HeightButton");
+			if (iter != properties.end()) mHeightButton = utility::parseInt(iter->second);
 			if (mHeightButton < 0) mHeightButton = 0;
 
-			iter = param.find("SkinList");
-			if (iter != param.end()) mSkinList = iter->second;
+			iter = properties.find("SkinList");
+			if (iter != properties.end()) mSkinList = iter->second;
 
-			iter = param.find("SkinButtonEmpty");
-			if (iter != param.end()) {
+			iter = properties.find("SkinButtonEmpty");
+			if (iter != properties.end()) {
 				mButtonMain = mWidgetClient->createWidget<Button>(iter->second,
 					IntCoord(0, 0, mWidgetClient->getWidth(), mHeightButton), Align::Default);
 			}
 
-			iter = param.find("WidthSeparator");
-			if (iter != param.end()) mWidthSeparator = utility::parseInt(iter->second);
-			iter = param.find("SkinSeparator");
-			if (iter != param.end()) mSkinSeparator = iter->second;
+			iter = properties.find("WidthSeparator");
+			if (iter != properties.end()) mWidthSeparator = utility::parseInt(iter->second);
+			iter = properties.find("SkinSeparator");
+			if (iter != properties.end()) mSkinSeparator = iter->second;
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {

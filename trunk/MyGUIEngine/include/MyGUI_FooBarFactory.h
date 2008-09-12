@@ -22,12 +22,12 @@ namespace MyGUI
 			FooBarFactory();
 			~FooBarFactory();
 
-			const Ogre::String& getType();
-			WidgetPtr createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name);
+			const std::string& getType();
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name);
 
-			/*void Window_Snap(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Window_AutoAlpha(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
-			void Window_MinMax(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);*/
+			/*void Window_Snap(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Window_AutoAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Window_MinMax(WidgetPtr _widget, const std::string &_key, const std::string &_value);*/
 
 		};
 

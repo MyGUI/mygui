@@ -259,7 +259,7 @@ namespace MyGUI
 		mRenderItem->removeDrawItem(this);
 	}
 
-	void SubSkin::_setStateData(void * _data)
+	void SubSkin::_setStateData(StateInfo * _data)
 	{
 		SubSkinStateData * data = (SubSkinStateData*)_data;
 		_setUVSet(data->rect);
@@ -295,7 +295,7 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void * SubSkin::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * SubSkin::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 	{
 		const IntSize & size = SkinManager::getInstance().getTextureSize(_root->findAttribute("texture"));
 		SubSkinStateData * data = new SubSkinStateData();

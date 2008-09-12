@@ -39,15 +39,15 @@ namespace MyGUI
 	{
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (false == param.empty()) {
-			MapString::const_iterator iter = param.find("OffsetBar");
-			if (iter != param.end()) mOffsetTab = utility::parseInt(iter->second);
+		const MapString & properties = _info->getProperties();
+		if (false == properties.empty()) {
+			MapString::const_iterator iter = properties.find("OffsetBar");
+			if (iter != properties.end()) mOffsetTab = utility::parseInt(iter->second);
 
-			iter = param.find("ButtonSkin");
-			if (iter != param.end()) mButtonSkinName = iter->second;
-			iter = param.find("EmptyBarSkin");
-			if (iter != param.end()) mEmptySkinName = iter->second;
+			iter = properties.find("ButtonSkin");
+			if (iter != properties.end()) mButtonSkinName = iter->second;
+			iter = properties.find("EmptyBarSkin");
+			if (iter != properties.end()) mEmptySkinName = iter->second;
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {

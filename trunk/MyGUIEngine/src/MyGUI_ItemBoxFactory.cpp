@@ -34,17 +34,17 @@ namespace MyGUI
 			//manager.unregisterDelegate("ItemBox_AddItem");
 		}
 
-		const Ogre::String& ItemBoxFactory::getType()
+		const std::string& ItemBoxFactory::getType()
 		{
 			return ItemBox::_getType();
 		}
 
-		WidgetPtr ItemBoxFactory::createWidget(const Ogre::String& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr ItemBoxFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
 		{
 			return new ItemBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
-		/*void ItemBoxFactory::ItemBox_AddItem(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		/*void ItemBoxFactory::ItemBox_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(ItemBoxPtr, _widget, _key);
 			static_cast<ItemBoxPtr>(_widget)->addItemString(_value);

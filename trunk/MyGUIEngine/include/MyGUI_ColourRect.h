@@ -35,7 +35,7 @@ namespace MyGUI
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 		// метод для генерации данных из описания xml
-		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
+		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	private:
 		Ogre::ColourValue mColourLeftTop;

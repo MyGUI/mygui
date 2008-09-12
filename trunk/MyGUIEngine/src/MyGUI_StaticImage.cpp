@@ -26,18 +26,18 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
 
 		// парсим свойства
-		const MapString & param = _info->getParams();
-		if (!param.empty()) {
-			MapString::const_iterator iter = param.find("ImageTexture");
-			if (iter != param.end()) setImageTexture(iter->second);
-			iter = param.find("ImageRect");
-			if (iter != param.end()) setImageRect(IntRect::parse(iter->second));
-			iter = param.find("ImageCoord");
-			if (iter != param.end()) setImageCoord(IntCoord::parse(iter->second));
-			iter = param.find("ImageTile");
-			if (iter != param.end()) setImageTile(IntSize::parse(iter->second));
-			iter = param.find("ImageNum");
-			if (iter != param.end()) setImageNum(utility::parseInt(iter->second));
+		const MapString & properties = _info->getProperties();
+		if (!properties.empty()) {
+			MapString::const_iterator iter = properties.find("ImageTexture");
+			if (iter != properties.end()) setImageTexture(iter->second);
+			iter = properties.find("ImageRect");
+			if (iter != properties.end()) setImageRect(IntRect::parse(iter->second));
+			iter = properties.find("ImageCoord");
+			if (iter != properties.end()) setImageCoord(IntCoord::parse(iter->second));
+			iter = properties.find("ImageTile");
+			if (iter != properties.end()) setImageTile(IntSize::parse(iter->second));
+			iter = properties.find("ImageNum");
+			if (iter != properties.end()) setImageNum(utility::parseInt(iter->second));
 		}
 	}
 

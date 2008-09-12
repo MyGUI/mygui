@@ -11,6 +11,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
@@ -43,10 +44,10 @@ namespace MyGUI
 		// метод для отрисовки себя
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
-		virtual void _setStateData(void * _data);
+		virtual void _setStateData(StateInfo * _data);
 
 		// метод для генерации данных из описания xml
-		static void * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
+		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	private:
 		void updateTextureData();
@@ -74,6 +75,8 @@ namespace MyGUI
 		float mTextureHeightOne;
 		float mTextureWidthOne;
 
+		bool mTileH;
+		bool mTileV;
 	};
 
 } // namespace MyGUI

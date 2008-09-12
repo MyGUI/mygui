@@ -1238,14 +1238,14 @@ namespace MyGUI
 		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}
 
-	void EditText::_setStateData(void * _data)
+	void EditText::_setStateData(StateInfo * _data)
 	{
 		EditTextStateData * data = (EditTextStateData*)_data;
 		if (data->colour != Ogre::ColourValue::ZERO) setColour(data->colour);
 		setShiftText(data->shift);
 	}
 
-	void * EditText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * EditText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 	{
 		EditTextStateData * data = new EditTextStateData();
 		data->shift = utility::parseBool(_node->findAttribute("shift"));
