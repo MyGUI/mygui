@@ -178,8 +178,12 @@ MyGUI::WidgetPtr widget = 0;
 		base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
 		base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
 
-		WidgetPtr win = Gui::getInstance().createWidget<Widget>("Edit", IntCoord(250, 250, 300, 300), Align::Default, "Main");
-		widget = win->createWidget<Widget>("TileClient", IntCoord(10, 10, 100, 100), Align::Default);
+		WidgetPtr win = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(250, 250, 300, 300), Align::Default, "Main");
+		SubWidgetInterface * main = win->_getSubWidgetMain();
+		RawRect * row = static_cast<RawRect*>(main);
+		row->setRectColour(Ogre::ColourValue::Black, Ogre::ColourValue::Green, Ogre::ColourValue::Black, Ogre::ColourValue::White);
+
+		//widget = win->createWidget<Widget>("TileClient", IntCoord(10, 10, 100, 100), Align::Default);
 
 		//EditPtr edit = Gui::getInstance().createWidget<Edit>("Memo", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
 		//edit->setCaption("seig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshs seig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshs");

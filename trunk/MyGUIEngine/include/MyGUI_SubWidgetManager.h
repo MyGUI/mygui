@@ -17,7 +17,7 @@
 #include "MyGUI_MainSkin.h"
 #include "MyGUI_SimpleText.h"
 #include "MyGUI_EditText.h"
-#include "MyGUI_ColourRect.h"
+#include "MyGUI_RawRect.h"
 #include "MyGUI_TileRect.h"
 
 namespace MyGUI
@@ -48,7 +48,7 @@ namespace MyGUI
 		SubWidgetFactory<MainSkin> * mFactoryMainSkin;
 		SubWidgetFactory<SimpleText> * mFactorySimpleText;
 		SubWidgetFactory<EditText> * mFactoryEditText;
-		SubWidgetFactory<ColourRect> * mFactoryColourRect;
+		SubWidgetFactory<RawRect> * mFactoryRawRect;
 		SubWidgetFactory<TileRect> * mFactoryTileRect;
 		
 	};
