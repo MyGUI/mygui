@@ -8,8 +8,8 @@
 #define __DEMO_KEEPER_H__
 
 #include <MyGUI.h>
-#include "PanelCell.h"
-#include "PanelViewWindow.h"
+#include "PanelView/PanelCell.h"
+#include "PanelView/PanelViewWindow.h"
 #include "PanelDirector.h"
 #include "PanelDynamic.h"
 #include "PanelStatic.h"
