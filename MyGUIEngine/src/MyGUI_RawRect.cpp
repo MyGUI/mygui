@@ -96,10 +96,10 @@ namespace MyGUI
 
 		float vertex_z = mManager->getMaximumDepth();
 
-		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float vertex_left = ((mManager->getPixScaleX() * (float)(mCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
+		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCoord.width * 2);
+		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
+		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCoord.height * 2);
 
 		// first triangle - left top
 		_vertex[0].x = vertex_left;
