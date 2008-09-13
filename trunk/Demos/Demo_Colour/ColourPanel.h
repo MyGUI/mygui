@@ -22,13 +22,18 @@ public:
 
 	inline bool isShow() { return mMainWidget->isShow(); } 
 
+	void setColour(const Ogre::ColourValue & _colour);
+	inline const Ogre::ColourValue & getColour() { return mCurrentColour; }
+
 private:
 	void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 	void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 	void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
+	void notifyEditTextChange(MyGUI::WidgetPtr _sender);
 
 	void updateFirst();
 	void updateFromPoint(const MyGUI::IntPoint & _point);
+	void updateFromColour(const Ogre::ColourValue & _colour);
 
 private:
 	MyGUI::WidgetPtr mColourRect;
