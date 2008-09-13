@@ -167,7 +167,6 @@
     <Property key="Skin" value="Separator2"/>
     <Property key="Skin" value="Separator3"/>
     <Property key="Skin" value="Separator4"/>
-	<Property key="Skin" value="BackRectangle" group="Bonus skin"/>
     <Parameter key="Widget_Caption" value="String"/>
     <!--Parameter key="Widget_Move" value="2 or 4 int"/-->
     <!--Parameter key="Widget_Size" value="2 int"/-->
