@@ -34,10 +34,10 @@ void DemoKeeper::end()
 void DemoKeeper::notifyChangePanels(int _key, size_t _value)
 {
 	if (_key == EVENT_SHOW_STATIC) {
-		mView.setItemShow(&mPanelStatic, (bool)_value);
+		mView.setItemShow(&mPanelStatic, _value != 0);
 	}
 	else if (_key == EVENT_SHOW_DYNAMIC) {
-		mView.setItemShow(&mPanelDynamic, (bool)_value);
+		mView.setItemShow(&mPanelDynamic, _value != 0);
 	}
 	else if (_key == EVENT_COUNT_DYNAMIC) {
 		mPanelDynamic.setVisibleCount(_value);

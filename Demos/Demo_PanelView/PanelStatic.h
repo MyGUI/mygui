@@ -9,7 +9,7 @@
 
 #include <MyGUI.h>
 #include "BaseLayout.h"
-#include "PanelBase.h"
+#include "PanelView/PanelBase.h"
 
 class PanelStatic : public BaseLayout, public PanelBase
 {

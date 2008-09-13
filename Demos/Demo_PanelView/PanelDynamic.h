@@ -8,7 +8,7 @@
 #define __PANEL_DYNAMIC_H__
 
 #include <MyGUI.h>
-#include "PanelBase.h"
+#include "PanelView/PanelBase.h"
 
 class PanelDynamic : public PanelBase
 {
