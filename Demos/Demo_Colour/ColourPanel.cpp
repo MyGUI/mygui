@@ -34,6 +34,10 @@ void ColourPanel::initialise()
 	mImageColourPicker->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
 	mScrollRange->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourPanel::notifyScrollChangePosition);
 
+	mEditRed->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
+	mEditGreen->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
+	mEditBlue->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
+
 	MyGUI::SubWidgetInterface * main = mColourRect->_getSubWidgetMain();
 	mRawColourRect = static_cast<MyGUI::RawRect*>(main);
 	main = mColourView->_getSubWidgetMain();
@@ -132,4 +136,38 @@ void ColourPanel::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _p
 		mImageColourPicker->getTop() + (mImageColourPicker->getHeight() / 2));
 
 	updateFromPoint(point);
+}
+
+void ColourPanel::notifyEditTextChange(MyGUI::WidgetPtr _sender)
+{
+	MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(_sender);
+	size_t cursor = edit->getTextCursor();
+	size_t num = MyGUI::utility::parseSizeT(edit->getCaption());
+	if (num > 255) num = 255;
+	edit->setCaption(MyGUI::utility::toString(num));
+	if (cursor < edit->getTextLength()) edit->setTextCursor(cursor);
+
+	Ogre::ColourValue colour(
+		MyGUI::utility::parseFloat(mEditRed->getCaption()) / 255.0f,
+		MyGUI::utility::parseFloat(mEditGreen->getCaption()) / 255.0f,
+		MyGUI::utility::parseFloat(mEditBlue->getCaption()) / 255.0f);
+	updateFromColour(colour);
+}
+
+void ColourPanel::setColour(const Ogre::ColourValue & _colour)
+{
+	Ogre::ColourValue colour(_colour.saturateCopy());
+	mEditRed->setCaption(MyGUI::utility::toString((int)(colour.r * 255)));
+	mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.g * 255)));
+	mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.b * 255)));
+
+	updateFromColour(colour);
+}
+
+void ColourPanel::updateFromColour(const Ogre::ColourValue & _colour)
+{
+	mCurrentColour = _colour;
+
+	// высчиываем опорный цвет
+
 }
