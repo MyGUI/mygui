@@ -204,11 +204,15 @@
 				Name="PanelBase"
 				>
 				<File
-					RelativePath=".\PanelCell.cpp"
+					RelativePath="..\..\Common\PanelView\PanelCell.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\PanelVew.cpp"
+					RelativePath="..\..\Common\PanelView\PanelView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\PanelView\PanelViewWindow.cpp"
 					>
 				</File>
 			</Filter>
@@ -229,14 +233,6 @@
 				</File>
 				<File
 					RelativePath=".\DemoKeeper.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Windows"
-				>
-				<File
-					RelativePath=".\PanelViewWindow.cpp"
 					>
 				</File>
 			</Filter>
@@ -266,15 +262,19 @@
 				Name="PanelBase"
 				>
 				<File
-					RelativePath=".\PanelBase.h"
+					RelativePath="..\..\Common\PanelView\PanelBase.h"
 					>
 				</File>
 				<File
-					RelativePath=".\PanelCell.h"
+					RelativePath="..\..\Common\PanelView\PanelCell.h"
 					>
 				</File>
 				<File
-					RelativePath=".\PanelView.h"
+					RelativePath="..\..\Common\PanelView\PanelView.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\PanelView\PanelViewWindow.h"
 					>
 				</File>
 			</Filter>
@@ -295,14 +295,6 @@
 				>
 				<File
 					RelativePath="..\..\Common\BaseLayout.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Windows"
-				>
-				<File
-					RelativePath=".\PanelViewWindow.h"
 					>
 				</File>
 			</Filter>
