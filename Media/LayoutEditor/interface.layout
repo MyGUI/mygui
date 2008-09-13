@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="StaticImage" skin="Editor_StaticImage" position_real="0 0 1 1" align="Stretch" layer="LayoutEditor_Back">
+    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" layer="Background">
         <Property key="Image_Texture" value="wallpaperEditor.jpg"/>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="0 272 200 320" align="Left Top" layer="LayoutEditor_Overlapped" name="windowWidgets">
+    <Widget type="Window" skin="WindowC" position="0 272 200 320" align="Left Top" layer="Overlapped" name="windowWidgets">
         <Property key="Widget_Caption" value="#{Widgets}"/>
         <Property key="Window_Snap" value="true"/>
-        <Widget type="ComboBox" skin="EditorComboBox" position="0 260 191 24" align="HStretch Bottom" name="allWidgetsCombo">
+        <Widget type="ComboBox" skin="ComboBox" position="0 260 191 24" align="HStretch Bottom" name="allWidgetsCombo">
             <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="0 236 191 2" align="HStretch Bottom"/>
@@ -16,7 +16,7 @@
         </Widget>
         <Widget type="Tab" skin="Tab" position="0 0 189 234" name="tabSkinGroups"/>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="200 120 256 302" align="Left Top" layer="LayoutEditor_Overlapped" name="windowSettings">
+    <Widget type="Window" skin="WindowC" position="200 120 256 302" align="Left Top" layer="Overlapped" name="windowSettings">
         <Property key="Widget_Caption" value="#{Settings}"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Widget_Show" value="false"/>
@@ -34,14 +34,14 @@
             <Property key="Widget_Caption" value="#{Resolution}"/>
             <Property key="Widget_AlignText" value="Left VCenter"/>
         </Widget>
-        <Widget type="ComboBox" skin="EditorComboBox" position="101 96 144 24" align="HStretch Top" name="comboboxResolution">
+        <Widget type="ComboBox" skin="ComboBox" position="101 96 144 24" align="HStretch Top" name="comboboxResolution">
             <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="StaticText" skin="Editor_StaticText" position="5 120 96 24">
             <Property key="Widget_Caption" value="#{Full_screen}"/>
             <Property key="Widget_AlignText" value="Left VCenter"/>
         </Widget>
-        <Widget type="ComboBox" skin="EditorComboBox" position="101 120 144 24" align="HStretch Top" name="comboboxFullscreen">
+        <Widget type="ComboBox" skin="ComboBox" position="101 120 144 24" align="HStretch Top" name="comboboxFullscreen">
             <Property key="ComboBox_ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="Separator1" position="-3 72 256 2" align="HStretch Top"/>
@@ -71,7 +71,7 @@
             <Property key="Widget_Caption" value="#{Autohide_editor_panels}"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="Right Top" layer="LayoutEditor_Overlapped" name="windowProperties">
+    <Widget type="Window" skin="WindowCS" position="472 0 280 686" align="Right Top" layer="Overlapped" name="windowProperties">
         <Property key="Widget_Caption" value="#{Properties}"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 0 2048 2048"/>

@@ -100,7 +100,7 @@ void EditorState::enter(bool bIsChangeState)
 	loadSettings();
 
 	// создание меню
-	bar = mGUI->createWidget<MyGUI::MenuBar>("EditorMenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "LayoutEditor_Overlapped", "LayoutEditor_MenuBar");
+	bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem(localise("File"));
 	bar->addItem(localise("Widgets"));
 	// FIXME менюбар сунуть в лейаут
@@ -719,7 +719,7 @@ void EditorState::notifySave()
 	{
 		if ( !ew->save(fileName)) {
 			Ogre::DisplayString file_name = anci_to_utf16(fileName);
-			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		}
 	}
 	else notifyLoadSaveAs(true);
@@ -799,7 +799,7 @@ void EditorState::notifyTest()
 
 void EditorState::notifyClear()
 {
-	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_delete_all_widgets"), "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_delete_all_widgets"), "", "Overlapped", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 }
 
 void EditorState::notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
@@ -826,7 +826,7 @@ void EditorState::clear()
 
 void EditorState::notifyQuit()
 {
-	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_exit"), "", "LayoutEditor_Overlapped", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_exit"), "", "Overlapped", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
 	want_quit = true;
 }
 
@@ -850,7 +850,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 
 	if (false == success) 
 	{
-		MyGUI::Message::_createMessage(localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else
 	{
@@ -878,7 +878,7 @@ void EditorState::load(const std::string & _file)
 	if (!ew->load(_file))
 	{
 		Ogre::DisplayString file_name = anci_to_utf16(fileName);
-		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + file_name + "'", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return;
 	}
 
@@ -1268,7 +1268,7 @@ void EditorState::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::str
 	}
 	else if (widget_for_type == 1)
 	{
-		editOrCombo = _window->createWidget<MyGUI::ComboBox>("EditorComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+		editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
 		MyGUI::castWidget<MyGUI::ComboBox>(editOrCombo)->eventComboAccept = newDelegate (this, &EditorState::notifyApplyPropertiesCombo);
 
 		std::vector<std::string> values;
@@ -1331,7 +1331,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	{
 		if ((!value.empty()) && (null != ew->find(value)) && (widgetContainer != ew->find(value)))
 		{
-			MyGUI::Message::_createMessage(localise("Warning"), "Widget with name '" + value + "' already exist.", "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage(localise("Warning"), "Widget with name '" + value + "' already exist.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			MyGUI::castWidget<MyGUI::Edit>(_sender)->setCaption(widgetContainer->name);
 			return;
 		}
@@ -1360,7 +1360,7 @@ void EditorState::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 		else
 		{
 			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			MyGUI::Message::_createMessage("Error", mess , "", "LayoutEditor_Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage("Error", mess , "", "Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
 		}
 		return;
 	}

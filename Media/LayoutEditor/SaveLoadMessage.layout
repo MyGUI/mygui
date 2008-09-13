@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="0 32 384 100" align="Left Top" layer="LayoutEditor_Overlapped" name="LayoutEditor_windowSaveLoad">
+    <Widget type="Window" skin="WindowC" position="0 32 384 100" align="Left Top" layer="Overlapped" name="LayoutEditor_windowSaveLoad">
         <Property key="Widget_Caption" value="#{Select_file_name}"/>
-        <Widget type="ComboBox" skin="EditorComboBox" position="13 3 352 24" name="LayoutEditor_editFileName">
+        <Widget type="ComboBox" skin="ComboBox" position="13 3 352 24" name="LayoutEditor_editFileName">
             <Property key="Widget_Caption" value="Default.layout"/>
         </Widget>
         <Widget type="Button" skin="Button" position="13 35 160 24" name="LayoutEditor_buttonSaveLoad">
