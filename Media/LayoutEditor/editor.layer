@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Layer">
-    <Layer name="LayoutEditor_Back" overlapped="false" peek="false"/>
 
+    <Layer name="Background" overlapped="false" peek="false"/>
     <Layer name="Back" overlapped="false" peek="true"/>
+
+    <Layer name="LayoutEditor_Widgets" overlapped="false" peek="true"/>
+    <Layer name="LayoutEditor_Rectangle" overlapped="false" peek="true"/>
+
     <Layer name="Overlapped" overlapped="true" peek="true"/>
     <Layer name="Middle" overlapped="false" peek="true"/>
     <Layer name="Modal" overlapped="true" peek="true"/>
@@ -11,13 +15,11 @@
     <Layer name="Popup" overlapped="true" peek="true"/>
     <Layer name="FadeMiddle" overlapped="false" peek="false"/>
     <Layer name="Info" overlapped="true" peek="true"/>
-    <Layer name="ToolTip" overlapped="false" peek="false"/>
-
-    <Layer name="LayoutEditor_Rectangle" overlapped="false" peek="true"/>
-    <Layer name="LayoutEditor_Overlapped" overlapped="true" peek="true"/>
-    <Layer name="LayoutEditor_Popup" overlapped="true" peek="true"/>
-    <Layer name="LayoutEditor_ToolTip"overlapped="false" peek="false"/>
-
+    <Layer name="ToolTip"overlapped="false" peek="false"/>
+    <Layer name="DragAndDrop"overlapped="false" peek="false"/>
+    <Layer name="FadeBusy" overlapped="false" peek="false"/>
     <Layer name="Pointer" overlapped="false" peek="false"/>
     <Layer name="Fade" overlapped="false" peek="false"/>
+    <Layer name="Statistic" overlapped="false" peek="false"/>
+
 </MyGUI>
