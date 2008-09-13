@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="160 144 436 302" layer="Back" name="_Main">
+    <Widget type="Window" skin="WindowC" position="160 144 442 308" layer="Back" name="_Main">
         <Property key="Widget_Caption" value="Colour picker"/>
-        <Widget type="Widget" skin="PanelSmall" position="7 7 256 256">
-            <Widget type="Widget" skin="RawRect" position="2 2 250 250" name="widget_ColourRect">
+        <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
+            <Widget type="Widget" skin="RawRect" position="2 2 256 256" name="widget_ColourRect">
                 <Widget type="StaticImage" skin="StaticImage" position="0 0 7 7" name="image_Picker">
                     <Property key="Image_Texture" value="core.png"/>
                     <Property key="Image_Coord" value="1001 23 7 7"/>
@@ -12,52 +12,55 @@
                 </Widget>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="288 7 20 256">
-            <Widget type="StaticImage" skin="StaticImage" position="2 2 14 250" name="image_ColourRange">
+        <Widget type="Widget" skin="PanelSmall" position="292 7 20 262">
+            <Widget type="StaticImage" skin="StaticImage" position="2 2 14 256" name="image_ColourRange">
                 <Property key="Image_Texture" value="core.png"/>
                 <Property key="Image_Coord" value="1014 9 3 128"/>
                 <Property key="Image_Tile" value="3 128"/>
                 <Property key="Image_Index" value="0"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="314 74 107 101">
-            <Widget type="StaticText" skin="RawRect" position="2 2 101 95" name="widget_ColourView"/>
+        <Widget type="Widget" skin="PanelSmall" position="320 74 107 107">
+            <Widget type="StaticText" skin="RawRect" position="2 2 101 101" name="widget_ColourView"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="366 236 56 26" name="edit_Blue">
+        <Widget type="Edit" skin="Edit" position="372 242 56 26" name="edit_Blue">
             <Property key="Edit_CursorPosition" value="0"/>
             <Property key="Widget_Caption" value="256"/>
             <Property key="Widget_AlignText" value="Center"/>
             <Property key="Edit_MaxTextLength" value="3"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="314 235 48 26">
+        <Widget type="StaticText" skin="StaticText" position="320 241 48 26">
             <Property key="Widget_AlignText" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Blue"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="314 207 48 26">
+        <Widget type="StaticText" skin="StaticText" position="320 213 48 26">
             <Property key="Widget_AlignText" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Green"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="366 209 56 26" name="edit_Green">
+        <Widget type="Edit" skin="Edit" position="372 215 56 26" name="edit_Green">
             <Property key="Widget_AlignText" value="Center"/>
             <Property key="Widget_Caption" value="256"/>
             <Property key="Edit_MaxTextLength" value="3"/>
         </Widget>
-        <Widget type="VScroll" skin="VSlider" position="267 7 16 255" name="scroll_Range">
+        <Widget type="VScroll" skin="VSlider" position="273 7 16 261" name="scroll_Range">
             <Property key="Scroll_Range" value="512"/>
+            <Property key="Scroll_Position" value="0"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="314 181 48 24">
+        <Widget type="StaticText" skin="StaticText" position="320 187 48 24">
             <Property key="Widget_Caption" value="Red"/>
             <Property key="Widget_AlignText" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="366 182 56 26" name="edit_Red">
+        <Widget type="Edit" skin="Edit" position="372 188 56 26" name="edit_Red">
             <Property key="Widget_Caption" value="256"/>
             <Property key="Widget_AlignText" value="Center"/>
             <Property key="Edit_MaxTextLength" value="3"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="314 7 107 26" name="button_OK">
+        <Widget type="Button" skin="Button" position="320 7 107 26" name="button_OK">
             <Property key="Widget_Caption" value="OK"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="314 41 107 26" name="Button_Cancel">
+        <Widget type="Button" skin="Button" position="320 41 107 26" name="Button_Cancel">
             <Property key="Widget_Caption" value="Cancel"/>
         </Widget>
     </Widget>
