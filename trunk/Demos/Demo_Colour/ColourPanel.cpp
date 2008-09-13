@@ -16,7 +16,7 @@ ColourPanel::ColourPanel() :
 void ColourPanel::initialise()
 {
 	mCurrentColour = Ogre::ColourValue::Green;
-	mStartColour = Ogre::ColourValue::Green;
+	mBaseColour = Ogre::ColourValue::Green;
 
 	loadLayout();
 
@@ -26,17 +26,28 @@ void ColourPanel::initialise()
 	assignWidget(mEditRed, "edit_Red");
 	assignWidget(mEditGreen, "edit_Green");
 	assignWidget(mEditBlue, "edit_Blue");
+	assignWidget(mScrollRange, "scroll_Range");
+	assignWidget(mImageRange, "image_ColourRange");
 
 	mColourRect->eventMouseButtonPressed = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonPressed);
 	mColourRect->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
 	mImageColourPicker->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
+	mScrollRange->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourPanel::notifyScrollChangePosition);
 
 	MyGUI::SubWidgetInterface * main = mColourRect->_getSubWidgetMain();
 	mRawColourRect = static_cast<MyGUI::RawRect*>(main);
 	main = mColourView->_getSubWidgetMain();
 	mRawColourView = static_cast<MyGUI::RawRect*>(main);
 
-	first_update();
+	mColourRange.push_back(Ogre::ColourValue(1, 0, 0));
+	mColourRange.push_back(Ogre::ColourValue(1, 0, 1));
+	mColourRange.push_back(Ogre::ColourValue(0, 0, 1));
+	mColourRange.push_back(Ogre::ColourValue(0, 1, 1));
+	mColourRange.push_back(Ogre::ColourValue(0, 1, 0));
+	mColourRange.push_back(Ogre::ColourValue(1, 1, 0));
+	mColourRange.push_back(mColourRange[0]);
+
+	updateFirst();
 }
 
 void ColourPanel::show()
@@ -49,9 +60,10 @@ void ColourPanel::hide()
 	mMainWidget->hide();
 }
 
-void ColourPanel::first_update()
+void ColourPanel::updateFirst()
 {
-	mRawColourRect->setRectColour(Ogre::ColourValue::White, mStartColour, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
+	notifyScrollChangePosition(null, mScrollRange->getScrollPosition());
+	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
 
 	notifyMouseDrag(null, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
 }
@@ -68,7 +80,7 @@ void ColourPanel::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 
 	mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
-	update(point);
+	updateFromPoint(point);
 }
 
 void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
@@ -76,9 +88,9 @@ void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, 
 	if (_id == MyGUI::MB_Left) notifyMouseDrag(null, _left, _top);
 }
 
-void ColourPanel::update(const MyGUI::IntPoint & _point)
+void ColourPanel::updateFromPoint(const MyGUI::IntPoint & _point)
 {
-	// вычисляем цвет. Altren 09.2008
+	// вычисляем цвет по положению курсора Altren 09.2008
 	float x = 1. * _point.left / mColourRect->getWidth();
 	float y = 1. * _point.top / mColourRect->getHeight();
 	if (x > 1) x = 1;
@@ -86,11 +98,38 @@ void ColourPanel::update(const MyGUI::IntPoint & _point)
 	if (y > 1) y = 1;
 	else if (y < 0) y = 0;
 
-	mCurrentColour = (1 - y) * (mStartColour * x + Ogre::ColourValue::White * (1 - x));
+	mCurrentColour = (1 - y) * (mBaseColour * x + Ogre::ColourValue::White * (1 - x));
 	mRawColourView->setRectColour(mCurrentColour, mCurrentColour, mCurrentColour, mCurrentColour);
 
 	mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.r * 255)));
 	mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.g * 255)));
 	mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.b * 255)));
 
+}
+
+void ColourPanel::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position)
+{
+	float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
+	float sector_current = (float)_position / sector_size;
+
+	// текущий сектор
+	size_t current = (size_t)sector_current;
+	assert(current < 6);
+	// смещение до следующего сектора от 0 до 1
+	float offfset = (sector_current - (float)current);
+
+	const Ogre::ColourValue & from = mColourRange[current];
+	const Ogre::ColourValue & to = mColourRange[current + 1];
+
+	mBaseColour.r = from.r + offfset * (to.r - from.r);
+	mBaseColour.g = from.g + offfset * (to.g - from.g);
+	mBaseColour.b = from.b + offfset * (to.b - from.b);
+
+	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
+
+	MyGUI::IntPoint point(
+		mImageColourPicker->getLeft() + (mImageColourPicker->getWidth() / 2),
+		mImageColourPicker->getTop() + (mImageColourPicker->getHeight() / 2));
+
+	updateFromPoint(point);
 }

@@ -23,12 +23,12 @@ public:
 	inline bool isShow() { return mMainWidget->isShow(); } 
 
 private:
-	void first_update();
-
 	void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 	void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+	void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
 
-	void update(const MyGUI::IntPoint & _point);
+	void updateFirst();
+	void updateFromPoint(const MyGUI::IntPoint & _point);
 
 private:
 	MyGUI::WidgetPtr mColourRect;
@@ -37,12 +37,16 @@ private:
 	MyGUI::EditPtr mEditRed;
 	MyGUI::EditPtr mEditGreen;
 	MyGUI::EditPtr mEditBlue;
+	MyGUI::VScrollPtr mScrollRange;
+	MyGUI::WidgetPtr mImageRange;
 
 	Ogre::ColourValue mCurrentColour;
-	Ogre::ColourValue mStartColour;
+	Ogre::ColourValue mBaseColour;
 
 	MyGUI::RawRect * mRawColourRect;
 	MyGUI::RawRect * mRawColourView;
+
+	std::vector<Ogre::ColourValue> mColourRange;
 };
 
 #endif // __COLOUR_PANEL_H__
