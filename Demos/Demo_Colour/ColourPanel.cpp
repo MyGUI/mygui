@@ -71,7 +71,7 @@ void ColourPanel::hide()
 void ColourPanel::updateFirst()
 {
 	notifyScrollChangePosition(null, mScrollRange->getScrollPosition());
-	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::White, Ogre::ColourValue::White);
+	mRawColourRect->setRectColour(mBaseColour, Ogre::ColourValue::White, Ogre::ColourValue::White, Ogre::ColourValue::White);
 	mRawColourRect->setRectTexture(MyGUI::FloatPoint(0, 0), MyGUI::FloatPoint(1, 0), MyGUI::FloatPoint(0, 1), MyGUI::FloatPoint(1, 1));
 
 	notifyMouseDrag(null, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
@@ -134,7 +134,7 @@ void ColourPanel::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _p
 	mBaseColour.g = from.g + offfset * (to.g - from.g);
 	mBaseColour.b = from.b + offfset * (to.b - from.b);
 
-	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::White, Ogre::ColourValue::White);
+	mRawColourRect->setRectColour(mBaseColour, Ogre::ColourValue::White, Ogre::ColourValue::White, Ogre::ColourValue::White);
 
 	MyGUI::IntPoint point(
 		mImageColourPicker->getLeft() + (mImageColourPicker->getWidth() / 2),
