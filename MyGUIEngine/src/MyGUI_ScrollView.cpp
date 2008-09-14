@@ -6,20 +6,19 @@
 */
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_SubWidgetTextInterface.h"
-#include "MyGUI_CastWidget.h"
+#include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_HScroll.h"
 
 namespace MyGUI
 {
 
-	Ogre::String ScrollView::WidgetTypeName = "ScrollView";
-
 	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
 
-	ScrollView::ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	MYGUI_RTTI_CHILD_IMPLEMENT( ScrollView, Widget );
+
+	ScrollView::ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),
@@ -51,12 +50,12 @@ namespace MyGUI
 			}
 			else if ((*iter)->_getInternalString() == "VScroll") {
 				MYGUI_DEBUG_ASSERT( ! mVScroll, "widget already assigned");
-				mVScroll = castWidget<VScroll>(*iter);
+				mVScroll = (*iter)->castType<VScroll>();
 				mVScroll->eventScrollChangePosition = newDelegate(this, &ScrollView::notifyScrollChangePosition);
 			}
 			else if ((*iter)->_getInternalString() == "HScroll") {
 				MYGUI_DEBUG_ASSERT( ! mHScroll, "widget already assigned");
-				mHScroll = castWidget<HScroll>(*iter);
+				mHScroll = (*iter)->castType<HScroll>();
 				mHScroll->eventScrollChangePosition = newDelegate(this, &ScrollView::notifyScrollChangePosition);
 			}
 		}

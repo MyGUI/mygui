@@ -29,7 +29,7 @@ void ColourPanel::initialise()
 	assignWidget(mScrollRange, "scroll_Range");
 	assignWidget(mImageRange, "image_ColourRange");
 
-	mColourRect->_setTextureName("gradient.png");
+	//mColourRect->_setTextureName("gradient.png");
 	//mColourRect->_setUVSet(MyGUI::FloatRect(0, 0, 1, 1));
 	//mColourRect->set
 
@@ -42,10 +42,10 @@ void ColourPanel::initialise()
 	mEditGreen->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 	mEditBlue->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 
-	MyGUI::SubWidgetInterface * main = mColourRect->_getSubWidgetMain();
-	mRawColourRect = static_cast<MyGUI::RawRect*>(main);
+	MyGUI::ISubWidget * main = mColourRect->_getSubWidgetMain();
+	mRawColourRect = main->castType<MyGUI::RawRect>();
 	main = mColourView->_getSubWidgetMain();
-	mRawColourView = static_cast<MyGUI::RawRect*>(main);
+	mRawColourView = main->castType<MyGUI::RawRect>();
 
 	mColourRange.push_back(Ogre::ColourValue(1, 0, 0));
 	mColourRange.push_back(Ogre::ColourValue(1, 0, 1));
@@ -71,8 +71,8 @@ void ColourPanel::hide()
 void ColourPanel::updateFirst()
 {
 	notifyScrollChangePosition(null, mScrollRange->getScrollPosition());
-	mRawColourRect->setRectColour(mBaseColour, Ogre::ColourValue::White, Ogre::ColourValue::White, Ogre::ColourValue::White);
-	mRawColourRect->setRectTexture(MyGUI::FloatPoint(0, 0), MyGUI::FloatPoint(1, 0), MyGUI::FloatPoint(0, 1), MyGUI::FloatPoint(1, 1));
+	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
+	//mRawColourRect->setRectTexture(MyGUI::FloatPoint(0, 0), MyGUI::FloatPoint(1, 0), MyGUI::FloatPoint(0, 1), MyGUI::FloatPoint(1, 1));
 
 	notifyMouseDrag(null, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
 }
@@ -134,7 +134,7 @@ void ColourPanel::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _p
 	mBaseColour.g = from.g + offfset * (to.g - from.g);
 	mBaseColour.b = from.b + offfset * (to.b - from.b);
 
-	mRawColourRect->setRectColour(mBaseColour, Ogre::ColourValue::White, Ogre::ColourValue::White, Ogre::ColourValue::White);
+	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
 
 	MyGUI::IntPoint point(
 		mImageColourPicker->getLeft() + (mImageColourPicker->getWidth() / 2),

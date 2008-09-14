@@ -6,17 +6,16 @@
 */
 #include "MyGUI_Sheet.h"
 #include "MyGUI_Tab.h"
-#include "MyGUI_CastWidget.h"
 
 namespace MyGUI
 {
 
-	Ogre::String Sheet::WidgetTypeName = "Sheet";
+	MYGUI_RTTI_CHILD_IMPLEMENT( Sheet, Widget );
 
-	Sheet::Sheet(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Sheet::Sheet(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name)
 	{
-		mOwner = castWidget<Tab>(static_cast<WidgetPtr>(_parent));
+		mOwner = getParent()->castType<Tab>();
 	}
 
 	Sheet::~Sheet()

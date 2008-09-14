@@ -19,13 +19,13 @@
 namespace MyGUI
 {
 
-	Ogre::String Message::WidgetTypeName = "Message";
+	MYGUI_RTTI_CHILD_IMPLEMENT( Message, Window );
 
 	const float MESSAGE_ALPHA_MAX = 0.5f;
 	const float MESSAGE_ALPHA_MIN = 0.0f;
 	const float MESSAGE_SPEED_COEF = 3.0f;
 
-	Message::Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Message::Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Window(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetText(null),
 		mInfoOk(Ok), mInfoCancel(Ok),
@@ -54,7 +54,7 @@ namespace MyGUI
 			}
 			else if ((*iter)->_getInternalString() == "Icon") {
 				MYGUI_DEBUG_ASSERT( ! mIcon, "widget already assigned");
-				mIcon = castWidget<StaticImage>(*iter);
+				mIcon = (*iter)->castType<StaticImage>();
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
@@ -181,7 +181,7 @@ namespace MyGUI
 		if (_fade) {
 			if (null == mWidgetFade) {
 				Gui & gui = Gui::getInstance();
-				mWidgetFade = gui.createWidgetT(Widget::getWidgetType(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), Align::Stretch, mFadeLayer);
+				mWidgetFade = gui.createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), Align::Stretch, mFadeLayer);
 				if (mSmoothShow) {
 					mWidgetFade->hide();
 					ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);

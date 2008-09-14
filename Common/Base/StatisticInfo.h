@@ -81,7 +81,7 @@ namespace statistic
 
 				mInfo->setCaption(stream.str());
 
-				MyGUI::SubWidgetTextInterface * text = mInfo->_getSubWidgetText();
+				MyGUI::ISubWidgetText * text = mInfo->_getSubWidgetText();
 				if (text) {
 					MyGUI::IntSize size = mInfo->_getSubWidgetText()->getSize();
 					size = mInfo->getTextSize() + mInfo->getSize() - size;

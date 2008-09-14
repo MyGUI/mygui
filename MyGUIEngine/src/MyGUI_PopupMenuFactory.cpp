@@ -28,12 +28,12 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 		}
 
-		const std::string& PopupMenuFactory::getType()
+		const std::string & PopupMenuFactory::getTypeName()
 		{
-			return PopupMenu::_getType();
+			return PopupMenu::getClassTypeName();
 		}
 
-		WidgetPtr PopupMenuFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr PopupMenuFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new PopupMenu(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

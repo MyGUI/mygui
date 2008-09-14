@@ -18,18 +18,13 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::ComboBoxFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		~ComboBox();
 
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		//------------------------------------------------------------------------------------//
 		// методы для манипуляций строками
 		//! Get number of items
@@ -111,8 +106,6 @@ namespace MyGUI
 		bool mModeDrop;
 		bool mDropMouse;
 		bool mShowSmooth;
-
-		//float mDoAlpha;
 
 	}; // class _MyGUIExport ComboBox : public Edit
 

@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_CroppedRectangleInterface.h"
+#include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_SubSkin.h"
 
@@ -21,12 +21,15 @@ namespace MyGUI
 
 	class _MyGUIExport MainSkin : public SubSkin
 	{
+		MYGUI_RTTI_CHILD_HEADER;
+
 	public:
-		MainSkin(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		MainSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~MainSkin();
 
 		// метод для генерации данных из описания xml
 		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
+
 	};
 
 } // namespace MyGUI

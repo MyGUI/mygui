@@ -75,9 +75,10 @@ namespace MyGUI
 		count += VERTEX_IN_QUAD; \
 	}
 
+	MYGUI_RTTI_CHILD_IMPLEMENT(EditText, ISubWidgetText);
 
-	EditText::EditText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
-		SubWidgetTextInterface(_info.coord, _info.align, _parent),
+	EditText::EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
+		ISubWidgetText(_info.coord, _info.align, _parent),
 		mEmptyView(false),
 		mCurrentCoord(_info.coord),
 		mTextOutDate(false),

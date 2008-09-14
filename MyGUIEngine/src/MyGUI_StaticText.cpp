@@ -8,9 +8,10 @@
 
 namespace MyGUI
 {
-	Ogre::String StaticText::WidgetTypeName = "StaticText";
 
-	StaticText::StaticText(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	MYGUI_RTTI_CHILD_IMPLEMENT( StaticText, Widget );
+
+	StaticText::StaticText(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name)
 	{
 	}

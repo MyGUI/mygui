@@ -18,6 +18,8 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::MessageFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	public:
 		enum ViewValueInfo
 		{
@@ -68,7 +70,7 @@ namespace MyGUI
 		typedef delegates::IDelegate2<WidgetPtr, ViewInfo> EventMessageEnd;
 
 	protected:
-		Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 		void updateSize();
 		void notifyButtonClick(MyGUI::WidgetPtr _sender);
@@ -77,14 +79,7 @@ namespace MyGUI
 		void _onKeyButtonPressed(KeyCode _key, Char _char);
 		void _destroyMessage(ViewInfo _result);
 
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		/** Set message text*/
 		void setMessage(const Ogre::UTFString & _message);
 

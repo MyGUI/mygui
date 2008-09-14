@@ -14,13 +14,14 @@
 
 namespace MyGUI
 {
+
 	const float WINDOW_ALPHA_MAX = ALPHA_MAX;
 	const float WINDOW_ALPHA_MIN = ALPHA_MIN;
 	const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
 
-	Ogre::String FooBar::WidgetTypeName = "FooBar";
+	MYGUI_RTTI_CHILD_IMPLEMENT( FooBar, Widget );
 
-	FooBar::FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) : 
+	FooBar::FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) : 
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mSnapDistance(0),
 		mLayout(FBL_COORDS),

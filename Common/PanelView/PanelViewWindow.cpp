@@ -19,9 +19,8 @@ void PanelViewWindow::initialise()
 	assignWidget(mScrollView, "scroll_View");
 	mPanelView.attach(mScrollView);
 
-	if (mMainWidget->getWidgetType() == MyGUI::Window::_getType()) {
-		static_cast<MyGUI::WindowPtr>(mMainWidget)->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
-	}
+	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+	if (window != null) window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
 }
 
 void PanelViewWindow::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)

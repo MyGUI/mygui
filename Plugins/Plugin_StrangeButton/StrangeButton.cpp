@@ -2,14 +2,14 @@
 #include "MyGUI_Prerequest.h"
 #include "StrangeButton.h"
 #include "MyGUI_WidgetSkinInfo.h"
-#include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_ISubWidgetText.h"
 
 namespace MyGUI
 {
 
-	Ogre::String StrangeButton::WidgetTypeName = "StrangeButton";
+	MYGUI_RTTI_CHILD_IMPLEMENT( StrangeButton, Widget );
 
-	StrangeButton::StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	StrangeButton::StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),

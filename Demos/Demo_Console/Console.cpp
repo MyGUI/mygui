@@ -20,9 +20,8 @@ void Console::initialise()
 	assignWidget(mComboCommand, "combo_Command");
 	assignWidget(mButtonSubmit, "button_Submit");
 
-	if (mMainWidget->getWidgetType() == "Window") {
-		static_cast<MyGUI::WindowPtr>(mMainWidget)->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
-	}
+	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+	if (window != null) window->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
 
 	mStringCurrent = mMainWidget->getUserString("Current");
 	mStringError = mMainWidget->getUserString("Error");
@@ -93,7 +92,7 @@ void Console::notifyComboAccept(MyGUI::WidgetPtr _sender)
 void Console::notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
 {
 	size_t len = _sender->getCaption().length();
-	MyGUI::EditPtr edit = MyGUI::castWidget<MyGUI::Edit>(_sender);
+	MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
 	if ((_key == MyGUI::KC_BACK) && (len > 0) && (mAutocomleted))
 	{
 		edit->deleteTextSelect();

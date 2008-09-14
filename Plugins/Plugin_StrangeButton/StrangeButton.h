@@ -7,21 +7,19 @@
 namespace MyGUI
 {
 
-	namespace factory{class StrangeButtonFactory;}
+	namespace factory { class StrangeButtonFactory; }
 
 	class StrangeButton : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::StrangeButtonFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
 
 		inline void setButtonPressed(bool _pressed)
 		{
@@ -30,7 +28,7 @@ namespace MyGUI
 			updateButtonState();
 		}
 
-		inline bool getButtonPressed() {return mIsStatePressed;}
+		inline bool getButtonPressed() { return mIsStatePressed; }
 
 	protected:
 
@@ -59,7 +57,7 @@ namespace MyGUI
 		// статус кнопки нажата или нет
 		bool mIsStatePressed;
 
-	}; // class Button : public Widget
+	};
 
 	typedef StrangeButton * StrangeButtonPtr;
 }

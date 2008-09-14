@@ -76,8 +76,10 @@ namespace MyGUI
 	{
 		friend class factory::FooBarFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		FooBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~FooBar();
 
 	public:
@@ -89,16 +91,7 @@ namespace MyGUI
 			FBL_SNAP_TOP
 		} FooBarLayout;
 
-	protected:
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//!	@copydoc Widget::getWidgetType
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
-
 		//!	Set bar position
 		virtual void setPosition(const IntPoint& _pos);
 		//!	Set bar position
@@ -252,8 +245,6 @@ namespace MyGUI
 		*/
 		VectorWidgetPtr mItemsOrder;
 
-
-	
 	};
 }
 

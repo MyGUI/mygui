@@ -36,12 +36,12 @@ namespace MyGUI
 			manager.unregisterDelegate("ComboBox_AddItem");
 		}
 
-		const std::string& ComboBoxFactory::getType()
+		const std::string & ComboBoxFactory::getTypeName()
 		{
-			return ComboBox::_getType();
+			return ComboBox::getClassTypeName();
 		}
 
-		WidgetPtr ComboBoxFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr ComboBoxFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new ComboBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
@@ -49,13 +49,13 @@ namespace MyGUI
 		// методы для парсинга
 		void ComboBoxFactory::ComboBox_ModeDrop(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(ComboBox, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->setComboModeDrop(utility::parseBool(_value));
 		}
 
 		void ComboBoxFactory::ComboBox_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ComboBoxPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(ComboBox, _widget, _key);
 			static_cast<ComboBoxPtr>(_widget)->addItem(_value);
 		}
 

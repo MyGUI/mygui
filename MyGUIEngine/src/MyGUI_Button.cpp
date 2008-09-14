@@ -7,15 +7,14 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_StaticImage.h"
-#include "MyGUI_CastWidget.h"
 #include "MyGUI_InputManager.h"
 
 namespace MyGUI
 {
 
-	Ogre::String Button::WidgetTypeName = "Button";
+	MYGUI_RTTI_CHILD_IMPLEMENT( Button, Widget );
 
-	Button::Button(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Button::Button(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
@@ -36,7 +35,7 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Image") {
 				MYGUI_DEBUG_ASSERT( ! mImage, "widget already assigned");
-				mImage = castWidget<StaticImage>(*iter);
+				mImage = (*iter)->castType<StaticImage>();
 			}
 		}
 

@@ -13,13 +13,13 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport UnlinkWidget
+	class _MyGUIExport IUnlinkWidget
 	{
 	public:
 		virtual void _unlinkWidget(WidgetPtr _widget) = 0;
 	};
 
-	typedef std::vector<UnlinkWidget*> VectorUnlinkWidget;
+	typedef std::vector<IUnlinkWidget*> VectorIUnlinkWidget;
 
 } // namespace MyGUI
 

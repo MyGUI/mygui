@@ -17,18 +17,18 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_SubWidgetInterface.h"
-#include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_ISubWidget.h"
+#include "MyGUI_ISubWidgetText.h"
 
 namespace MyGUI
 {
 
-	Ogre::String Widget::WidgetTypeName = "Widget";
+	MYGUI_RTTI_BASE_IMPLEMENT( Widget );
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
-		CroppedRectangleInterface(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
+	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
+		ICroppedRectangle(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
 		mOwner(static_cast<Widget*>(_parent)),
 		UserData(),
 		LayerItem(),
@@ -42,7 +42,7 @@ namespace MyGUI
 		mName(_name),
 		mTexture(_info->getTextureName()),
 		mMainSkin(null),
-		mWidgetCreator(_creator),
+		mIWidgetCreator(_creator),
 		mInheritsAlpha(true),
 		mInheritsPeek(false),
 		mNeedKeyFocus(false),
@@ -65,16 +65,14 @@ namespace MyGUI
 		// загружаем кирпичики виджета
 		SubWidgetManager & manager = SubWidgetManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter =_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter) {
-			SubWidgetInterface * sub = manager.createSubWidget(*iter, this);
+
+			ISubWidget * sub = manager.createSubWidget(*iter, this);
 			mSubSkinChild.push_back(sub);
-			if (sub->_isText()) {
-				if (mText == null) {
-					mText = static_cast<SubWidgetTextInterface*>(sub);
-				}
-			}
-			else if (mMainSkin == null) {
-				mMainSkin = sub;
-			}
+
+			// ищем дефолтные сабвиджеты
+			if (mMainSkin == null) mMainSkin = sub->castType<ISubWidgetRect>(false);
+			if (mText == null) mText = sub->castType<ISubWidgetText>(false);
+
 		}
 
 		if (false == isRootWidget()) {
@@ -337,7 +335,7 @@ namespace MyGUI
 		if (iter == mStateInfo.end()) return;
 		size_t index=0;
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index) {
-			SubWidgetInterface * info = (*skin);
+			ISubWidget * info = (*skin);
 			void * data = (*iter).second[index];
 			if (data != null) info->_setStateData(data);
 		}
@@ -547,7 +545,7 @@ namespace MyGUI
 
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
 			// создаем только если есть хоть один не текстовой сабскин
-			if ((null == renderItem) && (false == (*skin)->_isText())) {
+			if ((null == renderItem) && (mMainSkin != null)) {
 				renderItem = _item->addToRenderItem(mTexture, true, false);
 			}
 			(*skin)->_createDrawItem(_item, renderItem);

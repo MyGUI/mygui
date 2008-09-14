@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
@@ -23,9 +23,10 @@ namespace MyGUI
 
 	class _MyGUIExport SimpleText : public EditText
 	{
+		MYGUI_RTTI_CHILD_HEADER;
 
 	public:
-		SimpleText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		SimpleText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~SimpleText();
 
 		virtual void setViewOffset(IntPoint _point);

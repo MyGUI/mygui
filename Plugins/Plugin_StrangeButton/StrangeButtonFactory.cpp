@@ -30,12 +30,12 @@ namespace MyGUI
 		}
 
 		// реализация интерфейса фабрики
-		const Ogre::String& StrangeButtonFactory::getType()
+		const std::string & StrangeButtonFactory::getTypeName()
 		{
-			return StrangeButton::_getType();
+			return StrangeButton::getClassTypeName();
 		}
 
-		WidgetPtr StrangeButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String& _name)
+		WidgetPtr StrangeButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String& _name)
 		{
 			return new StrangeButton(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

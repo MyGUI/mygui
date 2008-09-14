@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
@@ -18,11 +18,12 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport TileRect : public SubWidgetInterface
+	class _MyGUIExport TileRect : public ISubWidgetRect
 	{
+		MYGUI_RTTI_CHILD_HEADER;
 
 	public:
-		TileRect(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~TileRect();
 
 		void setAlpha(float _alpha);
@@ -77,6 +78,7 @@ namespace MyGUI
 
 		bool mTileH;
 		bool mTileV;
+
 	};
 
 } // namespace MyGUI
