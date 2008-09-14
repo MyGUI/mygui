@@ -11,13 +11,13 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_CastWidget.h"
 
 namespace MyGUI
 {
-	Ogre::String MenuBar::WidgetTypeName = "MenuBar";
 
-	MenuBar::MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	MYGUI_RTTI_CHILD_IMPLEMENT( MenuBar, Widget );
+
+	MenuBar::MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mDistanceButton(0),
 		mIndexSelect(ITEM_NONE)
@@ -173,7 +173,7 @@ namespace MyGUI
 	void MenuBar::notifyPopupMenuAccept(WidgetPtr _sender, size_t _index)
 	{
 		//resetItemSelect();
-		eventPopupMenuAccept(this, castWidget<PopupMenu>(_sender), _index);
+		eventPopupMenuAccept(this, _sender->castType<PopupMenu>(), _index);
 	}
 
 } // namespace MyGUI

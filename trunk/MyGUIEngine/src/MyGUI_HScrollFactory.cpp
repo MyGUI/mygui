@@ -28,12 +28,12 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 		}
 
-		const std::string& HScrollFactory::getType()
+		const std::string & HScrollFactory::getTypeName()
 		{
-			return HScroll::_getType();
+			return HScroll::getClassTypeName();
 		}
 
-		WidgetPtr HScrollFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr HScrollFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new HScroll(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

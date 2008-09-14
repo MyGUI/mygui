@@ -20,16 +20,12 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::WindowFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
-		static Ogre::String WidgetTypeName;
+		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
@@ -157,7 +153,6 @@ namespace MyGUI
 		bool mSnap; // прилеплять ли к краям
 
 		IntCoord mCurrentActionScale;
-
 
 	}; // class Window : public Widget
 

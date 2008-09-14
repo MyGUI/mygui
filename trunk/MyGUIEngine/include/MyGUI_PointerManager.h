@@ -11,13 +11,13 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_PointerInfo.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_UnlinkWidget.h"
-#include "MyGUI_WidgetCreator.h"
+#include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_IWidgetCreator.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : public UnlinkWidget, public WidgetCreator
+	class _MyGUIExport PointerManager : public IUnlinkWidget, public IWidgetCreator
 	{
 		INSTANCE_HEADER(PointerManager);
 

@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_ISubWidget.h"
 
 namespace MyGUI
 {

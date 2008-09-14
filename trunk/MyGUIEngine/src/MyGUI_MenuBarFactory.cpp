@@ -34,19 +34,19 @@ namespace MyGUI
 			manager.unregisterDelegate("MenuBar_AddItem");
 		}
 
-		const std::string& MenuBarFactory::getType()
+		const std::string & MenuBarFactory::getTypeName()
 		{
-			return MenuBar::_getType();
+			return MenuBar::getClassTypeName();
 		}
 
-		WidgetPtr MenuBarFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr MenuBarFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new MenuBar(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		void MenuBarFactory::MenuBar_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MenuBarPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(MenuBar, _widget, _key);
 			static_cast<MenuBarPtr>(_widget)->addItem(_value);
 		}
 

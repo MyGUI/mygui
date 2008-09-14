@@ -15,6 +15,11 @@ namespace MyGUI
 
 	class _MyGUIExport PopupMenu : public Widget
 	{
+		// для вызова закрытого конструктора
+		friend class factory::PopupMenuFactory;
+
+		MYGUI_RTTI_CHILD_HEADER;
+
 	public:
 		struct ItemInfo
 		{
@@ -37,19 +42,10 @@ namespace MyGUI
 
 		typedef std::vector<ItemInfo> VectorPopupMenuItemInfo;
 
-		// для вызова закрытого конструктора
-		friend class factory::PopupMenuFactory;
-
 	protected:
-		PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
-		static Ogre::String WidgetTypeName;
+		PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		// методы для работы со списком
 		inline ItemInfo& addItem(const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { return insertItem(ITEM_NONE, _item, _submenu, _separator); }
 		ItemInfo& insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);

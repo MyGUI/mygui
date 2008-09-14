@@ -105,16 +105,12 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::ItemBoxFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
-		static Ogre::String WidgetTypeName;
+		ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		//----------------------------------------------------------------//
 		// методы для изменения содержимого бокса
 		//! Get number of items

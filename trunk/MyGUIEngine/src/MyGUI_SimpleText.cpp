@@ -13,7 +13,9 @@
 namespace MyGUI
 {
 
-	SimpleText::SimpleText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
+	MYGUI_RTTI_CHILD_IMPLEMENT(SimpleText, EditText);
+
+	SimpleText::SimpleText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		EditText(_info, _parent)
 	{
 		mManualView = false;

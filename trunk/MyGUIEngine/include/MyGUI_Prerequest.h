@@ -28,7 +28,7 @@ namespace MyGUI
 
 	class WidgetSkinInfo;
 	class MaskPeekInfo;
-	class WidgetCreator;
+	class IWidgetCreator;
 
 	// managers
 	class InputManager;
@@ -47,7 +47,7 @@ namespace MyGUI
 	class LanguageManager;
 	class ResourceManager;
 
-	class WidgetFactoryInterface;
+	class IWidgetFactory;
 
 	class DynLib;
 

@@ -18,18 +18,13 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::SheetFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		Sheet(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Sheet(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Sheet();
 
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		/** Set sheet caption */
 		void setCaption(const Ogre::UTFString & _caption);
 		/** Get sheet caption */

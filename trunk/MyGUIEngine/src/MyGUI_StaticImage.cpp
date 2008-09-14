@@ -12,10 +12,11 @@
 namespace MyGUI
 {
 
-	Ogre::String StaticImage::WidgetTypeName = "StaticImage";
+	MYGUI_RTTI_CHILD_IMPLEMENT( StaticImage, Widget );
+
 	const size_t IMAGE_MAX_INDEX = 256;
 
-	StaticImage::StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	StaticImage::StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIndexSelect(ITEM_NONE),
 		mFrameAdvise(false),

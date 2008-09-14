@@ -6,7 +6,6 @@
 */
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_CastWidget.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_VScroll.h"
@@ -21,9 +20,9 @@
 namespace MyGUI
 {
 
-	Ogre::String ItemBox::WidgetTypeName = "ItemBox";
+	MYGUI_RTTI_CHILD_IMPLEMENT( ItemBox, Widget );
 
-	ItemBox::ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	ItemBox::ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetScroll(null),
 		mLineTop(0),
@@ -54,12 +53,12 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "VScroll") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
-				mWidgetScroll = castWidget<VScroll>(*iter);
+				mWidgetScroll = (*iter)->castType<VScroll>();
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			if ((*iter)->_getInternalString() == "HScroll") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
-				mWidgetScroll = castWidget<HScroll>(*iter);
+				mWidgetScroll = (*iter)->castType<HScroll>();
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			else if ((*iter)->_getInternalString() == "Client") {

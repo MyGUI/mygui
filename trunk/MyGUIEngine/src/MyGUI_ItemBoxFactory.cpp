@@ -19,9 +19,6 @@ namespace MyGUI
 			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.registerFactory(this);
-
-			// регестрируем все парсеры
-			//manager.registerDelegate("ItemBox_AddItem") = newDelegate(this, &ItemBoxFactory::ItemBox_AddItem);
 		}
 
 		ItemBoxFactory::~ItemBoxFactory()
@@ -29,26 +26,17 @@ namespace MyGUI
 			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			manager.unregisterFactory(this);
-
-			// удаляем все парсеры
-			//manager.unregisterDelegate("ItemBox_AddItem");
 		}
 
-		const std::string& ItemBoxFactory::getType()
+		const std::string & ItemBoxFactory::getTypeName()
 		{
-			return ItemBox::_getType();
+			return ItemBox::getClassTypeName();
 		}
 
-		WidgetPtr ItemBoxFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr ItemBoxFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new ItemBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
-
-		/*void ItemBoxFactory::ItemBox_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
-		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ItemBoxPtr, _widget, _key);
-			static_cast<ItemBoxPtr>(_widget)->addItemString(_value);
-		}*/
 
 	} // namespace factory
 } // namespace MyGUI

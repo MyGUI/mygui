@@ -34,19 +34,19 @@ namespace MyGUI
 			manager.unregisterDelegate("Button_Pressed");
 		}
 
-		const std::string& ButtonFactory::getType()
+		const std::string & ButtonFactory::getTypeName()
 		{
-			return Button::_getType();
+			return Button::getClassTypeName();
 		}
 
-		WidgetPtr ButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr ButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new Button(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		void ButtonFactory::Button_Pressed(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ButtonPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Button, _widget, _key);
 			static_cast<ButtonPtr>(_widget)->setButtonPressed(utility::parseBool(_value));
 		}
 

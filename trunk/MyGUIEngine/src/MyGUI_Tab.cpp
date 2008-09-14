@@ -5,7 +5,6 @@
 	@module
 */
 #include "MyGUI_Tab.h"
-#include "MyGUI_CastWidget.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
@@ -16,11 +15,11 @@
 namespace MyGUI
 {
 
-	Ogre::String Tab::WidgetTypeName = "Tab";
+	MYGUI_RTTI_CHILD_IMPLEMENT( Tab, Widget );
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
-	Tab::Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Tab::Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mOffsetTab(0),
 		mWidgetBar(null),
@@ -57,19 +56,19 @@ namespace MyGUI
 			}
 			else if ((*iter)->_getInternalString() == "Left") {
 				MYGUI_DEBUG_ASSERT( ! mButtonLeft, "widget already assigned");
-				mButtonLeft = castWidget<Button>(*iter);
+				mButtonLeft = (*iter)->castType<Button>();
 				mButtonLeft->hide();
 				mButtonLeft->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->_getInternalString() == "Right") {
 				MYGUI_DEBUG_ASSERT( ! mButtonRight, "widget already assigned");
-				mButtonRight = castWidget<Button>(*iter);
+				mButtonRight = (*iter)->castType<Button>();
 				mButtonRight->hide();
 				mButtonRight->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if ((*iter)->_getInternalString() == "List") {
 				MYGUI_DEBUG_ASSERT( ! mButtonList, "widget already assigned");
-				mButtonList = castWidget<Button>(*iter);
+				mButtonList = (*iter)->castType<Button>();
 				mButtonList->hide();
 				mButtonList->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
@@ -108,7 +107,7 @@ namespace MyGUI
 	// переопределяем для особого обслуживания страниц
 	WidgetPtr Tab::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		if (Sheet::_getType() == _type) {
+		if (Sheet::getClassTypeName() == _type) {
 			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(_type, "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), _layer, _name));
 			//sheet->mOwner = this;
 
@@ -130,7 +129,7 @@ namespace MyGUI
 
 	SheetPtr Tab::addSheet(const Ogre::UTFString& _name, int _width)
 	{
-		SheetPtr sheet = static_cast<SheetPtr>(createWidgetT(Sheet::_getType(), "", IntCoord(), Align::Default));
+		SheetPtr sheet = static_cast<SheetPtr>(createWidgetT(Sheet::getClassTypeName(), "", IntCoord(), Align::Default));
 		setSheetNameIndex(mSheetsInfo.size()-1, _name, _width);
 		return sheet;
 	}
@@ -225,7 +224,7 @@ namespace MyGUI
 			if (count >= mSheetButton.size()) _createSheetButton();
 
 			// если кнопка не соответствует, то изменяем ее
-			ButtonPtr button = castWidget<Button>(mSheetButton[count]);
+			ButtonPtr button = mSheetButton[count]->castType<Button>();
 			button->show();
 
 			// корректируем нажатость кнопки
@@ -310,7 +309,7 @@ namespace MyGUI
 
 		size_t count = 0;
 		for (size_t pos=0; pos<mSheetButton.size(); pos++) {
-			ButtonPtr button = castWidget<Button>(mSheetButton[count]);
+			ButtonPtr button = mSheetButton[count]->castType<Button>();
 			if (button->isShow()) {
 				// корректируем нажатость кнопки
 				button->setButtonPressed((pos + mStartIndex) == mSelectSheet);

@@ -11,7 +11,9 @@
 namespace MyGUI
 {
 
-	MainSkin::MainSkin(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
+	MYGUI_RTTI_CHILD_IMPLEMENT(MainSkin, SubSkin);
+
+	MainSkin::MainSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		SubSkin(_info, _parent)
 	{
 		mAlign = Align::Stretch;

@@ -50,61 +50,61 @@ namespace MyGUI
 			manager.unregisterDelegate("Image_AddItemInfo");
 		}
 
-		const std::string& StaticImageFactory::getType()
+		const std::string & StaticImageFactory::getTypeName()
 		{
-			return StaticImage::_getType();
+			return StaticImage::getClassTypeName();
 		}
 
-		WidgetPtr StaticImageFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr StaticImageFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new StaticImage(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		void StaticImageFactory::Image_Texture(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageTexture(_value);
 		}
 
 		void StaticImageFactory::Image_Coord(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageCoord(IntCoord::parse(_value));
 		}
 
 		void StaticImageFactory::Image_Rect(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageRect(IntRect::parse(_value));
 		}
 
 		void StaticImageFactory::Image_Tile(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setImageTile(IntSize::parse(_value));
 		}
 
 		void StaticImageFactory::Image_Index(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setItemSelect(utility::parseSizeT(_value));
 		}
 
 		void StaticImageFactory::Image_Name(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->setItemSelect(_value);
 		}
 
 		void StaticImageFactory::Image_MapNames(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->addItemNames(_value);
 		}
 
 		void StaticImageFactory::Image_AddItemInfo(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
 			static_cast<StaticImagePtr>(_widget)->addItemInfo(_value);
 		}
 

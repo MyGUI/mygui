@@ -19,11 +19,11 @@
 namespace MyGUI
 {
 
-	Ogre::String PopupMenu::WidgetTypeName = "PopupMenu";
+	MYGUI_RTTI_CHILD_IMPLEMENT( PopupMenu, Widget );
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	PopupMenu::PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	PopupMenu::PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		//mWidgetClient(null),
 		mHeightLine(1),
@@ -301,7 +301,7 @@ namespace MyGUI
 			while ((item != NULL) && (item->getParent() != NULL)) item = item->getParent();
 			if (isRelative(item, true))
 			{
-				castWidget<PopupMenu>(item)->notifyMouseClick(button);
+				item->castType<PopupMenu>()->notifyMouseClick(button);
 			}
 			else
 			{
@@ -324,16 +324,14 @@ namespace MyGUI
 
 	void PopupMenu::hidePopupMenu(bool _hideParentPopup)
 	{
-		if ( _hideParentPopup && (NULL != _getOwner()) )
+		if ( _hideParentPopup && mOwner != null )
 		{
 			// если наш папа попап меню или меню - спрячем и его
-			if ( _getOwner()->getWidgetType() == getWidgetType() )
-			{
-				castWidget<PopupMenu>(_getOwner())->hidePopupMenu();
-			}
-			else if ( _getOwner()->getWidgetType() == MenuBar::_getType() )
-			{
-				castWidget<MenuBar>(_getOwner())->resetItemSelect();
+			PopupMenuPtr popup = mOwner->castType<PopupMenu>(false);
+			if (popup != null) popup->hidePopupMenu();
+			else {
+				MenuBarPtr menu = mOwner->castType<MenuBar>(false);
+				if (menu != null) menu->resetItemSelect();
 			}
 		}
 

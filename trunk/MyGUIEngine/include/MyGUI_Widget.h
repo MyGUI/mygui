@@ -8,28 +8,31 @@
 #define __MYGUI_WIDGET_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_CroppedRectangleInterface.h"
-#include "MyGUI_SubWidgetInterface.h"
-#include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_Rtti.h"
+#include "MyGUI_ICroppedRectangle.h"
+#include "MyGUI_ISubWidgetRect.h"
+#include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetEvent.h"
-#include "MyGUI_WidgetCreator.h"
+#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport Widget : public CroppedRectangleInterface, public LayerItem, public UserData, public WidgetEvent, public WidgetCreator, public DelegateUnlink
+	class _MyGUIExport Widget : public ICroppedRectangle, public LayerItem, public UserData, public WidgetEvent, public IWidgetCreator, public IDelegateUnlink
 	{
 		// для вызова закрытых деструкторов
-		friend class WidgetCreator;
+		friend class IWidgetCreator;
 		// для вызова закрытого конструктора
 		friend class factory::WidgetFactory;
 
+		MYGUI_RTTI_BASE_HEADER;
+
 	protected:
 		// все создание только через фабрику
-		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Widget();
 
 		void _updateView(); // обновления себя и детей
@@ -48,8 +51,6 @@ namespace MyGUI
 
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
-
-		static Ogre::String WidgetTypeName;
 
 		void frameEntered(float _frame);
 
@@ -89,30 +90,26 @@ namespace MyGUI
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetT(T::_getType(), _skin, _coord, _align, _name));
+			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetT(T::_getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
+			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _coord, _align, _name));
+			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
 		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
 		{
-			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _left, _top, _width, _height, _align, _name));
+			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _name));
 		}
 
 		//! Get name of widget
-		inline const Ogre::String & getName() {return mName;}
-		//! Get widget class type
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! Get widget type
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
+		inline const std::string & getName() { return mName; }
 
 		/** Set widget position (position of left top corner)*/
 		virtual void setPosition(const IntPoint& _pos);
@@ -202,7 +199,7 @@ namespace MyGUI
 		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
 
 		// для поддержки окон напрямую не являющиеся детьми
-		inline WidgetPtr _getOwner() {return mOwner;}
+		inline WidgetPtr _getOwner() { return mOwner; }
 		inline void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
 
 		/** Get copy of child widgets vector */
@@ -258,9 +255,9 @@ namespace MyGUI
 		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
 		const std::string& getLayerName();
 
-		inline WidgetCreator * _getWidgetCreator()
+		inline IWidgetCreator * _getIWidgetCreator()
 		{
-			return mWidgetCreator;
+			return mIWidgetCreator;
 		}
 
 		/** Get rect where child widgets placed */
@@ -283,8 +280,8 @@ namespace MyGUI
 		/** Get drag'n'drop mode flag */
 		inline bool getNeedDragDrop() {return mNeedDragDrop;}
 
-		inline SubWidgetTextInterface * _getSubWidgetText() { return mText; }
-		inline SubWidgetInterface * _getSubWidgetMain() { return mMainSkin; }
+		inline ISubWidgetText * _getSubWidgetText() { return mText; }
+		inline ISubWidgetRect * _getSubWidgetMain() { return mMainSkin; }
 
 		/** Get need tool tip mode flag */
 		inline bool getNeedToolTip() { return mNeedToolTip; }
@@ -295,9 +292,6 @@ namespace MyGUI
 		inline bool getEnableToolTip() { return mEnableToolTip; }
 		/** Enable or disable tooltip event */
 		void enableToolTip(bool _enable);
-
-		// используется для сравнения виджетов без учета иерархии
-		//inline bool compare(WidgetPtr _base) { return mWidgetEventSender == _base->_getBaseWidget(); }
 
 	protected:
 		// список всех стейтов
@@ -311,9 +305,9 @@ namespace MyGUI
 		VectorSubWidget mSubSkinChild;
 
 		// указатель на окно текста
-		SubWidgetTextInterface * mText;
+		ISubWidgetText * mText;
 		// указатель на первый не текстовой сабскин
-		SubWidgetInterface * mMainSkin;
+		ISubWidgetRect * mMainSkin;
 
 		// доступен ли на виджет
 		bool mEnabled;
@@ -326,7 +320,7 @@ namespace MyGUI
 		float mRealAlpha;
 		bool mInheritsAlpha;
 		// имя виджета
-		Ogre::String mName;
+		std::string mName;
 		// курсор который будет показан при наведении
 		std::string mPointer;
 		std::string mTexture;
@@ -336,7 +330,7 @@ namespace MyGUI
 		WidgetPtr mOwner;
 
 		// это тот кто нас создал, и кто нас будет удалять
-		WidgetCreator * mWidgetCreator;
+		IWidgetCreator * mIWidgetCreator;
 
 		// нужен ли виджету ввод с клавы
 		bool mNeedKeyFocus;

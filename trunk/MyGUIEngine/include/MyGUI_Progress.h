@@ -19,20 +19,15 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::ProgressFactory;
 
-	protected:
-		Progress(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
-		~Progress();
+		MYGUI_RTTI_CHILD_HEADER;
 
-		static Ogre::String WidgetTypeName;
+	protected:
+		Progress(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		~Progress();
 
 		void frameEntered(float _time);
 
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		/** Set progress range */
 		void setProgressRange(size_t _range);
 		/** Get progress range */

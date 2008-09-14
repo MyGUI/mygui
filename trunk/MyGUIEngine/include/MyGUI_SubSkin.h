@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
@@ -18,11 +18,12 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport SubSkin : public SubWidgetInterface
+	class _MyGUIExport SubSkin : public ISubWidgetRect
 	{
+		MYGUI_RTTI_CHILD_HEADER;
 
 	public:
-		SubSkin(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~SubSkin();
 
 		void setAlpha(float _alpha);
@@ -62,6 +63,7 @@ namespace MyGUI
 		RenderItem * mRenderItem;
 
 		LayerManager * mManager;
+
 	};
 
 } // namespace MyGUI

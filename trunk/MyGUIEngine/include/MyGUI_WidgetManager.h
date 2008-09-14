@@ -9,9 +9,9 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_WidgetCreator.h"
-#include "MyGUI_UnlinkWidget.h"
-#include "MyGUI_CastWidget.h"
+#include "MyGUI_IWidgetCreator.h"
+#include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_ICroppedRectangle.h"
 
 namespace MyGUI
 {
@@ -19,19 +19,19 @@ namespace MyGUI
 	// делегат для парсинга
 	typedef delegates::CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
 
-	class _MyGUIExport WidgetManager : public UnlinkWidget
+	class _MyGUIExport WidgetManager : public IUnlinkWidget
 	{
 		INSTANCE_HEADER(WidgetManager);
 
 	public:
 		typedef std::map<Ogre::String, ParseDelegate> MapDelegate;
-		typedef std::set<WidgetFactoryInterface*> SetWidgetFactory;
+		typedef std::set<IWidgetFactory*> SetWidgetFactory;
 
 	public:
 		void initialise();
 		void shutdown();
 
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 		/** Destroy all widgets FIXME or remove - doesn't work*/
 		void destroyAllWidget();
@@ -42,9 +42,9 @@ namespace MyGUI
 		void destroyWidgetsVector(VectorWidgetPtr &_widgets);
 
 		/** Register widget factory */
-		void registerFactory(WidgetFactoryInterface * _factory);
+		void registerFactory(IWidgetFactory * _factory);
 		/** Unregister widget factory */
-		void unregisterFactory(WidgetFactoryInterface * _factory);
+		void unregisterFactory(IWidgetFactory * _factory);
 
 		// метод для поиска виджета
 		/** Find widget by name */
@@ -61,7 +61,7 @@ namespace MyGUI
 		{
 			WidgetPtr widget = findWidgetT(_name);
 			if (null == widget) return null;
-			return castWidget<T>(widget);
+			return widget->castType<T>();
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/
@@ -72,7 +72,7 @@ namespace MyGUI
 
 		// преобразует точку на виджете в глобальную позицию
 		/** Convert position on widget to global position */
-		static IntPoint convertToGlobal(const IntPoint& _point, WidgetPtr _widget);
+		//static IntPoint convertToGlobal(const IntPoint& _point, WidgetPtr _widget);
 
 		// очищает имя в списках
 		void _unlinkWidget(WidgetPtr _widget);
@@ -96,9 +96,9 @@ namespace MyGUI
 
 		// все кто хочет отписать у себя виджет при удалении
 		/** Register unlinker (call unlink if for any destroyed widget)*/
-		void registerUnlinker(UnlinkWidget * _unlink);
+		void registerUnlinker(IUnlinkWidget * _unlink);
 		/** Unregister unlinker (call unlink if for any destroyed widget)*/
-		void unregisterUnlinker(UnlinkWidget * _unlink);
+		void unregisterUnlinker(IUnlinkWidget * _unlink);
 		/** Unlink widget */
 		void unlinkFromUnlinkers(WidgetPtr _widget);
 
@@ -126,7 +126,7 @@ namespace MyGUI
 		SetWidgetFactory mIntegratedFactoryList;
 
 		// список менеджеров для отписки при удалении
-		VectorUnlinkWidget mVectorUnlinkWidget;
+		VectorIUnlinkWidget mVectorIUnlinkWidget;
 
 	};
 

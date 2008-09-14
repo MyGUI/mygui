@@ -18,17 +18,12 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::HScrollFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		HScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		HScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		/** Get size in pixels of area where scroll moves */
 		int getLineSize();
 

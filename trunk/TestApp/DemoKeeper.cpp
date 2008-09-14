@@ -155,7 +155,7 @@ MyGUI::WidgetPtr rect = 0;
         }
  
         if (rect) {
-            MyGUI::SubWidgetInterface * main = rect->_getSubWidgetMain();
+            MyGUI::ISubWidget * main = rect->_getSubWidgetMain();
             MyGUI::RawRect * row = static_cast<MyGUI::RawRect*>(main);
             Ogre::ColourValue pickedColour = Ogre::ColourValue(1, 0, 1); // тут цвет из столбика справа
             Ogre::ColourValue colour = (1 - y) * (pickedColour * x + Ogre::ColourValue::White * (1 - x));
@@ -177,7 +177,7 @@ MyGUI::WidgetPtr rect = 0;
         base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
  
         widget = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(50, 50, 300, 300), Align::Default, "Main");
-        SubWidgetInterface * main = widget->_getSubWidgetMain();
+        ISubWidget * main = widget->_getSubWidgetMain();
         RawRect * row = static_cast<RawRect*>(main);
         row->setRectColour(Ogre::ColourValue::White, Ogre::ColourValue(1, 0, 1), Ogre::ColourValue::Black, Ogre::ColourValue::Black);
  

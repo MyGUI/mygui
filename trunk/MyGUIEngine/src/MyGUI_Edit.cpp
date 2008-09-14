@@ -11,14 +11,14 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ClipboardManager.h"
 #include "MyGUI_PointerManager.h"
-#include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_HScroll.h"
 
 namespace MyGUI
 {
 
-	Ogre::String Edit::WidgetTypeName = "Edit";
+	MYGUI_RTTI_CHILD_IMPLEMENT( Edit, Widget );
 
 	const float EDIT_CURSOR_TIMER  = 0.7f;
 	const float EDIT_ACTION_MOUSE_TIMER  = 0.05f;
@@ -31,7 +31,7 @@ namespace MyGUI
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
 	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
-	Edit::Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Edit::Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),
@@ -79,12 +79,12 @@ namespace MyGUI
 			}
 			else if ((*iter)->_getInternalString() == "VScroll") {
 				MYGUI_DEBUG_ASSERT( ! mVScroll, "widget already assigned");
-				mVScroll = castWidget<VScroll>(*iter);
+				mVScroll = (*iter)->castType<VScroll>();
 				mVScroll->eventScrollChangePosition = newDelegate(this, &Edit::notifyScrollChangePosition);
 			}
 			else if ((*iter)->_getInternalString() == "HScroll") {
 				MYGUI_DEBUG_ASSERT( ! mHScroll, "widget already assigned");
-				mHScroll = castWidget<HScroll>(*iter);
+				mHScroll = (*iter)->castType<HScroll>();
 				mHScroll->eventScrollChangePosition = newDelegate(this, &Edit::notifyScrollChangePosition);
 			}
 		}

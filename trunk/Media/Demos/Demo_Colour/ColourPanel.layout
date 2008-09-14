@@ -3,7 +3,7 @@
     <Widget type="Window" skin="WindowC" position="160 144 442 308" layer="Back" name="_Main">
         <Property key="Widget_Caption" value="Colour picker"/>
         <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
-            <Widget type="Widget" skin="RawRect" position="2 2 512 512" name="widget_ColourRect">
+            <Widget type="Widget" skin="RawRect" position="2 2 256 256" name="widget_ColourRect">
                 <Widget type="StaticImage" skin="StaticImage" position="0 0 7 7" name="image_Picker">
                     <Property key="Image_Texture" value="core.png"/>
                     <Property key="Image_Coord" value="1001 23 7 7"/>

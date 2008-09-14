@@ -12,7 +12,7 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_UnlinkWidget.h"
+#include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_InputDefine.h"
@@ -23,7 +23,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef delegates::CDelegate1<const std::string &> EventInfo_String;
 
-	class _MyGUIExport InputManager : public UnlinkWidget
+	class _MyGUIExport InputManager : public IUnlinkWidget
 	{
 		INSTANCE_HEADER(InputManager);
 
