@@ -7,8 +7,6 @@
 
 #include "FontPanel.h"
 
-const std::string FONT_TMP_NAME = "font_tmp";
-
 FontPanel::FontPanel() :
 	BaseLayout("FontPanel.layout")
 {
@@ -28,12 +26,19 @@ void FontPanel::initialise()
 	assignWidget(mEditOffset, "edit_Offset");
 	assignWidget(mButtonGenerate, "button_Generate");
 	assignWidget(mTextPix, "text_Pix");
+	assignWidget(mEditSaveFileName, "edit_SaveFileName");
+	assignWidget(mButtonSave, "button_Save");
 
 	mComboAntialias->setItemSelect(1);
 	mButtonGenerate->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
+	mButtonSave->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
+
+	mFontName = "FontName";
+	mFontHeight = 0;
 
 	// загружаем демо вью
 	mFontView.initialise();
+	mTextureView.initialise();
 
 	update();
 }
@@ -64,22 +69,14 @@ void FontPanel::update()
 
 void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
 {
-	// удаляем демо вью
-	mFontView.shutdown();
-
-	MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
-	if (manager.isExist(FONT_TMP_NAME)) {
-		manager.remove(FONT_TMP_NAME);
-	}
-
 	MyGUI::xml::xmlDocument document;
 	document.createInfo();
 	MyGUI::xml::xmlNodePtr root = document.createRoot("MyGUI");
 	root->addAttributes("type", "Font");
 
 	MyGUI::xml::xmlNodePtr node = root->createChild("Font");
-	node->addAttributes("name", FONT_TMP_NAME);
-	node->addAttributes("default_height", "11");
+	node->addAttributes("name", mFontName);
+	node->addAttributes("default_height", MyGUI::utility::toString(mFontHeight));
 	node->addAttributes("source", mComboFont->getCaption());
 	node->addAttributes("size", MyGUI::utility::parseInt(mEditSize->getCaption()));
 	node->addAttributes("resolution", MyGUI::utility::parseInt(mEditResolution->getCaption()));
@@ -92,18 +89,38 @@ void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
 
 	node->createChild("Code")->addAttributes("range", "33 126");
 	node->createChild("Code")->addAttributes("range", "1025 1105");
+		
+	if (_widget == mButtonSave) {
+		if (!document.save(mEditSaveFileName->getCaption())) {
+			MyGUI::Message::createMessage(document.getLastError(), "error save", true, MyGUI::Message::Ok | MyGUI::Message::IconError);
+		}
+		MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
+	}
+	else if (_widget == mButtonGenerate) {
+		// удаляем демо вью
+		mFontView.shutdown();
+		mTextureView.shutdown();
 
-	manager._load(root, "");
-	MyGUI::FontPtr font = manager.getByName(FONT_TMP_NAME);
-	if (font.isNull()) MYGUI_EXCEPT("Could not find font '" << FONT_TMP_NAME << "'");
-	font->load();
+		MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
+		if (manager.isExist(mFontName)) {
+			manager.remove(mFontName);
+		}
 
-	// вывод реального размера шрифта
-	int height = static_cast<MyGUI::FontPtr>(manager.getByName(FONT_TMP_NAME))->getHeightPix();
-	mTextPix->setCaption(MyGUI::utility::toString("Height of a font of ", height, " pixels"));
+		manager._load(root, "");
+		MyGUI::FontPtr font = manager.getByName(mFontName);
+		if (font.isNull()) MYGUI_EXCEPT("Could not find font '" << mFontName << "'");
+		font->load();
 
-	// заново загружаем демо вью
-	mFontView.initialise();
+		// вывод реального размера шрифта
+		mFontHeight = static_cast<MyGUI::FontPtr>(manager.getByName(mFontName))->getHeightPix();
+		mTextPix->setCaption(MyGUI::utility::toString("Height of a font of ", mFontHeight, " pixels"));
+
+		// заново загружаем демо вью
+		mFontView.initialise();
+		mFontView.update(mFontName);
+		mTextureView.initialise();
+		mTextureView.update(mFontName);
+	}
 
 }
 

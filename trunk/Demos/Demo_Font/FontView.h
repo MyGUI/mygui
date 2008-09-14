@@ -16,9 +16,10 @@ public:
 	FontView();
 	virtual void initialise();
 
+	void update(const std::string & _font);
+
 private:
-	void update();
-	void setFont(MyGUI::WidgetPtr _widget, int _height);
+	void setFont(MyGUI::WidgetPtr _widget, const std::string & _font, int _height);
 };
 
 #endif // __FONT_VIEW_H__

@@ -1,10 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowCS" position="300 30 456 424" layer="Overlapped" name="_Main">
-        <Property key="Widget_Caption" value="Font demo"/>
-        <Widget type="Edit" skin="Memo" position="4 3 441 383" align="Stretch" name="edit_Demo">
-            <Property key="Widget_Caption" value="01234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0 1 2 3 4 5 6 7 8 9 0 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ абвгдеёжзиклмнопрстуфхцчшщъыьэюя А Б В Г Д Е Ё Ж З И К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я а б в г д е ё ж з и к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я"/>
-            <Property key="Widget_AlignText" value="Default"/>
+    <Widget type="Window" skin="WindowCS" position="30 520 728 220" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="Texture view"/>
+        <Widget type="ScrollView" skin="ScrollView" position="5 3 712 180" align="Stretch" name="view_Texture">
+            <Widget type="StaticImage" skin="StaticImage" position="15 15 100 100" name="image_Back">
+	        <Property key="Image_Texture" value="core.png"/>
+	        <Property key="Image_Coord" value="559 45 1 1"/>
+	        <Property key="Image_Tile" value="1 1"/>
+	        <Property key="Image_Index" value="0"/>
+                <Widget type="StaticImage" skin="StaticImage" position="25 25 50 50" name="image_Texture"/>
+            </Widget>
         </Widget>
     </Widget>
 </MyGUI>
