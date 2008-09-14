@@ -1,39 +1,33 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="ALIGN_STRETCH" name="image_Back">
+    <Widget type="Widget" skin="Default" position="0 0 68 68" align="ALIGN_STRETCH" name="_Main">
         <Property key="Widget_NeedMouse" value="false"/>
         <Property key="Widget_NeedKey" value="false"/>
+    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="ALIGN_STRETCH" name="image_Back">
         <Property key="Image_Texture" value="RF_Skin.png"/>
         <Property key="Image_Coord" value="0 0 68 408"/>
         <Property key="Image_Tile" value="68 68"/>
         <Property key="Image_Num" value="0"/>
     </Widget>
     <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="ALIGN_STRETCH" name="image_Border">
-        <Property key="Widget_NeedMouse" value="false"/>
-        <Property key="Widget_NeedKey" value="false"/>
         <Property key="Image_Texture" value="RF_Skin.png"/>
         <Property key="Image_Coord" value="68 0 68 340"/>
         <Property key="Image_Tile" value="68 68"/>
         <Property key="Image_Num" value="0"/>
     </Widget>
     <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="ALIGN_STRETCH" name="image_Item">
-        <Property key="Widget_NeedMouse" value="false"/>
-        <Property key="Widget_NeedKey" value="false"/>
         <Property key="Image_Texture" value="RF_Skin.png"/>
         <Property key="Image_Rect" value="136 0 136 272"/>
         <Property key="Image_Tile" value="68 68"/>
         <Property key="Image_Num" value="0"/>
     </Widget>
     <Widget type="StaticText" skin="RF_StaticText" position="0 0 66 66" align="ALIGN_STRETCH" name="text_Back">
-        <Property key="Widget_NeedMouse" value="false"/>
-        <Property key="Widget_NeedKey" value="false"/>
         <Property key="Widget_AlignText" value="ALIGN_RIGHT ALIGN_BOTTOM"/>
         <Property key="Widget_Colour" value="0 0 0"/>
     </Widget>
     <Widget type="StaticText" skin="RF_StaticText" position="0 0 65 65" align="ALIGN_STRETCH" name="text_Front">
-        <Property key="Widget_NeedMouse" value="false"/>
-        <Property key="Widget_NeedKey" value="false"/>
         <Property key="Widget_AlignText" value="ALIGN_RIGHT ALIGN_BOTTOM"/>
         <Property key="Widget_Colour" value="1 1 1"/>
+    </Widget>
     </Widget>
 </MyGUI>
