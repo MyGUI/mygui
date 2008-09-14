@@ -208,6 +208,10 @@
 				RelativePath=".\Main.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\TextureView.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -236,6 +240,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Common\Base\StatisticInfo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TextureView.h"
 				>
 			</File>
 		</Filter>

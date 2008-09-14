@@ -10,6 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 #include "FontView.h"
+#include "TextureView.h"
 
 class FontPanel : public BaseLayout
 {
@@ -39,9 +40,16 @@ private:
 	MyGUI::EditPtr mEditOffset;
 	MyGUI::ButtonPtr mButtonGenerate;
 	MyGUI::StaticTextPtr mTextPix;
+	MyGUI::EditPtr mEditSaveFileName;
+	MyGUI::ButtonPtr mButtonSave;
+
+	std::string mFontName;
+	int mFontHeight;
 
 	FontView mFontView;
+	TextureView mTextureView;
 
 };
 
 #endif // __FONT_PANEL_H__
+
