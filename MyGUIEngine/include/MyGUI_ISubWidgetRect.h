@@ -24,6 +24,8 @@ namespace MyGUI
 
 		virtual void _setUVSet(const FloatRect& _rect) { }
 
+		virtual bool firstQueue() { return true; }
+
 	};
 
 } // namespace MyGUI

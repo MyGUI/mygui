@@ -22,6 +22,8 @@ namespace MyGUI
 			ISubWidget(_coord, _align, _parent) { }
 		virtual ~ISubWidgetText() { }
 
+		virtual bool firstQueue() { return false; }
+
 		// работа с выделенным текстом
 		virtual size_t getSelectStart() { return 0; }
 		virtual size_t getSelectEnd() { return 0; }
