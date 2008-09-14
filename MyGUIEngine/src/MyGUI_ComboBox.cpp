@@ -18,13 +18,13 @@
 namespace MyGUI
 {
 
-	Ogre::String ComboBox::WidgetTypeName = "ComboBox";
+	MYGUI_RTTI_CHILD_IMPLEMENT( ComboBox, Edit );
 
 	const float COMBO_ALPHA_MAX  = ALPHA_MAX;
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
-	ComboBox::ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	ComboBox::ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Edit(_coord, _align, _info, _parent, _creator, _name),
 		mButton(null),
 		mList(null),
@@ -50,7 +50,7 @@ namespace MyGUI
 		if (iter != properties.end()) listLayer = iter->second;
 
 		// ручками создаем список
-		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::_getType(), listSkin, IntCoord(), Align::Default, null, this, ""));
+		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::getClassTypeName(), listSkin, IntCoord(), Align::Default, null, this, ""));
 		// присоединяем виджет с уровню и не добавляем себе
 		LayerManager::getInstance().attachToLayerKeeper(listLayer, mList);
 
@@ -67,7 +67,7 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Button") {
 				MYGUI_DEBUG_ASSERT( ! mButton, "widget already assigned");
-				mButton = castWidget<Button>(*iter);
+				mButton = (*iter)->castType<Button>();
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
 		}
@@ -231,7 +231,7 @@ namespace MyGUI
 		if (height > mMaxHeight) height = mMaxHeight;
 
 		// берем глобальные координаты выджета
-		IntCoord coord(WidgetManager::convertToGlobal(IntPoint(), this), mCoord.size());
+		IntCoord coord = this->getAbsoluteCoord();
 
 		//показываем список вверх
 		if ((coord.top + coord.height + height) > (int)Gui::getInstance().getViewHeight()) {

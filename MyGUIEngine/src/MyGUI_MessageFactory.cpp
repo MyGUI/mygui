@@ -57,12 +57,12 @@ namespace MyGUI
 			manager.unregisterDelegate("Message_Fade");
 		}
 
-		const std::string& MessageFactory::getType()
+		const std::string & MessageFactory::getTypeName()
 		{
-			return Message::_getType();
+			return Message::getClassTypeName();
 		}
 
-		WidgetPtr MessageFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr MessageFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new Message(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
@@ -75,44 +75,44 @@ namespace MyGUI
 
 		void MessageFactory::Message_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MessagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
 			static_cast<MessagePtr>(_widget)->setCaption(_value);
 		}
 
 		void MessageFactory::Message_Message(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MessagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
 			static_cast<MessagePtr>(_widget)->setMessage(_value);
 		}
 
 		void MessageFactory::Message_Modal(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MessagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
 			if (utility::parseBool(_value)) InputManager::getInstance().addWidgetModal(_widget);
 			else InputManager::getInstance().removeWidgetModal(_widget);
 		}
 
 		void MessageFactory::Message_Button(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MessagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
 			static_cast<MessagePtr>(_widget)->setButton((Message::ViewInfo)parseButton(_value));
 		}
 
 		void MessageFactory::Message_AddButton(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MessagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
 			static_cast<MessagePtr>(_widget)->addButtonName(_value);
 		}
 
 		void MessageFactory::Message_SmoothShow(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MessagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
 			static_cast<MessagePtr>(_widget)->setSmoothShow(utility::parseBool(_value));
 		}
 
 		void MessageFactory::Message_Fade(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(MessagePtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
 			static_cast<MessagePtr>(_widget)->setWindowFade(utility::parseBool(_value));
 		}
 

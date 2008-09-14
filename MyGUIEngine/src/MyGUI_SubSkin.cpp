@@ -7,7 +7,6 @@
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerManager.h"
-//#include "MyGUI_SubSkinFactory.h"
 #include "MyGUI_SkinManager.h"
 
 namespace MyGUI
@@ -20,8 +19,10 @@ namespace MyGUI
 
 	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
-	SubSkin::SubSkin(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
-		SubWidgetInterface(_info.coord, _info.align, _parent),
+	MYGUI_RTTI_CHILD_IMPLEMENT(SubSkin, ISubWidgetRect);
+
+	SubSkin::SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
+		ISubWidgetRect(_info.coord, _info.align, _parent),
 		mEmptyView(false),
 		mRenderItem(null),
 		mCurrentCoord(_info.coord),

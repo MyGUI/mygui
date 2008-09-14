@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_CroppedRectangleInterface.h"
+#include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_SubSkin.h"
 
@@ -21,9 +21,10 @@ namespace MyGUI
 
 	class _MyGUIExport RawRect : public SubSkin
 	{
+		MYGUI_RTTI_CHILD_HEADER;
 
 	public:
-		RawRect(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~RawRect();
 
 		virtual void setAlpha(float _alpha);
@@ -55,6 +56,7 @@ namespace MyGUI
 		uint32 mRenderColourRT;
 		uint32 mRenderColourLB;
 		uint32 mRenderColourRB;
+
 	};
 
 } // namespace MyGUI

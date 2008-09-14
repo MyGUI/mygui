@@ -10,8 +10,8 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_CroppedRectangleInterface.h"
-#include "MyGUI_SubWidgetFactoryInterface.h"
+#include "MyGUI_ICroppedRectangle.h"
+#include "MyGUI_ISubWidgetFactory.h"
 
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_MainSkin.h"
@@ -32,9 +32,9 @@ namespace MyGUI
 		void shutdown();
 
 		// создает сабвиджет использу€ фабрику
-		SubWidgetInterface * createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		ISubWidget * createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 
-		inline void registerFactory(SubWidgetFactoryInterface * _factory)
+		inline void registerFactory(ISubWidgetFactory * _factory)
 		{
 			mFactoryList.push_back(_factory);
 		}
@@ -42,7 +42,7 @@ namespace MyGUI
 		StateInfo * getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	protected:
-		std::list<SubWidgetFactoryInterface*> mFactoryList;
+		std::list<ISubWidgetFactory*> mFactoryList;
 
 		SubWidgetFactory<SubSkin> * mFactorySubSkin;
 		SubWidgetFactory<MainSkin> * mFactoryMainSkin;

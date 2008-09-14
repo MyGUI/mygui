@@ -4,24 +4,23 @@
 	@date		12/2007
 	@module
 */
-#ifndef __MYGUI_SUB_WIDGET_TEXT_INTERFACE_H__
-#define __MYGUI_SUB_WIDGET_TEXT_INTERFACE_H__
+#ifndef __MYGUI_I_SUB_WIDGET_TEXT_H__
+#define __MYGUI_I_SUB_WIDGET_TEXT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_SubWidgetInterface.h"
+#include "MyGUI_ISubWidget.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport SubWidgetTextInterface : public SubWidgetInterface
+	class _MyGUIExport ISubWidgetText : public ISubWidget
 	{
-	public:
-		SubWidgetTextInterface(const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent) :
-			SubWidgetInterface(_coord, _align, _parent)
-		{ }
+		MYGUI_RTTI_CHILD_HEADER;
 
-		// дл€ каста сабскина
-		bool _isText() { return true; }
+	public:
+		ISubWidgetText(const IntCoord& _coord, Align _align, ICroppedRectangle * _parent) :
+			ISubWidget(_coord, _align, _parent) { }
+		virtual ~ISubWidgetText() { }
 
 		// работа с выделенным текстом
 		virtual size_t getSelectStart() { return 0; }
@@ -90,4 +89,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_SUB_WIDGET_TEXT_INTERFACE_H__
+#endif // __MYGUI_I_SUB_WIDGET_TEXT_H__

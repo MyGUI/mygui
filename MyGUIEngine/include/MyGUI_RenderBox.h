@@ -9,7 +9,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-//#include "MyGUI_FrameListener.h"
 
 namespace MyGUI
 {
@@ -21,23 +20,18 @@ namespace MyGUI
 		This widget can show autorotaded and rotatable by mouse mesh.
 		Also you can set your own Ogre::Camera and yo'll see anything from your viewport.
 	*/
-	class _MyGUIExport RenderBox : public Widget//, public FrameListener
+	class _MyGUIExport RenderBox : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::RenderBoxFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		RenderBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		RenderBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~RenderBox();
 
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		/** Add mesh to scene and remove previous one
 			@remarks
 				This function will take no effect if user Viewport provided via setViewport.

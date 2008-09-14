@@ -20,18 +20,13 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::EditFactory;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Edit();
 
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		/** Set edit text applying tags */
 		virtual void setCaption(const Ogre::UTFString & _caption);
 		/** Get edit text with tags */

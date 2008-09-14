@@ -11,18 +11,17 @@
 #include "MyGUI_Align.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_CastWidget.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_WidgetCreator.h"
+#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_WidgetOIS.h"
-#include "MyGUI_UnlinkWidget.h"
+#include "MyGUI_IUnlinkWidget.h"
 
 namespace MyGUI
 {
 
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
-	class _MyGUIExport Gui : public Ogre::WindowEventListener, public WidgetCreator, public UnlinkWidget
+	class _MyGUIExport Gui : public Ogre::WindowEventListener, public IWidgetCreator, public IUnlinkWidget
 	{
 		friend class WidgetManager;
 		INSTANCE_HEADER(Gui);
@@ -36,7 +35,7 @@ namespace MyGUI
 			@param
 				_group OgreResourceGroup where _core and all other config and GUI resource files are
 		*/
-		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
 
@@ -50,46 +49,46 @@ namespace MyGUI
 				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		inline WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return _createWidget(_type, _skin, _coord, _align, _layer, _name);
 		}
 		/** See Gui::createWidgetT */
-		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		inline WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		inline WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		inline WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		inline WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		inline WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
 		}
 
 		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		template <class T> inline T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
-			return static_cast<T*>(createWidgetT(T::_getType(), _skin, _coord, _align, _layer, _name));
+			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		template <class T> inline T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
-			return static_cast<T*>(createWidgetT(T::_getType(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
+			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		template <class T> inline T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
-			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _coord, _align, _layer, _name));
+			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _layer, const Ogre::String & _name = "")
+		template <class T> inline T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
-			return static_cast<T*>(createWidgetRealT(T::_getType(), _skin, _left, _top, _width, _height, _align, _layer, _name));
+			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
 
 		/** Get width of GUI area */
@@ -134,16 +133,16 @@ namespace MyGUI
 
 #ifndef MYGUI_NO_OIS
 		/** OIS backend for injectMouseMove(int _absx, int _absy, int _absz) */
-		bool injectMouseMove( const OIS::MouseEvent & _arg) {return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);}
+		bool injectMouseMove( const OIS::MouseEvent & _arg) { return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs); }
 		/** OIS backend injectMousePress(int _absx, int _absy, MouseButton _id) */
-		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
+		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id); }
 		/** OIS backend for injectMouseRelease(int _absx, int _absy, MouseButton _id) */
-		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) {return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id);}
+		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id); }
 
 		/** OIS backend for injectKeyPress(KeyCode _key) */
-		bool injectKeyPress(const OIS::KeyEvent & _arg) {return injectKeyPress((KeyCode)_arg.key);}
+		bool injectKeyPress(const OIS::KeyEvent & _arg) { return injectKeyPress((KeyCode)_arg.key); }
 		/** OIS backend for injectKeyRelease(KeyCode _key) */
-		bool injectKeyRelease(const OIS::KeyEvent & _arg) {return injectKeyRelease((KeyCode)_arg.key);}
+		bool injectKeyRelease(const OIS::KeyEvent & _arg) { return injectKeyRelease((KeyCode)_arg.key); }
 #endif
 
 		// mirror of WidgetManager method
@@ -166,13 +165,13 @@ namespace MyGUI
 
 		// mirror WidgetManager
 		/** Find widget by name and cast it to T type.
-			If T and found widget have different types cause exception in DEBUG mode.
+			If T and found widget have different types cause exception.
 		*/
 		template <class T> inline T* findWidget(const std::string& _name)
 		{
 			WidgetPtr widget = findWidgetT(_name);
 			if (null == widget) return null;
-			return castWidget<T>(widget);
+			return widget->castType<T>();
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/

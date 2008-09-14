@@ -16,18 +16,7 @@ namespace MyGUI
 	template <class T> inline T* castWidget(Widget * _widget)
 	{
 		MYGUI_DEBUG_ASSERT(null != _widget, "Error static cast, widget == null");
-
-#if MYGUI_DEBUG_MODE == 1
-		T * widget = dynamic_cast<T*>(_widget);
-		if (widget == null) {
-			MYGUI_EXCEPT("Error dynamic cast : dest type = '" << T::_getType() 
-				<< "' source name = '" << _widget->getName() 
-				<< "' source type = '" << _widget->getWidgetType() << "'");
-		}
-		return widget;
-#else
-		return static_cast<T*>(_widget);
-#endif
+		return _widget->castType<T>();
 	}
 
 } // namespace MyGUI

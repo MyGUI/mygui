@@ -8,7 +8,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_WidgetCreator.h"
+#include "MyGUI_IWidgetCreator.h"
 
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_ButtonFactory.h"
@@ -80,7 +80,7 @@ namespace MyGUI
 
 		mFactoryList.clear();
 		mDelegates.clear();
-		mVectorUnlinkWidget.clear();
+		mVectorIUnlinkWidget.clear();
 
 		for (SetWidgetFactory::iterator iter = mIntegratedFactoryList.begin(); iter != mIntegratedFactoryList.end(); ++iter) delete*iter;
 		mIntegratedFactoryList.clear();
@@ -89,20 +89,20 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void WidgetManager::registerFactory(WidgetFactoryInterface * _factory)
+	void WidgetManager::registerFactory(IWidgetFactory * _factory)
 	{
 		mFactoryList.insert(_factory);
-		MYGUI_LOG(Info, "* Register widget factory '" << _factory->getType() << "'");
+		MYGUI_LOG(Info, "* Register widget factory '" << _factory->getTypeName() << "'");
 	}
 
-	void WidgetManager::unregisterFactory(WidgetFactoryInterface * _factory)
+	void WidgetManager::unregisterFactory(IWidgetFactory * _factory)
 	{
 		SetWidgetFactory::iterator iter = mFactoryList.find(_factory);
 		if (iter != mFactoryList.end()) mFactoryList.erase(iter);
-		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getType() << "'");
+		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name)
 	{
 		std::string name;
 		if (false == _name.empty()) {
@@ -110,12 +110,12 @@ namespace MyGUI
 			MYGUI_ASSERT(iter == mWidgets.end(), "widget with name '" << _name << "' already exist");
 			name = _name;
 		} else {
-			static long num=0;
+			static long num = 0;
 			name = utility::toString(num++, "_", _type);
 		}
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
-			if ( (*factory)->getType() == _type) {
+			if ( (*factory)->getTypeName() == _type) {
 				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, _creator, name);
 				mWidgets[name] = widget;
 				return widget;
@@ -143,7 +143,7 @@ namespace MyGUI
 	}
 
 	// преобразует точку на виджете в глобальную позицию
-	IntPoint WidgetManager::convertToGlobal(const IntPoint& _point, WidgetPtr _widget)
+	/*IntPoint WidgetManager::convertToGlobal(const IntPoint& _point, WidgetPtr _widget)
 	{
 		IntPoint ret = _point;
 		WidgetPtr wid = _widget;
@@ -152,7 +152,7 @@ namespace MyGUI
 			wid = wid->getParent();
 		}
 		return ret;
-	}
+	}*/
 
 	ParseDelegate & WidgetManager::registerDelegate(const Ogre::String & _key)
 	{
@@ -183,7 +183,7 @@ namespace MyGUI
 		MYGUI_ASSERT(_widget != null, "widget is deleted");
 
 		// делегирует удаление отцу виджета
-		WidgetCreator * creator = _widget->_getWidgetCreator();
+		IWidgetCreator * creator = _widget->_getIWidgetCreator();
 		creator->_destroyChildWidget(_widget);
 
 	}
@@ -201,18 +201,18 @@ namespace MyGUI
 		//Gui::getInstance()._destroyAllChildWidget();
 	}
 
-	void WidgetManager::registerUnlinker(UnlinkWidget * _unlink)
+	void WidgetManager::registerUnlinker(IUnlinkWidget * _unlink)
 	{
 		unregisterUnlinker(_unlink);
-		mVectorUnlinkWidget.push_back(_unlink);
+		mVectorIUnlinkWidget.push_back(_unlink);
 	}
 
-	void WidgetManager::unregisterUnlinker(UnlinkWidget * _unlink)
+	void WidgetManager::unregisterUnlinker(IUnlinkWidget * _unlink)
 	{
-		for (size_t pos=0; pos<mVectorUnlinkWidget.size(); pos++) {
-			if (mVectorUnlinkWidget[pos] == _unlink) {
-				mVectorUnlinkWidget[pos] = mVectorUnlinkWidget[mVectorUnlinkWidget.size()-1];
-				mVectorUnlinkWidget.pop_back();
+		for (size_t pos=0; pos<mVectorIUnlinkWidget.size(); pos++) {
+			if (mVectorIUnlinkWidget[pos] == _unlink) {
+				mVectorIUnlinkWidget[pos] = mVectorIUnlinkWidget[mVectorIUnlinkWidget.size()-1];
+				mVectorIUnlinkWidget.pop_back();
 				return;
 			}
 		}
@@ -220,8 +220,8 @@ namespace MyGUI
 
 	void WidgetManager::unlinkFromUnlinkers(WidgetPtr _widget)
 	{
-		for (size_t pos=0; pos<mVectorUnlinkWidget.size(); pos++) {
-			mVectorUnlinkWidget[pos]->_unlinkWidget(_widget);
+		for (size_t pos=0; pos<mVectorIUnlinkWidget.size(); pos++) {
+			mVectorIUnlinkWidget[pos]->_unlinkWidget(_widget);
 		}
 	}
 

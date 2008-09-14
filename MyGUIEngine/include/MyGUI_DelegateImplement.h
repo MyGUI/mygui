@@ -38,7 +38,7 @@ namespace delegates
 		virtual ~I_DELEGATE() {}
 		virtual void invoke(PARAMS) = 0;
 		virtual bool compare(I_DELEGATE<TEMPLATE_ARGS>* _delegate) = 0;
-		virtual bool compare(DelegateUnlink * _unlink) { return false; }
+		virtual bool compare(IDelegateUnlink * _unlink) { return false; }
 		inline bool isStatic() { return mStatic; }
 
 	protected:
@@ -83,7 +83,7 @@ namespace delegates
 	public:
 		typedef void (T::*Method)(PARAMS);
 
-		C_METHOD_DELEGATE(DelegateUnlink * _unlink, T * _object, Method _method) :
+		C_METHOD_DELEGATE(IDelegateUnlink * _unlink, T * _object, Method _method) :
 			I_DELEGATE<TEMPLATE_ARGS>(false),
 			mUnlink(_unlink),
 			mObject(_object),
@@ -105,13 +105,13 @@ namespace delegates
 			return true;
 		}
 
-		virtual bool compare(DelegateUnlink * _unlink)
+		virtual bool compare(IDelegateUnlink * _unlink)
 		{
 			return mUnlink == _unlink;
 		}
 
 	private:
-		DelegateUnlink *mUnlink;
+		IDelegateUnlink *mUnlink;
 		T * mObject;
 		Method mMethod;
 	};
@@ -221,7 +221,7 @@ namespace delegates
 			}
 		}
 
-		void clear(DelegateUnlink * _unlink)
+		void clear(IDelegateUnlink * _unlink)
 		{
 			typename ListDelegate::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {

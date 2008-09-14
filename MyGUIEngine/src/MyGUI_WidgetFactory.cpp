@@ -101,12 +101,12 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_eventToolTip");
 		}
 
-		const std::string& WidgetFactory::getType()
+		const std::string & WidgetFactory::getTypeName()
 		{
-			return Widget::_getType();
+			return Widget::getClassTypeName();
 		}
 
-		WidgetPtr WidgetFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr WidgetFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new Widget(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

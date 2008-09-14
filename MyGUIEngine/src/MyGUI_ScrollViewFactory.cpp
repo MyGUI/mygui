@@ -28,12 +28,12 @@ namespace MyGUI
 			manager.unregisterFactory(this);
 		}
 
-		const std::string& ScrollViewFactory::getType()
+		const std::string & ScrollViewFactory::getTypeName()
 		{
-			return ScrollView::_getType();
+			return ScrollView::getClassTypeName();
 		}
 
-		WidgetPtr ScrollViewFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr ScrollViewFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new ScrollView(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}

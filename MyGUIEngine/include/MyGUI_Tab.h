@@ -36,8 +36,10 @@ namespace MyGUI
 		// для уведобления об удалении
 		friend class Sheet;
 
+		MYGUI_RTTI_CHILD_HEADER;
+
 	protected:
-		Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
+		Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Tab();
 
 		void updateBar();
@@ -54,14 +56,7 @@ namespace MyGUI
 		// вкладка при удалении уведомляет таб
 		void _notifyDeleteSheet(SheetPtr _sheet);
 
-		static Ogre::String WidgetTypeName;
-
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		// переопределяем для особого обслуживания страниц
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 

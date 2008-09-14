@@ -17,18 +17,13 @@ namespace MyGUI
 	{
 		// для вызова закрытого конструктора
 		friend class factory::VScrollFactory;
+		
+		MYGUI_RTTI_CHILD_HEADER;
 
 	protected:
-		VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name);
-
-		static Ogre::String WidgetTypeName;
+		VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		//! @copydoc Widget::_getType()
-		inline static const Ogre::String & _getType() {return WidgetTypeName;}
-		//! @copydoc Widget::getWidgetType()
-		virtual const Ogre::String & getWidgetType() { return _getType(); }
-
 		/** Set scroll range */
 		void setScrollRange(size_t _range);
 		/** Get scroll range */

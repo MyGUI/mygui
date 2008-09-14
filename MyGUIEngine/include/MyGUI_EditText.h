@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_SubWidgetTextInterface.h"
+#include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_DrawItem.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
@@ -21,11 +21,12 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport EditText : public SubWidgetTextInterface
+	class _MyGUIExport EditText : public ISubWidgetText
 	{
+		MYGUI_RTTI_CHILD_HEADER;
 
 	public:
-		EditText(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent);
+		EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~EditText();
 
 		void show();

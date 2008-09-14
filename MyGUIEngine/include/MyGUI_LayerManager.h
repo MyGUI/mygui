@@ -11,7 +11,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_UnlinkWidget.h"
+#include "MyGUI_IUnlinkWidget.h"
 
 #include <Ogre.h>
 #include <OgrePrerequisites.h>
@@ -26,7 +26,7 @@ namespace MyGUI
 	typedef std::vector<LayerKeeperPtr> VectorLayerKeeperPtr;
 	typedef Enumerator<VectorLayerKeeperPtr> EnumeratorLayerKeeperPtr;
 
-	class _MyGUIExport LayerManager : public Ogre::RenderQueueListener, public UnlinkWidget
+	class _MyGUIExport LayerManager : public Ogre::RenderQueueListener, public IUnlinkWidget
 	{
 		INSTANCE_HEADER(LayerManager);
 

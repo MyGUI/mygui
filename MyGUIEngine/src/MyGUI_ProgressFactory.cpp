@@ -40,12 +40,12 @@ namespace MyGUI
 			manager.unregisterDelegate("Progress_StartPoint");
 		}
 
-		const std::string& ProgressFactory::getType()
+		const std::string & ProgressFactory::getTypeName()
 		{
-			return Progress::_getType();
+			return Progress::getClassTypeName();
 		}
 
-		WidgetPtr ProgressFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const std::string& _name)
+		WidgetPtr ProgressFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
 		{
 			return new Progress(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
@@ -53,25 +53,25 @@ namespace MyGUI
 		// методы для парсинга
 		void ProgressFactory::Progress_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Progress, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressRange(utility::parseSizeT(_value));
 		}
 
 		void ProgressFactory::Progress_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Progress, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressPosition(utility::parseSizeT(_value));
 		}
 
 		void ProgressFactory::Progress_AutoTrack(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Progress, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressAutoTrack(utility::parseBool(_value));
 		}
 
 		void ProgressFactory::Progress_StartPoint(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(ProgressPtr, _widget, _key);
+			MYGUI_RETURN_IS_FALSE_TYPE(Progress, _widget, _key);
 			static_cast<ProgressPtr>(_widget)->setProgressStartPoint(Align::parse(_value));
 		}
 

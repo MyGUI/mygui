@@ -17,19 +17,18 @@ namespace MyGUI
 {
 
 	// базовый класс для тех классов, что хотят себя отвязывать от мульти делегатов
-	class DelegateUnlink;
-	class _MyGUIExport DelegateUnlink
+	class _MyGUIExport IDelegateUnlink
 	{
 	public:
-		inline DelegateUnlink() { m_baseDelegateUnlink = this; }
-		inline bool compare(DelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
+		inline IDelegateUnlink() { m_baseDelegateUnlink = this; }
+		inline bool compare(IDelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
 
 	private:
-		DelegateUnlink * m_baseDelegateUnlink;
+		IDelegateUnlink * m_baseDelegateUnlink;
 	};
 
-	inline DelegateUnlink * GetDelegateUnlink(void * _base) { return 0; }
-	inline DelegateUnlink * GetDelegateUnlink(DelegateUnlink * _base) { return _base; }
+	inline IDelegateUnlink * GetDelegateUnlink(void * _base) { return 0; }
+	inline IDelegateUnlink * GetDelegateUnlink(IDelegateUnlink * _base) { return _base; }
 
 	// один параметр
 	#define SUFFIX       1

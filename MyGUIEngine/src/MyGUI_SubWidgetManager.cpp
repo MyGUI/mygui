@@ -16,12 +16,12 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		mFactorySubSkin = new SubWidgetFactory<SubSkin>("SubSkin");
-		mFactoryMainSkin = new SubWidgetFactory<MainSkin>("MainSkin");
-		mFactorySimpleText = new SubWidgetFactory<SimpleText>("SimpleText");
-		mFactoryEditText = new SubWidgetFactory<EditText>("EditText");
-		mFactoryRawRect = new SubWidgetFactory<RawRect>("RawRect");
-		mFactoryTileRect = new SubWidgetFactory<TileRect>("TileRect");
+		mFactorySubSkin = new SubWidgetFactory<SubSkin>();
+		mFactoryMainSkin = new SubWidgetFactory<MainSkin>();
+		mFactorySimpleText = new SubWidgetFactory<SimpleText>();
+		mFactoryEditText = new SubWidgetFactory<EditText>();
+		mFactoryRawRect = new SubWidgetFactory<RawRect>();
+		mFactoryTileRect = new SubWidgetFactory<TileRect>();
 
 		registerFactory(mFactorySubSkin);
 		registerFactory(mFactoryMainSkin);
@@ -52,10 +52,10 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	SubWidgetInterface * SubWidgetManager::createSubWidget(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent)
+	ISubWidget * SubWidgetManager::createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent)
 	{
-		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
-			if ((*factory)->getType() == _info.type) return (*factory)->createSubWidget(_info, _parent);
+		for (std::list<ISubWidgetFactory*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+			if ((*factory)->getTypeName() == _info.type) return (*factory)->createSubWidget(_info, _parent);
 		}
 		MYGUI_EXCEPT("factory type '" << _info.type << "' not found.");
 		return null;
@@ -63,8 +63,8 @@ namespace MyGUI
 
 	StateInfo * SubWidgetManager::getStateData(const std::string & _factory, xml::xmlNodePtr _node, xml::xmlNodePtr _root)
 	{
-		for (std::list<SubWidgetFactoryInterface*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
-			if ((*factory)->getType() == _factory) return (*factory)->createData(_node, _root);
+		for (std::list<ISubWidgetFactory*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+			if ((*factory)->getTypeName() == _factory) return (*factory)->createData(_node, _root);
 		}
 		MYGUI_LOG(Error, "factory type '" << _factory << "' not found. (SubWidgetManager::getStateData)");
 		return null;

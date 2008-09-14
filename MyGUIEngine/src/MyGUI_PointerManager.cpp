@@ -10,6 +10,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {

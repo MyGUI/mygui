@@ -4,29 +4,28 @@
 	@date		11/2007
 	@module
 */
-#ifndef __MYGUI_CROPPED_RECTANGLE_INTERFACE_H__
-#define __MYGUI_CROPPED_RECTANGLE_INTERFACE_H__
+#ifndef __MYGUI_I_CROPPED_RECTANGLE_H__
+#define __MYGUI_I_CROPPED_RECTANGLE_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_Align.h"
-//#include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport CroppedRectangleInterface
+	class _MyGUIExport ICroppedRectangle
 	{
 
 	public:
-		CroppedRectangleInterface(const IntCoord & _coord, Align _align, CroppedRectangleInterface * _parent) :
+		ICroppedRectangle(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) :
 			mIsMargin(false),
 			mCoord(_coord),
 			mParent (_parent),
 			mShow(true),
 			mAlign (_align)
 		{ }
-		virtual ~CroppedRectangleInterface() { }
+		virtual ~ICroppedRectangle() { }
 
 		virtual void setPosition(const IntPoint& _pos) { }
 		virtual void setPosition(const IntCoord& _coord) { }
@@ -39,7 +38,7 @@ namespace MyGUI
 		virtual void setAlpha(float _alpha) { }
 		virtual float getAlpha() { return ALPHA_MAX; }
 
-		inline CroppedRectangleInterface * getParent() { return mParent; }
+		inline ICroppedRectangle * getParent() { return mParent; }
 
 		inline const IntCoord& getCoord()       { return mCoord; }
 		inline IntPoint getPosition()       { return mCoord.point(); }
@@ -144,7 +143,7 @@ namespace MyGUI
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
-		CroppedRectangleInterface * mParent;
+		ICroppedRectangle * mParent;
 		bool mShow;
 		Align mAlign;
 
@@ -152,4 +151,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_CROPPED_RECTANGLE_INTERFACE_H__
+#endif // __MYGUI_I_CROPPED_RECTANGLE_H__

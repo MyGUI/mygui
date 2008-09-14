@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 
-	Ogre::String Window::WidgetTypeName = "Window";
+	MYGUI_RTTI_CHILD_IMPLEMENT( Window, Widget );
 
 	const float WINDOW_ALPHA_MAX = ALPHA_MAX;
 	const float WINDOW_ALPHA_MIN = ALPHA_MIN;
@@ -27,7 +27,7 @@ namespace MyGUI
 
 	const int WINDOW_SNAP_DISTANSE = 10;
 
-	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, CroppedRectangleInterface * _parent, WidgetCreator * _creator, const Ogre::String & _name) :
+	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetCaption(null),
 		mMouseRootFocus(false), mKeyRootFocus(false),

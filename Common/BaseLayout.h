@@ -41,14 +41,14 @@ protected:
 		for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
 			MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
 			if (null != find) {
-				T * cast = dynamic_cast<T*>(find);
+				T * cast = find->castType<T>(false);
 				if (null != cast) {
 					_widget = cast;
 				}
 				else if (_throw) {
-						MYGUI_EXCEPT("Error dynamic cast : dest type = '" << T::_getType() 
+						MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName() 
 						<< "' source name = '" << find->getName() 
-						<< "' source type = '" << find->getWidgetType() << "' in layout '" << mLayoutName << "'");
+						<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
 				}
 				return;
 

@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_ControllerItem.h"
-#include "MyGUI_UnlinkWidget.h"
+#include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ActionController.h"
 
@@ -20,7 +20,7 @@ namespace MyGUI
 	typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
 	typedef std::list<PairControllerItem> ListControllerItem;
 
-	class _MyGUIExport ControllerManager : public UnlinkWidget
+	class _MyGUIExport ControllerManager : public IUnlinkWidget
 	{
 		INSTANCE_HEADER(ControllerManager);
 

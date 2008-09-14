@@ -19,8 +19,10 @@ namespace MyGUI
 
 	const size_t TILERECT_COUNT_VERTEX = 16 * VERTEX_IN_QUAD;
 
-	TileRect::TileRect(const SubWidgetInfo &_info, CroppedRectangleInterface * _parent) :
-		SubWidgetInterface(_info.coord, _info.align, _parent),
+	MYGUI_RTTI_CHILD_IMPLEMENT(TileRect, ISubWidgetRect);
+
+	TileRect::TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
+		ISubWidgetRect(_info.coord, _info.align, _parent),
 		mEmptyView(false),
 		mRenderItem(null),
 		mCurrentCoord(_info.coord),
