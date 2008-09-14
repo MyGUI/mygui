@@ -42,6 +42,8 @@ namespace MyGUI
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) { }
 		virtual void _destroyDrawItem() { }
 
+		virtual bool firstQueue() { return true; }
+
 	};
 
 } // namespace MyGUI
