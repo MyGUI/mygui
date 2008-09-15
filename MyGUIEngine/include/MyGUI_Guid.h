@@ -102,6 +102,9 @@ namespace MyGUI
 			struct _fast { 
 				uint32 _data1, _data2, _data3, _data4;
 			} fast;
+			struct _vec {
+				unsigned char _data1[16];
+			} vec;
 		};
 	};
 

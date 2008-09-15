@@ -52,5 +52,6 @@
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_ControllerPosition.h"
 #include "MyGUI_Resource.h"
+#include <MyGUI_CastWidget.h>
 
 #endif // __MYGUI_H__
