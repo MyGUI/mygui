@@ -69,7 +69,7 @@ namespace MyGUI
 	void LayerManager::clear()
 	{
 		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			delete (*iter);
+			destroy(*iter);
 		}
 		mLayerKeepers.clear();
 	}
@@ -81,9 +81,7 @@ namespace MyGUI
 
 	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
-		// каждая новая загрузка, удаляет все слои
-		clear();
-
+		VectorLayerKeeperPtr layers;
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator layer = _node->getNodeIterator();
 		while (layer.nextNode(XML_TYPE)) {
@@ -91,14 +89,21 @@ namespace MyGUI
 			std::string name;
 
 			if ( false == layer->findAttribute("name", name)) {
-				MYGUI_LOG(Warning, "Attribute 'name' not found {file : " << _file << "}");
+				MYGUI_LOG(Warning, "Attribute 'name' not found (file : " << _file << ")");
 				continue;
 			}
 
-			mLayerKeepers.push_back(new LayerKeeper(name,
+			for (VectorLayerKeeperPtr::iterator iter=layers.begin(); iter!=layers.end(); ++iter) {
+				MYGUI_ASSERT((*iter)->getName() != name, "Layer '" << name << "' already exist (file : " << _file << ")");
+			}
+
+			layers.push_back(new LayerKeeper(name,
 				utility::parseBool(layer->findAttribute("overlapped")),
 				utility::parseBool(layer->findAttribute("peek")) ));
 		};
+
+		// теперь мержим новые и старые слои
+		merge(layers);
 	}
 
 	void LayerManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
@@ -234,6 +239,38 @@ namespace MyGUI
 			if (_name == (*iter)->getName()) return true;
 		}
 		return false;
+	}
+
+	void LayerManager::merge(VectorLayerKeeperPtr & _layers)
+	{
+		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+			if ((*iter) == null) continue;
+			bool find = false;
+			std::string name = (*iter)->getName();
+			for (VectorLayerKeeperPtr::iterator iter2=_layers.begin(); iter2!=_layers.end(); ++iter2) {
+				if (name == (*iter2)->getName()) {
+					// заменяем новый слой, на уже существующий
+					delete (*iter2);
+					(*iter2) = (*iter);
+					(*iter) = null;
+					find = true;
+					break;
+				}
+			}
+			if (!find) {
+				destroy(*iter);
+				(*iter) = null;
+			}
+		}
+
+		// теперь в основной
+		mLayerKeepers = _layers;
+	}
+
+	void LayerManager::destroy(LayerKeeperPtr _layer)
+	{
+		MYGUI_LOG(Info, "destroy layer '" << _layer->getName() << "'");
+		delete _layer;
 	}
 
 } // namespace MyGUI
