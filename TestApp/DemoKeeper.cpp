@@ -182,6 +182,11 @@ MyGUI::WidgetPtr rect = 0;
         row->setRectColour(Ogre::ColourValue::White, Ogre::ColourValue(1, 0, 1), Ogre::ColourValue::Black, Ogre::ColourValue::Black);
  
         rect = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(350, 50, 300, 300), Align::Default, "Main");
+
+		MyGUI::Message::createMessage("IconInfo", "", false, MyGUI::Message::Ok | MyGUI::Message::IconInfo);
+		MyGUI::Message::createMessage("IconError", "", false, MyGUI::Message::Ok | MyGUI::Message::IconError);
+		MyGUI::Message::createMessage("IconWarning", "", false, MyGUI::Message::Ok | MyGUI::Message::IconWarning);
+		MyGUI::Message::createMessage("IconQuest", "", false, MyGUI::Message::Ok | MyGUI::Message::IconQuest);
  
         //widget = win->createWidget<Widget>("TileClient", IntCoord(10, 10, 100, 100), Align::Default);
  
