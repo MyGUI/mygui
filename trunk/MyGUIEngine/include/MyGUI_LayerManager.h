@@ -99,6 +99,9 @@ namespace MyGUI
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
 
+		void merge(VectorLayerKeeperPtr & _layers);
+		void destroy(LayerKeeperPtr _layer);
+
 	private:
 		VectorLayerKeeperPtr mLayerKeepers;
 
