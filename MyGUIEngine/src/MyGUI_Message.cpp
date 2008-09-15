@@ -9,6 +9,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_ResourceManager.h"
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_MessageFactory.h"
 #include "MyGUI_Gui.h"
@@ -34,7 +35,8 @@ namespace MyGUI
 		mWidgetFade(null),
 		mIcon(null),
 		mLeftOffset1(0),
-		mLeftOffset2(0)
+		mLeftOffset2(0),
+		mResourceIcons(null)
 	{
 		// ищем индекс первой кнопки
 		size_t but1 = (size_t)Button1;
@@ -80,6 +82,11 @@ namespace MyGUI
 			if (iter != properties.end()) mFadeSkin = iter->second;
 			iter = properties.find("FadeLayer");
 			if (iter != properties.end()) mFadeLayer = iter->second;
+			iter = properties.find("ResourceIcons");
+			if (iter != properties.end()) {
+				ResourcePtr icons = ResourceManager::getInstance().getResource(Guid::parse(iter->second));
+				mResourceIcons = icons->castType<ResourceImageSet>();
+			}
 		}
 
 	}
@@ -200,10 +207,25 @@ namespace MyGUI
 
 	void Message::setMessageImage(size_t _image)
 	{
-		if (null != mIcon) mIcon->setImageNum(_image);
+		if (null != mIcon) {
+			if (mResourceIcons != null) {
+				mIcon->setImageInfo(mResourceIcons->getIndexInfo("Icons", getIconName(_image)));
+			}
+			else {
+				mIcon->setImageNum(_image);
+			}
+		}
 	}
 
-	MyGUI::MessagePtr Message::_createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4, const std::string & _button5, const std::string & _button6, const std::string & _button7)
+	const char * Message::getIconName(size_t _index)
+	{
+		static const int CountIcons = 4;
+		static const char * IconNames[] = {"IconInfo", "IconQuest", "IconError", "IconWarning", ""};
+		if (_index >= CountIcons) return IconNames[CountIcons];
+		return IconNames[_index];
+	}
+
+	MyGUI::MessagePtr Message::_createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4)
 	{
 		Gui * gui = Gui::getInstancePtr();
 		if (null == gui) return null;
@@ -238,18 +260,6 @@ namespace MyGUI
 				mess->addButtonName(_button2);
 				if (false == _button3.empty()) {
 					mess->addButtonName(_button3);
-					if (false == _button4.empty()) {
-						mess->addButtonName(_button4);
-						if (false == _button5.empty()) {
-							mess->addButtonName(_button5);
-							if (false == _button6.empty()) {
-								mess->addButtonName(_button6);
-								if (false == _button7.empty()) {
-									mess->addButtonName(_button7);
-								}
-							}
-						}
-					}
 				}
 			}
 		}

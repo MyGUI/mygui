@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Window.h"
+#include "MyGUI_ResourceImageSet.h"
 
 namespace MyGUI
 {
@@ -38,9 +39,6 @@ namespace MyGUI
 			Button2 = MYGUI_FLAG(10),
 			Button3 = MYGUI_FLAG(11),
 			Button4 = MYGUI_FLAG(12),
-			Button5 = MYGUI_FLAG(13),
-			Button6 = MYGUI_FLAG(14),
-			Button7 = MYGUI_FLAG(15),
 
 			OkCancel = Ok | Cancel,
 			YesNo = Yes | No,
@@ -79,6 +77,8 @@ namespace MyGUI
 		void _onKeyButtonPressed(KeyCode _key, Char _char);
 		void _destroyMessage(ViewInfo _result);
 
+		const char * getIconName(size_t _index);
+
 	public:
 		/** Set message text*/
 		void setMessage(const Ogre::UTFString & _message);
@@ -108,12 +108,11 @@ namespace MyGUI
 			@param
 				_info any combination of flags from ViewValueInfo
 			@param
-				_button1 ... _button7 specific buttons names
+				_button1 ... _button4 specific buttons names
 		*/
 		static MyGUI::MessagePtr _createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, 
 			const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info,
-			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "",
-			const std::string & _button5 = "", const std::string & _button6 = "", const std::string & _button7 = "");
+			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "");
 
 		/** See Message::_createMessage*/
 		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, ViewInfo _info)
@@ -165,6 +164,8 @@ namespace MyGUI
 		StaticImagePtr mIcon;
 		int mLeftOffset1;
 		int mLeftOffset2;
+
+		ResourceImageSet * mResourceIcons;
 
 	}; // class _MyGUIExport Message : public Window
 

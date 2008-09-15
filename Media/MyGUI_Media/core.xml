@@ -12,6 +12,7 @@
 
 	    <List file="core_new.skin" group="General"/>
 	    <List file="core_new.pointer" group="General"/>
+	    <List file="core_resource.xml" group="General"/>
     </MyGUI>
 
 </MyGUI>
