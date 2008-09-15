@@ -3,6 +3,9 @@
 #include "BasisState.h"
 #include "MyGUI.h"
 #include "EditorToolTip.h"
+#include "PanelView/PanelViewWindow.h"
+#include "PanelMainProperties.h"
+#include "PanelProperties.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -66,10 +69,11 @@ private:
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
 	void updatePropertiesPanel(MyGUI::WidgetPtr _widget);
-	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int x1, int x2, int w1, int w2 ,int y, int h);
+public:
+	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int y);
+private:
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget); // calls previous method
-	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = 0);
 
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
@@ -109,8 +113,6 @@ private:
 
 	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
-
-	MyGUI::ComboBoxPtr allWidgetsCombo;
 
 	// info for new widget
 	int x1, y1, x2, y2;
@@ -152,18 +154,22 @@ private:
 
 	EditorToolTip mToolTip;
 
+	PanelViewWindow mPanelViewWindow;
+	PanelMainProperties mPanelMainProperties;
+	PanelProperties mPanelTypeProperties;
+	PanelProperties mPanelGeneralProperties;
+	PanelProperties mPanelEvents;
+
 	EditorWidgets * ew;
 	WidgetTypes * wt;
 	UndoManager * um;
 
 	MyGUI::Gui * mGUI;
-	MyGUI::LanguageManager * langManager;
-	inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
-		return langManager->getTag(_str);
-	};
 
 	MyGUI::MenuBarPtr bar;
 	MyGUI::PopupMenuPtr mPopupMenuFile;
 	MyGUI::PopupMenuPtr mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
 };
+
+extern EditorState mEditor;//FIXME_HOOK

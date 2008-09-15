@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelSmall" position="448 208 200 128" layer="ToolTip" name="_Main">
+        <Property key="Widget_Show" value="false"/>
         <Widget type="Edit" skin="StaticTextBreak" position="3 3 192 120" align="Stretch" name="Text">
             <Property key="Edit_MultiLine" value="true"/>
             <Property key="Edit_BreakLine" value="true"/>

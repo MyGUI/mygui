@@ -4,18 +4,10 @@
         <Property key="Image_Texture" value="wallpaperEditor.jpg"/>
         <Property key="Widget_Show" value="false"/>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="0 272 200 320" align="Left Top" layer="Overlapped" name="windowWidgets">
+    <Widget type="Window" skin="WindowC" position="0 272 200 271" align="Left Top" layer="Overlapped" name="windowWidgets">
         <Property key="Widget_Caption" value="#{Widgets}"/>
         <Property key="Window_Snap" value="true"/>
-        <Widget type="ComboBox" skin="ComboBox" position="0 260 191 24" align="HStretch Bottom" name="allWidgetsCombo">
-            <Property key="ComboBox_ModeDrop" value="true"/>
-        </Widget>
-        <Widget type="Widget" skin="Separator1" position="0 236 191 2" align="HStretch Bottom"/>
-        <Widget type="StaticText" skin="Editor_StaticText" position="0 236 191 24" align="HStretch Bottom">
-            <Property key="Widget_AlignText" value="Center"/>
-            <Property key="Widget_Caption" value="All created widgets"/>
-        </Widget>
-        <Widget type="Tab" skin="Tab" position="0 0 189 234" name="tabSkinGroups"/>
+        <Widget type="Tab" skin="Tab" position="0 0 192 237" name="tabSkinGroups"/>
     </Widget>
     <Widget type="Window" skin="WindowC" position="200 120 256 302" align="Left Top" layer="Overlapped" name="windowSettings">
         <Property key="Widget_Caption" value="#{Settings}"/>
@@ -70,44 +62,6 @@
         </Widget>
         <Widget type="Button" skin="CheckBox" position="5 48 240 24" align="HStretch Top" name="checkEdgeHide">
             <Property key="Widget_Caption" value="#{Autohide_editor_panels}"/>
-        </Widget>
-    </Widget>
-    <Widget type="Window" skin="WindowCS" position="472 32 280 360" align="Right Top" layer="Overlapped" name="windowProperties">
-        <Property key="Widget_Caption" value="#{Properties}"/>
-        <Property key="Window_Snap" value="true"/>
-        <Property key="Window_MinMax" value="280 0 2048 2048"/>
-        <Property key="Widget_Show" value="true"/>
-        <Widget type="Widget" skin="PanelSmall" position="2 2 267 160" align="HStretch Top" name="panelItems">
-            <Property key="Widget_Caption" value="Items"/>
-            <Property key="Widget_AlignText" value="HCenter Top"/>
-            <UserString key="Size" value="160"/>
-            <Widget type="Edit" skin="Edit" position="3 24 261 24" align="HStretch Top" name="editItem"/>
-            <Widget type="List" skin="List" position="3 48 261 85" align="HStretch Top" name="listItems"/>
-            <Widget type="Button" skin="ButtonSmall" position="3 133 88 24" align="Left Top" name="buttonAddItem">
-                <Property key="Widget_Caption" value="#{Add}"/>
-            </Widget>
-            <Widget type="Button" skin="ButtonSmall" position="92 133 88 24" align="Left Top" name="buttonDeleteItem">
-                <Property key="Widget_Caption" value="#{Delete}"/>
-            </Widget>
-            <Widget type="Button" skin="ButtonSmall" position="181 133 83 24" align="Left Top" name="buttonSelectSheet">
-                <Property key="Widget_Caption" value="#{Select}"/>
-            </Widget>
-            <Widget type="Button" skin="ButtonMinimize" position="244 3 18 18" align="Right Top" name="minimizeItem"/>
-        </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="2 164 267 160" align="HStretch Top" name="panelUserData">
-            <Property key="Widget_Caption" value="UserData"/>
-            <Property key="Widget_AlignText" value="HCenter Top"/>
-            <UserString key="Size" value="160"/>
-            <Widget type="Edit" skin="Edit" position="3 24 130 24" align="Left Top" name="editKeyUserData"/>
-            <Widget type="Edit" skin="Edit" position="134 24 130 24" align="HStretch Top" name="editValueUserData"/>
-            <Widget type="Button" skin="ButtonSmall" position="3 133 130 24" align="Left Top" name="buttonAddUserData">
-                <Property key="Widget_Caption" value="#{Add}"/>
-            </Widget>
-            <Widget type="Button" skin="ButtonSmall" position="134 133 130 24" align="Left Top" name="buttonDeleteUserData">
-                <Property key="Widget_Caption" value="#{Delete}"/>
-            </Widget>
-            <Widget type="MultiList" skin="MultiList" position="3 48 261 85" align="HStretch Top" name="multilistUserData"/>
-            <Widget type="Button" skin="ButtonMinimize" position="244 3 18 18" align="Right Top" name="minimizeUserData"/>
         </Widget>
     </Widget>
 </MyGUI>
