@@ -20,6 +20,9 @@ namespace MyGUI
 	{
 	public:
 		virtual const std::string & getType() = 0;
+
+		template <typename T>
+		inline T * castType() { return static_cast<T*>(this); }
 	};
 
 } // namespace MyGUI
