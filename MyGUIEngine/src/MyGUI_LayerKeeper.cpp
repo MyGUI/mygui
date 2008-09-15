@@ -22,11 +22,7 @@ namespace MyGUI
 
 	LayerKeeper::~LayerKeeper()
 	{
-		for (VectorLayerItemKeeper::iterator iter=mLayerItemKeepers.begin(); iter!=mLayerItemKeepers.end(); ++iter) {
-			delete (*iter);
-			MYGUI_LOG(Error, "all layers must be detached before destroy");
-		}
-		mLayerItemKeepers.clear();
+		MYGUI_ASSERT(mLayerItemKeepers.empty(), "Layer '" << mName << "' must be empty before destroy");
 	}
 
 	void LayerKeeper::_render(bool _update)
