@@ -286,13 +286,93 @@
 			Name="Layout"
 			>
 			<File
+				RelativePath="..\Media\LayoutEditor\EditorToolTip.layout"
+				>
+			</File>
+			<File
 				RelativePath="..\Media\LayoutEditor\interface.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\Panels\PanelCell.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\Panels\PanelItems.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\Panels\PanelMainProperties.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\Panels\PanelProperties.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\Panels\PanelUserData.layout"
+				>
+			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\Panels\PanelView.layout"
 				>
 			</File>
 			<File
 				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="Panels"
+			>
+			<File
+				RelativePath=".\PanelMainProperties.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelMainProperties.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelProperties.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelProperties.h"
+				>
+			</File>
+			<Filter
+				Name="Base"
+				>
+				<File
+					RelativePath="..\Common\PanelView\PanelBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\PanelView\PanelCell.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\PanelView\PanelCell.h"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\PanelView\PanelView.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\PanelView\PanelView.h"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\PanelView\PanelViewWindow.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\PanelView\PanelViewWindow.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

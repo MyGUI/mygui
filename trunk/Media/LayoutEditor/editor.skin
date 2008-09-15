@@ -14,6 +14,10 @@
         <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
     </Skin>
 
+    <Skin name = "Editor_PanelEmpty" size = "16 16">
+        <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+    </Skin>
+
     <Skin name = "ComplexProgressTrack" size = "58 42" texture = "progresstrack.png" >
         <BasisSkin type="MainSkin" offset = "0 0 58 42" align = "Stretch">
             <State name="normal" offset = "0 0 58 42"/>
