@@ -6,6 +6,9 @@
 */
 #include "MyGUI_Guid.h"
 #include "MyGUI_Common.h"
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+#include <uuid/uuid.h>
+#endif
 
 namespace MyGUI
 {
@@ -133,13 +136,10 @@ namespace MyGUI
 	{
 		Guid ret;
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		GUID guid;
-		HRESULT result = CoCreateGuid(&guid);
+		HRESULT result = CoCreateGuid((GUID*)&ret.original.data1);
 		MYGUI_ASSERT(S_OK == result, "Error generate GUID");
-		ret.original.data1 = guid.Data1;
-		ret.original.data2 = guid.Data2;
-		ret.original.data3 = guid.Data3;
-		memcpy(ret.original.data4, guid.Data4, 8);
+#elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+		uuid_generate(ret.vec._data1);
 #else
 		//FIXME
 #endif
