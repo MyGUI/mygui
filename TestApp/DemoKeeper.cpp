@@ -142,9 +142,18 @@ namespace demo
 MyGUI::WidgetPtr widget = 0;
 MyGUI::WidgetPtr rect = 0;
  
+float GetAngle(Ogre::Vector3 _vec0, Ogre::Vector3 _vec1)
+{
+	return Ogre::Math::ACos(_vec0.dotProduct(_vec1) / (_vec0.length() * _vec1.length())).valueRadians();
+}
+
     bool DemoKeeper::mouseMoved( const OIS::MouseEvent &arg )
     {
         base::BaseManager::mouseMoved(arg);
+
+		Ogre::ColourValue pickedColour = Ogre::ColourValue(1, 0, 1); // тут цвет из столбика справа
+        MyGUI::ISubWidget * main = rect->_getSubWidgetMain();
+        MyGUI::RawRect * row = static_cast<MyGUI::RawRect*>(main);
         
         float x, y;
         x = y = 0;
@@ -157,17 +166,43 @@ MyGUI::WidgetPtr rect = 0;
 			else {
 				if (x < (1 - y)) {
 					x = y = 0;
+
+					Ogre::Vector3 vec1 = Ogre::Vector3(widget->getLeft() + widget->getWidth(), 0, 0);
+					Ogre::Vector3 vec2 = Ogre::Vector3(arg.state.X.abs - widget->getLeft(), 0, arg.state.Y.abs - widget->getTop());
+
+					// угол между гранями верха, точкой проходящей через мышку и левый верхний угол
+					float angle = GetAngle(vec1, vec2);
+					// правый верхний угол
+					float angle2 = Ogre::Degree(45).valueRadians();
+
+					// большая грань треугольника (гипотенуза)
+					float gipatenuza = Ogre::Math::Sqrt( widget->getWidth() * widget->getWidth() + widget->getWidth() * widget->getWidth() );//(float)widget->getWidth();
+					// длинна грани получившегося треугольника
+					float b = ((float)widget->getWidth() * Ogre::Math::Sin(angle)) / Ogre::Math::Sin((angle + angle2));
+					// длинна куска на гипотенузе
+					float len1 = b / gipatenuza;
+
+					// длинна грани получившегося треугольника
+					float b2 = ((float)widget->getWidth() * Ogre::Math::Sin(angle2)) / Ogre::Math::Sin((angle + angle2));
+					// длинна от верхнего до мыши
+					float len2 = vec2.length() / b2;
+
+					// цвет по гипотенузе
+					Ogre::ColourValue colour1 = pickedColour + len1 * (Ogre::ColourValue::Black - pickedColour);
+
+					// общий цвет
+					Ogre::ColourValue colour = colour1 + (1 - len2) * 0.8 * (Ogre::ColourValue::White - colour1);
+
+					row->setRectColour(colour, colour, colour, colour);
+					return true;
 				}
 			}
         }
  
         if (rect) {
-            MyGUI::ISubWidget * main = rect->_getSubWidgetMain();
-            MyGUI::RawRect * row = static_cast<MyGUI::RawRect*>(main);
-            Ogre::ColourValue pickedColour = Ogre::ColourValue(1, 0, 1); // тут цвет из столбика справа
-            Ogre::ColourValue colour = (1 - y) * (pickedColour * x + Ogre::ColourValue::White * (1 - x));
-            //if ( x + y != 0 )
-                row->setRectColour(colour, colour, colour, colour);
+			// линейный сверху вниз
+            Ogre::ColourValue colour = (1 - y) * (pickedColour * x + pickedColour * (1 - x));
+            row->setRectColour(colour, colour, colour, colour);
         }
  
         return true;
@@ -175,6 +210,7 @@ MyGUI::WidgetPtr rect = 0;
  
     void DemoKeeper::createScene()
     {
+
  
         using namespace MyGUI;
         const IntSize & view = Gui::getInstance().getViewSize();
