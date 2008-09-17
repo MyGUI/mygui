@@ -141,12 +141,61 @@ namespace demo
  
 MyGUI::WidgetPtr widget = 0;
 MyGUI::WidgetPtr rect = 0;
- 
+
 float GetAngle(Ogre::Vector3 _vec0, Ogre::Vector3 _vec1)
 {
 	return Ogre::Math::ACos(_vec0.dotProduct(_vec1) / (_vec0.length() * _vec1.length())).valueRadians();
 }
 
+Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize & _size, const Ogre::ColourValue & _colour)
+{
+	if (_point.left < 0 || _point.top < 0 || _point.left > _size.width || _point.top > _size.height) return Ogre::ColourValue::Black;
+
+	float x = 1. * (_point.left) / _size.width;
+	float y = 1. * (_point.top) / _size.height;
+
+	if (x>1 || y>1 || x<0 || y<0) {
+		return Ogre::ColourValue::Black;
+	}
+	else {
+		if (x < (1 - y)) {
+
+			Ogre::Vector3 vec1 = Ogre::Vector3(_point.left + _size.width, 0, 0);
+			Ogre::Vector3 vec2 = Ogre::Vector3(_point.left, 0, _point.top);
+
+			// угол между гранями верха, точкой проходящей через мышку и левый верхний угол
+			float angle = GetAngle(vec1, vec2);
+			// правый верхний угол
+			float angle2 = Ogre::Degree(45).valueRadians();
+
+			// большая грань треугольника (гипотенуза)
+			float gipatenuza = Ogre::Math::Sqrt( _size.width * _size.width + _size.width * _size.width );
+			// длинна грани получившегося треугольника
+			float b = ((float)widget->getWidth() * Ogre::Math::Sin(angle)) / Ogre::Math::Sin((angle + angle2));
+			// длинна куска на гипотенузе
+			float len1 = b / gipatenuza;
+
+			// длинна грани получившегося треугольника
+			float b2 = ((float)widget->getWidth() * Ogre::Math::Sin(angle2)) / Ogre::Math::Sin((angle + angle2));
+			// длинна от верхнего до мыши
+			float len2 = vec2.length() / b2;
+
+			// цвет по гипотенузе
+			Ogre::ColourValue colour1 = _colour + len1 * (Ogre::ColourValue::Black - _colour);
+
+			// общий цвет
+			Ogre::ColourValue colour = colour1 + (1 - len2) * 0.8 * (Ogre::ColourValue::White - colour1);
+
+			return colour;
+		}
+		else {
+			// линейный сверху вниз
+			Ogre::ColourValue colour = (1 - y) * (_colour * x + _colour * (1 - x));
+			return colour;
+		}
+	}
+}
+ 
     bool DemoKeeper::mouseMoved( const OIS::MouseEvent &arg )
     {
         base::BaseManager::mouseMoved(arg);
@@ -154,15 +203,23 @@ float GetAngle(Ogre::Vector3 _vec0, Ogre::Vector3 _vec1)
 		Ogre::ColourValue pickedColour = Ogre::ColourValue(1, 0, 1); // тут цвет из столбика справа
         MyGUI::ISubWidget * main = rect->_getSubWidgetMain();
         MyGUI::RawRect * row = static_cast<MyGUI::RawRect*>(main);
+
+		if (!rect) return true;
         
-        float x, y;
-        x = y = 0;
-        if (widget) {
+        if (!widget) return true;
+
+			const Ogre::ColourValue & value = getColour(MyGUI::IntPoint(arg.state.X.abs - widget->getLeft(), arg.state.Y.abs - widget->getTop()), widget->getSize(), Ogre::ColourValue(1, 0, 1));
+			row->setRectColour(value, value, value, value);
+
+			/*float x, y;
+	        x = y = 0;
             x = 1. * (arg.state.X.abs - widget->getLeft()) / widget->getWidth();
             y = 1. * (arg.state.Y.abs - widget->getTop()) / widget->getHeight();
-			mInfo->change("x", x);
-			mInfo->change("y", y);
-            if (x>1 || y>1 || x<0 || y<0) x = y = 0;
+			//mInfo->change("x", x);
+			//mInfo->change("y", y);
+			if (x>1 || y>1 || x<0 || y<0) {
+				row->setRectColour(Ogre::ColourValue::Black, Ogre::ColourValue::Black, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
+			}
 			else {
 				if (x < (1 - y)) {
 					x = y = 0;
@@ -196,14 +253,13 @@ float GetAngle(Ogre::Vector3 _vec0, Ogre::Vector3 _vec1)
 					row->setRectColour(colour, colour, colour, colour);
 					return true;
 				}
+				else {
+					// линейный сверху вниз
+					Ogre::ColourValue colour = (1 - y) * (pickedColour * x + pickedColour * (1 - x));
+					row->setRectColour(colour, colour, colour, colour);
+				}
 			}
-        }
- 
-        if (rect) {
-			// линейный сверху вниз
-            Ogre::ColourValue colour = (1 - y) * (pickedColour * x + pickedColour * (1 - x));
-            row->setRectColour(colour, colour, colour, colour);
-        }
+        }*/
  
         return true;
     }
