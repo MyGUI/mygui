@@ -151,7 +151,14 @@ MyGUI::WidgetPtr rect = 0;
         if (widget) {
             x = 1. * (arg.state.X.abs - widget->getLeft()) / widget->getWidth();
             y = 1. * (arg.state.Y.abs - widget->getTop()) / widget->getHeight();
+			mInfo->change("x", x);
+			mInfo->change("y", y);
             if (x>1 || y>1 || x<0 || y<0) x = y = 0;
+			else {
+				if (x < (1 - y)) {
+					x = y = 0;
+				}
+			}
         }
  
         if (rect) {
@@ -159,7 +166,7 @@ MyGUI::WidgetPtr rect = 0;
             MyGUI::RawRect * row = static_cast<MyGUI::RawRect*>(main);
             Ogre::ColourValue pickedColour = Ogre::ColourValue(1, 0, 1); // тут цвет из столбика справа
             Ogre::ColourValue colour = (1 - y) * (pickedColour * x + Ogre::ColourValue::White * (1 - x));
-            if ( x + y != 0 )
+            //if ( x + y != 0 )
                 row->setRectColour(colour, colour, colour, colour);
         }
  
@@ -175,6 +182,11 @@ MyGUI::WidgetPtr rect = 0;
  
         base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
         base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
+
+		/*ButtonPtr button = Gui::getInstance().createWidget<Button>("Button", IntCoord(50, 50, 300, 300), Align::Default, "Main");
+
+		button->createWidget<Button>("Button", IntCoord(50, 50, 50, 50), Align::Default);
+		button->createWidget<Button>("Button", IntCoord(70, 70, 50, 50), Align::Default);*/
  
         widget = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(50, 50, 300, 300), Align::Default, "Main");
         ISubWidget * main = widget->_getSubWidgetMain();
@@ -183,10 +195,10 @@ MyGUI::WidgetPtr rect = 0;
  
         rect = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(350, 50, 300, 300), Align::Default, "Main");
 
-		MyGUI::Message::createMessage("IconInfo", "", false, MyGUI::Message::Ok | MyGUI::Message::IconInfo);
+		/*MyGUI::Message::createMessage("IconInfo", "", false, MyGUI::Message::Ok | MyGUI::Message::IconInfo);
 		MyGUI::Message::createMessage("IconError", "", false, MyGUI::Message::Ok | MyGUI::Message::IconError);
 		MyGUI::Message::createMessage("IconWarning", "", false, MyGUI::Message::Ok | MyGUI::Message::IconWarning);
-		MyGUI::Message::createMessage("IconQuest", "", false, MyGUI::Message::Ok | MyGUI::Message::IconQuest);
+		MyGUI::Message::createMessage("IconQuest", "", false, MyGUI::Message::Ok | MyGUI::Message::IconQuest);*/
  
         //widget = win->createWidget<Widget>("TileClient", IntCoord(10, 10, 100, 100), Align::Default);
  
