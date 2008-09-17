@@ -563,8 +563,6 @@ namespace MyGUI
 		if ( mHoldKey == KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {
 			mHoldKey = KC_UNASSIGNED;
-			//mFirstPressKey = true;
-			//mTimerKey = 0.0f;
 			return;
 		}
 
@@ -577,7 +575,7 @@ namespace MyGUI
 			}
 		} else {
 			if (mTimerKey > INPUT_INTERVAL_KEY) {
-				mTimerKey -= INPUT_INTERVAL_KEY;
+				while (mTimerKey > INPUT_INTERVAL_KEY) mTimerKey -= INPUT_INTERVAL_KEY;
 				mWidgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
 				// focus can be dropped in _onKeyButtonPressed
 				if ( isFocusKey() ) mWidgetKeyFocus->_onKeyButtonReleased(mHoldKey);
@@ -601,13 +599,15 @@ namespace MyGUI
 	void InputManager::updateFocusWidgetHelpers()
 	{
 
+		const std::string layer = "Statistic";
 		static WidgetPtr mouse_focus = null;
 		static WidgetPtr mouse_helper = null;
 		if ((mWidgetMouseFocus != mouse_focus) || ((mWidgetMouseFocus != null) && (mouse_helper != null) && mWidgetMouseFocus->getAbsoluteCoord() != mouse_helper->getAbsoluteCoord())) {
 			mouse_focus = mWidgetMouseFocus;
 
 			if (mouse_helper == null) {
-				mouse_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerGreen", IntCoord(), Align::Default, "Statistic");
+				if (!LayerManager::getInstance().isExist(layer)) return;
+				mouse_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerGreen", IntCoord(), Align::Default, layer);
 				mouse_helper->setNeedMouseFocus(false);
 			}
 
@@ -628,7 +628,8 @@ namespace MyGUI
 			key_focus = mWidgetKeyFocus;
 
 			if (key_helper == null) {
-				key_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerRed", IntCoord(), Align::Default, "Statistic");
+				if (!LayerManager::getInstance().isExist(layer)) return;
+				key_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerRed", IntCoord(), Align::Default, layer);
 				key_helper->setNeedMouseFocus(false);
 			}
 			if (mWidgetKeyFocus) {
