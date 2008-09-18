@@ -3,16 +3,16 @@
 <MyGUI>
 
     <MyGUI type="List">
-	    <List file="core.lang" group="General"/>
-	    <List file="core.language" group="General"/>
+	    <_List file="core.lang" group="General"/>
+	    <_List file="core.language" group="General"/>
 	    <List file="editor.language" group="General"/>
 	    <List file="editor.layer" group="General"/>
-	    <List file="core.skin" group="General"/>
+	    <_List file="core.skin" group="General"/>
 	    <List file="editor.skin" group="General"/>
-	    <List file="core.font" group="General"/>
-	    <List file="core.pointer" group="General"/>
+	    <_List file="core.font" group="General"/>
+	    <_List file="core.pointer" group="General"/>
 
-      <List file="core_new.skin" group="General"/>
+      <_List file="core_new.skin" group="General"/>
       <List file="helper.skin" group="General"/>
     </MyGUI>
 
