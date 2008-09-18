@@ -159,6 +159,16 @@ void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _
 		std::string name = widgets->findAttribute("name");
 		PossibleValue * possible_value = getPassibleValue(name);
 
+		// тип мерджа переменных
+		std::string merge = widgets->findAttribute("merge");
+		// дополняем своими данными, по дефолту
+		if (merge == "add") {
+		}
+		// удаляем и добавляем свои
+		else if (merge == "replace") {
+			possible_value->values.clear();
+		}
+
 		// берем детей и крутимся
 		MyGUI::xml::xmlNodeIterator field = widgets->getNodeIterator();
 		while (field.nextNode()) {
