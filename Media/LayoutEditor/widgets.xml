@@ -178,6 +178,7 @@
     <!--Parameter key="Widget_State" value="WidgetState"/-->
     <Parameter key="Widget_NeedKey" value="Bool"/>
     <Parameter key="Widget_NeedMouse" value="Bool"/>
+    <Parameter key="Widget_InheritsPeek" value="Bool"/>
     <Parameter key="Widget_InheritsAlpha" value="Bool"/>
     <Parameter key="Widget_AlignText" value="TextAlign"/>
     <Parameter key="Widget_Enabled" value="Bool"/>
