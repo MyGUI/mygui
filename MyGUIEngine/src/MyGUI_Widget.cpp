@@ -436,17 +436,18 @@ namespace MyGUI
 	LayerItem * Widget::_findLayerItem(int _left, int _top)
 	{
 		// проверяем попадание
-		if (!mVisible || !mShow || (!mNeedMouseFocus && !mInheritsPeek) || !_checkPoint(_left, _top)) return null;
-		// если есть маска, проверяем еще и по маске
-		if ((false == mMaskPeekInfo.empty()) &&
-			(false == mMaskPeekInfo.peek(IntPoint(_left, _top)-mCoord.point(), mCoord))) return null;
-		// останавливаем каскадную проверку
-		if (mEnabled) {
-			// спрашиваем у детишек
-			for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {
-				LayerItem * item = (*widget)->_findLayerItem(_left - mCoord.left, _top - mCoord.top);
-				if (item != null) return item;
-			}
+		if (!mVisible
+			|| !mEnabled
+			|| !mShow
+			|| (!mNeedMouseFocus && !mInheritsPeek)
+			|| !_checkPoint(_left, _top)
+			// если есть маска, проверяем еще и по маске
+			|| ((!mMaskPeekInfo.empty()) && (!mMaskPeekInfo.peek(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
+				return null;
+		// спрашиваем у детишек
+		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {
+			LayerItem * item = (*widget)->_findLayerItem(_left - mCoord.left, _top - mCoord.top);
+			if (item != null) return item;
 		}
 		// непослушные дети
 		return mInheritsPeek ? null : this;
