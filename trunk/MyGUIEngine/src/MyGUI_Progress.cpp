@@ -26,7 +26,8 @@ namespace MyGUI
 		mRange(0), mEndPosition(0), mStartPosition(0),
 		mAutoTrack(false),
 		mFillTrack(false),
-		mStartPoint(Align::Left)
+		mStartPoint(Align::Left),
+		mTrackMin(0)
 	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if ((*iter)->_getInternalString() == "Client") {
@@ -41,6 +42,8 @@ namespace MyGUI
 		if (iterS != properties.end()) mTrackSkin = iterS->second;
 		iterS = properties.find("TrackWidth");
 		if (iterS != properties.end()) mTrackWidth = utility::parseInt(iterS->second);
+		iterS = properties.find("TrackMin");
+		if (iterS != properties.end()) mTrackMin = utility::parseInt(iterS->second);
 		if (1 > mTrackWidth) mTrackWidth = 1;
 		iterS = properties.find("TrackStep");
 		if (iterS != properties.end()) mTrackStep = utility::parseInt(iterS->second);
@@ -81,14 +84,12 @@ namespace MyGUI
 
 		if (mAutoTrack) {
 			Gui::getInstance().eventFrameStart += newDelegate(this, &Progress::frameEntered);
-			//Gui::getInstance().addFrameListener(newDelegate(this, &Progress::frameEntered), this);
 			mRange = PROGRESS_AUTO_RANGE;
 			mEndPosition = mStartPosition = 0;
 			mAutoPosition = 0.0f;
 		}
 		else {
 			Gui::getInstance().eventFrameStart -= newDelegate(this, &Progress::frameEntered);
-			//Gui::getInstance().removeFrameListener(newDelegate(this, &Progress::frameEntered));
 			mRange = mEndPosition = mStartPosition = 0;
 		}
 		updateTrack();
@@ -143,7 +144,7 @@ namespace MyGUI
 		if (mFillTrack) {
 
 			if (mVectorTrack.empty()) {
-				WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
+				WidgetPtr widget = mWidgetClient->createWidget<Widget>(mTrackSkin, IntCoord(), Align::Left | Align::VStretch);
 				mVectorTrack.push_back(widget);
 			}
 			else {
@@ -167,8 +168,8 @@ namespace MyGUI
 			}
 			// ýõ
 			else {
-				int pos = (int)mStartPosition * getClientWidth() / (int)mRange;
-				setTrackPosition(wid, pos, 0, ((int)mEndPosition * getClientWidth() / (int)mRange) - pos, getClientHeight());
+				int pos = (int)mStartPosition * (getClientWidth() - mTrackMin) / (int)mRange;
+				setTrackPosition(wid, pos, 0, ((int)mEndPosition * (getClientWidth() - mTrackMin) / (int)mRange) - pos + mTrackMin, getClientHeight());
 			}
 
 			return;
