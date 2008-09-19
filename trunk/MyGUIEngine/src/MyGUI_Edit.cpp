@@ -1247,12 +1247,16 @@ namespace MyGUI
 	void Edit::setPosition(const IntCoord& _coord)
 	{
 		Widget::setPosition(_coord);
+		// если перенос, то сбрасываем размер текста
+		if ((mModeBreak) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
 		updateView(false);
 	}
 
 	void Edit::setSize(const IntSize& _size)
 	{
 		Widget::setSize(_size);
+		// если перенос, то сбрасываем размер текста
+		if (mModeBreak) mText->setBreakLine(true);
 		updateView(false);
 	}
 
