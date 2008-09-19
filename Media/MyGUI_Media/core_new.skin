@@ -1126,6 +1126,7 @@
     <Skin name = "Progress" size = "20 15" texture = "core_new.png" >
         <Property key="TrackSkin" value = "ProgressTrack" />
         <Property key="TrackWidth" value = "14" />
+        <Property key="TrackMin" value = "7" />
         <Property key="TrackFill" value = "true" />
 
 		<Child type="Button" skin="HSliderLeftPart" offset = "0 0 10 15" align = "ALIGN_LEFT ALIGN_VSTRETCH"/>
