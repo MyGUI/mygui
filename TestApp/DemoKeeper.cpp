@@ -287,6 +287,11 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
  
         rect = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(350, 50, 300, 300), Align::Default, "Main");
 
+		ProgressPtr progress = Gui::getInstance().createWidget<Progress>("Progress", IntCoord(600, 600, 50, 15), Align::Default, "Main");
+		progress->setProgressAutoTrack(true);
+		//progress->setProgressRange(100);
+		//progress->setProgressPosition(1);
+
 		/*MyGUI::Message::createMessage("IconInfo", "", false, MyGUI::Message::Ok | MyGUI::Message::IconInfo);
 		MyGUI::Message::createMessage("IconError", "", false, MyGUI::Message::Ok | MyGUI::Message::IconError);
 		MyGUI::Message::createMessage("IconWarning", "", false, MyGUI::Message::Ok | MyGUI::Message::IconWarning);

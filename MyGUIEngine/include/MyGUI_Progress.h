@@ -78,6 +78,7 @@ namespace MyGUI
 		std::string mTrackSkin;
 		int mTrackWidth;
 		int mTrackStep;
+		int mTrackMin;
 
 		VectorWidgetPtr mVectorTrack;
 		size_t mRange;
