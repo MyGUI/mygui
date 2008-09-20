@@ -25,5 +25,5 @@ void PanelViewWindow::initialise()
 
 void PanelViewWindow::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
 {
-	mPanelView.updateView();
+	mPanelView.setNeedUpdate();
 }
