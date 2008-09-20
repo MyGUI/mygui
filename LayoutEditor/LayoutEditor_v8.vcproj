@@ -297,6 +297,10 @@
 				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
 				>
 			</File>
+			<File
+				RelativePath="..\Media\LayoutEditor\SettingsWindow.layout"
+				>
+			</File>
 			<Filter
 				Name="Panels"
 				>
@@ -405,6 +409,18 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Windows"
+			>
+			<File
+				RelativePath=".\SettingsWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SettingsWindow.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
