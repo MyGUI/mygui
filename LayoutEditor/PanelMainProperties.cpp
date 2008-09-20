@@ -8,8 +8,6 @@
 #include "PanelMainProperties.h"
 #include "WidgetContainer.h"
 #include "WidgetTypes.h"
-#include "EditorState.h" //FIXME_HOOK
-
 
 extern const int PropertyItemHeight = 22;
 
@@ -50,7 +48,7 @@ void PanelMainProperties::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)
 		if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(localise("to_percents"));
 		else mButtonRelativePosition->setCaption(localise("to_pixels"));
 		widgetContainer->relative_mode = !widgetContainer->relative_mode;
-		//propertiesElement[1]->setCaption(widgetContainer->position()); //FIXME_AGAIN
+		eventSetPositionText(widgetContainer->position());
 	}
 }
 
@@ -62,7 +60,7 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 	WidgetType * widgetType = WidgetTypes::getInstance().find(current_widget->getTypeName());
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 
-	mEditor.createPropertiesWidgetsPair(mWidgetClient, "Name", widgetContainer->name, "Name", y); //FIXME_HOOK
+	eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y);
 	y += PropertyItemHeight;
 
 	if (widgetType->resizeable)
@@ -72,7 +70,7 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 		if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(localise("to_pixels"));
 		else mButtonRelativePosition->setCaption(localise("to_percents"));
 
-		mEditor.createPropertiesWidgetsPair(mWidgetClient, "Position", widgetContainer->position(), "Position", y); //FIXME_HOOK
+		eventCreatePair(mWidgetClient, "Position", widgetContainer->position(), "Position", y);
 		y += PropertyItemHeight;
 	}
 	else
@@ -80,18 +78,18 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 		mButtonRelativePosition->hide();
 	}
 
-	mEditor.createPropertiesWidgetsPair(mWidgetClient, "Align", widgetContainer->align, "Align", y); //FIXME_HOOK
+	eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
 	y += PropertyItemHeight;
 
 	if (null == current_widget->getParent())
 	{
-		mEditor.createPropertiesWidgetsPair(mWidgetClient, "Layer", widgetContainer->layer, "Layer", y); //FIXME_HOOK
+		eventCreatePair(mWidgetClient, "Layer", widgetContainer->layer, "Layer", y);
 		y += PropertyItemHeight;
 	}
 
 	if (widgetType->skin.size() > 1)
 	{
-		mEditor.createPropertiesWidgetsPair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y); //FIXME_HOOK
+		eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y);
 		y += PropertyItemHeight;
 	}
 

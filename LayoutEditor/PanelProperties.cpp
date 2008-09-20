@@ -8,7 +8,6 @@
 #include "PanelProperties.h"
 #include "WidgetContainer.h"
 #include "WidgetTypes.h"
-#include "EditorState.h" //FIXME_HOOK
 
 inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
@@ -63,11 +62,11 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 				std::string value = "";
 				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 					if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
-				mEditor.createPropertiesWidgetsPair(mWidgetClient, iter->first, value, iter->second, y);
+				eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
 				y += PropertyItemHeight;
 			}
-			/*if (widgetType->parameter.empty()) mPanelCell->hide();
-			else mPanelCell->show;*/
+			if (widgetType->parameter.empty()) hide();
+			else show();
 		}
 	}
 	else if (_group == WIDGET_PROPERTIES || _group == EVENTS)
@@ -77,7 +76,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 
 		if (_current_widget->getTypeName() != "Sheet")
 		{
-			//mPanelCell->show();
+			show();
 			//base properties (from Widget)
 			WidgetType * baseType = WidgetTypes::getInstance().find("Widget");
 			for (StringPairs::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
@@ -87,14 +86,14 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 					if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
 				if ((0 == strncmp("Widget_event", iter->first.c_str(), 12)) ^ (_group == WIDGET_PROPERTIES))
 				{
-					mEditor.createPropertiesWidgetsPair(mWidgetClient, iter->first, value, iter->second, y);
+					eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
 					y += PropertyItemHeight;
 				}
 			}
 		}
 		else
 		{
-			//mPanelCell->hide();
+			hide();
 		}
 	}
 

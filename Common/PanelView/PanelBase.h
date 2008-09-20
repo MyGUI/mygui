@@ -33,6 +33,18 @@ public:
 	{
 	}
 
+	virtual void show()
+	{
+		mPanelCell->mainWidget()->show();
+		mPanelCell->eventUpdatePanel(mPanelCell);
+	}
+
+	virtual void hide()
+	{
+		mPanelCell->mainWidget()->hide();
+		mPanelCell->eventUpdatePanel(mPanelCell);
+	}
+
 	inline PanelCell * getPanelCell() { return mPanelCell; }
 
 protected:

@@ -8,6 +8,10 @@ typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 //typedef std::map<Ogre::String, Ogre::String> MapString;
 //typedef std::vector<std::pair<std::string, std::string> > MapString;
 
+void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value);
+StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key);
+void MapErase(StringPairs & _map, const std::string &_key);
+
 struct WidgetContainer
 {
 	WidgetContainer():

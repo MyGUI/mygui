@@ -11,6 +11,7 @@ void DemoKeeper::start()
 {
 	// загружаем ресурсы для демо
 	// потом сделать и для мака
+	Ogre::ResourceGroupManager::getSingleton().removeResourceLocation("../../Media/LayoutEditor/Panels", "General"); //это из-за конфликта имен
 	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_PanelView", "FileSystem", "General");
 
 	using namespace MyGUI;
