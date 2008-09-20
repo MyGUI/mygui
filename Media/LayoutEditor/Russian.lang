@@ -9,7 +9,9 @@ Test   #0000FFТест
 Quit   Выход  
 
 Properties Свойства
+Main_properties Основные свойства
 Widget_type_propertes Свойства #{widget_type}
+Properties_not_available Свойства #{widget_type} недоступны
 Other_properties Остальные свойства
 
 Add Добавить

@@ -45,7 +45,8 @@ private:
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget); // calls previous method
 
 	// properties window
-	MyGUI::VectorWidgetPtr propertiesText;
+	size_t pairs_counter;
+	std::vector<MyGUI::StaticTextPtr> propertiesText;
 	MyGUI::VectorWidgetPtr propertiesElement;
 
 	PanelMainProperties mPanelMainProperties;
