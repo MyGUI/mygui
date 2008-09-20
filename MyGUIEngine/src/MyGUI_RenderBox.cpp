@@ -264,8 +264,11 @@ namespace MyGUI
 		//if (mEntity) {
 			//Ogre::SkeletonManager::getSingleton().remove();
 			//mNode->detachObject(mEntity);
-		mScene->destroyAllEntities();
-		mNode->removeAndDestroyAllChildren();
+		if (mScene)
+		{
+			mScene->destroyAllEntities();
+			mNode->removeAndDestroyAllChildren();
+		}
 		mVectorEntity.clear();
 
 		mEntity = 0;
