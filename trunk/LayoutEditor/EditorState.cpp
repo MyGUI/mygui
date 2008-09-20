@@ -64,8 +64,6 @@ void EditorState::enter(bool bIsChangeState)
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
-	loadSettings();
-
 	// создание меню
 	bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
 	bar->addItem(localise("File"));
@@ -93,14 +91,11 @@ void EditorState::enter(bool bIsChangeState)
 					mPropertiesPanelView->getSize().width, mGUI->getViewHeight() - bar->getHeight());
 	interfaceWidgets.push_back(mPropertiesPanelView.mainWidget());
 
-	if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
-	{
-		for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
-		{
-			MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
-			MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
-		}
-	}
+	// settings window
+	mSettingsWindow.initialise();
+	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	
+	loadSettings();
 
 	// widgets panel
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
@@ -140,42 +135,14 @@ void EditorState::enter(bool bIsChangeState)
 	height = windowWidgets->getHeight() - windowWidgets->getClientCoord().height;
 	windowWidgets->setSize(width + tabSkinGroups->getWidth(), height + tabSkinGroups->getHeight() + 2*h);
 
-	// settings panel
-	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("LayoutEditor_gridEdit");
-	gridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &EditorState::notifyNewGridStepAccept);
-	gridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &EditorState::notifyNewGridStep);
-	ASSIGN_FUNCTION("LayoutEditor_buttonOkSettings", &EditorState::notifyOkSettings);
-
-	MyGUI::ComboBoxPtr combo= mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxResolution");
-	Ogre::ConfigOptionMap map = Ogre::Root::getSingletonPtr()->getRenderSystem()->getConfigOptions();
-	Ogre::ConfigOptionMap::iterator iter = map.find("Video Mode");
-	int selectedIdx = 0;
-	int wid, hei;
-	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++){
-		Ogre::String videoMode = iter->second.possibleValues[j];
-		std::string tmp;
-		std::istringstream str(videoMode);
-		str >> wid >> tmp >> hei;
-		if(iter->second.possibleValues[j] == iter->second.currentValue)
-			selectedIdx = j;
-		combo->addItem(MyGUI::utility::toString(wid, " x ", hei));
+	if (mSettingsWindow.getEdgeHide())
+	{
+		for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+		{
+			MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+			MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
+		}
 	}
-	combo->setItemSelect(selectedIdx);
-	MyGUI::ComboBoxPtr comboFullScreen = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxFullscreen");
-	iter = map.find("Full Screen");
-	selectedIdx = 0;
-	for (size_t j = 0; j<iter->second.possibleValues.size();j++){
-		Ogre::String videoMode = iter->second.possibleValues[j];
-		if(iter->second.possibleValues[j] == iter->second.currentValue)
-			selectedIdx = j;
-		comboFullScreen->addItem(videoMode);
-	}
-	comboFullScreen->setItemSelect(selectedIdx);
-
-	ASSIGN_FUNCTION("LayoutEditor_checkShowName", &EditorState::notifyToggleCheck);
-	ASSIGN_FUNCTION("LayoutEditor_checkShowType", &EditorState::notifyToggleCheck);
-	ASSIGN_FUNCTION("LayoutEditor_checkShowSkin", &EditorState::notifyToggleCheck);
-	ASSIGN_FUNCTION("LayoutEditor_checkEdgeHide", &EditorState::notifyToggleCheck);
 
 	clear();
 
@@ -416,7 +383,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		{
 			if ( arg.key == OIS::KC_ESCAPE )
 			{
-				if (MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed())
+				if (mSettingsWindow.getEdgeHide())
 				{
 					for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 					{
@@ -560,13 +527,13 @@ void EditorState::loadSettings()
 
 					if (key == "Grid") grid_step = MyGUI::utility::parseInt(value);
 					else if (key == "ShowName")
-						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->setButtonPressed(MyGUI::utility::parseBool(value));
+						mSettingsWindow.setShowName(MyGUI::utility::parseBool(value));
 					else if (key == "ShowType")
-						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->setButtonPressed(MyGUI::utility::parseBool(value));
+						mSettingsWindow.setShowType(MyGUI::utility::parseBool(value));
 					else if (key == "ShowSkin")
-						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->setButtonPressed(MyGUI::utility::parseBool(value));
+						mSettingsWindow.setShowSkin(MyGUI::utility::parseBool(value));
 					else if (key == "EdgeHide")
-						MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->setButtonPressed(MyGUI::utility::parseBool(value));
+						mSettingsWindow.setEdgeHide(MyGUI::utility::parseBool(value));
 					else if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
 					else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
 					else if (key == "widgetsButtonsInOneLine") widgetsButtonsInOneLine = MyGUI::utility::parseInt(value);
@@ -600,19 +567,19 @@ void EditorState::saveSettings()
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "ShowName");
-	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed());
+	nodeProp->addAttributes("value", mSettingsWindow.getShowName());
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "ShowType");
-	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed());
+	nodeProp->addAttributes("value", mSettingsWindow.getShowType());
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "ShowSkin");
-	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed());
+	nodeProp->addAttributes("value", mSettingsWindow.getShowSkin());
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "EdgeHide");
-	nodeProp->addAttributes("value", MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkEdgeHide")->getButtonPressed());
+	nodeProp->addAttributes("value", mSettingsWindow.getEdgeHide());
 
 	// actually properties below can't be changed in Editor - only by editing settings.xml manually
 	nodeProp = root->createChild("Property");
@@ -695,11 +662,8 @@ void EditorState::notifyLoadSaveAs(bool _save)
 
 void EditorState::notifySettings()
 {
-	MyGUI::WindowPtr window = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowSettings");
-	window->show();
-	MyGUI::LayerManager::getInstance().upLayerItem(window);
-	MyGUI::EditPtr gridEdit= mGUI->findWidget<MyGUI::Edit>("LayoutEditor_gridEdit");
-	gridEdit->setCaption(MyGUI::utility::toString(grid_step));
+	mSettingsWindow->show();
+	MyGUI::LayerManager::getInstance().upLayerItem(mSettingsWindow.mainWidget());
 }
 
 void EditorState::notifyTest()
@@ -845,11 +809,11 @@ void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 	um->addValue();
 }
 
-void EditorState::notifyWidgetsUpdate()
+void EditorState::notifyWidgetsUpdate(bool _fake)
 {
-	bool print_name = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowName")->getButtonPressed();
-	bool print_type = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowType")->getButtonPressed();
-	bool print_skin = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::Button>("LayoutEditor_checkShowSkin")->getButtonPressed();
+	bool print_name = mSettingsWindow.getShowName();
+	bool print_type = mSettingsWindow.getShowType();
+	bool print_skin = mSettingsWindow.getShowSkin();
 
 	mPopupMenuWidgets->deleteAllItems();
 
@@ -876,44 +840,6 @@ void EditorState::notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index)
 	void * data = _widget->castType<MyGUI::PopupMenu>()->getItemInfo(_index).data;
 	MyGUI::WidgetPtr widget = static_cast<MyGUI::WidgetPtr>(data);
 	notifySelectWidget(widget);
-}
-
-void EditorState::notifyAllWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index)
-{
-	notifySelectWidget(ew->widgets[_index]->widget);
-}
-
-void EditorState::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
-{
-	grid_step = Ogre::StringConverter::parseInt(_sender->getCaption());
-	if (grid_step <= 0) grid_step = 1;
-	_sender->setCaption(Ogre::StringConverter::toString(grid_step));
-}
-
-void EditorState::notifyNewGridStepAccept(MyGUI::WidgetPtr _sender)
-{
-	notifyNewGridStep(_sender);
-}
-
-void EditorState::notifyOkSettings(MyGUI::WidgetPtr _sender)
-{
-	bool fullscreen;
-	int width, height;
-	MyGUI::ComboBoxPtr combo= mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxResolution");
-	MyGUI::ComboBoxPtr comboFullScreen = mGUI->findWidget<MyGUI::ComboBox>("LayoutEditor_comboboxFullscreen");
-	std::string tmp;
-	std::istringstream str(combo->getCaption());
-	str >> width >> tmp >> height;
-	fullscreen = (comboFullScreen->getCaption() == "Yes");
-	BasisManager::getInstance().setFullscreen(fullscreen);//setFullscreen, width, height);
-	mGUI->findWidgetT("LayoutEditor_windowSettings")->hide();
-}
-
-void EditorState::notifyToggleCheck(MyGUI::WidgetPtr _sender)
-{
-	MyGUI::ButtonPtr checkbox = _sender->castType<MyGUI::Button>();
-	checkbox->setButtonPressed(!checkbox->getButtonPressed());
-	notifyWidgetsUpdate();
 }
 
 void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
