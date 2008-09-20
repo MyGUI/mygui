@@ -42,7 +42,7 @@ private:
 	size_t mWidth, mHeight; // ширина и высота экрана
 
 	std::vector<BasisState*> mStates; // вектор состояний
-	//EditorState mEditor;//FIXME_HOOK
+	EditorState mEditor;
 	//TestState mTest;
 	typedef std::vector<std::string> Params;
 	Params mParams;

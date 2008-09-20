@@ -36,7 +36,7 @@ void PanelView::updateView()
 		}
 	}
 	// ставим высоту холста, и спрашиваем получившуюся ширину клиента
-	mScrollView->setCanvasSize(0, height);
+	//mScrollView->setCanvasSize(0, height); //FIXME сделать апдейт не чаще раза в кадр
 	// ширина клиента могла поменятся
 	MyGUI::IntCoord coord = mScrollView->getClientCoord();
 	mScrollView->setCanvasSize(coord.width, height);

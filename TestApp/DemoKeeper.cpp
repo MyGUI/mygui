@@ -190,7 +190,7 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
 		}
 		else {
 			// линейный сверху вниз
-			Ogre::ColourValue colour = (1 - y) * (_colour * x + _colour * (1 - x));
+			Ogre::ColourValue colour = (1 - y) * _colour;
 			return colour;
 		}
 	}

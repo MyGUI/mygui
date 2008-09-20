@@ -1,0 +1,259 @@
+/*!
+	@file
+	@author		Georgiy Evmenov
+	@date		09/2008
+	@module
+*/
+
+#include "PanelItems.h"
+#include "WidgetContainer.h"
+#include "WidgetTypes.h"
+#include "UndoManager.h"
+
+#define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
+
+inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
+	return MyGUI::LanguageManager::getInstance().getTag(_str);
+}
+
+PanelItems::PanelItems() :
+	BaseLayout("PanelItems.layout"),
+	PanelBase()
+{
+}
+
+void PanelItems::initialiseCell(PanelCell * _cell)
+{
+	PanelBase::initialiseCell(_cell);
+
+	loadLayout(_cell->getClient());
+	mMainWidget->setPosition(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
+	_cell->setCaption(localise("Items"));
+
+	assignWidget(mEdit, "edit");
+	assignWidget(mList, "list");
+	assignWidget(mButtonAdd, "buttonAdd");
+	assignWidget(mButtonDelete, "buttonDelete");
+	assignWidget(mButtonSelect, "buttonSelect");
+	mButtonAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelItems::notifyAddItem);
+	mButtonDelete->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelItems::notifyDeleteItem);
+	mButtonSelect->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelItems::notifySelectSheet);
+	mEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &PanelItems::notifyUpdateItem);
+	mList->eventListChangePosition = MyGUI::newDelegate(this, &PanelItems::notifySelectItem);
+}
+
+void PanelItems::shutdownCell()
+{
+	PanelBase::shutdownCell();
+
+	BaseLayout::shutdown();
+}
+
+void PanelItems::update(MyGUI::WidgetPtr _current_widget)
+{
+	int y = 0;
+	current_widget = _current_widget;
+
+	WidgetType * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
+	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
+
+	if (widgetType->many_items)
+	{
+		show();
+		if (widgetType->name == "Tab") mPanelCell->setCaption(localise("Items"));
+		else mPanelCell->setCaption(localise("Items"));
+		syncItems(false);
+		if (widgetType->name == "Tab") mButtonSelect->show();
+		else mButtonSelect->hide();
+		mEdit->setCaption("");
+	}
+	else
+	{
+		hide();
+	}
+}
+
+void PanelItems::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
+{
+	if (current_widget->getTypeName() == "Tab")
+	{
+		addSheetToTab(current_widget);
+		// update strings panel
+		syncItems(false);
+		UndoManager::getInstance().addValue();
+	}
+}
+
+void PanelItems::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
+{
+	MyGUI::TabPtr tab = _tab->castType<MyGUI::Tab>();
+	MyGUI::SheetPtr sheet = tab->addSheet(_caption);
+	WidgetContainer * wc = new WidgetContainer("Sheet", "Default", sheet, "");
+	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
+	EditorWidgets::getInstance().add(wc);
+}
+
+void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
+{
+	Ogre::String action;
+	// FIXME/2 как-то громоздко и не настраиваемо...
+	if (current_widget->getTypeName() == "Tab") action = "Tab_AddSheet";
+	else
+	{
+		// for example "ComboBox_AddItem", "List_AddItem", etc...
+		action = current_widget->getTypeName() + "_AddItem";
+	}
+
+	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+	if (_apply)
+	{
+		if (_add)
+		{
+			if (action == "Tab_AddSheet")
+			{
+				addSheetToTab(current_widget, _value);
+				UndoManager::getInstance().addValue();
+			}
+			else
+			{
+				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, _value);
+				widgetContainer->mProperty.push_back(std::make_pair(action, _value));
+			}
+		}
+		else
+		{
+			if (action == "Tab_AddSheet")
+			{
+				EditorWidgets::getInstance().remove(current_widget->castType<MyGUI::Tab>()->findSheet(_value));
+			}
+			else
+			{
+				int index = 0;
+				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+				{
+					if (iterProperty->first == action){
+						if (iterProperty->second == _value)
+						{
+							widgetContainer->mProperty.erase(iterProperty);
+							if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->deleteItem(index);
+							else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->deleteItem(index);
+							else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->deleteItem(index);
+							//else if (current_widget->getTypeName() == "Message") ->castType<MyGUI::Message>(current_widget)->deleteItem(index);
+							return;
+						}
+						++index;
+					}
+				}
+			}
+		}
+	}
+	else // if !apply (if load)
+	{
+		MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
+		list->deleteAllItems();
+		if (action == "Tab_AddSheet")
+		{
+			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
+			for (size_t i = 0; i<tab->getSheetCount(); ++i) {
+				list->addItem(tab->getSheetNameIndex(i));
+			}
+		}
+		else
+		{
+			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+			{
+				if (iterProperty->first == action){
+					list->addItem(iterProperty->second);
+				}
+			}
+		}
+	}
+}
+
+void PanelItems::notifyAddItem(MyGUI::WidgetPtr _sender)
+{
+	syncItems(true, true, mEdit->getOnlyText());
+	mList->addItem(mEdit->getOnlyText());
+	UndoManager::getInstance().addValue();
+}
+
+void PanelItems::notifyDeleteItem(MyGUI::WidgetPtr _sender)
+{
+	size_t item = mList->getItemSelect();
+	if (MyGUI::ITEM_NONE == item) return;
+	syncItems(true, false, mList->getItem(item));
+	mList->deleteItem(item);
+	UndoManager::getInstance().addValue();
+}
+
+void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
+{
+	size_t item = mList->getItemSelect();
+	if (MyGUI::ITEM_NONE == item) return;
+	ON_EXIT(UndoManager::getInstance().addValue());
+	MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
+	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+
+	Ogre::String action = "Tab_SelectSheet";
+	Ogre::String value = MyGUI::utility::toString(item);
+	MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
+
+	action = "Sheet_Select";
+	for (size_t i = 0; i < tab->getSheetCount(); ++i)
+	{
+		WidgetContainer * sheetContainer = EditorWidgets::getInstance().find(tab->getSheet(i));
+
+		if (i == item) MapSet(sheetContainer->mProperty, action, "true");
+		else MapErase(sheetContainer->mProperty, action);
+	}
+}
+
+void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
+{
+	size_t item = mList->getItemSelect();
+	if (MyGUI::ITEM_NONE == item){ notifyAddItem(); return;}
+	ON_EXIT(UndoManager::getInstance().addValue());
+	Ogre::String action;
+	Ogre::String value = mEdit->getOnlyText();
+	Ogre::String lastitem = mList->getItem(item);
+	mList->setItem(item, value);
+
+	if (current_widget->getTypeName() == "Tab")
+	{
+		action = "Widget_Caption";
+		MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
+		MyGUI::SheetPtr sheet = tab->getSheet(item);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(sheet);
+		MyGUI::WidgetManager::getInstance().parse(sheet, "Widget_Caption", value);
+		MapSet(widgetContainer->mProperty, action, value);
+		return;
+	}
+	else
+	{
+		action = current_widget->getTypeName() + "_AddItem";
+	}
+
+	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+	int index = 0;
+	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+	{
+		if (iterProperty->first == action){
+			if (iterProperty->second == lastitem){
+				iterProperty->second = value;
+				if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->setItem(index, value);
+				else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->setItem(index, value);
+				else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->setItem(index, value);
+				return;
+			}
+			++index;
+		}
+	}
+}
+
+void PanelItems::notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position)
+{
+	size_t item = mList->getItemSelect();
+	if (MyGUI::ITEM_NONE == item) return;
+	Ogre::String value = mList->getItem(item);
+	mEdit->setOnlyText(value);
+}
