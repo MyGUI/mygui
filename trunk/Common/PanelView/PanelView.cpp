@@ -14,6 +14,7 @@ void PanelView::attach(MyGUI::ScrollViewPtr _widget)
 	// потом перенести в лейаут
 	mScrollView->setCanvasAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
 	mScrollView->showHScroll(false);
+	mNeedUpdate = false;
 
 	// лейаут базовой €чейки панели
 	//mPanelCellLayout = "PanelCell.layout";
@@ -22,7 +23,7 @@ void PanelView::attach(MyGUI::ScrollViewPtr _widget)
 
 void PanelView::notifyUpdatePanel(PanelCell * _panel)
 {
-	updateView();
+	setNeedUpdate();
 }
 
 void PanelView::updateView()
@@ -36,7 +37,7 @@ void PanelView::updateView()
 		}
 	}
 	// ставим высоту холста, и спрашиваем получившуюс€ ширину клиента
-	//mScrollView->setCanvasSize(0, height); //FIXME сделать апдейт не чаще раза в кадр
+	mScrollView->setCanvasSize(0, height);
 	// ширина клиента могла помен€тс€
 	MyGUI::IntCoord coord = mScrollView->getClientCoord();
 	mScrollView->setCanvasSize(coord.width, height);
@@ -50,6 +51,17 @@ void PanelView::updateView()
 			widget->setPosition(MyGUI::IntCoord(0, pos, coord.width, height));
 			pos += height;
 		}
+	}
+
+	mNeedUpdate = false;
+	MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &PanelView::frameEntered);
+}
+
+void PanelView::setNeedUpdate(){
+	if (!mNeedUpdate)
+	{
+		mNeedUpdate = true;
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &PanelView::frameEntered);
 	}
 }
 
@@ -68,7 +80,7 @@ void PanelView::insertItem(size_t _index, PanelBase * _item)
 	_item->initialiseCell(cell);
 
 	mItems.insert(mItems.begin() + _index, _item);
-	updateView();
+	setNeedUpdate();
 }
 
 PanelBase * PanelView::getItem(size_t _index)
@@ -94,7 +106,7 @@ void PanelView::removeItemAt(size_t _index)
 	delete cell;
 
 	mItems.erase(mItems.begin() + _index);
-	updateView();
+	setNeedUpdate();
 }
 
 void PanelView::removeItem(PanelBase * _item)
@@ -112,5 +124,5 @@ void PanelView::removeAllItems()
 		delete cell;
 	}
 	mItems.clear();
-	updateView();
+	setNeedUpdate();
 }

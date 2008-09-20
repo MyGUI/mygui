@@ -35,7 +35,7 @@ public:
 	inline void setItemShow(PanelBase * _item, bool _show)
 	{
 		_show ? _item->getPanelCell()->mainWidget()->show() : _item->getPanelCell()->mainWidget()->hide();
-		updateView();
+		setNeedUpdate();
 	}
 
 	//! Remove item at a specified position
@@ -46,13 +46,17 @@ public:
 	void removeAllItems();
 
 	void updateView();
+	void setNeedUpdate();
 
 private:
 	void notifyUpdatePanel(PanelCell * _panel);
+	void frameEntered(float _time){updateView();};
 
 private:
 	MyGUI::ScrollViewPtr mScrollView;
 	VectorPanel mItems;
+
+	bool mNeedUpdate;
 	//std::string mPanelCellLayout;
 };
 

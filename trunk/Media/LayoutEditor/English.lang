@@ -9,7 +9,9 @@ Test   #0000FFTest
 Quit   Quit  
 
 Properties Properties
+Main_properties Main properties
 Widget_type_propertes #{widget_type} specific properties
+Properties_not_available #{widget_type} properties not available
 Other_properties Other properties
 
 Add Add

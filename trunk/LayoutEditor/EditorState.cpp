@@ -56,7 +56,7 @@ void EditorState::enter(bool bIsChangeState)
 	if (! BasisManager::getInstance().getLanguage().empty() )
 		MyGUI::LanguageManager::getInstance().setCurrentLanguage(BasisManager::getInstance().getLanguage());
 	// if you want to test LanguageManager uncomment next line
-	//langManager->setCurrentLanguage("Russian");
+	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
 
 	mToolTip.initialise();
 	MyGUI::DelegateManager::getInstance().addDelegate("eventInfo", MyGUI::newDelegate(eventInfo));

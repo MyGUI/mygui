@@ -149,13 +149,12 @@ void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
 	}
 	else // if !apply (if load)
 	{
-		MyGUI::ListPtr list = MyGUI::WidgetManager::getInstance().findWidget<MyGUI::List>("LayoutEditor_listItems");
-		list->deleteAllItems();
+		mList->deleteAllItems();
 		if (action == "Tab_AddSheet")
 		{
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 			for (size_t i = 0; i<tab->getSheetCount(); ++i) {
-				list->addItem(tab->getSheetNameIndex(i));
+				mList->addItem(tab->getSheetNameIndex(i));
 			}
 		}
 		else
@@ -163,7 +162,7 @@ void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
 			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 			{
 				if (iterProperty->first == action){
-					list->addItem(iterProperty->second);
+					mList->addItem(iterProperty->second);
 				}
 			}
 		}

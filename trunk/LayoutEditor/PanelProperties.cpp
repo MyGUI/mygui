@@ -52,6 +52,10 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 				mPanelCell->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(localise("Properties_not_available")));
 				y += PropertyItemHeight;
 			}
+			else
+			{
+				hide();
+			}
 		}
 		else
 		{
