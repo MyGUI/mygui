@@ -24,6 +24,11 @@ public:
 
 	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = null);
 	void update(MyGUI::WidgetPtr _current_widget);
+	
+	typedef MyGUI::delegates::CDelegate5<MyGUI::WidgetPtr, Ogre::String, Ogre::String, std::string, int> EventInfo_EventCreatePair;
+	EventInfo_EventCreatePair eventCreatePair;
+	typedef MyGUI::delegates::CDelegate1<const std::string &> EventInfo_EventSetPositionText;
+	EventInfo_EventSetPositionText eventSetPositionText;
 private:
 	MyGUI::ButtonPtr mButtonRelativePosition;
 	

@@ -3,9 +3,7 @@
 #include "BasisState.h"
 #include "MyGUI.h"
 #include "EditorToolTip.h"
-#include "PanelView/PanelViewWindow.h"
-#include "PanelMainProperties.h"
-#include "PanelProperties.h"
+#include "PropertiesPanelView.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -65,41 +63,15 @@ private:
 	void notifyOkSettings(MyGUI::WidgetPtr _sender);
 	void notifyToggleCheck(MyGUI::WidgetPtr _sender);
 
-	// widget selecting, properties panel
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
-	void updatePropertiesPanel(MyGUI::WidgetPtr _widget);
-public:
-	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int y);
+	void notifyRecreate(bool _fake){recreate = true;};
 private:
-	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
-	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget); // calls previous method
-
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
 	void notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index);
 
-	// widget editing
-	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
-	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
-	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
-	void addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption = "");
-
-	// panels mnimizing
-	void notifyMinimizePanel(MyGUI::WidgetPtr _sender);
-	void notifyEndResize(MyGUI::WidgetPtr _sender);
-	// items panel
-	void syncItems(bool _apply, bool _add = false, Ogre::String _value = "");
-	void notifyAddItem(MyGUI::WidgetPtr _sender = 0);
-	void notifyDeleteItem(MyGUI::WidgetPtr _sender);
-	void notifySelectSheet(MyGUI::WidgetPtr _sender);
-	void notifyUpdateItem(MyGUI::WidgetPtr _widget);
-	void notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position);
-	// UserData panel
-	void notifyAddUserData(MyGUI::WidgetPtr _sender = 0);
-	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
-	void notifyUpdateUserData(MyGUI::WidgetPtr _widget);
-	void notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _index);
+	inline int toGrid(int _x){ return _x / grid_step * grid_step; }
 
 	// tooltips
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
@@ -110,55 +82,35 @@ private:
 	// конвертирует из вайд в анси
 	std::string utf16_to_anci(const Ogre::DisplayString & _source);
 
-
-	MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
-	MyGUI::IntCoord convertParentCoordToCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
-
 	// info for new widget
 	int x1, y1, x2, y2;
 	std::string current_widget_type;
 	std::string current_widget_skin;
 	MyGUI::WidgetPtr current_widget;
-	MyGUI::WindowPtr current_widget_rectangle;
 	// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
 	int creating_status;
 	// drop select after skin change
 	bool recreate;
-	// widget was moved by keyboard arrows
-	bool arrow_move;
 
 	// current settings
-	int grid_step;
+	//int grid_step;//FIXME_HOOK
 
 	// interface settings
 		// widgets panel
 	int widgetsButtonWidth;
 	int widgetsButtonHeight;
 	int widgetsButtonsInOneLine;
-		// properties panel
-	//int 
 
 	bool want_quit;
 	// last loaded/saved file name
 	Ogre::String fileName;
-
-	// properties wndow
-	MyGUI::VectorWidgetPtr propertiesText;
-	MyGUI::VectorWidgetPtr propertiesElement;
-	MyGUI::VectorWidgetPtr panelMinimizeButtons;
-	MyGUI::VectorWidgetPtr panels;
 
 	bool testMode;
 	MyGUI::VectorWidgetPtr interfaceWidgets;
 	MyGUI::xml::xmlDocument * testLayout;
 
 	EditorToolTip mToolTip;
-
-	PanelViewWindow mPanelViewWindow;
-	PanelMainProperties mPanelMainProperties;
-	PanelProperties mPanelTypeProperties;
-	PanelProperties mPanelGeneralProperties;
-	PanelProperties mPanelEvents;
+	PropertiesPanelView mPropertiesPanelView;
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;
@@ -171,5 +123,3 @@ private:
 	MyGUI::PopupMenuPtr mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
 };
-
-extern EditorState mEditor;//FIXME_HOOK

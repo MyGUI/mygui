@@ -11,6 +11,39 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
+void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
+{
+	bool find = false;
+	for (StringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter) {
+		if (iter->first == _key) {
+			iter->second = _value;
+			find = true;
+		}
+	}
+	if (!find) {
+		_map.push_back(std::make_pair(_key, _value));
+	}
+}
+
+StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
+{
+	StringPairs::iterator iter = _map.begin();
+	for (; iter!=_map.end(); ++iter) {
+		if (iter->first == _key) break;
+	}
+	return iter;
+}
+
+void MapErase(StringPairs & _map, const std::string &_key)
+{
+	for (StringPairs::iterator iter = _map.begin(); iter!=_map.end(); ++iter) {
+		if (iter->first == _key) {
+			_map.erase(iter);
+			return;
+		}
+	}
+}
+
 void EditorWidgets::initialise()
 {
 	global_counter = 0;

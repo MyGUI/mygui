@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include;.\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -122,7 +122,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include;.\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -294,37 +294,53 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Media\LayoutEditor\Panels\PanelCell.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\Panels\PanelItems.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\Panels\PanelMainProperties.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\Panels\PanelProperties.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\Panels\PanelUserData.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\Panels\PanelView.layout"
-				>
-			</File>
-			<File
 				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
 				>
 			</File>
+			<Filter
+				Name="Panels"
+				>
+				<File
+					RelativePath="..\Media\LayoutEditor\Panels\PanelItems.layout"
+					>
+				</File>
+				<File
+					RelativePath="..\Media\LayoutEditor\Panels\PanelMainProperties.layout"
+					>
+				</File>
+				<File
+					RelativePath="..\Media\LayoutEditor\Panels\PanelProperties.layout"
+					>
+				</File>
+				<File
+					RelativePath="..\Media\LayoutEditor\Panels\PanelUserData.layout"
+					>
+				</File>
+				<Filter
+					Name="Base"
+					>
+					<File
+						RelativePath="..\Media\LayoutEditor\Panels\PanelCell.layout"
+						>
+					</File>
+					<File
+						RelativePath="..\Media\LayoutEditor\Panels\PropertiesPanelView.layout"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Panels"
 			>
+			<File
+				RelativePath=".\PanelItems.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelItems.h"
+				>
+			</File>
 			<File
 				RelativePath=".\PanelMainProperties.cpp"
 				>
@@ -339,6 +355,22 @@
 			</File>
 			<File
 				RelativePath=".\PanelProperties.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelUserData.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PanelUserData.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertiesPanelView.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertiesPanelView.h"
 				>
 			</File>
 			<Filter
