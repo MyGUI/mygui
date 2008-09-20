@@ -4,6 +4,7 @@
 #include "MyGUI.h"
 #include "EditorToolTip.h"
 #include "PropertiesPanelView.h"
+#include "SettingsWindow.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -52,20 +53,14 @@ private:
 	// widget panel
 	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
-	void notifyWidgetsUpdate();
+	void notifyWidgetsUpdate(bool _fake = true);//FIXME нужен делегат без параметров
 	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
-	void notifyAllWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
 
-	// settings panel
-	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
-	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender); // calls previous method
-	void notifyOkSettings(MyGUI::WidgetPtr _sender);
-	void notifyToggleCheck(MyGUI::WidgetPtr _sender);
-
+	//
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
-	void notifyRecreate(bool _fake){recreate = true;};
+	void notifyRecreate(bool _fake){recreate = true;};//FIXME нужен делегат без параметров
 private:
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
@@ -110,7 +105,9 @@ private:
 	MyGUI::xml::xmlDocument * testLayout;
 
 	EditorToolTip mToolTip;
+
 	PropertiesPanelView mPropertiesPanelView;
+	SettingsWindow mSettingsWindow;
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;

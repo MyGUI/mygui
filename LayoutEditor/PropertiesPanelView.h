@@ -38,8 +38,8 @@ public:
 	void setPositionText(const std::string & _caption){propertiesElement[1]->setCaption(_caption);}
 	void toggleRelativeMode(){mPanelMainProperties.notifyToggleRelativeMode();}
 
-	typedef MyGUI::delegates::CDelegate1<bool> EventInfo_Recreate;
-	EventInfo_Recreate eventRecreate;
+	typedef MyGUI::delegates::CDelegate1<bool> EventInfo;
+	EventInfo eventRecreate;
 private:
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
 	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget); // calls previous method
