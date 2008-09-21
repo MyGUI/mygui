@@ -104,7 +104,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mInput->createInput(mWindow, mFullscreen, this, this);
 
 	mGUI = new MyGUI::Gui();
-	mGUI->initialise(BasisManager::getInstance().mWindow);
+	mGUI->initialise(mWindow);
 	mGUI->load("editor.xml");
 
 	// подписываемся на события фреймов
