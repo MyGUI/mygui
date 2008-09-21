@@ -96,7 +96,6 @@ private:
 	int widgetsButtonHeight;
 	int widgetsButtonsInOneLine;
 
-	bool want_quit;
 	// last loaded/saved file name
 	Ogre::String fileName;
 

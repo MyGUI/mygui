@@ -581,7 +581,7 @@ void EditorState::saveSettings()
 	nodeProp->addAttributes("key", "EdgeHide");
 	nodeProp->addAttributes("value", mSettingsWindow.getEdgeHide());
 
-	// actually properties below can't be changed in Editor - only by editing settings.xml manually
+	// properties below can't be changed in Editor - only by editing settings.xml manually
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "widgetsButtonWidth");
 	nodeProp->addAttributes("value", widgetsButtonWidth);
@@ -697,7 +697,6 @@ void EditorState::clear()
 	current_widget_skin = "";
 	creating_status = 0;
 	recreate = false;
-	want_quit = false;
 	fileName = "";
 	testMode = false;
 	ew->clear();
@@ -710,7 +709,6 @@ void EditorState::clear()
 void EditorState::notifyQuit()
 {
 	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_exit"), "", "Overlapped", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
-	want_quit = true;
 }
 
 void EditorState::notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
@@ -718,7 +716,6 @@ void EditorState::notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::Vi
 	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) {
 		BasisManager::getInstance().eventExit();
 	}
-	want_quit = false;
 }
 
 void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)

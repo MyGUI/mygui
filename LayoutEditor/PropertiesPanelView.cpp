@@ -279,13 +279,6 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
 			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyApplyPropertiesCombo);
 
-			std::vector<std::string> values;
-			if (_type == "Skin") values = WidgetTypes::getInstance().find(current_widget->getTypeName())->skin;
-			else values = WidgetTypes::getInstance().findPossibleValues(_type);
-
-			for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
-				editOrCombo->castType<MyGUI::ComboBox>()->addItem(*iter);
-
 			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
 		}
 
@@ -304,6 +297,18 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		editOrCombo = propertiesElement[pairs_counter-1];
 		editOrCombo->show();
 		editOrCombo->setPosition(x2, y, w2, h);
+	}
+
+	// fill possoble values
+	if (widget_for_type == 1)
+	{
+		editOrCombo->castType<MyGUI::ComboBox>()->deleteAllItems();
+		std::vector<std::string> values;
+		if (_type == "Skin") values = WidgetTypes::getInstance().find(current_widget->getTypeName())->skin;
+		else values = WidgetTypes::getInstance().findPossibleValues(_type);
+
+		for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
+			editOrCombo->castType<MyGUI::ComboBox>()->addItem(*iter);
 	}
 
 	editOrCombo->setUserString("action", _property);
