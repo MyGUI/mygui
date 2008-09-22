@@ -456,10 +456,12 @@ namespace MyGUI
 
 	void RenderBox::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		if (mMouseRotation/* || mAutoRotation*/) {
-			const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-			mLastPointerX = point.left;
-			mLeftPressed = true;
+		if (_id == MB_Left) {
+			if (mMouseRotation/* || mAutoRotation*/) {
+				const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+				mLastPointerX = point.left;
+				mLeftPressed = true;
+			}
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
