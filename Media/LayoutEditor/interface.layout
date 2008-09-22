@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" layer="Background">
         <Property key="Image_Texture" value="wallpaperEditor.jpg"/>
-        <Property key="Widget_Show" value="false"/>
+        <Property key="Widget_Show" value="true"/>
     </Widget>
     <Widget type="Window" skin="WindowC" position="0 272 200 320" align="Left Top" layer="Overlapped" name="windowWidgets">
         <Property key="Widget_Caption" value="#{Widgets}"/>
