@@ -4,6 +4,8 @@
 
   <Widget name="Button">
     <Property key="DefaultSkin" value="Button"/>
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="Skin" value="Button"/>
     <Property key="Skin" value="ButtonSmall"/>
     <Parameter key="Button_Pressed" value="Bool"/>
@@ -21,6 +23,8 @@
 
   <Widget name="Edit">
     <Property key="DefaultSkin" value="Edit"/>
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="Skin" value="Edit"/>
     <Property key="Skin" value="EditStretch"/>
     <Parameter key="Edit_CursorPosition" value="2 int"/>
@@ -83,6 +87,8 @@
 
   <Widget name="Progress">
     <Property key="DefaultSkin" value="Progress"/>
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="Skin" value="Progress"/>
     <Property key="Skin" value="ComplexProgress" group="Bonus skin"/>
     <Parameter key="Progress_Range" value="1 int"/>
@@ -93,6 +99,8 @@
 
   <Widget name="RenderBox">
     <Property key="DefaultSkin" value="RenderBox"/>
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="Skin" value="RenderBox"/>
     <Parameter key="RenderBox_Mesh" value="String"/>
     <Parameter key="RenderBox_AutoRotation" value="Bool"/>
@@ -108,6 +116,7 @@
     <Property key="DefaultSkin" value="ScrollView"/>
     <Property key="Skin" value="ScrollView"/>
     <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
   </Widget>
 
   <Widget name="Sheet">
@@ -121,6 +130,8 @@
   </Widget>
 
   <Widget name="StaticImage">
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="DefaultSkin" value="StaticImage"/>
     <Property key="Skin" value="StaticImage"/>
     <Parameter key="Image_Texture" value="String"/>
@@ -132,6 +143,8 @@
   </Widget>
 
   <Widget name="StaticText">
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="DefaultSkin" value="StaticText"/>
     <Property key="Skin" value="StaticText"/>
   </Widget>
@@ -148,6 +161,8 @@
   </Widget>
 
   <Widget name="VScroll">
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="DefaultSkin" value="VScroll"/>
     <Property key="Skin" value="VScroll"/>
     <Property key="Skin" value="VSlider"/>
@@ -160,6 +175,7 @@
   <Widget name="Widget">
     <Property key="DefaultSkin" value="Default"/>
     <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
     <Property key="Skin" value="PanelEmpty"/>
     <Property key="Skin" value="Panel"/>
     <Property key="Skin" value="PanelSmall"/>
