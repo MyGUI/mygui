@@ -3,7 +3,6 @@
 #include "WidgetTypes.h"
 
 const std::string LogSection = "LayoutEditor";
-const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 
 INSTANCE_IMPLEMENT(EditorWidgets);
 
@@ -42,6 +41,17 @@ void MapErase(StringPairs & _map, const std::string &_key)
 			return;
 		}
 	}
+}
+
+MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
+{
+	MyGUI::WidgetPtr parent = widget->getParent();
+	while (null != parent){
+		coord = coord - parent->getPosition();
+		// а может у нас и дедушка есть? а может и прадед...
+		parent = parent->getParent();
+	}
+	return coord;
 }
 
 void EditorWidgets::initialise()

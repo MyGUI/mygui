@@ -5,6 +5,7 @@
 #include "EditorToolTip.h"
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
+#include "WidgetsWindow.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -42,7 +43,7 @@ public:
 	void load(const std::string & _file);
 private:
 	void notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
-	void clear();
+	void clear(bool _clearName = true);
 	void notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
 
 	// save load message
@@ -50,14 +51,11 @@ private:
 	void notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget = 0); // calls previous method
 	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0);
 
-	// widget panel
-	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
-	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
-	void notifyWidgetsUpdate(bool _fake = true);//FIXME нужен делегат без параметров
-	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+	// menu bar
 	void notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
+	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+	void notifyWidgetsUpdate(bool _fake = true);//FIXME нужен делегат без параметров
 
-	//
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
 	void notifyRecreate(bool _fake){recreate = true;};//FIXME нужен делегат без параметров
@@ -77,24 +75,12 @@ private:
 	// конвертирует из вайд в анси
 	std::string utf16_to_anci(const Ogre::DisplayString & _source);
 
-	// info for new widget
-	int x1, y1, x2, y2;
-	std::string current_widget_type;
-	std::string current_widget_skin;
 	MyGUI::WidgetPtr current_widget;
-	// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
-	int creating_status;
 	// drop select after skin change
 	bool recreate;
 
 	// current settings
 	//int grid_step;//FIXME_HOOK
-
-	// interface settings
-		// widgets panel
-	int widgetsButtonWidth;
-	int widgetsButtonHeight;
-	int widgetsButtonsInOneLine;
 
 	// last loaded/saved file name
 	Ogre::String fileName;
@@ -107,6 +93,7 @@ private:
 
 	PropertiesPanelView mPropertiesPanelView;
 	SettingsWindow mSettingsWindow;
+	WidgetsWindow mWidgetsWindow;
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;

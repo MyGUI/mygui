@@ -8,7 +8,6 @@
 #include "SettingsWindow.h"
 #include "BasisManager.h"
 
-
 SettingsWindow::SettingsWindow() :
 	BaseLayout("SettingsWindow.layout")
 {
@@ -29,7 +28,6 @@ void SettingsWindow::initialise()
 
 	mGridEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStepAccept);
 	mGridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
-	mGridEdit->setCaption(MyGUI::utility::toString(grid_step));
 	mButtonOkSettings->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
 
 	Ogre::ConfigOptionMap map = Ogre::Root::getSingletonPtr()->getRenderSystem()->getConfigOptions();
@@ -61,6 +59,57 @@ void SettingsWindow::initialise()
 	mCheckShowType->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 	mCheckShowSkin->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 	mCheckEdgeHide->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+}
+
+void SettingsWindow::load(MyGUI::xml::xmlNodeIterator _field)
+{
+	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
+	while (field.nextNode()) {
+		std::string key, value;
+
+		if (field->getName() == "Property")
+		{
+			if (false == field->findAttribute("key", key)) continue;
+			if (false == field->findAttribute("value", value)) continue;
+
+			if (key == "Grid") grid_step = MyGUI::utility::parseInt(value);
+			else if (key == "ShowName")
+				setShowName(MyGUI::utility::parseBool(value));
+			else if (key == "ShowType")
+				setShowType(MyGUI::utility::parseBool(value));
+			else if (key == "ShowSkin")
+				setShowSkin(MyGUI::utility::parseBool(value));
+			else if (key == "EdgeHide")
+				setEdgeHide(MyGUI::utility::parseBool(value));
+		}
+	}
+
+	if (grid_step <= 0) grid_step = 1;
+	mGridEdit->setCaption(MyGUI::utility::toString(grid_step));
+}
+
+void SettingsWindow::save(MyGUI::xml::xmlNodePtr root)
+{
+	root = root->createChild("SettingsWindow");
+	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "Grid");
+	nodeProp->addAttributes("value", grid_step);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "ShowName");
+	nodeProp->addAttributes("value", getShowName());
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "ShowType");
+	nodeProp->addAttributes("value", getShowType());
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "ShowSkin");
+	nodeProp->addAttributes("value", getShowSkin());
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "EdgeHide");
+	nodeProp->addAttributes("value", getEdgeHide());
 }
 
 void SettingsWindow::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
