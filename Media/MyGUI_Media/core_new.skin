@@ -3,7 +3,7 @@
 <MyGUI type="Skin">
 
     <Skin name = "CheckBox" size = "100 21" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -20,7 +20,7 @@
     </Skin>
     
     <Skin name = "RadioBox" size = "100 21" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -37,7 +37,7 @@
     </Skin>
     
     <Skin name = "ButtonSmall" size = "150 26" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -73,7 +73,7 @@
     </Skin>
     
     <Skin name = "Button" size = "150 26" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -110,7 +110,7 @@
  
 
     <Skin name = "Edit" size = "150 26" texture = "core_new.png" >
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -151,7 +151,7 @@
     </Skin>
     
     <Skin name = "ComboBox" size = "150 26" texture = "core_new.png" >
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -218,7 +218,7 @@
     </Skin>
     
     <Skin name = "TabButton" size = "51 28" texture = "core_new.png" >
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -337,7 +337,7 @@
     
 
     <Skin name = "WindowCaption" size = "68 28" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -357,7 +357,7 @@
     </Skin>
  
     <Skin name = "WindowCaption2" size = "41 28" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -620,7 +620,7 @@
     </Skin>
 
     <Skin name = "MenuBarButton" size = "33 24" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -691,7 +691,7 @@
 
 
     <Skin name = "PanelSmall" size = "8 8" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -803,7 +803,7 @@
 
 
     <Skin name = "MultiListButton" size = "150 26" texture = "core_new.png" >
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -851,7 +851,7 @@
     </Skin>
 
     <Skin name = "ButtonSmall2" size = "29 21" texture = "core_new.png">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -890,7 +890,7 @@
 
 
     <Skin name = "PopupMenuLine" size = "5 5" texture = "core.png" >
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -1181,7 +1181,7 @@
     </Skin>    
 
     <Skin name = "MemoClient" size = "16 16">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
         <BasisSkin type="EditText" offset = "0 0 16 16" align = "ALIGN_STRETCH">

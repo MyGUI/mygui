@@ -3,7 +3,7 @@
 <MyGUI type="Skin">
 
     <Skin name = "Editor_StaticText" size = "16 16">
-        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "Default" />
         <Property key="Colour" value = "0 0 0" />
         
