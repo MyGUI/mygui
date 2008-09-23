@@ -295,6 +295,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else
 	{
 		editOrCombo = propertiesElement[pairs_counter-1];
+		if (widget_for_type == 1) editOrCombo->castType<MyGUI::ComboBox>()->deleteAllItems();
 		editOrCombo->show();
 		editOrCombo->setPosition(x2, y, w2, h);
 	}
@@ -302,7 +303,6 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	// fill possoble values
 	if (widget_for_type == 1)
 	{
-		editOrCombo->castType<MyGUI::ComboBox>()->deleteAllItems();
 		std::vector<std::string> values;
 		if (_type == "Skin") values = WidgetTypes::getInstance().find(current_widget->getTypeName())->skin;
 		else values = WidgetTypes::getInstance().findPossibleValues(_type);
@@ -316,17 +316,6 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 
 	if (_value.empty()) editOrCombo->setCaption(DEFAULT_VALUE);
 	else editOrCombo->castType<MyGUI::Edit>()->setOnlyText(_value);
-}
-
-MyGUI::IntCoord PropertiesPanelView::convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
-{
-	MyGUI::WidgetPtr parent = widget->getParent();
-	while (null != parent){
-		coord = coord - parent->getPosition();
-		// а может у нас и дедушка есть? а может и прадед...
-		parent = parent->getParent();
-	}
-	return coord;
 }
 
 void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)

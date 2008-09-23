@@ -421,6 +421,14 @@
 				RelativePath=".\SettingsWindow.h"
 				>
 			</File>
+			<File
+				RelativePath=".\WidgetsWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WidgetsWindow.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
