@@ -38,6 +38,7 @@ namespace MyGUI
 		void saveFontTexture(const std::string & _font, const std::string & _file);
 
 		virtual Ogre::ResourcePtr getByName(const Ogre::String & _name);
+		virtual bool resourceExists(const Ogre::String & _name);
 
 		/** Check is font exist */
 		inline bool isExist(const std::string& _name) { return resourceExists(_name); }
