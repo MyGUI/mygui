@@ -94,46 +94,14 @@ void EditorState::enter(bool bIsChangeState)
 	// settings window
 	mSettingsWindow.initialise();
 	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	interfaceWidgets.push_back(mSettingsWindow.mainWidget());
 	
 	loadSettings();
 
-	// widgets panel
-	int w = widgetsButtonWidth, h = widgetsButtonHeight;
-
-	MyGUI::TabPtr tabSkinGroups = mGUI->findWidget<MyGUI::Tab>("LayoutEditor_tabSkinGroups");
-	MyGUI::SheetPtr sheet;
-	int maxLines = 0;
-	for (SkinGroups::iterator iter = wt->skin_groups.begin(); iter != wt->skin_groups.end(); ++iter)
-	{
-		sheet = tabSkinGroups->addSheet(iter->first);
-		int i = 0;
-		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
-		{
-			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall", 
-				i%widgetsButtonsInOneLine * w, i/widgetsButtonsInOneLine * h, w, h,
-				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
-			button->setCaption(iterSkin->first);
-			button->setTextAlign(MyGUI::Align::Center);
-			button->setUserString("widget", iterSkin->second);
-			button->setUserString("skin", iterSkin->first);
-			button->setUserString("TooTipText", "Widget: " + iterSkin->second + "\nSkin: " + iterSkin->first);
-			button->eventMouseButtonClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetType);
-			button->eventMouseButtonDoubleClick = MyGUI::newDelegate(this, &EditorState::notifySelectWidgetTypeDoubleclick);
-			button->setNeedToolTip(true);
-			button->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
-			i++;
-		}
-		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
-	}
-
-	int width = tabSkinGroups->getWidth() - sheet->getWidth();
-	int height = tabSkinGroups->getHeight() - sheet->getHeight();
-	tabSkinGroups->setSize(width + widgetsButtonsInOneLine * w, height + maxLines*h);
-
-	MyGUI::WindowPtr windowWidgets = mGUI->findWidget<MyGUI::Window>("LayoutEditor_windowWidgets");
-	width = windowWidgets->getWidth() - windowWidgets->getClientCoord().width;
-	height = windowWidgets->getHeight() - windowWidgets->getClientCoord().height;
-	windowWidgets->setSize(width + tabSkinGroups->getWidth(), height + tabSkinGroups->getHeight() + 2*h);
+	mWidgetsWindow.initialise();
+	mWidgetsWindow.eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
+	mWidgetsWindow.eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
+	interfaceWidgets.push_back(mWidgetsWindow.mainWidget());
 
 	if (mSettingsWindow.getEdgeHide())
 	{
@@ -201,6 +169,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 	if (testMode){ mGUI->injectMouseMove(arg); return true;}
 
 	// align to grid if shift not pressed
+	int x2, y2;
 	if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
 	{
 		x2 = toGrid(arg.state.X.abs);
@@ -212,32 +181,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		y2 = arg.state.Y.abs;
 	}
 
-	if ((creating_status == 1) && ((x1-x2)*(y1-y2) != 0))
-	{
-		MyGUI::IntCoord coord(std::min(x1, x2), std::min(y1, y2), abs(x1 - x2), abs(y1 - y2));
-
-		creating_status = 2;
-
-		// внимание current_widget родитель и потом сразу же сын
-		std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", current_widget_type, ew->global_counter);
-		ew->global_counter++;
-		// пока не найдем ближайшего над нами способного быть родителем
-		while (current_widget && false == wt->find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
-		if (current_widget && wt->find(current_widget_type)->child)
-		{
-			coord = coord - current_widget->getPosition();
-			current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::Align::Default, tmpname);
-		}
-		else current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, coord, MyGUI::Align::Default, "Back", tmpname);
-
-		current_widget->setCaption(MyGUI::utility::toString("#888888",current_widget_skin));
-	}
-	else if (creating_status == 2)
-	{
-		MyGUI::IntCoord coord(std::min(x1, x2), std::min(y1, y2), abs(x1 - x2), abs(y1 - y2));
-		coord = mPropertiesPanelView.convertCoordToParentCoord(coord, current_widget);
-		current_widget->setPosition(coord);
-	}
+	mWidgetsWindow.createNewWidget(x2, y2);
 
 	mGUI->injectMouseMove(arg);
 	return true;
@@ -255,6 +199,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	}
 
 	// align to grid if shift not pressed
+	int x1, y1;
 	if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
 	{
 		x1 = toGrid(arg.state.X.abs);
@@ -266,7 +211,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		y1 = arg.state.Y.abs;
 	}
 
-	if (id == OIS::MB_Left && !creating_status && current_widget_type != "") creating_status = 1;
+	mWidgetsWindow.startNewWidget(x1, y1, id);
 
 	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
 	//MyGUI::LayerItemInfoPtr rootItem = null;
@@ -292,7 +237,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		{
 			MyGUI::IntSize size = item->getTextSize();
 			notifySelectWidget(item);
-			if (creating_status != 1){
+			if (mWidgetsWindow.getCreatingStatus() != 1){
 				mGUI->injectMouseMove(arg);// это чтобы сразу можно было тащить
 			}
 		}
@@ -304,9 +249,9 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	}
 
 	// вернем прямоугольник
-	if (current_widget && !creating_status)
+	if (current_widget && mWidgetsWindow.getCreatingStatus() == 0)
 		mPropertiesPanelView.getWidgetRectangle()->show();
-	else if (creating_status)
+	else if (mWidgetsWindow.getCreatingStatus())
 		mPropertiesPanelView.getWidgetRectangle()->hide();
 
 	return true;
@@ -322,6 +267,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 	else
 	{
 		// align to grid if shift not pressed
+		int x2, y2;
 		if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
 		{
 			x2 = toGrid(arg.state.X.abs);
@@ -333,32 +279,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 			y2 = arg.state.Y.abs;
 		}
 
-		if (creating_status > 0)
-		{
-			if ((x1-x2)*(y1-y2) != 0)
-			{
-				// создали виджет, все счастливы
-				WidgetContainer * widgetContainer = new WidgetContainer(current_widget_type, current_widget_skin, current_widget);
-				ew->add(widgetContainer);
-				current_widget = null;
-				notifySelectWidget(widgetContainer->widget);
-				mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
-				current_widget_type = "";
-				current_widget_skin = "";
-				creating_status = 0;
-				um->addValue();
-			}
-			else
-			{
-				// не удалось создать, т.к. размер нулевой
-				if ((creating_status > 1) && current_widget) MyGUI::WidgetManager::getInstance().destroyWidget(current_widget);
-				mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
-				current_widget_type = "";
-				current_widget_skin = "";
-				if (creating_status == 2) ew->global_counter--;
-				creating_status = 0;
-			}
-		}
+		mWidgetsWindow.finishNewWidget(x2, y2);
 	}
 
 	um->dropLastProperty();
@@ -397,7 +318,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				}
 				bar->show();
 				testMode = false;
-				clear();
+				clear(false);
 				ew->loadxmlDocument(testLayout);
 			}
 		}
@@ -517,33 +438,11 @@ void EditorState::loadSettings()
 			// берем детей и крутимся
 			MyGUI::xml::xmlNodeIterator field = root->getNodeIterator();
 			while (field.nextNode()) {
-
-				std::string key, value;
-
-				if (field->getName() == "Property")
-				{
-					if (false == field->findAttribute("key", key)) continue;
-					if (false == field->findAttribute("value", value)) continue;
-
-					if (key == "Grid") grid_step = MyGUI::utility::parseInt(value);
-					else if (key == "ShowName")
-						mSettingsWindow.setShowName(MyGUI::utility::parseBool(value));
-					else if (key == "ShowType")
-						mSettingsWindow.setShowType(MyGUI::utility::parseBool(value));
-					else if (key == "ShowSkin")
-						mSettingsWindow.setShowSkin(MyGUI::utility::parseBool(value));
-					else if (key == "EdgeHide")
-						mSettingsWindow.setEdgeHide(MyGUI::utility::parseBool(value));
-					else if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
-					else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
-					else if (key == "widgetsButtonsInOneLine") widgetsButtonsInOneLine = MyGUI::utility::parseInt(value);
-				}
+				if (field->getName() == "SettingsWindow") mSettingsWindow.load(field);
+				else if (field->getName() == "WidgetsWindow") mWidgetsWindow.load(field);
 			}
 		}
 	}
-
-	if (grid_step <= 0) grid_step = 1;
-
 }
 
 void EditorState::saveSettings()
@@ -561,38 +460,8 @@ void EditorState::saveSettings()
 	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
 	root->addAttributes("type", "Settings");
 
-	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "Grid");
-	nodeProp->addAttributes("value", grid_step);
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "ShowName");
-	nodeProp->addAttributes("value", mSettingsWindow.getShowName());
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "ShowType");
-	nodeProp->addAttributes("value", mSettingsWindow.getShowType());
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "ShowSkin");
-	nodeProp->addAttributes("value", mSettingsWindow.getShowSkin());
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "EdgeHide");
-	nodeProp->addAttributes("value", mSettingsWindow.getEdgeHide());
-
-	// properties below can't be changed in Editor - only by editing settings.xml manually
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "widgetsButtonWidth");
-	nodeProp->addAttributes("value", widgetsButtonWidth);
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "widgetsButtonHeight");
-	nodeProp->addAttributes("value", widgetsButtonHeight);
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "widgetsButtonsInOneLine");
-	nodeProp->addAttributes("value", widgetsButtonsInOneLine);
+	mSettingsWindow.save(root);
+	mWidgetsWindow.save(root);
 
 	if (false == doc.save(file)) {
 		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
@@ -616,7 +485,7 @@ void EditorState::notifyLoadSaveAs(bool _save)
 {
 	// create message box with file name and two buttons
 	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("SaveLoadMessage.layout")[0];
-	MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
+	MyGUI::IntSize view(mGUI->getViewSize());
 	MyGUI::IntSize size(messageWindow->getSize());
 	messageWindow->setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 	MyGUI::InputManager::getInstance().addWidgetModal(messageWindow);
@@ -691,19 +560,17 @@ void EditorState::notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::V
 	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) clear();
 }
 
-void EditorState::clear()
+void EditorState::clear(bool _clearName)
 {
-	current_widget_type = "";
-	current_widget_skin = "";
-	creating_status = 0;
+	mWidgetsWindow.clearNewWidget();
 	recreate = false;
-	fileName = "";
+	if (_clearName) fileName = "";
 	testMode = false;
 	ew->clear();
 	notifySelectWidget(null);
 	um->addValue();
 
-	BasisManager::getInstance().setWindowCaption("MyGUI Layout Editor");
+	if (_clearName) BasisManager::getInstance().setWindowCaption("MyGUI Layout Editor");
 }
 
 void EditorState::notifyQuit()
@@ -765,44 +632,6 @@ void EditorState::load(const std::string & _file)
 	BasisManager::getInstance().setWindowCaption(_file + " - MyGUI Layout Editor");
 
 	fileName = _file;
-	um->addValue();
-}
-
-void EditorState::notifySelectWidgetType(MyGUI::WidgetPtr _sender)
-{
-	current_widget_type = _sender->getUserString("widget");
-	current_widget_skin = _sender->getUserString("skin");
-	_sender->castType<MyGUI::Button>()->setButtonPressed(true);
-}
-
-void EditorState::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
-{
-	current_widget_type = _sender->getUserString("widget");
-	current_widget_skin = _sender->getUserString("skin");
-
-	std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", current_widget_type, ew->global_counter);
-	ew->global_counter++;
-
-	while (current_widget && false == wt->find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
-	if (current_widget && wt->find(current_widget_type)->child)
-		current_widget = current_widget->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, tmpname);
-	else
-	{
-		MyGUI::IntSize view((int)mGUI->getViewWidth(), (int)mGUI->getViewHeight());
-		current_widget = mGUI->createWidgetT(current_widget_type, current_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, "Back", tmpname);
-		MyGUI::IntSize size(current_widget->getSize());
-		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
-	}
-	current_widget->setCaption(MyGUI::utility::toString("#888888",current_widget_skin));
-
-	WidgetContainer * widgetContainer = new WidgetContainer(current_widget_type, current_widget_skin, current_widget);
-	ew->add(widgetContainer);
-	current_widget = null;
-	notifySelectWidget(widgetContainer->widget);
-	mGUI->findWidget<MyGUI::Button>(MyGUI::utility::toString(current_widget_type, current_widget_skin))->setButtonPressed(false);
-	current_widget_type = "";
-	current_widget_skin = "";
-
 	um->addValue();
 }
 

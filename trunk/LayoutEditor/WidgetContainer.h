@@ -12,6 +12,10 @@ void MapSet(StringPairs & _map, const std::string &_key, const std::string &_val
 StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key);
 void MapErase(StringPairs & _map, const std::string &_key);
 
+const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
+
+MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
+
 struct WidgetContainer
 {
 	WidgetContainer():

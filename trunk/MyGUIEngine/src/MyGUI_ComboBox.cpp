@@ -323,7 +323,7 @@ namespace MyGUI
 	void ComboBox::deleteAllItems()
 	{
 		mItemIndex = ITEM_NONE;
-		mList->deleteAllItems();
+		mList->deleteAllItems();//FIXME заново созданные строки криво стоят
 	}
 
 	void ComboBox::setComboModeDrop(bool _drop)

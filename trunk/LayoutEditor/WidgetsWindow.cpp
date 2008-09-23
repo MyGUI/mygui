@@ -1,0 +1,205 @@
+/*!
+	@file
+	@author		Georgiy Evmenov
+	@date		09/2008
+	@module
+*/
+
+#include "WidgetsWindow.h"
+#include "WidgetContainer.h"
+#include "WidgetTypes.h"
+#include "UndoManager.h"
+
+WidgetsWindow::WidgetsWindow() :
+	BaseLayout("WidgetsWindow.layout")
+{
+}
+
+void WidgetsWindow::initialise()
+{
+	loadLayout();
+
+	assignWidget(mTabSkins, "tabSkins");
+
+	int w = widgetsButtonWidth, h = widgetsButtonHeight;
+
+	MyGUI::SheetPtr sheet;
+	int maxLines = 0;
+	for (SkinGroups::iterator iter = WidgetTypes::getInstance().skin_groups.begin(); iter != WidgetTypes::getInstance().skin_groups.end(); ++iter)
+	{
+		sheet = mTabSkins->addSheet(iter->first);
+		int i = 0;
+		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
+		{
+			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall", 
+				i%widgetsButtonsInOneLine * w, i/widgetsButtonsInOneLine * h, w, h,
+				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
+			button->setCaption(iterSkin->first);
+			button->setTextAlign(MyGUI::Align::Center);
+			button->setUserString("widget", iterSkin->second);
+			button->setUserString("skin", iterSkin->first);
+			button->setUserString("TooTipText", "Widget: " + iterSkin->second + "\nSkin: " + iterSkin->first);
+			button->eventMouseButtonClick = MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetType);
+			button->eventMouseButtonDoubleClick = MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetTypeDoubleclick);
+			button->setNeedToolTip(true);
+			button->eventToolTip = MyGUI::newDelegate(this, &WidgetsWindow::notifyToolTip);
+			i++;
+		}
+		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
+	}
+
+	int width = mTabSkins->getWidth() - sheet->getWidth();
+	int height = mTabSkins->getHeight() - sheet->getHeight();
+	mTabSkins->setSize(width + widgetsButtonsInOneLine * w, height + maxLines*h);
+
+	width = mainWidget()->getWidth() - mainWidget()->getClientCoord().width;
+	height = mainWidget()->getHeight() - mainWidget()->getClientCoord().height;
+	mainWidget()->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight() + 2*h);
+}
+
+void WidgetsWindow::load(MyGUI::xml::xmlNodeIterator _field)
+{
+	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
+	while (field.nextNode()) {
+		std::string key, value;
+
+		if (field->getName() == "Property")
+		{
+			if (false == field->findAttribute("key", key)) continue;
+			if (false == field->findAttribute("value", value)) continue;
+
+			if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
+			else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
+			else if (key == "widgetsButtonsInOneLine") widgetsButtonsInOneLine = MyGUI::utility::parseInt(value);
+		}
+	}
+}
+
+void WidgetsWindow::save(MyGUI::xml::xmlNodePtr root)
+{
+	root = root->createChild("WidgetsWindow");
+	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "widgetsButtonWidth");
+	nodeProp->addAttributes("value", widgetsButtonWidth);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "widgetsButtonHeight");
+	nodeProp->addAttributes("value", widgetsButtonHeight);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "widgetsButtonsInOneLine");
+	nodeProp->addAttributes("value", widgetsButtonsInOneLine);
+}
+
+void WidgetsWindow::clearNewWidget()
+{
+	new_widget_type = "";
+	new_widget_skin = "";
+	creating_status = 0;
+}
+
+void WidgetsWindow::startNewWidget(int _x1, int _y1, int _id)
+{
+	x1 = _x1;
+	y1 = _y1;
+	if (_id == 0 && !creating_status && new_widget_type != "") creating_status = 1;
+}
+
+void WidgetsWindow::createNewWidget(int _x2, int _y2)
+{
+	x2 = _x2;
+	y2 = _y2;
+	MyGUI::IntCoord coord(std::min(x1, x2), std::min(y1, y2), abs(x1 - x2), abs(y1 - y2));
+	if ((creating_status == 1) && ((x1-x2)*(y1-y2) != 0))
+	{
+		creating_status = 2;
+
+		// внимание current_widget родитель и потом сразу же сын
+		std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
+		EditorWidgets::getInstance().global_counter++;
+		// пока не найдем ближайшего над нами способного быть родителем
+		while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+		if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+		{
+			coord = coord - current_widget->getPosition();
+			current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, tmpname);
+		}
+		else current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+
+		current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+	}
+	else if (creating_status == 2)
+	{
+		coord = convertCoordToParentCoord(coord, current_widget);
+		current_widget->setPosition(coord);
+	}
+}
+
+void WidgetsWindow::finishNewWidget(int _x2, int _y2)
+{
+	x2 = _x2;
+	y2 = _y2;
+	if (creating_status > 0)
+	{
+		if ((x1-x2)*(y1-y2) != 0)
+		{
+			// создали виджет, все счастливы
+			WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
+			EditorWidgets::getInstance().add(widgetContainer);
+			current_widget = null;
+			eventSelectWidget(widgetContainer->widget);
+			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
+			new_widget_type = "";
+			new_widget_skin = "";
+			UndoManager::getInstance().addValue();
+		}
+		else
+		{
+			// не удалось создать, т.к. размер нулевой
+			if ((creating_status > 1) && current_widget) MyGUI::WidgetManager::getInstance().destroyWidget(current_widget);
+			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
+			new_widget_type = "";
+			new_widget_skin = "";
+			if (creating_status == 2) EditorWidgets::getInstance().global_counter--;
+		}
+		creating_status = 0;
+	}
+}
+
+void WidgetsWindow::notifySelectWidgetType(MyGUI::WidgetPtr _sender)
+{
+	new_widget_type = _sender->getUserString("widget");
+	new_widget_skin = _sender->getUserString("skin");
+	_sender->castType<MyGUI::Button>()->setButtonPressed(true);
+}
+
+void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
+{
+	new_widget_type = _sender->getUserString("widget");
+	new_widget_skin = _sender->getUserString("skin");
+
+	std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
+	EditorWidgets::getInstance().global_counter++;
+
+	while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+	if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, tmpname);
+	else
+	{
+		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
+		current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+		MyGUI::IntSize size(current_widget->getSize());
+		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
+	}
+	current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+
+	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
+	EditorWidgets::getInstance().add(widgetContainer);
+	current_widget = null;
+	eventSelectWidget(widgetContainer->widget);
+	MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
+	new_widget_type = "";
+	new_widget_skin = "";
+
+	UndoManager::getInstance().addValue();
+}

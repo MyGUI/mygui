@@ -4,8 +4,8 @@
 	@date		09/2008
 	@module
 */
-#ifndef __COLOUR_PANEL_H__
-#define __COLOUR_PANEL_H__
+#ifndef __SETTINGS_WINDOW_H__
+#define __SETTINGS_WINDOW_H__
 
 #include <MyGUI.h>
 #include "BaseLayout.h"
@@ -19,6 +19,9 @@ public:
 
 	int getGridStep();
 	void setGridStep();
+
+	void load(MyGUI::xml::xmlNodeIterator field);
+	void save(MyGUI::xml::xmlNodePtr root);
 
 	bool getShowName(){return mCheckShowName->getButtonPressed();};
 	bool getShowType(){return mCheckShowType->getButtonPressed();};
@@ -47,4 +50,4 @@ private:
 	MyGUI::ButtonPtr mCheckEdgeHide;
 };
 
-#endif // __COLOUR_PANEL_H__
+#endif // __SETTINGS_WINDOW_H__

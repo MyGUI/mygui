@@ -41,7 +41,7 @@ void PanelUserData::initialiseCell(PanelCell * _cell)
 	const int MARGIN = 3;
 
 	mMultilist->addColumn(mEditKey->getWidth() - MARGIN, localise("Key"));
-	mMultilist->addColumn(mMultilist->getWidth() - mEditKey->getWidth() - MARGIN, localise("Value"));
+	mMultilist->addColumn(mEditKey->getWidth() - MARGIN, localise("Value"));
 }
 
 void PanelUserData::shutdownCell()
