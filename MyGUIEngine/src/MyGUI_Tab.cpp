@@ -138,12 +138,14 @@ namespace MyGUI
 	{
 		SheetPtr sheet = addSheet(_name, _width);
 		size_t size = mSheetsInfo.size();
-		if ((_index >= mSheetsInfo.size()) || (1 == size) ) return sheet;
+		if ((_index >= size) || (1 == size) ) return sheet;
 
 		// меняем кнопки и корректируем выделенную вкладку
-		TabSheetInfo tmp = mSheetsInfo[size-1];
-		mSheetsInfo[size-1] = mSheetsInfo[_index];
-		mSheetsInfo[_index] = tmp;
+		TabSheetInfo tmp = mSheetsInfo.back();
+		mSheetsInfo.pop_back();
+		mSheetsInfo.insert(mSheetsInfo.begin() + _index, tmp);
+		//mSheetsInfo[size-1] = mSheetsInfo[_index];
+		//mSheetsInfo[_index] = tmp;
 	
 		if (_index <= mSelectSheet) mSelectSheet ++;
 

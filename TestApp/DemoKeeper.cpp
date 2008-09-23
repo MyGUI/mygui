@@ -198,7 +198,7 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
  
     bool DemoKeeper::mouseMoved( const OIS::MouseEvent &arg )
     {
-        base::BaseManager::mouseMoved(arg);
+        return base::BaseManager::mouseMoved(arg);
 
 		Ogre::ColourValue pickedColour = Ogre::ColourValue(1, 0, 1); // тут цвет из столбика справа
         MyGUI::ISubWidget * main = rect->_getSubWidgetMain();
@@ -280,7 +280,7 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
 		button->createWidget<Button>("Button", IntCoord(50, 50, 50, 50), Align::Default);
 		button->createWidget<Button>("Button", IntCoord(70, 70, 50, 50), Align::Default);*/
  
-        widget = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(50, 50, 300, 300), Align::Default, "Main");
+        /*widget = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(50, 50, 300, 300), Align::Default, "Main");
         ISubWidget * main = widget->_getSubWidgetMain();
         RawRect * row = static_cast<RawRect*>(main);
         row->setRectColour(Ogre::ColourValue::White, Ogre::ColourValue(1, 0, 1), Ogre::ColourValue::Black, Ogre::ColourValue::Black);
@@ -288,7 +288,12 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
         rect = Gui::getInstance().createWidget<Widget>("RawRect", IntCoord(350, 50, 300, 300), Align::Default, "Main");
 
 		ProgressPtr progress = Gui::getInstance().createWidget<Progress>("Progress", IntCoord(600, 600, 50, 15), Align::Default, "Main");
-		progress->setProgressAutoTrack(true);
+		progress->setProgressAutoTrack(true);*/
+
+		TabPtr tab = Gui::getInstance().createWidget<Tab>("Tab", IntCoord(200, 200, 500, 500), Align::Default, "Main");
+		tab->insertSheet(-1, "1");
+		tab->insertSheet(-1, "2");
+		tab->insertSheet(-1, "3");
 		//progress->setProgressRange(100);
 		//progress->setProgressPosition(1);
 
