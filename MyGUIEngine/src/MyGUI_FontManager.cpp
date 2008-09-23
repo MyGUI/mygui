@@ -15,6 +15,7 @@
 namespace MyGUI
 {
 	const std::string XML_TYPE("Font");
+	const std::string MYGUI_DEFAULT_FONT_NAME = "Default";
 
 	INSTANCE_IMPLEMENT(FontManager);
 
@@ -123,6 +124,16 @@ namespace MyGUI
 		img.save(_file);
 
 		readbuffer->unlock();
+	}
+
+	Ogre::ResourcePtr FontManager::getByName(const Ogre::String & _name)
+	{
+		Ogre::ResourcePtr font = Ogre::ResourceManager::getByName( _name );
+		if (font.isNull()) {
+			MYGUI_LOG(Error, "Could not find font '" << _name << "', replaced with font '" << MYGUI_DEFAULT_FONT_NAME << "'");
+			return Ogre::ResourceManager::getByName( MYGUI_DEFAULT_FONT_NAME );
+		}
+		return font;
 	}
 
 } // namespace MyGUI
