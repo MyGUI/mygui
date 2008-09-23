@@ -136,4 +136,9 @@ namespace MyGUI
 		return font;
 	}
 
+	bool FontManager::resourceExists(const Ogre::String & _name)
+	{
+		return !Ogre::ResourceManager::getByName(_name).isNull();
+	}
+
 } // namespace MyGUI
