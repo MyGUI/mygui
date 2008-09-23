@@ -44,6 +44,17 @@ void PanelCell::setClientHeight(int _height, bool _smooth)
 	}
 }
 
+bool PanelCell::isMinimized()
+{
+	return mMainWidget->getHeight() == m_minHeight;
+}
+
+void PanelCell::setMinimized(bool _minimized)
+{
+	mButtonMinimize->setButtonPressed(!_minimized);
+	notfyMouseButtonPressed(null, 0, 0, MyGUI::MB_Left);
+}
+
 void PanelCell::notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 {
 	if (_id == MyGUI::MB_Left) {

@@ -24,6 +24,9 @@ public:
 
 	virtual void initialise();
 
+	void load(MyGUI::xml::xmlNodeIterator field);
+	void save(MyGUI::xml::xmlNodePtr root);
+
 	// widget editing
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
@@ -53,6 +56,8 @@ private:
 	PanelProperties mPanelEvents;
 	PanelItems mPanelItems;
 	PanelUserData mPanelUserData;
+
+	std::vector<PanelBase> mPanels;
 
 	MyGUI::WidgetPtr current_widget;
 	MyGUI::WindowPtr current_widget_rectangle;

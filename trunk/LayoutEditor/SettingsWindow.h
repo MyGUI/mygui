@@ -17,11 +17,11 @@ public:
 
 	virtual void initialise();
 
-	int getGridStep();
-	void setGridStep();
-
 	void load(MyGUI::xml::xmlNodeIterator field);
 	void save(MyGUI::xml::xmlNodePtr root);
+
+	int getGridStep();
+	void setGridStep();
 
 	bool getShowName(){return mCheckShowName->getButtonPressed();};
 	bool getShowType(){return mCheckShowType->getButtonPressed();};
