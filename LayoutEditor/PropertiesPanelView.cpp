@@ -42,6 +42,13 @@ void PropertiesPanelView::initialise()
 	addItem(&mPanelItems);
 	addItem(&mPanelUserData);
 
+	mPanels.push_back(mPanelMainProperties);
+	mPanels.push_back(mPanelTypeProperties);
+	mPanels.push_back(mPanelGeneralProperties);
+	mPanels.push_back(mPanelEvents);
+	mPanels.push_back(mPanelItems);
+	mPanels.push_back(mPanelUserData);
+
 	// create widget rectangle
 	current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
 	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
@@ -49,6 +56,42 @@ void PropertiesPanelView::initialise()
 	current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
 
 	arrow_move = false;
+}
+
+
+void PropertiesPanelView::load(MyGUI::xml::xmlNodeIterator _field)
+{
+	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
+	std::vector<PanelBase>::iterator iter = mPanels.begin();
+	while (field.nextNode()) {
+		std::string key, value;
+
+		if (field->getName() == "Property")
+		{
+			if (false == field->findAttribute("key", key)) continue;
+			if (false == field->findAttribute("value", value)) continue;
+
+			if ((key == MyGUI::utility::toString("Panel"/*, i*/,"Minimized")) && (iter != mPanels.end()))
+			{
+				(*iter).getPanelCell()->setMinimized(MyGUI::utility::parseBool(value));
+				++iter;
+			}
+		}
+	}
+}
+
+void PropertiesPanelView::save(MyGUI::xml::xmlNodePtr root)
+{
+	root = root->createChild("PropertiesPanelView");
+	MyGUI::xml::xmlNodePtr nodeProp;
+
+	int i = 0;
+	for (std::vector<PanelBase>::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter, ++i)
+	{
+		nodeProp = root->createChild("Property");
+		nodeProp->addAttributes("key", MyGUI::utility::toString("Panel"/*, i*/,"Minimized"));
+		nodeProp->addAttributes("value", (*iter).getPanelCell()->isMinimized());
+	}
 }
 
 void PropertiesPanelView::notifyRectangleResize(MyGUI::WidgetPtr _sender)

@@ -438,7 +438,8 @@ void EditorState::loadSettings()
 			// берем детей и крутимся
 			MyGUI::xml::xmlNodeIterator field = root->getNodeIterator();
 			while (field.nextNode()) {
-				if (field->getName() == "SettingsWindow") mSettingsWindow.load(field);
+				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView.load(field);
+				else if (field->getName() == "SettingsWindow") mSettingsWindow.load(field);
 				else if (field->getName() == "WidgetsWindow") mWidgetsWindow.load(field);
 			}
 		}
@@ -460,6 +461,7 @@ void EditorState::saveSettings()
 	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
 	root->addAttributes("type", "Settings");
 
+	mPropertiesPanelView.save(root);
 	mSettingsWindow.save(root);
 	mWidgetsWindow.save(root);
 
