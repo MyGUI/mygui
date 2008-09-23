@@ -27,6 +27,8 @@ public:
 	inline MyGUI::WidgetPtr getClient() { return mWidgetClient; }
 
 	void setClientHeight(int _height, bool _smooth = true);
+	bool isMinimized();
+	void setMinimized(bool _minimized);
 
 private:
 	void notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
