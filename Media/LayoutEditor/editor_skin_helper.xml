@@ -2,7 +2,7 @@
 
 <MyGUI type="Skin">
 
-    <Skin name = "StaticText" size = "16 16" texture = "helper.png" >
+    <Skin name = "StaticText" size = "16 16" texture = "core_debug.png" >
         <Property key="FontName" value = "Default" />
         <Property key="AlignText" value = "Default" />
         <Property key="Colour" value = "0 0 0" />
@@ -40,13 +40,13 @@
         <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
     </Skin>
     
-    <Skin name = "StaticImage" size = "16 16" texture = "helper.png" >
+    <Skin name = "StaticImage" size = "16 16" texture = "core_debug.png" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "Stretch">
             <State name="normal" offset = "3 3 10 10"/>
         </BasisSkin>
     </Skin>
 
-    <Skin name = "PanelEmpty" size = "16 16" texture = "helper.png" >
+    <Skin name = "PanelEmpty" size = "16 16" texture = "core_debug.png" >
         <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
             <State name="normal" offset = "0 16 1 1"/>
         </BasisSkin>
