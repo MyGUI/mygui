@@ -2,7 +2,7 @@
 
 <MyGUI type="Skin">
 
-    <Skin name = "DebugStatistic" size = "16 16" texture = "helper.png" >
+    <Skin name = "DebugStatistic" size = "16 16" texture = "core_debug.png" >
         <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "0 0 1 1"/>
         </BasisSkin>
@@ -37,7 +37,7 @@
 
     </Skin>
     
-    <Skin name = "DebugMarkerGreen" size = "16 16" texture = "helper.png" >
+    <Skin name = "DebugMarkerGreen" size = "16 16" texture = "core_debug.png" >
         <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "16 0 1 1"/>
         </BasisSkin>
@@ -70,7 +70,7 @@
 
     </Skin>
     
-    <Skin name = "DebugMarkerRed" size = "16 16" texture = "helper.png" >
+    <Skin name = "DebugMarkerRed" size = "16 16" texture = "core_debug.png" >
         <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "ALIGN_LEFT ALIGN_TOP">
             <State name="normal" offset = "32 0 1 1"/>
         </BasisSkin>

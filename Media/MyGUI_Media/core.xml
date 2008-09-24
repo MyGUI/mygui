@@ -3,7 +3,7 @@
 <MyGUI>
 
     <MyGUI type="List">
-	    <List file="core_lang.xml" group="General"/>
+	    <List file="core_keyboard.xml" group="General"/>
 	    <List file="core_language.xml" group="General"/>
 	    <List file="core_layer.xml" group="General"/>
 	    <List file="core_skin.xml" group="General"/>
