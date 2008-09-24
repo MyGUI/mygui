@@ -22,7 +22,7 @@ namespace statistic
 		StatisticInfo() :
 			mInfo(null)
 		{
-			MyGUI::Gui::getInstance().load("debug.skin");
+			MyGUI::Gui::getInstance().load("core_skin_debug.xml");
 
 			const std::string layer = "Statistic";
 			if ( ! MyGUI::LayerManager::getInstance().isExist(layer)) return;
@@ -30,12 +30,12 @@ namespace statistic
 			const std::string skin = "DebugStatistic";
 			if ( ! MyGUI::SkinManager::getInstance().isExist(skin)) return;
 
-			const std::string font = "Tahoma.12";
+			const std::string font = "DejaVuSans.14";
 			if ( ! MyGUI::FontManager::getInstance().isExist(font)) return;
 
 			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
 			mInfo->setFontName(font);
-			mInfo->setFontHeight(12);
+			//mInfo->setFontHeight(12);
 		}
 
 		~StatisticInfo()
