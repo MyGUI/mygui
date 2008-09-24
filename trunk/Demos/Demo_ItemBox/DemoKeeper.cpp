@@ -74,11 +74,8 @@ void DemoKeeper::start()
 	int width = (int)gui->getViewWidth();
 	int height = (int)gui->getViewHeight();
 
-	MyGUI::FontManager::getInstance().load("RF.font");
-	MyGUI::SkinManager::getInstance().load("RF.skin");
-	MyGUI::LayerManager::getInstance().load("RF.layer");
-	MyGUI::PointerManager::getInstance().load("RF.pointer");
-
+	gui->load("RF.xml");
+	
 	MyGUI::StaticImagePtr back = gui->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, width, height), MyGUI::Align::Stretch, "Back");
 	back->setImageTexture("RF.jpg");
 
