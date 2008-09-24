@@ -3,15 +3,15 @@
 <MyGUI>
 
     <MyGUI type="List">
-	    <List file="core.lang" group="General"/>
-	    <List file="core.language" group="General"/>
-	    <List file="core.layer" group="General"/>
-	    <List file="core.skin" group="General"/>
-	    <List file="core.font" group="General"/>
-	    <List file="core.pointer" group="General"/>
+	    <List file="core_lang.xml" group="General"/>
+	    <List file="core_language.xml" group="General"/>
+	    <List file="core_layer.xml" group="General"/>
+	    <List file="core_skin.xml" group="General"/>
+	    <List file="core_font.xml" group="General"/>
+	    <List file="core_pointer.xml" group="General"/>
 
-	    <List file="core_new.skin" group="General"/>
-	    <List file="core_new.pointer" group="General"/>
+	    <List file="core_new_skin.xml" group="General"/>
+	    <List file="core_new_pointer.xml" group="General"/>
 	    <List file="core_resource.xml" group="General"/>
     </MyGUI>
 

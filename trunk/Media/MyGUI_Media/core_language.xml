@@ -4,10 +4,10 @@
 
     <Language default="English">
         <Info name="English">
-            <Source>core_english.lang</Source>
+            <Source>core_english_lang.xml</Source>
         </Info>
         <Info name="Russian">
-            <Source>core_russian.lang</Source>
+            <Source>core_russian_lang.xml</Source>
         </Info>
     </Language>
 
