@@ -93,7 +93,7 @@ void EditorState::enter(bool bIsChangeState)
 
 	// settings window
 	mSettingsWindow.initialise();
-	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
 	interfaceWidgets.push_back(mSettingsWindow.mainWidget());
 	
 	loadSettings();
@@ -685,6 +685,7 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 	current_widget = _sender;
 
 	mPropertiesPanelView.update(_sender);
+	mWidgetsWindow.update(_sender);
 }
 
 std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin)
