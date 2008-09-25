@@ -211,7 +211,8 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		y1 = arg.state.Y.abs;
 	}
 
-	mWidgetsWindow.update(current_widget);
+	// жесткий код
+	//mWidgetsWindow.update(current_widget);
 	mWidgetsWindow.startNewWidget(x1, y1, id);
 
 	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
