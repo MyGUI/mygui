@@ -5,6 +5,8 @@ typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 //typedef std::vector<std::pair<std::string, std::string> > MapString;
 typedef std::map< std::string, StringPairs > SkinGroups;
 
+const std::string DEFAULT_GOROUP_NAME = "Default";
+
 struct WidgetType{
 	WidgetType(const std::string & _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
 	std::string name;

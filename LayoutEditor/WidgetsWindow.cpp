@@ -48,13 +48,15 @@ void WidgetsWindow::initialise()
 		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
 	}
 
+	mTabSkins->selectSheet(DEFAULT_GOROUP_NAME);
+
 	int width = mTabSkins->getWidth() - sheet->getWidth();
 	int height = mTabSkins->getHeight() - sheet->getHeight();
 	mTabSkins->setSize(width + widgetsButtonsInOneLine * w, height + maxLines*h);
 
 	width = mainWidget()->getWidth() - mainWidget()->getClientCoord().width;
 	height = mainWidget()->getHeight() - mainWidget()->getClientCoord().height;
-	mainWidget()->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight() + 2*h);
+	mainWidget()->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight() + 1); // хз почему +1 надо :) без этого окно меньше на несколько пикселей...
 }
 
 void WidgetsWindow::load(MyGUI::xml::xmlNodeIterator _field)
