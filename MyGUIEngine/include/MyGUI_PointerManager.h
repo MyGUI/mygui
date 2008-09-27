@@ -10,9 +10,9 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_PointerInfo.h"
-#include "MyGUI_WidgetDefines.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_IWidgetCreator.h"
+#include "MyGUI_StaticImage.h"
 
 namespace MyGUI
 {
@@ -78,7 +78,7 @@ namespace MyGUI
 		MapPointerInfo mMapPointers;
 
 		WidgetPtr mWidgetOwner;
-		WidgetPtr mMousePointer;
+		StaticImagePtr mMousePointer;
 
 
 	}; // class PointerManager

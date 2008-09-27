@@ -11,13 +11,24 @@
 namespace MyGUI
 {
 
-	std::string ResourceImageSet::mType = "ImageSet";
+	std::string ResourceImageSet::mTypeName = "ResourceImageSet";
+
+	const std::string & ResourceImageSet::getTypeName()
+	{
+		return ResourceImageSet::getClassTypeName();
+	}
+
+	const std::string & ResourceImageSet::getClassTypeName()
+	{
+		return mTypeName;
+	}
 
 	std::string ResourceImageSet::mTextureEmpty;
 	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
-	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node)
+	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node) :
+		Resource( )
 	{
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator group_node = _node->getNodeIterator();
@@ -46,24 +57,14 @@ namespace MyGUI
 		};
 	}
 
-	const std::string & ResourceImageSet::getType()
-	{
-		return ResourceImageSet::getResourceType();
-	}
-
-	const std::string & ResourceImageSet::getResourceType()
-	{
-		return mType;
-	}
-
 	void ResourceImageSet::registryType()
 	{
-		ResourceManager::getInstance().registerType(ResourceImageSet::getResourceType(), newDelegate(ResourceImageSet::createResource));
+		ResourceManager::getInstance().registerType(ResourceImageSet::getClassTypeName(), newDelegate(ResourceImageSet::createResource));
 	}
 
 	void ResourceImageSet::unregistryType()
 	{
-		ResourceManager::getInstance().unregisterType(ResourceImageSet::getResourceType());
+		ResourceManager::getInstance().unregisterType(ResourceImageSet::getClassTypeName());
 	}
 
 	void ResourceImageSet::createResource(ResourcePtr & _resource, xml::xmlNodeIterator _node)
