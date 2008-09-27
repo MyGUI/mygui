@@ -19,6 +19,7 @@ namespace MyGUI
 	class _MyGUIExport Resource
 	{
 	public:
+		virtual ~Resource() { }
 		virtual const std::string & getType() = 0;
 
 		template <typename T>
