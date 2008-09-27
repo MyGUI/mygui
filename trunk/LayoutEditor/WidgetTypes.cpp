@@ -112,7 +112,7 @@ void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & 
 				field->findAttribute("group", group);
 				if (key == "Skin")
 				{
-					if (group.empty()) group = "Default";
+					if (group.empty()) group = DEFAULT_GOROUP_NAME;
 					skin_groups[group].push_back(std::make_pair(value, widget_type->name));
 					widget_type->skin.push_back(value);
 				}
