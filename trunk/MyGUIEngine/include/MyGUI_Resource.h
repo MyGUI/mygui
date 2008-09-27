@@ -19,8 +19,10 @@ namespace MyGUI
 	class _MyGUIExport Resource
 	{
 	public:
+		Resource() { }
 		virtual ~Resource() { }
-		virtual const std::string & getType() = 0;
+
+		virtual const std::string & getTypeName() = 0;
 
 		template <typename T>
 		inline T * castType() { return static_cast<T*>(this); }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Resource">
-	<Resource type="ImageSet" name="pic_MessageIcon" id="{99AAEC52-6A43-47d6-B1DA-0477C12CE500}">
+	<Resource type="ResourceImageSet" name="pic_MessageIcon" id="{99AAEC52-6A43-47d6-B1DA-0477C12CE500}">
 		<Group name="Icons" texture="core_new.png" size="50 50">
 			<Index name="IconInfo" rate="0">
 				<Frame point="0 754"/>

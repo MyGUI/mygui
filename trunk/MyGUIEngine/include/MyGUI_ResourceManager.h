@@ -26,6 +26,7 @@ namespace MyGUI
 
 	typedef std::map<std::string, CreatorDelegate> MapDelegate;
 	typedef std::map<Guid, ResourcePtr> MapResource;
+	typedef std::map<std::string, ResourcePtr> MapResourceName;
 	typedef Enumerator<MapResource> EnumeratorMapResource;
 
 	class _MyGUIExport ResourceManager
@@ -63,6 +64,17 @@ namespace MyGUI
 			return iter->second;
 		}
 
+		ResourcePtr getResource(const std::string & _name, bool _throw = true)
+		{
+			MapResourceName::iterator iter = mResourceNames.find(_name);
+			if (iter == mResourceNames.end()) {
+				if (_throw) MYGUI_EXCEPT("resource '" << _name << "' not found");
+				MYGUI_LOG(Warning, "resource '" << _name << "' not found");
+				return null;
+			}
+			return iter->second;
+		}
+
 		inline void registerType(const std::string & _type, CreatorDelegatePtr _delegate)
 		{
 			MYGUI_ASSERT(mHolders.find(_type) == mHolders.end(), "dublicate resource type '" << _type << "'");
@@ -80,12 +92,14 @@ namespace MyGUI
 
 		inline size_t getResourceCount() { return mResources.size(); }
 		inline bool isExist(const Guid & _id) { return mResources.find(_id) != mResources.end(); }
+		inline bool isExist(const std::string & _name) { return mResourceNames.find(_name) != mResourceNames.end(); }
 		inline EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources.begin(), mResources.end()); }
 
 	private:
 
 		MapDelegate mHolders;
 		MapResource mResources;
+		MapResourceName mResourceNames;
 
 		// карта с делегатами для парсинга хмл блоков
 		MapLoadXmlDelegate mMapLoadXmlDelegate;

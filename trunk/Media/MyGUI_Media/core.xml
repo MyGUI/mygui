@@ -3,7 +3,8 @@
 <MyGUI>
 
     <MyGUI type="List">
-	    <List file="core_keyboard.xml" group="General"/>
+      <List file="core_resource.xml" group="General"/>
+      <List file="core_keyboard.xml" group="General"/>
 	    <List file="core_language.xml" group="General"/>
 	    <List file="core_layer.xml" group="General"/>
 	    <List file="core_font.xml" group="General"/>
@@ -11,8 +12,6 @@
 	    <List file="core_skin_new.xml" group="General"/>
 	    <List file="core_pointer.xml" group="General"/>
 	    <List file="core_pointer_new.xml" group="General"/>
-
-	    <List file="core_resource.xml" group="General"/>
     </MyGUI>
 
 </MyGUI>

@@ -88,24 +88,29 @@ namespace MyGUI
 		xml::xmlNodeIterator root = _node->getNodeIterator();
 		while (root.nextNode(XML_TYPE)) {
 			// парсим атрибуты
-			std::string id, type;
+			std::string id, type, name;
 			root->findAttribute("type", type);
+			root->findAttribute("name", name);
 			root->findAttribute("id", id);
 
-			MapDelegate::iterator iter = mHolders.find(type);// == mHolders.end(), "dublicate resource type '" << _type << "'");
+			MapDelegate::iterator iter = mHolders.find(type);
 			if (iter == mHolders.end()) {
-				MYGUI_LOG(Error, "resource type '" << type << "not found");
+				MYGUI_LOG(Error, "resource type '" << type << "' not found");
 			}
 			else {
 				Guid guid(id);
 				if (guid.empty()) {
-					MYGUI_LOG(Error, "error load resource type '" << type << "' ,  id " << id);
+					MYGUI_LOG(Error, "error load resource type '" << type << "' ,  id " << id << " ,  name '" << name << "'");
 				}
 				else {
 					MYGUI_ASSERT(mResources.find(guid) == mResources.end(), "dublicate resource id " << guid.print());
+					MYGUI_ASSERT(mResourceNames.find(name) == mResourceNames.end(), "dublicate resource name '" << name << "'");
+
 					ResourcePtr resource = null;
 					iter->second(resource, root);
+
 					mResources[guid] = resource;
+					mResourceNames[name] = resource;
 				}
 			}
 
@@ -122,6 +127,7 @@ namespace MyGUI
 			root->findAttribute("name", name);
 			root->findAttribute("type", type);
 			root->findAttribute("group", group);
+			bool recursive= utility::parseBool(root->findAttribute("recursive"));
 			if (name.empty()) {
 				MYGUI_LOG(Error, "error load resource location, tag 'name' is empty");
 				continue;
@@ -131,9 +137,9 @@ namespace MyGUI
 
 			#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 				// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + name), type, group);
+				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + name), type, group, recursive);
 			#else
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, type, group);
+				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, type, group, recursive);
 			#endif
 
 		};

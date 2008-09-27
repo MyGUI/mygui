@@ -78,26 +78,36 @@ namespace MyGUI
 			xml::xmlNodeIterator info = pointer->getNodeIterator();
 			while (info.nextNode("Info")) {
 
-				// значения параметров
-				FloatRect offset(0, 0, 1, 1);
-
-				// парсим атрибуты
-				std::string texture(info->findAttribute("texture"));
 				std::string name(info->findAttribute("name"));
-				std::string size(info->findAttribute("size"));
-				IntPoint point = IntPoint::parse(info->findAttribute("point"));
-
-				std::string offset_str(info->findAttribute("offset"));
-				if (false == offset_str.empty()) {
-					if (texture.empty()) offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
-					else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), SkinManager::getTextureSize(texture));
-				}
-
-				// добавляем курсор
 				if (mMapPointers.find(name) != mMapPointers.end()) {
 					MYGUI_LOG(Warning, "pointer '" << name << "' exist, erase old data");
 				}
-				mMapPointers[name] = PointerInfo(offset, point, IntSize::parse(size), texture);
+
+				std::string resource = info->findAttribute("resource");
+				IntSize size = IntSize::parse(info->findAttribute("size"));
+				IntPoint point = IntPoint::parse(info->findAttribute("point"));
+
+				//новый вариант курсоров
+				if ( ! resource.empty() ) {
+					ResourceImageSetPtr image = static_cast<ResourceImageSetPtr>(ResourceManager::getInstance().getResource(resource));
+					mMapPointers[name] = PointerInfo(point, size, image);
+
+				}
+				//старый  вариант курсоров
+				else {
+					// значения параметров
+					FloatRect offset(0, 0, 1, 1);
+
+					// парсим атрибуты
+					std::string texture(info->findAttribute("texture"));
+					std::string offset_str(info->findAttribute("offset"));
+					if (false == offset_str.empty()) {
+						if (texture.empty()) offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
+						else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), SkinManager::getTextureSize(texture));
+					}
+
+					mMapPointers[name] = PointerInfo(offset, point, size, texture);
+				}
 
 			};
 		};
@@ -105,7 +115,7 @@ namespace MyGUI
 		// если есть левел, то пересоеденяем, если нет виджета, то создаем
 		if (false == layer.empty()) {
 			if (null == mMousePointer) {
-				mMousePointer = _createWidget("Widget", "StaticImage", IntCoord(), Align::Default, "", "");
+				mMousePointer = static_cast<StaticImagePtr>(_createWidget(StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
 			}
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
 		}
@@ -123,10 +133,6 @@ namespace MyGUI
 
 	void PointerManager::clear()
 	{
-		/*if (null != mMousePointer) {
-			WidgetManager::getInstance()._deleteWidget(mMousePointer);
-			mMousePointer = null;
-		}*/
 		mWidgetOwner = null;
 		mDefaultPointer.clear();
 		mTexture.clear();
@@ -156,21 +162,36 @@ namespace MyGUI
 
 		MapPointerInfo::iterator iter = mMapPointers.find(_name);
 		if (iter == mMapPointers.end()) return;
-		const FloatRect & rect = iter->second.offset;
 
-		// если курсор имеет свой материал
-		if (false == iter->second.texture.empty()) {
-			if (mMousePointer->_getTextureName() != iter->second.texture) mMousePointer->_setTextureName(iter->second.texture);
+		// новый вид курсоров через ресурсы
+		if (iter->second.resource != null) {
+			/*if (mMousePointer->getImageSet() != iter->second.resource) {
+				mMousePointer->setImageSet(iter->second.resource, 0, 0);
+			}*/
 		}
-		else if (false == mTexture.empty()) {
-			if (mMousePointer->_getTextureName() != mTexture) mMousePointer->_setTextureName(mTexture);
+
+		// старый вид курсоров
+		else {
+			// если курсор имеет свой материал
+			if (false == iter->second.texture.empty()) {
+				if (mMousePointer->_getTextureName() != iter->second.texture) {
+					mMousePointer->_setTextureName(iter->second.texture);
+					mMousePointer->_setUVSet(iter->second.offset);
+				}
+			}
+			else if (false == mTexture.empty()) {
+				if (mMousePointer->_getTextureName() != mTexture) {
+					mMousePointer->_setTextureName(mTexture);
+					mMousePointer->_setUVSet(iter->second.offset);
+				}
+			}
 		}
 
 		// сдвигаем с учетом нового и старого смещения
-		if (null != mMousePointer) {
-			mMousePointer->setPosition(mMousePointer->getLeft()+mPoint.left-iter->second.point.left, mMousePointer->getTop()+mPoint.top-iter->second.point.top, iter->second.size.width, iter->second.size.height);
-			mMousePointer->_setUVSet(rect);
-		}
+		mMousePointer->setPosition(
+			mMousePointer->getLeft() + mPoint.left - iter->second.point.left,
+			mMousePointer->getTop() + mPoint.top - iter->second.point.top,
+			iter->second.size.width, iter->second.size.height);
 
 		// и сохраняем новое смещение
 		mPoint = iter->second.point;

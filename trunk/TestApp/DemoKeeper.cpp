@@ -357,7 +357,7 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
  
     void DemoKeeper::createFont(int _res, int _height)
     {
-		std::auto_ptr
+		//std::auto_ptr
         /*MyGUI::xml::xmlDocument document;
         document.createInfo();
         MyGUI::xml::xmlNodePtr root = document.createRoot("MyGUI");
