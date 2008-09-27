@@ -34,14 +34,17 @@ namespace MyGUI
 
 	typedef std::vector<GroupImage> VectorGroupImage;
 
+	class ResourceImageSet;
+	typedef ResourceImageSet * ResourceImageSetPtr;
+
 	class _MyGUIExport ResourceImageSet : public Resource
 	{
 		friend class ResourceManager;
 
 	private:
-		ResourceImageSet() { }
+		ResourceImageSet() : Resource() { }
 		ResourceImageSet(xml::xmlNodeIterator _node);
-		~ResourceImageSet() { }
+		virtual ~ResourceImageSet() { }
 
 		static void createResource(ResourcePtr & _resource, xml::xmlNodeIterator _node);
 
@@ -71,14 +74,14 @@ namespace MyGUI
 		}
 
 	public:
-		virtual const std::string & getType();
-		static const std::string & getResourceType();
+		virtual const std::string & getTypeName();
+		static const std::string & getClassTypeName();
 
 		static void registryType();
 		static void unregistryType();
 
 	private:
-		static std::string mType;
+		static std::string mTypeName;
 
 		//-------------------------------------------------------------//
 	public:

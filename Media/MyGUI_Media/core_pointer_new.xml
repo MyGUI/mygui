@@ -2,12 +2,13 @@
 
 <MyGUI type="Pointer">
 
-    <Pointer layer="Pointer" texture="core_pointer.png" default="arrow">
-        <Info name="arrow" point="1 1" size="32 32" offset="13 11 32 32"/>
-        <Info name="beam" point="16 16" size="32 32" offset="45 11 32 32"/>
-        <Info name="size_left" point="16 16" size="32 32" offset="86 11 32 32"/>
-        <Info name="size_right" point="16 16" size="32 32" offset="118 11 32 32"/>
-        <Info name="hand" point="16 16" size="32 32" offset="154 11 32 32"/>
-    </Pointer>
+  <Pointer layer="Pointer" texture="core_pointer.png" default="arrow">
+    <Info name="arrow" point="1 1" size="32 32" offset="13 11 32 32"/>
+    <Info name="beam" point="16 16" size="32 32" offset="45 11 32 32"/>
+    <Info name="size_left" point="16 16" size="32 32" offset="86 11 32 32"/>
+    <Info name="size_right" point="16 16" size="32 32" offset="118 11 32 32"/>
+    <Info name="hand" point="16 16" size="32 32" offset="154 11 32 32"/>
+    <Info name="test_arrow" point="1 1" size="32 32" resource="pic_MessageIcon"/>
+  </Pointer>
 
 </MyGUI>
