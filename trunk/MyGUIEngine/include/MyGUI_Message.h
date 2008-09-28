@@ -165,7 +165,7 @@ namespace MyGUI
 		int mLeftOffset1;
 		int mLeftOffset2;
 
-		ResourceImageSet * mResourceIcons;
+		//ResourceImageSet * mResourceIcons;
 
 	}; // class _MyGUIExport Message : public Window
 

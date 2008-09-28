@@ -16,6 +16,8 @@ namespace MyGUI
 	namespace factory
 	{
 
+		//typedef std::map<std::string, ParseDelegate> MapDelegate;
+
 		class _MyGUIExport StaticImageFactory : public IWidgetFactory
 		{
 		public:
@@ -26,15 +28,19 @@ namespace MyGUI
 			const std::string & getTypeName();
 			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
+		private:
 			// методы для парсинга
 			void Image_Texture(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Image_Coord(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Image_Rect(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Image_Tile(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Image_Index(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
+			void Image_Resource(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Image_Group(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Image_Name(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Image_MapNames(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Image_AddItemInfo(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
+		/*private:
+			MapDelegate mDelegates;*/
 		};
 
 	} // namespace factory

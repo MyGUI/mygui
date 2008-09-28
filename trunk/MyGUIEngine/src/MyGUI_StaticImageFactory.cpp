@@ -23,13 +23,12 @@ namespace MyGUI
 			// регестрируем все парсеры
 			manager.registerDelegate("Image_Texture") = newDelegate(this, &StaticImageFactory::Image_Texture);
 			manager.registerDelegate("Image_Coord") = newDelegate(this, &StaticImageFactory::Image_Coord);
-			manager.registerDelegate("Image_Rect") = newDelegate(this, &StaticImageFactory::Image_Rect);
 			manager.registerDelegate("Image_Tile") = newDelegate(this, &StaticImageFactory::Image_Tile);
-			manager.registerDelegate("Image_Num") = newDelegate(this, &StaticImageFactory::Image_Index);
 			manager.registerDelegate("Image_Index") = newDelegate(this, &StaticImageFactory::Image_Index);
+
+			manager.registerDelegate("Image_Resource") = newDelegate(this, &StaticImageFactory::Image_Resource);
+			manager.registerDelegate("Image_Group") = newDelegate(this, &StaticImageFactory::Image_Group);
 			manager.registerDelegate("Image_Name") = newDelegate(this, &StaticImageFactory::Image_Name);
-			manager.registerDelegate("Image_MapNames") = newDelegate(this, &StaticImageFactory::Image_MapNames);
-			manager.registerDelegate("Image_AddItemInfo") = newDelegate(this, &StaticImageFactory::Image_AddItemInfo);
 		}
 
 		StaticImageFactory::~StaticImageFactory()
@@ -41,13 +40,12 @@ namespace MyGUI
 			// удаляем все парсеры
 			manager.unregisterDelegate("Image_Texture");
 			manager.unregisterDelegate("Image_Coord");
-			manager.unregisterDelegate("Image_Rect");
 			manager.unregisterDelegate("Image_Tile");
-			manager.unregisterDelegate("Image_Num");
 			manager.unregisterDelegate("Image_Index");
+
+			manager.unregisterDelegate("Image_Resource");
+			manager.unregisterDelegate("Image_Group");
 			manager.unregisterDelegate("Image_Name");
-			manager.unregisterDelegate("Image_MapNames");
-			manager.unregisterDelegate("Image_AddItemInfo");
 		}
 
 		const std::string & StaticImageFactory::getTypeName()
@@ -72,12 +70,6 @@ namespace MyGUI
 			static_cast<StaticImagePtr>(_widget)->setImageCoord(IntCoord::parse(_value));
 		}
 
-		void StaticImageFactory::Image_Rect(WidgetPtr _widget, const std::string &_key, const std::string &_value)
-		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
-			static_cast<StaticImagePtr>(_widget)->setImageRect(IntRect::parse(_value));
-		}
-
 		void StaticImageFactory::Image_Tile(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
@@ -90,22 +82,22 @@ namespace MyGUI
 			static_cast<StaticImagePtr>(_widget)->setItemSelect(utility::parseSizeT(_value));
 		}
 
+		void StaticImageFactory::Image_Resource(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
+			static_cast<StaticImagePtr>(_widget)->setItemResource(_value);
+		}
+
+		void StaticImageFactory::Image_Group(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		{
+			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
+			static_cast<StaticImagePtr>(_widget)->setItemGroup(_value);
+		}
+
 		void StaticImageFactory::Image_Name(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
-			static_cast<StaticImagePtr>(_widget)->setItemSelect(_value);
-		}
-
-		void StaticImageFactory::Image_MapNames(WidgetPtr _widget, const std::string &_key, const std::string &_value)
-		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
-			static_cast<StaticImagePtr>(_widget)->addItemNames(_value);
-		}
-
-		void StaticImageFactory::Image_AddItemInfo(WidgetPtr _widget, const std::string &_key, const std::string &_value)
-		{
-			MYGUI_RETURN_IS_FALSE_TYPE(StaticImage, _widget, _key);
-			static_cast<StaticImagePtr>(_widget)->addItemInfo(_value);
+			static_cast<StaticImagePtr>(_widget)->setItemName(_value);
 		}
 
 	} // namespace factory

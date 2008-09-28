@@ -350,7 +350,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 
 bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test)
 {
-	try{
+ 	try{
 		if (_key == "Image_Texture")
 		{
 			if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) )

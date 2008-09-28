@@ -8,7 +8,6 @@
 #define __MYGUI_RESOURCE_H__
 
 #include "MyGUI_Prerequest.h"
-//#include "MyGUI_Guid.h"
 
 namespace MyGUI
 {
@@ -16,12 +15,18 @@ namespace MyGUI
 	class Resource;
 	typedef Resource * ResourcePtr;
 
+	class ResourceManager;
+
 	class _MyGUIExport Resource
 	{
-	public:
+		// для удаления
+		friend class ResourceManager;
+
+	protected:
 		Resource() { }
 		virtual ~Resource() { }
 
+	public:
 		virtual const std::string & getTypeName() = 0;
 
 		template <typename T>
