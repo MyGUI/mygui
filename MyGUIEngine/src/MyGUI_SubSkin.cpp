@@ -268,6 +268,7 @@ namespace MyGUI
 
 	void SubSkin::_setUVSet(const FloatRect& _rect)
 	{
+		if (mRectTexture == _rect) return;
 		mRectTexture = _rect;
 
 		// если обрезаны, то просчитываем с учето обрезки
