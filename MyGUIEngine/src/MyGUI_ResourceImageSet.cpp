@@ -11,24 +11,13 @@
 namespace MyGUI
 {
 
-	std::string ResourceImageSet::mTypeName = "ResourceImageSet";
-
-	const std::string & ResourceImageSet::getTypeName()
-	{
-		return ResourceImageSet::getClassTypeName();
-	}
-
-	const std::string & ResourceImageSet::getClassTypeName()
-	{
-		return mTypeName;
-	}
+	MYGUI_RESOURCE_IMPLEMENT(ResourceImageSet, IResource);
 
 	std::string ResourceImageSet::mTextureEmpty;
 	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
-	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node) :
-		Resource( )
+	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator group_node = _node->getNodeIterator();
@@ -61,21 +50,6 @@ namespace MyGUI
 
 			mGroups.push_back(group);
 		};
-	}
-
-	void ResourceImageSet::registryType()
-	{
-		ResourceManager::getInstance().registerType(ResourceImageSet::getClassTypeName(), newDelegate(ResourceImageSet::createResource));
-	}
-
-	void ResourceImageSet::unregistryType()
-	{
-		ResourceManager::getInstance().unregisterType(ResourceImageSet::getClassTypeName());
-	}
-
-	void ResourceImageSet::createResource(ResourcePtr & _resource, xml::xmlNodeIterator _node)
-	{
-		_resource = new ResourceImageSet(_node);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string & _group, const std::string & _index)

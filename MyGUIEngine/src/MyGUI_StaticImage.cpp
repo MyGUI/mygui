@@ -45,29 +45,7 @@ namespace MyGUI
 
 	StaticImage::~StaticImage()
 	{
-		//Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
 	}
-
-	/*void StaticImage::setImageInfo(const std::string & _texture, const IntSize & _tile)
-	{
-		_setTextureName(_texture);
-		mSizeTexture = SkinManager::getTextureSize(_texture);
-		mSizeTile = _tile;
-
-		recalcIndexes();
-		updateSelectIndex(mIndexSelect);
-	}
-
-	void StaticImage::setImageInfo(const std::string & _texture, const IntRect & _rect, const IntSize & _tile)
-	{
-		_setTextureName(_texture);
-		mSizeTexture = SkinManager::getTextureSize(_texture);
-		mRectImage = _rect;
-		mSizeTile = _tile;
-
-		recalcIndexes();
-		updateSelectIndex(mIndexSelect);
-	}*/
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
 	{
@@ -95,14 +73,6 @@ namespace MyGUI
 		recalcIndexes();
 		updateSelectIndex(mIndexSelect);
 	}
-
-	/*void StaticImage::setImageRect(const IntRect & _rect)
-	{
-		mRectImage = _rect;
-
-		recalcIndexes();
-		updateSelectIndex(mIndexSelect);
-	}*/
 
 	void StaticImage::setImageCoord(const IntCoord & _coord)
 	{
@@ -148,7 +118,6 @@ namespace MyGUI
 
 	void StaticImage::recalcIndexes()
 	{
-		//deleteAllItems();
 		mItems.clear();
 
 		if ((mRectImage.right <= mRectImage.left) || (mRectImage.bottom <= mRectImage.top)) return;
@@ -184,14 +153,12 @@ namespace MyGUI
 			return;
 		}
 
-		//MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::updateSelectIndex");
 		VectorImages::iterator iter = mItems.begin() + _index;
 
 		if (iter->images.size() < 2) {
 			if (mFrameAdvise) {
 				mFrameAdvise = false;
 				Gui::getInstance().eventFrameStart -= newDelegate(this, &StaticImage::frameEntered);
-				//Gui::getInstance().removeFrameListener(newDelegate(this, &StaticImage::frameEntered));
 			}
 		}
 		else {
@@ -200,7 +167,6 @@ namespace MyGUI
 				mCurrentFrame = 0;
 				mFrameAdvise = true;
 				Gui::getInstance().eventFrameStart += newDelegate(this, &StaticImage::frameEntered);
-				//Gui::getInstance().addFrameListener(newDelegate(this, &StaticImage::frameEntered), this);
 			}
 		}
 
@@ -355,52 +321,6 @@ namespace MyGUI
 		iter->images.erase(iter->images.begin() + _indexFrame);
 	}
 
-	/*void StaticImage::setItemSelect(const std::string & _name)
-	{
-		size_t index = ITEM_NONE;
-		MapName::iterator iter = mMapIndexName.find(_name);
-		if (iter != mMapIndexName.end()) index = iter->second;
-		setItemSelect(index);
-	}*/
-
-	/*void StaticImage::addItemNames(const std::string & _name)
-	{
-		typedef std::vector<std::string> VectorString;
-		VectorString names = utility::split(_name);
-		size_t index = 0;
-		for (VectorString::iterator iter=names.begin(); iter!=names.end(); ++iter) {
-			mMapIndexName[*iter] = index;
-			index++;
-		}
-	}*/
-
-	/*void StaticImage::addItemInfo(const std::string & _info)
-	{
-		typedef std::vector<std::string> VectorString;
-
-		VectorString split = utility::split(_info, "|");
-		if (split.size() < 3) {
-			MYGUI_LOG(Warning, "StaticImage::addItemInfo - error parse '" << _info << "'");
-			return;
-		}
-
-		VectorString::iterator iter = split.begin();
-		float rate = utility::parseFloat(*iter);
-		++iter;
-		IntSize size = IntSize::parse(*iter);
-		++iter;
-		IntPoint point = IntPoint::parse(*iter);
-		++iter;
-
-		addItem(IntCoord(point, size));
-		size_t index = mItems.size() - 1;
-		setItemFrameRate(index, rate);
-
-		for (;iter!=split.end(); ++iter) {
-			addItemFrame(index, MyGUI::IntCoord(IntPoint::parse(*iter), size));
-		}
-	}*/
-
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo & _info)
 	{
 		_setTextureName(_info.texture);
@@ -426,15 +346,15 @@ namespace MyGUI
 
 	bool StaticImage::setItemResource(const Guid & _id)
 	{
-		ResourcePtr resource = ResourceManager::getInstance().getResource(_id, false);
-		setItemResource(static_cast<ResourceImageSetPtr>(resource));
+		IResourcePtr resource = ResourceManager::getInstance().getResource(_id, false);
+		setItemResource(resource->castType<ResourceImageSet>());
 		return resource != null;
 	}
 
 	bool StaticImage::setItemResource(const std::string & _name)
 	{
-		ResourcePtr resource = ResourceManager::getInstance().getResource(_name, false);
-		setItemResource(static_cast<ResourceImageSetPtr>(resource));
+		IResourcePtr resource = ResourceManager::getInstance().getResource(_name, false);
+		setItemResource(resource->castType<ResourceImageSet>());
 		return resource != null;
 	}
 
