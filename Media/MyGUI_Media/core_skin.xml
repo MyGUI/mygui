@@ -739,7 +739,7 @@
             <State name="select" offset = "90 114 10 26"/>
         </BasisSkin>
         <BasisSkin type="EditText" offset = "3 0 15 26" align = "ALIGN_STRETCH">
-            <!--State name="disable" colour="0.87 0.87 0.87"--/>
+            <!--State name="disable" colour="0.87 0.87 0.87"/-->
             <!--State name="pressed" colour="0 0 0"/-->
             <!--State name="normal" colour="0 0 0"/-->
             <!--State name="select" colour="2C8AD5"/-->
@@ -912,12 +912,15 @@
     </Skin>
 
     <Skin name = "MessageIcon" size = "45 45">
-        <Property key="ImageTexture" value = "core.png" />
-        <Property key="ImageRect" value = "1 170 181 215" />
-        <Property key="ImageTile" value = "45 45" />
-        <Property key="ImageNum" value = "0" />
+        <_Property key="ImageTexture" value = "core.png" />
+        <_Property key="ImageRect" value = "1 170 181 215" />
+        <_Property key="ImageTile" value = "45 45" />
+      <_Property key="ImageIndex" value = "0" />
 
-        <BasisSkin type="MainSkin" offset = "0 0 45 45" align = "ALIGN_STRETCH"/>
+      <Property key="ImageResource" value = "pic_CoreMessageIcon" />
+      <Property key="ImageGroup" value = "Icons" />
+
+      <BasisSkin type="MainSkin" offset = "0 0 45 45" align = "ALIGN_STRETCH"/>
     </Skin>
 
     <Skin name = "Message" size = "27 54" texture = "core.png" >
@@ -1131,7 +1134,7 @@
         <Property key="ImageTexture" value = "core.png" />
         <Property key="ImageRect" value = "514 142 574 162" />
         <Property key="ImageTile" value = "20 20" />
-        <Property key="ImageNum" value = "0" />
+        <Property key="ImageIndex" value = "0" />
         <Property key="NeedMouse" value = "false" />
 
         <BasisSkin type="MainSkin" offset = "0 0 20 20" align = "ALIGN_STRETCH"/>
@@ -1301,7 +1304,7 @@
         <Property key="ImageTexture" value = "core.png" />
         <Property key="ImageRect" value = "514 162 594 182" />
         <Property key="ImageTile" value = "20 20" />
-        <Property key="ImageNum" value = "0" />
+        <Property key="ImageIndex" value = "0" />
         <Property key="NeedMouse" value = "false" />
 
         <BasisSkin type="MainSkin" offset = "0 0 20 20" align = "ALIGN_STRETCH"/>

@@ -56,10 +56,8 @@
 
   <Value name="Font">
     <Property key="#444444[DEFAULT]"/>
-	<Property key="Comic.18"/>
-	<Property key="Tahoma.22"/>
-	<Property key="Tahoma.16"/>
-	<Property key="Tahoma.12"/>
+	<Property key="DejaVuSans.17"/>
+	<Property key="DejaVuSans.14"/>
   </Value>
   
   <Value name="Layer">

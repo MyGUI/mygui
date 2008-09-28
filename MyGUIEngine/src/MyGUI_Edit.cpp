@@ -327,7 +327,9 @@ namespace MyGUI
 					eventEditTextChange(this);
 				}
 				// при сингл лайн и и мульти+сонтрол шлем эвент
-				else eventEditSelectAccept(this);
+				else {
+					eventEditSelectAccept(this);
+				}
 			}
 
 		}

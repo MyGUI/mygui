@@ -73,6 +73,20 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
+		inline const IntSize & getGroupSize(size_t _index)
+		{
+			if (_index >= mGroups.size()) return mSizeEmpty;
+			return mGroups[_index].size;
+		}
+
+		inline const IntSize & getGroupSize(const std::string & _group)
+		{
+			for (size_t index=0; index<mGroups.size(); ++index) {
+				if (mGroups[index].name == _group) return mGroups[index].size;
+			}
+			return mSizeEmpty;
+		}
+
 	public:
 		virtual const std::string & getTypeName();
 		static const std::string & getClassTypeName();

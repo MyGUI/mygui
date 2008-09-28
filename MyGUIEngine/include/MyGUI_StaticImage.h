@@ -9,7 +9,9 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_ImageInfo.h"
+#include "MyGUI_Guid.h"
 
 namespace MyGUI
 {
@@ -26,25 +28,17 @@ namespace MyGUI
 		~StaticImage();
 
 	public:
-		/* Set texture and size of image _tile
-			@param _texture file name
-			@param _tile size
-		*/
-		void setImageInfo(const std::string & _texture, const IntSize & _tile);
-		/* Set texture and size of image _tile
-			@param _texture file name
-			@param _rect - part of texture where we take tiles
-			@param _tile size
-		*/
-		void setImageInfo(const std::string & _texture, const IntRect & _rect, const IntSize & _tile);
+
+		//------------------------------------------------------------------------------------------------//
+		// The simple interface
+		//------------------------------------------------------------------------------------------------//
+
 		/* Set texture and size of image _tile
 			@param _texture file name
 			@param _coord - part of texture where we take tiles
 			@param _tile size
 		*/
 		void setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile);
-
-		void setImageInfo(const ImageIndexInfo & _info);
 
 		/* Set texture
 			@param _texture file name
@@ -66,25 +60,25 @@ namespace MyGUI
 			\n \bExample:\n
 			<pre>
 				+---+---+---+
-				| 1 | 2 | 3 |
+				| 0 | 1 | 2 |
 				+---+---+---+
-				| 4 | 5 | 6 |
+				| 3 | 4 | 5 |
 				+---+---+---+
 			</pre>
 		*/
-		inline void setImageNum(size_t _index) { setItemSelect(_index); }
+		inline void setImageIndex(size_t _index) { setItemSelect(_index); }
 		/** Get current tile index */
-		inline size_t getImageNum() {return mIndexSelect;}
+		inline size_t getImageIndex() { return getItemSelect(); }
 
-
+		//------------------------------------------------------------------------------------------------//
+		// The expanded interface
+		//------------------------------------------------------------------------------------------------//
 
 		//! Get number of items
 		inline size_t getItemCount() { return mItems.size(); }
 
 		//! Select specified _index
 		inline void setItemSelect(size_t _index) { if (mIndexSelect != _index) updateSelectIndex(_index); }
-		//! Select specified name
-		void setItemSelect(const std::string & _name);
 		//! Get index of selected item (ITEM_NONE if none selected)
 		inline size_t getItemSelect() { return mIndexSelect; }
 		//! Reset item selection
@@ -117,13 +111,23 @@ namespace MyGUI
 		void setItemFrameRate(size_t _index, float _rate);
 		float getItemFrameRate(size_t _index);
 
-		inline void addItemName(const std::string & _name, size_t _index) { mMapIndexName[_name] = _index; }
-		void addItemNames(const std::string & _name);
+		//------------------------------------------------------------------------------------------------//
+		// The interface with support of resources
+		//------------------------------------------------------------------------------------------------//
 
-		// добавляет анимационыый или обычный индекс
-		// формат : "rate | size | point1 | point2 | ... "
-		void addItemInfo(const std::string & _info);
+		void setItemResourceInfo(const ImageIndexInfo & _info);
 
+		inline ResourceImageSetPtr getItemResource() { return mResource; }
+
+		bool setItemResource(const Guid & _id);
+		bool setItemResource(const std::string & _name);
+		void setItemResource(ResourceImageSetPtr _resource);
+		void setItemResource(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name);
+
+		void setItemGroup(const std::string & _group);
+		void setItemName(const std::string & _name);
+
+		
 	private:
 		void frameEntered(float _frame);
 
@@ -146,8 +150,9 @@ namespace MyGUI
 		float mCurrentTime;
 		size_t mCurrentFrame;
 
-		typedef std::map<std::string, size_t> MapName;
-		MapName mMapIndexName;
+		ResourceImageSetPtr mResource;
+		std::string mItemName;
+		std::string mItemGroup;
 
 	}; // class StaticImage : public Widget
 

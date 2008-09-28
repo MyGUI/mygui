@@ -80,12 +80,12 @@ namespace MyGUI
 
 	void Button::setImageIndex(size_t _index)
 	{
-		if (mImage) mImage->setImageNum(_index);
+		if (mImage) mImage->setImageIndex(_index);
 	}
 
 	size_t Button::getImageIndex()
 	{
-		if (mImage) return mImage->getImageNum();
+		if (mImage) return mImage->getImageIndex();
 		return ITEM_NONE;
 	}
 

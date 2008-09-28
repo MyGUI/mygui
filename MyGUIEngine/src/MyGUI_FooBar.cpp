@@ -438,9 +438,9 @@ namespace MyGUI
 	{
 		StaticImagePtr w = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), Align::Default);
 
-		w->setImageTile(item.tileSize);
 		w->setImageTexture(item.texture);
-		w->setImageNum(item.enabled);
+		w->setImageTile(item.tileSize);
+		w->setImageIndex(item.enabled);
 
 		item.widget = (WidgetPtr)w;
 		_addChildItem(item.name, item);
