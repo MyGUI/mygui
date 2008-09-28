@@ -20,7 +20,7 @@ namespace MyGUI
 	public:
 		ISubWidgetText(const IntCoord& _coord, Align _align, ICroppedRectangle * _parent) :
 			ISubWidget(_coord, _align, _parent) { }
-			virtual ~ISubWidgetText() { }
+		virtual ~ISubWidgetText() { }
 
 		virtual bool firstQueue() { return false; }
 
