@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_Resource.h"
+#include "MyGUI_IResource.h"
 #include "MyGUI_ImageInfo.h"
 
 namespace MyGUI
@@ -37,17 +37,16 @@ namespace MyGUI
 	class ResourceImageSet;
 	typedef ResourceImageSet * ResourceImageSetPtr;
 
-	class _MyGUIExport ResourceImageSet : public Resource
+	class _MyGUIExport ResourceImageSet : public IResource
 	{
-		friend class ResourceManager;
+		MYGUI_RESOURCE_HEADER;
 
 	private:
-		ResourceImageSet() : Resource() { }
 		ResourceImageSet(xml::xmlNodeIterator _node);
 		virtual ~ResourceImageSet() { }
 
-		static void createResource(ResourcePtr & _resource, xml::xmlNodeIterator _node);
-
+		//-------------------------------------------------------------//
+	private:
 		inline size_t getGroupIndex(const std::string & _name)
 		{
 			for (size_t index=0; index<mGroups.size(); ++index) {
@@ -87,17 +86,6 @@ namespace MyGUI
 			return mSizeEmpty;
 		}
 
-	public:
-		virtual const std::string & getTypeName();
-		static const std::string & getClassTypeName();
-
-		static void registryType();
-		static void unregistryType();
-
-	private:
-		static std::string mTypeName;
-
-		//-------------------------------------------------------------//
 	public:
 		ImageIndexInfo getIndexInfo(const std::string & _group, const std::string & _index);
 		ImageIndexInfo getIndexInfo(size_t _group, const std::string & _index);

@@ -15,18 +15,18 @@
 
 namespace MyGUI
 {
-	class Resource;
-	typedef Resource * ResourcePtr;
+	class IResource;
+	typedef IResource * IResourcePtr;
 
-	typedef delegates::CDelegate2<ResourcePtr &, xml::xmlNodeIterator> CreatorDelegate;
-	typedef delegates::IDelegate2<ResourcePtr &, xml::xmlNodeIterator> * CreatorDelegatePtr;
+	typedef delegates::CDelegate2<IResourcePtr &, xml::xmlNodeIterator> CreatorDelegate;
+	typedef delegates::IDelegate2<IResourcePtr &, xml::xmlNodeIterator> * CreatorDelegatePtr;
 
 	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
 
 	typedef std::map<std::string, CreatorDelegate> MapDelegate;
-	typedef std::map<Guid, ResourcePtr> MapResource;
-	typedef std::map<std::string, ResourcePtr> MapResourceName;
+	typedef std::map<Guid, IResourcePtr> MapResource;
+	typedef std::map<std::string, IResourcePtr> MapResourceName;
 	typedef Enumerator<MapResource> EnumeratorMapResource;
 
 	class _MyGUIExport ResourceManager
@@ -53,7 +53,7 @@ namespace MyGUI
 		/** Get name of ResourceGroup*/
 		inline const std::string& getResourceGroup() { return mResourceGroup; }
 
-		ResourcePtr getResource(const Guid & _id, bool _throw = true)
+		IResourcePtr getResource(const Guid & _id, bool _throw = true)
 		{
 			MapResource::iterator iter = mResources.find(_id);
 			if (iter == mResources.end()) {
@@ -64,7 +64,7 @@ namespace MyGUI
 			return iter->second;
 		}
 
-		ResourcePtr getResource(const std::string & _name, bool _throw = true)
+		IResourcePtr getResource(const std::string & _name, bool _throw = true)
 		{
 			MapResourceName::iterator iter = mResourceNames.find(_name);
 			if (iter == mResourceNames.end()) {

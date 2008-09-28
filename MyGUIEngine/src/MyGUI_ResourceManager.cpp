@@ -4,10 +4,9 @@
 	@date		09/2008
 	@module
 */
-//#include "MyGUI_Gui.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_Resource.h"
+#include "MyGUI_IResource.h"
 #include "MyGUI_ResourceImageSet.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
@@ -106,7 +105,7 @@ namespace MyGUI
 					MYGUI_ASSERT(mResources.find(guid) == mResources.end(), "dublicate resource id " << guid.print());
 					MYGUI_ASSERT(mResourceNames.find(name) == mResourceNames.end(), "dublicate resource name '" << name << "'");
 
-					ResourcePtr resource = null;
+					IResourcePtr resource = null;
 					iter->second(resource, root);
 
 					mResources[guid] = resource;
