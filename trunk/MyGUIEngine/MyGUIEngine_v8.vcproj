@@ -529,6 +529,14 @@
 						RelativePath=".\src\MyGUI_ResourceImageSet.cpp"
 						>
 					</File>
+					<Filter
+						Name="Interfaces"
+						>
+						<File
+							RelativePath=".\src\MyGUI_IResource.cpp"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
@@ -1127,7 +1135,7 @@
 						Name="Interface"
 						>
 						<File
-							RelativePath=".\include\MyGUI_Resource.h"
+							RelativePath=".\include\MyGUI_IResource.h"
 							>
 						</File>
 					</Filter>
