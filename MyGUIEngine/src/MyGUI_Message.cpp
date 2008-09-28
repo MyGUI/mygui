@@ -35,8 +35,8 @@ namespace MyGUI
 		mWidgetFade(null),
 		mIcon(null),
 		mLeftOffset1(0),
-		mLeftOffset2(0),
-		mResourceIcons(null)
+		mLeftOffset2(0)
+		//mResourceIcons(null)
 	{
 		// ищем индекс первой кнопки
 		size_t but1 = (size_t)Button1;
@@ -82,11 +82,11 @@ namespace MyGUI
 			if (iter != properties.end()) mFadeSkin = iter->second;
 			iter = properties.find("FadeLayer");
 			if (iter != properties.end()) mFadeLayer = iter->second;
-			iter = properties.find("ResourceIcons");
-			if (iter != properties.end()) {
-				ResourcePtr icons = ResourceManager::getInstance().getResource(Guid::parse(iter->second));
-				mResourceIcons = icons->castType<ResourceImageSet>();
-			}
+			//iter = properties.find("ResourceIcons");
+			//if (iter != properties.end()) {
+				//ResourcePtr icons = ResourceManager::getInstance().getResource(Guid::parse(iter->second));
+				//mResourceIcons = icons->castType<ResourceImageSet>();
+			//}
 		}
 
 	}
@@ -208,11 +208,11 @@ namespace MyGUI
 	void Message::setMessageImage(size_t _image)
 	{
 		if (null != mIcon) {
-			if (mResourceIcons != null) {
-				mIcon->setImageInfo(mResourceIcons->getIndexInfo("Icons", getIconName(_image)));
+			if (mIcon->getItemResource() != null) {
+				mIcon->setItemName(getIconName(_image));
 			}
 			else {
-				mIcon->setImageNum(_image);
+				mIcon->setImageIndex(_image);
 			}
 		}
 	}
@@ -220,7 +220,7 @@ namespace MyGUI
 	const char * Message::getIconName(size_t _index)
 	{
 		static const int CountIcons = 4;
-		static const char * IconNames[] = {"IconInfo", "IconQuest", "IconError", "IconWarning", ""};
+		static const char * IconNames[] = {"Info", "Quest", "Error", "Warning", ""};
 		if (_index >= CountIcons) return IconNames[CountIcons];
 		return IconNames[_index];
 	}
@@ -274,7 +274,7 @@ namespace MyGUI
 	{
 		IntSize size = mWidgetText->getTextSize();
 		// минимум высота иконки
-		if ((null != mIcon) && (mIcon->getImageNum() != ITEM_NONE)) {
+		if ((null != mIcon) && (mIcon->getImageIndex() != ITEM_NONE)) {
 			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
 			size.width += mIcon->getSize().width;
 		}
@@ -291,7 +291,7 @@ namespace MyGUI
 		setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
 		if (null != mIcon) {
-			if (mIcon->getImageNum() != ITEM_NONE) mWidgetText->setPosition(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+			if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setPosition(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 			else mWidgetText->setPosition(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 		}
 

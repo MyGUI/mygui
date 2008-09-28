@@ -4,10 +4,10 @@
 
     <Language default="English">
         <Info name="Russian">
-            <Source>editor_language_russian.xml</Source>
+            <Source>editor_language_russian.txt</Source>
         </Info>
         <Info name="English">
-            <Source>editor_language_english.xml</Source>
+            <Source>editor_language_english.txt</Source>
         </Info>
     </Language>
 

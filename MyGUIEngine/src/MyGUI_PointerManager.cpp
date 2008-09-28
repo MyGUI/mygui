@@ -165,9 +165,9 @@ namespace MyGUI
 
 		// новый вид курсоров через ресурсы
 		if (iter->second.resource != null) {
-			/*if (mMousePointer->getImageSet() != iter->second.resource) {
-				mMousePointer->setImageSet(iter->second.resource, 0, 0);
-			}*/
+			if (mMousePointer->getItemResource() != iter->second.resource) {
+				mMousePointer->setItemResourceInfo(iter->second.resource->getIndexInfo(0, 0));
+			}
 		}
 
 		// старый вид курсоров

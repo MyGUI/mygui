@@ -1,20 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Resource">
-	<Resource type="ResourceImageSet" name="pic_MessageIcon" id="{99AAEC52-6A43-47d6-B1DA-0477C12CE500}">
-		<Group name="Icons" texture="core_new.png" size="50 50">
-			<Index name="IconInfo" rate="0">
-				<Frame point="0 754"/>
-			</Index>
-			<Index name="IconQuest" rate="0">
-				<Frame point="50 754"/>
-			</Index>
-			<Index name="IconError" rate="0">
-				<Frame point="100 754"/>
-			</Index>
-			<Index name="IconWarning" rate="0">
-				<Frame point="150 754"/>
-			</Index>
-		</Group>
-	</Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CoreMessageIcon" id="{99AAEC52-6A43-47d6-B1DA-0477C12CE500}">
+    <Group name="Icons" texture="core_new.png" size="50 50">
+      <Index name="Info">
+        <Frame point="0 754"/>
+      </Index>
+      <Index name="Quest">
+        <Frame point="50 754"/>
+      </Index>
+      <Index name="Error">
+        <Frame point="100 754"/>
+      </Index>
+      <Index name="Warning">
+        <Frame point="150 754"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerArrow" id="{C7ECFCE4-6021-4628-9BFF-1F36D594D7CB}">
+    <Group texture="core_pointer.png" size="32 32">
+      <Index rate="0.3">
+        <Frame point="13 11" count="10"/>
+        <Frame point="13 52"/>
+        <Frame point="56 52"/>
+        <Frame point="13 52"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerBeam" id="{C62588E6-E9A5-451a-B6B3-60DD0B3A1F92}">
+    <Group texture="core_pointer.png" size="32 32">
+      <Index>
+        <Frame point="45 11"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeLeft" id="{089025E6-8FD8-4436-BB59-39C25F73243D}">
+    <Group texture="core_pointer.png" size="32 32">
+      <Index>
+        <Frame point="86 11"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeRight" id="{9B68E5CF-A473-45ae-BE33-42F8F1835FD6}">
+    <Group texture="core_pointer.png" size="32 32">
+      <Index>
+        <Frame point="118 11"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerHand" id="{4FAA172A-C27F-49a0-B7AE-BA507389186C}">
+    <Group texture="core_pointer.png" size="32 32">
+      <Index>
+        <Frame point="154 11"/>
+      </Index>
+    </Group>
+  </Resource>
+
 </MyGUI>

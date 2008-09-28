@@ -275,6 +275,10 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
         base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
         base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
 
+		/*StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord(50, 50, 300, 300), Align::Default, "Main");
+		image->setImageTexture("core.png");
+		image->setImageCoord(IntCoord(0, 0, 100, 100));*/
+
 		/*ButtonPtr button = Gui::getInstance().createWidget<Button>("Button", IntCoord(50, 50, 300, 300), Align::Default, "Main");
 
 		button->createWidget<Button>("Button", IntCoord(50, 50, 50, 50), Align::Default);
@@ -290,10 +294,10 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
 		ProgressPtr progress = Gui::getInstance().createWidget<Progress>("Progress", IntCoord(600, 600, 50, 15), Align::Default, "Main");
 		progress->setProgressAutoTrack(true);*/
 
-		TabPtr tab = Gui::getInstance().createWidget<Tab>("Tab", IntCoord(200, 200, 500, 500), Align::Default, "Main");
+		/*TabPtr tab = Gui::getInstance().createWidget<Tab>("Tab", IntCoord(200, 200, 500, 500), Align::Default, "Main");
 		tab->insertSheet(-1, "1");
 		tab->insertSheet(-1, "2");
-		tab->insertSheet(-1, "3");
+		tab->insertSheet(-1, "3");*/
 		//progress->setProgressRange(100);
 		//progress->setProgressPosition(1);
 
@@ -304,7 +308,9 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
  
         //widget = win->createWidget<Widget>("TileClient", IntCoord(10, 10, 100, 100), Align::Default);
  
-        //EditPtr edit = Gui::getInstance().createWidget<Edit>("Memo", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
+        /*RenderBoxPtr window = Gui::getInstance().createWidget<RenderBox>("RenderBox", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
+		window->injectObject("axes.mesh");
+		window->setMouseRotation(true);*/
         //edit->setCaption("seig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshs seig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshsseig iudy gisudh giluehdi fughdhg lskdhf lg hdlIHd ILUHds lHs lhG Lshs");
  
         /*EditPtr button = Gui::getInstance().createWidget<Edit>("Edit", IntCoord(100, 200, 59, 26), Align::Default, "Main");
