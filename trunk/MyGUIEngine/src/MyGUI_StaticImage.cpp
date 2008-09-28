@@ -255,6 +255,7 @@ namespace MyGUI
 	void StaticImage::frameEntered(float _frame)
 	{
 		if (mIndexSelect == ITEM_NONE) return;
+
 		VectorImages::iterator iter = mItems.begin() + mIndexSelect;
 		if ((iter->images.size() < 2) || (iter->frame_rate == 0)) return;
 
