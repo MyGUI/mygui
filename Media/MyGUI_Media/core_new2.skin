@@ -1,0 +1,1448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+
+    <Skin name = "CheckBox" size = "100 21" texture = "core_new.png">
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "Left VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 21 21" align = "Left VCenter">
+            <State name="disable" offset = "2 2 21 21"/>
+            <State name="normal" offset = "2 24 21 21"/>
+            <State name="active" offset = "2 46 21 21"/>
+            <State name="pressed" offset = "2 68 21 21"/>
+            <State name="disable_check" offset = "2 90 21 21"/>
+            <State name="normal_check" offset = "2 112 21 21"/>
+            <State name="active_check" offset = "2 134 21 21"/>
+            <State name="pressed_check" offset = "2 156 21 21"/>
+        </BasisSkin>        
+        
+        <BasisSkin type="SimpleText" offset = "24 0 76 21" align = "Stretch">
+        </BasisSkin>
+    </Skin>
+    
+<<<<<<< .mine
+    <Skin name = "RadioBox" size = "100 19" texture = "core_new.png">
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+    <Skin name = "RadioBox" size = "100 21" texture = "core_new.png">
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "Left VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 19 19" align = "Left VCenter">
+            <State name="disable" offset = "27 2 19 19"/>
+            <State name="normal" offset = "27 23 19 19"/>
+            <State name="active" offset = "27 44 19 19"/>
+            <State name="pressed" offset = "27 65 19 19"/>
+            <State name="disable_check" offset = "27 86 19 19"/>
+            <State name="normal_check" offset = "27 107 19 19"/>
+            <State name="active_check" offset = "27 128 19 19"/>
+            <State name="pressed_check" offset = "27 149 19 19"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "24 0 76 19" align = "Stretch">
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "ButtonMinusPlus" size = "18 18" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 18 18" align = "Stretch">
+            <State name="disable" offset = "49 2 18 18"/>
+            <State name="normal" offset = "49 22 18 18"/>
+            <State name="active" offset = "49 42 18 18"/>
+            <State name="pressed" offset = "49 62 18 18"/>
+            <State name="disable_check" offset = "49 80 18 18"/>
+            <State name="normal_check" offset = "49 102 18 18"/>
+            <State name="active_check" offset = "49 122 18 18"/>
+            <State name="pressed_check" offset = "49 142 18 18"/>
+        </BasisSkin>
+    </Skin>
+    
+<<<<<<< .mine
+    <Skin name = "ButtonX" size = "18 17" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 18 17" align = "Stretch">
+            <State name="disable" offset = "72 2 18 17"/>
+            <State name="normal" offset = "72 21 18 17"/>
+            <State name="active" offset = "72 40 18 17"/>
+            <State name="pressed" offset = "72 59 18 17"/>
+            <State name="select" offset = "72 78 18 17"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "ButtonV" size = "17 15" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 17 15" align = "Stretch">
+            <State name="disable" offset = "72 98 17 15"/>
+            <State name="normal" offset = "72 114 17 15"/>
+            <State name="active" offset = "72 130 17 15"/>
+            <State name="pressed" offset = "72 146 17 15"/>
+            <State name="select" offset = "72 162 17 15"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "ButtonDown" size = "14 12" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 14 12" align = "Stretch">
+            <State name="disable" offset = "95 2 14 12"/>
+            <State name="normal" offset = "95 15 14 12"/>
+            <State name="active" offset = "95 28 14 12"/>
+            <State name="pressed" offset = "95 41 14 12"/>
+            <State name="select" offset = "95 54 14 12"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "ButtonUp" size = "14 12" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 14 12" align = "Stretch">
+            <State name="disable" offset = "95 68 14 12"/>
+            <State name="normal" offset = "95 82 14 12"/>
+            <State name="active" offset = "95 96 14 12"/>
+            <State name="pressed" offset = "95 110 14 12"/>
+            <State name="select" offset = "95 124 14 12"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "ButtonLeft" size = "12 14" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
+            <State name="disable" offset = "112 2 12 14"/>
+            <State name="normal" offset = "112 18 12 14"/>
+            <State name="active" offset = "112 34 12 14"/>
+            <State name="pressed" offset = "112 50 12 14"/>
+            <State name="select" offset = "112 66 12 14"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "ButtonRight" size = "12 14" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
+            <State name="disable" offset = "112 84 12 14"/>
+            <State name="normal" offset = "112 100 12 14"/>
+            <State name="active" offset = "112 116 12 14"/>
+            <State name="pressed" offset = "112 132 12 14"/>
+            <State name="select" offset = "112 148 12 14"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "VScrollTrackSlider" size = "14 7" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 14 7" align = "Stretch">
+            <State name="disable" offset = "128 2 14 7"/>
+            <State name="normal" offset = "128 10 14 7"/>
+            <State name="active" offset = "128 18 14 7"/>
+            <State name="pressed" offset = "128 26 14 7"/>
+            <State name="select" offset = "128 34 14 7"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "VScrollTrack" size = "14 19" texture = "core_new.png">       
+        <BasisSkin type="SubSkin" offset = "0 0 14 7" align = "HStretch Top">
+            <State name="disable" offset = "128 45 14 7"/>
+            <State name="normal" offset = "128 65 14 7"/>
+            <State name="active" offset = "128 85 14 7"/>
+            <State name="pressed" offset = "128 105 14 7"/>
+            <State name="select" offset = "128 125 14 7"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 7 14 3" align = "HStretch VStretch">
+            <State name="disable" offset = "128 52 14 3"/>
+            <State name="normal" offset = "128 72 14 3"/>
+            <State name="active" offset = "128 92 14 3"/>
+            <State name="pressed" offset = "128 112 14 3"/>
+            <State name="select" offset = "128 132 14 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 10 14 9" align = "HStretch Bottom">
+            <State name="disable" offset = "128 55 14 9"/>
+            <State name="normal" offset = "128 75 14 9"/>
+            <State name="active" offset = "128 95 14 9"/>
+            <State name="pressed" offset = "128 115 14 9"/>
+            <State name="select" offset = "128 135 14 9"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HScrollTrackSlider" size = "7 14" texture = "core_new.png">       
+        <BasisSkin type="MainSkin" offset = "0 0 7 14" align = "Stretch">
+            <State name="disable" offset = "146 2 7 14"/>
+            <State name="normal" offset = "146 17 7 14"/>
+            <State name="active" offset = "146 32 7 14"/>
+            <State name="pressed" offset = "146 47 7 14"/>
+            <State name="select" offset = "146 62 7 14"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "HScrollTrack" size = "19 14" texture = "core_new.png">       
+        <BasisSkin type="SubSkin" offset = "0 0 7 14" align = "Left VStretch">
+            <State name="disable" offset = "146 80 7 14"/>
+            <State name="normal" offset = "146 95 7 14"/>
+            <State name="active" offset = "146 110 7 14"/>
+            <State name="pressed" offset = "146 125 7 14"/>
+            <State name="select" offset = "146 140 7 14"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "7 0 3 14" align = "HStretch VStretch">
+            <State name="disable" offset = "153 80 3 14"/>
+            <State name="normal" offset = "153 95 3 14"/>
+            <State name="active" offset = "153 110 3 14"/>
+            <State name="pressed" offset = "153 125 3 14"/>
+            <State name="select" offset = "153 140 3 14"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 9 14" align = "Right VStretch">
+            <State name="disable" offset = "156 80 9 14"/>
+            <State name="normal" offset = "156 95 9 14"/>
+            <State name="active" offset = "156 110 9 14"/>
+            <State name="pressed" offset = "156 125 9 14"/>
+            <State name="select" offset = "156 140 9 14"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "ButtonSmall" size = "29 21" texture = "core_new.png">
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+    <Skin name = "ButtonSmall" size = "150 26" texture = "core_new.png">
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "HCenter VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 21" align = "Left VStretch">
+            <State name="disable" offset = "169 2 10 21"/>
+            <State name="normal" offset = "169 24 10 21"/>
+            <State name="active" offset = "169 46 10 21"/>
+            <State name="pressed" offset = "169 68 10 21"/>
+            <State name="select" offset = "169 90 10 21"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 7 21" align = "HStretch VStretch">
+            <State name="disable" offset = "179 2 7 21"/>
+            <State name="normal" offset = "179 24 7 21"/>
+            <State name="active" offset = "179 46 7 21"/>
+            <State name="pressed" offset = "179 68 7 21"/>
+            <State name="select" offset = "179 90 7 21"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "17 0 12 21" align = "Right VStretch">
+            <State name="disable" offset = "186 2 12 21"/>
+            <State name="normal" offset = "186 24 12 21"/>
+            <State name="active" offset = "186 46 12 21"/>
+            <State name="pressed" offset = "186 68 12 21"/>
+            <State name="select" offset = "186 90 12 21"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "1 1 25 17" align = "Stretch">
+            <State name="disable" shift = "false"/>
+            <State name="normal" shift = "false"/>
+            <State name="active" shift = "false"/>
+            <State name="pressed" shift = "true"/>
+            <State name="select" shift = "true"/>
+        </BasisSkin>
+    </Skin>
+    
+<<<<<<< .mine
+    <Skin name = "Button" size = "29 26" texture = "core_new.png">
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+    <Skin name = "Button" size = "150 26" texture = "core_new.png">
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "HCenter VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
+            <State name="disable" offset = "202 2 10 26"/>
+            <State name="normal" offset = "202 29 10 26"/>
+            <State name="active" offset = "202 56 10 26"/>
+            <State name="pressed" offset = "202 83 10 26"/>
+            <State name="select" offset = "202 110 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 7 26" align = "HStretch VStretch">
+            <State name="disable" offset = "212 2 7 26"/>
+            <State name="normal" offset = "212 29 7 26"/>
+            <State name="active" offset = "212 56 7 26"/>
+            <State name="pressed" offset = "212 83 7 26"/>
+            <State name="select" offset = "212 110 7 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "17 0 12 26" align = "Right VStretch">
+            <State name="disable" offset = "219 2 12 26"/>
+            <State name="normal" offset = "219 29 12 26"/>
+            <State name="active" offset = "219 56 12 26"/>
+            <State name="pressed" offset = "219 83 12 26"/>
+            <State name="select" offset = "219 110 12 26"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "1 1 25 22" align = "Stretch">
+            <State name="disable" shift = "false"/>
+            <State name="normal" shift = "false"/>
+            <State name="active" shift = "false"/>
+            <State name="pressed" shift = "true"/>
+            <State name="select" shift = "true"/>
+        </BasisSkin>
+    </Skin>
+ 
+
+<<<<<<< .mine
+    <Skin name = "Edit" size = "29 26" texture = "core_new.png" >
+=======
+    <Skin name = "Edit" size = "150 26" texture = "core_new.png" >
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "0 0 0" />
+>>>>>>> .r1036
+
+        <Child type="Widget" skin="EditClient" offset = "2 1 23 22" align = "Stretch" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
+            <State name="disable" offset = "235 2 10 26"/>
+            <State name="normal" offset = "235 29 10 26"/>
+            <State name="active" offset = "235 56 10 26"/>
+            <State name="pressed" offset = "235 83 10 26"/>
+            <State name="select" offset = "235 110 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 7 26" align = "Stretch">
+            <State name="disable" offset = "245 2 7 26"/>
+            <State name="normal" offset = "245 29 7 26"/>
+            <State name="active" offset = "245 56 7 26"/>
+            <State name="pressed" offset = "245 83 7 26"/>
+            <State name="select" offset = "245 110 7 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "17 0 12 26" align = "Right VStretch">
+            <State name="disable" offset = "252 2 12 26"/>
+            <State name="normal" offset = "252 29 12 26"/>
+            <State name="active" offset = "252 56 12 26"/>
+            <State name="pressed" offset = "252 83 12 26"/>
+            <State name="select" offset = "252 110 12 26"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "ComboBoxButton" size = "14 12" texture = "core_new.png">
+        <BasisSkin type="MainSkin" offset = "0 0 14 12" align = "Stretch">
+            <State name="disable" offset = "93 2 14 12"/>
+            <State name="normal" offset = "93 15 14 12"/>
+            <State name="active" offset = "93 28 14 12"/>
+            <State name="pressed" offset = "93 41 14 12"/>
+            <State name="select" offset = "93 54 14 12"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "ComboBox" size = "150 26" texture = "core_new.png" >
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "Left VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Property key="HeightList" value = "100" />
+        <Property key="ListSmoothShow" value = "true" />
+        <Property key="ListSkin" value = "List" />
+        <Property key="ListLayer" value = "Popup" />
+
+        <Child type="Widget" skin="EditClient" offset = "2 1 129 22" align = "Stretch" name = "Client"/>
+        <Child type="Button" skin="ComboBoxButton" offset = "128 4 14 12" align = "Right VCenter" name = "Button"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
+            <State name="disable" offset = "49 345 10 26"/>
+            <State name="normal" offset = "49 345 10 26"/>
+            <State name="active" offset = "49 377 10 26"/>
+            <State name="pressed" offset = "49 407 10 26"/>
+            <State name="select" offset = "49 439 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "Stretch">
+            <State name="disable" offset = "59 345 20 26"/>
+            <State name="normal" offset = "59 345 20 26"/>
+            <State name="active" offset = "59 377 20 26"/>
+            <State name="pressed" offset = "59 407 20 26"/>
+            <State name="select" offset = "59 439 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "Right VStretch">
+            <State name="disable" offset = "187 345 12 26"/>
+            <State name="normal" offset = "187 345 12 26"/>
+            <State name="active" offset = "187 377 12 26"/>
+            <State name="pressed" offset = "187 407 12 26"/>
+            <State name="select" offset = "187 439 12 26"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "EditorComboBox" size = "150 26" texture = "core_new.png" >
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "Left VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Property key="HeightList" value = "140" />
+        <Property key="ListSmoothShow" value = "true" />
+        <Property key="ListSkin" value = "List" />
+        <Property key="ListLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="EditClient" offset = "2 1 129 22" align = "Stretch" name = "Client"/>
+        <Child type="Button" skin="ComboBoxButton" offset = "128 4 20 17" align = "Right VCenter" name = "Button"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
+            <State name="disable" offset = "49 345 10 26"/>
+            <State name="normal" offset = "49 345 10 26"/>
+            <State name="active" offset = "49 377 10 26"/>
+            <State name="pressed" offset = "49 407 10 26"/>
+            <State name="select" offset = "49 439 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "Stretch">
+            <State name="disable" offset = "59 345 20 26"/>
+            <State name="normal" offset = "59 345 20 26"/>
+            <State name="active" offset = "59 377 20 26"/>
+            <State name="pressed" offset = "59 407 20 26"/>
+            <State name="select" offset = "59 439 20 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "Right VStretch">
+            <State name="disable" offset = "187 345 12 26"/>
+            <State name="normal" offset = "187 345 12 26"/>
+            <State name="active" offset = "187 377 12 26"/>
+            <State name="pressed" offset = "187 407 12 26"/>
+            <State name="select" offset = "187 439 12 26"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "TabButtonLeft" size = "13 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 13 15" align = "Stretch">
+            <State name="disable" offset = "631 46 13 15"/>
+            <State name="normal" offset = "631 63 13 15"/>
+            <State name="active" offset = "631 80 13 15"/>
+            <State name="pressed" offset = "631 98 13 15"/>
+            <State name="select" offset = "631 114 13 15"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "TabButtonRight" size = "13 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 13 15" align = "Stretch">
+            <State name="disable" offset = "656 46 13 15"/>
+            <State name="normal" offset = "656 63 13 15"/>
+            <State name="active" offset = "656 80 13 15"/>
+            <State name="pressed" offset = "656 98 13 15"/>
+            <State name="select" offset = "656 114 13 15"/>
+        </BasisSkin>
+    </Skin>
+    
+    <Skin name = "TabButton" size = "51 28" texture = "core_new.png" >
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "Center" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 11 28" align = "Left VStretch">
+            <State name="normal" offset = "447 58 11 28"/>
+            <State name="active" offset = "498 58 11 28"/>
+            <State name="pressed" offset = "395 58 11 28"/>
+            <State name="select" offset = "395 89 11 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "11 0 26 28" align = "Stretch">
+            <State name="normal" offset = "458 58 26 28"/>
+            <State name="active" offset = "509 58 26 28"/>
+            <State name="pressed" offset = "406 58 26 28"/>
+            <State name="select" offset = "406 89 26 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "37 0 14 28" align = "Right VStretch">
+            <State name="normal" offset = "484 58 14 28"/>
+            <State name="active" offset = "535 58 14 28"/>
+            <State name="pressed" offset = "432 58 14 28"/>
+            <State name="select" offset = "432 89 14 28"/>
+        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "10 0 28 28" align = "Stretch">
+            <State name="pressed" shift="true"/>
+            <State name="select" shift="true"/>
+        </BasisSkin>
+
+    </Skin>
+
+    <Skin name = "Tab" size = "43 61" texture = "core_new.png" >
+        <Property key="OffsetBar" value = "17" />
+        <Property key="ButtonSkin" value = "TabButton" />
+
+        <Child type="Widget" skin="Default" offset = "8 31 27 22" align = "Stretch" name = "Sheet"/>
+        <Child type="Widget" skin="Default" offset = "8 0 23 28" align = "HStretch Top" name = "Bar"/>
+        <Child type="Button" skin="TabButtonLeft" offset = "13 4 13 15" align = "Right Top" name = "Left"/>
+        <Child type="Button" skin="TabButtonRight" offset = "29 4 13 15" align = "Right Top" name = "Right"/>
+
+
+        <BasisSkin type="SubSkin" offset = "0 28 41 30" align = "Stretch">
+            <State name="normal" offset = "412 132 79 37"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 22 7 8" align = "Left Top">
+            <State name="normal" offset = "577 80 7 8"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "7 22 29 8" align = "HStretch Top">
+            <State name="normal" offset = "584 80 29 8"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "36 22 7 8" align = "Right Top">
+            <State name="normal" offset = "613 80 7 8"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 30 7 24" align = "Left VStretch">
+            <State name="normal" offset = "577 88 7 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "36 30 7 24" align = "Right VStretch">
+            <State name="normal" offset = "613 88 7 24"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "0 54 7 8" align = "Left Bottom">
+            <State name="normal" offset = "577 112 7 8"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "7 54 29 8" align = "HStretch Bottom">
+            <State name="normal" offset = "584 112 29 8"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "36 54 7 8" align = "Right Bottom">
+            <State name="normal" offset = "613 112 7 8"/>
+        </BasisSkin>
+
+    </Skin>
+
+
+    <Skin name = "DefaultClient" size = "89 47" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 89 47" align = "Stretch">
+            <State name="normal" offset = "412 132 79 37"/>
+        </BasisSkin>
+    </Skin>
+
+ 
+    <Skin name = "List" size = "8 8" texture = "core_new.png" align = "Left Top">
+        <Property key="NeedKey" value = "true" />
+        <Property key="SkinLine" value = "ListLine" />
+        <Property key="HeightLine" value = "20" />
+
+        <Child type="VScroll" skin="VScroll" offset = "-11 2 15 2" align = "Right VStretch" name = "VScroll"/>
+        <Child type="Widget" skin="DefaultClient" offset = "2 2 -13 2" align = "Stretch" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "Left Top">
+            <State name="normal" offset = "399 404 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 0 2 2" align = "HStretch Top">
+            <State name="normal" offset = "401 404 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "4 0 4 2" align = "Right Top">
+            <State name="normal" offset = "418 404 4 2"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SubSkin" offset = "0 2 2 2" align = "Left VStretch">
+            <State name="normal" offset = "399 406 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "4 2 4 2" align = "Right VStretch">
+            <State name="normal" offset = "418 406 4 2"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 4 2 4" align = "Left Bottom">
+            <State name="normal" offset = "399 422 2 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 4 2 4" align = "HStretch Bottom">
+            <State name="normal" offset = "401 422 2 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "4 4 4 4" align = "Right Bottom">
+            <State name="normal" offset = "418 422 4 4"/>
+        </BasisSkin>
+    </Skin>
+    
+
+    <Skin name = "WindowCaption" size = "68 28" texture = "core_new.png">
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "HCenter VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
+            <State name="normal" offset = "11 19 15 28"/>
+            <State name="active" offset = "11 53 15 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 0 36 28" align = "HStretch VStretch">
+            <State name="normal" offset = "26 19 36 28"/>
+            <State name="active" offset = "26 53 36 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "51 0 17 28" align = "Right VStretch">
+            <State name="normal" offset = "62 19 17 28"/>
+            <State name="active" offset = "62 53 17 28"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "10 0 46 24" align = "Stretch"/>
+    </Skin>
+ 
+    <Skin name = "WindowCaption2" size = "41 28" texture = "core_new.png">
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+        
+>>>>>>> .r1036
+        <Property key="AlignText" value = "HCenter VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
+            <State name="normal" offset = "89 19 15 28"/>
+            <State name="active" offset = "89 53 15 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 0 14 28" align = "HStretch VStretch">
+            <State name="normal" offset = "26 19 14 28"/>
+            <State name="active" offset = "26 53 14 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "29 0 12 28" align = "Right VStretch">
+            <State name="normal" offset = "118 19 12 28"/>
+            <State name="active" offset = "118 53 12 28"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "10 0 23 24" align = "Stretch"/>
+    </Skin>
+ 
+    <Skin name = "WindowResizeRight" size = "9 9" texture = "core_new.png" >
+        <Property key="Pointer" value = "size_left" />
+        <BasisSkin type="MainSkin" offset = "0 0 9 9" align = "Stretch">
+            <State name="normal" offset = "41 99 9 9"/>
+            <State name="active" offset = "41 86 9 9"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "WindowResizeLeft" size = "9 9" texture = "core_new.png" >
+        <Property key="Pointer" value = "size_right" />
+        <BasisSkin type="MainSkin" offset = "0 0 9 9" align = "Stretch">
+            <State name="normal" offset = "28 99 9 9"/>
+            <State name="active" offset = "28 86 9 9"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "WindowC" size = "24 54" texture = "core_new.png" >
+        <Property key="ToStick" value = "true" />
+
+        <Child type="Button" skin="WindowCaption" offset = "0 0 24 28" align = "HStretch Top" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 29 16 20" align = "Stretch" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 28 3 1" align = "Left Top">
+            <State name="normal" offset = "56 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 28 16 1" align = "HStretch Top">
+            <State name="normal" offset = "63 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 28 5 1" align = "Right Top">
+            <State name="normal" offset = "74 88 5 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 29 3 20" align = "Left VStretch">
+            <State name="normal" offset = "56 92 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 29 5 20" align = "Right VStretch">
+            <State name="normal" offset = "74 92 5 3"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 49 3 5" align = "Left Bottom">
+            <State name="normal" offset = "56 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 49 16 5" align = "HStretch Bottom">
+            <State name="normal" offset = "63 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 49 5 5" align = "Right Bottom">
+            <State name="normal" offset = "74 103 5 5"/>
+        </BasisSkin>
+
+    </Skin>
+
+
+    <Skin name = "WindowCS" size = "24 54" texture = "core_new.png" >
+        <Property key="ToStick" value = "true" />
+
+        <Child type="Button" skin="WindowCaption" offset = "0 0 24 28" align = "HStretch Top" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 29 16 20" align = "Stretch" name = "Client"/>
+
+        <Child type="Button" skin="WindowResizeRight" offset = "13 43 9 9" align = "Right Bottom" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
+        </Child>
+        <Child type="Button" skin="WindowResizeLeft" offset = "0 43 9 9" align = "Left Bottom" name = "Action">
+            <Property key="Scale" value = "1 0 -1 1"/>
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 28 3 1" align = "Left Top">
+            <State name="normal" offset = "56 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 28 16 1" align = "HStretch Top">
+            <State name="normal" offset = "63 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 28 5 1" align = "Right Top">
+            <State name="normal" offset = "74 88 5 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 29 3 20" align = "Left VStretch">
+            <State name="normal" offset = "56 92 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 29 5 20" align = "Right VStretch">
+            <State name="normal" offset = "74 92 5 3"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 49 3 5" align = "Left Bottom">
+            <State name="normal" offset = "56 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 49 16 5" align = "HStretch Bottom">
+            <State name="normal" offset = "63 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 49 5 5" align = "Right Bottom">
+            <State name="normal" offset = "74 103 5 5"/>
+        </BasisSkin>
+
+    </Skin>
+
+
+    <Skin name = "WindowCSX" size = "24 54" texture = "core_new.png" >
+        <Property key="ToStick" value = "true" />
+
+        <Child type="Button" skin="WindowCaption2" offset = "0 0 -3 28" align = "HStretch Top" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 29 16 20" align = "Stretch" name = "Client"/>
+
+        <Child type="Button" skin="WindowResizeRight" offset = "13 43 9 9" align = "Right Bottom" name = "Action">
+            <Property key="Scale" value = "0 0 1 1"/>
+        </Child>
+        <Child type="Button" skin="WindowResizeLeft" offset = "0 43 9 9" align = "Left Bottom" name = "Action">
+            <Property key="Scale" value = "1 0 -1 1"/>
+        </Child>
+
+        <Child type="Button" skin="ButtonX" offset = "0 6 18 17" align = "Right Top" name = "Button">
+            <Property key="Event" value = "close"/>
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "-3 0 27 28" align = "Right Top">
+            <State name="normal" offset = "130 19 27 28"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 28 3 1" align = "Left Top">
+            <State name="normal" offset = "56 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 28 16 1" align = "HStretch Top">
+            <State name="normal" offset = "63 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 28 5 1" align = "Right Top">
+            <State name="normal" offset = "74 88 5 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 29 3 20" align = "Left VStretch">
+            <State name="normal" offset = "56 92 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 29 5 20" align = "Right VStretch">
+            <State name="normal" offset = "74 92 5 3"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 49 3 5" align = "Left Bottom">
+            <State name="normal" offset = "56 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 49 16 5" align = "HStretch Bottom">
+            <State name="normal" offset = "63 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 49 5 5" align = "Right Bottom">
+            <State name="normal" offset = "74 103 5 5"/>
+        </BasisSkin>
+
+    </Skin>
+    
+    <Skin name = "Message" size = "24 54" texture = "core_new.png" >
+        <Property key="ToStick" value = "true" />
+        <Property key="ButtonSkin" value = "ButtonSmall" />
+        <Property key="ButtonType" value = "Button" />
+        <Property key="ButtonSize" value = "100 26" />
+        <Property key="ButtonOffset" value = "20 43" />
+        <Property key="DefaultLayer" value = "Info" />
+        <Property key="FadeSkin" value = "MarkerBlack" />
+        <Property key="FadeLayer" value = "FadeMiddle" />
+
+        <Child type="Widget" skin="MessageClient" offset = "10 35 8 -36" align = "Stretch" name = "Text"/>
+        <Child type="StaticImage" skin="MessageIcon" offset = "6 34 50 50" align = "Default" name = "Icon"/>
+
+        <Child type="Button" skin="WindowCaption" offset = "0 0 24 28" align = "HStretch Top" name = "Caption">
+            <Property key="Scale" value = "1 1 0 0"/>
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 28 3 1" align = "Left Top">
+            <State name="normal" offset = "56 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 28 16 1" align = "HStretch Top">
+            <State name="normal" offset = "63 88 3 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 28 5 1" align = "Right Top">
+            <State name="normal" offset = "74 88 5 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 29 3 20" align = "Left VStretch">
+            <State name="normal" offset = "56 92 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 29 16 20" align = "HStretch VStretch">
+            <State name="normal" offset = "412 132 79 37"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 29 5 20" align = "Right VStretch">
+            <State name="normal" offset = "74 92 5 3"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 49 3 5" align = "Left Bottom">
+            <State name="normal" offset = "56 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 49 16 5" align = "HStretch Bottom">
+            <State name="normal" offset = "63 103 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "19 49 5 5" align = "Right Bottom">
+            <State name="normal" offset = "74 103 5 5"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "MessageIcon" size = "50 50" texture = "core_new.png">
+        <Property key="ImageTexture" value = "core_new.png" />
+        <Property key="ImageCoord" value = "0 754 200 50" />
+        <Property key="ImageTile" value = "50 50" />
+        <Property key="ImageNum" value = "0" />
+
+        <BasisSkin type="MainSkin" offset = "0 0 50 50" align = "Stretch"/>
+    </Skin>
+
+    <Skin name = "EditorMenuBar" size = "148 26" texture = "core_new.png">
+        <Property key="SkinButton" value = "MenuBarButton" />
+        <Property key="DistanceButton" value = "6" />
+        <Property key="SubMenuSkin" value = "EditorPopupMenu" />
+        <Property key="SubMenuLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="Default" offset = "6 0 138 24" align = "Stretch" name = "Client"/>
+        
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
+            <State name="normal" offset = "49 498 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "HStretch VStretch">
+            <State name="normal" offset = "59 498 128 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 10 26" align = "Right VStretch">
+            <State name="normal" offset = "187 498 10 26"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "MenuBarButton" size = "33 24" texture = "core_new.png">
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+        
+>>>>>>> .r1036
+        <Property key="AlignText" value = "Center" />
+        <Property key="Colour" value = "0 0 0" />
+        
+        <BasisSkin type="SubSkin" offset = "0 0 10 23" align = "Left VStretch">
+            <State name="disable" offset = "585 31 0 0"/>
+            <State name="normal" offset = "585 31 0 0"/>
+            <State name="active" offset = "268 498 10 23"/>
+            <State name="pressed" offset = "309 498 10 23"/>
+            <State name="select" offset = "350 498 10 23"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 13 23" align = "Stretch">
+            <State name="disable" offset = "585 31 0 0"/>
+            <State name="normal" offset = "585 31 0 0"/>
+            <State name="active" offset = "278 498 13 23"/>
+            <State name="pressed" offset = "319 498 13 23"/>
+            <State name="select" offset = "360 498 13 23"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "23 0 10 23" align = "Right VStretch">
+            <State name="disable" offset = "585 31 0 0"/>
+            <State name="normal" offset = "585 31 0 0"/>
+            <State name="active" offset = "291 498 10 23"/>
+            <State name="pressed" offset = "332 498 10 23"/>
+            <State name="select" offset = "373 498 10 23"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "6 0 21 24" align = "Stretch">
+        </BasisSkin>
+    </Skin>
+
+
+    <Skin name = "EditorPopupMenu" size = "11 11" texture = "core_new.png" align = "Left Top">
+        <Property key="NeedKey" value = "true" />
+        <Property key="SkinLine" value = "PopupMenuLine" />
+        <Property key="HeightLine" value = "20" />
+        <Property key="SubmenuImageSize" value = "12" />
+        <Property key="SubMenuSkin" value = "EditorPopupMenu" />
+        <Property key="SubMenuLayer" value = "LayoutEditor_Popup" />
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "Stretch" name = "Client">
+        </Child>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
+            <State name="normal" offset = "80 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "HStretch Top">
+            <State name="normal" offset = "85 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 5 3" align = "Right Top">
+            <State name="normal" offset = "98 121 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 5 3" align = "Right VStretch">
+            <State name="normal" offset = "98 126 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 6 5 5" align = "Right Bottom">
+            <State name="normal" offset = "98 138 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 3 5" align = "HStretch Bottom">
+            <State name="normal" offset = "85 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 3 5" align = "Left Bottom">
+            <State name="normal" offset = "80 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "Left VStretch">
+            <State name="normal" offset = "80 126 3 3"/>
+        </BasisSkin>
+    </Skin>
+
+
+
+
+<<<<<<< .mine
+    <Skin name = "PanelSmall" size = "8 8" texture = "core_new.png" align = "Left Top">
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+    <Skin name = "PanelSmall" size = "8 8" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
+        <Property key="FontName" value = "Comic.18" />
+        
+>>>>>>> .r1036
+        <Property key="AlignText" value = "Center" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="Widget" skin="DefaultClient" offset = "2 2 2 2" align = "Stretch" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 2 2" align = "Left Top">
+            <State name="normal" offset = "80 121 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 0 2 2" align = "HStretch Top">
+            <State name="normal" offset = "86 121 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "4 0 4 2" align = "Right Top">
+            <State name="normal" offset = "99 121 4 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "4 2 4 2" align = "Right VStretch">
+            <State name="normal" offset = "99 126 4 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "4 4 4 4" align = "Right Bottom">
+            <State name="normal" offset = "99 139 4 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "2 4 2 4" align = "HStretch Bottom">
+            <State name="normal" offset = "86 139 2 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 4 2 4" align = "Left Bottom">
+            <State name="normal" offset = "80 139 2 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 2 2 2" align = "Left VStretch">
+            <State name="normal" offset = "80 129 2 2"/>
+        </BasisSkin>
+        <_BasisSkin type="SubSkin" offset = "2 2 2 2" align = "Stretch">
+            <State name="normal" offset = "413 4 96 59"/>
+        </_BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "2 2 2 2" align = "Stretch"/>
+    </Skin>
+
+
+
+    <Skin name = "List" size = "11 11" texture = "core_new.png" align = "Left Top">
+        <Property key="NeedKey" value = "true" />
+        <Property key="SkinLine" value = "ListLine" />
+        <Property key="HeightLine" value = "20" />
+
+        <Child type="VScroll" skin="VScroll" offset = "-9 3 15 3" align = "Right VStretch" name = "VScroll"/>
+        <Child type="Widget" skin="DefaultClient" offset = "3 3 -12 3" align = "Stretch" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
+            <State name="normal" offset = "80 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "HStretch Top">
+            <State name="normal" offset = "85 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 5 3" align = "Right Top">
+            <State name="normal" offset = "98 121 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 5 3" align = "Right VStretch">
+            <State name="normal" offset = "98 126 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 6 5 5" align = "Right Bottom">
+            <State name="normal" offset = "98 138 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 3 5" align = "HStretch Bottom">
+            <State name="normal" offset = "85 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 3 5" align = "Left Bottom">
+            <State name="normal" offset = "80 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "Left VStretch">
+            <State name="normal" offset = "80 126 3 3"/>
+        </BasisSkin>
+    </Skin>
+
+
+    <Skin name = "MultiList" size = "11 11" texture = "core_new.png" align = "Left Top">
+        <Property key="NeedKey" value = "true" />
+        <Property key="SkinButton" value = "ButtonSmall2" />
+        <Property key="_SkinButtonEmpty" value = "Edit" />
+        <Property key="HeightButton" value = "21" />
+        <Property key="SkinList" value = "MultiSubList" />
+
+        <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "Stretch" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
+            <State name="normal" offset = "80 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "HStretch Top">
+            <State name="normal" offset = "85 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 5 3" align = "Right Top">
+            <State name="normal" offset = "98 121 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 5 3" align = "Right VStretch">
+            <State name="normal" offset = "98 126 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 6 5 5" align = "Right Bottom">
+            <State name="normal" offset = "98 138 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 3 5" align = "HStretch Bottom">
+            <State name="normal" offset = "85 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 3 5" align = "Left Bottom">
+            <State name="normal" offset = "80 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "Left VStretch">
+            <State name="normal" offset = "80 126 3 3"/>
+        </BasisSkin>
+    </Skin>
+
+
+    <Skin name = "MultiListButton" size = "150 26" texture = "core_new.png" >
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "HCenter VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="StaticImage" skin="MultiListButtonIcon" offset = "128 0 20 26" align = "Right VStretch" name = "Image"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
+            <State name="disable" offset = "49 498 10 26"/>
+            <State name="normal" offset = "49 498 10 26"/>
+            <State name="active" offset = "49 530 10 26"/>
+            <State name="pressed" offset = "49 564 10 26"/>
+            <State name="select" offset = "49 595 10 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 128 26" align = "HStretch VStretch">
+            <State name="disable" offset = "59 498 128 26"/>
+            <State name="normal" offset = "59 498 128 26"/>
+            <State name="active" offset = "59 530 128 26"/>
+            <State name="pressed" offset = "59 564 128 26"/>
+            <State name="select" offset = "59 595 128 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "138 0 12 26" align = "Right VStretch">
+            <State name="disable" offset = "187 498 12 26"/>
+            <State name="normal" offset = "187 498 12 26"/>
+            <State name="active" offset = "187 530 12 26"/>
+            <State name="pressed" offset = "187 564 12 26"/>
+            <State name="select" offset = "187 595 12 26"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "1 1 146 22" align = "Stretch">
+            <State name="disable" shift = "false"/>
+            <State name="normal" shift = "false"/>
+            <State name="active" shift = "false"/>
+            <State name="pressed" shift = "true"/>
+            <State name="select" shift = "true"/>
+        </BasisSkin>
+    </Skin>
+            	    
+    <Skin name = "MultiListButtonIcon" size = "14 12" texture = "core_new.png">
+        <Property key="ImageTexture" value = "core_new.png" />
+        <Property key="ImageCoord" value = "446 525 42 12" />
+        <Property key="ImageTile" value = "14 12" />
+        <Property key="ImageNum" value = "0" />
+        <Property key="NeedMouse" value = "false" />
+
+        <BasisSkin type="MainSkin" offset = "0 0 14 12" align = "Stretch"/>
+    </Skin>
+
+    <Skin name = "ButtonSmall2" size = "29 21" texture = "core_new.png">
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "HCenter VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="StaticImage" skin="MultiListButtonIcon" offset = "12 4 14 12" align = "Right VStretch" name = "Image"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 9 21" align = "Left VStretch">
+            <State name="disable" offset = "406 498 9 21"/>
+            <State name="normal" offset = "406 520 9 21"/>
+            <State name="active" offset = "406 542 9 21"/>
+            <State name="pressed" offset = "406 564 9 21"/>
+            <State name="select" offset = "406 586 9 21"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "9 0 9 21" align = "HStretch VStretch">
+            <State name="disable" offset = "415 498 9 21"/>
+            <State name="normal" offset = "415 520 9 21"/>
+            <State name="active" offset = "415 542 9 21"/>
+            <State name="pressed" offset = "415 564 9 21"/>
+            <State name="select" offset = "415 586 9 21"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "18 0 11 21" align = "Right VStretch">
+            <State name="disable" offset = "424 498 11 21"/>
+            <State name="normal" offset = "424 520 11 21"/>
+            <State name="active" offset = "424 542 11 21"/>
+            <State name="pressed" offset = "424 564 11 21"/>
+            <State name="select" offset = "424 586 11 21"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "0 0 27 19" align = "Stretch">
+            <State name="disable" shift = "false"/>
+            <State name="normal" shift = "false"/>
+            <State name="active" shift = "false"/>
+            <State name="pressed" shift = "true"/>
+            <State name="select" shift = "true"/>
+        </BasisSkin>
+    </Skin>
+
+
+    <Skin name = "PopupMenuLine" size = "5 5" texture = "core.png" >
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "Left VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+
+        <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-10 0 12 15" align = "Right VCenter" name = "Image"/>
+
+        <BasisSkin type="MainSkin" offset = "0 0 5 5">
+            <State name="normal" offset = "149 26 5 5"/>
+            <State name="active" offset = "149 37 5 5"/>
+            <State name="pressed" offset = "149 48 5 5"/>
+            <State name="select" offset = "149 59 5 5"/>
+        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "Stretch"/>
+    </Skin>
+    
+    <Skin name = "PopupMenuLineIcon" size = "12 15" texture = "core_new.png">
+        <Property key="ImageTexture" value = "core_new.png" />
+        <Property key="ImageCoord" value = "449 539 24 15" />
+        <Property key="ImageTile" value = "12 15" />
+        <Property key="ImageNum" value = "0" />
+        <Property key="NeedMouse" value = "false" />
+
+        <BasisSkin type="MainSkin" offset = "0 0 12 15" align = "Stretch"/>
+    </Skin>
+
+
+    <_Skin name = "VScrollTrack" size = "15 20" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 8" align = "HStretch Top">
+            <State name="normal" offset = "384 286 15 8"/>
+            <State name="active" offset = "405 286 15 8"/>
+            <State name="select" offset = "426 286 15 8"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 8 15 2" align = "Stretch">
+            <State name="normal" offset = "384 294 15 2"/>
+            <State name="active" offset = "405 294 15 2"/>
+            <State name="select" offset = "426 294 15 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 10 15 10" align = "HStretch Bottom">
+            <State name="normal" offset = "384 313 15 10"/>
+            <State name="active" offset = "405 313 15 10"/>
+            <State name="select" offset = "426 313 15 10"/>
+        </BasisSkin>
+    </_Skin>
+
+    <Skin name = "VScrollTop" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "Left Top">
+            <State name="normal" offset = "384 251 15 15"/>
+            <State name="active" offset = "405 251 15 15"/>
+            <State name="select" offset = "426 251 15 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScrollBottom" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "Left Top">
+            <State name="normal" offset = "384 337 15 15"/>
+            <State name="active" offset = "405 337 15 15"/>
+            <State name="select" offset = "426 337 15 15"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VScrollTopPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "Stretch">
+            <State name="normal" offset = "405 266 15 6"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VScrollBottomPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "Stretch">
+            <State name="normal" offset = "405 266 15 6"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VScroll" size = "15 42" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "15 15" />
+        <Property key="MinTrackSize" value = "18" />
+
+		<Child type="Button" skin="VScrollTopPart" offset = "0 15 15 6" align = "Stretch" name = "FirstPart"/>
+        <Child type="Button" skin="VScrollBottomPart" offset = "0 21 15 6" align = "HStretch Bottom" name = "SecondPart"/>
+
+        <Child type="Button" skin="VScrollTop" offset = "0 0 15 15" align = "HStretch Top" name = "Start"/>
+        <Child type="Button" skin="VScrollBottom" offset = "0 27 15 15" align = "HStretch Bottom" name = "End"/>
+        <Child type="Button" skin="VScrollTrack" offset = "0 18 15 18" align = "HStretch Top" name = "Track"/>
+
+    </Skin>
+    
+
+    <_Skin name = "HScrollTrack" size = "20 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 8 15" align = "Left VStretch">
+            <State name="normal" offset = "484 273 8 15"/>
+            <State name="active" offset = "484 294 8 15"/>
+            <State name="select" offset = "484 315 8 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "8 0 2 15" align = "Stretch">
+            <State name="normal" offset = "492 273 2 15"/>
+            <State name="active" offset = "492 294 2 15"/>
+            <State name="select" offset = "492 315 2 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "10 0 10 15" align = "Right VStretch">
+            <State name="normal" offset = "511 273 10 15"/>
+            <State name="active" offset = "511 294 10 15"/>
+            <State name="select" offset = "511 315 10 15"/>
+        </BasisSkin>
+    </_Skin>
+
+    <Skin name = "HScrollLeft" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "Left Top">
+            <State name="normal" offset = "453 273 15 15"/>
+            <State name="active" offset = "453 294 15 15"/>
+            <State name="select" offset = "453 315 15 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HScrollRight" size = "15 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 15" align = "Left Top">
+            <State name="normal" offset = "539 273 15 15"/>
+            <State name="active" offset = "539 294 15 15"/>
+            <State name="select" offset = "539 315 15 15"/>
+        </BasisSkin>
+    </Skin>
+    
+	<Skin name = "HScrollLeftPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
+            <State name="normal" offset = "468 273 6 15"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "HScrollRightPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
+            <State name="normal" offset = "468 273 6 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HScroll" size = "42 15" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "15 15" />
+        <Property key="MinTrackSize" value = "18" />
+
+		<Child type="Button" skin="HScrollLeftPart" offset = "15 0 6 15" align = "Stretch" name = "FirstPart"/>
+        <Child type="Button" skin="HScrollRightPart" offset = "21 0 6 15" align = "Right VStretch" name = "SecondPart"/>
+
+        <Child type="Button" skin="HScrollLeft" offset = "0 0 15 15" align = "Left VStretch" name = "Start"/>
+        <Child type="Button" skin="HScrollRight" offset = "27 0 15 15" align = "Right VStretch" name = "End"/>
+        <Child type="Button" skin="HScrollTrack" offset = "18 0 18 15" align = "Left VStretch" name = "Track"/>
+
+    </Skin>
+
+    <Skin name = "HSliderLeftPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 3 15" align = "Left VStretch">
+            <State name="normal" offset = "453 335 3 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 15" align = "Stretch">
+            <State name="normal" offset = "456 335 3 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HSliderRightPart" size = "6 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 3 15" align = "Stretch">
+            <State name="normal" offset = "548 335 3 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 15" align = "Right VStretch">
+            <State name="normal" offset = "551 335 3 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "HSliderTrack" size = "8 15" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 8 15" align = "Stretch">
+            <State name="normal" offset = "484 335 8 15"/>
+            <State name="active" offset = "496 335 8 15"/>
+            <State name="select" offset = "508 335 8 15"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "HSlider" size = "20 15" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "2 0" />
+        <Property key="MinTrackSize" value = "8" />
+		<Child type="Button" skin="HSliderLeftPart" offset = "0 0 10 15" align = "VStretch Left" name = "FirstPart"/>
+        <Child type="Button" skin="HSliderRightPart" offset = "10 0 10 15" align = "Stretch" name = "SecondPart"/>
+        <Child type="Button" skin="HSliderTrack" offset = "0 0 8 15" align = "Left VStretch" name = "Track"/>
+    </Skin>
+
+
+    <Skin name = "VSliderTopPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 3" align = "HStretch Top">
+            <State name="normal" offset = "363 251 15 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 15 3" align = "Stretch">
+            <State name="normal" offset = "363 254 15 3"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VSliderBottomPart" size = "15 6" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 15 3" align = "Stretch">
+            <State name="normal" offset = "363 346 15 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 15 3" align = "HStretch Bottom">
+            <State name="normal" offset = "363 349 15 3"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "VSliderTrack" size = "15 8" texture = "core_new.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 15 8" align = "Stretch">
+            <State name="normal" offset = "363 286 15 8"/>
+            <State name="active" offset = "363 296 15 8"/>
+            <State name="select" offset = "363 306 15 8"/>
+        </BasisSkin>
+    </Skin>
+
+	<Skin name = "VSlider" size = "15 20" texture = "core_new.png" >
+        <Property key="TrackRangeMargins" value = "2 0" />
+        <Property key="MinTrackSize" value = "8" />
+		<Child type="Button" skin="VSliderTopPart" offset = "0 0 15 10" align = "HStretch Top" name = "FirstPart"/>
+        <Child type="Button" skin="VSliderBottomPart" offset = "0 10 15 10" align = "Stretch" name = "SecondPart"/>
+        <Child type="Button" skin="VSliderTrack" offset = "0 0 15 8" align = "Top HStretch" name = "Track"/>
+    </Skin>
+
+    <Skin name = "ProgressTrack" size = "14 15" texture = "core_new.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 5 15" align = "Left VStretch">
+            <State name="normal" offset = "484 273 5 15"/>
+            <State name="active" offset = "484 294 5 15"/>
+            <State name="select" offset = "484 315 5 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "5 0 2 15" align = "Stretch">
+            <State name="normal" offset = "492 273 2 15"/>
+            <State name="active" offset = "492 294 2 15"/>
+            <State name="select" offset = "492 315 2 15"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "7 0 7 15" align = "Right VStretch">
+            <State name="normal" offset = "514 273 7 15"/>
+            <State name="active" offset = "514 294 7 15"/>
+            <State name="select" offset = "514 315 7 15"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "Progress" size = "20 15" texture = "core_new.png" >
+        <Property key="TrackSkin" value = "ProgressTrack" />
+        <Property key="TrackWidth" value = "14" />
+        <Property key="TrackFill" value = "true" />
+
+		<Child type="Button" skin="HSliderLeftPart" offset = "0 0 10 15" align = "Left VStretch"/>
+        <Child type="Button" skin="HSliderRightPart" offset = "10 0 10 15" align = "Stretch"/>
+
+        <Child type="Widget" skin="Default" offset = "2 0 18 15" align = "Stretch" name = "Client"/>
+    </Skin>
+
+
+    <Skin name = "ScrollView" size = "11 11" texture = "core_new.png" align = "Left Top">
+        <Property key="NeedKey" value = "true" />
+
+        <Child type="VScroll" skin="VScroll" offset = "-9 3 15 -12" align = "Right VStretch" name = "VScroll"/>
+        <Child type="HScroll" skin="HScroll" offset = "3 -9 -12 15" align = "HStretch Bottom" name = "HScroll"/>
+        <Child type="Widget" skin="Default" offset = "3 3 -12 -12" align = "Stretch" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
+            <State name="normal" offset = "80 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "HStretch Top">
+            <State name="normal" offset = "85 121 3 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 0 5 3" align = "Right Top">
+            <State name="normal" offset = "98 121 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 3 5 3" align = "Right VStretch">
+            <State name="normal" offset = "98 126 5 3"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "6 6 5 5" align = "Right Bottom">
+            <State name="normal" offset = "98 138 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 6 3 5" align = "HStretch Bottom">
+            <State name="normal" offset = "85 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 6 3 5" align = "Left Bottom">
+            <State name="normal" offset = "80 138 3 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "Left VStretch">
+            <State name="normal" offset = "80 126 3 3"/>
+        </BasisSkin>
+        <_BasisSkin type="SubSkin" offset = "3 3 3 3" align = "Stretch">
+            <State name="normal" offset = "412 132 79 37"/>
+        </_BasisSkin>
+    </Skin>
+
+    <Skin name = "ScrollViewEmpty" size = "30 30" texture = "core_new.png" align = "Left Top">
+        <Property key="NeedKey" value = "true" />
+
+        <Child type="VScroll" skin="VScroll" offset = "15 0 15 15" align = "Right VStretch" name = "VScroll"/>
+        <Child type="HScroll" skin="HScroll" offset = "0 15 15 15" align = "HStretch Bottom" name = "HScroll"/>
+        <Child type="Widget" skin="Default" offset = "0 0 15 15" align = "Stretch" name = "Client"/>
+    </Skin>    
+
+    <Skin name = "MemoClient" size = "16 16">
+<<<<<<< .mine
+        <Property key="FontName" value = "Comic.18" />
+        <Property key="FontHeight" value = "18" />
+=======
+        <Property key="FontName" value = "Comic.18" />
+>>>>>>> .r1036
+        <Property key="AlignText" value = "Left VCenter" />
+        <Property key="Colour" value = "0 0 0" />
+        <BasisSkin type="EditText" offset = "0 0 16 16" align = "Stretch">
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "StaticTextBreak" size = "16 16" texture = "core_new.png" >
+        <Property key="Memo" value = "true" />
+        <Child type="Widget" skin="MemoClient" offset = "0 0 16 16" align = "Stretch" name = "Client"/>
+    </Skin>
+        
+    <Skin name = "Memo" size = "16 16" texture = "core_new.png" >
+        <Property key="Memo" value = "true" />
+        <Child type="Widget" skin="MemoClient" offset = "0 0 1 16" align = "Stretch" name = "Client"/>
+        <Child type="VScroll" skin="VScroll" offset = "1 0 15 16" align = "Right VStretch" name = "VScroll"/>
+    </Skin>
+        
+</MyGUI>
+
