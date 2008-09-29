@@ -35,14 +35,14 @@ namespace MyGUI
 	public:
 		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) : 
 			ICroppedRectangle(_coord, _align, _parent) { }
-		virtual ~ISubWidget() { }
+		virtual ~ISubWidget() = 0;
 
 		virtual void _setStateData(StateInfo * _data) { }
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) { }
 		virtual void _destroyDrawItem() { }
 
-		virtual bool firstQueue() { return true; }
+		virtual bool firstQueue() = 0;
 
 	};
 
