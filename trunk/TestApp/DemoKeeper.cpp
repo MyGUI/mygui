@@ -276,7 +276,7 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
         base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
         base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
 
-		Test2 * test = new Test2();
+		//Test2 * test = new Test2();
 
 		/*StaticImagePtr image = Gui::getInstance().createWidget<StaticImage>("StaticImage", IntCoord(50, 50, 300, 300), Align::Default, "Main");
 		image->setImageTexture("core.png");
