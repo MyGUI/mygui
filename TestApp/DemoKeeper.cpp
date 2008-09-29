@@ -7,7 +7,7 @@
 #include "DemoKeeper.h"
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_ResourceManager.h"
-#include "../Test.h"
+//#include "../Test.h"
  
 namespace demo
 {
