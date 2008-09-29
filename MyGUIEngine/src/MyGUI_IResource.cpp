@@ -4,7 +4,7 @@
 	@date		09/2008
 	@module
 */
-#include "MyGUI_IResource.h"
+#include "MyGUI_IResource2.h"
 
 namespace MyGUI
 {

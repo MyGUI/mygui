@@ -6,7 +6,7 @@
 */
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_IResource.h"
+#include "MyGUI_IResource2.h"
 #include "MyGUI_ResourceImageSet.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
