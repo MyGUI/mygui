@@ -10,5 +10,6 @@ namespace MyGUI
 {
 
 	MYGUI_RTTI_BASE_IMPLEMENT( IResource );
+	IResource::~IResource() { }
 
 } // namespace MyGUI

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<MyGUI type="Skin">
+  
+  <Skin name = "TabButtonLeft" size = "12 14" texture = "core_new2.png" >
+    <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
+      <State name="disable" offset = "112 2 12 14"/>
+      <State name="normal" offset = "112 18 12 14"/>
+      <State name="active" offset = "112 34 12 14"/>
+      <State name="pressed" offset = "112 50 12 14"/>
+      <State name="select" offset = "112 66 12 14"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "TabButtonRight" size = "12 14" texture = "core_new2.png" >
+    <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
+      <State name="disable" offset = "112 84 12 14"/>
+      <State name="normal" offset = "112 100 12 14"/>
+      <State name="active" offset = "112 116 12 14"/>
+      <State name="pressed" offset = "112 132 12 14"/>
+      <State name="select" offset = "112 148 12 14"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "TabButton" size = "51 26" texture = "core_new2.png" >
+      <Property key="FontName" value = "Default" />
+      <Property key="AlignText" value = "Center" />
+      <Property key="Colour" value = "0 0 0" />
+
+      <BasisSkin type="SubSkin" offset = "0 0 11 26" align = "Left VStretch">
+        <State name="normal" offset = "597 2 11 26"/>
+        <State name="active" offset = "597 33 11 26"/>
+        <State name="pressed" offset = "545 2 11 26"/>
+        <State name="select" offset = "545 33 11 26"/>
+      </BasisSkin>
+      <BasisSkin type="SubSkin" offset = "11 0 26 26" align = "Stretch">
+        <State name="normal" offset = "608 2 26 26"/>
+        <State name="active" offset = "608 33 26 26"/>
+        <State name="pressed" offset = "556 2 26 26"/>
+        <State name="select" offset = "556 33 26 26"/>
+      </BasisSkin>
+      <BasisSkin type="SubSkin" offset = "37 0 14 26" align = "Right VStretch">
+        <State name="normal" offset = "634 2 14 26"/>
+        <State name="active" offset = "634 33 14 26"/>
+        <State name="pressed" offset = "582 2 14 26"/>
+        <State name="select" offset = "582 33 14 26"/>
+      </BasisSkin>
+
+      <BasisSkin type="SimpleText" offset = "10 0 28 26" align = "Stretch">
+        <State name="pressed" shift="true"/>
+        <State name="select" shift="true"/>
+      </BasisSkin>
+
+    </Skin>
+
+  <Skin name = "TabEmpty" size = "2 26" texture = "core_new2.png" >
+    <BasisSkin type="MainSkin" offset = "0 0 2 26" align = "Stretch">
+      <State name="normal" offset = "650 2 2 26"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "TabPatch" size = "17 5" texture = "core_new2.png" >
+    <BasisSkin type="MainSkin" offset = "0 0 17 5" align = "Stretch">
+      <State name="normal" offset = "538 64 17 5"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "Tab" size = "43 60" texture = "core_new2.png" >
+    <Property key="OffsetBar" value = "17" />
+    <Property key="ButtonSkin" value = "TabButton" />
+    <Property key="EmptyBarSkin" value = "TabEmpty" />
+
+    <Child type="Widget" skin="Default" offset = "8 31 27 21" align = "Stretch" name = "Sheet"/>
+    <Child type="Widget" skin="Default" offset = "8 0 22 26" align = "HStretch Top" name = "Bar"/>
+    <Child type="Button" skin="TabButtonLeft" offset = "13 4 12 14" align = "Right Top" name = "Left"/>
+    <Child type="Button" skin="TabButtonRight" offset = "29 4 12 14" align = "Right Top" name = "Right"/>
+    <Child type="Widget" skin="TabPatch" offset = "13 21 17 5" align = "Right Top" name = "ShowPatch"/>
+
+
+    <BasisSkin type="SubSkin" offset = "0 21 8 5" align = "Left Top">
+      <State name="normal" offset = "524 64 8 5"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "30 21 13 5" align = "Right Top">
+      <State name="normal" offset = "554 64 13 5"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 26 4 29" align = "Left VStretch">
+      <State name="normal" offset = "524 69 4 29"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "4 26 33 29" align = "Stretch">
+      <State name="normal" offset = "528 69 33 29"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "37 26 6 29" align = "Right VStretch">
+      <State name="normal" offset = "561 69 6 29"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 55 4 5" align = "Left Bottom">
+      <State name="normal" offset = "524 98 4 5"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "4 55 33 5" align = "HStretch Bottom">
+      <State name="normal" offset = "528 98 33 5"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "37 55 8 5" align = "Right Bottom">
+      <State name="normal" offset = "561 98 8 5"/>
+    </BasisSkin>
+
+  </Skin>
+</MyGUI>
