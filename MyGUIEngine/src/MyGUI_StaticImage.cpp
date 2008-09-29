@@ -347,14 +347,14 @@ namespace MyGUI
 	bool StaticImage::setItemResource(const Guid & _id)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_id, false);
-		setItemResource(resource->castType<ResourceImageSet>());
+		setItemResource(resource ? resource->castType<ResourceImageSet>() : null);
 		return resource != null;
 	}
 
 	bool StaticImage::setItemResource(const std::string & _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_name, false);
-		setItemResource(resource->castType<ResourceImageSet>());
+		setItemResource(resource ? resource->castType<ResourceImageSet>() : null);
 		return resource != null;
 	}
 
