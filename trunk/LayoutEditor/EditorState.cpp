@@ -726,7 +726,7 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
 	if (_info.type == MyGUI::TOOLTIP_SHOW) {
-		mToolTip.show(_sender->getUserString("TooTipText"), _info.point);
+		mToolTip.show(_sender, _info.point);
 	}
 	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
 		mToolTip.hide();

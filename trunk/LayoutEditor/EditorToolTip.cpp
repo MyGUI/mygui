@@ -15,15 +15,55 @@ EditorToolTip::EditorToolTip() :
 void EditorToolTip::initialise()
 {
 	loadLayout();
-
 	assignWidget(mText, "Text");
+	
+	minWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("minWidth"));
+	minHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("minHeight"));
+	lastWidget = null;
 }
 
 void EditorToolTip::show(const Ogre::UTFString & _text, const MyGUI::IntPoint & _point)
 {
-	const MyGUI::IntPoint offset(10, 10);
-
 	if (_text.empty()) return;
+
+	setPosition(_point);
+	mText->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(_text));
+	mMainWidget->show();
+}
+
+void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point)
+{
+	std::string text = "Widget: " + _sender->getUserString("widget") +
+		"\nSkin: " + _sender->getUserString("skin") + 
+		"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height")
+		;
+
+	setPosition(_point);
+	mText->setCaption(text);
+	mMainWidget->show();
+
+	std::string widget = _sender->getUserString("widget");
+	std::string skin = _sender->getUserString("skin");
+	int width = MyGUI::utility::parseInt(_sender->getUserString("width"));
+	int height = MyGUI::utility::parseInt(_sender->getUserString("height"));
+
+	const int MARGIN = 4;
+	const int LINE_HEIGHT = 22;
+	const int LINES = 3;
+
+	mMainWidget->setSize(std::max(minWidth, width + 2*MARGIN), std::max(minHeight, height + LINE_HEIGHT*LINES + 2*MARGIN));
+	if (lastWidget) MyGUI::Gui::getInstance().destroyWidget(lastWidget);
+	lastWidget = mMainWidget->createWidgetT(widget, skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
+}
+
+void EditorToolTip::hide()
+{
+	mMainWidget->hide();
+}
+
+void EditorToolTip::setPosition(const MyGUI::IntPoint & _point)
+{
+	const MyGUI::IntPoint offset(10, 10);
 
 	MyGUI::IntPoint point = _point + offset;
 	MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
@@ -37,13 +77,5 @@ void EditorToolTip::show(const Ogre::UTFString & _text, const MyGUI::IntPoint & 
 		point.top -= offset.top + offset.top + size.height;
 	}
 
-	mText->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(_text));
-
 	mMainWidget->setPosition(point);
-	mMainWidget->show();
-}
-
-void EditorToolTip::hide()
-{
-	mMainWidget->hide();
 }
