@@ -33,27 +33,29 @@ void EditorToolTip::show(const Ogre::UTFString & _text, const MyGUI::IntPoint & 
 
 void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point)
 {
-	std::string text = "Widget: " + _sender->getUserString("widget") +
-		"\nSkin: " + _sender->getUserString("skin") + 
+	std::string widget = _sender->getUserString("widget");
+	std::string skin = _sender->getUserString("skin");
+	std::string text = "Widget: " + widget +
+		"\nSkin: " + skin + 
 		"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height")
 		;
 
-	setPosition(_point);
 	mText->setCaption(text);
-	mMainWidget->show();
 
-	std::string widget = _sender->getUserString("widget");
-	std::string skin = _sender->getUserString("skin");
 	int width = MyGUI::utility::parseInt(_sender->getUserString("width"));
 	int height = MyGUI::utility::parseInt(_sender->getUserString("height"));
 
-	const int MARGIN = 4;
+	const int MARGIN = 5;
 	const int LINE_HEIGHT = 22;
 	const int LINES = 3;
 
 	mMainWidget->setSize(std::max(minWidth, width + 2*MARGIN), std::max(minHeight, height + LINE_HEIGHT*LINES + 2*MARGIN));
 	if (lastWidget) MyGUI::Gui::getInstance().destroyWidget(lastWidget);
 	lastWidget = mMainWidget->createWidgetT(widget, skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
+	lastWidget->setCaption(skin);
+	
+	setPosition(_point);
+	mMainWidget->show();
 }
 
 void EditorToolTip::hide()

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Widget" skin="PanelSmall" position="0 32 200 128" layer="ToolTip" name="_Main">
+    <Widget type="Widget" skin="PanelSmall" position="0 32 150 100" layer="ToolTip" name="_Main">
         <Property key="Widget_Show" value="false"/>
-        <UserString key="minWidth" value="200"/>
-        <UserString key="minHeight" value="128"/>
-        <Widget type="Edit" skin="StaticTextBreak" position="3 3 192 120" align="Stretch" name="Text">
+        <UserString key="minHeight" value="100"/>
+        <UserString key="minWidth" value="150"/>
+        <Widget type="Edit" skin="StaticTextBreak" position="3 3 142 92" align="Stretch" name="Text">
             <Property key="Edit_MultiLine" value="true"/>
             <Property key="Edit_BreakLine" value="true"/>
             <Property key="Edit_ReadOnly" value="true"/>
