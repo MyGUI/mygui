@@ -182,6 +182,8 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 {
 	new_widget_type = _sender->getUserString("widget");
 	new_widget_skin = _sender->getUserString("skin");
+	int width = MyGUI::utility::parseInt(_sender->getUserString("width"));
+	int height = MyGUI::utility::parseInt(_sender->getUserString("height"));
 
 	std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
 	EditorWidgets::getInstance().global_counter++;
@@ -194,7 +196,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
 		current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 		MyGUI::IntSize size(current_widget->getSize());
-		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, 100/*DEFAULT*/, /*DEFAULT*/100); // FIXME
+		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, width, height);
 	}
 	current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
 
