@@ -158,8 +158,11 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 	}
 	else if (OIS::KC_DELETE == _key)
 	{
-		if (current_widget){ EditorWidgets::getInstance().remove(current_widget); update(null); }
-		UndoManager::getInstance().addValue();
+		if (current_widget){
+			EditorWidgets::getInstance().remove(current_widget);
+			eventRecreate(false);
+			UndoManager::getInstance().addValue();
+		}
 	}
 	else if (OIS::KC_LEFT == _key)
 	{
@@ -394,7 +397,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 			ew->clear();
 			ew->loadxmlDocument(save);
 			delete save;
-			eventRecreate(true);
+			eventRecreate(false);
 		}
 		else
 		{
