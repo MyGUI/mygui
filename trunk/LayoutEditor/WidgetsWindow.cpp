@@ -10,6 +10,8 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 
+const int MARGIN = 2;
+
 WidgetsWindow::WidgetsWindow() :
 	BaseLayout("WidgetsWindow.layout")
 {
@@ -32,7 +34,7 @@ void WidgetsWindow::initialise()
 		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 		{
 			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall", 
-				i%widgetsButtonsInOneLine * w, i/widgetsButtonsInOneLine * h, w, h,
+				i%widgetsButtonsInOneLine * w + MARGIN, i/widgetsButtonsInOneLine * h + MARGIN, w, h,
 				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
 			button->setCaption(iterSkin->first);
 			button->setTextAlign(MyGUI::Align::Center);
@@ -55,7 +57,7 @@ void WidgetsWindow::initialise()
 
 	int width = mTabSkins->getWidth() - sheet->getWidth();
 	int height = mTabSkins->getHeight() - sheet->getHeight();
-	mTabSkins->setSize(width + widgetsButtonsInOneLine * w, height + maxLines*h);
+	mTabSkins->setSize(width + widgetsButtonsInOneLine * w + 2*MARGIN, height + maxLines*h + 2*MARGIN);
 
 	width = mainWidget()->getWidth() - mainWidget()->getClientCoord().width;
 	height = mainWidget()->getHeight() - mainWidget()->getClientCoord().height;

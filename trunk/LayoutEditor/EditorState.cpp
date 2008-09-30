@@ -286,12 +286,6 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 	um->dropLastProperty();
 	mGUI->injectMouseRelease(arg, id);
 
-	if (recreate)
-	{
-		recreate = false;
-		notifySelectWidget(null); // виджет пересоздался, теперь никто незнает его адреса :)
-	}
-
 	return true;
 }
 //===================================================================================
@@ -394,6 +388,12 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 	{
 		notifyWidgetsUpdate();
 		ew->widgets_changed = false;
+	}
+
+	if (recreate)
+	{
+		recreate = false;
+		notifySelectWidget(null); // виджет пересоздался, теперь никто незнает его адреса :)
 	}
 
 	mGUI->injectFrameEntered(evt.timeSinceLastFrame);
