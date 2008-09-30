@@ -41,11 +41,7 @@ void WidgetsWindow::initialise()
 			MyGUI::IntSize skinDefaultSize = MyGUI::SkinManager::getInstance().getSkin(iterSkin->first)->getSize();
 			button->setUserString("width", MyGUI::utility::toString(skinDefaultSize.width));
 			button->setUserString("height", MyGUI::utility::toString(skinDefaultSize.height));
-			button->setUserString("TooTipText",
-				"Widget: " + iterSkin->second +
-				"\nSkin: " + iterSkin->first + 
-				"\nDefaultSize: " + MyGUI::utility::toString(skinDefaultSize.width) + " x " + MyGUI::utility::toString(skinDefaultSize.height)
-				);
+
 			button->eventMouseButtonClick = MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetType);
 			button->eventMouseButtonDoubleClick = MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetTypeDoubleclick);
 			button->setNeedToolTip(true);
