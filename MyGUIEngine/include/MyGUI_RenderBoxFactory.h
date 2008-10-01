@@ -26,6 +26,7 @@ namespace MyGUI
 			const std::string & getTypeName();
 			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
+		private:
 			// методы для парсинга
 			void RenderBox_Mesh(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void RenderBox_AutoRotation(WidgetPtr _widget, const std::string &_key, const std::string &_value);
@@ -35,6 +36,7 @@ namespace MyGUI
 			void RenderBox_MouseRotation(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void RenderBox_Animation(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void RenderBox_ViewScale(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
 		};
 
 	} // namespace factory

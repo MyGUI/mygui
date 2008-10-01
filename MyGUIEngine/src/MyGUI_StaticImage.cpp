@@ -37,7 +37,7 @@ namespace MyGUI
 			if ((iter = properties.find("ImageCoord")) != properties.end()) setImageCoord(IntCoord::parse(iter->second));
 			if ((iter = properties.find("ImageTile")) != properties.end()) setImageTile(IntSize::parse(iter->second));
 			if ((iter = properties.find("ImageIndex")) != properties.end()) setImageIndex(utility::parseInt(iter->second));
-			if ((iter = properties.find("ImageResoure")) != properties.end()) setItemResource(iter->second);
+			if ((iter = properties.find("ImageResource")) != properties.end()) setItemResource(iter->second);
 			if ((iter = properties.find("ImageGroup")) != properties.end()) setItemGroup(iter->second);
 			if ((iter = properties.find("ImageName")) != properties.end()) setItemName(iter->second);
 		}

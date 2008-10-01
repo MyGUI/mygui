@@ -62,6 +62,16 @@ namespace MyGUI
 
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (ScrollView must have Client)");
 
+		// парсим свойства
+		/*const MapString & properties = _info->getProperties();
+		if ( ! properties.empty() ) {
+			MapString::const_iterator iter = properties.end();
+			if ((iter = properties.find("ViewVScroll")) != properties.end()) showVScroll(utility::parseBool(iter->second));
+			if ((iter = properties.find("ViewHScroll")) != properties.end()) showHScroll(utility::parseBool(iter->second));
+			if ((iter = properties.find("ViewCanvasAlign")) != properties.end()) setCanvasAlign(Align::parse(iter->second));
+			if ((iter = properties.find("ViewCanvasSize")) != properties.end()) setCanvasSize(IntSize::parse(iter->second));
+		}*/
+
 		updateView();
 	}
 

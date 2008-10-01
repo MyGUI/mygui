@@ -92,25 +92,15 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
-			MapString::const_iterator iter = properties.find("FontName");
-			if (iter != properties.end()) setFontName(iter->second);
-			iter = properties.find("FontHeight");
-			if (iter != properties.end()) setFontHeight(utility::parseInt(iter->second));
-			iter = properties.find("NeedKey");
-			if (iter != properties.end()) setNeedKeyFocus(iter->second == "true");
-			iter = properties.find("NeedMouse");
-			if (iter != properties.end()) setNeedMouseFocus(iter->second == "true");
-			iter = properties.find("AlignText");
-			if (iter != properties.end()) setTextAlign(Align::parse(iter->second));
-			iter = properties.find("Colour");
-			if (iter != properties.end()) setColour(utility::parseColour(iter->second));
-			iter = properties.find("Pointer");
-			if (iter != properties.end()) mPointer = iter->second;
-			iter = properties.find("Show");
-			if (iter != properties.end()) {
-				if (utility::parseBool(iter->second)) show();
-				else hide();
-			}
+			MapString::const_iterator iter = properties.end();
+			if ((iter = properties.find("FontName")) != properties.end()) setFontName(iter->second);
+			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseInt(iter->second));
+			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
+			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseBool(iter->second));
+			if ((iter = properties.find("AlignText")) != properties.end()) setTextAlign(Align::parse(iter->second));
+			if ((iter = properties.find("Colour")) != properties.end()) setColour(utility::parseColour(iter->second));
+			if ((iter = properties.find("Pointer")) != properties.end()) mPointer = iter->second;
+			if ((iter = properties.find("Show")) != properties.end()) { utility::parseBool(iter->second) ? show() : hide(); }
 		}
 
 		// выставляем альфу, корректировка по отцу автоматически

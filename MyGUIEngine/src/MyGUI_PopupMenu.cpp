@@ -7,6 +7,7 @@
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_Button.h"
+#include "MyGUI_StaticImage.h"
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
@@ -25,7 +26,6 @@ namespace MyGUI
 
 	PopupMenu::PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		//mWidgetClient(null),
 		mHeightLine(1),
 		mSubmenuImageSize(0)
 	{
@@ -70,6 +70,20 @@ namespace MyGUI
 		hide();
 	}
 
+	void PopupMenu::setButtonImageIndex(ButtonPtr _button, size_t _index)
+	{
+		StaticImagePtr image = _button->getStaticImage();
+		if (image->getItemResource()) {
+			static const int CountIcons = 2;
+			static const char * IconNames[CountIcons + 1] = {"None", "Popup", ""};
+			if (_index >= CountIcons) _index = CountIcons;
+			image->setItemName(IconNames[_index]);
+		}
+		else {
+			image->setItemSelect(_index);
+		}
+	}
+
 	PopupMenu::ItemInfo& PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
 	{
 		if (_index > mItems.size()) _index = mItems.size();
@@ -78,6 +92,8 @@ namespace MyGUI
 
 		IntSize size = button->getTextSize();
 		size.width += 7;
+
+		setButtonImageIndex(button, _submenu ? IMAGE_POPUP : IMAGE_NONE);
 		button->setImageIndex(_submenu);
 		button->_setInternalData(size.width);
 
