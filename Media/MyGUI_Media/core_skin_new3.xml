@@ -1055,102 +1055,82 @@
 
   </Skin>
 
-  <Skin name = "HSliderLeftPart" size = "6 15" texture = "core_new2.png" >
-    <BasisSkin type="SubSkin" offset = "0 0 3 15" align = "Left VStretch">
-      <State name="normal" offset = "453 335 3 15"/>
+  <Skin name = "VSlider" size = "15 49" texture = "core_new2.png" >
+    <Property key="TrackRangeMargins" value = "2 1" />
+    <Property key="MinTrackSize" value = "7" />
+
+    <Child type="Button" skin="VScrollTopPart" offset = "0 15 15 6" align = "Stretch" name = "FirstPart"/>
+    <Child type="Button" skin="VScrollBottomPart" offset = "0 21 15 6" align = "HStretch Bottom" name = "SecondPart"/>
+
+    <Child type="Button" skin="VScrollTrackSlider" offset = "1 18 14 7" align = "HStretch Top" name = "Track"/>
+
+    <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "HStretch Top">
+      <State name="normal" offset = "301 55 15 6"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "3 0 3 15" align = "Stretch">
-      <State name="normal" offset = "456 335 3 15"/>
+    <BasisSkin type="SubSkin" offset = "0 6 15 37" align = "Stretch">
+      <State name="normal" offset = "301 61 15 37"/>
     </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "0 43 15 6" align = "HStretch Bottom">
+      <State name="normal" offset = "301 98 15 6"/>
+    </BasisSkin>
+
   </Skin>
 
-  <Skin name = "HSliderRightPart" size = "6 15" texture = "core_new2.png" >
-    <BasisSkin type="SubSkin" offset = "0 0 3 15" align = "Stretch">
-      <State name="normal" offset = "548 335 3 15"/>
+  <Skin name = "HSlider" size = "49 15" texture = "core_new2.png" >
+    <Property key="TrackRangeMargins" value = "2 1" />
+    <Property key="MinTrackSize" value = "7" />
+
+    <Child type="Button" skin="HScrollRightPart" offset = "21 0 6 15" align = "Right VStretch" name = "SecondPart"/>
+    <Child type="Button" skin="HScrollLeftPart" offset = "15 0 6 15" align = "Stretch" name = "FirstPart"/>
+
+    <Child type="Button" skin="HScrollTrackSlider" offset = "18 1 7 14" align = "Left VStretch" name = "Track"/>
+
+    <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Left VStretch">
+      <State name="normal" offset = "301 2 6 15"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "3 0 3 15" align = "Right VStretch">
-      <State name="normal" offset = "551 335 3 15"/>
+    <BasisSkin type="SubSkin" offset = "6 0 37 15" align = "HStretch VStretch">
+      <State name="normal" offset = "307 2 37 15"/>
     </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "43 0 6 15" align = "Right VStretch">
+      <State name="normal" offset = "344 2 6 15"/>
+    </BasisSkin>
+
   </Skin>
 
-  <Skin name = "HSliderTrack" size = "8 15" texture = "core_new2.png" >
-    <BasisSkin type="MainSkin" offset = "0 0 8 15" align = "Stretch">
-      <State name="normal" offset = "484 335 8 15"/>
-      <State name="active" offset = "496 335 8 15"/>
-      <State name="select" offset = "508 335 8 15"/>
+  <Skin name = "Progress" size = "49 15" texture = "core_new2.png" >
+    <Property key="TrackSkin" value = "HScrollTrackSlider" />
+    <Property key="TrackWidth" value = "7" />
+    <Property key="TrackFill" value = "false" />
+
+    <Child type="Widget" skin="Default" offset = "2 0 46 15" align = "Stretch" name = "Client"/>
+
+    <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Left VStretch">
+      <State name="normal" offset = "301 2 6 15"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "6 0 37 15" align = "HStretch VStretch">
+      <State name="normal" offset = "307 2 37 15"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "43 0 6 15" align = "Right VStretch">
+      <State name="normal" offset = "344 2 6 15"/>
     </BasisSkin>
   </Skin>
-
-  <Skin name = "HSlider" size = "20 15" texture = "core_new2.png" >
-    <Property key="TrackRangeMargins" value = "2 0" />
-    <Property key="MinTrackSize" value = "8" />
-    <Child type="Button" skin="HSliderLeftPart" offset = "0 0 10 15" align = "VStretch Left" name = "FirstPart"/>
-    <Child type="Button" skin="HSliderRightPart" offset = "10 0 10 15" align = "Stretch" name = "SecondPart"/>
-    <Child type="Button" skin="HSliderTrack" offset = "0 0 8 15" align = "Left VStretch" name = "Track"/>
-  </Skin>
-
-
-  <Skin name = "VSliderTopPart" size = "15 6" texture = "core_new2.png" >
-    <BasisSkin type="SubSkin" offset = "0 0 15 3" align = "HStretch Top">
-      <State name="normal" offset = "363 251 15 3"/>
-    </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "0 3 15 3" align = "Stretch">
-      <State name="normal" offset = "363 254 15 3"/>
-    </BasisSkin>
-  </Skin>
-
-  <Skin name = "VSliderBottomPart" size = "15 6" texture = "core_new2.png" >
-    <BasisSkin type="SubSkin" offset = "0 0 15 3" align = "Stretch">
-      <State name="normal" offset = "363 346 15 3"/>
-    </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "0 3 15 3" align = "HStretch Bottom">
-      <State name="normal" offset = "363 349 15 3"/>
-    </BasisSkin>
-  </Skin>
-
-  <Skin name = "VSliderTrack" size = "15 8" texture = "core_new2.png" >
-    <BasisSkin type="MainSkin" offset = "0 0 15 8" align = "Stretch">
-      <State name="normal" offset = "363 286 15 8"/>
-      <State name="active" offset = "363 296 15 8"/>
-      <State name="select" offset = "363 306 15 8"/>
-    </BasisSkin>
-  </Skin>
-
-  <Skin name = "VSlider" size = "15 20" texture = "core_new2.png" >
-    <Property key="TrackRangeMargins" value = "2 0" />
-    <Property key="MinTrackSize" value = "8" />
-    <Child type="Button" skin="VSliderTopPart" offset = "0 0 15 10" align = "HStretch Top" name = "FirstPart"/>
-    <Child type="Button" skin="VSliderBottomPart" offset = "0 10 15 10" align = "Stretch" name = "SecondPart"/>
-    <Child type="Button" skin="VSliderTrack" offset = "0 0 15 8" align = "Top HStretch" name = "Track"/>
-  </Skin>
-
-  <Skin name = "ProgressTrack" size = "14 15" texture = "core_new2.png" >
-    <BasisSkin type="SubSkin" offset = "0 0 5 15" align = "Left VStretch">
-      <State name="normal" offset = "484 273 5 15"/>
-      <State name="active" offset = "484 294 5 15"/>
-      <State name="select" offset = "484 315 5 15"/>
-    </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "5 0 2 15" align = "Stretch">
-      <State name="normal" offset = "492 273 2 15"/>
-      <State name="active" offset = "492 294 2 15"/>
-      <State name="select" offset = "492 315 2 15"/>
-    </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "7 0 7 15" align = "Right VStretch">
-      <State name="normal" offset = "514 273 7 15"/>
-      <State name="active" offset = "514 294 7 15"/>
-      <State name="select" offset = "514 315 7 15"/>
-    </BasisSkin>
-  </Skin>
-
-  <Skin name = "Progress" size = "20 15" texture = "core_new2.png" >
-    <Property key="TrackSkin" value = "ProgressTrack" />
-    <Property key="TrackWidth" value = "14" />
+  
+  <Skin name = "ProgressFill" size = "49 15" texture = "core_new2.png" >
+    <Property key="TrackSkin" value = "HScrollTrack" />
+    <Property key="TrackMin" value = "14" />
     <Property key="TrackFill" value = "true" />
 
-    <Child type="Button" skin="HSliderLeftPart" offset = "0 0 10 15" align = "Left VStretch"/>
-    <Child type="Button" skin="HSliderRightPart" offset = "10 0 10 15" align = "Stretch"/>
+    <Child type="Widget" skin="Default" offset = "0 1 49 14" align = "Stretch" name = "Client"/>
 
-    <Child type="Widget" skin="Default" offset = "2 0 18 15" align = "Stretch" name = "Client"/>
+    <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Left VStretch">
+      <State name="normal" offset = "301 2 6 15"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "6 0 37 15" align = "HStretch VStretch">
+      <State name="normal" offset = "307 2 37 15"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "43 0 6 15" align = "Right VStretch">
+      <State name="normal" offset = "344 2 6 15"/>
+    </BasisSkin>
   </Skin>
   
   
