@@ -99,13 +99,13 @@ namespace MyGUI
 			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setPosition(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
 			if ( pos < 0 )
 			{
-				if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart + pos/2);
-				if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetEnd->getWidth(), mCoord.height - (pos/2 + (int)mSkinRangeStart));
+				//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart + pos/2);
+				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetEnd->getWidth(), mCoord.height - (pos/2 + (int)mSkinRangeStart));
 			}
 			else
 			{
-				if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart);
-				if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), mCoord.height - (int)mSkinRangeEnd, mWidgetEnd->getWidth(), (int)mSkinRangeEnd);
+				//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart);
+				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), mCoord.height - (int)mSkinRangeEnd, mWidgetEnd->getWidth(), (int)mSkinRangeEnd);
 			}
 			return;
 		}
@@ -113,8 +113,8 @@ namespace MyGUI
 		if (false == mWidgetTrack->isShow())
 		{
 			mWidgetTrack->show();
-			if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), mSkinRangeStart);
-			if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), mCoord.height - mSkinRangeEnd, mWidgetEnd->getWidth(), mSkinRangeEnd);
+			//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), mSkinRangeStart);
+			//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), mCoord.height - mSkinRangeEnd, mWidgetEnd->getWidth(), mSkinRangeEnd);
 		}
 
 		// и обновляем позицию
