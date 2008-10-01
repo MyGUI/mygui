@@ -680,7 +680,7 @@
 
         <Child type="VScroll" skin="VScroll" offset = "-9 3 15 -12" align = "Right VStretch" name = "VScroll"/>
         <Child type="HScroll" skin="HScroll" offset = "3 -9 -12 15" align = "HStretch Bottom" name = "HScroll"/>
-        <Child type="Widget" skin="DefaultClient" offset = "3 3 -12 -12" align = "Stretch" name = "Client"/>
+        <Child type="Widget" skin="Widget" offset = "3 3 -12 -12" align = "Stretch" name = "Client"/>
 
       <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
         <State name="normal" offset = "429 70 3 3"/>
@@ -694,6 +694,9 @@
 
       <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "Left VStretch">
         <State name="normal" offset = "429 76 3 3"/>
+      </BasisSkin>
+      <BasisSkin type="SubSkin" offset = "3 3 3 3" align = "Stretch">
+        <State name="normal" offset = "432 5 65 57"/>
       </BasisSkin>
       <BasisSkin type="SubSkin" offset = "6 3 5 3" align = "Right VStretch">
         <State name="normal" offset = "447 76 5 3"/>
@@ -1019,26 +1022,36 @@
 
   <Skin name = "HScrollLeftPart" size = "6 15" texture = "core_new2.png" >
     <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
-      <State name="normal" offset = "468 273 6 15"/>
+      <State name="normal" offset = "307 2 6 15"/>
     </BasisSkin>
   </Skin>
 
   <Skin name = "HScrollRightPart" size = "6 15" texture = "core_new2.png" >
     <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
-      <State name="normal" offset = "468 273 6 15"/>
+      <State name="normal" offset = "307 2 6 15"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "HScroll" size = "42 15" texture = "core_new2.png" >
-    <Property key="TrackRangeMargins" value = "15 15" />
-    <Property key="MinTrackSize" value = "18" />
+  <Skin name = "HScroll" size = "49 15" texture = "core_new2.png" >
+    <Property key="TrackRangeMargins" value = "14 13" />
+    <Property key="MinTrackSize" value = "19" />
 
     <Child type="Button" skin="HScrollLeftPart" offset = "15 0 6 15" align = "Stretch" name = "FirstPart"/>
     <Child type="Button" skin="HScrollRightPart" offset = "21 0 6 15" align = "Right VStretch" name = "SecondPart"/>
 
-    <Child type="Button" skin="HScrollLeft" offset = "0 0 15 15" align = "Left VStretch" name = "Start"/>
-    <Child type="Button" skin="HScrollRight" offset = "27 0 15 15" align = "Right VStretch" name = "End"/>
-    <Child type="Button" skin="HScrollTrack" offset = "18 0 18 15" align = "Left VStretch" name = "Track"/>
+    <Child type="Button" skin="ButtonLeft" offset = "2 1 12 14" align = "Left VStretch" name = "Start"/>
+    <Child type="Button" skin="ButtonRight" offset = "36 1 12 14" align = "Right VStretch" name = "End"/>
+    <Child type="Button" skin="HScrollTrack" offset = "18 1 19 14" align = "Left VStretch" name = "Track"/>
+
+    <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Left VStretch">
+      <State name="normal" offset = "301 2 6 15"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "6 0 37 15" align = "HStretch VStretch">
+      <State name="normal" offset = "307 2 37 15"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "43 0 6 15" align = "Right VStretch">
+      <State name="normal" offset = "344 2 6 15"/>
+    </BasisSkin>
 
   </Skin>
 
