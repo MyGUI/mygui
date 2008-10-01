@@ -48,6 +48,21 @@
     <Property key="HCenter VCenter"/>
   </Value>
 
+  <Value name="CanvasAlign">
+    <Property key="#444444[DEFAULT]"/>
+    <Property key="Default"/>
+    <Property key="Center"/>
+    <Property key="Left Top"/>
+    <Property key="Left Bottom"/>
+    <Property key="Left VCenter"/>
+    <Property key="Right Top"/>
+    <Property key="Right Bottom"/>
+    <Property key="Right VCenter"/>
+    <Property key="HCenter Top"/>
+    <Property key="HCenter Bottom"/>
+    <Property key="HCenter VCenter"/>
+  </Value>
+
   <Value name="Bool">
     <Property key="true"/>
     <Property key="false"/>

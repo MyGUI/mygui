@@ -26,9 +26,11 @@ namespace MyGUI
 			const std::string & getTypeName();
 			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
+		private:
 			// методы для парсинга
 			void ComboBox_ModeDrop(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void ComboBox_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
 		};
 
 	} // namespace factory

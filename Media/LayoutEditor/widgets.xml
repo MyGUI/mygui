@@ -117,6 +117,10 @@
     <Property key="Skin" value="ScrollView"/>
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
+    <Parameter key="ScrollView_VScroll" value="Bool"/>
+    <Parameter key="ScrollView_HScroll" value="Bool"/>
+    <Parameter key="ScrollView_CanvasAlign" value="CanvasAlign"/>
+    <Parameter key="ScrollView_CanvasSize" value="2 int"/>
   </Widget>
 
   <Widget name="Sheet">

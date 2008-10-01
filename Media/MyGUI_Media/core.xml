@@ -11,6 +11,7 @@
 	    <List file="core_skin.xml" group="General"/>
       <List file="core_skin_new.xml" group="General"/>
       <List file="core_skin_new2.xml" group="General"/>
+      <List file="core_skin_new3.xml" group="General"/>
       <List file="core_pointer.xml" group="General"/>
 	    <List file="core_pointer_new.xml" group="General"/>
     </MyGUI>

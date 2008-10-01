@@ -26,6 +26,13 @@ namespace MyGUI
 			const std::string & getTypeName();
 			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
+		private:
+			// методы для парсинга
+			void ScrollView_VScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void ScrollView_HScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void ScrollView_CanvasAlign(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void ScrollView_CanvasSize(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
 		};
 
 	} // namespace factory

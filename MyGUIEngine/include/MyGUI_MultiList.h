@@ -187,6 +187,8 @@ void operatorLess(MyGUI::WidgetPtr _sender, size_t _column, const Ogre::UTFStrin
 
 		WidgetPtr getSeparator(size_t _index);
 
+		void setButtonImageIndex(ButtonPtr _button, size_t _index);
+
 	private:
 		int mHeightButton;
 		int mWidthBar;

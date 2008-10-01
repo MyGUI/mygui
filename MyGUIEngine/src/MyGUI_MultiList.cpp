@@ -7,6 +7,7 @@
 #include "MyGUI_MultiList.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_Button.h"
+#include "MyGUI_StaticImage.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
@@ -347,12 +348,26 @@ namespace MyGUI
 		size_t pos = 0;
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			if (pos == mSortColumnIndex) {
-				if (mSortUp) (*iter).button->setImageIndex(SORT_UP);
-				else (*iter).button->setImageIndex(SORT_DOWN);
+				if (mSortUp) setButtonImageIndex((*iter).button, SORT_UP);
+				else setButtonImageIndex((*iter).button, SORT_DOWN);
 			}
-			else (*iter).button->setImageIndex(SORT_NONE);
+			else setButtonImageIndex((*iter).button, SORT_NONE);
 			(*iter).button->setCaption((*iter).name);
 			pos++;
+		}
+	}
+
+	void MultiList::setButtonImageIndex(ButtonPtr _button, size_t _index)
+	{
+		StaticImagePtr image = _button->getStaticImage();
+		if (image->getItemResource()) {
+			static const int CountIcons = 3;
+			static const char * IconNames[CountIcons + 1] = {"None", "Up", "Down", ""};
+			if (_index >= CountIcons) _index = CountIcons;
+			image->setItemName(IconNames[_index]);
+		}
+		else {
+			image->setItemSelect(_index);
 		}
 	}
 
