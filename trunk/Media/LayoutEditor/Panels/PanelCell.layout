@@ -5,7 +5,7 @@
             <Property key="Widget_Caption" value="Caption"/>
             <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
         </Widget>
-        <Widget type="Button" skin="ButtonMinimize" position="175 3 20 20" align="ALIGN_RIGHT ALIGN_TOP" name="button_Minimize"/>
+        <Widget type="Button" skin="ButtonMinusPlus" position="175 5 18 18" align="ALIGN_RIGHT ALIGN_TOP" name="button_Minimize"/>
         <Widget type="Widget" skin="Default" position="3 24 192 139" align="ALIGN_STRETCH" name="widget_Client"/>
     </Widget>
 </MyGUI>
