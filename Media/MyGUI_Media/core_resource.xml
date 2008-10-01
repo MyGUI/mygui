@@ -5,16 +5,16 @@
   <Resource type="ResourceImageSet" name="pic_CoreMessageIcon" id="{99AAEC52-6A43-47d6-B1DA-0477C12CE500}">
     <Group name="Icons" texture="core_new.png" size="50 50">
       <Index name="Info">
-        <Frame point="0 754"/>
+        <Frame point="0 203"/>
       </Index>
       <Index name="Quest">
-        <Frame point="50 754"/>
+        <Frame point="50 203"/>
       </Index>
       <Index name="Error">
-        <Frame point="100 754"/>
+        <Frame point="100 203"/>
       </Index>
       <Index name="Warning">
-        <Frame point="150 754"/>
+        <Frame point="150 203"/>
       </Index>
     </Group>
   </Resource>
@@ -63,7 +63,7 @@
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_CoreMultiListIcon" id="{2CD9A5FB-9C14-4a50-A427-7BC282026008}">
-    <Group name="Icons" texture="core_new2.png" size="14 10">
+    <Group name="Icons" texture="core_new.png" size="14 10">
       <Index name="None" >
         <Frame point="504 3"/>
       </Index>
@@ -77,7 +77,7 @@
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_CorePopupMenu" id="{54871B95-9A2C-482b-8A2B-3A6243396BBB}">
-    <Group name="Icons" texture="core_new2.png" size="10 12">
+    <Group name="Icons" texture="core_new.png" size="10 12">
       <Index name="Popup" >
         <Frame point="505 44"/>
       </Index>
