@@ -32,13 +32,13 @@ namespace MyGUI
 			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setPosition(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
 			if ( pos < 0 )
 			{
-				if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart + pos/2, mWidgetStart->getHeight());
-				if ( null != mWidgetEnd ) mWidgetEnd->setPosition(pos/2 + mSkinRangeStart, mWidgetEnd->getTop(), mCoord.height - (pos/2 + mSkinRangeStart), mWidgetEnd->getHeight());
+				//if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart + pos/2, mWidgetStart->getHeight());
+				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(pos/2 + mSkinRangeStart, mWidgetEnd->getTop(), mCoord.height - (pos/2 + mSkinRangeStart), mWidgetEnd->getHeight());
 			}
 			else
 			{
-				if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
-				if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
+				//if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
+				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
 			}
 			return;
 		}
@@ -46,8 +46,8 @@ namespace MyGUI
 		if (false == mWidgetTrack->isShow())
 		{
 			mWidgetTrack->show();
-			if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
-			if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
+			//if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
+			//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
 		}
 
 		// и обновляем позицию
