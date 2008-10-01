@@ -26,11 +26,13 @@ namespace MyGUI
 			const std::string & getTypeName();
 			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
+		private:
 			// методы для парсинга, вызываются для базового класа, поэтому работает и для HScroll
 			void Scroll_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Scroll_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Scroll_Page(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Scroll_ViewPage(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
 		};
 
 	} // namespace factory

@@ -21,6 +21,13 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER;
 
 	public:
+
+		enum ImageIndex
+		{
+			IMAGE_NONE,
+			IMAGE_POPUP
+		};
+
 		struct ItemInfo
 		{
 			ItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _submenu) :
@@ -87,6 +94,8 @@ namespace MyGUI
 
 		void update();
 		bool isRelative(WidgetPtr _widget, bool _all = false);
+
+		void setButtonImageIndex(ButtonPtr _button, size_t _index);
 
 	private:
 		VectorPopupMenuItemInfo mItems;

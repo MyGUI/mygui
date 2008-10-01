@@ -26,11 +26,13 @@ namespace MyGUI
 			const std::string & getTypeName();
 			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
+		private:
 			// методы для парсинга
 			void Progress_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Progress_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Progress_AutoTrack(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Progress_StartPoint(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
 		};
 
 	} // namespace factory

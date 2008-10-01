@@ -52,6 +52,8 @@ namespace MyGUI
 		//! Get image index
 		size_t getImageIndex();
 
+		StaticImagePtr getStaticImage() { return mImage; }
+
 		//! @copydoc Widget::setEnabled(bool _enabled)
 		virtual void setEnabled(bool _enabled);
 

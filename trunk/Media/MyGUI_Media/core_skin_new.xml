@@ -551,7 +551,7 @@
         <Property key="DefaultLayer" value = "Info" />
         <Property key="FadeSkin" value = "MarkerBlack" />
         <Property key="FadeLayer" value = "FadeMiddle" />
-        <Property key="ResourceIcons" value = "{99AAEC52-6A43-47d6-B1DA-0477C12CE500}" />
+        <_Property key="ResourceIcons" value = "{99AAEC52-6A43-47d6-B1DA-0477C12CE500}" />
 
         <Child type="Widget" skin="MessageClient" offset = "10 35 8 -36" align = "ALIGN_STRETCH" name = "Text"/>
         <Child type="StaticImage" skin="MessageIcon" offset = "6 34 50 50" align = "ALIGN_DEFAULT" name = "Icon"/>
