@@ -1,0 +1,11 @@
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\bin\Debug\PropertyEditor.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\bin\Debug\PropertyEditor.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\bin\Debug\Common.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\bin\Debug\Core.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\bin\Debug\Core.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\bin\Debug\Common.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\obj\Debug\PropertyEditor.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\obj\Debug\PropertyEditor.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\PropertyEditor.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\PropertyEditor.pdb

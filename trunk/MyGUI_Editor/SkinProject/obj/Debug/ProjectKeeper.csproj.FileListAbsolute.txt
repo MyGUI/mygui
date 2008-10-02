@@ -1,0 +1,11 @@
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\bin\Debug\ProjectKeeper.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\bin\Debug\ProjectKeeper.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\bin\Debug\Common.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\bin\Debug\Core.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\bin\Debug\Core.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\bin\Debug\Common.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\obj\Debug\ProjectKeeper.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectKeeper\obj\Debug\ProjectKeeper.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\ProjectKeeper.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\ProjectKeeper.pdb

@@ -1,0 +1,9 @@
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\bin\Debug\ViewChipsInterfaces.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\bin\Debug\ViewChipsInterfaces.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\obj\Debug\ViewChipsInterfaces.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\obj\Debug\ViewChipsInterfaces.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\bin\Debug\Common.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\bin\Debug\Core.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\bin\Debug\Core.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\ViewChipsInterfaces\bin\Debug\Common.pdb

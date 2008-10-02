@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ROOT>
+	<include>log_config.xml</include>
+
+	<module>Loger.dll</module>
+	<module>ViewLoger.dll</module>
+	<module>ProjectManagement.dll</module>
+	<module>SkinProject.dll</module>
+	<module>WidgetSkinEditor.dll</module>
+	<module>ImageSetEditor.dll</module>
+	<module>PropertyEditor.dll</module>
+	<module>ViewChips.dll</module>
+</ROOT>

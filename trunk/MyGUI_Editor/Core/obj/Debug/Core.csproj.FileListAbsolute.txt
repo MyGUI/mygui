@@ -1,0 +1,7 @@
+D:\Programming\Labaratory\MyGUI_SkinEditor\Core\bin\Debug\Core.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\Core\bin\Debug\Core.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\Core\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Labaratory\MyGUI_SkinEditor\Core\obj\Debug\Core.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\Core\obj\Debug\Core.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\Core.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\Core.pdb
