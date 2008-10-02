@@ -4,35 +4,52 @@
 
   <Widget name="Button">
     <Property key="DefaultSkin" value="Button"/>
-    <Property key="Parent" value="true"/>
-    <Property key="Child" value="true"/>
+
     <Property key="Skin" value="Button"/>
     <Property key="Skin" value="ButtonSmall"/>
-    <Parameter key="Button_Pressed" value="Bool"/>
     <Property key="Skin" value="CheckBox"/>
     <Property key="Skin" value="RadioBox"/>
+    <Property key="Skin" value="ButtonMinusPlus"/>
+    <Property key="Skin" value="ButtonX"/>
+    <Property key="Skin" value="ButtonV"/>
+    <Property key="Skin" value="ButtonDown"/>
+    <Property key="Skin" value="ButtonUp"/>
+    <Property key="Skin" value="ButtonLeft"/>
+    <Property key="Skin" value="ButtonRight"/>
+
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
+
+    <Parameter key="Button_Pressed" value="Bool"/>
   </Widget>
 
   <Widget name="ComboBox">
     <Property key="DefaultSkin" value="ComboBox"/>
+
     <Property key="Skin" value="ComboBox"/>
-    <Property key="ItemManager" value="true"/>
+
     <Parameter key="ComboBox_ModeDrop" value="Bool"/>
-    <!--Parameter key="ComboBox_AddItem" value="String"/-->
+
+    <Property key="ItemManager" value="true"/>
   </Widget>
 
   <Widget name="Edit">
     <Property key="DefaultSkin" value="Edit"/>
-    <Property key="Parent" value="true"/>
-    <Property key="Child" value="true"/>
+
     <Property key="Skin" value="Edit"/>
     <Property key="Skin" value="EditStretch"/>
+    <Property key="Skin" value="WordWrap"/>
+    <Property key="Skin" value="WordWrapSimple"/>
+
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
+
     <Parameter key="Edit_CursorPosition" value="2 int"/>
     <Parameter key="Edit_TextSelect" value="2 int"/>
     <Parameter key="Edit_ReadOnly" value="Bool"/>
     <Parameter key="Edit_Password" value="Bool"/>
     <Parameter key="Edit_MultiLine" value="Bool"/>
-    <Parameter key="Edit_BreakLine" value="Bool"/>
+    <Parameter key="Edit_WordWrap" value="Bool"/>
     <Parameter key="Edit_PasswordChar" value="String"/>
     <Parameter key="Edit_MaxTextLength" value="1 int"/>
     <Parameter key="Edit_OverflowToTheLeft" value="Bool"/>
@@ -40,8 +57,10 @@
 
   <Widget name="HScroll">
     <Property key="DefaultSkin" value="HScroll"/>
+
     <Property key="Skin" value="HScroll"/>
     <Property key="Skin" value="HSlider"/>
+
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -50,47 +69,55 @@
 
   <Widget name="ItemBox">
     <Property key="DefaultSkin" value="ItemBox"/>
+
     <Property key="Skin" value="ItemBox"/>
   </Widget>
 
   <Widget name="List">
     <Property key="DefaultSkin" value="List"/>
+
     <Property key="Skin" value="List"/>
+
     <Property key="ItemManager" value="true"/>
-    <!--Parameter key="List_AddItem" value="String"/-->
   </Widget>
 
   <Widget name="MenuBar">
     <Property key="DefaultSkin" value="MenuBar"/>
+
     <Property key="Skin" value="MenuBar"/>
+
     <Property key="ItemManager" value="true"/>
-    <!--Parameter key="MenuBar_AddItem" value="String"/-->
   </Widget>
 
   <Widget name="Message">
     <Property key="DefaultSkin" value="Message"/>
+
     <Property key="Skin" value="Message"/>
-    <!--Property key="ItemManager" value="true"/-->
+
     <Parameter key="Message_Caption" value="String"/>
     <Parameter key="Message_Message" value="String"/>
     <Parameter key="Message_Modal" value="Bool"/>
     <Parameter key="Message_Button" value="MessageButton"/>
-    <!--Parameter key="Message_AddButton" value="String"/-->
     <Parameter key="Message_SmoothShow" value="Bool"/>
     <Parameter key="Message_Fade" value="Bool"/>
   </Widget>
 
   <Widget name="MultiList">
     <Property key="DefaultSkin" value="MultiList"/>
+
     <Property key="Skin" value="MultiList"/>
   </Widget>
 
   <Widget name="Progress">
     <Property key="DefaultSkin" value="Progress"/>
+
+    <Property key="Skin" value="Progress"/>
+    <Property key="Skin" value="ProgressFill"/>
+    <Property key="Skin" value="ProgressComplex"/>
+
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
-    <Property key="Skin" value="Progress"/>
-    <Property key="Skin" value="ComplexProgress" group="Bonus skin"/>
+
     <Parameter key="Progress_Range" value="1 int"/>
     <Parameter key="Progress_Position" value="1 int"/>
     <Parameter key="Progress_AutoTrack" value="Bool"/>
@@ -99,9 +126,12 @@
 
   <Widget name="RenderBox">
     <Property key="DefaultSkin" value="RenderBox"/>
+
+    <Property key="Skin" value="RenderBox"/>
+
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
-    <Property key="Skin" value="RenderBox"/>
+
     <Parameter key="RenderBox_Mesh" value="String"/>
     <Parameter key="RenderBox_AutoRotation" value="Bool"/>
     <Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
@@ -114,9 +144,13 @@
 
   <Widget name="ScrollView">
     <Property key="DefaultSkin" value="ScrollView"/>
+
     <Property key="Skin" value="ScrollView"/>
+    <Property key="Skin" value="ScrollViewEmpty"/>
+
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
+
     <Parameter key="ScrollView_VScroll" value="Bool"/>
     <Parameter key="ScrollView_HScroll" value="Bool"/>
     <Parameter key="ScrollView_CanvasAlign" value="CanvasAlign"/>
@@ -125,20 +159,23 @@
 
   <Widget name="Sheet">
     <Property key="DefaultSkin" value="Default"/>
+
     <Property key="Parent" value="true"/>
     <Property key="Resizeable" value="false"/>
+
     <Parameter key="Sheet_ButtonWidth" value="1 int"/>
     <Parameter key="Sheet_Select" value="Bool"/>
     <Parameter key="Sheet_SmoothSelect" value="Bool"/>
-    <Parameter key="Widget_Caption" value="String"/>
   </Widget>
 
   <Widget name="StaticImage">
+    <Property key="DefaultSkin" value="StaticImage"/>
+
+    <Property key="Skin" value="StaticImage"/>
+
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
-    <Property key="DefaultSkin" value="StaticImage"/>
-    <Property key="Skin" value="StaticImage"/>
-    
+
     <Parameter key="Image_Texture" value="String"/>
     <Parameter key="Image_Coord" value="4 int"/>
     <Parameter key="Image_Tile" value="2 float"/>
@@ -150,29 +187,36 @@
   </Widget>
 
   <Widget name="StaticText">
+    <Property key="DefaultSkin" value="StaticText"/>
+
+    <Property key="Skin" value="StaticText"/>
+
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
-    <Property key="DefaultSkin" value="StaticText"/>
-    <Property key="Skin" value="StaticText"/>
+
   </Widget>
 
   <Widget name="Tab">
     <Property key="DefaultSkin" value="Tab"/>
+
     <Property key="Skin" value="Tab"/>
+
     <Property key="ItemManager" value="true"/>
+
     <Parameter key="Tab_ButtonWidth" value="1 int"/>
     <Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
     <Parameter key="Tab_SmoothShow" value="Bool"/>
-    <!--Parameter key="Tab_AddSheet" value="String"/-->
-    <!--Parameter key="Tab_SelectSheet" value="1 int"/-->
   </Widget>
 
   <Widget name="VScroll">
-    <Property key="Parent" value="true"/>
-    <Property key="Child" value="true"/>
     <Property key="DefaultSkin" value="VScroll"/>
+
     <Property key="Skin" value="VScroll"/>
     <Property key="Skin" value="VSlider"/>
+
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
+
     <Parameter key="Scroll_Range" value="1 int"/>
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
@@ -181,30 +225,33 @@
 
   <Widget name="Widget">
     <Property key="DefaultSkin" value="Default"/>
-    <Property key="Parent" value="true"/>
-    <Property key="Child" value="true"/>
-    <Property key="Skin" value="PanelEmpty"/>
+
     <Property key="Skin" value="Panel"/>
     <Property key="Skin" value="PanelSmall"/>
+    <Property key="Skin" value="PanelEmpty"/>
+    <Property key="Skin" value="TileClient"/>
+    <Property key="Skin" value="DefaultClient"/>
     <Property key="Skin" value="Separator1"/>
     <Property key="Skin" value="Separator2"/>
     <Property key="Skin" value="Separator3"/>
     <Property key="Skin" value="Separator4"/>
+
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="true"/>
+
     <Parameter key="Widget_Caption" value="String"/>
-    <!--Parameter key="Widget_Move" value="2 or 4 int"/-->
-    <!--Parameter key="Widget_Size" value="2 int"/-->
     <Parameter key="Widget_Show" value="Bool"/>
-    <Parameter key="Widget_Colour" value="Colour"/>
+    <Parameter key="Widget_Enabled" value="Bool"/>
+    <Parameter key="Widget_Alpha" value="1 float"/>
+    <Parameter key="Widget_InheritsAlpha" value="Bool"/>
+    <Parameter key="Widget_AlignText" value="TextAlign"/>
     <Parameter key="Widget_FontName" value="Font"/>
     <Parameter key="Widget_FontHeight" value="1 int"/>
-    <Parameter key="Widget_Alpha" value="1 float"/>
-    <!--Parameter key="Widget_State" value="WidgetState"/-->
+    <Parameter key="Widget_Colour" value="Colour"/>
     <Parameter key="Widget_NeedKey" value="Bool"/>
     <Parameter key="Widget_NeedMouse" value="Bool"/>
     <Parameter key="Widget_InheritsPeek" value="Bool"/>
-    <Parameter key="Widget_InheritsAlpha" value="Bool"/>
-    <Parameter key="Widget_AlignText" value="TextAlign"/>
-    <Parameter key="Widget_Enabled" value="Bool"/>
+
     <Parameter key="Widget_eventMouseLostFocus" value="String"/>
     <Parameter key="Widget_eventMouseSetFocus" value="String"/>
     <Parameter key="Widget_eventMouseDrag" value="String"/>
@@ -214,18 +261,20 @@
     <Parameter key="Widget_eventMouseButtonReleased" value="String"/>
     <Parameter key="Widget_eventMouseButtonClick" value="String"/>
     <Parameter key="Widget_eventMouseButtonDoubleClick" value="String"/>
-    <!-- many events still missed -->
     <Parameter key="Widget_eventToolTip" value="String"/>
   </Widget>
 
   <Widget name="Window">
     <Property key="DefaultSkin" value="Window"/>
-    <Property key="Parent" value="true"/>
-    <Property key="Child" value="false"/>
+
     <Property key="Skin" value="Window"/>
     <Property key="Skin" value="WindowC"/>
     <Property key="Skin" value="WindowCS"/>
     <Property key="Skin" value="WindowCSX"/>
+
+    <Property key="Parent" value="true"/>
+    <Property key="Child" value="false"/>
+
     <Parameter key="Window_AutoAlpha" value="Bool"/>
     <Parameter key="Window_MinMax" value="4 int"/>
     <Parameter key="Window_Snap" value="Bool"/>
