@@ -22,12 +22,12 @@ namespace statistic
 		StatisticInfo() :
 			mInfo(null)
 		{
-			MyGUI::Gui::getInstance().load("core_skin_debug.xml");
+			//MyGUI::Gui::getInstance().load("core_skin_debug.xml");
 
 			const std::string layer = "Statistic";
 			if ( ! MyGUI::LayerManager::getInstance().isExist(layer)) return;
 
-			const std::string skin = "DebugStatistic";
+			const std::string skin = "RectBlue";
 			if ( ! MyGUI::SkinManager::getInstance().isExist(skin)) return;
 
 			const std::string font = "DejaVuSans.14";
