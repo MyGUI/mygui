@@ -9,3 +9,8 @@ D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\obj\Debug\PropertyEdit
 D:\Programming\Labaratory\MyGUI_SkinEditor\PropertyEditor\obj\Debug\PropertyEditor.pdb
 D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\PropertyEditor.dll
 D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\PropertyEditor.pdb
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\bin\Debug\PropertyEditor.dll
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\bin\Debug\PropertyEditor.pdb
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\PropertyEditor\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\PropertyEditor\obj\Debug\PropertyEditor.dll
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\PropertyEditor\obj\Debug\PropertyEditor.pdb

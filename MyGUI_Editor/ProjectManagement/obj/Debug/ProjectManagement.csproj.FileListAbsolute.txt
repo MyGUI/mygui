@@ -13,3 +13,12 @@ D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectManagement\obj\Debug\ProjectMa
 D:\Programming\Labaratory\MyGUI_SkinEditor\ProjectManagement\obj\Debug\ProjectManagement.pdb
 D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\ProjectManagement.dll
 D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\ProjectManagement.pdb
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\bin\Debug\ProjectManagement.dll
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\bin\Debug\ProjectManagement.pdb
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ProjectManagement\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ProjectManagement\obj\Debug\ProjectManagement.NewProjectForm.resources
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ProjectManagement\obj\Debug\ProjectManagement.Properties.Resources.resources
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ProjectManagement\obj\Debug\ProjectManagement.ToolBar.resources
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ProjectManagement\obj\Debug\ProjectManagement.csproj.GenerateResource.Cache
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ProjectManagement\obj\Debug\ProjectManagement.dll
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ProjectManagement\obj\Debug\ProjectManagement.pdb
