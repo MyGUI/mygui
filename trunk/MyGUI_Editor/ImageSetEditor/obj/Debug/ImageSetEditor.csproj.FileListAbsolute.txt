@@ -6,3 +6,11 @@ D:\Programming\Labaratory\MyGUI_SkinEditor\ImageSetEditor\obj\Debug\ImageSetEdit
 D:\Programming\Labaratory\MyGUI_SkinEditor\ImageSetEditor\obj\Debug\ImageSetEditor.dll
 D:\Programming\Labaratory\MyGUI_SkinEditor\ImageSetEditor\obj\Debug\ImageSetEditor.pdb
 D:\Programming\Labaratory\MyGUI_SkinEditor\ImageSetEditor\obj\Debug\ImageSetEditor.Properties.Resources.resources
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\bin\Debug\ImageSetEditor.dll
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\bin\Debug\ImageSetEditor.pdb
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ImageSetEditor\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ImageSetEditor\obj\Debug\ImageSetEditor.Properties.Resources.resources
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ImageSetEditor\obj\Debug\ImageSetEditor.VISEditor.resources
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ImageSetEditor\obj\Debug\ImageSetEditor.csproj.GenerateResource.Cache
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ImageSetEditor\obj\Debug\ImageSetEditor.dll
+D:\Programming\Projects\MyGUI\trunk\MyGUI_Editor\ImageSetEditor\obj\Debug\ImageSetEditor.pdb
