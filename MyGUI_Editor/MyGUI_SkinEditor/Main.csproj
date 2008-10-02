@@ -33,7 +33,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MagicLibrary, Version=1.7.0.0, Culture=neutral, PublicKeyToken=3a6eb82f876a49bc">
-      <HintPath>..\..\..\Libraries\Dock\Bin\MagicLibrary.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\MagicLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
