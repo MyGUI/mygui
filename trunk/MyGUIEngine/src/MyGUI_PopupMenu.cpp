@@ -73,6 +73,7 @@ namespace MyGUI
 	void PopupMenu::setButtonImageIndex(ButtonPtr _button, size_t _index)
 	{
 		StaticImagePtr image = _button->getStaticImage();
+		if ( null == image ) return;
 		if (image->getItemResource()) {
 			static const int CountIcons = 2;
 			static const char * IconNames[CountIcons + 1] = {"None", "Popup", ""};

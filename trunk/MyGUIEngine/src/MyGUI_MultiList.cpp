@@ -20,7 +20,6 @@ namespace MyGUI
 	MultiList::MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mHeightButton(0),
-		//mWidgetClient(null),
 		mButtonMain(null),
 		mWidthBar(0),
 		mLastMouseFocusIndex(ITEM_NONE),
@@ -67,7 +66,6 @@ namespace MyGUI
 	MultiList::~MultiList()
 	{
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &MultiList::frameEntered);
-		//Gui::getInstance().removeFrameListener(newDelegate(this, &MultiList::frameEntered));
 	}
 
 	//----------------------------------------------------------------------------------//
@@ -360,6 +358,7 @@ namespace MyGUI
 	void MultiList::setButtonImageIndex(ButtonPtr _button, size_t _index)
 	{
 		StaticImagePtr image = _button->getStaticImage();
+		if ( null == image ) return;
 		if (image->getItemResource()) {
 			static const int CountIcons = 3;
 			static const char * IconNames[CountIcons + 1] = {"None", "Up", "Down", ""};
@@ -525,29 +524,6 @@ namespace MyGUI
 			}
 		}
 
-		/*if (mSortUp) {
-			for( ; step>0 ; ) {
-					for( size_t i=0; i<(count-step); ++i ) {
-							int j = (int)i;
-							while ( (j>=0) && (list->getItem(j) > list->getItem(j+step)) ){
-									keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
-									keeper.swap(mToSortIndex, vec, mVectorColumnInfo, j, j+step);
-									keeper.restore(mToSortIndex, vec, mVectorColumnInfo, j+step);
-									--j;
-							}
-					}
-					step >>= 1;
-			}
-		}
-		else {
-			//...
-		}*/
-
-
-
-
-
-
 		mIsDirtySort = false;
 	}
 
@@ -555,7 +531,6 @@ namespace MyGUI
 	{
 		if (mIsDirtySort) return;
 		Gui::getInstance().eventFrameStart += newDelegate(this, &MultiList::frameEntered);
-		//Gui::getInstance().addFrameListener(newDelegate(this, &MultiList::frameEntered), this);
 		mIsDirtySort = true;
 	}
 
@@ -563,7 +538,6 @@ namespace MyGUI
 	{
 		if (false == mIsDirtySort) {
 			Gui::getInstance().eventFrameStart -= newDelegate(this, &MultiList::frameEntered);
-			//Gui::getInstance().removeFrameListener(newDelegate(this, &MultiList::frameEntered));
 			return;
 		}
 		sortList();

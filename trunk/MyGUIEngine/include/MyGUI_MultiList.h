@@ -144,18 +144,6 @@ namespace MyGUI
 			@param _firstItem, _secondItem Strings for compare
 			@param _less Comparsion result (write your value here)
 			@code
-void operatorLess(MyGUI::WidgetPtr _sender, size_t _column, const Ogre::UTFString & _firstItem, const Ogre::UTFString & _secondItem, bool & _less)
-{
-	// sort second column by integer value and all other lexicographically
-	if ( _column == 1 )
-	{
-		_less = MyGUI::utility::parseInt(_firstItem) < MyGUI::utility::parseInt(_secondItem);
-	}
-	else
-	{
-		_less = _firstItem < _secondItem;
-	}
-}
 			@endcode
 		*/
 		EventInfo_WidgetIntUTFStringUTFStringBool operatorLess;
@@ -213,7 +201,7 @@ void operatorLess(MyGUI::WidgetPtr _sender, size_t _column, const Ogre::UTFStrin
 		std::string mSkinSeparator;
 		int mOffsetButtonSeparator;
 
-	}; // class _MyGUIExport MultiList : public Widget
+	};
 
 } // namespace MyGUI
 
