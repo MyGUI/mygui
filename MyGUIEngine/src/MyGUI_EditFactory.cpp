@@ -32,8 +32,7 @@ namespace MyGUI
 			manager.registerDelegate("Edit_Static") = newDelegate(this, &EditFactory::Edit_Static);
 			manager.registerDelegate("Edit_ShowVScroll") = newDelegate(this, &EditFactory::Edit_ShowVScroll);
 			manager.registerDelegate("Edit_ShowHScroll") = newDelegate(this, &EditFactory::Edit_ShowHScroll);
-			manager.registerDelegate("Edit_BreakLine") = newDelegate(this, &EditFactory::Edit_BreakLine);
-			manager.registerDelegate("Edit_Memo") = newDelegate(this, &EditFactory::Edit_Memo);
+			manager.registerDelegate("Edit_WordWrap") = newDelegate(this, &EditFactory::Edit_WordWrap);
 		}
 
 		EditFactory::~EditFactory()
@@ -54,8 +53,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Edit_Static");
 			manager.unregisterDelegate("Edit_ShowHScroll");
 			manager.unregisterDelegate("Edit_ShowVScroll");
-			manager.unregisterDelegate("Edit_BreakLine");
-			manager.unregisterDelegate("Edit_Memo");
+			manager.unregisterDelegate("Edit_WordWrap");
 		}
 
 		const std::string & EditFactory::getTypeName()
@@ -135,16 +133,10 @@ namespace MyGUI
 			static_cast<EditPtr>(_widget)->showHScroll(utility::parseBool(_value));
 		}
 
-		void EditFactory::Edit_BreakLine(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		void EditFactory::Edit_WordWrap(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
-			static_cast<EditPtr>(_widget)->setEditBreakLine(utility::parseBool(_value));
-		}
-
-		void EditFactory::Edit_Memo(WidgetPtr _widget, const std::string &_key, const std::string &_value)
-		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
-			static_cast<EditPtr>(_widget)->setEditMemo(utility::parseBool(_value));
+			static_cast<EditPtr>(_widget)->setEditWordWrap(utility::parseBool(_value));
 		}
 
 	} // namespace factory

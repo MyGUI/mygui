@@ -111,7 +111,7 @@
     <BasisSkin type="SubSkin" offset = "1 1 9 8" align = "Stretch">
       <State name="normal" offset = "676 77 1 1"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "10 1 1 8" align = "Righ VStretch">
+    <BasisSkin type="SubSkin" offset = "10 1 1 8" align = "Right VStretch">
       <State name="normal" offset = "684 77 1 1"/>
     </BasisSkin>
 
@@ -121,7 +121,7 @@
     <BasisSkin type="SubSkin" offset = "1 9 9 1" align = "HStretch Bottom">
       <State name="normal" offset = "676 83 1 1"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "10 9 1 1" align = "Righ Bottom">
+    <BasisSkin type="SubSkin" offset = "10 9 1 1" align = "Right Bottom">
       <State name="normal" offset = "684 83 1 1"/>
     </BasisSkin>
   </Skin>
@@ -143,7 +143,7 @@
     <BasisSkin type="SubSkin" offset = "1 1 9 8" align = "Stretch">
       <State name="normal" offset = "676 89 1 1"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "10 1 1 8" align = "Righ VStretch">
+    <BasisSkin type="SubSkin" offset = "10 1 1 8" align = "Right VStretch">
       <State name="normal" offset = "684 89 1 1"/>
     </BasisSkin>
 
@@ -153,7 +153,7 @@
     <BasisSkin type="SubSkin" offset = "1 9 9 1" align = "HStretch Bottom">
       <State name="normal" offset = "676 95 1 1"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "10 9 1 1" align = "Righ Bottom">
+    <BasisSkin type="SubSkin" offset = "10 9 1 1" align = "Right Bottom">
       <State name="normal" offset = "684 95 1 1"/>
     </BasisSkin>
   </Skin>
@@ -425,23 +425,22 @@
   </Skin>
 
 
-  <Skin name = "MemoClient" size = "16 16">
+  <Skin name = "EditClientSimple" size = "32 32">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Left VCenter" />
+    <Property key="AlignText" value = "Default" />
     <Property key="Colour" value = "0 0 0" />
-    <BasisSkin type="EditText" offset = "0 0 16 16" align = "Stretch">
-    </BasisSkin>
+    <BasisSkin type="EditText" offset = "0 0 32 32" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "StaticTextBreak" size = "16 16" texture = "core.png" >
-    <Property key="Memo" value = "true" />
-    <Child type="Widget" skin="MemoClient" offset = "0 0 16 16" align = "Stretch" name = "Client"/>
+  <Skin name = "WordWrapSimple" size = "32 32" texture = "core.png" >
+    <Property key="WordWrap" value = "true" />
+    <Child type="Widget" skin="EditClientSimple" offset = "0 0 32 32" align = "Stretch" name = "Client"/>
   </Skin>
 
-  <Skin name = "Memo" size = "16 16" texture = "core.png" >
-    <Property key="Memo" value = "true" />
-    <Child type="Widget" skin="MemoClient" offset = "0 0 1 16" align = "Stretch" name = "Client"/>
-    <Child type="VScroll" skin="VScroll" offset = "1 0 15 16" align = "Right VStretch" name = "VScroll"/>
+  <Skin name = "WordWrap" size = "32 32" texture = "core.png" >
+    <Property key="WordWrap" value = "true" />
+    <Child type="Widget" skin="EditClientSimple" offset = "0 0 16 32" align = "Stretch" name = "Client"/>
+    <Child type="VScroll" skin="VScroll" offset = "17 0 15 32" align = "Right VStretch" name = "VScroll"/>
   </Skin>
 
   <Skin name = "EditClient" size = "10 10">
@@ -1060,7 +1059,7 @@
     <Property key="ButtonSkin" value = "TabButton" />
     <Property key="EmptyBarSkin" value = "TabEmpty" />
 
-    <Child type="Widget" skin="Default" offset = "8 31 27 21" align = "Stretch" name = "Sheet"/>
+    <Child type="Widget" skin="Default" offset = "4 26 34 28" align = "Stretch" name = "Sheet"/>
     <Child type="Widget" skin="Default" offset = "8 0 22 26" align = "HStretch Top" name = "Bar"/>
     <Child type="Button" skin="ButtonLeft" offset = "13 4 12 14" align = "Right Top" name = "Left"/>
     <Child type="Button" skin="ButtonRight" offset = "29 4 12 14" align = "Right Top" name = "Right"/>

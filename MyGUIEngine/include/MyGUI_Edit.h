@@ -155,13 +155,6 @@ namespace MyGUI
 		/** Get edit static mode flag */
 		inline bool getEditStatic() {return mModeStatic;}
 
-		inline void setEditMemo(bool _memo)
-		{
-			setEditBreakLine(_memo);
-			setEditMultiLine(_memo);
-			setEditStatic(_memo);
-		}
-
 		/** Set edit password character ('*' by default) */
 		void setPasswordChar(Char _char);
 		/** Set edit password character ('*' by default). First character of string used. */
@@ -170,12 +163,12 @@ namespace MyGUI
 			if (false == _char.empty()) setPasswordChar(_char[0]);
 		}
 		/** Get edit password character */
-		inline Char getPasswordChar() {return mCharPassword;}
+		inline Char getPasswordChar() { return mCharPassword; }
 
-		/** Get edit break line mode flag */
-		inline bool getEditBreakLine() {return mModeBreak;}
-		/** Enable or disable edit break line mode */
-		void setEditBreakLine(bool _break);
+		/** Get edit word wrap mode flag */
+		inline bool getEditWordWrap() { return mModeWordWrap; }
+		/** Enable or disable edit word wrap mode */
+		void setEditWordWrap(bool _wordwrap);
 
 
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
@@ -308,7 +301,7 @@ namespace MyGUI
 		bool mModePassword;
 		bool mModeMultiline;
 		bool mModeStatic;
-		bool mModeBreak;
+		bool mModeWordWrap;
 
 		// настоящий текст, закрытый за звездочками
 		Ogre::UTFString mPasswordText;
