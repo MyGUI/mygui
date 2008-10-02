@@ -65,6 +65,7 @@
     </BasisSkin>
   </Skin>
 
+
   <Skin name = "MarkerGreen" size = "1 1" texture = "core.png" >
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 18 1 1"/>
@@ -90,6 +91,70 @@
   <Skin name = "MarkerWhite" size = "1 1" texture = "core.png" >
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 66 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "RectBlue" size = "11 10" texture = "core.png" >
+    <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
+      <State name="normal" offset = "674 74 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "1 0 9 1" align = "HStretch Top">
+      <State name="normal" offset = "676 74 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "10 0 1 1" align = "HStretch Top">
+      <State name="normal" offset = "684 74 1 1"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 1 1 8" align = "Left VStretch">
+      <State name="normal" offset = "674 77 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "1 1 9 8" align = "Stretch">
+      <State name="normal" offset = "676 77 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "10 1 1 8" align = "Righ VStretch">
+      <State name="normal" offset = "684 77 1 1"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 9 1 1" align = "Left Bottom">
+      <State name="normal" offset = "674 83 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "1 9 9 1" align = "HStretch Bottom">
+      <State name="normal" offset = "676 83 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "10 9 1 1" align = "Righ Bottom">
+      <State name="normal" offset = "684 83 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "RectGreen" size = "11 10" texture = "core.png" >
+    <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
+      <State name="normal" offset = "674 86 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "1 0 9 1" align = "HStretch Top">
+      <State name="normal" offset = "676 86 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "10 0 1 1" align = "HStretch Top">
+      <State name="normal" offset = "684 86 1 1"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 1 1 8" align = "Left VStretch">
+      <State name="normal" offset = "674 89 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "1 1 9 8" align = "Stretch">
+      <State name="normal" offset = "676 89 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "10 1 1 8" align = "Righ VStretch">
+      <State name="normal" offset = "684 89 1 1"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 9 1 1" align = "Left Bottom">
+      <State name="normal" offset = "674 95 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "1 9 9 1" align = "HStretch Bottom">
+      <State name="normal" offset = "676 95 1 1"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "10 9 1 1" align = "Righ Bottom">
+      <State name="normal" offset = "684 95 1 1"/>
     </BasisSkin>
   </Skin>
 
