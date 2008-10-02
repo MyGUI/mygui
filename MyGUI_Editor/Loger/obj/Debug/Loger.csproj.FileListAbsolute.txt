@@ -1,0 +1,5 @@
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\Loger.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\bin\Debug\Loger.pdb
+D:\Programming\Labaratory\MyGUI_SkinEditor\Loger\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Labaratory\MyGUI_SkinEditor\Loger\obj\Debug\Loger.dll
+D:\Programming\Labaratory\MyGUI_SkinEditor\Loger\obj\Debug\Loger.pdb
