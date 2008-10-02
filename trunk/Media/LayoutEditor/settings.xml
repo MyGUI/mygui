@@ -2,8 +2,8 @@
 <MyGUI type="Settings">
     <PropertiesPanelView>
         <Property key="PanelMinimized" value="0"/>
-        <Property key="PanelMinimized" value="1"/>
-        <Property key="PanelMinimized" value="1"/>
+        <Property key="PanelMinimized" value="0"/>
+        <Property key="PanelMinimized" value="0"/>
         <Property key="PanelMinimized" value="1"/>
         <Property key="PanelMinimized" value="0"/>
         <Property key="PanelMinimized" value="0"/>
@@ -16,7 +16,7 @@
         <Property key="EdgeHide" value="0"/>
     </SettingsWindow>
     <WidgetsWindow>
-        <Property key="widgetsButtonWidth" value="115"/>
+        <Property key="widgetsButtonWidth" value="135"/>
         <Property key="widgetsButtonHeight" value="24"/>
         <Property key="widgetsButtonsInOneLine" value="3"/>
     </WidgetsWindow>

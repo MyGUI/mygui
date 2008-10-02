@@ -35,7 +35,6 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),
-		//mWidgetClient(null),
 		mCursorActive(false),
 		mCursorTimer(0),
 		mActionMouseTimer(0),
@@ -48,7 +47,7 @@ namespace MyGUI
 		mModePassword(false),
 		mModeMultiline(false),
 		mModeStatic(false),
-		mModeBreak(false),
+		mModeWordWrap(false),
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
@@ -100,8 +99,8 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		if (!properties.empty()) {
-			MapString::const_iterator iter = properties.find("Memo");
-			if (iter != properties.end()) setEditMemo(iter->second == "true");
+			MapString::const_iterator iter = properties.end();
+			if ((iter = properties.find("WordWrap")) != properties.end()) setEditWordWrap(utility::parseBool(iter->second));
 		}
 
 		updateScroll();
@@ -135,7 +134,7 @@ namespace MyGUI
 	void Edit::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		// в статике все недоступно
-		if (mModeStatic) return;
+		if (mModeStatic || mModeWordWrap) return;
 
 		IntPoint point = InputManager::getInstance().getLastLeftPressed();
 		mCursorPosition = mText->getCursorPosition(point);
@@ -156,7 +155,7 @@ namespace MyGUI
 	void Edit::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
 		// в статике все недоступно
-		if (mModeStatic) return;
+		if (mModeStatic || mModeWordWrap) return;
 
 		// останавливаем курсор
 		mText->setShowCursor(true);
@@ -185,7 +184,7 @@ namespace MyGUI
 	void Edit::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
 		// в статике все недоступно
-		if (mModeStatic) return;
+		if (mModeStatic || mModeWordWrap) return;
 
 		const IntPoint & lastPressed = InputManager::getInstance().getLastLeftPressed();
 
@@ -228,7 +227,7 @@ namespace MyGUI
 			mIsPressed = true;
 			updateEditState();
 
-			if (false == mModeStatic) {
+			if (!mModeStatic && !mModeWordWrap) {
 				mCursorActive = true;
 				Gui::getInstance().eventFrameStart += newDelegate(this, &Edit::frameEntered);
 				//Gui::getInstance().addFrameListener(newDelegate(this, &Edit::frameEntered), this);
@@ -267,7 +266,7 @@ namespace MyGUI
 		InputManager & input = InputManager::getInstance();
 
 		// в статическом режиме ничего не доступно
-		if (mModeStatic) {
+		if (mModeStatic || mModeWordWrap) {
 			Widget::_onKeyButtonPressed(_key, _char);
 			return;
 		}
@@ -545,7 +544,7 @@ namespace MyGUI
 	void Edit::frameEntered(float _frame)
 	{
 		// в статике все недоступно
-		if (mModeStatic) return;
+		if (mModeStatic || mModeWordWrap) return;
 
 		if (mCursorActive) {
 			mCursorTimer += _frame;
@@ -967,7 +966,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// вставляем текст
-		iterator.setText(_caption, mModeMultiline);
+		iterator.setText(_caption, mModeMultiline || mModeWordWrap);
 
 		if (mOverflowToTheLeft)
 		{
@@ -1044,7 +1043,7 @@ namespace MyGUI
 		if (need_colour) iterator.setTagColour(colour);
 
 		// а теперь вставляем строку
-		iterator.insertText(_text, mModeMultiline);
+		iterator.insertText(_text, mModeMultiline || mModeWordWrap);
 
 		if (mOverflowToTheLeft)
 		{
@@ -1250,7 +1249,7 @@ namespace MyGUI
 	{
 		Widget::setPosition(_coord);
 		// если перенос, то сбрасываем размер текста
-		if ((mModeBreak) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
+		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
 		updateView(false);
 	}
 
@@ -1258,7 +1257,7 @@ namespace MyGUI
 	{
 		Widget::setSize(_size);
 		// если перенос, то сбрасываем размер текста
-		if (mModeBreak) mText->setBreakLine(true);
+		if (mModeWordWrap) mText->setBreakLine(true);
 		updateView(false);
 	}
 
@@ -1274,7 +1273,7 @@ namespace MyGUI
 
 	void Edit::updateSelectText()
 	{
-		if ( ! mModeStatic ) {
+		if ( !mModeStatic && !mModeWordWrap ) {
 
 			InputManager & input = InputManager::getInstance();
 			if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) ) {
@@ -1327,7 +1326,7 @@ namespace MyGUI
 		if (_showCursor && ( false == inside)) {
 
 			// горизонтальное смещение
-			// ??? проверить, помоему просто >
+			// FIXME проверить, помоему просто >
 			if (textSize.width >= view.width()) {
 				if (cursor.left < view.left) {
 					offset.left = point.left - (view.left - cursor.left);
@@ -1342,7 +1341,7 @@ namespace MyGUI
 			}
 
 			// вертикальное смещение
-			// ??? проверить, помоему просто >
+			// FIXME проверить, помоему просто >
 			if (textSize.height >= view.height()) {
 				if (cursor.top < view.top) {
 					offset.top = point.top - (view.top - cursor.top);
@@ -1594,10 +1593,10 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::setEditBreakLine(bool _break)
+	void Edit::setEditWordWrap(bool _wordwrap)
 	{
-		mModeBreak = _break;
-		mText->setBreakLine(mModeBreak);
+		mModeWordWrap = _wordwrap;
+		mText->setBreakLine(mModeWordWrap);
 		mWidgetClient->setSize(mWidgetClient->getSize());
 	}
 
