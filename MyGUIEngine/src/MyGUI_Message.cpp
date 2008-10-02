@@ -207,13 +207,12 @@ namespace MyGUI
 
 	void Message::setMessageImage(size_t _image)
 	{
-		if (null != mIcon) {
-			if (mIcon->getItemResource() != null) {
-				mIcon->setItemName(getIconName(_image));
-			}
-			else {
-				mIcon->setImageIndex(_image);
-			}
+		if (null == mIcon) return;
+		if (mIcon->getItemResource() != null) {
+			mIcon->setItemName(getIconName(_image));
+		}
+		else {
+			mIcon->setImageIndex(_image);
 		}
 	}
 
