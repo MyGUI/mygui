@@ -1,0 +1,986 @@
+<Configuration>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ToolStripContainer">
+      <Item value="BottomToolStripPanel" priority="0" />
+      <Item value="TopToolStripPanel" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ToolStripPanel">
+      <Item value="Controls" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.Control.ControlCollection">
+      <Item value="Add" priority="10" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MyGUI_SkinEditor.Form2">
+      <Item value="Show" priority="3" />
+      <Item value="Location" priority="0" />
+      <Item value="Owner" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.FlowLayoutPanel">
+      <Item value="LayoutEngine" priority="0" />
+      <Item value="WrapContents" priority="1" />
+      <Item value="Controls" priority="0" />
+      <Item value="Container" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.ComponentModel.IContainer">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Windows.Forms.FormBorderStyle">
+      <Item value="None" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Crownwood.Magic.Controls.TabbedGroups">
+      <Item value="BeginInit" priority="1" />
+      <Item value="FindForm" priority="0" />
+      <Item value="Container" priority="0" />
+      <Item value="EndInit" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Crownwood.Magic.Docking.DockingManager">
+      <Item value="InnerControl" priority="3" />
+      <Item value="OuterControl" priority="1" />
+      <Item value="Contents" priority="6" />
+      <Item value="AddContentWithState" priority="5" />
+      <Item value="AddContentToZone" priority="1" />
+      <Item value="AddContentToWindowContent" priority="2" />
+      <Item value="ZoneMinMax" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Crownwood.Magic.Collections.ManagerContentCollection">
+      <Item value="Add" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Crownwood.Magic.Docking.WindowContent">
+      <Item value="ParentZone" priority="0" />
+      <Item value="Dock" priority="1" />
+      <Item value="Location" priority="1" />
+      <Item value="Site" priority="0" />
+      <Item value="Size" priority="2" />
+      <Item value="Resize" priority="0" />
+      <Item value="ParentForm" priority="0" />
+      <Item value="DisplayRectangle" priority="0" />
+      <Item value="Dispose" priority="1" />
+      <Item value="Contents" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.SplitContainer">
+      <Item value="Panel2" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.SplitterPanel">
+      <Item value="Container" priority="0" />
+      <Item value="Height" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.UserControl">
+      <Item value="Size" priority="0" />
+      <Item value="Controls" priority="0" />
+      <Item value="Dock" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Type">
+      <Item value="Assembly" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MyGUI_SkinEditor.Common.Aligns">
+      <Item value="DEFAULT" priority="1" />
+      <Item value="VCENTER" priority="3" />
+      <Item value="HCENTER" priority="3" />
+      <Item value="TOP" priority="4" />
+      <Item value="BOTTOM" priority="4" />
+      <Item value="LEFT" priority="2" />
+      <Item value="RIGHT" priority="2" />
+      <Item value="CENTER" priority="0" />
+      <Item value="STRETCH" priority="1" />
+      <Item value="VSTRETCH" priority="2" />
+      <Item value="HSTRETCH" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.PropertyGrid">
+      <Item value="SelectedObject" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List&lt;MyGUI_SkinEditor.SkinClasses.Property&gt;">
+      <Item value="GetEnumerator" priority="0" />
+      <Item value="Add" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;string,MyGUI_SkinEditor.SkinClasses.Property&gt;">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MyGUI_SkinEditor.SkinClasses.Property">
+      <Item value="Value" priority="2" />
+      <Item value="FromXML" priority="0" />
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlElement">
+      <Item value="Attributes" priority="9" />
+      <Item value="SelectNodes" priority="1" />
+      <Item value="Name" priority="3" />
+      <Item value="InnerXml" priority="0" />
+      <Item value="InnerText" priority="7" />
+      <Item value="AppendChild" priority="6" />
+      <Item value="ChildNodes" priority="0" />
+      <Item value="SelectSingleNode" priority="0" />
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Empty" priority="18" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlAttribute">
+      <Item value="Value" priority="10" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:string">
+      <Item value="Split" priority="2" />
+      <Item value="Trim" priority="8" />
+      <Item value="TrimEnd" priority="1" />
+      <Item value="Remove" priority="4" />
+      <Item value="LastIndexOf" priority="5" />
+      <Item value="TrimStart" priority="0" />
+      <Item value="StartsWith" priority="0" />
+      <Item value="IndexOf" priority="0" />
+      <Item value="Length" priority="0" />
+      <Item value="Contains" priority="3" />
+      <Item value="Substring" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Exception">
+      <Item value="Message" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List&lt;MyGUI_SkinEditor.SkinClasses.Child&gt;">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@">
+      <Item value="Split" priority="2" />
+      <Item value="Remove" priority="0" />
+      <Item value="Replace" priority="0" />
+      <Item value="Length" priority="6" />
+      <Item value="Category" priority="2" />
+      <Item value="Item" priority="2" />
+      <Item value="ToString" priority="4" />
+      <Item value="Value" priority="3" />
+      <Item value="Add" priority="2" />
+      <Item value="Key" priority="2" />
+      <Item value="ToLower" priority="0" />
+      <Item value="GetConstructor" priority="0" />
+      <Item value="Invoke" priority="1" />
+      <Item value="GetTypes" priority="0" />
+      <Item value="GetCustomAttributes" priority="1" />
+      <Item value="m_Category" priority="1" />
+      <Item value="m_item" priority="0" />
+      <Item value="GetMethods" priority="0" />
+      <Item value="ContainsKey" priority="0" />
+      <Item value="Execute" priority="0" />
+      <Item value="Trim" priority="3" />
+      <Item value="TrimStart" priority="0" />
+      <Item value="Load" priority="0" />
+      <Item value="SelectSingleNode" priority="0" />
+      <Item value="ToArgb" priority="1" />
+      <Item value="Substring" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Enum">
+      <Item value="Parse" priority="0" />
+      <Item value="Format" priority="0" />
+      <Item value="GetValues" priority="0" />
+      <Item value="IsDefined" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MyGUI_SkinEditor.SkinClasses.Aligns">
+      <Item value="DEFAULT" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Drawing.Size">
+      <Item value="Width" priority="29" />
+      <Item value="Height" priority="21" />
+      <Item value="ToString" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlDocument">
+      <Item value="Load" priority="4" />
+      <Item value="LoadXml" priority="2" />
+      <Item value="ParentNode" priority="0" />
+      <Item value="FirstChild" priority="2" />
+      <Item value="SelectNodes" priority="0" />
+      <Item value="CreateElement" priority="13" />
+      <Item value="AppendChild" priority="5" />
+      <Item value="CreateAttribute" priority="6" />
+      <Item value="Save" priority="0" />
+      <Item value="ImportNode" priority="1" />
+      <Item value="SelectSingleNode" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlNode">
+      <Item value="Name" priority="0" />
+      <Item value="Value" priority="0" />
+      <Item value="GetType" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MyGUI_SkinEditor.IXmlSerializable">
+      <Item value="FromXML" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;MyGUI_SkinEditor.SkinElementTypes,System.Collections.Generic.List&lt;MyGUI_SkinEditor.IXmlSerializable&gt;&gt;">
+      <Item value="ContainsKey" priority="2" />
+      <Item value="Add" priority="0" />
+      <Item value="Clear" priority="0" />
+      <Item value="Remove" priority="0" />
+      <Item value="GetEnumerator" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TValue">
+      <Item value="Add" priority="0" />
+      <Item value="Clear" priority="0" />
+      <Item value="ToLower" priority="0" />
+      <Item value="GetType" priority="0" />
+      <Item value="Name" priority="1" />
+      <Item value="Dispose" priority="1" />
+      <Item value="Contains" priority="1" />
+      <Item value="ParentZone" priority="0" />
+      <Item value="Contents" priority="1" />
+      <Item value="Site" priority="0" />
+      <Item value="Size" priority="0" />
+      <Item value="Width" priority="1" />
+      <Item value="Height" priority="1" />
+      <Item value="Tag" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MyGUI_SkinEditor.SkinElementTypes">
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MyGUI_SkinEditor.ProjectKeeper">
+      <Item value="Clear" priority="0" />
+      <Item value="Name" priority="0" />
+      <Item value="Edited" priority="0" />
+      <Item value="AddFromFile" priority="0" />
+      <Item value="GetElements" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.OpenFileDialog">
+      <Item value="ShowDialog" priority="3" />
+      <Item value="FileNames" priority="4" />
+      <Item value="Filter" priority="2" />
+      <Item value="FileName" priority="4" />
+      <Item value="Multiselect" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.DialogResult">
+      <Item value="OK" priority="3" />
+      <Item value="Yes" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MyGUI_SkinEditor.LogForm.Instance">
+      <Item value="Show" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.TableLayoutPanel">
+      <Item value="GetColumn" priority="1" />
+      <Item value="GetRow" priority="2" />
+      <Item value="GetCellPosition" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MyGUI_SkinEditor.NewProjectForm">
+      <Item value="ShowDialog" priority="0" />
+      <Item value="PrName" priority="0" />
+      <Item value="PrPrefix" priority="0" />
+      <Item value="SelectedProjectType" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.TextBox">
+      <Item value="Text" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ListView">
+      <Item value="Items" priority="13" />
+      <Item value="Columns" priority="9" />
+      <Item value="View" priority="0" />
+      <Item value="GridLines" priority="0" />
+      <Item value="FullRowSelect" priority="0" />
+      <Item value="Resize" priority="1" />
+      <Item value="ClientSize" priority="2" />
+      <Item value="Width" priority="0" />
+      <Item value="SelectedItems" priority="6" />
+      <Item value="Select" priority="0" />
+      <Item value="SelectedIndices" priority="1" />
+      <Item value="SelectedIndexChanged" priority="0" />
+      <Item value="Height" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ListView.ListViewItemCollection">
+      <Item value="Add" priority="8" />
+      <Item value="Clear" priority="1" />
+      <Item value="Count" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.MessageBoxIcon">
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ListViewItem">
+      <Item value="SubItems" priority="1" />
+      <Item value="Tag" priority="8" />
+      <Item value="BackColor" priority="1" />
+      <Item value="ForeColor" priority="0" />
+      <Item value="BeginEdit" priority="0" />
+      <Item value="Name" priority="0" />
+      <Item value="Text" priority="1" />
+      <Item value="Remove" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ListViewItem.ListViewSubItemCollection">
+      <Item value="Add" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ListView.ColumnHeaderCollection">
+      <Item value="Add" priority="0" />
+      <Item value="Count" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Windows.Forms.DialogResult">
+      <Item value="OK" priority="0" />
+      <Item value="Cancel" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ColumnHeader">
+      <Item value="Width" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MyGUI_SkinEditor.SkinElements.WidgetSkin">
+      <Item value="Name" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.Register.m_RegisterCatDictionary">
+      <Item value="Add" priority="0" />
+      <Item value="ContainsKey" priority="0" />
+      <Item value="Remove" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.Register.m_CommonDictionary">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.Register.m_InnerDictionary">
+      <Item value="Remove" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.CATID_FABRIC_CATEGORY">
+      <Item value="ID" priority="2" />
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.IDTranslator.m_Dictionary">
+      <Item value="ContainsKey" priority="0" />
+      <Item value="Add" priority="0" />
+      <Item value="ContainsValue" priority="0" />
+      <Item value="Values" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.IDTranslator">
+      <Item value="Translate" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:object">
+      <Item value="GetType" priority="2" />
+      <Item value="ToString" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.AttributeTargets">
+      <Item value="Class" priority="1" />
+      <Item value="Method" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Reflection.Assembly">
+      <Item value="LoadFile" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.Register">
+      <Item value="RegisterIt" priority="3" />
+      <Item value="CreateItem" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Reflection.BindingFlags">
+      <Item value="Public" priority="1" />
+      <Item value="Static" priority="0" />
+      <Item value="NonPublic" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Guid">
+      <Item value="Empty" priority="1" />
+      <Item value="NewGuid" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.IProjectElement">
+      <Item value="ReadXml" priority="0" />
+      <Item value="FromXML" priority="0" />
+      <Item value="Type" priority="0" />
+      <Item value="Name" priority="5" />
+      <Item value="ToXML" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TKey">
+      <Item value="Category" priority="0" />
+      <Item value="Item" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CATID_EDITORS">
+      <Item value="ID" priority="0" />
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@WidgetSkinEditor.CLSID_WIDGET_SKIN_EDITOR">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.Attributes">
+      <Item value="RegisterFactoryClass" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.ElementTypeConvertor">
+      <Item value="WritePair" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@WidgetSkinEditor.CLSID_PROJELEMENT_WIDGETSKIN">
+      <Item value="ID" priority="1" />
+      <Item value="Literal" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.IProjectKeeper">
+      <Item value="NeedSave" priority="0" />
+      <Item value="OnMessage" priority="0" />
+      <Item value="Clear" priority="0" />
+      <Item value="Name" priority="1" />
+      <Item value="ProjectID" priority="1" />
+      <Item value="ProjectFileFilter" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CLSID_PROJECT_KEEPER">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@WidgetSkinEditor.CLSID_PROJELEMENT_ROPERTY">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Core.GuidPair">
+      <Item value="Category" priority="0" />
+      <Item value="Item" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.TabControl">
+      <Item value="TabPages" priority="10" />
+      <Item value="SelectedIndex" priority="1" />
+      <Item value="SelectedTab" priority="7" />
+      <Item value="Tag" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.TabControl.TabPageCollection">
+      <Item value="Add" priority="3" />
+      <Item value="Clear" priority="2" />
+      <Item value="Remove" priority="1" />
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.IProjectPart">
+      <Item value="Name" priority="0" />
+      <Item value="OnMessage" priority="0" />
+      <Item value="Init" priority="1" />
+      <Item value="Close" priority="0" />
+      <Item value="Visual" priority="0" />
+      <Item value="CreateControl" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.Control">
+      <Item value="Controls" priority="0" />
+      <Item value="Container" priority="0" />
+      <Item value="Dock" priority="0" />
+      <Item value="Parent" priority="0" />
+      <Item value="Disposed" priority="0" />
+      <Item value="Dispose" priority="3" />
+      <Item value="Tag" priority="0" />
+      <Item value="Handle" priority="0" />
+      <Item value="DrawToBitmap" priority="0" />
+      <Item value="Size" priority="2" />
+      <Item value="Resize" priority="1" />
+      <Item value="Location" priority="0" />
+      <Item value="Width" priority="0" />
+      <Item value="Height" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:WidgetSkinEditor.MainForm">
+      <Item value="Dock" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectKeeper.CLSID_SKIN_PROJECT">
+      <Item value="ID" priority="1" />
+      <Item value="Literal" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CATID_PROJECT_PLUGINS">
+      <Item value="ID" priority="0" />
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ListView.SelectedListViewItemCollection">
+      <Item value="Count" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CATID_PROJECTKEEPERS">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectKeeper.CLSID_SKIN_PROJECT_KEEPER">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair&lt;System.Guid,Common.IProjectKeeper&gt;">
+      <Item value="Value" priority="0" />
+      <Item value="Key" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.IProject">
+      <Item value="Dispose" priority="2" />
+      <Item value="NeedSave" priority="0" />
+      <Item value="Name" priority="0" />
+      <Item value="AddFromFile" priority="1" />
+      <Item value="OnUpdateElementList" priority="0" />
+      <Item value="GetElements" priority="1" />
+      <Item value="Prefix" priority="5" />
+      <Item value="OnChangeCurElement" priority="0" />
+      <Item value="CurrentElement" priority="0" />
+      <Item value="AddedFileFilter" priority="0" />
+      <Item value="Init" priority="1" />
+      <Item value="Keeper" priority="0" />
+      <Item value="Load" priority="0" />
+      <Item value="ProjectLocation" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.IPlugin">
+      <Item value="Dispose" priority="1" />
+      <Item value="Init" priority="0" />
+      <Item value="CreateControl" priority="2" />
+      <Item value="Visual" priority="0" />
+      <Item value="Name" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.Facade.IDTranslator">
+      <Item value="Translate" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.CoreFacade.Register">
+      <Item value="OnRegister" priority="4" />
+      <Item value="GetItem" priority="12" />
+      <Item value="GetItems" priority="3" />
+      <Item value="RegisterIt" priority="7" />
+      <Item value="UregisterIt" priority="1" />
+      <Item value="UnregisterIt" priority="1" />
+      <Item value="OnUnRegister" priority="2" />
+      <Item value="CreateItem" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.CoreFacade.IDTranslator">
+      <Item value="Translate" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Guid">
+      <Item value="CompareTo" priority="0" />
+      <Item value="ToString" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CATID_STARTUP_PLUGINS">
+      <Item value="Literal" priority="2" />
+      <Item value="ID" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectManagement.CLSID_PROJECT_MANAGER">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectManagement.ToolBar">
+      <Item value="Dispose" priority="0" />
+      <Item value="OnNew" priority="0" />
+      <Item value="OnOpen" priority="0" />
+      <Item value="OnAdd" priority="0" />
+      <Item value="OnClose" priority="0" />
+      <Item value="Disposed" priority="0" />
+      <Item value="Disposing" priority="0" />
+      <Item value="OnSave" priority="0" />
+      <Item value="OnSaveAs" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:WidgetSkinEditor.VSkinEditor">
+      <Item value="Dispose" priority="2" />
+      <Item value="Disposing" priority="0" />
+      <Item value="SkinList" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.TabPage">
+      <Item value="Controls" priority="4" />
+      <Item value="Tag" priority="5" />
+      <Item value="Name" priority="1" />
+      <Item value="ClientSize" priority="3" />
+      <Item value="Resize" priority="1" />
+      <Item value="Width" priority="2" />
+      <Item value="Height" priority="1" />
+      <Item value="Paint" priority="0" />
+      <Item value="Refresh" priority="0" />
+      <Item value="AutoScroll" priority="1" />
+      <Item value="Size" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ToolStripButton">
+      <Item value="Click" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CATID_COMMON.ID">
+      <Item value="CompareTo" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CATID_COMMON">
+      <Item value="ID" priority="1" />
+      <Item value="Literal" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.CLSID_VISUAL_CONTAINER">
+      <Item value="ID" priority="0" />
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.IVisualContainer">
+      <Item value="InsertControl" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectManagement.NewProjectForm">
+      <Item value="ProjectName" priority="0" />
+      <Item value="Prefix" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;System.Guid,Common.IProject&gt;">
+      <Item value="Clear" priority="0" />
+      <Item value="Add" priority="0" />
+      <Item value="Count" priority="0" />
+      <Item value="[]" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;Core.GuidPair,System.Guid&gt;">
+      <Item value="ContainsKey" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair&lt;System.Guid,Common.IProject&gt;">
+      <Item value="Value" priority="0" />
+      <Item value="Key" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;System.Guid,WidgetSkinEditor.VSkinEditor&gt;">
+      <Item value="Values" priority="0" />
+      <Item value="Clear" priority="0" />
+      <Item value="Add" priority="0" />
+      <Item value="ContainsKey" priority="1" />
+      <Item value="Remove" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Stack&lt;System.Guid&gt;">
+      <Item value="Push" priority="1" />
+      <Item value="Pop" priority="0" />
+      <Item value="Count" priority="0" />
+      <Item value="Peek" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common.ProjectContext.m_Stack">
+      <Item value="Count" priority="0" />
+      <Item value="Peek" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ControlEventArgs">
+      <Item value="Control" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ImageSetEditor.VISEditor">
+      <Item value="DisplayRectangle" priority="0" />
+      <Item value="Dispose" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.SaveFileDialog">
+      <Item value="ShowDialog" priority="0" />
+      <Item value="Filter" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.FolderBrowserDialog">
+      <Item value="ShowDialog" priority="0" />
+      <Item value="SelectedPath" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:SkinProject.Project">
+      <Item value="Name" priority="2" />
+      <Item value="Location" priority="0" />
+      <Item value="OpenFromFile" priority="0" />
+      <Item value="GetElements" priority="0" />
+      <Item value="Save" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlAttributeCollection">
+      <Item value="Append" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.BaseProject">
+      <Item value="Name" priority="0" />
+      <Item value="Prefix" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.XmlProject">
+      <Item value="Init" priority="0" />
+      <Item value="Document" priority="0" />
+      <Item value="AddParam" priority="0" />
+      <Item value="CreateNode" priority="0" />
+      <Item value="Seve" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ListView.SelectedIndexCollection">
+      <Item value="Add" priority="0" />
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:PropertyEditor.PropertyWindow">
+      <Item value="Dispose" priority="0" />
+      <Item value="SelectedObject" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@PropertyEditor.CLSID_PROPERTY_EDITOR">
+      <Item value="ID" priority="0" />
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair&lt;System.Guid,System.Collections.Generic.List&lt;Common.IProjectElement&gt;&gt;">
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.XmlHelper">
+      <Item value="Document" priority="2" />
+      <Item value="CreateNode" priority="1" />
+      <Item value="Init" priority="0" />
+      <Item value="AddParam" priority="0" />
+      <Item value="Seve" priority="0" />
+      <Item value="AddNode" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Drawing.Point">
+      <Item value="ToString" priority="1" />
+      <Item value="Y" priority="3" />
+      <Item value="X" priority="12" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:WidgetSkinEditor.WidgetAlign">
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:WidgetSkinEditor.SkinElements.Property">
+      <Item value="ToXML" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Drawing.Color">
+      <Item value="IsEmpty" priority="0" />
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:WidgetSkinEditor.SkinElements.BasisSkinType">
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:int">
+      <Item value="CompareTo" priority="0" />
+      <Item value="ToString" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@WidgetSkinEditor.Align">
+      <Item value="DEFAULT" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Drawing.Color">
+      <Item value="Empty" priority="0" />
+      <Item value="FromArgb" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Convert">
+      <Item value="ToInt32" priority="0" />
+      <Item value="ToSingle" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.ILogSender">
+      <Item value="OnMessage" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.StreamWriter">
+      <Item value="WriteLine" priority="0" />
+      <Item value="Close" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime.Now">
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Loger.CLSID_LOGER">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Globalization.NumberFormatInfo">
+      <Item value="InvariantInfo" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.StringSplitOptions">
+      <Item value="RemoveEmptyEntries" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@WidgetSkinEditor.Align.DEFAULT">
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.CoreFacade.SettingsProvider">
+      <Item value="Load" priority="1" />
+      <Item value="Root" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ViewLoger.LogWindow">
+      <Item value="Dispose" priority="0" />
+      <Item value="AddNote" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="Parse" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Globalization">
+      <Item value="NumberFormatInfo" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Globalization.NumberStyles">
+      <Item value="HexNumber" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;Crownwood.Magic.Docking.State,Crownwood.Magic.Docking.Content&gt;">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Crownwood.Magic.Collections.ContentCollection">
+      <Item value="Count" priority="1" />
+      <Item value="[]" priority="1" />
+      <Item value="IndexOf" priority="0" />
+      <Item value="Remove" priority="1" />
+      <Item value="RemoveAt" priority="0" />
+      <Item value="Contains" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;Crownwood.Magic.Docking.State,Crownwood.Magic.Docking.WindowContent&gt;">
+      <Item value="ContainsKey" priority="0" />
+      <Item value="ContainsValue" priority="0" />
+      <Item value="Remove" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.Form">
+      <Item value="Close" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Crownwood.Magic.Docking.Content">
+      <Item value="Control" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair&lt;Crownwood.Magic.Docking.State,Crownwood.Magic.Docking.WindowContent&gt;">
+      <Item value="Value" priority="0" />
+      <Item value="Key" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:string[]">
+      <Item value="Length" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.PictureBox">
+      <Item value="Dock" priority="0" />
+      <Item value="Load" priority="1" />
+      <Item value="ImageLocation" priority="1" />
+      <Item value="SizeMode" priority="0" />
+      <Item value="CreateGraphics" priority="0" />
+      <Item value="Location" priority="2" />
+      <Item value="Size" priority="3" />
+      <Item value="Width" priority="5" />
+      <Item value="Resize" priority="0" />
+      <Item value="ClientSize" priority="0" />
+      <Item value="Image" priority="16" />
+      <Item value="MouseDown" priority="0" />
+      <Item value="MouseUp" priority="0" />
+      <Item value="MouseMove" priority="0" />
+      <Item value="Height" priority="4" />
+      <Item value="Leave" priority="1" />
+      <Item value="Left" priority="2" />
+      <Item value="Top" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary&lt;string,System.Windows.Forms.TabPage&gt;">
+      <Item value="Add" priority="1" />
+      <Item value="ContainsKey" priority="2" />
+      <Item value="Remove" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Drawing.Graphics">
+      <Item value="DrawImage" priority="7" />
+      <Item value="Save" priority="0" />
+      <Item value="Clear" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ImageSetEditor.Picture">
+      <Item value="Image" priority="4" />
+      <Item value="MainImage" priority="2" />
+      <Item value="ClientSize" priority="0" />
+      <Item value="ShowRegion" priority="0" />
+      <Item value="CurentViewRegion" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Drawing.Image">
+      <Item value="Size" priority="6" />
+      <Item value="Width" priority="6" />
+      <Item value="Height" priority="5" />
+      <Item value="GetBounds" priority="0" />
+      <Item value="Flags" priority="1" />
+      <Item value="GetPropertyItem" priority="0" />
+      <Item value="FromStream" priority="0" />
+      <Item value="FromHbitmap" priority="0" />
+      <Item value="GetThumbnailImage" priority="0" />
+      <Item value="Clone" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Drawing.Rectangle">
+      <Item value="Left" priority="1" />
+      <Item value="Width" priority="6" />
+      <Item value="Height" priority="7" />
+      <Item value="Top" priority="1" />
+      <Item value="Size" priority="1" />
+      <Item value="Location" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ImageSetEditor.Properties.Resources">
+      <Item value="marker" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.PaintEventArgs">
+      <Item value="Graphics" priority="8" />
+      <Item value="ClipRectangle" priority="14" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.MouseEventArgs">
+      <Item value="Location" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ImageSetEditor.ViewChip">
+      <Item value="Location" priority="1" />
+      <Item value="Site" priority="0" />
+      <Item value="Size" priority="1" />
+      <Item value="Invalidate" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ViewChipsInterfaces.CATID_VIEWCHIP_THINGS">
+      <Item value="ID" priority="1" />
+      <Item value="Literal" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ViewChipsInterfaces.CLSID_VIEWCHIP_AREA">
+      <Item value="ID" priority="0" />
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ViewChipsInterfaces.CLSID_VIEWCHIP_ITEM">
+      <Item value="Literal" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ImageSetEditor.Doc">
+      <Item value="Page" priority="16" />
+      <Item value="ViewArea" priority="18" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Core.CoreFacade">
+      <Item value="Register" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ViewChipsInterfaces.IItem">
+      <Item value="Image" priority="2" />
+      <Item value="Location" priority="6" />
+      <Item value="Size" priority="15" />
+      <Item value="Invalidate" priority="2" />
+      <Item value="ScaleKoof" priority="4" />
+      <Item value="MoveToCenter" priority="0" />
+      <Item value="ResizeToImage" priority="0" />
+      <Item value="CreateItem" priority="0" />
+      <Item value="Name" priority="1" />
+      <Item value="AddItem" priority="4" />
+      <Item value="SetSelector" priority="1" />
+      <Item value="Rect" priority="0" />
+      <Item value="Dispose" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ViewChipsInterfaces.IArea">
+      <Item value="CreateItem" priority="0" />
+      <Item value="[]" priority="1" />
+      <Item value="Dispose" priority="0" />
+      <Item value="Invalidate" priority="0" />
+      <Item value="AutoScroll" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ViewChips.Align">
+      <Item value="DEFAULT" priority="1" />
+      <Item value="HCENTER" priority="2" />
+      <Item value="LEFT" priority="0" />
+      <Item value="RIGHT" priority="0" />
+      <Item value="BOTTOM" priority="0" />
+      <Item value="HSTRETCH" priority="0" />
+      <Item value="VSTRETCH" priority="0" />
+      <Item value="VCENTER" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Common">
+      <Item value="Align" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ViewChips.Item">
+      <Item value="ScaleKoof" priority="0" />
+      <Item value="ClipRectangle" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System">
+      <Item value="Drawing" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Drawing">
+      <Item value="Image" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ViewChips.Resource1.Selector">
+      <Item value="Clone" priority="0" />
+      <Item value="GetHbitmap" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Common.Align">
+      <Item value="LEFT" priority="2" />
+      <Item value="TOP" priority="0" />
+      <Item value="RIGHT" priority="11" />
+      <Item value="CENTER" priority="2" />
+      <Item value="BOTTOM" priority="10" />
+      <Item value="HSTRETCH" priority="7" />
+      <Item value="STRETCH" priority="2" />
+      <Item value="VSTRETCH" priority="4" />
+      <Item value="HCENTER" priority="3" />
+      <Item value="VCENTER" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ViewChipsInterfaces.IItemController">
+      <Item value="Item" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.LabelEditEventArgs">
+      <Item value="Item" priority="3" />
+      <Item value="Label" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Windows.Forms.BorderStyle">
+      <Item value="Fixed3D" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <EditorManager>
+    <RecentFiles>
+      <File id="6399C2A4-048D-4425-8013-5BECE625434D/f:Defs.cs" caret="1323" scrollPosition="0|0" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/d:Attributes/f:StartStaticMethodAttribute.cs" caret="611" scrollPosition="0|0" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/d:Attributes/f:RegisterIt.cs" caret="76" scrollPosition="0|0" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/f:Defs.cs" caret="106" scrollPosition="0|0" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/f:Loader.cs" caret="993" scrollPosition="0|0" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/f:CoreFacade.cs" caret="0" scrollPosition="0|0" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/f:IDTranslator.cs" caret="267" scrollPosition="0|12" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/f:SettingsProvider.cs" caret="149" scrollPosition="0|0" />
+      <File id="40A829B5-9F94-4FA5-B498-9EA0DC7A1F06/f:Register.cs" caret="6568" scrollPosition="0|3" />
+      <File id="A78DA116-7E32-4B72-891C-881535A6C1D8/f:config.xml" caret="0" scrollPosition="0|0" />
+      <File id="63135B6F-F6D3-4E60-B14D-E63FA1DB3DD5/f:Keeper.cs" caret="252" scrollPosition="0|0" />
+      <File id="6399C2A4-048D-4425-8013-5BECE625434D/f:Editor.cs" caret="238" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:ElementTypeConvertor.cs" caret="65" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:IProject.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:IProjectKeeper.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:IProjectElement.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:IVisualContainer.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:IPlugin.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:ILogSender.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:XmlHelper.cs" caret="0" scrollPosition="0|0" />
+      <File id="63135B6F-F6D3-4E60-B14D-E63FA1DB3DD5/f:Project.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:XmlProject.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:StringConverter.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:ControlTypes.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:Aligns.cs" caret="0" scrollPosition="0|0" />
+      <File id="CE44E179-C161-4FF2-BF1E-0F5BC2500ECD/f:Defs.cs" caret="0" scrollPosition="0|0" />
+      <File id="0432A482-9799-421F-AF44-2BEC852B090C/f:Manager.cs" caret="0" scrollPosition="0|0" />
+      <File id="789906CF-ED65-46A1-BB8A-37D38A52DDD7/f:Manager.cs" caret="13" scrollPosition="0|0" />
+      <File id="AF166B2A-6804-4106-80F5-F610EBAA8400/f:IArea.cs" caret="0" scrollPosition="0|0" />
+    </RecentFiles>
+  </EditorManager>
+  <FileStructureView>
+    <AutoScrollToSource>False</AutoScrollToSource>
+    <TrackCaretLocation>False</TrackCaretLocation>
+  </FileStructureView>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <ReFormatCode>
+    <ReorderMembers>False</ReorderMembers>
+    <OptimizeUsings>False</OptimizeUsings>
+    <RemoveRedundantThis>False</RemoveRedundantThis>
+    <ShortenReferences>False</ShortenReferences>
+  </ReFormatCode>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <SharedSolutionDisabledTemplatesManager>
+    <DisabledTemplates />
+  </SharedSolutionDisabledTemplatesManager>
+  <UnitTestRunner>
+    <CustomStartDirectory>
+    </CustomStartDirectory>
+    <UseShadowCopy>True</UseShadowCopy>
+    <UseCustomFolder>False</UseCustomFolder>
+    <Providers />
+  </UnitTestRunner>
+  <UserSolutionDisabledTemplatesManager>
+    <DisabledTemplates />
+  </UserSolutionDisabledTemplatesManager>
+</Configuration>

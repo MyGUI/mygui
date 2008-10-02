@@ -1,0 +1,7 @@
+D:\Programming\Labaratory\WindowsFormsApplication1\ControlItem\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\Labaratory\WindowsFormsApplication1\ControlItem\bin\Debug\ControlItem.dll
+D:\Programming\Labaratory\WindowsFormsApplication1\ControlItem\bin\Debug\ControlItem.pdb
+D:\Programming\Labaratory\WindowsFormsApplication1\ControlItem\obj\Debug\ControlItem.dll
+D:\Programming\Labaratory\WindowsFormsApplication1\ControlItem\obj\Debug\ControlItem.pdb
+D:\Programming\Labaratory\WindowsFormsApplication1\ControlItem\obj\Debug\ControlItem.Item.resources
+D:\Programming\Labaratory\WindowsFormsApplication1\ControlItem\obj\Debug\ControlItem.csproj.GenerateResource.Cache
