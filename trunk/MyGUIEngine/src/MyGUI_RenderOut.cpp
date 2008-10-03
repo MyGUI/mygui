@@ -70,6 +70,10 @@ namespace MyGUI
 
 			// если первый раз, то создаем оверлей
 			if (num == 0) {
+
+				Ogre::RenderWindow * win = Ogre::Root::getSingleton().getAutoCreatedWindow();
+				if (win == 0) return;
+
 				// ищем шрифт
 				Ogre::ResourceManager::ResourceMapIterator fonts = Ogre::FontManager::getSingleton().getResourceIterator();
 				assert(fonts.hasMoreElements()); // шрифтов чета нет =(
@@ -86,7 +90,6 @@ namespace MyGUI
 				Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 				overlay = overlayManager.create(__DEBUG_OVERLAY_NAME);
 				overlay->setZOrder(__DEBUG_OVERLAY_ZORDER);
-				Ogre::RenderWindow * win = Ogre::Root::getSingleton().getAutoCreatedWindow();
 
 				if (__DEBUG_SHOW_SHADOW) {
 					// текстовое поле,  тень
