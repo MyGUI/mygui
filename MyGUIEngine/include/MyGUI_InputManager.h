@@ -132,9 +132,17 @@ namespace MyGUI
 		void setCurrentLanguage(const std::string & _lang);
 
 #if MYGUI_DEBUG_MODE == 1
-		inline void setShowFocus(bool _show) { m_showFocus = _show; }
-		inline bool getShowFocus() { return m_showFocus; }
-		void updateFocusWidgetHelpers();
+	public:
+		inline void setShowFocus(bool _show) { updateFocusWidgetHelpers(&_show, true); }
+		inline bool getShowFocus() { bool show; updateFocusWidgetHelpers(&show, false); return show; }
+	private:
+		void updateFocusWidgetHelpers(bool * _show = null, bool _set = false);
+#else
+	public:
+		inline void setShowFocus(bool _show) { }
+		inline bool getShowFocus() { return false; }
+	private:
+		inline void updateFocusWidgetHelpers(bool * _show = null, bool _set = false) { }
 #endif
 
 	protected:
@@ -201,11 +209,7 @@ namespace MyGUI
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
 
-#if MYGUI_DEBUG_MODE == 1
-		bool m_showFocus;
-#endif
-
-	}; // class InputManager
+	};
 
 } // namespace MyGUI
 
