@@ -6,6 +6,7 @@
 */
 
 #include "EditorToolTip.h"
+#include "MyGUI_SkinManager.h"
 
 EditorToolTip::EditorToolTip() :
 	BaseLayout("EditorToolTip.layout")
@@ -49,11 +50,37 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 	const int LINE_HEIGHT = 22;
 	const int LINES = 3;
 
+	// узнаем размер скина, так чтобы дочки были полноразмерные
+	MyGUI::SkinManager & manager = MyGUI::SkinManager::getInstance();
+	if (manager.isExist(skin)) {
+		// максимальная разница
+		MyGUI::IntSize max_size;
+
+		MyGUI::WidgetSkinInfo * info = manager.getSkin(skin);
+		if (info != null) {
+			const MyGUI::VectorChildSkinInfo & child = info->getChild();
+			for (size_t pos=0; pos<child.size(); ++pos) {
+				const std::string & child_skin = child[pos].skin;
+				if (!manager.isExist(child_skin)) continue;
+				const MyGUI::WidgetSkinInfo * child_info = manager.getSkin(child_skin);
+				const MyGUI::IntSize & child_size = child[pos].coord.size();
+				MyGUI::IntSize dif_size = child_info->getSize() - child_size;
+
+				if (max_size.width < dif_size.width) max_size.width = dif_size.width;
+				if (max_size.height < dif_size.height) max_size.height = dif_size.height;
+			}
+		}
+
+		// прибавляем размер детей
+		width += max_size.width;
+		height += max_size.height;
+	}
+
 	mMainWidget->setSize(std::max(minWidth, width + 2*MARGIN), std::max(minHeight, height + LINE_HEIGHT*LINES + 2*MARGIN));
 	if (lastWidget) MyGUI::Gui::getInstance().destroyWidget(lastWidget);
-	lastWidget = mMainWidget->createWidgetT(widget, skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
+	lastWidget = mMainWidget->createWidgetT("Widget", skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
 	lastWidget->setCaption(skin);
-	
+
 	setPosition(_point);
 	mMainWidget->show();
 }
