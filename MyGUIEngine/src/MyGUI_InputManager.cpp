@@ -9,6 +9,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_SkinManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_WidgetManager.h"
@@ -44,10 +45,6 @@ namespace MyGUI
 		mFirstPressKey = true;
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
-
-#if MYGUI_DEBUG_MODE == 1
-		m_showFocus = false;
-#endif
 
 		createDefaultCharSet();
 
@@ -164,9 +161,8 @@ namespace MyGUI
 		// запоминаем текущее окно
 		mWidgetMouseFocus = item;
 
-#if MYGUI_DEBUG_MODE == 1
-		if (m_showFocus) updateFocusWidgetHelpers();
-#endif
+		// обновляем данные
+		updateFocusWidgetHelpers();
 
 		return isFocusMouse();
 	}
@@ -447,9 +443,9 @@ namespace MyGUI
 			mWidgetKeyFocus = null;
 		}
 
-#if MYGUI_DEBUG_MODE == 1
-		if (m_showFocus) updateFocusWidgetHelpers();
-#endif
+		// обновляем данные
+		updateFocusWidgetHelpers();
+
 	}
 
 	void InputManager::resetMouseFocusWidget()
@@ -463,9 +459,10 @@ namespace MyGUI
 			mWidgetRootMouseFocus->_onMouseChangeRootFocus(false);
 			mWidgetRootMouseFocus = null;
 		}
-#if MYGUI_DEBUG_MODE == 1
-		if (m_showFocus) updateFocusWidgetHelpers();
-#endif
+
+		// обновляем данные
+		updateFocusWidgetHelpers();
+
 	}
 
 	// удаляем данный виджет из всех возможных мест
@@ -475,15 +472,15 @@ namespace MyGUI
 		if (_widget == mWidgetMouseFocus) {
 			mIsWidgetMouseCapture = false;
 			mWidgetMouseFocus = null;
-#if MYGUI_DEBUG_MODE == 1
-		if (m_showFocus) updateFocusWidgetHelpers();
-#endif
+
+			// обновляем данные
+			updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetKeyFocus) {
 			mWidgetKeyFocus = null;
-#if MYGUI_DEBUG_MODE == 1
-		if (m_showFocus) updateFocusWidgetHelpers();
-#endif
+
+			// обновляем данные
+			updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
 		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
@@ -557,9 +554,10 @@ namespace MyGUI
 
 	void InputManager::frameEntered(float _frame)
 	{
-#if MYGUI_DEBUG_MODE == 1
-		if (m_showFocus) updateFocusWidgetHelpers();
-#endif
+
+		// обновляем данные
+		updateFocusWidgetHelpers();
+
 		if ( mHoldKey == KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {
 			mHoldKey = KC_UNASSIGNED;
@@ -596,10 +594,24 @@ namespace MyGUI
 	}
 
 #if MYGUI_DEBUG_MODE == 1
-	void InputManager::updateFocusWidgetHelpers()
+	void InputManager::updateFocusWidgetHelpers(bool * _show, bool _set)
 	{
 
-		const std::string layer = "Statistic";
+		static bool show = false;
+
+		// запрос на видимость
+		if (_show) {
+			if (_set) show = *_show;
+			else *_show = show;
+			return;
+		}
+
+		if (!show) return;
+
+		static const std::string layer = "Statistic";
+		static const std::string skin_mouse = "RectGreen";
+		static const std::string skin_key = "RectBlue";
+
 		static WidgetPtr mouse_focus = null;
 		static WidgetPtr mouse_helper = null;
 		if ((mWidgetMouseFocus != mouse_focus) || ((mWidgetMouseFocus != null) && (mouse_helper != null) && mWidgetMouseFocus->getAbsoluteCoord() != mouse_helper->getAbsoluteCoord())) {
@@ -607,7 +619,8 @@ namespace MyGUI
 
 			if (mouse_helper == null) {
 				if (!LayerManager::getInstance().isExist(layer)) return;
-				mouse_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerGreen", IntCoord(), Align::Default, layer);
+				if (!SkinManager::getInstance().isExist(skin_mouse)) return;
+				mouse_helper = Gui::getInstance().createWidget<Widget>(skin_mouse, IntCoord(), Align::Default, layer);
 				mouse_helper->setNeedMouseFocus(false);
 			}
 
@@ -629,7 +642,8 @@ namespace MyGUI
 
 			if (key_helper == null) {
 				if (!LayerManager::getInstance().isExist(layer)) return;
-				key_helper = Gui::getInstance().createWidget<Widget>("DebugMarkerRed", IntCoord(), Align::Default, layer);
+				if (!SkinManager::getInstance().isExist(skin_key)) return;
+				key_helper = Gui::getInstance().createWidget<Widget>(skin_key, IntCoord(), Align::Default, layer);
 				key_helper->setNeedMouseFocus(false);
 			}
 			if (mWidgetKeyFocus) {
