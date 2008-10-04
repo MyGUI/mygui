@@ -33,7 +33,7 @@ namespace MyGUI
 #define MYGUI_RESOURCE_HEADER \
 	MYGUI_RTTI_CHILD_HEADER; \
 	private: \
-		static void createResource(IResourcePtr & _resource, xml::xmlNodeIterator _node); \
+		static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node); \
 	public: \
 		static void registryType(); \
 		static void unregistryType();
@@ -42,13 +42,13 @@ namespace MyGUI
 	MYGUI_RTTI_CHILD_IMPLEMENT(name, base); \
 	void name::registryType() \
 	{ \
-		ResourceManager::getInstance().registerType(name::getClassTypeName(), newDelegate(name::createResource)); \
+		MyGUI::ResourceManager::getInstance().registerType(name::getClassTypeName(), MyGUI::newDelegate(name::createResource)); \
 	} \
-	void ResourceImageSet::unregistryType() \
+	void name::unregistryType() \
 	{ \
-		ResourceManager::getInstance().unregisterType(name::getClassTypeName()); \
+		MyGUI::ResourceManager::getInstance().unregisterType(name::getClassTypeName()); \
 	} \
-	void name::createResource(IResourcePtr & _resource, xml::xmlNodeIterator _node) \
+	void name::createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node) \
 	{ \
 		_resource = new name(_node); \
 	}
