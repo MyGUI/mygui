@@ -32,7 +32,9 @@ void CellView::update(const MyGUI::ItemInfo& _info, ItemData * _data)
 	//ItemData * data = (ItemData *)_data;
 
 	if (_info.update) {
-		mImageItem->setImageCoord(MyGUI::IntCoord((int)_data->type * 68 + 68*2, 0, 68, 68*3));
+		mImageItem->setItemResource(_data->mResourceImage);
+		mImageItem->setItemGroup("States");
+		//mImageItem->setImageCoord(MyGUI::IntCoord((int)_data->type * 68 + 68*2, 0, 68, 68*3));
 		mTextBack->setCaption(((_data->count > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->count) : "");
 		mTextFront->setCaption(((_data->count > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->count) : "");
 	}
@@ -41,9 +43,9 @@ void CellView::update(const MyGUI::ItemInfo& _info, ItemData * _data)
 		mImageBack->setAlpha(0.8);
 		mImageBack->setImageIndex(5);
 		mImageBorder->setImageIndex(4);
-		if (_info.drag_refuse) mImageItem->setImageIndex(1);
-		else if (_info.drag_accept) mImageItem->setImageIndex(2);
-		else mImageItem->setImageIndex(0);
+		if (_info.drag_refuse) mImageItem->setItemName("Refuse");
+		else if (_info.drag_accept) mImageItem->setItemName("Accept");
+		else mImageItem->setItemName("Normal");
 	}
 	else {
 		mImageBack->setAlpha(1);
@@ -67,7 +69,7 @@ void CellView::update(const MyGUI::ItemInfo& _info, ItemData * _data)
 			mTextFront->setColour(Ogre::ColourValue::White);
 		}
 
-		mImageItem->setImageIndex(0);
+		mImageItem->setItemName("Normal");
 	}
 
 }

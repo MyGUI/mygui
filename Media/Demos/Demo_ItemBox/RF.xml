@@ -6,7 +6,8 @@
 	    <List file="RF_skin.xml" group="General"/>
 	    <List file="RF_font.xml" group="General"/>
 	    <List file="RF_layer.xml" group="General"/>
-	    <List file="RF_pointer.xml" group="General"/>
+      <List file="RF_pointer.xml" group="General"/>
+      <List file="RF_resource.xml" group="General"/>
     </MyGUI>
 
 </MyGUI>

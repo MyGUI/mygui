@@ -42,8 +42,8 @@ void ToolTip::show(ItemData * _data, const MyGUI::IntPoint & _point)
 	}
 
 	mTextCount->setCaption(MyGUI::utility::toString(_data->count));
-	mTextName->setCaption(_data->name);
-	mTextDesc->setCaption(_data->description);
+	mTextName->setCaption(_data->mResourceInfo->getItemName());
+	mTextDesc->setCaption(_data->mResourceInfo->getItemDescription());
 
 	mMainWidget->setPosition(point);
 	mMainWidget->show();
