@@ -32,7 +32,7 @@ void CellView::update(const MyGUI::ItemInfo& _info, ItemData * _data)
 	//ItemData * data = (ItemData *)_data;
 
 	if (_info.update) {
-		mImageItem->setImageCoord(MyGUI::IntCoord((int)_data->type * 68 + 68*2, 0, 68, 68));
+		mImageItem->setImageCoord(MyGUI::IntCoord((int)_data->type * 68 + 68*2, 0, 68, 68*3));
 		mTextBack->setCaption(((_data->count > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->count) : "");
 		mTextFront->setCaption(((_data->count > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->count) : "");
 	}
