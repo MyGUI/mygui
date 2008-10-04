@@ -66,6 +66,9 @@ void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropState _state)
 
 void DemoKeeper::start()
 {
+	// регестрируем тип нашего ресурса
+	demo::ResourceItemInfo::registryType();
+
 	// загружаем ресурсы для демо
 	// потом сделать и для мака
 	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_ItemBox", "FileSystem", "General");
@@ -83,16 +86,16 @@ void DemoKeeper::start()
 	mToolTip.hide();
 
 	mItemBoxV.initialise();
-	mItemBoxV.addItem(new ItemData(TypeNone, 0, "", ""));
-	mItemBoxV.addItem(new ItemData(TypeRoll, 5, L"Свиток", L"описание Свиток"));
-	mItemBoxV.addItem(new ItemData(TypeCloth, 5, L"Полотно", L"описание Полотно"));
-	mItemBoxV.addItem(new ItemData(TypeTear, 5, L"Слеза", L"описание Слеза"));
-	mItemBoxV.addItem(new ItemData(TypeEye, 5, L"Глаз", L"описание Глаз"));
-	mItemBoxV.addItem(new ItemData(TypeEmerald, 5, L"Изумруд", L"описание Изумруд"));
-	mItemBoxV.addItem(new ItemData(TypeWings, 5, L"Крылья", L"описание Крылья"));
-	mItemBoxV.addItem(new ItemData(TypeIce, 5, L"Лед", L"описание Лед"));
-	mItemBoxV.addItem(new ItemData(TypeBoard, 5, L"Щит", L"описание Щит"));
-	mItemBoxV.addItem(new ItemData(TypeBoots, 5, L"Сапоги", L"описание Сапоги"));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeNone", TypeNone, 0));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeRoll", TypeRoll, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeCloth", TypeCloth, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeTear", TypeTear, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeEye", TypeEye, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeEmerald", TypeEmerald, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeWings", TypeWings, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeIce", TypeIce, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeBoard", TypeBoard, 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeBoots", TypeBoots, 5));
 
 	mItemBoxV.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 	mItemBoxV.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
@@ -102,16 +105,16 @@ void DemoKeeper::start()
 	mItemBoxV.eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
 	mItemBoxH.initialise();
-	mItemBoxH.addItem(new ItemData(TypeNone, 0, "", ""));
-	mItemBoxH.addItem(new ItemData(TypeRoll, 5, L"Свиток", L"описание Свиток"));
-	mItemBoxH.addItem(new ItemData(TypeCloth, 5, L"Полотно", L"описание Полотно"));
-	mItemBoxH.addItem(new ItemData(TypeTear, 5, L"Слеза", L"описание Слеза"));
-	mItemBoxH.addItem(new ItemData(TypeEye, 5, L"Глаз", L"описание Глаз"));
-	mItemBoxH.addItem(new ItemData(TypeEmerald, 5, L"Изумруд", L"описание Изумруд"));
-	mItemBoxH.addItem(new ItemData(TypeWings, 5, L"Крылья", L"описание Крылья"));
-	mItemBoxH.addItem(new ItemData(TypeIce, 5, L"Лед", L"описание Лед"));
-	mItemBoxH.addItem(new ItemData(TypeBoard, 5, L"Щит", L"описание Щит"));
-	mItemBoxH.addItem(new ItemData(TypeBoots, 5, L"Сапоги", L"описание Сапоги"));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeNone", TypeNone, 0));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeRoll", TypeRoll, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeCloth", TypeCloth, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeTear", TypeTear, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeEye", TypeEye, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeEmerald", TypeEmerald, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeWings", TypeWings, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeIce", TypeIce, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeBoard", TypeBoard, 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeBoots", TypeBoots, 5));
 
 	mItemBoxH.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 	mItemBoxH.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
@@ -127,6 +130,8 @@ void DemoKeeper::start()
 
 void DemoKeeper::end()
 {
+	// тип нашего ресурса
+	demo::ResourceItemInfo::unregistryType();
 }
 
 void DemoKeeper::notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
