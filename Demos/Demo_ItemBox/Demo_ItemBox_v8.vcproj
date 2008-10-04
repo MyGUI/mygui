@@ -213,6 +213,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ResourceItemInfo.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ToolTip.cpp"
 				>
 			</File>
@@ -260,6 +264,10 @@
 			</File>
 			<File
 				RelativePath=".\ItemDropInfo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ResourceItemInfo.h"
 				>
 			</File>
 			<File
