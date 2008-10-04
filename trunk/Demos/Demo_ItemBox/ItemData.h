@@ -8,6 +8,8 @@
 #define __ITEM_DATA_H__
 
 #include <Ogre.h>
+#include "ResourceItemInfo.h"
+#include "MyGUI_ResourceManager.h"
 
 enum ItemType
 {
@@ -26,19 +28,20 @@ enum ItemType
 class ItemData
 {
 public:
-	ItemData(ItemType _type, size_t _count, const Ogre::UTFString & _name, const Ogre::UTFString & _description) :
+	ItemData(const std::string & _resource, ItemType _type, size_t _count) :
 		type(_type),
-		count(_count),
-		name(_name),
-		description(_description)
+		count(_count)
 	{
+		MyGUI::ResourceManager & manager = MyGUI::ResourceManager::getInstance();
+		mResourceInfo = manager.getResource(_resource)->castType<demo::ResourceItemInfo>();
+		mResourceImage = manager.getResource(mResourceInfo->getItemResourceImage())->castType<MyGUI::ResourceImageSet>();
 	}
 
 	size_t count;
 	ItemType type;
 
-	Ogre::UTFString name;
-	Ogre::UTFString description;
+	demo::ResourceItemInfoPtr mResourceInfo;
+	MyGUI::ResourceImageSetPtr mResourceImage;
 };
 
 #endif // __ITEM_DATA_H__
