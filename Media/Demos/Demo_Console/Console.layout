@@ -10,9 +10,9 @@
       <UserString key="Unknow" value = "#FF0000unknow command : #000000" />
       <UserString key="Format" value = "#00FFFFformat : #000000" />
 
-      <Widget type="List" skin="List" position="4 4 401 245" align="ALIGN_STRETCH" name="list_History"/>
-        <Widget type="ComboBox" skin="ComboBox" position="5 254 305 26" align="ALIGN_HSTRETCH ALIGN_BOTTOM" name="combo_Command"/>
-        <Widget type="Button" skin="Button" position="313 254 91 26" align="ALIGN_RIGHT ALIGN_BOTTOM" name="button_Submit">
+      <Widget type="List" skin="List" position="4 4 401 245" align="Stretch" name="list_History"/>
+        <Widget type="ComboBox" skin="ComboBox" position="5 254 305 26" align="HStretch Bottom" name="combo_Command"/>
+        <Widget type="Button" skin="Button" position="313 254 91 26" align="Right Bottom" name="button_Submit">
             <Property key="Widget_Caption" value="Submit"/>
         </Widget>
     </Widget>

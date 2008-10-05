@@ -4,7 +4,7 @@
 
 	<Skin name = "FooBar" size = "40 26" texture = "core.png">
 	
-		<BasisSkin type="SubSkin" offset = "0 0 40 26" align = "ALIGN_STRETCH">
+		<BasisSkin type="SubSkin" offset = "0 0 40 26" align = "Stretch">
             <State name="normal" offset = "517 3 33 20"/>
         </BasisSkin>
 		
@@ -12,7 +12,7 @@
 	
 	<Skin name = "FooBarItem" size = "64 64" texture = "0.png">
 	
-		<BasisSkin type="SubSkin" offset = "0 0 64 64" align = "ALIGN_STRETCH">
+		<BasisSkin type="SubSkin" offset = "0 0 64 64" align = "Stretch">
             <State name="normal" offset = "0 0 63 63"/>
         </BasisSkin>
 		

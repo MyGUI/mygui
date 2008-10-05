@@ -11,7 +11,7 @@ void DemoKeeper::start()
 {
 	using namespace MyGUI;
 	const IntSize & view = Gui::getInstance().getViewSize();
-	const IntSize size(600, 300);
+	const IntSize size(500, 300);
 
 	WindowPtr window = Gui::getInstance().createWidget<Window>("WindowCS", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
 	window->setMinSize(200, 100);

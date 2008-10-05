@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Widget" skin="Default" position="0 0 68 68" align="ALIGN_STRETCH" name="_Main">
+    <Widget type="Widget" skin="Default" position="0 0 68 68" align="Stretch" name="_Main">
         <Property key="Widget_NeedMouse" value="false"/>
         <Property key="Widget_NeedKey" value="false"/>
-    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="ALIGN_STRETCH" name="image_Back">
+    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="Stretch" name="image_Back">
     </Widget>
-    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="ALIGN_STRETCH" name="image_Border">
+    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="Stretch" name="image_Border">
     </Widget>
-    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="ALIGN_STRETCH" name="image_Item">
+    <Widget type="StaticImage" skin="RF_StaticImage" position="0 0 68 68" align="Stretch" name="image_Item">
     </Widget>
-    <Widget type="StaticText" skin="RF_StaticText" position="0 0 66 66" align="ALIGN_STRETCH" name="text_Back">
-        <Property key="Widget_AlignText" value="ALIGN_RIGHT ALIGN_BOTTOM"/>
+    <Widget type="StaticText" skin="RF_StaticText" position="0 0 66 66" align="Stretch" name="text_Back">
+        <Property key="Widget_AlignText" value="Right Bottom"/>
         <Property key="Widget_Colour" value="0 0 0"/>
     </Widget>
-    <Widget type="StaticText" skin="RF_StaticText" position="0 0 65 65" align="ALIGN_STRETCH" name="text_Front">
-        <Property key="Widget_AlignText" value="ALIGN_RIGHT ALIGN_BOTTOM"/>
+    <Widget type="StaticText" skin="RF_StaticText" position="0 0 65 65" align="Stretch" name="text_Front">
+        <Property key="Widget_AlignText" value="Right Bottom"/>
         <Property key="Widget_Colour" value="1 1 1"/>
     </Widget>
     </Widget>
