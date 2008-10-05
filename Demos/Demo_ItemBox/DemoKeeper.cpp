@@ -11,7 +11,7 @@
 void DemoKeeper::notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result)
 {
 	if (_info.sender_index != MyGUI::ITEM_NONE) {
-		_result = (_info.sender_data != null) && (_info.sender_data->type != TypeNone);
+		_result = (_info.sender_data != null) && !_info.sender_data->isEmpty();
 	}
 }
 
@@ -29,17 +29,15 @@ void DemoKeeper::notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, boo
 		return;
 	}
 
-	_result = (_info.reseiver_data->type == 0) || (_info.reseiver_data->type == _info.sender_data->type);
+	_result = _info.reseiver_data->isEmpty() || _info.reseiver_data->compare(_info.sender_data);
 }
 
 void DemoKeeper::notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _result)
 {
 	if (_result) {
-		_info.reseiver_data->type = _info.sender_data->type;
-		_info.reseiver_data->count += _info.sender_data->count;
 
-		_info.sender_data->type = TypeNone;
-		_info.sender_data->count = 0;
+		_info.reseiver_data->add(_info.sender_data);
+		_info.sender_data->clear();
 
 		
 		((BaseItemBox<CellView>*)_info.reseiver)->setItemData(_info.reseiver_index, _info.reseiver_data);
@@ -86,16 +84,16 @@ void DemoKeeper::start()
 	mToolTip.hide();
 
 	mItemBoxV.initialise();
-	mItemBoxV.addItem(new ItemData("info_RF_TypeNone", TypeNone, 0));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeRoll", TypeRoll, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeCloth", TypeCloth, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeTear", TypeTear, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeEye", TypeEye, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeEmerald", TypeEmerald, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeWings", TypeWings, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeIce", TypeIce, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeBoard", TypeBoard, 5));
-	mItemBoxV.addItem(new ItemData("info_RF_TypeBoots", TypeBoots, 5));
+	mItemBoxV.addItem(new ItemData());
+	mItemBoxV.addItem(new ItemData("info_RF_TypeRoll", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeCloth", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeTear", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeEye", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeEmerald", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeWings", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeIce", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeBoard", 5));
+	mItemBoxV.addItem(new ItemData("info_RF_TypeBoots", 5));
 
 	mItemBoxV.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 	mItemBoxV.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
@@ -105,16 +103,16 @@ void DemoKeeper::start()
 	mItemBoxV.eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
 	mItemBoxH.initialise();
-	mItemBoxH.addItem(new ItemData("info_RF_TypeNone", TypeNone, 0));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeRoll", TypeRoll, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeCloth", TypeCloth, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeTear", TypeTear, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeEye", TypeEye, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeEmerald", TypeEmerald, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeWings", TypeWings, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeIce", TypeIce, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeBoard", TypeBoard, 5));
-	mItemBoxH.addItem(new ItemData("info_RF_TypeBoots", TypeBoots, 5));
+	mItemBoxH.addItem(new ItemData());
+	mItemBoxH.addItem(new ItemData("info_RF_TypeRoll", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeCloth", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeTear", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeEye", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeEmerald", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeWings", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeIce", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeBoard", 5));
+	mItemBoxH.addItem(new ItemData("info_RF_TypeBoots", 5));
 
 	mItemBoxH.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 	mItemBoxH.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
@@ -124,14 +122,28 @@ void DemoKeeper::start()
 	mItemBoxH.eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
 
-          //ItemData data(TypeEmerald, 5, L"Изумруд", L"описание Изумруд");
-
 }
 
 void DemoKeeper::end()
 {
 	// тип нашего ресурса
 	demo::ResourceItemInfo::unregistryType();
+
+	MyGUI::ItemBoxPtr box = mItemBoxH.getItemBox()->castType<MyGUI::ItemBox>();
+	size_t count = box->getItemCount();
+	for (size_t pos=0; pos<count; ++pos) {
+		delete box->getItemData(pos);
+	}
+	mItemBoxH.shutdown();
+
+	box = mItemBoxV.getItemBox()->castType<MyGUI::ItemBox>();
+	count = box->getItemCount();
+	for (size_t pos=0; pos<count; ++pos) {
+		delete box->getItemData(pos);
+	}
+	mItemBoxV.shutdown();
+
+	mToolTip.shutdown();
 }
 
 void DemoKeeper::notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)

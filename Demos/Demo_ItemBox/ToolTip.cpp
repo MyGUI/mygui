@@ -26,8 +26,7 @@ void ToolTip::show(ItemData * _data, const MyGUI::IntPoint & _point)
 {
 	const MyGUI::IntPoint offset(10, 10);
 
-	if (_data == null) return;
-	if (_data->type == 0) return;
+	if ((_data == null) || _data->isEmpty()) return;
 
 	MyGUI::IntPoint point = _point + offset;
 	MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
@@ -41,9 +40,9 @@ void ToolTip::show(ItemData * _data, const MyGUI::IntPoint & _point)
 		point.top -= offset.top + offset.top + size.height;
 	}
 
-	mTextCount->setCaption(MyGUI::utility::toString(_data->count));
-	mTextName->setCaption(_data->mResourceInfo->getItemName());
-	mTextDesc->setCaption(_data->mResourceInfo->getItemDescription());
+	mTextCount->setCaption(MyGUI::utility::toString(_data->getCount()));
+	mTextName->setCaption(_data->getInfo()->getItemName());
+	mTextDesc->setCaption(_data->getInfo()->getItemDescription());
 
 	mMainWidget->setPosition(point);
 	mMainWidget->show();

@@ -139,6 +139,9 @@ public:
 
 	MyGUI::delegates::CDelegate3<BaseLayout *, const MyGUI::ToolTipInfo &, ItemData *> eventToolTip;
 
+	MyGUI::ItemBoxPtr getItemBox() { return mBoxItems; }
+
+
 private:
 	typedef std::vector<CellView*> VectorCellView;
 	VectorCellView mListCellView;
