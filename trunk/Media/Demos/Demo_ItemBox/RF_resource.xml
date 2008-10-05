@@ -226,55 +226,55 @@
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeRoll" id="{F3762B99-CE82-466a-907A-E4A770429C2F}">
     <Name>Свиток</Name>
-    <Description>описание Свиток kuhk  yjg jg yg jyg g jgjygjgkjg yg yg gujgs gg jkagsd jkfagsdjfga ksdkfjga skajdg fausdygfuaysgdf gasdu fygausdyg fuagdufga us</Description>
+    <Description>Свиток имератора Драконов. Увеличивает силу удара +1</Description>
     <Image RefID="pic_RF_TypeRollImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeCloth" id="{023C81A3-9C0E-46cf-96D9-9B05F35D2522}">
     <Name>Полотно</Name>
-    <Description>описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание</Description>
+    <Description>Полотно верховных жрецов. Прибавляет к защите +2</Description>
     <Image RefID="pic_RF_TypeClothImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeTear" id="{F65D40B3-F188-41ec-B8B2-E4340706411E}">
     <Name>Слеза</Name>
-    <Description>описание Слеза</Description>
+    <Description>Слеза Аделаиды. Магический камень, повышающий выносливость +1</Description>
     <Image RefID="pic_RF_TypeTearImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeEye" id="{99BEE77A-F2C5-4275-857F-3AAA863DF6FE}">
     <Name>Глаз</Name>
-    <Description>описание Глаз</Description>
+    <Description>Глаз Богини виноделия. Увеличивает уворотливость +3</Description>
     <Image RefID="pic_RF_TypeEyeImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeEmerald" id="{E26C3225-7196-4dfb-8704-4A9BBCB51343}">
     <Name>Изумруд</Name>
-    <Description>описание Изумруд</Description>
+    <Description>Изумруд волшебника. Повышает навык ума +2</Description>
     <Image RefID="pic_RF_TypeEmeraldImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeWings" id="{531CE6D7-C834-4b6a-951F-47A05D173FF7}">
     <Name>Крылья</Name>
-    <Description>описание Крылья</Description>
+    <Description>Крылья ангела. Позволяет летать на небольшие расстояния.</Description>
     <Image RefID="pic_RF_TypeWingsImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeIce" id="{A2D1255E-A20A-46f3-817A-8D1D891C843E}">
     <Name>Лед</Name>
-    <Description>описание Лед</Description>
+    <Description>Лед Паладина. Вечно холодный камень. Позволяет замораживать противника.</Description>
     <Image RefID="pic_RF_TypeIceImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeBoard" id="{1ABCE593-32FA-4f14-BC01-76ED3636D0CE}">
     <Name>Щит</Name>
-    <Description>описание Щит</Description>
+    <Description>Щит Aндрагоры. Увеличивает защиту +4</Description>
     <Image RefID="pic_RF_TypeBoardImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeBoots" id="{2D3A47B6-61B1-41dc-ADDF-CFA6EB61DE7D}">
     <Name>Сапоги</Name>
-    <Description>описание Сапоги</Description>
+    <Description>Сапоги ветров. Увеличивает скорость передвижения +1</Description>
     <Image RefID="pic_RF_TypeBootsImage"/>
   </Resource>
 
