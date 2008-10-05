@@ -59,6 +59,11 @@
         <Frame point="204 136"/>
       </Index>
     </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="102 0"/>
+      </Index>
+    </Group>
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_RF_TypeClothImage" id="{4F92484C-7BA7-487a-8FD5-57C9E73CD990}">
@@ -71,6 +76,11 @@
       </Index>
       <Index name="Accept">
         <Frame point="272 136"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="136 0"/>
       </Index>
     </Group>
   </Resource>
@@ -87,6 +97,11 @@
         <Frame point="340 136"/>
       </Index>
     </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="170 0"/>
+      </Index>
+    </Group>
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_RF_TypeEyeImage" id="{42337391-428E-4a5a-AA0D-E514E208BF61}">
@@ -99,6 +114,11 @@
       </Index>
       <Index name="Accept">
         <Frame point="408 136"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="204 0"/>
       </Index>
     </Group>
   </Resource>
@@ -115,6 +135,11 @@
         <Frame point="476 136"/>
       </Index>
     </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="238 0"/>
+      </Index>
+    </Group>
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_RF_TypeWingsImage" id="{497BE0FD-FBD3-454c-87F8-5B0CCF95E2C0}">
@@ -127,6 +152,11 @@
       </Index>
       <Index name="Accept">
         <Frame point="544 136"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="272 0"/>
       </Index>
     </Group>
   </Resource>
@@ -143,6 +173,11 @@
         <Frame point="612 136"/>
       </Index>
     </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="306 0"/>
+      </Index>
+    </Group>
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_RF_TypeBoardImage" id="{14E001DE-E3B4-450c-826F-6CBA3E00B454}">
@@ -155,6 +190,11 @@
       </Index>
       <Index name="Accept">
         <Frame point="680 136"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="340 0"/>
       </Index>
     </Group>
   </Resource>
@@ -171,6 +211,11 @@
         <Frame point="748 136"/>
       </Index>
     </Group>
+    <Group name="ToolTip" texture="RF_skin2.png" size="34 34">
+      <Index name="Normal">
+        <Frame point="374 0"/>
+      </Index>
+    </Group>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeNone" id="{2D124940-174B-473b-BA38-354F8FCFFE51}">
@@ -181,13 +226,13 @@
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeRoll" id="{F3762B99-CE82-466a-907A-E4A770429C2F}">
     <Name>Свиток</Name>
-    <Description>описание Свиток</Description>
+    <Description>описание Свиток kuhk  yjg jg yg jyg g jgjygjgkjg yg yg gujgs gg jkagsd jkfagsdjfga ksdkfjga skajdg fausdygfuaysgdf gasdu fygausdyg fuagdufga us</Description>
     <Image RefID="pic_RF_TypeRollImage"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_RF_TypeCloth" id="{023C81A3-9C0E-46cf-96D9-9B05F35D2522}">
     <Name>Полотно</Name>
-    <Description>описание Полотно</Description>
+    <Description>описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание Полотно описание</Description>
     <Image RefID="pic_RF_TypeClothImage"/>
   </Resource>
 

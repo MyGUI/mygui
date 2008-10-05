@@ -18,17 +18,28 @@
     <Skin name = "RF_StaticImage" size = "16 16" texture = "RF_skin.png" >
         <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
     </Skin>
-    
-    <Skin name = "RF_StaticText" size = "16 16">
-        <Property key="FontName" value = "RF_font.15" />
-        <Property key="FontHeight" value = "15" />
-        <Property key="AlignText" value = "ALIGN_DEFAULT" />
-        <Property key="Colour" value = "1 1 1" />
-        
-        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
-    </Skin>
 
-    <Skin name = "RF_WindowCaption" size = "10 10" texture = "RF_skin.png" >
+  <Skin name = "RF_StaticText" size = "16 16">
+    <Property key="FontName" value = "RF_font.15" />
+    <Property key="FontHeight" value = "15" />
+    <Property key="AlignText" value = "ALIGN_DEFAULT" />
+    <Property key="Colour" value = "1 1 1" />
+
+    <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
+  </Skin>
+
+  <Skin name = "RF_WordWrap" size = "16 16">
+    <Property key="FontName" value = "RF_font.15" />
+    <Property key="FontHeight" value = "15" />
+    <Property key="AlignText" value = "ALIGN_DEFAULT" />
+    <Property key="Colour" value = "1 1 1" />
+    <Property key="WordWrap" value = "true" />
+
+    <Child type="Widget" skin="Default" offset = "0 0 16 16" align = "Stretch" name = "Client"/>
+    <BasisSkin type="EditText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
+  </Skin>
+
+  <Skin name = "RF_WindowCaption" size = "10 10" texture = "RF_skin.png" >
         <Property key="FontName" value = "RF_font.15" />
         <Property key="FontHeight" value = "15" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
