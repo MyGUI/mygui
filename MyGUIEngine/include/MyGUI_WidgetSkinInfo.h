@@ -79,7 +79,9 @@ namespace MyGUI
 		inline void clear()
 		{
 			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
-				iter->second.clear();
+				for (VectorStateInfo::iterator iter2=iter->second.begin(); iter2!=iter->second.end(); ++iter2) {
+					delete *iter2;
+				}
 			}
 		}
 
