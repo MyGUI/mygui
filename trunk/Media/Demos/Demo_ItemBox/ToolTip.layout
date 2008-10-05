@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="RF_ToolTip" position="544 232 158 158" layer="ToolTip" name="_Main">
-        <Widget type="StaticImage" skin="StaticImage" position="112 37 34 34" align="ALIGN_RIGHT ALIGN_TOP" name="image_Info"/>
+        <Widget type="StaticImage" skin="StaticImage" position="112 37 34 34" align="Right Top" name="image_Info"/>
         <Widget type="StaticText" skin="RF_StaticText" position="8 8 142 16" name="text_Name">
-            <Property key="Widget_AlignText" value="ALIGN_CENTER"/>
+            <Property key="Widget_AlignText" value="Center"/>
             <Property key="Widget_Caption" value="Name"/>
         </Widget>
         <Widget type="StaticText" skin="RF_StaticText" position="8 40 52 16">
