@@ -175,17 +175,17 @@ namespace MyGUI
 			// если курсор имеет свой материал
 			if (false == iter->second.texture.empty()) {
 				if (mMousePointer->_getTextureName() != iter->second.texture) {
-					mMousePointer->deleteAllItems();
 					mMousePointer->_setTextureName(iter->second.texture);
-					mMousePointer->_setUVSet(iter->second.offset);
 				}
+				mMousePointer->deleteAllItems();
+				mMousePointer->_setUVSet(iter->second.offset);
 			}
 			else if (false == mTexture.empty()) {
 				if (mMousePointer->_getTextureName() != mTexture) {
-					mMousePointer->deleteAllItems();
 					mMousePointer->_setTextureName(mTexture);
-					mMousePointer->_setUVSet(iter->second.offset);
 				}
+				mMousePointer->deleteAllItems();
+				mMousePointer->_setUVSet(iter->second.offset);
 			}
 		}
 
