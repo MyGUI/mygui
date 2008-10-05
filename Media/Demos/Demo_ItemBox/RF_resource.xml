@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource">
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeNoneImage" id="{3CB0B2DC-1D82-4553-B1CA-C46E43F70677}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="136 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="136 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="136 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeRollImage" id="{703390CD-470B-469b-A94D-05286A0BC0D2}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="204 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="204 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="204 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeClothImage" id="{4F92484C-7BA7-487a-8FD5-57C9E73CD990}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="272 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="272 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="272 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeTearImage" id="{6F7AD392-175A-4ed6-A364-ECABCD8E035E}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="340 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="340 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="340 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeEyeImage" id="{42337391-428E-4a5a-AA0D-E514E208BF61}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="408 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="408 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="408 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeEmeraldImage" id="{180DAAE2-D3B1-4f0a-8AA6-EB1B63010844}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="476 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="476 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="476 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeWingsImage" id="{497BE0FD-FBD3-454c-87F8-5B0CCF95E2C0}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="544 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="544 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="544 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeIceImage" id="{B711267A-E8D3-49ff-8C5C-D22942B2CB2A}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="612 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="612 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="612 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeBoardImage" id="{14E001DE-E3B4-450c-826F-6CBA3E00B454}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="680 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="680 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="680 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="info_RF_TypeBootsImage" id="{017349CA-1AA5-45c8-ADDB-66E39F8EAE8F}">
+    <Group name="States" texture="RF_skin.png" size="68 68">
+      <Index name="Normal">
+        <Frame point="748 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="748 68"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="748 136"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeNone" id="{2D124940-174B-473b-BA38-354F8FCFFE51}">
+    <Name></Name>
+    <Description></Description>
+    <Image RefID="info_RF_TypeNoneImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeRoll" id="{F3762B99-CE82-466a-907A-E4A770429C2F}">
+    <Name>Свиток</Name>
+    <Description>описание Свиток</Description>
+    <Image RefID="info_RF_TypeRollImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeCloth" id="{023C81A3-9C0E-46cf-96D9-9B05F35D2522}">
+    <Name>Полотно</Name>
+    <Description>описание Полотно</Description>
+    <Image RefID="info_RF_TypeClothImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeTear" id="{F65D40B3-F188-41ec-B8B2-E4340706411E}">
+    <Name>Слеза</Name>
+    <Description>описание Слеза</Description>
+    <Image RefID="info_RF_TypeTearImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeEye" id="{99BEE77A-F2C5-4275-857F-3AAA863DF6FE}">
+    <Name>Глаз</Name>
+    <Description>описание Глаз</Description>
+    <Image RefID="info_RF_TypeEyeImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeEmerald" id="{E26C3225-7196-4dfb-8704-4A9BBCB51343}">
+    <Name>Изумруд</Name>
+    <Description>описание Изумруд</Description>
+    <Image RefID="info_RF_TypeEmeraldImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeWings" id="{531CE6D7-C834-4b6a-951F-47A05D173FF7}">
+    <Name>Крылья</Name>
+    <Description>описание Крылья</Description>
+    <Image RefID="info_RF_TypeWingsImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeIce" id="{A2D1255E-A20A-46f3-817A-8D1D891C843E}">
+    <Name>Лед</Name>
+    <Description>описание Лед</Description>
+    <Image RefID="info_RF_TypeIceImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeBoard" id="{1ABCE593-32FA-4f14-BC01-76ED3636D0CE}">
+    <Name>Щит</Name>
+    <Description>описание Щит</Description>
+    <Image RefID="info_RF_TypeBoardImage"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_RF_TypeBoots" id="{2D3A47B6-61B1-41dc-ADDF-CFA6EB61DE7D}">
+    <Name>Сапоги</Name>
+    <Description>описание Сапоги</Description>
+    <Image RefID="info_RF_TypeBootsImage"/>
+  </Resource>
+
+</MyGUI>
