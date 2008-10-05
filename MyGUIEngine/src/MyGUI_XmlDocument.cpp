@@ -181,9 +181,20 @@ namespace MyGUI
 					// сначала ищем по угловым скобкам
 					size_t start = find(line, '<');
 					if (start == line.npos) break;
+					size_t end = line.npos;
 
-					size_t end = find(line, '>', start+1);
-					if (end == line.npos) break;
+					// пытаемся вырезать многострочный коментарий
+					if ((start + 3 < line.size()) && (line[start + 1] == '!') && (line[start + 2] == '-') && (line[start + 3] == '-')) {
+						end = line.find("-->", start + 4);
+						if (end == line.npos) break;
+						end += 2;
+
+					}
+					else {
+						end = find(line, '>', start+1);
+						if (end == line.npos) break;
+
+					}
 
 					// проверяем на наличее тела
 					size_t body = line.find_first_not_of(" \t<");
@@ -253,9 +264,20 @@ namespace MyGUI
 					// сначала ищем по угловым скобкам
 					size_t start = find(line, '<');
 					if (start == line.npos) break;
+					size_t end = line.npos;
 
-					size_t end = find(line, '>', start+1);
-					if (end == line.npos) break;
+					// пытаемся вырезать многострочный коментарий
+					if ((start + 3 < line.size()) && (line[start + 1] == '!') && (line[start + 2] == '-') && (line[start + 3] == '-')) {
+						end = line.find("-->", start + 4);
+						if (end == line.npos) break;
+						end += 2;
+
+					}
+					else {
+						end = find(line, '>', start+1);
+						if (end == line.npos) break;
+
+					}
 
 					// проверяем на наличее тела
 					size_t body = line.find_first_not_of(" \t<");
