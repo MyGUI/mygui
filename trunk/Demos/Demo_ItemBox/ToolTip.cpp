@@ -20,6 +20,9 @@ void ToolTip::initialise()
 	assignWidget(mTextCount, "text_Count");
 	assignWidget(mTextDesc, "text_Desc");
 	assignWidget(mImageInfo, "image_Info");
+
+	const MyGUI::IntCoord & coord = mTextDesc->getTextCoord();
+	mOffsetHeight = mMainWidget->getHeight() - coord.height;
 }
 
 void ToolTip::show(ItemData * _data, const MyGUI::IntPoint & _point)
@@ -43,6 +46,13 @@ void ToolTip::show(ItemData * _data, const MyGUI::IntPoint & _point)
 	mTextCount->setCaption(MyGUI::utility::toString(_data->getCount()));
 	mTextName->setCaption(_data->getInfo()->getItemName());
 	mTextDesc->setCaption(_data->getInfo()->getItemDescription());
+	if (!_data->isEmpty()) {
+		mImageInfo->setItemResource(_data->getImage(), "ToolTip", "Normal");
+	}
+
+	// вычисляем размер
+	const MyGUI::IntSize & text_size = mTextDesc->getTextSize();
+	mMainWidget->setSize(mMainWidget->getWidth(), mOffsetHeight + text_size.height);
 
 	mMainWidget->setPosition(point);
 	mMainWidget->show();

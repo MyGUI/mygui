@@ -25,8 +25,10 @@ private:
 
 	MyGUI::StaticTextPtr mTextName;
 	MyGUI::StaticTextPtr mTextCount;
-	MyGUI::StaticTextPtr mTextDesc;
+	MyGUI::EditPtr mTextDesc;
 	MyGUI::StaticImagePtr mImageInfo;
+
+	int mOffsetHeight;
 };
 
 #endif // __TOOL_TIP_H__
