@@ -14,9 +14,9 @@
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="292 7 20 262">
             <Widget type="StaticImage" skin="StaticImage" position="2 2 14 256" name="image_ColourRange">
-                <Property key="Image_Texture" value="core.png"/>
-                <Property key="Image_Coord" value="1014 9 3 128"/>
-                <Property key="Image_Tile" value="3 128"/>
+                <Property key="Image_Texture" value="colours.PNG"/>
+                <Property key="Image_Coord" value="0 0 2 128"/>
+                <Property key="Image_Tile" value="2 128"/>
                 <Property key="Image_Index" value="0"/>
             </Widget>
         </Widget>
