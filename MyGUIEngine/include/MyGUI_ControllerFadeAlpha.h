@@ -27,9 +27,9 @@ namespace MyGUI
 		void prepareItem(WidgetPtr _widget);
 		//void replaseItem(WidgetPtr _widget, ControllerItem * _item);
 
-		inline bool getEnabled() {return mEnabled;}
-		inline float getAlpha() {return mAlpha;}
-		inline float getCoef() {return mCoef;}
+		bool getEnabled() {return mEnabled;}
+		float getAlpha() {return mAlpha;}
+		float getCoef() {return mCoef;}
 
 	private:
 		bool mEnabled;

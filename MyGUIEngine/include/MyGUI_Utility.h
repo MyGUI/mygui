@@ -8,7 +8,6 @@
 #define __MYGUI_UTILITY_H__
 
 #include "MyGUI_Prerequest.h"
-//#include <iostream>
 #include <sstream>
 
 namespace MyGUI
@@ -17,7 +16,7 @@ namespace MyGUI
 	{
 
 		// конвертирование в строку
-		template< class T >
+		template<typename T >
 		inline std::string toString (T p)
 		{
 			std::ostringstream stream;
@@ -25,7 +24,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		template< class T1,  class T2 >
+		template<typename T1,  typename T2 >
 		inline std::string toString (T1 p1, T2 p2)
 		{
 			std::ostringstream stream;
@@ -33,7 +32,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		template< class T1,  class T2,  class T3 >
+		template<typename T1,  typename T2,  typename T3 >
 		inline std::string toString (T1 p1, T2 p2, T3 p3)
 		{
 			std::ostringstream stream;
@@ -41,7 +40,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		template< class T1,  class T2,  class T3, class T4 >
+		template<typename T1,  typename T2,  typename T3, typename T4 >
 		inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4)
 		{
 			std::ostringstream stream;
@@ -49,7 +48,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		template< class T1,  class T2,  class T3, class T4, class T5 >
+		template<typename T1,  typename T2,  typename T3, typename T4, typename T5 >
 		inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
 		{
 			std::ostringstream stream;
@@ -57,7 +56,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		template< class T1,  class T2,  class T3, class T4, class T5, class T6 >
+		template<typename T1,  typename T2,  typename T3, typename T4, typename T5, typename T6 >
 		inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
 		{
 			std::ostringstream stream;
@@ -65,7 +64,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7 >
+		template<typename T1,  typename T2,  typename T3, typename T4, typename T5, typename T6, typename T7 >
 		inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
 		{
 			std::ostringstream stream;
@@ -73,7 +72,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		template< class T1,  class T2,  class T3, class T4, class T5, class T6, class T7, class T8 >
+		template<typename T1,  typename T2,  typename T3, typename T4, typename T5, typename T6, typename T7, typename T8 >
 		inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8)
 		{
 			std::ostringstream stream;
@@ -90,7 +89,7 @@ namespace MyGUI
 
 
 		// утилиты для парсинга
-		template< class T >
+		template<typename T >
 		inline T parseValue( const std::string& _value )
 		{
 			std::istringstream str(_value);
@@ -99,20 +98,20 @@ namespace MyGUI
 			return ret;
 		}
 
-		inline char parseChar(const std::string& _value) {return static_cast<char>(parseValue<short>(_value));}
-		inline unsigned char parseUChar(const std::string& _value) {return static_cast<unsigned char>(parseValue<unsigned short>(_value));}
-		inline short parseShort(const std::string& _value) {return parseValue<short>(_value);}
-		inline unsigned short parseUShort(const std::string& _value) {return parseValue<unsigned short>(_value);}
-		inline int parseInt(const std::string& _value) {return parseValue<int>(_value);}
-		inline unsigned int parseUInt(const std::string& _value) {return parseValue<unsigned int>(_value);}
-		inline size_t parseSizeT(const std::string& _value) {return parseValue<size_t>(_value);}
-		inline float parseFloat(const std::string& _value) {return parseValue<float>(_value);}
-		inline double parseDouble(const std::string& _value) {return parseValue<double>(_value);}
-		inline bool parseBool(const std::string& _value) {return ( (_value == "true") || (_value == "1") );}
+		inline char parseChar(const std::string& _value) { return static_cast<char>(parseValue<short>(_value)); }
+		inline unsigned char parseUChar(const std::string& _value) { return static_cast<unsigned char>(parseValue<unsigned short>(_value)); }
+		inline short parseShort(const std::string& _value) { return parseValue<short>(_value); }
+		inline unsigned short parseUShort(const std::string& _value) { return parseValue<unsigned short>(_value); }
+		inline int parseInt(const std::string& _value) { return parseValue<int>(_value); }
+		inline unsigned int parseUInt(const std::string& _value) { return parseValue<unsigned int>(_value); }
+		inline size_t parseSizeT(const std::string& _value) { return parseValue<size_t>(_value); }
+		inline float parseFloat(const std::string& _value) { return parseValue<float>(_value); }
+		inline double parseDouble(const std::string& _value) { return parseValue<double>(_value); }
+		inline bool parseBool(const std::string& _value) { return ( (_value == "true") || (_value == "1") ); }
 
 		// для парсинга сложных типов, состоящих из простых
-		template< class T1, class T2 >
-		T1 parseValueEx2(const std::string & _value)
+		template<typename T1, typename T2 >
+		inline T1 parseValueEx2(const std::string & _value)
 		{
 			T2 p1, p2;
 			std::istringstream str(_value);
@@ -121,8 +120,8 @@ namespace MyGUI
 			return T1(p1, p2);
 		}
 
-		template< class T1, class T2 >
-		T1 parseValueEx3(const std::string & _value)
+		template<typename T1, typename T2 >
+		inline T1 parseValueEx3(const std::string & _value)
 		{
 			T2 p1, p2, p3;
 			std::istringstream str(_value);
@@ -131,8 +130,8 @@ namespace MyGUI
 			return T1(p1, p2, p3);
 		}
 
-		template< class T1, class T2 >
-		T1 parseValueEx4(const std::string & _value)
+		template<typename T1, typename T2 >
+		inline T1 parseValueEx4(const std::string & _value)
 		{
 			T2 p1, p2, p3, p4;
 			std::istringstream str(_value);
@@ -143,8 +142,8 @@ namespace MyGUI
 
 		namespace templates
 		{
-			template< class T>
-			void split(std::vector<std::string> & _ret, const std::string & _source, const std::string & _delims)
+			template<typename T>
+			inline void split(std::vector<std::string> & _ret, const std::string & _source, const std::string & _delims)
 			{
 				size_t start = _source.find_first_not_of(_delims);
 				while (start != _source.npos) {
@@ -172,7 +171,8 @@ namespace MyGUI
 			if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
 		}
 
-		template<class T1, class T2, class T3, class T4> inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
+		template<typename T1, typename T2, typename T3, typename T4>
+		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
 		{
 			std::istringstream str(_value);
 
@@ -207,7 +207,8 @@ namespace MyGUI
 			return true;
 		}
 
-		template<class T1, class T2, class T3> inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3)
+		template<typename T1, typename T2, typename T3>
+		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3)
 		{
 			std::istringstream str(_value);
 
@@ -237,7 +238,8 @@ namespace MyGUI
 			return true;
 		}
 
-		template<class T1, class T2> inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2)
+		template<typename T1, typename T2>
+		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2)
 		{
 			std::istringstream str(_value);
 
@@ -262,7 +264,8 @@ namespace MyGUI
 			return true;
 		}
 
-		template<class T1> inline bool parseComplex(const std::string & _value, T1 & _p1)
+		template<typename T1>
+		inline bool parseComplex(const std::string & _value, T1 & _p1)
 		{
 			std::istringstream str(_value);
 
@@ -282,7 +285,8 @@ namespace MyGUI
 			return true;
 		}
 
-		template<> inline bool parseComplex<bool>(const std::string & _value, bool & _p1)
+		template<>
+		inline bool parseComplex<bool>(const std::string & _value, bool & _p1)
 		{
 			if ((_value == "true") || (_value == "1")) {
 				_p1 = true;

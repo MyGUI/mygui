@@ -220,7 +220,8 @@ namespace MyGUI
 			eventListMouseItemActivate(this, mIndexSelect);
 
 		// если не клиент, то просчитывам
-		} else {
+		}
+		else {
 			size_t index = (size_t)_sender->_getInternalData() + mTopIndex;
 
 			if (mIndexSelect != index) {
@@ -256,7 +257,7 @@ namespace MyGUI
 
 	void List::updateScroll()
 	{
-		mRangeIndex = (mHeightLine * (int)mStringArray.size()) - mWidgetClient->getHeight();
+		mRangeIndex = (mHeightLine * (int)mItemsInfo.size()) - mWidgetClient->getHeight();
 
 		if ( (false == mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) )
 		{
@@ -273,7 +274,7 @@ namespace MyGUI
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
-		if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
+		if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 	}
 
 	void List::updateLine(bool _reset)
@@ -293,7 +294,7 @@ namespace MyGUI
 			int height = (int)mWidgetLines.size() * mHeightLine - mOffsetTop;
 
 			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
-			while ( (height <= (mWidgetClient->getHeight() + mHeightLine)) && (mWidgetLines.size() < mStringArray.size()) ) {
+			while ( (height <= (mWidgetClient->getHeight() + mHeightLine)) && (mWidgetLines.size() < mItemsInfo.size()) ) {
 				// создаем линию
 				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, Align::Top | Align::HStretch);
 				// подписываемся на всякие там события
@@ -342,7 +343,7 @@ namespace MyGUI
 						count --;
 					}
 
-					int top = (int)mStringArray.size() - count - 1;
+					int top = (int)mItemsInfo.size() - count - 1;
 
 					// выравниваем
 					int offset = 0 - mOffsetTop;
@@ -384,7 +385,7 @@ namespace MyGUI
 			size_t index = pos + (size_t)mTopIndex;
 
 			// не будем заходить слишком далеко
-			if (index >= mStringArray.size()) {
+			if (index >= mItemsInfo.size()) {
 				// запоминаем последнюю перерисованную линию
 				mLastRedrawLine = pos;
 				break;
@@ -398,7 +399,7 @@ namespace MyGUI
 			// если был скрыт, то покажем
 			if (false == mWidgetLines[pos]->isShow()) mWidgetLines[pos]->show();
 			// обновляем текст
-			mWidgetLines[pos]->setCaption(mStringArray[index]);
+			mWidgetLines[pos]->setCaption(mItemsInfo[index].first);
 
 			// если нужно выделить ,то выделим
 			if (index == mIndexSelect) {
@@ -425,14 +426,15 @@ namespace MyGUI
 
 		MYGUI_DEBUG_ASSERT(_index < mWidgetLines.size(), "index out range");
 		// перерисовываем
-		mWidgetLines[_index]->setCaption(mStringArray[_index + mTopIndex]);
+		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
 	}
 
-	void List::insertItem(size_t _index, const Ogre::UTFString & _item)
+	void List::insertItem(size_t _index, const Ogre::UTFString & _item, Any _data)
 	{
-		if (_index > mStringArray.size()) _index = mStringArray.size();
+		if (_index > mItemsInfo.size()) _index = mItemsInfo.size();
+
 		// вставляем физически
-		_insertString(_index, _item);
+		mItemsInfo.insert(mItemsInfo.begin() + _index, PairItem(_item, _data));
 
 		// если надо, то меняем выделенный элемент
 		if ( (mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect) ) mIndexSelect++;
@@ -442,11 +444,12 @@ namespace MyGUI
 			mTopIndex ++;
 			// просчитываем положение скролла
 			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
-			if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
+			if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			mRangeIndex += mHeightLine;
 
-		} else {
+		}
+		else {
 
 			// высчитывам положение строки
 			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
@@ -455,7 +458,7 @@ namespace MyGUI
 			if (mWidgetClient->getHeight() < (offset - mHeightLine)) {
 				// просчитываем положение скролла
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
-				if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
+				if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				mRangeIndex += mHeightLine;
 
@@ -475,21 +478,21 @@ namespace MyGUI
 	void List::deleteItem(size_t _index)
 	{
 		// доверяй, но проверяй
-		MYGUI_ASSERT(_index < mStringArray.size(), "deleteItemString: index '" << _index << "' out of range");
+		MYGUI_ASSERT(_index < mItemsInfo.size(), "deleteItemString: index '" << _index << "' out of range");
 
 		// удяляем физически строку
 		_deleteString(_index);
 
 		// если надо, то меняем выделенный элемент
-		if (mStringArray.empty()) mIndexSelect = ITEM_NONE;
+		if (mItemsInfo.empty()) mIndexSelect = ITEM_NONE;
 		else if (mIndexSelect != ITEM_NONE) {
 			if (_index < mIndexSelect) mIndexSelect--;
-			else if ( (_index == mIndexSelect) && (mIndexSelect == (mStringArray.size())) ) mIndexSelect--;
+			else if ( (_index == mIndexSelect) && (mIndexSelect == (mItemsInfo.size())) ) mIndexSelect--;
 		}
 
 		// если виджетов стало больше , то скрываем крайний
-		if (mWidgetLines.size() > mStringArray.size()) {
-			mWidgetLines[mStringArray.size()]->hide();
+		if (mWidgetLines.size() > mItemsInfo.size()) {
+			mWidgetLines[mItemsInfo.size()]->hide();
 		}
 
 		// строка, до первого видимого элемента
@@ -497,11 +500,12 @@ namespace MyGUI
 			mTopIndex --;
 			// просчитываем положение скролла
 			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
-			if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
+			if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			mRangeIndex -= mHeightLine;
 
-		} else {
+		}
+		else {
 
 			// высчитывам положение удаляемой строки
 			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
@@ -510,12 +514,13 @@ namespace MyGUI
 			if (mWidgetClient->getHeight() < offset) {
 				// просчитываем положение скролла
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
-				if ((int)mStringArray.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mStringArray.size() );
+				if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				mRangeIndex -= mHeightLine;
 
 			// строка в видимой области
-			} else {
+			}
+			else {
 
 				// обновляем все
 				updateScroll();
@@ -528,19 +533,10 @@ namespace MyGUI
 
 	void List::_deleteString(size_t _index)
 	{
-		for (size_t pos=_index+1; pos<mStringArray.size(); pos++) {
-			mStringArray[pos-1] = mStringArray[pos];
+		for (size_t pos=_index+1; pos<mItemsInfo.size(); pos++) {
+			mItemsInfo[pos-1] = mItemsInfo[pos];
 		}
-		mStringArray.pop_back();
-	}
-
-	void List::_insertString(size_t _index, const Ogre::UTFString & _item)
-	{
-		mStringArray.push_back("");
-		for (size_t pos=mStringArray.size()-1; pos > _index; pos--) {
-			mStringArray[pos] = mStringArray[pos-1];
-		}
-		mStringArray[_index] = _item;
+		mItemsInfo.pop_back();
 	}
 
 	void List::setItemSelect(size_t _index)
@@ -553,7 +549,7 @@ namespace MyGUI
 
 	void List::_selectIndex(size_t _index, bool _select)
 	{
-		if (_index >= mStringArray.size()) return;
+		if (_index >= mItemsInfo.size()) return;
 		// не видно строки
 		if (_index < (size_t)mTopIndex) return;
 		// высчитывам положение строки
@@ -566,7 +562,7 @@ namespace MyGUI
 
 	void List::beginToIndex(size_t _index)
 	{
-		if (_index >= mStringArray.size()) return;
+		if (_index >= mItemsInfo.size()) return;
 		if (mRangeIndex <= 0) return;
 
 		int offset = (int)_index * mHeightLine;
@@ -582,7 +578,7 @@ namespace MyGUI
 	bool List::isItemVisible(size_t _index, bool _fill)
 	{
 		// если элемента нет, то мы его не видим (в том числе когда их вообще нет)
-		if (_index >= mStringArray.size()) return false;
+		if (_index >= mItemsInfo.size()) return false;
 		// если скрола нет, то мы палюбак видим
 		if (mRangeIndex <= 0) return true;
 
@@ -613,7 +609,7 @@ namespace MyGUI
 		mIndexSelect = ITEM_NONE;
 		mOffsetTop = 0;
 
-		mStringArray.clear();
+		mItemsInfo.clear();
 
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
 			mWidgetLines[pos]->hide();
@@ -625,22 +621,28 @@ namespace MyGUI
 
 	void List::setItem(size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT(_index < mStringArray.size(), "setItemString: index " << _index <<" out of range");
-		mStringArray[_index]=_item;
+		MYGUI_ASSERT(_index < mItemsInfo.size(), "setItem: index " << _index <<" out of range");
+		mItemsInfo[_index].first =_item;
+		_redrawItem(_index);
+	}
+
+	void List::setItemData(size_t _index, Any _data)
+	{
+		MYGUI_ASSERT(_index < mItemsInfo.size(), "setItem: index " << _index <<" out of range");
+		mItemsInfo[_index].second = _data;
 		_redrawItem(_index);
 	}
 
 	const Ogre::UTFString & List::getItem(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mStringArray.size(), "getItemString: index " << _index <<" out of range");
-		return mStringArray[_index];
+		MYGUI_ASSERT(_index < mItemsInfo.size(), "getItem: index " << _index <<" out of range");
+		return mItemsInfo[_index].first;
 	}
 
 	size_t List::findItem(const Ogre::UTFString & _item)
 	{
-		//std::find(mStringArray.begin(), mStringArray.end(), _item);
-		for (size_t pos=0; pos<mStringArray.size(); pos++) {
-			if (_item == mStringArray[pos]) return pos;
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			if (_item == mItemsInfo[pos].first) return pos;
 		}
 		return ITEM_NONE;
 	}

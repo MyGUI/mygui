@@ -41,9 +41,9 @@ namespace MyGUI
 		virtual bool resourceExists(const Ogre::String & _name);
 
 		/** Check is font exist */
-		inline bool isExist(const std::string& _name) { return resourceExists(_name); }
+		bool isExist(const std::string& _name) { return resourceExists(_name); }
 
-		inline EnumeratorFontPtr getEnumerator() { return EnumeratorFontPtr(mResources.begin(), mResources.end()); }
+		EnumeratorFontPtr getEnumerator() { return EnumeratorFontPtr(mResources.begin(), mResources.end()); }
 
     protected:
 

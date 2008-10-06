@@ -12,11 +12,12 @@
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
 int grid_step;//FIXME_HOOK
-inline int toGrid(int _x){ return _x / grid_step * grid_step; }
+int toGrid(int _x){ return _x / grid_step * grid_step; }
 
 const std::string DEFAULT_VALUE = "#444444[DEFAULT]";
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
+inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+{
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 

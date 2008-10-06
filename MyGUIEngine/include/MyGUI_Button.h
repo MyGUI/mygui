@@ -25,12 +25,12 @@ namespace MyGUI
 
 	public:
 		//! OLD Set button check state
-		inline void setButtonPressed(bool _check) { setStateCheck(_check); }
+		void setButtonPressed(bool _check) { setStateCheck(_check); }
 		//! OLD Get buton check 
-		inline bool getButtonPressed() { return getStateCheck(); }
+		bool getButtonPressed() { return getStateCheck(); }
 
 		//! Set button check state
-		inline void setStateCheck(bool _check)
+		void setStateCheck(bool _check)
 		{
 			if (mIsStateCheck == _check) return;
 			mIsStateCheck = _check;
@@ -38,10 +38,10 @@ namespace MyGUI
 		}
 
 		//! Get buton check
-		inline bool getStateCheck() {return mIsStateCheck;}
+		bool getStateCheck() {return mIsStateCheck;}
 
 		//! Set button focused state
-		inline void _setMouseFocus(bool _focus)
+		void _setMouseFocus(bool _focus)
 		{
 			mIsMouseFocus = _focus;
 			updateButtonState();

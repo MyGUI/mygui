@@ -68,12 +68,12 @@ namespace MyGUI
 			@param _align widget align (possible values can be found in enum Align)
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
+		WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
 			return _createWidget(_type, _skin, _coord, _align, "", _name);
 		}
 		/** See Gui::createWidgetT */
-		inline WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
+		WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
 		}
@@ -81,35 +81,35 @@ namespace MyGUI
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
 		WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "");
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		inline WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
+		WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
 		{
 			return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
 		}
 
 		// templates for creating widgets by type
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _name));
 		}
 
 		//! Get name of widget
-		inline const std::string & getName() { return mName; }
+		const std::string & getName() { return mName; }
 
 		/** Set widget position (position of left top corner)*/
 		virtual void setPosition(const IntPoint& _pos);
@@ -119,11 +119,11 @@ namespace MyGUI
 		virtual void setSize(const IntSize& _size);
 
 		/** See Widget::setPosition(const IntPoint& _pos) */
-		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
+		void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
 		/** See Widget::setPosition(const IntCoord& _coord) */
-		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		/** See Widget::setSize(const IntSize& _size) */
-		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		void _updateAbsolutePoint();
 
@@ -135,7 +135,7 @@ namespace MyGUI
 		// для внутреннего использования
 		void _inheritedShow();
 		void _inheritedHide();
-		inline bool _isInheritedShow() {return mInheritedShow;}
+		bool _isInheritedShow() {return mInheritedShow;}
 
 		/** Set widget caption */
 		virtual void setCaption(const Ogre::UTFString & _caption);
@@ -170,12 +170,12 @@ namespace MyGUI
 		/** Set widget opacity */
 		void setAlpha(float _alpha);
 		/** Get widget opacity */
-		inline float getAlpha() {return mAlpha;};
-		inline float _getRealAlpha() {return mRealAlpha;}
+		float getAlpha() {return mAlpha;};
+		float _getRealAlpha() {return mRealAlpha;}
 		/** Get inherits alpha mode flag */
-		inline bool isInheritsAlpha() {return mInheritsAlpha;}
+		bool isInheritsAlpha() {return mInheritsAlpha;}
 		/** Enable or disable inherits alpha mode */
-		inline void setInheritsAlpha(bool _inherits)
+		void setInheritsAlpha(bool _inherits)
 		{
 			mInheritsAlpha = _inherits;
 			_updateAlpha();
@@ -192,15 +192,15 @@ namespace MyGUI
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
-		inline bool isRootWidget() {return null == mParent;}
+		bool isRootWidget() {return null == mParent;}
 
 		// закрываем метод базового класса
 		/** Get parent widget */
-		inline WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
+		WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
 
 		// для поддержки окон напрямую не являющиеся детьми
-		inline WidgetPtr _getOwner() { return mOwner; }
-		inline void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
+		WidgetPtr _getOwner() { return mOwner; }
+		void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
 
 		/** Get copy of child widgets vector */
 		//virtual VectorWidgetPtr getChilds();
@@ -214,27 +214,27 @@ namespace MyGUI
 		virtual void _detachFromLayerItemKeeper();
 
 		/** Is need key focus */
-		inline bool isNeedKeyFocus() {return mNeedKeyFocus;}
+		bool isNeedKeyFocus() {return mNeedKeyFocus;}
 		/** Set need key focus flag */
-		inline void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
+		void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
 		/** Is need mouse focus */
-		inline bool isNeedMouseFocus() {return mNeedMouseFocus;}
+		bool isNeedMouseFocus() {return mNeedMouseFocus;}
 		/** Set need mouse focus flag */
-		inline void setNeedMouseFocus(bool _need) {mNeedMouseFocus = _need;}
+		void setNeedMouseFocus(bool _need) {mNeedMouseFocus = _need;}
 
-		inline void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
-		inline bool isInheritsPeek() { return mInheritsPeek; }
+		void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
+		bool isInheritsPeek() { return mInheritsPeek; }
 
 		/** Is widget enabled */
-		inline bool isEnabled() {return mEnabled;}
+		bool isEnabled() {return mEnabled;}
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _enabled);
 
 		// меняет доступность без изменения стейтов
-		inline void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
+		void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
 
 		/** Get mouse pointer name for this widget */
-		inline const std::string& getPointer()
+		const std::string& getPointer()
 		{
 			if (false == mEnabled) {
 				static std::string empty;
@@ -244,7 +244,7 @@ namespace MyGUI
 		}
 
 		/** Set mouse pointer for this widget */
-		inline void setPointer(const std::string& _pointer)
+		void setPointer(const std::string& _pointer)
 		{
 			mPointer = _pointer;
 		}
@@ -255,7 +255,7 @@ namespace MyGUI
 		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
 		const std::string& getLayerName();
 
-		inline IWidgetCreator * _getIWidgetCreator()
+		IWidgetCreator * _getIWidgetCreator()
 		{
 			return mIWidgetCreator;
 		}
@@ -264,7 +264,7 @@ namespace MyGUI
 		IntCoord getClientCoord();
 
 		/** Get clien area widget */
-		inline WidgetPtr getClientWidget() {return mWidgetClient;}
+		WidgetPtr getClientWidget() {return mWidgetClient;}
 
 
 		// метод для запроса номера айтема и главного окна списка
@@ -276,20 +276,20 @@ namespace MyGUI
 
 
 		/** Set drag'n'drop mode flag */
-		inline void setNeedDragDrop(bool _need) {mNeedDragDrop = _need;}
+		void setNeedDragDrop(bool _need) {mNeedDragDrop = _need;}
 		/** Get drag'n'drop mode flag */
-		inline bool getNeedDragDrop() {return mNeedDragDrop;}
+		bool getNeedDragDrop() {return mNeedDragDrop;}
 
-		inline ISubWidgetText * _getSubWidgetText() { return mText; }
-		inline ISubWidgetRect * _getSubWidgetMain() { return mMainSkin; }
+		ISubWidgetText * _getSubWidgetText() { return mText; }
+		ISubWidgetRect * _getSubWidgetMain() { return mMainSkin; }
 
 		/** Get need tool tip mode flag */
-		inline bool getNeedToolTip() { return mNeedToolTip; }
+		bool getNeedToolTip() { return mNeedToolTip; }
 		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
 		void setNeedToolTip(bool _need);
 
 		/** Get tool tip enabled flag */
-		inline bool getEnableToolTip() { return mEnableToolTip; }
+		bool getEnableToolTip() { return mEnableToolTip; }
 		/** Enable or disable tooltip event */
 		void enableToolTip(bool _enable);
 

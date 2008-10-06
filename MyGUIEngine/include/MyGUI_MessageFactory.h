@@ -29,7 +29,7 @@ namespace MyGUI
 			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
 			static Ogre::UTFString _getButtonName(size_t _index);
-			inline static const std::string & _getDefaultSkin() {return mDefaultSkin;}
+			static const std::string & _getDefaultSkin() {return mDefaultSkin;}
 
 		private:
 			void initialise();

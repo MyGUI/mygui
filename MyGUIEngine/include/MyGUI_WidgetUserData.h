@@ -19,7 +19,7 @@ namespace MyGUI
 		virtual ~UserData() {}
 
 		// пользовательские данные виджета строки
-		inline void setUserString(const std::string & _key, const std::string & _value)
+		void setUserString(const std::string & _key, const std::string & _value)
 		{
 			mMapUserString[_key] = _value;
 		}
@@ -34,7 +34,7 @@ namespace MyGUI
 			return iter->second;
 		}
 
-		inline bool clearUserString(const std::string & _key)
+		bool clearUserString(const std::string & _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
 			if (iter != mMapUserString.end()) {
@@ -44,24 +44,24 @@ namespace MyGUI
 			return false;
 		}
 
-		inline bool isUserString(const std::string & _key)
+		bool isUserString(const std::string & _key)
 		{
 			return mMapUserString.find(_key) != mMapUserString.end();
 		}
 
-		inline void clearUserStrings()
+		void clearUserStrings()
 		{
 			mMapUserString.clear();
 		}
 
-		inline int _getInternalData() {return mInternalData;}
-		inline void _setInternalData(int _data) {mInternalData = _data;}
+		int _getInternalData() {return mInternalData;}
+		void _setInternalData(int _data) {mInternalData = _data;}
 
-		inline const std::string& _getInternalString() {return mInternalString;}
-		inline void _setInternalString(const std::string& _data) {mInternalString = _data;}
+		const std::string& _getInternalString() {return mInternalString;}
+		void _setInternalString(const std::string& _data) {mInternalString = _data;}
 
-		inline void setUserData(void * _data) { mUserData = _data; }
-		inline void * getUserData() { return mUserData; }
+		void setUserData(void * _data) { mUserData = _data; }
+		void * getUserData() { return mUserData; }
 
 	private:
 		// пользовательские данные

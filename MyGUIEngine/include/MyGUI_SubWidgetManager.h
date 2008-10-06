@@ -34,7 +34,7 @@ namespace MyGUI
 		// создает сабвиджет использу€ фабрику
 		ISubWidget * createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 
-		inline void registerFactory(ISubWidgetFactory * _factory)
+		void registerFactory(ISubWidgetFactory * _factory)
 		{
 			mFactoryList.push_back(_factory);
 		}

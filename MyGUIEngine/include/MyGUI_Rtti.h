@@ -19,13 +19,13 @@ namespace MyGUI
 			virtual bool isType( const type_info & t) const; \
 			virtual const std::string & getTypeName(); \
 			static const std::string & getClassTypeName(); \
-			template<typename T> inline T* castType(bool _throw = true) \
+			template<typename T> T* castType(bool _throw = true) \
 			{ \
 				if (this->isType<T>()) return static_cast<T*>( this ); \
 				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << T::getClassTypeName() << "' .") \
 				return null; \
 			} \
-			template<typename T> inline const T* castType(bool _throw = true) const \
+			template<typename T> const T* castType(bool _throw = true) const \
 			{ \
 				if (this->isType<T>()) return static_cast<T*>( this ); \
 				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << T::getClassTypeName() << "' .") \

@@ -18,6 +18,14 @@ public:
 	virtual void initialise();
 
 private:
+	void notifyComboAccept(MyGUI::WidgetPtr _sender);
+
+	void initialiseImages();
+	void selectResource(size_t _index);
+	void selectGroup(size_t _index);
+	void selectName(size_t _index);
+
+private:
 
 	MyGUI::ComboBoxPtr mComboResource;
 	MyGUI::ComboBoxPtr mComboGroup;
@@ -30,6 +38,9 @@ private:
 	MyGUI::StaticTextPtr mTextRate;
 
 	MyGUI::ScrollViewPtr mImageView;
+	MyGUI::StaticImagePtr mImage;
+
+	MyGUI::IntSize mImageSize;
 
 };
 

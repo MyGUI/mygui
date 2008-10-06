@@ -287,21 +287,29 @@ namespace MyGUI
 
 	const Ogre::UTFString & ComboBox::getItem(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mList->getItemCount(), "getItemString: index " << _index <<" out of range");
+		MYGUI_ASSERT(_index < mList->getItemCount(), "getItem: index " << _index << " out of range");
 		return mList->getItem(_index);
 	}
 
 	void ComboBox::setItem(size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT(_index < mList->getItemCount(), "setItemString: index " << _index <<" out of range");
+		MYGUI_ASSERT(_index < mList->getItemCount(), "setItem: index " << _index << " out of range");
 		mList->setItem(_index, _item);
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
 	}
 
-	void ComboBox::insertItem(size_t _index, const Ogre::UTFString & _item)
+	void ComboBox::setItemData(size_t _index, Any _data)
 	{
-		mList->insertItem(_index, _item);
+		MYGUI_ASSERT(_index < mList->getItemCount(), "setItemData: index " << _index << " out of range");
+		mList->setItemData(_index, _data);
+		mItemIndex = ITEM_NONE;
+		mList->setItemSelect(mItemIndex);
+	}
+
+	void ComboBox::insertItem(size_t _index, const Ogre::UTFString & _item, Any _data)
+	{
+		mList->insertItem(_index, _item, _data);
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
 	}
@@ -313,9 +321,9 @@ namespace MyGUI
 		mList->setItemSelect(mItemIndex);
 	}
 
-	void ComboBox::addItem(const Ogre::UTFString& _item)
+	void ComboBox::addItem(const Ogre::UTFString& _item, Any _data)
 	{
-		mList->addItem(_item);
+		mList->addItem(_item, _data);
 		mItemIndex = ITEM_NONE;
 		mList->setItemSelect(mItemIndex);
 	}

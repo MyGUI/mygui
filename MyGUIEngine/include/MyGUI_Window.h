@@ -38,7 +38,7 @@ namespace MyGUI
 		void destroySmooth();
 
       /** Get auto alpha mode flag */
-		inline bool getAutoAlpha() {return mIsAutoAlpha;}
+		bool getAutoAlpha() {return mIsAutoAlpha;}
       /** Enable or disable auto alpha mode */
 		void setAutoAlpha(bool _auto);
 
@@ -50,21 +50,21 @@ namespace MyGUI
 		/** Set minimal and maximal possible window size
 			@param _minmax First two values - min width and height, second - max width and height
 		*/
-		inline void setMinMax(const IntRect & _minmax) { mMinmax = _minmax; }
+		void setMinMax(const IntRect & _minmax) { mMinmax = _minmax; }
 		/** Set minimal and maximal possible window size
 			@param First two values - min width and height, second - max width and height
 		*/
-		inline void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) { mMinmax.set(_min_h, _min_v, _max_h, _max_v); }
+		void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) { mMinmax.set(_min_h, _min_v, _max_h, _max_v); }
       /** Get minimal and maximal possible window size */
-		inline const IntRect & getMinMax() {return mMinmax;}
+		const IntRect & getMinMax() {return mMinmax;}
 
-		inline void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
-		inline void setMinSize(int _width, int _height) { mMinmax.left = _width; mMinmax.top = _height; }
-		inline IntSize getMinSize() { return IntSize(mMinmax.left, mMinmax.top); }
+		void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
+		void setMinSize(int _width, int _height) { mMinmax.left = _width; mMinmax.top = _height; }
+		IntSize getMinSize() { return IntSize(mMinmax.left, mMinmax.top); }
 
-		inline void setMaxSize(const IntSize & _size) { mMinmax.right = _size.width; mMinmax.bottom = _size.height; }
-		inline void setMaxSize(int _width, int _height) { mMinmax.right = _width; mMinmax.bottom = _height; }
-		inline IntSize getMaxSize() { return IntSize(mMinmax.right, mMinmax.bottom); }
+		void setMaxSize(const IntSize & _size) { mMinmax.right = _size.width; mMinmax.bottom = _size.height; }
+		void setMaxSize(int _width, int _height) { mMinmax.right = _width; mMinmax.bottom = _height; }
+		IntSize getMaxSize() { return IntSize(mMinmax.right, mMinmax.bottom); }
 
       //! @copydoc Widget::setPosition(const IntPoint& _pos)
 		virtual void setPosition(const IntPoint& _pos);
@@ -73,16 +73,16 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(const IntSize& _size)
 		virtual void setSize(const IntSize& _size);
 		//! @copydoc Widget::setPosition(int _left, int _top)
-		inline void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
+		void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
 		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		//! @copydoc Widget::setSize(int _width, int _height)
-		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
       /** Get snap to borders mode flag */
-		inline bool getSnap() {return mSnap;}
+		bool getSnap() {return mSnap;}
       /** Enable or disable snap to borders mode */
-		inline void setSnap(bool _snap) {mSnap = _snap;}
+		void setSnap(bool _snap) {mSnap = _snap;}
 
 		//! @copydoc Widget::setTextAlign
 		virtual void setTextAlign(Align _align);

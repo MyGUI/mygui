@@ -22,31 +22,31 @@ namespace types
 		TSize( TSize const & o ) : width( o.width ), height( o.height ) { }
 		explicit TSize(const std::string& _value) {*this = parse(_value);}
 
-		inline TSize & operator-=( TSize const & o )
+		TSize & operator-=( TSize const & o )
 		{
 			width -= o.width;
 			height -= o.height;
 			return *this;
 		}
 
-		inline TSize & operator+=( TSize const & o )
+		TSize & operator+=( TSize const & o )
 		{
 			width += o.width;
 			height += o.height;
 			return *this;
 		}
 
-		inline TSize operator-( TSize const & o ) const
+		TSize operator-( TSize const & o ) const
 		{
 			return TSize(width - o.width, height - o.height);
 		}
 
-		inline TSize operator+( TSize const & o ) const
+		TSize operator+( TSize const & o ) const
 		{
 			return TSize(width + o.width, height + o.height);
 		}
 
-		inline TSize & operator=( TSize const & o )
+		TSize & operator=( TSize const & o )
 		{
 			width = o.width;
 			height = o.height;
@@ -54,54 +54,54 @@ namespace types
 		}
 
 		template< typename U >
-		inline TSize & operator=( TSize<U> const & o )
+		TSize & operator=( TSize<U> const & o )
 		{
 			width = o.width;
 			height = o.height;
 			return *this;
 		}
 
-		inline bool operator==( TSize const & o ) const
+		bool operator==( TSize const & o ) const
 		{
 			return ((width == o.width) && (height == o.height));
 		}
 
-		inline bool operator!=( TSize const & o ) const
+		bool operator!=( TSize const & o ) const
 		{
 			return ! ((width == o.width) && (height == o.height));
 		}
 
-		inline void clear()
+		void clear()
 		{
 			width = height = 0;
 		}
 
-		inline void set( T const & w, T const & h)
+		void set( T const & w, T const & h)
 		{
 			width = w;
 			height = h;
 		}
 
-		inline void swap(TSize& _value)
+		void swap(TSize& _value)
 		{
 			TSize tmp = _value;
 			_value = *this;
 			*this = tmp;
 		}
 
-		inline bool empty() const
+		bool empty() const
 		{
 			return ((width == 0) && (height == 0));
 		}
 
-		inline std::string print() const
+		std::string print() const
 		{
 	        std::ostringstream stream;
 	        stream << *this;
 		    return stream.str();
 		}
 
-		inline static TSize<T> parse(const std::string& _value)
+		static TSize<T> parse(const std::string& _value)
 		{
 			TSize<T> ret;
 	        std::istringstream stream(_value);
@@ -109,13 +109,13 @@ namespace types
 		    return ret;
 		}
 
-        inline friend std::ostream& operator << ( std::ostream& _stream, const TSize<T>&  _value )
+        friend std::ostream& operator << ( std::ostream& _stream, const TSize<T>&  _value )
         {
             _stream << _value.width << " " << _value.height;
             return _stream;
         }
 
-        inline friend std::istream& operator >> ( std::istream& _stream, TSize<T>&  _value )
+        friend std::istream& operator >> ( std::istream& _stream, TSize<T>&  _value )
         {
             _stream >> _value.width >> _value.height;
 			if (_stream.fail()) _value.clear();

@@ -65,11 +65,11 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(const IntSize& _size)
 		void setSize(const IntSize& _size);
 		//! @copydoc Widget::setPosition(int _left, int _top)
-		inline void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
+		void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
 		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		//! @copydoc Widget::setSize(int _width, int _height)
-		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// сделать видимой кнопку
 		/** Show bar button
@@ -81,13 +81,13 @@ namespace MyGUI
 		*/
 		void showBarButton(const Ogre::UTFString& _name);
 		/** Show selected bar button */
-		inline void showBarSelectButton() {showBarButton(mSelectSheet);}
+		void showBarSelectButton() {showBarButton(mSelectSheet);}
 
 		/** Set default button width and disable autowidth mode */
 		void setButtonDefaultWidth(int _width);
 
 		/** Get default button width */
-		inline int getButtonDefaultWidth()
+		int getButtonDefaultWidth()
 		{
 			return mButtonDefaultWidth;
 		}
@@ -95,18 +95,18 @@ namespace MyGUI
 		/** Enable or disable button auto width */
 		void setButtonAutoWidth(bool _auto);
 		/** Get button auto width flag */
-		inline bool getButtonAutoWidth()
+		bool getButtonAutoWidth()
 		{
 			return mButtonAutoWidth;
 		}
 
 		/** Enable or disable smooth sheets showing*/
-		inline void setSmoothShow(bool _smooth)
+		void setSmoothShow(bool _smooth)
 		{
 			mSmoothShow = _smooth;
 		}
 		/** Get smooth sheets showing flag */
-		inline bool getSmoothShow()
+		bool getSmoothShow()
 		{
 			return mSmoothShow;
 		}
@@ -115,13 +115,13 @@ namespace MyGUI
 		// работа с вкладками
 		//--------------------------------------------------------------------
 		/** Get sheets count */
-		inline size_t getSheetCount()
+		size_t getSheetCount()
 		{
 			return mSheetsInfo.size();
 		}
 
 		/** Get _sheet name */
-		inline const Ogre::UTFString& getSheetName(SheetPtr _sheet)
+		const Ogre::UTFString& getSheetName(SheetPtr _sheet)
 		{
 			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 				if (mSheetsInfo[pos].sheet == _sheet) return mSheetsInfo[pos].name;
@@ -130,20 +130,20 @@ namespace MyGUI
 		}
 
 		/** Get sheet name by _index */
-		inline const Ogre::UTFString& getSheetNameIndex(size_t _index)
+		const Ogre::UTFString& getSheetNameIndex(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetNameIndex: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].name;
 		}
 
 		/** Get sheet button width by _index */
-		inline int getSheetButtonWidthIndex(size_t _index)
+		int getSheetButtonWidthIndex(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheetButtonWidthIndex: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].width;
 		}
 		/** Get _sheet button width */
-		inline int getSheetButtonWidth(SheetPtr _sheet)
+		int getSheetButtonWidth(SheetPtr _sheet)
 		{
 			for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
 				if (mSheetsInfo[pos].sheet == _sheet) mSheetsInfo[pos].width;
@@ -152,14 +152,14 @@ namespace MyGUI
 		}
 
 		/** Get sheet pointer by _index */
-		inline SheetPtr getSheet(size_t _index)
+		SheetPtr getSheet(size_t _index)
 		{
 			MYGUI_ASSERT(_index < mSheetsInfo.size(), "getSheet: index " << (unsigned int)_index <<" out of range");
 			return mSheetsInfo[_index].sheet;
 		}
 
 		/** Get sheet pointer by _name */
-		inline SheetPtr findSheet(const Ogre::UTFString& _name)
+		SheetPtr findSheet(const Ogre::UTFString& _name)
 		{
 			for (VectorTabSheetInfo::iterator iter=mSheetsInfo.begin(); iter!=mSheetsInfo.end(); ++iter) {
 				if ((*iter).name == _name) return (*iter).sheet;
@@ -213,7 +213,7 @@ namespace MyGUI
 		/** Select sheet by _sheet pointer, with _smooth selecting */
 		void selectSheet(SheetPtr _sheet, bool _smooth = true);
 		/** Get selected sheet index */
-		inline size_t getSelectSheetIndex() {return mSelectSheet;}
+		size_t getSelectSheetIndex() {return mSelectSheet;}
 
 		/** Event : Active Tab sheet changed \n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

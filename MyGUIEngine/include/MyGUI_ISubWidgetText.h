@@ -50,14 +50,14 @@ namespace MyGUI
 		virtual IntCoord getCursorCoord(size_t _position) { return IntCoord(); }
 
 		// возвращает положение курсора в обсолютных координатах
-		inline IntPoint getCursorPoint(size_t _position)
+		IntPoint getCursorPoint(size_t _position)
 		{
 			const IntCoord & coord = getCursorCoord(_position);
 			return IntPoint(coord.left + coord.width / 2, coord.top + coord.height / 2);
 		}
 
 		// возвращает положение курсора в обсолютных координатах
-		inline IntRect getCursorRect(size_t _position)
+		IntRect getCursorRect(size_t _position)
 		{
 			const IntCoord & coord = getCursorCoord(_position);
 			return IntRect(coord.left, coord.top, coord.left + coord.width, coord.top + coord.height);

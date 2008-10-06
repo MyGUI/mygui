@@ -2,7 +2,7 @@
 #include <vector>
 
 /// Fixed size cyclic buffer.
-template<class T>
+template<typename T>
 class CyclicBuffer
 {
 public:

@@ -49,56 +49,56 @@ namespace MyGUI
 				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		inline WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return _createWidget(_type, _skin, _coord, _align, _layer, _name);
 		}
 		/** See Gui::createWidgetT */
-		inline WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		inline WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		inline WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
 		}
 
 		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T> T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T> T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T> T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <class T> inline T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T> T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
 
 		/** Get width of GUI area */
-		inline int getViewWidth() { return mViewSize.width; }
+		int getViewWidth() { return mViewSize.width; }
 		/** Get height of GUI area */
-		inline int getViewHeight() { return mViewSize.height; }
+		int getViewHeight() { return mViewSize.height; }
 		/** Get aspect of GUI area */
-		inline float getViewAspect() { return mViewSize.width / mViewSize.height; }
+		float getViewAspect() { return mViewSize.width / mViewSize.height; }
 		/** Get view size of GUI area */
-		inline IntSize getViewSize() { return IntSize(mViewSize.width, mViewSize.height); }
+		IntSize getViewSize() { return IntSize(mViewSize.width, mViewSize.height); }
 
 		/** Add or remove GUI frame listener */
 		FrameEventDelegate eventFrameStart;
@@ -158,7 +158,7 @@ namespace MyGUI
 		WidgetPtr findWidgetT(const std::string& _name);
 
 		/** Find widget by name and prefix */
-		inline WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
+		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
 		{
 			return findWidgetT(_prefix + _name);
 		}
@@ -167,7 +167,7 @@ namespace MyGUI
 		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause exception.
 		*/
-		template <class T> inline T* findWidget(const std::string& _name)
+		template <typename T> T* findWidget(const std::string& _name)
 		{
 			WidgetPtr widget = findWidgetT(_name);
 			if (null == widget) return null;
@@ -175,7 +175,7 @@ namespace MyGUI
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/
-		template <class T> inline T* findWidget(const std::string& _name, const std::string& _prefix)
+		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix)
 		{
 			return findWidget<T>(_prefix + _name);
 		}
@@ -200,13 +200,13 @@ namespace MyGUI
 		virtual void windowResized(Ogre::RenderWindow* rw);
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		inline void destroyChildWidget(WidgetPtr _widget)
+		void destroyChildWidget(WidgetPtr _widget)
 		{
 			_destroyChildWidget(_widget);
 		}
 
 		/** Destroy all child widgets */
-		inline void destroyAllChildWidget()
+		void destroyAllChildWidget()
 		{
 			_destroyAllChildWidget();
 		}
@@ -215,7 +215,7 @@ namespace MyGUI
 		const std::string& getResourceGroup();
 
 		/** Get GUI viewport index */
-		inline Ogre::ushort getActiveViewport()
+		Ogre::ushort getActiveViewport()
 		{
 			return mActiveViewport;
 		}
@@ -227,9 +227,9 @@ namespace MyGUI
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
-		inline Ogre::RenderWindow * getRenderWindow() { return mWindow; }
+		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
-		inline EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild.begin(), mWidgetChild.end()); }
+		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild.begin(), mWidgetChild.end()); }
 
 
 	private:

@@ -23,7 +23,7 @@ namespace MyGUI
 		LayerKeeper(const std::string& _name, bool _overlapped, bool _peek);
 		~LayerKeeper();
 
-		inline const std::string& getName() { return mName; }
+		const std::string& getName() { return mName; }
 
 		LayerItemKeeper * getItem();
 		void leaveItem(LayerItemKeeper * _item);

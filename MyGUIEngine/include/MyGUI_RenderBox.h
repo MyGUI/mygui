@@ -66,7 +66,7 @@ namespace MyGUI
 		*/
 		void setAutoRotationSpeed(int _speed = RENDER_BOX_AUTO_ROTATION_SPEED);
 		/** Get speed of entity rotation.*/
-		inline int getAutoRotationSpeed() {return mRotationSpeed;};
+		int getAutoRotationSpeed() {return mRotationSpeed;};
 
 		/** Enable or disable auto rotation
 			@remarks
@@ -74,7 +74,7 @@ namespace MyGUI
 		*/
 		void setAutoRotation(bool _auto);
 		/** Get auto rotation flag */
-		inline bool getAutoRotation() {return mAutoRotation;}
+		bool getAutoRotation() {return mAutoRotation;}
 
 		/** Set colour behind entity.
 			@remarks
@@ -82,7 +82,7 @@ namespace MyGUI
 		*/
 		void setBackgroungColour(const Ogre::ColourValue & _backgroundColour);
 		/** Get colour behind entity.*/
-		inline const Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
+		const Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
 
 		/** Set start rotation angle of entity.
 			@remarks
@@ -110,7 +110,7 @@ namespace MyGUI
 		*/
 		void setViewScale(bool _scale);
 		/** Get possibility to zoom mesh by mouse wheel flag. */
-		inline bool getViewScale() {return mUseScale;}
+		bool getViewScale() {return mUseScale;}
 
 		/** Set any user created Camera instead of showing one mesh*/
 		void setRenderTarget(Ogre::Camera * _camera);
@@ -122,11 +122,11 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(const IntSize& _size)
 		void setSize(const IntSize& _size);
 		//! @copydoc Widget::setPosition(int _left, int _top)
-		inline void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
+		void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
 		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		//! @copydoc Widget::setSize(int _width, int _height)
-		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 	protected:
 		void frameEntered(float _time);
@@ -137,7 +137,7 @@ namespace MyGUI
 		void _onMouseWheel(int _rel);
 
 	private:
-		inline bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState) || (mNodeForSync != null);}
+		bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState) || (mNodeForSync != null);}
 		void createRenderTexture();
 		void updateViewport();
 

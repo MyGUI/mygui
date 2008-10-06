@@ -17,7 +17,8 @@ namespace MyGUI
 	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
-	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node)
+	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node) :
+		IResource(_node)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator group_node = _node->getNodeIterator();

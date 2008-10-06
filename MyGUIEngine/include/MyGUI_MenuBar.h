@@ -46,12 +46,12 @@ namespace MyGUI
 		//------------------------------------------------------------------------------------//
 		// методы дл€ манипул€ций менюшками
 		//! Get number of items
-		inline size_t getItemCount() { return mVectorMenuItemInfo.size();}
+		size_t getItemCount() { return mVectorMenuItemInfo.size();}
 
 		//! Insert an item into a menubar at a specified position
 		void insertItem(size_t _index, const Ogre::UTFString & _item);
 		//! Add an item to the end of a menubar
-		inline void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
+		void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
 		//! Replace an item at a specified position
 		void setItem(size_t _index, const Ogre::UTFString & _item);
 		//! Get item from specified position
@@ -66,9 +66,9 @@ namespace MyGUI
 		void deleteAllItems();
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		inline size_t getItemSelect() {return mIndexSelect;}
+		size_t getItemSelect() {return mIndexSelect;}
 		//! Reset item selection
-		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		void resetItemSelect() {setItemSelect(ITEM_NONE);}
 		//! Set item selection at a specified position
 		void setItemSelect(size_t _index);
 

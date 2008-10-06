@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 	// шаблонный класс для проверки типа виджета
-	template <class T> inline T* castWidget(Widget * _widget)
+	template <typename T> T* castWidget(Widget * _widget)
 	{
 		MYGUI_DEBUG_ASSERT(null != _widget, "Error static cast, widget == null");
 		return _widget->castType<T>();

@@ -23,7 +23,7 @@ namespace MyGUI
 		Guid( Guid const & _value ) { *this = _value; }
 		explicit Guid(const std::string& _value) { *this = parse(_value); }
 		
-		inline bool operator == (Guid const & _comp) const
+		bool operator == (Guid const & _comp) const
 		{
 			return _comp.fast._data1 == fast._data1
 				&& _comp.fast._data2 == fast._data2
@@ -31,12 +31,12 @@ namespace MyGUI
 				&& _comp.fast._data4 == fast._data4;
 		}
 
-		inline bool operator != ( Guid const & _comp ) const
+		bool operator != ( Guid const & _comp ) const
 		{
 			return ! (*this == _comp);
 		}
 
-		inline bool operator < ( Guid const & _comp ) const
+		bool operator < ( Guid const & _comp ) const
 		{
 			if (_comp.fast._data1 < fast._data1) return true;
 			else if (_comp.fast._data1 > fast._data1) return false;
@@ -48,7 +48,7 @@ namespace MyGUI
 			return false;
 		}
 
-		inline Guid & operator = (Guid const & _rvalue)
+		Guid & operator = (Guid const & _rvalue)
 		{
 			fast._data1 = _rvalue.fast._data1;
 			fast._data2 = _rvalue.fast._data2;
@@ -57,7 +57,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline bool empty() const
+		bool empty() const
 		{
 			return fast._data1 == 0
 				&& fast._data2 == 0
@@ -65,7 +65,7 @@ namespace MyGUI
 				&& fast._data4 == 0;
 		}
 
-		inline void clear()
+		void clear()
 		{
 			fast._data1 = fast._data2 = fast._data3 = fast._data4 = 0; 
 		}
@@ -74,13 +74,13 @@ namespace MyGUI
 		static Guid parse(const std::string& _value);
 		static Guid generate();
 
-        inline friend std::ostream& operator << ( std::ostream& _stream, const Guid &  _value )
+        friend std::ostream& operator << ( std::ostream& _stream, const Guid &  _value )
         {
             _stream << _value.print();
             return _stream;
         }
 
-        inline friend std::istream& operator >> ( std::istream& _stream, Guid &  _value )
+        friend std::istream& operator >> ( std::istream& _stream, Guid &  _value )
         {
 			std::string value;
             _stream >> value;

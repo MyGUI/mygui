@@ -64,7 +64,7 @@ private:
 
 	void notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index);
 
-	inline int toGrid(int _x){ return _x / grid_step * grid_step; }
+	int toGrid(int _x){ return _x / grid_step * grid_step; }
 
 	// tooltips
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
