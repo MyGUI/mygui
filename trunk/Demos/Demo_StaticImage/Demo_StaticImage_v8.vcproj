@@ -185,6 +185,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\Common\BaseLayout.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Common\Base\BaseManager.cpp"
 				>
 			</File>
@@ -196,6 +200,10 @@
 				RelativePath=".\Main.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\StaticImageView.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -203,11 +211,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\Common\BaseLayout.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Common\Base\BaseManager.h"
 				>
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\StaticImageView.h"
 				>
 			</File>
 			<File
