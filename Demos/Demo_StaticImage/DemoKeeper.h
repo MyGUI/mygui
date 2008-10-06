@@ -8,6 +8,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
+#include "StaticImageView.h"
 
 namespace demo
 {
@@ -17,6 +18,9 @@ namespace demo
 	public:
 		virtual void createScene();
 		virtual void destroyScene();
+
+	private:
+		StaticImageView mView;
 
 	};
 
