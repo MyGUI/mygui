@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aligns.cs" />
+    <Compile Include="DependencePluginGetter.cs" />
     <Compile Include="Defs.cs" />
     <Compile Include="ElementTypeConvertor.cs" />
     <Compile Include="ILogSender.cs" />

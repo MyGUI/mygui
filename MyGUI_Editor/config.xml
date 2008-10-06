@@ -10,4 +10,9 @@
 	<module>ImageSetEditor.dll</module>
 	<module>PropertyEditor.dll</module>
 	<module>ViewChips.dll</module>
+  
+  <project ID="8016e9ec-cbde-489b-be0f-adee36cdc8aa" name="SkinProject">
+    <plugin>519c8a43-484e-471e-b95f-2feecb960ef8</plugin>
+    <plugin>fa70582f-1cf2-4d38-98b3-072af5a2a380</plugin>
+  </project>
 </ROOT>

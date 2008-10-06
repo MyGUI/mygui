@@ -19,12 +19,12 @@ namespace ProjectManagement
                 header.Width = cw;
         }
 
-        public Guid SelectedProjectType
+        public IProjectKeeper SelectedProjectKeeper
         {
             get
             {
-                if (ProjectTypesList.SelectedItems.Count == 0) return Guid.Empty;
-                return (Guid) ProjectTypesList.SelectedItems[0].Tag;
+                if (ProjectTypesList.SelectedItems.Count == 0) return null;
+                return (IProjectKeeper)ProjectTypesList.SelectedItems[0].Tag;
             }
         }
 
@@ -33,7 +33,7 @@ namespace ProjectManagement
             foreach (IProjectKeeper item in CoreFacade.Register.GetItems<IProjectKeeper>(CATID_PROJECT_KEEPERS.ID))
             {
                 ListViewItem li = ProjectTypesList.Items.Add(item.Name);
-                li.Tag = item.ProjectID;
+                li.Tag = item;
             }
 
             NewProjectForm_Resize(this, e);
@@ -48,7 +48,7 @@ namespace ProjectManagement
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(ProjectName.Text.Trim() == string.Empty || SelectedProjectType == Guid.Empty)
+            if(ProjectName.Text.Trim() == string.Empty || SelectedProjectKeeper == null)
             {
                 MessageBox.Show("Project name is obligatory parameter!", "Error", MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
