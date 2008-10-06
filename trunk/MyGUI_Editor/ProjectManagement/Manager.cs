@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Common;
 using Core;
@@ -108,10 +109,10 @@ namespace ProjectManagement
 
             if (new_pr.ShowDialog() == DialogResult.OK)
             {
-                PreProjectWork();
+                PreProjectWork(new_pr.SelectedProjectKeeper);
 
                 m_Project = CoreFacade.Register.CreateItem<IProject>(
-                    new_pr.SelectedProjectType);
+                    new_pr.SelectedProjectKeeper.ProjectID);
                 m_Project.Init(new_pr.ProjectName.Text, new_pr.Prefix.Text);
                 CoreFacade.Register.RegisterIt(m_Project, CATID_COMMON.ID, CLSID_CURRENT_PROJECT.ID);
             }
@@ -167,8 +168,6 @@ namespace ProjectManagement
 
             if (ofd.ShowDialog() == DialogResult.Cancel) return;
 
-            PreProjectWork();
-
             Guid type;
             string name;
             string prefix;
@@ -182,28 +181,56 @@ namespace ProjectManagement
                 return;
             }
 
+            IProjectKeeper found = null;
+            foreach (IProjectKeeper keeper in CoreFacade.Register.GetItems<IProjectKeeper>(CATID_PROJECT_KEEPERS.ID))
+                if(keeper.ProjectID == type)
+                {
+                    found = keeper;
+                    break;
+                }
+
+            PreProjectWork(found);
+
             m_Project = CoreFacade.Register.CreateItem<IProject>(type);
             m_Project.Init(name, prefix);
             CoreFacade.Register.RegisterIt(m_Project, CATID_COMMON.ID, CLSID_CURRENT_PROJECT.ID);
             m_Project.Load(ofd.FileName);
         }
 
-        void PreProjectWork()
+        void PreProjectWork(IProjectKeeper _keeper)
         {
             IVisualContainer vc =
                 CoreFacade.Register.GetItem<IVisualContainer>(CATID_COMMON.ID, CLSID_VISUAL_CONTAINER.ID);
             if(vc == null && OnMessage != null)
                 OnMessage("Не найден визуальный компонент", 1, Name);
-            foreach (IPlugin plugin in CoreFacade.Register.GetItems<IPlugin>(CATID_PROJECT_PLUGINS.ID))
+
+            Guid[] runablePlugins = _keeper.Plugins;
+            
+            Dictionary<Guid, IPlugin> plugins;
+            CoreFacade.Register.GetItems(CATID_PROJECT_PLUGINS.ID, out plugins);
+
+            foreach (KeyValuePair<Guid, IPlugin> pair in plugins)
             {
-                plugin.Init();
+                //Отсеивание ненужных плагинов
+                {
+                    bool found = false;
+                    foreach (Guid pluginID in runablePlugins)
+                        if(pair.Key == pluginID)
+                        {
+                            found = true;
+                            break;
+                        }
+                    if (!found) continue;
+                }
+
+                pair.Value.Init();
                 if (vc == null) continue;
 
                 Control ctrl = null;
                 ControlTypes pt;
 
-                while ((pt = plugin.CreateControl(ref ctrl)) != ControlTypes.None)
-                    vc.InsertControl(ctrl, pt, plugin.Name);
+                while ((pt = pair.Value.CreateControl(ref ctrl)) != ControlTypes.None)
+                    vc.InsertControl(ctrl, pt, pair.Value.Name);
             }
         }
     }
