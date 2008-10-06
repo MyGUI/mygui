@@ -45,7 +45,7 @@ public:
 		mPanelCell->eventUpdatePanel(mPanelCell);
 	}
 
-	inline PanelCell * getPanelCell() { return mPanelCell; }
+	PanelCell * getPanelCell() { return mPanelCell; }
 
 protected:
 	PanelCell * mPanelCell;

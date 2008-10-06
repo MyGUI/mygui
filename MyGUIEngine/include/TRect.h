@@ -22,7 +22,7 @@ namespace types
 		TRect( TRect const & o ) : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom ) { }
 		explicit TRect(const std::string& _value) {*this = parse(_value);}
 
-		inline TRect & operator-=( TRect const & o )
+		TRect & operator-=( TRect const & o )
 		{
 			left -= o.left;
 			top -= o.top;
@@ -31,7 +31,7 @@ namespace types
 			return *this;
 		}
 
-		inline TRect & operator+=( TRect const & o )
+		TRect & operator+=( TRect const & o )
 		{
 			left += o.left;
 			top += o.top;
@@ -40,17 +40,17 @@ namespace types
 			return *this;
 		}
 
-		inline TRect operator-( TRect const & o ) const
+		TRect operator-( TRect const & o ) const
 		{
 			return TRect(left - o.left, top - o.top, right - o.right, bottom - o.bottom);
 		}
 
-		inline TRect operator+( TRect const & o ) const
+		TRect operator+( TRect const & o ) const
 		{
 			return TRect(left + o.left, top + o.top, right + o.right, bottom + o.bottom);
 		}
 
-		inline TRect & operator=( TRect const & o )
+		TRect & operator=( TRect const & o )
 		{
 			left = o.left;
 			top = o.top;
@@ -60,7 +60,7 @@ namespace types
 		}
 
 		template< typename U >
-		inline TRect & operator=( TRect<U> const & o )
+		TRect & operator=( TRect<U> const & o )
 		{
 			left = o.left;
 			top = o.top;
@@ -69,32 +69,32 @@ namespace types
 			return *this;
 		}
 
-		inline bool operator==( TRect const & o ) const
+		bool operator==( TRect const & o ) const
 		{
 			return ((left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom));
 		}
 
-		inline bool operator!=( TRect const & o ) const
+		bool operator!=( TRect const & o ) const
 		{
 			return ! ((left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom));
 		}
 
-		inline T width() const
+		T width() const
 		{
 			return right - left;
 		}
 
-		inline T height() const
+		T height() const
 		{
 			return bottom - top;
 		}
 
-		inline void clear()
+		void clear()
 		{
 			left = top = right = bottom = 0;
 		}
 
-		inline void set( T const & l, T const & t, T const & r, T const & b )
+		void set( T const & l, T const & t, T const & r, T const & b )
 		{
 			left = l;
 			top = t;
@@ -102,41 +102,41 @@ namespace types
 			bottom = b;
 		}
 
-		inline void swap(TRect& _value)
+		void swap(TRect& _value)
 		{
 			TRect tmp = _value;
 			_value = *this;
 			*this = tmp;
 		}
 
-		inline bool empty() const
+		bool empty() const
 		{
 			return ((left == 0) && (top == 0) && (right == 0) && (bottom == 0));
 		}
 
-		inline bool inside(const TRect<T>&  _value) const
+		bool inside(const TRect<T>&  _value) const
 		{
 			return ( (_value.left >= left) && (_value.right <= right) && (_value.top >= top) && (_value.bottom <= bottom) );
 		}
 
-		inline bool intersect(const TRect<T>&  _value) const
+		bool intersect(const TRect<T>&  _value) const
 		{
 			return ( (_value.left <= right) && (_value.right >= left) && (_value.top <= bottom) && (_value.bottom >= top) );
 		}
 
-		inline bool inside(const TPoint<T>&  _value) const
+		bool inside(const TPoint<T>&  _value) const
 		{
 			return ( (_value.left >= left) && (_value.left <= right) && (_value.top >= top) && (_value.top <= bottom) );
 		}
 
-		inline std::string print() const
+		std::string print() const
 		{
 	        std::ostringstream stream;
 	        stream << *this;
 		    return stream.str();
 		}
 
-		inline static TRect<T> parse(const std::string& _value)
+		static TRect<T> parse(const std::string& _value)
 		{
 			TRect<T> ret;
 	        std::istringstream stream(_value);
@@ -144,13 +144,13 @@ namespace types
 		    return ret;
 		}
 
-        inline friend std::ostream& operator << ( std::ostream& _stream, const TRect<T>&  _value )
+        friend std::ostream& operator << ( std::ostream& _stream, const TRect<T>&  _value )
         {
             _stream << _value.left << " " << _value.top << " " << _value.right << " " << _value.bottom;
             return _stream;
         }
 
-        inline friend std::istream& operator >> ( std::istream& _stream, TRect<T>&  _value )
+        friend std::istream& operator >> ( std::istream& _stream, TRect<T>&  _value )
         {
             _stream >> _value.left >> _value.top >> _value.right >> _value.bottom;
 			if (_stream.fail()) _value.clear();

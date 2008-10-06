@@ -21,14 +21,14 @@ namespace MyGUI
 
 	public:
 
-		inline void setButtonPressed(bool _pressed)
+		void setButtonPressed(bool _pressed)
 		{
 			if (mIsStatePressed == _pressed) return;
 			mIsStatePressed = _pressed;
 			updateButtonState();
 		}
 
-		inline bool getButtonPressed() { return mIsStatePressed; }
+		bool getButtonPressed() { return mIsStatePressed; }
 
 	protected:
 
@@ -37,7 +37,7 @@ namespace MyGUI
 		virtual void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
-		inline void updateButtonState()
+		void updateButtonState()
 		{
 			if (mIsFocus) {
 				if (mIsPressed || mIsStatePressed) setState("select");

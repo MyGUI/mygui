@@ -19,13 +19,13 @@ public:
 	virtual void initialise(MyGUI::WidgetPtr _parent);
 	virtual void shutdown();
 
-	inline MyGUI::WidgetPtr operator->() const
+	MyGUI::WidgetPtr operator->() const
 	{
 		MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
 		return mMainWidget;
 	}
 
-	inline MyGUI::WidgetPtr mainWidget()
+	MyGUI::WidgetPtr mainWidget()
 	{
 		MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
 		return mMainWidget;

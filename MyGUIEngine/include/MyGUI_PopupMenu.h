@@ -54,7 +54,7 @@ namespace MyGUI
 
 	public:
 		// методы для работы со списком
-		inline ItemInfo& addItem(const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { return insertItem(ITEM_NONE, _item, _submenu, _separator); }
+		ItemInfo& addItem(const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { return insertItem(ITEM_NONE, _item, _submenu, _separator); }
 		ItemInfo& insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
 		void setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
 

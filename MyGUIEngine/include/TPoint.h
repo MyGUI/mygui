@@ -21,31 +21,31 @@ namespace types
 		TPoint( TPoint const & o ) : left( o.left ), top( o.top ) { }
 		explicit TPoint(const std::string& _value) {*this = parse(_value);}
 
-		inline TPoint & operator-=( TPoint const & o )
+		TPoint & operator-=( TPoint const & o )
 		{
 			left -= o.left;
 			top -= o.top;
 			return *this;
 		}
 
-		inline TPoint & operator+=( TPoint const & o )
+		TPoint & operator+=( TPoint const & o )
 		{
 			left += o.left;
 			top += o.top;
 			return *this;
 		}
 
-		inline TPoint operator-( TPoint const & o ) const
+		TPoint operator-( TPoint const & o ) const
 		{
 			return TPoint(left - o.left, top - o.top);
 		}
 
-		inline TPoint operator+( TPoint const & o ) const
+		TPoint operator+( TPoint const & o ) const
 		{
 			return TPoint(left + o.left, top + o.top);
 		}
 
-		inline TPoint & operator=( TPoint const & o )
+		TPoint & operator=( TPoint const & o )
 		{
 			left = o.left;
 			top = o.top;
@@ -53,54 +53,54 @@ namespace types
 		}
 
 		template< typename U >
-		inline TPoint & operator=( TPoint<U> const & o )
+		TPoint & operator=( TPoint<U> const & o )
 		{
 			left = o.left;
 			top = o.top;
 			return *this;
 		}
 
-		inline bool operator==( TPoint const & o ) const
+		bool operator==( TPoint const & o ) const
 		{
 			return ((left == o.left) && (top == o.top));
 		}
 
-		inline bool operator!=( TPoint const & o ) const
+		bool operator!=( TPoint const & o ) const
 		{
 			return ! ((left == o.left) && (top == o.top));
 		}
 
-		inline void clear()
+		void clear()
 		{
 			left = top = 0;
 		}
 
-		inline void set( T const & l, T const & t)
+		void set( T const & l, T const & t)
 		{
 			left = l;
 			top = t;
 		}
 
-		inline void swap(TPoint& _value)
+		void swap(TPoint& _value)
 		{
 			TPoint tmp = _value;
 			_value = *this;
 			*this = tmp;
 		}
 
-		inline bool empty() const
+		bool empty() const
 		{
 			return ((left == 0) && (top == 0));
 		}
 
-		inline std::string print() const
+		std::string print() const
 		{
 	        std::ostringstream stream;
 	        stream << *this;
 		    return stream.str();
 		}
 
-		inline static TPoint<T> parse(const std::string& _value)
+		static TPoint<T> parse(const std::string& _value)
 		{
 			TPoint<T> ret;
 	        std::istringstream stream(_value);
@@ -108,13 +108,13 @@ namespace types
 		    return ret;
 		}
 
-        inline friend std::ostream& operator << ( std::ostream& _stream, const TPoint<T>&  _value )
+        friend std::ostream& operator << ( std::ostream& _stream, const TPoint<T>&  _value )
         {
             _stream << _value.left << " " << _value.top;
             return _stream;
         }
 
-        inline friend std::istream& operator >> ( std::istream& _stream, TPoint<T>&  _value )
+        friend std::istream& operator >> ( std::istream& _stream, TPoint<T>&  _value )
         {
             _stream >> _value.left >> _value.top;
 			if (_stream.fail()) _value.clear();

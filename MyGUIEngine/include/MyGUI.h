@@ -53,5 +53,6 @@
 #include "MyGUI_ControllerPosition.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_CastWidget.h"
+#include "MyGUI_Any.h"
 
 #endif // __MYGUI_H__

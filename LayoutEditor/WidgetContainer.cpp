@@ -6,7 +6,8 @@ const std::string LogSection = "LayoutEditor";
 
 INSTANCE_IMPLEMENT(EditorWidgets);
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
+inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+{
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 

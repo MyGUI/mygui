@@ -55,7 +55,7 @@ namespace MyGUI
 		void prepareItem(WidgetPtr _widget);
 		//void replaseItem(WidgetPtr _widget, ControllerItem * _item);
 
-		inline float getElapsedTime() {return mElapsedTime;}
+		float getElapsedTime() {return mElapsedTime;}
 
 		IntCoord mStartRect;
 		IntCoord mDestRect;

@@ -36,9 +36,9 @@ namespace MyGUI
 
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
-		inline bool isLanguageExist(const std::string & _name) { return mMapFile.find(_name) != mMapFile.end(); }
+		bool isLanguageExist(const std::string & _name) { return mMapFile.find(_name) != mMapFile.end(); }
 		bool setCurrentLanguage(const std::string & _name);
-		inline std::string getCurrentLanguage() { return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : ""; }
+		std::string getCurrentLanguage() { return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : ""; }
 
 		/** Replace all tags #{tagname} in _line with appropriate string or keep #{tagname} if no replacement found */
 		Ogre::UTFString replaceTags(const Ogre::UTFString & _line);
@@ -46,7 +46,7 @@ namespace MyGUI
 		/** Get tag value */
 		Ogre::UTFString getTag(const Ogre::UTFString & _tag);
 
-		inline void addTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mMapLanguage[_tag] = _replace; }
+		void addTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mMapLanguage[_tag] = _replace; }
 
 		/** Event : Change current language.\n
 			info : \n

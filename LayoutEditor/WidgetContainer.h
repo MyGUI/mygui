@@ -39,7 +39,7 @@ struct WidgetContainer
 	Ogre::String name;
 	Ogre::String layer;
 	// not for saving
-	inline std::string position(bool _percent = true)
+	std::string position(bool _percent = true)
 	{
 		if (relative_mode){
 			MyGUI::FloatCoord coord = MyGUI::WidgetManager::getInstance().convertIntToRelative(widget->getCoord(), widget->getParent());

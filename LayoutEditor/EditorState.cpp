@@ -19,7 +19,8 @@ const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition:
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str) {
+inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+{
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 

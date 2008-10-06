@@ -93,7 +93,7 @@ namespace MyGUI
 		void setSmoothShow(bool _smooth);
 
 		/** Get name of default layer for Message*/
-		inline const std::string & getDefaultLayer() {return mDefaultLayer;}
+		const std::string & getDefaultLayer() {return mDefaultLayer;}
 
 		/** Set message image*/
 		void setMessageImage(size_t _image);
@@ -115,26 +115,26 @@ namespace MyGUI
 			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "");
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, ViewInfo _info)
+		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, _info);
 		}
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, EventMessageEnd * _delegate, ViewInfo _info)
+		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, EventMessageEnd * _delegate, ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, _info);
 		}
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
+		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
 			const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, None, _button1, _button2, _button3);
 		}
 
 		/** See Message::_createMessage*/
-		inline static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
+		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
 			EventMessageEnd * _delegate, const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, None, _button1, _button2, _button3);

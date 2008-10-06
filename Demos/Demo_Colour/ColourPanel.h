@@ -20,10 +20,10 @@ public:
 	void show();
 	void hide();
 
-	inline bool isShow() { return mMainWidget->isShow(); } 
+	bool isShow() { return mMainWidget->isShow(); } 
 
 	void setColour(const Ogre::ColourValue & _colour);
-	inline const Ogre::ColourValue & getColour() { return mCurrentColour; }
+	const Ogre::ColourValue & getColour() { return mCurrentColour; }
 
 private:
 	void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);

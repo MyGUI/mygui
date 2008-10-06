@@ -37,9 +37,9 @@ namespace MyGUI
 
 		void _render(bool _update);
 
-		inline const std::string& getTextureName() { return mTextureName; }
+		const std::string& getTextureName() { return mTextureName; }
 
-		inline void addDrawItem(DrawItem * _item, size_t _count)
+		void addDrawItem(DrawItem * _item, size_t _count)
 		{
 
 // проверяем только в дебаге
@@ -56,7 +56,7 @@ namespace MyGUI
 
 		void removeDrawItem(DrawItem * _item);
 
-		inline void reallockDrawItem(DrawItem * _item, size_t _count)
+		void reallockDrawItem(DrawItem * _item, size_t _count)
 		{
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
 				if ((*iter).first == _item) {
@@ -72,16 +72,16 @@ namespace MyGUI
 			MYGUI_EXCEPT("DrawItem not found");
 		}
 
-		inline void setTextureName(const std::string& _texture)
+		void setTextureName(const std::string& _texture)
 		{
 			MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
 			mTextureName = _texture;
 		}
 
-		inline void outOfDate() { mOutDate = true; }
+		void outOfDate() { mOutDate = true; }
 
-		inline size_t getVertexCount() {return mVertexCount;}
-		inline size_t getNeedVertexCount() {return mNeedVertexCount;}
+		size_t getVertexCount() {return mVertexCount;}
+		size_t getNeedVertexCount() {return mNeedVertexCount;}
 
 	private:
 		void initRenderState();

@@ -19,12 +19,12 @@ public:
 
 	virtual void initialise(MyGUI::WidgetPtr _parent);
 
-	inline void setCaption(const Ogre::UTFString & _caption) { mTextCaption->setCaption(_caption); }
-	inline const Ogre::UTFString & getCaption() { return mTextCaption->getCaption(); }
+	void setCaption(const Ogre::UTFString & _caption) { mTextCaption->setCaption(_caption); }
+	const Ogre::UTFString & getCaption() { return mTextCaption->getCaption(); }
 
 	DelegateUpdate eventUpdatePanel;
 
-	inline MyGUI::WidgetPtr getClient() { return mWidgetClient; }
+	MyGUI::WidgetPtr getClient() { return mWidgetClient; }
 
 	void setClientHeight(int _height, bool _smooth = true);
 	bool isMinimized();

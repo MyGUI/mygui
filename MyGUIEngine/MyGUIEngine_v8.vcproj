@@ -512,6 +512,10 @@
 							RelativePath=".\src\MyGUI_Align.cpp"
 							>
 						</File>
+						<File
+							RelativePath=".\src\MyGUI_Any.cpp"
+							>
+						</File>
 					</Filter>
 					<Filter
 						Name="Interfaces"
@@ -1011,6 +1015,10 @@
 							>
 						</File>
 						<File
+							RelativePath=".\include\MyGUI_Any.h"
+							>
+						</File>
+						<File
 							RelativePath=".\include\MyGUI_Types.h"
 							>
 						</File>
@@ -1139,7 +1147,7 @@
 						Name="Interface"
 						>
 						<File
-							RelativePath=".\include\MyGUI_IResource2.h"
+							RelativePath=".\include\MyGUI_IResource.h"
 							>
 						</File>
 					</Filter>

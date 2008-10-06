@@ -31,14 +31,14 @@ namespace MyGUI
 		bool getTagColour(Ogre::UTFString & _colour);
 
 		// удаляет цвет
-		inline void clearTagColour() {getTagColour(true);}
+		void clearTagColour() {getTagColour(true);}
 
 		bool setTagColour(const Ogre::ColourValue & _colour);
 
 		bool setTagColour(Ogre::UTFString _colour);
 
 		// сохраняет текущий итератор
-		inline bool saveStartPoint()
+		bool saveStartPoint()
 		{
 			if (mCurrent == mEnd) return false;
 			mSave = mCurrent;
@@ -46,7 +46,7 @@ namespace MyGUI
 		}
 
 		// возвращает строку от сохраненного итератора до текущего
-		inline Ogre::UTFString getFromStart()
+		Ogre::UTFString getFromStart()
 		{
 			if (mSave == mEnd) return L"";
 			size_t start = mSave-mText.begin();
@@ -54,7 +54,7 @@ namespace MyGUI
 		}
 
 		// удаляет от запомненной точки до текущей
-		inline bool eraseFromStart()
+		bool eraseFromStart()
 		{
 			if (mSave == mEnd) return false;
 			mCurrent = erase(mSave, mCurrent);
@@ -63,18 +63,18 @@ namespace MyGUI
 		}
 
 		// возвращает текущую псевдо позицию
-		inline size_t getPosition() {return mPosition;}
+		size_t getPosition() {return mPosition;}
 
-		inline const Ogre::UTFString & getText() {return mText;}
+		const Ogre::UTFString & getText() {return mText;}
 
-		inline void insertText(const Ogre::UTFString & _insert, bool _multiLine)
+		void insertText(const Ogre::UTFString & _insert, bool _multiLine)
 		{
 			Ogre::UTFString text = _insert;
 			if (false == _multiLine) clearNewLine(text);
 			insert(mCurrent, text);
 		}
 
-		inline void clearNewLine(Ogre::UTFString & _text)
+		void clearNewLine(Ogre::UTFString & _text)
 		{
 			for (Ogre::UTFString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
 				if ( ((*iter) == Font::FONT_CODE_NEL) || ((*iter) == Font::FONT_CODE_CR) || ((*iter) == Font::FONT_CODE_LF) )
@@ -83,12 +83,12 @@ namespace MyGUI
 		}
 
 		//очищает весь текст
-		inline void clearText() {clear();}
+		void clearText() {clear();}
 
 		// возвращает размер строки
 		size_t getSize();
 
-		inline void setText(const Ogre::UTFString & _text, bool _multiLine)
+		void setText(const Ogre::UTFString & _text, bool _multiLine)
 		{
 			// сначала все очищаем
 			clear();
@@ -105,12 +105,12 @@ namespace MyGUI
 		// возвращает текст без тегов
 		static Ogre::UTFString getOnlyText(const Ogre::UTFString& _text);
 
-		inline static Ogre::UTFString getTextNewLine()
+		static Ogre::UTFString getTextNewLine()
 		{
 			return L"\n";
 		}
 
-		inline static Ogre::UTFString getTextCharInfo(Char _char)
+		static Ogre::UTFString getTextCharInfo(Char _char)
 		{
 			if (_char == L'#') return L"##";
 			Char buff[16] = L"_\0";
@@ -119,7 +119,7 @@ namespace MyGUI
 		}
 
 		// просто конвертируем цвет в строку
-		inline static Ogre::UTFString convertTagColour(const Ogre::ColourValue & _colour)
+		static Ogre::UTFString convertTagColour(const Ogre::ColourValue & _colour)
 		{
 			const size_t SIZE = 16;
 			Char buff[SIZE];
@@ -132,7 +132,7 @@ namespace MyGUI
 			return buff;
 		}
 
-		inline static Ogre::UTFString toTagsString(const Ogre::UTFString& _text)
+		static Ogre::UTFString toTagsString(const Ogre::UTFString& _text)
 		{
 			// преобразуем в строку с тегами
 			Ogre::UTFString text(_text);
@@ -149,7 +149,7 @@ namespace MyGUI
 		// возвращает цвет
 		bool getTagColour(Ogre::UTFString & _colour, Ogre::UTFString::iterator & _iter);
 
-		inline void insert(Ogre::UTFString::iterator & _start, Ogre::UTFString & _insert)
+		void insert(Ogre::UTFString::iterator & _start, Ogre::UTFString & _insert)
 		{
 			// сбрасываем размер
 			mSize = ITEM_NONE;
@@ -166,7 +166,7 @@ namespace MyGUI
 			(pos_save==ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
 		}
 
-		inline Ogre::UTFString::iterator erase(Ogre::UTFString::iterator _start, Ogre::UTFString::iterator _end)
+		Ogre::UTFString::iterator erase(Ogre::UTFString::iterator _start, Ogre::UTFString::iterator _end)
 		{
 			// сбрасываем размер
 			mSize = ITEM_NONE;
@@ -177,7 +177,7 @@ namespace MyGUI
 			return mText.erase(_start, _end);
 		}
 
-		inline void clear()
+		void clear()
 		{
 			if (mText.empty()) return;
 

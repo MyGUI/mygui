@@ -50,14 +50,14 @@ namespace MyGUI
 		/** Find widget by name */
 		WidgetPtr findWidgetT(const Ogre::String & _name);
 		/** Find widget by name and prefix*/
-		inline WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
+		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
 		{
 			return findWidgetT(_prefix + _name);
 		}
 		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause error in DEBUG mode.
 		*/
-		template <class T> inline T* findWidget(const std::string& _name)
+		template <typename T> T* findWidget(const std::string& _name)
 		{
 			WidgetPtr widget = findWidgetT(_name);
 			if (null == widget) return null;
@@ -65,7 +65,7 @@ namespace MyGUI
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/
-		template <class T> inline T* findWidget(const std::string& _name, const std::string& _prefix)
+		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix)
 		{
 			return findWidget<T>(_prefix + _name);
 		}

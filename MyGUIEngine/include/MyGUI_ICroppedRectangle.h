@@ -38,43 +38,43 @@ namespace MyGUI
 		virtual void setAlpha(float _alpha) { }
 		virtual float getAlpha() { return ALPHA_MAX; }
 
-		inline ICroppedRectangle * getParent() { return mParent; }
+		ICroppedRectangle * getParent() { return mParent; }
 
-		inline const IntCoord& getCoord()       { return mCoord; }
-		inline IntPoint getPosition()       { return mCoord.point(); }
-		inline IntSize getSize()       { return mCoord.size(); }
+		const IntCoord& getCoord()       { return mCoord; }
+		IntPoint getPosition()       { return mCoord.point(); }
+		IntSize getSize()       { return mCoord.size(); }
 
-		inline const IntPoint& getAbsolutePosition() { return mAbsolutePosition; }
-		inline IntRect getAbsoluteRect() { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
-		inline IntCoord getAbsoluteCoord() { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
+		const IntPoint& getAbsolutePosition() { return mAbsolutePosition; }
+		IntRect getAbsoluteRect() { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
+		IntCoord getAbsoluteCoord() { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
 
-		inline float getAbsoluteLeft() { return mAbsolutePosition.left; }
-		inline float getAbsoluteTop() { return mAbsolutePosition.top; }
+		float getAbsoluteLeft() { return mAbsolutePosition.left; }
+		float getAbsoluteTop() { return mAbsolutePosition.top; }
 
-		inline void setAlign(Align _align) { mAlign = _align; }
-		inline Align getAlign() { return mAlign; }
+		void setAlign(Align _align) { mAlign = _align; }
+		Align getAlign() { return mAlign; }
 
-		inline bool isMargin() { return mIsMargin; }
+		bool isMargin() { return mIsMargin; }
 
-		inline int getLeft() { return mCoord.left; }
-		inline int getRight() { return mCoord.right(); }
-		inline int getTop() { return mCoord.top; }
-		inline int getBottom() { return mCoord.bottom(); }
-		inline int getWidth() { return mCoord.width; }
-		inline int getHeight() { return mCoord.height; }
+		int getLeft() { return mCoord.left; }
+		int getRight() { return mCoord.right(); }
+		int getTop() { return mCoord.top; }
+		int getBottom() { return mCoord.bottom(); }
+		int getWidth() { return mCoord.width; }
+		int getHeight() { return mCoord.height; }
 
-		inline int getViewLeft() { return mCoord.left + mMargin.left; }
-		inline int getViewRight() { return mCoord.right() - mMargin.right; }
-		inline int getViewTop() { return mCoord.top + mMargin.top; }
-		inline int getViewBottom() { return mCoord.bottom() - mMargin.bottom; }
-		inline int getViewWidth() { return mCoord.width - mMargin.left - mMargin.right; }
-		inline int getViewHeight() { return mCoord.height - mMargin.top - mMargin.bottom; }
+		int getViewLeft() { return mCoord.left + mMargin.left; }
+		int getViewRight() { return mCoord.right() - mMargin.right; }
+		int getViewTop() { return mCoord.top + mMargin.top; }
+		int getViewBottom() { return mCoord.bottom() - mMargin.bottom; }
+		int getViewWidth() { return mCoord.width - mMargin.left - mMargin.right; }
+		int getViewHeight() { return mCoord.height - mMargin.top - mMargin.bottom; }
 
-		inline const IntRect& getMargin() { return mMargin; }
-		inline int getMarginLeft() { return mMargin.left; }
-		inline int getMarginRight() { return mMargin.right; }
-		inline int getMarginTop() { return mMargin.top; }
-		inline int getMarginBottom() { return mMargin.bottom; }
+		const IntRect& getMargin() { return mMargin; }
+		int getMarginLeft() { return mMargin.left; }
+		int getMarginRight() { return mMargin.right; }
+		int getMarginTop() { return mMargin.top; }
+		int getMarginBottom() { return mMargin.bottom; }
 
 		virtual void _updateView() { }
 		virtual void _correctView() { }
@@ -82,12 +82,12 @@ namespace MyGUI
 		virtual void _setAlign(const IntCoord& _coord, bool _update) { }
 
 	protected:
-		inline bool _checkPoint(int _left, int _top)
+		bool _checkPoint(int _left, int _top)
 		{
 			return ! ((getViewLeft() > _left ) || (getViewTop() > _top) || (getViewRight() < _left) || (getViewBottom() < _top) );
 		}
 
-		inline bool _checkMargin()
+		bool _checkMargin()
 		{
 			bool margin = false;
 			//вылезли ли налево
@@ -129,7 +129,7 @@ namespace MyGUI
 			return margin;
 		}
 
-		inline bool _checkOutside() // проверка на полный выход за границу
+		bool _checkOutside() // проверка на полный выход за границу
 		{
 			return ( (getRight() < mParent->mMargin.left ) || // совсем уехали налево
 				(getLeft() > mParent->getWidth() - mParent->mMargin.right ) || // совсем уехали направо

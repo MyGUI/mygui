@@ -7,6 +7,7 @@
 #include "DemoKeeper.h"
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_Any.h"
 //#include "../Test.h"
  
 namespace demo
@@ -19,18 +20,18 @@ namespace demo
         Guid( Guid const & _value ) { *this = _value; }
         explicit Guid(const std::string& _value) { *this = parse(_value); }
         
-        inline bool operator == (Guid const & _comp) const
+        bool operator == (Guid const & _comp) const
         {
             return _comp.fast._data1 == fast._data1
                 && _comp.fast._data2 == fast._data2
                 && _comp.fast._data3 == fast._data3
                 && _comp.fast._data4 == fast._data4;
         }
-        inline bool operator != ( Guid const & _comp ) const
+        bool operator != ( Guid const & _comp ) const
         {
             return ! (*this == _comp);
         }
-        inline Guid & operator = (Guid const & _rvalue)
+        Guid & operator = (Guid const & _rvalue)
         {
             fast._data1 = _rvalue.fast._data1;
             fast._data2 = _rvalue.fast._data2;
@@ -38,26 +39,26 @@ namespace demo
             fast._data4 = _rvalue.fast._data4;
             return *this;
         }
-        inline bool empty() const
+        bool empty() const
         {
             return fast._data1 == 0
                 && fast._data2 == 0
                 && fast._data3 == 0
                 && fast._data4 == 0;
         }
-        inline void clear()
+        void clear()
         {
             fast._data1 = fast._data2 = fast._data3 = fast._data4 = 0; 
         }
         std::string print() const;
         static Guid parse(const std::string& _value);
         static Guid generate();
-        inline friend std::ostream& operator << ( std::ostream& _stream, const Guid &  _value )
+        friend std::ostream& operator << ( std::ostream& _stream, const Guid &  _value )
         {
             _stream << _value.print();
             return _stream;
         }
-        inline friend std::istream& operator >> ( std::istream& _stream, Guid &  _value )
+        friend std::istream& operator >> ( std::istream& _stream, Guid &  _value )
         {
             std::string value;
             _stream >> value;
@@ -264,6 +265,10 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
  
         return true;
     }
+
+	void test(MyGUI::Any _data = MyGUI::Any::Null)
+	{
+	}
  
     void DemoKeeper::createScene()
     {
@@ -276,8 +281,17 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
         base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
         base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
 
-		MyGUI::xml::xmlDocument document;
-		document.open("gavno.xml");
+		//MyGUI::xml::xmlDocument document;
+		//document.open("gavno.xml");
+
+		MyGUI::Any any;
+		any = size;
+
+		IntSize size2 = *any.castType<IntSize>();
+
+		test();
+
+		any = Any::Null;
 
 		//Test2 * test = new Test2();
 
