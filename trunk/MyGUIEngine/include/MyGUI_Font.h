@@ -130,18 +130,18 @@ namespace MyGUI
 
 		GlyphInfo * getGlyphInfo(CodePoint _id);
 
-		inline void addCodePointRange(Ogre::Real _first, Ogre::Real _second)
+		void addCodePointRange(Ogre::Real _first, Ogre::Real _second)
 		{
 			mVectorRangeInfo.push_back(RangeInfo((Ogre::uint32)_first, (Ogre::uint32)_second));
 		}
 
-		inline void addHideCodePointRange(Ogre::Real _first, Ogre::Real _second)
+		void addHideCodePointRange(Ogre::Real _first, Ogre::Real _second)
 		{
 			mVectorHideCodePoint.push_back(PairCodePoint((unsigned int)_first, (unsigned int)_second));
 		}
 
 		// проверяет, входит ли символ в зоны ненужных символов
-		inline bool checkHidePointCode(CodePoint _id)
+		bool checkHidePointCode(CodePoint _id)
 		{
 			for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter) {
 				if ((_id >= iter->first) && (_id <= iter->second)) return true;
@@ -156,40 +156,40 @@ namespace MyGUI
 			mVectorHideCodePoint.clear();
 		}
 
-		inline const Ogre::TexturePtr& getTextureFont() const { return mTexture; }
-		inline const Ogre::TexturePtr& getTextureFont() { return mTexture; }
+		const Ogre::TexturePtr& getTextureFont() const { return mTexture; }
+		const Ogre::TexturePtr& getTextureFont() { return mTexture; }
 
-        inline void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
-        inline bool getAntialiasColour(void) const { return mAntialiasColour; }
+        void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
+        bool getAntialiasColour(void) const { return mAntialiasColour; }
 
-		inline Ogre::uint16 getDefaultHeight() const { return mDefaultHeight; }
-		inline void setDefaultHeight(Ogre::uint16 _height) { mDefaultHeight = _height; }
+		Ogre::uint16 getDefaultHeight() const { return mDefaultHeight; }
+		void setDefaultHeight(Ogre::uint16 _height) { mDefaultHeight = _height; }
 
-		inline Ogre::uint16 getHeightPix() { return mHeightPix; }
+		Ogre::uint16 getHeightPix() { return mHeightPix; }
 
 		/** Implementation of ManualResourceLoader::loadResource, called
 			when the Texture that this font creates needs to (re)load. */
 		void loadResource(Ogre::Resource* resource);
 
 		//ширина пробела в пикселях
-		inline CodePoint setSpaceWidth() {return mSpaceWidth;}
-		inline void setSpaceWidth(Ogre::uint8 _pix) {mSpaceWidth = _pix;}
+		CodePoint setSpaceWidth() {return mSpaceWidth;}
+		void setSpaceWidth(Ogre::uint8 _pix) {mSpaceWidth = _pix;}
 
 		// ширина таба в пикселях
-		inline Ogre::uint8 getTabWidth() {return mTabWidth;}
-		inline void setTabWidth(Ogre::uint8 _pix) {mTabWidth = _pix;}
+		Ogre::uint8 getTabWidth() {return mTabWidth;}
+		void setTabWidth(Ogre::uint8 _pix) {mTabWidth = _pix;}
 
 		// ширина курсора в пикселях
-		inline Ogre::uint8 getCursorWidth() {return mCursorWidth;}
-		inline void setCursorWidth(Ogre::uint8 _pix) {mCursorWidth = _pix;}
+		Ogre::uint8 getCursorWidth() {return mCursorWidth;}
+		void setCursorWidth(Ogre::uint8 _pix) {mCursorWidth = _pix;}
 
 		// расстояние между символами при генерации в пикселях
-		inline Ogre::uint8 getDistance() {return mDistance;}
-		inline void setDistance(Ogre::uint8 _pix) {mDistance = _pix;}
+		Ogre::uint8 getDistance() {return mDistance;}
+		void setDistance(Ogre::uint8 _pix) {mDistance = _pix;}
 
 		// смещение всех символов по горизонтали
-		inline Ogre::uint8 getOffsetHeight() {return mOffsetHeight;}
-		inline void setOffsetHeight(Ogre::uint8 _pix) {mOffsetHeight = _pix;}
+		Ogre::uint8 getOffsetHeight() {return mOffsetHeight;}
+		void setOffsetHeight(Ogre::uint8 _pix) {mOffsetHeight = _pix;}
 
     };
 

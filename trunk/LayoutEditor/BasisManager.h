@@ -56,7 +56,7 @@ public:
 	// добавляет строку в список параметров
 	void addCommandParam(const std::string & _param);
 	// возвращает список параметров коммандной строки
-	inline const Params & getCommandParams() { return mParams; }
+	const Params & getCommandParams() { return mParams; }
 
 	void setWindowCaption(const std::string & _text);
 
@@ -70,13 +70,13 @@ public:
 	void dropFile(const std::string & _file);
 	void windowClose();
 
-	inline bool isFullscreen() { return mFullscreen; }
+	bool isFullscreen() { return mFullscreen; }
 	void setFullscreen(bool _fullscreen);
 
-	inline void eventExit() {m_exit = true;}
+	void eventExit() {m_exit = true;}
 
-	inline std::string getLanguage() {return mLanguage;}
-	inline void setLanguage(std::string _language) {mLanguage = _language;}
+	std::string getLanguage() {return mLanguage;}
+	void setLanguage(std::string _language) {mLanguage = _language;}
 
 private:
 	void setupResources(); // загружаем все ресурсы приложения

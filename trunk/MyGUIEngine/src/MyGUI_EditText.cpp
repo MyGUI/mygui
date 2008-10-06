@@ -27,7 +27,7 @@ namespace MyGUI
 	{
 		RollBackSave() : rollback(false) {}
 
-		inline void set(
+		void set(
 			VectorCharInfo::iterator & _space_rollback,
 			Ogre::UTFString::const_iterator & _space_point,
 			size_t _count,
@@ -41,7 +41,7 @@ namespace MyGUI
 			rollback = true;
 		}
 
-		inline void reset() { rollback = false; }
+		void reset() { rollback = false; }
 
 		VectorCharInfo::iterator space_rollback;
 		Ogre::UTFString::const_iterator space_point;

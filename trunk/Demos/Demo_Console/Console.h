@@ -23,10 +23,10 @@ public:
 	void show();
 	void hide();
 
-	inline bool isShow() { return mMainWidget->isShow(); } 
+	bool isShow() { return mMainWidget->isShow(); } 
 
 	void addToConsole(const Ogre::UTFString & _line);
-	inline void addToConsole(const Ogre::UTFString & _reason, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
+	void addToConsole(const Ogre::UTFString & _reason, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 	{
 		addToConsole(MyGUI::utility::toString(_reason, "'", _key, " ", _value, "'"));
 	}

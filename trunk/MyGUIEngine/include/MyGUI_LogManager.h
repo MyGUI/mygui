@@ -48,11 +48,11 @@ namespace MyGUI
 		LogManager();
 		~LogManager();
 
-		inline static void lock()
+		static void lock()
 		{
 		}
 
-		inline static void release()
+		static void release()
 		{
 		}
 

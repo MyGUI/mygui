@@ -48,9 +48,9 @@ namespace MyGUI
 		static bool isPowerOfTwo(IntSize _size);
 
 		/** Check is skin exist */
-		inline bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }
+		bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }
 
-		inline EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins.begin(), mSkins.end()); }
+		EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins.begin(), mSkins.end()); }
 
 	private:
 		void createDefault();

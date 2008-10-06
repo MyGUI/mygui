@@ -20,7 +20,8 @@ namespace MyGUI
 
 		VectorString vec;
 		vec.push_back("value");
-		EnumeratorVectorString enum_vec(vec.begin(), vec.end());
+		//EnumeratorVectorString enum_vec(vec.begin(), vec.end());
+		EnumeratorVectorString enum_vec(vec);
 		while (enum_vec.next()) {
 			std::string value = enum_vec.current();
 		};
@@ -30,7 +31,8 @@ namespace MyGUI
 
 		MapString map;
 		map["key"] = "value";
-		EnumeratorMapString enum_map(map.begin(), map.end());
+		//EnumeratorMapString enum_map(map.begin(), map.end());
+		EnumeratorMapString enum_map(map);
 		while (enum_map.next()) {
 			std::string key = enum_map.current().first;
 			std::string value = enum_map.current().second;
@@ -38,13 +40,20 @@ namespace MyGUI
 
 	*/
 
-	template<class T>
+	template<typename T>
 	class Enumerator
 	{
 	private:
 		Enumerator() { }
 
 	public:
+		explicit Enumerator(typename T & _container) :
+			m_first(true),
+			m_current(_container.begin()),
+			m_end(_container.end())
+		{
+		}
+
 		Enumerator(typename T::iterator _first, typename T::iterator _end) :
 			m_first(true),
 			m_current(_first),
@@ -64,13 +73,13 @@ namespace MyGUI
 			return true;
 		}
 
-		inline typename T::value_type operator->() const {assert(m_current != m_end); return (*m_current);}
-		inline typename T::value_type current() {assert(m_current != m_end); return (*m_current);}
+		typename T::value_type operator->() const { assert(m_current != m_end); return (*m_current); }
+		typename T::value_type current() { assert(m_current != m_end); return (*m_current); }
 
 	private:
-		bool m_first;
 		typename T::iterator m_current;
 		typename T::iterator m_end;
+		bool m_first;
 	};
 
 } // namespace MyGUI

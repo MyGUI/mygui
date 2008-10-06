@@ -22,7 +22,7 @@ public:
 	void show();
 	void hide();
 
-	inline bool isShow() { return mMainWidget->isShow(); } 
+	bool isShow() { return mMainWidget->isShow(); } 
 
 private:
 	void update();

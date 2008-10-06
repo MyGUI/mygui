@@ -467,7 +467,7 @@ namespace MyGUI
 
 		struct Keeper
 		{
-			inline void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
+			void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
 			{
 				text.resize(info.size());
 				std::vector<Ogre::UTFString>::iterator itext = text.begin();
@@ -478,7 +478,7 @@ namespace MyGUI
 				index2 = vec2[_index];
 			}
 
-			inline void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
+			void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
 			{
 				std::vector<Ogre::UTFString>::iterator itext = text.begin();
 				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
@@ -488,7 +488,7 @@ namespace MyGUI
 				vec2[_index] = index2;
 			}
 
-			inline void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index1, size_t _index2)
+			void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index1, size_t _index2)
 			{
 				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
 					(*iter).list->setItem(_index1, (*iter).list->getItem(_index2));

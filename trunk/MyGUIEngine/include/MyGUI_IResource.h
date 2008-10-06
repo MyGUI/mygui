@@ -9,6 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Rtti.h"
+#include "MyGUI_XmlDocument.h"
+#include "MyGUI_Guid.h"
 
 namespace MyGUI
 {
@@ -25,8 +27,27 @@ namespace MyGUI
 
 		MYGUI_RTTI_BASE_HEADER;
 
+	public:
+		const std::string & getResourceName() { return mResourceName; }
+		const Guid & getResourceID() { return mResourceID; }
+
+	private:
+		IResource() { }
+		IResource(IResource const &) { }
+		IResource & operator = (IResource const &) { return *this; }
+		
 	protected:
+		IResource(xml::xmlNodeIterator _node)
+		{
+			mResourceID = Guid::parse(_node->findAttribute("id"));
+			mResourceName = _node->findAttribute("name");
+		}
+
 		virtual ~IResource() = 0;
+
+	private:
+		std::string mResourceName;
+		Guid mResourceID;
 
 	};
 

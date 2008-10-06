@@ -47,7 +47,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------------------//
 		// Methods for work with columns (RU:לועמהû הכÿ נאבמעû סמ סעמכבצאלט)
 		//! Get number of columns
-		inline size_t getColumnCount() { return mVectorColumnInfo.size();}
+		size_t getColumnCount() { return mVectorColumnInfo.size();}
 
 		/** Insert new column
 			@param _column New column will be inserted before _column
@@ -59,7 +59,7 @@ namespace MyGUI
 			@param _width Width of new column
 			@param _name Name of new column
 		*/
-		inline void addColumn(int _width, const Ogre::UTFString & _name) {insertColumn(ITEM_NONE, _width, _name);}
+		void addColumn(int _width, const Ogre::UTFString & _name) {insertColumn(ITEM_NONE, _width, _name);}
 		/** Set column name
 			@param _column Index of column
 			@param _name New name of column
@@ -94,7 +94,7 @@ namespace MyGUI
 		/** Insert new item before _index line */
 		void insertItem(size_t _index, const Ogre::UTFString & _item);
 		/** Add new item at the end */
-		inline void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
+		void addItem(const Ogre::UTFString & _item) {insertItem(ITEM_NONE, _item);}
 		/** Set item string */
 		void setItem(size_t _index, const Ogre::UTFString & _item);
 		/** Get item string */

@@ -51,7 +51,7 @@ namespace MyGUI
 		void _loadList(xml::xmlNodePtr _node, const std::string & _file);
 
 		/** Get name of ResourceGroup*/
-		inline const std::string& getResourceGroup() { return mResourceGroup; }
+		const std::string& getResourceGroup() { return mResourceGroup; }
 
 		IResourcePtr getResource(const Guid & _id, bool _throw = true)
 		{
@@ -75,13 +75,24 @@ namespace MyGUI
 			return iter->second;
 		}
 
-		inline void registerType(const std::string & _type, CreatorDelegatePtr _delegate)
+		template <typename T>
+		std::vector<T*> getResources()
+		{
+			std::vector<T*> ret;
+			for (MapResource::const_iterator iter=mResources.begin(); iter!=mResources.end(); ++iter) {
+				T* resource = iter->second->castType<T>(false);
+				if (resource != null) ret.push_back(resource);
+			}
+			return ret;
+		}
+
+		void registerType(const std::string & _type, CreatorDelegatePtr _delegate)
 		{
 			MYGUI_ASSERT(mHolders.find(_type) == mHolders.end(), "dublicate resource type '" << _type << "'");
 			mHolders[_type] = _delegate;
 		}
 
-		inline void unregisterType(const std::string & _type)
+		void unregisterType(const std::string & _type)
 		{
 			MapDelegate::iterator iter = mHolders.find(_type);
 			MYGUI_ASSERT(iter != mHolders.end(), "delegate resource type '" << _type << "' not found");
@@ -90,10 +101,10 @@ namespace MyGUI
 
 		void clear();
 
-		inline size_t getResourceCount() { return mResources.size(); }
-		inline bool isExist(const Guid & _id) { return mResources.find(_id) != mResources.end(); }
-		inline bool isExist(const std::string & _name) { return mResourceNames.find(_name) != mResourceNames.end(); }
-		inline EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources.begin(), mResources.end()); }
+		size_t getResourceCount() { return mResources.size(); }
+		bool isExist(const Guid & _id) { return mResources.find(_id) != mResources.end(); }
+		bool isExist(const std::string & _name) { return mResourceNames.find(_name) != mResourceNames.end(); }
+		EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources); }
 
 	private:
 

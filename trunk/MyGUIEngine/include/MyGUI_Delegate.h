@@ -20,8 +20,8 @@ namespace MyGUI
 	class _MyGUIExport IDelegateUnlink
 	{
 	public:
-		inline IDelegateUnlink() { m_baseDelegateUnlink = this; }
-		inline bool compare(IDelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
+		IDelegateUnlink() { m_baseDelegateUnlink = this; }
+		bool compare(IDelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
 
 	private:
 		IDelegateUnlink * m_baseDelegateUnlink;
@@ -32,7 +32,7 @@ namespace MyGUI
 
 	// מהטם ןאנאלוענ
 	#define SUFFIX       1
-	#define TEMPLATE_PARAMS  class TP1
+	#define TEMPLATE_PARAMS  typename TP1
 	#define TEMPLATE_ARGS    TP1
 	#define PARAMS       TP1 p1
 	#define ARGS         p1
@@ -47,7 +47,7 @@ namespace MyGUI
 
 	// הגא ןאנאלוענא
 	#define SUFFIX       2
-	#define TEMPLATE_PARAMS  class TP1, class TP2
+	#define TEMPLATE_PARAMS  typename TP1, typename TP2
 	#define TEMPLATE_ARGS    TP1, TP2
 	#define PARAMS       TP1 p1, TP2 p2
 	#define ARGS         p1, p2
@@ -62,7 +62,7 @@ namespace MyGUI
 
 	// ענט ןאנאלוענא
 	#define SUFFIX       3
-	#define TEMPLATE_PARAMS  class TP1, class TP2, class TP3
+	#define TEMPLATE_PARAMS  typename TP1, typename TP2, typename TP3
 	#define TEMPLATE_ARGS    TP1, TP2, TP3
 	#define PARAMS       TP1 p1, TP2 p2, TP3 p3
 	#define ARGS         p1, p2, p3
@@ -77,7 +77,7 @@ namespace MyGUI
 
 	// קועûנו ןאנאלוענא
 	#define SUFFIX       4
-	#define TEMPLATE_PARAMS  class TP1, class TP2, class TP3, class TP4
+	#define TEMPLATE_PARAMS  typename TP1, typename TP2, typename TP3, typename TP4
 	#define TEMPLATE_ARGS    TP1, TP2, TP3, TP4
 	#define PARAMS       TP1 p1, TP2 p2, TP3 p3, TP4 p4
 	#define ARGS         p1, p2, p3, p4
@@ -92,7 +92,7 @@ namespace MyGUI
 
 	// ןÿעü ןאנאלוענמג
 	#define SUFFIX       5
-	#define TEMPLATE_PARAMS  class TP1, class TP2, class TP3, class TP4, class TP5
+	#define TEMPLATE_PARAMS  typename TP1, typename TP2, typename TP3, typename TP4, typename TP5
 	#define TEMPLATE_ARGS    TP1, TP2, TP3, TP4, TP5
 	#define PARAMS       TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5
 	#define ARGS         p1, p2, p3, p4, p5

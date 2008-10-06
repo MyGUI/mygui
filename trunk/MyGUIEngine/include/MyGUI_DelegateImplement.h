@@ -39,7 +39,7 @@ namespace delegates
 		virtual void invoke(PARAMS) = 0;
 		virtual bool compare(I_DELEGATE<TEMPLATE_ARGS>* _delegate) = 0;
 		virtual bool compare(IDelegateUnlink * _unlink) { return false; }
-		inline bool isStatic() { return mStatic; }
+		bool isStatic() { return mStatic; }
 
 	protected:
 		bool mStatic;
@@ -77,7 +77,7 @@ namespace delegates
 	};
 
 	// делегат для метода класса
-	template<class T, TEMPLATE_PARAMS>
+	template<typename T, TEMPLATE_PARAMS>
 	class C_METHOD_DELEGATE : public I_DELEGATE<TEMPLATE_ARGS>
 	{
 	public:
@@ -121,7 +121,7 @@ namespace delegates
 	// параметры : указатель на функцию
 	// пример : newDelegate(funk_name);
 	template<TEMPLATE_PARAMS>
-	I_DELEGATE<TEMPLATE_ARGS>* newDelegate(void (*_func)(PARAMS))
+	inline I_DELEGATE<TEMPLATE_ARGS>* newDelegate(void (*_func)(PARAMS))
 	{
 		return new C_STATIC_DELEGATE<TEMPLATE_ARGS>(_func);
 	}
@@ -129,8 +129,8 @@ namespace delegates
 	// шаблон для создания делегата метода класса
 	// параметры : указатель на объект класса и указатель на метод класса
 	// пример : newDelegate(&object_name, &class_name::method_name);
-	template <class T, TEMPLATE_PARAMS>
-	I_DELEGATE<TEMPLATE_ARGS>* newDelegate(T * _object, void (T::*_method)(PARAMS))
+	template <typename T, TEMPLATE_PARAMS>
+	inline I_DELEGATE<TEMPLATE_ARGS>* newDelegate(T * _object, void (T::*_method)(PARAMS))
 	{
 		return new C_METHOD_DELEGATE<T, TEMPLATE_ARGS> (GetDelegateUnlink(_object), _object, _method);
 	}

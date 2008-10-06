@@ -114,21 +114,21 @@ namespace MyGUI
 		//----------------------------------------------------------------//
 		// методы для изменения содержимого бокса
 		//! Get number of items
-		inline size_t getItemCount() { return (size_t)mCountItems;}
+		size_t getItemCount() { return (size_t)mCountItems;}
 
 		//! Insert an item into a box at a specified position
 		void insertItem(size_t _index, void * _data);
-		inline void insertItem(size_t _index) {insertItem(_index, null);}
+		void insertItem(size_t _index) {insertItem(_index, null);}
 
 		//! Add an item to the end of a box
-		inline void addItem(void * _data) {insertItem(ITEM_NONE, _data);}
-		inline void addItem() {insertItem(ITEM_NONE, null);}
+		void addItem(void * _data) {insertItem(ITEM_NONE, _data);}
+		void addItem() {insertItem(ITEM_NONE, null);}
 
 		//! Replace an item at a specified position
 		void setItemData(size_t _index, void * _data);
 
 		//! Get item from specified position
-		inline void * getItemData(size_t _index) {return getIndexItemData(_index);}
+		void * getItemData(size_t _index) {return getIndexItemData(_index);}
 		virtual void * getIndexItemData(size_t _index);
 
 		//! Delete item at a specified position
@@ -137,24 +137,24 @@ namespace MyGUI
 		void deleteAllItems();
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		inline size_t getItemSelect() {return mIndexSelect;}
+		size_t getItemSelect() {return mIndexSelect;}
 		//! Reset item selection
-		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		void resetItemSelect() {setItemSelect(ITEM_NONE);}
 		//! Set item selection at a specified position
 		void setItemSelect(size_t _index);
 
 		void setItemBoxAlignVert(bool _vert);
-		inline bool getItemBoxAlignVert() { return mAlignVert; }
+		bool getItemBoxAlignVert() { return mAlignVert; }
 
 		// возвращает индекс елемента, по указателю на виджет айтема
 		size_t getIndexByWidget(WidgetPtr _widget);
 
-		inline WidgetPtr getWidgetDrop() { return mItemDrag.item; }
+		WidgetPtr getWidgetDrop() { return mItemDrag.item; }
 
 		// возвращает виджет индекса, если он виден
 		WidgetPtr getWidgetByIndex(size_t _index);
 
-		inline void resetDrop() { endDrop(true); }
+		void resetDrop() { endDrop(true); }
 
 		//----------------------------------------------------------------//
 		//! @copydoc Widget::setPosition(const IntCoord& _coord)
@@ -162,11 +162,11 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(const IntSize& _size)
 		virtual void setSize(const IntSize& _size);
 		//! @copydoc Widget::setPosition(int _left, int _top)
-		inline void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
+		void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
 		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		inline void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
 		//! @copydoc Widget::setSize(int _width, int _height)
-		inline void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
 
 		// event : запрос на создание айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _parent, WidgetPtr & _item)

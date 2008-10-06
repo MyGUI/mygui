@@ -48,8 +48,8 @@ namespace MyGUI
 	{
 		namespace templates
 		{
-			template <class T>
-			Ogre::ColourValue parseColour(const std::string& _value)
+			template <typename T>
+			inline Ogre::ColourValue parseColour(const std::string& _value)
 			{
 				if (_value.empty()) return Ogre::ColourValue::ZERO;
 				if (_value[0] == '#') {
@@ -69,7 +69,7 @@ namespace MyGUI
 			}
 		} // namespace templates
 
-		inline Ogre::ColourValue parseColour(const std::string& _value) {return templates::parseColour<void>(_value);}
+		inline Ogre::ColourValue parseColour(const std::string& _value) { return templates::parseColour<void>(_value); }
 		inline std::string toString(const Ogre::ColourValue & _colour) { return toString(_colour.r, " " , _colour.g, " " , _colour.b, " ", _colour.a); }
 
 	} // namespace utility

@@ -66,7 +66,7 @@ namespace MyGUI
 			return true;
 		}
 
-		inline bool peek(const IntPoint& _point, const IntCoord& _coord) const
+		bool peek(const IntPoint& _point, const IntCoord& _coord) const
 		{
 			if ((0 == _coord.width) || (0 == _coord.height)) return false;
 
@@ -76,7 +76,7 @@ namespace MyGUI
 			return 0 != data[y * width + x];
 		}
 
-		inline bool empty() const
+		bool empty() const
 		{
 			return data.empty();
 		}

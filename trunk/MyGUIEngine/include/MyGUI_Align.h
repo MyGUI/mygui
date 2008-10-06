@@ -63,40 +63,40 @@ namespace MyGUI
 	{
 		typedef std::map<std::string, Align> MapAlign;
 
-		inline Align() : align(ALIGN_DEFAULT) { }
-		inline Align(int _align) : align(_align) { }
-		inline Align(Align const& _other) : align(_other.align) { }
-		inline explicit Align(const std::string & _parse) : align(Align::parse(_parse).align) { }
+		Align() : align(ALIGN_DEFAULT) { }
+		Align(int _align) : align(_align) { }
+		Align(Align const& _other) : align(_other.align) { }
+		explicit Align(const std::string & _parse) : align(Align::parse(_parse).align) { }
 
-		inline Align & operator = (Align const& _other)
+		Align & operator = (Align const& _other)
 		{
 			align = _other.align;
 			return *this;
 		}
 
-		inline Align & operator |= (Align const& _other)
+		Align & operator |= (Align const& _other)
 		{
 			align |= _other.align;
 			return *this;
 		}
 
-		inline bool operator==( Align const & o ) const
+		bool operator==( Align const & o ) const
 		{
 			return align == o.align;
 		}
 
-		inline bool operator!=( Align const & o ) const
+		bool operator!=( Align const & o ) const
 		{
 			return align != o.align;
 		}
 
-        inline friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value )
+        friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value )
         {
 			_stream << _value.print();
             return _stream;
         }
 
-        inline friend std::istream& operator >> ( std::istream& _stream, Align &  _value )
+        friend std::istream& operator >> ( std::istream& _stream, Align &  _value )
         {
 			std::string parse;
             _stream >> parse;
@@ -105,26 +105,26 @@ namespace MyGUI
             return _stream;
         }
 
-		inline bool isHCenter() { return IS_ALIGN_HCENTER(*this); }
-		inline bool isVCenter() { return IS_ALIGN_VCENTER(*this); }
-		inline bool isCenter() { return IS_ALIGN_CENTER(*this); }
-		//inline bool isCenterParent() { return IS_ALIGN_CENTER_PARENT(*this); }
+		bool isHCenter() { return IS_ALIGN_HCENTER(*this); }
+		bool isVCenter() { return IS_ALIGN_VCENTER(*this); }
+		bool isCenter() { return IS_ALIGN_CENTER(*this); }
+		//bool isCenterParent() { return IS_ALIGN_CENTER_PARENT(*this); }
 
-		inline bool isLeft() { return IS_ALIGN_LEFT(*this); }
-		inline bool isRight() { return IS_ALIGN_RIGHT(*this); }
-		inline bool isHStretch() { return IS_ALIGN_HSTRETCH(*this); }
+		bool isLeft() { return IS_ALIGN_LEFT(*this); }
+		bool isRight() { return IS_ALIGN_RIGHT(*this); }
+		bool isHStretch() { return IS_ALIGN_HSTRETCH(*this); }
 
-		inline bool isTop() { return IS_ALIGN_TOP(*this); }
-		inline bool isBottom() { return IS_ALIGN_BOTTOM(*this); }
-		inline bool isVStretch() { return IS_ALIGN_VSTRETCH(*this); }
+		bool isTop() { return IS_ALIGN_TOP(*this); }
+		bool isBottom() { return IS_ALIGN_BOTTOM(*this); }
+		bool isVStretch() { return IS_ALIGN_VSTRETCH(*this); }
 
-		inline bool isStretch() { return IS_ALIGN_STRETCH(*this); }
-		inline bool isDefault() { return IS_ALIGN_DEFAULT(*this); }
+		bool isStretch() { return IS_ALIGN_STRETCH(*this); }
+		bool isDefault() { return IS_ALIGN_DEFAULT(*this); }
 
-		inline bool isLeftTop() { return IS_ALIGN_LEFT_TOP(*this); }
-		inline bool isRightTop() { return IS_ALIGN_RIGHT_TOP(*this); }
-		inline bool isRightBottom() { return IS_ALIGN_RIGHT_BOTTOM(*this); }
-		inline bool isLeftBottom() { return IS_ALIGN_LEFT_BOTTOM(*this); }
+		bool isLeftTop() { return IS_ALIGN_LEFT_TOP(*this); }
+		bool isRightTop() { return IS_ALIGN_RIGHT_TOP(*this); }
+		bool isRightBottom() { return IS_ALIGN_RIGHT_BOTTOM(*this); }
+		bool isLeftBottom() { return IS_ALIGN_LEFT_BOTTOM(*this); }
 
 		static Align parse(const std::string & _value);
 		std::string print() const;

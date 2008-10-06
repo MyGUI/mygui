@@ -27,12 +27,12 @@ namespace MyGUI
 		{
 		}
 
-		inline void addParam(const std::string& _key, const std::string& _value)
+		void addParam(const std::string& _key, const std::string& _value)
 		{
 			params[_key] = _value;
 		}
 
-		inline std::string findValue(const std::string& _key) const
+		std::string findValue(const std::string& _key) const
 		{
 			MapString::const_iterator iter = params.find(_key);
 			if (iter != params.end()) return iter->second;

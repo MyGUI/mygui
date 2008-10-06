@@ -109,7 +109,7 @@ namespace MyGUI
 					iter->second(resource, root);
 
 					mResources[guid] = resource;
-					mResourceNames[name] = resource;
+					if (!name.empty()) mResourceNames[name] = resource;
 				}
 			}
 

@@ -33,33 +33,33 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(const IntSize& _size)
 		void setSize(const IntSize& _size);
 		//! @copydoc Widget::setPosition(int _left, int _top)
-		inline void setPosition(int _left, int _top) { Widget::setPosition(IntPoint(_left, _top)); }
+		void setPosition(int _left, int _top) { Widget::setPosition(IntPoint(_left, _top)); }
 		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		inline void setPosition(int _left, int _top, int _width, int _height) { setPosition(IntCoord(_left, _top, _width, _height)); }
+		void setPosition(int _left, int _top, int _width, int _height) { setPosition(IntCoord(_left, _top, _width, _height)); }
 		//! @copydoc Widget::setSize(int _width, int _height)
-		inline void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
+		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 
 		/** Show VScroll when canvas size larger than ScrollView */
-		inline void showVScroll(bool _show) { mShowVScroll = _show; updateView(); }
+		void showVScroll(bool _show) { mShowVScroll = _show; updateView(); }
 		/** Get Show VScroll flag */
-		inline bool isShowVScroll() { return mShowVScroll; }
+		bool isShowVScroll() { return mShowVScroll; }
 
 		/** Show HScroll when canvas size larger than ScrollView */
-		inline void showHScroll(bool _show) { mShowHScroll = _show; updateView(); }
+		void showHScroll(bool _show) { mShowHScroll = _show; updateView(); }
 		/** Get Show HScroll flag */
-		inline bool isShowHScroll() { return mShowHScroll; }
+		bool isShowHScroll() { return mShowHScroll; }
 
 		/** Get canvas align */
-		inline Align getCanvasAlign() { return mAlignCanvas; }
+		Align getCanvasAlign() { return mAlignCanvas; }
 		/** Set canvas align */
-		inline void setCanvasAlign(Align _align) { mAlignCanvas = _align; updateView(); }
+		void setCanvasAlign(Align _align) { mAlignCanvas = _align; updateView(); }
 
 		/** Get canvas size */
-		inline IntSize getCanvasSize() { return mWidgetCanvas->getSize(); }
+		IntSize getCanvasSize() { return mWidgetCanvas->getSize(); }
 		/** Set canvas size */
-		inline void setCanvasSize(const IntSize & _size) { mWidgetCanvas->setSize(_size); updateView(); }
+		void setCanvasSize(const IntSize & _size) { mWidgetCanvas->setSize(_size); updateView(); }
 		/** Set canvas size */
-		inline void setCanvasSize(int _left, int _top) { mWidgetCanvas->setSize(_left, _top); updateView(); }
+		void setCanvasSize(int _width, int _height) { mWidgetCanvas->setSize(_width, _height); updateView(); }
 
 		// переопределяем для присвоению холста
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);

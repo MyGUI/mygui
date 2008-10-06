@@ -9,6 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Edit.h"
+#include "MyGUI_List.h"
+#include "MyGUI_Any.h"
 
 namespace MyGUI
 {
@@ -22,7 +24,7 @@ namespace MyGUI
 
 	protected:
 		ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		~ComboBox();
+		virtual ~ComboBox();
 
 	public:
 		//------------------------------------------------------------------------------------//
@@ -31,13 +33,26 @@ namespace MyGUI
 		size_t getItemCount();
 
 		//! Insert an item into a list at specified position
-		void insertItem(size_t _index, const Ogre::UTFString & _item);
+		void insertItem(size_t _index, const Ogre::UTFString & _item, Any _data = Any::Null);
 		//! Add an item to the end of a list
-		void addItem(const Ogre::UTFString & _item);
+		void addItem(const Ogre::UTFString & _item, Any _data = Any::Null);
+
 		//! Replace an item at a specified position
 		void setItem(size_t _index, const Ogre::UTFString & _item);
+		//! Replace an item data at a specified position
+		void setItemData(size_t _index, Any _data);
+		//! Reset an item data at a specified position
+		void resetItemData(size_t _index) { setItemData(_index, Any::Null); }
+
 		//! Get item from specified position
 		const Ogre::UTFString & getItem(size_t _index);
+		//! Get item data from specified position
+		template <typename ValueType>
+		ValueType * getItemData(size_t _index, bool _throw = true)
+		{
+			MYGUI_ASSERT(_index < mList->getItemCount(), "getIteData: index " << _index << " out of range");
+			return mList->getItemData<ValueType>(_index, _throw);
+		}
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
@@ -45,9 +60,9 @@ namespace MyGUI
 		void deleteAllItems();
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		inline size_t getItemSelect() {return mItemIndex;}
+		size_t getItemSelect() { return mItemIndex; }
 		//! Reset item selection
-		inline void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		void resetItemSelect() { setItemSelect(ITEM_NONE); }
 		//! Select specified _index
 		void setItemSelect(size_t _index);
 
@@ -56,17 +71,17 @@ namespace MyGUI
 		//! Set drop list mode (text can not be edited)
 		void setComboModeDrop(bool _drop);
 		//! Get drop list mode flag
-		inline bool getComboModeDrop() { return mModeDrop; }
+		bool getComboModeDrop() { return mModeDrop; }
 
 		//! Set smooth show of list
-		inline void setSmoothShow(bool _smooth) { mShowSmooth = _smooth; }
+		void setSmoothShow(bool _smooth) { mShowSmooth = _smooth; }
 		//! Get smooth show of list flag
-		inline bool getSmoothShow() { return mShowSmooth; }
+		bool getSmoothShow() { return mShowSmooth; }
 
 		//! Set max list height
-		inline int getMaxListHeight() { return mMaxHeight; }
+		int getMaxListHeight() { return mMaxHeight; }
 		//! Get max list height
-		inline void setMaxListHeight(int _height) { mMaxHeight = _height; }
+		void setMaxListHeight(int _height) { mMaxHeight = _height; }
 
 		//------------------------------------------------------------------------------------//
 

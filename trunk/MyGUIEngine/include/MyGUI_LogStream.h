@@ -22,7 +22,7 @@ namespace MyGUI
 		friend class LogManager;
 
 	public:
-		inline LogStream& operator<<(const LogStreamEnd& _endl)
+		LogStream& operator<<(const LogStreamEnd& _endl)
 		{
 			std::cout << std::endl;
 			if (mStream.is_open()) {
@@ -34,7 +34,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(bool _value)
+		LogStream& operator<<(bool _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -42,7 +42,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(short _value)
+		LogStream& operator<<(short _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -50,7 +50,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(unsigned short _value)
+		LogStream& operator<<(unsigned short _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -58,7 +58,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(int _value)
+		LogStream& operator<<(int _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -66,7 +66,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(long _value)
+		LogStream& operator<<(long _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -74,7 +74,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(unsigned long _value)
+		LogStream& operator<<(unsigned long _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -82,7 +82,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(float _value)
+		LogStream& operator<<(float _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -90,7 +90,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(double _value)
+		LogStream& operator<<(double _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -98,7 +98,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(long double _value)
+		LogStream& operator<<(long double _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -106,7 +106,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(size_t _value)
+		LogStream& operator<<(size_t _value)
 		{
 			std::cout << (unsigned int)_value;
 			if (mStream.is_open()) mStream << _value;
@@ -114,7 +114,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(const void * _value)
+		LogStream& operator<<(const void * _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -122,7 +122,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(const char * _value)
+		LogStream& operator<<(const char * _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -130,7 +130,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline LogStream& operator<<(const std::string& _value)
+		LogStream& operator<<(const std::string& _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
@@ -138,7 +138,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		inline const std::string& getFileName() {return mFileName;}
+		const std::string& getFileName() {return mFileName;}
 
 	private:
 		LogStream();
@@ -148,11 +148,11 @@ namespace MyGUI
 
 		void start(const std::string& _section, const std::string& _level);
 
-		inline void lock()
+		void lock()
 		{
 		}
 
-		inline void release()
+		void release()
 		{
 		}
 

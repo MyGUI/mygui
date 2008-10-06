@@ -66,28 +66,28 @@ namespace MyGUI
 				+---+---+---+
 			</pre>
 		*/
-		inline void setImageIndex(size_t _index) { setItemSelect(_index); }
+		void setImageIndex(size_t _index) { setItemSelect(_index); }
 		/** Get current tile index */
-		inline size_t getImageIndex() { return getItemSelect(); }
+		size_t getImageIndex() { return getItemSelect(); }
 
 		//------------------------------------------------------------------------------------------------//
 		// The expanded interface
 		//------------------------------------------------------------------------------------------------//
 
 		//! Get number of items
-		inline size_t getItemCount() { return mItems.size(); }
+		size_t getItemCount() { return mItems.size(); }
 
 		//! Select specified _index
-		inline void setItemSelect(size_t _index) { if (mIndexSelect != _index) updateSelectIndex(_index); }
+		void setItemSelect(size_t _index) { if (mIndexSelect != _index) updateSelectIndex(_index); }
 		//! Get index of selected item (ITEM_NONE if none selected)
-		inline size_t getItemSelect() { return mIndexSelect; }
+		size_t getItemSelect() { return mIndexSelect; }
 		//! Reset item selection
-		inline void resetItemSelect() { setItemSelect(ITEM_NONE); }
+		void resetItemSelect() { setItemSelect(ITEM_NONE); }
 
 		//! Insert an item into a list at a specified position
 		void insertItem(size_t _index, const IntCoord & _item);
 		//! Add an item to the end of a list
-		inline void addItem(const IntCoord & _item) { insertItem(ITEM_NONE, _item); }
+		void addItem(const IntCoord & _item) { insertItem(ITEM_NONE, _item); }
 		//! Replace an item at a specified position
 		void setItem(size_t _index, const IntCoord & _item);
 
@@ -117,7 +117,7 @@ namespace MyGUI
 
 		void setItemResourceInfo(const ImageIndexInfo & _info);
 
-		inline ResourceImageSetPtr getItemResource() { return mResource; }
+		ResourceImageSetPtr getItemResource() { return mResource; }
 
 		bool setItemResource(const Guid & _id);
 		bool setItemResource(const std::string & _name);

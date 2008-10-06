@@ -24,7 +24,7 @@ namespace MyGUI
 
 		namespace utility
 		{
-			template< class T >
+			template< typename T >
 			inline std::string toString (T p)
 			{
 				std::ostringstream stream;
@@ -32,7 +32,7 @@ namespace MyGUI
 				return stream.str();
 			}
 
-			template< class T1, class T2 >
+			template< typename T1, typename T2 >
 			inline std::string toString (T1 p1, T2 p2)
 			{
 				std::ostringstream stream;
@@ -96,12 +96,12 @@ namespace MyGUI
 			bool nextNode();
 			bool nextNode(const std::string & _name);
 
-			inline xmlNodePtr operator->() const {assert(m_current != m_end); return (*m_current);}
-			inline xmlNodePtr currentNode() {assert(m_current != m_end); return (*m_current);}
+			xmlNodePtr operator->() const { assert(m_current != m_end); return (*m_current); }
+			xmlNodePtr currentNode() { assert(m_current != m_end); return (*m_current); }
 
 		private:
-			bool m_first;
 			VectorNode::iterator m_current, m_end;
+			bool m_first;
 		};
 
 
@@ -123,14 +123,14 @@ namespace MyGUI
 		public:
 			xmlNodePtr createChild(const std::string & _name, const std::string & _body = "");
 
-			template <class T>
-			inline void addAttributes(const std::string &_key, const T& _value)
+			template <typename T>
+			void addAttributes(const std::string &_key, const T& _value)
 			{
 				mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));
 			}
 
-			template <class T>
-			inline void addBody(const T& _body)
+			template <typename T>
+			void addBody(const T& _body)
 			{
 				mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);
 			}
@@ -140,12 +140,12 @@ namespace MyGUI
 			bool findAttribute(const std::string & _name, std::string & _value);
 			std::string findAttribute(const std::string & _name);
 
-			inline const std::string & getName() {return mName;}
-			inline const std::string & getBody() {return mBody;}
-			inline const VectorAttributes & getAttributes() {return mAttributes;}
-			inline xmlNodePtr getParent() {return mParent;}
+			const std::string & getName() { return mName; }
+			const std::string & getBody() { return mBody; }
+			const VectorAttributes & getAttributes() { return mAttributes; }
+			xmlNodePtr getParent() { return mParent; }
 
-			inline xmlNodeIterator getNodeIterator() {return xmlNodeIterator(mChilds.begin(), mChilds.end());}
+			xmlNodeIterator getNodeIterator() { return xmlNodeIterator(mChilds.begin(), mChilds.end()); }
 
 		private:
 			std::string mName;
@@ -191,7 +191,7 @@ namespace MyGUI
 			xmlNodePtr createInfo(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8");
 			xmlNodePtr createRoot(const std::string & _name);
 
-			inline xmlNodePtr getRoot() {return mRoot;}
+			xmlNodePtr getRoot() {return mRoot;}
 
 		private:
 			xmlNodePtr mRoot;

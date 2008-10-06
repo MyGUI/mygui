@@ -38,7 +38,7 @@ namespace MyGUI
 		void hide();
 
 		/** Return visibility of pointer*/
-		inline bool isShow() {return mShow;}
+		bool isShow() {return mShow;}
 
 		/** Set pointer position*/
 		void setPosition(const IntPoint& _pos);
@@ -48,11 +48,11 @@ namespace MyGUI
 		*/
 		void setPointer(const std::string & _name, WidgetPtr _owner);
 		/** Set default pointer */
-		inline void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, null); }
+		void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, null); }
 
 		void _unlinkWidget(WidgetPtr _widget);
 
-		inline const std::string & getDefaultPointer() { return mDefaultPointer; }
+		const std::string & getDefaultPointer() { return mDefaultPointer; }
 
 	private:
 

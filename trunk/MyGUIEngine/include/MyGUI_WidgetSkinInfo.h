@@ -61,22 +61,22 @@ namespace MyGUI
 			fillState(_bind.mStates, mBasis.size()-1);
 		}
 
-		inline void addProperty(const std::string &_key, const std::string &_value)
+		void addProperty(const std::string &_key, const std::string &_value)
 		{
 			mProperties[_key] = _value;
 		}
 
-		inline void addChild(const ChildSkinInfo& _child)
+		void addChild(const ChildSkinInfo& _child)
 		{
 			mChilds.push_back(_child);
 		}
 
-		inline bool loadMask(const std::string& _file)
+		bool loadMask(const std::string& _file)
 		{
 			return mMaskPeek.load(_file);
 		}
 
-		inline void clear()
+		void clear()
 		{
 			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
 				for (VectorStateInfo::iterator iter2=iter->second.begin(); iter2!=iter->second.end(); ++iter2) {
@@ -93,7 +93,7 @@ namespace MyGUI
 			}
 		}
 
-		inline void checkState(const std::string & _name)
+		void checkState(const std::string & _name)
 		{
 			// ищем такой же ключ
 			MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
@@ -103,7 +103,7 @@ namespace MyGUI
 			}
 		}
 
-		inline void checkBasis()
+		void checkBasis()
 		{
 			// и увеличиваем размер смещений по колличеству сабвиджетов
 			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
@@ -111,7 +111,7 @@ namespace MyGUI
 			}
 		}
 
-		inline void fillState(const MapStateInfo & _states, size_t _index)
+		void fillState(const MapStateInfo & _states, size_t _index)
 		{
 			for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
 				mStates[iter->first][_index] = iter->second;
@@ -119,13 +119,13 @@ namespace MyGUI
 		}
 
 	public:
-		inline const IntSize & getSize() const { return mSize; }
-		inline const std::string & getTextureName() const { return mTexture; }
-		inline const VectorSubWidgetInfo & getBasisInfo() const { return mBasis; }
-		inline const MapWidgetStateInfo & getStateInfo() const { return mStates; }
-		inline const MapString & getProperties() const { return mProperties; }
-		inline const VectorChildSkinInfo & getChild() const { return mChilds; }
-		inline const MaskPeekInfo & getMask() const { return mMaskPeek; }
+		const IntSize & getSize() const { return mSize; }
+		const std::string & getTextureName() const { return mTexture; }
+		const VectorSubWidgetInfo & getBasisInfo() const { return mBasis; }
+		const MapWidgetStateInfo & getStateInfo() const { return mStates; }
+		const MapString & getProperties() const { return mProperties; }
+		const VectorChildSkinInfo & getChild() const { return mChilds; }
+		const MaskPeekInfo & getMask() const { return mMaskPeek; }
 
 	private:
 		IntSize mSize;
