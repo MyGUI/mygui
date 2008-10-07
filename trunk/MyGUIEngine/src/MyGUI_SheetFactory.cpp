@@ -23,7 +23,7 @@ namespace MyGUI
 			// регестрируем все парсеры
 			manager.registerDelegate("Sheet_ButtonWidth") = newDelegate(this, &SheetFactory::Sheet_ButtonWidth);
 			manager.registerDelegate("Sheet_Select") = newDelegate(this, &SheetFactory::Sheet_Select);
-			manager.registerDelegate("Sheet_SmoothSelect") = newDelegate(this, &SheetFactory::Sheet_Select);
+			//manager.registerDelegate("Sheet_SmoothSelect") = newDelegate(this, &SheetFactory::Sheet_Select);
 		}
 
 		SheetFactory::~SheetFactory()
@@ -35,7 +35,7 @@ namespace MyGUI
 			// удаляем все парсеры
 			manager.unregisterDelegate("Sheet_ButtonWidth");
 			manager.unregisterDelegate("Sheet_Select");
-			manager.unregisterDelegate("Sheet_SmoothSelect");
+			//manager.unregisterDelegate("Sheet_SmoothSelect");
 		}
 
 		const std::string & SheetFactory::getTypeName()
@@ -51,14 +51,13 @@ namespace MyGUI
 		void SheetFactory::Sheet_ButtonWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(Sheet, _widget, _key);
-			static_cast<SheetPtr>(_widget)->setSheetButtonWidth(utility::parseInt(_value));
+			static_cast<SheetPtr>(_widget)->setButtonWidth(utility::parseInt(_value));
 		}
 
 		void SheetFactory::Sheet_Select(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(Sheet, _widget, _key);
-			if (false == utility::parseBool(_value)) return;
-			static_cast<SheetPtr>(_widget)->selectSheet(_key == "Sheet_SmoothSelect");
+			if (utility::parseBool(_value)) static_cast<SheetPtr>(_widget)->setItemSelected();
 		}
 
 	} // namespace factory

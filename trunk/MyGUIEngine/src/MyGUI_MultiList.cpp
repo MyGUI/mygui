@@ -200,9 +200,9 @@ namespace MyGUI
 
 		// вставляем во все поля пустые, а потом присваиваем первому
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->insertItem(_index, "");
+			(*iter).list->insertItemAt(_index, "");
 		}
-		mVectorColumnInfo.front().list->setItem(_index, _item);
+		mVectorColumnInfo.front().list->replaceItemNameAt(_index, _item);
 
 		_insertSortIndex(_index);
 		setDirtySort();
@@ -223,7 +223,7 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
 		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->deleteItem(convertToSort(_index));
+			(*iter).list->removeItemAt(convertToSort(_index));
 		}
 		_eraseSortIndex(_index);
 	}
@@ -232,7 +232,7 @@ namespace MyGUI
 	{
 		if (mVectorColumnInfo.empty()) return;
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->deleteAllItems();
+			(*iter).list->removeAllItems();
 		}
 		_clearSortIndex();
 	}
@@ -240,14 +240,14 @@ namespace MyGUI
 	size_t MultiList::getItemSelect()
 	{
 		if (mVectorColumnInfo.empty()) return ITEM_NONE;
-		size_t item = mVectorColumnInfo.front().list->getItemSelect();
+		size_t item = mVectorColumnInfo.front().list->getItemIndexSelected();
 		return (ITEM_NONE == item) ? ITEM_NONE : convertFromSort(item);
 	}
 
 	void MultiList::resetItemSelect()
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->resetItemSelect();
+			(*iter).list->clearItemSelected();
 		}
 	}
 
@@ -257,7 +257,7 @@ namespace MyGUI
 		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
 		size_t index = convertToSort(_index);
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->setItemSelect(index);
+			(*iter).list->setItemSelectedAt(index);
 		}
 	}
 
@@ -268,7 +268,7 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
 		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
 		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		mVectorColumnInfo[_column].list->setItem(convertToSort(_index), _item);
+		mVectorColumnInfo[_column].list->replaceItemNameAt(convertToSort(_index), _item);
 
 		// если мы попортили список с активным сортом, надо пересчитывать
 		if (_column == mSortColumnIndex) setDirtySort();
@@ -279,14 +279,14 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
 		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
 		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		return mVectorColumnInfo[_column].list->getItem(convertToSort(_index));
+		return mVectorColumnInfo[_column].list->getItemNameAt(convertToSort(_index));
 	}
 
 	size_t MultiList::findItem(size_t _column, const Ogre::UTFString & _item)
 	{
 		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
 		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
-		return convertFromSort(mVectorColumnInfo[_column].list->findItem(_item));
+		return convertFromSort(mVectorColumnInfo[_column].list->findItemIndexWith(_item));
 	}
 	//----------------------------------------------------------------------------------//
 
@@ -304,7 +304,7 @@ namespace MyGUI
 	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
-			if (_widget != (*iter).list) (*iter).list->setItemSelect(_position);
+			if (_widget != (*iter).list) (*iter).list->setItemSelectedAt(_position);
 
 		// наш евент
 		eventListChangePosition(this, _position);
@@ -434,9 +434,9 @@ namespace MyGUI
 		while (start < end) {
 
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-				tmp = (*iter).list->getItem(start);
-				(*iter).list->setItem(start, (*iter).list->getItem(end));
-				(*iter).list->setItem(end, tmp);
+				tmp = (*iter).list->getItemNameAt(start);
+				(*iter).list->replaceItemNameAt(start, (*iter).list->getItemNameAt(end));
+				(*iter).list->replaceItemNameAt(end, tmp);
 			}
 
 			index1 = vec[start];
@@ -472,7 +472,7 @@ namespace MyGUI
 				text.resize(info.size());
 				std::vector<Ogre::UTFString>::iterator itext = text.begin();
 				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
-					(*itext) = (*iter).list->getItem(_index);
+					(*itext) = (*iter).list->getItemNameAt(_index);
 				}
 				index1 = _index;
 				index2 = vec2[_index];
@@ -482,7 +482,7 @@ namespace MyGUI
 			{
 				std::vector<Ogre::UTFString>::iterator itext = text.begin();
 				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
-					(*iter).list->setItem(_index, *itext);
+					(*iter).list->replaceItemNameAt(_index, *itext);
 				}
 				vec[vec2[_index]] = index1;
 				vec2[_index] = index2;
@@ -491,7 +491,7 @@ namespace MyGUI
 			void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index1, size_t _index2)
 			{
 				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
-					(*iter).list->setItem(_index1, (*iter).list->getItem(_index2));
+					(*iter).list->replaceItemNameAt(_index1, (*iter).list->getItemNameAt(_index2));
 				}
 				vec[vec2[_index1]] = _index2;
 				vec2[_index1] = vec2[_index2];
@@ -508,8 +508,8 @@ namespace MyGUI
 			for( int i=0; i<(int)(count-step); ++i ) {
 				int j = i;
 				bool compare;
-				if (operatorLess.empty()) compare = list->getItem(j) < list->getItem(j+step);
-				else operatorLess(this, mSortColumnIndex, list->getItem(j), list->getItem(j+step), compare);
+				if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
+				else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
 				while ( (j >= 0) && (compare^mSortUp) ){
 					keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
 					keeper.swap(mToSortIndex, vec, mVectorColumnInfo, j, j+step);
@@ -517,8 +517,8 @@ namespace MyGUI
 					--j;
 					if (j >= 0)
 					{
-						if (operatorLess.empty()) compare = list->getItem(j) < list->getItem(j+step);
-						else operatorLess(this, mSortColumnIndex, list->getItem(j), list->getItem(j+step), compare);
+						if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
+						else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
 					}
 				}
 			}

@@ -124,7 +124,7 @@ namespace MyGUI
 		//size_t pos = mList->getItemSelect();
 		if (_position != ITEM_NONE) {
 			mItemIndex = _position;
-			str = mList->getItem(_position);
+			str = mList->getItemNameAt(_position);
 		}
 		Edit::setCaption(str);
 
@@ -162,7 +162,7 @@ namespace MyGUI
 	{
 		if (_position != ITEM_NONE) {
 			mItemIndex = _position;
-			Edit::setCaption(mList->getItem(_position));
+			Edit::setCaption(mList->getItemNameAt(_position));
 		}
 
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -180,9 +180,9 @@ namespace MyGUI
 			if (mItemIndex != 0) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex --;
-				Edit::setCaption(mList->getItem(mItemIndex));
-				mList->setItemSelect(mItemIndex);
-				mList->beginToIndex(mItemIndex);
+				Edit::setCaption(mList->getItemNameAt(mItemIndex));
+				mList->setItemSelectedAt(mItemIndex);
+				mList->beginToItemAt(mItemIndex);
 				eventComboChangePosition(this, mItemIndex);
 			}
 		}
@@ -190,9 +190,9 @@ namespace MyGUI
 			if ((mItemIndex+1) < mList->getItemCount()) {
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;
-				Edit::setCaption(mList->getItem(mItemIndex));
-				mList->setItemSelect(mItemIndex);
-				mList->beginToIndex(mItemIndex);
+				Edit::setCaption(mList->getItemNameAt(mItemIndex));
+				mList->setItemSelectedAt(mItemIndex);
+				mList->beginToItemAt(mItemIndex);
 				eventComboChangePosition(this, mItemIndex);
 			}
 		}
@@ -214,8 +214,8 @@ namespace MyGUI
 		// сбрасываем выделенный элемент
 		if (ITEM_NONE != mItemIndex) {
 			mItemIndex = ITEM_NONE;
-			mList->setItemSelect(mItemIndex);
-			mList->beginToStart();
+			mList->setItemSelectedAt(mItemIndex);
+			mList->beginToItemFirst();
 			eventComboChangePosition(this, mItemIndex);
 		}
 	}
@@ -266,72 +266,52 @@ namespace MyGUI
 		else mList->hide();
 	}
 
-	void ComboBox::setItemSelect(size_t _index)
+	void ComboBox::setItemSelectedAt(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mList->getItemCount() || _index == ITEM_NONE, "setComboItemIndex: index " << _index <<" out of range");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mList->getItemCount(), "ComboBox::setItemSelectedAt");
 		mItemIndex = _index;
-		mList->setItemSelect(_index);
+		mList->setItemSelectedAt(_index);
 		if (_index == ITEM_NONE)
 		{
 			Edit::setCaption("");
 			return;
 		}
-		Edit::setCaption(mList->getItem(_index));
+		Edit::setCaption(mList->getItemNameAt(_index));
 		Edit::updateView(0); // hook for update
 	}
 
-	size_t ComboBox::getItemCount()
+	void ComboBox::replaceItemNameAt(size_t _index, const Ogre::UTFString & _name)
 	{
-		return mList->getItemCount();
+		mList->replaceItemNameAt(_index, _name);
+		mItemIndex = ITEM_NONE;//FIXME
+		mList->setItemSelectedAt(mItemIndex);//FIXME
 	}
 
-	const Ogre::UTFString & ComboBox::getItem(size_t _index)
+	void ComboBox::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT(_index < mList->getItemCount(), "getItem: index " << _index << " out of range");
-		return mList->getItem(_index);
+		mList->setItemDataAt(_index, _data);
+		mItemIndex = ITEM_NONE;//FIXME
+		mList->setItemSelectedAt(mItemIndex);//FIXME
 	}
 
-	void ComboBox::setItem(size_t _index, const Ogre::UTFString & _item)
+	void ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data)
 	{
-		MYGUI_ASSERT(_index < mList->getItemCount(), "setItem: index " << _index << " out of range");
-		mList->setItem(_index, _item);
-		mItemIndex = ITEM_NONE;
-		mList->setItemSelect(mItemIndex);
+		mList->insertItemAt(_index, _item, _data);
+		mItemIndex = ITEM_NONE;//FIXME
+		mList->setItemSelectedAt(mItemIndex);//FIXME
 	}
 
-	void ComboBox::setItemData(size_t _index, Any _data)
+	void ComboBox::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mList->getItemCount(), "setItemData: index " << _index << " out of range");
-		mList->setItemData(_index, _data);
-		mItemIndex = ITEM_NONE;
-		mList->setItemSelect(mItemIndex);
+		mList->removeItemAt(_index);
+		mItemIndex = ITEM_NONE;//FIXME
+		mList->clearItemSelected();//FIXME
 	}
 
-	void ComboBox::insertItem(size_t _index, const Ogre::UTFString & _item, Any _data)
+	void ComboBox::removeAllItems()
 	{
-		mList->insertItem(_index, _item, _data);
-		mItemIndex = ITEM_NONE;
-		mList->setItemSelect(mItemIndex);
-	}
-
-	void ComboBox::deleteItem(size_t _index)
-	{
-		mList->deleteItem(_index);
-		mItemIndex = ITEM_NONE;
-		mList->setItemSelect(mItemIndex);
-	}
-
-	void ComboBox::addItem(const Ogre::UTFString& _item, Any _data)
-	{
-		mList->addItem(_item, _data);
-		mItemIndex = ITEM_NONE;
-		mList->setItemSelect(mItemIndex);
-	}
-
-	void ComboBox::deleteAllItems()
-	{
-		mItemIndex = ITEM_NONE;
-		mList->deleteAllItems();//FIXME заново созданные строки криво стоят
+		mItemIndex = ITEM_NONE;//FIXME
+		mList->removeAllItems();//FIXME заново созданные строки криво стоят
 	}
 
 	void ComboBox::setComboModeDrop(bool _drop)

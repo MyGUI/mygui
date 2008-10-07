@@ -85,110 +85,107 @@ namespace MyGUI
 		}
 	}
 
-	PopupMenu::ItemInfo& PopupMenu::insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
+	void PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)
 	{
-		if (_index > mItems.size()) _index = mItems.size();
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItem");
+		if (_index == ITEM_NONE) _index = mItemsInfo.size();
+
 		ButtonPtr button = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
 		button->setCaption(_item);
-
-		IntSize size = button->getTextSize();
-		size.width += 7;
-
-		setButtonImageIndex(button, _submenu ? IMAGE_POPUP : IMAGE_NONE);
-		button->setImageIndex(_submenu);
-		button->_setInternalData(size.width);
-
-		PopupMenuPtr submenu = NULL;
-		if (_submenu)
-		{
-			submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-			submenu->_setOwner(this);
-		}
 		button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
 		button->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
 		button->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
 
-		mItems.insert(mItems.begin() + _index, ItemInfo(button, _separator, submenu));
+		setButtonImageIndex(button, _type == ItemTypePopup ? ItemImagePopup : ItemImageNone);
+		IntSize size = button->getTextSize();
+		size.width += 7; //FIXME
+		button->_setInternalData(size.width);
 
-		update();
-		return mItems[_index];
-	}
-
-	void PopupMenu::setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator)
-	{
-		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
-
-		// если сабменю появилось или пропало - проще просто пересоздать
-		if ((_submenu && (mItems[_index].submenu == NULL)) || (!_submenu && (mItems[_index].submenu != NULL)))
+		PopupMenuPtr submenu = null;
+		if (_type == ItemTypePopup)
 		{
-			deleteItem(_index);
-			insertItem(_index, _item, _submenu, _separator);
+			submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+			submenu->_setOwner(this);
 		}
-		else
-		{
-			ButtonPtr button = mItems[_index].button;
-			button->setCaption(_item);
-			mItems[_index].separator = _separator;
-			IntSize size = button->getTextSize();
-			button->_setInternalData(size.width);
 
-			update();
-		}
-	}
-
-	void PopupMenu::deleteItem(size_t _index)
-	{
-		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
-		WidgetManager::getInstance().destroyWidget(mItems[_index].button);
-		if ( mItems[_index].submenu )
-			WidgetManager::getInstance().destroyWidget(mItems[_index].submenu);
-		mItems.erase(mItems.begin() + _index);
+		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(button, _type == ItemTypeSeparator, submenu, _data));
 
 		update();
 	}
 
-	void PopupMenu::deleteAllItems()
+	/*void PopupMenu::replaceItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type)
 	{
-		if (false == mItems.empty()) {
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::replaceItem");
+
+		ButtonPtr button = mItemsInfo[_index].button;
+		button->setCaption(_item);
+		IntSize size = button->getTextSize();
+		size.width += 7; //FIXME
+		button->_setInternalData(size.width);
+
+		mItemsInfo[_index].separator = _type == ItemTypeSeparator;
+
+		// изменился статус попап
+		if (_type == ItemTypePopup) {
+			if (mItemsInfo[_index].submenu == null) {
+				mItemsInfo[_index].submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+				mItemsInfo[_index].submenu->_setOwner(this);
+			}
+			else {
+				mItemsInfo[_index].submenu->removeAllItems();
+			}
+		}
+		else if (mItemsInfo[_index].submenu != null) {
+			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
+			mItemsInfo[_index].submenu = null;
+		}
+
+		update();
+	}*/
+
+	void PopupMenu::removeItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::removeItemAt");
+
+		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].button);
+		if ( mItemsInfo[_index].submenu )
+			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
+		mItemsInfo.erase(mItemsInfo.begin() + _index);
+
+		update();
+	}
+
+	void PopupMenu::removeAllItems()
+	{
+		if (false == mItemsInfo.empty()) {
 			WidgetManager & manager = WidgetManager::getInstance();
-			for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+			for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 				manager.destroyWidget(iter->button);
 				if ( iter->submenu )
 					manager.destroyWidget(iter->submenu);
 			}
-			mItems.clear();
+			mItemsInfo.clear();
 
 			update();
 		}
 	}
 
-	size_t PopupMenu::getItemCount()
+	const Ogre::UTFString& PopupMenu::getItemNameAt(size_t _index)
 	{
-		return mItems.size();
-	}
-
-	const Ogre::UTFString& PopupMenu::getItem(size_t _index)
-	{
-		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
-		return mItems[_index].button->getCaption();
-	}
-
-	PopupMenu::ItemInfo& PopupMenu::getItemInfo(size_t _index)
-	{
-		MYGUI_ASSERT(_index < mItems.size(), "index out of range");
-		return mItems[_index];
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemNameAt");
+		return mItemsInfo[_index].button->getCaption();
 	}
 
 	void PopupMenu::update()
 	{
 		IntSize size;
-		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			iter->button->setPosition(0, size.height);
 			size.height += mHeightLine;
 			if (iter->separator) size.height += 10;
 
 			int width = iter->button->_getInternalData();
-			if (iter->submenu != NULL) width += mSubmenuImageSize;
+			if (iter->submenu != null) width += mSubmenuImageSize;
 			if (width > size.width) size.width = width;
 		}
 
@@ -229,9 +226,9 @@ namespace MyGUI
 	{
 		// потом передалть на интернал дата
 		size_t index = ITEM_NONE;
-		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			if (iter->button == _sender) {
-				index = iter - mItems.begin();
+				index = iter - mItemsInfo.begin();
 				break;
 			}
 		}
@@ -243,7 +240,7 @@ namespace MyGUI
 		static_cast<ButtonPtr>(_sender)->setButtonPressed(true);
 
 		// если есть сабменю, то сообщение все равно отошлем, но скрывать сами не будем
-		if (mItems[index].submenu == NULL)
+		if (mItemsInfo[index].submenu == null)
 		{
 			hidePopupMenu();
 		}
@@ -253,14 +250,14 @@ namespace MyGUI
 	{
 		// потом передалть на интернал дата
 		size_t index = ITEM_NONE;
-		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 		{
 			if (iter->button == _sender) {
-				index = iter - mItems.begin();
+				index = iter - mItemsInfo.begin();
 				break;
 			}
 		}
-		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 		{
 			if (iter->submenu)
 			{
@@ -268,16 +265,16 @@ namespace MyGUI
 				iter->submenu->hidePopupMenu(false);
 			}
 		}
-		if (mItems[index].submenu)
+		if (mItemsInfo[index].submenu)
 		{
-			mItems[index].button->setButtonPressed(true);
+			mItemsInfo[index].button->setButtonPressed(true);
 			// вычисляем куда ставить
-			IntPoint position(getRight(), mItems[index].button->getTop() + getTop());
-			if (position.left + mItems[index].submenu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
-				position.left -= mItems[index].submenu->getWidth() + getWidth();
-			if (position.top + mItems[index].submenu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
-				position.top = mItems[index].button->getBottom() - mItems[index].submenu->getHeight() + getTop();
-			mItems[index].submenu->showPopupMenu(position, false);
+			IntPoint position(getRight(), mItemsInfo[index].button->getTop() + getTop());
+			if (position.left + mItemsInfo[index].submenu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
+				position.left -= mItemsInfo[index].submenu->getWidth() + getWidth();
+			if (position.top + mItemsInfo[index].submenu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
+				position.top = mItemsInfo[index].button->getBottom() - mItemsInfo[index].submenu->getHeight() + getTop();
+			mItemsInfo[index].submenu->showPopupMenu(position, false);
 		}
 	}
 
@@ -294,7 +291,7 @@ namespace MyGUI
 		setPosition(_point);
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			if (iter->button->getButtonPressed()) {
 				iter->button->setButtonPressed(false);
 			}
@@ -315,7 +312,7 @@ namespace MyGUI
 			MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, rootItem));
 			MyGUI::WidgetPtr button = item; // может понадобится, для вызова notifyMouseClick
 			// проверяем только рутовые виджеты, чтобы не проверять детей попапа
-			while ((item != NULL) && (item->getParent() != NULL)) item = item->getParent();
+			while ((item != null) && (item->getParent() != null)) item = item->getParent();
 			if (isRelative(item, true))
 			{
 				item->castType<PopupMenu>()->notifyMouseClick(button);
@@ -348,7 +345,7 @@ namespace MyGUI
 			if (popup != null) popup->hidePopupMenu();
 			else {
 				MenuBarPtr menu = mOwner->castType<MenuBar>(false);
-				if (menu != null) menu->resetItemSelect();
+				if (menu != null) menu->clearItemSelected();
 			}
 		}
 
@@ -360,12 +357,72 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 
 		// прячем всех детей
-		for (VectorPopupMenuItemInfo::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 		{
 			if (iter->submenu) {
 				iter->submenu->hidePopupMenu(false);
 			}
 		}
+	}
+
+	void PopupMenu::setItemDataAt(size_t _index, Any _data)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemDataAt");
+		mItemsInfo[_index].data = _data;
+	}
+
+	PopupMenuPtr PopupMenu::getItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemChildAt");
+		return mItemsInfo[_index].submenu;
+	}
+
+	PopupMenuPtr PopupMenu::createItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::createItemChildAt");
+
+		if (mItemsInfo[_index].submenu == null) {
+			mItemsInfo[_index].submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+			mItemsInfo[_index].submenu->_setOwner(this);
+		}
+		else {
+			mItemsInfo[_index].submenu->removeAllItems();
+		}
+
+		update();
+
+		return mItemsInfo[_index].submenu;
+	}
+
+	void PopupMenu::removeItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::removeItemChildAt");
+
+		if (mItemsInfo[_index].submenu != null) {
+			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
+			mItemsInfo[_index].submenu = null;
+		}
+
+		update();
+	}
+
+	PopupMenu::ItemType PopupMenu::getItemTypeAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemTypeAt");
+		return getItemType(mItemsInfo[_index].submenu != null, mItemsInfo[_index].separator);
+	}
+
+	void PopupMenu::replaceItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::replaceItemNameAt");
+
+		ButtonPtr button = mItemsInfo[_index].button;
+		button->setCaption(_name);
+		IntSize size = button->getTextSize();
+		size.width += 7; //FIXME
+		button->_setInternalData(size.width);
+
+		update();
 	}
 
 } // namespace MyGUI

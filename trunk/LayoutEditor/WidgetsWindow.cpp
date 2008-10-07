@@ -29,7 +29,7 @@ void WidgetsWindow::initialise()
 	int maxLines = 0;
 	for (SkinGroups::iterator iter = WidgetTypes::getInstance().skin_groups.begin(); iter != WidgetTypes::getInstance().skin_groups.end(); ++iter)
 	{
-		sheet = mTabSkins->addSheet(iter->first);
+		sheet = mTabSkins->addItem(iter->first);
 		int i = 0;
 		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 		{
@@ -53,7 +53,8 @@ void WidgetsWindow::initialise()
 		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
 	}
 
-	mTabSkins->selectSheet(DEFAULT_GOROUP_NAME);
+	size_t index = mTabSkins->findItemIndexWith(DEFAULT_GOROUP_NAME);
+	if (index != MyGUI::ITEM_NONE) mTabSkins->setItemSelectedAt(index);
 
 	int width = mTabSkins->getWidth() - sheet->getWidth();
 	int height = mTabSkins->getHeight() - sheet->getHeight();

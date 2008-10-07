@@ -120,12 +120,12 @@ void Console::notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key,
 void Console::addToConsole(const Ogre::UTFString & _line)
 {
 	mListHistory->addItem(_line);
-	mListHistory->beginToEnd();
+	mListHistory->beginToItemLast();
 }
 
 void Console::clearConsole()
 {
-	mListHistory->deleteAllItems();
+	mListHistory->removeAllItems();
 }
 
 void Console::registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate)
