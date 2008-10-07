@@ -29,7 +29,7 @@ void FontPanel::initialise()
 	assignWidget(mEditSaveFileName, "edit_SaveFileName");
 	assignWidget(mButtonSave, "button_Save");
 
-	mComboAntialias->setItemSelect(1);
+	mComboAntialias->setItemSelectedAt(1);
 	mButtonGenerate->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 	mButtonSave->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 
@@ -55,7 +55,7 @@ void FontPanel::hide()
 
 void FontPanel::update()
 {
-	mComboFont->deleteAllItems();
+	mComboFont->removeAllItems();
 
 	MyGUI::helper::VectorString paths = MyGUI::helper::getVectorResourcePath("*.ttf");
 	for (MyGUI::helper::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter) {
@@ -64,7 +64,7 @@ void FontPanel::update()
 		if (pos != std::string::npos) file = file.substr(pos + 1);
 		mComboFont->addItem(file);
 	}
-	if (mComboFont->getItemCount() > 0) mComboFont->setItemSelect(0);
+	if (mComboFont->getItemCount() > 0) mComboFont->setItemSelectedAt(0);
 }
 
 void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)

@@ -29,7 +29,7 @@ namespace MyGUI
 		mButtonShow(false),
 		mWidthBar(0),
 		mStartIndex(0),
-		mSelectSheet(ITEM_NONE),
+		mIndexSelect(ITEM_NONE),
 		mButtonDefaultWidth(1),
 		mButtonAutoWidth(true),
 		mSmoothShow(true),
@@ -101,55 +101,27 @@ namespace MyGUI
 		mShutDown = true;
 		// просто очищаем список, виджеты сами удалятся
 		// и вкладки при удалении себя не найдет в списке
-		//mSheetsInfo.clear();
 	}
 
 	// переопределяем для особого обслуживания страниц
 	WidgetPtr Tab::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (Sheet::getClassTypeName() == _type) {
-			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(_type, "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), _layer, _name));
-			//sheet->mOwner = this;
 
-			// добавляем инфу о вкладке
-			int width = (mButtonAutoWidth ? getButtonWidthByName("") : mButtonDefaultWidth);
-			mWidthBar += width;
-
-			// положение и видимость вкладок
-			if (0 == mSheetsInfo.size()) mSelectSheet = 0;
-			else sheet->hide();
-
-			mSheetsInfo.push_back(TabSheetInfo(width, "", sheet));
-			updateBar();
+			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", _name));
+			_insertSheet(ITEM_NONE, "", sheet, Any::Null);
 
 			return sheet;
 		}
 		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
-	SheetPtr Tab::addSheet(const Ogre::UTFString& _name, int _width)
+	SheetPtr Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
 	{
-		SheetPtr sheet = static_cast<SheetPtr>(createWidgetT(Sheet::getClassTypeName(), "", IntCoord(), Align::Default));
-		setSheetNameIndex(mSheetsInfo.size()-1, _name, _width);
-		return sheet;
-	}
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-	SheetPtr Tab::insertSheet(size_t _index, const Ogre::UTFString& _name, int _width)
-	{
-		SheetPtr sheet = addSheet(_name, _width);
-		size_t size = mSheetsInfo.size();
-		if ((_index >= size) || (1 == size) ) return sheet;
-
-		// меняем кнопки и корректируем выделенную вкладку
-		TabSheetInfo tmp = mSheetsInfo.back();
-		mSheetsInfo.pop_back();
-		mSheetsInfo.insert(mSheetsInfo.begin() + _index, tmp);
-		//mSheetsInfo[size-1] = mSheetsInfo[_index];
-		//mSheetsInfo[_index] = tmp;
-	
-		if (_index <= mSelectSheet) mSelectSheet ++;
-
-		updateBar();
+		SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", _name));
+		_insertSheet(_index, _name, sheet, _data);
 
 		return sheet;
 	}
@@ -171,7 +143,7 @@ namespace MyGUI
 		// подстраховка
 		if (mWidgetBar->getWidth() < 1) return;
 
-		if ((mWidgetBar->getWidth() < mWidthBar) && (1 < mSheetsInfo.size())) {
+		if ((mWidgetBar->getWidth() < mWidthBar) && (1 < mItemsInfo.size())) {
 			if (false == mButtonShow) {
 				mButtonShow = true;
 				if (null != mButtonLeft) mButtonLeft->show();
@@ -198,12 +170,12 @@ namespace MyGUI
 		if (mStartIndex > 0) {
 			// считаем длинну видимых кнопок
 			int width = 0;
-			for (size_t pos=mStartIndex; pos<mSheetsInfo.size(); pos++) width += mSheetsInfo[pos].width;
+			for (size_t pos=mStartIndex; pos<mItemsInfo.size(); pos++) width += mItemsInfo[pos].width;
 
 			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
-			while ((mStartIndex > 0) && ((width + mSheetsInfo[mStartIndex-1].width) <= mWidgetBar->getWidth())) {
+			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= mWidgetBar->getWidth())) {
 				mStartIndex--;
-				width += mSheetsInfo[mStartIndex].width;
+				width += mItemsInfo[mStartIndex].width;
 			}
 		}
 
@@ -211,13 +183,13 @@ namespace MyGUI
 		int width = 0;
 		size_t count = 0;
 		size_t pos=mStartIndex;
-		for (; pos<mSheetsInfo.size(); pos++) {
+		for (; pos<mItemsInfo.size(); pos++) {
 
 			// текущая кнопка не влазиет
 			if (width > mWidgetBar->getWidth()) break;
 
 			// следующая не влазиет
-			TabSheetInfo & info = mSheetsInfo[pos]; 
+			TabSheetInfo & info = mItemsInfo[pos]; 
 			if ((width + info.width) > mWidgetBar->getWidth()) {
 				break;
 			}
@@ -230,7 +202,7 @@ namespace MyGUI
 			button->show();
 
 			// корректируем нажатость кнопки
-			button->setButtonPressed(pos == mSelectSheet);
+			button->setButtonPressed(pos == mIndexSelect);
 
 			if (button->getCaption() != info.name)
 				button->setCaption(info.name);
@@ -250,7 +222,7 @@ namespace MyGUI
 		}
 
 		bool right = true;
-		if (pos == mSheetsInfo.size()) right = false;
+		if (pos == mItemsInfo.size()) right = false;
 
 		// корректируем виджет для пустоты
 		if (width < mWidgetBar->getWidth()) {
@@ -287,7 +259,7 @@ namespace MyGUI
 			}
 		}
 		else if (_sender == mButtonRight) {
-			if ((mStartIndex+1) < mSheetsInfo.size()) {
+			if ((mStartIndex+1) < mItemsInfo.size()) {
 				mStartIndex ++;
 				// в updateBar() будет подкорректированно если что
 				updateBar();
@@ -301,42 +273,39 @@ namespace MyGUI
 	{
 		size_t select = (size_t)_sender->_getInternalData() + mStartIndex;
 		// щелкнули по той же кнопке
-		if (select == mSelectSheet) {
+		if (select == mIndexSelect) {
 			// стараемся показать выделенную кнопку
-			showBarSelectButton();
+			beginToItemSelected();
 			return;
 		}
-		size_t old = mSelectSheet;
-		mSelectSheet = select;
+		size_t old = mIndexSelect;
+		mIndexSelect = select;
 
 		size_t count = 0;
 		for (size_t pos=0; pos<mSheetButton.size(); pos++) {
 			ButtonPtr button = mSheetButton[count]->castType<Button>();
 			if (button->isShow()) {
 				// корректируем нажатость кнопки
-				button->setButtonPressed((pos + mStartIndex) == mSelectSheet);
+				button->setButtonPressed((pos + mStartIndex) == mIndexSelect);
 			}
 			count ++;
 		}
 
 		// стараемся показать выделенную кнопку
-		showBarSelectButton();
+		beginToItemSelected();
 
 		// поднимаем страницу для пикинга
-		_forcePeek(mSheetsInfo[mSelectSheet].sheet);
+		_forcePeek(mItemsInfo[mIndexSelect].sheet);
 
-		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, mSmoothShow);
-		_showSheet(mSheetsInfo[old].sheet, false, mSmoothShow);
+		_showSheet(mItemsInfo[mIndexSelect].sheet, true, mSmoothShow);
+		_showSheet(mItemsInfo[old].sheet, false, mSmoothShow);
 
-		eventTabChangeSelect(this, mSelectSheet);
+		eventTabChangeSelect(this, mIndexSelect);
 	}
 
-	void Tab::showBarButton(size_t _index)
+	void Tab::beginToItemAt(size_t _index)
 	{
-		if (_index >= mSheetsInfo.size()) {
-			MYGUI_LOG(Warning, "index in sheets out of range");
-			return;
-		}
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::beginToItemAt");
 
 		// подстраховка
 		if (mWidgetBar->getWidth() < 1) return;
@@ -350,30 +319,19 @@ namespace MyGUI
 			// длинна бара от старт индекса до нужной включительно
 			int width = 0;
 			for (size_t pos=mStartIndex; pos<=_index; pos++) {
-				width += mSheetsInfo[pos].width;
+				width += mItemsInfo[pos].width;
 			}
 
 			// уменьшем старт индекс пока не появиться нужная
 			bool change = false;
 			while ((mStartIndex < _index) && (width > mWidgetBar->getWidth())) {
-				width -= mSheetsInfo[mStartIndex].width;
+				width -= mItemsInfo[mStartIndex].width;
 				mStartIndex ++;
 				change = true;
 			}
 			if (change) updateBar();
 
 		}
-	}
-
-	void Tab::showBarButton(const Ogre::UTFString& _name)
-	{
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			if (mSheetsInfo[pos].name == _name) {
-				showBarButton(pos);
-				return;
-			}
-		}
-		MYGUI_LOG(Warning, "sheet '" << _name << "' not found");
 	}
 
 	void Tab::setButtonDefaultWidth(int _width)
@@ -386,148 +344,64 @@ namespace MyGUI
 	void Tab::setButtonAutoWidth(bool _auto)
 	{
 		mButtonAutoWidth = _auto;
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			setSheetButtonWidthIndex(pos);
+
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			int width;
+			if (mButtonAutoWidth) width = _getTextWidth(mItemsInfo[pos].name);
+			else width = mButtonDefaultWidth;
+
+			mWidthBar += width - mItemsInfo[pos].width;
+			mItemsInfo[pos].width = width;
 		}
-	}
-
-	void Tab::setSheetButtonWidthIndex(size_t _index, int _width)
-	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "setSheetButtonWidthIndex: index '" << _index << "' out of range");
-
-		if (_width <= 0) {
-			if (mButtonAutoWidth) _width = getButtonWidthByName(mSheetsInfo[_index].name);
-			else _width = mButtonDefaultWidth;
-		}
-
-		mWidthBar += _width - mSheetsInfo[_index].width;
-		mSheetsInfo[_index].width = _width;
 
 		updateBar();
 	}
 
-	void Tab::setSheetNameIndex(size_t _index, const Ogre::UTFString& _name, int _width)
+	void Tab::setButtonWidthAt(size_t _index, int _width)
 	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "setSheetNameIndex: index '" << _index << "' out of range");
-		mSheetsInfo[_index].name = _name;
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setButtonWidthAt");
 
 		if (_width <= 0) {
-			if (mButtonAutoWidth) _width = getButtonWidthByName(_name);
+			if (mButtonAutoWidth) _width = _getTextWidth(mItemsInfo[_index].name);
 			else _width = mButtonDefaultWidth;
 		}
 
-		mWidthBar += _width - mSheetsInfo[_index].width;
-		mSheetsInfo[_index].width = _width;
+		mWidthBar += _width - mItemsInfo[_index].width;
+		mItemsInfo[_index].width = _width;
 
 		updateBar();
 	}
 
-	void Tab::setSheetName(SheetPtr _sheet, const Ogre::UTFString& _name, int _width)
+	void Tab::replaceItemNameAt(size_t _index, const Ogre::UTFString& _name)
 	{
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			if (mSheetsInfo[pos].sheet == _sheet) {
-				setSheetNameIndex(pos, _name, _width);
-				return;
-			}
-		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::replaceItemNameAt");
+		mItemsInfo[_index].name = _name;
+
+		int width; 
+		if (mButtonAutoWidth) width = _getTextWidth(_name);
+		else width = mButtonDefaultWidth;
+
+		mWidthBar += width - mItemsInfo[_index].width;
+		mItemsInfo[_index].width = width;
+
+		updateBar();
 	}
 
-	void Tab::setSheetButtonWidth(SheetPtr _sheet, int _width)
+	void Tab::setItemSelectedAt(size_t _index)
 	{
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			if (mSheetsInfo[pos].sheet == _sheet) {
-				setSheetButtonWidthIndex(pos, _width);
-				return;
-			}
-		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
-	}
-
-	void Tab::removeSheetIndex(size_t _index)
-	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "removeSheetIndex: index '" << _index << "' out of range");
-
-		this->_destroyChildWidget(mSheetsInfo[_index].sheet);
-		// удаляем страницу
-		/*TabSheetInfo & info = mSheetsInfo[_index];
-		// при удалении сам отпишеться
-		//ControllerManager::getInstance().removeItem(info.sheet);
-		WidgetManager::getInstance().destroyWidget(info.sheet);
-		mWidthBar -= info.width;
-		mSheetsInfo.erase(mSheetsInfo.begin() + _index);
-
-		if (0 == mSheetsInfo.size()) mSelectSheet = ITEM_NONE;
-		else {
-			if (_index < mSelectSheet) mSelectSheet --;
-			else if (_index == mSelectSheet) {
-				if (mSelectSheet == mSheetsInfo.size()) mSelectSheet --;
-				mSheetsInfo[mSelectSheet].sheet->show();
-			}
-		}
-
-		updateBar();*/
-	}
-
-	void Tab::removeSheet(const Ogre::UTFString& _name)
-	{
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			if (mSheetsInfo[pos].name == _name) {
-				removeSheetIndex(pos);
-				return;
-			}
-		}
-		MYGUI_EXCEPT("sheet '" << _name << "' not found");
-	}
-
-	void Tab::removeSheet(SheetPtr _sheet)
-	{
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			if (mSheetsInfo[pos].sheet == _sheet) {
-				removeSheetIndex(pos);
-				return;
-			}
-		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
-	}
-
-	void Tab::selectSheetIndex(size_t _index, bool _smooth)
-	{
-		MYGUI_ASSERT(_index < mSheetsInfo.size(), "selectSheetIndex: index '" << _index << "' out of range");
-		if (mSelectSheet == _index) return;
-		size_t old = mSelectSheet;
-		mSelectSheet = _index;
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemSelected");
+		if (mIndexSelect == _index) return;
+		size_t old = mIndexSelect;
+		mIndexSelect = _index;
 		updateBar();
 
 		// поднимаем страницу для пикинга
-		if (_smooth) _forcePeek(mSheetsInfo[mSelectSheet].sheet);
+		if (mSmoothShow) _forcePeek(mItemsInfo[mIndexSelect].sheet);
 
-		_showSheet(mSheetsInfo[mSelectSheet].sheet, true, _smooth);
-		_showSheet(mSheetsInfo[old].sheet, false, _smooth);
+		_showSheet(mItemsInfo[mIndexSelect].sheet, true, mSmoothShow);
+		_showSheet(mItemsInfo[old].sheet, false, mSmoothShow);
 
-		showBarSelectButton();
-	}
-
-	void Tab::selectSheet(const Ogre::UTFString& _name, bool _smooth)
-	{
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			if (mSheetsInfo[pos].name == _name) {
-				selectSheetIndex(pos, _smooth);
-				return;
-			}
-		}
-		MYGUI_EXCEPT("sheet '" << _name << "' not found");
-	}
-
-	void Tab::selectSheet(SheetPtr _sheet, bool _smooth)
-	{
-		for (size_t pos=0; pos<mSheetsInfo.size(); pos++) {
-			if (mSheetsInfo[pos].sheet == _sheet) {
-				selectSheetIndex(pos, _smooth);
-				return;
-			}
-		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
+		beginToItemSelected();
 	}
 
 	void Tab::_showSheet(SheetPtr _sheet, bool _show, bool _smooth)
@@ -561,7 +435,7 @@ namespace MyGUI
 		mSheetButton.push_back(button);
 	}
 
-	int Tab::getButtonWidthByName(const Ogre::UTFString& _text)
+	int Tab::_getTextWidth(const Ogre::UTFString& _text)
 	{
 		if (0 == mSheetButton.size()) _createSheetButton();
 
@@ -581,35 +455,79 @@ namespace MyGUI
 		// общий шутдаун виджета
 		if (mShutDown) return;
 
-		for (VectorTabSheetInfo::iterator iter=mSheetsInfo.begin(); iter!=mSheetsInfo.end(); ++iter) {
-			if ((*iter).sheet == _sheet) {
+		size_t index = getItemIndex(_sheet);
+		
+		mWidthBar -= mItemsInfo[index].width;
+		mItemsInfo.erase(mItemsInfo.begin() + index);
 
-				//TabSheetInfo & info = mSheetsInfo[_index];
-				// при удалении сам отпишеться
-				//ControllerManager::getInstance().removeItem(info.sheet);
-				//WidgetManager::getInstance().destroyWidget(info.sheet);
-				size_t index = iter - mSheetsInfo.begin();
-
-				mWidthBar -= (*iter).width;
-				mSheetsInfo.erase(iter);
-
-				if (0 == mSheetsInfo.size()) mSelectSheet = ITEM_NONE;
-				else {
-					if (index < mSelectSheet) mSelectSheet --;
-					else if (index == mSelectSheet) {
-						if (mSelectSheet == mSheetsInfo.size()) mSelectSheet --;
-						mSheetsInfo[mSelectSheet].sheet->show();
-						mSheetsInfo[mSelectSheet].sheet->setAlpha(ALPHA_MAX);
-					}
-				}
-
-				updateBar();
-
-				//removeSheetIndex(pos);
-				return;
+		if (0 == mItemsInfo.size()) mIndexSelect = ITEM_NONE;
+		else {
+			if (index < mIndexSelect) mIndexSelect --;
+			else if (index == mIndexSelect) {
+				if (mIndexSelect == mItemsInfo.size()) mIndexSelect --;
+				mItemsInfo[mIndexSelect].sheet->show();
+				mItemsInfo[mIndexSelect].sheet->setAlpha(ALPHA_MAX);
 			}
 		}
-		MYGUI_EXCEPT("sheet (" << _sheet << ") not found");
+
+		updateBar();
+	}
+
+	void Tab::_insertSheet(size_t _index, const Ogre::UTFString & _name, SheetPtr _sheet, Any _data)
+	{
+		if (_index == ITEM_NONE) _index = mItemsInfo.size();
+
+		// добавляем инфу о вкладке
+		int width = (mButtonAutoWidth ? _getTextWidth(_name) : mButtonDefaultWidth);
+		mWidthBar += width;
+
+		mItemsInfo.insert(mItemsInfo.begin() + _index, TabSheetInfo(width, _name, _sheet, _data));
+
+		// первая вкладка
+		if (1 == mItemsInfo.size()) mIndexSelect = 0;
+		else {
+			_sheet->hide();
+			if (_index <= mIndexSelect) mIndexSelect ++;
+		}
+
+		updateBar();
+	}
+
+	void Tab::setItemDataAt(size_t _index, Any _data)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemDataAt");
+		mItemsInfo[_index].data = _data;
+	}
+
+	int Tab::getButtonWidthAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getButtonWidthAt");
+		return mItemsInfo[_index].width;
+	}
+
+	const Ogre::UTFString & Tab::getItemNameAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemNameAt");
+		return mItemsInfo[_index].name;
+	}
+
+	SheetPtr Tab::getItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemAt");
+		return mItemsInfo[_index].sheet;
+	}
+
+	void Tab::removeItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::removeItemAt");
+		this->_destroyChildWidget(mItemsInfo[_index].sheet);
+	}
+
+	void Tab::removeAllItems()
+	{
+		while (mItemsInfo.size() > 0) {
+			this->_destroyChildWidget(mItemsInfo.back().sheet);
+		}
 	}
 
 } // namespace MyGUI

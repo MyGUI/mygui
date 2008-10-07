@@ -46,7 +46,7 @@ void StaticImageView::initialiseImages()
 	}
 
 	if (mComboResource->getItemCount() > 0) {
-		mComboResource->setItemSelect(0);
+		mComboResource->setItemSelectedAt(0);
 	}
 	selectResource(0);
 }
@@ -54,15 +54,15 @@ void StaticImageView::initialiseImages()
 void StaticImageView::notifyComboAccept(MyGUI::WidgetPtr _sender)
 {
 	if (_sender->compare(mComboResource)) {
-		size_t index = mComboResource->getItemSelect();
+		size_t index = mComboResource->getItemIndexSelected();
 		selectResource(index);
 	}
 	else if (_sender->compare(mComboGroup)) {
-		size_t index = mComboGroup->getItemSelect();
+		size_t index = mComboGroup->getItemIndexSelected();
 		selectGroup(index);
 	}
 	else if (_sender->compare(mComboName)) {
-		size_t index = mComboName->getItemSelect();
+		size_t index = mComboName->getItemIndexSelected();
 		selectName(index);
 	}
 }
@@ -70,17 +70,17 @@ void StaticImageView::notifyComboAccept(MyGUI::WidgetPtr _sender)
 void StaticImageView::selectResource(size_t _index)
 {
 	if (_index < mComboResource->getItemCount()) {
-		MyGUI::ResourceImageSetPtr image = *mComboResource->getItemData<MyGUI::ResourceImageSetPtr>(_index);
+		MyGUI::ResourceImageSetPtr image = *mComboResource->getItemDataAt<MyGUI::ResourceImageSetPtr>(_index);
 		mTextGuid->setCaption(image->getResourceID().print());
 
-		mComboGroup->deleteAllItems();
+		mComboGroup->removeAllItems();
 		MyGUI::EnumeratorGroupImage groups = image->getEnumerator();
 		while (groups.next()) {
 			mComboGroup->addItem(groups.current().name, groups.current());
 		}
 
 		if (mComboGroup->getItemCount() > 0) {
-			mComboGroup->setItemSelect(0);
+			mComboGroup->setItemSelectedAt(0);
 		}
 		selectGroup(0);
 	}
@@ -90,8 +90,8 @@ void StaticImageView::selectResource(size_t _index)
 		mTextSize->setCaption("");
 		mTextFrames->setCaption("");
 		mTextRate->setCaption("");
-		mComboGroup->deleteAllItems();
-		mComboName->deleteAllItems();
+		mComboGroup->removeAllItems();
+		mComboName->removeAllItems();
 		mImageView->setCanvasSize(0, 0);
 		mImage->hide();
 	}
@@ -100,19 +100,19 @@ void StaticImageView::selectResource(size_t _index)
 void StaticImageView::selectGroup(size_t _index)
 {
 	if (_index < mComboGroup->getItemCount()) {
-		MyGUI::GroupImage * group = mComboGroup->getItemData<MyGUI::GroupImage>(_index);
+		MyGUI::GroupImage * group = mComboGroup->getItemDataAt<MyGUI::GroupImage>(_index);
 		
 		mTextTexture->setCaption(group->texture);
 		mTextSize->setCaption(MyGUI::utility::toString(group->size.width, " x ", group->size.height));
 		mImageSize = group->size;
 
-		mComboName->deleteAllItems();
+		mComboName->removeAllItems();
 		for (size_t pos=0; pos<group->indexes.size(); ++pos) {
 			mComboName->addItem(group->indexes[pos].name, group->indexes[pos]);
 		}
 
 		if (mComboName->getItemCount() > 0) {
-			mComboName->setItemSelect(0);
+			mComboName->setItemSelectedAt(0);
 		}
 		selectName(0);
 	}
@@ -121,7 +121,7 @@ void StaticImageView::selectGroup(size_t _index)
 		mTextSize->setCaption("");
 		mTextFrames->setCaption("");
 		mTextRate->setCaption("");
-		mComboName->deleteAllItems();
+		mComboName->removeAllItems();
 		mImageView->setCanvasSize(0, 0);
 		mImage->hide();
 	}
@@ -130,7 +130,7 @@ void StaticImageView::selectGroup(size_t _index)
 void StaticImageView::selectName(size_t _index)
 {
 	if (_index < mComboName->getItemCount()) {
-		MyGUI::IndexImage * name = mComboName->getItemData<MyGUI::IndexImage>(_index);
+		MyGUI::IndexImage * name = mComboName->getItemDataAt<MyGUI::IndexImage>(_index);
 		
 		mTextFrames->setCaption(MyGUI::utility::toString(name->frames.size()));
 		mTextRate->setCaption(MyGUI::utility::toString(name->rate));

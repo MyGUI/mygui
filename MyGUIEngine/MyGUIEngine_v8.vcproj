@@ -587,6 +587,14 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Doc"
+				>
+				<File
+					RelativePath=".\src\MyGUI_IArray.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"

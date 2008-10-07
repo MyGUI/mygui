@@ -151,10 +151,10 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 		if (current_widget->getTypeName() == "Tab")
 		{
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
-			size_t sheet = tab->getSelectSheetIndex();
+			size_t sheet = tab->getItemIndexSelected();
 			sheet++;
-			if (sheet >= tab->getSheetCount()) sheet = 0;
-			if (tab->getSheetCount()) tab->selectSheetIndex(sheet);
+			if (sheet >= tab->getItemCount()) sheet = 0;
+			if (tab->getItemCount()) tab->setItemSelectedAt(sheet);
 		}
 	}
 	else if (OIS::KC_DELETE == _key)
@@ -208,13 +208,15 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 			if (parent->getTypeName() == "Sheet")
 			{
 				MyGUI::TabPtr tab = parent->getParent()->castType<MyGUI::Tab>();
-				tab->selectSheet(parent->castType<MyGUI::Sheet>());
+				MyGUI::SheetPtr sheet = parent->castType<MyGUI::Sheet>();
+				tab->setItemSelected(sheet);
 			}
 			// если выбрали лист таба, то поднять лист таба
 			if (current_widget->getTypeName() == "Sheet")
 			{
 				MyGUI::TabPtr tab = parent->castType<MyGUI::Tab>();
-				tab->selectSheet(current_widget->castType<MyGUI::Sheet>());
+				MyGUI::SheetPtr sheet = current_widget->castType<MyGUI::Sheet>();
+				tab->setItemSelected(sheet);
 			}
 			coord = current_widget->getAbsoluteCoord();
 		}
@@ -342,7 +344,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else
 	{
 		editOrCombo = propertiesElement[pairs_counter-1];
-		if (widget_for_type == 1) editOrCombo->castType<MyGUI::ComboBox>()->deleteAllItems();
+		if (widget_for_type == 1) editOrCombo->castType<MyGUI::ComboBox>()->removeAllItems();
 		editOrCombo->show();
 		editOrCombo->setPosition(x2, y, w2, h);
 	}
