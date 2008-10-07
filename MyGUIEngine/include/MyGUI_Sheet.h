@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_Tab.h"
 
 namespace MyGUI
 {
@@ -26,33 +27,40 @@ namespace MyGUI
 
 	public:
 		/** Set sheet caption */
-		void setCaption(const Ogre::UTFString & _caption);
+		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->replaceItemName(static_cast<SheetPtr>(this), _caption); }
 		/** Get sheet caption */
-		const Ogre::UTFString & getCaption();
+		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(static_cast<SheetPtr>(this)); }
 
-		//--------------------------------------------------------------------
-		// дубликаты методов у таба
-		//--------------------------------------------------------------------
-		/** Get sheet name */
-		const Ogre::UTFString & getSheetName();
-		/** Set sheet name and optionally width */
-		void setSheetName(const Ogre::UTFString & _name, int _width = DEFAULT);
+	public:
+		//! Set button width
+		void setButtonWidth(int _width = DEFAULT) { mOwner->setButtonWidth(static_cast<SheetPtr>(this), _width); }
 
-		/** Get width of sheet button */
-		int getSheetButtonWidth();
-		/** Set width of sheet button */
-		void setSheetButtonWidth(int _width = DEFAULT);
+		//! Get button width
+		int getButtonWidth() { return mOwner->getButtonWidth(static_cast<SheetPtr>(this)); }
 
-		/** Select sheet (show) */
-		void selectSheet(bool _smooth = true);
+		//! Get item name
+		const Ogre::UTFString & getItemName() { return mOwner->getItemName(static_cast<SheetPtr>(this)); }
 
-		/** Remove sheet */
-		void removeSheet();
+		//! Replace an item name
+		void replaceItemName(const Ogre::UTFString & _name) { mOwner->replaceItemName(static_cast<SheetPtr>(this), _name); }
+
+		//! Get item data
+		template <typename ValueType>
+		ValueType * getItemData(bool _throw = true)
+		{
+			return mOwner->getItemData<ValueType>(static_cast<SheetPtr>(this), _throw);
+		}
+
+		//! Select sheet
+		void setItemSelected() { mOwner->setItemSelected(static_cast<SheetPtr>(this)); }
+
+		//! Remove item
+		void removeItem() { mOwner->removeItem(static_cast<SheetPtr>(this)); } 
 
 	private:
 		TabPtr mOwner;
 
-	}; // class _MyGUIExport Sheet : public Widget
+	};
 
 } // namespace MyGUI
 

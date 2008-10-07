@@ -53,10 +53,10 @@ namespace MyGUI
 		if (mWidgetClient == null) mWidgetClient= this;
 	}
 
-	void MenuBar::insertItem(size_t _index, const Ogre::UTFString & _item)
+	void MenuBar::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)
 	{
-		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size() || _index == ITEM_NONE, "index '" << _index << "' out of range");
-		if (_index == ITEM_NONE) _index = mVectorMenuItemInfo.size();
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuBar::insertItem");
+		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
 		ButtonPtr button = mWidgetClient->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Default);
 		button->eventMouseButtonPressed = newDelegate(this, &MenuBar::eventMouseButtonPressed);
@@ -67,49 +67,50 @@ namespace MyGUI
 		menu->eventPopupMenuAccept = newDelegate(this, &MenuBar::notifyPopupMenuAccept);
 		menu->_setOwner(this);
 
-		mVectorMenuItemInfo.insert(mVectorMenuItemInfo.begin() + _index, MenuItemInfo(button, menu));
-		update();
-	}
-
-	void MenuBar::setItem(size_t _index, const Ogre::UTFString & _item)
-	{
-		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size(), "index '" << _index << "' out of range");
-		mVectorMenuItemInfo[_index].button->setCaption(_item);
+		mItemsInfo.insert(mItemsInfo.begin() + _index, MenuItemInfo(button, false, menu, _data));
 
 		update();
 	}
 
-	const Ogre::UTFString & MenuBar::getItemName(size_t _index)
+	void MenuBar::replaceItemNameAt(size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size(), "index '" << _index << "' out of range");
-		return mVectorMenuItemInfo[_index].button->getCaption();
-	}
-
-	PopupMenuPtr MenuBar::getItemMenu(size_t _index)
-	{
-		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size(), "index '" << _index << "' out of range");
-		return mVectorMenuItemInfo[_index].menu;
-	}
-
-	void MenuBar::deleteItem(size_t _index)
-	{
-		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size(), "index '" << _index << "' out of range");
-
-		WidgetManager::getInstance().destroyWidget(mVectorMenuItemInfo[_index].button);
-		WidgetManager::getInstance().destroyWidget(mVectorMenuItemInfo[_index].menu);
-		mVectorMenuItemInfo.erase(mVectorMenuItemInfo.begin() + _index);
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::replaceItemNameAt");
+		mItemsInfo[_index].button->setCaption(_item);
 
 		update();
 	}
 
-	void MenuBar::deleteAllItems()
+	const Ogre::UTFString & MenuBar::getItemNameAt(size_t _index)
 	{
-		for (VectorMenuItemInfo::iterator iter=mVectorMenuItemInfo.begin(); iter!=mVectorMenuItemInfo.end(); ++iter) {
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::getItemNameAt");
+		return mItemsInfo[_index].button->getCaption();
+	}
+
+	PopupMenuPtr MenuBar::getItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::getItemChildAt");
+		return mItemsInfo[_index].menu;
+	}
+
+	void MenuBar::removeItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::removeItemAt");
+
+		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].button);
+		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].menu);
+		mItemsInfo.erase(mItemsInfo.begin() + _index);
+
+		update();
+	}
+
+	void MenuBar::removeAllItems()
+	{
+		for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			WidgetManager::getInstance().destroyWidget((*iter).button);
 			WidgetManager::getInstance().destroyWidget((*iter).menu);
 		}
 
-		mVectorMenuItemInfo.clear();
+		mItemsInfo.clear();
 
 		update();
 	}
@@ -117,11 +118,11 @@ namespace MyGUI
 	void MenuBar::update()
 	{
 		int pos = 0;
-		for (VectorMenuItemInfo::iterator iter=mVectorMenuItemInfo.begin(); iter!=mVectorMenuItemInfo.end(); ++iter) {
+		for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			int width = (*iter).button->getCoord().width - (*iter).button->getTextCoord().width + (*iter).button->getTextSize().width;
 			(*iter).button->setPosition(pos, 0, width, mWidgetClient->getHeight());
 			pos += width + mDistanceButton;
-			(*iter).button->_setInternalData(iter - mVectorMenuItemInfo.begin());
+			(*iter).button->_setInternalData(iter - mItemsInfo.begin());
 		}
 	}
 
@@ -130,28 +131,28 @@ namespace MyGUI
 		if (_id == MB_Left) {
 			size_t select = (size_t)_sender->_getInternalData();
 			if (mIndexSelect == select) select = ITEM_NONE;
-			setItemSelect(select);
+			setItemSelectedAt(select);
 		}
 	}
 
-	void MenuBar::setItemSelect(size_t _index)
+	void MenuBar::setItemSelectedAt(size_t _index)
 	{
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "MenuBar::setItemSelectedAt");
+
 		if (mIndexSelect == _index) return;
 
-		MYGUI_ASSERT(_index < mVectorMenuItemInfo.size() || _index == ITEM_NONE, "index '" << _index << "' out of range");
-
 		if (mIndexSelect != ITEM_NONE) {
-			mVectorMenuItemInfo[mIndexSelect].button->setButtonPressed(false);
-			mVectorMenuItemInfo[mIndexSelect].menu->hidePopupMenu(false);
+			mItemsInfo[mIndexSelect].button->setButtonPressed(false);
+			mItemsInfo[mIndexSelect].menu->hidePopupMenu(false);
 		}
 
 		mIndexSelect = _index;
 
 		if (mIndexSelect != ITEM_NONE) {
-			if (0 != mVectorMenuItemInfo[mIndexSelect].menu->getItemCount()) {
-				mVectorMenuItemInfo[mIndexSelect].button->setButtonPressed(true);
-				mVectorMenuItemInfo[mIndexSelect].menu->showPopupMenu(
-					IntPoint(mVectorMenuItemInfo[mIndexSelect].button->getAbsoluteLeft(), getAbsoluteRect().bottom));
+			if (0 != mItemsInfo[mIndexSelect].menu->getItemCount()) {
+				mItemsInfo[mIndexSelect].button->setButtonPressed(true);
+				mItemsInfo[mIndexSelect].menu->showPopupMenu(
+					IntPoint(mItemsInfo[mIndexSelect].button->getAbsoluteLeft(), getAbsoluteRect().bottom));
 			}
 			else {
 				mIndexSelect = ITEM_NONE;
@@ -165,7 +166,7 @@ namespace MyGUI
 		if (mIndexSelect != ITEM_NONE) {
 			const IntPoint & point = InputManager::getInstance().getMousePosition();
 			WidgetPtr widget = InputManager::getInstance().getWidgetFromPoint(point.left, point.top);
-			if (mVectorMenuItemInfo[mIndexSelect].button == widget) return;
+			if (mItemsInfo[mIndexSelect].button == widget) return;
 		}
 		resetItemSelect();
 	}*/
@@ -175,5 +176,46 @@ namespace MyGUI
 		//resetItemSelect();
 		eventPopupMenuAccept(this, _sender->castType<PopupMenu>(), _index);
 	}
+
+	void MenuBar::setItemDataAt(size_t _index, Any _data)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::setItemDataAt");
+		mItemsInfo[_index].data = _data;
+	}
+
+	PopupMenuPtr MenuBar::createItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::createItemChildAt");
+
+		if (mItemsInfo[_index].menu == null) {
+			mItemsInfo[_index].menu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+			mItemsInfo[_index].menu->_setOwner(this);
+		}
+		else {
+			mItemsInfo[_index].menu->removeAllItems();
+		}
+
+		update();
+
+		return mItemsInfo[_index].menu;
+	}
+
+	void MenuBar::removeItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::removeItemChildAt");
+
+		if (mItemsInfo[_index].menu != null) {
+			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].menu);
+			mItemsInfo[_index].menu = null;
+		}
+
+		update();
+	}
+
+	/*MenuBar::ItemType MenuBar::getItemTypeAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::getItemTypeAt");
+		return getItemType(mItemsInfo[_index].submenu != null, mItemsInfo[_index].separator);
+	}*/
 
 } // namespace MyGUI

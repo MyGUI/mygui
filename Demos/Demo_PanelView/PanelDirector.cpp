@@ -29,7 +29,7 @@ void PanelDirector::initialiseCell(PanelCell * _cell)
 	mCheckShowStatic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
 	mCheckShowDynamic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
 	mComboCount->eventComboAccept = MyGUI::newDelegate(this, &PanelDirector::notifyComboAccept);
-	mComboCount->setItemSelect(4);
+	mComboCount->setItemSelectedAt(4);
 }
 
 void PanelDirector::shutdownCell()

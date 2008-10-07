@@ -73,13 +73,13 @@ namespace MyGUI
 		void TabFactory::Tab_AddSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(Tab, _widget, _key);
-			static_cast<TabPtr>(_widget)->addSheet(_value);
+			static_cast<TabPtr>(_widget)->addItem(_value);
 		}
 
 		void TabFactory::Tab_SelectSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			MYGUI_RETURN_IS_FALSE_TYPE(Tab, _widget, _key);
-			static_cast<TabPtr>(_widget)->selectSheetIndex(utility::parseSizeT(_value), false);
+			static_cast<TabPtr>(_widget)->setItemSelectedAt(utility::parseSizeT(_value));
 		}
 
 	} // namespace factory

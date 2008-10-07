@@ -9,6 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_Any.h"
 
 namespace MyGUI
 {
@@ -22,18 +24,26 @@ namespace MyGUI
 
 	public:
 
-		enum ImageIndex
+		enum ItemImage
 		{
-			IMAGE_NONE,
-			IMAGE_POPUP
+			ItemImageNone,
+			ItemImagePopup
+		};
+
+		enum ItemType
+		{
+			ItemTypeNormal,
+			ItemTypePopup,
+			ItemTypeSeparator
 		};
 
 		struct ItemInfo
 		{
-			ItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _submenu) :
+			ItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _submenu, Any _data) :
 				button(_button),
 				separator(_separator),
-				submenu(_submenu)
+				submenu(_submenu),
+				data(_data)
 			{
 			}
 
@@ -41,10 +51,10 @@ namespace MyGUI
 			ButtonPtr button;
 			/** Widget have separator after button */
 			bool separator;
-			/** Sub menu (or NULL if no submenu) */
+			/** Sub menu (or null if no submenu) */
 			PopupMenuPtr submenu;
 			/** User data */
-			void * data;
+			Any data;
 		};
 
 		typedef std::vector<ItemInfo> VectorPopupMenuItemInfo;
@@ -53,17 +63,103 @@ namespace MyGUI
 		PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		// методы для работы со списком
-		ItemInfo& addItem(const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { return insertItem(ITEM_NONE, _item, _submenu, _separator); }
-		ItemInfo& insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
-		void setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false);
 
-		void deleteItem(size_t _index);
-		void deleteAllItems();
+		//------------------------------------------------------------------------------//
+		// манипуляции айтемами
 
-		size_t getItemCount();
-		const Ogre::UTFString& getItem(size_t _index);
-		ItemInfo& getItemInfo(size_t _index);
+		//! Get number of items
+		size_t getItemCount() { return mItemsInfo.size(); }
+
+		//! Insert an item into a array at a specified position
+		void insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, Any _data = Any::Null);
+
+		//! Add an item to the end of a array
+		void addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _type, _data); }
+
+		//! Replace an item at a specified position
+		//void replaceItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type = ItemTypeNormal);
+
+		//! Remove item at a specified position
+		void removeItemAt(size_t _index);
+
+		//! Remove all items
+		void removeAllItems();
+
+
+		//------------------------------------------------------------------------------//
+		// манипуляции данными
+
+		//! Replace an item data at a specified position
+		void setItemDataAt(size_t _index, Any _data);
+
+		//! Clear an item data at a specified position
+		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
+
+		//! Get item data from specified position
+		template <typename ValueType>
+		ValueType * getItemDataAt(size_t _index, bool _throw = true)
+		{
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemDataAt");
+			return mItemsInfo[_index].data.castType<ValueType>(_throw);
+		}
+
+		//------------------------------------------------------------------------------//
+		// манипуляции отображением
+
+		void replaceItemNameAt(size_t _index, const Ogre::UTFString & _name);
+
+		//! Get item from specified position
+		const Ogre::UTFString & getItemNameAt(size_t _index);
+
+		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
+		size_t findItemIndexWith(const Ogre::UTFString & _item)
+		{
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+				// FIXME хранить имя
+				if (mItemsInfo[pos].button->getCaption() == _item) return pos;
+			}
+			return ITEM_NONE;
+		}
+
+		//------------------------------------------------------------------------------//
+		// остальные манипуляции
+
+		PopupMenuPtr getItemChildAt(size_t _index);
+
+		PopupMenuPtr createItemChildAt(size_t _index);
+
+		void removeItemChildAt(size_t _index);
+
+
+		void insertSeparatorAt(size_t _index) { insertItemAt(_index, "", ItemTypeSeparator); }
+
+		void addSeparator() { addItem("", ItemTypeSeparator); }
+
+
+		ItemType getItemTypeAt(size_t _index);
+
+
+		//--------------------------------------------------------------------
+		// OBSOLETE methods
+		// {
+
+		// OBSOLETE, use addItem
+		void addItem(const Ogre::UTFString& _item, bool _submenu, bool _separator) { addItem(_item, getItemType(_submenu, _separator)); }
+		// OBSOLETE, use insertItem
+		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }
+		// OBSOLETE, use replaceItem
+		//void setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { replaceItemNameAt(_index, _item, getItemType(_submenu, _separator)); }
+		// OBSOLETE, use removeItemAt
+		void deleteItem(size_t _index) { removeItemAt(_index); }
+		// OBSOLETE, use removeAllItems
+		void deleteAllItems() { removeAllItems(); }
+		// OBSOLETE, use getItemAt
+		const Ogre::UTFString& getItem(size_t _index) { return getItemNameAt(_index); }
+
+		// }
+		// OBSOLETE methods
+		//--------------------------------------------------------------------
+
 
 		/** Show popup menu
 			@param _point where popup menu will be shown (left top corner in default case)
@@ -97,8 +193,16 @@ namespace MyGUI
 
 		void setButtonImageIndex(ButtonPtr _button, size_t _index);
 
+		ItemType getItemType(bool _submenu, bool _separator)
+		{
+			if (_submenu) return ItemTypePopup;
+			else if (_separator)  return ItemTypeSeparator;
+			return  ItemTypeNormal;
+		}
+
+
 	private:
-		VectorPopupMenuItemInfo mItems;
+		VectorPopupMenuItemInfo mItemsInfo;
 
 		int mHeightLine;
 		std::string mSkinLine;

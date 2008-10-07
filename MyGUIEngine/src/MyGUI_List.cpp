@@ -20,7 +20,6 @@ namespace MyGUI
 	List::List(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetScroll(null),
-		//mWidgetClient(null),
 		mTopIndex(0),
 		mOffsetTop(0),
 		mRangeIndex(-1),
@@ -166,11 +165,11 @@ namespace MyGUI
 		}
 
 		if (sel != mIndexSelect) {
-			if ( false == isItemVisible(sel)) {
-				beginToIndex(sel);
+			if ( false == isItemVisibleAt(sel)) {
+				beginToItemAt(sel);
 				_sendEventChangeScroll(mWidgetScroll->getScrollPosition());
 			}
-			setItemSelect(sel);
+			setItemSelectedAt(sel);
 			// изменилась позиция
 			eventListChangePosition(this, mIndexSelect);
 		}
@@ -424,17 +423,18 @@ namespace MyGUI
 		// тоже невидно
 		if (_index >= mLastRedrawLine) return;
 
-		MYGUI_DEBUG_ASSERT(_index < mWidgetLines.size(), "index out range");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::_redrawItem");
 		// перерисовываем
 		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
 	}
 
-	void List::insertItem(size_t _index, const Ogre::UTFString & _item, Any _data)
+	void List::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
 	{
-		if (_index > mItemsInfo.size()) _index = mItemsInfo.size();
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "List::insertItemAt");
+		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
 		// вставляем физически
-		mItemsInfo.insert(mItemsInfo.begin() + _index, PairItem(_item, _data));
+		mItemsInfo.insert(mItemsInfo.begin() + _index, PairItem(_name, _data));
 
 		// если надо, то меняем выделенный элемент
 		if ( (mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect) ) mIndexSelect++;
@@ -472,13 +472,11 @@ namespace MyGUI
 				// позже сюда еще оптимизацию по колличеству перерисовок
 			}
 		}
-
 	}
 
-	void List::deleteItem(size_t _index)
+	void List::removeItemAt(size_t _index)
 	{
-		// доверяй, но проверяй
-		MYGUI_ASSERT(_index < mItemsInfo.size(), "deleteItemString: index '" << _index << "' out of range");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::removeItemAt");
 
 		// удяляем физически строку
 		_deleteString(_index);
@@ -539,17 +537,19 @@ namespace MyGUI
 		mItemsInfo.pop_back();
 	}
 
-	void List::setItemSelect(size_t _index)
+	void List::setItemSelectedAt(size_t _index)
 	{
-		if (mIndexSelect == _index) return;
-		_selectIndex(mIndexSelect, false);
-		_selectIndex(_index, true);
-		mIndexSelect = _index;
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "List::setItemSelectedAt");
+		if (mIndexSelect != _index) {
+			_selectIndex(mIndexSelect, false);
+			_selectIndex(_index, true);
+			mIndexSelect = _index;
+		}
 	}
 
 	void List::_selectIndex(size_t _index, bool _select)
 	{
-		if (_index >= mItemsInfo.size()) return;
+		if (_index == ITEM_NONE) return;
 		// не видно строки
 		if (_index < (size_t)mTopIndex) return;
 		// высчитывам положение строки
@@ -560,9 +560,9 @@ namespace MyGUI
 		static_cast<ButtonPtr>(mWidgetLines[_index-mTopIndex])->setButtonPressed(_select);
 	}
 
-	void List::beginToIndex(size_t _index)
+	void List::beginToItemAt(size_t _index)
 	{
-		if (_index >= mItemsInfo.size()) return;
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::beginToItemAt");
 		if (mRangeIndex <= 0) return;
 
 		int offset = (int)_index * mHeightLine;
@@ -575,7 +575,7 @@ namespace MyGUI
 	}
 
 	// видим ли мы элемент, полностью или нет
-	bool List::isItemVisible(size_t _index, bool _fill)
+	bool List::isItemVisibleAt(size_t _index, bool _fill)
 	{
 		// если элемента нет, то мы его не видим (в том числе когда их вообще нет)
 		if (_index >= mItemsInfo.size()) return false;
@@ -603,7 +603,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void List::deleteAllItems()
+	void List::removeAllItems()
 	{
 		mTopIndex = 0;
 		mIndexSelect = ITEM_NONE;
@@ -619,32 +619,24 @@ namespace MyGUI
 		updateLine(true);
 	}
 
-	void List::setItem(size_t _index, const Ogre::UTFString & _item)
+	void List::replaceItemNameAt(size_t _index, const Ogre::UTFString & _name)
 	{
-		MYGUI_ASSERT(_index < mItemsInfo.size(), "setItem: index " << _index <<" out of range");
-		mItemsInfo[_index].first =_item;
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::replaceItemNameAt");
+		mItemsInfo[_index].first =_name;
 		_redrawItem(_index);
 	}
 
-	void List::setItemData(size_t _index, Any _data)
+	void List::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT(_index < mItemsInfo.size(), "setItem: index " << _index <<" out of range");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemDataAt");
 		mItemsInfo[_index].second = _data;
 		_redrawItem(_index);
 	}
 
-	const Ogre::UTFString & List::getItem(size_t _index)
+	const Ogre::UTFString & List::getItemNameAt(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mItemsInfo.size(), "getItem: index " << _index <<" out of range");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemNameAt");
 		return mItemsInfo[_index].first;
-	}
-
-	size_t List::findItem(const Ogre::UTFString & _item)
-	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
-			if (_item == mItemsInfo[pos].first) return pos;
-		}
-		return ITEM_NONE;
 	}
 
 	void List::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)

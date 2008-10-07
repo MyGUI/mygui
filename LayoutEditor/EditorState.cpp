@@ -72,15 +72,15 @@ void EditorState::enter(bool bIsChangeState)
 	// FIXME менюбар сунуть в лейаут
 	interfaceWidgets.push_back(bar);
 
-	mPopupMenuWidgets = bar->getItemMenu(1);
+	mPopupMenuWidgets = bar->getItemChildAt(1);
 
-	mPopupMenuFile = bar->getItemMenu(0);
+	mPopupMenuFile = bar->getItemChildAt(0);
 	mPopupMenuFile->addItem(localise("Load"));
 	mPopupMenuFile->addItem(localise("Save"));
 	mPopupMenuFile->addItem(localise("Save_as"));
-	mPopupMenuFile->addItem(localise("Clear"), false, true);
+	mPopupMenuFile->addItem(localise("Clear"), MyGUI::PopupMenu::ItemTypeSeparator);
 	mPopupMenuFile->addItem(localise("Settings"));
-	mPopupMenuFile->addItem(localise("Test"), false, true);
+	mPopupMenuFile->addItem(localise("Test"), MyGUI::PopupMenu::ItemTypeSeparator);
 	mPopupMenuFile->addItem(localise("Quit"));
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
@@ -645,7 +645,8 @@ void EditorState::notifyWidgetsUpdate(bool _fake)
 	bool print_type = mSettingsWindow.getShowType();
 	bool print_skin = mSettingsWindow.getShowSkin();
 
-	mPopupMenuWidgets->deleteAllItems();
+	mPopupMenuWidgets->removeAllItems();
+	mPopupMenuWidgets->eventPopupMenuAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
@@ -655,20 +656,26 @@ void EditorState::notifyWidgetsUpdate(bool _fake)
 
 void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
 {
-	_parentPopup->eventPopupMenuAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 	bool submenu = !_container->childContainers.empty();
-	MyGUI::PopupMenu::ItemInfo & item = _parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu);
-	item.data = _container->widget;
-	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
-	{
-		createWidgetPopup(*iter, item.submenu, _print_name, _print_type, _print_skin);
+
+	_parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu ? MyGUI::PopupMenu::ItemTypePopup : MyGUI::PopupMenu::ItemTypeNormal);
+	_parentPopup->setItemDataAt(_parentPopup->getItemCount()-1, _container->widget);
+
+	if (submenu) {
+		MyGUI::PopupMenuPtr child = _parentPopup->getItemChildAt(_parentPopup->getItemCount()-1);
+		child->eventPopupMenuAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+
+		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
+		{
+			createWidgetPopup(*iter, child, _print_name, _print_type, _print_skin);
+		}
 	}
 }
 
 void EditorState::notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index)
 {
-	void * data = _widget->castType<MyGUI::PopupMenu>()->getItemInfo(_index).data;
-	MyGUI::WidgetPtr widget = static_cast<MyGUI::WidgetPtr>(data);
+	MyGUI::WidgetPtr widget = *_widget->castType<MyGUI::PopupMenu>()->getItemDataAt<MyGUI::WidgetPtr>(_index);
+	//MyGUI::WidgetPtr widget = *_widget->castType<MyGUI::PopupMenu>()->getItemInfoAt(_index).data.castType<MyGUI::WidgetPtr>();
 	notifySelectWidget(widget);
 }
 
