@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
 using Common;
 using Core;
 using Crownwood.Magic.Common;
 using Crownwood.Magic.Docking;
+using MyGUI_SkinEditor;
 
-namespace MyGUI_SkinEditor
+namespace Main
 {
     public partial class MainForm : Form, IVisualContainer, ILogSender
     {
@@ -166,7 +166,10 @@ namespace MyGUI_SkinEditor
 
         #endregion
     }
+}
 
+namespace MyGUI_SkinEditor
+{
     class Pair
     {
         public Pair(object _obj1, object _obj2)
