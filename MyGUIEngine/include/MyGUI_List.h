@@ -27,13 +27,6 @@ namespace MyGUI
 	public:
 
 		//------------------------------------------------------------------------------//
-		// обобщеный интерфейс дл€ работы с элементами
-
-		// типы дл€ массива
-		//typedef void * ItemType;
-		//typedef const Ogre::UTFString & NameType;
-
-		//------------------------------------------------------------------------------//
 		// манипул€ции айтемами
 
 		//! Get number of items
@@ -42,37 +35,15 @@ namespace MyGUI
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data = Any::Null);
 
-		//! Insert an item into a array
-		//ItemType insertItem(ItemType _to, NameType _name, Any _data = Any::Null) { return insertItemAt(getItemIndex(_to), _name, _data); }
-
 		//! Add an item to the end of a array
 		void addItem(const Ogre::UTFString & _name, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _data); }
-
-		//! Replace an item at a specified position
-		//void replaceItemAt(size_t _index, ItemType _item);
-
-		//! Replace an item
-		//void replaceItem(ItemType _replace, ItemType _item) { replaceItemAt(getItemIndex(_replace), _item); }
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 
-		//! Remove item
-		//void removeItem(ItemType _item) { removeItemAt(getItemIndex(_item)); }
-
 		//! Remove all items
 		void removeAllItems();
 
-
-
-		//! Get item from specified position
-		//ItemType getItemAt(size_t _index) { return null; }
-
-		//! Get item index
-		//size_t getItemIndex(ItemType _item) { return ITEM_NONE; }
-
-		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		//size_t findItemIndex(ItemType _item) { return ITEM_NONE; }
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const Ogre::UTFString & _name)
@@ -83,9 +54,6 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		//! Search item, returns the item of the first occurrence in array or null if item not found
-		//ItemType findItemWith(NameType _name) { return null; }
-
 
 		//------------------------------------------------------------------------------//
 		// манипул€ции выделени€ми
@@ -93,14 +61,8 @@ namespace MyGUI
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mIndexSelect; }
 
-		//! Get selected item (null if none selected)
-		//ItemType getItemSelected() { return null; }
-
 		//! Select specified _index
 		void setItemSelectedAt(size_t _index);
-
-		//! Select item
-		//void setItemSelected(ItemType _item) {  }
 
 		//! Clear item selection
 		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
@@ -112,14 +74,8 @@ namespace MyGUI
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
 
-		//! Replace an item data
-		//void setItemData(ItemType _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
-
 		//! Clear an item data at a specified position
 		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
-
-		//! Clear an item data
-		//void clearItemData(ItemType _item) { clearItemDataAt(getItemIndex(_item)); }
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -129,13 +85,6 @@ namespace MyGUI
 			return mItemsInfo[_index].second.castType<ValueType>(_throw);
 		}
 
-		//! Get item data
-		/*template <typename ValueType>
-		ValueType * getItemData(ItemType _item, bool _throw = true)
-		{
-			return getItemData<ValueType>(getItemIndex(_item), _throw);
-		}*/
-
 
 		//------------------------------------------------------------------------------//
 		// манипул€ции отображением
@@ -143,14 +92,8 @@ namespace MyGUI
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 
-		//! Replace an item name
-		//void setItemName(ItemType _item, NameType _name) { setItemNameAt(getItemIndex(_item), _name); }
-
 		//! Get item name from specified position
 		const Ogre::UTFString & getItemNameAt(size_t _index);
-
-		//! Get item name
-		//NameType getItemName(ItemType _item) { return getItemNameAt(getItemIndex(_item)); }
 
 
 		//------------------------------------------------------------------------------//
@@ -158,9 +101,6 @@ namespace MyGUI
 
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index);
-
-		//! Move all elements so specified becomes visible
-		//void beginToItem(ItemType _item) { beginToItemAt(getItemIndex(_item)); }
 
 		//! Move all elements so first becomes visible
 		void beginToItemFirst() { if (getItemCount()) beginToItemAt(0); }
@@ -186,44 +126,51 @@ namespace MyGUI
 		bool isItemSelectedVisible(bool _fill = true) { return isItemVisibleAt(mIndexSelect, _fill); }
 
 
+		// #ifdef MYGUI_USING_OBSOLETE
 
-		//--------------------------------------------------------------------
-		// OBSOLETE methods
-		// {
-
-		// OBSOLETE, use replaceItem
+		MYGUI_OBSOLETE("use List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
 		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
-		// OBSOLETE, use getItemAt
+
+		MYGUI_OBSOLETE("use List::getItemNameAt(size_t _index)")
 		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
-		// OBSOLETE, use removeItemAt
+
+		MYGUI_OBSOLETE("use List::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
-		// OBSOLETE, use removeAllItems
+
+		MYGUI_OBSOLETE("use List::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
-		// OBSOLETE, use findItemIndex
+
+		MYGUI_OBSOLETE("use List::findItemIndexWith(const Ogre::UTFString & _name)")
 		size_t findItem(const Ogre::UTFString & _item) { return findItemIndexWith(_item); }
-		// OBSOLETE, use getItemIndexSelected
+
+		MYGUI_OBSOLETE("use List::getItemIndexSelected()")
 		size_t getItemSelect() { return getItemIndexSelected(); }
-		// OBSOLETE, use clearItemSelected
+
+		MYGUI_OBSOLETE("use List::clearItemSelected()")
 		void resetItemSelect() { clearItemSelected(); }
-		// OBSOLETE, use setItemSelectedAt
+
+		MYGUI_OBSOLETE("use List::setItemSelectedAt(size_t _index)")
 		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
-		// OBSOLETE, use beginToItemAt
+
+		MYGUI_OBSOLETE("use List::beginToItemAt(size_t _index)")
 		void beginToIndex(size_t _index) { beginToItemAt(_index); }
-		// OBSOLETE, use beginToItemFirst
+
+		MYGUI_OBSOLETE("use List::beginToItemFirst()")
 		void beginToStart() { beginToItemFirst(); }
-		// OBSOLETE, use beginToItemLast
+
+		MYGUI_OBSOLETE("use List::beginToItemLast()")
 		void beginToEnd() { beginToItemLast(); }
-		// OBSOLETE, use beginToItemSelected
+
+		MYGUI_OBSOLETE("use List::beginToItemSelected()")
 		void beginToSelect() { beginToItemSelected(); }
-		// OBSOLETE, use isItemVisibleAt
+
+		MYGUI_OBSOLETE("use List::isItemVisibleAt(size_t _index, bool _fill)")
 		bool isItemVisible(size_t _index, bool _fill = true) { return isItemVisibleAt(_index, _fill); }
-		// OBSOLETE, use isItemSelectedVisible
+
+		MYGUI_OBSOLETE("use List::isItemSelectedVisible(bool _fill)")
 		bool isItemSelectVisible(bool _fill = true) { return isItemSelectedVisible(_fill); }
 
-		// }
-		// OBSOLETE methods
-		//--------------------------------------------------------------------
-
+		// #endif // MYGUI_USING_OBSOLETE
 
 		//! Set scroll visible when it needed
 		void setScrollVisible(bool _visible);
@@ -339,7 +286,7 @@ namespace MyGUI
 
 		IntSize mOldSize;
 
-	}; // class List : public Widget
+	};
 
 } // namespace MyGUI
 

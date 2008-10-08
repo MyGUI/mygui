@@ -243,118 +243,7 @@ namespace MyGUI
 		//! Move all elements so selected becomes visible
 		void beginToItemSelected() { if (getItemIndexSelected() != ITEM_NONE) beginToItemAt(getItemIndexSelected()); }
 
-		//------------------------------------------------------------------------------//
 
-		//------------------------------------------------------------------------------//
-		// манипул€ции айтемами
-
-		//! Get number of items
-		/*size_t getItemCount() { return mItemsInfo.size(); }
-
-		//! Insert an item into a array at a specified position
-		SheetPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data = Any::Null);
-		//! Add an item to the end of a array
-		SheetPtr addItem(const Ogre::UTFString & _name, Any _data = Any::Null) { return insertItemAt(ITEM_NONE, _name, _data); }
-		//! Remove item at a specified position
-		void removeItemAt(size_t _index);
-		//! Remove item
-		void removeItem(SheetPtr _item) { removeItemAt(getItemIndex(_item)); }
-		//! Remove all items
-		void removeAllItems();
-
-		//! Get item from specified position
-		SheetPtr getItemAt(size_t _index);
-		//! Get item index
-		size_t getItemIndex(SheetPtr _item)
-		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
-				if (mItemsInfo[pos].sheet == _item) return pos;
-			}
-			MYGUI_EXCEPT("item (" << _item << ") not found, source 'Tab::getItemIndex'");
-		}
-
-		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndex(const Ogre::UTFString & _name)
-		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
-				if (mItemsInfo[pos].name == _name) return pos;
-			}
-			return ITEM_NONE;
-		}
-		//! Search item, returns the item of the first occurrence in array or null if item not found
-		SheetPtr findItemWith(const Ogre::UTFString & _name)
-		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
-				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].sheet;
-			}
-			return null;
-		}
-
-		//------------------------------------------------------------------------------//
-		// манипул€ции выделени€ми
-
-		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemIndexSelected() { return mIndexSelect; }
-		//! Get selected item (null if none selected)
-		SheetPtr getItemSelected() { return mIndexSelect != ITEM_NONE ? getItemAt(mIndexSelect) : null; }
-		//! Select specified _index
-		void setItemSelectedAt(size_t _index);
-		//! Select item
-		void setItemSelected(SheetPtr _item) { setItemSelectedAt(getItemIndex(_item)); }
-		//! Clear item selection
-		//void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
-
-		//------------------------------------------------------------------------------//
-		// манипул€ции данными
-
-		//! Replace an item data at a specified position
-		void setItemDataAt(size_t _index, Any _data);
-		//! Replace an item data
-		void setItemData(SheetPtr _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
-		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
-		//! Clear an item data
-		void clearItemData(SheetPtr _item) { clearItemDataAt(getItemIndex(_item)); }
-		//! Get item data from specified position
-		template <typename ValueType>
-		ValueType * getItemDataAt(size_t _index, bool _throw = true)
-		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemDataAt");
-			return mItemsInfo[_index].data.castType<ValueType>(_throw);
-		}
-		//! Get item data
-		template <typename ValueType>
-		ValueType * getItemData(SheetPtr _item, bool _throw = true)
-		{
-			return getItemData<ValueType>(getItemIndex(_item), _throw);
-		}
-
-		//------------------------------------------------------------------------------//
-		// манипул€ции отображением
-
-		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
-		//! Replace an item name
-		void setItemName(SheetPtr _item, const Ogre::UTFString & _name) { setItemNameAt(getItemIndex(_item), _name); }
-		//! Get item name from specified position
-		const Ogre::UTFString & getItemNameAt(size_t _index);
-		//! Get item name
-		const Ogre::UTFString & getItemName(SheetPtr _item) { return getItemNameAt(getItemIndex(_item)); }
-
-		//------------------------------------------------------------------------------//
-		// манипул€ции выдимостью
-
-		//! Move all elements so specified becomes visible
-		void beginToItemAt(size_t _index);
-		//! Move all elements so specified becomes visible
-		void beginToItem(SheetPtr _item) { beginToItemAt(getItemIndex(_item)); }
-		//! Move all elements so first becomes visible
-		void beginToItemFirst() { if (!mItemsInfo.empty()) beginToItemAt(0); }
-		//! Move all elements so last becomes visible
-		void beginToItemLast() { if (!mItemsInfo.empty()) beginToItemAt(mItemsInfo.size()-1); }
-		//! Move all elements so selected becomes visible
-		void beginToItemSelected() { beginToItemAt(mIndexSelect); }
-*/
 		//------------------------------------------------------------------------------//
 		// остальные манипул€ции
 
@@ -386,52 +275,69 @@ namespace MyGUI
 		bool getSmoothShow() { return mSmoothShow; }
 
 
-		//--------------------------------------------------------------------
-		// OBSOLETE methods
-		// {
 
-		// OBSOLETE, use getButtonWidthAt
+		// #ifdef MYGUI_USING_OBSOLETE
+
+		MYGUI_OBSOLETE("use Tab::getButtonWidthAt(size_t _index)")
 		int getSheetButtonWidthIndex(size_t _index) { return getButtonWidthAt(_index); }
-		// OBSOLETE, use getButtonWidth
+
+		MYGUI_OBSOLETE("use Tab::getButtonWidth(SheetPtr _item)")
 		int getSheetButtonWidth(SheetPtr _sheet) { return getButtonWidth(_sheet); }
-		// OBSOLETE, use setButtonWidthAt
+
+		MYGUI_OBSOLETE("use Tab::setButtonWidthAt(size_t _index, int _width)")
 		void setSheetButtonWidthIndex(size_t _index, int _width = DEFAULT) { setButtonWidthAt(_index, _width); }
-		// OBSOLETE, use setButtonWidth
+
+		MYGUI_OBSOLETE("use Tab::setButtonWidth(SheetPtr _item, int _width)")
 		void setSheetButtonWidth(SheetPtr _sheet, int _width = DEFAULT) { setButtonWidth(_sheet, _width); }
-		// OBSOLETE, use beginToItemAt
+
+		MYGUI_OBSOLETE("use Tab::beginToItemAt(size_t _index)")
 		void showBarButton(size_t _index) { beginToItemAt(_index); }
-		// OBSOLETE, use beginToItemSelected
+
+		MYGUI_OBSOLETE("use Tab::beginToItemSelected()")
 		void showBarSelectButton() { beginToItemSelected(); }
-		// OBSOLETE, use getItemCount
+
+		MYGUI_OBSOLETE("use Tab::getItemCount()")
 		size_t getSheetCount() { return getItemCount(); }
-		// OBSOLETE, use getItemName
+
+		MYGUI_OBSOLETE("use Tab::getItemName(SheetPtr _item)")
 		const Ogre::UTFString& getSheetName(SheetPtr _sheet) { return getItemName(_sheet); }
-		// OBSOLETE, use getItemNameAt
+
+		MYGUI_OBSOLETE("use Tab::getItemNameAt(size_t _index)")
 		const Ogre::UTFString& getSheetNameIndex(size_t _index) { return getItemNameAt(_index); }
-		// OBSOLETE, use getItemAt
+
+		MYGUI_OBSOLETE("use Tab::getItemAt(size_t _index)")
 		SheetPtr getSheet(size_t _index) { return getItemAt(_index); }
-		// OBSOLETE, use setItemNameAt
+
+		MYGUI_OBSOLETE("use Tab::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
 		void setSheetNameIndex(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT) { setItemNameAt(_index, _name); }
-		// OBSOLETE, use setItemName
+
+		MYGUI_OBSOLETE("use Tab::setItemName(SheetPtr _item, const Ogre::UTFString & _name)")
 		void setSheetName(SheetPtr _sheet, const Ogre::UTFString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
-		// OBSOLETE, use addItem
+
+		MYGUI_OBSOLETE("use Tab::addItem(const Ogre::UTFString & _name, Any _data)")
 		SheetPtr addSheet(const Ogre::UTFString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
-		// OBSOLETE, use insertItem
+
+		MYGUI_OBSOLETE("use Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)")
 		SheetPtr insertSheet(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT) { return insertItemAt(_index, _name); }
-		// OBSOLETE, use removeItemAt
+
+		MYGUI_OBSOLETE("use Tab::removeItemAt(size_t _index)")
 		void removeSheetIndex(size_t _index) { removeItemAt(_index); }
-		// OBSOLETE, use removeItem
+
+		MYGUI_OBSOLETE("use Tab::removeItem(SheetPtr _item)")
 		void removeSheet(SheetPtr _sheet) { removeItem(_sheet); }
-		// OBSOLETE, use setItemSelectedAt
+
+		MYGUI_OBSOLETE("use Tab::setItemSelectedAt(size_t _index)")
 		void selectSheetIndex(size_t _index, bool _smooth = true) { setItemSelectedAt(_index); }
-		// OBSOLETE, use setItemSelected
+
+		MYGUI_OBSOLETE("use Tab::setItemSelected(SheetPtr _item)")
 		void selectSheet(SheetPtr _sheet, bool _smooth = true) { setItemSelected(_sheet); }
-		// OBSOLETE, use getItemIndexSelected
+
+		MYGUI_OBSOLETE("use Tab::getItemIndexSelected()")
 		size_t getSelectSheetIndex() { return getItemIndexSelected(); }
 
-		// }
-		// OBSOLETE methods
-		//--------------------------------------------------------------------
+		// #endif // MYGUI_USING_OBSOLETE
+
+
 
 		/** Event : Active Tab sheet changed \n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

@@ -1,6 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
+	@author		baho_is
 	@date		11/2007
 	@module
 */
@@ -20,6 +21,11 @@
 
 namespace MyGUI
 {
+
+	#define MYGUI_LOG_SECTION "General"
+	#define MYGUI_LOG_FILENAME "MyGUI.log"
+	#define MYGUI_LOG(level, text) LOGGING(MYGUI_LOG_SECTION, level, text)
+
 	class _MyGUIExport MyGUIException : public Ogre::Exception
 	{
 	public:
@@ -37,14 +43,8 @@ namespace MyGUI
 			return MyGUIException(code.number, desc, src, file, line);
 		}
 
-
-
 	// copy of OGRE_EXCEPT with MyGUIException create
 	#define OGRE_BASED_EXCEPT(desc, src)	throw MyGUI::createException(Ogre::ExceptionCodeType<ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
-
-	#define MYGUI_LOG_SECTION "General"
-	#define MYGUI_LOG_FILENAME "MyGUI.log"
-	#define MYGUI_LOG(level, text) LOGGING(MYGUI_LOG_SECTION, level, text)
 
 	#define MYGUI_EXCEPT(dest) \
 	{ \
@@ -69,18 +69,24 @@ namespace MyGUI
 	#define MYGUI_ASSERT_RANGE_INSERT(index, size, owner) MYGUI_ASSERT((index <= size) || (index == MyGUI::ITEM_NONE), owner << " : insert index number " << index << " out of range [" << size << "] or not ITEM_NONE");
 
 	#if MYGUI_DEBUG_MODE == 1
-		#define MYGUI_TYPE(type, ptr) MYGUI_ASSERT(null != dynamic_cast<type>(ptr), "failed dynamic cast type")
 		#define MYGUI_REGISTER_VALUE(map, value) \
 		{ \
 			MYGUI_LOG(Info, "Register value : '" << #value << "' = " << value); \
 			map[#value] = value; \
 		}
 		#define MYGUI_DEBUG_ASSERT(exp, dest) MYGUI_ASSERT(exp, dest)
-	#else // MYGUI_DEBUG_MODE == 1
-		#define MYGUI_TYPE(type, ptr) ((void)0)
+	#else
 		#define MYGUI_REGISTER_VALUE(map, value) map[#value] = value;
 		#define MYGUI_DEBUG_ASSERT(exp, dest) ((void)0)
-	#endif // MYGUI_DEBUG_MODE == 1
+	#endif
+
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#define MYGUI_OBSOLETE(text) __declspec(deprecated(text))
+	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+		#define MYGUI_OBSOLETE(text) __attribute__((deprecated))
+	#else
+		#define MYGUI_OBSOLETE(text)
+	#endif
 
 } // namespace MyGUI
 
