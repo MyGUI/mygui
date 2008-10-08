@@ -43,8 +43,9 @@ namespace MyGUI
 		// методы для парсинга
 		void StrangeButtonFactory::ButtonPressed(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
-			MYGUI_TYPE(StrangeButtonPtr, _widget);
-			static_cast<StrangeButtonPtr>(_widget)->setButtonPressed(utility::parseBool(_value));
+			StrangeButtonPtr widget = _widget->castType<StrangeButton>(false);
+			if (widget == null) MYGUI_LOG(Error, "Property '" << _key << "' is not supported by '" << _widget->getTypeName() << "' widget");
+			else widget->setButtonPressed(utility::parseBool(_value));
 		}
 
 	} // namespace factory

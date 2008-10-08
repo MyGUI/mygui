@@ -132,31 +132,31 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 
 
+		// #ifdef MYGUI_USING_OBSOLETE
 
-		//--------------------------------------------------------------------
-		// OBSOLETE methods
-		// {
-
-		// OBSOLETE, use replaceItem
-		//void setItem(size_t _index, const Ogre::UTFString & _item) { replaceItemAt(_index, _item); }
-		// OBSOLETE, use getItemAt
+		MYGUI_OBSOLETE("use MenuBar::getItemNameAt(size_t _index)")
 		const Ogre::UTFString & getItemName(size_t _index) { return getItemNameAt(_index); }
-		// OBSOLETE, use getItemChildAt
+
+		MYGUI_OBSOLETE("use MenuBar::getItemChildAt(size_t _index)")
 		PopupMenuPtr getItemMenu(size_t _index) { return getItemChildAt(_index); }
-		// OBSOLETE, use removeItemAt
+
+		MYGUI_OBSOLETE("use MenuBar::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
-		// OBSOLETE, use removeAllItems
+
+		MYGUI_OBSOLETE("use MenuBar::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
-		// OBSOLETE, use getItemIndexSelected
+
+		MYGUI_OBSOLETE("use MenuBar::getItemIndexSelected()")
 		size_t getItemSelect() { return getItemIndexSelected(); }
-		// OBSOLETE, use clearItemSelected
+
+		MYGUI_OBSOLETE("use MenuBar::clearItemSelected()")
 		void resetItemSelect() { clearItemSelected(); }
-		// OBSOLETE, use setItemSelectedAt
+
+		MYGUI_OBSOLETE("use MenuBar::setItemSelectedAt(size_t _index)")
 		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
 
-		// }
-		// OBSOLETE methods
-		//--------------------------------------------------------------------
+		// #endif // MYGUI_USING_OBSOLETE
+
 
 		/** Event : Enter pressed or mouse click.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

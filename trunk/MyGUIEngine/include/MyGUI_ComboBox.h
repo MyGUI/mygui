@@ -27,15 +27,6 @@ namespace MyGUI
 		virtual ~ComboBox();
 
 	public:
-
-
-		//------------------------------------------------------------------------------//
-		// обобщеный интерфейс дл€ работы с элементами
-
-		// типы дл€ массива
-		//typedef void * ItemType;
-		//typedef const std::string & NameType;
-
 		//------------------------------------------------------------------------------//
 		// манипул€ции айтемами
 
@@ -45,46 +36,21 @@ namespace MyGUI
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data = Any::Null);
 
-		//! Insert an item into a array
-		//void insertItem(ItemType _to, NameType _name, Any _data = Any::Null) { insertItemAt(getItemIndex(_to), _name, _data); }
-
 		//! Add an item to the end of a array
 		void addItem(const Ogre::UTFString & _name, Any _data = Any::Null) { return insertItemAt(ITEM_NONE, _name, _data); }
-
-		//! Replace an item at a specified position
-		//void replaceItemAt(size_t _index, ItemType _item);
-
-		//! Replace an item
-		//void replaceItem(ItemType _replace, ItemType _item) { replaceItemAt(getItemIndex(_replace), _item); }
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 
-		//! Remove item
-		//void removeItem(ItemType _item) { removeItemAt(getItemIndex(_item)); }
-
 		//! Remove all items
 		void removeAllItems();
 
-
-
-		//! Get item from specified position
-		//ItemType getItemAt(size_t _index);
-
-		//! Get item index
-		//size_t getItemIndex(ItemType _item) { return ITEM_NONE; }
-
-		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		//size_t findItemIndex(ItemType _item) { return ITEM_NONE; }
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const Ogre::UTFString & _name)
 		{
 			return mList->findItemIndexWith(_name);
 		}
-
-		//! Search item, returns the item of the first occurrence in array or null if item not found
-		//ItemType findItemWith(const Ogre::UTFString & _name) { return null; }
 
 
 		//------------------------------------------------------------------------------//
@@ -93,14 +59,8 @@ namespace MyGUI
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mItemIndex; }
 
-		//! Get selected item (null if none selected)
-		//ItemType getItemSelected() { return null; }
-
 		//! Select specified _index
 		void setItemSelectedAt(size_t _index);
-
-		//! Select item
-		//void setItemSelected(ItemType _item) {  }
 
 		//! Clear item selection
 		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
@@ -112,14 +72,8 @@ namespace MyGUI
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
 
-		//! Replace an item data
-		//void setItemData(ItemType _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
-
 		//! Clear an item data at a specified position
 		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
-
-		//! Clear an item data
-		//void clearItemData(ItemType _item) { clearItemDataAt(getItemIndex(_item)); }
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -128,13 +82,6 @@ namespace MyGUI
 			return mList->getItemDataAt<ValueType>(_index, _throw);
 		}
 
-		//! Get item data
-		/*template <typename ValueType>
-		ValueType * getItemData(ItemType _item, bool _throw = true)
-		{
-			return getItemData<ValueType>(getItemIndex(_item), _throw);
-		}*/
-
 
 		//------------------------------------------------------------------------------//
 		// манипул€ции отображением
@@ -142,14 +89,8 @@ namespace MyGUI
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 
-		//! Replace an item name
-		//void setItemName(ItemType _item, NameType _name) { setItemNameAt(getItemIndex(_item), _name); }
-
 		//! Get item name from specified position
 		const Ogre::UTFString & getItemNameAt(size_t _index) { return mList->getItemNameAt(_index); }
-
-		//! Get item name
-		//NameType getItemName(ItemType _item) { return getItemNameAt(getItemIndex(_item)); }
 
 
 		//------------------------------------------------------------------------------//
@@ -157,9 +98,6 @@ namespace MyGUI
 
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index) { mList->beginToItemAt(_index); }
-
-		//! Move all elements so specified becomes visible
-		//void beginToItem(ItemType _item) { beginToItemAt(getItemIndex(_item)); }
 
 		//! Move all elements so first becomes visible
 		void beginToItemFirst() { if (getItemCount()) beginToItemAt(0); }
@@ -172,75 +110,30 @@ namespace MyGUI
 
 		//------------------------------------------------------------------------------//
 
+		// #ifdef MYGUI_USING_OBSOLETE
 
-		//------------------------------------------------------------------------------//
-		// манипул€ции айтемами
-
-		//! Get number of items
-		/*size_t getItemCount() { return mList->getItemCount(); }
-
-		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data = Any::Null);
-		//! Add an item to the end of a array
-		void addItem(const Ogre::UTFString & _item, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _item, _data); }
-		//! Replace an item at a specified position
-		void replaceItemAt(size_t _index, const Ogre::UTFString & _item);
-		//! Remove item at a specified position
-		void removeItemAt(size_t _index);
-		//! Remove all items
-		void removeAllItems();
-
-		//! Get item from specified position
-		const Ogre::UTFString & getItemAt(size_t _index) { return mList->getItemNameAt(_index); }
-
-		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndex(const Ogre::UTFString & _item) { return mList->findItemIndexWith(_item); }
-
-		//------------------------------------------------------------------------------//
-		// манипул€ции выделени€ми
-
-		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemIndexSelected() { return mItemIndex; }
-		//! Select specified _index
-		void setItemSelectedAt(size_t _index);
-		//! Clear item selection
-		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
-
-		//------------------------------------------------------------------------------//
-		// манипул€ции данными
-
-		//! Replace an item data at a specified position
-		void setItemDataAt(size_t _index, Any _data);// { mList->setItemDataAt(_index, _data); }
-		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index) { mList->clearItemDataAt(_index); }
-		//! Get item data from specified position
-		template <typename ValueType>
-		ValueType * getItemDataAt(size_t _index, bool _throw = true) { return mList->getItemDataAt<ValueType>(_index, _throw); }*/
-
-
-
-		//--------------------------------------------------------------------
-		// OBSOLETE methods
-		// {
-
-		// OBSOLETE, use replaceItem
+		MYGUI_OBSOLETE("use ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
 		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
-		// OBSOLETE, use getItemAt
+
+		MYGUI_OBSOLETE("use ComboBox::getItemNameAt(size_t _index)")
 		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
-		// OBSOLETE, use removeItemAt
+
+		MYGUI_OBSOLETE("use ComboBox::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
-		// OBSOLETE, use removeAllItems
+
+		MYGUI_OBSOLETE("use ComboBox::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
-		// OBSOLETE, use getItemIndexSelected
+
+		MYGUI_OBSOLETE("use ComboBox::getItemIndexSelected()")
 		size_t getItemSelect() { return getItemIndexSelected(); }
-		// OBSOLETE, use clearItemSelected
+
+		MYGUI_OBSOLETE("use ComboBox::clearItemSelected()")
 		void resetItemSelect() { clearItemSelected(); }
-		// OBSOLETE, use setItemSelectedAt
+
+		MYGUI_OBSOLETE("use ComboBox::setItemSelectedAt(size_t _index)")
 		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
 
-		// }
-		// OBSOLETE methods
-		//--------------------------------------------------------------------
+		// #endif // MYGUI_USING_OBSOLETE
 
 
 		//------------------------------------------------------------------------------------//
