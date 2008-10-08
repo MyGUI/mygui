@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{63135B6F-F6D3-4E60-B14D-E63FA1DB3DD5}</ProjectGuid>
+    <ProjectGuid>{52E2699A-BF53-4FCF-8FC1-2B7A74A197F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SkinProject</RootNamespace>
-    <AssemblyName>SkinProject</AssemblyName>
+    <RootNamespace>ResourceAnimationProject</RootNamespace>
+    <AssemblyName>ResourceAnimationProject</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

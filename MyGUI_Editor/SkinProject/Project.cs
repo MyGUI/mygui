@@ -5,19 +5,19 @@ using System.Xml;
 using Common;
 using Core;
 using Core.Attributes;
-using SkinProject;
+using ResourceAnimationProject;
 
-namespace SkinProject
+namespace ResourceAnimationProject
 {
-    [RegisterFactoryClass(CLSID_SKIN_PROJECT.Literal)]
+    [RegisterFactoryClass(CLSID_RESOURCE_ANIMATION_PROJECT.Literal)]
     public class Project : IProject, ILogSender
     {
         public event EventHandler OnUpdateElementList;
         public event EventHandler OnChangeCurElement;
         public event MessageDlgt OnMessage;
 
-        private const string PROJ_EXT = ".mgsproj";
-        private const string SKIN_EXT = ".skin";
+        private const string PROJ_EXT = ".raproj";
+        private const string RES_EXT = ".xml";
 
         private string m_Name;
         private string m_Prefix;
@@ -87,7 +87,7 @@ namespace SkinProject
         private void SaveProject(string _path)
         {
             XmlProject xmlP = new XmlProject();
-            xmlP.Init(this, CLSID_SKIN_PROJECT.ID);
+            xmlP.Init(this, CLSID_RESOURCE_ANIMATION_PROJECT.ID);
             xmlP.AddNode(xmlP.CreateNode("Part", Name + SKIN_EXT, false));
             xmlP.Seve(_path);
             m_Location = _path.Remove(_path.LastIndexOf('\\'));
@@ -225,7 +225,7 @@ namespace SkinProject
 
         public Guid Keeper
         {
-            get { return CLSID_SKIN_PROJECT_KEEPER.ID; }
+            get { return CLSID_RESOURCE_ANIMATION_PROJECT_KEEPER.ID; }
         }
 
         public string ProjectLocation

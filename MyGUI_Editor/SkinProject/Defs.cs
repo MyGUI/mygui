@@ -1,17 +1,17 @@
 ﻿
 using System;
 
-namespace SkinProject
+namespace ResourceAnimationProject
 {
-    public struct CLSID_SKIN_PROJECT
+    public struct CLSID_RESOURCE_ANIMATION_PROJECT
     {
-        public const string Literal = "8016e9ec-cbde-489b-be0f-adee36cdc8aa";
+        public const string Literal = "E79DA598-FB9B-4474-AD91-A600E3860991";
         public static Guid ID = new Guid(Literal);
     }
 
-    public struct CLSID_SKIN_PROJECT_KEEPER
+    public struct CLSID_RESOURCE_ANIMATION_PROJECT_KEEPER
     {
-        public const string Literal = "5208e9ce-b732-4842-95d4-a21c3c45c6e9";
+        public const string Literal = "EE4ECC5E-A23B-4a1c-966A-E542CA31E322";
         public static Guid ID = new Guid(Literal);
     }
 }
