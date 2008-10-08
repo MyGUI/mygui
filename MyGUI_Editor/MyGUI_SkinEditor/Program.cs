@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Main;
 
 namespace MyGUI_SkinEditor
 {

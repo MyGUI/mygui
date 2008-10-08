@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace MyGUI_SkinEditor
+namespace Main
 {
     partial class MainForm
     {
@@ -110,7 +110,7 @@ namespace MyGUI_SkinEditor
             this.Controls.Add(this.splitContainer3);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MyGUI SkinEditor";
+            this.Text = "MyGUI Editor";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
@@ -144,4 +144,3 @@ namespace MyGUI_SkinEditor
 
     }
 }
-

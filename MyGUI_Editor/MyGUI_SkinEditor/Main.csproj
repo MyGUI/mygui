@@ -8,8 +8,8 @@
     <ProjectGuid>{339C0559-D8F5-402F-9069-81382F24A8D3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyGUI_SkinEditor</RootNamespace>
-    <AssemblyName>MyGUI_SkinEditor</AssemblyName>
+    <RootNamespace>Main</RootNamespace>
+    <AssemblyName>Main</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
@@ -86,9 +86,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(SolutionDir)config.xml $(OutDir)config.xml
-copy $(SolutionDir)log_config.xml $(OutDir)log_config.xml</PostBuildEvent>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <PreBuildEvent>copy $(SolutionDir)config.xml $(OutDir)config.xml
+copy $(SolutionDir)log_config.xml $(OutDir)log_config.xml</PreBuildEvent>
   </PropertyGroup>
 </Project>
