@@ -9,14 +9,15 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_Any.h"
 
 namespace MyGUI
 {
 	class _MyGUIExport UserData
 	{
 	public:
-		UserData() : mInternalData(0), mUserData(0) {}
-		virtual ~UserData() {}
+		UserData() { }
+		virtual ~UserData() { }
 
 		// пользовательские данные виджета строки
 		void setUserString(const std::string & _key, const std::string & _value)
@@ -54,24 +55,34 @@ namespace MyGUI
 			mMapUserString.clear();
 		}
 
-		int _getInternalData() {return mInternalData;}
-		void _setInternalData(int _data) {mInternalData = _data;}
+		void setUserData(Any _data) { mUserData = _data; }
 
-		const std::string& _getInternalString() {return mInternalString;}
-		void _setInternalString(const std::string& _data) {mInternalString = _data;}
+		template <typename ValueType>
+		ValueType * getUserData(bool _throw = true)
+		{
+			return mUserData.castType<ValueType>(_throw);
+		}
 
-		void setUserData(void * _data) { mUserData = _data; }
-		void * getUserData() { return mUserData; }
+
+		void _setInternalData(Any _data) { mInternalData = _data; }
+
+		template <typename ValueType>
+		ValueType * _getInternalData(bool _throw = true)
+		{
+			return mInternalData.castType<ValueType>(_throw);
+		}
+
 
 	private:
 		// пользовательские данные
 		MapString mMapUserString;
-		// номер для внутренниего использования
-		int mInternalData;
-		std::string mInternalString;
+		Any mUserData;
 
-		void * mUserData;
+		// для внутренниего использования
+		Any mInternalData;
+
 	};
+
 } // namespace MyGUI
 
 #endif // __MYGUI_WIDGET_USER_DATA_H__

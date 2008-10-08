@@ -122,10 +122,10 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void replaceItemNameAt(size_t _index, NameType _name);
+		void setItemNameAt(size_t _index, NameType _name);
 
 		//! Replace an item name
-		void replaceItemName(ItemType _item, NameType _name) { replaceItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(ItemType _item, NameType _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item name from specified position
 		NameType getItemNameAt(size_t _index) { return ""; }

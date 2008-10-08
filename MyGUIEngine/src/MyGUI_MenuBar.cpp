@@ -23,7 +23,7 @@ namespace MyGUI
 		mIndexSelect(ITEM_NONE)
 	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Client") {
+			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 				//mWidgetClient->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
@@ -72,9 +72,9 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuBar::replaceItemNameAt(size_t _index, const Ogre::UTFString & _item)
+	void MenuBar::setItemNameAt(size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::replaceItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::setItemNameAt");
 		mItemsInfo[_index].button->setCaption(_item);
 
 		update();
@@ -122,14 +122,14 @@ namespace MyGUI
 			int width = (*iter).button->getCoord().width - (*iter).button->getTextCoord().width + (*iter).button->getTextSize().width;
 			(*iter).button->setPosition(pos, 0, width, mWidgetClient->getHeight());
 			pos += width + mDistanceButton;
-			(*iter).button->_setInternalData(iter - mItemsInfo.begin());
+			(*iter).button->_setInternalData((size_t)(iter - mItemsInfo.begin()));
 		}
 	}
 
 	void MenuBar::eventMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		if (_id == MB_Left) {
-			size_t select = (size_t)_sender->_getInternalData();
+			size_t select = *_sender->_getInternalData<size_t>();
 			if (mIndexSelect == select) select = ITEM_NONE;
 			setItemSelectedAt(select);
 		}

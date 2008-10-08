@@ -33,7 +33,7 @@ namespace MyGUI
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Image") {
+			if (*(*iter)->_getInternalData<std::string>() == "Image") {
 				MYGUI_DEBUG_ASSERT( ! mImage, "widget already assigned");
 				mImage = (*iter)->castType<StaticImage>();
 			}

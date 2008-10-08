@@ -50,38 +50,38 @@ namespace MyGUI
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Bar") {
+			if (*(*iter)->_getInternalData<std::string>() == "Bar") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetBar, "widget already assigned");
 				mWidgetBar = (*iter);
 			}
-			else if ((*iter)->_getInternalString() == "Left") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Left") {
 				MYGUI_DEBUG_ASSERT( ! mButtonLeft, "widget already assigned");
 				mButtonLeft = (*iter)->castType<Button>();
 				mButtonLeft->hide();
 				mButtonLeft->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->_getInternalString() == "Right") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Right") {
 				MYGUI_DEBUG_ASSERT( ! mButtonRight, "widget already assigned");
 				mButtonRight = (*iter)->castType<Button>();
 				mButtonRight->hide();
 				mButtonRight->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->_getInternalString() == "List") {
+			else if (*(*iter)->_getInternalData<std::string>() == "List") {
 				MYGUI_DEBUG_ASSERT( ! mButtonList, "widget already assigned");
 				mButtonList = (*iter)->castType<Button>();
 				mButtonList->hide();
 				mButtonList->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->_getInternalString() == "ButtonDecor") {
+			else if (*(*iter)->_getInternalData<std::string>() == "ButtonDecor") {
 				MYGUI_DEBUG_ASSERT( ! mButtonDecor, "widget already assigned");
 				mButtonDecor = *iter;
 				mButtonDecor->hide();
 			}
-			else if ((*iter)->_getInternalString() == "ShowPatch") {
+			else if (*(*iter)->_getInternalData<std::string>() == "ShowPatch") {
 				mWidgetsPatch.push_back((*iter));
 				(*iter)->hide();
 			}
-			else if ((*iter)->_getInternalString() == "Sheet") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Sheet") {
 				MYGUI_DEBUG_ASSERT( ! mSheetTemplate, "widget already assigned");
 				mSheetTemplate = (*iter);
 				mSheetTemplate->hide();
@@ -271,7 +271,7 @@ namespace MyGUI
 
 	void Tab::notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender)
 	{
-		size_t select = (size_t)_sender->_getInternalData() + mStartIndex;
+		size_t select = *_sender->_getInternalData<size_t>() + mStartIndex;
 		// щелкнули по той же кнопке
 		if (select == mIndexSelect) {
 			// стараемся показать выделенную кнопку
@@ -372,9 +372,9 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::replaceItemNameAt(size_t _index, const Ogre::UTFString& _name)
+	void Tab::setItemNameAt(size_t _index, const Ogre::UTFString& _name)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::replaceItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemNameAt");
 		mItemsInfo[_index].name = _name;
 
 		int width; 
@@ -431,7 +431,7 @@ namespace MyGUI
 	{
 		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
 		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
-		button->_setInternalData((int)mSheetButton.size()); // порядковый номер
+		button->_setInternalData(mSheetButton.size()); // порядковый номер
 		mSheetButton.push_back(button);
 	}
 

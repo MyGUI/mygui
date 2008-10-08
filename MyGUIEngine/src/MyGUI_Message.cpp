@@ -48,13 +48,13 @@ namespace MyGUI
 
 		// парсим виджет для текста
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Text") {
+			if (*(*iter)->_getInternalData<std::string>() == "Text") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetText, "widget already assigned");
 				mWidgetText = (*iter);
 				mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
 				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 			}
-			else if ((*iter)->_getInternalString() == "Icon") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Icon") {
 				MYGUI_DEBUG_ASSERT( ! mIcon, "widget already assigned");
 				mIcon = (*iter)->castType<StaticImage>();
 			}
@@ -113,7 +113,7 @@ namespace MyGUI
 		WidgetPtr button = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
 		button->eventMouseButtonClick = newDelegate(this, &Message::notifyButtonClick);
 		button->setCaption(_name);
-		button->_setInternalData((int)info);
+		button->_setInternalData(info);
 		mVectorButton.push_back(button);
 
 		updateSize();
@@ -131,7 +131,7 @@ namespace MyGUI
 				// если бит есть то ставим кнопку
 				addButtonName(factory::MessageFactory::_getButtonName(current));
 				// корректируем ее номер
-				mVectorButton.back()->_setInternalData((int)MYGUI_FLAG(current));
+				mVectorButton.back()->_setInternalData((ViewInfo)MYGUI_FLAG(current));
 			}
 			info >>= 1;
 			current ++;
@@ -142,7 +142,7 @@ namespace MyGUI
 
 	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		_destroyMessage((ViewInfo)_sender->_getInternalData());
+		_destroyMessage(*_sender->_getInternalData<ViewInfo>());
 	}
 
 	void Message::clearButton()

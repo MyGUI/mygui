@@ -54,7 +54,7 @@ namespace MyGUI
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Client") {
+			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 			}
@@ -70,7 +70,7 @@ namespace MyGUI
 
 	//----------------------------------------------------------------------------------//
 	// методы для работы со столбцами
-	void MultiList::insertColumn(size_t _column, int _width, const Ogre::UTFString & _name)
+	void MultiList::insertColumnAt(size_t _column, const Ogre::UTFString & _name, int _width, Any _data)
 	{
 		// скрываем у крайнего скролл
 		if (false == mVectorColumnInfo.empty()) 
@@ -89,6 +89,7 @@ namespace MyGUI
 		column.button = mWidgetClient->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
 		column.button->eventMouseButtonClick = newDelegate(this, &MultiList::notifyButtonClick);
 		column.name = _name;
+		column.data = _data;
 
 		// если уже были столбики, то делаем то же колличество полей
 		if (false == mVectorColumnInfo.empty()) {
@@ -106,35 +107,35 @@ namespace MyGUI
 		mVectorColumnInfo.back().list->setScrollVisible(true);
 	}
 
-	void MultiList::setColumnName(size_t _column, const Ogre::UTFString & _name)
+	void MultiList::setColumnNameAt(size_t _column, const Ogre::UTFString & _name)
 	{
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setColumnNameAt");
 		mVectorColumnInfo[_column].name = _name;
 		redrawButtons();
 	}
 
-	void MultiList::setColumnWidth(size_t _column, int _width)
+	void MultiList::setColumnWidthAt(size_t _column, int _width)
 	{
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setColumnWidthAt");
 		mVectorColumnInfo[_column].width = _width < 0 ? 0 : _width;
 		updateColumns();
 	}
 
-	const Ogre::UTFString & MultiList::getColumnName(size_t _column)
+	const Ogre::UTFString & MultiList::getColumnNameAt(size_t _column)
 	{
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getColumnNameAt");
 		return mVectorColumnInfo[_column].name;
 	}
 
-	int MultiList::getColumnWidth(size_t _column)
+	int MultiList::getColumnWidthAt(size_t _column)
 	{
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getColumnWidthAt");
 		return mVectorColumnInfo[_column].width;
 	}
 
-	void MultiList::deleteColumn(size_t _column)
+	void MultiList::removeColumnAt(size_t _column)
 	{
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::removeColumnAt");
 
 		ColumnInfo & info = mVectorColumnInfo[_column];
 
@@ -154,7 +155,7 @@ namespace MyGUI
 		updateColumns();
 	}
 
-	void MultiList::deleteAllColumns()
+	void MultiList::removeAllColumns()
 	{
 		WidgetManager & manager = WidgetManager::getInstance();
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
@@ -185,50 +186,41 @@ namespace MyGUI
 		}
 	}
 
-	//------------------------------------------------------------------------------//
-	// методы для работы со строками
 	size_t MultiList::getItemCount()
 	{
 		if (mVectorColumnInfo.empty()) return 0;
 		return mVectorColumnInfo.front().list->getItemCount();
 	}
 
-	void MultiList::insertItem(size_t _index, const Ogre::UTFString & _item)
+	void MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data)
 	{
-		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::insertItemAt");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");
 		if (ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
 		// вставляем во все поля пустые, а потом присваиваем первому
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->insertItemAt(_index, "");
 		}
-		mVectorColumnInfo.front().list->replaceItemNameAt(_index, _item);
+		mVectorColumnInfo.front().list->setItemNameAt(_index, _item);
+		mVectorColumnInfo.front().list->setItemDataAt(_index, _data);
 
 		_insertSortIndex(_index);
 		setDirtySort();
 	}
 
-	void MultiList::setItem(size_t _index, const Ogre::UTFString & _item)
+	void MultiList::removeItemAt(size_t _index)
 	{
-		setSubItem(0, _index, _item);
-	}
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::removeItemAt");
 
-	const Ogre::UTFString & MultiList::getItem(size_t _index)
-	{
-		return getSubItem(0, _index);
-	}
-
-	void MultiList::deleteItem(size_t _index)
-	{
-		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
-		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->removeItemAt(convertToSort(_index));
 		}
 		_eraseSortIndex(_index);
 	}
 
-	void MultiList::deleteAllItems()
+	void MultiList::removeAllItems()
 	{
 		if (mVectorColumnInfo.empty()) return;
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
@@ -237,55 +229,54 @@ namespace MyGUI
 		_clearSortIndex();
 	}
 
-	size_t MultiList::getItemSelect()
+	size_t MultiList::getItemIndexSelected()
 	{
 		if (mVectorColumnInfo.empty()) return ITEM_NONE;
 		size_t item = mVectorColumnInfo.front().list->getItemIndexSelected();
 		return (ITEM_NONE == item) ? ITEM_NONE : convertFromSort(item);
 	}
 
-	void MultiList::resetItemSelect()
+	void MultiList::setItemSelectedAt(size_t _index)
 	{
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->clearItemSelected();
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setItemSelectedAt");
+
+		if (_index == ITEM_NONE) {
+			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+				(*iter).list->clearItemSelected();
+			}
+		}
+		else {
+			size_t index = convertToSort(_index);
+			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+				(*iter).list->setItemSelectedAt(index);
+			}
 		}
 	}
 
-	void MultiList::setItemSelect(size_t _index)
+	void MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
-		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		size_t index = convertToSort(_index);
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->setItemSelectedAt(index);
-		}
-	}
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
 
-	//----------------------------------------------------------------------------------//
-	// методы для работы с саб строками
-	void MultiList::setSubItem(size_t _column, size_t _index, const Ogre::UTFString & _item)
-	{
-		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
-		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
-		mVectorColumnInfo[_column].list->replaceItemNameAt(convertToSort(_index), _item);
+		mVectorColumnInfo[_column].list->setItemNameAt(convertToSort(_index), _item);
 
 		// если мы попортили список с активным сортом, надо пересчитывать
 		if (_column == mSortColumnIndex) setDirtySort();
 	}
 
-	const Ogre::UTFString & MultiList::getSubItem(size_t _column, size_t _index)
+	const Ogre::UTFString & MultiList::getSubItemNameAt(size_t _column, size_t _index)
 	{
-		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
-		MYGUI_ASSERT(_index < mVectorColumnInfo.begin()->list->getItemCount(), "index " << _index <<" out of range");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemNameAt");
+
 		return mVectorColumnInfo[_column].list->getItemNameAt(convertToSort(_index));
 	}
 
-	size_t MultiList::findItem(size_t _column, const Ogre::UTFString & _item)
+	size_t MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT(false == mVectorColumnInfo.empty(), "multilist has no columns");
-		MYGUI_ASSERT(_column < mVectorColumnInfo.size(), "column " << _column <<" out of range");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
+
 		return convertFromSort(mVectorColumnInfo[_column].list->findItemIndexWith(_item));
 	}
 	//----------------------------------------------------------------------------------//
@@ -337,7 +328,7 @@ namespace MyGUI
 
 	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _widget)
 	{
-		size_t index = (size_t)_widget->_getInternalData();
+		size_t index = *_widget->_getInternalData<size_t>();
 		sortByColumn(index, index == mSortColumnIndex);
 	}
 
@@ -435,8 +426,8 @@ namespace MyGUI
 
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 				tmp = (*iter).list->getItemNameAt(start);
-				(*iter).list->replaceItemNameAt(start, (*iter).list->getItemNameAt(end));
-				(*iter).list->replaceItemNameAt(end, tmp);
+				(*iter).list->setItemNameAt(start, (*iter).list->getItemNameAt(end));
+				(*iter).list->setItemNameAt(end, tmp);
 			}
 
 			index1 = vec[start];
@@ -482,7 +473,7 @@ namespace MyGUI
 			{
 				std::vector<Ogre::UTFString>::iterator itext = text.begin();
 				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
-					(*iter).list->replaceItemNameAt(_index, *itext);
+					(*iter).list->setItemNameAt(_index, *itext);
 				}
 				vec[vec2[_index]] = index1;
 				vec2[_index] = index2;
@@ -491,7 +482,7 @@ namespace MyGUI
 			void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index1, size_t _index2)
 			{
 				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
-					(*iter).list->replaceItemNameAt(_index1, (*iter).list->getItemNameAt(_index2));
+					(*iter).list->setItemNameAt(_index1, (*iter).list->getItemNameAt(_index2));
 				}
 				vec[vec2[_index1]] = _index2;
 				vec2[_index1] = vec2[_index2];
@@ -560,7 +551,7 @@ namespace MyGUI
 	void MultiList::updateColumns()
 	{
 		mWidthBar = 0;
-		int index = 0;
+		size_t index = 0;
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
 			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
@@ -581,6 +572,5 @@ namespace MyGUI
 		redrawButtons();
 		updateOnlyEmpty();
 	}
-
 
 } // namespace MyGUI

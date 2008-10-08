@@ -106,7 +106,7 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
 
-		void replaceItemNameAt(size_t _index, const Ogre::UTFString & _name);
+		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 
 		//! Get item from specified position
 		const Ogre::UTFString & getItemNameAt(size_t _index);
@@ -148,7 +148,7 @@ namespace MyGUI
 		// OBSOLETE, use insertItem
 		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }
 		// OBSOLETE, use replaceItem
-		//void setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { replaceItemNameAt(_index, _item, getItemType(_submenu, _separator)); }
+		//void setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { setItemNameAt(_index, _item, getItemType(_submenu, _separator)); }
 		// OBSOLETE, use removeItemAt
 		void deleteItem(size_t _index) { removeItemAt(_index); }
 		// OBSOLETE, use removeAllItems
