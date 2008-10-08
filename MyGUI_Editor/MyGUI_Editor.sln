@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9B8ACECF-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{339C0559-D8F5-402F-9069-81382F24A8D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceAnimationProject", "ResourceAnimationProject\ResourceAnimationProject.csproj", "{52E2699A-BF53-4FCF-8FC1-2B7A74A197F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,10 @@ Global
 		{339C0559-D8F5-402F-9069-81382F24A8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{339C0559-D8F5-402F-9069-81382F24A8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{339C0559-D8F5-402F-9069-81382F24A8D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52E2699A-BF53-4FCF-8FC1-2B7A74A197F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52E2699A-BF53-4FCF-8FC1-2B7A74A197F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52E2699A-BF53-4FCF-8FC1-2B7A74A197F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52E2699A-BF53-4FCF-8FC1-2B7A74A197F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
