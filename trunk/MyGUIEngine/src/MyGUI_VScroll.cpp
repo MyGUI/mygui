@@ -29,19 +29,19 @@ namespace MyGUI
 		mScrollViewPage = 1;
 
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Start") {
+			if (*(*iter)->_getInternalData<std::string>() == "Start") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetStart, "widget already assigned");
 				mWidgetStart = (*iter)->castType<Button>();
 				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 				mWidgetStart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 			}
-			else if ((*iter)->_getInternalString() == "End") {
+			else if (*(*iter)->_getInternalData<std::string>() == "End") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetEnd, "widget already assigned");
 				mWidgetEnd = (*iter)->castType<Button>();
 				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 				mWidgetEnd->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 			}
-			else if ((*iter)->_getInternalString() == "Track") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Track") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetTrack, "widget already assigned");
 				mWidgetTrack = (*iter)->castType<Button>();
 				mWidgetTrack->eventMouseDrag = newDelegate(this, &VScroll::notifyMouseDrag);
@@ -50,13 +50,13 @@ namespace MyGUI
 				mWidgetTrack->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 				mWidgetTrack->hide();
 			}
-			else if ((*iter)->_getInternalString() == "FirstPart") {
+			else if (*(*iter)->_getInternalData<std::string>() == "FirstPart") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetFirstPart, "widget already assigned");
 				mWidgetFirstPart = (*iter)->castType<Button>();
 				mWidgetFirstPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 				mWidgetFirstPart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
 			}
-			else if ((*iter)->_getInternalString() == "SecondPart") {
+			else if (*(*iter)->_getInternalData<std::string>() == "SecondPart") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetSecondPart, "widget already assigned");
 				mWidgetSecondPart = (*iter)->castType<Button>();
 				mWidgetSecondPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);

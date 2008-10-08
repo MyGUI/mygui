@@ -65,7 +65,7 @@ namespace MyGUI
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Client") {
+			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 				mWidgetClient->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
@@ -76,12 +76,12 @@ namespace MyGUI
 				mWidgetClient->eventMouseButtonDoubleClick = newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &Edit::notifyMouseWheel);
 			}
-			else if ((*iter)->_getInternalString() == "VScroll") {
+			else if (*(*iter)->_getInternalData<std::string>() == "VScroll") {
 				MYGUI_DEBUG_ASSERT( ! mVScroll, "widget already assigned");
 				mVScroll = (*iter)->castType<VScroll>();
 				mVScroll->eventScrollChangePosition = newDelegate(this, &Edit::notifyScrollChangePosition);
 			}
-			else if ((*iter)->_getInternalString() == "HScroll") {
+			else if (*(*iter)->_getInternalData<std::string>() == "HScroll") {
 				MYGUI_DEBUG_ASSERT( ! mHScroll, "widget already assigned");
 				mHScroll = (*iter)->castType<HScroll>();
 				mHScroll->eventScrollChangePosition = newDelegate(this, &Edit::notifyScrollChangePosition);

@@ -213,10 +213,10 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void replaceItemNameAt(size_t _index, const Ogre::UTFString & _name);
+		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 
 		//! Replace an item name
-		void replaceItemName(SheetPtr _item, const Ogre::UTFString & _name) { replaceItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(SheetPtr _item, const Ogre::UTFString & _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item name from specified position
 		const Ogre::UTFString & getItemNameAt(size_t _index);
@@ -411,9 +411,9 @@ namespace MyGUI
 		// OBSOLETE, use getItemAt
 		SheetPtr getSheet(size_t _index) { return getItemAt(_index); }
 		// OBSOLETE, use setItemNameAt
-		void setSheetNameIndex(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT) { replaceItemNameAt(_index, _name); }
+		void setSheetNameIndex(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT) { setItemNameAt(_index, _name); }
 		// OBSOLETE, use setItemName
-		void setSheetName(SheetPtr _sheet, const Ogre::UTFString& _name, int _width = DEFAULT) { replaceItemName(_sheet, _name); }
+		void setSheetName(SheetPtr _sheet, const Ogre::UTFString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
 		// OBSOLETE, use addItem
 		SheetPtr addSheet(const Ogre::UTFString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
 		// OBSOLETE, use insertItem

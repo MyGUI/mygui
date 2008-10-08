@@ -51,17 +51,17 @@ namespace MyGUI
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "VScroll") {
+			if (*(*iter)->_getInternalData<std::string>() == "VScroll") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
 				mWidgetScroll = (*iter)->castType<VScroll>();
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
-			if ((*iter)->_getInternalString() == "HScroll") {
+			if (*(*iter)->_getInternalData<std::string>() == "HScroll") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
 				mWidgetScroll = (*iter)->castType<HScroll>();
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
-			else if ((*iter)->_getInternalString() == "Client") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
@@ -280,7 +280,7 @@ namespace MyGUI
 			data.item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
 			data.item->eventKeyButtonReleased = newDelegate(this, &ItemBox::notifyKeyButtonReleased);
 
-			data.item->_setInternalData((int)mVectorItems.size());
+			data.item->_setInternalData((size_t)mVectorItems.size());
 			mVectorItems.push_back(data);
 		}
 
@@ -315,13 +315,13 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
 		ItemInfo & data = mItemsInfo[index];
 		data.update = false;
 		data.active = true;
-		requestUpdateWidgetItem(this, mVectorItems[_sender->_getInternalData()], data);
+		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 		mIndexActive = index;
 	}
 
@@ -330,13 +330,13 @@ namespace MyGUI
 		// уже сбросили фокус
 		if (mIndexActive == ITEM_NONE) return;
 
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
 		ItemInfo & data = mItemsInfo[index];
 		data.update = false;
 		data.active = false;
-		requestUpdateWidgetItem(this, mVectorItems[_sender->_getInternalData()], data);
+		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 		mIndexActive = ITEM_NONE;
 	}
 
@@ -405,7 +405,7 @@ namespace MyGUI
 			const IntRect& rect = info.item->getAbsoluteRect();
 			if ((point.left>= rect.left) && (point.left <= rect.right) && (point.top>= rect.top) && (point.top <= rect.bottom)) {
 
-				size_t index = (size_t)info.item->_getInternalData() + (mLineTop * mCountItemInLine);
+				size_t index = *info.item->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 				// индекс может быть больше
 				if (index < mItemsInfo.size()) {
 					ItemInfo & data = mItemsInfo[index];
@@ -427,7 +427,7 @@ namespace MyGUI
 			_index = ITEM_NONE;
 		}
 		else {
-			size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 			if (index < mItemsInfo.size()) {
 				_list = this;
 				_index = index;
@@ -620,7 +620,7 @@ namespace MyGUI
 			}
 			else {
 				// индекс отправителя
-				mDropSenderIndex = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+				mDropSenderIndex = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 				MYGUI_DEBUG_ASSERT(mDropSenderIndex < mItemsInfo.size(), "index out of range");
 
 				// выделенный елемент
@@ -680,7 +680,7 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
-		size_t index = (size_t)_sender->_getInternalData() + (mLineTop * mCountItemInLine);
+		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 
 		eventSelectItemAccept(this, index);
@@ -817,8 +817,16 @@ namespace MyGUI
 
 	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
 	{
+		MYGUI_ASSERT(_widget, "ItemBox::getIndexByWidget : Widget == null");
+		MYGUI_ASSERT(_widget->getParent() == mWidgetClient, "ItemBox::getIndexByWidget : Widget is not child");
 
-#if MYGUI_DEBUG_MODE == 1
+		size_t index = *_widget->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getIndexByWidget");
+
+		return index;
+
+		// FIXME подсунуть в виджет данные побольше, с указателем на нас
+/*#if MYGUI_DEBUG_MODE == 1
 		if (_widget != mWidgetClient) {
 			VectorWidgetItemData::iterator iter=mVectorItems.begin();
 			for (; iter!=mVectorItems.end(); ++iter) {
@@ -831,14 +839,12 @@ namespace MyGUI
 		// формируем нотифи для индекса
 		size_t index = ITEM_NONE;
 		if ((_widget != mWidgetClient) && (_widget->isShow())) {
-			index = (size_t)_widget->_getInternalData() + (mLineTop * mCountItemInLine);
 			if (index >= mItemsInfo.size()) {
 				int test=0;
 			}
-			MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
 			MYGUI_DEBUG_ASSERT(_widget->getParent() == mWidgetClient, "widget is not indexed");
 		}
-		return index;
+		return index;*/
 	}
 
 	size_t ItemBox::_getToolTipIndex(IntPoint _point)
@@ -870,8 +876,8 @@ namespace MyGUI
 	{
 		for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
 			if (iter->item->isShow()) {
-				size_t index = (size_t)iter->item->_getInternalData() + (mLineTop * mCountItemInLine);
-				MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+				size_t index = *iter->item->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getWidgetByIndex");
 
 				if (index == _index) return iter->item;
 			}

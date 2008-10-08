@@ -15,10 +15,10 @@
 struct ItemDropInfo
 {
 	ItemDropInfo(const MyGUI::ItemDropInfo & _info) :
-		sender((BaseLayout*)_info.sender->getUserData()),
+		sender(*_info.sender->getUserData<BaseLayout*>()),
 		sender_index(_info.sender_index),
 		sender_data((ItemData*)_info.sender_data),
-		reseiver(_info.reseiver ? (BaseLayout*)_info.reseiver->getUserData() : null),
+		reseiver(_info.reseiver ? *_info.reseiver->getUserData<BaseLayout*>() : null),
 		reseiver_index(_info.reseiver_index),
 		reseiver_data((ItemData*)_info.reseiver_data)
 	{

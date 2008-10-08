@@ -27,7 +27,7 @@ namespace MyGUI
 
 	public:
 		/** Set sheet caption */
-		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->replaceItemName(static_cast<SheetPtr>(this), _caption); }
+		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->setItemName(static_cast<SheetPtr>(this), _caption); }
 		/** Get sheet caption */
 		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(static_cast<SheetPtr>(this)); }
 
@@ -42,7 +42,7 @@ namespace MyGUI
 		const Ogre::UTFString & getItemName() { return mOwner->getItemName(static_cast<SheetPtr>(this)); }
 
 		//! Replace an item name
-		void replaceItemName(const Ogre::UTFString & _name) { mOwner->replaceItemName(static_cast<SheetPtr>(this), _name); }
+		void setItemName(const Ogre::UTFString & _name) { mOwner->setItemName(static_cast<SheetPtr>(this), _name); }
 
 		//! Get item data
 		template <typename ValueType>

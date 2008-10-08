@@ -33,13 +33,13 @@ namespace MyGUI
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "VScroll") {
+			if (*(*iter)->_getInternalData<std::string>() == "VScroll") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
 				mWidgetScroll = (*iter)->castType<VScroll>();
 				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
 				mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
-			else if ((*iter)->_getInternalString() == "Client") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
@@ -221,7 +221,7 @@ namespace MyGUI
 		// если не клиент, то просчитывам
 		}
 		else {
-			size_t index = (size_t)_sender->_getInternalData() + mTopIndex;
+			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
 
 			if (mIndexSelect != index) {
 				_selectIndex(mIndexSelect, false);
@@ -303,7 +303,7 @@ namespace MyGUI
 				line->eventMouseSetFocus = newDelegate(this, &List::notifyMouseSetFocus);
 				line->eventMouseLostFocus = newDelegate(this, &List::notifyMouseLostFocus);
 				// присваиваем порядковый номер, длу простоты просчета
-				line->_setInternalData((int)mWidgetLines.size());
+				line->_setInternalData((size_t)mWidgetLines.size());
 				// и сохраняем
 				mWidgetLines.push_back(line);
 				height += mHeightLine;
@@ -619,9 +619,9 @@ namespace MyGUI
 		updateLine(true);
 	}
 
-	void List::replaceItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::replaceItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemNameAt");
 		mItemsInfo[_index].first =_name;
 		_redrawItem(_index);
 	}
@@ -641,7 +641,7 @@ namespace MyGUI
 
 	void List::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
-		mLineActive = _sender->_getInternalData();
+		mLineActive = *_sender->_getInternalData<size_t>();
 		eventListMouseItemFocus(this, mLineActive + (size_t)mTopIndex);
 	}
 
