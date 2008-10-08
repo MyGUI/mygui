@@ -34,7 +34,7 @@ public:
 		loadLayout();
 
 		assignWidget(mBoxItems, "box_Items");
-		mBoxItems->setUserData(this);
+		mBoxItems->setUserData(static_cast<BaseLayout*>(this));
 
 		mBoxItems->requestCreateWidgetItem = MyGUI::newDelegate(this, &BaseItemBox::requestCreateWidgetItem);
 		mBoxItems->requestCoordWidgetItem = MyGUI::newDelegate(this, &BaseItemBox::requestCoordWidgetItem);

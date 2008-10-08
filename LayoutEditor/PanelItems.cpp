@@ -216,7 +216,7 @@ void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 	Ogre::String action;
 	Ogre::String value = mEdit->getOnlyText();
 	Ogre::String lastitem = mList->getItemNameAt(item);
-	mList->replaceItemNameAt(item, value);
+	mList->setItemNameAt(item, value);
 
 	if (current_widget->getTypeName() == "Tab")
 	{
@@ -240,9 +240,9 @@ void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 		if (iterProperty->first == action){
 			if (iterProperty->second == lastitem){
 				iterProperty->second = value;
-				if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->replaceItemNameAt(index, value);
-				else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->replaceItemNameAt(index, value);
-				else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->replaceItemNameAt(index, value);
+				if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
+				else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->setItemNameAt(index, value);
+				else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->setItemNameAt(index, value);
 				return;
 			}
 			++index;

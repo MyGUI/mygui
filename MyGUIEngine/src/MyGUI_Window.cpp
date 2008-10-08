@@ -48,20 +48,20 @@ namespace MyGUI
 		if (iter != properties.end()) setUserString("Scale", "1 1 0 0");
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Client") {
+			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 			}
-			else if ((*iter)->_getInternalString() == "Caption") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Caption") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetCaption, "widget already assigned");
 				mWidgetCaption = (*iter);
 				mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				mWidgetCaption->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
 			}
-			else if ((*iter)->_getInternalString() == "Button") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Button") {
 				(*iter)->eventMouseButtonClick = newDelegate(this, &Window::notifyPressedButtonEvent);
 			}
-			else if ((*iter)->_getInternalString() == "Action") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Action") {
 				(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				(*iter)->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
 			}

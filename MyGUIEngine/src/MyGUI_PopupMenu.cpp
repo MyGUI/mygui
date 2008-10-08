@@ -33,7 +33,7 @@ namespace MyGUI
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Client") {
+			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 				//mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
@@ -184,7 +184,7 @@ namespace MyGUI
 			size.height += mHeightLine;
 			if (iter->separator) size.height += 10;
 
-			int width = iter->button->_getInternalData();
+			int width = *iter->button->_getInternalData<int>();
 			if (iter->submenu != null) width += mSubmenuImageSize;
 			if (width > size.width) size.width = width;
 		}
@@ -412,9 +412,9 @@ namespace MyGUI
 		return getItemType(mItemsInfo[_index].submenu != null, mItemsInfo[_index].separator);
 	}
 
-	void PopupMenu::replaceItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void PopupMenu::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::replaceItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemNameAt");
 
 		ButtonPtr button = mItemsInfo[_index].button;
 		button->setCaption(_name);

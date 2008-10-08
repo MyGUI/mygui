@@ -24,6 +24,44 @@
 namespace MyGUI
 {
 
+	/** Usage example of class Any
+
+	void f()
+	{
+		// RU: тестовый класс, с простыми типами все аналогично
+		// EN: test class, with simple types all is similar
+		struct Data { int value; };
+
+		// RU: экземпл€р и инициализаци€
+		// EN: instance and initialization
+		Data data;
+		data.value = 0xDEAD;
+
+		// RU: создастс€ копи€ класса Data
+		// EN: copy of class Data will be created
+		MyGUI::Any any = data;
+		// RU: копи€ класса Data
+		// EN: copy of class Data
+		Data copy_data = *any.castType<Data>();
+		// RU: теперь value == 0xDEAD
+		// EN: now value == 0xDEAD
+		int value = copy_data.value;
+
+
+		// RU: создастс€ копи€ указател€ на класс Data
+		// EN: copy of pointer on class Data will be created
+		any = &data;
+		// RU: копи€ указател€ на класс Data и конкретно на объект data
+		// EN: copy of pointer on class Data and on object data
+		Data * copy_ptr = *any.castType<Data*>();
+		// RU: теперь data.value == 0
+		// EN: now value == 0xDEAD
+		copy_ptr->value = 0;
+
+	}
+	
+	*/
+
 	class _MyGUIExport Any
 	{
 

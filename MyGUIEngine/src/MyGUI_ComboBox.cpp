@@ -65,7 +65,7 @@ namespace MyGUI
 
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			if ((*iter)->_getInternalString() == "Button") {
+			if (*(*iter)->_getInternalData<std::string>() == "Button") {
 				MYGUI_DEBUG_ASSERT( ! mButton, "widget already assigned");
 				mButton = (*iter)->castType<Button>();
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
@@ -280,9 +280,9 @@ namespace MyGUI
 		Edit::updateView(0); // hook for update
 	}
 
-	void ComboBox::replaceItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
 	{
-		mList->replaceItemNameAt(_index, _name);
+		mList->setItemNameAt(_index, _name);
 		mItemIndex = ITEM_NONE;//FIXME
 		mList->setItemSelectedAt(mItemIndex);//FIXME
 	}

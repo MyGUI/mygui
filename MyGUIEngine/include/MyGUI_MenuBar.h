@@ -129,7 +129,7 @@ namespace MyGUI
 
 		//ItemType getItemTypeAt(size_t _index);
 
-		void replaceItemNameAt(size_t _index, const Ogre::UTFString & _name);
+		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 
 
 

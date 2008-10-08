@@ -374,6 +374,8 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
         height = static_cast<MyGUI::FontPtr>(MyGUI::FontManager::getInstance().getByName("font_tmp"))->getHeightPix();
         edit->setFontHeight(height);
         mInfo->change("font pix", MyGUI::utility::toString(height));*/
+
+//		MyGUI::MultiList::re
  
     }
  
