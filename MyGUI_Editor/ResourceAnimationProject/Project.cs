@@ -78,7 +78,7 @@ namespace ResourceAnimationProject
                 Directory.CreateDirectory(dir_path);
 
             SaveProject(dir_path + "\\" + Name + PROJ_EXT);
-            SaveSkin(dir_path + "\\" + Name + SKIN_EXT);
+            //SaveSkin(dir_path + "\\" + Name + SKIN_EXT);
 
             m_Edited = false;
             SendMessage("Проект был сохранён");
@@ -88,7 +88,7 @@ namespace ResourceAnimationProject
         {
             XmlProject xmlP = new XmlProject();
             xmlP.Init(this, CLSID_RESOURCE_ANIMATION_PROJECT.ID);
-            xmlP.AddNode(xmlP.CreateNode("Part", Name + SKIN_EXT, false));
+            //xmlP.AddNode(xmlP.CreateNode("Part", Name + SKIN_EXT, false));
             xmlP.Seve(_path);
             m_Location = _path.Remove(_path.LastIndexOf('\\'));
         }
