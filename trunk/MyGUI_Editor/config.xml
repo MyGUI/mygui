@@ -6,6 +6,7 @@
 	<module>ViewLoger.dll</module>
 	<module>ProjectManagement.dll</module>
 	<module>SkinProject.dll</module>
+  <module>ResourceAnimationProject.dll</module>
 	<module>WidgetSkinEditor.dll</module>
 	<module>ImageSetEditor.dll</module>
 	<module>PropertyEditor.dll</module>
