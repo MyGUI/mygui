@@ -4,28 +4,28 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Core.Attributes;
-using SkinProject;
+using ResourceAnimationProject;
 
-namespace SkinProject
+namespace ResourceAnimationProject
 {
-    [RegisterIt(CATID_PROJECT_KEEPERS.Literal, CLSID_SKIN_PROJECT_KEEPER.Literal)]
+    [RegisterIt(CATID_PROJECT_KEEPERS.Literal, CLSID_RESOURCE_ANIMATION_PROJECT_KEEPER.Literal)]
     public class Keeper : IProjectKeeper, IPlugin, ILogSender
     {
         #region IProjectKeeper Members
 
         public Guid ProjectID
         {
-            get { return CLSID_SKIN_PROJECT.ID; } 
+            get { return CLSID_RESOURCE_ANIMATION_PROJECT.ID; } 
         }
 
         public string Name
         {
-            get { return "MyGUI_Skin project"; }
+            get { return "MyGUI_ResourceAnimation project"; }
         }
 
         public string ProjectFileFilter
         {
-            get { return "MyGUI Skin project files(*.mgsproj)|*.mgsproj"; }
+            get { return "MyGUI Resource Animation files(*.mgsproj)|*.mgsproj"; }
         }
 
         public string AddedFileFilter
@@ -68,7 +68,7 @@ namespace SkinProject
 
         public void Dispose()
         {
-            
+
         }
 
         #endregion
