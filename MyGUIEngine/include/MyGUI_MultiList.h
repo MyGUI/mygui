@@ -228,45 +228,66 @@ namespace MyGUI
 		}
 
 
-		// OBSOLETE, use findSubItemWith
+		// #ifdef MYGUI_USING_OBSOLETE
+
+		MYGUI_OBSOLETE("use MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _item)")
 		size_t findItem(size_t _column, const Ogre::UTFString & _name) { return findSubItemWith(_column, _name); }
-		// OBSOLETE, use getSubItemNameAt
+
+		MYGUI_OBSOLETE("use MultiList::getSubItemNameAt(size_t _column, size_t _index)")
 		const Ogre::UTFString & getSubItem(size_t _column, size_t _index) { return getSubItemNameAt(_column, _index); }
-		// OBSOLETE, use setSubItemAt
+
+		MYGUI_OBSOLETE("use MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _item)")
 		void setSubItem(size_t _column, size_t _index, const Ogre::UTFString & _item) { setSubItemNameAt(_column, _index, _item); }
-		// OBSOLETE, use removeColumnAt
+
+		MYGUI_OBSOLETE("use MultiList::removeColumnAt(size_t _column)")
 		void deleteColumn(size_t _column) { removeColumnAt(_column); }
-		// OBSOLETE, use removeAllColumns
+
+		MYGUI_OBSOLETE("use MultiList::removeAllColumns()")
 		void deleteAllColumns() { removeAllColumns(); }
-		// OBSOLETE, use getColumnNameAt
+
+		MYGUI_OBSOLETE("use MultiList::getColumnWidthAt(size_t _column)")
 		int getColumnWidth(size_t _column) { return getColumnWidthAt(_column); }
-		// OBSOLETE, use getColumnNameAt
+
+		MYGUI_OBSOLETE("use MultiList::getColumnNameAt(size_t _column)")
 		const Ogre::UTFString & getColumnName(size_t _column) { return getColumnNameAt(_column); }
-		// OBSOLETE, use addColumn
+
+		MYGUI_OBSOLETE("use MultiList::setColumnWidthAt(size_t _column, int _width)")
 		void setColumnWidth(size_t _column, int _width) { setColumnWidthAt(_column, _width); }
-		// OBSOLETE, use addColumn
+
+		MYGUI_OBSOLETE("use MultiList::addColumn(const Ogre::UTFString & _name, int _width, Any _data)")
 		void addColumn(int _width, const Ogre::UTFString & _name) { addColumn(_name, _width); }
-		// OBSOLETE, use replaceColumnNameAt
+
+		MYGUI_OBSOLETE("use MultiList::setColumnNameAt(size_t _column, const Ogre::UTFString & _name)")
 		void setColumnName(size_t _column, const Ogre::UTFString & _name) { setColumnNameAt(_column, _name); }
-		// OBSOLETE, use insertColumnAt
+
+		MYGUI_OBSOLETE("use MultiList::insertColumnAt(size_t _column, const Ogre::UTFString & _name, int _width, Any _data)")
 		void insertColumn(size_t _column, int _width, const Ogre::UTFString & _name) { insertColumnAt(_column, _name, _width); }
-		// OBSOLETE, use getItemIndexSelected
+
+		MYGUI_OBSOLETE("use MultiList::getItemIndexSelected()")
 		size_t getItemSelect() { return getItemIndexSelected(); }
-		// OBSOLETE, use clearItemSelected
+
+		MYGUI_OBSOLETE("use MultiList::clearItemSelected()")
 		void resetItemSelect() { clearItemSelected(); }
-		// OBSOLETE, use setItemSelectedAt
+
+		MYGUI_OBSOLETE("use MultiList::setItemSelectedAt(size_t _index)")
 		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
-		// OBSOLETE, use insertItemAt
+
+		MYGUI_OBSOLETE("use MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data)")
 		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
-		// OBSOLETE, use setItemNameAt
+
+		MYGUI_OBSOLETE("use MultiList::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
 		void setItem(size_t _index, const Ogre::UTFString & _name) { setItemNameAt(_index, _name); }
-		// OBSOLETE, use insertItemAt
+
+		MYGUI_OBSOLETE("use MultiList::getItemNameAt(size_t _index)")
 		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
-		// OBSOLETE, use removeItemAt
+
+		MYGUI_OBSOLETE("use MultiList::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
-		// OBSOLETE, use removeAllItems
+
+		MYGUI_OBSOLETE("use MultiList::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
 
+		// #endif // MYGUI_USING_OBSOLETE
 
 
 		/** Event : Enter pressed or double click.\n

@@ -139,26 +139,24 @@ namespace MyGUI
 		ItemType getItemTypeAt(size_t _index);
 
 
-		//--------------------------------------------------------------------
-		// OBSOLETE methods
-		// {
+		// #ifdef MYGUI_USING_OBSOLETE
 
-		// OBSOLETE, use addItem
+		MYGUI_OBSOLETE("use PopupMenu::addItem(const Ogre::UTFString & _name, ItemType _type, Any _data)")
 		void addItem(const Ogre::UTFString& _item, bool _submenu, bool _separator) { addItem(_item, getItemType(_submenu, _separator)); }
-		// OBSOLETE, use insertItem
+
+		MYGUI_OBSOLETE("use PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)")
 		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }
-		// OBSOLETE, use replaceItem
-		//void setItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { setItemNameAt(_index, _item, getItemType(_submenu, _separator)); }
-		// OBSOLETE, use removeItemAt
+
+		MYGUI_OBSOLETE("use PopupMenu::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
-		// OBSOLETE, use removeAllItems
+
+		MYGUI_OBSOLETE("use PopupMenu::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
-		// OBSOLETE, use getItemAt
+
+		MYGUI_OBSOLETE("use PopupMenu::getItemNameAt(size_t _index)")
 		const Ogre::UTFString& getItem(size_t _index) { return getItemNameAt(_index); }
 
-		// }
-		// OBSOLETE methods
-		//--------------------------------------------------------------------
+		// #endif // MYGUI_USING_OBSOLETE
 
 
 		/** Show popup menu
