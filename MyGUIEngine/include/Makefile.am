@@ -1,12 +1,12 @@
 pkginclude_HEADERS = \
-	MyGUI_ActionController.h\
-	MyGUI_AlignInfo.h\
+	MyGUI_ActionController.h \
+	MyGUI_Align.h\
+	MyGUI_Any.h\
 	MyGUI_ButtonFactory.h\
 	MyGUI_Button.h\
 	MyGUI_CastWidget.h\
 	MyGUI_ChildSkinInfo.h\
 	MyGUI_ClipboardManager.h\
-	MyGUI_ColourRect.h\
 	MyGUI_ComboBoxFactory.h\
 	MyGUI_ComboBox.h\
 	MyGUI_Common.h\
@@ -15,7 +15,6 @@ pkginclude_HEADERS = \
 	MyGUI_ControllerItem.h\
 	MyGUI_ControllerManager.h\
 	MyGUI_ControllerPosition.h\
-	MyGUI_CroppedRectangleInterface.h\
 	MyGUI_Delegate.h\
 	MyGUI_DelegateImplement.h\
 	MyGUI_DelegateManager.h\
@@ -31,19 +30,29 @@ pkginclude_HEADERS = \
 	MyGUI_FontManager.h\
 	MyGUI_FooBarFactory.h\
 	MyGUI_FooBar.h\
+	MyGUI_Guid.h\
 	MyGUI_Gui.h\
 	MyGUI.h\
 	MyGUI_HScrollFactory.h\
 	MyGUI_HScroll.h\
+	MyGUI_ICroppedRectangle.h\
+	MyGUI_ImageInfo.h\
 	MyGUI_InputDefine.h\
 	MyGUI_InputManager.h\
 	MyGUI_Instance.h\
+	MyGUI_IResource.h\
+	MyGUI_ISubWidgetFactory.h\
+	MyGUI_ISubWidget.h\
+	MyGUI_ISubWidgetRect.h\
+	MyGUI_ISubWidgetText.h\
 	MyGUI_ItemBoxFactory.h\
 	MyGUI_ItemBox.h\
 	MyGUI_ItemDropInfo.h\
+	MyGUI_IUnlinkWidget.h\
+	MyGUI_IWidgetCreator.h\
+	MyGUI_IWidgetFactory.h\
 	MyGUI_LanguageManager.h\
 	MyGUI_LayerItem.h\
-	MyGUI_LayerItemInfo.h\
 	MyGUI_LayerItemKeeper.h\
 	MyGUI_LayerKeeper.h\
 	MyGUI_LayerManager.h\
@@ -61,7 +70,6 @@ pkginclude_HEADERS = \
 	MyGUI_Message.h\
 	MyGUI_MultiListFactory.h\
 	MyGUI_MultiList.h\
-	MyGUI_OverlayItem.h\
 	MyGUI_Platform.h\
 	MyGUI_Plugin.h\
 	MyGUI_PluginManager.h\
@@ -72,11 +80,15 @@ pkginclude_HEADERS = \
 	MyGUI_Prerequest.h\
 	MyGUI_ProgressFactory.h\
 	MyGUI_Progress.h\
+	MyGUI_RawRect.h\
 	MyGUI_RenderBoxFactory.h\
 	MyGUI_RenderBox.h\
 	MyGUI_RenderItem.h\
 	MyGUI_RenderOut.h\
+	MyGUI_ResourceImageSet.h\
+	MyGUI_ResourceManager.h\
 	MyGUI_ResourcePath.h\
+	MyGUI_Rtti.h\
 	MyGUI_ScrollViewFactory.h\
 	MyGUI_ScrollView.h\
 	MyGUI_SheetFactory.h\
@@ -89,24 +101,19 @@ pkginclude_HEADERS = \
 	MyGUI_StaticText.h\
 	MyGUI_SubSkin.h\
 	MyGUI_SubWidgetBinding.h\
-	MyGUI_SubWidgetFactoryInterface.h\
 	MyGUI_SubWidgetManager.h\
-	MyGUI_SubWidgetTextInterface.h\
 	MyGUI_TabFactory.h\
 	MyGUI_Tab.h\
 	MyGUI_TextChangeHistory.h\
 	MyGUI_TextIterator.h\
 	MyGUI_TileRect.h\
 	MyGUI_Types.h\
-	MyGUI_UnlinkWidget.h\
 	MyGUI_Utility.h\
 	MyGUI_VScrollFactory.h\
 	MyGUI_VScroll.h\
-	MyGUI_WidgetCreator.h\
 	MyGUI_WidgetDefines.h\
 	MyGUI_WidgetEvent.h\
 	MyGUI_WidgetFactory.h\
-	MyGUI_WidgetFactoryInterface.h\
 	MyGUI_Widget.h\
 	MyGUI_WidgetManager.h\
 	MyGUI_WidgetOIS.h\

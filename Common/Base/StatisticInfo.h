@@ -58,7 +58,6 @@ namespace statistic
 			mParams.push_back(std::make_pair(_key, MyGUI::utility::toString<T>(_value)));
 		}
 
-		template<>
 		void change(const std::string & _key, const std::string & _value)
 		{
 			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter) {

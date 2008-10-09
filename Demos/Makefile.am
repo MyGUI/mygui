@@ -1,1 +1,1 @@
-SUBDIRS = Demo_Console Demo_ItemBox Demo_PluginStrangeButton Demo_ScrollView Demo_PanelView Demo_StaticImage
+SUBDIRS = Demo_Colour Demo_Console Demo_Font Demo_ItemBox Demo_ScrollView Demo_PanelView Demo_StaticImage

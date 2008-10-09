@@ -82,7 +82,7 @@ namespace MyGUI
 		{
 		}
 
-		template<> Any(const Any::AnyEmpty & value) :
+		Any(const Any::AnyEmpty & value) :
 			mContent(null)
 		{
 		}
@@ -109,7 +109,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		template<> Any & operator = (const Any::AnyEmpty & rhs)
+		Any & operator = (const Any::AnyEmpty & rhs)
 		{
 			delete mContent;
 			mContent = null;
