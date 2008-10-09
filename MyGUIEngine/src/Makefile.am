@@ -3,10 +3,11 @@ INCLUDES = $(STLPORT_CFLAGS) $(FT2_CFLAGS) $(OGRE_CFLAGS) $(OIS_CFLAGS) -I$(top_
 lib_LTLIBRARIES=libmygui.la
 libmygui_la_SOURCES = \
 	MyGUI_ActionController.cpp\
+	MyGUI_Align.cpp\
+	MyGUI_Any.cpp\
 	MyGUI_Button.cpp\
 	MyGUI_ButtonFactory.cpp\
 	MyGUI_ClipboardManager.cpp\
-	MyGUI_ColourRect.cpp\
 	MyGUI_ComboBox.cpp\
 	MyGUI_ComboBoxFactory.cpp\
 	MyGUI_ControllerEdgeHide.cpp\
@@ -24,13 +25,17 @@ libmygui_la_SOURCES = \
 	MyGUI_FooBar.cpp\
 	MyGUI_FooBarFactory.cpp\
 	MyGUI_Gui.cpp\
+	MyGUI_Guid.cpp\
 	MyGUI_HScroll.cpp\
 	MyGUI_HScrollFactory.cpp\
+	MyGUI_IArray.cpp\
 	MyGUI_InputManager.cpp\
+	MyGUI_IResource.cpp\
+	MyGUI_ISubWidget.cpp\
 	MyGUI_ItemBox.cpp\
 	MyGUI_ItemBoxFactory.cpp\
+	MyGUI_IWidgetCreator.cpp\
 	MyGUI_LanguageManager.cpp\
-	MyGUI_LayerItemInfo.cpp\
 	MyGUI_LayerItemKeeper.cpp\
 	MyGUI_LayerKeeper.cpp\
 	MyGUI_LayerManager.cpp\
@@ -52,10 +57,13 @@ libmygui_la_SOURCES = \
 	MyGUI_PopupMenuFactory.cpp\
 	MyGUI_Progress.cpp\
 	MyGUI_ProgressFactory.cpp\
+	MyGUI_RawRect.cpp\
 	MyGUI_RenderBox.cpp\
 	MyGUI_RenderBoxFactory.cpp\
 	MyGUI_RenderItem.cpp\
 	MyGUI_RenderOut.cpp\
+	MyGUI_ResourceImageSet.cpp\
+	MyGUI_ResourceManager.cpp\
 	MyGUI_ResourcePath.cpp\
 	MyGUI_ScrollView.cpp\
 	MyGUI_ScrollViewFactory.cpp\
@@ -76,7 +84,6 @@ libmygui_la_SOURCES = \
 	MyGUI_VScroll.cpp\
 	MyGUI_VScrollFactory.cpp\
 	MyGUI_Widget.cpp\
-	MyGUI_WidgetCreator.cpp\
 	MyGUI_WidgetFactory.cpp\
 	MyGUI_WidgetManager.cpp\
 	MyGUI_Window.cpp\
