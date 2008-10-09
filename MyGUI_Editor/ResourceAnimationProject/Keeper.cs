@@ -33,14 +33,6 @@ namespace ResourceAnimationProject
             get { return string.Empty; }
         }
 
-        public Guid[] Plugins
-        {
-            get
-            {
-                return DependencePluginGetter.GetPlugins(ProjectID);
-            }
-        }
-
         #endregion
 
         #region IPlugin Members

@@ -24,9 +24,5 @@ namespace Common
         /// Фильтр, добавляемых файлов
         /// </summary>
         string AddedFileFilter { get; }
-        /// <summary>
-        /// Плагины проекта
-        /// </summary>
-        Guid[] Plugins { get; }
     }
 }
