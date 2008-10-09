@@ -204,7 +204,7 @@ namespace ProjectManagement
             if(vc == null && OnMessage != null)
                 OnMessage("Не найден визуальный компонент", 1, Name);
 
-            Guid[] runablePlugins = _keeper.Plugins;
+            Guid[] runablePlugins = DependencePluginGetter.GetPlugins(_keeper.ProjectID);
             
             Dictionary<Guid, IPlugin> plugins;
             CoreFacade.Register.GetItems(CATID_PROJECT_PLUGINS.ID, out plugins);
