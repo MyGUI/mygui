@@ -12,6 +12,7 @@
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ICroppedRectangle.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {

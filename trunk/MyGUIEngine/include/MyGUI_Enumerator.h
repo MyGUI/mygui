@@ -47,7 +47,7 @@ namespace MyGUI
 		Enumerator() { }
 
 	public:
-		explicit Enumerator(typename T & _container) :
+		explicit Enumerator(T & _container) :
 			m_first(true),
 			m_current(_container.begin()),
 			m_end(_container.end())

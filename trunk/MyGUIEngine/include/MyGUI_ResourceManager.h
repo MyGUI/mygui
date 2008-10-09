@@ -12,12 +12,10 @@
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_IResource.h"
 
 namespace MyGUI
 {
-	class IResource;
-	typedef IResource * IResourcePtr;
-
 	typedef delegates::CDelegate2<IResourcePtr &, xml::xmlNodeIterator> CreatorDelegate;
 	typedef delegates::IDelegate2<IResourcePtr &, xml::xmlNodeIterator> * CreatorDelegatePtr;
 

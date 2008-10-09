@@ -93,19 +93,24 @@ namespace MyGUI
 		// массив для быстрой конвертации
 		static const char convert_hex[64];
 
-		union {
-			struct _original { 
-				uint32 data1;
-				uint16 data2, data3;
-				uint8 data4[8];
-			} original;
-			struct _fast { 
-				uint32 _data1, _data2, _data3, _data4;
-			} fast;
-			struct _vec {
-				unsigned char _data1[16];
-			} vec;
+		struct _original { 
+			uint32 data1;
+			uint16 data2, data3;
+			uint8 data4[8];
 		};
+		struct _fast { 
+			uint32 _data1, _data2, _data3, _data4;
+		};
+		struct _vec {
+			unsigned char _data1[16];
+		};
+
+		union {
+		_original original;
+		_fast fast;
+		_vec vec;
+		};
+
 	};
 
 } // namespace MyGUI

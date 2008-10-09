@@ -31,10 +31,12 @@ AC_CONFIG_FILES([Makefile
                  TestApp/Makefile
                  LayoutEditor/Makefile
                  Demos/Makefile
+                 Demos/Demo_Colour/Makefile
                  Demos/Demo_Console/Makefile
-                 Demos/Demo_PluginStrangeButton/Makefile
-                 Demos/Demo_StaticImage/Makefile
+                 Demos/Demo_Font/Makefile
                  Demos/Demo_ItemBox/Makefile
+                 Demos/Demo_PanelView/Makefile
                  Demos/Demo_ScrollView/Makefile
+                 Demos/Demo_StaticImage/Makefile
                  MyGUI.pc])
 AC_OUTPUT

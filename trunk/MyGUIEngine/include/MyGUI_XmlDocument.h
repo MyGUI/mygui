@@ -48,7 +48,7 @@ namespace MyGUI
 
 		}
 
-		typedef enum xmlNodeType {
+		enum xmlNodeType {
 			XML_NODE_TYPE_REMARK, // коментарий
 			XML_NODE_TYPE_INFO, // информационный блок
 			XML_NODE_TYPE_NORMAL, // обыкновенный блок
@@ -57,7 +57,7 @@ namespace MyGUI
 		namespace errors
 		{
 
-			typedef enum ErrorTypes {
+			enum ErrorTypes {
 				XML_ERROR_NONE,
 				XML_ERROR_OPEN_FILE,
 				XML_ERROR_CREATE_FILE,
