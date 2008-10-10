@@ -147,7 +147,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
 	if (OIS::KC_TAB == _key)
 	{
-		if ((null != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
+		if ((null != current_widget) && (null != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
 		if (current_widget->getTypeName() == "Tab")
 		{
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
