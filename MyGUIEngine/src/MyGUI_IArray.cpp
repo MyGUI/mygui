@@ -128,7 +128,7 @@ namespace MyGUI
 		void setItemName(ItemType _item, NameType _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item name from specified position
-		NameType getItemNameAt(size_t _index) { return ""; }
+		NameType getItemNameAt(size_t _index) { return NameType(); }
 
 		//! Get item name
 		NameType getItemName(ItemType _item) { return getItemNameAt(getItemIndex(_item)); }
