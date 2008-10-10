@@ -56,8 +56,7 @@ namespace MyGUI
 		/** Inject KeyPress event
 			@return true if event has been processed by GUI
 		*/
-		bool injectKeyPress(KeyCode _key);
-		bool injectKeyPress(KeyCode _key, unsigned int _text);
+		bool injectKeyPress(KeyCode _key, unsigned int _text = 0);
 		/** Inject KeyRelease event
 			@return true if event has been processed by GUI
 		*/
@@ -131,9 +130,6 @@ namespace MyGUI
 		const std::string & getCurrentLanguage() {return mCurrentLanguage->first;}
 		/** Set current language */
 		void setCurrentLanguage(const std::string & _lang);
-
-		inline void setUseOISKeyLayout (bool b) {mUseOISKeyLayout = b;}
-		inline bool getUseOISKeyLayout () const {return mUseOISKeyLayout;}
 
 #if MYGUI_DEBUG_MODE == 1
 	public:
@@ -212,8 +208,6 @@ namespace MyGUI
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
-
-		bool mUseOISKeyLayout;
 
 	};
 

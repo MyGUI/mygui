@@ -15,7 +15,6 @@ Console::Console() :
 void Console::initialise()
 {
 	loadLayout();
-	MyGUI::InputManager::getInstance().setUseOISKeyLayout(true);
 
 	assignWidget(mListHistory, "list_History");
 	assignWidget(mComboCommand, "combo_Command");
