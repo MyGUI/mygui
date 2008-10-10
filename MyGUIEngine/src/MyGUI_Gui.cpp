@@ -155,6 +155,10 @@ namespace MyGUI
 	bool Gui::injectKeyPress(KeyCode _key) {return mInputManager->injectKeyPress(_key);}
 	bool Gui::injectKeyRelease(KeyCode _key) {return mInputManager->injectKeyRelease(_key);}
 
+#ifndef MYGUI_NO_OIS
+	bool Gui::injectKeyPress(const OIS::KeyEvent & _arg) { return mInputManager->injectKeyPress((KeyCode)_arg.key, _arg.text); }
+#endif
+
 	WidgetPtr Gui::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);

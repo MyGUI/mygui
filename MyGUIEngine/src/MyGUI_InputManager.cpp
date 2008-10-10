@@ -55,6 +55,8 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
+
+		mUseOISKeyLayout = false;
 	}
 
 	void InputManager::shutdown()
@@ -258,15 +260,91 @@ namespace MyGUI
 
 		//Pass keystrokes to the current active text widget
 		if (isFocusKey()) {
-			Char ch;
-			/*if (mUseOISKeyLayout) {
-				ch = _arg.text;
-				if (std::find (mCurrentLanguage->second.begin(), mCurrentLanguage->second.end(), ch) == mCurrentLanguage->second.end())
-					ch = 0;
+			mWidgetKeyFocus->_onKeyButtonPressed(_key, getKeyChar(_key));
+		}
+
+		return wasFocusKey;
+	}
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+	static WCHAR deadKey = 0;
+	int _translateText( KeyCode kc )
+	{
+		BYTE keyState[256];
+		HKL  layout = GetKeyboardLayout(0);
+		if( GetKeyboardState(keyState) == 0 )
+			return 0;
+
+		unsigned int vk = MapVirtualKeyEx(kc, 3, layout);
+		if( vk == 0 )
+			return 0;
+
+		//unsigned char buff[3] = {0,0,0};
+		//int ascii = ToAsciiEx(vk, kc, keyState, (LPWORD) buff, 0, layout);
+		WCHAR buff[3]={0,0,0};
+		int ascii = ToUnicodeEx(vk, kc, keyState, buff, 3, 0, layout);
+		if(ascii == 1 && deadKey != '\0' )
+		{
+			// A dead key is stored and we have just converted a character key
+			// Combine the two into a single character
+			WCHAR wcBuff[3] = {buff[0], deadKey, '\0'};
+			WCHAR out[3];
+			
+			deadKey = '\0';
+			if(FoldStringW(MAP_PRECOMPOSED, (LPWSTR)wcBuff, 3, (LPWSTR)out, 3))
+				return out[0];
+		}
+		else if (ascii == 1)
+		{	// We have a single character
+			deadKey = '\0';
+			return buff[0];
+		}
+		else if(ascii == 2)
+		{	// Convert a non-combining diacritical mark into a combining diacritical mark
+			// Combining versions range from 0x300 to 0x36F; only 5 (for French) have been mapped below
+			// http://www.fileformat.info/info/unicode/block/combining_diacritical_marks/images.htm
+			switch(buff[0])	{
+			case 0x5E: // Circumflex accent: в
+				deadKey = 0x302; break;
+			case 0x60: // Grave accent: а
+				deadKey = 0x300; break;
+			case 0xA8: // Diaeresis: ь
+				deadKey = 0x308; break;
+			case 0xB4: // Acute accent: й
+				deadKey = 0x301; break;
+			case 0xB8: // Cedilla: з
+				deadKey = 0x327; break;
+			default:
+				deadKey = buff[0]; break;
 			}
-			else {*/
+		}
+
+		return 0;
+	}
+#endif
+
+	bool InputManager::injectKeyPress(KeyCode _key, unsigned int _text)
+	{
+		// проверка на переключение языков
+		detectLangShift(_key, true);
+		// запоминаем клавишу
+		storeKey(_key);
+
+		bool wasFocusKey = isFocusKey();
+
+		//Pass keystrokes to the current active text widget
+		if (isFocusKey()) {
+			Char ch;
+			if (mUseOISKeyLayout) {
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+				ch = _translateText(_key);
+#else
+				ch = _text;
+#endif
+			}
+			else {
 				ch = getKeyChar(_key);
-			//}
+			}
 			mWidgetKeyFocus->_onKeyButtonPressed(_key, ch);
 		}
 
@@ -290,6 +368,7 @@ namespace MyGUI
     //Detects switching from an english to a other mode on a keyboard (?)
 	void InputManager::detectLangShift(KeyCode keyEvent, bool bIsKeyPressed)
 	{
+		return;
 		// если переключать не надо
 		if (mMapLanguages.size() == 1) return;
 
