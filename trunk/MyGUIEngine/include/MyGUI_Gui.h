@@ -141,7 +141,7 @@ namespace MyGUI
 		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, (MouseButton)_id); }
 
 		/** OIS backend for injectKeyPress(KeyCode _key) */
-		bool injectKeyPress(const OIS::KeyEvent & _arg) { return injectKeyPress((KeyCode)_arg.key); }
+		bool injectKeyPress(const OIS::KeyEvent & _arg);
 		/** OIS backend for injectKeyRelease(KeyCode _key) */
 		bool injectKeyRelease(const OIS::KeyEvent & _arg) { return injectKeyRelease((KeyCode)_arg.key); }
 #endif
