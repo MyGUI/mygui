@@ -8,9 +8,8 @@
 // -- Based on boost::any, original copyright information follows --
 // Copyright Kevlin Henney, 2000, 2001, 2002. All rights reserved.
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompAnying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
+// Distributed under the Boost Software License, Version 1.0.
+// (See at http://www.boost.org/LICENSE_1_0.txt)
 // -- End original copyright --
 
 #ifndef __MYGUI_ANY_H__
