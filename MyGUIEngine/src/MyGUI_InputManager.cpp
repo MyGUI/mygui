@@ -41,7 +41,6 @@ namespace MyGUI
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
 		mHoldKey = KC_UNASSIGNED;
-		//mUseOISKeyLayout = false;
 		mFirstPressKey = true;
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
@@ -55,8 +54,6 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
-
-		mUseOISKeyLayout = false;
 	}
 
 	void InputManager::shutdown()
@@ -249,23 +246,6 @@ namespace MyGUI
 		return false;
 	}
 
-	bool InputManager::injectKeyPress(KeyCode _key)
-	{
-		// проверка на переключение языков
-		detectLangShift(_key, true);
-		// запоминаем клавишу
-		storeKey(_key);
-
-		bool wasFocusKey = isFocusKey();
-
-		//Pass keystrokes to the current active text widget
-		if (isFocusKey()) {
-			mWidgetKeyFocus->_onKeyButtonPressed(_key, getKeyChar(_key));
-		}
-
-		return wasFocusKey;
-	}
-
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	static WCHAR deadKey = 0;
 	int _translateText( KeyCode kc )
@@ -335,16 +315,15 @@ namespace MyGUI
 		//Pass keystrokes to the current active text widget
 		if (isFocusKey()) {
 			Char ch;
-			if (mUseOISKeyLayout) {
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-				ch = _translateText(_key);
+#ifndef MYGUI_NO_OIS
+#    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			ch = _translateText(_key);
+#    else
+			ch = _text;
+#    endif
 #else
-				ch = _text;
+			ch = getKeyChar(_key);
 #endif
-			}
-			else {
-				ch = getKeyChar(_key);
-			}
 			mWidgetKeyFocus->_onKeyButtonPressed(_key, ch);
 		}
 
@@ -368,7 +347,6 @@ namespace MyGUI
     //Detects switching from an english to a other mode on a keyboard (?)
 	void InputManager::detectLangShift(KeyCode keyEvent, bool bIsKeyPressed)
 	{
-		return;
 		// если переключать не надо
 		if (mMapLanguages.size() == 1) return;
 
