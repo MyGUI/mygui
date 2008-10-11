@@ -72,7 +72,7 @@ public:
 
 	void setItemData(size_t _index, ItemData * _data)
 	{
-		mBoxItems->setItemData(_index, _data);
+		mBoxItems->setItemDataAt(_index, _data);
 	}
 
 	template <typename ValueType>

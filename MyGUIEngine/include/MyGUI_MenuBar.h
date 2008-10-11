@@ -63,9 +63,6 @@ namespace MyGUI
 		//! Add an item to the end of a array
 		void addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _type, _data); }
 
-		//! Replace an item at a specified position
-		//void replaceItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type = ItemTypeNormal);
-
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 
@@ -125,9 +122,6 @@ namespace MyGUI
 		void insertSeparatorAt(size_t _index) { insertItemAt(_index, "", ItemTypeSeparator); }
 
 		void addSeparator() { addItem("", ItemTypeSeparator); }
-		//void setSeparatorAt(size_t _index) { replaceItemAt(_index, "", ItemTypeSeparator); }
-
-		//ItemType getItemTypeAt(size_t _index);
 
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 

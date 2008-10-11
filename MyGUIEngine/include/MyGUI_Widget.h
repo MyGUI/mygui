@@ -275,7 +275,7 @@ namespace MyGUI
 		void getContainer(WidgetPtr & _list, size_t & _index);
 		// метод для установления стейта айтема
 		//FIXME перенести в класс контейнер
-		virtual void _setDragItemInfo(size_t _index, bool _set, bool _accept) { }
+		virtual void setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 
 		/** Set drag'n'drop mode flag */
