@@ -31,6 +31,7 @@
 #include "MyGUI_PopupMenuFactory.h"
 #include "MyGUI_MenuBarFactory.h"
 #include "MyGUI_ScrollViewFactory.h"
+#include "MyGUI_DDContainerFactory.h"
 
 namespace MyGUI
 {
@@ -66,6 +67,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
 		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
 		mIntegratedFactoryList.insert(new factory::ScrollViewFactory());
+		mIntegratedFactoryList.insert(new factory::DDContainerFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -141,18 +143,6 @@ namespace MyGUI
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
-
-	// преобразует точку на виджете в глобальную позицию
-	/*IntPoint WidgetManager::convertToGlobal(const IntPoint& _point, WidgetPtr _widget)
-	{
-		IntPoint ret = _point;
-		WidgetPtr wid = _widget;
-		while (wid != null) {
-			ret += wid->getPosition();
-			wid = wid->getParent();
-		}
-		return ret;
-	}*/
 
 	ParseDelegate & WidgetManager::registerDelegate(const Ogre::String & _key)
 	{

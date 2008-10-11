@@ -29,6 +29,7 @@
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_FooBar.h"
 #include "MyGUI_ScrollView.h"
+#include "MyGUI_DDContainer.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"
