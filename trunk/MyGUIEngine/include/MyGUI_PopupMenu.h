@@ -76,9 +76,6 @@ namespace MyGUI
 		//! Add an item to the end of a array
 		void addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _type, _data); }
 
-		//! Replace an item at a specified position
-		//void replaceItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type = ItemTypeNormal);
-
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 
