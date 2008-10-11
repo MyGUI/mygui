@@ -14,24 +14,23 @@
 namespace MyGUI
 {
 
-	enum ToolTipType
-	{
-		TOOLTIP_SHOW,
-		TOOLTIP_HIDE
-	};
-
 	struct ToolTipInfo
 	{
-		ToolTipInfo(ToolTipType _type, size_t _index, IntPoint _point, void * _data) :
-			type(_type), index(_index), point(_point), data(_data) { }
+		enum ToolTipType
+		{
+			ToolTipShow,
+			ToolTipHide
+		};
 
 		ToolTipInfo(ToolTipType _type) :
-			type(_type), index(ITEM_NONE), point(), data(0) { }
+			type(_type), index(ITEM_NONE) { }
+
+		ToolTipInfo(ToolTipType _type, size_t _index, const IntPoint & _point) :
+			type(_type), index(_index), point(_point) { }
 
 		ToolTipType type;
 		size_t index;
 		IntPoint point;
-		void * data;
 	};
 
 } // namespace MyGUI

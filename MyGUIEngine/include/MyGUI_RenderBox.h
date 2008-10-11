@@ -131,10 +131,10 @@ namespace MyGUI
 	protected:
 		void frameEntered(float _time);
 
-		void _onMouseDrag(int _left, int _top);
-		void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
-		void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		void _onMouseWheel(int _rel);
+		void onMouseDrag(int _left, int _top);
+		void onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		void onMouseWheel(int _rel);
 
 	private:
 		bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState) || (mNodeForSync != null);}

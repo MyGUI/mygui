@@ -44,38 +44,38 @@ namespace MyGUI
 
 	}
 
-	void Button::_onMouseSetFocus(WidgetPtr _old)
+	void Button::onMouseSetFocus(WidgetPtr _old)
 	{
 		_setMouseFocus(true);
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseSetFocus(_old);
+		Widget::onMouseSetFocus(_old);
 	}
 
-	void Button::_onMouseLostFocus(WidgetPtr _new)
+	void Button::onMouseLostFocus(WidgetPtr _new)
 	{
 		_setMouseFocus(false);
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseLostFocus(_new);
+		Widget::onMouseLostFocus(_new);
 	}
 
-	void Button::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	void Button::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		if (_id == MB_Left) {
 			mIsMousePressed = true;
 			updateButtonState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonPressed(_left, _top, _id);
+		Widget::onMouseButtonPressed(_left, _top, _id);
 	}
 
-	void Button::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	void Button::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		if (_id == MB_Left) {
 			mIsMousePressed = false;
 			updateButtonState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonReleased(_left, _top, _id);
+		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void Button::setImageIndex(size_t _index)

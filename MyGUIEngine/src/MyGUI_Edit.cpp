@@ -213,15 +213,15 @@ namespace MyGUI
 		mText->setTextSelect(mStartSelect, mEndSelect);
 	}
 
-	void Edit::_onMouseDrag(int _left, int _top)
+	void Edit::onMouseDrag(int _left, int _top)
 	{
 		notifyMouseDrag(null, _left, _top);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseDrag(_left, _top);
+		Widget::onMouseDrag(_left, _top);
 	}
 
-	void Edit::_onKeySetFocus(WidgetPtr _old)
+	void Edit::onKeySetFocus(WidgetPtr _old)
 	{
 		if (false == mIsPressed) {
 			mIsPressed = true;
@@ -241,10 +241,10 @@ namespace MyGUI
 			}
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeySetFocus(_old);
+		Widget::onKeySetFocus(_old);
 	}
 
-	void Edit::_onKeyLostFocus(WidgetPtr _new)
+	void Edit::onKeyLostFocus(WidgetPtr _new)
 	{
 		if (mIsPressed) {
 			mIsPressed = false;
@@ -258,16 +258,16 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyLostFocus(_new);
+		Widget::onKeyLostFocus(_new);
 	}
 
-	void Edit::_onKeyButtonPressed(KeyCode _key, Char _char)
+	void Edit::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		InputManager & input = InputManager::getInstance();
 
 		// в статическом режиме ничего не доступно
 		if (mModeStatic || mModeWordWrap) {
-			Widget::_onKeyButtonPressed(_key, _char);
+			Widget::onKeyButtonPressed(_key, _char);
 			return;
 		}
 
@@ -538,7 +538,7 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyButtonPressed(_key, _char);
+		Widget::onKeyButtonPressed(_key, _char);
 	}
 
 	void Edit::frameEntered(float _frame)

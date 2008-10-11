@@ -127,7 +127,7 @@ namespace MyGUI
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
 		//Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
 
-		if (mToolTipVisible) eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+		if (mToolTipVisible) eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
 
 		_detachFromLayerItemKeeper();
 
@@ -674,11 +674,11 @@ namespace MyGUI
 		return keeper->getName();
 	}
 
-	void Widget::_getDragItemInfo(WidgetPtr & _list, size_t & _index)
+	void Widget::getContainer(WidgetPtr & _list, size_t & _index)
 	{
-		_list = mNeedDragDrop ? this : null;
+		_list = null;
 		_index = ITEM_NONE;
-		_requestGetDragItemInfo(this, _list, _index);
+		requestGetContainer(this, _list, _index);
 	}
 
 	WidgetPtr Widget::findWidget(const std::string & _name)
@@ -730,12 +730,12 @@ namespace MyGUI
 
 				if (inside) {
 					// теперь смотрим, не поменялся ли индекс внутри окна
-					size_t index = _getToolTipIndex(point);
+					size_t index = getContainerIndex(point);
 					if (mToolTipOldIndex != index) {
 						if (mToolTipVisible) {
 							mToolTipCurrentTime = 0;
 							mToolTipVisible = false;
-							eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+							eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
 						}
 						mToolTipOldIndex = index;
 					}
@@ -745,7 +745,7 @@ namespace MyGUI
 					if (mToolTipVisible) {
 						mToolTipCurrentTime = 0;
 						mToolTipVisible = false;
-						eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+						eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
 					}
 				}
 
@@ -754,7 +754,7 @@ namespace MyGUI
 				if (mToolTipVisible) {
 					mToolTipCurrentTime = 0;
 					mToolTipVisible = false;
-					eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+					eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
 				}
 			}
 
@@ -780,7 +780,7 @@ namespace MyGUI
 						mToolTipCurrentTime += _frame;
 						if (mToolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
 							mToolTipVisible = true;
-							eventToolTip(this, ToolTipInfo(TOOLTIP_SHOW, mToolTipOldIndex, point, getIndexItemData(mToolTipOldIndex)));
+							eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipShow, mToolTipOldIndex, point));
 						}
 					}
 				}
@@ -797,7 +797,7 @@ namespace MyGUI
 			if (mToolTipVisible) {
 				mToolTipCurrentTime = 0;
 				mToolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+				eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
 			}
 		}
 		else {
@@ -805,12 +805,12 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::_outDateItems(bool _updateOnly)
+	void Widget::resetContainer(bool _updateOnly)
 	{
 		if ( mEnableToolTip) {
 			if (mToolTipVisible) {
 				mToolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(TOOLTIP_HIDE));
+				eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
 			}
 			mToolTipCurrentTime = 0;
 			mToolTipOldIndex = ITEM_NONE;

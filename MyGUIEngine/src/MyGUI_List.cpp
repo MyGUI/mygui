@@ -67,39 +67,39 @@ namespace MyGUI
 
 	}
 
-	void List::_onMouseWheel(int _rel)
+	void List::onMouseWheel(int _rel)
 	{
 		notifyMouseWheel(null, _rel);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseWheel(_rel);
+		Widget::onMouseWheel(_rel);
 	}
 
-	void List::_onKeySetFocus(WidgetPtr _old)
+	void List::onKeySetFocus(WidgetPtr _old)
 	{
 		mIsFocus = true;
 		_updateState();
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeySetFocus(_old);
+		Widget::onKeySetFocus(_old);
 	}
 
-	void List::_onKeyLostFocus(WidgetPtr _new)
+	void List::onKeyLostFocus(WidgetPtr _new)
 	{
 		mIsFocus = false;
 		_updateState();
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyLostFocus(_new);
+		Widget::onKeyLostFocus(_new);
 	}
 
-	void List::_onKeyButtonPressed(KeyCode _key, Char _char)
+	void List::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		// очень секретный метод, запатентованный механизм движени€ курсора
 		if (getItemCount() == 0) {
 
 			// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-			Widget::_onKeyButtonPressed(_key, _char);
+			Widget::onKeyButtonPressed(_key, _char);
 			return;
 		}
 
@@ -157,7 +157,7 @@ namespace MyGUI
 			if (sel != ITEM_NONE) {
 				eventListSelectAccept(this, sel);
 
-				Widget::_onKeyButtonPressed(_key, _char);
+				Widget::onKeyButtonPressed(_key, _char);
 				// выходим, так как изменили колличество строк
 				return;
 			}
@@ -175,7 +175,7 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyButtonPressed(_key, _char);
+		Widget::onKeyButtonPressed(_key, _char);
 	}
 
 	void List::notifyMouseWheel(WidgetPtr _sender, int _rel)

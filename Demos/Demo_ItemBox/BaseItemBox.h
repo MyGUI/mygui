@@ -75,12 +75,18 @@ public:
 		mBoxItems->setItemData(_index, _data);
 	}
 
+	template <typename ValueType>
+	ValueType * getItemDataAt(size_t _index, bool _throw = true)
+	{
+		return mBoxItems->getItemDataAt<ValueType>(_index, _throw);
+	}
+
 private:
-	void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData & _info)
+	void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
 	{
 		CellView * cell = new CellView();
-		cell->initialise(_info.item);
-		_info.data = cell;
+		cell->initialise(_item);
+		_item->setUserData(cell);
 		mListCellView.push_back(cell);
 	}
 
@@ -90,9 +96,10 @@ private:
 		else _coord.set(0, 0, 68, 68);
 	}
 
-	void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetItemData _item, const MyGUI::ItemInfo& _data)
+	void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _data)
 	{
-		((CellView*)_item.data)->update(_data, (ItemData*)_data.data);
+		CellView * cell = *_item->getUserData<CellView*>();
+		cell->update(_data, *mBoxItems->getItemDataAt<ItemData*>(_data.index));
 	}
 
 	void notifyStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
@@ -123,9 +130,9 @@ private:
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 	{
 		ItemData * data = null;
-		if (_info.type == MyGUI::TOOLTIP_SHOW) {
+		if (_info.type == MyGUI::ToolTipInfo::ToolTipShow) {
 			if (_info.index == MyGUI::ITEM_NONE) return;
-			data = (ItemData*)mBoxItems->getItemData(_info.index);
+			data = *mBoxItems->getItemDataAt<ItemData*>(_info.index);
 		}
 		eventToolTip(this, _info, data);
  	}

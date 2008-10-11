@@ -77,8 +77,8 @@ namespace MyGUI
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _position);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
-		virtual void _onKeyLostFocus(WidgetPtr _new);
-		virtual void _onKeySetFocus(WidgetPtr _old);
+		virtual void onKeyLostFocus(WidgetPtr _new);
+		virtual void onKeySetFocus(WidgetPtr _old);
 
 		void updateScrollViewState();
 

@@ -33,6 +33,8 @@ namespace MyGUI
 		mScrollPosition(0),
 		mIndexSelect(ITEM_NONE),
 		mIndexActive(ITEM_NONE),
+		mIndexAccept(ITEM_NONE),
+		mIndexRefuse(ITEM_NONE),
 		mOldDrop(null),
 		mDropResult(false),
 		mCurrentSender(null),
@@ -73,7 +75,7 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client)");
 
 		// подписываем клиент дл€ драгэндропа
-		mWidgetClient->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
+		mWidgetClient->requestGetContainer = newDelegate(this, &ItemBox::requestGetContainer);
 
 		// парсим свойства
 		/*const MapString & properties = _info->getProperties();
@@ -128,7 +130,7 @@ namespace MyGUI
 		//}
 
 		_updateAllVisible(true);
-		_outDateItems(true);
+		resetContainer(true);
 	}
 
 	void ItemBox::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
@@ -140,7 +142,7 @@ namespace MyGUI
 
 		_updateAllVisible(old != mLineTop);
 
-		_outDateItems(true);
+		resetContainer(true);
 	}
 
 	void ItemBox::updateMetrics()
@@ -224,103 +226,116 @@ namespace MyGUI
 
 	void ItemBox::_updateAllVisible(bool _redraw)
 	{
-
 		int start = (mLineTop * mCountItemInLine);
 		int count = (mCountLineVisible * mCountItemInLine) + start;
+
 		size_t iwid = 0; // индекс виджета
 		for (int pos = start; pos<count; ++pos, ++iwid) {
 			// дальше нет айтемов
 			if (pos >= mCountItems) break;
 
-			WidgetItemData & info = getItemWidget(iwid);
-			setWidgetPosition(info.item, ((int)iwid % mCountItemInLine) * mSizeItem.width,
+			WidgetPtr item = getItemWidget(iwid);
+			setWidgetPosition(item, ((int)iwid % mCountItemInLine) * mSizeItem.width,
 				(((int)iwid / mCountItemInLine) * mSizeItem.height)  - mOffsetTop,
 				mSizeItem.width, mSizeItem.height, mAlignVert);
 
-			info.item->show();
+			item->show();
+
 			if (_redraw) {
-				ItemInfo & data = mItemsInfo[pos];
-				data.update = true;
-				requestUpdateWidgetItem(this, info, data);
+				//ItemInfo & data1 = mItemsInfo[pos];
+				ItemInfo data(pos, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
+
+				//data1.fill(data);
+				//data.update = true;
+				//data.drag = false;
+
+				requestUpdateWidgetItem(this, item, data);
 			}
 
 		}
 
 		// все виджеты еще есть, то их надо бы скрыть
 		while (iwid < mVectorItems.size()) {
-			mVectorItems[iwid].item->hide();
+			mVectorItems[iwid]->hide();
 			iwid ++;
 		}
 
 	}
 
-	WidgetItemData & ItemBox::getItemWidget(size_t _index)
+	WidgetPtr ItemBox::getItemWidget(size_t _index)
 	{
-		// запрашивать только последовательно
-		MYGUI_DEBUG_ASSERT(_index <= mVectorItems.size(), "index out of range");
-
 		// еще нет такого виджета, нуно создать
 		if (_index == mVectorItems.size()) {
 
+			WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
+
 			// вызываем запрос на создание виджета
-			WidgetItemData data;
-			data.item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
+			requestCreateWidgetItem(this, item);
 
-			requestCreateWidgetItem(this, data);
-			//MYGUI_ASSERT(data.item, "not listen requestCreateWidgetItem");
+			item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
+			item->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
+			item->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
+			item->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+			item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+			item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
+			item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
+			item->requestGetContainer = newDelegate(this, &ItemBox::requestGetContainer);
+			item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
+			item->eventKeyButtonReleased = newDelegate(this, &ItemBox::notifyKeyButtonReleased);
 
-			data.item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-			data.item->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
-			data.item->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
-			data.item->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-			data.item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
-			data.item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
-			data.item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
-			data.item->_requestGetDragItemInfo = newDelegate(this, &ItemBox::requestGetDragItemInfo);
-			data.item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
-			data.item->eventKeyButtonReleased = newDelegate(this, &ItemBox::notifyKeyButtonReleased);
+			item->_setInternalData((size_t)mVectorItems.size());
 
-			data.item->_setInternalData((size_t)mVectorItems.size());
-			mVectorItems.push_back(data);
+			mVectorItems.push_back(item);
 		}
+
+		// запрашивать только последовательно
+		MYGUI_ASSERT_RANGE(_index, mVectorItems.size(), "ItemBox::getItemWidget");
 
 		return mVectorItems[_index];
 	}
 
-	void ItemBox::_onMouseWheel(int _rel)
+	void ItemBox::onMouseWheel(int _rel)
 	{
 		notifyMouseWheel(null, _rel);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseWheel(_rel);
+		Widget::onMouseWheel(_rel);
 	}
 
-	void ItemBox::_onKeySetFocus(WidgetPtr _old)
+	void ItemBox::onKeySetFocus(WidgetPtr _old)
 	{
 		mIsFocus = true;
 		setState("select");
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeySetFocus(_old);
+		Widget::onKeySetFocus(_old);
 	}
 
-	void ItemBox::_onKeyLostFocus(WidgetPtr _new)
+	void ItemBox::onKeyLostFocus(WidgetPtr _new)
 	{
 		mIsFocus = false;
 		setState("normal");
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyLostFocus(_new);
+		Widget::onKeyLostFocus(_new);
 	}
 
 	void ItemBox::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
 		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyMouseSetFocus");
 
-		ItemInfo & data = mItemsInfo[index];
+		mIndexActive = index;
+		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
+		/*ItemInfo & data1 = mItemsInfo[index];
+		data1.active = true;
+
+		ItemInfo data;
+		data1.fill(data);
 		data.update = false;
-		data.active = true;
+		data.drag = false;*/
+
 		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 		mIndexActive = index;
 	}
@@ -331,11 +346,19 @@ namespace MyGUI
 		if (mIndexActive == ITEM_NONE) return;
 
 		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyMouseLostFocus");
 
-		ItemInfo & data = mItemsInfo[index];
+		mIndexActive = ITEM_NONE;
+		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
+		/*ItemInfo & data1 = mItemsInfo[index];
+		data1.active = false;
+
+		ItemInfo data;
+		data1.fill(data);
 		data.update = false;
-		data.active = false;
+		data.drag = false;*/
+
 		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 		mIndexActive = ITEM_NONE;
 	}
@@ -370,7 +393,7 @@ namespace MyGUI
 			findCurrentActiveItem();
 		}
 
-		_outDateItems(true);
+		resetContainer(true);
 	}
 
 	void ItemBox::resetCurrentActiveItem()
@@ -378,13 +401,23 @@ namespace MyGUI
 		// сбрасываем старую подсветку
 		if (mIndexActive != ITEM_NONE) {
 			size_t start = (size_t)(mLineTop * mCountItemInLine);
-			ItemInfo & data = mItemsInfo[mIndexActive];
+			size_t index = mIndexActive;
+			mIndexActive = ITEM_NONE;
+
+			/*ItemInfo & data1 = mItemsInfo[mIndexActive];
+			data1.active = false;
+
+			ItemInfo data;
+			data1.fill(data);
 			data.update = false;
-			data.active = false;
+			data.drag = false;*/
+
+			// если видим, то обновл€ем
 			if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size()))) {
+				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
 				requestUpdateWidgetItem(this, mVectorItems[mIndexActive - start], data);
 			}
-			mIndexActive = ITEM_NONE;
 		}
 	}
 
@@ -401,18 +434,26 @@ namespace MyGUI
 		}
 
 		for (size_t pos=0; pos<mVectorItems.size(); ++pos) {
-			WidgetItemData & info = mVectorItems[pos];
-			const IntRect& rect = info.item->getAbsoluteRect();
+			WidgetPtr item = mVectorItems[pos];
+			const IntRect& rect = item->getAbsoluteRect();
 			if ((point.left>= rect.left) && (point.left <= rect.right) && (point.top>= rect.top) && (point.top <= rect.bottom)) {
 
-				size_t index = *info.item->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-				// индекс может быть больше
+				size_t index = *item->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+				// при переборе индекс может быть больше, так как может создастьс€ сколько угодно
 				if (index < mItemsInfo.size()) {
-					ItemInfo & data = mItemsInfo[index];
+
+					/*ItemInfo & data1 = mItemsInfo[index];
+					data1.active = true;
+
+					ItemInfo data;
+					data1.fill(data);
 					data.update = false;
-					data.active = true;
-					requestUpdateWidgetItem(this, info, data);
+					data.drag = false;*/
+
 					mIndexActive = index;
+					ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
+					requestUpdateWidgetItem(this, item, data);
 				}
 
 				break;
@@ -420,7 +461,7 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index)
+	void ItemBox::requestGetContainer(WidgetPtr _sender, WidgetPtr & _list, size_t & _index)
 	{
 		if (_sender == mWidgetClient) {
 			_list = this;
@@ -435,66 +476,90 @@ namespace MyGUI
 		}
 	}
 
+	/*bool ItemBox::isItemVisible(size_t _index)
+	{
+		size_t start = (size_t)(mLineTop * mCountItemInLine);
+		return ((_index >= start) && (_index < (start + mVectorItems.size())));
+	}*/
+
 	void ItemBox::_setDragItemInfo(size_t _index, bool _set, bool _accept)
 	{
 		if (_index == ITEM_NONE) return;
-		MYGUI_DEBUG_ASSERT(_index < mItemsInfo.size(), "index out of range");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::_setDragItemInfo");
 
-		ItemInfo & data = mItemsInfo[_index];
-		data.update = false;
+		mIndexAccept = (_set && _accept ) ? _index : ITEM_NONE;
+		mIndexRefuse = (_set && !_accept) ? _index : ITEM_NONE;
+
+		/*ItemInfo & data1 = mItemsInfo[_index];
 		if (false == _set) {
-			data.drag_accept = false;
-			data.drag_refuse = false;
+			data1.drag_accept = false;
+			data1.drag_refuse = false;
 		}
 		else if (_accept) {
-			data.drag_accept = true;
-			data.drag_refuse = false;
+			data1.drag_accept = true;
+			data1.drag_refuse = false;
 		}
 		else {
-			data.drag_accept = false;
-			data.drag_refuse = true;
+			data1.drag_accept = false;
+			data1.drag_refuse = true;
 		}
+
+		ItemInfo data;
+		data1.fill(data);
+		data.update = false;
+		data.drag = false;*/
+
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
+
+			ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
 			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
 		}
 	}
 
-	void ItemBox::setItemData(size_t _index, void * _data)
+	void ItemBox::setItemData(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT(_index < mItemsInfo.size() , "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ItemBox::setItemData");
 		mItemsInfo[_index].data = _data;
 
-		ItemInfo & data = mItemsInfo[_index];
-		data.data = _data;
+		/*ItemInfo & data1 = mItemsInfo[_index];
+		data1.data = _data;
 
+		ItemInfo data;
+		data1.fill(data);
 		data.update = true;
+		data.drag = false;*/
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
+
+			ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
 			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
+
 		}
 
-		_outDateItems(true);
+		resetContainer(true);
 	}
 
-	void * ItemBox::getIndexItemData(size_t _index)
+	//FIXME
+	/*Any * ItemBox::getIndexItemData(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mItemsInfo.size() || _index == ITEM_NONE , "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ItemBox::getIndexItemData");
 		if (_index == ITEM_NONE) return null;
-		return mItemsInfo[_index].data;
-	}
+		return & mItemsInfo[_index].data;
+	}*/
 
-	void ItemBox::insertItem(size_t _index, void * _data)
+	void ItemBox::insertItem(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT(((_index < mItemsInfo.size()) || (_index == ITEM_NONE)), "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
-		_outDateItems(false);
-
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ItemBox::insertItem");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
+
+		resetContainer(false);
 
 		resetCurrentActiveItem();
 
-		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(mCountItems, _data));
+		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemDataInfo(_data));
 		mCountItems++;
 
 		// расчитываем новый индекс выделени€
@@ -505,10 +570,10 @@ namespace MyGUI
 		}
 
 		// подправл€ем индексы и выделение
-		for (size_t pos=0; pos<mItemsInfo.size(); ++pos) {
-			mItemsInfo[pos].index = pos;
-			mItemsInfo[pos].select = mIndexSelect == pos;
-		}
+		//for (size_t pos=0; pos<mItemsInfo.size(); ++pos) {
+			//mItemsInfo[pos].index = pos;
+			//mItemsInfo[pos].select = mIndexSelect == pos;
+		//}
 
 		updateMetrics();
 		updateScroll();
@@ -520,9 +585,9 @@ namespace MyGUI
 
 	void ItemBox::deleteItem(size_t _index)
 	{
-		MYGUI_ASSERT(_index < mItemsInfo.size() , "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
-		_outDateItems(false);
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ItemBox::deleteItem");
 
+		resetContainer(false);
 		resetCurrentActiveItem();
 
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
@@ -539,10 +604,10 @@ namespace MyGUI
 		}
 
 		// подправл€ем индексы и выделение
-		for (size_t pos=0; pos<mItemsInfo.size(); ++pos) {
+		/*for (size_t pos=0; pos<mItemsInfo.size(); ++pos) {
 			mItemsInfo[pos].index = pos;
 			mItemsInfo[pos].select = mIndexSelect == pos;
-		}
+		}*/
 
 		updateMetrics();
 		updateScroll();
@@ -555,7 +620,7 @@ namespace MyGUI
 	void ItemBox::deleteAllItems()
 	{
 		if (0 == mItemsInfo.size()) return;
-		_outDateItems(false);
+		resetContainer(false);
 
 		mItemsInfo.clear();
 		mCountItems = 0;
@@ -571,28 +636,47 @@ namespace MyGUI
 
 	void ItemBox::setItemSelect(size_t _index)
 	{
-		MYGUI_ASSERT(((_index < mItemsInfo.size()) || (_index == ITEM_NONE)), "index '" << _index << " out of range '" << mItemsInfo.size() << "'");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ItemBox::setItemSelect");
 		if (_index == mIndexSelect) return;
+
+		//resetCurrentActiveItem();
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 
 		// сбрасываем старое выделение
 		if (mIndexSelect != ITEM_NONE) {
-			ItemInfo & data = mItemsInfo[mIndexSelect];
+
+			size_t index = mIndexSelect;
+			mIndexSelect = ITEM_NONE;
+
+			/*ItemInfo & data1 = mItemsInfo[mIndexSelect];
+			data1.select = false;
+
+			ItemInfo data;
+			data1.fill(data);
 			data.update = false;
-			data.select = false;
-			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
-				requestUpdateWidgetItem(this, mVectorItems[mIndexSelect - start], data);
+			data.drag = false;*/
+
+			if ((index >= start) && (index < (start + mVectorItems.size()))) {
+				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestUpdateWidgetItem(this, mVectorItems[index - start], data);
 			}
 		}
 
 		mIndexSelect = _index;
 		if (mIndexSelect != ITEM_NONE) {
-			ItemInfo & data = mItemsInfo[mIndexSelect];
+
+			/*ItemInfo & data1 = mItemsInfo[mIndexSelect];
+			data1.select = true;
+
+			ItemInfo data;
+			data1.fill(data);
 			data.update = false;
-			data.select = true;
-			if ((mIndexSelect >= start) && (mIndexSelect < (start + mVectorItems.size()))) {
-				requestUpdateWidgetItem(this, mVectorItems[mIndexSelect - start], data);
+			data.drag = false;*/
+
+			if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
+				ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
 			}
 		}
 
@@ -621,7 +705,7 @@ namespace MyGUI
 			else {
 				// индекс отправител€
 				mDropSenderIndex = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-				MYGUI_DEBUG_ASSERT(mDropSenderIndex < mItemsInfo.size(), "index out of range");
+				MYGUI_ASSERT_RANGE(mDropSenderIndex, mItemsInfo.size(), "ItemBox::notifyMouseButtonPressed");
 
 				// выделенный елемент
 				setItemSelect(mDropSenderIndex);
@@ -659,7 +743,7 @@ namespace MyGUI
 	void ItemBox::endDrop(bool _reset)
 	{
 		if (mStartDrop) {
-			if (mItemDrag.item) mItemDrag.item->hide();
+			if (mItemDrag) mItemDrag->hide();
 
 			// сбрасываем старую подсветку
 			if (mDropInfo.reseiver) mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, false, false);
@@ -681,7 +765,7 @@ namespace MyGUI
 	void ItemBox::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
 		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_DEBUG_ASSERT(index < mItemsInfo.size(), "index out of range");
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyMouseButtonDoubleClick");
 
 		eventSelectItemAccept(this, index);
 	}
@@ -697,7 +781,7 @@ namespace MyGUI
 			mNeedDrop = false;
 			update = true;
 			// запрос на нужность дропа по индексу
-			mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null);
+			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
 			eventStartDrop(this, mDropInfo, mNeedDrop);
 
 			if (mNeedDrop) {
@@ -718,7 +802,7 @@ namespace MyGUI
 		// делаем запрос, над кем наша мыша
 		WidgetPtr item = InputManager::getInstance().getWidgetFromPoint(_left, _top);
 
-		if (null == mItemDrag.item) {
+		if (null == mItemDrag) {
 			// спрашиваем размер иконок
 			IntCoord coord;
 			mPointDragOffset = coord.point();
@@ -726,13 +810,13 @@ namespace MyGUI
 			convertWidgetCoord(coord, mAlignVert);
 
 			// создаем и запрашиваем детей
-			mItemDrag.item = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, "DragAndDrop");
+			mItemDrag = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, "DragAndDrop");
 			requestCreateWidgetItem(this, mItemDrag);
 		}
 
 		//IntPoint point = InputManager::getInstance().getLastLeftPressed() - _sender2->getAbsolutePosition();
-		mItemDrag.item->setPosition(_left - mClickInWidget.left + mPointDragOffset.left, _top - mClickInWidget.top + mPointDragOffset.top);
-		mItemDrag.item->show();
+		mItemDrag->setPosition(_left - mClickInWidget.left + mPointDragOffset.left, _top - mClickInWidget.top + mPointDragOffset.top);
+		mItemDrag->show();
 
 		// если равно, значит уже спрашивали
 		if (mOldDrop == item) return;
@@ -746,34 +830,31 @@ namespace MyGUI
 		// есть виджет под нами
 		if (item) {
 			// делаем запрос на индекс по произвольному виджету
-			item->_getDragItemInfo(reseiver, reseiver_index);
+			item->getContainer(reseiver, reseiver_index);
 			if (reseiver) {
 				// подписываемс€ на информацию о валидности дропа
-				reseiver->_eventInvalideDropInfo = newDelegate(this, &ItemBox::notifyInvalideDrop);
+				reseiver->eventInvalideContainer = newDelegate(this, &ItemBox::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
-				mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), reseiver, reseiver_index, reseiver->getIndexItemData(reseiver_index));
+				mDropInfo.set(this, mDropSenderIndex, reseiver, reseiver_index);
 				eventRequestDrop(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку
 				mDropInfo.reseiver->_setDragItemInfo(mDropInfo.reseiver_index, true, mDropResult);
 			}
 			else {
-				mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null);
+				mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
 			}
 		}
 		// нет виджета под нами
 		else {
-			mDropInfo.set(this, mDropSenderIndex, getItemData(mDropSenderIndex), null, ITEM_NONE, null);
+			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
 		}
 
 		mOldDrop = item;
 		DropState state;
 
-		// копию создаем
-		ItemInfo data = mItemsInfo[mDropSenderIndex];
-		data.update = update;
-		data.drag = true;
+		ItemInfo data;
 		if (reseiver == null) {
 			data.drag_accept = false;
 			data.drag_refuse = false;
@@ -791,6 +872,11 @@ namespace MyGUI
 		}
 		data.select = false;
 		data.active = false;
+
+		data.index = mDropSenderIndex;
+		data.update = update;
+		data.drag = true;
+
 		requestUpdateWidgetItem(this, mItemDrag, data);
 
 		eventDropState(this, state);
@@ -818,6 +904,7 @@ namespace MyGUI
 	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
 	{
 		MYGUI_ASSERT(_widget, "ItemBox::getIndexByWidget : Widget == null");
+		if (_widget == mWidgetClient) return ITEM_NONE;
 		MYGUI_ASSERT(_widget->getParent() == mWidgetClient, "ItemBox::getIndexByWidget : Widget is not child");
 
 		size_t index = *_widget->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
@@ -847,39 +934,39 @@ namespace MyGUI
 		return index;*/
 	}
 
-	size_t ItemBox::_getToolTipIndex(IntPoint _point)
+	size_t ItemBox::getContainerIndex(const IntPoint & _point)
 	{
-		for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if (iter->item->isShow()) {
-				if (iter->item->getAbsoluteRect().inside(_point)) {
-					return getIndexByWidget(iter->item);
+		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+			if ((*iter)->isShow()) {
+				if ((*iter)->getAbsoluteRect().inside(_point)) {
+					return getIndexByWidget(*iter);
 				}
 			}
 		}
 		return ITEM_NONE;
 	}
 
-	void ItemBox::_outDateItems(bool _updateOnly)
+	void ItemBox::resetContainer(bool _update)
 	{
 		// об€зательно у базового
-		Widget::_outDateItems(_updateOnly);
+		Widget::resetContainer(_update);
 
-		if ( ! _updateOnly) {
+		if ( ! _update) {
 			WidgetManager & instance = WidgetManager::getInstance();
-			for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-				instance.unlinkFromUnlinkers((*iter).item);
+			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+				instance.unlinkFromUnlinkers(*iter);
 			}
 		}
 	}
 
 	WidgetPtr ItemBox::getWidgetByIndex(size_t _index)
 	{
-		for (VectorWidgetItemData::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if (iter->item->isShow()) {
-				size_t index = *iter->item->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+			if ((*iter)->isShow()) {
+				size_t index = *(*iter)->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getWidgetByIndex");
 
-				if (index == _index) return iter->item;
+				if (index == _index) return (*iter);
 			}
 		}
 		return null;

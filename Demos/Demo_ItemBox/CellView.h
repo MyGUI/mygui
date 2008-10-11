@@ -21,7 +21,7 @@ public:
 	void initialise(MyGUI::WidgetPtr _parent);
 
 	//void getSizeCell(WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop);
-	void update(const MyGUI::ItemInfo& _info, ItemData * _data);
+	void update(const MyGUI::ItemInfo & _info, ItemData * _data);
 
 private:
 

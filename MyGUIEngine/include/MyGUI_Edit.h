@@ -231,10 +231,10 @@ namespace MyGUI
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _position);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
-		virtual void _onMouseDrag(int _left, int _top);
-		virtual void _onKeyLostFocus(WidgetPtr _new);
-		virtual void _onKeySetFocus(WidgetPtr _old);
-		virtual void _onKeyButtonPressed(KeyCode _key, Char _char);
+		virtual void onMouseDrag(int _left, int _top);
+		virtual void onKeyLostFocus(WidgetPtr _new);
+		virtual void onKeySetFocus(WidgetPtr _old);
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
 
 		void updateEditState();
 

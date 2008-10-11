@@ -26,56 +26,44 @@ namespace MyGUI
 		ItemDropInfo() :
 			reseiver(null),
 			reseiver_index(ITEM_NONE),
-			reseiver_data(null),
 			sender(null),
-			sender_index(ITEM_NONE),
-			sender_data(null)
+			sender_index(ITEM_NONE)
 		{
 		}
 
-		ItemDropInfo(WidgetPtr _sender, size_t _sender_index, void * _sender_data, WidgetPtr _reseiver, size_t _reseiver_index, void * _reseiver_data) :
+		ItemDropInfo(WidgetPtr _sender, size_t _sender_index, WidgetPtr _reseiver, size_t _reseiver_index) :
 			sender(_sender),
 			sender_index(_sender_index),
-			sender_data(_sender_data),
 			reseiver(_reseiver),
-			reseiver_index(_reseiver_index),
-			reseiver_data(_reseiver_data)
+			reseiver_index(_reseiver_index)
 		{
 		}
 
-		void set(WidgetPtr _sender, size_t _sender_index, void * _sender_data, WidgetPtr _reseiver, size_t _reseiver_index, void * _reseiver_data)
+		void set(WidgetPtr _sender, size_t _sender_index, WidgetPtr _reseiver, size_t _reseiver_index)
 		{
 			sender = _sender;
 			sender_index = _sender_index;
-			sender_data = _sender_data;
 			reseiver = _reseiver;
 			reseiver_index = _reseiver_index;
-			reseiver_data = _reseiver_data;
 		}
 
 		void reset()
 		{
 			reseiver = null;
 			reseiver_index = ITEM_NONE;
-			reseiver_data = null;
 			sender = null;
 			sender_index = ITEM_NONE;
-			sender_data = null;
 		}
 
 		// посылающий виджет 
 		WidgetPtr sender;
 		// индекс посылающего виджета
 		size_t sender_index;
-		// ассоциированные данные отправителя
-		void * sender_data;
 
 		// принимающий виджет
 		WidgetPtr reseiver;
 		// индекс принимающего виджета
 		size_t reseiver_index;
-		// ассоциированные данные получателя
-		void * reseiver_data;
 	};
 
 } // namespace MyGUI

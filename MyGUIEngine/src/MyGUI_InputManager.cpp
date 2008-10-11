@@ -85,12 +85,12 @@ namespace MyGUI
 		// проверка на скролл
 		if (relz != 0) {
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseWheel(relz);
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseWheel(relz);
 			return isFocus;
 		}
 
 		if (mIsWidgetMouseCapture) {
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseDrag(_absx, _absy);
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseDrag(_absx, _absy);
 			else mIsWidgetMouseCapture = false;
 			return true;
 		}
@@ -109,7 +109,7 @@ namespace MyGUI
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) {
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->_onMouseMove(_absx, _absy);
+			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseMove(_absx, _absy);
 			return isFocus;
 		}
 
@@ -123,7 +123,7 @@ namespace MyGUI
 
 		// смена фокуса, проверяем на доступность виджета
 		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) {
-			mWidgetMouseFocus->_onMouseLostFocus(item);
+			mWidgetMouseFocus->onMouseLostFocus(item);
 		}
 
 		if ((item != null) && (item->isEnabled())) {
@@ -138,8 +138,8 @@ namespace MyGUI
 					eventChangeMousePointer(mPointer);
 				}
 			}
-			item->_onMouseMove(_absx, _absy);
-			item->_onMouseSetFocus(mWidgetMouseFocus);
+			item->onMouseMove(_absx, _absy);
+			item->onMouseSetFocus(mWidgetMouseFocus);
 
 		}
 		// сбрасываем курсор
@@ -152,8 +152,8 @@ namespace MyGUI
 
 		// изменился рутовый элемент
 		if (rootItem != mWidgetRootMouseFocus) {
-			if (mWidgetRootMouseFocus != null) mWidgetRootMouseFocus->_onMouseChangeRootFocus(false);
-			if (rootItem != null) static_cast<WidgetPtr>(rootItem)->_onMouseChangeRootFocus(true);
+			if (mWidgetRootMouseFocus != null) mWidgetRootMouseFocus->onMouseChangeRootFocus(false);
+			if (rootItem != null) static_cast<WidgetPtr>(rootItem)->onMouseChangeRootFocus(true);
 			mWidgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
 		}
 
@@ -195,8 +195,8 @@ namespace MyGUI
 
 		if (mWidgetMouseFocus != null) {
 
-			mWidgetMouseFocus->_onMouseButtonPressed(_absx, _absy, _id);
-			//mWidgetMouseFocus->_onMouseButtonPressed(_id);
+			mWidgetMouseFocus->onMouseButtonPressed(_absx, _absy, _id);
+			//mWidgetMouseFocus->onMouseButtonPressed(_id);
 
 			// поднимаем виджет
 			LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
@@ -212,7 +212,7 @@ namespace MyGUI
 			// если активный элемент заблокирован
 			if (false == mWidgetMouseFocus->isEnabled()) return true;
 
-			mWidgetMouseFocus->_onMouseButtonReleased(_absx, _absy, _id);
+			mWidgetMouseFocus->onMouseButtonReleased(_absx, _absy, _id);
 
 			if (mIsWidgetMouseCapture) {
 
@@ -223,14 +223,14 @@ namespace MyGUI
 				if (null != mWidgetMouseFocus) {
 
 					if ((MB_Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
-						mWidgetMouseFocus->_onMouseButtonDoubleClick();
+						mWidgetMouseFocus->onMouseButtonDoubleClick();
 					}
 					else {
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
 						LayerItem * rootItem = null;
 						WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy, rootItem));
 						if ( item == mWidgetMouseFocus) {
-							mWidgetMouseFocus->_onMouseButtonClick();
+							mWidgetMouseFocus->onMouseButtonClick();
 						}
 						mTime.reset();
 					}
@@ -324,7 +324,7 @@ namespace MyGUI
 #else
 			ch = getKeyChar(_key);
 #endif
-			mWidgetKeyFocus->_onKeyButtonPressed(_key, ch);
+			mWidgetKeyFocus->onKeyButtonPressed(_key, ch);
 		}
 
 		return wasFocusKey;
@@ -339,7 +339,7 @@ namespace MyGUI
 
 		bool wasFocusKey = isFocusKey();
 
-		if (isFocusKey()) mWidgetKeyFocus->_onKeyButtonReleased(_key);
+		if (isFocusKey()) mWidgetKeyFocus->onKeyButtonReleased(_key);
 
 		return wasFocusKey;
 	}
@@ -482,17 +482,17 @@ namespace MyGUI
 
 		// если рутовый фокус поменялся, то оповещаем
 		if (mWidgetRootKeyFocus != root) {
-			if (mWidgetRootKeyFocus != null) mWidgetRootKeyFocus->_onKeyChangeRootFocus(false);
-			if (root != null) root->_onKeyChangeRootFocus(true);
+			if (mWidgetRootKeyFocus != null) mWidgetRootKeyFocus->onKeyChangeRootFocus(false);
+			if (root != null) root->onKeyChangeRootFocus(true);
 			mWidgetRootKeyFocus = root;
 		}
 
 		// а вот тут уже проверяем обыкновенный фокус
 		if (_widget != mWidgetKeyFocus) {
-			if (isFocusKey()) mWidgetKeyFocus->_onKeyLostFocus(_widget);
+			if (isFocusKey()) mWidgetKeyFocus->onKeyLostFocus(_widget);
 			if (_widget != null) {
 				if (_widget->isNeedKeyFocus()) {
-					_widget->_onKeySetFocus(mWidgetKeyFocus);
+					_widget->onKeySetFocus(mWidgetKeyFocus);
 					mWidgetKeyFocus = _widget;
 					return;
 				}
@@ -509,11 +509,11 @@ namespace MyGUI
 	{
 		mIsWidgetMouseCapture = false;
 		if (null != mWidgetMouseFocus) {
-			mWidgetMouseFocus->_onMouseLostFocus(null);
+			mWidgetMouseFocus->onMouseLostFocus(null);
 			mWidgetMouseFocus = null;
 		}
 		if (null != mWidgetRootMouseFocus) {
-			mWidgetRootMouseFocus->_onMouseChangeRootFocus(false);
+			mWidgetRootMouseFocus->onMouseChangeRootFocus(false);
 			mWidgetRootMouseFocus = null;
 		}
 
@@ -631,9 +631,9 @@ namespace MyGUI
 		} else {
 			if (mTimerKey > INPUT_INTERVAL_KEY) {
 				while (mTimerKey > INPUT_INTERVAL_KEY) mTimerKey -= INPUT_INTERVAL_KEY;
-				mWidgetKeyFocus->_onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
-				// focus can be dropped in _onKeyButtonPressed
-				if ( isFocusKey() ) mWidgetKeyFocus->_onKeyButtonReleased(mHoldKey);
+				mWidgetKeyFocus->onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
+				// focus can be dropped in onKeyButtonPressed
+				if ( isFocusKey() ) mWidgetKeyFocus->onKeyButtonReleased(mHoldKey);
 			}
 		}
 

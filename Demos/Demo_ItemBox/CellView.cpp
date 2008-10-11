@@ -23,7 +23,7 @@ void CellView::initialise(MyGUI::WidgetPtr _parent)
 	assignWidget(mTextFront, "text_Front");
 }
 
-void CellView::update(const MyGUI::ItemInfo& _info, ItemData * _data)
+void CellView::update(const MyGUI::ItemInfo & _info, ItemData * _data)
 {
 
 	if (_info.update) {

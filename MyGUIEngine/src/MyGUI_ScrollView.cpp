@@ -93,24 +93,24 @@ namespace MyGUI
 		updateScrollViewState();
 	}
 
-	void ScrollView::_onKeySetFocus(WidgetPtr _old)
+	void ScrollView::onKeySetFocus(WidgetPtr _old)
 	{
 		if (false == mIsPressed) {
 			mIsPressed = true;
 			updateScrollViewState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeySetFocus(_old);
+		Widget::onKeySetFocus(_old);
 	}
 
-	void ScrollView::_onKeyLostFocus(WidgetPtr _new)
+	void ScrollView::onKeyLostFocus(WidgetPtr _new)
 	{
 		if (mIsPressed) {
 			mIsPressed = false;
 			updateScrollViewState();
 		}
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyLostFocus(_new);
+		Widget::onKeyLostFocus(_new);
 	}
 
 	void ScrollView::updateScrollViewState()
