@@ -55,17 +55,6 @@ namespace MyGUI
 		bool drag_refuse;
 	};
 
-
-	// вспомогательная структура для представления одного виджета айтема
-	/*struct WidgetItemData
-	{
-		WidgetItemData() : item(null), data(null) {}
-		WidgetPtr item;
-		void * data;
-	};*/
-
-	//typedef std::vector<WidgetItemData> VectorWidgetItemData;
-
 	enum NotifyItem {
 		NOTIFY_MOUSE_PRESSED,
 		NOTIFY_MOUSE_RELEASED,
@@ -111,66 +100,10 @@ namespace MyGUI
 
 		struct ItemDataInfo
 		{
-			ItemDataInfo(/*size_t _index, */Any _data) :
-				//update(false),
-				//drag(false),
-				//select(false),
-				//active(false),
-				//drag_accept(false),
-				//drag_refuse(false),
-				//index(_index),
+			ItemDataInfo(Any _data) :
 				data(_data)
 			{
 			}
-
-			/*void fill(ItemInfo & _info)
-			{
-				//_info.update = update;
-				//_info.drag = drag;
-				//_info.select = select;
-				//_info.active = active;
-				//_info.drag_accept = drag_accept;
-				//_info.drag_refuse = drag_refuse;
-				//_info.index = index;
-			}*/
-			
-			/*ItemInfo copy()
-			{
-				ItemInfo info(0, Any::Null);
-				//info.update = update;
-				//info.drag = drag;
-				info.select = select;
-				info.active = active;
-				info.drag_accept = drag_accept;
-				info.drag_refuse = drag_refuse;
-				info.index = index;
-				return info;
-			}*/
-
-
-			// изменилось не только состояние, но и содержимое
-			/** State and interdan data changed */
-			//bool update;
-			// нажат ли виджет
-			/** Is widget selected */
-			//bool select;
-			// активен ли виджет
-			/** Is widget active */
-			//bool active;
-			// виджет для перетаскивания или нет
-			/** Is widget able to be dragged */
-			//bool drag;
-			// айтем принимамет дроп
-			/** Is widget accept drag */
-			//bool drag_accept;
-			// айтем не берет дроп
-			/** Is widget refuse drag */
-			//bool drag_refuse;
-			// индекс этого элемента
-			/** Index of element */
-			//size_t index;
-			// пользовательские данные
-			/** User data */
 			Any data;
 		};
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
@@ -179,19 +112,46 @@ namespace MyGUI
 		ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		//----------------------------------------------------------------//
-		// методы для изменения содержимого бокса
+		//------------------------------------------------------------------------------//
+		// манипуляции айтемами
+
 		//! Get number of items
-		size_t getItemCount() { return (size_t)mCountItems;}
+		size_t getItemCount() { return (size_t)mCountItems; }
 
-		//! Insert an item into a box at a specified position
-		void insertItem(size_t _index, Any _data = Any::Null);
+		//! Insert an item into a array at a specified position
+		void insertItemAt(size_t _index, Any _data = Any::Null);
 
-		//! Add an item to the end of a box
-		void addItem(Any _data = Any::Null) { insertItem(ITEM_NONE, _data); }
+		//! Add an item to the end of a array
+		void addItem(Any _data = Any::Null) { insertItemAt(ITEM_NONE, _data); }
 
-		//! Replace an item at a specified position
-		void setItemData(size_t _index, Any _data);
+		//! Remove item at a specified position
+		void removeItemAt(size_t _index);
+
+		//! Remove all items
+		void removeAllItems();
+
+
+		//------------------------------------------------------------------------------//
+		// манипуляции выделениями
+
+		//! Get index of selected item (ITEM_NONE if none selected)
+		size_t getItemIndexSelected() { return mIndexSelect; }
+
+		//! Select specified _index
+		void setItemSelectedAt(size_t _index);
+
+		//! Clear item selection
+		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+
+
+		//------------------------------------------------------------------------------//
+		// манипуляции данными
+
+		//! Replace an item data at a specified position
+		void setItemDataAt(size_t _index, Any _data);
+
+		//! Clear an item data at a specified position
+		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -200,21 +160,34 @@ namespace MyGUI
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
-		//! Get item from specified position
-		//Any * getItemData(size_t _index) { return getIndexItemData(_index); }
-		//virtual Any * getIndexItemData(size_t _index);
 
-		//! Delete item at a specified position
-		void deleteItem(size_t _index);
-		//! Delete all items
-		void deleteAllItems();
 
-		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemSelect() { return mIndexSelect; }
-		//! Reset item selection
-		void resetItemSelect() { setItemSelect(ITEM_NONE); }
-		//! Set item selection at a specified position
-		void setItemSelect(size_t _index);
+
+		// #ifdef MYGUI_USING_OBSOLETE
+
+		MYGUI_OBSOLETE("use ItemBox::insertItemAt(size_t _index, Any _data)")
+		void insertItem(size_t _index, Any _data = Any::Null) { insertItemAt(_index, _data); }
+
+		MYGUI_OBSOLETE("use ItemBox::setItemDataAt(size_t _index, Any _data)")
+		void setItemData(size_t _index, Any _data) { setItemDataAt(_index, _data); }
+
+		MYGUI_OBSOLETE("use ItemBox::removeItemAt(size_t _index)")
+		void deleteItem(size_t _index) { removeItemAt(_index); }
+
+		MYGUI_OBSOLETE("use ItemBox::removeAllItems()")
+		void deleteAllItems() { removeAllItems(); }
+
+		MYGUI_OBSOLETE("use ItemBox::getItemIndexSelected()")
+		size_t getItemSelect() { return getItemIndexSelected(); }
+
+		MYGUI_OBSOLETE("use ItemBox::clearItemSelected()")
+		void resetItemSelect() { clearItemSelected(); }
+
+		MYGUI_OBSOLETE("use ItemBox::setItemSelectedAt(size_t _index)")
+		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
+
+		// #endif // MYGUI_USING_OBSOLETE
+
 
 		void setItemBoxAlignVert(bool _vert);
 		bool getItemBoxAlignVert() { return mAlignVert; }
@@ -306,7 +279,7 @@ namespace MyGUI
 
 		void _updateScrollWidget();
 
-		void _setDragItemInfo(size_t _index, bool _set, bool _accept);
+		void setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
 		// сбрасываем старую подсветку
 		void resetCurrentActiveItem();
