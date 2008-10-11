@@ -191,6 +191,10 @@
 				Name="Widget"
 				>
 				<File
+					RelativePath=".\src\DDContainer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Button.cpp"
 					>
 				</File>
@@ -283,6 +287,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_ComboBoxFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MYGUI_DDContainerFactory.cpp"
 						>
 					</File>
 					<File
@@ -613,6 +621,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_DDContainer.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Edit.h"
 					>
 				</File>
@@ -697,6 +709,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ComboBoxFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_DDContainerFactory.h"
 						>
 					</File>
 					<File

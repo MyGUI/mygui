@@ -74,6 +74,7 @@ namespace MyGUI
 		class PopupMenuFactory;
 		class MenuBarFactory;
 		class ScrollViewFactory;
+		class DDContainerFactory;
 	}
 
 	class Widget;
@@ -97,6 +98,7 @@ namespace MyGUI
 	class PopupMenu;
 	class MenuBar;
 	class ScrollView;
+	class DDContainer;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -119,10 +121,11 @@ namespace MyGUI
 	typedef PopupMenu * PopupMenuPtr;
 	typedef MenuBar * MenuBarPtr;
 	typedef ScrollView * ScrollViewPtr;
+	typedef DDContainer * DDContainerPtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
-    #define MYGUI_VERSION_MINOR 2
+    #define MYGUI_VERSION_MINOR 3
     #define MYGUI_VERSION_PATCH 0
 
     #define MYGUI_VERSION    ((MYGUI_VERSION_MAJOR << 16) | (MYGUI_VERSION_MINOR << 8) | MYGUI_VERSION_PATCH)

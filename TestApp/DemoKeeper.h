@@ -18,10 +18,6 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
-		virtual bool mouseMoved( const OIS::MouseEvent &arg );
-
-		void createFont(int _res, int _height);
-
 	};
 
 } // namespace demo
