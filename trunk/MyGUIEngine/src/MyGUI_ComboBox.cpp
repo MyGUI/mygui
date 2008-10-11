@@ -140,9 +140,9 @@ namespace MyGUI
 		eventComboChangePosition(this, _position);
 	}
 
-	void ComboBox::_onKeyButtonPressed(KeyCode _key, Char _char)
+	void ComboBox::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		Edit::_onKeyButtonPressed(_key, _char);
+		Edit::onKeyButtonPressed(_key, _char);
 
 		// при нажатии вниз, показываем лист
 		if (_key == KC_DOWN) {

@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Rtti.h"
+#include "MyGUI_Any.h"
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_ISubWidgetText.h"
@@ -54,8 +55,11 @@ namespace MyGUI
 
 		void frameEntered(float _frame);
 
-		virtual size_t _getToolTipIndex(IntPoint _point) { return ITEM_NONE; }
-		virtual void _outDateItems(bool _updateOnly);
+		// запрашиваем у конейтера айтем по позиции мыши
+		virtual size_t getContainerIndex(const IntPoint & _point) { return ITEM_NONE; }
+
+		// сброс всех данных контейнера, тултипы и все остальное
+		virtual void resetContainer(bool _update);
 
 
 	public:
@@ -119,11 +123,11 @@ namespace MyGUI
 		virtual void setSize(const IntSize& _size);
 
 		/** See Widget::setPosition(const IntPoint& _pos) */
-		void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
+		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
 		/** See Widget::setPosition(const IntCoord& _coord) */
-		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		void setPosition(int _left, int _top, int _width, int _height) { setPosition(IntCoord(_left, _top, _width, _height)); }
 		/** See Widget::setSize(const IntSize& _size) */
-		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 
 		void _updateAbsolutePoint();
 
@@ -135,7 +139,7 @@ namespace MyGUI
 		// для внутреннего использования
 		void _inheritedShow();
 		void _inheritedHide();
-		bool _isInheritedShow() {return mInheritedShow;}
+		bool _isInheritedShow() { return mInheritedShow; }
 
 		/** Set widget caption */
 		virtual void setCaption(const Ogre::UTFString & _caption);
@@ -170,10 +174,10 @@ namespace MyGUI
 		/** Set widget opacity */
 		void setAlpha(float _alpha);
 		/** Get widget opacity */
-		float getAlpha() {return mAlpha;};
-		float _getRealAlpha() {return mRealAlpha;}
+		float getAlpha() { return mAlpha; }
+		float _getRealAlpha() { return mRealAlpha; }
 		/** Get inherits alpha mode flag */
-		bool isInheritsAlpha() {return mInheritsAlpha;}
+		bool isInheritsAlpha() { return mInheritsAlpha; }
 		/** Enable or disable inherits alpha mode */
 		void setInheritsAlpha(bool _inherits)
 		{
@@ -192,11 +196,11 @@ namespace MyGUI
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
-		bool isRootWidget() {return null == mParent;}
+		bool isRootWidget() { return null == mParent; }
 
 		// закрываем метод базового класса
 		/** Get parent widget */
-		WidgetPtr getParent() {return static_cast<WidgetPtr>(mParent);}
+		WidgetPtr getParent() { return static_cast<WidgetPtr>(mParent); }
 
 		// для поддержки окон напрямую не являющиеся детьми
 		WidgetPtr _getOwner() { return mOwner; }
@@ -214,19 +218,19 @@ namespace MyGUI
 		virtual void _detachFromLayerItemKeeper();
 
 		/** Is need key focus */
-		bool isNeedKeyFocus() {return mNeedKeyFocus;}
+		bool isNeedKeyFocus() { return mNeedKeyFocus; }
 		/** Set need key focus flag */
-		void setNeedKeyFocus(bool _need) {mNeedKeyFocus = _need;}
+		void setNeedKeyFocus(bool _need) { mNeedKeyFocus = _need; }
 		/** Is need mouse focus */
-		bool isNeedMouseFocus() {return mNeedMouseFocus;}
+		bool isNeedMouseFocus() { return mNeedMouseFocus; }
 		/** Set need mouse focus flag */
-		void setNeedMouseFocus(bool _need) {mNeedMouseFocus = _need;}
+		void setNeedMouseFocus(bool _need) { mNeedMouseFocus = _need; }
 
 		void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
 		bool isInheritsPeek() { return mInheritsPeek; }
 
 		/** Is widget enabled */
-		bool isEnabled() {return mEnabled;}
+		bool isEnabled() { return mEnabled; }
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _enabled);
 
@@ -264,21 +268,20 @@ namespace MyGUI
 		IntCoord getClientCoord();
 
 		/** Get clien area widget */
-		WidgetPtr getClientWidget() {return mWidgetClient;}
+		WidgetPtr getClientWidget() { return mWidgetClient; }
 
 
-		// метод для запроса номера айтема и главного окна списка
-		virtual void _getDragItemInfo(WidgetPtr & _list, size_t & _index);
+		// метод для запроса номера айтема и контейнера
+		void getContainer(WidgetPtr & _list, size_t & _index);
 		// метод для установления стейта айтема
+		//FIXME перенести в класс контейнер
 		virtual void _setDragItemInfo(size_t _index, bool _set, bool _accept) { }
-		// информация об элементе дропа по индексу
-		virtual void * getIndexItemData(size_t _index) { return null; }
 
 
 		/** Set drag'n'drop mode flag */
-		void setNeedDragDrop(bool _need) {mNeedDragDrop = _need;}
+		void setNeedDragDrop(bool _need) { mNeedDragDrop = _need; }
 		/** Get drag'n'drop mode flag */
-		bool getNeedDragDrop() {return mNeedDragDrop;}
+		bool getNeedDragDrop() { return mNeedDragDrop; }
 
 		ISubWidgetText * _getSubWidgetText() { return mText; }
 		ISubWidgetRect * _getSubWidgetMain() { return mMainSkin; }

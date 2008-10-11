@@ -76,38 +76,38 @@ namespace MyGUI
 		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
-	void Window::_onMouseChangeRootFocus(bool _focus)
+	void Window::onMouseChangeRootFocus(bool _focus)
 	{
 		mMouseRootFocus = _focus;
 		updateAlpha();
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseChangeRootFocus(_focus);
+		Widget::onMouseChangeRootFocus(_focus);
 	}
 
-	void Window::_onKeyChangeRootFocus(bool _focus)
+	void Window::onKeyChangeRootFocus(bool _focus)
 	{
 		mKeyRootFocus = _focus;
 		updateAlpha();
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onKeyChangeRootFocus(_focus);
+		Widget::onKeyChangeRootFocus(_focus);
 	}
 
-	void Window::_onMouseDrag(int _left, int _top)
+	void Window::onMouseDrag(int _left, int _top)
 	{
 		// на тот случай, если двигать окно, можно за любое место виджета
 		notifyMouseDrag(this, _left, _top);
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseDrag(_left, _top);
+		Widget::onMouseDrag(_left, _top);
 	}
 
-	void Window::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	void Window::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		notifyMousePressed(this, _left, _top, _id);
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonPressed(_left, _top, _id);
+		Widget::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)

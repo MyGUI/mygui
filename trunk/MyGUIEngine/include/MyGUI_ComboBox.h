@@ -167,7 +167,7 @@ namespace MyGUI
 		EventInfo_WidgetSizeT eventComboChangePosition;
 
 	protected:
-		virtual void _onKeyButtonPressed(KeyCode _key, Char _char);
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
 
 		void notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyListLostFocus(WidgetPtr _sender, MyGUI::WidgetPtr _new);

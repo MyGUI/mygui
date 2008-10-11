@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_Any.h"
 
 namespace MyGUI
 {
@@ -16,18 +17,24 @@ namespace MyGUI
 	// структура информации об отображении элемента
 	struct ItemInfo
 	{
-		ItemInfo(size_t _index, void * _data) :
-			update(false),
-			drag(false),
-			select(false),
-			active(false),
-			drag_accept(false),
-			drag_refuse(false),
+
+		ItemInfo() : index(ITEM_NONE) { }
+
+		ItemInfo(size_t _index, size_t _select, size_t _active, size_t _accept, size_t _refuse, bool _update, bool _drag) :
 			index(_index),
-			data(_data)
+			select(_index == _select),
+			active(_index == _active),
+			drag_accept(_index == _accept),
+			drag_refuse(_index == _refuse),
+			update(_update),
+			drag(_drag)
 		{
 		}
 
+
+		// индекс этого элемента
+		/** Index of element */
+		size_t index;
 		// изменилось не только состояние, но и содержимое
 		/** State and interdan data changed */
 		bool update;
@@ -46,25 +53,18 @@ namespace MyGUI
 		// айтем не берет дроп
 		/** Is widget refuse drag */
 		bool drag_refuse;
-		// индекс этого элемента
-		/** Index of element */
-		size_t index;
-		// пользовательские данные
-		/** User data */
-		void * data;
 	};
-	typedef std::vector<ItemInfo> VectorItemInfo;
 
 
 	// вспомогательная структура для представления одного виджета айтема
-	struct WidgetItemData
+	/*struct WidgetItemData
 	{
 		WidgetItemData() : item(null), data(null) {}
 		WidgetPtr item;
 		void * data;
-	};
+	};*/
 
-	typedef std::vector<WidgetItemData> VectorWidgetItemData;
+	//typedef std::vector<WidgetItemData> VectorWidgetItemData;
 
 	enum NotifyItem {
 		NOTIFY_MOUSE_PRESSED,
@@ -96,9 +96,9 @@ namespace MyGUI
 	typedef delegates::CDelegate2<WidgetPtr, const NotifyItemData &> EventInfo_WidgetNotifyItemData;
 
 	// делегаты для обновления
-	typedef delegates::CDelegate2<WidgetPtr, WidgetItemData&> EventInfo_WidgetWidgetRefWidget; //???
+	typedef delegates::CDelegate2<WidgetPtr, WidgetPtr> EventInfo_WidgetWidget;
 	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
-	typedef delegates::CDelegate3<WidgetPtr, WidgetItemData, const ItemInfo&> EventInfo_WidgetWidgetItemInfo;
+	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo &> EventInfo_WidgetWidgetItemInfo;
 
 	class _MyGUIExport ItemBox : public Widget
 	{
@@ -106,6 +106,74 @@ namespace MyGUI
 		friend class factory::ItemBoxFactory;
 
 		MYGUI_RTTI_CHILD_HEADER;
+
+	protected:
+
+		struct ItemDataInfo
+		{
+			ItemDataInfo(/*size_t _index, */Any _data) :
+				//update(false),
+				//drag(false),
+				//select(false),
+				//active(false),
+				//drag_accept(false),
+				//drag_refuse(false),
+				//index(_index),
+				data(_data)
+			{
+			}
+
+			/*void fill(ItemInfo & _info)
+			{
+				//_info.update = update;
+				//_info.drag = drag;
+				//_info.select = select;
+				//_info.active = active;
+				//_info.drag_accept = drag_accept;
+				//_info.drag_refuse = drag_refuse;
+				//_info.index = index;
+			}*/
+			
+			/*ItemInfo copy()
+			{
+				ItemInfo info(0, Any::Null);
+				//info.update = update;
+				//info.drag = drag;
+				info.select = select;
+				info.active = active;
+				info.drag_accept = drag_accept;
+				info.drag_refuse = drag_refuse;
+				info.index = index;
+				return info;
+			}*/
+
+
+			// изменилось не только состояние, но и содержимое
+			/** State and interdan data changed */
+			//bool update;
+			// нажат ли виджет
+			/** Is widget selected */
+			//bool select;
+			// активен ли виджет
+			/** Is widget active */
+			//bool active;
+			// виджет для перетаскивания или нет
+			/** Is widget able to be dragged */
+			//bool drag;
+			// айтем принимамет дроп
+			/** Is widget accept drag */
+			//bool drag_accept;
+			// айтем не берет дроп
+			/** Is widget refuse drag */
+			//bool drag_refuse;
+			// индекс этого элемента
+			/** Index of element */
+			//size_t index;
+			// пользовательские данные
+			/** User data */
+			Any data;
+		};
+		typedef std::vector<ItemDataInfo> VectorItemInfo;
 
 	protected:
 		ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
@@ -117,19 +185,24 @@ namespace MyGUI
 		size_t getItemCount() { return (size_t)mCountItems;}
 
 		//! Insert an item into a box at a specified position
-		void insertItem(size_t _index, void * _data);
-		void insertItem(size_t _index) {insertItem(_index, null);}
+		void insertItem(size_t _index, Any _data = Any::Null);
 
 		//! Add an item to the end of a box
-		void addItem(void * _data) {insertItem(ITEM_NONE, _data);}
-		void addItem() {insertItem(ITEM_NONE, null);}
+		void addItem(Any _data = Any::Null) { insertItem(ITEM_NONE, _data); }
 
 		//! Replace an item at a specified position
-		void setItemData(size_t _index, void * _data);
+		void setItemData(size_t _index, Any _data);
 
+		//! Get item data from specified position
+		template <typename ValueType>
+		ValueType * getItemDataAt(size_t _index, bool _throw = true)
+		{
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::getItemDataAt");
+			return mItemsInfo[_index].data.castType<ValueType>(_throw);
+		}
 		//! Get item from specified position
-		void * getItemData(size_t _index) {return getIndexItemData(_index);}
-		virtual void * getIndexItemData(size_t _index);
+		//Any * getItemData(size_t _index) { return getIndexItemData(_index); }
+		//virtual Any * getIndexItemData(size_t _index);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
@@ -137,9 +210,9 @@ namespace MyGUI
 		void deleteAllItems();
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemSelect() {return mIndexSelect;}
+		size_t getItemSelect() { return mIndexSelect; }
 		//! Reset item selection
-		void resetItemSelect() {setItemSelect(ITEM_NONE);}
+		void resetItemSelect() { setItemSelect(ITEM_NONE); }
 		//! Set item selection at a specified position
 		void setItemSelect(size_t _index);
 
@@ -149,7 +222,8 @@ namespace MyGUI
 		// возвращает индекс елемента, по указателю на виджет айтема
 		size_t getIndexByWidget(WidgetPtr _widget);
 
-		WidgetPtr getWidgetDrop() { return mItemDrag.item; }
+		// возвращает виджет, созданный для дропа
+		WidgetPtr getWidgetDrop() { return mItemDrag; }
 
 		// возвращает виджет индекса, если он виден
 		WidgetPtr getWidgetByIndex(size_t _index);
@@ -162,22 +236,22 @@ namespace MyGUI
 		//! @copydoc Widget::setSize(const IntSize& _size)
 		virtual void setSize(const IntSize& _size);
 		//! @copydoc Widget::setPosition(int _left, int _top)
-		void setPosition(int _left, int _top) {Widget::setPosition(IntPoint(_left, _top));}
+		void setPosition(int _left, int _top) { Widget::setPosition(IntPoint(_left, _top)); }
 		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
+		void setPosition(int _left, int _top, int _width, int _height) { setPosition(IntCoord(_left, _top, _width, _height)); }
 		//! @copydoc Widget::setSize(int _width, int _height)
-		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 
 		// event : запрос на создание айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _parent, WidgetPtr & _item)
-		EventInfo_WidgetWidgetRefWidget requestCreateWidgetItem;
+		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _item)
+		EventInfo_WidgetWidget requestCreateWidgetItem;
 
 		// event : запрос на размер айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _client, IntCoord & _coord, bool _drop)
 		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
 
 		// event : запрос на обновление айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo& _info)
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
 		// event : двойной щелчек мыши или Enter на елементе
@@ -198,9 +272,9 @@ namespace MyGUI
 
 	protected:
 
-		void _onMouseWheel(int _rel);
-		void _onKeyLostFocus(WidgetPtr _new);
-		void _onKeySetFocus(WidgetPtr _old);
+		void onMouseWheel(int _rel);
+		void onKeyLostFocus(WidgetPtr _new);
+		void onKeySetFocus(WidgetPtr _old);
 
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
@@ -210,7 +284,7 @@ namespace MyGUI
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
-		void requestGetDragItemInfo(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
+		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
 		void notifyInvalideDrop(WidgetPtr _sender);
 		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
 		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
@@ -226,7 +300,9 @@ namespace MyGUI
 
 		void updateFromResize(const IntSize& _size);
 
-		WidgetItemData & getItemWidget(size_t _index);
+		// возвращает следующий айтем, если нет его, то создается
+		// запросы только последовательно
+		WidgetPtr getItemWidget(size_t _index);
 
 		void _updateScrollWidget();
 
@@ -237,10 +313,11 @@ namespace MyGUI
 		// ищет и устанавливает подсвеченный айтем
 		void findCurrentActiveItem();
 
-		size_t _getToolTipIndex(IntPoint _point);
+		// запрашиваем у конейтера айтем по позиции мыши
+		virtual size_t getContainerIndex(const IntPoint & _point);
 
 		// сбрасывает зависимости, при любом колличественном изменении
-		void _outDateItems(bool _updateOnly);
+		virtual void resetContainer(bool _update);
 
 		void endDrop(bool _reset);
 
@@ -249,7 +326,7 @@ namespace MyGUI
 		VScrollPtr mWidgetScroll;
 
 		// наши дети в строках
-		VectorWidgetItemData mVectorItems;
+		VectorWidgetPtr mVectorItems;
 
 		// размер одного айтема
 		IntSize mSizeItem;
@@ -279,6 +356,11 @@ namespace MyGUI
 		size_t mIndexSelect;
 		// подсвеченный элемент или ITEM_NONE
 		size_t mIndexActive;
+		// индекс со свойством приема или ITEM_NONE
+		size_t mIndexAccept;
+		// индекс со свойством отказа или ITEM_NONE
+		size_t mIndexRefuse;
+
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;
@@ -286,8 +368,9 @@ namespace MyGUI
 		// структура данных об айтеме
 		VectorItemInfo mItemsInfo;
 
-		WidgetItemData mItemDrag;
+		WidgetPtr mItemDrag;
 		WidgetPtr mOldDrop;
+
 		bool mDropResult;
 		ItemDropInfo mDropInfo;
 		IntPoint mPointDragOffset;

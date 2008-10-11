@@ -39,13 +39,13 @@ namespace MyGUI
 	/**
 	General information about creating delegate for event :
 
-		void anyFunc(...) {}; // global function
+		void anyFunc(...) { } // global function
 
 		class AnyClass
 		{
 		public:
-			static void anyStaticMethod(...) {}; // static method
-			void anyMethod(...) {}; // обычный метод
+			static void anyStaticMethod(...) { } // static method
+			void anyMethod(...) { } // обычный метод
 		};
 
 		AnyClass anyObject; // class instance
@@ -61,11 +61,10 @@ namespace MyGUI
 		friend class InputManager;
 
     public:
-		virtual ~WidgetEvent() {};
-		//WidgetPtr _getBaseWidget() { return mWidgetEventSender; }
+		virtual ~WidgetEvent() { }
 
 	protected:
-		WidgetEvent() : mWidgetEventSender(0) {}
+		WidgetEvent() : mWidgetEventSender(0) { }
 
 	public:
 
@@ -171,11 +170,11 @@ namespace MyGUI
 
 		/* event : внутренний запрос на родител€ и номера айтема, у любого виджета*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
-		EventInfo_WidgetRefWidgetRefSizeT  _requestGetDragItemInfo;
+		EventInfo_WidgetRefWidgetRefSizeT requestGetContainer;
 
-		/* event : внутреннее событие, невалидна информаци€ дл€ дропа*/
+		/* event : внутреннее событие, невалидна информаци€ дл€ контейнера*/
 		/* signature : void method(MyGUI::WidgetPtr _sender);*/
-		EventInfo_WidgetVoid _eventInvalideDropInfo;
+		EventInfo_WidgetVoid eventInvalideContainer;
 
 		// event : запрос на начало дропа
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
@@ -200,91 +199,91 @@ namespace MyGUI
 	protected:
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseLostFocus(WidgetPtr _new)
+		virtual void onMouseLostFocus(WidgetPtr _new)
 		{
 			eventMouseLostFocus(mWidgetEventSender, _new);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseSetFocus(WidgetPtr _old)
+		virtual void onMouseSetFocus(WidgetPtr _old)
 		{
 			eventMouseSetFocus(mWidgetEventSender, _old);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseDrag(int _left, int _top)
+		virtual void onMouseDrag(int _left, int _top)
 		{
 			eventMouseDrag(mWidgetEventSender, _left, _top);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseMove(int _left, int _top)
+		virtual void onMouseMove(int _left, int _top)
 		{
 			eventMouseMove(mWidgetEventSender, _left, _top);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseWheel(int _rel)
+		virtual void onMouseWheel(int _rel)
 		{
 			eventMouseWheel(mWidgetEventSender, _rel);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseButtonPressed(int _left, int _top, MouseButton _id)
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id)
 		{
 			eventMouseButtonPressed(mWidgetEventSender, _left, _top, _id);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id)
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id)
 		{
 			eventMouseButtonReleased(mWidgetEventSender, _left, _top, _id);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseButtonClick()
+		virtual void onMouseButtonClick()
 		{
 			eventMouseButtonClick(mWidgetEventSender);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseButtonDoubleClick()
+		virtual void onMouseButtonDoubleClick()
 		{
 			eventMouseButtonDoubleClick(mWidgetEventSender);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeyLostFocus(WidgetPtr _new)
+		virtual void onKeyLostFocus(WidgetPtr _new)
 		{
 			eventKeyLostFocus(mWidgetEventSender, _new);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeySetFocus(WidgetPtr _old)
+		virtual void onKeySetFocus(WidgetPtr _old)
 		{
 			eventKeySetFocus(mWidgetEventSender, _old);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeyButtonPressed(KeyCode _key, Char _char)
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char)
 		{
 			eventKeyButtonPressed(mWidgetEventSender, _key, _char);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeyButtonReleased(KeyCode _key)
+		virtual void onKeyButtonReleased(KeyCode _key)
 		{
 			eventKeyButtonReleased(mWidgetEventSender, _key);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onMouseChangeRootFocus(bool _focus)
+		virtual void onMouseChangeRootFocus(bool _focus)
 		{
 			eventRootMouseChangeFocus(mWidgetEventSender, _focus);
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ в родительском классе вызывать последним
-		virtual void _onKeyChangeRootFocus(bool _focus)
+		virtual void onKeyChangeRootFocus(bool _focus)
 		{
 			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
 		}

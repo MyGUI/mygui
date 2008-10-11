@@ -122,10 +122,10 @@ namespace MyGUI
 
 	protected:
 
-		void _onMouseChangeRootFocus(bool _focus);
-		void _onKeyChangeRootFocus(bool _focus);
-		void _onMouseDrag(int _left, int _top);
-		void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		void onMouseChangeRootFocus(bool _focus);
+		void onKeyChangeRootFocus(bool _focus);
+		void onMouseDrag(int _left, int _top);
+		void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 
 		void notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);

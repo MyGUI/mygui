@@ -131,7 +131,7 @@ namespace MyGUI
 			return mContent ? mContent->getType() : typeid(void);
 		}
 
-		template<typename ValueType> ValueType * castType(bool _throw = true)
+		template<typename ValueType> ValueType * castType(bool _throw = true) const
 		{
 			if (this->getType() == typeid(ValueType)) {
 				return & static_cast<Any::Holder<ValueType> *>(this->mContent)->held;

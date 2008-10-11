@@ -107,12 +107,12 @@ namespace MyGUI
 
 		void frameEntered(float _time);
 
-		//!	@copydoc Widget::_onMouseDrag(int, int)
-		virtual void _onMouseDrag(int _left, int _top);
-		//!	@copydoc Widget::_onMouseButtonReleased(bool)
-		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		//!	@copydoc Widget::_onMouseChangeRootFocus(bool)
-		virtual void _onMouseChangeRootFocus(bool _focus);
+		//!	@copydoc Widget::onMouseDrag(int, int)
+		virtual void onMouseDrag(int _left, int _top);
+		//!	@copydoc Widget::onMouseButtonReleased(bool)
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		//!	@copydoc Widget::onMouseChangeRootFocus(bool)
+		virtual void onMouseChangeRootFocus(bool _focus);
 
 		//!	Show bar with alpha smoothing
 		void showSmooth(bool _reset = false);

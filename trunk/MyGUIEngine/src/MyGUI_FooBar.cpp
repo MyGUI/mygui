@@ -124,7 +124,7 @@ namespace MyGUI
 
 	}
 
-	void FooBar::_onMouseDrag(int _left, int _top)
+	void FooBar::onMouseDrag(int _left, int _top)
 	{
 		if (_checkPoint(_left, _top))
 			mDragging = true;
@@ -147,17 +147,17 @@ namespace MyGUI
 					if ((height - mWidth) < _top)
 						setLayout(FBL_SNAP_BOTTOM);
 		
-		Widget::_onMouseDrag(_left, _top);
+		Widget::onMouseDrag(_left, _top);
 	}
 
-	void FooBar::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	void FooBar::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		mDragging = false;
 
-		Widget::_onMouseButtonReleased(_left, _top, _id);
+		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void FooBar::_onMouseChangeRootFocus(bool _focus)
+	void FooBar::onMouseChangeRootFocus(bool _focus)
 	{
 		mFocus = _focus;
 
@@ -169,7 +169,7 @@ namespace MyGUI
 
 		updateAlpha();
 			
-		Widget::_onMouseChangeRootFocus(_focus);
+		Widget::onMouseChangeRootFocus(_focus);
 	}
 
 	bool FooBar::checkPoint(int left, int top, WidgetPtr widget)

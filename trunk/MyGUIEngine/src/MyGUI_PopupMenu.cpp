@@ -325,7 +325,7 @@ namespace MyGUI
 		}
 	}
 
-	void PopupMenu::_onKeyLostFocus(WidgetPtr _new)
+	void PopupMenu::onKeyLostFocus(WidgetPtr _new)
 	{
 		// не прятать, если фокус перешел к хозяину или сыну
 		if (isRelative(_new)) return;
