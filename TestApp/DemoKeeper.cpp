@@ -375,7 +375,14 @@ Ogre::ColourValue getColour(const MyGUI::IntPoint & _point, const MyGUI::IntSize
         edit->setFontHeight(height);
         mInfo->change("font pix", MyGUI::utility::toString(height));*/
 
-//		MyGUI::MultiList::re
+		int mass[] = {0x4234, 0x452342, 0x53453, 0};
+
+		typedef std::basic_string<int, std::char_traits<int>, std::allocator<int> > mystring;
+		mystring str = mass;
+
+		for (mystring::iterator iter=str.begin(); iter!=str.end(); ++iter) {
+			int code = *iter;
+		}
  
     }
  

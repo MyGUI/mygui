@@ -281,10 +281,10 @@ namespace MyGUI
 		return mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);
 	}
 
-	void VScroll::_onMouseWheel(int _rel)
+	void VScroll::onMouseWheel(int _rel)
 	{
 		notifyMouseWheel(null, _rel);
-		Widget::_onMouseWheel(_rel);
+		Widget::onMouseWheel(_rel);
 	}
 
 	void VScroll::notifyMouseWheel(WidgetPtr _sender, int _rel)

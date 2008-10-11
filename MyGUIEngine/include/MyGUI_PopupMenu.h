@@ -183,7 +183,7 @@ namespace MyGUI
 		void notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top);
 		void notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 
-		void _onKeyLostFocus(WidgetPtr _new);
+		void onKeyLostFocus(WidgetPtr _new);
 
 
 		void update();

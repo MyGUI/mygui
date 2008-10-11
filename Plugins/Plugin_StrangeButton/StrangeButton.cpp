@@ -24,9 +24,9 @@ namespace MyGUI
 		}
 	}
 
-	void StrangeButton::_onMouseSetFocus(WidgetPtr _old)
+	void StrangeButton::onMouseSetFocus(WidgetPtr _old)
 	{
-		Widget::_onMouseSetFocus(_old);
+		Widget::onMouseSetFocus(_old);
 		mIsFocus = true;
 
 		if (mText == null) return;
@@ -39,9 +39,9 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void StrangeButton::_onMouseLostFocus(WidgetPtr _new)
+	void StrangeButton::onMouseLostFocus(WidgetPtr _new)
 	{
-		Widget::_onMouseLostFocus(_new);
+		Widget::onMouseLostFocus(_new);
 		mIsFocus = false;
 
 		if (mText == null) return;
@@ -54,17 +54,17 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void StrangeButton::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	void StrangeButton::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		Widget::_onMouseButtonPressed(_left, _top, _id);
+		Widget::onMouseButtonPressed(_left, _top, _id);
 		if (MB_Left != _id) return;
 		mIsPressed = true;
 		updateButtonState();
 	}
 
-	void StrangeButton::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	void StrangeButton::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		Widget::_onMouseButtonReleased(_left, _top, _id);
+		Widget::onMouseButtonReleased(_left, _top, _id);
 		if (MB_Left != _id) return;
 		mIsPressed = false;
 		updateButtonState();

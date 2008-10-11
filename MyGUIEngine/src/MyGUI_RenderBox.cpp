@@ -438,7 +438,7 @@ namespace MyGUI
 		}
 	}
 
-	void RenderBox::_onMouseDrag(int _left, int _top)
+	void RenderBox::onMouseDrag(int _left, int _top)
 	{
 		if ((false == mUserViewport) && mMouseRotation/* && mAutoRotation*/) {
 			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
@@ -451,10 +451,10 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseDrag(_left, _top);
+		Widget::onMouseDrag(_left, _top);
 	}
 
-	void RenderBox::_onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	void RenderBox::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		if (_id == MB_Left) {
 			if (mMouseRotation/* || mAutoRotation*/) {
@@ -465,15 +465,15 @@ namespace MyGUI
 		}
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonPressed(_left, _top, _id);
+		Widget::onMouseButtonPressed(_left, _top, _id);
 	}
 
-	void RenderBox::_onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	void RenderBox::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		if (MB_Left == _id) mLeftPressed = false;
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::_onMouseButtonReleased(_left, _top, _id);
+		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void RenderBox::createRenderTexture()
@@ -665,7 +665,7 @@ namespace MyGUI
 		MYGUI_LOG(Warning, "Unable to to set animation '" << _animation << "' - current entity don't have such animation.");
 	}
 
-	void RenderBox::_onMouseWheel(int _rel)
+	void RenderBox::onMouseWheel(int _rel)
 	{
 		if ( ! mUseScale) return;
 

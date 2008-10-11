@@ -59,10 +59,10 @@ namespace MyGUI
 
 	protected:
 
-		virtual void _onMouseLostFocus(WidgetPtr _new);
-		virtual void _onMouseSetFocus(WidgetPtr _old);
-		virtual void _onMouseButtonPressed(int _left, int _top, MouseButton _id);
-		virtual void _onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		virtual void onMouseLostFocus(WidgetPtr _new);
+		virtual void onMouseSetFocus(WidgetPtr _old);
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
 		void updateButtonState();
 

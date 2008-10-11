@@ -733,10 +733,10 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 
 void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
-	if (_info.type == MyGUI::TOOLTIP_SHOW) {
+	if (_info.type == MyGUI::ToolTipInfo::ToolTipShow) {
 		mToolTip.show(_sender, _info.point);
 	}
-	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
+	else if (_info.type == MyGUI::ToolTipInfo::ToolTipHide) {
 		mToolTip.hide();
 	}
 }

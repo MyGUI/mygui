@@ -11,7 +11,8 @@
 void DemoKeeper::notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result)
 {
 	if (_info.sender_index != MyGUI::ITEM_NONE) {
-		_result = (_info.sender_data != null) && !_info.sender_data->isEmpty();
+		ItemData * data = *((BaseItemBox<CellView>*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+		_result = !data->isEmpty();
 	}
 }
 
@@ -29,19 +30,25 @@ void DemoKeeper::notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, boo
 		return;
 	}
 
-	_result = _info.reseiver_data->isEmpty() || _info.reseiver_data->compare(_info.sender_data);
+	ItemData * sender_data = *((BaseItemBox<CellView>*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+	ItemData * reseiver_data = *((BaseItemBox<CellView>*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
+
+	_result = reseiver_data->isEmpty() || reseiver_data->compare(sender_data);
 }
 
 void DemoKeeper::notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _result)
 {
 	if (_result) {
 
-		_info.reseiver_data->add(_info.sender_data);
-		_info.sender_data->clear();
+		ItemData * sender_data = *((BaseItemBox<CellView>*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+		ItemData * reseiver_data = *((BaseItemBox<CellView>*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
+
+		reseiver_data->add(sender_data);
+		sender_data->clear();
 
 		
-		((BaseItemBox<CellView>*)_info.reseiver)->setItemData(_info.reseiver_index, _info.reseiver_data);
-		((BaseItemBox<CellView>*)_info.sender)->setItemData(_info.sender_index, _info.sender_data);
+		((BaseItemBox<CellView>*)_info.reseiver)->setItemData(_info.reseiver_index, reseiver_data);
+		((BaseItemBox<CellView>*)_info.sender)->setItemData(_info.sender_index, sender_data);
 	}
 
 }
@@ -132,14 +139,14 @@ void DemoKeeper::end()
 	MyGUI::ItemBoxPtr box = mItemBoxH.getItemBox()->castType<MyGUI::ItemBox>();
 	size_t count = box->getItemCount();
 	for (size_t pos=0; pos<count; ++pos) {
-		delete box->getItemData(pos);
+		delete *box->getItemDataAt<ItemData*>(pos);
 	}
 	mItemBoxH.shutdown();
 
 	box = mItemBoxV.getItemBox()->castType<MyGUI::ItemBox>();
 	count = box->getItemCount();
 	for (size_t pos=0; pos<count; ++pos) {
-		delete box->getItemData(pos);
+		delete *box->getItemDataAt<ItemData*>(pos);
 	}
 	mItemBoxV.shutdown();
 
@@ -148,10 +155,10 @@ void DemoKeeper::end()
 
 void DemoKeeper::notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
 {
-	if (_info.type == MyGUI::TOOLTIP_SHOW) {
+	if (_info.type == MyGUI::ToolTipInfo::ToolTipShow) {
 		mToolTip.show(_data, _info.point);
 	}
-	else if (_info.type == MyGUI::TOOLTIP_HIDE) {
+	else if (_info.type == MyGUI::ToolTipInfo::ToolTipHide) {
 		mToolTip.hide();
 	}
 }

@@ -74,7 +74,7 @@ namespace MyGUI
 		void notifyButtonClick(MyGUI::WidgetPtr _sender);
 		void clearButton();
 
-		void _onKeyButtonPressed(KeyCode _key, Char _char);
+		void onKeyButtonPressed(KeyCode _key, Char _char);
 		void _destroyMessage(ViewInfo _result);
 
 		const char * getIconName(size_t _index);

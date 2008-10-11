@@ -114,11 +114,11 @@ namespace MyGUI
 
 		///* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
 		///* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
-		//EventInfo_WidgetRefWidgetRefSizeT  _requestGetDragItemInfo;
+		//EventInfo_WidgetRefWidgetRefSizeT  requestGetContainer;
 
 		///* event : внутреннее событие, невалидна информация для дропа*/
 		///* signature : void method(MyGUI::WidgetPtr _sender);*/
-		//EventInfo_WidgetVoid _eventInvalideDropInfo;
+		//EventInfo_WidgetVoid eventInvalideContainer;
 
 		//// event : запрос на начало дропа
 		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
