@@ -117,7 +117,7 @@ private:
 		eventEndDrop(this, ItemDropInfo(_info), _result);
 	}
 
-	void notifyDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState _state)
+	void notifyDropState(MyGUI::WidgetPtr _sender, MyGUI::DropItemState _state)
 	{
 		eventDropState(this, _state);
 	}
@@ -141,7 +141,7 @@ public:
 	MyGUI::delegates::CDelegate3<BaseLayout *, ItemDropInfo, bool &> eventStartDrop;
 	MyGUI::delegates::CDelegate3<BaseLayout *, ItemDropInfo, bool &> eventRequestDrop;
 	MyGUI::delegates::CDelegate3<BaseLayout *, ItemDropInfo, bool> eventEndDrop;
-	MyGUI::delegates::CDelegate2<BaseLayout *, MyGUI::DropState> eventDropState;
+	MyGUI::delegates::CDelegate2<BaseLayout *, MyGUI::DropItemState> eventDropState;
 	MyGUI::delegates::CDelegate2<BaseLayout *, const MyGUI::NotifyItemData & > eventNotifyItem;
 
 	MyGUI::delegates::CDelegate3<BaseLayout *, const MyGUI::ToolTipInfo &, ItemData *> eventToolTip;
