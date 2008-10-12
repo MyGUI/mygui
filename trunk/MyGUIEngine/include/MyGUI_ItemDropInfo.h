@@ -66,6 +66,42 @@ namespace MyGUI
 		size_t reseiver_index;
 	};
 
+	struct DropWidgetInfo
+	{
+		DropWidgetInfo(WidgetPtr _item, const IntCoord & _dimension) :
+			item(_item),
+			dimension(_dimension)
+		{
+		}
+
+		WidgetPtr item;
+		IntCoord dimension;
+	};
+	typedef std::vector<DropWidgetInfo> VectorDropWidgetInfo;
+
+	struct DropWidgetState
+	{
+		DropWidgetState(size_t _index) :
+			index(_index),
+			accept(false),
+			refuse(false),
+			update(true)
+		{ }
+
+		// индекс этого элемента
+		/** Index of element */
+		size_t index;
+		// изменилось не только состояние, но и содержимое
+		/** State and interdan data changed */
+		bool update;
+		// айтем принимамет дроп
+		/** Is widget accept drag */
+		bool accept;
+		// айтем не берет дроп
+		/** Is widget refuse drag */
+		bool refuse;
+	};
+
 } // namespace MyGUI
 
 #endif // __MYGUI_ITEM_DROP_INFO_H__

@@ -270,18 +270,8 @@ namespace MyGUI
 		/** Get clien area widget */
 		WidgetPtr getClientWidget() { return mWidgetClient; }
 
-
 		// метод для запроса номера айтема и контейнера
 		virtual void getContainer(WidgetPtr & _container, size_t & _index);
-		// метод для установления стейта айтема
-		//FIXME перенести в класс контейнер
-		virtual void setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
-
-
-		/** Set drag'n'drop mode flag */
-		void setNeedDragDrop(bool _need) { mNeedDragDrop = _need; }
-		/** Get drag'n'drop mode flag */
-		bool getNeedDragDrop() { return mNeedDragDrop; }
 
 		ISubWidgetText * _getSubWidgetText() { return mText; }
 		ISubWidgetRect * _getSubWidgetMain() { return mMainSkin; }
@@ -340,9 +330,6 @@ namespace MyGUI
 		// нужен ли виджету фокус мыши
 		bool mNeedMouseFocus;
 		bool mInheritsPeek;
-
-		// нужно и виджету поддержка драг энд дропа
-		bool mNeedDragDrop;
 
 		// клиентская зона окна
 		WidgetPtr mWidgetClient;

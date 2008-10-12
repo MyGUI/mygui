@@ -47,7 +47,6 @@ namespace MyGUI
 		mInheritsPeek(false),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
-		mNeedDragDrop(false),
 		mWidgetClient(null),
 		mNeedToolTip(false),
 		mEnableToolTip(true),
