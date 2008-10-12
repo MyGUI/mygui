@@ -60,13 +60,13 @@ void DemoKeeper::notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemD
 	}*/
 }
 
-void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropState _state)
+void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropItemState _state)
 {
-	if (_state == MyGUI::DROP_REFUSE) MyGUI::PointerManager::getInstance().setPointer("RF_drop_refuse", _sender->mainWidget());
-	else if (_state == MyGUI::DROP_ACCEPT) MyGUI::PointerManager::getInstance().setPointer("RF_drop_accept", _sender->mainWidget());
-	else if (_state == MyGUI::DROP_MISS) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
-	else if (_state == MyGUI::DROP_START) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
-	else if (_state == MyGUI::DROP_END) MyGUI::PointerManager::getInstance().setDefaultPointer();
+	if (_state == MyGUI::DropItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("RF_drop_refuse", _sender->mainWidget());
+	else if (_state == MyGUI::DropItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("RF_drop_accept", _sender->mainWidget());
+	else if (_state == MyGUI::DropItemState::Miss) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
+	else if (_state == MyGUI::DropItemState::Start) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
+	else if (_state == MyGUI::DropItemState::End) MyGUI::PointerManager::getInstance().setDefaultPointer();
 }
 
 void DemoKeeper::start()

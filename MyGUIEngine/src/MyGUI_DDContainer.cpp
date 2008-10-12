@@ -89,7 +89,7 @@ namespace MyGUI
 			eventStartDrop(this, mDropInfo, mNeedDrop);
 
 			if (mNeedDrop) {
-				eventDropState(this, DROP_START);
+				eventDropState(this, DropItemState::Start);
 				enableToolTip(false);
 			}
 			else {
@@ -146,7 +146,7 @@ namespace MyGUI
 			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
 		}
 
-		DropState state;
+		DropItemState state;
 
 		DropWidgetState data(mDropSenderIndex);
 		data.update = update;
@@ -154,17 +154,17 @@ namespace MyGUI
 		if (reseiver == null) {
 			data.accept = false;
 			data.refuse = false;
-			state = DROP_MISS;
+			state = DropItemState::Miss;
 		}
 		else if (mDropResult) {
 			data.accept = true;
 			data.refuse = false;
-			state = DROP_ACCEPT;
+			state = DropItemState::Accept;
 		}
 		else {
 			data.accept = false;
 			data.refuse = true;
-			state = DROP_REFUSE;
+			state = DropItemState::Refuse;
 		}
 
 		updateDropItemsState(data);
@@ -182,7 +182,7 @@ namespace MyGUI
 
 			if (_reset) mDropResult = false;
 			eventEndDrop(this, mDropInfo, mDropResult);
-			eventDropState(this, DROP_END);
+			eventDropState(this, DropItemState::End);
 			enableToolTip(true);
 
 			// сбрасываем инфу для дропа

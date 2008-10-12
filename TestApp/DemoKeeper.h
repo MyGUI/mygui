@@ -18,7 +18,7 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
-	protected:
+	/*protected:
 		void notifyStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result);
 		void notifyRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result);
 		void notifyEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result);
@@ -30,7 +30,7 @@ namespace demo
 	private:
 		MyGUI::StaticImagePtr mDropImage;
 		MyGUI::IntCoord mDropDimension;
-
+*/
 	};
 
 } // namespace demo
