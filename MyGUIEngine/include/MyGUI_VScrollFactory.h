@@ -9,23 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_VScroll.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport VScrollFactory : public IWidgetFactory
+		class _MyGUIExport VScrollFactory : public BaseWidgetFactory<VScroll>
 		{
 		public:
 			VScrollFactory();
 			~VScrollFactory();
-
-			// реализация интерфейса фабрики
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
 		private:
 			// методы для парсинга, вызываются для базового класа, поэтому работает и для HScroll
 			void Scroll_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value);

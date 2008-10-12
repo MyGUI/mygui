@@ -35,7 +35,7 @@ namespace MyGUI
 	class _MyGUIExport MenuBar : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::MenuBarFactory;
+		friend class factory::BaseWidgetFactory<MenuBar>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

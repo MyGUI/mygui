@@ -17,7 +17,7 @@ namespace MyGUI
 	class _MyGUIExport Progress : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::ProgressFactory;
+		friend class factory::BaseWidgetFactory<Progress>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

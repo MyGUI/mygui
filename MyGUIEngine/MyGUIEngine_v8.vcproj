@@ -369,6 +369,14 @@
 						RelativePath=".\src\MyGUI_WindowFactory.cpp"
 						>
 					</File>
+					<Filter
+						Name="Interfaces"
+						>
+						<File
+							RelativePath=".\src\MyGUI_IWidgetFactory.cpp"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter

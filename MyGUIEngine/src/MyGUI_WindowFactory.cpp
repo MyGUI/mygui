@@ -5,8 +5,6 @@
 	@module
 */
 #include "MyGUI_WindowFactory.h"
-#include "MyGUI_Window.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
@@ -16,10 +14,7 @@ namespace MyGUI
 
 		WindowFactory::WindowFactory()
 		{
-			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
-
 			// регестрируем все парсеры
 			manager.registerDelegate("Window_AutoAlpha") = newDelegate(this, &WindowFactory::Window_AutoAlpha);
 			manager.registerDelegate("Window_Snap") = newDelegate(this, &WindowFactory::Window_Snap);
@@ -30,10 +25,7 @@ namespace MyGUI
 
 		WindowFactory::~WindowFactory()
 		{
-			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.unregisterFactory(this);
-
 			// удаляем все парсеры
 			manager.unregisterDelegate("Window_AutoAlpha");
 			manager.unregisterDelegate("Window_Snap");
@@ -42,43 +34,33 @@ namespace MyGUI
 			manager.unregisterDelegate("Window_MaxSize");
 		}
 
-		const std::string & WindowFactory::getTypeName()
-		{
-			return Window::getClassTypeName();
-		}
-
-		WidgetPtr WindowFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
-		{
-			return new Window(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
-		}
-
 		void WindowFactory::Window_AutoAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Window, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<WindowPtr>(_widget)->setAutoAlpha(utility::parseBool(_value));
 		}
 
 		void WindowFactory::Window_Snap(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Window, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<WindowPtr>(_widget)->setSnap(utility::parseBool(_value));
 		}
 
 		void WindowFactory::Window_MinMax(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Window, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));
 		}
 
 		void WindowFactory::Window_MinSize(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Window, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<WindowPtr>(_widget)->setMinSize(IntSize::parse(_value));
 		}
 
 		void WindowFactory::Window_MaxSize(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Window, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<WindowPtr>(_widget)->setMaxSize(IntSize::parse(_value));
 		}
 

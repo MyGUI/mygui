@@ -9,23 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport ButtonFactory : public IWidgetFactory
+		class _MyGUIExport ButtonFactory : public BaseWidgetFactory<Button>
 		{
 		public:
 			ButtonFactory();
 			~ButtonFactory();
-
-			// реализация интерфейса фабрики
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
 		private:
 			// методы для парсинга
 			void Button_Pressed(WidgetPtr _widget, const std::string &_key, const std::string &_value);

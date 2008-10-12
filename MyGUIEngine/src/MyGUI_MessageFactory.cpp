@@ -5,8 +5,6 @@
 	@module
 */
 #include "MyGUI_MessageFactory.h"
-#include "MyGUI_Message.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_LanguageManager.h"
@@ -23,10 +21,7 @@ namespace MyGUI
 
 		MessageFactory::MessageFactory()
 		{
-			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
-
 			initialise();
 
 			// регестрируем все парсеры
@@ -41,10 +36,7 @@ namespace MyGUI
 
 		MessageFactory::~MessageFactory()
 		{
-			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.unregisterFactory(this);
-
 			shutdown();
 
 			// удаляем все парсеры
@@ -57,16 +49,6 @@ namespace MyGUI
 			manager.unregisterDelegate("Message_Fade");
 		}
 
-		const std::string & MessageFactory::getTypeName()
-		{
-			return Message::getClassTypeName();
-		}
-
-		WidgetPtr MessageFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
-		{
-			return new Message(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
-		}
-
 		Ogre::UTFString MessageFactory::_getButtonName(size_t _index)
 		{
 			if (mVectorButtonName.size() <= _index) return "";
@@ -75,44 +57,44 @@ namespace MyGUI
 
 		void MessageFactory::Message_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<MessagePtr>(_widget)->setCaption(_value);
 		}
 
 		void MessageFactory::Message_Message(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<MessagePtr>(_widget)->setMessage(_value);
 		}
 
 		void MessageFactory::Message_Modal(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			if (utility::parseBool(_value)) InputManager::getInstance().addWidgetModal(_widget);
 			else InputManager::getInstance().removeWidgetModal(_widget);
 		}
 
 		void MessageFactory::Message_Button(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<MessagePtr>(_widget)->setButton((Message::ViewInfo)parseButton(_value));
 		}
 
 		void MessageFactory::Message_AddButton(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<MessagePtr>(_widget)->addButtonName(_value);
 		}
 
 		void MessageFactory::Message_SmoothShow(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<MessagePtr>(_widget)->setSmoothShow(utility::parseBool(_value));
 		}
 
 		void MessageFactory::Message_Fade(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Message, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<MessagePtr>(_widget)->setWindowFade(utility::parseBool(_value));
 		}
 

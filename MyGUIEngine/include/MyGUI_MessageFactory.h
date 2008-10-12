@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_Message.h"
 
 namespace MyGUI
 {
@@ -18,15 +18,11 @@ namespace MyGUI
 
 		typedef std::vector<Ogre::UTFString> VectorUTFString;
 
-		class _MyGUIExport MessageFactory : public IWidgetFactory
+		class _MyGUIExport MessageFactory : public BaseWidgetFactory<Message>
 		{
 		public:
 			MessageFactory();
 			~MessageFactory();
-
-			// реализация интерфейса фабрики
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
 
 			static Ogre::UTFString _getButtonName(size_t _index);
 			static const std::string & _getDefaultSkin() {return mDefaultSkin;}

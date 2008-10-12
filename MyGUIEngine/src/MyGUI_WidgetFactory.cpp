@@ -5,8 +5,6 @@
 	@module
 */
 #include "MyGUI_WidgetFactory.h"
-#include "MyGUI_Widget.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
@@ -27,10 +25,7 @@ namespace MyGUI
 		WidgetFactory::WidgetFactory() :
 			mNeedTranslate(false)
 		{
-			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
-
 			LanguageManager::getInstance().eventChangeLanguage += newDelegate(this, &WidgetFactory::notifyChangeLanguage);
 
 			// регестрируем все парсеры
@@ -65,10 +60,7 @@ namespace MyGUI
 
 		WidgetFactory::~WidgetFactory()
 		{
-			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.unregisterFactory(this);
-
 			LanguageManager::getInstance().eventChangeLanguage -= newDelegate(this, &WidgetFactory::notifyChangeLanguage);
 
 			// удаляем все парсеры
@@ -99,16 +91,6 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_eventMouseButtonDoubleClick");
 			//... many events still missed
 			manager.unregisterDelegate("Widget_eventToolTip");
-		}
-
-		const std::string & WidgetFactory::getTypeName()
-		{
-			return Widget::getClassTypeName();
-		}
-
-		WidgetPtr WidgetFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
-		{
-			return new Widget(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
 		}
 
 		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value)

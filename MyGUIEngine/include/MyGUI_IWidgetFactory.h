@@ -14,22 +14,33 @@
 
 namespace MyGUI
 {
-
 	class _MyGUIExport IWidgetFactory
 	{
 	public:
-        virtual ~IWidgetFactory() { }
+		virtual ~IWidgetFactory() { }
 
 		virtual const std::string & getTypeName() = 0;
 		virtual WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name) = 0;
 	};
 
-	#define MYGUI_RETURN_IS_FALSE_TYPE(type, ptr, key) \
-	if (!ptr->isType<type>()) { \
-		MYGUI_LOG(Error, "Property '" << key << "' is not supported by '" << ptr->getTypeName() << "' widget"); \
-		return; \
-	}
+	namespace factory
+	{
 
+		template <typename T>
+		class _MyGUIExport BaseWidgetFactory : public IWidgetFactory
+		{
+		public:
+			BaseWidgetFactory();
+			virtual ~BaseWidgetFactory();
+
+			const std::string & getTypeName();
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
+			bool isFalseType(WidgetPtr _ptr, const std::string &_key);
+		};
+
+	} // namespace factory
 } // namespace MyGUI
+
+#include "MyGUI_IWidgetFactory.cpp"
 
 #endif // __MYGUI_I_WIDGET_FACTORY_H__

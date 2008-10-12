@@ -16,7 +16,7 @@ namespace MyGUI
 	class _MyGUIExport VScroll : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::VScrollFactory;
+		friend class factory::BaseWidgetFactory<VScroll>;
 		
 		MYGUI_RTTI_CHILD_HEADER;
 

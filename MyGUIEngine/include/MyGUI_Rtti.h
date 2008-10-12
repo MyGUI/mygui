@@ -1,6 +1,6 @@
 /*!
 	@file
-	@author		Rageous
+	@author		Alexander Buryak
 	@author		Albert Semenov
 	@date		09/2008
 	@module
