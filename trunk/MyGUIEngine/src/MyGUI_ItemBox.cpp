@@ -35,12 +35,6 @@ namespace MyGUI
 		mIndexActive(ITEM_NONE),
 		mIndexAccept(ITEM_NONE),
 		mIndexRefuse(ITEM_NONE),
-		//mOldDrop(null),
-		//mDropResult(false),
-		//mCurrentSender(null),
-		//mStartDrop(false),
-		//mNeedDrop(false),
-		//mDropSenderIndex(ITEM_NONE),
 		mAlignVert(true),
 		mItemDrag(null)
 	{
@@ -560,34 +554,6 @@ namespace MyGUI
 
 	}
 
-	/*void ItemBox::notifyInvalideDrop(WidgetPtr _sender)
-	{
-		const IntPoint& point = InputManager::getInstance().getMousePosition();
-		notifyMouseDrag(null, point.left, point.top);
-	}*/
-
-	/*void ItemBox::endDrop(bool _reset)
-	{
-		if (mStartDrop) {
-			if (mItemDrag) mItemDrag->hide();
-
-			// сбрасываем старую подсветку
-			if (mDropInfo.reseiver) mDropInfo.reseiver->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
-
-			if (_reset) mDropResult = false;
-			eventEndDrop(this, mDropInfo, mDropResult);
-			eventDropState(this, DROP_END);
-			enableToolTip(true);
-
-			// сбрасываем инфу для дропа
-			mStartDrop = false;
-			mDropResult = false;
-			mOldDrop = null;
-			mDropInfo.reset();
-			mDropSenderIndex = ITEM_NONE;
-		}
-	}*/
-
 	void ItemBox::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
 		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
@@ -724,114 +690,6 @@ namespace MyGUI
 	void ItemBox::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
 		mouseDrag();
-		// нужно ли обновить данные
-		/*bool update = false;
-
-		// первый раз дропаем елемент
-		if (false == mStartDrop) {
-			mStartDrop = true;
-			mNeedDrop = false;
-			update = true;
-			// запрос на нужность дропа по индексу
-			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
-			eventStartDrop(this, mDropInfo, mNeedDrop);
-
-			if (mNeedDrop) {
-				eventDropState(this, DROP_START);
-				enableToolTip(false);
-			}
-			else {
-				// сбрасываем фокус мыши (не обязательно)
-				InputManager::getInstance().resetMouseCaptureWidget();
-			}
-		}
-
-		// дроп не нужен
-		if (false == mNeedDrop) {
-			return;
-		}
-
-		// делаем запрос, над кем наша мыша
-		WidgetPtr item = InputManager::getInstance().getWidgetFromPoint(_left, _top);
-
-		if (null == mItemDrag) {
-			// спрашиваем размер иконок
-			IntCoord coord;
-			mPointDragOffset = coord.point();
-			requestCoordWidgetItem(this, coord, true);
-			convertWidgetCoord(coord, mAlignVert);
-
-			// создаем и запрашиваем детей
-			mItemDrag = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, "DragAndDrop");
-			requestCreateWidgetItem(this, mItemDrag);
-		}
-
-		//IntPoint point = InputManager::getInstance().getLastLeftPressed() - _sender2->getAbsolutePosition();
-		mItemDrag->setPosition(_left - mClickInWidget.left + mPointDragOffset.left, _top - mClickInWidget.top + mPointDragOffset.top);
-		mItemDrag->show();
-
-		// если равно, значит уже спрашивали
-		if (mOldDrop == item) return;
-
-		// сбрасываем старую подсветку
-		if (mDropInfo.reseiver) mDropInfo.reseiver->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
-
-		mDropResult = false;
-		WidgetPtr reseiver = null;
-		size_t reseiver_index = ITEM_NONE;
-		// есть виджет под нами
-		if (item) {
-			// делаем запрос на индекс по произвольному виджету
-			item->getContainer(reseiver, reseiver_index);
-			if (reseiver) {
-				// подписываемся на информацию о валидности дропа
-				reseiver->eventInvalideContainer = newDelegate(this, &ItemBox::notifyInvalideDrop);
-
-				// делаем запрос на возможность дропа
-				mDropInfo.set(this, mDropSenderIndex, reseiver, reseiver_index);
-				eventRequestDrop(this, mDropInfo, mDropResult);
-
-				// устанавливаем новую подсветку
-				mDropInfo.reseiver->setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
-			}
-			else {
-				mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
-			}
-		}
-		// нет виджета под нами
-		else {
-			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
-		}
-
-		mOldDrop = item;
-		DropState state;
-
-		ItemInfo data;
-		if (reseiver == null) {
-			data.drag_accept = false;
-			data.drag_refuse = false;
-			state = DROP_MISS;
-		}
-		else if (mDropResult) {
-			data.drag_accept = true;
-			data.drag_refuse = false;
-			state = DROP_ACCEPT;
-		}
-		else {
-			data.drag_accept = false;
-			data.drag_refuse = true;
-			state = DROP_REFUSE;
-		}
-		data.select = false;
-		data.active = false;
-
-		data.index = mDropSenderIndex;
-		data.update = update;
-		data.drag = true;
-
-		requestUpdateWidgetItem(this, mItemDrag, data);
-
-		eventDropState(this, state);*/
 	}
 
 	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
@@ -840,11 +698,6 @@ namespace MyGUI
 
 		if ( MB_Left == _id) {
 			size_t old = mIndexSelect;
-
-			// сбрасываем инфу для дропа
-			/*mDropResult = false;
-			mOldDrop = null;
-			mDropInfo.reset();*/
 
 			if (_sender == mWidgetClient) {
 				// сбрасываем выделение
@@ -859,9 +712,6 @@ namespace MyGUI
 				setItemSelectedAt(mDropSenderIndex);
 			}
 
-			// сбрасываем, чтобы обновился дропный виджет
-			//mCurrentSender = null;
-			//mStartDrop = false;
 			// смещение внутри виджета, куда кликнули мышкой
 			mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
 
@@ -870,11 +720,6 @@ namespace MyGUI
 			// смену позиции отсылаем только при реальном изменении
 			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
-		// если нажата другая клавиша и был дроп то сбрасываем
-		/*else {
-			endDrop(true);
-		}*/
-			
 
 		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
 	}

@@ -20,7 +20,7 @@ namespace MyGUI
 	// делегаты для дропа
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
-	typedef delegates::CDelegate2<WidgetPtr, DropState> EventInfo_WidgetDropState;
+	typedef delegates::CDelegate2<WidgetPtr, DropItemState> EventInfo_WidgetDropState;
 
 	class _MyGUIExport DDContainer : public Widget
 	{

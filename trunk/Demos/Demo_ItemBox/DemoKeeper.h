@@ -25,7 +25,7 @@ private:
 	void notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result);
 	void notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result);
 	void notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _result);
-	void notifyDropState(BaseLayout * _sender, MyGUI::DropState _state);
+	void notifyDropState(BaseLayout * _sender, MyGUI::DropItemState _state);
 	void notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info);
 
 	void notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data);

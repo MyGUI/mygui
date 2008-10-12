@@ -261,7 +261,6 @@ namespace MyGUI
 		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
-		//void notifyInvalideDrop(WidgetPtr _sender);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -299,9 +298,6 @@ namespace MyGUI
 
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void resetContainer(bool _update);
-
-		//void endDrop(bool _reset);
-
 
 	private:
 		VScrollPtr mWidgetScroll;
@@ -350,18 +346,7 @@ namespace MyGUI
 		VectorItemInfo mItemsInfo;
 
 		WidgetPtr mItemDrag;
-		//WidgetPtr mOldDrop;
-
-		//bool mDropResult;
-		//ItemDropInfo mDropInfo;
 		IntPoint mPointDragOffset;
-
-		//WidgetPtr mCurrentSender;
-		//size_t mDropSenderIndex;
-		//IntPoint mClickInWidget;
-
-		//bool mStartDrop;
-		//bool mNeedDrop;
 
 		bool mAlignVert;
 
