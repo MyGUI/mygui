@@ -8,7 +8,7 @@
 #define __MYGUI_ITEM_BOX_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_DDContainer.h"
 #include "MyGUI_Any.h"
 
 namespace MyGUI
@@ -89,7 +89,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo &> EventInfo_WidgetWidgetItemInfo;
 
-	class _MyGUIExport ItemBox : public Widget
+	class _MyGUIExport ItemBox : public DDContainer
 	{
 		// для вызова закрытого конструктора
 		friend class factory::ItemBoxFactory;
@@ -245,22 +245,30 @@ namespace MyGUI
 
 	protected:
 
-		void onMouseWheel(int _rel);
-		void onKeyLostFocus(WidgetPtr _new);
-		void onKeySetFocus(WidgetPtr _old);
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		virtual void onMouseDrag(int _left, int _top);
 
+		virtual void onMouseWheel(int _rel);
+		virtual void onKeyLostFocus(WidgetPtr _new);
+		virtual void onKeySetFocus(WidgetPtr _old);
+
+		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
+		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
 		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
+		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
+		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
+		//void notifyInvalideDrop(WidgetPtr _sender);
+		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
-		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _list, size_t & _index);
-		void notifyInvalideDrop(WidgetPtr _sender);
-		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
-		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
+
+		virtual void removeDropItems();
+		virtual void updateDropItems();
+		virtual void updateDropItemsState(const DropWidgetState & _state);
 
 		// Обновляет данные о айтемах, при изменении размеров 
 		void updateMetrics();
@@ -292,7 +300,7 @@ namespace MyGUI
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void resetContainer(bool _update);
 
-		void endDrop(bool _reset);
+		//void endDrop(bool _reset);
 
 
 	private:
@@ -342,18 +350,18 @@ namespace MyGUI
 		VectorItemInfo mItemsInfo;
 
 		WidgetPtr mItemDrag;
-		WidgetPtr mOldDrop;
+		//WidgetPtr mOldDrop;
 
-		bool mDropResult;
-		ItemDropInfo mDropInfo;
+		//bool mDropResult;
+		//ItemDropInfo mDropInfo;
 		IntPoint mPointDragOffset;
 
-		WidgetPtr mCurrentSender;
-		size_t mDropSenderIndex;
-		IntPoint mClickInWidget;
+		//WidgetPtr mCurrentSender;
+		//size_t mDropSenderIndex;
+		//IntPoint mClickInWidget;
 
-		bool mStartDrop;
-		bool mNeedDrop;
+		//bool mStartDrop;
+		//bool mNeedDrop;
 
 		bool mAlignVert;
 
