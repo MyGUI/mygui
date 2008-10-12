@@ -155,10 +155,10 @@ void DemoKeeper::end()
 
 void DemoKeeper::notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
 {
-	if (_info.type == MyGUI::ToolTipInfo::ToolTipShow) {
+	if (_info.type == MyGUI::ToolTipInfo::Show) {
 		mToolTip.show(_data, _info.point);
 	}
-	else if (_info.type == MyGUI::ToolTipInfo::ToolTipHide) {
+	else if (_info.type == MyGUI::ToolTipInfo::Hide) {
 		mToolTip.hide();
 	}
 }

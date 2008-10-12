@@ -191,15 +191,15 @@
 				Name="Widget"
 				>
 				<File
-					RelativePath=".\src\DDContainer.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\MyGUI_Button.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\MyGUI_ComboBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_DDContainer.cpp"
 					>
 				</File>
 				<File
