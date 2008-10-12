@@ -18,7 +18,7 @@ namespace MyGUI
 	class _MyGUIExport Window : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::WindowFactory;
+		friend class factory::BaseWidgetFactory<Window>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

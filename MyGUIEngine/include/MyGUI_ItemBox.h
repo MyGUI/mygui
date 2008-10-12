@@ -92,7 +92,7 @@ namespace MyGUI
 	class _MyGUIExport ItemBox : public DDContainer
 	{
 		// для вызова закрытого конструктора
-		friend class factory::ItemBoxFactory;
+		friend class factory::BaseWidgetFactory<ItemBox>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

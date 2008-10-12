@@ -12,7 +12,7 @@ namespace MyGUI
 	class StrangeButton : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::StrangeButtonFactory;
+		friend class factory::BaseWidgetFactory<StrangeButton>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

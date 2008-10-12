@@ -16,7 +16,7 @@ namespace MyGUI
 	class _MyGUIExport ScrollView : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::ScrollViewFactory;
+		friend class factory::BaseWidgetFactory<ScrollView>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

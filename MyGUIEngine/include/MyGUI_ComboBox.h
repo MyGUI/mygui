@@ -18,7 +18,7 @@ namespace MyGUI
 	class _MyGUIExport ComboBox : public Edit
 	{
 		// для вызова закрытого конструктора
-		friend class factory::ComboBoxFactory;
+		friend class factory::BaseWidgetFactory<ComboBox>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

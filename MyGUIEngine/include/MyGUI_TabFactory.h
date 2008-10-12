@@ -9,23 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_Tab.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport TabFactory : public IWidgetFactory
+		class _MyGUIExport TabFactory : public BaseWidgetFactory<Tab>
 		{
 		public:
 			TabFactory();
 			~TabFactory();
-
-			// реализация интерфейса фабрики
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
 		private:
 			// методы для парсинга
 			void Tab_ButtonWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);

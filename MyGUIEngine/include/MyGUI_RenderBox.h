@@ -23,7 +23,7 @@ namespace MyGUI
 	class _MyGUIExport RenderBox : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::RenderBoxFactory;
+		friend class factory::BaseWidgetFactory<RenderBox>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

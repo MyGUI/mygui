@@ -25,7 +25,7 @@ namespace MyGUI
 	class _MyGUIExport DDContainer : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::DDContainerFactory;
+		friend class factory::BaseWidgetFactory<DDContainer>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 
