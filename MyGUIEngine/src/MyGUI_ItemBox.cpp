@@ -41,7 +41,8 @@ namespace MyGUI
 		//mStartDrop(false),
 		//mNeedDrop(false),
 		//mDropSenderIndex(ITEM_NONE),
-		mAlignVert(true)
+		mAlignVert(true),
+		mItemDrag(null)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
