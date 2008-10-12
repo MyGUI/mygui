@@ -130,7 +130,7 @@ private:
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 	{
 		ItemData * data = null;
-		if (_info.type == MyGUI::ToolTipInfo::ToolTipShow) {
+		if (_info.type == MyGUI::ToolTipInfo::Show) {
 			if (_info.index == MyGUI::ITEM_NONE) return;
 			data = *mBoxItems->getItemDataAt<ItemData*>(_info.index);
 		}

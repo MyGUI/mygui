@@ -89,7 +89,7 @@ void BaseItemBox::notifyDropState(MyGUI::WidgetPtr _sender, MyGUI::DropState _st
 void BaseItemBox::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
 	ItemData * data = null;
-	if (_info.type == MyGUI::ToolTipInfo::ToolTipShow) {
+	if (_info.type == MyGUI::ToolTipInfo::Show) {
 		if (_info.index == ITEM_NONE) return;
 		data = (ItemData*)mBoxItems->getItemData(_info.index);
 	}
