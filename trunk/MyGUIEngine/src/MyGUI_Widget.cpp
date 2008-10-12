@@ -127,7 +127,7 @@ namespace MyGUI
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
 		//Gui::getInstance().removeFrameListener(newDelegate(this, &Widget::frameEntered));
 
-		if (mToolTipVisible) eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
+		if (mToolTipVisible) eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 
 		_detachFromLayerItemKeeper();
 
@@ -735,7 +735,7 @@ namespace MyGUI
 						if (mToolTipVisible) {
 							mToolTipCurrentTime = 0;
 							mToolTipVisible = false;
-							eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
+							eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 						}
 						mToolTipOldIndex = index;
 					}
@@ -745,7 +745,7 @@ namespace MyGUI
 					if (mToolTipVisible) {
 						mToolTipCurrentTime = 0;
 						mToolTipVisible = false;
-						eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
+						eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 					}
 				}
 
@@ -754,7 +754,7 @@ namespace MyGUI
 				if (mToolTipVisible) {
 					mToolTipCurrentTime = 0;
 					mToolTipVisible = false;
-					eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
+					eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 				}
 			}
 
@@ -780,7 +780,7 @@ namespace MyGUI
 						mToolTipCurrentTime += _frame;
 						if (mToolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT) {
 							mToolTipVisible = true;
-							eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipShow, mToolTipOldIndex, point));
+							eventToolTip(this, ToolTipInfo(ToolTipInfo::Show, mToolTipOldIndex, point));
 						}
 					}
 				}
@@ -797,7 +797,7 @@ namespace MyGUI
 			if (mToolTipVisible) {
 				mToolTipCurrentTime = 0;
 				mToolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
+				eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 			}
 		}
 		else {
@@ -810,7 +810,7 @@ namespace MyGUI
 		if ( mEnableToolTip) {
 			if (mToolTipVisible) {
 				mToolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(ToolTipInfo::ToolTipHide));
+				eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 			}
 			mToolTipCurrentTime = 0;
 			mToolTipOldIndex = ITEM_NONE;

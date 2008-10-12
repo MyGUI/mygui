@@ -272,7 +272,7 @@ namespace MyGUI
 
 
 		// метод для запроса номера айтема и контейнера
-		void getContainer(WidgetPtr & _list, size_t & _index);
+		virtual void getContainer(WidgetPtr & _container, size_t & _index);
 		// метод для установления стейта айтема
 		//FIXME перенести в класс контейнер
 		virtual void setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
