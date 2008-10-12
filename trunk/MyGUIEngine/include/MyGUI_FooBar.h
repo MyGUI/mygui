@@ -74,7 +74,7 @@ namespace MyGUI
 
 	class _MyGUIExport FooBar : public Widget
 	{
-		friend class factory::FooBarFactory;
+		friend class factory::BaseWidgetFactory<FooBar>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

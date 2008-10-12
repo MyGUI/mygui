@@ -20,7 +20,7 @@ namespace MyGUI
 	class _MyGUIExport MultiList : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::MultiListFactory;
+		friend class factory::BaseWidgetFactory<MultiList>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

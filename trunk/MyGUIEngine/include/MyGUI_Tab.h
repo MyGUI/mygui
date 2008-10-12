@@ -37,7 +37,7 @@ namespace MyGUI
 	class _MyGUIExport Tab : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::TabFactory;
+		friend class factory::BaseWidgetFactory<Tab>;
 		// для уведобления об удалении
 		friend class Sheet;
 

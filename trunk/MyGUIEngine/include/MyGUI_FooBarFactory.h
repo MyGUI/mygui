@@ -9,22 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_FooBar.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport FooBarFactory : public IWidgetFactory
+		class _MyGUIExport FooBarFactory : public BaseWidgetFactory<FooBar>
 		{
 		public:
 			FooBarFactory();
 			~FooBarFactory();
-
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
 		};
 
 	} // namespace factory

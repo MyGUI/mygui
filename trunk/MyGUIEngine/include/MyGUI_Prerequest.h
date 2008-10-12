@@ -46,13 +46,15 @@ namespace MyGUI
 	class DelegateManager;
 	class LanguageManager;
 	class ResourceManager;
-
+	
 	class IWidgetFactory;
 
 	class DynLib;
 
 	namespace factory
 	{
+		template <typename T> class BaseWidgetFactory;
+
 		class WidgetFactory;
 		class ButtonFactory;
 		class WindowFactory;
@@ -165,13 +167,6 @@ namespace MyGUI
 // instantiation request" Occurs in VC7 for no justifiable reason on all
 // #includes of Singleton
 #   pragma warning( disable: 4661)
-
-// disable: deprecation warnings when using CRT calls in VC8
-// These show up on all C runtime lib code in VC8, disable since they clutter
-// the warnings with things we may not be able to do anything about (e.g.
-// generated code from nvparse etc). I doubt very much that these calls
-// will ever be actually removed from VC anyway, it would break too much code.
-#	pragma warning( disable: 4996)
 
 
 #endif

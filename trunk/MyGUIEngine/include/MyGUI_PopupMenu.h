@@ -18,7 +18,7 @@ namespace MyGUI
 	class _MyGUIExport PopupMenu : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::PopupMenuFactory;
+		friend class factory::BaseWidgetFactory<PopupMenu>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

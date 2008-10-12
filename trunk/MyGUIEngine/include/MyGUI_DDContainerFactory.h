@@ -9,23 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_DDContainer.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport DDContainerFactory : public IWidgetFactory
+		class _MyGUIExport DDContainerFactory : public BaseWidgetFactory<DDContainer>
 		{
 		public:
 			DDContainerFactory();
 			~DDContainerFactory();
-
-			// реализация интерфейса фабрики
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
 		};
 
 	} // namespace factory

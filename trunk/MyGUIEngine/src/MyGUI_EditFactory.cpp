@@ -5,8 +5,6 @@
 	@module
 */
 #include "MyGUI_EditFactory.h"
-#include "MyGUI_Edit.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
@@ -16,10 +14,7 @@ namespace MyGUI
 
 		EditFactory::EditFactory()
 		{
-			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
-
 			// регестрируем все парсеры
 			manager.registerDelegate("Edit_CursorPosition") = newDelegate(this, &EditFactory::Edit_CursorPosition);
 			manager.registerDelegate("Edit_TextSelect") = newDelegate(this, &EditFactory::Edit_TextSelect);
@@ -37,10 +32,7 @@ namespace MyGUI
 
 		EditFactory::~EditFactory()
 		{
-			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.unregisterFactory(this);
-
 			// удаляем все парсеры
 			manager.unregisterDelegate("Edit_CursorPosition");
 			manager.unregisterDelegate("Edit_TextSelect");
@@ -56,86 +48,76 @@ namespace MyGUI
 			manager.unregisterDelegate("Edit_WordWrap");
 		}
 
-		const std::string & EditFactory::getTypeName()
-		{
-			return Edit::getClassTypeName();
-		}
-
-		WidgetPtr EditFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
-		{
-			return new Edit(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
-		}
-
 		void EditFactory::Edit_CursorPosition(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setTextCursor(utility::parseSizeT(_value));
 		}
 
 		void EditFactory::Edit_TextSelect(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			std::vector<std::string> vec = utility::split(_value);
 			if (vec.size() == 2) static_cast<EditPtr>(_widget)->setTextSelect(utility::parseSizeT(vec[0]), utility::parseSizeT(vec[1]));
 		}
 
 		void EditFactory::Edit_ReadOnly(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setEditReadOnly(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_Password(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setEditPassword(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_MultiLine(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setEditMultiLine(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_PasswordChar(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setPasswordChar(_value);
 		}
 
 		void EditFactory::Edit_MaxTextLength(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setMaxTextLength(utility::parseSizeT(_value));
 		}
 
 		void EditFactory::Edit_OverflowToTheLeft(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setOverflowToTheLeft(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_Static(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setEditStatic(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_ShowVScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->showVScroll(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_ShowHScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->showHScroll(utility::parseBool(_value));
 		}
 
 		void EditFactory::Edit_WordWrap(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Edit, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setEditWordWrap(utility::parseBool(_value));
 		}
 

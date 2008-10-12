@@ -3,23 +3,19 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "StrangeButton.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport StrangeButtonFactory : public IWidgetFactory
+		class _MyGUIExport StrangeButtonFactory : public BaseWidgetFactory<StrangeButton>
 		{
 		public:
 			StrangeButtonFactory();
 			~StrangeButtonFactory();
-
-			// реализация интерфейса фабрики
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
+		private:
 			// методы для парсинга
 			void ButtonPressed(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};

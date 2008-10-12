@@ -9,23 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_RenderBox.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport RenderBoxFactory : public IWidgetFactory
+		class _MyGUIExport RenderBoxFactory : public BaseWidgetFactory<RenderBox>
 		{
 		public:
 			RenderBoxFactory();
 			~RenderBoxFactory();
-
-			// реализация интерфейса фабрики
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
 		private:
 			// методы для парсинга
 			void RenderBox_Mesh(WidgetPtr _widget, const std::string &_key, const std::string &_value);

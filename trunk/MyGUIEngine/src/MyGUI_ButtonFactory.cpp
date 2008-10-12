@@ -5,8 +5,6 @@
 	@module
 */
 #include "MyGUI_ButtonFactory.h"
-#include "MyGUI_Button.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
@@ -16,37 +14,21 @@ namespace MyGUI
 
 		ButtonFactory::ButtonFactory()
 		{
-			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
-
 			// регестрируем все парсеры
 			manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed);
 		}
 
 		ButtonFactory::~ButtonFactory()
 		{
-			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.unregisterFactory(this);
-
 			// удаляем все парсеры
 			manager.unregisterDelegate("Button_Pressed");
 		}
 
-		const std::string & ButtonFactory::getTypeName()
-		{
-			return Button::getClassTypeName();
-		}
-
-		WidgetPtr ButtonFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
-		{
-			return new Button(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
-		}
-
 		void ButtonFactory::Button_Pressed(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(Button, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<ButtonPtr>(_widget)->setButtonPressed(utility::parseBool(_value));
 		}
 

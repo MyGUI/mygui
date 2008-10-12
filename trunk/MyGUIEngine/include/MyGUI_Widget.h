@@ -27,7 +27,7 @@ namespace MyGUI
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
 		// для вызова закрытого конструктора
-		friend class factory::WidgetFactory;
+		friend class factory::BaseWidgetFactory<Widget>;
 
 		MYGUI_RTTI_BASE_HEADER;
 

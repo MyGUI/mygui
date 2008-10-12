@@ -18,7 +18,7 @@ namespace MyGUI
 	class _MyGUIExport Edit : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::EditFactory;
+		friend class factory::BaseWidgetFactory<Edit>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 

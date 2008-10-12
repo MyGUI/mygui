@@ -5,8 +5,6 @@
 	@module
 */
 #include "MyGUI_RenderBoxFactory.h"
-#include "MyGUI_RenderBox.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
@@ -16,10 +14,7 @@ namespace MyGUI
 
 		RenderBoxFactory::RenderBoxFactory()
 		{
-			// регестрируем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.registerFactory(this);
-
 			// регестрируем все парсеры
 			manager.registerDelegate("RenderBox_Mesh") = newDelegate(this, &RenderBoxFactory::RenderBox_Mesh);
 			manager.registerDelegate("RenderBox_AutoRotation") = newDelegate(this, &RenderBoxFactory::RenderBox_AutoRotation);
@@ -33,10 +28,7 @@ namespace MyGUI
 
 		RenderBoxFactory::~RenderBoxFactory()
 		{
-			// удаляем себя
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			manager.unregisterFactory(this);
-
 			// удаляем все парсеры
 			manager.unregisterDelegate("RenderBox_Mesh");
 			manager.unregisterDelegate("RenderBox_AutoRotation");
@@ -48,61 +40,51 @@ namespace MyGUI
 			manager.unregisterDelegate("RenderBox_ViewScale");
 		}
 
-		const std::string & RenderBoxFactory::getTypeName()
-		{
-			return RenderBox::getClassTypeName();
-		}
-
-		WidgetPtr RenderBoxFactory::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
-		{
-			return new RenderBox(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
-		}
-
 		void RenderBoxFactory::RenderBox_Mesh(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->injectObject(_value);
 		}
 
 		void RenderBoxFactory::RenderBox_AutoRotation(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->setAutoRotation(utility::parseBool(_value));
 		}
 
 		void RenderBoxFactory::RenderBox_AutoRotationSpeed(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->setAutoRotationSpeed(utility::parseInt(_value));
 		}
 
 		void RenderBoxFactory::RenderBox_BackgroungColour(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->setBackgroungColour(utility::parseColour(_value));
 		}
 
 		void RenderBoxFactory::RenderBox_RotationAngle(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->setRotationAngle(Ogre::Degree(utility::parseInt(_value)));
 		}
 
 		void RenderBoxFactory::RenderBox_MouseRotation(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->setMouseRotation(utility::parseBool(_value));
 		}
 
 		void RenderBoxFactory::RenderBox_Animation(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->setAnimation(_value);
 		}
 
 		void RenderBoxFactory::RenderBox_ViewScale(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			MYGUI_RETURN_IS_FALSE_TYPE(RenderBox, _widget, _key);
+			if (isFalseType(_widget, _key)) return;
 			static_cast<RenderBoxPtr>(_widget)->setViewScale(utility::parseBool(_value));
 		}
 

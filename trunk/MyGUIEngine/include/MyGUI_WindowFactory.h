@@ -9,22 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_WidgetDefines.h"
+#include "MyGUI_Window.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport WindowFactory : public IWidgetFactory
+		class _MyGUIExport WindowFactory : public BaseWidgetFactory<Window>
 		{
 		public:
 			WindowFactory();
 			~WindowFactory();
-
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-
 		private:
 			// методы для парсинга
 			void Window_AutoAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value);
