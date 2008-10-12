@@ -20,10 +20,10 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( ItemBox, Widget );
+	MYGUI_RTTI_CHILD_IMPLEMENT( ItemBox, DDContainer );
 
 	ItemBox::ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _creator, _name),
+		DDContainer(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetScroll(null),
 		mLineTop(0),
 		mOffsetTop(0),
@@ -35,12 +35,12 @@ namespace MyGUI
 		mIndexActive(ITEM_NONE),
 		mIndexAccept(ITEM_NONE),
 		mIndexRefuse(ITEM_NONE),
-		mOldDrop(null),
-		mDropResult(false),
-		mCurrentSender(null),
-		mStartDrop(false),
-		mNeedDrop(false),
-		mDropSenderIndex(ITEM_NONE),
+		//mOldDrop(null),
+		//mDropResult(false),
+		//mCurrentSender(null),
+		//mStartDrop(false),
+		//mNeedDrop(false),
+		//mDropSenderIndex(ITEM_NONE),
 		mAlignVert(true)
 	{
 		// нам нужен фокус клавы
@@ -409,16 +409,16 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::requestGetContainer(WidgetPtr _sender, WidgetPtr & _list, size_t & _index)
+	void ItemBox::requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
 	{
 		if (_sender == mWidgetClient) {
-			_list = this;
+			_container = this;
 			_index = ITEM_NONE;
 		}
 		else {
 			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 			if (index < mItemsInfo.size()) {
-				_list = this;
+				_container = this;
 				_index = index;
 			}
 		}
@@ -559,65 +559,13 @@ namespace MyGUI
 
 	}
 
-	void ItemBox::notifyInvalideDrop(WidgetPtr _sender)
+	/*void ItemBox::notifyInvalideDrop(WidgetPtr _sender)
 	{
 		const IntPoint& point = InputManager::getInstance().getMousePosition();
 		notifyMouseDrag(null, point.left, point.top);
-	}
+	}*/
 
-	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
-	{
-		if ( MB_Left == _id) {
-			size_t old = mIndexSelect;
-
-			// сбрасываем инфу для дропа
-			mDropResult = false;
-			mOldDrop = null;
-			mDropInfo.reset();
-
-			if (_sender == mWidgetClient) {
-				// сбрасываем выделение
-				setItemSelectedAt(ITEM_NONE);
-			}
-			else {
-				// индекс отправителя
-				mDropSenderIndex = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-				MYGUI_ASSERT_RANGE(mDropSenderIndex, mItemsInfo.size(), "ItemBox::notifyMouseButtonPressed");
-
-				// выделенный елемент
-				setItemSelectedAt(mDropSenderIndex);
-			}
-
-			// сбрасываем, чтобы обновился дропный виджет
-			mCurrentSender = null;
-			mStartDrop = false;
-			// смещение внутри виджета, куда кликнули мышкой
-			mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
-
-			// отсылаем событие
-			eventMouseItemActivate(mWidgetEventSender, mIndexSelect);
-			// смену позиции отсылаем только при реальном изменении
-			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
-		}
-		// если нажата другая клавиша и был дроп то сбрасываем
-		else {
-			endDrop(true);
-		}
-			
-
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
-	}
-
-	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
-	{
-		if ( MB_Left == _id) {
-			endDrop(false);
-		}
-
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
-	}
-
-	void ItemBox::endDrop(bool _reset)
+	/*void ItemBox::endDrop(bool _reset)
 	{
 		if (mStartDrop) {
 			if (mItemDrag) mItemDrag->hide();
@@ -637,7 +585,7 @@ namespace MyGUI
 			mDropInfo.reset();
 			mDropSenderIndex = ITEM_NONE;
 		}
-	}
+	}*/
 
 	void ItemBox::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
@@ -647,10 +595,136 @@ namespace MyGUI
 		eventSelectItemAccept(this, index);
 	}
 
+	void ItemBox::setItemBoxAlignVert(bool _vert)
+	{
+		if (mAlignVert == _vert) return;
+		mAlignVert = _vert;
+
+		mCountItemInLine = -1;
+		updateFromResize(IntSize());
+	}
+
+	void ItemBox::notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char)
+	{
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_PRESSED, _key, _char));
+	}
+
+	void ItemBox::notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key)
+	{
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_RELEASED, _key));
+	}
+
+	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
+	{
+		MYGUI_ASSERT(_widget, "ItemBox::getIndexByWidget : Widget == null");
+		if (_widget == mWidgetClient) return ITEM_NONE;
+		MYGUI_ASSERT(_widget->getParent() == mWidgetClient, "ItemBox::getIndexByWidget : Widget is not child");
+
+		size_t index = *_widget->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getIndexByWidget");
+
+		return index;
+	}
+
+	size_t ItemBox::getContainerIndex(const IntPoint & _point)
+	{
+		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+			if ((*iter)->isShow()) {
+				if ((*iter)->getAbsoluteRect().inside(_point)) {
+					return getIndexByWidget(*iter);
+				}
+			}
+		}
+		return ITEM_NONE;
+	}
+
+	void ItemBox::resetContainer(bool _update)
+	{
+		// обязательно у базового
+		Widget::resetContainer(_update);
+
+		if ( ! _update) {
+			WidgetManager & instance = WidgetManager::getInstance();
+			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+				instance.unlinkFromUnlinkers(*iter);
+			}
+		}
+	}
+
+	WidgetPtr ItemBox::getWidgetByIndex(size_t _index)
+	{
+		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+			if ((*iter)->isShow()) {
+				size_t index = *(*iter)->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getWidgetByIndex");
+
+				if (index == _index) return (*iter);
+			}
+		}
+		return null;
+	}
+
+	void ItemBox::onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	{
+		Widget::onMouseButtonPressed(_left, _top, _id);
+	}
+
+	void ItemBox::onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	{
+		Widget::onMouseButtonReleased(_left, _top, _id);
+	}
+
+	void ItemBox::onMouseDrag(int _left, int _top)
+	{
+		Widget::onMouseDrag(_left, _top);
+	}
+
+	void ItemBox::removeDropItems()
+	{
+		if (mItemDrag) mItemDrag->hide();
+	}
+
+	void ItemBox::updateDropItems()
+	{
+		if (null == mItemDrag) {
+			// спрашиваем размер иконок
+			IntCoord coord;
+			mPointDragOffset = coord.point();
+			requestCoordWidgetItem(this, coord, true);
+			convertWidgetCoord(coord, mAlignVert);
+
+			// создаем и запрашиваем детей
+			mItemDrag = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, "DragAndDrop");
+			requestCreateWidgetItem(this, mItemDrag);
+		}
+
+		const IntPoint & point = InputManager::getInstance().getMousePosition();
+
+		mItemDrag->setPosition(point.left - mClickInWidget.left + mPointDragOffset.left, point.top - mClickInWidget.top + mPointDragOffset.top);
+		mItemDrag->show();
+	}
+
+	void ItemBox::updateDropItemsState(const DropWidgetState & _state)
+	{
+		ItemInfo data;
+		data.drag_accept = _state.accept;
+		data.drag_refuse = _state.refuse;
+
+		data.select = false;
+		data.active = false;
+
+		data.index = mDropSenderIndex;
+		data.update = _state.update;
+		data.drag = true;
+
+		requestUpdateWidgetItem(this, mItemDrag, data);
+	}
+
 	void ItemBox::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
+		mouseDrag();
 		// нужно ли обновить данные
-		bool update = false;
+		/*bool update = false;
 
 		// первый раз дропаем елемент
 		if (false == mStartDrop) {
@@ -756,76 +830,58 @@ namespace MyGUI
 
 		requestUpdateWidgetItem(this, mItemDrag, data);
 
-		eventDropState(this, state);
+		eventDropState(this, state);*/
 	}
 
-	void ItemBox::setItemBoxAlignVert(bool _vert)
+	void ItemBox::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (mAlignVert == _vert) return;
-		mAlignVert = _vert;
+		mouseButtonPressed(_id);
 
-		mCountItemInLine = -1;
-		updateFromResize(IntSize());
-	}
+		if ( MB_Left == _id) {
+			size_t old = mIndexSelect;
 
-	void ItemBox::notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char)
-	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_PRESSED, _key, _char));
-	}
+			// сбрасываем инфу для дропа
+			/*mDropResult = false;
+			mOldDrop = null;
+			mDropInfo.reset();*/
 
-	void ItemBox::notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key)
-	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_RELEASED, _key));
-	}
-
-	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
-	{
-		MYGUI_ASSERT(_widget, "ItemBox::getIndexByWidget : Widget == null");
-		if (_widget == mWidgetClient) return ITEM_NONE;
-		MYGUI_ASSERT(_widget->getParent() == mWidgetClient, "ItemBox::getIndexByWidget : Widget is not child");
-
-		size_t index = *_widget->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getIndexByWidget");
-
-		return index;
-	}
-
-	size_t ItemBox::getContainerIndex(const IntPoint & _point)
-	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if ((*iter)->isShow()) {
-				if ((*iter)->getAbsoluteRect().inside(_point)) {
-					return getIndexByWidget(*iter);
-				}
+			if (_sender == mWidgetClient) {
+				// сбрасываем выделение
+				setItemSelectedAt(ITEM_NONE);
 			}
+			else {
+				// индекс отправителя
+				mDropSenderIndex = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+				MYGUI_ASSERT_RANGE(mDropSenderIndex, mItemsInfo.size(), "ItemBox::notifyMouseButtonPressed");
+
+				// выделенный елемент
+				setItemSelectedAt(mDropSenderIndex);
+			}
+
+			// сбрасываем, чтобы обновился дропный виджет
+			//mCurrentSender = null;
+			//mStartDrop = false;
+			// смещение внутри виджета, куда кликнули мышкой
+			mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
+
+			// отсылаем событие
+			eventMouseItemActivate(mWidgetEventSender, mIndexSelect);
+			// смену позиции отсылаем только при реальном изменении
+			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
-		return ITEM_NONE;
+		// если нажата другая клавиша и был дроп то сбрасываем
+		/*else {
+			endDrop(true);
+		}*/
+			
+
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
 	}
 
-	void ItemBox::resetContainer(bool _update)
+	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		// обязательно у базового
-		Widget::resetContainer(_update);
-
-		if ( ! _update) {
-			WidgetManager & instance = WidgetManager::getInstance();
-			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-				instance.unlinkFromUnlinkers(*iter);
-			}
-		}
-	}
-
-	WidgetPtr ItemBox::getWidgetByIndex(size_t _index)
-	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if ((*iter)->isShow()) {
-				size_t index = *(*iter)->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getWidgetByIndex");
-
-				if (index == _index) return (*iter);
-			}
-		}
-		return null;
+		mouseButtonReleased(_id);
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
 	}
 
 } // namespace MyGUI

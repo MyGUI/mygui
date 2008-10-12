@@ -9,44 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_ItemDropInfo.h"
 
 namespace MyGUI
 {
 
-	struct DropWidgetInfo
-	{
-		DropWidgetInfo(WidgetPtr _item, const IntCoord & _dimension) :
-			item(_item),
-			dimension(_dimension)
-		{
-		}
-
-		WidgetPtr item;
-		IntCoord dimension;
-	};
-	typedef std::vector<DropWidgetInfo> VectorDropWidgetInfo;
-
-	struct DropWidgetState
-	{
-		DropWidgetState(size_t _index) :
-			index(_index),
-			accept(false),
-			refuse(false)
-		{ }
-
-		// индекс этого элемента
-		/** Index of element */
-		size_t index;
-		// айтем принимамет дроп
-		/** Is widget accept drag */
-		bool accept;
-		// айтем не берет дроп
-		/** Is widget refuse drag */
-		bool refuse;
-	};
-
 	typedef delegates::CDelegate2<WidgetPtr, VectorDropWidgetInfo&> EventInfo_WidgetRefDropWidgetInfo;
 	typedef delegates::CDelegate3<WidgetPtr, VectorDropWidgetInfo&, const DropWidgetState&> EventInfo_WidgetRefDropWidgetInfoState;
+
+	// делегаты для дропа
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
+	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
+	typedef delegates::CDelegate2<WidgetPtr, DropState> EventInfo_WidgetDropState;
 
 	class _MyGUIExport DDContainer : public Widget
 	{
@@ -78,6 +52,31 @@ namespace MyGUI
 
 	public:
 
+		/** Set drag'n'drop mode flag */
+		void setNeedDragDrop(bool _need) { mNeedDragDrop = _need; }
+		/** Get drag'n'drop mode flag */
+		bool getNeedDragDrop() { return mNeedDragDrop; }
+
+		// метод для установления стейта айтема
+		virtual void setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
+
+
+		// event : запрос на начало дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
+
+		// event : запрос на дроп айтема
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
+
+		// event : завершение дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
+		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
+
+		// event : текущее состояние дропа
+		// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
+		EventInfo_WidgetDropState eventDropState;
+
 		// event : запрашиваем виджеты для дропа
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items)
 		EventInfo_WidgetRefDropWidgetInfo requestDropWidgetInfo;
@@ -86,7 +85,11 @@ namespace MyGUI
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items, const MyGUI::DropWidgetState & _state)
 		EventInfo_WidgetRefDropWidgetInfoState eventUpdateDropState;
 
-	private:
+		/* event : внутреннее событие, невалидна информация для контейнера*/
+		/* signature : void method(MyGUI::WidgetPtr _sender);*/
+		EventInfo_WidgetVoid eventInvalideContainer;
+
+	protected:
 		bool mDropResult;
 		bool mNeedDrop;
 		bool mStartDrop;
@@ -102,6 +105,11 @@ namespace MyGUI
 		VectorDropWidgetInfo mDropItems;
 
 		IntPoint mClickInWidget;
+
+		// нужно и виджету поддержка драг энд дропа
+		bool mNeedDragDrop;
+
+		DDContainerPtr mReseiverContainer;
 
 	};
 

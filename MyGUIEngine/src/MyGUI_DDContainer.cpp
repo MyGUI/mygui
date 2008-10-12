@@ -14,12 +14,14 @@ namespace MyGUI
 
 	DDContainer::DDContainer(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
+		mNeedDragDrop(false),
 		mDropResult(false),
 		mStartDrop(false),
 		mNeedDrop(false),
 		mOldDrop(null),
 		mCurrentSender(null),
-		mDropSenderIndex(ITEM_NONE)
+		mDropSenderIndex(ITEM_NONE),
+		mReseiverContainer(null)
 	{
 	}
 
@@ -51,6 +53,7 @@ namespace MyGUI
 			mDropResult = false;
 			mOldDrop = null;
 			mDropInfo.reset();
+			mReseiverContainer = null;
 
 			// сбрасываем, чтобы обновился дропный виджет
 			mCurrentSender = null;
@@ -82,6 +85,7 @@ namespace MyGUI
 			update = true;
 			// запрос на нужность дропа по индексу
 			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
+			mReseiverContainer = null;
 			eventStartDrop(this, mDropInfo, mNeedDrop);
 
 			if (mNeedDrop) {
@@ -110,25 +114,28 @@ namespace MyGUI
 		mOldDrop = item;
 
 		// сбрасываем старую подсветку
-		if (mDropInfo.reseiver) mDropInfo.reseiver->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
+		if (mReseiverContainer) mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
 
 		mDropResult = false;
+		mReseiverContainer = null;
 		WidgetPtr reseiver = null;
 		size_t reseiver_index = ITEM_NONE;
 		// есть виджет под нами
 		if (item) {
 			// делаем запрос на индекс по произвольному виджету
 			item->getContainer(reseiver, reseiver_index);
-			if (reseiver) {
+			// работаем только с контейнерами
+			if (reseiver && reseiver->isType<DDContainer>()) {
 				// подписываемся на информацию о валидности дропа
-				reseiver->eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
+				mReseiverContainer = static_cast<DDContainerPtr>(reseiver);
+				mReseiverContainer->eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
 				mDropInfo.set(this, mDropSenderIndex, reseiver, reseiver_index);
 				eventRequestDrop(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку
-				mDropInfo.reseiver->setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
+				mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
 			}
 			else {
 				mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
@@ -142,6 +149,8 @@ namespace MyGUI
 		DropState state;
 
 		DropWidgetState data(mDropSenderIndex);
+		data.update = update;
+
 		if (reseiver == null) {
 			data.accept = false;
 			data.refuse = false;
@@ -169,7 +178,7 @@ namespace MyGUI
 			removeDropItems();
 
 			// сбрасываем старую подсветку
-			if (mDropInfo.reseiver) mDropInfo.reseiver->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
+			if (mReseiverContainer) mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
 
 			if (_reset) mDropResult = false;
 			eventEndDrop(this, mDropInfo, mDropResult);
@@ -181,6 +190,7 @@ namespace MyGUI
 			mDropResult = false;
 			mOldDrop = null;
 			mDropInfo.reset();
+			mReseiverContainer = null;
 			mDropSenderIndex = ITEM_NONE;
 		}
 	}
