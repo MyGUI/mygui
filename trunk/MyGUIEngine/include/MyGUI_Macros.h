@@ -7,8 +7,6 @@
 #ifndef __MYGUI_MACROS_H__
 #define __MYGUI_MACROS_H__
 
-#include <OgrePlatform.h>
-
 namespace MyGUI
 {
 
