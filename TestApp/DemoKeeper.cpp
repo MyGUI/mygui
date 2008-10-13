@@ -66,6 +66,9 @@ namespace demo
 		State test = State::Start;
 		//int value = type1;
 
+		MyGUI::ListPtr list = MyGUI::Gui::getInstance().createWidget<MyGUI::List>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");
+		list->deleteAllItems();
+
 
 		/*MyGUI::DDContainerPtr container = MyGUI::Gui::getInstance().createWidget<MyGUI::DDContainer>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");
 		container->setNeedDragDrop(true);
