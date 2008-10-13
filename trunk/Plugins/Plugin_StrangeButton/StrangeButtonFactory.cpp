@@ -9,12 +9,14 @@ namespace MyGUI
 
 		StrangeButtonFactory::StrangeButtonFactory()
 		{
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			// регестрируем все парсеры
 			manager.registerDelegate("StrangeButton_Pressed") = newDelegate(this, &StrangeButtonFactory::ButtonPressed);
 		}
 
 		StrangeButtonFactory::~StrangeButtonFactory()
 		{
+			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			// удаляем все парсеры
 			manager.unregisterDelegate("StrangeButton_Pressed");
 		}
