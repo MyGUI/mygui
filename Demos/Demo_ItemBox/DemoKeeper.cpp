@@ -55,9 +55,13 @@ void DemoKeeper::notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _r
 
 void DemoKeeper::notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info)
 {
-	/*if (_info.index != MyGUI::ITEM_NONE) {
-		((BaseItemBox<CellView>*)_sender)->removeItem(_info.index);
-	}*/
+	if (_info.index != MyGUI::ITEM_NONE) {
+		if (_info.notify == MyGUI::NotifyItem::NOTIFY_MOUSE_RELEASED) {
+			MyGUI::ItemBoxPtr sender = ((BaseItemBox<CellView>*)_sender)->getItemBox();
+			sender->
+			sender->setPosition(sender->getCoord());
+		}
+	}
 }
 
 void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropItemState _state)
