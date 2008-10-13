@@ -130,6 +130,9 @@ namespace MyGUI
 		//! Remove all items
 		void removeAllItems();
 
+		//! Redraw all items
+		void redrawAllItems() { _updateAllVisible(true); }
+
 
 		//------------------------------------------------------------------------------//
 		// манипул€ции выделени€ми
