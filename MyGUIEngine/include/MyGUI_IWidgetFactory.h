@@ -12,6 +12,9 @@
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ICroppedRectangle.h"
 
+#include "MyGUI_WidgetManager.h"
+#include "MyGUI_SkinManager.h"
+
 namespace MyGUI
 {
 	class _MyGUIExport IWidgetFactory
@@ -30,17 +33,43 @@ namespace MyGUI
 		class _MyGUIExport BaseWidgetFactory : public IWidgetFactory
 		{
 		public:
-			BaseWidgetFactory();
-			virtual ~BaseWidgetFactory();
+			BaseWidgetFactory()
+			{
+				// регестрируем себя
+				MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+				manager.registerFactory(this);
+			}
 
-			const std::string & getTypeName();
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name);
-			bool isFalseType(WidgetPtr _ptr, const std::string &_key);
+			~BaseWidgetFactory()
+			{
+				// удаляем себя
+				MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+				manager.unregisterFactory(this);
+			}
+
+			const std::string & getTypeName()
+			{
+				return T::getClassTypeName();
+			}
+
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
+			{
+				return new T(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
+			}
+
+			bool isFalseType(WidgetPtr _ptr, const std::string &_key)
+			{
+				if (!_ptr->isType<T>()) {
+					MYGUI_LOG(Error, "Property '" << _key << "' is not supported by '" << _ptr->getTypeName() << "' widget");
+					return true;
+				}
+				return false;
+			}
 		};
 
 	} // namespace factory
 } // namespace MyGUI
 
-#include "MyGUI_IWidgetFactory.cpp"
+//#include "MyGUI_IWidgetFactory.cpp"
 
 #endif // __MYGUI_I_WIDGET_FACTORY_H__
