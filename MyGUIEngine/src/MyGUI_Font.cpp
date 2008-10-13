@@ -359,9 +359,14 @@ namespace MyGUI
 			}
 		}
 
-        Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size, true) );
+		// FIXME хз что сделать надо, старый вариант падает, а с этим по идее утечка (не могу проверить)
+#if OGRE_VERSION >= ((1 << 16) | (6 << 8) | 0)
+		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size) );
+#else
+		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size, true) );
+#endif
 
-        Ogre::Image img;
+		Ogre::Image img;
 		img.loadRawData( memStream, finalWidth, finalHeight, Ogre::PF_BYTE_LA );
 
 		Ogre::Texture* tex = static_cast<Ogre::Texture*>(res);
