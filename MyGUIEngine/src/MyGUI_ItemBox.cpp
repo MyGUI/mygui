@@ -524,6 +524,19 @@ namespace MyGUI
 		_updateAllVisible(true);
 	}
 
+	void ItemBox::redrawItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ItemBox::redrawItemAt");
+
+		size_t start = (size_t)(mLineTop * mCountItemInLine);
+		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
+
+			ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
+			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
+
+		}
+	}
+
 	void ItemBox::setItemSelectedAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ItemBox::setItemSelectedAt");

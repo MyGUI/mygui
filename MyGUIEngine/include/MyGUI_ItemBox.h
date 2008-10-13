@@ -130,6 +130,9 @@ namespace MyGUI
 		//! Remove all items
 		void removeAllItems();
 
+		//! Redraw at a specified position
+		void redrawItemsAt(size_t _index);
+
 		//! Redraw all items
 		void redrawAllItems() { _updateAllVisible(true); }
 
