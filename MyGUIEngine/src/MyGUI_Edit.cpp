@@ -687,7 +687,7 @@ namespace MyGUI
 
 	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info)
 	{
-		if (_info != null) 	_info->push_back(tagChangeInfo(_undo, _redo, _length));
+		if (_info != null) 	_info->push_back(TextCommandInfo(_undo, _redo, _length));
 	}
 
 	void Edit::commandMerge()
@@ -722,8 +722,8 @@ namespace MyGUI
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::reverse_iterator iter=info.rbegin(); iter!=info.rend(); iter++) {
 
-			if ((*iter).type == COMMAND_INSERT) text.erase((*iter).start, (*iter).text.size());
-			else if ((*iter).type == COMMAND_ERASE) text.insert((*iter).start, (*iter).text);
+			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.erase((*iter).start, (*iter).text.size());
+			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE) text.insert((*iter).start, (*iter).text);
 			else {
 				mCursorPosition = (*iter).undo;
 				mTextLength = (*iter).length;
@@ -762,8 +762,8 @@ namespace MyGUI
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++) {
 
-			if ((*iter).type == COMMAND_INSERT) text.insert((*iter).start, (*iter).text);
-			else if ((*iter).type == COMMAND_ERASE) text.erase((*iter).start, (*iter).text.size());
+			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.insert((*iter).start, (*iter).text);
+			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE) text.erase((*iter).start, (*iter).text.size());
 			else {
 				mCursorPosition = (*iter).redo;
 				mTextLength = (*iter).length;
@@ -789,7 +789,7 @@ namespace MyGUI
 		if (_info == null) return;
 		// если нет информации об изменении
 		if ( _info->empty() ) return;
-		if ( (_info->size() == 1) && (_info->back().type == COMMAND_POSITION)) return;
+		if ( (_info->size() == 1) && (_info->back().type == TextCommandInfo::COMMAND_POSITION)) return;
 
 		mVectorUndoChangeInfo.push_back(*_info);
 		// проверяем на максимальный размер

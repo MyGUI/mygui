@@ -154,7 +154,7 @@ namespace MyGUI
 			// сбрасываем размер
 			mSize = ITEM_NONE;
 			// записываем в историю
-			if (mHistory) mHistory->push_back(tagChangeInfo(_insert, _start-mText.begin(), COMMAND_INSERT));
+			if (mHistory) mHistory->push_back(TextCommandInfo(_insert, _start-mText.begin(), TextCommandInfo::COMMAND_INSERT));
 			// запоминаем позицию итератора
 			size_t pos = _start - mText.begin();
 			size_t pos_save = (mSave==mEnd) ? ITEM_NONE : _start - mText.begin();
@@ -172,7 +172,7 @@ namespace MyGUI
 			mSize = ITEM_NONE;
 			// сохраняем в историю
 			size_t start = _start-mText.begin();
-			if (mHistory) mHistory->push_back(tagChangeInfo(mText.substr(start, _end-_start), start, COMMAND_ERASE));
+			if (mHistory) mHistory->push_back(TextCommandInfo(mText.substr(start, _end-_start), start, TextCommandInfo::COMMAND_ERASE));
 			// возвращаем итератор
 			return mText.erase(_start, _end);
 		}
@@ -182,7 +182,7 @@ namespace MyGUI
 			if (mText.empty()) return;
 
 			// записываем в историю
-			if (mHistory) mHistory->push_back(tagChangeInfo(mText, 0, COMMAND_ERASE));
+			if (mHistory) mHistory->push_back(TextCommandInfo(mText, 0, TextCommandInfo::COMMAND_ERASE));
 
 			// все сбрасываем
 			mText.clear();
