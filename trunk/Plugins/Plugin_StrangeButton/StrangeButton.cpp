@@ -20,7 +20,7 @@ namespace MyGUI
 		const MapString & properties = _info->getProperties();
 		if (!properties.empty()) {
 			MapString::const_iterator iter = properties.find("ButtonPressed");
-			if (iter != properties.end()) setButtonPressed(iter->second == "true");
+			if (iter != properties.end()) setButtonPressed(utility::parseBool(iter->second));
 		}
 	}
 
