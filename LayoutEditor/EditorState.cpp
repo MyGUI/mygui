@@ -4,10 +4,6 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 
-#if defined OIS_WIN32_PLATFORM
-#include "windows.h"
-#endif
-
 #define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
@@ -52,6 +48,8 @@ void EditorState::enter(bool bIsChangeState)
 	ew->initialise();
 	um = new UndoManager();
 	um->initialise(ew);
+
+	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
 	// set locale language if it was taken from OS
 	if (! BasisManager::getInstance().getLanguage().empty() )
