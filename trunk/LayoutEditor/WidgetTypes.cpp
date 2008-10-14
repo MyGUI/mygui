@@ -9,8 +9,6 @@ void WidgetTypes::initialise()
 	//loadTypes();
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Widgets") = MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Values") = MyGUI::newDelegate(this, &WidgetTypes::loadValues);
-
-	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 }
 
 void WidgetTypes::shutdown()
@@ -132,7 +130,7 @@ void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & 
 	}
 }
 
-PossibleValue * WidgetTypes::getPassibleValue(const std::string & _name)
+PossibleValue * WidgetTypes::getPossibleValue(const std::string & _name)
 {
 
 	PossibleValue * possible_value = null;
@@ -157,7 +155,7 @@ void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _
 	while (widgets.nextNode("Value")) {
 
 		std::string name = widgets->findAttribute("name");
-		PossibleValue * possible_value = getPassibleValue(name);
+		PossibleValue * possible_value = getPossibleValue(name);
 
 		// тип мерджа переменных
 		std::string merge = widgets->findAttribute("merge");

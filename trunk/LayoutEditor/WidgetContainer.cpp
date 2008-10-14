@@ -59,6 +59,8 @@ void EditorWidgets::initialise()
 {
 	global_counter = 0;
 	widgets_changed = true;
+
+	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") = MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
 }
 
 void EditorWidgets::shutdown()
@@ -365,8 +367,8 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 				}
 			}
 		}
-		if (_test || 
-				(("Message_Modal" != _key) && ("Window_AutoAlpha" != _key) && ("Window_Snap" != _key) && ("Widget_NeedMouse" != _key)))
+
+		if (_test || std::find(ignore_parameters.begin(), ignore_parameters.end(), _key) == ignore_parameters.end())
 			MyGUI::WidgetManager::getInstance().parse(_widget, _key, _value);
 		Ogre::Root::getSingleton().renderOneFrame();
 	}
@@ -415,5 +417,14 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
 	{
 			serialiseWidget(*iter, node);
+	}
+}
+
+void EditorWidgets::loadIgnoreParameters(MyGUI::xml::xmlNodePtr _node, const std::string & _file)
+{
+	MyGUI::xml::xmlNodeIterator parameter = _node->getNodeIterator();
+	while (parameter.nextNode("Parameter")) {
+		std::string name = parameter->findAttribute("name");
+		ignore_parameters.push_back(name);
 	}
 }

@@ -82,8 +82,9 @@ private:
 	void parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent, bool _test = false);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node);
 
-private:
-	typedef std::map<std::string, std::string> MapString;
+	void loadIgnoreParameters(MyGUI::xml::xmlNodePtr _node, const std::string & _file);
+
+	std::vector<std::string> ignore_parameters;
 };
 
 #endif // __WIDGET_CONTAINER_H__
