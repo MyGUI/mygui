@@ -7,4 +7,5 @@
     <Parameter key="Window_AutoAlpha"/>
     <Parameter key="Window_Snap"/>
     <Parameter key="Widget_NeedMouse"/>
+    <Parameter key="Widget_MaskPeek"/>
 </MyGUI>
