@@ -44,6 +44,7 @@ namespace demo
 	template <typename T>
 	void checkParce(MyGUI::EditPtr _edit, size_t _count)
 	{
+		static const Ogre::UTFString colour = "#FF0000";
 		const Ogre::UTFString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 
@@ -54,13 +55,13 @@ namespace demo
 			-- _count;
 		}
 		if (str.fail()) {
-			_edit->setCaption("#FF0000" + text);
+			_edit->setCaption(colour + text);
 		}
 		else {
 			std::string tmp;
 			str >> tmp;
 			if (!str.fail() || tmp.find_first_not_of(" \t\r") != std::string::npos) {
-				_edit->setCaption("#FF0000" + text);
+				_edit->setCaption(colour + text);
 			}
 			else {
 				_edit->setCaption(text);
@@ -69,10 +70,35 @@ namespace demo
 		_edit->setTextCursor(index);
 	}
 
+	void checkParceFileName(MyGUI::EditPtr _edit)
+	{
+		static const Ogre::UTFString colour = "#FF0000";
+		const Ogre::UTFString & text = _edit->getOnlyText();
+		size_t index = _edit->getTextCursor();
+
+		if (text.find_first_of("*?") == std::string::npos) {
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(
+				Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, text);
+			// файл должен быть только один, если будет два, то все равно гуй его не съест
+			if (pFileInfo->size() != 1) {
+				_edit->setCaption(colour + text);
+			}
+			else {
+				_edit->setCaption(text);
+			}
+			pFileInfo.setNull();
+		}
+		else {
+			_edit->setCaption(colour + text);
+		}
+		_edit->setTextCursor(index);
+	}
+
 	void notifyEditTextChange(MyGUI::WidgetPtr _sender)
 	{
 		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
-		checkParce<int>(edit, 4);
+		checkParceFileName(edit);
+		//checkParce<int>(edit, 4);
 	}
 
     void DemoKeeper::createScene()
