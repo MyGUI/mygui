@@ -229,6 +229,8 @@ namespace MyGUI
 		void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
 		bool isInheritsPeek() { return mInheritsPeek; }
 
+		void setMaskPeek(const std::string & _filename);
+
 		/** Is widget enabled */
 		bool isEnabled() { return mEnabled; }
 		/** Enable or disable widget */
@@ -290,7 +292,8 @@ namespace MyGUI
 		// список всех стейтов
 		const MapWidgetStateInfo & mStateInfo;
 		// информация о маске для пикинга
-		const MaskPeekInfo & mMaskPeekInfo;
+		MaskPeekInfo const * mMaskPeekInfo;
+		MaskPeekInfo mOwnMaskPeekInfo;
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;

@@ -40,6 +40,7 @@ namespace MyGUI
 			void Widget_Enabled(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_InheritsAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_InheritsPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_MaskPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_NeedToolTip(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 			void Widget_eventMouseLostFocus(WidgetPtr _widget, const std::string &_key, const std::string &_value);
