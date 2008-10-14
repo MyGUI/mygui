@@ -41,6 +41,40 @@ namespace demo
 		int value;
 	};
 
+	template <typename T>
+	void checkParce(MyGUI::EditPtr _edit, size_t _count)
+	{
+		const Ogre::UTFString & text = _edit->getOnlyText();
+		size_t index = _edit->getTextCursor();
+
+		T p;
+		std::istringstream str(text);
+		while (_count > 0) {
+			str >> p;
+			-- _count;
+		}
+		if (str.fail()) {
+			_edit->setCaption("#FF0000" + text);
+		}
+		else {
+			std::string tmp;
+			str >> tmp;
+			if (!str.fail() || tmp.find_first_not_of(" \t\r") != std::string::npos) {
+				_edit->setCaption("#FF0000" + text);
+			}
+			else {
+				_edit->setCaption(text);
+			}
+		}
+		_edit->setTextCursor(index);
+	}
+
+	void notifyEditTextChange(MyGUI::WidgetPtr _sender)
+	{
+		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
+		checkParce<int>(edit, 4);
+	}
+
     void DemoKeeper::createScene()
     {
 
@@ -66,8 +100,9 @@ namespace demo
 		State test = State::Start;
 		//int value = type1;
 
-		MyGUI::ButtonPtr button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(100, 100, 150, 50), MyGUI::Align::Default, "Overlapped");
-		button->setMaskPeek("mask.png");
+		MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
+		edit->eventEditTextChange = MyGUI::newDelegate(notifyEditTextChange);
+		//button->setMaskPeek("mask.png");
 
 
 		/*MyGUI::DDContainerPtr container = MyGUI::Gui::getInstance().createWidget<MyGUI::DDContainer>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");
