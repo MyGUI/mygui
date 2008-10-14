@@ -71,6 +71,8 @@
     <Property key="DefaultSkin" value="ItemBox"/>
 
     <Property key="Skin" value="ItemBox"/>
+
+    <Parameter key="DDContainer_NeedDragDrop" value="Bool"/>
   </Widget>
 
   <Widget name="List">
@@ -251,6 +253,7 @@
     <Parameter key="Widget_NeedKey" value="Bool"/>
     <Parameter key="Widget_NeedMouse" value="Bool"/>
     <Parameter key="Widget_InheritsPeek" value="Bool"/>
+    <Parameter key="Widget_MaskPeek" value="String"/>
 
     <Parameter key="Widget_eventMouseLostFocus" value="String"/>
     <Parameter key="Widget_eventMouseSetFocus" value="String"/>

@@ -21,6 +21,11 @@ namespace MyGUI
 		public:
 			DDContainerFactory();
 			~DDContainerFactory();
+
+		private:
+			// методы для парсинга
+			void DDContainer_NeedDragDrop(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+
 		};
 
 	} // namespace factory

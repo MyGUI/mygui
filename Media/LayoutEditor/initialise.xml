@@ -6,7 +6,7 @@
 	    <List file="widgets.xml" group="General"/>
 	    <List file="values.xml" group="General"/>
 
-	    <!-- этого файла не существует, не удалять, используется сторонними разработчиками для удобного добавления файлов-->
+	    <!-- СЌС‚Рѕ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РІРЅРµС€РЅРёС… СЂРµСЃСѓСЂСЃРѕРІ -->
 	    <List file="external_resources.xml" group="General"/>
     </MyGUI>
 
