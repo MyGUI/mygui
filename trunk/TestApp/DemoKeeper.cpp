@@ -33,8 +33,6 @@ namespace demo
 
 		State() : value(None) { }
 		State(int _value) : value(_value) { }
-		//State(State const& _other) : value(_other.value) { }
-		//State & operator = (State const& _other) { value = _other.value; return *this; }
 		friend bool operator == (State const & a, State const & b) { return a.value == b.value; }
 		friend bool operator != (State const & a, State const & b) { return a.value != b.value; }
 
@@ -129,6 +127,19 @@ namespace demo
 		MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
 		edit->eventEditTextChange = MyGUI::newDelegate(notifyEditTextChange);
 		//button->setMaskPeek("mask.png");
+
+
+		MyGUI::Align align;
+
+		align == MyGUI::Align::Default;
+		MyGUI::Align::Default == align;
+
+		MyGUI::xml::xmlDocument document;
+		//document.createInfo();
+		//document.createRoot("root")->addBody("&<>'\"");
+
+		document.open("test.xml");
+		document.save("test2.xml");
 
 
 		/*MyGUI::DDContainerPtr container = MyGUI::Gui::getInstance().createWidget<MyGUI::DDContainer>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");

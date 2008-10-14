@@ -71,7 +71,7 @@ namespace MyGUI
 			_stream << mName;
 
 			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter) {
-				_stream << " " << iter->first << "=\"" << iter->second << "\"";
+				_stream << " " << iter->first << "=\"" << utility::convert_to_xml(iter->second) << "\"";
 			}
 
 			bool empty = mChilds.empty();
@@ -79,15 +79,18 @@ namespace MyGUI
 			if (empty && mBody.empty()) {
 				if (mType == XML_NODE_TYPE_INFO) _stream << "?>\n";
 				else _stream << "/>\n";
-			} else {
+			}
+			else {
 				_stream << ">";
 				if (!empty) _stream << "\n";
 				// если есть тело то сначало оно
 				if (!mBody.empty()) {
 					if (!empty) {
 						for (size_t tab=0; tab<=_level; ++tab) _stream  << "    ";
-						_stream << mBody << "\n";
-					} else _stream << mBody;
+					}
+					_stream << utility::convert_to_xml(mBody);
+
+					if (!empty) _stream << "\n";
 				}
 				// если есть детишки путь сохранятся
 				for (size_t child=0; child<mChilds.size(); child++) {
@@ -202,10 +205,16 @@ namespace MyGUI
 
 						std::string body_str = line.substr(0, start);
 						// текущий символ
-						mCol = body_str.find_first_not_of(" \t");
-						utility::trim(body_str);
+						mCol = 0;
 
-						if (currentNode != 0) 	currentNode->addBody(body_str);
+						if (currentNode != 0) 	{
+							bool ok = true;
+							currentNode->setBody(utility::convert_from_xml(body_str, ok));
+							if (!ok) {
+								mLastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
+								return false;
+							}
+						}
 
 					}
 
@@ -285,10 +294,16 @@ namespace MyGUI
 
 						std::string body_str = line.substr(0, start);
 						// текущий символ
-						mCol = body_str.find_first_not_of(" \t");
-						utility::trim(body_str);
+						mCol = 0;
 
-						if (currentNode != 0) 	currentNode->addBody(body_str);
+						if (currentNode != 0) 	{
+							bool ok = true;
+							currentNode->setBody(utility::convert_from_xml(body_str, ok));
+							if (!ok) {
+								mLastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
+								return false;
+							}
+						}
 
 					}
 
@@ -539,15 +554,16 @@ namespace MyGUI
 			// в ключе не должно быть ковычек и пробелов
 			utility::trim(_key);
 			if (_key.empty()) return false;
-			size_t start = _key.find_first_of(" \t\"\'");
+			size_t start = _key.find_first_of(" \t\"\'&");
 			if (start != _key.npos) return false;
+
 			// в значении, ковычки по бокам
 			utility::trim(_value);
 			if (_value.size() < 2) return false;
 			if ((_value[0] != '"') || (_value[_value.length()-1] != '"')) return false;
-			_value.erase(0, 1);
-			_value.erase(_value.length() - 1);
-			return true;
+			bool ok = true;
+			_value = utility::convert_from_xml(_value.substr(1, _value.length() - 2), ok);
+			return ok;
 		}
 
 		// ищет символ без учета ковычек
@@ -615,6 +631,48 @@ namespace MyGUI
 			clearRoot();
 			mRoot = new xmlNode(_name, 0, XML_NODE_TYPE_NORMAL);
 			return mRoot;
+		}
+
+		namespace utility
+		{
+			std::string convert_from_xml(const std::string & _string, bool & _ok)
+			{
+				std::string ret;
+				_ok = true;
+
+				int pos = _string.find("&");
+				if (pos == std::string::npos) return _string;
+
+				ret.reserve(_string.size());
+				int old = 0;
+				while (pos != std::string::npos) {
+					ret += _string.substr(old, pos - old);
+
+					int end = _string.find(";", pos + 1);
+					if (end == std::string::npos) {
+						_ok = false;
+						return ret;
+					}
+					else {
+						std::string tag = _string.substr(pos, end - pos + 1);
+						if (tag == "&amp;") ret += '&';
+						else if (tag == "&lt;") ret += '<';
+						else if (tag == "&gt;") ret += '>';
+						else if (tag == "&apos;") ret += '\'';
+						else if (tag == "&quot;") ret += '\"';
+						else {
+							_ok = false;
+							return ret;
+						}
+					}
+
+					old = end + 1;
+					pos = _string.find("&", old);
+				};
+				ret += _string.substr(old, std::string::npos);
+
+				return ret;
+			}
 		}
 
 	} // namespace xml
