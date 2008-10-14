@@ -424,7 +424,7 @@ void EditorWidgets::loadIgnoreParameters(MyGUI::xml::xmlNodePtr _node, const std
 {
 	MyGUI::xml::xmlNodeIterator parameter = _node->getNodeIterator();
 	while (parameter.nextNode("Parameter")) {
-		std::string name = parameter->findAttribute("name");
+		std::string name = parameter->findAttribute("key");
 		ignore_parameters.push_back(name);
 	}
 }
