@@ -66,8 +66,8 @@ namespace demo
 		State test = State::Start;
 		//int value = type1;
 
-		MyGUI::ListPtr list = MyGUI::Gui::getInstance().createWidget<MyGUI::List>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");
-		list->deleteAllItems();
+		MyGUI::ButtonPtr button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(100, 100, 150, 50), MyGUI::Align::Default, "Overlapped");
+		button->setMaskPeek("mask.png");
 
 
 		/*MyGUI::DDContainerPtr container = MyGUI::Gui::getInstance().createWidget<MyGUI::DDContainer>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");

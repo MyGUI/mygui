@@ -431,7 +431,7 @@ namespace MyGUI
 			|| (!mNeedMouseFocus && !mInheritsPeek)
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| ((!mMaskPeekInfo.empty()) && (!mMaskPeekInfo.peek(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
+			|| ((!mMaskPeekInfo->empty()) && (!mMaskPeekInfo->peek(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
 				return null;
 		// спрашиваем у детишек
 		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {
@@ -819,6 +819,17 @@ namespace MyGUI
 	EnumeratorWidgetPtr Widget::getEnumerator()
 	{
 		return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
+	}
+
+	void Widget::setMaskPeek(const std::string & _filename)
+	{
+		if (mOwnMaskPeekInfo.load(_filename)) {
+			mMaskPeekInfo = &mOwnMaskPeekInfo;
+		}
+		else {
+			MYGUI_LOG(Error, "mask not load '" << _filename << "'");
+		}
+		//SkinManager::getInstance().
 	}
 
 } // namespace MyGUI

@@ -125,7 +125,7 @@ namespace MyGUI
 		const MapWidgetStateInfo & getStateInfo() const { return mStates; }
 		const MapString & getProperties() const { return mProperties; }
 		const VectorChildSkinInfo & getChild() const { return mChilds; }
-		const MaskPeekInfo & getMask() const { return mMaskPeek; }
+		MaskPeekInfo const * getMask() const { return &mMaskPeek; }
 
 	private:
 		IntSize mSize;
