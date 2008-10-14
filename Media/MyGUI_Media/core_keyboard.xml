@@ -2,8 +2,8 @@
 <MyGUI type="Lang">
 
     <Help name="name_language">
-        "unassigned, escape, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, -, =, backspace, tab, q, w, e, r, t, y, u, i, o, p, [, ], enter, lcontrol, a, s, d, f, g, h, j, k, l, ;, ', `, lshift, \, z, x, c, v, b, n, m, comma, ., /, rshift, * on numeric keypad, leftalt, space,
-        unassigned, escape, !, @, #, $, %, ^, &, *, (, ), _, +, backspace, tab, Q, W, E, R, T, Y, U, I, O, P, {, }, enter, lcontrol, A, S, D, F, G, H, J, K, L, :, double quotes, ~, lshift, |, Z, X, C, V, B, N, M, <, >, ?, rshift, * on numeric keypad, leftalt, space"
+      unassigned, escape, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, -, =, backspace, tab, q, w, e, r, t, y, u, i, o, p, [, ], enter, lcontrol, a, s, d, f, g, h, j, k, l, ;, apostrophe, `, lshift, \, z, x, c, v, b, n, m, comma, ., /, rshift, * on numeric keypad, leftalt, space,
+      unassigned, escape, !, @, #, $, %, ^, "ampersand", *, (, ), _, +, backspace, tab, Q, W, E, R, T, Y, U, I, O, P, {, }, enter, lcontrol, A, S, D, F, G, H, J, K, L, :, double quotes, ~, lshift, |, Z, X, C, V, B, N, M, less than, greater than, ?, rshift, * on numeric keypad, leftalt, space
     </Help>
 
     <Lang name="Russian">
