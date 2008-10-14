@@ -39,12 +39,14 @@ namespace MyGUI
 			manager.registerDelegate("Widget_Alpha") = newDelegate(this, &WidgetFactory::Widget_Alpha);
 			manager.registerDelegate("Widget_InheritsAlpha") = newDelegate(this, &WidgetFactory::Widget_InheritsAlpha);
 			manager.registerDelegate("Widget_InheritsPeek") = newDelegate(this, &WidgetFactory::Widget_InheritsPeek);
+			manager.registerDelegate("Widget_MaskPeek") = newDelegate(this, &WidgetFactory::Widget_MaskPeek);
 			manager.registerDelegate("Widget_State") = newDelegate(this, &WidgetFactory::Widget_State);
 			manager.registerDelegate("Widget_NeedKey") = newDelegate(this, &WidgetFactory::Widget_NeedKey);
 			manager.registerDelegate("Widget_NeedMouse") = newDelegate(this, &WidgetFactory::Widget_NeedMouse);
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
 			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
 			manager.registerDelegate("Widget_NeedToolTip") = newDelegate(this, &WidgetFactory::Widget_NeedToolTip);
+			
 			manager.registerDelegate("Widget_eventMouseLostFocus") = newDelegate(this, &WidgetFactory::Widget_eventMouseLostFocus);
 			manager.registerDelegate("Widget_eventMouseSetFocus") = newDelegate(this, &WidgetFactory::Widget_eventMouseSetFocus);
 			manager.registerDelegate("Widget_eventMouseDrag") = newDelegate(this, &WidgetFactory::Widget_eventMouseDrag);
@@ -74,12 +76,14 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_Alpha");
 			manager.unregisterDelegate("Widget_InheritsAlpha");
 			manager.unregisterDelegate("Widget_InheritsPeek");
+			manager.unregisterDelegate("Widget_MaskPeek");
 			manager.unregisterDelegate("Widget_State");
 			manager.unregisterDelegate("Widget_NeedKey");
 			manager.unregisterDelegate("Widget_NeedMouse");
 			manager.unregisterDelegate("Widget_AlignText");
 			manager.unregisterDelegate("Widget_Enabled");
 			manager.unregisterDelegate("Widget_NeedToolTip");
+
 			manager.unregisterDelegate("Widget_eventMouseLostFocus");
 			manager.unregisterDelegate("Widget_eventMouseSetFocus");
 			manager.unregisterDelegate("Widget_eventMouseDrag");
@@ -183,6 +187,11 @@ namespace MyGUI
 		void WidgetFactory::Widget_InheritsPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			_widget->setInheritsPeek(utility::parseBool(_value));
+		}
+
+		void WidgetFactory::Widget_MaskPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		{
+			_widget->setMaskPeek(_value);
 		}
 
 		void WidgetFactory::Widget_NeedToolTip(WidgetPtr _widget, const std::string &_key, const std::string &_value)
