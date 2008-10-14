@@ -46,6 +46,34 @@ namespace MyGUI
 				if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
 			}
 
+			inline std::string convert_to_xml(const std::string & _string)
+			{
+				std::string ret;
+
+				int pos = _string.find_first_of("&<>'\"");
+				if (pos == std::string::npos) return _string;
+
+				ret.reserve(_string.size() * 2);
+				int old = 0;
+				while (pos != std::string::npos) {
+					ret += _string.substr(old, pos - old);
+
+					if (_string[pos] == '&') ret += "&amp;";
+					else if (_string[pos] == '<') ret += "&lt;";
+					else if (_string[pos] == '>') ret += "&gt;";
+					else if (_string[pos] == '\'') ret += "&apos;";
+					else if (_string[pos] == '\"') ret += "&quot;";
+
+					old = pos + 1;
+					pos = _string.find_first_of("&<>'\"", old);
+				};
+				ret += _string.substr(old, std::string::npos);
+
+				return ret;
+			}
+
+			std::string convert_from_xml(const std::string & _string, bool & _ok);
+
 		}
 
 		enum xmlNodeType {
@@ -117,7 +145,6 @@ namespace MyGUI
 
 		private:
 			xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type = XML_NODE_TYPE_NORMAL, const std::string & _body = "");
-
 			void save(std::ofstream & _stream, size_t _level);
 
 		public:
@@ -129,10 +156,38 @@ namespace MyGUI
 				mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));
 			}
 
+			template <>
+			void addAttributes(const std::string & _key, const std::string & _value)
+			{
+				mAttributes.push_back(PairAttributes(_key, _value));
+			}
+
 			template <typename T>
 			void addBody(const T& _body)
 			{
 				mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);
+			}
+
+			template <>
+			void addBody(const std::string & _body)
+			{
+				if (mBody.empty()) mBody = _body;
+				else {
+					mBody += " ";
+					mBody += _body;
+				}
+			}
+
+			template <typename T>
+			void setBody(const T& _body)
+			{
+				mBody = utility::toString(_body);
+			}
+
+			template <>
+			void setBody(const std::string & _body)
+			{
+				mBody = _body;
 			}
 
 			void clear();
