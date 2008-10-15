@@ -12,29 +12,34 @@
 #include "ItemBoxV.h"
 #include "ItemBoxH.h"
 #include "CellView.h"
+#include "Base/BaseManager.h"
 
-class DemoKeeper
+namespace demo
 {
 
-public:
-	void start();
-	void end();
+	class DemoKeeper : public base::BaseManager
+	{
+	public:
+		virtual void createScene();
+		virtual void destroyScene();
 
-private:
+	private:
 
-	void notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result);
-	void notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result);
-	void notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _result);
-	void notifyDropState(BaseLayout * _sender, MyGUI::DropItemState _state);
-	void notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info);
+		void notifyStartDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result);
+		void notifyRequestDrop(BaseLayout * _sender, ItemDropInfo _info, bool & _result);
+		void notifyEndDrop(BaseLayout * _sender, ItemDropInfo _info, bool _result);
+		void notifyDropState(BaseLayout * _sender, MyGUI::DropItemState _state);
+		void notifyNotifyItem(BaseLayout * _sender, const MyGUI::NotifyItemData & _info);
 
-	void notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data);
+		void notifyToolTip(BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data);
 
-private:
-	ToolTip mToolTip;
-	ItemBoxV mItemBoxV;
-	ItemBoxH mItemBoxH;
+	private:
+		ToolTip mToolTip;
+		ItemBoxV mItemBoxV;
+		ItemBoxH mItemBoxH;
 
-};
+	};
+
+} // namespace demo
 
 #endif // __DEMO_KEEPER_H__
