@@ -208,8 +208,10 @@ namespace MyGUI
 
 		/** Get copy of child widgets vector */
 		//virtual VectorWidgetPtr getChilds();
+		/** Get child widgets enumerator */
 		virtual EnumeratorWidgetPtr getEnumerator();
 
+		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string & _name);
 
 		// наследуемся он LayerInfo
@@ -237,6 +239,7 @@ namespace MyGUI
 		virtual void setEnabled(bool _enabled);
 
 		// меняет доступность без изменения стейтов
+		/** Enable or disable widget without changing widget's state */
 		void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
 
 		/** Get mouse pointer name for this widget */
