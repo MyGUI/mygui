@@ -1,20 +1,25 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		05/2008
+	@date		08/2008
 	@module
 */
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include <MyGUI.h>
+#include "Base/BaseManager.h"
 
-class DemoKeeper
+namespace demo
 {
 
-public:
-	void start();
-	void end();
-};
+	class DemoKeeper : public base::BaseManager
+	{
+	public:
+		virtual void createScene();
+		virtual void destroyScene();
+
+	};
+
+} // namespace demo
 
 #endif // __DEMO_KEEPER_H__
