@@ -9,8 +9,8 @@ INCLUDES = $(STLPORT_CFLAGS)\
 noinst_PROGRAMS = Demo_ScrollView
 
 Demo_ScrollView_SOURCES = \
-	BasisManager.cpp\
 	DemoKeeper.cpp\
+	Main.cpp\
 	$(top_srcdir)/Common/BaseLayout.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 Demo_ScrollView_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
