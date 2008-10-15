@@ -8,6 +8,11 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
+#include "PanelView/PanelCell.h"
+#include "PanelView/PanelViewWindow.h"
+#include "PanelDirector.h"
+#include "PanelDynamic.h"
+#include "PanelStatic.h"
 
 namespace demo
 {
@@ -20,6 +25,12 @@ namespace demo
 
 	private:
 		void notifyChangePanels(int _key, size_t _value);
+
+	private:
+		PanelViewWindow mView;
+		PanelDirector mPanelDirector;
+		PanelDynamic mPanelDynamic;
+		PanelStatic mPanelStatic;
 
 	};
 
