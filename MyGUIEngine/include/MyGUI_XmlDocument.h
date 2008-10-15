@@ -131,7 +131,6 @@ namespace MyGUI
 				mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));
 			}
 
-			template <>
 			void addAttributes(const std::string & _key, const std::string & _value)
 			{
 				mAttributes.push_back(PairAttributes(_key, _value));
@@ -143,7 +142,6 @@ namespace MyGUI
 				mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);
 			}
 
-			template <>
 			void addBody(const std::string & _body)
 			{
 				if (mBody.empty()) mBody = _body;
@@ -159,7 +157,6 @@ namespace MyGUI
 				mBody = utility::toString(_body);
 			}
 
-			template <>
 			void setBody(const std::string & _body)
 			{
 				mBody = _body;
