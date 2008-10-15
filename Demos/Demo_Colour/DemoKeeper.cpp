@@ -12,6 +12,8 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Colour");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 		mColourPanel.initialise();
 	}
 
