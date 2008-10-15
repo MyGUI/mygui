@@ -105,8 +105,8 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
         const MyGUI::IntSize size(100, 100);
  
-        base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
-        base::BaseManager::getInstance().setWallpaper("wallpaper4.jpg");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
 		State type;
 
