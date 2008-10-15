@@ -34,14 +34,14 @@ namespace MyGUI
 		//------------------------------------------------------------------------------------------------//
 
 		/* Set texture and size of image _tile
-			@param _texture file name
+			@param _texture file name or texture name in Ogre
 			@param _coord - part of texture where we take tiles
 			@param _tile size
 		*/
 		void setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile);
 
 		/* Set texture
-			@param _texture file name
+			@param _texture file name or texture name in Ogre
 		*/
 		void setImageTexture(const std::string & _texture);
 
