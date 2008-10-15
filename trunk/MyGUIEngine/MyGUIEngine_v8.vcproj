@@ -290,7 +290,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\MYGUI_DDContainerFactory.cpp"
+						RelativePath=".\src\MyGUI_DDContainerFactory.cpp"
 						>
 					</File>
 					<File
