@@ -640,15 +640,15 @@ namespace MyGUI
 				std::string ret;
 				_ok = true;
 
-				int pos = _string.find("&");
+				size_t pos = _string.find("&");
 				if (pos == std::string::npos) return _string;
 
 				ret.reserve(_string.size());
-				int old = 0;
+				size_t old = 0;
 				while (pos != std::string::npos) {
 					ret += _string.substr(old, pos - old);
 
-					int end = _string.find(";", pos + 1);
+					size_t end = _string.find(";", pos + 1);
 					if (end == std::string::npos) {
 						_ok = false;
 						return ret;
@@ -673,6 +673,33 @@ namespace MyGUI
 
 				return ret;
 			}
+
+			std::string convert_to_xml(const std::string & _string)
+			{
+				std::string ret;
+
+				size_t pos = _string.find_first_of("&<>'\"");
+				if (pos == std::string::npos) return _string;
+
+				ret.reserve(_string.size() * 2);
+				size_t old = 0;
+				while (pos != std::string::npos) {
+					ret += _string.substr(old, pos - old);
+
+					if (_string[pos] == '&') ret += "&amp;";
+					else if (_string[pos] == '<') ret += "&lt;";
+					else if (_string[pos] == '>') ret += "&gt;";
+					else if (_string[pos] == '\'') ret += "&apos;";
+					else if (_string[pos] == '\"') ret += "&quot;";
+
+					old = pos + 1;
+					pos = _string.find_first_of("&<>'\"", old);
+				};
+				ret += _string.substr(old, std::string::npos);
+
+				return ret;
+			}
+
 		}
 
 	} // namespace xml

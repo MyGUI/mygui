@@ -5,24 +5,30 @@
 	@module
 */
 #include "DemoKeeper.h"
-#include "BasisManager.h"
 
-void DemoKeeper::start()
+namespace demo
 {
-	using namespace MyGUI;
-	const IntSize & view = Gui::getInstance().getViewSize();
-	const IntSize size(500, 300);
 
-	WindowPtr window = Gui::getInstance().createWidget<Window>("WindowCS", IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), Align::Default, "Main");
-	window->setMinSize(200, 100);
-	window->setCaption("ScrollView demo");
-	ScrollViewPtr scroll_view = window->createWidget<ScrollView>("ScrollView", IntCoord(2, 2, window->getClientCoord().width-2, window->getClientCoord().height-2), Align::Stretch);
+	void DemoKeeper::createScene()
+	{
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
-	scroll_view->setCanvasSize(512, 256);
-	StaticImagePtr image = scroll_view->createWidget<StaticImage>("StaticImage", IntCoord(0, 0, 512, 256), Align::Default);
-	image->setImageTexture("Ogre.png");
-}
+		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize size(500, 300);
 
-void DemoKeeper::end()
-{
-}
+		MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		window->setMinSize(200, 100);
+		window->setCaption("ScrollView demo");
+		MyGUI::ScrollViewPtr scroll_view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(2, 2, window->getClientCoord().width-2, window->getClientCoord().height-2), MyGUI::Align::Stretch);
+
+		scroll_view->setCanvasSize(512, 256);
+		MyGUI::StaticImagePtr image = scroll_view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 512, 256), MyGUI::Align::Default);
+		image->setImageTexture("Ogre.png");
+	}
+
+	void DemoKeeper::destroyScene()
+	{
+	}
+
+} // namespace demo
