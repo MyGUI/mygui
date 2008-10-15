@@ -228,11 +228,15 @@
 				Name="Base"
 				>
 				<File
-					RelativePath=".\BasisManager.cpp"
+					RelativePath="..\..\Common\Base\BaseManager.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\DemoKeeper.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Main.cpp"
 					>
 				</File>
 			</Filter>
@@ -282,11 +286,15 @@
 				Name="Base"
 				>
 				<File
-					RelativePath=".\BasisManager.h"
+					RelativePath="..\..\Common\Base\BaseManager.h"
 					>
 				</File>
 				<File
 					RelativePath=".\DemoKeeper.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\Base\StatisticInfo.h"
 					>
 				</File>
 			</Filter>
@@ -303,15 +311,7 @@
 			Name="Resource"
 			>
 			<File
-				RelativePath=".\Demo_PanelView.rc"
-				>
-			</File>
-			<File
-				RelativePath=".\mygui.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\resource.h"
+				RelativePath="..\..\Common\Base\BaseResource.rc"
 				>
 			</File>
 		</Filter>

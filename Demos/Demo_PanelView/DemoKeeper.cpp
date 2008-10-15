@@ -5,42 +5,42 @@
 	@module
 */
 #include "DemoKeeper.h"
-#include "BasisManager.h"
 
-void DemoKeeper::start()
+namespace demo
 {
-	// загружаем ресурсы для демо
-	// потом сделать и для мака
-	Ogre::ResourceGroupManager::getSingleton().removeResourceLocation("../../Media/LayoutEditor/Panels", "General"); //это из-за конфликта имен
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_PanelView", "FileSystem", "General");
 
-	using namespace MyGUI;
-	const IntSize & view = Gui::getInstance().getViewSize();
-	const IntSize size(600, 300);
+	void DemoKeeper::createScene()
+	{
+        base::BaseManager::getInstance().addResourceLocation("../../Media/LayoutEditor/Panels");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_PanelView");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
-	mView.initialise();
+		mView.initialise();
 
-	mPanelDirector.eventChangePanels = MyGUI::newDelegate(this, &DemoKeeper::notifyChangePanels);
-	mView.addItem(&mPanelDirector);
-	mView.addItem(&mPanelDynamic);
-	mView.addItem(&mPanelStatic);
+		mPanelDirector.eventChangePanels = MyGUI::newDelegate(this, &DemoKeeper::notifyChangePanels);
+		mView.addItem(&mPanelDirector);
+		mView.addItem(&mPanelDynamic);
+		mView.addItem(&mPanelStatic);
 
-}
-
-void DemoKeeper::end()
-{
-	mView.shutdown();
-}
-
-void DemoKeeper::notifyChangePanels(int _key, size_t _value)
-{
-	if (_key == EVENT_SHOW_STATIC) {
-		mView.setItemShow(&mPanelStatic, _value != 0);
 	}
-	else if (_key == EVENT_SHOW_DYNAMIC) {
-		mView.setItemShow(&mPanelDynamic, _value != 0);
+
+	void DemoKeeper::destroyScene()
+	{
+		mView.shutdown();
 	}
-	else if (_key == EVENT_COUNT_DYNAMIC) {
-		mPanelDynamic.setVisibleCount(_value);
+
+	void DemoKeeper::notifyChangePanels(int _key, size_t _value)
+	{
+		if (_key == EVENT_SHOW_STATIC) {
+			mView.setItemShow(&mPanelStatic, _value != 0);
+		}
+		else if (_key == EVENT_SHOW_DYNAMIC) {
+			mView.setItemShow(&mPanelDynamic, _value != 0);
+		}
+		else if (_key == EVENT_COUNT_DYNAMIC) {
+			mPanelDynamic.setVisibleCount(_value);
+		}
 	}
-}
+
+} // namespace demo

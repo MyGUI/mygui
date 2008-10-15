@@ -12,6 +12,12 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
+
+		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize size(300, 26);
+
 		// если группа ресурсов не указанна, то ищется в корне приложения
 	#ifdef _DEBUG
 		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton_d.dll");
