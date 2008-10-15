@@ -193,7 +193,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BasisManager.cpp"
+				RelativePath="..\..\Common\Base\BaseManager.cpp"
 				>
 			</File>
 			<File
@@ -210,6 +210,10 @@
 			</File>
 			<File
 				RelativePath=".\ItemBoxV.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Main.cpp"
 				>
 			</File>
 			<File
@@ -236,6 +240,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Common\BaseLayout.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Common\Base\BaseManager.h"
 				>
 			</File>
 			<File
@@ -271,6 +279,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Common\Base\StatisticInfo.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ToolTip.h"
 				>
 			</File>
@@ -279,15 +291,7 @@
 			Name="Resource"
 			>
 			<File
-				RelativePath=".\Demo_ItemBox.rc"
-				>
-			</File>
-			<File
-				RelativePath=".\mygui.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\resource.h"
+				RelativePath="..\..\Common\Base\BaseResource.rc"
 				>
 			</File>
 		</Filter>

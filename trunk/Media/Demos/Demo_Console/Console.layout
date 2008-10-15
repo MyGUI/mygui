@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowCSX" position="168 72 416 318" layer="Back" name="_Main">
+    <Widget type="Window" skin="WindowCSX" position="168 72 416 318" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="Console"/>
         <Property key="Window_MinMax" value="200 100 2000 2000"/>
 

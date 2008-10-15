@@ -1,29 +1,34 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		05/2008
+	@date		09/2008
 	@module
 */
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
 #include <MyGUI.h>
+#include "Base/BaseManager.h"
 #include "Console.h"
 
-class DemoKeeper
+namespace demo
 {
 
-public:
-	void start();
-	void end();
+	class DemoKeeper : public base::BaseManager
+	{
+	public:
+		virtual void createScene();
+		virtual void destroyScene();
 
-	void pressConsoleKey();
+		void pressConsoleKey();
 
-private:
-	void command(const Ogre::UTFString & _key, const Ogre::UTFString & _value);
+	private:
+		void command(const Ogre::UTFString & _key, const Ogre::UTFString & _value);
 
-private:
-	Console mConsole;
-};
+	private:
+		Console mConsole;
+	};
+
+} // namespace demo
 
 #endif // __DEMO_KEEPER_H__

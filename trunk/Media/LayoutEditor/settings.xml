@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Settings">
     <PropertiesPanelView>
+        <Property key="PanelMinimized" value="1"/>
+        <Property key="PanelMinimized" value="1"/>
+        <Property key="PanelMinimized" value="1"/>
+        <Property key="PanelMinimized" value="1"/>
         <Property key="PanelMinimized" value="0"/>
-        <Property key="PanelMinimized" value="0"/>
-        <Property key="PanelMinimized" value="0"/>
-        <Property key="PanelMinimized" value="0"/>
-        <Property key="PanelMinimized" value="0"/>
-        <Property key="PanelMinimized" value="0"/>
+        <Property key="PanelMinimized" value="1"/>
     </PropertiesPanelView>
     <SettingsWindow>
         <Property key="Grid" value="8"/>
