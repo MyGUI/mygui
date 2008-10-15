@@ -8,6 +8,7 @@
 #include "WidgetContainer.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
+#include "Parse.h"
 
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
@@ -283,9 +284,8 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else if ("2 float" == _type) widget_for_type = 0;
 	// надо сделать проще FIXME
 	else if ("Colour" == _type) widget_for_type = 0;//"Colour" хорошо бы колорпикером
-	else if ("MessageButton" == _type) widget_for_type = 1;//"MessageButton" - тож хз
-	// неправильно FIXME
-	else if ("WidgetState" == _type) widget_for_type = 1;//по идее комба, но тогда надо еще и все состояния доступные в xml вписать
+	else if ("MessageButton" == _type) widget_for_type = 1;
+	else if ("FileName" == _type) widget_for_type = 0;
 	else widget_for_type = 1;
 
 	if ((propertiesText.size() < pairs_counter) || (propertiesText[pairs_counter-1]->getParent() != _window))
@@ -320,7 +320,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		if (widget_for_type == 0)
 		{
 			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-			if (_property != "RenderBox_Mesh" && _property != "Image_Texture") editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyApplyProperties);
 			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyApplyProperties);
 		}
 		else if (widget_for_type == 1)
@@ -349,7 +349,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		editOrCombo->setPosition(x2, y, w2, h);
 	}
 
-	// fill possoble values
+	// fill possible values
 	if (widget_for_type == 1)
 	{
 		std::vector<std::string> values;
@@ -363,27 +363,38 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	editOrCombo->setUserString("action", _property);
 	editOrCombo->setUserString("type", _type);
 
-	if (_value.empty()) editOrCombo->setCaption(DEFAULT_VALUE);
-	else editOrCombo->castType<MyGUI::Edit>()->setOnlyText(_value);
+	if (_value.empty()){
+		editOrCombo->setCaption(DEFAULT_VALUE);
+	}
+	else
+	{
+		editOrCombo->castType<MyGUI::Edit>()->setOnlyText(_value);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		Parse::checkType(editOrCombo->castType<MyGUI::Edit>(), _type, widgetContainer->relative_mode);
+	}
 }
 
 void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 {
 	EditorWidgets * ew = &EditorWidgets::getInstance();
-	ON_EXIT(UndoManager::getInstance().addValue(PR_PROPERTIES));
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	std::string action = _sender->getUserString("action");
-	std::string value = _sender->castType<MyGUI::Edit>()->getOnlyText();
-	std::string type = _sender->getUserString("type");
+	MyGUI::EditPtr senderEdit = _sender->castType<MyGUI::Edit>();
+	std::string action = senderEdit->getUserString("action");
+	std::string value = senderEdit->getOnlyText();
+	std::string type = senderEdit->getUserString("type");
 
-	if (value == "[DEFAULT]") value = "";
+	ON_EXIT(UndoManager::getInstance().addValue(PR_PROPERTIES););
+
+	bool goodData = Parse::checkType(senderEdit, type, widgetContainer->relative_mode);
+
+	if (value == "[DEFAULT]" && senderEdit->getCaption() == DEFAULT_VALUE) value = "";
 
 	if (action == "Name")
 	{
 		if ((!value.empty()) && (null != ew->find(value)) && (widgetContainer != ew->find(value)))
 		{
 			MyGUI::Message::_createMessage(localise("Warning"), "Widget with name '" + value + "' already exist.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-			_sender->castType<MyGUI::Edit>()->setCaption(widgetContainer->name);
+			senderEdit->setCaption(widgetContainer->name);
 			return;
 		}
 
@@ -411,6 +422,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 	else if (action == "Position")
 	{
+		if (!goodData) return;
 		if (widgetContainer->relative_mode){
 			std::istringstream str(value);
 			MyGUI::FloatCoord float_coord;
@@ -441,13 +453,10 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 
 	bool success = false;
-	if ((type == "1 int") || (type == "2 int") || (type == "4 int") || (type == "1 float") || (type == "2 float"))
-	{
-		if ((value != "") && (value.find_first_of("0123456789") != std::string::npos))
-			success = ew->tryToApplyProperty(widgetContainer->widget, action, value);
-	}
-	else if (value != "" || "Widget_FontName" != action)
+	if (goodData)
 		success = ew->tryToApplyProperty(widgetContainer->widget, action, value);
+	else
+		return;
 
 	if (success)
 	{
@@ -455,7 +464,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 	else
 	{
-		_sender->setCaption(DEFAULT_VALUE);
+		senderEdit->setCaption(DEFAULT_VALUE);
 		return;
 	}
 
