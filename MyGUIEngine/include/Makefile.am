@@ -15,6 +15,8 @@ pkginclude_HEADERS = \
 	MyGUI_ControllerItem.h\
 	MyGUI_ControllerManager.h\
 	MyGUI_ControllerPosition.h\
+	MyGUI_DDContainerFactory.h\
+	MyGUI_DDContainer.h\
 	MyGUI_Delegate.h\
 	MyGUI_DelegateImplement.h\
 	MyGUI_DelegateManager.h\
