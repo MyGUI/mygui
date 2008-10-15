@@ -5,9 +5,10 @@
     <MyGUI type="List">
 	    <List file="editor_language.xml" group="General"/>
 	    <List file="editor_layer.xml" group="General"/>
-	    <List file="editor_skin.xml" group="General"/>
+      <List file="editor_skin.xml" group="General"/>
+      <List file="editor_location.xml" group="General"/>
 
-		<_List file="editor_skin_helper.xml" group="General"/>
+      <_List file="editor_skin_helper.xml" group="General"/>
     </MyGUI>
 
 </MyGUI>
