@@ -52,6 +52,7 @@ namespace MyGUI
 		//! Get image index
 		size_t getImageIndex();
 
+		/** Get pointer to glyph image for this button (if it exist in button skin) */
 		StaticImagePtr getStaticImage() { return mImage; }
 
 		//! @copydoc Widget::setEnabled(bool _enabled)
