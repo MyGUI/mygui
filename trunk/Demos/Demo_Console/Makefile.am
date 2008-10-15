@@ -9,7 +9,7 @@ INCLUDES = $(STLPORT_CFLAGS)\
 noinst_PROGRAMS = Demo_Console
 
 Demo_Console_SOURCES = \
-	BasisManager.cpp\
+	Main.cpp\
 	Console.cpp\
 	DemoKeeper.cpp\
 	$(top_srcdir)/Common/BaseLayout.cpp\
