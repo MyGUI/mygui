@@ -10,7 +10,7 @@ INCLUDES = $(STLPORT_CFLAGS)\
 noinst_PROGRAMS = Demo_PanelView
 
 Demo_PanelView_SOURCES = \
-	BasisManager.cpp\
+	Main.cpp\
 	DemoKeeper.cpp\
 	PanelDirector.cpp\
 	PanelDynamic.cpp\
