@@ -438,6 +438,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Parse"
+			>
+			<File
+				RelativePath=".\Parse.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Parse.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

@@ -11,6 +11,7 @@ LayoutEditor_SOURCES = \
 	PanelMainProperties.cpp\
 	PanelProperties.cpp\
 	PanelUserData.cpp\
+	Parse.cpp\
 	PropertiesPanelView.cpp\
 	SettingsWindow.cpp\
 	UndoManager.cpp\
