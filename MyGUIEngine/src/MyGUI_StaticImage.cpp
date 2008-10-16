@@ -105,8 +105,8 @@ namespace MyGUI
 
 	void StaticImage::setImageTexture(const std::string & _texture)
 	{
-		_setTextureName(_texture);
 		mSizeTexture = SkinManager::getTextureSize(_texture);
+		_setTextureName(_texture);
 
 		// если первый раз, то ставим во всю текстуру
 		if (mItems.empty()) _setUVSet(FloatRect(0, 0, 1, 1));
@@ -323,8 +323,8 @@ namespace MyGUI
 
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo & _info)
 	{
-		_setTextureName(_info.texture);
 		mSizeTexture = SkinManager::getTextureSize(_info.texture);
+		_setTextureName(_info.texture);
 
 		mItems.clear();
 

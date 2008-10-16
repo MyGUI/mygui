@@ -356,15 +356,9 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
  	try{
 		if (_key == "Image_Texture")
 		{
-			if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) )
-			{
-				// сначала пытаем подгрузить, а потом снова проверяем
-				Ogre::TextureManager::getSingleton().load(_value, MyGUI::Gui::getInstance().getResourceGroup());
-
-				if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
-					MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-					return true;
-				}
+			if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
+				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				return true;
 			}
 		}
 
