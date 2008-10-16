@@ -42,8 +42,10 @@ public:
 	typedef MyGUI::delegates::CDelegate1<bool> EventInfo;
 	EventInfo eventRecreate;
 private:
-	void notifyApplyProperties(MyGUI::WidgetPtr _sender);
-	void notifyApplyPropertiesCombo(MyGUI::WidgetPtr _widget); // calls previous method
+	bool checkType(MyGUI::EditPtr _edit, std::string _type);
+	void notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _force);
+	void notifyTryApplyProperties(MyGUI::WidgetPtr _sender); // calls notifyApplyProperties
+	void notifyForceApplyProperties(MyGUI::WidgetPtr _widget); // calls notifyApplyProperties
 
 	// properties window
 	size_t pairs_counter;

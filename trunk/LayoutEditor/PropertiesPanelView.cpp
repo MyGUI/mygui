@@ -320,13 +320,13 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		if (widget_for_type == 0)
 		{
 			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyApplyProperties);
-			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 		}
 		else if (widget_for_type == 1)
 		{
 			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyApplyPropertiesCombo);
+			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 
 			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
 		}
@@ -369,12 +369,37 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else
 	{
 		editOrCombo->castType<MyGUI::Edit>()->setOnlyText(_value);
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-		Parse::checkType(editOrCombo->castType<MyGUI::Edit>(), _type, widgetContainer->relative_mode);
+		checkType(editOrCombo->castType<MyGUI::Edit>(), _type);
 	}
 }
 
-void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
+bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, std::string _type)
+{
+	bool success = true;
+	//if ("Name" == _type) widget_for_type = 0;
+	//else if ("Skin" == _type) widget_for_type = 1;
+	//else
+	if ("Position" == _type){
+		if (EditorWidgets::getInstance().find(current_widget)->relative_mode)
+			success = Parse::checkParce<float>(_edit, 4);
+		else
+			success = Parse::checkParce<int>(_edit, 4);
+	}
+	//else if ("Layer" == _type) // выбранное из комбы всегда корректно, а если в лейауте криво было - сами виноваты
+	//else if ("String" == _type) // неправильная строка? O_o
+	//else if ("Align" == _type) // выбранное из комбы всегда корректно, а если в лейауте криво было - сами виноваты
+	else if ("1 int" == _type) success = Parse::checkParce<int>(_edit, 1);
+	else if ("2 int" == _type) success = Parse::checkParce<int>(_edit, 2);
+	else if ("4 int" == _type) success = Parse::checkParce<int>(_edit, 4);
+	else if ("1 float" == _type) success = Parse::checkParce<float>(_edit, 1);
+	else if ("2 float" == _type) success = Parse::checkParce<float>(_edit, 2);
+	// надо сделать колорпикером и без проверки FIXME
+	//else if ("Colour" == _type) success = Parse::checkParce<float>(_edit, 4);
+	else if ("FileName" == _type) success = Parse::checkParceFileName(_edit);
+	return success;
+}
+
+void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _force)
 {
 	EditorWidgets * ew = &EditorWidgets::getInstance();
 	WidgetContainer * widgetContainer = ew->find(current_widget);
@@ -385,7 +410,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 
 	ON_EXIT(UndoManager::getInstance().addValue(PR_PROPERTIES););
 
-	bool goodData = Parse::checkType(senderEdit, type, widgetContainer->relative_mode);
+	bool goodData = checkType(senderEdit, type);
 
 	if (value == "[DEFAULT]" && senderEdit->getCaption() == DEFAULT_VALUE) value = "";
 
@@ -453,7 +478,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	}
 
 	bool success = false;
-	if (goodData)
+	if (goodData || _force)
 		success = ew->tryToApplyProperty(widgetContainer->widget, action, value);
 	else
 		return;
@@ -482,7 +507,12 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender)
 	widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
-void PropertiesPanelView::notifyApplyPropertiesCombo(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyTryApplyProperties(MyGUI::WidgetPtr _sender)
 {
-	notifyApplyProperties(_sender);
+	notifyApplyProperties(_sender, false);
+}
+
+void PropertiesPanelView::notifyForceApplyProperties(MyGUI::WidgetPtr _sender)
+{
+	notifyApplyProperties(_sender, true);
 }
