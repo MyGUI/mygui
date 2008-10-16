@@ -36,16 +36,6 @@ void Console::initialise()
 	mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
 }
 
-void Console::show()
-{
-	mMainWidget->show();
-}
-
-void Console::hide()
-{
-	mMainWidget->hide();
-}
-
 void Console::notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button)
 {
 	if (_button == "close") {

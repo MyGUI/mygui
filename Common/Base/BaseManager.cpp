@@ -171,6 +171,7 @@ namespace base
 	void BaseManager::destroy() // очищаем все параметры каркаса приложения
 	{
 
+		destroyScene();
 		destroyGui();
 
 		// очищаем сцену
