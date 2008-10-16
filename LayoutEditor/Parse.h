@@ -44,6 +44,5 @@ namespace Parse
 	}
 
 	bool checkParceFileName(MyGUI::EditPtr _edit);
-	bool checkType(MyGUI::EditPtr _edit, std::string _type, bool _position_relative_mode);
 }// namespace Parse
 #endif // __PARSE_H__
