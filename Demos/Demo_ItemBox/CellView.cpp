@@ -40,8 +40,8 @@ void CellView::update(const MyGUI::ItemInfo & _info, ItemData * _data)
 
 		static MyGUI::ResourceImageSetPtr resource_back = null;
 		static MyGUI::ResourceImageSetPtr resource_select = null;
-		if (resource_back == null) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_RF_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
-		if (resource_select == null) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_RF_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
+		if (resource_back == null) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
+		if (resource_select == null) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
 
 		mImageBack->setItemResource(resource_back);
 		mImageBack->setItemGroup("States");
