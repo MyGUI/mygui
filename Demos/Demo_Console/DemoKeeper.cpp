@@ -28,7 +28,7 @@ namespace demo
 
 	void DemoKeeper::pressConsoleKey()
 	{
-		mConsole.isShow() ? mConsole.hide() : mConsole.show();
+		mConsole->isShow() ? mConsole->hide() : mConsole->show();
 	}
 
 	void DemoKeeper::command(const Ogre::UTFString & _key, const Ogre::UTFString & _value)

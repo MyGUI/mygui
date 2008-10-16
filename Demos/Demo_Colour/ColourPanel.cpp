@@ -17,6 +17,8 @@ void ColourPanel::initialise()
 {
 	mCurrentColour = Ogre::ColourValue::Green;
 	mBaseColour = Ogre::ColourValue::Green;
+	
+	createTexture();
 
 	loadLayout();
 
@@ -27,11 +29,6 @@ void ColourPanel::initialise()
 	assignWidget(mEditGreen, "edit_Green");
 	assignWidget(mEditBlue, "edit_Blue");
 	assignWidget(mScrollRange, "scroll_Range");
-	assignWidget(mImageRange, "image_ColourRange");
-
-	//mColourRect->_setTextureName("gradient.png");
-	//mColourRect->_setUVSet(MyGUI::FloatRect(0, 0, 1, 1));
-	//mColourRect->set
 
 	mColourRect->eventMouseButtonPressed = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonPressed);
 	mColourRect->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
@@ -42,9 +39,7 @@ void ColourPanel::initialise()
 	mEditGreen->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 	mEditBlue->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 
-	MyGUI::ISubWidget * main = mColourRect->_getSubWidgetMain();
-	mRawColourRect = main->castType<MyGUI::RawRect>();
-	main = mColourView->_getSubWidgetMain();
+	MyGUI::ISubWidget * main = mColourView->_getSubWidgetMain();
 	mRawColourView = main->castType<MyGUI::RawRect>();
 
 	mColourRange.push_back(Ogre::ColourValue(1, 0, 0));
@@ -56,25 +51,82 @@ void ColourPanel::initialise()
 	mColourRange.push_back(mColourRange[0]);
 
 	updateFirst();
+
+	std::string _texture = "resourceThatNotExist";
+	Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
+	try
+	{
+	  manager.load(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	}catch(Ogre::Exception & )
+	{
+	}
+
+	Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not null (!) 
+	bool exist = manager.resourceExists(_texture);
 }
 
-void ColourPanel::show()
+void ColourPanel::shutdown()
 {
-	mMainWidget->show();
-}
-
-void ColourPanel::hide()
-{
-	mMainWidget->hide();
+	destroyTexture();
+	BaseLayout::shutdown();
 }
 
 void ColourPanel::updateFirst()
 {
 	notifyScrollChangePosition(null, mScrollRange->getScrollPosition());
-	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
-	//mRawColourRect->setRectTexture(MyGUI::FloatPoint(0, 0), MyGUI::FloatPoint(1, 0), MyGUI::FloatPoint(0, 1), MyGUI::FloatPoint(1, 1));
 
 	notifyMouseDrag(null, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
+}
+
+void ColourPanel::createTexture()
+{
+	Ogre::uint size = 32;
+
+	//std::string texture(utility::toString(this, "_TextureRenderBox"));
+
+	// Create the texture
+	texture = Ogre::TextureManager::getSingleton().createManual(
+		"ColourGradient", // name
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		Ogre::TEX_TYPE_2D,      // type
+		size, size,         // width & height
+		0,                // number of mipmaps
+		Ogre::PF_BYTE_BGRA,     // pixel format
+		Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
+}
+
+void ColourPanel::destroyTexture()
+{
+	texture.setNull();
+}
+
+void ColourPanel::updateTexture(const Ogre::ColourValue _colour)
+{
+	size_t size = 32;
+
+	// Get the pixel buffer
+	Ogre::HardwarePixelBufferSharedPtr pixelBuffer = texture->getBuffer();
+	// Lock the pixel buffer and get a pixel box
+	pixelBuffer->lock(Ogre::HardwareBuffer::HBL_DISCARD);
+	const Ogre::PixelBox& pixelBox = pixelBuffer->getCurrentLock();
+
+	Ogre::uint8* pDest = static_cast<Ogre::uint8*>(pixelBox.data);
+
+	for (size_t j = 0; j < size; j++)
+		for(size_t i = 0; i < size; i++)
+		{
+			float x = (float)i/size;
+			float y = (float)j/size;
+			*pDest++ = (1. - y) * (_colour.b * x + (1. - x)) * 255; // B
+			*pDest++ = (1. - y) * (_colour.g * x + (1. - x)) * 255; // G
+			*pDest++ = (1. - y) * (_colour.r * x + (1. - x)) * 255; // R
+			*pDest++ = 255; // A
+		}
+
+	// Unlock the pixel buffer
+	pixelBuffer->unlock();
+
+	//mColourRect->setImageTexture("ColourGradient");
 }
 
 void ColourPanel::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
@@ -134,7 +186,7 @@ void ColourPanel::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _p
 	mBaseColour.g = from.g + offfset * (to.g - from.g);
 	mBaseColour.b = from.b + offfset * (to.b - from.b);
 
-	mRawColourRect->setRectColour(Ogre::ColourValue::White, mBaseColour, Ogre::ColourValue::Black, Ogre::ColourValue::Black);
+	updateTexture(mBaseColour);
 
 	MyGUI::IntPoint point(
 		mImageColourPicker->getLeft() + (mImageColourPicker->getWidth() / 2),
@@ -173,6 +225,68 @@ void ColourPanel::updateFromColour(const Ogre::ColourValue & _colour)
 {
 	mCurrentColour = _colour;
 
-	// высчиываем опорный цвет
+	std::vector<float> vec;
+	vec.push_back(_colour.r);
+	vec.push_back(_colour.g);
+	vec.push_back(_colour.b);
+	std::sort(vec.begin(), vec.end());
 
+	MyGUI::IntPoint point((1 - vec[0]/vec[2]) * mColourRect->getWidth(), (1 - vec[2]) * mColourRect->getHeight());
+	mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
+
+	int iMax = (_colour.r == vec[2]) ? 0 : (_colour.g == vec[2]) ? 1 : 2;
+	int iMin = (_colour.r == vec[0]) ? 0 : (_colour.g == vec[0]) ? 1 : 2;
+	int iAvg = 3 - iMax - iMin;
+
+	if (iMin == iMax) // if gray colour - set base red
+	{
+		iMax = 0;
+		iMin = 1;
+		iAvg = 2;
+		mBaseColour[iMin] = 0.;
+		mBaseColour[iAvg] = 0.;
+		mBaseColour[iMax] = 1.;
+	}
+	else
+	{
+		mBaseColour[iMin] = 0.;
+		mBaseColour[iAvg] = (vec[1] - vec[0]) / (vec[2] - vec[0]);
+		mBaseColour[iMax] = 1.;
+	}
+
+
+	int i;
+	for (i = 0; i<6; ++i)
+	{
+		if ((fabs(mColourRange[i][iMin] - mBaseColour[iMin]) < 0.001) &&
+			(fabs(mColourRange[i][iMax] - mBaseColour[iMax]) < 0.001) &&
+			(fabs(mColourRange[i+1][iMin] - mBaseColour[iMin]) < 0.001) &&
+			(fabs(mColourRange[i+1][iMax] - mBaseColour[iMax]) < 0.001))
+			break;
+	}
+
+	/*
+	float offfset = (sector_current - (float)current);
+	mBaseColour.r = from.r + offfset * (to.r - from.r);
+	mBaseColour.g = from.g + offfset * (to.g - from.g);
+	mBaseColour.b = from.b + offfset * (to.b - from.b);
+*/
+
+
+	float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
+	size_t current = i;
+
+	float offset = mBaseColour[iAvg];
+	if (mColourRange[i+1][iAvg] < mColourRange[i][iAvg]) offset = 1 - mBaseColour[iAvg];
+
+	size_t pos = (current + offset) * sector_size;
+
+	mScrollRange->setScrollPosition(pos);
+
+	// бонус для обрезки цвета под шкалу
+	mBaseColour.r = mColourRange[i].r + offset * (mColourRange[i+1].r - mColourRange[i].r);
+	mBaseColour.g = mColourRange[i].g + offset * (mColourRange[i+1].g - mColourRange[i].g);
+	mBaseColour.b = mColourRange[i].b + offset * (mColourRange[i+1].b - mColourRange[i].b);
+
+	updateTexture(mBaseColour);
 }

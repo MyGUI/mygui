@@ -43,16 +43,6 @@ void FontPanel::initialise()
 	update();
 }
 
-void FontPanel::show()
-{
-	mMainWidget->show();
-}
-
-void FontPanel::hide()
-{
-	mMainWidget->hide();
-}
-
 void FontPanel::update()
 {
 	mComboFont->removeAllItems();

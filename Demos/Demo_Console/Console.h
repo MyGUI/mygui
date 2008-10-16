@@ -20,11 +20,6 @@ public:
 
 	virtual void initialise();
 
-	void show();
-	void hide();
-
-	bool isShow() { return mMainWidget->isShow(); } 
-
 	void addToConsole(const Ogre::UTFString & _line);
 	void addToConsole(const Ogre::UTFString & _reason, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 	{
