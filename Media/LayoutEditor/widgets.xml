@@ -68,9 +68,10 @@
   </Widget>
 
   <Widget name="ItemBox">
-    <Property key="DefaultSkin" value="ItemBox"/>
+    <Property key="DefaultSkin" value="ItemBoxV"/>
 
-    <Property key="Skin" value="ItemBox"/>
+    <Property key="Skin" value="ItemBoxV"/>
+    <Property key="Skin" value="ItemBoxH"/>
 
     <Parameter key="DDContainer_NeedDragDrop" value="Bool"/>
   </Widget>

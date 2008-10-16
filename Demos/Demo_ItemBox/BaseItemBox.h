@@ -92,8 +92,8 @@ private:
 
 	void requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 	{
-		if (_drop) _coord.set(-5, -5, 78, 78);
-		else _coord.set(0, 0, 68, 68);
+		if (_drop) _coord.set(0, 0, 74, 74);
+		else _coord.set(0, 0, 74, 74);
 	}
 
 	void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _data)

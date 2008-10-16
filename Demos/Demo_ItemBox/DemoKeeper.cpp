@@ -68,11 +68,11 @@ namespace demo
 
 	void DemoKeeper::notifyDropState(BaseLayout * _sender, MyGUI::DropItemState _state)
 	{
-		if (_state == MyGUI::DropItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("RF_drop_refuse", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("RF_drop_accept", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::Miss) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::Start) MyGUI::PointerManager::getInstance().setPointer("RF_drop", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::End) MyGUI::PointerManager::getInstance().setDefaultPointer();
+		/*if (_state == MyGUI::DropItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("drop_refuse", _sender->mainWidget());
+		else if (_state == MyGUI::DropItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("drop_accept", _sender->mainWidget());
+		else if (_state == MyGUI::DropItemState::Miss) MyGUI::PointerManager::getInstance().setPointer("drop", _sender->mainWidget());
+		else if (_state == MyGUI::DropItemState::Start) MyGUI::PointerManager::getInstance().setPointer("drop", _sender->mainWidget());
+		else if (_state == MyGUI::DropItemState::End) MyGUI::PointerManager::getInstance().setDefaultPointer();*/
 	}
 
 	void DemoKeeper::createScene()
@@ -80,33 +80,31 @@ namespace demo
 		// регестрируем тип нашего ресурса
 		demo::ResourceItemInfo::registryType();
 
-		// загружаем ресурсы для демо
-		// потом сделать и для мака
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../../Media/Demos/Demo_ItemBox", "FileSystem", "General");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_ItemBox");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Icons");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		MyGUI::Gui::getInstance().load("Crystal_Clear_Resources.xml");
 
 		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 		int width = (int)gui->getViewWidth();
 		int height = (int)gui->getViewHeight();
 
-		gui->load("RF.xml");
-		
-		MyGUI::StaticImagePtr back = gui->createWidget<MyGUI::StaticImage>("RF_StaticImage", MyGUI::IntCoord(0, 0, width, height), MyGUI::Align::Stretch, "Back");
-		back->setImageTexture("RF.jpg");
 
 		mToolTip.initialise();
 		mToolTip.hide();
 
 		mItemBoxV.initialise();
 		mItemBoxV.addItem(new ItemData());
-		mItemBoxV.addItem(new ItemData("info_RF_TypeRoll", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeCloth", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeTear", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeEye", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeEmerald", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeWings", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeIce", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeBoard", 5));
-		mItemBoxV.addItem(new ItemData("info_RF_TypeBoots", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item1", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item2", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item3", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item4", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item5", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item6", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item7", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item8", 5));
+		mItemBoxV.addItem(new ItemData("info_Crystal_Clear_Item9", 5));
 
 		mItemBoxV.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 		mItemBoxV.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
@@ -117,15 +115,15 @@ namespace demo
 
 		mItemBoxH.initialise();
 		mItemBoxH.addItem(new ItemData());
-		mItemBoxH.addItem(new ItemData("info_RF_TypeRoll", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeCloth", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeTear", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeEye", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeEmerald", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeWings", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeIce", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeBoard", 5));
-		mItemBoxH.addItem(new ItemData("info_RF_TypeBoots", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item1", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item2", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item3", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item4", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item5", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item6", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item7", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item8", 5));
+		mItemBoxH.addItem(new ItemData("info_Crystal_Clear_Item9", 5));
 
 		mItemBoxH.eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 		mItemBoxH.eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
