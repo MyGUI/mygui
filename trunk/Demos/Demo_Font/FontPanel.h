@@ -18,12 +18,6 @@ public:
 	FontPanel();
 
 	virtual void initialise();
-
-	void show();
-	void hide();
-
-	bool isShow() { return mMainWidget->isShow(); } 
-
 private:
 	void update();
 	void notifyMouseButtonClick(MyGUI::WidgetPtr _widget);
