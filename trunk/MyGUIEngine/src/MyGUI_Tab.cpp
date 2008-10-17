@@ -108,8 +108,8 @@ namespace MyGUI
 	{
 		if (Sheet::getClassTypeName() == _type) {
 
-			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", _name));
-			_insertSheet(ITEM_NONE, "", sheet, Any::Null);
+			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", ""));
+			_insertSheet(ITEM_NONE, _name, sheet, Any::Null);
 
 			return sheet;
 		}
@@ -120,7 +120,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", _name));
+		SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", ""));
 		_insertSheet(_index, _name, sheet, _data);
 
 		return sheet;
