@@ -8,7 +8,12 @@
 #include "ItemBoxV.h"
 
 ItemBoxV::ItemBoxV() :
-	BaseItemBox<CellView>("ItemBoxV.layout")
+	BaseLayout("ItemBoxV.layout")
 {
 }
 
+void ItemBoxV::initialise()
+{
+	BaseLayout::initialise();
+	wrapWidget(mItemBox, "box_Items");
+}

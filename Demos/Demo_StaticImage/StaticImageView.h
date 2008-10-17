@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class StaticImageView : public BaseLayout
+class StaticImageView : public wraps::BaseLayout
 {
 public:
 	StaticImageView();

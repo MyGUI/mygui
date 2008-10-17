@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class SettingsWindow : public BaseLayout
+class SettingsWindow : public wraps::BaseLayout
 {
 public:
 	SettingsWindow();

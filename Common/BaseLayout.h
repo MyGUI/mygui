@@ -9,63 +9,85 @@
 
 #include <MyGUI.h>
 
-class BaseLayout
+namespace wraps
 {
-public:
-	BaseLayout();
-	BaseLayout(const std::string & _layout);
 
-	virtual void initialise();
-	virtual void initialise(MyGUI::WidgetPtr _parent);
-	virtual void shutdown();
-
-	MyGUI::WidgetPtr operator->() const
+	class BaseLayout
 	{
-		MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
-		return mMainWidget;
-	}
+	public:
+		BaseLayout();
+		BaseLayout(const std::string & _layout);
 
-	MyGUI::WidgetPtr mainWidget()
-	{
-		MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
-		return mMainWidget;
-	}
+		// используется для создания простых окон
+		virtual void initialise();
 
-protected:
-	void loadLayout(MyGUI::WidgetPtr _parent = null);
+		// используется для создания дочерних окон
+		virtual void initialise(MyGUI::WidgetPtr _parent);
 
-	template <typename T>
-	void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
-	{
-		_widget = null;
-		for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
-			MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
-			if (null != find) {
-				T * cast = find->castType<T>(false);
-				if (null != cast) {
-					_widget = cast;
-				}
-				else if (_throw) {
-						MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName() 
-						<< "' source name = '" << find->getName() 
-						<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
-				}
-				return;
+		// используется для оборачивания существующих окон
+		virtual void wrap(MyGUI::WidgetPtr _widget);
 
-			}
+		virtual void shutdown();
+
+		MyGUI::WidgetPtr operator->() const
+		{
+			MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
+			return mMainWidget;
 		}
-		MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
-	}
 
-	void assignWidget(BaseLayout & _widget, const std::string & _name, bool _throw = true);
+		MyGUI::WidgetPtr mainWidget()
+		{
+			MYGUI_DEBUG_ASSERT( mMainWidget, "error assign main widget");
+			return mMainWidget;
+		}
 
-protected:
-	std::string mPrefix;
-	std::string mLayoutName;
-	MyGUI::VectorWidgetPtr mListWindowRoot;
-	MyGUI::WidgetPtr mMainWidget;
-	MyGUI::WidgetPtr mParentWidget;
+	protected:
+		void loadLayout(MyGUI::WidgetPtr _parent = null);
 
-};
+		template <typename T>
+		void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
+		{
+			_widget = null;
+			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
+				if (null != find) {
+					T * cast = find->castType<T>(false);
+					if (null != cast) {
+						_widget = cast;
+					}
+					else if (_throw) {
+							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName() 
+							<< "' source name = '" << find->getName() 
+							<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
+					}
+					return;
+
+				}
+			}
+			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
+		}
+
+		void wrapWidget(BaseLayout & _wrap, const std::string & _name, bool _throw = true)
+		{
+			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
+				_wrap.wrap(find);
+				return;
+			}
+			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
+		}
+
+		void assignWidget(BaseLayout & _widget, const std::string & _name, bool _throw = true);
+
+	protected:
+		std::string mPrefix;
+		std::string mLayoutName;
+		MyGUI::VectorWidgetPtr mListWindowRoot;
+		MyGUI::WidgetPtr mMainWidget;
+		MyGUI::WidgetPtr mParentWidget;
+
+	};
+
+} // namespace wraps
 
 #endif // __BASE_LAYOUT_H__

@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class WidgetsWindow : public BaseLayout
+class WidgetsWindow : public wraps::BaseLayout
 {
 public:
 	WidgetsWindow();

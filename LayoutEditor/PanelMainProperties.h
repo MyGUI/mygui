@@ -13,7 +13,7 @@
 
 extern const int PropertyItemHeight;
 
-class PanelMainProperties : public BaseLayout, public PanelBase
+class PanelMainProperties : public wraps::BaseLayout, public PanelBase
 {
 public:
 

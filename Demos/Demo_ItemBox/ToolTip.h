@@ -11,7 +11,7 @@
 #include "BaseLayout.h"
 #include "ItemData.h"
 
-class ToolTip : public BaseLayout
+class ToolTip : public wraps::BaseLayout
 {
 public:
 	ToolTip();

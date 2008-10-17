@@ -13,7 +13,7 @@
 typedef MyGUI::delegates::CDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> CommandDelegate;
 typedef MyGUI::delegates::IDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> * DelegatePtr;
 
-class Console : public BaseLayout
+class Console : public wraps::BaseLayout
 {
 public:
 	Console();

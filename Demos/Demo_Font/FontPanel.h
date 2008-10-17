@@ -12,7 +12,7 @@
 #include "FontView.h"
 #include "TextureView.h"
 
-class FontPanel : public BaseLayout
+class FontPanel : public wraps::BaseLayout
 {
 public:
 	FontPanel();

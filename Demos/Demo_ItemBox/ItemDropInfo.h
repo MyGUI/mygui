@@ -9,24 +9,22 @@
 
 #include <MyGUI.h>
 #include "BaseLayout.h"
-#include "CellView.h"
-#include "ItemData.h"
 
 struct ItemDropInfo
 {
 
 	ItemDropInfo(const MyGUI::ItemDropInfo & _info) :
-		sender(*_info.sender->getUserData<BaseLayout*>()),
+		sender(*_info.sender->getUserData<wraps::BaseLayout*>()),
 		sender_index(_info.sender_index),
-		reseiver(_info.reseiver ? *_info.reseiver->getUserData<BaseLayout*>() : null),
+		reseiver(_info.reseiver ? *_info.reseiver->getUserData<wraps::BaseLayout*>() : null),
 		reseiver_index(_info.reseiver_index)
 	{
 	}
 
-	BaseLayout * sender;
+	wraps::BaseLayout * sender;
 	size_t sender_index;
 
-	BaseLayout * reseiver;
+	wraps::BaseLayout * reseiver;
 	size_t reseiver_index;
 };
 

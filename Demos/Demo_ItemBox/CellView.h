@@ -11,17 +11,17 @@
 #include "BaseCellView.h"
 #include "ItemData.h"
 
-template class BaseCellView<ItemData>;
+template class wraps::BaseCellView<ItemData>;
 
-class CellView : public BaseCellView<ItemData>
+class CellView : public wraps::BaseCellView<ItemData>
 {
 public:
 	CellView();
 
 	void initialise(MyGUI::WidgetPtr _parent);
 
-	//void getSizeCell(WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop);
 	void update(const MyGUI::ItemInfo & _info, ItemData * _data);
+	static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
 
 private:
 

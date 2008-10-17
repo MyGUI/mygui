@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class TextureView : public BaseLayout
+class TextureView : public wraps::BaseLayout
 {
 public:
 	TextureView();
