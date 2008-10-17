@@ -139,10 +139,10 @@ namespace MyGUI
 		// #ifdef MYGUI_USING_OBSOLETE
 
 		MYGUI_OBSOLETE("use PopupMenu::addItem(const Ogre::UTFString & _name, ItemType _type, Any _data)")
-		void addItem(const Ogre::UTFString& _item, bool _submenu, bool _separator) { addItem(_item, getItemType(_submenu, _separator)); }
+		void addItem(const Ogre::UTFString& _item, bool _submenu, bool _separator = false) { addItem(_item, getItemType(_submenu, _separator)); }
 
 		MYGUI_OBSOLETE("use PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)")
-		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu, bool _separator) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }
+		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }
 
 		MYGUI_OBSOLETE("use PopupMenu::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
@@ -153,6 +153,8 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use PopupMenu::getItemNameAt(size_t _index)")
 		const Ogre::UTFString& getItem(size_t _index) { return getItemNameAt(_index); }
 
+		MYGUI_OBSOLETE("use PopupMenu::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
+		void setItem(size_t _index, const Ogre::UTFString& _item) { setItemNameAt(_index, _item); }
 		// #endif // MYGUI_USING_OBSOLETE
 
 

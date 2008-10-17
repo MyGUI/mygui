@@ -111,6 +111,8 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 
 		// #ifdef MYGUI_USING_OBSOLETE
+		MYGUI_OBSOLETE("use ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
+		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
 
 		MYGUI_OBSOLETE("use ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
 		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }

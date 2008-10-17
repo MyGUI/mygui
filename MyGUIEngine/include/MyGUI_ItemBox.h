@@ -222,11 +222,11 @@ namespace MyGUI
 		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 
 		// event : запрос на создание айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _item)
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
 		EventInfo_WidgetWidget requestCreateWidgetItem;
 
 		// event : запрос на размер айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, WidgetPtr _client, IntCoord & _coord, bool _drop)
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
 		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
 
 		// event : запрос на обновление айтема
