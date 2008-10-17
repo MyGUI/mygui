@@ -50,7 +50,7 @@ namespace MyGUI
 	RenderBox::~RenderBox()
 	{
 		//Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
-
+		mTexture.setNull();
 		clear();
 
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
@@ -288,7 +288,7 @@ namespace MyGUI
 	{
 		if (false == mUserViewport){
 			mBackgroungColour = _colour;
-			Ogre::Viewport *v = mTexture->getViewport(0);
+			Ogre::Viewport *v = mRenderTexture->getViewport(0);
 			v->setBackgroundColour(mBackgroungColour);
 		}
 	}
@@ -364,10 +364,10 @@ namespace MyGUI
 		manager.remove(texture);
 
 		mTexture = manager.createManual(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET)
-			->getBuffer()->getRenderTarget();
+			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET);
+		mRenderTexture = mTexture->getBuffer()->getRenderTarget();
 
-		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
+		Ogre::Viewport *v = mRenderTexture->addViewport( mRttCam );
 		v->setClearEveryFrame(true);
 
 		_setTextureName(texture);
@@ -505,8 +505,8 @@ namespace MyGUI
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
 		manager.remove(texture);
 		mTexture = manager.createManual(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_B8G8R8A8, Ogre::TU_RENDERTARGET)
-			->getBuffer()->getRenderTarget();
+			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_B8G8R8A8, Ogre::TU_RENDERTARGET);
+		mRenderTexture = mTexture->getBuffer()->getRenderTarget();
 
 		std::string camera(utility::toString(this, "_CameraRenderBox"));
 		mRttCam = mScene->createCamera(camera);
@@ -518,7 +518,7 @@ namespace MyGUI
 		if (getHeight() == 0) mRttCam->setAspectRatio(1);
 		else mRttCam->setAspectRatio(getWidth()/getHeight());
 
-		Ogre::Viewport *v = mTexture->addViewport( mRttCam );
+		Ogre::Viewport *v = mRenderTexture->addViewport( mRttCam );
 		v->setOverlaysEnabled(false);
 		v->setClearEveryFrame( true );
 		v->setBackgroundColour(mBackgroungColour);
