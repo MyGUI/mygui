@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class FontView : public BaseLayout
+class FontView : public wraps::BaseLayout
 {
 public:
 	FontView();

@@ -11,7 +11,7 @@
 #include "BaseLayout.h"
 #include "PanelView/PanelBase.h"
 
-class PanelStatic : public BaseLayout, public PanelBase
+class PanelStatic : public wraps::BaseLayout, public PanelBase
 {
 public:
 

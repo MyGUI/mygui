@@ -11,10 +11,17 @@
 #include "BaseItemBox.h"
 #include "CellView.h"
 
-class ItemBoxH : public BaseItemBox<CellView>
+class ItemBoxH : public wraps::BaseLayout
 {
 public:
 	ItemBoxH();
+
+	virtual void initialise();
+	wraps::BaseItemBox<CellView> & getItemBox() { return mItemBox; }
+
+private:
+	wraps::BaseItemBox<CellView> mItemBox;
+
 };
 
 #endif // __ITEM_BOXH_H__

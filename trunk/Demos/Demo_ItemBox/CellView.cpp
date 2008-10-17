@@ -7,6 +7,12 @@
 
 #include "CellView.h"
 
+void CellView::getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+{
+	if (_drop) _coord.set(0, 0, 74, 74);
+	else _coord.set(0, 0, 74, 74);
+}
+
 CellView::CellView() :
 	BaseCellView<ItemData>("CellView.layout")
 {

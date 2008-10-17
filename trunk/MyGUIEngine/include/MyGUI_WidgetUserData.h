@@ -63,6 +63,10 @@ namespace MyGUI
 			return mUserData.castType<ValueType>(_throw);
 		}
 
+		void * getUserData()
+		{
+			return mUserData.castUnsafe();
+		}
 
 		void _setInternalData(Any _data) { mInternalData = _data; }
 

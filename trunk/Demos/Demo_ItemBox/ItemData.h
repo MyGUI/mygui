@@ -11,20 +11,6 @@
 #include "ResourceItemInfo.h"
 #include "MyGUI_ResourceManager.h"
 
-/*enum ItemType
-{
-	TypeNone,
-	TypeRoll,
-	TypeCloth,
-	TypeTear,
-	TypeEye,
-	TypeEmerald,
-	TypeWings,
-	TypeIce,
-	TypeBoard,
-	TypeBoots
-};*/
-
 class ItemData
 {
 public:

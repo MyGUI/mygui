@@ -7,29 +7,31 @@
 
 #include "BaseLayout.h"
 
-const std::string MAIN_WINDOW = "_Main";
-
-BaseLayout::BaseLayout() :
-	mMainWidget(null),
-	mParentWidget(null)
+namespace wraps
 {
-	mPrefix = MyGUI::utility::toString(this, "_");
-}
 
-BaseLayout::BaseLayout(const std::string & _layout) :
-	mMainWidget(null),
-	mParentWidget(null),
-	mLayoutName(_layout)
-{
-	mPrefix = MyGUI::utility::toString(this, "_");
-}
+	const std::string MAIN_WINDOW = "_Main";
 
-void BaseLayout::loadLayout(MyGUI::WidgetPtr _parent)
-{
-	mParentWidget = _parent;
-	mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
+	BaseLayout::BaseLayout() :
+		mMainWidget(null),
+		mParentWidget(null)
+	{
+		mPrefix = MyGUI::utility::toString(this, "_");
+	}
 
-	//if (mParentWidget == null) {
+	BaseLayout::BaseLayout(const std::string & _layout) :
+		mMainWidget(null),
+		mParentWidget(null),
+		mLayoutName(_layout)
+	{
+		mPrefix = MyGUI::utility::toString(this, "_");
+	}
+
+	void BaseLayout::loadLayout(MyGUI::WidgetPtr _parent)
+	{
+		mParentWidget = _parent;
+		mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
+
 		const std::string main_name = mPrefix + MAIN_WINDOW;
 		for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
 			if ((*iter)->getName() == main_name) {
@@ -38,31 +40,38 @@ void BaseLayout::loadLayout(MyGUI::WidgetPtr _parent)
 			}
 		}
 		MYGUI_EXCEPT("root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
-	//}
-}
-
-void BaseLayout::initialise()
-{
-	loadLayout();
-}
-
-void BaseLayout::initialise(MyGUI::WidgetPtr _parent)
-{
-	loadLayout(_parent);
-}
-
-void BaseLayout::shutdown()
-{
-	if (mParentWidget == null) {
-		MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
 	}
-	mListWindowRoot.clear();
-}
 
-void BaseLayout::assignWidget(BaseLayout & _base, const std::string & _name, bool _throw)
-{
-	MyGUI::WidgetPtr widget = null;
-	assignWidget(widget, _name, _throw);
-	_base.initialise(widget);
-}
+	void BaseLayout::initialise()
+	{
+		loadLayout();
+	}
 
+	void BaseLayout::initialise(MyGUI::WidgetPtr _parent)
+	{
+		loadLayout(_parent);
+	}
+
+	void BaseLayout::wrap(MyGUI::WidgetPtr _widget)
+	{
+		MYGUI_ASSERT(_widget, "wrap widget must be assign. Layout : '" << mLayoutName << "'");
+		mMainWidget = _widget;
+		mParentWidget = _widget->getParent();
+	}
+
+	void BaseLayout::shutdown()
+	{
+		if (mParentWidget == null) {
+			MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
+		}
+		mListWindowRoot.clear();
+	}
+
+	void BaseLayout::assignWidget(BaseLayout & _base, const std::string & _name, bool _throw)
+	{
+		MyGUI::WidgetPtr widget = null;
+		assignWidget(widget, _name, _throw);
+		_base.initialise(widget);
+	}
+
+} // namespace wraps
