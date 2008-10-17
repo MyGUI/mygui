@@ -376,7 +376,25 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, std::string _type)
 {
 	bool success = true;
-	//if ("Name" == _type) widget_for_type = 0;
+	if ("Name" == _type)
+	{
+		const Ogre::UTFString & text = _edit->getOnlyText();
+		size_t index = _edit->getTextCursor();
+		WidgetContainer * textWC = EditorWidgets::getInstance().find(text);
+		if ((!text.empty()) && (null != textWC) &&
+			(EditorWidgets::getInstance().find(current_widget) != textWC))
+		{
+			static const Ogre::UTFString colour = "#FF0000";
+			_edit->setCaption(colour + text);
+			success = false;
+		}
+		else
+		{
+			_edit->setCaption(text);
+			success = true;
+		}
+		_edit->setTextCursor(index);
+	}
 	//else if ("Skin" == _type) widget_for_type = 1;
 	//else
 	if ("Position" == _type){
@@ -416,15 +434,11 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 
 	if (action == "Name")
 	{
-		if ((!value.empty()) && (null != ew->find(value)) && (widgetContainer != ew->find(value)))
+		if (goodData)
 		{
-			MyGUI::Message::_createMessage(localise("Warning"), "Widget with name '" + value + "' already exist.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-			senderEdit->setCaption(widgetContainer->name);
-			return;
+			widgetContainer->name = value;
+			ew->widgets_changed = true;
 		}
-
-		widgetContainer->name = value;
-		ew->widgets_changed = true;
 		return;
 	}
 	else if (action == "Skin")
