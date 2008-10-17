@@ -6,7 +6,7 @@
         <Property key="Window_MinMax" value="280 210 2048 2048"/>
         <Property key="Widget_Show" value="false"/>
         <Widget type="ScrollView" skin="ScrollViewEmpty" position="2 2 267 560" align="Stretch" name="scroll_View">
-            <Property key="ScrollView_ShowHScroll" value="false"/>
+            <Property key="ScrollView_HScroll" value="false"/>
         </Widget>
     </Widget>
 </MyGUI>

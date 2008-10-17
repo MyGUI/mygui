@@ -30,8 +30,8 @@ public:
 
 //===================================================================================
 
-	void loadSettings();
-	void saveSettings();
+	void loadSettings(std::string _fileName);
+	void saveSettings(std::string _fileName);
 	// main panel
 	void notifySave();
 	void notifyLoadSaveAs(bool _save);

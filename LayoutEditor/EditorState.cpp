@@ -95,7 +95,8 @@ void EditorState::enter(bool bIsChangeState)
 	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
 	interfaceWidgets.push_back(mSettingsWindow.mainWidget());
 	
-	loadSettings();
+	loadSettings("settings.xml");
+	loadSettings("user_settings.xml");
 
 	mWidgetsWindow.initialise();
 	mWidgetsWindow.eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
@@ -154,7 +155,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 
 void EditorState::exit()
 {
-	saveSettings();
+	saveSettings("user_settings.xml");
 	um->shutdown();
 	delete um;
 	ew->shutdown();
@@ -409,16 +410,14 @@ void EditorState::windowResize()
 	notifySelectWidget(current_widget1);
 }
 //===================================================================================
-void EditorState::loadSettings()
+void EditorState::loadSettings(std::string _fileName)
 {
-	std::string _fileName = "settings.xml";
 	std::string _instance = "Editor";
 
 	MyGUI::xml::xmlDocument doc;
 	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty()) {
-		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
-		return;
+		file = _fileName;
 	}
 	if (false == doc.open(file)) {
 		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
@@ -446,9 +445,8 @@ void EditorState::loadSettings()
 	}
 }
 
-void EditorState::saveSettings()
+void EditorState::saveSettings(std::string _fileName)
 {
-	std::string _fileName = "settings.xml";
 	std::string _instance = "Editor";
 
 	MyGUI::xml::xmlDocument doc;
