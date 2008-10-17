@@ -149,7 +149,8 @@ namespace MyGUI
 		Ogre::SceneManager * mScene;
 		Ogre::Entity * mEntity;
 		Ogre::SceneNode * mNode;
-		Ogre::RenderTexture* mTexture;
+		Ogre::TexturePtr mTexture;
+		Ogre::RenderTexture* mRenderTexture;
 
 		Ogre::Camera* mRttCam;
 		Ogre::SceneNode* mCamNode;
