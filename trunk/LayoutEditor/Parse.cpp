@@ -20,17 +20,18 @@ namespace Parse
 				Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, text);
 			// файл должен быть только один, если будет два, то все равно гуй его не съест
 			if (pFileInfo->size() != 1) {
-				_edit->setCaption(colour + text);
+				success = false;
 			}
 			else {
-				_edit->setCaption(text);
 				success = true;
 			}
 			pFileInfo.setNull();
 		}
 		else {
-			_edit->setCaption(colour + text);
+			success = false;
 		}
+		if (success) _edit->setCaption(text);
+		else _edit->setCaption(colour + text);
 		_edit->setTextCursor(index);
 		return success;
 	}

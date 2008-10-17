@@ -26,19 +26,20 @@ namespace Parse
 			-- _count;
 		}
 		if (str.fail()) {
-			_edit->setCaption(colour + text);
+			success = false;
 		}
 		else {
 			std::string tmp;
 			str >> tmp;
 			if (!str.fail() || tmp.find_first_not_of(" \t\r") != std::string::npos) {
-				_edit->setCaption(colour + text);
+				success = false;
 			}
 			else {
-				_edit->setCaption(text);
 				success = true;
 			}
 		}
+		if (success) _edit->setCaption(text);
+		else _edit->setCaption(colour + text);
 		_edit->setTextCursor(index);
 		return success;
 	}
