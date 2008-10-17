@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class EditorToolTip : public BaseLayout
+class EditorToolTip : public wraps::BaseLayout
 {
 public:
 	EditorToolTip();

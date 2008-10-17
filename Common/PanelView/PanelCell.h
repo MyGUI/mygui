@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class PanelCell : public BaseLayout
+class PanelCell : public wraps::BaseLayout
 {
 public:
 	typedef MyGUI::delegates::CDelegate1<PanelCell*> DelegateUpdate;

@@ -11,7 +11,7 @@
 #include <Ogre.h>
 #include "BaseLayout.h"
 
-class ColourPanel : public BaseLayout
+class ColourPanel : public wraps::BaseLayout
 {
 public:
 	ColourPanel();

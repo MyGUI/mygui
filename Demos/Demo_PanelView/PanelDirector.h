@@ -19,7 +19,7 @@ enum EventInfo {
 
 typedef MyGUI::delegates::CDelegate2<int, size_t> EventInfo_EventDirector;
 
-class PanelDirector : public BaseLayout, public PanelBase
+class PanelDirector : public wraps::BaseLayout, public PanelBase
 {
 public:
 

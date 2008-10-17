@@ -131,13 +131,19 @@ namespace MyGUI
 			return mContent ? mContent->getType() : typeid(void);
 		}
 
-		template<typename ValueType> ValueType * castType(bool _throw = true) const
+		template<typename ValueType>
+		ValueType * castType(bool _throw = true) const
 		{
 			if (this->getType() == typeid(ValueType)) {
 				return & static_cast<Any::Holder<ValueType> *>(this->mContent)->held;
 			}
 			MYGUI_ASSERT(!_throw, "Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
-			return 0;
+			return null;
+		}
+
+		void * castUnsafe() const
+		{
+			return mContent ? static_cast<Any::Holder<void *> *>(this->mContent)->held : null;
 		}
 
 	private:

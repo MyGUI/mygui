@@ -10,14 +10,20 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-template<typename T>
-class BaseCellView : public BaseLayout
+namespace wraps
 {
-public:
-	typedef T Type;
 
-protected:
-	BaseCellView(const std::string & _layout) : BaseLayout(_layout) {}
-};
+	template<typename DataType>
+	class BaseCellView : public BaseLayout
+	{
+	public:
+		typedef DataType Type;
+
+	protected:
+		BaseCellView(const std::string & _layout) : BaseLayout(_layout) { }
+
+	};
+
+} // namespace wraps
 
 #endif // __BASE_CELL_VIEW_H__

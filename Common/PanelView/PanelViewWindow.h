@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "PanelView.h"
 
-class PanelViewWindow : public BaseLayout
+class PanelViewWindow : public wraps::BaseLayout
 {
 public:
 

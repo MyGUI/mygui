@@ -185,10 +185,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\BaseItemBox.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\Common\BaseLayout.cpp"
 				>
 			</File>
@@ -244,10 +240,6 @@
 			</File>
 			<File
 				RelativePath="..\..\Common\Base\BaseManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BasisManager.h"
 				>
 			</File>
 			<File
