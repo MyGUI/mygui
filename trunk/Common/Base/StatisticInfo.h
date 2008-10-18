@@ -27,15 +27,15 @@ namespace statistic
 			const std::string layer = "Statistic";
 			if ( ! MyGUI::LayerManager::getInstance().isExist(layer)) return;
 
-			const std::string skin = "RectBlue";
+			const std::string skin = "StatisticRect";
 			if ( ! MyGUI::SkinManager::getInstance().isExist(skin)) return;
 
-			const std::string font = "DejaVuSans.14";
-			if ( ! MyGUI::FontManager::getInstance().isExist(font)) return;
-
 			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+
+			// если не найдется то поставится Default
+			const std::string font = "DejaVuSans.14";
 			mInfo->setFontName(font);
-			//mInfo->setFontHeight(12);
+
 		}
 
 		~StatisticInfo()
