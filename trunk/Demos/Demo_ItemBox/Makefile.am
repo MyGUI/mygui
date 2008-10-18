@@ -9,7 +9,6 @@ INCLUDES = $(STLPORT_CFLAGS)\
 noinst_PROGRAMS = Demo_ItemBox
 
 Demo_ItemBox_SOURCES = \
-	BaseItemBox.cpp\
 	Main.cpp\
 	CellView.cpp\
 	DemoKeeper.cpp\
