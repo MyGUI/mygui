@@ -14,7 +14,7 @@ void CellView::getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coo
 }
 
 CellView::CellView() :
-	BaseCellView<ItemData>("CellView.layout")
+	wraps::BaseCellView<ItemData>("CellView.layout")
 {
 }
 

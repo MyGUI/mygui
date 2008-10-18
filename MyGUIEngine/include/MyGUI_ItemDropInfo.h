@@ -12,8 +12,8 @@
 namespace MyGUI
 {
 
-	MYGUI_OBSOLETE("use DropItemState")
-	enum ObsoleteTypeDropState
+	enum MYGUI_OBSOLETE("use DropItemState")
+	ObsoleteTypeDropState
 	{
 		//use DropItemState::None
 		DROP_NONE,
@@ -48,7 +48,7 @@ namespace MyGUI
 		friend bool operator != (DropItemState const & a, DropItemState const & b) { return a.value != b.value; }
 	};
 
-	// структура информации об индексах дропа
+	// Г±ГІГ°ГіГЄГІГіГ°Г  ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ Г®ГЎ ГЁГ­Г¤ГҐГЄГ±Г Гµ Г¤Г°Г®ГЇГ 
 	struct _MyGUIExport ItemDropInfo
 	{
 		ItemDropInfo() :
@@ -83,14 +83,14 @@ namespace MyGUI
 			sender_index = ITEM_NONE;
 		}
 
-		// посылающий виджет 
+		// ГЇГ®Г±Г»Г«Г ГѕГ№ГЁГ© ГўГЁГ¤Г¦ГҐГІ 
 		WidgetPtr sender;
-		// индекс посылающего виджета
+		// ГЁГ­Г¤ГҐГЄГ± ГЇГ®Г±Г»Г«Г ГѕГ№ГҐГЈГ® ГўГЁГ¤Г¦ГҐГІГ 
 		size_t sender_index;
 
-		// принимающий виджет
+		// ГЇГ°ГЁГ­ГЁГ¬Г ГѕГ№ГЁГ© ГўГЁГ¤Г¦ГҐГІ
 		WidgetPtr reseiver;
-		// индекс принимающего виджета
+		// ГЁГ­Г¤ГҐГЄГ± ГЇГ°ГЁГ­ГЁГ¬Г ГѕГ№ГҐГЈГ® ГўГЁГ¤Г¦ГҐГІГ 
 		size_t reseiver_index;
 	};
 
@@ -116,16 +116,16 @@ namespace MyGUI
 			update(true)
 		{ }
 
-		// индекс этого элемента
+		// ГЁГ­Г¤ГҐГЄГ± ГЅГІГ®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ 
 		/** Index of element */
 		size_t index;
-		// изменилось не только состояние, но и содержимое
+		// ГЁГ§Г¬ГҐГ­ГЁГ«Г®Г±Гј Г­ГҐ ГІГ®Г«ГјГЄГ® Г±Г®Г±ГІГ®ГїГ­ГЁГҐ, Г­Г® ГЁ Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ
 		/** State and interdan data changed */
 		bool update;
-		// айтем принимамет дроп
+		// Г Г©ГІГҐГ¬ ГЇГ°ГЁГ­ГЁГ¬Г Г¬ГҐГІ Г¤Г°Г®ГЇ
 		/** Is widget accept drag */
 		bool accept;
-		// айтем не берет дроп
+		// Г Г©ГІГҐГ¬ Г­ГҐ ГЎГҐГ°ГҐГІ Г¤Г°Г®ГЇ
 		/** Is widget refuse drag */
 		bool refuse;
 	};

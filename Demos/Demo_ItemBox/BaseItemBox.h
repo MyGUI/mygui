@@ -54,7 +54,7 @@ namespace wraps
 
 		virtual void shutdown()
 		{
-			for (VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter) {
+			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter) {
 				(*iter)->shutdown();
 				delete *iter;
 			}

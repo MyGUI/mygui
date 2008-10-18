@@ -146,7 +146,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 {
 	MyGUI::IntPoint delta;
 	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
-	if (OIS::KC_TAB == _key)
+	if (MyGUI::KC_TAB == _key)
 	{
 		if ((null != current_widget) && (null != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
 		if (current_widget->getTypeName() == "Tab")
@@ -158,7 +158,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 			if (tab->getItemCount()) tab->setItemSelectedAt(sheet);
 		}
 	}
-	else if (OIS::KC_DELETE == _key)
+	else if (MyGUI::KC_DELETE == _key)
 	{
 		if (current_widget){
 			EditorWidgets::getInstance().remove(current_widget);
@@ -166,19 +166,19 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 			UndoManager::getInstance().addValue();
 		}
 	}
-	else if (OIS::KC_LEFT == _key)
+	else if (MyGUI::KC_LEFT == _key)
 	{
 		delta = MyGUI::IntPoint(-k, 0);
 	}
-	else if (OIS::KC_RIGHT == _key)
+	else if (MyGUI::KC_RIGHT == _key)
 	{
 		delta = MyGUI::IntPoint(k, 0);
 	}
-	else if (OIS::KC_UP == _key)
+	else if (MyGUI::KC_UP == _key)
 	{
 		delta = MyGUI::IntPoint(0, -k);
 	}
-	else if (OIS::KC_DOWN == _key)
+	else if (MyGUI::KC_DOWN == _key)
 	{
 		delta = MyGUI::IntPoint(0, k);
 	}

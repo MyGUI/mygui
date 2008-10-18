@@ -23,8 +23,4 @@ namespace demo
 		mView.shutdown();
     }
  
-} // namespace demo 
- 
-
-
-  
+} // namespace demo

@@ -50,10 +50,10 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 	const int LINE_HEIGHT = 22;
 	const int LINES = 3;
 
-	// узнаем размер скина, так чтобы дочки были полноразмерные
+	// ГіГ§Г­Г ГҐГ¬ Г°Г Г§Г¬ГҐГ° Г±ГЄГЁГ­Г , ГІГ ГЄ Г·ГІГ®ГЎГ» Г¤Г®Г·ГЄГЁ ГЎГ»Г«ГЁ ГЇГ®Г«Г­Г®Г°Г Г§Г¬ГҐГ°Г­Г»ГҐ
 	MyGUI::SkinManager & manager = MyGUI::SkinManager::getInstance();
 	if (manager.isExist(skin)) {
-		// максимальная разница
+		// Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­Г Гї Г°Г Г§Г­ГЁГ¶Г 
 		MyGUI::IntSize max_size;
 
 		MyGUI::WidgetSkinInfo * info = manager.getSkin(skin);
@@ -71,7 +71,7 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 			}
 		}
 
-		// прибавляем размер детей
+		// ГЇГ°ГЁГЎГ ГўГ«ГїГҐГ¬ Г°Г Г§Г¬ГҐГ° Г¤ГҐГІГҐГ©
 		width += max_size.width;
 		height += max_size.height;
 	}

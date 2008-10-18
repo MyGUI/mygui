@@ -67,7 +67,7 @@ namespace demo
 		if (text.find_first_of("*?") == std::string::npos) {
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(
 				Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, text);
-			// ôàéë äîëæåí áûòü òîëüêî îäèí, åñëè áóäåò äâà, òî âñå ðàâíî ãóé åãî íå ñúåñò
+			// Ã´Ã Ã©Ã« Ã¤Ã®Ã«Ã¦Ã¥Ã­ Ã¡Ã»Ã²Ã¼ Ã²Ã®Ã«Ã¼ÃªÃ® Ã®Ã¤Ã¨Ã­, Ã¥Ã±Ã«Ã¨ Ã¡Ã³Ã¤Ã¥Ã² Ã¤Ã¢Ã , Ã²Ã® Ã¢Ã±Ã¥ Ã°Ã Ã¢Ã­Ã® Ã£Ã³Ã© Ã¥Ã£Ã® Ã­Ã¥ Ã±ÃºÃ¥Ã±Ã²
 			if (pFileInfo->size() != 1) {
 				_edit->setCaption(colour + text);
 			}
@@ -222,8 +222,4 @@ namespace demo
 		MyGUI::MYGUI_OUT("ToolTip : ", (_info.type == MyGUI::ToolTipInfo::Show ? "show" : "hide"));
 	}*/
  
-} // namespace demo 
- 
-
-
-  
+} // namespace demo
