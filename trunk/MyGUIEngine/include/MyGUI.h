@@ -56,4 +56,6 @@
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_Any.h"
 
+#	pragma warning( default: 4996)
+
 #endif // __MYGUI_H__

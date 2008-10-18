@@ -6,6 +6,7 @@
 */
 #include "DemoKeeper.h"
 #include <typeinfo>
+
  
 namespace demo
 {
@@ -97,6 +98,8 @@ namespace demo
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
+
+
 		/*State type;
 
 		State type1 = 0;
@@ -164,7 +167,8 @@ namespace demo
 		mDropImage->setItemGroup("Icons");
 		mDropImage->setItemName("Info");*/
  
-		MyGUI::ButtonPtr button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ListPtr list = MyGUI::Gui::getInstance().createWidget<MyGUI::List>("List", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Overlapped");
+		list->deleteAllItems();
 
 		/*MyGUI::FooBarPtr bar = MyGUI::Gui::getInstance().createWidget<MyGUI::FooBar>("Button", MyGUI::IntCoord(100, 100, 550, 50), MyGUI::Align::Default, "Overlapped");
 		bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
