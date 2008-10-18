@@ -138,10 +138,18 @@ namespace types
 
 		static TRect<T> parse(const std::string& _value)
 		{
-			TRect<T> ret;
+			TRect<T> result;
 	        std::istringstream stream(_value);
-	        stream >> ret;
-		    return ret;
+	        stream >> result.left >> result.top >> result.right >> result.bottom;
+			if (stream.fail()) return TRect<T>();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return TRect<T>();
+					item = stream.get();
+				};
+			}
+		    return result;
 		}
 
         friend std::ostream& operator << ( std::ostream& _stream, const TRect<T>&  _value )
