@@ -102,7 +102,7 @@ namespace MyGUI
 
 		if (!nearBorder) mElapsedTime = 0;
 
-		_widget->setPosition(coord);
+		_widget->setCoord(coord);
 
 		return true;
 	}

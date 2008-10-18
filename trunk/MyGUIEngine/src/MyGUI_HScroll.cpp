@@ -29,7 +29,7 @@ namespace MyGUI
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth())) {
 			mWidgetTrack->hide();
 			if ( null != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
-			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setPosition(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
+			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
 			if ( pos < 0 )
 			{
 				//if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart + pos/2, mWidgetStart->getHeight());
@@ -63,7 +63,7 @@ namespace MyGUI
 		{
 			int top = pos + mWidgetTrack->getWidth()/2;
 			int height = mWidgetSecondPart->getWidth() + mWidgetSecondPart->getLeft() - top;
-			mWidgetSecondPart->setPosition(top, mWidgetSecondPart->getTop(), height, mWidgetSecondPart->getHeight());
+			mWidgetSecondPart->setCoord(top, mWidgetSecondPart->getTop(), height, mWidgetSecondPart->getHeight());
 		}
 	}
 

@@ -139,7 +139,7 @@ void StaticImageView::selectName(size_t _index)
 		mImage->setItemGroup(mComboGroup->getCaption());
 		mImage->setItemName(mComboName->getCaption());
 		mImage->show();
-		mImage->setPosition(0, 0, mImageSize.width, mImageSize.height);
+		mImage->setCoord(0, 0, mImageSize.width, mImageSize.height);
 		mImageView->setCanvasSize(mImageSize);
 	}
 	else {

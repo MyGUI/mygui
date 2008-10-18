@@ -86,7 +86,7 @@ void EditorState::enter(bool bIsChangeState)
 	// properties panelView
 	mPropertiesPanelView.initialise();
 	mPropertiesPanelView.eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-	mPropertiesPanelView->setPosition(mGUI->getViewWidth() - mPropertiesPanelView->getSize().width, bar->getHeight(),
+	mPropertiesPanelView->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getSize().width, bar->getHeight(),
 					mPropertiesPanelView->getSize().width, mGUI->getViewHeight() - bar->getHeight());
 	interfaceWidgets.push_back(mPropertiesPanelView.mainWidget());
 
@@ -487,7 +487,7 @@ void EditorState::notifyLoadSaveAs(bool _save)
 	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("SaveLoadMessage.layout")[0];
 	MyGUI::IntSize view(mGUI->getViewSize());
 	MyGUI::IntSize size(messageWindow->getSize());
-	messageWindow->setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
+	messageWindow->setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 	MyGUI::InputManager::getInstance().addWidgetModal(messageWindow);
 	
 	//MyGUI::VectorWidgetPtr childs = messageWindow->getChilds();

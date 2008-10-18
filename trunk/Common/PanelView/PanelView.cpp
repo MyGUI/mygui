@@ -48,7 +48,7 @@ void PanelView::updateView()
 		MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->mainWidget();
 		if (widget->isShow()) {
 			height = widget->getHeight();
-			widget->setPosition(MyGUI::IntCoord(0, pos, coord.width, height));
+			widget->setCoord(MyGUI::IntCoord(0, pos, coord.width, height));
 			pos += height;
 		}
 	}

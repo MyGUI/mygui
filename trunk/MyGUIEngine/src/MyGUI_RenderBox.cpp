@@ -373,15 +373,20 @@ namespace MyGUI
 		_setTextureName(texture);
 	}
 
-	void RenderBox::setPosition(const IntCoord& _coord)
+	void RenderBox::setPosition(const IntPoint & _point)
 	{
-		updateViewport();
-		Widget::setPosition(_coord);
+		Widget::setPosition(_point);
 	}
 
 	void RenderBox::setSize(const IntSize& _size)
 	{
 		Widget::setSize(_size);
+		updateViewport();
+	}
+
+	void RenderBox::setCoord(const IntCoord & _coord)
+	{
+		Widget::setCoord(_coord);
 		updateViewport();
 	}
 

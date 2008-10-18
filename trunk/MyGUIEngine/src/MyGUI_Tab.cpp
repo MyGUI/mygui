@@ -126,15 +126,21 @@ namespace MyGUI
 		return sheet;
 	}
 
-	void Tab::setPosition(const IntCoord& _coord)
+	void Tab::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_coord);
+		Widget::setPosition(_point);
 		updateBar();
 	}
 
 	void Tab::setSize(const IntSize& _size)
 	{
 		Widget::setSize(_size);
+		updateBar();
+	}
+
+	void Tab::setCoord(const IntCoord & _coord)
+	{
+		Widget::setCoord(_coord);
 		updateBar();
 	}
 
@@ -209,7 +215,7 @@ namespace MyGUI
 			// положение кнопки
 			IntCoord coord(width, 0, info.width, mWidgetBar->getHeight());
 			if (coord != button->getCoord())
-				button->setPosition(coord);
+				button->setCoord(coord);
 
 			width += info.width;
 			count ++;
@@ -227,7 +233,7 @@ namespace MyGUI
 		// корректируем виджет для пустоты
 		if (width < mWidgetBar->getWidth()) {
 			mEmptyBarWidget->show();
-			mEmptyBarWidget->setPosition(width, 0, mWidgetBar->getWidth() - width, mWidgetBar->getHeight());
+			mEmptyBarWidget->setCoord(width, 0, mWidgetBar->getWidth() - width, mWidgetBar->getHeight());
 		}
 		else {
 			mEmptyBarWidget->hide();

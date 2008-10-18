@@ -126,7 +126,7 @@ namespace MyGUI
 			IntCoord coord;
 			eventFrameAction(mStartRect, mDestRect, coord, mElapsedTime/mTime);
 			if (mCalcPosition) {
-				if (mCalcSize) _widget->setPosition(coord);
+				if (mCalcSize) _widget->setCoord(coord);
 				else _widget->setPosition(coord.point());
 			}
 			else if (mCalcSize) _widget->setSize(coord.size());
@@ -141,7 +141,7 @@ namespace MyGUI
 		IntCoord coord;
 		eventFrameAction(mStartRect, mDestRect, coord, 1.0f);
 		if (mCalcPosition) {
-			if (mCalcSize) _widget->setPosition(coord);
+			if (mCalcSize) _widget->setCoord(coord);
 			else _widget->setPosition(coord.point());
 		}
 		else if (mCalcSize) _widget->setSize(coord.size());

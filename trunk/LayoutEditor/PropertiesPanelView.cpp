@@ -132,14 +132,14 @@ void PropertiesPanelView::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 		arrow_move = false;
 
 		coord = convertCoordToParentCoord(coord, current_widget);
-		current_widget->setPosition(coord);
+		current_widget->setCoord(coord);
 		// update coord because of current_widget can have MinMax size
 		coord = current_widget->getCoord();
 		setPositionText(widgetContainer->position());
 
 		UndoManager::getInstance().addValue(PR_POSITION);
 	}
-	current_widget_rectangle->setPosition(current_widget->getAbsoluteCoord());
+	current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 }
 
 void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
@@ -222,7 +222,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 			coord = current_widget->getAbsoluteCoord();
 		}
 		current_widget_rectangle->show();
-		current_widget_rectangle->setPosition(coord);
+		current_widget_rectangle->setCoord(coord);
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(current_widget_rectangle);
 	}
 
@@ -306,7 +306,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	{
 		text = propertiesText[pairs_counter-1];
 		text->show();
-		text->setPosition(x1, y, w1, h);
+		text->setCoord(x1, y, w1, h);
 	}
 	std::string prop = _property;
 	// trim widget name
@@ -346,7 +346,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		editOrCombo = propertiesElement[pairs_counter-1];
 		if (widget_for_type == 1) editOrCombo->castType<MyGUI::ComboBox>()->removeAllItems();
 		editOrCombo->show();
-		editOrCombo->setPosition(x2, y, w2, h);
+		editOrCombo->setCoord(x2, y, w2, h);
 	}
 
 	// fill possible values
@@ -471,12 +471,12 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 			float_coord.width = float_coord.width/100;
 			float_coord.height = float_coord.height/100;
 			MyGUI::IntCoord coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(float_coord, current_widget->getParent());
-			current_widget->setPosition(coord);
-			current_widget_rectangle->setPosition(current_widget->getAbsoluteCoord());
+			current_widget->setCoord(coord);
+			current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 			return;
 		}
 		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Move", value);
-		current_widget_rectangle->setPosition(current_widget->getAbsoluteCoord());
+		current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 		return;
 	}
 	else if (action == "Align")
@@ -499,7 +499,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 
 	if (success)
 	{
-		current_widget_rectangle->setPosition(current_widget->getAbsoluteCoord());
+		current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 	}
 	else
 	{

@@ -124,15 +124,20 @@ namespace MyGUI
 		}
 	}
 
-	void ScrollView::setPosition(const IntCoord& _coord)
+	void ScrollView::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_coord);
-		updateView();
+		Widget::setPosition(_point);
 	}
 
 	void ScrollView::setSize(const IntSize& _size)
 	{
 		Widget::setSize(_size);
+		updateView();
+	}
+
+	void ScrollView::setCoord(const IntCoord & _coord)
+	{
+		Widget::setCoord(_coord);
 		updateView();
 	}
 

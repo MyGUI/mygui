@@ -133,7 +133,7 @@ namespace MyGUI
 		coord.width *= (_left - point.left);
 		coord.height *= (_top - point.top);
 
-		setPosition(mPreActionCoord + coord);
+		setCoord(mPreActionCoord + coord);
 		
 		// посылаем событие о изменении позиции и размере
 		eventWindowChangeCoord(this);
@@ -163,9 +163,9 @@ namespace MyGUI
 		}
 	}
 
-	void Window::setPosition(const IntPoint& _pos)
+	void Window::setPosition(const IntPoint & _point)
 	{
-		IntPoint pos = _pos;
+		IntPoint pos = _point;
 		// прилепляем к краям
 		if (mSnap) {
 			if (abs(pos.left) <= WINDOW_SNAP_DISTANSE) pos.left = 0;
@@ -177,10 +177,31 @@ namespace MyGUI
 			if ( abs(pos.left + mCoord.width - width) < WINDOW_SNAP_DISTANSE) pos.left = width - mCoord.width;
 			if ( abs(pos.top + mCoord.height - height) < WINDOW_SNAP_DISTANSE) pos.top = height - mCoord.height;
 		}
-		Widget::setPosition(pos);
+		Widget::setPosition(_point);
 	}
 
-	void Window::setPosition(const IntCoord& _coord)
+	void Window::setSize(const IntSize& _size)
+	{
+		IntSize size = _size;
+		// прилепляем к краям
+		if (mSnap) {
+			int width = (int)Gui::getInstance().getViewWidth();
+			int height = (int)Gui::getInstance().getViewHeight();
+
+			if ( abs(mCoord.left + size.width - width) < WINDOW_SNAP_DISTANSE) size.width = width - mCoord.left;
+			if ( abs(mCoord.top + size.height - height) < WINDOW_SNAP_DISTANSE) size.height = height - mCoord.top;
+		}
+
+		if (size.width < mMinmax.left) size.width = mMinmax.left;
+		else if (size.width > mMinmax.right) size.width = mMinmax.right;
+		if (size.height < mMinmax.top) size.height = mMinmax.top;
+		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
+		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
+
+		Widget::setSize(size);
+	}
+
+	void Window::setCoord(const IntCoord & _coord)
 	{
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
@@ -227,28 +248,7 @@ namespace MyGUI
 		IntCoord coord(pos, size);
 		if (coord == mCoord) return;
 
-		Widget::setPosition(coord);
-	}
-
-	void Window::setSize(const IntSize& _size)
-	{
-		IntSize size = _size;
-		// прилепляем к краям
-		if (mSnap) {
-			int width = (int)Gui::getInstance().getViewWidth();
-			int height = (int)Gui::getInstance().getViewHeight();
-
-			if ( abs(mCoord.left + size.width - width) < WINDOW_SNAP_DISTANSE) size.width = width - mCoord.left;
-			if ( abs(mCoord.top + size.height - height) < WINDOW_SNAP_DISTANSE) size.height = height - mCoord.top;
-		}
-
-		if (size.width < mMinmax.left) size.width = mMinmax.left;
-		else if (size.width > mMinmax.right) size.width = mMinmax.right;
-		if (size.height < mMinmax.top) size.height = mMinmax.top;
-		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
-		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
-
-		Widget::setSize(size);
+		Widget::setCoord(coord);
 	}
 
 	// для мееедленного показа и скрытия

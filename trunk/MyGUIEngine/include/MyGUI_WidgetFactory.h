@@ -26,8 +26,9 @@ namespace MyGUI
 
 			// методы для парсинга
 			void Widget_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_Move(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Size(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_Coord(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Show(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Colour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_FontName(WidgetPtr _widget, const std::string &_key, const std::string &_value);

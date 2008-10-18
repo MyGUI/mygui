@@ -17,7 +17,7 @@ namespace MyGUI
 		SubSkin(_info, _parent)
 	{
 		mAlign = Align::Stretch;
-		setPosition(IntCoord(0, 0, _parent->getWidth(), _parent->getHeight()));
+		setCoord(IntCoord(0, 0, _parent->getWidth(), _parent->getHeight()));
 	}
 
 	MainSkin::~MainSkin()

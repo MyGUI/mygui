@@ -243,7 +243,7 @@ namespace MyGUI
 			coord.top += coord.height;
 			coord.height = height;
 		}
-		mList->setPosition(coord);
+		mList->setCoord(coord);
 
 		if (mShowSmooth) {
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MAX, COMBO_ALPHA_COEF, true);

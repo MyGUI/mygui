@@ -97,7 +97,7 @@ namespace demo
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
-		State type;
+		/*State type;
 
 		State type1 = 0;
 		type1 = 101;
@@ -121,9 +121,16 @@ namespace demo
 		MyGUI::Align align;
 
 		align == MyGUI::Align::Default;
-		MyGUI::Align::Default == align;
+		MyGUI::Align::Default == align;*/
 
-		//std::typeinfo & type = typeid(void);
+		/*class A
+		{
+			A
+		};
+
+		std::type_info type = typeid(void);
+
+		type = typeid(void);*/
 
 		//MyGUI::xml::xmlDocument document;
 		//document.createInfo();
@@ -157,6 +164,18 @@ namespace demo
 		mDropImage->setItemGroup("Icons");
 		mDropImage->setItemName("Info");*/
  
+		MyGUI::ButtonPtr button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Overlapped");
+
+		/*MyGUI::FooBarPtr bar = MyGUI::Gui::getInstance().createWidget<MyGUI::FooBar>("Button", MyGUI::IntCoord(100, 100, 550, 50), MyGUI::Align::Default, "Overlapped");
+		bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
+		bar->addItem("test1", "core.png", true, MyGUI::IntSize(30, 30));
+		bar->addItem("test2", "core.png", true, MyGUI::IntSize(60, 30));
+		bar->addItem("test3", "core.png", true, MyGUI::IntSize(90, 30));
+		bar->addItem("test4", "core.png", true, MyGUI::IntSize(90, 30));
+		bar->addItem("test5", "core.png", true, MyGUI::IntSize(90, 30));
+		bar->addItem("test6", "core.png", true, MyGUI::IntSize(90, 30));
+		bar->addItem("test7", "core.png", true, MyGUI::IntSize(90, 30));
+		bar->addItem("test8", "core.png", true, MyGUI::IntSize(90, 30));*/
 
     }
  

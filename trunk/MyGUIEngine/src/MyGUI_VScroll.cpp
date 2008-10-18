@@ -96,16 +96,16 @@ namespace MyGUI
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight())) {
 			mWidgetTrack->hide();
 			if ( null != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos/2);
-			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setPosition(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
+			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
 			if ( pos < 0 )
 			{
 				//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart + pos/2);
-				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetEnd->getWidth(), mCoord.height - (pos/2 + (int)mSkinRangeStart));
+				//if ( null != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetEnd->getWidth(), mCoord.height - (pos/2 + (int)mSkinRangeStart));
 			}
 			else
 			{
 				//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart);
-				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), mCoord.height - (int)mSkinRangeEnd, mWidgetEnd->getWidth(), (int)mSkinRangeEnd);
+				//if ( null != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), mCoord.height - (int)mSkinRangeEnd, mWidgetEnd->getWidth(), (int)mSkinRangeEnd);
 			}
 			return;
 		}
@@ -114,7 +114,7 @@ namespace MyGUI
 		{
 			mWidgetTrack->show();
 			//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), mSkinRangeStart);
-			//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mWidgetEnd->getLeft(), mCoord.height - mSkinRangeEnd, mWidgetEnd->getWidth(), mSkinRangeEnd);
+			//if ( null != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), mCoord.height - mSkinRangeEnd, mWidgetEnd->getWidth(), mSkinRangeEnd);
 		}
 
 		// и обновляем позицию
@@ -130,7 +130,7 @@ namespace MyGUI
 		{
 			int top = pos + mWidgetTrack->getHeight()/2;
 			int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
-			mWidgetSecondPart->setPosition(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
+			mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
 		}
 	}
 
@@ -251,6 +251,11 @@ namespace MyGUI
 		updateTrack();
 	}
 
+	void VScroll::setPosition(const IntPoint & _point)
+	{
+		Widget::setPosition(_point);
+	}
+
 	void VScroll::setSize(const IntSize& _size)
 	{
 		Widget::setSize(_size);
@@ -258,9 +263,9 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void VScroll::setPosition(const IntCoord& _coord)
+	void VScroll::setCoord(const IntCoord & _coord)
 	{
-		Widget::setPosition(_coord);
+		Widget::setCoord(_coord);
 		// обновляем трек
 		updateTrack();
 	}

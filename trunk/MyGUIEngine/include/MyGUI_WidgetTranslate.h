@@ -12,37 +12,37 @@
 namespace MyGUI
 {
 
-	int getWidgetWidth(WidgetPtr _widget, bool _vert)
+	inline int getWidgetWidth(WidgetPtr _widget, bool _vert)
 	{
 		return _vert ? _widget->getWidth() : _widget->getHeight();
 	}
 
-	int getWidgetHeight(WidgetPtr _widget, bool _vert)
+	inline int getWidgetHeight(WidgetPtr _widget, bool _vert)
 	{
 		return _vert ? _widget->getHeight() : _widget->getWidth();
 	}
 
-	int getWidgetLeft(WidgetPtr _widget, bool _vert)
+	inline int getWidgetLeft(WidgetPtr _widget, bool _vert)
 	{
 		return _vert ? _widget->getLeft() : _widget->getTop();
 	}
 
-	int getWidgetTop(WidgetPtr _widget, bool _vert)
+	inline int getWidgetTop(WidgetPtr _widget, bool _vert)
 	{
 		return _vert ? _widget->getTop() : _widget->getLeft();
 	}
 
-	void setWidgetSize(WidgetPtr _widget, int _width, int _height, bool _vert)
+	inline void setWidgetSize(WidgetPtr _widget, int _width, int _height, bool _vert)
 	{
 		_vert ? _widget->setSize(_width, _height) : _widget->setSize(_height, _width);
 	}
 
-	void setWidgetPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height, bool _vert)
+	inline void setWidgetCoord(WidgetPtr _widget, int _left, int _top, int _width, int _height, bool _vert)
 	{
-		_vert ? _widget->setPosition(_left, _top, _width, _height) : _widget->setPosition(_top, _left, _height, _width);
+		_vert ? _widget->setCoord(_left, _top, _width, _height) : _widget->setCoord(_top, _left, _height, _width);
 	}
 
-	void convertWidgetCoord(IntCoord & _coord, bool _vert)
+	inline void convertWidgetCoord(IntCoord & _coord, bool _vert)
 	{
 		if ( ! _vert ) {
 			std::swap(_coord.left, _coord.top);

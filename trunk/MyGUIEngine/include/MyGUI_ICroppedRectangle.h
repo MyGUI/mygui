@@ -28,7 +28,7 @@ namespace MyGUI
 		virtual ~ICroppedRectangle() { }
 
 		virtual void setPosition(const IntPoint& _pos) { }
-		virtual void setPosition(const IntCoord& _coord) { }
+		virtual void setCoord(const IntCoord& _coord) { }
 		virtual void setSize(const IntSize& _size) { }
 
 		virtual void show() { }

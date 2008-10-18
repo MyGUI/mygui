@@ -683,7 +683,7 @@ namespace MyGUI
 
 			if (mWidgetMouseFocus) {
 				MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
-				mouse_helper->setPosition(mWidgetMouseFocus->getAbsoluteCoord());
+				mouse_helper->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
 				mouse_helper->show();
 			}
 			else {
@@ -705,7 +705,7 @@ namespace MyGUI
 			}
 			if (mWidgetKeyFocus) {
 				MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
-				key_helper->setPosition(mWidgetKeyFocus->getAbsoluteCoord());
+				key_helper->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
 				key_helper->show();
 			}
 			else {

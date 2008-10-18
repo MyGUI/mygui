@@ -120,7 +120,7 @@ namespace MyGUI
 		int pos = 0;
 		for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			int width = (*iter).button->getCoord().width - (*iter).button->getTextCoord().width + (*iter).button->getTextSize().width;
-			(*iter).button->setPosition(pos, 0, width, mWidgetClient->getHeight());
+			(*iter).button->setCoord(pos, 0, width, mWidgetClient->getHeight());
 			pos += width + mDistanceButton;
 			(*iter).button->_setInternalData((size_t)(iter - mItemsInfo.begin()));
 		}

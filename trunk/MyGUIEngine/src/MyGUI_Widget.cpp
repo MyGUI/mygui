@@ -117,7 +117,7 @@ namespace MyGUI
 		}
 
 		// а вот теперь нормальный размер
-		setSize(_coord.size());
+		setSize(_coord.width, _coord.height);
 
 	}
 
@@ -198,7 +198,7 @@ namespace MyGUI
 		}
 
 		if (need_move) {
-			if (need_size) setPosition(coord);
+			if (need_size) setCoord(coord);
 			else setPosition(coord.point());
 		}
 		else if (need_size) {
@@ -449,26 +449,22 @@ namespace MyGUI
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_correctView();
 	}
 
-	void Widget::setPosition(const IntPoint& _pos)
+	void Widget::setPosition(const IntPoint & _point)
 	{
 		// обновляем абсолютные координаты
-		mAbsolutePosition += _pos - mCoord.point();
+		mAbsolutePosition += _point - mCoord.point();
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
 
-		mCoord = _pos;
+		mCoord = _point;
 		_updateView();
 
 	}
 
-	void Widget::setPosition(const IntCoord& _coord)
+	void Widget::setSize(const IntSize & _size)
 	{
-		// обновляем абсолютные координаты
-		mAbsolutePosition += _coord.point() - mCoord.point();
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
-
 		// устанавливаем новую координату а старую пускаем в расчеты
-		IntCoord old = mCoord;
-		mCoord = _coord;
+		IntSize old = mCoord.size();
+		mCoord = _size;
 
 		bool show = true;
 
@@ -494,11 +490,15 @@ namespace MyGUI
 
 	}
 
-	void Widget::setSize(const IntSize& _size)
+	void Widget::setCoord(const IntCoord & _coord)
 	{
+		// обновляем абсолютные координаты
+		mAbsolutePosition += _coord.point() - mCoord.point();
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
+
 		// устанавливаем новую координату а старую пускаем в расчеты
-		IntSize old = mCoord.size();
-		mCoord = _size;
+		IntCoord old = mCoord;
+		mCoord = _coord;
 
 		bool show = true;
 
@@ -830,6 +830,24 @@ namespace MyGUI
 			MYGUI_LOG(Error, "mask not load '" << _filename << "'");
 		}
 		//SkinManager::getInstance().
+	}
+
+	void Widget::setRealPosition(const FloatPoint & _point)
+	{
+		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(_point.left, _point.top, 0, 0), this);
+		setPosition(coord.point());
+	}
+
+	void Widget::setRealSize(const FloatSize & _size)
+	{
+		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(0, 0, _size.width, _size.height), this);
+		setSize(coord.size());
+	}
+
+	void Widget::setRealCoord(const FloatCoord & _coord)
+	{
+		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(_coord, this);
+		setCoord(coord);
 	}
 
 } // namespace MyGUI
