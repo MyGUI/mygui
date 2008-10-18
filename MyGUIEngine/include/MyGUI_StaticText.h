@@ -23,7 +23,7 @@ namespace MyGUI
 	protected:
 		StaticText(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
-	}; // class _MyGUIExport StaticText : public Widget
+	};
 
 } // namespace MyGUI
 

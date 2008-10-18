@@ -77,18 +77,23 @@ namespace MyGUI
 		
 	}
 
-	void ItemBox::setSize(const IntSize& _size)
+	void ItemBox::setPosition(const IntPoint & _point)
 	{
-		IntCoord old = mCoord;
-		Widget::setSize(_size);
-		updateFromResize(old.size());
+		Widget::setPosition(_point);
 	}
 
-	void ItemBox::setPosition(const IntCoord& _coord)
+	void ItemBox::setSize(const IntSize & _size)
 	{
-		IntCoord old = mCoord;
-		Widget::setPosition(_coord);
-		updateFromResize(old.size());
+		IntSize size = getSize();
+		Widget::setSize(_size);
+		updateFromResize(size);
+	}
+
+	void ItemBox::setCoord(const IntCoord & _coord)
+	{
+		IntSize size = getSize();
+		Widget::setCoord(_coord);
+		updateFromResize(size);
 	}
 
 	void ItemBox::_updateScrollWidget()
@@ -214,7 +219,7 @@ namespace MyGUI
 			if (pos >= mCountItems) break;
 
 			WidgetPtr item = getItemWidget(iwid);
-			setWidgetPosition(item, ((int)iwid % mCountItemInLine) * mSizeItem.width,
+			setWidgetCoord(item, ((int)iwid % mCountItemInLine) * mSizeItem.width,
 				(((int)iwid / mCountItemInLine) * mSizeItem.height)  - mOffsetTop,
 				mSizeItem.width, mSizeItem.height, mAlignVert);
 

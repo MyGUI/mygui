@@ -287,15 +287,15 @@ namespace MyGUI
 		offset += mButtonOffset.width;
 
 		IntSize view((int)Gui::getInstance().getViewWidth(), (int)Gui::getInstance().getViewHeight());
-		setPosition((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
+		setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
 		if (null != mIcon) {
-			if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setPosition(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
-			else mWidgetText->setPosition(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+			if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+			else mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 		}
 
 		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter) {
-			(*iter)->setPosition(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
+			(*iter)->setCoord(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
 			offset += mButtonOffset.width + mButtonSize.width;
 		}
 	}

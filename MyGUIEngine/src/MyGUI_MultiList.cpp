@@ -287,7 +287,7 @@ namespace MyGUI
 		// кнопка, для заполнения пустоты
 		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
 		else {
-			mButtonMain->setPosition(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
+			mButtonMain->setCoord(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
 			mButtonMain->show();
 		}
 	}
@@ -553,8 +553,8 @@ namespace MyGUI
 		mWidthBar = 0;
 		size_t index = 0;
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->setPosition(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
-			(*iter).button->setPosition(mWidthBar, 0, (*iter).width, mHeightButton);
+			(*iter).list->setCoord(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
+			(*iter).button->setCoord(mWidthBar, 0, (*iter).width, mHeightButton);
 			(*iter).button->_setInternalData(index);
 
 			mWidthBar += (*iter).width;
@@ -562,7 +562,7 @@ namespace MyGUI
 			// промежуток между листами
 			WidgetPtr separator = getSeparator(index);
 			if (separator) {
-				separator->setPosition(mWidthBar, 0, mWidthSeparator, mWidgetClient->getHeight());
+				separator->setCoord(mWidthBar, 0, mWidthSeparator, mWidgetClient->getHeight());
 			}
 
 			mWidthBar += mWidthSeparator;

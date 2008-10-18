@@ -18,7 +18,7 @@ void PanelDirector::initialiseCell(PanelCell * _cell)
 	PanelBase::initialiseCell(_cell);
 
 	loadLayout(_cell->getClient());
-	mMainWidget->setPosition(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
+	mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
 	_cell->setClientHeight(mMainWidget->getHeight(), false);
 	_cell->setCaption("Director panel");
 

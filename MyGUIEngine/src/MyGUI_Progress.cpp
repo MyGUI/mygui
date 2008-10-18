@@ -112,16 +112,21 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void Progress::setPosition(const IntCoord& _coord)
+	void Progress::setPosition(const IntPoint & _point)
 	{
-		updateTrack();
-		Widget::setPosition(_coord);
+		Widget::setPosition(_point);
 	}
 
 	void Progress::setSize(const IntSize& _size)
 	{
 		updateTrack();
 		Widget::setSize(_size);
+	}
+
+	void Progress::setCoord(const IntCoord & _coord)
+	{
+		updateTrack();
+		Widget::setCoord(_coord);
 	}
 
 	void Progress::setProgressFillTrack(bool _fill)
@@ -243,10 +248,10 @@ namespace MyGUI
 
 	void Progress::setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height)
 	{
-		if (mStartPoint.isLeft()) _widget->setPosition(_left, _top, _width, _height);
-		else if (mStartPoint.isRight()) _widget->setPosition(mWidgetClient->getWidth() - _left - _width, _top, _width, _height);
-		else if (mStartPoint.isTop()) _widget->setPosition(_top, _left, _height, _width);
-		else if (mStartPoint.isBottom()) _widget->setPosition(_top, mWidgetClient->getHeight() - _left - _width, _height, _width);
+		if (mStartPoint.isLeft()) _widget->setCoord(_left, _top, _width, _height);
+		else if (mStartPoint.isRight()) _widget->setCoord(mWidgetClient->getWidth() - _left - _width, _top, _width, _height);
+		else if (mStartPoint.isTop()) _widget->setCoord(_top, _left, _height, _width);
+		else if (mStartPoint.isBottom()) _widget->setCoord(_top, mWidgetClient->getHeight() - _left - _width, _height, _width);
 	}
 
 	void Progress::setProgressStartPoint(Align _align)

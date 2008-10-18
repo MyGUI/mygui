@@ -84,7 +84,7 @@ namespace statistic
 				if (text) {
 					MyGUI::IntSize size = mInfo->_getSubWidgetText()->getSize();
 					size = mInfo->getTextSize() + mInfo->getSize() - size;
-					mInfo->setPosition(MyGUI::Gui::getInstance().getViewWidth() - size.width - 20, MyGUI::Gui::getInstance().getViewHeight() - size.height - 20, size.width, size.height);
+					mInfo->setCoord(MyGUI::Gui::getInstance().getViewWidth() - size.width - 20, MyGUI::Gui::getInstance().getViewHeight() - size.height - 20, size.width, size.height);
 				}
 			}
 		}

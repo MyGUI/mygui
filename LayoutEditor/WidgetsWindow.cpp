@@ -139,7 +139,7 @@ void WidgetsWindow::createNewWidget(int _x2, int _y2)
 	else if (creating_status == 2)
 	{
 		coord = convertCoordToParentCoord(coord, current_widget);
-		current_widget->setPosition(coord);
+		current_widget->setCoord(coord);
 	}
 }
 
@@ -199,7 +199,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
 		current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 		MyGUI::IntSize size(current_widget->getSize());
-		current_widget->setPosition((view.width-size.width)/2, (view.height-size.height)/2, width, height);
+		current_widget->setCoord((view.width-size.width)/2, (view.height-size.height)/2, width, height);
 	}
 	current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
 

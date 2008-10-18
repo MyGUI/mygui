@@ -28,7 +28,7 @@ void PanelItems::initialiseCell(PanelCell * _cell)
 	PanelBase::initialiseCell(_cell);
 
 	loadLayout(_cell->getClient());
-	mMainWidget->setPosition(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
+	mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
 	_cell->setCaption(localise("Items"));
 
 	assignWidget(mEdit, "edit");

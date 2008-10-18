@@ -212,7 +212,7 @@ namespace MyGUI
 		const IntPoint & point = InputManager::getInstance().getMousePosition();
 
 		for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
-			iter->item->setPosition(point.left - mClickInWidget.left + iter->dimension.left, point.top - mClickInWidget.top + iter->dimension.top, iter->dimension.width, iter->dimension.height);
+			iter->item->setCoord(point.left - mClickInWidget.left + iter->dimension.left, point.top - mClickInWidget.top + iter->dimension.top, iter->dimension.width, iter->dimension.height);
 			iter->item->show();
 		}
 	}
