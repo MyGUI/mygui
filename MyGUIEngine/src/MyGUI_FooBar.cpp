@@ -50,7 +50,7 @@ namespace MyGUI
 		updatePosition(_pos);
 	}
 
-	void FooBar::setPosition(const IntCoord& _coord)
+	void FooBar::setCoord(int _left, int _top, int _width, int _height)
 	{
 		//updatePosition(pt);
 	}
@@ -378,7 +378,7 @@ namespace MyGUI
 
 	void FooBar::updateItemsPosition()
 	{
-		int w, h;
+		int w = 0, h = 0;
 		//int wp, hp;
 
 		switch(mLayout)
@@ -436,7 +436,7 @@ namespace MyGUI
 
 	WidgetPtr FooBar::addItem(FooBarItemInfo &item)
 	{
-		StaticImagePtr w = createWidget<StaticImage>("FooBarItem", IntCoord(0, 0, mWidth, mWidth), Align::Default);
+		StaticImagePtr w = createWidget<StaticImage>("Button", IntCoord(0, 0, mWidth, mWidth), Align::Default);
 
 		w->setImageTexture(item.texture);
 		w->setImageTile(item.tileSize);

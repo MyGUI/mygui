@@ -240,16 +240,21 @@ namespace MyGUI
 			eventListSelectAccept(this, mIndexSelect);
 	}
 
-	void List::setSize(const IntSize& _size)
+	void List::setPosition(const IntPoint & _point)
+	{
+		Widget::setPosition(_point);
+	}
+
+	void List::setSize(const IntSize & _size)
 	{
 		Widget::setSize(_size);
 		updateScroll();
 		updateLine();
 	}
 
-	void List::setPosition(const IntCoord& _coord)
+	void List::setCoord(const IntCoord & _coord)
 	{
-		Widget::setPosition(_coord);
+		Widget::setCoord(_coord);
 		updateScroll();
 		updateLine();
 	}

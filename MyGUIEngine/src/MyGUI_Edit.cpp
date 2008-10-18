@@ -1245,12 +1245,9 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::setPosition(const IntCoord& _coord)
+	void Edit::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_coord);
-		// если перенос, то сбрасываем размер текста
-		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
-		updateView(false);
+		Widget::setPosition(_point);
 	}
 
 	void Edit::setSize(const IntSize& _size)
@@ -1258,6 +1255,14 @@ namespace MyGUI
 		Widget::setSize(_size);
 		// если перенос, то сбрасываем размер текста
 		if (mModeWordWrap) mText->setBreakLine(true);
+		updateView(false);
+	}
+
+	void Edit::setCoord(const IntCoord & _coord)
+	{
+		Widget::setCoord(_coord);
+		// если перенос, то сбрасываем размер текста
+		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
 		updateView(false);
 	}
 

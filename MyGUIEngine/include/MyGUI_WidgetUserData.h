@@ -63,6 +63,7 @@ namespace MyGUI
 			return mUserData.castType<ValueType>(_throw);
 		}
 
+		MYGUI_OBSOLETE("use *getUserData<ValueType>()")
 		void * getUserData()
 		{
 			return mUserData.castUnsafe();

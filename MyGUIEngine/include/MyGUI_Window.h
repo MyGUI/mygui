@@ -66,18 +66,24 @@ namespace MyGUI
 		void setMaxSize(int _width, int _height) { mMinmax.right = _width; mMinmax.bottom = _height; }
 		IntSize getMaxSize() { return IntSize(mMinmax.right, mMinmax.bottom); }
 
-      //! @copydoc Widget::setPosition(const IntPoint& _pos)
-		virtual void setPosition(const IntPoint& _pos);
-      //! @copydoc Widget::setPosition(const IntCoord& _coord)
-		virtual void setPosition(const IntCoord& _coord);
+		//! @copydoc Widget::setPosition(const IntPoint & _point)
+		virtual void setPosition(const IntPoint & _point);
 		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize& _size);
-		//! @copydoc Widget::setPosition(int _left, int _top)
-		void setPosition(int _left, int _top) {setPosition(IntPoint(_left, _top));}
-		//! @copydoc Widget::setPosition(int _left, int _top, int _width, int _height)
-		void setPosition(int _left, int _top, int _width, int _height) {setPosition(IntCoord(_left, _top, _width, _height));}
-		//! @copydoc Widget::setSize(int _width, int _height)
-		void setSize(int _width, int _height) {setSize(IntSize(_width, _height));}
+		virtual void setSize(const IntSize & _size);
+		//! @copydoc Widget::setCoord(const IntCoord & _coord)
+		virtual void setCoord(const IntCoord & _coord);
+
+		/** @copydoc Widget::setPosition(int _left, int _top) */
+		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
+		/** @copydoc Widget::setSize(int _width, int _height) */
+		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
+		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
+		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
+
+		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
       /** Get snap to borders mode flag */
 		bool getSnap() {return mSnap;}

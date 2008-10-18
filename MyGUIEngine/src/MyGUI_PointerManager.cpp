@@ -190,7 +190,7 @@ namespace MyGUI
 		}
 
 		// сдвигаем с учетом нового и старого смещения
-		mMousePointer->setPosition(
+		mMousePointer->setCoord(
 			mMousePointer->getLeft() + mPoint.left - iter->second.point.left,
 			mMousePointer->getTop() + mPoint.top - iter->second.point.top,
 			iter->second.size.width, iter->second.size.height);

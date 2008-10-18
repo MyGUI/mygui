@@ -115,19 +115,39 @@ namespace MyGUI
 		//! Get name of widget
 		const std::string & getName() { return mName; }
 
+
 		/** Set widget position (position of left top corner)*/
 		virtual void setPosition(const IntPoint& _pos);
-		/** Set widget position and size*/
-		virtual void setPosition(const IntCoord& _coord);
 		/** Set widget size */
 		virtual void setSize(const IntSize& _size);
+		/** Set widget position and size*/
+		virtual void setCoord(const IntCoord& _coord);
 
 		/** See Widget::setPosition(const IntPoint& _pos) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
-		/** See Widget::setPosition(const IntCoord& _coord) */
-		void setPosition(int _left, int _top, int _width, int _height) { setPosition(IntCoord(_left, _top, _width, _height)); }
 		/** See Widget::setSize(const IntSize& _size) */
 		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
+		/** See Widget::setCoord(const IntCoord& _coord) */
+		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
+
+		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+		/** Set widget position (position of left top corner)*/
+		void setRealPosition(const FloatPoint & _point);
+		/** Set widget size */
+		void setRealSize(const FloatSize & _size);
+		/** Set widget position and size*/
+		void setRealCoord(const FloatCoord & _coord);
+
+		/** See Widget::setRealPosition(const FloatPoint& _point) */
+		void setRealPosition(float _left, float _top) { setRealPosition(FloatPoint(_left, _top)); }
+		/** See Widget::setRealSize(const FloatSize& _size) */
+		void setRealSize(float _width, float _height) { setRealSize(FloatSize(_width, _height)); }
+		/** See Widget::setRealPosition(const FloatCoord& _coord) */
+		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
 
 		void _updateAbsolutePoint();
 

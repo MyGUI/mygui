@@ -32,8 +32,8 @@ void TextureView::update(const std::string & _font)
 	const MyGUI::IntSize & size = MyGUI::SkinManager::getInstance().getTextureSize(texture->getName());
 
 	mImageTexture->setImageTexture(texture->getName());
-	mImageTexture->setPosition(0, 0, size.width, size.height);
-	mImageBack->setPosition(0, 0, size.width, size.height);
+	mImageTexture->setCoord(0, 0, size.width, size.height);
+	mImageBack->setCoord(0, 0, size.width, size.height);
 	mScrollView->setCanvasSize(size);
 
 }

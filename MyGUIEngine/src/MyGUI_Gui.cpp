@@ -280,7 +280,7 @@ namespace MyGUI
 			coord.top = (_new.height - coord.height) / 2;
 		}
 
-		_widget->setPosition(coord);
+		_widget->setCoord(coord);
 	}
 
 	void Gui::hidePointer()

@@ -95,7 +95,7 @@ namespace MyGUI
 		//!	Set bar position
 		virtual void setPosition(const IntPoint& _pos);
 		//!	Set bar position
-		virtual void setPosition(const IntCoord& _coord);
+		virtual void setCoord(int _left, int _top, int _width, int _height);
 
 		//!	Set width of bar
 		void setWidth(int width);
