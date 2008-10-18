@@ -103,10 +103,18 @@ namespace types
 
 		static TSize<T> parse(const std::string& _value)
 		{
-			TSize<T> ret;
+			TSize<T> result;
 	        std::istringstream stream(_value);
-	        stream >> ret;
-		    return ret;
+	        stream >> result.width >> result.height;
+			if (stream.fail()) return TSize<T>();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return TSize<T>();
+					item = stream.get();
+				};
+			}
+		    return result;
 		}
 
         friend std::ostream& operator << ( std::ostream& _stream, const TSize<T>&  _value )
