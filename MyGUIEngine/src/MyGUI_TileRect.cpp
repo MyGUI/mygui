@@ -12,7 +12,7 @@
 namespace MyGUI
 {
 
-	struct TileRectStateData
+	struct TileRectStateData : public StateInfo
 	{
 		FloatRect rect;
 	};

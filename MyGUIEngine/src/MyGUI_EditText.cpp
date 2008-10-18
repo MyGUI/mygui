@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	struct EditTextStateData
+	struct EditTextStateData : public StateInfo
 	{
 		Ogre::ColourValue colour;
 		bool shift;

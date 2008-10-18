@@ -12,7 +12,7 @@
 namespace MyGUI
 {
 
-	struct SubSkinStateData
+	struct SubSkinStateData : public StateInfo
 	{
 		FloatRect rect;
 	};
