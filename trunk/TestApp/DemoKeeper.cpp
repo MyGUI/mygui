@@ -5,6 +5,7 @@
     @module
 */
 #include "DemoKeeper.h"
+#include <typeinfo>
  
 namespace demo
 {
@@ -40,30 +41,18 @@ namespace demo
 	};
 
 	template <typename T>
-	void checkParce(MyGUI::EditPtr _edit, size_t _count)
+	void checkParce4(MyGUI::EditPtr _edit)
 	{
 		static const Ogre::UTFString colour = "#FF0000";
 		const Ogre::UTFString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 
 		T p;
-		std::istringstream str(text);
-		while (_count > 0) {
-			str >> p;
-			-- _count;
-		}
-		if (str.fail()) {
-			_edit->setCaption(colour + text);
+		if (MyGUI::utility::parseComplex(text, p, p, p, p)) {
+			_edit->setCaption(text);
 		}
 		else {
-			std::string tmp;
-			str >> tmp;
-			if (!str.fail() || tmp.find_first_not_of(" \t\r") != std::string::npos) {
-				_edit->setCaption(colour + text);
-			}
-			else {
-				_edit->setCaption(text);
-			}
+			_edit->setCaption(colour + text);
 		}
 		_edit->setTextCursor(index);
 	}
@@ -95,8 +84,8 @@ namespace demo
 	void notifyEditTextChange(MyGUI::WidgetPtr _sender)
 	{
 		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
-		checkParceFileName(edit);
-		//checkParce<int>(edit, 4);
+		//checkParceFileName(edit);
+		checkParce4<int>(edit);
 	}
 
     void DemoKeeper::createScene()
@@ -134,12 +123,14 @@ namespace demo
 		align == MyGUI::Align::Default;
 		MyGUI::Align::Default == align;
 
-		MyGUI::xml::xmlDocument document;
+		//std::typeinfo & type = typeid(void);
+
+		//MyGUI::xml::xmlDocument document;
 		//document.createInfo();
 		//document.createRoot("root")->addBody("&<>'\"");
 
-		document.open("test.xml");
-		document.save("test2.xml");
+		//document.open("test.xml");
+		//document.save("test2.xml");
 
 
 		/*MyGUI::DDContainerPtr container = MyGUI::Gui::getInstance().createWidget<MyGUI::DDContainer>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");

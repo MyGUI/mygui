@@ -176,10 +176,18 @@ namespace types
 
 		static TCoord<T> parse(const std::string& _value)
 		{
-			TCoord<T> ret;
+			TCoord<T> result;
 	        std::istringstream stream(_value);
-	        stream >> ret;
-		    return ret;
+	        stream >> result.left >> result.top >> result.width >> result.height;
+			if (stream.fail()) return TCoord<T>();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return TCoord<T>();
+					item = stream.get();
+				};
+			}
+		    return result;
 		}
 
         friend std::ostream& operator << ( std::ostream& _stream, const TCoord<T>&  _value )

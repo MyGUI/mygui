@@ -102,10 +102,18 @@ namespace types
 
 		static TPoint<T> parse(const std::string& _value)
 		{
-			TPoint<T> ret;
+			TPoint<T> result;
 	        std::istringstream stream(_value);
-	        stream >> ret;
-		    return ret;
+	        stream >> result.left >> result.top;
+			if (stream.fail()) return TPoint<T>();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return TPoint<T>();
+					item = stream.get();
+				};
+			}
+		    return result;
 		}
 
         friend std::ostream& operator << ( std::ostream& _stream, const TPoint<T>&  _value )

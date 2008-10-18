@@ -81,10 +81,9 @@ namespace MyGUI
 		}
 
 		template< >
-		inline std::string toString<bool> (bool p)
+		inline std::string toString<bool> (bool _value)
 		{
-			if (p) return "true";
-			return "false";
+			return _value ? "true" : "false";
 		}
 
 
@@ -92,10 +91,18 @@ namespace MyGUI
 		template<typename T >
 		inline T parseValue( const std::string& _value )
 		{
-			std::istringstream str(_value);
-			T ret = 0;
-			str >> ret;
-			return ret;
+			std::istringstream stream(_value);
+			T result;
+			stream >> result;
+			if (stream.fail()) return T();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return T();
+					item = stream.get();
+				};
+			}
+			return result;
 		}
 
 		inline char parseChar(const std::string& _value) { return static_cast<char>(parseValue<short>(_value)); }
@@ -114,9 +121,16 @@ namespace MyGUI
 		inline T1 parseValueEx2(const std::string & _value)
 		{
 			T2 p1, p2;
-			std::istringstream str(_value);
-			str >> p1 >> p2;
-			if (str.fail()) return T1();
+			std::istringstream stream(_value);
+			stream >> p1 >> p2;
+			if (stream.fail()) return T1();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return T1();
+					item = stream.get();
+				};
+			}
 			return T1(p1, p2);
 		}
 
@@ -124,9 +138,16 @@ namespace MyGUI
 		inline T1 parseValueEx3(const std::string & _value)
 		{
 			T2 p1, p2, p3;
-			std::istringstream str(_value);
-			str >> p1 >> p2 >> p3;
-			if (str.fail()) return T1();
+			std::istringstream stream(_value);
+			stream >> p1 >> p2 >> p3;
+			if (stream.fail()) return T1();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return T1();
+					item = stream.get();
+				};
+			}
 			return T1(p1, p2, p3);
 		}
 
@@ -134,9 +155,16 @@ namespace MyGUI
 		inline T1 parseValueEx4(const std::string & _value)
 		{
 			T2 p1, p2, p3, p4;
-			std::istringstream str(_value);
-			str >> p1 >> p2 >> p3 >> p4;
-			if (str.fail()) return T1();
+			std::istringstream stream(_value);
+			stream >> p1 >> p2 >> p3 >> p4;
+			if (stream.fail()) return T1();
+			else {
+				int item = stream.get();
+				while (item != -1) {
+					if (item != ' ' && item != '\t') return T1();
+					item = stream.get();
+				};
+			}
 			return T1(p1, p2, p3, p4);
 		}
 
@@ -160,9 +188,9 @@ namespace MyGUI
 
 		inline std::vector<std::string> split(const std::string & _source, const std::string & _delims = "\t\n ")
 		{
-			std::vector<std::string> ret;
-			templates::split<void>(ret, _source, _delims);
-			return ret;
+			std::vector<std::string> result;
+			templates::split<void>(result, _source, _delims);
+			return result;
 		}
 
 		inline void trim(std::string& _str, bool _left = true, bool _right = true)
@@ -174,35 +202,16 @@ namespace MyGUI
 		template<typename T1, typename T2, typename T3, typename T4>
 		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
 		{
-			std::istringstream str(_value);
+			std::istringstream stream(_value);
 
-			T1 p1 = T1();
-			str >> p1;
-			if (str.fail()) return false;
+			stream >> _p1 >> _p2 >> _p3 >> _p4;
 
-			T2 p2 = T2();
-			str >> p2;
-			if (str.fail()) return false;
-
-			T3 p3 = T3();
-			str >> p3;
-			if (str.fail()) return false;
-
-			T4 p4 = T4();
-			str >> p4;
-			if (str.fail()) return false;
-
-			std::string tmp;
-			str >> tmp;
-			if ( ! str.fail()) {
-				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != std::string::npos) return false;
-			}
-
-			_p1 = p1;
-			_p2 = p2;
-			_p3 = p3;
-			_p4 = p4;
+			if (stream.fail()) return false;
+			int item = stream.get();
+			while (item != -1) {
+				if (item != ' ' && item != '\t') return false;
+				item = stream.get();
+			};
 
 			return true;
 		}
@@ -210,30 +219,16 @@ namespace MyGUI
 		template<typename T1, typename T2, typename T3>
 		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3)
 		{
-			std::istringstream str(_value);
+			std::istringstream stream(_value);
 
-			T1 p1 = T1();
-			str >> p1;
-			if (str.fail()) return false;
+			stream >> _p1 >> _p2 >> _p3;
 
-			T2 p2 = T2();
-			str >> p2;
-			if (str.fail()) return false;
-
-			T3 p3 = T3();
-			str >> p3;
-			if (str.fail()) return false;
-
-			std::string tmp;
-			str >> tmp;
-			if ( ! str.fail()) {
-				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != std::string::npos) return false;
-			}
-
-			_p1 = p1;
-			_p2 = p2;
-			_p3 = p3;
+			if (stream.fail()) return false;
+			int item = stream.get();
+			while (item != -1) {
+				if (item != ' ' && item != '\t') return false;
+				item = stream.get();
+			};
 
 			return true;
 		}
@@ -241,25 +236,16 @@ namespace MyGUI
 		template<typename T1, typename T2>
 		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2)
 		{
-			std::istringstream str(_value);
+			std::istringstream stream(_value);
 
-			T1 p1 = T1();
-			str >> p1;
-			if (str.fail()) return false;
+			stream >> _p1 >> _p2;
 
-			T2 p2 = T2();
-			str >> p2;
-			if (str.fail()) return false;
-
-			std::string tmp;
-			str >> tmp;
-			if ( ! str.fail()) {
-				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != std::string::npos) return false;
-			}
-
-			_p1 = p1;
-			_p2 = p2;
+			if (stream.fail()) return false;
+			int item = stream.get();
+			while (item != -1) {
+				if (item != ' ' && item != '\t') return false;
+				item = stream.get();
+			};
 
 			return true;
 		}
@@ -267,20 +253,16 @@ namespace MyGUI
 		template<typename T1>
 		inline bool parseComplex(const std::string & _value, T1 & _p1)
 		{
-			std::istringstream str(_value);
+			std::istringstream stream(_value);
 
-			T1 p1 = T1();
-			str >> p1;
-			if (str.fail()) return false;
+			stream >> _p1;
 
-			std::string tmp;
-			str >> tmp;
-			if ( ! str.fail()) {
-				size_t pos = tmp.find_first_not_of(" \t");
-				if (pos != std::string::npos) return false;
-			}
-
-			_p1 = p1;
+			if (stream.fail()) return false;
+			int item = stream.get();
+			while (item != -1) {
+				if (item != ' ' && item != '\t') return false;
+				item = stream.get();
+			};
 
 			return true;
 		}
