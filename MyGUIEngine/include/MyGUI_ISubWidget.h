@@ -16,7 +16,7 @@ namespace MyGUI
 {
 
 	// базовый тип информации о стейте
-	typedef void StateInfo;
+	class StateInfo{};
 	typedef std::vector<StateInfo*> VectorStateInfo;
 	typedef std::map<std::string, StateInfo*> MapStateInfo;
 	typedef std::map<std::string, VectorStateInfo> MapWidgetStateInfo;
