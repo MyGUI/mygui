@@ -9,11 +9,21 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Utility.h"
-#include <Ogre.h>
 #include "TPoint.h"
 #include "TSize.h"
 #include "TRect.h"
 #include "TCoord.h"
+
+#include <Ogre.h>
+
+#include "MyGUI_LastHeader.h"
+
+// потом это убрать и передалать парсинг
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+
+#	pragma warning( disable: 4996)
+
+#endif
 
 namespace MyGUI
 {
@@ -75,5 +85,11 @@ namespace MyGUI
 	} // namespace utility
 
 } // namespace MyGUI
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+
+#	pragma warning( default: 4996)
+
+#endif
 
 #endif // __MYGUI_TYPES_H__

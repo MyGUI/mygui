@@ -12,8 +12,6 @@
 
 namespace MyGUI
 {
-	/** default RenderBox autorotation speed (if enabled) */
-	const size_t RENDER_BOX_AUTO_ROTATION_SPEED = 20;
 
 	/** @brief Widget that show one entity or anything from viewport.
 
@@ -30,6 +28,11 @@ namespace MyGUI
 	protected:
 		RenderBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~RenderBox();
+
+	public:
+		/** default RenderBox autorotation speed (if enabled) */
+		enum { RENDER_BOX_AUTO_ROTATION_SPEED = 20 };
+
 
 	public:
 		/** Add mesh to scene and remove previous one

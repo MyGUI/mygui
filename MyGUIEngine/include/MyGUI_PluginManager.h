@@ -8,16 +8,19 @@
 #define __MYGUI_PLUGIN_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include <Ogre.h>
 #include "MyGUI_Instance.h"
 #include "MyGUI_Plugin.h"
 #include "MyGUI_XmlDocument.h"
 
-typedef void (*DLL_START_PLUGIN)(void);
-typedef void (*DLL_STOP_PLUGIN)(void);
+#include <Ogre.h>
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
+
+	typedef void (*DLL_START_PLUGIN)(void);
+	typedef void (*DLL_STOP_PLUGIN)(void);
 
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/

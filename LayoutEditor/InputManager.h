@@ -3,7 +3,7 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-#include <map>
+//#include <map>
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include <windows.h>

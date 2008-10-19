@@ -9,8 +9,11 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_XmlDocument.h"
+
 #include <OgreImageCodec.h>
 #include <OgreFont.h>
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
