@@ -123,7 +123,7 @@ namespace MyGUI
 		{
 			const size_t SIZE = 16;
 			Char buff[SIZE];
-
+//FIXME
 #ifdef __MINGW32__
             swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
 #else

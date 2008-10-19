@@ -17,6 +17,8 @@
 #include <OgrePrerequisites.h>
 #include <OgreRenderQueueListener.h>
 
+#include "MyGUI_LastHeader.h"
+
 namespace MyGUI
 {
 

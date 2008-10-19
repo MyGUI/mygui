@@ -976,6 +976,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_LastHeader.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_Macros.h"
 						>
 					</File>

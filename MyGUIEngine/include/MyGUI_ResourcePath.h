@@ -8,7 +8,10 @@
 #define __MYGUI_RESOURCE_PATH_H__
 
 #include "MyGUI_Prerequest.h"
+
 #include <Ogre.h>
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {

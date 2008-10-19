@@ -15,9 +15,12 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_ResourcePath.h"
-#include <OgreException.h>
 #include "MyGUI_Utility.h"
 #include "MyGUI_InputDefine.h"
+
+#include <OgreException.h>
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
