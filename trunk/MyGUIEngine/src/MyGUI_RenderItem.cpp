@@ -12,6 +12,8 @@
 
 #include <OgreRoot.h>
 
+#include "MyGUI_LastHeader.h"
+
 namespace MyGUI
 {
 

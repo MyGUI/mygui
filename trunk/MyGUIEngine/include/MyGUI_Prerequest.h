@@ -9,6 +9,10 @@
 #ifndef __MYGUI_PREREQUEST_H__
 #define __MYGUI_PREREQUEST_H__
 
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#		define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "MyGUI_Platform.h"
 
 #include <string>
@@ -167,7 +171,6 @@ namespace MyGUI
 // instantiation request" Occurs in VC7 for no justifiable reason on all
 // #includes of Singleton
 #   pragma warning( disable: 4661)
-
 
 #endif
 

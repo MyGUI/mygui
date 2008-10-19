@@ -11,13 +11,14 @@
 
 #include <OgreTextureManager.h>
 
-#define SYNC_TIMEOUT 1 / 25.0f
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
 
 	MYGUI_RTTI_CHILD_IMPLEMENT( RenderBox, Widget );
 
+	const float SYNC_TIMEOUT = 1 / 25.0f;
 	const size_t TEXTURE_SIZE = 512;
 
 	RenderBox::RenderBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :

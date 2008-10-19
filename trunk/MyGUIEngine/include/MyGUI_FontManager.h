@@ -10,12 +10,15 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_Enumerator.h"
-#include <OgrePrerequisites.h>
-#include <OgreSingleton.h>
-#include <OgreResourceManager.h>
 #include "MyGUI_Font.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
+
+#include <OgrePrerequisites.h>
+#include <OgreSingleton.h>
+#include <OgreResourceManager.h>
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {

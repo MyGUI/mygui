@@ -9,10 +9,6 @@
 #include <iomanip>
 #include <time.h>
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#    pragma warning (disable : 4996)
-#endif
-
 namespace MyGUI
 {
 
@@ -75,7 +71,3 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
-
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#    pragma warning (default : 4996)
-#endif

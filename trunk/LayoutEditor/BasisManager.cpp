@@ -1,8 +1,9 @@
 #include <Ogre.h>
 #include <OgreLogManager.h>
-#include "BasisManager.h"
 #include <OgreException.h>
 #include <OgrePanelOverlayElement.h>
+
+#include "BasisManager.h"
 #include "InputManager.h"
 #include "resource.h"
 
