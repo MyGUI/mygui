@@ -18,7 +18,7 @@
                 <Property key="Scroll_Range" value="512"/>
                 <Property key="Scroll_Position" value="0"/>
                 <Property key="Scroll_Page" value="1"/>
-                <Property key="Scroll_ViewPage" value="1"/>
+                <Property key="Scroll_ViewPage" value="32"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="304 74 107 107">
