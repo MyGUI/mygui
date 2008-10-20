@@ -25,7 +25,7 @@ namespace demo
 	{
         base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Peeking");
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
+        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 
