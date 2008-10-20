@@ -9,6 +9,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
+#include "MyGUI_Gui.h"
 
 #include <OgreMaterialManager.h>
 
@@ -200,15 +201,15 @@ namespace MyGUI
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
 		if (false == manager.resourceExists(_texture)) {
 
-			if (!helper::isFileExist(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME)) {
+			if (!helper::isFileExist(_texture, Gui::getInstance().getResourceGroup())) {
 				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
 				return old_size;
 			}
 			else {
 				manager.load(
 					_texture,
-					Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-					Ogre::TextureType::TEX_TYPE_2D,
+					Gui::getInstance().getResourceGroup(),
+					Ogre::TEX_TYPE_2D,
 					0);
 			}
 		}

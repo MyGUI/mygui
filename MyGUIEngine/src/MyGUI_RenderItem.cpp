@@ -162,7 +162,17 @@ namespace MyGUI
 		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
 		if (0 != mCountVertex) {
 			if (false == mTextureManager->resourceExists(mTextureName)) {
-				mTextureManager->load(mTextureName, Gui::getInstance().getResourceGroup());
+				if (!helper::isFileExist(mTextureName, Gui::getInstance().getResourceGroup())) {
+					MYGUI_LOG(Error, "Texture '" + mTextureName + "' not found, set default texture");
+					mTextureName = "Default";
+				}
+				else {
+					mTextureManager->load(
+						mTextureName,
+						Gui::getInstance().getResourceGroup(),
+						Ogre::TEX_TYPE_2D,
+						0);
+				}
 			}
 			// set texture that will be applied to all vertices rendered.
 			mRenderSystem->_setTexture(0, true, mTextureName);
