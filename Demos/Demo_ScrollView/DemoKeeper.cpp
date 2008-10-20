@@ -25,7 +25,7 @@ namespace demo
 
 		scroll_view->setCanvasSize(256, 256);
 		MyGUI::StaticImagePtr image = scroll_view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 256, 256), MyGUI::Align::Default);
-		image->setImageTexture("view.png");
+		image->setImageTexture("Crystal_Clear_View.png");
 	}
 
 	void DemoKeeper::destroyScene()
