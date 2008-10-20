@@ -13,7 +13,7 @@ namespace demo
 	{
         base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_ScrollView");
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
+        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(450, 450);

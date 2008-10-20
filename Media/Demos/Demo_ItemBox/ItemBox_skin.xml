@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+  
+  <Skin name = "Demo_StaticImage" size = "16 16" texture = "Crystal_Clear_Items.png" >
+    <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "Stretch"/>
+  </Skin>
+  
+</MyGUI>

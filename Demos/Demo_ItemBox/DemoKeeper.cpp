@@ -85,6 +85,7 @@ namespace demo
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		MyGUI::Gui::getInstance().load("Resources.xml");
+		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
 
 		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 		int width = (int)gui->getViewWidth();

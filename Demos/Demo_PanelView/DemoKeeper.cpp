@@ -14,7 +14,7 @@ namespace demo
         //base::BaseManager::getInstance().addResourceLocation("../../Media/LayoutEditor/Panels");
         base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_PanelView");
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
+        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
 		mView.initialise();
 
