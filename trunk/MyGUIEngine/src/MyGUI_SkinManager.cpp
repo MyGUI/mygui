@@ -198,17 +198,34 @@ namespace MyGUI
 		if (_texture.empty()) return old_size;
 
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
-		if (false == manager.resourceExists(_texture)) 
-			manager.load(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		if (false == manager.resourceExists(_texture)) {
+
+			if (!helper::isFileExist(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME)) {
+				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+				return old_size;
+			}
+			else {
+				manager.load(
+					_texture,
+					Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+					Ogre::TextureType::TEX_TYPE_2D,
+					0);
+			}
+		}
 
 		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture);
-		if (tex.isNull()) return old_size;
+		if (tex.isNull()) {
+			MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+			return old_size;
+		}
+		tex->load();
 
 		old_size.set((int)tex->getWidth(), (int)tex->getHeight());
 
-#if MYGUI_DEBUG_MODE
-		if (isPowerOfTwo(old_size) == false)
+#if MYGUI_DEBUG_MODE == 1
+		if (isPowerOfTwo(old_size) == false) {
 			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power ow two size");
+		}
 #endif
 
 		return old_size;

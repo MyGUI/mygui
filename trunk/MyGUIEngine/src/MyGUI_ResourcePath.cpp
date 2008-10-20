@@ -13,6 +13,14 @@ namespace MyGUI
 	namespace helper
 	{
 
+		bool _MyGUIExport isFileExist(const Ogre::String & _mask, const Ogre::String & _group)
+		{
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, _mask);
+			bool result = pFileInfo->size() != 0;
+			pFileInfo.setNull();
+			return result;
+		}
+
 		VectorString getVectorResourcePath(const Ogre::String & _mask, const Ogre::String & _group)
 		{
 			VectorString vec;
