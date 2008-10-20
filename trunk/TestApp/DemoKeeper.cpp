@@ -89,6 +89,11 @@ namespace demo
 		checkParce4<int>(edit);
 	}
 
+	void notifyMessageBoxEnd(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
+	{
+		MyGUI::MYGUI_OUT(_button);
+	}
+
     void DemoKeeper::createScene()
     {
 
@@ -169,7 +174,7 @@ namespace demo
 		mDropImage->setItemGroup("Icons");
 		mDropImage->setItemName("Info");*/
  
-		MyGUI::WidgetPtr widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("FAKE", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Overlapped");
+		//MyGUI::WidgetPtr widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("FAKE", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Overlapped");
 
 		/*MyGUI::FooBarPtr bar = MyGUI::Gui::getInstance().createWidget<MyGUI::FooBar>("Button", MyGUI::IntCoord(100, 100, 550, 50), MyGUI::Align::Default, "Overlapped");
 		bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
@@ -182,6 +187,9 @@ namespace demo
 		bar->addItem("test7", "core.png", true, MyGUI::IntSize(90, 30));
 		bar->addItem("test8", "core.png", true, MyGUI::IntSize(90, 30));*/
 
+		MyGUI::MessagePtr message = MyGUI::Message::createMessage("caption", "message", false, MyGUI::Message::OkCancel);
+		message->eventMessageBoxEnd = MyGUI::newDelegate(notifyMessageBoxEnd);
+		//message->endMessage(MyGUI::Message::Ok);
     }
  
     void DemoKeeper::destroyScene()

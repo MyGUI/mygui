@@ -93,12 +93,15 @@ namespace MyGUI
 		void setSmoothShow(bool _smooth);
 
 		/** Get name of default layer for Message*/
-		const std::string & getDefaultLayer() {return mDefaultLayer;}
+		const std::string & getDefaultLayer() { return mDefaultLayer; }
 
 		/** Set message image*/
 		void setMessageImage(size_t _image);
 		/** Set fade under message*/
 		void setWindowFade(bool _fade);
+
+		void endMessage(ViewInfo _result) { _destroyMessage(_result); }
+		void endMessage() { _destroyMessage(mInfoCancel); }
 
 		/** Static method for creating message with one command
 			@param
