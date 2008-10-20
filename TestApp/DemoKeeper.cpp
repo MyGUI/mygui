@@ -142,8 +142,8 @@ namespace demo
 		//document.open("test.xml");
 		//document.save("test2.xml");
 
-		MyGUI::RenderBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 350, 350), MyGUI::Align::Default, "Overlapped");
-		box->injectObject("axes.mesh");
+		/*MyGUI::RenderBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 350, 350), MyGUI::Align::Default, "Overlapped");
+		box->injectObject("axes.mesh");*/
 
 		/*MyGUI::DDContainerPtr container = MyGUI::Gui::getInstance().createWidget<MyGUI::DDContainer>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");
 		container->setNeedDragDrop(true);
@@ -169,8 +169,7 @@ namespace demo
 		mDropImage->setItemGroup("Icons");
 		mDropImage->setItemName("Info");*/
  
-		MyGUI::ListPtr list = MyGUI::Gui::getInstance().createWidget<MyGUI::List>("List", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Overlapped");
-		list->deleteAllItems();
+		MyGUI::WidgetPtr widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("FAKE", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Overlapped");
 
 		/*MyGUI::FooBarPtr bar = MyGUI::Gui::getInstance().createWidget<MyGUI::FooBar>("Button", MyGUI::IntCoord(100, 100, 550, 50), MyGUI::Align::Default, "Overlapped");
 		bar->setLayout(MyGUI::FooBar::FBL_SNAP_BOTTOM);
