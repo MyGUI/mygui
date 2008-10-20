@@ -2,6 +2,8 @@
 
 <MyGUI type="Skin">
 
+  <Skin name = "FAKE" size = "16 16" texture = "FAKE.png"/>
+  
   <Skin name = "RawRect" size = "16 16" texture = "core.png">
     <BasisSkin type="RawRect" offset = "0 0 16 16" align = "Stretch">
       <State name="normal" offset = "677 68 1 1"/>

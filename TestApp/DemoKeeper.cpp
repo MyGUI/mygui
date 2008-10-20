@@ -116,8 +116,8 @@ namespace demo
 		State test = State::Start;
 		//int value = type1;
 
-		MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
-		edit->eventEditTextChange = MyGUI::newDelegate(notifyEditTextChange);
+		//MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
+		//edit->eventEditTextChange = MyGUI::newDelegate(notifyEditTextChange);
 		//button->setMaskPeek("mask.png");
 
 
@@ -142,6 +142,8 @@ namespace demo
 		//document.open("test.xml");
 		//document.save("test2.xml");
 
+		MyGUI::RenderBoxPtr box = MyGUI::Gui::getInstance().createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(100, 100, 350, 350), MyGUI::Align::Default, "Overlapped");
+		box->injectObject("axes.mesh");
 
 		/*MyGUI::DDContainerPtr container = MyGUI::Gui::getInstance().createWidget<MyGUI::DDContainer>("Default", MyGUI::IntCoord(100, 100, 50, 50), MyGUI::Align::Default, "Overlapped");
 		container->setNeedDragDrop(true);
