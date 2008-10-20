@@ -2,7 +2,7 @@
 
 <MyGUI type="Skin">
   <Skin name = "VColourSlider" size = "15 55" texture = "colours.PNG" >
-    <Property key="TrackRangeMargins" value = "0 -1" />
+    <Property key="TrackRangeMargins" value = "1 -1" />
     <Property key="MinTrackSize" value = "7" />
 
     <Child type="Button" skin="Default" offset = "0 15 15 6" align = "Stretch" name = "FirstPart"/>
@@ -10,7 +10,7 @@
 
     <Child type="Button" skin="VScrollTrackSlider" offset = "1 18 15 7" align = "HStretch Top" name = "Track"/>
 
-    <BasisSkin type="SubSkin" offset = "0 3 15 49" align = "Stretch">
+    <BasisSkin type="SubSkin" offset = "0 0 15 55" align = "Stretch">
       <State name="normal" offset = "0 0 2 128"/>
     </BasisSkin>
 
