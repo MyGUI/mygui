@@ -5,16 +5,16 @@
         <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
             <Widget type="StaticImage" skin="StaticImage" position="2 2 256 256" name="widget_ColourRect">
                 <Property key="Image_Texture" value="ColourGradient"/>
-                <Widget type="StaticImage" skin="StaticImage" position="0 0 7 7" name="image_Picker">
-                    <Property key="Image_Texture" value="core.png"/>
-                    <Property key="Image_Coord" value="10 10 7 7"/>
-                    <Property key="Image_Tile" value="7 7"/>
+                <Widget type="StaticImage" skin="StaticImage" position="0 0 16 16" name="image_Picker">
+                    <Property key="Image_Texture" value="Peek.png"/>
+                    <Property key="Image_Coord" value="0 0 16 16"/>
+                    <Property key="Image_Tile" value="16 16"/>
                     <Property key="Image_Index" value="0"/>
                 </Widget>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="275 7 22 262">
-            <Widget type="VScroll" skin="VColourSlider" position="2 2 16 255" name="scroll_Range">
+            <Widget type="VScroll" skin="VColourSlider" position="2 2 16 256" name="scroll_Range">
                 <Property key="Scroll_Range" value="512"/>
                 <Property key="Scroll_Position" value="0"/>
                 <Property key="Scroll_Page" value="1"/>
