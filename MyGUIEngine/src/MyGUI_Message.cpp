@@ -29,7 +29,7 @@ namespace MyGUI
 	Message::Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Window(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetText(null),
-		mInfoOk(Ok), mInfoCancel(Ok),
+		mInfoOk(None), mInfoCancel(None),
 		mButton1Index(0),
 		mSmoothShow(false),
 		mWidgetFade(null),
@@ -99,7 +99,7 @@ namespace MyGUI
 
 	Message::ViewInfo Message::addButtonName(const Ogre::UTFString & _name)
 	{
-		if (mVectorButton.size() >= 7) {
+		if (mVectorButton.size() >= 4) {
 			MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 			return None;
 		}
@@ -128,10 +128,17 @@ namespace MyGUI
 
 		while ((0 != info) && (current < mButton1Index)) {
 			if (0 != (info & 1)) {
+
+				// корректируем ее номер
+				ViewInfo info = (ViewInfo)MYGUI_FLAG(current);
+
 				// если бит есть то ставим кнопку
 				addButtonName(factory::MessageFactory::_getButtonName(current));
-				// корректируем ее номер
-				mVectorButton.back()->_setInternalData((ViewInfo)MYGUI_FLAG(current));
+
+				// внутри адд сбрасывается
+				mVectorButton.back()->_setInternalData(info);
+				if (mVectorButton.size() == 1) mInfoOk = info;
+				mInfoCancel = info;
 			}
 			info >>= 1;
 			current ++;
