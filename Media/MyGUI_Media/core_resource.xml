@@ -77,7 +77,10 @@
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_CorePopupMenu" id="{54871B95-9A2C-482b-8A2B-3A6243396BBB}">
-    <Group name="Icons" texture="core.png" size="10 12">
+    <Group name="Icons" texture="core.png" size="12 14">
+      <Index name="None" >
+        <Frame point="505 60"/>
+      </Index>
       <Index name="Popup" >
         <Frame point="505 44"/>
       </Index>

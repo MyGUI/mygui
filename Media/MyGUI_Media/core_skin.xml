@@ -2,12 +2,6 @@
 
 <MyGUI type="Skin">
 
-  <Skin name = "FAKE" size = "16 16" texture = "FAKE.png">
-    <BasisSkin type="RawRect" offset = "0 0 16 16" align = "Stretch">
-      <State name="normal" offset = "0 0 16 16"/>
-    </BasisSkin>
-  </Skin>
-  
   <Skin name = "RawRect" size = "16 16" texture = "core.png">
     <BasisSkin type="RawRect" offset = "0 0 16 16" align = "Stretch">
       <State name="normal" offset = "677 68 1 1"/>
@@ -1187,12 +1181,23 @@
     <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "Stretch"/>
   </Skin>
 
-  <Skin name = "PopupMenuLineIcon" size = "10 12" texture = "core.png">
+
+  <Skin name = "ButtonRight" size = "12 14" texture = "core.png">
+    <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
+      <State name="disable" offset = "112 84 12 14"/>
+      <State name="normal" offset = "112 100 12 14"/>
+      <State name="active" offset = "112 116 12 14"/>
+      <State name="pressed" offset = "112 132 12 14"/>
+      <State name="select" offset = "112 148 12 14"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "PopupMenuLineIcon" size = "12 14" texture = "core.png">
     <Property key="NeedMouse" value = "false" />
-    <Property key="ImageResource" value = "core_new2.png" />
+    <Property key="ImageResource" value = "pic_CorePopupMenu" />
     <Property key="ImageGroup" value = "Icons" />
 
-    <BasisSkin type="MainSkin" offset = "0 0 10 12" align = "Stretch"/>
+    <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch"/>
   </Skin>
 
   <Skin name = "PopupMenu" size = "11 11" texture = "core.png">
