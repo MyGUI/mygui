@@ -45,13 +45,15 @@ namespace MyGUI
 		mFirstPressKey = true;
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
+		m_showHelpers = false;
 
 		createDefaultCharSet();
 
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().eventFrameStart += newDelegate(this, &InputManager::frameEntered);
-		//Gui::getInstance().addFrameListener(newDelegate(this, &InputManager::frameEntered), null);
+#ifdef MYGUI_NO_OIS
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
+#endif
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -63,9 +65,10 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
-		//Gui::getInstance().removeFrameListener(newDelegate(this, &InputManager::frameEntered));
 		WidgetManager::getInstance().unregisterUnlinker(this);
+#ifdef MYGUI_NO_OIS
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+#endif
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -162,7 +165,7 @@ namespace MyGUI
 		mWidgetMouseFocus = item;
 
 		// обновляем данные
-		updateFocusWidgetHelpers();
+		if (m_showHelpers) updateFocusWidgetHelpers();
 
 		return isFocusMouse();
 	}
@@ -247,25 +250,116 @@ namespace MyGUI
 		return false;
 	}
 
-/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	static WCHAR deadKey = 0;
-	int _translateText( KeyCode kc )
+	bool InputManager::injectKeyPress(KeyCode _key, Char _text)
 	{
+		// проверка на переключение языков
+		firstEncoding(_key, true);
+
+		Char ch = getKeyChar(_key, _text);
+
+		// запоминаем клавишу
+		storeKey(_key, ch);
+
+		bool wasFocusKey = isFocusKey();
+
+		//Pass keystrokes to the current active text widget
+		if (isFocusKey()) {
+			mWidgetKeyFocus->onKeyButtonPressed(_key, ch);
+		}
+
+		return wasFocusKey;
+	}
+
+	bool InputManager::injectKeyRelease(KeyCode _key)
+	{
+		// проверка на переключение языков
+		firstEncoding(_key, false);
+
+		// сбрасываем клавишу
+		resetKey();
+
+		bool wasFocusKey = isFocusKey();
+
+		if (isFocusKey()) mWidgetKeyFocus->onKeyButtonReleased(_key);
+
+		return wasFocusKey;
+	}
+
+	void InputManager::firstEncoding(KeyCode _key, bool bIsKeyPressed)
+	{
+#ifndef MYGUI_NO_OIS
+		if ((_key == KC_LSHIFT) || (_key == KC_RSHIFT)) mIsShiftPressed = bIsKeyPressed;
+		if ((_key == KC_LCONTROL) || (_key == KC_RCONTROL)) mIsControlPressed = bIsKeyPressed;
+#else
+		// если переключать не надо
+		if (mMapLanguages.size() == 1) return;
+
+		// для облегчения распознавания используются LeftAlt+LeftShift или LeftCtrl+LeftShift,LeftShift+LeftAlt или LeftShift+LeftCtrl
+		static bool bIsFirstKeyPressed = false; // LeftAlt или LeftCtrl
+		static bool bIsSecondKeyPressed = false; // LeftShift
+		static bool bIsTwoKeyPressed = false; // обе были зажаты
+
+		if ((_key == KC_LSHIFT) || (_key == KC_RSHIFT)) {
+			if (bIsKeyPressed) {
+				mIsShiftPressed = true;
+				bIsSecondKeyPressed = true;
+				if (bIsFirstKeyPressed) bIsTwoKeyPressed = true;
+			}
+			else {
+				mIsShiftPressed = false;
+				bIsSecondKeyPressed = false;
+				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed)) {
+					bIsTwoKeyPressed = false;
+					// следующий язык
+					changeLanguage();
+				}
+			}
+		}
+		else if ((_key == KC_LMENU) || (_key == KC_RMENU)
+			|| (_key == KC_LCONTROL) || (_key == KC_RCONTROL)) {
+
+			if ((_key == KC_LCONTROL) || (_key == KC_RCONTROL)) mIsControlPressed = bIsKeyPressed;
+
+			if (bIsKeyPressed) {
+				bIsFirstKeyPressed = true;
+				if (bIsSecondKeyPressed) bIsTwoKeyPressed = true;
+			}
+			else {
+				bIsFirstKeyPressed = false;
+				if ((!bIsSecondKeyPressed) && (bIsTwoKeyPressed)) {
+					bIsTwoKeyPressed = false;
+					// следующий язык
+					changeLanguage();
+				}
+			}
+		}
+		else {
+			bIsFirstKeyPressed = false;
+			bIsSecondKeyPressed = false;
+			bIsTwoKeyPressed = false;
+		}
+#endif
+	}
+
+#ifndef MYGUI_NO_OIS
+#    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+
+	Char translateWin32Text( KeyCode kc )
+	{
+		static WCHAR deadKey = 0;
+
 		BYTE keyState[256];
 		HKL  layout = GetKeyboardLayout(0);
-		if( GetKeyboardState(keyState) == 0 )
+		if ( GetKeyboardState(keyState) == 0 )
 			return 0;
 
 		unsigned int vk = MapVirtualKeyEx(kc, 3, layout);
-		if( vk == 0 )
+		if ( vk == 0 )
 			return 0;
 
-		//unsigned char buff[3] = {0,0,0};
-		//int ascii = ToAsciiEx(vk, kc, keyState, (LPWORD) buff, 0, layout);
-		WCHAR buff[3]={0,0,0};
+		WCHAR buff[3] = {0, 0, 0};
 		int ascii = ToUnicodeEx(vk, kc, keyState, buff, 3, 0, layout);
-		if(ascii == 1 && deadKey != '\0' )
-		{
+		if (ascii == 1 && deadKey != '\0' ) {
 			// A dead key is stored and we have just converted a character key
 			// Combine the two into a single character
 			WCHAR wcBuff[3] = {buff[0], deadKey, '\0'};
@@ -275,13 +369,13 @@ namespace MyGUI
 			if(FoldStringW(MAP_PRECOMPOSED, (LPWSTR)wcBuff, 3, (LPWSTR)out, 3))
 				return out[0];
 		}
-		else if (ascii == 1)
-		{	// We have a single character
+		else if (ascii == 1) {
+			// We have a single character
 			deadKey = '\0';
 			return buff[0];
 		}
-		else if(ascii == 2)
-		{	// Convert a non-combining diacritical mark into a combining diacritical mark
+		else if(ascii == 2) {
+			// Convert a non-combining diacritical mark into a combining diacritical mark
 			// Combining versions range from 0x300 to 0x36F; only 5 (for French) have been mapped below
 			// http://www.fileformat.info/info/unicode/block/combining_diacritical_marks/images.htm
 			switch(buff[0])	{
@@ -302,126 +396,53 @@ namespace MyGUI
 
 		return 0;
 	}
-#endif*/
 
-	bool InputManager::injectKeyPress(KeyCode _key, Char _text)
-	{
-		// проверка на переключение языков
-		detectLangShift(_key, true);
+#    endif
+#endif
 
-		Char ch = getKeyChar(_key, _text);
-
-		// запоминаем клавишу
-		storeKey(_key, ch);
-
-		bool wasFocusKey = isFocusKey();
-
-		//Pass keystrokes to the current active text widget
-		if (isFocusKey()) {
-			mWidgetKeyFocus->onKeyButtonPressed(_key, ch);
-		}
-
-		return wasFocusKey;
-	}
-
-	bool InputManager::injectKeyRelease(KeyCode _key)
-	{
-		// проверка на переключение языков
-		detectLangShift(_key, false);
-
-		// сбрасываем клавишу
-		resetKey();
-
-		bool wasFocusKey = isFocusKey();
-
-		if (isFocusKey()) mWidgetKeyFocus->onKeyButtonReleased(_key);
-
-		return wasFocusKey;
-	}
-
-    //Detects switching from an english to a other mode on a keyboard (?)
-	void InputManager::detectLangShift(KeyCode keyEvent, bool bIsKeyPressed)
-	{
-		// если переключать не надо
-		if (mMapLanguages.size() == 1) return;
-
-		// для облегчения распознавания используются LeftAlt+LeftShift или LeftCtrl+LeftShift,LeftShift+LeftAlt или LeftShift+LeftCtrl
-		static bool bIsFirstKeyPressed = false; // LeftAlt или LeftCtrl
-		static bool bIsSecondKeyPressed = false; // LeftShift
-		static bool bIsTwoKeyPressed = false; // обе были зажаты
-
-		if ((keyEvent == KC_LSHIFT) || (keyEvent == KC_RSHIFT)) {
-			if (bIsKeyPressed) {
-				mIsShiftPressed = true;
-				bIsSecondKeyPressed = true;
-				if (bIsFirstKeyPressed) bIsTwoKeyPressed = true;
-			}
-			else {
-				mIsShiftPressed = false;
-				bIsSecondKeyPressed = false;
-				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed)) {
-					bIsTwoKeyPressed = false;
-					// следующий язык
-					changeLanguage();
-				}
-			}
-		}
-		else if ((keyEvent == KC_LMENU) || (keyEvent == KC_RMENU)
-			|| (keyEvent == KC_LCONTROL) || (keyEvent == KC_RCONTROL)) {
-
-			if ((keyEvent == KC_LCONTROL) || (keyEvent == KC_RCONTROL)) mIsControlPressed = bIsKeyPressed;
-
-			if (bIsKeyPressed) {
-				bIsFirstKeyPressed = true;
-				if (bIsSecondKeyPressed) bIsTwoKeyPressed = true;
-			}
-			else {
-				bIsFirstKeyPressed = false;
-				if ((!bIsSecondKeyPressed) && (bIsTwoKeyPressed)) {
-					bIsTwoKeyPressed = false;
-					// следующий язык
-					changeLanguage();
-				}
-			}
-		}
-		else {
-			bIsFirstKeyPressed = false;
-			bIsSecondKeyPressed = false;
-			bIsTwoKeyPressed = false;
-		}
-	}
-
-	Char InputManager::getKeyChar(KeyCode keyEvent, Char _text) // возвращает символ по его скан коду
+	Char InputManager::getKeyChar(KeyCode _key, Char _text) // возвращает символ по его скан коду
 	{
 		Char result = 0;
-/*#ifndef MYGUI_NO_OIS
+#ifndef MYGUI_NO_OIS
 #    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			ch = _translateText(_key);
+		// нумлок транслейтим ручками
+		if (_key > 70 && _key < 84) {
+			result = mNums[_key-71];
+		}
+		else {
+			result = translateWin32Text(_key);
+		}
 #    else
-			ch = _text;
+		// нумлок транслейтим ручками
+		if (_key > 70 && _key < 84) {
+			result = mNums[_key-71];
+		}
+		else {
+			result = _text;
+		}
 #    endif
 #else
-			ch = getKeyChar(_key);
-#endif*/
-		if (keyEvent < 58) {
-			result = mCurrentLanguage->second[keyEvent + (mIsShiftPressed ? 58 : 0)];
+		if (_key < 58) {
+			result = mCurrentLanguage->second[_key + (mIsShiftPressed ? 58 : 0)];
 		}
-		else if (keyEvent < 84) {
-			if (keyEvent > 70) {
-				result = mNums[keyEvent-71];
+		else if (_key < 84) {
+			if (_key > 70) {
+				result = mNums[_key-71];
 			}
 		}
-		else if (keyEvent == KC_DIVIDE) {
+		else if (_key == KC_DIVIDE) {
 			result = mCurrentLanguage->second[KC_SLASH + (mIsShiftPressed ? 58 : 0)];
 		}
-		else if (keyEvent == KC_OEM_102) {
+		else if (_key == KC_OEM_102) {
 			result = mCurrentLanguage->second[KC_BACKSLASH + (mIsShiftPressed ? 58 : 0)];
 		}
+#endif
 		return result;
 	}
 
 	void InputManager::createDefaultCharSet()
 	{
+#ifdef MYGUI_NO_OIS
 		// вставляем английский язык
 		mMapLanguages[INPUT_DEFAULT_LANGUAGE] = LangInfo();
 		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
@@ -435,13 +456,15 @@ namespace MyGUI
 		// копируем в постоянное место
 		LangInfo & lang = mCurrentLanguage->second;
 		for (size_t i=0; i<INPUT_COUNT_LOAD_CHAR; i++) lang[i] = chars[i];
-
+#endif
 		// добавляем клавиши для нумлока
 		Char nums[13] = {55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46};
 		mNums.resize(13);
 		// копируем в постоянное место
 		for (size_t i=0; i<13; i++) mNums[i] = nums[i];
 	}
+
+#ifdef MYGUI_NO_OIS
 
 	bool InputManager::load(const std::string & _file, const std::string & _group)
 	{
@@ -492,6 +515,19 @@ namespace MyGUI
 		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
 	}
 
+	void InputManager::setCurrentLanguage(const std::string & _lang)
+	{
+		MapLang::iterator iter = mMapLanguages.find(_lang);
+		if (iter != mMapLanguages.end()) {
+			mCurrentLanguage = iter;
+		}
+		else {
+			MYGUI_LOG(Warning, "language '" << _lang << "' not found");
+		}
+	}
+
+#endif
+
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
 		// ищем рутовый фокус
@@ -519,7 +555,7 @@ namespace MyGUI
 		}
 
 		// обновляем данные
-		updateFocusWidgetHelpers();
+		if (m_showHelpers) updateFocusWidgetHelpers();
 
 	}
 
@@ -536,7 +572,7 @@ namespace MyGUI
 		}
 
 		// обновляем данные
-		updateFocusWidgetHelpers();
+		if (m_showHelpers) updateFocusWidgetHelpers();
 
 	}
 
@@ -549,13 +585,13 @@ namespace MyGUI
 			mWidgetMouseFocus = null;
 
 			// обновляем данные
-			updateFocusWidgetHelpers();
+			if (m_showHelpers) updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetKeyFocus) {
 			mWidgetKeyFocus = null;
 
 			// обновляем данные
-			updateFocusWidgetHelpers();
+			if (m_showHelpers) updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
 		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
@@ -634,7 +670,7 @@ namespace MyGUI
 	{
 
 		// обновляем данные
-		updateFocusWidgetHelpers();
+		if (m_showHelpers) updateFocusWidgetHelpers();
 
 		if ( mHoldKey == KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {
@@ -662,31 +698,8 @@ namespace MyGUI
 
 	}
 
-	void InputManager::setCurrentLanguage(const std::string & _lang)
+	void InputManager::updateFocusWidgetHelpers()
 	{
-		MapLang::iterator iter = mMapLanguages.find(_lang);
-		if (iter != mMapLanguages.end()) {
-			mCurrentLanguage = iter;
-		}
-		else {
-			MYGUI_LOG(Warning, "language '" << _lang << "' not found");
-		}
-	}
-
-#if MYGUI_DEBUG_MODE == 1
-	void InputManager::updateFocusWidgetHelpers(bool * _show, bool _set)
-	{
-
-		static bool show = false;
-
-		// запрос на видимость
-		if (_show) {
-			if (_set) show = *_show;
-			else *_show = show;
-			return;
-		}
-
-		if (!show) return;
 
 		static const std::string layer = "Statistic";
 		static const std::string skin_mouse = "RectGreen";
@@ -737,6 +750,5 @@ namespace MyGUI
 			}
 		}
 	}
-#endif
 
 } // namespace MyGUI
