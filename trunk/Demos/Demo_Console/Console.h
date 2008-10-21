@@ -52,7 +52,7 @@ namespace demo
 		const Ogre::UTFString & getConsoleStringUnknow() { return mStringUnknow; }
 		const Ogre::UTFString & getConsoleStringFormat() { return mStringFormat; }
 
-		bool isShow() { mainWidget()->isShow(); }
+		bool isShow() { return mainWidget()->isShow(); }
 		void show() { mainWidget()->show(); }
 		void hide() { mainWidget()->hide(); }
 
