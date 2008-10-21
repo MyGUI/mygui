@@ -170,6 +170,9 @@ namespace MyGUI
 		/** Enable or disable edit word wrap mode */
 		void setEditWordWrap(bool _wordwrap);
 
+		bool getTabPrinting() { return mTabPrinting; }
+		void setTabPrinting(bool _print) { mTabPrinting = _print; }
+
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -310,6 +313,8 @@ namespace MyGUI
 		bool mModeMultiline;
 		bool mModeStatic;
 		bool mModeWordWrap;
+
+		bool mTabPrinting;
 
 		// настоящий текст, закрытый за звездочками
 		Ogre::UTFString mPasswordText;

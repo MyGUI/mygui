@@ -105,6 +105,9 @@ namespace demo
 
 
 		MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
+		edit->setTabPrinting(true);
+
+		
 
 		/*State type;
 

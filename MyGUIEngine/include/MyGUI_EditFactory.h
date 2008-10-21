@@ -35,6 +35,7 @@ namespace MyGUI
 			void Edit_ShowVScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_ShowHScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_WordWrap(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_TabPrinting(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		};
 
