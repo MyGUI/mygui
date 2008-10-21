@@ -553,9 +553,9 @@ namespace MyGUI
 		if (mCursorActive) {
 			mCursorTimer += _frame;
 
-			if (mCursorTimer > EDIT_CURSOR_TIMER ) {
+			if (mCursorTimer > EDIT_CURSOR_TIMER) {
 				mText->setShowCursor(!mText->isCursorShow());
-				mCursorTimer -= EDIT_CURSOR_TIMER ;
+				while (mCursorTimer > EDIT_CURSOR_TIMER) mCursorTimer -= EDIT_CURSOR_TIMER;
 			}
 		}
 
@@ -563,7 +563,7 @@ namespace MyGUI
 		if (mMouseLeftPressed) {
 			mActionMouseTimer += _frame;
 
-			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER ) {
+			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER) {
 
 				IntPoint mouse = InputManager::getInstance().getMousePosition();
 				const IntRect& view = mWidgetClient->getAbsoluteRect();
@@ -628,7 +628,7 @@ namespace MyGUI
 				// если в зону не попадает то сбрасываем
 				else mActionMouseTimer = 0;
 
-				mActionMouseTimer -= EDIT_ACTION_MOUSE_TIMER ;
+				while (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER) mActionMouseTimer -= EDIT_ACTION_MOUSE_TIMER;
 			}
 
 		} // if (mMouseLeftPressed)
