@@ -20,7 +20,6 @@
 namespace MyGUI
 {
 
-	// делегат для смены оповещения смены языков
 	typedef delegates::CDelegate1<const std::string &> EventInfo_String;
 
 	class _MyGUIExport InputManager : public IUnlinkWidget
@@ -28,17 +27,12 @@ namespace MyGUI
 		INSTANCE_HEADER(InputManager);
 
 		typedef std::vector<Char> LangInfo;
-		typedef std::map<std::string, LangInfo> MapLang;
 
 	public:
 		void initialise();
 		void shutdown();
 
 	public:
-
-		/** Load additional MyGUI *.lang file */
-		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		/** Inject MouseMove event
 			@return true if event has been processed by GUI
@@ -92,13 +86,6 @@ namespace MyGUI
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);
 
-		// событие смены языков
-		/** Event : Language has been changed.\n
-			signature : void method(const std::string & _languageName)\n
-			@param _languageName name of current language
-		*/
-		EventInfo_String eventChangeLanguage;
-
 		// событие смены курсора
 		/** Event : Pointer has been changed.\n
 			signature : void method(const std::string & _pointerName)\n
@@ -126,34 +113,42 @@ namespace MyGUI
 		// сбрасывает захват мыши, если он был
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
-		/** Get current language */
-		const std::string & getCurrentLanguage() { return mCurrentLanguage->first; }
-		/** Set current language */
-		void setCurrentLanguage(const std::string & _lang);
-
-#if MYGUI_DEBUG_MODE == 1
-	public:
-		void setShowFocus(bool _show) { updateFocusWidgetHelpers(&_show, true); }
-		bool getShowFocus() { bool show; updateFocusWidgetHelpers(&show, false); return show; }
 	private:
-		void updateFocusWidgetHelpers(bool * _show = null, bool _set = false);
-#else
-	public:
-		void setShowFocus(bool _show) { }
-		bool getShowFocus() { return false; }
-	private:
-		void updateFocusWidgetHelpers(bool * _show = null, bool _set = false) { }
-#endif
-
-	protected:
 		void frameEntered(float _frame);
 
-		void detectLangShift(KeyCode keyEvent, bool bIsKeyPressed);
+		void firstEncoding(KeyCode _key, bool bIsKeyPressed);
 		Char getKeyChar(KeyCode keyEvent, Char _text); // возвращает символ по его скан коду
 
 		// создает латинскую раскладку
 		void createDefaultCharSet();
 
+		// запоминает клавишу для поддержки повторения
+		void storeKey(KeyCode _key, Char _text);
+
+		// сбрасывает клавишу повторения
+		void resetKey();
+
+#ifdef MYGUI_NO_OIS
+	public:
+		typedef std::map<std::string, LangInfo> MapLang;
+
+		/** Load additional MyGUI *.lang file */
+		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
+
+		// событие смены языков
+		/** Event : Language has been changed.\n
+			signature : void method(const std::string & _languageName)\n
+			@param _languageName name of current language
+		*/
+		EventInfo_String eventChangeLanguage;
+
+		/** Get current language */
+		const std::string & getCurrentLanguage() { return mCurrentLanguage->first; }
+		/** Set current language */
+		void setCurrentLanguage(const std::string & _lang);
+
+	private:
 		// сменяет язык на следующий
 		void changeLanguage()
 		{
@@ -164,14 +159,16 @@ namespace MyGUI
 			eventChangeLanguage(mCurrentLanguage->first);
 		}
 
-		// запоминает клавишу для поддержки повторения
-		void storeKey(KeyCode _key, Char _text);
+#endif
 
-		// сбрасывает клавишу повторения
-		void resetKey();
+	public:
+		void setShowFocus(bool _show) { m_showHelpers = _show; }
+		bool getShowFocus() { return m_showHelpers; }
 
+	private:
+		void updateFocusWidgetHelpers();
 
-	protected:
+	private:
 
 		// виджеты которым принадлежит фокус
 		WidgetPtr mWidgetMouseFocus;
@@ -184,10 +181,13 @@ namespace MyGUI
 		// таймер для двойного клика
 	    Ogre::Timer mTime; //used for double click timing
 
+#ifdef MYGUI_NO_OIS
 		// карта языков
 		MapLang mMapLanguages;
 		// текущий язык
 		MapLang::iterator mCurrentLanguage;
+#endif
+
 		// нажат ли шифт
 		bool mIsShiftPressed;
 		// нажат ли контрол
@@ -209,6 +209,8 @@ namespace MyGUI
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
+
+		bool m_showHelpers;
 
 	};
 
