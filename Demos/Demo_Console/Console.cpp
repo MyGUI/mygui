@@ -37,6 +37,8 @@ namespace demo
 		mComboCommand->eventComboAccept = newDelegate(this, &Console::notifyComboAccept);
 		mComboCommand->eventKeyButtonPressed = newDelegate(this, &Console::notifyButtonPressed);
 		mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
+
+		mMainWidget->hide();
 	}
 
 	void Console::notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button)
