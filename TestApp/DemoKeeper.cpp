@@ -104,6 +104,7 @@ namespace demo
         base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
 
+		MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
 
 		/*State type;
 
@@ -187,8 +188,8 @@ namespace demo
 		bar->addItem("test7", "core.png", true, MyGUI::IntSize(90, 30));
 		bar->addItem("test8", "core.png", true, MyGUI::IntSize(90, 30));*/
 
-		MyGUI::MessagePtr message = MyGUI::Message::createMessage("caption", "message", false, MyGUI::Message::OkCancel);
-		message->eventMessageBoxEnd = MyGUI::newDelegate(notifyMessageBoxEnd);
+		//MyGUI::MessagePtr message = MyGUI::Message::createMessage("caption", "message", false, MyGUI::Message::OkCancel);
+		//message->eventMessageBoxEnd = MyGUI::newDelegate(notifyMessageBoxEnd);
 		//message->endMessage(MyGUI::Message::Ok);
     }
  

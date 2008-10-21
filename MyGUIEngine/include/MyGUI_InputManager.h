@@ -56,34 +56,34 @@ namespace MyGUI
 		/** Inject KeyPress event
 			@return true if event has been processed by GUI
 		*/
-		bool injectKeyPress(KeyCode _key, unsigned int _text = 0);
+		bool injectKeyPress(KeyCode _key, Char _text = 0);
 		/** Inject KeyRelease event
 			@return true if event has been processed by GUI
 		*/
 		bool injectKeyRelease(KeyCode _key);
 
 		/** Is any widget have mouse focus */
-		bool isFocusMouse() {return mWidgetMouseFocus != null;}
+		bool isFocusMouse() { return mWidgetMouseFocus != null; }
 		/** Is any widget have key focus */
-		bool isFocusKey() {return mWidgetKeyFocus != null;}
+		bool isFocusKey() { return mWidgetKeyFocus != null; }
 		/** Is any widget captured mouse */
-		bool isCaptureMouse() {return mIsWidgetMouseCapture;}
+		bool isCaptureMouse() { return mIsWidgetMouseCapture; }
 
 		/** Set key focus for _widget */
 		void setKeyFocusWidget(WidgetPtr _widget);
 		/** Drop key focus for _widget */
-		void resetKeyFocusWidget(WidgetPtr _widget) {if (mWidgetKeyFocus == _widget) setKeyFocusWidget(null);}
+		void resetKeyFocusWidget(WidgetPtr _widget) { if (mWidgetKeyFocus == _widget) setKeyFocusWidget(null); }
 		/** Drop any key focus */
-		void resetKeyFocusWidget() {setKeyFocusWidget(null);}
+		void resetKeyFocusWidget() { setKeyFocusWidget(null); }
 
 		/** Get mouse focused widget */
-		WidgetPtr getMouseFocusWidget() {return mWidgetMouseFocus;}
+		WidgetPtr getMouseFocusWidget() { return mWidgetMouseFocus; }
 		/** Get key focused widget */
-		WidgetPtr getKeyFocusWidget() {return mWidgetKeyFocus;}
+		WidgetPtr getKeyFocusWidget() { return mWidgetKeyFocus; }
 		/** Get position of last left mouse button press */
-		const IntPoint & getLastLeftPressed() {return mLastLeftPressed;}
+		const IntPoint & getLastLeftPressed() { return mLastLeftPressed; }
 		/** Get current mouse position */
-		const IntPoint & getMousePosition() {return mMousePosition;}
+		const IntPoint & getMousePosition() { return mMousePosition; }
 
 		// тестовый вариант, очистка фокуса мыши
 		/** Drop any mouse focus */
@@ -113,21 +113,21 @@ namespace MyGUI
 		void removeWidgetModal(WidgetPtr _widget);
 
 		/** Return true if any modal widget exist */
-		bool isModalAny() {return !mVectorModalRootWidget.empty();}
+		bool isModalAny() { return !mVectorModalRootWidget.empty(); }
 
 		/** Is control button pressed */
-		bool isControlPressed() {return mIsControlPressed;}
+		bool isControlPressed() { return mIsControlPressed; }
 		/** Is shift button pressed */
-		bool isShiftPressed() {return mIsShiftPressed;}
+		bool isShiftPressed() { return mIsShiftPressed; }
 
 		// возвращает виджет, наход€щийс€ в указанной точке
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
 		// сбрасывает захват мыши, если он был
-		void resetMouseCaptureWidget() {mIsWidgetMouseCapture = false;}
+		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
 		/** Get current language */
-		const std::string & getCurrentLanguage() {return mCurrentLanguage->first;}
+		const std::string & getCurrentLanguage() { return mCurrentLanguage->first; }
 		/** Set current language */
 		void setCurrentLanguage(const std::string & _lang);
 
@@ -149,7 +149,7 @@ namespace MyGUI
 		void frameEntered(float _frame);
 
 		void detectLangShift(KeyCode keyEvent, bool bIsKeyPressed);
-		Char getKeyChar(KeyCode keyEvent); // возвращает символ по его скан коду
+		Char getKeyChar(KeyCode keyEvent, Char _text); // возвращает символ по его скан коду
 
 		// создает латинскую раскладку
 		void createDefaultCharSet();
@@ -165,10 +165,10 @@ namespace MyGUI
 		}
 
 		// запоминает клавишу дл€ поддержки повторени€
-		void storeKey(KeyCode _key);
+		void storeKey(KeyCode _key, Char _text);
 
 		// сбрасывает клавишу повторени€
-		void resetKey(KeyCode _key);
+		void resetKey();
 
 
 	protected:
@@ -199,6 +199,7 @@ namespace MyGUI
 		IntPoint mMousePosition;
 		// клавиша дл€ повтора
 		KeyCode mHoldKey;
+		Char mHoldChar;
 		bool mFirstPressKey;
 		float mTimerKey;
 		int mOldAbsZ;

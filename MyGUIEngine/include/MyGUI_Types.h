@@ -52,7 +52,7 @@ namespace MyGUI
 	typedef unsigned int uint32;
 	typedef unsigned int uint;
 
-	typedef wchar_t Char;
+	typedef unsigned int Char;
 
 	namespace utility
 	{

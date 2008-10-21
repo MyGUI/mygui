@@ -148,16 +148,13 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool Gui::injectMouseMove( int _absx, int _absy, int _absz) {return mInputManager->injectMouseMove(_absx, _absy, _absz);}
-	bool Gui::injectMousePress( int _absx, int _absy, MouseButton _id ) {return mInputManager->injectMousePress(_absx, _absy, _id);}
-	bool Gui::injectMouseRelease( int _absx, int _absy, MouseButton _id ) {return mInputManager->injectMouseRelease(_absx, _absy, _id);}
+	bool Gui::injectMouseMove( int _absx, int _absy, int _absz) { return mInputManager->injectMouseMove(_absx, _absy, _absz); }
+	bool Gui::injectMousePress( int _absx, int _absy, MouseButton _id ) { return mInputManager->injectMousePress(_absx, _absy, _id); }
+	bool Gui::injectMouseRelease( int _absx, int _absy, MouseButton _id ) { return mInputManager->injectMouseRelease(_absx, _absy, _id); }
 
-	bool Gui::injectKeyPress(KeyCode _key) {return mInputManager->injectKeyPress(_key);}
-	bool Gui::injectKeyRelease(KeyCode _key) {return mInputManager->injectKeyRelease(_key);}
+	bool Gui::injectKeyPress(KeyCode _key, Char _text) { return mInputManager->injectKeyPress(_key, _text); }
+	bool Gui::injectKeyRelease(KeyCode _key) { return mInputManager->injectKeyRelease(_key); }
 
-#ifndef MYGUI_NO_OIS
-	bool Gui::injectKeyPress(const OIS::KeyEvent & _arg) { return mInputManager->injectKeyPress((KeyCode)_arg.key, _arg.text); }
-#endif
 
 	WidgetPtr Gui::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
