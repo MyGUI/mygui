@@ -10,70 +10,79 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-typedef MyGUI::delegates::CDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> CommandDelegate;
-typedef MyGUI::delegates::IDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> * DelegatePtr;
-
-class Console : public wraps::BaseLayout
+namespace demo
 {
-public:
-	Console();
 
-	virtual void initialise();
+	typedef MyGUI::delegates::CDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> CommandDelegate;
+	typedef MyGUI::delegates::IDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> * DelegatePtr;
 
-	void addToConsole(const Ogre::UTFString & _line);
-	void addToConsole(const Ogre::UTFString & _reason, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
+	class Console : public wraps::BaseLayout
 	{
-		addToConsole(MyGUI::utility::toString(_reason, "'", _key, " ", _value, "'"));
-	}
+	public:
+		Console();
 
-	void clearConsole();
+		virtual void initialise();
 
-	/** Method : add command.\n
-		example :
-			registerConsoleDelegate("your_command_1", newDelegate(your_func));
-			registerConsoleDelegate("your_command_2", newDelegate(your_static_method));
-			registerConsoleDelegate("your_command_3", newDelegate(your_class_ptr, &your_class_name::your_method_name));
+		void addToConsole(const Ogre::UTFString & _line);
+		void addToConsole(const Ogre::UTFString & _reason, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
+		{
+			addToConsole(MyGUI::utility::toString(_reason, "'", _key, " ", _value, "'"));
+		}
 
-		signature your method : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
-	*/
-	void registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate);
+		void clearConsole();
 
-	/** Event : Unknow command.\n
-		signature : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
-	*/
-	CommandDelegate eventConsoleUnknowCommand;
+		/** Method : add command.\n
+			example :
+				registerConsoleDelegate("your_command_1", MyGUI::newDelegate(your_func));
+				registerConsoleDelegate("your_command_2", MyGUI::newDelegate(your_static_method));
+				registerConsoleDelegate("your_command_3", MyGUI::newDelegate(your_class_ptr, &your_class_name::your_method_name));
 
-	const Ogre::UTFString & getConsoleStringCurrent() { return mStringCurrent; }
-	const Ogre::UTFString & getConsoleStringError() { return mStringError; }
-	const Ogre::UTFString & getConsoleStringSuccess() { return mStringSuccess; }
-	const Ogre::UTFString & getConsoleStringUnknow() { return mStringUnknow; }
-	const Ogre::UTFString & getConsoleStringFormat() { return mStringFormat; }
+			signature your method : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
+		*/
+		void registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate);
 
-private:
-	void notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button);
+		/** Event : Unknow command.\n
+			signature : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
+		*/
+		CommandDelegate eventConsoleUnknowCommand;
 
-	void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-	void notifyComboAccept(MyGUI::WidgetPtr _sender);
-	void notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
+		const Ogre::UTFString & getConsoleStringCurrent() { return mStringCurrent; }
+		const Ogre::UTFString & getConsoleStringError() { return mStringError; }
+		const Ogre::UTFString & getConsoleStringSuccess() { return mStringSuccess; }
+		const Ogre::UTFString & getConsoleStringUnknow() { return mStringUnknow; }
+		const Ogre::UTFString & getConsoleStringFormat() { return mStringFormat; }
 
-	void internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);
+		bool isShow() { mainWidget()->isShow(); }
+		void show() { mainWidget()->show(); }
+		void hide() { mainWidget()->hide(); }
 
-private:
-	MyGUI::ListPtr mListHistory;
-	MyGUI::ComboBoxPtr mComboCommand;
-	MyGUI::ButtonPtr mButtonSubmit;
+	private:
+		void notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button);
 
-	typedef std::map<Ogre::UTFString, CommandDelegate> MapDelegate;
-	MapDelegate mDelegates;
+		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		void notifyComboAccept(MyGUI::WidgetPtr _sender);
+		void notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
-	Ogre::UTFString mStringCurrent;
-	Ogre::UTFString mStringError;
-	Ogre::UTFString mStringSuccess;
-	Ogre::UTFString mStringUnknow;
-	Ogre::UTFString mStringFormat;
+		void internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);
 
-	// если текущий текст автодополнен
-	bool mAutocomleted;
-};
+	private:
+		MyGUI::ListPtr mListHistory;
+		MyGUI::ComboBoxPtr mComboCommand;
+		MyGUI::ButtonPtr mButtonSubmit;
+
+		typedef std::map<Ogre::UTFString, CommandDelegate> MapDelegate;
+		MapDelegate mDelegates;
+
+		Ogre::UTFString mStringCurrent;
+		Ogre::UTFString mStringError;
+		Ogre::UTFString mStringSuccess;
+		Ogre::UTFString mStringUnknow;
+		Ogre::UTFString mStringFormat;
+
+		// если текущий текст автодополнен
+		bool mAutocomleted;
+	};
+
+} // namespace demo
 
 #endif // __CONSOLE_H__
