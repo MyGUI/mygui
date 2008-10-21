@@ -129,7 +129,7 @@ namespace MyGUI
 		if (mCurrent == mEnd) return false;
 
 		const size_t SIZE = 16;
-		Char buff[SIZE];
+		wchar_t buff[SIZE];
 
 #ifdef __MINGW32__
 		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
@@ -328,8 +328,8 @@ namespace MyGUI
 		if ( (_iter == mEnd) || ((*_iter) == L'#') ) return false;
 
 		// берем цвет
-		Char buff[16] = L"#FFFFFF\0";
-		buff[1] = (Char)(*_iter);
+		wchar_t buff[16] = L"#FFFFFF\0";
+		buff[1] = (wchar_t)(*_iter);
 		for (size_t pos=2; pos<7; pos++) {
 			++_iter;
 			if ( _iter == mEnd ) return false;
