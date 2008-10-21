@@ -56,7 +56,8 @@ namespace MyGUI
 		mShowHScroll(true),
 		mShowVScroll(true),
 		mVRange(0),
-		mHRange(0)
+		mHRange(0),
+		mTabPrinting(false)
 	{
 
 		mOriginalPointer = mPointer;
@@ -497,15 +498,18 @@ namespace MyGUI
 			// если не нажат контрл, то обрабатываем как текст
 			if ( false == input.isControlPressed() ) {
 				if (false == mModeReadOnly) {
-					// попытка объединения двух комманд
-					size_t size = mVectorUndoChangeInfo.size();
-					// непосредственно операции
-					deleteTextSelect(true);
-					insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
-					// проверяем на возможность объединения
-					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-					// отсылаем событие о изменении
-					eventEditTextChange(this);
+					// таб только если нужно
+					if (_char != '\t' || mTabPrinting) {
+						// попытка объединения двух комманд
+						size_t size = mVectorUndoChangeInfo.size();
+						// непосредственно операции
+						deleteTextSelect(true);
+						insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
+						// проверяем на возможность объединения
+						if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+						// отсылаем событие о изменении
+						eventEditTextChange(this);
+					}
 				}
 			}
 			else if (_key == KC_C) {

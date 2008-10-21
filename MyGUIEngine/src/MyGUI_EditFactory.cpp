@@ -28,6 +28,7 @@ namespace MyGUI
 			manager.registerDelegate("Edit_ShowVScroll") = newDelegate(this, &EditFactory::Edit_ShowVScroll);
 			manager.registerDelegate("Edit_ShowHScroll") = newDelegate(this, &EditFactory::Edit_ShowHScroll);
 			manager.registerDelegate("Edit_WordWrap") = newDelegate(this, &EditFactory::Edit_WordWrap);
+			manager.registerDelegate("Edit_TabPrinting") = newDelegate(this, &EditFactory::Edit_TabPrinting);
 		}
 
 		EditFactory::~EditFactory()
@@ -46,6 +47,7 @@ namespace MyGUI
 			manager.unregisterDelegate("Edit_ShowHScroll");
 			manager.unregisterDelegate("Edit_ShowVScroll");
 			manager.unregisterDelegate("Edit_WordWrap");
+			manager.unregisterDelegate("Edit_TabPrinting");
 		}
 
 		void EditFactory::Edit_CursorPosition(WidgetPtr _widget, const std::string &_key, const std::string &_value)
@@ -119,6 +121,12 @@ namespace MyGUI
 		{
 			if (isFalseType(_widget, _key)) return;
 			static_cast<EditPtr>(_widget)->setEditWordWrap(utility::parseBool(_value));
+		}
+
+		void EditFactory::Edit_TabPrinting(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		{
+			if (isFalseType(_widget, _key)) return;
+			static_cast<EditPtr>(_widget)->setTabPrinting(utility::parseBool(_value));
 		}
 
 	} // namespace factory
