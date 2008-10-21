@@ -113,7 +113,7 @@ namespace MyGUI
 		static Ogre::UTFString getTextCharInfo(Char _char)
 		{
 			if (_char == L'#') return L"##";
-			Char buff[16] = L"_\0";
+			wchar_t buff[16] = L"_\0";
 			buff[0] = _char;
 			return buff;
 		}
@@ -122,7 +122,7 @@ namespace MyGUI
 		static Ogre::UTFString convertTagColour(const Ogre::ColourValue & _colour)
 		{
 			const size_t SIZE = 16;
-			Char buff[SIZE];
+			wchar_t buff[SIZE];
 //FIXME
 #ifdef __MINGW32__
             swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));

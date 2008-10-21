@@ -41,6 +41,7 @@ namespace MyGUI
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
 		mHoldKey = KC_UNASSIGNED;
+		mHoldChar = 0;
 		mFirstPressKey = true;
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
@@ -246,7 +247,7 @@ namespace MyGUI
 		return false;
 	}
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	static WCHAR deadKey = 0;
 	int _translateText( KeyCode kc )
 	{
@@ -301,29 +302,22 @@ namespace MyGUI
 
 		return 0;
 	}
-#endif
+#endif*/
 
-	bool InputManager::injectKeyPress(KeyCode _key, unsigned int _text)
+	bool InputManager::injectKeyPress(KeyCode _key, Char _text)
 	{
 		// проверка на переключение €зыков
 		detectLangShift(_key, true);
+
+		Char ch = getKeyChar(_key, _text);
+
 		// запоминаем клавишу
-		storeKey(_key);
+		storeKey(_key, ch);
 
 		bool wasFocusKey = isFocusKey();
 
 		//Pass keystrokes to the current active text widget
 		if (isFocusKey()) {
-			Char ch;
-#ifndef MYGUI_NO_OIS
-#    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			ch = _translateText(_key);
-#    else
-			ch = _text;
-#    endif
-#else
-			ch = getKeyChar(_key);
-#endif
 			mWidgetKeyFocus->onKeyButtonPressed(_key, ch);
 		}
 
@@ -334,8 +328,9 @@ namespace MyGUI
 	{
 		// проверка на переключение €зыков
 		detectLangShift(_key, false);
+
 		// сбрасываем клавишу
-		resetKey(_key);
+		resetKey();
 
 		bool wasFocusKey = isFocusKey();
 
@@ -360,7 +355,8 @@ namespace MyGUI
 				mIsShiftPressed = true;
 				bIsSecondKeyPressed = true;
 				if (bIsFirstKeyPressed) bIsTwoKeyPressed = true;
-			} else {
+			}
+			else {
 				mIsShiftPressed = false;
 				bIsSecondKeyPressed = false;
 				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed)) {
@@ -378,7 +374,8 @@ namespace MyGUI
 			if (bIsKeyPressed) {
 				bIsFirstKeyPressed = true;
 				if (bIsSecondKeyPressed) bIsTwoKeyPressed = true;
-			} else {
+			}
+			else {
 				bIsFirstKeyPressed = false;
 				if ((!bIsSecondKeyPressed) && (bIsTwoKeyPressed)) {
 					bIsTwoKeyPressed = false;
@@ -394,14 +391,33 @@ namespace MyGUI
 		}
 	}
 
-	Char InputManager::getKeyChar(KeyCode keyEvent) // возвращает символ по его скан коду
+	Char InputManager::getKeyChar(KeyCode keyEvent, Char _text) // возвращает символ по его скан коду
 	{
-		if (keyEvent < 58) return mCurrentLanguage->second[keyEvent + (mIsShiftPressed ? 58 : 0)];
+		Char result = 0;
+/*#ifndef MYGUI_NO_OIS
+#    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			ch = _translateText(_key);
+#    else
+			ch = _text;
+#    endif
+#else
+			ch = getKeyChar(_key);
+#endif*/
+		if (keyEvent < 58) {
+			result = mCurrentLanguage->second[keyEvent + (mIsShiftPressed ? 58 : 0)];
+		}
 		else if (keyEvent < 84) {
-			if (keyEvent > 70) return mNums[keyEvent-71];
-		} else if (keyEvent == KC_DIVIDE) return mCurrentLanguage->second[KC_SLASH + (mIsShiftPressed ? 58 : 0)];
-		else if (keyEvent == KC_OEM_102) return mCurrentLanguage->second[KC_BACKSLASH + (mIsShiftPressed ? 58 : 0)];
-		return 0;
+			if (keyEvent > 70) {
+				result = mNums[keyEvent-71];
+			}
+		}
+		else if (keyEvent == KC_DIVIDE) {
+			result = mCurrentLanguage->second[KC_SLASH + (mIsShiftPressed ? 58 : 0)];
+		}
+		else if (keyEvent == KC_OEM_102) {
+			result = mCurrentLanguage->second[KC_BACKSLASH + (mIsShiftPressed ? 58 : 0)];
+		}
+		return result;
 	}
 
 	void InputManager::createDefaultCharSet()
@@ -440,7 +456,7 @@ namespace MyGUI
 			std::string name;
 			if ( false == lang->findAttribute("name", name)) continue;
 
-			std::vector<std::string> chars = utility::split(lang->getBody());
+			std::vector<std::string> chars = utility::split(lang->getBody(), "\x09\x0a,");
 			if (chars.size() == INPUT_COUNT_LOAD_CHAR) {
 
 				// сначала провер€ем есть ли такой €зык уже
@@ -455,12 +471,14 @@ namespace MyGUI
 
 				// и заполн€ем его
 				for (size_t j=0; j<INPUT_COUNT_LOAD_CHAR; j++) {
-					unsigned int ch = utility::parseUInt(chars[j]);
+					Char ch = utility::parseUInt(chars[j]);
 					if (INPUT_CHARSET_LIMIT < ch) {
 						lang[j] = 0;
 						MYGUI_LOG(Warning, "character with code '" << ch << "' out of range");
 					}
-					else lang[j] = (Char)ch;
+					else {
+						lang[j] = (Char)ch;
+					}
 				}
 
 			}
@@ -583,9 +601,10 @@ namespace MyGUI
 		}
 	}
 
-	void InputManager::storeKey(KeyCode _key)
+	void InputManager::storeKey(KeyCode _key, Char _text)
 	{
 		mHoldKey = KC_UNASSIGNED;
+		mHoldChar = 0;
 
 		if ( false == isFocusKey() ) return;
 		if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT)
@@ -595,12 +614,14 @@ namespace MyGUI
 
 		mFirstPressKey = true;
 		mHoldKey = _key;
+		mHoldChar = _text;
 		mTimerKey = 0.0f;
 	}
 
-	void InputManager::resetKey(KeyCode _key)
+	void InputManager::resetKey()
 	{
 		mHoldKey = KC_UNASSIGNED;
+		mHoldChar = 0;
 	}
 
 	WidgetPtr InputManager::getWidgetFromPoint(int _left, int _top)
@@ -618,6 +639,7 @@ namespace MyGUI
 		if ( mHoldKey == KC_UNASSIGNED) return;
 		if ( false == isFocusKey() ) {
 			mHoldKey = KC_UNASSIGNED;
+			mHoldChar = 0;
 			return;
 		}
 
@@ -628,10 +650,11 @@ namespace MyGUI
 				mFirstPressKey = false;
 				mTimerKey = 0.0f;
 			}
-		} else {
+		}
+		else {
 			if (mTimerKey > INPUT_INTERVAL_KEY) {
 				while (mTimerKey > INPUT_INTERVAL_KEY) mTimerKey -= INPUT_INTERVAL_KEY;
-				mWidgetKeyFocus->onKeyButtonPressed(mHoldKey, getKeyChar(mHoldKey));
+				mWidgetKeyFocus->onKeyButtonPressed(mHoldKey, mHoldChar);
 				// focus can be dropped in onKeyButtonPressed
 				if ( isFocusKey() ) mWidgetKeyFocus->onKeyButtonReleased(mHoldKey);
 			}
