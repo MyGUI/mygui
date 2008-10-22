@@ -45,7 +45,10 @@ namespace MyGUI
 		mFirstPressKey = true;
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
+
 		m_showHelpers = false;
+		m_mouseHelper = null;
+		m_keyHelper = null;
 
 		createDefaultCharSet();
 
@@ -698,6 +701,16 @@ namespace MyGUI
 
 	}
 
+
+	void InputManager::setShowFocus(bool _show)
+	{
+		m_showHelpers = _show;
+		if (!m_showHelpers) {
+			if (m_mouseHelper) m_mouseHelper->hide();
+			if (m_keyHelper) m_keyHelper->hide();
+		}
+	}
+
 	void InputManager::updateFocusWidgetHelpers()
 	{
 
@@ -706,47 +719,45 @@ namespace MyGUI
 		static const std::string skin_key = "RectBlue";
 
 		static WidgetPtr mouse_focus = null;
-		static WidgetPtr mouse_helper = null;
-		if ((mWidgetMouseFocus != mouse_focus) || ((mWidgetMouseFocus != null) && (mouse_helper != null) && mWidgetMouseFocus->getAbsoluteCoord() != mouse_helper->getAbsoluteCoord())) {
+		if ((mWidgetMouseFocus != mouse_focus) || ((mWidgetMouseFocus != null) && (m_mouseHelper != null) && mWidgetMouseFocus->getAbsoluteCoord() != m_mouseHelper->getAbsoluteCoord())) {
 			mouse_focus = mWidgetMouseFocus;
 
-			if (mouse_helper == null) {
+			if (m_mouseHelper == null) {
 				if (!LayerManager::getInstance().isExist(layer)) return;
 				if (!SkinManager::getInstance().isExist(skin_mouse)) return;
-				mouse_helper = Gui::getInstance().createWidget<Widget>(skin_mouse, IntCoord(), Align::Default, layer);
-				mouse_helper->setNeedMouseFocus(false);
+				m_mouseHelper = Gui::getInstance().createWidget<Widget>(skin_mouse, IntCoord(), Align::Default, layer);
+				m_mouseHelper->setNeedMouseFocus(false);
 			}
 
 			if (mWidgetMouseFocus) {
 				MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
-				mouse_helper->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
-				mouse_helper->show();
+				m_mouseHelper->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
+				m_mouseHelper->show();
 			}
 			else {
 				MYGUI_OUT("mouse focus : null");
-				mouse_helper->hide();
+				m_mouseHelper->hide();
 			}
 		}
 
 		static WidgetPtr key_focus = null;
-		static WidgetPtr key_helper = null;
-		if ((mWidgetKeyFocus != key_focus) || ((mWidgetKeyFocus != null) && (key_helper != null) && mWidgetKeyFocus->getAbsoluteCoord() != key_helper->getAbsoluteCoord())) {
+		if ((mWidgetKeyFocus != key_focus) || ((mWidgetKeyFocus != null) && (m_keyHelper != null) && mWidgetKeyFocus->getAbsoluteCoord() != m_keyHelper->getAbsoluteCoord())) {
 			key_focus = mWidgetKeyFocus;
 
-			if (key_helper == null) {
+			if (m_keyHelper == null) {
 				if (!LayerManager::getInstance().isExist(layer)) return;
 				if (!SkinManager::getInstance().isExist(skin_key)) return;
-				key_helper = Gui::getInstance().createWidget<Widget>(skin_key, IntCoord(), Align::Default, layer);
-				key_helper->setNeedMouseFocus(false);
+				m_keyHelper = Gui::getInstance().createWidget<Widget>(skin_key, IntCoord(), Align::Default, layer);
+				m_keyHelper->setNeedMouseFocus(false);
 			}
 			if (mWidgetKeyFocus) {
 				MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
-				key_helper->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
-				key_helper->show();
+				m_keyHelper->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
+				m_keyHelper->show();
 			}
 			else {
 				MYGUI_OUT("key focus : null");
-				key_helper->hide();
+				m_keyHelper->hide();
 			}
 		}
 	}
