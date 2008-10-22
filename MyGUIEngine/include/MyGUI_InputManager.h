@@ -162,7 +162,7 @@ namespace MyGUI
 #endif
 
 	public:
-		void setShowFocus(bool _show) { m_showHelpers = _show; }
+		void setShowFocus(bool _show);
 		bool getShowFocus() { return m_showHelpers; }
 
 	private:
@@ -211,6 +211,8 @@ namespace MyGUI
 		VectorWidgetPtr mVectorModalRootWidget;
 
 		bool m_showHelpers;
+		WidgetPtr m_mouseHelper;
+		WidgetPtr m_keyHelper;
 
 	};
 

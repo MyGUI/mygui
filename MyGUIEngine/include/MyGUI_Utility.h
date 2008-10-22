@@ -15,6 +15,12 @@ namespace MyGUI
 	namespace utility
 	{
 
+		inline void trim(std::string& _str, bool _left = true, bool _right = true)
+		{
+			if (_right) _str.erase(_str.find_last_not_of(" \t\r")+1);
+			if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
+		}
+
 		// конвертирование в строку
 		template<typename T >
 		inline std::string toString (T p)
@@ -22,6 +28,11 @@ namespace MyGUI
 			std::ostringstream stream;
 			stream << p;
 			return stream.str();
+		}
+
+		inline const std::string & toString (const std::string & _value)
+		{
+			return _value;
 		}
 
 		template<typename T1,  typename T2 >
@@ -114,7 +125,7 @@ namespace MyGUI
 		inline size_t parseSizeT(const std::string& _value) { return parseValue<size_t>(_value); }
 		inline float parseFloat(const std::string& _value) { return parseValue<float>(_value); }
 		inline double parseDouble(const std::string& _value) { return parseValue<double>(_value); }
-		inline bool parseBool(const std::string& _value) { return ( (_value == "true") || (_value == "1") ); }
+		inline bool parseBool(const std::string& _value) { std::string value(_value); trim(value); return ( (value == "true") || (value == "1") ); }
 
 		// для парсинга сложных типов, состоящих из простых
 		template<typename T1, typename T2 >
@@ -193,12 +204,6 @@ namespace MyGUI
 			return result;
 		}
 
-		inline void trim(std::string& _str, bool _left = true, bool _right = true)
-		{
-			if (_right) _str.erase(_str.find_last_not_of(" \t\r")+1);
-			if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
-		}
-
 		template<typename T1, typename T2, typename T3, typename T4>
 		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
 		{
@@ -270,11 +275,13 @@ namespace MyGUI
 		template<>
 		inline bool parseComplex<bool>(const std::string & _value, bool & _p1)
 		{
-			if ((_value == "true") || (_value == "1")) {
+			std::string value(_value);
+			trim(value);
+			if ((value == "true") || (value == "1")) {
 				_p1 = true;
 				return true;
 			}
-			else if ((_value == "false") || (_value == "0")) {
+			else if ((value == "false") || (value == "0")) {
 				_p1 = false;
 				return true;
 			}
