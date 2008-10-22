@@ -11,8 +11,8 @@ aclocal $ACLOCAL_FLAGS
 file='Makefile.am'
 cd MyGUIEngine/src
 echo 'INCLUDES = $(STLPORT_CFLAGS) $(FT2_CFLAGS) $(OGRE_CFLAGS) $(OIS_CFLAGS) -I$(top_srcdir)/MyGUIEngine/include $(CFLAGS)' > $file
-echo 'lib_LTLIBRARIES=libmygui.la' >> $file
-echo 'libmygui_la_SOURCES = \' >> $file
+echo "lib_LTLIBRARIES=libmygui.la" >> $file
+echo "libmygui_la_SOURCES = \\" >> $file
 count=`ls *.cpp | wc -l`
 real=1
 for files in *.cpp
@@ -24,7 +24,7 @@ do
 	real=`expr $real + 1`
 done
 cd ../include	#generating for headers
-echo 'pkginclude_HEADERS = \\' > $file
+echo "pkginclude_HEADERS = \\" > $file
 count=`ls *.h | wc -l`
 real=1
 for files in *.h
