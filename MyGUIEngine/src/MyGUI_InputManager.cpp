@@ -411,6 +411,12 @@ namespace MyGUI
 		if (_key > 70 && _key < 84) {
 			result = mNums[_key-71];
 		}
+		else if (_key == KC_DIVIDE) {
+			result = '/';
+		}
+		//else if (_key == KC_OEM_102) {
+		//	result = '\\';
+		//}
 		else {
 #    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			result = translateWin32Text(_key);
@@ -430,9 +436,9 @@ namespace MyGUI
 		else if (_key == KC_DIVIDE) {
 			result = mCurrentLanguage->second[KC_SLASH + (mIsShiftPressed ? 58 : 0)];
 		}
-		else if (_key == KC_OEM_102) {
-			result = mCurrentLanguage->second[KC_BACKSLASH + (mIsShiftPressed ? 58 : 0)];
-		}
+		//else if (_key == KC_OEM_102) {
+		//	result = mCurrentLanguage->second[KC_BACKSLASH + (mIsShiftPressed ? 58 : 0)];
+		//}
 #endif
 		return result;
 	}
