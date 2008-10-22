@@ -12,7 +12,7 @@ namespace MyGUI
 {
 
 	// этот класс не для использования, а для соблюдения некоего общего интерфейса для всех классов контейнеров
-
+	/** This class not for use. It's for observance of a certain general interface for all classes of containers */
 
 	class IArray
 	{
