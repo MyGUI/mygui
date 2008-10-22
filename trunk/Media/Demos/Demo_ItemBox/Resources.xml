@@ -40,56 +40,56 @@
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item1" id="{F3762B99-CE82-466a-907A-E4A770429C2F}">
-    <Name>Человек</Name>
-    <Description>Человек, это венец творения природы. Как ни крути.</Description>
+    <Name>Human</Name>
+    <Description>Homo sapiens — Latin: "wise human" or "knowing human".</Description>
     <Image RefID="pic_Crystal_Clear_Item1"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item2" id="{023C81A3-9C0E-46cf-96D9-9B05F35D2522}">
-    <Name>Стрелка</Name>
-    <Description>Обычно используется для целеуказания.</Description>
+    <Name>Arrow</Name>
+    <Description>Usually used to point on something.</Description>
     <Image RefID="pic_Crystal_Clear_Item2"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item3" id="{F65D40B3-F188-41ec-B8B2-E4340706411E}">
-    <Name>Пэк мен</Name>
-    <Description>Весьма популярная игра своего времени.</Description>
+    <Name>Pac man</Name>
+    <Description>Popular arcade game.</Description>
     <Image RefID="pic_Crystal_Clear_Item3"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item4" id="{99BEE77A-F2C5-4275-857F-3AAA863DF6FE}">
-    <Name>Дом</Name>
-    <Description>Место, куда мы обычно любим возвращаться.</Description>
+    <Name>Home</Name>
+    <Description>Place where we usually like to come back.</Description>
     <Image RefID="pic_Crystal_Clear_Item4"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item5" id="{E26C3225-7196-4dfb-8704-4A9BBCB51343}">
-    <Name>Земля</Name>
-    <Description>Сначала она была расплавленным металлом, но потом внешние слои стали остывать.</Description>
+    <Name>Earth</Name>
+    <Description>Third planet from the Sun.</Description>
     <Image RefID="pic_Crystal_Clear_Item5"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item6" id="{531CE6D7-C834-4b6a-951F-47A05D173FF7}">
-    <Name>Нота</Name>
-    <Description>Обыкновенная нота, неизвестной мне тональности, хотя по значку можно сказать о длительности.</Description>
+    <Name>Note</Name>
+    <Description>Just note, what else I can say about it?</Description>
     <Image RefID="pic_Crystal_Clear_Item6"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item7" id="{A2D1255E-A20A-46f3-817A-8D1D891C843E}">
-    <Name>Паук</Name>
-    <Description>Плетет паутины и ловит в них себе еду.</Description>
+    <Name>Spider</Name>
+    <Description>Spiderman! Spiderman! Oh... it's just spider.</Description>
     <Image RefID="pic_Crystal_Clear_Item7"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item8" id="{1ABCE593-32FA-4f14-BC01-76ED3636D0CE}">
-    <Name>Инструмент</Name>
-    <Description>Обычно используется для ремонта поврежденных устройств и вещей.</Description>
+    <Name>Tools</Name>
+    <Description>Used for repairing broken items.</Description>
     <Image RefID="pic_Crystal_Clear_Item8"/>
   </Resource>
 
   <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item9" id="{2D3A47B6-61B1-41dc-ADDF-CFA6EB61DE7D}">
-    <Name>Шестерня</Name>
-    <Description>Замечательное изобретение, после колеса.</Description>
+    <Name>Gear</Name>
+    <Description>A gear is a component within a transmission device that transmits rotational force to another gear or device.</Description>
     <Image RefID="pic_Crystal_Clear_Item9"/>
   </Resource>
 
