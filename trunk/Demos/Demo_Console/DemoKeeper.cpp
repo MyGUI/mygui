@@ -19,6 +19,8 @@ namespace demo
 
 		mConsole.registerConsoleDelegate("colour", MyGUI::newDelegate(this, &DemoKeeper::command));
 		mConsole.registerConsoleDelegate("show", MyGUI::newDelegate(this, &DemoKeeper::command));
+
+		mConsole.show();
 	}
 
 	void DemoKeeper::destroyScene()
