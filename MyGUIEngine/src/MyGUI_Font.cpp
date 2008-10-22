@@ -118,6 +118,7 @@ namespace MyGUI
 
 		int max_height = 0/*, max_width = 0*/, max_bear = 0;
 
+		// FIXME mOffsetHeight беззнаковое, почему оно на < 0 проверяется? скорее всего у mOffsetHeight неверный тип
 		size_t l = 0, m = (mOffsetHeight < 0) ? (-mOffsetHeight) : 0;
 
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
