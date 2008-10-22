@@ -103,8 +103,8 @@ void PropertiesPanelView::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	if (WidgetTypes::getInstance().find(current_widget->getTypeName())->resizeable)
 	{
-		MyGUI::IntCoord coord = _sender->getCoord();
-		MyGUI::IntCoord old_coord = current_widget->getAbsoluteCoord();
+		MyGUI::IntCoord coord = convertCoordToParentCoord(_sender->getCoord(), current_widget);
+		MyGUI::IntCoord old_coord = current_widget->getCoord();
 		// align to grid
 		if (!MyGUI::InputManager::getInstance().isShiftPressed() && !arrow_move){
 			if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
@@ -131,7 +131,6 @@ void PropertiesPanelView::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 		}
 		arrow_move = false;
 
-		coord = convertCoordToParentCoord(coord, current_widget);
 		current_widget->setCoord(coord);
 		// update coord because of current_widget can have MinMax size
 		coord = current_widget->getCoord();
@@ -475,7 +474,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 			current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 			return;
 		}
-		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Move", value);
+		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Coord", value);
 		current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 		return;
 	}

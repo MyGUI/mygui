@@ -407,23 +407,17 @@ namespace MyGUI
 	{
 		Char result = 0;
 #ifndef MYGUI_NO_OIS
+		// нумлок транслейтим ручками
+		if (_key > 70 && _key < 84) {
+			result = mNums[_key-71];
+		}
+		else {
 #    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		// нумлок транслейтим ручками
-		if (_key > 70 && _key < 84) {
-			result = mNums[_key-71];
-		}
-		else {
 			result = translateWin32Text(_key);
-		}
 #    else
-		// нумлок транслейтим ручками
-		if (_key > 70 && _key < 84) {
-			result = mNums[_key-71];
-		}
-		else {
 			result = _text;
-		}
 #    endif
+		}
 #else
 		if (_key < 58) {
 			result = mCurrentLanguage->second[_key + (mIsShiftPressed ? 58 : 0)];
