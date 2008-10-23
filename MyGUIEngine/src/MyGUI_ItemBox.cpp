@@ -253,8 +253,9 @@ namespace MyGUI
 			requestCreateWidgetItem(this, item);
 
 			item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-			item->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
-			item->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
+			//item->eventMouseSetFocus = newDelegate(this, &ItemBox::notifyMouseSetFocus);
+			//item->eventMouseLostFocus = newDelegate(this, &ItemBox::notifyMouseLostFocus);
+			item->eventRootMouseChangeFocus = newDelegate(this, &ItemBox::notifyRootMouseChangeFocus);
 			item->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
 			item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
@@ -298,33 +299,6 @@ namespace MyGUI
 
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::onKeyLostFocus(_new);
-	}
-
-	void ItemBox::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
-	{
-		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyMouseSetFocus");
-
-		mIndexActive = index;
-		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-
-		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-		mIndexActive = index;
-	}
-
-	void ItemBox::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
-	{
-		// уже сбросили фокус
-		if (mIndexActive == ITEM_NONE) return;
-
-		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyMouseLostFocus");
-
-		mIndexActive = ITEM_NONE;
-		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-
-		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-		mIndexActive = ITEM_NONE;
 	}
 
 	void ItemBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
@@ -746,6 +720,60 @@ namespace MyGUI
 	{
 		mouseButtonReleased(_id);
 		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
+	}
+
+	/*void ItemBox::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
+	{
+		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyMouseSetFocus");
+
+		mIndexActive = index;
+		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
+		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
+		mIndexActive = index;
+	}
+
+	void ItemBox::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
+	{
+		// уже сбросили фокус
+		if (mIndexActive == ITEM_NONE) return;
+
+		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyMouseLostFocus");
+
+		mIndexActive = ITEM_NONE;
+		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
+		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
+		mIndexActive = ITEM_NONE;
+	}*/
+
+	void ItemBox::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
+	{
+		if (_focus) {
+			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
+
+			mIndexActive = index;
+			ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
+			requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
+			mIndexActive = index;
+		}
+		else {
+			// уже сбросили фокус
+			if (mIndexActive == ITEM_NONE) return;
+
+			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
+
+			mIndexActive = ITEM_NONE;
+			ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+
+			requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
+			mIndexActive = ITEM_NONE;
+		}
 	}
 
 } // namespace MyGUI
