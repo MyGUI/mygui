@@ -270,13 +270,15 @@ namespace MyGUI
 		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
-		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
+		//void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
+		//void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
+		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
