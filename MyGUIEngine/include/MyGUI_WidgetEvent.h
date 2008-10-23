@@ -57,7 +57,11 @@ namespace MyGUI
 		virtual ~WidgetEvent() { }
 
 	protected:
-		WidgetEvent() : mWidgetEventSender(0) { }
+		WidgetEvent() :
+			mWidgetEventSender(0),
+			mRootMouseActive(false)
+		{
+		}
 
 	public:
 
@@ -263,6 +267,9 @@ namespace MyGUI
 
 		// от чьего имени мы посылаем сообщения
 		WidgetPtr mWidgetEventSender;
+
+	private:
+		bool mRootMouseActive;
 	};
 
 } // namespace MyGUI

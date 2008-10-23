@@ -103,7 +103,8 @@ namespace demo
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
-		MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
+		MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 150, 260), MyGUI::Align::Default, "Overlapped");
+		window->setAutoAlpha(true);
 
 		/*MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
 		edit->setTabPrinting(true);*/

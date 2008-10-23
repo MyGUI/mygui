@@ -35,7 +35,7 @@ namespace MyGUI
 
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
-		mWidgetRootMouseFocus = 0;
+		//mWidgetRootMouseFocus = 0;
 		mWidgetRootKeyFocus = 0;
 		mIsWidgetMouseCapture = false;
 		mIsShiftPressed = false;
@@ -128,6 +128,34 @@ namespace MyGUI
 			}
 		}
 
+		// новый вид рутового фокуса мыши
+		WidgetPtr save_widget = null;
+
+		// спускаемс€ по новому виджету и устанавливаем рутовый фокус
+		WidgetPtr root_focus = item;
+		while (root_focus != null) {
+			if (root_focus->mRootMouseActive) {
+				save_widget = root_focus;
+				break;
+			}
+			root_focus->mRootMouseActive = true;
+			root_focus->onMouseChangeRootFocus(true);
+
+			root_focus = root_focus->_getOwner();
+		};
+
+		// спускаемс€ по старому виджету и сбрасываем фокус
+		root_focus = mWidgetMouseFocus;
+		while (root_focus != null) {
+			if (root_focus == save_widget) {
+				break;
+			}
+			root_focus->mRootMouseActive = false;
+			root_focus->onMouseChangeRootFocus(false);
+
+			root_focus = root_focus->_getOwner();
+		};
+
 		// смена фокуса, провер€ем на доступность виджета
 		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) {
 			mWidgetMouseFocus->onMouseLostFocus(item);
@@ -158,11 +186,11 @@ namespace MyGUI
 		}
 
 		// изменилс€ рутовый элемент
-		if (rootItem != mWidgetRootMouseFocus) {
-			if (mWidgetRootMouseFocus != null) mWidgetRootMouseFocus->onMouseChangeRootFocus(false);
-			if (rootItem != null) static_cast<WidgetPtr>(rootItem)->onMouseChangeRootFocus(true);
-			mWidgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
-		}
+		//if (rootItem != mWidgetRootMouseFocus) {
+			//if (mWidgetRootMouseFocus != null) mWidgetRootMouseFocus->onMouseChangeRootFocus(false);
+			//if (rootItem != null) static_cast<WidgetPtr>(rootItem)->onMouseChangeRootFocus(true);
+			//mWidgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
+		//}
 
 		// запоминаем текущее окно
 		mWidgetMouseFocus = item;
@@ -564,15 +592,25 @@ namespace MyGUI
 
 	void InputManager::resetMouseFocusWidget()
 	{
+		// спускаемс€ по старому виджету и сбрасываем фокус
+		WidgetPtr root_focus = mWidgetMouseFocus;
+		while (root_focus != null) {
+			root_focus->mRootMouseActive = false;
+			root_focus->onMouseChangeRootFocus(false);
+
+			root_focus = root_focus->_getOwner();
+		};
+
 		mIsWidgetMouseCapture = false;
 		if (null != mWidgetMouseFocus) {
 			mWidgetMouseFocus->onMouseLostFocus(null);
 			mWidgetMouseFocus = null;
 		}
-		if (null != mWidgetRootMouseFocus) {
+
+		/*if (null != mWidgetRootMouseFocus) {
 			mWidgetRootMouseFocus->onMouseChangeRootFocus(false);
 			mWidgetRootMouseFocus = null;
-		}
+		}*/
 
 		// обновл€ем данные
 		if (m_showHelpers) updateFocusWidgetHelpers();
@@ -596,7 +634,7 @@ namespace MyGUI
 			// обновл€ем данные
 			if (m_showHelpers) updateFocusWidgetHelpers();
 		}
-		if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
+		//if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
 		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
 
 		// ручками сбрасываем, чтобы не мен€ть фокусы
