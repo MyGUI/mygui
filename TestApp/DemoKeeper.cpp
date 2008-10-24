@@ -7,7 +7,14 @@
 #include "DemoKeeper.h"
 #include <typeinfo>
 
- 
+namespace formates
+{
+	template<typename T> inline std::string format() { return MyGUI::utility::toString("[ ", std::numeric_limits<T>::min(), " | ", std::numeric_limits<T>::max(), " ]"); }
+	template<> inline std::string format<bool>() { return "[ true | false ]"; }
+	template<> inline std::string format<float>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<float>::max(), " | ", std::numeric_limits<float>::max(), " ]"); }
+	template<> inline std::string format<double>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<double>::max(), " | ", std::numeric_limits<double>::max(), " ]"); }
+}
+
 namespace demo
 {
 
@@ -33,6 +40,9 @@ namespace demo
 		Ogre::ArchiveManager::getSingleton().unload(pArch);*/
 
 		int test = 0;
+
+
+		MyGUI::MYGUI_OUT(formates::format<std::string>());
 
 //		VectorString vec;
 		//Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo("General", "ToolTip.layout");

@@ -143,6 +143,9 @@ void BasisManager::startRendering()
 		Ogre::WindowEventUtilities::messagePump();
 		mWindow->setActive(true);
 		if (!mRoot->renderOneFrame()) break;
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		::Sleep(1);
+#endif
 	};
 }
 
@@ -375,6 +378,9 @@ void BasisManager::dropFile(const std::string & _file)
 
 void BasisManager::windowClose()
 {
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	if (::IsIconic((HWND)mHwnd)) ::ShowWindow((HWND)mHwnd, SW_SHOWNORMAL);
+#endif
 	mEditor.notifyQuit();
 }
 
