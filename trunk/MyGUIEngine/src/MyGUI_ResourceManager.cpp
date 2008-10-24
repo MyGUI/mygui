@@ -134,12 +134,30 @@ namespace MyGUI
 			if (type.empty()) type = "FileSystem";
 			if (group.empty()) group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
 
-			#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-				// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + name), type, group, recursive);
-			#else
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, type, group, recursive);
-			#endif
+			// ресурс менеджеры огра, не держут рекурсию, добавляем все пути ручками
+			if (recursive) {
+				Ogre::Archive* pArch = Ogre::ArchiveManager::getSingleton().load( name, type );
+				Ogre::StringVectorPtr vec = pArch->find("*", true, true);
+				for (size_t pos=0; pos<vec->size(); ++pos) {
+					std::string new_filename = name + '/' + vec->at(pos);
+					#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+						// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
+						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + new_filename), type, group, false);
+					#else
+						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(new_filename, type, group, false);
+					#endif
+				}
+				vec.setNull();
+				Ogre::ArchiveManager::getSingleton().unload(pArch);
+			}
+			else {
+				#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+					// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
+					Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + name), type, group, false);
+				#else
+					Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, type, group, false);
+				#endif
+			}
 
 		};
 	}
