@@ -10,89 +10,6 @@
  
 namespace demo
 {
- 
-	enum Type
-	{
-		None,
-		Start,
-		End,
-		Miss,
-		Accept,
-		Refuse
-	};
-
-	struct State
-	{
-		enum
-		{
-			None,
-			Start,
-			End,
-			Miss,
-			Accept,
-			Refuse
-		};
-
-		State() : value(None) { }
-		State(int _value) : value(_value) { }
-		friend bool operator == (State const & a, State const & b) { return a.value == b.value; }
-		friend bool operator != (State const & a, State const & b) { return a.value != b.value; }
-
-		int value;
-	};
-
-	template <typename T>
-	void checkParce4(MyGUI::EditPtr _edit)
-	{
-		static const Ogre::UTFString colour = "#FF0000";
-		const Ogre::UTFString & text = _edit->getOnlyText();
-		size_t index = _edit->getTextCursor();
-
-		T p;
-		if (MyGUI::utility::parseComplex(text, p, p, p, p)) {
-			_edit->setCaption(text);
-		}
-		else {
-			_edit->setCaption(colour + text);
-		}
-		_edit->setTextCursor(index);
-	}
-
-	void checkParceFileName(MyGUI::EditPtr _edit)
-	{
-		static const Ogre::UTFString colour = "#FF0000";
-		const Ogre::UTFString & text = _edit->getOnlyText();
-		size_t index = _edit->getTextCursor();
-
-		if (text.find_first_of("*?") == std::string::npos) {
-			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(
-				Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, text);
-			// ôàéë äîëæåí áûòü òîëüêî îäèí, åñëè áóäåò äâà, òî âñå ðàâíî ãóé åãî íå ñúåñò
-			if (pFileInfo->size() != 1) {
-				_edit->setCaption(colour + text);
-			}
-			else {
-				_edit->setCaption(text);
-			}
-			pFileInfo.setNull();
-		}
-		else {
-			_edit->setCaption(colour + text);
-		}
-		_edit->setTextCursor(index);
-	}
-
-	void notifyEditTextChange(MyGUI::WidgetPtr _sender)
-	{
-		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
-		//checkParceFileName(edit);
-		checkParce4<int>(edit);
-	}
-
-	void notifyMessageBoxEnd(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
-	{
-		MyGUI::MYGUI_OUT(_button);
-	}
 
     void DemoKeeper::createScene()
     {
@@ -100,14 +17,41 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
         const MyGUI::IntSize size(100, 100);
  
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+
+		base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper1.jpg");
 
-		MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 150, 260), MyGUI::Align::Default, "Overlapped");
-		window->setAutoAlpha(true);
 
+		MyGUI::ResourceManager::getInstance().load("test.xml");
+
+		MyGUI::ResourceManager::getInstance().load("ToolTip.layout");
+
+		/*Ogre::Archive* pArch = Ogre::ArchiveManager::getSingleton().load( "../../Media", "FileSystem" );
+		Ogre::StringVectorPtr vec = pArch->find("*", true, true);
+		vec.setNull();
+		Ogre::ArchiveManager::getSingleton().unload(pArch);*/
+
+		int test = 0;
+
+//		VectorString vec;
+		//Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo("General", "ToolTip.layout");
+//		vec.reserve(pFileInfo->size());
+//		for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi ) {
+//			vec.push_back(fi->archive->getName() + "/" + fi->filename);
+		//}
+		//pFileInfo.setNull();
+//		return vec;
+
+		//MyGUI::WindowPtr window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 150, 260), MyGUI::Align::Default, "Overlapped");
+		//window->setAutoAlpha(true);
+
+		//Ogre::ResourceGroupManager & manager = Ogre::ResourceGroupManager::getSingleton();
+
+		//int test = 0;
 		/*MyGUI::EditPtr edit = MyGUI::Gui::getInstance().createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(100, 100, 150, 26), MyGUI::Align::Default, "Overlapped");
 		edit->setTabPrinting(true);*/
+
 
 		
 
