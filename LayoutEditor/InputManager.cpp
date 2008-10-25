@@ -1,4 +1,5 @@
-#include "MyGUI.h"
+#include "precompiled.h"
+
 #include "InputManager.h"
 #include "BasisManager.h"
 

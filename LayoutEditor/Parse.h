@@ -7,8 +7,6 @@
 #ifndef __PARSE_H__
 #define __PARSE_H__
 
-#include <MyGUI.h>
-
 namespace Parse
 {
 	template <typename T>
