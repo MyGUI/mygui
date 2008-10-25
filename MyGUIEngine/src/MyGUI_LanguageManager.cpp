@@ -88,32 +88,31 @@ namespace MyGUI
 			return false;
 		}
 
-		loadLanguage(mCurrentLanguage->second);
+		loadLanguage(mCurrentLanguage->second, ResourceManager::getInstance().getResourceGroup());
 		eventChangeLanguage(mCurrentLanguage->first);
 		return true;
 	}
 
-	void LanguageManager::loadLanguage(const VectorString & _list)
+	void LanguageManager::loadLanguage(const VectorString & _list, const std::string & _group)
 	{
 		mMapLanguage.clear();
 
 		for (VectorString::const_iterator iter=_list.begin(); iter!=_list.end(); ++iter) {
-			loadLanguage(*iter);
+			loadLanguage(*iter, _group);
 		}
 	}
 
-	bool LanguageManager::loadLanguage(const std::string & _file)
+	bool LanguageManager::loadLanguage(const std::string & _file, const std::string & _group)
 	{
 
-		std::string group = ResourceManager::getInstance().getResourceGroup();
-		std::string file(group.empty() ? _file : helper::getResourcePath(_file, group));
-		if (file.empty()) {
-			MYGUI_LOG(Error, "file '" << _file << "' not found");
-			return false;
-		}
+		if (!_group.empty()) {
 
-		if (!group.empty()) {
-			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file, group);
+			if (!helper::isFileExist(_file, _group)) {
+				MYGUI_LOG(Error, "file '" << _file << "' not found in group'" << _group << "'");
+				return false;
+			}
+
+			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file, _group);
 
 			// проверяем на сигнатуру utf8
 			uint32 sign = 0;
@@ -127,7 +126,7 @@ namespace MyGUI
 			return true;
 		}
 
-		std::ifstream stream(file.c_str());
+		std::ifstream stream(_file.c_str());
 		if (false == stream.is_open()) {
 			MYGUI_LOG(Error, "error open file '" << _file << "'");
 			return false;

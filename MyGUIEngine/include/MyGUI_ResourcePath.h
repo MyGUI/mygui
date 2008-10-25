@@ -16,19 +16,36 @@
 
 namespace MyGUI
 {
-	// перенести в ресурс менеджер, и добавить екзист
+
 	namespace helper
 	{
 		typedef std::vector<Ogre::String> VectorString;
 
-		// возвращает тру если есть
-		bool _MyGUIExport isFileExist(const Ogre::String & _mask, const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		void _MyGUIExport addResourceLocation(
+			const Ogre::String& _name,
+			const Ogre::String& _type,
+			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			bool _recursive = false,
+			bool _subdirs = false);
 
-		// возвращает вектор путей ресурсов по маске
-		VectorString _MyGUIExport getVectorResourcePath(const Ogre::String & _mask, const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		bool _MyGUIExport isFileExist(
+			const Ogre::String& _filename,
+			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			bool _unique = true,
+			bool _fullmatch = true);
 
-		// возвращает путь ресурса по маске
-		Ogre::String _MyGUIExport getResourcePath(const Ogre::String & _mask, const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		Ogre::String _MyGUIExport getResourcePath(
+			const Ogre::String& _filename,
+			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			bool _fullpath = true,
+			bool _unique = true,
+			bool _fullmatch = true);
+
+		VectorString _MyGUIExport getVectorResourcePath(
+			const Ogre::String& _pattern,
+			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			bool _fullpath = true,
+			bool _fullmatch = true);
 
 	} // namespace helper
 
