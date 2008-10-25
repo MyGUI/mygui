@@ -214,7 +214,7 @@ namespace unittest
 		*/
 		void setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _name)
 		{
-			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
+			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
 
 			mVectorColumnInfo[_column].list->setItemNameAt(_index, _name);
@@ -223,7 +223,7 @@ namespace unittest
 		/** Get sub item name*/
 		const Ogre::UTFString & getSubItemNameAt(size_t _column, size_t _index)
 		{
-			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
+			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemNameAt");
 
 			return mVectorColumnInfo[_column].list->getItemNameAt(_index);
@@ -232,7 +232,7 @@ namespace unittest
 		/** Search item in specified _column, returns index of the first occurrence in column or ITEM_NONE if item not found */
 		size_t findSubItemWith(size_t _column, const Ogre::UTFString & _item)
 		{
-			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
+			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
 			return mVectorColumnInfo[_column].list->findItemIndexWith(_item);
 		}
 

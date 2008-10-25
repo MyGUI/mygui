@@ -226,6 +226,10 @@
 				RelativePath=".\UnitTest_List.h"
 				>
 			</File>
+			<File
+				RelativePath=".\UnitTest_MultiList.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource"
