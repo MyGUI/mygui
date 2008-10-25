@@ -59,6 +59,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Colour", "Demos\Demo_C
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Peeking", "Demos\Demo_Peeking\Demo_Peeking_v8.vcproj", "{32B344E6-7846-4382-8F2D-E8ED13E1CF19}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{45727BC9-79EF-4B08-975C-1EBC8A885ED4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_MultiList", "UnitTests\UnitTest_MultiList\UnitTest_MultiList_v8.vcproj", "{6CF4B12D-00CD-417F-8266-1D817B551047}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -117,6 +121,10 @@ Global
 		{32B344E6-7846-4382-8F2D-E8ED13E1CF19}.Debug|Win32.Build.0 = Debug|Win32
 		{32B344E6-7846-4382-8F2D-E8ED13E1CF19}.Release|Win32.ActiveCfg = Release|Win32
 		{32B344E6-7846-4382-8F2D-E8ED13E1CF19}.Release|Win32.Build.0 = Release|Win32
+		{6CF4B12D-00CD-417F-8266-1D817B551047}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6CF4B12D-00CD-417F-8266-1D817B551047}.Debug|Win32.Build.0 = Debug|Win32
+		{6CF4B12D-00CD-417F-8266-1D817B551047}.Release|Win32.ActiveCfg = Release|Win32
+		{6CF4B12D-00CD-417F-8266-1D817B551047}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +143,7 @@ Global
 		{77A21DBC-355F-479B-89F3-170FB3E0D77F} = {53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}
 		{32B344E6-7846-4382-8F2D-E8ED13E1CF19} = {53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}
 		{D43133FF-CFE1-48B2-8529-8918A4C81B05} = {94EC4CB8-6C05-4159-B33F-790B101CFDF5}
+		{6CF4B12D-00CD-417F-8266-1D817B551047} = {45727BC9-79EF-4B08-975C-1EBC8A885ED4}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
