@@ -6,9 +6,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LayoutEditor", "LayoutEditor\LayoutEditor_v8.vcproj", "{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "TestApp\TestApp_v8.vcproj", "{382942A7-8159-4340-A6D7-252E10064543}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A} = {0B1E368C-0E94-40DE-85D0-D0D00F43D57A}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}"
 EndProject
@@ -34,8 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plugin_StrangeButton", "Plu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_PluginStrangeButton", "Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton_v8.vcproj", "{7E1D6F51-4042-4ACF-A189-96C9D4E33D56}"
 	ProjectSection(ProjectDependencies) = postProject
-		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
 		{D43133FF-CFE1-48B2-8529-8918A4C81B05} = {D43133FF-CFE1-48B2-8529-8918A4C81B05}
+		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Console", "Demos\Demo_Console\Demo_Console_v8.vcproj", "{691EEDDA-B30E-4DB9-B99D-6FC45E620B40}"

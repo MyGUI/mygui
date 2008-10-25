@@ -558,6 +558,14 @@
 						</File>
 					</Filter>
 				</Filter>
+				<Filter
+					Name="Skin"
+					>
+					<File
+						RelativePath=".\src\MyGUI_MaskPeekInfo.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"

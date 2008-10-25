@@ -197,14 +197,16 @@ namespace MyGUI
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
 		if (false == manager.resourceExists(_texture)) {
 
-			if (!helper::isFileExist(_texture, Gui::getInstance().getResourceGroup())) {
-				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+			std::string group = Gui::getInstance().getResourceGroup();
+
+			if (!helper::isFileExist(_texture, group)) {
+				MYGUI_LOG(Error, "Texture '" + _texture + "' not found in group '" << group << "'");
 				return old_size;
 			}
 			else {
 				manager.load(
 					_texture,
-					Gui::getInstance().getResourceGroup(),
+					group,
 					Ogre::TEX_TYPE_2D,
 					0);
 			}

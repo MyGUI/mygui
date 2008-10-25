@@ -5,6 +5,11 @@
 	@module
 */
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_ResourcePath.h"
+
+#include <OgreResourceGroupManager.h>
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
@@ -153,6 +158,19 @@ namespace MyGUI
 		xmlDocument::~xmlDocument()
 		{
 			clear();
+		}
+
+		bool xmlDocument::open(const std::string & _name, const std::string & _group)
+		{
+			if (_group.empty()) return open(_name);
+
+			if (!helper::isFileExist(_name, _group)) {
+				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
+				return false;
+			}
+
+			Ogre::DataStreamPtr fileStream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, _group);
+			return open(fileStream);
 		}
 
 		bool xmlDocument::open(const Ogre::DataStreamPtr& stream)
