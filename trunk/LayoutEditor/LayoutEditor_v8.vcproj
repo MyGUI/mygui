@@ -41,6 +41,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm118"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include;.\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
@@ -49,7 +50,9 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
+				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -122,10 +125,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm118"
 				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include;.\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
+				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -190,6 +196,22 @@
 			<File
 				RelativePath="..\Common\BaseLayout.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\BasisManager.cpp"
@@ -206,6 +228,26 @@
 			<File
 				RelativePath=".\InputManager.cpp"
 				>
+			</File>
+			<File
+				RelativePath="..\Common\precompiled.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\UndoManager.cpp"
@@ -243,6 +285,10 @@
 			</File>
 			<File
 				RelativePath=".\InputManager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Common\precompiled.h"
 				>
 			</File>
 			<File
@@ -395,6 +441,22 @@
 				<File
 					RelativePath="..\Common\PanelView\PanelCell.cpp"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\Common\PanelView\PanelCell.h"
@@ -403,6 +465,22 @@
 				<File
 					RelativePath="..\Common\PanelView\PanelView.cpp"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\Common\PanelView\PanelView.h"
@@ -411,6 +489,22 @@
 				<File
 					RelativePath="..\Common\PanelView\PanelViewWindow.cpp"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\Common\PanelView\PanelViewWindow.h"

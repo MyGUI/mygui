@@ -4,6 +4,8 @@
 	@date		10/2008
 	@module
 */
+
+#include "precompiled.h"
 #include "Parse.h"
 
 namespace Parse

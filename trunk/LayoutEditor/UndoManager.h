@@ -1,5 +1,4 @@
 #include "WidgetContainer.h"
-#include <vector>
 
 /// Fixed size cyclic buffer.
 template<typename T>

@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "UndoManager.h"
 
 const int UNDO_COUNT = 64;

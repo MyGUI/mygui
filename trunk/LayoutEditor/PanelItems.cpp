@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "precompiled.h"
 #include "PanelItems.h"
 #include "WidgetContainer.h"
 #include "WidgetTypes.h"

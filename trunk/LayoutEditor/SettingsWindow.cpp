@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "precompiled.h"
 #include "SettingsWindow.h"
 #include "BasisManager.h"
 
