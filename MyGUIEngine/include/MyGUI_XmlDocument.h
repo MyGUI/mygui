@@ -194,7 +194,12 @@ namespace MyGUI
 			xmlDocument();
 			~xmlDocument();
 
+			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
+			bool open(const std::string & _name, const std::string & _group);
+
+			// открывает обычным файлом
 			bool open(const std::string & _name);
+
 			// открывает по потоку огра
 			bool open(const Ogre::DataStreamPtr& stream);
 
