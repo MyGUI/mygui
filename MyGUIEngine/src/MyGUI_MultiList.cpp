@@ -15,6 +15,28 @@
 namespace MyGUI
 {
 
+	#if MYGUI_DEBUG_MODE == 1
+		void checkIndexes(const std::vector<size_t> & _indexes)
+		{
+			std::vector<bool> vec;
+			size_t count = _indexes.size();
+
+			vec.reserve(count);
+			for (size_t pos=0; pos<count; ++pos) vec.push_back(false);
+
+			for (size_t pos=0; pos<count; ++pos) {
+				size_t index = _indexes[pos];
+				if (index >= count) throw new std::exception();
+				if (vec[index]) throw new std::exception();
+				vec[index] = true;
+			}
+
+			for (size_t pos=0; pos<count; ++pos) {
+				if (!vec[pos]) throw new std::exception();
+			}
+		}
+	#endif
+
 	MYGUI_RTTI_CHILD_IMPLEMENT( MultiList, Widget );
 
 	MultiList::MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
@@ -194,7 +216,7 @@ namespace MyGUI
 		return mVectorColumnInfo.front().list->getItemCount();
 	}
 
-	void MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data)
+	void MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::insertItemAt");
 		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");
@@ -204,7 +226,7 @@ namespace MyGUI
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->insertItemAt(_index, "");
 		}
-		mVectorColumnInfo.front().list->setItemNameAt(_index, _item);
+		mVectorColumnInfo.front().list->setItemNameAt(_index, _name);
 		mVectorColumnInfo.front().list->setItemDataAt(_index, _data);
 
 		_insertSortIndex(_index);
@@ -258,7 +280,7 @@ namespace MyGUI
 
 	void MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
 
 		mVectorColumnInfo[_column].list->setItemNameAt(convertToSort(_index), _item);
@@ -269,7 +291,7 @@ namespace MyGUI
 
 	const Ogre::UTFString & MultiList::getSubItemNameAt(size_t _column, size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemNameAt");
 
 		return mVectorColumnInfo[_column].list->getItemNameAt(convertToSort(_index));
@@ -277,7 +299,7 @@ namespace MyGUI
 
 	size_t MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _item)
 	{
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
 
 		return convertFromSort(mVectorColumnInfo[_column].list->findItemIndexWith(_item));
 	}
@@ -368,36 +390,52 @@ namespace MyGUI
 		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
 			if (mToSortIndex[pos] == _index) return pos;
 		}
-		MYGUI_EXCEPT("index not found");
+		MYGUI_EXCEPT("MultiList::convertFromSort : index number " << _index << " not found");
 		return ITEM_NONE;
 	}
 
 	size_t MultiList::convertToSort(size_t _index)
 	{
 		if (_index == ITEM_NONE) return ITEM_NONE;
-		MYGUI_DEBUG_ASSERT(_index < mToSortIndex.size(), "index out of range");
+		MYGUI_ASSERT_RANGE(_index, mToSortIndex.size(), "MultiList::convertToSort");
 		return mToSortIndex[_index];
 	}
 
 	void MultiList::_insertSortIndex(size_t _index)
 	{
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
+
 		// все индексты что больше или равны вставляемому увеличиваем на 1
 		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
 			if (mToSortIndex[pos] >= _index) mToSortIndex[pos]++;
 		}
 		// записываем индекс
 		mToSortIndex.insert(mToSortIndex.begin() + _index, _index);
+
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
 	}
 
 	void MultiList::_eraseSortIndex(size_t _index)
 	{
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
+
 		// запоминаем чтобы позже удалить
-		size_t index = convertToSort(_index);
+		size_t index = convertFromSort(_index); // было convertToSort
 		// все индексы что больше уменьшаем
 		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
 			if (mToSortIndex[pos] > _index) mToSortIndex[pos]--;
 		}
 		mToSortIndex.erase(mToSortIndex.begin() + index);
+
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
 	}
 
 	void MultiList::_clearSortIndex()
@@ -407,6 +445,9 @@ namespace MyGUI
 
 	void MultiList::flipList()
 	{
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
 
 		if (ITEM_NONE == mSortColumnIndex) return;
 
@@ -444,10 +485,18 @@ namespace MyGUI
 			start++;
 			end--;
 		}
+
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
 	}
 
 	void MultiList::sortList()
 	{
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
+
 		if (ITEM_NONE == mSortColumnIndex) return;
 		ListPtr list = mVectorColumnInfo[mSortColumnIndex].list;
 		size_t count = list->getItemCount();
@@ -518,6 +567,10 @@ namespace MyGUI
 		}
 
 		mIsDirtySort = false;
+
+		#if MYGUI_DEBUG_MODE == 1
+			checkIndexes(mToSortIndex);
+		#endif
 	}
 
 	void MultiList::setDirtySort()
