@@ -11,10 +11,6 @@
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"
 
-#include <OgreMaterialManager.h>
-
-#include "MyGUI_LastHeader.h"
-
 namespace MyGUI
 {
 
