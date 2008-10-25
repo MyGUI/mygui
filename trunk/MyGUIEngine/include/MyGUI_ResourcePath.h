@@ -9,7 +9,8 @@
 
 #include "MyGUI_Prerequest.h"
 
-#include <Ogre.h>
+#include <OgrePrerequisites.h>
+#include <OgreResourceGroupManager.h>
 
 #include "MyGUI_LastHeader.h"
 

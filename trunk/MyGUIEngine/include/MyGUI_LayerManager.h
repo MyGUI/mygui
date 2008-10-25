@@ -13,8 +13,6 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
 
-#include <Ogre.h>
-#include <OgrePrerequisites.h>
 #include <OgreRenderQueueListener.h>
 
 #include "MyGUI_LastHeader.h"

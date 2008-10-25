@@ -14,8 +14,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
 
-#include <OgrePrerequisites.h>
-#include <OgreSingleton.h>
+#include <OgreResource.h>
 #include <OgreResourceManager.h>
 
 #include "MyGUI_LastHeader.h"

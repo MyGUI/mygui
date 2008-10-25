@@ -9,9 +9,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#include "objbase.h"
-#endif
 
 namespace MyGUI
 {

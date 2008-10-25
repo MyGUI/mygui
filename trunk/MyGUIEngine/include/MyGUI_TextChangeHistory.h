@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 
-#include <Ogre.h>
+#include <OgreUTFString.h>
 
 #include "MyGUI_LastHeader.h"
 
