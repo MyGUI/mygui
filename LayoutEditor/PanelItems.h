@@ -7,7 +7,6 @@
 #ifndef __PANEL_ITEMS_H__
 #define __PANEL_ITEMS_H__
 
-#include <MyGUI.h>
 #include "BaseLayout.h"
 #include "PanelView/PanelBase.h"
 

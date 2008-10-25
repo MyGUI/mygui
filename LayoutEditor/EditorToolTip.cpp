@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "precompiled.h"
 #include "EditorToolTip.h"
 #include "MyGUI_SkinManager.h"
 

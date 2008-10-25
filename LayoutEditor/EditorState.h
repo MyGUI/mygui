@@ -1,7 +1,6 @@
 #pragma once
 
 #include "BasisState.h"
-#include "MyGUI.h"
 #include "EditorToolTip.h"
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"

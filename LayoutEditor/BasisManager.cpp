@@ -1,7 +1,4 @@
-#include <Ogre.h>
-#include <OgreLogManager.h>
-#include <OgreException.h>
-#include <OgrePanelOverlayElement.h>
+#include "precompiled.h"
 
 #include "BasisManager.h"
 #include "InputManager.h"

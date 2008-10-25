@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "precompiled.h"
 #include "PanelUserData.h"
 #include "WidgetContainer.h"
 #include "UndoManager.h"

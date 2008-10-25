@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "WidgetContainer.h"
 #include "BasisManager.h"
 #include "WidgetTypes.h"

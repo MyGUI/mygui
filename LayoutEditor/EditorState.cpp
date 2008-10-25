@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "BasisManager.h"
 #include "EditorState.h"
 #include "WidgetContainer.h"

@@ -4,6 +4,8 @@
 	@date		09/2008
 	@module
 */
+
+#include "precompiled.h"
 #include "PropertiesPanelView.h"
 #include "WidgetContainer.h"
 #include "WidgetTypes.h"

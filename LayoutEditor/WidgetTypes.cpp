@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "WidgetTypes.h"
 
 const std::string LogSection = "LayoutEditor";
