@@ -72,6 +72,9 @@ namespace MyGUI
 	// методы для работы со столбцами
 	void MultiList::insertColumnAt(size_t _column, const Ogre::UTFString & _name, int _width, Any _data)
 	{
+		MYGUI_ASSERT_RANGE_INSERT(_column, mVectorColumnInfo.size(), "MultiList::insertColumnAt");
+		if (_column == ITEM_NONE) _column = mVectorColumnInfo.size();
+
 		// скрываем у крайнего скролл
 		if (false == mVectorColumnInfo.empty()) 
 			mVectorColumnInfo.back().list->setScrollVisible(false);
@@ -98,7 +101,6 @@ namespace MyGUI
 				column.list->addItem("");
 		}
 
-		if (_column > mVectorColumnInfo.size()) _column = mVectorColumnInfo.size();
 		mVectorColumnInfo.insert(mVectorColumnInfo.begin() + _column, column);
 
 		updateColumns();
