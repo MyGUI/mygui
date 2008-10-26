@@ -93,31 +93,45 @@ namespace MyGUI
 			mIndexBack.clear();
 		}
 
-		size_t getIndexFace(size_t _index)
+		// на входе индексы пользователя, на выходе реальные индексы
+		size_t convertToBack(size_t _index)
 		{
 			#if MYGUI_DEBUG_MODE == 1
-				MYGUI_ASSERT_RANGE(_index, mIndexFace.size(), "BiIndexBase::getIndexFace");
+				MYGUI_ASSERT_RANGE(_index, mIndexFace.size(), "BiIndexBase::convertToBack");
 			#endif
 			return mIndexFace[_index];
 		}
 
-		size_t getIndexBack(size_t _index)
+		size_t convertToFace(size_t _index)
 		{
 			#if MYGUI_DEBUG_MODE == 1
-				MYGUI_ASSERT_RANGE(_index, mIndexFace.size(), "BiIndexBase::getIndexBack");
+				MYGUI_ASSERT_RANGE(_index, mIndexFace.size(), "BiIndexBase::convertToFace");
 			#endif
 			return mIndexBack[_index];
 		}
 
-		void swapItemsAt(size_t _index1, size_t _index2)
+		// меняет местами два индекса, индексы со стороны пользователя
+		void swapItemsFaceAt(size_t _index1, size_t _index2)
 		{
 			#if MYGUI_DEBUG_MODE == 1
-				MYGUI_ASSERT_RANGE(_index1, mIndexFace.size(), "BiIndexBase::swapItemsAt");
-				MYGUI_ASSERT_RANGE(_index2, mIndexFace.size(), "BiIndexBase::swapItemsAt");
+				MYGUI_ASSERT_RANGE(_index1, mIndexFace.size(), "BiIndexBase::swapItemsFaceAt");
+				MYGUI_ASSERT_RANGE(_index2, mIndexFace.size(), "BiIndexBase::swapItemsFaceAt");
 			#endif
 
 			std::swap(mIndexFace[_index1], mIndexFace[_index2]);
 			std::swap(mIndexBack[mIndexFace[_index1]], mIndexBack[mIndexFace[_index2]]);
+		}
+
+		// меняет местами два индекса, индексы со сторонны данных
+		void swapItemsBackAt(size_t _index1, size_t _index2)
+		{
+			#if MYGUI_DEBUG_MODE == 1
+				MYGUI_ASSERT_RANGE(_index1, mIndexFace.size(), "BiIndexBase::swapItemsBackAt");
+				MYGUI_ASSERT_RANGE(_index2, mIndexFace.size(), "BiIndexBase::swapItemsBackAt");
+			#endif
+
+			std::swap(mIndexBack[_index1], mIndexBack[_index2]);
+			std::swap(mIndexFace[mIndexBack[_index1]], mIndexFace[mIndexBack[_index2]]);
 		}
 
 		#if MYGUI_DEBUG_MODE == 1
