@@ -36,7 +36,8 @@ namespace unittest
 	const std::string & BiIndexData::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "BiIndexData::getItemNameAt");
-		return mItemsInfo[BiIndexBase::getIndexFace(_index)];
+		size_t index = BiIndexBase::convertToBack(_index);
+		return mItemsInfo[index];
 	}
 
 	void BiIndexData::swapItemsAt(size_t _index1, size_t _index2)
@@ -44,16 +45,16 @@ namespace unittest
 		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "BiIndexData::swapItemsAt");
 		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "BiIndexData::swapItemsAt");
 
-		BiIndexBase::swapItemsAt(_index1, _index2);
+		BiIndexBase::swapItemsFaceAt(_index1, _index2);
 	}
 
 	void BiIndexData::swapSortItemsAt(size_t _index1, size_t _index2)
 	{
-		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "BiIndexData::swapItemsAt");
-		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "BiIndexData::swapItemsAt");
+		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "BiIndexData::swapSortItemsAt");
+		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "BiIndexData::swapSortItemsAt");
 
-		BiIndexBase::swapItemsAt(_index1, _index2);
-		std::swap(mItemsInfo[BiIndexBase::getIndexFace(_index1)], mItemsInfo[BiIndexBase::getIndexFace(_index2)]);
+		BiIndexBase::swapItemsBackAt(_index1, _index2);
+		std::swap(mItemsInfo[_index1], mItemsInfo[_index2]);
 	}
 
 } // namespace unittest

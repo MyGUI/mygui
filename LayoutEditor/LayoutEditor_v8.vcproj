@@ -41,7 +41,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm118"
+				AdditionalOptions="-Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include;.\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm118"
+				AdditionalOptions="-Zm200"
 				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include;.\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"

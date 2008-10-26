@@ -15,28 +15,6 @@
 namespace MyGUI
 {
 
-	#if MYGUI_DEBUG_MODE == 1
-		void checkIndexes(const std::vector<size_t> & _indexes)
-		{
-			std::vector<bool> vec;
-			size_t count = _indexes.size();
-
-			vec.reserve(count);
-			for (size_t pos=0; pos<count; ++pos) vec.push_back(false);
-
-			for (size_t pos=0; pos<count; ++pos) {
-				size_t index = _indexes[pos];
-				if (index >= count) throw new std::exception();
-				if (vec[index]) throw new std::exception();
-				vec[index] = true;
-			}
-
-			for (size_t pos=0; pos<count; ++pos) {
-				if (!vec[pos]) throw new std::exception();
-			}
-		}
-	#endif
-
 	MYGUI_RTTI_CHILD_IMPLEMENT( MultiList, Widget );
 
 	MultiList::MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
@@ -218,19 +196,17 @@ namespace MyGUI
 
 	void MultiList::removeAllItems()
 	{
-		if (mVectorColumnInfo.empty()) return;
+		BiIndexBase::removeAllItems();
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->removeAllItems();
 		}
-
-		mToSortIndex.clear();
 	}
 
 	size_t MultiList::getItemIndexSelected()
 	{
 		if (mVectorColumnInfo.empty()) return ITEM_NONE;
 		size_t item = mVectorColumnInfo.front().list->getItemIndexSelected();
-		return (ITEM_NONE == item) ? ITEM_NONE : convertFromSort(item);
+		return (ITEM_NONE == item) ? ITEM_NONE : BiIndexBase::convertToFace(item);
 	}
 
 	void MultiList::setItemSelectedAt(size_t _index)
@@ -244,7 +220,7 @@ namespace MyGUI
 			}
 		}
 		else {
-			size_t index = convertToSort(_index);
+			size_t index = BiIndexBase::convertToBack(_index);
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 				(*iter).list->setItemSelectedAt(index);
 			}
@@ -256,7 +232,9 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
 
-		mVectorColumnInfo[_column].list->setItemNameAt(convertToSort(_index), _name);
+
+		size_t index = BiIndexBase::convertToBack(_index);
+		mVectorColumnInfo[_column].list->setItemNameAt(index, _name);
 
 		// если мы попортили список с активным сортом, надо пересчитывать
 		if (_column == mSortColumnIndex) setDirtySort();
@@ -267,14 +245,16 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemNameAt");
 
-		return mVectorColumnInfo[_column].list->getItemNameAt(convertToSort(_index));
+		size_t index = BiIndexBase::convertToBack(_index);
+		return mVectorColumnInfo[_column].list->getItemNameAt(index);
 	}
 
 	size_t MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _name)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
 
-		return convertFromSort(mVectorColumnInfo[_column].list->findItemIndexWith(_name));
+		size_t index = mVectorColumnInfo[_column].list->findItemIndexWith(_name);
+		return index == ITEM_NONE ? ITEM_NONE : BiIndexBase::convertToFace(index);
 	}
 	//----------------------------------------------------------------------------------//
 
@@ -358,168 +338,6 @@ namespace MyGUI
 		}
 	}
 
-	size_t MultiList::convertFromSort(size_t _index)
-	{
-		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
-			if (mToSortIndex[pos] == _index) return pos;
-		}
-		MYGUI_EXCEPT("MultiList::convertFromSort : index number " << _index << " not found");
-		return ITEM_NONE;
-	}
-
-	size_t MultiList::convertToSort(size_t _index)
-	{
-		if (_index == ITEM_NONE) return ITEM_NONE;
-		MYGUI_ASSERT_RANGE(_index, mToSortIndex.size(), "MultiList::convertToSort");
-		return mToSortIndex[_index];
-	}
-
-	void MultiList::flipList()
-	{
-		//return;
-		// сюда обязательно впихнуть дату, она не меняется
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
-
-		if (ITEM_NONE == mSortColumnIndex) return;
-
-		size_t last = mVectorColumnInfo.front().list->getItemCount();
-		if (0 == last) return;
-		last --;
-		size_t first = 0;
-
-		Ogre::UTFString name;
-		name.reserve(64);
-		//size_t index1, index2;
-
-		//std::reverse(
-		//VectorSizeT vec = mToSortIndex;
-		//std::reverse(vec.begin(), vec.end());
-		/*size_t size2 = mToSortIndex.size();
-		vec.resize(size2);
-		for (size_t pos=0; pos<size2; ++pos) vec[mToSortIndex[pos]] = pos;*/
-
-		while (first < last) {
-
-			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-				name = (*iter).list->getItemNameAt(first);
-				(*iter).list->setItemNameAt(first, (*iter).list->getItemNameAt(last));
-				(*iter).list->setItemNameAt(last, name);
-
-				//Any data = (*iter).list->getItemDataAt(first);
-				//(*iter).list->setItemDataAt(first, (*iter).list->getItemDataAt(last));
-				//(*iter).list->setItemDataAt(last, data);
-			}
-
-			size_t index1 = convertFromSort(first);
-			size_t index2 = convertFromSort(last);
-			std::swap(mToSortIndex[index1], mToSortIndex[index2]);
-
-			/*index1 = vec[start];
-			index2 = vec[end];
-
-			mToSortIndex[index1] = mToSortIndex[index2];
-			mToSortIndex[index2] = start;
-
-			vec[start] = vec[end];
-			vec[end] = index1;*/
-
-			first++;
-			last--;
-		}
-
-		//std::reverse(mToSortIndex.begin(), mToSortIndex.end());
-
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
-	}
-
-	void MultiList::sortList()
-	{
-		return;
-		// сюда обязательно впихнуть дату, она не меняется
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
-
-		if (ITEM_NONE == mSortColumnIndex) return;
-		ListPtr list = mVectorColumnInfo[mSortColumnIndex].list;
-		size_t count = list->getItemCount();
-		if (0 == count) return;
-
-		VectorSizeT vec;
-		size_t size = mToSortIndex.size();
-		vec.resize(size);
-		for (size_t pos=0; pos<size; ++pos) vec[mToSortIndex[pos]] = pos;
-
-		struct Keeper
-		{
-			void keep(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
-			{
-				text.resize(info.size());
-				std::vector<Ogre::UTFString>::iterator itext = text.begin();
-				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
-					(*itext) = (*iter).list->getItemNameAt(_index);
-				}
-				index1 = _index;
-				index2 = vec2[_index];
-			}
-
-			void restore(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index)
-			{
-				std::vector<Ogre::UTFString>::iterator itext = text.begin();
-				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter, ++itext) {
-					(*iter).list->setItemNameAt(_index, *itext);
-				}
-				vec[vec2[_index]] = index1;
-				vec2[_index] = index2;
-			}
-
-			void swap(VectorSizeT & vec, VectorSizeT & vec2, VectorColumnInfo & info, size_t _index1, size_t _index2)
-			{
-				for (VectorColumnInfo::iterator iter=info.begin(); iter!=info.end(); ++iter) {
-					(*iter).list->setItemNameAt(_index1, (*iter).list->getItemNameAt(_index2));
-				}
-				vec[vec2[_index1]] = _index2;
-				vec2[_index1] = vec2[_index2];
-			}
-
-			std::vector<Ogre::UTFString> text;
-			size_t index1, index2;
-		};
-
-		Keeper keeper;
-
-		// shell sort
-		for(int step = (int)count/2; step>0 ; step >>= 1) {
-			for( int i=0; i<(int)(count-step); ++i ) {
-				int j = i;
-				bool compare;
-				if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
-				else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
-				while ( (j >= 0) && (compare^mSortUp) ){
-					keeper.keep(mToSortIndex, vec, mVectorColumnInfo, j);
-					keeper.swap(mToSortIndex, vec, mVectorColumnInfo, j, j+step);
-					keeper.restore(mToSortIndex, vec, mVectorColumnInfo, j+step);
-					--j;
-					if (j >= 0)
-					{
-						if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
-						else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
-					}
-				}
-			}
-		}
-
-		mIsDirtySort = false;
-
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
-	}
-
 	void MultiList::setDirtySort()
 	{
 		if (mIsDirtySort) return;
@@ -575,34 +393,80 @@ namespace MyGUI
 		updateOnlyEmpty();
 	}
 
+	void MultiList::flipList()
+	{
+		if (ITEM_NONE == mSortColumnIndex) return;
+
+		size_t last = mVectorColumnInfo.front().list->getItemCount();
+		if (0 == last) return;
+		last --;
+		size_t first = 0;
+
+		while (first < last) {
+
+			BiIndexBase::swapItemsBackAt(first, last);
+			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+				(*iter).list->swapItemsAt(first, last);
+			}
+
+			first++;
+			last--;
+		}
+	}
+
+	void MultiList::sortList()
+	{
+		if (ITEM_NONE == mSortColumnIndex) return;
+
+		ListPtr list = mVectorColumnInfo[mSortColumnIndex].list;
+
+		size_t count = list->getItemCount();
+		if (0 == count) return;
+
+		// shell sort
+		for (int step = (int)count/2; step>0 ; step >>= 1) {
+			for ( int i=0; i<(int)(count-step); ++i ) {
+				int j = i;
+				bool compare;
+				if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
+				else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
+				while ( (j >= 0) && (compare^mSortUp) ) {
+
+					// swap
+					size_t first = j;
+					size_t last = j + step;
+					BiIndexBase::swapItemsBackAt(first, last);
+					for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+						(*iter).list->swapItemsAt(first, last);
+					}
+
+					--j;
+					if (j >= 0) {
+						if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
+						else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
+					}
+				}
+			}
+		}
+
+		mIsDirtySort = false;
+	}
+
 	void MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::insertItemAt");
 		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");
 		if (ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
+		size_t index = BiIndexBase::insertItemAt(_index);
+
 		// вставляем во все поля пустые, а потом присваиваем первому
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->insertItemAt(_index, "");
+			(*iter).list->insertItemAt(index, "");
 		}
-		mVectorColumnInfo.front().list->setItemNameAt(_index, _name);
-		mVectorColumnInfo.front().list->setItemDataAt(_index, _data);
+		mVectorColumnInfo.front().list->setItemNameAt(index, _name);
+		mVectorColumnInfo.front().list->setItemDataAt(index, _data);
 
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
-
-		// все индексты что больше или равны вставляемому увеличиваем на 1
-		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
-			if (mToSortIndex[pos] >= _index) mToSortIndex[pos]++;
-		}
-		// записываем индекс
-		mToSortIndex.insert(mToSortIndex.begin() + _index, _index);
-
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
-		
 		setDirtySort();
 	}
 
@@ -611,25 +475,24 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::removeItemAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::removeItemAt");
 
+		size_t index = BiIndexBase::removeItemAt(_index);
+
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->removeItemAt(convertToSort(_index));
+			(*iter).list->removeItemAt(index);
 		}
+	}
 
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
+	void MultiList::swapItemsAt(size_t _index1, size_t _index2)
+	{
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
+		MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
 
-		// запоминаем чтобы позже удалить
-		size_t index = convertFromSort(_index); //FIXME было convertToSort
-		// все индексы что больше уменьшаем
-		for (size_t pos=0; pos<mToSortIndex.size(); ++pos) {
-			if (mToSortIndex[pos] > _index) mToSortIndex[pos]--;
-		}
-		mToSortIndex.erase(mToSortIndex.begin() + index);
+		// при сортированном, меняем только индексы
+		BiIndexBase::swapItemsFaceAt(_index1, _index2);
 
-		#if MYGUI_DEBUG_MODE == 1
-			checkIndexes(mToSortIndex);
-		#endif
+		// при несортированном, нужно наоборот, поменять только данные
+		// FIXME
 	}
 
 } // namespace MyGUI
