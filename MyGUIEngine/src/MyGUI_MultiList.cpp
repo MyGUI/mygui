@@ -414,6 +414,15 @@ namespace MyGUI
 		}
 	}
 
+	bool MultiList::compare(ListPtr _list, size_t _left, size_t _right)
+	{
+		bool result;
+		if(mSortUp) std::swap(_left, _right);
+		if (operatorLess.empty()) result = _list->getItemNameAt(_left) < _list->getItemNameAt(_right);
+		else operatorLess(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
+		return result;
+	}
+
 	void MultiList::sortList()
 	{
 		if (ITEM_NONE == mSortColumnIndex) return;
@@ -423,31 +432,26 @@ namespace MyGUI
 		size_t count = list->getItemCount();
 		if (0 == count) return;
 
-		// shell sort
-		for (int step = (int)count/2; step>0 ; step >>= 1) {
-			for ( int i=0; i<(int)(count-step); ++i ) {
-				int j = i;
-				bool compare;
-				if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
-				else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
-				while ( (j >= 0) && (compare^mSortUp) ) {
-
-					// swap
-					size_t first = j;
-					size_t last = j + step;
-					BiIndexBase::swapItemsBackAt(first, last);
-					for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-						(*iter).list->swapItemsAt(first, last);
+		int first, last;
+		for (size_t step = count>>1; step>0 ; step >>= 1) {
+			for (size_t i=0;i<(count-step);i++)
+			{
+				first=i;
+				while  (first>=0) 
+				{
+					last = first+step;
+					if (compare(list, first, last))
+					{
+						BiIndexBase::swapItemsBackAt(first, last);
+						for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+							(*iter).list->swapItemsAt(first, last);
+						}
 					}
-
-					--j;
-					if (j >= 0) {
-						if (operatorLess.empty()) compare = list->getItemNameAt(j) < list->getItemNameAt(j+step);
-						else operatorLess(this, mSortColumnIndex, list->getItemNameAt(j), list->getItemNameAt(j+step), compare);
-					}
+					first--;
 				}
 			}
 		}
+
 
 		mIsDirtySort = false;
 	}
