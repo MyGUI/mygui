@@ -192,7 +192,7 @@ namespace MyGUI
 		/** Set sub item
 			@param _column Index of column
 			@param _index Index of line
-			@param _item New sub item value
+			@param _name New sub item value
 		*/
 		void setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _name);
 
@@ -200,7 +200,7 @@ namespace MyGUI
 		const Ogre::UTFString & getSubItemNameAt(size_t _column, size_t _index);
 
 		/** Search item in specified _column, returns index of the first occurrence in column or ITEM_NONE if item not found */
-		size_t findSubItemWith(size_t _column, const Ogre::UTFString & _item);
+		size_t findSubItemWith(size_t _column, const Ogre::UTFString & _name);
 
 		//------------------------------------------------------------------------------//
 		// манипул€ции данными
@@ -230,14 +230,14 @@ namespace MyGUI
 
 		// #ifdef MYGUI_USING_OBSOLETE
 
-		MYGUI_OBSOLETE("use MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _item)")
+		MYGUI_OBSOLETE("use MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _name)")
 		size_t findItem(size_t _column, const Ogre::UTFString & _name) { return findSubItemWith(_column, _name); }
 
 		MYGUI_OBSOLETE("use MultiList::getSubItemNameAt(size_t _column, size_t _index)")
 		const Ogre::UTFString & getSubItem(size_t _column, size_t _index) { return getSubItemNameAt(_column, _index); }
 
-		MYGUI_OBSOLETE("use MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _item)")
-		void setSubItem(size_t _column, size_t _index, const Ogre::UTFString & _item) { setSubItemNameAt(_column, _index, _item); }
+		MYGUI_OBSOLETE("use MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _name)")
+		void setSubItem(size_t _column, size_t _index, const Ogre::UTFString & _name) { setSubItemNameAt(_column, _index, _name); }
 
 		MYGUI_OBSOLETE("use MultiList::removeColumnAt(size_t _column)")
 		void deleteColumn(size_t _column) { removeColumnAt(_column); }
@@ -272,7 +272,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use MultiList::setItemSelectedAt(size_t _index)")
 		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
 
-		MYGUI_OBSOLETE("use MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data)")
+		MYGUI_OBSOLETE("use MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)")
 		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
 
 		MYGUI_OBSOLETE("use MultiList::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
@@ -327,10 +327,6 @@ namespace MyGUI
 
 		void sortList();
 		void flipList();
-
-		void _insertSortIndex(size_t _index);
-		void _eraseSortIndex(size_t _index);
-		void _clearSortIndex();
 
 		size_t convertFromSort(size_t _index);
 		size_t convertToSort(size_t _index);

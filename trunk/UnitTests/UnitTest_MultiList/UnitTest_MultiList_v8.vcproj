@@ -189,6 +189,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BiIndexData.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
@@ -204,6 +208,10 @@
 			>
 			<File
 				RelativePath="..\..\Common\Base\BaseManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BiIndexData.h"
 				>
 			</File>
 			<File

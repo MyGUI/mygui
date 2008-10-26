@@ -175,6 +175,17 @@ namespace unittest
 			while (getItemCount() > 0) removeItemAt(0);
 		}
 
+		void swapItemsAt(size_t _index1, size_t _index2)
+		{
+			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::swapItemsAt");
+			MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
+			MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
+
+			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
+				(*iter).list->swapItemsAt(_index1, _index2);
+			}
+		}
+
 
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
