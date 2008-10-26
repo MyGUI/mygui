@@ -329,6 +329,7 @@ namespace MyGUI
 		void redrawButtons();
 		void updateOnlyEmpty();
 
+		bool compare(ListPtr _list, size_t _left, size_t _right);
 		void sortList();
 		void flipList();
 
