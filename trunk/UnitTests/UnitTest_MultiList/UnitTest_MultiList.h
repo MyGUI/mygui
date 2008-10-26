@@ -16,8 +16,8 @@ namespace unittest
 	class UnitTest_MultiList
 	{
 	private:
-		//MyGUI::MultiListPtr original_list;
-		unittest::BiIndexData * original_list;
+		MyGUI::MultiListPtr original_list;
+		//unittest::BiIndexData * original_list;
 		unittest::Mirror_MultiList * mirror_list;
 		size_t count_items;
 		size_t count_columns;
@@ -32,52 +32,58 @@ namespace unittest
 	public:
 		UnitTest_MultiList()
 		{
-			//original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(300, 100, 400, 400), MyGUI::Align::Default, "Main");
-			original_list = new unittest::BiIndexData();
+			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(300, 100, 400, 400), MyGUI::Align::Default, "Main");
+			//original_list = new unittest::BiIndexData();
 			mirror_list = new unittest::Mirror_MultiList();
 			count_items = 0;
 			count_columns = 0;
 
-			//original_list->addColumn("1", 100);
+			original_list->addColumn("1", 100);
 			mirror_list->addColumn("1", 100);
 			count_columns = 1;
+
+			original_list->addColumn("2", 100);
+			mirror_list->addColumn("2", 100);
+			count_columns = 2;
+
+			original_list->addColumn("3", 100);
+			mirror_list->addColumn("3", 100);
+			count_columns = 3;
 
 			start();
 		}
 
 		~UnitTest_MultiList()
 		{
-			//MyGUI::WidgetManager::getInstance().destroyWidget(original_list);
-			delete original_list;
+			MyGUI::WidgetManager::getInstance().destroyWidget(original_list);
+			//delete original_list;
 			delete mirror_list;
 		}
 
 		void check()
 		{
-			//return;
 			Assert(count_items == original_list->getItemCount());
-			//Assert(count_columns == original_list->getColumnCount());
+			Assert(count_columns == original_list->getColumnCount());
 
 			Assert(original_list->getItemCount() == mirror_list->getItemCount());
-			//Assert(original_list->getColumnCount() == mirror_list->getColumnCount());
+			Assert(original_list->getColumnCount() == mirror_list->getColumnCount());
 
 			for (size_t item=0; item<count_items; ++item) {
-				for(size_t column=0; column<count_columns; ++column) {
+				for (size_t column=0; column<count_columns; ++column) {
 					
-					/*std::string name1 = original_list->getItemNameAt(item);
-					std::string name2 = mirror_list->getItemNameAt(item);
-					if (name1 != name2) {
-						int test = 0;
-					}*/
+					//Assert(Ogre::UTFString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
 					//Assert(original_list->getItemNameAt(item) == MyGUI::utility::toString(item));
 
-					Assert(Ogre::UTFString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
-					/*Assert(original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));
+					//Assert(Ogre::UTFString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
+					Assert(original_list->getItemNameAt(item) == mirror_list->getItemNameAt(item));
 
-					Assert(((original_list->getItemDataAt<size_t>(item) == 0) && (mirror_list->getItemDataAt<size_t>(item) == 0))
-						|| (*original_list->getItemDataAt<size_t>(item) == *mirror_list->getItemDataAt<size_t>(item)));
-					Assert(original_list->getSubItemDataAt<size_t>(column, item) == 0 && mirror_list->getSubItemDataAt<size_t>(column, item) == 0
-						|| *original_list->getSubItemDataAt<size_t>(column, item) == *mirror_list->getSubItemDataAt<size_t>(column, item));*/
+					Assert(original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));
+
+					Assert(((original_list->getItemDataAt<size_t>(item, false) == 0) && (mirror_list->getItemDataAt<size_t>(item, false) == 0))
+						|| (*original_list->getItemDataAt<size_t>(item, false) == *mirror_list->getItemDataAt<size_t>(item, false)));
+
+					Assert(original_list->getSubItemDataAt<size_t>(column, item, false) == 0 && mirror_list->getSubItemDataAt<size_t>(column, item, false) == 0
+						|| *original_list->getSubItemDataAt<size_t>(column, item, false) == *mirror_list->getSubItemDataAt<size_t>(column, item, false));
 				}
 			}
 		}
@@ -179,7 +185,7 @@ namespace unittest
 			size_t index2 = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
 
 			//mirror_list->swapItemsAt(index1, index2);
-			original_list->swapSortItemsAt(index1, index2);
+			//original_list->swapSortItemsAt(index1, index2);
 
 			check();
 		}
@@ -225,6 +231,7 @@ namespace unittest
 			else if (index == 2) RemoveItem(count);
 			else if (index == 3) SwapItems(count);
 			else if (index == 4) SortItems(count);
+			//else if (index == 5) ChangeItems(count);
 
 			base::BaseManager::getInstance().getStatisticInfo()->change("Count", count_items);
 		}

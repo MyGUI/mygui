@@ -11,13 +11,14 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_BiIndexBase.h"
 
 namespace MyGUI
 {
 
 	typedef delegates::CDelegate5<WidgetPtr, size_t, const Ogre::UTFString &, const Ogre::UTFString &, bool &> EventInfo_WidgetIntUTFStringUTFStringBool;
 
-	class _MyGUIExport MultiList : public Widget
+	class _MyGUIExport MultiList : public Widget, public BiIndexBase
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<MultiList>;
@@ -35,7 +36,6 @@ namespace MyGUI
 		};
 
 		typedef std::vector<ColumnInfo> VectorColumnInfo;
-		typedef std::vector<size_t> VectorSizeT;
 
 		enum ImageSort
 		{
@@ -145,6 +145,8 @@ namespace MyGUI
 		/** Delete all items */
 		void removeAllItems();
 
+		void swapItemsAt(size_t _index1, size_t _index2);
+
 
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
@@ -211,7 +213,8 @@ namespace MyGUI
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemDataAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemDataAt");
 
-			mVectorColumnInfo[_column].list->setItemDataAt(_index, _data);
+			size_t index = BiIndexBase::convertToBack(_index);
+			mVectorColumnInfo[_column].list->setItemDataAt(index, _data);
 		}
 
 		//! Clear an item data at a specified position
@@ -224,7 +227,8 @@ namespace MyGUI
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemDataAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemDataAt");
 
-			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(_index, _throw);
+			size_t index = BiIndexBase::convertToBack(_index);
+			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(index, _throw);
 		}
 
 
@@ -328,9 +332,6 @@ namespace MyGUI
 		void sortList();
 		void flipList();
 
-		size_t convertFromSort(size_t _index);
-		size_t convertToSort(size_t _index);
-
 		void setDirtySort();
 
 		WidgetPtr getSeparator(size_t _index);
@@ -352,9 +353,6 @@ namespace MyGUI
 		bool mSortUp;
 		size_t mSortColumnIndex;
 
-
-		// векторы для быстрого маппинга в сортированном списке
-		VectorSizeT mToSortIndex;
 		bool mIsDirtySort;
 
 		int mWidthSeparator;
