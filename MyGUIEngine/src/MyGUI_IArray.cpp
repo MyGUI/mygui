@@ -54,6 +54,12 @@ namespace MyGUI
 		//! Remove all items
 		void removeAllItems() { }
 
+		//! Swap items at a specified position
+		void swapItemsAt(size_t _index1, size_t _index2) { }
+
+		//! Swap items
+		void swapItems(ItemType _item1, ItemType _item2) { }
+
 
 
 		//! Get item from specified position

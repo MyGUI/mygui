@@ -72,6 +72,8 @@ namespace base
 
 		void setWallpaper(const std::string & _filename);
 
+		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
+
 	protected:
 		void createInput(); // создаем систему ввода
 		void destroyInput(); // удаляем систему ввода
