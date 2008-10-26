@@ -43,6 +43,15 @@ namespace unittest
 		//! Remove all items
 		void removeAllItems() { mItemsInfo.clear(); }
 
+		//! Swap items at a specified position
+		void swapItemsAt(size_t _index1, size_t _index2)
+		{
+			MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "List::swapItemsAt");
+			MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "List::swapItemsAt");
+			if (_index1 == _index2) return;
+			std::swap(mItemsInfo[_index1], mItemsInfo[_index2]);
+		}
+
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const Ogre::UTFString & _name)
 		{

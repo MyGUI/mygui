@@ -44,6 +44,9 @@ namespace MyGUI
 		//! Remove all items
 		void removeAllItems();
 
+		//! Swap items at a specified position
+		void swapItemsAt(size_t _index1, size_t _index2);
+
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const Ogre::UTFString & _name)

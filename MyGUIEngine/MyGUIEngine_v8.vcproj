@@ -960,6 +960,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_BiIndexBase.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_CastWidget.h"
 						>
 					</File>
