@@ -64,6 +64,9 @@ namespace MyGUI
 
 			pFileInfo.setNull();
 
+			// лог для мультиресульта
+			if (_unique && count > 1) { getResourcePath(_filename, _group); }
+
 			return _unique ? count == 1  : count > 0;
 		}
 
