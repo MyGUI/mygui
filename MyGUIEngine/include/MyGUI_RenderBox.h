@@ -37,7 +37,7 @@ namespace MyGUI
 	public:
 		/** Add mesh to scene and remove previous one
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 			@param
 				_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
@@ -45,7 +45,7 @@ namespace MyGUI
 
 		/** Add scene node to scene and remove previous one
 		@remarks
-		This function will take no effect if user Viewport provided via setViewport.
+		This function will take no effect if setRenderTarget was used.
 		@param
 		_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
@@ -63,7 +63,7 @@ namespace MyGUI
 
 		/** Set speed of entity rotation.
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 			@param
 				_speed of rotation in degrees per second.
 		*/
@@ -73,7 +73,7 @@ namespace MyGUI
 
 		/** Enable or disable auto rotation
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 		*/
 		void setAutoRotation(bool _auto);
 		/** Get auto rotation flag */
@@ -81,7 +81,7 @@ namespace MyGUI
 
 		/** Set colour behind entity.
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 		*/
 		void setBackgroungColour(const Ogre::ColourValue & _backgroundColour);
 		/** Get colour behind entity.*/
@@ -89,19 +89,19 @@ namespace MyGUI
 
 		/** Set start rotation angle of entity.
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 		*/
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 
 		/** Get rotation angle of entity.
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 		*/
 		Ogre::Degree getRotationAngle();
 
 		/** Set possibility to rotate mesh by mouse drag.
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 		*/
 		void setMouseRotation(bool _enable);
 		/** Get mouse rotation flag */
@@ -109,7 +109,7 @@ namespace MyGUI
 
 		/** Set possibility to zoom mesh by mouse wheel.
 			@remarks
-				This function will take no effect if user Viewport provided via setViewport.
+				This function will take no effect if setRenderTarget was used.
 		*/
 		void setViewScale(bool _scale);
 		/** Get possibility to zoom mesh by mouse wheel flag. */

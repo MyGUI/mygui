@@ -432,12 +432,13 @@ namespace MyGUI
 		size_t count = list->getItemCount();
 		if (0 == count) return;
 
+		// shell sort
 		int first, last;
 		for (size_t step = count>>1; step>0 ; step >>= 1) {
 			for (size_t i=0;i<(count-step);i++)
 			{
 				first=i;
-				while  (first>=0) 
+				while (first>=0) 
 				{
 					last = first+step;
 					if (compare(list, first, last))
