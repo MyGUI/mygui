@@ -354,13 +354,18 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 
 bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test)
 {
- 	try{
+ 	try {
+
 		if (_key == "Image_Texture")
 		{
-			if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
+			if (!MyGUI::helper::isFileExist(_value)) {
 				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 				return true;
 			}
+			/*if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
+				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				return true;
+			}*/
 		}
 
 		if (_test || std::find(ignore_parameters.begin(), ignore_parameters.end(), _key) == ignore_parameters.end())
