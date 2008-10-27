@@ -37,6 +37,9 @@ private:
 	MyGUI::MultiListPtr mMultilist;
 
 	MyGUI::WidgetPtr current_widget;
+
+	int mEditLeft, mEditRight, mEditSpace;
+	int mButtonLeft, mButtonRight, mButtonSpace;
 };
 
 #endif // __PANEL_USER_DATA_H__
