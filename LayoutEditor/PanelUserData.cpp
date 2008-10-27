@@ -34,16 +34,23 @@ void PanelUserData::initialiseCell(PanelCell * _cell)
 	assignWidget(mButtonAdd, "buttonAdd");
 	assignWidget(mButtonDelete, "buttonDelete");
 	assignWidget(mMultilist, "multilist");
+
 	mButtonAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelUserData::notifyAddUserData);
 	mButtonDelete->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelUserData::notifyDeleteUserData);
 	mEditKey->eventEditSelectAccept = MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
 	mEditValue->eventEditSelectAccept = MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
 	mMultilist->eventListChangePosition = MyGUI::newDelegate(this, &PanelUserData::notifySelectUserDataItem);
 
-	const int MARGIN = 3;
+	mMultilist->addColumn(localise("Key"), 1);
+	mMultilist->addColumn(localise("Value"), 1);
 
-	mMultilist->addColumn(localise("Key"), mEditKey->getWidth() - MARGIN);
-	mMultilist->addColumn(localise("Value"), mEditKey->getWidth() - MARGIN);
+	mEditLeft = mEditKey->getLeft();
+	mEditRight = mMainWidget->getWidth() - mEditValue->getRight();
+	mEditSpace = mEditValue->getLeft() - mEditKey->getRight();
+
+	mButtonLeft = mButtonAdd->getLeft();
+	mButtonRight = mMainWidget->getWidth() - mButtonDelete->getRight();
+	mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
 }
 
 void PanelUserData::shutdownCell()
@@ -73,6 +80,16 @@ void PanelUserData::notifyChangeWidth(int _width)
 	const MyGUI::IntSize & size = mMultilist->getClientCoord().size();
 	mMultilist->setColumnWidthAt(0, size.width / 2);
 	mMultilist->setColumnWidthAt(1, size.width - (size.width / 2));
+
+	int width = mMainWidget->getClientCoord().width;
+
+	int half_width = (width - (mEditLeft + mEditRight + mEditSpace)) / 2;
+	mEditKey->setSize(half_width, mEditKey->getHeight());
+	mEditValue->setCoord(mEditKey->getRight() + mEditSpace, mEditValue->getTop(), width - (mEditKey->getRight() + mEditSpace + mEditRight), mEditValue->getHeight());
+
+	half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
+	mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
+	mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
 }
 
 void PanelUserData::notifyAddUserData(MyGUI::WidgetPtr _sender)
