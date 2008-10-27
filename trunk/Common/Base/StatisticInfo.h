@@ -58,15 +58,14 @@ namespace statistic
 			mParams.push_back(std::make_pair(_key, MyGUI::utility::toString<T>(_value)));
 		}
 
-		void change(const std::string & _key, const std::string & _value)
+		void remove(const std::string & _key)
 		{
 			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter) {
 				if (iter->first == _key) {
-					iter->second = _value;
+					mParams.erase(iter);
 					return;
 				}
 			}
-			mParams.push_back(std::make_pair(_key, _value));
 		}
 
 		void update()
