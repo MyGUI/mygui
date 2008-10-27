@@ -47,6 +47,7 @@ private:
 private:
 	MyGUI::ScrollViewPtr mScrollView;
 	PanelView mPanelView;
+	MyGUI::IntSize mOldSize;
 };
 
 #endif // __PANEL_VIEW_WINDOW_H__

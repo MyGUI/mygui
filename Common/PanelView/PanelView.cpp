@@ -16,8 +16,7 @@ void PanelView::attach(MyGUI::ScrollViewPtr _widget)
 	mScrollView->showHScroll(false);
 	mNeedUpdate = false;
 
-	// лейаут базовой ячейки панели
-	//mPanelCellLayout = "PanelCell.layout";
+	mOldClientWidth = mScrollView->getClientCoord().width;
 
 }
 
@@ -39,16 +38,27 @@ void PanelView::updateView()
 	// ставим высоту холста, и спрашиваем получившуюся ширину клиента
 	mScrollView->setCanvasSize(0, height);
 	// ширина клиента могла поменятся
-	MyGUI::IntCoord coord = mScrollView->getClientCoord();
-	mScrollView->setCanvasSize(coord.width, height);
+	const MyGUI::IntSize & size = mScrollView->getClientCoord().size();
+	mScrollView->setCanvasSize(size.width, height);
+
+	bool change = false;
+	if (mOldClientWidth != size.width) {
+		mOldClientWidth = size.width;
+		change = true;
+	}
 
 	// выравниваем все панели
 	int pos = 0;
 	for (VectorPanel::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 		MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->mainWidget();
 		if (widget->isShow()) {
+
 			height = widget->getHeight();
-			widget->setCoord(MyGUI::IntCoord(0, pos, coord.width, height));
+			widget->setCoord(MyGUI::IntCoord(0, pos, size.width, height));
+
+			// оповещаем, что мы обновили ширину
+			if (change) (*iter)->notifyChangeWidth(size.width);
+
 			pos += height;
 		}
 	}
@@ -57,9 +67,9 @@ void PanelView::updateView()
 	MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &PanelView::frameEntered);
 }
 
-void PanelView::setNeedUpdate(){
-	if (!mNeedUpdate)
-	{
+void PanelView::setNeedUpdate()
+{
+	if (!mNeedUpdate) {
 		mNeedUpdate = true;
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &PanelView::frameEntered);
 	}

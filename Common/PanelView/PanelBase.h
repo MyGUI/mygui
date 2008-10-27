@@ -29,7 +29,8 @@ public:
 		mWidgetClient = null;
 	}
 
-	virtual void changeWidth(int _width)
+	// реально изменилась ширина €чейки
+	virtual void notifyChangeWidth(int _width)
 	{
 	}
 

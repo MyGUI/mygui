@@ -97,17 +97,18 @@ namespace MyGUI
 		size_t convertToBack(size_t _index)
 		{
 			#if MYGUI_DEBUG_MODE == 1
-				MYGUI_ASSERT_RANGE(_index, mIndexFace.size(), "BiIndexBase::convertToBack");
+				MYGUI_ASSERT_RANGE_AND_NONE(_index, mIndexFace.size(), "BiIndexBase::convertToBack");
 			#endif
-			return mIndexFace[_index];
+			return _index == ITEM_NONE ? ITEM_NONE : mIndexFace[_index];
 		}
 
+		// на входе индексы реальные, на выходе, то что видит пользователь
 		size_t convertToFace(size_t _index)
 		{
 			#if MYGUI_DEBUG_MODE == 1
-				MYGUI_ASSERT_RANGE(_index, mIndexFace.size(), "BiIndexBase::convertToFace");
+				MYGUI_ASSERT_RANGE_AND_NONE(_index, mIndexFace.size(), "BiIndexBase::convertToFace");
 			#endif
-			return mIndexBack[_index];
+			return _index == ITEM_NONE ? ITEM_NONE : mIndexBack[_index];
 		}
 
 		// меняет местами два индекса, индексы со стороны пользователя
