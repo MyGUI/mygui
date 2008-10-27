@@ -5,13 +5,9 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 
-#define ASSIGN_FUNCTION(x,y) MyGUI::WidgetManager::getInstance().findWidgetT(x)->eventMouseButtonClick = MyGUI::newDelegate(this, y);
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
 const std::string LogSection = "LayoutEditor";
-const int PANELS_MARGIN = 3;
-const int PANELS_MIN_HEIGHT = 25;
-const MyGUI::ControllerPosition::MoveMode move_mode = MyGUI::ControllerPosition::Inertional;
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
@@ -168,6 +164,15 @@ void EditorState::exit()
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
 	if (testMode){ mGUI->injectMouseMove(arg); return true;}
+	
+	// drop select depth if we moved mouse
+	const int DIST = 2;
+	if ((abs(x - arg.state.X.abs) > DIST) && (abs(y - arg.state.Y.abs) > DIST))
+	{
+		selectDepth = 0;
+		x = arg.state.X.abs;
+		y = arg.state.Y.abs;
+	}
 
 	// align to grid if shift not pressed
 	int x2, y2;
@@ -235,6 +240,14 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	{
 		while ((null == ew->find(item)) && (null != item)) item = item->getParent();
 
+		int depth = selectDepth;
+		while (depth && (null != item))
+		{
+			item = item->getParent();
+			while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+			depth--;
+		}
+
 		if (null != item) // нашли
 		{
 			MyGUI::IntSize size = item->getTextSize();
@@ -261,6 +274,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 //===================================================================================
 bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
+	selectDepth++;
 	if (testMode){ mGUI->injectMouseRelease(arg, id); return true;}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
@@ -570,6 +584,7 @@ void EditorState::clear(bool _clearName)
 	ew->clear();
 	notifySelectWidget(null);
 	um->addValue();
+	selectDepth = 0;
 
 	if (_clearName) BasisManager::getInstance().setWindowCaption("MyGUI Layout Editor");
 }

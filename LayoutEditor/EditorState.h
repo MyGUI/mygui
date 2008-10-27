@@ -74,6 +74,10 @@ private:
 	// конвертирует из вайд в анси
 	std::string utf16_to_anci(const Ogre::DisplayString & _source);
 
+	// last click for depth selecting
+	int x, y;
+	int selectDepth;
+
 	MyGUI::WidgetPtr current_widget;
 	// drop select after skin change
 	bool recreate;
