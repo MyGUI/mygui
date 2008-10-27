@@ -68,6 +68,13 @@ void PanelUserData::update(MyGUI::WidgetPtr _current_widget)
 	}
 }
 
+void PanelUserData::notifyChangeWidth(int _width)
+{
+	const MyGUI::IntSize & size = mMultilist->getClientCoord().size();
+	mMultilist->setColumnWidthAt(0, size.width / 2);
+	mMultilist->setColumnWidthAt(1, size.width - (size.width / 2));
+}
+
 void PanelUserData::notifyAddUserData(MyGUI::WidgetPtr _sender)
 {
 	Ogre::String key = mEditKey->getOnlyText();

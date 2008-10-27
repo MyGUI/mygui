@@ -46,17 +46,21 @@ public:
 	void removeAllItems();
 
 	void updateView();
+
+	// изменились размеры
+	// необходимо обновить все панели
 	void setNeedUpdate();
 
 private:
 	void notifyUpdatePanel(PanelCell * _panel);
-	void frameEntered(float _time){updateView();};
+	void frameEntered(float _time) { updateView(); }
 
 private:
 	MyGUI::ScrollViewPtr mScrollView;
 	VectorPanel mItems;
 
 	bool mNeedUpdate;
+	int mOldClientWidth;
 	//std::string mPanelCellLayout;
 };
 

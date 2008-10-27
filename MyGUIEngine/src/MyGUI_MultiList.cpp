@@ -27,7 +27,8 @@ namespace MyGUI
 		mSortColumnIndex(ITEM_NONE),
 		mIsDirtySort(false),
 		mWidthSeparator(0),
-		mOffsetButtonSeparator(2)
+		mOffsetButtonSeparator(2),
+		mItemSelected(ITEM_NONE)
 	{
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -147,7 +148,10 @@ namespace MyGUI
 
 		mVectorColumnInfo.erase(mVectorColumnInfo.begin() + _column);
 
-		if (mVectorColumnInfo.empty()) mSortColumnIndex = ITEM_NONE;
+		if (mVectorColumnInfo.empty()) {
+			mSortColumnIndex = ITEM_NONE;
+			mItemSelected = ITEM_NONE;
+		}
 		else {
 			mSortColumnIndex = 0;
 			mSortUp = true;
@@ -168,6 +172,8 @@ namespace MyGUI
 		mSortColumnIndex = ITEM_NONE;
 
 		updateColumns();
+
+		mItemSelected = ITEM_NONE;
 	}
 
 	void MultiList::sortByColumn(size_t _column, bool _backward)
@@ -200,38 +206,47 @@ namespace MyGUI
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->removeAllItems();
 		}
+
+		mItemSelected = ITEM_NONE;
 	}
 
-	size_t MultiList::getItemIndexSelected()
+	/*size_t MultiList::getItemIndexSelected()
 	{
 		if (mVectorColumnInfo.empty()) return ITEM_NONE;
 		size_t item = mVectorColumnInfo.front().list->getItemIndexSelected();
 		return (ITEM_NONE == item) ? ITEM_NONE : BiIndexBase::convertToFace(item);
-	}
+	}*/
 
-	void MultiList::setItemSelectedAt(size_t _index)
+	void MultiList::updateBackSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setItemSelectedAt");
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setItemSelectedAt");
-
 		if (_index == ITEM_NONE) {
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 				(*iter).list->clearItemSelected();
 			}
 		}
 		else {
-			size_t index = BiIndexBase::convertToBack(_index);
+			//size_t index = BiIndexBase::convertToBack(_index);
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-				(*iter).list->setItemSelectedAt(index);
+				(*iter).list->setItemSelectedAt(_index);
 			}
 		}
+	}
+
+	void MultiList::setItemSelectedAt(size_t _index)
+	{
+		if (_index == mItemSelected) return;
+
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setItemSelectedAt");
+
+		mItemSelected = _index;
+		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
 	void MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _name)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
-
 
 		size_t index = BiIndexBase::convertToBack(_index);
 		mVectorColumnInfo[_column].list->setItemNameAt(index, _name);
@@ -254,7 +269,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
 
 		size_t index = mVectorColumnInfo[_column].list->findItemIndexWith(_name);
-		return index == ITEM_NONE ? ITEM_NONE : BiIndexBase::convertToFace(index);
+		return BiIndexBase::convertToFace(index);
 	}
 	//----------------------------------------------------------------------------------//
 
@@ -271,17 +286,22 @@ namespace MyGUI
 
 	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			if (_widget != (*iter).list) (*iter).list->setItemSelectedAt(_position);
+		}
+
+		updateBackSelected(_position);
+
+		mItemSelected = BiIndexBase::convertToFace(_position);
 
 		// наш евент
-		eventListChangePosition(this, _position);
+		eventListChangePosition(this, mItemSelected);
 	}
 
 	void MultiList::notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		// наш евент
-		eventListSelectAccept(this, _position);
+		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
 	void MultiList::notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position)
@@ -412,6 +432,8 @@ namespace MyGUI
 			first++;
 			last--;
 		}
+
+		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
 	bool MultiList::compare(ListPtr _list, size_t _left, size_t _right)
@@ -455,6 +477,8 @@ namespace MyGUI
 
 
 		mIsDirtySort = false;
+
+		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
 	void MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
@@ -462,6 +486,10 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::insertItemAt");
 		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");
 		if (ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
+
+		// если надо, то меняем выделенный элемент
+		// при сортировке, обновится
+		if ((mItemSelected != ITEM_NONE) && (_index <= mItemSelected)) mItemSelected ++;
 
 		size_t index = BiIndexBase::insertItemAt(_index);
 
@@ -485,6 +513,15 @@ namespace MyGUI
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->removeItemAt(index);
 		}
+
+		// если надо, то меняем выделенный элемент
+		size_t count = mVectorColumnInfo.begin()->list->getItemCount();
+		if (count == 0) mItemSelected = ITEM_NONE;
+		else if (mItemSelected != ITEM_NONE) {
+			if (_index < mItemSelected) mItemSelected --;
+			else if ((_index == mItemSelected) && (mItemSelected == count)) mItemSelected --;
+		}
+		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
 	void MultiList::swapItemsAt(size_t _index1, size_t _index2)
