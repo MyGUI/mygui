@@ -161,7 +161,7 @@ namespace MyGUI
 		// манипул€ции выделени€ми
 
 		/** Get index of selected item (ITEM_NONE if none selected) */
-		size_t getItemIndexSelected();
+		size_t getItemIndexSelected() { return mItemSelected; }
 
 		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
 
@@ -339,6 +339,8 @@ namespace MyGUI
 
 		void setButtonImageIndex(ButtonPtr _button, size_t _index);
 
+		void updateBackSelected(size_t _index);
+
 	private:
 		int mHeightButton;
 		int mWidthBar;
@@ -359,6 +361,8 @@ namespace MyGUI
 		int mWidthSeparator;
 		std::string mSkinSeparator;
 		int mOffsetButtonSeparator;
+
+		size_t mItemSelected;
 
 	};
 

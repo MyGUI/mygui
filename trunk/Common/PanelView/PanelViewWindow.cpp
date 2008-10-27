@@ -20,10 +20,17 @@ void PanelViewWindow::initialise()
 	mPanelView.attach(mScrollView);
 
 	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-	if (window != null) window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
+	if (window != null) {
+		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
+		mOldSize = window->getSize();
+	}
 }
 
 void PanelViewWindow::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
 {
-	mPanelView.setNeedUpdate();
+	const MyGUI::IntSize & size = _sender->getSize();
+	if (size != mOldSize) {
+		mOldSize = size;
+		mPanelView.setNeedUpdate();
+	}
 }

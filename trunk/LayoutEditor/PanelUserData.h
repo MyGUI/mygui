@@ -21,7 +21,10 @@ public:
 	virtual void initialiseCell(PanelCell * _cell);
 	virtual void shutdownCell();
 	void update(MyGUI::WidgetPtr _current_widget);
+
 private:
+	virtual void notifyChangeWidth(int _width);
+
 	void notifyAddUserData(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
 	void notifyUpdateUserData(MyGUI::WidgetPtr _widget);
