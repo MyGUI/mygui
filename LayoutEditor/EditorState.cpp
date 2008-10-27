@@ -239,6 +239,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	if (null != item)
 	{
 		while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+		MyGUI::WidgetPtr oldItem = item;
 
 		int depth = selectDepth;
 		while (depth && (null != item))
@@ -246,6 +247,11 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 			item = item->getParent();
 			while ((null == ew->find(item)) && (null != item)) item = item->getParent();
 			depth--;
+		}
+		if (null == item)
+		{
+			item = oldItem;
+			selectDepth = 0;
 		}
 
 		if (null != item) // нашли
