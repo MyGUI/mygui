@@ -10,9 +10,22 @@
 namespace demo
 {
 
+	Console * Console::m_instance = 0;
+
+	Console * Console::getInstancePtr() { return m_instance; }
+	Console & Console::getInstance() { assert(m_instance); return *m_instance; }
+
+
 	Console::Console() :
 		BaseLayout("Console.layout")
 	{
+		assert(!m_instance);
+		m_instance = this;
+	}
+
+	Console::~Console()
+	{
+		m_instance = 0;
 	}
 
 	void Console::initialise()
