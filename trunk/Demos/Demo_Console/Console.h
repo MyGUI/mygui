@@ -16,10 +16,22 @@ namespace demo
 	typedef MyGUI::delegates::CDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> CommandDelegate;
 	typedef MyGUI::delegates::IDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> * DelegatePtr;
 
+	namespace formates
+	{
+		template<typename T> inline std::string format() { return MyGUI::utility::toString("[ ", std::numeric_limits<T>::min(), " | ", std::numeric_limits<T>::max(), " ]"); }
+		template<> inline std::string format<bool>() { return "[ true | false ]"; }
+		template<> inline std::string format<float>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<float>::max(), " | ", std::numeric_limits<float>::max(), " ]"); }
+		template<> inline std::string format<double>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<double>::max(), " | ", std::numeric_limits<double>::max(), " ]"); }
+	}
+
 	class Console : public wraps::BaseLayout
 	{
 	public:
+		static Console * getInstancePtr();
+		static Console & getInstance();
+
 		Console();
+		~Console();
 
 		virtual void initialise();
 
@@ -56,6 +68,24 @@ namespace demo
 		void show() { mainWidget()->show(); }
 		void hide() { mainWidget()->hide(); }
 
+		template <typename T> bool isAction(T & _result, const Ogre::UTFString & _key, const Ogre::UTFString & _value, const Ogre::UTFString & _format = "")
+		{
+			if (_value.empty()) {
+				addToConsole(getConsoleStringCurrent(), _key, MyGUI::utility::toString(_result));
+			}
+			else {
+				if ( ! MyGUI::utility::parseComplex(_value, _result)) {
+					addToConsole(getConsoleStringError(), _key, _value);
+					addToConsole(getConsoleStringFormat(), _key, _format.empty() ? formates::format<T>() : _format);
+				}
+				else {
+					addToConsole(getConsoleStringSuccess(), _key, _value);
+					return true;
+				}
+			}
+			return false;
+		}
+
 	private:
 		void notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button);
 
@@ -81,6 +111,8 @@ namespace demo
 
 		// если текущий текст автодополнен
 		bool mAutocomleted;
+
+		static Console * m_instance;
 	};
 
 } // namespace demo
