@@ -255,6 +255,7 @@
     <Parameter key="Widget_NeedMouse" value="Bool"/>
     <Parameter key="Widget_InheritsPeek" value="Bool"/>
     <Parameter key="Widget_MaskPeek" value="FileName"/>
+    <Parameter key="Widget_State" value="String"/>
 
     <Parameter key="Widget_eventMouseLostFocus" value="String"/>
     <Parameter key="Widget_eventMouseSetFocus" value="String"/>
