@@ -44,8 +44,7 @@ private:
 	bool checkType(MyGUI::EditPtr _edit, std::string _type);
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _force);
 	void notifyTryApplyProperties(MyGUI::WidgetPtr _sender); // calls notifyApplyProperties
-	void notifyForceApplyProperties(MyGUI::WidgetPtr _widget, size_t _index); // calls notifyApplyProperties
-	void notifyForceApplyProperties2(MyGUI::WidgetPtr _widget); // calls notifyApplyProperties
+	void notifyForceApplyProperties(MyGUI::WidgetPtr _widget); // calls notifyApplyProperties
 
 	// properties window
 	size_t pairs_counter;
