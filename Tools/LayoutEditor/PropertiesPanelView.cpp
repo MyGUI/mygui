@@ -322,7 +322,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		{
 			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
 			editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
-			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
 		}
 		else if (widget_for_type == 1)
 		{
@@ -527,7 +527,12 @@ void PropertiesPanelView::notifyTryApplyProperties(MyGUI::WidgetPtr _sender)
 	notifyApplyProperties(_sender, false);
 }
 
-void PropertiesPanelView::notifyForceApplyProperties(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyForceApplyProperties(MyGUI::WidgetPtr _sender, size_t _index)
+{
+	notifyApplyProperties(_sender, true);
+}
+
+void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::WidgetPtr _sender)
 {
 	notifyApplyProperties(_sender, true);
 }
