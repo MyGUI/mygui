@@ -1,3 +1,3 @@
-SUBDIRS = ImageSetViewer
+SUBDIRS = ImageSetViewer LayoutEditor
 
 
