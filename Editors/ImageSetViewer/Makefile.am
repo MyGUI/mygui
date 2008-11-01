@@ -6,13 +6,13 @@ INCLUDES = $(STLPORT_CFLAGS)\
 	-I$(top_srcdir)/Common\
 	$(CFLAGS)
 
-noinst_PROGRAMS = ImageSetView
+noinst_PROGRAMS = ImageSetViewer
 
-ImageSetView_SOURCES = \
+ImageSetViewer_SOURCES = \
 	Controller.cpp\
 	Main.cpp\
 	View.cpp\
 	$(top_srcdir)/Common/BaseLayout.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
-ImageSetView_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
-ImageSetView_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid
+ImageSetViewer_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
+ImageSetViewer_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid

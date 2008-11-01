@@ -65,7 +65,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_MultiList", "UnitT
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Gui", "Demos\Demo_Gui\Demo_Gui_v8.vcproj", "{FDACCB4C-45FB-42D6-AAEF-3D21FE75B54D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageSetView", "Editors\ImageSetView\ImageSetView_v8.vcproj", "{3DC78FC7-4EE5-4079-AAAF-E83DD2653426}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageSetViewer", "Editors\ImageSetViewer\ImageSetViewer_v8.vcproj", "{3DC78FC7-4EE5-4079-AAAF-E83DD2653426}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
