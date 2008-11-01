@@ -11,7 +11,7 @@ namespace editor
  
     void Controller::createScene()
     {
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Editors/ImageSetView");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Editors/ImageSetViewer");
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
