@@ -184,7 +184,7 @@ void EditorWidgets::add(WidgetContainer * _container)
 		while (NULL == containerParent)
 		{
 			parent = parent->getParent();
-			if (parent = null) return;
+			if (parent == null) return;
 			containerParent = find(parent);
 		}
 		containerParent->childContainers.push_back(_container);
