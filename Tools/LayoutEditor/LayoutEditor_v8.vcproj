@@ -129,7 +129,7 @@
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;.\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="precompiled.h"
 				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
@@ -194,7 +194,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\Common\BaseLayout.cpp"
+				RelativePath="..\..\Common\BaseLayout.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -252,7 +252,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\Common\BaseLayout.h"
+				RelativePath="..\..\Common\BaseLayout.h"
 				>
 			</File>
 			<File
@@ -419,35 +419,11 @@
 				Name="Base"
 				>
 				<File
-					RelativePath="..\Common\PanelView\PanelBase.h"
+					RelativePath="..\..\Common\PanelView\PanelBase.h"
 					>
 				</File>
 				<File
-					RelativePath="..\Common\PanelView\PanelCell.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelCell.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelView.cpp"
+					RelativePath="..\..\Common\PanelView\PanelCell.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -467,11 +443,11 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\Common\PanelView\PanelView.h"
+					RelativePath="..\..\Common\PanelView\PanelCell.h"
 					>
 				</File>
 				<File
-					RelativePath="..\Common\PanelView\PanelViewWindow.cpp"
+					RelativePath="..\..\Common\PanelView\PanelView.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -491,7 +467,31 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\Common\PanelView\PanelViewWindow.h"
+					RelativePath="..\..\Common\PanelView\PanelView.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\PanelView\PanelViewWindow.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\Common\PanelView\PanelViewWindow.h"
 					>
 				</File>
 			</Filter>
