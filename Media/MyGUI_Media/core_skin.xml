@@ -620,7 +620,7 @@
   </Skin>
 
   <Skin name = "ComboBox" size = "29 26" texture = "core.png" >
-    <Property key="HeightList" value = "100" />
+    <Property key="HeightList" value = "250" />
     <Property key="ListSmoothShow" value = "true" />
     <Property key="ListSkin" value = "List" />
     <Property key="ListLayer" value = "Popup" />
