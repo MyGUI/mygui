@@ -32,7 +32,7 @@ public:
 
 private:
 	void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-	void notifyComboAccept(MyGUI::WidgetPtr _sender);
+	void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
 
 private:
 

@@ -43,11 +43,10 @@ namespace editor
 		selectResource(0);
 	}
 
-	void View::notifyComboAccept(MyGUI::WidgetPtr _sender)
+	void View::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
 	{
 		if (_sender->compare(mComboResource)) {
-			size_t index = mComboResource->getItemIndexSelected();
-			selectResource(index);
+			selectResource(_index);
 		}
 	}
 

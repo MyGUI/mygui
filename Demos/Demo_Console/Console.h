@@ -14,7 +14,6 @@ namespace demo
 {
 
 	typedef MyGUI::delegates::CDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> CommandDelegate;
-	typedef MyGUI::delegates::IDelegate2<const Ogre::UTFString &, const Ogre::UTFString &> * DelegatePtr;
 
 	namespace formates
 	{
@@ -51,7 +50,7 @@ namespace demo
 
 			signature your method : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 		*/
-		void registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate);
+		void registerConsoleDelegate(const Ogre::UTFString & _command, CommandDelegate::IDelegate * _delegate);
 
 		/** Event : Unknow command.\n
 			signature : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)

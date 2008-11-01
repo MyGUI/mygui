@@ -837,6 +837,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_EventPair.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Font.h"
 					>
 				</File>
