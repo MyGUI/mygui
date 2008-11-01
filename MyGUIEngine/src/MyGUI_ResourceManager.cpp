@@ -179,7 +179,7 @@ namespace MyGUI
 	{
 		xml::xmlDocument doc;
 		if (false == doc.open(_file, _group)) {
-			MYGUI_LOG(Error, _instance << " : " << doc.getLastError());
+			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
 			return false;
 		}
 
