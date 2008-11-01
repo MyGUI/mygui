@@ -1,0 +1,53 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		10/2008
+	@module
+*/
+
+#include "MainPanel.h"
+
+namespace demo
+{
+
+	MainPanel::MainPanel() :
+		BaseLayout("MainPanel.layout")
+	{
+	}
+
+	void MainPanel::initialise()
+	{
+		loadLayout();
+
+		mMainWidget->setPosition(10, 10);
+
+		assignWidget(mButtonNew, "New");
+		assignWidget(mButtonLoad, "Load");
+		assignWidget(mButtonQuit, "Quit");
+		assignWidget(mComboCreate, "CreateObject");
+
+		mButtonNew->eventMouseButtonClick = MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
+		mButtonLoad->eventMouseButtonClick = MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
+		mButtonQuit->eventMouseButtonClick = MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
+		mComboCreate->eventComboAccept = MyGUI::newDelegate(this, &MainPanel::notifyComboAccept);
+	}
+
+	void MainPanel::addObject(const Ogre::UTFString & _name)
+	{
+		mComboCreate->addItem(_name);
+	}
+
+	void MainPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	{
+		if (_sender == mButtonNew) eventAction(EventNew, 0);
+		else if (_sender == mButtonLoad) eventAction(EventLoad, 0);
+		else if (_sender == mButtonQuit) eventAction(EventQuit, 0);
+	}
+
+	void MainPanel::notifyComboAccept(MyGUI::WidgetPtr _sender)
+	{
+		size_t index = mComboCreate->getItemIndexSelected();
+		eventAction(EventCreate, index);
+	}
+
+} // namespace demo

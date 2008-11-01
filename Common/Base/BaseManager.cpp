@@ -161,10 +161,18 @@ namespace base
 		mRoot->getRenderSystem()->_initRenderTargets();
 
 		// крутимся бесконечно
-		while(true) {
+		while (true) {
 			Ogre::WindowEventUtilities::messagePump();
 			mWindow->setActive(true);
 			if (!mRoot->renderOneFrame()) break;
+
+// выставляем слип, чтобы другие потоки не стопорились
+#ifdef BASE_USE_SLEEP_IN_FRAME
+#		if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		::Sleep(1);
+#		endif
+#endif
+
 		};
 	}
 

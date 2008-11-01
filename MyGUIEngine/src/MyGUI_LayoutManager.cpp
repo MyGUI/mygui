@@ -70,7 +70,7 @@ namespace MyGUI
 
 	void LayoutManager::unloadLayout(VectorWidgetPtr & _widgets)
 	{
-		WidgetManager::getInstance().destroyWidgetsVector(_widgets);
+		WidgetManager::getInstance().destroyWidgets(_widgets);
 	}
 
 	void LayoutManager::parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
