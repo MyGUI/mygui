@@ -1,531 +1,206 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="LayoutEditor"
 	ProjectGUID="{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}"
 	RootNamespace="TestApp"
-	Keyword="Win32Proj"
-	AssemblyReferenceSearchPaths="&quot;..\MyGUIEngine\lib\debug&quot;"
-	>
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../../Shared/$(ConfigurationName)"
+			OutputDirectory="../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine=""
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
-				MinimalRebuild="true"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				EnableFunctionLevelLinking="true"
-				FloatingPointModel="2"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="4"
-			/>
+				DebugInformationFormat="4"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
-				GenerateDebugInformation="true"
+				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeForWindows98="1"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../../Shared/$(ConfigurationName)"
+			OutputDirectory="../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			WholeProgramOptimization="TRUE">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;.\"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
-			/>
+				DebugInformationFormat="3"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
-				GenerateDebugInformation="true"
+				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
-		/>
+			Name="MyGUIEngine"/>
 	</References>
 	<Files>
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\Common\BaseLayout.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
+				RelativePath="..\Common\BaseLayout.cpp">
 			</File>
 			<File
-				RelativePath=".\BasisManager.cpp"
-				>
+				RelativePath=".\BasisManager.cpp">
 			</File>
 			<File
-				RelativePath=".\EditorState.cpp"
-				>
+				RelativePath=".\EditorState.cpp">
 			</File>
 			<File
-				RelativePath=".\EditorToolTip.cpp"
-				>
+				RelativePath=".\EditorToolTip.cpp">
 			</File>
 			<File
-				RelativePath=".\InputManager.cpp"
-				>
+				RelativePath=".\InputManager.cpp">
 			</File>
 			<File
-				RelativePath="..\..\Common\precompiled.cpp"
-				>
+				RelativePath=".\UndoManager.cpp">
 			</File>
 			<File
-				RelativePath=".\UndoManager.cpp"
-				>
+				RelativePath=".\WidgetContainer.cpp">
 			</File>
 			<File
-				RelativePath=".\WidgetContainer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\WidgetTypes.cpp"
-				>
+				RelativePath=".\WidgetTypes.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\Common\BaseLayout.h"
-				>
+				RelativePath="..\Common\BaseLayout.h">
 			</File>
 			<File
-				RelativePath=".\BasisManager.h"
-				>
+				RelativePath=".\BasisManager.h">
 			</File>
 			<File
-				RelativePath=".\EditorState.h"
-				>
+				RelativePath=".\EditorState.h">
 			</File>
 			<File
-				RelativePath=".\EditorToolTip.h"
-				>
+				RelativePath=".\EditorToolTip.h">
 			</File>
 			<File
-				RelativePath=".\InputManager.h"
-				>
+				RelativePath=".\InputManager.h">
 			</File>
 			<File
-				RelativePath="..\..\Common\precompiled.h"
-				>
+				RelativePath=".\resource.h">
 			</File>
 			<File
-				RelativePath=".\resource.h"
-				>
+				RelativePath=".\UndoManager.h">
 			</File>
 			<File
-				RelativePath=".\UndoManager.h"
-				>
+				RelativePath=".\WidgetContainer.h">
 			</File>
 			<File
-				RelativePath=".\WidgetContainer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WidgetTypes.h"
-				>
+				RelativePath=".\WidgetTypes.h">
 			</File>
 		</Filter>
 		<Filter
-			Name="Resource"
-			>
+			Name="Resource">
 			<File
-				RelativePath=".\editor.ico"
-				>
+				RelativePath=".\editor.ico">
 			</File>
 			<File
-				RelativePath="..\Media\LayoutEditor\ignore.xml"
-				>
+				RelativePath=".\LayoutEditor.rc">
 			</File>
 			<File
-				RelativePath=".\LayoutEditor.rc"
-				>
+				RelativePath="..\Media\LayoutEditor\settings.xml">
 			</File>
 			<File
-				RelativePath="..\Media\LayoutEditor\settings.xml"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\values.xml"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\widgets.xml"
-				>
+				RelativePath="..\Media\LayoutEditor\widgets.xml">
 			</File>
 		</Filter>
 		<Filter
-			Name="Layout"
-			>
+			Name="Layout">
 			<File
-				RelativePath="..\Media\LayoutEditor\EditorToolTip.layout"
-				>
+				RelativePath="..\Media\LayoutEditor\interface.layout">
 			</File>
 			<File
-				RelativePath="..\Media\LayoutEditor\interface.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\SettingsWindow.layout"
-				>
-			</File>
-			<Filter
-				Name="Panels"
-				>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelItems.layout"
-					>
-				</File>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelMainProperties.layout"
-					>
-				</File>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelProperties.layout"
-					>
-				</File>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelUserData.layout"
-					>
-				</File>
-				<Filter
-					Name="Base"
-					>
-					<File
-						RelativePath="..\Media\LayoutEditor\Panels\PanelCell.layout"
-						>
-					</File>
-					<File
-						RelativePath="..\Media\LayoutEditor\Panels\PropertiesPanelView.layout"
-						>
-					</File>
-				</Filter>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Panels"
-			>
-			<File
-				RelativePath=".\PanelItems.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelItems.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelMainProperties.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelMainProperties.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelProperties.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelProperties.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelUserData.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelUserData.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PropertiesPanelView.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PropertiesPanelView.h"
-				>
-			</File>
-			<Filter
-				Name="Base"
-				>
-				<File
-					RelativePath="..\Common\PanelView\PanelBase.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelCell.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelCell.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelView.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelView.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelViewWindow.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\Common\PanelView\PanelViewWindow.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Windows"
-			>
-			<File
-				RelativePath=".\SettingsWindow.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SettingsWindow.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WidgetsWindow.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\WidgetsWindow.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Parse"
-			>
-			<File
-				RelativePath=".\Parse.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Parse.h"
-				>
+				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout">
 			</File>
 		</Filter>
 	</Files>
