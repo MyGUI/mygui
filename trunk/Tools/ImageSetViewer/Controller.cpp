@@ -14,6 +14,7 @@ namespace editor
         base::BaseManager::getInstance().addResourceLocation("../../Media/Tools/ImageSetViewer");
         base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		MyGUI::ResourceManager::getInstance().load("external_resources.xml");
 
 		mView.initialise();
     }

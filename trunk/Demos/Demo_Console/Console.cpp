@@ -63,10 +63,10 @@ namespace demo
 
 	void Console::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		notifyComboAccept(mComboCommand);
+		notifyComboAccept(mComboCommand, MyGUI::ITEM_NONE);
 	}
 
-	void Console::notifyComboAccept(MyGUI::WidgetPtr _sender)
+	void Console::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
 	{
 		const Ogre::UTFString & command = _sender->getCaption();
 		if (command == "") return;

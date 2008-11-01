@@ -51,19 +51,16 @@ void StaticImageView::initialiseImages()
 	selectResource(0);
 }
 
-void StaticImageView::notifyComboAccept(MyGUI::WidgetPtr _sender)
+void StaticImageView::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
 {
 	if (_sender->compare(mComboResource)) {
-		size_t index = mComboResource->getItemIndexSelected();
-		selectResource(index);
+		selectResource(_index);
 	}
 	else if (_sender->compare(mComboGroup)) {
-		size_t index = mComboGroup->getItemIndexSelected();
-		selectGroup(index);
+		selectGroup(_index);
 	}
 	else if (_sender->compare(mComboName)) {
-		size_t index = mComboName->getItemIndexSelected();
-		selectName(index);
+		selectName(_index);
 	}
 }
 
