@@ -18,7 +18,7 @@ public:
 	virtual void initialise();
 
 private:
-	void notifyComboAccept(MyGUI::WidgetPtr _sender);
+	void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
 
 	void initialiseImages();
 	void selectResource(size_t _index);
