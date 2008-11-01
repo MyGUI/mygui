@@ -215,9 +215,15 @@ void EditorWidgets::remove(WidgetContainer * _container)
 		}
 		else
 		{
-			WidgetContainer * containerParent = find(_container->widget->getParent());
-			if (NULL == containerParent)
-				containerParent = find(_container->widget->getParent()->getParent());
+			MyGUI::WidgetPtr parent = _container->widget->getParent();
+			WidgetContainer * containerParent = find(parent);
+			while (NULL == containerParent)
+			{
+				parent = parent->getParent();
+				if (parent == null) return;
+				containerParent = find(parent);
+			}
+
 			containerParent->childContainers.erase(std::find(containerParent->childContainers.begin(), containerParent->childContainers.end(), _container));
 		}
 
