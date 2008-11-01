@@ -17,7 +17,6 @@
 namespace MyGUI
 {
 	typedef delegates::CDelegate2<IResourcePtr &, xml::xmlNodeIterator> CreatorDelegate;
-	typedef delegates::IDelegate2<IResourcePtr &, xml::xmlNodeIterator> * CreatorDelegatePtr;
 
 	typedef delegates::CDelegate2<xml::xmlNodePtr, const std::string &> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
@@ -84,7 +83,7 @@ namespace MyGUI
 			return ret;
 		}
 
-		void registerType(const std::string & _type, CreatorDelegatePtr _delegate)
+		void registerType(const std::string & _type, CreatorDelegate::IDelegate * _delegate)
 		{
 			MYGUI_ASSERT(mHolders.find(_type) == mHolders.end(), "dublicate resource type '" << _type << "'");
 			mHolders[_type] = _delegate;

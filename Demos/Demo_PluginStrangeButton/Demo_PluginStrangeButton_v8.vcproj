@@ -185,10 +185,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\Common\Base\BaseManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
@@ -196,6 +192,14 @@
 				RelativePath=".\Main.cpp"
 				>
 			</File>
+			<Filter
+				Name="Base"
+				>
+				<File
+					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -203,17 +207,21 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\Common\Base\BaseManager.h"
-				>
-			</File>
-			<File
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\Common\Base\StatisticInfo.h"
+			<Filter
+				Name="Base"
 				>
-			</File>
+				<File
+					RelativePath="..\..\Common\Base\BaseManager.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\Base\StatisticInfo.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"

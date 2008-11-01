@@ -136,7 +136,7 @@ namespace demo
 		mListHistory->removeAllItems();
 	}
 
-	void Console::registerConsoleDelegate(const Ogre::UTFString & _command, DelegatePtr _delegate)
+	void Console::registerConsoleDelegate(const Ogre::UTFString & _command, CommandDelegate::IDelegate * _delegate)
 	{
 		mComboCommand->addItem(_command);
 		MapDelegate::iterator iter = mDelegates.find(_command);

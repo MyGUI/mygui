@@ -33,22 +33,21 @@ namespace MyGUI
 	{
 		INSTANCE_HEADER(DelegateManager);
 	public:
-		typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> Delegate;
-		typedef delegates::IDelegate3<WidgetPtr, const std::string&, const std::string&> IDelegate;
-		typedef std::map<std::string, Delegate> MapDelegate;
+		typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> HandleEvent;
+		typedef std::map<std::string, HandleEvent> MapDelegate;
 	public:
 		void initialise();
 		void shutdown();
 
 		/** Add new delegate
 		example :
-		registerConsoleDelegate("delegate_name_1", newDelegate(your_func));
-		registerConsoleDelegate("delegate_name_2", newDelegate(your_static_method));
-		registerConsoleDelegate("delegate_name_3", newDelegate(your_class_ptr, &your_class_name::your_method_name));
+		registerConsoleDelegate("delegate_name_1", MyGUI::newDelegate(your_func));
+		registerConsoleDelegate("delegate_name_2", MyGUI::newDelegate(your_static_method));
+		registerConsoleDelegate("delegate_name_3", MyGUI::newDelegate(your_class_ptr, &your_class_name::your_method_name));
 
 		signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
 		*/
-		void addDelegate(const std::string & _key, IDelegate * _delegate);
+		void addDelegate(const std::string & _key, HandleEvent::IDelegate * _delegate);
 
 		/** Remove delegate */
 		void removeDelegate(const std::string & _key);
