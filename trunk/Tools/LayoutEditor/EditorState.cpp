@@ -9,6 +9,9 @@
 
 const std::string LogSection = "LayoutEditor";
 
+const std::string settingsFile = "settings.xml";
+const std::string userSettingsFile = "le_user_settings.xml";
+
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
 
@@ -92,8 +95,8 @@ void EditorState::enter(bool bIsChangeState)
 	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
 	interfaceWidgets.push_back(mSettingsWindow.mainWidget());
 	
-	loadSettings("settings.xml");
-	loadSettings("user_settings.xml");
+	loadSettings(settingsFile);
+	loadSettings(userSettingsFile);
 
 	mWidgetsWindow.initialise();
 	mWidgetsWindow.eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
@@ -152,7 +155,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 
 void EditorState::exit()
 {
-	saveSettings("user_settings.xml");
+	saveSettings(userSettingsFile);
 	um->shutdown();
 	delete um;
 	ew->shutdown();
