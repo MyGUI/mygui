@@ -152,7 +152,14 @@ namespace MyGUI
 
 		// mirror of WidgetManager method
 		/** Destroy vector of widgets */
-		void destroyWidgetsVector(VectorWidgetPtr _widgets);
+		void destroyWidgets(VectorWidgetPtr & _widgets);
+
+		// mirror of WidgetManager method
+		/** Destroy enumerator of widgets */
+		void destroyWidgets(EnumeratorWidgetPtr & _widgets);
+
+		MYGUI_OBSOLETE("use Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
+		void destroyWidgetsVector(VectorWidgetPtr & _widgets) { destroyWidgets(_widgets); }
 
 		// mirror of WidgetManager method
 		/** Find widget by name */
