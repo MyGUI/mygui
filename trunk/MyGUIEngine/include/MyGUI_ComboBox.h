@@ -11,6 +11,7 @@
 #include "MyGUI_Edit.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
@@ -158,9 +159,10 @@ namespace MyGUI
 		//------------------------------------------------------------------------------------//
 
 		/** Event : Enter pressed in combo mode or item selected in drop.\n
-			signature : void method(MyGUI::WidgetPtr _sender)
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			@param _index item
 		*/
-		EventInfo_WidgetVoid eventComboAccept;
+		EventPair<EventInfo_WidgetVoid, EventInfo_WidgetSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

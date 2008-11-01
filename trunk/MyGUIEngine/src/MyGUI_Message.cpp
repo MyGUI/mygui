@@ -231,7 +231,17 @@ namespace MyGUI
 		return IconNames[_index];
 	}
 
-	MyGUI::MessagePtr Message::_createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info, const std::string & _button1, const std::string & _button2, const std::string & _button3, const std::string & _button4)
+	MyGUI::MessagePtr Message::_createMessage(
+		const Ogre::UTFString & _caption,
+		const Ogre::UTFString & _message,
+		const std::string & _skin,
+		const std::string & _layer, bool _modal,
+		HandleEvent::IDelegate * _delegate,
+		ViewInfo _info,
+		const std::string & _button1,
+		const std::string & _button2,
+		const std::string & _button3,
+		const std::string & _button4)
 	{
 		Gui * gui = Gui::getInstancePtr();
 		if (null == gui) return null;

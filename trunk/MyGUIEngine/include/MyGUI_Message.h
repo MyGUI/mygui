@@ -64,8 +64,7 @@ namespace MyGUI
 			Icon8 = MYGUI_FLAG(23),
 		};
 		typedef size_t ViewInfo;
-		typedef delegates::CDelegate2<WidgetPtr, ViewInfo> EventInfo_WidgetMessage;
-		typedef delegates::IDelegate2<WidgetPtr, ViewInfo> EventMessageEnd;
+		typedef delegates::CDelegate2<WidgetPtr, ViewInfo> HandleEvent;
 
 	protected:
 		Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
@@ -113,32 +112,61 @@ namespace MyGUI
 			@param
 				_button1 ... _button4 specific buttons names
 		*/
-		static MyGUI::MessagePtr _createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, 
-			const std::string & _skin, const std::string & _layer, bool _modal, EventMessageEnd * _delegate, ViewInfo _info,
-			const std::string & _button1 = "", const std::string & _button2 = "", const std::string & _button3 = "", const std::string & _button4 = "");
+		static MyGUI::MessagePtr _createMessage(
+			const Ogre::UTFString & _caption,
+			const Ogre::UTFString & _message,
+			const std::string & _skin,
+			const std::string & _layer,
+			bool _modal,
+			HandleEvent::IDelegate * _delegate,
+			ViewInfo _info,
+			const std::string & _button1 = "",
+			const std::string & _button2 = "",
+			const std::string & _button3 = "",
+			const std::string & _button4 = "");
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, ViewInfo _info)
+		static MyGUI::MessagePtr createMessage(
+			const Ogre::UTFString & _caption,
+			const Ogre::UTFString & _message,
+			bool _modal,
+			ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, _info);
 		}
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal, EventMessageEnd * _delegate, ViewInfo _info)
+		static MyGUI::MessagePtr createMessage(
+			const Ogre::UTFString & _caption,
+			const Ogre::UTFString & _message,
+			bool _modal,
+			HandleEvent::IDelegate * _delegate,
+			ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, _info);
 		}
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
-			const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
+		static MyGUI::MessagePtr createMessage(
+			const Ogre::UTFString & _caption,
+			const Ogre::UTFString & _message,
+			bool _modal,
+			const std::string & _button1,
+			const std::string & _button2 = "",
+			const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, null, None, _button1, _button2, _button3);
 		}
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(const Ogre::UTFString & _caption, const Ogre::UTFString & _message, bool _modal,
-			EventMessageEnd * _delegate, const std::string & _button1, const std::string & _button2 = "", const std::string & _button3 = "")
+		static MyGUI::MessagePtr createMessage(
+			const Ogre::UTFString & _caption,
+			const Ogre::UTFString & _message,
+			bool _modal,
+			HandleEvent::IDelegate * _delegate,
+			const std::string & _button1,
+			const std::string & _button2 = "",
+			const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, None, _button1, _button2, _button3);
 		}
@@ -147,7 +175,7 @@ namespace MyGUI
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)\n
 			@param _button - id of pressed button
 		*/
-		EventInfo_WidgetMessage eventMessageBoxEnd;
+		HandleEvent eventMessageBoxEnd;
 
 	private:
 		IntSize mOffsetText;

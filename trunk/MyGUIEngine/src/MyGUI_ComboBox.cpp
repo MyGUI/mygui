@@ -120,23 +120,18 @@ namespace MyGUI
 
 	void ComboBox::notifyListSelectAccept(WidgetPtr _widget, size_t _position)
 	{
-		std::string str;
-		//size_t pos = mList->getItemSelect();
-		if (_position != ITEM_NONE) {
-			mItemIndex = _position;
-			str = mList->getItemNameAt(_position);
-		}
-		Edit::setCaption(str);
+		mItemIndex = _position;
+		Edit::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
 
 		mDropMouse = false;
-
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		if (mModeDrop) eventComboAccept(this);
+		if (mModeDrop) eventComboAccept(this, mItemIndex);
 	}
 
 	void ComboBox::notifyListChangePosition(WidgetPtr _widget, size_t _position)
 	{
+		mItemIndex = _position;
 		eventComboChangePosition(this, _position);
 	}
 
@@ -153,21 +148,19 @@ namespace MyGUI
 		}
 		// нажат ввод в окне редиктирования
 		else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
-			eventComboAccept(this);
+			eventComboAccept(this, mItemIndex);
 		}
 
 	}
 
 	void ComboBox::notifyListMouseItemActivate(WidgetPtr _widget, size_t _position)
 	{
-		if (_position != ITEM_NONE) {
-			mItemIndex = _position;
-			Edit::setCaption(mList->getItemNameAt(_position));
-		}
+		mItemIndex = _position;
+		Edit::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		if (mModeDrop) eventComboAccept(this);
+		if (mModeDrop) eventComboAccept(this, mItemIndex);
 	}
 
 	void ComboBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
