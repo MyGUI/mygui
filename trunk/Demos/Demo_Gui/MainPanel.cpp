@@ -44,10 +44,9 @@ namespace demo
 		else if (_sender == mButtonQuit) eventAction(EventQuit, 0);
 	}
 
-	void MainPanel::notifyComboAccept(MyGUI::WidgetPtr _sender)
+	void MainPanel::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
 	{
-		size_t index = mComboCreate->getItemIndexSelected();
-		eventAction(EventCreate, index);
+		eventAction(EventCreate, _index);
 	}
 
 } // namespace demo
