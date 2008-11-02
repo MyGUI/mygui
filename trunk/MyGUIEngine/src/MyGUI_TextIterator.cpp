@@ -244,7 +244,7 @@ namespace MyGUI
 	void TextIterator::cutMaxLengthFromBeginning(size_t _max)
 	{
 		//if we don't need to chop, return
-		if (_max >= mText.size())
+		if (_max >= mText.size()) return;
 		//figure out where to chop off the beginning
 		size_t diff = mText.size() - _max;
 		
