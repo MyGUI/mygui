@@ -243,11 +243,10 @@ namespace MyGUI
 
 	void TextIterator::cutMaxLengthFromBeginning(size_t _max)
 	{
-		//figure out where to chop off the beginning
-		int diff = (int) mText.size() - (int) _max;
-
 		//if we don't need to chop, return
-		if (diff <= 0) return;
+		if (_max >= mText.size())
+		//figure out where to chop off the beginning
+		size_t diff = mText.size() - _max;
 		
 		int i = 0;
 		for (Ogre::UTFString::iterator iter=mText.begin(); iter<mText.begin() + diff; ++iter, ++i)
