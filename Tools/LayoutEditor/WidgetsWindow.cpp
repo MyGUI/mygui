@@ -194,7 +194,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 
 	while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
 	if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
-		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, tmpname);
+		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);
 	else
 	{
 		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());

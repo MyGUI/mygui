@@ -12,6 +12,7 @@ StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key);
 void MapErase(StringPairs & _map, const std::string &_key);
 
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
+const std::string DEFAULT_LAYER = "Back";
 
 MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
 
@@ -25,8 +26,10 @@ struct WidgetContainer
 		skin(_skin),
 		widget(_widget),
 		name(_name),
+		layer(DEFAULT_LAYER),
 		relative_mode(false)
-	{}
+	{
+	}
 
 	MyGUI::WidgetPtr widget;
 	std::vector<WidgetContainer*> childContainers;

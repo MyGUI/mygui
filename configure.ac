@@ -31,16 +31,16 @@ AC_CONFIG_FILES([Makefile
                  MyGUIEngine/include/Makefile
                  TestApp/Makefile
                  Tools/LayoutEditor/Makefile
-		 Tools/ImageSetViewer/Makefile
+                 Tools/ImageSetViewer/Makefile
                  Demos/Makefile
                  Demos/Demo_Colour/Makefile
                  Demos/Demo_Console/Makefile
                  Demos/Demo_Font/Makefile
-		 Demos/Demo_Gui/Makefile
+                 Demos/Demo_Gui/Makefile
                  Demos/Demo_ItemBox/Makefile
                  Demos/Demo_PanelView/Makefile
-		 Demos/Demo_Peeking/Makefile
-		 Demos/Demo_PluginStrangeButton/Makefile
+                 Demos/Demo_Peeking/Makefile
+                 Demos/Demo_PluginStrangeButton/Makefile
                  Demos/Demo_ScrollView/Makefile
                  Demos/Demo_StaticImage/Makefile
                  MyGUI.pc])
