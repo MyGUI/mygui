@@ -26,6 +26,7 @@ MYGUI_CHECK_OGRE
 MYGUI_CHECK_OIS
 
 AC_CONFIG_FILES([Makefile
+		 UnitTests/Makefile
                  MyGUIEngine/Makefile
                  MyGUIEngine/src/Makefile
                  MyGUIEngine/include/Makefile
