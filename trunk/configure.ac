@@ -26,7 +26,6 @@ MYGUI_CHECK_OGRE
 MYGUI_CHECK_OIS
 
 AC_CONFIG_FILES([Makefile
-		 UnitTests/Makefile
                  MyGUIEngine/Makefile
                  MyGUIEngine/src/Makefile
                  MyGUIEngine/include/Makefile
@@ -44,5 +43,7 @@ AC_CONFIG_FILES([Makefile
                  Demos/Demo_PluginStrangeButton/Makefile
                  Demos/Demo_ScrollView/Makefile
                  Demos/Demo_StaticImage/Makefile
+		 UnitTests/Makefile
+		 UnitTests/UnitTest_MultiList/Makefile
                  MyGUI.pc])
 AC_OUTPUT
