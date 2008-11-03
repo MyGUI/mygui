@@ -30,6 +30,7 @@ AC_CONFIG_FILES([Makefile
                  MyGUIEngine/src/Makefile
                  MyGUIEngine/include/Makefile
                  TestApp/Makefile
+		 Tools/Makefile
                  Tools/LayoutEditor/Makefile
                  Tools/ImageSetViewer/Makefile
                  Demos/Makefile
