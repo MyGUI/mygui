@@ -34,107 +34,11 @@ namespace MyGUI
 			return *this;
 		}
 
-		LogStream& operator<<(bool _value)
+		template <typename T>
+		inline LogStream& operator<<(T _value)
 		{
 			std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(short _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(unsigned short _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(int _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(long _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(unsigned long _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(float _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(double _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(long double _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(size_t _value)
-		{
-			std::cout << (unsigned int)_value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(const void * _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(const char * _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
-			return *this;
-		}
-
-		LogStream& operator<<(const std::string& _value)
-		{
-			std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
-
 			return *this;
 		}
 
