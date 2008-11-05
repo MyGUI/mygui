@@ -76,11 +76,11 @@ namespace MyGUI
 		class StaticImageFactory;
 		class MessageFactory;
 		class RenderBoxFactory;
-		class FooBarFactory;
 		class PopupMenuFactory;
 		class MenuBarFactory;
 		class ScrollViewFactory;
 		class DDContainerFactory;
+		class GridCtrlFactory;
 	}
 
 	class Widget;
@@ -100,11 +100,11 @@ namespace MyGUI
 	class StaticImage;
 	class Message;
 	class RenderBox;
-	class FooBar;
 	class PopupMenu;
 	class MenuBar;
 	class ScrollView;
 	class DDContainer;
+	class GridCtrl;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -123,11 +123,11 @@ namespace MyGUI
 	typedef StaticImage * StaticImagePtr;
 	typedef Message * MessagePtr;
 	typedef RenderBox * RenderBoxPtr;
-	typedef FooBar * FooBarPtr;
 	typedef PopupMenu * PopupMenuPtr;
 	typedef MenuBar * MenuBarPtr;
 	typedef ScrollView * ScrollViewPtr;
 	typedef DDContainer * DDContainerPtr;
+	typedef GridCtrl * GridCtrlPtr;
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
