@@ -27,9 +27,9 @@
 #include "MyGUI_MultiList.h"
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_MenuBar.h"
-#include "MyGUI_FooBar.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_DDContainer.h"
+#include "MyGUI_GridCtrl.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"
