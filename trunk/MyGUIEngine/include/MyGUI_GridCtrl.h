@@ -1,11 +1,11 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		01/2008
+	@date		11/2008
 	@module
 */
-#ifndef __MYGUI_ITEM_BOX_H__
-#define __MYGUI_ITEM_BOX_H__
+#ifndef __MYGUI_GRID_CTRL_H__
+#define __MYGUI_GRID_CTRL_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DDContainer.h"
@@ -15,10 +15,10 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ItemBox : public DDContainer
+	class _MyGUIExport GridCtrl : public DDContainer
 	{
 		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<ItemBox>;
+		friend class factory::BaseWidgetFactory<GridCtrl>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 
@@ -35,7 +35,7 @@ namespace MyGUI
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
 
 	protected:
-		ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		GridCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
 		//------------------------------------------------------------------------------//
@@ -89,40 +89,12 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType * getItemDataAt(size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::getItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "GridCtrl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 
-
-
-		// #ifdef MYGUI_USING_OBSOLETE
-
-		MYGUI_OBSOLETE("use ItemBox::insertItemAt(size_t _index, Any _data)")
-		void insertItem(size_t _index, Any _data = Any::Null) { insertItemAt(_index, _data); }
-
-		MYGUI_OBSOLETE("use ItemBox::setItemDataAt(size_t _index, Any _data)")
-		void setItemData(size_t _index, Any _data) { setItemDataAt(_index, _data); }
-
-		MYGUI_OBSOLETE("use ItemBox::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-
-		MYGUI_OBSOLETE("use ItemBox::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-
-		MYGUI_OBSOLETE("use ItemBox::getItemIndexSelected()")
-		size_t getItemSelect() { return getItemIndexSelected(); }
-
-		MYGUI_OBSOLETE("use ItemBox::clearItemSelected()")
-		void resetItemSelect() { clearItemSelected(); }
-
-		MYGUI_OBSOLETE("use ItemBox::setItemSelectedAt(size_t _index)")
-		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
-
-		// #endif // MYGUI_USING_OBSOLETE
-
-
-		void setItemBoxAlignVert(bool _vert);
-		bool getItemBoxAlignVert() { return mAlignVert; }
+		void setGridCtrlAlignVert(bool _vert);
+		bool getGridCtrlAlignVert() { return mAlignVert; }
 
 		// возвращает индекс елемента, по указателю на виджет айтема
 		size_t getIndexByWidget(WidgetPtr _widget);
@@ -148,11 +120,6 @@ namespace MyGUI
 		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
-
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		// event : запрос на создание айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
@@ -196,8 +163,6 @@ namespace MyGUI
 		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
 		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-		//void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
-		//void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
@@ -291,8 +256,8 @@ namespace MyGUI
 
 		bool mAlignVert;
 
-	}; // class ItemBox
+	}; // class GridCtrl
 
 } // namespace MyGUI
 
-#endif // __MYGUI_ITEM_BOX_H__
+#endif // __MYGUI_GRID_CTRL_H__
