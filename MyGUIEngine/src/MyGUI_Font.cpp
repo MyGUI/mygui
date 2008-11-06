@@ -54,7 +54,7 @@ namespace MyGUI
 			if ((_id > iter->second) || (_id < iter->first)) continue;
 			return & iter->range[_id - iter->first];
 		}
-		// при ошибках возвращаем пробел
+		// РїСЂРё РѕС€РёР±РєР°С… РІРѕР·РІСЂР°С‰Р°РµРј РїСЂРѕР±РµР»
 		return & mSpaceGlyphInfo;
 		//MYGUI_EXCEPT("Code point " << _id << " not found in font " << mName);
 		//return null;
@@ -74,13 +74,13 @@ namespace MyGUI
     //---------------------------------------------------------------------
   void Font::unloadImpl()
   {
-		// удаляем все созданные ресурсы
+		// СѓРґР°Р»СЏРµРј РІСЃРµ СЃРѕР·РґР°РЅРЅС‹Рµ СЂРµСЃСѓСЂСЃС‹
 		Ogre::TextureManager::getSingleton().remove(mTexture->getName());
 	}
     //---------------------------------------------------------------------
 	void Font::loadResource(Ogre::Resource* res)
 	{
-		// ваще нет ничего
+		// РІР°С‰Рµ РЅРµС‚ РЅРёС‡РµРіРѕ
 		if (mVectorRangeInfo.empty()) mVectorRangeInfo.push_back(RangeInfo(FONT_CODE_LATIN_START, FONT_CODE_LATIN_END));
 
 		// ManualResourceLoader implementation - load the texture
@@ -107,13 +107,13 @@ namespace MyGUI
 
 		int max_height = 0/*, max_width = 0*/, max_bear = 0;
 
-		// FIXME mOffsetHeight беззнаковое, почему оно на < 0 проверяется? скорее всего у mOffsetHeight неверный тип
+		// FIXME mOffsetHeight Р±РµР·Р·РЅР°РєРѕРІРѕРµ, РїРѕС‡РµРјСѓ РѕРЅРѕ РЅР° < 0 РїСЂРѕРІРµСЂСЏРµС‚СЃСЏ? СЃРєРѕСЂРµРµ РІСЃРµРіРѕ Сѓ mOffsetHeight РЅРµРІРµСЂРЅС‹Р№ С‚РёРї
 		size_t l = 0, m = (mOffsetHeight < 0) ? (-mOffsetHeight) : 0;
 
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 			for (CodePoint index=iter->first; index<=iter->second; ++index/*, ++glyphCount*/) {
 
-				// символ рисовать ненужно
+				// СЃРёРјРІРѕР» СЂРёСЃРѕРІР°С‚СЊ РЅРµРЅСѓР¶РЅРѕ
 				if (checkHidePointCode(index)) continue;
 
 				if (FT_Load_Char( face, index, FT_LOAD_RENDER )) continue;
@@ -139,18 +139,18 @@ namespace MyGUI
 		max_bear >>= 6;
 
 		//if (max_height & 1) max_height++;
-		// пипец без этого пиксель в пиксель никак
+		// РїРёРїРµС† Р±РµР· СЌС‚РѕРіРѕ РїРёРєСЃРµР»СЊ РІ РїРёРєСЃРµР»СЊ РЅРёРєР°Рє
 		//max_height = mTtfSize;
 
-		// служебные символы
+		// СЃР»СѓР¶РµР±РЅС‹Рµ СЃРёРјРІРѕР»С‹
 		//glyphCount += 5;
-		// ширина служебных равна высоте шрифта
+		// С€РёСЂРёРЅР° СЃР»СѓР¶РµР±РЅС‹С… СЂР°РІРЅР° РІС‹СЃРѕС‚Рµ С€СЂРёС„С‚Р°
 		l += (max_height + mDistance) * 5;
 
 		size_t finalWidth = FONT_TEXTURE_WIDTH;
 		size_t finalHeight = (m+1) * (max_height + mDistance);
 
-		// вычисляем ближайшую кратную 2
+		// РІС‹С‡РёСЃР»СЏРµРј Р±Р»РёР¶Р°Р№С€СѓСЋ РєСЂР°С‚РЅСѓСЋ 2
 		size_t needHeight = 1;
 		while (needHeight < finalHeight) needHeight <<= 1;
 		finalHeight = needHeight;
@@ -172,13 +172,13 @@ namespace MyGUI
             imageData[i + 1] = 0x00; // alpha
         }
 
-		// текущее положение в текстуре
+		// С‚РµРєСѓС‰РµРµ РїРѕР»РѕР¶РµРЅРёРµ РІ С‚РµРєСЃС‚СѓСЂРµ
 		l = 0;
 		m = mOffsetHeight;
 		FT_Int advance = 0;
 
 		//------------------------------------------------------------------
-		// создаем символ пробела
+		// СЃРѕР·РґР°РµРј СЃРёРјРІРѕР» РїСЂРѕР±РµР»Р°
 		//------------------------------------------------------------------
 		advance = mSpaceWidth;
 		for (int j = 0; j < max_height; j++ ) {
@@ -201,7 +201,7 @@ namespace MyGUI
 		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
-		// создаем табуляцию
+		// СЃРѕР·РґР°РµРј С‚Р°Р±СѓР»СЏС†РёСЋ
 		//------------------------------------------------------------------
 		advance = mTabWidth;
 		for (int j = 0; j < max_height; j++ ) {
@@ -224,7 +224,7 @@ namespace MyGUI
 		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
-		// создаем выделение
+		// СЃРѕР·РґР°РµРј РІС‹РґРµР»РµРЅРёРµ
 		//------------------------------------------------------------------
 		advance = mCursorWidth;
 		for (int j = 0; j < max_height; j++ ) {
@@ -247,7 +247,7 @@ namespace MyGUI
 		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
-		// создаем неактивное выделение
+		// СЃРѕР·РґР°РµРј РЅРµР°РєС‚РёРІРЅРѕРµ РІС‹РґРµР»РµРЅРёРµ
 		//------------------------------------------------------------------
 		advance = mCursorWidth;
 		for (int j = 0; j < max_height; j++ ) {
@@ -270,7 +270,7 @@ namespace MyGUI
 		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
-		// создаем курсор
+		// СЃРѕР·РґР°РµРј РєСѓСЂСЃРѕСЂ
 		//------------------------------------------------------------------
 		advance = mCursorWidth;
 		for (int j = 0; j < max_height; j++ ) {
@@ -293,18 +293,18 @@ namespace MyGUI
 		if ( (FONT_TEXTURE_WIDTH - 1) < (l + advance) ) { m += max_height + mDistance;l = 0;}
 
 		//------------------------------------------------------------------
-		// создаем все остальные символы
+		// СЃРѕР·РґР°РµРј РІСЃРµ РѕСЃС‚Р°Р»СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹
 		//------------------------------------------------------------------
 		FT_Error ftResult;
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 
-			// устанавливаем размер на весь диапазон
+			// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ РЅР° РІРµСЃСЊ РґРёР°РїР°Р·РѕРЅ
 			iter->range.resize(iter->second - iter->first + 1);
 			size_t pos = 0;
 
 			for (CodePoint index=iter->first; index<=iter->second; ++index, ++pos) {
 
-				// сомвол рисовать не нада
+				// СЃРѕРјРІРѕР» СЂРёСЃРѕРІР°С‚СЊ РЅРµ РЅР°РґР°
 				if (checkHidePointCode(index)) continue;
 
 				GlyphInfo & info = iter->range.at(pos);
@@ -351,7 +351,7 @@ namespace MyGUI
 			}
 		}
 
-		// FIXME хз что сделать надо, старый вариант падает, а с этим по идее утечка (не могу проверить)
+		// FIXME С…Р· С‡С‚Рѕ СЃРґРµР»Р°С‚СЊ РЅР°РґРѕ, СЃС‚Р°СЂС‹Р№ РІР°СЂРёР°РЅС‚ РїР°РґР°РµС‚, Р° СЃ СЌС‚РёРј РїРѕ РёРґРµРµ СѓС‚РµС‡РєР° (РЅРµ РјРѕРіСѓ РїСЂРѕРІРµСЂРёС‚СЊ)
 #if OGRE_VERSION >= ((1 << 16) | (6 << 8) | 0)
 		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size) );
 #else
