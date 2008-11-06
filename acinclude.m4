@@ -159,13 +159,21 @@ AC_DEFUN([MYGUI_USE_STLPORT],
 ])
 
 AC_DEFUN([MYGUI_CHECK_OGRE], [
-    PKG_CHECK_MODULES(OGRE, OGRE >= 1.4.0,,exit)
+    PKG_CHECK_MODULES(OGRE, [OGRE >= 1.4.0], have_ogre=yes, have_ogre=no)
+    if test $have_ogre = no
+    then
+        AC_MSG_ERROR([*** Unable to find OGRE! ***])
+    fi
     AC_SUBST(OGRE_CFLAGS)
     AC_SUBST(OGRE_LIBS)
 ])
 
 AC_DEFUN([MYGUI_CHECK_OIS], [
-    PKG_CHECK_MODULES(OIS, OIS >= 1.0.0,,exit)
+    PKG_CHECK_MODULES(OIS, OIS >= 1.0.0, have_ois=yes, have_ois=no)
+    if test $have_ois = no
+    then
+        echo "*** Unable to find OIS! You need OIS for MyGUI demos and tools ***"
+    fi
     AC_SUBST(OIS_CFLAGS)
     AC_SUBST(OIS_LIBS)
 ])

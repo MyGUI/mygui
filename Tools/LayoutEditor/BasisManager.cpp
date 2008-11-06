@@ -110,9 +110,11 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	// пдписываемся на события окна
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// если оконное, то скрываем
 	if (!mFullscreen) MyGUI::Gui::getInstance().hidePointer();
-
+#endif
+        
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// забиваем карту маппинга на стандартные курсоры
 	mInput->addMapPointer("arrow", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW)));
@@ -401,9 +403,12 @@ void BasisManager::setFullscreen(bool _fullscreen)
 		// переключаем мышку
 		mInput->setMouseExclusive(mFullscreen);
 
+#if OGRE_PLATFORM != OGRE_PLATFORM_WIN32
+		MyGUI::Gui::getInstance().showPointer();
+#else
 		// если нужно скрываем курсор
 		mFullscreen ? MyGUI::Gui::getInstance().showPointer() : MyGUI::Gui::getInstance().hidePointer();
-
+#endif
 		// после коррекции разрешение может поменяться
 		windowResized(mWindow);
 	}
