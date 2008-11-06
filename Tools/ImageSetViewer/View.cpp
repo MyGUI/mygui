@@ -77,7 +77,7 @@ namespace editor
 		mImageView->setCanvasSize(size);
 	}
 
-	void View::addGroup(MyGUI::ResourceImageSetPtr _image, MyGUI::GroupImage _group, MyGUI::IntSize & _size)
+	void View::addGroup(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, MyGUI::IntSize & _size)
 	{
 		const int left = 10;
 		const int text_height = 26;
@@ -95,7 +95,7 @@ namespace editor
 		}
 	}
 
-	void View::addIndex(MyGUI::ResourceImageSetPtr _image, MyGUI::GroupImage  _group, MyGUI::IndexImage & _index, MyGUI::IntSize & _size)
+	void View::addIndex(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, const MyGUI::IndexImage & _index, MyGUI::IntSize & _size)
 	{
 		const int left = 10;
 		const int offset_height = 10;
