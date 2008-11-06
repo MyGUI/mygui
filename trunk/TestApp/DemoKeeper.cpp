@@ -6,46 +6,54 @@
 */
 #include "DemoKeeper.h"
 
-typedef MyGUI::delegates::CDelegate1<int> HandleEvent1;
-typedef MyGUI::delegates::CDelegate2<int, int> HandleEvent2;
+	template<typename T>
+	class Enumerator
+	{
+	private:
+		Enumerator() { }
 
-template <typename Event1, typename Event2>
-class EventPair
+	public:
+		explicit Enumerator(const T & _container) :
+			m_first(true),
+			m_current(_container.begin()),
+			m_end(_container.end())
+		{
+		}
+
+		Enumerator(typename T::const_iterator _first, typename T::const_iterator _end) :
+			m_first(true),
+			m_current(_first),
+			m_end(_end)
+		{
+		}
+
+		bool next()
+		{
+			if (m_current == m_end) return false;
+			else if (m_first) {
+				m_first = false;
+				return true;
+			}
+			++ m_current;
+			if (m_current == m_end) return false;
+			return true;
+		}
+
+		typename T::const_reference operator->() const { assert(m_current != m_end); return (*m_current); }
+		typename T::const_reference current() { assert(m_current != m_end); return (*m_current); }
+
+	private:
+		typename T::const_iterator m_current;
+		typename T::const_iterator m_end;
+		bool m_first;
+	};
+
+class Class
 {
 public:
-
-	MYGUI_OBSOLETE("use signature : Event2::IDelegate * _delegate")
-	void operator = (typename Event1::IDelegate * _delegate)
-	{
-		event1 = _delegate;
-	}
-
-	void operator = (typename Event2::IDelegate * _delegate)
-	{
-		event2 = _delegate;
-	}
-
-	template<typename T1, typename T2>
-	void operator()(T1 _value1, T2 _value2)
-	{
-		event1(_value1);
-		event2(_value1, _value2);
-	}
-
-private:
-	Event1 event1;
-	Event2 event2;
+	int test() { return 11; }
+	int const_test() const { return 12; }
 };
-
-EventPair<HandleEvent1, HandleEvent2> Event;
-
-void foo1(int _value1)
-{
-}
-
-void foo2(int _value1, int _value2)
-{
-}
 
 namespace demo
 {
@@ -54,21 +62,44 @@ namespace demo
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
 
-		MyGUI::ResourceManager::getInstance().load("test.xml");
+		typedef Class * ClassPtr;
+		typedef std::vector<Class> VectorClass;
+		typedef std::vector<ClassPtr> VectorClassPtr;
 
-		//MyGUI::helper::addResourceLocation("D:/ww/WOT/Media/GUIskin/Wot", "FileSystem", "General", false, true);
-		//MyGUI::helper::addResourceLocation("D:/ww/WOT/Media/images", "FileSystem", "General", false, true);
-		//MyGUI::helper::addResourceLocation("D:/ww/WOT/Media/Resources", "FileSystem", "General", false, true);
+		typedef Enumerator<VectorClass> EnumeratorClass;
+		typedef Enumerator<VectorClassPtr> EnumeratorClassPtr;
 
-		
-		MyGUI::ResourceManager::getInstance().load("WOT.font");
+		VectorClass vector1;
+		VectorClassPtr vector2;
 
-		//MyGUI::StaticImagePtr image = MyGUI::Gui::getInstance().createWidgetReal<MyGUI::StaticImage>("StaticImage", MyGUI::FloatCoord(0, 0, 1, 1), MyGUI::Align::Default, "Main");
-		//image->setImageTexture("panteonA.png");
+		Class value;
+		vector1.push_back(value);
+		vector2.push_back(&value);
 
-		//Event = MyGUI::newDelegate(foo1);
-		Event = MyGUI::newDelegate(foo2);
-		Event(1, 2);
+		EnumeratorClass enum1(vector1);
+		EnumeratorClassPtr enum2(vector2);
+
+		while (enum1.next()) {
+			//int test = enum1.current().test();
+			int const_test = enum1.current().const_test();
+		};
+
+		while (enum2.next()) {
+			int test = enum2.current()->test();
+			int const_test = enum2.current()->const_test();
+		};
+
+
+		typedef std::vector<std::string> VectorString;
+		typedef Enumerator<VectorString> EnumeratorVectorString;
+		VectorString vec;
+		vec.push_back("value");
+		//EnumeratorVectorString enum_vec(vec.begin(), vec.end());
+		EnumeratorVectorString enum_vec(vec);
+		while (enum_vec.next()) {
+			std::string value = enum_vec.current();
+		};
+
 	}
  
     void DemoKeeper::destroyScene()
