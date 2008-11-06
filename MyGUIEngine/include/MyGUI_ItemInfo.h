@@ -14,7 +14,7 @@ namespace MyGUI
 {
 
 	// структура информации об отображении элемента
-	struct ItemInfo
+	struct _MyGUIExport ItemInfo
 	{
 
 		ItemInfo() : index(ITEM_NONE) { }
@@ -54,7 +54,7 @@ namespace MyGUI
 		bool drag_refuse;
 	};
 
-	enum NotifyItem
+	enum MYGUI_OBSOLETE("use NotifyItemData::NotifyItem")
 	{
 		NOTIFY_MOUSE_PRESSED,
 		NOTIFY_MOUSE_RELEASED,
@@ -62,8 +62,16 @@ namespace MyGUI
 		NOTIFY_KEY_RELEASED,
 	};
 
-	struct NotifyItemData
+	struct _MyGUIExport NotifyItemData
 	{
+		typedef enum
+		{
+			MousePressed,
+			MouseReleased,
+			KeyPressed,
+			KeyReleased
+		} NotifyItem;
+
 		NotifyItemData(size_t _index, NotifyItem _notify, int _x, int _y, MouseButton _id) :
 			index(_index), notify(_notify), x(_x), y(_y), id(_id), code(KC_UNASSIGNED), key(0) {}
 

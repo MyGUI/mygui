@@ -13,7 +13,6 @@ namespace MyGUI
 {
 
 	enum MYGUI_OBSOLETE("use DropItemState")
-	//ObsoleteTypeDropState
 	{
 		//use DropItemState::None
 		DROP_NONE,

@@ -47,14 +47,14 @@ namespace MyGUI
 		Enumerator() { }
 
 	public:
-		explicit Enumerator(T & _container) :
+		explicit Enumerator(const T & _container) :
 			m_first(true),
 			m_current(_container.begin()),
 			m_end(_container.end())
 		{
 		}
 
-		Enumerator(typename T::iterator _first, typename T::iterator _end) :
+		Enumerator(typename T::const_iterator _first, typename T::const_iterator _end) :
 			m_first(true),
 			m_current(_first),
 			m_end(_end)
@@ -73,12 +73,12 @@ namespace MyGUI
 			return true;
 		}
 
-		typename T::value_type operator->() const { assert(m_current != m_end); return (*m_current); }
-		typename T::value_type current() { assert(m_current != m_end); return (*m_current); }
+		typename T::const_reference operator->() const { assert(m_current != m_end); return (*m_current); }
+		typename T::const_reference current() { assert(m_current != m_end); return (*m_current); }
 
 	private:
-		typename T::iterator m_current;
-		typename T::iterator m_end;
+		typename T::const_iterator m_current;
+		typename T::const_iterator m_end;
 		bool m_first;
 	};
 

@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	enum ALIGN_INFO
+	enum MYGUI_OBSOLETE("use Align")
 	{
 		ALIGN_HCENTER					= MYGUI_FLAG_NONE,					// center the window horizontally
 		ALIGN_VCENTER					= MYGUI_FLAG_NONE,					// center the window vertically
@@ -35,27 +35,6 @@ namespace MyGUI
 		ALIGN_RIGHT_BOTTOM             = ALIGN_RIGHT | ALIGN_BOTTOM,
 		ALIGN_LEFT_BOTTOM             = ALIGN_LEFT | ALIGN_BOTTOM,
 	};
-
-	/*#define IS_ALIGN_HCENTER(val) (ALIGN_HCENTER == ((val).align & ALIGN_HSTRETCH))
-	#define IS_ALIGN_VCENTER(val) (ALIGN_VCENTER == ((val).align & ALIGN_VSTRETCH))
-	#define IS_ALIGN_CENTER(val) (ALIGN_CENTER == ((val).align & ALIGN_STRETCH))
-
-	#define IS_ALIGN_LEFT(val) (ALIGN_LEFT == ((val).align & ALIGN_HSTRETCH))
-	#define IS_ALIGN_RIGHT(val) (ALIGN_RIGHT == ((val).align & ALIGN_HSTRETCH))
-	#define IS_ALIGN_HSTRETCH(val) (ALIGN_HSTRETCH == ((val).align & ALIGN_HSTRETCH))
-
-	#define IS_ALIGN_TOP(val) (ALIGN_TOP == ((val).align & ALIGN_VSTRETCH))
-	#define IS_ALIGN_BOTTOM(val) (ALIGN_BOTTOM == ((val).align & ALIGN_VSTRETCH))
-	#define IS_ALIGN_VSTRETCH(val) (ALIGN_VSTRETCH == ((val).align & ALIGN_VSTRETCH))
-
-	#define IS_ALIGN_STRETCH(val) (ALIGN_STRETCH == ((val).align & ALIGN_STRETCH))
-	#define IS_ALIGN_DEFAULT(val) (ALIGN_DEFAULT == ((val).align & ALIGN_STRETCH))
-
-	#define IS_ALIGN_LEFT_TOP(val) (ALIGN_LEFT_TOP == ((val).align & ALIGN_STRETCH))
-	#define IS_ALIGN_RIGHT_TOP(val) (ALIGN_RIGHT_TOP == ((val).align & ALIGN_STRETCH))
-	#define IS_ALIGN_RIGHT_BOTTOM(val) (ALIGN_RIGHT_BOTTOM == ((val).align & ALIGN_STRETCH))
-	#define IS_ALIGN_LEFT_BOTTOM(val) (ALIGN_LEFT_BOTTOM == ((val).align & ALIGN_STRETCH))*/
-
 
 	struct _MyGUIExport Align
 	{

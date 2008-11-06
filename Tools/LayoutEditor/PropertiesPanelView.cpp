@@ -327,7 +327,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		else if (widget_for_type == 1)
 		{
 			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
+			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
 
 			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
 		}
@@ -528,6 +528,11 @@ void PropertiesPanelView::notifyTryApplyProperties(MyGUI::WidgetPtr _sender)
 }
 
 void PropertiesPanelView::notifyForceApplyProperties(MyGUI::WidgetPtr _sender)
+{
+	notifyApplyProperties(_sender, true);
+}
+
+void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::WidgetPtr _sender, size_t _index)
 {
 	notifyApplyProperties(_sender, true);
 }
