@@ -27,8 +27,8 @@ namespace editor
 		void selectResource(size_t _index);
 
 		void updateView(MyGUI::ResourceImageSetPtr _image);
-		void addGroup(MyGUI::ResourceImageSetPtr _image, MyGUI::GroupImage  _group, MyGUI::IntSize & _size);
-		void addIndex(MyGUI::ResourceImageSetPtr _image, MyGUI::GroupImage  _group, MyGUI::IndexImage & _index, MyGUI::IntSize & _size);
+		void addGroup(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, MyGUI::IntSize & _size);
+		void addIndex(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, const MyGUI::IndexImage & _index, MyGUI::IntSize & _size);
 
 	private:
 
