@@ -103,6 +103,7 @@
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
+			ManagedExtensions="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool

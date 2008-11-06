@@ -36,24 +36,21 @@ namespace MyGUI
 		mMapAlign.clear();
 
 		// old
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HCENTER);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VCENTER);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_CENTER);
-		//MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_CENTER_PARENT);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_LEFT);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_RIGHT);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_HSTRETCH);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_TOP);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_BOTTOM);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_VSTRETCH);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_STRETCH);
-		MYGUI_REGISTER_VALUE(mMapAlign, ALIGN_DEFAULT);
+		mMapAlign["ALIGN_HCENTER"] = HCenter;
+		mMapAlign["ALIGN_VCENTER"] = VCenter;
+		mMapAlign["ALIGN_CENTER"] = Center;
+		mMapAlign["ALIGN_LEFT"] = Left;
+		mMapAlign["ALIGN_RIGHT"] = Right;
+		mMapAlign["ALIGN_HSTRETCH"] = HStretch;
+		mMapAlign["ALIGN_TOP"] = Top;
+		mMapAlign["ALIGN_BOTTOM"] = Bottom;
+		mMapAlign["ALIGN_VSTRETCH"] = VStretch;
+		mMapAlign["ALIGN_STRETCH"] = Stretch;
+		mMapAlign["ALIGN_DEFAULT"] = Default;
 
-		// new
 		MYGUI_REGISTER_VALUE(mMapAlign, HCenter);
 		MYGUI_REGISTER_VALUE(mMapAlign, VCenter);
 		MYGUI_REGISTER_VALUE(mMapAlign, Center);
-		//MYGUI_REGISTER_VALUE(mMapAlign, CenterParent);
 		MYGUI_REGISTER_VALUE(mMapAlign, Left);
 		MYGUI_REGISTER_VALUE(mMapAlign, Right);
 		MYGUI_REGISTER_VALUE(mMapAlign, HStretch);
@@ -62,6 +59,7 @@ namespace MyGUI
 		MYGUI_REGISTER_VALUE(mMapAlign, VStretch);
 		MYGUI_REGISTER_VALUE(mMapAlign, Stretch);
 		MYGUI_REGISTER_VALUE(mMapAlign, Default);
+
 		MYGUI_REGISTER_VALUE(mMapAlign, LeftTop);
 		MYGUI_REGISTER_VALUE(mMapAlign, RightTop);
 		MYGUI_REGISTER_VALUE(mMapAlign, RightBottom);

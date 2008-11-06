@@ -253,8 +253,6 @@ namespace MyGUI
 			requestCreateWidgetItem(this, item);
 
 			item->eventMouseWheel = newDelegate(this, &GridCtrl::notifyMouseWheel);
-			//item->eventMouseSetFocus = newDelegate(this, &GridCtrl::notifyMouseSetFocus);
-			//item->eventMouseLostFocus = newDelegate(this, &GridCtrl::notifyMouseLostFocus);
 			item->eventRootMouseChangeFocus = newDelegate(this, &GridCtrl::notifyRootMouseChangeFocus);
 			item->eventMouseButtonPressed = newDelegate(this, &GridCtrl::notifyMouseButtonPressed);
 			item->eventMouseButtonReleased = newDelegate(this, &GridCtrl::notifyMouseButtonReleased);
@@ -565,12 +563,12 @@ namespace MyGUI
 
 	void GridCtrl::notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char)
 	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_PRESSED, _key, _char));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::KeyPressed, _key, _char));
 	}
 
 	void GridCtrl::notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key)
 	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_KEY_RELEASED, _key));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::KeyReleased, _key));
 	}
 
 	size_t GridCtrl::getIndexByWidget(WidgetPtr _widget)
@@ -713,41 +711,14 @@ namespace MyGUI
 			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
 
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_PRESSED, _left, _top, _id));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::MousePressed, _left, _top, _id));
 	}
 
 	void GridCtrl::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonReleased(_id);
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NOTIFY_MOUSE_RELEASED, _left, _top, _id));
+		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::MouseReleased, _left, _top, _id));
 	}
-
-	/*void GridCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
-	{
-		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "GridCtrl::notifyMouseSetFocus");
-
-		mIndexActive = index;
-		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-
-		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-		mIndexActive = index;
-	}
-
-	void GridCtrl::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
-	{
-		// уже сбросили фокус
-		if (mIndexActive == ITEM_NONE) return;
-
-		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "GridCtrl::notifyMouseLostFocus");
-
-		mIndexActive = ITEM_NONE;
-		ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-
-		requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-		mIndexActive = ITEM_NONE;
-	}*/
 
 	void GridCtrl::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
 	{
