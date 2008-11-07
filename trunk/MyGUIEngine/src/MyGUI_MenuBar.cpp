@@ -152,7 +152,7 @@ namespace MyGUI
 			if (0 != mItemsInfo[mIndexSelect].menu->getItemCount()) {
 				mItemsInfo[mIndexSelect].button->setButtonPressed(true);
 				mItemsInfo[mIndexSelect].menu->showPopupMenu(
-					IntPoint(int(mItemsInfo[mIndexSelect].button->getAbsoluteLeft()), getAbsoluteRect().bottom));
+					IntPoint(mItemsInfo[mIndexSelect].button->getAbsoluteLeft(), getAbsoluteRect().bottom));
 			}
 			else {
 				mIndexSelect = ITEM_NONE;
