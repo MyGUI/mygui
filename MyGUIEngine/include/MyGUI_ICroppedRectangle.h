@@ -48,8 +48,8 @@ namespace MyGUI
 		IntRect getAbsoluteRect() { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
 		IntCoord getAbsoluteCoord() { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
 
-		float getAbsoluteLeft() { return mAbsolutePosition.left; }
-		float getAbsoluteTop() { return mAbsolutePosition.top; }
+		int getAbsoluteLeft() { return mAbsolutePosition.left; }
+		int getAbsoluteTop() { return mAbsolutePosition.top; }
 
 		void setAlign(Align _align) { mAlign = _align; }
 		Align getAlign() { return mAlign; }
