@@ -20,11 +20,11 @@ namespace MyGUI
 	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
 	RenderItem::RenderItem(const std::string& _texture, LayerItemKeeper * _parent) :
-		mParent(_parent),
 		mTextureName(_texture),
-		mOutDate(false),
 		mNeedVertexCount(0),
 		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mOutDate(false),
+		mParent(_parent),
 		mCountVertex(0)
 	{
 		mRenderSystem = Ogre::Root::getSingleton().getRenderSystem();
@@ -121,7 +121,6 @@ namespace MyGUI
 		mRenderSystem->_setTextureBlendMode(0, mColorBlendMode);
 		mRenderSystem->_setTextureBlendMode(0, mAlphaBlendMode);
 		mRenderSystem->_disableTextureUnitsFrom(1);
-		
 
 		// enable alpha blending
 		mRenderSystem->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);

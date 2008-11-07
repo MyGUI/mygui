@@ -25,10 +25,10 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mUserViewport(false),
 		mEntity(null),
+		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mBackgroungColour(Ogre::ColourValue::Blue),
 		mMouseRotation(false),
 		mLeftPressed(false),
-		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mAutoRotation(false),
 		mEntityState(null),
 		mScale(1.0f),
@@ -119,7 +119,7 @@ namespace MyGUI
 		{
 			Ogre::SceneNode* forDelete = (Ogre::SceneNode*)_node->getChild(0);
 
-			removeNode(forDelete);	
+			removeNode(forDelete);
 		}
 
 		_node->getParentSceneNode()->removeAndDestroyChild(_node->getName());
@@ -162,7 +162,7 @@ namespace MyGUI
 			if(entity)
 			{
 				Ogre::Entity* oldEntity = dynamic_cast<Ogre::Entity*>(findMovableObject(_fromNode, entity->getName()));
-			
+
 				if(!oldEntity)
 				{
 					removeEntity(entity->getName());
@@ -216,7 +216,7 @@ namespace MyGUI
 
 		for(i = 0; i < _fromNode->numChildren(); i++)
 		{
-			if(_fromNode->getChild(i)->numChildren() != 0 && 
+			if(_fromNode->getChild(i)->numChildren() != 0 &&
 				((Ogre::SceneNode*)_fromNode->getChild(i))->numAttachedObjects() != 0)
 			{
 				Ogre::SceneNode* newChildNode = findSceneNodeObject(_newNode, _fromNode->getChild(i)->getName());
@@ -564,7 +564,7 @@ namespace MyGUI
 			//System::Console::WriteLine("Minimum({0}), Maximum({1})",
 			//	gcnew System::String(Ogre::StringConverter::toString(box.getMinimum()).c_str()),
 			//	gcnew System::String(Ogre::StringConverter::toString(box.getMaximum()).c_str()));
-			
+
 			//box.getCenter();
 			Ogre::Vector3 vec = box.getSize();
 
@@ -689,8 +689,8 @@ namespace MyGUI
 	{
 		Ogre::Matrix4 mat = (mRttCam->getProjectionMatrix() * mRttCam->getViewMatrix(true));
 		Ogre::Vector4 Point = mat * Ogre::Vector4(_world.x, _world.y, _world.z, 1);
-		_screen.x = (Point.x / Point.w + 1) * 0.5; 
-		_screen.y = 1 - (Point.y / Point.w + 1) * 0.5; 
+		_screen.x = (Point.x / Point.w + 1) * 0.5;
+		_screen.y = 1 - (Point.y / Point.w + 1) * 0.5;
 		float Depth = Point.z / Point.w;
 		return (Depth >= 0.0f && Depth <= 1.0f);
 	}

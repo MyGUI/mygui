@@ -20,8 +20,8 @@ namespace MyGUI
 	MultiList::MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mHeightButton(0),
-		mButtonMain(null),
 		mWidthBar(0),
+		mButtonMain(null),
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
 		mSortColumnIndex(ITEM_NONE),
@@ -77,7 +77,7 @@ namespace MyGUI
 		if (_column == ITEM_NONE) _column = mVectorColumnInfo.size();
 
 		// скрываем у крайнего скролл
-		if (false == mVectorColumnInfo.empty()) 
+		if (false == mVectorColumnInfo.empty())
 			mVectorColumnInfo.back().list->setScrollVisible(false);
 		else mSortColumnIndex = 0;
 
@@ -460,7 +460,7 @@ namespace MyGUI
 			for (size_t i=0;i<(count-step);i++)
 			{
 				first=i;
-				while (first>=0) 
+				while (first>=0)
 				{
 					last = first+step;
 					if (compare(list, first, last))

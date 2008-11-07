@@ -80,20 +80,20 @@ namespace MyGUI
 	EditText::EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetText(_info.coord, _info.align, _parent),
 		mEmptyView(false),
-		mCurrentCoord(_info.coord),
-		mTextOutDate(false),
 		mCurrentColour(0x00FFFFFF), mInverseColour(0x00000000),
 		mCurrentAlpha(0xFF000000),
+		mCurrentCoord(_info.coord),
+		mTextOutDate(false),
+		mTextAlign(Align::Default),
 		mColour(Ogre::ColourValue::White),
 		mAlpha(ALPHA_MAX),
 		mFontHeight(0),
-		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
-		mItemKeeper(null),
-		mRenderItem(null),
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mTextAlign(Align::Default),
+		mItemKeeper(null),
+		mRenderItem(null),
+		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mShiftText(false),
 		mBreakLine(false),
 		mOldWidth(0)
@@ -447,7 +447,7 @@ namespace MyGUI
 		mManualView = true;
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
-		
+
 	IntPoint EditText::getViewOffset()
 	{
 		return mViewOffset;
@@ -468,8 +468,9 @@ namespace MyGUI
 		float real_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
 		float real_width = (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
 		float real_height = (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
-		float real_right = real_left + real_width;
-		float real_bottom = real_top - real_height;
+		// UNUSED!!!
+		// float real_right = real_left + real_width;
+		// float real_bottom = real_top - real_height;
 
 		float margin_left = (mMargin.left * mManager->getPixScaleX() * 2);
 		float margin_right = (mMargin.right * mManager->getPixScaleX() * 2);
@@ -620,8 +621,9 @@ namespace MyGUI
 		float real_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
 		float real_width = (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
 		float real_height = (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
-		float real_right = real_left + real_width;
-		float real_bottom = real_top - real_height;
+		// UNUSED !!!
+		// float real_right = real_left + real_width;
+		// float real_bottom = real_top - real_height;
 
 		float margin_left = (mMargin.left * mManager->getPixScaleX() * 2);
 		float margin_right = (mMargin.right * mManager->getPixScaleX() * 2);
@@ -737,7 +739,7 @@ namespace MyGUI
 			position += info.count;
 
 		}
-		
+
 		return IntCoord();
 	}
 
@@ -997,11 +999,11 @@ namespace MyGUI
 
 				// если нужно рисуем выделение
 				if (select) {
-					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 						background_current.left, background_current.top, background_current.left, background_current.top, vertex_count);
 				}
 
-				__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+				__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 					texture_left, texture_top, texture_right, texture_bottom, vertex_count);
 
 				// отрисовка курсора
@@ -1012,7 +1014,7 @@ namespace MyGUI
 						// первая половинка белая
 						colour_current |= 0x00FFFFFF;
 
-						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 							mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
 						vertex_left = vertex_right;
@@ -1021,7 +1023,7 @@ namespace MyGUI
 						// вторая половинка черная
 						colour_current = colour_current & 0xFF000000;
 
-						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 							mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
 					}
@@ -1040,7 +1042,7 @@ namespace MyGUI
 					// первая половинка белая
 					colour_current |= 0x00FFFFFF;
 
-					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 						mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
 					vertex_left = vertex_right;
@@ -1049,7 +1051,7 @@ namespace MyGUI
 					// вторая половинка черная
 					colour_current = colour_current & 0xFF000000;
 
-					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current, 
+					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 						mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 				}
 			}
@@ -1058,7 +1060,7 @@ namespace MyGUI
 			position += info.count;
 
 		}
-		
+
 		// колличество реально отрисованных вершин
 		return vertex_count;
 	}
@@ -1235,7 +1237,7 @@ namespace MyGUI
 		if (width < len) width = len;
 
 		// устанавливаем размер текста
-		mContextSize.set(width, (float)mLinesInfo.size() * mFontHeight);
+		mContextSize.set(int(width), int(mLinesInfo.size() * mFontHeight));
 		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}
 

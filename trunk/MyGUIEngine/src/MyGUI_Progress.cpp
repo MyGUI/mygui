@@ -23,11 +23,12 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mTrackWidth(1),
 		mTrackStep(0),
-		mRange(0), mEndPosition(0), mStartPosition(0),
+		mTrackMin(0),
+		mRange(0),
+		mStartPosition(0),mEndPosition(0),
 		mAutoTrack(false),
 		mFillTrack(false),
-		mStartPoint(Align::Left),
-		mTrackMin(0)
+		mStartPoint(Align::Left)
 	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Client") {
@@ -104,7 +105,7 @@ namespace MyGUI
 		if (pos > (mRange + PROGRESS_AUTO_WIDTH)) mAutoPosition = 0.0f;
 
 		if (pos > mRange) mEndPosition = mRange;
-		else mEndPosition = mAutoPosition;
+		else mEndPosition = size_t(mAutoPosition);
 
 		if (pos < PROGRESS_AUTO_WIDTH) mStartPosition = 0;
 		else mStartPosition = pos - PROGRESS_AUTO_WIDTH;

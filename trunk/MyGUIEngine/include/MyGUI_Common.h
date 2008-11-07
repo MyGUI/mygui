@@ -38,7 +38,7 @@ namespace MyGUI
 
 	// just other number
 	#define ERR_MY_GUI Ogre::Exception::ERR_NOT_IMPLEMENTED+1
-	static MyGUIException createException(
+	static inline MyGUIException createException(
 			Ogre::ExceptionCodeType<ERR_MY_GUI> code,
 			const Ogre::String& desc,
 			const Ogre::String& src, const char* file, long line)
@@ -83,10 +83,15 @@ namespace MyGUI
 		#define MYGUI_DEBUG_ASSERT(exp, dest) ((void)0)
 	#endif
 
+
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 		#define MYGUI_OBSOLETE(text) __declspec(deprecated(text))
 	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
-		#define MYGUI_OBSOLETE(text) __attribute__((deprecated))
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX && MYGUI_COMP_VER == 412
+			#define MYGUI_OBSOLETE(text)
+		#else
+			#define MYGUI_OBSOLETE(text) __attribute__((deprecated))
+		#endif
 	#else
 		#define MYGUI_OBSOLETE(text)
 	#endif

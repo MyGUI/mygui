@@ -199,15 +199,15 @@ namespace MyGUI
 							size_t start = iter - line.begin();
 							size_t len = (iter2 - line.begin()) - start - 1;
 							const Ogre::UTFString & tag = line.substr(start + 1, len);
-							
+
 							MapLanguageString::iterator replace = mMapLanguage.find(tag);
 							if (replace == mMapLanguage.end()) {
-								iter = line.insert(iter, '#') + len + 2;
+								iter = line.insert(iter, '#') + size_t(len + 2);
 								end = line.end();
 								break;
 							}
 							else {
-								iter = line.erase(iter-1, iter2+1);
+								iter = line.erase(iter - size_t(1), iter2 + size_t(1));
 								size_t pos = iter - line.begin();
 								line.insert(pos, replace->second);
 								iter = line.begin() + pos + replace->second.length();
@@ -237,4 +237,4 @@ namespace MyGUI
 		return iter->second;
 	}
 
-} // namespace MyGUI	
+} // namespace MyGUI

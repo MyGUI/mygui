@@ -228,10 +228,10 @@ namespace MyGUI
 	{
 		if (null == _parent) {
 			const IntSize & size = Gui::getInstance().getViewSize();
-			return IntCoord(_coord.left * (float)size.width, _coord.top * (float)size.height, _coord.width * (float)size.width, _coord.height * (float)size.height);
+			return IntCoord(int(_coord.left * size.width), int(_coord.top * size.height), int(_coord.width * size.width), int(_coord.height * size.height));
 		}
 		const IntCoord& coord = _parent->getClientCoord();
-		return IntCoord(_coord.left * coord.width, _coord.top * coord.height, _coord.width * coord.width, _coord.height * coord.height);
+		return IntCoord(int(_coord.left * coord.width), int(_coord.top * coord.height), int(_coord.width * coord.width), int(_coord.height * coord.height));
 	}
 
 	FloatCoord WidgetManager::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)

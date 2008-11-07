@@ -18,6 +18,8 @@ namespace MyGUI
 	class _MyGUIExport ISubWidgetFactory
 	{
 	public:
+		virtual ~ISubWidgetFactory() {};
+
 		virtual const std::string & getTypeName() = 0;
 		virtual ISubWidget * createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent) = 0;
 		virtual StateInfo * createData(xml::xmlNodePtr _node, xml::xmlNodePtr _root) = 0;

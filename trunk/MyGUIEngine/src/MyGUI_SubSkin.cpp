@@ -24,9 +24,9 @@ namespace MyGUI
 	SubSkin::SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetRect(_info.coord, _info.align, _parent),
 		mEmptyView(false),
-		mRenderItem(null),
+		mCurrentAlpha(0xFFFFFFFF),
 		mCurrentCoord(_info.coord),
-		mCurrentAlpha(0xFFFFFFFF)
+		mRenderItem(null)
 	{
 		mManager = LayerManager::getInstancePtr();
 	}
@@ -204,7 +204,7 @@ namespace MyGUI
 		_vertex[0].colour = mCurrentAlpha;
 		_vertex[0].u = mCurrentTexture.left;
 		_vertex[0].v = mCurrentTexture.top;
-		
+
 
 		// first triangle - left bottom
 		_vertex[1].x = vertex_left;

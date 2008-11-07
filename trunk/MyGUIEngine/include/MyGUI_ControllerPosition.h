@@ -25,7 +25,7 @@ namespace MyGUI
 			Inertional //!< Start with zero speed increasing half time and then decreasing to zero
 		};
 
-		/** 
+		/**
 			@param _destRect destination coordinate
 			@param _time seconds in which widget will reach destination coordinate
 			@param _mode of moving (see ControllerPosition::MoveMode)
@@ -33,7 +33,7 @@ namespace MyGUI
 		ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode);
 		ControllerPosition(const IntSize & _destSize, float _time, MoveMode _mode);
 		ControllerPosition(const IntPoint & _destPoint, float _time, MoveMode _mode);
-		/** 
+		/**
 			@param _destRect destination coordinate
 			@param _time seconds in which widget planned to reach destination coordinate
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
@@ -41,14 +41,6 @@ namespace MyGUI
 		ControllerPosition(const IntCoord & _destRect, float _time, FrameAction _action);
 
 	private:
-		/** Event : Every frame action while controller exist.\n
-			signature : void method(const IntRect & _startRect, const IntRect & _destRect, IntRect & _result, float _current_time)\n
-			@param _startRect start coordinate of widget
-			@param _destRect destination coordinate
-			@param _result resultRect
-			@param _current_time elapsed time (_current_time is real elapsed time divided by _time(see constructor) so _current_time == 1 mean that elapsed _time seconds)
-		*/
-		FrameAction eventFrameAction;
 
 		const std::string & getType();
 		bool addTime(WidgetPtr _widget, float _time);
@@ -64,6 +56,15 @@ namespace MyGUI
 
 		bool mCalcPosition;
 		bool mCalcSize;
+
+		/** Event : Every frame action while controller exist.\n
+			signature : void method(const IntRect & _startRect, const IntRect & _destRect, IntRect & _result, float _current_time)\n
+			@param _startRect start coordinate of widget
+			@param _destRect destination coordinate
+			@param _result resultRect
+			@param _current_time elapsed time (_current_time is real elapsed time divided by _time(see constructor) so _current_time == 1 mean that elapsed _time seconds)
+		*/
+		FrameAction eventFrameAction;
 	};
 
 }
