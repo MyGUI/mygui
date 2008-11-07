@@ -254,11 +254,13 @@ namespace MyGUI
 				// сбрасываем захват
 				mIsWidgetMouseCapture = false;
 
-				// после вызова, виджет может быть удален
+				// после вызова, виджет может быть сброшен
 				if (null != mWidgetMouseFocus) {
 
 					if ((MB_Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
-						mWidgetMouseFocus->onMouseButtonDoubleClick();
+						mWidgetMouseFocus->onMouseButtonClick();
+						// после вызова, виджет может быть сброшен
+						if (null != mWidgetMouseFocus) mWidgetMouseFocus->onMouseButtonDoubleClick();
 					}
 					else {
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
