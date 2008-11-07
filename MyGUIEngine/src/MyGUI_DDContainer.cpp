@@ -14,13 +14,13 @@ namespace MyGUI
 
 	DDContainer::DDContainer(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mNeedDragDrop(false),
 		mDropResult(false),
-		mStartDrop(false),
 		mNeedDrop(false),
+		mStartDrop(false),
 		mOldDrop(null),
 		mCurrentSender(null),
 		mDropSenderIndex(ITEM_NONE),
+		mNeedDragDrop(false),
 		mReseiverContainer(null)
 	{
 	}

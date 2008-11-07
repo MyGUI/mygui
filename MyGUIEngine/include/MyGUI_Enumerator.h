@@ -77,9 +77,9 @@ namespace MyGUI
 		typename T::const_reference current() { assert(m_current != m_end); return (*m_current); }
 
 	private:
+		bool m_first;
 		typename T::const_iterator m_current;
 		typename T::const_iterator m_end;
-		bool m_first;
 	};
 
 } // namespace MyGUI

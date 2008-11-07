@@ -21,12 +21,12 @@ namespace MyGUI
 
 		ItemInfo(size_t _index, size_t _select, size_t _active, size_t _accept, size_t _refuse, bool _update, bool _drag) :
 			index(_index),
+			update(_update),
 			select(_index == _select),
 			active(_index == _active),
+			drag(_drag),
 			drag_accept(_index == _accept),
-			drag_refuse(_index == _refuse),
-			update(_update),
-			drag(_drag)
+			drag_refuse(_index == _refuse)
 		{
 		}
 

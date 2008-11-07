@@ -62,10 +62,7 @@ namespace MyGUI
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);
 
-		void _windowResized(const FloatSize& _size);
-
-		/** Get view size of GUI area*/
-		const FloatSize& getViewSize() { return mViewSize; }
+		void _windowResized(const IntSize& _size);
 
 		/** Get maximum depth */
 		float getMaximumDepth() { return mMaximumDepth; }
@@ -104,8 +101,6 @@ namespace MyGUI
 
 	private:
 		VectorLayerKeeperPtr mLayerKeepers;
-
-		FloatSize mViewSize;
 
 		// флаг для обновления всех и вся
 		bool mUpdate;

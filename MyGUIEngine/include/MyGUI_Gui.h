@@ -97,9 +97,9 @@ namespace MyGUI
 		/** Get height of GUI area */
 		int getViewHeight() { return mViewSize.height; }
 		/** Get aspect of GUI area */
-		float getViewAspect() { return mViewSize.width / mViewSize.height; }
+		float getViewAspect() { return float(mViewSize.width) / mViewSize.height; }
 		/** Get view size of GUI area */
-		IntSize getViewSize() { return IntSize(mViewSize.width, mViewSize.height); }
+		IntSize getViewSize() { return mViewSize; }
 
 		/** Add or remove GUI frame listener */
 		FrameEventDelegate eventFrameStart;
@@ -250,7 +250,7 @@ namespace MyGUI
 		// удал€ет всех детей
 		void _destroyAllChildWidget();
 
-		void _alignWidget(WidgetPtr _widget, const FloatSize& _old, const FloatSize& _new);
+		void _alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new);
 
 		virtual void _unlinkWidget(WidgetPtr _widget);
 
@@ -259,7 +259,7 @@ namespace MyGUI
 		VectorWidgetPtr mWidgetChild;
 
 		// размеры экрана
-		FloatSize mViewSize;
+		IntSize mViewSize;
 
 		// синглтоны гу€
 		InputManager * mInputManager;

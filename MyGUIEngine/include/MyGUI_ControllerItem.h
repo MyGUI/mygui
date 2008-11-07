@@ -17,6 +17,7 @@ namespace MyGUI
 	class _MyGUIExport ControllerItem
 	{
 	public:
+		virtual ~ControllerItem() {};
 
 		virtual void prepareItem(WidgetPtr _widget) = 0;
 		//virtual void replaseItem(WidgetPtr _widget, ControllerItem * _item) = 0;

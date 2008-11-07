@@ -105,8 +105,8 @@ namespace MyGUI
 			xmlNodePtr currentNode() { assert(m_current != m_end); return (*m_current); }
 
 		private:
-			VectorNode::iterator m_current, m_end;
 			bool m_first;
+			VectorNode::iterator m_current, m_end;
 		};
 
 

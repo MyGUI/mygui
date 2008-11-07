@@ -24,6 +24,7 @@ namespace MyGUI
 
 	public:
 		LayerItem() : mLayerKeeper(null), mLayerItemKeeper(null) {};
+		virtual ~LayerItem() {};
 
 	private:
 		virtual LayerItem * _findLayerItem(int _left, int _top) = 0;

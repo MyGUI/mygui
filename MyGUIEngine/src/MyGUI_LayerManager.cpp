@@ -207,14 +207,12 @@ namespace MyGUI
 
 	}
 
-	void LayerManager::_windowResized(const FloatSize& _size)
+	void LayerManager::_windowResized(const IntSize& _size)
 	{
 		// новый размер
-		mViewSize = _size;
-
 		mPixScaleX = 1.0 / _size.width;
 		mPixScaleY = 1.0 / _size.height;
-		mAspectCoef = _size.height / _size.width;
+		mAspectCoef = float(_size.height) / _size.width;
 
 		Ogre::RenderSystem * render = Ogre::Root::getSingleton().getRenderSystem();
 

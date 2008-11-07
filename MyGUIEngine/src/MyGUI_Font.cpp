@@ -31,13 +31,14 @@ namespace MyGUI
 		: Ogre::Resource (creator, name, handle, group, isManual, loader),
 		mTtfSize(0),
 		mTtfResolution(0),
+		mDistance(0),
 		mSpaceWidth(0),
 		mTabWidth(0),
 		mCursorWidth(0),
-		mDistance(0),
-		mAntialiasColour(false),
+		mOffsetHeight(0),
 		mDefaultHeight(0),
-		mHeightPix(0)
+		mHeightPix(0),
+		mAntialiasColour(false)
     {
     }
     //---------------------------------------------------------------------

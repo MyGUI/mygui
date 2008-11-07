@@ -22,19 +22,19 @@ namespace MyGUI
 	Tab::Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mOffsetTab(0),
-		mWidgetBar(null),
-		mButtonLeft(null), mButtonRight(null), mButtonList(null),
-		mEmptyBarWidget(null),
-		mSheetTemplate(null),
 		mButtonShow(false),
 		mWidthBar(0),
+		mWidgetBar(null),
+		mButtonLeft(null), mButtonRight(null), mButtonList(null),
+		mButtonDecor(null),
+		mEmptyBarWidget(null),
+		mSheetTemplate(null),
 		mStartIndex(0),
 		mIndexSelect(ITEM_NONE),
 		mButtonDefaultWidth(1),
-		mButtonAutoWidth(true),
 		mSmoothShow(true),
-		mShutDown(false),
-		mButtonDecor(null)
+		mButtonAutoWidth(true),
+		mShutDown(false)
 	{
 
 		// парсим свойства
@@ -195,7 +195,7 @@ namespace MyGUI
 			if (width > mWidgetBar->getWidth()) break;
 
 			// следующая не влазиет
-			TabSheetInfo & info = mItemsInfo[pos]; 
+			TabSheetInfo & info = mItemsInfo[pos];
 			if ((width + info.width) > mWidgetBar->getWidth()) {
 				break;
 			}
@@ -383,7 +383,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemNameAt");
 		mItemsInfo[_index].name = _name;
 
-		int width; 
+		int width;
 		if (mButtonAutoWidth) width = _getTextWidth(_name);
 		else width = mButtonDefaultWidth;
 
@@ -462,7 +462,7 @@ namespace MyGUI
 		if (mShutDown) return;
 
 		size_t index = getItemIndex(_sheet);
-		
+
 		mWidthBar -= mItemsInfo[index].width;
 		mItemsInfo.erase(mItemsInfo.begin() + index);
 

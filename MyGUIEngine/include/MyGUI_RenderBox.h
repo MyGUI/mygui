@@ -178,7 +178,8 @@ namespace MyGUI
 
 		Ogre::AnimationState * mEntityState;
 
-		float mScale, mCurrentScale;
+		float mScale;
+		float mCurrentScale;
 		bool mUseScale;
 
 		typedef std::vector<Ogre::Entity*> VectorEntity;
