@@ -32,9 +32,9 @@ namespace MyGUI
 		float getCoef() {return mCoef;}
 
 	private:
-		bool mEnabled;
 		float mAlpha;
 		float mCoef;
+		bool mEnabled;
 
 	};
 

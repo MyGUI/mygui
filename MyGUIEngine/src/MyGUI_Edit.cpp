@@ -48,6 +48,7 @@ namespace MyGUI
 		mModeMultiline(false),
 		mModeStatic(false),
 		mModeWordWrap(false),
+		mTabPrinting(false),
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
@@ -56,8 +57,7 @@ namespace MyGUI
 		mShowHScroll(true),
 		mShowVScroll(true),
 		mVRange(0),
-		mHRange(0),
-		mTabPrinting(false)
+		mHRange(0)
 	{
 
 		mOriginalPointer = mPointer;
@@ -196,7 +196,7 @@ namespace MyGUI
 		Ogre::UTFString text = this->getOnlyText();
 		Ogre::UTFString::reverse_iterator iterBack = text.rend() - cursorPosition;
 		Ogre::UTFString::iterator iterForw = text.begin() + cursorPosition;
-		
+
 		while (iterBack != text.rend())
 		{
 			if (((*iterBack)<265) && (ispunct(*iterBack) || isspace(*iterBack))) break;
@@ -1340,12 +1340,12 @@ namespace MyGUI
 				if (cursor.left < view.left) {
 					offset.left = point.left - (view.left - cursor.left);
 					// добавляем смещение, только если курсор не перепрыгнет
-					if ((view.width() - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left -= EDIT_OFFSET_HORZ_CURSOR;
+					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left -= int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 				else if (cursor.right > view.right) {
 					offset.left = point.left + (cursor.right - view.right);
 					// добавляем смещение, только если курсор не перепрыгнет
-					if ((view.width() - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left += EDIT_OFFSET_HORZ_CURSOR;
+					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left += int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 			}
 
@@ -1408,7 +1408,7 @@ namespace MyGUI
 				offset.top = (textSize.height - view.height()) / 2;
 			}
 		}
-		
+
 		if (offset != point) {
 			mText->setViewOffset(offset);
 			if (null != mVScroll) mVScroll->setScrollPosition(offset.top);
@@ -1539,13 +1539,13 @@ namespace MyGUI
 			mVScroll->setScrollPage(page);
 			mVScroll->setScrollViewPage(mCoord.width > (int)page ? mCoord.width : page);
 			mVScroll->setScrollRange(mVRange + 1);
-			if (textSize.height) mVScroll->setTrackSize(1. * mVScroll->getLineSize() * mText->getHeight() / textSize.height);
+			if (textSize.height) mVScroll->setTrackSize(int (float(mVScroll->getLineSize() * mText->getHeight()) / float(textSize.height)));
 		}
 		if (mHScroll != null) {
 			mHScroll->setScrollPage(page);
 			mHScroll->setScrollViewPage(mCoord.height > (int)page ? mCoord.height : page);
 			mHScroll->setScrollRange(mHRange + 1);
-			if (textSize.width) mHScroll->setTrackSize(1. * mHScroll->getLineSize() * mText->getWidth() / textSize.width);
+			if (textSize.width) mHScroll->setTrackSize(int (float(mHScroll->getLineSize() * mText->getWidth()) / float(textSize.width)));
 		}
 
 	}

@@ -219,7 +219,7 @@ namespace MyGUI
 	// для оповещений об изменении окна рендера
 	void Gui::windowResized(Ogre::RenderWindow* rw)
 	{
-		FloatSize oldViewSize = mViewSize;
+		IntSize oldViewSize = mViewSize;
 
 		Ogre::Viewport * port = rw->getViewport(mActiveViewport);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
@@ -246,10 +246,10 @@ namespace MyGUI
 		mWidgetManager->destroyWidgets(_widgets);
 	}
 
-	void Gui::_alignWidget(WidgetPtr _widget, const FloatSize& _old, const FloatSize& _new)
+	void Gui::_alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new)
 	{
 		if (null == _widget) return;
-		
+
 		Align align = _widget->getAlign();
 		if (align.isDefault()) return;
 

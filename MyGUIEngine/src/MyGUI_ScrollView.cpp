@@ -20,8 +20,8 @@ namespace MyGUI
 
 	ScrollView::ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mIsPressed(false),
 		mIsFocus(false),
+		mIsPressed(false),
 		mVScroll(null),
 		mHScroll(null),
 		mShowHScroll(true),
@@ -204,7 +204,7 @@ namespace MyGUI
 				offset.top = (size.height - mWidgetClient->getHeight()) / 2;
 			}
 		}
-		
+
 		if (offset != point) {
 			if (null != mVScroll) mVScroll->setScrollPosition(offset.top);
 			if (null != mHScroll) mHScroll->setScrollPosition(offset.left);
@@ -335,13 +335,13 @@ namespace MyGUI
 			mVScroll->setScrollPage(page);
 			mVScroll->setScrollViewPage(mCoord.width > (int)page ? mCoord.width : page);
 			mVScroll->setScrollRange(mVRange + 1);
-			if (size.height) mVScroll->setTrackSize(1. * mVScroll->getLineSize() * mWidgetClient->getHeight() / size.height);
+			if (size.height) mVScroll->setTrackSize( int( float(mVScroll->getLineSize()) * float(mWidgetClient->getHeight()) / float(size.height) ));
 		}
 		if (mHScroll != null) {
 			mHScroll->setScrollPage(page);
 			mHScroll->setScrollViewPage(mCoord.height > (int)page ? mCoord.height : page);
 			mHScroll->setScrollRange(mHRange + 1);
-			if (size.width) mHScroll->setTrackSize(1. * mHScroll->getLineSize() * mWidgetClient->getWidth() / size.width);
+			if (size.width) mHScroll->setTrackSize( int( float(mHScroll->getLineSize()) * float(mWidgetClient->getWidth()) / float(size.width) ));
 		}
 
 	}

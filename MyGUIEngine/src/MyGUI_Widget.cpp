@@ -29,29 +29,29 @@ namespace MyGUI
 
 	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		ICroppedRectangle(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
-		mOwner(static_cast<Widget*>(_parent)),
-		UserData(),
 		LayerItem(),
+		UserData(),
 		mStateInfo(_info->getStateInfo()),
 		mMaskPeekInfo(_info->getMask()),
 		mText(null),
+		mMainSkin(null),
 		mEnabled(true),
 		mVisible(true),
 		mInheritedShow(true),
 		mAlpha(ALPHA_MIN),
+		mInheritsAlpha(true),
 		mName(_name),
 		mTexture(_info->getTextureName()),
-		mMainSkin(null),
+		mOwner(static_cast<Widget*>(_parent)),
 		mIWidgetCreator(_creator),
-		mInheritsAlpha(true),
-		mInheritsPeek(false),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
+		mInheritsPeek(false),
 		mWidgetClient(null),
 		mNeedToolTip(false),
 		mEnableToolTip(true),
-		mToolTipCurrentTime(0),
 		mToolTipVisible(false),
+		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE)
 	{
 		// корректируем абсолютные координаты
@@ -559,7 +559,7 @@ namespace MyGUI
 			(*skin)->_destroyDrawItem();
 		}
 
-		// очищаем 
+		// очищаем
 		setLayerItemKeeper(null);
 	}
 

@@ -23,18 +23,18 @@ namespace MyGUI
 
 	RawRect::RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		SubSkin(_info, _parent),
-		mRenderColourLT(0xFFFFFFFF),
-		mRenderColourRT(0xFFFFFFFF),
-		mRenderColourLB(0xFFFFFFFF),
-		mRenderColourRB(0xFFFFFFFF),
+		mRectTextureLT(FloatPoint(0, 0)),
+		mRectTextureRT(FloatPoint(1, 0)),
+		mRectTextureLB(FloatPoint(0, 1)),
+		mRectTextureRB(FloatPoint(1, 1)),
 		mColourLT(Ogre::ColourValue::White),
 		mColourRT(Ogre::ColourValue::White),
 		mColourLB(Ogre::ColourValue::White),
 		mColourRB(Ogre::ColourValue::White),
-		mRectTextureLT(FloatPoint(0, 0)),
-		mRectTextureRT(FloatPoint(1, 0)),
-		mRectTextureLB(FloatPoint(0, 1)),
-		mRectTextureRB(FloatPoint(1, 1))
+		mRenderColourLT(0xFFFFFFFF),
+		mRenderColourRT(0xFFFFFFFF),
+		mRenderColourLB(0xFFFFFFFF),
+		mRenderColourRB(0xFFFFFFFF)
 	{
 	}
 
@@ -110,7 +110,7 @@ namespace MyGUI
 		_vertex[0].colour = mRenderColourLT;
 		_vertex[0].u = mRectTextureLT.left;
 		_vertex[0].v = mRectTextureLT.top;
-		
+
 		// first triangle - left bottom
 		_vertex[1].x = vertex_left;
 		_vertex[1].y = vertex_bottom;

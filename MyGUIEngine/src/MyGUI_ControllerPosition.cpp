@@ -13,31 +13,31 @@
 
 namespace MyGUI
 {
+
+
+	inline void MoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _k){
+		_result.set(_startRect.left   - int( float(_startRect.left   - _destRect.left)   * _k ),
+					_startRect.top    - int( float(_startRect.top    - _destRect.top)    * _k ),
+					_startRect.width  - int( float(_startRect.width  - _destRect.width)  * _k ),
+					_startRect.height - int( float(_startRect.height - _destRect.height) * _k )
+		);
+	};
+
 	void LinearMoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
 	{
-		float k = _current_time;
-		_result.set(_startRect.left - (_startRect.left - _destRect.left) * k,
-			            _startRect.top - (_startRect.top - _destRect.top) * k,
-								  _startRect.width - (_startRect.width - _destRect.width) * k,
-								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		MoveFunction(_startRect, _destRect, _result, _current_time);
 	}
 
 	void AcceleratedMoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
 	{
 		float k = pow (_current_time, (float)3);
-		_result.set(_startRect.left - (_startRect.left - _destRect.left) * k,
-			            _startRect.top - (_startRect.top - _destRect.top) * k,
-								  _startRect.width - (_startRect.width - _destRect.width) * k,
-								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		MoveFunction(_startRect, _destRect, _result, k);
 	}
 
 	void SlowedMoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
 	{
 		float k = pow (_current_time, (float)0.4);
-		_result.set(_startRect.left - (_startRect.left - _destRect.left) * k,
-			            _startRect.top - (_startRect.top - _destRect.top) * k,
-								  _startRect.width - (_startRect.width - _destRect.width) * k,
-								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		MoveFunction(_startRect, _destRect, _result, k);
 	}
 
 	void InertionalMoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
@@ -48,10 +48,7 @@ namespace MyGUI
 		float k = sin(M_PI * _current_time - M_PI/2);
 		if (k<0) k = (-pow((-k), (float)0.7) + 1)/2;
 		else k = (pow((k), (float)0.7) + 1)/2;
-		_result.set(_startRect.left - (_startRect.left - _destRect.left) * k,
-			            _startRect.top - (_startRect.top - _destRect.top) * k,
-								  _startRect.width - (_startRect.width - _destRect.width) * k,
-								  _startRect.height - (_startRect.height - _destRect.height) * k);
+		MoveFunction(_startRect, _destRect, _result, k);
 	}
 
 	ControllerPosition::ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode) :
@@ -91,7 +88,7 @@ namespace MyGUI
 	}
 
 	ControllerPosition::ControllerPosition(const IntCoord & _destRect, float _time, FrameAction _action) :
-		mDestRect(_destRect), mTime(_time), eventFrameAction(_action), mElapsedTime(0.)
+		mDestRect(_destRect), mTime(_time), mElapsedTime(0.), eventFrameAction(_action)
 	{
 	}
 
@@ -133,7 +130,7 @@ namespace MyGUI
 
 			// вызываем пользовательский делегат обновления
 			eventUpdateAction(_widget);
-			
+
 			return true;
 		}
 

@@ -24,7 +24,7 @@ namespace MyGUI
 	{
 
 	public:
-
+		virtual ~DrawItem() {};
 		virtual size_t _drawItem(Vertex * _vertex, bool _update) = 0;
 
 	};

@@ -40,25 +40,25 @@ namespace MyGUI
 	{
 		enum
 		{
-			HCenter = MYGUI_FLAG_NONE,
-			VCenter = MYGUI_FLAG_NONE,
-			Center = HCenter | VCenter,
+			HCenter = MYGUI_FLAG_NONE,		/**< centre horizontally */
+			VCenter = MYGUI_FLAG_NONE,		/**< centre vertically */
+			Center = HCenter | VCenter,		/**< center in the dead center */
 
-			Left = MYGUI_FLAG(1),
-			Right = MYGUI_FLAG(2),
-			HStretch = Left | Right,
+			Left = MYGUI_FLAG(1),			/**< align from the left (and center vertically) */
+			Right = MYGUI_FLAG(2),			/**< align from the right (and center vertically) */
+			HStretch = Left | Right,		/**< stretch horizontally proportionate to parent window (and center vertically) */
 
-			Top = MYGUI_FLAG(3),
-			Bottom = MYGUI_FLAG(4),
-			VStretch = Top | Bottom,
+			Top = MYGUI_FLAG(3),			/**< align from the top (and center horizontally) */
+			Bottom = MYGUI_FLAG(4),			/**< align from the bottom (and center horizontally) */
+			VStretch = Top | Bottom,		/**< stretch vertically proportionate to parent window (and center horizontally) */
 
-			Stretch = HStretch | VStretch,
-			Default = Left | Top,
+			Stretch = HStretch | VStretch,	/**< stretch proportionate to parent window */
+			Default = Left | Top,			/**< default align (align from left and top) */
 
-			LeftTop = Left | Top,
-			RightTop = Right | Top,
-			RightBottom = Right | Bottom,
-			LeftBottom = Left | Bottom
+			LeftTop = Left | Top,			/**< align from left and top */
+			RightTop = Right | Top,			/**< align from right and top */
+			RightBottom = Right | Bottom,	/**< align from right and bottom */
+			LeftBottom = Left | Bottom		/**< align from left and bottom */
 		};
 
 		Align() : align(Default) { }

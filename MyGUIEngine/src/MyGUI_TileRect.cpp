@@ -24,17 +24,17 @@ namespace MyGUI
 	TileRect::TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetRect(_info.coord, _info.align, _parent),
 		mEmptyView(false),
-		mRenderItem(null),
-		mCurrentCoord(_info.coord),
 		mCurrentAlpha(0xFFFFFFFF),
+		mCurrentCoord(_info.coord),
+		mRenderItem(null),
 		mTileSize(_info.coord.size()),
 		mCountVertex(TILERECT_COUNT_VERTEX),
 		mTileH(true),
 		mTileV(true)
 	{
-		MapString::const_iterator iter = _info.properties.find("TileH"); 
+		MapString::const_iterator iter = _info.properties.find("TileH");
 		if (iter != _info.properties.end()) mTileH = utility::parseBool(iter->second);
-		iter = _info.properties.find("TileV"); 
+		iter = _info.properties.find("TileV");
 		if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
 
 		mManager = LayerManager::getInstancePtr();
@@ -192,16 +192,18 @@ namespace MyGUI
 	{
 		if ((false == mShow) || mEmptyView) return 0;
 
-		//if (_update) 
+		//if (_update)
 			updateTextureData();
 
 		float vertex_z = mManager->getMaximumDepth();
 
 		// абсолютный размер окна
 		float window_left = ((mManager->getPixScaleX() * (float)(mCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		float window_right = window_left + (mManager->getPixScaleX() * (float)mCoord.width * 2);
+		// UNUSED
+		// float window_right = window_left + (mManager->getPixScaleX() * (float)mCoord.width * 2);
 		float window_top = -(((mManager->getPixScaleY() * (float)(mCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		float window_bottom = window_top - (mManager->getPixScaleY() * (float)mCoord.height * 2);
+		// UNUSED
+		// float window_bottom = window_top - (mManager->getPixScaleY() * (float)mCoord.height * 2);
 
 		// размер вьюпорта
 		float real_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
@@ -302,7 +304,7 @@ namespace MyGUI
 				_vertex[count].u = texture_left;
 				_vertex[count].v = texture_top;
 				count++;
-				
+
 				// first triangle - left bottom
 				_vertex[count].x = vertex_left;
 				_vertex[count].y = vertex_bottom;

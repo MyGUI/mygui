@@ -18,7 +18,7 @@ namespace MyGUI
 	struct MenuItemInfo
 	{
 		MenuItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _menu, Any _data) :
-			button(_button), separator(_separator), menu(_menu), data(_data)
+			button(_button), menu(_menu), separator(_separator), data(_data)
 		{
 		}
 

@@ -25,18 +25,18 @@ namespace MyGUI
 	GridCtrl::GridCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		DDContainer(_coord, _align, _info, _parent, _creator, _name),
 		mWidgetScroll(null),
-		mLineTop(0),
-		mOffsetTop(0),
-		mIsFocus(false),
-		mCountItems(0),
 		mScrollRange(0),
 		mScrollPosition(0),
+		mCountItems(0),
+		mLineTop(0),
+		mOffsetTop(0),
 		mIndexSelect(ITEM_NONE),
 		mIndexActive(ITEM_NONE),
 		mIndexAccept(ITEM_NONE),
 		mIndexRefuse(ITEM_NONE),
-		mAlignVert(true),
-		mItemDrag(null)
+		mIsFocus(false),
+		mItemDrag(null),
+		mAlignVert(true)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -74,7 +74,7 @@ namespace MyGUI
 
 		updateMetrics();
 		updateScroll();
-		
+
 	}
 
 	void GridCtrl::setPosition(const IntPoint & _point)
@@ -109,7 +109,8 @@ namespace MyGUI
 
 	void GridCtrl::updateFromResize(const IntSize& _size)
 	{
-		int old_count = mCountItemInLine;
+		// UNUSED ???
+		// int old_count = mCountItemInLine;
 		updateMetrics();
 		updateScroll();
 
@@ -166,7 +167,7 @@ namespace MyGUI
 					change = true;
 					mWidgetScroll->hide();
 					// увеличиваем клиентскую зону на ширину скрола
-					setWidgetSize(mWidgetClient, 
+					setWidgetSize(mWidgetClient,
 						getWidgetWidth(mWidgetClient, mAlignVert) + getWidgetWidth(mWidgetScroll, mAlignVert),
 						getWidgetHeight(mWidgetClient, mAlignVert), mAlignVert);
 				}
@@ -185,7 +186,7 @@ namespace MyGUI
 			updateMetrics();
 			mScrollRange = (mSizeItem.height * mCountLines) - getWidgetHeight(mWidgetClient, mAlignVert);
 		}
-		
+
 		// тестируем текущую позицию скролла
 		int count_pix = ((mCountLines - mLineTop) * mSizeItem.height) - mOffsetTop;
 
@@ -471,7 +472,7 @@ namespace MyGUI
 			if (mCountItems == 0) {
 				mIndexSelect = ITEM_NONE;
 			}
-			else if ((mIndexSelect > _index) || (mIndexSelect == mCountItems)) {
+			else if ((mIndexSelect > _index) || (mIndexSelect == mCountItems) ) {
 				mIndexSelect --;
 			}
 		}
