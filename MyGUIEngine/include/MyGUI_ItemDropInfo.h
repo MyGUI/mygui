@@ -51,10 +51,10 @@ namespace MyGUI
 	struct _MyGUIExport ItemDropInfo
 	{
 		ItemDropInfo() :
-			reseiver(null),
-			reseiver_index(ITEM_NONE),
 			sender(null),
-			sender_index(ITEM_NONE)
+			sender_index(ITEM_NONE),
+			reseiver(null),
+			reseiver_index(ITEM_NONE)
 		{
 		}
 
@@ -110,9 +110,9 @@ namespace MyGUI
 	{
 		DropWidgetState(size_t _index) :
 			index(_index),
+			update(true),
 			accept(false),
-			refuse(false),
-			update(true)
+			refuse(false)
 		{ }
 
 		// индекс этого элемента
