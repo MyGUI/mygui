@@ -57,17 +57,17 @@ namespace MyGUI
 	private:
 
 		void clear();
-		// создает виджет
+		// СЃРѕР·РґР°РµС‚ РІРёРґР¶РµС‚
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
-		// удяляет неудачника
+		// СѓРґСЏР»СЏРµС‚ РЅРµСѓРґР°С‡РЅРёРєР°
 		virtual void _destroyChildWidget(WidgetPtr _widget);
 
-		// удаляет всех детей
+		// СѓРґР°Р»СЏРµС‚ РІСЃРµС… РґРµС‚РµР№
 		virtual void _destroyAllChildWidget();
 
 	private:
-		// вектор всех детей виджетов
+		// РІРµРєС‚РѕСЂ РІСЃРµС… РґРµС‚РµР№ РІРёРґР¶РµС‚РѕРІ
 		VectorWidgetPtr mWidgetChild;
 
 		std::string mDefaultPointer;

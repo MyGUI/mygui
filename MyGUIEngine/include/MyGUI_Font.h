@@ -27,7 +27,7 @@ namespace MyGUI
 		typedef std::pair<CodePoint, CodePoint> PairCodePoint;
 		typedef std::vector<PairCodePoint> VectorPairCodePoint;
 
-		// информация об одном символе
+		// РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± РѕРґРЅРѕРј СЃРёРјРІРѕР»Рµ
 		struct GlyphInfo
 		{
 			CodePoint codePoint;
@@ -40,7 +40,7 @@ namespace MyGUI
 
 		typedef std::vector<GlyphInfo> VectorGlyphInfo;
 
-		// инфомация о диапазоне символов
+		// РёРЅС„РѕРјР°С†РёСЏ Рѕ РґРёР°РїР°Р·РѕРЅРµ СЃРёРјРІРѕР»РѕРІ
 		struct RangeInfo
 		{
 			CodePoint first;
@@ -82,15 +82,15 @@ namespace MyGUI
 		Ogre::uint16 mDefaultHeight;
 		Ogre::uint16 mHeightPix;
 
-		// отдельная информация о символах
+		// РѕС‚РґРµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРёРјРІРѕР»Р°С…
 		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
 
-		// символы которые не нужно рисовать
+		// СЃРёРјРІРѕР»С‹ РєРѕС‚РѕСЂС‹Рµ РЅРµ РЅСѓР¶РЅРѕ СЂРёСЃРѕРІР°С‚СЊ
 		VectorPairCodePoint mVectorHideCodePoint;
 
 	protected:
 
-		// вся информация о символах
+		// РІСЃСЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРёРјРІРѕР»Р°С…
 		VectorRangeInfo mVectorRangeInfo;
 
 		/// Texture pointer
@@ -140,7 +140,7 @@ namespace MyGUI
 			mVectorHideCodePoint.push_back(PairCodePoint((unsigned int)_first, (unsigned int)_second));
 		}
 
-		// проверяет, входит ли символ в зоны ненужных символов
+		// РїСЂРѕРІРµСЂСЏРµС‚, РІС…РѕРґРёС‚ Р»Рё СЃРёРјРІРѕР» РІ Р·РѕРЅС‹ РЅРµРЅСѓР¶РЅС‹С… СЃРёРјРІРѕР»РѕРІ
 		bool checkHidePointCode(CodePoint _id)
 		{
 			for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter) {
@@ -171,23 +171,23 @@ namespace MyGUI
 			when the Texture that this font creates needs to (re)load. */
 		void loadResource(Ogre::Resource* resource);
 
-		//ширина пробела в пикселях
+		//С€РёСЂРёРЅР° РїСЂРѕР±РµР»Р° РІ РїРёРєСЃРµР»СЏС…
 		CodePoint setSpaceWidth() {return mSpaceWidth;}
 		void setSpaceWidth(Ogre::uint8 _pix) {mSpaceWidth = _pix;}
 
-		// ширина таба в пикселях
+		// С€РёСЂРёРЅР° С‚Р°Р±Р° РІ РїРёРєСЃРµР»СЏС…
 		Ogre::uint8 getTabWidth() {return mTabWidth;}
 		void setTabWidth(Ogre::uint8 _pix) {mTabWidth = _pix;}
 
-		// ширина курсора в пикселях
+		// С€РёСЂРёРЅР° РєСѓСЂСЃРѕСЂР° РІ РїРёРєСЃРµР»СЏС…
 		Ogre::uint8 getCursorWidth() {return mCursorWidth;}
 		void setCursorWidth(Ogre::uint8 _pix) {mCursorWidth = _pix;}
 
-		// расстояние между символами при генерации в пикселях
+		// СЂР°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ СЃРёРјРІРѕР»Р°РјРё РїСЂРё РіРµРЅРµСЂР°С†РёРё РІ РїРёРєСЃРµР»СЏС…
 		Ogre::uint8 getDistance() {return mDistance;}
 		void setDistance(Ogre::uint8 _pix) {mDistance = _pix;}
 
-		// смещение всех символов по горизонтали
+		// СЃРјРµС‰РµРЅРёРµ РІСЃРµС… СЃРёРјРІРѕР»РѕРІ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё
 		Ogre::uint8 getOffsetHeight() {return mOffsetHeight;}
 		void setOffsetHeight(Ogre::uint8 _pix) {mOffsetHeight = _pix;}
 

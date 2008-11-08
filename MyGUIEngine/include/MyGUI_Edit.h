@@ -17,7 +17,7 @@ namespace MyGUI
 
 	class _MyGUIExport Edit : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Edit>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -37,22 +37,22 @@ namespace MyGUI
 		/** Get edit text without tags */
 		Ogre::UTFString getOnlyText() {return TextIterator::getOnlyText(getRealString());}
 
-		// возвращает выделение
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІС‹РґРµР»РµРЅРёРµ
 		/** Get selected text interval
 			@param _start of interval will be written here
 			@param _end of interval will be written here
 		*/
 		void getTextSelect(size_t & _start, size_t & _end);
-		// устанавливает выделение
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РІС‹РґРµР»РµРЅРёРµ
 		/** Set selected text interval
 			@param _start of interval
 			@param _end of interval
 		*/
 		void setTextSelect(size_t _start, size_t _end);
-		// выделен ли текст
+		// РІС‹РґРµР»РµРЅ Р»Рё С‚РµРєСЃС‚
 		/** Is any text selected */
 		bool isTextSelect() {return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) );}
-		// возвращает выделенный текст
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІС‹РґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚
 		/** Get selected text */
 		Ogre::UTFString getSelectedText();
 
@@ -82,30 +82,30 @@ namespace MyGUI
 		size_t getMaxTextLength() { return mMaxTextLength; }
 
 		//---------------------------------------------------------------//
-		// наружу выставляем инлайны со сбросом истории
+		// РЅР°СЂСѓР¶Сѓ РІС‹СЃС‚Р°РІР»СЏРµРј РёРЅР»Р°Р№РЅС‹ СЃРѕ СЃР±СЂРѕСЃРѕРј РёСЃС‚РѕСЂРёРё
 		//---------------------------------------------------------------//
 
-		// возвращает текст с тегами
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСЃС‚ СЃ С‚РµРіР°РјРё
 		/** Get _count characters with tags from _start position */
 		Ogre::UTFString getText(size_t _start, size_t _count);
-		// удаляет все что выделенно
+		// СѓРґР°Р»СЏРµС‚ РІСЃРµ С‡С‚Рѕ РІС‹РґРµР»РµРЅРЅРѕ
 		/** Delete selected text */
 		bool deleteTextSelect() {return deleteTextSelect(false);}
-		// вставляет текст в указанную позицию
+		// РІСЃС‚Р°РІР»СЏРµС‚ С‚РµРєСЃС‚ РІ СѓРєР°Р·Р°РЅРЅСѓСЋ РїРѕР·РёС†РёСЋ
 		/** Inser text at _index position (text end by default) */
 		void insertText(const Ogre::UTFString & _text, size_t _index = ITEM_NONE) {insertText(_text, _index, false);}
-		// добавляет текст в конец
+		// РґРѕР±Р°РІР»СЏРµС‚ С‚РµРєСЃС‚ РІ РєРѕРЅРµС†
 		/** Add text */
 		void addText(const Ogre::UTFString & _text) {insertText(_text, ITEM_NONE, false);}
 		/** Erase _count characters from _start position */
 		void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
-		// выделяет цветом выделение
+		// РІС‹РґРµР»СЏРµС‚ С†РІРµС‚РѕРј РІС‹РґРµР»РµРЅРёРµ
 		/** Colour selected text */
 		void setTextSelectColour(const Ogre::ColourValue & _colour)
 		{
 			setTextSelectColour(_colour, false);
 		}
-		// выделяет цветом диапазон
+		// РІС‹РґРµР»СЏРµС‚ С†РІРµС‚РѕРј РґРёР°РїР°Р·РѕРЅ
 		/** Colour interval */
 		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour)
 		{
@@ -118,7 +118,7 @@ namespace MyGUI
 		void setEditReadOnly(bool _read)
 		{
 			mModeReadOnly = _read;
-			// сбрасываем историю
+			// СЃР±СЂР°СЃС‹РІР°РµРј РёСЃС‚РѕСЂРёСЋ
 			commandResetHistory();
 		}
 
@@ -133,13 +133,13 @@ namespace MyGUI
 		void setEditMultiLine(bool _multi)
 		{
 			mModeMultiline = _multi;
-			// на всякий, для уберания переносов
+			// РЅР° РІСЃСЏРєРёР№, РґР»СЏ СѓР±РµСЂР°РЅРёСЏ РїРµСЂРµРЅРѕСЃРѕРІ
 			if (false == mModeMultiline) {
 				setText(getRealString(), false);
 			}
-			// обновляем по размерам
+			// РѕР±РЅРѕРІР»СЏРµРј РїРѕ СЂР°Р·РјРµСЂР°Рј
 			else updateView(false);
-			// сбрасываем историю
+			// СЃР±СЂР°СЃС‹РІР°РµРј РёСЃС‚РѕСЂРёСЋ
 			commandResetHistory();
 		}
 
@@ -215,23 +215,23 @@ namespace MyGUI
 
 	protected:
 
-		// устанавливает текст
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С‚РµРєСЃС‚
 		void setText(const Ogre::UTFString & _text, bool _history);
-		// удаляет все что выделенно
+		// СѓРґР°Р»СЏРµС‚ РІСЃРµ С‡С‚Рѕ РІС‹РґРµР»РµРЅРЅРѕ
 		bool deleteTextSelect(bool _history);
-		// вставляет текст в указанную позицию
+		// РІСЃС‚Р°РІР»СЏРµС‚ С‚РµРєСЃС‚ РІ СѓРєР°Р·Р°РЅРЅСѓСЋ РїРѕР·РёС†РёСЋ
 		void insertText(const Ogre::UTFString & _text, size_t _index, bool _history);
-		// удаляет текст
+		// СѓРґР°Р»СЏРµС‚ С‚РµРєСЃС‚
 		void eraseText(size_t _start, size_t _count, bool _history);
-		// выделяет цветом выделение
+		// РІС‹РґРµР»СЏРµС‚ С†РІРµС‚РѕРј РІС‹РґРµР»РµРЅРёРµ
 		void setTextSelectColour(const Ogre::ColourValue & _colour, bool _history);
-		// выделяет цветом диапазон
+		// РІС‹РґРµР»СЏРµС‚ С†РІРµС‚РѕРј РґРёР°РїР°Р·РѕРЅ
 		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
 	protected:
 		void frameEntered(float _frame);
 
-		// потом убрать все нотифи в сраку
+		// РїРѕС‚РѕРј СѓР±СЂР°С‚СЊ РІСЃРµ РЅРѕС‚РёС„Рё РІ СЃСЂР°РєСѓ
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
 		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -249,27 +249,27 @@ namespace MyGUI
 
 		void updateEditState();
 
-		// обновляет курсор по координате
+		// РѕР±РЅРѕРІР»СЏРµС‚ РєСѓСЂСЃРѕСЂ РїРѕ РєРѕРѕСЂРґРёРЅР°С‚Рµ
 		void updateSelectText();
-		// обновление представления
+		// РѕР±РЅРѕРІР»РµРЅРёРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ
 		void updateView(bool _showCursor);
 
 		void resetSelect();
 
-		// запись в историю данных о позиции
+		// Р·Р°РїРёСЃСЊ РІ РёСЃС‚РѕСЂРёСЋ РґР°РЅРЅС‹С… Рѕ РїРѕР·РёС†РёРё
 		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info = null);
 
-		// команнды отмена и повтор
+		// РєРѕРјР°РЅРЅРґС‹ РѕС‚РјРµРЅР° Рё РїРѕРІС‚РѕСЂ
 		bool commandRedo();
 		bool commandUndo();
-		// объединяет последние две комманды
+		// РѕР±СЉРµРґРёРЅСЏРµС‚ РїРѕСЃР»РµРґРЅРёРµ РґРІРµ РєРѕРјРјР°РЅРґС‹
 		void commandMerge();
-		// очистка
+		// РѕС‡РёСЃС‚РєР°
 		void commandResetRedo() {mVectorRedoChangeInfo.clear();}
 		void commandResetHistory() {mVectorRedoChangeInfo.clear();mVectorUndoChangeInfo.clear();}
 		void saveInHistory(VectorChangeInfo * _info = null);
 
-		// работа с буфером обмена
+		// СЂР°Р±РѕС‚Р° СЃ Р±СѓС„РµСЂРѕРј РѕР±РјРµРЅР°
 		void commandCut();
 		void commandCopy();
 		void commandPast();
@@ -284,9 +284,9 @@ namespace MyGUI
 
 
 	protected:
-		// нажата ли кнопка
+		// РЅР°Р¶Р°С‚Р° Р»Рё РєРЅРѕРїРєР°
 		bool mIsPressed;
-		// в фокусе ли кнопка
+		// РІ С„РѕРєСѓСЃРµ Р»Рё РєРЅРѕРїРєР°
 		bool mIsFocus;
 
 		//WidgetPtr mWidgetUpper;
@@ -294,15 +294,15 @@ namespace MyGUI
 		bool mCursorActive;
 		float mCursorTimer, mActionMouseTimer;
 
-		// позиция курсора
+		// РїРѕР·РёС†РёСЏ РєСѓСЂСЃРѕСЂР°
 		size_t mCursorPosition;
-		// максимальное колличество
+		// РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ
 		size_t mTextLength;
 
-		// выделение
+		// РІС‹РґРµР»РµРЅРёРµ
 		size_t mStartSelect, mEndSelect;
 
-		// списоки изменений для отмены и повтора
+		// СЃРїРёСЃРѕРєРё РёР·РјРµРЅРµРЅРёР№ РґР»СЏ РѕС‚РјРµРЅС‹ Рё РїРѕРІС‚РѕСЂР°
 		DequeUndoRedoInfo mVectorUndoChangeInfo;
 		DequeUndoRedoInfo mVectorRedoChangeInfo;
 
@@ -316,10 +316,10 @@ namespace MyGUI
 
 		bool mTabPrinting;
 
-		// настоящий текст, закрытый за звездочками
+		// РЅР°СЃС‚РѕСЏС‰РёР№ С‚РµРєСЃС‚, Р·Р°РєСЂС‹С‚С‹Р№ Р·Р° Р·РІРµР·РґРѕС‡РєР°РјРё
 		Ogre::UTFString mPasswordText;
 
-		// для поддержки режима статик, где курсор не нужен
+		// РґР»СЏ РїРѕРґРґРµСЂР¶РєРё СЂРµР¶РёРјР° СЃС‚Р°С‚РёРє, РіРґРµ РєСѓСЂСЃРѕСЂ РЅРµ РЅСѓР¶РµРЅ
 		std::string mOriginalPointer;
 
 		Char mCharPassword;

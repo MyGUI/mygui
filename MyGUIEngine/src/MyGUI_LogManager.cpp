@@ -36,7 +36,7 @@ namespace MyGUI
 			LogStream * stream = iter->second;
 			if (stream == 0) continue;
 
-			// èùåì âñå òàêèå ïîòîêè è îáíóëÿåì
+			// Ğ¸Ñ‰ĞµĞ¼ Ğ²ÑĞµ Ñ‚Ğ°ĞºĞ¸Ğµ Ğ¿Ğ¾Ñ‚Ğ¾ĞºĞ¸ Ğ¸ Ğ¾Ğ±Ğ½ÑƒĞ»ÑĞµĞ¼
 			for (MapLogStream::iterator iter2=iter; iter2!=mapStream.end(); ++iter2) {
 				if (iter2->second == stream) iter2->second = 0;
 			}
@@ -80,7 +80,7 @@ namespace MyGUI
 	{
 		if (0 == msInstance) new LogManager();
 
-		// èùåì òàêóş æå ñåêöèş è óäàëÿåì åå
+		// Ğ¸Ñ‰ĞµĞ¼ Ñ‚Ğ°ĞºÑƒÑ Ğ¶Ğµ ÑĞµĞºÑ†Ğ¸Ñ Ğ¸ ÑƒĞ´Ğ°Ğ»ÑĞµĞ¼ ĞµĞµ
 		MapLogStream & mapStream = msInstance->mMapSectionFileName;
 		MapLogStream::iterator iter = mapStream.find(_section);
 		if (iter != mapStream.end()) {
@@ -88,7 +88,7 @@ namespace MyGUI
 			mapStream.erase(iter);
 		}
 
-		// èùåì ïîòîê ñ òàêèì æå èìåíåì, åñëè íåò, òî ñîçäàåì
+		// Ğ¸Ñ‰ĞµĞ¼ Ğ¿Ğ¾Ñ‚Ğ¾Ğº Ñ Ñ‚Ğ°ĞºĞ¸Ğ¼ Ğ¶Ğµ Ğ¸Ğ¼ĞµĞ½ĞµĞ¼, ĞµÑĞ»Ğ¸ Ğ½ĞµÑ‚, Ñ‚Ğ¾ ÑĞ¾Ğ·Ğ´Ğ°ĞµĞ¼
 		LogStream * stream = 0;
 		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
 			if (iter->second->getFileName() == _file) {
@@ -110,7 +110,7 @@ namespace MyGUI
 		LogStream * stream = iter->second;
 		mapStream.erase(iter);
 
-		// åñëè ôàéë åùå èñïîëüçóåòüñÿ òî óäàëÿòü íå íàäî
+		// ĞµÑĞ»Ğ¸ Ñ„Ğ°Ğ¹Ğ» ĞµÑ‰Ğµ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµÑ‚ÑŒÑÑ Ñ‚Ğ¾ ÑƒĞ´Ğ°Ğ»ÑÑ‚ÑŒ Ğ½Ğµ Ğ½Ğ°Ğ´Ğ¾
 		for (iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
 			if (iter->second == stream) return;
 		}

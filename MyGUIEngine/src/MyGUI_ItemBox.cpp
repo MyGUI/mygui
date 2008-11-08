@@ -38,7 +38,7 @@ namespace MyGUI
 		mItemDrag(null),
 		mAlignVert(true)
 	{
-		// нам нужен фокус клавы
+		// РЅР°Рј РЅСѓР¶РµРЅ С„РѕРєСѓСЃ РєР»Р°РІС‹
 		mNeedKeyFocus = true;
 
 		const MapString & properties = _info->getProperties();
@@ -65,11 +65,11 @@ namespace MyGUI
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
 			}
 		}
-		// сли нет скрола, то клиенская зона не обязательно
+		// СЃР»Рё РЅРµС‚ СЃРєСЂРѕР»Р°, С‚Рѕ РєР»РёРµРЅСЃРєР°СЏ Р·РѕРЅР° РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ
 		if ((null == mWidgetScroll) && (null == mWidgetClient)) mWidgetClient = this;
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client)");
 
-		// подписываем клиент для драгэндропа
+		// РїРѕРґРїРёСЃС‹РІР°РµРј РєР»РёРµРЅС‚ РґР»СЏ РґСЂР°РіСЌРЅРґСЂРѕРїР°
 		mWidgetClient->requestGetContainer = newDelegate(this, &ItemBox::requestGetContainer);
 
 		updateMetrics();
@@ -133,40 +133,40 @@ namespace MyGUI
 	void ItemBox::updateMetrics()
 	{
 		IntCoord coord(0, 0, 1, 1);
-		// спрашиваем размер иконок
+		// СЃРїСЂР°С€РёРІР°РµРј СЂР°Р·РјРµСЂ РёРєРѕРЅРѕРє
 		requestCoordWidgetItem(this, coord, false);
 		convertWidgetCoord(coord, mAlignVert);
 
 		mSizeItem = coord.size();
 		MYGUI_ASSERT((mSizeItem.width > 0 && mSizeItem.height > 0), "(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordWidgetItem");
 
-		// колличество айтемов на одной строке
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р°Р№С‚РµРјРѕРІ РЅР° РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ
 		mCountItemInLine = getWidgetWidth(mWidgetClient, mAlignVert) / mSizeItem.width;
 		if (1 > mCountItemInLine) mCountItemInLine = 1;
 
-		// колличество строк
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє
 		mCountLines = (int)mCountItems / mCountItemInLine;
 		if (0 != ((int)mCountItems % mCountItemInLine)) mCountLines ++;
 
-		// колличество строк которые помещаються в видимую часть
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє РєРѕС‚РѕСЂС‹Рµ РїРѕРјРµС‰Р°СЋС‚СЊСЃСЏ РІ РІРёРґРёРјСѓСЋ С‡Р°СЃС‚СЊ
 		mCountLineVisible = getWidgetHeight(mWidgetClient, mAlignVert) / mSizeItem.height;
 		if (0 != (getWidgetHeight(mWidgetClient, mAlignVert) % mSizeItem.height)) mCountLineVisible++;
-		mCountLineVisible ++; // и на одну больше для попиксельной прокрутки
+		mCountLineVisible ++; // Рё РЅР° РѕРґРЅСѓ Р±РѕР»СЊС€Рµ РґР»СЏ РїРѕРїРёРєСЃРµР»СЊРЅРѕР№ РїСЂРѕРєСЂСѓС‚РєРё
 	}
 
 	void ItemBox::updateScroll()
 	{
-		// размерность скролла в пикселях
+		// СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ СЃРєСЂРѕР»Р»Р° РІ РїРёРєСЃРµР»СЏС…
 		mScrollRange = (mSizeItem.height * mCountLines) - getWidgetHeight(mWidgetClient, mAlignVert);
 
-		// тестируем видимость скролла
+		// С‚РµСЃС‚РёСЂСѓРµРј РІРёРґРёРјРѕСЃС‚СЊ СЃРєСЂРѕР»Р»Р°
 		bool change = false;
 		if (mWidgetScroll) {
 			if ((mScrollRange <= 0) || (getWidgetLeft(mWidgetScroll, mAlignVert) <= getWidgetLeft(mWidgetClient, mAlignVert))) {
 				if (mWidgetScroll->isShow()) {
 					change = true;
 					mWidgetScroll->hide();
-					// увеличиваем клиентскую зону на ширину скрола
+					// СѓРІРµР»РёС‡РёРІР°РµРј РєР»РёРµРЅС‚СЃРєСѓСЋ Р·РѕРЅСѓ РЅР° С€РёСЂРёРЅСѓ СЃРєСЂРѕР»Р°
 					setWidgetSize(mWidgetClient,
 						getWidgetWidth(mWidgetClient, mAlignVert) + getWidgetWidth(mWidgetScroll, mAlignVert),
 						getWidgetHeight(mWidgetClient, mAlignVert), mAlignVert);
@@ -181,17 +181,17 @@ namespace MyGUI
 			}
 		}
 
-		// если скролл изменился, то пересчитываем
+		// РµСЃР»Рё СЃРєСЂРѕР»Р» РёР·РјРµРЅРёР»СЃСЏ, С‚Рѕ РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј
 		if (change) {
 			updateMetrics();
 			mScrollRange = (mSizeItem.height * mCountLines) - getWidgetHeight(mWidgetClient, mAlignVert);
 		}
 
-		// тестируем текущую позицию скролла
+		// С‚РµСЃС‚РёСЂСѓРµРј С‚РµРєСѓС‰СѓСЋ РїРѕР·РёС†РёСЋ СЃРєСЂРѕР»Р»Р°
 		int count_pix = ((mCountLines - mLineTop) * mSizeItem.height) - mOffsetTop;
 
 		if ((count_pix < getWidgetHeight(mWidgetClient, mAlignVert)) && ((mLineTop != 0) || (mOffsetTop != 0))) {
-			// считаем позицию, прижатую к низу
+			// СЃС‡РёС‚Р°РµРј РїРѕР·РёС†РёСЋ, РїСЂРёР¶Р°С‚СѓСЋ Рє РЅРёР·Сѓ
 			mLineTop = mCountLines - (getWidgetHeight(mWidgetClient, mAlignVert) / mSizeItem.height) - 1;
 
 			if (mLineTop < 0) {
@@ -214,9 +214,9 @@ namespace MyGUI
 		int start = (mLineTop * mCountItemInLine);
 		int count = (mCountLineVisible * mCountItemInLine) + start;
 
-		size_t iwid = 0; // индекс виджета
+		size_t iwid = 0; // РёРЅРґРµРєСЃ РІРёРґР¶РµС‚Р°
 		for (int pos = start; pos<count; ++pos, ++iwid) {
-			// дальше нет айтемов
+			// РґР°Р»СЊС€Рµ РЅРµС‚ Р°Р№С‚РµРјРѕРІ
 			if (pos >= mCountItems) break;
 
 			WidgetPtr item = getItemWidget(iwid);
@@ -235,7 +235,7 @@ namespace MyGUI
 
 		}
 
-		// все виджеты еще есть, то их надо бы скрыть
+		// РІСЃРµ РІРёРґР¶РµС‚С‹ РµС‰Рµ РµСЃС‚СЊ, С‚Рѕ РёС… РЅР°РґРѕ Р±С‹ СЃРєСЂС‹С‚СЊ
 		while (iwid < mVectorItems.size()) {
 			mVectorItems[iwid]->hide();
 			iwid ++;
@@ -245,12 +245,12 @@ namespace MyGUI
 
 	WidgetPtr ItemBox::getItemWidget(size_t _index)
 	{
-		// еще нет такого виджета, нуно создать
+		// РµС‰Рµ РЅРµС‚ С‚Р°РєРѕРіРѕ РІРёРґР¶РµС‚Р°, РЅСѓРЅРѕ СЃРѕР·РґР°С‚СЊ
 		if (_index == mVectorItems.size()) {
 
 			WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
 
-			// вызываем запрос на создание виджета
+			// РІС‹Р·С‹РІР°РµРј Р·Р°РїСЂРѕСЃ РЅР° СЃРѕР·РґР°РЅРёРµ РІРёРґР¶РµС‚Р°
 			requestCreateWidgetItem(this, item);
 
 			item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
@@ -268,7 +268,7 @@ namespace MyGUI
 			mVectorItems.push_back(item);
 		}
 
-		// запрашивать только последовательно
+		// Р·Р°РїСЂР°С€РёРІР°С‚СЊ С‚РѕР»СЊРєРѕ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ
 		MYGUI_ASSERT_RANGE(_index, mVectorItems.size(), "ItemBox::getItemWidget");
 
 		return mVectorItems[_index];
@@ -278,7 +278,7 @@ namespace MyGUI
 	{
 		notifyMouseWheel(null, _rel);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseWheel(_rel);
 	}
 
@@ -287,7 +287,7 @@ namespace MyGUI
 		mIsFocus = true;
 		setState("select");
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeySetFocus(_old);
 	}
 
@@ -296,7 +296,7 @@ namespace MyGUI
 		mIsFocus = false;
 		setState("normal");
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeyLostFocus(_new);
 	}
 
@@ -313,8 +313,8 @@ namespace MyGUI
 
 		if (mScrollPosition == offset) return;
 
-		// сбрасываем старую подсветку
-		// так как при прокрутке, мышь может находиться над окном
+		// СЃР±СЂР°СЃС‹РІР°РµРј СЃС‚Р°СЂСѓСЋ РїРѕРґСЃРІРµС‚РєСѓ
+		// С‚Р°Рє РєР°Рє РїСЂРё РїСЂРѕРєСЂСѓС‚РєРµ, РјС‹С€СЊ РјРѕР¶РµС‚ РЅР°С…РѕРґРёС‚СЊСЃСЏ РЅР°Рґ РѕРєРЅРѕРј
 		resetCurrentActiveItem();
 
 		mScrollPosition = offset;
@@ -325,7 +325,7 @@ namespace MyGUI
 		_updateScrollWidget();
 		_updateAllVisible(old != mLineTop);
 
-		// заново ищем и подсвечиваем айтем
+		// Р·Р°РЅРѕРІРѕ РёС‰РµРј Рё РїРѕРґСЃРІРµС‡РёРІР°РµРј Р°Р№С‚РµРј
 		if (false == mNeedDrop) {
 			findCurrentActiveItem();
 		}
@@ -335,13 +335,13 @@ namespace MyGUI
 
 	void ItemBox::resetCurrentActiveItem()
 	{
-		// сбрасываем старую подсветку
+		// СЃР±СЂР°СЃС‹РІР°РµРј СЃС‚Р°СЂСѓСЋ РїРѕРґСЃРІРµС‚РєСѓ
 		if (mIndexActive != ITEM_NONE) {
 			size_t start = (size_t)(mLineTop * mCountItemInLine);
 			size_t index = mIndexActive;
 			mIndexActive = ITEM_NONE;
 
-			// если видим, то обновляем
+			// РµСЃР»Рё РІРёРґРёРј, С‚Рѕ РѕР±РЅРѕРІР»СЏРµРј
 			if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size()))) {
 				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 
@@ -356,7 +356,7 @@ namespace MyGUI
 
 		const IntPoint& point = InputManager::getInstance().getMousePosition();
 
-		// сначала проверяем клиентскую зону
+		// СЃРЅР°С‡Р°Р»Р° РїСЂРѕРІРµСЂСЏРµРј РєР»РёРµРЅС‚СЃРєСѓСЋ Р·РѕРЅСѓ
 		const IntRect& rect = mWidgetClient->getAbsoluteRect();
 		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) || (point.top > rect.bottom)) {
 			return;
@@ -368,7 +368,7 @@ namespace MyGUI
 			if ((point.left>= rect.left) && (point.left <= rect.right) && (point.top>= rect.top) && (point.top <= rect.bottom)) {
 
 				size_t index = *item->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-				// при переборе индекс может быть больше, так как может создасться сколько угодно
+				// РїСЂРё РїРµСЂРµР±РѕСЂРµ РёРЅРґРµРєСЃ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ, С‚Р°Рє РєР°Рє РјРѕР¶РµС‚ СЃРѕР·РґР°СЃС‚СЊСЃСЏ СЃРєРѕР»СЊРєРѕ СѓРіРѕРґРЅРѕ
 				if (index < mItemsInfo.size()) {
 
 					mIndexActive = index;
@@ -442,7 +442,7 @@ namespace MyGUI
 		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemDataInfo(_data));
 		mCountItems++;
 
-		// расчитываем новый индекс выделения
+		// СЂР°СЃС‡РёС‚С‹РІР°РµРј РЅРѕРІС‹Р№ РёРЅРґРµРєСЃ РІС‹РґРµР»РµРЅРёСЏ
 		if (mIndexSelect != ITEM_NONE) {
 			if (mIndexSelect >= _index) {
 				mIndexSelect ++;
@@ -467,7 +467,7 @@ namespace MyGUI
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
 		mCountItems --;
 
-		// расчитываем новый индекс выделения
+		// СЂР°СЃС‡РёС‚С‹РІР°РµРј РЅРѕРІС‹Р№ РёРЅРґРµРєСЃ РІС‹РґРµР»РµРЅРёСЏ
 		if (mIndexSelect != ITEM_NONE) {
 			if (mCountItems == 0) {
 				mIndexSelect = ITEM_NONE;
@@ -522,7 +522,7 @@ namespace MyGUI
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 
-		// сбрасываем старое выделение
+		// СЃР±СЂР°СЃС‹РІР°РµРј СЃС‚Р°СЂРѕРµ РІС‹РґРµР»РµРЅРёРµ
 		if (mIndexSelect != ITEM_NONE) {
 
 			size_t index = mIndexSelect;
@@ -598,7 +598,7 @@ namespace MyGUI
 
 	void ItemBox::resetContainer(bool _update)
 	{
-		// обязательно у базового
+		// РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ Сѓ Р±Р°Р·РѕРІРѕРіРѕ
 		Widget::resetContainer(_update);
 
 		if ( ! _update) {
@@ -645,13 +645,13 @@ namespace MyGUI
 	void ItemBox::updateDropItems()
 	{
 		if (null == mItemDrag) {
-			// спрашиваем размер иконок
+			// СЃРїСЂР°С€РёРІР°РµРј СЂР°Р·РјРµСЂ РёРєРѕРЅРѕРє
 			IntCoord coord;
 			mPointDragOffset = coord.point();
 			requestCoordWidgetItem(this, coord, true);
 			convertWidgetCoord(coord, mAlignVert);
 
-			// создаем и запрашиваем детей
+			// СЃРѕР·РґР°РµРј Рё Р·Р°РїСЂР°С€РёРІР°РµРј РґРµС‚РµР№
 			mItemDrag = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, "DragAndDrop");
 			requestCreateWidgetItem(this, mItemDrag);
 		}
@@ -691,24 +691,24 @@ namespace MyGUI
 			size_t old = mIndexSelect;
 
 			if (_sender == mWidgetClient) {
-				// сбрасываем выделение
+				// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 				setItemSelectedAt(ITEM_NONE);
 			}
 			else {
-				// индекс отправителя
+				// РёРЅРґРµРєСЃ РѕС‚РїСЂР°РІРёС‚РµР»СЏ
 				mDropSenderIndex = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 				MYGUI_ASSERT_RANGE(mDropSenderIndex, mItemsInfo.size(), "ItemBox::notifyMouseButtonPressed");
 
-				// выделенный елемент
+				// РІС‹РґРµР»РµРЅРЅС‹Р№ РµР»РµРјРµРЅС‚
 				setItemSelectedAt(mDropSenderIndex);
 			}
 
-			// смещение внутри виджета, куда кликнули мышкой
+			// СЃРјРµС‰РµРЅРёРµ РІРЅСѓС‚СЂРё РІРёРґР¶РµС‚Р°, РєСѓРґР° РєР»РёРєРЅСѓР»Рё РјС‹С€РєРѕР№
 			mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
 
-			// отсылаем событие
+			// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ
 			eventMouseItemActivate(mWidgetEventSender, mIndexSelect);
-			// смену позиции отсылаем только при реальном изменении
+			// СЃРјРµРЅСѓ РїРѕР·РёС†РёРё РѕС‚СЃС‹Р»Р°РµРј С‚РѕР»СЊРєРѕ РїСЂРё СЂРµР°Р»СЊРЅРѕРј РёР·РјРµРЅРµРЅРёРё
 			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
 		}
 
@@ -734,7 +734,7 @@ namespace MyGUI
 			mIndexActive = index;
 		}
 		else {
-			// уже сбросили фокус
+			// СѓР¶Рµ СЃР±СЂРѕСЃРёР»Рё С„РѕРєСѓСЃ
 			if (mIndexActive == ITEM_NONE) return;
 
 			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);

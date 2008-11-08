@@ -16,7 +16,7 @@ namespace MyGUI
 
 	class _MyGUIExport Sheet : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Sheet>;
 
 		MYGUI_RTTI_CHILD_HEADER;

@@ -15,7 +15,7 @@ namespace MyGUI
 
 	class _MyGUIExport ScrollView : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<ScrollView>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -69,10 +69,10 @@ namespace MyGUI
 		/** Set canvas size */
 		void setCanvasSize(int _width, int _height) { mWidgetCanvas->setSize(_width, _height); updateView(); }
 
-		// переопределяем для присвоению холста
+		// РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РґР»СЏ РїСЂРёСЃРІРѕРµРЅРёСЋ С…РѕР»СЃС‚Р°
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
-		// переопределяем для возврата детей холста
+		// РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РґР»СЏ РІРѕР·РІСЂР°С‚Р° РґРµС‚РµР№ С…РѕР»СЃС‚Р°
 		virtual EnumeratorWidgetPtr getEnumerator();
 
 	protected:
@@ -90,7 +90,7 @@ namespace MyGUI
 
 		void updateScrollViewState();
 
-		// обновление представления
+		// РѕР±РЅРѕРІР»РµРЅРёРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ
 		void updateView();
 
 		void updateScroll();

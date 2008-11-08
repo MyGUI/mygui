@@ -15,7 +15,7 @@ namespace MyGUI
 		StaticImageFactory::StaticImageFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Image_Texture") = newDelegate(this, &StaticImageFactory::Image_Texture);
 			manager.registerDelegate("Image_Coord") = newDelegate(this, &StaticImageFactory::Image_Coord);
 			manager.registerDelegate("Image_Tile") = newDelegate(this, &StaticImageFactory::Image_Tile);
@@ -29,7 +29,7 @@ namespace MyGUI
 		StaticImageFactory::~StaticImageFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Image_Texture");
 			manager.unregisterDelegate("Image_Coord");
 			manager.unregisterDelegate("Image_Tile");

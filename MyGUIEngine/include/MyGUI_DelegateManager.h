@@ -107,31 +107,31 @@ namespace MyGUI
 		///** Event : Extendeble event for special cases or plugins.\n
 		//	signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
 		//*/
-		///* event : общее расширяемое событие для плагинов или особых случаев*/
+		///* event : РѕР±С‰РµРµ СЂР°СЃС€РёСЂСЏРµРјРѕРµ СЃРѕР±С‹С‚РёРµ РґР»СЏ РїР»Р°РіРёРЅРѕРІ РёР»Рё РѕСЃРѕР±С‹С… СЃР»СѓС‡Р°РµРІ*/
 		///* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
 		//EventInfo_WidgetStringString eventActionInfo;
 
-		///* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
+		///* event : РІРЅСѓС‚СЂРµРЅРЅРёР№ Р·Р°РїСЂРѕСЃ РЅР° СЂРѕРґРёС‚РµР»СЏ Рё РЅРѕРјРµСЂР° Р°Р№С‚РµРјР°, Сѓ Р»СЋР±РѕРіРѕ РІРёРґР¶РµС‚Р°*/
 		///* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
 		//EventInfo_WidgetRefWidgetRefSizeT  requestGetContainer;
 
-		///* event : внутреннее событие, невалидна информация для дропа*/
+		///* event : РІРЅСѓС‚СЂРµРЅРЅРµРµ СЃРѕР±С‹С‚РёРµ, РЅРµРІР°Р»РёРґРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ РґР»СЏ РґСЂРѕРїР°*/
 		///* signature : void method(MyGUI::WidgetPtr _sender);*/
 		//EventInfo_WidgetVoid eventInvalideContainer;
 
-		//// event : запрос на начало дропа
+		//// event : Р·Р°РїСЂРѕСЃ РЅР° РЅР°С‡Р°Р»Рѕ РґСЂРѕРїР°
 		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 		//EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
 
-		//// event : запрос на дроп айтема
+		//// event : Р·Р°РїСЂРѕСЃ РЅР° РґСЂРѕРї Р°Р№С‚РµРјР°
 		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 		//EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
-		//// event : завершение дропа
+		//// event : Р·Р°РІРµСЂС€РµРЅРёРµ РґСЂРѕРїР°
 		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
 		//EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
 
-		//// event : текущее состояние дропа
+		//// event : С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РґСЂРѕРїР°
 		//// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
 		//EventInfo_WidgetDropState eventDropState;
 

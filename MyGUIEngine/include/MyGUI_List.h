@@ -16,7 +16,7 @@ namespace MyGUI
 
 	class _MyGUIExport List : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<List>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -27,7 +27,7 @@ namespace MyGUI
 	public:
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of items
 		size_t getItemCount() { return mItemsInfo.size(); }
@@ -59,7 +59,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРµР»РµРЅРёСЏРјРё
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mIndexSelect; }
@@ -72,7 +72,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -90,7 +90,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
@@ -100,7 +100,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выдимостью
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРёРјРѕСЃС‚СЊСЋ
 
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index);
@@ -116,7 +116,7 @@ namespace MyGUI
 
 		//------------------------------------------------------------------------------//
 
-		// видим ли мы элемент, полностью или нет
+		// РІРёРґРёРј Р»Рё РјС‹ СЌР»РµРјРµРЅС‚, РїРѕР»РЅРѕСЃС‚СЊСЋ РёР»Рё РЅРµС‚
 		/** Return true if item visible
 			@param
 				_index of item
@@ -184,7 +184,7 @@ namespace MyGUI
 		void setScrollPosition(size_t _position);
 
 		//------------------------------------------------------------------------------------//
-		// вспомогательные методы для составных списков
+		// РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ РјРµС‚РѕРґС‹ РґР»СЏ СЃРѕСЃС‚Р°РІРЅС‹С… СЃРїРёСЃРєРѕРІ
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 
@@ -209,7 +209,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
-		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ РІС‹СЃРѕС‚Сѓ РІРјРµС‰Р°СЋС‰СѓСЋ РІСЃРµ СЃС‚СЂРѕРєРё Рё СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ Р±РѕСЂРґСЋСЂ
 		//! Return optimal height to fit all items in List
 		int getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mItemsInfo.size() * mHeightLine);}
 
@@ -261,16 +261,16 @@ namespace MyGUI
 		void updateLine(bool _reset = false);
 		void _setScrollView(size_t _position);
 
-		// перерисовывает от индекса до низа
+		// РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµС‚ РѕС‚ РёРЅРґРµРєСЃР° РґРѕ РЅРёР·Р°
 		void _redrawItemRange(size_t _start = 0);
 
-		// перерисовывает индекс
+		// РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµС‚ РёРЅРґРµРєСЃ
 		void _redrawItem(size_t _index);
 
-		// удаляем строку из списка
+		// СѓРґР°Р»СЏРµРј СЃС‚СЂРѕРєСѓ РёР· СЃРїРёСЃРєР°
 		void _deleteString(size_t _index);
 
-		// ищет и выделяет елемент
+		// РёС‰РµС‚ Рё РІС‹РґРµР»СЏРµС‚ РµР»РµРјРµРЅС‚
 		void _selectIndex(size_t _index, bool _select);
 
 		void _updateState() { setState(mIsFocus ? "select" : "normal"); }
@@ -279,23 +279,23 @@ namespace MyGUI
 		std::string mSkinLine;
 		VScrollPtr mWidgetScroll;
 
-		// наши дети в строках
+		// РЅР°С€Рё РґРµС‚Рё РІ СЃС‚СЂРѕРєР°С…
 		VectorWidgetPtr mWidgetLines;
 
-		int mHeightLine; // высота одной строки
-		int mTopIndex; // индекс самого верхнего элемента
-		int mOffsetTop; // текущее смещение
-		int mRangeIndex; // размерность скрола
-		size_t mLastRedrawLine; // последняя перерисованная линия
+		int mHeightLine; // РІС‹СЃРѕС‚Р° РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё
+		int mTopIndex; // РёРЅРґРµРєСЃ СЃР°РјРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°
+		int mOffsetTop; // С‚РµРєСѓС‰РµРµ СЃРјРµС‰РµРЅРёРµ
+		int mRangeIndex; // СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ СЃРєСЂРѕР»Р°
+		size_t mLastRedrawLine; // РїРѕСЃР»РµРґРЅСЏСЏ РїРµСЂРµСЂРёСЃРѕРІР°РЅРЅР°СЏ Р»РёРЅРёСЏ
 
-		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
-		size_t mLineActive; // текущий виджет над которым мыша
+		size_t mIndexSelect; // С‚РµРєСѓС‰РёР№ РІС‹РґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ РёР»Рё ITEM_NONE
+		size_t mLineActive; // С‚РµРєСѓС‰РёР№ РІРёРґР¶РµС‚ РЅР°Рґ РєРѕС‚РѕСЂС‹Рј РјС‹С€Р°
 
 		typedef std::pair<Ogre::UTFString, Any> PairItem;
 		typedef std::vector<PairItem> VectorItemInfo;
 		VectorItemInfo mItemsInfo;
 
-		// имеем ли мы фокус ввода
+		// РёРјРµРµРј Р»Рё РјС‹ С„РѕРєСѓСЃ РІРІРѕРґР°
 		bool mIsFocus;
 		bool mNeedVisibleScroll;
 

@@ -23,7 +23,7 @@ namespace MyGUI
 			~DDContainerFactory();
 
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void DDContainer_NeedDragDrop(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		};

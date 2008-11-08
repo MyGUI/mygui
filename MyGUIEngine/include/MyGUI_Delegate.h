@@ -12,11 +12,11 @@
 // source
 // http://rsdn.ru/article/cpp/delegates.xml
 
-// генерация делегатов для различного колличества параметров
+// РіРµРЅРµСЂР°С†РёСЏ РґРµР»РµРіР°С‚РѕРІ РґР»СЏ СЂР°Р·Р»РёС‡РЅРѕРіРѕ РєРѕР»Р»РёС‡РµСЃС‚РІР° РїР°СЂР°РјРµС‚СЂРѕРІ
 namespace MyGUI
 {
 
-	// базовый класс для тех классов, что хотят себя отвязывать от мульти делегатов
+	// Р±Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РґР»СЏ С‚РµС… РєР»Р°СЃСЃРѕРІ, С‡С‚Рѕ С…РѕС‚СЏС‚ СЃРµР±СЏ РѕС‚РІСЏР·С‹РІР°С‚СЊ РѕС‚ РјСѓР»СЊС‚Рё РґРµР»РµРіР°С‚РѕРІ
 	class _MyGUIExport IDelegateUnlink
 	{
 	public:
@@ -30,7 +30,7 @@ namespace MyGUI
 	inline IDelegateUnlink * GetDelegateUnlink(void * _base) { return 0; }
 	inline IDelegateUnlink * GetDelegateUnlink(IDelegateUnlink * _base) { return _base; }
 
-	// один параметр
+	// РѕРґРёРЅ РїР°СЂР°РјРµС‚СЂ
 	#define SUFFIX       1
 	#define TEMPLATE_PARAMS  typename TP1
 	#define TEMPLATE_ARGS    TP1
@@ -45,7 +45,7 @@ namespace MyGUI
 	#undef PARAMS
 	#undef ARGS
 
-	// два параметра
+	// РґРІР° РїР°СЂР°РјРµС‚СЂР°
 	#define SUFFIX       2
 	#define TEMPLATE_PARAMS  typename TP1, typename TP2
 	#define TEMPLATE_ARGS    TP1, TP2
@@ -60,7 +60,7 @@ namespace MyGUI
 	#undef PARAMS
 	#undef ARGS
 
-	// три параметра
+	// С‚СЂРё РїР°СЂР°РјРµС‚СЂР°
 	#define SUFFIX       3
 	#define TEMPLATE_PARAMS  typename TP1, typename TP2, typename TP3
 	#define TEMPLATE_ARGS    TP1, TP2, TP3
@@ -75,7 +75,7 @@ namespace MyGUI
 	#undef PARAMS
 	#undef ARGS
 
-	// четыре параметра
+	// С‡РµС‚С‹СЂРµ РїР°СЂР°РјРµС‚СЂР°
 	#define SUFFIX       4
 	#define TEMPLATE_PARAMS  typename TP1, typename TP2, typename TP3, typename TP4
 	#define TEMPLATE_ARGS    TP1, TP2, TP3, TP4
@@ -90,7 +90,7 @@ namespace MyGUI
 	#undef PARAMS
 	#undef ARGS
 
-	// пять параметров
+	// РїСЏС‚СЊ РїР°СЂР°РјРµС‚СЂРѕРІ
 	#define SUFFIX       5
 	#define TEMPLATE_PARAMS  typename TP1, typename TP2, typename TP3, typename TP4, typename TP5
 	#define TEMPLATE_ARGS    TP1, TP2, TP3, TP4, TP5

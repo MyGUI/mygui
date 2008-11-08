@@ -50,7 +50,7 @@ namespace MyGUI
 		float real_lenght;
 	};
 
-	// рисковать не будем с инлайнами
+	// СЂРёСЃРєРѕРІР°С‚СЊ РЅРµ Р±СѓРґРµРј СЃ РёРЅР»Р°Р№РЅР°РјРё
 	#define __MYGUI_DRAW_QUAD(buf, v_left, v_top, v_rignt, v_bottom, v_z, col, t_left, t_top, t_right, t_bottom, count) \
 	{\
 		buf[0].x = v_left; buf[0].y = v_top; buf[0].z = v_z; \
@@ -100,7 +100,7 @@ namespace MyGUI
 	{
 		mManager = LayerManager::getInstancePtr();
 
-		// потом перенести
+		// РїРѕС‚РѕРј РїРµСЂРµРЅРµСЃС‚Рё
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 
 		Ogre::Root::getSingleton().convertColourValue(mColour, &mCurrentColour);
@@ -150,40 +150,40 @@ namespace MyGUI
 			}
 		}
 
-		// необходимо разобраться
+		// РЅРµРѕР±С…РѕРґРёРјРѕ СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ
 		bool need_update = true;//_update;
 
-		// первоначальное выравнивание
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 		if (mAlign.isHStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isRight()) {
-			// двигаем по правому краю
+			// РґРІРёРіР°РµРј РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ
 			mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter()) {
-			// выравнивание по горизонтали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isBottom()) {
-			// двигаем по нижнему краю
+			// РґРІРёРіР°РµРј РїРѕ РЅРёР¶РЅРµРјСѓ РєСЂР°СЋ
 			mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter()) {
-			// выравнивание по вертикали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РІРµСЂС‚РёРєР°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
@@ -204,34 +204,34 @@ namespace MyGUI
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
-		// вьюпорт стал битым
+		// РІСЊСЋРїРѕСЂС‚ СЃС‚Р°Р» Р±РёС‚С‹Рј
 		if (margin) {
 
-			// проверка на полный выход за границу
+			// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†Сѓ
 			if (_checkOutside()) {
 
-				// скрываем
+				// СЃРєСЂС‹РІР°РµРј
 				//mEmptyView = true;
-				// запоминаем текущее состояние
+				// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 				mIsMargin = margin;
 
-				// обновить перед выходом
+				// РѕР±РЅРѕРІРёС‚СЊ РїРµСЂРµРґ РІС‹С…РѕРґРѕРј
 				if (null != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
 		}
 
-		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
+		if ((mIsMargin) || (margin)) { // РјС‹ РѕР±СЂРµР·Р°РЅС‹ РёР»Рё Р±С‹Р»Рё РѕР±СЂРµР·Р°РЅС‹
 			mCurrentCoord.width = getViewWidth();
 			mCurrentCoord.height = getViewHeight();
 
 		}
 
-		// запоминаем текущее состояние
+		// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 		mIsMargin = margin;
 
-		// если скин был скрыт, то покажем
+		// РµСЃР»Рё СЃРєРёРЅ Р±С‹Р» СЃРєСЂС‹С‚, С‚Рѕ РїРѕРєР°Р¶РµРј
 		//mEmptyView = false;
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
@@ -242,7 +242,7 @@ namespace MyGUI
 		mCaption = _caption;
 		mTextOutDate = true;
 
-		// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
+		// РµСЃР»Рё РІРµСЂС€РёРЅ РЅРµ С…РІР°С‚РёС‚, РґРµР»Р°РµРј СЂРµР°Р»РѕРє, СЃ СѓС‡РµС‚РѕРј РІС‹РґРµР»РµРЅРёСЏ * 2 Рё РєСѓСЂСЃРѕСЂР°
 		size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
 		if (mCountVertex < need) {
 			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
@@ -296,11 +296,11 @@ namespace MyGUI
 		mpFont->load();
 		mpTexture = mpFont->getTextureFont();
 
-		// достаем пробел и табуляцию
+		// РґРѕСЃС‚Р°РµРј РїСЂРѕР±РµР» Рё С‚Р°Р±СѓР»СЏС†РёСЋ
 		mSpaceGlyphInfo = mpFont->getSpaceGlyphInfo();
 		mTabGlyphInfo = mpFont->getTabGlyphInfo();
 
-		// достаем средние точки на текстуре для выделения текста
+		// РґРѕСЃС‚Р°РµРј СЃСЂРµРґРЅРёРµ С‚РѕС‡РєРё РЅР° С‚РµРєСЃС‚СѓСЂРµ РґР»СЏ РІС‹РґРµР»РµРЅРёСЏ С‚РµРєСЃС‚Р°
 		Font::GlyphInfo * info = mSpaceGlyphInfo;
 		mBackgroundEmpty.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 		info = mpFont->getSelectGlyphInfo();
@@ -311,20 +311,20 @@ namespace MyGUI
 		info = mpFont->getCursorGlyphInfo();
 		mCursorTexture.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 
-		// если надо, устанавливаем дефолтный размер шрифта
+		// РµСЃР»Рё РЅР°РґРѕ, СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р°
 		if (mpFont->getDefaultHeight() != 0) {
 			mFontHeight = mpFont->getDefaultHeight();
 		}
 
 		mTextOutDate = true;
 
-		// если мы были приаттаченны, то удаляем себя
+		// РµСЃР»Рё РјС‹ Р±С‹Р»Рё РїСЂРёР°С‚С‚Р°С‡РµРЅРЅС‹, С‚Рѕ СѓРґР°Р»СЏРµРј СЃРµР±СЏ
 		if (null != mRenderItem) {
 			mRenderItem->removeDrawItem(this);
 			mRenderItem = null;
 		}
 
-		// если есть текстура, то приаттачиваемся
+		// РµСЃР»Рё РµСЃС‚СЊ С‚РµРєСЃС‚СѓСЂР°, С‚Рѕ РїСЂРёР°С‚С‚Р°С‡РёРІР°РµРјСЃСЏ
 		if ((false == mpTexture.isNull()) && (null != mItemKeeper)) {
 			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
@@ -354,7 +354,7 @@ namespace MyGUI
 	{
 		mItemKeeper = _keeper;
 
-		// если уже есть текстура, то атачимся, актуально для смены леера
+		// РµСЃР»Рё СѓР¶Рµ РµСЃС‚СЊ С‚РµРєСЃС‚СѓСЂР°, С‚Рѕ Р°С‚Р°С‡РёРјСЃСЏ, Р°РєС‚СѓР°Р»СЊРЅРѕ РґР»СЏ СЃРјРµРЅС‹ Р»РµРµСЂР°
 		if (false == mpTexture.isNull()) {
 			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
@@ -436,7 +436,7 @@ namespace MyGUI
 
 	IntSize EditText::getTextSize()
 	{
-		// если нуно обновить, или изменились пропорции экрана
+		// РµСЃР»Рё РЅСѓРЅРѕ РѕР±РЅРѕРІРёС‚СЊ, РёР»Рё РёР·РјРµРЅРёР»РёСЃСЊ РїСЂРѕРїРѕСЂС†РёРё СЌРєСЂР°РЅР°
 		if (mTextOutDate) updateRawData();
 		return IntSize(mContextSize.width, mContextSize.height);
 	}
@@ -453,13 +453,13 @@ namespace MyGUI
 		return mViewOffset;
 	}
 
-	// возвращает положение курсора по произвольному положению
+	// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РїРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРјСѓ РїРѕР»РѕР¶РµРЅРёСЋ
 	size_t EditText::getCursorPosition(const IntPoint & _point)
 	{
 		if ((mpFont.isNull() || null == mRenderItem)) return 0;
 		if (mTextOutDate) updateRawData();
 
-		// позиция отображаемого символа
+		// РїРѕР·РёС†РёСЏ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СЃРёРјРІРѕР»Р°
 		size_t position = 0;
 
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);
@@ -477,21 +477,21 @@ namespace MyGUI
 		float margin_top = (mMargin.top * mManager->getPixScaleY() * 2);
 		float margin_bottom = (mMargin.bottom * mManager->getPixScaleY() * 2);
 
-		// абсалютные координаты
+		// Р°Р±СЃР°Р»СЋС‚РЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 		float x = mManager->getPixScaleX() * (float)_point.left * 2.0;
 		float y = ( 1.0f - (mManager->getPixScaleY() * (float)_point.top * 2.0) );
 
-		// опорное смещение вершин
+		// РѕРїРѕСЂРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РІРµСЂС€РёРЅ
 		float left, right, top, bottom = real_top, left_shift = 0;
 
-		// сдвиг текста
+		// СЃРґРІРёРі С‚РµРєСЃС‚Р°
 		if (false == mManualView) {
 			if ( mTextAlign.isRight() ) {
-				// выравнивание по правой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				left_shift = mContextRealSize.width - real_width;
 			}
 			else if ( mTextAlign.isHCenter() ) {
-				// для середины нужно четное число
+				// РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
@@ -508,7 +508,7 @@ namespace MyGUI
 				bottom += mContextRealSize.height - real_height - margin_bottom;
 			}
 			else if ( mTextAlign.isVCenter() ) {
-				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
+				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
@@ -516,14 +516,14 @@ namespace MyGUI
 			bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 		}
 
-		// корректируем координату до нижней строки
+		// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РєРѕРѕСЂРґРёРЅР°С‚Сѓ РґРѕ РЅРёР¶РЅРµР№ СЃС‚СЂРѕРєРё
 		if (y < (bottom - mContextRealSize.height)) y = bottom - mContextRealSize.height;
 
-		// основной цикл
+		// РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 		VectorLineInfo::iterator end = mLinesInfo.end();
 		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
 
-			// пересчет опорных данных
+			// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 			top = bottom;
 			bottom -= real_fontHeight;
 
@@ -531,71 +531,71 @@ namespace MyGUI
 			VectorCharInfo::iterator end_index = line->second.end();
 
 			const LineInfo & info = line->first;
-			// первый всегда длинна строки
+			// РїРµСЂРІС‹Р№ РІСЃРµРіРґР° РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё
 			//float len = index->getValueFloat();
 			//++index;
-			// второй всегда длинна строки в пикселях
+			// РІС‚РѕСЂРѕР№ РІСЃРµРіРґР° РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё РІ РїРёРєСЃРµР»СЏС…
 			//size_t len_pix = index->getValueSizeT();
 			//++index;
-			// третий колличество символов
+			// С‚СЂРµС‚РёР№ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ
 			//size_t count = index->getValueSizeT();
 			//++index;
 
-			// следующая строчка
+			// СЃР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂРѕС‡РєР°
 			if (y < bottom) {
 				position += info.count;
 				continue;
 			}
 
-			// пересчет опорных данных
+			// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 			if ( mTextAlign.isLeft() ) {
-				// выравнивание по левой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ Р»РµРІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				right = real_left - left_shift - margin_left;
 			}
 			else if ( mTextAlign.isRight() ) {
-				// выравнивание по правой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				right = real_left - left_shift + (mContextRealSize.width - info.length) + margin_right;
 			}
 			else {
-				// выравнивание по центру
-				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ С†РµРЅС‚СЂСѓ
+				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
 			}
 
 			if (x <= (1.0 + right)) {
-				// в начало строки
+				// РІ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
 				return position;
 
 			} else if (x >= (1.0 + right + info.real_length)) {
-				// в конец строки
+				// РІ РєРѕРЅРµС† СЃС‚СЂРѕРєРё
 				position += info.count - 1;
 				return position;
 			}
 
-			// внутренний цикл строки
+			// РІРЅСѓС‚СЂРµРЅРЅРёР№ С†РёРєР» СЃС‚СЂРѕРєРё
 			for (;index != end_index; ++index) {
 
-				// проверяем на смену цвета
+				// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРјРµРЅСѓ С†РІРµС‚Р°
 				if ( index->isColour() ) continue;
 
-				// отображаемый символ
+				// РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ СЃРёРјРІРѕР»
 				Font::GlyphInfo * info = index->getGlyphInfo();
 				float horiz_height = info->aspectRatio * real_fontHeight * mManager->getAspectCoef();
 
-				// пересчет опорных данных
+				// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 				left = right;
 				right += horiz_height;
 
-				// попали в символ, сравниваем с половиной ширины
+				// РїРѕРїР°Р»Рё РІ СЃРёРјРІРѕР», СЃСЂР°РІРЅРёРІР°РµРј СЃ РїРѕР»РѕРІРёРЅРѕР№ С€РёСЂРёРЅС‹
 				if (x < (1.0 + right)) {
 					if (!(x < ((1.0 + right) - (horiz_height * 0.5)) )) {
-						// в правой половине символа
+						// РІ РїСЂР°РІРѕР№ РїРѕР»РѕРІРёРЅРµ СЃРёРјРІРѕР»Р°
 						position ++;
 					}
 					return position;
 				}
 
-				// следующий символ
+				// СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»
 				position ++;
 
 			}
@@ -605,14 +605,14 @@ namespace MyGUI
 		return position;
 	}
 
-	// возвращает положение курсора в обсолютных координатах
+	// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РІ РѕР±СЃРѕР»СЋС‚РЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 	IntCoord EditText::getCursorCoord(size_t _position)
 	{
 		if (mpFont.isNull() || (null == mRenderItem)) return IntCoord();
 
 		if (mTextOutDate) updateRawData();
 
-		// позиция отображаемого символа
+		// РїРѕР·РёС†РёСЏ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СЃРёРјРІРѕР»Р°
 		size_t position = 0;
 
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);
@@ -630,17 +630,17 @@ namespace MyGUI
 		float margin_top = (mMargin.top * mManager->getPixScaleY() * 2);
 		float margin_bottom = (mMargin.bottom * mManager->getPixScaleY() * 2);
 
-		// опорное смещение вершин
+		// РѕРїРѕСЂРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РІРµСЂС€РёРЅ
 		float left, right, top, bottom = real_top, left_shift = 0;
 
-		// сдвиг текста
+		// СЃРґРІРёРі С‚РµРєСЃС‚Р°
 		if (false == mManualView) {
 			if ( mTextAlign.isRight() ) {
-				// выравнивание по правой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				left_shift = mContextRealSize.width - real_width;
 			}
 			else if ( mTextAlign.isHCenter() ) {
-				// для середины нужно четное число
+				// РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
@@ -657,7 +657,7 @@ namespace MyGUI
 				bottom += mContextRealSize.height - real_height - margin_bottom;
 			}
 			else if ( mTextAlign.isVCenter() ) {
-				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
+				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
@@ -665,11 +665,11 @@ namespace MyGUI
 			bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 		}
 
-		// основной цикл
+		// РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 		VectorLineInfo::iterator end = mLinesInfo.end();
 		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
 
-			// пересчет опорных данных
+			// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 			top = bottom;
 			bottom -= real_fontHeight;
 
@@ -677,65 +677,65 @@ namespace MyGUI
 			VectorCharInfo::iterator end_index = line->second.end();
 
 			const LineInfo & info = line->first;
-			// первый всегда длинна строки
+			// РїРµСЂРІС‹Р№ РІСЃРµРіРґР° РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё
 			//float len = index->getValueFloat();
 			//++index;
-			// второй всегда длинна строки в пикселях
+			// РІС‚РѕСЂРѕР№ РІСЃРµРіРґР° РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё РІ РїРёРєСЃРµР»СЏС…
 			//size_t len_pix = index->getValueSizeT();
 			//++index;
-			// третий колличество символов
+			// С‚СЂРµС‚РёР№ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ
 			//size_t count = index->getValueSizeT();
 			//++index;
 
-			// пересчет опорных данных
+			// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 			if ( mTextAlign.isLeft() ) {
-				// выравнивание по левой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ Р»РµРІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				right = real_left - left_shift - margin_left;
 			}
 			else if ( mTextAlign.isRight() ) {
-				// выравнивание по правой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right;
 			}
 			else {
-				// выравнивание по центру
-				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ С†РµРЅС‚СЂСѓ
+				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
 			}
 
-			// текущее положение в строке
+			// С‚РµРєСѓС‰РµРµ РїРѕР»РѕР¶РµРЅРёРµ РІ СЃС‚СЂРѕРєРµ
 			size_t cur = position;
 
-			// внутренний цикл строки
+			// РІРЅСѓС‚СЂРµРЅРЅРёР№ С†РёРєР» СЃС‚СЂРѕРєРё
 			for (;index != end_index; ++index) {
 
-				// проверяем на смену цвета
+				// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРјРµРЅСѓ С†РІРµС‚Р°
 				if ( index->isColour() ) continue;
 
-				// отображаемый символ
+				// РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ СЃРёРјРІРѕР»
 				Font::GlyphInfo * info = index->getGlyphInfo();
 				float horiz_height = info->aspectRatio * real_fontHeight * mManager->getAspectCoef();
 
-				// пересчет опорных данных
+				// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 				left = right;
 				right += horiz_height;
 
-				// отрисовка курсора
+				// РѕС‚СЂРёСЃРѕРІРєР° РєСѓСЂСЃРѕСЂР°
 				if (cur == mCursorPosition) {
 					return IntCoord((int)((1.0f + left) / (mManager->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mManager->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 				}
 
-				// следующий символ в строке
+				// СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР» РІ СЃС‚СЂРѕРєРµ
 				cur ++;
 			}
 
-			// отрисовка курсора
+			// РѕС‚СЂРёСЃРѕРІРєР° РєСѓСЂСЃРѕСЂР°
 			if (cur == mCursorPosition) {
 				return IntCoord((int)((1.0f + right) / (mManager->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mManager->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 			}
 
-			// следующая строка
+			// СЃР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂРѕРєР°
 			position += info.count;
 
 		}
@@ -753,13 +753,13 @@ namespace MyGUI
 
 		if (mTextOutDate) updateRawData();
 
-		// колличество отрисованных вершин
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РѕС‚СЂРёСЃРѕРІР°РЅРЅС‹С… РІРµСЂС€РёРЅ
 		size_t vertex_count = 0;
 
-		// позиция отображаемого символа
+		// РїРѕР·РёС†РёСЏ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СЃРёРјРІРѕР»Р°
 		size_t position = 0;
 
-		// текущие цвета
+		// С‚РµРєСѓС‰РёРµ С†РІРµС‚Р°
 		uint32 colour_current = mCurrentColour;
 		uint32 colour = mCurrentColour;
 		uint32 colour_inverse = mInverseColour;
@@ -783,17 +783,17 @@ namespace MyGUI
 		float margin_top = (mMargin.top * mManager->getPixScaleY() * 2);
 		float margin_bottom = (mMargin.bottom * mManager->getPixScaleY() * 2);
 
-		// опорное смещение вершин
+		// РѕРїРѕСЂРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РІРµСЂС€РёРЅ
 		float left, right, top, bottom = real_top, left_shift = 0;
 
-		// сдвиг текста
+		// СЃРґРІРёРі С‚РµРєСЃС‚Р°
 		if (false == mManualView) {
 			if ( mTextAlign.isRight() ) {
-				// выравнивание по правой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				left_shift = mContextRealSize.width - real_width;
 			}
 			else if ( mTextAlign.isHCenter() ) {
-				// для середины нужно четное число
+				// РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
@@ -810,7 +810,7 @@ namespace MyGUI
 				bottom += mContextRealSize.height - real_height - margin_bottom;
 			}
 			else if ( mTextAlign.isVCenter() ) {
-				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
+				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
@@ -818,18 +818,18 @@ namespace MyGUI
 			bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 		}
 
-		// данные непосредственно для вывода
+		// РґР°РЅРЅС‹Рµ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РґР»СЏ РІС‹РІРѕРґР°
 		float vertex_top, vertex_bottom, vertex_left, vertex_right;
 
-		// основной цикл
+		// РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 		VectorLineInfo::iterator end = mLinesInfo.end();
 		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
 
-			// пересчет опорных данных
+			// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 			top = bottom;
 			bottom -= real_fontHeight;
 
-			// присваиваем и вершинным
+			// РїСЂРёСЃРІР°РёРІР°РµРј Рё РІРµСЂС€РёРЅРЅС‹Рј
 			vertex_top = top;
 			vertex_bottom = bottom;
 
@@ -837,26 +837,26 @@ namespace MyGUI
 			VectorCharInfo::iterator end_index = line->second.end();
 
 			const LineInfo & info = line->first;
-			// первый всегда длинна строки
+			// РїРµСЂРІС‹Р№ РІСЃРµРіРґР° РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё
 			//float len = index->getValueFloat();
 			//++index;
-			// второй всегда длинна в пикселях
+			// РІС‚РѕСЂРѕР№ РІСЃРµРіРґР° РґР»РёРЅРЅР° РІ РїРёРєСЃРµР»СЏС…
 			//size_t len_pix = index->getValueSizeT();
 			//++index;
-			// третий колличество символов
+			// С‚СЂРµС‚РёР№ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ
 			//size_t count = index->getValueSizeT();
 			//++index;
 
-			// нуна ли пересчитывать текстурные координаты
+			// РЅСѓРЅР° Р»Рё РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ С‚РµРєСЃС‚СѓСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 			bool texture_crop_height = false;
 
 			if (vertex_top > real_top) {
-				// проверка на полный выход
+				// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ
 				if (vertex_bottom > real_top) {
 
-					// необходимо парсить теги цветов полюбак
+					// РЅРµРѕР±С…РѕРґРёРјРѕ РїР°СЂСЃРёС‚СЊ С‚РµРіРё С†РІРµС‚РѕРІ РїРѕР»СЋР±Р°Рє
 					for (;index != end_index; ++index) {
-						// проверяем на смену цвета
+						// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРјРµРЅСѓ С†РІРµС‚Р°
 						if ( index->isColour() ) {
 							colour = index->getColour() | (colour & 0xFF000000);
 							colour_inverse = colour ^ 0x00FFFFFF;
@@ -866,138 +866,138 @@ namespace MyGUI
 					position += info.count;
 					continue;
 				}
-				// обрезаем
+				// РѕР±СЂРµР·Р°РµРј
 				vertex_top = real_top;
 				texture_crop_height = true;
 			}
 			if (vertex_bottom < real_bottom) {
-				// вообще вниз ушли
+				// РІРѕРѕР±С‰Рµ РІРЅРёР· СѓС€Р»Рё
 				if (vertex_top < real_bottom) {
 					line = end;
 					line --;
 					position += info.count;
 					continue;
 				}
-				// обрезаем
+				// РѕР±СЂРµР·Р°РµРј
 				vertex_bottom = real_bottom;
 				texture_crop_height = true;
 			}
 
-			// пересчет опорных данных
+			// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 			if ( mTextAlign.isLeft() ) {
-				// выравнивание по левой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ Р»РµРІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				right = real_left - left_shift - margin_left;
 			}
 			else if ( mTextAlign.isRight() ) {
-				// выравнивание по правой стороне
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РїСЂР°РІРѕР№ СЃС‚РѕСЂРѕРЅРµ
 				right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right;
 			}
 			else {
-				// выравнивание по центру
-				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
+				// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ С†РµРЅС‚СЂСѓ
+				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // РґР»СЏ СЃРµСЂРµРґРёРЅС‹ РЅСѓР¶РЅРѕ С‡РµС‚РЅРѕРµ С‡РёСЃР»Рѕ
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
 			}
 
-			// текущее положение в строке
+			// С‚РµРєСѓС‰РµРµ РїРѕР»РѕР¶РµРЅРёРµ РІ СЃС‚СЂРѕРєРµ
 			size_t cur = position;
 
-			// внутренний цикл строки
+			// РІРЅСѓС‚СЂРµРЅРЅРёР№ С†РёРєР» СЃС‚СЂРѕРєРё
 			for (;index != end_index; ++index) {
 
-				// проверяем на смену цвета
+				// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРјРµРЅСѓ С†РІРµС‚Р°
 				if ( index->isColour() ) {
 					colour = index->getColour() | (colour & 0xFF000000);
 					colour_inverse = colour ^ 0x00FFFFFF;
 					continue;
 				}
 
-				// отображаемый символ
+				// РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ СЃРёРјРІРѕР»
 				Font::GlyphInfo * info = index->getGlyphInfo();
 				float horiz_height = info->aspectRatio * real_fontHeight * mManager->getAspectCoef();
 
-				// пересчет опорных данных
+				// РїРµСЂРµСЃС‡РµС‚ РѕРїРѕСЂРЅС‹С… РґР°РЅРЅС‹С…
 				left = right;
 				right += horiz_height;
 
-				// смещение текстуры для фона
+				// СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ РґР»СЏ С„РѕРЅР°
 				FloatPoint background_current;
 				bool select = !( (cur >= mEndSelect) || (cur < mStartSelect) );
 
-				// символ не выделен
+				// СЃРёРјРІРѕР» РЅРµ РІС‹РґРµР»РµРЅ
 				if (false == select) {
 					colour_current = colour;
 					background_current = mBackgroundEmpty;
 
 				}
-				// символ выделен
+				// СЃРёРјРІРѕР» РІС‹РґРµР»РµРЅ
 				else {
-					// инверсные цвета
+					// РёРЅРІРµСЂСЃРЅС‹Рµ С†РІРµС‚Р°
 					colour_current = colour_inverse;
 					background_current = background;
 
 				}
 
-				// присваиваем и вершинным
+				// РїСЂРёСЃРІР°РёРІР°РµРј Рё РІРµСЂС€РёРЅРЅС‹Рј
 				vertex_left = left;
 				vertex_right = right;
 
-				// текущие текстурные координаты
+				// С‚РµРєСѓС‰РёРµ С‚РµРєСЃС‚СѓСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 				float texture_left = info->uvRect.left;
 				float texture_right = info->uvRect.right;
 				float texture_top = info->uvRect.top;
 				float texture_bottom = info->uvRect.bottom;
 
-				// нуна ли пересчитывать текстурные координаты
+				// РЅСѓРЅР° Р»Рё РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ С‚РµРєСЃС‚СѓСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 				bool texture_crop_width = false;
 
 				if (vertex_left < real_left) {
-					// проверка на полный выход
+					// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ
 					if (vertex_right < real_left) {
 						cur ++;
 						continue;
 					}
-					// обрезаем
+					// РѕР±СЂРµР·Р°РµРј
 					vertex_left = real_left;
 					texture_crop_width = true;
 				}
 				if (vertex_right > real_right) {
-					// вообще строку до конца не нуна
+					// РІРѕРѕР±С‰Рµ СЃС‚СЂРѕРєСѓ РґРѕ РєРѕРЅС†Р° РЅРµ РЅСѓРЅР°
 					if (vertex_left > real_right) {
 						index ++;
-						// для того чтобы теги цвета не терялись, нужно пройти до конца строки
+						// РґР»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ С‚РµРіРё С†РІРµС‚Р° РЅРµ С‚РµСЂСЏР»РёСЃСЊ, РЅСѓР¶РЅРѕ РїСЂРѕР№С‚Рё РґРѕ РєРѕРЅС†Р° СЃС‚СЂРѕРєРё
 						while (index != end_index) {
-							// проверяем на смену цвета
+							// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРјРµРЅСѓ С†РІРµС‚Р°
 							if ( index->isColour() ) {
 								colour = index->getColour() | (colour & 0xFF000000);
 								colour_inverse = colour ^ 0x00FFFFFF;
 							}
 							index ++;
 						};
-						index --; // чтобы при увеличении показывал на end
+						index --; // С‡С‚РѕР±С‹ РїСЂРё СѓРІРµР»РёС‡РµРЅРёРё РїРѕРєР°Р·С‹РІР°Р» РЅР° end
 						continue;
 					}
-					// обрезаем
+					// РѕР±СЂРµР·Р°РµРј
 					vertex_right = real_right;
 					texture_crop_width = true;
 				}
 
-				// смещение текстуры по вертикили
+				// СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ РїРѕ РІРµСЂС‚РёРєРёР»Рё
 				if (texture_crop_height) {
-					// прибавляем размер смещения в текстурных координатах
+					// РїСЂРёР±Р°РІР»СЏРµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_top += (top - vertex_top) * mTextureHeightOne;
-					// отнимаем размер смещения в текстурных координатах
+					// РѕС‚РЅРёРјР°РµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_bottom -= (vertex_bottom - bottom) * mTextureHeightOne;
 				}
 
-				// смещение текстуры по горизонтали
+				// СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё
 				if (texture_crop_width) {
-					// прибавляем размер смещения в текстурных координатах
+					// РїСЂРёР±Р°РІР»СЏРµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_left += (vertex_left - left) * mTextureWidthOne;
-					// отнимаем размер смещения в текстурных координатах
+					// РѕС‚РЅРёРјР°РµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_right -= (right - vertex_right) * mTextureWidthOne;
 				}
 
-				// если нужно рисуем выделение
+				// РµСЃР»Рё РЅСѓР¶РЅРѕ СЂРёСЃСѓРµРј РІС‹РґРµР»РµРЅРёРµ
 				if (select) {
 					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 						background_current.left, background_current.top, background_current.left, background_current.top, vertex_count);
@@ -1006,12 +1006,12 @@ namespace MyGUI
 				__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 					texture_left, texture_top, texture_right, texture_bottom, vertex_count);
 
-				// отрисовка курсора
+				// РѕС‚СЂРёСЃРѕРІРєР° РєСѓСЂСЃРѕСЂР°
 				if ((mShowCursor) && (cur == mCursorPosition)) {
 					if ((vertex_left == left) && (vertex_right > (left + (mManager->getPixScaleX() * 4)))) {
 						vertex_right = vertex_left + (mManager->getPixScaleX() * 2);
 
-						// первая половинка белая
+						// РїРµСЂРІР°СЏ РїРѕР»РѕРІРёРЅРєР° Р±РµР»Р°СЏ
 						colour_current |= 0x00FFFFFF;
 
 						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
@@ -1020,7 +1020,7 @@ namespace MyGUI
 						vertex_left = vertex_right;
 						vertex_right += (mManager->getPixScaleX() * 2);
 
-						// вторая половинка черная
+						// РІС‚РѕСЂР°СЏ РїРѕР»РѕРІРёРЅРєР° С‡РµСЂРЅР°СЏ
 						colour_current = colour_current & 0xFF000000;
 
 						__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
@@ -1029,17 +1029,17 @@ namespace MyGUI
 					}
 				}
 
-				// следующий символ в строке
+				// СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР» РІ СЃС‚СЂРѕРєРµ
 				cur ++;
 			}
 
-			// отрисовка курсора
+			// РѕС‚СЂРёСЃРѕРІРєР° РєСѓСЂСЃРѕСЂР°
 			if ((mShowCursor) && (cur == mCursorPosition)) {
 				if ((right >= real_left) && ((right + (mManager->getPixScaleX() * 4)) <= real_right)) {
 					vertex_left = right;
 					vertex_right = vertex_left + (mManager->getPixScaleX() * 2);
 
-					// первая половинка белая
+					// РїРµСЂРІР°СЏ РїРѕР»РѕРІРёРЅРєР° Р±РµР»Р°СЏ
 					colour_current |= 0x00FFFFFF;
 
 					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
@@ -1048,7 +1048,7 @@ namespace MyGUI
 					vertex_left = vertex_right;
 					vertex_right += (mManager->getPixScaleX() * 2);
 
-					// вторая половинка черная
+					// РІС‚РѕСЂР°СЏ РїРѕР»РѕРІРёРЅРєР° С‡РµСЂРЅР°СЏ
 					colour_current = colour_current & 0xFF000000;
 
 					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
@@ -1056,12 +1056,12 @@ namespace MyGUI
 				}
 			}
 
-			// следующая строка
+			// СЃР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂРѕРєР°
 			position += info.count;
 
 		}
 
-		// колличество реально отрисованных вершин
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЂРµР°Р»СЊРЅРѕ РѕС‚СЂРёСЃРѕРІР°РЅРЅС‹С… РІРµСЂС€РёРЅ
 		return vertex_count;
 	}
 
@@ -1081,17 +1081,17 @@ namespace MyGUI
 
 	void EditText::updateRawData()
 	{
-		//??? потом обязательно сделать с резервом для вектора
+		//??? РїРѕС‚РѕРј РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ СЃРґРµР»Р°С‚СЊ СЃ СЂРµР·РµСЂРІРѕРј РґР»СЏ РІРµРєС‚РѕСЂР°
 
 		if (mpFont.isNull()) return;
-		// сбрасывам флаги
+		// СЃР±СЂР°СЃС‹РІР°Рј С„Р»Р°РіРё
 		mTextOutDate = false;
 
-		// массив для быстрой конвертации цветов
+		// РјР°СЃСЃРёРІ РґР»СЏ Р±С‹СЃС‚СЂРѕР№ РєРѕРЅРІРµСЂС‚Р°С†РёРё С†РІРµС‚РѕРІ
 		static const char convert_colour[64] = {0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0};
 
-		// вычисление размера одной единицы в текстурных координатах
-		// ??? это нуно пересчитывать только при изменении пропорций экрана или смене шрифта
+		// РІС‹С‡РёСЃР»РµРЅРёРµ СЂР°Р·РјРµСЂР° РѕРґРЅРѕР№ РµРґРёРЅРёС†С‹ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
+		// ??? СЌС‚Рѕ РЅСѓРЅРѕ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ С‚РѕР»СЊРєРѕ РїСЂРё РёР·РјРµРЅРµРЅРёРё РїСЂРѕРїРѕСЂС†РёР№ СЌРєСЂР°РЅР° РёР»Рё СЃРјРµРЅРµ С€СЂРёС„С‚Р°
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
 		Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
 		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
@@ -1099,7 +1099,7 @@ namespace MyGUI
 
 		mLinesInfo.clear();
 
-		// создаем первую строчку
+		// СЃРѕР·РґР°РµРј РїРµСЂРІСѓСЋ СЃС‚СЂРѕС‡РєСѓ
 		mLinesInfo.push_back(PairVectorCharInfo());
 		float len = 0, width = 0;
 		size_t count = 1;
@@ -1114,17 +1114,17 @@ namespace MyGUI
 
 			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 
-				// длинна строки, кратна пикселю, плюс курсор
+				// РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё, РєСЂР°С‚РЅР° РїРёРєСЃРµР»СЋ, РїР»СЋСЃ РєСѓСЂСЃРѕСЂ
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
-				// запоминаем размер предыдущей строки
+				// Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ РїСЂРµРґС‹РґСѓС‰РµР№ СЃС‚СЂРѕРєРё
 				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
 				len = 0;
 
-				// и создаем новую
+				// Рё СЃРѕР·РґР°РµРј РЅРѕРІСѓСЋ
 				mLinesInfo.push_back(PairVectorCharInfo());
 
 				if (character == Font::FONT_CODE_CR) {
@@ -1133,37 +1133,37 @@ namespace MyGUI
 					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
 				}
 
-				// отменяем откат
+				// РѕС‚РјРµРЅСЏРµРј РѕС‚РєР°С‚
 				roll_back.reset();
 
-				// следующий символ
+				// СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»
 				continue;
 
 			}
 			else if (character == L'#') {
-				// берем следующий символ
+				// Р±РµСЂРµРј СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»
 				++ index;
-				if (index == end) {--index ;continue;} // это защита
+				if (index == end) {--index ;continue;} // СЌС‚Рѕ Р·Р°С‰РёС‚Р°
 
 				character = *index;
-				// если два подряд, то рисуем один шарп, если нет то меняем цвет
+				// РµСЃР»Рё РґРІР° РїРѕРґСЂСЏРґ, С‚Рѕ СЂРёСЃСѓРµРј РѕРґРёРЅ С€Р°СЂРї, РµСЃР»Рё РЅРµС‚ С‚Рѕ РјРµРЅСЏРµРј С†РІРµС‚
 				if (character != L'#') {
 
-					// парсим первый символ
+					// РїР°СЂСЃРёРј РїРµСЂРІС‹Р№ СЃРёРјРІРѕР»
 					Ogre::RGBA colour = convert_colour[(character-48) & 0x3F];
 
-					// и еще пять символов после шарпа
+					// Рё РµС‰Рµ РїСЏС‚СЊ СЃРёРјРІРѕР»РѕРІ РїРѕСЃР»Рµ С€Р°СЂРїР°
 					for (char i=0; i<5; i++) {
 						++ index;
-						if (index == end) {--index ;continue;} // это защита
+						if (index == end) {--index ;continue;} // СЌС‚Рѕ Р·Р°С‰РёС‚Р°
 						colour <<= 4;
 						colour += convert_colour[ ((*index) - 48) & 0x3F];
 					}
 
-					// если нужно, то меняем красный и синий компоненты
+					// РµСЃР»Рё РЅСѓР¶РЅРѕ, С‚Рѕ РјРµРЅСЏРµРј РєСЂР°СЃРЅС‹Р№ Рё СЃРёРЅРёР№ РєРѕРјРїРѕРЅРµРЅС‚С‹
 					if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
 
-					// запоминаем цвет, в верхнем байте единицы
+					// Р·Р°РїРѕРјРёРЅР°РµРј С†РІРµС‚, РІ РІРµСЂС…РЅРµРј Р±Р°Р№С‚Рµ РµРґРёРЅРёС†С‹
 					mLinesInfo.back().second.push_back( EnumCharInfo(colour, true) );
 
 					continue;
@@ -1187,56 +1187,56 @@ namespace MyGUI
 
 			float len_char = info->aspectRatio * (float)mFontHeight;
 
-			// перенос строки
+			// РїРµСЂРµРЅРѕСЃ СЃС‚СЂРѕРєРё
 			if (mBreakLine
 				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR + 1) > mCoord.width
 				&& roll_back.rollback
 				&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)) {
 
-				// откатываем назад до пробела
+				// РѕС‚РєР°С‚С‹РІР°РµРј РЅР°Р·Р°Рґ РґРѕ РїСЂРѕР±РµР»Р°
 				len = roll_back.real_lenght;
 				count = roll_back.count;
 				index = roll_back.space_point;
 
 				mLinesInfo.back().second.erase(mLinesInfo.back().second.begin() + (count-1), mLinesInfo.back().second.end());
 
-				// длинна строки, кратна пикселю, плюс курсор
+				// РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё, РєСЂР°С‚РЅР° РїРёРєСЃРµР»СЋ, РїР»СЋСЃ РєСѓСЂСЃРѕСЂ
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
-				// запоминаем размер предыдущей строки
+				// Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ РїСЂРµРґС‹РґСѓС‰РµР№ СЃС‚СЂРѕРєРё
 				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
 				len = 0;
 
-				// и создаем новую
+				// Рё СЃРѕР·РґР°РµРј РЅРѕРІСѓСЋ
 				mLinesInfo.push_back(PairVectorCharInfo());
 
-				// отменяем откат
+				// РѕС‚РјРµРЅСЏРµРј РѕС‚РєР°С‚
 				roll_back.reset();
 
-				// следующий символ
+				// СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»
 				continue;
 			}
 
 			len += len_char;
 
-			// указатель на инфо о символе
+			// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёРЅС„Рѕ Рѕ СЃРёРјРІРѕР»Рµ
 			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
 			count ++;
 
 		}
 
-		// длинна строки, кратна пикселю, плюс курсор
+		// РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё, РєСЂР°С‚РЅР° РїРёРєСЃРµР»СЋ, РїР»СЋСЃ РєСѓСЂСЃРѕСЂ
 		len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
-		// запоминаем размер предыдущей строки
+		// Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ РїСЂРµРґС‹РґСѓС‰РµР№ СЃС‚СЂРѕРєРё
 		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
 
 		if (width < len) width = len;
 
-		// устанавливаем размер текста
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р°
 		mContextSize.set(int(width), int(mLinesInfo.size() * mFontHeight));
 		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}

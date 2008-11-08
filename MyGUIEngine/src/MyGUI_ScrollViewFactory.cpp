@@ -15,7 +15,7 @@ namespace MyGUI
 		ScrollViewFactory::ScrollViewFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("ScrollView_VScroll") = newDelegate(this, &ScrollViewFactory::ScrollView_VScroll);
 			manager.registerDelegate("ScrollView_HScroll") = newDelegate(this, &ScrollViewFactory::ScrollView_HScroll);
 			manager.registerDelegate("ScrollView_CanvasAlign") = newDelegate(this, &ScrollViewFactory::ScrollView_CanvasAlign);
@@ -25,7 +25,7 @@ namespace MyGUI
 		ScrollViewFactory::~ScrollViewFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("ScrollView_VScroll");
 			manager.unregisterDelegate("ScrollView_HScroll");
 			manager.unregisterDelegate("ScrollView_CanvasAlign");

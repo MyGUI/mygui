@@ -23,7 +23,7 @@ namespace MyGUI
 
 	class _MyGUIExport IResource
 	{
-		// для удаления
+		// РґР»СЏ СѓРґР°Р»РµРЅРёСЏ
 		friend class ResourceManager;
 
 		MYGUI_RTTI_BASE_HEADER;

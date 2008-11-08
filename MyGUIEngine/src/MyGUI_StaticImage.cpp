@@ -25,10 +25,10 @@ namespace MyGUI
 		mCurrentFrame(0),
 		mResource(null)
 	{
-		// первоначальная инициализация
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		if ( ! properties.empty() ) {
 			MapString::const_iterator iter = properties.end();
@@ -65,9 +65,9 @@ namespace MyGUI
 	{
 		mSizeTile = _tile;
 
-		// если размер еще не установлен, то ставим тот что у тайла
+		// РµСЃР»Рё СЂР°Р·РјРµСЂ РµС‰Рµ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ, С‚Рѕ СЃС‚Р°РІРёРј С‚РѕС‚ С‡С‚Рѕ Сѓ С‚Р°Р№Р»Р°
 		if (mRectImage.empty()) mRectImage.set(0, 0, _tile.width, _tile.height);
-		//если индекса еще нет, то ставим 0
+		//РµСЃР»Рё РёРЅРґРµРєСЃР° РµС‰Рµ РЅРµС‚, С‚Рѕ СЃС‚Р°РІРёРј 0
 		if (mIndexSelect == ITEM_NONE) mIndexSelect = 0;
 
 		recalcIndexes();
@@ -81,9 +81,9 @@ namespace MyGUI
 		mRectImage.right = _coord.left + _coord.width;
 		mRectImage.bottom = _coord.top + _coord.height;
 
-		// если тайл еще не установлен, то ставим тот что у координат
+		// РµСЃР»Рё С‚Р°Р№Р» РµС‰Рµ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ, С‚Рѕ СЃС‚Р°РІРёРј С‚РѕС‚ С‡С‚Рѕ Сѓ РєРѕРѕСЂРґРёРЅР°С‚
 		if (mSizeTile.empty()) mSizeTile = _coord.size();
-		//если индекса еще нет, то ставим 0
+		//РµСЃР»Рё РёРЅРґРµРєСЃР° РµС‰Рµ РЅРµС‚, С‚Рѕ СЃС‚Р°РІРёРј 0
 		if (mIndexSelect == ITEM_NONE) mIndexSelect = 0;
 
 		recalcIndexes();
@@ -94,9 +94,9 @@ namespace MyGUI
 	{
 		mRectImage= _rect;
 
-		// если тайл еще не установлен, то ставим тот что у координат
+		// РµСЃР»Рё С‚Р°Р№Р» РµС‰Рµ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ, С‚Рѕ СЃС‚Р°РІРёРј С‚РѕС‚ С‡С‚Рѕ Сѓ РєРѕРѕСЂРґРёРЅР°С‚
 		if (mSizeTile.empty()) mSizeTile.set(_rect.width(), _rect.height());
-		//если индекса еще нет, то ставим 0
+		//РµСЃР»Рё РёРЅРґРµРєСЃР° РµС‰Рµ РЅРµС‚, С‚Рѕ СЃС‚Р°РІРёРј 0
 		if (mIndexSelect == ITEM_NONE) mIndexSelect = 0;
 
 		recalcIndexes();
@@ -108,7 +108,7 @@ namespace MyGUI
 		mSizeTexture = SkinManager::getTextureSize(_texture);
 		_setTextureName(_texture);
 
-		// если первый раз, то ставим во всю текстуру
+		// РµСЃР»Рё РїРµСЂРІС‹Р№ СЂР°Р·, С‚Рѕ СЃС‚Р°РІРёРј РІРѕ РІСЃСЋ С‚РµРєСЃС‚СѓСЂСѓ
 		if (mItems.empty()) _setUVSet(FloatRect(0, 0, 1, 1));
 		else {
 			recalcIndexes();

@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	// структура информации об отображении элемента
+	// СЃС‚СЂСѓРєС‚СѓСЂР° РёРЅС„РѕСЂРјР°С†РёРё РѕР± РѕС‚РѕР±СЂР°Р¶РµРЅРёРё СЌР»РµРјРµРЅС‚Р°
 	struct _MyGUIExport ItemInfo
 	{
 
@@ -31,25 +31,25 @@ namespace MyGUI
 		}
 
 
-		// индекс этого элемента
+		// РёРЅРґРµРєСЃ СЌС‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		/** Index of element */
 		size_t index;
-		// изменилось не только состояние, но и содержимое
+		// РёР·РјРµРЅРёР»РѕСЃСЊ РЅРµ С‚РѕР»СЊРєРѕ СЃРѕСЃС‚РѕСЏРЅРёРµ, РЅРѕ Рё СЃРѕРґРµСЂР¶РёРјРѕРµ
 		/** State and interdan data changed */
 		bool update;
-		// нажат ли виджет
+		// РЅР°Р¶Р°С‚ Р»Рё РІРёРґР¶РµС‚
 		/** Is widget selected */
 		bool select;
-		// активен ли виджет
+		// Р°РєС‚РёРІРµРЅ Р»Рё РІРёРґР¶РµС‚
 		/** Is widget active */
 		bool active;
-		// виджет для перетаскивания или нет
+		// РІРёРґР¶РµС‚ РґР»СЏ РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёСЏ РёР»Рё РЅРµС‚
 		/** Is widget able to be dragged */
 		bool drag;
-		// айтем принимамет дроп
+		// Р°Р№С‚РµРј РїСЂРёРЅРёРјР°РјРµС‚ РґСЂРѕРї
 		/** Is widget accept drag */
 		bool drag_accept;
-		// айтем не берет дроп
+		// Р°Р№С‚РµРј РЅРµ Р±РµСЂРµС‚ РґСЂРѕРї
 		/** Is widget refuse drag */
 		bool drag_refuse;
 	};
@@ -90,10 +90,10 @@ namespace MyGUI
 		Char key;
 	};
 
-	// делегат для событий айтема
+	// РґРµР»РµРіР°С‚ РґР»СЏ СЃРѕР±С‹С‚РёР№ Р°Р№С‚РµРјР°
 	typedef delegates::CDelegate2<WidgetPtr, const NotifyItemData &> EventInfo_WidgetNotifyItemData;
 
-	// делегаты для обновления
+	// РґРµР»РµРіР°С‚С‹ РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ
 	typedef delegates::CDelegate2<WidgetPtr, WidgetPtr> EventInfo_WidgetWidget;
 	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo &> EventInfo_WidgetWidgetItemInfo;

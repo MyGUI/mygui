@@ -90,7 +90,7 @@ namespace MyGUI
 		bool _checkMargin()
 		{
 			bool margin = false;
-			//вылезли ли налево
+			//РІС‹Р»РµР·Р»Рё Р»Рё РЅР°Р»РµРІРѕ
 			if (getLeft() < mParent->mMargin.left) {
 				mMargin.left = mParent->mMargin.left - getLeft();
 				margin = true;
@@ -99,7 +99,7 @@ namespace MyGUI
 				mMargin.left = 0;
 			}
 
-			//вылезли ли направо
+			//РІС‹Р»РµР·Р»Рё Р»Рё РЅР°РїСЂР°РІРѕ
 			if (getRight() > mParent->getWidth() - mParent->mMargin.right) {
 				mMargin.right = getRight() - (mParent->getWidth() - mParent->mMargin.right);
 				margin = true;
@@ -108,7 +108,7 @@ namespace MyGUI
 				mMargin.right = 0;
 			}
 
-			//вылезли ли вверх
+			//РІС‹Р»РµР·Р»Рё Р»Рё РІРІРµСЂС…
 			if (getTop() < mParent->mMargin.top) {
 				mMargin.top = mParent->mMargin.top - getTop();
 				margin = true;
@@ -117,7 +117,7 @@ namespace MyGUI
 				mMargin.top = 0;
 			}
 
-			//вылезли ли вниз
+			//РІС‹Р»РµР·Р»Рё Р»Рё РІРЅРёР·
 			if (getBottom() > mParent->getHeight() - mParent->mMargin.bottom) {
 				mMargin.bottom = getBottom() - (mParent->getHeight() - mParent->mMargin.bottom);
 				margin = true;
@@ -129,19 +129,19 @@ namespace MyGUI
 			return margin;
 		}
 
-		bool _checkOutside() // проверка на полный выход за границу
+		bool _checkOutside() // РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†Сѓ
 		{
-			return ( (getRight() < mParent->mMargin.left ) || // совсем уехали налево
-				(getLeft() > mParent->getWidth() - mParent->mMargin.right ) || // совсем уехали направо
-				(getBottom() < mParent->mMargin.top  ) || // совсем уехали вверх
-				(getTop() > mParent->getHeight() - mParent->mMargin.bottom ) );  // совсем уехали вниз
+			return ( (getRight() < mParent->mMargin.left ) || // СЃРѕРІСЃРµРј СѓРµС…Р°Р»Рё РЅР°Р»РµРІРѕ
+				(getLeft() > mParent->getWidth() - mParent->mMargin.right ) || // СЃРѕРІСЃРµРј СѓРµС…Р°Р»Рё РЅР°РїСЂР°РІРѕ
+				(getBottom() < mParent->mMargin.top  ) || // СЃРѕРІСЃРµРј СѓРµС…Р°Р»Рё РІРІРµСЂС…
+				(getTop() > mParent->getHeight() - mParent->mMargin.bottom ) );  // СЃРѕРІСЃРµРј СѓРµС…Р°Р»Рё РІРЅРёР·
 		}
 
 	protected:
 		bool mIsMargin;
-		IntRect mMargin; // перекрытие
-		IntCoord mCoord; // координаты
-		IntPoint mAbsolutePosition; // обсолютные координаты
+		IntRect mMargin; // РїРµСЂРµРєСЂС‹С‚РёРµ
+		IntCoord mCoord; // РєРѕРѕСЂРґРёРЅР°С‚С‹
+		IntPoint mAbsolutePosition; // РѕР±СЃРѕР»СЋС‚РЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 
 		ICroppedRectangle * mParent;
 		bool mShow;

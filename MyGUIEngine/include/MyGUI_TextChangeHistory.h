@@ -17,10 +17,10 @@
 namespace MyGUI
 {
 
-	// инфо об одной операции
+	// РёРЅС„Рѕ РѕР± РѕРґРЅРѕР№ РѕРїРµСЂР°С†РёРё
 	struct TextCommandInfo
 	{
-		// типы операций
+		// С‚РёРїС‹ РѕРїРµСЂР°С†РёР№
 		enum CommandType
 		{
 			COMMAND_POSITION,
@@ -28,20 +28,20 @@ namespace MyGUI
 			COMMAND_ERASE
 		};
 
-		// для удаления и вставки текста
+		// РґР»СЏ СѓРґР°Р»РµРЅРёСЏ Рё РІСЃС‚Р°РІРєРё С‚РµРєСЃС‚Р°
 		TextCommandInfo(const Ogre::UTFString & _text, size_t _start, CommandType _type)
 			: text(_text), type(_type), start(_start), undo(ITEM_NONE), redo(ITEM_NONE), length(ITEM_NONE) {}
-		// для указания позиции
+		// РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ РїРѕР·РёС†РёРё
 		TextCommandInfo(size_t _undo, size_t _redo, size_t _length)
 			: type(COMMAND_POSITION), start(ITEM_NONE), undo(_undo), redo(_redo), length(_length) {}
 
-		// строка харрактиризуещая изменения
+		// СЃС‚СЂРѕРєР° С…Р°СЂСЂР°РєС‚РёСЂРёР·СѓРµС‰Р°СЏ РёР·РјРµРЅРµРЅРёСЏ
 		Ogre::UTFString text;
-		// тип операции
+		// С‚РёРї РѕРїРµСЂР°С†РёРё
 		CommandType type;
-		// инфа о начале позиции
+		// РёРЅС„Р° Рѕ РЅР°С‡Р°Р»Рµ РїРѕР·РёС†РёРё
 		size_t start;
-		// инфа о псевдо позиции
+		// РёРЅС„Р° Рѕ РїСЃРµРІРґРѕ РїРѕР·РёС†РёРё
 		size_t undo, redo, length;
 	};
 

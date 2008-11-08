@@ -20,7 +20,7 @@ namespace MyGUI
 	*/
 	class _MyGUIExport RenderBox : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<RenderBox>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -156,7 +156,7 @@ namespace MyGUI
 		void removeEntity(const Ogre::String& _name);
 
 		bool mUserViewport;
-		// все, что касается сцены
+		// РІСЃРµ, С‡С‚Рѕ РєР°СЃР°РµС‚СЃСЏ СЃС†РµРЅС‹
 		Ogre::SceneManager * mScene;
 		Ogre::Entity * mEntity;
 		Ogre::SceneNode * mNode;

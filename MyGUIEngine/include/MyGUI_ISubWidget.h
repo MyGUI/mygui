@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	// базовый тип информации о стейте
+	// Р±Р°Р·РѕРІС‹Р№ С‚РёРї РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЃС‚РµР№С‚Рµ
 	class StateInfo{};
 	typedef std::vector<StateInfo*> VectorStateInfo;
 	typedef std::map<std::string, StateInfo*> MapStateInfo;

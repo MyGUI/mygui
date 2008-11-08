@@ -32,7 +32,7 @@ namespace MyGUI
 			void shutdown();
 			static void changeLanguage(const std::string & _language);
 
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Message_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Message_Message(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Message_Modal(WidgetPtr _widget, const std::string &_key, const std::string &_value);

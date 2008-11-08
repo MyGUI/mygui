@@ -29,7 +29,7 @@ namespace MyGUI
 		mHeightLine(1),
 		mSubmenuImageSize(0)
 	{
-		// нам нужен фокус клавы
+		// РЅР°Рј РЅСѓР¶РµРЅ С„РѕРєСѓСЃ РєР»Р°РІС‹
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -42,7 +42,7 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
 		mWidgetClient->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("SkinLine");
 		if (iterS != properties.end()) mSkinLine = iterS->second;
@@ -66,7 +66,7 @@ namespace MyGUI
 		if (iterS != properties.end()) mSubMenuLayer = iterS->second;
 		MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (PopupMenu must have SubMenuLayer property)");
 
-		// первоначально скрываем окно
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕ СЃРєСЂС‹РІР°РµРј РѕРєРЅРѕ
 		hide();
 	}
 
@@ -125,7 +125,7 @@ namespace MyGUI
 
 		mItemsInfo[_index].separator = _type == ItemTypeSeparator;
 
-		// изменился статус попап
+		// РёР·РјРµРЅРёР»СЃСЏ СЃС‚Р°С‚СѓСЃ РїРѕРїР°Рї
 		if (_type == ItemTypePopup) {
 			if (mItemsInfo[_index].submenu == null) {
 				mItemsInfo[_index].submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
@@ -196,10 +196,10 @@ namespace MyGUI
 	{
 		if (_widget != null)
 		{
-			// да, хозяин
+			// РґР°, С…РѕР·СЏРёРЅ
 			if (_widget == this->_getOwner())
 				return true;
-			// сына, внук и прочая мелюзга
+			// СЃС‹РЅР°, РІРЅСѓРє Рё РїСЂРѕС‡Р°СЏ РјРµР»СЋР·РіР°
 			WidgetPtr owner = _widget->_getOwner();
 			while (owner != null)
 			{
@@ -208,9 +208,9 @@ namespace MyGUI
 			}
 			if (_all)
 			{
-				// так это ж я!
+				// С‚Р°Рє СЌС‚Рѕ Р¶ СЏ!
 				if (_widget == this) return true;
-				 // предки
+				 // РїСЂРµРґРєРё
 				owner = this->_getOwner();
 				while (owner != null)
 				{
@@ -224,7 +224,7 @@ namespace MyGUI
 
 	void PopupMenu::notifyMouseClick(MyGUI::WidgetPtr _sender)
 	{
-		// потом передалть на интернал дата
+		// РїРѕС‚РѕРј РїРµСЂРµРґР°Р»С‚СЊ РЅР° РёРЅС‚РµСЂРЅР°Р» РґР°С‚Р°
 		size_t index = ITEM_NONE;
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			if (iter->button == _sender) {
@@ -232,14 +232,14 @@ namespace MyGUI
 				break;
 			}
 		}
-		// если вызвали через событие onMouseRelease и не попали
+		// РµСЃР»Рё РІС‹Р·РІР°Р»Рё С‡РµСЂРµР· СЃРѕР±С‹С‚РёРµ onMouseRelease Рё РЅРµ РїРѕРїР°Р»Рё
 		if (index == ITEM_NONE) return;
 		eventPopupMenuAccept(this, index);
 
-		// делаем нажатой
+		// РґРµР»Р°РµРј РЅР°Р¶Р°С‚РѕР№
 		static_cast<ButtonPtr>(_sender)->setButtonPressed(true);
 
-		// если есть сабменю, то сообщение все равно отошлем, но скрывать сами не будем
+		// РµСЃР»Рё РµСЃС‚СЊ СЃР°Р±РјРµРЅСЋ, С‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ РІСЃРµ СЂР°РІРЅРѕ РѕС‚РѕС€Р»РµРј, РЅРѕ СЃРєСЂС‹РІР°С‚СЊ СЃР°РјРё РЅРµ Р±СѓРґРµРј
 		if (mItemsInfo[index].submenu == null)
 		{
 			hidePopupMenu();
@@ -248,7 +248,7 @@ namespace MyGUI
 
 	void PopupMenu::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
-		// потом передалть на интернал дата
+		// РїРѕС‚РѕРј РїРµСЂРµРґР°Р»С‚СЊ РЅР° РёРЅС‚РµСЂРЅР°Р» РґР°С‚Р°
 		size_t index = ITEM_NONE;
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 		{
@@ -268,7 +268,7 @@ namespace MyGUI
 		if (mItemsInfo[index].submenu)
 		{
 			mItemsInfo[index].button->setButtonPressed(true);
-			// вычисляем куда ставить
+			// РІС‹С‡РёСЃР»СЏРµРј РєСѓРґР° СЃС‚Р°РІРёС‚СЊ
 			IntPoint position(getRight(), mItemsInfo[index].button->getTop() + getTop());
 			if (position.left + mItemsInfo[index].submenu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
 				position.left -= mItemsInfo[index].submenu->getWidth() + getWidth();
@@ -305,13 +305,13 @@ namespace MyGUI
 
 	void PopupMenu::notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		// если отжали не на той же кнопке
+		// РµСЃР»Рё РѕС‚Р¶Р°Р»Рё РЅРµ РЅР° С‚РѕР№ Р¶Рµ РєРЅРѕРїРєРµ
 		if ( _sender->getAbsoluteCoord().inside(IntPoint(_left, _top)) == false )
 		{
 			MyGUI::LayerItem * rootItem = null;
 			MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, rootItem));
-			MyGUI::WidgetPtr button = item; // может понадобится, для вызова notifyMouseClick
-			// проверяем только рутовые виджеты, чтобы не проверять детей попапа
+			MyGUI::WidgetPtr button = item; // РјРѕР¶РµС‚ РїРѕРЅР°РґРѕР±РёС‚СЃСЏ, РґР»СЏ РІС‹Р·РѕРІР° notifyMouseClick
+			// РїСЂРѕРІРµСЂСЏРµРј С‚РѕР»СЊРєРѕ СЂСѓС‚РѕРІС‹Рµ РІРёРґР¶РµС‚С‹, С‡С‚РѕР±С‹ РЅРµ РїСЂРѕРІРµСЂСЏС‚СЊ РґРµС‚РµР№ РїРѕРїР°РїР°
 			while ((item != null) && (item->getParent() != null)) item = item->getParent();
 			if (isRelative(item, true))
 			{
@@ -327,12 +327,12 @@ namespace MyGUI
 
 	void PopupMenu::onKeyLostFocus(WidgetPtr _new)
 	{
-		// не прятать, если фокус перешел к хозяину или сыну
+		// РЅРµ РїСЂСЏС‚Р°С‚СЊ, РµСЃР»Рё С„РѕРєСѓСЃ РїРµСЂРµС€РµР» Рє С…РѕР·СЏРёРЅСѓ РёР»Рё СЃС‹РЅСѓ
 		if (isRelative(_new)) return;
 		hidePopupMenu();
 		eventPopupMenuClose(this);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::eventKeyLostFocus(mWidgetEventSender, _new);
 	}
 
@@ -340,7 +340,7 @@ namespace MyGUI
 	{
 		if ( _hideParentPopup && mOwner != null )
 		{
-			// если наш папа попап меню или меню - спрячем и его
+			// РµСЃР»Рё РЅР°С€ РїР°РїР° РїРѕРїР°Рї РјРµРЅСЋ РёР»Рё РјРµРЅСЋ - СЃРїСЂСЏС‡РµРј Рё РµРіРѕ
 			PopupMenuPtr popup = mOwner->castType<PopupMenu>(false);
 			if (popup != null) popup->hidePopupMenu();
 			else {
@@ -349,14 +349,14 @@ namespace MyGUI
 			}
 		}
 
-		// блокируем
+		// Р±Р»РѕРєРёСЂСѓРµРј
 		setEnabledSilent(false);
-		// медленно скрываем
+		// РјРµРґР»РµРЅРЅРѕ СЃРєСЂС‹РІР°РµРј
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
 		controller->eventPostAction = newDelegate(action::actionWidgetHide);
 		ControllerManager::getInstance().addItem(this, controller);
 
-		// прячем всех детей
+		// РїСЂСЏС‡РµРј РІСЃРµС… РґРµС‚РµР№
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 		{
 			if (iter->submenu) {

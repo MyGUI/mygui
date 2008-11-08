@@ -15,7 +15,7 @@ namespace MyGUI
 		TabFactory::TabFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Tab_ButtonWidth") = newDelegate(this, &TabFactory::Tab_ButtonWidth);
 			manager.registerDelegate("Tab_ButtonAutoWidth") = newDelegate(this, &TabFactory::Tab_ButtonAutoWidth);
 			manager.registerDelegate("Tab_SmoothShow") = newDelegate(this, &TabFactory::Tab_SmoothShow);
@@ -26,7 +26,7 @@ namespace MyGUI
 		TabFactory::~TabFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Tab_ButtonWidth");
 			manager.unregisterDelegate("Tab_ButtonAutoWidth");
 			manager.unregisterDelegate("Tab_SmoothShow");

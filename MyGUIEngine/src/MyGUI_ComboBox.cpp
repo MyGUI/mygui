@@ -35,7 +35,7 @@ namespace MyGUI
 		mDropMouse(false),
 		mShowSmooth(false)
 	{
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iter = properties.find("HeightList");
 		if (iter != properties.end()) mMaxHeight = utility::parseInt(iter->second);
@@ -49,9 +49,9 @@ namespace MyGUI
 		iter = properties.find("ListLayer");
 		if (iter != properties.end()) listLayer = iter->second;
 
-		// ручками создаем список
+		// СЂСѓС‡РєР°РјРё СЃРѕР·РґР°РµРј СЃРїРёСЃРѕРє
 		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::getClassTypeName(), listSkin, IntCoord(), Align::Default, null, this, ""));
-		// присоединяем виджет с уровню и не добавляем себе
+		// РїСЂРёСЃРѕРµРґРёРЅСЏРµРј РІРёРґР¶РµС‚ СЃ СѓСЂРѕРІРЅСЋ Рё РЅРµ РґРѕР±Р°РІР»СЏРµРј СЃРµР±Рµ
 		LayerManager::getInstance().attachToLayerKeeper(listLayer, mList);
 
 		//mList = static_cast<List>(_createWidget(List::_getType(), listSkin, IntCoord(), Align::Default, listLayer, ""));
@@ -63,7 +63,7 @@ namespace MyGUI
 		mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
 		mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 
-		// парсим кнопку
+		// РїР°СЂСЃРёРј РєРЅРѕРїРєСѓ
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Button") {
 				MYGUI_DEBUG_ASSERT( ! mButton, "widget already assigned");
@@ -73,23 +73,23 @@ namespace MyGUI
 		}
 		MYGUI_ASSERT(null != mButton, "Child Button not found in skin (combobox must have Button)");
 
-		// корректируем высоту списка
+		// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РІС‹СЃРѕС‚Сѓ СЃРїРёСЃРєР°
 		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();
 
-		// подписываем дочерние классы на скролл
+		// РїРѕРґРїРёСЃС‹РІР°РµРј РґРѕС‡РµСЂРЅРёРµ РєР»Р°СЃСЃС‹ РЅР° СЃРєСЂРѕР»Р»
 		mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
 		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
 		//mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
 		//mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
-		// подписываемся на изменения текста
+		// РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РёР·РјРµРЅРµРЅРёСЏ С‚РµРєСЃС‚Р°
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
 	}
 
 	ComboBox::~ComboBox()
 	{
-		// чтобы теперь удалить, виджет должен быть в нашем списке
+		// С‡С‚РѕР±С‹ С‚РµРїРµСЂСЊ СѓРґР°Р»РёС‚СЊ, РІРёРґР¶РµС‚ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РІ РЅР°С€РµРј СЃРїРёСЃРєРµ
 		mWidgetChild.push_back(mList);
 		WidgetManager::getInstance().destroyWidget(mList);
 	}
@@ -109,9 +109,9 @@ namespace MyGUI
 		if (mDropMouse) {
 			mDropMouse = false;
 			WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
-			// кнопка сама уберет список
+			// РєРЅРѕРїРєР° СЃР°РјР° СѓР±РµСЂРµС‚ СЃРїРёСЃРѕРє
 			if (focus == mButton) return;
-			// в режиме дропа все окна учавствуют
+			// РІ СЂРµР¶РёРјРµ РґСЂРѕРїР° РІСЃРµ РѕРєРЅР° СѓС‡Р°РІСЃС‚РІСѓСЋС‚
 			if ( (mModeDrop) && (focus == mWidgetClient) ) return;
 		}
 
@@ -139,14 +139,14 @@ namespace MyGUI
 	{
 		Edit::onKeyButtonPressed(_key, _char);
 
-		// при нажатии вниз, показываем лист
+		// РїСЂРё РЅР°Р¶Р°С‚РёРё РІРЅРёР·, РїРѕРєР°Р·С‹РІР°РµРј Р»РёСЃС‚
 		if (_key == KC_DOWN) {
-			// выкидываем список только если мыша свободна
+			// РІС‹РєРёРґС‹РІР°РµРј СЃРїРёСЃРѕРє С‚РѕР»СЊРєРѕ РµСЃР»Рё РјС‹С€Р° СЃРІРѕР±РѕРґРЅР°
 			if (false == InputManager::getInstance().isCaptureMouse()) {
 				showList();
 			}
 		}
-		// нажат ввод в окне редиктирования
+		// РЅР°Р¶Р°С‚ РІРІРѕРґ РІ РѕРєРЅРµ СЂРµРґРёРєС‚РёСЂРѕРІР°РЅРёСЏ
 		else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
 			eventComboAccept(this, mItemIndex);
 		}
@@ -193,18 +193,18 @@ namespace MyGUI
 
 	void ComboBox::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		// обязательно отдаем отцу, а то мы у него в наглую отняли
+		// РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РѕС‚РґР°РµРј РѕС‚С†Сѓ, Р° С‚Рѕ РјС‹ Сѓ РЅРµРіРѕ РІ РЅР°РіР»СѓСЋ РѕС‚РЅСЏР»Рё
 		Edit::notifyMousePressed(_sender, _left, _top, _id);
 
 		mDropMouse = true;
 
-		// показываем список
+		// РїРѕРєР°Р·С‹РІР°РµРј СЃРїРёСЃРѕРє
 		if (mModeDrop) notifyButtonPressed(null, _left, _top, _id);
 	}
 
 	void ComboBox::notifyEditTextChange(WidgetPtr _sender)
 	{
-		// сбрасываем выделенный элемент
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
 		if (ITEM_NONE != mItemIndex) {
 			mItemIndex = ITEM_NONE;
 			mList->setItemSelectedAt(mItemIndex);
@@ -215,7 +215,7 @@ namespace MyGUI
 
 	void ComboBox::showList()
 	{
-		// пустой список не показываем
+		// РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє РЅРµ РїРѕРєР°Р·С‹РІР°РµРј
 		if (mList->getItemCount() == 0) return;
 
 		mListShow = true;
@@ -223,15 +223,15 @@ namespace MyGUI
 		int height = mList->getOptimalHeight();
 		if (height > mMaxHeight) height = mMaxHeight;
 
-		// берем глобальные координаты выджета
+		// Р±РµСЂРµРј РіР»РѕР±Р°Р»СЊРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РІС‹РґР¶РµС‚Р°
 		IntCoord coord = this->getAbsoluteCoord();
 
-		//показываем список вверх
+		//РїРѕРєР°Р·С‹РІР°РµРј СЃРїРёСЃРѕРє РІРІРµСЂС…
 		if ((coord.top + coord.height + height) > (int)Gui::getInstance().getViewHeight()) {
 			coord.height = height;
 			coord.top -= coord.height;
 		}
-		// показываем список вниз
+		// РїРѕРєР°Р·С‹РІР°РµРј СЃРїРёСЃРѕРє РІРЅРёР·
 		else {
 			coord.top += coord.height;
 			coord.height = height;
@@ -304,7 +304,7 @@ namespace MyGUI
 	void ComboBox::removeAllItems()
 	{
 		mItemIndex = ITEM_NONE;//FIXME
-		mList->removeAllItems();//FIXME заново созданные строки криво стоят
+		mList->removeAllItems();//FIXME Р·Р°РЅРѕРІРѕ СЃРѕР·РґР°РЅРЅС‹Рµ СЃС‚СЂРѕРєРё РєСЂРёРІРѕ СЃС‚РѕСЏС‚
 	}
 
 	void ComboBox::setComboModeDrop(bool _drop)

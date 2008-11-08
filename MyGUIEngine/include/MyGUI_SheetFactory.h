@@ -22,7 +22,7 @@ namespace MyGUI
 			SheetFactory();
 			~SheetFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Sheet_ButtonWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Sheet_Select(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 

@@ -32,7 +32,7 @@ namespace MyGUI
 	void ControllerFadeAlpha::prepareItem(WidgetPtr _widget)
 	{
 		MYGUI_DEBUG_ASSERT(mCoef > 0, "coef must be > 0");
-		// подготовка виджета
+		// РїРѕРґРіРѕС‚РѕРІРєР° РІРёРґР¶РµС‚Р°
 		_widget->setEnabledSilent(mEnabled);
 
 		if ((ALPHA_MIN != mAlpha) && (false == _widget->isShow())) {
@@ -40,10 +40,10 @@ namespace MyGUI
 			_widget->show();
 		}
 
-		// отписываем его от ввода
+		// РѕС‚РїРёСЃС‹РІР°РµРј РµРіРѕ РѕС‚ РІРІРѕРґР°
 		if (false == mEnabled) InputManager::getInstance()._unlinkWidget(_widget);
 
-		// вызываем пользовательский делегат для подготовки
+		// РІС‹Р·С‹РІР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РґРµР»РµРіР°С‚ РґР»СЏ РїРѕРґРіРѕС‚РѕРІРєРё
 		eventPreAction(_widget);
 	}
 
@@ -59,7 +59,7 @@ namespace MyGUI
 	{
 		float alpha = _widget->getAlpha();
 
-		// проверяем нужно ли к чему еще стремиться
+		// РїСЂРѕРІРµСЂСЏРµРј РЅСѓР¶РЅРѕ Р»Рё Рє С‡РµРјСѓ РµС‰Рµ СЃС‚СЂРµРјРёС‚СЊСЃСЏ
 		if (mAlpha > alpha) {
 			alpha += _time * mCoef;
 			if (mAlpha > alpha) {
@@ -81,7 +81,7 @@ namespace MyGUI
 			}
 		}
 
-		// вызываем пользовательский делегат пост обработки
+		// РІС‹Р·С‹РІР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РґРµР»РµРіР°С‚ РїРѕСЃС‚ РѕР±СЂР°Р±РѕС‚РєРё
 		eventPostAction(_widget);
 
 		return false;

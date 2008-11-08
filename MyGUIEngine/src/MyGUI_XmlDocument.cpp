@@ -67,10 +67,10 @@ namespace MyGUI
 
 		void xmlNode::save(std::ofstream & _stream, size_t _level)
 		{
-			// сначала табуляции намутим
+			// СЃРЅР°С‡Р°Р»Р° С‚Р°Р±СѓР»СЏС†РёРё РЅР°РјСѓС‚РёРј
 			for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";
 
-			// теперь заголовок тега
+			// С‚РµРїРµСЂСЊ Р·Р°РіРѕР»РѕРІРѕРє С‚РµРіР°
 			if (mType == XML_NODE_TYPE_INFO) _stream << "<?";
 			else _stream << "<";
 			_stream << mName;
@@ -80,7 +80,7 @@ namespace MyGUI
 			}
 
 			bool empty = mChilds.empty();
-			// если детей нет то закрываем
+			// РµСЃР»Рё РґРµС‚РµР№ РЅРµС‚ С‚Рѕ Р·Р°РєСЂС‹РІР°РµРј
 			if (empty && mBody.empty()) {
 				if (mType == XML_NODE_TYPE_INFO) _stream << "?>\n";
 				else _stream << "/>\n";
@@ -88,7 +88,7 @@ namespace MyGUI
 			else {
 				_stream << ">";
 				if (!empty) _stream << "\n";
-				// если есть тело то сначало оно
+				// РµСЃР»Рё РµСЃС‚СЊ С‚РµР»Рѕ С‚Рѕ СЃРЅР°С‡Р°Р»Рѕ РѕРЅРѕ
 				if (!mBody.empty()) {
 					if (!empty) {
 						for (size_t tab=0; tab<=_level; ++tab) _stream  << "    ";
@@ -97,7 +97,7 @@ namespace MyGUI
 
 					if (!empty) _stream << "\n";
 				}
-				// если есть детишки путь сохранятся
+				// РµСЃР»Рё РµСЃС‚СЊ РґРµС‚РёС€РєРё РїСѓС‚СЊ СЃРѕС…СЂР°РЅСЏС‚СЃСЏ
 				for (size_t child=0; child<mChilds.size(); child++) {
 					mChilds[child]->save(_stream, _level + 1);
 				}
@@ -178,33 +178,33 @@ namespace MyGUI
 			clear();
 
 			mLastErrorFile = stream->getName();
-			// это текущая строка для разбора
+			// СЌС‚Рѕ С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° РґР»СЏ СЂР°Р·Р±РѕСЂР°
 			std::string line;
-			// это строка из файла
+			// СЌС‚Рѕ СЃС‚СЂРѕРєР° РёР· С„Р°Р№Р»Р°
 			std::string read;
-			// текущий узел для разбора
+			// С‚РµРєСѓС‰РёР№ СѓР·РµР» РґР»СЏ СЂР°Р·Р±РѕСЂР°
 			xmlNodePtr currentNode = 0;
 
 			while (false == stream->eof()) {
-				// берем новую строку
+				// Р±РµСЂРµРј РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
 				read = stream->getLine (false);
 				mLine ++;
-				mCol = 0; // потом проверить на многострочных тэгах
+				mCol = 0; // РїРѕС‚РѕРј РїСЂРѕРІРµСЂРёС‚СЊ РЅР° РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅС‹С… С‚СЌРіР°С…
 
 				if (read.empty()) continue;
 
-				// текущая строка для разбора и то что еще прочитали
+				// С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° РґР»СЏ СЂР°Р·Р±РѕСЂР° Рё С‚Рѕ С‡С‚Рѕ РµС‰Рµ РїСЂРѕС‡РёС‚Р°Р»Рё
 				line += read;
 
-				// крутимся пока в строке есть теги
+				// РєСЂСѓС‚РёРјСЃСЏ РїРѕРєР° РІ СЃС‚СЂРѕРєРµ РµСЃС‚СЊ С‚РµРіРё
 				while (true) {
 
-					// сначала ищем по угловым скобкам
+					// СЃРЅР°С‡Р°Р»Р° РёС‰РµРј РїРѕ СѓРіР»РѕРІС‹Рј СЃРєРѕР±РєР°Рј
 					size_t start = find(line, '<');
 					if (start == line.npos) break;
 					size_t end = line.npos;
 
-					// пытаемся вырезать многострочный коментарий
+					// РїС‹С‚Р°РµРјСЃСЏ РІС‹СЂРµР·Р°С‚СЊ РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅС‹Р№ РєРѕРјРµРЅС‚Р°СЂРёР№
 					if ((start + 3 < line.size()) && (line[start + 1] == '!') && (line[start + 2] == '-') && (line[start + 3] == '-')) {
 						end = line.find("-->", start + 4);
 						if (end == line.npos) break;
@@ -217,12 +217,12 @@ namespace MyGUI
 
 					}
 
-					// проверяем на наличее тела
+					// РїСЂРѕРІРµСЂСЏРµРј РЅР° РЅР°Р»РёС‡РµРµ С‚РµР»Р°
 					size_t body = line.find_first_not_of(" \t<");
 					if (body < start) {
 
 						std::string body_str = line.substr(0, start);
-						// текущий символ
+						// С‚РµРєСѓС‰РёР№ СЃРёРјРІРѕР»
 						mCol = 0;
 
 						if (currentNode != 0) 	{
@@ -236,13 +236,13 @@ namespace MyGUI
 
 					}
 
-					// вырезаем наш тэг и парсим
+					// РІС‹СЂРµР·Р°РµРј РЅР°С€ С‚СЌРі Рё РїР°СЂСЃРёРј
 					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
-						// ошибка установится внутри
+						// РѕС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРёС‚СЃСЏ РІРЅСѓС‚СЂРё
 						return false;
 					}
 
-					// и обрезаем текущую строку разбора
+					// Рё РѕР±СЂРµР·Р°РµРј С‚РµРєСѓС‰СѓСЋ СЃС‚СЂРѕРєСѓ СЂР°Р·Р±РѕСЂР°
 					line = line.substr(end+1);
 
 				}; // while (true)
@@ -267,33 +267,33 @@ namespace MyGUI
 				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 				return false;
 			}
-			// это текущая строка для разбора
+			// СЌС‚Рѕ С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° РґР»СЏ СЂР°Р·Р±РѕСЂР°
 			std::string line;
-			// это строка из файла
+			// СЌС‚Рѕ СЃС‚СЂРѕРєР° РёР· С„Р°Р№Р»Р°
 			std::string read;
-			// текущий узел для разбора
+			// С‚РµРєСѓС‰РёР№ СѓР·РµР» РґР»СЏ СЂР°Р·Р±РѕСЂР°
 			xmlNodePtr currentNode = 0;
 
 			while (false == stream.eof()) {
-				// берем новую строку
+				// Р±РµСЂРµРј РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
 				std::getline(stream, read);
 				mLine ++;
-				mCol = 0; // потом проверить на многострочных тэгах
+				mCol = 0; // РїРѕС‚РѕРј РїСЂРѕРІРµСЂРёС‚СЊ РЅР° РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅС‹С… С‚СЌРіР°С…
 
 				if (read.empty()) continue;
 
-				// текущая строка для разбора и то что еще прочитали
+				// С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР° РґР»СЏ СЂР°Р·Р±РѕСЂР° Рё С‚Рѕ С‡С‚Рѕ РµС‰Рµ РїСЂРѕС‡РёС‚Р°Р»Рё
 				line += read;
 
-				// крутимся пока в строке есть теги
+				// РєСЂСѓС‚РёРјСЃСЏ РїРѕРєР° РІ СЃС‚СЂРѕРєРµ РµСЃС‚СЊ С‚РµРіРё
 				while (true) {
 
-					// сначала ищем по угловым скобкам
+					// СЃРЅР°С‡Р°Р»Р° РёС‰РµРј РїРѕ СѓРіР»РѕРІС‹Рј СЃРєРѕР±РєР°Рј
 					size_t start = find(line, '<');
 					if (start == line.npos) break;
 					size_t end = line.npos;
 
-					// пытаемся вырезать многострочный коментарий
+					// РїС‹С‚Р°РµРјСЃСЏ РІС‹СЂРµР·Р°С‚СЊ РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅС‹Р№ РєРѕРјРµРЅС‚Р°СЂРёР№
 					if ((start + 3 < line.size()) && (line[start + 1] == '!') && (line[start + 2] == '-') && (line[start + 3] == '-')) {
 						end = line.find("-->", start + 4);
 						if (end == line.npos) break;
@@ -306,12 +306,12 @@ namespace MyGUI
 
 					}
 
-					// проверяем на наличее тела
+					// РїСЂРѕРІРµСЂСЏРµРј РЅР° РЅР°Р»РёС‡РµРµ С‚РµР»Р°
 					size_t body = line.find_first_not_of(" \t<");
 					if (body < start) {
 
 						std::string body_str = line.substr(0, start);
-						// текущий символ
+						// С‚РµРєСѓС‰РёР№ СЃРёРјРІРѕР»
 						mCol = 0;
 
 						if (currentNode != 0) 	{
@@ -325,14 +325,14 @@ namespace MyGUI
 
 					}
 
-					// вырезаем наш тэг и парсим
+					// РІС‹СЂРµР·Р°РµРј РЅР°С€ С‚СЌРі Рё РїР°СЂСЃРёРј
 					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
-						// ошибка установится внутри
+						// РѕС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРёС‚СЃСЏ РІРЅСѓС‚СЂРё
 						stream.close();
 						return false;
 					}
 
-					// и обрезаем текущую строку разбора
+					// Рё РѕР±СЂРµР·Р°РµРј С‚РµРєСѓС‰СѓСЋ СЃС‚СЂРѕРєСѓ СЂР°Р·Р±РѕСЂР°
 					line = line.substr(end+1);
 
 				}; // while (true)
@@ -349,7 +349,7 @@ namespace MyGUI
 			return true;
 		}
 
-		// сохраняет файл
+		// СЃРѕС…СЂР°РЅСЏРµС‚ С„Р°Р№Р»
 		bool xmlDocument::save(const std::string & _name)
 		{
 			if (!mInfo) {
@@ -365,7 +365,7 @@ namespace MyGUI
 				return false;
 			}
 
-			// заголовок utf8
+			// Р·Р°РіРѕР»РѕРІРѕРє utf8
 			stream << (char)0xEF;
 			stream << (char)0xBB;
 			stream << (char)0xBF;
@@ -388,7 +388,7 @@ namespace MyGUI
 		const std::string xmlDocument::getLastError()
 		{
 			if (0 == mLastError) return "";
-			// текстовое описание ошибок
+			// С‚РµРєСЃС‚РѕРІРѕРµ РѕРїРёСЃР°РЅРёРµ РѕС€РёР±РѕРє
 			static const char * errorNamesString[xml::errors::XML_ERROR_COUNT] = {
 				"XML_ERROR_NONE",
 				"XML_ERROR_OPEN_FILE",
@@ -413,15 +413,15 @@ namespace MyGUI
 		bool xmlDocument::parseTag(xmlNodePtr &_currentNode, std::string _body)
 		{
 
-			// убераем лишнее
+			// СѓР±РµСЂР°РµРј Р»РёС€РЅРµРµ
 			utility::trim(_body);
 
 			if (_body.empty()) {
-				// создаем пустой тег
+				// СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ С‚РµРі
 				if (_currentNode) _currentNode = _currentNode->createChild("");
 				else {
 					_currentNode = new xmlNode("", 0);
-					// если это первый то запоминаем
+					// РµСЃР»Рё СЌС‚Рѕ РїРµСЂРІС‹Р№ С‚Рѕ Р·Р°РїРѕРјРёРЅР°РµРј
 					if (!mRoot) mRoot = _currentNode;
 				}
 				return true;
@@ -430,44 +430,44 @@ namespace MyGUI
 			char simbol = _body[0];
 			bool tag_info = false;
 
-			if (simbol == '!') return true; // проверяем на коментарии
+			if (simbol == '!') return true; // РїСЂРѕРІРµСЂСЏРµРј РЅР° РєРѕРјРµРЅС‚Р°СЂРёРё
 
-			if (simbol == '?') { // проверяем на информационный тег
+			if (simbol == '?') { // РїСЂРѕРІРµСЂСЏРµРј РЅР° РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Р№ С‚РµРі
 				tag_info = true;
-				_body.erase(0, 1); // удаляем первый символ
+				_body.erase(0, 1); // СѓРґР°Р»СЏРµРј РїРµСЂРІС‹Р№ СЃРёРјРІРѕР»
 			}
 
 			size_t start, end;
-			// проверяем на закрытие тега
+			// РїСЂРѕРІРµСЂСЏРµРј РЅР° Р·Р°РєСЂС‹С‚РёРµ С‚РµРіР°
 			if (simbol == '/') {
 				if (_currentNode == 0) {
-					// чета мы закрывам а ниче даже и не открыто
+					// С‡РµС‚Р° РјС‹ Р·Р°РєСЂС‹РІР°Рј Р° РЅРёС‡Рµ РґР°Р¶Рµ Рё РЅРµ РѕС‚РєСЂС‹С‚Рѕ
 					if (!mRoot) {
 						mLastError = xml::errors::XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG;
 						return false;
 					}
 				}
-				// обрезаем имя тэга
+				// РѕР±СЂРµР·Р°РµРј РёРјСЏ С‚СЌРіР°
 				start = _body.find_first_not_of(" \t", 1);
 				if (start == _body.npos) {
-					// тег пустой
+					// С‚РµРі РїСѓСЃС‚РѕР№
 					_body.clear();
 				} else {
 					end = _body.find_last_not_of(" \t");
 					_body = _body.substr(start, end - start+1);
 				}
-				// проверяем соответствие открывающего и закрывающего тегов
+				// РїСЂРѕРІРµСЂСЏРµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ РѕС‚РєСЂС‹РІР°СЋС‰РµРіРѕ Рё Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ С‚РµРіРѕРІ
 				if (_currentNode->getName() != _body) {
 					mLastError = xml::errors::XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT;
 					return false;
 				}
-				// а теперь снижаем текущий узел вниз
+				// Р° С‚РµРїРµСЂСЊ СЃРЅРёР¶Р°РµРј С‚РµРєСѓС‰РёР№ СѓР·РµР» РІРЅРёР·
 				_currentNode = _currentNode->getParent();
 
 			} else {
-				// выделяем имя до первого пробела или закрывающего тега
+				// РІС‹РґРµР»СЏРµРј РёРјСЏ РґРѕ РїРµСЂРІРѕРіРѕ РїСЂРѕР±РµР»Р° РёР»Рё Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ С‚РµРіР°
 				std::string cut = _body;
-				start = _body.find_first_of(" \t/?", 1); // << превед
+				start = _body.find_first_of(" \t/?", 1); // << РїСЂРµРІРµРґ
 				if (start != _body.npos) {
 					cut = _body.substr(0, start);
 					_body = _body.substr(start);
@@ -476,7 +476,7 @@ namespace MyGUI
 				if (_currentNode) _currentNode = _currentNode->createChild(cut);
 				else {
 					if (tag_info) {
-						// информационный тег
+						// РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Р№ С‚РµРі
 						if (mInfo) {
 							mLastError = xml::errors::XML_ERROR_INFO_IS_EXIST;
 							return false;
@@ -484,7 +484,7 @@ namespace MyGUI
 						_currentNode = new xmlNode(cut, 0, XML_NODE_TYPE_INFO);
 						mInfo = _currentNode;
 					} else {
-						// рутовый тег
+						// СЂСѓС‚РѕРІС‹Р№ С‚РµРі
 						if (mRoot) {
 							mLastError = xml::errors::XML_ERROR_ROOT_IS_EXIST;
 							return false;
@@ -494,35 +494,35 @@ namespace MyGUI
 					}
 				}
 
-				// проверим на пустоту
+				// РїСЂРѕРІРµСЂРёРј РЅР° РїСѓСЃС‚РѕС‚Сѓ
 				start = _body.find_last_not_of(" \t");
 				if (start == _body.npos) return true;
 
-				// сразу отделим закрывающийся тэг
+				// СЃСЂР°Р·Сѓ РѕС‚РґРµР»РёРј Р·Р°РєСЂС‹РІР°СЋС‰РёР№СЃСЏ С‚СЌРі
 				bool close = false;
 				if ((_body[start] == '/') || (_body[start] == '?')) {
 					close = true;
-					// не будем резать строку, просто поставим пробел
+					// РЅРµ Р±СѓРґРµРј СЂРµР·Р°С‚СЊ СЃС‚СЂРѕРєСѓ, РїСЂРѕСЃС‚Рѕ РїРѕСЃС‚Р°РІРёРј РїСЂРѕР±РµР»
 					_body[start] = ' ';
-					// проверим на пустоту
+					// РїСЂРѕРІРµСЂРёРј РЅР° РїСѓСЃС‚РѕС‚Сѓ
 					start = _body.find_last_not_of(" \t");
 					if (start == _body.npos) {
-						// возвращаем все назад и уходим
+						// РІРѕР·РІСЂР°С‰Р°РµРј РІСЃРµ РЅР°Р·Р°Рґ Рё СѓС…РѕРґРёРј
 						_currentNode = _currentNode->getParent();
 						return true;
 					}
 				}
 
-				// а вот здесь уже в цикле разбиваем на атрибуты
+				// Р° РІРѕС‚ Р·РґРµСЃСЊ СѓР¶Рµ РІ С†РёРєР»Рµ СЂР°Р·Р±РёРІР°РµРј РЅР° Р°С‚СЂРёР±СѓС‚С‹
 				while (true) {
 
-					// ищем равно
+					// РёС‰РµРј СЂР°РІРЅРѕ
 					start = _body.find('=');
 					if (start == _body.npos) {
 						mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 						return false;
 					}
-					// ищем вторые ковычки
+					// РёС‰РµРј РІС‚РѕСЂС‹Рµ РєРѕРІС‹С‡РєРё
 					end = _body.find('\"', start+1);
 					if (end == _body.npos) {
 						mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
@@ -537,19 +537,19 @@ namespace MyGUI
 					std::string key = _body.substr(0, start);
 					std::string value = _body.substr(start+1, end-start);
 
-					// проверка на валидность
+					// РїСЂРѕРІРµСЂРєР° РЅР° РІР°Р»РёРґРЅРѕСЃС‚СЊ
 					if (! checkPair(key, value)) {
 						mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 						return false;
 					}
 
-					// добавляем пару в узел
+					// РґРѕР±Р°РІР»СЏРµРј РїР°СЂСѓ РІ СѓР·РµР»
 					_currentNode->addAttributes(key, value);
 
-					// следующий кусок
+					// СЃР»РµРґСѓСЋС‰РёР№ РєСѓСЃРѕРє
 					_body = _body.substr(end+1);
 
-					// в строке не осталось символов
+					// РІ СЃС‚СЂРѕРєРµ РЅРµ РѕСЃС‚Р°Р»РѕСЃСЊ СЃРёРјРІРѕР»РѕРІ
 					start = _body.find_first_not_of(" \t");
 					if (start == _body.npos) break;
 
@@ -557,9 +557,9 @@ namespace MyGUI
 
 				};
 
-				// был закрывающий тег для текущего тега
+				// Р±С‹Р» Р·Р°РєСЂС‹РІР°СЋС‰РёР№ С‚РµРі РґР»СЏ С‚РµРєСѓС‰РµРіРѕ С‚РµРіР°
 				if (close) {
-					// не проверяем имена, потому что это наш тэг
+					// РЅРµ РїСЂРѕРІРµСЂСЏРµРј РёРјРµРЅР°, РїРѕС‚РѕРјСѓ С‡С‚Рѕ СЌС‚Рѕ РЅР°С€ С‚СЌРі
 					_currentNode = _currentNode->getParent();
 				}
 
@@ -569,13 +569,13 @@ namespace MyGUI
 
 		bool xmlDocument::checkPair(std::string &_key, std::string &_value)
 		{
-			// в ключе не должно быть ковычек и пробелов
+			// РІ РєР»СЋС‡Рµ РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РєРѕРІС‹С‡РµРє Рё РїСЂРѕР±РµР»РѕРІ
 			utility::trim(_key);
 			if (_key.empty()) return false;
 			size_t start = _key.find_first_of(" \t\"\'&");
 			if (start != _key.npos) return false;
 
-			// в значении, ковычки по бокам
+			// РІ Р·РЅР°С‡РµРЅРёРё, РєРѕРІС‹С‡РєРё РїРѕ Р±РѕРєР°Рј
 			utility::trim(_value);
 			if (_value.size() < 2) return false;
 			if ((_value[0] != '"') || (_value[_value.length()-1] != '"')) return false;
@@ -584,13 +584,13 @@ namespace MyGUI
 			return ok;
 		}
 
-		// ищет символ без учета ковычек
+		// РёС‰РµС‚ СЃРёРјРІРѕР» Р±РµР· СѓС‡РµС‚Р° РєРѕРІС‹С‡РµРє
 		size_t xmlDocument::find(const std::string & _text, char _char, size_t _start)
 		{
-			// ковычки
+			// РєРѕРІС‹С‡РєРё
 			bool kov = false;
 
-			// буфер для поиска
+			// Р±СѓС„РµСЂ РґР»СЏ РїРѕРёСЃРєР°
 			char buff[16] = "\"_\0";
 			buff[1] = _char;
 
@@ -600,18 +600,18 @@ namespace MyGUI
 
 				pos = _text.find_first_of(buff, pos);
 
-				// если уже конец, то досвидания
+				// РµСЃР»Рё СѓР¶Рµ РєРѕРЅРµС†, С‚Рѕ РґРѕСЃРІРёРґР°РЅРёСЏ
 				if (pos == _text.npos) break;
 
-				// нашли ковычку
+				// РЅР°С€Р»Рё РєРѕРІС‹С‡РєСѓ
 				else if (_text[pos] == '"') {
 					kov = !kov;
 					pos ++;
 				}
-				// если мы в ковычках, то идем дальше
+				// РµСЃР»Рё РјС‹ РІ РєРѕРІС‹С‡РєР°С…, С‚Рѕ РёРґРµРј РґР°Р»СЊС€Рµ
 				else if (kov) pos ++;
 
-				// мы не в ковычках
+				// РјС‹ РЅРµ РІ РєРѕРІС‹С‡РєР°С…
 				else break;
 
 			}; //	while (true) {

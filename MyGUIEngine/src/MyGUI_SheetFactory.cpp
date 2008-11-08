@@ -15,7 +15,7 @@ namespace MyGUI
 		SheetFactory::SheetFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Sheet_ButtonWidth") = newDelegate(this, &SheetFactory::Sheet_ButtonWidth);
 			manager.registerDelegate("Sheet_Select") = newDelegate(this, &SheetFactory::Sheet_Select);
 			//manager.registerDelegate("Sheet_SmoothSelect") = newDelegate(this, &SheetFactory::Sheet_Select);
@@ -24,7 +24,7 @@ namespace MyGUI
 		SheetFactory::~SheetFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Sheet_ButtonWidth");
 			manager.unregisterDelegate("Sheet_Select");
 			//manager.unregisterDelegate("Sheet_SmoothSelect");

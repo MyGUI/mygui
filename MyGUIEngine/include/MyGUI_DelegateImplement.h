@@ -25,7 +25,7 @@ namespace delegates
 		#define C_MULTI_DELEGATE         COMBINE(CMultiDelegate, SUFFIX)
 	#endif
 
-	// базовый класс всех делегатов
+	// Р±Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РІСЃРµС… РґРµР»РµРіР°С‚РѕРІ
 	template<TEMPLATE_PARAMS>
 	class I_DELEGATE
 	{
@@ -45,7 +45,7 @@ namespace delegates
 		bool mStatic;
 	};
 
-	// делегат для статической функции
+	// РґРµР»РµРіР°С‚ РґР»СЏ СЃС‚Р°С‚РёС‡РµСЃРєРѕР№ С„СѓРЅРєС†РёРё
 	template<TEMPLATE_PARAMS>
 	class C_STATIC_DELEGATE : public I_DELEGATE<TEMPLATE_ARGS>
 	{
@@ -76,7 +76,7 @@ namespace delegates
 		Func mFunc;
 	};
 
-	// делегат для метода класса
+	// РґРµР»РµРіР°С‚ РґР»СЏ РјРµС‚РѕРґР° РєР»Р°СЃСЃР°
 	template<typename T, TEMPLATE_PARAMS>
 	class C_METHOD_DELEGATE : public I_DELEGATE<TEMPLATE_ARGS>
 	{
@@ -117,25 +117,25 @@ namespace delegates
 	};
 
 
-	// шаблон для создания делегата статической функции
-	// параметры : указатель на функцию
-	// пример : newDelegate(funk_name);
+	// С€Р°Р±Р»РѕРЅ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РґРµР»РµРіР°С‚Р° СЃС‚Р°С‚РёС‡РµСЃРєРѕР№ С„СѓРЅРєС†РёРё
+	// РїР°СЂР°РјРµС‚СЂС‹ : СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С„СѓРЅРєС†РёСЋ
+	// РїСЂРёРјРµСЂ : newDelegate(funk_name);
 	template<TEMPLATE_PARAMS>
 	inline I_DELEGATE<TEMPLATE_ARGS>* newDelegate(void (*_func)(PARAMS))
 	{
 		return new C_STATIC_DELEGATE<TEMPLATE_ARGS>(_func);
 	}
 
-	// шаблон для создания делегата метода класса
-	// параметры : указатель на объект класса и указатель на метод класса
-	// пример : newDelegate(&object_name, &class_name::method_name);
+	// С€Р°Р±Р»РѕРЅ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РґРµР»РµРіР°С‚Р° РјРµС‚РѕРґР° РєР»Р°СЃСЃР°
+	// РїР°СЂР°РјРµС‚СЂС‹ : СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° Рё СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РјРµС‚РѕРґ РєР»Р°СЃСЃР°
+	// РїСЂРёРјРµСЂ : newDelegate(&object_name, &class_name::method_name);
 	template <typename T, TEMPLATE_PARAMS>
 	inline I_DELEGATE<TEMPLATE_ARGS>* newDelegate(T * _object, void (T::*_method)(PARAMS))
 	{
 		return new C_METHOD_DELEGATE<T, TEMPLATE_ARGS> (GetDelegateUnlink(_object), _object, _method);
 	}
 
-	// шаблон класса делегата
+	// С€Р°Р±Р»РѕРЅ РєР»Р°СЃСЃР° РґРµР»РµРіР°С‚Р°
 	template<TEMPLATE_PARAMS>
 	class C_DELEGATE
 	{
@@ -184,7 +184,7 @@ namespace delegates
 		IDelegate * mDelegate;
 	};
 
-	// шаблон класса мульти делегата
+	// С€Р°Р±Р»РѕРЅ РєР»Р°СЃСЃР° РјСѓР»СЊС‚Рё РґРµР»РµРіР°С‚Р°
 	template<TEMPLATE_PARAMS>
 	class C_MULTI_DELEGATE
 	{
@@ -249,7 +249,7 @@ namespace delegates
 			typename ListDelegate::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_delegate)) {
-					// проверяем на идентичность делегатов
+					// РїСЂРѕРІРµСЂСЏРµРј РЅР° РёРґРµРЅС‚РёС‡РЅРѕСЃС‚СЊ РґРµР»РµРіР°С‚РѕРІ
 					if ((*iter) != _delegate) delete (*iter);
 					(*iter) = 0;
 					break;

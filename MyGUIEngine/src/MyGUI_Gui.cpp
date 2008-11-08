@@ -31,7 +31,7 @@ namespace MyGUI
 
 	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group)
 	{
-		// самый первый лог
+		// СЃР°РјС‹Р№ РїРµСЂРІС‹Р№ Р»РѕРі
 		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
 
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
@@ -42,15 +42,15 @@ namespace MyGUI
 			<< MYGUI_VERSION_MINOR << "."
 			<< MYGUI_VERSION_PATCH);
 
-		// дефолтный вьюпорт
+		// РґРµС„РѕР»С‚РЅС‹Р№ РІСЊСЋРїРѕСЂС‚
 		mActiveViewport = 0;
-		// сохраняем окно и размеры
+		// СЃРѕС…СЂР°РЅСЏРµРј РѕРєРЅРѕ Рё СЂР°Р·РјРµСЂС‹
 		mWindow = _window;
 		mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
 
 		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
 
-		// создаем и инициализируем синглтоны
+		// СЃРѕР·РґР°РµРј Рё РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЃРёРЅРіР»С‚РѕРЅС‹
 		mResourceManager = new ResourceManager();
 		mLayerManager = new LayerManager();
 		mWidgetManager = new WidgetManager();
@@ -85,11 +85,11 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
-		// подписываемся на изменение размеров окна и сразу оповещаем
+		// РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РёР·РјРµРЅРµРЅРёРµ СЂР°Р·РјРµСЂРѕРІ РѕРєРЅР° Рё СЃСЂР°Р·Сѓ РѕРїРѕРІРµС‰Р°РµРј
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 		windowResized(mWindow);
 
-		// загружаем дефолтные настройки если надо
+		// Р·Р°РіСЂСѓР¶Р°РµРј РґРµС„РѕР»С‚РЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё РµСЃР»Рё РЅР°РґРѕ
 		if ( _core.empty() == false ) mResourceManager->load(_core, mResourceManager->getResourceGroup());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -101,13 +101,13 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		// сразу отписываемся
+		// СЃСЂР°Р·Сѓ РѕС‚РїРёСЃС‹РІР°РµРјСЃСЏ
 		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 		WidgetManager::getInstance().unregisterUnlinker(this);
 
 		_destroyAllChildWidget();
 
-		// деинициализируем и удаляем синглтоны
+		// РґРµРёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј Рё СѓРґР°Р»СЏРµРј СЃРёРЅРіР»С‚РѕРЅС‹
 		mPointerManager->shutdown();
 		mWidgetManager->shutdown();
 		mInputManager->shutdown();
@@ -142,7 +142,7 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
-		// самый последний лог
+		// СЃР°РјС‹Р№ РїРѕСЃР»РµРґРЅРёР№ Р»РѕРі
 		LogManager::shutdown();
 
 		mIsInitialise = false;
@@ -160,7 +160,7 @@ namespace MyGUI
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);
 		mWidgetChild.push_back(widget);
-		// присоединяем виджет с уровню
+		// РїСЂРёСЃРѕРµРґРёРЅСЏРµРј РІРёРґР¶РµС‚ СЃ СѓСЂРѕРІРЅСЋ
 		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
 		return widget;
 	}
@@ -170,7 +170,7 @@ namespace MyGUI
 		return mWidgetManager->findWidgetT(_name);
 	}
 
-	// удяляет неудачника
+	// СѓРґСЏР»СЏРµС‚ РЅРµСѓРґР°С‡РЅРёРєР°
 	void Gui::_destroyChildWidget(WidgetPtr _widget)
 	{
 		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
@@ -178,35 +178,35 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end()) {
 
-			// сохраняем указатель
+			// СЃРѕС…СЂР°РЅСЏРµРј СѓРєР°Р·Р°С‚РµР»СЊ
 			MyGUI::WidgetPtr widget = *iter;
 
-			// удаляем из списка
+			// СѓРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєР°
 			*iter = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			// отписываем от всех
+			// РѕС‚РїРёСЃС‹РІР°РµРј РѕС‚ РІСЃРµС…
 			mWidgetManager->unlinkFromUnlinkers(_widget);
 
-			// непосредственное удаление
+			// РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕРµ СѓРґР°Р»РµРЅРёРµ
 			_deleteWidget(widget);
 		}
 		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
 	}
 
-	// удаляет всех детей
+	// СѓРґР°Р»СЏРµС‚ РІСЃРµС… РґРµС‚РµР№
 	void Gui::_destroyAllChildWidget()
 	{
 		while (false == mWidgetChild.empty()) {
 
-			// сразу себя отписывем, иначе вложенной удаление убивает все
+			// СЃСЂР°Р·Сѓ СЃРµР±СЏ РѕС‚РїРёСЃС‹РІРµРј, РёРЅР°С‡Рµ РІР»РѕР¶РµРЅРЅРѕР№ СѓРґР°Р»РµРЅРёРµ СѓР±РёРІР°РµС‚ РІСЃРµ
 			WidgetPtr widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			// отписываем от всех
+			// РѕС‚РїРёСЃС‹РІР°РµРј РѕС‚ РІСЃРµС…
 			mWidgetManager->unlinkFromUnlinkers(widget);
 
-			// и сами удалим, так как его больше в списке нет
+			// Рё СЃР°РјРё СѓРґР°Р»РёРј, С‚Р°Рє РєР°Рє РµРіРѕ Р±РѕР»СЊС€Рµ РІ СЃРїРёСЃРєРµ РЅРµС‚
 			_deleteWidget(widget);
 		}
 	}
@@ -216,7 +216,7 @@ namespace MyGUI
 		return mResourceManager->load(_file, _group);
 	}
 
-	// для оповещений об изменении окна рендера
+	// РґР»СЏ РѕРїРѕРІРµС‰РµРЅРёР№ РѕР± РёР·РјРµРЅРµРЅРёРё РѕРєРЅР° СЂРµРЅРґРµСЂР°
 	void Gui::windowResized(Ogre::RenderWindow* rw)
 	{
 		IntSize oldViewSize = mViewSize;
@@ -225,7 +225,7 @@ namespace MyGUI
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
 		mLayerManager->_windowResized(mViewSize);
 
-		// выравниваем рутовые окна
+		// РІС‹СЂР°РІРЅРёРІР°РµРј СЂСѓС‚РѕРІС‹Рµ РѕРєРЅР°
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			_alignWidget((*iter), oldViewSize, mViewSize);
 		}
@@ -255,30 +255,30 @@ namespace MyGUI
 
 		IntCoord coord = _widget->getCoord();
 
-		// первоначальное выравнивание
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 		if (align.isHStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			coord.width += _new.width - _old.width;
 		}
 		else if (align.isRight()) {
-			// двигаем по правому краю
+			// РґРІРёРіР°РµРј РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ
 			coord.left += _new.width - _old.width;
 		}
 		else if (align.isHCenter()) {
-			// выравнивание по горизонтали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			coord.left = (_new.width - coord.width) / 2;
 		}
 
 		if (align.isVStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			coord.height += _new.height - _old.height;
 		}
 		else if (align.isBottom()) {
-			// двигаем по нижнему краю
+			// РґРІРёРіР°РµРј РїРѕ РЅРёР¶РЅРµРјСѓ РєСЂР°СЋ
 			coord.top += _new.height - _old.height;
 		}
 		else if (align.isVCenter()) {
-			// выравнивание по вертикали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РІРµСЂС‚РёРєР°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			coord.top = (_new.height - coord.height) / 2;
 		}
 
@@ -306,7 +306,7 @@ namespace MyGUI
 		MYGUI_ASSERT(mWindow, "Gui is not initialised.");
 		MYGUI_ASSERT(mWindow->getNumViewports() >= _num, "index out of range");
 		mActiveViewport = _num;
-		// рассылка обновлений
+		// СЂР°СЃСЃС‹Р»РєР° РѕР±РЅРѕРІР»РµРЅРёР№
 		windowResized(mWindow);
 	}
 

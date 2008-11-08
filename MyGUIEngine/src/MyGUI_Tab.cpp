@@ -37,7 +37,7 @@ namespace MyGUI
 		mShutDown(false)
 	{
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
 			MapString::const_iterator iter = properties.find("OffsetBar");
@@ -90,7 +90,7 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
 		MYGUI_ASSERT(null != mSheetTemplate, "Child Widget Sheet not found in skin (Tab must have Sheet)");
 
-		// создаем виджет, носитель скина пустоты бара
+		// СЃРѕР·РґР°РµРј РІРёРґР¶РµС‚, РЅРѕСЃРёС‚РµР»СЊ СЃРєРёРЅР° РїСѓСЃС‚РѕС‚С‹ Р±Р°СЂР°
 		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
 
 		updateBar();
@@ -99,11 +99,11 @@ namespace MyGUI
 	Tab::~Tab()
 	{
 		mShutDown = true;
-		// просто очищаем список, виджеты сами удалятся
-		// и вкладки при удалении себя не найдет в списке
+		// РїСЂРѕСЃС‚Рѕ РѕС‡РёС‰Р°РµРј СЃРїРёСЃРѕРє, РІРёРґР¶РµС‚С‹ СЃР°РјРё СѓРґР°Р»СЏС‚СЃСЏ
+		// Рё РІРєР»Р°РґРєРё РїСЂРё СѓРґР°Р»РµРЅРёРё СЃРµР±СЏ РЅРµ РЅР°Р№РґРµС‚ РІ СЃРїРёСЃРєРµ
 	}
 
-	// переопределяем для особого обслуживания страниц
+	// РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РґР»СЏ РѕСЃРѕР±РѕРіРѕ РѕР±СЃР»СѓР¶РёРІР°РЅРёСЏ СЃС‚СЂР°РЅРёС†
 	WidgetPtr Tab::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (Sheet::getClassTypeName() == _type) {
@@ -146,7 +146,7 @@ namespace MyGUI
 
 	void Tab::updateBar()
 	{
-		// подстраховка
+		// РїРѕРґСЃС‚СЂР°С…РѕРІРєР°
 		if (mWidgetBar->getWidth() < 1) return;
 
 		if ((mWidgetBar->getWidth() < mWidthBar) && (1 < mItemsInfo.size())) {
@@ -172,47 +172,47 @@ namespace MyGUI
 			}
 		}
 
-		// проверяем правильность стартового индекса
+		// РїСЂРѕРІРµСЂСЏРµРј РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ СЃС‚Р°СЂС‚РѕРІРѕРіРѕ РёРЅРґРµРєСЃР°
 		if (mStartIndex > 0) {
-			// считаем длинну видимых кнопок
+			// СЃС‡РёС‚Р°РµРј РґР»РёРЅРЅСѓ РІРёРґРёРјС‹С… РєРЅРѕРїРѕРє
 			int width = 0;
 			for (size_t pos=mStartIndex; pos<mItemsInfo.size(); pos++) width += mItemsInfo[pos].width;
 
-			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
+			// СѓРјРµРЅСЊС€Р°РµРј РёРЅРґРµРєСЃ РґРѕ С‚РµС… РїРѕСЂ РїРѕРєР° РєРЅРѕРїРєР° РґРѕ РёРЅРґРµРєСЃС‚Р° РїРѕР»РЅРѕСЃС‚СЊСЋ РЅРµ РІР»РµР·РµС‚ РІ Р±Р°СЂ
 			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= mWidgetBar->getWidth())) {
 				mStartIndex--;
 				width += mItemsInfo[mStartIndex].width;
 			}
 		}
 
-		// проверяем и обновляем бар
+		// РїСЂРѕРІРµСЂСЏРµРј Рё РѕР±РЅРѕРІР»СЏРµРј Р±Р°СЂ
 		int width = 0;
 		size_t count = 0;
 		size_t pos=mStartIndex;
 		for (; pos<mItemsInfo.size(); pos++) {
 
-			// текущая кнопка не влазиет
+			// С‚РµРєСѓС‰Р°СЏ РєРЅРѕРїРєР° РЅРµ РІР»Р°Р·РёРµС‚
 			if (width > mWidgetBar->getWidth()) break;
 
-			// следующая не влазиет
+			// СЃР»РµРґСѓСЋС‰Р°СЏ РЅРµ РІР»Р°Р·РёРµС‚
 			TabSheetInfo & info = mItemsInfo[pos];
 			if ((width + info.width) > mWidgetBar->getWidth()) {
 				break;
 			}
 
-			// проверяем физическое наличие кнопки
+			// РїСЂРѕРІРµСЂСЏРµРј С„РёР·РёС‡РµСЃРєРѕРµ РЅР°Р»РёС‡РёРµ РєРЅРѕРїРєРё
 			if (count >= mSheetButton.size()) _createSheetButton();
 
-			// если кнопка не соответствует, то изменяем ее
+			// РµСЃР»Рё РєРЅРѕРїРєР° РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚, С‚Рѕ РёР·РјРµРЅСЏРµРј РµРµ
 			ButtonPtr button = mSheetButton[count]->castType<Button>();
 			button->show();
 
-			// корректируем нажатость кнопки
+			// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РЅР°Р¶Р°С‚РѕСЃС‚СЊ РєРЅРѕРїРєРё
 			button->setButtonPressed(pos == mIndexSelect);
 
 			if (button->getCaption() != info.name)
 				button->setCaption(info.name);
-			// положение кнопки
+			// РїРѕР»РѕР¶РµРЅРёРµ РєРЅРѕРїРєРё
 			IntCoord coord(width, 0, info.width, mWidgetBar->getHeight());
 			if (coord != button->getCoord())
 				button->setCoord(coord);
@@ -221,7 +221,7 @@ namespace MyGUI
 			count ++;
 		}
 
-		// скрываем кнопки что были созданны, но не видны
+		// СЃРєСЂС‹РІР°РµРј РєРЅРѕРїРєРё С‡С‚Рѕ Р±С‹Р»Рё СЃРѕР·РґР°РЅРЅС‹, РЅРѕ РЅРµ РІРёРґРЅС‹
 		while (count < mSheetButton.size()) {
 			mSheetButton[count]->hide();
 			count ++;
@@ -230,7 +230,7 @@ namespace MyGUI
 		bool right = true;
 		if (pos == mItemsInfo.size()) right = false;
 
-		// корректируем виджет для пустоты
+		// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РІРёРґР¶РµС‚ РґР»СЏ РїСѓСЃС‚РѕС‚С‹
 		if (width < mWidgetBar->getWidth()) {
 			mEmptyBarWidget->show();
 			mEmptyBarWidget->setCoord(width, 0, mWidgetBar->getWidth() - width, mWidgetBar->getHeight());
@@ -239,7 +239,7 @@ namespace MyGUI
 			mEmptyBarWidget->hide();
 		}
 
-		// корректируем доступность стрелок
+		// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ СЃС‚СЂРµР»РѕРє
 		if (mStartIndex == 0) {
 			if (null != mButtonLeft) mButtonLeft->setEnabled(false);
 		}
@@ -267,7 +267,7 @@ namespace MyGUI
 		else if (_sender == mButtonRight) {
 			if ((mStartIndex+1) < mItemsInfo.size()) {
 				mStartIndex ++;
-				// в updateBar() будет подкорректированно если что
+				// РІ updateBar() Р±СѓРґРµС‚ РїРѕРґРєРѕСЂСЂРµРєС‚РёСЂРѕРІР°РЅРЅРѕ РµСЃР»Рё С‡С‚Рѕ
 				updateBar();
 			}
 		}
@@ -278,9 +278,9 @@ namespace MyGUI
 	void Tab::notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender)
 	{
 		size_t select = *_sender->_getInternalData<size_t>() + mStartIndex;
-		// щелкнули по той же кнопке
+		// С‰РµР»РєРЅСѓР»Рё РїРѕ С‚РѕР№ Р¶Рµ РєРЅРѕРїРєРµ
 		if (select == mIndexSelect) {
-			// стараемся показать выделенную кнопку
+			// СЃС‚Р°СЂР°РµРјСЃСЏ РїРѕРєР°Р·Р°С‚СЊ РІС‹РґРµР»РµРЅРЅСѓСЋ РєРЅРѕРїРєСѓ
 			beginToItemSelected();
 			return;
 		}
@@ -291,16 +291,16 @@ namespace MyGUI
 		for (size_t pos=0; pos<mSheetButton.size(); pos++) {
 			ButtonPtr button = mSheetButton[count]->castType<Button>();
 			if (button->isShow()) {
-				// корректируем нажатость кнопки
+				// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РЅР°Р¶Р°С‚РѕСЃС‚СЊ РєРЅРѕРїРєРё
 				button->setButtonPressed((pos + mStartIndex) == mIndexSelect);
 			}
 			count ++;
 		}
 
-		// стараемся показать выделенную кнопку
+		// СЃС‚Р°СЂР°РµРјСЃСЏ РїРѕРєР°Р·Р°С‚СЊ РІС‹РґРµР»РµРЅРЅСѓСЋ РєРЅРѕРїРєСѓ
 		beginToItemSelected();
 
-		// поднимаем страницу для пикинга
+		// РїРѕРґРЅРёРјР°РµРј СЃС‚СЂР°РЅРёС†Сѓ РґР»СЏ РїРёРєРёРЅРіР°
 		_forcePeek(mItemsInfo[mIndexSelect].sheet);
 
 		_showSheet(mItemsInfo[mIndexSelect].sheet, true, mSmoothShow);
@@ -313,7 +313,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::beginToItemAt");
 
-		// подстраховка
+		// РїРѕРґСЃС‚СЂР°С…РѕРІРєР°
 		if (mWidgetBar->getWidth() < 1) return;
 
 		if (_index == mStartIndex) return;
@@ -322,13 +322,13 @@ namespace MyGUI
 			updateBar();
 		}
 		else {
-			// длинна бара от старт индекса до нужной включительно
+			// РґР»РёРЅРЅР° Р±Р°СЂР° РѕС‚ СЃС‚Р°СЂС‚ РёРЅРґРµРєСЃР° РґРѕ РЅСѓР¶РЅРѕР№ РІРєР»СЋС‡РёС‚РµР»СЊРЅРѕ
 			int width = 0;
 			for (size_t pos=mStartIndex; pos<=_index; pos++) {
 				width += mItemsInfo[pos].width;
 			}
 
-			// уменьшем старт индекс пока не появиться нужная
+			// СѓРјРµРЅСЊС€РµРј СЃС‚Р°СЂС‚ РёРЅРґРµРєСЃ РїРѕРєР° РЅРµ РїРѕСЏРІРёС‚СЊСЃСЏ РЅСѓР¶РЅР°СЏ
 			bool change = false;
 			while ((mStartIndex < _index) && (width > mWidgetBar->getWidth())) {
 				width -= mItemsInfo[mStartIndex].width;
@@ -401,7 +401,7 @@ namespace MyGUI
 		mIndexSelect = _index;
 		updateBar();
 
-		// поднимаем страницу для пикинга
+		// РїРѕРґРЅРёРјР°РµРј СЃС‚СЂР°РЅРёС†Сѓ РґР»СЏ РїРёРєРёРЅРіР°
 		if (mSmoothShow) _forcePeek(mItemsInfo[mIndexSelect].sheet);
 
 		_showSheet(mItemsInfo[mIndexSelect].sheet, true, mSmoothShow);
@@ -437,7 +437,7 @@ namespace MyGUI
 	{
 		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
 		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
-		button->_setInternalData(mSheetButton.size()); // порядковый номер
+		button->_setInternalData(mSheetButton.size()); // РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ
 		mSheetButton.push_back(button);
 	}
 
@@ -458,7 +458,7 @@ namespace MyGUI
 
 	void Tab::_notifyDeleteSheet(SheetPtr _sheet)
 	{
-		// общий шутдаун виджета
+		// РѕР±С‰РёР№ С€СѓС‚РґР°СѓРЅ РІРёРґР¶РµС‚Р°
 		if (mShutDown) return;
 
 		size_t index = getItemIndex(_sheet);
@@ -483,13 +483,13 @@ namespace MyGUI
 	{
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		// добавляем инфу о вкладке
+		// РґРѕР±Р°РІР»СЏРµРј РёРЅС„Сѓ Рѕ РІРєР»Р°РґРєРµ
 		int width = (mButtonAutoWidth ? _getTextWidth(_name) : mButtonDefaultWidth);
 		mWidthBar += width;
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, TabSheetInfo(width, _name, _sheet, _data));
 
-		// первая вкладка
+		// РїРµСЂРІР°СЏ РІРєР»Р°РґРєР°
 		if (1 == mItemsInfo.size()) mIndexSelect = 0;
 		else {
 			_sheet->hide();

@@ -15,7 +15,7 @@ namespace MyGUI
 		VScrollFactory::VScrollFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Scroll_Range") = newDelegate(this, &VScrollFactory::Scroll_Range);
 			manager.registerDelegate("Scroll_Position") = newDelegate(this, &VScrollFactory::Scroll_Position);
 			manager.registerDelegate("Scroll_Page") = newDelegate(this, &VScrollFactory::Scroll_Page);
@@ -25,7 +25,7 @@ namespace MyGUI
 		VScrollFactory::~VScrollFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Scroll_Range");
 			manager.unregisterDelegate("Scroll_Position");
 			manager.unregisterDelegate("Scroll_Page");

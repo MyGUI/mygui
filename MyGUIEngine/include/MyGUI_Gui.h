@@ -241,13 +241,13 @@ namespace MyGUI
 
 
 	private:
-		// создает виджет
+		// СЃРѕР·РґР°РµС‚ РІРёРґР¶РµС‚
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
-		// удяляет неудачника
+		// СѓРґСЏР»СЏРµС‚ РЅРµСѓРґР°С‡РЅРёРєР°
 		void _destroyChildWidget(WidgetPtr _widget);
 
-		// удаляет всех детей
+		// СѓРґР°Р»СЏРµС‚ РІСЃРµС… РґРµС‚РµР№
 		void _destroyAllChildWidget();
 
 		void _alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new);
@@ -255,13 +255,13 @@ namespace MyGUI
 		virtual void _unlinkWidget(WidgetPtr _widget);
 
 	private:
-		// вектор всех детей виджетов
+		// РІРµРєС‚РѕСЂ РІСЃРµС… РґРµС‚РµР№ РІРёРґР¶РµС‚РѕРІ
 		VectorWidgetPtr mWidgetChild;
 
-		// размеры экрана
+		// СЂР°Р·РјРµСЂС‹ СЌРєСЂР°РЅР°
 		IntSize mViewSize;
 
-		// синглтоны гуя
+		// СЃРёРЅРіР»С‚РѕРЅС‹ РіСѓСЏ
 		InputManager * mInputManager;
 		SubWidgetManager * mSubWidgetManager;
 		LayerManager* mLayerManager;
@@ -278,10 +278,10 @@ namespace MyGUI
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
 
-		// окно, на которое мы подписываемся для изменения размеров
+		// РѕРєРЅРѕ, РЅР° РєРѕС‚РѕСЂРѕРµ РјС‹ РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ СЂР°Р·РјРµСЂРѕРІ
 		Ogre::RenderWindow* mWindow;
 
-		// вьюпорт, с которым работает система
+		// РІСЊСЋРїРѕСЂС‚, СЃ РєРѕС‚РѕСЂС‹Рј СЂР°Р±РѕС‚Р°РµС‚ СЃРёСЃС‚РµРјР°
 		Ogre::ushort mActiveViewport;
 
 	};

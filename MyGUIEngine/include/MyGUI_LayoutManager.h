@@ -59,12 +59,12 @@ namespace MyGUI
 		void parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent);
 
 	private:
-		// для возврата последней загрузки
+		// РґР»СЏ РІРѕР·РІСЂР°С‚Р° РїРѕСЃР»РµРґРЅРµР№ Р·Р°РіСЂСѓР·РєРё
 		VectorWidgetPtr mVectorWidgetPtr;
 
-		// префикс при загрузке лейаута
+		// РїСЂРµС„РёРєСЃ РїСЂРё Р·Р°РіСЂСѓР·РєРµ Р»РµР№Р°СѓС‚Р°
 		std::string layoutPrefix;
-		// префикс при загрузке лейаута
+		// РїСЂРµС„РёРєСЃ РїСЂРё Р·Р°РіСЂСѓР·РєРµ Р»РµР№Р°СѓС‚Р°
 		WidgetPtr layoutParent;
 		
 	}; // class LayoutManager

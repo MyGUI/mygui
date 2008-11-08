@@ -21,7 +21,7 @@ namespace MyGUI
 			if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
 		}
 
-		// конвертирование в строку
+		// РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РІ СЃС‚СЂРѕРєСѓ
 		template<typename T >
 		inline std::string toString (T p)
 		{
@@ -98,7 +98,7 @@ namespace MyGUI
 		}
 
 
-		// утилиты для парсинга
+		// СѓС‚РёР»РёС‚С‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 		template<typename T >
 		inline T parseValue( const std::string& _value )
 		{
@@ -127,7 +127,7 @@ namespace MyGUI
 		inline double parseDouble(const std::string& _value) { return parseValue<double>(_value); }
 		inline bool parseBool(const std::string& _value) { std::string value(_value); trim(value); return ( (value == "true") || (value == "1") ); }
 
-		// для парсинга сложных типов, состоящих из простых
+		// РґР»СЏ РїР°СЂСЃРёРЅРіР° СЃР»РѕР¶РЅС‹С… С‚РёРїРѕРІ, СЃРѕСЃС‚РѕСЏС‰РёС… РёР· РїСЂРѕСЃС‚С‹С…
 		template<typename T1, typename T2 >
 		inline T1 parseValueEx2(const std::string & _value)
 		{

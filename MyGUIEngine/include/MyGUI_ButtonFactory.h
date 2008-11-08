@@ -22,7 +22,7 @@ namespace MyGUI
 			ButtonFactory();
 			~ButtonFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Button_Pressed(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		};

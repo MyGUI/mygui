@@ -17,7 +17,7 @@ namespace MyGUI
 
 	class _MyGUIExport PopupMenu : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<PopupMenu>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -65,7 +65,7 @@ namespace MyGUI
 	public:
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of items
 		size_t getItemCount() { return mItemsInfo.size(); }
@@ -84,7 +84,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -101,7 +101,7 @@ namespace MyGUI
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 
@@ -112,14 +112,14 @@ namespace MyGUI
 		size_t findItemIndexWith(const Ogre::UTFString & _item)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
-				// FIXME хранить имя
+				// FIXME С…СЂР°РЅРёС‚СЊ РёРјСЏ
 				if (mItemsInfo[pos].button->getCaption() == _item) return pos;
 			}
 			return ITEM_NONE;
 		}
 
 		//------------------------------------------------------------------------------//
-		// остальные манипуляции
+		// РѕСЃС‚Р°Р»СЊРЅС‹Рµ РјР°РЅРёРїСѓР»СЏС†РёРё
 
 		PopupMenuPtr getItemChildAt(size_t _index);
 

@@ -22,10 +22,10 @@ namespace MyGUI
 	void HScroll::updateTrack()
 	{
 		_forcePeek(mWidgetTrack);
-		// размер диапазана в пикселях
+		// СЂР°Р·РјРµСЂ РґРёР°РїР°Р·Р°РЅР° РІ РїРёРєСЃРµР»СЏС…
 		int pos = getLineSize();
 
-		// скрываем если диапазан маленький или места мало
+		// СЃРєСЂС‹РІР°РµРј РµСЃР»Рё РґРёР°РїР°Р·Р°РЅ РјР°Р»РµРЅСЊРєРёР№ РёР»Рё РјРµСЃС‚Р° РјР°Р»Рѕ
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth())) {
 			mWidgetTrack->hide();
 			if ( null != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
@@ -42,7 +42,7 @@ namespace MyGUI
 			}
 			return;
 		}
-		// если скрыт то покажем
+		// РµСЃР»Рё СЃРєСЂС‹С‚ С‚Рѕ РїРѕРєР°Р¶РµРј
 		if (false == mWidgetTrack->isShow())
 		{
 			mWidgetTrack->show();
@@ -50,7 +50,7 @@ namespace MyGUI
 			//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
 		}
 
-		// и обновляем позицию
+		// Рё РѕР±РЅРѕРІР»СЏРµРј РїРѕР·РёС†РёСЋ
 		pos = (int)(((size_t)(pos-getTrackSize()) * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
 
 		mWidgetTrack->setPosition(pos, mWidgetTrack->getTop());
@@ -71,25 +71,25 @@ namespace MyGUI
 	{
 		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 
-		// расчитываем позицию виджета
+		// СЂР°СЃС‡РёС‚С‹РІР°РµРј РїРѕР·РёС†РёСЋ РІРёРґР¶РµС‚Р°
 		int start = mPreActionRect.left + (_left - point.left);
 		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
 		else if (start > (mCoord.width - (int)mSkinRangeEnd - mWidgetTrack->getWidth())) start = (mCoord.width - (int)mSkinRangeEnd - mWidgetTrack->getWidth());
 		if (mWidgetTrack->getLeft() != start) mWidgetTrack->setPosition(IntPoint(start, mWidgetTrack->getTop()));
 
-		// расчитываем положение соответствующее позиции
-		// плюс пол позиции
+		// СЂР°СЃС‡РёС‚С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРµ РїРѕР·РёС†РёРё
+		// РїР»СЋСЃ РїРѕР» РїРѕР·РёС†РёРё
 		int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange-1) * 2);
-		// высчитываем ближайшее значение и обновляем
+		// РІС‹СЃС‡РёС‚С‹РІР°РµРј Р±Р»РёР¶Р°Р№С€РµРµ Р·РЅР°С‡РµРЅРёРµ Рё РѕР±РЅРѕРІР»СЏРµРј
 		pos = pos * (int)(mScrollRange-1) / (getLineSize() - getTrackSize());
 
-		// проверяем на выходы и изменения
+		// РїСЂРѕРІРµСЂСЏРµРј РЅР° РІС‹С…РѕРґС‹ Рё РёР·РјРµРЅРµРЅРёСЏ
 		if (pos < 0) pos = 0;
 		else if (pos >= (int)mScrollRange) pos = (int)mScrollRange - 1;
 		if (pos == (int)mScrollPosition) return;
 
 		mScrollPosition = pos;
-		// отсылаем событие
+		// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 

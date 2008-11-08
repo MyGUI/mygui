@@ -54,9 +54,9 @@ namespace MyGUI
 		}
 
 		enum xmlNodeType {
-			XML_NODE_TYPE_REMARK, // коментарий
-			XML_NODE_TYPE_INFO, // информационный блок
-			XML_NODE_TYPE_NORMAL, // обыкновенный блок
+			XML_NODE_TYPE_REMARK, // РєРѕРјРµРЅС‚Р°СЂРёР№
+			XML_NODE_TYPE_INFO, // РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Р№ Р±Р»РѕРє
+			XML_NODE_TYPE_NORMAL, // РѕР±С‹РєРЅРѕРІРµРЅРЅС‹Р№ Р±Р»РѕРє
 		};
 
 		namespace errors
@@ -194,16 +194,16 @@ namespace MyGUI
 			xmlDocument();
 			~xmlDocument();
 
-			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
+			// РµСЃР»Рё РіСЂСѓРїРїР° РµСЃС‚СЊ, С‚Рѕ РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ РѕРіСЂРѕРІСЃРєРёРј РїРѕС‚РѕРєРѕРј, РµСЃР»Рё РЅРµС‚, С‚Рѕ РїСЂРѕСЃС‚Рѕ РєР°Рє С„Р°Р№Р»
 			bool open(const std::string & _name, const std::string & _group);
 
-			// открывает обычным файлом
+			// РѕС‚РєСЂС‹РІР°РµС‚ РѕР±С‹С‡РЅС‹Рј С„Р°Р№Р»РѕРј
 			bool open(const std::string & _name);
 
-			// открывает по потоку огра
+			// РѕС‚РєСЂС‹РІР°РµС‚ РїРѕ РїРѕС‚РѕРєСѓ РѕРіСЂР°
 			bool open(const Ogre::DataStreamPtr& stream);
 
-			// сохраняет файл
+			// СЃРѕС…СЂР°РЅСЏРµС‚ С„Р°Р№Р»
 			bool save(const std::string & _name);
 
 			void clear();
@@ -215,7 +215,7 @@ namespace MyGUI
 
 			bool checkPair(std::string &_key, std::string &_value);
 
-			// ищет символ без учета ковычек
+			// РёС‰РµС‚ СЃРёРјРІРѕР» Р±РµР· СѓС‡РµС‚Р° РєРѕРІС‹С‡РµРє
 			size_t find(const std::string & _text, char _char, size_t _start = 0);
 
 			void clearInfo();

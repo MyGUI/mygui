@@ -75,14 +75,14 @@ namespace MyGUI
 
 	void LayoutManager::parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
 	{
-		// áåðåì äåòåé è êðóòèìñÿ
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 		xml::xmlNodeIterator widget = _root->getNodeIterator();
 		while (widget.nextNode("Widget")) parseWidget(_widgets, widget, layoutParent);
 	}
 
 	void LayoutManager::parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent)
 	{
-		// ïàðñèì àòðèáóòû âèäæåòà
+		// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹ Ð²Ð¸Ð´Ð¶ÐµÑ‚Ð°
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
 		IntCoord coord;
 		Align align = Align::Default;
@@ -105,7 +105,7 @@ namespace MyGUI
 
 		if (layoutParent == _parent) _widgets.push_back(wid);
 
-		// áåðåì äåòåé è êðóòèìñÿ
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 		xml::xmlNodeIterator widget = _widget->getNodeIterator();
 		while (widget.nextNode()) {
 
@@ -114,14 +114,14 @@ namespace MyGUI
 			if (widget->getName() == "Widget") parseWidget(_widgets, widget, wid);
 			else if (widget->getName() == "Property") {
 
-				// ïàðñèì àòðèáóòû
+				// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 				if (false == widget->findAttribute("key", key)) continue;
 				if (false == widget->findAttribute("value", value)) continue;
-				// è ïàðñèì ñâîéñòâî
+				// Ð¸ Ð¿Ð°Ñ€ÑÐ¸Ð¼ ÑÐ²Ð¾Ð¹ÑÑ‚Ð²Ð¾
 				WidgetManager::getInstance().parse(wid, key, value);
 			}
 			else if (widget->getName() == "UserString") {
-				// ïàðñèì àòðèáóòû
+				// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 				if (false == widget->findAttribute("key", key)) continue;
 				if (false == widget->findAttribute("value", value)) continue;
 				wid->setUserString(key, value);

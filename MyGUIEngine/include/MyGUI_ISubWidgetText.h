@@ -24,49 +24,49 @@ namespace MyGUI
 
 		virtual bool firstQueue() { return false; }
 
-		// работа с выделенным текстом
+		// СЂР°Р±РѕС‚Р° СЃ РІС‹РґРµР»РµРЅРЅС‹Рј С‚РµРєСЃС‚РѕРј
 		virtual size_t getSelectStart() { return 0; }
 		virtual size_t getSelectEnd() { return 0; }
 		virtual void setTextSelect(size_t _start, size_t _end) { }
 
-		// интенсивность выделенного текста
+		// РёРЅС‚РµРЅСЃРёРІРЅРѕСЃС‚СЊ РІС‹РґРµР»РµРЅРЅРѕРіРѕ С‚РµРєСЃС‚Р°
 		virtual bool getSelectBackground() { return true; }
 		virtual void setSelectBackground(bool _normal) { }
 
-		// управление видимостью курсора
+		// СѓРїСЂР°РІР»РµРЅРёРµ РІРёРґРёРјРѕСЃС‚СЊСЋ РєСѓСЂСЃРѕСЂР°
 		virtual bool isCursorShow() { return false; }
 		virtual void setShowCursor(bool _show) { }
 
-		// управление положением курсора
+		// СѓРїСЂР°РІР»РµРЅРёРµ РїРѕР»РѕР¶РµРЅРёРµРј РєСѓСЂСЃРѕСЂР°
 		virtual size_t getCursorPosition() { return 0; }
 		virtual void setCursorPosition(size_t _pos) { }
 
 		virtual void setBreakLine(bool _break) { }
 
-		// возвращает положение курсора по произвольному положению
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РїРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРјСѓ РїРѕР»РѕР¶РµРЅРёСЋ
 		virtual size_t getCursorPosition(const IntPoint & _point) { return 0; }
 
-		// возвращает положение курсора в обсолютных координатах
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РІ РѕР±СЃРѕР»СЋС‚РЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 		virtual IntCoord getCursorCoord(size_t _position) { return IntCoord(); }
 
-		// возвращает положение курсора в обсолютных координатах
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РІ РѕР±СЃРѕР»СЋС‚РЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 		IntPoint getCursorPoint(size_t _position)
 		{
 			const IntCoord & coord = getCursorCoord(_position);
 			return IntPoint(coord.left + coord.width / 2, coord.top + coord.height / 2);
 		}
 
-		// возвращает положение курсора в обсолютных координатах
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РІ РѕР±СЃРѕР»СЋС‚РЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 		IntRect getCursorRect(size_t _position)
 		{
 			const IntCoord & coord = getCursorCoord(_position);
 			return IntRect(coord.left, coord.top, coord.left + coord.width, coord.top + coord.height);
 		}
 
-		// возвращает размер текста в пикселях
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РІ РїРёРєСЃРµР»СЏС…
 		virtual IntSize getTextSize() { return IntSize(); }
 
-		// устанавливает смещение текста в пикселях
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚Р° РІ РїРёРєСЃРµР»СЏС…
 		virtual void setViewOffset(IntPoint _point) { }
 		virtual IntPoint getViewOffset() { return IntPoint(); }
 

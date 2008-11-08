@@ -17,7 +17,7 @@ namespace MyGUI
 
 	class _MyGUIExport Window : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Window>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -26,10 +26,10 @@ namespace MyGUI
 		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
 	public:
-		// переопределяем для присвоению клиенту
+		// РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РґР»СЏ РїСЂРёСЃРІРѕРµРЅРёСЋ РєР»РёРµРЅС‚Сѓ
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
-		// для мееедленного показа и скрытия
+		// РґР»СЏ РјРµРµРµРґР»РµРЅРЅРѕРіРѕ РїРѕРєР°Р·Р° Рё СЃРєСЂС‹С‚РёСЏ
       /** Show window smooth */
 		void showSmooth(bool _reset = false);
       /** Hide window smooth */
@@ -137,26 +137,26 @@ namespace MyGUI
 		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		// просто обновляет альфу взависимости от флагов
+		// РїСЂРѕСЃС‚Рѕ РѕР±РЅРѕРІР»СЏРµС‚ Р°Р»СЊС„Сѓ РІР·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С„Р»Р°РіРѕРІ
 		void updateAlpha();
 
 	private:
 		WidgetPtr mWidgetCaption;
 
-		// размеры окна перед началом его изменений
+		// СЂР°Р·РјРµСЂС‹ РѕРєРЅР° РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј РµРіРѕ РёР·РјРµРЅРµРЅРёР№
 		IntCoord mPreActionCoord;
 
-		// наши главные фокусы
+		// РЅР°С€Рё РіР»Р°РІРЅС‹Рµ С„РѕРєСѓСЃС‹
 		bool mMouseRootFocus;
 		bool mKeyRootFocus;
 
-		// автоматическое или ручное управление альфой
+		// Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РёР»Рё СЂСѓС‡РЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ Р°Р»СЊС„РѕР№
 		bool mIsAutoAlpha;
 
-		// минимальные и максимальные размеры окна
+		// РјРёРЅРёРјР°Р»СЊРЅС‹Рµ Рё РјР°РєСЃРёРјР°Р»СЊРЅС‹Рµ СЂР°Р·РјРµСЂС‹ РѕРєРЅР°
 		IntRect mMinmax;
 
-		bool mSnap; // прилеплять ли к краям
+		bool mSnap; // РїСЂРёР»РµРїР»СЏС‚СЊ Р»Рё Рє РєСЂР°СЏРј
 
 		IntCoord mCurrentActionScale;
 
