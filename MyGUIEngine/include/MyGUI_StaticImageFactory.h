@@ -24,7 +24,7 @@ namespace MyGUI
 			StaticImageFactory();
 			~StaticImageFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Image_Texture(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Image_Coord(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Image_Tile(WidgetPtr _widget, const std::string &_key, const std::string &_value);

@@ -45,7 +45,7 @@ namespace MyGUI
 
 		registerUnlinker(this);
 
-		// ñîçäàåì ôàáðèêè âèäæåòîâ
+		// ÑÐ¾Ð·Ð´Ð°ÐµÐ¼ Ñ„Ð°Ð±Ñ€Ð¸ÐºÐ¸ Ð²Ð¸Ð´Ð¶ÐµÑ‚Ð¾Ð²
 		mIntegratedFactoryList.insert(new factory::WidgetFactory());
 		mIntegratedFactoryList.insert(new factory::ButtonFactory());
 		mIntegratedFactoryList.insert(new factory::WindowFactory());
@@ -169,10 +169,10 @@ namespace MyGUI
 
 	void WidgetManager::destroyWidget(WidgetPtr _widget)
 	{
-		// èíà÷å âîçìîæåí áåñêîíå÷íûé öèêë
+		// Ð¸Ð½Ð°Ñ‡Ðµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶ÐµÐ½ Ð±ÐµÑÐºÐ¾Ð½ÐµÑ‡Ð½Ñ‹Ð¹ Ñ†Ð¸ÐºÐ»
 		MYGUI_ASSERT(_widget != null, "widget is deleted");
 
-		// äåëåãèðóåò óäàëåíèå îòöó âèäæåòà
+		// Ð´ÐµÐ»ÐµÐ³Ð¸Ñ€ÑƒÐµÑ‚ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð¾Ñ‚Ñ†Ñƒ Ð²Ð¸Ð´Ð¶ÐµÑ‚Ð°
 		IWidgetCreator * creator = _widget->_getIWidgetCreator();
 		creator->_destroyChildWidget(_widget);
 

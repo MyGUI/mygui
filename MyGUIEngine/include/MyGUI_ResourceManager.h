@@ -109,7 +109,7 @@ namespace MyGUI
 		MapResource mResources;
 		MapResourceName mResourceNames;
 
-		// карта с делегатами для парсинга хмл блоков
+		// РєР°СЂС‚Р° СЃ РґРµР»РµРіР°С‚Р°РјРё РґР»СЏ РїР°СЂСЃРёРЅРіР° С…РјР» Р±Р»РѕРєРѕРІ
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		std::string mResourceGroup;

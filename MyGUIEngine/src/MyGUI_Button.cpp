@@ -23,7 +23,7 @@ namespace MyGUI
 		mModeCheck(false)
 	{
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		if (!properties.empty()) {
 			MapString::const_iterator iter = properties.find("ButtonPressed");
@@ -39,7 +39,7 @@ namespace MyGUI
 			}
 		}
 
-		// проверяем на старый стиль описания стейтов скинов
+		// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃС‚Р°СЂС‹Р№ СЃС‚РёР»СЊ РѕРїРёСЃР°РЅРёСЏ СЃС‚РµР№С‚РѕРІ СЃРєРёРЅРѕРІ
 		mModeCheck = mStateInfo.find("normal_check") != mStateInfo.end();
 
 	}
@@ -47,14 +47,14 @@ namespace MyGUI
 	void Button::onMouseSetFocus(WidgetPtr _old)
 	{
 		_setMouseFocus(true);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseSetFocus(_old);
 	}
 
 	void Button::onMouseLostFocus(WidgetPtr _new)
 	{
 		_setMouseFocus(false);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseLostFocus(_new);
 	}
 
@@ -64,7 +64,7 @@ namespace MyGUI
 			mIsMousePressed = true;
 			updateButtonState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseButtonPressed(_left, _top, _id);
 	}
 
@@ -74,7 +74,7 @@ namespace MyGUI
 			mIsMousePressed = false;
 			updateButtonState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 

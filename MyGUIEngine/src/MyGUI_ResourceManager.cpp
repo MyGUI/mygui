@@ -44,14 +44,14 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		// ãðóïïà ñ êîòîðîé ðàáîòàåò âåñü ãóé
+		// Ð³Ñ€ÑƒÐ¿Ð¿Ð° Ñ ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¹ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚ Ð²ÐµÑÑŒ Ð³ÑƒÐ¹
 		mResourceGroup = _group;
 
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
 		registerLoadXmlDelegate(XML_TYPE_LOCATION) = newDelegate(this, &ResourceManager::_loadLocation);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
-		// ðåãåñòðèðóåì äåôîëòíûå ðåñóðñû
+		// Ñ€ÐµÐ³ÐµÑÑ‚Ñ€Ð¸Ñ€ÑƒÐµÐ¼ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ðµ Ñ€ÐµÑÑƒÑ€ÑÑ‹
 		ResourceImageSet::registryType();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -83,10 +83,10 @@ namespace MyGUI
 
 	void ResourceManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
-		// áåðåì äåòåé è êðóòèìñÿ, îñíîâíîé öèêë
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ, Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð¸ÐºÐ»
 		xml::xmlNodeIterator root = _node->getNodeIterator();
 		while (root.nextNode(XML_TYPE)) {
-			// ïàðñèì àòðèáóòû
+			// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 			std::string id, type, name;
 			root->findAttribute("type", type);
 			root->findAttribute("name", name);
@@ -118,10 +118,10 @@ namespace MyGUI
 
 	void ResourceManager::_loadLocation(xml::xmlNodePtr _node, const std::string & _file)
 	{
-		// áåðåì äåòåé è êðóòèìñÿ, îñíîâíîé öèêë
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ, Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð¸ÐºÐ»
 		xml::xmlNodeIterator root = _node->getNodeIterator();
 		while (root.nextNode(XML_TYPE_LOCATION)) {
-			// ïàðñèì àòðèáóòû
+			// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 			std::string name, type, group;
 			root->findAttribute("name", name);
 			root->findAttribute("type", type);
@@ -142,7 +142,7 @@ namespace MyGUI
 
 	void ResourceManager::_loadList(xml::xmlNodePtr _node, const std::string & _file)
 	{
-		// áåðåì äåòåé è êðóòèìñÿ, îñíîâíîé öèêë
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ, Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð¸ÐºÐ»
 		xml::xmlNodeIterator node = _node->getNodeIterator();
 		while (node.nextNode(XML_TYPE_LIST)) {
 			std::string source;
@@ -204,7 +204,7 @@ namespace MyGUI
 				return false;
 			}
 		}
-		// ïðåäïîëîãàåì ÷òî áóäóò âëîæåííûå
+		// Ð¿Ñ€ÐµÐ´Ð¿Ð¾Ð»Ð¾Ð³Ð°ÐµÐ¼ Ñ‡Ñ‚Ð¾ Ð±ÑƒÐ´ÑƒÑ‚ Ð²Ð»Ð¾Ð¶ÐµÐ½Ð½Ñ‹Ðµ
 		else if (false == _match) {
 			xml::xmlNodeIterator node = root->getNodeIterator();
 			while (node.nextNode("MyGUI")) {

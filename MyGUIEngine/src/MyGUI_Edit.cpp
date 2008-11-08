@@ -26,10 +26,10 @@ namespace MyGUI
 	const int EDIT_CURSOR_MIN_POSITION = -100000;
 	const size_t EDIT_MAX_UNDO = 128;
 	const size_t EDIT_DEFAULT_MAX_TEXT_LENGTH = 2048;
-	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // дополнительное смещение для курсора
-	const int EDIT_ACTION_MOUSE_ZONE = 1500; // область для восприятия мыши за пределом эдита
+	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РґР»СЏ РєСѓСЂСЃРѕСЂР°
+	const int EDIT_ACTION_MOUSE_ZONE = 1500; // РѕР±Р»Р°СЃС‚СЊ РґР»СЏ РІРѕСЃРїСЂРёСЏС‚РёСЏ РјС‹С€Рё Р·Р° РїСЂРµРґРµР»РѕРј СЌРґРёС‚Р°
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
-	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
+	const int EDIT_MOUSE_WHEEL = 50; // РѕР±Р»Р°СЃС‚СЊ РґР»СЏ РІРѕСЃРїСЂРёСЏС‚РёСЏ РјС‹С€Рё Р·Р° РїСЂРµРґРµР»РѕРј СЌРґРёС‚Р°
 
 	Edit::Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
@@ -62,7 +62,7 @@ namespace MyGUI
 
 		mOriginalPointer = mPointer;
 
-		// нам нужен фокус клавы
+		// РЅР°Рј РЅСѓР¶РµРЅ С„РѕРєСѓСЃ РєР»Р°РІС‹
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -97,7 +97,7 @@ namespace MyGUI
 
 		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		if (!properties.empty()) {
 			MapString::const_iterator iter = properties.end();
@@ -106,7 +106,7 @@ namespace MyGUI
 
 		updateScroll();
 
-		// первоначальная инициализация курсора
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєСѓСЂСЃРѕСЂР°
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
@@ -114,7 +114,7 @@ namespace MyGUI
 
 	Edit::~Edit()
 	{
-		// на всякий отписываем
+		// РЅР° РІСЃСЏРєРёР№ РѕС‚РїРёСЃС‹РІР°РµРј
 		//Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
 	}
 
@@ -134,7 +134,7 @@ namespace MyGUI
 
 	void Edit::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		// в статике все недоступно
+		// РІ СЃС‚Р°С‚РёРєРµ РІСЃРµ РЅРµРґРѕСЃС‚СѓРїРЅРѕ
 		if (mModeStatic || mModeWordWrap) return;
 
 		IntPoint point = InputManager::getInstance().getLastLeftPressed();
@@ -149,19 +149,19 @@ namespace MyGUI
 
 	void Edit::notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		// сбрасываем всегда
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІСЃРµРіРґР°
 		mMouseLeftPressed = false;
 	}
 
 	void Edit::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
-		// в статике все недоступно
+		// РІ СЃС‚Р°С‚РёРєРµ РІСЃРµ РЅРµРґРѕСЃС‚СѓРїРЅРѕ
 		if (mModeStatic || mModeWordWrap) return;
 
-		// останавливаем курсор
+		// РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєСѓСЂСЃРѕСЂ
 		mText->setShowCursor(true);
 
-		// сбрасываем все таймеры
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІСЃРµ С‚Р°Р№РјРµСЂС‹
 		mCursorTimer = 0;
 		mActionMouseTimer = 0;
 
@@ -172,10 +172,10 @@ namespace MyGUI
 
 		mText->setCursorPosition(mCursorPosition);
 
-		// если не было выделения
+		// РµСЃР»Рё РЅРµ Р±С‹Р»Рѕ РІС‹РґРµР»РµРЅРёСЏ
 		if (mStartSelect == ITEM_NONE) mStartSelect = Old;
 
-		// меняем выделение
+		// РјРµРЅСЏРµРј РІС‹РґРµР»РµРЅРёРµ
 		mEndSelect = (size_t)mCursorPosition;
 		if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
 		else mText->setTextSelect(mStartSelect, mEndSelect);
@@ -184,7 +184,7 @@ namespace MyGUI
 
 	void Edit::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
-		// в статике все недоступно
+		// РІ СЃС‚Р°С‚РёРєРµ РІСЃРµ РЅРµРґРѕСЃС‚СѓРїРЅРѕ
 		if (mModeStatic || mModeWordWrap) return;
 
 		const IntPoint & lastPressed = InputManager::getInstance().getLastLeftPressed();
@@ -218,7 +218,7 @@ namespace MyGUI
 	{
 		notifyMouseDrag(null, _left, _top);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseDrag(_left, _top);
 	}
 
@@ -235,13 +235,13 @@ namespace MyGUI
 				mText->setShowCursor(true);
 				mText->setSelectBackground(true);
 				mCursorTimer = 0;
-				// для первоначального обновления
+				// РґР»СЏ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРіРѕ РѕР±РЅРѕРІР»РµРЅРёСЏ
 				//mText->setCursorPosition(mCursorPosition);
 				//updateSelectText();
 
 			}
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeySetFocus(_old);
 	}
 
@@ -258,7 +258,7 @@ namespace MyGUI
 			mText->setSelectBackground(false);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeyLostFocus(_new);
 	}
 
@@ -266,7 +266,7 @@ namespace MyGUI
 	{
 		InputManager & input = InputManager::getInstance();
 
-		// в статическом режиме ничего не доступно
+		// РІ СЃС‚Р°С‚РёС‡РµСЃРєРѕРј СЂРµР¶РёРјРµ РЅРёС‡РµРіРѕ РЅРµ РґРѕСЃС‚СѓРїРЅРѕ
 		if (mModeStatic || mModeWordWrap) {
 			Widget::onKeyButtonPressed(_key, _char);
 			return;
@@ -279,16 +279,16 @@ namespace MyGUI
 			InputManager::getInstance().setKeyFocusWidget(null);
 		}
 		else if (_key == KC_BACK) {
-			// если нуно то удаляем выделенный текст
+			// РµСЃР»Рё РЅСѓРЅРѕ С‚Рѕ СѓРґР°Р»СЏРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚
 			if (false == mModeReadOnly) {
 				if (false == deleteTextSelect(true)) {
-					// прыгаем на одну назад и удаляем
+					// РїСЂС‹РіР°РµРј РЅР° РѕРґРЅСѓ РЅР°Р·Р°Рґ Рё СѓРґР°Р»СЏРµРј
 					if (mCursorPosition != 0) {
 						mCursorPosition -- ;
 						eraseText(mCursorPosition, 1, true);
 					}
 				}
-				// отсылаем событие о изменении
+				// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 				eventEditTextChange(this);
 			}
 
@@ -296,13 +296,13 @@ namespace MyGUI
 		else if (_key == KC_DELETE) {
 			if (input.isShiftPressed()) commandCut();
 			else if (false == mModeReadOnly) {
-				// если нуно то удаляем выделенный текст
+				// РµСЃР»Рё РЅСѓРЅРѕ С‚Рѕ СѓРґР°Р»СЏРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚
 				if (false == deleteTextSelect(true)) {
 					if (mCursorPosition != mTextLength) {
 						eraseText(mCursorPosition, 1, true);
 					}
 				}
-				// отсылаем событие о изменении
+				// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 				eventEditTextChange(this);
 			}
 
@@ -313,20 +313,20 @@ namespace MyGUI
 
 		}
 		else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
-			// работаем только в режиме редактирования
+			// СЂР°Р±РѕС‚Р°РµРј С‚РѕР»СЊРєРѕ РІ СЂРµР¶РёРјРµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
 			if (false == mModeReadOnly) {
 				if ((mModeMultiline) && (false == input.isControlPressed())) {
-					// попытка объединения двух комманд
+					// РїРѕРїС‹С‚РєР° РѕР±СЉРµРґРёРЅРµРЅРёСЏ РґРІСѓС… РєРѕРјРјР°РЅРґ
 					size_t size = mVectorUndoChangeInfo.size();
-					// непосредственно операции
+					// РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РѕРїРµСЂР°С†РёРё
 					deleteTextSelect(true);
 					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
-					// проверяем на возможность объединения
+					// РїСЂРѕРІРµСЂСЏРµРј РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕР±СЉРµРґРёРЅРµРЅРёСЏ
 					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-					// отсылаем событие о изменении
+					// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 					eventEditTextChange(this);
 				}
-				// при сингл лайн и и мульти+сонтрол шлем эвент
+				// РїСЂРё СЃРёРЅРіР» Р»Р°Р№РЅ Рё Рё РјСѓР»СЊС‚Рё+СЃРѕРЅС‚СЂРѕР» С€Р»РµРј СЌРІРµРЅС‚
 				else {
 					eventEditSelectAccept(this);
 				}
@@ -339,7 +339,7 @@ namespace MyGUI
 				mText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
-			// сбрасываем выделение
+			// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 
 		}
@@ -349,7 +349,7 @@ namespace MyGUI
 				mText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
-			// сбрасываем выделение
+			// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 
 		}
@@ -358,14 +358,14 @@ namespace MyGUI
 			point.top -= mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
-			// самая верхняя строчка
+			// СЃР°РјР°СЏ РІРµСЂС…РЅСЏСЏ СЃС‚СЂРѕС‡РєР°
 			if ( old == mCursorPosition ) {
 				if (mCursorPosition != 0) {
 					mCursorPosition = 0;
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
@@ -379,14 +379,14 @@ namespace MyGUI
 			point.top += mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
-			// самая нижняя строчка
+			// СЃР°РјР°СЏ РЅРёР¶РЅСЏСЏ СЃС‚СЂРѕС‡РєР°
 			if ( old == mCursorPosition ) {
 				if (mCursorPosition != mTextLength) {
 					mCursorPosition = mTextLength;
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
@@ -396,7 +396,7 @@ namespace MyGUI
 
 		}
 		else if (_key == KC_HOME) {
-			// в начало строки
+			// РІ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
 			if ( false == input.isControlPressed()) {
 				IntPoint point = mText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MIN_POSITION;
@@ -408,7 +408,7 @@ namespace MyGUI
 				}
 				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
-			// в начало всего текста
+			// РІ РЅР°С‡Р°Р»Рѕ РІСЃРµРіРѕ С‚РµРєСЃС‚Р°
 			else {
 				if (0 != mCursorPosition) {
 					mCursorPosition = 0;
@@ -420,7 +420,7 @@ namespace MyGUI
 
 		}
 		else if (_key == KC_END) {
-			// в конец строки
+			// РІ РєРѕРЅРµС† СЃС‚СЂРѕРєРё
 			if ( false ==   input.isControlPressed()) {
 				IntPoint point = mText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MAX_POSITION;
@@ -432,7 +432,7 @@ namespace MyGUI
 				}
 				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
-			// в самый конец
+			// РІ СЃР°РјС‹Р№ РєРѕРЅРµС†
 			else {
 				if (mTextLength != mCursorPosition) {
 					mCursorPosition = mTextLength;
@@ -444,19 +444,19 @@ namespace MyGUI
 
 		}
 		else if (_key == KC_PGUP) {
-			// на размер окна, но не меньше одной строки
+			// РЅР° СЂР°Р·РјРµСЂ РѕРєРЅР°, РЅРѕ РЅРµ РјРµРЅСЊС€Рµ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
 			point.top -= (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
-			// самая верхняя строчка
+			// СЃР°РјР°СЏ РІРµСЂС…РЅСЏСЏ СЃС‚СЂРѕС‡РєР°
 			if ( old == mCursorPosition ) {
 				if (mCursorPosition != 0) {
 					mCursorPosition = 0;
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
@@ -466,19 +466,19 @@ namespace MyGUI
 
 		}
 		else if (_key == KC_PGDOWN) {
-			// на размер окна, но не меньше одной строки
+			// РЅР° СЂР°Р·РјРµСЂ РѕРєРЅР°, РЅРѕ РЅРµ РјРµРЅСЊС€Рµ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
 			point.top += (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
-			// самая нижняя строчка
+			// СЃР°РјР°СЏ РЅРёР¶РЅСЏСЏ СЃС‚СЂРѕС‡РєР°
 			if ( old == mCursorPosition ) {
 				if (mCursorPosition != mTextLength) {
 					mCursorPosition = mTextLength;
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
@@ -488,26 +488,26 @@ namespace MyGUI
 
 		}
 		else if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT) ) {
-			// для правильно выделения
+			// РґР»СЏ РїСЂР°РІРёР»СЊРЅРѕ РІС‹РґРµР»РµРЅРёСЏ
 			if (mStartSelect == ITEM_NONE) {
 				mStartSelect = mEndSelect = mCursorPosition;
 			}
 		}
 		else if (_char != 0) {
 
-			// если не нажат контрл, то обрабатываем как текст
+			// РµСЃР»Рё РЅРµ РЅР°Р¶Р°С‚ РєРѕРЅС‚СЂР», С‚Рѕ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РєР°Рє С‚РµРєСЃС‚
 			if ( false == input.isControlPressed() ) {
 				if (false == mModeReadOnly) {
-					// таб только если нужно
+					// С‚Р°Р± С‚РѕР»СЊРєРѕ РµСЃР»Рё РЅСѓР¶РЅРѕ
 					if (_char != '\t' || mTabPrinting) {
-						// попытка объединения двух комманд
+						// РїРѕРїС‹С‚РєР° РѕР±СЉРµРґРёРЅРµРЅРёСЏ РґРІСѓС… РєРѕРјРјР°РЅРґ
 						size_t size = mVectorUndoChangeInfo.size();
-						// непосредственно операции
+						// РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РѕРїРµСЂР°С†РёРё
 						deleteTextSelect(true);
 						insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
-						// проверяем на возможность объединения
+						// РїСЂРѕРІРµСЂСЏРµРј РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕР±СЉРµРґРёРЅРµРЅРёСЏ
 						if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-						// отсылаем событие о изменении
+						// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 						eventEditTextChange(this);
 					}
 				}
@@ -525,29 +525,29 @@ namespace MyGUI
 
 			}
 			else if (_key == KC_A) {
-				// выделяем весь текст
+				// РІС‹РґРµР»СЏРµРј РІРµСЃСЊ С‚РµРєСЃС‚
 				setTextSelect(0, mTextLength);
 
 			}
 			else if (_key == KC_Z) {
-				// отмена
+				// РѕС‚РјРµРЅР°
 				commandUndo();
 
 			}
 			else if (_key == KC_Y) {
-				// повтор
+				// РїРѕРІС‚РѕСЂ
 				commandRedo();
 
 			}
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeyButtonPressed(_key, _char);
 	}
 
 	void Edit::frameEntered(float _frame)
 	{
-		// в статике все недоступно
+		// РІ СЃС‚Р°С‚РёРєРµ РІСЃРµ РЅРµРґРѕСЃС‚СѓРїРЅРѕ
 		if (mModeStatic || mModeWordWrap) return;
 
 		if (mCursorActive) {
@@ -559,7 +559,7 @@ namespace MyGUI
 			}
 		}
 
-		// сдвигаем курсор по положению мыши
+		// СЃРґРІРёРіР°РµРј РєСѓСЂСЃРѕСЂ РїРѕ РїРѕР»РѕР¶РµРЅРёСЋ РјС‹С€Рё
 		if (mMouseLeftPressed) {
 			mActionMouseTimer += _frame;
 
@@ -573,7 +573,7 @@ namespace MyGUI
 
 				bool action = false;
 
-				// вверх на одну строчку
+				// РІРІРµСЂС… РЅР° РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 				if ( (mouse.top < 0) && (mouse.top > -EDIT_ACTION_MOUSE_ZONE) ) {
 					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
@@ -581,7 +581,7 @@ namespace MyGUI
 						action = true;
 					}
 				}
-				// вниз на одну строчку
+				// РІРЅРёР· РЅР° РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 				else if ( (mouse.top > mWidgetClient->getHeight()) && (mouse.top < (mWidgetClient->getHeight() + EDIT_ACTION_MOUSE_ZONE)) ) {
 					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
@@ -590,7 +590,7 @@ namespace MyGUI
 					}
 				}
 
-				// влево на небольшое расстояние
+				// РІР»РµРІРѕ РЅР° РЅРµР±РѕР»СЊС€РѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
 				if ( (mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE) ) {
 					//if ( (mouse.top > 0) && (mouse.top <= mWidgetClient->getHeight()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
@@ -598,7 +598,7 @@ namespace MyGUI
 						action = true;
 					//}
 				}
-				// вправо на небольшое расстояние
+				// РІРїСЂР°РІРѕ РЅР° РЅРµР±РѕР»СЊС€РѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
 				else if ( (mouse.left > mWidgetClient->getWidth()) && (mouse.left < (mWidgetClient->getWidth() + EDIT_ACTION_MOUSE_ZONE)) ) {
 					//if ( (mouse.top > 0) && (mouse.top <= mWidgetClient->getHeight()) ) {
 						point = mText->getCursorPoint(mCursorPosition);
@@ -620,12 +620,12 @@ namespace MyGUI
 						if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
 						else mText->setTextSelect(mStartSelect, mEndSelect);
 
-						// пытаемся показать курсор
+						// РїС‹С‚Р°РµРјСЃСЏ РїРѕРєР°Р·Р°С‚СЊ РєСѓСЂСЃРѕСЂ
 						updateView(true);
 					}
 
 				}
-				// если в зону не попадает то сбрасываем
+				// РµСЃР»Рё РІ Р·РѕРЅСѓ РЅРµ РїРѕРїР°РґР°РµС‚ С‚Рѕ СЃР±СЂР°СЃС‹РІР°РµРј
 				else mActionMouseTimer = 0;
 
 				while (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER) mActionMouseTimer -= EDIT_ACTION_MOUSE_TIMER;
@@ -636,15 +636,15 @@ namespace MyGUI
 
 	void Edit::setTextCursor(size_t _index)
 	{
-		// сбрасываем выделение
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 		resetSelect();
 
-		// новая позиция
+		// РЅРѕРІР°СЏ РїРѕР·РёС†РёСЏ
 		if (_index > mTextLength) _index = mTextLength;
 		if (mCursorPosition == _index) return;
 		mCursorPosition = _index;
 
-		// обновляем по позиции
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ РїРѕР·РёС†РёРё
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
@@ -661,10 +661,10 @@ namespace MyGUI
 		else mText->setTextSelect(mStartSelect, mEndSelect);
 
 		if (mCursorPosition == mEndSelect) return;
-		// курсор на конец выделения
+		// РєСѓСЂСЃРѕСЂ РЅР° РєРѕРЅРµС† РІС‹РґРµР»РµРЅРёСЏ
 		mCursorPosition = mEndSelect;
 
-		// обновляем по позиции
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ РїРѕР·РёС†РёРё
 		mText->setCursorPosition(mCursorPosition);
 	}
 
@@ -672,7 +672,7 @@ namespace MyGUI
 	{
 		if ( ! isTextSelect()) return false;
 
-		// начало и конец выделения
+		// РЅР°С‡Р°Р»Рѕ Рё РєРѕРЅРµС† РІС‹РґРµР»РµРЅРёСЏ
 		size_t start, end;
 		getTextSelect(start, end);
 
@@ -696,12 +696,12 @@ namespace MyGUI
 
 	void Edit::commandMerge()
 	{
-		if (mVectorUndoChangeInfo.size() < 2) return; // на всякий
-		// сохраняем последние набор отмен
+		if (mVectorUndoChangeInfo.size() < 2) return; // РЅР° РІСЃСЏРєРёР№
+		// СЃРѕС…СЂР°РЅСЏРµРј РїРѕСЃР»РµРґРЅРёРµ РЅР°Р±РѕСЂ РѕС‚РјРµРЅ
 		VectorChangeInfo info = mVectorUndoChangeInfo.back();
 		mVectorUndoChangeInfo.pop_back();
 
-		// объединяем последовательности
+		// РѕР±СЉРµРґРёРЅСЏРµРј РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё
 		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++) {
 			mVectorUndoChangeInfo.back().push_back((*iter));
 		}
@@ -711,19 +711,19 @@ namespace MyGUI
 	{
 		if (mVectorUndoChangeInfo.empty()) return false;
 
-		// сбрасываем выделение
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 		resetSelect();
 
-		// сохраняем последние набор отмен
+		// СЃРѕС…СЂР°РЅСЏРµРј РїРѕСЃР»РµРґРЅРёРµ РЅР°Р±РѕСЂ РѕС‚РјРµРЅ
 		VectorChangeInfo info = mVectorUndoChangeInfo.back();
-		// перекидываем последний набор отмен
+		// РїРµСЂРµРєРёРґС‹РІР°РµРј РїРѕСЃР»РµРґРЅРёР№ РЅР°Р±РѕСЂ РѕС‚РјРµРЅ
 		mVectorUndoChangeInfo.pop_back();
 		mVectorRedoChangeInfo.push_back(info);
 
-		// берем текст для издевательств
+		// Р±РµСЂРµРј С‚РµРєСЃС‚ РґР»СЏ РёР·РґРµРІР°С‚РµР»СЊСЃС‚РІ
 		Ogre::UTFString text = getRealString();
 
-		// восстанавливаем последовательность
+		// РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ
 		for (VectorChangeInfo::reverse_iterator iter=info.rbegin(); iter!=info.rend(); iter++) {
 
 			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.erase((*iter).start, (*iter).text.size());
@@ -734,14 +734,14 @@ namespace MyGUI
 			}
 		}
 
-		// возвращаем текст
+		// РІРѕР·РІСЂР°С‰Р°РµРј С‚РµРєСЃС‚
 		setRealString(text);
 
-		// обновляем по позиции
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ РїРѕР·РёС†РёРё
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
-		// отсылаем событие о изменении
+		// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 		eventEditTextChange(this);
 
 		return true;
@@ -751,19 +751,19 @@ namespace MyGUI
 	{
 		if (mVectorRedoChangeInfo.empty()) return false;
 
-		// сбрасываем выделение
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 		resetSelect();
 
-		// сохраняем последние набор отмен
+		// СЃРѕС…СЂР°РЅСЏРµРј РїРѕСЃР»РµРґРЅРёРµ РЅР°Р±РѕСЂ РѕС‚РјРµРЅ
 		VectorChangeInfo info = mVectorRedoChangeInfo.back();
-		// перекидываем последний набор отмен
+		// РїРµСЂРµРєРёРґС‹РІР°РµРј РїРѕСЃР»РµРґРЅРёР№ РЅР°Р±РѕСЂ РѕС‚РјРµРЅ
 		mVectorRedoChangeInfo.pop_back();
 		mVectorUndoChangeInfo.push_back(info);
 
-		// берем текст для издевательств
+		// Р±РµСЂРµРј С‚РµРєСЃС‚ РґР»СЏ РёР·РґРµРІР°С‚РµР»СЊСЃС‚РІ
 		Ogre::UTFString text = getRealString();
 
-		// восстанавливаем последовательность
+		// РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ
 		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++) {
 
 			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.insert((*iter).start, (*iter).text);
@@ -775,14 +775,14 @@ namespace MyGUI
 
 		}
 
-		// возвращаем текст
+		// РІРѕР·РІСЂР°С‰Р°РµРј С‚РµРєСЃС‚
 		setRealString(text);
 
-		// обновляем по позиции
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ РїРѕР·РёС†РёРё
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
-		// отсылаем событие о изменении
+		// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 		eventEditTextChange(this);
 
 		return true;
@@ -791,134 +791,134 @@ namespace MyGUI
 	void Edit::saveInHistory(VectorChangeInfo * _info)
 	{
 		if (_info == null) return;
-		// если нет информации об изменении
+		// РµСЃР»Рё РЅРµС‚ РёРЅС„РѕСЂРјР°С†РёРё РѕР± РёР·РјРµРЅРµРЅРёРё
 		if ( _info->empty() ) return;
 		if ( (_info->size() == 1) && (_info->back().type == TextCommandInfo::COMMAND_POSITION)) return;
 
 		mVectorUndoChangeInfo.push_back(*_info);
-		// проверяем на максимальный размер
+		// РїСЂРѕРІРµСЂСЏРµРј РЅР° РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ
 		if (mVectorUndoChangeInfo.size() > EDIT_MAX_UNDO)
 			mVectorUndoChangeInfo.pop_front();
 	}
 
-	// возвращает текст
+	// РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСЃС‚
 	Ogre::UTFString Edit::getText(size_t _start, size_t _count)
 	{
-		// подстраховка
+		// РїРѕРґСЃС‚СЂР°С…РѕРІРєР°
 		if (_start > mTextLength) _start = mTextLength;
-		// конец диапазона
+		// РєРѕРЅРµС† РґРёР°РїР°Р·РѕРЅР°
 		size_t end = _start + _count;
 
-		// итератор нашей строки
+		// РёС‚РµСЂР°С‚РѕСЂ РЅР°С€РµР№ СЃС‚СЂРѕРєРё
 		TextIterator iterator(getRealString());
 
-		// дефолтный цвет
+		// РґРµС„РѕР»С‚РЅС‹Р№ С†РІРµС‚
 		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
 
-		// нужно ли вставлять цвет
+		// РЅСѓР¶РЅРѕ Р»Рё РІСЃС‚Р°РІР»СЏС‚СЊ С†РІРµС‚
 		bool need_colour = true;
 
-		// цикл прохода по строке
+		// С†РёРєР» РїСЂРѕС…РѕРґР° РїРѕ СЃС‚СЂРѕРєРµ
 		while (iterator.moveNext()) {
 
-			// текущаяя позиция
+			// С‚РµРєСѓС‰Р°СЏСЏ РїРѕР·РёС†РёСЏ
 			size_t pos = iterator.getPosition();
 
-			// еще рано
+			// РµС‰Рµ СЂР°РЅРѕ
 			if (pos < _start) {
-				// берем цвет из позиции и запоминаем
+				// Р±РµСЂРµРј С†РІРµС‚ РёР· РїРѕР·РёС†РёРё Рё Р·Р°РїРѕРјРёРЅР°РµРј
 				iterator.getTagColour(colour);
 
 				continue;
 			}
 
-			// проверяем на надобность начального тега
+			// РїСЂРѕРІРµСЂСЏРµРј РЅР° РЅР°РґРѕР±РЅРѕСЃС‚СЊ РЅР°С‡Р°Р»СЊРЅРѕРіРѕ С‚РµРіР°
 			else if (pos == _start) {
 				need_colour = ! iterator.getTagColour(colour);
-				// сохраняем место откуда начинается
+				// СЃРѕС…СЂР°РЅСЏРµРј РјРµСЃС‚Рѕ РѕС‚РєСѓРґР° РЅР°С‡РёРЅР°РµС‚СЃСЏ
 				iterator.saveStartPoint();
 
 			}
 
-			// а теперь просто до конца диапазона
+			// Р° С‚РµРїРµСЂСЊ РїСЂРѕСЃС‚Рѕ РґРѕ РєРѕРЅС†Р° РґРёР°РїР°Р·РѕРЅР°
 			else if (pos == end) break;
 
 		};
 
-		// возвращаем строку
+		// РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂРѕРєСѓ
 		if (need_colour) return colour + iterator.getFromStart();
 		return iterator.getFromStart();
 	}
 
-	// выделяет цветом диапазон
+	// РІС‹РґРµР»СЏРµС‚ С†РІРµС‚РѕРј РґРёР°РїР°Р·РѕРЅ
 	void Edit::setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history)
 	{
-		// при изменениях сразу сбрасываем повтор
+		// РїСЂРё РёР·РјРµРЅРµРЅРёСЏС… СЃСЂР°Р·Сѓ СЃР±СЂР°СЃС‹РІР°РµРј РїРѕРІС‚РѕСЂ
 		commandResetRedo();
 
-		// история изменений
+		// РёСЃС‚РѕСЂРёСЏ РёР·РјРµРЅРµРЅРёР№
 		VectorChangeInfo * history = null;
 		if (_history) history = new VectorChangeInfo();
 
-		// конец диапазона
+		// РєРѕРЅРµС† РґРёР°РїР°Р·РѕРЅР°
 		size_t end = _start + _count;
 
-		// итератор нашей строки
+		// РёС‚РµСЂР°С‚РѕСЂ РЅР°С€РµР№ СЃС‚СЂРѕРєРё
 		TextIterator iterator(getRealString(), history);
 
-		// дефолтный цвет
+		// РґРµС„РѕР»С‚РЅС‹Р№ С†РІРµС‚
 		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
 
-		// цикл прохода по строке
+		// С†РёРєР» РїСЂРѕС…РѕРґР° РїРѕ СЃС‚СЂРѕРєРµ
 		while (iterator.moveNext()) {
 
-			// текущаяя позиция
+			// С‚РµРєСѓС‰Р°СЏСЏ РїРѕР·РёС†РёСЏ
 			size_t pos = iterator.getPosition();
 
-			// берем цвет из позиции и запоминаем
+			// Р±РµСЂРµРј С†РІРµС‚ РёР· РїРѕР·РёС†РёРё Рё Р·Р°РїРѕРјРёРЅР°РµРј
 			iterator.getTagColour(colour);
 
-			// еще рано
+			// РµС‰Рµ СЂР°РЅРѕ
 			if (pos < _start) continue;
 
-			// ставим начальный тег
+			// СЃС‚Р°РІРёРј РЅР°С‡Р°Р»СЊРЅС‹Р№ С‚РµРі
 			else if (pos == _start)
 				iterator.setTagColour(_colour);
 
-			// внутри диапазона очищаем все
+			// РІРЅСѓС‚СЂРё РґРёР°РїР°Р·РѕРЅР° РѕС‡РёС‰Р°РµРј РІСЃРµ
 			else if (pos < end)
 				iterator.clearTagColour();
 
-			// на конец ставим последний найденный или дефолтный
+			// РЅР° РєРѕРЅРµС† СЃС‚Р°РІРёРј РїРѕСЃР»РµРґРЅРёР№ РЅР°Р№РґРµРЅРЅС‹Р№ РёР»Рё РґРµС„РѕР»С‚РЅС‹Р№
 			else if (pos == end) {
 				iterator.setTagColour(colour);
-				// и выходим из цикла
+				// Рё РІС‹С…РѕРґРёРј РёР· С†РёРєР»Р°
 				break;
 			}
 
 		};
 
-		// сохраняем позицию для восстановления курсора
+		// СЃРѕС…СЂР°РЅСЏРµРј РїРѕР·РёС†РёСЋ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РєСѓСЂСЃРѕСЂР°
 		commandPosition(_start, _start+_count, mTextLength, history);
 
-		// запоминаем в историю
+		// Р·Р°РїРѕРјРёРЅР°РµРј РІ РёСЃС‚РѕСЂРёСЋ
 		if (_history) {
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
+		// СЃР±СЂР°СЃС‹РІР°РµРј РёСЃС‚РѕСЂРёСЋ
 		else commandResetHistory();
 
-		// и возвращаем строку на место
+		// Рё РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂРѕРєСѓ РЅР° РјРµСЃС‚Рѕ
 		setRealString(iterator.getText());
 
 	}
 
 	void Edit::setTextSelectColour(const Ogre::ColourValue & _colour, bool _history)
 	{
-		// нужно выделение
+		// РЅСѓР¶РЅРѕ РІС‹РґРµР»РµРЅРёРµ
 		if ( false == isTextSelect()) return;
-		// начало и конец выделения
+		// РЅР°С‡Р°Р»Рѕ Рё РєРѕРЅРµС† РІС‹РґРµР»РµРЅРёСЏ
 		size_t start, end;
 		getTextSelect(start, end);
 		setTextColour(start, end-start, _colour, _history);
@@ -951,25 +951,25 @@ namespace MyGUI
 			mText->setCaption(mPasswordText);
 			mPasswordText.clear();
 		}
-		// обновляем по размерам
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ СЂР°Р·РјРµСЂР°Рј
 		updateView(false);
-		// сбрасываем историю
+		// СЃР±СЂР°СЃС‹РІР°РµРј РёСЃС‚РѕСЂРёСЋ
 		commandResetHistory();
 	}
 
 	void Edit::setText(const Ogre::UTFString & _caption, bool _history)
 	{
-		// сбрасываем выделение
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 		resetSelect();
 
-		// история изменений
+		// РёСЃС‚РѕСЂРёСЏ РёР·РјРµРЅРµРЅРёР№
 		VectorChangeInfo * history = null;
 		if (_history) history = new VectorChangeInfo();
 
-		// итератор нашей строки
+		// РёС‚РµСЂР°С‚РѕСЂ РЅР°С€РµР№ СЃС‚СЂРѕРєРё
 		TextIterator iterator(getRealString(), history);
 
-		// вставляем текст
+		// РІСЃС‚Р°РІР»СЏРµРј С‚РµРєСЃС‚
 		iterator.setText(_caption, mModeMultiline || mModeWordWrap);
 
 		if (mOverflowToTheLeft)
@@ -978,75 +978,75 @@ namespace MyGUI
 		}
 		else
 		{
-			// обрезаем по максимальной длинне
+			// РѕР±СЂРµР·Р°РµРј РїРѕ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РґР»РёРЅРЅРµ
 			iterator.cutMaxLength(mMaxTextLength);
 		}
 
-		// запоминаем размер строки
+		// Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё
 		size_t old = mTextLength;
-		// новая позиция и положение на конец вставки
+		// РЅРѕРІР°СЏ РїРѕР·РёС†РёСЏ Рё РїРѕР»РѕР¶РµРЅРёРµ РЅР° РєРѕРЅРµС† РІСЃС‚Р°РІРєРё
 		mCursorPosition = mTextLength = iterator.getSize();
 
-		// сохраняем позицию для восстановления курсора
+		// СЃРѕС…СЂР°РЅСЏРµРј РїРѕР·РёС†РёСЋ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РєСѓСЂСЃРѕСЂР°
 		commandPosition(0, mTextLength, old, history);
 
-		// запоминаем в историю
+		// Р·Р°РїРѕРјРёРЅР°РµРј РІ РёСЃС‚РѕСЂРёСЋ
 		if (_history) {
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
+		// СЃР±СЂР°СЃС‹РІР°РµРј РёСЃС‚РѕСЂРёСЋ
 		else commandResetHistory();
 
-		// и возвращаем строку на место
+		// Рё РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂРѕРєСѓ РЅР° РјРµСЃС‚Рѕ
 		setRealString(iterator.getText());
 
-		// обновляем по позиции
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ РїРѕР·РёС†РёРё
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
 	void Edit::insertText(const Ogre::UTFString & _text, size_t _start, bool _history)
 	{
-		// сбрасываем выделение
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 		resetSelect();
 
-		// если строка пустая, или размер максимален
+		// РµСЃР»Рё СЃС‚СЂРѕРєР° РїСѓСЃС‚Р°СЏ, РёР»Рё СЂР°Р·РјРµСЂ РјР°РєСЃРёРјР°Р»РµРЅ
 		if (_text.empty()) return;
 
 		if ((mOverflowToTheLeft == false) && (mTextLength == mMaxTextLength)) return;
 
-		// история изменений
+		// РёСЃС‚РѕСЂРёСЏ РёР·РјРµРЅРµРЅРёР№
 		VectorChangeInfo * history = null;
 		if (_history) history = new VectorChangeInfo();
 
-		// итератор нашей строки
+		// РёС‚РµСЂР°С‚РѕСЂ РЅР°С€РµР№ СЃС‚СЂРѕРєРё
 		TextIterator iterator(getRealString(), history);
 
-		// дефолтный цвет
+		// РґРµС„РѕР»С‚РЅС‹Р№ С†РІРµС‚
 		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
-		// нужен ли тег текста
-		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
+		// РЅСѓР¶РµРЅ Р»Рё С‚РµРі С‚РµРєСЃС‚Р°
+		// РїРѕС‚РѕРј РїРµСЂРµРґРµР»Р°С‚СЊ С‡РµСЂРµР· TextIterator С‡С‚РѕР±С‹ РѕС‚РІСЏР·Р°С‚СЊ РїРѕРЅСЏС‚РёРµ С‚РµРі РѕС‚ СЌРґРёС‚Р°
 		bool need_colour = ( (_text.size() > 6) && (_text[0] == L'#') && (_text[1] != L'#') );
 
-		// цикл прохода по строке
+		// С†РёРєР» РїСЂРѕС…РѕРґР° РїРѕ СЃС‚СЂРѕРєРµ
 		while (iterator.moveNext()) {
 
-			// текущаяя позиция
+			// С‚РµРєСѓС‰Р°СЏСЏ РїРѕР·РёС†РёСЏ
 			size_t pos = iterator.getPosition();
 
-			// текущий цвет
+			// С‚РµРєСѓС‰РёР№ С†РІРµС‚
 			if (need_colour) iterator.getTagColour(colour);
 
-			// если дошли то выходим
+			// РµСЃР»Рё РґРѕС€Р»Рё С‚Рѕ РІС‹С…РѕРґРёРј
 			if (pos == _start) break;
 
 		};
 
-		// если нужен цвет то вставляем
+		// РµСЃР»Рё РЅСѓР¶РµРЅ С†РІРµС‚ С‚Рѕ РІСЃС‚Р°РІР»СЏРµРј
 		if (need_colour) iterator.setTagColour(colour);
 
-		// а теперь вставляем строку
+		// Р° С‚РµРїРµСЂСЊ РІСЃС‚Р°РІР»СЏРµРј СЃС‚СЂРѕРєСѓ
 		iterator.insertText(_text, mModeMultiline || mModeWordWrap);
 
 		if (mOverflowToTheLeft)
@@ -1055,90 +1055,90 @@ namespace MyGUI
 		}
 		else
 		{
-			// обрезаем по максимальной длинне
+			// РѕР±СЂРµР·Р°РµРј РїРѕ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РґР»РёРЅРЅРµ
 			iterator.cutMaxLength(mMaxTextLength);
 		}
 
-		// запоминаем размер строки
+		// Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё
 		size_t old = mTextLength;
-		// новая позиция и положение на конец вставки
+		// РЅРѕРІР°СЏ РїРѕР·РёС†РёСЏ Рё РїРѕР»РѕР¶РµРЅРёРµ РЅР° РєРѕРЅРµС† РІСЃС‚Р°РІРєРё
 		mTextLength = iterator.getSize();
 		mCursorPosition += mTextLength - old;
 
-		// сохраняем позицию для восстановления курсора
+		// СЃРѕС…СЂР°РЅСЏРµРј РїРѕР·РёС†РёСЋ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РєСѓСЂСЃРѕСЂР°
 		commandPosition(_start, _start + mTextLength - old, old, history);
 
-		// запоминаем в историю
+		// Р·Р°РїРѕРјРёРЅР°РµРј РІ РёСЃС‚РѕСЂРёСЋ
 		if (_history) {
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
+		// СЃР±СЂР°СЃС‹РІР°РµРј РёСЃС‚РѕСЂРёСЋ
 		else commandResetHistory();
 
-		// и возвращаем строку на место
+		// Рё РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂРѕРєСѓ РЅР° РјРµСЃС‚Рѕ
 		setRealString(iterator.getText());
 
-		// обновляем по позиции
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ РїРѕР·РёС†РёРё
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
 	void Edit::eraseText(size_t _start, size_t _count, bool _history)
 	{
-		// чета маловато
+		// С‡РµС‚Р° РјР°Р»РѕРІР°С‚Рѕ
 		if (_count == 0) return;
 
-		// сбрасываем выделение
+		// СЃР±СЂР°СЃС‹РІР°РµРј РІС‹РґРµР»РµРЅРёРµ
 		resetSelect();
 
-		// история изменений
+		// РёСЃС‚РѕСЂРёСЏ РёР·РјРµРЅРµРЅРёР№
 		VectorChangeInfo * history = null;
 		if (_history) history = new VectorChangeInfo();
 
-		// итератор нашей строки
+		// РёС‚РµСЂР°С‚РѕСЂ РЅР°С€РµР№ СЃС‚СЂРѕРєРё
 		TextIterator iterator(getRealString(), history);
 
-		// дефолтный цвет
+		// РґРµС„РѕР»С‚РЅС‹Р№ С†РІРµС‚
 		Ogre::UTFString colour;
-		// конец диапазона
+		// РєРѕРЅРµС† РґРёР°РїР°Р·РѕРЅР°
 		size_t end = _start + _count;
 		bool need_colour = false;
 
-		// цикл прохода по строке
+		// С†РёРєР» РїСЂРѕС…РѕРґР° РїРѕ СЃС‚СЂРѕРєРµ
 		while (iterator.moveNext()) {
 
-			// текущаяя позиция
+			// С‚РµРєСѓС‰Р°СЏСЏ РїРѕР·РёС†РёСЏ
 			size_t pos = iterator.getPosition();
 
-			// еще рано
+			// РµС‰Рµ СЂР°РЅРѕ
 			if (pos < _start) {
-				// берем цвет из позиции и запоминаем
+				// Р±РµСЂРµРј С†РІРµС‚ РёР· РїРѕР·РёС†РёРё Рё Р·Р°РїРѕРјРёРЅР°РµРј
 				iterator.getTagColour(colour);
 				continue;
 			}
 
-			// сохраняем место откуда начинается
+			// СЃРѕС…СЂР°РЅСЏРµРј РјРµСЃС‚Рѕ РѕС‚РєСѓРґР° РЅР°С‡РёРЅР°РµС‚СЃСЏ
 			else if (pos == _start) {
-				// если до диапазона был цвет, то нужно закрыть тег
+				// РµСЃР»Рё РґРѕ РґРёР°РїР°Р·РѕРЅР° Р±С‹Р» С†РІРµС‚, С‚Рѕ РЅСѓР¶РЅРѕ Р·Р°РєСЂС‹С‚СЊ С‚РµРі
 				if ( ! colour.empty()) {
 					need_colour = true;
 					colour.clear();
 				}
-				// берем цвет из позиции и запоминаем
+				// Р±РµСЂРµРј С†РІРµС‚ РёР· РїРѕР·РёС†РёРё Рё Р·Р°РїРѕРјРёРЅР°РµРј
 				iterator.getTagColour(colour);
 				iterator.saveStartPoint();
 			}
 
-			// внутри диапазона
+			// РІРЅСѓС‚СЂРё РґРёР°РїР°Р·РѕРЅР°
 			else if (pos < end) {
-				// берем цвет из позиции и запоминаем
+				// Р±РµСЂРµРј С†РІРµС‚ РёР· РїРѕР·РёС†РёРё Рё Р·Р°РїРѕРјРёРЅР°РµРј
 				iterator.getTagColour(colour);
 			}
 
-			// окончание диапазона
+			// РѕРєРѕРЅС‡Р°РЅРёРµ РґРёР°РїР°Р·РѕРЅР°
 			else if (pos == end) {
-				// нужно ставить тег или нет
+				// РЅСѓР¶РЅРѕ СЃС‚Р°РІРёС‚СЊ С‚РµРі РёР»Рё РЅРµС‚
 				if ( ! colour.empty()) need_colour = true;
 				if ( iterator.getTagColour(colour)) need_colour = false;
 
@@ -1147,42 +1147,42 @@ namespace MyGUI
 
 		};
 
-		// удаляем диапазон
+		// СѓРґР°Р»СЏРµРј РґРёР°РїР°Р·РѕРЅ
 		iterator.eraseFromStart();
-		// и вставляем последний цвет
+		// Рё РІСЃС‚Р°РІР»СЏРµРј РїРѕСЃР»РµРґРЅРёР№ С†РІРµС‚
 		if (need_colour) iterator.setTagColour(colour);
 
-		// сохраняем позицию для восстановления курсора
+		// СЃРѕС…СЂР°РЅСЏРµРј РїРѕР·РёС†РёСЋ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РєСѓСЂСЃРѕСЂР°
 		commandPosition(_start + _count, _start, mTextLength, history);
 
-		// на месте удаленного
+		// РЅР° РјРµСЃС‚Рµ СѓРґР°Р»РµРЅРЅРѕРіРѕ
 		mCursorPosition = _start;
 		mTextLength -= _count;
 
-		// запоминаем в историю
+		// Р·Р°РїРѕРјРёРЅР°РµРј РІ РёСЃС‚РѕСЂРёСЋ
 		if (_history) {
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
+		// СЃР±СЂР°СЃС‹РІР°РµРј РёСЃС‚РѕСЂРёСЋ
 		else commandResetHistory();
 
-		// и возвращаем строку на место
+		// Рё РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂРѕРєСѓ РЅР° РјРµСЃС‚Рѕ
 		setRealString(iterator.getText());
 
-		// обновляем по позиции
+		// РѕР±РЅРѕРІР»СЏРµРј РїРѕ РїРѕР·РёС†РёРё
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
 	void Edit::commandCut()
 	{
-		// вырезаем в буфер обмена
+		// РІС‹СЂРµР·Р°РµРј РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 		if ( isTextSelect() && (false == mModePassword) ) {
 			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 			if (false == mModeReadOnly) {
 				deleteTextSelect(true);
-				// отсылаем событие о изменении
+				// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 				eventEditTextChange(this);
 			}
 		}
@@ -1191,24 +1191,24 @@ namespace MyGUI
 
 	void Edit::commandCopy()
 	{
-		// копируем в буфер обмена
+		// РєРѕРїРёСЂСѓРµРј РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 		if ( isTextSelect() && (false == mModePassword) ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandPast()
 	{
-		// копируем из буфера обмена
+		// РєРѕРїРёСЂСѓРµРј РёР· Р±СѓС„РµСЂР° РѕР±РјРµРЅР°
 		std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 		if ( (false == mModeReadOnly) && ( false == clipboard.empty()) ) {
-			// попытка объединения двух комманд
+			// РїРѕРїС‹С‚РєР° РѕР±СЉРµРґРёРЅРµРЅРёСЏ РґРІСѓС… РєРѕРјРјР°РЅРґ
 			size_t size = mVectorUndoChangeInfo.size();
-			// непосредственно операции
+			// РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РѕРїРµСЂР°С†РёРё
 			deleteTextSelect(true);
 			insertText(clipboard, mCursorPosition, true);
-			// проверяем на возможность объединения
+			// РїСЂРѕРІРµСЂСЏРµРј РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕР±СЉРµРґРёРЅРµРЅРёСЏ
 			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-			// отсылаем событие о изменении
+			// РѕС‚СЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё
 			eventEditTextChange(this);
 		}
 	}
@@ -1257,7 +1257,7 @@ namespace MyGUI
 	void Edit::setSize(const IntSize& _size)
 	{
 		Widget::setSize(_size);
-		// если перенос, то сбрасываем размер текста
+		// РµСЃР»Рё РїРµСЂРµРЅРѕСЃ, С‚Рѕ СЃР±СЂР°СЃС‹РІР°РµРј СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р°
 		if (mModeWordWrap) mText->setBreakLine(true);
 		updateView(false);
 	}
@@ -1265,7 +1265,7 @@ namespace MyGUI
 	void Edit::setCoord(const IntCoord & _coord)
 	{
 		Widget::setCoord(_coord);
-		// если перенос, то сбрасываем размер текста
+		// РµСЃР»Рё РїРµСЂРµРЅРѕСЃ, С‚Рѕ СЃР±СЂР°СЃС‹РІР°РµРј СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р°
 		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
 		updateView(false);
 	}
@@ -1286,71 +1286,71 @@ namespace MyGUI
 
 			InputManager & input = InputManager::getInstance();
 			if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) ) {
-				// меняем выделение
+				// РјРµРЅСЏРµРј РІС‹РґРµР»РµРЅРёРµ
 				mEndSelect = (size_t)mCursorPosition;
 				if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
 				else mText->setTextSelect(mStartSelect, mEndSelect);
 
 			} else if (mStartSelect != ITEM_NONE) {
-				// сбрасываем шифт
+				// СЃР±СЂР°СЃС‹РІР°РµРј С€РёС„С‚
 				mStartSelect = ITEM_NONE;
 				mText->setTextSelect(0, 0);
 			}
 		}
 
-		// пытаемся показать курсор
+		// РїС‹С‚Р°РµРјСЃСЏ РїРѕРєР°Р·Р°С‚СЊ РєСѓСЂСЃРѕСЂ
 		updateView(true);
 	}
 
 	void Edit::setTextAlign(Align _align)
 	{
 		Widget::setTextAlign(_align);
-		// так как мы сами рулим смещениями
+		// С‚Р°Рє РєР°Рє РјС‹ СЃР°РјРё СЂСѓР»РёРј СЃРјРµС‰РµРЅРёСЏРјРё
 		updateView(false);
 	}
 
 	void Edit::updateView(bool _showCursor)
 	{
 
-		// проверяем скролы
+		// РїСЂРѕРІРµСЂСЏРµРј СЃРєСЂРѕР»С‹
 		updateScroll();
 
-		// размер контекста текста
+		// СЂР°Р·РјРµСЂ РєРѕРЅС‚РµРєСЃС‚Р° С‚РµРєСЃС‚Р°
 		IntSize textSize = mText->getTextSize();
-		// текущее смещение контекста текста
+		// С‚РµРєСѓС‰РµРµ СЃРјРµС‰РµРЅРёРµ РєРѕРЅС‚РµРєСЃС‚Р° С‚РµРєСЃС‚Р°
 		IntPoint point = mText->getViewOffset();
-		// расчетное смещение
+		// СЂР°СЃС‡РµС‚РЅРѕРµ СЃРјРµС‰РµРЅРёРµ
 		IntPoint offset = point;
 
-		// абсолютные координаты курсора
+		// Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР°
 		IntRect cursor = mText->getCursorRect(mCursorPosition);
 		cursor.right ++;
-		// абсолютные координаты вью
+		// Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РІСЊСЋ
 		const IntRect& view = mWidgetClient->getAbsoluteRect();
 
-		// тестируем видимость курсора
+		// С‚РµСЃС‚РёСЂСѓРµРј РІРёРґРёРјРѕСЃС‚СЊ РєСѓСЂСЃРѕСЂР°
 		bool inside = view.inside(cursor);
 
-		// проверяем и показываем курсор
+		// РїСЂРѕРІРµСЂСЏРµРј Рё РїРѕРєР°Р·С‹РІР°РµРј РєСѓСЂСЃРѕСЂ
 		if (_showCursor && ( false == inside)) {
 
-			// горизонтальное смещение
-			// FIXME проверить, помоему просто >
+			// РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ
+			// FIXME РїСЂРѕРІРµСЂРёС‚СЊ, РїРѕРјРѕРµРјСѓ РїСЂРѕСЃС‚Рѕ >
 			if (textSize.width >= view.width()) {
 				if (cursor.left < view.left) {
 					offset.left = point.left - (view.left - cursor.left);
-					// добавляем смещение, только если курсор не перепрыгнет
+					// РґРѕР±Р°РІР»СЏРµРј СЃРјРµС‰РµРЅРёРµ, С‚РѕР»СЊРєРѕ РµСЃР»Рё РєСѓСЂСЃРѕСЂ РЅРµ РїРµСЂРµРїСЂС‹РіРЅРµС‚
 					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left -= int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 				else if (cursor.right > view.right) {
 					offset.left = point.left + (cursor.right - view.right);
-					// добавляем смещение, только если курсор не перепрыгнет
+					// РґРѕР±Р°РІР»СЏРµРј СЃРјРµС‰РµРЅРёРµ, С‚РѕР»СЊРєРѕ РµСЃР»Рё РєСѓСЂСЃРѕСЂ РЅРµ РїРµСЂРµРїСЂС‹РіРЅРµС‚
 					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left += int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 			}
 
-			// вертикальное смещение
-			// FIXME проверить, помоему просто >
+			// РІРµСЂС‚РёРєР°Р»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ
+			// FIXME РїСЂРѕРІРµСЂРёС‚СЊ, РїРѕРјРѕРµРјСѓ РїСЂРѕСЃС‚Рѕ >
 			if (textSize.height >= view.height()) {
 				if (cursor.top < view.top) {
 					offset.top = point.top - (view.top - cursor.top);
@@ -1362,15 +1362,15 @@ namespace MyGUI
 
 		}
 
-		// выравнивание текста
+		// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ С‚РµРєСЃС‚Р°
 		Align align = mText->getTextAlign();
 
 		if (textSize.width >= view.width()) {
-			// максимальный выход влево
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІР»РµРІРѕ
 			if ((offset.left + view.width()) > textSize.width) {
 				offset.left = textSize.width - view.width();
 			}
-			// максимальный выход вправо
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРїСЂР°РІРѕ
 			else if (offset.left < 0) {
 				offset.left = 0;
 			}
@@ -1388,11 +1388,11 @@ namespace MyGUI
 		}
 
 		if (textSize.height > view.height()) {
-			// максимальный выход вверх
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРІРµСЂС…
 			if ((offset.top + view.height()) > textSize.height) {
 				offset.top = textSize.height - view.height();
 			}
-			// максимальный выход вниз
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРЅРёР·
 			else if (offset.top < 0) {
 				offset.top = 0;
 			}
@@ -1420,54 +1420,54 @@ namespace MyGUI
 	{
 		IntSize textSize = mText->getTextSize();
 
-		// вертикальный текст не помещается
+		// РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ С‚РµРєСЃС‚ РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		if (textSize.height > mText->getHeight()) {
 			if (mVScroll != null) {
 				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
 					mVScroll->show();
 					mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
 
-					// размер текста может измениться
+					// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					textSize = mText->getTextSize();
 
 					if (mHScroll != null) {
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет показа
+						// РµСЃР»Рё РїРѕРєР°Р·Р°Р»Рё РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРјРµРЅСЊС€РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ РїРѕРєР°Р·Р°
 						if ((textSize.width > mText->getWidth()) && ( ! mHScroll->isShow()) && (mShowHScroll)) {
 							mHScroll->show();
 							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-							// размер текста может измениться
+							// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							textSize = mText->getTextSize();
 						}
 					}
 				}
 			}
 		}
-		// вертикальный текст помещается
+		// РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ С‚РµРєСЃС‚ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		else {
 			if (mVScroll != null) {
 				if (mVScroll->isShow()) {
 					mVScroll->hide();
 					mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
 
-					// размер текста может измениться
+					// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					textSize = mText->getTextSize();
 
 					if (mHScroll != null) {
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет скрытия
+						// РµСЃР»Рё СЃРєСЂС‹Р»Рё РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРІРµР»РёС‡РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ СЃРєСЂС‹С‚РёСЏ
 						if ((textSize.width <= mText->getWidth()) && (mHScroll->isShow())) {
 							mHScroll->hide();
 							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-							// размер текста может измениться
+							// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							textSize = mText->getTextSize();
 						}
 					}
@@ -1476,54 +1476,54 @@ namespace MyGUI
 		}
 
 
-		// горизонтальный текст не помещается
+		// РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ С‚РµРєСЃС‚ РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		if (textSize.width > mText->getWidth()) {
 			if (mHScroll != null) {
 				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
 					mHScroll->show();
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
 
-					// размер текста может измениться
+					// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					textSize = mText->getTextSize();
 
 					if (mVScroll != null) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет показа
+						// РµСЃР»Рё РїРѕРєР°Р·Р°Р»Рё РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРјРµРЅСЊС€РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ РїРѕРєР°Р·Р°
 						if ((textSize.height > mText->getHeight()) && ( ! mVScroll->isShow()) && (mShowVScroll)) {
 							mVScroll->show();
 							mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер текста может измениться
+							// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							textSize = mText->getTextSize();
 						}
 					}
 				}
 			}
 		}
-		// горизонтальный текст помещается
+		// РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ С‚РµРєСЃС‚ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		else {
 			if (mHScroll != null) {
 				if (mHScroll->isShow()) {
 					mHScroll->hide();
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
 
-					// размер текста может измениться
+					// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					textSize = mText->getTextSize();
 
 					if (mVScroll != null) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет скрытия
+						// РµСЃР»Рё СЃРєСЂС‹Р»Рё РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРІРµР»РёС‡РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ СЃРєСЂС‹С‚РёСЏ
 						if ((textSize.height <= mText->getHeight()) && (mVScroll->isShow())) {
 							mVScroll->hide();
 							mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер текста может измениться
+							// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							textSize = mText->getTextSize();
 						}
 					}

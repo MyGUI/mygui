@@ -22,7 +22,7 @@ namespace MyGUI
 			VScrollFactory();
 			~VScrollFactory();
 		private:
-			// методы для парсинга, вызываются для базового класа, поэтому работает и для HScroll
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°, РІС‹Р·С‹РІР°СЋС‚СЃСЏ РґР»СЏ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃР°, РїРѕСЌС‚РѕРјСѓ СЂР°Р±РѕС‚Р°РµС‚ Рё РґР»СЏ HScroll
 			void Scroll_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Scroll_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Scroll_Page(WidgetPtr _widget, const std::string &_key, const std::string &_value);

@@ -35,10 +35,10 @@ namespace MyGUI
 
 		virtual void _setStateData(StateInfo * _data);
 
-		// метод для отрисовки себя
+		// РјРµС‚РѕРґ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё СЃРµР±СЏ
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
-		// метод для генерации данных из описания xml
+		// РјРµС‚РѕРґ РґР»СЏ РіРµРЅРµСЂР°С†РёРё РґР°РЅРЅС‹С… РёР· РѕРїРёСЃР°РЅРёСЏ xml
 		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	private:

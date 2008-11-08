@@ -64,7 +64,7 @@ namespace MyGUI
 
 			pFileInfo.setNull();
 
-			// ëîã äëÿ ìóëüòèðåñóëüòà
+			// Ð»Ð¾Ð³ Ð´Ð»Ñ Ð¼ÑƒÐ»ÑŒÑ‚Ð¸Ñ€ÐµÑÑƒÐ»ÑŒÑ‚Ð°
 			if (_unique && count > 1) { getResourcePath(_filename, _group); }
 
 			return _unique ? count == 1  : count > 0;
@@ -80,7 +80,7 @@ namespace MyGUI
 			Ogre::String result;
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, _filename);
 
-			// ïîä÷èùàåì òå ÷òî íå òî÷íî ñîîòâåòñòâóþò
+			// Ð¿Ð¾Ð´Ñ‡Ð¸Ñ‰Ð°ÐµÐ¼ Ñ‚Ðµ Ñ‡Ñ‚Ð¾ Ð½Ðµ Ñ‚Ð¾Ñ‡Ð½Ð¾ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‚
 			if (_fullmatch) {
 				for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end();  ) {
 					if (fi->path.empty()) ++fi;
@@ -88,7 +88,7 @@ namespace MyGUI
 				}
 			}
 
-			// òîëüêî óíèêàëüíûé
+			// Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÑƒÐ½Ð¸ÐºÐ°Ð»ÑŒÐ½Ñ‹Ð¹
 			if (_unique) {
 				if (pFileInfo->size() > 1) {
 					MYGUI_LOG(Error, "helper::getFilePath : filename '" << _filename << "' a lot of concurrences.");
@@ -102,7 +102,7 @@ namespace MyGUI
 					return result;
 				}
 			}
-			// ïåðâûé ïîïàâøèéñÿ
+			// Ð¿ÐµÑ€Ð²Ñ‹Ð¹ Ð¿Ð¾Ð¿Ð°Ð²ÑˆÐ¸Ð¹ÑÑ
 			else {
 				if (pFileInfo->size() == 0) {
 					MYGUI_LOG(Error, "helper::getFilePath : filename '" << _filename << "' not found.");
@@ -110,7 +110,7 @@ namespace MyGUI
 				}
 			}
 
-			// ïîëíûé ïóòü èëè íåò
+			// Ð¿Ð¾Ð»Ð½Ñ‹Ð¹ Ð¿ÑƒÑ‚ÑŒ Ð¸Ð»Ð¸ Ð½ÐµÑ‚
 			result = _fullpath ? pFileInfo->front().archive->getName() + "/" + pFileInfo->front().filename : pFileInfo->front().filename;
 
 			pFileInfo.setNull();

@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	// делегаты для событий виджета
+	// РґРµР»РµРіР°С‚С‹ РґР»СЏ СЃРѕР±С‹С‚РёР№ РІРёРґР¶РµС‚Р°
 	typedef delegates::CDelegate1<WidgetPtr> EventInfo_WidgetVoid;
 	typedef delegates::CDelegate2<WidgetPtr, WidgetPtr> EventInfo_WidgetWidget;
 	typedef delegates::CDelegate2<WidgetPtr, bool> EventInfo_WidgetBool;
@@ -38,7 +38,7 @@ namespace MyGUI
 		{
 		public:
 			static void anyStaticMethod(...) { } // static method
-			void anyMethod(...) { } // обычный метод
+			void anyMethod(...) { } // РѕР±С‹С‡РЅС‹Р№ РјРµС‚РѕРґ
 		};
 
 		AnyClass anyObject; // class instance
@@ -161,111 +161,111 @@ namespace MyGUI
 		/** Event : Extendeble event for special cases or plugins.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
 		*/
-		/* event : общее расширяемое событие для плагинов или особых случаев*/
+		/* event : РѕР±С‰РµРµ СЂР°СЃС€РёСЂСЏРµРјРѕРµ СЃРѕР±С‹С‚РёРµ РґР»СЏ РїР»Р°РіРёРЅРѕРІ РёР»Рё РѕСЃРѕР±С‹С… СЃР»СѓС‡Р°РµРІ*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
 		EventInfo_WidgetStringString eventActionInfo;
 
-		/* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
+		/* event : РІРЅСѓС‚СЂРµРЅРЅРёР№ Р·Р°РїСЂРѕСЃ РЅР° СЂРѕРґРёС‚РµР»СЏ Рё РЅРѕРјРµСЂР° Р°Р№С‚РµРјР°, Сѓ Р»СЋР±РѕРіРѕ РІРёРґР¶РµС‚Р°*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _container, size_t & _index);*/
 		EventInfo_WidgetRefWidgetRefSizeT requestGetContainer;
 
-		/* event : событие для отображения тултипа*/
+		/* event : СЃРѕР±С‹С‚РёРµ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚СѓР»С‚РёРїР°*/
 		/* signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);*/
 		EventInfo_WidgetToolTip eventToolTip;
 
 	protected:
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseLostFocus(WidgetPtr _new)
 		{
 			eventMouseLostFocus(mWidgetEventSender, _new);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseSetFocus(WidgetPtr _old)
 		{
 			eventMouseSetFocus(mWidgetEventSender, _old);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseDrag(int _left, int _top)
 		{
 			eventMouseDrag(mWidgetEventSender, _left, _top);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseMove(int _left, int _top)
 		{
 			eventMouseMove(mWidgetEventSender, _left, _top);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseWheel(int _rel)
 		{
 			eventMouseWheel(mWidgetEventSender, _rel);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id)
 		{
 			eventMouseButtonPressed(mWidgetEventSender, _left, _top, _id);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id)
 		{
 			eventMouseButtonReleased(mWidgetEventSender, _left, _top, _id);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseButtonClick()
 		{
 			eventMouseButtonClick(mWidgetEventSender);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseButtonDoubleClick()
 		{
 			eventMouseButtonDoubleClick(mWidgetEventSender);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onKeyLostFocus(WidgetPtr _new)
 		{
 			eventKeyLostFocus(mWidgetEventSender, _new);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onKeySetFocus(WidgetPtr _old)
 		{
 			eventKeySetFocus(mWidgetEventSender, _old);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char)
 		{
 			eventKeyButtonPressed(mWidgetEventSender, _key, _char);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onKeyButtonReleased(KeyCode _key)
 		{
 			eventKeyButtonReleased(mWidgetEventSender, _key);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onMouseChangeRootFocus(bool _focus)
 		{
 			eventRootMouseChangeFocus(mWidgetEventSender, _focus);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєР»Р°СЃСЃРµ РІС‹Р·С‹РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРј
 		virtual void onKeyChangeRootFocus(bool _focus)
 		{
 			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
 		}
 
-		// от чьего имени мы посылаем сообщения
+		// РѕС‚ С‡СЊРµРіРѕ РёРјРµРЅРё РјС‹ РїРѕСЃС‹Р»Р°РµРј СЃРѕРѕР±С‰РµРЅРёСЏ
 		WidgetPtr mWidgetEventSender;
 
 	private:

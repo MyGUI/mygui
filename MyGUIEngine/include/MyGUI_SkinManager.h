@@ -29,7 +29,7 @@ namespace MyGUI
 		/** Get skin info */
 		WidgetSkinInfo * getSkin(const Ogre::String & _name);
 
-		//	для ручного создания скина
+		//	РґР»СЏ СЂСѓС‡РЅРѕРіРѕ СЃРѕР·РґР°РЅРёСЏ СЃРєРёРЅР°
 		/** Create new skin (used for creating skin in code), if skin with such name already exist - overwrite it */
 		WidgetSkinInfo * create(const Ogre::String & _name);
 
@@ -41,7 +41,7 @@ namespace MyGUI
 			@param _texture file name
 		*/
 		static IntSize getTextureSize(const std::string & _texture);
-		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
+		// РєРѕРЅРІРµСЂС‚РёСЂСѓРµС‚ РёР· РїРёРєСЃРµР»СЊРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚ РІ С‚РµРєСЃС‚СѓСЂРЅС‹Рµ, РІ Rect Р·Р°РґР°РЅРѕ РЅР°С‡Р°Р»Рѕ Рё СЂР°Р·РјРµСЂ
 		/** Convert pixel coordinates to texture UV coordinates */
 		static FloatRect convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize);
 		/** Check that texture have power of two size */

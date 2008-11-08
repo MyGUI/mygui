@@ -29,7 +29,7 @@ namespace MyGUI
 		mIsFocus(false),
 		mNeedVisibleScroll(true)
 	{
-		// нам нужен фокус клавы
+		// РЅР°Рј РЅСѓР¶РµРЅ С„РѕРєСѓСЃ РєР»Р°РІС‹
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -48,7 +48,7 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mWidgetScroll, "Child VScroll not found in skin (List must have VScroll)");
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("SkinLine");
 		if (iterS != properties.end()) mSkinLine = iterS->second;
@@ -71,7 +71,7 @@ namespace MyGUI
 	{
 		notifyMouseWheel(null, _rel);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseWheel(_rel);
 	}
 
@@ -80,7 +80,7 @@ namespace MyGUI
 		mIsFocus = true;
 		_updateState();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeySetFocus(_old);
 	}
 
@@ -89,16 +89,16 @@ namespace MyGUI
 		mIsFocus = false;
 		_updateState();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeyLostFocus(_new);
 	}
 
 	void List::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		// очень секретный метод, запатентованный механизм движения курсора
+		// РѕС‡РµРЅСЊ СЃРµРєСЂРµС‚РЅС‹Р№ РјРµС‚РѕРґ, Р·Р°РїР°С‚РµРЅС‚РѕРІР°РЅРЅС‹Р№ РјРµС…Р°РЅРёР·Рј РґРІРёР¶РµРЅРёСЏ РєСѓСЂСЃРѕСЂР°
 		if (getItemCount() == 0) {
 
-			// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+			// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 			Widget::onKeyButtonPressed(_key, _char);
 			return;
 		}
@@ -118,7 +118,7 @@ namespace MyGUI
 			else sel ++;
 
 			if (sel >= getItemCount()) {
-				// старое значение
+				// СЃС‚Р°СЂРѕРµ Р·РЅР°С‡РµРЅРёРµ
 				sel = mIndexSelect;
 			}
 
@@ -158,7 +158,7 @@ namespace MyGUI
 				eventListSelectAccept(this, sel);
 
 				Widget::onKeyButtonPressed(_key, _char);
-				// выходим, так как изменили колличество строк
+				// РІС‹С…РѕРґРёРј, С‚Р°Рє РєР°Рє РёР·РјРµРЅРёР»Рё РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє
 				return;
 			}
 
@@ -170,11 +170,11 @@ namespace MyGUI
 				_sendEventChangeScroll(mWidgetScroll->getScrollPosition());
 			}
 			setItemSelectedAt(sel);
-			// изменилась позиция
+			// РёР·РјРµРЅРёР»Р°СЃСЊ РїРѕР·РёС†РёСЏ
 			eventListChangePosition(this, mIndexSelect);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeyButtonPressed(_key, _char);
 	}
 
@@ -208,7 +208,7 @@ namespace MyGUI
 
 		if (_sender == mWidgetScroll) return;
 
-		// если выделен клиент, то сбрасываем
+		// РµСЃР»Рё РІС‹РґРµР»РµРЅ РєР»РёРµРЅС‚, С‚Рѕ СЃР±СЂР°СЃС‹РІР°РµРј
 		if (_sender == mWidgetClient) {
 
 			if (mIndexSelect != ITEM_NONE) {
@@ -218,7 +218,7 @@ namespace MyGUI
 			}
 			eventListMouseItemActivate(this, mIndexSelect);
 
-		// если не клиент, то просчитывам
+		// РµСЃР»Рё РЅРµ РєР»РёРµРЅС‚, С‚Рѕ РїСЂРѕСЃС‡РёС‚С‹РІР°Рј
 		}
 		else {
 			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
@@ -267,7 +267,7 @@ namespace MyGUI
 		{
 			if (mWidgetScroll->isShow()) {
 				mWidgetScroll->hide();
-				// увеличиваем клиентскую зону на ширину скрола
+				// СѓРІРµР»РёС‡РёРІР°РµРј РєР»РёРµРЅС‚СЃРєСѓСЋ Р·РѕРЅСѓ РЅР° С€РёСЂРёРЅСѓ СЃРєСЂРѕР»Р°
 				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 		}
@@ -283,52 +283,52 @@ namespace MyGUI
 
 	void List::updateLine(bool _reset)
 	{
-		// сбрасываем
+		// СЃР±СЂР°СЃС‹РІР°РµРј
 		if (_reset) {
 			mOldSize.clear();
 			mLastRedrawLine = 0;
 		}
 
-		// позиция скролла
+		// РїРѕР·РёС†РёСЏ СЃРєСЂРѕР»Р»Р°
 		int position = mTopIndex * mHeightLine + mOffsetTop;
 
-		// если высота увеличивалась то добавляем виджеты
+		// РµСЃР»Рё РІС‹СЃРѕС‚Р° СѓРІРµР»РёС‡РёРІР°Р»Р°СЃСЊ С‚Рѕ РґРѕР±Р°РІР»СЏРµРј РІРёРґР¶РµС‚С‹
 		if (mOldSize.height < mCoord.height) {
 
 			int height = (int)mWidgetLines.size() * mHeightLine - mOffsetTop;
 
-			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
+			// РґРѕ С‚РµС… РїРѕСЂ, РїРѕРєР° РЅРµ РґРѕСЃС‚РёРіРЅРµРј РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ РєРѕР»Р»РёС‡РµСЃС‚РІР°, Рё РІСЃРµРіРґР° РЅР° РѕРґРЅСѓ Р±РѕР»СЊС€Рµ
 			while ( (height <= (mWidgetClient->getHeight() + mHeightLine)) && (mWidgetLines.size() < mItemsInfo.size()) ) {
-				// создаем линию
+				// СЃРѕР·РґР°РµРј Р»РёРЅРёСЋ
 				WidgetPtr line = mWidgetClient->createWidgetT("Button", mSkinLine, 0, height, mWidgetClient->getWidth(), mHeightLine, Align::Top | Align::HStretch);
-				// подписываемся на всякие там события
+				// РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РІСЃСЏРєРёРµ С‚Р°Рј СЃРѕР±С‹С‚РёСЏ
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 				line->eventMouseButtonDoubleClick = newDelegate(this, &List::notifyMouseDoubleClick);
 				line->eventMouseWheel = newDelegate(this, &List::notifyMouseWheel);
 				line->eventMouseSetFocus = newDelegate(this, &List::notifyMouseSetFocus);
 				line->eventMouseLostFocus = newDelegate(this, &List::notifyMouseLostFocus);
-				// присваиваем порядковый номер, длу простоты просчета
+				// РїСЂРёСЃРІР°РёРІР°РµРј РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ, РґР»Сѓ РїСЂРѕСЃС‚РѕС‚С‹ РїСЂРѕСЃС‡РµС‚Р°
 				line->_setInternalData((size_t)mWidgetLines.size());
-				// и сохраняем
+				// Рё СЃРѕС…СЂР°РЅСЏРµРј
 				mWidgetLines.push_back(line);
 				height += mHeightLine;
 			};
 
-			// проверяем на возможность не менять положение списка
+			// РїСЂРѕРІРµСЂСЏРµРј РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РЅРµ РјРµРЅСЏС‚СЊ РїРѕР»РѕР¶РµРЅРёРµ СЃРїРёСЃРєР°
 			if (position >= mRangeIndex) {
 
-				// размер всех помещается в клиент
+				// СЂР°Р·РјРµСЂ РІСЃРµС… РїРѕРјРµС‰Р°РµС‚СЃСЏ РІ РєР»РёРµРЅС‚
 				if (mRangeIndex <= 0) {
 
-					// обнуляем, если надо
+					// РѕР±РЅСѓР»СЏРµРј, РµСЃР»Рё РЅР°РґРѕ
 					if (position || mOffsetTop || mTopIndex) {
 
 						position = 0;
 						mTopIndex = 0;
 						mOffsetTop = 0;
-						mLastRedrawLine = 0; // чтобы все перерисовалось
+						mLastRedrawLine = 0; // С‡С‚РѕР±С‹ РІСЃРµ РїРµСЂРµСЂРёСЃРѕРІР°Р»РѕСЃСЊ
 
-						// выравниваем
+						// РІС‹СЂР°РІРЅРёРІР°РµРј
 						int offset = 0;
 						for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 							mWidgetLines[pos]->setPosition(0, offset);
@@ -338,7 +338,7 @@ namespace MyGUI
 
 				} else {
 
-					// прижимаем список к нижней границе
+					// РїСЂРёР¶РёРјР°РµРј СЃРїРёСЃРѕРє Рє РЅРёР¶РЅРµР№ РіСЂР°РЅРёС†Рµ
 					int count = mWidgetClient->getHeight() / mHeightLine;
 					mOffsetTop = mHeightLine - (mWidgetClient->getHeight() % mHeightLine);
 
@@ -349,17 +349,17 @@ namespace MyGUI
 
 					int top = (int)mItemsInfo.size() - count - 1;
 
-					// выравниваем
+					// РІС‹СЂР°РІРЅРёРІР°РµРј
 					int offset = 0 - mOffsetTop;
 					for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 						mWidgetLines[pos]->setPosition(0, offset);
 						offset += mHeightLine;
 					}
 
-					// высчитываем положение, должно быть максимальным
+					// РІС‹СЃС‡РёС‚С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ, РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РјР°РєСЃРёРјР°Р»СЊРЅС‹Рј
 					position = top * mHeightLine + mOffsetTop;
 
-					// если индех изменился, то перерисовываем линии
+					// РµСЃР»Рё РёРЅРґРµС… РёР·РјРµРЅРёР»СЃСЏ, С‚Рѕ РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµРј Р»РёРЅРёРё
 					if (top != mTopIndex) {
 						mTopIndex = top;
 						_redrawItemRange();
@@ -368,12 +368,12 @@ namespace MyGUI
 				}
 			}
 
-			// увеличился размер, но прокрутки вниз небыло, обновляем линии снизу
+			// СѓРІРµР»РёС‡РёР»СЃСЏ СЂР°Р·РјРµСЂ, РЅРѕ РїСЂРѕРєСЂСѓС‚РєРё РІРЅРёР· РЅРµР±С‹Р»Рѕ, РѕР±РЅРѕРІР»СЏРµРј Р»РёРЅРёРё СЃРЅРёР·Сѓ
 			_redrawItemRange(mLastRedrawLine);
 
 		} // if (old_cy < mCoord.height)
 
-		// просчитываем положение скролла
+		// РїСЂРѕСЃС‡РёС‚С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ СЃРєСЂРѕР»Р»Р°
 		mWidgetScroll->setScrollPosition(position);
 
 		mOldSize.width = mCoord.width;
@@ -382,30 +382,30 @@ namespace MyGUI
 
 	void List::_redrawItemRange(size_t _start)
 	{
-		// перерисовываем линии, только те, что видны
+		// РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµРј Р»РёРЅРёРё, С‚РѕР»СЊРєРѕ С‚Рµ, С‡С‚Рѕ РІРёРґРЅС‹
 		size_t pos = _start;
 		for (; pos<mWidgetLines.size(); pos++) {
-			// индекс в нашем массиве
+			// РёРЅРґРµРєСЃ РІ РЅР°С€РµРј РјР°СЃСЃРёРІРµ
 			size_t index = pos + (size_t)mTopIndex;
 
-			// не будем заходить слишком далеко
+			// РЅРµ Р±СѓРґРµРј Р·Р°С…РѕРґРёС‚СЊ СЃР»РёС€РєРѕРј РґР°Р»РµРєРѕ
 			if (index >= mItemsInfo.size()) {
-				// запоминаем последнюю перерисованную линию
+				// Р·Р°РїРѕРјРёРЅР°РµРј РїРѕСЃР»РµРґРЅСЋСЋ РїРµСЂРµСЂРёСЃРѕРІР°РЅРЅСѓСЋ Р»РёРЅРёСЋ
 				mLastRedrawLine = pos;
 				break;
 			}
 			if (mWidgetLines[pos]->getTop() > mWidgetClient->getHeight()) {
-				// запоминаем последнюю перерисованную линию
+				// Р·Р°РїРѕРјРёРЅР°РµРј РїРѕСЃР»РµРґРЅСЋСЋ РїРµСЂРµСЂРёСЃРѕРІР°РЅРЅСѓСЋ Р»РёРЅРёСЋ
 				mLastRedrawLine = pos;
 				break;
 			}
 
-			// если был скрыт, то покажем
+			// РµСЃР»Рё Р±С‹Р» СЃРєСЂС‹С‚, С‚Рѕ РїРѕРєР°Р¶РµРј
 			if (false == mWidgetLines[pos]->isShow()) mWidgetLines[pos]->show();
-			// обновляем текст
+			// РѕР±РЅРѕРІР»СЏРµРј С‚РµРєСЃС‚
 			mWidgetLines[pos]->setCaption(mItemsInfo[index].first);
 
-			// если нужно выделить ,то выделим
+			// РµСЃР»Рё РЅСѓР¶РЅРѕ РІС‹РґРµР»РёС‚СЊ ,С‚Рѕ РІС‹РґРµР»РёРј
 			if (index == mIndexSelect) {
 				if (!static_cast<ButtonPtr>(mWidgetLines[pos])->getButtonPressed())
 					static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(true);
@@ -415,21 +415,21 @@ namespace MyGUI
 			}
 		}
 
-		// если цикл весь прошли, то ставим максимальную линию
+		// РµСЃР»Рё С†РёРєР» РІРµСЃСЊ РїСЂРѕС€Р»Рё, С‚Рѕ СЃС‚Р°РІРёРј РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ Р»РёРЅРёСЋ
 		if (pos >= mWidgetLines.size()) mLastRedrawLine = pos;
 	}
 
-	// перерисовывает индекс
+	// РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµС‚ РёРЅРґРµРєСЃ
 	void List::_redrawItem(size_t _index)
 	{
-		// невидно
+		// РЅРµРІРёРґРЅРѕ
 		if (_index < (size_t)mTopIndex) return;
 		_index -= (size_t)mTopIndex;
-		// тоже невидно
+		// С‚РѕР¶Рµ РЅРµРІРёРґРЅРѕ
 		if (_index >= mLastRedrawLine) return;
 
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::_redrawItem");
-		// перерисовываем
+		// РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµРј
 		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
 	}
 
@@ -438,16 +438,16 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "List::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		// вставляем физически
+		// РІСЃС‚Р°РІР»СЏРµРј С„РёР·РёС‡РµСЃРєРё
 		mItemsInfo.insert(mItemsInfo.begin() + _index, PairItem(_name, _data));
 
-		// если надо, то меняем выделенный элемент
+		// РµСЃР»Рё РЅР°РґРѕ, С‚Рѕ РјРµРЅСЏРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
 		if ( (mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect) ) mIndexSelect++;
 
-		// строка, до первого видимого элемента
+		// СЃС‚СЂРѕРєР°, РґРѕ РїРµСЂРІРѕРіРѕ РІРёРґРёРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		if ( (_index <= (size_t)mTopIndex) && (mRangeIndex > 0) ) {
 			mTopIndex ++;
-			// просчитываем положение скролла
+			// РїСЂРѕСЃС‡РёС‚С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ СЃРєСЂРѕР»Р»Р°
 			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
 			if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
@@ -456,25 +456,25 @@ namespace MyGUI
 		}
 		else {
 
-			// высчитывам положение строки
+			// РІС‹СЃС‡РёС‚С‹РІР°Рј РїРѕР»РѕР¶РµРЅРёРµ СЃС‚СЂРѕРєРё
 			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
 
-			// строка, после последнего видимого элемента, плюс одна строка (потому что для прокрутки нужно на одну строчку больше)
+			// СЃС‚СЂРѕРєР°, РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµРіРѕ РІРёРґРёРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°, РїР»СЋСЃ РѕРґРЅР° СЃС‚СЂРѕРєР° (РїРѕС‚РѕРјСѓ С‡С‚Рѕ РґР»СЏ РїСЂРѕРєСЂСѓС‚РєРё РЅСѓР¶РЅРѕ РЅР° РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ Р±РѕР»СЊС€Рµ)
 			if (mWidgetClient->getHeight() < (offset - mHeightLine)) {
-				// просчитываем положение скролла
+				// РїСЂРѕСЃС‡РёС‚С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ СЃРєСЂРѕР»Р»Р°
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
 				if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				mRangeIndex += mHeightLine;
 
-			// строка в видимой области
+			// СЃС‚СЂРѕРєР° РІ РІРёРґРёРјРѕР№ РѕР±Р»Р°СЃС‚Рё
 			} else {
 
-				// обновляем все
+				// РѕР±РЅРѕРІР»СЏРµРј РІСЃРµ
 				updateScroll();
 				updateLine(true);
 
-				// позже сюда еще оптимизацию по колличеству перерисовок
+				// РїРѕР·Р¶Рµ СЃСЋРґР° РµС‰Рµ РѕРїС‚РёРјРёР·Р°С†РёСЋ РїРѕ РєРѕР»Р»РёС‡РµСЃС‚РІСѓ РїРµСЂРµСЂРёСЃРѕРІРѕРє
 			}
 		}
 	}
@@ -483,25 +483,25 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::removeItemAt");
 
-		// удяляем физически строку
+		// СѓРґСЏР»СЏРµРј С„РёР·РёС‡РµСЃРєРё СЃС‚СЂРѕРєСѓ
 		_deleteString(_index);
 
-		// если надо, то меняем выделенный элемент
+		// РµСЃР»Рё РЅР°РґРѕ, С‚Рѕ РјРµРЅСЏРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
 		if (mItemsInfo.empty()) mIndexSelect = ITEM_NONE;
 		else if (mIndexSelect != ITEM_NONE) {
 			if (_index < mIndexSelect) mIndexSelect--;
 			else if ( (_index == mIndexSelect) && (mIndexSelect == (mItemsInfo.size())) ) mIndexSelect--;
 		}
 
-		// если виджетов стало больше , то скрываем крайний
+		// РµСЃР»Рё РІРёРґР¶РµС‚РѕРІ СЃС‚Р°Р»Рѕ Р±РѕР»СЊС€Рµ , С‚Рѕ СЃРєСЂС‹РІР°РµРј РєСЂР°Р№РЅРёР№
 		if (mWidgetLines.size() > mItemsInfo.size()) {
 			mWidgetLines[mItemsInfo.size()]->hide();
 		}
 
-		// строка, до первого видимого элемента
+		// СЃС‚СЂРѕРєР°, РґРѕ РїРµСЂРІРѕРіРѕ РІРёРґРёРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		if (_index < (size_t)mTopIndex) {
 			mTopIndex --;
-			// просчитываем положение скролла
+			// РїСЂРѕСЃС‡РёС‚С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ СЃРєСЂРѕР»Р»Р°
 			mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
 			if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 			mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
@@ -510,26 +510,26 @@ namespace MyGUI
 		}
 		else {
 
-			// высчитывам положение удаляемой строки
+			// РІС‹СЃС‡РёС‚С‹РІР°Рј РїРѕР»РѕР¶РµРЅРёРµ СѓРґР°Р»СЏРµРјРѕР№ СЃС‚СЂРѕРєРё
 			int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
 
-			// строка, после последнего видимого элемента
+			// СЃС‚СЂРѕРєР°, РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµРіРѕ РІРёРґРёРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 			if (mWidgetClient->getHeight() < offset) {
-				// просчитываем положение скролла
+				// РїСЂРѕСЃС‡РёС‚С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ СЃРєСЂРѕР»Р»Р°
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
 				if ((int)mItemsInfo.size()) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				mRangeIndex -= mHeightLine;
 
-			// строка в видимой области
+			// СЃС‚СЂРѕРєР° РІ РІРёРґРёРјРѕР№ РѕР±Р»Р°СЃС‚Рё
 			}
 			else {
 
-				// обновляем все
+				// РѕР±РЅРѕРІР»СЏРµРј РІСЃРµ
 				updateScroll();
 				updateLine(true);
 
-				// позже сюда еще оптимизацию по колличеству перерисовок
+				// РїРѕР·Р¶Рµ СЃСЋРґР° РµС‰Рµ РѕРїС‚РёРјРёР·Р°С†РёСЋ РїРѕ РєРѕР»Р»РёС‡РµСЃС‚РІСѓ РїРµСЂРµСЂРёСЃРѕРІРѕРє
 			}
 		}
 	}
@@ -555,11 +555,11 @@ namespace MyGUI
 	void List::_selectIndex(size_t _index, bool _select)
 	{
 		if (_index == ITEM_NONE) return;
-		// не видно строки
+		// РЅРµ РІРёРґРЅРѕ СЃС‚СЂРѕРєРё
 		if (_index < (size_t)mTopIndex) return;
-		// высчитывам положение строки
+		// РІС‹СЃС‡РёС‚С‹РІР°Рј РїРѕР»РѕР¶РµРЅРёРµ СЃС‚СЂРѕРєРё
 		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
-		// строка, после последнего видимого элемента
+		// СЃС‚СЂРѕРєР°, РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµРіРѕ РІРёРґРёРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		if (mWidgetClient->getHeight() < offset) return;
 
 		static_cast<ButtonPtr>(mWidgetLines[_index-mTopIndex])->setButtonPressed(_select);
@@ -579,30 +579,30 @@ namespace MyGUI
 		notifyScrollChangePosition(null, offset);
 	}
 
-	// видим ли мы элемент, полностью или нет
+	// РІРёРґРёРј Р»Рё РјС‹ СЌР»РµРјРµРЅС‚, РїРѕР»РЅРѕСЃС‚СЊСЋ РёР»Рё РЅРµС‚
 	bool List::isItemVisibleAt(size_t _index, bool _fill)
 	{
-		// если элемента нет, то мы его не видим (в том числе когда их вообще нет)
+		// РµСЃР»Рё СЌР»РµРјРµРЅС‚Р° РЅРµС‚, С‚Рѕ РјС‹ РµРіРѕ РЅРµ РІРёРґРёРј (РІ С‚РѕРј С‡РёСЃР»Рµ РєРѕРіРґР° РёС… РІРѕРѕР±С‰Рµ РЅРµС‚)
 		if (_index >= mItemsInfo.size()) return false;
-		// если скрола нет, то мы палюбак видим
+		// РµСЃР»Рё СЃРєСЂРѕР»Р° РЅРµС‚, С‚Рѕ РјС‹ РїР°Р»СЋР±Р°Рє РІРёРґРёРј
 		if (mRangeIndex <= 0) return true;
 
-		// строка, до первого видимого элемента
+		// СЃС‚СЂРѕРєР°, РґРѕ РїРµСЂРІРѕРіРѕ РІРёРґРёРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		if (_index < (size_t)mTopIndex) return false;
 
-		// строка это верхний выделенный
+		// СЃС‚СЂРѕРєР° СЌС‚Рѕ РІРµСЂС…РЅРёР№ РІС‹РґРµР»РµРЅРЅС‹Р№
 		if (_index == (size_t)mTopIndex) {
-			if ( (mOffsetTop != 0) && (_fill) ) return false; // нам нужна полностью видимость
+			if ( (mOffsetTop != 0) && (_fill) ) return false; // РЅР°Рј РЅСѓР¶РЅР° РїРѕР»РЅРѕСЃС‚СЊСЋ РІРёРґРёРјРѕСЃС‚СЊ
 			return true;
 		}
 
-		// высчитывам положение строки
+		// РІС‹СЃС‡РёС‚С‹РІР°Рј РїРѕР»РѕР¶РµРЅРёРµ СЃС‚СЂРѕРєРё
 		int offset = ((int)_index - mTopIndex) * mHeightLine - mOffsetTop;
 
-		// строка, после последнего видимого элемента
+		// СЃС‚СЂРѕРєР°, РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµРіРѕ РІРёРґРёРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		if (mWidgetClient->getHeight() < offset) return false;
 
-		// если мы внизу и нам нужен целый
+		// РµСЃР»Рё РјС‹ РІРЅРёР·Сѓ Рё РЅР°Рј РЅСѓР¶РµРЅ С†РµР»С‹Р№
 		if ((mWidgetClient->getHeight() < (offset + mHeightLine)) && (_fill) ) return false;
 
 		return true;
@@ -619,7 +619,7 @@ namespace MyGUI
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
 			mWidgetLines[pos]->hide();
 
-		// обновляем все
+		// РѕР±РЅРѕРІР»СЏРµРј РІСЃРµ
 		updateScroll();
 		updateLine(true);
 	}
@@ -684,7 +684,7 @@ namespace MyGUI
 	{
 		mOffsetTop = ((int)_position % mHeightLine);
 
-		// смещение с отрицательной стороны
+		// СЃРјРµС‰РµРЅРёРµ СЃ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕР№ СЃС‚РѕСЂРѕРЅС‹
 		int offset = 0 - mOffsetTop;
 
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
@@ -692,14 +692,14 @@ namespace MyGUI
 			offset += mHeightLine;
 		}
 
-		// если индех изменился, то перерисовываем линии
+		// РµСЃР»Рё РёРЅРґРµС… РёР·РјРµРЅРёР»СЃСЏ, С‚Рѕ РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµРј Р»РёРЅРёРё
 		int top = ((int)_position / mHeightLine);
 		if (top != mTopIndex) {
 			mTopIndex = top;
 			_redrawItemRange();
 		}
 
-		// прорисовываем все нижние строки, если они появились
+		// РїСЂРѕСЂРёСЃРѕРІС‹РІР°РµРј РІСЃРµ РЅРёР¶РЅРёРµ СЃС‚СЂРѕРєРё, РµСЃР»Рё РѕРЅРё РїРѕСЏРІРёР»РёСЃСЊ
 		_redrawItemRange(mLastRedrawLine);
 	}
 

@@ -27,7 +27,7 @@ namespace MyGUI
 		MainSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~MainSkin();
 
-		// метод для генерации данных из описания xml
+		// РјРµС‚РѕРґ РґР»СЏ РіРµРЅРµСЂР°С†РёРё РґР°РЅРЅС‹С… РёР· РѕРїРёСЃР°РЅРёСЏ xml
 		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	};

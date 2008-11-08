@@ -47,7 +47,7 @@ namespace MyGUI
 		friend bool operator != (DropItemState const & a, DropItemState const & b) { return a.value != b.value; }
 	};
 
-	// структура информации об индексах дропа
+	// СЃС‚СЂСѓРєС‚СѓСЂР° РёРЅС„РѕСЂРјР°С†РёРё РѕР± РёРЅРґРµРєСЃР°С… РґСЂРѕРїР°
 	struct _MyGUIExport ItemDropInfo
 	{
 		ItemDropInfo() :
@@ -82,14 +82,14 @@ namespace MyGUI
 			sender_index = ITEM_NONE;
 		}
 
-		// посылающий виджет
+		// РїРѕСЃС‹Р»Р°СЋС‰РёР№ РІРёРґР¶РµС‚
 		WidgetPtr sender;
-		// индекс посылающего виджета
+		// РёРЅРґРµРєСЃ РїРѕСЃС‹Р»Р°СЋС‰РµРіРѕ РІРёРґР¶РµС‚Р°
 		size_t sender_index;
 
-		// принимающий виджет
+		// РїСЂРёРЅРёРјР°СЋС‰РёР№ РІРёРґР¶РµС‚
 		WidgetPtr reseiver;
-		// индекс принимающего виджета
+		// РёРЅРґРµРєСЃ РїСЂРёРЅРёРјР°СЋС‰РµРіРѕ РІРёРґР¶РµС‚Р°
 		size_t reseiver_index;
 	};
 
@@ -115,16 +115,16 @@ namespace MyGUI
 			update(true)
 		{ }
 
-		// индекс этого элемента
+		// РёРЅРґРµРєСЃ СЌС‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		/** Index of element */
 		size_t index;
-		// изменилось не только состояние, но и содержимое
+		// РёР·РјРµРЅРёР»РѕСЃСЊ РЅРµ С‚РѕР»СЊРєРѕ СЃРѕСЃС‚РѕСЏРЅРёРµ, РЅРѕ Рё СЃРѕРґРµСЂР¶РёРјРѕРµ
 		/** State and interdan data changed */
 		bool update;
-		// айтем принимамет дроп
+		// Р°Р№С‚РµРј РїСЂРёРЅРёРјР°РјРµС‚ РґСЂРѕРї
 		/** Is widget accept drag */
 		bool accept;
-		// айтем не берет дроп
+		// Р°Р№С‚РµРј РЅРµ Р±РµСЂРµС‚ РґСЂРѕРї
 		/** Is widget refuse drag */
 		bool refuse;
 	};

@@ -22,7 +22,7 @@ namespace MyGUI
 			TabFactory();
 			~TabFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Tab_ButtonWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Tab_ButtonAutoWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Tab_SmoothShow(WidgetPtr _widget, const std::string &_key, const std::string &_value);

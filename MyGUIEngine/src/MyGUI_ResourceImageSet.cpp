@@ -20,7 +20,7 @@ namespace MyGUI
 	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node) :
 		IResource(_node)
 	{
-		// áåðåì äåòåé è êðóòèìñÿ, îñíîâíîé öèêë
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ, Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð¸ÐºÐ»
 		xml::xmlNodeIterator group_node = _node->getNodeIterator();
 		while (group_node.nextNode("Group")) {
 

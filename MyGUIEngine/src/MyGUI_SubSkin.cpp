@@ -71,40 +71,40 @@ namespace MyGUI
 	void SubSkin::_setAlign(const IntSize& _size, bool _update)
 	{
 
-		// необходимо разобраться
+		// РЅРµРѕР±С…РѕРґРёРјРѕ СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ
 		bool need_update = true;//_update;
 
-		// первоначальное выравнивание
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 		if (mAlign.isHStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isRight()) {
-			// двигаем по правому краю
+			// РґРІРёРіР°РµРј РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ
 			mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter()) {
-			// выравнивание по горизонтали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isBottom()) {
-			// двигаем по нижнему краю
+			// РґРІРёРіР°РµРј РїРѕ РЅРёР¶РЅРµРјСѓ РєСЂР°СЋ
 			mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter()) {
-			// выравнивание по вертикали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РІРµСЂС‚РёРєР°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
@@ -125,34 +125,34 @@ namespace MyGUI
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
-		// вьюпорт стал битым
+		// РІСЊСЋРїРѕСЂС‚ СЃС‚Р°Р» Р±РёС‚С‹Рј
 		if (margin) {
 
-			// проверка на полный выход за границу
+			// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†Сѓ
 			if (_checkOutside()) {
 
-				// скрываем
+				// СЃРєСЂС‹РІР°РµРј
 				//mEmptyView = true;
 				//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
-				// запоминаем текущее состояние
+				// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 				mIsMargin = margin;
 
-				// обновить перед выходом
+				// РѕР±РЅРѕРІРёС‚СЊ РїРµСЂРµРґ РІС‹С…РѕРґРѕРј
 				if (null != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
 		}
 
-		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
+		if ((mIsMargin) || (margin)) { // РјС‹ РѕР±СЂРµР·Р°РЅС‹ РёР»Рё Р±С‹Р»Рё РѕР±СЂРµР·Р°РЅС‹
 
 			mCurrentCoord.width = getViewWidth();
 			mCurrentCoord.height = getViewHeight();
 
 			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0)) {
 
-				// теперь смещаем текстуру
+				// С‚РµРїРµСЂСЊ СЃРјРµС‰Р°РµРј С‚РµРєСЃС‚СѓСЂСѓ
 				float UV_lft = mMargin.left / (float)mCoord.width;
 				float UV_top = mMargin.top / (float)mCoord.height;
 				float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
@@ -171,14 +171,14 @@ namespace MyGUI
 		}
 
 		if ((mIsMargin) && (false == margin)) {
-			// мы не обрезаны, но были, ставим базовые координаты
+			// РјС‹ РЅРµ РѕР±СЂРµР·Р°РЅС‹, РЅРѕ Р±С‹Р»Рё, СЃС‚Р°РІРёРј Р±Р°Р·РѕРІС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 			mCurrentTexture = mRectTexture;
 		}
 
-		// запоминаем текущее состояние
+		// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 		mIsMargin = margin;
 
-		// если скин был скрыт, то покажем
+		// РµСЃР»Рё СЃРєРёРЅ Р±С‹Р» СЃРєСЂС‹С‚, С‚Рѕ РїРѕРєР°Р¶РµРј
 		//mEmptyView = false;
 		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
@@ -271,7 +271,7 @@ namespace MyGUI
 		if (mRectTexture == _rect) return;
 		mRectTexture = _rect;
 
-		// если обрезаны, то просчитываем с учето обрезки
+		// РµСЃР»Рё РѕР±СЂРµР·Р°РЅС‹, С‚Рѕ РїСЂРѕСЃС‡РёС‚С‹РІР°РµРј СЃ СѓС‡РµС‚Рѕ РѕР±СЂРµР·РєРё
 		if (mIsMargin) {
 			float UV_lft = mMargin.left / (float)mCoord.width;
 			float UV_top = mMargin.top / (float)mCoord.height;
@@ -289,7 +289,7 @@ namespace MyGUI
 			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 		}
 
-		// мы не обрезаны, базовые координаты
+		// РјС‹ РЅРµ РѕР±СЂРµР·Р°РЅС‹, Р±Р°Р·РѕРІС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 		else {
 			mCurrentTexture = mRectTexture;
 		}

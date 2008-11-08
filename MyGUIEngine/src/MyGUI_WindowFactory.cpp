@@ -15,7 +15,7 @@ namespace MyGUI
 		WindowFactory::WindowFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Window_AutoAlpha") = newDelegate(this, &WindowFactory::Window_AutoAlpha);
 			manager.registerDelegate("Window_Snap") = newDelegate(this, &WindowFactory::Window_Snap);
 			manager.registerDelegate("Window_MinMax") = newDelegate(this, &WindowFactory::Window_MinMax);
@@ -26,7 +26,7 @@ namespace MyGUI
 		WindowFactory::~WindowFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Window_AutoAlpha");
 			manager.unregisterDelegate("Window_Snap");
 			manager.unregisterDelegate("Window_MinMax");

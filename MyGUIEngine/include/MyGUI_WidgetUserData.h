@@ -19,7 +19,7 @@ namespace MyGUI
 		UserData() { }
 		virtual ~UserData() { }
 
-		// пользовательские данные виджета строки
+		// РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ РґР°РЅРЅС‹Рµ РІРёРґР¶РµС‚Р° СЃС‚СЂРѕРєРё
 		void setUserString(const std::string & _key, const std::string & _value)
 		{
 			mMapUserString[_key] = _value;
@@ -79,11 +79,11 @@ namespace MyGUI
 
 
 	private:
-		// пользовательские данные
+		// РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ РґР°РЅРЅС‹Рµ
 		MapString mMapUserString;
 		Any mUserData;
 
-		// для внутренниего использования
+		// РґР»СЏ РІРЅСѓС‚СЂРµРЅРЅРёРµРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ
 		Any mInternalData;
 
 	};

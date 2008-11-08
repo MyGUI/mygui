@@ -19,7 +19,7 @@ namespace MyGUI
 	namespace implement
 	{
 
-		// структура информации об одной строке
+		// СЃС‚СЂСѓРєС‚СѓСЂР° РёРЅС„РѕСЂРјР°С†РёРё РѕР± РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ
 		struct info
 		{
 			info() : num(0), count(1)  { }
@@ -32,12 +32,12 @@ namespace MyGUI
 
 		void render_out(const std::string & _value)
 		{
-			// очередь
+			// РѕС‡РµСЂРµРґСЊ
 			typedef std::deque<info> DequeInfo;
 
-			// текущая строка
+			// С‚РµРєСѓС‰Р°СЏ СЃС‚СЂРѕРєР°
 			static size_t num = 0;
-			// очередь всех наших строк
+			// РѕС‡РµСЂРµРґСЊ РІСЃРµС… РЅР°С€РёС… СЃС‚СЂРѕРє
 			static DequeInfo lines;
 
 			const int offset = 10;
@@ -71,22 +71,22 @@ namespace MyGUI
 				widget->setColour(Ogre::ColourValue::White);
 			}
 
-			if (lines.empty()) { // первый раз просто добавляем
+			if (lines.empty()) { // РїРµСЂРІС‹Р№ СЂР°Р· РїСЂРѕСЃС‚Рѕ РґРѕР±Р°РІР»СЏРµРј
 				lines.push_back(info(num++, _value));
 
 			}
-			else { // не первый раз мы тут
-				// сравниваем последнюю строку
+			else { // РЅРµ РїРµСЂРІС‹Р№ СЂР°Р· РјС‹ С‚СѓС‚
+				// СЃСЂР°РІРЅРёРІР°РµРј РїРѕСЃР»РµРґРЅСЋСЋ СЃС‚СЂРѕРєСѓ
 				if (lines.back().line == _value) lines.back().count ++;
 				else {
 					lines.push_back(info(num++, _value));
-					// удаляем лишнее
+					// СѓРґР°Р»СЏРµРј Р»РёС€РЅРµРµ
 					if (lines.size() > count_lines) lines.pop_front();
 				}
 
 			}
 
-			// а вот теперь выводми строки
+			// Р° РІРѕС‚ С‚РµРїРµСЂСЊ РІС‹РІРѕРґРјРё СЃС‚СЂРѕРєРё
 			std::string str_out;
 			str_out.reserve(2048);
 
@@ -94,7 +94,7 @@ namespace MyGUI
 				str_out += utility::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + utility::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
 			}
 
-			// непосредственный вывод
+			// РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅС‹Р№ РІС‹РІРѕРґ
 			widget_shadow->setCaption(str_out);
 			widget->setCaption(str_out);
 		}

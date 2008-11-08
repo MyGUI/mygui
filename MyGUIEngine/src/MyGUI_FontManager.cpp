@@ -86,12 +86,12 @@ namespace MyGUI
 			while (range.nextNode("Code")) {
 				std::string range_value;
 				std::vector<std::string> parse_range;
-				// äèàïàçîí âêëþ÷åíèé
+				// Ð´Ð¸Ð°Ð¿Ð°Ð·Ð¾Ð½ Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ð¹
 				if (range->findAttribute("range", range_value)) {
 					parse_range = utility::split(range_value);
 					if (parse_range.size() == 2) pFont->addCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[1]));
 				}
-				// äèàïàçîí èñêëþ÷åíèé
+				// Ð´Ð¸Ð°Ð¿Ð°Ð·Ð¾Ð½ Ð¸ÑÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ð¹
 				else if (range->findAttribute("hide", range_value)) {
 					parse_range = utility::split(range_value);
 					if (parse_range.size() == 2) pFont->addHideCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[1]));

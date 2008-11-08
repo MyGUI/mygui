@@ -24,7 +24,7 @@ namespace MyGUI
 		private:
 			void notifyChangeLanguage(const std::string & _language);
 
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Widget_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Size(WidgetPtr _widget, const std::string &_key, const std::string &_value);

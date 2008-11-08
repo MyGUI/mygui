@@ -24,7 +24,7 @@ namespace MyGUI
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			initialise();
 
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Message_Caption") = newDelegate(this, &MessageFactory::Message_Caption);
 			manager.registerDelegate("Message_Message") = newDelegate(this, &MessageFactory::Message_Message);
 			manager.registerDelegate("Message_Modal") = newDelegate(this, &MessageFactory::Message_Modal);
@@ -39,7 +39,7 @@ namespace MyGUI
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			shutdown();
 
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Message_Caption");
 			manager.unregisterDelegate("Message_Message");
 			manager.unregisterDelegate("Message_Modal");
@@ -122,7 +122,7 @@ namespace MyGUI
 
 		void MessageFactory::initialise()
 		{
-			// потом загружать из файла
+			// РїРѕС‚РѕРј Р·Р°РіСЂСѓР¶Р°С‚СЊ РёР· С„Р°Р№Р»Р°
 			mDefaultSkin = "Message";
 
 			mVectorButtonName.push_back("Ok");

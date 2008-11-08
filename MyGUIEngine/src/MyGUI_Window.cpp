@@ -34,13 +34,13 @@ namespace MyGUI
 		mIsAutoAlpha(false),
 		mSnap(false)
 	{
-		// нам нужен фокус клавы
+		// РЅР°Рј РЅСѓР¶РµРЅ С„РѕРєСѓСЃ РєР»Р°РІС‹
 		mNeedKeyFocus = true;
 
-		// дефолтные размеры
+		// РґРµС„РѕР»С‚РЅС‹Рµ СЂР°Р·РјРµСЂС‹
 		mMinmax.set(0, 0, 3000, 3000);
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iter = properties.find("Snap");
 		if (iter != properties.end()) mSnap = utility::parseBool(iter->second);
@@ -69,7 +69,7 @@ namespace MyGUI
 
 	}
 
-	// переопределяем для присвоению клиенту
+	// РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РґР»СЏ РїСЂРёСЃРІРѕРµРЅРёСЋ РєР»РёРµРЅС‚Сѓ
 	WidgetPtr Window::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_type, _skin, _coord, _align, _name);
@@ -81,7 +81,7 @@ namespace MyGUI
 		mMouseRootFocus = _focus;
 		updateAlpha();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseChangeRootFocus(_focus);
 	}
 
@@ -90,23 +90,23 @@ namespace MyGUI
 		mKeyRootFocus = _focus;
 		updateAlpha();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeyChangeRootFocus(_focus);
 	}
 
 	void Window::onMouseDrag(int _left, int _top)
 	{
-		// на тот случай, если двигать окно, можно за любое место виджета
+		// РЅР° С‚РѕС‚ СЃР»СѓС‡Р°Р№, РµСЃР»Рё РґРІРёРіР°С‚СЊ РѕРєРЅРѕ, РјРѕР¶РЅРѕ Р·Р° Р»СЋР±РѕРµ РјРµСЃС‚Рѕ РІРёРґР¶РµС‚Р°
 		notifyMouseDrag(this, _left, _top);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseDrag(_left, _top);
 	}
 
 	void Window::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		notifyMousePressed(this, _left, _top, _id);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseButtonPressed(_left, _top, _id);
 	}
 
@@ -135,7 +135,7 @@ namespace MyGUI
 
 		setCoord(mPreActionCoord + coord);
 		
-		// посылаем событие о изменении позиции и размере
+		// РїРѕСЃС‹Р»Р°РµРј СЃРѕР±С‹С‚РёРµ Рѕ РёР·РјРµРЅРµРЅРёРё РїРѕР·РёС†РёРё Рё СЂР°Р·РјРµСЂРµ
 		eventWindowChangeCoord(this);
 	}
 
@@ -166,7 +166,7 @@ namespace MyGUI
 	void Window::setPosition(const IntPoint & _point)
 	{
 		IntPoint pos = _point;
-		// прилепляем к краям
+		// РїСЂРёР»РµРїР»СЏРµРј Рє РєСЂР°СЏРј
 		if (mSnap) {
 			if (abs(pos.left) <= WINDOW_SNAP_DISTANSE) pos.left = 0;
 			if (abs(pos.top) <= WINDOW_SNAP_DISTANSE) pos.top = 0;
@@ -183,7 +183,7 @@ namespace MyGUI
 	void Window::setSize(const IntSize& _size)
 	{
 		IntSize size = _size;
-		// прилепляем к краям
+		// РїСЂРёР»РµРїР»СЏРµРј Рє РєСЂР°СЏРј
 		if (mSnap) {
 			int width = (int)Gui::getInstance().getViewWidth();
 			int height = (int)Gui::getInstance().getViewHeight();
@@ -205,7 +205,7 @@ namespace MyGUI
 	{
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
-		// прилепляем к краям
+		// РїСЂРёР»РµРїР»СЏРµРј Рє РєСЂР°СЏРј
 		if (mSnap) {
 			if (abs(pos.left) <= WINDOW_SNAP_DISTANSE) pos.left = 0;
 			if (abs(pos.top) <= WINDOW_SNAP_DISTANSE) pos.top = 0;
@@ -251,7 +251,7 @@ namespace MyGUI
 		Widget::setCoord(coord);
 	}
 
-	// для мееедленного показа и скрытия
+	// РґР»СЏ РјРµРµРµРґР»РµРЅРЅРѕРіРѕ РїРѕРєР°Р·Р° Рё СЃРєСЂС‹С‚РёСЏ
 	void Window::showSmooth(bool _reset)
 	{
 		if (_reset) {

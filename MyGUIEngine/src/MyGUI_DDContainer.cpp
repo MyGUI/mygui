@@ -27,7 +27,7 @@ namespace MyGUI
 
 	void DDContainer::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		// смещение внутри виджета, куда кликнули мышкой
+		// СЃРјРµС‰РµРЅРёРµ РІРЅСѓС‚СЂРё РІРёРґР¶РµС‚Р°, РєСѓРґР° РєР»РёРєРЅСѓР»Рё РјС‹С€РєРѕР№
 		mClickInWidget = InputManager::getInstance().getLastLeftPressed() - getAbsolutePosition();
 
 		mouseButtonPressed(_id);
@@ -49,18 +49,18 @@ namespace MyGUI
 	void DDContainer::mouseButtonPressed(MouseButton _id)
 	{
 		if (MB_Left == _id) {
-			// сбрасываем инфу для дропа
+			// СЃР±СЂР°СЃС‹РІР°РµРј РёРЅС„Сѓ РґР»СЏ РґСЂРѕРїР°
 			mDropResult = false;
 			mOldDrop = null;
 			mDropInfo.reset();
 			mReseiverContainer = null;
 
-			// сбрасываем, чтобы обновился дропный виджет
+			// СЃР±СЂР°СЃС‹РІР°РµРј, С‡С‚РѕР±С‹ РѕР±РЅРѕРІРёР»СЃСЏ РґСЂРѕРїРЅС‹Р№ РІРёРґР¶РµС‚
 			mCurrentSender = null;
 			mStartDrop = false;
 
 		}
-		// если нажата другая клавиша и был дроп то сбрасываем
+		// РµСЃР»Рё РЅР°Р¶Р°С‚Р° РґСЂСѓРіР°СЏ РєР»Р°РІРёС€Р° Рё Р±С‹Р» РґСЂРѕРї С‚Рѕ СЃР±СЂР°СЃС‹РІР°РµРј
 		else {
 			endDrop(true);
 		}
@@ -75,15 +75,15 @@ namespace MyGUI
 
 	void DDContainer::mouseDrag()
 	{
-		// нужно ли обновить данные
+		// РЅСѓР¶РЅРѕ Р»Рё РѕР±РЅРѕРІРёС‚СЊ РґР°РЅРЅС‹Рµ
 		bool update = false;
 
-		// первый раз дропаем елемент
+		// РїРµСЂРІС‹Р№ СЂР°Р· РґСЂРѕРїР°РµРј РµР»РµРјРµРЅС‚
 		if (false == mStartDrop) {
 			mStartDrop = true;
 			mNeedDrop = false;
 			update = true;
-			// запрос на нужность дропа по индексу
+			// Р·Р°РїСЂРѕСЃ РЅР° РЅСѓР¶РЅРѕСЃС‚СЊ РґСЂРѕРїР° РїРѕ РёРЅРґРµРєСЃСѓ
 			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
 			mReseiverContainer = null;
 			eventStartDrop(this, mDropInfo, mNeedDrop);
@@ -93,55 +93,55 @@ namespace MyGUI
 				enableToolTip(false);
 			}
 			else {
-				// сбрасываем фокус мыши (не обязательно)
+				// СЃР±СЂР°СЃС‹РІР°РµРј С„РѕРєСѓСЃ РјС‹С€Рё (РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)
 				InputManager::getInstance().resetMouseCaptureWidget();
 			}
 		}
 
-		// дроп не нужен
+		// РґСЂРѕРї РЅРµ РЅСѓР¶РµРЅ
 		if (false == mNeedDrop) {
 			return;
 		}
 
-		// делаем запрос, над кем наша мыша
+		// РґРµР»Р°РµРј Р·Р°РїСЂРѕСЃ, РЅР°Рґ РєРµРј РЅР°С€Р° РјС‹С€Р°
 		const IntPoint & point = InputManager::getInstance().getMousePosition();
 		WidgetPtr item = InputManager::getInstance().getWidgetFromPoint(point.left, point.top);
 
 		updateDropItems();
 
-		// если равно, значит уже спрашивали
+		// РµСЃР»Рё СЂР°РІРЅРѕ, Р·РЅР°С‡РёС‚ СѓР¶Рµ СЃРїСЂР°С€РёРІР°Р»Рё
 		if (mOldDrop == item) return;
 		mOldDrop = item;
 
-		// сбрасываем старую подсветку
+		// СЃР±СЂР°СЃС‹РІР°РµРј СЃС‚Р°СЂСѓСЋ РїРѕРґСЃРІРµС‚РєСѓ
 		if (mReseiverContainer) mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
 
 		mDropResult = false;
 		mReseiverContainer = null;
 		WidgetPtr reseiver = null;
 		size_t reseiver_index = ITEM_NONE;
-		// есть виджет под нами
+		// РµСЃС‚СЊ РІРёРґР¶РµС‚ РїРѕРґ РЅР°РјРё
 		if (item) {
-			// делаем запрос на индекс по произвольному виджету
+			// РґРµР»Р°РµРј Р·Р°РїСЂРѕСЃ РЅР° РёРЅРґРµРєСЃ РїРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРјСѓ РІРёРґР¶РµС‚Сѓ
 			item->getContainer(reseiver, reseiver_index);
-			// работаем только с контейнерами
+			// СЂР°Р±РѕС‚Р°РµРј С‚РѕР»СЊРєРѕ СЃ РєРѕРЅС‚РµР№РЅРµСЂР°РјРё
 			if (reseiver && reseiver->isType<DDContainer>()) {
-				// подписываемся на информацию о валидности дропа
+				// РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІР°Р»РёРґРЅРѕСЃС‚Рё РґСЂРѕРїР°
 				mReseiverContainer = static_cast<DDContainerPtr>(reseiver);
 				mReseiverContainer->eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
 
-				// делаем запрос на возможность дропа
+				// РґРµР»Р°РµРј Р·Р°РїСЂРѕСЃ РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РґСЂРѕРїР°
 				mDropInfo.set(this, mDropSenderIndex, reseiver, reseiver_index);
 				eventRequestDrop(this, mDropInfo, mDropResult);
 
-				// устанавливаем новую подсветку
+				// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРѕРІСѓСЋ РїРѕРґСЃРІРµС‚РєСѓ
 				mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
 			}
 			else {
 				mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
 			}
 		}
-		// нет виджета под нами
+		// РЅРµС‚ РІРёРґР¶РµС‚Р° РїРѕРґ РЅР°РјРё
 		else {
 			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
 		}
@@ -177,7 +177,7 @@ namespace MyGUI
 		if (mStartDrop) {
 			removeDropItems();
 
-			// сбрасываем старую подсветку
+			// СЃР±СЂР°СЃС‹РІР°РµРј СЃС‚Р°СЂСѓСЋ РїРѕРґСЃРІРµС‚РєСѓ
 			if (mReseiverContainer) mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
 
 			if (_reset) mDropResult = false;
@@ -185,7 +185,7 @@ namespace MyGUI
 			eventDropState(this, DropItemState::End);
 			enableToolTip(true);
 
-			// сбрасываем инфу для дропа
+			// СЃР±СЂР°СЃС‹РІР°РµРј РёРЅС„Сѓ РґР»СЏ РґСЂРѕРїР°
 			mStartDrop = false;
 			mDropResult = false;
 			mOldDrop = null;

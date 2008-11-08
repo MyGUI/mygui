@@ -104,7 +104,7 @@ namespace MyGUI
 
 		mStartRect = _widget->getCoord();
 
-		// вызываем пользовательский делегат для подготовки
+		// РІС‹Р·С‹РІР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РґРµР»РµРіР°С‚ РґР»СЏ РїРѕРґРіРѕС‚РѕРІРєРё
 		eventPreAction(_widget);
 	}
 
@@ -128,13 +128,13 @@ namespace MyGUI
 			}
 			else if (mCalcSize) _widget->setSize(coord.size());
 
-			// вызываем пользовательский делегат обновления
+			// РІС‹Р·С‹РІР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РґРµР»РµРіР°С‚ РѕР±РЅРѕРІР»РµРЅРёСЏ
 			eventUpdateAction(_widget);
 
 			return true;
 		}
 
-		// поставить точно в конец
+		// РїРѕСЃС‚Р°РІРёС‚СЊ С‚РѕС‡РЅРѕ РІ РєРѕРЅРµС†
 		IntCoord coord;
 		eventFrameAction(mStartRect, mDestRect, coord, 1.0f);
 		if (mCalcPosition) {
@@ -143,10 +143,10 @@ namespace MyGUI
 		}
 		else if (mCalcSize) _widget->setSize(coord.size());
 
-		// вызываем пользовательский делегат обновления
+		// РІС‹Р·С‹РІР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РґРµР»РµРіР°С‚ РѕР±РЅРѕРІР»РµРЅРёСЏ
 		eventUpdateAction(_widget);
 
-		// вызываем пользовательский делегат пост обработки
+		// РІС‹Р·С‹РІР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РґРµР»РµРіР°С‚ РїРѕСЃС‚ РѕР±СЂР°Р±РѕС‚РєРё
 		eventPostAction(_widget);
 
 		return false;

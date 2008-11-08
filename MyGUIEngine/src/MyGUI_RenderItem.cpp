@@ -146,7 +146,7 @@ namespace MyGUI
 			mCountVertex = 0;
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
 				size_t count = (*iter).first->_drawItem(buffer, _update);
-				// колличество отрисованных вершин
+				// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РѕС‚СЂРёСЃРѕРІР°РЅРЅС‹С… РІРµСЂС€РёРЅ
 				MYGUI_DEBUG_ASSERT(count <= (*iter).second, "It is too much vertexes");
 				buffer += count;
 				mCountVertex += count;
@@ -158,7 +158,7 @@ namespace MyGUI
 			mOutDate = false;
 		}
 
-		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
+		// С…РѕС‚СЊ СЃ 0 РЅРµ РІС‹РІРѕРґРёС‚СЊСЃСЏ Р±Р°С‚С‡, РЅРѕ РІСЃРµ СЂР°РІРЅРѕ РЅРµ Р±СѓРґРµРј РґРµСЂРіР°С‚СЊ СЃС‚РµР№С‚ Рё РѕРїРµСЂР°С†РёСЋ
 		if (0 != mCountVertex) {
 			if (false == mTextureManager->resourceExists(mTextureName)) {
 				if (!helper::isFileExist(mTextureName, Gui::getInstance().getResourceGroup())) {
@@ -192,7 +192,7 @@ namespace MyGUI
 				mDrawItems.erase(iter);
 				mOutDate = true;
 
-				// если все отдетачились, расскажем отцу
+				// РµСЃР»Рё РІСЃРµ РѕС‚РґРµС‚Р°С‡РёР»РёСЃСЊ, СЂР°СЃСЃРєР°Р¶РµРј РѕС‚С†Сѓ
 				if (mDrawItems.empty()) {
 					mTextureName.clear();
 					mParent->_update();

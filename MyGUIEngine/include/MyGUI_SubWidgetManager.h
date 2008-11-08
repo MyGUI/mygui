@@ -31,7 +31,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		// создает сабвиджет используя фабрику
+		// СЃРѕР·РґР°РµС‚ СЃР°Р±РІРёРґР¶РµС‚ РёСЃРїРѕР»СЊР·СѓСЏ С„Р°Р±СЂРёРєСѓ
 		ISubWidget * createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 
 		void registerFactory(ISubWidgetFactory * _factory)

@@ -20,7 +20,7 @@ namespace MyGUI
 	{
 		Guid ret;
 		size_t start=0;
-		// формат со скобками { ... }
+		// С„РѕСЂРјР°С‚ СЃРѕ СЃРєРѕР±РєР°РјРё { ... }
 		if (_value.size() == 38) {
 			start ++;
 #if MYGUI_DEBUG_MODE == 1
@@ -30,7 +30,7 @@ namespace MyGUI
 			}
 #endif
 		}
-		// формат без скобок ...
+		// С„РѕСЂРјР°С‚ Р±РµР· СЃРєРѕР±РѕРє ...
 		else if (_value.size() != 36) {
 			MYGUI_LOG(Error, "error parse guid'" << _value << "'");
 			return ret;
@@ -94,7 +94,7 @@ namespace MyGUI
 			pos ++;
 		};
 
-		count = 2; // здесь по два байта парсится
+		count = 2; // Р·РґРµСЃСЊ РїРѕ РґРІР° Р±Р°Р№С‚Р° РїР°СЂСЃРёС‚СЃСЏ
 		pos ++;
 		size_t num = 0;
 		while (count > 0) {
@@ -105,7 +105,7 @@ namespace MyGUI
 			count --;
 		};
 
-		count = 6; // здесь по два байта парсится
+		count = 6; // Р·РґРµСЃСЊ РїРѕ РґРІР° Р±Р°Р№С‚Р° РїР°СЂСЃРёС‚СЃСЏ
 		pos ++;
 		while (count > 0) {
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);

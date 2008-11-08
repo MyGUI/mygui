@@ -15,14 +15,14 @@ namespace MyGUI
 		DDContainerFactory::DDContainerFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("DDContainer_NeedDragDrop") = newDelegate(this, &DDContainerFactory::DDContainer_NeedDragDrop);
 		}
 
 		DDContainerFactory::~DDContainerFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("DDContainer_NeedDragDrop");
 		}
 

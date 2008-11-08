@@ -38,7 +38,7 @@ namespace MyGUI
 		mLeftOffset2(0)
 		//mResourceIcons(null)
 	{
-		// ищем индекс первой кнопки
+		// РёС‰РµРј РёРЅРґРµРєСЃ РїРµСЂРІРѕР№ РєРЅРѕРїРєРё
 		size_t but1 = (size_t)Button1;
 		but1 >>= 1;
 		while (0 != but1) {
@@ -46,7 +46,7 @@ namespace MyGUI
 			mButton1Index++;
 		}
 
-		// парсим виджет для текста
+		// РїР°СЂСЃРёРј РІРёРґР¶РµС‚ РґР»СЏ С‚РµРєСЃС‚Р°
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Text") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetText, "widget already assigned");
@@ -65,7 +65,7 @@ namespace MyGUI
 			mLeftOffset2 = mIcon->getRight() + 3;
 		}
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		if (!properties.empty()) {
 			MapString::const_iterator iter = properties.find("ButtonSkin");
@@ -103,10 +103,10 @@ namespace MyGUI
 			MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 			return None;
 		}
-		// бит, номер кнопки + смещение до Button1
+		// Р±РёС‚, РЅРѕРјРµСЂ РєРЅРѕРїРєРё + СЃРјРµС‰РµРЅРёРµ РґРѕ Button1
 		ViewInfo info = (ViewInfo)(MYGUI_FLAG(mVectorButton.size() + mButton1Index));
 
-		// запоминаем кнопки для отмены и подтверждения
+		// Р·Р°РїРѕРјРёРЅР°РµРј РєРЅРѕРїРєРё РґР»СЏ РѕС‚РјРµРЅС‹ Рё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ
 		if (mVectorButton.empty()) mInfoOk = info;
 		mInfoCancel = info;
 
@@ -129,13 +129,13 @@ namespace MyGUI
 		while ((0 != info) && (current < mButton1Index)) {
 			if (0 != (info & 1)) {
 
-				// корректируем ее номер
+				// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РµРµ РЅРѕРјРµСЂ
 				ViewInfo info = (ViewInfo)MYGUI_FLAG(current);
 
-				// если бит есть то ставим кнопку
+				// РµСЃР»Рё Р±РёС‚ РµСЃС‚СЊ С‚Рѕ СЃС‚Р°РІРёРј РєРЅРѕРїРєСѓ
 				addButtonName(factory::MessageFactory::_getButtonName(current));
 
-				// внутри адд сбрасывается
+				// РІРЅСѓС‚СЂРё Р°РґРґ СЃР±СЂР°СЃС‹РІР°РµС‚СЃСЏ
 				mVectorButton.back()->_setInternalData(info);
 				if (mVectorButton.size() == 1) mInfoOk = info;
 				mInfoCancel = info;
@@ -190,7 +190,7 @@ namespace MyGUI
 
 	void Message::setWindowFade(bool _fade)
 	{
-		return; //пока пропустим
+		return; //РїРѕРєР° РїСЂРѕРїСѓСЃС‚РёРј
 
 		if (_fade) {
 			if (null == mWidgetFade) {
@@ -246,7 +246,7 @@ namespace MyGUI
 		Gui * gui = Gui::getInstancePtr();
 		if (null == gui) return null;
 
-		// ищем индекс первой иконки
+		// РёС‰РµРј РёРЅРґРµРєСЃ РїРµСЂРІРѕР№ РёРєРѕРЅРєРё
 		size_t image = (size_t)_info;
 		size_t tmp = (size_t)Icon1;
 		while (true) {
@@ -289,7 +289,7 @@ namespace MyGUI
 	void Message::updateSize()
 	{
 		IntSize size = mWidgetText->getTextSize();
-		// минимум высота иконки
+		// РјРёРЅРёРјСѓРј РІС‹СЃРѕС‚Р° РёРєРѕРЅРєРё
 		if ((null != mIcon) && (mIcon->getImageIndex() != ITEM_NONE)) {
 			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
 			size.width += mIcon->getSize().width;

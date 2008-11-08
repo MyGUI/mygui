@@ -22,7 +22,7 @@ namespace MyGUI
 			ComboBoxFactory();
 			~ComboBoxFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void ComboBox_ModeDrop(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void ComboBox_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 

@@ -27,33 +27,33 @@ namespace MyGUI
 
 	void f()
 	{
-		// RU: тестовый класс, с простыми типами все аналогично
+		// RU: С‚РµСЃС‚РѕРІС‹Р№ РєР»Р°СЃСЃ, СЃ РїСЂРѕСЃС‚С‹РјРё С‚РёРїР°РјРё РІСЃРµ Р°РЅР°Р»РѕРіРёС‡РЅРѕ
 		// EN: test class, with simple types all is similar
 		struct Data { int value; };
 
-		// RU: экземпляр и инициализация
+		// RU: СЌРєР·РµРјРїР»СЏСЂ Рё РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 		// EN: instance and initialization
 		Data data;
 		data.value = 0xDEAD;
 
-		// RU: создастся копия класса Data
+		// RU: СЃРѕР·РґР°СЃС‚СЃСЏ РєРѕРїРёСЏ РєР»Р°СЃСЃР° Data
 		// EN: copy of class Data will be created
 		MyGUI::Any any = data;
-		// RU: копия класса Data
+		// RU: РєРѕРїРёСЏ РєР»Р°СЃСЃР° Data
 		// EN: copy of class Data
 		Data copy_data = *any.castType<Data>();
-		// RU: теперь value == 0xDEAD
+		// RU: С‚РµРїРµСЂСЊ value == 0xDEAD
 		// EN: now value == 0xDEAD
 		int value = copy_data.value;
 
 
-		// RU: создастся копия указателя на класс Data
+		// RU: СЃРѕР·РґР°СЃС‚СЃСЏ РєРѕРїРёСЏ СѓРєР°Р·Р°С‚РµР»СЏ РЅР° РєР»Р°СЃСЃ Data
 		// EN: copy of pointer on class Data will be created
 		any = &data;
-		// RU: копия указателя на класс Data и конкретно на объект data
+		// RU: РєРѕРїРёСЏ СѓРєР°Р·Р°С‚РµР»СЏ РЅР° РєР»Р°СЃСЃ Data Рё РєРѕРЅРєСЂРµС‚РЅРѕ РЅР° РѕР±СЉРµРєС‚ data
 		// EN: copy of pointer on class Data and on object data
 		Data * copy_ptr = *any.castType<Data*>();
-		// RU: теперь data.value == 0
+		// RU: С‚РµРїРµСЂСЊ data.value == 0
 		// EN: now value == 0xDEAD
 		copy_ptr->value = 0;
 

@@ -47,16 +47,16 @@ namespace MyGUI
 
 	void ControllerManager::addItem(WidgetPtr _widget, ControllerItem * _item)
 	{
-		// если виджет первый, то подписываемся на кадры
+		// РµСЃР»Рё РІРёРґР¶РµС‚ РїРµСЂРІС‹Р№, С‚Рѕ РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РєР°РґСЂС‹
 		//if (0 == mListItem.size()) Gui::getInstance().addFrameListener(newDelegate(this, &ControllerManager::frameEntered), null);
 		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
-		// подготавливаем
+		// РїРѕРґРіРѕС‚Р°РІР»РёРІР°РµРј
 		_item->prepareItem(_widget);
 
 		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
 
-			// такой уже в списке есть
+			// С‚Р°РєРѕР№ СѓР¶Рµ РІ СЃРїРёСЃРєРµ РµСЃС‚СЊ
 			if ((*iter).first == _widget) {
 				if ((*iter).second->getType() == _item->getType()) {
 					delete (*iter).second;
@@ -68,13 +68,13 @@ namespace MyGUI
 			}
 		}
 
-		// вставляем в самый конец
+		// РІСЃС‚Р°РІР»СЏРµРј РІ СЃР°РјС‹Р№ РєРѕРЅРµС†
 		mListItem.push_back(PairControllerItem(_widget, _item));
 	}
 
 	void ControllerManager::removeItem(WidgetPtr _widget)
 	{
-		// не удаляем из списка, а обнуляем, в цикле он будет удален
+		// РЅРµ СѓРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєР°, Р° РѕР±РЅСѓР»СЏРµРј, РІ С†РёРєР»Рµ РѕРЅ Р±СѓРґРµС‚ СѓРґР°Р»РµРЅ
 		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
 			if ((*iter).first == _widget) (*iter).first = null;
 		}
@@ -91,7 +91,7 @@ namespace MyGUI
 
 			if (null == (*iter).first) {
 				delete (*iter).second;
-				// удаляем из списка, итератор не увеличиваем и на новый круг
+				// СѓРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєР°, РёС‚РµСЂР°С‚РѕСЂ РЅРµ СѓРІРµР»РёС‡РёРІР°РµРј Рё РЅР° РЅРѕРІС‹Р№ РєСЂСѓРі
 				iter = mListItem.erase(iter);
 				continue;
 			}
@@ -101,7 +101,7 @@ namespace MyGUI
 				continue;
 			}
 
-			// на следующей итерации виджет вылетит из списка
+			// РЅР° СЃР»РµРґСѓСЋС‰РµР№ РёС‚РµСЂР°С†РёРё РІРёРґР¶РµС‚ РІС‹Р»РµС‚РёС‚ РёР· СЃРїРёСЃРєР°
 			(*iter).first = null;
 		}
 

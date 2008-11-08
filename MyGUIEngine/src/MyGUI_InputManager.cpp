@@ -79,17 +79,17 @@ namespace MyGUI
 
 	bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
-		// запоминаем позицию
+		// Р·Р°РїРѕРјРёРЅР°РµРј РїРѕР·РёС†РёСЋ
 		mMousePosition.set(_absx, _absy);
 
-		// вычисляем прирост по колеса
+		// РІС‹С‡РёСЃР»СЏРµРј РїСЂРёСЂРѕСЃС‚ РїРѕ РєРѕР»РµСЃР°
 		int relz = _absz - mOldAbsZ;
 		mOldAbsZ = _absz;
 
-		// двигаем курсор
+		// РґРІРёРіР°РµРј РєСѓСЂСЃРѕСЂ
 		PointerManager::getInstance().setPosition(mMousePosition);
 
-		// проверка на скролл
+		// РїСЂРѕРІРµСЂРєР° РЅР° СЃРєСЂРѕР»Р»
 		if (relz != 0) {
 			bool isFocus = isFocusMouse();
 			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseWheel(relz);
@@ -102,25 +102,25 @@ namespace MyGUI
 			return true;
 		}
 
-		// ищем активное окно
+		// РёС‰РµРј Р°РєС‚РёРІРЅРѕРµ РѕРєРЅРѕ
 		LayerItem *  rootItem = null;
 		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy, rootItem));
 
-		// спускаемся по владельцу
+		// СЃРїСѓСЃРєР°РµРјСЃСЏ РїРѕ РІР»Р°РґРµР»СЊС†Сѓ
 		if (null != rootItem) {
 			while (null != static_cast<WidgetPtr>(rootItem)->_getOwner()) {
 				rootItem = static_cast<WidgetPtr>(rootItem)->_getOwner();
 			}
 		}	
 
-		// ничего не изменилось
+		// РЅРёС‡РµРіРѕ РЅРµ РёР·РјРµРЅРёР»РѕСЃСЊ
 		if (mWidgetMouseFocus == item) {
 			bool isFocus = isFocusMouse();
 			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseMove(_absx, _absy);
 			return isFocus;
 		}
 
-		// проверяем на модальность
+		// РїСЂРѕРІРµСЂСЏРµРј РЅР° РјРѕРґР°Р»СЊРЅРѕСЃС‚СЊ
 		if (0 != mVectorModalRootWidget.size()) {
 			if (rootItem != mVectorModalRootWidget.back()) {
 				rootItem = null;
@@ -128,10 +128,10 @@ namespace MyGUI
 			}
 		}
 
-		// новый вид рутового фокуса мыши
+		// РЅРѕРІС‹Р№ РІРёРґ СЂСѓС‚РѕРІРѕРіРѕ С„РѕРєСѓСЃР° РјС‹С€Рё
 		WidgetPtr save_widget = null;
 
-		// спускаемся по новому виджету и устанавливаем рутовый фокус
+		// СЃРїСѓСЃРєР°РµРјСЃСЏ РїРѕ РЅРѕРІРѕРјСѓ РІРёРґР¶РµС‚Сѓ Рё СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂСѓС‚РѕРІС‹Р№ С„РѕРєСѓСЃ
 		WidgetPtr root_focus = item;
 		while (root_focus != null) {
 			if (root_focus->mRootMouseActive) {
@@ -144,7 +144,7 @@ namespace MyGUI
 			root_focus = root_focus->_getOwner();
 		};
 
-		// спускаемся по старому виджету и сбрасываем фокус
+		// СЃРїСѓСЃРєР°РµРјСЃСЏ РїРѕ СЃС‚Р°СЂРѕРјСѓ РІРёРґР¶РµС‚Сѓ Рё СЃР±СЂР°СЃС‹РІР°РµРј С„РѕРєСѓСЃ
 		root_focus = mWidgetMouseFocus;
 		while (root_focus != null) {
 			if (root_focus == save_widget) {
@@ -156,7 +156,7 @@ namespace MyGUI
 			root_focus = root_focus->_getOwner();
 		};
 
-		// смена фокуса, проверяем на доступность виджета
+		// СЃРјРµРЅР° С„РѕРєСѓСЃР°, РїСЂРѕРІРµСЂСЏРµРј РЅР° РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ РІРёРґР¶РµС‚Р°
 		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) {
 			mWidgetMouseFocus->onMouseLostFocus(item);
 		}
@@ -177,7 +177,7 @@ namespace MyGUI
 			item->onMouseSetFocus(mWidgetMouseFocus);
 
 		}
-		// сбрасываем курсор
+		// СЃР±СЂР°СЃС‹РІР°РµРј РєСѓСЂСЃРѕСЂ
 		else if (false == mPointer.empty()) {
 			PointerManager::getInstance().setDefaultPointer();
 			mPointer.clear();
@@ -185,17 +185,17 @@ namespace MyGUI
 			eventChangeMousePointer(PointerManager::getInstance().getDefaultPointer());
 		}
 
-		// изменился рутовый элемент
+		// РёР·РјРµРЅРёР»СЃСЏ СЂСѓС‚РѕРІС‹Р№ СЌР»РµРјРµРЅС‚
 		//if (rootItem != mWidgetRootMouseFocus) {
 			//if (mWidgetRootMouseFocus != null) mWidgetRootMouseFocus->onMouseChangeRootFocus(false);
 			//if (rootItem != null) static_cast<WidgetPtr>(rootItem)->onMouseChangeRootFocus(true);
 			//mWidgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
 		//}
 
-		// запоминаем текущее окно
+		// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ РѕРєРЅРѕ
 		mWidgetMouseFocus = item;
 
-		// обновляем данные
+		// РѕР±РЅРѕРІР»СЏРµРј РґР°РЅРЅС‹Рµ
 		if (m_showHelpers) updateFocusWidgetHelpers();
 
 		return isFocusMouse();
@@ -204,28 +204,28 @@ namespace MyGUI
 	bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
 
-		// если мы щелкнули не на гуй
+		// РµСЃР»Рё РјС‹ С‰РµР»РєРЅСѓР»Рё РЅРµ РЅР° РіСѓР№
 		if (false == isFocusMouse()) {
 			resetKeyFocusWidget();
 			return false;
 		}
 
-		// если активный элемент заблокирован
+		// РµСЃР»Рё Р°РєС‚РёРІРЅС‹Р№ СЌР»РµРјРµРЅС‚ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅ
 		if (false == mWidgetMouseFocus->isEnabled()) return true;
 
-		// захватываем только по левой клавише и только если виджету надо
+		// Р·Р°С…РІР°С‚С‹РІР°РµРј С‚РѕР»СЊРєРѕ РїРѕ Р»РµРІРѕР№ РєР»Р°РІРёС€Рµ Рё С‚РѕР»СЊРєРѕ РµСЃР»Рё РІРёРґР¶РµС‚Сѓ РЅР°РґРѕ
 		if (MB_Left == _id) {
-			// захват окна
+			// Р·Р°С…РІР°С‚ РѕРєРЅР°
 			mIsWidgetMouseCapture = true;
-			// запоминаем место нажатия
+			// Р·Р°РїРѕРјРёРЅР°РµРј РјРµСЃС‚Рѕ РЅР°Р¶Р°С‚РёСЏ
 			mLastLeftPressed.set(_absx, _absy);
 		}
 
-		// ищем вверх тот виджет который может принимать фокус
+		// РёС‰РµРј РІРІРµСЂС… С‚РѕС‚ РІРёРґР¶РµС‚ РєРѕС‚РѕСЂС‹Р№ РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ С„РѕРєСѓСЃ
 		WidgetPtr focus = mWidgetMouseFocus;
 		while ((focus != null) && (false == focus->isNeedKeyFocus())) focus = focus->getParent();
 
-		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРµСЂРµРґ РІС‹Р·РѕРІРѕРј С‚.Рє. РІРѕР·РјРѕР¶РЅРѕ РІРЅСѓС‚СЂРё РєС‚РѕРЅРёС‚СЊ РїРѕРјРµРЅСЏРµС‚ С„РѕРєСѓСЃ РїРѕРґ СЃРµР±СЏ
 		setKeyFocusWidget(focus);
 
 		if (mWidgetMouseFocus != null) {
@@ -233,7 +233,7 @@ namespace MyGUI
 			mWidgetMouseFocus->onMouseButtonPressed(_absx, _absy, _id);
 			//mWidgetMouseFocus->onMouseButtonPressed(_id);
 
-			// поднимаем виджет
+			// РїРѕРґРЅРёРјР°РµРј РІРёРґР¶РµС‚
 			LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
 		}
 		return true;
@@ -244,26 +244,26 @@ namespace MyGUI
 
 		if (isFocusMouse()) {
 
-			// если активный элемент заблокирован
+			// РµСЃР»Рё Р°РєС‚РёРІРЅС‹Р№ СЌР»РµРјРµРЅС‚ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅ
 			if (false == mWidgetMouseFocus->isEnabled()) return true;
 
 			mWidgetMouseFocus->onMouseButtonReleased(_absx, _absy, _id);
 
 			if (mIsWidgetMouseCapture) {
 
-				// сбрасываем захват
+				// СЃР±СЂР°СЃС‹РІР°РµРј Р·Р°С…РІР°С‚
 				mIsWidgetMouseCapture = false;
 
-				// после вызова, виджет может быть сброшен
+				// РїРѕСЃР»Рµ РІС‹Р·РѕРІР°, РІРёРґР¶РµС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃР±СЂРѕС€РµРЅ
 				if (null != mWidgetMouseFocus) {
 
 					if ((MB_Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
 						mWidgetMouseFocus->onMouseButtonClick();
-						// после вызова, виджет может быть сброшен
+						// РїРѕСЃР»Рµ РІС‹Р·РѕРІР°, РІРёРґР¶РµС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃР±СЂРѕС€РµРЅ
 						if (null != mWidgetMouseFocus) mWidgetMouseFocus->onMouseButtonDoubleClick();
 					}
 					else {
-						// проверяем над тем ли мы окном сейчас что и были при нажатии
+						// РїСЂРѕРІРµСЂСЏРµРј РЅР°Рґ С‚РµРј Р»Рё РјС‹ РѕРєРЅРѕРј СЃРµР№С‡Р°СЃ С‡С‚Рѕ Рё Р±С‹Р»Рё РїСЂРё РЅР°Р¶Р°С‚РёРё
 						LayerItem * rootItem = null;
 						WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy, rootItem));
 						if ( item == mWidgetMouseFocus) {
@@ -274,7 +274,7 @@ namespace MyGUI
 				}
 			}
 
-			// для корректного отображения
+			// РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
 			injectMouseMove(_absx, _absy, mOldAbsZ);
 
 			return true;
@@ -285,12 +285,12 @@ namespace MyGUI
 
 	bool InputManager::injectKeyPress(KeyCode _key, Char _text)
 	{
-		// проверка на переключение языков
+		// РїСЂРѕРІРµСЂРєР° РЅР° РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЏР·С‹РєРѕРІ
 		firstEncoding(_key, true);
 
 		Char ch = getKeyChar(_key, _text);
 
-		// запоминаем клавишу
+		// Р·Р°РїРѕРјРёРЅР°РµРј РєР»Р°РІРёС€Сѓ
 		storeKey(_key, ch);
 
 		bool wasFocusKey = isFocusKey();
@@ -305,10 +305,10 @@ namespace MyGUI
 
 	bool InputManager::injectKeyRelease(KeyCode _key)
 	{
-		// проверка на переключение языков
+		// РїСЂРѕРІРµСЂРєР° РЅР° РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЏР·С‹РєРѕРІ
 		firstEncoding(_key, false);
 
-		// сбрасываем клавишу
+		// СЃР±СЂР°СЃС‹РІР°РµРј РєР»Р°РІРёС€Сѓ
 		resetKey();
 
 		bool wasFocusKey = isFocusKey();
@@ -324,13 +324,13 @@ namespace MyGUI
 		if ((_key == KC_LSHIFT) || (_key == KC_RSHIFT)) mIsShiftPressed = bIsKeyPressed;
 		if ((_key == KC_LCONTROL) || (_key == KC_RCONTROL)) mIsControlPressed = bIsKeyPressed;
 #else
-		// если переключать не надо
+		// РµСЃР»Рё РїРµСЂРµРєР»СЋС‡Р°С‚СЊ РЅРµ РЅР°РґРѕ
 		if (mMapLanguages.size() == 1) return;
 
-		// для облегчения распознавания используются LeftAlt+LeftShift или LeftCtrl+LeftShift,LeftShift+LeftAlt или LeftShift+LeftCtrl
-		static bool bIsFirstKeyPressed = false; // LeftAlt или LeftCtrl
+		// РґР»СЏ РѕР±Р»РµРіС‡РµРЅРёСЏ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ LeftAlt+LeftShift РёР»Рё LeftCtrl+LeftShift,LeftShift+LeftAlt РёР»Рё LeftShift+LeftCtrl
+		static bool bIsFirstKeyPressed = false; // LeftAlt РёР»Рё LeftCtrl
 		static bool bIsSecondKeyPressed = false; // LeftShift
-		static bool bIsTwoKeyPressed = false; // обе были зажаты
+		static bool bIsTwoKeyPressed = false; // РѕР±Рµ Р±С‹Р»Рё Р·Р°Р¶Р°С‚С‹
 
 		if ((_key == KC_LSHIFT) || (_key == KC_RSHIFT)) {
 			if (bIsKeyPressed) {
@@ -343,7 +343,7 @@ namespace MyGUI
 				bIsSecondKeyPressed = false;
 				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed)) {
 					bIsTwoKeyPressed = false;
-					// следующий язык
+					// СЃР»РµРґСѓСЋС‰РёР№ СЏР·С‹Рє
 					changeLanguage();
 				}
 			}
@@ -361,7 +361,7 @@ namespace MyGUI
 				bIsFirstKeyPressed = false;
 				if ((!bIsSecondKeyPressed) && (bIsTwoKeyPressed)) {
 					bIsTwoKeyPressed = false;
-					// следующий язык
+					// СЃР»РµРґСѓСЋС‰РёР№ СЏР·С‹Рє
 					changeLanguage();
 				}
 			}
@@ -412,15 +412,15 @@ namespace MyGUI
 			// Combining versions range from 0x300 to 0x36F; only 5 (for French) have been mapped below
 			// http://www.fileformat.info/info/unicode/block/combining_diacritical_marks/images.htm
 			switch(buff[0])	{
-			case 0x5E: // Circumflex accent: в
+			case 0x5E: // Circumflex accent: РІ
 				deadKey = 0x302; break;
-			case 0x60: // Grave accent: а
+			case 0x60: // Grave accent: Р°
 				deadKey = 0x300; break;
-			case 0xA8: // Diaeresis: ь
+			case 0xA8: // Diaeresis: СЊ
 				deadKey = 0x308; break;
-			case 0xB4: // Acute accent: й
+			case 0xB4: // Acute accent: Р№
 				deadKey = 0x301; break;
-			case 0xB8: // Cedilla: з
+			case 0xB8: // Cedilla: Р·
 				deadKey = 0x327; break;
 			default:
 				deadKey = buff[0]; break;
@@ -433,11 +433,11 @@ namespace MyGUI
 #    endif
 #endif
 
-	Char InputManager::getKeyChar(KeyCode _key, Char _text) // возвращает символ по его скан коду
+	Char InputManager::getKeyChar(KeyCode _key, Char _text) // РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРёРјРІРѕР» РїРѕ РµРіРѕ СЃРєР°РЅ РєРѕРґСѓ
 	{
 		Char result = 0;
 #ifndef MYGUI_NO_OIS
-		// нумлок транслейтим ручками
+		// РЅСѓРјР»РѕРє С‚СЂР°РЅСЃР»РµР№С‚РёРј СЂСѓС‡РєР°РјРё
 		if (_key > 70 && _key < 84) {
 			result = mNums[_key-71];
 		}
@@ -476,24 +476,24 @@ namespace MyGUI
 	void InputManager::createDefaultCharSet()
 	{
 #ifdef MYGUI_NO_OIS
-		// вставляем английский язык
+		// РІСЃС‚Р°РІР»СЏРµРј Р°РЅРіР»РёР№СЃРєРёР№ СЏР·С‹Рє
 		mMapLanguages[INPUT_DEFAULT_LANGUAGE] = LangInfo();
 		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
 		mCurrentLanguage->second.resize(INPUT_COUNT_LOAD_CHAR);
 
-		// временный массив
+		// РІСЂРµРјРµРЅРЅС‹Р№ РјР°СЃСЃРёРІ
 		Char chars[INPUT_COUNT_LOAD_CHAR] = {
 			0, 0, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 0, 0, 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, 0, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 96, 0, 92, 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, 0, 42, 0, 32, // normal
 			0, 0, 33, 64, 35, 36, 37, 94, 38, 42, 40, 41, 95, 43, 0, 0, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 123, 125, 0, 0, 65, 83, 68, 70, 71, 72, 74, 75, 76, 58, 34, 126, 0, 124, 90, 88, 67, 86, 66, 78, 77, 60, 62, 63, 0, 42, 0, 32 // shift
 		};
-		// копируем в постоянное место
+		// РєРѕРїРёСЂСѓРµРј РІ РїРѕСЃС‚РѕСЏРЅРЅРѕРµ РјРµСЃС‚Рѕ
 		LangInfo & lang = mCurrentLanguage->second;
 		for (size_t i=0; i<INPUT_COUNT_LOAD_CHAR; i++) lang[i] = chars[i];
 #endif
-		// добавляем клавиши для нумлока
+		// РґРѕР±Р°РІР»СЏРµРј РєР»Р°РІРёС€Рё РґР»СЏ РЅСѓРјР»РѕРєР°
 		Char nums[13] = {55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46};
 		mNums.resize(13);
-		// копируем в постоянное место
+		// РєРѕРїРёСЂСѓРµРј РІ РїРѕСЃС‚РѕСЏРЅРЅРѕРµ РјРµСЃС‚Рѕ
 		for (size_t i=0; i<13; i++) mNums[i] = nums[i];
 	}
 
@@ -515,17 +515,17 @@ namespace MyGUI
 			std::vector<std::string> chars = utility::split(lang->getBody(), "\x09\x0a,");
 			if (chars.size() == INPUT_COUNT_LOAD_CHAR) {
 
-				// сначала проверяем есть ли такой язык уже
+				// СЃРЅР°С‡Р°Р»Р° РїСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё С‚Р°РєРѕР№ СЏР·С‹Рє СѓР¶Рµ
 				MapLang::iterator iter = mMapLanguages.find(name);
 				MYGUI_ASSERT(iter == mMapLanguages.end(), "language '" << name << "' already exist");
 
-				// создаем язык
+				// СЃРѕР·РґР°РµРј СЏР·С‹Рє
 				mMapLanguages[name] = LangInfo();
 				iter = mMapLanguages.find(name);
 				iter->second.resize(INPUT_COUNT_LOAD_CHAR);
 				LangInfo & lang = iter->second;
 
-				// и заполняем его
+				// Рё Р·Р°РїРѕР»РЅСЏРµРј РµРіРѕ
 				for (size_t j=0; j<INPUT_COUNT_LOAD_CHAR; j++) {
 					Char ch = utility::parseUInt(chars[j]);
 					if (INPUT_CHARSET_LIMIT < ch) {
@@ -544,7 +544,7 @@ namespace MyGUI
 
 		};
 
-		// обязательно обновляем итератор, так как не гарантируеться его сохранение
+		// РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РѕР±РЅРѕРІР»СЏРµРј РёС‚РµСЂР°С‚РѕСЂ, С‚Р°Рє РєР°Рє РЅРµ РіР°СЂР°РЅС‚РёСЂСѓРµС‚СЊСЃСЏ РµРіРѕ СЃРѕС…СЂР°РЅРµРЅРёРµ
 		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
 	}
 
@@ -563,18 +563,18 @@ namespace MyGUI
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
-		// ищем рутовый фокус
+		// РёС‰РµРј СЂСѓС‚РѕРІС‹Р№ С„РѕРєСѓСЃ
 		WidgetPtr root = _widget;
 		if (root != null) { while (root->_getOwner() != null) root = root->_getOwner(); }
 
-		// если рутовый фокус поменялся, то оповещаем
+		// РµСЃР»Рё СЂСѓС‚РѕРІС‹Р№ С„РѕРєСѓСЃ РїРѕРјРµРЅСЏР»СЃСЏ, С‚Рѕ РѕРїРѕРІРµС‰Р°РµРј
 		if (mWidgetRootKeyFocus != root) {
 			if (mWidgetRootKeyFocus != null) mWidgetRootKeyFocus->onKeyChangeRootFocus(false);
 			if (root != null) root->onKeyChangeRootFocus(true);
 			mWidgetRootKeyFocus = root;
 		}
 
-		// а вот тут уже проверяем обыкновенный фокус
+		// Р° РІРѕС‚ С‚СѓС‚ СѓР¶Рµ РїСЂРѕРІРµСЂСЏРµРј РѕР±С‹РєРЅРѕРІРµРЅРЅС‹Р№ С„РѕРєСѓСЃ
 		if (_widget != mWidgetKeyFocus) {
 			if (isFocusKey()) mWidgetKeyFocus->onKeyLostFocus(_widget);
 			if (_widget != null) {
@@ -587,14 +587,14 @@ namespace MyGUI
 			mWidgetKeyFocus = null;
 		}
 
-		// обновляем данные
+		// РѕР±РЅРѕРІР»СЏРµРј РґР°РЅРЅС‹Рµ
 		if (m_showHelpers) updateFocusWidgetHelpers();
 
 	}
 
 	void InputManager::resetMouseFocusWidget()
 	{
-		// спускаемся по старому виджету и сбрасываем фокус
+		// СЃРїСѓСЃРєР°РµРјСЃСЏ РїРѕ СЃС‚Р°СЂРѕРјСѓ РІРёРґР¶РµС‚Сѓ Рё СЃР±СЂР°СЃС‹РІР°РµРј С„РѕРєСѓСЃ
 		WidgetPtr root_focus = mWidgetMouseFocus;
 		while (root_focus != null) {
 			root_focus->mRootMouseActive = false;
@@ -614,12 +614,12 @@ namespace MyGUI
 			mWidgetRootMouseFocus = null;
 		}*/
 
-		// обновляем данные
+		// РѕР±РЅРѕРІР»СЏРµРј РґР°РЅРЅС‹Рµ
 		if (m_showHelpers) updateFocusWidgetHelpers();
 
 	}
 
-	// удаляем данный виджет из всех возможных мест
+	// СѓРґР°Р»СЏРµРј РґР°РЅРЅС‹Р№ РІРёРґР¶РµС‚ РёР· РІСЃРµС… РІРѕР·РјРѕР¶РЅС‹С… РјРµСЃС‚
 	void InputManager::_unlinkWidget(WidgetPtr _widget)
 	{
 		if (null == _widget) return;
@@ -627,19 +627,19 @@ namespace MyGUI
 			mIsWidgetMouseCapture = false;
 			mWidgetMouseFocus = null;
 
-			// обновляем данные
+			// РѕР±РЅРѕРІР»СЏРµРј РґР°РЅРЅС‹Рµ
 			if (m_showHelpers) updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetKeyFocus) {
 			mWidgetKeyFocus = null;
 
-			// обновляем данные
+			// РѕР±РЅРѕРІР»СЏРµРј РґР°РЅРЅС‹Рµ
 			if (m_showHelpers) updateFocusWidgetHelpers();
 		}
 		//if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
 		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
 
-		// ручками сбрасываем, чтобы не менять фокусы
+		// СЂСѓС‡РєР°РјРё СЃР±СЂР°СЃС‹РІР°РµРј, С‡С‚РѕР±С‹ РЅРµ РјРµРЅСЏС‚СЊ С„РѕРєСѓСЃС‹
 		for (VectorWidgetPtr::iterator iter=mVectorModalRootWidget.begin(); iter!=mVectorModalRootWidget.end(); ++iter) {
 			if ((*iter == _widget)) {
 				mVectorModalRootWidget.erase(iter);
@@ -673,7 +673,7 @@ namespace MyGUI
 				break;
 			}
 		}
-		// если еще есть модальные то их фокусируем и поднимаем
+		// РµСЃР»Рё РµС‰Рµ РµСЃС‚СЊ РјРѕРґР°Р»СЊРЅС‹Рµ С‚Рѕ РёС… С„РѕРєСѓСЃРёСЂСѓРµРј Рё РїРѕРґРЅРёРјР°РµРј
 		if (false == mVectorModalRootWidget.empty()) {
 			setKeyFocusWidget(mVectorModalRootWidget.back());
 			LayerManager::getInstance().upLayerItem(mVectorModalRootWidget.back());
@@ -712,7 +712,7 @@ namespace MyGUI
 	void InputManager::frameEntered(float _frame)
 	{
 
-		// обновляем данные
+		// РѕР±РЅРѕРІР»СЏРµРј РґР°РЅРЅС‹Рµ
 		if (m_showHelpers) updateFocusWidgetHelpers();
 
 		if ( mHoldKey == KC_UNASSIGNED) return;

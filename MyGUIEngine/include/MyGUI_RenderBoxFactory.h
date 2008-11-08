@@ -22,7 +22,7 @@ namespace MyGUI
 			RenderBoxFactory();
 			~RenderBoxFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void RenderBox_Mesh(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void RenderBox_AutoRotation(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void RenderBox_AutoRotationSpeed(WidgetPtr _widget, const std::string &_key, const std::string &_value);

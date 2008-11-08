@@ -24,20 +24,20 @@ namespace MyGUI
 
 		bool moveNext();
 
-		// возвращает цвет
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ С†РІРµС‚
 		Ogre::UTFString getTagColour(bool _clear = false);
 
-		// возвращает цвет
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ С†РІРµС‚
 		bool getTagColour(Ogre::UTFString & _colour);
 
-		// удаляет цвет
+		// СѓРґР°Р»СЏРµС‚ С†РІРµС‚
 		void clearTagColour() {getTagColour(true);}
 
 		bool setTagColour(const Ogre::ColourValue & _colour);
 
 		bool setTagColour(Ogre::UTFString _colour);
 
-		// сохраняет текущий итератор
+		// СЃРѕС…СЂР°РЅСЏРµС‚ С‚РµРєСѓС‰РёР№ РёС‚РµСЂР°С‚РѕСЂ
 		bool saveStartPoint()
 		{
 			if (mCurrent == mEnd) return false;
@@ -45,7 +45,7 @@ namespace MyGUI
 			return true;
 		}
 
-		// возвращает строку от сохраненного итератора до текущего
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєСѓ РѕС‚ СЃРѕС…СЂР°РЅРµРЅРЅРѕРіРѕ РёС‚РµСЂР°С‚РѕСЂР° РґРѕ С‚РµРєСѓС‰РµРіРѕ
 		Ogre::UTFString getFromStart()
 		{
 			if (mSave == mEnd) return L"";
@@ -53,7 +53,7 @@ namespace MyGUI
 			return mText.substr(start, mCurrent-mText.begin()-start);
 		}
 
-		// удаляет от запомненной точки до текущей
+		// СѓРґР°Р»СЏРµС‚ РѕС‚ Р·Р°РїРѕРјРЅРµРЅРЅРѕР№ С‚РѕС‡РєРё РґРѕ С‚РµРєСѓС‰РµР№
 		bool eraseFromStart()
 		{
 			if (mSave == mEnd) return false;
@@ -62,7 +62,7 @@ namespace MyGUI
 			return true;
 		}
 
-		// возвращает текущую псевдо позицию
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰СѓСЋ РїСЃРµРІРґРѕ РїРѕР·РёС†РёСЋ
 		size_t getPosition() {return mPosition;}
 
 		const Ogre::UTFString & getText() {return mText;}
@@ -82,17 +82,17 @@ namespace MyGUI
 			}
 		}
 
-		//очищает весь текст
+		//РѕС‡РёС‰Р°РµС‚ РІРµСЃСЊ С‚РµРєСЃС‚
 		void clearText() {clear();}
 
-		// возвращает размер строки
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё
 		size_t getSize();
 
 		void setText(const Ogre::UTFString & _text, bool _multiLine)
 		{
-			// сначала все очищаем
+			// СЃРЅР°С‡Р°Р»Р° РІСЃРµ РѕС‡РёС‰Р°РµРј
 			clear();
-			// а теперь вставляем
+			// Р° С‚РµРїРµСЂСЊ РІСЃС‚Р°РІР»СЏРµРј
 			Ogre::UTFString text = _text;
 			if (false == _multiLine) clearNewLine(text);
 			insert(mCurrent, text);
@@ -102,7 +102,7 @@ namespace MyGUI
 
 		void cutMaxLengthFromBeginning(size_t _max);
 
-		// возвращает текст без тегов
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСЃС‚ Р±РµР· С‚РµРіРѕРІ
 		static Ogre::UTFString getOnlyText(const Ogre::UTFString& _text);
 
 		static Ogre::UTFString getTextNewLine()
@@ -118,7 +118,7 @@ namespace MyGUI
 			return buff;
 		}
 
-		// просто конвертируем цвет в строку
+		// РїСЂРѕСЃС‚Рѕ РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј С†РІРµС‚ РІ СЃС‚СЂРѕРєСѓ
 		static Ogre::UTFString convertTagColour(const Ogre::ColourValue & _colour)
 		{
 			const size_t SIZE = 16;
@@ -134,10 +134,10 @@ namespace MyGUI
 
 		static Ogre::UTFString toTagsString(const Ogre::UTFString& _text)
 		{
-			// преобразуем в строку с тегами
+			// РїСЂРµРѕР±СЂР°Р·СѓРµРј РІ СЃС‚СЂРѕРєСѓ СЃ С‚РµРіР°РјРё
 			Ogre::UTFString text(_text);
 			for (Ogre::UTFString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
-				// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
+				// РїРѕС‚РѕРј РїРµСЂРµРґРµР»Р°С‚СЊ С‡РµСЂРµР· TextIterator С‡С‚РѕР±С‹ РѕС‚РІСЏР·Р°С‚СЊ РїРѕРЅСЏС‚РёРµ С‚РµРі РѕС‚ СЌРґРёС‚Р°
 				if (L'#' == (*iter)) iter = text.insert(++iter, L'#');
 			}
 			return text;
@@ -146,21 +146,21 @@ namespace MyGUI
 
 	private:
 
-		// возвращает цвет
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ С†РІРµС‚
 		bool getTagColour(Ogre::UTFString & _colour, Ogre::UTFString::iterator & _iter);
 
 		void insert(Ogre::UTFString::iterator & _start, Ogre::UTFString & _insert)
 		{
-			// сбрасываем размер
+			// СЃР±СЂР°СЃС‹РІР°РµРј СЂР°Р·РјРµСЂ
 			mSize = ITEM_NONE;
-			// записываем в историю
+			// Р·Р°РїРёСЃС‹РІР°РµРј РІ РёСЃС‚РѕСЂРёСЋ
 			if (mHistory) mHistory->push_back(TextCommandInfo(_insert, _start-mText.begin(), TextCommandInfo::COMMAND_INSERT));
-			// запоминаем позицию итератора
+			// Р·Р°РїРѕРјРёРЅР°РµРј РїРѕР·РёС†РёСЋ РёС‚РµСЂР°С‚РѕСЂР°
 			size_t pos = _start - mText.begin();
 			size_t pos_save = (mSave==mEnd) ? ITEM_NONE : _start - mText.begin();
-			// непосредственно вставляем
+			// РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РІСЃС‚Р°РІР»СЏРµРј
 			mText.insert(_start, _insert.begin(), _insert.end());
-			// возвращаем итераторы
+			// РІРѕР·РІСЂР°С‰Р°РµРј РёС‚РµСЂР°С‚РѕСЂС‹
 			_start = mText.begin() + pos;
 			mEnd = mText.end();
 			(pos_save==ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
@@ -168,12 +168,12 @@ namespace MyGUI
 
 		Ogre::UTFString::iterator erase(Ogre::UTFString::iterator _start, Ogre::UTFString::iterator _end)
 		{
-			// сбрасываем размер
+			// СЃР±СЂР°СЃС‹РІР°РµРј СЂР°Р·РјРµСЂ
 			mSize = ITEM_NONE;
-			// сохраняем в историю
+			// СЃРѕС…СЂР°РЅСЏРµРј РІ РёСЃС‚РѕСЂРёСЋ
 			size_t start = _start-mText.begin();
 			if (mHistory) mHistory->push_back(TextCommandInfo(mText.substr(start, _end-_start), start, TextCommandInfo::COMMAND_ERASE));
-			// возвращаем итератор
+			// РІРѕР·РІСЂР°С‰Р°РµРј РёС‚РµСЂР°С‚РѕСЂ
 			return mText.erase(_start, _end);
 		}
 
@@ -181,10 +181,10 @@ namespace MyGUI
 		{
 			if (mText.empty()) return;
 
-			// записываем в историю
+			// Р·Р°РїРёСЃС‹РІР°РµРј РІ РёСЃС‚РѕСЂРёСЋ
 			if (mHistory) mHistory->push_back(TextCommandInfo(mText, 0, TextCommandInfo::COMMAND_ERASE));
 
-			// все сбрасываем
+			// РІСЃРµ СЃР±СЂР°СЃС‹РІР°РµРј
 			mText.clear();
 			mCurrent = mText.begin();
 			mEnd = mSave = mText.end();
@@ -192,11 +192,11 @@ namespace MyGUI
 		}
 
 	private:
-		// текси и два итератора
+		// С‚РµРєСЃРё Рё РґРІР° РёС‚РµСЂР°С‚РѕСЂР°
 		Ogre::UTFString mText;
 		Ogre::UTFString::iterator mCurrent, mEnd, mSave;
 
-		// позиция и размер
+		// РїРѕР·РёС†РёСЏ Рё СЂР°Р·РјРµСЂ
 		size_t mPosition, mSize;
 		bool mFirst;
 

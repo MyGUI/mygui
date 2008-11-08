@@ -30,7 +30,7 @@ namespace MyGUI
 		mOffsetButtonSeparator(2),
 		mItemSelected(ITEM_NONE)
 	{
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
 			MapString::const_iterator iter = properties.find("SkinButton");
@@ -60,7 +60,7 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 			}
 		}
-		// мона и без клиента
+		// РјРѕРЅР° Рё Р±РµР· РєР»РёРµРЅС‚Р°
 		if (null == mWidgetClient) mWidgetClient = this;
 	}
 
@@ -70,13 +70,13 @@ namespace MyGUI
 	}
 
 	//----------------------------------------------------------------------------------//
-	// методы для работы со столбцами
+	// РјРµС‚РѕРґС‹ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ СЃС‚РѕР»Р±С†Р°РјРё
 	void MultiList::insertColumnAt(size_t _column, const Ogre::UTFString & _name, int _width, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_column, mVectorColumnInfo.size(), "MultiList::insertColumnAt");
 		if (_column == ITEM_NONE) _column = mVectorColumnInfo.size();
 
-		// скрываем у крайнего скролл
+		// СЃРєСЂС‹РІР°РµРј Сѓ РєСЂР°Р№РЅРµРіРѕ СЃРєСЂРѕР»Р»
 		if (false == mVectorColumnInfo.empty())
 			mVectorColumnInfo.back().list->setScrollVisible(false);
 		else mSortColumnIndex = 0;
@@ -95,7 +95,7 @@ namespace MyGUI
 		column.name = _name;
 		column.data = _data;
 
-		// если уже были столбики, то делаем то же колличество полей
+		// РµСЃР»Рё СѓР¶Рµ Р±С‹Р»Рё СЃС‚РѕР»Р±РёРєРё, С‚Рѕ РґРµР»Р°РµРј С‚Рѕ Р¶Рµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РїРѕР»РµР№
 		if (false == mVectorColumnInfo.empty()) {
 			size_t count = mVectorColumnInfo.front().list->getItemCount();
 			for (size_t pos=0; pos<count; ++pos)
@@ -106,7 +106,7 @@ namespace MyGUI
 
 		updateColumns();
 
-		// показываем скролл нового крайнего
+		// РїРѕРєР°Р·С‹РІР°РµРј СЃРєСЂРѕР»Р» РЅРѕРІРѕРіРѕ РєСЂР°Р№РЅРµРіРѕ
 		mVectorColumnInfo.back().list->setScrollVisible(true);
 	}
 
@@ -182,7 +182,7 @@ namespace MyGUI
 		if (_backward) {
 			mSortUp = !mSortUp;
 			redrawButtons();
-			// если было недосортированно то сортируем
+			// РµСЃР»Рё Р±С‹Р»Рѕ РЅРµРґРѕСЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕ С‚Рѕ СЃРѕСЂС‚РёСЂСѓРµРј
 			if (mIsDirtySort) sortList();
 
 			flipList();
@@ -251,7 +251,7 @@ namespace MyGUI
 		size_t index = BiIndexBase::convertToBack(_index);
 		mVectorColumnInfo[_column].list->setItemNameAt(index, _name);
 
-		// если мы попортили список с активным сортом, надо пересчитывать
+		// РµСЃР»Рё РјС‹ РїРѕРїРѕСЂС‚РёР»Рё СЃРїРёСЃРѕРє СЃ Р°РєС‚РёРІРЅС‹Рј СЃРѕСЂС‚РѕРј, РЅР°РґРѕ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		if (_column == mSortColumnIndex) setDirtySort();
 	}
 
@@ -276,7 +276,7 @@ namespace MyGUI
 	void MultiList::updateOnlyEmpty()
 	{
 		if (null == mButtonMain) return;
-		// кнопка, для заполнения пустоты
+		// РєРЅРѕРїРєР°, РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ РїСѓСЃС‚РѕС‚С‹
 		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
 		else {
 			mButtonMain->setCoord(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
@@ -294,13 +294,13 @@ namespace MyGUI
 
 		mItemSelected = BiIndexBase::convertToFace(_position);
 
-		// наш евент
+		// РЅР°С€ РµРІРµРЅС‚
 		eventListChangePosition(this, mItemSelected);
 	}
 
 	void MultiList::notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position)
 	{
-		// наш евент
+		// РЅР°С€ РµРІРµРЅС‚
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
@@ -377,7 +377,7 @@ namespace MyGUI
 	WidgetPtr MultiList::getSeparator(size_t _index)
 	{
 		if (!mWidthSeparator || mSkinSeparator.empty()) return null;
-		// последний столбик
+		// РїРѕСЃР»РµРґРЅРёР№ СЃС‚РѕР»Р±РёРє
 		if (_index == mVectorColumnInfo.size()-1) return null;
 
 		while (_index >= mSeparators.size()) {
@@ -399,7 +399,7 @@ namespace MyGUI
 
 			mWidthBar += (*iter).width;
 
-			// промежуток между листами
+			// РїСЂРѕРјРµР¶СѓС‚РѕРє РјРµР¶РґСѓ Р»РёСЃС‚Р°РјРё
 			WidgetPtr separator = getSeparator(index);
 			if (separator) {
 				separator->setCoord(mWidthBar, 0, mWidthSeparator, mWidgetClient->getHeight());
@@ -487,13 +487,13 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");
 		if (ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
-		// если надо, то меняем выделенный элемент
-		// при сортировке, обновится
+		// РµСЃР»Рё РЅР°РґРѕ, С‚Рѕ РјРµРЅСЏРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
+		// РїСЂРё СЃРѕСЂС‚РёСЂРѕРІРєРµ, РѕР±РЅРѕРІРёС‚СЃСЏ
 		if ((mItemSelected != ITEM_NONE) && (_index <= mItemSelected)) mItemSelected ++;
 
 		size_t index = BiIndexBase::insertItemAt(_index);
 
-		// вставляем во все поля пустые, а потом присваиваем первому
+		// РІСЃС‚Р°РІР»СЏРµРј РІРѕ РІСЃРµ РїРѕР»СЏ РїСѓСЃС‚С‹Рµ, Р° РїРѕС‚РѕРј РїСЂРёСЃРІР°РёРІР°РµРј РїРµСЂРІРѕРјСѓ
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			(*iter).list->insertItemAt(index, "");
 		}
@@ -514,7 +514,7 @@ namespace MyGUI
 			(*iter).list->removeItemAt(index);
 		}
 
-		// если надо, то меняем выделенный элемент
+		// РµСЃР»Рё РЅР°РґРѕ, С‚Рѕ РјРµРЅСЏРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
 		size_t count = mVectorColumnInfo.begin()->list->getItemCount();
 		if (count == 0) mItemSelected = ITEM_NONE;
 		else if (mItemSelected != ITEM_NONE) {
@@ -530,10 +530,10 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
 		MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
 
-		// при сортированном, меняем только индексы
+		// РїСЂРё СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРј, РјРµРЅСЏРµРј С‚РѕР»СЊРєРѕ РёРЅРґРµРєСЃС‹
 		BiIndexBase::swapItemsFaceAt(_index1, _index2);
 
-		// при несортированном, нужно наоборот, поменять только данные
+		// РїСЂРё РЅРµСЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРј, РЅСѓР¶РЅРѕ РЅР°РѕР±РѕСЂРѕС‚, РїРѕРјРµРЅСЏС‚СЊ С‚РѕР»СЊРєРѕ РґР°РЅРЅС‹Рµ
 		// FIXME
 	}
 

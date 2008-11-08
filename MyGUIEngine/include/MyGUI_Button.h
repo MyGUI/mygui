@@ -15,7 +15,7 @@ namespace MyGUI
 
 	class _MyGUIExport Button : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Button>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -69,16 +69,16 @@ namespace MyGUI
 
 
 	private:
-		// нажата ли кнопка
+		// РЅР°Р¶Р°С‚Р° Р»Рё РєРЅРѕРїРєР°
 		bool mIsMousePressed;
-		// в фокусе ли кнопка
+		// РІ С„РѕРєСѓСЃРµ Р»Рё РєРЅРѕРїРєР°
 		bool mIsMouseFocus;
-		// статус кнопки нажата или нет
+		// СЃС‚Р°С‚СѓСЃ РєРЅРѕРїРєРё РЅР°Р¶Р°С‚Р° РёР»Рё РЅРµС‚
 		bool mIsStateCheck;
 
 		StaticImagePtr mImage;
 
-		// для прозрачной поддержки старого режима
+		// РґР»СЏ РїСЂРѕР·СЂР°С‡РЅРѕР№ РїРѕРґРґРµСЂР¶РєРё СЃС‚Р°СЂРѕРіРѕ СЂРµР¶РёРјР°
 		bool mModeCheck;
 
 	}; // class Button : public Widget

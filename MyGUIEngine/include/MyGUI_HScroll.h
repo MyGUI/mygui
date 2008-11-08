@@ -15,7 +15,7 @@ namespace MyGUI
 
 	class _MyGUIExport HScroll : public VScroll
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<HScroll>;
 
 		MYGUI_RTTI_CHILD_HEADER;

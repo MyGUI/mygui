@@ -18,7 +18,7 @@
 
 #include "MyGUI_LastHeader.h"
 
-// потом это убрать и передалать парсинг
+// РїРѕС‚РѕРј СЌС‚Рѕ СѓР±СЂР°С‚СЊ Рё РїРµСЂРµРґР°Р»Р°С‚СЊ РїР°СЂСЃРёРЅРі
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
 #	pragma warning( disable: 4996)
@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 
-	// определяем типы
+	// РѕРїСЂРµРґРµР»СЏРµРј С‚РёРїС‹
 	typedef types::TPoint<int> IntPoint;
 	typedef types::TPoint<float> FloatPoint;
 

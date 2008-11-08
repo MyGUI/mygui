@@ -80,40 +80,40 @@ namespace MyGUI
 	void TileRect::_setAlign(const IntSize& _size, bool _update)
 	{
 
-		// необходимо разобраться
+		// РЅРµРѕР±С…РѕРґРёРјРѕ СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ
 		bool need_update = true;//_update;
 
-		// первоначальное выравнивание
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 		if (mAlign.isHStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isRight()) {
-			// двигаем по правому краю
+			// РґРІРёРіР°РµРј РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ
 			mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter()) {
-			// выравнивание по горизонтали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch()) {
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isBottom()) {
-			// двигаем по нижнему краю
+			// РґРІРёРіР°РµРј РїРѕ РЅРёР¶РЅРµРјСѓ РєСЂР°СЋ
 			mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter()) {
-			// выравнивание по вертикали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РІРµСЂС‚РёРєР°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
@@ -138,7 +138,7 @@ namespace MyGUI
 		mCurrentCoord.width = getViewWidth();
 		mCurrentCoord.height = getViewHeight();
 
-		// подсчитываем необходимое колличество тайлов
+		// РїРѕРґСЃС‡РёС‚С‹РІР°РµРј РЅРµРѕР±С…РѕРґРёРјРѕРµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ С‚Р°Р№Р»РѕРІ
 		if (false == mEmptyView) {
 			size_t count_x = mCoord.width / mTileSize.width;
 			if ((mCoord.width % mTileSize.width) > 0) count_x ++;
@@ -146,30 +146,30 @@ namespace MyGUI
 			if ((mCoord.height % mTileSize.height) > 0) count ++;
 			count = count * count_x * VERTEX_IN_QUAD;
 
-			// нужно больше вершин
+			// РЅСѓР¶РЅРѕ Р±РѕР»СЊС€Рµ РІРµСЂС€РёРЅ
 			if (count > mCountVertex) {
 				mCountVertex = count + TILERECT_COUNT_VERTEX;
 				if (null != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 			}
 		}
 
-		// вьюпорт стал битым
+		// РІСЊСЋРїРѕСЂС‚ СЃС‚Р°Р» Р±РёС‚С‹Рј
 		if (margin) {
 
-			// проверка на полный выход за границу
+			// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†Сѓ
 			if (_checkOutside()) {
 
-				// запоминаем текущее состояние
+				// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 				mIsMargin = margin;
 
-				// обновить перед выходом
+				// РѕР±РЅРѕРІРёС‚СЊ РїРµСЂРµРґ РІС‹С…РѕРґРѕРј
 				if (null != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
 		}
 
-		// запоминаем текущее состояние
+		// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 		mIsMargin = margin;
 
 		if (null != mRenderItem) mRenderItem->outOfDate();
@@ -197,7 +197,7 @@ namespace MyGUI
 
 		float vertex_z = mManager->getMaximumDepth();
 
-		// абсолютный размер окна
+		// Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ СЂР°Р·РјРµСЂ РѕРєРЅР°
 		float window_left = ((mManager->getPixScaleX() * (float)(mCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
 		// UNUSED
 		// float window_right = window_left + (mManager->getPixScaleX() * (float)mCoord.width * 2);
@@ -205,7 +205,7 @@ namespace MyGUI
 		// UNUSED
 		// float window_bottom = window_top - (mManager->getPixScaleY() * (float)mCoord.height * 2);
 
-		// размер вьюпорта
+		// СЂР°Р·РјРµСЂ РІСЊСЋРїРѕСЂС‚Р°
 		float real_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
 		float real_right = real_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
 		float real_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
@@ -228,20 +228,20 @@ namespace MyGUI
 			bool texture_crop_height  = false;
 
 			if (vertex_top > real_top) {
-				// проверка на полный выход
+				// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ
 				if (vertex_bottom > real_top) {
 					continue;
 				}
-				// обрезаем
+				// РѕР±СЂРµР·Р°РµРј
 				vertex_top = real_top;
 				texture_crop_height = true;
 			}
 			if (vertex_bottom < real_bottom) {
-				// вообще вниз ушли
+				// РІРѕРѕР±С‰Рµ РІРЅРёР· СѓС€Р»Рё
 				if (vertex_top < real_bottom) {
 					continue;
 				}
-				// обрезаем
+				// РѕР±СЂРµР·Р°РµРј
 				vertex_bottom = real_bottom;
 				texture_crop_height = true;
 			}
@@ -256,43 +256,43 @@ namespace MyGUI
 
 
 				if (vertex_left < real_left) {
-					// проверка на полный выход
+					// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ
 					if (vertex_right < real_left) {
 						continue;
 					}
-					// обрезаем
+					// РѕР±СЂРµР·Р°РµРј
 					vertex_left = real_left;
 					texture_crop_width = true;
 				}
 				if (vertex_right > real_right) {
-					// вообще строку до конца не нуна
+					// РІРѕРѕР±С‰Рµ СЃС‚СЂРѕРєСѓ РґРѕ РєРѕРЅС†Р° РЅРµ РЅСѓРЅР°
 					if (vertex_left > real_right) {
 						continue;
 					}
-					// обрезаем
+					// РѕР±СЂРµР·Р°РµРј
 					vertex_right = real_right;
 					texture_crop_width = true;
 				}
 
-				// текущие текстурные координаты
+				// С‚РµРєСѓС‰РёРµ С‚РµРєСЃС‚СѓСЂРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 				float texture_left = mCurrentTexture.left;
 				float texture_right = mCurrentTexture.right;
 				float texture_top = mCurrentTexture.top;
 				float texture_bottom = mCurrentTexture.bottom;
 
-				// смещение текстуры по вертикили
+				// СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ РїРѕ РІРµСЂС‚РёРєРёР»Рё
 				if (texture_crop_height) {
-					// прибавляем размер смещения в текстурных координатах
+					// РїСЂРёР±Р°РІР»СЏРµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_top += (top - vertex_top) * mTextureHeightOne;
-					// отнимаем размер смещения в текстурных координатах
+					// РѕС‚РЅРёРјР°РµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_bottom -= (vertex_bottom - bottom) * mTextureHeightOne;
 				}
 
-				// смещение текстуры по горизонтали
+				// СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё
 				if (texture_crop_width) {
-					// прибавляем размер смещения в текстурных координатах
+					// РїСЂРёР±Р°РІР»СЏРµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_left += (vertex_left - left) * mTextureWidthOne;
-					// отнимаем размер смещения в текстурных координатах
+					// РѕС‚РЅРёРјР°РµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёСЏ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 					texture_right -= (right - vertex_right) * mTextureWidthOne;
 				}
 
@@ -368,7 +368,7 @@ namespace MyGUI
 
 	void TileRect::updateTextureData()
 	{
-		// размер одного тайла
+		// СЂР°Р·РјРµСЂ РѕРґРЅРѕРіРѕ С‚Р°Р№Р»Р°
 		mRealTileWidth = mManager->getPixScaleX() * (float)(mTileSize.width) * 2;
 		mRealTileHeight = mManager->getPixScaleY() * (float)(mTileSize.height) * 2;
 

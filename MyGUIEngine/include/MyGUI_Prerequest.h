@@ -2,7 +2,7 @@
 	@file
 	@author		Denis Koronchik
 	@author		Georgiy Evmenov
-	@author		Ну и я чуть чуть =)
+	@author		РќСѓ Рё СЏ С‡СѓС‚СЊ С‡СѓС‚СЊ =)
 	@date		09/2007
 */
 

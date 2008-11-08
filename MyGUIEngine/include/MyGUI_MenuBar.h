@@ -34,7 +34,7 @@ namespace MyGUI
 
 	class _MyGUIExport MenuBar : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<MenuBar>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -52,7 +52,7 @@ namespace MyGUI
 
 	public:
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of items
 		size_t getItemCount() { return mItemsInfo.size(); }
@@ -77,14 +77,14 @@ namespace MyGUI
 		size_t findItemIndexWith(const Ogre::UTFString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
-				// FIXME хранить имя
+				// FIXME С…СЂР°РЅРёС‚СЊ РёРјСЏ
 				if (mItemsInfo[pos].button->getCaption() == _name) return pos;
 			}
 			return ITEM_NONE;
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРµР»РµРЅРёСЏРјРё
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mIndexSelect; }
@@ -96,7 +96,7 @@ namespace MyGUI
 		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
