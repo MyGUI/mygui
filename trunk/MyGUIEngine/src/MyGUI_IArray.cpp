@@ -24,7 +24,7 @@ namespace MyGUI
 
 		// типы для массива
 		typedef void * ItemType;
-		typedef const std::string & NameType;
+		typedef const std::string NameType;
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
