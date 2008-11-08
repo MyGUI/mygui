@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	// информация, об одном сабвиджете
+	// РёРЅС„РѕСЂРјР°С†РёСЏ, РѕР± РѕРґРЅРѕРј СЃР°Р±РІРёРґР¶РµС‚Рµ
 	struct SubWidgetInfo
 	{
 		SubWidgetInfo(const std::string & _type, const IntCoord& _coord, Align _align, const MapString & _properties) :
@@ -38,7 +38,7 @@ namespace MyGUI
 	typedef WidgetSkinInfo * WidgetSkinInfoPtr;
 	typedef std::map<std::string, WidgetSkinInfoPtr> MapWidgetSkinInfoPtr;
 
-	// вспомогательный класс для инициализации одного скина
+	// РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РѕРґРЅРѕРіРѕ СЃРєРёРЅР°
 	class _MyGUIExport WidgetSkinInfo
 	{
 
@@ -95,17 +95,17 @@ namespace MyGUI
 
 		void checkState(const std::string & _name)
 		{
-			// ищем такой же ключ
+			// РёС‰РµРј С‚Р°РєРѕР№ Р¶Рµ РєР»СЋС‡
 			MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
 			if (iter == mStates.end()) {
-				// добавляем новый стейт
+				// РґРѕР±Р°РІР»СЏРµРј РЅРѕРІС‹Р№ СЃС‚РµР№С‚
 				mStates[_name] = VectorStateInfo();
 			}
 		}
 
 		void checkBasis()
 		{
-			// и увеличиваем размер смещений по колличеству сабвиджетов
+			// Рё СѓРІРµР»РёС‡РёРІР°РµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёР№ РїРѕ РєРѕР»Р»РёС‡РµСЃС‚РІСѓ СЃР°Р±РІРёРґР¶РµС‚РѕРІ
 			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
 				iter->second.resize(mBasis.size());
 			}
@@ -132,11 +132,11 @@ namespace MyGUI
 		std::string mTexture;
 		VectorSubWidgetInfo mBasis;
 		MapWidgetStateInfo mStates;
-		// дополнительные параметры скина
+		// РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ СЃРєРёРЅР°
 		MapString mProperties;
-		// дети скина
+		// РґРµС‚Рё СЃРєРёРЅР°
 		VectorChildSkinInfo mChilds;
-		// маска для этого скина для пикинга
+		// РјР°СЃРєР° РґР»СЏ СЌС‚РѕРіРѕ СЃРєРёРЅР° РґР»СЏ РїРёРєРёРЅРіР°
 		MaskPeekInfo mMaskPeek;
 
 	};

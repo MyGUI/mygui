@@ -36,9 +36,9 @@ namespace MyGUI
 
 	class _MyGUIExport Tab : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Tab>;
-		// для уведобления об удалении
+		// РґР»СЏ СѓРІРµРґРѕР±Р»РµРЅРёСЏ РѕР± СѓРґР°Р»РµРЅРёРё
 		friend class Sheet;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -60,11 +60,11 @@ namespace MyGUI
 
 		void _insertSheet(size_t _index, const Ogre::UTFString & _name, SheetPtr _sheet, Any _data);
 
-		// вкладка при удалении уведомляет таб
+		// РІРєР»Р°РґРєР° РїСЂРё СѓРґР°Р»РµРЅРёРё СѓРІРµРґРѕРјР»СЏРµС‚ С‚Р°Р±
 		void _notifyDeleteSheet(SheetPtr _sheet);
 
 	public:
-		// переопределяем для особого обслуживания страниц
+		// РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РґР»СЏ РѕСЃРѕР±РѕРіРѕ РѕР±СЃР»СѓР¶РёРІР°РЅРёСЏ СЃС‚СЂР°РЅРёС†
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
@@ -90,14 +90,14 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// обобщеный интерфейс для работы с элементами
+		// РѕР±РѕР±С‰РµРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ СЌР»РµРјРµРЅС‚Р°РјРё
 
-		// типы для массива
+		// С‚РёРїС‹ РґР»СЏ РјР°СЃСЃРёРІР°
 		//typedef void * ItemType;
 		//typedef const std::string & NameType;
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of items
 		size_t getItemCount() { return mItemsInfo.size(); }
@@ -167,7 +167,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРµР»РµРЅРёСЏРјРё
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mIndexSelect; }
@@ -186,7 +186,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -217,7 +217,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
@@ -233,7 +233,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выдимостью
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРёРјРѕСЃС‚СЊСЋ
 
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index);
@@ -252,7 +252,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// остальные манипуляции
+		// РѕСЃС‚Р°Р»СЊРЅС‹Рµ РјР°РЅРёРїСѓР»СЏС†РёРё
 
 		//! Set button width at a specified position
 		void setButtonWidthAt(size_t _index, int _width = DEFAULT);
@@ -353,20 +353,20 @@ namespace MyGUI
 		EventInfo_WidgetSizeT eventTabChangeSelect;
 
 	private:
-		int mOffsetTab; // смещение бара при показе кнопок
+		int mOffsetTab; // СЃРјРµС‰РµРЅРёРµ Р±Р°СЂР° РїСЂРё РїРѕРєР°Р·Рµ РєРЅРѕРїРѕРє
 		bool mButtonShow;
-		int mWidthBar; // ширина в которую помещаються все кнопки
-		VectorWidgetPtr mSheetButton; // список кнопок, не должно равно списку страниц
+		int mWidthBar; // С€РёСЂРёРЅР° РІ РєРѕС‚РѕСЂСѓСЋ РїРѕРјРµС‰Р°СЋС‚СЊСЃСЏ РІСЃРµ РєРЅРѕРїРєРё
+		VectorWidgetPtr mSheetButton; // СЃРїРёСЃРѕРє РєРЅРѕРїРѕРє, РЅРµ РґРѕР»Р¶РЅРѕ СЂР°РІРЅРѕ СЃРїРёСЃРєСѓ СЃС‚СЂР°РЅРёС†
 		std::string mButtonSkinName, mEmptySkinName;
 
 		WidgetPtr mWidgetBar;
 		ButtonPtr mButtonLeft, mButtonRight, mButtonList;
 		WidgetPtr mButtonDecor;
-		VectorWidgetPtr mWidgetsPatch; // список виджетов которые нужно показать при показе кнопки
+		VectorWidgetPtr mWidgetsPatch; // СЃРїРёСЃРѕРє РІРёРґР¶РµС‚РѕРІ РєРѕС‚РѕСЂС‹Рµ РЅСѓР¶РЅРѕ РїРѕРєР°Р·Р°С‚СЊ РїСЂРё РїРѕРєР°Р·Рµ РєРЅРѕРїРєРё
 		WidgetPtr mEmptyBarWidget;
 		WidgetPtr mSheetTemplate;
 
-		// информация о вкладках
+		// РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РІРєР»Р°РґРєР°С…
 		VectorTabSheetInfo mItemsInfo;
 		size_t mStartIndex;
 		size_t mIndexSelect;
@@ -375,7 +375,7 @@ namespace MyGUI
 		bool mSmoothShow;
 		bool mButtonAutoWidth;
 
-		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
+		// С„Р»Р°Рі, С‡С‚РѕР±С‹ РѕС‚СЃРµС‡ СѓРІРµРґРѕРјР»РµРЅРёСЏ РѕС‚ РІРєР»Р°РґРѕРє, РїСЂРё РѕР±С‰РµРј С€СѓС‚РґР°СѓРЅРµ РІРёРґР¶РµС‚Р°
 		bool mShutDown;
 
 	};

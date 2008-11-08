@@ -22,7 +22,7 @@ namespace MyGUI
 			WindowFactory();
 			~WindowFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Window_AutoAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Window_Snap(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Window_MinMax(WidgetPtr _widget, const std::string &_key, const std::string &_value);

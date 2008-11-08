@@ -24,13 +24,13 @@ namespace MyGUI
 	protected:
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name) = 0;
 
-		// удяляет неудачника
+		// СѓРґСЏР»СЏРµС‚ РЅРµСѓРґР°С‡РЅРёРєР°
 		virtual void _destroyChildWidget(WidgetPtr _widget) = 0;
 
-		// удаляет всех детей
+		// СѓРґР°Р»СЏРµС‚ РІСЃРµС… РґРµС‚РµР№
 		virtual void _destroyAllChildWidget() = 0;
 
-		// удаляет виджет с закрытым конструктором
+		// СѓРґР°Р»СЏРµС‚ РІРёРґР¶РµС‚ СЃ Р·Р°РєСЂС‹С‚С‹Рј РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРѕРј
 		void _deleteWidget(WidgetPtr _widget);
 
 	};

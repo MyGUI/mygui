@@ -44,7 +44,7 @@ namespace MyGUI
 		void addDrawItem(DrawItem * _item, size_t _count)
 		{
 
-// проверяем только в дебаге
+// РїСЂРѕРІРµСЂСЏРµРј С‚РѕР»СЊРєРѕ РІ РґРµР±Р°РіРµ
 #if MYGUI_DEBUG_MODE == 1
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
 				MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
@@ -62,7 +62,7 @@ namespace MyGUI
 		{
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
 				if ((*iter).first == _item) {
-					// если нужно меньше, то ниче не делаем
+					// РµСЃР»Рё РЅСѓР¶РЅРѕ РјРµРЅСЊС€Рµ, С‚Рѕ РЅРёС‡Рµ РЅРµ РґРµР»Р°РµРј
 					if ((*iter).second < _count) {
 						mNeedVertexCount -= (*iter).second;
 						mNeedVertexCount += _count;

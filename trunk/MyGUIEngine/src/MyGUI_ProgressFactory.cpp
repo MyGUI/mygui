@@ -15,7 +15,7 @@ namespace MyGUI
 		ProgressFactory::ProgressFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Progress_Range") = newDelegate(this, &ProgressFactory::Progress_Range);
 			manager.registerDelegate("Progress_Position") = newDelegate(this, &ProgressFactory::Progress_Position);
 			manager.registerDelegate("Progress_AutoTrack") = newDelegate(this, &ProgressFactory::Progress_AutoTrack);
@@ -25,14 +25,14 @@ namespace MyGUI
 		ProgressFactory::~ProgressFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Progress_Range");
 			manager.unregisterDelegate("Progress_Position");
 			manager.unregisterDelegate("Progress_AutoTrack");
 			manager.unregisterDelegate("Progress_StartPoint");
 		}
 
-		// методы для парсинга
+		// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 		void ProgressFactory::Progress_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;

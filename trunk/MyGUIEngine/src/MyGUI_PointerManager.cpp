@@ -40,7 +40,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		// удаляем все виджеты
+		// СѓРґР°Р»СЏРµРј РІСЃРµ РІРёРґР¶РµС‚С‹
 		_destroyAllChildWidget();
 
 		clear();
@@ -61,20 +61,20 @@ namespace MyGUI
 	{
 		std::string layer, def, text;
 
-		// берем детей и крутимся, основной цикл
+		// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 		xml::xmlNodeIterator pointer = _node->getNodeIterator();
 		while (pointer.nextNode(XML_TYPE)) {
 
-			// парсим атрибуты
+			// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹
 			pointer->findAttribute("layer", layer);
 			pointer->findAttribute("default", def);
 
-			// сохраняем
+			// СЃРѕС…СЂР°РЅСЏРµРј
 			text = pointer->findAttribute("texture");
 
 			IntSize textureSize = SkinManager::getTextureSize(text);
 
-			// берем детей и крутимся, основной цикл
+			// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 			xml::xmlNodeIterator info = pointer->getNodeIterator();
 			while (info.nextNode("Info")) {
 
@@ -87,18 +87,18 @@ namespace MyGUI
 				IntSize size = IntSize::parse(info->findAttribute("size"));
 				IntPoint point = IntPoint::parse(info->findAttribute("point"));
 
-				//новый вариант курсоров
+				//РЅРѕРІС‹Р№ РІР°СЂРёР°РЅС‚ РєСѓСЂСЃРѕСЂРѕРІ
 				if ( ! resource.empty() ) {
 					ResourceImageSetPtr image = static_cast<ResourceImageSetPtr>(ResourceManager::getInstance().getResource(resource));
 					mMapPointers[name] = PointerInfo(point, size, image);
 
 				}
-				//старый  вариант курсоров
+				//СЃС‚Р°СЂС‹Р№  РІР°СЂРёР°РЅС‚ РєСѓСЂСЃРѕСЂРѕРІ
 				else {
-					// значения параметров
+					// Р·РЅР°С‡РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ
 					FloatRect offset(0, 0, 1, 1);
 
-					// парсим атрибуты
+					// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹
 					std::string texture(info->findAttribute("texture"));
 					std::string offset_str(info->findAttribute("offset"));
 					if (false == offset_str.empty()) {
@@ -112,7 +112,7 @@ namespace MyGUI
 			};
 		};
 
-		// если есть левел, то пересоеденяем, если нет виджета, то создаем
+		// РµСЃР»Рё РµСЃС‚СЊ Р»РµРІРµР», С‚Рѕ РїРµСЂРµСЃРѕРµРґРµРЅСЏРµРј, РµСЃР»Рё РЅРµС‚ РІРёРґР¶РµС‚Р°, С‚Рѕ СЃРѕР·РґР°РµРј
 		if (false == layer.empty()) {
 			if (null == mMousePointer) {
 				mMousePointer = static_cast<StaticImagePtr>(_createWidget(StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
@@ -120,14 +120,14 @@ namespace MyGUI
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
 		}
 
-		// если есть дефолтный курсор то меняем
+		// РµСЃР»Рё РµСЃС‚СЊ РґРµС„РѕР»С‚РЅС‹Р№ РєСѓСЂСЃРѕСЂ С‚Рѕ РјРµРЅСЏРµРј
 		if (false == def.empty()) mDefaultPointer = def;
 		if (false == text.empty()) mTexture = text;
 
-		// если дефолтного нет, то пробуем первый из списка
+		// РµСЃР»Рё РґРµС„РѕР»С‚РЅРѕРіРѕ РЅРµС‚, С‚Рѕ РїСЂРѕР±СѓРµРј РїРµСЂРІС‹Р№ РёР· СЃРїРёСЃРєР°
 		if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
 
-		// ставим дефолтный указатель
+		// СЃС‚Р°РІРёРј РґРµС„РѕР»С‚РЅС‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ
 		setPointer(mDefaultPointer, null);
 	}
 
@@ -163,16 +163,16 @@ namespace MyGUI
 		MapPointerInfo::iterator iter = mMapPointers.find(_name);
 		if (iter == mMapPointers.end()) return;
 
-		// новый вид курсоров через ресурсы
+		// РЅРѕРІС‹Р№ РІРёРґ РєСѓСЂСЃРѕСЂРѕРІ С‡РµСЂРµР· СЂРµСЃСѓСЂСЃС‹
 		if (iter->second.resource != null) {
 			if (mMousePointer->getItemResource() != iter->second.resource) {
 				mMousePointer->setItemResourceInfo(iter->second.resource->getIndexInfo(0, 0));
 			}
 		}
 
-		// старый вид курсоров
+		// СЃС‚Р°СЂС‹Р№ РІРёРґ РєСѓСЂСЃРѕСЂРѕРІ
 		else {
-			// если курсор имеет свой материал
+			// РµСЃР»Рё РєСѓСЂСЃРѕСЂ РёРјРµРµС‚ СЃРІРѕР№ РјР°С‚РµСЂРёР°Р»
 			if (false == iter->second.texture.empty()) {
 				if (mMousePointer->_getTextureName() != iter->second.texture) {
 					mMousePointer->_setTextureName(iter->second.texture);
@@ -189,13 +189,13 @@ namespace MyGUI
 			}
 		}
 
-		// сдвигаем с учетом нового и старого смещения
+		// СЃРґРІРёРіР°РµРј СЃ СѓС‡РµС‚РѕРј РЅРѕРІРѕРіРѕ Рё СЃС‚Р°СЂРѕРіРѕ СЃРјРµС‰РµРЅРёСЏ
 		mMousePointer->setCoord(
 			mMousePointer->getLeft() + mPoint.left - iter->second.point.left,
 			mMousePointer->getTop() + mPoint.top - iter->second.point.top,
 			iter->second.size.width, iter->second.size.height);
 
-		// и сохраняем новое смещение
+		// Рё СЃРѕС…СЂР°РЅСЏРµРј РЅРѕРІРѕРµ СЃРјРµС‰РµРЅРёРµ
 		mPoint = iter->second.point;
 		mWidgetOwner = _owner;
 	}
@@ -206,17 +206,17 @@ namespace MyGUI
 		else if (_widget == mMousePointer) mMousePointer = null;
 	}
 
-	// создает виджет
+	// СЃРѕР·РґР°РµС‚ РІРёРґР¶РµС‚
 	WidgetPtr PointerManager::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);
 		mWidgetChild.push_back(widget);
-		// присоединяем виджет с уровню
+		// РїСЂРёСЃРѕРµРґРёРЅСЏРµРј РІРёРґР¶РµС‚ СЃ СѓСЂРѕРІРЅСЋ
 		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
 		return widget;
 	}
 
-	// удяляет неудачника
+	// СѓРґСЏР»СЏРµС‚ РЅРµСѓРґР°С‡РЅРёРєР°
 	void PointerManager::_destroyChildWidget(WidgetPtr _widget)
 	{
 		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
@@ -224,36 +224,36 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end()) {
 
-			// сохраняем указатель
+			// СЃРѕС…СЂР°РЅСЏРµРј СѓРєР°Р·Р°С‚РµР»СЊ
 			MyGUI::WidgetPtr widget = *iter;
 
-			// удаляем из списка
+			// СѓРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєР°
 			*iter = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			// отписываем от всех
+			// РѕС‚РїРёСЃС‹РІР°РµРј РѕС‚ РІСЃРµС…
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
 
-			// непосредственное удаление
+			// РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕРµ СѓРґР°Р»РµРЅРёРµ
 			_deleteWidget(widget);
 		}
 		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
 	}
 
-	// удаляет всех детей
+	// СѓРґР°Р»СЏРµС‚ РІСЃРµС… РґРµС‚РµР№
 	void PointerManager::_destroyAllChildWidget()
 	{
 		WidgetManager & manager = WidgetManager::getInstance();
 		while (false == mWidgetChild.empty()) {
 
-			// сразу себя отписывем, иначе вложенной удаление убивает все
+			// СЃСЂР°Р·Сѓ СЃРµР±СЏ РѕС‚РїРёСЃС‹РІРµРј, РёРЅР°С‡Рµ РІР»РѕР¶РµРЅРЅРѕР№ СѓРґР°Р»РµРЅРёРµ СѓР±РёРІР°РµС‚ РІСЃРµ
 			WidgetPtr widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			// отписываем от всех
+			// РѕС‚РїРёСЃС‹РІР°РµРј РѕС‚ РІСЃРµС…
 			manager.unlinkFromUnlinkers(widget);
 
-			// и сами удалим, так как его больше в списке нет
+			// Рё СЃР°РјРё СѓРґР°Р»РёРј, С‚Р°Рє РєР°Рє РµРіРѕ Р±РѕР»СЊС€Рµ РІ СЃРїРёСЃРєРµ РЅРµС‚
 			_deleteWidget(widget);
 		}
 	}

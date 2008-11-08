@@ -16,7 +16,7 @@ namespace MyGUI
 
 	class _MyGUIExport Message : public Window
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Message>;
 
 		MYGUI_RTTI_CHILD_HEADER;

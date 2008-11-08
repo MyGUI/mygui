@@ -24,47 +24,47 @@ namespace MyGUI
 
 	class _MyGUIExport Widget : public ICroppedRectangle, public LayerItem, public UserData, public WidgetEvent, public IWidgetCreator, public IDelegateUnlink
 	{
-		// для вызова закрытых деструкторов
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚С‹С… РґРµСЃС‚СЂСѓРєС‚РѕСЂРѕРІ
 		friend class IWidgetCreator;
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Widget>;
 
 		MYGUI_RTTI_BASE_HEADER;
 
 	protected:
-		// все создание только через фабрику
+		// РІСЃРµ СЃРѕР·РґР°РЅРёРµ С‚РѕР»СЊРєРѕ С‡РµСЂРµР· С„Р°Р±СЂРёРєСѓ
 		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~Widget();
 
-		void _updateView(); // обновления себя и детей
+		void _updateView(); // РѕР±РЅРѕРІР»РµРЅРёСЏ СЃРµР±СЏ Рё РґРµС‚РµР№
 
 		void _setAlign(const IntSize& _size, bool _update);
 		void _setAlign(const IntCoord& _coord, bool _update);
 
-		// показывает скрывает все сабскины
+		// РїРѕРєР°Р·С‹РІР°РµС‚ СЃРєСЂС‹РІР°РµС‚ РІСЃРµ СЃР°Р±СЃРєРёРЅС‹
 		void _setVisible(bool _visible);
 
-		// создает виджет
+		// СЃРѕР·РґР°РµС‚ РІРёРґР¶РµС‚
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
-		// удяляет неудачника
+		// СѓРґСЏР»СЏРµС‚ РЅРµСѓРґР°С‡РЅРёРєР°
 		virtual void _destroyChildWidget(WidgetPtr _widget);
 
-		// удаляет всех детей
+		// СѓРґР°Р»СЏРµС‚ РІСЃРµС… РґРµС‚РµР№
 		virtual void _destroyAllChildWidget();
 
 		void frameEntered(float _frame);
 
-		// запрашиваем у конейтера айтем по позиции мыши
+		// Р·Р°РїСЂР°С€РёРІР°РµРј Сѓ РєРѕРЅРµР№С‚РµСЂР° Р°Р№С‚РµРј РїРѕ РїРѕР·РёС†РёРё РјС‹С€Рё
 		virtual size_t getContainerIndex(const IntPoint & _point) { return ITEM_NONE; }
 
-		// сброс всех данных контейнера, тултипы и все остальное
+		// СЃР±СЂРѕСЃ РІСЃРµС… РґР°РЅРЅС‹С… РєРѕРЅС‚РµР№РЅРµСЂР°, С‚СѓР»С‚РёРїС‹ Рё РІСЃРµ РѕСЃС‚Р°Р»СЊРЅРѕРµ
 		virtual void resetContainer(bool _update);
 
 
 	public:
 
-		// методы и шаблоны для создания виджета
+		// РјРµС‚РѕРґС‹ Рё С€Р°Р±Р»РѕРЅС‹ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РІРёРґР¶РµС‚Р°
 		/** Create child widget
 			@param _type widget type
 			@param _skin widget skin
@@ -156,7 +156,7 @@ namespace MyGUI
 		/** Hide widget */
 		virtual void hide();
 
-		// для внутреннего использования
+		// РґР»СЏ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ
 		void _inheritedShow();
 		void _inheritedHide();
 		bool _isInheritedShow() { return mInheritedShow; }
@@ -214,15 +214,15 @@ namespace MyGUI
 		virtual void _setTextureName(const Ogre::String& _texture);
 		virtual const Ogre::String& _getTextureName();
 
-		// являемся ли мы рутовым виджетом
+		// СЏРІР»СЏРµРјСЃСЏ Р»Рё РјС‹ СЂСѓС‚РѕРІС‹Рј РІРёРґР¶РµС‚РѕРј
 		/** Is this widget is root widget (root == without parents) */
 		bool isRootWidget() { return null == mParent; }
 
-		// закрываем метод базового класса
+		// Р·Р°РєСЂС‹РІР°РµРј РјРµС‚РѕРґ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР°
 		/** Get parent widget */
 		WidgetPtr getParent() { return static_cast<WidgetPtr>(mParent); }
 
-		// для поддержки окон напрямую не являющиеся детьми
+		// РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РѕРєРѕРЅ РЅР°РїСЂСЏРјСѓСЋ РЅРµ СЏРІР»СЏСЋС‰РёРµСЃСЏ РґРµС‚СЊРјРё
 		WidgetPtr _getOwner() { return mOwner; }
 		void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
 
@@ -234,7 +234,7 @@ namespace MyGUI
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string & _name);
 
-		// наследуемся он LayerInfo
+		// РЅР°СЃР»РµРґСѓРµРјСЃСЏ РѕРЅ LayerInfo
 		virtual LayerItem * _findLayerItem(int _left, int _top);
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item);
 		virtual void _detachFromLayerItemKeeper();
@@ -258,7 +258,7 @@ namespace MyGUI
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _enabled);
 
-		// меняет доступность без изменения стейтов
+		// РјРµРЅСЏРµС‚ РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ Р±РµР· РёР·РјРµРЅРµРЅРёСЏ СЃС‚РµР№С‚РѕРІ
 		/** Enable or disable widget without changing widget's state */
 		void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
 
@@ -278,7 +278,7 @@ namespace MyGUI
 			mPointer = _pointer;
 		}
 
-		// дает приоритет виджету при пиккинге
+		// РґР°РµС‚ РїСЂРёРѕСЂРёС‚РµС‚ РІРёРґР¶РµС‚Сѓ РїСЂРё РїРёРєРєРёРЅРіРµ
 		void _forcePeek(WidgetPtr _widget);
 
 		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
@@ -295,7 +295,7 @@ namespace MyGUI
 		/** Get clien area widget */
 		WidgetPtr getClientWidget() { return mWidgetClient; }
 
-		// метод для запроса номера айтема и контейнера
+		// РјРµС‚РѕРґ РґР»СЏ Р·Р°РїСЂРѕСЃР° РЅРѕРјРµСЂР° Р°Р№С‚РµРјР° Рё РєРѕРЅС‚РµР№РЅРµСЂР°
 		virtual void getContainer(WidgetPtr & _container, size_t & _index);
 
 		ISubWidgetText * _getSubWidgetText() { return mText; }
@@ -312,52 +312,52 @@ namespace MyGUI
 		void enableToolTip(bool _enable);
 
 	protected:
-		// список всех стейтов
+		// СЃРїРёСЃРѕРє РІСЃРµС… СЃС‚РµР№С‚РѕРІ
 		const MapWidgetStateInfo & mStateInfo;
-		// информация о маске для пикинга
+		// РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјР°СЃРєРµ РґР»СЏ РїРёРєРёРЅРіР°
 		MaskPeekInfo const * mMaskPeekInfo;
 		MaskPeekInfo mOwnMaskPeekInfo;
 
-		// вектор всех детей виджетов
+		// РІРµРєС‚РѕСЂ РІСЃРµС… РґРµС‚РµР№ РІРёРґР¶РµС‚РѕРІ
 		VectorWidgetPtr mWidgetChild;
-		// вектор всех детей сабскинов
+		// РІРµРєС‚РѕСЂ РІСЃРµС… РґРµС‚РµР№ СЃР°Р±СЃРєРёРЅРѕРІ
 		VectorSubWidget mSubSkinChild;
 
-		// указатель на окно текста
+		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕРєРЅРѕ С‚РµРєСЃС‚Р°
 		ISubWidgetText * mText;
-		// указатель на первый не текстовой сабскин
+		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ РЅРµ С‚РµРєСЃС‚РѕРІРѕР№ СЃР°Р±СЃРєРёРЅ
 		ISubWidgetRect * mMainSkin;
 
-		// доступен ли на виджет
+		// РґРѕСЃС‚СѓРїРµРЅ Р»Рё РЅР° РІРёРґР¶РµС‚
 		bool mEnabled;
-		// скрыты ли все сабскины при выходе за границу
+		// СЃРєСЂС‹С‚С‹ Р»Рё РІСЃРµ СЃР°Р±СЃРєРёРЅС‹ РїСЂРё РІС‹С…РѕРґРµ Р·Р° РіСЂР°РЅРёС†Сѓ
 		bool mVisible;
-		// для иерархического скрытия
+		// РґР»СЏ РёРµСЂР°СЂС…РёС‡РµСЃРєРѕРіРѕ СЃРєСЂС‹С‚РёСЏ
 		bool mInheritedShow;
-		// прозрачность и флаг наследования альфы нашего оверлея
+		// РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ Рё С„Р»Р°Рі РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ Р°Р»СЊС„С‹ РЅР°С€РµРіРѕ РѕРІРµСЂР»РµСЏ
 		float mAlpha;
 		float mRealAlpha;
 		bool mInheritsAlpha;
-		// имя виджета
+		// РёРјСЏ РІРёРґР¶РµС‚Р°
 		std::string mName;
-		// курсор который будет показан при наведении
+		// РєСѓСЂСЃРѕСЂ РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РїРѕРєР°Р·Р°РЅ РїСЂРё РЅР°РІРµРґРµРЅРёРё
 		std::string mPointer;
 		std::string mTexture;
 
-		// для поддержки окон, напрямую не являющимися детьми
-		// всплывающие окна, списки комбобоксов и т.д.
+		// РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РѕРєРѕРЅ, РЅР°РїСЂСЏРјСѓСЋ РЅРµ СЏРІР»СЏСЋС‰РёРјРёСЃСЏ РґРµС‚СЊРјРё
+		// РІСЃРїР»С‹РІР°СЋС‰РёРµ РѕРєРЅР°, СЃРїРёСЃРєРё РєРѕРјР±РѕР±РѕРєСЃРѕРІ Рё С‚.Рґ.
 		WidgetPtr mOwner;
 
-		// это тот кто нас создал, и кто нас будет удалять
+		// СЌС‚Рѕ С‚РѕС‚ РєС‚Рѕ РЅР°СЃ СЃРѕР·РґР°Р», Рё РєС‚Рѕ РЅР°СЃ Р±СѓРґРµС‚ СѓРґР°Р»СЏС‚СЊ
 		IWidgetCreator * mIWidgetCreator;
 
-		// нужен ли виджету ввод с клавы
+		// РЅСѓР¶РµРЅ Р»Рё РІРёРґР¶РµС‚Сѓ РІРІРѕРґ СЃ РєР»Р°РІС‹
 		bool mNeedKeyFocus;
-		// нужен ли виджету фокус мыши
+		// РЅСѓР¶РµРЅ Р»Рё РІРёРґР¶РµС‚Сѓ С„РѕРєСѓСЃ РјС‹С€Рё
 		bool mNeedMouseFocus;
 		bool mInheritsPeek;
 
-		// клиентская зона окна
+		// РєР»РёРµРЅС‚СЃРєР°СЏ Р·РѕРЅР° РѕРєРЅР°
 		WidgetPtr mWidgetClient;
 
 		bool mNeedToolTip;

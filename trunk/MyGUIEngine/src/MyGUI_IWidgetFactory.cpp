@@ -19,7 +19,7 @@
 //		template <typename T>
 //		BaseWidgetFactory<T>::BaseWidgetFactory()
 //		{
-//			// регестрируем себя
+//			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј СЃРµР±СЏ
 //			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 //			manager.registerFactory(this);
 //		}
@@ -27,7 +27,7 @@
 //		template <typename T>
 //		BaseWidgetFactory<T>::~BaseWidgetFactory()
 //		{
-//			// удаляем себя
+//			// СѓРґР°Р»СЏРµРј СЃРµР±СЏ
 //			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 //			manager.unregisterFactory(this);
 //		}

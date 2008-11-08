@@ -22,7 +22,7 @@ namespace MyGUI
 			ProgressFactory();
 			~ProgressFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Progress_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Progress_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Progress_AutoTrack(WidgetPtr _widget, const std::string &_key, const std::string &_value);

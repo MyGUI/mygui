@@ -79,21 +79,21 @@ namespace MyGUI
 		/** Get current mouse position */
 		const IntPoint & getMousePosition() { return mMousePosition; }
 
-		// тестовый вариант, очистка фокуса мыши
+		// С‚РµСЃС‚РѕРІС‹Р№ РІР°СЂРёР°РЅС‚, РѕС‡РёСЃС‚РєР° С„РѕРєСѓСЃР° РјС‹С€Рё
 		/** Drop any mouse focus */
 		void resetMouseFocusWidget();
 
-		// удаляем данный виджет из всех возможных мест
+		// СѓРґР°Р»СЏРµРј РґР°РЅРЅС‹Р№ РІРёРґР¶РµС‚ РёР· РІСЃРµС… РІРѕР·РјРѕР¶РЅС‹С… РјРµСЃС‚
 		void _unlinkWidget(WidgetPtr _widget);
 
-		// событие смены курсора
+		// СЃРѕР±С‹С‚РёРµ СЃРјРµРЅС‹ РєСѓСЂСЃРѕСЂР°
 		/** Event : Pointer has been changed.\n
 			signature : void method(const std::string & _pointerName)\n
 			@param _pointerName name of current pointer
 		*/
 		EventInfo_String eventChangeMousePointer;
 
-		// работа с модальными окнами
+		// СЂР°Р±РѕС‚Р° СЃ РјРѕРґР°Р»СЊРЅС‹РјРё РѕРєРЅР°РјРё
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
 		void addWidgetModal(WidgetPtr _widget);
 		/** Remove modal widget */
@@ -107,25 +107,25 @@ namespace MyGUI
 		/** Is shift button pressed */
 		bool isShiftPressed() { return mIsShiftPressed; }
 
-		// возвращает виджет, находящийся в указанной точке
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІРёРґР¶РµС‚, РЅР°С…РѕРґСЏС‰РёР№СЃСЏ РІ СѓРєР°Р·Р°РЅРЅРѕР№ С‚РѕС‡РєРµ
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
-		// сбрасывает захват мыши, если он был
+		// СЃР±СЂР°СЃС‹РІР°РµС‚ Р·Р°С…РІР°С‚ РјС‹С€Рё, РµСЃР»Рё РѕРЅ Р±С‹Р»
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
 	private:
 		void frameEntered(float _frame);
 
 		void firstEncoding(KeyCode _key, bool bIsKeyPressed);
-		Char getKeyChar(KeyCode keyEvent, Char _text); // возвращает символ по его скан коду
+		Char getKeyChar(KeyCode keyEvent, Char _text); // РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРёРјРІРѕР» РїРѕ РµРіРѕ СЃРєР°РЅ РєРѕРґСѓ
 
-		// создает латинскую раскладку
+		// СЃРѕР·РґР°РµС‚ Р»Р°С‚РёРЅСЃРєСѓСЋ СЂР°СЃРєР»Р°РґРєСѓ
 		void createDefaultCharSet();
 
-		// запоминает клавишу для поддержки повторения
+		// Р·Р°РїРѕРјРёРЅР°РµС‚ РєР»Р°РІРёС€Сѓ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РїРѕРІС‚РѕСЂРµРЅРёСЏ
 		void storeKey(KeyCode _key, Char _text);
 
-		// сбрасывает клавишу повторения
+		// СЃР±СЂР°СЃС‹РІР°РµС‚ РєР»Р°РІРёС€Сѓ РїРѕРІС‚РѕСЂРµРЅРёСЏ
 		void resetKey();
 
 #ifdef MYGUI_NO_OIS
@@ -136,7 +136,7 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
-		// событие смены языков
+		// СЃРѕР±С‹С‚РёРµ СЃРјРµРЅС‹ СЏР·С‹РєРѕРІ
 		/** Event : Language has been changed.\n
 			signature : void method(const std::string & _languageName)\n
 			@param _languageName name of current language
@@ -149,13 +149,13 @@ namespace MyGUI
 		void setCurrentLanguage(const std::string & _lang);
 
 	private:
-		// сменяет язык на следующий
+		// СЃРјРµРЅСЏРµС‚ СЏР·С‹Рє РЅР° СЃР»РµРґСѓСЋС‰РёР№
 		void changeLanguage()
 		{
 			mCurrentLanguage++;
 			if (mCurrentLanguage == mMapLanguages.end())
 				mCurrentLanguage = mMapLanguages.begin();
-			// послать событие
+			// РїРѕСЃР»Р°С‚СЊ СЃРѕР±С‹С‚РёРµ
 			eventChangeLanguage(mCurrentLanguage->first);
 		}
 
@@ -170,44 +170,44 @@ namespace MyGUI
 
 	private:
 
-		// виджеты которым принадлежит фокус
+		// РІРёРґР¶РµС‚С‹ РєРѕС‚РѕСЂС‹Рј РїСЂРёРЅР°РґР»РµР¶РёС‚ С„РѕРєСѓСЃ
 		WidgetPtr mWidgetMouseFocus;
 		WidgetPtr mWidgetKeyFocus;
-		// корневые виджеты, детям которых принадлежит фокус
+		// РєРѕСЂРЅРµРІС‹Рµ РІРёРґР¶РµС‚С‹, РґРµС‚СЏРј РєРѕС‚РѕСЂС‹С… РїСЂРёРЅР°РґР»РµР¶РёС‚ С„РѕРєСѓСЃ
 		//WidgetPtr mWidgetRootMouseFocus;
 		WidgetPtr mWidgetRootKeyFocus;
-		// захватил ли мышь активный виджет
+		// Р·Р°С…РІР°С‚РёР» Р»Рё РјС‹С€СЊ Р°РєС‚РёРІРЅС‹Р№ РІРёРґР¶РµС‚
 		bool mIsWidgetMouseCapture;
-		// таймер для двойного клика
+		// С‚Р°Р№РјРµСЂ РґР»СЏ РґРІРѕР№РЅРѕРіРѕ РєР»РёРєР°
 	    Ogre::Timer mTime; //used for double click timing
 
 #ifdef MYGUI_NO_OIS
-		// карта языков
+		// РєР°СЂС‚Р° СЏР·С‹РєРѕРІ
 		MapLang mMapLanguages;
-		// текущий язык
+		// С‚РµРєСѓС‰РёР№ СЏР·С‹Рє
 		MapLang::iterator mCurrentLanguage;
 #endif
 
-		// нажат ли шифт
+		// РЅР°Р¶Р°С‚ Р»Рё С€РёС„С‚
 		bool mIsShiftPressed;
-		// нажат ли контрол
+		// РЅР°Р¶Р°С‚ Р»Рё РєРѕРЅС‚СЂРѕР»
 		bool mIsControlPressed;
-		// массив для нумлока
+		// РјР°СЃСЃРёРІ РґР»СЏ РЅСѓРјР»РѕРєР°
 		LangInfo mNums;
-		// там где была последний раз нажата левая кнопка
+		// С‚Р°Рј РіРґРµ Р±С‹Р»Р° РїРѕСЃР»РµРґРЅРёР№ СЂР°Р· РЅР°Р¶Р°С‚Р° Р»РµРІР°СЏ РєРЅРѕРїРєР°
 		IntPoint mLastLeftPressed;
 		IntPoint mMousePosition;
-		// клавиша для повтора
+		// РєР»Р°РІРёС€Р° РґР»СЏ РїРѕРІС‚РѕСЂР°
 		KeyCode mHoldKey;
 		Char mHoldChar;
 		bool mFirstPressKey;
 		float mTimerKey;
 		int mOldAbsZ;
 		
-		// текущий отображаемый указатель
+		// С‚РµРєСѓС‰РёР№ РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ
 		std::string mPointer;
 
-		// список виджетов с модальным режимом
+		// СЃРїРёСЃРѕРє РІРёРґР¶РµС‚РѕРІ СЃ РјРѕРґР°Р»СЊРЅС‹Рј СЂРµР¶РёРјРѕРј
 		VectorWidgetPtr mVectorModalRootWidget;
 
 		bool m_showHelpers;

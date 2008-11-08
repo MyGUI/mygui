@@ -37,7 +37,7 @@ namespace MyGUI
 			mSceneManager = null;
 		}
 
-		// инициализация
+		// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 		mPixScaleX = mPixScaleY = 1;
         mHOffset = mVOffset = 0;
 		mAspectCoef = 1;
@@ -46,8 +46,8 @@ namespace MyGUI
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 
-		// не забывай, о великий построитель гуёв
-		// Кто здесь?
+		// РЅРµ Р·Р°Р±С‹РІР°Р№, Рѕ РІРµР»РёРєРёР№ РїРѕСЃС‚СЂРѕРёС‚РµР»СЊ РіСѓС‘РІ
+		// РљС‚Рѕ Р·РґРµСЃСЊ?
 		mMaximumDepth = Ogre::Root::getSingleton().getRenderSystem()->getMaximumDepthInputValue();
 	}
 
@@ -56,7 +56,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		// удаляем все хранители слоев
+		// СѓРґР°Р»СЏРµРј РІСЃРµ С…СЂР°РЅРёС‚РµР»Рё СЃР»РѕРµРІ
 		clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
@@ -82,7 +82,7 @@ namespace MyGUI
 	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
 		VectorLayerKeeperPtr layers;
-		// берем детей и крутимся, основной цикл
+		// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 		xml::xmlNodeIterator layer = _node->getNodeIterator();
 		while (layer.nextNode(XML_TYPE)) {
 
@@ -102,7 +102,7 @@ namespace MyGUI
 				utility::parseBool(layer->findAttribute("peek")) ));
 		};
 
-		// теперь мержим новые и старые слои
+		// С‚РµРїРµСЂСЊ РјРµСЂР¶РёРј РЅРѕРІС‹Рµ Рё СЃС‚Р°СЂС‹Рµ СЃР»РѕРё
 		merge(layers);
 	}
 
@@ -118,7 +118,7 @@ namespace MyGUI
 			(*iter)->_render(mUpdate);
 		}
 
-		// сбрасываем флаг
+		// СЃР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі
 		mUpdate = false;
 
 	}
@@ -132,28 +132,28 @@ namespace MyGUI
 		detachFromLayerKeeper(_widget);
 	}
 
-	// поправить на виджет и проверять на рутовость
+	// РїРѕРїСЂР°РІРёС‚СЊ РЅР° РІРёРґР¶РµС‚ Рё РїСЂРѕРІРµСЂСЏС‚СЊ РЅР° СЂСѓС‚РѕРІРѕСЃС‚СЊ
 	void LayerManager::attachToLayerKeeper(const std::string& _name, WidgetPtr _item)
 	{
 		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
 
-		// сначала отсоединяем
+		// СЃРЅР°С‡Р°Р»Р° РѕС‚СЃРѕРµРґРёРЅСЏРµРј
 		detachFromLayerKeeper(_item);
 
-		// а теперь аттачим
+		// Р° С‚РµРїРµСЂСЊ Р°С‚С‚Р°С‡РёРј
 		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
 			if (_name == (*iter)->getName()) {
 
-				// запоминаем в рутовом виджете хранитель лееров
+				// Р·Р°РїРѕРјРёРЅР°РµРј РІ СЂСѓС‚РѕРІРѕРј РІРёРґР¶РµС‚Рµ С…СЂР°РЅРёС‚РµР»СЊ Р»РµРµСЂРѕРІ
 				_item->mLayerKeeper = (*iter);
 
-				// достаем из хранителя леер для себя
+				// РґРѕСЃС‚Р°РµРј РёР· С…СЂР°РЅРёС‚РµР»СЏ Р»РµРµСЂ РґР»СЏ СЃРµР±СЏ
 				_item->mLayerItemKeeper = (*iter)->getItem();
 
-				// подписываемся на пиккинг
+				// РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РїРёРєРєРёРЅРі
 				_item->mLayerItemKeeper->_addPeekItem(_item);
 
-				// физически подсоединяем иерархию
+				// С„РёР·РёС‡РµСЃРєРё РїРѕРґСЃРѕРµРґРёРЅСЏРµРј РёРµСЂР°СЂС…РёСЋ
 				_item->_attachToLayerItemKeeper(_item->mLayerItemKeeper);
 
 				return;
@@ -166,19 +166,19 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(null != _item, "pointer must be valid");
 
-		// мы уже отдетачены в доску
+		// РјС‹ СѓР¶Рµ РѕС‚РґРµС‚Р°С‡РµРЅС‹ РІ РґРѕСЃРєСѓ
 		if (null == _item->mLayerKeeper) return;
 
-		// отписываемся от пиккинга
+		// РѕС‚РїРёСЃС‹РІР°РµРјСЃСЏ РѕС‚ РїРёРєРєРёРЅРіР°
 		_item->mLayerItemKeeper->_removePeekItem(_item);
 
-		// при детаче обнулиться
+		// РїСЂРё РґРµС‚Р°С‡Рµ РѕР±РЅСѓР»РёС‚СЊСЃСЏ
 		LayerItemKeeper * save = _item->mLayerItemKeeper;
 
-		// физически отсоединяем 
+		// С„РёР·РёС‡РµСЃРєРё РѕС‚СЃРѕРµРґРёРЅСЏРµРј 
 		_item->_detachFromLayerItemKeeper();
 
-		// отсоединяем леер и обнуляем у рутового виджета
+		// РѕС‚СЃРѕРµРґРёРЅСЏРµРј Р»РµРµСЂ Рё РѕР±РЅСѓР»СЏРµРј Сѓ СЂСѓС‚РѕРІРѕРіРѕ РІРёРґР¶РµС‚Р°
 		_item->mLayerKeeper->leaveItem(save);
 		_item->mLayerItemKeeper = null;
 		_item->mLayerKeeper = null;
@@ -199,17 +199,17 @@ namespace MyGUI
 	{
 		if (null == _item) return;
 
-		// добираемся до рута
+		// РґРѕР±РёСЂР°РµРјСЃСЏ РґРѕ СЂСѓС‚Р°
 		while (_item->getParent() != null) _item = _item->getParent();
 
-		// если приаттачены, то поднимаем
+		// РµСЃР»Рё РїСЂРёР°С‚С‚Р°С‡РµРЅС‹, С‚Рѕ РїРѕРґРЅРёРјР°РµРј
 		if (null != _item->mLayerKeeper) _item->mLayerKeeper->upItem(_item->mLayerItemKeeper);
 
 	}
 
 	void LayerManager::_windowResized(const IntSize& _size)
 	{
-		// новый размер
+		// РЅРѕРІС‹Р№ СЂР°Р·РјРµСЂ
 		mPixScaleX = 1.0 / _size.width;
 		mPixScaleY = 1.0 / _size.height;
 		mAspectCoef = float(_size.height) / _size.width;
@@ -219,7 +219,7 @@ namespace MyGUI
         mHOffset = render->getHorizontalTexelOffset() / _size.width;
         mVOffset = render->getVerticalTexelOffset() / _size.height;
 
-		// обновить всех
+		// РѕР±РЅРѕРІРёС‚СЊ РІСЃРµС…
 		mUpdate = true;
 
 	}
@@ -247,7 +247,7 @@ namespace MyGUI
 			std::string name = (*iter)->getName();
 			for (VectorLayerKeeperPtr::iterator iter2=_layers.begin(); iter2!=_layers.end(); ++iter2) {
 				if (name == (*iter2)->getName()) {
-					// заменяем новый слой, на уже существующий
+					// Р·Р°РјРµРЅСЏРµРј РЅРѕРІС‹Р№ СЃР»РѕР№, РЅР° СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№
 					delete (*iter2);
 					(*iter2) = (*iter);
 					(*iter) = null;
@@ -261,7 +261,7 @@ namespace MyGUI
 			}
 		}
 
-		// теперь в основной
+		// С‚РµРїРµСЂСЊ РІ РѕСЃРЅРѕРІРЅРѕР№
 		mLayerKeepers = _layers;
 	}
 

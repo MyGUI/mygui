@@ -138,7 +138,7 @@ namespace MyGUI
 
 	void Progress::updateTrack()
 	{
-		// все скрыто
+		// РІСЃРµ СЃРєСЂС‹С‚Рѕ
 		if ((0 == mRange) || (0 == mEndPosition)) {
 			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter) {
 				(*iter)->hide();
@@ -146,7 +146,7 @@ namespace MyGUI
 			return;
 		}
 
-		// тут попроще расчеты
+		// С‚СѓС‚ РїРѕРїСЂРѕС‰Рµ СЂР°СЃС‡РµС‚С‹
 		if (mFillTrack) {
 
 			if (mVectorTrack.empty()) {
@@ -154,12 +154,12 @@ namespace MyGUI
 				mVectorTrack.push_back(widget);
 			}
 			else {
-				// первый показываем и ставим норм альфу
+				// РїРµСЂРІС‹Р№ РїРѕРєР°Р·С‹РІР°РµРј Рё СЃС‚Р°РІРёРј РЅРѕСЂРј Р°Р»СЊС„Сѓ
 				VectorWidgetPtr::iterator iter=mVectorTrack.begin();
 				(*iter)->show();
 				(*iter)->setAlpha(ALPHA_MAX);
 
-				// все начиная со второго скрываем
+				// РІСЃРµ РЅР°С‡РёРЅР°СЏ СЃРѕ РІС‚РѕСЂРѕРіРѕ СЃРєСЂС‹РІР°РµРј
 				++iter;
 				for (; iter!=mVectorTrack.end(); ++iter) {
 					(*iter)->hide();
@@ -168,11 +168,11 @@ namespace MyGUI
 
 			WidgetPtr wid = mVectorTrack.front();
 
-			// полностью виден
+			// РїРѕР»РЅРѕСЃС‚СЊСЋ РІРёРґРµРЅ
 			if ((0 == mStartPosition) && (mRange == mEndPosition)) {
 				setTrackPosition(wid, 0, 0, getClientWidth(), getClientHeight());
 			}
-			// эх
+			// СЌС…
 			else {
 				int pos = (int)mStartPosition * (getClientWidth() - mTrackMin) / (int)mRange;
 				setTrackPosition(wid, pos, 0, ((int)mEndPosition * (getClientWidth() - mTrackMin) / (int)mRange) - pos + mTrackMin, getClientHeight());
@@ -181,7 +181,7 @@ namespace MyGUI
 			return;
 		}
 
-		// сначала проверяем виджеты для трека
+		// СЃРЅР°С‡Р°Р»Р° РїСЂРѕРІРµСЂСЏРµРј РІРёРґР¶РµС‚С‹ РґР»СЏ С‚СЂРµРєР°
 		int width = getClientWidth();
 		int count = width / mTrackStep;
 		int ost = (width % mTrackStep);
@@ -196,7 +196,7 @@ namespace MyGUI
 			mVectorTrack.push_back(widget);
 		}
 
-		// все видно
+		// РІСЃРµ РІРёРґРЅРѕ
 		if ((0 == mStartPosition) && (mRange == mEndPosition)) {
 			int pos = 0;
 			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter) {
@@ -206,12 +206,12 @@ namespace MyGUI
 				pos++;
 			}
 		}
-		// эх, придется считать
+		// СЌС…, РїСЂРёРґРµС‚СЃСЏ СЃС‡РёС‚Р°С‚СЊ
 		else {
-			// сколько не видно
+			// СЃРєРѕР»СЊРєРѕ РЅРµ РІРёРґРЅРѕ
 			int hide_pix = (width * (int)mStartPosition / (int)mRange);
 			int hide = hide_pix / mTrackStep;
-			// сколько видно
+			// СЃРєРѕР»СЊРєРѕ РІРёРґРЅРѕ
 			int show_pix = (width * (int)mEndPosition / (int)mRange);
 			int show = show_pix / mTrackStep;
 

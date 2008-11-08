@@ -14,10 +14,10 @@
 namespace MyGUI
 {
 
-	// вспомогательный класс для инициализации сабскинов
+	// РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё СЃР°Р±СЃРєРёРЅРѕРІ
 	class _MyGUIExport SubWidgetBinding
 	{
-		// для доступа к внутренним членам
+		// РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РІРЅСѓС‚СЂРµРЅРЅРёРј С‡Р»РµРЅР°Рј
 		friend class WidgetSkinInfo;
 
 	public:
@@ -48,10 +48,10 @@ namespace MyGUI
 
 		void add(const std::string & _name, StateInfo * _data)
 		{
-			// ищем такой же ключ
+			// РёС‰РµРј С‚Р°РєРѕР№ Р¶Рµ РєР»СЋС‡
 			MapStateInfo::const_iterator iter = mStates.find(_name);
 			MYGUI_ASSERT(iter == mStates.end(), "state with name '" << _name << "' already exist");
-			// добавляем
+			// РґРѕР±Р°РІР»СЏРµРј
 			mStates[_name] = _data;
 		}
 

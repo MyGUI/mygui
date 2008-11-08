@@ -44,16 +44,16 @@ namespace MyGUI
 		if (_type == "Text") {
 			mPutTextInClipboard = TextIterator::getOnlyText(Ogre::UTFString(_data));
 			size_t size = (mPutTextInClipboard.size() + 1) * 2;
-			if (::OpenClipboard((HWND)mHwnd)) {//открываем буфер обмена
-				::EmptyClipboard(); //очищаем буфер
-				HGLOBAL hgBuffer = ::GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
+			if (::OpenClipboard((HWND)mHwnd)) {//РѕС‚РєСЂС‹РІР°РµРј Р±СѓС„РµСЂ РѕР±РјРµРЅР°
+				::EmptyClipboard(); //РѕС‡РёС‰Р°РµРј Р±СѓС„РµСЂ
+				HGLOBAL hgBuffer = ::GlobalAlloc(GMEM_DDESHARE, size);//РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ
 				wchar_t * chBuffer = NULL;
 				if ((hgBuffer) && (chBuffer = (wchar_t*)GlobalLock(hgBuffer))) {
 					::memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
-					::GlobalUnlock(hgBuffer);//разблокируем память
-					::SetClipboardData(CF_UNICODETEXT, hgBuffer);//помещаем текст в буфер обмена
+					::GlobalUnlock(hgBuffer);//СЂР°Р·Р±Р»РѕРєРёСЂСѓРµРј РїР°РјСЏС‚СЊ
+					::SetClipboardData(CF_UNICODETEXT, hgBuffer);//РїРѕРјРµС‰Р°РµРј С‚РµРєСЃС‚ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 				}
-				::CloseClipboard(); //закрываем буфер обмена
+				::CloseClipboard(); //Р·Р°РєСЂС‹РІР°РµРј Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 			}
 		}
 #endif
@@ -70,18 +70,18 @@ namespace MyGUI
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		if (_type == "Text") {
 			Ogre::UTFString buff;
-			if ( ::OpenClipboard((HWND)mHwnd) ) {//открываем буфер обмена
-				HANDLE hData = ::GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
+			if ( ::OpenClipboard((HWND)mHwnd) ) {//РѕС‚РєСЂС‹РІР°РµРј Р±СѓС„РµСЂ РѕР±РјРµРЅР°
+				HANDLE hData = ::GetClipboardData(CF_UNICODETEXT);//РёР·РІР»РµРєР°РµРј С‚РµРєСЃС‚ РёР· Р±СѓС„РµСЂР° РѕР±РјРµРЅР°
 				wchar_t * chBuffer = NULL;
 				if ((hData) && (chBuffer = (wchar_t*)::GlobalLock(hData))) {
 					buff = chBuffer;
-					::GlobalUnlock(hData);//разблокируем память
+					::GlobalUnlock(hData);//СЂР°Р·Р±Р»РѕРєРёСЂСѓРµРј РїР°РјСЏС‚СЊ
 				}
-				::CloseClipboard();//закрываем буфер обмена
+				::CloseClipboard();//Р·Р°РєСЂС‹РІР°РµРј Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 			}
-			// если в буфере не то что мы ложили, то берем из буфера
+			// РµСЃР»Рё РІ Р±СѓС„РµСЂРµ РЅРµ С‚Рѕ С‡С‚Рѕ РјС‹ Р»РѕР¶РёР»Рё, С‚Рѕ Р±РµСЂРµРј РёР· Р±СѓС„РµСЂР°
 			if (mPutTextInClipboard != buff) {
-				// вставляем теги, если нуно				
+				// РІСЃС‚Р°РІР»СЏРµРј С‚РµРіРё, РµСЃР»Рё РЅСѓРЅРѕ				
 				const Ogre::UTFString & text = TextIterator::toTagsString(buff);
 				return text.asUTF8();
 			}

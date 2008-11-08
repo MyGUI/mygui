@@ -59,7 +59,7 @@ namespace MyGUI
 
 		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
 
-		// удаляем данный виджет из всех возможных мест
+		// СѓРґР°Р»СЏРµРј РґР°РЅРЅС‹Р№ РІРёРґР¶РµС‚ РёР· РІСЃРµС… РІРѕР·РјРѕР¶РЅС‹С… РјРµСЃС‚
 		void _unlinkWidget(WidgetPtr _widget);
 
 		void _windowResized(const IntSize& _size);
@@ -102,20 +102,20 @@ namespace MyGUI
 	private:
 		VectorLayerKeeperPtr mLayerKeepers;
 
-		// флаг для обновления всех и вся
+		// С„Р»Р°Рі РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РІСЃРµС… Рё РІСЃСЏ
 		bool mUpdate;
 
-		// размер пикселя в относительных координатах
+		// СЂР°Р·РјРµСЂ РїРёРєСЃРµР»СЏ РІ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 		float mPixScaleX;
 		float mPixScaleY;
 
-		// смещение для того, чтобы тексель попал в пиксель
+		// СЃРјРµС‰РµРЅРёРµ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ С‚РµРєСЃРµР»СЊ РїРѕРїР°Р» РІ РїРёРєСЃРµР»СЊ
         float mHOffset;
         float mVOffset;
 
 		float mAspectCoef;
 
-		// координата зю
+		// РєРѕРѕСЂРґРёРЅР°С‚Р° Р·СЋ
 		float mMaximumDepth;
 
 		Ogre::SceneManager * mSceneManager;

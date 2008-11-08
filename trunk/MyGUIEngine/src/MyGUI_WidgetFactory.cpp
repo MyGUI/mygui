@@ -28,7 +28,7 @@ namespace MyGUI
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			LanguageManager::getInstance().eventChangeLanguage += newDelegate(this, &WidgetFactory::notifyChangeLanguage);
 
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("Widget_Caption") = newDelegate(this, &WidgetFactory::Widget_Caption);
 			manager.registerDelegate("Widget_Position") = newDelegate(this, &WidgetFactory::Widget_Position);
 			manager.registerDelegate("Widget_Size") = newDelegate(this, &WidgetFactory::Widget_Size);
@@ -66,7 +66,7 @@ namespace MyGUI
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			LanguageManager::getInstance().eventChangeLanguage -= newDelegate(this, &WidgetFactory::notifyChangeLanguage);
 
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("Widget_Caption");
 			manager.unregisterDelegate("Widget_Position");
 			manager.unregisterDelegate("Widget_Size");

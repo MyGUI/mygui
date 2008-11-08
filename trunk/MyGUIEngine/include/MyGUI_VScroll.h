@@ -15,7 +15,7 @@ namespace MyGUI
 
 	class _MyGUIExport VScroll : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<VScroll>;
 		
 		MYGUI_RTTI_CHILD_HEADER;
@@ -99,25 +99,25 @@ namespace MyGUI
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
-		// наши кнопки
+		// РЅР°С€Рё РєРЅРѕРїРєРё
 		ButtonPtr mWidgetStart;
 		ButtonPtr mWidgetEnd;
 		ButtonPtr mWidgetTrack;
-		// куски между кнопками
+		// РєСѓСЃРєРё РјРµР¶РґСѓ РєРЅРѕРїРєР°РјРё
 		ButtonPtr mWidgetFirstPart;
 		ButtonPtr mWidgetSecondPart;
 
-		// размеры окна перед началом его изменений
+		// СЂР°Р·РјРµСЂС‹ РѕРєРЅР° РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј РµРіРѕ РёР·РјРµРЅРµРЅРёР№
 		IntRect mPreActionRect;
 
-		// диапазон на который трек может двигаться
+		// РґРёР°РїР°Р·РѕРЅ РЅР° РєРѕС‚РѕСЂС‹Р№ С‚СЂРµРє РјРѕР¶РµС‚ РґРІРёРіР°С‚СЊСЃСЏ
 		size_t mSkinRangeStart;
 		size_t mSkinRangeEnd;
 
 		size_t mScrollRange;
 		size_t mScrollPosition;
-		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
-		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
+		size_t mScrollPage; // РЅР° СЃРєРѕР»СЊРєРѕ РїРµСЂРµС‰РµР»РєРёРІР°С‚СЊ, РїСЂРё С‰РµР»С‡РєРµ РЅР° РєРЅРѕРїРєРµ
+		size_t mScrollViewPage; // РЅР° СЃРєРѕР»СЊРєРѕ РїРµСЂРµС‰РµР»РєРёРІР°С‚СЊ, РїСЂРё С‰РµР»С‡РєРµ РїРѕ РїРѕР»РѕСЃРµ
 
 		int mMinTrackSize;
 

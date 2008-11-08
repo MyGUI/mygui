@@ -31,10 +31,10 @@ namespace MyGUI
 
 		virtual void setViewOffset(IntPoint _point);
 
-		// обновляет все данные связанные с тектом
+		// РѕР±РЅРѕРІР»СЏРµС‚ РІСЃРµ РґР°РЅРЅС‹Рµ СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ С‚РµРєС‚РѕРј
 		virtual void updateRawData();
 
-		// метод для генерации данных из описания xml
+		// РјРµС‚РѕРґ РґР»СЏ РіРµРЅРµСЂР°С†РёРё РґР°РЅРЅС‹С… РёР· РѕРїРёСЃР°РЅРёСЏ xml
 		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	};

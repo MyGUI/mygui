@@ -37,10 +37,10 @@ namespace MyGUI
 		mNodeForSync(null)
 	{
 
-		// первоначальная инициализация
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
 
-		// сохраняем оригинальный курсор
+		// СЃРѕС…СЂР°РЅСЏРµРј РѕСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ РєСѓСЂСЃРѕСЂ
 		mPointerKeeper = mPointer;
 		mPointer.clear();
 
@@ -58,7 +58,7 @@ namespace MyGUI
 		if (root && mScene) root->destroySceneManager(mScene);
 	}
 
-	// добавляет в сцену объект, старый удаляеться
+	// РґРѕР±Р°РІР»СЏРµС‚ РІ СЃС†РµРЅСѓ РѕР±СЉРµРєС‚, СЃС‚Р°СЂС‹Р№ СѓРґР°Р»СЏРµС‚СЊСЃСЏ
 	void RenderBox::injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position, const Ogre::Quaternion & _orientation, const Ogre::Vector3 & _scale)
 	{
 		if(mUserViewport) {
@@ -257,7 +257,7 @@ namespace MyGUI
 		updateViewport();
 	}
 
-	// очищает сцену
+	// РѕС‡РёС‰Р°РµС‚ СЃС†РµРЅСѓ
 	void RenderBox::clear()
 	{
 		setRotationAngle(Ogre::Degree(0));
@@ -298,7 +298,7 @@ namespace MyGUI
 	{
 		if (false == mUserViewport) {
 			mNode->resetOrientation();
-			// коррекция под левосторонюю систему координат с осью Z направленную вверх
+			// РєРѕСЂСЂРµРєС†РёСЏ РїРѕРґ Р»РµРІРѕСЃС‚РѕСЂРѕРЅСЋСЋ СЃРёСЃС‚РµРјСѓ РєРѕРѕСЂРґРёРЅР°С‚ СЃ РѕСЃСЊСЋ Z РЅР°РїСЂР°РІР»РµРЅРЅСѓСЋ РІРІРµСЂС…
 			#ifdef LEFT_HANDED_CS_UP_Z
 				mNode->roll(Ogre::Radian(_rotationAngle));
 			#else
@@ -310,7 +310,7 @@ namespace MyGUI
 	Ogre::Degree RenderBox::getRotationAngle()
 	{
 		if (false == mUserViewport) {
-			// коррекция под левосторонюю систему координат с осью Z направленную вверх
+			// РєРѕСЂСЂРµРєС†РёСЏ РїРѕРґ Р»РµРІРѕСЃС‚РѕСЂРѕРЅСЋСЋ СЃРёСЃС‚РµРјСѓ РєРѕРѕСЂРґРёРЅР°С‚ СЃ РѕСЃСЊСЋ Z РЅР°РїСЂР°РІР»РµРЅРЅСѓСЋ РІРІРµСЂС…
 			#ifdef LEFT_HANDED_CS_UP_Z
 				return Ogre::Degree(mNode->getOrientation().getRoll());
 			#else
@@ -345,7 +345,7 @@ namespace MyGUI
 
 	void RenderBox::setRenderTarget(Ogre::Camera * _camera)
 	{
-		// полная очистка
+		// РїРѕР»РЅР°СЏ РѕС‡РёСЃС‚РєР°
 		clear();
 		mPointer = "";
 
@@ -353,7 +353,7 @@ namespace MyGUI
 		if (root && mScene) root->destroySceneManager(mScene);
 		mScene = 0;
 
-		// создаем новый материал
+		// СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ РјР°С‚РµСЂРёР°Р»
 		mUserViewport = true;
 		mRttCam = _camera;
 
@@ -418,7 +418,7 @@ namespace MyGUI
 		}
 
 		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) {
-			// коррекция под левосторонюю систему координат с осью Z направленную вверх
+			// РєРѕСЂСЂРµРєС†РёСЏ РїРѕРґ Р»РµРІРѕСЃС‚РѕСЂРѕРЅСЋСЋ СЃРёСЃС‚РµРјСѓ РєРѕРѕСЂРґРёРЅР°С‚ СЃ РѕСЃСЊСЋ Z РЅР°РїСЂР°РІР»РµРЅРЅСѓСЋ РІРІРµСЂС…
 			#ifdef LEFT_HANDED_CS_UP_Z
 				mNode->roll(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
 			#else
@@ -447,7 +447,7 @@ namespace MyGUI
 	void RenderBox::onMouseDrag(int _left, int _top)
 	{
 		if ((false == mUserViewport) && mMouseRotation/* && mAutoRotation*/) {
-			// коррекция под левосторонюю систему координат с осью Z направленную вверх
+			// РєРѕСЂСЂРµРєС†РёСЏ РїРѕРґ Р»РµРІРѕСЃС‚РѕСЂРѕРЅСЋСЋ СЃРёСЃС‚РµРјСѓ РєРѕРѕСЂРґРёРЅР°С‚ СЃ РѕСЃСЊСЋ Z РЅР°РїСЂР°РІР»РµРЅРЅСѓСЋ РІРІРµСЂС…
 			#ifdef LEFT_HANDED_CS_UP_Z
 				mNode->roll(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
 			#else
@@ -456,7 +456,7 @@ namespace MyGUI
 			mLastPointerX = _left;
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseDrag(_left, _top);
 	}
 
@@ -470,7 +470,7 @@ namespace MyGUI
 			}
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseButtonPressed(_left, _top, _id);
 	}
 
@@ -478,7 +478,7 @@ namespace MyGUI
 	{
 		if (MB_Left == _id) mLeftPressed = false;
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 
@@ -486,16 +486,16 @@ namespace MyGUI
 	{
 		mPointer = mMouseRotation ? mPointerKeeper : "";
 
-		// создаем новый сцен менеджер
+		// СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ СЃС†РµРЅ РјРµРЅРµРґР¶РµСЂ
 		mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, utility::toString(this, "_SceneManagerRenderBox"));
 
-		// создаем нод к которуму будем всякую дрянь атачить
+		// СЃРѕР·РґР°РµРј РЅРѕРґ Рє РєРѕС‚РѕСЂСѓРјСѓ Р±СѓРґРµРј РІСЃСЏРєСѓСЋ РґСЂСЏРЅСЊ Р°С‚Р°С‡РёС‚СЊ
 		mNode = mScene->getRootSceneNode()->createChildSceneNode();
 
 		mScene->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
 
-		// главный источник света
-		// коррекция под левосторонюю систему координат с осью Z направленную вверх
+		// РіР»Р°РІРЅС‹Р№ РёСЃС‚РѕС‡РЅРёРє СЃРІРµС‚Р°
+		// РєРѕСЂСЂРµРєС†РёСЏ РїРѕРґ Р»РµРІРѕСЃС‚РѕСЂРѕРЅСЋСЋ СЃРёСЃС‚РµРјСѓ РєРѕРѕСЂРґРёРЅР°С‚ СЃ РѕСЃСЊСЋ Z РЅР°РїСЂР°РІР»РµРЅРЅСѓСЋ РІРІРµСЂС…
 		#ifdef LEFT_HANDED_CS_UP_Z
 			Ogre::Vector3 dir(10, 10, -10);
 		#else
@@ -536,16 +536,16 @@ namespace MyGUI
 
 	void RenderBox::updateViewport()
 	{
-		// при нуле вылетает
+		// РїСЂРё РЅСѓР»Рµ РІС‹Р»РµС‚Р°РµС‚
 		if ((getWidth() <= 1) || (getHeight() <= 1) ) return;
 
 		if ((false == mUserViewport) && (null != mEntity) && (null != mRttCam)) {
-			// не ясно, нужно ли растягивать камеру, установленную юзером
+			// РЅРµ СЏСЃРЅРѕ, РЅСѓР¶РЅРѕ Р»Рё СЂР°СЃС‚СЏРіРёРІР°С‚СЊ РєР°РјРµСЂСѓ, СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅСѓСЋ СЋР·РµСЂРѕРј
 			mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
 			//System::Console::WriteLine("Width {0}, Height {1}", getWidth(), getHeight());
 
-			// вычисляем расстояние, чтобы был виден весь объект
+			// РІС‹С‡РёСЃР»СЏРµРј СЂР°СЃСЃС‚РѕСЏРЅРёРµ, С‡С‚РѕР±С‹ Р±С‹Р» РІРёРґРµРЅ РІРµСЃСЊ РѕР±СЉРµРєС‚
 			Ogre::AxisAlignedBox box;// = mNode->_getWorldAABB();//mEntity->getBoundingBox();
 
 			VectorEntity::iterator iter = mVectorEntity.begin();
@@ -568,16 +568,16 @@ namespace MyGUI
 			//box.getCenter();
 			Ogre::Vector3 vec = box.getSize();
 
-			// коррекция под левосторонюю систему координат с осью Z направленную вверх
+			// РєРѕСЂСЂРµРєС†РёСЏ РїРѕРґ Р»РµРІРѕСЃС‚РѕСЂРѕРЅСЋСЋ СЃРёСЃС‚РµРјСѓ РєРѕРѕСЂРґРёРЅР°С‚ СЃ РѕСЃСЊСЋ Z РЅР°РїСЂР°РІР»РµРЅРЅСѓСЋ РІРІРµСЂС…
 			#ifdef LEFT_HANDED_CS_UP_Z
 
-				float width = sqrt(vec.x*vec.x + vec.y*vec.y); // самое длинное - диагональ (если крутить модель)
+				float width = sqrt(vec.x*vec.x + vec.y*vec.y); // СЃР°РјРѕРµ РґР»РёРЅРЅРѕРµ - РґРёР°РіРѕРЅР°Р»СЊ (РµСЃР»Рё РєСЂСѓС‚РёС‚СЊ РјРѕРґРµР»СЊ)
 				float len2 = width; // mRttCam->getAspectRatio();
 				float height = vec.z;
 				float len1 = height;
 				if (len1 < len2) len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
-				// центр объекта по вертикали + отъехать так, чтобы влезла ближняя грань BoundingBox'а + чуть вверх и еще назад для красоты
+				// С†РµРЅС‚СЂ РѕР±СЉРµРєС‚Р° РїРѕ РІРµСЂС‚РёРєР°Р»Рё + РѕС‚СЉРµС…Р°С‚СЊ С‚Р°Рє, С‡С‚РѕР±С‹ РІР»РµР·Р»Р° Р±Р»РёР¶РЅСЏСЏ РіСЂР°РЅСЊ BoundingBox'Р° + С‡СѓС‚СЊ РІРІРµСЂС… Рё РµС‰Рµ РЅР°Р·Р°Рґ РґР»СЏ РєСЂР°СЃРѕС‚С‹
 				Ogre::Vector3 result = box.getCenter() - Ogre::Vector3(vec.y/2 + len1, 0, 0) - Ogre::Vector3(len1*0.2, 0, -height*0.1);
 				result.x *= mCurrentScale;
 				mCamNode->setPosition(result);
@@ -592,13 +592,13 @@ namespace MyGUI
 
 			#else
 
-				float width = sqrt(vec.x*vec.x + vec.z*vec.z); // самое длинное - диагональ (если крутить модель)
+				float width = sqrt(vec.x*vec.x + vec.z*vec.z); // СЃР°РјРѕРµ РґР»РёРЅРЅРѕРµ - РґРёР°РіРѕРЅР°Р»СЊ (РµСЃР»Рё РєСЂСѓС‚РёС‚СЊ РјРѕРґРµР»СЊ)
 				float len2 = width / mRttCam->getAspectRatio();
 				float height = vec.y;
 				float len1 = height;
 				if (len1 < len2) len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
-				// центр объекта по вертикали + отъехать так, чтобы влезла ближняя грань BoundingBox'а + чуть вверх и еще назад для красоты
+				// С†РµРЅС‚СЂ РѕР±СЉРµРєС‚Р° РїРѕ РІРµСЂС‚РёРєР°Р»Рё + РѕС‚СЉРµС…Р°С‚СЊ С‚Р°Рє, С‡С‚РѕР±С‹ РІР»РµР·Р»Р° Р±Р»РёР¶РЅСЏСЏ РіСЂР°РЅСЊ BoundingBox'Р° + С‡СѓС‚СЊ РІРІРµСЂС… Рё РµС‰Рµ РЅР°Р·Р°Рґ РґР»СЏ РєСЂР°СЃРѕС‚С‹
 				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2);
 				result.z *= mCurrentScale;
 				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);
@@ -641,13 +641,13 @@ namespace MyGUI
 		Ogre::SkeletonInstance * skeleton = mEntity->getSkeleton();
 		if (null == skeleton) return;
 		Ogre::AnimationStateSet * anim_set = mEntity->getAllAnimationStates();
-		// FIXME почему вместо всего что под ним не написать как в закомментированнои коде? я его добавил, но протестить немогу просто
-		// посмотрел код getAnimationState - он как раз проверяет по имени с которым ты сравниваешь
+		// FIXME РїРѕС‡РµРјСѓ РІРјРµСЃС‚Рѕ РІСЃРµРіРѕ С‡С‚Рѕ РїРѕРґ РЅРёРј РЅРµ РЅР°РїРёСЃР°С‚СЊ РєР°Рє РІ Р·Р°РєРѕРјРјРµРЅС‚РёСЂРѕРІР°РЅРЅРѕРё РєРѕРґРµ? СЏ РµРіРѕ РґРѕР±Р°РІРёР», РЅРѕ РїСЂРѕС‚РµСЃС‚РёС‚СЊ РЅРµРјРѕРіСѓ РїСЂРѕСЃС‚Рѕ
+		// РїРѕСЃРјРѕС‚СЂРµР» РєРѕРґ getAnimationState - РѕРЅ РєР°Рє СЂР°Р· РїСЂРѕРІРµСЂСЏРµС‚ РїРѕ РёРјРµРЅРё СЃ РєРѕС‚РѕСЂС‹Рј С‚С‹ СЃСЂР°РІРЅРёРІР°РµС€СЊ
 		/*
 		Ogre::AnimationState * state = anim_set->getAnimationState(_animation);
 		if (state != null)
 		{
-			// тут то что стоит внутри твоего ифа
+			// С‚СѓС‚ С‚Рѕ С‡С‚Рѕ СЃС‚РѕРёС‚ РІРЅСѓС‚СЂРё С‚РІРѕРµРіРѕ РёС„Р°
 		}
 		*/
 		Ogre::AnimationStateIterator iter = anim_set->getAnimationStateIterator();
@@ -656,7 +656,7 @@ namespace MyGUI
 			Ogre::AnimationState * state = iter.getNext();
 			if (_animation == state ->getAnimationName()) {
 
-				// подписываемся
+				// РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ
 				Gui::getInstance().eventFrameStart += newDelegate(this, &RenderBox::frameEntered);
 				//Gui::getInstance().addFrameListener(newDelegate(this, &RenderBox::frameEntered), this);
 

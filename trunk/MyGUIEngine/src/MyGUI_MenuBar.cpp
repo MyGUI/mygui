@@ -31,7 +31,7 @@ namespace MyGUI
 			}
 		}
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
 			MapString::const_iterator iter = properties.find("DistanceButton");
@@ -162,7 +162,7 @@ namespace MyGUI
 
 	/*void MenuBar::notifyPopupMenuClose(WidgetPtr _sender)
 	{
-		// при щелчке на активный понкт меню сбрасывать не нужно
+		// РїСЂРё С‰РµР»С‡РєРµ РЅР° Р°РєС‚РёРІРЅС‹Р№ РїРѕРЅРєС‚ РјРµРЅСЋ СЃР±СЂР°СЃС‹РІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ
 		if (mIndexSelect != ITEM_NONE) {
 			const IntPoint & point = InputManager::getInstance().getMousePosition();
 			WidgetPtr widget = InputManager::getInstance().getWidgetFromPoint(point.left, point.top);

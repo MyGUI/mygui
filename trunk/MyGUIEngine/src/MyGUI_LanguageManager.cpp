@@ -49,21 +49,21 @@ namespace MyGUI
 	{
 		std::string def;
 
-		// берем детей и крутимся, основной цикл
+		// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 		xml::xmlNodeIterator root = _node->getNodeIterator();
 		while (root.nextNode(XML_TYPE)) {
 
-			// парсим атрибуты
+			// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹
 			root->findAttribute("default", def);
 
-			// берем детей и крутимся
+			// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ
 			xml::xmlNodeIterator info = root->getNodeIterator();
 			while (info.nextNode("Info")) {
 
-				// парсим атрибуты
+				// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹
 				std::string name(info->findAttribute("name"));
 
-				// добавляем
+				// РґРѕР±Р°РІР»СЏРµРј
 				MapListString::iterator lang = mMapFile.find(name);
 				if (lang == mMapFile.end()) {
 					lang = mMapFile.insert(std::make_pair(name, VectorString())).first;
@@ -114,7 +114,7 @@ namespace MyGUI
 
 			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file, _group);
 
-			// проверяем на сигнатуру utf8
+			// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРёРіРЅР°С‚СѓСЂСѓ utf8
 			uint32 sign = 0;
 			stream->read((void*)&sign, 3);
 			if (sign != 0x00BFBBEF) {
@@ -132,7 +132,7 @@ namespace MyGUI
 			return false;
 		}
 
-		// проверяем на сигнатуру utf8
+		// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРёРіРЅР°С‚СѓСЂСѓ utf8
 		uint32 sign = 0;
 		stream.read((char*)&sign, 3);
 		if (sign != 0x00BFBBEF) {
@@ -175,8 +175,8 @@ namespace MyGUI
 
 	Ogre::UTFString LanguageManager::replaceTags(const Ogre::UTFString & _line)
 	{
-		// вот хз, что быстрее, итераторы или математика указателей,
-		// для непонятно какого размера одного символа UTF8
+		// РІРѕС‚ С…Р·, С‡С‚Рѕ Р±С‹СЃС‚СЂРµРµ, РёС‚РµСЂР°С‚РѕСЂС‹ РёР»Рё РјР°С‚РµРјР°С‚РёРєР° СѓРєР°Р·Р°С‚РµР»РµР№,
+		// РґР»СЏ РЅРµРїРѕРЅСЏС‚РЅРѕ РєР°РєРѕРіРѕ СЂР°Р·РјРµСЂР° РѕРґРЅРѕРіРѕ СЃРёРјРІРѕР»Р° UTF8
 		Ogre::UTFString line(_line);
 
 		if (mMapLanguage.empty()) return _line;

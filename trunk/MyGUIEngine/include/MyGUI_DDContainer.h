@@ -17,14 +17,14 @@ namespace MyGUI
 	typedef delegates::CDelegate2<WidgetPtr, VectorDropWidgetInfo&> EventInfo_WidgetRefDropWidgetInfo;
 	typedef delegates::CDelegate3<WidgetPtr, VectorDropWidgetInfo&, const DropWidgetState&> EventInfo_WidgetRefDropWidgetInfoState;
 
-	// делегаты для дропа
+	// РґРµР»РµРіР°С‚С‹ РґР»СЏ РґСЂРѕРїР°
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventInfo_WidgetCItemDropInfoRefBoolRef;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
 	typedef delegates::CDelegate2<WidgetPtr, DropItemState> EventInfo_WidgetDropState;
 
 	class _MyGUIExport DDContainer : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<DDContainer>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -57,35 +57,35 @@ namespace MyGUI
 		/** Get drag'n'drop mode flag */
 		bool getNeedDragDrop() { return mNeedDragDrop; }
 
-		// метод для установления стейта айтема
+		// РјРµС‚РѕРґ РґР»СЏ СѓСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ СЃС‚РµР№С‚Р° Р°Р№С‚РµРјР°
 		virtual void setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 
-		// event : запрос на начало дропа
+		// event : Р·Р°РїСЂРѕСЃ РЅР° РЅР°С‡Р°Р»Рѕ РґСЂРѕРїР°
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
 
-		// event : запрос на дроп айтема
+		// event : Р·Р°РїСЂРѕСЃ РЅР° РґСЂРѕРї Р°Р№С‚РµРјР°
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
-		// event : завершение дропа
+		// event : Р·Р°РІРµСЂС€РµРЅРёРµ РґСЂРѕРїР°
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
 		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
 
-		// event : текущее состояние дропа
+		// event : С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РґСЂРѕРїР°
 		// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
 		EventInfo_WidgetDropState eventDropState;
 
-		// event : запрашиваем виджеты для дропа
+		// event : Р·Р°РїСЂР°С€РёРІР°РµРј РІРёРґР¶РµС‚С‹ РґР»СЏ РґСЂРѕРїР°
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items)
 		EventInfo_WidgetRefDropWidgetInfo requestDropWidgetInfo;
 
-		// event : обновить виджеты дропа
+		// event : РѕР±РЅРѕРІРёС‚СЊ РІРёРґР¶РµС‚С‹ РґСЂРѕРїР°
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items, const MyGUI::DropWidgetState & _state)
 		EventInfo_WidgetRefDropWidgetInfoState eventUpdateDropState;
 
-		/* event : внутреннее событие, невалидна информация для контейнера*/
+		/* event : РІРЅСѓС‚СЂРµРЅРЅРµРµ СЃРѕР±С‹С‚РёРµ, РЅРµРІР°Р»РёРґРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ РґР»СЏ РєРѕРЅС‚РµР№РЅРµСЂР°*/
 		/* signature : void method(MyGUI::WidgetPtr _sender);*/
 		EventInfo_WidgetVoid eventInvalideContainer;
 
@@ -101,12 +101,12 @@ namespace MyGUI
 
 		size_t mDropSenderIndex;
 
-		// список виджетов для дропа
+		// СЃРїРёСЃРѕРє РІРёРґР¶РµС‚РѕРІ РґР»СЏ РґСЂРѕРїР°
 		VectorDropWidgetInfo mDropItems;
 
 		IntPoint mClickInWidget;
 
-		// нужно и виджету поддержка драг энд дропа
+		// РЅСѓР¶РЅРѕ Рё РІРёРґР¶РµС‚Сѓ РїРѕРґРґРµСЂР¶РєР° РґСЂР°Рі СЌРЅРґ РґСЂРѕРїР°
 		bool mNeedDragDrop;
 
 		DDContainerPtr mReseiverContainer;

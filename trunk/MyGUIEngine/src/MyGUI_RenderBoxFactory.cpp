@@ -15,7 +15,7 @@ namespace MyGUI
 		RenderBoxFactory::RenderBoxFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// регестрируем все парсеры
+			// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.registerDelegate("RenderBox_Mesh") = newDelegate(this, &RenderBoxFactory::RenderBox_Mesh);
 			manager.registerDelegate("RenderBox_AutoRotation") = newDelegate(this, &RenderBoxFactory::RenderBox_AutoRotation);
 			manager.registerDelegate("RenderBox_AutoRotationSpeed") = newDelegate(this, &RenderBoxFactory::RenderBox_AutoRotationSpeed);
@@ -29,7 +29,7 @@ namespace MyGUI
 		RenderBoxFactory::~RenderBoxFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
-			// удаляем все парсеры
+			// СѓРґР°Р»СЏРµРј РІСЃРµ РїР°СЂСЃРµСЂС‹
 			manager.unregisterDelegate("RenderBox_Mesh");
 			manager.unregisterDelegate("RenderBox_AutoRotation");
 			manager.unregisterDelegate("RenderBox_AutoRotationSpeed");

@@ -52,7 +52,7 @@ namespace MyGUI
 	WidgetSkinInfo * SkinManager::getSkin(const Ogre::String & _name)
 	{
 		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
-		// если не нашли, то вернем дефолтный скин
+		// РµСЃР»Рё РЅРµ РЅР°С€Р»Рё, С‚Рѕ РІРµСЂРЅРµРј РґРµС„РѕР»С‚РЅС‹Р№ СЃРєРёРЅ
 		if (iter == mSkins.end()) {
 			MYGUI_LOG(Warning, "Skin '" << _name << "' not found, set Default");
 			return mSkins["Default"];
@@ -60,7 +60,7 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	//	для ручного создания скина
+	//	РґР»СЏ СЂСѓС‡РЅРѕРіРѕ СЃРѕР·РґР°РЅРёСЏ СЃРєРёРЅР°
 	WidgetSkinInfo * SkinManager::create(const Ogre::String & _name)
 	{
 		WidgetSkinInfo * skin = new WidgetSkinInfo();
@@ -80,42 +80,42 @@ namespace MyGUI
 
 	void SkinManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
-		// вспомогательный класс для биндинга сабскинов
+		// РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ Р±РёРЅРґРёРЅРіР° СЃР°Р±СЃРєРёРЅРѕРІ
 		SubWidgetBinding bind;
 
-		// берем детей и крутимся, основной цикл со скинами
+		// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР» СЃРѕ СЃРєРёРЅР°РјРё
 		xml::xmlNodeIterator skin = _node->getNodeIterator();
 		while (skin.nextNode(XML_TYPE)) {
 
-			// парсим атрибуты скина
+			// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹ СЃРєРёРЅР°
 			Ogre::String name, texture, tmp;
 			IntSize size;
 			skin->findAttribute("name", name);
 			skin->findAttribute("texture", texture);
 			if (skin->findAttribute("size", tmp)) size = IntSize::parse(tmp);
 
-			// создаем скин
+			// СЃРѕР·РґР°РµРј СЃРєРёРЅ
 			WidgetSkinInfo * widget_info = create(name);
 			widget_info->setInfo(size, texture);
 			IntSize materialSize = getTextureSize(texture);
 
-			// проверяем маску
+			// РїСЂРѕРІРµСЂСЏРµРј РјР°СЃРєСѓ
 			if (skin->findAttribute("mask", tmp)) {
 				if (false == widget_info->loadMask(tmp)) {
 					MYGUI_LOG(Error, "Skin: " << _file << ", mask not load '" << tmp << "'");
 				}
 			}
 
-			// берем детей и крутимся, цикл с саб скинами
+			// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, С†РёРєР» СЃ СЃР°Р± СЃРєРёРЅР°РјРё
 			xml::xmlNodeIterator basis = skin->getNodeIterator();
 			while (basis.nextNode()) {
 
 				if (basis->getName() == "Property") {
-					// загружаем свойства
+					// Р·Р°РіСЂСѓР¶Р°РµРј СЃРІРѕР№СЃС‚РІР°
 					std::string key, value;
 					if (false == basis->findAttribute("key", key)) continue;
 					if (false == basis->findAttribute("value", value)) continue;
-					// добавляем свойство
+					// РґРѕР±Р°РІР»СЏРµРј СЃРІРѕР№СЃС‚РІРѕ
 					widget_info->addProperty(key, value);
 
 				}
@@ -138,7 +138,7 @@ namespace MyGUI
 
 				}
 				else if (basis->getName() == "BasisSkin") {
-					// парсим атрибуты
+					// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹
 					Ogre::String basisSkinType, tmp;
 					IntCoord offset;
 					Align align = Align::Default;
@@ -148,33 +148,33 @@ namespace MyGUI
 
 					bind.create(offset, align, basisSkinType);
 
-					// берем детей и крутимся, цикл со стейтами
+					// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, С†РёРєР» СЃРѕ СЃС‚РµР№С‚Р°РјРё
 					xml::xmlNodeIterator state = basis->getNodeIterator();
 					while (state.nextNode()) {
 
 						if (state->getName() == "State") {
-							// парсим атрибуты стейта
+							// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹ СЃС‚РµР№С‚Р°
 							Ogre::String basisStateName;
 							state->findAttribute("name", basisStateName);
 
-							// конвертируем инфу о стейте
+							// РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј РёРЅС„Сѓ Рѕ СЃС‚РµР№С‚Рµ
 							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode());
 
-							// добавляем инфо о стайте
+							// РґРѕР±Р°РІР»СЏРµРј РёРЅС„Рѕ Рѕ СЃС‚Р°Р№С‚Рµ
 							bind.add(basisStateName, data);
 						}
 						else if (state->getName() == "Property") {
-							// загружаем свойства
+							// Р·Р°РіСЂСѓР¶Р°РµРј СЃРІРѕР№СЃС‚РІР°
 							std::string key, value;
 							if (false == state->findAttribute("key", key)) continue;
 							if (false == state->findAttribute("value", value)) continue;
-							// добавляем свойство
+							// РґРѕР±Р°РІР»СЏРµРј СЃРІРѕР№СЃС‚РІРѕ
 							bind.addProperty(key, value);
 						}
 
 					};
 
-					// теперь всё вместе добавляем в скин
+					// С‚РµРїРµСЂСЊ РІСЃС‘ РІРјРµСЃС‚Рµ РґРѕР±Р°РІР»СЏРµРј РІ СЃРєРёРЅ
 					widget_info->addInfo(bind);
 				}
 
@@ -184,7 +184,7 @@ namespace MyGUI
 
 	IntSize SkinManager::getTextureSize(const std::string & _texture)
 	{
-		// предыдущя текстура
+		// РїСЂРµРґС‹РґСѓС‰СЏ С‚РµРєСЃС‚СѓСЂР°
 		static std::string old_texture;
 		static IntSize old_size;
 
@@ -242,7 +242,7 @@ namespace MyGUI
 
 	void SkinManager::createDefault()
 	{
-		// создаем дефолтный скин
+		// СЃРѕР·РґР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ СЃРєРёРЅ
 		WidgetSkinInfo * widget_info = create("Default");
 		widget_info->setInfo(IntSize(0, 0), "");
 	}

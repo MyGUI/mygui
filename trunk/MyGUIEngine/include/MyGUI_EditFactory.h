@@ -22,7 +22,7 @@ namespace MyGUI
 			EditFactory();
 			~EditFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void Edit_CursorPosition(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_TextSelect(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_ReadOnly(WidgetPtr _widget, const std::string &_key, const std::string &_value);

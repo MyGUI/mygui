@@ -32,10 +32,10 @@ namespace MyGUI
 		void show();
 		void hide();
 
-		// обновляет все данные связанные с тектом
+		// РѕР±РЅРѕРІР»СЏРµС‚ РІСЃРµ РґР°РЅРЅС‹Рµ СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ С‚РµРєС‚РѕРј
 		virtual void updateRawData();
 
-		// метод для отрисовки себя
+		// РјРµС‚РѕРґ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё СЃРµР±СЏ
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 		void _updateView();
@@ -80,14 +80,14 @@ namespace MyGUI
 
 		virtual IntSize getTextSize();
 
-		// устанавливает смещение текста в пикселях
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚Р° РІ РїРёРєСЃРµР»СЏС…
 		virtual void setViewOffset(IntPoint _point);
 		virtual IntPoint getViewOffset();
 
-		// возвращает положение курсора по произвольному положению
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РїРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРјСѓ РїРѕР»РѕР¶РµРЅРёСЋ
 		virtual size_t getCursorPosition(const IntPoint & _point);
 
-		// возвращает положение курсора в обсолютных координатах
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РєСѓСЂСЃРѕСЂР° РІ РѕР±СЃРѕР»СЋС‚РЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 		virtual IntCoord getCursorCoord(size_t _position);
 
 		void setShiftText(bool _shift);
@@ -96,7 +96,7 @@ namespace MyGUI
 
 		virtual void _setStateData(StateInfo * _data);
 
-		// метод для генерации данных из описания xml
+		// РјРµС‚РѕРґ РґР»СЏ РіРµРЅРµСЂР°С†РёРё РґР°РЅРЅС‹С… РёР· РѕРїРёСЃР°РЅРёСЏ xml
 		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root);
 
 	protected:
@@ -128,9 +128,9 @@ namespace MyGUI
 		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive, mCursorTexture;
 
 		VectorLineInfo mLinesInfo;
-		IntPoint mViewOffset; // смещение текста
-		FloatSize mContextRealSize; // размер всего текста
-		IntSize mContextSize; // размер всего текста
+		IntPoint mViewOffset; // СЃРјРµС‰РµРЅРёРµ С‚РµРєСЃС‚Р°
+		FloatSize mContextRealSize; // СЂР°Р·РјРµСЂ РІСЃРµРіРѕ С‚РµРєСЃС‚Р°
+		IntSize mContextSize; // СЂР°Р·РјРµСЂ РІСЃРµРіРѕ С‚РµРєСЃС‚Р°
 
 		LayerItemKeeper * mItemKeeper;
 		RenderItem * mRenderItem;

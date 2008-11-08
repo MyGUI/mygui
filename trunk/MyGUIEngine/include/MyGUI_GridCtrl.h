@@ -17,7 +17,7 @@ namespace MyGUI
 
 	class _MyGUIExport GridCtrl : public DDContainer
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<GridCtrl>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -39,7 +39,7 @@ namespace MyGUI
 
 	public:
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of items
 		size_t getItemCount() { return (size_t)mCountItems; }
@@ -64,7 +64,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРµР»РµРЅРёСЏРјРё
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mIndexSelect; }
@@ -77,7 +77,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -96,13 +96,13 @@ namespace MyGUI
 		void setGridCtrlAlignVert(bool _vert);
 		bool getGridCtrlAlignVert() { return mAlignVert; }
 
-		// возвращает индекс елемента, по указателю на виджет айтема
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РёРЅРґРµРєСЃ РµР»РµРјРµРЅС‚Р°, РїРѕ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РІРёРґР¶РµС‚ Р°Р№С‚РµРјР°
 		size_t getIndexByWidget(WidgetPtr _widget);
 
-		// возвращает виджет, созданный для дропа
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІРёРґР¶РµС‚, СЃРѕР·РґР°РЅРЅС‹Р№ РґР»СЏ РґСЂРѕРїР°
 		WidgetPtr getWidgetDrop() { return mItemDrag; }
 
-		// возвращает виджет индекса, если он виден
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІРёРґР¶РµС‚ РёРЅРґРµРєСЃР°, РµСЃР»Рё РѕРЅ РІРёРґРµРЅ
 		WidgetPtr getWidgetByIndex(size_t _index);
 
 		void resetDrop() { endDrop(true); }
@@ -121,31 +121,31 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		// event : запрос на создание айтема
+		// event : Р·Р°РїСЂРѕСЃ РЅР° СЃРѕР·РґР°РЅРёРµ Р°Р№С‚РµРјР°
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
 		EventInfo_WidgetWidget requestCreateWidgetItem;
 
-		// event : запрос на размер айтема
+		// event : Р·Р°РїСЂРѕСЃ РЅР° СЂР°Р·РјРµСЂ Р°Р№С‚РµРјР°
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
 		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
 
-		// event : запрос на обновление айтема
+		// event : Р·Р°РїСЂРѕСЃ РЅР° РѕР±РЅРѕРІР»РµРЅРёРµ Р°Р№С‚РµРјР°
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
-		// event : двойной щелчек мыши или Enter на елементе
+		// event : РґРІРѕР№РЅРѕР№ С‰РµР»С‡РµРє РјС‹С€Рё РёР»Рё Enter РЅР° РµР»РµРјРµРЅС‚Рµ
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventSelectItemAccept;
 
-		// event : изменилась позиция выделенного элемента
+		// event : РёР·РјРµРЅРёР»Р°СЃСЊ РїРѕР·РёС†РёСЏ РІС‹РґРµР»РµРЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventChangeItemPosition;
 
-		// event : щелчек мыши на элементе
+		// event : С‰РµР»С‡РµРє РјС‹С€Рё РЅР° СЌР»РµРјРµРЅС‚Рµ
 		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 		EventInfo_WidgetSizeT eventMouseItemActivate;
 
-		// event : событие связанной с конкретным айтемом
+		// event : СЃРѕР±С‹С‚РёРµ СЃРІСЏР·Р°РЅРЅРѕР№ СЃ РєРѕРЅРєСЂРµС‚РЅС‹Рј Р°Р№С‚РµРјРѕРј
 		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
 		EventInfo_WidgetNotifyItemData eventNotifyItem;
 
@@ -175,80 +175,80 @@ namespace MyGUI
 		virtual void updateDropItems();
 		virtual void updateDropItemsState(const DropWidgetState & _state);
 
-		// Обновляет данные о айтемах, при изменении размеров 
+		// РћР±РЅРѕРІР»СЏРµС‚ РґР°РЅРЅС‹Рµ Рѕ Р°Р№С‚РµРјР°С…, РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ 
 		void updateMetrics();
 
-		// обновляет скролл, по текущим метрикам
+		// РѕР±РЅРѕРІР»СЏРµС‚ СЃРєСЂРѕР»Р», РїРѕ С‚РµРєСѓС‰РёРј РјРµС‚СЂРёРєР°Рј
 		void updateScroll();
 
-		// просто обновляет все виджеты что видны
+		// РїСЂРѕСЃС‚Рѕ РѕР±РЅРѕРІР»СЏРµС‚ РІСЃРµ РІРёРґР¶РµС‚С‹ С‡С‚Рѕ РІРёРґРЅС‹
 		void _updateAllVisible(bool _redraw);
 
 		void updateFromResize(const IntSize& _size);
 
-		// возвращает следующий айтем, если нет его, то создается
-		// запросы только последовательно
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ СЃР»РµРґСѓСЋС‰РёР№ Р°Р№С‚РµРј, РµСЃР»Рё РЅРµС‚ РµРіРѕ, С‚Рѕ СЃРѕР·РґР°РµС‚СЃСЏ
+		// Р·Р°РїСЂРѕСЃС‹ С‚РѕР»СЊРєРѕ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ
 		WidgetPtr getItemWidget(size_t _index);
 
 		void _updateScrollWidget();
 
 		void setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
-		// сбрасываем старую подсветку
+		// СЃР±СЂР°СЃС‹РІР°РµРј СЃС‚Р°СЂСѓСЋ РїРѕРґСЃРІРµС‚РєСѓ
 		void resetCurrentActiveItem();
-		// ищет и устанавливает подсвеченный айтем
+		// РёС‰РµС‚ Рё СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РїРѕРґСЃРІРµС‡РµРЅРЅС‹Р№ Р°Р№С‚РµРј
 		void findCurrentActiveItem();
 
-		// запрашиваем у конейтера айтем по позиции мыши
+		// Р·Р°РїСЂР°С€РёРІР°РµРј Сѓ РєРѕРЅРµР№С‚РµСЂР° Р°Р№С‚РµРј РїРѕ РїРѕР·РёС†РёРё РјС‹С€Рё
 		virtual size_t getContainerIndex(const IntPoint & _point);
 
-		// сбрасывает зависимости, при любом колличественном изменении
+		// СЃР±СЂР°СЃС‹РІР°РµС‚ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё, РїСЂРё Р»СЋР±РѕРј РєРѕР»Р»РёС‡РµСЃС‚РІРµРЅРЅРѕРј РёР·РјРµРЅРµРЅРёРё
 		virtual void resetContainer(bool _update);
 
 	private:
 		VScrollPtr mWidgetScroll;
 
-		// наши дети в строках
+		// РЅР°С€Рё РґРµС‚Рё РІ СЃС‚СЂРѕРєР°С…
 		VectorWidgetPtr mVectorItems;
 
-		// размер одного айтема
+		// СЂР°Р·РјРµСЂ РѕРґРЅРѕРіРѕ Р°Р№С‚РµРјР°
 		IntSize mSizeItem;
 
-		// размерность скролла в пикселях
+		// СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ СЃРєСЂРѕР»Р»Р° РІ РїРёРєСЃРµР»СЏС…
 		int mScrollRange;
-		// позиция скролла п пикселях
+		// РїРѕР·РёС†РёСЏ СЃРєСЂРѕР»Р»Р° Рї РїРёРєСЃРµР»СЏС…
 		int mScrollPosition;
 
-		// колличество айтемов в одной строке
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р°Р№С‚РµРјРѕРІ РІ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ
 		int mCountItemInLine;
-		// колличество линий
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р»РёРЅРёР№
 		int mCountLines;
-		// колличество айтемов всего
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р°Р№С‚РµРјРѕРІ РІСЃРµРіРѕ
 		int mCountItems;
-		// максимальное колличество видимых линий
+		// РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РІРёРґРёРјС‹С… Р»РёРЅРёР№
 		int mCountLineVisible;
 
 
-		// самая верхняя строка
+		// СЃР°РјР°СЏ РІРµСЂС…РЅСЏСЏ СЃС‚СЂРѕРєР°
 		int mLineTop;
-		// текущее смещение верхнего элемента в пикселях
-		// сколько его пикселей не видно сверху
+		// С‚РµРєСѓС‰РµРµ СЃРјРµС‰РµРЅРёРµ РІРµСЂС…РЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РїРёРєСЃРµР»СЏС…
+		// СЃРєРѕР»СЊРєРѕ РµРіРѕ РїРёРєСЃРµР»РµР№ РЅРµ РІРёРґРЅРѕ СЃРІРµСЂС…Сѓ
 		int mOffsetTop;
 
-		// текущий выделенный элемент или ITEM_NONE
+		// С‚РµРєСѓС‰РёР№ РІС‹РґРµР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ РёР»Рё ITEM_NONE
 		size_t mIndexSelect;
-		// подсвеченный элемент или ITEM_NONE
+		// РїРѕРґСЃРІРµС‡РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ РёР»Рё ITEM_NONE
 		size_t mIndexActive;
-		// индекс со свойством приема или ITEM_NONE
+		// РёРЅРґРµРєСЃ СЃРѕ СЃРІРѕР№СЃС‚РІРѕРј РїСЂРёРµРјР° РёР»Рё ITEM_NONE
 		size_t mIndexAccept;
-		// индекс со свойством отказа или ITEM_NONE
+		// РёРЅРґРµРєСЃ СЃРѕ СЃРІРѕР№СЃС‚РІРѕРј РѕС‚РєР°Р·Р° РёР»Рё ITEM_NONE
 		size_t mIndexRefuse;
 
 
-		// имеем ли мы фокус ввода
+		// РёРјРµРµРј Р»Рё РјС‹ С„РѕРєСѓСЃ РІРІРѕРґР°
 		bool mIsFocus;
 
-		// структура данных об айтеме
+		// СЃС‚СЂСѓРєС‚СѓСЂР° РґР°РЅРЅС‹С… РѕР± Р°Р№С‚РµРјРµ
 		VectorItemInfo mItemsInfo;
 
 		WidgetPtr mItemDrag;

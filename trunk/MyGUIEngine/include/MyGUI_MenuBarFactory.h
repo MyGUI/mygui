@@ -22,7 +22,7 @@ namespace MyGUI
 			MenuBarFactory();
 			~MenuBarFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void MenuBar_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		};

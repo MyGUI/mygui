@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	// делегат для парсинга
+	// РґРµР»РµРіР°С‚ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 	typedef delegates::CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
 
 	class _MyGUIExport WidgetManager : public IUnlinkWidget
@@ -52,7 +52,7 @@ namespace MyGUI
 		/** Unregister widget factory */
 		void unregisterFactory(IWidgetFactory * _factory);
 
-		// метод для поиска виджета
+		// РјРµС‚РѕРґ РґР»СЏ РїРѕРёСЃРєР° РІРёРґР¶РµС‚Р°
 		/** Find widget by name */
 		WidgetPtr findWidgetT(const Ogre::String & _name);
 		/** Find widget by name and prefix*/
@@ -76,14 +76,14 @@ namespace MyGUI
 			return findWidget<T>(_prefix + _name);
 		}
 
-		// преобразует точку на виджете в глобальную позицию
+		// РїСЂРµРѕР±СЂР°Р·СѓРµС‚ С‚РѕС‡РєСѓ РЅР° РІРёРґР¶РµС‚Рµ РІ РіР»РѕР±Р°Р»СЊРЅСѓСЋ РїРѕР·РёС†РёСЋ
 		/** Convert position on widget to global position */
 		//static IntPoint convertToGlobal(const IntPoint& _point, WidgetPtr _widget);
 
-		// очищает имя в списках
+		// РѕС‡РёС‰Р°РµС‚ РёРјСЏ РІ СЃРїРёСЃРєР°С…
 		void _unlinkWidget(WidgetPtr _widget);
 
-		// регестрирует делегат
+		// СЂРµРіРµСЃС‚СЂРёСЂСѓРµС‚ РґРµР»РµРіР°С‚
 		/** Register delegate for parsing in layout files or by WidgetManager::parse method 
 			@code manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed); @endcode
 		*/
@@ -91,7 +91,7 @@ namespace MyGUI
 		/** Unregister delegate for parsing in layout files or by WidgetManager::parse method */
 		void unregisterDelegate(const Ogre::String & _key);
 
-		// парсит ключ значение
+		// РїР°СЂСЃРёС‚ РєР»СЋС‡ Р·РЅР°С‡РµРЅРёРµ
 		/** Parse and apply property to widget
 			@param _widget to which property will be applied
 			@param _key property
@@ -100,7 +100,7 @@ namespace MyGUI
 		*/
 		void parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
 
-		// все кто хочет отписать у себя виджет при удалении
+		// РІСЃРµ РєС‚Рѕ С…РѕС‡РµС‚ РѕС‚РїРёСЃР°С‚СЊ Сѓ СЃРµР±СЏ РІРёРґР¶РµС‚ РїСЂРё СѓРґР°Р»РµРЅРёРё
 		/** Register unlinker (call unlink if for any destroyed widget)*/
 		void registerUnlinker(IUnlinkWidget * _unlink);
 		/** Unregister unlinker (call unlink if for any destroyed widget)*/
@@ -131,7 +131,7 @@ namespace MyGUI
 		// set of integrated factories
 		SetWidgetFactory mIntegratedFactoryList;
 
-		// список менеджеров для отписки при удалении
+		// СЃРїРёСЃРѕРє РјРµРЅРµРґР¶РµСЂРѕРІ РґР»СЏ РѕС‚РїРёСЃРєРё РїСЂРё СѓРґР°Р»РµРЅРёРё
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
 
 	};

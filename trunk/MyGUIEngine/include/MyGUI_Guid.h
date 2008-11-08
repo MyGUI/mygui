@@ -87,7 +87,7 @@ namespace MyGUI
         }
 
 	private:
-		// массив для быстрой конвертации
+		// РјР°СЃСЃРёРІ РґР»СЏ Р±С‹СЃС‚СЂРѕР№ РєРѕРЅРІРµСЂС‚Р°С†РёРё
 		static const char convert_hex[64];
 
 		struct _original { 

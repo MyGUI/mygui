@@ -18,7 +18,7 @@ namespace MyGUI
 
 	class _MyGUIExport StaticImage : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<StaticImage>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -96,7 +96,7 @@ namespace MyGUI
 		//! Delete all items
 		void deleteAllItems();
 
-		// работа с фреймами анимированных индексов
+		// СЂР°Р±РѕС‚Р° СЃ С„СЂРµР№РјР°РјРё Р°РЅРёРјРёСЂРѕРІР°РЅРЅС‹С… РёРЅРґРµРєСЃРѕРІ
 		void addItemFrame(size_t _index, const IntCoord & _item);
 		void insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item);
 
@@ -135,13 +135,13 @@ namespace MyGUI
 		void updateSelectIndex(size_t _index);
 
 	private:
-		// кусок в текстуре наших картинок
+		// РєСѓСЃРѕРє РІ С‚РµРєСЃС‚СѓСЂРµ РЅР°С€РёС… РєР°СЂС‚РёРЅРѕРє
 		IntRect mRectImage;
-		// размер одной картинки
+		// СЂР°Р·РјРµСЂ РѕРґРЅРѕР№ РєР°СЂС‚РёРЅРєРё
 		IntSize mSizeTile;
-		// размер текстуры
+		// СЂР°Р·РјРµСЂ С‚РµРєСЃС‚СѓСЂС‹
 		IntSize mSizeTexture;
-		// текущая картинка
+		// С‚РµРєСѓС‰Р°СЏ РєР°СЂС‚РёРЅРєР°
 		size_t mIndexSelect;
 
 		VectorImages mItems;

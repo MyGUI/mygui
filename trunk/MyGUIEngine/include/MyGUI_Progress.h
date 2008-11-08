@@ -16,7 +16,7 @@ namespace MyGUI
 
 	class _MyGUIExport Progress : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Progress>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -38,7 +38,7 @@ namespace MyGUI
 		/** Get progress position */
 		size_t getProgressPosition() {return mEndPosition;}
 
-		/** FIXME что оно делает? почему нет в фактори метода? */
+		/** FIXME С‡С‚Рѕ РѕРЅРѕ РґРµР»Р°РµС‚? РїРѕС‡РµРјСѓ РЅРµС‚ РІ С„Р°РєС‚РѕСЂРё РјРµС‚РѕРґР°? */
 		void setProgressFillTrack(bool _fill);
 		/** Get progress fill track flag */
 		bool getProgressFillTrack() {return mFillTrack;}

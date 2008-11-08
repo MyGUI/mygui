@@ -13,8 +13,8 @@
 namespace MyGUI
 {
 
-	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
-	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
+	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РїРёРєСЃРµР»РµР№ РґР»СЏ РєРѕР»РµСЃР° РјС‹С€Рё
+	const int SCROLL_VIEW_SCROLL_PAGE = 16; // РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РїРёРєСЃРµР»РµР№ РґР»СЏ РєРЅРѕРїРѕРє СЃРєСЂРѕР»Р°
 
 	MYGUI_RTTI_CHILD_IMPLEMENT( ScrollView, Widget );
 
@@ -31,7 +31,7 @@ namespace MyGUI
 		mWidgetCanvas(null),
 		mAlignCanvas(Align::Center)
 	{
-		// нам нужен фокус клавы
+		// РЅР°Рј РЅСѓР¶РµРЅ С„РѕРєСѓСЃ РєР»Р°РІС‹
 		mNeedKeyFocus = true;
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
@@ -42,7 +42,7 @@ namespace MyGUI
 				mWidgetClient->eventMouseLostFocus = newDelegate(this, &ScrollView::notifyMouseLostFocus);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
 
-				// создаем холт, реальный владелец детей
+				// СЃРѕР·РґР°РµРј С…РѕР»С‚, СЂРµР°Р»СЊРЅС‹Р№ РІР»Р°РґРµР»РµС† РґРµС‚РµР№
 				mWidgetCanvas = mWidgetClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
 				mWidgetCanvas->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
 				mWidgetCanvas->eventMouseSetFocus = newDelegate(this, &ScrollView::notifyMouseSetFocus);
@@ -62,7 +62,7 @@ namespace MyGUI
 
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (ScrollView must have Client)");
 
-		// парсим свойства
+		// РїР°СЂСЃРёРј СЃРІРѕР№СЃС‚РІР°
 		/*const MapString & properties = _info->getProperties();
 		if ( ! properties.empty() ) {
 			MapString::const_iterator iter = properties.end();
@@ -99,7 +99,7 @@ namespace MyGUI
 			mIsPressed = true;
 			updateScrollViewState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeySetFocus(_old);
 	}
 
@@ -109,7 +109,7 @@ namespace MyGUI
 			mIsPressed = false;
 			updateScrollViewState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
+		// !!! РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹Р·С‹РІР°С‚СЊ РІ РєРѕРЅС†Рµ РјРµС‚РѕРґР°
 		Widget::onKeyLostFocus(_new);
 	}
 
@@ -144,29 +144,29 @@ namespace MyGUI
 	void ScrollView::setTextAlign(Align _align)
 	{
 		Widget::setTextAlign(_align);
-		// так как мы сами рулим смещениями
+		// С‚Р°Рє РєР°Рє РјС‹ СЃР°РјРё СЂСѓР»РёРј СЃРјРµС‰РµРЅРёСЏРјРё
 		updateView();
 	}
 
 	void ScrollView::updateView()
 	{
 
-		// проверяем скролы
+		// РїСЂРѕРІРµСЂСЏРµРј СЃРєСЂРѕР»С‹
 		updateScroll();
 
-		// размер контекста
+		// СЂР°Р·РјРµСЂ РєРѕРЅС‚РµРєСЃС‚Р°
 		IntSize size = mWidgetCanvas->getSize();
-		// текущее смещение контекста
+		// С‚РµРєСѓС‰РµРµ СЃРјРµС‰РµРЅРёРµ РєРѕРЅС‚РµРєСЃС‚Р°
 		IntPoint point(-mWidgetCanvas->getLeft(), -mWidgetCanvas->getTop());
-		// расчетное смещение
+		// СЂР°СЃС‡РµС‚РЅРѕРµ СЃРјРµС‰РµРЅРёРµ
 		IntPoint offset = point;
 
 		if (size.width > mWidgetClient->getWidth()) {
-			// максимальный выход влево
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІР»РµРІРѕ
 			if ((offset.left + mWidgetClient->getWidth()) > size.width) {
 				offset.left = size.width - mWidgetClient->getWidth();
 			}
-			// максимальный выход вправо
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРїСЂР°РІРѕ
 			else if (offset.left < 0) {
 				offset.left = 0;
 			}
@@ -184,11 +184,11 @@ namespace MyGUI
 		}
 
 		if (size.height > mWidgetClient->getHeight()) {
-			// максимальный выход вверх
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРІРµСЂС…
 			if ((offset.top + mWidgetClient->getHeight()) > size.height) {
 				offset.top = size.height - mWidgetClient->getHeight();
 			}
-			// максимальный выход вниз
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРЅРёР·
 			else if (offset.top < 0) {
 				offset.top = 0;
 			}
@@ -216,54 +216,54 @@ namespace MyGUI
 	{
 		IntSize size = mWidgetCanvas->getSize();
 
-		// вертикальный не помещается
+		// РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		if (size.height > mWidgetClient->getHeight()) {
 			if (mVScroll != null) {
 				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
 					mVScroll->show();
 					mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					//size = mWidgetCanvas->getSize();
 
 					if (mHScroll != null) {
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет показа
+						// РµСЃР»Рё РїРѕРєР°Р·Р°Р»Рё РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРјРµРЅСЊС€РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ РїРѕРєР°Р·Р°
 						if ((size.width > mWidgetClient->getWidth()) && ( ! mHScroll->isShow()) && (mShowHScroll)) {
 							mHScroll->show();
 							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							//size = mWidgetCanvas->getSize();
 						}
 					}
 				}
 			}
 		}
-		// вертикальный помещается
+		// РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		else {
 			if (mVScroll != null) {
 				if (mVScroll->isShow()) {
 					mVScroll->hide();
 					mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					//size = mWidgetCanvas->getSize();
 
 					if (mHScroll != null) {
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет скрытия
+						// РµСЃР»Рё СЃРєСЂС‹Р»Рё РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРІРµР»РёС‡РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ СЃРєСЂС‹С‚РёСЏ
 						if ((size.width <= mWidgetClient->getWidth()) && (mHScroll->isShow())) {
 							mHScroll->hide();
 							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							//size = mWidgetCanvas->getSize();
 						}
 					}
@@ -272,54 +272,54 @@ namespace MyGUI
 		}
 
 
-		// горизонтальный не помещается
+		// РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		if (size.width > mWidgetClient->getWidth()) {
 			if (mHScroll != null) {
 				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
 					mHScroll->show();
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					//size = mWidgetCanvas->getSize();
 
 					if (mVScroll != null) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет показа
+						// РµСЃР»Рё РїРѕРєР°Р·Р°Р»Рё РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРјРµРЅСЊС€РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ РїРѕРєР°Р·Р°
 						if ((size.height > mWidgetClient->getHeight()) && ( ! mVScroll->isShow()) && (mShowVScroll)) {
 							mVScroll->show();
 							mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							//size = mWidgetCanvas->getSize();
 						}
 					}
 				}
 			}
 		}
-		// горизонтальный помещается
+		// РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		else {
 			if (mHScroll != null) {
 				if (mHScroll->isShow()) {
 					mHScroll->hide();
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					//size = mWidgetCanvas->getSize();
 
 					if (mVScroll != null) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет скрытия
+						// РµСЃР»Рё СЃРєСЂС‹Р»Рё РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРІРµР»РёС‡РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ СЃРєСЂС‹С‚РёСЏ
 						if ((size.height <= mWidgetClient->getHeight()) && (mVScroll->isShow())) {
 							mVScroll->hide();
 							mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							//size = mWidgetCanvas->getSize();
 						}
 					}

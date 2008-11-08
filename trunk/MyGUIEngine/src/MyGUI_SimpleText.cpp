@@ -32,13 +32,13 @@ namespace MyGUI
 	void SimpleText::updateRawData()
 	{
 		if (mpFont.isNull()) return;
-		// сбрасывам флаги
+		// СЃР±СЂР°СЃС‹РІР°Рј С„Р»Р°РіРё
 		mTextOutDate = false;
 
-		// массив для быстрой конвертации цветов
+		// РјР°СЃСЃРёРІ РґР»СЏ Р±С‹СЃС‚СЂРѕР№ РєРѕРЅРІРµСЂС‚Р°С†РёРё С†РІРµС‚РѕРІ
 		static const char convert_colour[64] = {0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0};
 
-		// вычисление размера одной единицы в текстурных координатах
+		// РІС‹С‡РёСЃР»РµРЅРёРµ СЂР°Р·РјРµСЂР° РѕРґРЅРѕР№ РµРґРёРЅРёС†С‹ РІ С‚РµРєСЃС‚СѓСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
 		Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
 		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
@@ -46,11 +46,11 @@ namespace MyGUI
 
 		mLinesInfo.clear();
 
-		// создаем первую строчку
+		// СЃРѕР·РґР°РµРј РїРµСЂРІСѓСЋ СЃС‚СЂРѕС‡РєСѓ
 		mLinesInfo.push_back(PairVectorCharInfo());
-		//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-		//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-		//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» РІСЃРµРіРґР° С€РёСЂРёРЅР° РІ СЂРµР°Р»СЊРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // РІС‚РѕСЂРѕР№ СЃРёРјРІРѕР» РІСЃРµРіРґР° С€РёСЂРёРЅР° РІ РїРёРєСЃРµР»СЏС…
+		//mLinesInfo.back().second.push_back(EnumCharInfo()); // С‚СЂРµС‚РёР№ СЃРёРјРІРѕР», РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РёРјС‹С… СЃРёРјРІРѕР»РѕРІ
 		float len = 0, width = 0;
 		size_t count = 1;
 
@@ -61,10 +61,10 @@ namespace MyGUI
 
 			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 
-				// длинна строки, кратна пикселю, плюс курсор
+				// РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё, РєСЂР°С‚РЅР° РїРёРєСЃРµР»СЋ, РїР»СЋСЃ РєСѓСЂСЃРѕСЂ
 				len = (float)((uint)(len + 0.99f));
 
-				// запоминаем размер предыдущей строки
+				// Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ РїСЂРµРґС‹РґСѓС‰РµР№ СЃС‚СЂРѕРєРё
 				//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
 				//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
 				//mLinesInfo.back().second[2] = EnumCharInfo(count);
@@ -74,45 +74,45 @@ namespace MyGUI
 				count = 1;
 				len = 0;
 
-				// и создаем новую
+				// Рё СЃРѕР·РґР°РµРј РЅРѕРІСѓСЋ
 				mLinesInfo.push_back(PairVectorCharInfo());
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // первый символ всегда ширина в реальных координатах
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // второй символ всегда ширина в пикселях
-				//mLinesInfo.back().second.push_back(EnumCharInfo()); // третий символ, колличество значимых символов
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» РІСЃРµРіРґР° С€РёСЂРёРЅР° РІ СЂРµР°Р»СЊРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // РІС‚РѕСЂРѕР№ СЃРёРјРІРѕР» РІСЃРµРіРґР° С€РёСЂРёРЅР° РІ РїРёРєСЃРµР»СЏС…
+				//mLinesInfo.back().second.push_back(EnumCharInfo()); // С‚СЂРµС‚РёР№ СЃРёРјРІРѕР», РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РёРјС‹С… СЃРёРјРІРѕР»РѕРІ
 
 				if (character == Font::FONT_CODE_CR) {
 					Ogre::UTFString::const_iterator peeki = index;
 					peeki++;
 					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
 				}
-				// следующий символ
+				// СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»
 				continue;
 
 			}
 			else if (character == L'#') {
-				// берем следующий символ
+				// Р±РµСЂРµРј СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»
 				++ index;
-				if (index == end) {--index ;continue;} // это защита
+				if (index == end) {--index ;continue;} // СЌС‚Рѕ Р·Р°С‰РёС‚Р°
 
 				character = *index;
-				// если два подряд, то рисуем один шарп, если нет то меняем цвет
+				// РµСЃР»Рё РґРІР° РїРѕРґСЂСЏРґ, С‚Рѕ СЂРёСЃСѓРµРј РѕРґРёРЅ С€Р°СЂРї, РµСЃР»Рё РЅРµС‚ С‚Рѕ РјРµРЅСЏРµРј С†РІРµС‚
 				if (character != L'#') {
 
-					// парсим первый символ
+					// РїР°СЂСЃРёРј РїРµСЂРІС‹Р№ СЃРёРјРІРѕР»
 					Ogre::RGBA colour = convert_colour[(character-48) & 0x3F];
 
-					// и еще пять символов после шарпа
+					// Рё РµС‰Рµ РїСЏС‚СЊ СЃРёРјРІРѕР»РѕРІ РїРѕСЃР»Рµ С€Р°СЂРїР°
 					for (char i=0; i<5; i++) {
 						++ index;
-						if (index == end) {--index ;continue;} // это защита
+						if (index == end) {--index ;continue;} // СЌС‚Рѕ Р·Р°С‰РёС‚Р°
 						colour <<= 4;
 						colour += convert_colour[ ((*index) - 48) & 0x3F];
 					}
 
-					// если нужно, то меняем красный и синий компоненты
+					// РµСЃР»Рё РЅСѓР¶РЅРѕ, С‚Рѕ РјРµРЅСЏРµРј РєСЂР°СЃРЅС‹Р№ Рё СЃРёРЅРёР№ РєРѕРјРїРѕРЅРµРЅС‚С‹
 					if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
 
-					// запоминаем цвет, в верхнем байте единицы
+					// Р·Р°РїРѕРјРёРЅР°РµРј С†РІРµС‚, РІ РІРµСЂС…РЅРµРј Р±Р°Р№С‚Рµ РµРґРёРЅРёС†С‹
 					mLinesInfo.back().second.push_back(EnumCharInfo(colour, true) );
 
 					continue;
@@ -126,16 +126,16 @@ namespace MyGUI
 
 			len += info->aspectRatio * (float)mFontHeight;
 
-			// указатель на инфо о символе
+			// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёРЅС„Рѕ Рѕ СЃРёРјРІРѕР»Рµ
 			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
 			count ++;
 
 		}
 
-		// длинна строки, кратна пикселю
+		// РґР»РёРЅРЅР° СЃС‚СЂРѕРєРё, РєСЂР°С‚РЅР° РїРёРєСЃРµР»СЋ
 		len = (float)((uint)(len + 0.99f));
 
-		// запоминаем размер предыдущей строки
+		// Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ РїСЂРµРґС‹РґСѓС‰РµР№ СЃС‚СЂРѕРєРё
 		//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
 		//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
 		//mLinesInfo.back().second[2] = EnumCharInfo(count);
@@ -144,7 +144,7 @@ namespace MyGUI
 		if (width < len) width = len;
 
 
-		// устанавливаем размер текста
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р°
 		mContextSize.set(int(width), mLinesInfo.size() * mFontHeight);
 		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}

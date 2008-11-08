@@ -19,7 +19,7 @@ namespace MyGUI
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::map<Ogre::UTFString, Ogre::UTFString> MapLanguageString;
 
-	// делегат для смены оповещения смены языков
+	// РґРµР»РµРіР°С‚ РґР»СЏ СЃРјРµРЅС‹ РѕРїРѕРІРµС‰РµРЅРёСЏ СЃРјРµРЅС‹ СЏР·С‹РєРѕРІ
 	typedef delegates::CMultiDelegate1<const std::string &> MultiDelegate_String;
 
 	class _MyGUIExport LanguageManager

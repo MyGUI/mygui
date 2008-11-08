@@ -22,7 +22,7 @@ namespace MyGUI
 			ListFactory();
 			~ListFactory();
 		private:
-			// методы для парсинга
+			// РјРµС‚РѕРґС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
 			void List_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		};

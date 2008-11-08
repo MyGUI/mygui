@@ -18,7 +18,7 @@ namespace MyGUI
 
 	class _MyGUIExport ComboBox : public Edit
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<ComboBox>;
 
 		MYGUI_RTTI_CHILD_HEADER;
@@ -29,7 +29,7 @@ namespace MyGUI
 
 	public:
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of items
 		size_t getItemCount() { return mList->getItemCount(); }
@@ -55,7 +55,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРµР»РµРЅРёСЏРјРё
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mItemIndex; }
@@ -68,7 +68,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -85,7 +85,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
@@ -95,7 +95,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выдимостью
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РІС‹РґРёРјРѕСЃС‚СЊСЋ
 
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index) { mList->beginToItemAt(_index); }
@@ -140,7 +140,7 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------------//
-		// методы для управления отображением
+		// РјРµС‚РѕРґС‹ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 		//! Set drop list mode (text can not be edited)
 		void setComboModeDrop(bool _drop);
 		//! Get drop list mode flag

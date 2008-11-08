@@ -15,7 +15,7 @@ namespace MyGUI
 
 	class _MyGUIExport StaticText : public Widget
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<StaticText>;
 
 		MYGUI_RTTI_CHILD_HEADER;
