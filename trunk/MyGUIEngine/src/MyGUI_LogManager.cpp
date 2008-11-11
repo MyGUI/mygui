@@ -10,7 +10,7 @@
 namespace MyGUI
 {
 
-	const std::string LogManager::LevelsName[EndLogLevel] = 
+	const std::string LogManager::LevelsName[EndLogLevel] =
 	{
 		"Info",
 		"Warning",
@@ -27,6 +27,7 @@ namespace MyGUI
 	LogManager::LogManager()
 	{
 		msInstance = this;
+		mSTDOut = true;
 	}
 
 	LogManager::~LogManager()
@@ -131,6 +132,18 @@ namespace MyGUI
 	const LogStreamEnd& LogManager::end()
 	{
 		return endl;
+	}
+
+	void LogManager::setSTDOutputEnabled(bool _enable)
+	{
+		assert(msInstance);
+		msInstance->mSTDOut = _enable;
+	}
+
+	bool LogManager::getSTDOutputEnabled()
+	{
+		assert(msInstance);
+		return msInstance->mSTDOut;
 	}
 
 } // namespace MyGUI

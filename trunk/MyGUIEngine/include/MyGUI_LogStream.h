@@ -24,7 +24,7 @@ namespace MyGUI
 	public:
 		LogStream& operator<<(const LogStreamEnd& _endl)
 		{
-			std::cout << std::endl;
+			if (getSTDOutputEnabled()) std::cout << std::endl;
 			if (mStream.is_open()) {
 				mStream << std::endl;
 				mStream.close();
@@ -37,7 +37,7 @@ namespace MyGUI
 		template <typename T>
 		inline LogStream& operator<<(T _value)
 		{
-			std::cout << _value;
+			if (getSTDOutputEnabled()) std::cout << _value;
 			if (mStream.is_open()) mStream << _value;
 			return *this;
 		}
@@ -52,6 +52,8 @@ namespace MyGUI
 
 		void start(const std::string& _section, const std::string& _level);
 
+		bool getSTDOutputEnabled();
+
 		void lock()
 		{
 		}
@@ -63,7 +65,6 @@ namespace MyGUI
 	private:
 		std::ofstream mStream;
 		std::string mFileName;
-
 	};
 
 	typedef std::map<std::string, LogStream*> MapLogStream;
