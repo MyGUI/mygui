@@ -220,18 +220,18 @@ namespace input
 		windowHndStr << mHwnd;
 		pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
-		#if defined _DEBUG
-			#if defined OIS_WIN32_PLATFORM
-				pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
-				pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
-				pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
-				pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
-			#elif defined OIS_LINUX_PLATFORM
-				pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-				pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
-				pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
-				pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
-			#endif
+		#if defined OIS_LINUX_PLATFORM
+			pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
+			pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
+			pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
+			pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
+		/*
+		#elif defined OIS_WIN32_PLATFORM
+			pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
+			pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+			pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
+			pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
+		*/
 		#endif
 
 		mInputManager = OIS::InputManager::createInputSystem( pl );
