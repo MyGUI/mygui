@@ -571,6 +571,10 @@
 				Name="Utility"
 				>
 				<File
+					RelativePath=".\src\MyGUI_Convert.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_DynLib.cpp"
 					>
 				</File>
@@ -820,6 +824,10 @@
 			<Filter
 				Name="Utility"
 				>
+				<File
+					RelativePath=".\include\MyGUI_Convert.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\MyGUI_Delegate.h"
 					>
