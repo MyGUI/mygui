@@ -225,7 +225,7 @@ namespace MyGUI
 
 	const char * Message::getIconName(size_t _index)
 	{
-		static const int CountIcons = 4;
+		static const size_t CountIcons = 4;
 		static const char * IconNames[CountIcons + 1] = {"Info", "Quest", "Error", "Warning", ""};
 		if (_index >= CountIcons) return IconNames[CountIcons];
 		return IconNames[_index];

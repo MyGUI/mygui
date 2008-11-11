@@ -298,12 +298,12 @@ namespace MyGUI
 
 		int offset = mScrollPosition;
 		if (_rel < 0) offset += SCROLL_MOUSE_WHEEL;
-		else  offset -= SCROLL_MOUSE_WHEEL;
+		else offset -= SCROLL_MOUSE_WHEEL;
 
 		if (offset < 0) offset = 0;
 		else if (offset > (int)(mScrollRange - 1)) offset = mScrollRange - 1;
 
-		if (offset != mScrollPosition) {
+		if ((size_t)offset != mScrollPosition) {
 			mScrollPosition = offset;
 			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);

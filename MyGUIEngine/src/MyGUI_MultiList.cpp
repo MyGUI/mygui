@@ -348,7 +348,7 @@ namespace MyGUI
 		StaticImagePtr image = _button->getStaticImage();
 		if ( null == image ) return;
 		if (image->getItemResource()) {
-			static const int CountIcons = 3;
+			static const size_t CountIcons = 3;
 			static const char * IconNames[CountIcons + 1] = {"None", "Up", "Down", ""};
 			if (_index >= CountIcons) _index = CountIcons;
 			image->setItemName(IconNames[_index]);
