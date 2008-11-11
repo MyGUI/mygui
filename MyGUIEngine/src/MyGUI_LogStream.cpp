@@ -70,4 +70,9 @@ namespace MyGUI
 		}
 	}
 
+	bool LogStream::getSTDOutputEnabled()
+	{
+		return LogManager::getSTDOutputEnabled();
+	}
+
 } // namespace MyGUI
