@@ -55,6 +55,7 @@
 #include "MyGUI_IResource.h"
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_Convert.h"
 
 #include "MyGUI_LastHeader.h"
 

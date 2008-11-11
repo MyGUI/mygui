@@ -68,12 +68,6 @@ private:
 	// tooltips
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
 
-	// конвертирует из анси строки в вайд строку
-	Ogre::DisplayString anci_to_utf16(const std::string & _source);
-
-	// конвертирует из вайд в анси
-	std::string utf16_to_anci(const Ogre::DisplayString & _source);
-
 	// last click for depth selecting
 	int x, y;
 	int selectDepth;

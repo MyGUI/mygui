@@ -498,7 +498,7 @@ void EditorState::notifySave()
 	if (fileName != "")
 	{
 		if ( !ew->save(fileName)) {
-			Ogre::DisplayString file_name = anci_to_utf16(fileName);
+			Ogre::DisplayString file_name = MyGUI::convert::ansi_to_wide(fileName);
 			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		}
 	}
@@ -540,14 +540,14 @@ void EditorState::notifyLoadSaveAs(bool _save)
 	// set fileName in edit
 	MyGUI::ComboBoxPtr combo = combo2->castType<MyGUI::ComboBox>();
 	if (fileName != "") {
-		const Ogre::DisplayString & item = anci_to_utf16(fileName);
+		const Ogre::DisplayString & item = MyGUI::convert::ansi_to_wide(fileName);
 		combo->setCaption(item);
 	}
 	combo->eventEditSelectAccept = newDelegate(this, &EditorState::notifyLoadSaveEditAccept);
 	std::vector<Ogre::String> strs = MyGUI::helper::getVectorResourcePath("*.layout");
 	for (std::vector<Ogre::String>::iterator iter = strs.begin(); iter != strs.end(); ++iter)
 	{
-		const Ogre::DisplayString & item = anci_to_utf16(*iter);
+		const Ogre::DisplayString & item = MyGUI::convert::ansi_to_wide(*iter);
 		combo->addItem(item);
 	}
 
@@ -615,7 +615,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 	bool success;
 	Ogre::UTFString file_name = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
 	// конвертируем
-	std::string fName = utf16_to_anci(file_name);
+	std::string fName = MyGUI::convert::wide_to_ansi(file_name);
 
 	if (_sender->getCaption() == "Load") success = ew->load(fName);
 	else/*(_sender->getCaption() == "Save")*/ success = ew->save(fName);
@@ -649,7 +649,7 @@ void EditorState::load(const std::string & _file)
 {
 	if (!ew->load(_file))
 	{
-		Ogre::DisplayString file_name = anci_to_utf16(fileName);
+		Ogre::DisplayString file_name = MyGUI::convert::ansi_to_wide(fileName);
 		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return;
 	}
@@ -762,33 +762,3 @@ void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipIn
 	}
 }
 
-Ogre::DisplayString EditorState::anci_to_utf16(const std::string & _source)
-{
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	const char* srcPtr = _source.c_str();
-	int tmpSize = MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, 0, 0 );
-	WCHAR* tmpBuff = new WCHAR [ tmpSize + 1 ];
-	MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, tmpBuff, tmpSize );
-	std::wstring ret = tmpBuff;
-	delete[] tmpBuff;
-	return ret;
-#else
-	return Ogre::DisplayString(_source).asWStr();
-#endif
-}
-
-std::string EditorState::utf16_to_anci(const Ogre::DisplayString & _source)
-{
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	const wchar_t* srcPtr = _source.asWStr_c_str(); 
-	int dstSize = WideCharToMultiByte( CP_ACP, 0, srcPtr, (int)_source.size(), 0, 0, 0, 0 ); 
-	char * dest = new char [ dstSize + 1 ];
-	WideCharToMultiByte( CP_ACP, 0, srcPtr, (int)_source.size(), dest, dstSize, 0, 0 ); 
-	dest[dstSize] = 0;
-	std::string ret = dest;
-	delete [] dest;
-	return ret;
-#else
-	return _source.asUTF8();
-#endif
-}
