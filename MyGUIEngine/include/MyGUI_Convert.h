@@ -22,13 +22,13 @@ namespace MyGUI
 		namespace implement
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			std::wstring _MyGUIExport win_x_to_wide(const std::string& _source, unsigned int _code);
-			std::string _MyGUIExport win_wide_to_x(const std::wstring& _source, unsigned int _code);
-			std::string _MyGUIExport win_x_to_x(const std::string& _source, unsigned int _from_code, unsigned int _to_code);
+			std::wstring win_x_to_wide(const std::string& _source, unsigned int _code);
+			std::string win_wide_to_x(const std::wstring& _source, unsigned int _code);
+			std::string win_x_to_x(const std::string& _source, unsigned int _from_code, unsigned int _to_code);
 #endif
 		} // namespace implement
 
-		inline std::wstring ansi_to_wide(const std::string& _source)
+		inline std::wstring _MyGUIExport ansi_to_wide(const std::string& _source)
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_x_to_wide(_source, CP_ACP);
@@ -37,7 +37,7 @@ namespace MyGUI
 #endif
 		}
 
-		inline std::string ansi_to_utf8(const std::string& _source)
+		inline std::string _MyGUIExport ansi_to_utf8(const std::string& _source)
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_x_to_x(_source, CP_ACP, CP_UTF8);
@@ -46,7 +46,7 @@ namespace MyGUI
 #endif
 		}
 
-		inline std::wstring utf8_to_wide(const std::string& _source)
+		inline std::wstring _MyGUIExport utf8_to_wide(const std::string& _source)
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_x_to_wide(_source, CP_UTF8);
@@ -55,7 +55,7 @@ namespace MyGUI
 #endif
 		}
 
-		inline std::string utf8_to_ansi(const std::string& _source)
+		inline std::string _MyGUIExport utf8_to_ansi(const std::string& _source)
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_x_to_x(_source, CP_UTF8, CP_ACP);
@@ -64,7 +64,7 @@ namespace MyGUI
 #endif
 		}
 
-		inline std::string wide_to_ansi(const std::wstring& _source)
+		inline std::string _MyGUIExport wide_to_ansi(const std::wstring& _source)
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_wide_to_x(_source, CP_ACP);
@@ -73,7 +73,7 @@ namespace MyGUI
 #endif
 		}
 
-		inline std::string wide_to_utf8(const std::wstring& _source)
+		inline std::string _MyGUIExport wide_to_utf8(const std::wstring& _source)
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_wide_to_x(_source, CP_UTF8);

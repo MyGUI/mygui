@@ -41,7 +41,7 @@ namespace MyGUI
 			static DequeInfo lines;
 
 			const int offset = 10;
-			const int count_lines = 20;
+			const size_t count_lines = 20;
 			static const std::string font = "Default";
 			static const std::string layer = "Statistic";
 			static const std::string skin = "StaticText";
