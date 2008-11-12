@@ -145,8 +145,8 @@ namespace MyGUI
 		if (1 > mCountItemInLine) mCountItemInLine = 1;
 
 		// колличество строк
-		mCountLines = (int)mCountItems / mCountItemInLine;
-		if (0 != ((int)mCountItems % mCountItemInLine)) mCountLines ++;
+		mCountLines = mCountItems / mCountItemInLine;
+		if (0 != (mCountItems % mCountItemInLine)) mCountLines ++;
 
 		// колличество строк которые помещаються в видимую часть
 		mCountLineVisible = getWidgetHeight(mWidgetClient, mAlignVert) / mSizeItem.height;
@@ -211,11 +211,11 @@ namespace MyGUI
 
 	void GridCtrl::_updateAllVisible(bool _redraw)
 	{
-		int start = (mLineTop * mCountItemInLine);
-		int count = (mCountLineVisible * mCountItemInLine) + start;
+		size_t start = (mLineTop * mCountItemInLine);
+		size_t count = (mCountLineVisible * mCountItemInLine) + start;
 
 		size_t iwid = 0; // индекс виджета
-		for (int pos = start; pos<count; ++pos, ++iwid) {
+		for (size_t pos = start; pos<count; ++pos, ++iwid) {
 			// дальше нет айтемов
 			if (pos >= mCountItems) break;
 

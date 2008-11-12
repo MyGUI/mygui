@@ -152,9 +152,9 @@ namespace MyGUI
 		bool getSmoothShow() { return mShowSmooth; }
 
 		//! Set max list height
-		int getMaxListHeight() { return mMaxHeight; }
+		size_t getMaxListHeight() { return mMaxHeight; }
 		//! Get max list height
-		void setMaxListHeight(int _height) { mMaxHeight = _height; }
+		void setMaxListHeight(size_t _height) { mMaxHeight = _height; }
 
 		//------------------------------------------------------------------------------------//
 
@@ -190,7 +190,7 @@ namespace MyGUI
 		ListPtr mList;
 
 		bool mListShow;
-		int mMaxHeight;
+		size_t mMaxHeight;
 		size_t mItemIndex;
 		bool mModeDrop;
 		bool mDropMouse;

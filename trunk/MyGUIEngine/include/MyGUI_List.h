@@ -211,7 +211,7 @@ namespace MyGUI
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
 		//! Return optimal height to fit all items in List
-		int getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + ((int)mItemsInfo.size() * mHeightLine);}
+		size_t getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine);}
 
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

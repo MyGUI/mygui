@@ -190,8 +190,6 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 {
 	size_t item = mList->getItemIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
-	// unused variable _onExit
-	ON_EXIT(UndoManager::getInstance().addValue());
 	MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 
@@ -207,6 +205,7 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 		if (i == item) MapSet(sheetContainer->mProperty, action, "true");
 		else MapErase(sheetContainer->mProperty, action);
 	}
+	UndoManager::getInstance().addValue();
 }
 
 void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
