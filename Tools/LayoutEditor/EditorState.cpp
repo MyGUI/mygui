@@ -94,7 +94,7 @@ void EditorState::enter(bool bIsChangeState)
 	mSettingsWindow.initialise();
 	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
 	interfaceWidgets.push_back(mSettingsWindow.mainWidget());
-	
+
 	loadSettings(settingsFile);
 	loadSettings(userSettingsFile);
 
@@ -167,7 +167,7 @@ void EditorState::exit()
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
 	if (testMode){ mGUI->injectMouseMove(arg); return true;}
-	
+
 	// drop select depth if we moved mouse
 	const int DIST = 2;
 	if ((abs(x - arg.state.X.abs) > DIST) && (abs(y - arg.state.Y.abs) > DIST))
@@ -498,7 +498,7 @@ void EditorState::notifySave()
 	if (fileName != "")
 	{
 		if ( !ew->save(fileName)) {
-			Ogre::DisplayString file_name = MyGUI::convert::ansi_to_wide(fileName);
+			Ogre::DisplayString file_name = fileName; //MyGUI::convert::ansi_to_wide(fileName);
 			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		}
 	}
@@ -513,7 +513,7 @@ void EditorState::notifyLoadSaveAs(bool _save)
 	MyGUI::IntSize size(messageWindow->getSize());
 	messageWindow->setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 	MyGUI::InputManager::getInstance().addWidgetModal(messageWindow);
-	
+
 	//MyGUI::VectorWidgetPtr childs = messageWindow->getChilds();
 	//if (_save) childs[1]->setCaption("Save");
 	//else childs[1]->setCaption("Load");
@@ -540,14 +540,14 @@ void EditorState::notifyLoadSaveAs(bool _save)
 	// set fileName in edit
 	MyGUI::ComboBoxPtr combo = combo2->castType<MyGUI::ComboBox>();
 	if (fileName != "") {
-		const Ogre::DisplayString & item = MyGUI::convert::ansi_to_wide(fileName);
+		const Ogre::DisplayString & item = fileName;//MyGUI::convert::ansi_to_wide(fileName);
 		combo->setCaption(item);
 	}
 	combo->eventEditSelectAccept = newDelegate(this, &EditorState::notifyLoadSaveEditAccept);
 	std::vector<Ogre::String> strs = MyGUI::helper::getVectorResourcePath("*.layout");
 	for (std::vector<Ogre::String>::iterator iter = strs.begin(); iter != strs.end(); ++iter)
 	{
-		const Ogre::DisplayString & item = MyGUI::convert::ansi_to_wide(*iter);
+		const Ogre::DisplayString & item = *iter;//MyGUI::convert::ansi_to_wide(*iter);
 		combo->addItem(item);
 	}
 
@@ -615,12 +615,12 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 	bool success;
 	Ogre::UTFString file_name = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
 	// конвертируем
-	std::string fName = MyGUI::convert::wide_to_ansi(file_name);
+	std::string fName = file_name;//MyGUI::convert::wide_to_ansi(file_name);
 
 	if (_sender->getCaption() == "Load") success = ew->load(fName);
 	else/*(_sender->getCaption() == "Save")*/ success = ew->save(fName);
 
-	if (false == success) 
+	if (false == success)
 	{
 		MyGUI::Message::_createMessage(localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
@@ -649,7 +649,7 @@ void EditorState::load(const std::string & _file)
 {
 	if (!ew->load(_file))
 	{
-		Ogre::DisplayString file_name = MyGUI::convert::ansi_to_wide(fileName);
+		Ogre::DisplayString file_name = fileName;//MyGUI::convert::ansi_to_wide(fileName);
 		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return;
 	}

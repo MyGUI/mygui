@@ -22,9 +22,9 @@ struct WidgetContainer
 		relative_mode(false)
 	{}
 	WidgetContainer(std::string _type, std::string _skin, MyGUI::WidgetPtr _widget, std::string _name = ""):
+		widget(_widget),
 		type(_type),
 		skin(_skin),
-		widget(_widget),
 		name(_name),
 		layer(DEFAULT_LAYER),
 		relative_mode(false)

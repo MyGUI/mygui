@@ -14,6 +14,10 @@ struct WidgetContainer;
 class EditorState : public BasisState
 {
 public:
+
+	EditorState() {};
+	virtual ~EditorState() {};
+
 	void enter(bool bIsChangeState);
 	void exit();
 

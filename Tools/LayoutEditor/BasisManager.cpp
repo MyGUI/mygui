@@ -12,10 +12,10 @@ BasisManager::BasisManager() :
 	mCamera(0),
 	mSceneMgr(0),
 	mWindow(0),
-	mInput(null),
-	mFullscreen(false),
 	m_exit(false),
-	mGUI(null)
+	mGUI(null),
+	mFullscreen(false),
+	mInput(null)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";
@@ -48,7 +48,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	#ifndef OGRE_STATIC_LIB
 		pluginsPath = mResourcePath + "plugins.cfg";
 	#endif
-	
+
 	mRoot = new Ogre::Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
 
 	setupResources();
@@ -79,7 +79,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
 	// Create one viewport, entire window
-	Ogre::Viewport * vp = mWindow->addViewport(mCamera);
+	/*Ogre::Viewport * vp = */mWindow->addViewport(mCamera);
 	// Alter the camera aspect ratio to match the viewport
 	mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
 
@@ -172,7 +172,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr->destroyAllCameras();
 		mSceneMgr = 0;
 	}
-	
+
 	//destroyInput(); // удаляем ввод
 	// удаляем ввод
 	if (mInput) {
@@ -185,7 +185,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mWindow->destroy();
 		mWindow = 0;
 	}
-	
+
 	if (mRoot) {
 		Ogre::RenderWindow * mWindow = mRoot->getAutoCreatedWindow();
 		if (mWindow) mWindow->removeAllViewports();
@@ -342,7 +342,7 @@ void BasisManager::windowResized(Ogre::RenderWindow* rw)
 
 	 // оповещаем все статусы
 	for (size_t index=0; index<mStates.size(); index++) mStates[index]->windowResize();
-	
+
 }
 
 void BasisManager::windowClosed(Ogre::RenderWindow* rw)

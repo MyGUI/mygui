@@ -53,11 +53,10 @@ void PanelItems::shutdownCell()
 
 void PanelItems::update(MyGUI::WidgetPtr _current_widget)
 {
-	int y = 0;
 	current_widget = _current_widget;
 
 	WidgetType * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
-	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
+	//WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
 
 	if (widgetType->many_items)
 	{
@@ -191,6 +190,7 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 {
 	size_t item = mList->getItemIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
+	// unused variable _onExit
 	ON_EXIT(UndoManager::getInstance().addValue());
 	MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);

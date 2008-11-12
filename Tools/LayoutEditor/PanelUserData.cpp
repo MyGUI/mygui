@@ -62,7 +62,7 @@ void PanelUserData::shutdownCell()
 
 void PanelUserData::update(MyGUI::WidgetPtr _current_widget)
 {
-	int y = 0;
+	//int y = 0;
 	current_widget = _current_widget;
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);

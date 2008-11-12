@@ -17,6 +17,7 @@ namespace wraps
 	public:
 		BaseLayout();
 		BaseLayout(const std::string & _layout);
+		virtual ~BaseLayout(){};
 
 		// используется для создания простых окон
 		virtual void initialise();
@@ -56,8 +57,8 @@ namespace wraps
 						_widget = cast;
 					}
 					else if (_throw) {
-							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName() 
-							<< "' source name = '" << find->getName() 
+							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
+							<< "' source name = '" << find->getName()
 							<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
 					}
 					return;
