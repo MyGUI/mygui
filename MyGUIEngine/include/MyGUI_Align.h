@@ -33,7 +33,7 @@ namespace MyGUI
 		ALIGN_LEFT_TOP             = ALIGN_LEFT | ALIGN_TOP,
 		ALIGN_RIGHT_TOP             = ALIGN_RIGHT | ALIGN_TOP,
 		ALIGN_RIGHT_BOTTOM             = ALIGN_RIGHT | ALIGN_BOTTOM,
-		ALIGN_LEFT_BOTTOM             = ALIGN_LEFT | ALIGN_BOTTOM,
+		ALIGN_LEFT_BOTTOM             = ALIGN_LEFT | ALIGN_BOTTOM
 	};
 
 	struct _MyGUIExport Align

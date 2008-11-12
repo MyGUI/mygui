@@ -126,7 +126,7 @@ namespace MyGUI
 		const size_t SIZE = 39;
 		char buff[SIZE];
 
-		sprintf(buff, "{%.8X-%.4X-%.4X-%.2X%.2X-%.2X%.2X%.2X%.2X%.2X%.2X}\0", (int)(original.data1), (int)(original.data2), (int)(original.data3),
+		sprintf(buff, "{%.8X-%.4X-%.4X-%.2X%.2X-%.2X%.2X%.2X%.2X%.2X%.2X}", (int)(original.data1), (int)(original.data2), (int)(original.data3),
 			(int)(original.data4[0]), (int)(original.data4[1]),
 			(int)(original.data4[2]), (int)(original.data4[3]), (int)(original.data4[4]), (int)(original.data4[5]), (int)(original.data4[6]), (int)(original.data4[7])
 			);

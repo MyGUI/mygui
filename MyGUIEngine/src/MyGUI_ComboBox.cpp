@@ -38,7 +38,7 @@ namespace MyGUI
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iter = properties.find("HeightList");
-		if (iter != properties.end()) mMaxHeight = utility::parseInt(iter->second);
+		if (iter != properties.end()) mMaxHeight = utility::parseSizeT(iter->second);
 
 		iter = properties.find("ListSmoothShow");
 		if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
@@ -74,7 +74,7 @@ namespace MyGUI
 		MYGUI_ASSERT(null != mButton, "Child Button not found in skin (combobox must have Button)");
 
 		// корректируем высоту списка
-		if (mMaxHeight < (int)mList->getFontHeight()) mMaxHeight = (int)mList->getFontHeight();
+		if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
 
 		// подписываем дочерние классы на скролл
 		mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
@@ -220,14 +220,14 @@ namespace MyGUI
 
 		mListShow = true;
 
-		int height = mList->getOptimalHeight();
+		size_t height = mList->getOptimalHeight();
 		if (height > mMaxHeight) height = mMaxHeight;
 
 		// берем глобальные координаты выджета
 		IntCoord coord = this->getAbsoluteCoord();
 
 		//показываем список вверх
-		if ((coord.top + coord.height + height) > (int)Gui::getInstance().getViewHeight()) {
+		if ((coord.top + coord.height + height) > (size_t)Gui::getInstance().getViewHeight()) {
 			coord.height = height;
 			coord.top -= coord.height;
 		}
