@@ -42,7 +42,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return (size_t)mCountItems; }
+		size_t getItemCount() { return mCountItems; }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, Any _data = Any::Null);
@@ -175,7 +175,7 @@ namespace MyGUI
 		virtual void updateDropItems();
 		virtual void updateDropItemsState(const DropWidgetState & _state);
 
-		// Обновляет данные о айтемах, при изменении размеров 
+		// Обновляет данные о айтемах, при изменении размеров
 		void updateMetrics();
 
 		// обновляет скролл, по текущим метрикам
@@ -224,7 +224,7 @@ namespace MyGUI
 		// колличество линий
 		int mCountLines;
 		// колличество айтемов всего
-		int mCountItems;
+		size_t mCountItems;
 		// максимальное колличество видимых линий
 		int mCountLineVisible;
 

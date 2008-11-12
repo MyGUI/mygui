@@ -57,6 +57,7 @@
 			<Add directory="include" />
 			<Add directory="$(OGRE_HOME)/OgreMain/include" />
 			<Add directory="/usr/include/freetype2" />
+			<Add directory="/usr/local/include/OGRE" />
 		</Compiler>
 		<Linker>
 			<Add option="-Wl,-rpath,." />

@@ -413,6 +413,8 @@ void BasisManager::setFullscreen(bool _fullscreen)
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#elseif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+#include <locale.h>
 #endif
 #ifdef __cplusplus
 extern "C" {
@@ -425,15 +427,17 @@ int main(int argc, char **argv)
 #endif
 {
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 
 	// устанавливаем локаль из переменной окружения
 	// без этого не будут открываться наши файлы
 	std::string locale = ::setlocale( LC_ALL, "" );
 	// erase everything after '_' to get language name
 	locale.erase(std::find(locale.begin(), locale.end(), '_'), locale.end());
+	if (locale == "ru") locale = "Russian";
+	else if (locale == "en") locale = "English";
 	BasisManager::getInstance().setLanguage(locale);
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// при дропе файл может быть запущен в любой дирректории
 	const size_t SIZE = 2048;
 	char buff[SIZE];
