@@ -27,7 +27,25 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g" />
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="mygui" />
+					<Add directory="../MyGUIEngine/lib/debug" />
+					<Add directory="$(OGRE_HOME)/Dependencies/lib/debug" />
+				</Linker>
+			</Target>
+			<Target title="ICC_Release">
+				<Option output="../../Shared/linux/LayoutEditor" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../Shared/linux" />
+				<Option object_output="obj/ICC_Release/" />
+				<Option type="1" />
+				<Option compiler="icc" />
+				<Compiler>
+					<Add option="-Os" />
+					<Add option="-Wp64" />
 					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
@@ -39,6 +57,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wall" />
 			<Add directory="$(OGRE_HOME)/OgreMain/include" />
 			<Add directory="$(OGRE_HOME)/Dependencies/include/" />
 			<Add directory="../../MyGUIEngine/include" />

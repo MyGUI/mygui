@@ -27,8 +27,8 @@ namespace base
 		mSceneMgr(0),
 		mWindow(0),
 		m_exit(false),
-		mInfo(0),
-		mGUI(0)
+		mGUI(0),
+		mInfo(0)
 	{
 		assert(!m_instance);
 		m_instance = this;
@@ -131,7 +131,7 @@ namespace base
 		mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
 		// Create one viewport, entire window
-		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+		/*Ogre::Viewport* vp = */mWindow->addViewport(mCamera);
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
 
@@ -453,6 +453,6 @@ namespace base
 		#else
 
 		#endif*/
-	}	
+	}
 
 } // namespace base

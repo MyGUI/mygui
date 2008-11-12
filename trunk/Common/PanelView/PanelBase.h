@@ -13,9 +13,9 @@
 class PanelBase
 {
 public:
-	PanelBase() : mPanelCell(0), mWidgetClient(null)
-	{
-	}
+	PanelBase() : mPanelCell(0), mWidgetClient(null) {};
+
+	virtual ~PanelBase(){};
 
 	virtual void initialiseCell(PanelCell * _cell)
 	{
