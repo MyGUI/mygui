@@ -16,6 +16,7 @@ public:
 	typedef MyGUI::delegates::CDelegate1<PanelCell*> DelegateUpdate;
 
 	PanelCell();
+	virtual ~PanelCell(){};
 
 	virtual void initialise(MyGUI::WidgetPtr _parent);
 

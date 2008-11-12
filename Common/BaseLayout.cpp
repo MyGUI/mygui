@@ -20,9 +20,9 @@ namespace wraps
 	}
 
 	BaseLayout::BaseLayout(const std::string & _layout) :
+		mLayoutName(_layout),
 		mMainWidget(null),
-		mParentWidget(null),
-		mLayoutName(_layout)
+		mParentWidget(null)
 	{
 		mPrefix = MyGUI::utility::toString(this, "_");
 	}

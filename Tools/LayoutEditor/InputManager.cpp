@@ -188,11 +188,11 @@ namespace input
 	}
 
 	InputManager::InputManager() :
-		mMouseListener(0),
+		mWindow(0),
 		mInputManager(0),
 		mKeyboard(0),
 		mMouse(0),
-		mWindow(0),
+		mMouseListener(0),
 		mHwnd(0),
 		mCurrentPointer(0),
 		m_showPointer(true),

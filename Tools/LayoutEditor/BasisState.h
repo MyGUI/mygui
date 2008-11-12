@@ -8,6 +8,9 @@
 class BasisState
 {
 public:
+	BasisState() {};
+	virtual ~BasisState() {};
+
 	virtual void enter(bool bIsChangeState) = 0; // обязательно, в этом методе вы должны создать все свои данные для начала стейта
 	virtual void exit() = 0; // обязательно, в этом методе вы должны уничтожить все что было созданно в методе enter()
 	virtual void pause() {}; // не обязательно, здесь вы должны спрятать или уничтожить все объекты

@@ -10,7 +10,10 @@ public:
 	typedef typename std::vector<T>::size_type size_type;       ///< Size and offset type.
 
 	/// Fixed size c-tor.
-	explicit CyclicBuffer( size_type size ) : c( new value_type[size] ), pos( -1 ), count( 0 ), size( size ) {}
+	explicit CyclicBuffer( size_type size ) :
+		pos( -1 ), count( 0 ), size( size ),
+		c( new value_type[size] )
+	{}
 
 	/// D-tor.
 	~CyclicBuffer() { delete [] c; }
