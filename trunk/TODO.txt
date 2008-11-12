@@ -1,3 +1,13 @@
 пофиксить едит в режиме переноса строк
 вставить в статик имадж режим кнопки
+
 переименовать дефолтные стейты
+	disable_check -> disabled_checked
+	pressed_check -> pressed_checked
+	normal_check -> normal_checked
+	disable -> disabled
+	select -> selected
+
+сделать у гуида конструктор принимающий 16 байт
+
+сделать свой колор валю
