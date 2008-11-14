@@ -1182,16 +1182,6 @@
   </Skin>
 
 
-  <Skin name = "ButtonRight" size = "12 14" texture = "core.png">
-    <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
-      <State name="disable" offset = "112 84 12 14"/>
-      <State name="normal" offset = "112 100 12 14"/>
-      <State name="active" offset = "112 116 12 14"/>
-      <State name="pressed" offset = "112 132 12 14"/>
-      <State name="select" offset = "112 148 12 14"/>
-    </BasisSkin>
-  </Skin>
-
   <Skin name = "PopupMenuLineIcon" size = "12 14" texture = "core.png">
     <Property key="NeedMouse" value = "false" />
     <Property key="ImageResource" value = "pic_CorePopupMenu" />
