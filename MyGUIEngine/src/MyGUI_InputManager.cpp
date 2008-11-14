@@ -54,9 +54,7 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().eventFrameStart += newDelegate(this, &InputManager::frameEntered);
-#ifdef MYGUI_NO_OIS
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
-#endif
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -69,9 +67,7 @@ namespace MyGUI
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
 		WidgetManager::getInstance().unregisterUnlinker(this);
-#ifdef MYGUI_NO_OIS
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-#endif
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -504,8 +500,22 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
+	void InputManager::setCurrentLanguage(const std::string & _lang)
+	{
+		MapLang::iterator iter = mMapLanguages.find(_lang);
+		if (iter != mMapLanguages.end()) {
+			mCurrentLanguage = iter;
+		}
+		else {
+			MYGUI_LOG(Warning, "language '" << _lang << "' not found");
+		}
+	}
+
+#endif
+
 	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file)
 	{
+#ifdef MYGUI_NO_OIS
 		xml::xmlNodeIterator lang = _node->getNodeIterator();
 		while (lang.nextNode(XML_TYPE)) {
 
@@ -546,20 +556,8 @@ namespace MyGUI
 
 		// обязательно обновляем итератор, так как не гарантируеться его сохранение
 		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
-	}
-
-	void InputManager::setCurrentLanguage(const std::string & _lang)
-	{
-		MapLang::iterator iter = mMapLanguages.find(_lang);
-		if (iter != mMapLanguages.end()) {
-			mCurrentLanguage = iter;
-		}
-		else {
-			MYGUI_LOG(Warning, "language '" << _lang << "' not found");
-		}
-	}
-
 #endif
+	}
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{

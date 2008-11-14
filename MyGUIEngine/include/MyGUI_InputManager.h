@@ -128,13 +128,16 @@ namespace MyGUI
 		// сбрасывает клавишу повторения
 		void resetKey();
 
+	public:
+		void _load(xml::xmlNodePtr _node, const std::string & _file);
+
 #ifdef MYGUI_NO_OIS
+
 	public:
 		typedef std::map<std::string, LangInfo> MapLang;
 
 		/** Load additional MyGUI *.lang file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		// событие смены языков
 		/** Event : Language has been changed.\n
