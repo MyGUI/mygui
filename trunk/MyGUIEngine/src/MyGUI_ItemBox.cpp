@@ -735,7 +735,7 @@ namespace MyGUI
 		}
 		else {
 			// уже сбросили фокус
-			if (mIndexActive == ITEM_NONE) return;
+			//if (mIndexActive == ITEM_NONE) return;
 
 			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");

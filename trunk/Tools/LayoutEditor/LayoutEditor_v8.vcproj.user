@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioUserFile
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	ShowAllFiles="false"
 	>
 	<Configurations>
@@ -10,7 +10,7 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="../Shared/$(ConfigurationName)"
+				WorkingDirectory="../../Shared/$(ConfigurationName)"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"
@@ -38,7 +38,7 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="../Shared/$(ConfigurationName)"
+				WorkingDirectory="../../Shared/$(ConfigurationName)"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"
