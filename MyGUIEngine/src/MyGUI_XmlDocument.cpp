@@ -84,6 +84,18 @@ namespace MyGUI
 				return ret;
 			}
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
+			inline void open_stream(std::ofstream & _stream, const std::string & _utf8) { open_stream(_stream, convert::utf8_to_wide(_utf8)); }
+			inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
+			inline void open_stream(std::ifstream & _stream, const std::string & _utf8) { open_stream(_stream, convert::utf8_to_wide(_utf8)); }
+#else
+			inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(Ogre::UTFString(_wide).asUTF8_c_str()); }
+			inline void open_stream(std::ofstream & _stream, const std::string & _utf8) { _stream.open(_utf8.c_str()); }
+			inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(Ogre::UTFString(_wide).asUTF8_c_str()); }
+			inline void open_stream(std::ifstream & _stream, const std::string & _utf8) { _stream.open(_utf8.c_str()); }
+#endif
+
 		}
 
 		//----------------------------------------------------------------------//
@@ -230,6 +242,26 @@ namespace MyGUI
 			clear();
 		}
 
+		// открывает обычным файлом, имя файла в utf8
+		bool xmlDocument:open(const std::string & _filename)
+		{
+			std::ifstream stream;
+			utility::open_stream(stream, _filename);
+			bool result = open(stream);
+			if (!result) setLastFileError(_filename);
+			return result;
+		}
+
+		// открывает обычным файлом, имя файла в utf16 или utf32
+		bool xmlDocument:open(const std::wstring & _filename)
+		{
+			std::ifstream stream;
+			utility::open_stream(stream, _filename);
+			bool result = open(stream);
+			if (!result) setLastFileError(_filename);
+			return result;
+		}
+
 		bool xmlDocument::open(const std::string & _filename, const std::string & _group)
 		{
 			if (_group.empty()) return open(_filename);
@@ -256,6 +288,26 @@ namespace MyGUI
 			stream = Ogre::ResourceGroupManager::getSingleton().openResource(_filename, _group);
 #endif
 			return open(stream);
+		}
+
+		// сохраняет файл, имя файла в кодировке utf8
+		bool xmlDocument::save(const std::string & _filename)
+		{
+			std::ofstream stream;
+			utility::open_stream(stream, _filename);
+			bool result = save(stream);
+			if (!result) setLastFileError(_filename);
+			return result;
+		}
+
+		// сохраняет файл, имя файла в кодировке utf16 или utf32
+		bool xmlDocument::save(const std::wstring & _filename)
+		{
+			std::ofstream stream;
+			utility::open_stream(stream, _filename);
+			bool result = save(stream);
+			if (!result) setLastFileError(_filename);
+			return result;
 		}
 
 		bool xmlDocument::open(const Ogre::DataStreamPtr& _stream)
@@ -636,7 +688,7 @@ namespace MyGUI
 			return mRoot;
 		}
 
-		bool xmlDocument::parseLine(std::string & _line, xmlNodePtr _node)
+		bool xmlDocument::parseLine(std::string & _line, xmlNodePtr & _node)
 		{
 			// крутимся пока в строке есть теги
 			while (true) {
