@@ -6,6 +6,13 @@
 */
 #include "DemoKeeper.h"
 
+#include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <assert.h>
+
 /*	template<typename T>
 	class Enumerator
 	{
@@ -55,13 +62,14 @@ public:
 	int const_test() const { return 12; }
 };*/
 
+
 namespace demo
 {
 
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
-		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp/1.zip", "Zip", "General", false, false);
+		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp/2.zip", "Zip", "General", false, false);
 
 		/*typedef Class * ClassPtr;
 		typedef std::vector<Class> VectorClass;
@@ -101,19 +109,15 @@ namespace demo
 			std::string value = enum_vec.current();
 		};*/
 
-		std::string locale = ::setlocale( LC_ALL, "" );
+		//std::string locale = ::setlocale( LC_ALL, "" );
 
-		std::wstring utf16 = L"русский.xml";
+		std::wstring utf16 = L"_русский.xml";
 		std::string utf8 = MyGUI::convert::wide_to_utf8(utf16);
 
 		MyGUI::xml::xmlDocument doc;
 		if (!doc.open(utf8, "General")) {
 			throw new std::exception("ERROR");
 		}
-		/*std::string utf8 = MyGUI::convert::wide_to_utf8(L"русский.xml");
-		if (!doc.open(utf8, "General")) {
-			throw new std::exception("ERROR");
-		}*/
 
 
 	}

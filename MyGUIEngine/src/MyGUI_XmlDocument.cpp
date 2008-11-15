@@ -245,8 +245,9 @@ namespace MyGUI
 			try {
 				stream = Ogre::ResourceGroupManager::getSingleton().openResource(MyGUI::convert::utf8_to_ansi(_filename), _group);
 			}
-			catch (Ogre::FileNotFoundException) {
-				MYGUI_LOG(Error, "Failed to open file '" << _filename << "', probably locale ( ::setlocale( LC_ALL, "" ); ) wasn't set or the file is used by other process");
+			catch (Ogre::FileNotFoundException)
+			{
+				MYGUI_LOG(Error, "Failed to open file '" << _filename << "', probably locale (::setlocale( LC_ALL, "" ); ) wasn't set or the file is used by other process");
 				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 				mLastErrorFile = _filename;
 				return false;
@@ -273,63 +274,14 @@ namespace MyGUI
 				read = _stream->getLine (false);
 				mLine ++;
 				mCol = 0; // потом проверить на многострочных тэгах
-
 				if (read.empty()) continue;
-
 				// текущая строка для разбора и то что еще прочитали
 				line += read;
 
-				// крутимся пока в строке есть теги
-				while (true) {
-
-					// сначала ищем по угловым скобкам
-					size_t start = find(line, '<');
-					if (start == line.npos) break;
-					size_t end = line.npos;
-
-					// пытаемся вырезать многострочный коментарий
-					if ((start + 3 < line.size()) && (line[start + 1] == '!') && (line[start + 2] == '-') && (line[start + 3] == '-')) {
-						end = line.find("-->", start + 4);
-						if (end == line.npos) break;
-						end += 2;
-
-					}
-					else {
-						end = find(line, '>', start+1);
-						if (end == line.npos) break;
-
-					}
-
-					// проверяем на наличее тела
-					size_t body = line.find_first_not_of(" \t<");
-					if (body < start) {
-
-						std::string body_str = line.substr(0, start);
-						// текущий символ
-						mCol = 0;
-
-						if (currentNode != 0) 	{
-							bool ok = true;
-							currentNode->setBody(utility::convert_from_xml(body_str, ok));
-							if (!ok) {
-								mLastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
-								return false;
-							}
-						}
-
-					}
-
-					// вырезаем наш тэг и парсим
-					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
-						// ошибка установится внутри
-						mLastErrorFile = _stream->getName();
-						return false;
-					}
-
-					// и обрезаем текущую строку разбора
-					line = line.substr(end+1);
-
-				}; // while (true)
+				if (!parseLine(line, currentNode)) {
+					mLastErrorFile = _stream->getName();
+					return false;
+				}
 
 			}; // while (!stream.eof())
 
@@ -363,64 +315,14 @@ namespace MyGUI
 				std::getline(_stream, read);
 				mLine ++;
 				mCol = 0; // потом проверить на многострочных тэгах
-
 				if (read.empty()) continue;
-
 				// текущая строка для разбора и то что еще прочитали
 				line += read;
 
-				// крутимся пока в строке есть теги
-				while (true) {
-
-					// сначала ищем по угловым скобкам
-					size_t start = find(line, '<');
-					if (start == line.npos) break;
-					size_t end = line.npos;
-
-					// пытаемся вырезать многострочный коментарий
-					if ((start + 3 < line.size()) && (line[start + 1] == '!') && (line[start + 2] == '-') && (line[start + 3] == '-')) {
-						end = line.find("-->", start + 4);
-						if (end == line.npos) break;
-						end += 2;
-
-					}
-					else {
-						end = find(line, '>', start+1);
-						if (end == line.npos) break;
-
-					}
-
-					// проверяем на наличее тела
-					size_t body = line.find_first_not_of(" \t<");
-					if (body < start) {
-
-						std::string body_str = line.substr(0, start);
-						// текущий символ
-						mCol = 0;
-
-						if (currentNode != 0) 	{
-							bool ok = true;
-							currentNode->setBody(utility::convert_from_xml(body_str, ok));
-							if (!ok) {
-								mLastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
-								_stream.close();
-								return false;
-							}
-						}
-
-					}
-
-					// вырезаем наш тэг и парсим
-					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
-						// ошибка установится внутри
-						_stream.close();
-						return false;
-					}
-
-					// и обрезаем текущую строку разбора
-					line = line.substr(end+1);
-
-				}; // while (true)
+				if (!parseLine(line, currentNode)) {
+					_stream.close();
+					return false;
+				}
 
 			}; // while (!stream.eof())
 
@@ -546,7 +448,8 @@ namespace MyGUI
 				// а теперь снижаем текущий узел вниз
 				_currentNode = _currentNode->getParent();
 
-			} else {
+			}
+			else {
 				// выделяем имя до первого пробела или закрывающего тега
 				std::string cut = _body;
 				start = _body.find_first_of(" \t/?", 1); // << превед
@@ -731,6 +634,55 @@ namespace MyGUI
 			clearRoot();
 			mRoot = new xmlNode(_name, 0, XML_NODE_TYPE_NORMAL);
 			return mRoot;
+		}
+
+		bool xmlDocument::parseLine(std::string & _line, xmlNodePtr _node)
+		{
+			// крутимся пока в строке есть теги
+			while (true) {
+
+				// сначала ищем по угловым скобкам
+				size_t start = find(_line, '<');
+				if (start == _line.npos) break;
+				size_t end = _line.npos;
+
+				// пытаемся вырезать многострочный коментарий
+				if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') && (_line[start + 3] == '-')) {
+					end = _line.find("-->", start + 4);
+					if (end == _line.npos) break;
+					end += 2;
+
+				}
+				else {
+					end = find(_line, '>', start+1);
+					if (end == _line.npos) break;
+
+				}
+				// проверяем на наличее тела
+				size_t body = _line.find_first_not_of(" \t<");
+				if (body < start) {
+
+					std::string body_str = _line.substr(0, start);
+					// текущий символ
+					mCol = 0;
+
+					if (_node != 0) 	{
+						bool ok = true;
+						_node->setBody(utility::convert_from_xml(body_str, ok));
+						if (!ok) {
+							mLastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
+							return false;
+						}
+					}
+				}
+				// вырезаем наш тэг и парсим
+				if (false == parseTag(_node, _line.substr(start+1, end-start-1))) {
+					return false;
+				}
+				// и обрезаем текущую строку разбора
+				_line = _line.substr(end+1);
+			};
+			return true;
 		}
 
 	} // namespace xml
