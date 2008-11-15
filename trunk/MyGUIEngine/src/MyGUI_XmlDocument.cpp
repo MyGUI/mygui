@@ -243,7 +243,7 @@ namespace MyGUI
 		}
 
 		// открывает обычным файлом, имя файла в utf8
-		bool xmlDocument:open(const std::string & _filename)
+		bool xmlDocument::open(const std::string & _filename)
 		{
 			std::ifstream stream;
 			utility::open_stream(stream, _filename);
@@ -253,7 +253,7 @@ namespace MyGUI
 		}
 
 		// открывает обычным файлом, имя файла в utf16 или utf32
-		bool xmlDocument:open(const std::wstring & _filename)
+		bool xmlDocument::open(const std::wstring & _filename)
 		{
 			std::ifstream stream;
 			utility::open_stream(stream, _filename);
