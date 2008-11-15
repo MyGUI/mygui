@@ -95,7 +95,7 @@ namespace MyGUI
 
 	// делегаты для обновления
 	typedef delegates::CDelegate2<WidgetPtr, WidgetPtr> EventInfo_WidgetWidget;
-	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetWidgetRefCoordBool;
+	typedef delegates::CDelegate3<WidgetPtr, IntCoord&, bool> EventInfo_WidgetRefCoordBool;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr, const ItemInfo &> EventInfo_WidgetWidgetItemInfo;
 
 } // namespace MyGUI
