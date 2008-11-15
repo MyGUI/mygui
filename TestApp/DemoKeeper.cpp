@@ -109,7 +109,7 @@ namespace demo
 			std::string value = enum_vec.current();
 		};*/
 
-		//std::string locale = ::setlocale( LC_ALL, "" );
+		std::string locale = ::setlocale( LC_ALL, "" );
 
 		std::wstring utf16 = L"_русский.xml";
 		std::string utf8 = MyGUI::convert::wide_to_utf8(utf16);
