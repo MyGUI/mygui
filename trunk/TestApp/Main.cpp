@@ -26,6 +26,8 @@ extern "C" {
 int main(int argc, char **argv)
 {
 
+	std::string locale = ::setlocale( LC_ALL, "" );
+
 	try {
 
 		demo::DemoKeeper * app = new demo::DemoKeeper();

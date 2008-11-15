@@ -41,11 +41,11 @@ namespace input
 		if (WM_DROPFILES == uMsg) {
 
 			HDROP hDrop = (HDROP)wParam;
-			TCHAR szFile[MAX_PATH] = { 0 };
-			UINT i, fcount = DragQueryFile(hDrop, 0xFFFFFFFF, NULL, 0);
+			wchar_t szFile[MAX_PATH] = { 0 };
+			UINT i, fcount = DragQueryFileW(hDrop, 0xFFFFFFFF, NULL, 0);
 
 			for (i = 0; i < fcount; i++) {
-				DragQueryFile(hDrop, i, szFile, MAX_PATH);
+				DragQueryFileW(hDrop, i, szFile, MAX_PATH);
 				BasisManager::getInstance().dropFile(szFile);
 			}
 

@@ -64,7 +64,7 @@ public:
 
 	void setMainWindowIcon(size_t _iconId);
 
-	void dropFile(const std::string & _file);
+	void dropFile(const std::wstring & _file);
 	void windowClose();
 
 	bool isFullscreen() { return mFullscreen; }

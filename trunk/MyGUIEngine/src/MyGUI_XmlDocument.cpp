@@ -6,6 +6,7 @@
 */
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourcePath.h"
+#include "MyGUI_Common.h"
 
 #include <OgreResourceGroupManager.h>
 
@@ -15,6 +16,75 @@ namespace MyGUI
 {
 	namespace xml
 	{
+
+		namespace utility
+		{
+			std::string convert_from_xml(const std::string & _string, bool & _ok)
+			{
+				std::string ret;
+				_ok = true;
+
+				size_t pos = _string.find("&");
+				if (pos == std::string::npos) return _string;
+
+				ret.reserve(_string.size());
+				size_t old = 0;
+				while (pos != std::string::npos) {
+					ret += _string.substr(old, pos - old);
+
+					size_t end = _string.find(";", pos + 1);
+					if (end == std::string::npos) {
+						_ok = false;
+						return ret;
+					}
+					else {
+						std::string tag = _string.substr(pos, end - pos + 1);
+						if (tag == "&amp;") ret += '&';
+						else if (tag == "&lt;") ret += '<';
+						else if (tag == "&gt;") ret += '>';
+						else if (tag == "&apos;") ret += '\'';
+						else if (tag == "&quot;") ret += '\"';
+						else {
+							_ok = false;
+							return ret;
+						}
+					}
+
+					old = end + 1;
+					pos = _string.find("&", old);
+				};
+				ret += _string.substr(old, std::string::npos);
+
+				return ret;
+			}
+
+			std::string convert_to_xml(const std::string & _string)
+			{
+				std::string ret;
+
+				size_t pos = _string.find_first_of("&<>'\"");
+				if (pos == std::string::npos) return _string;
+
+				ret.reserve(_string.size() * 2);
+				size_t old = 0;
+				while (pos != std::string::npos) {
+					ret += _string.substr(old, pos - old);
+
+					if (_string[pos] == '&') ret += "&amp;";
+					else if (_string[pos] == '<') ret += "&lt;";
+					else if (_string[pos] == '>') ret += "&gt;";
+					else if (_string[pos] == '\'') ret += "&apos;";
+					else if (_string[pos] == '\"') ret += "&quot;";
+
+					old = pos + 1;
+					pos = _string.find_first_of("&<>'\"", old);
+				};
+				ret += _string.substr(old, std::string::npos);
+
+				return ret;
+			}
+
+		}
 
 		//----------------------------------------------------------------------//
 		// class xmlNodeIterator
@@ -160,24 +230,37 @@ namespace MyGUI
 			clear();
 		}
 
-		bool xmlDocument::open(const std::string & _name, const std::string & _group)
+		bool xmlDocument::open(const std::string & _filename, const std::string & _group)
 		{
-			if (_group.empty()) return open(_name);
+			if (_group.empty()) return open(_filename);
 
-			if (!helper::isFileExist(_name, _group)) {
+			if (!helper::isFileExist(_filename, _group)) {
 				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
+				mLastErrorFile = _filename;
 				return false;
 			}
 
-			Ogre::DataStreamPtr fileStream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, _group);
-			return open(fileStream);
+			Ogre::DataStreamPtr stream;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			try {
+				stream = Ogre::ResourceGroupManager::getSingleton().openResource(MyGUI::convert::utf8_to_ansi(_filename), _group);
+			}
+			catch (Ogre::FileNotFoundException) {
+				MYGUI_LOG(Error, "Failed to open file '" << _filename << "', probably locale ( ::setlocale( LC_ALL, "" ); ) wasn't set or the file is used by other process");
+				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
+				mLastErrorFile = _filename;
+				return false;
+			}
+#else
+			stream = Ogre::ResourceGroupManager::getSingleton().openResource(_filename, _group);
+#endif
+			return open(stream);
 		}
 
-		bool xmlDocument::open(const Ogre::DataStreamPtr& stream)
+		bool xmlDocument::open(const Ogre::DataStreamPtr& _stream)
 		{
 			clear();
 
-			mLastErrorFile = stream->getName();
 			// это текущая строка для разбора
 			std::string line;
 			// это строка из файла
@@ -185,9 +268,9 @@ namespace MyGUI
 			// текущий узел для разбора
 			xmlNodePtr currentNode = 0;
 
-			while (false == stream->eof()) {
+			while (false == _stream->eof()) {
 				// берем новую строку
-				read = stream->getLine (false);
+				read = _stream->getLine (false);
 				mLine ++;
 				mCol = 0; // потом проверить на многострочных тэгах
 
@@ -239,6 +322,7 @@ namespace MyGUI
 					// вырезаем наш тэг и парсим
 					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
 						// ошибка установится внутри
+						mLastErrorFile = _stream->getName();
 						return false;
 					}
 
@@ -251,19 +335,19 @@ namespace MyGUI
 
 			if (currentNode) {
 				mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
+				mLastErrorFile = _stream->getName();
 				return false;
 			}
 
 			return true;
 		}
 
-		bool xmlDocument::open(const std::string & _name)
+		// открывает обычным потоком
+		bool xmlDocument::open(std::ifstream & _stream)
 		{
 			clear();
 
-			std::ifstream stream(_name.c_str());
-			mLastErrorFile = _name;
-			if (false == stream.is_open()) {
+			if (false == _stream.is_open()) {
 				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
 				return false;
 			}
@@ -274,9 +358,9 @@ namespace MyGUI
 			// текущий узел для разбора
 			xmlNodePtr currentNode = 0;
 
-			while (false == stream.eof()) {
+			while (false == _stream.eof()) {
 				// берем новую строку
-				std::getline(stream, read);
+				std::getline(_stream, read);
 				mLine ++;
 				mCol = 0; // потом проверить на многострочных тэгах
 
@@ -319,6 +403,7 @@ namespace MyGUI
 							currentNode->setBody(utility::convert_from_xml(body_str, ok));
 							if (!ok) {
 								mLastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
+								_stream.close();
 								return false;
 							}
 						}
@@ -328,7 +413,7 @@ namespace MyGUI
 					// вырезаем наш тэг и парсим
 					if (false == parseTag(currentNode, line.substr(start+1, end-start-1))) {
 						// ошибка установится внутри
-						stream.close();
+						_stream.close();
 						return false;
 					}
 
@@ -341,39 +426,36 @@ namespace MyGUI
 
 			if (currentNode) {
 				mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
-				stream.close();
+				_stream.close();
 				return false;
 			}
 
-			stream.close();
+			_stream.close();
 			return true;
 		}
 
-		// сохраняет файл
-		bool xmlDocument::save(const std::string & _name)
+		bool xmlDocument::save(std::ofstream & _stream)
 		{
-			if (!mInfo) {
-				mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
-				mLastErrorFile = _name;
-				return false;
-			}
-
-			std::ofstream stream(_name.c_str());
-			if (!stream.is_open()) {
+			if (!_stream.is_open()) {
 				mLastError = xml::errors::XML_ERROR_CREATE_FILE;
-				mLastErrorFile = _name;
+				return false;
+			}
+
+			if (!mInfo) {
+				_stream.close();
+				mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
 				return false;
 			}
 
 			// заголовок utf8
-			stream << (char)0xEF;
-			stream << (char)0xBB;
-			stream << (char)0xBF;
+			_stream << (char)0xEF;
+			_stream << (char)0xBB;
+			_stream << (char)0xBF;
 
-			mInfo->save(stream, 0);
-			if (mRoot) mRoot->save(stream, 0);
+			mInfo->save(_stream, 0);
+			if (mRoot) mRoot->save(_stream, 0);
 
-			stream.close();
+			_stream.close();
 			return true;
 		}
 
@@ -414,7 +496,7 @@ namespace MyGUI
 		{
 
 			// убераем лишнее
-			utility::trim(_body);
+			MyGUI::utility::trim(_body);
 
 			if (_body.empty()) {
 				// создаем пустой тег
@@ -570,13 +652,13 @@ namespace MyGUI
 		bool xmlDocument::checkPair(std::string &_key, std::string &_value)
 		{
 			// в ключе не должно быть ковычек и пробелов
-			utility::trim(_key);
+			MyGUI::utility::trim(_key);
 			if (_key.empty()) return false;
 			size_t start = _key.find_first_of(" \t\"\'&");
 			if (start != _key.npos) return false;
 
 			// в значении, ковычки по бокам
-			utility::trim(_value);
+			MyGUI::utility::trim(_value);
 			if (_value.size() < 2) return false;
 			if ((_value[0] != '"') || (_value[_value.length()-1] != '"')) return false;
 			bool ok = true;
@@ -649,75 +731,6 @@ namespace MyGUI
 			clearRoot();
 			mRoot = new xmlNode(_name, 0, XML_NODE_TYPE_NORMAL);
 			return mRoot;
-		}
-
-		namespace utility
-		{
-			std::string convert_from_xml(const std::string & _string, bool & _ok)
-			{
-				std::string ret;
-				_ok = true;
-
-				size_t pos = _string.find("&");
-				if (pos == std::string::npos) return _string;
-
-				ret.reserve(_string.size());
-				size_t old = 0;
-				while (pos != std::string::npos) {
-					ret += _string.substr(old, pos - old);
-
-					size_t end = _string.find(";", pos + 1);
-					if (end == std::string::npos) {
-						_ok = false;
-						return ret;
-					}
-					else {
-						std::string tag = _string.substr(pos, end - pos + 1);
-						if (tag == "&amp;") ret += '&';
-						else if (tag == "&lt;") ret += '<';
-						else if (tag == "&gt;") ret += '>';
-						else if (tag == "&apos;") ret += '\'';
-						else if (tag == "&quot;") ret += '\"';
-						else {
-							_ok = false;
-							return ret;
-						}
-					}
-
-					old = end + 1;
-					pos = _string.find("&", old);
-				};
-				ret += _string.substr(old, std::string::npos);
-
-				return ret;
-			}
-
-			std::string convert_to_xml(const std::string & _string)
-			{
-				std::string ret;
-
-				size_t pos = _string.find_first_of("&<>'\"");
-				if (pos == std::string::npos) return _string;
-
-				ret.reserve(_string.size() * 2);
-				size_t old = 0;
-				while (pos != std::string::npos) {
-					ret += _string.substr(old, pos - old);
-
-					if (_string[pos] == '&') ret += "&amp;";
-					else if (_string[pos] == '<') ret += "&lt;";
-					else if (_string[pos] == '>') ret += "&gt;";
-					else if (_string[pos] == '\'') ret += "&apos;";
-					else if (_string[pos] == '\"') ret += "&quot;";
-
-					old = pos + 1;
-					pos = _string.find_first_of("&<>'\"", old);
-				};
-				ret += _string.substr(old, std::string::npos);
-
-				return ret;
-			}
-
 		}
 
 	} // namespace xml
