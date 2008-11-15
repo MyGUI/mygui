@@ -47,7 +47,9 @@ namespace MyGUI
 		/** Get tag value */
 		Ogre::UTFString getTag(const Ogre::UTFString & _tag);
 
-		void addTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mMapLanguage[_tag] = _replace; }
+		void addUserTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mUserMapLanguage[_tag] = _replace; }
+
+		void clearUserTags() { mUserMapLanguage.clear(); }
 
 		/** Event : Change current language.\n
 			info : \n
@@ -68,6 +70,7 @@ namespace MyGUI
 		MapListString::const_iterator mCurrentLanguage;
 
 		MapLanguageString mMapLanguage;
+		MapLanguageString mUserMapLanguage;
 	};
 
 } // namespace MyGUI

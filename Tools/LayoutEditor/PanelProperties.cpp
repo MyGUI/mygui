@@ -46,7 +46,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 
 	if (_group == TYPE_PROPERTIES)
 	{
-		MyGUI::LanguageManager::getInstance().addTag("widget_type", _current_widget->getTypeName());
+		MyGUI::LanguageManager::getInstance().addUserTag("widget_type", _current_widget->getTypeName());
 		if (widgetType->name == "Widget")
 		{
 			if (_current_widget->getTypeName() != "Widget")

@@ -126,8 +126,8 @@ namespace MyGUI
 		EventInfo_WidgetWidget requestCreateWidgetItem;
 
 		// event : запрос на размер айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _client, MyGUI::IntCoord & _coord, bool _drop)
-		EventInfo_WidgetWidgetRefCoordBool requestCoordWidgetItem;
+		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+		EventInfo_WidgetRefCoordBool requestCoordWidgetItem;
 
 		// event : запрос на обновление айтема
 		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)

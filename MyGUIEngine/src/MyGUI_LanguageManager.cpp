@@ -200,8 +200,14 @@ namespace MyGUI
 							size_t len = (iter2 - line.begin()) - start - 1;
 							const Ogre::UTFString & tag = line.substr(start + 1, len);
 
+							bool find = true;
 							MapLanguageString::iterator replace = mMapLanguage.find(tag);
 							if (replace == mMapLanguage.end()) {
+								replace = mUserMapLanguage.find(tag);
+								find = replace != mUserMapLanguage.end(); 
+							}
+
+							if (!find) {
 								iter = line.insert(iter, '#') + size_t(len + 2);
 								end = line.end();
 								break;
@@ -232,8 +238,11 @@ namespace MyGUI
 	{
 		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
 		if (iter == mMapLanguage.end()) {
+			iter = mUserMapLanguage.find(_tag);
+			if (iter != mUserMapLanguage.end()) return iter->second;
 			return _tag;
 		}
+
 		return iter->second;
 	}
 
