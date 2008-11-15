@@ -8,6 +8,8 @@
 #define __MYGUI_XML_DOCUMENT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Utility.h"
+#include "MyGUI_Convert.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -23,35 +25,6 @@ namespace MyGUI
 {
 	namespace xml
 	{
-
-		namespace utility
-		{
-			template< typename T >
-			inline std::string toString (T p)
-			{
-				std::ostringstream stream;
-				stream << p;
-				return stream.str();
-			}
-
-			template< typename T1, typename T2 >
-			inline std::string toString (T1 p1, T2 p2)
-			{
-				std::ostringstream stream;
-				stream << p1 << p2;
-				return stream.str();
-			}
-
-			inline void trim(std::string& _str, bool _left = true, bool _right = true)
-			{
-				if (_right) _str.erase(_str.find_last_not_of(" \t\r")+1);
-				if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
-			}
-
-			std::string convert_to_xml(const std::string & _string);
-			std::string convert_from_xml(const std::string & _string, bool & _ok);
-
-		}
 
 		enum xmlNodeType {
 			XML_NODE_TYPE_REMARK, // коментарий
@@ -194,17 +167,61 @@ namespace MyGUI
 			xmlDocument();
 			~xmlDocument();
 
-			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
-			bool open(const std::string & _name, const std::string & _group);
+			// открывает обычным файлом, имя файла в utf8
+			bool open(const std::string & _filename)
+			{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+				std::ifstream stream(MyGUI::convert::utf8_to_wide(_filename).c_str());
+#else
+				std::ifstream stream(_filename.c_str());
+#endif
+				bool result = open(stream);
+				if (!result) mLastErrorFile = _filename;
+				return result;
+			}
 
-			// открывает обычным файлом
-			bool open(const std::string & _name);
+			// открывает обычным файлом, имя файла в utf16 или utf32
+			bool open(const std::wstring & _filename)
+			{
+				std::ifstream stream(_filename.c_str());
+				bool result = open(stream);
+				if (!result) mLastErrorFile = MyGUI::convert::wide_to_utf8(_filename);
+				return result;
+			}
+
+			// открывает обычным потоком
+			bool open(std::ifstream & _stream);
+
+			// сохраняет файл, имя файла в кодировке utf8
+			bool save(const std::string & _filename)
+			{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+				std::ofstream stream(MyGUI::convert::utf8_to_wide(_filename).c_str());
+#else
+				std::ofstream stream(_filename.c_str());
+#endif
+				bool result = save(stream);
+				if (!result) mLastErrorFile = _filename;
+				return result;
+			}
+
+			// сохраняет файл, имя файла в кодировке utf16 или utf32
+			bool save(const std::wstring & _filename)
+			{
+				std::ofstream stream(_filename.c_str());
+				bool result = save(stream);
+				if (!result) mLastErrorFile = MyGUI::convert::wide_to_utf8(_filename);
+				return result;
+			}
+
+			bool save(std::ofstream & _stream);
+
+
+			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
+			bool open(const std::string & _filename, const std::string & _group);
 
 			// открывает по потоку огра
-			bool open(const Ogre::DataStreamPtr& stream);
-
-			// сохраняет файл
-			bool save(const std::string & _name);
+			bool open(const Ogre::DataStreamPtr& _stream);
 
 			void clear();
 			const std::string getLastError();

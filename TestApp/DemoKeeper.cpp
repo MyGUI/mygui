@@ -6,7 +6,7 @@
 */
 #include "DemoKeeper.h"
 
-	template<typename T>
+/*	template<typename T>
 	class Enumerator
 	{
 	private:
@@ -53,7 +53,7 @@ class Class
 public:
 	int test() { return 11; }
 	int const_test() const { return 12; }
-};
+};*/
 
 namespace demo
 {
@@ -61,8 +61,9 @@ namespace demo
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
+		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp/1.zip", "Zip", "General", false, false);
 
-		typedef Class * ClassPtr;
+		/*typedef Class * ClassPtr;
 		typedef std::vector<Class> VectorClass;
 		typedef std::vector<ClassPtr> VectorClassPtr;
 
@@ -98,7 +99,22 @@ namespace demo
 		EnumeratorVectorString enum_vec(vec);
 		while (enum_vec.next()) {
 			std::string value = enum_vec.current();
-		};
+		};*/
+
+		std::string locale = ::setlocale( LC_ALL, "" );
+
+		std::wstring utf16 = L"русский.xml";
+		std::string utf8 = MyGUI::convert::wide_to_utf8(utf16);
+
+		MyGUI::xml::xmlDocument doc;
+		if (!doc.open(utf8, "General")) {
+			throw new std::exception("ERROR");
+		}
+		/*std::string utf8 = MyGUI::convert::wide_to_utf8(L"русский.xml");
+		if (!doc.open(utf8, "General")) {
+			throw new std::exception("ERROR");
+		}*/
+
 
 	}
  

@@ -7,6 +7,7 @@
 
 #include "MyGUI_ResourcePath.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Convert.h"
 
 namespace MyGUI
 {
@@ -21,7 +22,11 @@ namespace MyGUI
 			bool _subdirs)
 		{
 			if (_subdirs) {
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+				Ogre::Archive* pArch = Ogre::ArchiveManager::getSingleton().load( convert::utf8_to_ansi(_name), _type );
+#else
 				Ogre::Archive* pArch = Ogre::ArchiveManager::getSingleton().load( _name, _type );
+#endif
 				Ogre::StringVectorPtr vec = pArch->find("*", true, true);
 				for (size_t pos=0; pos<vec->size(); ++pos) {
 					std::string new_filename = _name + '/' + vec->at(pos);
@@ -52,7 +57,11 @@ namespace MyGUI
 			bool _fullmatch)
 		{
 			size_t count = 0;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, convert::utf8_to_ansi(_filename));
+#else
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, _filename);
+#endif
 			if (_fullmatch) {
 				for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi ) {
 					if (fi->path.empty()) count ++;
@@ -78,7 +87,11 @@ namespace MyGUI
 			bool _fullmatch)
 		{
 			Ogre::String result;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, convert::utf8_to_ansi(_filename));
+#else
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, _filename);
+#endif
 
 			// подчищаем те что не точно соответствуют
 			if (_fullmatch) {
@@ -115,6 +128,10 @@ namespace MyGUI
 
 			pFileInfo.setNull();
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			result = convert::ansi_to_utf8(result);
+#endif
+
 			return result;
 		}
 
@@ -125,7 +142,11 @@ namespace MyGUI
 			bool _fullmatch)
 		{
 			VectorString result;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, convert::utf8_to_ansi(_pattern));
+#else
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, _pattern);
+#endif
 
 			result.reserve(pFileInfo->size());
 
@@ -138,14 +159,26 @@ namespace MyGUI
 						for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter) {
 							if (*iter == path) { find = true; break; }
 						}
-						if (!find) result.push_back(path);
+						if (!find) {
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+							result.push_back(convert::ansi_to_utf8(path));
+#else
+							result.push_back(path);
+#endif
+						}
 					}
 					else {
 						bool find = false;
 						for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter) {
 							if (*iter == fi->filename) { find = true; break; }
 						}
-						if (!find) result.push_back(fi->filename);
+						if (!find) {
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+							result.push_back(convert::ansi_to_utf8(fi->filename));
+#else
+							result.push_back(fi->filename);
+#endif
+						}
 					}
 
 				}
