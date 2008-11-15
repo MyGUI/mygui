@@ -368,14 +368,14 @@ void BasisManager::addCommandParam(const std::string & _param)
 void BasisManager::setWindowCaption(const std::string & _text)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	::SetWindowTextW((HWND)mHwnd, MyGUI::convert::utf8_to_utf16(_text).c_str());
+	::SetWindowTextW((HWND)mHwnd, MyGUI::convert::utf8_to_wide(_text).c_str());
 #endif
 }
 
 void BasisManager::dropFile(const std::wstring & _file)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	mEditor.load(MyGUI::convert::utf16_to_utf8(_file));
+	mEditor.load(MyGUI::convert::wide_to_utf8(_file));
 #endif
 }
 

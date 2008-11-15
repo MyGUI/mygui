@@ -18,6 +18,7 @@
 #include <assert.h>
 
 #include <OgreDataStream.h>
+#include <OgreUTFString.h>
 
 #include "MyGUI_LastHeader.h"
 
@@ -59,6 +60,42 @@ namespace MyGUI
 		typedef std::pair<std::string, std::string> PairAttributes;
 		typedef std::vector<PairAttributes> VectorAttributes;
 		typedef std::vector<xmlNodePtr> VectorNode;
+
+		inline void open_stream(std::ofstream & _stream, const std::wstring & _wide)
+		{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			_stream.open(_wide.c_str());
+#else
+			_stream.open(Ogre::UTFString(_wide).asUTF8_c_str());
+#endif
+		}
+
+		inline void open_stream(std::ofstream & _stream, const std::string & _utf8)
+		{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			open_stream(_stream, convert::utf8_to_wide(_utf8));
+#else
+			_stream.open(_utf8.c_str());
+#endif
+		}
+
+		inline void open_stream(std::ifstream & _stream, const std::wstring & _wide)
+		{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			_stream.open(_wide.c_str());
+#else
+			_stream.open(Ogre::UTFString(_wide).asUTF8_c_str());
+#endif
+		}
+
+		inline void open_stream(std::ifstream & _stream, const std::string & _utf8)
+		{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			open_stream(_stream, convert::utf8_to_wide(_utf8));
+#else
+			_stream.open(_utf8.c_str());
+#endif
+		}
 
 		//----------------------------------------------------------------------//
 		// class xmlNodeIterator
@@ -170,22 +207,20 @@ namespace MyGUI
 			// открывает обычным файлом, имя файла в utf8
 			bool open(const std::string & _filename)
 			{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-				std::ifstream stream(MyGUI::convert::utf8_to_wide(_filename).c_str());
-#else
-				std::ifstream stream(_filename.c_str());
-#endif
+				std::ifstream stream;
+				open_stream(stream, _filename);
 				bool result = open(stream);
-				if (!result) mLastErrorFile = _filename;
+				if (!result) setLastFileError(_filename);
 				return result;
 			}
 
 			// открывает обычным файлом, имя файла в utf16 или utf32
 			bool open(const std::wstring & _filename)
 			{
-				std::ifstream stream(_filename.c_str());
+				std::ifstream stream;
+				open_stream(stream, _filename);
 				bool result = open(stream);
-				if (!result) mLastErrorFile = MyGUI::convert::wide_to_utf8(_filename);
+				if (!result) setLastFileError(_filename);
 				return result;
 			}
 
@@ -195,22 +230,20 @@ namespace MyGUI
 			// сохраняет файл, имя файла в кодировке utf8
 			bool save(const std::string & _filename)
 			{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-				std::ofstream stream(MyGUI::convert::utf8_to_wide(_filename).c_str());
-#else
-				std::ofstream stream(_filename.c_str());
-#endif
+				std::ofstream stream;
+				open_stream(stream, _filename);
 				bool result = save(stream);
-				if (!result) mLastErrorFile = _filename;
+				if (!result) setLastFileError(_filename);
 				return result;
 			}
 
 			// сохраняет файл, имя файла в кодировке utf16 или utf32
 			bool save(const std::wstring & _filename)
 			{
-				std::ofstream stream(_filename.c_str());
+				std::ofstream stream;
+				open_stream(stream, _filename);
 				bool result = save(stream);
-				if (!result) mLastErrorFile = MyGUI::convert::wide_to_utf8(_filename);
+				if (!result) setLastFileError(_filename);
 				return result;
 			}
 
@@ -223,14 +256,36 @@ namespace MyGUI
 			// открывает по потоку огра
 			bool open(const Ogre::DataStreamPtr& _stream);
 
+			bool save(const Ogre::UTFString & _filename)
+			{
+				return save(_filename.asWStr());
+			}
+
+			bool open(const Ogre::UTFString & _filename)
+			{
+				return open(_filename.asWStr());
+			}
+
 			void clear();
 			const std::string getLastError();
 
 		private:
 
+			void setLastFileError(const std::string & _filename)
+			{
+				mLastErrorFile = _filename;
+			}
+
+			void setLastFileError(const std::wstring & _filename)
+			{
+				mLastErrorFile = Ogre::UTFString(_filename).asUTF8();
+			}
+
 			bool parseTag(xmlNodePtr &_currentNode, std::string _body);
 
 			bool checkPair(std::string &_key, std::string &_value);
+
+			bool parseLine(std::string & _line, xmlNodePtr _node);
 
 			// ищет символ без учета ковычек
 			size_t find(const std::string & _text, char _char, size_t _start = 0);

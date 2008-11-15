@@ -118,7 +118,16 @@ namespace MyGUI
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_x_to_x(_source, CP_ACP, CP_UTF8);
 #else
-			return std::string();
+			return _source;
+#endif
+		}
+
+		std::string ansi_to_oem(const std::string& _source)
+		{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			return implement::win_x_to_x(_source, CP_ACP, CP_OEMCP);
+#else
+			return _source;
 #endif
 		}
 
@@ -136,7 +145,16 @@ namespace MyGUI
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_x_to_x(_source, CP_UTF8, CP_ACP);
 #else
-			return std::string();
+			return _source;
+#endif
+		}
+
+		std::string utf8_to_oem(const std::string& _source)
+		{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			return implement::win_x_to_x(_source, CP_UTF8, CP_OEMCP);
+#else
+			return _source;
 #endif
 		}
 
@@ -153,6 +171,15 @@ namespace MyGUI
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return implement::win_wide_to_x(_source, CP_UTF8);
+#else
+			return std::string();
+#endif
+		}
+
+		std::string wide_to_oem(const std::wstring& _source)
+		{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			return implement::win_wide_to_x(_source, CP_OEMCP);
 #else
 			return std::string();
 #endif
