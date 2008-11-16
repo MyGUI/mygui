@@ -28,6 +28,17 @@ namespace demo
 		mConsole.shutdown();
 	}
 
+	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
+	{
+		if ( arg.key == OIS::KC_GRAVE )
+		{
+			pressConsoleKey();
+			return true;
+		}
+
+		return BaseManager::keyPressed(arg);
+	}
+
 	void DemoKeeper::pressConsoleKey()
 	{
 		mConsole->isShow() ? mConsole->hide() : mConsole->show();
