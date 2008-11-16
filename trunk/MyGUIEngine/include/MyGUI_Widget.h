@@ -22,7 +22,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Widget : public ICroppedRectangle, public LayerItem, public UserData, public WidgetEvent, public IWidgetCreator, public IDelegateUnlink
+	class _MyGUIExport Widget : public ICroppedRectangle, public LayerItem, public UserData, public WidgetEvent, public IWidgetCreator, public delegates::IDelegateUnlink
 	{
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
