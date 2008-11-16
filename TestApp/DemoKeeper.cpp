@@ -128,18 +128,42 @@ namespace demo
 
 	};
 
+	void testid(unsigned char(&_id)[16])
+	{
+	}
+
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
-		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp/2.zip", "Zip", "General", false, false);
+		//MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp/2.zip", "Zip", "General", false, false);
 
-		MyGUI::delegates::CDelegate1<Param> eventTest;
-		eventTest = new StaticManagedDelegate1<Param>(gcnew HandleDelegate(Export::foo));
-		eventTest(Param());
-
+		//MyGUI::delegates::CDelegate1<Param> eventTest;
+		//eventTest = new StaticManagedDelegate1<Param>(gcnew HandleDelegate(Export::foo));
+		//eventTest(Param());
 		
-		Widget ^ widget = gcnew Widget(nullptr, "", IntCoord(10 ,10 , 100, 100), Align(MyGUI::Align::Default), "", "");
+		//Widget ^ widget = gcnew Widget(nullptr, "", IntCoord(10 ,10 , 100, 100), Align(MyGUI::Align::Default), "", "");
 
+		/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
+		edit->setEditWordWrap(true);
+		edit->setMaxTextLength(65536);
+
+		std::string read, text;
+		std::ifstream stream(MyGUI::helper::getResourcePath("eula.txt").c_str());
+		if (false != stream.is_open()) {
+			while (false == stream.eof()) {
+				std::getline(stream, read);
+				text += read + "\n";
+			};
+			edit->setCaption(text);
+			edit->setTextCursor(0);
+		}*/
+
+		unsigned char arrayid[16];
+		for (size_t pos=0; pos<16; pos++) arrayid[pos] = (char)pos;
+
+		MyGUI::Guid id(arrayid);
+		int test = 0;
+		//testid(id);
 	}
  
     void DemoKeeper::destroyScene()
