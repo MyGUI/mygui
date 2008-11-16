@@ -19,6 +19,7 @@ namespace MyGUI
 		Guid() { fast._data1 = fast._data2 = fast._data3 = fast._data4 = 0; }
 		Guid( Guid const & _value ) { *this = _value; }
 		explicit Guid(const std::string& _value) { *this = parse(_value); }
+		explicit Guid(unsigned char(&_id)[16]) { ::memcpy((void*)&vec._data1[0], (void*)&_id[0], 16); }
 		
 		bool operator == (Guid const & _comp) const
 		{
@@ -103,9 +104,9 @@ namespace MyGUI
 		};
 
 		union {
-		_original original;
-		_fast fast;
-		_vec vec;
+			_original original;
+			_fast fast;
+			_vec vec;
 		};
 
 	};
