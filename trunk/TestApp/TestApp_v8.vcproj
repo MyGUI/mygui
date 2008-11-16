@@ -45,6 +45,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Common; ..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
