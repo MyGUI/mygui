@@ -21,64 +21,102 @@
 namespace demo
 {
 
-	struct Param
+	public value struct IntCoord
 	{
-		Param(int _value)
+	public:
+		IntCoord(int _left, int _top, int _width, int _height)
 		{
-			value = _value;
+			left = _left;
+			top = _top;
+			width = _width;
+			height = _height;
 		}
-		int value;
+		static operator IntCoord (MyGUI::IntCoord _coord) { return IntCoord(_coord.left, _coord.top, _coord.width, _coord.height); }
+		static operator MyGUI::IntCoord (IntCoord _coord) { return MyGUI::IntCoord(_coord.left, _coord.top, _coord.width, _coord.height); }
+
+		int left, top, width, height;
 	};
 
-	/*value struct Param2
+	public value struct Align
 	{
-		Param2(Param _value)
+		Align(int _align)
 		{
-			value = _value.value; 
+			align = _align;
 		}
-		static operator Param (Param2 _value)
+		static operator Align (MyGUI::Align _align) { return Align(_align.align); }
+		static operator MyGUI::Align (Align _align) { return MyGUI::Align(_align.align); }
+		int align;
+	};
+
+	public ref class Widget
+	{
+	public:
+
+		Widget(Widget ^ _parent, System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer, System::String ^ _name)
 		{
-			return Param(_value.value);
+			if (_parent == nullptr) {
+				m_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("Button", _coord, MyGUI::Align::Default, "Main");
+			}
+			else {
+				_parent->GetWidget()->createWidget<MyGUI::Widget>("Button", _coord, MyGUI::Align::Default);
+			}
+			m_widgetsList.Add(this);
 		}
 
-		int value;
-	};*/
+		void Destroy()
+		{
+			if (m_widget == null) throw gcnew System::Exception("widget is destroy");
+			MyGUI::Gui::getInstance().destroyWidget(m_widget);
+			m_widgetsList.Remove(this);
+		}
 
+		~Widget()
+		{
+		}
+
+		MyGUI::WidgetPtr GetWidget() { return m_widget; }
+
+	private:
+		static System::Collections::Generic::List<Widget^> m_widgetsList = gcnew System::Collections::Generic::List<Widget^>();
+		MyGUI::WidgetPtr m_widget;
+	};
+
+	struct Param { };
+
+	template <typename T1>
+	class StaticManagedDelegate1  : public MyGUI::delegates::IDelegate1<T1>
+	{
+	public:
+		typedef void (*Func)(T1);
+
+		StaticManagedDelegate1(System::MulticastDelegate ^ _delegate)
+		{
+			if (_delegate->Target != nullptr) throw gcnew System::Exception("only for static method");
+			m_delegate = _delegate;
+			System::Reflection::MethodInfo^ mInfo = m_delegate->GetType()->GetMethod(
+				"Invoke", gcnew cli::array<System::Type^> {T1::typeid });
+			if (mInfo == nullptr) throw gcnew System::Exception("error signature");
+			mFunc = (Func)System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(m_delegate).ToPointer();
+		}
+
+		virtual void invoke(T1 p1)
+		{
+			mFunc(p1);
+		}
+
+		virtual bool compare(MyGUI::delegates::IDelegate1<T1>* _delegate)
+		{
+			if (!_delegate || typeid(*this) != typeid(*_delegate)) return false;
+			return (static_cast<StaticManagedDelegate1<T1>*>(_delegate)->mFunc != mFunc);
+		}
+	private:
+		gcroot<System::MulticastDelegate^> m_delegate;
+		Func mFunc;
+	};
 
 	delegate void HandleDelegate(Param _value);
 
-	template <typename T>
-	class Base
-	{
-	public:
-		typedef void (*Func)(T);
 
-		void Initialise(System::MulticastDelegate ^ _delegate)
-		{
-			m_delegate = _delegate;
-		}
-
-		void Invoke(T p1)
-		{
-			System::MulticastDelegate^ invoke = (System::MulticastDelegate^)m_delegate;
-			System::Type^ type = invoke->GetType();
-			System::Reflection::MethodInfo^ mInfo = type->GetMethod("Invoke", gcnew cli::array<System::Type^> {T::typeid });
-			Func foo = (Func)System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(invoke).ToPointer();
-			foo(p1);
-			//mInfo->Invoke(invoke, gcnew cli::array<System::Object^, 1> { (System::Object^)Param(p1) });
-		}
-
-	private:
-		gcroot<System::MulticastDelegate^> m_delegate;
-	};
-
-
-	/*template <typename T>
-	class Test
-	{
-	public:
-		System::MulticastDelegate ^ m_delegate;
-	};*/
 
 	value struct Export
 	{
@@ -90,25 +128,18 @@ namespace demo
 
 	};
 
-	void test()
-	{
-	}
-
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp/2.zip", "Zip", "General", false, false);
 
-		Base<Param> base;
-		base.Initialise(gcnew HandleDelegate(Export::foo));
+		MyGUI::delegates::CDelegate1<Param> eventTest;
+		eventTest = new StaticManagedDelegate1<Param>(gcnew HandleDelegate(Export::foo));
+		eventTest(Param());
 
-		base.Invoke(Param(101));
 		
-		MyGUI::delegates::CDelegate0 eventTest;
+		Widget ^ widget = gcnew Widget(nullptr, "", IntCoord(10 ,10 , 100, 100), Align(MyGUI::Align::Default), "", "");
 
-		eventTest = MyGUI::newDelegate(test);
-		eventTest();
-		
 	}
  
     void DemoKeeper::destroyScene()
