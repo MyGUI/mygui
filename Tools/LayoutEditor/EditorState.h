@@ -75,6 +75,7 @@ private:
 	// last click for depth selecting
 	int x, y;
 	int selectDepth;
+	MyGUI::WidgetPtr last_depth_widget;
 
 	MyGUI::WidgetPtr current_widget;
 	// drop select after skin change

@@ -241,23 +241,34 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 
 	if (null != item)
 	{
+		// find widget registered as container
 		while ((null == ew->find(item)) && (null != item)) item = item->getParent();
-		MyGUI::WidgetPtr oldItem = item;
 
-		int depth = selectDepth;
-		while (depth && (null != item))
+		// try to selectin depth
+		if (item == last_depth_widget)
 		{
-			item = item->getParent();
-			while ((null == ew->find(item)) && (null != item)) item = item->getParent();
-			depth--;
+			MyGUI::WidgetPtr oldItem = item;
+			int depth = selectDepth;
+			while (depth && (null != item))
+			{
+				item = item->getParent();
+				while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+				depth--;
+			}
+			if (null == item)
+			{
+				item = oldItem;
+				selectDepth = 0;
+			}
 		}
-		if (null == item)
+		else
 		{
-			item = oldItem;
 			selectDepth = 0;
 		}
+		if (0 == selectDepth) last_depth_widget = item;
 
-		if (null != item) // нашли
+		// found widget
+		if (null != item)
 		{
 			MyGUI::IntSize size = item->getTextSize();
 			notifySelectWidget(item);
@@ -270,6 +281,8 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	else {
 		mGUI->injectMousePress(arg, id);
 		notifySelectWidget(null);
+		selectDepth = 0;
+		last_depth_widget = null;
 	}
 
 	// вернем прямоугольник
