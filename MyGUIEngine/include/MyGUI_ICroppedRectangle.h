@@ -27,16 +27,13 @@ namespace MyGUI
 		{ }
 		virtual ~ICroppedRectangle() { }
 
-		virtual void setPosition(const IntPoint& _pos) { }
-		virtual void setCoord(const IntCoord& _coord) { }
-		virtual void setSize(const IntSize& _size) { }
+		virtual void setPosition(const IntPoint& _pos) { mCoord.left = _pos.left; mCoord.top = _pos.top; }
+		virtual void setCoord(const IntCoord& _coord) { mCoord = _coord; }
+		virtual void setSize(const IntSize& _size) { mCoord.width = _size.width; mCoord.height = _size.height; }
 
-		virtual void show() { }
-		virtual void hide() { }
+		virtual void show() { mShow = true; }
+		virtual void hide() { mShow = false; }
 		virtual bool isShow() { return mShow; }
-
-		virtual void setAlpha(float _alpha) { }
-		virtual float getAlpha() { return ALPHA_MAX; }
 
 		ICroppedRectangle * getParent() { return mParent; }
 

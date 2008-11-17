@@ -37,6 +37,9 @@ namespace MyGUI
 			ICroppedRectangle(_coord, _align, _parent) { }
 		virtual ~ISubWidget() = 0;
 
+		virtual void setAlpha(float _alpha) = 0;
+		virtual float getAlpha() { return 1.0; }
+
 		virtual void _setStateData(StateInfo * _data) { }
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) { }

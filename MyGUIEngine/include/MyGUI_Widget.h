@@ -207,7 +207,7 @@ namespace MyGUI
 		void _updateAlpha();
 
 		/** Set widget's state */
-		void setState(const Ogre::String & _state);
+		bool setState(const std::string & _state);
 
 		void _setUVSet(const FloatRect& _rect);
 
