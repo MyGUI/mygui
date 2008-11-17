@@ -285,7 +285,7 @@ namespace MyGUI
 	void GridCtrl::onKeySetFocus(WidgetPtr _old)
 	{
 		mIsFocus = true;
-		setState("select");
+		setState("pushed");
 
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::onKeySetFocus(_old);

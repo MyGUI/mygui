@@ -1240,13 +1240,13 @@ namespace MyGUI
 
 	void Edit::updateEditState()
 	{
-		if (mIsFocus) {
-			if (mIsPressed) setState("select");
-			else setState("active");
-		} else {
-			if (mIsPressed) setState("pressed");
-			else setState("normal");
+		if (!mEnabled) setState("disabled");
+		else if (mIsPressed) {
+			if (mIsFocus) setState("pushed");
+			else setState("normal_checked");
 		}
+		else if (mIsFocus) setState("highlighted");
+		else setState("normal");
 	}
 
 	void Edit::setPosition(const IntPoint & _point)

@@ -15,6 +15,7 @@
 #include <assert.h>
 
 #include <gcroot.h>
+#include <windowsx.h>
 
 
 

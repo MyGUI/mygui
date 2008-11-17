@@ -148,8 +148,24 @@ namespace MyGUI
 
 					bind.create(offset, align, basisSkinType);
 
-					// берем детей и крутимся, цикл со стейтами
+
+					// проверяем на новый формат стейтов
+					bool new_format = false;
+					bool find1 = false;
+					bool find2 = false;
 					xml::xmlNodeIterator state = basis->getNodeIterator();
+					while (state.nextNode()) {
+						if (state->getName() == "State") {
+							const std::string & name_state = state->findAttribute("name");
+							if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check")) {
+								new_format = true;
+								break;
+							}
+						}
+					};
+
+					// берем детей и крутимся, цикл со стейтами
+					state = basis->getNodeIterator();
 					while (state.nextNode()) {
 
 						if (state->getName() == "State") {
@@ -157,11 +173,54 @@ namespace MyGUI
 							Ogre::String basisStateName;
 							state->findAttribute("name", basisStateName);
 
+							// это обсолет новых типов
+							if (basisStateName == "disable_check") {
+								MYGUI_LOG(Warning, "state name 'disable_check' is obsolete, use 'disabled_checked'. skin '" << name << "'");
+								basisStateName = "disabled_checked";
+							}
+							else if (basisStateName == "normal_check") {
+								MYGUI_LOG(Warning, "state name 'normal_check' is obsolete, use 'normal_checked'. skin '" << name << "'");
+								basisStateName = "normal_checked";
+							}
+							else if (basisStateName == "active_check") {
+								MYGUI_LOG(Warning, "state name 'active_check' is obsolete, use 'highlighted_checked'. skin '" << name << "'");
+								basisStateName = "highlighted_checked";
+							}
+							else if (basisStateName == "pressed_check") {
+								MYGUI_LOG(Warning, "state name 'pressed_check' is obsolete, use 'pushed_checked'. skin '" << name << "'");
+								basisStateName = "pushed_checked";
+							}
+
+							// обсолет старых типлв
+							else if (basisStateName == "disable") {
+								MYGUI_LOG(Warning, "state name 'disable' is obsolete, use 'disabled'. skin '" << name << "'");
+								basisStateName = "disabled";
+							}
+							else if (basisStateName == "active") {
+								MYGUI_LOG(Warning, "state name 'active' is obsolete, use 'highlighted'. skin '" << name << "'");
+								basisStateName = "highlighted";
+							}
+							else if (basisStateName == "select") {
+								MYGUI_LOG(Warning, "state name 'select' is obsolete, use 'pushed'. skin '" << name << "'");
+								basisStateName = "pushed";
+							}
+							else if (basisStateName == "pressed") {
+								if (new_format) {
+									MYGUI_LOG(Warning, "state name 'pressed' is obsolete, use 'pushed'. skin '" << name << "'");
+									basisStateName = "pushed";
+								}
+								else {
+									MYGUI_LOG(Warning, "state name 'pressed' is obsolete, use 'normal_checked'. skin '" << name << "'");
+									basisStateName = "normal_checked";
+								}
+							}
+
 							// конвертируем инфу о стейте
 							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode());
 
 							// добавляем инфо о стайте
-							bind.add(basisStateName, data);
+							bind.add(basisStateName, data, name);
+
 						}
 						else if (state->getName() == "Property") {
 							// загружаем свойства

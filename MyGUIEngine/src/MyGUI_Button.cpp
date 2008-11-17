@@ -19,8 +19,7 @@ namespace MyGUI
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
 		mIsStateCheck(false),
-		mImage(null),
-		mModeCheck(false)
+		mImage(null)
 	{
 
 		// парсим свойства
@@ -38,9 +37,6 @@ namespace MyGUI
 				mImage = (*iter)->castType<StaticImage>();
 			}
 		}
-
-		// проверяем на старый стиль описания стейтов скинов
-		mModeCheck = mStateInfo.find("normal_check") != mStateInfo.end();
 
 	}
 
@@ -108,33 +104,17 @@ namespace MyGUI
 
 	void Button::updateButtonState()
 	{
-		if (mModeCheck) {
-			if (mIsStateCheck) {
-				if ( ! mEnabled) setState("disable_check");
-				else if (mIsMousePressed) setState("pressed_check");
-				else if (mIsMouseFocus) setState("active_check");
-				else setState("normal_check");
-			}
-			else {
-				if ( ! mEnabled) setState("disable");
-				else if (mIsMousePressed) setState("pressed");
-				else if (mIsMouseFocus) setState("active");
-				else setState("normal");
-			}
+		if (mIsStateCheck) {
+			if (!mEnabled) { if (!setState("disabled_checked")) setState("disabled"); }
+			else if (mIsMousePressed) { if (!setState("pushed_checked")) setState("pushed"); }
+			else if (mIsMouseFocus) { if (!setState("highlighted_checked")) setState("pushed"); }
+			else setState("normal_checked");
 		}
 		else {
-			if ( ! mEnabled) {
-				setState("disable");
-			}
-			else {
-				if (mIsMouseFocus) {
-					if (mIsMousePressed || mIsStateCheck) setState("select");
-					else setState("active");
-				} else {
-					if (mIsMousePressed || mIsStateCheck) setState("pressed");
-					else setState("normal");
-				}
-			}
+			if (!mEnabled) setState("disabled");
+			else if (mIsMousePressed) setState("pushed");
+			else if (mIsMouseFocus) setState("highlighted");
+			else setState("normal");
 		}
 	}
 

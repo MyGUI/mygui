@@ -46,11 +46,15 @@ namespace MyGUI
 			mStates.clear();
 		}
 
-		void add(const std::string & _name, StateInfo * _data)
+		void add(const std::string & _name, StateInfo * _data, const std::string & _skin)
 		{
 			// ищем такой же ключ
 			MapStateInfo::const_iterator iter = mStates.find(_name);
-			MYGUI_ASSERT(iter == mStates.end(), "state with name '" << _name << "' already exist");
+			if (iter != mStates.end()) {
+				delete _data;
+				MYGUI_LOG(Warning, "state with name '" << _name << "' already exist in skin '" << _skin << "'");
+				return;
+			}
 			// добавляем
 			mStates[_name] = _data;
 		}
