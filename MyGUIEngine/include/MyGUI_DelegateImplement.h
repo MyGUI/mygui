@@ -179,7 +179,7 @@ namespace delegates
 
 		bool empty()
 		{
-			std::list<IDelegate *>::iterator iter;
+			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if (*iter) return false;
 			}
@@ -188,7 +188,7 @@ namespace delegates
 
 		void clear()
 		{
-			std::list<IDelegate *>::iterator iter;
+			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if (*iter) {
 					delete (*iter);
@@ -199,7 +199,7 @@ namespace delegates
 
 		void clear(IDelegateUnlink * _unlink)
 		{
-			std::list<IDelegate *>::iterator iter;
+			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_unlink)) {
 					delete (*iter);
@@ -210,7 +210,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE		MYGUI_TEMPLATE_ARGS& operator+=(IDelegate* _delegate)
 		{
-			std::list<IDelegate *>::iterator iter;
+			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_delegate)) {
                                   assert("dublicate delegate");
@@ -222,7 +222,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE		MYGUI_TEMPLATE_ARGS& operator-=(IDelegate* _delegate)
 		{
-			std::list<IDelegate *>::iterator iter;
+			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_delegate)) {
 					// проверяем на идентичность делегатов
@@ -237,7 +237,7 @@ namespace delegates
 
 		void operator()(MYGUI_PARAMS)
 		{
-			std::list<IDelegate *>::iterator iter=mListDelegates.begin();
+			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter=mListDelegates.begin();
 			while (iter != mListDelegates.end()) {
 				if (0 == (*iter)) iter = mListDelegates.erase(iter);
 				else {
@@ -268,5 +268,6 @@ namespace delegates
 	#undef MYGUI_T_TEMPLATE_ARGS
 	#undef MYGUI_PARAMS
 	#undef MYGUI_ARGS
+	#undef MYGUI_TYPENAME
 
 } // namespace delegates
