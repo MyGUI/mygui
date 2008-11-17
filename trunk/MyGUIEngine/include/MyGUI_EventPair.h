@@ -74,6 +74,14 @@ namespace MyGUI
 	{
 	public:
 
+		// для обнуления делегатов и решения неоднозначности
+		void operator = (int _null)
+		{
+			MYGUI_ASSERT(_null == 0, "this operator only for null");
+			event1 = null;
+			event2 = null;
+		}
+
 		MYGUI_OBSOLETE("use signature : Event2::IDelegate * _delegate")
 		void operator = (typename Event1::IDelegate * _delegate)
 		{

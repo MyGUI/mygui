@@ -723,28 +723,20 @@ namespace MyGUI
 
 	void ItemBox::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
 	{
+		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 		if (_focus) {
-			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
-
 			mIndexActive = index;
 			ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-
 			requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-			mIndexActive = index;
 		}
 		else {
-			// уже сбросили фокус
-			//if (mIndexActive == ITEM_NONE) return;
-
-			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
-
-			mIndexActive = ITEM_NONE;
-			ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-
-			requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-			mIndexActive = ITEM_NONE;
+			// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
+			if (index < mItemsInfo.size()) {
+				mIndexActive = ITEM_NONE;
+				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
+			}
 		}
 	}
 
