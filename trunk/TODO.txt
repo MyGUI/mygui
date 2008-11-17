@@ -2,10 +2,11 @@
 
 вставить в статик имадж режим кнопки
 
-переименовать дефолтные стейты
+#переименовать дефолтные стейты
 	disable_check -> disabled_checked
 	pressed_check -> pressed_checked
 	normal_check -> normal_checked
+	active_check -> active_checked
 	disable -> disabled
 	select -> selected
 

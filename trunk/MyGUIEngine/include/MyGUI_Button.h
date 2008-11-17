@@ -78,9 +78,6 @@ namespace MyGUI
 
 		StaticImagePtr mImage;
 
-		// для прозрачной поддержки старого режима
-		bool mModeCheck;
-
 	}; // class Button : public Widget
 
 } // namespace MyGUI

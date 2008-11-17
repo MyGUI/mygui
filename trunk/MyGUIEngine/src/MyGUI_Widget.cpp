@@ -318,16 +318,17 @@ namespace MyGUI
 		return (null == mText) ? 0 : mText->getFontHeight();
 	}
 
-	void Widget::setState(const Ogre::String & _state)
+	bool Widget::setState(const std::string & _state)
 	{
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
-		if (iter == mStateInfo.end()) return;
+		if (iter == mStateInfo.end()) return false;
 		size_t index=0;
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index) {
 			ISubWidget * info = (*skin);
 			StateInfo * data = (*iter).second[index];
 			if (data != null) info->_setStateData(data);
 		}
+		return true;
 	}
 
 	void Widget::setEnabled(bool _enabled)
@@ -340,7 +341,7 @@ namespace MyGUI
 
 		if (mEnabled) setState("normal");
 		else {
-			setState("disable");
+			setState("disabled");
 			InputManager::getInstance()._unlinkWidget(this);
 		}
 	}
