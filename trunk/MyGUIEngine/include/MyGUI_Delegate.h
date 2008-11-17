@@ -42,6 +42,7 @@ namespace MyGUI
 	#define MYGUI_T_TEMPLATE_ARGS <T>
 	#define MYGUI_PARAMS
 	#define MYGUI_ARGS
+	#define MYGUI_TYPENAME
 
 	#include "MyGUI_DelegateImplement.h"
 
@@ -54,6 +55,7 @@ namespace MyGUI
 	#define MYGUI_T_TEMPLATE_ARGS    <T, TP1>
 	#define MYGUI_PARAMS       TP1 p1
 	#define MYGUI_ARGS         p1
+	#define MYGUI_TYPENAME     typename
 
 	#include "MyGUI_DelegateImplement.h"
 
@@ -66,6 +68,7 @@ namespace MyGUI
 	#define MYGUI_T_TEMPLATE_ARGS    <T, TP1, TP2>
 	#define MYGUI_PARAMS       TP1 p1, TP2 p2
 	#define MYGUI_ARGS         p1, p2
+	#define MYGUI_TYPENAME     typename
 
 	#include "MyGUI_DelegateImplement.h"
 
@@ -78,6 +81,7 @@ namespace MyGUI
 	#define MYGUI_T_TEMPLATE_ARGS    <T, TP1, TP2, TP3>
 	#define MYGUI_PARAMS       TP1 p1, TP2 p2, TP3 p3
 	#define MYGUI_ARGS         p1, p2, p3
+	#define MYGUI_TYPENAME     typename
 
 	#include "MyGUI_DelegateImplement.h"
 
@@ -90,6 +94,7 @@ namespace MyGUI
 	#define MYGUI_T_TEMPLATE_ARGS    <T, TP1, TP2, TP3, TP4>
 	#define MYGUI_PARAMS       TP1 p1, TP2 p2, TP3 p3, TP4 p4
 	#define MYGUI_ARGS         p1, p2, p3, p4
+	#define MYGUI_TYPENAME     typename
 
 	#include "MyGUI_DelegateImplement.h"
 
@@ -102,6 +107,7 @@ namespace MyGUI
 	#define MYGUI_T_TEMPLATE_ARGS    <T, TP1, TP2, TP3, TP4, TP5>
 	#define MYGUI_PARAMS       TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5
 	#define MYGUI_ARGS         p1, p2, p3, p4, p5
+	#define MYGUI_TYPENAME     typename
 
 	#include "MyGUI_DelegateImplement.h"
 
