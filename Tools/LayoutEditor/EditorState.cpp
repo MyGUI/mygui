@@ -63,33 +63,6 @@ void EditorState::enter(bool bIsChangeState)
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
-	// создание меню
-	bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
-	bar->addItem(localise("File"));
-	bar->addItem(localise("Widgets"));
-	// FIXME менюбар сунуть в лейаут
-	interfaceWidgets.push_back(bar);
-
-	mPopupMenuWidgets = bar->getItemChildAt(1);
-
-	mPopupMenuFile = bar->getItemChildAt(0);
-	mPopupMenuFile->addItem(localise("Load"));
-	mPopupMenuFile->addItem(localise("Save"));
-	mPopupMenuFile->addItem(localise("Save_as"));
-	mPopupMenuFile->addItem(localise("Clear"), MyGUI::PopupMenu::ItemTypeSeparator);
-	mPopupMenuFile->addItem(localise("Settings"));
-	mPopupMenuFile->addItem(localise("Test"), MyGUI::PopupMenu::ItemTypeSeparator);
-	mPopupMenuFile->addItem(localise("Quit"));
-
-	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
-
-	// properties panelView
-	mPropertiesPanelView.initialise();
-	mPropertiesPanelView.eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-	mPropertiesPanelView->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getSize().width, bar->getHeight(),
-					mPropertiesPanelView->getSize().width, mGUI->getViewHeight() - bar->getHeight());
-	interfaceWidgets.push_back(mPropertiesPanelView.mainWidget());
-
 	// settings window
 	mSettingsWindow.initialise();
 	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
@@ -97,6 +70,16 @@ void EditorState::enter(bool bIsChangeState)
 
 	loadSettings(settingsFile);
 	loadSettings(userSettingsFile);
+
+	// создание меню
+	createMainMenu();
+
+	// properties panelView
+	mPropertiesPanelView.initialise();
+	mPropertiesPanelView.eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	mPropertiesPanelView->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getSize().width, bar->getHeight(),
+					mPropertiesPanelView->getSize().width, mGUI->getViewHeight() - bar->getHeight());
+	interfaceWidgets.push_back(mPropertiesPanelView.mainWidget());
 
 	mWidgetsWindow.initialise();
 	mWidgetsWindow.eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
@@ -124,31 +107,69 @@ void EditorState::enter(bool bIsChangeState)
 	}
 }
 
+void EditorState::createMainMenu()
+{
+	bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
+	bar->addItem(localise("File"));
+	bar->addItem(localise("Widgets"));
+	// FIXME менюбар сунуть в лейаут
+	interfaceWidgets.push_back(bar);
+
+	mPopupMenuWidgets = bar->getItemChildAt(1);
+
+	mPopupMenuFile = bar->getItemChildAt(0);
+	mPopupMenuFile->addItem(localise("Load"));
+	mPopupMenuFile->addItem(localise("Save"));
+	mPopupMenuFile->addItem(localise("Save_as"));
+	mPopupMenuFile->addItem(localise("Clear"), MyGUI::PopupMenu::ItemTypeSeparator);
+	mPopupMenuFile->addItem(localise("Settings"));
+	mPopupMenuFile->addItem(localise("Test"), MyGUI::PopupMenu::ItemTypeSeparator);
+
+	for (std::vector<Ogre::String>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
+	{
+		MyGUI::PopupMenu::ItemType type = MyGUI::PopupMenu::ItemTypeNormal;
+		if (recentFiles.rend() - iter == 1 ) type = MyGUI::PopupMenu::ItemTypeSeparator;
+		mPopupMenuFile->addItem(*iter, type );
+	}
+	
+	mPopupMenuFile->addItem(localise("Quit"));
+
+	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
+}
+
 void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index)
 {
 	if (mPopupMenuFile == _menu) {
-		switch(_index) {
-			case ITEM_LOAD:
-				notifyLoadSaveAs(false);
-				break;
-			case ITEM_SAVE:
-				notifySave();
-				break;
-			case ITEM_SAVE_AS:
-				notifyLoadSaveAs(true);
-				break;
-			case ITEM_SETTINGS:
-				notifySettings();
-				break;
-			case ITEM_TEST:
-				notifyTest();
-				break;
-			case ITEM_CLEAR:
-				notifyClear();
-				break;
-			case ITEM_QUIT:
-				notifyQuit();
-				break;
+		if (_index<ITEM_TEST+1)
+		{
+			switch(_index) {
+				case ITEM_LOAD:
+					notifyLoadSaveAs(false);
+					break;
+				case ITEM_SAVE:
+					notifySave();
+					break;
+				case ITEM_SAVE_AS:
+					notifyLoadSaveAs(true);
+					break;
+				case ITEM_CLEAR:
+					notifyClear();
+					break;
+				case ITEM_SETTINGS:
+					notifySettings();
+					break;
+				case ITEM_TEST:
+					notifyTest();
+					break;
+			}
+		}
+		else if (_index == _menu->getItemCount()-1)
+		{
+			notifyQuit();
+		}
+		else
+		{
+			load(recentFiles[_index-ITEM_TEST-1]);
 		}
 	}
 }
@@ -467,6 +488,12 @@ void EditorState::loadSettings(std::string _fileName)
 				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView.load(field);
 				else if (field->getName() == "SettingsWindow") mSettingsWindow.load(field);
 				else if (field->getName() == "WidgetsWindow") mWidgetsWindow.load(field);
+				else if (field->getName() == "RecentFile") 
+				{
+					Ogre::String name;
+					if (false == field->findAttribute("name", name)) continue;
+					recentFiles.push_back(name);
+				}
 			}
 		}
 	}
@@ -490,6 +517,23 @@ void EditorState::saveSettings(std::string _fileName)
 	mSettingsWindow.save(root);
 	mWidgetsWindow.save(root);
 
+	// cleanup for duplicates
+	
+	std::reverse(recentFiles.begin(), recentFiles.end());
+	for (size_t i = 0; i < recentFiles.size(); ++i)
+		recentFiles.erase(std::remove(recentFiles.begin() + i + 1, recentFiles.end(), recentFiles[i]), recentFiles.end());
+	
+	// remove old files
+	while (recentFiles.size() > MAX_RECENT_FILES)
+		recentFiles.pop_back();
+	std::reverse(recentFiles.begin(), recentFiles.end());
+
+	for (std::vector<Ogre::String>::iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter)
+	{
+		MyGUI::xml::xmlNodePtr nodeProp = root->createChild("RecentFile");
+		nodeProp->addAttributes("name", *iter);
+	}
+
 	if (false == doc.save(file)) {
 		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
@@ -501,12 +545,11 @@ void EditorState::notifySave()
 	if (fileName != "")
 	{
 		if ( !ew->save(fileName)) {
-			/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-				Ogre::DisplayString file_name = fileName;
-			#else
-				Ogre::DisplayString file_name = MyGUI::convert::ansi_to_wide(fileName);
-			#endif*/
 			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + fileName + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		}
+		else
+		{
+			recentFiles.push_back(fileName);
 		}
 	}
 	else notifyLoadSaveAs(true);
@@ -547,22 +590,12 @@ void EditorState::notifyLoadSaveAs(bool _save)
 	// set fileName in edit
 	MyGUI::ComboBoxPtr combo = combo2->castType<MyGUI::ComboBox>();
 	if (fileName != "") {
-		/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-			const Ogre::DisplayString & item = fileName;
-		#else
-			const Ogre::DisplayString & item = MyGUI::convert::ansi_to_wide(fileName);
-		#endif*/
 		combo->setCaption(fileName);
 	}
 	combo->eventEditSelectAccept = newDelegate(this, &EditorState::notifyLoadSaveEditAccept);
 	std::vector<Ogre::String> strs = MyGUI::helper::getVectorResourcePath("*.layout");
 	for (std::vector<Ogre::String>::iterator iter = strs.begin(); iter != strs.end(); ++iter)
 	{
-		/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-			const Ogre::DisplayString & item = *iter;
-		#else
-			const Ogre::DisplayString & item = MyGUI::convert::ansi_to_wide(*iter);
-		#endif*/
 		combo->addItem(*iter);
 	}
 
@@ -629,12 +662,6 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 {
 	bool success;
 	Ogre::UTFString file_name = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
-	// конвертируем
-	/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-		std::string fName = file_name;
-	#else
-		std::string fName = MyGUI::convert::wide_to_ansi(file_name);
-	#endif*/
 
 	if (_sender->getCaption() == "Load") success = ew->load(file_name);
 	else/*(_sender->getCaption() == "Save")*/ success = ew->save(file_name);
@@ -650,6 +677,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 		BasisManager::getInstance().setWindowCaption(fileName + " - MyGUI Layout Editor");
 		notifyLoadSaveCancel(_sender);
 		um->addValue();
+		recentFiles.push_back(fileName);
 	}
 }
 
@@ -668,11 +696,6 @@ void EditorState::load(const std::string & _file)
 {
 	if (!ew->load(_file))
 	{
-		/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-			Ogre::DisplayString file_name = fileName;
-		#else
-			Ogre::DisplayString file_name = MyGUI::convert::ansi_to_wide(fileName);
-		#endif*/
 		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + fileName + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return;
 	}
@@ -681,6 +704,7 @@ void EditorState::load(const std::string & _file)
 
 	fileName = _file;
 	um->addValue();
+	recentFiles.push_back(fileName);
 }
 
 void EditorState::notifyWidgetsUpdate()
