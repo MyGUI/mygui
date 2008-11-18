@@ -141,5 +141,5 @@ void SettingsWindow::notifyToggleCheck(MyGUI::WidgetPtr _sender)
 {
 	MyGUI::ButtonPtr checkbox = _sender->castType<MyGUI::Button>();
 	checkbox->setButtonPressed(!checkbox->getButtonPressed());
-	eventWidgetsUpdate(true);
+	eventWidgetsUpdate();
 }

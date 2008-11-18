@@ -163,7 +163,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 	{
 		if (current_widget){
 			EditorWidgets::getInstance().remove(current_widget);
-			eventRecreate(false);
+			eventRecreate();
 			UndoManager::getInstance().addValue();
 		}
 	}
@@ -451,7 +451,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 			ew->clear();
 			ew->loadxmlDocument(save);
 			delete save;
-			eventRecreate(false);
+			eventRecreate();
 		}
 		else
 		{

@@ -170,7 +170,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 
 	// drop select depth if we moved mouse
 	const int DIST = 2;
-	if ((abs(x - arg.state.X.abs) > DIST) && (abs(y - arg.state.Y.abs) > DIST))
+	if ((abs(x - arg.state.X.abs) > DIST) || (abs(y - arg.state.Y.abs) > DIST))
 	{
 		selectDepth = 0;
 		x = arg.state.X.abs;
@@ -243,29 +243,21 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	{
 		// find widget registered as container
 		while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+		MyGUI::WidgetPtr oldItem = item;
 
 		// try to selectin depth
-		if (item == last_depth_widget)
+		int depth = selectDepth;
+		while (depth && (null != item))
 		{
-			MyGUI::WidgetPtr oldItem = item;
-			int depth = selectDepth;
-			while (depth && (null != item))
-			{
-				item = item->getParent();
-				while ((null == ew->find(item)) && (null != item)) item = item->getParent();
-				depth--;
-			}
-			if (null == item)
-			{
-				item = oldItem;
-				selectDepth = 0;
-			}
+			item = item->getParent();
+			while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+			depth--;
 		}
-		else
+		if (null == item)
 		{
+			item = oldItem;
 			selectDepth = 0;
 		}
-		if (0 == selectDepth) last_depth_widget = item;
 
 		// found widget
 		if (null != item)
@@ -281,8 +273,6 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	else {
 		mGUI->injectMousePress(arg, id);
 		notifySelectWidget(null);
-		selectDepth = 0;
-		last_depth_widget = null;
 	}
 
 	// вернем прямоугольник
@@ -693,7 +683,7 @@ void EditorState::load(const std::string & _file)
 	um->addValue();
 }
 
-void EditorState::notifyWidgetsUpdate(bool _fake)
+void EditorState::notifyWidgetsUpdate()
 {
 	bool print_name = mSettingsWindow.getShowName();
 	bool print_type = mSettingsWindow.getShowType();

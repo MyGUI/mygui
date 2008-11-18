@@ -57,11 +57,11 @@ private:
 	// menu bar
 	void notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
 	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
-	void notifyWidgetsUpdate(bool _fake = true);//FIXME нужен делегат без параметров
+	void notifyWidgetsUpdate();
 
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
-	void notifyRecreate(bool _fake){recreate = true;};//FIXME нужен делегат без параметров
+	void notifyRecreate(){recreate = true;};
 private:
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
@@ -75,7 +75,6 @@ private:
 	// last click for depth selecting
 	int x, y;
 	int selectDepth;
-	MyGUI::WidgetPtr last_depth_widget;
 
 	MyGUI::WidgetPtr current_widget;
 	// drop select after skin change
