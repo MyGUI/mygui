@@ -66,6 +66,7 @@
 		<Unit filename="include\MyGUI_Align.h" />
 		<Unit filename="include\MyGUI_AlignInfo.h" />
 		<Unit filename="include\MyGUI_Any.h" />
+		<Unit filename="include\MyGUI_BiIndexBase.h" />
 		<Unit filename="include\MyGUI_Button.h" />
 		<Unit filename="include\MyGUI_ButtonFactory.h" />
 		<Unit filename="include\MyGUI_CastWidget.h" />
@@ -82,6 +83,7 @@
 		<Unit filename="include\MyGUI_ControllerItem.h" />
 		<Unit filename="include\MyGUI_ControllerManager.h" />
 		<Unit filename="include\MyGUI_ControllerPosition.h" />
+		<Unit filename="include\MyGUI_Convert.h" />
 		<Unit filename="include\MyGUI_CroppedRectangleInterface.h" />
 		<Unit filename="include\MyGUI_DDContainer.h" />
 		<Unit filename="include\MyGUI_DDContainerFactory.h" />
@@ -96,11 +98,14 @@
 		<Unit filename="include\MyGUI_EditText.h" />
 		<Unit filename="include\MyGUI_EnumCharInfo.h" />
 		<Unit filename="include\MyGUI_Enumerator.h" />
+		<Unit filename="include\MyGUI_EventPair.h" />
 		<Unit filename="include\MyGUI_Font.h" />
 		<Unit filename="include\MyGUI_FontManager.h" />
 		<Unit filename="include\MyGUI_FooBar.h" />
 		<Unit filename="include\MyGUI_FooBarFactory.h" />
 		<Unit filename="include\MyGUI_FrameListener.h" />
+		<Unit filename="include\MyGUI_GridCtrl.h" />
+		<Unit filename="include\MyGUI_GridCtrlFactory.h" />
 		<Unit filename="include\MyGUI_Gui.h" />
 		<Unit filename="include\MyGUI_Guid.h" />
 		<Unit filename="include\MyGUI_HScroll.h" />
@@ -121,6 +126,7 @@
 		<Unit filename="include\MyGUI_ItemBox.h" />
 		<Unit filename="include\MyGUI_ItemBoxFactory.h" />
 		<Unit filename="include\MyGUI_ItemDropInfo.h" />
+		<Unit filename="include\MyGUI_ItemInfo.h" />
 		<Unit filename="include\MyGUI_LanguageManager.h" />
 		<Unit filename="include\MyGUI_LastHeader.h" />
 		<Unit filename="include\MyGUI_LayerItem.h" />
@@ -301,6 +307,7 @@
 		<Unit filename="src\MyGUI_ControllerFadeAlpha.cpp" />
 		<Unit filename="src\MyGUI_ControllerManager.cpp" />
 		<Unit filename="src\MyGUI_ControllerPosition.cpp" />
+		<Unit filename="src\MyGUI_Convert.cpp" />
 		<Unit filename="src\MyGUI_DDContainer.cpp" />
 		<Unit filename="src\MyGUI_DDContainerFactory.cpp" />
 		<Unit filename="src\MyGUI_DelegateManager.cpp" />
@@ -313,6 +320,8 @@
 		<Unit filename="src\MyGUI_FontManager.cpp" />
 		<Unit filename="src\MyGUI_FooBar.cpp" />
 		<Unit filename="src\MyGUI_FooBarFactory.cpp" />
+		<Unit filename="src\MyGUI_GridCtrl.cpp" />
+		<Unit filename="src\MyGUI_GridCtrlFactory.cpp" />
 		<Unit filename="src\MyGUI_Gui.cpp" />
 		<Unit filename="src\MyGUI_Guid.cpp" />
 		<Unit filename="src\MyGUI_HScroll.cpp" />
@@ -336,6 +345,7 @@
 		<Unit filename="src\MyGUI_LogManager.cpp" />
 		<Unit filename="src\MyGUI_LogStream.cpp" />
 		<Unit filename="src\MyGUI_MainSkin.cpp" />
+		<Unit filename="src\MyGUI_MaskPeekInfo.cpp" />
 		<Unit filename="src\MyGUI_MenuBar.cpp" />
 		<Unit filename="src\MyGUI_MenuBarFactory.cpp" />
 		<Unit filename="src\MyGUI_Message.cpp" />
