@@ -90,11 +90,27 @@ namespace MyGUI
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX && MYGUI_COMP_VER == 412
 			#define MYGUI_OBSOLETE(text)
 		#else
-			#define MYGUI_OBSOLETE(text) __attribute__((deprecated))
+///			#define MYGUI_OBSOLETE(text) __attribute__((deprecated))    changed to gcc mode
+			#define MYGUI_OBSOLETE(text)
 		#endif
 	#else
 		#define MYGUI_OBSOLETE(text)
 	#endif
+
+/// for more info see: http://mdf-i.blogspot.com/2008/09/deprecated-gcc-vs-vs-vs-vs.html
+
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#define MYGUI_OBSOLETE_END(text)
+	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX && MYGUI_COMP_VER == 412
+			#define MYGUI_OBSOLETE_END(text)
+		#else
+			#define MYGUI_OBSOLETE_END(text) __attribute__((deprecated))
+		#endif
+	#else
+		#define MYGUI_OBSOLETE_END(text)
+	#endif
+
 
 } // namespace MyGUI
 
