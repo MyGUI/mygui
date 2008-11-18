@@ -157,11 +157,13 @@ namespace MyGUI
 
 		while (i < _newNode->numAttachedObjects())
 		{
-			Ogre::Entity* entity = dynamic_cast<Ogre::Entity*>(_newNode->getAttachedObject(i));
+			Ogre::MovableObject * object = _newNode->getAttachedObject(i);
+			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : null;
 
 			if(entity)
 			{
-				Ogre::Entity* oldEntity = dynamic_cast<Ogre::Entity*>(findMovableObject(_fromNode, entity->getName()));
+				object = findMovableObject(_fromNode, entity->getName());
+				Ogre::Entity* oldEntity = (object != null && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : null;
 
 				if(!oldEntity)
 				{
@@ -174,11 +176,13 @@ namespace MyGUI
 
 		for(i = 0; i < _fromNode->numAttachedObjects(); i++)
 		{
-			Ogre::Entity* entity = dynamic_cast<Ogre::Entity*>(_fromNode->getAttachedObject(i));
+			Ogre::MovableObject * object = _fromNode->getAttachedObject(i);
+			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : null;
 
 			if(entity)
 			{
-				Ogre::Entity* newEntity = dynamic_cast<Ogre::Entity*>(findMovableObject(_newNode, entity->getName()));
+				object = findMovableObject(_newNode, entity->getName());
+				Ogre::Entity* newEntity = (object != null && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : null;
 
 				if(!newEntity)
 				{
