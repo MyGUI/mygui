@@ -165,6 +165,21 @@ namespace demo
 		MyGUI::Guid id(arrayid);
 		int test = 0;
 		//testid(id);
+
+
+		System::Diagnostics::StackTrace^ cs = gcnew System::Diagnostics::StackTrace();
+		cli::array<System::Diagnostics::StackFrame^>^ frames = cs->GetFrames();
+
+		for(int i = 0; i < frames->Length; i++)
+		{
+			System::Diagnostics::StackFrame^ frame = frames[i];
+			System::String ^ line = frame->GetMethod()->ToString() +
+				"   [ file '" + (frame->GetFileName() ? frame->GetFileName()->ToString()  : "" ) +
+				"'  line : " + frame->GetFileLineNumber().ToString() + " ]";
+			int test = 0;
+			//OGREDN_LOG(Warning, "     -  " << utility::managed_to_ansi(line));
+		}
+
 	}
  
     void DemoKeeper::destroyScene()
