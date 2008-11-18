@@ -31,7 +31,7 @@ public:
 	void setShowSkin(bool _pressed){mCheckShowSkin->setButtonPressed(_pressed);};
 	void setEdgeHide(bool _pressed){mCheckEdgeHide->setButtonPressed(_pressed);};
 
-	typedef MyGUI::delegates::CDelegate1<bool> EventInfo;
+	typedef MyGUI::delegates::CDelegate0 EventInfo;
 	EventInfo eventWidgetsUpdate;
 private:
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);

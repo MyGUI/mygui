@@ -38,7 +38,7 @@ public:
 	void setPositionText(const std::string & _caption){propertiesElement[1]->setCaption(_caption);}
 	void toggleRelativeMode(){mPanelMainProperties.notifyToggleRelativeMode();}
 
-	typedef MyGUI::delegates::CDelegate1<bool> EventInfo;
+	typedef MyGUI::delegates::CDelegate0 EventInfo;
 	EventInfo eventRecreate;
 private:
 	bool checkType(MyGUI::EditPtr _edit, std::string _type);
