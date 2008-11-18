@@ -89,11 +89,10 @@ void PropertiesPanelView::save(MyGUI::xml::xmlNodePtr root)
 	root = root->createChild("PropertiesPanelView");
 	MyGUI::xml::xmlNodePtr nodeProp;
 
-	int i = 0;
-	for (std::vector<PanelBase>::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter, ++i)
+	for (std::vector<PanelBase>::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
 	{
 		nodeProp = root->createChild("Property");
-		nodeProp->addAttributes("key", MyGUI::utility::toString("Panel"/*, i*/,"Minimized"));
+		nodeProp->addAttributes("key", MyGUI::utility::toString("Panel","Minimized"));
 		nodeProp->addAttributes("value", (*iter).getPanelCell()->isMinimized());
 	}
 }
@@ -519,7 +518,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	}
 
 	// если такого свойства не было раньше, то сохраняем
-	widgetContainer->mProperty.push_back(std::make_pair(action, value));
+	if (false == value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
 void PropertiesPanelView::notifyTryApplyProperties(MyGUI::WidgetPtr _sender)

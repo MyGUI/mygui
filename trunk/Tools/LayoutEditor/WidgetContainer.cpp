@@ -428,7 +428,7 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 
 	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
 	{
-			serialiseWidget(*iter, node);
+		serialiseWidget(*iter, node);
 	}
 }
 
