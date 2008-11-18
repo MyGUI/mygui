@@ -65,6 +65,7 @@ private:
 private:
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
+	void createMainMenu();
 	void notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index);
 
 	int toGrid(int _x){ return _x / grid_step * grid_step; }
@@ -72,6 +73,9 @@ private:
 	// tooltips
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
 
+	// recent files
+	static const int MAX_RECENT_FILES = 8;
+	std::vector<Ogre::String> recentFiles;
 	// last click for depth selecting
 	int x, y;
 	int selectDepth;
