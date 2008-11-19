@@ -39,6 +39,7 @@ private:
 	int widgetsButtonWidth;
 	int widgetsButtonHeight;
 	int widgetsButtonsInOneLine;
+	std::string skinSheetName;
 
 	MyGUI::WidgetPtr current_widget;
 
