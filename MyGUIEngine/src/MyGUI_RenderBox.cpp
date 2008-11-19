@@ -260,7 +260,7 @@ namespace MyGUI
 
 		// проверка сцен нода на валидность
 		if (!checkSceneNode(_manager->getRootSceneNode(), _sceneNode)) {
-			MYGUI_LOG(Error, "scene node " << _sceneNode << "was deleted");
+			MYGUI_LOG(Error, "scene node " << _sceneNode << " was deleted");
 			return;
 		}
 
