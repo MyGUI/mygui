@@ -54,12 +54,13 @@ void WidgetsWindow::initialise()
 		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
 	}
 
-	size_t index = mTabSkins->findItemIndexWith(DEFAULT_GOROUP_NAME);
-	if (index != MyGUI::ITEM_NONE) mTabSkins->setItemSelectedAt(index);
-
 	int width = mTabSkins->getWidth() - sheet->getWidth();
 	int height = mTabSkins->getHeight() - sheet->getHeight();
 	mTabSkins->setSize(width + widgetsButtonsInOneLine * w + 2*MARGIN, height + maxLines*h + 2*MARGIN);
+
+	// выбрать вкладку с прошлого раза
+	size_t index = mTabSkins->findItemIndexWith(skinSheetName);
+	if (index != MyGUI::ITEM_NONE) mTabSkins->setItemSelectedAt(index);
 
 	width = mainWidget()->getWidth() - mainWidget()->getClientCoord().width;
 	height = mainWidget()->getHeight() - mainWidget()->getClientCoord().height;
@@ -80,6 +81,7 @@ void WidgetsWindow::load(MyGUI::xml::xmlNodeIterator _field)
 			if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
 			else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
 			else if (key == "widgetsButtonsInOneLine") widgetsButtonsInOneLine = MyGUI::utility::parseInt(value);
+			else if (key == "lastSkinGroup") skinSheetName = value;
 		}
 	}
 }
@@ -98,6 +100,10 @@ void WidgetsWindow::save(MyGUI::xml::xmlNodePtr root)
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttributes("key", "widgetsButtonsInOneLine");
 	nodeProp->addAttributes("value", widgetsButtonsInOneLine);
+
+	nodeProp = root->createChild("Property");
+	nodeProp->addAttributes("key", "lastSkinGroup");
+	nodeProp->addAttributes("value", mTabSkins->getItemNameAt(mTabSkins->getItemIndexSelected()));
 }
 
 void WidgetsWindow::clearNewWidget()
