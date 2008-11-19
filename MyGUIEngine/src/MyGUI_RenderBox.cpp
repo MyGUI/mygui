@@ -236,16 +236,35 @@ namespace MyGUI
 		}
 	}
 
-	void RenderBox::injectSceneNode(Ogre::SceneNode* _sceneNode)
+	bool RenderBox::checkSceneNode(Ogre::SceneNode * _sourceNode, Ogre::SceneNode * _node)
 	{
-		if(_sceneNode == mNodeForSync)
+		if (_sourceNode == _node) return true;
+		for (int i = 0; i < _sourceNode->numChildren(); i++)
 		{
+			Ogre::Node * node = _sourceNode->getChild(i);
+			if (typeid(Ogre::SceneNode) == typeid(*node)) {
+				if (checkSceneNode(static_cast<Ogre::SceneNode*>(node), _node)) return true;
+			}
+			else {
+				MYGUI_LOG(Warning, "type Ogre::Node wrong Ogre::SceneNode*");
+			}
+		}
+		return false;
+	}
+
+	void RenderBox::injectSceneNode(Ogre::SceneManager * _manager, Ogre::SceneNode* _sceneNode)
+	{
+
+		// очищаем
+		clear();
+
+		// проверка сцен нода на валидность
+		if (!checkSceneNode(_manager->getRootSceneNode(), _sceneNode)) {
+			MYGUI_LOG(Error, "scene node " << _sceneNode << "was deleted");
 			return;
 		}
 
-		clear();
-
-		if(mUserViewport) {
+		if (mUserViewport) {
 			mUserViewport = false;
 			createRenderTexture();
 		}
