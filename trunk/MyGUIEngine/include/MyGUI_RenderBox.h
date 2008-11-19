@@ -49,9 +49,7 @@ namespace MyGUI
 		@param
 		_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
-		void injectSceneNode(Ogre::SceneNode* _sceneNode);
-
-		void synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode);
+		void injectSceneNode(Ogre::SceneManager * _manager, Ogre::SceneNode* _sceneNode);
 
 		/** Run mesh animation if animation with such name exist (else print warning in log).
 			To stop animation use empty string.
@@ -148,6 +146,9 @@ namespace MyGUI
 		void onMouseWheel(int _rel);
 
 	private:
+
+		void synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode);
+		bool checkSceneNode(Ogre::SceneNode * _sceneNode, Ogre::SceneNode * _node);
 		bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState) || (mNodeForSync != null);}
 		void createRenderTexture();
 		void updateViewport();

@@ -180,20 +180,31 @@ namespace demo
 			//OGREDN_LOG(Warning, "     -  " << utility::managed_to_ansi(line));
 		}
 
-		Ogre::SceneNode * node = mSceneMgr->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(10, 10, 10));
+		Ogre::SceneNode * node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		Ogre::Entity * entity = mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		node->attachObject(entity);
 
-		MyGUI::RenderBoxPtr render = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
-		render->injectSceneNode(node);
-		render->setAutoRotation(true);
-		render->setMouseRotation(true);
+		this->mRoot->renderOneFrame();
 
-		node->removeAndDestroyAllChildren();
-		node->detachAllObjects();
+		MyGUI::RenderBoxPtr render = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
+		//render->injectObject(entity->getName());
+		render->injectSceneNode(this->mSceneMgr, node);
+		//render->setAutoRotation(true);
+		//render->setMouseRotation(true);
+
+		//this->mRoot->renderOneFrame();
+
+		//node->removeAndDestroyAllChildren();
+		//node->detachAllObjects();
 		mSceneMgr->destroySceneNode(node->getName());
-		mSceneMgr->destroyAllEntities();
-		mSceneMgr->destroyAllMovableObjects();
+		//mSceneMgr->destroyAllEntities();
+		//mSceneMgr->destroyAllMovableObjects();
+
+		this->mRoot->renderOneFrame();
+
+		render->injectSceneNode(this->mSceneMgr, node);
+
+		//this->mRoot->renderOneFrame();
 	}
  
     void DemoKeeper::destroyScene()
