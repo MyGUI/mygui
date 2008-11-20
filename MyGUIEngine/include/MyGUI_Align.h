@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	enum MYGUI_OBSOLETE("use Align")
+	enum MYGUI_OBSOLETE_START("use Align")
 	{
 		ALIGN_HCENTER					= MYGUI_FLAG_NONE,					// center the window horizontally
 		ALIGN_VCENTER					= MYGUI_FLAG_NONE,					// center the window vertically
@@ -34,7 +34,7 @@ namespace MyGUI
 		ALIGN_RIGHT_TOP             = ALIGN_RIGHT | ALIGN_TOP,
 		ALIGN_RIGHT_BOTTOM             = ALIGN_RIGHT | ALIGN_BOTTOM,
 		ALIGN_LEFT_BOTTOM             = ALIGN_LEFT | ALIGN_BOTTOM
-	};
+	} MYGUI_OBSOLETE_END ;
 
 	struct _MyGUIExport Align
 	{
