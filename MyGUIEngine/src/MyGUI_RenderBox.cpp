@@ -425,6 +425,8 @@ namespace MyGUI
 
 				if (!checkSceneNode(mSceneManagerForSync->getRootSceneNode(), mNodeForSync)) {
 					MYGUI_LOG(Error, "scene node " << mNodeForSync << " was deleted");
+					mNodeForSync = null;
+					mSceneManagerForSync = null;
 					return;
 				}
 
