@@ -84,8 +84,7 @@ namespace MyGUI
 				return ret;
 			}
 
-/// #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32 comment for gcc
-#if MYGUI_PLATFORM == COMPILER_MSVC
+#if MYGUI_COMPILER == COMPILER_MSVC
 			inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
 			inline void open_stream(std::ofstream & _stream, const std::string & _utf8) { open_stream(_stream, convert::utf8_to_wide(_utf8)); }
 			inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
@@ -274,8 +273,8 @@ namespace MyGUI
 			}
 
 			Ogre::DataStreamPtr stream;
-///#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#if MYGUI_PLATFORM == COMPILER_MSVC
+
+#if MYGUI_COMPILER == COMPILER_MSVC
 			try {
 				stream = Ogre::ResourceGroupManager::getSingleton().openResource(MyGUI::convert::utf8_to_ansi(_filename), _group);
 			}
