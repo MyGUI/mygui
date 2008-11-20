@@ -12,7 +12,7 @@
 namespace MyGUI
 {
 
-	enum MYGUI_OBSOLETE("use DropItemState")
+	enum MYGUI_OBSOLETE_START("use DropItemState")
 	{
 		//use DropItemState::None
 		DROP_NONE,
@@ -26,7 +26,7 @@ namespace MyGUI
 		DROP_ACCEPT,
 		//use DropItemState::Refuse
 		DROP_REFUSE
-	};
+	} MYGUI_OBSOLETE_END;
 
 	struct _MyGUIExport DropItemState
 	{

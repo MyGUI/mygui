@@ -20,7 +20,7 @@ namespace MyGUI
 		namespace implement
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		
+
 			template <typename T, size_t MAX = 2048>
 			class AllocHolder
 			{
@@ -50,10 +50,10 @@ namespace MyGUI
 				static T* m_buff;
 				static size_t m_len;
 			};
-			char* AllocHolder<char>::m_buff = 0;
-			size_t AllocHolder<char>::m_len = 0;
-			wchar_t* AllocHolder<wchar_t>::m_buff = 0;
-			size_t AllocHolder<wchar_t>::m_len = 0;
+			template<> char* AllocHolder<char>::m_buff = 0;
+			template<> size_t AllocHolder<char>::m_len = 0;
+			template<> wchar_t* AllocHolder<wchar_t>::m_buff = 0;
+			template<> size_t AllocHolder<wchar_t>::m_len = 0;
 
 			typedef AllocHolder<char> AllocHolderChar;
 			typedef AllocHolder<wchar_t> AllocHolderWide;
