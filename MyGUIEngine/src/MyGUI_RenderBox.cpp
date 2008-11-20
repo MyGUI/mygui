@@ -34,7 +34,8 @@ namespace MyGUI
 		mScale(1.0f),
 		mCurrentScale(1.0f),
 		mUseScale(false),
-		mNodeForSync(null)
+		mNodeForSync(null),
+		mSceneManagerForSync(null)
 	{
 
 		// первоначальная инициализация
@@ -258,6 +259,8 @@ namespace MyGUI
 		// очищаем
 		clear();
 
+		mSceneManagerForSync = _manager;
+
 		// проверка сцен нода на валидность
 		if (!checkSceneNode(_manager->getRootSceneNode(), _sceneNode)) {
 			MYGUI_LOG(Error, "scene node " << _sceneNode << " was deleted");
@@ -300,6 +303,7 @@ namespace MyGUI
 
 		mSyncTime = 0.0f;
 		mNodeForSync = null;
+		mSceneManagerForSync = null;
 		//}
 	}
 
@@ -416,17 +420,21 @@ namespace MyGUI
 
 	void RenderBox::frameEntered(float _time)
 	{
-		if(mNodeForSync)
-		{
-			if(mSyncTime > SYNC_TIMEOUT)
-			{
+		if (mNodeForSync && mSceneManagerForSync) {
+			if (mSyncTime > SYNC_TIMEOUT) {
+
+				if (!checkSceneNode(mSceneManagerForSync->getRootSceneNode(), mNodeForSync)) {
+					MYGUI_LOG(Error, "scene node " << mNodeForSync << " was deleted");
+					return;
+				}
+
 				bool update = false;
 				if(mNode->getChild(0)->getPosition() != Ogre::Vector3::ZERO)
 				{
 					update = true;
 				}
 				//System::Console::WriteLine("_frameEntered");
-				synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0),mNodeForSync);
+				synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0), mNodeForSync);
 				mNode->getChild(0)->setPosition(Ogre::Vector3::ZERO);
 				mNode->getChild(0)->setOrientation(Ogre::Quaternion::IDENTITY);
 
