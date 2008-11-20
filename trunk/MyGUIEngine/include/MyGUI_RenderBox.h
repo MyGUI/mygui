@@ -188,6 +188,7 @@ namespace MyGUI
 
 		float mSyncTime;
 		Ogre::SceneNode* mNodeForSync;
+		Ogre::SceneManager * mSceneManagerForSync;
 
 	}; // class RenderBox : public Widget
 
