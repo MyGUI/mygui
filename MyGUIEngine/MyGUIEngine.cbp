@@ -53,14 +53,15 @@
 			<Add directory="$(OGRE_HOME)\Dependencies\include" />
 			<Add directory="$(OGRE_HOME)\Dependencies\include\freetype" />
 			<Add directory="C:\OgreSDK\include" />
-			<Add directory="include\freetype2" />
-			<Add directory="C:\code\freetype-2.3.5\include" />
+			<Add directory="C:\code\freetype\src\freetype\2.3.5\freetype-2.3.5\include" />
 		</Compiler>
 		<Linker>
+			<Add library="ole32" />
 			<Add directory="$(OGRE_HOME)\Dependencies\lib\$(TARGET_NAME)" />
 			<Add directory="$(OGRE_HOME)\lib" />
 			<Add directory="C:\OgreSDK\bin\release" />
 			<Add directory="C:\OgreSDK\bin\debug" />
+			<Add directory="C:\code\freetype\bin" />
 		</Linker>
 		<Unit filename="include\MyGUI.h" />
 		<Unit filename="include\MyGUI_ActionController.h" />
