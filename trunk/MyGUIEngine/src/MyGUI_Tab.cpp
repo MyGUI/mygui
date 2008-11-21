@@ -9,7 +9,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_Button.h"
-#include "MyGUI_Sheet.h"
+#include "MyGUI_TabItem.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
@@ -28,7 +28,7 @@ namespace MyGUI
 		mButtonLeft(null), mButtonRight(null), mButtonList(null),
 		mButtonDecor(null),
 		mEmptyBarWidget(null),
-		mSheetTemplate(null),
+		mItemTemplate(null),
 		mStartIndex(0),
 		mIndexSelect(ITEM_NONE),
 		mButtonDefaultWidth(1),
@@ -81,14 +81,14 @@ namespace MyGUI
 				mWidgetsPatch.push_back((*iter));
 				(*iter)->hide();
 			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Sheet") {
-				MYGUI_DEBUG_ASSERT( ! mSheetTemplate, "widget already assigned");
-				mSheetTemplate = (*iter);
-				mSheetTemplate->hide();
+			else if ((*(*iter)->_getInternalData<std::string>() == "Sheet") || (*(*iter)->_getInternalData<std::string>() == "TabItem")) {
+				MYGUI_DEBUG_ASSERT( ! mItemTemplate, "widget already assigned");
+				mItemTemplate = (*iter);
+				mItemTemplate->hide();
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
-		MYGUI_ASSERT(null != mSheetTemplate, "Child Widget Sheet not found in skin (Tab must have Sheet)");
+		MYGUI_ASSERT(null != mItemTemplate, "Child Widget TabItem not found in skin (Tab must have TabItem (Sheet) )");
 
 		// создаем виджет, носитель скина пустоты бара
 		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
@@ -106,22 +106,22 @@ namespace MyGUI
 	// переопределяем для особого обслуживания страниц
 	WidgetPtr Tab::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		if (Sheet::getClassTypeName() == _type) {
+		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type)) {
 
-			SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", ""));
-			_insertSheet(ITEM_NONE, _name, sheet, Any::Null);
+			TabItemPtr sheet = static_cast<TabItemPtr>(Widget::_createWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
 
 			return sheet;
 		}
 		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
-	SheetPtr Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
+	TabItemPtr Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		SheetPtr sheet = static_cast<SheetPtr>(Widget::_createWidget(Sheet::getClassTypeName(), "Default", mSheetTemplate->getCoord(), mSheetTemplate->getAlign(), "", ""));
-		_insertSheet(_index, _name, sheet, _data);
+		TabItemPtr sheet = static_cast<TabItemPtr>(Widget::_createWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+		_insertItem(_index, _name, sheet, _data);
 
 		return sheet;
 	}
@@ -195,16 +195,16 @@ namespace MyGUI
 			if (width > mWidgetBar->getWidth()) break;
 
 			// следующая не влазиет
-			TabSheetInfo & info = mItemsInfo[pos];
+			TabItemInfo & info = mItemsInfo[pos];
 			if ((width + info.width) > mWidgetBar->getWidth()) {
 				break;
 			}
 
 			// проверяем физическое наличие кнопки
-			if (count >= mSheetButton.size()) _createSheetButton();
+			if (count >= mItemButton.size()) _createItemButton();
 
 			// если кнопка не соответствует, то изменяем ее
-			ButtonPtr button = mSheetButton[count]->castType<Button>();
+			ButtonPtr button = mItemButton[count]->castType<Button>();
 			button->show();
 
 			// корректируем нажатость кнопки
@@ -222,8 +222,8 @@ namespace MyGUI
 		}
 
 		// скрываем кнопки что были созданны, но не видны
-		while (count < mSheetButton.size()) {
-			mSheetButton[count]->hide();
+		while (count < mItemButton.size()) {
+			mItemButton[count]->hide();
 			count ++;
 		}
 
@@ -288,8 +288,8 @@ namespace MyGUI
 		mIndexSelect = select;
 
 		size_t count = 0;
-		for (size_t pos=0; pos<mSheetButton.size(); pos++) {
-			ButtonPtr button = mSheetButton[count]->castType<Button>();
+		for (size_t pos=0; pos<mItemButton.size(); pos++) {
+			ButtonPtr button = mItemButton[count]->castType<Button>();
 			if (button->isShow()) {
 				// корректируем нажатость кнопки
 				button->setButtonPressed((pos + mStartIndex) == mIndexSelect);
@@ -301,10 +301,10 @@ namespace MyGUI
 		beginToItemSelected();
 
 		// поднимаем страницу для пикинга
-		_forcePeek(mItemsInfo[mIndexSelect].sheet);
+		_forcePeek(mItemsInfo[mIndexSelect].item);
 
-		_showSheet(mItemsInfo[mIndexSelect].sheet, true, mSmoothShow);
-		_showSheet(mItemsInfo[old].sheet, false, mSmoothShow);
+		_showItem(mItemsInfo[mIndexSelect].item, true, mSmoothShow);
+		_showItem(mItemsInfo[old].item, false, mSmoothShow);
 
 		eventTabChangeSelect(this, mIndexSelect);
 	}
@@ -402,61 +402,61 @@ namespace MyGUI
 		updateBar();
 
 		// поднимаем страницу для пикинга
-		if (mSmoothShow) _forcePeek(mItemsInfo[mIndexSelect].sheet);
+		if (mSmoothShow) _forcePeek(mItemsInfo[mIndexSelect].item);
 
-		_showSheet(mItemsInfo[mIndexSelect].sheet, true, mSmoothShow);
-		_showSheet(mItemsInfo[old].sheet, false, mSmoothShow);
+		_showItem(mItemsInfo[mIndexSelect].item, true, mSmoothShow);
+		_showItem(mItemsInfo[old].item, false, mSmoothShow);
 
 		beginToItemSelected();
 	}
 
-	void Tab::_showSheet(SheetPtr _sheet, bool _show, bool _smooth)
+	void Tab::_showItem(TabItemPtr _item, bool _show, bool _smooth)
 	{
 		if (false == _smooth) {
-			ControllerManager::getInstance().removeItem(_sheet);
-			_sheet->setAlpha(ALPHA_MAX);
+			ControllerManager::getInstance().removeItem(_item);
+			_item->setAlpha(ALPHA_MAX);
 
-			if (_show) _sheet->show();
-			else _sheet->hide();
+			if (_show) _item->show();
+			else _item->hide();
 
 			return;
 		}
 
 		if (_show) {
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, TAB_SPEED_FADE_COEF, true);
-			ControllerManager::getInstance().addItem(_sheet, controller);
+			ControllerManager::getInstance().addItem(_item, controller);
 		}
 		else {
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, false);
 			controller->eventPostAction = newDelegate(action::actionWidgetHide);
-			ControllerManager::getInstance().addItem(_sheet, controller);
+			ControllerManager::getInstance().addItem(_item, controller);
 		}
 	}
 
-	void Tab::_createSheetButton()
+	void Tab::_createItemButton()
 	{
 		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
 		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
-		button->_setInternalData(mSheetButton.size()); // порядковый номер
-		mSheetButton.push_back(button);
+		button->_setInternalData(mItemButton.size()); // порядковый номер
+		mItemButton.push_back(button);
 	}
 
 	int Tab::_getTextWidth(const Ogre::UTFString& _text)
 	{
-		if (0 == mSheetButton.size()) _createSheetButton();
+		if (0 == mItemButton.size()) _createItemButton();
 
-		Ogre::UTFString save = mSheetButton[0]->getCaption();
-		mSheetButton[0]->setCaption(_text);
+		Ogre::UTFString save = mItemButton[0]->getCaption();
+		mItemButton[0]->setCaption(_text);
 
-		IntSize size = mSheetButton[0]->getTextSize();
-		IntCoord coord = mSheetButton[0]->getTextCoord();
+		IntSize size = mItemButton[0]->getTextSize();
+		IntCoord coord = mItemButton[0]->getTextCoord();
 
-		mSheetButton[0]->setCaption(save);
+		mItemButton[0]->setCaption(save);
 
-		return size.width + mSheetButton[0]->getWidth() - coord.width;
+		return size.width + mItemButton[0]->getWidth() - coord.width;
 	}
 
-	void Tab::_notifyDeleteSheet(SheetPtr _sheet)
+	void Tab::_notifyDeleteItem(TabItemPtr _sheet)
 	{
 		// общий шутдаун виджета
 		if (mShutDown) return;
@@ -471,15 +471,15 @@ namespace MyGUI
 			if (index < mIndexSelect) mIndexSelect --;
 			else if (index == mIndexSelect) {
 				if (mIndexSelect == mItemsInfo.size()) mIndexSelect --;
-				mItemsInfo[mIndexSelect].sheet->show();
-				mItemsInfo[mIndexSelect].sheet->setAlpha(ALPHA_MAX);
+				mItemsInfo[mIndexSelect].item->show();
+				mItemsInfo[mIndexSelect].item->setAlpha(ALPHA_MAX);
 			}
 		}
 
 		updateBar();
 	}
 
-	void Tab::_insertSheet(size_t _index, const Ogre::UTFString & _name, SheetPtr _sheet, Any _data)
+	void Tab::_insertItem(size_t _index, const Ogre::UTFString & _name, TabItemPtr _sheet, Any _data)
 	{
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
@@ -487,7 +487,7 @@ namespace MyGUI
 		int width = (mButtonAutoWidth ? _getTextWidth(_name) : mButtonDefaultWidth);
 		mWidthBar += width;
 
-		mItemsInfo.insert(mItemsInfo.begin() + _index, TabSheetInfo(width, _name, _sheet, _data));
+		mItemsInfo.insert(mItemsInfo.begin() + _index, TabItemInfo(width, _name, _sheet, _data));
 
 		// первая вкладка
 		if (1 == mItemsInfo.size()) mIndexSelect = 0;
@@ -517,22 +517,22 @@ namespace MyGUI
 		return mItemsInfo[_index].name;
 	}
 
-	SheetPtr Tab::getItemAt(size_t _index)
+	TabItemPtr Tab::getItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemAt");
-		return mItemsInfo[_index].sheet;
+		return mItemsInfo[_index].item;
 	}
 
 	void Tab::removeItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::removeItemAt");
-		this->_destroyChildWidget(mItemsInfo[_index].sheet);
+		this->_destroyChildWidget(mItemsInfo[_index].item);
 	}
 
 	void Tab::removeAllItems()
 	{
 		while (mItemsInfo.size() > 0) {
-			this->_destroyChildWidget(mItemsInfo.back().sheet);
+			this->_destroyChildWidget(mItemsInfo.back().item);
 		}
 	}
 

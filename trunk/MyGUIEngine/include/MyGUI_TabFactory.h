@@ -26,8 +26,8 @@ namespace MyGUI
 			void Tab_ButtonWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Tab_ButtonAutoWidth(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Tab_SmoothShow(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Tab_AddSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Tab_SelectSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Tab_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Tab_SelectItem(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		};
 
