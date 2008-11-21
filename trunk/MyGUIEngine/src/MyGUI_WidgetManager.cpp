@@ -134,12 +134,8 @@ namespace MyGUI
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
-			if (_throw){
-				MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
-			}else{
-				MYGUI_LOG(Error, "Widget '" << _name << "' not found");
-				return null;
-			}
+			MYGUI_ERROR(_throw, "Widget '" << _name << "' not found");
+			return null;
 		}
 		return iter->second;
 	}
