@@ -222,7 +222,7 @@ namespace input
 
 		#if defined OIS_LINUX_PLATFORM
 			pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-			pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+			pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
 			pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
 			pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
 		/*
