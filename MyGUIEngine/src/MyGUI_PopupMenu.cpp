@@ -85,7 +85,7 @@ namespace MyGUI
 		}
 	}
 
-	void PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)
+	void PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, const std::string & _id, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItem");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -108,7 +108,7 @@ namespace MyGUI
 			submenu->_setOwner(this);
 		}
 
-		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(button, _type == ItemTypeSeparator, submenu, _data));
+		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(button, _type == ItemTypeSeparator, submenu, _id, _data));
 
 		update();
 	}
@@ -423,6 +423,41 @@ namespace MyGUI
 		button->_setInternalData(size.width);
 
 		update();
+	}
+
+	void PopupMenu::setItemIdAt(size_t _index, const std::string & _id)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemIdAt");
+		mItemsInfo[_index].id = _id;
+	}
+
+	const std::string & PopupMenu::getItemIdAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemIdAt");
+		return mItemsInfo[_index].id;
+	}
+
+	void PopupMenu::_notifyDeleteItem(PopupMenuItemPtr _item)
+	{
+		// общий шутдаун виджета
+		//if (mShutDown) return;
+
+		/*size_t index = getItemIndex(_sheet);
+
+		mWidthBar -= mItemsInfo[index].width;
+		mItemsInfo.erase(mItemsInfo.begin() + index);
+
+		if (0 == mItemsInfo.size()) mIndexSelect = ITEM_NONE;
+		else {
+			if (index < mIndexSelect) mIndexSelect --;
+			else if (index == mIndexSelect) {
+				if (mIndexSelect == mItemsInfo.size()) mIndexSelect --;
+				mItemsInfo[mIndexSelect].sheet->show();
+				mItemsInfo[mIndexSelect].sheet->setAlpha(ALPHA_MAX);
+			}
+		}
+
+		updateBar();*/
 	}
 
 } // namespace MyGUI

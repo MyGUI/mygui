@@ -80,7 +80,8 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 		if (_group == WIDGET_PROPERTIES) mPanelCell->setCaption(localise("Other_properties"));
 		else mPanelCell->setCaption(localise("Events"));
 
-		if (_current_widget->getTypeName() != "Sheet")
+		if (_current_widget->getTypeName() != "Sheet" &&
+			_current_widget->getTypeName() != MyGUI::TabItem::getClassTypeName())
 		{
 			show();
 			//base properties (from Widget)

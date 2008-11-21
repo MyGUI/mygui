@@ -68,8 +68,8 @@ namespace MyGUI
 		class EditFactory;
 		class ComboBoxFactory;
 		class StaticTextFactory;
-		class SheetFactory;
 		class TabFactory;
+		class TabItemFactory;
 		class ProgressFactory;
 		class ItemBoxFactory;
 		class MultiListFactory;
@@ -77,6 +77,7 @@ namespace MyGUI
 		class MessageFactory;
 		class RenderBoxFactory;
 		class PopupMenuFactory;
+		class PopupMenuItemFactory;
 		class MenuBarFactory;
 		class ScrollViewFactory;
 		class DDContainerFactory;
@@ -92,8 +93,8 @@ namespace MyGUI
 	class Edit;
 	class ComboBox;
 	class StaticText;
-	class Sheet;
 	class Tab;
+	class TabItem;
 	class Progress;
 	class ItemBox;
 	class MultiList;
@@ -101,6 +102,7 @@ namespace MyGUI
 	class Message;
 	class RenderBox;
 	class PopupMenu;
+	class PopupMenuItem;
 	class MenuBar;
 	class ScrollView;
 	class DDContainer;
@@ -115,8 +117,8 @@ namespace MyGUI
 	typedef Edit * EditPtr;
 	typedef ComboBox * ComboBoxPtr;
 	typedef StaticText * StaticTextPtr;
-	typedef Sheet * SheetPtr;
 	typedef Tab * TabPtr;
+	typedef TabItem * TabItemPtr;
 	typedef Progress * ProgressPtr;
 	typedef ItemBox * ItemBoxPtr;
 	typedef MultiList * MultiListPtr;
@@ -124,10 +126,14 @@ namespace MyGUI
 	typedef Message * MessagePtr;
 	typedef RenderBox * RenderBoxPtr;
 	typedef PopupMenu * PopupMenuPtr;
+	typedef PopupMenuItem * PopupMenuItemPtr;
 	typedef MenuBar * MenuBarPtr;
 	typedef ScrollView * ScrollViewPtr;
 	typedef DDContainer * DDContainerPtr;
 	typedef GridCtrl * GridCtrlPtr;
+
+	typedef TabItem Sheet; // OBSOLETE
+	typedef TabItem * SheetPtr; // OBSOLETE
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2

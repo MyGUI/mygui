@@ -251,10 +251,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\MyGUI_Sheet.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\MyGUI_StaticImage.cpp"
 					>
 				</File>
@@ -342,10 +338,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\MyGUI_SheetFactory.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\src\MyGUI_StaticImageFactory.cpp"
 						>
 					</File>
@@ -377,6 +369,30 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="WidgetItem"
+						>
+						<File
+							RelativePath=".\src\MyGUI_PopupMenuItemFactory.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\src\MyGUI_TabItemFactory.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="WidgetItem"
+					>
+					<File
+						RelativePath=".\src\MyGUI_PopupMenuItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_TabItem.cpp"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -615,14 +631,6 @@
 					</File>
 				</Filter>
 			</Filter>
-			<Filter
-				Name="Doc"
-				>
-				<File
-					RelativePath=".\src\MyGUI_IArray.cpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -690,10 +698,6 @@
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_ScrollView.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_Sheet.h"
 					>
 				</File>
 				<File
@@ -784,10 +788,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_SheetFactory.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_StaticImageFactory.h"
 						>
 					</File>
@@ -819,6 +819,30 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="WidgetItem"
+						>
+						<File
+							RelativePath=".\include\MyGUI_PopupMenuItemFactory.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_TabItemFactory.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="WidgetItem"
+					>
+					<File
+						RelativePath=".\include\MyGUI_PopupMenuItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_TabItem.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -1237,6 +1261,14 @@
 					</File>
 				</Filter>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Doc"
+			>
+			<File
+				RelativePath=".\src\MyGUI_IArray.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

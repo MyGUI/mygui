@@ -11,6 +11,7 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_PopupMenuItem.h"
 
 namespace MyGUI
 {
@@ -39,10 +40,11 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _submenu, Any _data) :
+			ItemInfo(ButtonPtr _button, bool _separator, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
 				button(_button),
 				separator(_separator),
 				submenu(_submenu),
+				id(_id),
 				data(_data)
 			{
 			}
@@ -53,6 +55,8 @@ namespace MyGUI
 			bool separator;
 			/** Sub menu (or null if no submenu) */
 			PopupMenuPtr submenu;
+
+			std::string id;
 			/** User data */
 			Any data;
 		};
@@ -71,10 +75,10 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, Any _data = Any::Null);
+		void insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _type, _data); }
+		void addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _type, _id, _data); }
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -99,6 +103,12 @@ namespace MyGUI
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
+
+		//! Replace an item id at a specified position
+		void setItemIdAt(size_t _index, const std::string & _id);
+
+		//! Get item id from specified position
+		const std::string & getItemIdAt(size_t _index);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
@@ -165,6 +175,8 @@ namespace MyGUI
 		void showPopupMenu(const IntPoint& _point, bool _checkBorders = true);
 
 		void hidePopupMenu(bool _hideParentPopup = true);
+
+		void _notifyDeleteItem(PopupMenuItemPtr _item);
 
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

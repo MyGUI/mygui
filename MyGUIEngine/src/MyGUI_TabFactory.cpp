@@ -19,8 +19,13 @@ namespace MyGUI
 			manager.registerDelegate("Tab_ButtonWidth") = newDelegate(this, &TabFactory::Tab_ButtonWidth);
 			manager.registerDelegate("Tab_ButtonAutoWidth") = newDelegate(this, &TabFactory::Tab_ButtonAutoWidth);
 			manager.registerDelegate("Tab_SmoothShow") = newDelegate(this, &TabFactory::Tab_SmoothShow);
-			manager.registerDelegate("Tab_AddSheet") = newDelegate(this, &TabFactory::Tab_AddSheet);
-			manager.registerDelegate("Tab_SelectSheet") = newDelegate(this, &TabFactory::Tab_SelectSheet);
+			manager.registerDelegate("Tab_AddItem") = newDelegate(this, &TabFactory::Tab_AddItem);
+			manager.registerDelegate("Tab_SelectItem") = newDelegate(this, &TabFactory::Tab_SelectItem);
+
+			// OBSOLETE
+			manager.registerDelegate("Tab_AddSheet") = newDelegate(this, &TabFactory::Tab_AddItem);
+			// OBSOLETE
+			manager.registerDelegate("Tab_SelectSheet") = newDelegate(this, &TabFactory::Tab_SelectItem);
 		}
 
 		TabFactory::~TabFactory()
@@ -30,7 +35,12 @@ namespace MyGUI
 			manager.unregisterDelegate("Tab_ButtonWidth");
 			manager.unregisterDelegate("Tab_ButtonAutoWidth");
 			manager.unregisterDelegate("Tab_SmoothShow");
+			manager.unregisterDelegate("Tab_AddItem");
+			manager.unregisterDelegate("Tab_SelectItem");
+
+			//OBSOLETE
 			manager.unregisterDelegate("Tab_AddSheet");
+			//OBSOLETE
 			manager.unregisterDelegate("Tab_SelectSheet");
 		}
 
@@ -52,13 +62,13 @@ namespace MyGUI
 			static_cast<TabPtr>(_widget)->setSmoothShow(utility::parseBool(_value));
 		}
 
-		void TabFactory::Tab_AddSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		void TabFactory::Tab_AddItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
 			static_cast<TabPtr>(_widget)->addItem(_value);
 		}
 
-		void TabFactory::Tab_SelectSheet(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		void TabFactory::Tab_SelectItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
 			static_cast<TabPtr>(_widget)->setItemSelectedAt(utility::parseSizeT(_value));
