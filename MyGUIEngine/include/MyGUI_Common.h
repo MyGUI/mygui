@@ -67,6 +67,16 @@ namespace MyGUI
 		} \
 	}
 
+	#define MYGUI_ERROR(_throw, dest)					\
+	{													\
+		MYGUI_LOG(Critical, dest); 						\
+		if(_throw){										\
+			std::ostringstream stream;					\
+			stream << dest << "\n"; 					\
+			OGRE_BASED_EXCEPT(stream.str(), "MyGUI");	\
+		}												\
+	}
+
 	#define MYGUI_ASSERT_RANGE(index, size, owner) MYGUI_ASSERT(index < size, owner << " : index number " << index << " out of range [" << size << "]");
 	#define MYGUI_ASSERT_RANGE_AND_NONE(index, size, owner) MYGUI_ASSERT(index < size || index == ITEM_NONE, owner << " : index number " << index << " out of range [" << size << "]");
 	#define MYGUI_ASSERT_RANGE_INSERT(index, size, owner) MYGUI_ASSERT((index <= size) || (index == MyGUI::ITEM_NONE), owner << " : insert index number " << index << " out of range [" << size << "] or not ITEM_NONE");

@@ -53,7 +53,9 @@ namespace MyGUI
 		void unregisterFactory(IWidgetFactory * _factory);
 
 		// метод для поиска виджета
-		/** Find widget by name */
+		/** Find widget by name
+			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+		*/
 		WidgetPtr findWidgetT(const Ogre::String & _name, bool _throw = true);
 		/** Find widget by name and prefix*/
 		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)

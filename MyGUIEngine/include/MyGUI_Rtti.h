@@ -22,7 +22,7 @@ namespace MyGUI
 			template<typename T> T* castType(bool _throw = true) \
 			{ \
 				if (this->isType<T>()) return static_cast<T*>( this ); \
-				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << T::getClassTypeName() << "' .") \
+				MYGUI_ERROR(_throw, "Error cast type '" << this->getTypeName() << "' to type '" << T::getClassTypeName() << "' .") \
 				return null; \
 			} \
 			template<typename T> const T* castType(bool _throw = true) const \
