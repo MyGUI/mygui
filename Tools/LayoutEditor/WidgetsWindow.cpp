@@ -64,7 +64,7 @@ void WidgetsWindow::initialise()
 
 	width = mainWidget()->getWidth() - mainWidget()->getClientCoord().width;
 	height = mainWidget()->getHeight() - mainWidget()->getClientCoord().height;
-	mainWidget()->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight() + 1); // хз почему +1 надо :) без этого окно меньше на несколько пикселей...
+	mainWidget()->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
 }
 
 void WidgetsWindow::load(MyGUI::xml::xmlNodeIterator _field)

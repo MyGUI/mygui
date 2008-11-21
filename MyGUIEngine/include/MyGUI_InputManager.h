@@ -107,10 +107,9 @@ namespace MyGUI
 		/** Is shift button pressed */
 		bool isShiftPressed() { return mIsShiftPressed; }
 
-		// возвращает виджет, находящийся в указанной точке
-		WidgetPtr getWidgetFromPoint(int _left, int _top);
-
-		// сбрасывает захват мыши, если он был
+		/** Reset mouse capture (for example when we dragging and application
+			lost focus you should call this)
+		*/
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
 	private:
@@ -136,7 +135,7 @@ namespace MyGUI
 	public:
 		typedef std::map<std::string, LangInfo> MapLang;
 
-		/** Load additional MyGUI *.lang file */
+		/** Load additional MyGUI *_lang.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 		// событие смены языков

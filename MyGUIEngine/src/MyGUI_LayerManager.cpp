@@ -239,6 +239,12 @@ namespace MyGUI
 		return false;
 	}
 
+	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
+	{
+		LayerItem * root = null;
+		return static_cast<WidgetPtr>(_findLayerItem(_left, _top, root));
+	}
+
 	void LayerManager::merge(VectorLayerKeeperPtr & _layers)
 	{
 		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {

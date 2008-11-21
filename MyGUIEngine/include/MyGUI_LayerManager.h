@@ -53,7 +53,7 @@ namespace MyGUI
 		*/
 		void upLayerItem(WidgetPtr _item);
 
-		/** Load additional MyGUI *.layer file */
+		/** Load additional MyGUI *_layer.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
@@ -90,6 +90,9 @@ namespace MyGUI
 
 		bool isExist(const std::string & _name);
 		EnumeratorLayerKeeperPtr getEnumerator() { return EnumeratorLayerKeeperPtr(mLayerKeepers.begin(), mLayerKeepers.end()); }
+
+		/** Get top visible and enabled widget at specified position */
+		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
 	private:
 
