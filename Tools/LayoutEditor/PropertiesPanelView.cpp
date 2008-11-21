@@ -206,14 +206,14 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 		if (null != parent)
 		{
 			// если выбрали виджет на табе, то поднять лист таба
-			if (parent->getTypeName() == "Sheet")
+			if (parent->getTypeName() == "Sheet" || parent->getTypeName() == MyGUI::TabItem::getClassTypeName())
 			{
 				MyGUI::TabPtr tab = parent->getParent()->castType<MyGUI::Tab>();
 				MyGUI::SheetPtr sheet = parent->castType<MyGUI::Sheet>();
 				tab->setItemSelected(sheet);
 			}
 			// если выбрали лист таба, то поднять лист таба
-			if (current_widget->getTypeName() == "Sheet")
+			if (current_widget->getTypeName() == "Sheet" || current_widget->getTypeName() == MyGUI::TabItem::getClassTypeName())
 			{
 				MyGUI::TabPtr tab = parent->castType<MyGUI::Tab>();
 				MyGUI::SheetPtr sheet = current_widget->castType<MyGUI::Sheet>();

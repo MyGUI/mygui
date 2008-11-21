@@ -23,12 +23,12 @@ namespace MyGUI
 
 		void setButtonPressed(bool _pressed)
 		{
-			if (mIsStatePressed == _pressed) return;
-			mIsStatePressed = _pressed;
+			if (mIsStateCheck == _pressed) return;
+			mIsStateCheck = _pressed;
 			updateButtonState();
 		}
 
-		bool getButtonPressed() { return mIsStatePressed; }
+		bool getButtonPressed() { return mIsStateCheck; }
 
 	protected:
 
@@ -56,11 +56,11 @@ namespace MyGUI
 
 	private:
 		// нажата ли кнопка
-		bool mIsPressed;
+		bool mIsMousePressed;
 		// в фокусе ли кнопка
-		bool mIsFocus;
+		bool mIsMouseFocus;
 		// статус кнопки нажата или нет
-		bool mIsStatePressed;
+		bool mIsStateCheck;
 
 	};
 

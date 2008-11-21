@@ -11,9 +11,9 @@ namespace MyGUI
 
 	StrangeButton::StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
-		mIsPressed(false),
-		mIsFocus(false),
-		mIsStatePressed(false)
+		mIsMousePressed(false),
+		mIsMouseFocus(false),
+		mIsStateCheck(false)
 	{
 
 		// парсим свойства
@@ -27,7 +27,7 @@ namespace MyGUI
 	void StrangeButton::onMouseSetFocus(WidgetPtr _old)
 	{
 		Widget::onMouseSetFocus(_old);
-		mIsFocus = true;
+		mIsMouseFocus = true;
 
 		if (mText == null) return;
 		Ogre::String s, str = mText->getCaption();
@@ -42,7 +42,7 @@ namespace MyGUI
 	void StrangeButton::onMouseLostFocus(WidgetPtr _new)
 	{
 		Widget::onMouseLostFocus(_new);
-		mIsFocus = false;
+		mIsMouseFocus = false;
 
 		if (mText == null) return;
 		Ogre::String s, str = mText->getCaption();
@@ -58,7 +58,7 @@ namespace MyGUI
 	{
 		Widget::onMouseButtonPressed(_left, _top, _id);
 		if (MB_Left != _id) return;
-		mIsPressed = true;
+		mIsMousePressed = true;
 		updateButtonState();
 	}
 
@@ -66,7 +66,7 @@ namespace MyGUI
 	{
 		Widget::onMouseButtonReleased(_left, _top, _id);
 		if (MB_Left != _id) return;
-		mIsPressed = false;
+		mIsMousePressed = false;
 		updateButtonState();
 	}
 

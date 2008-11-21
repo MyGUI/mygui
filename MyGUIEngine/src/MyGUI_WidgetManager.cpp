@@ -19,8 +19,8 @@
 #include "MyGUI_EditFactory.h"
 #include "MyGUI_ComboBoxFactory.h"
 #include "MyGUI_StaticTextFactory.h"
-#include "MyGUI_SheetFactory.h"
 #include "MyGUI_TabFactory.h"
+#include "MyGUI_TabItemFactory.h"
 #include "MyGUI_ProgressFactory.h"
 #include "MyGUI_ItemBoxFactory.h"
 #include "MyGUI_MultiListFactory.h"
@@ -28,6 +28,7 @@
 #include "MyGUI_MessageFactory.h"
 #include "MyGUI_RenderBoxFactory.h"
 #include "MyGUI_PopupMenuFactory.h"
+#include "MyGUI_PopupMenuItemFactory.h"
 #include "MyGUI_MenuBarFactory.h"
 #include "MyGUI_ScrollViewFactory.h"
 #include "MyGUI_DDContainerFactory.h"
@@ -55,8 +56,9 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::EditFactory());
 		mIntegratedFactoryList.insert(new factory::ComboBoxFactory());
 		mIntegratedFactoryList.insert(new factory::StaticTextFactory());
-		mIntegratedFactoryList.insert(new factory::SheetFactory());
 		mIntegratedFactoryList.insert(new factory::TabFactory());
+		mIntegratedFactoryList.insert(new factory::TabItemFactory());
+		mIntegratedFactoryList.insert(new factory::SheetFactory()); // OBSOLETE
 		mIntegratedFactoryList.insert(new factory::ProgressFactory());
 		mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
 		mIntegratedFactoryList.insert(new factory::MultiListFactory());
@@ -64,6 +66,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::MessageFactory());
 		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
+		mIntegratedFactoryList.insert(new factory::PopupMenuItemFactory());
 		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
 		mIntegratedFactoryList.insert(new factory::ScrollViewFactory());
 		mIntegratedFactoryList.insert(new factory::DDContainerFactory());
