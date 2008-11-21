@@ -165,9 +165,9 @@ namespace MyGUI
 		return widget;
 	}
 
-	WidgetPtr Gui::findWidgetT(const std::string& _name)
+	WidgetPtr Gui::findWidgetT(const std::string& _name, bool _throw)
 	{
-		return mWidgetManager->findWidgetT(_name);
+		return mWidgetManager->findWidgetT(_name, _throw);
 	}
 
 	// удяляет неудачника
