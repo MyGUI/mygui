@@ -54,11 +54,11 @@ namespace MyGUI
 
 		// метод для поиска виджета
 		/** Find widget by name */
-		WidgetPtr findWidgetT(const Ogre::String & _name);
+		WidgetPtr findWidgetT(const Ogre::String & _name, bool _throw = true);
 		/** Find widget by name and prefix*/
-		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
+		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
-			return findWidgetT(_prefix + _name);
+			return findWidgetT(_prefix + _name, _throw);
 		}
 		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause error in DEBUG mode.
@@ -84,7 +84,7 @@ namespace MyGUI
 		void _unlinkWidget(WidgetPtr _widget);
 
 		// регестрирует делегат
-		/** Register delegate for parsing in layout files or by WidgetManager::parse method 
+		/** Register delegate for parsing in layout files or by WidgetManager::parse method
 			@code manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed); @endcode
 		*/
 		ParseDelegate & registerDelegate(const Ogre::String & _key);

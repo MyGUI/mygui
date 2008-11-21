@@ -130,12 +130,16 @@ namespace MyGUI
 		return null;
 	}
 
-	WidgetPtr WidgetManager::findWidgetT(const Ogre::String & _name)
+	WidgetPtr WidgetManager::findWidgetT(const Ogre::String & _name, bool _throw)
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
-			MYGUI_LOG(Error, "Widget '" << _name << "' not found");
-			return null;
+			if (_throw){
+				MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
+			}else{
+				MYGUI_LOG(Error, "Widget '" << _name << "' not found");
+				return null;
+			}
 		}
 		return iter->second;
 	}

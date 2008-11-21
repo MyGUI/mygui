@@ -162,24 +162,29 @@ namespace MyGUI
 		void destroyWidgetsVector(VectorWidgetPtr & _widgets) { destroyWidgets(_widgets); }
 
 		// mirror of WidgetManager method
-		/** Find widget by name */
-		WidgetPtr findWidgetT(const std::string& _name);
+		/** Find widget by name
+			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+		*/
+		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
 
 		/** Find widget by name and prefix */
-		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix)
+		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
-			return findWidgetT(_prefix + _name);
+			return findWidgetT(_prefix + _name, _throw);
 		}
 
 		// mirror WidgetManager
 		/** Find widget by name and cast it to T type.
-			If T and found widget have different types cause exception.
+			If widget not found or T and found widget have different types cause exception.
 		*/
 		template <typename T> T* findWidget(const std::string& _name)
 		{
-			WidgetPtr widget = findWidgetT(_name);
-			if (null == widget) return null;
-			return widget->castType<T>();
+			return findWidgetT(_name)->castType<T>();
+			/*
+				WidgetPtr widget = findWidgetT(_name, false);
+				if (null == widget) return null;
+				return widget->castType<T>();
+			*/
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/
