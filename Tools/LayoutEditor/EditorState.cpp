@@ -169,7 +169,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 		}
 		else
 		{
-			load(recentFiles[_index-ITEM_TEST-1]);
+			load(_menu->getItemNameAt(_index));
 		}
 	}
 }
@@ -249,15 +249,14 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	//MyGUI::WidgetPtr itemWithRect = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
 	// не стал это доделывать, т.к. неоднозначность выбора виджета получается, если кто скажет как выбирать - сделаю
 
-	MyGUI::LayerItem * rootItem = null;
-	MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance()._findLayerItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+	MyGUI::WidgetPtr item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
 
 	// не убираем прямоугольник если нажали на его растягивалку
 	if (item && (item->getParent() != mPropertiesPanelView.getWidgetRectangle()))
 	{
 		// чтобы прямоугольник не мешался
 		mPropertiesPanelView.getWidgetRectangle()->hide();
-		item = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance()._findLayerItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+		item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
 	}
 
 	if (null != item)

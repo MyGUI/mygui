@@ -6,6 +6,7 @@
 */
 #include "MyGUI_DDContainer.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
@@ -105,7 +106,7 @@ namespace MyGUI
 
 		// делаем запрос, над кем наша мыша
 		const IntPoint & point = InputManager::getInstance().getMousePosition();
-		WidgetPtr item = InputManager::getInstance().getWidgetFromPoint(point.left, point.top);
+		WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(point.left, point.top);
 
 		updateDropItems();
 

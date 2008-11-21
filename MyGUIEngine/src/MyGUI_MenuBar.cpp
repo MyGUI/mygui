@@ -165,7 +165,7 @@ namespace MyGUI
 		// при щелчке на активный понкт меню сбрасывать не нужно
 		if (mIndexSelect != ITEM_NONE) {
 			const IntPoint & point = InputManager::getInstance().getMousePosition();
-			WidgetPtr widget = InputManager::getInstance().getWidgetFromPoint(point.left, point.top);
+			WidgetPtr widget = LayerManager::getInstance().getWidgetFromPoint(point.left, point.top);
 			if (mItemsInfo[mIndexSelect].button == widget) return;
 		}
 		resetItemSelect();
