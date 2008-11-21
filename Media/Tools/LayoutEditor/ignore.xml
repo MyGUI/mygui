@@ -8,4 +8,5 @@
     <Parameter key="Window_Snap"/>
     <Parameter key="Widget_NeedMouse"/>
     <Parameter key="Widget_MaskPeek"/>
+    <Parameter key="Widget_Show"/>
 </MyGUI>

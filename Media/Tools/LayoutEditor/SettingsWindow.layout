@@ -3,7 +3,7 @@
     <Widget type="Window" skin="WindowC" position="200 120 272 302" align="Left Top" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="#{Settings}"/>
         <Property key="Window_Snap" value="true"/>
-        <Property key="Widget_Show" value="true"/>
+        <Property key="Widget_Show" value="false"/>
         <Widget type="StaticText" skin="Editor_StaticText" position="5 24 96 24">
             <Property key="Widget_AlignText" value="Left VCenter"/>
             <Property key="Widget_Caption" value="#{Grid_step}"/>
