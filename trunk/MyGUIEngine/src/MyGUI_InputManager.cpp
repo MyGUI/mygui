@@ -701,12 +701,6 @@ namespace MyGUI
 		mHoldChar = 0;
 	}
 
-	WidgetPtr InputManager::getWidgetFromPoint(int _left, int _top)
-	{
-		LayerItem * root = null;
-		return static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, root));
-	}
-
 	void InputManager::frameEntered(float _frame)
 	{
 
