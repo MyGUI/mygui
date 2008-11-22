@@ -13,6 +13,7 @@
 
 namespace MyGUI
 {
+	/** UserData is parent of Widget class. Used to store any user data and strings inside widget */
 	class _MyGUIExport UserData
 	{
 	public:
@@ -20,11 +21,13 @@ namespace MyGUI
 		virtual ~UserData() { }
 
 		// пользовательские данные виджета строки
+		/** Set user string */
 		void setUserString(const std::string & _key, const std::string & _value)
 		{
 			mMapUserString[_key] = _value;
 		}
 
+		/** Get user string or "" if not found */
 		const std::string & getUserString(const std::string & _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
@@ -35,6 +38,7 @@ namespace MyGUI
 			return iter->second;
 		}
 
+		/** Delete user string */
 		bool clearUserString(const std::string & _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
@@ -45,18 +49,22 @@ namespace MyGUI
 			return false;
 		}
 
+		/** Return true if user string with such key exist */
 		bool isUserString(const std::string & _key)
 		{
 			return mMapUserString.find(_key) != mMapUserString.end();
 		}
 
+		/** Delete all user strings */
 		void clearUserStrings()
 		{
 			mMapUserString.clear();
 		}
 
+		/** Set any user data to store inside widget */
 		void setUserData(Any _data) { mUserData = _data; }
 
+		/** Get user data and cast it to ValueType */
 		template <typename ValueType>
 		ValueType * getUserData(bool _throw = true)
 		{

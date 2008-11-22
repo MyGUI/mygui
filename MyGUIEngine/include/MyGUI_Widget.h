@@ -228,7 +228,7 @@ namespace MyGUI
 
 		/** Get copy of child widgets vector */
 		//virtual VectorWidgetPtr getChilds();
-		/** Get child widgets enumerator */
+		/** Get child widgets Enumerator */
 		virtual EnumeratorWidgetPtr getEnumerator();
 
 		/** Find widget by name (search recursively through all childs starting from this widget) */

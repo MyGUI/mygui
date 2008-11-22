@@ -95,7 +95,8 @@ namespace MyGUI
 		ImageIndexInfo getIndexInfo(const IntSize & _group, size_t _index);
 		ImageIndexInfo getIndexInfo(const IntSize & _group, const std::string & _index);
 
-		EnumeratorGroupImage getEnumerator() { return EnumeratorGroupImage(mGroups.begin(), mGroups.end()); }
+		/** Get groups Enumerator */
+		EnumeratorGroupImage getEnumerator() { return EnumeratorGroupImage(mGroups); }
 
 	private:
 		VectorGroupImage mGroups;

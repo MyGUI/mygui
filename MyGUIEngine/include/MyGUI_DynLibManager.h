@@ -20,24 +20,16 @@ namespace MyGUI
 		INSTANCE_HEADER(DynLibManager);
 
 	public:
-		//!	Initialization
 		void initialise();
-		//!	Delete instance
 		void shutdown();
 
-	public:
 		//!	Load library
 		DynLib* load(const std::string &fileName);
-
 		//!	Unload library
 		void unload(DynLib *library);
-
-
 	private:
-
 		//! Dynamic libraries map
 		typedef std::map <std::string, DynLib*> StringDynLibMap;
-		
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
 	};

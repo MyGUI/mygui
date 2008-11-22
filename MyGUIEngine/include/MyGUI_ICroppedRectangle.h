@@ -37,22 +37,31 @@ namespace MyGUI
 
 		ICroppedRectangle * getParent() { return mParent; }
 
-		const IntCoord& getCoord()       { return mCoord; }
-		IntPoint getPosition()       { return mCoord.point(); }
-		IntSize getSize()       { return mCoord.size(); }
+		const IntCoord& getCoord() { return mCoord; }
+		IntPoint getPosition() { return mCoord.point(); }
+		IntSize getSize() { return mCoord.size(); }
 
+		/** Get position in screen coordinates */
 		const IntPoint& getAbsolutePosition() { return mAbsolutePosition; }
+		/** Get rectangle in screen coordinates */
 		IntRect getAbsoluteRect() { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
+		/** Get coordinate in screen coordinates */
 		IntCoord getAbsoluteCoord() { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
 
+		/** Get X in screen coordinates */
 		int getAbsoluteLeft() { return mAbsolutePosition.left; }
+		/** Get Y in screen coordinates */
 		int getAbsoluteTop() { return mAbsolutePosition.top; }
 
+		/** Set align */
 		void setAlign(Align _align) { mAlign = _align; }
+		/** Get align */
 		Align getAlign() { return mAlign; }
 
+		/** True if rectangle is cropped by parent rectangle */
 		bool isMargin() { return mIsMargin; }
 
+		// Get coordinates
 		int getLeft() { return mCoord.left; }
 		int getRight() { return mCoord.right(); }
 		int getTop() { return mCoord.top; }
@@ -60,6 +69,7 @@ namespace MyGUI
 		int getWidth() { return mCoord.width; }
 		int getHeight() { return mCoord.height; }
 
+		// Get cropped by parent rectangle coordinates
 		int getViewLeft() { return mCoord.left + mMargin.left; }
 		int getViewRight() { return mCoord.right() - mMargin.right; }
 		int getViewTop() { return mCoord.top + mMargin.top; }

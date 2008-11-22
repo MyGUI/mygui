@@ -141,6 +141,7 @@ namespace MyGUI
 
 		//------------------------------------------------------------------------------------//
 		// методы для управления отображением
+
 		//! Set drop list mode (text can not be edited)
 		void setComboModeDrop(bool _drop);
 		//! Get drop list mode flag

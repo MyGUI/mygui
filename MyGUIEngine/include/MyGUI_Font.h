@@ -99,11 +99,11 @@ namespace MyGUI
         /// for TRUE_TYPE font only
         bool mAntialiasColour;
 
-		/// @copydoc Resource::loadImpl
+		/// @copydoc Ogre::Resource::loadImpl
 		virtual void loadImpl();
-		/// @copydoc Resource::unloadImpl
+		/// @copydoc Ogre::Resource::unloadImpl
 		virtual void unloadImpl();
-		/// @copydoc Resource::calculateSize
+		/// @copydoc Ogre::Resource::calculateSize
 		size_t calculateSize(void) const { return 0; } // permanent resource is in the texture
 
 	public:

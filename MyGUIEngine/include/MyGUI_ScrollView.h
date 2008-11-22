@@ -69,13 +69,12 @@ namespace MyGUI
 		/** Set canvas size */
 		void setCanvasSize(int _width, int _height) { mWidgetCanvas->setSize(_width, _height); updateView(); }
 
-		// переопределяем для присвоению холста
-		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
-
-		// переопределяем для возврата детей холста
+		/** @copydoc Widget::getEnumerator */
 		virtual EnumeratorWidgetPtr getEnumerator();
 
 	protected:
+		// переопределяем для присвоению холста
+		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
 		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);

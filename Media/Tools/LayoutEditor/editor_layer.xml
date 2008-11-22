@@ -5,8 +5,8 @@
     <Layer name="Background" overlapped="false" peek="false"/>
     <Layer name="Back" overlapped="false" peek="true"/>
 
-    <Layer name="LayoutEditor_Widgets" overlapped="false" peek="true"/>
-    <Layer name="LayoutEditor_Rectangle" overlapped="false" peek="true"/>
+    <Layer name="LayoutEditor_Widgets" overlapped="true" peek="true"/>
+    <Layer name="LayoutEditor_Rectangle" overlapped="true" peek="true"/>
 
     <Layer name="Overlapped" overlapped="true" peek="true"/>
     <Layer name="Middle" overlapped="false" peek="true"/>

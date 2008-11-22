@@ -29,16 +29,14 @@ namespace MyGUI
 		void shutdown();
 
 		/** Add controlled widget
-			@param
-				_widget to be controlled
-			@param
-				_item controller with some actions (for example ControllerFadeAlpha or your own)
-			@note _item will be deleted automatically at end of controller lifetime (or by removeItem)
+			@param _widget to be controlled
+			@param _item controller with some actions (for example ControllerFadeAlpha or your own)
+			@note _item will be deleted automatically at end of controller lifetime
+				(if not removed by removeItem(WidgetPtr _widget) before)
 		*/
 		void addItem(WidgetPtr _widget, ControllerItem * _item);
 		/** Stop the control over a widget
-			@param
-				_widget to be removed
+			@param _widget to be removed
 		*/
 		void removeItem(WidgetPtr _widget);
 

@@ -99,8 +99,12 @@ namespace MyGUI
 		void clear();
 
 		size_t getResourceCount() { return mResources.size(); }
+
+		/** Check is resource exist */
 		bool isExist(const Guid & _id) { return mResources.find(_id) != mResources.end(); }
+		/** Check is resource exist */
 		bool isExist(const std::string & _name) { return mResourceNames.find(_name) != mResourceNames.end(); }
+		/** Get resources Enumerator */
 		EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources); }
 
 	private:
