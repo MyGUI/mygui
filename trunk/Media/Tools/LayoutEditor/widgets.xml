@@ -160,7 +160,7 @@
     <Parameter key="ScrollView_CanvasSize" value="2 int"/>
   </Widget>
 
-  <Widget name="Sheet">
+  <Widget name="TabItem">
     <Property key="DefaultSkin" value="Default"/>
 
     <Property key="Parent" value="true"/>
@@ -169,6 +169,13 @@
     <Parameter key="Sheet_ButtonWidth" value="1 int"/>
     <Parameter key="Sheet_Select" value="Bool"/>
     <Parameter key="Sheet_SmoothSelect" value="Bool"/>
+  </Widget>
+
+  <Widget name="PopupMenuItem">
+    <Property key="DefaultSkin" value="Default"/>
+
+    <Property key="Parent" value="true"/>
+    <Property key="Resizeable" value="false"/>
   </Widget>
 
   <Widget name="StaticImage">
