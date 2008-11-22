@@ -367,7 +367,9 @@ namespace MyGUI
 			// непосредственное удаление
 			_deleteWidget(widget);
 		}
-		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		else {
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		}
 	}
 
 	// удаляет всех детей

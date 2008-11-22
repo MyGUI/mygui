@@ -88,14 +88,6 @@ namespace MyGUI
 
 	public:
 
-
-		//------------------------------------------------------------------------------//
-		// обобщеный интерфейс для работы с элементами
-
-		// типы для массива
-		//typedef void * ItemType;
-		//typedef const std::string & NameType;
-
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
@@ -105,19 +97,17 @@ namespace MyGUI
 		//! Insert an item into a array at a specified position
 		TabItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data = Any::Null);
 		//! Insert an item into a array
-		TabItemPtr insertItem(TabItemPtr _to, const Ogre::UTFString & _name, Any _data = Any::Null) { return insertItemAt(getItemIndex(_to), _name, _data); }
-
-		//! Replace an item at a specified position
-		//TabItemPtr replaceItemAt(size_t _index, NameType _name, Any _data = Any::Null);
-		//! Replace an item
-		//TabItemPtr replaceItem(TabItemPtr _replace, NameType _name, Any _data = Any::Null) { return replaceItemAt(getItemIndex(_replace), _name, _data); }
+		TabItemPtr insertItem(TabItemPtr _to, const Ogre::UTFString & _name, Any _data = Any::Null) {
+			return insertItemAt(getItemIndex(_to), _name, _data);
+		}
 
 		//! Add an item to the end of a array
-		TabItemPtr addItem(const Ogre::UTFString & _name, Any _data = Any::Null) { return insertItemAt(ITEM_NONE, _name, _data); }
+		TabItemPtr addItem(const Ogre::UTFString & _name, Any _data = Any::Null) {
+			return insertItemAt(ITEM_NONE, _name, _data);
+		}
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
-
 		//! Remove item
 		void removeItem(TabItemPtr _item) { removeItemAt(getItemIndex(_item)); }
 
@@ -190,13 +180,11 @@ namespace MyGUI
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
-
 		//! Replace an item data
 		void setItemData(TabItemPtr _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
 
 		//! Clear an item data at a specified position
 		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
-
 		//! Clear an item data
 		void clearItemData(TabItemPtr _item) { clearItemDataAt(getItemIndex(_item)); }
 
@@ -207,7 +195,6 @@ namespace MyGUI
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
-
 		//! Get item data
 		template <typename ValueType>
 		ValueType * getItemData(TabItemPtr _item, bool _throw = true)
@@ -376,7 +363,7 @@ namespace MyGUI
 		bool mButtonAutoWidth;
 
 		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
-		bool mShutDown;
+		bool mShutdown;
 
 	};
 

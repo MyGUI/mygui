@@ -34,7 +34,7 @@ namespace MyGUI
 		mButtonDefaultWidth(1),
 		mSmoothShow(true),
 		mButtonAutoWidth(true),
-		mShutDown(false)
+		mShutdown(false)
 	{
 
 		// парсим свойства
@@ -98,7 +98,7 @@ namespace MyGUI
 
 	Tab::~Tab()
 	{
-		mShutDown = true;
+		mShutdown = true;
 		// просто очищаем список, виджеты сами удалятся
 		// и вкладки при удалении себя не найдет в списке
 	}
@@ -459,7 +459,7 @@ namespace MyGUI
 	void Tab::_notifyDeleteItem(TabItemPtr _sheet)
 	{
 		// общий шутдаун виджета
-		if (mShutDown) return;
+		if (mShutdown) return;
 
 		size_t index = getItemIndex(_sheet);
 

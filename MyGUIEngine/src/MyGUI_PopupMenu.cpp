@@ -6,7 +6,7 @@
 */
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_WidgetSkinInfo.h"
-#include "MyGUI_Button.h"
+#include "MyGUI_PopupMenuItem.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_WidgetManager.h"
@@ -27,7 +27,8 @@ namespace MyGUI
 	PopupMenu::PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mHeightLine(1),
-		mSubmenuImageSize(0)
+		mSubmenuImageSize(0),
+		mShutdown(false)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -50,7 +51,7 @@ namespace MyGUI
 
 		iterS = properties.find("HeightLine");
 		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
-		if (mHeightLine < 1){
+		if (mHeightLine < 1) {
 			MYGUI_LOG(Warning, "PopupMenu HeightLine can't be less thah 1. Set to 1.");
 			mHeightLine = 1;
 		}
@@ -70,28 +71,27 @@ namespace MyGUI
 		hide();
 	}
 
-	void PopupMenu::setButtonImageIndex(ButtonPtr _button, size_t _index)
+	PopupMenu::~PopupMenu()
 	{
-		StaticImagePtr image = _button->getStaticImage();
-		if ( null == image ) return;
-		if (image->getItemResource()) {
-			static const size_t CountIcons = 2;
-			static const char * IconNames[CountIcons + 1] = {"None", "Popup", ""};
-			if (_index >= CountIcons) _index = CountIcons;
-			image->setItemName(IconNames[_index]);
-		}
-		else {
-			image->setItemSelect(_index);
-		}
+		mShutdown = true;
+		// просто очищаем список, виджеты сами удалятся
+		// и вкладки при удалении себя не найдет в списке
 	}
 
-	void PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, const std::string & _id, Any _data)
+	// переопределяем для особого обслуживания страниц
+	WidgetPtr PopupMenu::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItem");
+		if (PopupMenuItem::getClassTypeName() == _type) return addItem("");
+		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
+	}
+
+	PopupMenuItemPtr PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type, const std::string & _id, Any _data)
+	{
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		ButtonPtr button = mWidgetClient->createWidget<Button>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
-		button->setCaption(_item);
+		PopupMenuItemPtr button = mWidgetClient->createWidget<PopupMenuItem>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
+		button->setCaption(_name);
 		button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
 		button->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
 		button->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
@@ -108,83 +108,63 @@ namespace MyGUI
 			submenu->_setOwner(this);
 		}
 
-		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(button, _type == ItemTypeSeparator, submenu, _id, _data));
+		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(button, _name, _type == ItemTypeSeparator, submenu, _id, _data));
 
 		update();
+
+		return button;
 	}
-
-	/*void PopupMenu::replaceItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::replaceItem");
-
-		ButtonPtr button = mItemsInfo[_index].button;
-		button->setCaption(_item);
-		IntSize size = button->getTextSize();
-		size.width += 7; //FIXME
-		button->_setInternalData(size.width);
-
-		mItemsInfo[_index].separator = _type == ItemTypeSeparator;
-
-		// изменился статус попап
-		if (_type == ItemTypePopup) {
-			if (mItemsInfo[_index].submenu == null) {
-				mItemsInfo[_index].submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-				mItemsInfo[_index].submenu->_setOwner(this);
-			}
-			else {
-				mItemsInfo[_index].submenu->removeAllItems();
-			}
-		}
-		else if (mItemsInfo[_index].submenu != null) {
-			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
-			mItemsInfo[_index].submenu = null;
-		}
-
-		update();
-	}*/
 
 	void PopupMenu::removeItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::removeItemAt");
 
-		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].button);
-		if ( mItemsInfo[_index].submenu )
+		if ( mItemsInfo[_index].submenu ) {
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
-		mItemsInfo.erase(mItemsInfo.begin() + _index);
-
-		update();
+		}
+		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].item);
 	}
 
 	void PopupMenu::removeAllItems()
 	{
-		if (false == mItemsInfo.empty()) {
-			WidgetManager & manager = WidgetManager::getInstance();
-			for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
-				manager.destroyWidget(iter->button);
-				if ( iter->submenu )
-					manager.destroyWidget(iter->submenu);
+		while (mItemsInfo.size() > 0) {
+			if ( mItemsInfo.back().submenu ) {
+				WidgetManager::getInstance().destroyWidget(mItemsInfo.back().submenu);
 			}
-			mItemsInfo.clear();
-
-			update();
+			WidgetManager::getInstance().destroyWidget(mItemsInfo.back().item);
 		}
 	}
 
 	const Ogre::UTFString& PopupMenu::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemNameAt");
-		return mItemsInfo[_index].button->getCaption();
+		return mItemsInfo[_index].name;
+	}
+
+	void PopupMenu::setButtonImageIndex(ButtonPtr _button, size_t _index)
+	{
+		StaticImagePtr image = _button->getStaticImage();
+		if ( null == image ) return;
+		if (image->getItemResource()) {
+			static const size_t CountIcons = 2;
+			static const char * IconNames[CountIcons + 1] = { "None", "Popup", "" };
+			if (_index >= CountIcons) _index = CountIcons;
+			image->setItemName(IconNames[_index]);
+		}
+		else {
+			image->setItemSelect(_index);
+		}
 	}
 
 	void PopupMenu::update()
 	{
 		IntSize size;
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
-			iter->button->setPosition(0, size.height);
+			iter->item->setPosition(0, size.height);
 			size.height += mHeightLine;
 			if (iter->separator) size.height += 10;
 
-			int width = *iter->button->_getInternalData<int>();
+			int width = *iter->item->_getInternalData<int>();
 			if (iter->submenu != null) width += mSubmenuImageSize;
 			if (width > size.width) size.width = width;
 		}
@@ -227,7 +207,7 @@ namespace MyGUI
 		// потом передалть на интернал дата
 		size_t index = ITEM_NONE;
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
-			if (iter->button == _sender) {
+			if (iter->item == _sender) {
 				index = iter - mItemsInfo.begin();
 				break;
 			}
@@ -237,7 +217,7 @@ namespace MyGUI
 		eventPopupMenuAccept(this, index);
 
 		// делаем нажатой
-		static_cast<ButtonPtr>(_sender)->setButtonPressed(true);
+		static_cast<PopupMenuItemPtr>(_sender)->setButtonPressed(true);
 
 		// если есть сабменю, то сообщение все равно отошлем, но скрывать сами не будем
 		if (mItemsInfo[index].submenu == null)
@@ -252,7 +232,7 @@ namespace MyGUI
 		size_t index = ITEM_NONE;
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 		{
-			if (iter->button == _sender) {
+			if (iter->item == _sender) {
 				index = iter - mItemsInfo.begin();
 				break;
 			}
@@ -261,19 +241,19 @@ namespace MyGUI
 		{
 			if (iter->submenu)
 			{
-				iter->button->setButtonPressed(false);
+				iter->item->setButtonPressed(false);
 				iter->submenu->hidePopupMenu(false);
 			}
 		}
 		if (mItemsInfo[index].submenu)
 		{
-			mItemsInfo[index].button->setButtonPressed(true);
+			mItemsInfo[index].item->setButtonPressed(true);
 			// вычисляем куда ставить
-			IntPoint position(getRight(), mItemsInfo[index].button->getTop() + getTop());
+			IntPoint position(getRight(), mItemsInfo[index].item->getTop() + getTop());
 			if (position.left + mItemsInfo[index].submenu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
 				position.left -= mItemsInfo[index].submenu->getWidth() + getWidth();
 			if (position.top + mItemsInfo[index].submenu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
-				position.top = mItemsInfo[index].button->getBottom() - mItemsInfo[index].submenu->getHeight() + getTop();
+				position.top = mItemsInfo[index].item->getBottom() - mItemsInfo[index].submenu->getHeight() + getTop();
 			mItemsInfo[index].submenu->showPopupMenu(position, false);
 		}
 	}
@@ -292,8 +272,8 @@ namespace MyGUI
 		InputManager::getInstance().setKeyFocusWidget(this);
 
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
-			if (iter->button->getButtonPressed()) {
-				iter->button->setButtonPressed(false);
+			if (iter->item->getButtonPressed()) {
+				iter->item->setButtonPressed(false);
 			}
 		}
 
@@ -416,7 +396,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemNameAt");
 
-		ButtonPtr button = mItemsInfo[_index].button;
+		mItemsInfo[_index].name = _name;
+		PopupMenuItemPtr button = mItemsInfo[_index].item;
 		button->setCaption(_name);
 		IntSize size = button->getTextSize();
 		size.width += 7; //FIXME
@@ -440,24 +421,11 @@ namespace MyGUI
 	void PopupMenu::_notifyDeleteItem(PopupMenuItemPtr _item)
 	{
 		// общий шутдаун виджета
-		//if (mShutDown) return;
+		if (mShutdown) return;
 
-		/*size_t index = getItemIndex(_sheet);
-
-		mWidthBar -= mItemsInfo[index].width;
+		size_t index = getItemIndex(_item);
 		mItemsInfo.erase(mItemsInfo.begin() + index);
-
-		if (0 == mItemsInfo.size()) mIndexSelect = ITEM_NONE;
-		else {
-			if (index < mIndexSelect) mIndexSelect --;
-			else if (index == mIndexSelect) {
-				if (mIndexSelect == mItemsInfo.size()) mIndexSelect --;
-				mItemsInfo[mIndexSelect].sheet->show();
-				mItemsInfo[mIndexSelect].sheet->setAlpha(ALPHA_MAX);
-			}
-		}
-
-		updateBar();*/
+		update();
 	}
 
 } // namespace MyGUI
