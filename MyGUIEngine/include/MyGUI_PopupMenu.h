@@ -44,7 +44,8 @@ namespace MyGUI
 				separator(_separator),
 				submenu(_submenu),
 				id(_id),
-				data(_data)
+				data(_data),
+				width(0)
 			{
 			}
 
@@ -60,6 +61,8 @@ namespace MyGUI
 			std::string id;
 			/** User data */
 			Any data;
+			/** Item width*/
+			int width;
 		};
 
 		typedef std::vector<ItemInfo> VectorPopupMenuItemInfo;
@@ -245,6 +248,7 @@ namespace MyGUI
 		void hidePopupMenu(bool _hideParentPopup = true);
 
 		void _notifyDeleteItem(PopupMenuItemPtr _item);
+		void _notifyUpdateName(PopupMenuItemPtr _item);
 
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

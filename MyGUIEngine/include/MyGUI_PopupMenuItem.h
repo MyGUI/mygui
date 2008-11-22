@@ -26,6 +26,13 @@ namespace MyGUI
 		virtual ~PopupMenuItem();
 
 	public:
+		/** Set item caption */
+		virtual void setCaption(const Ogre::UTFString & _caption) {
+			Button::setCaption(_caption);
+			mOwner->_notifyUpdateName(this);
+		}
+
+	public:
 
 		//! Get item name
 		const Ogre::UTFString & getItemName() {
