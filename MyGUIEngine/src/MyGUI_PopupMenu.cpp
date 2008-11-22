@@ -90,16 +90,12 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		PopupMenuItemPtr button = mWidgetClient->createWidget<PopupMenuItem>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
-		button->setCaption(_name);
-		button->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
-		button->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
-		button->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
+		PopupMenuItemPtr item = mWidgetClient->createWidget<PopupMenuItem>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
+		item->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
+		item->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
+		item->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
 
-		setButtonImageIndex(button, _type == ItemTypePopup ? ItemImagePopup : ItemImageNone);
-		IntSize size = button->getTextSize();
-		size.width += 7; //FIXME
-		button->_setInternalData(size.width);
+		setButtonImageIndex(item, _type == ItemTypePopup ? ItemImagePopup : ItemImageNone);
 
 		PopupMenuPtr submenu = null;
 		if (_type == ItemTypePopup)
@@ -108,11 +104,20 @@ namespace MyGUI
 			submenu->_setOwner(this);
 		}
 
-		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(button, _name, _type == ItemTypeSeparator, submenu, _id, _data));
+		ItemInfo info = ItemInfo(item, _name, _type == ItemTypeSeparator, submenu, _id, _data);
+		/*IntSize size = item->getTextSize();
+		size.width += 7; //FIXME
+		info.width = size.width;*/
+
+
+		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
+
+		// его сет капшен, обновит размер
+		item->setCaption(_name);
 
 		update();
 
-		return button;
+		return item;
 	}
 
 	void PopupMenu::removeItemAt(size_t _index)
@@ -164,7 +169,7 @@ namespace MyGUI
 			size.height += mHeightLine;
 			if (iter->separator) size.height += 10;
 
-			int width = *iter->item->_getInternalData<int>();
+			int width = iter->width;
 			if (iter->submenu != null) width += mSubmenuImageSize;
 			if (width > size.width) size.width = width;
 		}
@@ -397,11 +402,11 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemNameAt");
 
 		mItemsInfo[_index].name = _name;
-		PopupMenuItemPtr button = mItemsInfo[_index].item;
-		button->setCaption(_name);
-		IntSize size = button->getTextSize();
+		PopupMenuItemPtr item = mItemsInfo[_index].item;
+		item->setCaption(_name);
+		/*IntSize size = item->getTextSize();
 		size.width += 7; //FIXME
-		button->_setInternalData(size.width);
+		mItemsInfo[_index].width = size.width;*/
 
 		update();
 	}
@@ -425,6 +430,17 @@ namespace MyGUI
 
 		size_t index = getItemIndex(_item);
 		mItemsInfo.erase(mItemsInfo.begin() + index);
+		update();
+	}
+
+	void PopupMenu::_notifyUpdateName(PopupMenuItemPtr _item)
+	{
+		size_t index = getItemIndex(_item);
+
+		IntSize size = _item->getTextSize();
+		size.width += 7; //FIXME
+		mItemsInfo[index].width = size.width;
+
 		update();
 	}
 
