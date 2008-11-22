@@ -32,23 +32,29 @@ namespace MyGUI
 
 	public:
 
-		/** Load additional MyGUI *.language file */
+		/** Load additional MyGUI *_language.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
+		/** Return true if language _name exist */
 		bool isLanguageExist(const std::string & _name) { return mMapFile.find(_name) != mMapFile.end(); }
+		/** Set current language for replacing #{} tags */
 		bool setCurrentLanguage(const std::string & _name);
+		/** Get current language */
 		std::string getCurrentLanguage() { return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : ""; }
 
-		/** Replace all tags #{tagname} in _line with appropriate string or keep #{tagname} if no replacement found */
+		/** Replace all tags #{tagname} in _line with appropriate string dependent
+		on current language or keep #{tagname} if 'tagname' not found found */
 		Ogre::UTFString replaceTags(const Ogre::UTFString & _line);
 
 		/** Get tag value */
 		Ogre::UTFString getTag(const Ogre::UTFString & _tag);
 
+		/** Add user tag */
 		void addUserTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mUserMapLanguage[_tag] = _replace; }
 
+		/** Delete all user tags */
 		void clearUserTags() { mUserMapLanguage.clear(); }
 
 		/** Event : Change current language.\n

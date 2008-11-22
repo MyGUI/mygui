@@ -14,6 +14,7 @@
 namespace MyGUI
 {
 
+	/** Info about tootip state */
 	struct ToolTipInfo
 	{
 		enum ToolTipType

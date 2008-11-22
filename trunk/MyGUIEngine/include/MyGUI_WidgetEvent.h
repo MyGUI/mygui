@@ -31,7 +31,8 @@ namespace MyGUI
 
 	/**
 	General information about creating delegate for event :
-
+	@example Delegate_usage
+	@code
 		void anyFunc(...) { } // global function
 
 		class AnyClass
@@ -42,11 +43,14 @@ namespace MyGUI
 		};
 
 		AnyClass anyObject; // class instance
+	@endcode
 
 	delegate creating:
+	@code
 		eventAny = MyGUI::newDelegate(anyFunc);
 		eventAny = MyGUI::newDelegate(AnyClass::anyStaticMethod);
 		eventAny = MyGUI::newDelegate(&anyObject, &AnyClass::anyMethod);
+	@endcode
 	*/
 
 	class _MyGUIExport WidgetEvent
@@ -161,16 +165,19 @@ namespace MyGUI
 		/** Event : Extendeble event for special cases or plugins.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
 		*/
-		/* event : общее расширяемое событие для плагинов или особых случаев*/
-		/* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
 		EventInfo_WidgetStringString eventActionInfo;
 
-		/* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
-		/* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _container, size_t & _index);*/
+		/** Event : Internal request for parent and item index, used for any widget.\n
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _container, size_t & _index);
+			@param _container parent
+			@param _index of widget
+		*/
 		EventInfo_WidgetRefWidgetRefSizeT requestGetContainer;
 
-		/* event : событие для отображения тултипа*/
-		/* signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);*/
+		/** Event : Event about changing tooltip state.\n
+			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
+			@param _info about tooltip
+		*/
 		EventInfo_WidgetToolTip eventToolTip;
 
 	protected:

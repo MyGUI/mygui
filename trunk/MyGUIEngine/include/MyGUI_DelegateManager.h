@@ -25,10 +25,8 @@ namespace MyGUI
 			callDelegate(_sender, _sender->getUserString("eventName"), "eventName");
 		}*/
 
-	/**
-	Manager for handling delegates by names through layout file.
+	/**	Manager for handling delegates by names.
 	*/
-
 	class _MyGUIExport DelegateManager
 	{
 		INSTANCE_HEADER(DelegateManager);

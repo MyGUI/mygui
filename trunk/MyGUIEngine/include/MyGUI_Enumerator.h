@@ -12,9 +12,11 @@
 namespace MyGUI
 {
 
-	/** Enumerator usage
-	example :
-
+	/** Class for comfortable using of vectors with small while loop
+	instead iterators. Performance is same as with iterators.
+	Enumerator usage
+	@example Enumerator
+	@code
 		typedef std::vector<std::string> VectorString;
 		typedef Enumerator<VectorString> EnumeratorVectorString;
 
@@ -37,7 +39,7 @@ namespace MyGUI
 			std::string key = enum_map.current().first;
 			std::string value = enum_map.current().second;
 		};
-
+	@endcode
 	*/
 
 	template<typename T>

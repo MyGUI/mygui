@@ -155,7 +155,7 @@ namespace MyGUI
 		void destroyWidgets(VectorWidgetPtr & _widgets);
 
 		// mirror of WidgetManager method
-		/** Destroy enumerator of widgets */
+		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr & _widgets);
 
 		MYGUI_OBSOLETE("use Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
@@ -243,8 +243,8 @@ namespace MyGUI
 
 		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
-		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild.begin(), mWidgetChild.end()); }
-
+		/** Get root widgets Enumerator */
+		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
 
 	private:
 		// создает виджет

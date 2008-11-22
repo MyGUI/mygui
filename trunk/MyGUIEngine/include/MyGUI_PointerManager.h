@@ -27,7 +27,7 @@ namespace MyGUI
 
 	public:
 
-		/** Load additional MyGUI *.pointer file */
+		/** Load additional MyGUI *_pointer.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
@@ -52,6 +52,7 @@ namespace MyGUI
 
 		void _unlinkWidget(WidgetPtr _widget);
 
+		/** Get default pointer */
 		const std::string & getDefaultPointer() { return mDefaultPointer; }
 
 	private:
