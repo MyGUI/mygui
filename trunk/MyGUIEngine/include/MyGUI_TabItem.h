@@ -29,9 +29,9 @@ namespace MyGUI
 		virtual ~TabItem();
 
 	public:
-		/** Set sheet caption */
+		/** Set item caption */
 		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->setItemName(static_cast<TabItemPtr>(this), _caption); }
-		/** Get sheet caption */
+		/** Get item caption */
 		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(static_cast<TabItemPtr>(this)); }
 
 	public:
