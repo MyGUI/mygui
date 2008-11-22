@@ -19,7 +19,7 @@ namespace MyGUI
 		friend class WidgetManager;
 
 	public:
-		virtual ~IWidgetCreator(){};
+		virtual ~IWidgetCreator() { }
 
 	protected:
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name) = 0;
