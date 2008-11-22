@@ -33,19 +33,26 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Load additional MyGUI *.font file */
+		/** Load additional MyGUI *_font.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
+		/** Save already created font to texture
+			@param _font name from *_font.xml file (for example DejaVuSans.14)
+			@param _file name to save (for example font.png)
+		*/
 		void saveFontTexture(const std::string & _font, const std::string & _file);
 
+		/** Get font resouce */
 		virtual Ogre::ResourcePtr getByName(const Ogre::String & _name);
+		/** Check is font exist */
 		virtual bool resourceExists(const Ogre::String & _name);
 
 		/** Check is font exist */
 		bool isExist(const std::string& _name) { return resourceExists(_name); }
 
-		EnumeratorFontPtr getEnumerator() { return EnumeratorFontPtr(mResources.begin(), mResources.end()); }
+		/** Get fonts Enumerator */
+		EnumeratorFontPtr getEnumerator() { return EnumeratorFontPtr(mResources); }
 
     protected:
 

@@ -24,7 +24,8 @@ namespace MyGUI
 {
 
 	/** Usage example of class Any
-
+	@example Any_usage
+	@code
 	void f()
 	{
 		// RU: тестовый класс, с простыми типами все аналогично
@@ -58,7 +59,7 @@ namespace MyGUI
 		copy_ptr->value = 0;
 
 	}
-	
+	@endcode
 	*/
 
 	class _MyGUIExport Any

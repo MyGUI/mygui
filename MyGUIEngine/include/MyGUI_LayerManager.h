@@ -83,18 +83,20 @@ namespace MyGUI
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
+		/** Get current batch count */
 		size_t getBatch() { return mCountBatch; }
 		void _addBatch() { mCountBatch ++; }
 
-		void clear();
-
+		/** Check is layer exist */
 		bool isExist(const std::string & _name);
-		EnumeratorLayerKeeperPtr getEnumerator() { return EnumeratorLayerKeeperPtr(mLayerKeepers.begin(), mLayerKeepers.end()); }
+		/** Get layer keepers Enumerator */
+		EnumeratorLayerKeeperPtr getEnumerator() { return EnumeratorLayerKeeperPtr(mLayerKeepers); }
 
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
 	private:
+		void clear();
 
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);

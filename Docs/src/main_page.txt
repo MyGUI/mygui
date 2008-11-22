@@ -6,7 +6,7 @@ f/*!
 	\n This documentation file contains information about MyGUI library.
 	MyGUI is a graphical user interface library developed especialy for using with Ogre (http://www.ogre3d.org).
 
-	Here's list of external classes.
+	Here's list of main external classes.
 	\section Widgets
 	\li Base \link MyGUI::Widget Widget \endlink class
 	\li \link MyGUI::Button Button \endlink

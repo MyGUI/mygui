@@ -33,7 +33,7 @@ namespace MyGUI
 		/** Create new skin (used for creating skin in code), if skin with such name already exist - overwrite it */
 		WidgetSkinInfo * create(const Ogre::String & _name);
 
-		/** Load additional MyGUI *.skin file */
+		/** Load additional MyGUI *_skin.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
@@ -50,7 +50,8 @@ namespace MyGUI
 		/** Check is skin exist */
 		bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }
 
-		EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins.begin(), mSkins.end()); }
+		/** Get skins Enumerator */
+		EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins); }
 
 	private:
 		void createDefault();

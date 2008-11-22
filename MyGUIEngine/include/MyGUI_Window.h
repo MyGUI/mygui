@@ -25,26 +25,27 @@ namespace MyGUI
 	protected:
 		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 
-	public:
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
+	public:
+
 		// для мееедленного показа и скрытия
-      /** Show window smooth */
+		/** Show window smooth */
 		void showSmooth(bool _reset = false);
-      /** Hide window smooth */
+		/** Hide window smooth */
 		void hideSmooth();
-      /** Hide window smooth and then destroy it */
+		/** Hide window smooth and then destroy it */
 		void destroySmooth();
 
-      /** Get auto alpha mode flag */
+		/** Get auto alpha mode flag */
 		bool getAutoAlpha() {return mIsAutoAlpha;}
-      /** Enable or disable auto alpha mode */
+		/** Enable or disable auto alpha mode */
 		void setAutoAlpha(bool _auto);
 
-      /** Set window caption */
+		/** Set window caption */
 		virtual void setCaption(const Ogre::UTFString & _caption);
-      /** Get window caption */
+		/** Get window caption */
 		virtual const Ogre::UTFString & getCaption();
 
 		/** Set minimal and maximal possible window size
@@ -55,7 +56,7 @@ namespace MyGUI
 			@param First two values - min width and height, second - max width and height
 		*/
 		void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) { mMinmax.set(_min_h, _min_v, _max_h, _max_v); }
-      /** Get minimal and maximal possible window size */
+		/** Get minimal and maximal possible window size */
 		const IntRect & getMinMax() {return mMinmax;}
 
 		void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
@@ -85,9 +86,9 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
-      /** Get snap to borders mode flag */
+		/** Get snap to borders mode flag */
 		bool getSnap() {return mSnap;}
-      /** Enable or disable snap to borders mode */
+		/** Enable or disable snap to borders mode */
 		void setSnap(bool _snap) {mSnap = _snap;}
 
 		//! @copydoc Widget::setTextAlign
@@ -110,8 +111,7 @@ namespace MyGUI
 		//! @copydoc Widget::getFontHeight
 		virtual uint16 getFontHeight();
 
-		//! @copydoc Widget::getChilds
-		//virtual VectorWidgetPtr getChilds();
+		//! @copydoc Widget::getEnumerator
 		virtual EnumeratorWidgetPtr getEnumerator();
 
 		/** Event : Window button pressed.\n

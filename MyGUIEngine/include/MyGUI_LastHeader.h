@@ -7,6 +7,7 @@
 #ifndef __MYGUI_LAST_HEADER_H__
 #define __MYGUI_LAST_HEADER_H__
 
+// used to enable deprecated warningd, disabled by Ogre
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
 #	pragma warning( default: 4996)

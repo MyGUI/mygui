@@ -48,6 +48,7 @@ namespace MyGUI
 	};
 
 	// структура информации об индексах дропа
+	/** Inormation abou drag'n'drop indexes */
 	struct _MyGUIExport ItemDropInfo
 	{
 		ItemDropInfo() :

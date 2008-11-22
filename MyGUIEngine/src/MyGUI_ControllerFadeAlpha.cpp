@@ -21,6 +21,7 @@ namespace MyGUI
 	ControllerFadeAlpha::ControllerFadeAlpha(float _alpha, float _coef, bool _enabled) :
 		mAlpha(_alpha), mCoef(_coef), mEnabled(_enabled)
 	{
+		MYGUI_DEBUG_ASSERT(mCoef > 0, "coef must be > 0");
 	}
 
 	const std::string & ControllerFadeAlpha::getType()
@@ -31,7 +32,6 @@ namespace MyGUI
 
 	void ControllerFadeAlpha::prepareItem(WidgetPtr _widget)
 	{
-		MYGUI_DEBUG_ASSERT(mCoef > 0, "coef must be > 0");
 		// подготовка виджета
 		_widget->setEnabledSilent(mEnabled);
 
