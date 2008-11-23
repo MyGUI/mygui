@@ -151,7 +151,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 {
 	if (mPopupMenuFile == _menu) {
 
-		MyGUI::PopupMenuItemPtr item = _menu->getItemAt(_index);
+		MyGUI::MenuItemPtr item = _menu->getItemAt(_index);
 		std::string id = item->getItemId();
 
 		if (id == "File/Load") {

@@ -77,7 +77,7 @@ namespace MyGUI
 		class MessageFactory;
 		class RenderBoxFactory;
 		class PopupMenuFactory;
-		class PopupMenuItemFactory;
+		class MenuItemFactory;
 		class MenuBarFactory;
 		class ScrollViewFactory;
 		class DDContainerFactory;
@@ -102,7 +102,7 @@ namespace MyGUI
 	class Message;
 	class RenderBox;
 	class PopupMenu;
-	class PopupMenuItem;
+	class MenuItem;
 	class MenuBar;
 	class ScrollView;
 	class DDContainer;
@@ -126,7 +126,7 @@ namespace MyGUI
 	typedef Message * MessagePtr;
 	typedef RenderBox * RenderBoxPtr;
 	typedef PopupMenu * PopupMenuPtr;
-	typedef PopupMenuItem * PopupMenuItemPtr;
+	typedef MenuItem * MenuItemPtr;
 	typedef MenuBar * MenuBarPtr;
 	typedef ScrollView * ScrollViewPtr;
 	typedef DDContainer * DDContainerPtr;
