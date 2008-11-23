@@ -28,7 +28,7 @@
 #include "MyGUI_MessageFactory.h"
 #include "MyGUI_RenderBoxFactory.h"
 #include "MyGUI_PopupMenuFactory.h"
-#include "MyGUI_PopupMenuItemFactory.h"
+#include "MyGUI_MenuItemFactory.h"
 #include "MyGUI_MenuBarFactory.h"
 #include "MyGUI_ScrollViewFactory.h"
 #include "MyGUI_DDContainerFactory.h"
@@ -66,7 +66,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::MessageFactory());
 		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
-		mIntegratedFactoryList.insert(new factory::PopupMenuItemFactory());
+		mIntegratedFactoryList.insert(new factory::MenuItemFactory());
 		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
 		mIntegratedFactoryList.insert(new factory::ScrollViewFactory());
 		mIntegratedFactoryList.insert(new factory::DDContainerFactory());

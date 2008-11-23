@@ -1206,6 +1206,7 @@
 
     <Property key="SeparatorSkin" value = "PopupMenuSeparator" />
     <Property key="SeparatorHeight" value = "10" />
+    <Property key="AlignVert" value = "true" />
 
     <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "Stretch" name = "Client"/>
 
@@ -1273,6 +1274,8 @@
     <Property key="DistanceButton" value = "6" />
     <Property key="SubMenuSkin" value = "PopupMenu" />
     <Property key="SubMenuLayer" value = "Popup" />
+
+    <Property key="AlignVert" value = "false" />
 
     <Child type="Widget" skin="Default" offset = "6 0 15 24" align = "Stretch" name = "Client"/>
 

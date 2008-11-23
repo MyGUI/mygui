@@ -14,16 +14,16 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport PopupMenuItem : public Button
+	class _MyGUIExport MenuItem : public Button
 	{
 		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<PopupMenuItem>;
+		friend class factory::BaseWidgetFactory<MenuItem>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 
 	protected:
-		PopupMenuItem(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~PopupMenuItem();
+		MenuItem(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~MenuItem();
 
 	public:
 		/** Set item caption */
