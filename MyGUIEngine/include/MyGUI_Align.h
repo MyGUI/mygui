@@ -19,12 +19,12 @@ namespace MyGUI
 		ALIGN_VCENTER					= MYGUI_FLAG_NONE,					// center the window vertically
 		ALIGN_CENTER					= ALIGN_HCENTER | ALIGN_VCENTER,		// center the window in the dead center
 
-		ALIGN_LEFT						= MYGUI_FLAG(1),						// align from the left (and center the window vertically)
-		ALIGN_RIGHT					= MYGUI_FLAG(2),						// align from the left (and center the window vertically)
+		ALIGN_LEFT						= MYGUI_FLAG(1),						// value from the left (and center the window vertically)
+		ALIGN_RIGHT					= MYGUI_FLAG(2),						// value from the left (and center the window vertically)
 		ALIGN_HSTRETCH				    = ALIGN_LEFT | ALIGN_RIGHT,			// stretch horizontally proportionate to parent window
 
-		ALIGN_TOP						= MYGUI_FLAG(3),						// align from the top (and center the window horizontally)
-		ALIGN_BOTTOM					= MYGUI_FLAG(4),						// align from the bottom (and center the window horizontally)
+		ALIGN_TOP						= MYGUI_FLAG(3),						// value from the top (and center the window horizontally)
+		ALIGN_BOTTOM					= MYGUI_FLAG(4),						// value from the bottom (and center the window horizontally)
 		ALIGN_VSTRETCH				    = ALIGN_TOP | ALIGN_BOTTOM,			// stretch vertically proportionate to parent window
 
 		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch proportionate to parent window
@@ -36,43 +36,44 @@ namespace MyGUI
 		ALIGN_LEFT_BOTTOM             = ALIGN_LEFT | ALIGN_BOTTOM
 	} MYGUI_OBSOLETE_END ;
 
-	struct _MyGUIExport Align
+	class _MyGUIExport Align
 	{
+	public:
 		enum
 		{
 			HCenter = MYGUI_FLAG_NONE,		/**< centre horizontally */
 			VCenter = MYGUI_FLAG_NONE,		/**< centre vertically */
 			Center = HCenter | VCenter,		/**< center in the dead center */
 
-			Left = MYGUI_FLAG(1),			/**< align from the left (and center vertically) */
-			Right = MYGUI_FLAG(2),			/**< align from the right (and center vertically) */
+			Left = MYGUI_FLAG(1),			/**< value from the left (and center vertically) */
+			Right = MYGUI_FLAG(2),			/**< value from the right (and center vertically) */
 			HStretch = Left | Right,		/**< stretch horizontally proportionate to parent window (and center vertically) */
 
-			Top = MYGUI_FLAG(3),			/**< align from the top (and center horizontally) */
-			Bottom = MYGUI_FLAG(4),			/**< align from the bottom (and center horizontally) */
+			Top = MYGUI_FLAG(3),			/**< value from the top (and center horizontally) */
+			Bottom = MYGUI_FLAG(4),			/**< value from the bottom (and center horizontally) */
 			VStretch = Top | Bottom,		/**< stretch vertically proportionate to parent window (and center horizontally) */
 
 			Stretch = HStretch | VStretch,	/**< stretch proportionate to parent window */
-			Default = Left | Top,			/**< default align (align from left and top) */
+			Default = Left | Top,			/**< default value (value from left and top) */
 
-			LeftTop = Left | Top,			/**< align from left and top */
-			RightTop = Right | Top,			/**< align from right and top */
-			RightBottom = Right | Bottom,	/**< align from right and bottom */
-			LeftBottom = Left | Bottom		/**< align from left and bottom */
+			LeftTop = Left | Top,			/**< value from left and top */
+			RightTop = Right | Top,			/**< value from right and top */
+			RightBottom = Right | Bottom,	/**< value from right and bottom */
+			LeftBottom = Left | Bottom		/**< value from left and bottom */
 		};
 
-		Align() : align(Default) { }
-		Align(int _align) : align(_align) { }
-		explicit Align(const std::string & _parse) : align(Align::parse(_parse).align) { }
+		Align() : value(Default) { }
+		Align(int _value) : value(_value) { }
+		explicit Align(const std::string & _parse) : value(Align::parse(_parse).value) { }
 
 		Align & operator |= (Align const& _other)
 		{
-			align |= _other.align;
+			value |= _other.value;
 			return *this;
 		}
 
-		friend bool operator == (Align const & a, Align const & b) { return a.align == b.align; }
-		friend bool operator != (Align const & a, Align const & b) { return a.align != b.align; }
+		friend bool operator == (Align const & a, Align const & b) { return a.value == b.value; }
+		friend bool operator != (Align const & a, Align const & b) { return a.value != b.value; }
 
         friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value )
         {
@@ -89,35 +90,34 @@ namespace MyGUI
             return _stream;
         }
 
-		bool isHCenter() { return HCenter == (align & HStretch); }
-		bool isVCenter() { return VCenter == (align & VStretch); }
-		bool isCenter() { return Center == (align & Stretch); }
+		bool isHCenter() { return HCenter == (value & HStretch); }
+		bool isVCenter() { return VCenter == (value & VStretch); }
+		bool isCenter() { return Center == (value & Stretch); }
 
-		bool isLeft() { return Left == (align & HStretch); }
-		bool isRight() { return Right == (align & HStretch); }
-		bool isHStretch() { return HStretch == (align & HStretch); }
+		bool isLeft() { return Left == (value & HStretch); }
+		bool isRight() { return Right == (value & HStretch); }
+		bool isHStretch() { return HStretch == (value & HStretch); }
 
-		bool isTop() { return Top == (align & VStretch); }
-		bool isBottom() { return (Bottom == (align & VStretch)); }
-		bool isVStretch() { return (VStretch == (align & VStretch)); }
+		bool isTop() { return Top == (value & VStretch); }
+		bool isBottom() { return (Bottom == (value & VStretch)); }
+		bool isVStretch() { return (VStretch == (value & VStretch)); }
 
-		bool isStretch() { return (Stretch == (align & Stretch)); }
-		bool isDefault() { return (Default == (align & Stretch)); }
+		bool isStretch() { return (Stretch == (value & Stretch)); }
+		bool isDefault() { return (Default == (value & Stretch)); }
 
-		bool isLeftTop() { return (LeftTop == (align & Stretch)); }
-		bool isRightTop() { return (RightTop == (align & Stretch)); }
-		bool isRightBottom() { return (RightBottom == (align & Stretch)); }
-		bool isLeftBottom() { return (LeftBottom == (align & Stretch)); }
+		bool isLeftTop() { return (LeftTop == (value & Stretch)); }
+		bool isRightTop() { return (RightTop == (value & Stretch)); }
+		bool isRightBottom() { return (RightBottom == (value & Stretch)); }
+		bool isLeftBottom() { return (LeftBottom == (value & Stretch)); }
 
 		static Align parse(const std::string & _value);
 		std::string print() const;
 
-		int align;
+		int value;
 
 	private:
 		typedef std::map<std::string, Align> MapAlign;
 		static MapAlign mMapAlign;
-
 		static void initialise();
 	};
 

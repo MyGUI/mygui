@@ -4,8 +4,8 @@
 	@date		11/2008
 	@module
 */
-#ifndef __MYGUI_POPUP_MENU_ITEM_H__
-#define __MYGUI_POPUP_MENU_ITEM_H__
+#ifndef __MYGUI_MENU_ITEM_H__
+#define __MYGUI_MENU_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
@@ -69,4 +69,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_POPUP_MENU_ITEM_H__
+#endif // __MYGUI_MENU_ITEM_H__

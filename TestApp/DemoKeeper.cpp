@@ -44,7 +44,7 @@ namespace demo
 		{
 			align = _align;
 		}
-		static operator Align (MyGUI::Align _align) { return Align(_align.align); }
+		static operator Align (MyGUI::Align _align) { return Align(_align); }
 		static operator MyGUI::Align (Align _align) { return MyGUI::Align(_align.align); }
 		int align;
 	};
