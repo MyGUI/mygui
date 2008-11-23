@@ -9,9 +9,11 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_MenuItemType.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_MenuItemType.h"
 
 namespace MyGUI
 {
@@ -228,7 +230,7 @@ namespace MyGUI
 		// #ifdef MYGUI_USING_OBSOLETE
 
 		MYGUI_OBSOLETE("use PopupMenu::addItem(const Ogre::UTFString & _name, ItemType _type, Any _data)")
-		void addItem(const Ogre::UTFString& _item, FakeType<bool> _submenu, FakeType<bool> _separator = false) { addItem(_item, getItemType(_submenu, _separator)); }
+		void addItem(const Ogre::UTFString& _item, bool _submenu, bool _separator = false) { addItem(_item, getItemType(_submenu, _separator)); }
 
 		MYGUI_OBSOLETE("use PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)")
 		void insertItem(size_t _index, const Ogre::UTFString& _item, FakeType<bool> _submenu = false, FakeType<bool> _separator = false) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }

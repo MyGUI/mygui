@@ -17,8 +17,7 @@ namespace MyGUI
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			// регестрируем все парсеры
 			manager.registerDelegate("MenuItem_Id") = newDelegate(this, &MenuItemFactory::MenuItem_Id);
-			//manager.registerDelegate("MenuItem_Select") = newDelegate(this, &MenuItemFactory::MenuItem_Select);
-			//manager.registerDelegate("MenuItem_SmoothSelect") = newDelegate(this, &MenuItemFactory::MenuItem_Select);
+			manager.registerDelegate("MenuItem_Type") = newDelegate(this, &MenuItemFactory::MenuItem_Type);
 		}
 
 		MenuItemFactory::~MenuItemFactory()
@@ -26,8 +25,7 @@ namespace MyGUI
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			// удаляем все парсеры
 			manager.unregisterDelegate("MenuItem_Id");
-			//manager.unregisterDelegate("MenuItem_Select");
-			//manager.unregisterDelegate("MenuItem_SmoothSelect");
+			manager.unregisterDelegate("MenuItem_Type");
 		}
 
 		void MenuItemFactory::MenuItem_Id(WidgetPtr _widget, const std::string &_key, const std::string &_value)
@@ -36,11 +34,11 @@ namespace MyGUI
 			static_cast<MenuItemPtr>(_widget)->setItemId(_value);
 		}
 
-		/*void MenuItemFactory::MenuItem_Select(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		void MenuItemFactory::MenuItem_Type(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			if (utility::parseBool(_value)) static_cast<MenuItemPtr>(_widget)->setItemSelected();
-		}*/
+			//static_cast<MenuItemPtr>(_widget)->setItemType(_value);
+		}
 
 	} // namespace factory
 } // namespace MyGUI
