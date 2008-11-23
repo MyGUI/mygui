@@ -139,7 +139,7 @@ void EditorState::createMainMenu()
 		}
 
 		// если есть файлы, то еще один сепаратор
-		//mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
+		mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
 	}
 	
 	mPopupMenuFile->addItem(localise("Quit"), MyGUI::PopupMenu::ItemTypeNormal, "File/Quit");
