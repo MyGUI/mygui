@@ -373,7 +373,7 @@
 						Name="WidgetItem"
 						>
 						<File
-							RelativePath=".\src\MyGUI_PopupMenuItemFactory.cpp"
+							RelativePath=".\src\MyGUI_MenuItemFactory.cpp"
 							>
 						</File>
 						<File
@@ -386,7 +386,7 @@
 					Name="WidgetItem"
 					>
 					<File
-						RelativePath=".\src\MyGUI_PopupMenuItem.cpp"
+						RelativePath=".\src\MyGUI_MenuItem.cpp"
 						>
 					</File>
 					<File
@@ -538,18 +538,6 @@
 					Name="Common"
 					>
 					<Filter
-						Name="Types"
-						>
-						<File
-							RelativePath=".\src\MyGUI_Align.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\src\MyGUI_Any.cpp"
-							>
-						</File>
-					</Filter>
-					<Filter
 						Name="Interfaces"
 						>
 						<File
@@ -579,6 +567,22 @@
 					>
 					<File
 						RelativePath=".\src\MyGUI_MaskPeekInfo.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Types"
+					>
+					<File
+						RelativePath=".\src\MyGUI_Align.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_Any.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MenuItemType.cpp"
 						>
 					</File>
 				</Filter>
@@ -823,7 +827,7 @@
 						Name="WidgetItem"
 						>
 						<File
-							RelativePath=".\include\MyGUI_PopupMenuItemFactory.h"
+							RelativePath=".\include\MyGUI_MenuItemFactory.h"
 							>
 						</File>
 						<File
@@ -836,7 +840,7 @@
 					Name="WidgetItem"
 					>
 					<File
-						RelativePath=".\include\MyGUI_PopupMenuItem.h"
+						RelativePath=".\include\MyGUI_MenuItem.h"
 						>
 					</File>
 					<File
@@ -996,35 +1000,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_BiIndexBase.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_CastWidget.h"
 						>
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Common.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_EnumCharInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ImageInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_InputDefine.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ItemDropInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ItemInfo.h"
 						>
 					</File>
 					<File
@@ -1040,14 +1020,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_Plugin.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_PointerInfo.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_Prerequest.h"
 						>
 					</File>
@@ -1056,19 +1028,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_WidgetEvent.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_WidgetOIS.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_WidgetToolTip.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_WidgetUserData.h"
 						>
 					</File>
 					<Filter
@@ -1091,39 +1051,27 @@
 							>
 						</File>
 						<File
+							RelativePath=".\include\MyGUI_Plugin.h"
+							>
+						</File>
+						<File
 							RelativePath=".\include\MyGUI_Rtti.h"
 							>
 						</File>
 					</Filter>
 					<Filter
-						Name="Types"
+						Name="Base"
 						>
 						<File
-							RelativePath=".\include\MyGUI_Align.h"
+							RelativePath=".\include\MyGUI_BiIndexBase.h"
 							>
 						</File>
 						<File
-							RelativePath=".\include\MyGUI_Any.h"
+							RelativePath=".\include\MyGUI_WidgetEvent.h"
 							>
 						</File>
 						<File
-							RelativePath=".\include\MyGUI_Types.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\TCoord.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\TPoint.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\TRect.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\TSize.h"
+							RelativePath=".\include\MyGUI_WidgetUserData.h"
 							>
 						</File>
 					</Filter>
@@ -1257,6 +1205,70 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetSkinInfo.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Types"
+					>
+					<File
+						RelativePath=".\include\MyGUI_Align.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Any.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_EnumCharInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ImageInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_InputDefine.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ItemDropInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ItemInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MenuItemType.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_PointerInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Types.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetToolTip.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\TCoord.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\TPoint.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\TRect.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\TSize.h"
 						>
 					</File>
 				</Filter>
