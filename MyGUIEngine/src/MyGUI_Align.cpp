@@ -70,18 +70,18 @@ namespace MyGUI
 	{
 		std::string ret;
 
-		if (align & Left) {
-			if (align & Right) ret = "HStretch";
+		if (value & Left) {
+			if (value & Right) ret = "HStretch";
 			else ret = "Left";
 		}
-		else if (align & Right) ret = "Right";
+		else if (value & Right) ret = "Right";
 		else ret = "HCenter";
 
-		if (align & Top) {
-			if (align & Bottom) ret += " VStretch";
+		if (value & Top) {
+			if (value & Bottom) ret += " VStretch";
 			else ret += " Top";
 		}
-		else if (align & Bottom) ret += " Bottom";
+		else if (value & Bottom) ret += " Bottom";
 		else ret += " VCenter";
 
 		return ret;

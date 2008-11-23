@@ -46,8 +46,35 @@ namespace MyGUI
             return _stream;
         }
 
-		static MenuItemType parse(const std::string & _value);
-		std::string print() const;
+		static MenuItemType parse(const std::string & _value)
+		{
+			MapValue * map_value = getMapValue();
+			MapValue::const_iterator iter = map_value->find(_value);
+			if (iter != map_value->end()) return MenuItemType(iter->second);
+			else {
+				std::string value = _value;
+				utility::trim(value);
+				MapValue::const_iterator iter = map_value->find(value);
+				if (iter != map_value->end()) return MenuItemType(iter->second);
+				else {
+					MYGUI_LOG(Warning, "Cannot parse '" << _value << "'");
+				}
+			}
+			return MenuItemType();
+		}
+
+		std::string print() const
+		{
+			MapValue * map_value = getMapValue();
+			if (size_t(value) >= map_value->size()) return "";
+			int pos = 0;
+			MapValue::const_iterator iter = map_value->begin();
+			MapValue::const_iterator end = map_value->end();
+			for (;iter!=end;++iter,++pos) {
+				if (pos == value) return iter->first;
+			}
+			return "";
+		}
 
 		int toValue() { return value; }
 
@@ -60,12 +87,15 @@ namespace MyGUI
 		{
 			static MapValue map_value;
 			if (map_value.empty()) {
+				MYGUI_REGISTER_VALUE(map_value, Normal);
+				MYGUI_REGISTER_VALUE(map_value, Popup);
+				MYGUI_REGISTER_VALUE(map_value, Separator);
 			}
 			return &map_value;
 		}
 
-		static MapValue mMapValue;
-		static void initialise();
+		//static MapValue mMapValue;
+		//static void initialise();
 	};
 
 } // namespace MyGUI
