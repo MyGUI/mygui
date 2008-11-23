@@ -120,14 +120,14 @@ void EditorState::createMainMenu()
 	mPopupMenuWidgets = bar->getItemChildAt(1);
 
 	mPopupMenuFile = bar->getItemChildAt(0);
-	mPopupMenuFile->addItem(localise("Load"), MyGUI::PopupMenu::ItemTypeNormal, "File/Load");
-	mPopupMenuFile->addItem(localise("Save"), MyGUI::PopupMenu::ItemTypeNormal, "File/Save");
-	mPopupMenuFile->addItem(localise("Save_as"), MyGUI::PopupMenu::ItemTypeNormal, "File/SaveAs");
-	mPopupMenuFile->addItem(localise("Clear"), MyGUI::PopupMenu::ItemTypeNormal, "File/Clear");
-	mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
-	mPopupMenuFile->addItem(localise("Settings"), MyGUI::PopupMenu::ItemTypeNormal, "File/Settings");
-	mPopupMenuFile->addItem(localise("Test"), MyGUI::PopupMenu::ItemTypeNormal, "File/Test");
-	mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
+	mPopupMenuFile->addItem(localise("Load"), MyGUI::MenuItemType::Normal, "File/Load");
+	mPopupMenuFile->addItem(localise("Save"), MyGUI::MenuItemType::Normal, "File/Save");
+	mPopupMenuFile->addItem(localise("Save_as"), MyGUI::MenuItemType::Normal, "File/SaveAs");
+	mPopupMenuFile->addItem(localise("Clear"), MyGUI::MenuItemType::Normal, "File/Clear");
+	mPopupMenuFile->addItem("", MyGUI::MenuItemType::Separator);
+	mPopupMenuFile->addItem(localise("Settings"), MyGUI::MenuItemType::Normal, "File/Settings");
+	mPopupMenuFile->addItem(localise("Test"), MyGUI::MenuItemType::Normal, "File/Test");
+	mPopupMenuFile->addItem("", MyGUI::MenuItemType::Separator);
 
 	// список последних открытых файлов
 	if (recentFiles.size()) {
@@ -135,14 +135,14 @@ void EditorState::createMainMenu()
 			//MyGUI::PopupMenu::ItemType type = MyGUI::PopupMenu::ItemTypeNormal;
 			//if (recentFiles.rend() - iter == 1 ) type = MyGUI::PopupMenu::ItemTypeSeparator;
 			// id одинаковый, имя файла в юзер дату
-			mPopupMenuFile->addItem(*iter, MyGUI::PopupMenu::ItemTypeNormal, "File/RecentFiles",  *iter);
+			mPopupMenuFile->addItem(*iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
 		}
 
 		// если есть файлы, то еще один сепаратор
-		mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
+		mPopupMenuFile->addItem("", MyGUI::MenuItemType::Separator);
 	}
 	
-	mPopupMenuFile->addItem(localise("Quit"), MyGUI::PopupMenu::ItemTypeNormal, "File/Quit");
+	mPopupMenuFile->addItem(localise("Quit"), MyGUI::MenuItemType::Normal, "File/Quit");
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 }
@@ -764,7 +764,7 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMen
 {
 	bool submenu = !_container->childContainers.empty();
 
-	_parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu ? MyGUI::PopupMenu::ItemTypePopup : MyGUI::PopupMenu::ItemTypeNormal);
+	_parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
 	_parentPopup->setItemDataAt(_parentPopup->getItemCount()-1, _container->widget);
 
 	if (submenu) {
