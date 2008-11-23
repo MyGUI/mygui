@@ -100,22 +100,22 @@ namespace MyGUI
 		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
-	MenuItemPtr PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type, const std::string & _id, Any _data)
+	MenuItemPtr PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		std::string skin = _type == ItemTypeSeparator ? mSeparatorSkin : mSkinLine;
+		std::string skin = _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
 
 		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(skin, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
 		item->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
 		item->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
 		item->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
 
-		setButtonImageIndex(item, _type == ItemTypePopup ? ItemImagePopup : ItemImageNone);
+		setButtonImageIndex(item, _type == MenuItemType::Popup ? ItemImagePopup : ItemImageNone);
 
 		PopupMenuPtr submenu = null;
-		if (_type == ItemTypePopup)
+		if (_type == MenuItemType::Popup)
 		{
 			submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 			submenu->_setOwner(this);
@@ -184,7 +184,7 @@ namespace MyGUI
 
 		if (mAlignVert) {
 			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
-				int height = iter->type == ItemTypeSeparator ? mSeparatorHeight : mHeightLine;
+				int height = iter->type == MenuItemType::Separator ? mSeparatorHeight : mHeightLine;
 				iter->item->setCoord(0, size.height, iter->item->getWidth(), height);
 				size.height += height + mDistanceButton;
 
@@ -195,7 +195,7 @@ namespace MyGUI
 		}
 		else {
 			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
-				int width = iter->type == ItemTypeSeparator ? mSeparatorHeight : iter->width;
+				int width = iter->type == MenuItemType::Separator ? mSeparatorHeight : iter->width;
 				iter->item->setCoord(size.width, 0, width, mHeightLine);
 				size.width += width + mDistanceButton;
 			}
@@ -250,7 +250,7 @@ namespace MyGUI
 		if (index == ITEM_NONE) return;
 
 		// сепаратор не кликать
-		if (mItemsInfo[index].type == ItemTypeSeparator) return;
+		if (mItemsInfo[index].type == MenuItemType::Separator) return;
 
 		//EventPair
 		eventPopupMenuAccept.m_eventObsolete(this, index);
@@ -437,7 +437,7 @@ namespace MyGUI
 		update();
 	}
 
-	PopupMenu::ItemType PopupMenu::getItemTypeAt(size_t _index)
+	MenuItemType PopupMenu::getItemTypeAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemTypeAt");
 		return mItemsInfo[_index].type;

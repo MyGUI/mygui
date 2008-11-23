@@ -35,16 +35,16 @@ namespace MyGUI
 			ItemImagePopup
 		};
 
-		enum ItemType
+		/*enum ItemType
 		{
 			ItemTypeNormal,
 			ItemTypePopup,
 			ItemTypeSeparator
-		};
+		};*/
 
 		struct ItemInfo
 		{
-			ItemInfo(MenuItemPtr _item, const Ogre::UTFString& _name, ItemType _type, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
+			ItemInfo(MenuItemPtr _item, const Ogre::UTFString& _name, MenuItemType _type, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -60,7 +60,7 @@ namespace MyGUI
 			/** Item name*/
 			Ogre::UTFString name;
 			/** Widget have separator after item */
-			ItemType type;
+			MenuItemType type;
 			/** Sub menu (or null if no submenu) */
 			PopupMenuPtr submenu;
 			/** Item id*/
@@ -88,14 +88,14 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		MenuItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null);
+		MenuItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItemPtr insertItem(MenuItemPtr _to, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null) {
+		MenuItemPtr insertItem(MenuItemPtr _to, const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null) {
 			return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 		}
 
 		//! Add an item to the end of a array
-		MenuItemPtr addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null) {
+		MenuItemPtr addItem(const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null) {
 			return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 		}
 
@@ -219,17 +219,17 @@ namespace MyGUI
 		void removeItemChildAt(size_t _index);
 
 
-		void insertSeparatorAt(size_t _index) { insertItemAt(_index, "", ItemTypeSeparator); }
+		//void insertSeparatorAt(size_t _index) { insertItemAt(_index, "", MenuItemType::Separator); }
 
-		void addSeparator() { addItem("", ItemTypeSeparator); }
+		//void addSeparator() { addItem("", MenuItemType::Separator); }
 
 
-		ItemType getItemTypeAt(size_t _index);
+		MenuItemType getItemTypeAt(size_t _index);
 
 
 		// #ifdef MYGUI_USING_OBSOLETE
 
-		MYGUI_OBSOLETE("use PopupMenu::addItem(const Ogre::UTFString & _name, ItemType _type, Any _data)")
+		/*MYGUI_OBSOLETE("use PopupMenu::addItem(const Ogre::UTFString & _name, ItemType _type, Any _data)")
 		void addItem(const Ogre::UTFString& _item, FakeType<bool> _submenu, FakeType<bool> _separator = false) { addItem(_item, getItemType(_submenu, _separator), ""); }
 
 		MYGUI_OBSOLETE("use PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)")
@@ -245,7 +245,7 @@ namespace MyGUI
 		const Ogre::UTFString& getItem(size_t _index) { return getItemNameAt(_index); }
 
 		MYGUI_OBSOLETE("use PopupMenu::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
-		void setItem(size_t _index, const Ogre::UTFString& _item) { setItemNameAt(_index, _item); }
+		void setItem(size_t _index, const Ogre::UTFString& _item) { setItemNameAt(_index, _item); }*/
 		// #endif // MYGUI_USING_OBSOLETE
 
 
@@ -284,11 +284,11 @@ namespace MyGUI
 
 		void setButtonImageIndex(ButtonPtr _button, size_t _index);
 
-		ItemType getItemType(bool _submenu, bool _separator)
+		MenuItemType getItemType(bool _submenu, bool _separator)
 		{
-			if (_submenu) return ItemTypePopup;
-			else if (_separator)  return ItemTypeSeparator;
-			return  ItemTypeNormal;
+			if (_submenu) return MenuItemType::Popup;
+			else if (_separator)  return MenuItemType::Separator;
+			return  MenuItemType::Normal;
 		}
 
 
