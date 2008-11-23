@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<PopupMenuPtr, PopupMenuItemPtr> HandlePopupMenu_PopupMenuAccept;
+	typedef delegates::CDelegate2<PopupMenuPtr, MenuItemPtr> HandlePopupMenu_PopupMenuAccept;
 
 	class _MyGUIExport PopupMenu : public Widget
 	{
@@ -42,7 +42,7 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(PopupMenuItemPtr _item, const Ogre::UTFString& _name, ItemType _type, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
+			ItemInfo(MenuItemPtr _item, const Ogre::UTFString& _name, ItemType _type, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -54,7 +54,7 @@ namespace MyGUI
 			}
 
 			/** Item */
-			PopupMenuItemPtr item;
+			MenuItemPtr item;
 			/** Item name*/
 			Ogre::UTFString name;
 			/** Widget have separator after item */
@@ -69,7 +69,7 @@ namespace MyGUI
 			int width;
 		};
 
-		typedef std::vector<ItemInfo> VectorPopupMenuItemInfo;
+		typedef std::vector<ItemInfo> VectorMenuItemInfo;
 
 	protected:
 		PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
@@ -86,35 +86,35 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		PopupMenuItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null);
+		MenuItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null);
 		//! Insert an item into a array
-		PopupMenuItemPtr insertItem(PopupMenuItemPtr _to, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null) {
+		MenuItemPtr insertItem(MenuItemPtr _to, const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null) {
 			return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 		}
 
 		//! Add an item to the end of a array
-		PopupMenuItemPtr addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null) {
+		MenuItemPtr addItem(const Ogre::UTFString & _name, ItemType _type = ItemTypeNormal, const std::string & _id = "", Any _data = Any::Null) {
 			return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 		}
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 		//! Remove item
-		void removeItem(PopupMenuItemPtr _item) { removeItemAt(getItemIndex(_item)); }
+		void removeItem(MenuItemPtr _item) { removeItemAt(getItemIndex(_item)); }
 
 		//! Remove all items
 		void removeAllItems();
 
 
 		//! Get item from specified position
-		PopupMenuItemPtr getItemAt(size_t _index)
+		MenuItemPtr getItemAt(size_t _index)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemAt");
 			return mItemsInfo[_index].item;
 		}
 
 		//! Get item index
-		size_t getItemIndex(PopupMenuItemPtr _item)
+		size_t getItemIndex(MenuItemPtr _item)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].item == _item) return pos;
@@ -123,7 +123,7 @@ namespace MyGUI
 		}
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndex(PopupMenuItemPtr _item)
+		size_t findItemIndex(MenuItemPtr _item)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].item == _item) return pos;
@@ -132,7 +132,7 @@ namespace MyGUI
 		}
 
 		//! Search item, returns the item of the first occurrence in array or null if item not found
-		PopupMenuItemPtr findItemWith(const Ogre::UTFString & _name)
+		MenuItemPtr findItemWith(const Ogre::UTFString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
@@ -146,12 +146,12 @@ namespace MyGUI
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
 		//! Replace an item data
-		void setItemData(PopupMenuItemPtr _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
+		void setItemData(MenuItemPtr _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
 
 		//! Clear an item data at a specified position
 		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
 		//! Clear an item data
-		void clearItemData(PopupMenuItemPtr _item) { clearItemDataAt(getItemIndex(_item)); }
+		void clearItemData(MenuItemPtr _item) { clearItemDataAt(getItemIndex(_item)); }
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -162,7 +162,7 @@ namespace MyGUI
 		}
 		//! Get item data
 		template <typename ValueType>
-		ValueType * getItemData(PopupMenuItemPtr _item, bool _throw = true)
+		ValueType * getItemData(MenuItemPtr _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
 		}
@@ -170,14 +170,14 @@ namespace MyGUI
 		//! Replace an item id at a specified position
 		void setItemIdAt(size_t _index, const std::string & _id);
 		//! Replace an item id
-		void setItemId(PopupMenuItemPtr _item, const std::string & _id) {
+		void setItemId(MenuItemPtr _item, const std::string & _id) {
 			setItemIdAt(getItemIndex(_item), _id);
 		}
 
 		//! Get item id from specified position
 		const std::string & getItemIdAt(size_t _index);
 		//! Get item id
-		const std::string & getItemId(PopupMenuItemPtr _item) {
+		const std::string & getItemId(MenuItemPtr _item) {
 			return getItemIdAt(getItemIndex(_item));
 		}
 
@@ -187,14 +187,14 @@ namespace MyGUI
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 		//! Replace an item name
-		void setItemName(PopupMenuItemPtr _item, const Ogre::UTFString & _name) {
+		void setItemName(MenuItemPtr _item, const Ogre::UTFString & _name) {
 			setItemNameAt(getItemIndex(_item), _name);
 		}
 
 		//! Get item from specified position
 		const Ogre::UTFString & getItemNameAt(size_t _index);
 		//! Get item from specified position
-		const Ogre::UTFString & getItemName(PopupMenuItemPtr _item) {
+		const Ogre::UTFString & getItemName(MenuItemPtr _item) {
 			return getItemNameAt(getItemIndex(_item));
 		}
 
@@ -255,11 +255,11 @@ namespace MyGUI
 
 		void hidePopupMenu(bool _hideParentPopup = true);
 
-		void _notifyDeleteItem(PopupMenuItemPtr _item);
-		void _notifyUpdateName(PopupMenuItemPtr _item);
+		void _notifyDeleteItem(MenuItemPtr _item);
+		void _notifyUpdateName(MenuItemPtr _item);
 
 		/** Event : Enter pressed or mouse clicked.\n
-			signature : void method(MyGUI::PopupMenuPtr _sender, MyGUI::PopupMenuItemPtr _item)\n
+			signature : void method(MyGUI::PopupMenuPtr _sender, MyGUI::MenuItemPtr _item)\n
 			@param _item Selected item
 		*/
 		EventPair<EventInfo_WidgetSizeT, HandlePopupMenu_PopupMenuAccept> eventPopupMenuAccept;
@@ -291,7 +291,7 @@ namespace MyGUI
 
 
 	private:
-		VectorPopupMenuItemInfo mItemsInfo;
+		VectorMenuItemInfo mItemsInfo;
 
 		int mHeightLine;
 		std::string mSkinLine;
@@ -307,6 +307,8 @@ namespace MyGUI
 		int mSeparatorHeight;
 		std::string mSeparatorSkin;
 
+		bool mAlignVert;
+		int mDistanceButton;
 
 	}; // class _MyGUIExport PopupMenu : public Widget
 

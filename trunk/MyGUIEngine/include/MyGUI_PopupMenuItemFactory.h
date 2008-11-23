@@ -9,21 +9,21 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IWidgetFactory.h"
-#include "MyGUI_PopupMenuItem.h"
+#include "MyGUI_MenuItem.h"
 
 namespace MyGUI
 {
 	namespace factory
 	{
 
-		class _MyGUIExport PopupMenuItemFactory : public BaseWidgetFactory<PopupMenuItem>
+		class _MyGUIExport MenuItemFactory : public BaseWidgetFactory<MenuItem>
 		{
 		public:
-			PopupMenuItemFactory();
-			~PopupMenuItemFactory();
+			MenuItemFactory();
+			~MenuItemFactory();
 
 		private:
-			void PopupMenuItem_Id(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void MenuItem_Id(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory
