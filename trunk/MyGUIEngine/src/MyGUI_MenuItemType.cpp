@@ -9,7 +9,7 @@
 namespace MyGUI
 {
 
-	MenuItemType::MapValue MenuItemType::mMapValue;
+	/*MenuItemType::MapValue MenuItemType::mMapValue;
 
 	MenuItemType MenuItemType::parse(const std::string & _value)
 	{
@@ -46,6 +46,6 @@ namespace MyGUI
 	{
 		if (value >= mMapValue.size()) return "";
 		return (mMapValue.begin() + value)->first;
-	}
+	}*/
 
 } // namespace MyGUI
