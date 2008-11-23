@@ -1164,23 +1164,28 @@
   </Skin>
 
 
-  <Skin name = "PopupMenuLine" size = "5 5" texture = "core.png" >
+  <Skin name = "PopupMenuLine" size = "30 5" texture = "core.png" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
     <Property key="Colour" value = "0 0 0" />
 
-    <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-10 0 12 15" align = "Right VCenter" name = "Image"/>
+    <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "18 0 12 15" align = "Right VCenter" name = "Image"/>
 
-    <BasisSkin type="MainSkin" offset = "0 0 5 5">
+    <BasisSkin type="MainSkin" offset = "0 0 30 5">
       <State name="normal" offset = "343 115 1 1"/>
       <State name="active" offset = "306 115 1 1"/>
       <State name="pressed" offset = "318 115 1 1"/>
       <State name="select" offset = "330 115 1 1"/>
     </BasisSkin>
 
-    <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "Stretch"/>
+    <BasisSkin type="SimpleText" offset = "14 0 2 5"  align = "Stretch"/>
   </Skin>
 
+  <Skin name = "PopupMenuSeparator" size = "4 4" texture = "core.png" >
+    <BasisSkin type="SubSkin" offset = "2 1 0 2" align = "HStretch VCenter">
+      <State name="normal" offset = "304 124 2 2"/>
+    </BasisSkin>
+  </Skin>
 
   <Skin name = "PopupMenuLineIcon" size = "12 14" texture = "core.png">
     <Property key="NeedMouse" value = "false" />
@@ -1192,11 +1197,15 @@
 
   <Skin name = "PopupMenu" size = "11 11" texture = "core.png">
     <Property key="NeedKey" value = "true" />
+    <Property key="SubmenuImageSize" value = "12" />
+    <Property key="SubMenuLayer" value = "Popup" />
+    <Property key="SubMenuSkin" value = "PopupMenu" />
+
     <Property key="SkinLine" value = "PopupMenuLine" />
     <Property key="HeightLine" value = "20" />
-    <Property key="SubmenuImageSize" value = "12" />
-    <Property key="SubMenuSkin" value = "PopupMenu" />
-    <Property key="SubMenuLayer" value = "Popup" />
+
+    <Property key="SeparatorSkin" value = "PopupMenuSeparator" />
+    <Property key="SeparatorHeight" value = "10" />
 
     <Child type="Widget" skin="DefaultClient" offset = "3 3 3 3" align = "Stretch" name = "Client"/>
 

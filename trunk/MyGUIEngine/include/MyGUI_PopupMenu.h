@@ -8,11 +8,15 @@
 #define __MYGUI_POPUP_MENU_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<PopupMenuPtr, PopupMenuItemPtr> HandlePopupMenu_PopupMenuAccept;
 
 	class _MyGUIExport PopupMenu : public Widget
 	{
@@ -38,10 +42,10 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(PopupMenuItemPtr _item, const Ogre::UTFString& _name, bool _separator, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
+			ItemInfo(PopupMenuItemPtr _item, const Ogre::UTFString& _name, ItemType _type, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
 				item(_item),
 				name(_name),
-				separator(_separator),
+				type(_type),
 				submenu(_submenu),
 				id(_id),
 				data(_data),
@@ -50,11 +54,11 @@ namespace MyGUI
 			}
 
 			/** Item */
-			PopupMenuItemPtr item	;
+			PopupMenuItemPtr item;
 			/** Item name*/
 			Ogre::UTFString name;
 			/** Widget have separator after item */
-			bool separator;
+			ItemType type;
 			/** Sub menu (or null if no submenu) */
 			PopupMenuPtr submenu;
 			/** Item id*/
@@ -103,7 +107,11 @@ namespace MyGUI
 
 
 		//! Get item from specified position
-		PopupMenuItemPtr getItemAt(size_t _index);
+		PopupMenuItemPtr getItemAt(size_t _index)
+		{
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemAt");
+			return mItemsInfo[_index].item;
+		}
 
 		//! Get item index
 		size_t getItemIndex(PopupMenuItemPtr _item)
@@ -156,7 +164,7 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType * getItemData(PopupMenuItemPtr _item, bool _throw = true)
 		{
-			return getItemData<ValueType>(getItemIndex(_item), _throw);
+			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
 		}
 
 		//! Replace an item id at a specified position
@@ -220,10 +228,10 @@ namespace MyGUI
 		// #ifdef MYGUI_USING_OBSOLETE
 
 		MYGUI_OBSOLETE("use PopupMenu::addItem(const Ogre::UTFString & _name, ItemType _type, Any _data)")
-		void addItem(const Ogre::UTFString& _item, bool _submenu, bool _separator = false) { addItem(_item, getItemType(_submenu, _separator)); }
+		void addItem(const Ogre::UTFString& _item, FakeType<bool> _submenu, FakeType<bool> _separator = false) { addItem(_item, getItemType(_submenu, _separator)); }
 
 		MYGUI_OBSOLETE("use PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)")
-		void insertItem(size_t _index, const Ogre::UTFString& _item, bool _submenu = false, bool _separator = false) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }
+		void insertItem(size_t _index, const Ogre::UTFString& _item, FakeType<bool> _submenu = false, FakeType<bool> _separator = false) { insertItemAt(_index, _item, getItemType(_submenu, _separator)); }
 
 		MYGUI_OBSOLETE("use PopupMenu::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
@@ -251,10 +259,10 @@ namespace MyGUI
 		void _notifyUpdateName(PopupMenuItemPtr _item);
 
 		/** Event : Enter pressed or mouse clicked.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
-			@param _index Index of selected item
+			signature : void method(MyGUI::PopupMenuPtr _sender, MyGUI::PopupMenuItemPtr _item)\n
+			@param _item Selected item
 		*/
-		EventInfo_WidgetSizeT eventPopupMenuAccept;
+		EventPair<EventInfo_WidgetSizeT, HandlePopupMenu_PopupMenuAccept> eventPopupMenuAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
 			signature : void method(MyGUI::WidgetPtr _sender)\n
@@ -295,6 +303,10 @@ namespace MyGUI
 
 		// флаг, чтобы отсеч уведомления от айтемов, при общем шутдауне виджета
 		bool mShutdown;
+
+		int mSeparatorHeight;
+		std::string mSeparatorSkin;
+
 
 	}; // class _MyGUIExport PopupMenu : public Widget
 

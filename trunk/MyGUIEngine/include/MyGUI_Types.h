@@ -54,6 +54,15 @@ namespace MyGUI
 
 	typedef unsigned int Char;
 
+	// тип, для двойного преобразования
+	template <typename Type>
+	struct FakeType
+	{
+		FakeType(Type _value) : value(_value) { }
+		operator Type () { return value; }
+		Type value;
+	};
+
 	namespace utility
 	{
 		namespace templates

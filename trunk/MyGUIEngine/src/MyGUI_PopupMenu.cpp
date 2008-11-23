@@ -28,7 +28,8 @@ namespace MyGUI
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
-		mShutdown(false)
+		mShutdown(false),
+		mSeparatorHeight(0)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -56,6 +57,11 @@ namespace MyGUI
 			mHeightLine = 1;
 		}
 
+		iterS = properties.find("SeparatorHeight");
+		if (iterS != properties.end()) mSeparatorHeight = utility::parseInt(iterS->second);
+		iterS = properties.find("SeparatorSkin");
+		if (iterS != properties.end()) mSeparatorSkin = iterS->second;
+
 		iterS = properties.find("SubmenuImageSize");
 		if (iterS != properties.end()) mSubmenuImageSize = utility::parseInt(iterS->second);
 
@@ -66,6 +72,8 @@ namespace MyGUI
 		iterS = properties.find("SubMenuLayer");
 		if (iterS != properties.end()) mSubMenuLayer = iterS->second;
 		MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (PopupMenu must have SubMenuLayer property)");
+
+		if (mSeparatorHeight < 1) mSeparatorHeight = mHeightLine;
 
 		// первоначально скрываем окно
 		hide();
@@ -90,7 +98,9 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		PopupMenuItemPtr item = mWidgetClient->createWidget<PopupMenuItem>(mSkinLine, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
+		std::string skin = _type == ItemTypeSeparator ? mSeparatorSkin : mSkinLine;
+
+		PopupMenuItemPtr item = mWidgetClient->createWidget<PopupMenuItem>(skin, IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
 		item->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
 		item->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
 		item->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
@@ -104,7 +114,7 @@ namespace MyGUI
 			submenu->_setOwner(this);
 		}
 
-		ItemInfo info = ItemInfo(item, _name, _type == ItemTypeSeparator, submenu, _id, _data);
+		ItemInfo info = ItemInfo(item, _name, _type, submenu, _id, _data);
 		/*IntSize size = item->getTextSize();
 		size.width += 7; //FIXME
 		info.width = size.width;*/
@@ -165,12 +175,14 @@ namespace MyGUI
 	{
 		IntSize size;
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
-			iter->item->setPosition(0, size.height);
-			size.height += mHeightLine;
-			if (iter->separator) size.height += 10;
+			int height = iter->type == ItemTypeSeparator ? mSeparatorHeight : mHeightLine;
+			iter->item->setCoord(0, size.height, iter->item->getWidth(), height);
+			size.height += height;
+			//size.height += mHeightLine;
+			//if (iter->separator) size.height += mSepratorHeight;
 
 			int width = iter->width;
-			if (iter->submenu != null) width += mSubmenuImageSize;
+			//if (iter->submenu != null) width += mSubmenuImageSize;
 			if (width > size.width) size.width = width;
 		}
 
@@ -209,7 +221,7 @@ namespace MyGUI
 
 	void PopupMenu::notifyMouseClick(MyGUI::WidgetPtr _sender)
 	{
-		// потом передалть на интернал дата
+		//FIXME потом передалть на интернал дата
 		size_t index = ITEM_NONE;
 		for (VectorPopupMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 			if (iter->item == _sender) {
@@ -219,7 +231,13 @@ namespace MyGUI
 		}
 		// если вызвали через событие onMouseRelease и не попали
 		if (index == ITEM_NONE) return;
-		eventPopupMenuAccept(this, index);
+
+		// сепаратор не кликать
+		if (mItemsInfo[index].type == ItemTypeSeparator) return;
+
+		//EventPair
+		eventPopupMenuAccept.m_eventObsolete(this, index);
+		eventPopupMenuAccept.m_event(this, mItemsInfo[index].item);
 
 		// делаем нажатой
 		static_cast<PopupMenuItemPtr>(_sender)->setButtonPressed(true);
@@ -394,7 +412,7 @@ namespace MyGUI
 	PopupMenu::ItemType PopupMenu::getItemTypeAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemTypeAt");
-		return getItemType(mItemsInfo[_index].submenu != null, mItemsInfo[_index].separator);
+		return mItemsInfo[_index].type;
 	}
 
 	void PopupMenu::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
@@ -436,11 +454,8 @@ namespace MyGUI
 	void PopupMenu::_notifyUpdateName(PopupMenuItemPtr _item)
 	{
 		size_t index = getItemIndex(_item);
-
-		IntSize size = _item->getTextSize();
-		size.width += 7; //FIXME
-		mItemsInfo[index].width = size.width;
-
+		mItemsInfo[index].width =
+			_item->getTextSize().width + _item->getSize().width - _item->getTextCoord().width;
 		update();
 	}
 
