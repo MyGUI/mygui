@@ -163,7 +163,7 @@ namespace MyGUI
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 			@param _index item
 		*/
-		EventPair2<EventInfo_WidgetVoid, EventInfo_WidgetSizeT> eventComboAccept;
+		EventPair<EventInfo_WidgetVoid, EventInfo_WidgetSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n

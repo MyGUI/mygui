@@ -126,7 +126,10 @@ namespace MyGUI
 		mDropMouse = false;
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		if (mModeDrop) eventComboAccept(this, mItemIndex);
+		if (mModeDrop) {
+			eventComboAccept.m_eventObsolete(this);
+			eventComboAccept.m_event(this, mItemIndex);
+		}
 	}
 
 	void ComboBox::notifyListChangePosition(WidgetPtr _widget, size_t _position)
@@ -148,7 +151,8 @@ namespace MyGUI
 		}
 		// нажат ввод в окне редиктирования
 		else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
-			eventComboAccept(this, mItemIndex);
+			eventComboAccept.m_eventObsolete(this);
+			eventComboAccept.m_event(this, mItemIndex);
 		}
 
 	}
@@ -160,7 +164,10 @@ namespace MyGUI
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		if (mModeDrop) eventComboAccept(this, mItemIndex);
+		if (mModeDrop) {
+			eventComboAccept.m_eventObsolete(this);
+			eventComboAccept.m_event(this, mItemIndex);
+		}
 	}
 
 	void ComboBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
