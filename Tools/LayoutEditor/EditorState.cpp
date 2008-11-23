@@ -26,8 +26,10 @@ enum POPUP_MENU_MAIN
 	ITEM_SAVE,
 	ITEM_SAVE_AS,
 	ITEM_CLEAR,
+	ITEM_SEPARATOR1,
 	ITEM_SETTINGS,
 	ITEM_TEST,
+	ITEM_SEPARATOR2,
 	ITEM_QUIT
 };
 
@@ -118,21 +120,29 @@ void EditorState::createMainMenu()
 	mPopupMenuWidgets = bar->getItemChildAt(1);
 
 	mPopupMenuFile = bar->getItemChildAt(0);
-	mPopupMenuFile->addItem(localise("Load"));
-	mPopupMenuFile->addItem(localise("Save"));
-	mPopupMenuFile->addItem(localise("Save_as"));
-	mPopupMenuFile->addItem(localise("Clear"), MyGUI::PopupMenu::ItemTypeSeparator);
-	mPopupMenuFile->addItem(localise("Settings"));
-	mPopupMenuFile->addItem(localise("Test"), MyGUI::PopupMenu::ItemTypeSeparator);
+	mPopupMenuFile->addItem(localise("Load"), MyGUI::PopupMenu::ItemTypeNormal, "File/Load");
+	mPopupMenuFile->addItem(localise("Save"), MyGUI::PopupMenu::ItemTypeNormal, "File/Save");
+	mPopupMenuFile->addItem(localise("Save_as"), MyGUI::PopupMenu::ItemTypeNormal, "File/SaveAs");
+	mPopupMenuFile->addItem(localise("Clear"), MyGUI::PopupMenu::ItemTypeNormal, "File/Clear");
+	mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
+	mPopupMenuFile->addItem(localise("Settings"), MyGUI::PopupMenu::ItemTypeNormal, "File/Settings");
+	mPopupMenuFile->addItem(localise("Test"), MyGUI::PopupMenu::ItemTypeNormal, "File/Test");
+	mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
 
-	for (std::vector<Ogre::String>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
-	{
-		MyGUI::PopupMenu::ItemType type = MyGUI::PopupMenu::ItemTypeNormal;
-		if (recentFiles.rend() - iter == 1 ) type = MyGUI::PopupMenu::ItemTypeSeparator;
-		mPopupMenuFile->addItem(*iter, type );
+	// список последних открытых файлов
+	if (recentFiles.size()) {
+		for (std::vector<Ogre::String>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter) {
+			//MyGUI::PopupMenu::ItemType type = MyGUI::PopupMenu::ItemTypeNormal;
+			//if (recentFiles.rend() - iter == 1 ) type = MyGUI::PopupMenu::ItemTypeSeparator;
+			// id одинаковый, имя файла в юзер дату
+			mPopupMenuFile->addItem(*iter, MyGUI::PopupMenu::ItemTypeNormal, "File/RecentFiles",  *iter);
+		}
+
+		// если есть файлы, то еще один сепаратор
+		mPopupMenuFile->addItem("", MyGUI::PopupMenu::ItemTypeSeparator);
 	}
 	
-	mPopupMenuFile->addItem(localise("Quit"));
+	mPopupMenuFile->addItem(localise("Quit"), MyGUI::PopupMenu::ItemTypeNormal, "File/Quit");
 
 	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 }
@@ -140,7 +150,36 @@ void EditorState::createMainMenu()
 void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index)
 {
 	if (mPopupMenuFile == _menu) {
-		if (_index<ITEM_TEST+1)
+
+		MyGUI::PopupMenuItemPtr item = _menu->getItemAt(_index);
+		std::string id = item->getItemId();
+
+		if (id == "File/Load") {
+			notifyLoadSaveAs(false);
+		}
+		else if (id == "File/Save") {
+			notifySave();
+		}
+		else if (id == "File/SaveAs") {
+			notifyLoadSaveAs(true);
+		}
+		else if (id == "File/Clear") {
+			notifyClear();
+		}
+		else if (id == "File/Settings") {
+			notifySettings();
+		}
+		else if (id == "File/Test") {
+			notifyTest();
+		}
+		else if (id == "File/RecentFiles") {
+			load(*item->getItemData<std::string>());
+		}
+		else if (id == "File/Quit") {
+			notifyQuit();
+		}
+
+		/*if (_index < ITEM_TEST+1)
 		{
 			switch(_index) {
 				case ITEM_LOAD:
@@ -170,7 +209,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 		else
 		{
 			load(_menu->getItemNameAt(_index));
-		}
+		}*/
 	}
 }
 

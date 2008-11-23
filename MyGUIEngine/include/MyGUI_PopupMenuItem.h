@@ -36,22 +36,31 @@ namespace MyGUI
 
 		//! Get item name
 		const Ogre::UTFString & getItemName() {
-			return mOwner->getItemName(static_cast<PopupMenuItemPtr>(this));
+			return mOwner->getItemName(this);
 		}
 
 		//! Replace an item name
 		void setItemName(const Ogre::UTFString & _name) {
-			mOwner->setItemName(static_cast<PopupMenuItemPtr>(this), _name);
+			mOwner->setItemName(this, _name);
 		}
 
 		//! Get item data
 		template <typename ValueType>
 		ValueType * getItemData(bool _throw = true) {
-			return mOwner->getItemData<ValueType>(static_cast<PopupMenuItemPtr>(this), _throw);
+			return mOwner->getItemData<ValueType>(this, _throw);
 		}
 
 		//! Remove item
-		void removeItem() { mOwner->removeItem(static_cast<PopupMenuItemPtr>(this)); } 
+		void removeItem() { mOwner->removeItem(this); } 
+
+		//! Replace an item id at a specified position
+		void setItemId(const std::string & _id) { mOwner->setItemId(this, _id); }
+
+		//! Get item id from specified position
+		const std::string & getItemId() { return mOwner->getItemId(this); }
+
+		//! Get item index
+		size_t getItemIndex() { return mOwner->getItemIndex(this); }
 
 	private:
 		PopupMenuPtr mOwner;

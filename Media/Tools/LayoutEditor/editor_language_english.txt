@@ -1,17 +1,17 @@
-﻿File   File  
-Widgets   Widgets  
-Load   Load  
-Save   Save  
-Save_as   Save as...  
-Clear   Clear  
-Settings   Settings  
-Test   #0000FFTest  
-Quit   Quit  
+﻿File File
+Widgets Widgets
+Load Load
+Save Save
+Save_as Save as...
+Clear Clear
+Settings Settings
+Test #0000FFTest
+Quit Quit
 
 Properties Properties
 Main_properties Main properties
 Widget_type_propertes #{widget_type} specific properties
-Properties_not_available #{widget_type} properties not available
+Properties_not_available #808080#{widget_type} properties
 Other_properties Other properties
 
 Add Add

@@ -21,6 +21,9 @@ namespace MyGUI
 		public:
 			PopupMenuItemFactory();
 			~PopupMenuItemFactory();
+
+		private:
+			void PopupMenuItem_Id(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory
