@@ -23,8 +23,7 @@
 namespace MyGUI
 {
 
-	/** Usage example of class Any
-	@example Any_usage
+	/** @example "Class Any usage"
 	@code
 	void f()
 	{

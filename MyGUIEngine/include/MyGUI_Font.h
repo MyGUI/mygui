@@ -52,7 +52,6 @@ namespace MyGUI
 
 		typedef std::vector<RangeInfo> VectorRangeInfo;
 
-		// constants
 		enum constCodePoints
 		{
 			FONT_CODE_SELECT = 0,

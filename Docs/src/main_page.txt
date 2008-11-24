@@ -1,4 +1,4 @@
-f/*!
+/*!
 	\mainpage MyGUI documentation page
 
 	\section section_main_introduction Introduction

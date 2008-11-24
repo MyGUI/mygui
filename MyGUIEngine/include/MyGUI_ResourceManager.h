@@ -50,6 +50,7 @@ namespace MyGUI
 		/** Get name of ResourceGroup*/
 		const std::string& getResourceGroup() { return mResourceGroup; }
 
+		/** Get resource by GUID */
 		IResourcePtr getResource(const Guid & _id, bool _throw = true)
 		{
 			MapResource::iterator iter = mResources.find(_id);
@@ -61,6 +62,7 @@ namespace MyGUI
 			return iter->second;
 		}
 
+		/** Get resource by name */
 		IResourcePtr getResource(const std::string & _name, bool _throw = true)
 		{
 			MapResourceName::iterator iter = mResourceNames.find(_name);
