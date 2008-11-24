@@ -276,7 +276,7 @@ namespace base
 		}
 
 		// добавляем время
-		mGUI->injectFrameEntered(evt.timeSinceLastFrame);
+		if (mGUI) mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 
 		return true;
 	}
@@ -287,19 +287,19 @@ namespace base
 
 	bool BaseManager::mouseMoved( const OIS::MouseEvent &arg )
 	{
-		mGUI->injectMouseMove(arg);
+		if (mGUI) mGUI->injectMouseMove(arg);
 		return true;
 	}
 
 	bool BaseManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	{
-		mGUI->injectMousePress(arg, id);
+		if (mGUI) mGUI->injectMousePress(arg, id);
 		return true;
 	}
 
 	bool BaseManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	{
-		mGUI->injectMouseRelease(arg, id);
+		if (mGUI) mGUI->injectMouseRelease(arg, id);
 		return true;
 	}
 
@@ -324,13 +324,13 @@ namespace base
 			return true;
 		}
 
-		mGUI->injectKeyPress(arg);
+		if (mGUI) mGUI->injectKeyPress(arg);
 		return true;
 	}
 
 	bool BaseManager::keyReleased( const OIS::KeyEvent &arg )
 	{
-		mGUI->injectKeyRelease(arg);
+		if (mGUI) mGUI->injectKeyRelease(arg);
 		return true;
 	}
 
