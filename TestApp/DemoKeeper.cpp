@@ -44,7 +44,7 @@ namespace demo
 		{
 			align = _align;
 		}
-		static operator Align (MyGUI::Align _align) { return Align(_align); }
+		static operator Align (MyGUI::Align _align) { return Align(_align.value); }
 		static operator MyGUI::Align (Align _align) { return MyGUI::Align(_align.align); }
 		int align;
 	};
@@ -182,13 +182,21 @@ namespace demo
 
 		Ogre::SceneNode * node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		Ogre::Entity * entity = mSceneMgr->createEntity("axes.mesh", "axes.mesh");
-		node->attachObject(entity);
 
-		this->mRoot->renderOneFrame();
+		//void * ptr1 = entity;
+		//void * ptr2 = (Ogre::MovableObject*)entity;
 
-		MyGUI::RenderBoxPtr render = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
+		void * ptr1 = node;
+		void * ptr2 = (Ogre::Node*)node;
+
+		int test44=0;
+		//node->attachObject(entity);
+
+		//this->mRoot->renderOneFrame();
+
+		//MyGUI::RenderBoxPtr render = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
 		//render->injectObject(entity->getName());
-		render->injectSceneNode(this->mSceneMgr, node);
+		//render->injectSceneNode(this->mSceneMgr, node);
 		//render->setAutoRotation(true);
 		//render->setMouseRotation(true);
 
@@ -196,15 +204,17 @@ namespace demo
 
 		//node->removeAndDestroyAllChildren();
 		//node->detachAllObjects();
-		mSceneMgr->destroySceneNode(node->getName());
+		//mSceneMgr->destroySceneNode(node->getName());
 		//mSceneMgr->destroyAllEntities();
 		//mSceneMgr->destroyAllMovableObjects();
 
-		this->mRoot->renderOneFrame();
+		//this->mRoot->renderOneFrame();
 
-		render->injectSceneNode(this->mSceneMgr, node);
+		//render->injectSceneNode(this->mSceneMgr, node);
 
 		//this->mRoot->renderOneFrame();
+
+		
 	}
  
     void DemoKeeper::destroyScene()
