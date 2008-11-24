@@ -35,15 +35,18 @@ namespace MyGUI
 				}
 				~AllocHolder()
 				{
-					if (m_len > MAX) {
-						delete[] m_buff;
-						m_buff = 0;
-						m_len = 0;
-					}
+					if (m_len > MAX) Clear();
 				}
 
-				T * getBuff() { return m_buff; }
+				T * GetBuff() { return m_buff; }
 				size_t GetSize() { return m_len; }
+
+				void Clear()
+				{
+					delete[] m_buff;
+					m_buff = 0;
+					m_len = 0;
+				}
 
 			private:
 				AllocHolder() { }
@@ -58,12 +61,26 @@ namespace MyGUI
 			typedef AllocHolder<char> AllocHolderChar;
 			typedef AllocHolder<wchar_t> AllocHolderWide;
 
+
+			// после шутдауна удаляем указатели
+			struct Terminator
+			{
+				~Terminator()
+				{
+					AllocHolderWide holder_w(1);
+					holder_w.Clear();
+					AllocHolderChar holder_c(1);
+					holder_c.Clear();
+				}
+			};
+			Terminator terminator;
+
 			std::wstring win_x_to_wide(const std::string& _source, unsigned int _code)
 			{
 				const char* source_c = _source.c_str();
 				int size_w = ::MultiByteToWideChar( _code, 0, source_c, -1, 0, 0 );
 				AllocHolderWide holder_w(size_w + 1);
-				wchar_t* buff_w = holder_w.getBuff();
+				wchar_t* buff_w = holder_w.GetBuff();
 				::MultiByteToWideChar( _code, 0, source_c, -1, buff_w, size_w );
 				buff_w[size_w] = 0;
 				std::wstring result = buff_w;
@@ -75,7 +92,7 @@ namespace MyGUI
 				const wchar_t* source_w = _source.c_str();
 				int size_c = ::WideCharToMultiByte( _code, 0, source_w, (int)_source.size(), 0, 0, 0, 0 );
 				AllocHolderChar holder_c(size_c + 1);
-				char * buff_c = holder_c.getBuff();
+				char * buff_c = holder_c.GetBuff();
 				WideCharToMultiByte( _code, 0, source_w, (int)_source.size(), buff_c, size_c, 0, 0 );
 				buff_c[size_c] = 0;
 				std::string result = buff_c;
@@ -87,12 +104,12 @@ namespace MyGUI
 				const char* source_c = _source.c_str();
 				int size_w = ::MultiByteToWideChar( _from_code, 0, source_c, -1, 0, 0 );
 				AllocHolderWide holder_w(size_w + 1);
-				wchar_t* buff_w = holder_w.getBuff();
+				wchar_t* buff_w = holder_w.GetBuff();
 				::MultiByteToWideChar( _from_code, 0, source_c, -1, buff_w, size_w );
 				buff_w[size_w] = 0;
 				int size_c = ::WideCharToMultiByte( _to_code, 0, buff_w, size_w, 0, 0, 0, 0 );
 				AllocHolderChar holder_c(size_c + 1);
-				char * buff_c = holder_c.getBuff();
+				char * buff_c = holder_c.GetBuff();
 				WideCharToMultiByte( _to_code, 0, buff_w, size_w, buff_c, size_c, 0, 0 );
 				buff_c[size_c] = 0;
 				std::string result = buff_c;
