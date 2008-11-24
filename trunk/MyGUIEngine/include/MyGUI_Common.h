@@ -84,7 +84,7 @@ namespace MyGUI
 	#if MYGUI_DEBUG_MODE == 1
 		#define MYGUI_REGISTER_VALUE(map, value) \
 		{ \
-			MYGUI_LOG(Info, "Register value : '" << #value << "' = " << value); \
+			MYGUI_LOG(Info, "Register value : '" << #value << "' = " << (int)value); \
 			map[#value] = value; \
 		}
 		#define MYGUI_DEBUG_ASSERT(exp, dest) MYGUI_ASSERT(exp, dest)

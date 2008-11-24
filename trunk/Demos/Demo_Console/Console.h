@@ -43,10 +43,12 @@ namespace demo
 		void clearConsole();
 
 		/** Method : add command.\n
-			example :
+			@example Add_console_command
+			@code
 				registerConsoleDelegate("your_command_1", MyGUI::newDelegate(your_func));
 				registerConsoleDelegate("your_command_2", MyGUI::newDelegate(your_static_method));
 				registerConsoleDelegate("your_command_3", MyGUI::newDelegate(your_class_ptr, &your_class_name::your_method_name));
+			@endcode
 
 			signature your method : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 		*/

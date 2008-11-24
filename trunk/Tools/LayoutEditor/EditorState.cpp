@@ -20,19 +20,6 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-enum POPUP_MENU_MAIN
-{
-	ITEM_LOAD,
-	ITEM_SAVE,
-	ITEM_SAVE_AS,
-	ITEM_CLEAR,
-	ITEM_SEPARATOR1,
-	ITEM_SETTINGS,
-	ITEM_TEST,
-	ITEM_SEPARATOR2,
-	ITEM_QUIT
-};
-
 void eventInfo(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
 {
 	MyGUI::MYGUI_OUT("eventInfo: ", _event);
@@ -178,38 +165,6 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 		else if (id == "File/Quit") {
 			notifyQuit();
 		}
-
-		/*if (_index < ITEM_TEST+1)
-		{
-			switch(_index) {
-				case ITEM_LOAD:
-					notifyLoadSaveAs(false);
-					break;
-				case ITEM_SAVE:
-					notifySave();
-					break;
-				case ITEM_SAVE_AS:
-					notifyLoadSaveAs(true);
-					break;
-				case ITEM_CLEAR:
-					notifyClear();
-					break;
-				case ITEM_SETTINGS:
-					notifySettings();
-					break;
-				case ITEM_TEST:
-					notifyTest();
-					break;
-			}
-		}
-		else if (_index == _menu->getItemCount()-1)
-		{
-			notifyQuit();
-		}
-		else
-		{
-			load(_menu->getItemNameAt(_index));
-		}*/
 	}
 }
 

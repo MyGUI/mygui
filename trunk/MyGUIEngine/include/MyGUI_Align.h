@@ -13,6 +13,7 @@
 namespace MyGUI
 {
 
+	/** Old aligns */
 	enum MYGUI_OBSOLETE_START("use Align")
 	{
 		ALIGN_HCENTER					= MYGUI_FLAG_NONE,					// center the window horizontally

@@ -31,15 +31,15 @@ namespace MyGUI
 
 	/**
 	General information about creating delegate for event :
-	@example Delegate_usage
+	@example "Delegate usage"
 	@code
 		void anyFunc(...) { } // global function
 
 		class AnyClass
 		{
 		public:
-			static void anyStaticMethod(...) { } // static method
-			void anyMethod(...) { } // обычный метод
+			static void anyStaticMethod(...) { } // static class method
+			void anyMethod(...) { } // class method
 		};
 
 		AnyClass anyObject; // class instance

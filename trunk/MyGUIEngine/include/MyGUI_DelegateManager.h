@@ -37,11 +37,12 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Add new delegate
-		example :
-		registerConsoleDelegate("delegate_name_1", MyGUI::newDelegate(your_func));
-		registerConsoleDelegate("delegate_name_2", MyGUI::newDelegate(your_static_method));
-		registerConsoleDelegate("delegate_name_3", MyGUI::newDelegate(your_class_ptr, &your_class_name::your_method_name));
+		/** @example "Add new delegate for DelegateManager"
+		@code
+		MyGUI::DelegateManager::getInstance().addDelegate("delegate_name_1", MyGUI::newDelegate(your_func));
+		MyGUI::DelegateManager::getInstance().addDelegate("delegate_name_2", MyGUI::newDelegate(your_static_method));
+		MyGUI::DelegateManager::getInstance().addDelegate("delegate_name_3", MyGUI::newDelegate(your_class_ptr, &your_class_name::your_method_name));
+		@endcode
 
 		signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
 		*/
