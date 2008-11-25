@@ -28,6 +28,11 @@ PropertiesPanelView::PropertiesPanelView()
 {
 }
 
+void PropertiesPanelView::shutdown()
+{
+	PanelViewWindow::shutdown();
+}
+
 void PropertiesPanelView::initialise()
 {
 	mLayoutName = "PropertiesPanelView.layout";

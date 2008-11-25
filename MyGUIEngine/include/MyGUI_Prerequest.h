@@ -15,6 +15,9 @@
 
 #include "MyGUI_Platform.h"
 
+// для полной информации о выделении памяти
+#include <OgreMemoryManager.h>
+
 #include <string>
 #include <list>
 #include <set>
@@ -23,6 +26,8 @@
 #include <deque>
 #include "MyGUI_Utility.h"
 #include "MyGUI_Delegate.h"
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
