@@ -15,8 +15,13 @@
 
 #include "MyGUI_Platform.h"
 
+// for OGRE_VERSION
+#include <OgrePrerequisites.h>
+
 // для полной информации о выделении памяти
-#include <OgreMemoryManager.h>
+#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
+	#include <OgreMemoryManager.h>
+#endif
 
 #include <string>
 #include <list>
