@@ -159,7 +159,7 @@ namespace demo
 			edit->setTextCursor(0);
 		}*/
 
-		unsigned char arrayid[16];
+		/*unsigned char arrayid[16];
 		for (size_t pos=0; pos<16; pos++) arrayid[pos] = (char)pos;
 
 		MyGUI::Guid id(arrayid);
@@ -189,7 +189,7 @@ namespace demo
 		void * ptr1 = node;
 		void * ptr2 = (Ogre::Node*)node;
 
-		int test44=0;
+		int test44=0;*/
 		//node->attachObject(entity);
 
 		//this->mRoot->renderOneFrame();
@@ -213,6 +213,8 @@ namespace demo
 		//render->injectSceneNode(this->mSceneMgr, node);
 
 		//this->mRoot->renderOneFrame();
+
+		//int * ptr = new int();
 
 		
 	}

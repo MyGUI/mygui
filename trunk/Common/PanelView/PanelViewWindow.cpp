@@ -26,6 +26,11 @@ void PanelViewWindow::initialise()
 	}
 }
 
+void PanelViewWindow::shutdown()
+{
+	removeAllItems();
+}
+
 void PanelViewWindow::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
 {
 	const MyGUI::IntSize & size = _sender->getSize();

@@ -22,6 +22,7 @@ public:
 	PropertiesPanelView();
 
 	virtual void initialise();
+	virtual void shutdown();
 
 	void load(MyGUI::xml::xmlNodeIterator field);
 	void save(MyGUI::xml::xmlNodePtr root);
