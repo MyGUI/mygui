@@ -7,7 +7,7 @@
 
 #include "precompiled.h"
 #include "PanelUserData.h"
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 #include "UndoManager.h"
 
 inline const Ogre::UTFString localise(const Ogre::UTFString & _str)

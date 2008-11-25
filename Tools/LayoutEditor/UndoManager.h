@@ -1,4 +1,4 @@
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 
 /// Fixed size cyclic buffer.
 template<typename T>

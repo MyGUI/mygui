@@ -7,7 +7,7 @@
 
 #include "precompiled.h"
 #include "PanelMainProperties.h"
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 #include "WidgetTypes.h"
 
 extern const int PropertyItemHeight = 22;

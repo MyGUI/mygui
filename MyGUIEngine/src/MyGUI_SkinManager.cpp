@@ -151,8 +151,6 @@ namespace MyGUI
 
 					// проверяем на новый формат стейтов
 					bool new_format = false;
-					bool find1 = false;
-					bool find2 = false;
 					xml::xmlNodeIterator state = basis->getNodeIterator();
 					while (state.nextNode()) {
 						if (state->getName() == "State") {
@@ -239,7 +237,7 @@ namespace MyGUI
 
 			};
 		};
-	}	
+	}
 
 	IntSize SkinManager::getTextureSize(const std::string & _texture)
 	{

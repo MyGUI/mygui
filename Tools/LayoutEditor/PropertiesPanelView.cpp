@@ -7,7 +7,7 @@
 
 #include "precompiled.h"
 #include "PropertiesPanelView.h"
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 #include "Parse.h"
