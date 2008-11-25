@@ -57,6 +57,7 @@ namespace unittest
 		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(original_list);
 			//delete original_list;
+			//mirror_list->removeAllColumns();
 			delete mirror_list;
 		}
 

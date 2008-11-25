@@ -22,7 +22,6 @@ namespace demo
 		mView.addItem(&mPanelDirector);
 		mView.addItem(&mPanelDynamic);
 		mView.addItem(&mPanelStatic);
-
 	}
 
 	void DemoKeeper::destroyScene()

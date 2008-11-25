@@ -30,6 +30,9 @@ namespace unittest
 		VectorColumnInfo mVectorColumnInfo;
 
 	public:
+
+		~Mirror_MultiList() { removeAllColumns(); }
+
 		//------------------------------------------------------------------------------//
 		// манипул€ции айтемами
 

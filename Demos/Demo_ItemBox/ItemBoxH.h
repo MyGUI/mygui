@@ -17,6 +17,7 @@ public:
 	ItemBoxH();
 
 	virtual void initialise();
+	virtual void shutdown();
 	wraps::BaseItemBox<CellView> & getItemBox() { return mItemBox; }
 
 private:

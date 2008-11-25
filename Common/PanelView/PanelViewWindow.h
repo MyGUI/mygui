@@ -17,6 +17,7 @@ public:
 	PanelViewWindow();
 
 	virtual void initialise();
+	virtual void shutdown();
 
 	//! Get number of items
 	size_t getItemCount() { return mPanelView.getItemCount(); }
@@ -35,7 +36,7 @@ public:
 	//! Remove item at a specified position
 	void removeItem(PanelBase * _item) { mPanelView.removeItem(_item); }
 	//! Remove all items
-	void removeAllItems() { return mPanelView.removeAllItems(); }
+	void removeAllItems() { mPanelView.removeAllItems(); }
 
 	bool getItemShow(PanelBase * _item) { return mPanelView.getItemShow(_item); }
 	void setItemShow(PanelBase * _item, bool _show) { mPanelView.setItemShow(_item, _show); }

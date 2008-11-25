@@ -96,6 +96,20 @@ void EditorState::enter(bool bIsChangeState)
 	}
 }
 
+void EditorState::exit()
+{
+	saveSettings(userSettingsFile);
+
+	mPropertiesPanelView.shutdown();
+
+	um->shutdown();
+	delete um;
+	ew->shutdown();
+	delete ew;
+	wt->shutdown();
+	delete wt;
+}
+
 void EditorState::createMainMenu()
 {
 	bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
@@ -168,16 +182,6 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 	}
 }
 
-void EditorState::exit()
-{
-	saveSettings(userSettingsFile);
-	um->shutdown();
-	delete um;
-	ew->shutdown();
-	delete ew;
-	wt->shutdown();
-	delete wt;
-}
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {

@@ -17,3 +17,9 @@ void ItemBoxH::initialise()
 	BaseLayout::initialise();
 	wrapWidget(mItemBox, "box_Items");
 }
+
+void ItemBoxH::shutdown()
+{
+	mItemBox.shutdown();
+	BaseLayout::shutdown();
+}
