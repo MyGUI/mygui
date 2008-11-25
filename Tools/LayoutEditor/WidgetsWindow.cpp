@@ -7,7 +7,7 @@
 
 #include "precompiled.h"
 #include "WidgetsWindow.h"
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 

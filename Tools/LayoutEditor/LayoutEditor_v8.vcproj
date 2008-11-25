@@ -226,6 +226,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EditorWidgets.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InputManager.cpp"
 				>
 			</File>
@@ -254,10 +258,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\WidgetContainer.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\WidgetTypes.cpp"
 				>
 			</File>
@@ -281,6 +281,10 @@
 			</File>
 			<File
 				RelativePath=".\EditorToolTip.h"
+				>
+			</File>
+			<File
+				RelativePath=".\EditorWidgets.h"
 				>
 			</File>
 			<File
@@ -335,58 +339,6 @@
 				RelativePath="..\Media\LayoutEditor\widgets.xml"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Layout"
-			>
-			<File
-				RelativePath="..\Media\LayoutEditor\EditorToolTip.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\interface.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\SaveLoadMessage.layout"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\SettingsWindow.layout"
-				>
-			</File>
-			<Filter
-				Name="Panels"
-				>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelItems.layout"
-					>
-				</File>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelMainProperties.layout"
-					>
-				</File>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelProperties.layout"
-					>
-				</File>
-				<File
-					RelativePath="..\Media\LayoutEditor\Panels\PanelUserData.layout"
-					>
-				</File>
-				<Filter
-					Name="Base"
-					>
-					<File
-						RelativePath="..\Media\LayoutEditor\Panels\PanelCell.layout"
-						>
-					</File>
-					<File
-						RelativePath="..\Media\LayoutEditor\Panels\PropertiesPanelView.layout"
-						>
-					</File>
-				</Filter>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Panels"

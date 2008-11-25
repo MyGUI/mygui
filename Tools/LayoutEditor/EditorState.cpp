@@ -1,7 +1,7 @@
 #include "precompiled.h"
 #include "BasisManager.h"
 #include "EditorState.h"
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 

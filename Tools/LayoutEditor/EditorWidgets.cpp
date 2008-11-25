@@ -1,5 +1,5 @@
 #include "precompiled.h"
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 #include "BasisManager.h"
 #include "WidgetTypes.h"
 

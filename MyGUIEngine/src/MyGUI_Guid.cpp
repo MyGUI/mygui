@@ -53,7 +53,7 @@ namespace MyGUI
 				MYGUI_LOG(Error, "error parse guid'" << _value << "'"); \
 				return Guid(); \
 			} \
-			tmp = convert_hex[tmp]; \
+			tmp = convert_hex[(int)tmp]; \
 			if (tmp > 63) { \
 				MYGUI_LOG(Error, "error parse guid'" << _value << "'"); \
 				return Guid(); \

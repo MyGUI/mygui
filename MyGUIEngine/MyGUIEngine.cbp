@@ -2,49 +2,49 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="MyGUI" />
+		<Option title="MyGUIEngine" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
 				<Option output="lib\debug\MyGUI_d" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="lib\debug" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-w" />
 					<Add option="-g" />
 					<Add option="-D_DEBUG" />
+					<Add option="-DWIN32" />
+					<Add option="-D_WINDOWS" />
 				</Compiler>
 				<Linker>
 					<Add library="OgreMain_d" />
 					<Add library="freetype6" />
+					<Add library="ole32" />
 				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="lib\release\libMyGUI" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="lib\release" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-w" />
 					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add option="-D_WINDOWS" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="OgreMain" />
 					<Add library="freetype6" />
+					<Add library="ole32" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-DWIN32" />
-			<Add option="-D_WINDOWS" />
 			<Add option="-D_USRDLL" />
 			<Add option="-DMYGUIENGINE_EXPORTS" />
 			<Add option="-DMYGUI_NONCLIENT_BUILD" />
@@ -56,7 +56,6 @@
 			<Add directory="C:\code\freetype\src\freetype\2.3.5\freetype-2.3.5\include" />
 		</Compiler>
 		<Linker>
-			<Add library="ole32" />
 			<Add directory="$(OGRE_HOME)\Dependencies\lib\$(TARGET_NAME)" />
 			<Add directory="$(OGRE_HOME)\lib" />
 			<Add directory="C:\OgreSDK\bin\release" />
@@ -137,6 +136,9 @@
 		<Unit filename="include\MyGUI_MaskPeekInfo.h" />
 		<Unit filename="include\MyGUI_MenuBar.h" />
 		<Unit filename="include\MyGUI_MenuBarFactory.h" />
+		<Unit filename="include\MyGUI_MenuItem.h" />
+		<Unit filename="include\MyGUI_MenuItemFactory.h" />
+		<Unit filename="include\MyGUI_MenuItemType.h" />
 		<Unit filename="include\MyGUI_Message.h" />
 		<Unit filename="include\MyGUI_MessageFactory.h" />
 		<Unit filename="include\MyGUI_MultiList.h" />
@@ -162,8 +164,6 @@
 		<Unit filename="include\MyGUI_Rtti.h" />
 		<Unit filename="include\MyGUI_ScrollView.h" />
 		<Unit filename="include\MyGUI_ScrollViewFactory.h" />
-		<Unit filename="include\MyGUI_Sheet.h" />
-		<Unit filename="include\MyGUI_SheetFactory.h" />
 		<Unit filename="include\MyGUI_SimpleText.h" />
 		<Unit filename="include\MyGUI_SkinManager.h" />
 		<Unit filename="include\MyGUI_StaticImage.h" />
@@ -175,6 +175,8 @@
 		<Unit filename="include\MyGUI_SubWidgetManager.h" />
 		<Unit filename="include\MyGUI_Tab.h" />
 		<Unit filename="include\MyGUI_TabFactory.h" />
+		<Unit filename="include\MyGUI_TabItem.h" />
+		<Unit filename="include\MyGUI_TabItemFactory.h" />
 		<Unit filename="include\MyGUI_TextChangeHistory.h" />
 		<Unit filename="include\MyGUI_TextIterator.h" />
 		<Unit filename="include\MyGUI_TileRect.h" />
@@ -249,6 +251,9 @@
 		<Unit filename="src\MyGUI_MaskPeekInfo.cpp" />
 		<Unit filename="src\MyGUI_MenuBar.cpp" />
 		<Unit filename="src\MyGUI_MenuBarFactory.cpp" />
+		<Unit filename="src\MyGUI_MenuItem.cpp" />
+		<Unit filename="src\MyGUI_MenuItemFactory.cpp" />
+		<Unit filename="src\MyGUI_MenuItemType.cpp" />
 		<Unit filename="src\MyGUI_Message.cpp" />
 		<Unit filename="src\MyGUI_MessageFactory.cpp" />
 		<Unit filename="src\MyGUI_MultiList.cpp" />
@@ -269,8 +274,6 @@
 		<Unit filename="src\MyGUI_ResourcePath.cpp" />
 		<Unit filename="src\MyGUI_ScrollView.cpp" />
 		<Unit filename="src\MyGUI_ScrollViewFactory.cpp" />
-		<Unit filename="src\MyGUI_Sheet.cpp" />
-		<Unit filename="src\MyGUI_SheetFactory.cpp" />
 		<Unit filename="src\MyGUI_SimpleText.cpp" />
 		<Unit filename="src\MyGUI_SkinManager.cpp" />
 		<Unit filename="src\MyGUI_StaticImage.cpp" />
@@ -281,6 +284,8 @@
 		<Unit filename="src\MyGUI_SubWidgetManager.cpp" />
 		<Unit filename="src\MyGUI_Tab.cpp" />
 		<Unit filename="src\MyGUI_TabFactory.cpp" />
+		<Unit filename="src\MyGUI_TabItem.cpp" />
+		<Unit filename="src\MyGUI_TabItemFactory.cpp" />
 		<Unit filename="src\MyGUI_TextIterator.cpp" />
 		<Unit filename="src\MyGUI_TileRect.cpp" />
 		<Unit filename="src\MyGUI_VScroll.cpp" />
@@ -292,8 +297,8 @@
 		<Unit filename="src\MyGUI_WindowFactory.cpp" />
 		<Unit filename="src\MyGUI_XmlDocument.cpp" />
 		<Extensions>
-			<code_completion />
 			<envvars />
+			<code_completion />
 			<debugger />
 		</Extensions>
 	</Project>

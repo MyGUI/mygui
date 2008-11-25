@@ -7,7 +7,7 @@
 
 #include "precompiled.h"
 #include "PanelProperties.h"
-#include "WidgetContainer.h"
+#include "EditorWidgets.h"
 #include "WidgetTypes.h"
 
 inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
