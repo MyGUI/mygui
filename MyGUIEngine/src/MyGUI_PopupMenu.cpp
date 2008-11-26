@@ -344,7 +344,7 @@ namespace MyGUI
 			MyGUI::WidgetPtr button = item; // может понадобится, для вызова notifyMouseClick
 			// проверяем только рутовые виджеты, чтобы не проверять детей попапа
 			while ((item != null) && (item->getParent() != null)) item = item->getParent();
-			if (isRelative(item, true))
+			if (isRelative(item, true) && (item->getTypeName() == PopupMenu::getClassTypeName()))
 			{
 				item->castType<PopupMenu>()->notifyMouseClick(button);
 			}
