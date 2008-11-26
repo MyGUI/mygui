@@ -108,26 +108,14 @@ namespace MyGUI
 		return new Font(this, name, handle, group, isManual, loader);
 	}
 
-	void FontManager::saveFontTexture(const std::string & _font, const std::string & _file)
+	/*void FontManager::saveFontInfo(const std::string & _font, const std::string & _file)
 	{
 		FontPtr font = FontManager::getInstance().getByName( _font );
 		MYGUI_ASSERT( ! font.isNull(), "Could not find font '" << _font << "'");
 
 		font->load();
-		Ogre::TexturePtr texture = font->getTextureFont();
-
-		Ogre::HardwarePixelBufferSharedPtr readbuffer;
-		readbuffer = texture->getBuffer(0, 0);
-		readbuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL );
-		const Ogre::PixelBox &readrefpb = readbuffer->getCurrentLock();	
-		Ogre::uchar *readrefdata = static_cast<Ogre::uchar*>(readrefpb.data);		
-
-		Ogre::Image img;
-		img = img.loadDynamicImage(readrefdata, texture->getWidth(), texture->getHeight(), texture->getFormat());	
-		img.save(_file);
-
-		readbuffer->unlock();
-	}
+		font->saveFontInfo(_file);
+	}*/
 
 	Ogre::ResourcePtr FontManager::getByName(const Ogre::String & _name)
 	{
