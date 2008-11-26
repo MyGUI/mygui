@@ -84,7 +84,7 @@ void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
 		if (!document.save(mEditSaveFileName->getCaption())) {
 			MyGUI::Message::createMessage(document.getLastError(), "error save", true, MyGUI::Message::Ok | MyGUI::Message::IconError);
 		}
-		MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
+		//MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
 	}
 	else if (_widget == mButtonGenerate) {
 		// удаляем демо вью
