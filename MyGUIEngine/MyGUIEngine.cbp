@@ -6,7 +6,65 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="Linux_Debug">
+				<Option output="lib/libmygui_d" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-fPIC" />
+					<Add option="-Wl,-rpath,." />
+					<Add library="OgreMain" />
+					<Add library="uuid" />
+				</Linker>
+			</Target>
+			<Target title="Linux_Release">
+				<Option output="lib/libmygui" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-fPIC" />
+					<Add option="-Wl,-rpath,." />
+					<Add library="OgreMain" />
+					<Add library="uuid" />
+				</Linker>
+			</Target>
+			<Target title="Linux_ICC_Release">
+				<Option output="lib/libmygui_icc" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/ICC_Release/" />
+				<Option type="3" />
+				<Option compiler="icc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-msse3" />
+					<Add option="-Os" />
+					<Add option="-Wp64" />
+					<Add option="-Wall" />
+					<Add option="-pch" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-fPIC" />
+					<Add option="-Wl,-rpath,." />
+					<Add library="OgreMain" />
+					<Add library="uuid" />
+				</Linker>
+			</Target>
+			<Target title="Windows_Debug">
 				<Option output="lib\debug\MyGUI_d" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
@@ -17,6 +75,9 @@
 					<Add option="-D_DEBUG" />
 					<Add option="-DWIN32" />
 					<Add option="-D_WINDOWS" />
+					<Add option="-D_USRDLL" />
+					<Add option="-DMYGUIENGINE_EXPORTS" />
+					<Add option="-DMYGUI_NONCLIENT_BUILD" />
 				</Compiler>
 				<Linker>
 					<Add library="OgreMain_d" />
@@ -24,7 +85,7 @@
 					<Add library="ole32" />
 				</Linker>
 			</Target>
-			<Target title="Release">
+			<Target title="Windows_Release">
 				<Option output="lib\release\libMyGUI" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
@@ -34,6 +95,9 @@
 					<Add option="-DNDEBUG" />
 					<Add option="-DWIN32" />
 					<Add option="-D_WINDOWS" />
+					<Add option="-D_USRDLL" />
+					<Add option="-DMYGUIENGINE_EXPORTS" />
+					<Add option="-DMYGUI_NONCLIENT_BUILD" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -45,13 +109,12 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-D_USRDLL" />
-			<Add option="-DMYGUIENGINE_EXPORTS" />
-			<Add option="-DMYGUI_NONCLIENT_BUILD" />
 			<Add directory="include" />
-			<Add directory="$(OGRE_HOME)\OgreMain\include" />
+			<Add directory="$(OGRE_HOME)/OgreMain/include" />
 			<Add directory="$(OGRE_HOME)\Dependencies\include" />
 			<Add directory="$(OGRE_HOME)\Dependencies\include\freetype" />
+			<Add directory="/usr/include/freetype2" />
+			<Add directory="/usr/local/include/OGRE" />
 			<Add directory="C:\OgreSDK\include" />
 			<Add directory="C:\code\freetype\src\freetype\2.3.5\freetype-2.3.5\include" />
 		</Compiler>
