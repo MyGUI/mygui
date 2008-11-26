@@ -73,13 +73,13 @@ namespace MyGUI
         /// Resolution (dpi) of truetype font
 		Ogre::uint mTtfResolution;
 
-		Ogre::uint8 mDistance;
-		Ogre::uint8 mSpaceWidth;
-		Ogre::uint8 mTabWidth;
-		Ogre::uint8 mCursorWidth;
-		Ogre::uint8 mOffsetHeight;
-		Ogre::uint16 mDefaultHeight;
-		Ogre::uint16 mHeightPix;
+		int mDistance;
+		int mSpaceWidth;
+		int mTabWidth;
+		int mCursorWidth;
+		int mOffsetHeight;
+		int mDefaultHeight;
+		int mHeightPix;
 
 		// отдельная информация о символах
 		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
@@ -105,6 +105,8 @@ namespace MyGUI
 		/// @copydoc Ogre::Resource::calculateSize
 		size_t calculateSize(void) const { return 0; } // permanent resource is in the texture
 
+		void addGlyph(GlyphInfo & _info, CodePoint _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect);
+
 	public:
 
         /** Constructor.
@@ -112,11 +114,11 @@ namespace MyGUI
 		Font(Ogre::ResourceManager* creator, const Ogre::String& name, Ogre::ResourceHandle handle, const Ogre::String& group, bool isManual = false, Ogre::ManualResourceLoader* loader = 0);
         virtual ~Font();
 
-		GlyphInfo * getSpaceGlyphInfo() {return & mSpaceGlyphInfo;}
-		GlyphInfo * getTabGlyphInfo() {return & mTabGlyphInfo;}
-		GlyphInfo * getSelectGlyphInfo() {return & mSelectGlyphInfo;}
-		GlyphInfo * getSelectDeactiveGlyphInfo() {return & mSelectDeactiveGlyphInfo;}
-		GlyphInfo * getCursorGlyphInfo() {return & mCursorGlyphInfo;}
+		GlyphInfo * getSpaceGlyphInfo() { return & mSpaceGlyphInfo; }
+		GlyphInfo * getTabGlyphInfo() { return & mTabGlyphInfo; }
+		GlyphInfo * getSelectGlyphInfo() { return & mSelectGlyphInfo; }
+		GlyphInfo * getSelectDeactiveGlyphInfo() { return & mSelectDeactiveGlyphInfo; }
+		GlyphInfo * getCursorGlyphInfo() { return & mCursorGlyphInfo; }
 
 		void setSource(const Ogre::String& source) { mSource = source; }
 		const Ogre::String& getSource(void) const { return mSource; }
@@ -161,34 +163,37 @@ namespace MyGUI
         void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
         bool getAntialiasColour(void) const { return mAntialiasColour; }
 
-		Ogre::uint16 getDefaultHeight() const { return mDefaultHeight; }
-		void setDefaultHeight(Ogre::uint16 _height) { mDefaultHeight = _height; }
+		int getDefaultHeight() const { return mDefaultHeight; }
+		void setDefaultHeight(int _height) { mDefaultHeight = _height; }
 
-		Ogre::uint16 getHeightPix() { return mHeightPix; }
+		int getHeightPix() { return mHeightPix; }
 
 		/** Implementation of ManualResourceLoader::loadResource, called
 			when the Texture that this font creates needs to (re)load. */
 		void loadResource(Ogre::Resource* resource);
 
 		//ширина пробела в пикселях
-		CodePoint setSpaceWidth() {return mSpaceWidth;}
-		void setSpaceWidth(Ogre::uint8 _pix) {mSpaceWidth = _pix;}
+		CodePoint setSpaceWidth() { return mSpaceWidth; }
+		void setSpaceWidth(int _pix) { mSpaceWidth = _pix; }
 
 		// ширина таба в пикселях
-		Ogre::uint8 getTabWidth() {return mTabWidth;}
-		void setTabWidth(Ogre::uint8 _pix) {mTabWidth = _pix;}
+		int getTabWidth() { return mTabWidth; }
+		void setTabWidth(int _pix) { mTabWidth = _pix; }
 
 		// ширина курсора в пикселях
-		Ogre::uint8 getCursorWidth() {return mCursorWidth;}
-		void setCursorWidth(Ogre::uint8 _pix) {mCursorWidth = _pix;}
+		int getCursorWidth() { return mCursorWidth; }
+		void setCursorWidth(int _pix) { mCursorWidth = _pix; }
 
 		// расстояние между символами при генерации в пикселях
-		Ogre::uint8 getDistance() {return mDistance;}
-		void setDistance(Ogre::uint8 _pix) {mDistance = _pix;}
+		int getDistance() { return mDistance; }
+		void setDistance(int _pix) { mDistance = _pix; }
 
 		// смещение всех символов по горизонтали
-		Ogre::uint8 getOffsetHeight() {return mOffsetHeight;}
-		void setOffsetHeight(Ogre::uint8 _pix) {mOffsetHeight = _pix;}
+		int getOffsetHeight() { return mOffsetHeight; }
+		void setOffsetHeight(int _pix) { mOffsetHeight = _pix; }
+
+		// сохраняет информацию о шрифте
+		//void saveFontInfo(const std::string& _file);
 
     };
 
