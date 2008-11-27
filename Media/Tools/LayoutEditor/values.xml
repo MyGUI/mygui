@@ -73,7 +73,7 @@
     <Property key="#444444[DEFAULT]"/>
     <Property key="DejaVuSans.17"/>
     <Property key="DejaVuSans.14"/>
-    <Property key="TestFont"/>
+    <Property key="ManualFont"/>
   </Value>
   
   <Value name="Layer">
