@@ -90,22 +90,29 @@ namespace MyGUI
 
 		}
 		else {
-			if (mTexture.isNull()) {
-				Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
-
-				if (false == manager->resourceExists(mSource)) {
-					const std::string& group = ResourceManager::getInstance().getResourceGroup();
-					if (!helper::isFileExist(mSource, group)) {
-						MYGUI_LOG(Error, "Texture '" + mSource + "' not found, set default texture");
-					}
-					else {
-						mTexture = manager->load(mSource, group, Ogre::TEX_TYPE_2D, 0);
-					}
-				}
-			}
-
+			checkTexture();
 		}
 
+	}
+    //---------------------------------------------------------------------
+	void Font::checkTexture()
+	{
+		if (mTexture.isNull()) {
+			Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
+
+			if (false == manager->resourceExists(mSource)) {
+				const std::string& group = ResourceManager::getInstance().getResourceGroup();
+				if (!helper::isFileExist(mSource, group)) {
+					MYGUI_LOG(Error, "Texture '" + mSource + "' not found, set default texture");
+				}
+				else {
+					mTexture = manager->load(mSource, group, Ogre::TEX_TYPE_2D, 0);
+				}
+			}
+			else {
+				mTexture = manager->getByName(mSource);
+			}
+		}
 	}
     //---------------------------------------------------------------------
 	void Font::loadResourceTrueType(Ogre::Resource* res)
@@ -211,7 +218,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(mSpaceGlyphInfo, FONT_CODE_SPACE, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mSpaceGlyphInfo, FONT_CODE_SPACE, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -231,7 +238,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(mTabGlyphInfo, FONT_CODE_TAB, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mTabGlyphInfo, FONT_CODE_TAB, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -250,7 +257,7 @@ namespace MyGUI
 		// перевод на новую строку
 		if ( (FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = 0; }
 
-		addGlyph(mSelectGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mSelectGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -270,7 +277,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(mSelectDeactiveGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mSelectDeactiveGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -290,7 +297,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(mCursorGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mCursorGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -339,7 +346,7 @@ namespace MyGUI
 					}
 				}
 
-				addGlyph(info, index, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+				addGlyph(&info, index, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
 				len += (advance + mDistance);
 
 			}
@@ -366,14 +373,14 @@ namespace MyGUI
 		FT_Done_FreeType(ftLibrary);
     }
 	//-----------------------------------------------------------------------
-	void Font::addGlyph(GlyphInfo & _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect)
+	void Font::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect)
 	{
-		_info.codePoint = _index;
-		_info.uvRect.left = (Ogre::Real)_left / (Ogre::Real)_finalw;  // u1
-		_info.uvRect.top = (Ogre::Real)(_top + mOffsetHeight) / (Ogre::Real)_finalh;  // v1
-		_info.uvRect.right = (Ogre::Real)( _right ) / (Ogre::Real)_finalw; // u2
-		_info.uvRect.bottom = ( _bottom ) / (Ogre::Real)_finalh; // v2
-		_info.aspectRatio = _aspect * (_info.uvRect.right - _info.uvRect.left)  / (_info.uvRect.bottom - _info.uvRect.top);
+		_info->codePoint = _index;
+		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
+		_info->uvRect.top = (float)(_top + mOffsetHeight) / (float)_finalh;  // v1
+		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
+		_info->uvRect.bottom = ( _bottom ) / (float)_finalh; // v2
+		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
 	}
 
 	void Font::addGlyph(Char _code, const IntCoord& _coord)
@@ -393,19 +400,42 @@ namespace MyGUI
 
 		Char code = mVectorPairCodeCoord.front().code;
 		size_t count = mVectorPairCodeCoord.size();
-		size_t first = 0, last = 0;
+		size_t first = 0;
 
-		/*for (size_t pos=1; pos<count; ++pos) {
+		for (size_t pos=1; pos<count; ++pos) {
 
 			// диапазон оборвался
-			if (code + 1 != mVectorPairCodeCoord[pos]) {
+			if (code + 1 != mVectorPairCodeCoord[pos].code) {
+				addRange(mVectorPairCodeCoord, first, pos-1, size.width, size.height, aspect);
+				code = mVectorPairCodeCoord[pos].code;
+				first = pos;
+			}
+			else {
+				code ++;
 			}
 
-		}*/
+		}
+
+		addRange(mVectorPairCodeCoord, first, count-1, size.width, size.height, aspect);
 
 		// уничтожаем буфер
 		VectorPairCodeCoord tmp;
 		std::swap(tmp, mVectorPairCodeCoord);
+
+		checkTexture();
+	}
+
+	void Font::addRange(VectorPairCodeCoord & _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
+	{
+		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
+
+		for (size_t pos=_first; pos<=_last; ++pos) {
+			GlyphInfo * info = range.getInfo(_info[pos].code);
+			const IntCoord & coord = _info[pos].coord;
+			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
+		}
+
+		mVectorRangeInfo.push_back(range);
 	}
 
 } // namespace MyGUI
