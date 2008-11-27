@@ -87,7 +87,7 @@ namespace MyGUI
 			GlyphInfo * getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : null; }
 
 			// возвращает указатель на глиф, или 0
-			GlyphInfo * insert(Char _code)
+			/*GlyphInfo * insert(Char _code)
 			{
 				// если у же есть, то возвращаем существующий
 				if (isExist(_code)) return &range[_code - first];
@@ -106,7 +106,7 @@ namespace MyGUI
 				}
 
 				return null;
-			}
+			}*/
 
 		public:
 			Char first;
@@ -188,9 +188,11 @@ namespace MyGUI
 		/// @copydoc Ogre::Resource::calculateSize
 		size_t calculateSize(void) const { return 0; } // permanent resource is in the texture
 
-		void addGlyph(GlyphInfo & _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect);
+		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect);
 
 		void loadResourceTrueType(Ogre::Resource* res);
+		void addRange(VectorPairCodeCoord & _info, size_t _first, size_t _last, int _width, int _height, float _aspect);
+		void checkTexture();
 
 	public:
 
