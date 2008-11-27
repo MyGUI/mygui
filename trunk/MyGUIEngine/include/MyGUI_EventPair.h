@@ -31,6 +31,13 @@ namespace MyGUI
 			m_event = _delegate;
 		}
 
+		void operator = (int _null)
+		{
+			MYGUI_ASSERT(_null == 0, "operator = null")
+			m_eventObsolete = null;
+			m_event = null;
+		}
+
 	public:
 		EventObsolete m_eventObsolete;
 		Event m_event;
