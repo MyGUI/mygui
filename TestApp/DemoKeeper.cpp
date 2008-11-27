@@ -219,7 +219,6 @@ namespace demo
 		MyGUI::WidgetPtr text = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 500, 100), MyGUI::Align::Default, "Main");
 		text->setColour(Ogre::ColourValue::White);
 		text->setFontName("ManualFont");
-		text->setFontHeight(50);
 		text->setCaption("0123");
 		
 	}
