@@ -29,7 +29,7 @@
     <Code hide="1104"/>
   </Font>
 
-  <Font name="ManualFont" default_height="14" source="core.png">
+  <Font name="ManualFont" default_height="50" source="core.png">
     <Code index="48" coord="0 203 50 50"/>
     <Code index="49" coord="50 203 50 50"/>
     <Code index="50" coord="100 203 50 50"/>
