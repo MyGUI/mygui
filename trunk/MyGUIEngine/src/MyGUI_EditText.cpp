@@ -1110,7 +1110,7 @@ namespace MyGUI
 
 		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index) {
 
-			Font::CodePoint character = *index;
+			Char character = *index;
 
 			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
 

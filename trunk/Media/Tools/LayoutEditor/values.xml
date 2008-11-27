@@ -71,8 +71,9 @@
 
   <Value name="Font">
     <Property key="#444444[DEFAULT]"/>
-	<Property key="DejaVuSans.17"/>
-	<Property key="DejaVuSans.14"/>
+    <Property key="DejaVuSans.17"/>
+    <Property key="DejaVuSans.14"/>
+    <Property key="TestFont"/>
   </Value>
   
   <Value name="Layer">
