@@ -38,10 +38,10 @@ namespace MyGUI
 		void _load(xml::xmlNodePtr _node, const std::string & _file);
 
 		/** Save already created font to texture
-			@param _font name from *_font.xml and  *_glyph.xml file (for example DejaVuSans.14)
+			@param _font name (for example DejaVuSans.14)
 			@param _file name to save (for example font.png)
 		*/
-		//void saveFontInfo(const std::string & _font, const std::string & _file);
+		void saveFontTexture(const std::string & _font, const std::string & _file);
 
 		/** Get font resouce */
 		virtual Ogre::ResourcePtr getByName(const Ogre::String & _name);

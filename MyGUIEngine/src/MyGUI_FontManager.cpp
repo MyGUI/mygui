@@ -57,9 +57,9 @@ namespace MyGUI
 			std::string source, name, size, resolution, antialias, space, tab, distance, cursor, offsetH;
 			if (false == font->findAttribute("name", name)) continue;
 			if (false == font->findAttribute("source", source)) continue;
-			if (false == font->findAttribute("size", size)) continue;
-			if (false == font->findAttribute("resolution", resolution)) continue;
 
+			font->findAttribute("size", size);
+			font->findAttribute("resolution", resolution);
 			font->findAttribute("antialias_colour", antialias);
 			font->findAttribute("space_width", space);
 			font->findAttribute("tab_width", tab);
@@ -70,16 +70,17 @@ namespace MyGUI
 			FontPtr pFont = create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 			pFont->_notifyOrigin(_file);
 			pFont->setSource(source);
-			pFont->setTrueTypeSize(utility::parseValue<Ogre::Real>(size));
-			pFont->setTrueTypeResolution((Ogre::uint)utility::parseValue<Ogre::Real>(resolution));
 
-			pFont->setDefaultHeight(utility::parseUInt(font->findAttribute("default_height")));
+			if (!size.empty()) pFont->setTrueTypeSize(utility::parseFloat(size));
+			if (!resolution.empty()) pFont->setTrueTypeResolution(utility::parseUInt(resolution));
+			pFont->setDefaultHeight(utility::parseInt(font->findAttribute("default_height")));
+
 			if (false == antialias.empty()) pFont->setAntialiasColour(utility::parseBool(antialias));
-			if (false == space.empty()) pFont->setSpaceWidth(utility::parseUChar(space));
-			if (false == tab.empty()) pFont->setTabWidth(utility::parseUChar(tab));
-			if (false == cursor.empty()) pFont->setCursorWidth(utility::parseUChar(cursor));
-			if (false == distance.empty()) pFont->setDistance(utility::parseUChar(distance));
-			if (false == offsetH.empty()) pFont->setOffsetHeight(utility::parseUChar(offsetH));
+			if (false == space.empty()) pFont->setSpaceWidth(utility::parseInt(space));
+			if (false == tab.empty()) pFont->setTabWidth(utility::parseInt(tab));
+			if (false == cursor.empty()) pFont->setCursorWidth(utility::parseInt(cursor));
+			if (false == distance.empty()) pFont->setDistance(utility::parseInt(distance));
+			if (false == offsetH.empty()) pFont->setOffsetHeight(utility::parseInt(offsetH));
 
 			xml::xmlNodeIterator range = font->getNodeIterator();
 
@@ -89,15 +90,31 @@ namespace MyGUI
 				// диапазон включений
 				if (range->findAttribute("range", range_value)) {
 					parse_range = utility::split(range_value);
-					if (parse_range.size() == 2) pFont->addCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[1]));
+					if (!parse_range.empty()) {
+						int first = utility::parseFloat(parse_range[0]);
+						int last = parse_range.size() > 1 ? utility::parseFloat(parse_range[1]) : first;
+						pFont->addCodePointRange(first, last);
+					}
 				}
 				// диапазон исключений
 				else if (range->findAttribute("hide", range_value)) {
 					parse_range = utility::split(range_value);
-					if (parse_range.size() == 2) pFont->addHideCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[1]));
-					else if (parse_range.size() == 1) pFont->addHideCodePointRange(utility::parseValue<Ogre::Real>(parse_range[0]), utility::parseValue<Ogre::Real>(parse_range[0]));
+					if (!parse_range.empty()) {
+						int first = utility::parseFloat(parse_range[0]);
+						int last = parse_range.size() > 1 ? utility::parseFloat(parse_range[1]) : first;
+						pFont->addHideCodePointRange(first, last);
+					}
 				}
+				// описане глифов
+				else if (range->findAttribute("index", range_value)) {
+					pFont->addGlyph(utility::parseUInt(range_value), utility::parseValue<IntCoord>(range->findAttribute("coord")));
+				}
+
 			};
+
+			// инициализируем
+			pFont->initialise();
+
 		};
 	}
 
@@ -108,14 +125,26 @@ namespace MyGUI
 		return new Font(this, name, handle, group, isManual, loader);
 	}
 
-	/*void FontManager::saveFontInfo(const std::string & _font, const std::string & _file)
+	void FontManager::saveFontTexture(const std::string & _font, const std::string & _file)
 	{
-		FontPtr font = FontManager::getInstance().getByName( _font );
+		FontPtr font = getByName( _font );
 		MYGUI_ASSERT( ! font.isNull(), "Could not find font '" << _font << "'");
 
 		font->load();
-		font->saveFontInfo(_file);
-	}*/
+		Ogre::TexturePtr texture = font->getTextureFont();
+
+		Ogre::HardwarePixelBufferSharedPtr readbuffer;
+		readbuffer = texture->getBuffer(0, 0);
+		readbuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL );
+		const Ogre::PixelBox &readrefpb = readbuffer->getCurrentLock();	
+		Ogre::uchar *readrefdata = static_cast<Ogre::uchar*>(readrefpb.data);		
+
+		Ogre::Image img;
+		img = img.loadDynamicImage(readrefdata, texture->getWidth(), texture->getHeight(), texture->getFormat());	
+		img.save(_file);
+
+		readbuffer->unlock();
+	}
 
 	Ogre::ResourcePtr FontManager::getByName(const Ogre::String & _name)
 	{

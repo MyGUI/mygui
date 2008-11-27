@@ -22,20 +22,46 @@ namespace MyGUI
     {
 
 	public:
-		typedef Ogre::uint32 CodePoint;
-		typedef Ogre::FloatRect UVRect;
-		typedef std::pair<CodePoint, CodePoint> PairCodePoint;
+
+		// информация об диапазоне
+		struct PairCodePoint
+		{
+			PairCodePoint(Char _first, Char _last) :
+				first(_first),
+				last(_last)
+			{
+			}
+
+			// проверяет входит ли символ в диапазон
+			bool isExist(Char _code) { return _code >= first && _code <= last; }
+
+		public:
+			Char first;
+			Char last;
+		};
+
 		typedef std::vector<PairCodePoint> VectorPairCodePoint;
 
 		// информация об одном символе
 		struct GlyphInfo
 		{
-			CodePoint codePoint;
-			UVRect uvRect;
-			Ogre::Real aspectRatio;
+			Char codePoint;
+			FloatRect uvRect;
+			float aspectRatio;
 
-			GlyphInfo() : codePoint(0), uvRect(UVRect(0, 0, 0, 0)), aspectRatio(1) { }
-			GlyphInfo(CodePoint _code, const UVRect& _rect, Ogre::Real _aspect) : codePoint(_code), uvRect(_rect), aspectRatio(_aspect) { }
+			GlyphInfo() :
+				codePoint(0),
+				aspectRatio(1)
+			{
+			}
+
+			GlyphInfo(Char _code, const FloatRect& _rect, float _aspect) :
+				codePoint(_code),
+				uvRect(_rect),
+				aspectRatio(_aspect)
+			{
+			}
+
 		};
 
 		typedef std::vector<GlyphInfo> VectorGlyphInfo;
@@ -43,14 +69,68 @@ namespace MyGUI
 		// инфомация о диапазоне символов
 		struct RangeInfo
 		{
-			CodePoint first;
-			CodePoint second;
-			VectorGlyphInfo range;
+		private:
+			RangeInfo() { }
 
-			RangeInfo(CodePoint _first, CodePoint _second) : first(_first), second(_second) { }
+		public:
+			RangeInfo(Char _first, Char _last) :
+				first(_first),
+				last(_last)
+			{
+				range.resize(last - first + 1);
+			}
+
+			// проверяет входит ли символ в диапазон
+			bool isExist(Char _code) { return _code >= first && _code <= last; }
+
+			// возвращает указатель на глиф, или 0, если код не входит в диапазон
+			GlyphInfo * getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : null; }
+
+			// возвращает указатель на глиф, или 0
+			GlyphInfo * insert(Char _code)
+			{
+				// если у же есть, то возвращаем существующий
+				if (isExist(_code)) return &range[_code - first];
+
+				// вставляем в начало
+				if (_code - 1 == first) {
+					first--;
+					range.insert(range.begin(), GlyphInfo(_code, FloatRect(), 0));
+					return &range[0];
+				}
+				// вставляем в конец
+				else if (_code + 1 == last) {
+					last++;
+					range.push_back(GlyphInfo(_code, FloatRect(), 0));
+					return &range[last - first];
+				}
+
+				return null;
+			}
+
+		public:
+			Char first;
+			Char last;
+			VectorGlyphInfo range;
 		};
 
 		typedef std::vector<RangeInfo> VectorRangeInfo;
+
+		struct PairCodeCoord
+		{
+			PairCodeCoord(Char _code, const IntCoord& _coord) :
+				code(_code),
+				coord(_coord)
+			{
+			}
+
+			bool operator < (const PairCodeCoord & _value) { return code < _value.code; }
+
+			Char code;
+			IntCoord coord;
+		};
+
+		typedef std::vector<PairCodeCoord> VectorPairCodeCoord;
 
 		enum constCodePoints
 		{
@@ -69,9 +149,9 @@ namespace MyGUI
         /// Source of the font (either an image name or a truetype font)
 		Ogre::String mSource;
         /// Size of the truetype font, in points
-		Ogre::Real mTtfSize;
+		float mTtfSize;
         /// Resolution (dpi) of truetype font
-		Ogre::uint mTtfResolution;
+		uint mTtfResolution;
 
 		int mDistance;
 		int mSpaceWidth;
@@ -86,6 +166,9 @@ namespace MyGUI
 
 		// символы которые не нужно рисовать
 		VectorPairCodePoint mVectorHideCodePoint;
+
+		// символы созданные руками
+		VectorPairCodeCoord mVectorPairCodeCoord;
 
 	protected:
 
@@ -105,7 +188,9 @@ namespace MyGUI
 		/// @copydoc Ogre::Resource::calculateSize
 		size_t calculateSize(void) const { return 0; } // permanent resource is in the texture
 
-		void addGlyph(GlyphInfo & _info, CodePoint _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect);
+		void addGlyph(GlyphInfo & _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect);
+
+		void loadResourceTrueType(Ogre::Resource* res);
 
 	public:
 
@@ -121,15 +206,15 @@ namespace MyGUI
 		GlyphInfo * getCursorGlyphInfo() { return & mCursorGlyphInfo; }
 
 		void setSource(const Ogre::String& source) { mSource = source; }
-		const Ogre::String& getSource(void) const { return mSource; }
+		const Ogre::String& getSource() const { return mSource; }
 
 		void setTrueTypeSize(Ogre::Real ttfSize) { mTtfSize = ttfSize; }
-		Ogre::Real getTrueTypeSize(void) const { return mTtfSize; }
+		Ogre::Real getTrueTypeSize() const { return mTtfSize; }
 
 		void setTrueTypeResolution(Ogre::uint ttfResolution) { mTtfResolution = ttfResolution; }
-		Ogre::uint getTrueTypeResolution(void) const { return mTtfResolution; }
+		Ogre::uint getTrueTypeResolution() const { return mTtfResolution; }
 
-		GlyphInfo * getGlyphInfo(CodePoint _id);
+		GlyphInfo * getGlyphInfo(Char _id);
 
 		void addCodePointRange(Ogre::Real _first, Ogre::Real _second)
 		{
@@ -142,10 +227,10 @@ namespace MyGUI
 		}
 
 		// проверяет, входит ли символ в зоны ненужных символов
-		bool checkHidePointCode(CodePoint _id)
+		bool checkHidePointCode(Char _id)
 		{
 			for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter) {
-				if ((_id >= iter->first) && (_id <= iter->second)) return true;
+				if (iter->isExist(_id)) return true;
 			}
 			return false;
 		}
@@ -173,7 +258,7 @@ namespace MyGUI
 		void loadResource(Ogre::Resource* resource);
 
 		//ширина пробела в пикселях
-		CodePoint setSpaceWidth() { return mSpaceWidth; }
+		Char setSpaceWidth() { return mSpaceWidth; }
 		void setSpaceWidth(int _pix) { mSpaceWidth = _pix; }
 
 		// ширина таба в пикселях
@@ -192,8 +277,11 @@ namespace MyGUI
 		int getOffsetHeight() { return mOffsetHeight; }
 		void setOffsetHeight(int _pix) { mOffsetHeight = _pix; }
 
-		// сохраняет информацию о шрифте
-		//void saveFontInfo(const std::string& _file);
+		void addGlyph(uint _index, const IntCoord& _coord);
+
+		bool isTrueType() { return mTtfResolution != 0; }
+
+		void initialise();
 
     };
 
