@@ -8,6 +8,7 @@
 #ifndef __MYGUI_COMMON_H__
 #define __MYGUI_COMMON_H__
 
+#include <typeinfo>
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Macros.h"
 #include "MyGUI_LogManager.h"
