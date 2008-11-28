@@ -124,7 +124,7 @@ namespace MyGUI
 			{
 			}
 
-			bool operator < (const PairCodeCoord & _value) { return code < _value.code; }
+			bool operator < (const PairCodeCoord & _value) const { return code < _value.code; }
 
 			Char code;
 			IntCoord coord;

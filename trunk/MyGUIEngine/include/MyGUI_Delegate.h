@@ -8,7 +8,7 @@
 #define __MYGUI_DELEGATE_H__
 
 #include <assert.h>
-
+#include "MyGUI_Common.h"
 // source
 // http://rsdn.ru/article/cpp/delegates.xml
 
