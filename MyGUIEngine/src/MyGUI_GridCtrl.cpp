@@ -38,6 +38,23 @@ namespace MyGUI
 		mItemDrag(null),
 		mAlignVert(true)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	GridCtrl::~GridCtrl()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void GridCtrl::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		DDContainer::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void GridCtrl::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
@@ -74,7 +91,12 @@ namespace MyGUI
 
 		updateMetrics();
 		updateScroll();
+	}
 
+	void GridCtrl::shutdownWidgetSkin()
+	{
+		mWidgetScroll = null;
+		mWidgetClient = null;
 	}
 
 	void GridCtrl::setPosition(const IntPoint & _point)

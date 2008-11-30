@@ -35,6 +35,31 @@ namespace MyGUI
 		mDropMouse(false),
 		mShowSmooth(false)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	ComboBox::~ComboBox()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void ComboBox::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Edit::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void ComboBox::shutdownWidgetSkin()
+	{
+		// чтобы теперь удалить, виджет должен быть в нашем списке
+		mWidgetChild.push_back(mList);
+		WidgetManager::getInstance().destroyWidget(mList);
+		mButton = null;
+	}
+
+	void ComboBox::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iter = properties.find("HeightList");
@@ -54,7 +79,6 @@ namespace MyGUI
 		// присоединяем виджет с уровню и не добавляем себе
 		LayerManager::getInstance().attachToLayerKeeper(listLayer, mList);
 
-		//mList = static_cast<List>(_createWidget(List::_getType(), listSkin, IntCoord(), Align::Default, listLayer, ""));
 		mList->_setOwner(this);
 
 		mList->hide();
@@ -80,18 +104,8 @@ namespace MyGUI
 		mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
 		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
 
-		//mWidgetCursor->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
-		//mWidgetCursor->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
-
 		// подписываемся на изменения текста
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
-	}
-
-	ComboBox::~ComboBox()
-	{
-		// чтобы теперь удалить, виджет должен быть в нашем списке
-		mWidgetChild.push_back(mList);
-		WidgetManager::getInstance().destroyWidget(mList);
 	}
 
 	void ComboBox::notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)

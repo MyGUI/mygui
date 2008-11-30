@@ -111,8 +111,9 @@ namespace MyGUI
 	class StaticImage;
 	class Message;
 	class RenderBox;
-	class PopupMenu;
+	class MenuCtrl;
 	class MenuItem;
+	class PopupMenu;
 	class MenuBar;
 	class ScrollView;
 	class DDContainer;
@@ -135,8 +136,9 @@ namespace MyGUI
 	typedef StaticImage * StaticImagePtr;
 	typedef Message * MessagePtr;
 	typedef RenderBox * RenderBoxPtr;
-	typedef PopupMenu * PopupMenuPtr;
+	typedef MenuCtrl * MenuCtrlPtr;
 	typedef MenuItem * MenuItemPtr;
+	typedef PopupMenu * PopupMenuPtr;
 	typedef MenuBar * MenuBarPtr;
 	typedef ScrollView * ScrollViewPtr;
 	typedef DDContainer * DDContainerPtr;

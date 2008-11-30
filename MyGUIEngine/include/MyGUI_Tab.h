@@ -43,29 +43,7 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~Tab();
-
-		void updateBar();
-
-		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
-		void notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender);
-
-		int _getTextWidth(const Ogre::UTFString& _text);
-
-		void _showItem(TabItemPtr _sheet, bool _show, bool _smooth);
-
-		void _createItemButton();
-
-		void _insertItem(size_t _index, const Ogre::UTFString & _name, TabItemPtr _sheet, Any _data);
-
-		// вкладка при удалении уведомляет таб
-		void _notifyDeleteItem(TabItemPtr _item);
-
 	public:
-		// переопределяем для особого обслуживания страниц
-		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -85,8 +63,6 @@ namespace MyGUI
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-	public:
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -338,6 +314,35 @@ namespace MyGUI
 			@param _index Index of selected sheet
 		*/
 		EventInfo_WidgetSizeT eventTabChangeSelect;
+
+	protected:
+		Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Tab();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+		// переопределяем для особого обслуживания страниц
+		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+
+		void updateBar();
+
+		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
+		void notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender);
+
+		int _getTextWidth(const Ogre::UTFString& _text);
+
+		void _showItem(TabItemPtr _sheet, bool _show, bool _smooth);
+
+		void _createItemButton();
+
+		void _insertItem(size_t _index, const Ogre::UTFString & _name, TabItemPtr _sheet, Any _data);
+
+		// вкладка при удалении уведомляет таб
+		void _notifyDeleteItem(TabItemPtr _item);
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
 
 	private:
 		int mOffsetTab; // смещение бара при показе кнопок

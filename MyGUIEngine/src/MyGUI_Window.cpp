@@ -34,6 +34,23 @@ namespace MyGUI
 		mIsAutoAlpha(false),
 		mSnap(false)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	Window::~Window()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void Window::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void Window::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
@@ -69,11 +86,17 @@ namespace MyGUI
 
 	}
 
+	void Window::shutdownWidgetSkin()
+	{
+		mWidgetClient = null;
+		mWidgetCaption = null;
+	}
+
 	// переопределяем для присвоению клиенту
-	WidgetPtr Window::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Window::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_type, _skin, _coord, _align, _name);
-		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
+		return Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
 	void Window::onMouseChangeRootFocus(bool _focus)

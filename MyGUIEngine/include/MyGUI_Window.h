@@ -22,12 +22,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
-		// переопределяем для присвоению клиенту
-		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
-
 	public:
 
 		// для мееедленного показа и скрытия
@@ -127,6 +121,13 @@ namespace MyGUI
 		EventInfo_WidgetVoid eventWindowChangeCoord;
 
 	protected:
+		Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Window();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+		// переопределяем для присвоению клиенту
+		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		void onMouseChangeRootFocus(bool _focus);
 		void onKeyChangeRootFocus(bool _focus);
@@ -139,6 +140,10 @@ namespace MyGUI
 
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
 
 	private:
 		WidgetPtr mWidgetCaption;

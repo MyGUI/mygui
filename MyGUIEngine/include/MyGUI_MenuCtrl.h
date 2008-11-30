@@ -1,11 +1,11 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		11/2008
 	@module
 */
-#ifndef __MYGUI_POPUP_MENU_H__
-#define __MYGUI_POPUP_MENU_H__
+#ifndef __MYGUI_MENU_CTRL_H__
+#define __MYGUI_MENU_CTRL_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -18,12 +18,13 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<PopupMenuPtr, MenuItemPtr> HandlePopupMenu_PopupMenuAccept;
+	typedef delegates::CDelegate2<MenuCtrlPtr, MenuItemPtr> HandleMenuCtrl_MenuCtrlAccept;
+	typedef delegates::CDelegate1<MenuCtrlPtr> HandleMenuCtrl_MenuCtrlClose;
 
-	class _MyGUIExport PopupMenu : public Widget
+	class _MyGUIExport MenuCtrl : public Widget
 	{
 		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<PopupMenu>;
+		friend class factory::BaseWidgetFactory<MenuCtrl>;
 
 		MYGUI_RTTI_CHILD_HEADER;
 
@@ -37,7 +38,7 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(MenuItemPtr _item, const Ogre::UTFString& _name, MenuItemType _type, PopupMenuPtr _submenu, const std::string & _id, Any _data) :
+			ItemInfo(MenuItemPtr _item, const Ogre::UTFString& _name, MenuItemType _type, MenuCtrlPtr _submenu, const std::string & _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -55,7 +56,7 @@ namespace MyGUI
 			/** Widget have separator after item */
 			MenuItemType type;
 			/** Sub menu (or null if no submenu) */
-			PopupMenuPtr submenu;
+			MenuCtrlPtr submenu;
 			/** Item id*/
 			std::string id;
 			/** User data */
@@ -98,7 +99,7 @@ namespace MyGUI
 		//! Get item from specified position
 		MenuItemPtr getItemAt(size_t _index)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemAt");
 			return mItemsInfo[_index].item;
 		}
 
@@ -108,7 +109,7 @@ namespace MyGUI
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].item == _item) return pos;
 			}
-			MYGUI_EXCEPT("item (" << _item << ") not found, source 'PopupMenu::getItemIndex'");
+			MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuCtrl::getItemIndex'");
 		}
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
@@ -146,7 +147,7 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType * getItemDataAt(size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
@@ -199,12 +200,12 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// остальные манипуляции
 
-		PopupMenuPtr getItemChildAt(size_t _index);
+		MenuCtrlPtr getItemChildAt(size_t _index);
 
 		// create sub menu
-		PopupMenuPtr createItemChildAt(size_t _index);
+		MenuCtrlPtr createItemChildAt(size_t _index);
 		// create sub menu
-		PopupMenuPtr createItemChild(MenuItemPtr _item) {
+		MenuCtrlPtr createItemChild(MenuItemPtr _item) {
 			return createItemChildAt(getItemIndex(_item));
 		}
 
@@ -212,11 +213,6 @@ namespace MyGUI
 		void removeItemChild(MenuItemPtr _item) {
 			removeItemChildAt(getItemIndex(_item));
 		}
-
-
-		//void insertSeparatorAt(size_t _index) { insertItemAt(_index, "", MenuItemType::Separator); }
-
-		//void addSeparator() { addItem("", MenuItemType::Separator); }
 
 
 		MenuItemType getItemTypeAt(size_t _index);
@@ -233,27 +229,27 @@ namespace MyGUI
 			@param _point where popup menu will be shown (left top corner in default case)
 			@param _checkBorders Check if Popup out of screen and show it up or left from _point (or up-left)
 		*/
-		void showPopupMenu(const IntPoint& _point, bool _checkBorders = true);
+		void showMenuCtrl(const IntPoint& _point, bool _checkBorders = true);
 
-		void hidePopupMenu(bool _hideParentPopup = true);
+		void hideMenuCtrl(bool _hideParentPopup = true);
 
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
 
 		/** Event : Enter pressed or mouse clicked.\n
-			signature : void method(MyGUI::PopupMenuPtr _sender, MyGUI::MenuItemPtr _item)\n
+			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
 			@param _item Selected item
 		*/
-		EventPair<EventInfo_WidgetSizeT, HandlePopupMenu_PopupMenuAccept> eventPopupMenuAccept;
+		HandleMenuCtrl_MenuCtrlAccept eventMenuCtrlAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
 			signature : void method(MyGUI::WidgetPtr _sender)\n
 		*/
-		EventInfo_WidgetVoid eventPopupMenuClose;
+		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
 
 	protected:
-		PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~PopupMenu();
+		MenuCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~MenuCtrl();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
@@ -312,8 +308,8 @@ namespace MyGUI
 		bool mAlignVert;
 		int mDistanceButton;
 
-	}; // class _MyGUIExport PopupMenu : public Widget
+	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_POPUP_MENU_H__
+#endif // __MYGUI_MENU_CTRL_H__

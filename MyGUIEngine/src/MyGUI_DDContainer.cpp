@@ -24,6 +24,27 @@ namespace MyGUI
 		mNeedDragDrop(false),
 		mReseiverContainer(null)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	DDContainer::~DDContainer()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void DDContainer::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void DDContainer::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+	}
+
+	void DDContainer::shutdownWidgetSkin()
+	{
 	}
 
 	void DDContainer::onMouseButtonPressed(int _left, int _top, MouseButton _id)

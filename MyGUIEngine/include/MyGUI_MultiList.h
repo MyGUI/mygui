@@ -25,29 +25,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	private:
-		struct ColumnInfo
-		{
-			ListPtr list;
-			ButtonPtr button;
-			int width;
-			Ogre::UTFString name;
-			Any data;
-		};
-
-		typedef std::vector<ColumnInfo> VectorColumnInfo;
-
-		enum ImageSort
-		{
-			SORT_NONE,
-			SORT_UP,
-			SORT_DOWN
-		};
-
-	protected:
-		MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~MultiList();
-
 	public:
 		//------------------------------------------------------------------------------//
 		// Methods for work with columns (RU:методы для работы со столбцами)
@@ -317,7 +294,10 @@ namespace MyGUI
 		EventInfo_WidgetIntUTFStringUTFStringBool operatorLess;
 
 	protected:
-		void frameEntered(float _frame);
+		MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~MultiList();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
 		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
 		void notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position);
@@ -340,6 +320,31 @@ namespace MyGUI
 		void setButtonImageIndex(ButtonPtr _button, size_t _index);
 
 		void updateBackSelected(size_t _index);
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
+		void frameEntered(float _frame);
+
+	private:
+		struct ColumnInfo
+		{
+			ListPtr list;
+			ButtonPtr button;
+			int width;
+			Ogre::UTFString name;
+			Any data;
+		};
+
+		typedef std::vector<ColumnInfo> VectorColumnInfo;
+
+		enum ImageSort
+		{
+			SORT_NONE,
+			SORT_UP,
+			SORT_DOWN
+		};
 
 	private:
 		int mHeightButton;

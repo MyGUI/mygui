@@ -17,6 +17,27 @@ namespace MyGUI
 	HScroll::HScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		VScroll(_coord, _align, _info, _parent, _creator, _name)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	HScroll::~HScroll()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void HScroll::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		VScroll::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void HScroll::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+	}
+
+	void HScroll::shutdownWidgetSkin()
+	{
 	}
 
 	void HScroll::updateTrack()

@@ -22,10 +22,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~Edit();
-
 	public:
 		/** Set edit text applying tags */
 		virtual void setCaption(const Ogre::UTFString & _caption);
@@ -214,7 +210,35 @@ namespace MyGUI
 		EventInfo_WidgetVoid eventEditTextChange;
 
 	protected:
+		Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Edit();
 
+		virtual void onMouseDrag(int _left, int _top);
+		virtual void onKeyLostFocus(WidgetPtr _new);
+		virtual void onKeySetFocus(WidgetPtr _old);
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+
+		// потом убрать все нотифи в сраку
+		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
+		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
+		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
+		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
+
+		void notifyScrollChangePosition(WidgetPtr _sender, size_t _position);
+		void notifyMouseWheel(WidgetPtr _sender, int _rel);
+
+		// обновление представления
+		void updateView(bool _showCursor);
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
+	private:
 		// устанавливает текст
 		void setText(const Ogre::UTFString & _text, bool _history);
 		// удаляет все что выделенно
@@ -228,31 +252,12 @@ namespace MyGUI
 		// выделяет цветом диапазон
 		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
 
-	protected:
 		void frameEntered(float _frame);
-
-		// потом убрать все нотифи в сраку
-		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
-		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
-		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
-		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _position);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-
-		virtual void onMouseDrag(int _left, int _top);
-		virtual void onKeyLostFocus(WidgetPtr _new);
-		virtual void onKeySetFocus(WidgetPtr _old);
-		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
 
 		void updateEditState();
 
 		// обновляет курсор по координате
 		void updateSelectText();
-		// обновление представления
-		void updateView(bool _showCursor);
 
 		void resetSelect();
 
@@ -280,7 +285,6 @@ namespace MyGUI
 		void setRealString(const Ogre::UTFString & _caption);
 
 		void updateScroll();
-
 
 
 	protected:

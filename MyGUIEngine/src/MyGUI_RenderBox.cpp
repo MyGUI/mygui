@@ -37,7 +37,30 @@ namespace MyGUI
 		mNodeForSync(null),
 		mSceneManagerForSync(null)
 	{
+		initialiseWidgetSkin(_info);
+	}
 
+	RenderBox::~RenderBox()
+	{
+		//Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
+		mTexture.setNull();
+		clear();
+
+		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		if (root && mScene) root->destroySceneManager(mScene);
+
+		shutdownWidgetSkin();
+	}
+
+	void RenderBox::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void RenderBox::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// первоначальная инициализация
 		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
 
@@ -49,14 +72,8 @@ namespace MyGUI
 		createRenderTexture();
 	}
 
-	RenderBox::~RenderBox()
+	void RenderBox::shutdownWidgetSkin()
 	{
-		//Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
-		mTexture.setNull();
-		clear();
-
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root && mScene) root->destroySceneManager(mScene);
 	}
 
 	// добавляет в сцену объект, старый удаляеться

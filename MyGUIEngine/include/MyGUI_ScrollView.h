@@ -20,10 +20,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~ScrollView();
-
 	public:
 		//! @copydoc Widget::setTextAlign
 		virtual void setTextAlign(Align _align);
@@ -73,8 +69,13 @@ namespace MyGUI
 		virtual EnumeratorWidgetPtr getEnumerator();
 
 	protected:
+		ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~ScrollView();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
 		// переопределяем для присвоению холста
-		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
 		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
@@ -93,6 +94,10 @@ namespace MyGUI
 		void updateView();
 
 		void updateScroll();
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
 
 	protected:
 		bool mIsFocus;

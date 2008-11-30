@@ -31,6 +31,23 @@ namespace MyGUI
 		mWidgetCanvas(null),
 		mAlignCanvas(Align::Center)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	ScrollView::~ScrollView()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void ScrollView::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void ScrollView::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
@@ -62,21 +79,15 @@ namespace MyGUI
 
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (ScrollView must have Client)");
 
-		// парсим свойства
-		/*const MapString & properties = _info->getProperties();
-		if ( ! properties.empty() ) {
-			MapString::const_iterator iter = properties.end();
-			if ((iter = properties.find("ViewVScroll")) != properties.end()) showVScroll(utility::parseBool(iter->second));
-			if ((iter = properties.find("ViewHScroll")) != properties.end()) showHScroll(utility::parseBool(iter->second));
-			if ((iter = properties.find("ViewCanvasAlign")) != properties.end()) setCanvasAlign(Align::parse(iter->second));
-			if ((iter = properties.find("ViewCanvasSize")) != properties.end()) setCanvasSize(IntSize::parse(iter->second));
-		}*/
-
 		updateView();
 	}
 
-	ScrollView::~ScrollView()
+	void ScrollView::shutdownWidgetSkin()
 	{
+		mWidgetCanvas = null;
+		mVScroll = null;
+		mWidgetClient = null;
+		mHScroll = null;
 	}
 
 	void ScrollView::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
@@ -398,7 +409,7 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr ScrollView::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr ScrollView::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		return mWidgetCanvas->createWidgetT(_type, _skin, _coord, _align, _name);
 	}

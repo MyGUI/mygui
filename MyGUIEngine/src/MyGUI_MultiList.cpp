@@ -30,6 +30,24 @@ namespace MyGUI
 		mOffsetButtonSeparator(2),
 		mItemSelected(ITEM_NONE)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	MultiList::~MultiList()
+	{
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &MultiList::frameEntered);
+		shutdownWidgetSkin();
+	}
+
+	void MultiList::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void MultiList::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
@@ -64,9 +82,9 @@ namespace MyGUI
 		if (null == mWidgetClient) mWidgetClient = this;
 	}
 
-	MultiList::~MultiList()
+	void MultiList::shutdownWidgetSkin()
 	{
-		Gui::getInstance().eventFrameStart -= newDelegate(this, &MultiList::frameEntered);
+		mWidgetClient = null;
 	}
 
 	//----------------------------------------------------------------------------------//
