@@ -29,27 +29,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		DDContainer(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
-		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
-		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		virtual void onMouseDrag(int _left, int _top);
-
-		virtual void notifyInvalideDrop(WidgetPtr _sender);
-
-		void mouseDrag();
-		void mouseButtonReleased(MouseButton _id);
-		void mouseButtonPressed(MouseButton _id);
-
-		void endDrop(bool _reset);
-
-		virtual void removeDropItems();
-		virtual void updateDropItems();
-		virtual void updateDropItemsState(const DropWidgetState & _state);
-
-		virtual void getContainer(WidgetPtr & _container, size_t & _index);
-
 	public:
 
 		/** Set drag'n'drop mode flag */
@@ -88,6 +67,35 @@ namespace MyGUI
 		/* event : внутреннее событие, невалидна информация для контейнера*/
 		/* signature : void method(MyGUI::WidgetPtr _sender);*/
 		EventInfo_WidgetVoid eventInvalideContainer;
+
+	protected:
+		DDContainer(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~DDContainer();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		virtual void onMouseDrag(int _left, int _top);
+
+		virtual void notifyInvalideDrop(WidgetPtr _sender);
+
+		virtual void getContainer(WidgetPtr & _container, size_t & _index);
+
+		virtual void removeDropItems();
+		virtual void updateDropItems();
+		virtual void updateDropItemsState(const DropWidgetState & _state);
+
+		void mouseDrag();
+		void mouseButtonReleased(MouseButton _id);
+		void mouseButtonPressed(MouseButton _id);
+
+		void endDrop(bool _reset);
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
 
 	protected:
 		bool mDropResult;

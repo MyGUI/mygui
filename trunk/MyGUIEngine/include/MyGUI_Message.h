@@ -66,18 +66,6 @@ namespace MyGUI
 		typedef size_t ViewInfo;
 		typedef delegates::CDelegate2<WidgetPtr, ViewInfo> HandleEvent;
 
-	protected:
-		Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
-		void updateSize();
-		void notifyButtonClick(MyGUI::WidgetPtr _sender);
-		void clearButton();
-
-		void onKeyButtonPressed(KeyCode _key, Char _char);
-		void _destroyMessage(ViewInfo _result);
-
-		const char * getIconName(size_t _index);
-
 	public:
 		/** Set message text*/
 		void setMessage(const Ogre::UTFString & _message);
@@ -176,6 +164,25 @@ namespace MyGUI
 			@param _button - id of pressed button
 		*/
 		HandleEvent eventMessageBoxEnd;
+
+	protected:
+		Message(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Message();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+		void updateSize();
+		void notifyButtonClick(MyGUI::WidgetPtr _sender);
+		void clearButton();
+
+		void onKeyButtonPressed(KeyCode _key, Char _char);
+		void _destroyMessage(ViewInfo _result);
+
+		const char * getIconName(size_t _index);
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
 
 	private:
 		IntSize mOffsetText;

@@ -38,6 +38,23 @@ namespace MyGUI
 		mItemDrag(null),
 		mAlignVert(true)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	ItemBox::~ItemBox()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void ItemBox::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		DDContainer::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void ItemBox::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
@@ -74,7 +91,12 @@ namespace MyGUI
 
 		updateMetrics();
 		updateScroll();
+	}
 
+	void ItemBox::shutdownWidgetSkin()
+	{
+		mWidgetScroll = null;
+		mWidgetClient = null;
 	}
 
 	void ItemBox::setPosition(const IntPoint & _point)

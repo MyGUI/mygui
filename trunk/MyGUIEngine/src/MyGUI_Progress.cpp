@@ -30,6 +30,23 @@ namespace MyGUI
 		mFillTrack(false),
 		mStartPoint(Align::Left)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	Progress::~Progress()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void Progress::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void Progress::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
@@ -56,9 +73,9 @@ namespace MyGUI
 
 	}
 
-	Progress::~Progress()
+	void Progress::shutdownWidgetSkin()
 	{
-		//Gui::getInstance().removeFrameListener(newDelegate(this, &Progress::frameEntered));
+		mWidgetClient = null;
 	}
 
 	void Progress::setProgressRange(size_t _range)

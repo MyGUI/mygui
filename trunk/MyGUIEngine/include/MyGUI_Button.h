@@ -20,9 +20,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		Button(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
 	public:
 		//! OLD Set button check state
 		void setButtonPressed(bool _check) { setStateCheck(_check); }
@@ -59,14 +56,21 @@ namespace MyGUI
 		virtual void setEnabled(bool _enabled);
 
 	protected:
+		Button(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Button();
+
+		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
 		virtual void onMouseLostFocus(WidgetPtr _new);
 		virtual void onMouseSetFocus(WidgetPtr _old);
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
+	private:
 		void updateButtonState();
 
+		void shutdownWidgetSkin();
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 
 	private:
 		// нажата ли кнопка

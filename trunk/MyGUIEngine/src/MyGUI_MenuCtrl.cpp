@@ -4,7 +4,7 @@
 	@date		02/2008
 	@module
 */
-#include "MyGUI_PopupMenu.h"
+#include "MyGUI_MenuCtrl.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_StaticImage.h"
@@ -20,11 +20,11 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( PopupMenu, Widget );
+	MYGUI_RTTI_CHILD_IMPLEMENT( MenuCtrl, Widget );
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	PopupMenu::PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
+	MenuCtrl::MenuCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
 		Widget(_coord, _align, _info, _parent, _creator, _name),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
@@ -36,20 +36,20 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	PopupMenu::~PopupMenu()
+	MenuCtrl::~MenuCtrl()
 	{
 		mShutdown = true;
 		shutdownWidgetSkin();
 	}
 
-	void PopupMenu::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	void MenuCtrl::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
 		Widget::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void PopupMenu::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	void MenuCtrl::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -61,19 +61,19 @@ namespace MyGUI
 				//mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (PopupMenu must have Client)");
-		mWidgetClient->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
+		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
+		mWidgetClient->eventMouseButtonReleased = newDelegate(this, &MenuCtrl::notifyMouseReleased);
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("SkinLine");
 		if (iterS != properties.end()) mSkinLine = iterS->second;
-		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (PopupMenu must have SkinLine property)");
+		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (MenuCtrl must have SkinLine property)");
 
 		iterS = properties.find("HeightLine");
 		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
 		if (mHeightLine < 1) {
-			MYGUI_LOG(Warning, "PopupMenu HeightLine can't be less thah 1. Set to 1.");
+			MYGUI_LOG(Warning, "MenuCtrl HeightLine can't be less thah 1. Set to 1.");
 			mHeightLine = 1;
 		}
 
@@ -87,11 +87,11 @@ namespace MyGUI
 
 		iterS = properties.find("SubMenuSkin");
 		if (iterS != properties.end()) mSubMenuSkin = iterS->second;
-		MYGUI_ASSERT(false == mSubMenuSkin.empty(), "SubMenuSkin property not found (PopupMenu must have SubMenuSkin property)");
+		MYGUI_ASSERT(false == mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuCtrl must have SubMenuSkin property)");
 
 		iterS = properties.find("SubMenuLayer");
 		if (iterS != properties.end()) mSubMenuLayer = iterS->second;
-		MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (PopupMenu must have SubMenuLayer property)");
+		MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuCtrl must have SubMenuLayer property)");
 
 		iterS = properties.find("AlignVert");
 		if (iterS != properties.end()) mAlignVert = utility::parseBool(iterS->second);
@@ -104,33 +104,33 @@ namespace MyGUI
 		hide();
 	}
 
-	void PopupMenu::shutdownWidgetSkin()
+	void MenuCtrl::shutdownWidgetSkin()
 	{
 		mWidgetClient = null;
 	}
 
-	WidgetPtr PopupMenu::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr MenuCtrl::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (MenuItem::getClassTypeName() == _type) return addItem("");
 		return Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
-	MenuItemPtr PopupMenu::insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data)
+	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "PopupMenu::insertItemAt");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
 		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(getSkinByType(_type), IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
-		item->eventMouseButtonClick = newDelegate(this, &PopupMenu::notifyMouseClick);
-		item->eventMouseMove = newDelegate(this, &PopupMenu::notifyOpenSubmenu);
-		item->eventMouseButtonReleased = newDelegate(this, &PopupMenu::notifyMouseReleased);
+		item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseClick);
+		item->eventMouseMove = newDelegate(this, &MenuCtrl::notifyOpenSubmenu);
+		item->eventMouseButtonReleased = newDelegate(this, &MenuCtrl::notifyMouseReleased);
 
 		setButtonImageIndex(item, getIconIndexByType(_type ));
 
-		PopupMenuPtr submenu = null;
+		MenuCtrlPtr submenu = null;
 		if (_type == MenuItemType::Popup)
 		{
-			submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+			submenu = Gui::getInstance().createWidget<MenuCtrl>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 			submenu->_setOwner(this);
 		}
 
@@ -146,9 +146,9 @@ namespace MyGUI
 		return item;
 	}
 
-	void PopupMenu::removeItemAt(size_t _index)
+	void MenuCtrl::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemAt");
 
 		if ( mItemsInfo[_index].submenu ) {
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
@@ -156,7 +156,7 @@ namespace MyGUI
 		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].item);
 	}
 
-	void PopupMenu::removeAllItems()
+	void MenuCtrl::removeAllItems()
 	{
 		while (mItemsInfo.size() > 0) {
 			if ( mItemsInfo.back().submenu ) {
@@ -166,13 +166,13 @@ namespace MyGUI
 		}
 	}
 
-	const Ogre::UTFString& PopupMenu::getItemNameAt(size_t _index)
+	const Ogre::UTFString& MenuCtrl::getItemNameAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemNameAt");
 		return mItemsInfo[_index].name;
 	}
 
-	void PopupMenu::setButtonImageIndex(ButtonPtr _button, size_t _index)
+	void MenuCtrl::setButtonImageIndex(ButtonPtr _button, size_t _index)
 	{
 		StaticImagePtr image = _button->getStaticImage();
 		if ( null == image ) return;
@@ -187,7 +187,7 @@ namespace MyGUI
 		}
 	}
 
-	void PopupMenu::update()
+	void MenuCtrl::update()
 	{
 		IntSize size;
 
@@ -215,7 +215,7 @@ namespace MyGUI
 		setSize(size + mCoord.size() - mWidgetClient->getSize());
 	}
 
-	bool PopupMenu::isRelative(WidgetPtr _widget, bool _all)
+	bool MenuCtrl::isRelative(WidgetPtr _widget, bool _all)
 	{
 		if (_widget != null)
 		{
@@ -245,7 +245,7 @@ namespace MyGUI
 		return false;
 	}
 
-	void PopupMenu::notifyMouseClick(MyGUI::WidgetPtr _sender)
+	void MenuCtrl::notifyMouseClick(MyGUI::WidgetPtr _sender)
 	{
 		//FIXME потом передалть на интернал дата
 		size_t index = ITEM_NONE;
@@ -262,8 +262,7 @@ namespace MyGUI
 		if (mItemsInfo[index].type == MenuItemType::Separator) return;
 
 		//EventPair
-		eventPopupMenuAccept.m_eventObsolete(this, index);
-		eventPopupMenuAccept.m_event(this, mItemsInfo[index].item);
+		eventMenuCtrlAccept(this, mItemsInfo[index].item);
 
 		// делаем нажатой
 		static_cast<MenuItemPtr>(_sender)->setButtonPressed(true);
@@ -271,11 +270,11 @@ namespace MyGUI
 		// если есть сабменю, то сообщение все равно отошлем, но скрывать сами не будем
 		if (mItemsInfo[index].submenu == null)
 		{
-			hidePopupMenu();
+			hideMenuCtrl();
 		}
 	}
 
-	void PopupMenu::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void MenuCtrl::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		// потом передалть на интернал дата
 		size_t index = ITEM_NONE;
@@ -291,7 +290,7 @@ namespace MyGUI
 			if (iter->submenu)
 			{
 				iter->item->setButtonPressed(false);
-				iter->submenu->hidePopupMenu(false);
+				iter->submenu->hideMenuCtrl(false);
 			}
 		}
 		if (mItemsInfo[index].submenu)
@@ -314,11 +313,11 @@ namespace MyGUI
 
 			}
 
-			mItemsInfo[index].submenu->showPopupMenu(position, false);
+			mItemsInfo[index].submenu->showMenuCtrl(position, false);
 		}
 	}
 
-	void PopupMenu::showPopupMenu(const IntPoint& _point, bool _checkBorders)
+	void MenuCtrl::showMenuCtrl(const IntPoint& _point, bool _checkBorders)
 	{
 		if (_checkBorders)
 		{
@@ -343,7 +342,7 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	void PopupMenu::notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void MenuCtrl::notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		// если отжали не на той же кнопке
 		if ( _sender->getAbsoluteCoord().inside(IntPoint(_left, _top)) == false )
@@ -353,36 +352,36 @@ namespace MyGUI
 			MyGUI::WidgetPtr button = item; // может понадобится, для вызова notifyMouseClick
 			// проверяем только рутовые виджеты, чтобы не проверять детей попапа
 			while ((item != null) && (item->getParent() != null)) item = item->getParent();
-			if (isRelative(item, true) && (item->getTypeName() == PopupMenu::getClassTypeName()))
+			if (isRelative(item, true) && (item->getTypeName() == MenuCtrl::getClassTypeName()))
 			{
-				item->castType<PopupMenu>()->notifyMouseClick(button);
+				item->castType<MenuCtrl>()->notifyMouseClick(button);
 			}
 			else
 			{
-				hidePopupMenu();
-				eventPopupMenuClose(this);
+				hideMenuCtrl();
+				eventMenuCtrlClose(this);
 			}
 		}
 	}
 
-	void PopupMenu::onKeyLostFocus(WidgetPtr _new)
+	void MenuCtrl::onKeyLostFocus(WidgetPtr _new)
 	{
 		// не прятать, если фокус перешел к хозяину или сыну
 		if (isRelative(_new)) return;
-		hidePopupMenu();
-		eventPopupMenuClose(this);
+		hideMenuCtrl();
+		eventMenuCtrlClose(this);
 
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::eventKeyLostFocus(mWidgetEventSender, _new);
 	}
 
-	void PopupMenu::hidePopupMenu(bool _hideParentPopup)
+	void MenuCtrl::hideMenuCtrl(bool _hideParentPopup)
 	{
 		if ( _hideParentPopup && mOwner != null )
 		{
 			// если наш папа попап меню или меню - спрячем и его
-			PopupMenuPtr popup = mOwner->castType<PopupMenu>(false);
-			if (popup != null) popup->hidePopupMenu();
+			MenuCtrlPtr popup = mOwner->castType<MenuCtrl>(false);
+			if (popup != null) popup->hideMenuCtrl();
 			else {
 				MenuBarPtr menu = mOwner->castType<MenuBar>(false);
 				if (menu != null) menu->clearItemSelected();
@@ -400,29 +399,29 @@ namespace MyGUI
 		for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 		{
 			if (iter->submenu) {
-				iter->submenu->hidePopupMenu(false);
+				iter->submenu->hideMenuCtrl(false);
 			}
 		}
 	}
 
-	void PopupMenu::setItemDataAt(size_t _index, Any _data)
+	void MenuCtrl::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemDataAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemDataAt");
 		mItemsInfo[_index].data = _data;
 	}
 
-	PopupMenuPtr PopupMenu::getItemChildAt(size_t _index)
+	MenuCtrlPtr MenuCtrl::getItemChildAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemChildAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemChildAt");
 		return mItemsInfo[_index].submenu;
 	}
 
-	PopupMenuPtr PopupMenu::createItemChildAt(size_t _index)
+	MenuCtrlPtr MenuCtrl::createItemChildAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::createItemChildAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildAt");
 
 		if (mItemsInfo[_index].submenu == null) {
-			mItemsInfo[_index].submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+			mItemsInfo[_index].submenu = Gui::getInstance().createWidget<MenuCtrl>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 			mItemsInfo[_index].submenu->_setOwner(this);
 		}
 		else {
@@ -434,9 +433,9 @@ namespace MyGUI
 		return mItemsInfo[_index].submenu;
 	}
 
-	void PopupMenu::removeItemChildAt(size_t _index)
+	void MenuCtrl::removeItemChildAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::removeItemChildAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemChildAt");
 
 		if (mItemsInfo[_index].submenu != null) {
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
@@ -446,9 +445,9 @@ namespace MyGUI
 		update();
 	}
 
-	void PopupMenu::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void MenuCtrl::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemNameAt");
 
 		mItemsInfo[_index].name = _name;
 		MenuItemPtr item = mItemsInfo[_index].item;
@@ -457,19 +456,19 @@ namespace MyGUI
 		update();
 	}
 
-	void PopupMenu::setItemIdAt(size_t _index, const std::string & _id)
+	void MenuCtrl::setItemIdAt(size_t _index, const std::string & _id)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemIdAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemIdAt");
 		mItemsInfo[_index].id = _id;
 	}
 
-	const std::string & PopupMenu::getItemIdAt(size_t _index)
+	const std::string & MenuCtrl::getItemIdAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemIdAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemIdAt");
 		return mItemsInfo[_index].id;
 	}
 
-	void PopupMenu::_notifyDeleteItem(MenuItemPtr _item)
+	void MenuCtrl::_notifyDeleteItem(MenuItemPtr _item)
 	{
 		// общий шутдаун виджета
 		if (mShutdown) return;
@@ -479,7 +478,7 @@ namespace MyGUI
 		update();
 	}
 
-	void PopupMenu::_notifyUpdateName(MenuItemPtr _item)
+	void MenuCtrl::_notifyUpdateName(MenuItemPtr _item)
 	{
 		size_t index = getItemIndex(_item);
 		mItemsInfo[index].name = _item->getCaption();
@@ -488,15 +487,15 @@ namespace MyGUI
 		update();
 	}
 
-	MenuItemType PopupMenu::getItemTypeAt(size_t _index)
+	MenuItemType MenuCtrl::getItemTypeAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::getItemTypeAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemTypeAt");
 		return mItemsInfo[_index].type;
 	}
 
-	void PopupMenu::setItemTypeAt(size_t _index, MenuItemType _type)
+	void MenuCtrl::setItemTypeAt(size_t _index, MenuItemType _type)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::setItemTypeAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemTypeAt");
 		ItemInfo & info = mItemsInfo[_index];
 		if (info.type == _type) return;
 

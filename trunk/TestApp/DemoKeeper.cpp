@@ -216,10 +216,26 @@ namespace demo
 
 		//int * ptr = new int();
 
-		MyGUI::WidgetPtr text = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 500, 100), MyGUI::Align::Default, "Main");
-		text->setColour(Ogre::ColourValue::White);
-		text->setFontName("ManualFont");
-		text->setCaption("0123");
+		MyGUI::Gui::getInstance().hidePointer();
+		delete mInfo;
+		mInfo = null;
+
+		MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
+		MyGUI::WidgetPtr widget2 = widget1->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(30, 30, 30, 30), MyGUI::Align::Default);
+		MyGUI::WidgetPtr widget3 = widget2->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 10, 10), MyGUI::Align::Default);
+
+		widget1->setCaption("1");
+		widget1->changeWidgetSkin("Button");
+		widget1->setCaption("2");
+
+		//MyGUI::LayerManager::getInstance().setSceneManager(0);
+		//mGUI->setSceneManager(0);
+		//widget->setCoord(MyGUI::IntCoord(10, 10, 100, 100));
+
+		//MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+		//text->setColour(Ogre::ColourValue::White);
+		//text->setFontName("ManualFont");
+		//text->setCaption("0123");
 		
 	}
  

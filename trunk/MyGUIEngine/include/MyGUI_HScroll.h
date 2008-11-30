@@ -20,9 +20,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		HScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		
 	public:
 		/** Get size in pixels of area where scroll moves */
 		int getLineSize();
@@ -34,7 +31,16 @@ namespace MyGUI
 		/** Get size of track in pixels */
 		int getTrackSize();
 
+	protected:
+		HScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~HScroll();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		
 	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
 		void TrackMove(int _left, int _top);
 		void updateTrack();
 

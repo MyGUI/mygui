@@ -22,6 +22,23 @@ namespace MyGUI
 		mDistanceButton(0),
 		mIndexSelect(ITEM_NONE)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	MenuBar::~MenuBar()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void MenuBar::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void MenuBar::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
@@ -51,6 +68,11 @@ namespace MyGUI
 		}
 
 		if (mWidgetClient == null) mWidgetClient= this;
+	}
+
+	void MenuBar::shutdownWidgetSkin()
+	{
+		mWidgetClient = null;
 	}
 
 	void MenuBar::insertItemAt(size_t _index, const Ogre::UTFString & _item, ItemType _type, Any _data)

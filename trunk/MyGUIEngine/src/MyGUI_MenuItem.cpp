@@ -5,6 +5,8 @@
 	@module
 */
 #include "MyGUI_MenuItem.h"
+#include "MyGUI_SkinManager.h"
+#include "MyGUI_SubWidgetManager.h"
 
 namespace MyGUI
 {
@@ -24,11 +26,29 @@ namespace MyGUI
 			MYGUI_ASSERT(parent->isType<PopupMenu>(), "MenuItem must have parent PopupMenu");
 		}
 		mOwner = parent->castType<PopupMenu>();
+
+		initialiseWidgetSkin(_info);
 	}
 
 	MenuItem::~MenuItem()
 	{
 		mOwner->_notifyDeleteItem(this);
+	}
+
+	WidgetPtr MenuItem::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	{
+		if (PopupMenu::getClassTypeName() == _type) return createItemChild();
+		return Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+	}
+
+	void MenuItem::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		Button::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void MenuItem::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 	}
 
 } // namespace MyGUI

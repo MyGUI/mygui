@@ -25,6 +25,23 @@ namespace MyGUI
 		mCurrentFrame(0),
 		mResource(null)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	StaticImage::~StaticImage()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void StaticImage::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void StaticImage::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// первоначальная инициализация
 		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
 
@@ -43,8 +60,9 @@ namespace MyGUI
 		}
 	}
 
-	StaticImage::~StaticImage()
+	void StaticImage::shutdownWidgetSkin()
 	{
+		mWidgetClient = null;
 	}
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)

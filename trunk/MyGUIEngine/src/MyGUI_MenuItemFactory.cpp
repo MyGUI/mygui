@@ -37,7 +37,7 @@ namespace MyGUI
 		void MenuItemFactory::MenuItem_Type(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			//static_cast<MenuItemPtr>(_widget)->setItemType(_value);
+			static_cast<MenuItemPtr>(_widget)->setItemType(MenuItemType::parse(_value));
 		}
 
 	} // namespace factory

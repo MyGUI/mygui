@@ -23,10 +23,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		~StaticImage();
-
 	public:
 
 		//------------------------------------------------------------------------------------------------//
@@ -128,7 +124,16 @@ namespace MyGUI
 		void setItemName(const std::string & _name);
 
 		
+	protected:
+		StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~StaticImage();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
 	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
 		void frameEntered(float _frame);
 
 		void recalcIndexes();

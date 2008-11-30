@@ -21,12 +21,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		Progress(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		~Progress();
-
-		void frameEntered(float _time);
-
 	public:
 		/** Set progress range */
 		void setProgressRange(size_t _range);
@@ -74,7 +68,17 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
+	protected:
+		Progress(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Progress();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
 	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
+		void frameEntered(float _time);
 		void updateTrack();
 
 		int getClientWidth() {return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mWidgetClient->getWidth() : mWidgetClient->getHeight();}

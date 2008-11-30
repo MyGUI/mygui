@@ -59,7 +59,23 @@ namespace MyGUI
 		mVRange(0),
 		mHRange(0)
 	{
+		initialiseWidgetSkin(_info);
+	}
 
+	Edit::~Edit()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void Edit::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void Edit::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		mOriginalPointer = mPointer;
 
 		// нам нужен фокус клавы
@@ -109,13 +125,13 @@ namespace MyGUI
 		// первоначальная инициализация курсора
 		mText->setCursorPosition(mCursorPosition);
 		updateSelectText();
-
 	}
 
-	Edit::~Edit()
+	void Edit::shutdownWidgetSkin()
 	{
-		// на всякий отписываем
-		//Gui::getInstance().removeFrameListener(newDelegate(this, &Edit::frameEntered));
+		mWidgetClient = null;
+		mVScroll= null;
+		mHScroll = null;
 	}
 
 	void Edit::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)

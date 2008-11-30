@@ -227,6 +227,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_MenuCtrl.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_Message.cpp"
 					>
 				</File>
@@ -311,6 +315,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_MenuBarFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_MenuCtrlFactory.cpp"
 						>
 					</File>
 					<File
@@ -581,10 +589,6 @@
 						RelativePath=".\src\MyGUI_Any.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\src\MyGUI_MenuItemType.cpp"
-						>
-					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -681,6 +685,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_MenuCtrl.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Message.h"
 					>
 				</File>
@@ -765,6 +773,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_MenuBarFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MenuCtrlFactory.h"
 						>
 					</File>
 					<File

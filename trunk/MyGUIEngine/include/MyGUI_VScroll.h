@@ -20,9 +20,6 @@ namespace MyGUI
 		
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
 	public:
 		/** Set scroll range */
 		void setScrollRange(size_t _range);
@@ -89,6 +86,11 @@ namespace MyGUI
 		EventInfo_WidgetSizeT eventScrollChangePosition;
 
 	protected:
+		VScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~VScroll();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
 		virtual void updateTrack();
 		virtual void TrackMove(int _left, int _top);
 
@@ -99,6 +101,11 @@ namespace MyGUI
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
+	protected:
 		// наши кнопки
 		ButtonPtr mWidgetStart;
 		ButtonPtr mWidgetEnd;

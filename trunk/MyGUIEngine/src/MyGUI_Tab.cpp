@@ -36,7 +36,24 @@ namespace MyGUI
 		mButtonAutoWidth(true),
 		mShutdown(false)
 	{
+		initialiseWidgetSkin(_info);
+	}
 
+	Tab::~Tab()
+	{
+		mShutdown = true;
+		shutdownWidgetSkin();
+	}
+
+	void Tab::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void Tab::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
@@ -96,31 +113,37 @@ namespace MyGUI
 		updateBar();
 	}
 
-	Tab::~Tab()
+	void Tab::shutdownWidgetSkin()
 	{
-		mShutdown = true;
-		// просто очищаем список, виджеты сами удалятся
-		// и вкладки при удалении себя не найдет в списке
+		mWidgetsPatch.clear();
+		mWidgetBar = null;
+		mButtonLeft = null;
+		mButtonRight = null;
+		mButtonList = null;
+		mButtonDecor = null;
+		mItemTemplate = null;
+		mEmptyBarWidget = null;
 	}
 
+
 	// переопределяем для особого обслуживания страниц
-	WidgetPtr Tab::_createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Tab::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type)) {
 
-			TabItemPtr sheet = static_cast<TabItemPtr>(Widget::_createWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+			TabItemPtr sheet = static_cast<TabItemPtr>(Widget::baseCreateWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
 			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
 
 			return sheet;
 		}
-		return Widget::_createWidget(_type, _skin, _coord, _align, _layer, _name);
+		return Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
 	}
 
 	TabItemPtr Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		TabItemPtr sheet = static_cast<TabItemPtr>(Widget::_createWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+		TabItemPtr sheet = static_cast<TabItemPtr>(Widget::baseCreateWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
 		_insertItem(_index, _name, sheet, _data);
 
 		return sheet;
