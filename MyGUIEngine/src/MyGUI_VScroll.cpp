@@ -24,6 +24,23 @@ namespace MyGUI
 		mWidgetFirstPart(null),
 		mWidgetSecondPart(null)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	VScroll::~VScroll()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void VScroll::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void VScroll::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
 		mScrollViewPage = 1;
@@ -84,6 +101,15 @@ namespace MyGUI
 		iter = properties.find("MinTrackSize");
 		if (iter != properties.end()) mMinTrackSize = utility::parseInt(iter->second);
 		else mMinTrackSize = 0;
+	}
+
+	void VScroll::shutdownWidgetSkin()
+	{
+		mWidgetStart = null;
+		mWidgetEnd = null;
+		mWidgetTrack = null;
+		mWidgetFirstPart = null;
+		mWidgetSecondPart = null;
 	}
 
 	void VScroll::updateTrack()

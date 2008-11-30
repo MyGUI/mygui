@@ -21,7 +21,23 @@ namespace MyGUI
 		mIsStateCheck(false),
 		mImage(null)
 	{
+		initialiseWidgetSkin(_info);
+	}
 
+	Button::~Button()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void Button::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void Button::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
 		if (!properties.empty()) {
@@ -31,13 +47,17 @@ namespace MyGUI
 			if (iter != properties.end()) setStateCheck(utility::parseBool(iter->second));
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Image") {
 				MYGUI_DEBUG_ASSERT( ! mImage, "widget already assigned");
 				mImage = (*iter)->castType<StaticImage>();
 			}
 		}
+	}
 
+	void Button::shutdownWidgetSkin()
+	{
+		mImage = null;
 	}
 
 	void Button::onMouseSetFocus(WidgetPtr _old)

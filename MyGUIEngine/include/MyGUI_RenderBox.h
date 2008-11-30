@@ -25,16 +25,11 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		RenderBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~RenderBox();
-
 	public:
 		/** default RenderBox autorotation speed (if enabled) */
 		enum { RENDER_BOX_AUTO_ROTATION_SPEED = 20 };
 
 
-	public:
 		/** Add mesh to scene and remove previous one
 			@remarks
 				This function will take no effect if setRenderTarget was used.
@@ -138,7 +133,10 @@ namespace MyGUI
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 	protected:
-		void frameEntered(float _time);
+		RenderBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~RenderBox();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
 		void onMouseDrag(int _left, int _top);
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id);
@@ -146,6 +144,10 @@ namespace MyGUI
 		void onMouseWheel(int _rel);
 
 	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
+		void frameEntered(float _time);
 
 		void synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode);
 		bool checkSceneNode(Ogre::SceneNode * _sceneNode, Ogre::SceneNode * _node);

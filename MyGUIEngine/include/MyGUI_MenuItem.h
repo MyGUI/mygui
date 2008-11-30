@@ -25,12 +25,17 @@ namespace MyGUI
 		MenuItem(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
 		virtual ~MenuItem();
 
+		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+
 	public:
 		/** Set item caption */
 		virtual void setCaption(const Ogre::UTFString & _caption) {
 			Button::setCaption(_caption);
 			mOwner->_notifyUpdateName(this);
 		}
+
+		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 	public:
 
@@ -61,6 +66,12 @@ namespace MyGUI
 
 		//! Get item index
 		size_t getItemIndex() { return mOwner->getItemIndex(this); }
+
+		PopupMenuPtr createItemChild() { return mOwner->createItemChild(this); }
+
+		void setItemType(MenuItemType _type) { mOwner->setItemType(this, _type); }
+
+		MenuItemType getItemType(MenuItemType _type) { return mOwner->getItemType(this); }
 
 	private:
 		PopupMenuPtr mOwner;

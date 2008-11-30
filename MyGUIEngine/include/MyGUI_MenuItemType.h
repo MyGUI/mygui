@@ -94,8 +94,6 @@ namespace MyGUI
 			return &map_value;
 		}
 
-		//static MapValue mMapValue;
-		//static void initialise();
 	};
 
 } // namespace MyGUI

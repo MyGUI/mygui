@@ -22,21 +22,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-
-		struct ItemDataInfo
-		{
-			ItemDataInfo(Any _data) :
-				data(_data)
-			{
-			}
-			Any data;
-		};
-		typedef std::vector<ItemDataInfo> VectorItemInfo;
-
-	protected:
-		GridCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
 	public:
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -151,6 +136,19 @@ namespace MyGUI
 
 	protected:
 
+		struct ItemDataInfo
+		{
+			ItemDataInfo(Any _data) :
+				data(_data)
+			{
+			}
+			Any data;
+		};
+		typedef std::vector<ItemDataInfo> VectorItemInfo;
+
+		GridCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~GridCtrl();
+
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 		virtual void onMouseDrag(int _left, int _top);
@@ -204,6 +202,12 @@ namespace MyGUI
 
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void resetContainer(bool _update);
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
 
 	private:
 		VScrollPtr mWidgetScroll;

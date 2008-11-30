@@ -31,37 +31,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_BASE_HEADER;
 
-	protected:
-		// все создание только через фабрику
-		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~Widget();
-
-		void _updateView(); // обновления себя и детей
-
-		void _setAlign(const IntSize& _size, bool _update);
-		void _setAlign(const IntCoord& _coord, bool _update);
-
-		// показывает скрывает все сабскины
-		void _setVisible(bool _visible);
-
-		// создает виджет
-		virtual WidgetPtr _createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
-
-		// удяляет неудачника
-		virtual void _destroyChildWidget(WidgetPtr _widget);
-
-		// удаляет всех детей
-		virtual void _destroyAllChildWidget();
-
-		void frameEntered(float _frame);
-
-		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t getContainerIndex(const IntPoint & _point) { return ITEM_NONE; }
-
-		// сброс всех данных контейнера, тултипы и все остальное
-		virtual void resetContainer(bool _update);
-
-
 	public:
 
 		// методы и шаблоны для создания виджета
@@ -74,7 +43,7 @@ namespace MyGUI
 		*/
 		WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
 		{
-			return _createWidget(_type, _skin, _coord, _align, "", _name);
+			return baseCreateWidget(_type, _skin, _coord, _align, "", _name);
 		}
 		/** See Gui::createWidgetT */
 		WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
@@ -311,15 +280,56 @@ namespace MyGUI
 		/** Enable or disable tooltip event */
 		void enableToolTip(bool _enable);
 
+		void changeWidgetSkin(const std::string& _skinname);
+
+	protected:
+		// все создание только через фабрику
+		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~Widget();
+
+		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+		void _updateView(); // обновления себя и детей
+
+		void _setAlign(const IntSize& _size, bool _update);
+		void _setAlign(const IntCoord& _coord, bool _update);
+
+		// показывает скрывает все сабскины
+		void _setVisible(bool _visible);
+
+		// создает виджет
+		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+
+		// удяляет неудачника
+		virtual void _destroyChildWidget(WidgetPtr _widget);
+
+		// удаляет всех детей
+		virtual void _destroyAllChildWidget();
+
+		// запрашиваем у конейтера айтем по позиции мыши
+		virtual size_t getContainerIndex(const IntPoint & _point) { return ITEM_NONE; }
+
+		// сброс всех данных контейнера, тултипы и все остальное
+		virtual void resetContainer(bool _update);
+
+	private:
+
+		void frameEntered(float _frame);
+
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info, const IntSize& _size);
+		void shutdownWidgetSkin();
+
 	protected:
 		// список всех стейтов
-		const MapWidgetStateInfo & mStateInfo;
+		MapWidgetStateInfo mStateInfo;
 		// информация о маске для пикинга
 		MaskPeekInfo const * mMaskPeekInfo;
 		MaskPeekInfo mOwnMaskPeekInfo;
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
+		// вектор детей скина
+		VectorWidgetPtr mWidgetChildSkin;
 		// вектор всех детей сабскинов
 		VectorSubWidget mSubSkinChild;
 

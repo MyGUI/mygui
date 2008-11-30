@@ -29,6 +29,23 @@ namespace MyGUI
 		mIsFocus(false),
 		mNeedVisibleScroll(true)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	List::~List()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void List::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void List::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
@@ -65,6 +82,12 @@ namespace MyGUI
 		updateScroll();
 		updateLine();
 
+	}
+
+	void List::shutdownWidgetSkin()
+	{
+		mWidgetScroll = null;
+		mWidgetClient = null;
 	}
 
 	void List::onMouseWheel(int _rel)

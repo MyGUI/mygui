@@ -21,9 +21,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		List(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
 	public:
 
 		//------------------------------------------------------------------------------//
@@ -244,6 +241,10 @@ namespace MyGUI
 		EventInfo_WidgetSizeT eventListChangeScroll;
 
 	protected:
+		List(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~List();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
 		void onMouseWheel(int _rel);
 		void onKeyLostFocus(WidgetPtr _new);
@@ -274,6 +275,10 @@ namespace MyGUI
 		void _selectIndex(size_t _index, bool _select);
 
 		void _updateState() { setState(mIsFocus ? "pushed" : "normal"); }
+
+	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
 
 	private:
 		std::string mSkinLine;

@@ -36,7 +36,23 @@ namespace MyGUI
 		mIcon(null),
 		mLeftOffset1(0),
 		mLeftOffset2(0)
-		//mResourceIcons(null)
+	{
+		initialiseWidgetSkin(_info);
+	}
+
+	Message::~Message()
+	{
+		shutdownWidgetSkin();
+	}
+
+	void Message::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	{
+		shutdownWidgetSkin();
+		Window::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void Message::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// ищем индекс первой кнопки
 		size_t but1 = (size_t)Button1;
@@ -89,6 +105,12 @@ namespace MyGUI
 			//}
 		}
 
+	}
+
+	void Message::shutdownWidgetSkin()
+	{
+		mWidgetText = null;
+		mIcon = null;
 	}
 
 	void Message::setMessage(const Ogre::UTFString & _message)

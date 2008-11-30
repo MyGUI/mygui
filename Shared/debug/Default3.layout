@@ -2,10 +2,16 @@
 <MyGUI type="Layout">
     <Widget type="PopupMenu" skin="PopupMenu" position="490 330 222 102" layer="Overlapped">
         <Property key="Widget_Show" value="true"/>
-        <Widget type="PopupMenuItem" skin="Default" position="0 8 214 20">
+        <Widget type="MenuItem" skin="Default" position="0 8 214 20">
             <Property key="Widget_Caption" value="test1"/>
+            <Property key="MenuItem_Type" value="Popup"/>
+            <Widget type="PopupMenu" skin="PopupMenu" position="490 330 222 102" layer="Overlapped">
+               <Widget type="MenuItem" skin="Default" position="0 8 214 20">
+                   <Property key="Widget_Caption" value="test1"/>
+                </Widget>
+            </Widget>
         </Widget>
-        <Widget type="PopupMenuItem" skin="Default" position="0 36 214 20">
+        <Widget type="MenuItem" skin="Default" position="0 36 214 20">
             <Property key="Widget_Caption" value="test3"/>
         </Widget>
     </Widget>

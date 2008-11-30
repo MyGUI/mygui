@@ -23,10 +23,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-		virtual ~ComboBox();
-
 	public:
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -172,8 +168,14 @@ namespace MyGUI
 		EventInfo_WidgetSizeT eventComboChangePosition;
 
 	protected:
+		ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~ComboBox();
+
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
 
+		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+	private:
 		void notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyListLostFocus(WidgetPtr _sender, MyGUI::WidgetPtr _new);
 		void notifyListSelectAccept(WidgetPtr _widget, size_t _position);
@@ -185,6 +187,9 @@ namespace MyGUI
 
 		void showList();
 		void hideList();
+
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
 
 	private:
 		ButtonPtr mButton;

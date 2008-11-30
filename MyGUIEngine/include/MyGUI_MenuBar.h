@@ -39,9 +39,6 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
-
 	public:
 		enum ItemType
 		{
@@ -158,7 +155,16 @@ namespace MyGUI
 		*/
 		EventInfo_WidgetMenuSizeT eventPopupMenuAccept;
 
+	protected:
+		MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		virtual ~MenuBar();
+
+		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
 	private:
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
 		void update();
 
 		void eventMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id);
