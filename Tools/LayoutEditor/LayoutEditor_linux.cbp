@@ -110,7 +110,7 @@
 		<Unit filename="SettingsWindow.h" />
 		<Unit filename="UndoManager.cpp" />
 		<Unit filename="UndoManager.h" />
-		<Unit filename="WidgetContainer.cpp" />
+		<Unit filename="EditorWidgets.cpp" />
 		<Unit filename="WidgetContainer.h" />
 		<Unit filename="WidgetTypes.cpp" />
 		<Unit filename="WidgetTypes.h" />

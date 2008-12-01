@@ -15,7 +15,7 @@ LayoutEditor_SOURCES = \
 	PropertiesPanelView.cpp\
 	SettingsWindow.cpp\
 	UndoManager.cpp\
-	WidgetContainer.cpp\
+	EditorWidgets.cpp\
 	WidgetTypes.cpp\
 	WidgetsWindow.cpp\
 	$(top_srcdir)/Common/BaseLayout.cpp\
