@@ -14,8 +14,10 @@
 #include <assert.h>
 #include <assert.h>
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <gcroot.h>
 #include <windowsx.h>
+#endif
 
 
 
