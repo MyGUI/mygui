@@ -19,6 +19,11 @@
 #include <windowsx.h>
 #endif
 
+struct A
+{
+	static const std::string & foo1() { A a; return a.foo2(); }
+	const std::string & foo2() { static std::string value; return value; }
+};
 
 
 namespace demo
@@ -46,7 +51,7 @@ namespace demo
 		{
 			align = _align;
 		}
-		static operator Align (MyGUI::Align _align) { return Align(_align.value); }
+		static operator Align (MyGUI::Align _align) { return Align(_align.toValue()); }
 		static operator MyGUI::Align (Align _align) { return MyGUI::Align(_align.align); }
 		int align;
 	};
@@ -218,17 +223,24 @@ namespace demo
 
 		//int * ptr = new int();
 
-		MyGUI::Gui::getInstance().hidePointer();
+		/*MyGUI::Gui::getInstance().hidePointer();
 		delete mInfo;
-		mInfo = null;
+		mInfo = null;*/
 
-		MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
-		MyGUI::WidgetPtr widget2 = widget1->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(30, 30, 30, 30), MyGUI::Align::Default);
-		MyGUI::WidgetPtr widget3 = widget2->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 10, 10), MyGUI::Align::Default);
+		MyGUI::WindowPtr widget1 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 500, 500), MyGUI::Align::Default, "Main");
+		MyGUI::WindowPtr widget2 = widget1->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default);
+		MyGUI::WindowPtr widget3 = widget2->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default);
 
-		widget1->setCaption("1");
+		/*widget1->setCaption("1");
 		widget1->changeWidgetSkin("Button");
-		widget1->setCaption("2");
+		widget1->setCaption("2");*/
+
+		//widget2->detachWidget();
+		widget2->attachWidget("Popup");
+		widget2->attachWidget(widget1);
+		//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Overlapped", widget1);
+
+		//widget2->_attachToLayerItemKeeper();
 
 		//MyGUI::LayerManager::getInstance().setSceneManager(0);
 		//mGUI->setSceneManager(0);

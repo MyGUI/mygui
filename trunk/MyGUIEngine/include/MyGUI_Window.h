@@ -105,9 +105,6 @@ namespace MyGUI
 		//! @copydoc Widget::getFontHeight
 		virtual uint16 getFontHeight();
 
-		//! @copydoc Widget::getEnumerator
-		virtual EnumeratorWidgetPtr getEnumerator();
-
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string& _name)
 			@param _name of pressed button

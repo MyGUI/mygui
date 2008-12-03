@@ -63,7 +63,7 @@ namespace MyGUI
 		}
 
 		// парсим виджет для текста
-		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Text") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetText, "widget already assigned");
 				mWidgetText = (*iter);

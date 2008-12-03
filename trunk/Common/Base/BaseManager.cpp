@@ -266,7 +266,7 @@ namespace base
 				time -= 1;
 				try {
 					const Ogre::RenderTarget::FrameStats& stats = BaseManager::getInstance().mWindow->getStatistics();
-					mInfo->change("FPS", stats.lastFPS);
+					mInfo->change("FPS", (int)stats.lastFPS);
 					mInfo->change("triangle", stats.triangleCount);
 					mInfo->change("batch", stats.batchCount);
 					mInfo->change("batch gui", MyGUI::LayerManager::getInstance().getBatch());
@@ -305,7 +305,7 @@ namespace base
 
 	bool BaseManager::keyPressed( const OIS::KeyEvent &arg )
 	{
-		if ( arg.key == OIS::KC_ESCAPE ) {m_exit = true; return false;}
+		if ( arg.key == OIS::KC_ESCAPE ) { m_exit = true; return false; }
 		else if ( arg.key == OIS::KC_SYSRQ ) {
 			std::ifstream stream;
 			std::string file;
@@ -322,6 +322,9 @@ namespace base
 			} while (stream.is_open());
 			mWindow->writeContentsToFile(file);
 			return true;
+		}
+		else if ( arg.key == OIS::KC_F12) {
+			if (mGUI) MyGUI::InputManager::getInstance().setShowFocus(!MyGUI::InputManager::getInstance().getShowFocus());
 		}
 
 		if (mGUI) mGUI->injectKeyPress(arg);

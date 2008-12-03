@@ -49,7 +49,7 @@ namespace MyGUI
 		return MyGUI::ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void FontManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	void FontManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 		xml::xmlNodeIterator font = _node->getNodeIterator();
 		while (font.nextNode(XML_TYPE)) {

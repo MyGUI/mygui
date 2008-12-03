@@ -66,7 +66,7 @@ namespace MyGUI
 			if (iter != properties.end()) mEmptySkinName = iter->second;
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Bar") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetBar, "widget already assigned");
 				mWidgetBar = (*iter);

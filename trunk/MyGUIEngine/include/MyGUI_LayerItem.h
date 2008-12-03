@@ -31,11 +31,11 @@ namespace MyGUI
 
 	public:
 
-		LayerKeeper * getLayerKeeper() {return mLayerKeeper;}
+		LayerKeeper * getLayerKeeper() { return mLayerKeeper; }
 
 		// наш текущий хранитель леера
 		LayerItemKeeper * getLayerItemKeeper() { return mLayerItemKeeper; }
-		void setLayerItemKeeper(LayerItemKeeper * _item) {mLayerItemKeeper = _item;}
+		void setLayerItemKeeper(LayerItemKeeper * _item) { mLayerItemKeeper = _item; }
 
 		// физическое подсоединение и отсоединение
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item) = 0;

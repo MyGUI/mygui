@@ -513,7 +513,7 @@ namespace MyGUI
 
 #endif
 
-	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 #ifdef MYGUI_NO_OIS
 		xml::xmlNodeIterator lang = _node->getNodeIterator();

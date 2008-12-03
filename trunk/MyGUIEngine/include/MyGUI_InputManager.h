@@ -128,7 +128,7 @@ namespace MyGUI
 		void resetKey();
 
 	public:
-		void _load(xml::xmlNodePtr _node, const std::string & _file);
+		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
 #ifdef MYGUI_NO_OIS
 
