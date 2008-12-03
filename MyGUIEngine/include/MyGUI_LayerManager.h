@@ -55,7 +55,7 @@ namespace MyGUI
 
 		/** Load additional MyGUI *_layer.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		void _load(xml::xmlNodePtr _node, const std::string & _file);
+		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
 		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
 

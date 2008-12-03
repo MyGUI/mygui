@@ -9,10 +9,10 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Utility.h"
-#include "TPoint.h"
-#include "TSize.h"
-#include "TRect.h"
-#include "TCoord.h"
+#include "MyGUI_TPoint.h"
+#include "MyGUI_TSize.h"
+#include "MyGUI_TRect.h"
+#include "MyGUI_TCoord.h"
 
 #include <Ogre.h>
 
@@ -53,6 +53,7 @@ namespace MyGUI
 	typedef unsigned int uint;
 
 	typedef unsigned int Char;
+	typedef std::string UString;
 
 	// тип, для двойного преобразования
 	template <typename Type>

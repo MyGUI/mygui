@@ -330,4 +330,14 @@ namespace MyGUI
 		return mResourceManager->getResourceGroup();
 	}
 
+	void Gui::_linkChildWidget(WidgetPtr _widget)
+	{
+		mWidgetChild.push_back(_widget);
+	}
+
+	void Gui::_unlinkChildWidget(WidgetPtr _widget)
+	{
+		mWidgetChild.erase(std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget));
+	}
+
 } // namespace MyGUI

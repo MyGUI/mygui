@@ -64,7 +64,7 @@ namespace MyGUI
 		iter = properties.find("MainMove");
 		if (iter != properties.end()) setUserString("Scale", "1 1 0 0");
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
@@ -358,18 +358,6 @@ namespace MyGUI
 	{
 		if (mWidgetCaption != null) return mWidgetCaption->getFontHeight();
 		return Widget::getFontHeight();
-	}
-
-	/*VectorWidgetPtr Window::getChilds()
-	{
-		if (null == mWidgetClient) return Widget::getChilds();
-		return mWidgetClient->getChilds();
-	}*/
-
-	EnumeratorWidgetPtr Window::getEnumerator()
-	{
-		if (null == mWidgetClient) return Widget::getEnumerator();
-		return mWidgetClient->getEnumerator();
 	}
 
 } // namespace MyGUI

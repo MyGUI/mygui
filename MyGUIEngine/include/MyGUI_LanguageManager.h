@@ -35,7 +35,7 @@ namespace MyGUI
 		/** Load additional MyGUI *_language.xml file */
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-		void _load(xml::xmlNodePtr _node, const std::string & _file);
+		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
 		/** Return true if language _name exist */
 		bool isLanguageExist(const std::string & _name) { return mMapFile.find(_name) != mMapFile.end(); }

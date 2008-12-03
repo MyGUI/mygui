@@ -57,7 +57,7 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void PointerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	void PointerManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 		std::string layer, def, text;
 

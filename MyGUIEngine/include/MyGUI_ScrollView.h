@@ -59,14 +59,14 @@ namespace MyGUI
 		void setCanvasAlign(Align _align) { mAlignCanvas = _align; updateView(); }
 
 		/** Get canvas size */
-		IntSize getCanvasSize() { return mWidgetCanvas->getSize(); }
+		IntSize getCanvasSize() { return mWidgetClient->getSize(); }
 		/** Set canvas size */
-		void setCanvasSize(const IntSize & _size) { mWidgetCanvas->setSize(_size); updateView(); }
+		void setCanvasSize(const IntSize & _size) { mWidgetClient->setSize(_size); updateView(); }
 		/** Set canvas size */
-		void setCanvasSize(int _width, int _height) { mWidgetCanvas->setSize(_width, _height); updateView(); }
+		void setCanvasSize(int _width, int _height) { setCanvasSize(IntSize(_width, _height)); }
 
-		/** @copydoc Widget::getEnumerator */
-		virtual EnumeratorWidgetPtr getEnumerator();
+		/** Get rect where child widgets placed */
+		const IntCoord& getClientCoord() { return mClient->getCoord(); }
 
 	protected:
 		ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
@@ -112,7 +112,7 @@ namespace MyGUI
 		size_t mVRange;
 		size_t mHRange;
 
-		WidgetPtr mWidgetCanvas;
+		WidgetPtr mClient;
 		Align mAlignCanvas;
 
 	}; // class ScrollView : public Widget

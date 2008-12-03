@@ -14,82 +14,54 @@ namespace MyGUI
 {
 
 	/** Old aligns */
-	enum MYGUI_OBSOLETE_START("use Align")
+	typedef enum MYGUI_OBSOLETE_START("use Align")
 	{
-		ALIGN_HCENTER					= MYGUI_FLAG_NONE,					// center the window horizontally
-		ALIGN_VCENTER					= MYGUI_FLAG_NONE,					// center the window vertically
-		ALIGN_CENTER					= ALIGN_HCENTER | ALIGN_VCENTER,		// center the window in the dead center
+		ALIGN_HCENTER = MYGUI_FLAG_NONE,
+		ALIGN_VCENTER = MYGUI_FLAG_NONE,
+		ALIGN_CENTER = ALIGN_HCENTER | ALIGN_VCENTER,
+		ALIGN_LEFT = MYGUI_FLAG(1),
+		ALIGN_RIGHT = MYGUI_FLAG(2),
+		ALIGN_HSTRETCH = ALIGN_LEFT | ALIGN_RIGHT,
+		ALIGN_TOP = MYGUI_FLAG(3),
+		ALIGN_BOTTOM = MYGUI_FLAG(4),
+		ALIGN_VSTRETCH = ALIGN_TOP | ALIGN_BOTTOM,
+		ALIGN_STRETCH = ALIGN_HSTRETCH | ALIGN_VSTRETCH,
+		ALIGN_DEFAULT = ALIGN_LEFT | ALIGN_TOP,
+		ALIGN_LEFT_TOP = ALIGN_LEFT | ALIGN_TOP,
+		ALIGN_RIGHT_TOP = ALIGN_RIGHT | ALIGN_TOP,
+		ALIGN_RIGHT_BOTTOM = ALIGN_RIGHT | ALIGN_BOTTOM,
+		ALIGN_LEFT_BOTTOM = ALIGN_LEFT | ALIGN_BOTTOM
+	} MYGUI_OBSOLETE_END ALIGN_TYPE_OBSOLETE;
 
-		ALIGN_LEFT						= MYGUI_FLAG(1),						// value from the left (and center the window vertically)
-		ALIGN_RIGHT					= MYGUI_FLAG(2),						// value from the left (and center the window vertically)
-		ALIGN_HSTRETCH				    = ALIGN_LEFT | ALIGN_RIGHT,			// stretch horizontally proportionate to parent window
-
-		ALIGN_TOP						= MYGUI_FLAG(3),						// value from the top (and center the window horizontally)
-		ALIGN_BOTTOM					= MYGUI_FLAG(4),						// value from the bottom (and center the window horizontally)
-		ALIGN_VSTRETCH				    = ALIGN_TOP | ALIGN_BOTTOM,			// stretch vertically proportionate to parent window
-
-		ALIGN_STRETCH					= ALIGN_HSTRETCH | ALIGN_VSTRETCH,	 // stretch proportionate to parent window
-		ALIGN_DEFAULT					= ALIGN_LEFT | ALIGN_TOP,
-
-		ALIGN_LEFT_TOP             = ALIGN_LEFT | ALIGN_TOP,
-		ALIGN_RIGHT_TOP             = ALIGN_RIGHT | ALIGN_TOP,
-		ALIGN_RIGHT_BOTTOM             = ALIGN_RIGHT | ALIGN_BOTTOM,
-		ALIGN_LEFT_BOTTOM             = ALIGN_LEFT | ALIGN_BOTTOM
-	} MYGUI_OBSOLETE_END ;
-
-	class _MyGUIExport Align
+	struct _MyGUIExport Align
 	{
-	public:
-		enum
+		typedef enum EnumType
 		{
-			HCenter = MYGUI_FLAG_NONE,		/**< centre horizontally */
-			VCenter = MYGUI_FLAG_NONE,		/**< centre vertically */
-			Center = HCenter | VCenter,		/**< center in the dead center */
+			HCenter = MYGUI_FLAG_NONE, /**< centre horizontally */
+			VCenter = MYGUI_FLAG_NONE,	 /**< centre vertically */
+			Center = HCenter | VCenter, /**< center in the dead center */
 
-			Left = MYGUI_FLAG(1),			/**< value from the left (and center vertically) */
-			Right = MYGUI_FLAG(2),			/**< value from the right (and center vertically) */
-			HStretch = Left | Right,		/**< stretch horizontally proportionate to parent window (and center vertically) */
+			Left = MYGUI_FLAG(1), /**< value from the left (and center vertically) */
+			Right = MYGUI_FLAG(2), /**< value from the right (and center vertically) */
+			HStretch = Left | Right, /**< stretch horizontally proportionate to parent window (and center vertically) */
 
-			Top = MYGUI_FLAG(3),			/**< value from the top (and center horizontally) */
-			Bottom = MYGUI_FLAG(4),			/**< value from the bottom (and center horizontally) */
-			VStretch = Top | Bottom,		/**< stretch vertically proportionate to parent window (and center horizontally) */
+			Top = MYGUI_FLAG(3), /**< value from the top (and center horizontally) */
+			Bottom = MYGUI_FLAG(4), /**< value from the bottom (and center horizontally) */
+			VStretch = Top | Bottom, /**< stretch vertically proportionate to parent window (and center horizontally) */
 
-			Stretch = HStretch | VStretch,	/**< stretch proportionate to parent window */
-			Default = Left | Top,			/**< default value (value from left and top) */
+			Stretch = HStretch | VStretch, /**< stretch proportionate to parent window */
+			Default = Left | Top, /**< default value (value from left and top) */
 
-			LeftTop = Left | Top,			/**< value from left and top */
-			RightTop = Right | Top,			/**< value from right and top */
-			RightBottom = Right | Bottom,	/**< value from right and bottom */
-			LeftBottom = Left | Bottom		/**< value from left and bottom */
-		};
+			LeftTop = Left | Top, /**< value from left and top */
+			RightTop = Right | Top, /**< value from right and top */
+			RightBottom = Right | Bottom,	 /**< value from right and bottom */
+			LeftBottom = Left | Bottom /**< value from left and bottom */
+		} Enum;
 
 		Align() : value(Default) { }
-		Align(int _value) : value(_value) { }
-		explicit Align(const std::string & _parse) : value(Align::parse(_parse).value) { }
-
-		Align & operator |= (Align const& _other)
-		{
-			value |= _other.value;
-			return *this;
-		}
-
-		friend bool operator == (Align const & a, Align const & b) { return a.value == b.value; }
-		friend bool operator != (Align const & a, Align const & b) { return a.value != b.value; }
-
-        friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value )
-        {
-			_stream << _value.print();
-            return _stream;
-        }
-
-        friend std::istream& operator >> ( std::istream& _stream, Align &  _value )
-        {
-			std::string parse;
-            _stream >> parse;
-			if (_stream.fail()) _value = Align::Default;
-			else _value = Align::parse(parse);
-            return _stream;
-        }
+		Align(Enum _value) : value(_value) { }
+		Align(ALIGN_TYPE_OBSOLETE _value) : value(_value) { }
+		explicit Align(int _value) : value(_value) { }
 
 		bool isHCenter() { return HCenter == (value & HStretch); }
 		bool isVCenter() { return VCenter == (value & VStretch); }
@@ -111,15 +83,104 @@ namespace MyGUI
 		bool isRightBottom() { return (RightBottom == (value & Stretch)); }
 		bool isLeftBottom() { return (LeftBottom == (value & Stretch)); }
 
-		static Align parse(const std::string & _value);
-		std::string print() const;
+		Align & operator |= (Align const& _other) { value |= _other.value; return *this; }
+		friend Align operator | (Enum const & a, Enum const & b) { return Align((int)a | (int)b); }
 
-		int value;
+		friend bool operator == (Align const & a, Align const & b) { return a.value == b.value; }
+		friend bool operator != (Align const & a, Align const & b) { return a.value != b.value; }
+
+		typedef std::map<std::string, int> MapAlign;
+
+		static Align parse(const std::string & _value)
+		{
+			Align result(0);
+			const MapAlign & map_names = result.getValueNames();
+			const std::vector<std::string> & vec = utility::split(_value);
+			for (size_t pos=0; pos<vec.size(); pos++) {
+				MapAlign::const_iterator iter = map_names.find(vec[pos]);
+				if (iter != map_names.end()) result.value |= iter->second;
+				else { MYGUI_LOG(Warning, "Cannot parse align '" << vec[pos] << "'"); }
+			}
+			return result;
+		}
+
+		std::string print() const
+		{
+			std::string result;
+
+			if (value & Left) {
+				if (value & Right) result = "HStretch";
+				else result = "Left";
+			}
+			else if (value & Right) result = "Right";
+			else result = "HCenter";
+
+			if (value & Top) {
+				if (value & Bottom) result += " VStretch";
+				else result += " Top";
+			}
+			else if (value & Bottom) result += " Bottom";
+			else result += " VCenter";
+
+			return result;
+		}
+
+		friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value ) {
+			_stream << _value.print();
+			return _stream;
+		}
+
+		friend std::istream& operator >> ( std::istream& _stream, Align &  _value ) {
+			std::string value;
+			_stream >> value;
+			_value = Align::parse(value);
+			return _stream;
+		}
+
+		int toValue() { return value; }
 
 	private:
-		typedef std::map<std::string, Align> MapAlign;
-		static MapAlign mMapAlign;
-		static void initialise();
+		const MapAlign & Align::getValueNames()
+		{
+			static MapAlign map_names;
+
+			if (map_names.empty()) {
+				// OBSOLETE
+				map_names["ALIGN_HCENTER"] = HCenter;
+				map_names["ALIGN_VCENTER"] = VCenter;
+				map_names["ALIGN_CENTER"] = Center;
+				map_names["ALIGN_LEFT"] = Left;
+				map_names["ALIGN_RIGHT"] = Right;
+				map_names["ALIGN_HSTRETCH"] = HStretch;
+				map_names["ALIGN_TOP"] = Top;
+				map_names["ALIGN_BOTTOM"] = Bottom;
+				map_names["ALIGN_VSTRETCH"] = VStretch;
+				map_names["ALIGN_STRETCH"] = Stretch;
+				map_names["ALIGN_DEFAULT"] = Default;
+
+				MYGUI_REGISTER_VALUE(map_names, HCenter);
+				MYGUI_REGISTER_VALUE(map_names, VCenter);
+				MYGUI_REGISTER_VALUE(map_names, Center);
+				MYGUI_REGISTER_VALUE(map_names, Left);
+				MYGUI_REGISTER_VALUE(map_names, Right);
+				MYGUI_REGISTER_VALUE(map_names, HStretch);
+				MYGUI_REGISTER_VALUE(map_names, Top);
+				MYGUI_REGISTER_VALUE(map_names, Bottom);
+				MYGUI_REGISTER_VALUE(map_names, VStretch);
+				MYGUI_REGISTER_VALUE(map_names, Stretch);
+				MYGUI_REGISTER_VALUE(map_names, Default);
+
+				MYGUI_REGISTER_VALUE(map_names, LeftTop);
+				MYGUI_REGISTER_VALUE(map_names, RightTop);
+				MYGUI_REGISTER_VALUE(map_names, RightBottom);
+				MYGUI_REGISTER_VALUE(map_names, LeftBottom);
+			}
+
+			return map_names;
+		}
+
+	private:
+		int value;
 	};
 
 } // namespace MyGUI

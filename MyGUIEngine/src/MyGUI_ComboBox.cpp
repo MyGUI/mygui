@@ -88,7 +88,7 @@ namespace MyGUI
 		mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 
 		// парсим кнопку
-		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Button") {
 				MYGUI_DEBUG_ASSERT( ! mButton, "widget already assigned");
 				mButton = (*iter)->castType<Button>();

@@ -50,7 +50,7 @@ namespace MyGUI
 		return mVectorWidgetPtr;
 	}
 
-	void LayoutManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	void LayoutManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 #if MYGUI_DEBUG_MODE == 1
 		MYGUI_LOG(Info, "load layout '" << _file << "'");

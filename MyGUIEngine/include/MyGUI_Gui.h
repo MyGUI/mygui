@@ -246,6 +246,11 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
 
+		//FIXME
+		void _linkChildWidget(WidgetPtr _widget);
+		//FIXME
+		void _unlinkChildWidget(WidgetPtr _widget);
+
 	private:
 		// создает виджет
 		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
