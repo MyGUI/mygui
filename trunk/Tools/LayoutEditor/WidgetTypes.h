@@ -41,8 +41,8 @@ public:
 	SkinGroups skin_groups;
 private:
 	//void loadTypes();
-	void loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file);
-	void loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file);
+	void loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version);
+	void loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version);
 
 	WidgetType * getWidgetType(const std::string & _name);
 

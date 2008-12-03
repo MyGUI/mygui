@@ -432,7 +432,7 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	}
 }
 
-void EditorWidgets::loadIgnoreParameters(MyGUI::xml::xmlNodePtr _node, const std::string & _file, Version _version)
+void EditorWidgets::loadIgnoreParameters(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version)
 {
 	MyGUI::xml::xmlNodeIterator parameter = _node->getNodeIterator();
 	while (parameter.nextNode("Parameter")) {
