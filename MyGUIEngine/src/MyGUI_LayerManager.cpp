@@ -79,7 +79,7 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 		VectorLayerKeeperPtr layers;
 		// берем детей и крутимся, основной цикл

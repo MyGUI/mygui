@@ -96,7 +96,7 @@ void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
 			manager.remove(mFontName);
 		}
 
-		manager._load(root, "");
+		manager._load(root, "", MyGUI::Version());
 		MyGUI::FontPtr font = manager.getByName(mFontName);
 		if (font.isNull()) MYGUI_EXCEPT("Could not find font '" << mFontName << "'");
 		font->load();

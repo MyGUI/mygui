@@ -45,7 +45,7 @@ namespace MyGUI
 		mScrollPage = 1;
 		mScrollViewPage = 1;
 
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Start") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetStart, "widget already assigned");
 				mWidgetStart = (*iter)->castType<Button>();

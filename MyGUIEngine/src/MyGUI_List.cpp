@@ -49,7 +49,7 @@ namespace MyGUI
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "VScroll") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
 				mWidgetScroll = (*iter)->castType<VScroll>();

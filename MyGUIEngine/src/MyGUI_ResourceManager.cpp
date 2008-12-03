@@ -60,7 +60,7 @@ namespace MyGUI
 		return _loadImplement(_file, _group, false, "", INSTANCE_TYPE_NAME);
 	}
 
-	void ResourceManager::_load(xml::xmlNodePtr _node, const std::string & _file)
+	void ResourceManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator root = _node->getNodeIterator();
@@ -95,7 +95,7 @@ namespace MyGUI
 		};
 	}
 
-	void ResourceManager::_loadLocation(xml::xmlNodePtr _node, const std::string & _file)
+	void ResourceManager::_loadLocation(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator root = _node->getNodeIterator();
@@ -119,7 +119,7 @@ namespace MyGUI
 		};
 	}
 
-	void ResourceManager::_loadList(xml::xmlNodePtr _node, const std::string & _file)
+	void ResourceManager::_loadList(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator node = _node->getNodeIterator();
@@ -170,9 +170,10 @@ namespace MyGUI
 
 		std::string type;
 		if (root->findAttribute("type", type)) {
+			Version version = Version::parse(root->findAttribute("version"));
 			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 			if (iter != mMapLoadXmlDelegate.end()) {
-				if ((false == _match) || (type == _type)) (*iter).second(root, _file);
+				if ((false == _match) || (type == _type)) (*iter).second(root, _file, version);
 				else {
 					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not found");
 					return false;
@@ -188,9 +189,10 @@ namespace MyGUI
 			xml::xmlNodeIterator node = root->getNodeIterator();
 			while (node.nextNode("MyGUI")) {
 				if (node->findAttribute("type", type)) {
+					Version version = Version::parse(root->findAttribute("version"));
 					MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 					if (iter != mMapLoadXmlDelegate.end()) {
-						(*iter).second(node.currentNode(), _file);
+						(*iter).second(node.currentNode(), _file, version);
 					}
 					else {
 						MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
