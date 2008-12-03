@@ -32,8 +32,8 @@ namespace MyGUI
 
 	void ControllerFadeAlpha::prepareItem(WidgetPtr _widget)
 	{
-		// подготовка виджета
-		_widget->setEnabledSilent(mEnabled);
+		// подготовка виджета, блокируем если только нужно
+		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
 
 		if ((ALPHA_MIN != mAlpha) && (false == _widget->isShow())) {
 			_widget->setAlpha(ALPHA_MIN);
