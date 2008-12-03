@@ -92,7 +92,7 @@ WidgetType * WidgetTypes::getWidgetType(const std::string & _name)
 	return type;
 }
 
-void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file, Version _version)
+void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version)
 {
 	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
 	while (widgets.nextNode("Widget")) {
@@ -150,7 +150,7 @@ PossibleValue * WidgetTypes::getPossibleValue(const std::string & _name)
 	return possible_value;
 }
 
-void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file, Version _version)
+void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version)
 {
 	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
 	while (widgets.nextNode("Value")) {
