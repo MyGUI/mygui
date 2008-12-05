@@ -4,8 +4,7 @@
 	@date		08/2008
 	@module
 */
-#include <Ogre.h>
-#include <OgreLogManager.h>
+#include "precompiled.h"
 #include "BaseManager.h"
 
 namespace base
