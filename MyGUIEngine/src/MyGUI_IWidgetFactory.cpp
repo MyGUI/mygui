@@ -39,9 +39,9 @@
 //		}
 //
 //		template <typename T>
-//		WidgetPtr BaseWidgetFactory<T>::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
+//		WidgetPtr BaseWidgetFactory<T>::createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 //		{
-//			return new T(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
+//			return new T(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _croppedParent, _creator, _name);
 //		}
 //		
 //		template <typename T>

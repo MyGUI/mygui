@@ -22,8 +22,8 @@ namespace MyGUI
 
 	MYGUI_RTTI_CHILD_IMPLEMENT( ItemBox, DDContainer );
 
-	ItemBox::ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
-		DDContainer(_coord, _align, _info, _parent, _creator, _name),
+	ItemBox::ItemBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		DDContainer(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetScroll(null),
 		mScrollRange(0),
 		mScrollPosition(0),

@@ -246,10 +246,6 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
 
-		//FIXME
-		void _linkChildWidget(WidgetPtr _widget);
-		//FIXME
-		void _unlinkChildWidget(WidgetPtr _widget);
 
 	private:
 		// создает виджет
@@ -264,6 +260,13 @@ namespace MyGUI
 		void _alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new);
 
 		virtual void _unlinkWidget(WidgetPtr _widget);
+
+		// добавляет в список виджет
+		virtual void _linkChildWidget(WidgetPtr _widget);
+
+		// удаляет из списка
+		virtual void _unlinkChildWidget(WidgetPtr _widget);
+
 
 	private:
 		// вектор всех детей виджетов

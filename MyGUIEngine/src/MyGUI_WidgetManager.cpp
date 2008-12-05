@@ -109,7 +109,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name)
+	WidgetPtr WidgetManager::createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string & _name)
 	{
 		std::string name;
 		if (false == _name.empty()) {
@@ -123,7 +123,7 @@ namespace MyGUI
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getTypeName() == _type) {
-				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, _creator, name);
+				WidgetPtr widget = (*factory)->createWidget(_skin, _coord, _align, _parent, _cropeedParent, _creator, name);
 				mWidgets[name] = widget;
 				return widget;
 			}
@@ -132,7 +132,7 @@ namespace MyGUI
 		return null;
 	}
 
-	WidgetPtr WidgetManager::findWidgetT(const Ogre::String & _name, bool _throw)
+	WidgetPtr WidgetManager::findWidgetT(const std::string & _name, bool _throw)
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()){
@@ -149,20 +149,20 @@ namespace MyGUI
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
 
-	ParseDelegate & WidgetManager::registerDelegate(const Ogre::String & _key)
+	ParseDelegate & WidgetManager::registerDelegate(const std::string & _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		MYGUI_ASSERT(iter == mDelegates.end(), "delegate with name '" << _key << "' already exist");
 		return (mDelegates[_key] = ParseDelegate());
 	}
 
-	void WidgetManager::unregisterDelegate(const Ogre::String & _key)
+	void WidgetManager::unregisterDelegate(const std::string & _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) mDelegates.erase(iter);
 	}
 
-	void WidgetManager::parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+	void WidgetManager::parse(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter == mDelegates.end()) {
@@ -224,8 +224,8 @@ namespace MyGUI
 
 	void WidgetManager::unlinkFromUnlinkers(WidgetPtr _widget)
 	{
-		for (size_t pos=0; pos<mVectorIUnlinkWidget.size(); pos++) {
-			mVectorIUnlinkWidget[pos]->_unlinkWidget(_widget);
+		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter!=mVectorIUnlinkWidget.end(); ++iter) {
+			(*iter)->_unlinkWidget(_widget);
 		}
 	}
 

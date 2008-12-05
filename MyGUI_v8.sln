@@ -67,6 +67,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageSetViewer", "Tools\Ima
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LayoutEditor", "Tools\LayoutEditor\LayoutEditor_v8.vcproj", "{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_AttachDetach", "UnitTests\UnitTest_AttachDetach\UnitTest_AttachDetach_v8.vcproj", "{FE812AB9-9606-4758-A416-D67FC14BE683}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -237,6 +239,16 @@ Global
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}.Release|Win32.ActiveCfg = Release|Win32
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A}.Release|Win32.Build.0 = Release|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Debug|Win32.Build.0 = Debug|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Release|Any CPU.ActiveCfg = Release|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Release|Win32.ActiveCfg = Release|Win32
+		{FE812AB9-9606-4758-A416-D67FC14BE683}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -258,6 +270,7 @@ Global
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A} = {F0EE6C2D-8A03-483C-8F2E-4629A95F9835}
 		{D43133FF-CFE1-48B2-8529-8918A4C81B05} = {94EC4CB8-6C05-4159-B33F-790B101CFDF5}
 		{6CF4B12D-00CD-417F-8266-1D817B551047} = {45727BC9-79EF-4B08-975C-1EBC8A885ED4}
+		{FE812AB9-9606-4758-A416-D67FC14BE683} = {45727BC9-79EF-4B08-975C-1EBC8A885ED4}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
