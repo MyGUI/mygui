@@ -24,8 +24,8 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	PopupMenu::PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _creator, _name),
+	PopupMenu::PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
 		mShutdown(false),
@@ -130,8 +130,7 @@ namespace MyGUI
 		PopupMenuPtr submenu = null;
 		if (_type == MenuItemType::Popup)
 		{
-			submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-			submenu->_setOwner(this);
+			submenu = createWidgetRoot<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 		}
 
 		ItemInfo info = ItemInfo(item, _name, _type, submenu, _id, _data);
@@ -220,25 +219,25 @@ namespace MyGUI
 		if (_widget != null)
 		{
 			// да, хозяин
-			if (_widget == this->_getOwner())
+			if (_widget == this->getParent())
 				return true;
 			// сына, внук и прочая мелюзга
-			WidgetPtr owner = _widget->_getOwner();
+			WidgetPtr owner = _widget->getParent();
 			while (owner != null)
 			{
 				if (owner == this) return true;
-				owner = owner->_getOwner();
+				owner = owner->getParent();
 			}
 			if (_all)
 			{
 				// так это ж я!
 				if (_widget == this) return true;
 				 // предки
-				owner = this->_getOwner();
+				owner = this->getParent();
 				while (owner != null)
 				{
 					if (owner == _widget) return true;
-					owner = owner->_getOwner();
+					owner = owner->getParent();
 				}
 			}
 		}
@@ -378,13 +377,13 @@ namespace MyGUI
 
 	void PopupMenu::hidePopupMenu(bool _hideParentPopup)
 	{
-		if ( _hideParentPopup && mOwner != null )
+		if ( _hideParentPopup && mParent != null )
 		{
 			// если наш папа попап меню или меню - спрячем и его
-			PopupMenuPtr popup = mOwner->castType<PopupMenu>(false);
+			PopupMenuPtr popup = mParent->castType<PopupMenu>(false);
 			if (popup != null) popup->hidePopupMenu();
 			else {
-				MenuBarPtr menu = mOwner->castType<MenuBar>(false);
+				MenuBarPtr menu = mParent->castType<MenuBar>(false);
 				if (menu != null) menu->clearItemSelected();
 			}
 		}
@@ -422,8 +421,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "PopupMenu::createItemChildAt");
 
 		if (mItemsInfo[_index].submenu == null) {
-			mItemsInfo[_index].submenu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-			mItemsInfo[_index].submenu->_setOwner(this);
+			mItemsInfo[_index].submenu = createWidgetRoot<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 		}
 		else {
 			mItemsInfo[_index].submenu->removeAllItems();

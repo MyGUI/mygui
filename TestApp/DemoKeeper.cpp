@@ -140,6 +140,13 @@ namespace demo
 	{
 	}
 
+	void notifyRootMouseChangeFocus(MyGUI::WidgetPtr _sender, bool _focus)
+	{
+		_sender->setAlpha(_focus ? 1 : 0.5);
+	}
+
+	MyGUI::WidgetPtr widget1 = null;
+
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
@@ -223,21 +230,33 @@ namespace demo
 
 		//int * ptr = new int();
 
-		/*MyGUI::Gui::getInstance().hidePointer();
-		delete mInfo;
-		mInfo = null;*/
+		MyGUI::Gui::getInstance().hidePointer();
+		//delete mInfo;
+		//mInfo = null;//*/
 
-		MyGUI::WindowPtr widget1 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 500, 500), MyGUI::Align::Default, "Main");
-		MyGUI::WindowPtr widget2 = widget1->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default);
-		MyGUI::WindowPtr widget3 = widget2->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default);
+
+		widget1 = mGUI->createWidget<MyGUI::Widget>("ButtonX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
+		//MyGUI::WidgetPtr widget2 = widget1->createWidget<MyGUI::Widget>("ButtonX", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default);
+
+		MyGUI::WidgetPtr widget3 = widget1->createWidgetRoot<MyGUI::Widget>("ButtonV", MyGUI::IntCoord(150, 150, 100, 100), MyGUI::Align::Default, "Overlapped");
+		//MyGUI::WidgetPtr widget4 = widget3->createWidget<MyGUI::Widget>("ButtonV", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default);
+
+		widget1->detachWidget();
+		//MyGUI::WidgetManager::getInstance().destroyWidget(widget1);
+		//widget1->eventRootMouseChangeFocus = MyGUI::newDelegate(notifyRootMouseChangeFocus);
+
+
+		//MyGUI::WindowPtr widget1 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 500, 500), MyGUI::Align::Default, "Main");
+		//MyGUI::WindowPtr widget2 = widget1->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default);
+		//MyGUI::WindowPtr widget3 = widget2->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default);
 
 		/*widget1->setCaption("1");
 		widget1->changeWidgetSkin("Button");
 		widget1->setCaption("2");*/
 
 		//widget2->detachWidget();
-		widget2->attachWidget("Popup");
-		widget2->attachWidget(widget1);
+		//widget2->attachWidget("Popup");
+		//widget2->attachWidget(widget1);
 		//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Overlapped", widget1);
 
 		//widget2->_attachToLayerItemKeeper();
@@ -257,5 +276,15 @@ namespace demo
     {
     }
 
+	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
+	{
+		if (arg.key == OIS::KC_F1) {
+			widget1->hide();
+		}
+		else if (arg.key == OIS::KC_F2) {
+			widget1->show();
+		}
+		return BaseManager::keyPressed(arg);
+	}
 	 
 } // namespace demo

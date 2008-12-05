@@ -158,10 +158,10 @@ namespace MyGUI
 
 	WidgetPtr Gui::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, null, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
-		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
+		if (!_layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
 		return widget;
 	}
 
@@ -202,6 +202,8 @@ namespace MyGUI
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			WidgetPtr widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
+
+			//widget->detachWidget();
 
 			// отписываем от всех
 			mWidgetManager->unlinkFromUnlinkers(widget);

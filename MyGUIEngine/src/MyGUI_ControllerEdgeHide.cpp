@@ -49,9 +49,9 @@ namespace MyGUI
 		while ((mouseFocus != null) && (_widget != mouseFocus))
 			mouseFocus = mouseFocus->getParent();
 		while ((keyFocusOwner != null) && (_widget != keyFocusOwner))
-			keyFocusOwner = keyFocusOwner->_getOwner();
+			keyFocusOwner = keyFocusOwner->getParent();
 		while ((mouseFocusOwner != null) && (_widget != mouseFocusOwner))
-			mouseFocusOwner = mouseFocusOwner->_getOwner();
+			mouseFocusOwner = mouseFocusOwner->getParent();
 
 		// if our widget or his children have focus
 		bool haveFocus = ((keyFocus != null) || (mouseFocus != null)) || ((keyFocusOwner != null) || (mouseFocusOwner != null)) || (_widget->isShow() == false);

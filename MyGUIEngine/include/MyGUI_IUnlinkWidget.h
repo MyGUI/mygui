@@ -16,7 +16,7 @@ namespace MyGUI
 	class _MyGUIExport IUnlinkWidget
 	{
 	public:
-		virtual ~IUnlinkWidget(){};
+		virtual ~IUnlinkWidget() { }
 		virtual void _unlinkWidget(WidgetPtr _widget) = 0;
 	};
 

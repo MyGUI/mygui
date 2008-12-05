@@ -33,6 +33,14 @@ namespace MyGUI
 		// удаляет виджет с закрытым конструктором
 		void _deleteWidget(WidgetPtr _widget);
 
+	public:
+		// добавляет в список виджет
+		// имплементировать только для рутовых креаторов
+		virtual void _linkChildWidget(WidgetPtr _widget) { }
+		// удаляет из списка
+		// имплементировать только для рутовых креаторов
+		virtual void _unlinkChildWidget(WidgetPtr _widget) { }
+
 	};
 
 } // namespace MyGUI

@@ -248,7 +248,7 @@ namespace MyGUI
 		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
 
 	protected:
-		MenuCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		MenuCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~MenuCtrl();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

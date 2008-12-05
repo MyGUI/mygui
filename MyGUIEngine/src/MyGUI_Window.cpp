@@ -27,8 +27,8 @@ namespace MyGUI
 
 	const int WINDOW_SNAP_DISTANSE = 10;
 
-	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _creator, _name),
+	Window::Window(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetCaption(null),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),

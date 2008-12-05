@@ -27,8 +27,8 @@ namespace MyGUI
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
-		ICroppedRectangle(IntCoord(_coord.point(), _info->getSize()), _align, _parent), // размер по скину
+	Widget::Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		ICroppedRectangle(IntCoord(_coord.point(), _info->getSize()), _align, _croppedParent), // размер по скину
 		LayerItem(),
 		UserData(),
 		mStateInfo(_info->getStateInfo()),
@@ -42,7 +42,7 @@ namespace MyGUI
 		mInheritsAlpha(true),
 		mName(_name),
 		mTexture(_info->getTextureName()),
-		mOwner(static_cast<Widget*>(_parent)),
+		mParent(_parent),
 		mIWidgetCreator(_creator),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
@@ -56,7 +56,7 @@ namespace MyGUI
 	{
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
-		if (null != mParent) mAbsolutePosition += mParent->getAbsolutePosition();
+		if (null != mCroppedParent) mAbsolutePosition += mCroppedParent->getAbsolutePosition();
 
 		// имя отсылателя сообщений
 		mWidgetEventSender = this;
@@ -123,7 +123,7 @@ namespace MyGUI
 
 		if (false == isRootWidget()) {
 			// проверяем наследуемую скрытость
-			if ((!mParent->isShow()) || (!getParent()->_isInheritedShow())) {
+			if ((!mParent->isShow()) || (!mParent->_isInheritedShow())) {
 				mInheritedShow = false;
 
 				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
@@ -192,8 +192,10 @@ namespace MyGUI
 
 	WidgetPtr Widget::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, this, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, this, _layer.empty() ? this : null, this, _name);
 		mWidgetChild.push_back(widget);
+		// присоединяем виджет с уровню
+		if (!_layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
 		return widget;
 	}
 
@@ -210,7 +212,7 @@ namespace MyGUI
 
 	void Widget::_setAlign(const IntSize& _size, bool _update)
 	{
-		if (null == mParent) return;
+		if (!mCroppedParent) return;
 
 		bool need_move = false;
 		bool need_size = false;
@@ -219,33 +221,33 @@ namespace MyGUI
 		// первоначальное выравнивание
 		if (mAlign.isHStretch()) {
 			// растягиваем
-			coord.width = mCoord.width + (mParent->getWidth() - _size.width);
+			coord.width = mCoord.width + (mCroppedParent->getWidth() - _size.width);
 			need_size = true;
 		}
 		else if (mAlign.isRight()) {
 			// двигаем по правому краю
-			coord.left = mCoord.left + (mParent->getWidth() - _size.width);
+			coord.left = mCoord.left + (mCroppedParent->getWidth() - _size.width);
 			need_move = true;
 		}
 		else if (mAlign.isHCenter()) {
 			// выравнивание по горизонтали без растяжения
-			coord.left = (mParent->getWidth() - mCoord.width) / 2;
+			coord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 			need_move = true;
 		}
 
 		if (mAlign.isVStretch()) {
 			// растягиваем
-			coord.height = mCoord.height + (mParent->getHeight() - _size.height);
+			coord.height = mCoord.height + (mCroppedParent->getHeight() - _size.height);
 			need_size = true;
 		}
 		else if (mAlign.isBottom()) {
 			// двигаем по нижнему краю
-			coord.top = mCoord.top + (mParent->getHeight() - _size.height);
+			coord.top = mCoord.top + (mCroppedParent->getHeight() - _size.height);
 			need_move = true;
 		}
 		else if (mAlign.isVCenter()) {
 			// выравнивание по вертикали без растяжения
-			coord.top = (mParent->getHeight() - mCoord.height) / 2;
+			coord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 			need_move = true;
 		}
 
@@ -263,7 +265,7 @@ namespace MyGUI
 	void Widget::_updateView()
 	{
 
-		bool margin = mParent ? _checkMargin() : false;
+		bool margin = mCroppedParent ? _checkMargin() : false;
 
 		// вьюпорт стал битым
 		if (margin) {
@@ -436,6 +438,8 @@ namespace MyGUI
 			WidgetPtr widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
+			if (widget->isRootWidget()) widget->detachWidget();
+
 			// отписываем от всех
 			manager.unlinkFromUnlinkers(widget);
 
@@ -464,7 +468,7 @@ namespace MyGUI
 	{
 		if (mAlpha == _alpha) return;
 		mAlpha = _alpha;
-		if (null != mParent) mRealAlpha = mAlpha * (mInheritsAlpha ? static_cast<Widget*>(mParent)->_getRealAlpha() : ALPHA_MAX);
+		if (null != mParent) mRealAlpha = mAlpha * (mInheritsAlpha ? mParent->_getRealAlpha() : ALPHA_MAX);
 		else mRealAlpha = mAlpha;
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
@@ -475,11 +479,20 @@ namespace MyGUI
 	void Widget::_updateAlpha()
 	{
 		MYGUI_DEBUG_ASSERT(null != mParent, "Widget must have parent");
-		mRealAlpha = mAlpha * (mInheritsAlpha ? static_cast<Widget*>(mParent)->_getRealAlpha() : ALPHA_MAX);
+		mRealAlpha = mAlpha * (mInheritsAlpha ? mParent->_getRealAlpha() : ALPHA_MAX);
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAlpha();
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
+	}
+
+	void Widget::setInheritsAlpha(bool _inherits)
+	{
+		mInheritsAlpha = _inherits;
+		// принудительно обновляем
+		float alpha = mAlpha;
+		mAlpha = 101;
+		setAlpha(alpha);
 	}
 
 	LayerItem * Widget::_findLayerItem(int _left, int _top)
@@ -509,7 +522,10 @@ namespace MyGUI
 
 	void Widget::_updateAbsolutePoint()
 	{
-		mAbsolutePosition = mParent->getAbsolutePosition() + mCoord.point();
+		// мы рут, нам не надо
+		if (!mCroppedParent) return;
+
+		mAbsolutePosition = mCroppedParent->getAbsolutePosition() + mCoord.point();
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
@@ -526,7 +542,6 @@ namespace MyGUI
 
 		mCoord = _point;
 		_updateView();
-
 	}
 
 	void Widget::setSize(const IntSize & _size)
@@ -538,7 +553,7 @@ namespace MyGUI
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = mParent ? _checkMargin() : false;
+		bool margin = mCroppedParent ? _checkMargin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
@@ -575,7 +590,7 @@ namespace MyGUI
 		bool show = true;
 
 		// обновляем выравнивание
-		bool margin = mParent ? _checkMargin() : false;
+		bool margin = mCroppedParent ? _checkMargin() : false;
 
 		if (margin) {
 			// проверка на полный выход за границу
@@ -623,7 +638,10 @@ namespace MyGUI
 		// мы уже отаттачены
 		if (null == getLayerItemKeeper()) return;
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_detachFromLayerItemKeeper();
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+			// руты нам не принадлежат, они сами отдетачатся
+			if (!(*widget)->isRootWidget()) (*widget)->_detachFromLayerItemKeeper();
+		}
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeper();
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_destroyDrawItem();
 
@@ -928,13 +946,17 @@ namespace MyGUI
 			WidgetPtr parent = getParent();
 			parent->mWidgetChild.erase(std::remove(parent->mWidgetChild.begin(), parent->mWidgetChild.end(), this));
 
+			mCroppedParent = null;
 			mParent = null;
-			mOwner = null;
 
-			// присоеденить себя к креатору
-			// жесткий твик, креатор может быть и не гуй
 			//FIXME
-			Gui::getInstance()._linkChildWidget(this);
+			// присоеденить себя к креатору
+			// берем самый самый рутовый креатор
+			WidgetPtr creator = this;
+			while (creator->getCroppedParent()) {
+				creator = creator->getParent();
+			};
+			creator->_getIWidgetCreator()->_linkChildWidget(this);
 
 			mAbsolutePosition = mCoord.point();
 
@@ -954,20 +976,28 @@ namespace MyGUI
 	{
 		detachWidget();
 
-		// отсоеденить себя от креатора
-		// жесткий твик, креатор может быть и не гуй
+		// проверяем на прицепление к своему хвосту
+		WidgetPtr test = _widget;
+		do {
+			MYGUI_ASSERT(test != this, "cicle attach");
+			test = test->getParent();
+		} while (test);
+		
+
 		//FIXME
-		Gui::getInstance()._unlinkChildWidget(this);
+		// отсоеденить себя от креатора
+		_getIWidgetCreator()->_unlinkChildWidget(this);
 
 		mParent = _widget->mWidgetClient ? _widget->mWidgetClient : _widget;
-		getParent()->mWidgetChild.push_back(this);
+		mCroppedParent = mParent;
+		mParent->mWidgetChild.push_back(this);
 
-		mAbsolutePosition += mParent->getAbsolutePosition();
+		mAbsolutePosition += mCroppedParent->getAbsolutePosition();
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
 
-		LayerItemKeeper * layer_item = getParent()->getLayerItemKeeper();
+		LayerItemKeeper * layer_item = mParent->getLayerItemKeeper();
 		if (layer_item) _attachToLayerItemKeeper(layer_item);
 
 	}

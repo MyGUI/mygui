@@ -252,7 +252,7 @@ namespace MyGUI
 		EventInfo_WidgetVoid eventPopupMenuClose;
 
 	protected:
-		PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		PopupMenu(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~PopupMenu();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

@@ -18,10 +18,10 @@ namespace MyGUI
 	{
 
 	public:
-		ICroppedRectangle(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) :
+		ICroppedRectangle(const IntCoord & _coord, Align _align, ICroppedRectangle * _croppedParent) :
 			mIsMargin(false),
 			mCoord(_coord),
-			mParent (_parent),
+			mCroppedParent(_croppedParent),
 			mShow(true),
 			mAlign (_align)
 		{ }
@@ -35,7 +35,7 @@ namespace MyGUI
 		virtual void hide() { mShow = false; }
 		virtual bool isShow() { return mShow; }
 
-		ICroppedRectangle * getParent() { return mParent; }
+		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
 
 		const IntCoord& getCoord() { return mCoord; }
 		IntPoint getPosition() { return mCoord.point(); }
@@ -98,8 +98,8 @@ namespace MyGUI
 		{
 			bool margin = false;
 			//вылезли ли налево
-			if (getLeft() < mParent->mMargin.left) {
-				mMargin.left = mParent->mMargin.left - getLeft();
+			if (getLeft() < mCroppedParent->mMargin.left) {
+				mMargin.left = mCroppedParent->mMargin.left - getLeft();
 				margin = true;
 			}
 			else {
@@ -107,8 +107,8 @@ namespace MyGUI
 			}
 
 			//вылезли ли направо
-			if (getRight() > mParent->getWidth() - mParent->mMargin.right) {
-				mMargin.right = getRight() - (mParent->getWidth() - mParent->mMargin.right);
+			if (getRight() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) {
+				mMargin.right = getRight() - (mCroppedParent->getWidth() - mCroppedParent->mMargin.right);
 				margin = true;
 			}
 			else {
@@ -116,8 +116,8 @@ namespace MyGUI
 			}
 
 			//вылезли ли вверх
-			if (getTop() < mParent->mMargin.top) {
-				mMargin.top = mParent->mMargin.top - getTop();
+			if (getTop() < mCroppedParent->mMargin.top) {
+				mMargin.top = mCroppedParent->mMargin.top - getTop();
 				margin = true;
 			}
 			else {
@@ -125,8 +125,8 @@ namespace MyGUI
 			}
 
 			//вылезли ли вниз
-			if (getBottom() > mParent->getHeight() - mParent->mMargin.bottom) {
-				mMargin.bottom = getBottom() - (mParent->getHeight() - mParent->mMargin.bottom);
+			if (getBottom() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom) {
+				mMargin.bottom = getBottom() - (mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom);
 				margin = true;
 			}
 			else {
@@ -138,10 +138,10 @@ namespace MyGUI
 
 		bool _checkOutside() // проверка на полный выход за границу
 		{
-			return ( (getRight() < mParent->mMargin.left ) || // совсем уехали налево
-				(getLeft() > mParent->getWidth() - mParent->mMargin.right ) || // совсем уехали направо
-				(getBottom() < mParent->mMargin.top  ) || // совсем уехали вверх
-				(getTop() > mParent->getHeight() - mParent->mMargin.bottom ) );  // совсем уехали вниз
+			return ( (getRight() < mCroppedParent->mMargin.left ) || // совсем уехали налево
+				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right ) || // совсем уехали направо
+				(getBottom() < mCroppedParent->mMargin.top  ) || // совсем уехали вверх
+				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom ) );  // совсем уехали вниз
 		}
 
 	protected:
@@ -150,7 +150,7 @@ namespace MyGUI
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
-		ICroppedRectangle * mParent;
+		ICroppedRectangle * mCroppedParent;
 		bool mShow;
 		Align mAlign;
 
