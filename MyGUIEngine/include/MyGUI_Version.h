@@ -48,7 +48,7 @@ namespace MyGUI
 
 		static Version parse(const std::string & _value)
 		{
-			std::vector<std::string> & vec = utility::split(_value, ".");
+			const std::vector<std::string> & vec = utility::split(_value, ".");
 			if (vec.empty()) return Version();
 			uint16 major = utility::parseValue<uint16>(vec[0]);
 			uint8 minor = vec.size() > 0 ? utility::parseValue<uint8>(vec[1]) : 0;
