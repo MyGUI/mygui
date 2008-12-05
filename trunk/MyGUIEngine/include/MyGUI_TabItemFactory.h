@@ -39,10 +39,10 @@ namespace MyGUI
 				static std::string type = "Sheet";
 				return type;
 			}
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 			{
 				MYGUI_LOG(Warning, "Type 'Sheet' is obsolette, use 'TabItem'");
-				return new TabItem(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
+				return new TabItem(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _croppedParent, _creator, _name);
 			}
 		};
 

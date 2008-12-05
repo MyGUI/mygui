@@ -18,21 +18,21 @@ namespace MyGUI
 {
 
 	// делегат для парсинга
-	typedef delegates::CDelegate3<WidgetPtr,  const Ogre::String &, const Ogre::String &> ParseDelegate;
+	typedef delegates::CDelegate3<WidgetPtr,  const std::string &, const std::string &> ParseDelegate;
 
 	class _MyGUIExport WidgetManager : public IUnlinkWidget
 	{
 		INSTANCE_HEADER(WidgetManager);
 
 	public:
-		typedef std::map<Ogre::String, ParseDelegate> MapDelegate;
+		typedef std::map<std::string, ParseDelegate> MapDelegate;
 		typedef std::set<IWidgetFactory*> SetWidgetFactory;
 
 	public:
 		void initialise();
 		void shutdown();
 
-		WidgetPtr createWidget(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		WidgetPtr createWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string & _name);
 
 		/** Destroy all widgets FIXME or remove - doesn't work*/
 		void destroyAllWidget();
@@ -56,7 +56,7 @@ namespace MyGUI
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
 		*/
-		WidgetPtr findWidgetT(const Ogre::String & _name, bool _throw = true);
+		WidgetPtr findWidgetT(const std::string & _name, bool _throw = true);
 		/** Find widget by name and prefix*/
 		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
@@ -78,10 +78,6 @@ namespace MyGUI
 			return findWidget<T>(_prefix + _name);
 		}
 
-		// преобразует точку на виджете в глобальную позицию
-		/** Convert position on widget to global position */
-		//static IntPoint convertToGlobal(const IntPoint& _point, WidgetPtr _widget);
-
 		// очищает имя в списках
 		void _unlinkWidget(WidgetPtr _widget);
 
@@ -89,9 +85,9 @@ namespace MyGUI
 		/** Register delegate for parsing in layout files or by WidgetManager::parse method
 			@code manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed); @endcode
 		*/
-		ParseDelegate & registerDelegate(const Ogre::String & _key);
+		ParseDelegate & registerDelegate(const std::string & _key);
 		/** Unregister delegate for parsing in layout files or by WidgetManager::parse method */
-		void unregisterDelegate(const Ogre::String & _key);
+		void unregisterDelegate(const std::string & _key);
 
 		// парсит ключ значение
 		/** Parse and apply property to widget
@@ -100,7 +96,7 @@ namespace MyGUI
 			@param _value for applying
 			@code WidgetManager::getInstance()->parse(widget, "Button_Pressed", "true"); @endcode
 		*/
-		void parse(WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value);
+		void parse(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		// все кто хочет отписать у себя виджет при удалении
 		/** Register unlinker (call unlink if for any destroyed widget)*/

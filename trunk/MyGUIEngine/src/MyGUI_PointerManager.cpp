@@ -209,7 +209,7 @@ namespace MyGUI
 	// создает виджет
 	WidgetPtr PointerManager::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, null, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);

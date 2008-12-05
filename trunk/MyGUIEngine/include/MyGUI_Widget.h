@@ -41,44 +41,53 @@ namespace MyGUI
 			@param _align widget align (possible values can be found in enum Align)
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
+		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "")
 		{
 			return baseCreateWidget(_type, _skin, _coord, _align, "", _name);
 		}
 		/** See Gui::createWidgetT */
-		WidgetPtr createWidgetT(const Ogre::String & _type, const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
+		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
 		}
 
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "");
+		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _name = "");
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		WidgetPtr createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
+		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _name = "")
 		{
 			return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
 		}
 
 		// templates for creating widgets by type
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidget(const Ogre::String & _skin, const IntCoord& _coord, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidget(const Ogre::String & _skin, int _left, int _top, int _width, int _height, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const Ogre::String & _skin, float _left, float _top, float _width, float _height, Align _align, const Ogre::String & _name = "")
+		template <typename T> T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _name));
+		}
+
+		WidgetPtr createWidgetRootT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		{
+			return baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+		}
+		template <typename T> T* createWidgetRoot(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		{
+			return static_cast<T*>(createWidgetRootT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 
 		//! Get name of widget
@@ -118,17 +127,10 @@ namespace MyGUI
 		/** See Widget::setRealPosition(const FloatCoord& _coord) */
 		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
 
-		void _updateAbsolutePoint();
-
 		/** Show widget */
 		virtual void show();
 		/** Hide widget */
 		virtual void hide();
-
-		// для внутреннего использования
-		void _inheritedShow();
-		void _inheritedHide();
-		bool _isInheritedShow() { return mInheritedShow; }
 
 		/** Set widget caption */
 		virtual void setCaption(const Ogre::UTFString & _caption);
@@ -141,9 +143,9 @@ namespace MyGUI
 		virtual const Ogre::ColourValue & getColour();
 
 		/** Set widget text font */
-		virtual void setFontName(const Ogre::String & _font);
+		virtual void setFontName(const std::string & _font);
 		/** Get widget text font name */
-		virtual const Ogre::String & getFontName();
+		virtual const std::string & getFontName();
 
 		/** Set widget text font height */
 		virtual void setFontHeight(uint16 _height);
@@ -164,36 +166,25 @@ namespace MyGUI
 		void setAlpha(float _alpha);
 		/** Get widget opacity */
 		float getAlpha() { return mAlpha; }
-		float _getRealAlpha() { return mRealAlpha; }
 		/** Get inherits alpha mode flag */
 		bool isInheritsAlpha() { return mInheritsAlpha; }
 		/** Enable or disable inherits alpha mode */
-		void setInheritsAlpha(bool _inherits)
-		{
-			mInheritsAlpha = _inherits;
-			_updateAlpha();
-		}
-		void _updateAlpha();
+		void setInheritsAlpha(bool _inherits);
 
 		/** Set widget's state */
 		bool setState(const std::string & _state);
 
 		void _setUVSet(const FloatRect& _rect);
 
-		virtual void _setTextureName(const Ogre::String& _texture);
-		virtual const Ogre::String& _getTextureName();
+		virtual void _setTextureName(const std::string& _texture);
+		virtual const std::string& _getTextureName();
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
-		bool isRootWidget() { return null == mParent; }
+		bool isRootWidget() { return null == mCroppedParent; }
 
-		// закрываем метод базового класса
 		/** Get parent widget */
-		WidgetPtr getParent() { return static_cast<WidgetPtr>(mParent); }
-
-		// для поддержки окон напрямую не являющиеся детьми
-		WidgetPtr _getOwner() { return mOwner; }
-		void _setOwner(WidgetPtr _widget) { if (isRootWidget()) mOwner = _widget; }
+		WidgetPtr getParent() { return mParent; }
 
 		/** Get child widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() {
@@ -203,11 +194,6 @@ namespace MyGUI
 
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string & _name);
-
-		// наследуемся он LayerInfo
-		virtual LayerItem * _findLayerItem(int _left, int _top);
-		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item);
-		virtual void _detachFromLayerItemKeeper();
 
 		/** Is need key focus */
 		bool isNeedKeyFocus() { return mNeedKeyFocus; }
@@ -291,9 +277,14 @@ namespace MyGUI
 		/** присоединяет виджет к отцу*/
 		void attachWidget(WidgetPtr _widget);
 
+		// наследуемся он LayerInfo
+		virtual LayerItem * _findLayerItem(int _left, int _top);
+		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item);
+		virtual void _detachFromLayerItemKeeper();
+
 	protected:
 		// все создание только через фабрику
-		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~Widget();
 
 		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
@@ -302,9 +293,6 @@ namespace MyGUI
 
 		void _setAlign(const IntSize& _size, bool _update);
 		void _setAlign(const IntCoord& _coord, bool _update);
-
-		// показывает скрывает все сабскины
-		void _setVisible(bool _visible);
 
 		// создает виджет
 		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
@@ -327,6 +315,19 @@ namespace MyGUI
 
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info, const IntSize& _size);
 		void shutdownWidgetSkin();
+
+		void _updateAlpha();
+		void _updateAbsolutePoint();
+
+		// для внутреннего использования
+		void _inheritedShow();
+		void _inheritedHide();
+		bool _isInheritedShow() { return mInheritedShow; }
+
+		// показывает скрывает все сабскины
+		void _setVisible(bool _visible);
+
+		float _getRealAlpha() { return mRealAlpha; }
 
 	protected:
 		// список всех стейтов
@@ -363,9 +364,8 @@ namespace MyGUI
 		std::string mPointer;
 		std::string mTexture;
 
-		// для поддержки окон, напрямую не являющимися детьми
-		// всплывающие окна, списки комбобоксов и т.д.
-		WidgetPtr mOwner;
+		// наш отец в иерархии виджетов
+		WidgetPtr mParent;
 
 		// это тот кто нас создал, и кто нас будет удалять
 		IWidgetCreator * mIWidgetCreator;

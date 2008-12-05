@@ -125,7 +125,7 @@ namespace MyGUI
 
 		
 	protected:
-		StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		StaticImage(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~StaticImage();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

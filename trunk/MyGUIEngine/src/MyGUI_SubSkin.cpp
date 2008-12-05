@@ -77,35 +77,35 @@ namespace MyGUI
 		// первоначальное выравнивание
 		if (mAlign.isHStretch()) {
 			// растягиваем
-			mCoord.width = mCoord.width + (mParent->getWidth() - _size.width);
+			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _size.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isRight()) {
 			// двигаем по правому краю
-			mCoord.left = mCoord.left + (mParent->getWidth() - _size.width);
+			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _size.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter()) {
 			// выравнивание по горизонтали без растяжения
-			mCoord.left = (mParent->getWidth() - mCoord.width) / 2;
+			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch()) {
 			// растягиваем
-			mCoord.height = mCoord.height + (mParent->getHeight() - _size.height);
+			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _size.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isBottom()) {
 			// двигаем по нижнему краю
-			mCoord.top = mCoord.top + (mParent->getHeight() - _size.height);
+			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _size.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter()) {
 			// выравнивание по вертикали без растяжения
-			mCoord.top = (mParent->getHeight() - mCoord.height) / 2;
+			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
@@ -192,9 +192,9 @@ namespace MyGUI
 		float vertex_z = mManager->getMaximumDepth();
 		//vertex_z = 0;
 
-		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
+		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
 		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
+		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
 		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
 		// first triangle - left top

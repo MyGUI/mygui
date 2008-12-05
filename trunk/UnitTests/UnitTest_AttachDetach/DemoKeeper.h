@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2008
+	@date		10/2008
 	@module
 */
 #ifndef __DEMO_KEEPER_H__
@@ -17,7 +17,9 @@ namespace demo
 	public:
 		virtual void createScene();
 		virtual void destroyScene();
-		virtual bool keyPressed( const OIS::KeyEvent &arg );
+
+		virtual bool frameStarted(const Ogre::FrameEvent& evt);
+
 	};
 
 } // namespace demo

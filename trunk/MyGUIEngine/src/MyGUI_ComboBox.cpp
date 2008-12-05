@@ -24,8 +24,8 @@ namespace MyGUI
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
-	ComboBox::ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
-		Edit(_coord, _align, _info, _parent, _creator, _name),
+	ComboBox::ComboBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Edit(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mButton(null),
 		mList(null),
 		mListShow(false),
@@ -50,14 +50,6 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	void ComboBox::shutdownWidgetSkin()
-	{
-		// чтобы теперь удалить, виджет должен быть в нашем списке
-		mWidgetChild.push_back(mList);
-		WidgetManager::getInstance().destroyWidget(mList);
-		mButton = null;
-	}
-
 	void ComboBox::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// парсим свойства
@@ -75,11 +67,9 @@ namespace MyGUI
 		if (iter != properties.end()) listLayer = iter->second;
 
 		// ручками создаем список
-		mList = static_cast<ListPtr>(WidgetManager::getInstance().createWidget(List::getClassTypeName(), listSkin, IntCoord(), Align::Default, null, this, ""));
-		// присоединяем виджет с уровню и не добавляем себе
-		LayerManager::getInstance().attachToLayerKeeper(listLayer, mList);
-
-		mList->_setOwner(this);
+		//FIXME
+		mList = createWidgetRoot<List>(listSkin, IntCoord(), Align::Default, listLayer);
+		mWidgetChild.pop_back();
 
 		mList->hide();
 		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
@@ -107,6 +97,16 @@ namespace MyGUI
 		// подписываемся на изменения текста
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
 	}
+
+	void ComboBox::shutdownWidgetSkin()
+	{
+		//FIXME чтобы теперь удалить, виджет должен быть в нашем списке
+		mWidgetChild.push_back(mList);
+		WidgetManager::getInstance().destroyWidget(mList);
+		mList = null;
+		mButton = null;
+	}
+
 
 	void ComboBox::notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{

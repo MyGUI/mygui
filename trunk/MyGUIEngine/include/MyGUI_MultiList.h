@@ -294,7 +294,7 @@ namespace MyGUI
 		EventInfo_WidgetIntUTFStringUTFStringBool operatorLess;
 
 	protected:
-		MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		MultiList(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~MultiList();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

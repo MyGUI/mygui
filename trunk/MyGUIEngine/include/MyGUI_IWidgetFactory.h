@@ -23,7 +23,7 @@ namespace MyGUI
 		virtual ~IWidgetFactory() { }
 
 		virtual const std::string & getTypeName() = 0;
-		virtual WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name) = 0;
+		virtual WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) = 0;
 	};
 
 	namespace factory
@@ -52,9 +52,9 @@ namespace MyGUI
 				return T::getClassTypeName();
 			}
 
-			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, ICroppedRectangle * _parent, IWidgetCreator * _creator, const std::string& _name)
+			WidgetPtr createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 			{
-				return new T(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _creator, _name);
+				return new T(_coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _croppedParent, _creator, _name);
 			}
 
 			bool isFalseType(WidgetPtr _ptr, const std::string &_key)

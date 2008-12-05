@@ -98,7 +98,7 @@ namespace MyGUI
 		for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
 			if (null != item) {
-				_root = (*iter);
+				_root = (*iter); 
 				return item;
 			}
 		}

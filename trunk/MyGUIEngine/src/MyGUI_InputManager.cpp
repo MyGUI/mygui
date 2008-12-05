@@ -104,8 +104,8 @@ namespace MyGUI
 
 		// спускаемся по владельцу
 		if (null != rootItem) {
-			while (null != static_cast<WidgetPtr>(rootItem)->_getOwner()) {
-				rootItem = static_cast<WidgetPtr>(rootItem)->_getOwner();
+			while (null != static_cast<WidgetPtr>(rootItem)->getParent()) {
+				rootItem = static_cast<WidgetPtr>(rootItem)->getParent();
 			}
 		}	
 
@@ -137,7 +137,7 @@ namespace MyGUI
 			root_focus->mRootMouseActive = true;
 			root_focus->onMouseChangeRootFocus(true);
 
-			root_focus = root_focus->_getOwner();
+			root_focus = root_focus->getParent();
 		};
 
 		// спускаемся по старому виджету и сбрасываем фокус
@@ -149,7 +149,7 @@ namespace MyGUI
 			root_focus->mRootMouseActive = false;
 			root_focus->onMouseChangeRootFocus(false);
 
-			root_focus = root_focus->_getOwner();
+			root_focus = root_focus->getParent();
 		};
 
 		// смена фокуса, проверяем на доступность виджета
@@ -563,7 +563,7 @@ namespace MyGUI
 	{
 		// ищем рутовый фокус
 		WidgetPtr root = _widget;
-		if (root != null) { while (root->_getOwner() != null) root = root->_getOwner(); }
+		if (root != null) { while (root->getParent() != null) root = root->getParent(); }
 
 		// если рутовый фокус поменялся, то оповещаем
 		if (mWidgetRootKeyFocus != root) {
@@ -598,7 +598,7 @@ namespace MyGUI
 			root_focus->mRootMouseActive = false;
 			root_focus->onMouseChangeRootFocus(false);
 
-			root_focus = root_focus->_getOwner();
+			root_focus = root_focus->getParent();
 		};
 
 		mIsWidgetMouseCapture = false;

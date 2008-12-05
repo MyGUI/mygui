@@ -17,8 +17,8 @@ namespace MyGUI
 
 	MYGUI_RTTI_CHILD_IMPLEMENT( MenuBar, Widget );
 
-	MenuBar::MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name) :
-		Widget(_coord, _align, _info, _parent, _creator, _name),
+	MenuBar::MenuBar(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mDistanceButton(0),
 		mIndexSelect(ITEM_NONE)
 	{
@@ -84,10 +84,9 @@ namespace MyGUI
 		button->eventMouseButtonPressed = newDelegate(this, &MenuBar::eventMouseButtonPressed);
 		button->setCaption(_item);
 
-		PopupMenuPtr menu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+		PopupMenuPtr menu = createWidgetRoot<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 		//menu->eventPopupMenuClose = newDelegate(this, &MenuBar::notifyPopupMenuClose);
 		menu->eventPopupMenuAccept = newDelegate(this, &MenuBar::notifyPopupMenuAccept);
-		menu->_setOwner(this);
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, MenuItemInfo(button, false, menu, _data));
 
@@ -210,8 +209,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuBar::createItemChildAt");
 
 		if (mItemsInfo[_index].menu == null) {
-			mItemsInfo[_index].menu = Gui::getInstance().createWidget<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-			mItemsInfo[_index].menu->_setOwner(this);
+			mItemsInfo[_index].menu = createWidgetRoot<PopupMenu>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 		}
 		else {
 			mItemsInfo[_index].menu->removeAllItems();

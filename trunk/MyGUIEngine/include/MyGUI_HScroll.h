@@ -32,7 +32,7 @@ namespace MyGUI
 		int getTrackSize();
 
 	protected:
-		HScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, ICroppedRectangle * _parent, IWidgetCreator * _creator, const Ogre::String & _name);
+		HScroll(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~HScroll();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
