@@ -262,12 +262,7 @@
 		<Unit filename="include/MyGUI_Window.h" />
 		<Unit filename="include/MyGUI_WindowFactory.h" />
 		<Unit filename="include/MyGUI_XmlDocument.h" />
-		<Unit filename="include/TCoord.h" />
-		<Unit filename="include/TPoint.h" />
-		<Unit filename="include/TRect.h" />
-		<Unit filename="include/TSize.h" />
 		<Unit filename="src/MyGUI_ActionController.cpp" />
-		<Unit filename="src/MyGUI_Align.cpp" />
 		<Unit filename="src/MyGUI_Any.cpp" />
 		<Unit filename="src/MyGUI_Button.cpp" />
 		<Unit filename="src/MyGUI_ButtonFactory.cpp" />
@@ -318,7 +313,6 @@
 		<Unit filename="src/MyGUI_MenuBarFactory.cpp" />
 		<Unit filename="src/MyGUI_MenuItem.cpp" />
 		<Unit filename="src/MyGUI_MenuItemFactory.cpp" />
-		<Unit filename="src/MyGUI_MenuItemType.cpp" />
 		<Unit filename="src/MyGUI_Message.cpp" />
 		<Unit filename="src/MyGUI_MessageFactory.cpp" />
 		<Unit filename="src/MyGUI_MultiList.cpp" />
