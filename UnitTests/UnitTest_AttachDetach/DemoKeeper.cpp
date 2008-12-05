@@ -58,7 +58,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		widget->detachWidget();
+		//widget->detachWidget();
 	}
 
 	void step_detach(int _count)
@@ -71,7 +71,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		widget->attachWidget(get_layer());
+		//widget->attachWidget(get_layer());
 	}
 
 	void step_attach_layer(int _count)
@@ -92,7 +92,7 @@ namespace demo
 			test = test->getParent();
 		} while (test);
 
-		widget2->attachWidget(widget1);
+		//widget2->attachWidget(widget1);
 	}
 
 	void step_attach_widget(int _count)

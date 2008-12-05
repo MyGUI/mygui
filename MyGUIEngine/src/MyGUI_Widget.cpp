@@ -438,7 +438,7 @@ namespace MyGUI
 			WidgetPtr widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			if (widget->isRootWidget()) widget->detachWidget();
+			//if (widget->isRootWidget()) widget->detachWidget();
 
 			// отписываем от всех
 			manager.unlinkFromUnlinkers(widget);
@@ -935,7 +935,7 @@ namespace MyGUI
 		setCoord(coord);
 	}
 
-	void Widget::detachWidget()
+	/*void Widget::detachWidget()
 	{
 		if (isRootWidget()) {
 			LayerManager::getInstance().detachFromLayerKeeper(this);
@@ -1000,6 +1000,24 @@ namespace MyGUI
 		LayerItemKeeper * layer_item = mParent->getLayerItemKeeper();
 		if (layer_item) _attachToLayerItemKeeper(layer_item);
 
+	}*/
+
+	void Widget::detachFromLayer()
+	{
+	}	
+	
+	void Widget::attachToLayer(const std::string& _layername)
+	{
+		detachFromLayer();
+	}
+
+	void Widget::detachFromWidget()
+	{
+	}
+
+	void Widget::attachToWidget(WidgetPtr _widget)
+	{
+		detachFromWidget();
 	}
 
 } // namespace MyGUI

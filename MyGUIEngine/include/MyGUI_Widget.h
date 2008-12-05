@@ -270,12 +270,14 @@ namespace MyGUI
 		/** меняет скин у виджета*/
 		void changeWidgetSkin(const std::string& _skinname);
 
-		/** отсоединяет виджет от отца или от леера */
-		void detachWidget();
-		/** присоединяет виджет к лееру*/
-		void attachWidget(const std::string& _layername);
+		/** отсоединяет виджет от леера */
+		void detachFromLayer();
+		/** присоединяет вижет к лееру */
+		void attachToLayer(const std::string& _layername);
+		/** отсоединяет виджет от иерархии виджетов */
+		void detachFromWidget();
 		/** присоединяет виджет к отцу*/
-		void attachWidget(WidgetPtr _widget);
+		void attachToWidget(WidgetPtr _widget);
 
 		// наследуемся он LayerInfo
 		virtual LayerItem * _findLayerItem(int _left, int _top);
