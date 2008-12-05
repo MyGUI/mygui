@@ -140,7 +140,7 @@ namespace MyGUI
 		int toValue() { return value; }
 
 	private:
-		const MapAlign & Align::getValueNames()
+		const MapAlign & getValueNames()
 		{
 			static MapAlign map_names;
 
