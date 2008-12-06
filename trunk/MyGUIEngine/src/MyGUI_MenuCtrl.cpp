@@ -128,10 +128,10 @@ namespace MyGUI
 		setButtonImageIndex(item, getIconIndexByType(_type ));
 
 		MenuCtrlPtr submenu = null;
-		if (_type == MenuItemType::Popup)
+		/*if (_type == MenuItemType::Popup)
 		{
 			submenu = createWidgetRoot<MenuCtrl>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-		}
+		}*/
 
 		ItemInfo info = ItemInfo(item, _name, _type, submenu, _id, _data);
 
@@ -212,6 +212,93 @@ namespace MyGUI
 		}
 
 		setSize(size + mCoord.size() - mWidgetClient->getSize());
+	}
+
+	void MenuCtrl::setItemDataAt(size_t _index, Any _data)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemDataAt");
+		mItemsInfo[_index].data = _data;
+	}
+
+	MenuCtrlPtr MenuCtrl::getItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemChildAt");
+		return mItemsInfo[_index].submenu;
+	}
+
+	void MenuCtrl::removeItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemChildAt");
+
+		if (mItemsInfo[_index].submenu != null) {
+			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
+			mItemsInfo[_index].submenu = null;
+		}
+
+		update();
+	}
+
+	void MenuCtrl::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemNameAt");
+
+		mItemsInfo[_index].name = _name;
+		MenuItemPtr item = mItemsInfo[_index].item;
+		item->setCaption(_name);
+
+		update();
+	}
+
+	void MenuCtrl::setItemIdAt(size_t _index, const std::string & _id)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemIdAt");
+		mItemsInfo[_index].id = _id;
+	}
+
+	const std::string & MenuCtrl::getItemIdAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemIdAt");
+		return mItemsInfo[_index].id;
+	}
+
+	void MenuCtrl::_notifyDeleteItem(MenuItemPtr _item)
+	{
+		// общий шутдаун виджета
+		if (mShutdown) return;
+
+		size_t index = getItemIndex(_item);
+		mItemsInfo.erase(mItemsInfo.begin() + index);
+		update();
+	}
+
+	void MenuCtrl::_notifyUpdateName(MenuItemPtr _item)
+	{
+		size_t index = getItemIndex(_item);
+		mItemsInfo[index].name = _item->getCaption();
+		mItemsInfo[index].width =
+			_item->getTextSize().width + _item->getSize().width - _item->getTextCoord().width;
+		update();
+	}
+
+	MenuItemType MenuCtrl::getItemTypeAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemTypeAt");
+		return mItemsInfo[_index].type;
+	}
+
+	void MenuCtrl::setItemTypeAt(size_t _index, MenuItemType _type)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemTypeAt");
+		ItemInfo & info = mItemsInfo[_index];
+		if (info.type == _type) return;
+
+		// сохраняем данные
+		info.type = _type;
+		info.item->changeWidgetSkin(getSkinByType(_type));
+		setButtonImageIndex(info.item, getIconIndexByType(_type ));
+		info.item->setCaption(info.name);
+		
+		update();
 	}
 
 	bool MenuCtrl::isRelative(WidgetPtr _widget, bool _all)
@@ -357,7 +444,7 @@ namespace MyGUI
 			}
 			else
 			{
-				hideMenuCtrl();
+				//hideMenuCtrl();
 				eventMenuCtrlClose(this);
 			}
 		}
@@ -373,6 +460,7 @@ namespace MyGUI
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::eventKeyLostFocus(mWidgetEventSender, _new);
 	}
+
 
 	void MenuCtrl::hideMenuCtrl(bool _hideParentPopup)
 	{
@@ -401,109 +489,6 @@ namespace MyGUI
 				iter->submenu->hideMenuCtrl(false);
 			}
 		}
-	}
-
-	void MenuCtrl::setItemDataAt(size_t _index, Any _data)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemDataAt");
-		mItemsInfo[_index].data = _data;
-	}
-
-	MenuCtrlPtr MenuCtrl::getItemChildAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemChildAt");
-		return mItemsInfo[_index].submenu;
-	}
-
-	MenuCtrlPtr MenuCtrl::createItemChildAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildAt");
-
-		if (mItemsInfo[_index].submenu == null) {
-			mItemsInfo[_index].submenu = createWidgetRoot<MenuCtrl>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-		}
-		else {
-			mItemsInfo[_index].submenu->removeAllItems();
-		}
-
-		update();
-
-		return mItemsInfo[_index].submenu;
-	}
-
-	void MenuCtrl::removeItemChildAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemChildAt");
-
-		if (mItemsInfo[_index].submenu != null) {
-			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
-			mItemsInfo[_index].submenu = null;
-		}
-
-		update();
-	}
-
-	void MenuCtrl::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemNameAt");
-
-		mItemsInfo[_index].name = _name;
-		MenuItemPtr item = mItemsInfo[_index].item;
-		item->setCaption(_name);
-
-		update();
-	}
-
-	void MenuCtrl::setItemIdAt(size_t _index, const std::string & _id)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemIdAt");
-		mItemsInfo[_index].id = _id;
-	}
-
-	const std::string & MenuCtrl::getItemIdAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemIdAt");
-		return mItemsInfo[_index].id;
-	}
-
-	void MenuCtrl::_notifyDeleteItem(MenuItemPtr _item)
-	{
-		// общий шутдаун виджета
-		if (mShutdown) return;
-
-		size_t index = getItemIndex(_item);
-		mItemsInfo.erase(mItemsInfo.begin() + index);
-		update();
-	}
-
-	void MenuCtrl::_notifyUpdateName(MenuItemPtr _item)
-	{
-		size_t index = getItemIndex(_item);
-		mItemsInfo[index].name = _item->getCaption();
-		mItemsInfo[index].width =
-			_item->getTextSize().width + _item->getSize().width - _item->getTextCoord().width;
-		update();
-	}
-
-	MenuItemType MenuCtrl::getItemTypeAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemTypeAt");
-		return mItemsInfo[_index].type;
-	}
-
-	void MenuCtrl::setItemTypeAt(size_t _index, MenuItemType _type)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemTypeAt");
-		ItemInfo & info = mItemsInfo[_index];
-		if (info.type == _type) return;
-
-		// сохраняем данные
-		info.type = _type;
-		info.item->changeWidgetSkin(getSkinByType(_type));
-		setButtonImageIndex(info.item, getIconIndexByType(_type ));
-		info.item->setCaption(info.name);
-		
-		update();
 	}
 
 } // namespace MyGUI
