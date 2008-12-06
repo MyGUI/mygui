@@ -240,6 +240,8 @@ namespace MyGUI
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
 
+		const std::string & getDefaultPopupLayer() { return mSubMenuLayer; }
+
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::PopupMenuPtr _sender, MyGUI::MenuItemPtr _item)\n
 			@param _item Selected item

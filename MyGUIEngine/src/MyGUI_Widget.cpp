@@ -93,7 +93,8 @@ namespace MyGUI
 
 		IntSize size = mCoord.size();
 
-		LayerItemKeeper * layer_item = getCroppedParent() ? getParent()->getLayerItemKeeper() : getLayerItemKeeper();
+		// берем айтем кипер у первого рута
+		LayerItemKeeper * layer_item = mCroppedParent ? getParent()->getLayerItemKeeper() : getLayerItemKeeper();
 
 		shutdownWidgetSkin();
 

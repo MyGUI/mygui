@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
-#include "MyGUI_PopupMenu.h"
+#include "MyGUI_MenuCtrl.h"
 
 namespace MyGUI
 {
@@ -21,23 +21,12 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER;
 
-	protected:
-		MenuItem(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
-		virtual ~MenuItem();
-
-		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
-		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
-
 	public:
 		/** Set item caption */
 		virtual void setCaption(const Ogre::UTFString & _caption) {
 			Button::setCaption(_caption);
 			mOwner->_notifyUpdateName(this);
 		}
-
-		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
-
-	public:
 
 		//! Get item name
 		const Ogre::UTFString & getItemName() {
@@ -67,14 +56,29 @@ namespace MyGUI
 		//! Get item index
 		size_t getItemIndex() { return mOwner->getItemIndex(this); }
 
-		PopupMenuPtr createItemChild() { return mOwner->createItemChild(this); }
+		MenuCtrlPtr createItemChild() { return mOwner->createItemChild(this); }
+
+		template <typename Type>
+		Type * createItemChildT() { return mOwner->createItemChildT<Type>(this); }
 
 		void setItemType(MenuItemType _type) { mOwner->setItemType(this, _type); }
 
 		MenuItemType getItemType(MenuItemType _type) { return mOwner->getItemType(this); }
 
+	protected:
+		MenuItem(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		virtual ~MenuItem();
+
+		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+
+		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void shutdownWidgetSkin();
+
+		void wrapItemChild(WidgetPtr _widget);
+
 	private:
-		PopupMenuPtr mOwner;
+		MenuCtrlPtr mOwner;
 
 	};
 
