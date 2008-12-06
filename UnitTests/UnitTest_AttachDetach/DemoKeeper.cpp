@@ -6,15 +6,90 @@
 */
 #include "DemoKeeper.h"
 
+#include "OgreMemoryManager.h"
+#include "MyGUI_LayerKeeper.h"
+
 namespace demo
 {
 
 	MyGUI::VectorWidgetPtr all_widgets;
 
+	void diagnosticRenderItem(MyGUI::WidgetPtr _widget)
+	{
+		// это главный леер, к которому приатачена наша иерархия, если он 0,
+		// ты мы висим и нас не видно
+		MyGUI::LayerKeeper * layer = _widget->getLayerKeeper();
+
+		// это наш айтем, т.е. некоя обертака, если кипер перекрывающийся, то обертка наша личная,
+		// если нет, то одна обертка на всех кто в этом слое
+		MyGUI::LayerItemKeeper * layer_item = _widget->getLayerItemKeeper();
+
+		// мы рут
+		if (layer) {
+
+			if (!_widget->isRootWidget()) {
+				MYGUI_EXCEPT("layer != null && !isRootWidget()");
+			}
+
+			if (!layer_item) {
+				MYGUI_EXCEPT("layer != null && layer_item == null");
+			}
+
+			// проверяем соответствие кипера и его айтема
+			bool exist = layer->existItem(layer_item);
+			if (!exist) {
+				MYGUI_EXCEPT("layer item is not exist");
+			}
+
+		}
+		// мы не рут
+		else {
+			if (layer_item) {
+				// ищем корневой леер
+				MyGUI::ICroppedRectangle * parent = _widget->getCroppedParent();
+				if (!parent) {
+					MYGUI_EXCEPT("cropped parent == null");
+				}
+
+				while (parent->getCroppedParent()) {
+
+					// у не рутов, не должен быть кипер
+					MyGUI::LayerKeeper * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayerKeeper();
+					if (layer3) {
+						MYGUI_EXCEPT("layer != null");
+					}
+
+					parent = parent->getCroppedParent();
+				};
+				MyGUI::LayerKeeper * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayerKeeper();
+
+				// у рута должен быть кипер
+				if (!layer3) {
+					MYGUI_EXCEPT("layer == null");
+				}
+
+				// проверяем соответствие кипера и его айтема
+				bool exist = layer3->existItem(layer_item);
+				if (!exist) {
+					MYGUI_EXCEPT("layer item is not exist");
+				}
+				
+			}
+			// мы отдетачены
+			else {
+			}
+
+			// проверяем все ли рендер дети отцепленны
+		}
+	}
+
 	void test_widgets()
 	{
+		Ogre::MemoryManager & manager = Ogre::MemoryManager::instance();
 		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
-			(*iter)->_diagnosticRenderItem();
+			// проверяем не удалили ли уже виджет
+			MYGUI_ASSERT(manager.validateAddr(*iter), "pointer is dead");
+			diagnosticRenderItem(*iter);
 		}
 	}
 
@@ -45,14 +120,14 @@ namespace demo
 	const char * get_skin()
 	{
 		const int SIZE = 2;
-		static const char * names[SIZE] = {"ButtonX", "ButtonV"};
+		static const char * names[SIZE] = { "ButtonX", "ButtonV" };
 		return names[random(SIZE)];
 	}
 
 	const char * get_layer()
 	{
-		const int SIZE = 2;
-		static const char * names[SIZE] = {"Main", "Overlapped"};
+		const int SIZE = 3;
+		static const char * names[SIZE] = { "", "Main", "Overlapped" };
 		return names[random(SIZE)];
 	}
 
