@@ -131,13 +131,24 @@ namespace demo
 		//window->destroySmooth();
 
 		
-		MyGUI::MenuCtrlPtr menu = mGUI->createWidget<MyGUI::MenuCtrl>("PopupMenu", MyGUI::IntCoord(200, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
-		MyGUI::MenuItemPtr item1 = menu->addItem("line1", MyGUI::MenuItemType::Popup);
-		MyGUI::MenuItemPtr item2 = menu->addItem("line2", MyGUI::MenuItemType::Popup);
+		MyGUI::WidgetPtr menu = mGUI->createWidget<MyGUI::MenuCtrl>("PopupMenu", MyGUI::IntCoord(200, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
 
-		MyGUI::MenuCtrlPtr item_child = item1->createItemChildT<MyGUI::MenuCtrl>();
-		item_child->addItem("subline1", MyGUI::MenuItemType::Normal);
-		item_child->addItem("subline2", MyGUI::MenuItemType::Normal);
+		MyGUI::WidgetPtr item1 = menu->createWidget<MyGUI::MenuItem>("", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(item1, "Widget_Caption", "line1");
+		MyGUI::WidgetManager::getInstance().parse(item1, "MenuItem_Type", "Popup");
+
+		MyGUI::WidgetPtr item2 = menu->createWidget<MyGUI::MenuItem>("", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(item2, "Widget_Caption", "line2");
+		MyGUI::WidgetManager::getInstance().parse(item2, "MenuItem_Type", "Normal");
+
+		MyGUI::WidgetPtr item_child = item1->createWidget<MyGUI::MenuCtrl>("PopupMenu", MyGUI::IntCoord(), MyGUI::Align::Default);
+
+		MyGUI::WidgetPtr subitem1 = item_child->createWidget<MyGUI::MenuItem>("", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(subitem1, "Widget_Caption", "subline1");
+
+		MyGUI::WidgetPtr subitem2 = item_child->createWidget<MyGUI::MenuItem>("", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(subitem2, "Widget_Caption", "subline2");
+
 
 		menu->show();
 		

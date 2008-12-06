@@ -252,8 +252,7 @@ namespace MyGUI
 
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
-
-		const std::string & getDefaultPopupLayer() { return mSubMenuLayer; }
+		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
 
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
@@ -305,7 +304,6 @@ namespace MyGUI
 			else if (_separator)  return MenuItemType::Separator;
 			return  MenuItemType::Normal;
 		}
-
 
 	private:
 		VectorMenuItemInfo mItemsInfo;
