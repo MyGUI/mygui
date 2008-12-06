@@ -938,6 +938,20 @@ namespace MyGUI
 		setCoord(coord);
 	}
 
+	void Widget::_linkChildWidget(WidgetPtr _widget)
+	{
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
+		mWidgetChild.push_back(_widget);
+	}
+
+	void Widget::_unlinkChildWidget(WidgetPtr _widget)
+	{
+		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
+		mWidgetChild.erase(iter);
+	}
+
 	void Widget::detachFromLayer()
 	{
 		// если мы рут, то просто отсоединяем от леера
@@ -993,11 +1007,74 @@ namespace MyGUI
 
 	void Widget::detachFromWidget()
 	{
+		// проверить альфу и видимость
+
+		// мы рут достаточно поменять отца на самого рутового
+		if (isRootWidget()) {
+
+			if (getParent()) {
+
+				// нам нужен самый рутовый парент
+				WidgetPtr root = getParent();
+				while (root->getParent()) { root = root->getParent(); }
+
+				mIWidgetCreator = root->mIWidgetCreator;
+				mIWidgetCreator->_linkChildWidget(this);
+				mParent->_unlinkChildWidget(this);
+				mParent = null;
+
+			}
+		}
+		else {
+
+			// отдетачиваемся от лееров
+			detachFromLayer();
+
+			// нам нужен самый рутовый парент
+			WidgetPtr root = getParent();
+			while (root->getParent()) { root = root->getParent(); }
+
+			// присоединяем себя к самой верхней иерархии
+			mIWidgetCreator = root->mIWidgetCreator;
+			mIWidgetCreator->_linkChildWidget(this);
+			mParent->_unlinkChildWidget(this);
+			mParent = null;
+
+			// если у самого высокого есть леер, то туда же
+			LayerKeeper * layer = root->getLayerKeeper();
+			if (layer) attachToLayer(layer->getName());
+
+		}
+
 	}
 
 	void Widget::attachToWidget(WidgetPtr _widget)
 	{
-		detachFromWidget();
+		MYGUI_ASSERT(_widget, "parent mast be valid");
+		MYGUI_ASSERT(_widget != this, "cicle attach");
+
+		// запоминаем уровень
+		LayerKeeper * layer = getLayerKeeper();
+
+		// проверяем на цикличность атача
+		WidgetPtr parent = _widget;
+		while (parent->getParent()) {
+			MYGUI_ASSERT(parent != this, "cicle attach");
+			parent = parent->getParent();
+		}
+
+		// отдетачиваемся от лееров
+		detachFromLayer();
+
+		mIWidgetCreator->_unlinkChildWidget(this);
+		mIWidgetCreator = _widget;
+		mParent = _widget;
+		mParent->_linkChildWidget(this);
+
+		// присоединяем как дочку
+		attachToLayer(layer ? layer->getName() : "");
+
 	}
 
 } // namespace MyGUI
+
