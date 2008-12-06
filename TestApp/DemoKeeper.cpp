@@ -82,6 +82,11 @@ namespace demo
 		}
 	}
 
+	void notifyRootMouseChangeFocus(MyGUI::WidgetPtr _sender, bool _focus)
+	{
+		_sender->setAlpha(_focus ? 1 : 0.5);
+	}
+
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
@@ -95,13 +100,25 @@ namespace demo
 		MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("Test", MyGUI::IntCoord(200, 20, 100, 100), MyGUI::Align::Default, "Overlapped");
 		//MyGUI::WidgetPtr widget2 = widget1->createWidget<MyGUI::Widget>("ButtonX", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default);
 
-		MyGUI::WidgetPtr widget3 = widget1->createWidgetRoot<MyGUI::Widget>("Test", MyGUI::IntCoord(50, 50, 100, 100), MyGUI::Align::Default, "Back");
+		MyGUI::WidgetPtr widget3 = mGUI->createWidget<MyGUI::Widget>("Test", MyGUI::IntCoord(50, 50, 100, 100), MyGUI::Align::Default, "Back");
 		//MyGUI::WidgetPtr widget4 = widget3->createWidgetRoot<MyGUI::Widget>("ButtonV", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default, "Overlapped");
 
 		//widget1->detachFromLayer();
-		widget3->attachToLayer("");
+		widget3->attachToWidget(widget1);
 
 		diagnosticRenderItem(widget1);
+		diagnosticRenderItem(widget3);
+
+		widget1->eventRootMouseChangeFocus = MyGUI::newDelegate(notifyRootMouseChangeFocus);
+		widget3->eventRootMouseChangeFocus = MyGUI::newDelegate(notifyRootMouseChangeFocus);
+
+
+		/*MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 200, 200), MyGUI::Align::Default, "Back");
+		MyGUI::RenderBoxPtr render = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, 200, 200), MyGUI::Align::Default, "Overlapped");
+		render->setRenderTarget(this->mCamera);
+		window->destroySmooth();*/
+
+		
 		
 		int test = 0;
 	}

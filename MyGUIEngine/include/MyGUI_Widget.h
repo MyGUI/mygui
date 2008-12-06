@@ -331,6 +331,11 @@ namespace MyGUI
 
 		float _getRealAlpha() { return mRealAlpha; }
 
+		// добавляет в список виджет
+		virtual void _linkChildWidget(WidgetPtr _widget);
+		// удаляет из списка
+		virtual void _unlinkChildWidget(WidgetPtr _widget);
+
 	protected:
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
