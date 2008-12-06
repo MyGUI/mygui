@@ -88,7 +88,7 @@ namespace demo
 		Ogre::MemoryManager & manager = Ogre::MemoryManager::instance();
 		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
 			// проверяем не удалили ли уже виджет
-			//MYGUI_ASSERT(manager.validateAddr(*iter), "pointer is dead");
+			MYGUI_ASSERT(manager.validateAddr(*iter), "pointer is dead");
 			diagnosticRenderItem(*iter);
 		}
 	}
@@ -243,6 +243,19 @@ namespace demo
 		while (count > 0) { step_create_widget(); --count; };
 	}
 
+	void step_change_skin()
+	{
+		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		if (widget) widget->changeWidgetSkin(get_skin());
+		test_widgets();
+	}
+
+	void step_change_skin(int _count)
+	{
+		int count = random(_count);
+		while (count > 0) { step_change_skin(); --count; };
+	}
+
 	class Unlink : public MyGUI::IUnlinkWidget
 	{
 	public:
@@ -277,7 +290,7 @@ namespace demo
 			step_destroy_widget(100);
 		}
 		else {
-			int step = random(6);
+			int step = random(7);
 			if (step == 0) {
 				step_detach_layer(30);
 			}
@@ -295,6 +308,9 @@ namespace demo
 			}
 			else if (step == 5) {
 				step_create_widget(30);
+			}
+			else if (step == 6) {
+				step_change_skin(30);
 			}
 		}
 
