@@ -629,7 +629,9 @@ namespace MyGUI
 			(*skin)->_createDrawItem(_item, renderItem);
 		}
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_attachToLayerItemKeeper(_item);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+			if (!(*widget)->isRootWidget()) (*widget)->_attachToLayerItemKeeper(_item);
+		}
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_attachToLayerItemKeeper(_item);
 	}
 
@@ -1001,14 +1003,41 @@ namespace MyGUI
 		if (layer_item) _attachToLayerItemKeeper(layer_item);
 
 	}*/
-
 	void Widget::detachFromLayer()
 	{
+		// если мы рут, то просто отсоединяем от леера
+		if (isRootWidget()) {
+			LayerManager::getInstance().detachFromLayerKeeper(this);
+		}
+		// если мы не рут, то отсоединяем от леер кипера
+		else {
+			_detachFromLayerItemKeeper();
+			mCroppedParent = null;
+		}
 	}	
 	
 	void Widget::attachToLayer(const std::string& _layername)
 	{
 		detachFromLayer();
+		// присоединяем как дочку
+		if (_layername.empty()) {
+		}
+		// присоединяем к лееру
+		else {
+			LayerManager::getInstance().attachToLayerKeeper(_layername, this);
+
+			// обновляем координаты
+			mAbsolutePosition = mCoord.point();
+			// сбрасываем обрезку
+			mMargin.clear();
+
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
+			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
+
+			// обновляем свой вью
+			_updateView();
+			
+		}
 	}
 
 	void Widget::detachFromWidget()
@@ -1018,6 +1047,78 @@ namespace MyGUI
 	void Widget::attachToWidget(WidgetPtr _widget)
 	{
 		detachFromWidget();
+	}
+
+	void Widget::_diagnosticRenderItem()
+	{
+		// это главный леер, к которому приатачена наша иерархия, если он 0,
+		// ты мы висим и нас не видно
+		LayerKeeper * layer = getLayerKeeper();
+
+		// это наш айтем, т.е. некоя обертака, если кипер перекрывающийся, то обертка наша личная,
+		// если нет, то одна обертка на всех кто в этом слое
+		LayerItemKeeper * layer_item = getLayerItemKeeper();
+
+		// мы рут
+		if (layer) {
+
+			if (!isRootWidget()) {
+				MYGUI_EXCEPT("layer != null && !isRootWidget()");
+			}
+
+			if (!layer_item) {
+				MYGUI_EXCEPT("layer != null && layer_item == null");
+			}
+
+			// проверяем соответствие кипера и его айтема
+			bool exist = layer->existItem(layer_item);
+			if (!exist) {
+				MYGUI_EXCEPT("layer item is not exist");
+			}
+
+		}
+		// мы не рут
+		else {
+			if (layer_item) {
+				// ищем корневой леер
+				ICroppedRectangle * parent = mCroppedParent;
+				if (!parent) {
+					MYGUI_EXCEPT("cropped parent == null");
+				}
+
+				while (parent->getCroppedParent()) {
+
+					// у не рутов, не должен быть кипер
+					LayerKeeper * layer3 = static_cast<WidgetPtr>(parent)->getLayerKeeper();
+					if (layer3) {
+						MYGUI_EXCEPT("layer != null");
+					}
+
+					parent = parent->getCroppedParent();
+				};
+				LayerKeeper * layer3 = static_cast<WidgetPtr>(parent)->getLayerKeeper();
+
+				// у рута должен быть кипер
+				if (!layer3) {
+					MYGUI_EXCEPT("layer == null");
+				}
+
+				// проверяем соответствие кипера и его айтема
+				bool exist = layer3->existItem(layer_item);
+				if (!exist) {
+					MYGUI_EXCEPT("layer item is not exist");
+				}
+				
+			}
+			// мы отдетачены
+			else {
+			}
+
+			// проверяем все ли рендер дети отцепленны
+		}
+
+		//for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_diagnosticRenderItem();
+		//for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_diagnosticRenderItem();
 	}
 
 } // namespace MyGUI

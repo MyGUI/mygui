@@ -30,9 +30,10 @@ namespace MyGUI
 		void upItem(LayerItemKeeper * _item);
 
 		void _render(bool _update);
-		//void _resize(const FloatSize& _size);
 
 		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
+
+		bool existItem(LayerItemKeeper * _item);
 
 	private:
 		std::string mName;
