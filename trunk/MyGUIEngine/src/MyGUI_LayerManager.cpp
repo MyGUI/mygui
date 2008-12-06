@@ -169,6 +169,11 @@ namespace MyGUI
 		// мы уже отдетачены в доску
 		if (null == _item->mLayerKeeper) return;
 
+		// такого быть не должно
+		if (!_item->mLayerItemKeeper) {
+			MYGUI_EXCEPT("_item->mLayerItemKeeper == null");
+		}
+
 		// отписываемся от пиккинга
 		_item->mLayerItemKeeper->_removePeekItem(_item);
 

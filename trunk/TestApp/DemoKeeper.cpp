@@ -7,270 +7,31 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 
-#include <vector>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <assert.h>
-#include <assert.h>
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include <gcroot.h>
-#include <windowsx.h>
-#endif
-
-struct A
-{
-	static const std::string & foo1() { A a; return a.foo2(); }
-	const std::string & foo2() { static std::string value; return value; }
-};
-
-
 namespace demo
 {
-
-	public value struct IntCoord
-	{
-	public:
-		IntCoord(int _left, int _top, int _width, int _height)
-		{
-			left = _left;
-			top = _top;
-			width = _width;
-			height = _height;
-		}
-		static operator IntCoord (MyGUI::IntCoord _coord) { return IntCoord(_coord.left, _coord.top, _coord.width, _coord.height); }
-		static operator MyGUI::IntCoord (IntCoord _coord) { return MyGUI::IntCoord(_coord.left, _coord.top, _coord.width, _coord.height); }
-
-		int left, top, width, height;
-	};
-
-	public value struct Align
-	{
-		Align(int _align)
-		{
-			align = _align;
-		}
-		static operator Align (MyGUI::Align _align) { return Align(_align.toValue()); }
-		static operator MyGUI::Align (Align _align) { return MyGUI::Align(_align.align); }
-		int align;
-	};
-
-	public ref class Widget
-	{
-	public:
-
-		Widget(Widget ^ _parent, System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer, System::String ^ _name)
-		{
-			if (_parent == nullptr) {
-				m_widget = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("Button", _coord, MyGUI::Align::Default, "Main");
-			}
-			else {
-				_parent->GetWidget()->createWidget<MyGUI::Widget>("Button", _coord, MyGUI::Align::Default);
-			}
-			m_widgetsList.Add(this);
-		}
-
-		void Destroy()
-		{
-			if (m_widget == null) throw gcnew System::Exception("widget is destroy");
-			MyGUI::Gui::getInstance().destroyWidget(m_widget);
-			m_widgetsList.Remove(this);
-		}
-
-		~Widget()
-		{
-		}
-
-		MyGUI::WidgetPtr GetWidget() { return m_widget; }
-
-	private:
-		static System::Collections::Generic::List<Widget^> m_widgetsList = gcnew System::Collections::Generic::List<Widget^>();
-		MyGUI::WidgetPtr m_widget;
-	};
-
-	struct Param { };
-
-	template <typename T1>
-	class StaticManagedDelegate1  : public MyGUI::delegates::IDelegate1<T1>
-	{
-	public:
-		typedef void (*Func)(T1);
-
-		StaticManagedDelegate1(System::MulticastDelegate ^ _delegate)
-		{
-			if (_delegate->Target != nullptr) throw gcnew System::Exception("only for static method");
-			m_delegate = _delegate;
-			System::Reflection::MethodInfo^ mInfo = m_delegate->GetType()->GetMethod(
-				"Invoke", gcnew cli::array<System::Type^> {T1::typeid });
-			if (mInfo == nullptr) throw gcnew System::Exception("error signature");
-			mFunc = (Func)System::Runtime::InteropServices::Marshal::GetFunctionPointerForDelegate(m_delegate).ToPointer();
-		}
-
-		virtual void invoke(T1 p1)
-		{
-			mFunc(p1);
-		}
-
-		virtual bool compare(MyGUI::delegates::IDelegate1<T1>* _delegate)
-		{
-			if (!_delegate || typeid(*this) != typeid(*_delegate)) return false;
-			return (static_cast<StaticManagedDelegate1<T1>*>(_delegate)->mFunc != mFunc);
-		}
-	private:
-		gcroot<System::MulticastDelegate^> m_delegate;
-		Func mFunc;
-	};
-
-	delegate void HandleDelegate(Param _value);
-
-
-
-	value struct Export
-	{
-
-		static void foo(Param _value)
-		{
-			int test = 0;
-		}
-
-	};
-
-	void testid(unsigned char(&_id)[16])
-	{
-	}
-
-	void notifyRootMouseChangeFocus(MyGUI::WidgetPtr _sender, bool _focus)
-	{
-		_sender->setAlpha(_focus ? 1 : 0.5);
-	}
-
-	MyGUI::WidgetPtr widget1 = null;
 
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
-		//MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp/2.zip", "Zip", "General", false, false);
+		MyGUI::ResourceManager::getInstance().load("test_skin.xml");
 
-		//MyGUI::delegates::CDelegate1<Param> eventTest;
-		//eventTest = new StaticManagedDelegate1<Param>(gcnew HandleDelegate(Export::foo));
-		//eventTest(Param());
-		
-		//Widget ^ widget = gcnew Widget(nullptr, "", IntCoord(10 ,10 , 100, 100), Align(MyGUI::Align::Default), "", "");
-
-		/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
-		edit->setEditWordWrap(true);
-		edit->setMaxTextLength(65536);
-
-		std::string read, text;
-		std::ifstream stream(MyGUI::helper::getResourcePath("eula.txt").c_str());
-		if (false != stream.is_open()) {
-			while (false == stream.eof()) {
-				std::getline(stream, read);
-				text += read + "\n";
-			};
-			edit->setCaption(text);
-			edit->setTextCursor(0);
-		}*/
-
-		/*unsigned char arrayid[16];
-		for (size_t pos=0; pos<16; pos++) arrayid[pos] = (char)pos;
-
-		MyGUI::Guid id(arrayid);
-		int test = 0;
-		//testid(id);
-
-
-		System::Diagnostics::StackTrace^ cs = gcnew System::Diagnostics::StackTrace();
-		cli::array<System::Diagnostics::StackFrame^>^ frames = cs->GetFrames();
-
-		for(int i = 0; i < frames->Length; i++)
-		{
-			System::Diagnostics::StackFrame^ frame = frames[i];
-			System::String ^ line = frame->GetMethod()->ToString() +
-				"   [ file '" + (frame->GetFileName() ? frame->GetFileName()->ToString()  : "" ) +
-				"'  line : " + frame->GetFileLineNumber().ToString() + " ]";
-			int test = 0;
-			//OGREDN_LOG(Warning, "     -  " << utility::managed_to_ansi(line));
-		}
-
-		Ogre::SceneNode * node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-		Ogre::Entity * entity = mSceneMgr->createEntity("axes.mesh", "axes.mesh");
-
-		//void * ptr1 = entity;
-		//void * ptr2 = (Ogre::MovableObject*)entity;
-
-		void * ptr1 = node;
-		void * ptr2 = (Ogre::Node*)node;
-
-		int test44=0;*/
-		//node->attachObject(entity);
-
-		//this->mRoot->renderOneFrame();
-
-		//MyGUI::RenderBoxPtr render = mGUI->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
-		//render->injectObject(entity->getName());
-		//render->injectSceneNode(this->mSceneMgr, node);
-		//render->setAutoRotation(true);
-		//render->setMouseRotation(true);
-
-		//this->mRoot->renderOneFrame();
-
-		//node->removeAndDestroyAllChildren();
-		//node->detachAllObjects();
-		//mSceneMgr->destroySceneNode(node->getName());
-		//mSceneMgr->destroyAllEntities();
-		//mSceneMgr->destroyAllMovableObjects();
-
-		//this->mRoot->renderOneFrame();
-
-		//render->injectSceneNode(this->mSceneMgr, node);
-
-		//this->mRoot->renderOneFrame();
-
-		//int * ptr = new int();
-
-		MyGUI::Gui::getInstance().hidePointer();
+		//MyGUI::Gui::getInstance().hidePointer();
 		//delete mInfo;
 		//mInfo = null;//*/
 
 
-		widget1 = mGUI->createWidget<MyGUI::Widget>("ButtonX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("Test", MyGUI::IntCoord(200, 20, 100, 100), MyGUI::Align::Default, "Overlapped");
 		//MyGUI::WidgetPtr widget2 = widget1->createWidget<MyGUI::Widget>("ButtonX", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default);
 
-		MyGUI::WidgetPtr widget3 = widget1->createWidgetRoot<MyGUI::Widget>("ButtonV", MyGUI::IntCoord(150, 150, 100, 100), MyGUI::Align::Default, "Overlapped");
-		//MyGUI::WidgetPtr widget4 = widget3->createWidget<MyGUI::Widget>("ButtonV", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default);
+		MyGUI::WidgetPtr widget3 = widget1->createWidgetRoot<MyGUI::Widget>("Test", MyGUI::IntCoord(50, 50, 100, 100), MyGUI::Align::Default, "Back");
+		//MyGUI::WidgetPtr widget4 = widget3->createWidgetRoot<MyGUI::Widget>("ButtonV", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default, "Overlapped");
 
-		widget1->detachWidget();
-		//MyGUI::WidgetManager::getInstance().destroyWidget(widget1);
-		//widget1->eventRootMouseChangeFocus = MyGUI::newDelegate(notifyRootMouseChangeFocus);
+		//widget1->detachFromLayer();
+		widget1->attachToLayer("Back");
 
-
-		//MyGUI::WindowPtr widget1 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 500, 500), MyGUI::Align::Default, "Main");
-		//MyGUI::WindowPtr widget2 = widget1->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default);
-		//MyGUI::WindowPtr widget3 = widget2->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default);
-
-		/*widget1->setCaption("1");
-		widget1->changeWidgetSkin("Button");
-		widget1->setCaption("2");*/
-
-		//widget2->detachWidget();
-		//widget2->attachWidget("Popup");
-		//widget2->attachWidget(widget1);
-		//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Overlapped", widget1);
-
-		//widget2->_attachToLayerItemKeeper();
-
-		//MyGUI::LayerManager::getInstance().setSceneManager(0);
-		//mGUI->setSceneManager(0);
-		//widget->setCoord(MyGUI::IntCoord(10, 10, 100, 100));
-
-		//MyGUI::WidgetManager::getInstance().destroyWidget(widget);
-		//text->setColour(Ogre::ColourValue::White);
-		//text->setFontName("ManualFont");
-		//text->setCaption("0123");
+		widget1->_diagnosticRenderItem();
 		
+		int test = 0;
 	}
  
     void DemoKeeper::destroyScene()
@@ -279,12 +40,6 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
-		if (arg.key == OIS::KC_F1) {
-			widget1->hide();
-		}
-		else if (arg.key == OIS::KC_F2) {
-			widget1->show();
-		}
 		return BaseManager::keyPressed(arg);
 	}
 	 

@@ -118,6 +118,9 @@ namespace MyGUI
 
 	void SubSkin::_updateView()
 	{
+
+		//mAbsolutePosition = mCroppedParent->getAbsolutePosition() + mCoord.point();
+
 		bool margin = _checkMargin();
 
 		mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
@@ -251,13 +254,16 @@ namespace MyGUI
 
 	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
+		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be null");
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
 	void SubSkin::_destroyDrawItem()
 	{
+		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not null");
 		mRenderItem->removeDrawItem(this);
+		mRenderItem = null;
 	}
 
 	void SubSkin::_setStateData(StateInfo * _data)
