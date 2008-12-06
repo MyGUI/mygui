@@ -87,6 +87,12 @@ namespace demo
 		_sender->setAlpha(_focus ? 1 : 0.5);
 	}
 
+	void notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	{
+		MyGUI::WindowPtr window = *_sender->getUserData<MyGUI::WindowPtr>();
+		window->destroySmooth();
+	}
+
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
@@ -97,30 +103,43 @@ namespace demo
 		//mInfo = null;//*/
 
 
-		MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("WindowCSX", MyGUI::IntCoord(200, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
+		//MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("WindowCSX", MyGUI::IntCoord(200, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
 		//MyGUI::WidgetPtr widget2 = widget1->createWidget<MyGUI::Widget>("ButtonX", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default);
 
-		MyGUI::WidgetPtr widget3 = widget1->createWidgetRoot<MyGUI::Widget>("Test", MyGUI::IntCoord(50, 50, 100, 100), MyGUI::Align::Default, "Back");
+		//MyGUI::WidgetPtr widget3 = widget1->createWidgetRoot<MyGUI::Widget>("Test", MyGUI::IntCoord(50, 50, 100, 100), MyGUI::Align::Default, "Back");
 		//MyGUI::WidgetPtr widget4 = widget3->createWidgetRoot<MyGUI::Widget>("ButtonV", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Default, "Overlapped");
 
 		//widget1->attachToLayer("Back");
 		//widget3->detachFromWidget();
 
-		widget3->changeWidgetSkin("ScrollView");
+		//widget3->changeWidgetSkin("ScrollView");
 
-		diagnosticRenderItem(widget1);
-		diagnosticRenderItem(widget3);
+		//diagnosticRenderItem(widget1);
+		//diagnosticRenderItem(widget3);
 
-		widget1->eventRootMouseChangeFocus = MyGUI::newDelegate(notifyRootMouseChangeFocus);
+		//widget1->eventRootMouseChangeFocus = MyGUI::newDelegate(notifyRootMouseChangeFocus);
 		//widget3->eventRootMouseChangeFocus = MyGUI::newDelegate(notifyRootMouseChangeFocus);
 
 
 		/*MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 200, 200), MyGUI::Align::Default, "Back");
-		MyGUI::RenderBoxPtr render = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, 200, 200), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ButtonPtr button = window->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 20, 20), MyGUI::Align::Default);
+		MyGUI::RenderBoxPtr render = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(30, 30, 100, 100), MyGUI::Align::Default);
 		render->setRenderTarget(this->mCamera);
-		window->destroySmooth();*/
+
+		button->setUserData(window);
+		button->eventMouseButtonClick = MyGUI::newDelegate(notifyMouseButtonClick);*/
+		//window->destroySmooth();
 
 		
+		MyGUI::MenuCtrlPtr menu = mGUI->createWidget<MyGUI::MenuCtrl>("PopupMenu", MyGUI::IntCoord(200, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::MenuItemPtr item1 = menu->addItem("line1", MyGUI::MenuItemType::Popup);
+		MyGUI::MenuItemPtr item2 = menu->addItem("line2", MyGUI::MenuItemType::Popup);
+
+		MyGUI::MenuCtrlPtr item_child = item1->createItemChildT<MyGUI::MenuCtrl>();
+		item_child->addItem("subline1", MyGUI::MenuItemType::Normal);
+		item_child->addItem("subline2", MyGUI::MenuItemType::Normal);
+
+		menu->show();
 		
 		int test = 0;
 	}

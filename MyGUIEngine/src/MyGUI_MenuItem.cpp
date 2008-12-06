@@ -17,38 +17,51 @@ namespace MyGUI
 		Button(_coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
 		WidgetPtr parent = getParent();
-		MYGUI_ASSERT(parent, "MenuItem must have parent PopupMenu");
-		if (!parent->isType<PopupMenu>()) {
+		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
+		if (!parent->isType<MenuCtrl>()) {
 			WidgetPtr client = parent;
 			parent = client->getParent();
-			MYGUI_ASSERT(parent, "MenuItem must have parent PopupMenu");
-			MYGUI_ASSERT(parent->getClientWidget() == client, "MenuItem must have parent PopupMenu");
-			MYGUI_ASSERT(parent->isType<PopupMenu>(), "MenuItem must have parent PopupMenu");
+			MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
+			MYGUI_ASSERT(parent->getClientWidget() == client, "MenuItem must have parent MenuCtrl");
+			MYGUI_ASSERT(parent->isType<MenuCtrl>(), "MenuItem must have parent MenuCtrl");
 		}
-		mOwner = parent->castType<PopupMenu>();
+		mOwner = parent->castType<MenuCtrl>();
 
 		initialiseWidgetSkin(_info);
 	}
 
 	MenuItem::~MenuItem()
 	{
+		shutdownWidgetSkin();
 		mOwner->_notifyDeleteItem(this);
 	}
 
 	WidgetPtr MenuItem::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		if (PopupMenu::getClassTypeName() == _type) return createItemChild();
-		return Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+		WidgetPtr widget = Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+		if (widget->isType<MenuCtrl>()) wrapItemChild(widget);
+		return widget;
 	}
 
 	void MenuItem::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
+		shutdownWidgetSkin();
 		Button::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
 	void MenuItem::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
+	}
+
+	void MenuItem::shutdownWidgetSkin()
+	{
+	}
+
+	void MenuItem::wrapItemChild(WidgetPtr _widget)
+	{
+		const std::string & layername = mOwner->getDefaultPopupLayer();
+		_widget->attachToLayer(layername);
 	}
 
 } // namespace MyGUI

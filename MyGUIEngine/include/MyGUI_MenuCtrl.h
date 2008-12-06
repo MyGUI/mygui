@@ -200,14 +200,31 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// остальные манипуляции
 
+		template <typename Type>
+		Type * createItemChildTAt(size_t _index)
+		{
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildTAt");
+			removeItemChildAt(_index);			
+			Type * child = createWidgetRoot<Type>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+			WidgetPtr tmp = child;
+			MYGUI_ASSERT(tmp->isType<MenuCtrl>(), "дитя должно наследоваться от MenuCtrl");
+			mItemsInfo[_index].submenu = child;
+			update();
+			return child;
+		}
+
+		template <typename Type>
+		Type * createItemChildT(MenuItemPtr _item) { return createItemChildTAt<Type>(getItemIndex(_item)); }
+
 		MenuCtrlPtr getItemChildAt(size_t _index);
 
 		// create sub menu
-		MenuCtrlPtr createItemChildAt(size_t _index);
+		MenuCtrlPtr createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
 		// create sub menu
 		MenuCtrlPtr createItemChild(MenuItemPtr _item) {
 			return createItemChildAt(getItemIndex(_item));
 		}
+
 
 		void removeItemChildAt(size_t _index);
 		void removeItemChild(MenuItemPtr _item) {
@@ -235,6 +252,8 @@ namespace MyGUI
 
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
+
+		const std::string & getDefaultPopupLayer() { return mSubMenuLayer; }
 
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
