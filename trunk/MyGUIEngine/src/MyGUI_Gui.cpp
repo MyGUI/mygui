@@ -334,12 +334,16 @@ namespace MyGUI
 
 	void Gui::_linkChildWidget(WidgetPtr _widget)
 	{
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
 		mWidgetChild.push_back(_widget);
 	}
 
 	void Gui::_unlinkChildWidget(WidgetPtr _widget)
 	{
-		mWidgetChild.erase(std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget));
+		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
+		mWidgetChild.erase(iter);
 	}
 
 } // namespace MyGUI

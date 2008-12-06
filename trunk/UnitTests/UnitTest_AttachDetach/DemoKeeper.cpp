@@ -88,7 +88,7 @@ namespace demo
 		Ogre::MemoryManager & manager = Ogre::MemoryManager::instance();
 		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
 			// проверяем не удалили ли уже виджет
-			MYGUI_ASSERT(manager.validateAddr(*iter), "pointer is dead");
+			//MYGUI_ASSERT(manager.validateAddr(*iter), "pointer is dead");
 			diagnosticRenderItem(*iter);
 		}
 	}
@@ -119,15 +119,15 @@ namespace demo
 
 	const char * get_skin()
 	{
-		const int SIZE = 2;
-		static const char * names[SIZE] = { "ButtonX", "ButtonV" };
+		const int SIZE = 8;
+		static const char * names[SIZE] = { "WindowCSX", "ScrollView", "ButtonX", "ButtonV" , "Button", "EditStretch", "RadioBox", "CheckBox" };
 		return names[random(SIZE)];
 	}
 
 	const char * get_layer()
 	{
-		const int SIZE = 3;
-		static const char * names[SIZE] = { "", "Main", "Overlapped" };
+		const int SIZE = 4;
+		static const char * names[SIZE] = { "", "Main", "Overlapped", "Back" };
 		return names[random(SIZE)];
 	}
 
@@ -164,6 +164,20 @@ namespace demo
 		while (count > 0) { step_attach_layer(); --count; };
 	}
 
+	void step_detach_widget()
+	{
+		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		if (!widget) return;
+		widget->detachFromWidget();
+		test_widgets();
+	}
+
+	void step_detach_widget(int _count)
+	{
+		int count = random(_count);
+		while (count > 0) { step_detach_widget(); --count; };
+	}
+
 	void step_attach_widget()
 	{
 		MyGUI::WidgetPtr widget1 = get_random(all_widgets);
@@ -176,7 +190,7 @@ namespace demo
 			test = test->getParent();
 		} while (test);
 
-		//widget2->attachWidget(widget1);
+		widget2->attachToWidget(widget1);
 		test_widgets();
 	}
 
@@ -263,7 +277,7 @@ namespace demo
 			step_destroy_widget(100);
 		}
 		else {
-			int step = random(5);
+			int step = random(6);
 			if (step == 0) {
 				step_detach_layer(30);
 			}
@@ -271,12 +285,15 @@ namespace demo
 				step_attach_layer(10);
 			}
 			else if (step == 2) {
-				//step_attach_widget(10);
+				step_attach_widget(10);
 			}
 			else if (step == 3) {
-				step_destroy_widget(2);
+				step_detach_widget(10);
 			}
 			else if (step == 4) {
+				step_destroy_widget(2);
+			}
+			else if (step == 5) {
 				step_create_widget(30);
 			}
 		}
