@@ -87,4 +87,12 @@ namespace MyGUI
 		return null;
 	}
 
+	bool LayerKeeper::existItem(LayerItemKeeper * _item)
+	{
+		for (VectorLayerItemKeeper::iterator iter=mLayerItemKeepers.begin(); iter!=mLayerItemKeepers.end(); ++iter) {
+			if ((*iter) == _item) return true;
+		}
+		return false;
+	}
+
 } // namespace MyGUI

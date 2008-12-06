@@ -74,7 +74,7 @@
 				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeForWindows98="1"
 				TargetMachine="1"
 			/>

@@ -11,6 +11,13 @@ namespace demo
 
 	MyGUI::VectorWidgetPtr all_widgets;
 
+	void test_widgets()
+	{
+		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
+			(*iter)->_diagnosticRenderItem();
+		}
+	}
+
 	int random(int _max)
 	{
 		int result = rand() % _max;
@@ -54,24 +61,26 @@ namespace demo
 		return MyGUI::IntCoord(random(500), random(500), random(500), random(500));
 	}
 
-	void step_detach()
+	void step_detach_layer()
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		//widget->detachWidget();
+		widget->detachFromLayer();
+		test_widgets();
 	}
 
-	void step_detach(int _count)
+	void step_detach_layer(int _count)
 	{
 		int count = random(_count);
-		while (count > 0) { step_detach(); --count; };
+		while (count > 0) { step_detach_layer(); --count; };
 	}
 
 	void step_attach_layer()
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		//widget->attachWidget(get_layer());
+		widget->attachToLayer(get_layer());
+		test_widgets();
 	}
 
 	void step_attach_layer(int _count)
@@ -93,6 +102,7 @@ namespace demo
 		} while (test);
 
 		//widget2->attachWidget(widget1);
+		test_widgets();
 	}
 
 	void step_attach_widget(int _count)
@@ -106,6 +116,7 @@ namespace demo
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
 		MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+		test_widgets();
 	}
 
 	void step_destroy_widget(int _count)
@@ -134,6 +145,7 @@ namespace demo
 			MYGUI_ASSERT(child, "child null");
 			all_widgets.push_back(child);
 		}
+		test_widgets();
 	}
 
 	void step_create_widget(int _count)
@@ -162,7 +174,6 @@ namespace demo
 		const MyGUI::IntSize size(100, 100);
 
 		MyGUI::WidgetManager::getInstance().registerUnlinker(&unlink_holder);
-
 	}
 
 	void DemoKeeper::destroyScene()
@@ -179,10 +190,10 @@ namespace demo
 		else {
 			int step = random(5);
 			if (step == 0) {
-				step_detach(10);
+				step_detach_layer(30);
 			}
 			else if (step == 1) {
-				//step_attach_layer(10);
+				step_attach_layer(10);
 			}
 			else if (step == 2) {
 				//step_attach_widget(10);
