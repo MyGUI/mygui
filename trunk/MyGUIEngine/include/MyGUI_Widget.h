@@ -284,9 +284,6 @@ namespace MyGUI
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item);
 		virtual void _detachFromLayerItemKeeper();
 
-		// тестирование
-		void _diagnosticRenderItem();
-
 	protected:
 		// все создание только через фабрику
 		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
