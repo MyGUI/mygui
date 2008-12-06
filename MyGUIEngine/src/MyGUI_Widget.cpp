@@ -93,7 +93,7 @@ namespace MyGUI
 
 		IntSize size = mCoord.size();
 
-		LayerItemKeeper * layer_item = getParent() ? getParent()->getLayerItemKeeper() : getLayerItemKeeper();
+		LayerItemKeeper * layer_item = getCroppedParent() ? getParent()->getLayerItemKeeper() : getLayerItemKeeper();
 
 		shutdownWidgetSkin();
 
@@ -128,7 +128,9 @@ namespace MyGUI
 				mInheritedShow = false;
 
 				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->hide();
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+					/*if (!(*widget)->isRootWidget()) */(*widget)->hide();
+				}
 			}
 		}
 
