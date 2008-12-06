@@ -491,4 +491,20 @@ namespace MyGUI
 		}
 	}
 
+	void MenuCtrl::_wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget)
+	{
+		// заменяем
+		size_t index = getItemIndex(_item);
+		if (mItemsInfo[index].submenu != null)
+		{
+			WidgetManager::getInstance().destroyWidget(mItemsInfo[index].submenu);
+		}
+		mItemsInfo[index].submenu = _widget;
+
+		// приаттачиваем к лееру
+		_widget->attachToLayer(mSubMenuLayer);
+
+		update();
+	}
+
 } // namespace MyGUI

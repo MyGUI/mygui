@@ -75,8 +75,6 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
-		void wrapItemChild(WidgetPtr _widget);
-
 	private:
 		MenuCtrlPtr mOwner;
 
