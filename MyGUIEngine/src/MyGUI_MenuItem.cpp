@@ -39,7 +39,8 @@ namespace MyGUI
 	WidgetPtr MenuItem::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		WidgetPtr widget = Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
-		if (widget->isType<MenuCtrl>()) wrapItemChild(widget);
+		MenuCtrlPtr child = widget->castType<MenuCtrl>(false);
+		if (child) mOwner->_wrapItemChild(this, child);
 		return widget;
 	}
 
@@ -56,12 +57,6 @@ namespace MyGUI
 
 	void MenuItem::shutdownWidgetSkin()
 	{
-	}
-
-	void MenuItem::wrapItemChild(WidgetPtr _widget)
-	{
-		const std::string & layername = mOwner->getDefaultPopupLayer();
-		_widget->attachToLayer(layername);
 	}
 
 } // namespace MyGUI
