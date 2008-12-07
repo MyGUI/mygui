@@ -162,7 +162,7 @@ namespace demo
 
 		menu->show();*/
 
-		/*MyGUI::WindowPtr window_back = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 200, 150), MyGUI::Align::Default, "Back");
+		MyGUI::WindowPtr window_back = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 200, 150), MyGUI::Align::Default, "Back");
 		window_back->setCaption("Back");
 
 		MyGUI::WindowPtr window_overlapped1 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(320, 120, 200, 150), MyGUI::Align::Default, "Overlapped");
@@ -174,13 +174,13 @@ namespace demo
 
 		MyGUI::WindowPtr window_overlapped_child2 = window_overlapped1->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default);
 		window_overlapped_child2->setCaption("child2");
-		window_overlapped_child1->detachFromLayer();
+		window_overlapped_child2->detachFromLayer();
 
 		MyGUI::WindowPtr window_overlapped2 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(460, 260, 200, 150), MyGUI::Align::Default, "Overlapped");
 		window_overlapped2->setCaption("Overlapped2");
 
 		MyGUI::WindowPtr window_main = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(620, 420, 200, 150), MyGUI::Align::Default, "Main");
-		window_main->setCaption("Main");*/
+		window_main->setCaption("Main");
 
 
 		//item2->detachFromLayer();
