@@ -191,6 +191,8 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
+		void actionWidgetHide(WidgetPtr _widget);
+
 	private:
 		ButtonPtr mButton;
 		ListPtr mList;

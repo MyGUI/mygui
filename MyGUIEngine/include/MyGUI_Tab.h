@@ -343,6 +343,7 @@ namespace MyGUI
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
+		void actionWidgetHide(WidgetPtr _widget);
 
 	private:
 		int mOffsetTab; // смещение бара при показе кнопок
