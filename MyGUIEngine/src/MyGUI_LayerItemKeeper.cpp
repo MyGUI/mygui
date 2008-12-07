@@ -8,12 +8,15 @@
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerItem.h"
+#include "MyGUI_LayerKeeper.h"
 
 namespace MyGUI
 {
 
-	LayerItemKeeper::LayerItemKeeper() :
-		mCountUsing(0)
+	LayerItemKeeper::LayerItemKeeper(LayerKeeper * _layer, LayerItemKeeper * _parent) :
+		mCountUsing(0),
+		mParent(_parent),
+		mLayer(_layer)
 	{
 	}
 
@@ -28,15 +31,119 @@ namespace MyGUI
 			delete (*iter);
 		}
 		mSecondRenderItems.clear();
+
+		// удаляем дочерние узлы
+		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			delete (*iter);
+		}
+		mChildItems.clear();
+	}
+
+	LayerItemKeeper * LayerItemKeeper::createItem()
+	{
+		LayerItemKeeper * layer = new LayerItemKeeper(mLayer, this);
+		mChildItems.push_back(layer);
+		layer->_addUsing();
+		return layer;
+	}
+
+	void LayerItemKeeper::destroyItem(LayerItemKeeper * _item)
+	{
+		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			if ((*iter) == _item) {
+				_item->_removeUsing();
+				if (0 == _item->_countUsing()) {
+					delete _item;
+					mChildItems.erase(iter);
+				}
+				return;
+			}
+		}
+		MYGUI_EXCEPT("item keeper not found");
+	}
+
+	LayerItemKeeper * LayerItemKeeper::upItem(LayerItemKeeper * _item)
+	{
+		// поднимаем с себя до самого верхнего родителя
+		if ((2 > mChildItems.size()) || (mChildItems.back() == _item)) {
+			return mParent ? mParent->upItem(this) : this;
+		}
+		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			if ((*iter) == _item) {
+				mChildItems.erase(iter);
+				mChildItems.push_back(_item);
+				return mParent ? mParent->upItem(this) : this;
+			}
+		}
+
+		MYGUI_EXCEPT("item keeper not found");
+	}
+
+	void LayerItemKeeper::upItem()
+	{
+		mLayer->upItem(this);
+	}
+
+	bool LayerItemKeeper::existItem(LayerItemKeeper * _item)
+	{
+		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			if ((*iter) == _item) return true;
+		}
+		return false;
 	}
 
 	void LayerItemKeeper::_render(bool _update)
 	{
+
+		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
 			(*iter)->_render(_update);
 		}
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
 			(*iter)->_render(_update);
+		}
+
+		// теперь отрисовываем дочерние узлы
+		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			(*iter)->_render(_update);
+		}
+
+	}
+
+	LayerItem * LayerItemKeeper::_findLayerItem(int _left, int _top)
+	{
+		// сначала пикаем детей
+		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
+			if (null != item) return item;
+		}
+
+		// а теперь себя
+		for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
+			if (null != item) return item;
+		}
+
+		return null;
+	}
+
+	void LayerItemKeeper::_update()
+	{
+		// буферы освобождаются по одному всегда
+
+		if (mFirstRenderItems.size() > 1) {
+			// пытаемся поднять пустой буфер выше полных
+			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
+			VectorRenderItem::iterator iter2 = iter1 + 1;
+			while (iter2 != mFirstRenderItems.end()) {
+				if ((*iter1)->getNeedVertexCount() == 0) {
+					RenderItem * tmp = (*iter1);
+					(*iter1) = (*iter2);
+					(*iter2) = tmp;
+				}
+				iter1 = iter2;
+				++iter2;
+			}
 		}
 	}
 
@@ -91,39 +198,6 @@ namespace MyGUI
 		// не найденно создадим новый
 		mSecondRenderItems.push_back(new RenderItem(_texture, this));
 		return mSecondRenderItems.back();
-	}
-
-	LayerItem * LayerItemKeeper::_findLayerItem(int _left, int _top, LayerItem* &_root)
-	{
-		for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
-			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
-			if (null != item) {
-				_root = (*iter); 
-				return item;
-			}
-		}
-
-		return null;
-	}
-
-	void LayerItemKeeper::_update()
-	{
-		// буферы освобождаются по одному всегда
-
-		if (mFirstRenderItems.size() > 1) {
-			// пытаемся поднять пустой буфер выше полных
-			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
-			VectorRenderItem::iterator iter2 = iter1 + 1;
-			while (iter2 != mFirstRenderItems.end()) {
-				if ((*iter1)->getNeedVertexCount() == 0) {
-					RenderItem * tmp = (*iter1);
-					(*iter1) = (*iter2);
-					(*iter2) = tmp;
-				}
-				iter1 = iter2;
-				++iter2;
-			}
-		}
 	}
 
 } // namespace MyGUI

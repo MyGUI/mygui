@@ -957,16 +957,26 @@ namespace MyGUI
 
 	void Widget::detachFromLayer()
 	{
+
+		_detachFromLayerItemKeeper();
+
+		LayerItemKeeper * item = mParent->getLayerItemKeeper();
+		LayerItemKeeper * child = item->createItem();
+
+		_attachToLayerItemKeeper(child);
+
+
 		// если мы рут, то просто отсоединяем от леера
-		if (isRootWidget()) {
+		/*if (isRootWidget()) {
 			LayerManager::getInstance().detachFromLayerKeeper(this);
 		}
 		// если мы не рут, то отсоединяем от леер кипера
 		else {
 			_detachFromLayerItemKeeper();
 			mCroppedParent = null;
-		}
-	}	
+		}*/
+
+	}
 	
 	void Widget::attachToLayer(const std::string& _layername)
 	{

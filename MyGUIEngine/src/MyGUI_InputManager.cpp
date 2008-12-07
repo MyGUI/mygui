@@ -35,8 +35,6 @@ namespace MyGUI
 
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
-		//mWidgetRootMouseFocus = 0;
-		//mWidgetRootKeyFocus = 0;
 		mIsWidgetMouseCapture = false;
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
@@ -99,15 +97,8 @@ namespace MyGUI
 		}
 
 		// ищем активное окно
-		LayerItem *  rootItem = null;
-		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy, rootItem));
-
-		// спускаемся по владельцу
-		if (null != rootItem) {
-			while (null != static_cast<WidgetPtr>(rootItem)->getParent()) {
-				rootItem = static_cast<WidgetPtr>(rootItem)->getParent();
-			}
-		}	
+		//LayerItem *  rootItemTmp = null;
+		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy));
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) {
@@ -116,11 +107,16 @@ namespace MyGUI
 			return isFocus;
 		}
 
-		// проверяем на модальность
-		if (0 != mVectorModalRootWidget.size()) {
-			if (rootItem != mVectorModalRootWidget.back()) {
-				rootItem = null;
-				item = null;
+		if (item) {
+			// поднимаемся до рута
+			WidgetPtr root = item;
+			while (root->getParent()) root = root->getParent();
+
+			// проверяем на модальность
+			if (!mVectorModalRootWidget.empty()) {
+				if (root != mVectorModalRootWidget.back()) {
+					item = null;
+				}
 			}
 		}
 
@@ -183,13 +179,6 @@ namespace MyGUI
 
 			eventChangeMousePointer(PointerManager::getInstance().getDefaultPointer());
 		}
-
-		// изменился рутовый элемент
-		//if (rootItem != mWidgetRootMouseFocus) {
-			//if (mWidgetRootMouseFocus != null) mWidgetRootMouseFocus->onMouseChangeRootFocus(false);
-			//if (rootItem != null) static_cast<WidgetPtr>(rootItem)->onMouseChangeRootFocus(true);
-			//mWidgetRootMouseFocus = static_cast<WidgetPtr>(rootItem);
-		//}
 
 		// запоминаем текущее окно
 		mWidgetMouseFocus = item;
@@ -264,8 +253,8 @@ namespace MyGUI
 					}
 					else {
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
-						LayerItem * rootItem = null;
-						WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy, rootItem));
+						//LayerItem * rootItem = null;
+						WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy/*, rootItem*/));
 						if ( item == mWidgetMouseFocus) {
 							mWidgetMouseFocus->onMouseButtonClick();
 						}

@@ -268,13 +268,19 @@ namespace MyGUI
 		InputManager::getInstance().setKeyFocusWidget(mList);
 	}
 
+	void postActionList(WidgetPtr _widget)
+	{
+		_widget->hide();
+		_widget->setEnabled(true);
+	}
+
 	void ComboBox::hideList()
 	{
 		mListShow = false;
 
 		if (mShowSmooth) {
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, false);
-			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			controller->eventPostAction = newDelegate(postActionList);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
 		else mList->hide();
