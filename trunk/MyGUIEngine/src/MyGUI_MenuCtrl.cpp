@@ -462,6 +462,12 @@ namespace MyGUI
 	}
 
 
+	void MenuCtrl::actionWidgetHide(WidgetPtr _widget)
+	{
+		_widget->hide();
+		_widget->setEnabled(true);
+	}
+
 	void MenuCtrl::hideMenuCtrl(bool _hideParentPopup)
 	{
 		if ( _hideParentPopup && mParent != null )
@@ -479,7 +485,7 @@ namespace MyGUI
 		setEnabledSilent(false);
 		// медленно скрываем
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(action::actionWidgetHide);
+		controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
 		ControllerManager::getInstance().addItem(this, controller);
 
 		// прячем всех детей

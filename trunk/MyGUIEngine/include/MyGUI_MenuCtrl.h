@@ -305,6 +305,8 @@ namespace MyGUI
 			return  MenuItemType::Normal;
 		}
 
+		void actionWidgetHide(WidgetPtr _widget);
+
 	private:
 		VectorMenuItemInfo mItemsInfo;
 

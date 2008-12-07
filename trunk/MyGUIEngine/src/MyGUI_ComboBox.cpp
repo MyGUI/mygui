@@ -268,7 +268,7 @@ namespace MyGUI
 		InputManager::getInstance().setKeyFocusWidget(mList);
 	}
 
-	void postActionList(WidgetPtr _widget)
+	void ComboBox::actionWidgetHide(WidgetPtr _widget)
 	{
 		_widget->hide();
 		_widget->setEnabled(true);
@@ -280,7 +280,7 @@ namespace MyGUI
 
 		if (mShowSmooth) {
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, false);
-			controller->eventPostAction = newDelegate(postActionList);
+			controller->eventPostAction = newDelegate(this, &ComboBox::actionWidgetHide);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
 		else mList->hide();
