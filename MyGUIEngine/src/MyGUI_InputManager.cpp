@@ -36,7 +36,7 @@ namespace MyGUI
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
 		//mWidgetRootMouseFocus = 0;
-		mWidgetRootKeyFocus = 0;
+		//mWidgetRootKeyFocus = 0;
 		mIsWidgetMouseCapture = false;
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
@@ -124,6 +124,7 @@ namespace MyGUI
 			}
 		}
 
+		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса мыши
 		WidgetPtr save_widget = null;
 
@@ -151,6 +152,8 @@ namespace MyGUI
 
 			root_focus = root_focus->getParent();
 		};
+		//-------------------------------------------------------------------------------------//
+
 
 		// смена фокуса, проверяем на доступность виджета
 		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) {
@@ -207,6 +210,7 @@ namespace MyGUI
 		}
 
 		// если активный элемент заблокирован
+		//FIXME
 		if (false == mWidgetMouseFocus->isEnabled()) return true;
 
 		// захватываем только по левой клавише и только если виджету надо
@@ -218,20 +222,20 @@ namespace MyGUI
 		}
 
 		// ищем вверх тот виджет который может принимать фокус
-		WidgetPtr focus = mWidgetMouseFocus;
-		while ((focus != null) && (false == focus->isNeedKeyFocus())) focus = focus->getParent();
+		WidgetPtr item = mWidgetMouseFocus;
+		while ((item != null) && (false == item->isNeedKeyFocus())) item = item->getParent();
 
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
-		setKeyFocusWidget(focus);
+		setKeyFocusWidget(item);
 
 		if (mWidgetMouseFocus != null) {
 
 			mWidgetMouseFocus->onMouseButtonPressed(_absx, _absy, _id);
-			//mWidgetMouseFocus->onMouseButtonPressed(_id);
 
 			// поднимаем виджет
 			LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
 		}
+
 		return true;
 	}
 
@@ -391,7 +395,7 @@ namespace MyGUI
 		if (ascii == 1 && deadKey != '\0' ) {
 			// A dead key is stored and we have just converted a character key
 			// Combine the two into a single character
-			WCHAR wcBuff[3] = {buff[0], deadKey, '\0'};
+			WCHAR wcBuff[3] = { buff[0], deadKey, '\0' };
 			WCHAR out[3];
 			
 			deadKey = '\0';
@@ -561,33 +565,53 @@ namespace MyGUI
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
-		// ищем рутовый фокус
-		WidgetPtr root = _widget;
-		if (root != null) { while (root->getParent() != null) root = root->getParent(); }
+		if (_widget == mWidgetKeyFocus) return;
 
-		// если рутовый фокус поменялся, то оповещаем
-		if (mWidgetRootKeyFocus != root) {
-			if (mWidgetRootKeyFocus != null) mWidgetRootKeyFocus->onKeyChangeRootFocus(false);
-			if (root != null) root->onKeyChangeRootFocus(true);
-			mWidgetRootKeyFocus = root;
-		}
+		//-------------------------------------------------------------------------------------//
+		// новый вид рутового фокуса
+		WidgetPtr save_widget = null;
 
-		// а вот тут уже проверяем обыкновенный фокус
-		if (_widget != mWidgetKeyFocus) {
-			if (isFocusKey()) mWidgetKeyFocus->onKeyLostFocus(_widget);
-			if (_widget != null) {
-				if (_widget->isNeedKeyFocus()) {
-					_widget->onKeySetFocus(mWidgetKeyFocus);
-					mWidgetKeyFocus = _widget;
-					return;
-				}
+		// спускаемся по новому виджету и устанавливаем рутовый фокус
+		WidgetPtr root_focus = _widget;
+		while (root_focus != null) {
+			if (root_focus->mRootKeyActive) {
+				save_widget = root_focus;
+				break;
 			}
-			mWidgetKeyFocus = null;
+			root_focus->mRootKeyActive = true;
+			root_focus->onKeyChangeRootFocus(true);
+
+			root_focus = root_focus->getParent();
+		};
+
+		// спускаемся по старому виджету и сбрасываем фокус
+		root_focus = mWidgetKeyFocus;
+		while (root_focus != null) {
+			if (root_focus == save_widget) {
+				break;
+			}
+			root_focus->mRootKeyActive = false;
+			root_focus->onKeyChangeRootFocus(false);
+
+			root_focus = root_focus->getParent();
+		};
+		//-------------------------------------------------------------------------------------//
+
+
+		// сбрасываем старый
+		if (mWidgetKeyFocus) {
+			mWidgetKeyFocus->onKeyLostFocus(_widget);
 		}
+
+		// устанавливаем новый
+		if (_widget && _widget->isNeedKeyFocus()) {
+			_widget->onKeySetFocus(mWidgetKeyFocus);
+		}
+
+		mWidgetKeyFocus = _widget;
 
 		// обновляем данные
 		if (m_showHelpers) updateFocusWidgetHelpers();
-
 	}
 
 	void InputManager::resetMouseFocusWidget()
@@ -635,7 +659,7 @@ namespace MyGUI
 			if (m_showHelpers) updateFocusWidgetHelpers();
 		}
 		//if (_widget == mWidgetRootMouseFocus) mWidgetRootMouseFocus = null;
-		if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
+		//if (_widget == mWidgetRootKeyFocus) mWidgetRootKeyFocus = null;
 
 		// ручками сбрасываем, чтобы не менять фокусы
 		for (VectorWidgetPtr::iterator iter=mVectorModalRootWidget.begin(); iter!=mVectorModalRootWidget.end(); ++iter) {
