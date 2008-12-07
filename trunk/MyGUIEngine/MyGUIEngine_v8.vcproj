@@ -1283,6 +1283,10 @@
 						RelativePath=".\include\MyGUI_WidgetToolTip.h"
 						>
 					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetType.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 		</Filter>

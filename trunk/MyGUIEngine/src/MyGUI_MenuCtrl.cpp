@@ -433,8 +433,8 @@ namespace MyGUI
 		// если отжали не на той же кнопке
 		if ( _sender->getAbsoluteCoord().inside(IntPoint(_left, _top)) == false )
 		{
-			MyGUI::LayerItem * rootItem = null;
-			MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top, rootItem));
+			//MyGUI::LayerItem * rootItem = null;
+			MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top/*, rootItem*/));
 			MyGUI::WidgetPtr button = item; // может понадобится, для вызова notifyMouseClick
 			// проверяем только рутовые виджеты, чтобы не проверять детей попапа
 			while ((item != null) && (item->getParent() != null)) item = item->getParent();

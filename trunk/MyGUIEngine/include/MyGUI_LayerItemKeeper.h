@@ -15,13 +15,16 @@ namespace MyGUI
 
 	class LayerItem;
 	class RenderItem;
+	class LayerItemKeeper;
+	class LayerKeeper;
 	typedef std::vector<RenderItem*> VectorRenderItem;
 	typedef std::vector<LayerItem*> VectorLayerItem;
+	typedef std::vector<LayerItemKeeper*> VectorLayerItemKeeper;
 
 	class _MyGUIExport LayerItemKeeper
 	{
 	public:
-		LayerItemKeeper();
+		explicit LayerItemKeeper(LayerKeeper * _layer, LayerItemKeeper * _parent = 0);
 		~LayerItemKeeper();
 
 		void _addUsing() { mCountUsing++; }
@@ -29,11 +32,10 @@ namespace MyGUI
 		size_t _countUsing() { return mCountUsing; }
 
 		void _render(bool _update);
-		//void _resize(const FloatSize& _size);
 
 		RenderItem * addToRenderItem(const std::string& _texture, bool _first, bool _separate);
 
-		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
+		LayerItem * _findLayerItem(int _left, int _top);
 
 		void _addPeekItem(LayerItem * _root)
 		{
@@ -54,6 +56,20 @@ namespace MyGUI
 		// обновляет очередь буферов
 		void _update();
 
+		LayerItemKeeper * getParent() { return mParent; }
+
+		LayerItemKeeper * createItem();
+
+		void destroyItem(LayerItemKeeper * _item);
+
+		// поднимает свою дочку
+		LayerItemKeeper * upItem(LayerItemKeeper * _item);
+
+		// поднимает себя у родителей
+		void upItem();
+
+		bool existItem(LayerItemKeeper * _item);
+
 	private:
 		size_t mCountUsing;
 
@@ -65,6 +81,11 @@ namespace MyGUI
 		// у перекрывающегося слоя здесь только один
 		VectorLayerItem mPeekLayerItems;
 
+		// список такиж как мы, для построения дерева
+		VectorLayerItemKeeper mChildItems;
+
+		LayerItemKeeper * mParent;
+		LayerKeeper * mLayer;
 	};
 
 } // namespace MyGUI
