@@ -470,8 +470,8 @@ namespace MyGUI
 			MenuCtrlPtr popup = mParent->castType<MenuCtrl>(false);
 			if (popup != null) popup->hideMenuCtrl();
 			else {
-				MenuBarPtr menu = mParent->castType<MenuBar>(false);
-				if (menu != null) menu->clearItemSelected();
+				//MenuBarPtr menu = mParent->castType<MenuBar>(false);
+				//if (menu != null) menu->clearItemSelected();
 			}
 		}
 
