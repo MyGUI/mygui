@@ -175,9 +175,6 @@ namespace MyGUI
 		// виджеты которым принадлежит фокус
 		WidgetPtr mWidgetMouseFocus;
 		WidgetPtr mWidgetKeyFocus;
-		// корневые виджеты, детям которых принадлежит фокус
-		//WidgetPtr mWidgetRootMouseFocus;
-		//WidgetPtr mWidgetRootKeyFocus;
 		// захватил ли мышь активный виджет
 		bool mIsWidgetMouseCapture;
 		// таймер для двойного клика

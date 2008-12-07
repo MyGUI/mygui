@@ -148,7 +148,7 @@ namespace MyGUI
 				_item->mLayerKeeper = (*iter);
 
 				// достаем из хранителя леер для себя
-				_item->mLayerItemKeeper = (*iter)->getItem();
+				_item->mLayerItemKeeper = (*iter)->createItem();
 
 				// подписываемся на пиккинг
 				_item->mLayerItemKeeper->_addPeekItem(_item);
@@ -184,16 +184,16 @@ namespace MyGUI
 		_item->_detachFromLayerItemKeeper();
 
 		// отсоединяем леер и обнуляем у рутового виджета
-		_item->mLayerKeeper->leaveItem(save);
+		_item->mLayerKeeper->destroyItem(save);
 		_item->mLayerItemKeeper = null;
 		_item->mLayerKeeper = null;
 	}
 
-	LayerItem * LayerManager::_findLayerItem(int _left, int _top, LayerItem* &_root)
+	LayerItem * LayerManager::_findLayerItem(int _left, int _top/*, LayerItem* &_root*/)
 	{
 		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
 		while (iter != mLayerKeepers.rend()) {
-			LayerItem * item = (*iter)->_findLayerItem(_left, _top, _root);
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top/*, _root*/);
 			if (item != null) return item;
 			++iter;
 		}
@@ -202,14 +202,14 @@ namespace MyGUI
 
 	void LayerManager::upLayerItem(WidgetPtr _item)
 	{
-		if (null == _item) return;
+		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : null;
+		if (item) item->upItem();
 
 		// добираемся до рута
-		while (_item->getParent() != null) _item = _item->getParent();
+		//while (_item->getParent() != null) _item = _item->getParent();
 
 		// если приаттачены, то поднимаем
-		if (null != _item->mLayerKeeper) _item->mLayerKeeper->upItem(_item->mLayerItemKeeper);
-
+		//if (null != _item->mLayerKeeper) _item->mLayerKeeper->upItem(_item->mLayerItemKeeper);
 	}
 
 	void LayerManager::_windowResized(const IntSize& _size)
@@ -246,8 +246,8 @@ namespace MyGUI
 
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
-		LayerItem * root = null;
-		return static_cast<WidgetPtr>(_findLayerItem(_left, _top, root));
+		//LayerItem * root = null;
+		return static_cast<WidgetPtr>(_findLayerItem(_left, _top/*, root*/));
 	}
 
 	void LayerManager::merge(VectorLayerKeeperPtr & _layers)

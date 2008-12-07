@@ -57,7 +57,7 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
-		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
+		LayerItem * _findLayerItem(int _left, int _top/*, LayerItem* &_root*/);
 
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);

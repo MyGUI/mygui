@@ -25,13 +25,13 @@ namespace MyGUI
 
 		const std::string& getName() { return mName; }
 
-		LayerItemKeeper * getItem();
-		void leaveItem(LayerItemKeeper * _item);
+		LayerItemKeeper * createItem(LayerItemKeeper * _parent = 0);
+		void destroyItem(LayerItemKeeper * _item);
 		void upItem(LayerItemKeeper * _item);
 
 		void _render(bool _update);
 
-		LayerItem * _findLayerItem(int _left, int _top, LayerItem* &_root);
+		LayerItem * _findLayerItem(int _left, int _top);
 
 		bool existItem(LayerItemKeeper * _item);
 
@@ -40,7 +40,7 @@ namespace MyGUI
 		bool mIsOverlapped;
 		bool mIsPeek;
 
-		VectorLayerItemKeeper mLayerItemKeepers;
+		VectorLayerItemKeeper mChildItems;
 
 	};
 
