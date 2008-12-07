@@ -93,6 +93,11 @@ namespace demo
 		window->destroySmooth();
 	}
 
+	void notifyRootKeyChangeFocus(MyGUI::WidgetPtr _sender, bool _focus)
+	{
+		_sender->setState(_focus ? "pushed" : "normal");
+	}
+
     void DemoKeeper::createScene()
     {
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
@@ -148,11 +153,24 @@ namespace demo
 
 		MyGUI::WidgetPtr subitem2 = item_child->createWidget<MyGUI::MenuItem>("", MyGUI::IntCoord(), MyGUI::Align::Default);
 		MyGUI::WidgetManager::getInstance().parse(subitem2, "Widget_Caption", "subline2");
+		MyGUI::WidgetManager::getInstance().parse(subitem2, "MenuItem_Type", "Popup");
 
+		MyGUI::WidgetPtr subsubmenu = subitem2->createWidget<MyGUI::MenuCtrl>("PopupMenu", MyGUI::IntCoord(), MyGUI::Align::Default);
+
+		MyGUI::WidgetPtr subsubitem1 = subsubmenu->createWidget<MyGUI::MenuItem>("", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(subsubitem1, "Widget_Caption", "finish");
 
 		menu->show();
-		
-		int test = 0;
+
+		/*MyGUI::WidgetPtr item1 = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::WidgetPtr item2 = item1->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(50, 50, 100, 100), MyGUI::Align::Default, "Overlapped");
+
+		item1->setNeedKeyFocus(true);
+		item2->setNeedKeyFocus(true);
+
+		item1->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);
+		item2->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);*/
+
 	}
  
     void DemoKeeper::destroyScene()
