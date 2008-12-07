@@ -189,9 +189,9 @@ namespace demo
 		MyGUI::LayerItemKeeper * layer_item = item2->getLayerItemKeeper();
 		MyGUI::ICroppedRectangle * cropped = item1->getCroppedParent();*/
 
-		MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(20, 20, 200, 26), MyGUI::Align::Default, "Main");
+		/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(20, 20, 200, 26), MyGUI::Align::Default, "Main");
 		combo->addItem("line1");
-		combo->addItem("line2");
+		combo->addItem("line2");*/
 
 	}
  

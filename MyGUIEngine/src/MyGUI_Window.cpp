@@ -286,10 +286,16 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
+	void Window::actionWidgetHide(WidgetPtr _widget)
+	{
+		_widget->hide();
+		_widget->setEnabled(true);
+	}
+
 	void Window::hideSmooth()
 	{
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(action::actionWidgetHide);
+		controller->eventPostAction = newDelegate(this, &Window::actionWidgetHide);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 

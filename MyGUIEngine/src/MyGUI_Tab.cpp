@@ -433,6 +433,12 @@ namespace MyGUI
 		beginToItemSelected();
 	}
 
+	void Tab::actionWidgetHide(WidgetPtr _widget)
+	{
+		_widget->hide();
+		_widget->setEnabled(true);
+	}
+
 	void Tab::_showItem(TabItemPtr _item, bool _show, bool _smooth)
 	{
 		if (false == _smooth) {
@@ -451,7 +457,7 @@ namespace MyGUI
 		}
 		else {
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, false);
-			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			controller->eventPostAction = newDelegate(this, &Tab::actionWidgetHide);
 			ControllerManager::getInstance().addItem(_item, controller);
 		}
 	}
