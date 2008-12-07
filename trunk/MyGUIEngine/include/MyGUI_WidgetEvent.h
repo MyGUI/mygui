@@ -63,7 +63,8 @@ namespace MyGUI
 	protected:
 		WidgetEvent() :
 			mWidgetEventSender(0),
-			mRootMouseActive(false)
+			mRootMouseActive(false),
+			mRootKeyActive(false)
 		{
 		}
 
@@ -277,6 +278,7 @@ namespace MyGUI
 
 	private:
 		bool mRootMouseActive;
+		bool mRootKeyActive;
 	};
 
 } // namespace MyGUI
